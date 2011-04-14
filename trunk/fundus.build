@@ -1,0 +1,426 @@
+<?xml version="1.0"?>
+<!--
+ * Copyright 2011 Reto Inderbitzin, phiNdus.ch
+ *
+-->
+<project name="fundus" default="help">
+  <property name="verbose" value="false" />
+  <property name="build.number" value="0.0.0.0" unless="${property::exists('build.number')}" />
+  
+  <property name="platform" value="anycpu" />
+  <property name="machine" value="${dns::get-host-name()}" />
+  
+  <!--
+    Base directories
+  -->
+  <property name="base.dir" value="." />
+  <property name="config.dir" value="${base.dir}/config" />
+  <property name="lib.dir" value="${base.dir}/lib" />
+  <property name="src.dir" value="${base.dir}/src" />
+  <property name="sql.dir" value="${base.dir}/sql" />
+  <property name="target.dir" value="${base.dir}/build" />
+  <property name="tmp.dir" value="${base.dir}/tmp" />
+  <property name="tools.dir" value="${base.dir}/tools" />
+  
+  <!--
+    Target directories
+  -->
+  <property name="bin.dir" value="${target.dir}/bin" />
+  <property name="web.dir" value="${bin.dir}/web" />
+  <property name="dist.dir" value="${target.dir}/dist" />
+  <property name="reports.dir" value="${target.dir}/reports" />
+  <property name="test.dir" value="${target.dir}/test" />
+  
+  <!--
+    Tools directories
+  -->
+  <property name="nunit.dir" value="${tools.dir}/NUnit" />
+  <property name="partcover.dir" value="${tools.dir}/PartCover" />
+  <property name="reportgenerator.dir" value="${tools.dir}/ReportGenerator" />
+  <property name="nantcontrib.dir" value="${tools.dir}/nantcontrib" />
+  <property name="corflags.dir" value="${tools.dir}" />
+  <property name="fxcop.dir" value="${tools.dir}/FxCop" />
+  
+  <!--
+    Libraries directories
+  -->
+  <property name="castle-windsor.dir" value="${lib.dir}/Castle.Windsor" />
+  <property name="mvc-3.dir" value="${lib.dir}/ASP.NET MVC 3"/>
+  
+  
+  <!--
+    Include property files:
+      1. Default build properties
+      2. Based on machine name. This is important for TeamCity Build Agents.
+      3. Local properties: Don't but this file under version control
+         Use Default.build.properties as template for your dev env
+  -->
+  <include buildfile="Default.build.properties" verbose="true" />
+  <include buildfile="${machine + '.build.properties'}" if="${file::exists(machine + '.build.properties')}" verbose="true" />
+  <include buildfile="Local.build.properties" if="${file::exists('Local.build.properties')}" verbose="true" />  
+  
+  <!--
+    Prepare nant/nant contrib
+  -->
+  <loadtasks assembly="${nantcontrib.dir}/NAnt.Contrib.Tasks.dll" />
+  
+  <!--
+    TARGET: CLEAN
+  -->
+  <target name="clean">
+    <delete dir="${target.dir}" verbose="${verbose}" />
+    <delete dir="${tmp.dir}" verbose="${verbose}" />
+  </target>
+  
+  <!--
+    TARGET: INIT
+  -->
+  <target name="init" depends="clean">
+    <mkdir dir="${target.dir}" verbose="${verbose}" />
+    <mkdir dir="${reports.dir}" verbose="${verbose}" />
+    <mkdir dir="${reports.dir}/Coverage" verbose="${verbose}" />
+    <mkdir dir="${reports.dir}/NUnit" verbose="${verbose}" />
+    <mkdir dir="${tmp.dir}" verbose="${verbose}" />
+  </target>
+  
+  <!--
+    TARGET: COMPILE
+  -->
+  <target name="compile" depends="init">
+  
+    <property name="assembly.title" value="Core-Environment" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="21035e24-d5c4-4c8a-82ba-7903da246e69" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Environment.dll" debug="false" verbose="${verbose}" platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Environment/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+      </references>
+    </csc>
+    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Environment.dll" debug="true" verbose="${verbose}" platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Environment/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+      </references>
+    </csc>
+    
+    
+    <property name="assembly.title" value="Core-Domain" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="52a78ccd-cf4c-4567-8040-6f712a7eeb74" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Domain.dll" debug="false" verbose="${verbose}" platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Domain/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+      </references>
+    </csc>
+    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Domain.dll" debug="true" verbose="${verbose}" platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Domain/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+      </references>
+    </csc>
+    
+    
+    <property name="assembly.title" value="Core-Business" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="8f4ec48d-ceec-4008-9391-26956335493d" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Business.dll" debug="false" verbose="${verbose}" platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Business/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+      </references>
+    </csc>
+    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Business.dll" debug="true" verbose="${verbose}" platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Business/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+      </references>
+    </csc>
+    
+    
+    <property name="assembly.title" value="Core-Web" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="fc2dfb3c-500b-4709-ad3b-bb36eedef0f5" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Web.dll" debug="true" verbose="${verbose}" platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Web/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="${castle-windsor.dir}/Castle.Core.dll" />
+        <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Logging.dll" />
+        <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Log4netIntegration.dll" />
+        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
+        <include name="${castle-windsor.dir}/loggingFacility/log4net.dll" />
+        <include name="Microsoft.CSharp" />
+        <include name="${mvc-3.dir}\System.Web.Mvc.dll" />
+      </references>
+    </csc>
+    
+
+    <property name="assembly.title" value="Core-Environment-UnitTests" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="9f068397-99d3-4442-ba1d-b5b854a5e688" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Environment.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Environment.UnitTests/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="${nunit.dir}/nunit.framework.dll" />
+        <include name="${test.dir}/phiNdus.fundus.Core.Environment.dll" />
+      </references>
+    </csc>
+    
+    
+    <property name="assembly.title" value="Core-Domain-UnitTests" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="615cd7e5-2292-42fa-8764-0a05cb46c214" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Domain.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Domain.UnitTests/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="${nunit.dir}/nunit.framework.dll" />
+        <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+      </references>
+    </csc>
+    
+    
+    <property name="assembly.title" value="Core-Business-UnitTests" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="19d6b1f4-9bd6-4ee8-91c2-be2977a13fb8" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Business.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Business.UnitTests/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="${nunit.dir}/nunit.framework.dll" />
+        <include name="${test.dir}/phiNdus.fundus.Core.Business.dll" />
+      </references>
+    </csc>
+    
+    
+    <property name="assembly.title" value="Core-Web-UnitTests" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="453b1282-6fe5-43f3-8563-066c9f2a94fa" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Web.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Web.UnitTests/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="${test.dir}/phiNdus.fundus.Core.Web.dll" />
+        <include name="${castle-windsor.dir}/Castle.Core.dll" />
+        <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Logging.dll" />
+        <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Log4netIntegration.dll" />
+        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
+        <include name="${castle-windsor.dir}/loggingFacility/log4net.dll" />
+        <include name="${nunit.dir}/nunit.framework.dll" />        
+        <include name="${mvc-3.dir}\System.Web.Mvc.dll" />
+      </references>
+    </csc>
+    
+    <copy todir="${test.dir}" flatten="true">
+      <fileset basedir="${castle-windsor.dir}">
+        <include name="**/*.dll" />
+      </fileset>
+    </copy>
+    
+    <copy todir="${test.dir}" flatten="true">
+      <fileset basedir="${mvc-3.dir}">
+        <include name="**/*.dll" />
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="init-unit-test">
+    <copy file="${nunit.dir}/nunit.framework.dll" todir="${test.dir}" />
+  </target>
+  
+  <!--
+    TARGET: UNIT-TEST
+  -->
+  <target name="unit-test" depends="compile init-unit-test">
+    <property name="app.config.connstrings.default.connstring" value="" />
+    <property name="app.config.connstrings.default.providername" value="" />
+    
+    <property name="tmp.partcover.xml.reports" value="" />
+    <foreach item="File" property="filename">
+      <in>
+        <items>
+          <include name="${test.dir}/*.UnitTests.dll" />
+        </items>
+      </in>
+      <do>
+        <exec program="${partcover.dir}/PartCover.exe"
+          commandline="--register --target &quot;${nunit.dir}/nunit-console-x86.exe&quot; --target-args &quot;\&quot;${filename}\&quot; /xml=\&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml\&quot; /framework=v4.0 /noshadow&quot; --include [phiNdus*]* --exclude [*Tests]* --output &quot;${reports.dir}/${path::get-file-name(filename)}-Coverage.xml&quot; --log 0" />
+          
+        <echo message="##teamcity[importData type='nunit' path='${reports.dir}/${path::get-file-name(filename)}-TestResult.xml']" />
+        <echo message="##teamcity[importData type='dotNetCoverage' tool='partcover' path='${reports.dir}/${path::get-file-name(filename)}-Coverage.xml' partcover_report_xslts='tools/PartCover/xslt/Coverage.xslt=>${path::get-file-name(filename)}-Coverage.html']" />
+          
+        <if test="${tmp.partcover.xml.reports != ''}">
+          <property name="tmp.partcover.xml.reports" value="${tmp.partcover.xml.reports};" />
+        </if>
+        <property name="tmp.partcover.xml.reports" value="${tmp.partcover.xml.reports}${reports.dir}/${path::get-file-name(filename)}-Coverage.xml" />
+          
+        <nunit2report todir="${reports.dir}/NUnit">
+          <fileset>
+            <include name="${reports.dir}/${path::get-file-name(filename)}-TestResult.xml" />
+          </fileset>
+        </nunit2report>
+        <move file="${reports.dir}/NUnit/index.html" tofile="${reports.dir}/NUnit/${path::get-file-name(filename)}-TestResult.html" />
+      </do>
+    </foreach>
+    <delete file="${base.dir}/partcover.driver.log" />
+    
+    <exec program="${reportgenerator.dir}/ReportGenerator.exe"
+      commandline="&quot;${tmp.partcover.xml.reports}&quot; &quot;${reports.dir}/Coverage&quot;" />
+    <move file="${reports.dir}/Coverage/index.htm" tofile="${reports.dir}/Coverage/index.html" />
+  </target>
+  
+  <target name="init-integration-test">
+    <property name="sql.database-name" value="${integration.database-name}" />
+    <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
+    
+    <sql connstring="${sql.connstring}"
+      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
+      source="${base.dir}/sql/create.sql"
+    />
+    <sql connstring="${sql.connstring}"
+      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
+      source="${base.dir}/sql/ddl.sql"
+    />
+    <sql connstring="${sql.connstring}"
+      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
+      source="${base.dir}/sql/dml-integration.sql"
+    />
+  </target>
+  
+  <!--
+    TARGET: INTEGRATION-TEST
+  -->
+  <target name="integration-test" depends="unit-test init-integration-test">
+    <property name="app.config.connstrings.default.connstring" value="${integration.connstring}" />
+    <property name="app.config.connstrings.default.providername" value="${integration.providername}" />
+   
+    <foreach item="File" property="filename">
+      <in>
+        <items>
+          <include name="${test.dir}/*.IntegrationTests.dll" />
+        </items>
+      </in>
+      <do>
+        <property name="app.config.dest" value="${test.dir + '/' + path::get-file-name(filename) + '.config'}" />
+        <call target="generate-app-config" />
+        
+        <exec program="${nunit.dir}/nunit-console-x86.exe"
+          commandline="&quot;${filename}&quot; /xml=&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml&quot; /framework=v4.0 /noshadow" />
+            
+        <echo message="##teamcity[importData type='nunit' path='${reports.dir}/${path::get-file-name(filename)}-TestResult.xml']" />  
+        <nunit2report todir="${reports.dir}/NUnit">
+          <fileset>
+            <include name="${reports.dir}/${path::get-file-name(filename)}-TestResult.xml" />
+          </fileset>
+        </nunit2report>
+        <move file="${reports.dir}/NUnit/index.html" tofile="${reports.dir}/NUnit/${path::get-file-name(filename)}-TestResult.html" />
+      </do>
+    </foreach>  
+  </target>
+  
+  <!--
+    TARGET: FXCOP
+  -->
+  <target name="fxcop" depends="compile">
+    <foreach item="File" property="filename">
+      <in>
+        <items>
+          <include name="${test.dir}/phiNdus.*.dll" />
+        </items>
+      </in>
+      <do>
+        <exec program="${fxcop.dir}/FxCopCmd.exe"
+          commandline="/f:&quot;${filename}&quot; /out:&quot;${reports.dir}/${path::get-file-name(filename)}-FxCop.xml&quot;"
+        />
+        <echo message="##teamcity[importData type='FxCop' path='${reports.dir}/${path::get-file-name(filename)}-FxCop.xml']" />
+      </do>
+    </foreach>
+  </target>
+  
+  <target name="generate-assembly-info">
+    <copy file="${config.dir}/AssemblyInfo.cs.template"
+      tofile="${assembly.info.dest}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+  </target>
+  
+  <target name="generate-app-config">
+    <copy file="${config.dir}/App.config.template"
+      tofile="${app.config.dest}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+  </target> 
+  
+  <target name="generate-web-config">
+    <copy file="${config.dir}/Web.config.template"
+      tofile="${web.config.dest}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+  </target>
+</project>
