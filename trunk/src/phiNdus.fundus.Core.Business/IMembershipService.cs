@@ -2,7 +2,7 @@
 
 namespace phiNdus.fundus.Core.Business
 {
-    interface IMembershipService
+    public interface IMembershipService
     {
         UserDto CreateUser(Guid sessionKey, string email);
         UserDto GetUser(Guid sessionKey, string name, string password);

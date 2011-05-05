@@ -4,6 +4,35 @@ body
     font-family: Verdana, Tahoma, Arial, "Helvetica Neue", Helvetica, Sans-Serif;
     color: #232323;
     background-color: #fff;
+    margin: 0;
+}
+
+/* custom Styles (draft jac)
+-----------------------------------------------------------*/
+.head-menu {
+    /*height: 55px;*/
+    background-color: #f0f0f0;
+    border-bottom: solid 1px #109033;
+    text-align: right;
+    padding: 20px 5px 5px 0;
+}
+
+a:link 
+{
+    text-decoration: none;
+    /*color: #ad0;*/
+    color: #a2bc13  ;
+}
+
+a:visited 
+{
+    color: #a2bc13;
+}
+
+a:hover
+{
+    text-decoration: none;
+    color: #ad0;
 }
 
 /* Styles for basic forms
