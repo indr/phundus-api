@@ -13,8 +13,8 @@ namespace phiNdus.fundus.Core.Web.Installers {
         public void Install(IWindsorContainer container, IConfigurationStore store) {
             container.Register(AllTypes.FromThisAssembly()
                                 .BasedOn<IController>()
-                                //.If(Component.IsInSameNamespaceAs<HomeController>())
-                                //.If(t => t.Name.EndsWith("Controller"))
+                                .If(Component.IsInSameNamespaceAs<phiNdus.fundus.Core.Web.Controllers.HomeController>())
+                                .If(t => t.Name.EndsWith("Controller"))
                                 .Configure(c => c.LifeStyle.Transient));
         }
     }
