@@ -6,6 +6,7 @@ using Castle.MicroKernel;
 using System.Web.Mvc;
 using Castle.Core;
 using phiNdus.fundus.Core.Web.Installers;
+using phiNdus.fundus.Core.Web.Controllers;
 
 namespace phiNdus.fundus.Core.Web.UnitTests.Installers {
 
@@ -24,9 +25,6 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Installers {
 
         [Test]
         public void All_controllers_implement_IController() {
-
-            Assert.Ignore("Funktioniert erst, wenn ein Controller existiert im 'web'-Projekt");
-
             var allHandlers = GetAllHandlers(this.ContainerWithControllers);
             var controllerHandlers = GetHandlersFor(typeof(IController), this.ContainerWithControllers);
 
@@ -96,8 +94,7 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Installers {
         }
 
         private Type[] GetPublicClassesFromApplicationAssembly(Predicate<Type> where) {
-            //return typeof(HomeController).Assembly.GetExportedTypes()
-            return typeof(ControllerInstaller).Assembly.GetExportedTypes()
+            return typeof(HomeController).Assembly.GetExportedTypes()
             .Where(t => t.IsClass)
             .Where(t => t.IsAbstract == false)
             .Where(where.Invoke)
