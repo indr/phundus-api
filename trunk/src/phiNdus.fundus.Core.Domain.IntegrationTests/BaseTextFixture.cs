@@ -8,7 +8,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests
 {
-    public class RepositoryTestFixture
+    public class BaseTextFixture
     {
         [TestFixtureSetUp]
         public void FixtureSetUp()
@@ -19,7 +19,16 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
             // Todo,Inder: Mir ist schleierhaft, warum <mapping assembly="phiNdus.fundus.Core.Domain" /> im App.config nicht funktioniert.
             _factory = new NHibernateUnitOfWorkFactory(new Assembly[] { Assembly.UnsafeLoadFrom("phiNdus.fundus.Core.Domain.dll") });
             //_factory = new NHibernateUnitOfWorkFactory(new Assembly[] { Assembly.GetAssembly(typeof(User)) });
-            IoC.Container.Register(Component.For<IUnitOfWorkFactory>().Instance(_factory));
+
+            Container.Install(
+                new RepositoriesInstaller());
+            Container.Register(Component.For<IUnitOfWorkFactory>().Instance(_factory));
+        }
+
+        [TestFixtureTearDown]
+        public void FixtureTearDown()
+        {
+            Container.Dispose();
         }
 
         private IUnitOfWorkFactory _factory;

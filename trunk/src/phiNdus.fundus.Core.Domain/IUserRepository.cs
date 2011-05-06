@@ -2,7 +2,8 @@
 
 namespace phiNdus.fundus.Core.Domain
 {
-    public class UserRepository : NHRepository<User>, IUserRepository
+    public interface IUserRepository : IRepository<User>
     {
+        
     }
 }
