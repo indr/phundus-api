@@ -9,6 +9,8 @@ namespace phiNdus.fundus.Core.Domain.UnitTests
         public void Can_create()
         {
             var user = new User();
+
+            Assert.That(user.Membership, Is.Not.Null);
         }
 
         [Test]

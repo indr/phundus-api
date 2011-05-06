@@ -20,7 +20,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
         }
 
         [Test]
-        public void Save_inserts_new_user()
+        public void Save_inserts_new_user_with_membership()
         {
             var id = 0;
             using (var uow = UnitOfWork.Start())
@@ -28,7 +28,9 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
                 var user = new User();
                 user.FirstName = "Lily";
                 user.LastName = "Aldrin";
+                user.Membership.Email = "lily.aldrin@example.com";
                 _repo.Save(user);
+                uow.TransactionalFlush();
                 id = user.Id;
                 Assert.That(user.Id, Is.GreaterThan(0));
             }
@@ -39,6 +41,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
                 Assert.That(user, Is.Not.Null);
                 Assert.That(user.FirstName, Is.EqualTo("Lily"));
                 Assert.That(user.LastName, Is.EqualTo("Aldrin"));
+                Assert.That(user.Membership, Is.Not.Null);
+                Assert.That(user.Membership.Email, Is.EqualTo("lily.aldrin@example.com"));
             }
         }
 
