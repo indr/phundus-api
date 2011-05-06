@@ -10,4 +10,3 @@ INSERT INTO [User] (Id, Version, FirstName, LastName) VALUES (1, 0, 'Ted', 'Mosb
 INSERT INTO [User] (Id, Version, FirstName, LastName) VALUES (2, 0, 'Marshall', 'Eriksen');
 INSERT INTO [User] (Id, Version, FirstName, LastName) VALUES (3, 0, 'Robin', 'Scherbatsky');
 INSERT INTO [User] (Id, Version, FirstName, LastName) VALUES (4, 0, 'Barney', 'Stinson');
-INSERT INTO [User] (Id, Version, FirstName, LastName) VALUES (5, 0, 'Lily', 'Aldrin');

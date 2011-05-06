@@ -129,6 +129,8 @@
         <exclude name="${src.dir}/**/AssemblyInfo.cs" />
       </sources>
       <references>
+        <include name="${castle-windsor.dir}/Castle.Core.dll" />
+        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
       </references>
       <resources>
@@ -142,6 +144,8 @@
         <exclude name="${src.dir}/**/AssemblyInfo.cs" />
       </sources>
       <references>
+        <include name="${castle-windsor.dir}/Castle.Core.dll" />
+        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
       </references>
       <resources>
