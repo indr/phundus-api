@@ -357,7 +357,7 @@
   <!--
     TARGET: UNIT-TEST
   -->
-  <target name="unit-test" depends="compile init-unit-test">
+  <target name="unit-test" depends="compile init-unit-test init-part-cover">
     <property name="app.config.connstrings.default.connstring" value="" />
     <property name="app.config.connstrings.default.providername" value="" />
     
@@ -488,5 +488,25 @@
         <expandproperties />
       </filterchain>
     </copy>
+  </target>
+  
+  <target name="init-part-cover">
+    <exec program="${corflags.dir}/CorFlags.exe"
+      commandline="&quot;${partcover.dir}/PartCover.exe&quot; /32BIT+ /Force /nologo" />
+    <!--
+    <exec program="${corflags.dir}/CorFlags.exe"
+      commandline="&quot;${partcover.dir}/PartCover.Browser.exe&quot; /32BIT+ /Force /nologo" />      
+    -->
+    <regasm>
+      <assemblies>
+        <include name="${partcover.dir}/PartCover.exe" />
+        <include name="${partcover.dir}/PartCover.Browser.exe" />
+  
+        <include name="${partcover.dir}/Interop.PartCover.dll" />
+        <include name="${partcover.dir}/PartCover.dll" />
+        <include name="${partcover.dir}/PartCover.CorDriver.dll" />
+        <include name="${partcover.dir}/PartCover.Framework.dll" />
+      </assemblies>
+    </regasm>
   </target>
 </project>
