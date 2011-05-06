@@ -71,9 +71,9 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Security {
             With.Mocks(this.MockFactory).Expecting(delegate {
                 Expect.Call(this.UserServiceMock.CreateUser(username, password, passwordQuestion, passwordAnswer, isApproved))
                     .Return(new UserDto {
-                        Mail = username,
-                        Approved = isApproved,
-                        CreationDate =creationDate,
+                        Email = username,
+                        IsApproved = isApproved,
+                        CreateDate =creationDate,
                         PasswordQuestion = passwordQuestion
                     });
             }).Verify(delegate {

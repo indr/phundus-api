@@ -2,18 +2,22 @@
 {
     public class User : BaseEntity
     {
-        private string _firstName = "";
-        public virtual string FirstName
+        public User() : this(0)
         {
-            get { return _firstName; }
-            set { _firstName = value; }
         }
 
-        private string _lastName = "";
-        public virtual string LastName
+        public User(int id) : base(id)
         {
-            get { return _lastName; }
-            set { _lastName = value; }
+            FirstName = "";
+            LastName = "";
+            Membership = new Membership();
+            Membership.User = this;
         }
+
+        public virtual string FirstName { get; set; }
+
+        public virtual string LastName { get; set; }
+
+        public virtual Membership Membership { get; set; }
     }
 }

@@ -10,5 +10,8 @@
     <version name="Version" />
     <property name="FirstName" />
     <property name="LastName" />
+    <one-to-one name="Membership"
+                class="Membership"
+                cascade="all-delete-orphan" />
   </class>
 </hibernate-mapping>

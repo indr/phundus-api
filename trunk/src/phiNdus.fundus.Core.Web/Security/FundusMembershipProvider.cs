@@ -95,14 +95,14 @@ namespace phiNdus.fundus.Core.Web.Security {
         private MembershipUser ConvertToExternal(UserDto userDto) {
             return new MembershipUser(
                 Membership.Provider.Name,
-                userDto.Mail,
+                userDto.Email,
                 userDto,
-                userDto.Mail,
+                userDto.Email,
                 userDto.PasswordQuestion,
                 null,
-                userDto.Approved,
+                userDto.IsApproved,
                 false,
-                userDto.CreationDate,
+                userDto.CreateDate,
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
@@ -111,9 +111,9 @@ namespace phiNdus.fundus.Core.Web.Security {
 
         private UserDto ConvertToInternal(MembershipUser membershipUser) {
             return new UserDto {
-                Mail = membershipUser.UserName,
-                Approved = membershipUser.IsApproved,
-                CreationDate = membershipUser.CreationDate
+                Email = membershipUser.UserName,
+                IsApproved = membershipUser.IsApproved,
+                CreateDate = membershipUser.CreationDate
             };
         }
 

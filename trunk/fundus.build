@@ -167,6 +167,7 @@
         <exclude name="${src.dir}/**/AssemblyInfo.cs" />
       </sources>
       <references>
+        <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
       </references>
     </csc>
     <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Business.dll" debug="true" verbose="${verbose}" platform="${platform}">
@@ -176,6 +177,7 @@
         <exclude name="${src.dir}/**/AssemblyInfo.cs" />
       </sources>
       <references>
+        <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
       </references>
     </csc>
     
@@ -289,6 +291,7 @@
       <references>
         <include name="${nunit.dir}/nunit.framework.dll" />
         <include name="${test.dir}/phiNdus.fundus.Core.Business.dll" />
+        <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
       </references>
     </csc>
     
