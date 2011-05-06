@@ -40,12 +40,14 @@
   <property name="nantcontrib.dir" value="${tools.dir}/nantcontrib" />
   <property name="corflags.dir" value="${tools.dir}" />
   <property name="fxcop.dir" value="${tools.dir}/FxCop" />
+  <property name="rhino-mocks.dir" value="${tools.dir}/Rhino.Mocks" />
   
   <!--
     Libraries directories
   -->
   <property name="castle-windsor.dir" value="${lib.dir}/Castle.Windsor" />
   <property name="mvc-3.dir" value="${lib.dir}/ASP.NET MVC 3"/>
+  <property name="nhibernate.dir" value="${lib.dir}/NHibernate" />
   
   
   <!--
@@ -127,7 +129,11 @@
         <exclude name="${src.dir}/**/AssemblyInfo.cs" />
       </sources>
       <references>
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
       </references>
+      <resources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Domain/**/*.hbm.xml" />
+      </resources>      
     </csc>
     <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Domain.dll" debug="true" verbose="${verbose}" platform="${platform}">
       <sources>
@@ -136,7 +142,11 @@
         <exclude name="${src.dir}/**/AssemblyInfo.cs" />
       </sources>
       <references>
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
       </references>
+      <resources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Domain/**/*.hbm.xml" />
+      </resources>      
     </csc>
     
     
@@ -179,13 +189,17 @@
         <exclude name="${src.dir}/**/AssemblyInfo.cs" />
       </sources>
       <references>
+        <include name="${test.dir}/phiNdus.fundus.Core.Business.dll" />
         <include name="${castle-windsor.dir}/Castle.Core.dll" />
         <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Logging.dll" />
         <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Log4netIntegration.dll" />
         <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
         <include name="${castle-windsor.dir}/loggingFacility/log4net.dll" />
-        <include name="Microsoft.CSharp" />
+        <!--<include name="${mvc-3.dir}\System.Web.Helpers.dll" />-->
         <include name="${mvc-3.dir}\System.Web.Mvc.dll" />
+        <!--<include name="${mvc-3.dir}\System.Web.WebPages.dll" />-->
+        <include name="Microsoft.CSharp" />
+        <include name="System.Web.ApplicationServices.dll" />  
       </references>
     </csc>
     
@@ -224,6 +238,34 @@
       <references>
         <include name="${nunit.dir}/nunit.framework.dll" />
         <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
+      </references>
+    </csc>
+    
+    
+    <property name="assembly.title" value="Core-Domain-IntegrationTests" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="615cd7e5-2292-42fa-8764-0a05cb46c214" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Domain.IntegrationTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Domain.IntegrationTests/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="${nunit.dir}/nunit.framework.dll" />
+        <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
+        <include name="${castle-windsor.dir}/Castle.Core.dll" />
+        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
+        <include name="${nhibernate.dir}/**/NHibernate.dll" />
+        <include name="${nhibernate.dir}/**/Iesi.Collections.dll" />
+        <include name="${nhibernate.dir}/**/NHibernate.ByteCode.Castle.dll" />        
       </references>
     </csc>
     
@@ -260,6 +302,7 @@
         <exclude name="${src.dir}/**/AssemblyInfo.cs" />
       </sources>
       <references>
+        <include name="${test.dir}/phiNdus.fundus.Core.Business.dll" />
         <include name="${test.dir}/phiNdus.fundus.Core.Web.dll" />
         <include name="${castle-windsor.dir}/Castle.Core.dll" />
         <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Logging.dll" />
@@ -267,7 +310,10 @@
         <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
         <include name="${castle-windsor.dir}/loggingFacility/log4net.dll" />
         <include name="${nunit.dir}/nunit.framework.dll" />        
+        <include name="${rhino-mocks.dir}/Rhino.Mocks.dll" />
         <include name="${mvc-3.dir}\System.Web.Mvc.dll" />
+        <include name="System.Web.ApplicationServices.dll" />
+        
       </references>
     </csc>
     
@@ -279,6 +325,26 @@
     
     <copy todir="${test.dir}" flatten="true">
       <fileset basedir="${mvc-3.dir}">
+        <include name="**/*.dll" />
+      </fileset>
+    </copy>
+    
+    <copy todir="${test.dir}" flatten="true">
+      <fileset basedir="${rhino-mocks.dir}">
+        <include name="**/*.dll" />
+      </fileset>
+    </copy>
+    
+    <copy todir="${test.dir}" flatten="true">
+      <fileset basedir="${lib.dir}/Rhino.Commons">
+        <include name="**/Rhino.Commons.dll" />
+        <include name="**/Rhino.Commons.Clr.dll" />
+        <include name="**/Rhino.Commons.NHibernate.dll" />
+      </fileset>
+    </copy>
+    
+    <copy todir="${test.dir}" flatten="true">
+      <fileset basedir="${nhibernate.dir}">
         <include name="**/*.dll" />
       </fileset>
     </copy>
