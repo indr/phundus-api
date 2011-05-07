@@ -1,9 +1,4 @@
-﻿using System;
-using System.Reflection;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
-using NHibernate;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests
