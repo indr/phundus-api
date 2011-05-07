@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Environ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Domain.IntegrationTests", "phiNdus.fundus.Core.Domain.IntegrationTests\phiNdus.fundus.Core.Domain.IntegrationTests.csproj", "{4DFF5DDE-A0FD-48F9-AF63-241A34E26BF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Business.IntegrationTests", "phiNdus.fundus.Core.Business.IntegrationTests\phiNdus.fundus.Core.Business.IntegrationTests.csproj", "{58C99E38-EB57-4190-9CF1-01CE75A1B738}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{4DFF5DDE-A0FD-48F9-AF63-241A34E26BF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DFF5DDE-A0FD-48F9-AF63-241A34E26BF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DFF5DDE-A0FD-48F9-AF63-241A34E26BF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58C99E38-EB57-4190-9CF1-01CE75A1B738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58C99E38-EB57-4190-9CF1-01CE75A1B738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58C99E38-EB57-4190-9CF1-01CE75A1B738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58C99E38-EB57-4190-9CF1-01CE75A1B738}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{3A958280-7EFB-4AC3-AD66-942EC83018EB} = {D1924B2C-E00A-4D8C-90C2-DC9E1623F952}
 		{97AA64DB-12BF-4AF3-B732-97DE1A9919B1} = {05589C1D-B660-4370-8B94-255E90B68A03}
 		{C3A49666-132D-497C-A135-E4C2E87FA01B} = {05589C1D-B660-4370-8B94-255E90B68A03}
+		{58C99E38-EB57-4190-9CF1-01CE75A1B738} = {05589C1D-B660-4370-8B94-255E90B68A03}
 		{00B767FE-A820-43B2-A494-B70732B09CF8} = {09182C88-14FE-4BDB-8E24-A99AEE792D8A}
 		{43DB8619-4C9E-4806-AE5A-CA63E0301BF5} = {09182C88-14FE-4BDB-8E24-A99AEE792D8A}
 		{4DFF5DDE-A0FD-48F9-AF63-241A34E26BF1} = {09182C88-14FE-4BDB-8E24-A99AEE792D8A}

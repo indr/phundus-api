@@ -11,7 +11,7 @@
       <property name="connection.connection_string">${app.config.connstrings.default.connstring}</property>
       <property name="dialect">NHibernate.Dialect.MsSql2008Dialect</property>
       <property name='proxyfactory.factory_class'>NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle</property>
-      <property name="show_sql">true</property>
+      <property name="show_sql">false</property>
 
       <!-- Warum funktioniert dies nicht? -->
       <mapping assembly="phiNdus.fundus.Core.Domain" />

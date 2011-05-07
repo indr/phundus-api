@@ -295,6 +295,25 @@
       </references>
     </csc>
     
+    <property name="assembly.title" value="Core-Business-IntegrationTests" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="58C99E38-EB57-4190-9CF1-01CE75A1B738" />
+    <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
+    <call target="generate-assembly-info" />
+    
+    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Business.IntegrationTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Business.IntegrationTests/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="${nunit.dir}/nunit.framework.dll" />
+        <include name="${test.dir}/phiNdus.fundus.Core.Business.dll" />
+        <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+      </references>
+    </csc>
+    
     
     <property name="assembly.title" value="Core-Web-UnitTests" />
     <property name="assembly.description" value="" />
