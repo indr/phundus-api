@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using phiNdus.fundus.Core.Business.Dto;
 
 namespace phiNdus.fundus.Core.Business {
     public interface IUserService {

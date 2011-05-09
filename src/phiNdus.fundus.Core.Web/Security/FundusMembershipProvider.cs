@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Security;
 using phiNdus.fundus.Core.Business;
+using phiNdus.fundus.Core.Business.Dto;
 
 namespace phiNdus.fundus.Core.Web.Security {
     public class FundusMembershipProvider : MembershipProvider {

@@ -42,7 +42,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
         }
 
         [Test]
-        public void Can_get_user()
+        public void Can_get_user_by_id()
         {
             using (UnitOfWork.Start())
             {
@@ -75,5 +75,15 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
             }
         }
 
+        [Test]
+        public void Can_get_user_by_email()
+        {
+            using (UnitOfWork.Start())
+            {
+                var user = _repo.FindByEmail("marshall.eriksen@example.com");
+                Assert.That(user, Is.Not.Null);
+                Assert.That(user.Id, Is.EqualTo(2));
+            }
+        }
     }
 }

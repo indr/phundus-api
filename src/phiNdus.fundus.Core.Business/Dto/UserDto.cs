@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace phiNdus.fundus.Core.Business {
+namespace phiNdus.fundus.Core.Business.Dto {
 
     public class UserDto {
         public int Id { get; set; }
