@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Web.Security;
 using phiNdus.fundus.Core.Business;
 using Rhino.Mocks;

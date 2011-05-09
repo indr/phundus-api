@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Domain;
 
 namespace phiNdus.fundus.Core.Business.UnitTests

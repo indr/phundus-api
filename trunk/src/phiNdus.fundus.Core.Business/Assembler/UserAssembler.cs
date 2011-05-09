@@ -1,7 +1,7 @@
-﻿using System;
+﻿using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Domain;
 
-namespace phiNdus.fundus.Core.Business.UnitTests
+namespace phiNdus.fundus.Core.Business.Assembler
 {
     public class UserAssembler
     {
@@ -18,7 +18,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests
             return result;
         }
 
-        private void WriteMembership(UserDto result, Membership subject)
+        private static void WriteMembership(UserDto result, Membership subject)
         {
             result.CreateDate = subject.CreateDate;
             result.IsApproved = subject.IsApproved;
