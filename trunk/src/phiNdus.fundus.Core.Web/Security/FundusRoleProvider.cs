@@ -7,6 +7,17 @@ using System.Web.Security;
 namespace phiNdus.fundus.Core.Web.Security {
     public class FundusRoleProvider : RoleProvider {
 
+        //=========================================================================================
+        #region Configuration
+
+        public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config) {
+            base.Initialize(name, config);
+
+            ApplicationName = config["applicationName"];
+        }
+        #endregion
+        //=========================================================================================
+
         public override void AddUsersToRoles(string[] usernames, string[] roleNames) {
             throw new NotImplementedException();
         }

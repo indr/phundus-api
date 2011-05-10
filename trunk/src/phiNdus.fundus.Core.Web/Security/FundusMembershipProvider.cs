@@ -6,6 +6,29 @@ using phiNdus.fundus.Core.Business.Dto;
 namespace phiNdus.fundus.Core.Web.Security {
     public class FundusMembershipProvider : MembershipProvider {
 
+        //=========================================================================================
+        #region Configuration
+
+        bool enablePasswordReset;
+        bool enablePasswordRetrieval;
+        int maxInvalidPasswordAttempts;
+        int minRequiredPasswordLength;
+        int minRequiredNonAlphanumericCharacters;
+        int passwordAttemptWindow;
+
+        public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config) {
+            base.Initialize(name, config);
+            enablePasswordReset = bool.Parse(config["enablePasswordReset"] ?? "false");
+            enablePasswordRetrieval = bool.Parse(config["enablePasswordRetrieval"] ?? "false");
+            ApplicationName = config["applicationName"];
+            maxInvalidPasswordAttempts = Int32.Parse(config["maxInvalidPasswordAttempts"] ?? "5");
+            minRequiredPasswordLength = Int32.Parse(config["minRequiredPasswordLength"] ?? "8");
+            minRequiredNonAlphanumericCharacters = Int32.Parse(config["minRequiredNonAlphanumericCharacters"] ?? "2");
+            passwordAttemptWindow = Int32.Parse(config["passwordAttemptWindow"] ?? "10"); // 10 Minuten
+        }
+        #endregion
+        //=========================================================================================
+
         public FundusMembershipProvider(IUserService userService) {
             this.UserService = userService;
         }
@@ -15,11 +38,11 @@ namespace phiNdus.fundus.Core.Web.Security {
         public override string ApplicationName { get; set; }
 
         public override bool EnablePasswordReset {
-            get { return true; }
+            get { return enablePasswordReset; }
         }
 
         public override bool EnablePasswordRetrieval {
-            get { return false; }
+            get { return enablePasswordRetrieval; }
         }
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword) {
@@ -47,19 +70,19 @@ namespace phiNdus.fundus.Core.Web.Security {
         }
 
         public override int MaxInvalidPasswordAttempts {
-            get { return 5; }
+            get { return maxInvalidPasswordAttempts; }
         }
 
         public override int MinRequiredNonAlphanumericCharacters {
-            get { return 2; }
+            get { return minRequiredNonAlphanumericCharacters; }
         }
 
         public override int MinRequiredPasswordLength {
-            get { return 8; }
+            get { return minRequiredPasswordLength; }
         }
 
         public override int PasswordAttemptWindow {
-            get { return 10; /* Minuten */ }
+            get { return passwordAttemptWindow; }
         }
 
         public override MembershipPasswordFormat PasswordFormat {
