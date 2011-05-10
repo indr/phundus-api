@@ -6,6 +6,7 @@
 <project name="fundus" default="help">
   <property name="verbose" value="false" />
   <property name="build.number" value="0.0.0.0" unless="${property::exists('build.number')}" />
+  <property name="failonerror" value="true" unless="${property::exists('failonerror')}" />
   
   <property name="platform" value="anycpu" />
   <property name="machine" value="${dns::get-host-name()}" />
@@ -421,6 +422,7 @@
       </in>
       <do>
         <exec program="${partcover.dir}/PartCover.exe"
+          failonerror="${failonerror}"
           commandline="--register --target &quot;${nunit.dir}/nunit-console-x86.exe&quot; --target-args &quot;\&quot;${filename}\&quot; /xml=\&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml\&quot; /framework=v4.0 /noshadow&quot; --include [phiNdus*]* --exclude [*Tests]* --output &quot;${reports.dir}/${path::get-file-name(filename)}-Coverage.xml&quot; --log 0" />
           
         <echo message="##teamcity[importData type='nunit' path='${reports.dir}/${path::get-file-name(filename)}-TestResult.xml']" />
@@ -482,6 +484,7 @@
         <call target="generate-app-config" />
         
         <exec program="${nunit.dir}/nunit-console-x86.exe"
+          failonerror="${failonerror}"
           commandline="&quot;${filename}&quot; /xml=&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml&quot; /framework=v4.0 /noshadow" />
             
         <echo message="##teamcity[importData type='nunit' path='${reports.dir}/${path::get-file-name(filename)}-TestResult.xml']" />  
