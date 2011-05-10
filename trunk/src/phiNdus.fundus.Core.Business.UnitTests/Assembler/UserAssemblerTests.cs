@@ -8,12 +8,12 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
     [TestFixture]
     public class UserAssemblerTests
     {
-        #region Setup/Teardown
+        #region SetUp/TearDown
 
         [SetUp]
         public void SetUp()
         {
-            _assembler = new UserAssembler();
+            Sut = new UserAssembler();
             _user = new User(1);
             _user.FirstName = "John";
             _user.LastName = "Wayne";
@@ -26,13 +26,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
         #endregion
 
-        private UserAssembler _assembler;
         private User _user;
+        public UserAssembler Sut { get; set; }
 
         [Test]
         public void WriteDto_returns_correct_dto()
         {
-            var dto = _assembler.WriteDto(_user);
+            var dto = Sut.WriteDto(_user);
             Assert.That(dto.Id, Is.EqualTo(1));
             Assert.That(dto.FirstName, Is.EqualTo("John"));
             Assert.That(dto.LastName, Is.EqualTo("Wayne"));
@@ -43,10 +43,18 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof (ArgumentNullException))]
+        public void WriteDto_with_membership_null_throws()
+        {
+            _user.Membership = null;
+            Sut.WriteDto(_user);
+        }
+
+        [Test]
+        [ExpectedException(typeof (ArgumentNullException))]
         public void WriteDto_with_null_subject_throws()
         {
-            _assembler.WriteDto(null);
+            Sut.WriteDto(null);
         }
     }
 }

@@ -19,8 +19,6 @@ namespace phiNdus.fundus.Core.Business.Assembler
             result.Id = subject.Id;
             result.FirstName = subject.FirstName;
             result.LastName = subject.LastName;
-            result.Email = subject.Membership.Email;
-
             WriteMembership(result, subject.Membership);
 
             return result;
@@ -28,6 +26,10 @@ namespace phiNdus.fundus.Core.Business.Assembler
 
         private static void WriteMembership(UserDto result, Membership subject)
         {
+            // TODO: Use Guard.Against
+            if (subject == null)
+                throw new ArgumentNullException("subject");
+            result.Email = subject.Email;
             result.CreateDate = subject.CreateDate;
             result.IsApproved = subject.IsApproved;
             result.PasswordQuestion = subject.PasswordQuestion;
