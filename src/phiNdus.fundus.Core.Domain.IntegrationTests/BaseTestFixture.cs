@@ -8,7 +8,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests
 {
-    public class BaseTextFixture
+    public class BaseTestFixture
     {
         [TestFixtureSetUp]
         public void FixtureSetUp()
