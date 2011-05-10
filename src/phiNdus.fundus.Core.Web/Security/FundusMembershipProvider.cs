@@ -2,6 +2,7 @@
 using System.Web.Security;
 using phiNdus.fundus.Core.Business;
 using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Core.Business.Services;
 
 namespace phiNdus.fundus.Core.Web.Security {
     public class FundusMembershipProvider : MembershipProvider {
@@ -54,7 +55,7 @@ namespace phiNdus.fundus.Core.Web.Security {
             status = MembershipCreateStatus.Success;
 
             return this.ConvertToExternal(
-                this.UserService.CreateUser(username, password, passwordQuestion, passwordAnswer, isApproved));
+                this.UserService.CreateUser(username, password, passwordQuestion, passwordAnswer));
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData) {

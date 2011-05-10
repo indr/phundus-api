@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using phiNdus.fundus.Core.Business.Dto;
+﻿using phiNdus.fundus.Core.Business.Dto;
 
-namespace phiNdus.fundus.Core.Business {
+namespace phiNdus.fundus.Core.Business.Services {
     public interface IUserService {
 
         /// <summary>
@@ -15,7 +11,7 @@ namespace phiNdus.fundus.Core.Business {
         /// <summary>
         /// Erstelllt einen neuen Benutzer.
         /// </summary>
-        UserDto CreateUser(string email, string password, string passwordQuestion, string passwordAnswer, bool isApproved);
+        UserDto CreateUser(string email, string password, string passwordQuestion, string passwordAnswer);
 
         /// <summary>
         /// Aktualisiert einen bestehenden Benutzer.

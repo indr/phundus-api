@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Castle.MicroKernel.Registration;
+﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 
-namespace phiNdus.fundus.Core.Domain
+namespace phiNdus.fundus.Core.Domain.Installers
 {
     public class RepositoriesInstaller : IWindsorInstaller
     {
