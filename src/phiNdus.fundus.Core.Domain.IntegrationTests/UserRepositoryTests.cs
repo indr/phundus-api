@@ -4,7 +4,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests
 {
     [TestFixture]
-    public class UserRepositoryTests : BaseTextFixture
+    public class UserRepositoryTests : BaseTestFixture
     {
         private IUserRepository _repo;
 
@@ -76,13 +76,23 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
         }
 
         [Test]
-        public void Can_get_user_by_email()
+        public void Can_find_by_email()
         {
             using (UnitOfWork.Start())
             {
                 var user = _repo.FindByEmail("marshall.eriksen@example.com");
                 Assert.That(user, Is.Not.Null);
                 Assert.That(user.Id, Is.EqualTo(2));
+            }
+        }
+
+        [Test]
+        public void Find_by_email_returns_null()
+        {
+            using (UnitOfWork.Start())
+            {
+                var user = _repo.FindByEmail("this.does@not.exist");
+                Assert.That(user, Is.Null);
             }
         }
     }

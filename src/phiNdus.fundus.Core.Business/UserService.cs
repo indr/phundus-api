@@ -1,13 +1,24 @@
 ﻿using System;
+using Castle.Windsor;
+using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Core.Domain;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business
 {
-    public class UserService : IUserService
+    public class UserService : BaseService, IUserService
     {
         public UserDto GetUser(string email)
         {
-            throw new NotImplementedException();
+            User user;
+            using (UnitOfWork.Start())
+            {
+                var repo = new UserRepository();
+                user = repo.FindByEmail(email);
+            }
+            var assembler = new UserAssembler();
+            return assembler.WriteDto(user);
         }
 
         public UserDto CreateUser(string email, string password, string passwordQuestion, string passwordAnswer, bool isApproved)

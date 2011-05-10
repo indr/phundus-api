@@ -12,6 +12,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             result.Id = subject.Id;
             result.FirstName = subject.FirstName;
             result.LastName = subject.LastName;
+            result.Email = subject.Membership.Email;
 
             WriteMembership(result, subject.Membership);
 
