@@ -408,7 +408,7 @@
   <!--
     TARGET: UNIT-TEST
   -->
-  <target name="unit-test" depends="compile init-unit-test"> <!--  init-part-cover -->
+  <target name="unit-test" depends="compile init-unit-test init-part-cover"> <!--   -->
     <property name="app.config.connstrings.default.connstring" value="" />
     <property name="app.config.connstrings.default.providername" value="" />
     
