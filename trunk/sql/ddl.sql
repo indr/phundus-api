@@ -4,26 +4,38 @@ SET ANSI_NULLS ON;
 
 SET QUOTED_IDENTIFIER ON;
 
-CREATE TABLE [User] (
-  Id INT IDENTITY PRIMARY KEY,
-  Version INT,
-  FirstName VARCHAR(255),
-  LastName VARCHAR(255)
-)
+create table [Membership] (
+  Id INT not null,
+  Version INT not null,
+  Password NVARCHAR(255) null,
+  Email NVARCHAR(255) null,
+  PasswordQuestion NVARCHAR(255) null,
+  PasswordAnswer NVARCHAR(255) null,
+  IsApproved BIT null,
+  IsLockedOut BIT null,
+  CreateDate DATETIME null,
+  LastLoginDate DATETIME null,
+  LastPasswordChangeDate DATETIME null,
+  LastLockoutDate DATETIME null,
+  Comment NVARCHAR(255) null,
+  primary key (Id)
+);
 
-CREATE TABLE [Membership] (
-  Id INT PRIMARY KEY,
-  Version INT,
-  Password VARCHAR(32), -- Todo,Inder: Passwortlänge basierend auf Hash-Algorithmus
-  Email VARCHAR(50),
-  PasswordQuestion VARCHAR(255),
-  PasswordAnswer VARCHAR(255),
-  IsApproved INT NOT NULL,
-  IsLockedOut INT NOT NULL,
-  CreateDate DATETIME,
-  LastLoginDate DATETIME,
-  LastPasswordChangeDate DATETIME,
-  LastLockoutDate DATETIME,
-  [Comment] VARCHAR(MAX),
-  CONSTRAINT FkUser FOREIGN KEY (Id) REFERENCES [User](Id)
-)
+create table [User] (
+  Id INT not null,
+  Version INT not null,
+  FirstName NVARCHAR(255) null,
+  LastName NVARCHAR(255) null,
+  primary key (Id)
+);
+
+alter table [Membership] 
+  add constraint FkMembershipToUser 
+  foreign key (Id) 
+  references [User];
+
+create table hibernate_unique_key (
+  next_hi INT 
+);
+
+insert into hibernate_unique_key values ( 1 );

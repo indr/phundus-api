@@ -129,9 +129,14 @@
         <exclude name="${src.dir}/**/AssemblyInfo.cs" />
       </sources>
       <references>
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
         <include name="${castle-windsor.dir}/Castle.Core.dll" />
         <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
-        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
+        <include name="${nhibernate.dir}/**/Iesi.Collections.dll" />
+        <include name="${nhibernate.dir}/**/NHibernate.dll" />
+        <include name="${nhibernate.dir}/**/NHibernate.ByteCode.Castle.dll" />             
       </references>
       <resources>
         <include name="${src.dir}/phiNdus.fundus.Core.Domain/**/*.hbm.xml" />
@@ -144,9 +149,14 @@
         <exclude name="${src.dir}/**/AssemblyInfo.cs" />
       </sources>
       <references>
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
         <include name="${castle-windsor.dir}/Castle.Core.dll" />
         <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
-        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
+        <include name="${nhibernate.dir}/**/Iesi.Collections.dll" />
+        <include name="${nhibernate.dir}/**/NHibernate.dll" />
+        <include name="${nhibernate.dir}/**/NHibernate.ByteCode.Castle.dll" />
       </references>
       <resources>
         <include name="${src.dir}/phiNdus.fundus.Core.Domain/**/*.hbm.xml" />
@@ -168,6 +178,11 @@
       </sources>
       <references>
         <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+        <include name="${castle-windsor.dir}/Castle.Core.dll" />
+        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />         
       </references>
     </csc>
     <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Business.dll" debug="true" verbose="${verbose}" platform="${platform}">
@@ -178,6 +193,11 @@
       </sources>
       <references>
         <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+        <include name="${castle-windsor.dir}/Castle.Core.dll" />
+        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />         
       </references>
     </csc>
     
@@ -311,6 +331,11 @@
         <include name="${nunit.dir}/nunit.framework.dll" />
         <include name="${test.dir}/phiNdus.fundus.Core.Business.dll" />
         <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
+        <include name="${castle-windsor.dir}/Castle.Core.dll" />
+        <include name="${castle-windsor.dir}/Castle.Windsor.dll" /> 
       </references>
     </csc>
     
@@ -383,7 +408,7 @@
   <!--
     TARGET: UNIT-TEST
   -->
-  <target name="unit-test" depends="compile init-unit-test init-part-cover">
+  <target name="unit-test" depends="compile init-unit-test"> <!--  init-part-cover -->
     <property name="app.config.connstrings.default.connstring" value="" />
     <property name="app.config.connstrings.default.providername" value="" />
     
