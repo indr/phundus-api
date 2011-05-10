@@ -1,25 +1,24 @@
 ﻿using System;
-using Castle.Windsor;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Business
+namespace phiNdus.fundus.Core.Business.Services
 {
     public class UserService : BaseService, IUserService
     {
         public UserDto GetUser(string email)
         {
-            User user;
+            email = email.ToLowerInvariant();
+            
             using (UnitOfWork.Start())
             {
                 var repo = IoC.Resolve<IUserRepository>();
-                user = repo.FindByEmail(email);
+                var user = repo.FindByEmail(email);
+                var assembler = new UserAssembler();
+                return assembler.WriteDto(user);
             }
-            var assembler = new UserAssembler();
-            return assembler.WriteDto(user);
         }
 
         public UserDto CreateUser(string email, string password, string passwordQuestion, string passwordAnswer)
@@ -27,7 +26,7 @@ namespace phiNdus.fundus.Core.Business
             email = email.ToLowerInvariant();
             UserDto result;
 
-            using (var unitOfWork = UnitOfWork.Start())
+            using (var uow = UnitOfWork.Start())
             {
                 var repo = IoC.Resolve<IUserRepository>();
                 if (repo.FindByEmail(email) != null)
@@ -43,7 +42,7 @@ namespace phiNdus.fundus.Core.Business
                 var assembler = new UserAssembler();
                 result = assembler.WriteDto(user);
                 
-                unitOfWork.TransactionalFlush();
+                uow.TransactionalFlush();
             }
             return result;
         }
@@ -65,7 +64,17 @@ namespace phiNdus.fundus.Core.Business
 
         public bool ValidateUser(string email, string password)
         {
-            throw new NotImplementedException();
+            email = email.ToLowerInvariant();
+
+            using (UnitOfWork.Start())
+            {
+                var repo = IoC.Resolve<IUserRepository>();
+                var user = repo.FindByEmail(email);
+                if (user == null)
+                    return false;
+                // TODO,Inder: Password encryption
+                return user.Membership.Password == password;
+            }
         }
 
         public string ResetPassword(string email)

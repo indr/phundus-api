@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace phiNdus.fundus.Core.Business
 {
+    // TODO: Exception-Hierarchie? Names?
     public class EmailAlreadyTakenException : Exception
     {
     }

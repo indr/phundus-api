@@ -3,7 +3,7 @@ using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Domain;
 
-namespace phiNdus.fundus.Core.Business.UnitTests
+namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 {
     [TestFixture]
     public class UserAssemblerTests
@@ -40,6 +40,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests
             Assert.That(dto.CreateDate, Is.EqualTo(new DateTime(2011, 6, 5, 14, 48, 55)));
             Assert.That(dto.IsApproved, Is.True);
             Assert.That(dto.PasswordQuestion, Is.EqualTo("Who really cares?"));
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WriteDto_with_null_subject_throws()
+        {
+            _assembler.WriteDto(null);
         }
     }
 }
