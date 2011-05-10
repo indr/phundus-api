@@ -10,9 +10,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
     {
         public UserDto WriteDto(User subject)
         {
-            // TODO: Use Guard.Against
-            if (subject == null)
-                throw new ArgumentNullException("subject");
+            Guard.Against<ArgumentNullException>(subject == null, "subject");
             
             var result = new UserDto();
 
@@ -26,9 +24,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
 
         private static void WriteMembership(UserDto result, Membership subject)
         {
-            // TODO: Use Guard.Against
-            if (subject == null)
-                throw new ArgumentNullException("subject");
+            Guard.Against<ArgumentNullException>(subject == null, "subject");
             result.Email = subject.Email;
             result.CreateDate = subject.CreateDate;
             result.IsApproved = subject.IsApproved;
