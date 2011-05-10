@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Web.Security;
 using phiNdus.fundus.Core.Business;
 using Rhino.Mocks;
@@ -70,7 +71,7 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Security {
             var creationDate = DateTime.Now;
 
             With.Mocks(this.MockFactory).Expecting(delegate {
-                Expect.Call(this.UserServiceMock.CreateUser(username, password, passwordQuestion, passwordAnswer, isApproved))
+                Expect.Call(this.UserServiceMock.CreateUser(username, password, passwordQuestion, passwordAnswer))
                     .Return(new UserDto {
                         Email = username,
                         IsApproved = isApproved,

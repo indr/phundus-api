@@ -313,6 +313,12 @@
         <include name="${nunit.dir}/nunit.framework.dll" />
         <include name="${test.dir}/phiNdus.fundus.Core.Business.dll" />
         <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
+        <include name="${rhino-mocks.dir}/Rhino.Mocks.dll" />
+        <include name="${castle-windsor.dir}/Castle.Core.dll" />
+        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />        
       </references>
     </csc>
     
@@ -364,8 +370,7 @@
         <include name="${nunit.dir}/nunit.framework.dll" />        
         <include name="${rhino-mocks.dir}/Rhino.Mocks.dll" />
         <include name="${mvc-3.dir}\System.Web.Mvc.dll" />
-        <include name="System.Web.ApplicationServices.dll" />
-        
+        <include name="System.Web.ApplicationServices.dll" />        
       </references>
     </csc>
     
@@ -409,7 +414,7 @@
   <!--
     TARGET: UNIT-TEST
   -->
-  <target name="unit-test" depends="compile init-unit-test init-part-cover"> <!--   -->
+  <target name="unit-test" depends="compile init-unit-test"> <!-- init-part-cover  -->
     <property name="app.config.connstrings.default.connstring" value="" />
     <property name="app.config.connstrings.default.providername" value="" />
     

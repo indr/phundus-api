@@ -1,18 +1,38 @@
-﻿using NUnit.Framework;
+﻿using System.Reflection;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using NUnit.Framework;
+using phiNdus.fundus.Core.Domain.Installers;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests
 {
     [TestFixture]
-    public class UserRepositoryTests : BaseTestFixture
+    public class UserRepositoryTests
     {
-        private IUserRepository _repo;
+        [TestFixtureSetUp]
+        public void FixtureSetUp()
+        {
+            IoC.Initialize(new WindsorContainer());
+            IoC.Container.Install(
+                new RepositoriesInstaller());
+            IoC.Container.Register(Component.For<IUnitOfWorkFactory>().Instance(
+                new NHibernateUnitOfWorkFactory(new[] { Assembly.GetAssembly(typeof(BaseEntity)) })));
+        }
+
+        [TestFixtureTearDown]
+        public void FixtureTearDown()
+        {
+            IoC.Container.Dispose();
+        }
 
         [SetUp]
         public void SetUp()
         {
-            _repo = Container.Resolve<IUserRepository>();
+            Sut = IoC.Container.Resolve<IUserRepository>();
         }
+
+        private IUserRepository Sut { get; set; }
 
         [Test]
         public void Save_inserts_new_user_with_membership()
@@ -24,7 +44,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
                 user.FirstName = "Lily";
                 user.LastName = "Aldrin";
                 user.Membership.Email = "lily.aldrin@example.com";
-                _repo.Save(user);
+                Sut.Save(user);
                 uow.TransactionalFlush();
                 id = user.Id;
                 Assert.That(user.Id, Is.GreaterThan(0));
@@ -32,7 +52,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
 
             using (UnitOfWork.Start())
             {
-                var user = _repo.Get(id);
+                var user = Sut.Get(id);
                 Assert.That(user, Is.Not.Null);
                 Assert.That(user.FirstName, Is.EqualTo("Lily"));
                 Assert.That(user.LastName, Is.EqualTo("Aldrin"));
@@ -46,7 +66,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
         {
             using (UnitOfWork.Start())
             {
-                var user = _repo.Get(1);
+                var user = Sut.Get(1);
                 Assert.That(user, Is.Not.Null);
                 Assert.That(user.Id, Is.EqualTo(1));
                 Assert.That(user.FirstName, Is.EqualTo("Ted"));
@@ -61,16 +81,16 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
             
             using (var uow = UnitOfWork.Start())
             {
-                var user = _repo.Get(2);
+                var user = Sut.Get(2);
                 version = user.Version;
                 user.FirstName = "Marshall " + (version + 1);
-                _repo.Update(user);
+                Sut.Update(user);
                 uow.TransactionalFlush();
             }
 
             using (UnitOfWork.Start())
             {
-                var user = _repo.Get(2);
+                var user = Sut.Get(2);
                 Assert.That(user.Version, Is.EqualTo(version + 1));    
             }
         }
@@ -80,7 +100,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
         {
             using (UnitOfWork.Start())
             {
-                var user = _repo.FindByEmail("marshall.eriksen@example.com");
+                var user = Sut.FindByEmail("marshall.eriksen@example.com");
                 Assert.That(user, Is.Not.Null);
                 Assert.That(user.Id, Is.EqualTo(2));
             }
@@ -91,7 +111,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
         {
             using (UnitOfWork.Start())
             {
-                var user = _repo.FindByEmail("this.does@not.exist");
+                var user = Sut.FindByEmail("this.does@not.exist");
                 Assert.That(user, Is.Null);
             }
         }
