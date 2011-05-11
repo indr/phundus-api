@@ -26,6 +26,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             MockUserRepository = MockFactory.StrictMock<IUserRepository>();
             IoC.Container.Register(Component.For<IUserRepository>().Instance(MockUserRepository));
 
+            MockMailGateway = MockFactory.StrictMock<IMailGateway>();
+            IoC.Container.Register(Component.For<IMailGateway>().Instance(MockMailGateway));
+
             Sut = new UserService();
 
             TedMosby = new User();
@@ -39,8 +42,10 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         #endregion
 
         private MockRepository MockFactory { get; set; }
+        
         private IUnitOfWork MockUnitOfWork { get; set; }
         private IUserRepository MockUserRepository { get; set; }
+        private IMailGateway MockMailGateway { get; set; }
 
         private IUserService Sut { get; set; }
         private User TedMosby { get; set; }
@@ -54,6 +59,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                     MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(null);
                 Expect.Call(
                     MockUserRepository.Save(null)).IgnoreArguments().Return(null);
+                Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
                 Expect.Call(() => MockUnitOfWork.TransactionalFlush());
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
@@ -75,6 +81,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                     MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(null);
                 Expect.Call(
                     MockUserRepository.Save(null)).IgnoreArguments().Return(null);
+                Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
                 Expect.Call(() => MockUnitOfWork.TransactionalFlush());
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
@@ -96,6 +103,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                     MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(null);
                 Expect.Call(
                     MockUserRepository.Save(null)).IgnoreArguments().Return(null);
+                Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
                 Expect.Call(() => MockUnitOfWork.TransactionalFlush());
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }

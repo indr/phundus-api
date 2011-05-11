@@ -8,7 +8,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
 {
     public class UserAssembler
     {
-        public UserDto WriteDto(User subject)
+        public static UserDto WriteDto(User subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
             
