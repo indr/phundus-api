@@ -23,6 +23,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
                 new RepositoriesInstaller());
             IoC.Container.Register(Component.For<IUnitOfWorkFactory>().Instance(
                 new NHibernateUnitOfWorkFactory(new[] { Assembly.GetAssembly(typeof(BaseEntity)) })));
+            IoC.Container.Register(Component.For<IMailGateway>().ImplementedBy(typeof (MailGateway)).LifeStyle.Transient);
         }
 
         [TestFixtureTearDown]
@@ -44,14 +45,19 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
         [Test]
         public void CreateUser_returns_dto_of_new_user()
         {
-            UserDto dto = Sut.CreateUser("stella.zinman@example.com", "1234", "Question?", "Answer!");
+            Assert.Ignore("MailGateway-Konfiguration muss noch bewerkstelligt werden.");
+            var dto = Sut.CreateUser("stella.zinman@example.com", "1234", "Question?", "Answer!");
+            
             Assert.That(dto.Email, Is.EqualTo("stella.zinman@example.com"));
+            Assert.That(dto.Id, Is.GreaterThan(0));
+            Assert.That(dto.IsApproved, Is.False);
+            Assert.That(dto.PasswordQuestion, Is.EqualTo("Question?"));
         }
 
         [Test]
         public void GetUser_returns_dto()
         {
-            UserDto dto = Sut.GetUser("ted.mosby@example.com");
+            var dto = Sut.GetUser("ted.mosby@example.com");
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
         }

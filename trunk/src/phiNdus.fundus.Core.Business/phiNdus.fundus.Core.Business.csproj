@@ -54,6 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmailAlreadyTakenException.cs" />
+    <Compile Include="Gateways\IMailGateway.cs" />
+    <Compile Include="Gateways\MailGateway.cs" />
+    <Compile Include="Mails\AbstractMail.cs" />
+    <Compile Include="Mails\ValidateUserAccountMail.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
