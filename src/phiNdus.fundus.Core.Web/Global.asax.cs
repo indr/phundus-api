@@ -34,24 +34,12 @@ namespace phiNdus.fundus.Core.Web {
 
         protected void Application_Start() {
 
-            this.Error += new EventHandler(MvcApplication_Error);
-
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
             BootstrapContainer();
-        }
-
-        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e) {
-            Console.WriteLine("error: {0}", e);
-        }
-
-        void MvcApplication_Error(object sender, EventArgs e) {
-            Console.WriteLine("error: {0}", e);
         }
 
         // Gemäss Tutorial, aber diese Methode gibts ja nicht, deshalb Dispose
