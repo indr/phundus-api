@@ -15,13 +15,12 @@ namespace phiNdus.fundus.Core.Web.Controllers {
         protected override void Initialize(System.Web.Routing.RequestContext requestContext) {
             // Todo,chris: per Castle laden?
             if (FormsService == null) FormsService = new FormsAuthenticationService();
-            if (MembershipService == null) MembershipService = new AccountMembershipService();
+            //if (MembershipService == null) MembershipService = new AccountMembershipService();
 
             base.Initialize(requestContext);
         }
 
-        public ActionResult LogOn()
-        {
+        public ActionResult LogOn() {
             return View();
         }
 
@@ -43,6 +42,13 @@ namespace phiNdus.fundus.Core.Web.Controllers {
 
             // Nicht erfolgreich
             return View();
+        }
+
+        [Authorize]
+        public ActionResult LogOff() {
+
+            FormsService.SignOut();
+            return RedirectToAction("Index", "Home");
         }
 
     }

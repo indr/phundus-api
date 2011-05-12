@@ -4,7 +4,7 @@
     ViewBag.Title = "Anmelden";
 }
 
-<h2>LogOn</h2>
+<h2>Benutzer > Anmelden</h2>
 
 <div style="width: 350px; height: 170px; border:solid 1px #109033; background:#f0f0f0; margin: auto; padding:20px;">
 @using (Html.BeginForm()) {
@@ -31,9 +31,13 @@
             @Html.LabelFor(m => m.RememberMe)
         </div>
 
-        <p>
+        <br />
         <input type="submit" value="Anmelden" />
-        </p>
+
+        <span style="text-align: right; width: 100%">
+            @Html.ActionLink("Passwort vergessen?", "ResetPassword") <br />
+            @Html.ActionLink("Neues Konto erstellen", "SignUp")
+        </span>
 
 }
 
