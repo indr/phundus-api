@@ -8,7 +8,7 @@ namespace phiNdus.fundus.Core.Domain.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(AllTypes.FromAssemblyNamed("phiNdus.fundus.Core.Domain")
+            container.Register(AllTypes.FromThisAssembly()
                                    .Where(type => type.Name.EndsWith("Repository"))
                                    .WithService.AllInterfaces()
                                    .Configure(c => c.LifeStyle.Transient));

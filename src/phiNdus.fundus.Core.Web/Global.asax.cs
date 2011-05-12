@@ -58,9 +58,14 @@ namespace phiNdus.fundus.Core.Web {
         private static void BootstrapContainer() {
             // Locking?
             container = new WindsorContainer()
-                .Install(FromAssembly.This());
+                .Install(FromAssembly.This())
+                .Install(FromAssembly.Named("phiNdus.fundus.Core.Business"))
+                .Install(FromAssembly.Named("phiNdus.fundus.Core.Domain"));
+
             var controllerFactory = new WindsorControllerFactory(container.Kernel);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
+
+            Rhino.Commons.IoC.Initialize(container);
         }
     }
 }

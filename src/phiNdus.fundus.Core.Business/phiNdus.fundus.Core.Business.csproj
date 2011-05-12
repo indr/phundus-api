@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapper\ServiceInstaller.cs" />
     <Compile Include="EmailAlreadyTakenException.cs" />
     <Compile Include="Gateways\IMailGateway.cs" />
     <Compile Include="Gateways\MailGateway.cs" />
