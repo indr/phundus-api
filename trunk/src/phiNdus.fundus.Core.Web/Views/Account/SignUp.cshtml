@@ -1,0 +1,94 @@
+﻿@model phiNdus.fundus.Core.Web.Models.SignUpModel
+
+@{
+    ViewBag.Title = "SignUp";
+}
+
+<h2>Benutzer > Registrieren</h2>
+
+<script type="text/javascript" src="@Url.Content("/Scripts/jquery.validate.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+@{
+    HtmlHelper.ClientValidationEnabled = true;
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
+}
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true, "Konnte Benutzer nicht erstellen")
+
+    <table class="formular-box">
+        <tr>
+        <td>
+            @Html.LabelFor(m => m.FirstName)
+        </td><td>
+            @Html.TextBoxFor(m => m.FirstName)
+        </td>
+        </tr>
+        <tr>
+        <td colspan="2">    
+            @Html.ValidationMessageFor(m => m.FirstName)
+        </td>
+        </tr>
+    
+        <tr>
+        <td>
+            @Html.LabelFor(m => m.LastName)
+        </td><td>
+            @Html.TextBoxFor(m => m.LastName)
+        </td></tr>
+        <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(m => m.LastName)
+        </td>
+        </tr>
+
+        <tr>
+        <td>
+            @Html.LabelFor(m => m.EMail)
+        </td><td>
+            @Html.TextBoxFor(m => m.EMail)
+        </td></tr>
+        <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(m => m.EMail)
+        </td>
+        </tr>
+
+        <tr>
+        <td>
+            @Html.LabelFor(m => m.PasswordQuestion)
+        </td><td>
+            @Html.TextBoxFor(m => m.PasswordQuestion)
+        </td></tr>
+        <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(m => m.PasswordQuestion)
+        </td>
+        </tr>
+
+        <tr>
+        <td>
+            @Html.LabelFor(m => m.PasswordAnswer)
+        </td><td>
+            @Html.TextBoxFor(m => m.PasswordAnswer)
+        </td></tr>
+        <tr>
+        <td colspan="2">
+            @Html.ValidationMessageFor(m => m.PasswordAnswer)
+        </td>
+        </tr>
+
+
+        <tr><td></td>
+        <td style="text-align: right">
+        <input type="submit" value="Anmelden" />
+        </td>
+        </tr>
+        </table>
+ 
+        <p></p>
+
+
+}
