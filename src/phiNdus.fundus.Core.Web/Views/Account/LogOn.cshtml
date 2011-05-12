@@ -1,0 +1,40 @@
+﻿@model phiNdus.fundus.Core.Web.Models.LogOnModel
+
+@{
+    ViewBag.Title = "Anmelden";
+}
+
+<h2>LogOn</h2>
+
+<div style="width: 350px; height: 170px; border:solid 1px #109033; background:#f0f0f0; margin: auto; padding:20px;">
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true, "Login nicht erfolgreich")
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.EMail)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.EMail)
+            @Html.ValidationMessageFor(m => m.EMail)
+        </div>
+    
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Password)
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+
+        <div class="editor-label">
+            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe)
+        </div>
+
+        <p>
+        <input type="submit" value="Anmelden" />
+        </p>
+
+}
+
+</div>

@@ -26,9 +26,10 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Security {
         public void Setup() {
             this.MockFactory = new MockRepository();
 
+            //Todo,chris: Mock in Container laden
             this.UserServiceMock = this.MockFactory.StrictMock<IUserService>();
 
-            this.Sut = new FundusMembershipProvider(this.UserServiceMock);
+            this.Sut = new FundusMembershipProvider();
         }
 
         [Test]
