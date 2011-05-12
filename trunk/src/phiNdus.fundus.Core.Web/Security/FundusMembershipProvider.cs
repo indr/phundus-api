@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Security;
+using Rhino.Commons;
 using phiNdus.fundus.Core.Business;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
@@ -10,12 +11,12 @@ namespace phiNdus.fundus.Core.Web.Security {
         //=========================================================================================
         #region Configuration
 
-        bool enablePasswordReset;
-        bool enablePasswordRetrieval;
-        int maxInvalidPasswordAttempts;
-        int minRequiredPasswordLength;
-        int minRequiredNonAlphanumericCharacters;
-        int passwordAttemptWindow;
+        private bool enablePasswordReset;
+        private bool enablePasswordRetrieval;
+        private int maxInvalidPasswordAttempts;
+        private int minRequiredPasswordLength;
+        private int minRequiredNonAlphanumericCharacters;
+        private int passwordAttemptWindow;
 
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config) {
             base.Initialize(name, config);
@@ -30,11 +31,14 @@ namespace phiNdus.fundus.Core.Web.Security {
         #endregion
         //=========================================================================================
 
-        public FundusMembershipProvider(IUserService userService) {
-            this.UserService = userService;
+        public FundusMembershipProvider() {
+            // TODO,chris UserService von IoC erstellen
+            this._userService = IoC.Resolve<IUserService>();
+
+            int bla = 5;
         }
 
-        private IUserService UserService { get; set; }
+        private IUserService _userService { get; set; }
 
         public override string ApplicationName { get; set; }
 
@@ -47,7 +51,7 @@ namespace phiNdus.fundus.Core.Web.Security {
         }
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword) {
-            return this.UserService.ChangePassword(username, oldPassword, newPassword);
+            return this._userService.ChangePassword(username, oldPassword, newPassword);
         }
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status) {
@@ -55,15 +59,15 @@ namespace phiNdus.fundus.Core.Web.Security {
             status = MembershipCreateStatus.Success;
 
             return this.ConvertToExternal(
-                this.UserService.CreateUser(username, password, passwordQuestion, passwordAnswer));
+                this._userService.CreateUser(username, password, passwordQuestion, passwordAnswer));
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData) {
-            return this.UserService.DeleteUser(username);
+            return this._userService.DeleteUser(username);
         }
 
         public override MembershipUser GetUser(string username, bool userIsOnline) {
-            return this.ConvertToExternal(this.UserService.GetUser(username));
+            return this.ConvertToExternal(this._userService.GetUser(username));
         }
 
         public override string GetUserNameByEmail(string email) {
@@ -103,15 +107,15 @@ namespace phiNdus.fundus.Core.Web.Security {
         }
 
         public override string ResetPassword(string username, string answer) {
-            return this.UserService.ResetPassword(username);
+            return this._userService.ResetPassword(username);
         }
 
         public override void UpdateUser(MembershipUser user) {
-            this.UserService.UpdateUser(this.ConvertToInternal(user));
+            this._userService.UpdateUser(this.ConvertToInternal(user));
         }
 
         public override bool ValidateUser(string username, string password) {
-            return this.UserService.ValidateUser(username, password);
+            return this._userService.ValidateUser(username, password);
         }
 
         //=========================================================================================
