@@ -32,10 +32,7 @@ namespace phiNdus.fundus.Core.Web.Security {
         //=========================================================================================
 
         public FundusMembershipProvider() {
-            // TODO,chris UserService von IoC erstellen
             this._userService = IoC.Resolve<IUserService>();
-
-            int bla = 5;
         }
 
         private IUserService _userService { get; set; }
