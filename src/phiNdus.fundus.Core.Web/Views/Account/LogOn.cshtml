@@ -6,39 +6,54 @@
 
 <h2>Benutzer > Anmelden</h2>
 
-<div style="width: 350px; height: 170px; border:solid 1px #109033; background:#f0f0f0; margin: auto; padding:20px;">
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true, "Login nicht erfolgreich")
 
-        <div class="editor-label">
+    <table class="formular-box">
+        <tr>
+        <td>
             @Html.LabelFor(m => m.EMail)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.TextBoxFor(m => m.EMail)
+        </td>
+        </tr>
+        <tr>
+        <td colspan="2">    
             @Html.ValidationMessageFor(m => m.EMail)
-        </div>
+        </td>
+        </tr>
     
-        <div class="editor-label">
+        <tr>
+        <td>
             @Html.LabelFor(m => m.Password)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.PasswordFor(m => m.Password)
+        </td></tr>
+        <tr>
+        <td colspan="2">
             @Html.ValidationMessageFor(m => m.Password)
-        </div>
+        </td>
+        </tr>
 
-        <div class="editor-label">
+        <tr>
+        <td colspan="2">
             @Html.CheckBoxFor(m => m.RememberMe)
             @Html.LabelFor(m => m.RememberMe)
-        </div>
+        </td>
+        </tr>
 
-        <br />
+        <tr><td></td>
+        <td style="text-align: right">
         <input type="submit" value="Anmelden" />
+        </td>
+        </tr>
+        </table>
+ 
+        <p></p>
 
-        <span style="text-align: right; width: 100%">
+        <div style="text-align: center; width: 100%">
             @Html.ActionLink("Passwort vergessen?", "ResetPassword") <br />
             @Html.ActionLink("Neues Konto erstellen", "SignUp")
-        </span>
+        </div>
 
 }
-
-</div>

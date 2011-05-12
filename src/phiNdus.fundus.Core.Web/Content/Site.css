@@ -95,3 +95,11 @@ textarea
 {
     display: none;
 }
+
+/* Custom Styles */
+.formular-box {
+    border:solid 1px #109033; 
+    background:#f0f0f0; 
+    margin: auto; 
+    padding:20px;
+}

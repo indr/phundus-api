@@ -14,7 +14,7 @@ namespace phiNdus.fundus.Core.Web.Models {
     public class LogOnModel {
         [Required]
         [DisplayName("E-Mail Adresse")]
-        [RegularExpression(@"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*([,;]\s*\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)*", ErrorMessage = "Ungültige E-Mail Adresse")]
+        [Email(ErrorMessage = "Ungültige EMail Adresse")]
         public string EMail { get; set; }
 
         [Required]
@@ -24,6 +24,43 @@ namespace phiNdus.fundus.Core.Web.Models {
         [DisplayName("Angemeldet bleiben")]
         public bool RememberMe { get; set; }
 
+    }
+    public class SignUpModel {
+        [Required]
+        [DisplayName("Vorname")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [DisplayName("Nachname")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Email(ErrorMessage = "Ungültige EMail Adresse")]
+        [DisplayName("E-Mail Adresse")]
+        public string EMail { get; set; }
+
+        [Required]
+        [DisplayName("Passwort Frage")]
+        public string PasswordQuestion { get; set; }
+
+        [Required]
+        [DisplayName("Passwort Antwort")]
+        [StringLength(50, MinimumLength = 10, ErrorMessage = "Antwort zu kurz")]
+        public string PasswordAnswer { get; set; }
+
+    }
+
+    #endregion
+    //=========================================================================================
+
+    //=========================================================================================
+    #region Attributes
+
+    public class EmailAttribute : RegularExpressionAttribute {
+
+        // http://weblogs.asp.net/scottgu/archive/2010/01/15/asp-net-mvc-2-model-validation.aspx
+        public EmailAttribute()
+            : base("^[a-z0-9_\\+-]+(\\.[a-z0-9_\\+-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*\\.([a-z]{2,4})$") {}
     }
 
     #endregion

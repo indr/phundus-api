@@ -15,6 +15,7 @@ namespace phiNdus.fundus.Core.Web.Controllers {
         protected override void Initialize(System.Web.Routing.RequestContext requestContext) {
             // Todo,chris: per Castle laden?
             if (FormsService == null) FormsService = new FormsAuthenticationService();
+            // FIXME,chris: Wieder aktivieren
             //if (MembershipService == null) MembershipService = new AccountMembershipService();
 
             base.Initialize(requestContext);
@@ -49,6 +50,24 @@ namespace phiNdus.fundus.Core.Web.Controllers {
 
             FormsService.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult SignUp() {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SignUp(SignUpModel model) {
+            if (ModelState.IsValid) {
+                // TODO,chris: Benutzer erstellen
+
+                return RedirectToAction("Index", "Home");
+            } else {
+                ModelState.AddModelError("", "Ein oder mehrere Felder enthalten ungültige Daten");
+            }
+
+            // Nicht erfolgreich
+            return View();
         }
 
     }
