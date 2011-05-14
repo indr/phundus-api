@@ -50,7 +50,7 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Security {
             var passwordChanged = false;
 
             With.Mocks(this.MockFactory).Expecting(delegate {
-                Expect.Call(this.UserServiceMock.ChangePassword(email, oldPassword, newPassword))
+                Expect.Call(this.UserServiceMock.ChangePassword(null, email, oldPassword, newPassword))
                     .Return(true);
             }).Verify(delegate {
                 passwordChanged = this.Sut.ChangePassword(email, oldPassword, newPassword);
@@ -72,12 +72,11 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Security {
             var creationDate = DateTime.Now;
 
             With.Mocks(this.MockFactory).Expecting(delegate {
-                Expect.Call(this.UserServiceMock.CreateUser(username, password, passwordQuestion, passwordAnswer))
+                Expect.Call(this.UserServiceMock.CreateUser(null, username, password))
                     .Return(new UserDto {
                         Email = username,
                         IsApproved = isApproved,
-                        CreateDate =creationDate,
-                        PasswordQuestion = passwordQuestion
+                        CreateDate =creationDate
                     });
             }).Verify(delegate {
                 createdUser = this.Sut.CreateUser(username, password, null, passwordQuestion, passwordAnswer, isApproved, null, out status);

@@ -17,8 +17,6 @@ namespace phiNdus.fundus.Core.Domain
         public virtual User User { get; set; }
         public virtual string Password { get; set; }
         public virtual string Email { get; set; }
-        public virtual string PasswordQuestion { get; set; }
-        public virtual string PasswordAnswer { get; set; }
         public virtual bool IsApproved { get; set; }
         public virtual bool IsLockedOut { get; set; }
         public virtual DateTime CreateDate { get; set; }

@@ -1,25 +1,11 @@
-﻿using System.Reflection;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
-using phiNdus.fundus.Core.Domain;
-using phiNdus.fundus.Core.Domain.Installers;
-using Rhino.Commons;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace phiNdus.fundus.Core.Business
+namespace phiNdus.fundus.Core.Business.Services
 {
-    public class BaseService
-    {
-        static BaseService()
-        {
-            /*
-            IoC.Initialize(new WindsorContainer());
-
-            // TODO,Inder: Mir ist schleierhaft, warum <mapping assembly="phiNdus.fundus.Core.Domain" /> im App.config nicht funktioniert.
-            var factory = new NHibernateUnitOfWorkFactory(new Assembly[] { Assembly.GetAssembly(typeof(BaseEntity)) });
-
-            IoC.Container.Install(
-                new RepositoriesInstaller());
-            container.Register(Component.For<IUnitOfWorkFactory>().Instance(factory));*/
-        }
-    }
+	public class BaseService
+	{
+	}
 }

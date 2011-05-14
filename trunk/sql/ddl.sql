@@ -9,8 +9,6 @@ create table [Membership] (
   Version INT not null,
   Password NVARCHAR(255) null,
   Email NVARCHAR(255) null,
-  PasswordQuestion NVARCHAR(255) null,
-  PasswordAnswer NVARCHAR(255) null,
   IsApproved BIT null,
   IsLockedOut BIT null,
   CreateDate DATETIME null,

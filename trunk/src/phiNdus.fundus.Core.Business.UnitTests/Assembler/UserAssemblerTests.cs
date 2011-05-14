@@ -20,7 +20,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             _user.Membership.CreateDate = new DateTime(2011, 6, 5, 14, 48, 55);
             _user.Membership.Email = "john.wayne@example.com";
             _user.Membership.IsApproved = true;
-            _user.Membership.PasswordQuestion = "Who really cares?";
         }
 
         #endregion
@@ -37,7 +36,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(dto.Email, Is.EqualTo("john.wayne@example.com"));
             Assert.That(dto.CreateDate, Is.EqualTo(new DateTime(2011, 6, 5, 14, 48, 55)));
             Assert.That(dto.IsApproved, Is.True);
-            Assert.That(dto.PasswordQuestion, Is.EqualTo("Who really cares?"));
         }
 
         [Test]

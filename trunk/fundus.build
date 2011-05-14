@@ -227,6 +227,9 @@
         <!--<include name="${mvc-3.dir}\System.Web.WebPages.dll" />-->
         <include name="Microsoft.CSharp" />
         <include name="System.Web.ApplicationServices.dll" />  
+        <include name="System.ComponentModel.DataAnnotations.dll" />
+        
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />
       </references>
     </csc>
     

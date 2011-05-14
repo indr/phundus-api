@@ -40,18 +40,17 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
 
         #endregion
 
-        private IUserService Sut { get; set; }
+        private UserService Sut { get; set; }
 
         [Test]
         public void CreateUser_returns_dto_of_new_user()
         {
             Assert.Ignore("MailGateway-Konfiguration muss noch bewerkstelligt werden.");
-            var dto = Sut.CreateUser("stella.zinman@example.com", "1234", "Question?", "Answer!");
+            var dto = Sut.CreateUser("stella.zinman@example.com", "1234");
             
             Assert.That(dto.Email, Is.EqualTo("stella.zinman@example.com"));
             Assert.That(dto.Id, Is.GreaterThan(0));
             Assert.That(dto.IsApproved, Is.False);
-            Assert.That(dto.PasswordQuestion, Is.EqualTo("Question?"));
         }
 
         [Test]
