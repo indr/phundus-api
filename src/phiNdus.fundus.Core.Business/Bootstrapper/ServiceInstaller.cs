@@ -11,7 +11,7 @@ namespace phiNdus.fundus.Core.Business.Bootstrapper {
 
         public void Install(IWindsorContainer container, IConfigurationStore store) {
             container.Register(AllTypes.FromThisAssembly()
-                .BasedOn<BaseService>()
+                .BasedOn<BaseSecuredService>()
                 .WithService.AllInterfaces()
                 .Configure(c => c.LifeStyle.Transient));
         }

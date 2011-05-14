@@ -7,8 +7,6 @@ namespace phiNdus.fundus.Core.Business.Dto {
 
         public string Email { get; set; }
 
-        public string PasswordQuestion { get; set; }
-
         public bool IsApproved { get; set; }
         // Todo: Enzi hat vorgeschlagen, Zeitstempel als Strings (UTC?) zu übermitteln.
         public DateTime CreateDate { get; set; }

@@ -15,8 +15,6 @@
 
     <property name="Password" />
     <property name="Email" />
-    <property name="PasswordQuestion" />
-    <property name="PasswordAnswer" />
     <property name="IsApproved" />
     <property name="IsLockedOut" />
     <property name="CreateDate" />

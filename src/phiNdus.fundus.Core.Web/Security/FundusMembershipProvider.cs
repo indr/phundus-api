@@ -48,7 +48,8 @@ namespace phiNdus.fundus.Core.Web.Security {
         }
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword) {
-            return this._userService.ChangePassword(username, oldPassword, newPassword);
+            // TODO: Session-Key
+            return this._userService.ChangePassword(null, username, oldPassword, newPassword);
         }
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status) {
@@ -56,15 +57,18 @@ namespace phiNdus.fundus.Core.Web.Security {
             status = MembershipCreateStatus.Success;
 
             return this.ConvertToExternal(
-                this._userService.CreateUser(username, password, passwordQuestion, passwordAnswer));
+                // TODO: Session-Key
+                this._userService.CreateUser(null ,username, password));
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData) {
-            return this._userService.DeleteUser(username);
+            // TODO: Session-Key
+            return this._userService.DeleteUser(null, username);
         }
 
         public override MembershipUser GetUser(string username, bool userIsOnline) {
-            return this.ConvertToExternal(this._userService.GetUser(username));
+            // TODO: Session-Key
+            return this.ConvertToExternal(this._userService.GetUser(null, username));
         }
 
         public override string GetUserNameByEmail(string email) {
@@ -104,15 +108,18 @@ namespace phiNdus.fundus.Core.Web.Security {
         }
 
         public override string ResetPassword(string username, string answer) {
-            return this._userService.ResetPassword(username);
+            // TODO: Session-Key
+            return this._userService.ResetPassword(null, username);
         }
 
         public override void UpdateUser(MembershipUser user) {
-            this._userService.UpdateUser(this.ConvertToInternal(user));
+            // TODO: Session-Key
+            this._userService.UpdateUser(null, this.ConvertToInternal(user));
         }
 
         public override bool ValidateUser(string username, string password) {
-            return this._userService.ValidateUser(username, password);
+            // TODO: Session-Key
+            return this._userService.ValidateUser(null, username, password);
         }
 
         //=========================================================================================
@@ -124,7 +131,7 @@ namespace phiNdus.fundus.Core.Web.Security {
                 userDto.Email,
                 userDto,
                 userDto.Email,
-                userDto.PasswordQuestion,
+                null,
                 null,
                 userDto.IsApproved,
                 false,

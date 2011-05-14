@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Runtime.CompilerServices;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Mails;
@@ -8,14 +9,14 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Services
 {
-    public class UserService : BaseService, IUserService
+    public class UserService : BaseService
     {
         public UserService()
         {
-            _repo = IoC.Resolve<IUserRepository>();
+            _users = IoC.Resolve<IUserRepository>();
         }
-        private IUserRepository _repo;
-        private IUserRepository Users { get { return _repo; } }
+
+        private readonly IUserRepository _users;
 
         public UserDto GetUser(string email)
         {
@@ -23,12 +24,12 @@ namespace phiNdus.fundus.Core.Business.Services
             
             using (UnitOfWork.Start())
             {
-                var user = Users.FindByEmail(email);
+                var user = _users.FindByEmail(email);
                 return UserAssembler.WriteDto(user);
             }
         }
 
-        public UserDto CreateUser(string email, string password, string passwordQuestion, string passwordAnswer)
+        public UserDto CreateUser(string email, string password)
         {
             email = email.ToLowerInvariant();
             UserDto result;
@@ -36,16 +37,14 @@ namespace phiNdus.fundus.Core.Business.Services
             using (var uow = UnitOfWork.Start())
             {
                 // Prüfen ob Benutzer bereits exisitiert.
-                if (Users.FindByEmail(email) != null)
+                if (_users.FindByEmail(email) != null)
                     throw new EmailAlreadyTakenException();
 
                 // Neuer Benutzer speichern.
                 var user = new User();
                 user.Membership.Email = email;
                 user.Membership.Password = password;
-                user.Membership.PasswordQuestion = passwordQuestion;
-                user.Membership.PasswordAnswer = passwordAnswer;
-                Users.Save(user);
+                _users.Save(user);
 
                 // E-Mail mit Verifikationslink senden
                 new ValidateUserAccountMail().Send(user);
@@ -77,7 +76,7 @@ namespace phiNdus.fundus.Core.Business.Services
 
             using (UnitOfWork.Start())
             {
-                var user = Users.FindByEmail(email);
+                var user = _users.FindByEmail(email);
                 if (user == null)
                     return false;
                 // TODO,Inder: Password encryption

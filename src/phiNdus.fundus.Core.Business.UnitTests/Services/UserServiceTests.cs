@@ -47,7 +47,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         private IUserRepository MockUserRepository { get; set; }
         private IMailGateway MockMailGateway { get; set; }
 
-        private IUserService Sut { get; set; }
+        private UserService Sut { get; set; }
         private User TedMosby { get; set; }
 
         [Test]
@@ -65,7 +65,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             }
             using (MockFactory.Playback())
             {
-                UserDto dto = Sut.CreateUser("Ted.Mosby@example.com", "", "", "");
+                UserDto dto = Sut.CreateUser("Ted.Mosby@example.com", "");
 
                 Assert.That(dto, Is.Not.Null);
                 Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
@@ -87,7 +87,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             }
             using (MockFactory.Playback())
             {
-                UserDto dto = Sut.CreateUser("ted.mosby@example.com", "", "", "");
+                UserDto dto = Sut.CreateUser("ted.mosby@example.com", "");
 
                 Assert.That(dto, Is.Not.Null);
                 Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
@@ -109,7 +109,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             }
             using (MockFactory.Playback())
             {
-                Sut.CreateUser("ted.mosby@example.com", "", "", "");
+                Sut.CreateUser("ted.mosby@example.com", "");
             }
         }
 
@@ -125,7 +125,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             }
             using (MockFactory.Playback())
             {
-                Sut.CreateUser("ted.mosby@example.com", "", "", "");
+                Sut.CreateUser("ted.mosby@example.com", "");
             }
         }
 

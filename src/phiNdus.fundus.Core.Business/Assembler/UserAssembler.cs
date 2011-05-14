@@ -28,7 +28,6 @@ namespace phiNdus.fundus.Core.Business.Assembler
             result.Email = subject.Email;
             result.CreateDate = subject.CreateDate;
             result.IsApproved = subject.IsApproved;
-            result.PasswordQuestion = subject.PasswordQuestion;
         }
     }
 }
