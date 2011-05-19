@@ -9,13 +9,19 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Can_create()
         {
-            var user = new User();
-
-            Assert.That(user.Membership, Is.Not.Null);
+            new User();
         }
 
         [Test]
-        public void Get_and_set_FirstName()
+        public void Constructor_assignes_Membership()
+        {
+            var user = new User();
+            Assert.That(user.Membership, Is.Not.Null);
+            Assert.That(user.Membership.User, Is.EqualTo(user));
+        }
+
+        [Test]
+        public void Can_set_and_get_FirstName()
         {
             var user = new User();
             Assert.That(user.FirstName, Is.EqualTo(""));
@@ -24,7 +30,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Get_and_set_LastName()
+        public void Can_set_and_get_LastName()
         {
             var user = new User();
             Assert.That(user.LastName, Is.EqualTo(""));

@@ -17,3 +17,6 @@ INSERT INTO [Membership] (Id, Version, Password, Email, IsApproved, IsLockedOut,
   VALUES (3, 1, NULL, 'robin.scherbatsky@example.com', 0, 0, '2011-05-10');
 INSERT INTO [Membership] (Id, Version, Password, Email, IsApproved, IsLockedOut, CreateDate)
   VALUES (4, 1, NULL, 'barney.stinson@example.com', 0, 0, '2011-05-10');
+
+insert into [Setting] (Id, Version, [Key], [String])
+  values (1, 1, 'mail.smtp.host', 'mail.indr.ch');
