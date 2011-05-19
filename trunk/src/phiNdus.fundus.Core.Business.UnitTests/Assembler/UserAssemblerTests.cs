@@ -63,6 +63,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         private User _domainObject;
         private UserDto _dto;
 
+        #region CreateDomainObject
         [Test]
         [ExpectedException(typeof (ArgumentNullException))]
         public void CreateDomainObjectWithNullSubjectThrowsCreateNullSubjectThrows()
@@ -80,7 +81,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(domainObject.FirstName, Is.EqualTo("John"));
             Assert.That(domainObject.LastName, Is.EqualTo("Wayne"));
         }
+        #endregion
 
+        #region CreateDto
         [Test]
         public void CreateDto_returns_correct_dto()
         {
@@ -108,7 +111,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             UserAssembler.CreateDto(null);
         }
+        #endregion CreateDto
 
+        #region UpdateDomainObject
         [Test]
         public void UpdateDomainObject_returns_correct_updated_domain_object()
         {
@@ -134,7 +139,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         }
 
         [Test]
-        [ExpectedException(typeof (ArgumentException))]
+        [ExpectedException(typeof (EntityNotFoundException))]
         public void UpdateDomainObject_with_id_not_in_repository_throws()
         {
             using (MockFactory.Record())
@@ -155,7 +160,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         }
 
         [Test]
-        [ExpectedException(typeof (ArgumentException))]
+        [ExpectedException(typeof (DtoOutOfDateException))]
         public void UpdateDomainObject_with_version_not_equal_from_repository_throws()
         {
             _dto.Version = 1;
@@ -168,5 +173,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
                 UserAssembler.UpdateDomainObject(_dto);
             }
         }
+        #endregion
     }
 }

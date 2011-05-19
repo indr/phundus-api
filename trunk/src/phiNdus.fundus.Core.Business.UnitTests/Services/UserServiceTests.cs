@@ -1,4 +1,5 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using System;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
@@ -183,7 +184,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         [Test]
-        public void Validateuser_with_invalid_password_returns_false()
+        public void ValidateUser_with_invalid_password_returns_false()
         {
             using (MockFactory.Record())
             {
@@ -216,5 +217,54 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             }
         }
 
+        #region UpdateUser
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void UpdateUser_with_null_subject_throws()
+        {
+            Sut.UpdateUser(null);
+        }
+
+        [Test]
+        [ExpectedException(typeof(EntityNotFoundException))]
+        public void UpdateUser_with_invalid_id_throws()
+        {
+            Sut.UpdateUser(new UserDto { Id = 0 });
+        }
+
+        [Test]
+        [ExpectedException(typeof (DtoOutOfDateException))]
+        public void UpdateUser_with_out_of_date_userdto_throws()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.Get(1)).Return(new User());
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                Sut.UpdateUser(new UserDto { Id = 1, Version = -1 });
+            }
+        }
+
+        [Test]
+        public void UpdateUser_updates_repository_and_flushes_transaction()
+        {
+            var user = new User();
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.Get(1)).Return(user);
+                Expect.Call(() => MockUserRepository.Update(user));
+                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                Sut.UpdateUser(new UserDto {Id = 1});
+            }
+        }
+        #endregion
     }
 }

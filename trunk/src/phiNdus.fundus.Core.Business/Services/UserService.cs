@@ -56,9 +56,15 @@ namespace phiNdus.fundus.Core.Business.Services
             return result;
         }
 
-        public void UpdateUser(UserDto user)
+        public void UpdateUser(UserDto subject)
         {
-            throw new NotImplementedException();
+            Guard.Against<ArgumentNullException>(subject == null, "subject");
+            using (var uow = UnitOfWork.Start())
+            {
+                var user = UserAssembler.UpdateDomainObject(subject);
+                _users.Update(user);
+                uow.TransactionalFlush();
+            }
         }
 
         public bool DeleteUser(string email)

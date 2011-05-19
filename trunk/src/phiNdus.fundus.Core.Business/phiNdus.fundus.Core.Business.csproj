@@ -54,7 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper\ServiceInstaller.cs" />
+    <Compile Include="DtoOutOfDateException.cs" />
     <Compile Include="EmailAlreadyTakenException.cs" />
+    <Compile Include="EntityNotFoundException.cs" />
     <Compile Include="Gateways\IMailGateway.cs" />
     <Compile Include="Gateways\MailGateway.cs" />
     <Compile Include="Mails\AbstractMail.cs" />
