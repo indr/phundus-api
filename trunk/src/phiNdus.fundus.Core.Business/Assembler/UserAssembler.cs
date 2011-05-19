@@ -1,33 +1,64 @@
 ﻿using System;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Domain;
+using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
-
 
 namespace phiNdus.fundus.Core.Business.Assembler
 {
     public class UserAssembler
     {
-        public static UserDto WriteDto(User subject)
+        public static UserDto CreateDto(User subject)
+        {
+            return WriteDto(subject);
+        }
+
+        public static User CreateDomainObject(UserDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
-            
-            var result = new UserDto();
 
-            result.Id = subject.Id;
+            var result = new User();
             result.FirstName = subject.FirstName;
             result.LastName = subject.LastName;
-            WriteMembership(result, subject.Membership);
-
             return result;
         }
 
-        private static void WriteMembership(UserDto result, Membership subject)
+        public static User UpdateDomainObject(UserDto subject)
+        {
+            Guard.Against<ArgumentNullException>(subject == null, "subject");
+
+            User result = IoC.Resolve<IUserRepository>().Get(subject.Id);
+            Guard.Against<ArgumentException>(result == null, "subject.Id");
+            Guard.Against<ArgumentException>(result.Version != subject.Version, "subject.Version");
+
+            return WriteDomainObject(subject, result);
+        }
+
+
+        private static UserDto WriteDto(User subject)
+        {
+            Guard.Against<ArgumentNullException>(subject == null, "subject");
+            var result = new UserDto();
+            result.Id = subject.Id;
+            result.FirstName = subject.FirstName;
+            result.LastName = subject.LastName;
+            return WriteDtoMembership(subject.Membership, result);
+        }
+
+        private static UserDto WriteDtoMembership(Membership subject, UserDto result)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
             result.Email = subject.Email;
             result.CreateDate = subject.CreateDate;
             result.IsApproved = subject.IsApproved;
+            return result;
+        }
+
+        private static User WriteDomainObject(UserDto subject, User result)
+        {
+            result.FirstName = subject.FirstName;
+            result.LastName = subject.LastName;
+            return result;
         }
     }
 }
