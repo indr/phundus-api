@@ -382,7 +382,7 @@
         <include name="**/*.dll" />
       </fileset>
     </copy>
-    <copy todir="${web.dir}" flatten="true">
+    <copy todir="${web.dir}/Bin" flatten="true">
       <fileset basedir="${castle-windsor.dir}">
         <include name="**/*.dll" />
       </fileset>
@@ -393,7 +393,7 @@
         <include name="**/*.dll" />
       </fileset>
     </copy>
-    <copy todir="${web.dir}" flatten="true">
+    <copy todir="${web.dir}/Bin" flatten="true">
       <fileset basedir="${mvc-3.dir}">
         <include name="**/*.dll" />
       </fileset>
@@ -412,7 +412,7 @@
         <include name="**/Rhino.Commons.NHibernate.dll" />
       </fileset>
     </copy>
-    <copy todir="${web.dir}" flatten="true">
+    <copy todir="${web.dir}/Bin" flatten="true">
       <fileset basedir="${lib.dir}/Rhino.Commons">
         <include name="**/Rhino.Commons.dll" />
         <include name="**/Rhino.Commons.Clr.dll" />
@@ -425,7 +425,7 @@
         <include name="**/*.dll" />
       </fileset>
     </copy>
-    <copy todir="${web.dir}" flatten="true">
+    <copy todir="${web.dir}/Bin" flatten="true">
       <fileset basedir="${nhibernate.dir}">
         <include name="**/*.dll" />
       </fileset>
