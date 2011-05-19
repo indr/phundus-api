@@ -533,7 +533,7 @@
     
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/staging-dml.sql"
+      source="${base.dir}/sql/dml-staging.sql"
     />
     
     <property name="web.config.connstrings.default.connstring" value="${staging.connstring}" />
