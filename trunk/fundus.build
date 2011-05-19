@@ -517,7 +517,7 @@
   <!--
     TARGET: DEPLOY-STAGING
   -->
-  <target name="deploy-staging" depends="package">
+  <target name="deploy-staging" depends="compile">
     <property name="sql.database-name" value="${staging.database-name}" />
     
     <sql connstring="Provider=SQLOLEDB;${staging.connstring}"
