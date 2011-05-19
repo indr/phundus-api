@@ -5,6 +5,7 @@ using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain;
+using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 using Rhino.Mocks;
@@ -229,7 +230,16 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [ExpectedException(typeof(EntityNotFoundException))]
         public void UpdateUser_with_invalid_id_throws()
         {
-            Sut.UpdateUser(new UserDto { Id = 0 });
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.Get(0)).Return(null);
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                Sut.UpdateUser(new UserDto { Id = 0 });
+            }
         }
 
         [Test]

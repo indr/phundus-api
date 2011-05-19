@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using NHibernate.Linq;
-using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.Core.Domain.Entities;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain
+namespace phiNdus.fundus.Core.Domain.Repositories
 {
     public class UserRepository : NHRepository<User>, IUserRepository
     {

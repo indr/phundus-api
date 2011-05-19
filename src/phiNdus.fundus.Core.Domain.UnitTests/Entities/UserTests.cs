@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
+using phiNdus.fundus.Core.Domain.Entities;
 
-namespace phiNdus.fundus.Core.Domain.UnitTests
+namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
     class UserTests
