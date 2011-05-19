@@ -70,8 +70,10 @@
     <Compile Include="Entities\Membership.cs" />
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Repositories\ISettingRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\SettingRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +83,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\Membership.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Setting.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

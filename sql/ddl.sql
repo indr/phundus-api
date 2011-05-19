@@ -27,6 +27,16 @@ create table [User] (
   primary key (Id)
 );
 
+create table [Setting] (
+  Id int not null,
+  Version int not null,
+  [Key] NVARCHAR(255) not null,
+  String NVARCHAR(max) null,
+  [Decimal] decimal null,
+  [Integer] int null,
+  primary key (Id)
+)
+
 alter table [Membership] 
   add constraint FkMembershipToUser 
   foreign key (Id) 
