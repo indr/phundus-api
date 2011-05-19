@@ -28,8 +28,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
             User result = IoC.Resolve<IUserRepository>().Get(subject.Id);
-            Guard.Against<ArgumentException>(result == null, "subject.Id");
-            Guard.Against<ArgumentException>(result.Version != subject.Version, "subject.Version");
+            Guard.Against<EntityNotFoundException>(result == null, "User entity not found");
+            Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 
             return WriteDomainObject(subject, result);
         }
