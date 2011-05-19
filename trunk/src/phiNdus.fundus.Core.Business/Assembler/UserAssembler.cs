@@ -1,6 +1,7 @@
 ﻿using System;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Domain;
+using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 

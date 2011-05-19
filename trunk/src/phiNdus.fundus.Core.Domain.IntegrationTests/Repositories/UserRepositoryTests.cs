@@ -3,10 +3,11 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Bootstrapper;
+using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain.IntegrationTests
+namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 {
     [TestFixture]
     public class UserRepositoryTests

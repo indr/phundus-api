@@ -65,12 +65,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseEntity.cs" />
     <Compile Include="Bootstrapper\RepositoriesInstaller.cs" />
+    <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\Membership.cs" />
+    <Compile Include="Entities\Setting.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
-    <Compile Include="Membership.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

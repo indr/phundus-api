@@ -3,6 +3,7 @@ using Castle.Windsor;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Mails;
 using phiNdus.fundus.Core.Domain;
+using phiNdus.fundus.Core.Domain.Entities;
 using Rhino.Commons;
 using Rhino.Mocks;
 

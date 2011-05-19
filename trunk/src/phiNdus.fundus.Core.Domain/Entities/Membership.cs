@@ -1,17 +1,12 @@
 ﻿using System;
 
-namespace phiNdus.fundus.Core.Domain
+namespace phiNdus.fundus.Core.Domain.Entities
 {
     public class Membership : BaseEntity
     {
-        public Membership() : this(0)
+        public Membership() : base()
         {
-            
-        }
-
-        public Membership(int id) : base(id)
-        {
-            CreateDate = DateTime.Now;
+            _createDate = DateTime.Now;
         }
 
         public virtual User User { get; set; }
@@ -19,7 +14,12 @@ namespace phiNdus.fundus.Core.Domain
         public virtual string Email { get; set; }
         public virtual bool IsApproved { get; set; }
         public virtual bool IsLockedOut { get; set; }
-        public virtual DateTime CreateDate { get; set; }
+        private DateTime _createDate;
+        public virtual DateTime CreateDate
+        {
+            get { return _createDate; }
+            protected set { _createDate = value; }
+        }
         public virtual DateTime? LastLoginDate { get; set; }
         public virtual DateTime? LastPasswordChangeDate { get; set; }
         public virtual DateTime? LastLockoutDate { get; set; }

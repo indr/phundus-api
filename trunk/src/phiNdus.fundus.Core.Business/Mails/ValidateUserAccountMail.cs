@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using phiNdus.fundus.Core.Domain;
+using phiNdus.fundus.Core.Domain.Entities;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Mails

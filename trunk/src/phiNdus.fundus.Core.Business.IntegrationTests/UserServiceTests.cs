@@ -5,6 +5,7 @@ using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain;
 using phiNdus.fundus.Core.Domain.Bootstrapper;
+using phiNdus.fundus.Core.Domain.Entities;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.IntegrationTests

@@ -5,6 +5,7 @@ using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Domain;
+using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 using Rhino.Mocks;
@@ -14,6 +15,14 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
     [TestFixture]
     public class UserAssemblerTests
     {
+        class DerivedMembership : Membership
+        {
+            public void SetCreateDate(DateTime value)
+            {
+                base.CreateDate = value;
+            }
+        }
+
         #region Setup/Teardown
 
         [SetUp]
@@ -22,9 +31,10 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             _domainObject = new User(1);
             _domainObject.FirstName = "John";
             _domainObject.LastName = "Wayne";
-            _domainObject.Membership = new Membership();
+            var membership = new DerivedMembership();
+            membership.SetCreateDate(new DateTime(2011, 6, 5, 14, 48, 55));
+            _domainObject.Membership = membership;
             _domainObject.Membership.Comment = "No one reads comments.";
-            _domainObject.Membership.CreateDate = new DateTime(2011, 6, 5, 14, 48, 55);
             _domainObject.Membership.Email = "john.wayne@example.com";
             _domainObject.Membership.IsApproved = true;
             _domainObject.Membership.IsLockedOut = true;
