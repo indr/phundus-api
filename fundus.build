@@ -429,6 +429,7 @@
         </items>
       </in>
       <do>
+        <![CDATA[
         <exec program="${partcover.dir}/PartCover.exe"
           failonerror="${failonerror}"
           commandline="--register --target &quot;${nunit.dir}/nunit-console-x86.exe&quot; --target-args &quot;\&quot;${filename}\&quot; /xml=\&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml\&quot; /framework=v4.0 /noshadow&quot; --include [phiNdus*]* --exclude [*Tests]* --output &quot;${reports.dir}/${path::get-file-name(filename)}-Coverage.xml&quot; --log 0" />
@@ -440,7 +441,12 @@
           <property name="tmp.partcover.xml.reports" value="${tmp.partcover.xml.reports};" />
         </if>
         <property name="tmp.partcover.xml.reports" value="${tmp.partcover.xml.reports}${reports.dir}/${path::get-file-name(filename)}-Coverage.xml" />
-          
+        ]]>
+        <exec program="${nunit.dir}/nunit-console-x86.exe"
+          failonerror="${failonerror}"
+          commandline="&quot;${filename}&quot; /xml=&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml&quot; /framework=v4.0 /noshadow" />
+            
+        <echo message="##teamcity[importData type='nunit' path='${reports.dir}/${path::get-file-name(filename)}-TestResult.xml']" />  
         <nunit2report todir="${reports.dir}/NUnit">
           <fileset>
             <include name="${reports.dir}/${path::get-file-name(filename)}-TestResult.xml" />
@@ -449,11 +455,13 @@
         <move file="${reports.dir}/NUnit/index.html" tofile="${reports.dir}/NUnit/${path::get-file-name(filename)}-TestResult.html" />
       </do>
     </foreach>
+    <!--
     <delete file="${base.dir}/partcover.driver.log" />
     
     <exec program="${reportgenerator.dir}/ReportGenerator.exe"
       commandline="&quot;${tmp.partcover.xml.reports}&quot; &quot;${reports.dir}/Coverage&quot;" />
     <move file="${reports.dir}/Coverage/index.htm" tofile="${reports.dir}/Coverage/index.html" />
+     -->
   </target>
   
   <target name="init-integration-test">
