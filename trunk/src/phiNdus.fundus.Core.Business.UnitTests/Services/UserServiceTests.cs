@@ -4,6 +4,7 @@ using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain;
+using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 using Rhino.Mocks;
 

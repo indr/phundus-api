@@ -45,11 +45,15 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\tools\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Rhino.Commons, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL" />
+    <Reference Include="Rhino.Commons, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Commons.Clr">
       <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.Clr.dll</HintPath>
     </Reference>
-    <Reference Include="Rhino.Commons.NHibernate, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL" />
+    <Reference Include="Rhino.Commons.NHibernate">
+      <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
