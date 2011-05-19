@@ -519,18 +519,19 @@
   -->
   <target name="deploy-staging" depends="compile">
     <property name="sql.database-name" value="${staging.database-name}" />
+    <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
     
-    <sql connstring="Provider=SQLOLEDB;${staging.connstring}"
+    <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/create.sql"
     />
     
-    <sql connstring="Provider=SQLOLEDB;${staging.connstring}"
+    <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/ddl.sql"
     />
     
-    <sql connstring="Provider=SQLOLEDB;${staging.connstring}"
+    <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/staging-dml.sql"
     />
