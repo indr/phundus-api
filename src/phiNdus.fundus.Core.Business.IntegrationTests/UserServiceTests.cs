@@ -2,10 +2,9 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain;
-using phiNdus.fundus.Core.Domain.Installers;
+using phiNdus.fundus.Core.Domain.Bootstrapper;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.IntegrationTests

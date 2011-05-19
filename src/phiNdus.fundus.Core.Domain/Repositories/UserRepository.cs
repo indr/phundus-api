@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NHibernate.Linq;
+using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain

@@ -1,6 +1,6 @@
 ﻿using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain
+namespace phiNdus.fundus.Core.Domain.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {

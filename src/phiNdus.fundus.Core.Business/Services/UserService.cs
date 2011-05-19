@@ -5,6 +5,7 @@ using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Mails;
 using phiNdus.fundus.Core.Domain;
+using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Services
