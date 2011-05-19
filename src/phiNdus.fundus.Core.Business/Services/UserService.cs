@@ -26,7 +26,7 @@ namespace phiNdus.fundus.Core.Business.Services
             using (UnitOfWork.Start())
             {
                 var user = _users.FindByEmail(email);
-                return UserAssembler.WriteDto(user);
+                return UserAssembler.CreateDto(user);
             }
         }
 
@@ -50,7 +50,7 @@ namespace phiNdus.fundus.Core.Business.Services
                 // E-Mail mit Verifikationslink senden
                 new ValidateUserAccountMail().Send(user);
                 
-                result = UserAssembler.WriteDto(user);
+                result = UserAssembler.CreateDto(user);
                 uow.TransactionalFlush();
             }
             return result;
