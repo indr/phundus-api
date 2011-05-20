@@ -5,7 +5,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 {
-    internal class SettingRepositoryTests : UnitOfWorkEnsuredTestFixture
+    internal class SettingRepositoryTests : BaseTestFixture
     {
         private ISettingRepository Sut { get; set; }
 
