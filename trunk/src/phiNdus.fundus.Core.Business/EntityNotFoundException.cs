@@ -18,7 +18,7 @@ namespace phiNdus.fundus.Core.Business
         {
         }
 
-        public EntityNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected EntityNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

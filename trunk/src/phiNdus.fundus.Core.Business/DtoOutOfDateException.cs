@@ -18,7 +18,7 @@ namespace phiNdus.fundus.Core.Business
         {
         }
 
-        public DtoOutOfDateException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected DtoOutOfDateException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

@@ -66,6 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper\DomainLayerInstaller.cs" />
+    <Compile Include="Bootstrapper\NHibernateInstaller.cs" />
+    <Compile Include="Bootstrapper\RepositoriesInstaller.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Membership.cs" />
     <Compile Include="Entities\Role.cs" />
