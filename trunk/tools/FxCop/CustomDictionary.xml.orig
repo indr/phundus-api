@@ -526,8 +526,6 @@
       <Acronym>NESW</Acronym> <!-- North East South West -->
       <Acronym>NWSE</Acronym> <!-- North West South East -->
       <Acronym>Op</Acronym>   <!-- OpCode -->
-      <Acronym>phiNdus</Acronym>
-      <Acronym>fundus</Acronym>      
     </CasingExceptions>
   </Acronyms>
 </Dictionary>
