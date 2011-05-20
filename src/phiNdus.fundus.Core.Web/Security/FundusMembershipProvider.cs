@@ -11,45 +11,46 @@ namespace phiNdus.fundus.Core.Web.Security {
         //=========================================================================================
         #region Configuration
 
-        private bool enablePasswordReset;
-        private bool enablePasswordRetrieval;
-        private int maxInvalidPasswordAttempts;
-        private int minRequiredPasswordLength;
-        private int minRequiredNonAlphanumericCharacters;
-        private int passwordAttemptWindow;
+        private bool _enablePasswordReset;
+        private bool _enablePasswordRetrieval;
+        private int _maxInvalidPasswordAttempts;
+        private int _minRequiredPasswordLength;
+        private int _minRequiredNonAlphanumericCharacters;
+        private int _passwordAttemptWindow;
 
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config) {
             base.Initialize(name, config);
-            enablePasswordReset = bool.Parse(config["enablePasswordReset"] ?? "false");
-            enablePasswordRetrieval = bool.Parse(config["enablePasswordRetrieval"] ?? "false");
-            ApplicationName = config["applicationName"];
-            maxInvalidPasswordAttempts = Int32.Parse(config["maxInvalidPasswordAttempts"] ?? "5");
-            minRequiredPasswordLength = Int32.Parse(config["minRequiredPasswordLength"] ?? "8");
-            minRequiredNonAlphanumericCharacters = Int32.Parse(config["minRequiredNonAlphanumericCharacters"] ?? "2");
-            passwordAttemptWindow = Int32.Parse(config["passwordAttemptWindow"] ?? "10"); // 10 Minuten
+
+            this._enablePasswordReset = bool.Parse(config["enablePasswordReset"] ?? "false");
+            this._enablePasswordRetrieval = bool.Parse(config["enablePasswordRetrieval"] ?? "false");
+            this.ApplicationName = config["applicationName"];
+            this._maxInvalidPasswordAttempts = Int32.Parse(config["maxInvalidPasswordAttempts"] ?? "5");
+            this._minRequiredPasswordLength = Int32.Parse(config["minRequiredPasswordLength"] ?? "8");
+            this._minRequiredNonAlphanumericCharacters = Int32.Parse(config["minRequiredNonAlphanumericCharacters"] ?? "2");
+            this._passwordAttemptWindow = Int32.Parse(config["passwordAttemptWindow"] ?? "10"); // 10 Minuten
         }
         #endregion
         //=========================================================================================
 
         public FundusMembershipProvider() {
-            this._userService = IoC.Resolve<IUserService>();
+            this.UserService = IoC.Resolve<IUserService>();
         }
 
-        private IUserService _userService { get; set; }
+        private IUserService UserService { get; set; }
 
         public override string ApplicationName { get; set; }
 
         public override bool EnablePasswordReset {
-            get { return enablePasswordReset; }
+            get { return this._enablePasswordReset; }
         }
 
         public override bool EnablePasswordRetrieval {
-            get { return enablePasswordRetrieval; }
+            get { return this._enablePasswordRetrieval; }
         }
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword) {
             // TODO: Session-Key
-            return this._userService.ChangePassword(null, username, oldPassword, newPassword);
+            return this.UserService.ChangePassword(null, username, oldPassword, newPassword);
         }
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status) {
@@ -58,17 +59,17 @@ namespace phiNdus.fundus.Core.Web.Security {
 
             return this.ConvertToExternal(
                 // TODO: Session-Key
-                this._userService.CreateUser(null ,username, password));
+                this.UserService.CreateUser(null ,username, password));
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData) {
             // TODO: Session-Key
-            return this._userService.DeleteUser(null, username);
+            return this.UserService.DeleteUser(null, username);
         }
 
         public override MembershipUser GetUser(string username, bool userIsOnline) {
             // TODO: Session-Key
-            return this.ConvertToExternal(this._userService.GetUser(null, username));
+            return this.ConvertToExternal(this.UserService.GetUser(null, username));
         }
 
         public override string GetUserNameByEmail(string email) {
@@ -76,19 +77,19 @@ namespace phiNdus.fundus.Core.Web.Security {
         }
 
         public override int MaxInvalidPasswordAttempts {
-            get { return maxInvalidPasswordAttempts; }
+            get { return this._maxInvalidPasswordAttempts; }
         }
 
         public override int MinRequiredNonAlphanumericCharacters {
-            get { return minRequiredNonAlphanumericCharacters; }
+            get { return this._minRequiredNonAlphanumericCharacters; }
         }
 
         public override int MinRequiredPasswordLength {
-            get { return minRequiredPasswordLength; }
+            get { return this._minRequiredPasswordLength; }
         }
 
         public override int PasswordAttemptWindow {
-            get { return passwordAttemptWindow; }
+            get { return this._passwordAttemptWindow; }
         }
 
         public override MembershipPasswordFormat PasswordFormat {
@@ -109,17 +110,17 @@ namespace phiNdus.fundus.Core.Web.Security {
 
         public override string ResetPassword(string username, string answer) {
             // TODO: Session-Key
-            return this._userService.ResetPassword(null, username);
+            return this.UserService.ResetPassword(null, username);
         }
 
         public override void UpdateUser(MembershipUser user) {
             // TODO: Session-Key
-            this._userService.UpdateUser(null, this.ConvertToInternal(user));
+            this.UserService.UpdateUser(null, this.ConvertToInternal(user));
         }
 
         public override bool ValidateUser(string username, string password) {
             // TODO: Session-Key
-            return this._userService.ValidateUser(null, username, password);
+            return this.UserService.ValidateUser(null, username, password);
         }
 
         //=========================================================================================
