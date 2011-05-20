@@ -14,6 +14,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
         public void FixtureSetUp()
         {
             IoC.Initialize(new WindsorContainer());
+            IoC.Container.Install(new RepositoriesInstaller());
             IoC.Container.Register(Component.For<IUnitOfWorkFactory>().Instance(
                 new NHibernateUnitOfWorkFactory(new[] { Assembly.GetAssembly(typeof(BaseEntity)) })));
         }

@@ -71,6 +71,8 @@
     <Compile Include="Repositories\UserRepositoryTests.cs" />
     <Compile Include="SchemaExport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\MailTemplateSettingsForValidateUserAccountTests.cs" />
+    <Compile Include="Settings\SmtpSettingsTests.cs" />
     <Compile Include="UnitOfWorkEnsuredTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>

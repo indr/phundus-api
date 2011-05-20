@@ -37,12 +37,12 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
         }
 
 
-        private Pop3Message GetFromMailBySubject(string subject)
+        private static Pop3Message GetFromMailBySubject(string subject)
         {
             return RetrieveMail(FromHost, FromUserName, FromPassword, subject);
         }
 
-        private Pop3Message GetToMailBySubject(string subject)
+        private static Pop3Message GetToMailBySubject(string subject)
         {
             return RetrieveMail(ToHost, ToUserName, ToPassword, subject);
         }

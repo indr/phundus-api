@@ -2,17 +2,16 @@
 using Castle.Windsor;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Mails;
-using phiNdus.fundus.Core.Domain;
 using phiNdus.fundus.Core.Domain.Entities;
 using Rhino.Commons;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Business.UnitTests
+namespace phiNdus.fundus.Core.Business.UnitTests.Mails
 {
     [TestFixture]
-    public class ValidateUserAccountMailTest
+    public class UserAccountValidationMailTest
     {
-        #region SetUp/TearDown
+        #region Setup/Teardown
 
         [SetUp]
         public void SetUp()
@@ -38,7 +37,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests
         private User User { get; set; }
 
         private const string ExpectedSubject = "[fundus] User Account Validation";
-        private const string ExpectedBody = "Hello Ted\r\n\r\nPlease go to the following link in order to validate your account:\r\n[Link.ValidateUserAccount]\r\n\r\nThanks\r\n\r\n--\r\nThis is automatically generated message from fundus.\r\n-\r\nIf you think it was sent incorrectly contact the administrator at admin@example.com.";
+
+        private const string ExpectedBody =
+            "Hello Ted\r\n\r\nPlease go to the following link in order to validate your account:\r\n[Link.UserAccountValidation]\r\n\r\nThanks\r\n\r\n--\r\nThis is automatically generated message from fundus.\r\n-\r\nIf you think it was sent incorrectly contact the administrator at admin@example.com.";
 
         [Test]
         public void Send_calls_gateway()
@@ -50,7 +51,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests
 
             using (MockFactory.Playback())
             {
-                var mail = new ValidateUserAccountMail();
+                var mail = new UserAccountValidationMail();
                 mail.Send(User);
             }
         }
