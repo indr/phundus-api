@@ -7,6 +7,7 @@ SET QUOTED_IDENTIFIER ON;
 create table [Membership] (
   Id INT not null,
   Version INT not null,
+  SessionKey NVARCHAR(127) null,
   Password NVARCHAR(255) null,
   Email NVARCHAR(255) null,
   IsApproved BIT null,

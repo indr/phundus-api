@@ -21,11 +21,22 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         private IUserRepository Sut { get; set; }
 
         [Test]
+        public void Can_find_by_SessionKey()
+        {
+            using (UnitOfWork.Start())
+            {
+                User user = Sut.FindBySessionKey("1234");
+                Assert.That(user, Is.Not.Null);
+                Assert.That(user.Id, Is.EqualTo(2));
+            }
+        }
+
+        [Test]
         public void Can_find_by_email()
         {
             using (UnitOfWork.Start())
             {
-                var user = Sut.FindByEmail("marshall.eriksen@example.com");
+                User user = Sut.FindByEmail("marshall.eriksen@example.com");
                 Assert.That(user, Is.Not.Null);
                 Assert.That(user.Id, Is.EqualTo(2));
             }

@@ -1,6 +1,5 @@
 ﻿using Castle.Windsor;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Bootstrapper;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
 using Rhino.Commons;
@@ -24,7 +23,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
         public void FixtureSetUp()
         {
             IoC.Initialize(new WindsorContainer());
-            IoC.Container.Install(new BusinessLayerInstaller());
+            IoC.Container.Install(new Installer());
         }
 
         [TestFixtureTearDown]

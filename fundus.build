@@ -94,6 +94,7 @@
     <property name="assembly.title" value="Core-Environment" />
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="21035e24-d5c4-4c8a-82ba-7903da246e69" />
+    <property name="assembly.cls-compliant" value="true" />
     <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
     <call target="generate-assembly-info" />
     
@@ -120,6 +121,7 @@
     <property name="assembly.title" value="Core-Domain" />
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="52a78ccd-cf4c-4567-8040-6f712a7eeb74" />
+    <property name="assembly.cls-compliant" value="true" />
     <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
     <call target="generate-assembly-info" />
     
@@ -168,6 +170,7 @@
     <property name="assembly.title" value="Core-Business" />
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="8f4ec48d-ceec-4008-9391-26956335493d" />
+    <property name="assembly.cls-compliant" value="true" />
     <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
     <call target="generate-assembly-info" />
     
@@ -206,6 +209,7 @@
     <property name="assembly.title" value="Core-Web" />
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="fc2dfb3c-500b-4709-ad3b-bb36eedef0f5" />
+    <property name="assembly.cls-compliant" value="true" />
     <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
     <call target="generate-assembly-info" />
     
@@ -237,6 +241,7 @@
     <property name="assembly.title" value="Core-Environment-UnitTests" />
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="9f068397-99d3-4442-ba1d-b5b854a5e688" />
+    <property name="assembly.cls-compliant" value="false" />
     <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
     <call target="generate-assembly-info" />
     
@@ -256,6 +261,7 @@
     <property name="assembly.title" value="Core-Domain-UnitTests" />
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="615cd7e5-2292-42fa-8764-0a05cb46c214" />
+    <property name="assembly.cls-compliant" value="false" />
     <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
     <call target="generate-assembly-info" />
     
@@ -269,6 +275,8 @@
         <include name="${nunit.dir}/nunit.framework.dll" />
         <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
+        <include name="${castle-windsor.dir}/Castle.Core.dll" />
+        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />      
       </references>
     </csc>
     
@@ -276,6 +284,7 @@
     <property name="assembly.title" value="Core-Domain-IntegrationTests" />
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="615cd7e5-2292-42fa-8764-0a05cb46c214" />
+    <property name="assembly.cls-compliant" value="false" />
     <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
     <call target="generate-assembly-info" />
     
@@ -303,6 +312,7 @@
     <property name="assembly.title" value="Core-Business-UnitTests" />
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="19d6b1f4-9bd6-4ee8-91c2-be2977a13fb8" />
+    <property name="assembly.cls-compliant" value="false" />
     <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
     <call target="generate-assembly-info" />
     
@@ -328,6 +338,7 @@
     <property name="assembly.title" value="Core-Business-IntegrationTests" />
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="58C99E38-EB57-4190-9CF1-01CE75A1B738" />
+    <property name="assembly.cls-compliant" value="false" />
     <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
     <call target="generate-assembly-info" />
     
@@ -353,6 +364,7 @@
     <property name="assembly.title" value="Core-Web-UnitTests" />
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="453b1282-6fe5-43f3-8563-066c9f2a94fa" />
+    <property name="assembly.cls-compliant" value="false" />
     <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
     <call target="generate-assembly-info" />
     
@@ -372,6 +384,8 @@
         <include name="${castle-windsor.dir}/loggingFacility/log4net.dll" />
         <include name="${nunit.dir}/nunit.framework.dll" />        
         <include name="${rhino-mocks.dir}/Rhino.Mocks.dll" />
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />   
         <include name="${mvc-3.dir}\System.Web.Mvc.dll" />
         <include name="System.Web.ApplicationServices.dll" />        
       </references>

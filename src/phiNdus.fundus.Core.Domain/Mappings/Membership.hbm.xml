@@ -13,6 +13,7 @@
 
     <one-to-one name="User" class="User" constrained="true" />
 
+    <property name="SessionKey" />
     <property name="Password" />
     <property name="Email" />
     <property name="IsApproved" />

@@ -13,14 +13,14 @@ INSERT INTO [User] (Id, Version, FirstName, LastName)
 INSERT INTO [User] (Id, Version, FirstName, LastName)
   VALUES (4, 1, 'Barney', 'Stinson');
 
-INSERT INTO [Membership] (Id, Version, Password, Email, IsApproved, IsLockedOut, CreateDate)
-  VALUES (1, 1, NULL, 'ted.mosby@example.com', 0, 0, '2011-05-10');
-INSERT INTO [Membership] (Id, Version, Password, Email, IsApproved, IsLockedOut, CreateDate)
-  VALUES (2, 1, NULL, 'marshall.eriksen@example.com', 0, 0, '2011-05-10');
-INSERT INTO [Membership] (Id, Version, Password, Email, IsApproved, IsLockedOut, CreateDate)
-  VALUES (3, 1, NULL, 'robin.scherbatsky@example.com', 0, 0, '2011-05-10');
-INSERT INTO [Membership] (Id, Version, Password, Email, IsApproved, IsLockedOut, CreateDate)
-  VALUES (4, 1, NULL, 'barney.stinson@example.com', 0, 0, '2011-05-10');
+INSERT INTO [Membership] (Id, Version, SessionKey, Password, Email, IsApproved, IsLockedOut, CreateDate)
+  VALUES (1, 1, NULL, NULL, 'ted.mosby@example.com', 0, 0, '2011-05-10');
+INSERT INTO [Membership] (Id, Version, SessionKey, Password, Email, IsApproved, IsLockedOut, CreateDate)
+  VALUES (2, 1, '1234', NULL, 'marshall.eriksen@example.com', 0, 0, '2011-05-10');
+INSERT INTO [Membership] (Id, Version, SessionKey, Password, Email, IsApproved, IsLockedOut, CreateDate)
+  VALUES (3, 1, NULL, NULL, 'robin.scherbatsky@example.com', 0, 0, '2011-05-10');
+INSERT INTO [Membership] (Id, Version, SessionKey, Password, Email, IsApproved, IsLockedOut, CreateDate)
+  VALUES (4, 1, NULL, NULL, 'barney.stinson@example.com', 0, 0, '2011-05-10');
 
 
 insert into [Setting] (Id, Version, [Key], [StringValue])
