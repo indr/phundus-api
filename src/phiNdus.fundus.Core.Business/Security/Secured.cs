@@ -18,16 +18,20 @@ namespace phiNdus.fundus.Core.Business.Security
             
         }
 
-        public void Call<ServiceType>(Proc<ServiceType> proc)
+        public void Call<ServiceType>(Proc<ServiceType> proc) 
+            where ServiceType : new()
         {
-            var inst = (ServiceType)System.Activator.CreateInstance(typeof(ServiceType));
-            proc(inst);
+            //var inst = (ServiceType)System.Activator.CreateInstance(typeof(ServiceType));
+            //proc(inst);
+            proc(new ServiceType());
         }
 
         public ReturnType Call<ServiceType, ReturnType>(Rhino.Commons.Func<ReturnType, ServiceType> func)
+            where ServiceType : new()
         {
-            var inst = (ServiceType) System.Activator.CreateInstance(typeof (ServiceType));
-            return func(inst);
+            //var inst = (ServiceType) System.Activator.CreateInstance(typeof (ServiceType));
+            //return func(inst);
+            return func(new ServiceType());
         }
     }
 }
