@@ -516,6 +516,10 @@
     />
     <sql connstring="${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
+      source="${base.dir}/sql/dml.sql"
+    />
+    <sql connstring="${sql.connstring}"
+      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/dml-integration.sql"
     />
   </target>
@@ -568,7 +572,10 @@
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/ddl.sql"
     />
-    
+    <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
+      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
+      source="${base.dir}/sql/dml.sql"
+    />
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/dml-staging.sql"

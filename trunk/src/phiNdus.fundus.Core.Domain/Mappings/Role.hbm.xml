@@ -3,16 +3,12 @@
                    assembly="phiNdus.fundus.Core.Domain"
                    namespace="phiNdus.fundus.Core.Domain.Entities">
 
-  <class name="User" table="[User]">
+  <class name="Role" table="[Role]"
+         mutable="false">
     <id name="Id">
       <generator class="hilo" />
     </id>
     <version name="Version" />
-    <property name="FirstName" />
-    <property name="LastName" />
-    <one-to-one name="Membership"
-                class="Membership"
-                cascade="all-delete-orphan" />
-    <many-to-one name="Role" column="RoleId" />
+    <property name="Name" />
   </class>
 </hibernate-mapping>

@@ -13,7 +13,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         [SetUp]
         public void SetUp()
         {
-            Sut = new UserRepository();
+            Sut = IoC.Resolve<IUserRepository>();
         }
 
         #endregion
