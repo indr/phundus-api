@@ -18,7 +18,7 @@ namespace phiNdus.fundus.Core.Business
         {
         }
 
-        public EmailAlreadyTakenException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected EmailAlreadyTakenException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

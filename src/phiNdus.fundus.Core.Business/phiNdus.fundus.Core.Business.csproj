@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper\BusinessLayerInstaller.cs" />
+    <Compile Include="Bootstrapper\GatewaysInstaller.cs" />
+    <Compile Include="Bootstrapper\ServicesInstaller.cs" />
     <Compile Include="DtoOutOfDateException.cs" />
     <Compile Include="EmailAlreadyTakenException.cs" />
     <Compile Include="EntityNotFoundException.cs" />
