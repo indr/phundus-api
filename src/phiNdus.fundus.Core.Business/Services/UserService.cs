@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Net;
-using System.Runtime.CompilerServices;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Mails;
-using phiNdus.fundus.Core.Domain;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
@@ -13,20 +10,20 @@ namespace phiNdus.fundus.Core.Business.Services
 {
     public class UserService : BaseService
     {
+        private readonly IUserRepository _users;
+
         public UserService()
         {
             _users = IoC.Resolve<IUserRepository>();
         }
 
-        private readonly IUserRepository _users;
-
         public UserDto GetUser(string email)
         {
             email = email.ToLowerInvariant();
-            
+
             using (UnitOfWork.Start())
             {
-                var user = _users.FindByEmail(email);
+                User user = _users.FindByEmail(email);
                 return UserAssembler.CreateDto(user);
             }
         }
@@ -36,7 +33,7 @@ namespace phiNdus.fundus.Core.Business.Services
             email = email.ToLowerInvariant();
             UserDto result;
 
-            using (var uow = UnitOfWork.Start())
+            using (IUnitOfWork uow = UnitOfWork.Start())
             {
                 // Prüfen ob Benutzer bereits exisitiert.
                 if (_users.FindByEmail(email) != null)
@@ -49,8 +46,8 @@ namespace phiNdus.fundus.Core.Business.Services
                 _users.Save(user);
 
                 // E-Mail mit Verifikationslink senden
-                new ValidateUserAccountMail().Send(user);
-                
+                new UserAccountValidationMail().Send(user);
+
                 result = UserAssembler.CreateDto(user);
                 uow.TransactionalFlush();
             }
@@ -60,9 +57,9 @@ namespace phiNdus.fundus.Core.Business.Services
         public void UpdateUser(UserDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
-            using (var uow = UnitOfWork.Start())
+            using (IUnitOfWork uow = UnitOfWork.Start())
             {
-                var user = UserAssembler.UpdateDomainObject(subject);
+                User user = UserAssembler.UpdateDomainObject(subject);
                 _users.Update(user);
                 uow.TransactionalFlush();
             }
@@ -84,7 +81,7 @@ namespace phiNdus.fundus.Core.Business.Services
 
             using (UnitOfWork.Start())
             {
-                var user = _users.FindByEmail(email);
+                User user = _users.FindByEmail(email);
                 if (user == null)
                     return false;
                 // TODO,Inder: Password encryption

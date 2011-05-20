@@ -60,7 +60,7 @@
     <Compile Include="Gateways\IMailGateway.cs" />
     <Compile Include="Gateways\MailGateway.cs" />
     <Compile Include="Mails\AbstractMail.cs" />
-    <Compile Include="Mails\ValidateUserAccountMail.cs" />
+    <Compile Include="Mails\UserAccountValidationMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Assembler\UserAssembler.cs" />
     <Compile Include="Dto\UserDto.cs" />
