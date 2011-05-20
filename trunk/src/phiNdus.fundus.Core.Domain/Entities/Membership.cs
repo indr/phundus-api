@@ -4,7 +4,9 @@ namespace phiNdus.fundus.Core.Domain.Entities
 {
     public class Membership : BaseEntity
     {
-        public Membership() : base()
+        private DateTime _createDate;
+
+        public Membership()
         {
             _createDate = DateTime.Now;
         }
@@ -14,12 +16,14 @@ namespace phiNdus.fundus.Core.Domain.Entities
         public virtual string Email { get; set; }
         public virtual bool IsApproved { get; set; }
         public virtual bool IsLockedOut { get; set; }
-        private DateTime _createDate;
+
         public virtual DateTime CreateDate
         {
             get { return _createDate; }
             protected set { _createDate = value; }
         }
+
+        public virtual string SessionKey { get; set; }
         public virtual DateTime? LastLogOnDate { get; set; }
         public virtual DateTime? LastPasswordChangeDate { get; set; }
         public virtual DateTime? LastLockoutDate { get; set; }

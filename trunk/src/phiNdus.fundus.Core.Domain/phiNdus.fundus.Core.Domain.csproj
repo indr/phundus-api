@@ -65,14 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper\DomainLayerInstaller.cs" />
-    <Compile Include="Bootstrapper\NHibernateInstaller.cs" />
-    <Compile Include="Bootstrapper\RepositoriesInstaller.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Membership.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Installer.cs" />
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\ISettingRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
