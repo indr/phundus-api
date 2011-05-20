@@ -36,7 +36,7 @@ namespace phiNdus.fundus.Core.Domain.Settings
         protected string GetString(string key)
         {
             Setting setting;
-            return Values.TryGetValue(key, out setting) ? setting.String : null;
+            return Values.TryGetValue(key, out setting) ? setting.StringValue : null;
         }
     }
 }

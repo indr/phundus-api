@@ -608,6 +608,7 @@
       <in>
         <items>
           <include name="${test.dir}/phiNdus.*.dll" />
+          <exclude name="${test.dir}/*Tests.dll" />
         </items>
       </in>
       <do>

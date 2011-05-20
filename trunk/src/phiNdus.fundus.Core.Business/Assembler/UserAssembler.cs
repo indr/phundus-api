@@ -7,7 +7,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Assembler
 {
-    public class UserAssembler
+    public static class UserAssembler
     {
         public static UserDto CreateDto(User subject)
         {

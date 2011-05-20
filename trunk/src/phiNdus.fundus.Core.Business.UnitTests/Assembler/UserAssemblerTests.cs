@@ -39,7 +39,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             _domainObject.Membership.IsApproved = true;
             _domainObject.Membership.IsLockedOut = true;
             _domainObject.Membership.LastLockoutDate = null;
-            _domainObject.Membership.LastLoginDate = null;
+            _domainObject.Membership.LastLogOnDate = null;
             _domainObject.Membership.LastPasswordChangeDate = null;
             _domainObject.Membership.Password = null;
 

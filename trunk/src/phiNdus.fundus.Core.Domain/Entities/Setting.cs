@@ -1,61 +1,59 @@
-﻿using System;
-
-namespace phiNdus.fundus.Core.Domain.Entities
+﻿namespace phiNdus.fundus.Core.Domain.Entities
 {
     public class Setting : BaseEntity
     {
+        private double? _decimalValue;
+        private int? _integerValue;
+        private string _stringValue;
         public virtual string Key { get; protected set; }
 
-        private string _string;
-        public virtual string String
+        public virtual string StringValue
         {
-            get { return _string; }
+            get { return _stringValue; }
             set
             {
-                _decimal = null;
-                _integer = null;
-                _string = value;
+                _decimalValue = null;
+                _integerValue = null;
+                _stringValue = value;
             }
         }
 
-        private int? _integer;
-        public virtual int? Integer
+        public virtual int? IntegerValue
         {
-            get { return _integer; }
+            get { return _integerValue; }
             set
             {
-                _string = null;
-                _decimal = null;
-                _integer = value;
+                _stringValue = null;
+                _decimalValue = null;
+                _integerValue = value;
             }
         }
 
-        private double? _decimal;
-        public virtual double? Decimal
+        public virtual double? DecimalValue
         {
-            get { return _decimal; }
+            get { return _decimalValue; }
             set
             {
-                _string = null;
-                _integer = null;
-                _decimal = value;
+                _stringValue = null;
+                _integerValue = null;
+                _decimalValue = value;
             }
         }
 
-        public virtual bool? Boolean
+        public virtual bool? BooleanValue
         {
             get
             {
-                if (!Integer.HasValue)
+                if (!IntegerValue.HasValue)
                     return null;
-                return Integer.Value == 1;
+                return IntegerValue.Value == 1;
             }
             set
             {
                 if (value.HasValue)
-                    Integer = value.Value ? 1 : 0;
+                    IntegerValue = value.Value ? 1 : 0;
                 else
-                    Integer = null;
+                    IntegerValue = null;
             }
         }
     }
