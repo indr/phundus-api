@@ -1,4 +1,6 @@
-﻿using Rhino.Commons;
+﻿using System;
+using phiNdus.fundus.Core.Business.Services;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Security
 {
@@ -6,32 +8,23 @@ namespace phiNdus.fundus.Core.Business.Security
     {
         public static SecuredHelper With(Session session)
         {
-            Rhino.Commons.Guard.Against<System.ArgumentNullException>(session == null, "session");
+            Guard.Against<ArgumentNullException>(session == null, "session");
             return new SecuredHelper();
         }
     }
 
     public class SecuredHelper
     {
-        public SecuredHelper()
+        public void Call<TService>(Action<TService> func)
+            where TService : BaseService, new()
         {
-            
+            func(new TService());
         }
 
-        public void Call<ServiceType>(Proc<ServiceType> proc) 
-            where ServiceType : new()
+        public TResult Call<TService, TResult>(System.Func<TService, TResult> func)
+            where TService : BaseService, new()
         {
-            //var inst = (ServiceType)System.Activator.CreateInstance(typeof(ServiceType));
-            //proc(inst);
-            proc(new ServiceType());
-        }
-
-        public ReturnType Call<ServiceType, ReturnType>(Rhino.Commons.Func<ReturnType, ServiceType> func)
-            where ServiceType : new()
-        {
-            //var inst = (ServiceType) System.Activator.CreateInstance(typeof (ServiceType));
-            //return func(inst);
-            return func(new ServiceType());
+            return func(new TService());
         }
     }
 }
