@@ -23,7 +23,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 var fromRepo = Sut.FindByKey("mail.smtp.host");
                 Assert.That(fromRepo, Is.Not.Null);
                 Assert.That(fromRepo.Key, Is.EqualTo("mail.smtp.host"));
-                Assert.That(fromRepo.String, Is.Not.Null);
+                Assert.That(fromRepo.StringValue, Is.Not.Null);
             }
         }
 

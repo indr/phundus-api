@@ -10,8 +10,8 @@
     <version name="Version" />
     
     <property name="Key" column="[Key]" update="false" />
-    <property name="String" access="field.camelcase-underscore" />
-    <property name="Integer" access="field.camelcase-underscore" />
-    <property name="Decimal" access="field.camelcase-underscore" />
+    <property name="StringValue" access="field.camelcase-underscore" />
+    <property name="IntegerValue" access="field.camelcase-underscore" />
+    <property name="DecimalValue" access="field.camelcase-underscore" />
   </class>
 </hibernate-mapping>

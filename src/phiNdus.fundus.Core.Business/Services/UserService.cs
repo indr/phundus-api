@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Mails;
@@ -19,7 +20,7 @@ namespace phiNdus.fundus.Core.Business.Services
 
         public UserDto GetUser(string email)
         {
-            email = email.ToLowerInvariant();
+            email = email.ToLower(CultureInfo.CurrentCulture);
 
             using (UnitOfWork.Start())
             {
@@ -30,7 +31,7 @@ namespace phiNdus.fundus.Core.Business.Services
 
         public UserDto CreateUser(string email, string password)
         {
-            email = email.ToLowerInvariant();
+            email = email.ToLower(CultureInfo.CurrentCulture);
             UserDto result;
 
             using (IUnitOfWork uow = UnitOfWork.Start())
@@ -77,7 +78,7 @@ namespace phiNdus.fundus.Core.Business.Services
 
         public bool ValidateUser(string email, string password)
         {
-            email = email.ToLowerInvariant();
+            email = email.ToLower(CultureInfo.CurrentCulture);
 
             using (UnitOfWork.Start())
             {

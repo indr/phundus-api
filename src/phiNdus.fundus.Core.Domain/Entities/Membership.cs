@@ -20,7 +20,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
             get { return _createDate; }
             protected set { _createDate = value; }
         }
-        public virtual DateTime? LastLoginDate { get; set; }
+        public virtual DateTime? LastLogOnDate { get; set; }
         public virtual DateTime? LastPasswordChangeDate { get; set; }
         public virtual DateTime? LastLockoutDate { get; set; }
         public virtual string Comment { get; set; }

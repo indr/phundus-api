@@ -18,7 +18,7 @@
     <property name="IsApproved" />
     <property name="IsLockedOut" />
     <property name="CreateDate" />
-    <property name="LastLoginDate" />
+    <property name="LastLogOnDate" />
     <property name="LastPasswordChangeDate" />
     <property name="LastLockoutDate" />
     <property name="Comment" />

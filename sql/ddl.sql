@@ -12,7 +12,7 @@ create table [Membership] (
   IsApproved BIT null,
   IsLockedOut BIT null,
   CreateDate DATETIME null,
-  LastLoginDate DATETIME null,
+  LastLogOnDate DATETIME null,
   LastPasswordChangeDate DATETIME null,
   LastLockoutDate DATETIME null,
   Comment NVARCHAR(255) null,
@@ -39,9 +39,9 @@ create table [Setting] (
   Id int not null,
   Version int not null,
   [Key] NVARCHAR(255) not null,
-  String NVARCHAR(max) null,
-  [Decimal] decimal null,
-  [Integer] int null,
+  StringValue NVARCHAR(max) null,
+  [DecimalValue] decimal null,
+  [IntegerValue] int null,
   primary key (Id)
 )
 

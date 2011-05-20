@@ -8,7 +8,13 @@ namespace phiNdus.fundus.Core.Business.Mails
 {
     public abstract class AbstractMail
     {
-        protected Dictionary<string, object> DataContext = new Dictionary<string, object>();
+        private readonly IDictionary<string, object> _dataContext = new Dictionary<string, object>();
+
+        protected IDictionary<string, object> DataContext
+        {
+            get { return _dataContext; }
+        }
+
         protected abstract string Subject { get; }
         protected abstract string Body { get; }
 
@@ -37,7 +43,7 @@ namespace phiNdus.fundus.Core.Business.Mails
 
 
             object data = null;
-            if (!DataContext.TryGetValue(group, out data))
+            if (!_dataContext.TryGetValue(group, out data))
                 return null;
 
             string name = key.Substring(idx + 1);
