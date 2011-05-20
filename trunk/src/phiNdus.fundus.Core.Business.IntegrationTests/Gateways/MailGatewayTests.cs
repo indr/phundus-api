@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
+﻿using System.Threading;
 using NUnit.Framework;
+using phiNdus.fundus.Core.Business.IntegrationTests.Helpers;
+using phiNdus.fundus.Core.Business.IntegrationTests.TestHelpers;
 
-namespace phiNdus.fundus.Core.Business.IntegrationTests
+namespace phiNdus.fundus.Core.Business.IntegrationTests.Gateways
 {
     [TestFixture]
     public class MailGatewayTests
     {
+        #region Setup/Teardown
+
+        [SetUp]
+        public void SetUp()
+        {
+            Sut = new MailGateway(FromHost, FromUserName, FromPassword, FromAddress);
+        }
+
+        #endregion
+
         private const string FromHost = "mail.indr.ch";
         private const string FromUserName = "fundus-sys-test-1@indr.ch";
         private const string FromPassword = "phiNdus";
@@ -20,21 +28,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
         private const string ToPassword = "phiNdus";
         private const string ToAddress = "fundus-sys-test-2@indr.ch";
 
-        [SetUp]
-        public void SetUp()
-        {
-            Sut = new MailGateway(FromHost, FromUserName, FromPassword, FromAddress);
-        }
-
         private IMailGateway Sut { get; set; }
-
-        [Test]
-        public void Can_send()
-        {
-            Sut.Send(ToAddress, "[MailGatewayTests] Can_send", "");
-            System.Threading.Thread.Sleep(100);
-            Assert.That(GetToMailBySubject("[MailGatewayTests] Can_send"), Is.Not.Null);
-        }
 
 
         private static Pop3Message GetFromMailBySubject(string subject)
@@ -51,10 +45,18 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
         {
             var pop = new Pop3();
             pop.Connect(host, username, password);
-            var result = pop.Find(subject);
+            Pop3Message result = pop.Find(subject);
             pop.DeleteAll();
             pop.Disconnect();
             return result;
+        }
+
+        [Test]
+        public void Can_send()
+        {
+            Sut.Send(ToAddress, "[MailGatewayTests] Can_send", "");
+            Thread.Sleep(100);
+            Assert.That(GetToMailBySubject("[MailGatewayTests] Can_send"), Is.Not.Null);
         }
     }
 }

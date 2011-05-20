@@ -1,22 +1,17 @@
-﻿using System.Reflection;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
+﻿using Castle.Windsor;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Bootstrapper;
-using phiNdus.fundus.Core.Domain.Entities;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests
 {
-    internal class UnitOfWorkEnsuredTestFixture
+    internal class BaseTestFixture
     {
         [TestFixtureSetUp]
         public void FixtureSetUp()
         {
             IoC.Initialize(new WindsorContainer());
-            IoC.Container.Install(new RepositoriesInstaller());
-            IoC.Container.Register(Component.For<IUnitOfWorkFactory>().Instance(
-                new NHibernateUnitOfWorkFactory(new[] { Assembly.GetAssembly(typeof(BaseEntity)) })));
+            IoC.Container.Install(new DomainLayerInstaller());
         }
 
         [TestFixtureTearDown]

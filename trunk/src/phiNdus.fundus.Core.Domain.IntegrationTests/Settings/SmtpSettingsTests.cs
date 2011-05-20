@@ -4,7 +4,7 @@ using phiNdus.fundus.Core.Domain.Settings;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Settings
 {
     [TestFixture]
-    internal class SmtpSettingsTests : UnitOfWorkEnsuredTestFixture
+    internal class SmtpSettingsTests : BaseTestFixture
     {
         #region Setup/Teardown
 

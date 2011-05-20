@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
-using NUnit.Framework;
+using phiNdus.fundus.Core.Business.IntegrationTests.TestHelpers;
 
-namespace phiNdus.fundus.Core.Business.IntegrationTests
+namespace phiNdus.fundus.Core.Business.IntegrationTests.Helpers
 {
-    public class Pop3 : System.Net.Sockets.TcpClient
+    public class Pop3 : TcpClient
     {
         public void Connect(string server, string username, string password)
         {
@@ -37,7 +34,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
             if (response.Substring(0, 3) != "+OK")
             {
                 throw new Pop3Exception(response);
-            } 
+            }
         }
 
         public void Disconnect()
@@ -76,8 +73,8 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
                 }
                 else
                 {
-                    Pop3Message msg = new Pop3Message();
-                    char[] seps = { ' ' };
+                    var msg = new Pop3Message();
+                    char[] seps = {' '};
                     string[] values = response.Split(seps);
                     msg.number = Int32.Parse(values[0]);
                     msg.bytes = Int32.Parse(values[1]);
@@ -93,7 +90,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
             string message;
             string response;
 
-            Pop3Message msg = new Pop3Message();
+            var msg = new Pop3Message();
             msg.bytes = rhs.bytes;
             msg.number = rhs.number;
 
@@ -138,9 +135,9 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
 
         private void Write(string message)
         {
-            System.Text.ASCIIEncoding en = new System.Text.ASCIIEncoding();
+            var en = new ASCIIEncoding();
 
-            byte[] WriteBuffer = new byte[1024];
+            var WriteBuffer = new byte[1024];
             WriteBuffer = en.GetBytes(message);
 
             NetworkStream stream = GetStream();
@@ -151,13 +148,13 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
 
         private string Response()
         {
-            System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-            byte[] serverbuff = new Byte[1024];
+            var enc = new ASCIIEncoding();
+            var serverbuff = new Byte[1024];
             NetworkStream stream = GetStream();
             int count = 0;
             while (true)
             {
-                byte[] buff = new Byte[2];
+                var buff = new Byte[2];
                 int bytes = stream.Read(buff, 0, 1);
                 if (bytes == 1)
                 {
@@ -172,8 +169,10 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
                 else
                 {
                     break;
-                };
-            };
+                }
+                ;
+            }
+            ;
 
             string retval = enc.GetString(serverbuff, 0, count);
             //Debug.WriteLine("READ:" + retval);
@@ -182,36 +181,19 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
 
         public void DeleteAll()
         {
-            foreach(var raw in List())
+            foreach (Pop3Message raw in List())
                 Delete(raw);
         }
 
         public Pop3Message Find(string subject)
         {
-            foreach (var raw in List())
+            foreach (Pop3Message raw in List())
             {
-                var msg = Retrieve(raw);
+                Pop3Message msg = Retrieve(raw);
                 if (msg.message.Contains("Subject: " + subject))
                     return msg;
-                    
             }
             return null;
         }
-    }
-
-    public class Pop3Exception : System.ApplicationException
-    {
-        public Pop3Exception(string str)
-            : base(str)
-        {
-        }
-    }
-
-    public class Pop3Message
-    {
-        public long number;
-        public long bytes;
-        public bool retrieved;
-        public string message;
     }
 }

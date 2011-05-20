@@ -8,7 +8,7 @@ using phiNdus.fundus.Core.Domain.Settings;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Settings
 {
     [TestFixture]
-    class MailTemplateSettingsForValidateUserAccountTests : UnitOfWorkEnsuredTestFixture
+    class MailTemplateSettingsForValidateUserAccountTests : BaseTestFixture
     {
         [SetUp]
         public void SetUp()

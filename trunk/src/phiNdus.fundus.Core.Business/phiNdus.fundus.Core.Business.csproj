@@ -53,7 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper\ServiceInstaller.cs" />
+    <Compile Include="Bootstrapper\BusinessLayerInstaller.cs" />
     <Compile Include="DtoOutOfDateException.cs" />
     <Compile Include="EmailAlreadyTakenException.cs" />
     <Compile Include="EntityNotFoundException.cs" />

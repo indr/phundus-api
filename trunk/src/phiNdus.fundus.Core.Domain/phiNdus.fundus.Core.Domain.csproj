@@ -65,7 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper\RepositoriesInstaller.cs" />
+    <Compile Include="Bootstrapper\DomainLayerInstaller.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Membership.cs" />
     <Compile Include="Entities\Setting.cs" />
