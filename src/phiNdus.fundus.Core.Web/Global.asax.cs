@@ -59,8 +59,8 @@ namespace phiNdus.fundus.Core.Web {
             // Locking?
             container = new WindsorContainer()
                 .Install(FromAssembly.This())
-                .Install(FromAssembly.Named("phiNdus.fundus.Core.Business"))
-                .Install(FromAssembly.Named("phiNdus.fundus.Core.Domain"));
+                .Install(FromAssembly.Named("phiNdus.fundus.Core.Business"));
+                //.Install(FromAssembly.Named("phiNdus.fundus.Core.Domain"));
 
             var controllerFactory = new WindsorControllerFactory(container.Kernel);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
