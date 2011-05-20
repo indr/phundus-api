@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Security;
+using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Mocks;
@@ -26,19 +27,18 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         {
         }
 
-        private class DoSomethingReturningIntCalled: Exception
+        private class DummyService : BaseService
         {
-            
-        }
-
-        private class DummyService
-        {
-            public void DoSomething()
+// ReSharper disable MemberCanBeMadeStatic.Local
+            public void DoSomethingThrowingException()
+// ReSharper restore MemberCanBeMadeStatic.Local
             {
                 throw new DoSomethingCalled();
             }
 
+// ReSharper disable MemberCanBeMadeStatic.Local
             public int DoSomethingReturningInt()
+// ReSharper restore MemberCanBeMadeStatic.Local
             {
                 return 1;
             }
@@ -47,21 +47,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         private IUserRepository MockUserRepository { get; set; }
         private User User { get; set; }
 
-
-        [Test]
-        [ExpectedException(typeof (DoSomethingCalled))]
-        public void With_session_calls_proc()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(MockUserRepository.FindBySessionKey("ABCD")).Return(User);
-            }
-
-            using (MockFactory.Playback())
-            {
-                Secured.With(Session.FromKey("ABCD")).Call<DummyService>(s => s.DoSomething());
-            }
-        }
 
         [Test]
         public void With_session_calls_func()
@@ -73,8 +58,26 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
 
             using (MockFactory.Playback())
             {
-                var result = Secured.With(Session.FromKey("ABCD")).Call<DummyService, int>(s => s.DoSomethingReturningInt());
+                int result =
+                    Secured.With(Session.FromKey("ABCD")).Call<DummyService, int>(
+                        service => service.DoSomethingReturningInt());
                 Assert.That(result, Is.EqualTo(1));
+            }
+        }
+
+        [Test]
+        [ExpectedException(typeof (DoSomethingCalled))]
+        public void With_session_calls_action()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.FindBySessionKey("ABCD")).Return(User);
+            }
+
+            using (MockFactory.Playback())
+            {
+                Secured.With(Session.FromKey("ABCD")).Call<DummyService>(
+                    service => service.DoSomethingThrowingException());
             }
         }
 

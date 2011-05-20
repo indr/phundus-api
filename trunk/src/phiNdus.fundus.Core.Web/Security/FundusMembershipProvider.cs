@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Security;
+using phiNdus.fundus.Core.Business.SecuredServices;
 using Rhino.Commons;
 using phiNdus.fundus.Core.Business;
 using phiNdus.fundus.Core.Business.Dto;
