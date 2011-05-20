@@ -4,6 +4,7 @@ using Rhino.Commons;
 using phiNdus.fundus.Core.Business;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
+using System.Globalization;
 
 namespace phiNdus.fundus.Core.Web.Security {
     public class FundusMembershipProvider : MembershipProvider {
@@ -24,10 +25,10 @@ namespace phiNdus.fundus.Core.Web.Security {
             this._enablePasswordReset = bool.Parse(config["enablePasswordReset"] ?? "false");
             this._enablePasswordRetrieval = bool.Parse(config["enablePasswordRetrieval"] ?? "false");
             this.ApplicationName = config["applicationName"];
-            this._maxInvalidPasswordAttempts = Int32.Parse(config["maxInvalidPasswordAttempts"] ?? "5");
-            this._minRequiredPasswordLength = Int32.Parse(config["minRequiredPasswordLength"] ?? "8");
-            this._minRequiredNonAlphanumericCharacters = Int32.Parse(config["minRequiredNonAlphanumericCharacters"] ?? "2");
-            this._passwordAttemptWindow = Int32.Parse(config["passwordAttemptWindow"] ?? "10"); // 10 Minuten
+            this._maxInvalidPasswordAttempts = int.Parse(config["maxInvalidPasswordAttempts"] ?? "5", CultureInfo.InvariantCulture);
+            this._minRequiredPasswordLength = int.Parse(config["minRequiredPasswordLength"] ?? "8", CultureInfo.InvariantCulture);
+            this._minRequiredNonAlphanumericCharacters = int.Parse(config["minRequiredNonAlphanumericCharacters"] ?? "2", CultureInfo.InvariantCulture);
+            this._passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"] ?? "10", CultureInfo.InvariantCulture); // 10 Minuten
         }
         #endregion
         //=========================================================================================
