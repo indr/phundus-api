@@ -12,7 +12,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         [SetUp]
         public void SetUp()
         {
-            Sut = new SettingRepository();
+            Sut = IoC.Resolve<ISettingRepository>();
         }
 
         [Test]

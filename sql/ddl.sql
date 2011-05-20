@@ -24,9 +24,17 @@ create table [User] (
   Version INT not null,
   FirstName NVARCHAR(255) null,
   LastName NVARCHAR(255) null,
+  RoleId INT null,
   primary key (Id)
 );
 
+create table [Role] (
+  Id INT not null,
+  Version INT not null,
+  Name NVARCHAR(255) null,
+  primary key (Id)
+)
+    
 create table [Setting] (
   Id int not null,
   Version int not null,
@@ -41,6 +49,11 @@ alter table [Membership]
   add constraint FkMembershipToUser 
   foreign key (Id) 
   references [User];
+  
+alter table [User] 
+  add constraint FkUserToRole 
+  foreign key (RoleId) 
+  references [Role]  
 
 create table hibernate_unique_key (
   next_hi INT 

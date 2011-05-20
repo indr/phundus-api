@@ -1,4 +1,6 @@
-﻿namespace phiNdus.fundus.Core.Domain.Entities
+﻿using System;
+
+namespace phiNdus.fundus.Core.Domain.Entities
 {
     public class User : BaseEntity
     {
@@ -35,5 +37,7 @@
             get { return _membership; }
             set { _membership = value; }
         }
+
+        public virtual Role Role { get; set; }
     }
 }
