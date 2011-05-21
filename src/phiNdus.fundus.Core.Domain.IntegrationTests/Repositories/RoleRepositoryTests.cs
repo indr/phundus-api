@@ -1,4 +1,5 @@
 ﻿using System;
+using NHibernate.Exceptions;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
@@ -54,10 +55,9 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         }
 
         [Test]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(GenericADOException))]
         public void Update_throws()
         {
-            Assert.Ignore("mutable=\"false\" reicht nicht um ein Update zu verhindern! Es gibt anscheinend keinen Weg, dass NHibernate dies verhindert...");
             using (var uow = UnitOfWork.Start())
             {
                 var fromRepo = Sut.Get(1);
@@ -68,11 +68,9 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         }
 
         [Test]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(GenericADOException))]
         public void Save_throws()
         {
-            Assert.Ignore("mutable=\"false\" reicht nicht um ein Insert zu verhindern! Es gibt anscheinend keinen Weg, dass NHibernate dies verhindert...");
-
             using (var uow = UnitOfWork.Start())
             {
                 var role = new Role();
@@ -83,11 +81,9 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         }
 
         [Test]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(GenericADOException))]
         public void Delete_throws()
         {
-            Assert.Ignore("mutable=\"false\" reicht nicht um ein Delete zu verhindern! Es gibt anscheinend keinen Weg, dass NHibernate dies verhindert...");
-
             using (var uow = UnitOfWork.Start())
             {
                 var fromRepo = Sut.Get(1);
