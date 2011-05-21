@@ -4,6 +4,10 @@ SET ANSI_NULLS ON;
 
 SET QUOTED_IDENTIFIER ON;
 
+create table hibernate_unique_key (
+  next_hi INT 
+);
+
 create table [Membership] (
   Id INT not null,
   Version INT not null,
@@ -54,10 +58,4 @@ alter table [Membership]
 alter table [User] 
   add constraint FkUserToRole 
   foreign key (RoleId) 
-  references [Role]  
-
-create table hibernate_unique_key (
-  next_hi INT 
-);
-
-insert into hibernate_unique_key values ( 1 );
+  references [Role];
