@@ -36,8 +36,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
             Guard.Against<UserLookedOutException>(IsLockedOut, "");
             Guard.Against<InvalidPasswordException>(Password != password, "");
 
-            // TODO,Inder: Generate Session-Key without Captain Obvious
-            SessionKey = "Session.Key";
+            SessionKey = SessionKeyGenerator.CreateKey();
             LastLogOnDate = DateTime.Now;
         }
     }
