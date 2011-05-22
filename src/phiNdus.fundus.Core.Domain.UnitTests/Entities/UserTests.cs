@@ -4,7 +4,7 @@ using phiNdus.fundus.Core.Domain.Entities;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    class UserTests
+    internal class UserTests
     {
         [Test]
         public void Can_create()
@@ -12,22 +12,6 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             new User();
         }
 
-        [Test]
-        public void Constructor_assignes_Membership()
-        {
-            var sut = new User();
-            Assert.That(sut.Membership, Is.Not.Null);
-            Assert.That(sut.Membership.User, Is.EqualTo(sut));
-        }
-
-        [Test]
-        public void Constructor_assignes_User_role()
-        {
-            var sut = new User();
-            Assert.That(sut.Role, Is.Not.Null);
-            Assert.That(sut.Role, Is.EqualTo(Role.User));
-        }
-        
         [Test]
         public void Can_set_and_get_FirstName()
         {
@@ -53,6 +37,22 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             var sut = new User();
             sut.Role = role;
             Assert.That(sut.Role, Is.EqualTo(role));
+        }
+
+        [Test]
+        public void Constructor_assignes_Membership()
+        {
+            var sut = new User();
+            Assert.That(sut.Membership, Is.Not.Null);
+            Assert.That(sut.Membership.User, Is.EqualTo(sut));
+        }
+
+        [Test]
+        public void Constructor_assignes_User_role()
+        {
+            var sut = new User();
+            Assert.That(sut.Role, Is.Not.Null);
+            Assert.That(sut.Role, Is.EqualTo(Role.User));
         }
     }
 }

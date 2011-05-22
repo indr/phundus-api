@@ -63,7 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseTestFixture.cs" />
     <Compile Include="Gateways\MailGatewayTests.cs" />
+    <Compile Include="SecuredServices\SecuredUserServiceTests.cs" />
     <Compile Include="TestHelpers\Pop3.cs" />
     <Compile Include="TestHelpers\Pop3Exception.cs" />
     <Compile Include="TestHelpers\Pop3Message.cs" />

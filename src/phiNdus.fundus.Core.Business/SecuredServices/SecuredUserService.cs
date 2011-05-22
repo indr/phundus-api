@@ -21,7 +21,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 
         public void UpdateUser(string sessionKey, UserDto user)
         {
-            Service(sessionKey).UpdateUser(user);
+            Secured.With(Session.FromKey(sessionKey));
         }
 
         public bool DeleteUser(string sessionKey, string email)
@@ -34,9 +34,9 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
             return Service(sessionKey).ChangePassword(email, oldPassword, newPassword);
         }
 
-        public bool ValidateUser(string sessionKey, string email, string password)
+        public string ValidateUser(string email, string password)
         {
-            return Service(sessionKey).ValidateUser(email, password);
+            return Service(null).ValidateUser(email, password);
         }
 
         public string ResetPassword(string sessionKey, string email)
@@ -46,7 +46,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 
         #endregion
 
-        private static UserService Service(string sessionKey)
+        private  static UserService Service(string sessionKey)
         {
             // TODO: Session-Key
             return new UserService();

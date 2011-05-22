@@ -30,13 +30,13 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         bool ChangePassword(string sessionKey, string email, string oldPassword, string newPassword);
 
         /// <summary>
-        /// Überprüft, ob ein Benutzer mit dem gegebenen Passwort existiert.
+        /// Überprüft, ob ein Benutzer mit dem gegebenen Passwort existiert
+        /// und liefert einen gültigen Session-Key zurück
         /// </summary>
-        bool ValidateUser(string sessionKey, string email, string password);
+        string ValidateUser(string email, string password);
 
         /// <summary>
         /// Setzt das Password für einen Benutzer zurück und liefert das neue Passwort.
-        /// (Passwort wohl besser direkt per E-Mail versenden?)
         /// </summary>
         string ResetPassword(string sessionKey, string email);
     }

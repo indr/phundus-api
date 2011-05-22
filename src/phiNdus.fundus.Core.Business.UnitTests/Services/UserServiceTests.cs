@@ -4,7 +4,6 @@ using Castle.Windsor;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
-using phiNdus.fundus.Core.Domain;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
@@ -15,7 +14,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
     [TestFixture]
     internal class UserServiceTests
     {
-        #region SetUp/TearDown
+        #region Setup/Teardown
 
         [SetUp]
         public void SetUp()
@@ -45,7 +44,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         #endregion
 
         private MockRepository MockFactory { get; set; }
-        
+
         private IUnitOfWork MockUnitOfWork { get; set; }
         private IUserRepository MockUserRepository { get; set; }
         private IMailGateway MockMailGateway { get; set; }
@@ -144,117 +143,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                var dto = Sut.GetUser("Ted.Mosby@example.com");
+                UserDto dto = Sut.GetUser("Ted.Mosby@example.com");
                 Assert.That(dto, Is.Not.Null);
                 Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
-            }
-        }
-
-        [Test]
-        public void ValidateUser_with_unknown_email_returns_false()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(
-                    MockUserRepository.FindByEmail("unknown@example.com")).Return(null);
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-
-            using (MockFactory.Playback())
-            {
-                var actual = Sut.ValidateUser("unknown@example.com", "");
-                Assert.That(actual, Is.False);
-            }
-        }
-
-        [Test]
-        public void ValidateUser_returns_true()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(
-                    MockUserRepository.FindByEmail("unknown@example.com")).Return(TedMosby);
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-
-            using (MockFactory.Playback())
-            {
-                var actual = Sut.ValidateUser("unknown@example.com", "1234");
-                Assert.That(actual, Is.True);
-            }
-        }
-
-        [Test]
-        public void ValidateUser_with_invalid_password_returns_false()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(
-                    MockUserRepository.FindByEmail("unknown@example.com")).Return(TedMosby);
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-
-            using (MockFactory.Playback())
-            {
-                var actual = Sut.ValidateUser("unknown@example.com", "123");
-                Assert.That(actual, Is.False);
-            }
-        }
-
-        [Test]
-        public void ValidateUser_with_uppercase_email_returns_true()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(
-                    MockUserRepository.FindByEmail("unknown@example.com")).Return(TedMosby);
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-
-            using (MockFactory.Playback())
-            {
-                var actual = Sut.ValidateUser("UNKNOWN@example.com", "1234");
-                Assert.That(actual, Is.True);
-            }
-        }
-
-        #region UpdateUser
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void UpdateUser_with_null_subject_throws()
-        {
-            Sut.UpdateUser(null);
-        }
-
-        [Test]
-        [ExpectedException(typeof(EntityNotFoundException))]
-        public void UpdateUser_with_invalid_id_throws()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(MockUserRepository.Get(0)).Return(null);
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-
-            using (MockFactory.Playback())
-            {
-                Sut.UpdateUser(new UserDto { Id = 0 });
-            }
-        }
-
-        [Test]
-        [ExpectedException(typeof (DtoOutOfDateException))]
-        public void UpdateUser_with_out_of_date_userdto_throws()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(MockUserRepository.Get(1)).Return(new User());
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-
-            using (MockFactory.Playback())
-            {
-                Sut.UpdateUser(new UserDto { Id = 1, Version = -1 });
             }
         }
 
@@ -275,6 +166,114 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                 Sut.UpdateUser(new UserDto {Id = 1});
             }
         }
-        #endregion
+
+        [Test]
+        [ExpectedException(typeof (EntityNotFoundException))]
+        public void UpdateUser_with_invalid_id_throws()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.Get(0)).Return(null);
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                Sut.UpdateUser(new UserDto {Id = 0});
+            }
+        }
+
+        [Test]
+        [ExpectedException(typeof (ArgumentNullException))]
+        public void UpdateUser_with_null_subject_throws()
+        {
+            Sut.UpdateUser(null);
+        }
+
+        [Test]
+        [ExpectedException(typeof (DtoOutOfDateException))]
+        public void UpdateUser_with_out_of_date_userdto_throws()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.Get(1)).Return(new User());
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                Sut.UpdateUser(new UserDto {Id = 1, Version = -1});
+            }
+        }
+
+        [Test]
+        public void ValidateUser_returns_not_null()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(
+                    MockUserRepository.FindByEmail("unknown@example.com")).Return(TedMosby);
+                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                string actual = Sut.ValidateUser("unknown@example.com", "1234");
+                Assert.That(actual, Is.Not.Null);
+            }
+        }
+
+        [Test]
+        public void ValidateUser_with_invalid_password_returns_null()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(
+                    MockUserRepository.FindByEmail("unknown@example.com")).Return(TedMosby);
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                string actual = Sut.ValidateUser("unknown@example.com", "123");
+                Assert.That(actual, Is.Null);
+            }
+        }
+
+        [Test]
+        public void ValidateUser_with_unknown_email_returns_null()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(
+                    MockUserRepository.FindByEmail("unknown@example.com")).Return(null);
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                string actual = Sut.ValidateUser("unknown@example.com", "");
+                Assert.That(actual, Is.Null);
+            }
+        }
+
+        [Test]
+        public void ValidateUser_with_uppercase_email_returns_not_null()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(
+                    MockUserRepository.FindByEmail("unknown@example.com")).Return(TedMosby);
+                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                string actual = Sut.ValidateUser("UNKNOWN@example.com", "1234");
+                Assert.That(actual, Is.Not.Null);
+            }
+        }
     }
 }
