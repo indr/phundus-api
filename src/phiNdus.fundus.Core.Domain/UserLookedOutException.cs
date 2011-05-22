@@ -3,13 +3,14 @@ using System.Runtime.Serialization;
 
 namespace phiNdus.fundus.Core.Domain
 {
+    [Serializable]
     public class UserLookedOutException : Exception
     {
         public UserLookedOutException()
         {
         }
 
-        public UserLookedOutException(string message)
+        public UserLookedOutException(string message) : base(message)
         {
         }
 

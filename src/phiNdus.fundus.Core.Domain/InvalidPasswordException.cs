@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace phiNdus.fundus.Core.Domain
 {
+    [Serializable]
     public class InvalidPasswordException : Exception
     {
         public InvalidPasswordException()

@@ -33,9 +33,20 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void LogOn_updates_SessionKey()
         {
+            var oldSessionKey = Sut.SessionKey;
             Assert.That(Sut.SessionKey, Is.Null);
             Sut.LogOn("1234");
             Assert.That(Sut.SessionKey, Is.Not.Null);
+            Assert.That(Sut.SessionKey, Is.Not.EqualTo(oldSessionKey));
+        }
+
+        [Test]
+        public void LogOn_sets_SessionKey_with_length_20()
+        {
+            Assert.That(Sut.SessionKey, Is.Null);
+            Sut.LogOn("1234");
+            Assert.That(Sut.SessionKey, Is.Not.Null);
+            Assert.That(Sut.SessionKey.Length, Is.EqualTo(20));
         }
 
         [Test]
