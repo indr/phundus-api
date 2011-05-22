@@ -5,9 +5,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Security
 {
-    public class Session
+    public class SecuritySession
     {
-        private Session(User user, string key)
+        private SecuritySession(User user, string key)
         {
             User = user;
             Key = key;
@@ -16,7 +16,7 @@ namespace phiNdus.fundus.Core.Business.Security
         public User User { get; private set; }
         public string Key { get; private set; }
 
-        public static Session FromKey(string key)
+        public static SecuritySession FromKey(string key)
         {
             Guard.Against<ArgumentNullException>(key == null, "key");
 
@@ -28,7 +28,7 @@ namespace phiNdus.fundus.Core.Business.Security
             }
             Guard.Against<InvalidSessionKeyException>(user == null, "");
 
-            return new Session(user, key);
+            return new SecuritySession(user, key);
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Reflection;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Services;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Core.Business.UnitTests.Security;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Services
 {
@@ -22,29 +21,22 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
         protected BaseService Sut { get; set; }
 
-        private static Session CreateSession(User user, string key)
+        [Test]
+        public void Can_set_and_get_SecurityContextr()
         {
-            var info = typeof (Session).GetConstructor(
-                BindingFlags.Instance | BindingFlags.NonPublic
-                , null, new[] {typeof (User), typeof (string)}, null);
-            return (Session) info.Invoke(new object[] {user, key});
+            var context = new SecurityContext();
+            context.SecuritySession = SessionHelper.CreateSession(null, null);
+            Assert.That(Sut.SecurityContext, Is.Null);
+            Sut.SecurityContext = context;
+            Assert.That(Sut.SecurityContext, Is.Not.Null);
+            Assert.That(Sut.SecurityContext, Is.EqualTo(context));
         }
 
         [Test]
-        public void Can_set_and_get_Session()
+        public void Set_SecurityContext_can_only_be_called_once()
         {
-            var session = CreateSession(null, null);
-            Assert.That(Sut.Session, Is.Null);
-            Sut.Session = session;
-            Assert.That(Sut.Session, Is.Not.Null);
-            Assert.That(Sut.Session, Is.EqualTo(session));
-        }
-
-        [Test]
-        public void Set_Session_can_only_be_called_once()
-        {
-            Sut.Session = null;
-            Assert.Throws<InvalidOperationException>(() => Sut.Session = null);
+            Sut.SecurityContext = null;
+            Assert.Throws<InvalidOperationException>(() => Sut.SecurityContext = null);
         }
     }
 }

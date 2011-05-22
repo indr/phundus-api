@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Business.Security;
+using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Mocks;
 
@@ -18,6 +19,10 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             base.SetUp();
 
             MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            
+            User = new User();
+            User.Role = Role.User;
+            
             Sut = new SecuredUserService();
         }
 
@@ -25,6 +30,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 
         protected IUserRepository MockUserRepository { get; set; }
         protected SecuredUserService Sut { get; set; }
+        protected User User { get; set; }
 
         [Test]
         public void GetUser_with_invalid_sessionKey_throws()
@@ -32,7 +38,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             using (MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("this.key.is.not.valid")).Return(null);
-                Expect.Call(() => MockUnitOfWork.Dispose());
+                Expect.Call(() => MockUnitOfWork.Dispose()).Repeat.Any();
             }
 
             using (MockFactory.Playback())
@@ -49,12 +55,27 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         }
 
         [Test]
+        public void GetUser_with_user_role_throws()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.FindBySessionKey("SessionKey")).Return(User);
+                Expect.Call(() => MockUnitOfWork.Dispose()).Repeat.Any();
+            }
+
+            using (MockFactory.Playback())
+            {
+                Assert.Throws<AuthorizationException>(() => Sut.GetUser("SessionKey", ""));
+            }
+        }
+
+        [Test]
         public void UpdateUser_with_invalid_sessionKey_throws()
         {
             using (MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("this.key.is.not.valid")).Return(null);
-                Expect.Call(() => MockUnitOfWork.Dispose());
+                Expect.Call(() => MockUnitOfWork.Dispose()).Repeat.Any();
             }
 
             using (MockFactory.Playback())

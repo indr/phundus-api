@@ -8,7 +8,7 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Core.Business.UnitTests.Security
 {
     [TestFixture]
-    internal class SessionTests : BaseTestFixture
+    internal class SecuritySessionTests : BaseTestFixture
     {
         #region Setup/Teardown
 
@@ -36,7 +36,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
 
             using (MockFactory.Playback())
             {
-                var session = Session.FromKey("ABCD");
+                var session = SecuritySession.FromKey("ABCD");
                 Assert.That(session, Is.Not.Null);
                 Assert.That(session.User, Is.EqualTo(user));
                 Assert.That(session.Key, Is.EqualTo("ABCD"));
@@ -54,14 +54,14 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
 
             using (MockFactory.Playback())
             {
-                Assert.Throws<InvalidSessionKeyException>(() => Session.FromKey("this.is.an.invalid.key"));
+                Assert.Throws<InvalidSessionKeyException>(() => SecuritySession.FromKey("this.is.an.invalid.key"));
             }
         }
 
         [Test]
         public void FromKey_with_null_throws()
         {
-            Assert.Throws<ArgumentNullException>(() => Session.FromKey(null));
+            Assert.Throws<ArgumentNullException>(() => SecuritySession.FromKey(null));
         }
     }
 }

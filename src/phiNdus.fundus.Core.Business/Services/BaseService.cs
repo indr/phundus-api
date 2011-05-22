@@ -6,17 +6,17 @@ namespace phiNdus.fundus.Core.Business.Services
 {
     public class BaseService
     {
-        private Session _session;
+        private SecurityContext _securityContext;
         private bool _sessionSet;
 
-        public Session Session
+        public SecurityContext SecurityContext
         {
-            get { return _session; }
+            get { return _securityContext; }
             set
             {
-                Guard.Against<InvalidOperationException>(_sessionSet, "Session can only be set once");
+                Guard.Against<InvalidOperationException>(_sessionSet, "SecurityContext can only be set once");
                 _sessionSet = true;
-                _session = value;
+                _securityContext = value;
             }
         }
     }

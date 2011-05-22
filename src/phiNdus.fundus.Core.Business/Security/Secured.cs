@@ -1,15 +1,12 @@
-﻿using System;
-using Rhino.Commons;
+﻿using phiNdus.fundus.Core.Business.Security.Constraints;
 
 namespace phiNdus.fundus.Core.Business.Security
 {
     public class Secured
     {
-        public static SecuredHelper With(Session session)
+        public static SecuredHelper With(AbstractConstraint constraint)
         {
-            Guard.Against<ArgumentNullException>(session == null, "session");
-
-            return new SecuredHelper(session);
+            return new SecuredHelper(constraint);
         }
     }
 }

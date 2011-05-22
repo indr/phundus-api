@@ -44,6 +44,9 @@
     </Reference>
     <Reference Include="Rhino.Commons.Clr, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL" />
     <Reference Include="Rhino.Commons.NHibernate, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL" />
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\tools\Rhino.Mocks\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Security\Constraints\AbstractConstraint.cs" />
+    <Compile Include="Security\Constraints\AndConstraint.cs" />
+    <Compile Include="Security\AuthorizationException.cs" />
     <Compile Include="DtoOutOfDateException.cs" />
     <Compile Include="EmailAlreadyTakenException.cs" />
     <Compile Include="EntityNotFoundException.cs" />
@@ -67,10 +73,17 @@
     <Compile Include="SecuredServices\BaseSecuredService.cs" />
     <Compile Include="SecuredServices\IUserService.cs" />
     <Compile Include="SecuredServices\SecuredUserService.cs" />
+    <Compile Include="Security\Constraints\NotConstraint.cs" />
+    <Compile Include="Security\Constraints\SessionFromKeyConstraint.cs" />
+    <Compile Include="Security\Constraints\UserInRoleConstraint.cs" />
     <Compile Include="Security\InvalidSessionKeyException.cs" />
+    <Compile Include="Security\Constraints\OrConstraint.cs" />
+    <Compile Include="Security\Constraints\User.cs" />
     <Compile Include="Security\Secured.cs" />
     <Compile Include="Security\SecuredHelper.cs" />
-    <Compile Include="Security\Session.cs" />
+    <Compile Include="Security\SecurityContext.cs" />
+    <Compile Include="Security\SecuritySession.cs" />
+    <Compile Include="Security\Constraints\Session.cs" />
     <Compile Include="Services\UserService.cs">
       <SubType>Code</SubType>
     </Compile>
