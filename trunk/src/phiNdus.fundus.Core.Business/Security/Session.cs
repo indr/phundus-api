@@ -20,8 +20,12 @@ namespace phiNdus.fundus.Core.Business.Security
         {
             Guard.Against<ArgumentNullException>(key == null, "key");
 
-            var repo = IoC.Resolve<IUserRepository>();
-            var user = repo.FindBySessionKey(key);
+            User user;
+            using (UnitOfWork.Start())
+            {
+                var repo = IoC.Resolve<IUserRepository>();
+                user = repo.FindBySessionKey(key);
+            }
             Guard.Against<InvalidSessionKeyException>(user == null, "");
 
             return new Session(user, key);
