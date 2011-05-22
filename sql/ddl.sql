@@ -13,6 +13,7 @@ create table [Membership] (
   Version INT not null,
   SessionKey VARCHAR(20) null,
   Password NVARCHAR(255) null,
+  Salt VARCHAR(5) not null,
   Email NVARCHAR(255) null,
   IsApproved BIT null,
   IsLockedOut BIT null,

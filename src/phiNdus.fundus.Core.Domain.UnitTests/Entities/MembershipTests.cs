@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
 
@@ -74,6 +75,48 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void LogOn_with_password_null_throws()
         {
             Assert.Throws<ArgumentNullException>(() => Sut.LogOn(null));
+        }
+
+        [Test]
+        public void Set_Password_and_get_Password_are_not_equal()
+        {
+            Sut.Password = "1234";
+            Assert.That(Sut.Password, Is.Not.EqualTo("1234"));
+        }
+
+        [Test]
+        public void Set_same_password_to_different_memberships_results_in_different_encrypted_password()
+        {
+            var membership1 = new Membership();
+            var membership2 = new Membership();
+            membership1.Password = "1234";
+            membership2.Password = "1234";
+            Assert.That(membership2.Password, Is.Not.EqualTo(membership1.Password));
+        }
+
+        [Test]
+        public void Set_Password_updates_LastPasswordChange()
+        {
+            Sut.Password = "new Password";
+            Assert.That(Sut.LastPasswordChangeDate, Is.EqualTo(DateTime.Now).Within(1).Seconds);
+        }
+
+        [Test]
+        public void Set_same_password_twice_does_not_update_LastPasswordChange()
+        {
+            Sut.Password = "Password";
+            var firstSet = DateTime.Now;
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            Sut.Password = "Password";
+            Assert.That(Sut.LastPasswordChangeDate, Is.EqualTo(firstSet).Within(1).Seconds);
+        }
+
+        [Test]
+        public void LockOut_updates_LastLockedOutDate()
+        {
+            Sut.LockOut();
+            Assert.That(Sut.IsLockedOut, Is.True);
+            Assert.That(Sut.LastLockoutDate, Is.EqualTo(DateTime.Now).Within(1).Seconds);
         }
     }
 }

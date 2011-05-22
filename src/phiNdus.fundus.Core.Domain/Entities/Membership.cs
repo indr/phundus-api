@@ -6,14 +6,35 @@ namespace phiNdus.fundus.Core.Domain.Entities
     public class Membership : BaseEntity
     {
         private DateTime _createDate;
+        private string _password;
+        private string _salt;
 
         public Membership()
         {
             _createDate = DateTime.Now;
+            _salt = KeyGenerator.CreateKey(5);
         }
 
         public virtual User User { get; set; }
-        public virtual string Password { get; set; }
+
+        public virtual string Password
+        {
+            get { return _password; }
+            set
+            {
+                var newPassword = PasswordEncryptor.Encrypt(value, Salt);
+                if (_password == newPassword) return;
+                _password = newPassword;
+                LastPasswordChangeDate = DateTime.Now;
+            }
+        }
+
+        protected virtual string Salt
+        {
+            get { return _salt; }
+            set { _salt = value; }
+        }
+
         public virtual string Email { get; set; }
         public virtual bool IsApproved { get; set; }
         public virtual bool IsLockedOut { get; set; }
@@ -41,10 +62,18 @@ namespace phiNdus.fundus.Core.Domain.Entities
             Guard.Against<ArgumentNullException>(password == null, "pasword");
             Guard.Against<UserNotApprovedException>(IsNotApproved, "");
             Guard.Against<UserLockedOutException>(IsLockedOut, "");
-            Guard.Against<InvalidPasswordException>(Password != password, "");
+
+            Guard.Against<InvalidPasswordException>(
+                Password != PasswordEncryptor.Encrypt(password, Salt), "");
 
             SessionKey = SessionKeyGenerator.CreateKey();
             LastLogOnDate = DateTime.Now;
+        }
+
+        public void LockOut()
+        {
+            IsLockedOut = true;
+            LastLockoutDate = DateTime.Now;
         }
     }
 }

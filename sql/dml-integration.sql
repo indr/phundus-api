@@ -21,14 +21,14 @@ INSERT INTO [User] (Id, Version, RoleId, FirstName, LastName)
 INSERT INTO [User] (Id, Version, RoleId, FirstName, LastName)
   VALUES (4, 1, 2, 'Barney', 'Stinson');
 
-INSERT INTO [Membership] (Id, Version, SessionKey, Password, Email, IsApproved, IsLockedOut, CreateDate)
-  VALUES (1, 1, NULL, '1234', 'ted.mosby@example.com', 0, 0, '2011-05-10');
-INSERT INTO [Membership] (Id, Version, SessionKey, Password, Email, IsApproved, IsLockedOut, CreateDate)
-  VALUES (2, 1, '1234', '1234', 'marshall.eriksen@example.com', 1, 1, '2011-05-10');
-INSERT INTO [Membership] (Id, Version, SessionKey, Password, Email, IsApproved, IsLockedOut, CreateDate)
-  VALUES (3, 1, NULL, '1234', 'robin.scherbatsky@example.com', 1, 0, '2011-05-10');
-INSERT INTO [Membership] (Id, Version, SessionKey, Password, Email, IsApproved, IsLockedOut, CreateDate)
-  VALUES (4, 1, NULL, '1234', 'barney.stinson@example.com', 1, 0, '2011-05-10');
+INSERT INTO [Membership] (Id, Version, SessionKey, Password, Salt, Email, IsApproved, IsLockedOut, CreateDate)
+  VALUES (1, 1, NULL,                   /* ted: */    'c8386351d4f7a637083b620a43de446d' , '123ab', 'ted.mosby@example.com', 0, 0, '2011-05-10');
+INSERT INTO [Membership] (Id, Version, SessionKey, Password, Salt, Email, IsApproved, IsLockedOut, CreateDate)
+  VALUES (2, 1, '0eb6182f7d75197bafc6', /* marshall: */ '0a2a5ff03fc204833be2e4e1b6ec2dd2', '234cd', 'marshall.eriksen@example.com', 1, 1, '2011-05-10');
+INSERT INTO [Membership] (Id, Version, SessionKey, Password, Salt, Email, IsApproved, IsLockedOut, CreateDate)
+  VALUES (3, 1, NULL,                   /* robin: */   '53dfd1eed051a7aacabb867339ae2046', '345ef', 'robin.scherbatsky@example.com', 1, 0, '2011-05-10');
+INSERT INTO [Membership] (Id, Version, SessionKey, Password, Salt, Email, IsApproved, IsLockedOut, CreateDate)
+  VALUES (4, 1, NULL,                   /* barney: */  '8d393d35b5ddca0e54a540a4cb7da3ce', '456gh', 'barney.stinson@example.com', 1, 0, '2011-05-10');
 
 
 insert into [Setting] (Id, Version, [Key], [StringValue])

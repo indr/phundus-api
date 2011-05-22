@@ -32,7 +32,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             _domainObject.Membership.LastLockoutDate = null;
             _domainObject.Membership.LastLogOnDate = null;
             _domainObject.Membership.LastPasswordChangeDate = null;
-            _domainObject.Membership.Password = null;
 
             _dto = new UserDto();
             _dto.CreateDate = new DateTime(2011, 6, 5, 14, 48, 55);

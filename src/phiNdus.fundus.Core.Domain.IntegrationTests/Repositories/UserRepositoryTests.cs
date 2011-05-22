@@ -25,7 +25,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         {
             using (UnitOfWork.Start())
             {
-                var user = Sut.FindBySessionKey("1234");
+                var user = Sut.FindBySessionKey("0eb6182f7d75197bafc6");
                 Assert.That(user, Is.Not.Null);
                 Assert.That(user.Id, Is.EqualTo(2));
             }
@@ -39,6 +39,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 var user = Sut.FindByEmail("marshall.eriksen@example.com");
                 Assert.That(user, Is.Not.Null);
                 Assert.That(user.Id, Is.EqualTo(2));
+                Assert.That(user.Membership.Password, Is.EqualTo("0a2a5ff03fc204833be2e4e1b6ec2dd2"));
             }
         }
 

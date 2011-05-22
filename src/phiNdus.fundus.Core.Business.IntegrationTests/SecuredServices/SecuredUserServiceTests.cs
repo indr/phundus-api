@@ -21,7 +21,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
         [Test]
         public void GetUser_returns_dto()
         {
-            var sessionKey = Sut.ValidateUser("robin.scherbatsky@example.com", "1234");
+            var sessionKey = Sut.ValidateUser("robin.scherbatsky@example.com", "robin");
             Assert.That(sessionKey, Is.Not.Null);
 
             var actual = Sut.GetUser(sessionKey, "robin.scherbatsky@example.com");
