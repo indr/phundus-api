@@ -30,10 +30,17 @@ namespace phiNdus.fundus.Core.Domain.Entities
         public virtual DateTime? LastLockoutDate { get; set; }
         public virtual string Comment { get; set; }
 
+        protected bool IsNotApproved
+        {
+            get { return !IsApproved; }
+            set { IsApproved = !value; }
+        }
+
         public void LogOn(string password)
         {
             Guard.Against<ArgumentNullException>(password == null, "pasword");
-            Guard.Against<UserLookedOutException>(IsLockedOut, "");
+            Guard.Against<UserNotApprovedException>(IsNotApproved, "");
+            Guard.Against<UserLockedOutException>(IsLockedOut, "");
             Guard.Against<InvalidPasswordException>(Password != password, "");
 
             SessionKey = SessionKeyGenerator.CreateKey();

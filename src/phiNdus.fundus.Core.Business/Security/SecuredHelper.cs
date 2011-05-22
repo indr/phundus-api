@@ -15,17 +15,22 @@ namespace phiNdus.fundus.Core.Business.Security
         public void Call<TService>(Action<TService> func)
             where TService : BaseService, new()
         {
-            var service = new TService();
-            service.Session = Session;
+            var service = GetService<TService>();
             func(service);
         }
 
         public TResult Call<TService, TResult>(Func<TService, TResult> func)
             where TService : BaseService, new()
         {
+            var service = GetService<TService>();
+            return func(service);
+        }
+
+        private TService GetService<TService>() where TService : BaseService, new()
+        {
             var service = new TService();
             service.Session = Session;
-            return func(service);
+            return service;
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace phiNdus.fundus.Core.Domain
 {
-    public class SessionKeyGenerator
+    public static class SessionKeyGenerator
     {
         public static string CreateKey()
         {
@@ -15,7 +16,7 @@ namespace phiNdus.fundus.Core.Domain
             return BytesToHexString(buff);
         }
 
-        private static string BytesToHexString(byte[] bytes)
+        private static string BytesToHexString(IEnumerable<byte> bytes)
         {
             var builder = new StringBuilder(20);
             foreach (var each in bytes)

@@ -92,7 +92,8 @@
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Settings\SettingsImpl.cs" />
     <Compile Include="Settings\SmtpSettings.cs" />
-    <Compile Include="UserLookedOutException.cs" />
+    <Compile Include="UserLockedOutException.cs" />
+    <Compile Include="UserNotApprovedException.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\User.hbm.xml">

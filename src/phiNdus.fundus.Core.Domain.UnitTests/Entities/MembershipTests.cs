@@ -14,6 +14,8 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         {
             Sut = new Membership();
             Sut.Password = "1234";
+            Sut.IsApproved = true;
+            Sut.IsLockedOut = false;
         }
 
         #endregion
@@ -48,10 +50,17 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void LogOn_when_looked_out_throws()
+        public void LogOn_when_locked_out_throws()
         {
             Sut.IsLockedOut = true;
-            Assert.Throws<UserLookedOutException>(() => Sut.LogOn(""));
+            Assert.Throws<UserLockedOutException>(() => Sut.LogOn(""));
+        }
+
+        [Test]
+        public void LogOn_when_not_approved_throws()
+        {
+            Sut.IsApproved = false;
+            Assert.Throws<UserNotApprovedException>(() => Sut.LogOn(""));
         }
 
         [Test]
