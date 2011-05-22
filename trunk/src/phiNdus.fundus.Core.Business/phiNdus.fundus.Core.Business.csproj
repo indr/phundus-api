@@ -69,6 +69,7 @@
     <Compile Include="SecuredServices\SecuredUserService.cs" />
     <Compile Include="Security\InvalidSessionKeyException.cs" />
     <Compile Include="Security\Secured.cs" />
+    <Compile Include="Security\SecuredHelper.cs" />
     <Compile Include="Security\Session.cs" />
     <Compile Include="Services\UserService.cs">
       <SubType>Code</SubType>
