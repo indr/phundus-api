@@ -1,36 +1,46 @@
 ﻿using System;
+using phiNdus.fundus.Core.Business.Security.Constraints;
 using phiNdus.fundus.Core.Business.Services;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Security
 {
     public class SecuredHelper
     {
-        public SecuredHelper(Session session)
+        private AbstractConstraint _constraint;
+
+        public SecuredHelper(AbstractConstraint constraint)
         {
-            Session = session;
+            _constraint = constraint;
         }
 
-        protected Session Session { get; private set; }
+        #region Do
 
-        public void Call<TService>(Action<TService> func)
+        public void Do<TService>(Action<TService> func)
             where TService : BaseService, new()
         {
-            var service = GetService<TService>();
-            func(service);
+            func(GetService<TService>());
         }
 
-        public TResult Call<TService, TResult>(Func<TService, TResult> func)
+        public TResult Do<TService, TResult>(System.Func<TService, TResult> func)
             where TService : BaseService, new()
         {
-            var service = GetService<TService>();
-            return func(service);
+            return func(GetService<TService>());
         }
 
         private TService GetService<TService>() where TService : BaseService, new()
         {
+            var context = new SecurityContext();
+            using (UnitOfWork.Start())
+            {
+                if (!_constraint.Eval(context))
+                    throw new AuthorizationException();
+            }
             var service = new TService();
-            service.Session = Session;
+            service.SecurityContext = context;
             return service;
         }
+
+        #endregion
     }
 }

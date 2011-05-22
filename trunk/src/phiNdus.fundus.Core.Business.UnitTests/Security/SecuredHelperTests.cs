@@ -1,97 +1,136 @@
-﻿using System.Reflection;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Services;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Core.Business.UnitTests.Security.Constraints;
+using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Security
 {
     [TestFixture]
     internal class SecuredHelperTests : BaseTestFixture
     {
-        #region Setup/Teardown
+        private SecuredHelper Sut { get; set; }
 
-        [SetUp]
         public override void SetUp()
         {
             base.SetUp();
-            Session = CreateSession(null, null);
-            Sut = new SecuredHelper(Session);
-        }
 
-        #endregion
-
-        private static Session CreateSession(User user, string key)
-        {
-            var info = typeof (Session).GetConstructor(
-                BindingFlags.Instance | BindingFlags.NonPublic
-                , null, new[] {typeof (User), typeof (string)}, null);
-            return (Session) info.Invoke(new object[] {user, key});
-        }
-
-        private SecuredHelper Sut { get; set; }
-        private Session Session { get; set; }
-
-        [Test]
-        public void Call_func_instantiates_service()
-        {
-            BaseService serviceRef = null;
-            Sut.Call<BaseService, int>(service =>
-                                           {
-                                               serviceRef = service;
-                                               return 0;
-                                           });
-            Assert.That(serviceRef, Is.Not.Null);
+            using (MockFactory.Record()) {
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
         }
 
         [Test]
-        public void Call_func_invokes_lambda()
+        public void Do_does_not_call_func_lambda_and_throws_when_constraints_are_not_met()
         {
-            var invoked = false;
-            Sut.Call<BaseService, int>(service =>
-                                           {
-                                               invoked = true;
-                                               return 0;
-                                           });
-            Assert.That(invoked, Is.True);
+            using (MockFactory.Playback())
+            {
+                var invoked = false;
+                Sut = new SecuredHelper(new AlwaysFalseConstraint());
+                Assert.Throws<AuthorizationException>(() => Sut.Do<BaseService, int>(service =>
+                                                                                         {
+                                                                                             invoked = true;
+                                                                                             return 0;
+                                                                                         }));
+                Assert.That(invoked, Is.False);
+            }
         }
 
         [Test]
-        public void Call_func_sets_Session_on_service()
+        public void Do_does_not_call_proc_lambda_and_throws_when_constraints_are_not_met()
         {
-            Session session = null;
-            Sut.Call<BaseService, int>(service =>
-                                           {
-                                               session = service.Session;
-                                               return 0;
-                                           });
-            Assert.That(session, Is.Not.Null);
-            Assert.That(session, Is.EqualTo(Session));
+            using (MockFactory.Playback())
+            {
+                var invoked = false;
+                Sut = new SecuredHelper(new AlwaysFalseConstraint());
+                Assert.Throws<AuthorizationException>(() => Sut.Do<BaseService>(service => invoked = true));
+                Assert.That(invoked, Is.False);
+            }
+        }
+
+
+        [Test]
+        public void Do_func_instantiates_service()
+        {
+            using (MockFactory.Playback())
+            {
+                BaseService serviceRef = null;
+                Sut = new SecuredHelper(new AlwaysTrueConstraint());
+                Sut.Do<BaseService, int>(service =>
+                                             {
+                                                 serviceRef = service;
+                                                 return 0;
+                                             });
+                Assert.That(serviceRef, Is.Not.Null);
+            }
         }
 
         [Test]
-        public void Call_proc_instantiates_service()
+        public void Do_func_invokes_lambda()
         {
-            BaseService serviceRef = null;
-            Sut.Call<BaseService>(service => serviceRef = service);
-            Assert.That(serviceRef, Is.Not.Null);
+            using (MockFactory.Playback())
+            {
+                var invoked = false;
+                Sut = new SecuredHelper(new AlwaysTrueConstraint());
+                Sut.Do<BaseService, int>(service =>
+                                             {
+                                                 invoked = true;
+                                                 return 0;
+                                             });
+                Assert.That(invoked, Is.True);
+            }
         }
 
         [Test]
-        public void Call_proc_invokes_lambda()
+        public void Do_func_sets_SecurityContext_on_service()
         {
-            var invoked = false;
-            Sut.Call<BaseService>(service => { invoked = true; });
-            Assert.That(invoked, Is.True);
+            using (MockFactory.Playback())
+            {
+                SecurityContext securityContext = null;
+                Sut = new SecuredHelper(new AlwaysTrueConstraint());
+                Sut.Do<BaseService, int>(service =>
+                                             {
+                                                 securityContext = service.SecurityContext;
+                                                 return 0;
+                                             });
+                Assert.That(securityContext, Is.Not.Null);
+            }
         }
 
         [Test]
-        public void Call_proc_sets_Session_on_service()
+        public void Do_proc_instantiates_service()
         {
-            Session session = null;
-            Sut.Call<BaseService>(service => session = service.Session);
-            Assert.That(session, Is.Not.Null);
-            Assert.That(session, Is.EqualTo(Session));
+            using (MockFactory.Playback())
+            {
+                BaseService serviceRef = null;
+                Sut = new SecuredHelper(new AlwaysTrueConstraint());
+                Sut.Do<BaseService>(service => serviceRef = service);
+                Assert.That(serviceRef, Is.Not.Null);
+            }
+        }
+
+        [Test]
+        public void Do_proc_invokes_lambda()
+        {
+            using (MockFactory.Playback())
+            {
+                var invoked = false;
+                Sut = new SecuredHelper(new AlwaysTrueConstraint());
+                Sut.Do<BaseService>(service => { invoked = true; });
+                Assert.That(invoked, Is.True);
+            }
+        }
+
+        [Test]
+        public void Do_proc_sets_SecurityContext_on_service()
+        {
+            using (MockFactory.Playback())
+            {
+                SecurityContext securityContext = null;
+                Sut = new SecuredHelper(new AlwaysTrueConstraint());
+                Sut.Do<BaseService>(service => securityContext = service.SecurityContext);
+                Assert.That(securityContext, Is.Not.Null);
+            }
         }
     }
 }

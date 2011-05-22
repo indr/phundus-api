@@ -1,17 +1,22 @@
-﻿using phiNdus.fundus.Core.Business.Dto;
+﻿using System;
+using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Security;
+using phiNdus.fundus.Core.Business.Security.Constraints;
 using phiNdus.fundus.Core.Business.Services;
+using phiNdus.fundus.Core.Domain.Entities;
+using User = phiNdus.fundus.Core.Business.Security.Constraints.User;
 
 namespace phiNdus.fundus.Core.Business.SecuredServices
 {
     public class SecuredUserService : BaseSecuredService, IUserService
     {
         #region IUserService Members
-
+        
         public UserDto GetUser(string sessionKey, string email)
         {
-            return Secured.With(Session.FromKey(sessionKey))
-                .Call<UserService, UserDto>(svc => svc.GetUser(email));
+            return Secured.With(Session.FromKey(sessionKey)
+                    && User.InRole(Role.Administrator))
+                .Do<UserService, UserDto>(svc => svc.GetUser(email));
         }
 
         public UserDto CreateUser(string sessionKey, string email, string password)
@@ -21,7 +26,9 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 
         public void UpdateUser(string sessionKey, UserDto user)
         {
-            Secured.With(Session.FromKey(sessionKey));
+            // TODO,Inder: Administrator-Rolle oder eigene Benutzer
+            Secured.With(Session.FromKey(sessionKey))
+                .Do<UserService>(svc => svc.UpdateUser(user));
         }
 
         public bool DeleteUser(string sessionKey, string email)
@@ -48,7 +55,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 
         private static UserService Service(string sessionKey)
         {
-            // TODO: Session-Key
+            // TODO: SecurityContext-Key
             return new UserService();
         }
     }
