@@ -121,8 +121,9 @@ namespace phiNdus.fundus.Core.Web.Security {
         }
 
         public override bool ValidateUser(string username, string password) {
-            // TODO: Session-Key
-            return this.UserService.ValidateUser(null, username, password);
+            var sessionKey = this.UserService.ValidateUser(username, password);
+            // TODO,MVC-Team
+            return sessionKey != null;
         }
 
         //=========================================================================================

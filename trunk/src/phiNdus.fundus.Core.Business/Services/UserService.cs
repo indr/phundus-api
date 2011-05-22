@@ -4,6 +4,7 @@ using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Mails;
 using phiNdus.fundus.Core.Business.Security;
+using phiNdus.fundus.Core.Domain;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
@@ -77,17 +78,25 @@ namespace phiNdus.fundus.Core.Business.Services
             throw new NotImplementedException();
         }
 
-        public bool ValidateUser(string email, string password)
+        public string ValidateUser(string email, string password)
         {
             email = email.ToLower(CultureInfo.CurrentCulture);
 
-            using (UnitOfWork.Start())
+            using (var uow = UnitOfWork.Start())
             {
                 User user = _users.FindByEmail(email);
                 if (user == null)
-                    return false;
-                // TODO,Inder: Password encryption
-                return user.Membership.Password == password;
+                    return null;
+                try
+                {
+                    user.Membership.LogOn(password);
+                    uow.TransactionalFlush();
+                    return user.Membership.SessionKey;
+                }
+                catch (InvalidPasswordException)
+                {
+                    return null;
+                }
             }
         }
 

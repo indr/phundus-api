@@ -1,5 +1,4 @@
-﻿using System;
-using Castle.MicroKernel.Registration;
+﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NUnit.Framework;
 using Rhino.Commons;
@@ -9,6 +8,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests
 {
     internal class BaseTestFixture
     {
+        protected MockRepository MockFactory { get; set; }
+
         [SetUp]
         public virtual void SetUp()
         {
@@ -21,8 +22,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests
         {
             IoC.Container.Dispose();
         }
-
-        protected MockRepository MockFactory { get; set; }
 
         protected T CreateAndRegisterStrictMock<T>()
         {

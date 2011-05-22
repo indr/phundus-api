@@ -71,6 +71,7 @@
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Installer.cs" />
+    <Compile Include="InvalidPasswordException.cs" />
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\ISettingRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Settings\SettingsImpl.cs" />
     <Compile Include="Settings\SmtpSettings.cs" />
+    <Compile Include="UserLookedOutException.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\User.hbm.xml">

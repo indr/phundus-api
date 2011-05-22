@@ -1,4 +1,5 @@
 ﻿using System;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
@@ -23,10 +24,21 @@ namespace phiNdus.fundus.Core.Domain.Entities
             protected set { _createDate = value; }
         }
 
-        public virtual string SessionKey { get; set; }
+        public virtual string SessionKey { get; protected set; }
         public virtual DateTime? LastLogOnDate { get; set; }
         public virtual DateTime? LastPasswordChangeDate { get; set; }
         public virtual DateTime? LastLockoutDate { get; set; }
         public virtual string Comment { get; set; }
+
+        public void LogOn(string password)
+        {
+            Guard.Against<ArgumentNullException>(password == null, "pasword");
+            Guard.Against<UserLookedOutException>(IsLockedOut, "");
+            Guard.Against<InvalidPasswordException>(Password != password, "");
+
+            // TODO,Inder: Generate Session-Key without Captain Obvious
+            SessionKey = "Session.Key";
+            LastLogOnDate = DateTime.Now;
+        }
     }
 }
