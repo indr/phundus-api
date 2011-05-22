@@ -63,8 +63,10 @@
     <Compile Include="BaseTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecuredServices\SecuredUserServiceTests.cs" />
+    <Compile Include="Security\SecuredHelperTests.cs" />
     <Compile Include="Security\SecuredTests.cs" />
     <Compile Include="Security\SessionTests.cs" />
+    <Compile Include="Services\BaseServiceTests.cs" />
     <Compile Include="Services\UserServiceTests.cs" />
     <Compile Include="Mails\UserAccountValidationMailTest.cs" />
   </ItemGroup>

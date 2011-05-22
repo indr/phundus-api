@@ -18,8 +18,8 @@
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(this, obj)) return true;
-            if (!(obj is Role)) return false;
-            var that = (Role) obj;
+            var that = obj as Role;
+            if (that == null) return false;
             if (this.Name != that.Name)
                 return false;
             return true;
