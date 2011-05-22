@@ -116,7 +116,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         [Test]
-        [ExpectedException(typeof (EmailAlreadyTakenException))]
         public void CreateUser_with_email_already_taken_throws()
         {
             using (MockFactory.Record())
@@ -127,7 +126,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             }
             using (MockFactory.Playback())
             {
-                Sut.CreateUser("ted.mosby@example.com", "");
+                Assert.Throws<EmailAlreadyTakenException>(() => Sut.CreateUser("ted.mosby@example.com", ""));
             }
         }
 
@@ -168,7 +167,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         [Test]
-        [ExpectedException(typeof (EntityNotFoundException))]
         public void UpdateUser_with_invalid_id_throws()
         {
             using (MockFactory.Record())
@@ -179,19 +177,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                Sut.UpdateUser(new UserDto {Id = 0});
+                Assert.Throws<EntityNotFoundException>(() => Sut.UpdateUser(new UserDto { Id = 0 }));
             }
         }
 
         [Test]
-        [ExpectedException(typeof (ArgumentNullException))]
         public void UpdateUser_with_null_subject_throws()
         {
-            Sut.UpdateUser(null);
+            Assert.Throws<ArgumentNullException>(() => Sut.UpdateUser(null));
         }
 
         [Test]
-        [ExpectedException(typeof (DtoOutOfDateException))]
         public void UpdateUser_with_out_of_date_userdto_throws()
         {
             using (MockFactory.Record())
@@ -202,7 +198,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                Sut.UpdateUser(new UserDto {Id = 1, Version = -1});
+                Assert.Throws<DtoOutOfDateException>(() => Sut.UpdateUser(new UserDto { Id = 1, Version = -1 }));
             }
         }
 

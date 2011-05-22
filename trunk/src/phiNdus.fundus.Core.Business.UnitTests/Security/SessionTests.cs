@@ -44,7 +44,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         }
 
         [Test]
-        [ExpectedException(typeof (InvalidSessionKeyException))]
         public void FromKey_with_invalid_throws()
         {
             using (MockFactory.Record())
@@ -55,15 +54,14 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
 
             using (MockFactory.Playback())
             {
-                Session.FromKey("this.is.an.invalid.key");
+                Assert.Throws<InvalidSessionKeyException>(() => Session.FromKey("this.is.an.invalid.key"));
             }
         }
 
         [Test]
-        [ExpectedException(typeof (ArgumentNullException))]
         public void FromKey_with_null_throws()
         {
-            Session.FromKey(null);
+            Assert.Throws<ArgumentNullException>(() => Session.FromKey(null));
         }
     }
 }

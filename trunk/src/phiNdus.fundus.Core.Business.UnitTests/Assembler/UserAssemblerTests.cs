@@ -75,10 +75,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
         #region CreateDomainObject
         [Test]
-        [ExpectedException(typeof (ArgumentNullException))]
         public void CreateDomainObjectWithNullSubjectThrowsCreateNullSubjectThrows()
         {
-            UserAssembler.CreateDomainObject(null);
+            Assert.Throws<ArgumentNullException>(() => UserAssembler.CreateDomainObject(null));
         }
 
         [Test]
@@ -108,18 +107,16 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         }
 
         [Test]
-        [ExpectedException(typeof (ArgumentNullException))]
         public void CreateDto_with_membership_null_throws()
         {
             _domainObject.Membership = null;
-            UserAssembler.CreateDto(_domainObject);
+            Assert.Throws<ArgumentNullException>(() => UserAssembler.CreateDto(_domainObject));
         }
 
         [Test]
-        [ExpectedException(typeof (ArgumentNullException))]
         public void CreateDto_with_null_subject_throws()
         {
-            UserAssembler.CreateDto(null);
+            Assert.Throws<ArgumentNullException>(() => UserAssembler.CreateDto(null));
         }
         #endregion CreateDto
 
@@ -149,7 +146,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         }
 
         [Test]
-        [ExpectedException(typeof (EntityNotFoundException))]
         public void UpdateDomainObject_with_id_not_in_repository_throws()
         {
             using (MockFactory.Record())
@@ -158,19 +154,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             }
             using (MockFactory.Playback())
             {
-                UserAssembler.UpdateDomainObject(_dto);
+                Assert.Throws<EntityNotFoundException>(() => UserAssembler.UpdateDomainObject(_dto));
             }
         }
 
         [Test]
-        [ExpectedException(typeof (ArgumentNullException))]
         public void UpdateDomainObject_with_null_subject_throws()
         {
-            UserAssembler.UpdateDomainObject(null);
+            Assert.Throws<ArgumentNullException>(() => UserAssembler.UpdateDomainObject(null));
         }
 
         [Test]
-        [ExpectedException(typeof (DtoOutOfDateException))]
         public void UpdateDomainObject_with_version_not_equal_from_repository_throws()
         {
             _dto.Version = 1;
@@ -180,7 +174,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             }
             using (MockFactory.Playback())
             {
-                UserAssembler.UpdateDomainObject(_dto);
+                Assert.Throws<DtoOutOfDateException>(() => UserAssembler.UpdateDomainObject(_dto));
             }
         }
         #endregion

@@ -41,11 +41,10 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void Set_Session_can_only_be_called_once()
         {
             Sut.Session = null;
-            Sut.Session = null;
+            Assert.Throws<InvalidOperationException>(() => Sut.Session = null);
         }
     }
 }

@@ -8,10 +8,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
     internal class SecuredTests : BaseTestFixture
     {
         [Test]
-        [ExpectedException(typeof (ArgumentNullException))]
         public void With_session_null_throws()
         {
-            Secured.With(null);
+            Assert.Throws<ArgumentNullException>(() => Secured.With(null));
         }
     }
 }

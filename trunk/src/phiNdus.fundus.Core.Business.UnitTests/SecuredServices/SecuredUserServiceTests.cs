@@ -28,7 +28,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         protected SecuredUserService Sut { get; set; }
 
         [Test]
-        [ExpectedException(typeof (InvalidSessionKeyException))]
         public void GetUser_with_invalid_sessionKey_throws()
         {
             using (MockFactory.Record())
@@ -39,20 +38,18 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 
             using (MockFactory.Playback())
             {
-                Sut.GetUser("this.key.is.not.valid", "");
+                Assert.Throws<InvalidSessionKeyException>(() => Sut.GetUser("this.key.is.not.valid", ""));
             }
         }
 
         [Test]
-        [ExpectedException(typeof (ArgumentNullException), ExpectedMessage = "Parameter name: key",
-            MatchType = MessageMatch.Contains)]
         public void GetUser_with_sessionKey_null_throws()
         {
-            Sut.GetUser(null, "");
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.GetUser(null, ""));
+            Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
 
         [Test]
-        [ExpectedException(typeof (InvalidSessionKeyException))]
         public void UpdateUser_with_invalid_sessionKey_throws()
         {
             using (MockFactory.Record())
@@ -63,16 +60,15 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 
             using (MockFactory.Playback())
             {
-                Sut.UpdateUser("this.key.is.not.valid", null);
+                Assert.Throws<InvalidSessionKeyException>(() => Sut.UpdateUser("this.key.is.not.valid", null));
             }
         }
 
         [Test]
-        [ExpectedException(typeof (ArgumentNullException), ExpectedMessage = "Parameter name: key",
-            MatchType = MessageMatch.Contains)]
         public void UpdateUser_with_sessionKey_null_throws()
         {
-            Sut.UpdateUser(null, null);
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.UpdateUser(null, null));
+            Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
     }
 }

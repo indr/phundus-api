@@ -17,10 +17,9 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         protected Membership Sut { get; set; }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void LogOn_with_password_null_throws()
         {
-            Sut.LogOn(null);
+            Assert.Throws<ArgumentNullException>(() => Sut.LogOn(null));
         }
 
         [Test]
@@ -40,19 +39,17 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        [ExpectedException(typeof(UserLookedOutException))]
         public void LogOn_when_looked_out_throws()
         {
             Sut.IsLockedOut = true;
-            Sut.LogOn("");
+            Assert.Throws<UserLookedOutException>(() => Sut.LogOn(""));
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidPasswordException))]
         public void LogOn_with_invalid_password_throws()
         {
             Sut.Password = "1234";
-            Sut.LogOn("4321");
+            Assert.Throws<InvalidPasswordException>(() => Sut.LogOn("4321"));
         }
     }
 }
