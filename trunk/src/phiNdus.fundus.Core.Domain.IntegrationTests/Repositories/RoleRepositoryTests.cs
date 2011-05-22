@@ -44,6 +44,17 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         }
 
         [Test]
+        public void User_role_from_repo_equals_static_domain_entity()
+        {
+            using (UnitOfWork.Start())
+            {
+                var fromRepo = Sut.Get(1);
+                Assert.That(fromRepo, Is.Not.Null);
+                Assert.That(fromRepo, Is.EqualTo(Role.User));
+            }
+        }
+
+        [Test]
         public void Get_2_returns_Administrator_role()
         {
             using (UnitOfWork.Start())
@@ -53,6 +64,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 Assert.That(fromRepo.Name, Is.EqualTo("Administrator"));
             }
         }
+
+
 
         [Test]
         [ExpectedException(typeof(GenericADOException))]

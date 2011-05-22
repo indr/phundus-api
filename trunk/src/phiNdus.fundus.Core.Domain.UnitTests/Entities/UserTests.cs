@@ -21,6 +21,14 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void Constructor_assignes_User_role()
+        {
+            var sut = new User();
+            Assert.That(sut.Role, Is.Not.Null);
+            Assert.That(sut.Role, Is.EqualTo(Role.User));
+        }
+        
+        [Test]
         public void Can_set_and_get_FirstName()
         {
             var sut = new User();
@@ -43,7 +51,6 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         {
             var role = new Role();
             var sut = new User();
-            Assert.That(sut.Role, Is.Null);
             sut.Role = role;
             Assert.That(sut.Role, Is.EqualTo(role));
         }
