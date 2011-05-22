@@ -15,6 +15,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
             _lastName = "";
             _membership = new Membership();
             _membership.User = this;
+            _role = Role.User;
         }
 
         private string _firstName;
@@ -38,6 +39,11 @@ namespace phiNdus.fundus.Core.Domain.Entities
             set { _membership = value; }
         }
 
-        public virtual Role Role { get; set; }
+        private Role _role;
+        public virtual Role Role
+        {
+            get { return _role; }
+            set { _role = value; }
+        }
     }
 }

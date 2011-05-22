@@ -27,5 +27,32 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             sut.Name = "Benutzer";
             Assert.That(sut.Name, Is.EqualTo("Benutzer"));
         }
+
+        [Test]
+        public void Get_User_role()
+        {
+            var role = Role.User;
+            Assert.That(role, Is.Not.Null);
+            Assert.That(role.Id, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Get_Administrator_role()
+        {
+            var role = Role.Administrator;
+            Assert.That(role, Is.Not.Null);
+            Assert.That(role.Id, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Equals_by_name()
+        {
+            var role1 = new Role();
+            role1.Name = "User";
+            var role2 = new Role();
+            role2.Name = "User";
+
+            Assert.That(role1.Equals(role2), Is.True);
+        }
     }
 }

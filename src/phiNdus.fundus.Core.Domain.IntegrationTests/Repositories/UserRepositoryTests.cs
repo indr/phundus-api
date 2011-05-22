@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using NHibernate;
+using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
@@ -75,6 +76,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 user.FirstName = "Lily";
                 user.LastName = "Aldrin";
                 user.Membership.Email = "lily.aldrin@example.com";
+                // TODO,Inder: Session-API-Model mit detached Objects nicht verstanden? =)
+                UnitOfWork.CurrentSession.Refresh(user.Role);
                 Sut.Save(user);
                 uow.TransactionalFlush();
                 id = user.Id;
