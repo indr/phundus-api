@@ -10,7 +10,7 @@ namespace phiNdus.fundus.Core.Business.Security
         {
         }
 
-        public InvalidSessionKeyException(string message)
+        public InvalidSessionKeyException(string message) : base(message)
         {
         }
 

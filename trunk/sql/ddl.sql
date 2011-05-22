@@ -27,9 +27,9 @@ create table [Membership] (
 create table [User] (
   Id INT not null,
   Version INT not null,
+  RoleId INT null,
   FirstName NVARCHAR(255) null,
   LastName NVARCHAR(255) null,
-  RoleId INT null,
   primary key (Id)
 );
 

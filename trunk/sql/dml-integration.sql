@@ -4,23 +4,31 @@ SET ANSI_NULLS ON;
 
 SET QUOTED_IDENTIFIER ON;
 
-INSERT INTO [User] (Id, Version, FirstName, LastName)
-  VALUES (1, 1, 'Ted', 'Mosby');
-INSERT INTO [User] (Id, Version, FirstName, LastName)
-  VALUES (2, 1, 'Marshall', 'Eriksen');
-INSERT INTO [User] (Id, Version, FirstName, LastName)
-  VALUES (3, 1, 'Robin', 'Scherbatsky');
-INSERT INTO [User] (Id, Version, FirstName, LastName)
-  VALUES (4, 1, 'Barney', 'Stinson');
+/* Users with Membership:
+1: User, not Approved
+2: User, Approved, LockedOut
+3: User, Approved
+4: Administrator, Approved
+5: Inserted by Integration-Test
+*/
+
+INSERT INTO [User] (Id, Version, RoleId, FirstName, LastName)
+  VALUES (1, 1, 1, 'Ted', 'Mosby');
+INSERT INTO [User] (Id, Version, RoleId, FirstName, LastName)
+  VALUES (2, 1, 1, 'Marshall', 'Eriksen');
+INSERT INTO [User] (Id, Version, RoleId, FirstName, LastName)
+  VALUES (3, 1, 1, 'Robin', 'Scherbatsky');
+INSERT INTO [User] (Id, Version, RoleId, FirstName, LastName)
+  VALUES (4, 1, 2, 'Barney', 'Stinson');
 
 INSERT INTO [Membership] (Id, Version, SessionKey, Password, Email, IsApproved, IsLockedOut, CreateDate)
   VALUES (1, 1, NULL, '1234', 'ted.mosby@example.com', 0, 0, '2011-05-10');
 INSERT INTO [Membership] (Id, Version, SessionKey, Password, Email, IsApproved, IsLockedOut, CreateDate)
-  VALUES (2, 1, '1234', NULL, 'marshall.eriksen@example.com', 0, 0, '2011-05-10');
+  VALUES (2, 1, '1234', '1234', 'marshall.eriksen@example.com', 1, 1, '2011-05-10');
 INSERT INTO [Membership] (Id, Version, SessionKey, Password, Email, IsApproved, IsLockedOut, CreateDate)
-  VALUES (3, 1, NULL, NULL, 'robin.scherbatsky@example.com', 0, 0, '2011-05-10');
+  VALUES (3, 1, NULL, '1234', 'robin.scherbatsky@example.com', 1, 0, '2011-05-10');
 INSERT INTO [Membership] (Id, Version, SessionKey, Password, Email, IsApproved, IsLockedOut, CreateDate)
-  VALUES (4, 1, NULL, NULL, 'barney.stinson@example.com', 0, 0, '2011-05-10');
+  VALUES (4, 1, NULL, '1234', 'barney.stinson@example.com', 1, 0, '2011-05-10');
 
 
 insert into [Setting] (Id, Version, [Key], [StringValue])

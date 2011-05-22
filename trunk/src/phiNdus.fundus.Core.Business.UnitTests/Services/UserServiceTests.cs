@@ -37,7 +37,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             TedMosby.FirstName = "Ted";
             TedMosby.LastName = "Mosby";
             TedMosby.Membership.Email = "ted.mosby@example.com";
-            // TODO,Inder: Password encryption
+            TedMosby.Membership.IsApproved = true;
             TedMosby.Membership.Password = "1234";
         }
 
