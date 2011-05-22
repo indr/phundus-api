@@ -72,6 +72,8 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Installer.cs" />
     <Compile Include="InvalidPasswordException.cs" />
+    <Compile Include="KeyGenerator.cs" />
+    <Compile Include="PasswordEncryptor.cs" />
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\ISettingRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
