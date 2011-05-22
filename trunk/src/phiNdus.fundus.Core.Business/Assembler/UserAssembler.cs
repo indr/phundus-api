@@ -1,6 +1,5 @@
 ﻿using System;
 using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Domain;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
@@ -28,7 +27,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
-            User result = IoC.Resolve<IUserRepository>().Get(subject.Id);
+            var result = IoC.Resolve<IUserRepository>().Get(subject.Id);
             Guard.Against<EntityNotFoundException>(result == null, "User entity not found");
             Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 

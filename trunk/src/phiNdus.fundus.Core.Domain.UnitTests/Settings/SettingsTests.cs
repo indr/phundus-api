@@ -1,6 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Settings;
+﻿using NUnit.Framework;
 
 namespace phiNdus.fundus.Core.Domain.UnitTests.Settings
 {

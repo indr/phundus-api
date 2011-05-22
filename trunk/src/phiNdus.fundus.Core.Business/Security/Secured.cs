@@ -8,7 +8,7 @@ namespace phiNdus.fundus.Core.Business.Security
         public static SecuredHelper With(Session session)
         {
             Guard.Against<ArgumentNullException>(session == null, "session");
-            
+
             return new SecuredHelper(session);
         }
     }

@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Mocks;
 

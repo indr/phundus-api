@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
@@ -17,6 +16,16 @@ namespace phiNdus.fundus.Core.Domain.Settings
             _values = null;
         }
 
+        private IDictionary<string, Setting> Values
+        {
+            get { return _values ?? (_values = Load()); }
+        }
+
+        protected string Keyspace
+        {
+            get { return _keyspace; }
+        }
+
         private IDictionary<string, Setting> Load()
         {
             using (UnitOfWork.Start())
@@ -25,13 +34,6 @@ namespace phiNdus.fundus.Core.Domain.Settings
                 return repo.FindByKeyspace(_keyspace);
             }
         }
-
-        private IDictionary<string, Setting> Values
-        {
-            get { return _values ?? (_values = Load()); }
-        }
-
-        protected string Keyspace { get { return _keyspace; } }
 
         protected string GetString(string key)
         {

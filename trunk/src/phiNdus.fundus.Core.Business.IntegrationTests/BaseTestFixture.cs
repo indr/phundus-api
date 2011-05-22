@@ -4,7 +4,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.IntegrationTests
 {
-    class BaseTestFixture
+    internal class BaseTestFixture
     {
         [TestFixtureSetUp]
         public void FixtureSetUp()

@@ -46,7 +46,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 
         #endregion
 
-        private  static UserService Service(string sessionKey)
+        private static UserService Service(string sessionKey)
         {
             // TODO: Session-Key
             return new UserService();

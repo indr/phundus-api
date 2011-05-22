@@ -18,7 +18,7 @@ namespace phiNdus.fundus.Core.Domain
         private static string BytesToHexString(byte[] bytes)
         {
             var builder = new StringBuilder(20);
-            foreach (byte each in bytes)
+            foreach (var each in bytes)
                 builder.Append(String.Format(CultureInfo.CurrentCulture, "{0:X2}", each));
             return builder.ToString().ToLower(CultureInfo.CurrentCulture);
         }

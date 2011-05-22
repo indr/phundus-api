@@ -75,7 +75,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Helpers
                 {
                     var msg = new Pop3Message();
                     char[] seps = {' '};
-                    string[] values = response.Split(seps);
+                    var values = response.Split(seps);
                     msg.number = Int32.Parse(values[0]);
                     msg.bytes = Int32.Parse(values[1]);
                     msg.retrieved = false;
@@ -140,7 +140,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Helpers
             var WriteBuffer = new byte[1024];
             WriteBuffer = en.GetBytes(message);
 
-            NetworkStream stream = GetStream();
+            var stream = GetStream();
             stream.Write(WriteBuffer, 0, WriteBuffer.Length);
 
             //Debug.WriteLine("WRITE:" + message);
@@ -150,12 +150,12 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Helpers
         {
             var enc = new ASCIIEncoding();
             var serverbuff = new Byte[1024];
-            NetworkStream stream = GetStream();
-            int count = 0;
+            var stream = GetStream();
+            var count = 0;
             while (true)
             {
                 var buff = new Byte[2];
-                int bytes = stream.Read(buff, 0, 1);
+                var bytes = stream.Read(buff, 0, 1);
                 if (bytes == 1)
                 {
                     serverbuff[count] = buff[0];
@@ -174,22 +174,22 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Helpers
             }
             ;
 
-            string retval = enc.GetString(serverbuff, 0, count);
+            var retval = enc.GetString(serverbuff, 0, count);
             //Debug.WriteLine("READ:" + retval);
             return retval;
         }
 
         public void DeleteAll()
         {
-            foreach (Pop3Message raw in List())
+            foreach (var raw in List())
                 Delete(raw);
         }
 
         public Pop3Message Find(string subject)
         {
-            foreach (Pop3Message raw in List())
+            foreach (var raw in List())
             {
-                Pop3Message msg = Retrieve(raw);
+                var msg = Retrieve(raw);
                 if (msg.message.Contains("Subject: " + subject))
                     return msg;
             }

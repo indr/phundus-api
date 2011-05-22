@@ -15,12 +15,18 @@
             _name = name;
         }
 
+        public virtual string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(this, obj)) return true;
             var that = obj as Role;
             if (that == null) return false;
-            if (this.Name != that.Name)
+            if (Name != that.Name)
                 return false;
             return true;
         }
@@ -28,12 +34,6 @@
         public override int GetHashCode()
         {
             return Name.GetHashCode();
-        }
-
-        public virtual string Name
-        {
-            get { return _name; }
-            set { _name = value; }
         }
     }
 }

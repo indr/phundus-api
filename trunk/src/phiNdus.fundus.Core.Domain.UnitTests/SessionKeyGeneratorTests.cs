@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
+﻿using System.Globalization;
 using NUnit.Framework;
 
 namespace phiNdus.fundus.Core.Domain.UnitTests
 {
     [TestFixture]
-    class SessionKeyGeneratorTests
+    internal class SessionKeyGeneratorTests
     {
-        [Test]
-        public void CreateKey_returns_key_of_length_20()
-        {
-            var sessionKey = SessionKeyGenerator.CreateKey();
-            Assert.That(sessionKey, Is.Not.Null);
-            Assert.That(sessionKey.Length, Is.EqualTo(20));
-        }
-
         [Test]
         public void CreateKey_does_not_return_same_key_twice()
         {
@@ -33,6 +21,14 @@ namespace phiNdus.fundus.Core.Domain.UnitTests
             // HINT,Inder: Weils einfach schöner ist... =)
             var sessionKey = SessionKeyGenerator.CreateKey();
             Assert.That(sessionKey, Is.EqualTo(sessionKey.ToLower(CultureInfo.CurrentCulture)));
+        }
+
+        [Test]
+        public void CreateKey_returns_key_of_length_20()
+        {
+            var sessionKey = SessionKeyGenerator.CreateKey();
+            Assert.That(sessionKey, Is.Not.Null);
+            Assert.That(sessionKey.Length, Is.EqualTo(20));
         }
     }
 }

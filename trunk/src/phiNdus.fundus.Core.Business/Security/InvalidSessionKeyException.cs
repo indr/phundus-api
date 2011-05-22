@@ -20,7 +20,6 @@ namespace phiNdus.fundus.Core.Business.Security
 
         protected InvalidSessionKeyException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            
         }
     }
 }

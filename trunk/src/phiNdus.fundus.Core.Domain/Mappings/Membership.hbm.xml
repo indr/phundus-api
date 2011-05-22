@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
-                   assembly="phiNdus.fundus.Core.Domain"
-                   namespace="phiNdus.fundus.Core.Domain.Entities">
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Core.Domain" namespace="phiNdus.fundus.Core.Domain.Entities">
 
   <class name="Membership" table="[Membership]" lazy="false">
     <id name="Id">

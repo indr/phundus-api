@@ -9,10 +9,17 @@ namespace phiNdus.fundus.Core.Domain.Repositories
 {
     public class SettingRepository : NHRepository<Setting>, ISettingRepository
     {
+        private IQueryable<Setting> Settings
+        {
+            get { return Session.Query<Setting>(); }
+        }
+
+        #region ISettingRepository Members
+
         public Setting FindByKey(string key)
         {
             var query = from s in Settings
-                        where s.Key == key 
+                        where s.Key == key
                         select s;
             return query.FirstOrDefault();
         }
@@ -27,9 +34,6 @@ namespace phiNdus.fundus.Core.Domain.Repositories
             return query.ToDictionary(s => s.Key.Remove(0, keyspace.Length + 1), s => s);
         }
 
-        private IQueryable<Setting> Settings
-        {
-            get { return Session.Query<Setting>(); }
-        }
+        #endregion
     }
 }

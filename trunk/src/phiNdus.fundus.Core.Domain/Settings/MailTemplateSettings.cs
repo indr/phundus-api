@@ -1,12 +1,12 @@
-﻿using System;
-
-namespace phiNdus.fundus.Core.Domain.Settings
+﻿namespace phiNdus.fundus.Core.Domain.Settings
 {
     public class MailTemplateSettings : BaseSettings, IMailTemplateSettings
     {
         public MailTemplateSettings(string keyspace) : base(keyspace)
         {
         }
+
+        #region IMailTemplateSettings Members
 
         public string Subject
         {
@@ -17,5 +17,7 @@ namespace phiNdus.fundus.Core.Domain.Settings
         {
             get { return GetString("body"); }
         }
+
+        #endregion
     }
 }

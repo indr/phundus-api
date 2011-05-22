@@ -4,7 +4,6 @@ using Castle.Windsor;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Domain;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
@@ -15,14 +14,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
     [TestFixture]
     public class UserAssemblerTests
     {
-        class DerivedMembership : Membership
-        {
-            public void SetCreateDate(DateTime value)
-            {
-                base.CreateDate = value;
-            }
-        }
-
         #region Setup/Teardown
 
         [SetUp]
@@ -67,13 +58,20 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
         #endregion
 
+        private class DerivedMembership : Membership
+        {
+            public void SetCreateDate(DateTime value)
+            {
+                base.CreateDate = value;
+            }
+        }
+
         protected MockRepository MockFactory { get; set; }
         protected IUserRepository MockUserRepository { get; set; }
 
         private User _domainObject;
         private UserDto _dto;
 
-        #region CreateDomainObject
         [Test]
         public void CreateDomainObjectWithNullSubjectThrowsCreateNullSubjectThrows()
         {
@@ -83,20 +81,18 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [Test]
         public void CreateDomainObject_returns_new_domain_object()
         {
-            User domainObject = UserAssembler.CreateDomainObject(_dto);
+            var domainObject = UserAssembler.CreateDomainObject(_dto);
 
             Assert.That(domainObject, Is.Not.Null);
             Assert.That(domainObject.Id, Is.EqualTo(0));
             Assert.That(domainObject.FirstName, Is.EqualTo("John"));
             Assert.That(domainObject.LastName, Is.EqualTo("Wayne"));
         }
-        #endregion
 
-        #region CreateDto
         [Test]
         public void CreateDto_returns_correct_dto()
         {
-            UserDto dto = UserAssembler.CreateDto(_domainObject);
+            var dto = UserAssembler.CreateDto(_domainObject);
 
             Assert.That(dto.Id, Is.EqualTo(1));
             Assert.That(dto.FirstName, Is.EqualTo("John"));
@@ -118,9 +114,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             Assert.Throws<ArgumentNullException>(() => UserAssembler.CreateDto(null));
         }
-        #endregion CreateDto
 
-        #region UpdateDomainObject
         [Test]
         public void UpdateDomainObject_returns_correct_updated_domain_object()
         {
@@ -131,8 +125,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
             using (MockFactory.Playback())
             {
-                User domainObject = UserAssembler.UpdateDomainObject(_dto);
-             
+                var domainObject = UserAssembler.UpdateDomainObject(_dto);
+
                 // Updated
                 Assert.That(domainObject, Is.Not.Null);
                 Assert.That(domainObject.Id, Is.GreaterThan(0));
@@ -177,6 +171,5 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
                 Assert.Throws<DtoOutOfDateException>(() => UserAssembler.UpdateDomainObject(_dto));
             }
         }
-        #endregion
     }
 }

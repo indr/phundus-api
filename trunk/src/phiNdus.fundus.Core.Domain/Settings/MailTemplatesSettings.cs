@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace phiNdus.fundus.Core.Domain.Settings
+﻿namespace phiNdus.fundus.Core.Domain.Settings
 {
     public class MailTemplatesSettings : BaseSettings, IMailTemplatesSettings
     {
@@ -8,9 +6,13 @@ namespace phiNdus.fundus.Core.Domain.Settings
         {
         }
 
+        #region IMailTemplatesSettings Members
+
         public IMailTemplateSettings UserAccountValidation
         {
             get { return new MailTemplateSettings(Keyspace + ".user-account-validation"); }
         }
+
+        #endregion
     }
 }

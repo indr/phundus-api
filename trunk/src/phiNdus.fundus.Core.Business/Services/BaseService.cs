@@ -6,8 +6,8 @@ namespace phiNdus.fundus.Core.Business.Services
 {
     public class BaseService
     {
-        private bool _sessionSet;
         private Session _session;
+        private bool _sessionSet;
 
         public Session Session
         {

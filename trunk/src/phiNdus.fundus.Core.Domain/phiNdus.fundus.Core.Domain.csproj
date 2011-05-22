@@ -100,7 +100,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\Membership.hbm.xml" />
+    <EmbeddedResource Include="Mappings\Membership.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\Setting.hbm.xml">

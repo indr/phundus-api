@@ -4,13 +4,17 @@ using phiNdus.fundus.Core.Business.SecuredServices;
 namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
 {
     [TestFixture]
-    class SecuredUserServiceTests : BaseTestFixture
+    internal class SecuredUserServiceTests : BaseTestFixture
     {
+        #region Setup/Teardown
+
         [SetUp]
         public void SetUp()
         {
             Sut = new SecuredUserService();
         }
+
+        #endregion
 
         protected IUserService Sut { get; set; }
 

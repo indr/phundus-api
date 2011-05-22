@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using Rhino.Commons;
 
@@ -35,21 +34,21 @@ namespace phiNdus.fundus.Core.Business.Mails
 
         private string GetValue(string key)
         {
-            int idx = key.LastIndexOf('.');
+            var idx = key.LastIndexOf('.');
             if (idx == -1)
                 return null;
 
-            string group = key.Substring(0, idx);
+            var group = key.Substring(0, idx);
 
 
             object data = null;
             if (!_dataContext.TryGetValue(group, out data))
                 return null;
 
-            string name = key.Substring(idx + 1);
-            PropertyInfo[] propertyInfos = data.GetType().GetProperties();
+            var name = key.Substring(idx + 1);
+            var propertyInfos = data.GetType().GetProperties();
 
-            foreach (PropertyInfo each in propertyInfos.Where(each => each.Name == name))
+            foreach (var each in propertyInfos.Where(each => each.Name == name))
                 return each.GetValue(data, null).ToString();
             return null;
         }
@@ -57,12 +56,12 @@ namespace phiNdus.fundus.Core.Business.Mails
 
         private string ReplacePlaceholders(string input)
         {
-            string result = input;
+            var result = input;
             var regex = new Regex(@"\[([^\]]*)\]");
-            Match match = regex.Match(input);
+            var match = regex.Match(input);
             while (match.Success)
             {
-                string value = GetValue(match.Groups[1].Value);
+                var value = GetValue(match.Groups[1].Value);
                 if (value != null)
                     result = result.Replace(match.Value, value);
                 match = match.NextMatch();
