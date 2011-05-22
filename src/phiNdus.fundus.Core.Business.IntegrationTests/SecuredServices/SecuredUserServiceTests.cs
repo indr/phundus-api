@@ -17,10 +17,10 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
         [Test]
         public void GetUser_returns_dto()
         {
-            Assert.Ignore("IUserService.ValidateUser() muss Session-Key liefern.");
-            var key = Sut.ValidateUser("ted.mosby@example.com", "1234");
+            var sessionKey = Sut.ValidateUser("ted.mosby@example.com", "1234");
+            Assert.That(sessionKey, Is.Not.Null);
 
-            var actual = Sut.GetUser(null, "ted.mosby@example.com");
+            var actual = Sut.GetUser(sessionKey, "ted.mosby@example.com");
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual.Email, Is.EqualTo("ted.mosby@example.com"));
         }

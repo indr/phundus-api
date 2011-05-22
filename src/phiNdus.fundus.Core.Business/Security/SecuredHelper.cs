@@ -18,7 +18,7 @@ namespace phiNdus.fundus.Core.Business.Security
             func(service);
         }
 
-        public TResult Call<TService, TResult>(System.Func<TService, TResult> func)
+        public TResult Call<TService, TResult>(Func<TService, TResult> func)
             where TService : BaseService, new()
         {
             var service = new TService();

@@ -34,6 +34,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             using (MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("this.key.is.not.valid")).Return(null);
+                Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
             using (MockFactory.Playback())
@@ -57,6 +58,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             using (MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("this.key.is.not.valid")).Return(null);
+                Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
             using (MockFactory.Playback())

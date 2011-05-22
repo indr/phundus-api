@@ -10,11 +10,16 @@ namespace phiNdus.fundus.Core.Business.UnitTests
     {
         protected MockRepository MockFactory { get; set; }
 
+        protected IUnitOfWork MockUnitOfWork { get; set; }
+
         [SetUp]
         public virtual void SetUp()
         {
             IoC.Initialize(new WindsorContainer());
             MockFactory = new MockRepository();
+
+            MockUnitOfWork = MockFactory.StrictMock<IUnitOfWork>();
+            UnitOfWork.RegisterGlobalUnitOfWork(MockUnitOfWork);
         }
 
         [TearDown]
