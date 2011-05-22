@@ -68,7 +68,6 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 
 
         [Test]
-        [ExpectedException(typeof(GenericADOException))]
         public void Update_throws()
         {
             using (var uow = UnitOfWork.Start())
@@ -76,12 +75,11 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 var fromRepo = Sut.Get(1);
                 fromRepo.Name = fromRepo.Name + " updated";
                 Sut.Update(fromRepo);
-                uow.TransactionalFlush();
+                Assert.Throws<GenericADOException>(() => uow.TransactionalFlush());
             }
         }
 
         [Test]
-        [ExpectedException(typeof(GenericADOException))]
         public void Save_throws()
         {
             using (var uow = UnitOfWork.Start())
@@ -89,12 +87,11 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 var role = new Role();
                 role.Name = "New Role";
                 Sut.Save(role);
-                uow.TransactionalFlush();
+                Assert.Throws<GenericADOException>(() => uow.TransactionalFlush());
             }
         }
 
         [Test]
-        [ExpectedException(typeof(GenericADOException))]
         public void Delete_throws()
         {
             using (var uow = UnitOfWork.Start())
@@ -102,7 +99,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 var fromRepo = Sut.Get(1);
                 fromRepo.Name = fromRepo.Name + " updated";
                 Sut.Delete(fromRepo);
-                uow.TransactionalFlush();
+                Assert.Throws<GenericADOException>(() => uow.TransactionalFlush());
             }
         }
     }

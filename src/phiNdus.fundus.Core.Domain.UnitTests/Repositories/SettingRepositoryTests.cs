@@ -16,10 +16,9 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Repositories
         private ISettingRepository Sut { get; set; }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void FindByKeyspace_with_trailing_dot_throws()
         {
-            Sut.FindByKeyspace("space.with.trailing.dot.");
+            Assert.Throws<ArgumentException>(() => Sut.FindByKeyspace("space.with.trailing.dot."));
         }
     }
 }
