@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using NHibernate.Linq;
 using phiNdus.fundus.Core.Domain.Entities;
 using Rhino.Commons;
@@ -9,6 +7,13 @@ namespace phiNdus.fundus.Core.Domain.Repositories
 {
     public class UserRepository : NHRepository<User>, IUserRepository
     {
+        private IQueryable<User> Users
+        {
+            get { return Session.Query<User>(); }
+        }
+
+        #region IUserRepository Members
+
         public User FindByEmail(string email)
         {
             var query = from u in Users
@@ -25,9 +30,6 @@ namespace phiNdus.fundus.Core.Domain.Repositories
             return query.FirstOrDefault();
         }
 
-        private IQueryable<User> Users
-        {
-            get { return Session.Query<User>(); }
-        }
+        #endregion
     }
 }

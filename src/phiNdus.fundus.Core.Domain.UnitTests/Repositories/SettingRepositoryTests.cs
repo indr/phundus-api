@@ -7,11 +7,15 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Repositories
     [TestFixture]
     internal class SettingRepositoryTests
     {
+        #region Setup/Teardown
+
         [SetUp]
         public void SetUp()
         {
             Sut = new SettingRepository();
         }
+
+        #endregion
 
         private ISettingRepository Sut { get; set; }
 

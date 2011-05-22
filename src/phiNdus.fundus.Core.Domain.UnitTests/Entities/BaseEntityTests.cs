@@ -4,7 +4,7 @@ using phiNdus.fundus.Core.Domain.Entities;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    class BaseEntityTests
+    internal class BaseEntityTests
     {
         private class InstantiableBaseEntity : BaseEntity
         {

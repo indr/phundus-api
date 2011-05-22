@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
-using System.Text;
 
 namespace phiNdus.fundus.Core.Business
 {
     public class MailGateway : IMailGateway
     {
+        private readonly string _from;
+        private readonly string _host;
+        private readonly string _password;
+        private readonly string _userName;
+
         public MailGateway()
         {
             // TODO: Credentials aus Config.
@@ -22,11 +23,7 @@ namespace phiNdus.fundus.Core.Business
             _from = from;
         }
 
-
-        private string _host;
-        private string _userName;
-        private string _password;
-        private string _from;
+        #region IMailGateway Members
 
         public void Send(string recipients, string subject, string body)
         {
@@ -34,5 +31,7 @@ namespace phiNdus.fundus.Core.Business
             client.Credentials = new NetworkCredential(_userName, _password);
             client.Send(_from, recipients, subject, body);
         }
+
+        #endregion
     }
 }

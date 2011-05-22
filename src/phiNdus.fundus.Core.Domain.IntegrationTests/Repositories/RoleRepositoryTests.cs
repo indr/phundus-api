@@ -1,5 +1,4 @@
-﻿using System;
-using NHibernate.Exceptions;
+﻿using NHibernate.Exceptions;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
@@ -23,6 +22,18 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         protected IRoleRepository Sut { get; set; }
 
         [Test]
+        public void Delete_throws()
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var fromRepo = Sut.Get(1);
+                fromRepo.Name = fromRepo.Name + " updated";
+                Sut.Delete(fromRepo);
+                Assert.Throws<GenericADOException>(() => uow.TransactionalFlush());
+            }
+        }
+
+        [Test]
         public void FindAll_returns_predefined_roles()
         {
             using (UnitOfWork.Start())
@@ -44,17 +55,6 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         }
 
         [Test]
-        public void User_role_from_repo_equals_static_domain_entity()
-        {
-            using (UnitOfWork.Start())
-            {
-                var fromRepo = Sut.Get(1);
-                Assert.That(fromRepo, Is.Not.Null);
-                Assert.That(fromRepo, Is.EqualTo(Role.User));
-            }
-        }
-
-        [Test]
         public void Get_2_returns_Administrator_role()
         {
             using (UnitOfWork.Start())
@@ -65,19 +65,6 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
             }
         }
 
-
-
-        [Test]
-        public void Update_throws()
-        {
-            using (var uow = UnitOfWork.Start())
-            {
-                var fromRepo = Sut.Get(1);
-                fromRepo.Name = fromRepo.Name + " updated";
-                Sut.Update(fromRepo);
-                Assert.Throws<GenericADOException>(() => uow.TransactionalFlush());
-            }
-        }
 
         [Test]
         public void Save_throws()
@@ -92,14 +79,25 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         }
 
         [Test]
-        public void Delete_throws()
+        public void Update_throws()
         {
             using (var uow = UnitOfWork.Start())
             {
                 var fromRepo = Sut.Get(1);
                 fromRepo.Name = fromRepo.Name + " updated";
-                Sut.Delete(fromRepo);
+                Sut.Update(fromRepo);
                 Assert.Throws<GenericADOException>(() => uow.TransactionalFlush());
+            }
+        }
+
+        [Test]
+        public void User_role_from_repo_equals_static_domain_entity()
+        {
+            using (UnitOfWork.Start())
+            {
+                var fromRepo = Sut.Get(1);
+                Assert.That(fromRepo, Is.Not.Null);
+                Assert.That(fromRepo, Is.EqualTo(Role.User));
             }
         }
     }

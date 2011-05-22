@@ -36,7 +36,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
 
             using (MockFactory.Playback())
             {
-                Session session = Session.FromKey("ABCD");
+                var session = Session.FromKey("ABCD");
                 Assert.That(session, Is.Not.Null);
                 Assert.That(session.User, Is.EqualTo(user));
                 Assert.That(session.Key, Is.EqualTo("ABCD"));

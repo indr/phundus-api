@@ -6,11 +6,15 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Settings
     [TestFixture]
     internal class MailTemplatesSettingsTests
     {
+        #region Setup/Teardown
+
         [SetUp]
         public void SetUp()
         {
             Sut = new MailTemplatesSettings("");
         }
+
+        #endregion
 
         private IMailTemplatesSettings Sut { get; set; }
 

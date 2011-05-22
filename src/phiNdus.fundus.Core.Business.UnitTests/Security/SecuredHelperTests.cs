@@ -23,7 +23,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
 
         private static Session CreateSession(User user, string key)
         {
-            ConstructorInfo info = typeof (Session).GetConstructor(
+            var info = typeof (Session).GetConstructor(
                 BindingFlags.Instance | BindingFlags.NonPublic
                 , null, new[] {typeof (User), typeof (string)}, null);
             return (Session) info.Invoke(new object[] {user, key});
@@ -47,7 +47,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Call_func_invokes_lambda()
         {
-            bool invoked = false;
+            var invoked = false;
             Sut.Call<BaseService, int>(service =>
                                            {
                                                invoked = true;
@@ -80,7 +80,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Call_proc_invokes_lambda()
         {
-            bool invoked = false;
+            var invoked = false;
             Sut.Call<BaseService>(service => { invoked = true; });
             Assert.That(invoked, Is.True);
         }

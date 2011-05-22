@@ -3,7 +3,6 @@ using System.Globalization;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Mails;
-using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Domain;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
@@ -26,7 +25,7 @@ namespace phiNdus.fundus.Core.Business.Services
 
             using (UnitOfWork.Start())
             {
-                User user = _users.FindByEmail(email);
+                var user = _users.FindByEmail(email);
                 return UserAssembler.CreateDto(user);
             }
         }
@@ -36,7 +35,7 @@ namespace phiNdus.fundus.Core.Business.Services
             email = email.ToLower(CultureInfo.CurrentCulture);
             UserDto result;
 
-            using (IUnitOfWork uow = UnitOfWork.Start())
+            using (var uow = UnitOfWork.Start())
             {
                 // Prüfen ob Benutzer bereits exisitiert.
                 if (_users.FindByEmail(email) != null)
@@ -60,9 +59,9 @@ namespace phiNdus.fundus.Core.Business.Services
         public void UpdateUser(UserDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
-            using (IUnitOfWork uow = UnitOfWork.Start())
+            using (var uow = UnitOfWork.Start())
             {
-                User user = UserAssembler.UpdateDomainObject(subject);
+                var user = UserAssembler.UpdateDomainObject(subject);
                 _users.Update(user);
                 uow.TransactionalFlush();
             }
@@ -84,7 +83,7 @@ namespace phiNdus.fundus.Core.Business.Services
 
             using (var uow = UnitOfWork.Start())
             {
-                User user = _users.FindByEmail(email);
+                var user = _users.FindByEmail(email);
                 if (user == null)
                     return null;
                 try

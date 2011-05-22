@@ -18,15 +18,15 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             Sut = new BaseService();
         }
 
-        protected BaseService Sut { get; set; }
-
         #endregion
+
+        protected BaseService Sut { get; set; }
 
         private static Session CreateSession(User user, string key)
         {
             var info = typeof (Session).GetConstructor(
                 BindingFlags.Instance | BindingFlags.NonPublic
-               , null, new[] {typeof (User), typeof (string)}, null);
+                , null, new[] {typeof (User), typeof (string)}, null);
             return (Session) info.Invoke(new object[] {user, key});
         }
 

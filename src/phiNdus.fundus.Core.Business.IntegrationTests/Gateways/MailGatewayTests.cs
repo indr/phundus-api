@@ -45,7 +45,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Gateways
         {
             var pop = new Pop3();
             pop.Connect(host, username, password);
-            Pop3Message result = pop.Find(subject);
+            var result = pop.Find(subject);
             pop.DeleteAll();
             pop.Disconnect();
             return result;

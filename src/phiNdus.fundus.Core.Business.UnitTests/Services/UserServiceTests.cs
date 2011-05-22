@@ -67,7 +67,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             }
             using (MockFactory.Playback())
             {
-                UserDto dto = Sut.CreateUser("Ted.Mosby@example.com", "");
+                var dto = Sut.CreateUser("Ted.Mosby@example.com", "");
 
                 Assert.That(dto, Is.Not.Null);
                 Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
@@ -89,7 +89,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             }
             using (MockFactory.Playback())
             {
-                UserDto dto = Sut.CreateUser("ted.mosby@example.com", "");
+                var dto = Sut.CreateUser("ted.mosby@example.com", "");
 
                 Assert.That(dto, Is.Not.Null);
                 Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
@@ -142,7 +142,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                UserDto dto = Sut.GetUser("Ted.Mosby@example.com");
+                var dto = Sut.GetUser("Ted.Mosby@example.com");
                 Assert.That(dto, Is.Not.Null);
                 Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
             }
@@ -177,7 +177,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                Assert.Throws<EntityNotFoundException>(() => Sut.UpdateUser(new UserDto { Id = 0 }));
+                Assert.Throws<EntityNotFoundException>(() => Sut.UpdateUser(new UserDto {Id = 0}));
             }
         }
 
@@ -198,7 +198,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                Assert.Throws<DtoOutOfDateException>(() => Sut.UpdateUser(new UserDto { Id = 1, Version = -1 }));
+                Assert.Throws<DtoOutOfDateException>(() => Sut.UpdateUser(new UserDto {Id = 1, Version = -1}));
             }
         }
 
@@ -215,7 +215,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                string actual = Sut.ValidateUser("unknown@example.com", "1234");
+                var actual = Sut.ValidateUser("unknown@example.com", "1234");
                 Assert.That(actual, Is.Not.Null);
             }
         }
@@ -232,7 +232,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                string actual = Sut.ValidateUser("unknown@example.com", "123");
+                var actual = Sut.ValidateUser("unknown@example.com", "123");
                 Assert.That(actual, Is.Null);
             }
         }
@@ -249,7 +249,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                string actual = Sut.ValidateUser("unknown@example.com", "");
+                var actual = Sut.ValidateUser("unknown@example.com", "");
                 Assert.That(actual, Is.Null);
             }
         }
@@ -267,7 +267,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                string actual = Sut.ValidateUser("UNKNOWN@example.com", "1234");
+                var actual = Sut.ValidateUser("UNKNOWN@example.com", "1234");
                 Assert.That(actual, Is.Not.Null);
             }
         }

@@ -13,27 +13,14 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Get_Id()
+        public void Equals_by_name()
         {
-            var sut = new Role();
-            Assert.That(sut.Id, Is.EqualTo(0));
-        }
+            var role1 = new Role();
+            role1.Name = "User";
+            var role2 = new Role();
+            role2.Name = "User";
 
-        [Test]
-        public void Set_and_get_Name()
-        {
-            var sut = new Role();
-            Assert.That(sut.Name, Is.Null);
-            sut.Name = "Benutzer";
-            Assert.That(sut.Name, Is.EqualTo("Benutzer"));
-        }
-
-        [Test]
-        public void Get_User_role()
-        {
-            var role = Role.User;
-            Assert.That(role, Is.Not.Null);
-            Assert.That(role.Id, Is.EqualTo(1));
+            Assert.That(role1.Equals(role2), Is.True);
         }
 
         [Test]
@@ -45,14 +32,27 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Equals_by_name()
+        public void Get_Id()
         {
-            var role1 = new Role();
-            role1.Name = "User";
-            var role2 = new Role();
-            role2.Name = "User";
+            var sut = new Role();
+            Assert.That(sut.Id, Is.EqualTo(0));
+        }
 
-            Assert.That(role1.Equals(role2), Is.True);
+        [Test]
+        public void Get_User_role()
+        {
+            var role = Role.User;
+            Assert.That(role, Is.Not.Null);
+            Assert.That(role.Id, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Set_and_get_Name()
+        {
+            var sut = new Role();
+            Assert.That(sut.Name, Is.Null);
+            sut.Name = "Benutzer";
+            Assert.That(sut.Name, Is.EqualTo("Benutzer"));
         }
     }
 }

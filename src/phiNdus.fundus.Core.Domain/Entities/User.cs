@@ -1,12 +1,14 @@
-﻿using System;
-
-namespace phiNdus.fundus.Core.Domain.Entities
+﻿namespace phiNdus.fundus.Core.Domain.Entities
 {
     public class User : BaseEntity
     {
+        private string _firstName;
+        private string _lastName;
+        private Membership _membership;
+        private Role _role;
+
         public User() : this(0)
         {
-            
         }
 
         public User(int id) : base(id)
@@ -18,28 +20,24 @@ namespace phiNdus.fundus.Core.Domain.Entities
             _role = Role.User;
         }
 
-        private string _firstName;
         public virtual string FirstName
         {
             get { return _firstName; }
             set { _firstName = value; }
         }
 
-        private string _lastName;
         public virtual string LastName
         {
             get { return _lastName; }
             set { _lastName = value; }
         }
 
-        private Membership _membership;
         public virtual Membership Membership
         {
             get { return _membership; }
             set { _membership = value; }
         }
 
-        private Role _role;
         public virtual Role Role
         {
             get { return _role; }

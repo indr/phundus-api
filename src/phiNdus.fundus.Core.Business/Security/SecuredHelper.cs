@@ -10,6 +10,8 @@ namespace phiNdus.fundus.Core.Business.Security
             Session = session;
         }
 
+        protected Session Session { get; private set; }
+
         public void Call<TService>(Action<TService> func)
             where TService : BaseService, new()
         {
@@ -25,7 +27,5 @@ namespace phiNdus.fundus.Core.Business.Security
             service.Session = Session;
             return func(service);
         }
-
-        protected Session Session { get; private set; }
     }
 }

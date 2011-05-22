@@ -1,30 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Settings;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Settings
 {
     [TestFixture]
-    class MailTemplateSettingsForValidateUserAccountTests : BaseTestFixture
+    internal class MailTemplateSettingsForValidateUserAccountTests : BaseTestFixture
     {
+        #region Setup/Teardown
+
         [SetUp]
         public void SetUp()
         {
             Sut = Domain.Settings.Settings.Mail.Templates.UserAccountValidation;
         }
 
-        private IMailTemplateSettings Sut { get; set; }
+        #endregion
 
-        [Test]
-        public void Can_get_Subject()
-        {
-            var actual = Sut.Subject;
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual, Is.EqualTo("[fundus] User Account Validation"));
-        }
+        private IMailTemplateSettings Sut { get; set; }
 
         [Test]
         public void Can_get_Body()
@@ -32,6 +24,14 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Settings
             var actual = Sut.Body;
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual, Is.StringStarting("Hello [User.FirstName]"));
+        }
+
+        [Test]
+        public void Can_get_Subject()
+        {
+            var actual = Sut.Subject;
+            Assert.That(actual, Is.Not.Null);
+            Assert.That(actual, Is.EqualTo("[fundus] User Account Validation"));
         }
     }
 }

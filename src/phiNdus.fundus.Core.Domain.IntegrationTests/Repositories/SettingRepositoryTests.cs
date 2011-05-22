@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
@@ -34,7 +33,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
             {
                 var fromRepo = Sut.FindByKeyspace("mail.smtp");
                 Assert.That(fromRepo, Is.Not.Null);
-                CollectionAssert.Contains(fromRepo.Keys, "host" );
+                CollectionAssert.Contains(fromRepo.Keys, "host");
                 CollectionAssert.Contains(fromRepo.Keys, "user-name");
                 CollectionAssert.Contains(fromRepo.Keys, "password");
                 CollectionAssert.Contains(fromRepo.Keys, "from");

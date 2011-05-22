@@ -21,7 +21,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Settings
         [Test]
         public void Get_Host()
         {
-            string value = Sut.Host;
+            var value = Sut.Host;
             Assert.That(value, Is.Not.Null);
             Assert.That(value, Is.EqualTo("mail.indr.ch"));
         }

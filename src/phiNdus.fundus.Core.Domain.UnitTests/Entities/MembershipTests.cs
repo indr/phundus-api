@@ -7,6 +7,8 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
     [TestFixture]
     internal class MembershipTests
     {
+        #region Setup/Teardown
+
         [SetUp]
         public void SetUp()
         {
@@ -14,12 +16,17 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             Sut.Password = "1234";
         }
 
+        #endregion
+
         protected Membership Sut { get; set; }
 
         [Test]
-        public void LogOn_with_password_null_throws()
+        public void LogOn_sets_SessionKey_with_length_20()
         {
-            Assert.Throws<ArgumentNullException>(() => Sut.LogOn(null));
+            Assert.That(Sut.SessionKey, Is.Null);
+            Sut.LogOn("1234");
+            Assert.That(Sut.SessionKey, Is.Not.Null);
+            Assert.That(Sut.SessionKey.Length, Is.EqualTo(20));
         }
 
         [Test]
@@ -41,15 +48,6 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void LogOn_sets_SessionKey_with_length_20()
-        {
-            Assert.That(Sut.SessionKey, Is.Null);
-            Sut.LogOn("1234");
-            Assert.That(Sut.SessionKey, Is.Not.Null);
-            Assert.That(Sut.SessionKey.Length, Is.EqualTo(20));
-        }
-
-        [Test]
         public void LogOn_when_looked_out_throws()
         {
             Sut.IsLockedOut = true;
@@ -61,6 +59,12 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         {
             Sut.Password = "1234";
             Assert.Throws<InvalidPasswordException>(() => Sut.LogOn("4321"));
+        }
+
+        [Test]
+        public void LogOn_with_password_null_throws()
+        {
+            Assert.Throws<ArgumentNullException>(() => Sut.LogOn(null));
         }
     }
 }
