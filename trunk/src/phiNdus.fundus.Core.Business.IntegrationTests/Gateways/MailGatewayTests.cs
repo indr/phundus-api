@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using NUnit.Framework;
+using phiNdus.fundus.Core.Business.Gateways;
 using phiNdus.fundus.Core.Business.IntegrationTests.Helpers;
 using phiNdus.fundus.Core.Business.IntegrationTests.TestHelpers;
 
@@ -55,8 +56,8 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Gateways
         public void Can_send()
         {
             Sut.Send(ToAddress, "[MailGatewayTests] Can_send", "");
-            Thread.Sleep(100);
-            Assert.That(GetToMailBySubject("[MailGatewayTests] Can_send"), Is.Not.Null);
+            Thread.Sleep(2000);
+            Assert.That(GetToMailBySubject("[MailGatewayTests] Can_send"), Is.Not.Null, "Could not retrieve mail");
         }
     }
 }

@@ -34,11 +34,11 @@ INSERT INTO [Membership] (Id, Version, SessionKey, Password, Salt, Email, IsAppr
 insert into [Setting] (Id, Version, [Key], [StringValue])
   values (1, 1, 'mail.smtp.host', 'mail.indr.ch');
 insert into [Setting] (Id, Version, [Key], [StringValue])
-  values (2, 1, 'mail.smtp.user-name', '');
+  values (2, 1, 'mail.smtp.user-name', 'fundus-sys-test-1@indr.ch');
 insert into [Setting] (Id, Version, [Key], [StringValue])
-  values (3, 1, 'mail.smtp.password', '');
+  values (3, 1, 'mail.smtp.password', 'phiNdus');
 insert into [Setting] (Id, Version, [Key], [StringValue])
-  values (4, 1, 'mail.smtp.from', 'noreply@indr.ch');  
+  values (4, 1, 'mail.smtp.from', 'fundus-sys-test-1@indr.ch');  
   
 insert into [Setting] (Id, Version, [Key], [StringValue])
   values (5, 1, 'mail.templates.user-account-validation.subject', '[fundus] User Account Validation');

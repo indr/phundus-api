@@ -1,6 +1,7 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using phiNdus.fundus.Core.Business.Gateways;
 using phiNdus.fundus.Core.Business.SecuredServices;
 
 namespace phiNdus.fundus.Core.Business

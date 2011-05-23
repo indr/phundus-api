@@ -195,5 +195,16 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Helpers
             }
             return null;
         }
+
+
+        public static Pop3Message RetrieveMail(string host, string username, string password, string subject)
+        {
+            var pop = new Pop3();
+            pop.Connect(host, username, password);
+            var result = pop.Find(subject);
+            pop.DeleteAll();
+            pop.Disconnect();
+            return result;
+        }
     }
 }

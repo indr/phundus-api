@@ -1,14 +1,14 @@
-﻿using Castle.Windsor;
+﻿using System.Threading;
 using NUnit.Framework;
+using phiNdus.fundus.Core.Business.IntegrationTests.Helpers;
 using phiNdus.fundus.Core.Business.Services;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
 {
     [TestFixture]
-    public class UserServiceTests
+    internal class UserServiceTests : BaseTestFixture
     {
-        #region Setup/Teardown
+        #region SetUp/TearDown
 
         [SetUp]
         public void SetUp()
@@ -18,30 +18,21 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
 
         #endregion
 
-        [TestFixtureSetUp]
-        public void FixtureSetUp()
-        {
-            IoC.Initialize(new WindsorContainer());
-            IoC.Container.Install(new Installer());
-        }
-
-        [TestFixtureTearDown]
-        public void FixtureTearDown()
-        {
-            IoC.Container.Dispose();
-        }
-
         private UserService Sut { get; set; }
 
         [Test]
         public void CreateUser_returns_dto_of_new_user()
         {
-            Assert.Ignore("MailGateway-Konfiguration muss noch bewerkstelligt werden.");
-            var dto = Sut.CreateUser("stella.zinman@example.com", "1234");
+            var dto = Sut.CreateUser("fundus-sys-test-2@indr.ch", "1234");
 
-            Assert.That(dto.Email, Is.EqualTo("stella.zinman@example.com"));
+            Assert.That(dto.Email, Is.EqualTo("fundus-sys-test-2@indr.ch"));
             Assert.That(dto.Id, Is.GreaterThan(0));
             Assert.That(dto.IsApproved, Is.False);
+
+            Thread.Sleep(2000);
+
+            var mail = Pop3.RetrieveMail("mail.indr.ch", "fundus-sys-test-2@indr.ch", "phiNdus", "[fundus] User Account Validation");
+            Assert.That(mail, Is.Not.Null, "Could not retrieve mail.");
         }
 
         [Test]

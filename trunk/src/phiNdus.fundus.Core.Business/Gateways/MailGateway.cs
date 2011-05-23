@@ -1,7 +1,8 @@
 ﻿using System.Net;
 using System.Net.Mail;
+using phiNdus.fundus.Core.Domain.Settings;
 
-namespace phiNdus.fundus.Core.Business
+namespace phiNdus.fundus.Core.Business.Gateways
 {
     public class MailGateway : IMailGateway
     {
@@ -12,7 +13,11 @@ namespace phiNdus.fundus.Core.Business
 
         public MailGateway()
         {
-            // TODO: Credentials aus Config.
+            var settings = Settings.Mail.Smtp;
+            _from = settings.From;
+            _host = settings.Host;
+            _password = settings.Password;
+            _userName = settings.UserName;
         }
 
         public MailGateway(string host, string userName, string password, string from)
