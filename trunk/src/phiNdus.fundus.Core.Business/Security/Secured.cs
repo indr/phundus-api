@@ -2,7 +2,7 @@
 
 namespace phiNdus.fundus.Core.Business.Security
 {
-    public class Secured
+    public static class Secured
     {
         public static SecuredHelper With(AbstractConstraint constraint)
         {

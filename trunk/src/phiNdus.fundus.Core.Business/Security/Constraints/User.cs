@@ -2,7 +2,7 @@
 
 namespace phiNdus.fundus.Core.Business.Security.Constraints
 {
-    public class User
+    public static class User
     {
         public static AbstractConstraint InRole(Role role)
         {

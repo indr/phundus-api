@@ -6,12 +6,12 @@ using System.Text;
 
 namespace phiNdus.fundus.Core.Domain
 {
-    public class KeyGenerator
+    public static class KeyGenerator
     {
         public static string CreateKey(int length)
         {
             var rng = new RNGCryptoServiceProvider();
-            var buff = new byte[(length / 2) + 1];
+            var buff = new byte[(length/2) + 1];
             rng.GetBytes(buff);
             return BytesToHexString(buff, length);
         }
