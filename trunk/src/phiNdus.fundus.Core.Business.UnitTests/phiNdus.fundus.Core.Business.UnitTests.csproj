@@ -69,6 +69,7 @@
     <Compile Include="Security\Constraints\AndConstraintTests.cs" />
     <Compile Include="Security\Constraints\NotConstraintTests.cs" />
     <Compile Include="Security\Constraints\OrConstraintTests.cs" />
+    <Compile Include="Security\Constraints\UserHasEmailConstraint.cs" />
     <Compile Include="Security\Constraints\UserInRoleConstraintTests.cs" />
     <Compile Include="Security\SecuredHelperTests.cs" />
     <Compile Include="Security\SecurityContextTests.cs" />

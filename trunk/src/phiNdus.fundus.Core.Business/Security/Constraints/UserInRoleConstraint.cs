@@ -13,9 +13,12 @@ namespace phiNdus.fundus.Core.Business.Security.Constraints
 
         public override bool Eval(SecurityContext context)
         {
-            if (context.SecuritySession.User.Role.Equals(_role))
-                return true;
-            throw new AuthorizationException();
+            return context.SecuritySession.User.Role.Equals(_role);
+        }
+
+        public override string Message
+        {
+            get { return "UserInRoleConstraint"; }
         }
     }
 }

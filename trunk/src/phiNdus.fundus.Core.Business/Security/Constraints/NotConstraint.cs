@@ -9,6 +9,11 @@
             _c1 = c1;
         }
 
+        public override string Message
+        {
+            get { return "Not " + _c1.Message; }
+        }
+
         public override bool Eval(SecurityContext context)
         {
             return !_c1.Eval(context);

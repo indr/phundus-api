@@ -55,8 +55,10 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         }
 
         [Test]
-        public void GetUser_with_user_role_throws()
+        public void GetUser_other_with_user_roll_throws()
         {
+            User.Membership.Email = "user@example.com";
+
             using (MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("SessionKey")).Return(User);
@@ -65,7 +67,27 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 
             using (MockFactory.Playback())
             {
-                Assert.Throws<AuthorizationException>(() => Sut.GetUser("SessionKey", ""));
+                Assert.Throws<AuthorizationException>(() => Sut.GetUser("SessionKey", "other@example.com"));
+            }
+        }
+
+        [Test]
+        public void GetUser_own_with_user_roll()
+        {
+            User.Membership.Email = "user@example.com";
+
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.FindBySessionKey("SessionKey")).Return(User);
+                Expect.Call(MockUserRepository.FindByEmail("user@example.com")).Return(User);
+                Expect.Call(() => MockUnitOfWork.Dispose()).Repeat.Any();
+            }
+
+            using (MockFactory.Playback())
+            {
+                var actual = Sut.GetUser("SessionKey", "user@example.com");
+                Assert.That(actual, Is.Not.Null);
+                Assert.That(actual.Email, Is.EqualTo("user@example.com"));
             }
         }
 
