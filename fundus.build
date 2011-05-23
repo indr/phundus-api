@@ -48,6 +48,7 @@
   -->
   <property name="castle-windsor.dir" value="${lib.dir}/Castle.Windsor" />
   <property name="mvc-3.dir" value="${lib.dir}/ASP.NET MVC 3"/>
+  <property name="asp-net-web-pages.dir" value="${lib.dir}/ASP.NET Web Pages" />
   <property name="nhibernate.dir" value="${lib.dir}/NHibernate" />
   
   
@@ -226,13 +227,10 @@
         <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Log4netIntegration.dll" />
         <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
         <include name="${castle-windsor.dir}/loggingFacility/log4net.dll" />
-        <!--<include name="${mvc-3.dir}\System.Web.Helpers.dll" />-->
         <include name="${mvc-3.dir}\System.Web.Mvc.dll" />
-        <!--<include name="${mvc-3.dir}\System.Web.WebPages.dll" />-->
         <include name="Microsoft.CSharp" />
         <include name="System.Web.ApplicationServices.dll" />  
         <include name="System.ComponentModel.DataAnnotations.dll" />
-        
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />
       </references>
     </csc>
@@ -409,6 +407,12 @@
     </copy>
     <copy todir="${web.dir}/Bin" flatten="true">
       <fileset basedir="${mvc-3.dir}">
+        <include name="**/*.dll" />
+      </fileset>
+    </copy>
+    
+    <copy todir="${web.dir}/Bin" flatten="true">
+      <fileset basedir="${asp-net-web-pages.dir}">
         <include name="**/*.dll" />
       </fileset>
     </copy>
