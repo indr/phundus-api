@@ -6,7 +6,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain
 {
-    public class PasswordEncryptor
+    public static class PasswordEncryptor
     {
         public static string Encrypt(string value, string salt)
         {
