@@ -34,7 +34,7 @@ namespace phiNdus.fundus.Core.Business.Security
             using (UnitOfWork.Start())
             {
                 if (!_constraint.Eval(context))
-                    throw new AuthorizationException();
+                    throw new AuthorizationException(_constraint.Message);
             }
             var service = new TService();
             service.SecurityContext = context;

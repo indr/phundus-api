@@ -15,5 +15,10 @@
             context.SecuritySession = securitySession;
             return true;
         }
+
+        public override string Message
+        {
+            get { return "SessionFromKeyConstraint failed"; }
+        }
     }
 }

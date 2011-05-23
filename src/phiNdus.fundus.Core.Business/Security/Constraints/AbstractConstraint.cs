@@ -30,5 +30,7 @@ namespace phiNdus.fundus.Core.Business.Security.Constraints
         }
 
         public abstract bool Eval(SecurityContext context);
+
+        public abstract string Message { get; }
     }
 }

@@ -8,5 +8,10 @@ namespace phiNdus.fundus.Core.Business.Security.Constraints
         {
             return new UserInRoleConstraint(role);
         }
+
+        public static AbstractConstraint HasEmail(string email)
+        {
+            return new UserHasEmailConstraint(email);
+        }
     }
 }

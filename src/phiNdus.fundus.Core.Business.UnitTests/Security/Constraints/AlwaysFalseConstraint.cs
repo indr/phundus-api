@@ -9,5 +9,10 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security.Constraints
         {
             return false;
         }
+
+        public override string Message
+        {
+            get { return "AlwaysFalseConstraint"; }
+        }
     }
 }

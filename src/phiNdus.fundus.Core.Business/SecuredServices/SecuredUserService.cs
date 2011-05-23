@@ -1,5 +1,4 @@
-﻿using System;
-using phiNdus.fundus.Core.Business.Dto;
+﻿using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Security.Constraints;
 using phiNdus.fundus.Core.Business.Services;
@@ -11,12 +10,13 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
     public class SecuredUserService : BaseSecuredService, IUserService
     {
         #region IUserService Members
-        
+
         public UserDto GetUser(string sessionKey, string email)
         {
             return Secured.With(Session.FromKey(sessionKey)
-                    && User.InRole(Role.Administrator))
-                .Do<UserService, UserDto>(svc => svc.GetUser(email));
+                                && (User.InRole(Role.Administrator)
+                                    || User.HasEmail(email))
+                ).Do<UserService, UserDto>(svc => svc.GetUser(email));
         }
 
         public UserDto CreateUser(string sessionKey, string email, string password)

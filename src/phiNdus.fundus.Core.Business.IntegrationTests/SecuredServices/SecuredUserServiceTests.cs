@@ -22,7 +22,6 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
         [Test]
         public void GetUser_own_with_user_roll()
         {
-            Assert.Ignore("Eigener Benutzer soll man laden können: Constraint fehlt noch...");
             var sessionKey = Sut.ValidateUser("robin.scherbatsky@example.com", "robin");
             Assert.That(sessionKey, Is.Not.Null);
 
@@ -37,7 +36,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
             var sessionKey = Sut.ValidateUser("robin.scherbatsky@example.com", "robin");
             Assert.That(sessionKey, Is.Not.Null);
 
-            Assert.Throws<AuthorizationException>(() => Sut.GetUser(sessionKey, "robin.scherbatsky@example.com"));
+            Assert.Throws<AuthorizationException>(() => Sut.GetUser(sessionKey, "barney.stinson@example.com"));
         }
 
         [Test]
