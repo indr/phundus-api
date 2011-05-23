@@ -25,5 +25,29 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Settings
             Assert.That(value, Is.Not.Null);
             Assert.That(value, Is.EqualTo("mail.indr.ch"));
         }
+
+        [Test]
+        public void Get_From()
+        {
+            var value = Sut.From;
+            Assert.That(value, Is.Not.Null);
+            Assert.That(value, Is.EqualTo("fundus-sys-test-1@indr.ch"));
+        }
+
+        [Test]
+        public void Get_UserName()
+        {
+            var value = Sut.UserName;
+            Assert.That(value, Is.Not.Null);
+            Assert.That(value, Is.EqualTo("fundus-sys-test-1@indr.ch"));
+        }
+
+        [Test]
+        public void Get_Password()
+        {
+            var value = Sut.Password;
+            Assert.That(value, Is.Not.Null);
+            Assert.That(value, Is.EqualTo("phiNdus"));
+        }
     }
 }

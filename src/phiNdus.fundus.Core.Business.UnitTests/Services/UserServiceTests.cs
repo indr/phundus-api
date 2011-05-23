@@ -1,35 +1,26 @@
 ﻿using System;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
-using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Services
 {
     [TestFixture]
-    internal class UserServiceTests
+    internal class UserServiceTests : BaseTestFixture
     {
-        #region Setup/Teardown
+        #region SetUp/TearDown
 
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
-            IoC.Initialize(new WindsorContainer());
-            MockFactory = new MockRepository();
+            base.SetUp();
 
-            MockUnitOfWork = MockFactory.StrictMock<IUnitOfWork>();
-            UnitOfWork.RegisterGlobalUnitOfWork(MockUnitOfWork);
-
-            MockUserRepository = MockFactory.StrictMock<IUserRepository>();
-            IoC.Container.Register(Component.For<IUserRepository>().Instance(MockUserRepository));
-
-            MockMailGateway = MockFactory.StrictMock<IMailGateway>();
-            IoC.Container.Register(Component.For<IMailGateway>().Instance(MockMailGateway));
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
 
             Sut = new UserService();
 
@@ -43,10 +34,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
         #endregion
 
-        private MockRepository MockFactory { get; set; }
-
-        private IUnitOfWork MockUnitOfWork { get; set; }
         private IUserRepository MockUserRepository { get; set; }
+        private IRoleRepository MockRoleRepository { get; set; }
         private IMailGateway MockMailGateway { get; set; }
 
         private UserService Sut { get; set; }
@@ -60,7 +49,10 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                 Expect.Call(
                     MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(null);
                 Expect.Call(
+                    MockRoleRepository.Get(1)).Return(Role.User);
+                Expect.Call(
                     MockUserRepository.Save(null)).IgnoreArguments().Return(null);
+
                 Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
                 Expect.Call(() => MockUnitOfWork.TransactionalFlush());
                 Expect.Call(() => MockUnitOfWork.Dispose());
@@ -81,6 +73,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             {
                 Expect.Call(
                     MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(null);
+                Expect.Call(
+                    MockRoleRepository.Get(1)).Return(Role.User);
                 Expect.Call(
                     MockUserRepository.Save(null)).IgnoreArguments().Return(null);
                 Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
@@ -103,6 +97,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             {
                 Expect.Call(
                     MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(null);
+                Expect.Call(
+                    MockRoleRepository.Get(1)).Return(Role.User);
                 Expect.Call(
                     MockUserRepository.Save(null)).IgnoreArguments().Return(null);
                 Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();

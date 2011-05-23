@@ -45,6 +45,8 @@ namespace phiNdus.fundus.Core.Business.Services
                 var user = new User();
                 user.Membership.Email = email;
                 user.Membership.Password = password;
+                // TODO,Inder: Konstante einfügen oder sonst was besseres...
+                user.Role = IoC.Resolve<IRoleRepository>().Get(1);
                 _users.Save(user);
 
                 // E-Mail mit Verifikationslink senden
