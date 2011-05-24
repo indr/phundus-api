@@ -213,7 +213,26 @@
     <property name="assembly.cls-compliant" value="true" />
     <property name="assembly.info.dest" value="${tmp.dir}/AssemblyInfo.cs" />
     <call target="generate-assembly-info" />
-    
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Web.dll" debug="false" verbose="${verbose}" platform="${platform}">
+      <sources>
+        <include name="${src.dir}/phiNdus.fundus.Core.Web/**/*.cs" />
+        <include name="${tmp.dir}/AssemblyInfo.cs" />
+        <exclude name="${src.dir}/**/AssemblyInfo.cs" />
+      </sources>
+      <references>
+        <include name="${bin.dir}/phiNdus.fundus.Core.Business.dll" />
+        <include name="${castle-windsor.dir}/Castle.Core.dll" />
+        <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Logging.dll" />
+        <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Log4netIntegration.dll" />
+        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
+        <include name="${castle-windsor.dir}/loggingFacility/log4net.dll" />
+        <include name="${mvc-3.dir}\System.Web.Mvc.dll" />
+        <include name="Microsoft.CSharp" />
+        <include name="System.Web.ApplicationServices.dll" />  
+        <include name="System.ComponentModel.DataAnnotations.dll" />
+        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />
+      </references>
+    </csc>
     <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Web.dll" debug="true" verbose="${verbose}" platform="${platform}">
       <sources>
         <include name="${src.dir}/phiNdus.fundus.Core.Web/**/*.cs" />
@@ -389,81 +408,84 @@
       </references>
     </csc>
     
-    <copy todir="${test.dir}" flatten="true">
-      <fileset basedir="${castle-windsor.dir}">
-        <include name="**/*.dll" />
-      </fileset>
-    </copy>
-    <copy todir="${web.dir}/Bin" flatten="true">
-      <fileset basedir="${castle-windsor.dir}">
-        <include name="**/*.dll" />
-      </fileset>
-    </copy>
     
+    <!-- Copy test dependencies -->
     <copy todir="${test.dir}" flatten="true">
       <fileset basedir="${mvc-3.dir}">
         <include name="**/*.dll" />
       </fileset>
     </copy>
-    <copy todir="${web.dir}/Bin" flatten="true">
-      <fileset basedir="${mvc-3.dir}">
+    <copy todir="${test.dir}" flatten="true">
+      <fileset basedir="${castle-windsor.dir}">
         <include name="**/*.dll" />
       </fileset>
     </copy>
-    
-    <copy todir="${web.dir}/Bin" flatten="true">
-      <fileset basedir="${asp-net-web-pages.dir}">
+    <copy todir="${test.dir}" flatten="true">
+      <fileset basedir="${nhibernate.dir}">
         <include name="**/*.dll" />
       </fileset>
     </copy>
-    
+    <copy todir="${test.dir}" flatten="true">
+      <fileset basedir="${lib.dir}/Rhino.Commons">
+        <include name="**/Rhino.Commons.dll" />
+        <include name="**/Rhino.Commons.Clr.dll" />
+        <include name="**/Rhino.Commons.NHibernate.dll" />
+      </fileset>
+    </copy>
     <copy todir="${test.dir}" flatten="true">
       <fileset basedir="${rhino-mocks.dir}">
         <include name="**/*.dll" />
       </fileset>
     </copy>
     
-    <copy todir="${test.dir}" flatten="true">
-      <fileset basedir="${lib.dir}/Rhino.Commons">
-        <include name="**/Rhino.Commons.dll" />
-        <include name="**/Rhino.Commons.Clr.dll" />
-        <include name="**/Rhino.Commons.NHibernate.dll" />
-      </fileset>
-    </copy>
-    <copy todir="${web.dir}/Bin" flatten="true">
-      <fileset basedir="${lib.dir}/Rhino.Commons">
-        <include name="**/Rhino.Commons.dll" />
-        <include name="**/Rhino.Commons.Clr.dll" />
-        <include name="**/Rhino.Commons.NHibernate.dll" />
-      </fileset>
-    </copy>
-    
-    <copy todir="${test.dir}" flatten="true">
-      <fileset basedir="${nhibernate.dir}">
-        <include name="**/*.dll" />
-      </fileset>
-    </copy>
-    <copy todir="${web.dir}/Bin" flatten="true">
-      <fileset basedir="${nhibernate.dir}">
-        <include name="**/*.dll" />
-      </fileset>
-    </copy>
-    
+
+    <!-- Copy web-project dependencies -->
     <copy todir="${web.dir}">
       <fileset basedir="${src.dir}/phiNdus.fundus.Core.Web">
         <include name="**/*" />
-        <exclude name="bin/*" />
-        <exclude name="obj/*" />
+        <exclude name="bin/**" />
+        <exclude name="obj/**" />
+        <exclude name="*.csproj*" />
         <exclude name="**/AssemblyInfo.cs" />
         <exclude name="**/Web*.config" />
       </fileset>
     </copy>
-    
     <copy todir="${web.dir}/Bin">
       <fileset basedir="${bin.dir}">
         <include name="*.dll" />
       </fileset>
     </copy>
+    <copy todir="${web.dir}/Bin" flatten="true">
+      <fileset basedir="${asp-net-web-pages.dir}">
+        <include name="**/*.dll" />
+      </fileset>
+    </copy>
+    <copy todir="${web.dir}/Bin" flatten="true">
+      <fileset basedir="${mvc-3.dir}">
+        <include name="**/*.dll" />
+      </fileset>
+    </copy>
+    <copy todir="${web.dir}/Bin" flatten="true">
+      <fileset basedir="${castle-windsor.dir}">
+        <include name="**/*.dll" />
+      </fileset>
+    </copy>
+    <copy todir="${web.dir}/Bin" flatten="true">
+      <fileset basedir="${nhibernate.dir}">
+        <include name="**/*.dll" />
+      </fileset>
+    </copy>
+    <copy todir="${web.dir}/Bin" flatten="true">
+      <fileset basedir="${lib.dir}/Rhino.Commons">
+        <include name="**/Rhino.Commons.dll" />
+        <include name="**/Rhino.Commons.Clr.dll" />
+        <include name="**/Rhino.Commons.NHibernate.dll" />
+      </fileset>
+    </copy>
+    
+    
+    
+    
   </target>
   
   <target name="init-unit-test">
@@ -583,39 +605,31 @@
     
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/create.sql"
-    />
-    
+      source="${base.dir}/sql/create.sql" />
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/ddl.sql"
-    />
+      source="${base.dir}/sql/ddl.sql" />
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/dml.sql"
-    />
+      source="${base.dir}/sql/dml.sql" />
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/dml-staging.sql"
-    />
+      source="${base.dir}/sql/dml-staging.sql" />
     
     <property name="web.config.connstrings.default.connstring" value="${staging.connstring}" />
     <property name="web.config.connstrings.default.providername" value="${staging.providername}" />
-    <property name="web.config.dest" value="${web.dir + '/' + 'Web.config'}" />
+    <property name="web.config.dest" value="${web.dir}/Web.config" />
     <call target="generate-web-config" />
+
+    <property name="views.web.config.dest" value="${web.dir}/Views/Web.config" />
+    <call target="generate-views-web-config" />
     
     <delete dir="${staging.dir}" />
     <mkdir dir="${staging.dir}" />
     
     <!-- http://msdn.microsoft.com/en-us/library/ms229863%28VS.80%29.aspx -->
-    <!--<exec program="${framework::get-tool-path('aspnet_compiler.exe')}"
-      commandline="-v &quot;${staging.vdir}&quot; -p &quot;${web.dir}&quot; &quot;${staging.dir}&quot; -fixednames -nologo" />
-      -->
-    <copy todir="${staging.dir}">
-      <fileset basedir="${web.dir}">
-        <include name="**/" />
-      </fileset>
-    </copy>
+    <exec program="${framework::get-tool-path('aspnet_compiler.exe')}" verbose="true"
+      commandline="-v &quot;${staging.vdir}&quot; -p &quot;${web.dir}&quot; &quot;${staging.dir}&quot; -nologo" />
   </target>
   
   <!--
@@ -659,6 +673,15 @@
   <target name="generate-web-config">
     <copy file="${config.dir}/Web.config.template"
       tofile="${web.config.dest}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+  </target>
+  
+  <target name="generate-views-web-config">
+    <copy file="${config.dir}/Views.Web.config.template"
+      tofile="${views.web.config.dest}">
       <filterchain>
         <expandproperties />
       </filterchain>
