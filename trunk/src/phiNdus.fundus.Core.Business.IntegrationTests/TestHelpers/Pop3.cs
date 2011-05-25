@@ -8,6 +8,8 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Helpers
 {
     public class Pop3 : TcpClient
     {
+        public static TimeSpan RetrieveDelay = TimeSpan.FromSeconds(3);
+
         public void Connect(string server, string username, string password)
         {
             string message;

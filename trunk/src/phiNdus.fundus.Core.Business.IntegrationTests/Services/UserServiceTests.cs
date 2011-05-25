@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.IntegrationTests.Helpers;
 using phiNdus.fundus.Core.Business.Services;
@@ -29,7 +30,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
             Assert.That(dto.Id, Is.GreaterThan(0));
             Assert.That(dto.IsApproved, Is.False);
 
-            Thread.Sleep(2000);
+            Thread.Sleep(Pop3.RetrieveDelay);
 
             var mail = Pop3.RetrieveMail("mail.indr.ch", "fundus-sys-test-2@indr.ch", "phiNdus", "[fundus] User Account Validation");
             Assert.That(mail, Is.Not.Null, "Could not retrieve mail.");
