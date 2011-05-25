@@ -56,7 +56,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Gateways
         public void Can_send()
         {
             Sut.Send(ToAddress, "[MailGatewayTests] Can_send", "");
-            Thread.Sleep(2000);
+            Thread.Sleep(Pop3.RetrieveDelay);
             Assert.That(GetToMailBySubject("[MailGatewayTests] Can_send"), Is.Not.Null, "Could not retrieve mail");
         }
     }
