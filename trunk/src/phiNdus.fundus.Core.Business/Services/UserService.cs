@@ -19,7 +19,7 @@ namespace phiNdus.fundus.Core.Business.Services
             _users = IoC.Resolve<IUserRepository>();
         }
 
-        public UserDto GetUser(string email)
+        public virtual UserDto GetUser(string email)
         {
             email = email.ToLower(CultureInfo.CurrentCulture);
 
@@ -30,7 +30,7 @@ namespace phiNdus.fundus.Core.Business.Services
             }
         }
 
-        public UserDto CreateUser(string email, string password)
+        public virtual UserDto CreateUser(string email, string password)
         {
             email = email.ToLower(CultureInfo.CurrentCulture);
             UserDto result;
@@ -58,7 +58,7 @@ namespace phiNdus.fundus.Core.Business.Services
             return result;
         }
 
-        public void UpdateUser(UserDto subject)
+        public virtual void UpdateUser(UserDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
             using (var uow = UnitOfWork.Start())
@@ -69,17 +69,24 @@ namespace phiNdus.fundus.Core.Business.Services
             }
         }
 
-        public bool DeleteUser(string email)
+        public virtual bool DeleteUser(string email)
+        {
+            Guard.Against<ArgumentNullException>(email == null, "email");
+            using (var uow = UnitOfWork.Start())
+            {
+                var user = _users.FindByEmail(email);
+                _users.Delete(user);
+                uow.TransactionalFlush();
+            }
+            return true;
+        }
+
+        public virtual bool ChangePassword(string email, string oldPassword, string newPassword)
         {
             throw new NotImplementedException();
         }
 
-        public bool ChangePassword(string email, string oldPassword, string newPassword)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string ValidateUser(string email, string password)
+        public virtual string ValidateUser(string email, string password)
         {
             email = email.ToLower(CultureInfo.CurrentCulture);
 
@@ -101,7 +108,7 @@ namespace phiNdus.fundus.Core.Business.Services
             }
         }
 
-        public string ResetPassword(string email)
+        public virtual string ResetPassword(string email)
         {
             throw new NotImplementedException();
         }

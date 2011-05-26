@@ -3,6 +3,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using phiNdus.fundus.Core.Business.Gateways;
 using phiNdus.fundus.Core.Business.SecuredServices;
+using phiNdus.fundus.Core.Business.Security;
 
 namespace phiNdus.fundus.Core.Business
 {
@@ -16,6 +17,11 @@ namespace phiNdus.fundus.Core.Business
                                    .BasedOn<BaseSecuredService>()
                                    .WithService.AllInterfaces()
                                    .Configure(c => c.LifeStyle.Transient));
+
+            container.Register(Component.For<Secured>()
+                                   .ImplementedBy(typeof (Secured))
+                                   .LifeStyle.Transient);
+
             container.Register(Component.For<IMailGateway>()
                                    .ImplementedBy(typeof (MailGateway))
                                    .LifeStyle.Transient);

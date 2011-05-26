@@ -1,7 +1,7 @@
-﻿using System;
+﻿using System.Net.Mail;
 using System.Threading;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.IntegrationTests.Helpers;
+using phiNdus.fundus.Core.Business.IntegrationTests.TestHelpers;
 using phiNdus.fundus.Core.Business.Services;
 
 namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
@@ -9,7 +9,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
     [TestFixture]
     internal class UserServiceTests : BaseTestFixture
     {
-        #region SetUp/TearDown
+        #region Setup/Teardown
 
         [SetUp]
         public void SetUp()
@@ -24,16 +24,44 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
         [Test]
         public void CreateUser_returns_dto_of_new_user()
         {
-            var dto = Sut.CreateUser("fundus-sys-test-2@indr.ch", "1234");
+            try
+            {
+                Thread.Sleep(Pop3.SendDelay);
+                var dto = Sut.CreateUser("nirvana@indr.ch", "1234");
 
-            Assert.That(dto.Email, Is.EqualTo("fundus-sys-test-2@indr.ch"));
-            Assert.That(dto.Id, Is.GreaterThan(0));
-            Assert.That(dto.IsApproved, Is.False);
+                Assert.That(dto.Email, Is.EqualTo("nirvana@indr.ch"));
+                Assert.That(dto.Id, Is.GreaterThan(0));
+                Assert.That(dto.IsApproved, Is.False);
+            }
+            catch (SmtpException ex)
+            {
+                if (ex.Message.Contains("because the server is too busy."))
+                    Assert.Ignore(ex.Message);
+                else
+                    throw;
+            }
+        }
 
-            Thread.Sleep(Pop3.RetrieveDelay);
+        [Test]
+        public void CreateUser_sends_email_to_new_user()
+        {
+            try
+            {
+                Thread.Sleep(Pop3.SendDelay);
+                Sut.CreateUser("fundus-sys-test-2@indr.ch", "1234");
 
-            var mail = Pop3.RetrieveMail("mail.indr.ch", "fundus-sys-test-2@indr.ch", "phiNdus", "[fundus] User Account Validation");
-            Assert.That(mail, Is.Not.Null, "Could not retrieve mail.");
+                Thread.Sleep(Pop3.RetrieveDelay);
+                var mail = Pop3.RetrieveMail("mail.indr.ch", "fundus-sys-test-2@indr.ch", "phiNdus",
+                                             "[fundus] User Account Validation");
+                Assert.That(mail, Is.Not.Null, "Could not retrieve mail.");
+            }
+            catch (SmtpException ex)
+            {
+                if (ex.Message.Contains("because the server is too busy."))
+                    Assert.Ignore(ex.Message);
+                else
+                    throw;
+            }
         }
 
         [Test]
