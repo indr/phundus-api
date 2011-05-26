@@ -26,6 +26,8 @@ namespace phiNdus.fundus.Core.Business.Services
             using (UnitOfWork.Start())
             {
                 var user = _users.FindByEmail(email);
+                if (user == null)
+                    return null;
                 return UserAssembler.CreateDto(user);
             }
         }

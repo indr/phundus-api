@@ -1,4 +1,5 @@
-﻿using phiNdus.fundus.Core.Domain.Entities;
+﻿using System;
+using phiNdus.fundus.Core.Domain.Entities;
 
 namespace phiNdus.fundus.Core.Business.Security.Constraints
 {
@@ -12,6 +13,11 @@ namespace phiNdus.fundus.Core.Business.Security.Constraints
         public static AbstractConstraint HasEmail(string email)
         {
             return new UserHasEmailConstraint(email);
+        }
+
+        public static AbstractConstraint Is(int id)
+        {
+            return new UserIsContraint(id);
         }
     }
 }

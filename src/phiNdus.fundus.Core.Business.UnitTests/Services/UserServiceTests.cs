@@ -127,31 +127,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         [Test]
-        public void GetUser_lowers_email()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(
-                    MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(TedMosby);
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-
-            using (MockFactory.Playback())
-            {
-                var dto = Sut.GetUser("Ted.Mosby@example.com");
-                Assert.That(dto, Is.Not.Null);
-                Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
-            }
-        }
-
-        [Test]
-        public void DeleteUser_with_email_null_throws()
-        {
-            var ex = Assert.Throws<ArgumentNullException>(() => Sut.DeleteUser(null));
-            Assert.That(ex.ParamName, Is.EqualTo("email"));
-        }
-
-        [Test]
         public void DeleteUser_deletes_repository_and_flushes_transaction()
         {
             var user = new User();
@@ -171,7 +146,32 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         [Test]
-        public void GetUser_returns()
+        public void DeleteUser_with_email_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.DeleteUser(null));
+            Assert.That(ex.ParamName, Is.EqualTo("email"));
+        }
+
+        [Test]
+        public void GetUser_lowers_email()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(
+                    MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(TedMosby);
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                var dto = Sut.GetUser("Ted.Mosby@example.com");
+                Assert.That(dto, Is.Not.Null);
+                Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
+            }
+        }
+
+        [Test]
+        public void GetUser_returns_dto()
         {
             var user = new User();
             user.Membership.Email = "user@example.com";
@@ -185,8 +185,23 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             {
                 var actual = Sut.GetUser("user@example.com");
                 Assert.That(actual, Is.Not.Null);
-                Assert.That(actual.Email, Is.EqualTo("user@example.com"))
-                ;
+                Assert.That(actual.Email, Is.EqualTo("user@example.com"));
+            }
+        }
+
+        [Test]
+        public void GetUser_returns_null()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.FindByEmail("user@example.com")).Return(null);
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                var actual = Sut.GetUser("user@example.com");
+                Assert.That(actual, Is.Null);
             }
         }
 

@@ -71,6 +71,7 @@
     <Compile Include="Security\Constraints\OrConstraintTests.cs" />
     <Compile Include="Security\Constraints\UserHasEmailConstraint.cs" />
     <Compile Include="Security\Constraints\UserInRoleConstraintTests.cs" />
+    <Compile Include="Security\Constraints\UserIsContraintTests.cs" />
     <Compile Include="Security\SecuredTests.cs" />
     <Compile Include="Security\SecurityContextTests.cs" />
     <Compile Include="Security\SessionHelper.cs" />

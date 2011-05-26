@@ -25,11 +25,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
             MockUserService = CreateAndRegisterStrictMock<UserService>();
 
-            User = new User();
+            User = new User(1);
             User.Role = Role.User;
             User.Membership.Email = "user@example.com";
 
-            Admin = new User();
+            Admin = new User(1);
             Admin.Role = Role.Administrator;
             Admin.Membership.Email = "admin@example.com";
 
@@ -43,6 +43,34 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         protected SecuredUserService Sut { get; set; }
         protected User User { get; set; }
         protected User Admin { get; set; }
+
+        [Test]
+        public void CreateUser_with_sessionKey_null_does_not_throw()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserService.CreateUser("user@example.com", "1234"));
+            }
+            using (MockFactory.Playback())
+            {
+                Sut.CreateUser(null, "user@example.com", "1234");
+            }
+        }
+
+        [Test]
+        public void CreateUser_returns_dto()
+        {
+            var dto = new UserDto();
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserService.CreateUser("user@example.com", "1234")).Return(dto);
+            }
+            using (MockFactory.Playback())
+            {
+                var actual = Sut.CreateUser("maybevalid", "user@example.com", "1234");
+                Assert.That(actual, Is.SameAs(dto));
+            }
+        }
 
         [Test]
         public void DeleteUser_other_with_administrator_roll()
@@ -149,6 +177,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         }
 
         [Test]
+        public void UpdateUser_with_user_null_throws()
+        {
+            MockFactory.ReplayAll();
+            using (MockFactory.Playback())
+            {
+                var ex = Assert.Throws<ArgumentNullException>(() => Sut.UpdateUser("valid", null));
+                Assert.That(ex.ParamName, Is.EqualTo("user"));
+            }
+        }
+
+        [Test]
         public void UpdateUser_with_invalid_sessionKey_throws()
         {
             using (MockFactory.Record())
@@ -157,7 +196,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             }
             using (MockFactory.Playback())
             {
-                Assert.Throws<InvalidSessionKeyException>(() => Sut.UpdateUser("invalid", null));
+                Assert.Throws<InvalidSessionKeyException>(() => Sut.UpdateUser("invalid", new UserDto()));
             }
         }
 
@@ -167,8 +206,41 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             MockFactory.ReplayAll();
             using (MockFactory.Playback())
             {
-                var ex = Assert.Throws<ArgumentNullException>(() => Sut.UpdateUser(null, null));
+                var ex = Assert.Throws<ArgumentNullException>(() => Sut.UpdateUser(null, new UserDto()));
                 Assert.That(ex.ParamName, Is.EqualTo("key"));
+            }
+        }
+
+        [Test]
+        public void UpdateUser_other_with_user_roll_throws()
+        {
+            var userDto = new UserDto();
+            userDto.Id = 2;
+
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.FindBySessionKey("valid")).Return(User);
+            }
+            using (MockFactory.Playback())
+            {
+                Assert.Throws<AuthorizationException>(() => Sut.UpdateUser("valid", userDto));
+            }
+        }
+
+        [Test]
+        public void UpdateUser_other_with_administrator_roll()
+        {
+            var userDto = new UserDto();
+            userDto.Id = 2;
+
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.FindBySessionKey("valid")).Return(Admin);
+                Expect.Call(() => MockUserService.UpdateUser(userDto));
+            }
+            using (MockFactory.Playback())
+            {
+                Sut.UpdateUser("valid", userDto);
             }
         }
 
