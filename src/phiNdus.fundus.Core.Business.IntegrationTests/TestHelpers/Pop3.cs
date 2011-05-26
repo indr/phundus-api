@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
-using phiNdus.fundus.Core.Business.IntegrationTests.TestHelpers;
 
-namespace phiNdus.fundus.Core.Business.IntegrationTests.Helpers
+namespace phiNdus.fundus.Core.Business.IntegrationTests.TestHelpers
 {
     public class Pop3 : TcpClient
     {
         public static TimeSpan RetrieveDelay = TimeSpan.FromSeconds(3);
+        public static TimeSpan SendDelay = TimeSpan.FromSeconds(1);
 
         public void Connect(string server, string username, string password)
         {

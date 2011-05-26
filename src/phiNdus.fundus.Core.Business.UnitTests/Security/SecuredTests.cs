@@ -7,9 +7,9 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Core.Business.UnitTests.Security
 {
     [TestFixture]
-    internal class SecuredHelperTests : BaseTestFixture
+    internal class SecuredTests : BaseTestFixture
     {
-        private SecuredHelper Sut { get; set; }
+        private Secured Sut { get; set; }
 
         public override void SetUp()
         {
@@ -26,7 +26,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
             using (MockFactory.Playback())
             {
                 var invoked = false;
-                Sut = new SecuredHelper(new AlwaysFalseConstraint());
+                Sut = Secured.With(new AlwaysFalseConstraint());
                 Assert.Throws<AuthorizationException>(() => Sut.Do<BaseService, int>(service =>
                                                                                          {
                                                                                              invoked = true;
@@ -42,7 +42,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
             using (MockFactory.Playback())
             {
                 var invoked = false;
-                Sut = new SecuredHelper(new AlwaysFalseConstraint());
+                Sut = Secured.With(new AlwaysFalseConstraint());
                 Assert.Throws<AuthorizationException>(() => Sut.Do<BaseService>(service => invoked = true));
                 Assert.That(invoked, Is.False);
             }
@@ -55,7 +55,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
             using (MockFactory.Playback())
             {
                 BaseService serviceRef = null;
-                Sut = new SecuredHelper(new AlwaysTrueConstraint());
+                Sut = Secured.With(new AlwaysTrueConstraint());
                 Sut.Do<BaseService, int>(service =>
                                              {
                                                  serviceRef = service;
@@ -71,7 +71,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
             using (MockFactory.Playback())
             {
                 var invoked = false;
-                Sut = new SecuredHelper(new AlwaysTrueConstraint());
+                Sut = Secured.With(new AlwaysTrueConstraint());
                 Sut.Do<BaseService, int>(service =>
                                              {
                                                  invoked = true;
@@ -87,7 +87,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
             using (MockFactory.Playback())
             {
                 SecurityContext securityContext = null;
-                Sut = new SecuredHelper(new AlwaysTrueConstraint());
+                Sut = Secured.With(new AlwaysTrueConstraint());
                 Sut.Do<BaseService, int>(service =>
                                              {
                                                  securityContext = service.SecurityContext;
@@ -103,7 +103,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
             using (MockFactory.Playback())
             {
                 BaseService serviceRef = null;
-                Sut = new SecuredHelper(new AlwaysTrueConstraint());
+                Sut = Secured.With(new AlwaysTrueConstraint());
                 Sut.Do<BaseService>(service => serviceRef = service);
                 Assert.That(serviceRef, Is.Not.Null);
             }
@@ -115,7 +115,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
             using (MockFactory.Playback())
             {
                 var invoked = false;
-                Sut = new SecuredHelper(new AlwaysTrueConstraint());
+                Sut = Secured.With(new AlwaysTrueConstraint());
                 Sut.Do<BaseService>(service => { invoked = true; });
                 Assert.That(invoked, Is.True);
             }
@@ -127,9 +127,26 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
             using (MockFactory.Playback())
             {
                 SecurityContext securityContext = null;
-                Sut = new SecuredHelper(new AlwaysTrueConstraint());
+                Sut = Secured.With(new AlwaysTrueConstraint());
                 Sut.Do<BaseService>(service => securityContext = service.SecurityContext);
                 Assert.That(securityContext, Is.Not.Null);
+            }
+        }
+
+        [Test]
+        public void Do_proc_secured_with_null_sets_SecurityContext_to_null()
+        {
+            MockFactory.BackToRecordAll();
+            using (MockFactory.Record())
+            {
+                Expect.Call(() => MockUnitOfWork.Dispose()).Repeat.Never();
+            }
+            using (MockFactory.Playback())
+            {
+                var securityContext = new SecurityContext();
+                Sut = Secured.With(null);
+                Sut.Do<BaseService>(service => securityContext = service.SecurityContext);
+                Assert.That(securityContext, Is.Null);
             }
         }
     }

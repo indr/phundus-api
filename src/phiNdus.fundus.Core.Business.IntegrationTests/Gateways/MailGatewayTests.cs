@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Gateways;
-using phiNdus.fundus.Core.Business.IntegrationTests.Helpers;
 using phiNdus.fundus.Core.Business.IntegrationTests.TestHelpers;
 
 namespace phiNdus.fundus.Core.Business.IntegrationTests.Gateways

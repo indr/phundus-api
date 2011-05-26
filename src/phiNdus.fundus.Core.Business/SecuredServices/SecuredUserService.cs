@@ -1,4 +1,5 @@
-﻿using phiNdus.fundus.Core.Business.Dto;
+﻿using System;
+using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Security.Constraints;
 using phiNdus.fundus.Core.Business.Services;
@@ -14,14 +15,14 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         public UserDto GetUser(string sessionKey, string email)
         {
             return Secured.With(Session.FromKey(sessionKey)
-                                && (User.InRole(Role.Administrator)
-                                    || User.HasEmail(email))
+                                && (User.HasEmail(email)
+                                    || User.InRole(Role.Administrator))
                 ).Do<UserService, UserDto>(svc => svc.GetUser(email));
         }
 
         public UserDto CreateUser(string sessionKey, string email, string password)
         {
-            return Service(sessionKey).CreateUser(email, password);
+            throw new NotImplementedException();
         }
 
         public void UpdateUser(string sessionKey, UserDto user)
@@ -33,30 +34,28 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 
         public bool DeleteUser(string sessionKey, string email)
         {
-            return Service(sessionKey).DeleteUser(email);
+            return Secured.With(Session.FromKey(sessionKey)
+                                && (User.HasEmail(email)
+                                    || User.InRole(Role.Administrator)))
+                .Do<UserService, bool>(svc => svc.DeleteUser(email));
         }
 
         public bool ChangePassword(string sessionKey, string email, string oldPassword, string newPassword)
         {
-            return Service(sessionKey).ChangePassword(email, oldPassword, newPassword);
+            throw new NotImplementedException();
         }
 
         public string ValidateUser(string email, string password)
         {
-            return Service(null).ValidateUser(email, password);
+            return Secured.With(null)
+                .Do<UserService, string>(svc => svc.ValidateUser(email, password));
         }
 
         public string ResetPassword(string sessionKey, string email)
         {
-            return Service(sessionKey).ResetPassword(email);
+            throw new NotImplementedException();
         }
 
         #endregion
-
-        private static UserService Service(string sessionKey)
-        {
-            // TODO: SecurityContext-Key
-            return new UserService();
-        }
     }
 }

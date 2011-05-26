@@ -34,5 +34,12 @@ namespace phiNdus.fundus.Core.Business.UnitTests
             IoC.Container.Register(Component.For<T>().Instance(result));
             return result;
         }
+
+        protected IUnitOfWork CreateAndRegisterDynamicUnitOfWorkMock()
+        {
+            var result = MockFactory.DynamicMock<IUnitOfWork>();
+            UnitOfWork.RegisterGlobalUnitOfWork(result);
+            return result;
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
     [TestFixture]
     internal class UserServiceTests : BaseTestFixture
     {
-        #region SetUp/TearDown
+        #region Setup/Teardown
 
         [SetUp]
         public override void SetUp()
@@ -141,6 +141,52 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                 var dto = Sut.GetUser("Ted.Mosby@example.com");
                 Assert.That(dto, Is.Not.Null);
                 Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
+            }
+        }
+
+        [Test]
+        public void DeleteUser_with_email_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.DeleteUser(null));
+            Assert.That(ex.ParamName, Is.EqualTo("email"));
+        }
+
+        [Test]
+        public void DeleteUser_deletes_repository_and_flushes_transaction()
+        {
+            var user = new User();
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.FindByEmail("user@example.com")).Return(user);
+                Expect.Call(() => MockUserRepository.Delete(user));
+                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
+                Expect.Call(() => MockUnitOfWork.Dispose()).Repeat.Any();
+            }
+
+            using (MockFactory.Playback())
+            {
+                var actual = Sut.DeleteUser("user@example.com");
+                Assert.That(actual, Is.True);
+            }
+        }
+
+        [Test]
+        public void GetUser_returns()
+        {
+            var user = new User();
+            user.Membership.Email = "user@example.com";
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.FindByEmail("user@example.com")).Return(user);
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                var actual = Sut.GetUser("user@example.com");
+                Assert.That(actual, Is.Not.Null);
+                Assert.That(actual.Email, Is.EqualTo("user@example.com"))
+                ;
             }
         }
 
