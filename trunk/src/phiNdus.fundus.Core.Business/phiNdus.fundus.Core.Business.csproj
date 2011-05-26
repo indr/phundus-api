@@ -76,6 +76,7 @@
     <Compile Include="Security\Constraints\NotConstraint.cs" />
     <Compile Include="Security\Constraints\SessionFromKeyConstraint.cs" />
     <Compile Include="Security\Constraints\UserHasEmailConstraint.cs" />
+    <Compile Include="Security\Constraints\UserIsContraint.cs" />
     <Compile Include="Security\Constraints\UserInRoleConstraint.cs" />
     <Compile Include="Security\InvalidSessionKeyException.cs" />
     <Compile Include="Security\Constraints\OrConstraint.cs" />

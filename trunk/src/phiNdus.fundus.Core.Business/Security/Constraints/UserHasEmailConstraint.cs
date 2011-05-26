@@ -18,7 +18,7 @@ namespace phiNdus.fundus.Core.Business.Security.Constraints
 
         public override string Message
         {
-            get { return "UserHasEmailConstriant"; }
+            get { return "UserHasEmailConstraint"; }
         }
     }
 }
