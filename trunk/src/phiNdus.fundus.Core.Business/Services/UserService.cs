@@ -12,12 +12,8 @@ namespace phiNdus.fundus.Core.Business.Services
 {
     public class UserService : BaseService
     {
-        private readonly IUserRepository _users;
-
-        public UserService()
-        {
-            _users = IoC.Resolve<IUserRepository>();
-        }
+        private static IUserRepository Users { get { return IoC.Resolve<IUserRepository>(); }}
+        private static IRoleRepository Roles { get { return IoC.Resolve<IRoleRepository>(); }}
 
         public virtual UserDto GetUser(string email)
         {
@@ -25,7 +21,7 @@ namespace phiNdus.fundus.Core.Business.Services
 
             using (UnitOfWork.Start())
             {
-                var user = _users.FindByEmail(email);
+                var user = Users.FindByEmail(email);
                 if (user == null)
                     return null;
                 return UserAssembler.CreateDto(user);
@@ -40,16 +36,15 @@ namespace phiNdus.fundus.Core.Business.Services
             using (var uow = UnitOfWork.Start())
             {
                 // Prüfen ob Benutzer bereits exisitiert.
-                if (_users.FindByEmail(email) != null)
+                if (Users.FindByEmail(email) != null)
                     throw new EmailAlreadyTakenException();
 
                 // Neuer Benutzer speichern.
                 var user = new User();
                 user.Membership.Email = email;
                 user.Membership.Password = password;
-                // TODO,Inder: Konstante einfügen oder sonst was besseres...
-                user.Role = IoC.Resolve<IRoleRepository>().Get(1);
-                _users.Save(user);
+                user.Role = Roles.Get(Role.User.Id);
+                Users.Save(user);
 
                 // E-Mail mit Verifikationslink senden
                 new UserAccountValidationMail().Send(user);
@@ -66,7 +61,7 @@ namespace phiNdus.fundus.Core.Business.Services
             using (var uow = UnitOfWork.Start())
             {
                 var user = UserAssembler.UpdateDomainObject(subject);
-                _users.Update(user);
+                Users.Update(user);
                 uow.TransactionalFlush();
             }
         }
@@ -76,8 +71,8 @@ namespace phiNdus.fundus.Core.Business.Services
             Guard.Against<ArgumentNullException>(email == null, "email");
             using (var uow = UnitOfWork.Start())
             {
-                var user = _users.FindByEmail(email);
-                _users.Delete(user);
+                var user = Users.FindByEmail(email);
+                Users.Delete(user);
                 uow.TransactionalFlush();
             }
             return true;
@@ -94,7 +89,7 @@ namespace phiNdus.fundus.Core.Business.Services
 
             using (var uow = UnitOfWork.Start())
             {
-                var user = _users.FindByEmail(email);
+                var user = Users.FindByEmail(email);
                 if (user == null)
                     return null;
                 try
