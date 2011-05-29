@@ -7,7 +7,7 @@ namespace phiNdus.fundus.Core.Business.Security
 {
     public class Secured
     {
-        private readonly AbstractConstraint _constraint;
+        private AbstractConstraint _constraint;
 
         private Secured(AbstractConstraint constraint)
         {
@@ -17,6 +17,12 @@ namespace phiNdus.fundus.Core.Business.Security
         public static Secured With(AbstractConstraint constraint)
         {
             return new Secured(constraint);
+        }
+
+        public Secured And(AbstractConstraint constraint)
+        {
+            _constraint &= constraint;
+            return this;
         }
 
         #region Do
