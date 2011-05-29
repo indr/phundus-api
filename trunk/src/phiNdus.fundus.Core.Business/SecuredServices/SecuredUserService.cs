@@ -15,9 +15,9 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 
         public UserDto GetUser(string sessionKey, string email)
         {
-            return Secured.With(Session.FromKey(sessionKey)
-                                && (User.HasEmail(email) || User.InRole(Role.Administrator))
-                ).Do<UserService, UserDto>(svc => svc.GetUser(email));
+            return Secured.With(Session.FromKey(sessionKey))
+                .And(User.HasEmail(email) || User.InRole(Role.Administrator))
+                .Do<UserService, UserDto>(svc => svc.GetUser(email));
         }
 
         public UserDto CreateUser(string sessionKey, string email, string password)
@@ -29,15 +29,16 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         public void UpdateUser(string sessionKey, UserDto user)
         {
             Guard.Against<ArgumentNullException>(user == null, "user");
-            Secured.With(Session.FromKey(sessionKey)
-                         && (User.Is(user == null ? 0 : user.Id)) || User.InRole(Role.Administrator))
+
+            Secured.With(Session.FromKey(sessionKey))
+                .And(User.Is(user.Id) || User.InRole(Role.Administrator))
                 .Do<UserService>(svc => svc.UpdateUser(user));
         }
 
         public bool DeleteUser(string sessionKey, string email)
         {
-            return Secured.With(Session.FromKey(sessionKey)
-                                && (User.HasEmail(email) || User.InRole(Role.Administrator)))
+            return Secured.With(Session.FromKey(sessionKey))
+                .And(User.HasEmail(email) || User.InRole(Role.Administrator))
                 .Do<UserService, bool>(svc => svc.DeleteUser(email));
         }
 

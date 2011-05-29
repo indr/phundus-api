@@ -37,6 +37,23 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         }
 
         [Test]
+        public void Do_does_not_call_func_lambda_and_throws_when_constraint_added_with_And_is_not_met()
+        {
+            using (MockFactory.Playback())
+            {
+                var invoked = false;
+                Sut = Secured.With(new AlwaysTrueConstraint());
+                Sut.And(new AlwaysFalseConstraint());
+                Assert.Throws<AuthorizationException>(() => Sut.Do<BaseService, int>(service =>
+                {
+                    invoked = true;
+                    return 0;
+                }));
+                Assert.That(invoked, Is.False);
+            }
+        }
+
+        [Test]
         public void Do_does_not_call_proc_lambda_and_throws_when_constraints_are_not_met()
         {
             using (MockFactory.Playback())
@@ -48,6 +65,18 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
             }
         }
 
+        [Test]
+        public void Do_does_not_call_proc_lambda_and_throws_when_constraint_added_with_And_is_not_met()
+        {
+            using (MockFactory.Playback())
+            {
+                var invoked = false;
+                Sut = Secured.With(new AlwaysTrueConstraint());
+                Sut.And(new AlwaysFalseConstraint());
+                Assert.Throws<AuthorizationException>(() => Sut.Do<BaseService>(service => invoked = true));
+                Assert.That(invoked, Is.False);
+            }
+        }
 
         [Test]
         public void Do_func_instantiates_service()
