@@ -480,6 +480,15 @@ unit-test:
       </references>
     </csc>
     
+    <csc target="library" output="${test.dir}/phiNdus.fundus.SmokeTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+      <sources>
+        <include name="${tests.dir}/phiNdus.fundus.SmokeTests/**/*.cs" />
+      </sources>
+      <references>
+        <include name="${nunit.dir}/nunit.framework.dll" />        
+      </references>
+    </csc>
+    
     <!-- Copy test dependencies -->
     <copy todir="${test.dir}" flatten="true">
       <fileset basedir="${mvc-3.dir}">
