@@ -6,7 +6,7 @@ using User = phiNdus.fundus.Core.Domain.Entities.User;
 namespace phiNdus.fundus.Core.Business.UnitTests.Security.Constraints
 {
     [TestFixture]
-    internal class UserInRoleConstraintTests : BaseConstraintTestFixture
+    public class UserInRoleConstraintTests : BaseConstraintTestFixture
     {
         #region SetUp/TearDown
 

@@ -4,7 +4,7 @@ using phiNdus.fundus.Core.Business.Security.Constraints;
 namespace phiNdus.fundus.Core.Business.UnitTests.Security.Constraints
 {
     [TestFixture]
-    internal class NotConstraintTests
+    public class NotConstraintTests
     {
         [Test]
         public void Eval_false_is_true()

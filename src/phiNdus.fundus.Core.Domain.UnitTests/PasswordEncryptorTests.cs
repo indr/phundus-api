@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace phiNdus.fundus.Core.Domain.UnitTests
 {
     [TestFixture]
-    class PasswordEncryptorTests
+    public class PasswordEncryptorTests
     {
         [Test]
         public void Encode_with_value_null_throws()

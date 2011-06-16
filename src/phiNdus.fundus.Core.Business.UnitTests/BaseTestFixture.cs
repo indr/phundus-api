@@ -6,7 +6,7 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests
 {
-    internal class BaseTestFixture
+    public class BaseTestFixture
     {
         protected MockRepository MockFactory { get; set; }
 

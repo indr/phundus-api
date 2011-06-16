@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace phiNdus.fundus.Core.Domain.UnitTests
 {
     [TestFixture]
-    internal class SessionKeyGeneratorTests
+    public class SessionKeyGeneratorTests
     {
         [Test]
         public void CreateKey_does_not_return_same_key_twice()

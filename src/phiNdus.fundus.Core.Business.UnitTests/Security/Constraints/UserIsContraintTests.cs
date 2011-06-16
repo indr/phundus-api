@@ -9,8 +9,7 @@ using User = phiNdus.fundus.Core.Domain.Entities.User;
 namespace phiNdus.fundus.Core.Business.UnitTests.Security.Constraints
 {
     [TestFixture]
-    class UserIsContraintTests : BaseConstraintTestFixture
-
+    public class UserIsContraintTests : BaseConstraintTestFixture
     {
         [Test]
         public void Eval_with_SessionUsers_id_does_not_equal_returns_false()

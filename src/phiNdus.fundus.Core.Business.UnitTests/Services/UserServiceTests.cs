@@ -9,7 +9,7 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Core.Business.UnitTests.Services
 {
     [TestFixture]
-    internal class UserServiceTests : BaseTestFixture
+    public class UserServiceTests : BaseTestFixture
     {
         #region Setup/Teardown
 

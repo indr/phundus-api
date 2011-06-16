@@ -12,7 +12,7 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 {
     [TestFixture]
-    internal class SecuredUserServiceTests : BaseTestFixture
+    public class SecuredUserServiceTests : BaseTestFixture
     {
         #region Setup/Teardown
 
