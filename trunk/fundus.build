@@ -37,6 +37,7 @@
   <property name="nunit.dir" value="${tools.dir}/NUnit" />
   <property name="partcover.dir" value="${tools.dir}/PartCover" />
   <property name="reportgenerator.dir" value="${tools.dir}/ReportGenerator" />
+  <property name="msbuild.dir" value="${path::get-full-path(tools.dir + '\MSBuild')}" />
   <property name="nantcontrib.dir" value="${tools.dir}/nantcontrib" />
   <property name="corflags.dir" value="${tools.dir}" />
   <property name="fxcop.dir" value="${tools.dir}/FxCop" />
@@ -278,6 +279,7 @@ unit-test:
     <msbuild project="${base.dir}\phiNdus.fundus.Core.sln" verbosity="Normal">
       <property name="Configuration" value="Debug" />
       <property name="OutputPath" value="${path::get-full-path(bin.dir)}" />
+      <property name="MSBuildExtensionsPath32" value="${msbuild.dir}" />
     </msbuild>
   </target>
   
