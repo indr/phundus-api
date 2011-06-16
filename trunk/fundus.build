@@ -282,6 +282,7 @@ unit-test:
   </target>
   
   <target name="unit-test" depends="build">
+    <property name="teamcity.dotnet.nant.nunit2.platform" value="x86" />
     <nunit2 verbose="${verbose}">
       <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
       <test>
@@ -336,6 +337,7 @@ unit-test:
   </target>
   
   <target name="integration-test" depends="init-integration-test build">
+    <property name="teamcity.dotnet.nant.nunit2.platform" value="x86" />
     <nunit2 verbose="${verbose}">
       <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
       <test>
