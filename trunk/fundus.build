@@ -247,6 +247,19 @@ unit-test:
       </filterchain>
     </copy>   
     
+    <property name="assembly.title" value="AcceptanceTests" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="1fcb1ebf-1bda-4977-a7fb-ac748a7f0d47" />
+    <property name="assembly.cls-compliant" value="false" />
+    <copy file="${config.dir}\AssemblyInfo.cs.template"
+          tofile="${tests.dir}\phiNdus.fundus.AcceptanceTests\Properties\AssemblyInfo.cs"
+          outputencoding="UTF-8"
+          verbose="${verbose}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>  
+    
     <property name="assembly.title" value="CliTools" />
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="be75437a-285e-4eba-b88a-5b2627a94e54" />
