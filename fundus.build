@@ -283,7 +283,7 @@ unit-test:
     </msbuild>
   </target>
   
-  <target name="unit-test" depends="build"> <!-- init-part-cover  -->
+  <target name="unit-test" depends="build">
     <nunit2 verbose="${verbose}">
       <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
       <test>
@@ -292,53 +292,9 @@ unit-test:
         </assemblies>
       </test>
     </nunit2>
-    
-    <![CDATA[
-    <property name="tmp.partcover.xml.reports" value="" />
-    <foreach item="File" property="filename">
-      <in>
-        <items>
-          <include name="${test.dir}/*.UnitTests.dll" />
-        </items>
-      </in>
-      <do>
-        <![CDATA
-        <exec program="${partcover.dir}/PartCover.exe"
-          failonerror="${failonerror}"
-          commandline="--register --target &quot;${nunit.dir}/nunit-console-x86.exe&quot; --target-args &quot;\&quot;${filename}\&quot; /xml=\&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml\&quot; /framework=v4.0 /noshadow&quot; --include [phiNdus*]* --exclude [*Tests]* --output &quot;${reports.dir}/${path::get-file-name(filename)}-Coverage.xml&quot; --log 0" />
-          
-        <echo message="##teamcity[importData type='nunit' path='${reports.dir}/${path::get-file-name(filename)}-TestResult.xml']" />
-        <echo message="##teamcity[importData type='dotNetCoverage' tool='partcover' path='${reports.dir}/${path::get-file-name(filename)}-Coverage.xml' partcover_report_xslts='tools/PartCover/xslt/Coverage.xslt=>${path::get-file-name(filename)}-Coverage.html']" />
-          
-        <if test="${tmp.partcover.xml.reports != ''}">
-          <property name="tmp.partcover.xml.reports" value="${tmp.partcover.xml.reports};" />
-        </if>
-        <property name="tmp.partcover.xml.reports" value="${tmp.partcover.xml.reports}${reports.dir}/${path::get-file-name(filename)}-Coverage.xml" />
-        ]>
-        <exec program="${nunit.dir}/nunit-console-x86.exe"
-          failonerror="${failonerror}"
-          commandline="&quot;${filename}&quot; /xml=&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml&quot; /framework=v4.0 /noshadow" />
-            
-        <echo message="##teamcity[importData type='nunit' path='${reports.dir}/${path::get-file-name(filename)}-TestResult.xml']" />  
-        <nunit2report todir="${reports.dir}/NUnit">
-          <fileset>
-            <include name="${reports.dir}/${path::get-file-name(filename)}-TestResult.xml" />
-          </fileset>
-        </nunit2report>
-        <move file="${reports.dir}/NUnit/index.html" tofile="${reports.dir}/NUnit/${path::get-file-name(filename)}-TestResult.html" />
-      </do>
-    </foreach>
-    <!--
-    <delete file="${base.dir}/partcover.driver.log" />
-    
-    <exec program="${reportgenerator.dir}/ReportGenerator.exe"
-      commandline="&quot;${tmp.partcover.xml.reports}&quot; &quot;${reports.dir}/Coverage&quot;" />
-    <move file="${reports.dir}/Coverage/index.htm" tofile="${reports.dir}/Coverage/index.html" />
-     -->
-     ]]>
   </target>
   
-  <target name="init-integration-test">
+  <target name="init-integration-test" depends="build">
     <property name="sql.database-name" value="${integration.database-name}" />
     <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
     
@@ -381,7 +337,7 @@ unit-test:
     </foreach>
   </target>
   
-  <target name="integration-test" depends="init-integration-test">
+  <target name="integration-test" depends="init-integration-test build">
     <nunit2 verbose="${verbose}">
       <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
       <test>
@@ -391,6 +347,10 @@ unit-test:
         </assemblies>
       </test>
     </nunit2>
+  </target>
+  
+  <target name="commit-stage" depends="build unit-test integration-test">
+    
   </target>
   
   <!--
