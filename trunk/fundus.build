@@ -30,8 +30,7 @@
   <property name="web.dir" value="${build.dir}/web" />
   <property name="dist.dir" value="${build.dir}/dist" />
   <property name="reports.dir" value="${build.dir}/reports" />
-  <property name="test.dir" value="${build.dir}/test" />
-  
+    
   <!--
     Tools directories
   -->
@@ -266,14 +265,7 @@ unit-test:
     TARGET: build
   -->
   <target name="build" depends="init">
-    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Environment.dll" debug="false" verbose="${verbose}" platform="${platform}">
-      <sources>
-        <include name="${src.dir}/phiNdus.fundus.Core.Environment/**/*.cs" />
-      </sources>
-      <references>
-      </references>
-    </csc>
-    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Environment.dll" debug="true" verbose="${verbose}" platform="${platform}">
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Environment.dll" debug="true" verbose="${verbose}" platform="${platform}">
       <sources>
         <include name="${src.dir}/phiNdus.fundus.Core.Environment/**/*.cs" />
       </sources>
@@ -281,7 +273,7 @@ unit-test:
       </references>
     </csc>
     
-    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Domain.dll" debug="false" verbose="${verbose}" platform="${platform}">
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Domain.dll" debug="true" verbose="${verbose}" platform="${platform}">
       <sources>
         <include name="${src.dir}/phiNdus.fundus.Core.Domain/**/*.cs" />
       </sources>
@@ -299,44 +291,13 @@ unit-test:
         <include name="${src.dir}/phiNdus.fundus.Core.Domain/**/*.hbm.xml" />
       </resources>      
     </csc>
-    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Domain.dll" debug="true" verbose="${verbose}" platform="${platform}">
-      <sources>
-        <include name="${src.dir}/phiNdus.fundus.Core.Domain/**/*.cs" />
-      </sources>
-      <references>
-        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
-        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />      
-        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
-        <include name="${castle-windsor.dir}/Castle.Core.dll" />
-        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
-        <include name="${nhibernate.dir}/**/Iesi.Collections.dll" />
-        <include name="${nhibernate.dir}/**/NHibernate.dll" />
-        <include name="${nhibernate.dir}/**/NHibernate.ByteCode.Castle.dll" />
-      </references>
-      <resources>
-        <include name="${src.dir}/phiNdus.fundus.Core.Domain/**/*.hbm.xml" />
-      </resources>      
-    </csc>
     
-    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Business.dll" debug="false" verbose="${verbose}" platform="${platform}">
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Business.dll" debug="true" verbose="${verbose}" platform="${platform}">
       <sources>
         <include name="${src.dir}/phiNdus.fundus.Core.Business/**/*.cs" />
       </sources>
       <references>
-        <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
-        <include name="${castle-windsor.dir}/Castle.Core.dll" />
-        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
-        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
-        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />      
-        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />         
-      </references>
-    </csc>
-    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Business.dll" debug="true" verbose="${verbose}" platform="${platform}">
-      <sources>
-        <include name="${src.dir}/phiNdus.fundus.Core.Business/**/*.cs" />
-      </sources>
-      <references>
-        <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+        <include name="${bin.dir}/phiNdus.fundus.Core.Domain.dll" />
         <include name="${castle-windsor.dir}/Castle.Core.dll" />
         <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
@@ -345,7 +306,7 @@ unit-test:
       </references>
     </csc>
     
-    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Web.dll" debug="false" verbose="${verbose}" platform="${platform}">
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Web.dll" debug="true" verbose="${verbose}" platform="${platform}">
       <sources>
         <include name="${src.dir}/phiNdus.fundus.Core.Web/**/*.cs" />
       </sources>
@@ -363,55 +324,37 @@ unit-test:
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />
       </references>
     </csc>
-    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Web.dll" debug="true" verbose="${verbose}" platform="${platform}">
-      <sources>
-        <include name="${src.dir}/phiNdus.fundus.Core.Web/**/*.cs" />
-      </sources>
-      <references>
-        <include name="${test.dir}/phiNdus.fundus.Core.Business.dll" />
-        <include name="${castle-windsor.dir}/Castle.Core.dll" />
-        <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Logging.dll" />
-        <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Log4netIntegration.dll" />
-        <include name="${castle-windsor.dir}/Castle.Windsor.dll" />
-        <include name="${castle-windsor.dir}/loggingFacility/log4net.dll" />
-        <include name="${mvc-3.dir}\System.Web.Mvc.dll" />
-        <include name="Microsoft.CSharp" />
-        <include name="System.Web.ApplicationServices.dll" />  
-        <include name="System.ComponentModel.DataAnnotations.dll" />
-        <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />
-      </references>
-    </csc>
     
-    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Environment.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Environment.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
       <sources>
         <include name="${src.dir}/phiNdus.fundus.Core.Environment.UnitTests/**/*.cs" />
       </sources>
       <references>
         <include name="${nunit.dir}/nunit.framework.dll" />
-        <include name="${test.dir}/phiNdus.fundus.Core.Environment.dll" />
+        <include name="${bin.dir}/phiNdus.fundus.Core.Environment.dll" />
       </references>
     </csc>
     
-    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Domain.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Domain.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
       <sources>
         <include name="${src.dir}/phiNdus.fundus.Core.Domain.UnitTests/**/*.cs" />
       </sources>
       <references>
         <include name="${nunit.dir}/nunit.framework.dll" />
-        <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+        <include name="${bin.dir}/phiNdus.fundus.Core.Domain.dll" />
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
         <include name="${castle-windsor.dir}/Castle.Core.dll" />
         <include name="${castle-windsor.dir}/Castle.Windsor.dll" />      
       </references>
     </csc>
     
-    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Domain.IntegrationTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Domain.IntegrationTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
       <sources>
         <include name="${src.dir}/phiNdus.fundus.Core.Domain.IntegrationTests/**/*.cs" />
       </sources>
       <references>
         <include name="${nunit.dir}/nunit.framework.dll" />
-        <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+        <include name="${bin.dir}/phiNdus.fundus.Core.Domain.dll" />
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />      
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
@@ -423,14 +366,14 @@ unit-test:
       </references>
     </csc>
     
-    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Business.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Business.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
       <sources>
         <include name="${src.dir}/phiNdus.fundus.Core.Business.UnitTests/**/*.cs" />
       </sources>
       <references>
         <include name="${nunit.dir}/nunit.framework.dll" />
-        <include name="${test.dir}/phiNdus.fundus.Core.Business.dll" />
-        <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+        <include name="${bin.dir}/phiNdus.fundus.Core.Business.dll" />
+        <include name="${bin.dir}/phiNdus.fundus.Core.Domain.dll" />
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />      
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
@@ -440,14 +383,14 @@ unit-test:
       </references>
     </csc>
     
-    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Business.IntegrationTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Business.IntegrationTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
       <sources>
         <include name="${src.dir}/phiNdus.fundus.Core.Business.IntegrationTests/**/*.cs" />
       </sources>
       <references>
         <include name="${nunit.dir}/nunit.framework.dll" />
-        <include name="${test.dir}/phiNdus.fundus.Core.Business.dll" />
-        <include name="${test.dir}/phiNdus.fundus.Core.Domain.dll" />
+        <include name="${bin.dir}/phiNdus.fundus.Core.Business.dll" />
+        <include name="${bin.dir}/phiNdus.fundus.Core.Domain.dll" />
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.dll" />      
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.Clr.dll" />      
         <include name="${lib.dir}/Rhino.Commons/Rhino.Commons.NHibernate.dll" />      
@@ -456,13 +399,13 @@ unit-test:
       </references>
     </csc>
     
-    <csc target="library" output="${test.dir}/phiNdus.fundus.Core.Web.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.Core.Web.UnitTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
       <sources>
         <include name="${src.dir}/phiNdus.fundus.Core.Web.UnitTests/**/*.cs" />
       </sources>
       <references>
-        <include name="${test.dir}/phiNdus.fundus.Core.Business.dll" />
-        <include name="${test.dir}/phiNdus.fundus.Core.Web.dll" />
+        <include name="${bin.dir}/phiNdus.fundus.Core.Business.dll" />
+        <include name="${bin.dir}/phiNdus.fundus.Core.Web.dll" />
         <include name="${castle-windsor.dir}/Castle.Core.dll" />
         <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Logging.dll" />
         <include name="${castle-windsor.dir}/loggingFacility/Castle.Facilities.Log4netIntegration.dll" />
@@ -477,7 +420,7 @@ unit-test:
       </references>
     </csc>
     
-    <csc target="library" output="${test.dir}/phiNdus.fundus.SmokeTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
+    <csc target="library" output="${bin.dir}/phiNdus.fundus.SmokeTests.dll" debug="true" verbose="${verbose}"  platform="${platform}">
       <sources>
         <include name="${tests.dir}/phiNdus.fundus.SmokeTests/**/*.cs" />
       </sources>
@@ -487,29 +430,29 @@ unit-test:
     </csc>
     
     <!-- Copy test dependencies -->
-    <copy todir="${test.dir}" flatten="true">
+    <copy todir="${bin.dir}" flatten="true">
       <fileset basedir="${mvc-3.dir}">
         <include name="**/*.dll" />
       </fileset>
     </copy>
-    <copy todir="${test.dir}" flatten="true">
+    <copy todir="${bin.dir}" flatten="true">
       <fileset basedir="${castle-windsor.dir}">
         <include name="**/*.dll" />
       </fileset>
     </copy>
-    <copy todir="${test.dir}" flatten="true">
+    <copy todir="${bin.dir}" flatten="true">
       <fileset basedir="${nhibernate.dir}">
         <include name="**/*.dll" />
       </fileset>
     </copy>
-    <copy todir="${test.dir}" flatten="true">
+    <copy todir="${bin.dir}" flatten="true">
       <fileset basedir="${lib.dir}/Rhino.Commons">
         <include name="**/Rhino.Commons.dll" />
         <include name="**/Rhino.Commons.Clr.dll" />
         <include name="**/Rhino.Commons.NHibernate.dll" />
       </fileset>
     </copy>
-    <copy todir="${test.dir}" flatten="true">
+    <copy todir="${bin.dir}" flatten="true">
       <fileset basedir="${rhino-mocks.dir}">
         <include name="**/*.dll" />
       </fileset>
@@ -561,7 +504,7 @@ unit-test:
   </target>
   
   <target name="init-unit-test">
-    <copy file="${nunit.dir}/nunit.framework.dll" todir="${test.dir}" />
+    <copy file="${nunit.dir}/nunit.framework.dll" todir="${bin.dir}" />
   </target>
   
   <!--
@@ -576,7 +519,7 @@ unit-test:
       <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
       <test>
         <assemblies>
-          <include name="${test.dir}/*.UnitTests.dll" />
+          <include name="${bin.dir}/*.UnitTests.dll" />
         </assemblies>
       </test>
     </nunit2>
@@ -658,11 +601,11 @@ unit-test:
     <foreach item="File" property="filename">
       <in>
         <items>
-          <include name="${test.dir}/*.IntegrationTests.dll" />
+          <include name="${bin.dir}/*.IntegrationTests.dll" />
         </items>
       </in>
       <do>
-        <property name="app.config.dest" value="${test.dir + '/' + path::get-file-name(filename) + '.config'}" />
+        <property name="app.config.dest" value="${bin.dir + '/' + path::get-file-name(filename) + '.config'}" />
         <call target="generate-app-config" />
         
         <exec program="${nunit.dir}/nunit-console-x86.exe"
@@ -723,8 +666,8 @@ unit-test:
     <foreach item="File" property="filename">
       <in>
         <items>
-          <include name="${test.dir}/phiNdus.*.dll" />
-          <exclude name="${test.dir}/*Tests.dll" />
+          <include name="${bin.dir}/phiNdus.*.dll" />
+          <exclude name="${bin.dir}/*Tests.dll" />
         </items>
       </in>
       <do>
