@@ -21,7 +21,6 @@
   <property name="sql.dir" value="${base.dir}/sql" />
   <property name="build.dir" value="${base.dir}/build" />
   <property name="tests.dir" value="${base.dir}/tests" />
-  <property name="tmp.dir" value="${base.dir}/tmp" />
   <property name="tools.dir" value="${base.dir}/tools" />
   
   <!--
@@ -88,7 +87,6 @@ unit-test:
   
   <target name="clean">
     <delete dir="${build.dir}" verbose="${verbose}" />
-    <delete dir="${tmp.dir}" verbose="${verbose}" />
     <delete>
       <fileset>
         <include name="${src.dir}\**\AssemblyInfo.cs" />
@@ -106,7 +104,6 @@ unit-test:
     <mkdir dir="${reports.dir}" verbose="${verbose}" />
     <mkdir dir="${reports.dir}/Coverage" verbose="${verbose}" />
     <mkdir dir="${reports.dir}/NUnit" verbose="${verbose}" />
-    <mkdir dir="${tmp.dir}" verbose="${verbose}" />
     
     <property name="assembly.title" value="Core-Environment" />
     <property name="assembly.description" value="" />
@@ -574,6 +571,17 @@ unit-test:
     <property name="app.config.connstrings.default.connstring" value="" />
     <property name="app.config.connstrings.default.providername" value="" />
     
+    
+    <nunit2 verbose="${verbose}">
+      <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
+      <test>
+        <assemblies>
+          <include name="${test.dir}/*.UnitTests.dll" />
+        </assemblies>
+      </test>
+    </nunit2>
+    
+    <![CDATA[
     <property name="tmp.partcover.xml.reports" value="" />
     <foreach item="File" property="filename">
       <in>
@@ -582,7 +590,7 @@ unit-test:
         </items>
       </in>
       <do>
-        <![CDATA[
+        <![CDATA
         <exec program="${partcover.dir}/PartCover.exe"
           failonerror="${failonerror}"
           commandline="--register --target &quot;${nunit.dir}/nunit-console-x86.exe&quot; --target-args &quot;\&quot;${filename}\&quot; /xml=\&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml\&quot; /framework=v4.0 /noshadow&quot; --include [phiNdus*]* --exclude [*Tests]* --output &quot;${reports.dir}/${path::get-file-name(filename)}-Coverage.xml&quot; --log 0" />
@@ -594,7 +602,7 @@ unit-test:
           <property name="tmp.partcover.xml.reports" value="${tmp.partcover.xml.reports};" />
         </if>
         <property name="tmp.partcover.xml.reports" value="${tmp.partcover.xml.reports}${reports.dir}/${path::get-file-name(filename)}-Coverage.xml" />
-        ]]>
+        ]>
         <exec program="${nunit.dir}/nunit-console-x86.exe"
           failonerror="${failonerror}"
           commandline="&quot;${filename}&quot; /xml=&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml&quot; /framework=v4.0 /noshadow" />
@@ -615,6 +623,7 @@ unit-test:
       commandline="&quot;${tmp.partcover.xml.reports}&quot; &quot;${reports.dir}/Coverage&quot;" />
     <move file="${reports.dir}/Coverage/index.htm" tofile="${reports.dir}/Coverage/index.html" />
      -->
+     ]]>
   </target>
   
   <target name="init-integration-test">
