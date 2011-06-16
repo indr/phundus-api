@@ -8,7 +8,7 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Core.Business.UnitTests.Security
 {
     [TestFixture]
-    internal class SecuritySessionTests : BaseTestFixture
+    public class SecuritySessionTests : BaseTestFixture
     {
         #region Setup/Teardown
 

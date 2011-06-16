@@ -3,7 +3,7 @@ using phiNdus.fundus.Core.Domain.Entities;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Security.Constraints
 {
-    internal class BaseConstraintTestFixture
+    public class BaseConstraintTestFixture
     {
         protected SecurityContext SecurityContext(User user)
         {

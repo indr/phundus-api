@@ -7,7 +7,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 {
     [TestFixture]
-    internal class RoleRepositoryTests : BaseTestFixture
+    public class RoleRepositoryTests : BaseTestFixture
     {
         #region Setup/Teardown
 

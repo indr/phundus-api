@@ -4,7 +4,7 @@ using phiNdus.fundus.Core.Business.Security;
 namespace phiNdus.fundus.Core.Business.UnitTests.Security
 {
     [TestFixture]
-    internal class SecurityContextTests
+    public class SecurityContextTests
     {
         #region Setup/Teardown
 

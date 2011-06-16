@@ -5,7 +5,7 @@ using phiNdus.fundus.Core.Domain.Repositories;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Repositories
 {
     [TestFixture]
-    internal class SettingRepositoryTests
+    public class SettingRepositoryTests
     {
         #region Setup/Teardown
 

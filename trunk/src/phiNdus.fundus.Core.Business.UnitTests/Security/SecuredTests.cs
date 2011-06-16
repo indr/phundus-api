@@ -7,7 +7,7 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Core.Business.UnitTests.Security
 {
     [TestFixture]
-    internal class SecuredTests : BaseTestFixture
+    public class SecuredTests : BaseTestFixture
     {
         private Secured Sut { get; set; }
 

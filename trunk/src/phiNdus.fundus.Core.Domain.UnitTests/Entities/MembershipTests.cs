@@ -6,7 +6,7 @@ using phiNdus.fundus.Core.Domain.Entities;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    internal class MembershipTests
+    public class MembershipTests
     {
         #region Setup/Teardown
 

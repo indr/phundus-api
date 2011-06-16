@@ -9,7 +9,7 @@ using phiNdus.fundus.Core.Business.Security.Constraints;
 namespace phiNdus.fundus.Core.Business.UnitTests.Security.Constraints
 {
     [TestFixture]
-    class OrConstraintTests
+    public class OrConstraintTests
     {
         private static OrConstraint Or(bool c1, bool c2)
         {

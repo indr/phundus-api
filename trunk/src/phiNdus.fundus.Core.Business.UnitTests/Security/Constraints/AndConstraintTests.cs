@@ -5,7 +5,7 @@ using phiNdus.fundus.Core.Business.Security.Constraints;
 namespace phiNdus.fundus.Core.Business.UnitTests.Security.Constraints
 {
     [TestFixture]
-    internal class AndConstraintTests
+    public class AndConstraintTests
     {
         private static AndConstraint And(bool c1, bool c2)
         {

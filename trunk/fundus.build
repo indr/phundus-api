@@ -102,8 +102,6 @@ unit-test:
   <target name="init" depends="clean">
     <mkdir dir="${build.dir}" verbose="${verbose}" />
     <mkdir dir="${reports.dir}" verbose="${verbose}" />
-    <mkdir dir="${reports.dir}/Coverage" verbose="${verbose}" />
-    <mkdir dir="${reports.dir}/NUnit" verbose="${verbose}" />
     
     <property name="assembly.title" value="Core-Environment" />
     <property name="assembly.description" value="" />

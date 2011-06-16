@@ -5,7 +5,7 @@ using User = phiNdus.fundus.Core.Domain.Entities.User;
 namespace phiNdus.fundus.Core.Business.UnitTests.Security.Constraints
 {
     [TestFixture]
-    internal class UserHasEmailConstraint : BaseConstraintTestFixture
+    public class UserHasEmailConstraint : BaseConstraintTestFixture
     {
         [Test]
         public void Eval_with_SessionUsers_email_does_not_equal_returns_false()

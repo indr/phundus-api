@@ -4,7 +4,7 @@ using phiNdus.fundus.Core.Domain.Entities;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    internal class SettingTests
+    public class SettingTests
     {
         [Test]
         public void Can_create()

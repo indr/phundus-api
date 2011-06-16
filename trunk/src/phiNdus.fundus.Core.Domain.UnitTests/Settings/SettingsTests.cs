@@ -3,7 +3,7 @@
 namespace phiNdus.fundus.Core.Domain.UnitTests.Settings
 {
     [TestFixture]
-    internal class SettingsTests
+    public class SettingsTests
     {
         [Test]
         public void Can_get_Mail()

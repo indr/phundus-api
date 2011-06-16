@@ -5,7 +5,7 @@ using phiNdus.fundus.Core.Business.Security;
 namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
 {
     [TestFixture]
-    internal class SecuredUserServiceTests : BaseTestFixture
+    public class SecuredUserServiceTests : BaseTestFixture
     {
         #region Setup/Teardown
 
