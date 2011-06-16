@@ -288,7 +288,7 @@ unit-test:
       <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
       <test>
         <assemblies>
-          <include name="${bin.dir}/*.UnitTests.dll" />
+          <include name="${bin.dir}\*.UnitTests.dll" />
         </assemblies>
       </test>
     </nunit2>
@@ -358,38 +358,39 @@ unit-test:
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/dml-integration.sql"
     />
-  </target>
-  
-  <!--
-    TARGET: INTEGRATION-TEST
-  -->
-  <target name="integration-test" depends="unit-test init-integration-test">
+    
     <property name="app.config.connstrings.default.connstring" value="${integration.connstring}" />
     <property name="app.config.connstrings.default.providername" value="${integration.providername}" />
-   
+    
     <foreach item="File" property="filename">
       <in>
         <items>
-          <include name="${bin.dir}/*.IntegrationTests.dll" />
+          <include name="${bin.dir}\*.IntegrationTests.dll" />
+          <include name="${bin.dir}\*.ComponentTests.dll" />
         </items>
       </in>
       <do>
-        <property name="app.config.dest" value="${bin.dir + '/' + path::get-file-name(filename) + '.config'}" />
-        <call target="generate-app-config" />
-        
-        <exec program="${nunit.dir}/nunit-console-x86.exe"
-          failonerror="${failonerror}"
-          commandline="&quot;${filename}&quot; /xml=&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml&quot; /framework=v4.0 /noshadow" />
-            
-        <echo message="##teamcity[importData type='nunit' path='${reports.dir}/${path::get-file-name(filename)}-TestResult.xml']" />  
-        <nunit2report todir="${reports.dir}/NUnit">
-          <fileset>
-            <include name="${reports.dir}/${path::get-file-name(filename)}-TestResult.xml" />
-          </fileset>
-        </nunit2report>
-        <move file="${reports.dir}/NUnit/index.html" tofile="${reports.dir}/NUnit/${path::get-file-name(filename)}-TestResult.html" />
+        <property name="app.config.dest" value="" />
+        <copy file="${config.dir}/App.config.template"
+              tofile="${bin.dir + '/' + path::get-file-name(filename) + '.config'}">
+          <filterchain>
+            <expandproperties />
+          </filterchain>
+        </copy>
       </do>
-    </foreach>  
+    </foreach>
+  </target>
+  
+  <target name="integration-test" depends="init-integration-test">
+    <nunit2 verbose="${verbose}">
+      <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
+      <test>
+        <assemblies>
+          <include name="${bin.dir}\*.IntegrationTests.dll" />
+          <include name="${bin.dir}\*.ComponentTests.dll" />
+        </assemblies>
+      </test>
+    </nunit2>
   </target>
   
   <!--
@@ -449,12 +450,7 @@ unit-test:
   </target>
   
   <target name="generate-app-config">
-    <copy file="${config.dir}/App.config.template"
-      tofile="${app.config.dest}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
+    
   </target> 
   
   <target name="generate-web-config">
