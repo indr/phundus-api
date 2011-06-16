@@ -19,18 +19,19 @@
   <property name="lib.dir" value="${base.dir}/lib" />
   <property name="src.dir" value="${base.dir}/src" />
   <property name="sql.dir" value="${base.dir}/sql" />
-  <property name="target.dir" value="${base.dir}/build" />
+  <property name="build.dir" value="${base.dir}/build" />
+  <property name="tests.dir" value="${base.dir}/tests" />
   <property name="tmp.dir" value="${base.dir}/tmp" />
   <property name="tools.dir" value="${base.dir}/tools" />
   
   <!--
     Target directories
   -->
-  <property name="bin.dir" value="${target.dir}/bin" />
-  <property name="web.dir" value="${target.dir}/web" />
-  <property name="dist.dir" value="${target.dir}/dist" />
-  <property name="reports.dir" value="${target.dir}/reports" />
-  <property name="test.dir" value="${target.dir}/test" />
+  <property name="bin.dir" value="${build.dir}/bin" />
+  <property name="web.dir" value="${build.dir}/web" />
+  <property name="dist.dir" value="${build.dir}/dist" />
+  <property name="reports.dir" value="${build.dir}/reports" />
+  <property name="test.dir" value="${build.dir}/test" />
   
   <!--
     Tools directories
@@ -68,19 +69,43 @@
   -->
   <loadtasks assembly="${nantcontrib.dir}/NAnt.Contrib.Tasks.dll" />
   
-  <!--
-    TARGET: CLEAN
-  -->
+  
+  <target name="help">
+    <echo>Available targets:
+    
+clean:
+  Cleans output and solution folders
+init:
+  Creates output folders and AssemblyInfo files
+build:
+  Compiles solution    
+unit-test:
+  Runs unit tests
+    </echo>
+    
+    <fail message="No target specified." />
+  </target>
+  
   <target name="clean">
-    <delete dir="${target.dir}" verbose="${verbose}" />
+    <delete dir="${build.dir}" verbose="${verbose}" />
     <delete dir="${tmp.dir}" verbose="${verbose}" />
+    <delete>
+      <fileset>
+        <include name="${src.dir}\**\AssemblyInfo.cs" />
+        <include name="${src.dir}\**\bin\**" />
+        <include name="${src.dir}\**\obj\**" />
+        <include name="${tests.dir}\**\AssemblyInfo.cs" />
+        <include name="${tests.dir}\**\bin\**" />
+        <include name="${tests.dir}\**\obj\**" />
+      </fileset>
+    </delete>
   </target>
   
   <!--
     TARGET: INIT
   -->
   <target name="init" depends="clean">
-    <mkdir dir="${target.dir}" verbose="${verbose}" />
+    <mkdir dir="${build.dir}" verbose="${verbose}" />
     <mkdir dir="${reports.dir}" verbose="${verbose}" />
     <mkdir dir="${reports.dir}/Coverage" verbose="${verbose}" />
     <mkdir dir="${reports.dir}/NUnit" verbose="${verbose}" />
@@ -88,9 +113,9 @@
   </target>
   
   <!--
-    TARGET: COMPILE
+    TARGET: build
   -->
-  <target name="compile" depends="init">
+  <target name="build" depends="init">
   
     <property name="assembly.title" value="Core-Environment" />
     <property name="assembly.description" value="" />
@@ -495,7 +520,7 @@
   <!--
     TARGET: UNIT-TEST
   -->
-  <target name="unit-test" depends="compile init-unit-test"> <!-- init-part-cover  -->
+  <target name="unit-test" depends="build init-unit-test"> <!-- init-part-cover  -->
     <property name="app.config.connstrings.default.connstring" value="" />
     <property name="app.config.connstrings.default.providername" value="" />
     
@@ -599,7 +624,7 @@
   <!--
     TARGET: DEPLOY-STAGING
   -->
-  <target name="deploy-staging" depends="compile">
+  <target name="deploy-staging" depends="build">
     <property name="sql.database-name" value="${staging.database-name}" />
     <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
     
@@ -635,7 +660,7 @@
   <!--
     TARGET: FXCOP
   -->
-  <target name="fxcop" depends="compile">
+  <target name="fxcop" depends="build">
     <foreach item="File" property="filename">
       <in>
         <items>
