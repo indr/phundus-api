@@ -403,11 +403,10 @@ commit-stage:
   
   <target name="acceptance-stage" depends="clean">
     <fail if="${not file::exists(artifacts.dir + '\AcceptanceTests.zip')}" message="Artifact AcceptanceTests.zip not found." />
-    <fail if="${not file::exists(artifacts.dir + '\SmokeTests.zip')}" message="Artifact SmokeTests.zip not found." />
+    
     <fail if="${not file::exists(artifacts.dir + '\Website.zip')}" message="Artifact Website.zip not found." />
     
     <unzip zipfile="${artifacts.dir}\AcceptanceTests.zip" todir="${bin.dir}" />
-    <unzip zipfile="${artifacts.dir}\SmokeTests.zip" todir="${bin.dir}" />
     <unzip zipfile="${artifacts.dir}\Website.zip" todir="${website.dir}" />
     
     <call target="deploy-acceptance" cascade="false" />
@@ -462,7 +461,12 @@ commit-stage:
     <call target="deploy" cascade="false" />
   </target>
   
-  <target name="deploy">
+  <target name="init-deploy">
+    <fail if="${not file::exists(artifacts.dir + '\SmokeTests.zip')}" message="Artifact SmokeTests.zip not found." />
+    <unzip zipfile="${artifacts.dir}\SmokeTests.zip" todir="${bin.dir}" />
+  </target>
+  
+  <target name="deploy" depends="init-deploy">
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/create.sql" />
