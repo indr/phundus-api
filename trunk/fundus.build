@@ -384,7 +384,7 @@ commit-stage:
     </foreach>
   </target>
   
-  <target name="integration-test" depends="init-integration-test build">
+  <target name="integration-test" depends="init-integration-test">
     <property name="teamcity.dotnet.nant.nunit2.platform" value="x86" />
     <nunit2 verbose="${verbose}">
       <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
@@ -397,18 +397,7 @@ commit-stage:
     </nunit2>
   </target>
   
-  <target name="commit-stage" depends="build unit-test integration-test">
-    
-  </target>
-  
-  <target name="acceptance-stage" depends="clean">
-    <fail if="${not file::exists(artifacts.dir + '\AcceptanceTests.zip')}" message="Artifact AcceptanceTests.zip not found." />
-    
-    <fail if="${not file::exists(artifacts.dir + '\Website.zip')}" message="Artifact Website.zip not found." />
-    
-    <unzip zipfile="${artifacts.dir}\AcceptanceTests.zip" todir="${bin.dir}" />
-    <unzip zipfile="${artifacts.dir}\Website.zip" todir="${website.dir}" />
-    
+  <target name="init-acceptance-test">
     <call target="deploy-acceptance" cascade="false" />
     
     <foreach item="File" property="filename">
@@ -426,7 +415,9 @@ commit-stage:
         </copy>
       </do>
     </foreach>
-    
+  </target>
+  
+  <target name="acceptance-test" depends="init-acceptance-test">
     <nunit2 verbose="${verbose}">
       <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
       <test>
@@ -435,6 +426,20 @@ commit-stage:
         </assemblies>
       </test>
     </nunit2>  
+  </target>
+  
+  <target name="commit-stage" depends="build unit-test integration-test">
+    
+  </target>
+  
+  <target name="acceptance-stage" depends="clean">
+    <fail if="${not file::exists(artifacts.dir + '\AcceptanceTests.zip')}" message="Artifact AcceptanceTests.zip not found." />
+    <fail if="${not file::exists(artifacts.dir + '\Website.zip')}" message="Artifact Website.zip not found." />
+    
+    <unzip zipfile="${artifacts.dir}\AcceptanceTests.zip" todir="${bin.dir}" />
+    <unzip zipfile="${artifacts.dir}\Website.zip" todir="${website.dir}" />
+    
+    <call target="acceptance-test" cascade="true" />
   </target>
   
   <target name="deploy-acceptance">

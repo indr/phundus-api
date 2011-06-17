@@ -4,56 +4,40 @@
     ViewBag.Title = "Anmelden";
 }
 
-<h2>Benutzer > Anmelden</h2>
+<h2>Benutzer &gt; Anmelden</h2>
 
 @using (Html.BeginForm()) {
-    @Html.ValidationSummary(true, "Login nicht erfolgreich")
+    @Html.ValidationSummary(true, "Fehler bei der Anmeldung")
 
     <table class="formular-box">
         <tr>
-        <td>
-            @Html.LabelFor(m => m.EMail)
-        </td><td>
-            @Html.TextBoxFor(m => m.EMail)
-        </td>
+            <td>@Html.LabelFor(m => m.Email)</td>
+            <td>@Html.TextBoxFor(m => m.Email)</td>
         </tr>
         <tr>
-        <td colspan="2">    
-            @Html.ValidationMessageFor(m => m.EMail)
-        </td>
+            <td colspan="2">@Html.ValidationMessageFor(m => m.Email)</td>
         </tr>
     
         <tr>
-        <td>
-            @Html.LabelFor(m => m.Password)
-        </td><td>
-            @Html.PasswordFor(m => m.Password)
-        </td></tr>
+            <td>@Html.LabelFor(m => m.Password)</td>
+            <td>@Html.PasswordFor(m => m.Password)</td>
+        </tr>
         <tr>
-        <td colspan="2">
-            @Html.ValidationMessageFor(m => m.Password)
-        </td>
+            <td colspan="2">@Html.ValidationMessageFor(m => m.Password)</td>
         </tr>
 
         <tr>
-        <td colspan="2">
-            @Html.CheckBoxFor(m => m.RememberMe)
-            @Html.LabelFor(m => m.RememberMe)
-        </td>
+            <td colspan="2">@Html.CheckBoxFor(m => m.RememberMe) @Html.LabelFor(m => m.RememberMe)</td>
         </tr>
 
-        <tr><td></td>
-        <td style="text-align: right">
-        <input type="submit" value="Anmelden" />
-        </td>
+        <tr>
+            <td></td>
+            <td style="text-align: right"><input type="submit" value="Anmelden" /></td>
         </tr>
-        </table>
+    </table>
  
-        <p></p>
-
-        <div style="text-align: center; width: 100%">
-            @Html.ActionLink("Passwort vergessen?", "ResetPassword") <br />
-            @Html.ActionLink("Neues Konto erstellen", "SignUp")
-        </div>
+    <div style="text-align: center; width: 100%">
+        @Html.ActionLink("Passwort vergessen?", "ResetPassword") | @Html.ActionLink("Neues Konto erstellen", "SignUp")
+    </div>
 
 }

@@ -42,8 +42,8 @@ namespace phiNdus.fundus.AcceptanceTests
             using (var browser = new IE(BaseUri))
             {
                 browser.GoTo(BaseUri + "/Account/SignUp");
-                browser.TextField(Find.ById("EMail")).TypeText("dave@example.com");
-                browser.Button(Find.ByValue("Anmelden")).Click();
+                browser.TextField(Find.ById("Email")).TypeText("dave@example.com");
+                browser.Button(Find.ByValue("Registrieren")).Click();
 
                 // TODO,Inder: Falsche Bedingung!
                 Assert.IsTrue(browser.ContainsText("Konnte Benutzer nicht erstellen"));
