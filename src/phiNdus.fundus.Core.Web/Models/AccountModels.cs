@@ -8,14 +8,13 @@ using System.Web.Security;
 
 namespace phiNdus.fundus.Core.Web.Models {
 
-    //=========================================================================================
     #region Models
 
     public class LogOnModel {
         [Required]
-        [DisplayName("E-Mail Adresse")]
-        [Email(ErrorMessage = "Ungültige EMail Adresse")]
-        public string EMail { get; set; }
+        [DisplayName("E-Mail-Adresse")]
+        [Email(ErrorMessage = "Ungültige E-Mail-Adresse")]
+        public string Email { get; set; }
 
         [Required]
         [DisplayName("Passwort")]
@@ -25,7 +24,13 @@ namespace phiNdus.fundus.Core.Web.Models {
         public bool RememberMe { get; set; }
 
     }
+
     public class SignUpModel {
+        [Required]
+        [Email(ErrorMessage = "Ungültige E-Mail-Adresse")]
+        [DisplayName("E-Mail-Adresse")]
+        public string Email { get; set; }
+
         [Required]
         [DisplayName("Vorname")]
         public string FirstName { get; set; }
@@ -33,27 +38,10 @@ namespace phiNdus.fundus.Core.Web.Models {
         [Required]
         [DisplayName("Nachname")]
         public string LastName { get; set; }
-
-        [Required]
-        [Email(ErrorMessage = "Ungültige EMail Adresse")]
-        [DisplayName("E-Mail Adresse")]
-        public string EMail { get; set; }
-
-        [Required]
-        [DisplayName("Passwort Frage")]
-        public string PasswordQuestion { get; set; }
-
-        [Required]
-        [DisplayName("Passwort Antwort")]
-        [StringLength(50, MinimumLength = 10, ErrorMessage = "Antwort zu kurz")]
-        public string PasswordAnswer { get; set; }
-
     }
 
     #endregion
-    //=========================================================================================
-
-    //=========================================================================================
+    
     #region Attributes
 
     public class EmailAttribute : RegularExpressionAttribute {
@@ -64,9 +52,7 @@ namespace phiNdus.fundus.Core.Web.Models {
     }
 
     #endregion
-    //=========================================================================================
 
-    //=========================================================================================
     #region Services
 
     public interface IMembershipService {
@@ -88,8 +74,10 @@ namespace phiNdus.fundus.Core.Web.Models {
         }
 
         public bool ValidateUser(string email, string password) {
-            if (String.IsNullOrEmpty(email)) throw new ArgumentException("Kann nicht leer sein", "email");
-            if (String.IsNullOrEmpty(password)) throw new ArgumentException("Kann nicht leer sein", "password");
+            if (String.IsNullOrEmpty(email))
+                throw new ArgumentException("Kann nicht leer sein", "email");
+            if (String.IsNullOrEmpty(password))
+                throw new ArgumentException("Kann nicht leer sein", "password");
 
             return _provider.ValidateUser(email, password);
         }
@@ -123,6 +111,5 @@ namespace phiNdus.fundus.Core.Web.Models {
     }
 
     #endregion
-    //=========================================================================================
 
 }

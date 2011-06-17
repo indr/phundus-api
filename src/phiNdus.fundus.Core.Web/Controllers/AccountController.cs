@@ -28,9 +28,9 @@ namespace phiNdus.fundus.Core.Web.Controllers {
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl) {
             if (ModelState.IsValid) {
-                if (MembershipService.ValidateUser(model.EMail, model.Password)) {
+                if (MembershipService.ValidateUser(model.Email, model.Password)) {
 
-                    FormsService.SignIn(model.EMail, model.RememberMe);
+                    FormsService.SignIn(model.Email, model.RememberMe);
                     if (!String.IsNullOrEmpty(returnUrl)) {
                         return Redirect(returnUrl);
                     } else {

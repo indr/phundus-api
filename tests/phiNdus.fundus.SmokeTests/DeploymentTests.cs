@@ -26,7 +26,7 @@ namespace phiNdus.fundus.SmokeTests
             var stream = new StreamReader(response.GetResponseStream());
             var content = stream.ReadToEnd();
 
-            Assert.That(content, Contains.Substring("<h2>Home &gt; Index</h2>"));
+            Assert.That(content, Contains.Substring("<h2>Home</h2>"));
         }
     }
 }

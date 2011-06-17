@@ -2,12 +2,12 @@
 
 @if (Request.IsAuthenticated) {
     @:<a href="#">Hilfe</a> |
-    @:<a href="#">@Html.ActionLink("Abmelden", "LogOff", "Account")</a>
+    @:@Html.ActionLink("Abmelden", "LogOff", "Account")
 
 } else {
     @:<a href="#">Hilfe</a> |
-    @:<a href="#">@Html.ActionLink("Registrieren", "SignUp", "Account")</a> |
-    @:<a href="#">@Html.ActionLink("Anmelden", "LogOn", "Account")</a>
+    @:@Html.ActionLink("Registrieren", "SignUp", "Account") |
+    @:@Html.ActionLink("Anmelden", "LogOn", "Account")
 
 }
  
