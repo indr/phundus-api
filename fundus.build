@@ -445,7 +445,7 @@ commit-stage:
     <property name="deploy.dir" value="${acceptance.dir}" />
     <property name="deploy.iisserver" value="${acceptance.iisserver}" />
     <property name="deploy.vdir" value="${acceptance.vdir}" />
-    <property name="deploy.dml" value="" />
+    <property name="deploy.dml" value="${base.dir}/sql/dml-acceptance.sql" />
     <call target="deploy" cascade="false" />
   </target>
   
