@@ -15,41 +15,42 @@
     Base directories
   -->
   <property name="base.dir" value="." />
-  <property name="config.dir" value="${base.dir}/config" />
-  <property name="lib.dir" value="${base.dir}/lib" />
-  <property name="src.dir" value="${base.dir}/src" />
-  <property name="sql.dir" value="${base.dir}/sql" />
-  <property name="build.dir" value="${base.dir}/build" />
-  <property name="tests.dir" value="${base.dir}/tests" />
-  <property name="tools.dir" value="${base.dir}/tools" />
+  <property name="config.dir" value="${base.dir}\config" />
+  <property name="lib.dir" value="${base.dir}\lib" />
+  <property name="src.dir" value="${base.dir}\src" />
+  <property name="sql.dir" value="${base.dir}\sql" />
+  <property name="build.dir" value="${base.dir}\build" />
+  <property name="tests.dir" value="${base.dir}\tests" />
+  <property name="tools.dir" value="${base.dir}\tools" />
+  <property name="artifacts.dir" value="${base.dir}\artifacts" />
   
   <!--
     Target directories
   -->
-  <property name="bin.dir" value="${build.dir}/bin" />
-  <property name="web.dir" value="${build.dir}/web" />
-  <property name="dist.dir" value="${build.dir}/dist" />
-  <property name="reports.dir" value="${build.dir}/reports" />
+  <property name="bin.dir" value="${build.dir}\bin" />
+  <property name="web.dir" value="${build.dir}\web" />
+  <property name="dist.dir" value="${build.dir}\dist" />
+  <property name="reports.dir" value="${build.dir}\reports" />
     
   <!--
     Tools directories
   -->
-  <property name="nunit.dir" value="${tools.dir}/NUnit" />
-  <property name="partcover.dir" value="${tools.dir}/PartCover" />
-  <property name="reportgenerator.dir" value="${tools.dir}/ReportGenerator" />
+  <property name="nunit.dir" value="${tools.dir}\NUnit" />
+  <property name="partcover.dir" value="${tools.dir}\PartCover" />
+  <property name="reportgenerator.dir" value="${tools.dir}\ReportGenerator" />
   <property name="msbuild.dir" value="${path::get-full-path(tools.dir + '\MSBuild')}" />
-  <property name="nantcontrib.dir" value="${tools.dir}/nantcontrib" />
+  <property name="nantcontrib.dir" value="${tools.dir}\nantcontrib" />
   <property name="corflags.dir" value="${tools.dir}" />
-  <property name="fxcop.dir" value="${tools.dir}/FxCop" />
-  <property name="rhino-mocks.dir" value="${tools.dir}/Rhino.Mocks" />
+  <property name="fxcop.dir" value="${tools.dir}\FxCop" />
+  <property name="rhino-mocks.dir" value="${tools.dir}\Rhino.Mocks" />
   
   <!--
     Libraries directories
   -->
-  <property name="castle-windsor.dir" value="${lib.dir}/Castle.Windsor" />
-  <property name="mvc-3.dir" value="${lib.dir}/ASP.NET MVC 3"/>
-  <property name="asp-net-web-pages.dir" value="${lib.dir}/ASP.NET Web Pages" />
-  <property name="nhibernate.dir" value="${lib.dir}/NHibernate" />
+  <property name="castle-windsor.dir" value="${lib.dir}\Castle.Windsor" />
+  <property name="mvc-3.dir" value="${lib.dir}\ASP.NET MVC 3"/>
+  <property name="asp-net-web-pages.dir" value="${lib.dir}\ASP.NET Web Pages" />
+  <property name="nhibernate.dir" value="${lib.dir}\NHibernate" />
   
   
   <!--
@@ -66,7 +67,7 @@
   <!--
     Prepare nant/nant contrib
   -->
-  <loadtasks assembly="${nantcontrib.dir}/NAnt.Contrib.Tasks.dll" />
+  <loadtasks assembly="${nantcontrib.dir}\NAnt.Contrib.Tasks.dll" />
   
   
   <target name="help">
@@ -74,12 +75,25 @@
     
 clean:
   Cleans output and solution folders
+
 init:
   Creates output folders and AssemblyInfo files
+
 build:
   Compiles solution    
+
 unit-test:
   Runs unit tests
+
+init-integration-test:
+  Prepares integration database and application configuration files
+
+integration-test:
+  Runs integration tests
+
+commit-stage:
+  Runs all the targets above and publishes artifacts for later
+  stages in the deployment pipeline
     </echo>
     
     <fail message="No target specified." />
@@ -279,6 +293,32 @@ unit-test:
       <property name="OutputPath" value="${path::get-full-path(bin.dir)}" />
       <property name="MSBuildExtensionsPath32" value="${msbuild.dir}" />
     </msbuild>
+    
+    <delete>
+      <fileset>
+         <include name="${bin.dir}\**\*.config" />
+      </fileset>
+    </delete>
+    
+    <zip zipfile="${artifacts.dir}\Acceptance.zip">
+      <fileset basedir="${bin.dir}">
+        <include name="**\*" />
+        <exclude name="_PublishedWebsites\" />
+        <exclude name="**\*UnitTests*" />
+        <exclude name="**\*IntegrationTests*" />
+        <exclude name="**\*ComponentTests*" />
+        <exclude name="**\*.sql" />
+      </fileset>
+    </zip>
+    <echo message="##teamcity[publishArtifacts '${artifacts.dir}\Acceptance.zip']" />
+    
+    <zip zipfile="${artifacts.dir}\Website.zip">
+      <fileset basedir="${bin.dir}\_PublishedWebsites\phiNdus.fundus.Core.Web">
+        <include name="**\*" />
+        <exclude name="*.config" />
+      </fileset>
+    </zip>
+    <echo message="##teamcity[publishArtifacts '${artifacts.dir}\Website.zip']" />
   </target>
   
   <target name="unit-test" depends="build">
@@ -353,6 +393,11 @@ unit-test:
     
   </target>
   
+  <target name="acceptance-stage" depends="clean">
+    <fail if="${not file::exists(artifacts.dir + '\Acceptance.zip')}" message="Artifact Acceptance.zip not found." />
+    <fail if="${not file::exists(artifacts.dir + '\Website.zip')}" message="Artifact Website.zip not found." />
+  </target>
+  
   <!--
     TARGET: DEPLOY-STAGING
   -->
@@ -408,10 +453,6 @@ unit-test:
       </do>
     </foreach>
   </target>
-  
-  <target name="generate-app-config">
-    
-  </target> 
   
   <target name="generate-web-config">
     <copy file="${config.dir}/Web.config.template"
