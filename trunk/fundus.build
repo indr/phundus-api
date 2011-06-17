@@ -300,7 +300,7 @@ commit-stage:
       </fileset>
     </delete>
     
-    <zip zipfile="${artifacts.dir}\Acceptance.zip">
+    <zip zipfile="${artifacts.dir}\AcceptanceTests.zip">
       <fileset basedir="${bin.dir}">
         <include name="**\*" />
         <exclude name="_PublishedWebsites\" />
@@ -308,9 +308,18 @@ commit-stage:
         <exclude name="**\*IntegrationTests*" />
         <exclude name="**\*ComponentTests*" />
         <exclude name="**\*.sql" />
+        <exclude name="**\*SmokeTests*" />
       </fileset>
     </zip>
-    <echo message="##teamcity[publishArtifacts '${artifacts.dir}\Acceptance.zip']" />
+    <echo message="##teamcity[publishArtifacts '${artifacts.dir}\AcceptanceTests.zip']" />
+    
+    <zip zipfile="${artifacts.dir}\SmokeTests.zip">
+      <fileset basedir="${bin.dir}">
+        <include name="**\nunit*" />
+        <include name="**\*SmokeTests*" />
+      </fileset>
+    </zip>
+    <echo message="##teamcity[publishArtifacts '${artifacts.dir}\SmokeTests.zip']" />
     
     <zip zipfile="${artifacts.dir}\Website.zip">
       <fileset basedir="${bin.dir}\_PublishedWebsites\phiNdus.fundus.Core.Web">
@@ -393,13 +402,40 @@ commit-stage:
   </target>
   
   <target name="acceptance-stage" depends="clean">
-    <fail if="${not file::exists(artifacts.dir + '\Acceptance.zip')}" message="Artifact Acceptance.zip not found." />
+    <fail if="${not file::exists(artifacts.dir + '\AcceptanceTests.zip')}" message="Artifact AcceptanceTests.zip not found." />
+    <fail if="${not file::exists(artifacts.dir + '\SmokeTests.zip')}" message="Artifact SmokeTests.zip not found." />
     <fail if="${not file::exists(artifacts.dir + '\Website.zip')}" message="Artifact Website.zip not found." />
     
-    <unzip zipfile="${artifacts.dir}\Acceptance.zip" todir="${bin.dir}" />
+    <unzip zipfile="${artifacts.dir}\AcceptanceTests.zip" todir="${bin.dir}" />
+    <unzip zipfile="${artifacts.dir}\SmokeTests.zip" todir="${bin.dir}" />
     <unzip zipfile="${artifacts.dir}\Website.zip" todir="${website.dir}" />
     
     <call target="deploy-acceptance" cascade="false" />
+    
+    <foreach item="File" property="filename">
+      <in>
+        <items>
+          <include name="${bin.dir}\*.AcceptanceTests.dll" />
+        </items>
+      </in>
+      <do>
+        <copy file="${config.dir}/AcceptanceTests.App.config.template"
+              tofile="${bin.dir + '/' + path::get-file-name(filename) + '.config'}">
+          <filterchain>
+            <expandproperties />
+          </filterchain>
+        </copy>
+      </do>
+    </foreach>
+    
+    <nunit2 verbose="${verbose}">
+      <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
+      <test>
+        <assemblies>
+          <include name="${bin.dir}\*.AcceptanceTests.dll" />
+        </assemblies>
+      </test>
+    </nunit2>  
   </target>
   
   <target name="deploy-acceptance">
