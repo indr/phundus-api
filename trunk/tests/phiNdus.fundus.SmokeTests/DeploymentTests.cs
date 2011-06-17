@@ -14,8 +14,11 @@ namespace phiNdus.fundus.SmokeTests
         [Test]
         public void Can_get_home_page()
         {
-            var request = WebRequest.Create("http://fundus.phindus.ch/staging");
-            request.Timeout = 1000;
+            var appSettings = new System.Configuration.AppSettingsReader();
+            var uri = appSettings.GetValue("uri", typeof (string)).ToString();
+
+            var request = WebRequest.Create(uri);
+            request.Timeout = 5000;
 
             var response = request.GetResponse();
             Assert.That(response, Is.Not.Null);
