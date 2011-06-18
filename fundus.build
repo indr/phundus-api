@@ -363,6 +363,15 @@ commit-stage:
       source="${base.dir}/sql/dml-integration.sql"
     />
     
+    <echo message="${my::merge-settings(config.dir + '\Settings.csv,' + config.dir + '\Settings.Commit.csv')}"
+         file="${build.dir}\Settings.Merged.csv" />
+    <echo message="${my::generate-settings-dml(build.dir + '\Settings.Merged.csv')}"
+          file="${build.dir}\Settings.Merged.sql" />
+    <sql connstring="${sql.connstring}"
+      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
+      source="${build.dir}\Settings.Merged.sql"
+    />
+    
     <property name="app.config.connstrings.default.connstring" value="${integration.connstring}" />
     <property name="app.config.connstrings.default.providername" value="${integration.providername}" />
     
@@ -443,6 +452,8 @@ commit-stage:
   </target>
   
   <target name="deploy-acceptance">
+    <property name="deploy.settings" value="${config.dir}\Settings.Acceptance.csv" />
+    
     <property name="sql.database-name" value="${acceptance.database-name}" />
     <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
     <property name="web.config.connstrings.default.connstring" value="${acceptance.connstring}" />
@@ -450,11 +461,13 @@ commit-stage:
     <property name="deploy.dir" value="${acceptance.dir}" />
     <property name="deploy.iisserver" value="${acceptance.iisserver}" />
     <property name="deploy.vdir" value="${acceptance.vdir}" />
-    <property name="deploy.dml" value="${base.dir}/sql/dml-acceptance.sql" />
+    
     <call target="deploy" cascade="false" />
   </target>
   
   <target name="deploy-staging">
+    <property name="deploy.settings" value="${config.dir}\Settings.Staging.csv" />
+    
     <property name="sql.database-name" value="${staging.database-name}" />
     <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
     <property name="web.config.connstrings.default.connstring" value="${staging.connstring}" />
@@ -462,7 +475,7 @@ commit-stage:
     <property name="deploy.dir" value="${staging.dir}" />
     <property name="deploy.iisserver" value="${staging.iisserver}" />
     <property name="deploy.vdir" value="${staging.vdir}" />
-    <property name="deploy.dml" value="${base.dir}/sql/dml-staging.sql" />
+    
     <call target="deploy" cascade="false" />
   </target>
   
@@ -481,11 +494,15 @@ commit-stage:
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/dml.sql" />
-    <if test="${deploy.dml != ''}">
-      <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
-        transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-        source="${deploy.dml}" />
-    </if>
+      
+    <echo message="${my::merge-settings(config.dir + '\Settings.csv,' + deploy.settings)}"
+         file="${build.dir}\Settings.Merged.csv" />
+    <echo message="${my::generate-settings-dml(build.dir + '\Settings.Merged.csv')}"
+          file="${build.dir}\Settings.Merged.sql" />
+    
+    <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
+      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
+      source="${build.dir}\Settings.Merged.sql" />
     
     <copy file="${config.dir}/Web.config.template"
           tofile="${website.dir}/Web.config">
@@ -579,4 +596,71 @@ commit-stage:
       </assemblies>
     </regasm>
   </target>
+  
+  <script language="C#" prefix="my" >
+    <references>
+      <include name="System.dll" />
+      <include name="System.Core.dll" />
+    </references>
+    <imports>
+      <import namespace="System.Text.RegularExpressions" />
+      <import namespace="System.Collections.Generic" />
+      <import namespace="System.Linq" />
+    </imports>
+    <code>
+      <![CDATA[
+        [Function("merge-settings")]
+        public string MergeSettings(string input)
+        {
+          var settings = new Dictionary<string, string>();
+          var regex = new Regex(@"^([^,]*),""?(.*?)""?$", RegexOptions.Multiline);
+          foreach (var each in input.Split(','))
+          {
+            var match = regex.Match(File.ReadAllText(each));
+            while (match.Success)
+            {
+              if (!match.Groups[1].Value.StartsWith("#")) {
+                if (settings.ContainsKey(match.Groups[1].Value.Trim()))
+                  settings.Remove(match.Groups[1].Value.Trim());
+                settings.Add(match.Groups[1].Value.Trim(), match.Groups[2].Value.Trim());
+              }
+              match = match.NextMatch();
+            }
+          }
+
+          var keys = settings.Keys.ToList();
+          keys.Sort();
+     
+          var builder = new StringBuilder();
+          foreach (var each in keys)
+            builder.AppendLine(each + "," + settings[each]);
+          return builder.ToString();
+        }
+     
+        [Function("generate-settings-dml")]
+        public string GenerateSettingsDml(string input)
+        {
+          var builder = new StringBuilder();
+          builder.AppendLine("USE [${sql.database-name}];");
+          builder.AppendLine();
+          builder.AppendLine("SET ANSI_NULLS ON;");
+          builder.AppendLine();
+          builder.AppendLine("SET QUOTED_IDENTIFIER ON;");
+          builder.AppendLine();
+          
+          var regex = new Regex(@"^([^,]*),""?(.*?)""?$", RegexOptions.Multiline);
+          var match = regex.Match(File.ReadAllText(input));
+          var id = 1;
+          while (match.Success)
+          {
+            builder.AppendLine("insert into [Setting] ([Id], [Version], [Key], [StringValue])");
+            builder.AppendLine(String.Format("  values ({0}, 1, '{1}', '{2}');",
+              id++, match.Groups[1].Value, match.Groups[2].Value.Trim()));
+            match = match.NextMatch();
+          }
+          return builder.ToString();
+        }
+      ]]>
+    </code>
+  </script>
 </project>
