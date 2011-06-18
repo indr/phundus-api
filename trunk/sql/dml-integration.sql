@@ -1,5 +1,14 @@
 USE [${sql.database-name}];
 
+/*
+   HIER KEINE WEITEREN DATENSÄTZE HINZUFÜGEN
+   
+   Ziel sollte sein, dass jeder Test atomar und repeatable ausgeführt
+   werden kann. Diese Datei sollte baldmöglichst entfernt werden.
+   
+   Merci :o)
+*/
+
 SET ANSI_NULLS ON;
 
 SET QUOTED_IDENTIFIER ON;
@@ -29,19 +38,4 @@ INSERT INTO [Membership] (Id, Version, SessionKey, Password, Salt, Email, IsAppr
   VALUES (3, 1, NULL,                   /* robin: */   '53dfd1eed051a7aacabb867339ae2046', '345ef', 'robin.scherbatsky@example.com', 1, 0, '2011-05-10');
 INSERT INTO [Membership] (Id, Version, SessionKey, Password, Salt, Email, IsApproved, IsLockedOut, CreateDate)
   VALUES (4, 1, NULL,                   /* barney: */  '8d393d35b5ddca0e54a540a4cb7da3ce', '456gh', 'barney.stinson@example.com', 1, 0, '2011-05-10');
-
-
-insert into [Setting] (Id, Version, [Key], [StringValue])
-  values (1, 1, 'mail.smtp.host', 'mail.indr.ch');
-insert into [Setting] (Id, Version, [Key], [StringValue])
-  values (2, 1, 'mail.smtp.user-name', 'fundus-sys-test-1@indr.ch');
-insert into [Setting] (Id, Version, [Key], [StringValue])
-  values (3, 1, 'mail.smtp.password', 'phiNdus');
-insert into [Setting] (Id, Version, [Key], [StringValue])
-  values (4, 1, 'mail.smtp.from', 'fundus-sys-test-1@indr.ch');  
-  
-insert into [Setting] (Id, Version, [Key], [StringValue])
-  values (5, 1, 'mail.templates.user-account-validation.subject', '[fundus] User Account Validation');
-insert into [Setting] (Id, Version, [Key], [StringValue])
-  values (6, 1, 'mail.templates.user-account-validation.body', 'Hello [User.FirstName]\r\n\r\nPlease go to the following link in order to validate your account:\r\n[Link.UserAccountValidation]\r\n\r\nThanks');
   

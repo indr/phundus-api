@@ -11,6 +11,8 @@ insert into [Role] (Id, Version, Name)
 insert into [Role] (Id, Version, Name)
   values (2, 1, 'Administrator');
 
+
+  
  EXEC('CREATE TRIGGER [DenyInsertUpdateDeleteRole] ON [dbo].[Role] AFTER INSERT, UPDATE, DELETE
 AS 
 BEGIN
