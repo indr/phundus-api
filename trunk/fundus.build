@@ -71,35 +71,21 @@
   
   
   <target name="help">
-    <echo>Available targets:
-    
-clean:
-  Cleans output and solution folders
+    <echo message="
+*************** HELP (DEFAULT) ***************
+" />
 
-init:
-  Creates output folders and AssemblyInfo files
-
-build:
-  Compiles solution    
-
-unit-test:
-  Runs unit tests
-
-init-integration-test:
-  Prepares integration database and application configuration files
-
-integration-test:
-  Runs integration tests
-
-commit-stage:
-  Runs all the targets above and publishes artifacts for later
-  stages in the deployment pipeline
-    </echo>
-    
+    <loadfile file="${base.dir}\Help.txt" property="help.txt" />
+    <echo message="${help.txt}" />
     <fail message="No target specified." />
   </target>
+
   
   <target name="clean">
+    <echo message="
+*************** CLEAN ***************
+" />
+
     <delete dir="${build.dir}" verbose="${verbose}" />
     <delete>
       <fileset>
@@ -112,8 +98,13 @@ commit-stage:
       </fileset>
     </delete>
   </target>
+
   
   <target name="init" depends="clean">
+    <echo message="
+*************** INIT ***************
+" />
+
     <mkdir dir="${build.dir}" verbose="${verbose}" />
     <mkdir dir="${reports.dir}" verbose="${verbose}" />
     
@@ -121,7 +112,7 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="21035e24-d5c4-4c8a-82ba-7903da246e69" />
     <property name="assembly.cls-compliant" value="true" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Environment\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
@@ -134,7 +125,7 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="52a78ccd-cf4c-4567-8040-6f712a7eeb74" />
     <property name="assembly.cls-compliant" value="true" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Domain\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
@@ -147,7 +138,7 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="8f4ec48d-ceec-4008-9391-26956335493d" />
     <property name="assembly.cls-compliant" value="true" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Business\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
@@ -160,7 +151,7 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="fc2dfb3c-500b-4709-ad3b-bb36eedef0f5" />
     <property name="assembly.cls-compliant" value="true" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Web\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
@@ -173,7 +164,7 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="9f068397-99d3-4442-ba1d-b5b854a5e688" />
     <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Environment.UnitTests\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
@@ -186,7 +177,7 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="615cd7e5-2292-42fa-8764-0a05cb46c214" />
     <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Domain.UnitTests\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
@@ -199,7 +190,7 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="615cd7e5-2292-42fa-8764-0a05cb46c214" />
     <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Domain.IntegrationTests\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
@@ -212,7 +203,7 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="19d6b1f4-9bd6-4ee8-91c2-be2977a13fb8" />
     <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Business.UnitTests\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
@@ -225,7 +216,7 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="58C99E38-EB57-4190-9CF1-01CE75A1B738" />
     <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Business.IntegrationTests\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
@@ -238,8 +229,21 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="453b1282-6fe5-43f3-8563-066c9f2a94fa" />
     <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Web.UnitTests\Properties\AssemblyInfo.cs"
+          outputencoding="UTF-8"
+          verbose="${verbose}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+    
+    <property name="assembly.title" value="TestHelpers" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="e3cf7d17-6faf-4bfa-8d1f-c5b3f431b89d" />
+    <property name="assembly.cls-compliant" value="false" />
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
+          tofile="${tests.dir}\phiNdus.fundus.TestHelpers\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
       <filterchain>
@@ -251,7 +255,7 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="8d5c9f9d-1fd6-44ae-8286-b8c0900fd1ae" />
     <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${tests.dir}\phiNdus.fundus.SmokeTests\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
@@ -264,7 +268,7 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="1fcb1ebf-1bda-4977-a7fb-ac748a7f0d47" />
     <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${tests.dir}\phiNdus.fundus.AcceptanceTests\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
@@ -277,7 +281,7 @@ commit-stage:
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="be75437a-285e-4eba-b88a-5b2627a94e54" />
     <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.template"
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.CliTools\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8"
           verbose="${verbose}">
@@ -286,9 +290,14 @@ commit-stage:
       </filterchain>
     </copy>  
   </target>
+
   
   <target name="build" depends="init">
-    <msbuild project="${base.dir}\phiNdus.fundus.Core.sln" verbosity="Normal">
+    <echo message="
+*************** BUILD ***************
+" />
+  
+    <msbuild project="${base.dir}\phiNdus.fundus.Core.sln" verbosity="Minimal">
       <property name="Configuration" value="Debug" />
       <property name="OutputPath" value="${path::get-full-path(bin.dir)}" />
       <property name="MSBuildExtensionsPath32" value="${msbuild.dir}" />
@@ -329,20 +338,47 @@ commit-stage:
     </zip>
     <echo message="##teamcity[publishArtifacts '${artifacts.dir}\Website.zip']" />
   </target>
+
   
   <target name="unit-test" depends="build">
+    <echo message="
+*************** UNIT-TEST ***************
+" />
+
     <property name="teamcity.dotnet.nant.nunit2.platform" value="x86" />
     <nunit2 verbose="${verbose}">
       <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
+      <formatter type="Plain" usefile="false" />
       <test>
         <assemblies>
           <include name="${bin.dir}\*.UnitTests.dll" />
         </assemblies>
       </test>
     </nunit2>
+    
+    <foreach item="File" property="filename">
+      <in>
+        <items>
+          <include name="${reports.dir}\*UnitTests*.xml" />
+        </items>
+      </in>
+      <do>
+        <nunit2report format="NoFrames" todir="${reports.dir}">
+          <fileset>
+            <include name="${filename}" />
+          </fileset>
+        </nunit2report>
+        <move file="${reports.dir}\index.html" tofile="${reports.dir}\${path::get-file-name-without-extension(filename)}.html" />
+      </do>
+    </foreach>
   </target>
   
+  
   <target name="init-integration-test" depends="build">
+    <echo message="
+*************** INIT-INTEGRATION-TEST ***************
+" />
+
     <property name="sql.database-name" value="${integration.database-name}" />
     <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
     
@@ -383,7 +419,7 @@ commit-stage:
         </items>
       </in>
       <do>
-        <copy file="${config.dir}/App.config.template"
+        <copy file="${config.dir}/App.config.IntegrationTests.tmpl"
               tofile="${bin.dir + '/' + path::get-file-name(filename) + '.config'}">
           <filterchain>
             <expandproperties />
@@ -392,11 +428,17 @@ commit-stage:
       </do>
     </foreach>
   </target>
+
   
   <target name="integration-test" depends="init-integration-test">
+    <echo message="
+*************** INTEGRATION-TEST ***************
+" />
+
     <property name="teamcity.dotnet.nant.nunit2.platform" value="x86" />
     <nunit2 verbose="${verbose}">
       <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
+      <formatter type="Plain" usefile="false" />
       <test>
         <assemblies>
           <include name="${bin.dir}\*.IntegrationTests.dll" />
@@ -404,68 +446,31 @@ commit-stage:
         </assemblies>
       </test>
     </nunit2>
-  </target>
-  
-  <target name="init-acceptance-test">
-    <call target="deploy-acceptance" cascade="false" />
-    
+
     <foreach item="File" property="filename">
       <in>
         <items>
-          <include name="${bin.dir}\*.AcceptanceTests.dll" />
+          <include name="${reports.dir}\*IntegrationTests*.xml" />
+          <include name="${reports.dir}\*ComponentTests*.xml" />
         </items>
       </in>
       <do>
-        <copy file="${config.dir}/AcceptanceTests.App.config.template"
-              tofile="${bin.dir + '/' + path::get-file-name(filename) + '.config'}">
-          <filterchain>
-            <expandproperties />
-          </filterchain>
-        </copy>
+        <nunit2report format="NoFrames" todir="${reports.dir}">
+          <fileset>
+            <include name="${filename}" />
+          </fileset>
+        </nunit2report>
+        <move file="${reports.dir}\index.html" tofile="${reports.dir}\${path::get-file-name-without-extension(filename)}.html" />
       </do>
     </foreach>
   </target>
-  
-  <target name="acceptance-test" depends="init-acceptance-test">
-    <nunit2 verbose="${verbose}">
-      <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
-      <test>
-        <assemblies>
-          <include name="${bin.dir}\*.AcceptanceTests.dll" />
-        </assemblies>
-      </test>
-    </nunit2>  
-  </target>
-  
-  <target name="commit-stage" depends="build unit-test integration-test">
-    
-  </target>
-  
-  <target name="acceptance-stage" depends="clean">
-    <fail if="${not file::exists(artifacts.dir + '\AcceptanceTests.zip')}" message="Artifact AcceptanceTests.zip not found." />
-    <fail if="${not file::exists(artifacts.dir + '\Website.zip')}" message="Artifact Website.zip not found." />
-    
-    <unzip zipfile="${artifacts.dir}\AcceptanceTests.zip" todir="${bin.dir}" />
-    <unzip zipfile="${artifacts.dir}\Website.zip" todir="${website.dir}" />
-    
-    <call target="acceptance-test" cascade="true" />
-  </target>
-  
-  <target name="deploy-acceptance">
-    <property name="deploy.settings" value="${config.dir}\Settings.Acceptance.csv" />
-    
-    <property name="sql.database-name" value="${acceptance.database-name}" />
-    <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
-    <property name="web.config.connstrings.default.connstring" value="${acceptance.connstring}" />
-    <property name="web.config.connstrings.default.providername" value="${acceptance.providername}" />
-    <property name="deploy.dir" value="${acceptance.dir}" />
-    <property name="deploy.iisserver" value="${acceptance.iisserver}" />
-    <property name="deploy.vdir" value="${acceptance.vdir}" />
-    
-    <call target="deploy" cascade="false" />
-  </target>
+
   
   <target name="deploy-staging">
+    <echo message="
+*************** DEPLOY-STAGING ***************
+" />  
+
     <property name="deploy.settings" value="${config.dir}\Settings.Staging.csv" />
     
     <property name="sql.database-name" value="${staging.database-name}" />
@@ -478,13 +483,23 @@ commit-stage:
     
     <call target="deploy" cascade="false" />
   </target>
+
   
   <target name="init-deploy">
+    <echo message="
+*************** INIT-DEPLOY ***************
+" />
+  
     <fail if="${not file::exists(artifacts.dir + '\SmokeTests.zip')}" message="Artifact SmokeTests.zip not found." />
     <unzip zipfile="${artifacts.dir}\SmokeTests.zip" todir="${bin.dir}" />
   </target>
+
   
   <target name="deploy" depends="init-deploy">
+    <echo message="
+*************** DEPLOY ***************
+" />
+  
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/create.sql" />
@@ -504,14 +519,14 @@ commit-stage:
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${build.dir}\Settings.Merged.sql" />
     
-    <copy file="${config.dir}/Web.config.template"
+    <copy file="${config.dir}/Web.config.tmpl"
           tofile="${website.dir}/Web.config">
       <filterchain>
         <expandproperties />
       </filterchain>
     </copy>
     
-    <copy file="${config.dir}/Views.Web.config.template"
+    <copy file="${config.dir}/Views.Web.config.tmpl"
           tofile="${website.dir}/Views/Web.config">
       <filterchain>
         <expandproperties />
@@ -534,7 +549,7 @@ commit-stage:
         </items>
       </in>
       <do>
-        <copy file="${config.dir}/SmokeTests.App.config.template"
+        <copy file="${config.dir}/App.config.SmokeTests.tmpl"
               tofile="${bin.dir + '/' + path::get-file-name(filename) + '.config'}">
           <filterchain>
             <expandproperties />
@@ -545,20 +560,137 @@ commit-stage:
       
     <nunit2 verbose="${verbose}">
       <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
+      <formatter type="Plain" usefile="false" />
       <test>
         <assemblies>
           <include name="${bin.dir}\*.SmokeTests.dll" />
         </assemblies>
       </test>
     </nunit2>  
+    
+    <foreach item="File" property="filename">
+      <in>
+        <items>
+          <include name="${reports.dir}\*SmokeTests*.xml" />
+        </items>
+      </in>
+      <do>
+        <nunit2report format="NoFrames" todir="${reports.dir}">
+          <fileset>
+            <include name="${filename}" />
+          </fileset>
+        </nunit2report>
+        <move file="${reports.dir}\index.html" tofile="${reports.dir}\${path::get-file-name-without-extension(filename)}.html" />
+      </do>
+    </foreach>   
   </target>
   
+    
+  <target name="deploy-acceptance">
+    <echo message="
+*************** DEPLOY-ACCEPTANCE ***************
+" />
+  
+    <property name="deploy.settings" value="${config.dir}\Settings.Acceptance.csv" />
+    
+    <property name="sql.database-name" value="${acceptance.database-name}" />
+    <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
+    <property name="web.config.connstrings.default.connstring" value="${acceptance.connstring}" />
+    <property name="web.config.connstrings.default.providername" value="${acceptance.providername}" />
+    <property name="deploy.dir" value="${acceptance.dir}" />
+    <property name="deploy.iisserver" value="${acceptance.iisserver}" />
+    <property name="deploy.vdir" value="${acceptance.vdir}" />
+    
+    <call target="deploy" cascade="false" />
+  </target>
+  
+  
+  <target name="init-acceptance-test">
+    <echo message="
+*************** INIT-ACCEPTANCE-TEST ***************
+" />
+
+    <call target="deploy-acceptance" cascade="false" />
+    
+    <foreach item="File" property="filename">
+      <in>
+        <items>
+          <include name="${bin.dir}\*.AcceptanceTests.dll" />
+        </items>
+      </in>
+      <do>
+        <copy file="${config.dir}/App.config.AcceptanceTests.tmpl"
+              tofile="${bin.dir + '/' + path::get-file-name(filename) + '.config'}">
+          <filterchain>
+            <expandproperties />
+          </filterchain>
+        </copy>
+      </do>
+    </foreach>
+  </target>
 
   
-  <!--
-    TARGET: FXCOP
-  -->
+  <target name="acceptance-test" depends="init-acceptance-test">
+    <echo message="
+*************** ACCEPTANCE-TEST ***************
+" />
+  
+    <nunit2 verbose="${verbose}">
+      <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
+      <formatter type="Plain" usefile="false" />
+      <test>
+        <assemblies>
+          <include name="${bin.dir}\*.AcceptanceTests.dll" />
+        </assemblies>
+      </test>
+    </nunit2>  
+    
+    <foreach item="File" property="filename">
+      <in>
+        <items>
+          <include name="${reports.dir}\*AcceptanceTests*.xml" />
+        </items>
+      </in>
+      <do>
+        <nunit2report format="NoFrames" todir="${reports.dir}">
+          <fileset>
+            <include name="${filename}" />
+          </fileset>
+        </nunit2report>
+        <move file="${reports.dir}\index.html" tofile="${reports.dir}\${path::get-file-name-without-extension(filename)}.html" />
+      </do>
+    </foreach>    
+  </target>  
+
+  
+  <target name="commit-stage" depends="build unit-test integration-test">
+    <echo message="
+*************** COMMIT-STAGE ***************
+" />  
+    <!-- Artefakte werden unmittelbar nach dessen Erstellung gesendet. Siehe build-Target -->
+  </target>
+
+  
+  <target name="acceptance-stage">
+    <echo message="
+*************** ACCEPTANCE-STAGE ***************
+" />
+
+    <fail if="${not file::exists(artifacts.dir + '\AcceptanceTests.zip')}" message="Artifact AcceptanceTests.zip not found." />
+    <fail if="${not file::exists(artifacts.dir + '\Website.zip')}" message="Artifact Website.zip not found." />
+    
+    <unzip zipfile="${artifacts.dir}\AcceptanceTests.zip" todir="${bin.dir}" />
+    <unzip zipfile="${artifacts.dir}\Website.zip" todir="${website.dir}" />
+    
+    <call target="acceptance-test" cascade="true" />
+  </target>
+
+  
   <target name="fxcop" depends="build">
+    <echo message="
+*************** FXCOP ***************
+" />
+  
     <foreach item="File" property="filename">
       <in>
         <items>
@@ -576,8 +708,12 @@ commit-stage:
   </target>
   
   
-  
+  <![CDATA[
   <target name="init-part-cover">
+    <echo message="
+*************** INIT-PART-COVER ***************
+" />
+  
     <exec program="${corflags.dir}/CorFlags.exe"
       commandline="&quot;${partcover.dir}/PartCover.exe&quot; /32BIT+ /Force /nologo" />
     <!--
@@ -596,6 +732,8 @@ commit-stage:
       </assemblies>
     </regasm>
   </target>
+  ]]>
+
   
   <script language="C#" prefix="my" >
     <references>

@@ -1,0 +1,72 @@
+How to develop
+**************
+
+Das weiss wahrscheinlich nur ich! :-P
+
+
+How to build
+************
+
+Das bestimmt! :-P
+
+
+Available targets
+*****************
+    
+Targets listed in brackets are depends.  
+
+help:
+  This is the default target and display this Help.txt file.    
+  Build intended fails.
+    
+clean:
+  Cleans output and solution folders
+
+init (clean):
+  Creates output folders and AssemblyInfo files
+
+build (init):
+  Compiles solution    
+
+unit-test (build):
+  Runs unit tests
+
+init-integration-test (build):
+  Prepares integration database and application configuration files
+
+integration-test (init-integration-test):
+  Runs integration tests
+
+deploy-staging:
+  Calls target deploy 
+  
+init-deploy:
+  Verifies that smoke tests are available.
+ 
+deploy (init-deploy):
+  Creates database.
+  Prepares Web.config for deployment environment.
+  Deploys via aspnet_compiler.exe.
+  Runs smoke tests.
+  
+deploy-acceptance:
+  Calls target deploy
+
+init-acceptance-test:
+  Calls target deploy-acceptance.
+  Prepares App.config for acceptance tests.
+  
+acceptance-test (init-acceptance-test):
+  Runs acceptance tests.
+  
+commit-stage (build unit-test integration-test):
+  This is called by CI server.
+  
+acceptance-stage:
+  This is called by CI server.
+  Calls target acceptance-test.
+  
+fxcop (build):
+  Runs FxCop.
+  
+-- END --

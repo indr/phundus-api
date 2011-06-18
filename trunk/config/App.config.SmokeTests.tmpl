@@ -1,17 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <configSections>
     <section name="hibernate-configuration" type="NHibernate.Cfg.ConfigurationSectionHandler, NHibernate" />
+    <sectionGroup name="NUnit">
+      <section name="TestRunner" type="System.Configuration.NameValueSectionHandler"/>
+    </sectionGroup>
   </configSections>
   
   <appSettings>
-    <add key="uri" value="http://localhost:80/fundus/acceptance" />
+    <add key="uri" value="http://${deploy.iisserver}${deploy.vdir}" />
     <add key="email.address" value="smoke-tests@fundus.phindus.ch" />
     <add key="email.server" value="mail.phindus.ch" />
     <add key="email.username" value="smoke-tests@fundus.phindus.ch" />
     <add key="email.password" value="hide-this" />
   </appSettings>
-
+  
   <hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
     <session-factory>
       <property name="connection.provider">
@@ -21,7 +24,7 @@
         NHibernate.Driver.SqlClientDriver
       </property>
       <property name="connection.connection_string">
-        Server=.\SQLEXPRESS;database=fundus-Acceptance;Integrated Security=SSPI;
+        ${web.config.connstrings.default.connstring}
       </property>
       <property name="dialect">
         NHibernate.Dialect.MsSql2008Dialect
@@ -29,7 +32,7 @@
       <property name='proxyfactory.factory_class'>
         NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle
       </property>
-      <property name="show_sql">true</property>
+      <property name="show_sql">false</property>
 
       <!-- Warum funktioniert dies nicht? -->
       <mapping assembly="phiNdus.fundus.Core.Domain" />
