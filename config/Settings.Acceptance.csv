@@ -1,9 +1,4 @@
-#mail.smtp.host,mail.phindus.ch
-#mail.smtp.user-name,no-reply@fundus.phindus.ch
-#mail.smtp.password,hide-this
-#mail.smtp.from,fundus-Staging
-
-mail.smtp.host,mail.indr.ch
-mail.smtp.user-name,fundus-sys-test-1@indr.ch
-mail.smtp.password,phiNdus
-mail.smtp.from,fundus-sys-test-1@indr.ch
+mail.smtp.host,mail.phindus.ch
+mail.smtp.user-name,no-reply@fundus.phindus.ch
+mail.smtp.password,hide-this
+mail.smtp.from,no-reply@fundus.phindus.ch

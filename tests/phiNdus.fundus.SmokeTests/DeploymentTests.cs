@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using NUnit.Framework;
+using phiNdus.fundus.TestHelpers;
 
 namespace phiNdus.fundus.SmokeTests
 {

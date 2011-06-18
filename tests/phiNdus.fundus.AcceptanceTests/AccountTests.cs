@@ -32,8 +32,8 @@ namespace phiNdus.fundus.AcceptanceTests
         public void SignUp()
         {
             // Given a user with email dave@example.com
-            // When sign up with dave@example.com
-            // Then shows that email is already taken
+            // When I sign up with dave@example.com
+            // Then I see that email is already taken
             
             var userService = new UserService();
             if (userService.GetUser("dave@example.com") == null)
