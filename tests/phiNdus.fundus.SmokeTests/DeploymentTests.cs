@@ -18,7 +18,7 @@ namespace phiNdus.fundus.SmokeTests
             var uri = appSettings.GetValue("uri", typeof (string)).ToString();
 
             var request = WebRequest.Create(uri);
-            request.Timeout = 5000;
+            request.Timeout = Convert.ToInt32(TimeSpan.FromSeconds(20).TotalMilliseconds);
 
             var response = request.GetResponse();
             Assert.That(response, Is.Not.Null);
