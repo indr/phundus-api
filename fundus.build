@@ -309,6 +309,12 @@
       </fileset>
     </delete>
     
+    <move todir="${website.dir}">
+      <fileset basedir="${bin.dir}\_PublishedWebsites\phiNdus.fundus.Core.Web">
+        <include name="**\*" />
+      </fileset>
+    </move> 
+    
     <zip zipfile="${artifacts.dir}\AcceptanceTests.zip">
       <fileset basedir="${bin.dir}">
         <include name="**\*" />
@@ -324,14 +330,19 @@
     
     <zip zipfile="${artifacts.dir}\SmokeTests.zip">
       <fileset basedir="${bin.dir}">
-        <include name="**\nunit*" />
-        <include name="**\*SmokeTests*" />
+        <include name="**\*" />
+        <exclude name="_PublishedWebsites\" />
+        <exclude name="**\*UnitTests*" />
+        <exclude name="**\*IntegrationTests*" />
+        <exclude name="**\*ComponentTests*" />
+        <exclude name="**\*.sql" />
+        <exclude name="**\*AcceptanceTests*" />
       </fileset>
     </zip>
     <echo message="##teamcity[publishArtifacts '${artifacts.dir}\SmokeTests.zip']" />
     
     <zip zipfile="${artifacts.dir}\Website.zip">
-      <fileset basedir="${bin.dir}\_PublishedWebsites\phiNdus.fundus.Core.Web">
+      <fileset basedir="${website.dir}">
         <include name="**\*" />
         <exclude name="*.config" />
       </fileset>
@@ -464,36 +475,50 @@
       </do>
     </foreach>
   </target>
-
   
-  <target name="deploy-staging">
+  
+  <target name="fxcop" depends="build">
     <echo message="
-*************** DEPLOY-STAGING ***************
-" />  
-
-    <property name="deploy.settings" value="${config.dir}\Settings.Staging.csv" />
-    
-    <property name="sql.database-name" value="${staging.database-name}" />
-    <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
-    <property name="web.config.connstrings.default.connstring" value="${staging.connstring}" />
-    <property name="web.config.connstrings.default.providername" value="${staging.providername}" />
-    <property name="deploy.dir" value="${staging.dir}" />
-    <property name="deploy.iisserver" value="${staging.iisserver}" />
-    <property name="deploy.vdir" value="${staging.vdir}" />
-    
-    <call target="deploy" cascade="false" />
+*************** FXCOP ***************
+" />
+  
+    <foreach item="File" property="filename">
+      <in>
+        <items>
+          <include name="${bin.dir}/phiNdus.*.dll" />
+          <exclude name="${bin.dir}/*Tests.dll" />
+        </items>
+      </in>
+      <do>
+        <exec program="${fxcop.dir}/FxCopCmd.exe"
+          commandline="/f:&quot;${filename}&quot; /out:&quot;${reports.dir}/${path::get-file-name(filename)}-FxCop.xml&quot;"
+        />
+        <echo message="##teamcity[importData type='FxCop' path='${reports.dir}/${path::get-file-name(filename)}-FxCop.xml']" />
+      </do>
+    </foreach>
   </target>
 
   
+  <target name="commit-stage" depends="build unit-test integration-test">
+    <echo message="
+*************** COMMIT-STAGE ***************
+" />  
+    <!-- Artefakte werden unmittelbar nach dessen Erstellung gesendet. Siehe build-Target -->
+  </target>
+
+
   <target name="init-deploy">
     <echo message="
 *************** INIT-DEPLOY ***************
 " />
   
+    <fail if="${not file::exists(artifacts.dir + '\Website.zip')}" message="Artifact Website.zip not found." />
     <fail if="${not file::exists(artifacts.dir + '\SmokeTests.zip')}" message="Artifact SmokeTests.zip not found." />
-    <unzip zipfile="${artifacts.dir}\SmokeTests.zip" todir="${bin.dir}" />
-  </target>
 
+    <unzip zipfile="${artifacts.dir}\SmokeTests.zip" todir="${bin.dir}" />
+    <unzip zipfile="${artifacts.dir}\Website.zip" todir="${website.dir}" />
+  </target>  
+  
   
   <target name="deploy" depends="init-deploy">
     <echo message="
@@ -584,8 +609,8 @@
       </do>
     </foreach>   
   </target>
+
   
-    
   <target name="deploy-acceptance">
     <echo message="
 *************** DEPLOY-ACCEPTANCE ***************
@@ -605,10 +630,33 @@
   </target>
   
   
+  <target name="deploy-staging">
+    <echo message="
+*************** DEPLOY-STAGING ***************
+" />  
+
+    <property name="deploy.settings" value="${config.dir}\Settings.Staging.csv" />
+    
+    <property name="sql.database-name" value="${staging.database-name}" />
+    <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
+    <property name="web.config.connstrings.default.connstring" value="${staging.connstring}" />
+    <property name="web.config.connstrings.default.providername" value="${staging.providername}" />
+    <property name="deploy.dir" value="${staging.dir}" />
+    <property name="deploy.iisserver" value="${staging.iisserver}" />
+    <property name="deploy.vdir" value="${staging.vdir}" />
+    
+    <call target="deploy" cascade="false" />
+  </target>
+  
+  
   <target name="init-acceptance-test">
     <echo message="
 *************** INIT-ACCEPTANCE-TEST ***************
 " />
+
+    <fail if="${not file::exists(artifacts.dir + '\AcceptanceTests.zip')}" message="Artifact AcceptanceTests.zip not found." />
+  
+    <unzip zipfile="${artifacts.dir}\AcceptanceTests.zip" todir="${bin.dir}" />
 
     <call target="deploy-acceptance" cascade="false" />
     
@@ -663,50 +711,24 @@
   </target>  
 
   
-  <target name="commit-stage" depends="build unit-test integration-test">
-    <echo message="
-*************** COMMIT-STAGE ***************
-" />  
-    <!-- Artefakte werden unmittelbar nach dessen Erstellung gesendet. Siehe build-Target -->
-  </target>
-
-  
   <target name="acceptance-stage">
     <echo message="
 *************** ACCEPTANCE-STAGE ***************
 " />
 
-    <fail if="${not file::exists(artifacts.dir + '\AcceptanceTests.zip')}" message="Artifact AcceptanceTests.zip not found." />
-    <fail if="${not file::exists(artifacts.dir + '\Website.zip')}" message="Artifact Website.zip not found." />
-    
-    <unzip zipfile="${artifacts.dir}\AcceptanceTests.zip" todir="${bin.dir}" />
-    <unzip zipfile="${artifacts.dir}\Website.zip" todir="${website.dir}" />
-    
+    <delete dir="${build.dir}" verbose="${verbose}" />
     <call target="acceptance-test" cascade="true" />
   </target>
-
   
-  <target name="fxcop" depends="build">
+  
+  <target name="let-me-contribute">
     <echo message="
-*************** FXCOP ***************
+*************** LET-ME-CONTRIBUTE ***************
 " />
-  
-    <foreach item="File" property="filename">
-      <in>
-        <items>
-          <include name="${bin.dir}/phiNdus.*.dll" />
-          <exclude name="${bin.dir}/*Tests.dll" />
-        </items>
-      </in>
-      <do>
-        <exec program="${fxcop.dir}/FxCopCmd.exe"
-          commandline="/f:&quot;${filename}&quot; /out:&quot;${reports.dir}/${path::get-file-name(filename)}-FxCop.xml&quot;"
-        />
-        <echo message="##teamcity[importData type='FxCop' path='${reports.dir}/${path::get-file-name(filename)}-FxCop.xml']" />
-      </do>
-    </foreach>
+
+    <call target="commit-stage" cascade="false" />
+    <call target="acceptance-stage" cascade="false" />
   </target>
-  
   
   <![CDATA[
   <target name="init-part-cover">
