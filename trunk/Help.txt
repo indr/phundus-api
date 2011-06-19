@@ -1,13 +1,35 @@
-How to develop
-**************
-
-Das weiss wahrscheinlich nur ich! :-P
-
-
-How to build
+How to start
 ************
 
-Das bestimmt! :-P
+  Before starting developing you should check the default
+build properties located in file ".\Default.build.properties".
+Override those you want by creating a new file named
+"Local.build.properties".
+
+  Since all AssemblyInfo.cs files are not under version
+control, you have to call target init before starting
+developing.
+
+  Our deployment pipeline runs tests in two steps. First,
+in the commit stage, unit and component tests are run. If the
+build is successful, a production-like deployment is done to
+run smoke/deployment and acceptance tests. To do so in your
+development environment, just call target LET-ME-CONTRIBUTE.
+
+  During development, you may want to run just some sort
+of tests. These are your targets then: unit-test,
+integration-test, acceptance-test
+
+  You may also want the build script to prepare your
+environment to run tests from within your IDE. These are your
+targets then: init-integration-test, init-acceptance-test.
+Notice that your test projects App.config files are not touched
+by these init targets. At the moment you have to check those
+file for the right settings yourself. And finally: There's of
+course no init target for unit tests, since they don't depend
+on anything. Not even the file system.
+
+  Happy coding!
 
 
 Available targets
@@ -37,20 +59,26 @@ init-integration-test (build):
 integration-test (init-integration-test):
   Runs integration tests
 
-deploy-staging:
-  Calls target deploy 
+fxcop (build):
+  Runs FxCop.
   
+commit-stage (build unit-test integration-test):
+  This is called by CI server.
+
 init-deploy:
   Verifies that smoke tests are available.
- 
+
 deploy (init-deploy):
   Creates database.
   Prepares Web.config for deployment environment.
   Deploys via aspnet_compiler.exe.
   Runs smoke tests.
-  
+
 deploy-acceptance:
   Calls target deploy
+
+deploy-staging:
+  Calls target deploy 
 
 init-acceptance-test:
   Calls target deploy-acceptance.
@@ -58,15 +86,14 @@ init-acceptance-test:
   
 acceptance-test (init-acceptance-test):
   Runs acceptance tests.
-  
-commit-stage (build unit-test integration-test):
-  This is called by CI server.
-  
+
 acceptance-stage:
   This is called by CI server.
   Calls target acceptance-test.
-  
-fxcop (build):
-  Runs FxCop.
+
+LET-ME-CONTRIBUTE:
+  Runs everything you need to run in order to commit.
+  Calls targets commit-stage and acceptance-stage.
+  This is your target before committing!
   
 -- END --
