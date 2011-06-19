@@ -55,9 +55,9 @@ namespace phiNdus.fundus.AcceptanceTests
             var signUpWindow = new SignUpWindowDriver(Context);
             signUpWindow.SignUp();
 
-            signUpWindow.ContainsText("The Vorname field is required.");
-            signUpWindow.ContainsText("The Nachname field is required.");
-            signUpWindow.ContainsText("The E-Mail-Adresse field is required.");
+            signUpWindow.ContainsText(@"Das Feld ""Vorname"" ist erforderlich.");
+            signUpWindow.ContainsText(@"Das Feld ""Nachname"" ist erforderlich.");
+            signUpWindow.ContainsText(@"Das Feld ""E-Mail-Adresse"" ist erforderlich.");
         }
     }
 }
