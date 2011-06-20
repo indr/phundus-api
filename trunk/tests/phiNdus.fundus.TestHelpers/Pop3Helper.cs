@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Threading;
 using NUnit.Framework;
+using OpenPop.Pop3;
 
 namespace phiNdus.fundus.TestHelpers
 {
@@ -24,13 +25,17 @@ namespace phiNdus.fundus.TestHelpers
             _username = appSettings.GetValue("email.username", typeof (string)).ToString();
             _password = appSettings.GetValue("email.password", typeof (string)).ToString();
 
-            using (var pop3 = new Pop3())
-            {
-                pop3.Connect(_server, _username, _password);
-                pop3.DeleteAll();
-            }
+            using (var client = ConnectAndAuthenticate())
+                client.DeleteAllMessages();
         }
 
+        private Pop3Client ConnectAndAuthenticate()
+        {
+            var result = new Pop3Client();
+            result.Connect(_server, 110, false);
+            result.Authenticate(_username, _password);
+            return result;
+        }
 
         public string Address { get; set; }
 
@@ -40,12 +45,16 @@ namespace phiNdus.fundus.TestHelpers
             var start = DateTime.Now;
             do
             {
-                using (var pop3 = new Pop3())
+                using (var client = ConnectAndAuthenticate())
                 {
-                    pop3.Connect(_server, _username, _password);
-                    Pop3Message msg = pop3.Find(subject);
-                    if (msg != null)
-                        return;
+                    var count = client.GetMessageCount();
+                    for (int i = 1; i <= count ; i++)
+                    {
+                        var msg = client.GetMessageHeaders(i);
+                        if (msg.Subject.Equals(subject))
+                            return;
+                    }
+                    
                 }
                 Thread.Sleep(Pause);
             } while (DateTime.Now < start + DelayPeriod);
