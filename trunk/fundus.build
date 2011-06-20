@@ -356,32 +356,70 @@
 *************** UNIT-TEST ***************
 " />
 
-    <property name="teamcity.dotnet.nant.nunit2.platform" value="x86" />
-    <nunit2 verbose="${verbose}">
-      <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
-      <formatter type="Plain" usefile="false" />
-      <test>
-        <assemblies>
-          <include name="${bin.dir}\*.UnitTests.dll" />
-        </assemblies>
-      </test>
-    </nunit2>
+    <!-- TeamCity -->
+    <if test="${property::exists('agent.name')}">
+      <property name="teamcity.dotnet.nant.nunit2.platform" value="x86" />
+      <nunit2 verbose="${verbose}">
+        <formatter type="Xml" usefile="true" extension=".xml" outputdir="${reports.dir}" />
+        <formatter type="Plain" usefile="false" />
+        <test>
+          <assemblies>
+            <include name="${bin.dir}\*.UnitTests.dll" />
+          </assemblies>
+        </test>
+      </nunit2>
+      
+      
+      <foreach item="File" property="filename">
+        <in>
+          <items>
+            <include name="${reports.dir}\*UnitTests*.xml" />
+          </items>
+        </in>
+        <do>
+          <nunit2report format="NoFrames" todir="${reports.dir}">
+            <fileset>
+              <include name="${filename}" />
+            </fileset>
+          </nunit2report>
+          <move file="${reports.dir}\index.html" tofile="${reports.dir}\${path::get-file-name-without-extension(filename)}.html" />
+        </do>
+      </foreach>
+    </if>
     
-    <foreach item="File" property="filename">
-      <in>
-        <items>
-          <include name="${reports.dir}\*UnitTests*.xml" />
-        </items>
-      </in>
-      <do>
-        <nunit2report format="NoFrames" todir="${reports.dir}">
-          <fileset>
-            <include name="${filename}" />
-          </fileset>
-        </nunit2report>
-        <move file="${reports.dir}\index.html" tofile="${reports.dir}\${path::get-file-name-without-extension(filename)}.html" />
-      </do>
-    </foreach>
+    <!-- Local -->
+    <if test="${not property::exists('agent.name')}">
+      <property name="tmp.partcover.xml.reports" value="" />
+      <foreach item="File" property="filename">
+        <in>
+          <items>
+            <include name="${bin.dir}\*.UnitTests.dll" />
+          </items>
+        </in>
+        <do>
+          <exec program="${partcover.dir}/PartCover.exe"
+                commandline="--register --target &quot;${nunit.dir}/nunit-console-x86.exe&quot; --target-args &quot;\&quot;${filename}\&quot; /xml=\&quot;${reports.dir}/${path::get-file-name(filename)}-TestResult.xml\&quot; /framework=v4.0 /noshadow&quot; --include [phiNdus*]* --exclude [*Tests]* --output &quot;${reports.dir}/${path::get-file-name(filename)}-Coverage.xml&quot; --log 0" />
+          
+          <if test="${tmp.partcover.xml.reports != ''}">
+            <property name="tmp.partcover.xml.reports" value="${tmp.partcover.xml.reports};" />
+          </if>
+          <property name="tmp.partcover.xml.reports"
+                    value="${tmp.partcover.xml.reports}${reports.dir}/${path::get-file-name(filename)}-Coverage.xml" />
+ 
+          <nunit2report todir="${reports.dir}/NUnit">
+            <fileset>
+              <include name="${reports.dir}/${path::get-file-name(filename)}-TestResult.xml" />
+            </fileset>
+          </nunit2report>
+          <move file="${reports.dir}/NUnit/index.html" tofile="${reports.dir}/NUnit/${path::get-file-name(filename)}-TestResult.html" />
+        </do>
+      </foreach>
+      <delete file="${base.dir}/partcover.driver.log" />
+    
+      <exec program="${reportgenerator.dir}/ReportGenerator.exe" verbose="true"
+            commandline="&quot;${tmp.partcover.xml.reports}&quot; &quot;${reports.dir}/Coverage&quot;" />
+      <move file="${reports.dir}/Coverage/index.htm" tofile="${reports.dir}/Coverage/index.html" />
+    </if>
   </target>
   
   
@@ -823,4 +861,6 @@
       ]]>
     </code>
   </script>
+  
+  
 </project>
