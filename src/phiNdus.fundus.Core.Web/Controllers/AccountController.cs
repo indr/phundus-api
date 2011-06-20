@@ -75,7 +75,8 @@ namespace phiNdus.fundus.Core.Web.Controllers
                 MembershipCreateStatus status;
                 MembershipService.CreateUser(model.Email, model.Password, out status);
 
-                return RedirectToAction("Index", "Home");
+                return View("SignUpDone");
+                //return RedirectToAction("Index", "Home");
             }
             else
             {

@@ -35,6 +35,19 @@ namespace phiNdus.fundus.AcceptanceTests
         }
 
         [Test]
+        public void SignUpShowsCompletionStep()
+        {
+            // When I sign up
+            // Then I see instructions for sign up completion
+            
+            var signUpWindow = new SignUpWindowDriver(Context);
+            signUpWindow.SpecifyAll();
+            signUpWindow.SignUp();
+
+            signUpWindow.ContainsText("Um die Registrierung abzuschliessen");
+        }
+
+        [Test]
         public void SignUpSendsValidationEmail()
         {
             // When I sign up
