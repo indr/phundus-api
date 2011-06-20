@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using NUnit.Framework;
+using phiNdus.fundus.AcceptanceTests.AppDriver;
 using phiNdus.fundus.AcceptanceTests.AppDriver.WindowDriver;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.TestHelpers;
@@ -40,10 +41,8 @@ namespace phiNdus.fundus.AcceptanceTests
             // Then I receive email with subject [fundus] User Account Validation
 
             var pop3Helper = new Pop3Helper();
-
-            // TODO: Create AdminApi
-            var userService = new UserService();
-            userService.DeleteUser(pop3Helper.Address);
+            var adminApi = new AdminApi();
+            adminApi.DeleteUser(pop3Helper.Address);
 
             var signUpWindow = new SignUpWindowDriver(Context);
             signUpWindow.SpecifyFirstName("Hans");
