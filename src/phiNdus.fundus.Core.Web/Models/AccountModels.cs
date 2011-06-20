@@ -32,6 +32,10 @@ namespace phiNdus.fundus.Core.Web.Models
         [Required]
         [DisplayName("Nachname")]
         public string LastName { get; set; }
+
+        [Required]
+        [DisplayName("Passwort")]
+        public string Password { get; set; }
     }
 
 
