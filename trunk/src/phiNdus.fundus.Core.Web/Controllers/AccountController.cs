@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 using phiNdus.fundus.Core.Web.Models;
 
 namespace phiNdus.fundus.Core.Web.Controllers
@@ -71,7 +72,8 @@ namespace phiNdus.fundus.Core.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                // TODO,chris: Benutzer erstellen
+                MembershipCreateStatus status;
+                MembershipService.CreateUser(model.Email, model.Password, out status);
 
                 return RedirectToAction("Index", "Home");
             }

@@ -13,12 +13,27 @@ namespace phiNdus.fundus.AcceptanceTests.AppDriver.WindowDriver
 
         public void SpecifyEmail(string email)
         {
-            Context.Browser.TextField(Find.ById("Email")).TypeText("abc.com");
+            Context.Browser.TextField(Find.ById("Email")).TypeText(email);
         }
 
         public void SignUp()
         {
             Context.Browser.Button(Find.ByValue("Registrieren")).Click();
+        }
+
+        public void SpecifyFirstName(string firstName)
+        {
+            Context.Browser.TextField(Find.ById("FirstName")).TypeText(firstName);
+        }
+
+        public void SpecifyLastName(string lastName)
+        {
+            Context.Browser.TextField(Find.ById("LastName")).TypeText(lastName);
+        }
+
+        public void SpecifyPassword(string password)
+        {
+            Context.Browser.TextField(Find.ById("Password")).TypeText(password);
         }
     }
 }

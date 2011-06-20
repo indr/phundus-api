@@ -1,6 +1,8 @@
-﻿using NUnit.Framework;
+﻿using System.Threading;
+using NUnit.Framework;
 using phiNdus.fundus.AcceptanceTests.AppDriver.WindowDriver;
 using phiNdus.fundus.Core.Business.Services;
+using phiNdus.fundus.TestHelpers;
 using WatiN.Core;
 
 namespace phiNdus.fundus.AcceptanceTests
@@ -32,6 +34,28 @@ namespace phiNdus.fundus.AcceptanceTests
         }
 
         [Test]
+        public void SignUpSendsValidationEmail()
+        {
+            // When I sign up
+            // Then I receive email with subject [fundus] User Account Validation
+
+            var pop3Helper = new Pop3Helper();
+
+            // TODO: Create AdminApi
+            var userService = new UserService();
+            userService.DeleteUser(pop3Helper.Address);
+
+            var signUpWindow = new SignUpWindowDriver(Context);
+            signUpWindow.SpecifyFirstName("Hans");
+            signUpWindow.SpecifyLastName("Muster");
+            signUpWindow.SpecifyEmail(pop3Helper.Address);
+            signUpWindow.SpecifyPassword("123qwe");
+            signUpWindow.SignUp();
+
+            pop3Helper.ConfirmEmailWasReceived("[fundus] User Account Validation");
+        }
+
+        [Test]
         public void SignUpShowsInvalidEmail()
         {
             // When I sign up with invalid email
@@ -48,9 +72,10 @@ namespace phiNdus.fundus.AcceptanceTests
         public void SignUpShowsRequiredFields()
         {
             // When I sign up
-            // Then I see The Vorname field is required.
-            //  and I see The Nachname field is required.
-            //  and I see The E-Mail-Adresse field is required.
+            // Then I see Das Feld "Vorname" ist erforderlich.
+            //  and I see Das Feld "Nachname" ist erforderlich.
+            //  and I see Das Feld "E-Mail-Adresse" ist erforderlich.
+            //  and I see Das Feld "Passwort" ist erforderlich.
 
             var signUpWindow = new SignUpWindowDriver(Context);
             signUpWindow.SignUp();
@@ -58,6 +83,7 @@ namespace phiNdus.fundus.AcceptanceTests
             signUpWindow.ContainsText(@"Das Feld ""Vorname"" ist erforderlich.");
             signUpWindow.ContainsText(@"Das Feld ""Nachname"" ist erforderlich.");
             signUpWindow.ContainsText(@"Das Feld ""E-Mail-Adresse"" ist erforderlich.");
+            signUpWindow.ContainsText(@"Das Feld ""Passwort"" ist erforderlich.");
         }
     }
 }
