@@ -15,6 +15,8 @@ namespace phiNdus.fundus.SmokeTests
         [Test]
         public void Can_get_home_page()
         {
+            // TODO: Smoke-Test sollte Datenbank berühren
+
             var appSettings = new System.Configuration.AppSettingsReader();
             var uri = appSettings.GetValue("uri", typeof (string)).ToString();
 
