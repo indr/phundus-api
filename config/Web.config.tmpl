@@ -15,7 +15,7 @@
     <session-factory>
       <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
       <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
-      <property name="connection.connection_string">${web.config.connstrings.default.connstring}</property>
+      <property name="connection.connection_string">${deploy.connstring}</property>
       <property name="dialect">NHibernate.Dialect.MsSql2008Dialect</property>
       <property name='proxyfactory.factory_class'>NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle</property>
       <property name="show_sql">false</property>
@@ -48,13 +48,6 @@
     <add key="ClientValidationEnabled" value="true"/> 
     <add key="UnobtrusiveJavaScriptEnabled" value="true"/> 
   </appSettings>
-    
-  <connectionStrings>
-		<add name="Default"
-      connectionString="${web.config.connstrings.default.connstring}"
-      providerName="${web.config.connstrings.default.providername}"
-     />
-	</connectionStrings>
   
   <system.web>
     <compilation debug="true" targetFramework="4.0">

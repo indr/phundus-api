@@ -114,7 +114,7 @@
     <property name="assembly.cls-compliant" value="true" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Environment\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
@@ -127,7 +127,7 @@
     <property name="assembly.cls-compliant" value="true" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Domain\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
@@ -140,7 +140,7 @@
     <property name="assembly.cls-compliant" value="true" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Business\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
@@ -153,7 +153,39 @@
     <property name="assembly.cls-compliant" value="true" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Web\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
+          verbose="${verbose}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+    <copy file="${config.dir}\Web.config.tmpl"
+          tofile="${src.dir}\phiNdus.fundus.Core.Web\Web.config"
+          outputencoding="UTF-8" overwrite="true"
+          verbose="${verbose}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+    <copy file="${config.dir}\Web.Debug.config.tmpl"
+          tofile="${src.dir}\phiNdus.fundus.Core.Web\Web.Debug.config"
+          outputencoding="UTF-8" overwrite="true"
+          verbose="${verbose}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+    <copy file="${config.dir}\Web.Release.config.tmpl"
+          tofile="${src.dir}\phiNdus.fundus.Core.Web\Web.Release.config"
+          outputencoding="UTF-8" overwrite="true"
+          verbose="${verbose}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+    <copy file="${config.dir}\Views.Web.config.tmpl"
+          tofile="${src.dir}\phiNdus.fundus.Core.Web\Views\Web.config"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
@@ -166,12 +198,13 @@
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Environment.UnitTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
       </filterchain>
     </copy>
+    
     
     <property name="assembly.title" value="Core-Domain-UnitTests" />
     <property name="assembly.description" value="" />
@@ -179,7 +212,7 @@
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Domain.UnitTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
@@ -192,12 +225,20 @@
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Domain.IntegrationTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
       </filterchain>
-    </copy>   
+    </copy>
+    <copy file="${config.dir}\App.config.IntegrationTests.tmpl"
+          tofile="${src.dir}\phiNdus.fundus.Core.Domain.IntegrationTests\App.config"
+          outputencoding="UTF-8" overwrite="true"
+          verbose="${verbose}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
     
     <property name="assembly.title" value="Core-Business-UnitTests" />
     <property name="assembly.description" value="" />
@@ -205,7 +246,7 @@
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Business.UnitTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
@@ -218,12 +259,20 @@
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Business.IntegrationTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
       </filterchain>
     </copy>   
+    <copy file="${config.dir}\App.config.IntegrationTests.tmpl"
+          tofile="${src.dir}\phiNdus.fundus.Core.Business.IntegrationTests\App.config"
+          outputencoding="UTF-8" overwrite="true"
+          verbose="${verbose}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
     
     <property name="assembly.title" value="Core-Web-UnitTests" />
     <property name="assembly.description" value="" />
@@ -231,7 +280,7 @@
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.Web.UnitTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
@@ -244,7 +293,7 @@
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${tests.dir}\phiNdus.fundus.TestHelpers\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
@@ -257,12 +306,20 @@
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${tests.dir}\phiNdus.fundus.SmokeTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
       </filterchain>
     </copy>   
+    <copy file="${config.dir}\App.config.SmokeTests.tmpl"
+          tofile="${tests.dir}\phiNdus.fundus.SmokeTests\App.config"
+          outputencoding="UTF-8" overwrite="true"
+          verbose="${verbose}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>  
     
     <property name="assembly.title" value="AcceptanceTests" />
     <property name="assembly.description" value="" />
@@ -270,12 +327,20 @@
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${tests.dir}\phiNdus.fundus.AcceptanceTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
       </filterchain>
-    </copy>  
+    </copy>
+    <copy file="${config.dir}\App.config.AcceptanceTests.tmpl"
+          tofile="${tests.dir}\phiNdus.fundus.AcceptanceTests\App.config"
+          outputencoding="UTF-8" overwrite="true"
+          verbose="${verbose}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>    
     
     <property name="assembly.title" value="CliTools" />
     <property name="assembly.description" value="" />
@@ -283,7 +348,7 @@
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Core.CliTools\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8"
+          outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
         <expandproperties />
@@ -456,9 +521,6 @@
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${build.dir}\Settings.Merged.sql"
     />
-    
-    <property name="app.config.connstrings.default.connstring" value="${integration.connstring}" />
-    <property name="app.config.connstrings.default.providername" value="${integration.providername}" />
     
     <foreach item="File" property="filename">
       <in>
@@ -668,12 +730,12 @@
 *************** DEPLOY-ACCEPTANCE ***************
 " />
   
-    <property name="deploy.settings" value="${config.dir}\Settings.Acceptance.csv" />
-    
     <property name="sql.database-name" value="${acceptance.database-name}" />
     <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
-    <property name="web.config.connstrings.default.connstring" value="${acceptance.connstring}" />
-    <property name="web.config.connstrings.default.providername" value="${acceptance.providername}" />
+    
+    <property name="deploy.settings" value="${config.dir}\Settings.Acceptance.csv" />
+    <property name="deploy.connstring" value="${acceptance.connstring}" />
+    <property name="deploy.providername" value="${acceptance.providername}" />
     <property name="deploy.dir" value="${acceptance.dir}" />
     <property name="deploy.iisserver" value="${acceptance.iisserver}" />
     <property name="deploy.iisapppool" value="${acceptance.iisapppool}" />
@@ -688,12 +750,12 @@
 *************** DEPLOY-STAGING ***************
 " />  
 
-    <property name="deploy.settings" value="${config.dir}\Settings.Staging.csv" />
-    
     <property name="sql.database-name" value="${staging.database-name}" />
     <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
-    <property name="web.config.connstrings.default.connstring" value="${staging.connstring}" />
-    <property name="web.config.connstrings.default.providername" value="${staging.providername}" />
+    
+    <property name="deploy.settings" value="${config.dir}\Settings.Staging.csv" />
+    <property name="deploy.connstring" value="${staging.connstring}" />
+    <property name="deploy.providername" value="${staging.providername}" />
     <property name="deploy.dir" value="${staging.dir}" />
     <property name="deploy.iisserver" value="${staging.iisserver}" />
     <property name="deploy.iisapppool" value="${staging.iisapppool}" />
