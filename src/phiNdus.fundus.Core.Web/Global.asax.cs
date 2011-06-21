@@ -43,10 +43,11 @@ namespace phiNdus.fundus.Core.Web {
         }
 
         // Gemäss Tutorial, aber diese Methode gibts ja nicht, deshalb Dispose
-        //protected void Application_End() {
-        //    container.Dispose();
-        //}
+        protected void Application_End() {
+            container.Dispose();
+        }
 
+        /*
         public override void Dispose() {
             base.Dispose();
 
@@ -54,6 +55,7 @@ namespace phiNdus.fundus.Core.Web {
                 container.Dispose();
             }
         }
+        */
 
         private static void BootstrapContainer() {
             // Locking?
