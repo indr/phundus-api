@@ -16,7 +16,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
             // Todo,chris: per Castle laden?
             if (FormsService == null)
                 FormsService = new FormsAuthenticationService();
-            
+
             if (MembershipService == null)
                 MembershipService = new MembershipService();
 
@@ -75,8 +75,37 @@ namespace phiNdus.fundus.Core.Web.Controllers
                 MembershipCreateStatus status;
                 MembershipService.CreateUser(model.Email, model.Password, out status);
 
-                return View("SignUpDone");
-                //return RedirectToAction("Index", "Home");
+
+                switch (status)
+                {
+                    case MembershipCreateStatus.Success:
+                        return View("SignUpDone");
+                    //case MembershipCreateStatus.InvalidUserName:
+                    //    break;
+                    //case MembershipCreateStatus.InvalidPassword:
+                    //    break;
+                    //case MembershipCreateStatus.InvalidQuestion:
+                    //    break;
+                    //case MembershipCreateStatus.InvalidAnswer:
+                    //    break;
+                    //case MembershipCreateStatus.InvalidEmail:
+                    //    break;
+                    //case MembershipCreateStatus.DuplicateUserName:
+                    //    break;
+                    case MembershipCreateStatus.DuplicateEmail:
+                        ModelState.AddModelError("", "Die E-Mail-Adresse wird bereits verwendet.");
+                        break;
+                    //case MembershipCreateStatus.UserRejected:
+                    //    break;
+                    //case MembershipCreateStatus.InvalidProviderUserKey:
+                    //    break;
+                    //case MembershipCreateStatus.DuplicateProviderUserKey:
+                    //    break;
+                    //case MembershipCreateStatus.ProviderError:
+                    //    break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
             else
             {

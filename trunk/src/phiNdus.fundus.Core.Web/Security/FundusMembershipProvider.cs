@@ -59,9 +59,17 @@ namespace phiNdus.fundus.Core.Web.Security {
             // Todo,jac: Behandlung der verschiednen Fehlerfälle und Status entsprechend setzen.
             status = MembershipCreateStatus.Success;
 
-            return this.ConvertToExternal(
-                // TODO: Session-Key
-                this.UserService.CreateUser(null ,username, password));
+            try
+            {
+                return this.ConvertToExternal(
+                    // TODO: Session-Key
+                    this.UserService.CreateUser(null, username, password));
+            }
+            catch (EmailAlreadyTakenException)
+            {
+                status = MembershipCreateStatus.DuplicateEmail;
+                return null;
+            }
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData) {

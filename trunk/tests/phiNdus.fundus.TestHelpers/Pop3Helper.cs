@@ -16,7 +16,7 @@ namespace phiNdus.fundus.TestHelpers
 
         public Pop3Helper()
         {
-            DelayPeriod = TimeSpan.FromSeconds(10);
+            DelayPeriod = TimeSpan.FromSeconds(15);
             Pause = TimeSpan.FromSeconds(1);
 
             var appSettings = new AppSettingsReader();
