@@ -1,10 +1,7 @@
-﻿using System.Threading;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using phiNdus.fundus.AcceptanceTests.AppDriver;
 using phiNdus.fundus.AcceptanceTests.AppDriver.WindowDriver;
-using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.TestHelpers;
-using WatiN.Core;
 
 namespace phiNdus.fundus.AcceptanceTests
 {
@@ -12,39 +9,20 @@ namespace phiNdus.fundus.AcceptanceTests
     public class AccountTests : DslTestCase
     {
         [Test]
-        public void SignUp()
+        public void SignUpWhenUserAlreadyExistsShowsEmailAlreadyTaken()
         {
-            Assert.Ignore("Not implemented");
-
             // Given a user with email dave@example.com
             // When I sign up with dave@example.com
             // Then I see that email is already taken
 
-            var userService = new UserService();
-            if (userService.GetUser("dave@example.com") == null)
-                userService.CreateUser("dave@example.com", "password");
+            var adminApi = new AdminApi();
+            adminApi.CreateUser("dave@example.com");
 
-            using (var browser = new IE(BaseUri))
-            {
-                browser.GoTo(BaseUri + "/Account/SignUp");
-                browser.TextField(Find.ById("Email")).TypeText("dave@example.com");
-                browser.Button(Find.ByValue("Registrieren")).Click();
-
-                Assert.IsTrue(browser.ContainsText("Die E-Mail-Adresse wird bereits verwendet"));
-            }
-        }
-
-        [Test]
-        public void SignUpShowsCompletionStep()
-        {
-            // When I sign up
-            // Then I see instructions for sign up completion
-            
             var signUpWindow = new SignUpWindowDriver(Context);
-            signUpWindow.SpecifyAll();
+            signUpWindow.SpecifyAll("dave@example.com");
             signUpWindow.SignUp();
 
-            signUpWindow.ContainsText("Um die Registrierung abzuschliessen");
+            signUpWindow.ContainsText("Die E-Mail-Adresse wird bereits verwendet");
         }
 
         [Test]
@@ -68,13 +46,29 @@ namespace phiNdus.fundus.AcceptanceTests
         }
 
         [Test]
+        public void SignUpShowsCompletionStep()
+        {
+            // When I sign up
+            // Then I see instructions for sign up completion
+
+            var adminApi = new AdminApi();
+            adminApi.DeleteUser("dave@example.com");
+
+            var signUpWindow = new SignUpWindowDriver(Context);
+            signUpWindow.SpecifyAll("dave@example.com");
+            signUpWindow.SignUp();
+
+            signUpWindow.ContainsText("Um die Registrierung abzuschliessen");
+        }
+
+        [Test]
         public void SignUpShowsInvalidEmail()
         {
             // When I sign up with invalid email
             // Then I see Ungültige E-Mail-Adresse
 
             var signUpWindow = new SignUpWindowDriver(Context);
-            signUpWindow.SpecifyEmail("abc.com");
+            signUpWindow.SpecifyAll("abc.com");
             signUpWindow.SignUp();
 
             signUpWindow.ContainsText("Ungültige E-Mail-Adresse");

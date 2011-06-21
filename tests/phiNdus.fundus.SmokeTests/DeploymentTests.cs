@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using NUnit.Framework;
-using phiNdus.fundus.TestHelpers;
 
 namespace phiNdus.fundus.SmokeTests
 {
@@ -13,11 +10,11 @@ namespace phiNdus.fundus.SmokeTests
     public class DeploymentTests
     {
         [Test]
-        public void Can_get_home_page()
+        public void CanGetHomePage()
         {
             // TODO: Smoke-Test sollte Datenbank berühren
 
-            var appSettings = new System.Configuration.AppSettingsReader();
+            var appSettings = new AppSettingsReader();
             var uri = appSettings.GetValue("uri", typeof (string)).ToString();
 
             var request = WebRequest.Create(uri);

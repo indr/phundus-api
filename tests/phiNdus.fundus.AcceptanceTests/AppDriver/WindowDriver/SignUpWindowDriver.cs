@@ -36,12 +36,13 @@ namespace phiNdus.fundus.AcceptanceTests.AppDriver.WindowDriver
             Context.Browser.TextField(Find.ById("Password")).TypeText(password);
         }
 
-        public void SpecifyAll()
+        public void SpecifyAll(string email, string password = "password", string firstName = "Dave",
+            string lastName = "Miller")
         {
-            SpecifyEmail("dave@example.com");
-            SpecifyFirstName("Dave");
-            SpecifyLastName("Miller");
-            SpecifyPassword("password");
+            SpecifyFirstName(firstName);
+            SpecifyLastName(lastName);
+            SpecifyEmail(email);
+            SpecifyPassword(password);
         }
     }
 }

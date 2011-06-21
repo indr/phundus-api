@@ -4,6 +4,7 @@ using System.Web.Security;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NUnit.Framework;
+using phiNdus.fundus.Core.Business;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Web.Security;
@@ -14,15 +15,15 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Security
     [TestFixture]
     public class FundusMembershipProviderTests : MockTestBase<FundusMembershipProvider>
     {
-        private IUserService UserServiceMock { get; set; }
+        private IUserService MockUserService { get; set; }
 
         protected override void RegisterDependencies(IWindsorContainer container)
         {
             base.RegisterDependencies(container);
 
-            UserServiceMock = MockFactory.StrictMock<IUserService>();
+            MockUserService = MockFactory.StrictMock<IUserService>();
 
-            container.Register(Component.For<IUserService>().Instance(UserServiceMock));
+            container.Register(Component.For<IUserService>().Instance(MockUserService));
         }
 
         protected override FundusMembershipProvider CreateSut()
@@ -47,14 +48,14 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Security
         [Test]
         public void Changing_the_password_should_relay_action_to_business_layer()
         {
-            string email = "john.doe@google.com";
-            string oldPassword = "23ioN09*c$sE";
-            string newPassword = "Nlwä2$_n32#@";
-            bool passwordChanged = false;
+            var email = "john.doe@google.com";
+            var oldPassword = "23ioN09*c$sE";
+            var newPassword = "Nlwä2$_n32#@";
+            var passwordChanged = false;
 
             With.Mocks(MockFactory).Expecting(delegate
                                                   {
-                                                      Expect.Call(UserServiceMock.ChangePassword(null, email,
+                                                      Expect.Call(MockUserService.ChangePassword(null, email,
                                                                                                  oldPassword,
                                                                                                  newPassword))
                                                           .Return(true);
@@ -69,21 +70,38 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Security
         }
 
         [Test]
+        public void CreateUser_sets_status_when_business_layer_throws_EmailAlreadyTaken()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserService.CreateUser(null, "dave@example.com", "1234")).Throw(
+                    new EmailAlreadyTakenException());
+            }
+
+            using (MockFactory.Playback())
+            {
+                MembershipCreateStatus status;
+                Sut.CreateUser("dave@example.com", "1234", "dave@example.com", null, null, false, null, out status);
+                Assert.That(status, Is.EqualTo(MembershipCreateStatus.DuplicateEmail));
+            }
+        }
+
+        [Test]
         public void Creating_a_new_user_should_relay_action_to_business_layer()
         {
-            string username = "john.doe@google.com";
-            string password = "Nlwä2$_n32#@";
-            string passwordQuestion = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr?";
-            string passwordAnswer = "sed diam nonumy";
-            bool isApproved = false;
+            var username = "john.doe@google.com";
+            var password = "Nlwä2$_n32#@";
+            var passwordQuestion = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr?";
+            var passwordAnswer = "sed diam nonumy";
+            var isApproved = false;
 
             var status = (MembershipCreateStatus) (-1);
             MembershipUser createdUser = null;
-            DateTime creationDate = DateTime.Now;
+            var creationDate = DateTime.Now;
 
             With.Mocks(MockFactory).Expecting(delegate
                                                   {
-                                                      Expect.Call(UserServiceMock.CreateUser(null, username, password))
+                                                      Expect.Call(MockUserService.CreateUser(null, username, password))
                                                           .Return(new UserDto
                                                                       {
                                                                           Email = username,
