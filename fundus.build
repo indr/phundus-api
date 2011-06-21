@@ -563,6 +563,10 @@
 *************** DEPLOY ***************
 " />
   
+    <exec program="appcmd.exe" verbose="true" failonerror="false"
+          basedir="${environment::get-variable('WinDir')}\system32\inetsrv"
+          commandline="stop apppool ${deploy.iisapppool}" />
+  
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/create.sql" />
@@ -595,13 +599,13 @@
         <expandproperties />
       </filterchain>
     </copy>
-
-    <exec program="appcmd.exe" verbose="true"
-          basedir="${environment::get-variable('WinDir')}\system32\inetsrv"
-          commandline="stop apppool ${deploy.iisapppool}" />
-          
-    <delete dir="${deploy.dir}" />
-    <mkdir dir="${deploy.dir}" />
+         
+    <delete>
+      <fileset basedir="${deploy.dir}">
+        <include name="**\*" />
+      </fileset>
+    </delete>
+    <mkdir dir="${deploy.dir}" unless="${directory::exists(deploy.dir)}" />
 
     <exec program="appcmd.exe" verbose="true"
           basedir="${environment::get-variable('WinDir')}\system32\inetsrv"
