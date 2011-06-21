@@ -90,9 +90,14 @@
     <delete>
       <fileset>
         <include name="${src.dir}\**\AssemblyInfo.cs" />
+        <include name="${src.dir}\**\Web*.config" />
+        <include name="${src.dir}\**\App*.config" />
         <include name="${src.dir}\**\bin\**" />
         <include name="${src.dir}\**\obj\**" />
+        
         <include name="${tests.dir}\**\AssemblyInfo.cs" />
+        <include name="${tests.dir}\**\Web*.config" />
+        <include name="${tests.dir}\**\App*.config" />
         <include name="${tests.dir}\**\bin\**" />
         <include name="${tests.dir}\**\obj\**" />
       </fileset>
