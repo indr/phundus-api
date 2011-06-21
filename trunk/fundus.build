@@ -585,6 +585,10 @@
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${build.dir}\Settings.Merged.sql" />
+      
+    <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
+      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
+      source="${base.dir}/sql/grant.sql" />
     
     <copy file="${config.dir}/Web.config.tmpl"
           tofile="${website.dir}/Web.config">
