@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Castle.Windsor;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Castle.Windsor;
 using Rhino.Commons;
+using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Web.UnitTests {
+namespace phiNdus.fundus.TestHelpers {
     public abstract class MockTestBase<TSut> {
 
         protected MockRepository MockFactory { get; private set; }

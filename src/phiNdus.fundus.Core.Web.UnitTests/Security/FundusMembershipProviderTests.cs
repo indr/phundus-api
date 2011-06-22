@@ -8,6 +8,7 @@ using phiNdus.fundus.Core.Business;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Web.Security;
+using phiNdus.fundus.TestHelpers;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Web.UnitTests.Security
