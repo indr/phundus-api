@@ -518,6 +518,7 @@
       source="${base.dir}/sql/dml-integration.sql"
     />
     
+    <!--
     <echo message="${my::merge-settings(config.dir + '\Settings.csv,' + config.dir + '\Settings.Commit.csv')}"
          file="${build.dir}\Settings.Merged.csv" />
     <echo message="${my::generate-settings-dml(build.dir + '\Settings.Merged.csv')}"
@@ -526,6 +527,7 @@
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${build.dir}\Settings.Merged.sql"
     />
+    -->
     
     <foreach item="File" property="filename">
       <in>

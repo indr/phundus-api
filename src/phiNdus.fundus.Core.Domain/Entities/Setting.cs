@@ -1,11 +1,29 @@
-﻿namespace phiNdus.fundus.Core.Domain.Entities
+﻿using System;
+
+namespace phiNdus.fundus.Core.Domain.Entities
 {
     public class Setting : BaseEntity
     {
         private double? _decimalValue;
         private int? _integerValue;
         private string _stringValue;
-        public virtual string Key { get; protected set; }
+
+        public Setting()
+        {
+            
+        }
+
+        public Setting(string key)
+        {
+            _key = key;
+        }
+
+        private string _key;
+        public virtual string Key
+        {
+            get { return _key; }
+            protected set { _key = value; }
+        }
 
         public virtual string StringValue
         {

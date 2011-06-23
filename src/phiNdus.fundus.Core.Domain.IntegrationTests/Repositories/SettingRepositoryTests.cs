@@ -1,43 +1,45 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 {
     [TestFixture]
-    public class SettingRepositoryTests : BaseTestFixture
+    public class SettingRepositoryTests : SettingsTestFixture<ISettingRepository>
     {
-        private ISettingRepository Sut { get; set; }
-
-        [SetUp]
-        public void SetUp()
+        protected override ISettingRepository CreateSut()
         {
-            Sut = IoC.Resolve<ISettingRepository>();
+            return IoC.Resolve<ISettingRepository>();
         }
 
         [Test]
-        public void Can_find_by_key()
+        public void CanFindBykey()
         {
+            InsertSetting("keyspace.key1", "value1");
+            InsertSetting("keyspace.key2", "value2");
+
             using (UnitOfWork.Start())
             {
-                var fromRepo = Sut.FindByKey("mail.smtp.host");
+                var fromRepo = Sut.FindByKey("keyspace.key1");
                 Assert.That(fromRepo, Is.Not.Null);
-                Assert.That(fromRepo.Key, Is.EqualTo("mail.smtp.host"));
-                Assert.That(fromRepo.StringValue, Is.Not.Null);
+                Assert.That(fromRepo.Key, Is.EqualTo("keyspace.key1"));
+                Assert.That(fromRepo.StringValue, Is.EqualTo("value1"));
             }
         }
 
         [Test]
-        public void Can_find_all_in_keyspace()
+        public void CanFindAllInKeyspace()
         {
+            InsertSetting("keyspace.key1", "value1");
+            InsertSetting("keyspace.key2", "value2");
+
             using (UnitOfWork.Start())
             {
-                var fromRepo = Sut.FindByKeyspace("mail.smtp");
+                var fromRepo = Sut.FindByKeyspace("keyspace");
                 Assert.That(fromRepo, Is.Not.Null);
-                CollectionAssert.Contains(fromRepo.Keys, "host");
-                CollectionAssert.Contains(fromRepo.Keys, "user-name");
-                CollectionAssert.Contains(fromRepo.Keys, "password");
-                CollectionAssert.Contains(fromRepo.Keys, "from");
+                CollectionAssert.Contains(fromRepo.Keys, "key1");
+                CollectionAssert.Contains(fromRepo.Keys, "key2");
             }
         }
     }

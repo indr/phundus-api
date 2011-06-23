@@ -44,28 +44,6 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
         }
 
         [Test]
-        public void CreateUser_sends_email_to_new_user()
-        {
-            try
-            {
-                Thread.Sleep(Pop3.SendDelay);
-                Sut.CreateUser("fundus-sys-test-2@indr.ch", "1234");
-
-                Thread.Sleep(Pop3.RetrieveDelay);
-                var mail = Pop3.RetrieveMail("mail.indr.ch", "fundus-sys-test-2@indr.ch", "phiNdus",
-                                             "[fundus] User Account Validation");
-                Assert.That(mail, Is.Not.Null, "Could not retrieve mail.");
-            }
-            catch (SmtpException ex)
-            {
-                if (ex.Message.Contains("because the server is too busy."))
-                    Assert.Ignore(ex.Message);
-                else
-                    throw;
-            }
-        }
-
-        [Test]
         public void GetUser_returns_dto()
         {
             var dto = Sut.GetUser("ted.mosby@example.com");

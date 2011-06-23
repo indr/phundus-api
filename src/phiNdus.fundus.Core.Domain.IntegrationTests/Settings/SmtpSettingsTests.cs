@@ -1,53 +1,55 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Settings;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Settings
 {
     [TestFixture]
-    public class SmtpSettingsTests : BaseTestFixture
+    public class SmtpSettingsTests : SettingsTestFixture<ISmtpSettings>
     {
-        #region Setup/Teardown
-
-        [SetUp]
-        public void SetUp()
-        {
-            Sut = Domain.Settings.Settings.Mail.Smtp;
-        }
-
-        #endregion
-
-        protected ISmtpSettings Sut { get; set; }
-
         [Test]
-        public void Get_Host()
+        public void GetHost()
         {
+            InsertSetting("mail.smtp.host", "mail.domain.ch");
+
             var value = Sut.Host;
             Assert.That(value, Is.Not.Null);
-            Assert.That(value, Is.EqualTo("mail.indr.ch"));
+            Assert.That(value, Is.EqualTo("mail.domain.ch"));
         }
 
         [Test]
-        public void Get_From()
+        public void GetFrom()
         {
+            InsertSetting("mail.smtp.from", "no-reply@domain.ch");
+
             var value = Sut.From;
             Assert.That(value, Is.Not.Null);
-            Assert.That(value, Is.EqualTo("fundus-sys-test-1@indr.ch"));
+            Assert.That(value, Is.EqualTo("no-reply@domain.ch"));
         }
 
         [Test]
-        public void Get_UserName()
+        public void GetUserName()
         {
+            InsertSetting("mail.smtp.user-name", "no-reply");
+
             var value = Sut.UserName;
             Assert.That(value, Is.Not.Null);
-            Assert.That(value, Is.EqualTo("fundus-sys-test-1@indr.ch"));
+            Assert.That(value, Is.EqualTo("no-reply"));
         }
 
         [Test]
-        public void Get_Password()
+        public void GetPassword()
         {
+            InsertSetting("mail.smtp.password", "secret");
+
             var value = Sut.Password;
             Assert.That(value, Is.Not.Null);
-            Assert.That(value, Is.EqualTo("phiNdus"));
+            Assert.That(value, Is.EqualTo("secret"));
+        }
+
+        protected override ISmtpSettings CreateSut()
+        {
+            return new SettingsImpl().Mail.Smtp;
         }
     }
 }
