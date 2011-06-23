@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
@@ -40,19 +39,19 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             TedMosby.Membership.Password = "1234";
         }
 
-        protected ICommonSettings StubCommonSettings { get; set; }
-
-        protected IMailTemplateSettings StubMailTemplateSettings { get; set; }
-
         [TearDown]
         public override void TearDown()
         {
             Settings.SetGlobalNonThreadSafeSettings(null);
         }
 
-        protected ISettings StubSettings { get; set; }
-
         #endregion
+
+        protected ICommonSettings StubCommonSettings { get; set; }
+
+        protected IMailTemplateSettings StubMailTemplateSettings { get; set; }
+
+        protected ISettings StubSettings { get; set; }
 
         private IUserRepository MockUserRepository { get; set; }
         private IRoleRepository MockRoleRepository { get; set; }
@@ -62,7 +61,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         private User TedMosby { get; set; }
 
         [Test]
-        public void CreateUser_lowers_email()
+        public void CreateUserLowersEmail()
         {
             using (MockFactory.Record())
             {
@@ -72,56 +71,21 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                     MockRoleRepository.Get(1)).Return(Role.User);
                 Expect.Call(
                     MockUserRepository.Save(null)).IgnoreArguments().Return(null);
-                //Expect.Call(
-                //    MockSettingRepository.FindByKeyspace(Arg<string>.Is.Anything)).Return(
-                //        new Dictionary<string, Setting>());
-                Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
-                Expect.Call(StubSettings.Common).Return(StubCommonSettings);
-                Expect.Call(StubCommonSettings.ServerUrl).Return("");
-                Expect.Call(StubMailTemplateSettings.Subject).Return("");
-                Expect.Call(StubMailTemplateSettings.Body).Return("");
-
-                Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
-                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-
-            using (MockFactory.Playback())
-            {
-                var dto = Sut.CreateUser("Ted.Mosby@example.com", "");
-
-                Assert.That(dto, Is.Not.Null);
-                Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
-            }
-        }
-
-        [Test]
-        public void CreateUser_returns_dto()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(
-                    MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(null);
-                Expect.Call(
-                    MockRoleRepository.Get(1)).Return(Role.User);
-                Expect.Call(
-                    MockUserRepository.Save(null)).IgnoreArguments().Return(null);
-
-                Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
-                Expect.Call(StubSettings.Common).Return(StubCommonSettings);
-                Expect.Call(StubCommonSettings.ServerUrl).Return("");
-                Expect.Call(StubMailTemplateSettings.Subject).Return("");
-                Expect.Call(StubMailTemplateSettings.Body).Return("");
-
-                Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
-                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
-                Expect.Call(() => MockUnitOfWork.Dispose());
-
                 
+                Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
+                Expect.Call(StubSettings.Common).Return(StubCommonSettings);
+                Expect.Call(StubCommonSettings.ServerUrl).Return("");
+                Expect.Call(StubMailTemplateSettings.Subject).Return("");
+                Expect.Call(StubMailTemplateSettings.Body).Return("");
+
+                Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
+                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
+                Expect.Call(() => MockUnitOfWork.Dispose());
             }
+
             using (MockFactory.Playback())
             {
-                var dto = Sut.CreateUser("ted.mosby@example.com", "");
+                UserDto dto = Sut.CreateUser("Ted.Mosby@example.com", "");
 
                 Assert.That(dto, Is.Not.Null);
                 Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
@@ -129,7 +93,38 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         [Test]
-        public void CreateUser_saves_new_user_to_repository()
+        public void CreateUserReturnsDto()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(
+                    MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(null);
+                Expect.Call(
+                    MockRoleRepository.Get(1)).Return(Role.User);
+                Expect.Call(
+                    MockUserRepository.Save(null)).IgnoreArguments().Return(null);
+
+                Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
+                Expect.Call(StubSettings.Common).Return(StubCommonSettings);
+                Expect.Call(StubCommonSettings.ServerUrl).Return("");
+                Expect.Call(StubMailTemplateSettings.Subject).Return("");
+                Expect.Call(StubMailTemplateSettings.Body).Return("");
+
+                Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
+                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+            using (MockFactory.Playback())
+            {
+                UserDto dto = Sut.CreateUser("ted.mosby@example.com", "");
+
+                Assert.That(dto, Is.Not.Null);
+                Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
+            }
+        }
+
+        [Test]
+        public void CreateUserSaveNewUserToRepository()
         {
             using (MockFactory.Record())
             {
@@ -157,7 +152,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         [Test]
-        public void CreateUser_with_email_already_taken_throws()
+        public void CreateUserWhenEmailAlreadyTakenThrows()
         {
             using (MockFactory.Record())
             {
@@ -185,7 +180,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                var actual = Sut.DeleteUser("user@example.com");
+                bool actual = Sut.DeleteUser("user@example.com");
                 Assert.That(actual, Is.True);
             }
         }
@@ -209,7 +204,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                var dto = Sut.GetUser("Ted.Mosby@example.com");
+                UserDto dto = Sut.GetUser("Ted.Mosby@example.com");
                 Assert.That(dto, Is.Not.Null);
                 Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
             }
@@ -228,7 +223,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                var actual = Sut.GetUser("user@example.com");
+                UserDto actual = Sut.GetUser("user@example.com");
                 Assert.That(actual, Is.Not.Null);
                 Assert.That(actual.Email, Is.EqualTo("user@example.com"));
             }
@@ -245,7 +240,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                var actual = Sut.GetUser("user@example.com");
+                UserDto actual = Sut.GetUser("user@example.com");
                 Assert.That(actual, Is.Null);
             }
         }
@@ -317,7 +312,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                var actual = Sut.ValidateUser("unknown@example.com", "1234");
+                string actual = Sut.ValidateUser("unknown@example.com", "1234");
                 Assert.That(actual, Is.Not.Null);
             }
         }
@@ -334,7 +329,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                var actual = Sut.ValidateUser("unknown@example.com", "123");
+                string actual = Sut.ValidateUser("unknown@example.com", "123");
                 Assert.That(actual, Is.Null);
             }
         }
@@ -351,7 +346,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                var actual = Sut.ValidateUser("unknown@example.com", "");
+                string actual = Sut.ValidateUser("unknown@example.com", "");
                 Assert.That(actual, Is.Null);
             }
         }
@@ -369,7 +364,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                var actual = Sut.ValidateUser("UNKNOWN@example.com", "1234");
+                string actual = Sut.ValidateUser("UNKNOWN@example.com", "1234");
                 Assert.That(actual, Is.Not.Null);
             }
         }
