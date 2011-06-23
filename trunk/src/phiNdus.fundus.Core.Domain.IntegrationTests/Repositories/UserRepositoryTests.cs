@@ -151,7 +151,9 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 Sut.Save(user2);
                 var ex = Assert.Throws<GenericADOException>(uow.TransactionalFlush);
                 Assert.That(ex.InnerException.Message,
-                            Is.StringContaining("Cannot insert duplicate key in object 'dbo.Membership'"));
+                            // TODO: Etwas besseres finden...
+                            Is.StringContaining("Cannot insert duplicate key in object 'dbo.Membership'")
+                            .Or.StringContaining("Ein doppelter Schlüssel kann in das 'dbo.Membership'-Objekt nicht eingefügt werden"));
             }
         }
 
@@ -165,7 +167,9 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 Sut.Save(user);
                 var ex = Assert.Throws<GenericADOException>(uow.TransactionalFlush);
                 Assert.That(ex.InnerException.Message,
-                            Is.StringContaining("Cannot insert the value NULL into column 'Email'"));
+                            // TODO: Etwas besseres finden...
+                            Is.StringContaining("Cannot insert the value NULL into column 'Email'")
+                            .Or.StringContaining("Der Wert NULL kann in die 'Email'-Spalte"));
             }
         }
 
