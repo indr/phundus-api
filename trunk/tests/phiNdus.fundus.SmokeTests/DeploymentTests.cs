@@ -10,10 +10,8 @@ namespace phiNdus.fundus.SmokeTests
     public class DeploymentTests
     {
         [Test]
-        public void CanGetHomePage()
+        public void CanNavigateToHomePage()
         {
-            // TODO: Smoke-Test sollte Datenbank berühren
-
             var appSettings = new AppSettingsReader();
             var uri = appSettings.GetValue("uri", typeof (string)).ToString();
 
