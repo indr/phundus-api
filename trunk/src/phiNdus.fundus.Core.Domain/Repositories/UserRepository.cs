@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NHibernate.Linq;
 using phiNdus.fundus.Core.Domain.Entities;
 using Rhino.Commons;
@@ -26,6 +27,14 @@ namespace phiNdus.fundus.Core.Domain.Repositories
         {
             var query = from u in Users
                         where u.Membership.SessionKey == sessionKey
+                        select u;
+            return query.FirstOrDefault();
+        }
+
+        public User FindByValidationKey(string validationKey)
+        {
+            var query = from u in Users
+                        where u.Membership.ValidationKey == validationKey
                         select u;
             return query.FirstOrDefault();
         }

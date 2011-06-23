@@ -15,7 +15,9 @@
     <property name="SessionKey" unique="true" length="20" />
     <property name="Password" access="nosetter.camelcase-underscore" />
     <property name="Salt" />
-    <property name="Email" />
+    <property name="Email">
+      <column name="Email" unique-key="MembershipEmail" />
+    </property>
     <property name="IsApproved" />
     <property name="IsLockedOut" />
     <property name="CreateDate" />
@@ -23,5 +25,6 @@
     <property name="LastPasswordChangeDate" />
     <property name="LastLockoutDate" />
     <property name="Comment" />
+    <property name="ValidationKey" />
   </class>
 </hibernate-mapping>

@@ -57,6 +57,8 @@ namespace phiNdus.fundus.Core.Domain.Entities
             set { IsApproved = !value; }
         }
 
+        public string ValidationKey { get; protected set; }
+
         public void LogOn(string password)
         {
             Guard.Against<ArgumentNullException>(password == null, "pasword");
@@ -74,6 +76,13 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
             IsLockedOut = true;
             LastLockoutDate = DateTime.Now;
+        }
+
+        public string GenerateValidationKey()
+        {
+            var key = KeyGenerator.CreateKey(20);
+            ValidationKey = key;
+            return key;
         }
     }
 }
