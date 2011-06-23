@@ -7,5 +7,6 @@ namespace phiNdus.fundus.Core.Domain.Repositories
     {
         User FindByEmail(string email);
         User FindBySessionKey(string sessionKey);
+        User FindByValidationKey(string validationKey);
     }
 }

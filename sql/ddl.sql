@@ -14,7 +14,7 @@ create table [Membership] (
   SessionKey VARCHAR(20) null,
   Password NVARCHAR(255) null,
   Salt VARCHAR(5) not null,
-  Email NVARCHAR(255) null,
+  Email NVARCHAR(255) not null unique,
   IsApproved BIT null,
   IsLockedOut BIT null,
   CreateDate DATETIME null,
@@ -22,7 +22,9 @@ create table [Membership] (
   LastPasswordChangeDate DATETIME null,
   LastLockoutDate DATETIME null,
   Comment NVARCHAR(255) null,
-  primary key (Id)
+  ValidationKey NVARCHAR(20) null,
+  primary key (Id),
+  unique (Email)
 );
 
 create table [User] (
