@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.Core.Domain.Settings;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Services
@@ -20,7 +22,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
             MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            //MockSettingRepository = CreateAndRegisterStrictMock<ISettingRepository>();
             MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
+            StubSettings = MockFactory.Stub<ISettings>();
+            Settings.SetGlobalNonThreadSafeSettings(StubSettings);
+            StubMailTemplateSettings = MockFactory.Stub<IMailTemplateSettings>();
+
 
             Sut = new UserService();
 
@@ -32,9 +40,20 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             TedMosby.Membership.Password = "1234";
         }
 
+        protected IMailTemplateSettings StubMailTemplateSettings { get; set; }
+
+        [TearDown]
+        public override void TearDown()
+        {
+            Settings.SetGlobalNonThreadSafeSettings(null);
+        }
+
+        protected ISettings StubSettings { get; set; }
+
         #endregion
 
         private IUserRepository MockUserRepository { get; set; }
+        //private ISettingRepository MockSettingRepository { get; set; }
         private IRoleRepository MockRoleRepository { get; set; }
         private IMailGateway MockMailGateway { get; set; }
 
@@ -52,11 +71,18 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                     MockRoleRepository.Get(1)).Return(Role.User);
                 Expect.Call(
                     MockUserRepository.Save(null)).IgnoreArguments().Return(null);
+                //Expect.Call(
+                //    MockSettingRepository.FindByKeyspace(Arg<string>.Is.Anything)).Return(
+                //        new Dictionary<string, Setting>());
+                Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
+                Expect.Call(StubMailTemplateSettings.Subject).Return("");
+                Expect.Call(StubMailTemplateSettings.Body).Return("");
 
                 Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
                 Expect.Call(() => MockUnitOfWork.TransactionalFlush());
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
+
             using (MockFactory.Playback())
             {
                 var dto = Sut.CreateUser("Ted.Mosby@example.com", "");
@@ -77,9 +103,16 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                     MockRoleRepository.Get(1)).Return(Role.User);
                 Expect.Call(
                     MockUserRepository.Save(null)).IgnoreArguments().Return(null);
+
+                Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
+                Expect.Call(StubMailTemplateSettings.Subject).Return("");
+                Expect.Call(StubMailTemplateSettings.Body).Return("");
+
                 Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
                 Expect.Call(() => MockUnitOfWork.TransactionalFlush());
                 Expect.Call(() => MockUnitOfWork.Dispose());
+
+                
             }
             using (MockFactory.Playback())
             {
@@ -101,6 +134,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                     MockRoleRepository.Get(1)).Return(Role.User);
                 Expect.Call(
                     MockUserRepository.Save(null)).IgnoreArguments().Return(null);
+
+                Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
+                Expect.Call(StubMailTemplateSettings.Subject).Return("");
+                Expect.Call(StubMailTemplateSettings.Body).Return("");
+
                 Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
                 Expect.Call(() => MockUnitOfWork.TransactionalFlush());
                 Expect.Call(() => MockUnitOfWork.Dispose());
