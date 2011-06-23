@@ -22,11 +22,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
             MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            //MockSettingRepository = CreateAndRegisterStrictMock<ISettingRepository>();
             MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
 
             StubSettings = MockFactory.Stub<ISettings>();
             Settings.SetGlobalNonThreadSafeSettings(StubSettings);
+            StubCommonSettings = MockFactory.Stub<ICommonSettings>();
             StubMailTemplateSettings = MockFactory.Stub<IMailTemplateSettings>();
 
 
@@ -39,6 +39,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             TedMosby.Membership.IsApproved = true;
             TedMosby.Membership.Password = "1234";
         }
+
+        protected ICommonSettings StubCommonSettings { get; set; }
 
         protected IMailTemplateSettings StubMailTemplateSettings { get; set; }
 
@@ -53,7 +55,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         #endregion
 
         private IUserRepository MockUserRepository { get; set; }
-        //private ISettingRepository MockSettingRepository { get; set; }
         private IRoleRepository MockRoleRepository { get; set; }
         private IMailGateway MockMailGateway { get; set; }
 
@@ -75,6 +76,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                 //    MockSettingRepository.FindByKeyspace(Arg<string>.Is.Anything)).Return(
                 //        new Dictionary<string, Setting>());
                 Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
+                Expect.Call(StubSettings.Common).Return(StubCommonSettings);
+                Expect.Call(StubCommonSettings.ServerUrl).Return("");
                 Expect.Call(StubMailTemplateSettings.Subject).Return("");
                 Expect.Call(StubMailTemplateSettings.Body).Return("");
 
@@ -105,6 +108,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                     MockUserRepository.Save(null)).IgnoreArguments().Return(null);
 
                 Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
+                Expect.Call(StubSettings.Common).Return(StubCommonSettings);
+                Expect.Call(StubCommonSettings.ServerUrl).Return("");
                 Expect.Call(StubMailTemplateSettings.Subject).Return("");
                 Expect.Call(StubMailTemplateSettings.Body).Return("");
 
@@ -136,6 +141,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                     MockUserRepository.Save(null)).IgnoreArguments().Return(null);
 
                 Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
+                Expect.Call(StubSettings.Common).Return(StubCommonSettings);
+                Expect.Call(StubCommonSettings.ServerUrl).Return("");
                 Expect.Call(StubMailTemplateSettings.Subject).Return("");
                 Expect.Call(StubMailTemplateSettings.Body).Return("");
 

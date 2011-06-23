@@ -1,4 +1,5 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using System;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Mails;
@@ -20,24 +21,31 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
 
             MockSettings = MockFactory.Stub<ISettings>();
             MockMailTemplateSettings = MockFactory.Stub<IMailTemplateSettings>();
+            MockCommonSettings = MockFactory.Stub<ICommonSettings>();
 
             User = new User();
             User.FirstName = "Ted";
             User.LastName = "Mosby";
             User.Membership.Email = "ted.mosby@example.com";
+            User.Membership.GenerateValidationKey();
         }
+
+        protected ICommonSettings MockCommonSettings { get; set; }
 
         private void RecordSettings()
         {
             Settings.SetGlobalNonThreadSafeSettings(MockSettings);
             Expect.Call(MockSettings.Mail.Templates.UserAccountValidation)
                 .Return(MockMailTemplateSettings).Repeat.Any();
-            
+            Expect.Call(MockSettings.Common)
+                .Return(MockCommonSettings).Repeat.Any();
+
             Expect.Call(MockMailTemplateSettings.Subject)
                 .Return("[fundus] User Account Validation").Repeat.Any();
             Expect.Call(MockMailTemplateSettings.Body)
                 .Return("Hello [User.FirstName]\r\n\r\nPlease go to the following link in order to validate your account:\r\n[Link.UserAccountValidation]\r\n\r\nThanks")
                 .Repeat.Any();
+            Expect.Call(MockCommonSettings.ServerUrl).Return("fundus.domain.com").Repeat.Any();
         }
 
         private IMailTemplateSettings MockMailTemplateSettings { get; set; }
@@ -84,8 +92,25 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
             using (MockFactory.Playback())
             {
                 var sut = new UserAccountValidationMail();
-                Assert.That(sut.For(null), Is.SameAs(sut));
+                Assert.That(sut.For(User), Is.SameAs(sut));
             }
+        }
+
+        [Test]
+        public void ForWithNullUserThrows()
+        {
+            using (MockFactory.Record())
+            {
+                RecordSettings();
+            }
+
+            using (MockFactory.Playback())
+            {
+                var sut = new UserAccountValidationMail();
+                var ex = Assert.Throws<ArgumentNullException>(() => sut.For(null));
+                Assert.That(ex.ParamName, Is.EqualTo("user"));
+            }
+            
         }
 
         [Test]
@@ -113,11 +138,15 @@ Please go to the following link in order to validate your account:
 [Link.UserAccountValidation]
 
 Thanks";
-        private const string ReplacedBody =
-            @"Hello Ted
+        private string ReplacedBody
+        {
+            get
+            {
+                return
+                    @"Hello Ted
 
 Please go to the following link in order to validate your account:
-[Link.UserAccountValidation]
+" + "http://fundus.domain.com/Account/Validation/?key=" + User.Membership.ValidationKey + @"
 
 Thanks
 
@@ -125,5 +154,7 @@ Thanks
 This is automatically generated message from fundus.
 -
 If you think it was sent incorrectly contact the administrator at admin@example.com.";
+            }
+        }
     }
 }
