@@ -83,6 +83,8 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="SessionKeyGenerator.cs" />
     <Compile Include="Settings\BaseSettings.cs" />
+    <Compile Include="Settings\CommonSettings.cs" />
+    <Compile Include="Settings\ICommonSettings.cs" />
     <Compile Include="Settings\IMailSettings.cs" />
     <Compile Include="Settings\IMailTemplateSettings.cs" />
     <Compile Include="Settings\IMailTemplatesSettings.cs" />

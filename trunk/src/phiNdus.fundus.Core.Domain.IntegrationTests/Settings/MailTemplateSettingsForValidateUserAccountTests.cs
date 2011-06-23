@@ -1,37 +1,36 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Settings;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Settings
 {
     [TestFixture]
-    public class MailTemplateSettingsForValidateUserAccountTests : BaseTestFixture
+    public class MailTemplateSettingsForValidateUserAccountTests : SettingsTestFixture<IMailTemplateSettings>
     {
-        #region Setup/Teardown
-
-        [SetUp]
-        public void SetUp()
-        {
-            Sut = Domain.Settings.Settings.Mail.Templates.UserAccountValidation;
-        }
-
-        #endregion
-
-        private IMailTemplateSettings Sut { get; set; }
-
         [Test]
-        public void Can_get_Body()
+        public void GetBody()
         {
+            InsertSetting("mail.templates.user-account-validation.body", "Hello");
+
             var actual = Sut.Body;
             Assert.That(actual, Is.Not.Null);
-            Assert.That(actual, Is.StringStarting("Hello [User.FirstName]"));
+            Assert.That(actual, Is.StringStarting("Hello"));
         }
 
         [Test]
-        public void Can_get_Subject()
+        public void GetSubject()
         {
+            InsertSetting("mail.templates.user-account-validation.subject", "Subject");
+
             var actual = Sut.Subject;
             Assert.That(actual, Is.Not.Null);
-            Assert.That(actual, Is.EqualTo("[fundus] User Account Validation"));
+            Assert.That(actual, Is.EqualTo("Subject"));
+        }
+
+        protected override IMailTemplateSettings CreateSut()
+        {
+            return new SettingsImpl().Mail.Templates.UserAccountValidation;
         }
     }
 }

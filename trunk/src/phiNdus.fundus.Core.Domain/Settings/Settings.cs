@@ -12,6 +12,11 @@ namespace phiNdus.fundus.Core.Domain.Settings
             get { return GetSettings().Mail; }
         }
 
+        public static ICommonSettings Common
+        {
+            get { return GetSettings().Common; }
+        }
+
         private static ISettings GetSettings()
         {
             if (_globalNonThreadSafeSettings != null)

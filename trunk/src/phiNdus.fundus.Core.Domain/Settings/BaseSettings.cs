@@ -35,10 +35,10 @@ namespace phiNdus.fundus.Core.Domain.Settings
             }
         }
 
-        protected string GetString(string key)
+        protected string GetString(string key, string def = null)
         {
             Setting setting;
-            return Values.TryGetValue(key, out setting) ? setting.StringValue : null;
+            return Values.TryGetValue(key, out setting) ? setting.StringValue : def;
         }
     }
 }
