@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace phiNdus.fundus.Core.Web.Models
 {
@@ -39,7 +40,8 @@ namespace phiNdus.fundus.Core.Web.Models
     }
 
 
-    public class EmailAttribute : RegularExpressionAttribute
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple=false)]
+    public sealed class EmailAttribute : RegularExpressionAttribute
     {
         // http://weblogs.asp.net/scottgu/archive/2010/01/15/asp-net-mvc-2-model-validation.aspx
         public EmailAttribute()
