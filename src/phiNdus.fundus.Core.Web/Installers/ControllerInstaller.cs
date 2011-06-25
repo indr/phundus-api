@@ -14,7 +14,7 @@ namespace phiNdus.fundus.Core.Web.Installers {
             container.Register(AllTypes.FromThisAssembly()
                                 .BasedOn<IController>()
                                 .If(Component.IsInNamespace("phiNdus.fundus.Core.Web.Controllers", true))
-                                .If(t => t.Name.EndsWith("Controller"))
+                                .If(t => t.Name.EndsWith("Controller", StringComparison.InvariantCulture))
                                 .Configure(c => c.LifeStyle.Transient));
         }
     }

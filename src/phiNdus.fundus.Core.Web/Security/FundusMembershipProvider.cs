@@ -55,13 +55,15 @@ namespace phiNdus.fundus.Core.Web.Security {
             return this.UserService.ChangePassword(null, username, oldPassword, newPassword);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021", MessageId = "Avoid out parameters",
+            Justification = "Kann nicht geändert werden, da vom Framework so vorgegeben.")]
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status) {
             // Todo,jac: Behandlung der verschiednen Fehlerfälle und Status entsprechend setzen.
             status = MembershipCreateStatus.Success;
 
             try
             {
-                return this.ConvertToExternal(
+                return ConvertToExternal(
                     // TODO: Session-Key
                     this.UserService.CreateUser(null, username, password));
             }
@@ -79,7 +81,7 @@ namespace phiNdus.fundus.Core.Web.Security {
 
         public override MembershipUser GetUser(string username, bool userIsOnline) {
             // TODO: Session-Key
-            return this.ConvertToExternal(this.UserService.GetUser(null, username));
+            return ConvertToExternal(this.UserService.GetUser(null, username));
         }
 
         public override string GetUserNameByEmail(string email) {
@@ -125,7 +127,7 @@ namespace phiNdus.fundus.Core.Web.Security {
 
         public override void UpdateUser(MembershipUser user) {
             // TODO: Session-Key
-            this.UserService.UpdateUser(null, this.ConvertToInternal(user));
+            this.UserService.UpdateUser(null, ConvertToInternal(user));
         }
 
         public override bool ValidateUser(string username, string password) {
@@ -137,7 +139,7 @@ namespace phiNdus.fundus.Core.Web.Security {
         //=========================================================================================
         #region Conversion Helper
 
-        private MembershipUser ConvertToExternal(UserDto userDto) {
+        private static MembershipUser ConvertToExternal(UserDto userDto) {
             return new MembershipUser(
                 Membership.Provider.Name,
                 userDto.Email,
@@ -154,7 +156,7 @@ namespace phiNdus.fundus.Core.Web.Security {
                 DateTime.Now);
         }
 
-        private UserDto ConvertToInternal(MembershipUser membershipUser) {
+        private static UserDto ConvertToInternal(MembershipUser membershipUser) {
             return new UserDto {
                 Email = membershipUser.UserName,
                 IsApproved = membershipUser.IsApproved,

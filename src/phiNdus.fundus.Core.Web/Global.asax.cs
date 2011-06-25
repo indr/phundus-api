@@ -31,7 +31,8 @@ namespace phiNdus.fundus.Core.Web {
         }
 
         
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822", MessageId = "Mark members as static",
+            Justification = "Kann nicht geändert werden, da vom Framework so vorgegeben.")]
         protected void Application_Start() {
 
             AreaRegistration.RegisterAllAreas();
@@ -42,6 +43,8 @@ namespace phiNdus.fundus.Core.Web {
             BootstrapContainer();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822", MessageId = "Mark members as static",
+            Justification = "Kann nicht geändert werden, da vom Framework so vorgegeben.")]
         // Gemäss Tutorial, aber diese Methode gibts ja nicht, deshalb Dispose
         protected void Application_End() {
             container.Dispose();
