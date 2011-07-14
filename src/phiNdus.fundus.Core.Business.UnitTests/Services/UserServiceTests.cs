@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
@@ -85,6 +86,10 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
+                var templateSettings = Settings.Mail.Templates.UserAccountValidation;
+                Assert.That(templateSettings, Is.Not.Null);
+
+
                 UserDto dto = Sut.CreateUser("Ted.Mosby@example.com", "");
 
                 Assert.That(dto, Is.Not.Null);
@@ -148,6 +153,40 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             using (MockFactory.Playback())
             {
                 Sut.CreateUser("ted.mosby@example.com", "");
+            }
+        }
+
+        [Test]
+        public void CreateUserSendsEmailWithValidationLink()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockUserRepository.FindByEmail(Arg<string>.Is.Anything)).Return(null);
+                Expect.Call(MockRoleRepository.Get(Arg<int>.Is.Anything)).Return(Role.User);
+                Expect.Call(MockUserRepository.Save(Arg<User>.Is.Anything)).Return(null);
+
+                Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
+                Expect.Call(StubSettings.Common).Return(StubCommonSettings);
+                Expect.Call(StubCommonSettings.ServerUrl).Return("fundus.domain.com");
+                Expect.Call(StubMailTemplateSettings.Subject).Return("[fundus] User Account Validation");
+                Expect.Call(StubMailTemplateSettings.Body).Return(@"Hello
+
+Link: [Link.UserAccountValidation]
+");
+
+                Expect.Call(() => MockMailGateway.Send(
+                    Arg<string>.Is.Equal("ted.mosby@example.com"),
+                    Arg<string>.Is.Same("[fundus] User Account Validation"),
+                    Arg<string>.Matches(y => y.StartsWith("Hello") && y.Contains(@"http://fundus.domain.com/Account/Validation/?key=")
+                        && new Regex(@"/\?key=[\w]{20}").Match(y).Success)
+                ));
+                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
+                Expect.Call(() => MockUnitOfWork.Dispose());
+            }
+
+            using (MockFactory.Playback())
+            {
+                Sut.CreateUser("ted.mosby@example.com", "password");
             }
         }
 

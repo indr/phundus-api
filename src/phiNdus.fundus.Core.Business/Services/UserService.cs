@@ -44,10 +44,11 @@ namespace phiNdus.fundus.Core.Business.Services
                 user.Membership.Email = email;
                 user.Membership.Password = password;
                 user.Role = Roles.Get(Role.User.Id);
+                user.Membership.GenerateValidationKey();
                 Users.Save(user);
 
                 // E-Mail mit Verifikationslink senden
-                new UserAccountValidationMail().Send(user);
+                new UserAccountValidationMail().For(user).Send(user);
 
                 result = UserAssembler.CreateDto(user);
                 uow.TransactionalFlush();
