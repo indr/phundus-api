@@ -85,11 +85,14 @@ If you think it was sent incorrectly contact the administrator at admin@example.
             if (!_dataContext.TryGetValue(group, out data))
                 return null;
 
-            string name = key.Substring(idx + 1);
-            PropertyInfo[] propertyInfos = data.GetType().GetProperties();
+            var name = key.Substring(idx + 1);
+            var propertyInfos = data.GetType().GetProperties();
 
-            foreach (PropertyInfo each in propertyInfos.Where(each => each.Name == name))
-                return each.GetValue(data, null).ToString();
+            foreach (var each in propertyInfos.Where(each => each.Name == name))
+            {
+                var value = each.GetValue(data, null);
+                return value == null ? "" : value.ToString();
+            }
             return null;
         }
 
