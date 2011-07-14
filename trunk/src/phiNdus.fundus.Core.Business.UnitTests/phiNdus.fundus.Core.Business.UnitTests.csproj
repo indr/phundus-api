@@ -78,8 +78,8 @@
     <Compile Include="Security\SessionHelper.cs" />
     <Compile Include="Security\SecuritySessionTests.cs" />
     <Compile Include="Services\BaseServiceTests.cs" />
-    <Compile Include="Services\UserServiceTests.cs" />
     <Compile Include="Mails\UserAccountValidationMailTest.cs" />
+    <Compile Include="Services\UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tests\phiNdus.fundus.TestHelpers\phiNdus.fundus.TestHelpers.csproj">
