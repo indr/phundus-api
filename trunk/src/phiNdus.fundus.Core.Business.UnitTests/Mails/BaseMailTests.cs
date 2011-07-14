@@ -90,12 +90,38 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
             using (MockFactory.Playback())
             {
                 var sut = new HackedBaseMail(MockMailTemplateSettings);
-                sut.AddData("Test", new TestData());
+                sut.AddData("Test", new RecursiveTestData());
                 sut.Send();
             }
         }
 
-        private class TestData
+        [Test]
+        public void ReplacesNullVariableWithEmptyString()
+        {
+            using (MockFactory.Record())
+            {
+                Expect.Call(MockMailTemplateSettings.Subject).Return("Subject");
+                Expect.Call(MockMailTemplateSettings.Body).Return("Start[Test.ImNull]End");
+                Expect.Call(MockSettings.Common.ServerUrl).Return("fundus.domain.test");
+
+                Expect.Call(() => MockMailGateway.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything,
+                    Arg<string>.Matches(y => y.StartsWith("StartEnd"))));
+            }
+
+            using (MockFactory.Playback())
+            {
+                var sut = new HackedBaseMail(MockMailTemplateSettings);
+                sut.AddData("Test", new NullTestData());
+                sut.Send();
+            }
+        }
+
+        private class NullTestData
+        {
+            public string ImNull { get { return null; } }
+        }
+
+        private class RecursiveTestData
         {
             public string FirstVariable { get { return "I'm First and next says [Test.SecondVariable]"; } }
             public string SecondVariable { get { return "I'm Second and next says [Test.ThirdVariable]"; } }
