@@ -43,6 +43,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\tools\NUnit\framework\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="OpenPop">
+      <HintPath>..\..\tools\OpenPop.NET\binaries\unsigned\OpenPop.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Commons">
       <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.dll</HintPath>
     </Reference>
@@ -61,7 +64,9 @@
     <Compile Include="SettingsTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\phiNdus.fundus.Core.Business\phiNdus.fundus.Core.Business.csproj">
