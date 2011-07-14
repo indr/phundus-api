@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Threading;
 using NUnit.Framework;
+using OpenPop.Mime;
 using OpenPop.Pop3;
 
 namespace phiNdus.fundus.TestHelpers
@@ -16,7 +17,7 @@ namespace phiNdus.fundus.TestHelpers
 
         public Pop3Helper()
         {
-            DelayPeriod = TimeSpan.FromSeconds(15);
+            DelayPeriod = TimeSpan.FromSeconds(20);
             Pause = TimeSpan.FromSeconds(1);
 
             var appSettings = new AppSettingsReader();
@@ -40,7 +41,7 @@ namespace phiNdus.fundus.TestHelpers
         public string Address { get; set; }
 
 
-        public void ConfirmEmailWasReceived(string subject)
+        public Message ConfirmEmailWasReceived(string subject)
         {
             var start = DateTime.Now;
             do
@@ -52,7 +53,7 @@ namespace phiNdus.fundus.TestHelpers
                     {
                         var msg = client.GetMessageHeaders(i);
                         if (msg.Subject.Equals(subject))
-                            return;
+                            return client.GetMessage(i);
                     }
                     
                 }
@@ -60,6 +61,9 @@ namespace phiNdus.fundus.TestHelpers
             } while (DateTime.Now < start + DelayPeriod);
 
             Assert.Fail("No email was found in a sensible time");
+// ReSharper disable HeuristicUnreachableCode
+            return null;
+// ReSharper restore HeuristicUnreachableCode
         }
     }
 }
