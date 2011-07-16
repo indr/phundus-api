@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
@@ -6,6 +7,7 @@ using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.TestHelpers.UnitTests.Settings;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Services
@@ -20,15 +22,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         {
             base.SetUp();
 
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
-
-            StubSettings = MockFactory.Stub<ISettings>();
-            Settings.SetGlobalNonThreadSafeSettings(StubSettings);
-            StubCommonSettings = MockFactory.Stub<ICommonSettings>();
-            StubMailTemplateSettings = MockFactory.Stub<IMailTemplateSettings>();
-
+            MockUnitOfWork = CreateAndRegisterStrictUnitOfWorkMock();
 
             Sut = new UserService();
 
@@ -38,12 +32,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             TedMosby.Membership.Email = "ted.mosby@example.com";
             TedMosby.Membership.IsApproved = true;
             TedMosby.Membership.Password = "1234";
-        }
-
-        [TearDown]
-        public override void TearDown()
-        {
-            Settings.SetGlobalNonThreadSafeSettings(null);
         }
 
         #endregion
@@ -61,153 +49,15 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         private UserService Sut { get; set; }
         private User TedMosby { get; set; }
 
-        [Test]
-        public void CreateUserLowersEmail()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(
-                    MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(null);
-                Expect.Call(
-                    MockRoleRepository.Get(1)).Return(Role.User);
-                Expect.Call(
-                    MockUserRepository.Save(null)).IgnoreArguments().Return(null);
-                
-                Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
-                Expect.Call(StubSettings.Common).Return(StubCommonSettings);
-                Expect.Call(StubCommonSettings.ServerUrl).Return("");
-                Expect.Call(StubMailTemplateSettings.Subject).Return("");
-                Expect.Call(StubMailTemplateSettings.Body).Return("");
-
-                Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
-                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-
-            using (MockFactory.Playback())
-            {
-                var templateSettings = Settings.Mail.Templates.UserAccountValidation;
-                Assert.That(templateSettings, Is.Not.Null);
-
-
-                UserDto dto = Sut.CreateUser("Ted.Mosby@example.com", "");
-
-                Assert.That(dto, Is.Not.Null);
-                Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
-            }
-        }
-
-        [Test]
-        public void CreateUserReturnsDto()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(
-                    MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(null);
-                Expect.Call(
-                    MockRoleRepository.Get(1)).Return(Role.User);
-                Expect.Call(
-                    MockUserRepository.Save(null)).IgnoreArguments().Return(null);
-
-                Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
-                Expect.Call(StubSettings.Common).Return(StubCommonSettings);
-                Expect.Call(StubCommonSettings.ServerUrl).Return("");
-                Expect.Call(StubMailTemplateSettings.Subject).Return("");
-                Expect.Call(StubMailTemplateSettings.Body).Return("");
-
-                Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
-                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-            using (MockFactory.Playback())
-            {
-                UserDto dto = Sut.CreateUser("ted.mosby@example.com", "");
-
-                Assert.That(dto, Is.Not.Null);
-                Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
-            }
-        }
-
-        [Test]
-        public void CreateUserSaveNewUserToRepository()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(
-                    MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(null);
-                Expect.Call(
-                    MockRoleRepository.Get(1)).Return(Role.User);
-                Expect.Call(
-                    MockUserRepository.Save(null)).IgnoreArguments().Return(null);
-
-                Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
-                Expect.Call(StubSettings.Common).Return(StubCommonSettings);
-                Expect.Call(StubCommonSettings.ServerUrl).Return("");
-                Expect.Call(StubMailTemplateSettings.Subject).Return("");
-                Expect.Call(StubMailTemplateSettings.Body).Return("");
-
-                Expect.Call(() => MockMailGateway.Send(null, null, null)).IgnoreArguments();
-                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-            using (MockFactory.Playback())
-            {
-                Sut.CreateUser("ted.mosby@example.com", "");
-            }
-        }
-
-        [Test]
-        public void CreateUserSendsEmailWithValidationLink()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(MockUserRepository.FindByEmail(Arg<string>.Is.Anything)).Return(null);
-                Expect.Call(MockRoleRepository.Get(Arg<int>.Is.Anything)).Return(Role.User);
-                Expect.Call(MockUserRepository.Save(Arg<User>.Is.Anything)).Return(null);
-
-                Expect.Call(StubSettings.Mail.Templates.UserAccountValidation).Return(StubMailTemplateSettings);
-                Expect.Call(StubSettings.Common).Return(StubCommonSettings);
-                Expect.Call(StubCommonSettings.ServerUrl).Return("fundus.domain.com");
-                Expect.Call(StubMailTemplateSettings.Subject).Return("[fundus] User Account Validation");
-                Expect.Call(StubMailTemplateSettings.Body).Return(@"Hello
-
-Link: [Link.UserAccountValidation]
-");
-
-                Expect.Call(() => MockMailGateway.Send(
-                    Arg<string>.Is.Equal("ted.mosby@example.com"),
-                    Arg<string>.Is.Same("[fundus] User Account Validation"),
-                    Arg<string>.Matches(y => y.StartsWith("Hello") && y.Contains(@"http://fundus.domain.com/Account/Validation/?key=")
-                        && new Regex(@"/\?key=[\w]{20}").Match(y).Success)
-                ));
-                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-
-            using (MockFactory.Playback())
-            {
-                Sut.CreateUser("ted.mosby@example.com", "password");
-            }
-        }
-
-        [Test]
-        public void CreateUserWhenEmailAlreadyTakenThrows()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(
-                    MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(TedMosby);
-                Expect.Call(() => MockUnitOfWork.Dispose());
-            }
-            using (MockFactory.Playback())
-            {
-                Assert.Throws<EmailAlreadyTakenException>(() => Sut.CreateUser("ted.mosby@example.com", ""));
-            }
-        }
+       
 
         [Test]
         public void DeleteUser_deletes_repository_and_flushes_transaction()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             var user = new User();
             using (MockFactory.Record())
             {
@@ -227,6 +77,10 @@ Link: [Link.UserAccountValidation]
         [Test]
         public void DeleteUser_with_email_null_throws()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             var ex = Assert.Throws<ArgumentNullException>(() => Sut.DeleteUser(null));
             Assert.That(ex.ParamName, Is.EqualTo("email"));
         }
@@ -234,6 +88,10 @@ Link: [Link.UserAccountValidation]
         [Test]
         public void GetUser_lowers_email()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             using (MockFactory.Record())
             {
                 Expect.Call(
@@ -252,6 +110,10 @@ Link: [Link.UserAccountValidation]
         [Test]
         public void GetUser_returns_dto()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             var user = new User();
             user.Membership.Email = "user@example.com";
             using (MockFactory.Record())
@@ -271,6 +133,10 @@ Link: [Link.UserAccountValidation]
         [Test]
         public void GetUser_returns_null()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             using (MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindByEmail("user@example.com")).Return(null);
@@ -287,6 +153,10 @@ Link: [Link.UserAccountValidation]
         [Test]
         public void UpdateUser_updates_repository_and_flushes_transaction()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             var user = new User();
             using (MockFactory.Record())
             {
@@ -305,6 +175,10 @@ Link: [Link.UserAccountValidation]
         [Test]
         public void UpdateUser_with_invalid_id_throws()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             using (MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.Get(0)).Return(null);
@@ -320,12 +194,20 @@ Link: [Link.UserAccountValidation]
         [Test]
         public void UpdateUser_with_null_subject_throws()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             Assert.Throws<ArgumentNullException>(() => Sut.UpdateUser(null));
         }
 
         [Test]
         public void UpdateUser_with_out_of_date_userdto_throws()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             using (MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.Get(1)).Return(new User());
@@ -341,6 +223,10 @@ Link: [Link.UserAccountValidation]
         [Test]
         public void ValidateUser_returns_not_null()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             using (MockFactory.Record())
             {
                 Expect.Call(
@@ -359,6 +245,10 @@ Link: [Link.UserAccountValidation]
         [Test]
         public void ValidateUser_with_invalid_password_returns_null()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             using (MockFactory.Record())
             {
                 Expect.Call(
@@ -376,6 +266,10 @@ Link: [Link.UserAccountValidation]
         [Test]
         public void ValidateUser_with_unknown_email_returns_null()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             using (MockFactory.Record())
             {
                 Expect.Call(
@@ -393,6 +287,10 @@ Link: [Link.UserAccountValidation]
         [Test]
         public void ValidateUser_with_uppercase_email_returns_not_null()
         {
+            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+
             using (MockFactory.Record())
             {
                 Expect.Call(
@@ -406,6 +304,18 @@ Link: [Link.UserAccountValidation]
                 string actual = Sut.ValidateUser("UNKNOWN@example.com", "1234");
                 Assert.That(actual, Is.Not.Null);
             }
+        }
+    }
+
+    public static class RhinoExtensions
+    {
+        /// <summary>
+        /// Clears the behavior already recorded in a Rhino Mocks stub.
+        /// </summary>
+        public static void ClearBehavior<T>(this T stub)
+        {
+            stub.BackToRecord(BackToRecordOptions.All);
+            stub.Replay();
         }
     }
 }
