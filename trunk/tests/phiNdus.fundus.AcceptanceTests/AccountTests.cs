@@ -34,7 +34,7 @@ namespace phiNdus.fundus.AcceptanceTests
             var pop3Helper = new Pop3Helper();
             var adminApi = new AdminApi();
             adminApi.DeleteUser(pop3Helper.Address);
-
+            
             var signUpWindow = new SignUpWindowDriver(Context);
             signUpWindow.SpecifyFirstName("Hans");
             signUpWindow.SpecifyLastName("Muster");
@@ -42,7 +42,12 @@ namespace phiNdus.fundus.AcceptanceTests
             signUpWindow.SpecifyPassword("123qwe");
             signUpWindow.SignUp();
 
-            pop3Helper.ConfirmEmailWasReceived("[fundus] User Account Validation");
+            var body = pop3Helper.ConfirmEmailWasReceived("[fundus] User Account Validation").FindFirstPlainTextVersion().GetBodyAsText();
+
+            Assert.That(body, Is.StringStarting(@"Hello Hans
+
+Please go to the following link in order to validate your account:"));
+            Assert.That(body, Is.StringMatching(Context.BaseUri + @"/Account/Validation/\?key=[\w]{20}"));
         }
 
         [Test]
