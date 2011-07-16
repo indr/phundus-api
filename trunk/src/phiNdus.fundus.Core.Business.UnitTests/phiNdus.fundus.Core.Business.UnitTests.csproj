@@ -79,6 +79,7 @@
     <Compile Include="Security\SecuritySessionTests.cs" />
     <Compile Include="Services\BaseServiceTests.cs" />
     <Compile Include="Mails\UserAccountValidationMailTest.cs" />
+    <Compile Include="Services\UserService\CreateUserTests.cs" />
     <Compile Include="Services\UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
