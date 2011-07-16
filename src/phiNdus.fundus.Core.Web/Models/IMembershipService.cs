@@ -11,6 +11,6 @@ namespace phiNdus.fundus.Core.Web.Models
         /// <returns>true wenn gültig</returns>
         bool ValidateUser(string email, string password);
 
-        MembershipUser CreateUser(string email, string password, out MembershipCreateStatus status);
+        MembershipUser CreateUser(string email, string password, string firstName, string lastName, out MembershipCreateStatus status);
     }
 }

@@ -73,7 +73,8 @@ namespace phiNdus.fundus.Core.Web.Controllers
             if (ModelState.IsValid)
             {
                 MembershipCreateStatus status;
-                MembershipService.CreateUser(model.Email, model.Password, out status);
+                //MembershipService.CreateUser(model.Email, model.Password, out status);
+                MembershipService.CreateUser(model.Email, model.Password, model.FirstName, model.LastName, out status);
 
 
                 switch (status)

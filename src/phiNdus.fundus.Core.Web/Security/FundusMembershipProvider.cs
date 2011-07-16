@@ -58,6 +58,11 @@ namespace phiNdus.fundus.Core.Web.Security {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021", MessageId = "Avoid out parameters",
             Justification = "Kann nicht geändert werden, da vom Framework so vorgegeben.")]
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status) {
+            throw new InvalidOperationException();
+        }
+
+        public MembershipUser CreateUser(string email, string password, string firstName, string lastName, out MembershipCreateStatus status)
+        {
             // Todo,jac: Behandlung der verschiednen Fehlerfälle und Status entsprechend setzen.
             status = MembershipCreateStatus.Success;
 
@@ -65,7 +70,7 @@ namespace phiNdus.fundus.Core.Web.Security {
             {
                 return ConvertToExternal(
                     // TODO: Session-Key
-                    this.UserService.CreateUser(null, username, password));
+                    this.UserService.CreateUser(null, email, password, firstName, lastName));
             }
             catch (EmailAlreadyTakenException)
             {

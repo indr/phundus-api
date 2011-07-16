@@ -52,7 +52,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services.UserService
         {
             MockUserRepository.Stub(x => x.FindByEmail(Arg<string>.Is.Anything)).Return(null);
 
-            Sut.CreateUser("john@example.com", "1234");
+            Sut.CreateUser("john@example.com", "1234", "", "");
 
             MockUnitOfWork.AssertWasCalled(x => x.TransactionalFlush());
             MockUnitOfWork.AssertWasCalled(x => x.Dispose());
@@ -62,7 +62,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services.UserService
         public void CreateUserWithEmptyEmailThrows()
         {
             Assert.Ignore("TODO");
-            var ex = Assert.Throws<ArgumentNullException>(() => Sut.CreateUser("", ""));
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.CreateUser("", "", "", ""));
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services.UserService
         {
             MockUserRepository.Stub(x => x.FindByEmail(Arg<string>.Is.Anything)).Return(null);
 
-            var dto = Sut.CreateUser("Ted.Mosby@example.com", "");
+            var dto = Sut.CreateUser("Ted.Mosby@example.com", "", "", "");
 
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
@@ -81,10 +81,12 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services.UserService
         {
             MockUserRepository.Stub(x => x.FindByEmail(Arg<string>.Is.Anything)).Return(null);
 
-            var dto = Sut.CreateUser("ted.mosby@example.com", "");
+            var dto = Sut.CreateUser("ted.mosby@example.com", "", "Ted", "Mosby");
 
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
+            Assert.That(dto.FirstName, Is.EqualTo("Ted"));
+            Assert.That(dto.LastName, Is.EqualTo("Mosby"));
         }
 
         [Test]
@@ -92,7 +94,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services.UserService
         {
             MockUserRepository.Stub(x => x.FindByEmail(Arg<string>.Is.Anything)).Return(null);
 
-            Sut.CreateUser("ted.mosby@example.com", "");
+            Sut.CreateUser("ted.mosby@example.com", "", "", "");
 
             MockUserRepository.AssertWasCalled(x => x.Save(Arg<User>.Is.Anything));
         }
@@ -102,19 +104,19 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services.UserService
         {
             StubSettings.Mail.Templates.UserAccountValidation.ClearBehavior();
             StubSettings.Mail.Templates.UserAccountValidation.Stub(x => x.Subject).Return("[fundus] User Account Validation");
-            StubSettings.Mail.Templates.UserAccountValidation.Stub(x => x.Body).Return(@"Hello
+            StubSettings.Mail.Templates.UserAccountValidation.Stub(x => x.Body).Return(@"Hello [User.FirstName]
 
 Link: [Link.UserAccountValidation]
 ");
 
-            Sut.CreateUser("ted.mosby@example.com", "password");
+            Sut.CreateUser("ted.mosby@example.com", "password", "Ted", "");
 
             MockMailGateway.AssertWasCalled(x => x.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything, Arg<string>.Is.Anything));
 
             MockMailGateway.AssertWasCalled(x => x.Send(
                 Arg<string>.Is.Equal("ted.mosby@example.com"),
                 Arg<string>.Is.Same("[fundus] User Account Validation"),
-                Arg<string>.Matches(y => y.StartsWith("Hello") && y.Contains(@"http://fundus.example.com/Account/Validation/?key=")
+                Arg<string>.Matches(y => y.StartsWith("Hello Ted") && y.Contains(@"http://fundus.example.com/Account/Validation/?key=")
                         && new Regex(@"/\?key=[\w]{20}").Match(y).Success)));
         }
 
@@ -123,7 +125,7 @@ Link: [Link.UserAccountValidation]
         {
             MockUserRepository.Expect(x => x.FindByEmail("ted.mosby@example.com")).Return(new User());
 
-            Assert.Throws<EmailAlreadyTakenException>(() => Sut.CreateUser("ted.mosby@example.com", ""));
+            Assert.Throws<EmailAlreadyTakenException>(() => Sut.CreateUser("ted.mosby@example.com", "", "", ""));
         }
     }
 }
