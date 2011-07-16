@@ -43,6 +43,9 @@
     <Reference Include="Rhino.Commons.NHibernate">
       <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\tools\Rhino.Mocks\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -64,6 +67,7 @@
     <Compile Include="Repositories\SettingRepositoryTests.cs" />
     <Compile Include="Repositories\UserRepositoryTests.cs" />
     <Compile Include="SessionKeyGeneratorTests.cs" />
+    <Compile Include="Settings\HowToMockSettingsTests.cs" />
     <Compile Include="Settings\MailSettingsTest.cs" />
     <Compile Include="Settings\MailTemplatesSettingsTests.cs" />
     <Compile Include="Settings\SettingsTests.cs" />
