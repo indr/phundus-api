@@ -7,7 +7,6 @@ using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using phiNdus.fundus.Core.Domain.Settings;
-using phiNdus.fundus.TestHelpers.UnitTests.Settings;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Services
@@ -24,7 +23,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             MockUnitOfWork = CreateAndRegisterStrictUnitOfWorkMock();
 
-            Sut = new UserService();
+            Sut = new Business.Services.UserService();
 
             TedMosby = new User();
             TedMosby.FirstName = "Ted";
@@ -46,7 +45,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         private IRoleRepository MockRoleRepository { get; set; }
         private IMailGateway MockMailGateway { get; set; }
 
-        private UserService Sut { get; set; }
+        private Business.Services.UserService Sut { get; set; }
         private User TedMosby { get; set; }
 
        
