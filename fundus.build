@@ -338,6 +338,9 @@
         <expandproperties />
       </filterchain>
     </copy>
+    <property name="deploy.connstring" value="${acceptance.connstring}" />
+    <property name="deploy.iisserver" value="${acceptance.iisserver}" />
+    <property name="deploy.vdir" value="${acceptance.vdir}" />
     <copy file="${config.dir}\App.config.AcceptanceTests.tmpl"
           tofile="${tests.dir}\phiNdus.fundus.AcceptanceTests\App.config"
           outputencoding="UTF-8" overwrite="true"
