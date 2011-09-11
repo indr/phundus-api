@@ -119,5 +119,22 @@ namespace phiNdus.fundus.Core.Business.Services
             }
             return result;
         }
+
+        public virtual bool ValidateValidationKey(string key)
+        {
+            var result = false;
+            using (var uow = UnitOfWork.Start())
+            {
+                var user = Users.FindByValidationKey(key);
+                if (user == null)
+                    return false;
+
+                result = user.Membership.ValidateValidationKey(key);
+                if (result)
+                    Users.Save(user);
+                uow.TransactionalFlush();
+            }
+            return result;
+        }
     }
 }

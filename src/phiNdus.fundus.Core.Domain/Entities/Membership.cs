@@ -84,5 +84,12 @@ namespace phiNdus.fundus.Core.Domain.Entities
             ValidationKey = key;
             return key;
         }
+
+        public bool ValidateValidationKey(string key)
+        {
+            if (key == ValidationKey)
+                return IsApproved = true;
+            return false;
+        }
     }
 }

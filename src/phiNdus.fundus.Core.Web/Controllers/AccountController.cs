@@ -62,6 +62,16 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult Validation()
+        {
+            if (Request.QueryString["key"] != null)
+            {
+                if (MembershipService.ValidateValidationKey(Request.QueryString["key"]))
+                    return View("ValidationDone");
+            }
+            return View();
+        }
+
         public ActionResult SignUp()
         {
             return View();

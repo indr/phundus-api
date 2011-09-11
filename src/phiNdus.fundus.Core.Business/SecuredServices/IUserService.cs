@@ -40,5 +40,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         /// Setzt das Password für einen Benutzer zurück und liefert das neue Passwort.
         /// </summary>
         string ResetPassword(string sessionKey, string email);
+
+        bool ValidateValidationKey(string key);
     }
 }
