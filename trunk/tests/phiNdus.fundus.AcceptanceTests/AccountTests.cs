@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Text.RegularExpressions;
+using NUnit.Framework;
 using phiNdus.fundus.AcceptanceTests.AppDriver;
 using phiNdus.fundus.AcceptanceTests.AppDriver.WindowDriver;
 using phiNdus.fundus.TestHelpers;
@@ -9,20 +10,29 @@ namespace phiNdus.fundus.AcceptanceTests
     public class AccountTests : DslTestCase
     {
         [Test]
-        public void SignUpWhenUserAlreadyExistsShowsEmailAlreadyTaken()
+        public void OpenValidationLinkValidatesUser()
         {
-            // Given a user with email dave@example.com
-            // When I sign up with dave@example.com
-            // Then I see that email is already taken
+            // When I click validation link
+            // Then my User is validated
 
+            var pop3Helper = new Pop3Helper();
             var adminApi = new AdminApi();
-            adminApi.CreateUser("dave@example.com");
+            adminApi.DeleteUser(pop3Helper.Address);
+            adminApi.CreateUser(pop3Helper.Address);
 
-            var signUpWindow = new SignUpWindowDriver(Context);
-            signUpWindow.SpecifyAll("dave@example.com");
-            signUpWindow.SignUp();
+            var body =
+                pop3Helper.ConfirmEmailWasReceived("[fundus] User Account Validation").FindFirstPlainTextVersion().
+                    GetBodyAsText();
 
-            signUpWindow.ContainsText("Die E-Mail-Adresse wird bereits verwendet");
+            var match = new Regex(Context.BaseUri + @"/Account/Validation/\?key=[\w]{20}").Match(body);
+            Assert.That(match.Success, Is.True, "Validation link not found");
+
+            var validationWindow = new ValidationWindowDriver(Context, match.Value);
+
+            validationWindow.ContainsText("Thank you");
+
+            var user = adminApi.GetUser(pop3Helper.Address);
+            Assert.That(user.IsApproved, Is.True, "User not approved");
         }
 
         [Test]
@@ -34,7 +44,7 @@ namespace phiNdus.fundus.AcceptanceTests
             var pop3Helper = new Pop3Helper();
             var adminApi = new AdminApi();
             adminApi.DeleteUser(pop3Helper.Address);
-            
+
             var signUpWindow = new SignUpWindowDriver(Context);
             signUpWindow.SpecifyFirstName("Hans");
             signUpWindow.SpecifyLastName("Muster");
@@ -42,9 +52,13 @@ namespace phiNdus.fundus.AcceptanceTests
             signUpWindow.SpecifyPassword("123qwe");
             signUpWindow.SignUp();
 
-            var body = pop3Helper.ConfirmEmailWasReceived("[fundus] User Account Validation").FindFirstPlainTextVersion().GetBodyAsText();
+            var body =
+                pop3Helper.ConfirmEmailWasReceived("[fundus] User Account Validation").FindFirstPlainTextVersion().
+                    GetBodyAsText();
 
-            Assert.That(body, Is.StringStarting(@"Hello Hans
+            Assert.That(body,
+                        Is.StringStarting(
+                            @"Hello Hans
 
 Please go to the following link in order to validate your account:"));
             Assert.That(body, Is.StringMatching(Context.BaseUri + @"/Account/Validation/\?key=[\w]{20}"));
@@ -95,6 +109,23 @@ Please go to the following link in order to validate your account:"));
             signUpWindow.ContainsText(@"Das Feld ""Nachname"" ist erforderlich.");
             signUpWindow.ContainsText(@"Das Feld ""E-Mail-Adresse"" ist erforderlich.");
             signUpWindow.ContainsText(@"Das Feld ""Passwort"" ist erforderlich.");
+        }
+
+        [Test]
+        public void SignUpWhenUserAlreadyExistsShowsEmailAlreadyTaken()
+        {
+            // Given a user with email dave@example.com
+            // When I sign up with dave@example.com
+            // Then I see that email is already taken
+
+            var adminApi = new AdminApi();
+            adminApi.CreateUser("dave@example.com");
+
+            var signUpWindow = new SignUpWindowDriver(Context);
+            signUpWindow.SpecifyAll("dave@example.com");
+            signUpWindow.SignUp();
+
+            signUpWindow.ContainsText("Die E-Mail-Adresse wird bereits verwendet");
         }
     }
 }

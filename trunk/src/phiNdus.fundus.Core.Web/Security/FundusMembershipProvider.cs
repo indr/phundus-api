@@ -79,6 +79,11 @@ namespace phiNdus.fundus.Core.Web.Security {
             }
         }
 
+        public bool ValidateValidationKey(string key)
+        {
+            return this.UserService.ValidateValidationKey(key);
+        }
+
         public override bool DeleteUser(string username, bool deleteAllRelatedData) {
             // TODO: Session-Key
             return this.UserService.DeleteUser(null, username);

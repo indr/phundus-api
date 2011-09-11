@@ -58,6 +58,12 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
             throw new NotImplementedException();
         }
 
+        public bool ValidateValidationKey(string key)
+        {
+            return Secured.With(null)
+                .Do<UserService, bool>(svc => svc.ValidateValidationKey(key));
+        }
+
         #endregion
     }
 }

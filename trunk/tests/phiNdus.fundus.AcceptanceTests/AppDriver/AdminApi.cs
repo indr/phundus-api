@@ -1,4 +1,5 @@
-﻿using phiNdus.fundus.Core.Business.Services;
+﻿using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Core.Business.Services;
 
 namespace phiNdus.fundus.AcceptanceTests.AppDriver
 {
@@ -15,8 +16,14 @@ namespace phiNdus.fundus.AcceptanceTests.AppDriver
         public void CreateUser(string email)
         {
             var userService = new UserService();
-            if (userService.GetUser("dave@example.com") == null)
-                userService.CreateUser("dave@example.com", "password", "", "");
+            if (userService.GetUser(email) == null)
+                userService.CreateUser(email, "password", "", "");
+        }
+
+        public UserDto GetUser(string email)
+        {
+            var userService = new UserService();
+            return userService.GetUser(email);
         }
     }
 }

@@ -42,6 +42,12 @@ namespace phiNdus.fundus.Core.Web.Models
             return provider.CreateUser(email, password, firstName, lastName, out status);
         }
 
+        public bool ValidateValidationKey(string key)
+        {
+            var provider = new FundusMembershipProvider();
+            return provider.ValidateValidationKey(key);
+        }
+
         #endregion
     }
 }
