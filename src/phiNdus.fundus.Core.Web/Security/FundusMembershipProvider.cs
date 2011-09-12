@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Security;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using Rhino.Commons;
@@ -51,8 +52,7 @@ namespace phiNdus.fundus.Core.Web.Security {
         }
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword) {
-            // TODO: Session-Key
-            return this.UserService.ChangePassword(null, username, oldPassword, newPassword);
+            return this.UserService.ChangePassword(HttpContext.Current.Session.SessionID, username, oldPassword, newPassword);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021", MessageId = "Avoid out parameters",
@@ -69,8 +69,7 @@ namespace phiNdus.fundus.Core.Web.Security {
             try
             {
                 return ConvertToExternal(
-                    // TODO: Session-Key
-                    this.UserService.CreateUser(null, email, password, firstName, lastName));
+                    this.UserService.CreateUser(HttpContext.Current.Session.SessionID, email, password, firstName, lastName));
             }
             catch (EmailAlreadyTakenException)
             {
@@ -85,13 +84,11 @@ namespace phiNdus.fundus.Core.Web.Security {
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData) {
-            // TODO: Session-Key
-            return this.UserService.DeleteUser(null, username);
+            return this.UserService.DeleteUser(HttpContext.Current.Session.SessionID, username);
         }
 
         public override MembershipUser GetUser(string username, bool userIsOnline) {
-            // TODO: Session-Key
-            return ConvertToExternal(this.UserService.GetUser(null, username));
+            return ConvertToExternal(this.UserService.GetUser(HttpContext.Current.Session.SessionID, username));
         }
 
         public override string GetUserNameByEmail(string email) {
@@ -131,19 +128,15 @@ namespace phiNdus.fundus.Core.Web.Security {
         }
 
         public override string ResetPassword(string username, string answer) {
-            // TODO: Session-Key
-            return this.UserService.ResetPassword(null, username);
+            return this.UserService.ResetPassword(HttpContext.Current.Session.SessionID, username);
         }
 
         public override void UpdateUser(MembershipUser user) {
-            // TODO: Session-Key
-            this.UserService.UpdateUser(null, ConvertToInternal(user));
+            this.UserService.UpdateUser(HttpContext.Current.Session.SessionID, ConvertToInternal(user));
         }
 
         public override bool ValidateUser(string username, string password) {
-            var sessionKey = this.UserService.ValidateUser(username, password);
-            // TODO,MVC-Team
-            return sessionKey != null;
+            return this.UserService.ValidateUser(HttpContext.Current.Session.SessionID, username, password);
         }
 
         //=========================================================================================

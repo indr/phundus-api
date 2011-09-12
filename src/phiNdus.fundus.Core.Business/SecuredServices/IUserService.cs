@@ -34,7 +34,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         /// Überprüft, ob ein Benutzer mit dem gegebenen Passwort existiert
         /// und liefert einen gültigen SecurityContext-Key zurück
         /// </summary>
-        string ValidateUser(string email, string password);
+        bool ValidateUser(string sessionId, string email, string password);
 
         /// <summary>
         /// Setzt das Password für einen Benutzer zurück und liefert das neue Passwort.

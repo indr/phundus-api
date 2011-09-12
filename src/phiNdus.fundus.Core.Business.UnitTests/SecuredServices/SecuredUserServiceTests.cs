@@ -252,16 +252,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void ValidateUser_returns()
         {
+            var sessionId = GetNewSessionId();
             using (MockFactory.Record())
             {
-                Expect.Call(MockUserService.ValidateUser(Arg<string>.Is.Anything,
+                Expect.Call(MockUserService.ValidateUser(Arg<string>.Is.Equal(sessionId),
                      Arg<string>.Is.Equal("user@example.com"),
                      Arg<string>.Is.Equal("1234"))).Return(true);
             }
             using (MockFactory.Playback())
             {
-                var actual = Sut.ValidateUser("user@example.com", "1234");
-                Assert.That(actual, Is.EqualTo("1234"));
+                var actual = Sut.ValidateUser(sessionId, "user@example.com", "1234");
+                Assert.That(actual, Is.True);
             }
         }
     }
