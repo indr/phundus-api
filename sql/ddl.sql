@@ -11,7 +11,7 @@ create table hibernate_unique_key (
 create table [Membership] (
   Id INT not null,
   Version INT not null,
-  SessionKey VARCHAR(20) null,
+  SessionKey VARCHAR(24) null,
   Password NVARCHAR(255) null,
   Salt VARCHAR(5) not null,
   Email NVARCHAR(255) not null unique,

@@ -49,8 +49,10 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 
         public string ValidateUser(string email, string password)
         {
-            return Secured.With(null)
-                .Do<UserService, string>(svc => svc.ValidateUser(email, password));
+            Secured.With(null)
+                .Do<UserService, bool>(svc => svc.ValidateUser("1234", email, password));
+            // TODO
+            return "1234";
         }
 
         public string ResetPassword(string sessionKey, string email)

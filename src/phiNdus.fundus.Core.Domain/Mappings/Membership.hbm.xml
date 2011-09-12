@@ -12,7 +12,7 @@
 
     <one-to-one name="User" class="User" constrained="true" />
 
-    <property name="SessionKey" unique="true" length="20" />
+    <property name="SessionKey" unique="true" length="24" />
     <property name="Password" access="nosetter.camelcase-underscore" />
     <property name="Salt" />
     <property name="Email">
