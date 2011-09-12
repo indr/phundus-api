@@ -47,12 +47,10 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
             throw new NotImplementedException();
         }
 
-        public string ValidateUser(string email, string password)
+        public bool ValidateUser(string sessionId, string email, string password)
         {
-            Secured.With(null)
-                .Do<UserService, bool>(svc => svc.ValidateUser("1234", email, password));
-            // TODO
-            return "1234";
+            return Secured.With(null)
+                .Do<UserService, bool>(svc => svc.ValidateUser(sessionId, email, password));
         }
 
         public string ResetPassword(string sessionKey, string email)
