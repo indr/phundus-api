@@ -19,7 +19,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [SetUp]
         public void SetUp()
         {
-            _domainObject = new User(1);
+            _domainObject = new User(1, 2);
             _domainObject.FirstName = "John";
             _domainObject.LastName = "Wayne";
             var membership = new DerivedMembership();
@@ -38,6 +38,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             _dto.Email = "john.wayne@example.com";
             _dto.FirstName = "John";
             _dto.Id = 1;
+            _dto.Version = 2;
             _dto.IsApproved = true;
             _dto.LastName = "Wayne";
             _dto.Version = 0;
@@ -94,6 +95,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             var dto = UserAssembler.CreateDto(_domainObject);
 
             Assert.That(dto.Id, Is.EqualTo(1));
+            Assert.That(dto.Version, Is.EqualTo(2));
             Assert.That(dto.FirstName, Is.EqualTo("John"));
             Assert.That(dto.LastName, Is.EqualTo("Wayne"));
             Assert.That(dto.Email, Is.EqualTo("john.wayne@example.com"));

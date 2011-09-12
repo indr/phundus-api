@@ -8,9 +8,14 @@
         {
         }
 
-        protected BaseEntity(int id)
+        protected BaseEntity(int id) : this(id, 0)
+        {
+        }
+
+        protected BaseEntity(int id, int version)
         {
             _id = id;
+            _version = version;
         }
 
         public virtual int Id
@@ -19,6 +24,11 @@
             protected set { _id = value; }
         }
 
-        public virtual int Version { get; protected set; }
+        private int _version;
+        public virtual int Version
+        {
+            get { return _version; }
+            protected set { _version = value; }
+        }
     }
 }

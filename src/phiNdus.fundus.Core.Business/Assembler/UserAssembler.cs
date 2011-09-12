@@ -40,6 +40,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             Guard.Against<ArgumentNullException>(subject == null, "subject");
             var result = new UserDto();
             result.Id = subject.Id;
+            result.Version = subject.Version;
             result.FirstName = subject.FirstName;
             result.LastName = subject.LastName;
             return WriteDtoMembership(subject.Membership, result);

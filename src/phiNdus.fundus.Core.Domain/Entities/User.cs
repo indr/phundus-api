@@ -11,7 +11,11 @@
         {
         }
 
-        public User(int id) : base(id)
+        public User(int id) : this(id, 0)
+        {
+        }
+
+        public User(int id, int version) : base(id, version)
         {
             _firstName = "";
             _lastName = "";
