@@ -20,6 +20,13 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
                 .Do<UserService, UserDto>(svc => svc.GetUser(email));
         }
 
+        public UserDto GetUser(string sessionKey, int id)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .And(User.Is(id) || User.InRole(Role.Administrator))
+                .Do<UserService, UserDto>(svc => svc.GetUser(id));
+        }
+
         public UserDto CreateUser(string sessionKey, string email, string password, string firstName, string lastName)
         {
             return Secured.With(null)
@@ -62,6 +69,12 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         {
             return Secured.With(null)
                 .Do<UserService, bool>(svc => svc.ValidateValidationKey(key));
+        }
+
+        public UserDto[] GetUsers(string sessionKey)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .Do<UserService, UserDto[]>(svc => svc.GetUsers());
         }
 
         #endregion

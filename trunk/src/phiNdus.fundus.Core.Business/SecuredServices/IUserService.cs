@@ -8,6 +8,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         /// Liefert den Benutzer für die übergebene E-Mail Adresse.
         /// </summary>
         UserDto GetUser(string sessionKey, string email);
+        UserDto GetUser(string sessionKey, int id);
 
         /// <summary>
         /// Erstelllt einen neuen Benutzer.
@@ -42,5 +43,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         string ResetPassword(string sessionKey, string email);
 
         bool ValidateValidationKey(string key);
+        UserDto[] GetUsers(string sessionKey);
+        
     }
 }

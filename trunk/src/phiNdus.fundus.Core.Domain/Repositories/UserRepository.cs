@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Linq;
 using phiNdus.fundus.Core.Domain.Entities;
@@ -14,6 +15,12 @@ namespace phiNdus.fundus.Core.Domain.Repositories
         }
 
         #region IUserRepository Members
+
+        public ICollection<User> FindAll()
+        {
+            var query = from u in Users select u;
+            return query.ToList();
+        }
 
         public User FindByEmail(string email)
         {

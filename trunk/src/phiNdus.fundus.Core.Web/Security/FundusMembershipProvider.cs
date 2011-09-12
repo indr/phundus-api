@@ -135,7 +135,10 @@ namespace phiNdus.fundus.Core.Web.Security {
             this.UserService.UpdateUser(HttpContext.Current.Session.SessionID, ConvertToInternal(user));
         }
 
-        public override bool ValidateUser(string username, string password) {
+        public override bool ValidateUser(string username, string password)
+        {
+            // ASP.NET-Bug? Session-Id ändert sich, falls nichts in der Session ist.
+            HttpContext.Current.Session["dummy"] = new object();
             return this.UserService.ValidateUser(HttpContext.Current.Session.SessionID, username, password);
         }
 
