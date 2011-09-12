@@ -23,58 +23,65 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 
         protected Membership Sut { get; set; }
 
-        [Test]
-        public void LogOn_sets_SessionKey_with_length_20()
+        private string GetNewSessionId()
         {
-            Assert.That(Sut.SessionKey, Is.Null);
-            Sut.LogOn("1234");
-            Assert.That(Sut.SessionKey, Is.Not.Null);
-            Assert.That(Sut.SessionKey.Length, Is.EqualTo(20));
+            return Guid.NewGuid().ToString().Replace("-", "");
         }
 
         [Test]
         public void LogOn_updates_LastLogOnDate()
         {
             Assert.That(Sut.LastLogOnDate, Is.Null);
-            Sut.LogOn("1234");
+            Sut.LogOn(GetNewSessionId(), "1234");
             Assert.That(Sut.LastLogOnDate, Is.EqualTo(DateTime.Now).Within(1).Seconds);
         }
 
         [Test]
         public void LogOn_updates_SessionKey()
         {
-            var old = Sut.SessionKey;
+            var sessionKey = GetNewSessionId();
             Assert.That(Sut.SessionKey, Is.Null);
-            Sut.LogOn("1234");
-            Assert.That(Sut.SessionKey, Is.Not.Null.Or.Empty);
-            Assert.That(Sut.SessionKey, Is.Not.EqualTo(old));
+            Sut.LogOn(sessionKey, "1234");
+            Assert.That(Sut.SessionKey, Is.EqualTo(sessionKey));
         }
 
         [Test]
         public void LogOn_when_locked_out_throws()
         {
             Sut.IsLockedOut = true;
-            Assert.Throws<UserLockedOutException>(() => Sut.LogOn(""));
+            Assert.Throws<UserLockedOutException>(() => Sut.LogOn(GetNewSessionId(), ""));
         }
 
         [Test]
         public void LogOn_when_not_approved_throws()
         {
             Sut.IsApproved = false;
-            Assert.Throws<UserNotApprovedException>(() => Sut.LogOn(""));
+            Assert.Throws<UserNotApprovedException>(() => Sut.LogOn(GetNewSessionId(), ""));
         }
 
         [Test]
         public void LogOn_with_invalid_password_throws()
         {
             Sut.Password = "1234";
-            Assert.Throws<InvalidPasswordException>(() => Sut.LogOn("4321"));
+            Assert.Throws<InvalidPasswordException>(() => Sut.LogOn(GetNewSessionId(), "4321"));
         }
 
         [Test]
         public void LogOn_with_password_null_throws()
         {
-            Assert.Throws<ArgumentNullException>(() => Sut.LogOn(null));
+            Assert.Throws<ArgumentNullException>(() => Sut.LogOn(GetNewSessionId(), null));
+        }
+
+        [Test]
+        public void LogOn_with_sessionKey_null_throws()
+        {
+            Assert.Throws<ArgumentNullException>(() => Sut.LogOn(null, "1234"));
+        }
+
+        [Test]
+        public void LogOn_with_sessionKey_empty_throws()
+        {
+            Assert.Throws<ArgumentException>(() => Sut.LogOn("", "1234"));
         }
 
         [Test]

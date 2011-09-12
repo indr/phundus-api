@@ -59,23 +59,25 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public string ValidationKey { get; protected set; }
 
-        public void LogOn(string password)
+        public void LockOut()
         {
-            Guard.Against<ArgumentNullException>(password == null, "pasword");
+            IsLockedOut = true;
+            LastLockoutDate = DateTime.Now;
+        }
+
+        public void LogOn(string sessionKey, string password)
+        {
+            Guard.Against<ArgumentNullException>(sessionKey == null, "sessionKey");
+            Guard.Against<ArgumentException>(String.IsNullOrEmpty(sessionKey), "sessionKey must not be empty");
+            Guard.Against<ArgumentNullException>(password == null, "password");
             Guard.Against<UserNotApprovedException>(IsNotApproved, "");
             Guard.Against<UserLockedOutException>(IsLockedOut, "");
 
             Guard.Against<InvalidPasswordException>(
                 Password != PasswordEncryptor.Encrypt(password, Salt), "");
 
-            SessionKey = SessionKeyGenerator.CreateKey();
+            SessionKey = sessionKey;
             LastLogOnDate = DateTime.Now;
-        }
-
-        public void LockOut()
-        {
-            IsLockedOut = true;
-            LastLockoutDate = DateTime.Now;
         }
 
         public string GenerateValidationKey()

@@ -65,6 +65,8 @@ namespace phiNdus.fundus.Core.Business.Services
 
         public virtual string ValidateUser(string email, string password)
         {
+            var sessionId = Guid.NewGuid().ToString().Replace("-", "");
+
             email = email.ToLower(CultureInfo.CurrentCulture);
 
             using (IUnitOfWork uow = UnitOfWork.Start())
@@ -74,7 +76,7 @@ namespace phiNdus.fundus.Core.Business.Services
                     return null;
                 try
                 {
-                    user.Membership.LogOn(password);
+                    user.Membership.LogOn(sessionId, password);
                     uow.TransactionalFlush();
                     return user.Membership.SessionKey;
                 }
