@@ -219,8 +219,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             }
         }
 
+        private string GetNewSessionId()
+        {
+            return Guid.NewGuid().ToString().Replace("-", "");
+        }
+
         [Test]
-        public void ValidateUser_returns_not_null()
+        public void ValidateUser_returns_true()
         {
             MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
             MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
@@ -236,8 +241,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                string actual = Sut.ValidateUser("unknown@example.com", "1234");
-                Assert.That(actual, Is.Not.Null);
+                bool actual = Sut.ValidateUser(GetNewSessionId(), "unknown@example.com", "1234");
+                Assert.That(actual, Is.True);
             }
         }
 
@@ -257,8 +262,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                string actual = Sut.ValidateUser("unknown@example.com", "123");
-                Assert.That(actual, Is.Null);
+                bool actual = Sut.ValidateUser(GetNewSessionId(), "unknown@example.com", "123");
+                Assert.That(actual, Is.False);
             }
         }
 
@@ -278,8 +283,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                string actual = Sut.ValidateUser("unknown@example.com", "");
-                Assert.That(actual, Is.Null);
+                bool actual = Sut.ValidateUser(GetNewSessionId(), "unknown@example.com", "");
+                Assert.That(actual, Is.False);
             }
         }
 
@@ -300,8 +305,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (MockFactory.Playback())
             {
-                string actual = Sut.ValidateUser("UNKNOWN@example.com", "1234");
-                Assert.That(actual, Is.Not.Null);
+                bool actual = Sut.ValidateUser(GetNewSessionId(), "UNKNOWN@example.com", "1234");
+                Assert.That(actual, Is.True);
             }
         }
     }

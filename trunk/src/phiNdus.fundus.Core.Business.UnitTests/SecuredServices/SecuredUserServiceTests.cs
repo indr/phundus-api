@@ -244,17 +244,24 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             }
         }
 
+        private string GetNewSessionId()
+        {
+            return Guid.NewGuid().ToString().Replace("-", "");
+        }
+
         [Test]
         public void ValidateUser_returns()
         {
             using (MockFactory.Record())
             {
-                Expect.Call(MockUserService.ValidateUser("user@example.com", "1234")).Return("valid");
+                Expect.Call(MockUserService.ValidateUser(Arg<string>.Is.Anything,
+                     Arg<string>.Is.Equal("user@example.com"),
+                     Arg<string>.Is.Equal("1234"))).Return(true);
             }
             using (MockFactory.Playback())
             {
                 var actual = Sut.ValidateUser("user@example.com", "1234");
-                Assert.That(actual, Is.EqualTo("valid"));
+                Assert.That(actual, Is.EqualTo("1234"));
             }
         }
     }

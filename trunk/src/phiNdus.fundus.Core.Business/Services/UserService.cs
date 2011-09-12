@@ -63,26 +63,24 @@ namespace phiNdus.fundus.Core.Business.Services
             throw new NotImplementedException();
         }
 
-        public virtual string ValidateUser(string email, string password)
+        public virtual bool ValidateUser(string sessionId, string email, string password)
         {
-            var sessionId = Guid.NewGuid().ToString().Replace("-", "");
-
             email = email.ToLower(CultureInfo.CurrentCulture);
 
             using (IUnitOfWork uow = UnitOfWork.Start())
             {
                 User user = Users.FindByEmail(email);
                 if (user == null)
-                    return null;
+                    return false;
                 try
                 {
                     user.Membership.LogOn(sessionId, password);
                     uow.TransactionalFlush();
-                    return user.Membership.SessionKey;
+                    return true;
                 }
                 catch (InvalidPasswordException)
                 {
-                    return null;
+                    return false;
                 }
             }
         }
