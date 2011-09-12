@@ -12,7 +12,14 @@
         <div class="head-menu"> 
             @Html.Partial("_HeadMenu")
         </div>
+        <div class="main-menu">
+            @Html.Partial("_MainMenu")
+        </div>
         @RenderBody()
+
+        <div>
+            <p>SessionID: @Html.Label(Session.SessionID)</p>
+        </div>
     </body>
 </html>
 

@@ -35,6 +35,25 @@ namespace phiNdus.fundus.Core.Business.Services
             }
         }
 
+        public virtual UserDto GetUser(int id)
+        {
+            using (UnitOfWork.Start())
+            {
+                User user = Users.Get(id);
+                if (user == null)
+                    return null;
+                return UserAssembler.CreateDto(user);
+            }
+        }
+
+        public UserDto[] GetUsers()
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                return UserAssembler.CreateDtos(Users.FindAll());
+            }
+        }
+
         public virtual void UpdateUser(UserDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
@@ -136,5 +155,7 @@ namespace phiNdus.fundus.Core.Business.Services
             }
             return result;
         }
+
+        
     }
 }

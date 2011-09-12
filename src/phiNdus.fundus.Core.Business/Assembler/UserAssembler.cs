@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
@@ -11,6 +12,16 @@ namespace phiNdus.fundus.Core.Business.Assembler
         public static UserDto CreateDto(User subject)
         {
             return WriteDto(subject);
+        }
+
+        public static UserDto[] CreateDtos(ICollection<User> subjects)
+        {
+            var result = new List<UserDto>();
+            foreach (var each in subjects)
+            {
+                result.Add(CreateDto(each));
+            }
+            return result.ToArray();
         }
 
         public static User CreateDomainObject(UserDto subject)
