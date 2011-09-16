@@ -11,12 +11,14 @@ insert into [Role] (Id, Version, Name)
 insert into [Role] (Id, Version, Name)
   values (2, 1, 'Administrator');
 
-
-  
- EXEC('CREATE TRIGGER [DenyInsertUpdateDeleteRole] ON [dbo].[Role] AFTER INSERT, UPDATE, DELETE
+EXEC('CREATE TRIGGER [DenyInsertUpdateDeleteRole] ON [dbo].[Role] AFTER INSERT, UPDATE, DELETE
 AS 
 BEGIN
 	SET NOCOUNT ON;
   
   RAISERROR (N''You''''re not allowed to insert, update or delete roles'', 16, 1);
 END');
+
+
+insert into [ItemProperty] (Id, Version, Name, [Type])
+  values (1, 1, 'Name', 1);
