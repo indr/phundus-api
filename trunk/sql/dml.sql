@@ -20,5 +20,5 @@ BEGIN
 END');
 
 
-insert into [ItemProperty] (Id, Version, Name, [Type])
+insert into [DomainProperty] (Id, Version, Name, [Type])
   values (1, 1, 'Name', 1);

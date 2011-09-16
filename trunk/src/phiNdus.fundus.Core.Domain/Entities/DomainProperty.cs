@@ -12,6 +12,10 @@
             Type = type;
         }
 
+        public DomainProperty(DomainPropertyType type) : this(0, "", type)
+        {
+        }
+
         public virtual string Name { get; protected set; }
 
         public virtual DomainPropertyType Type { get; protected set; }
