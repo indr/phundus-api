@@ -53,7 +53,7 @@ create table [Setting] (
   primary key (Id)
 )
 
-create table [ItemProperty] (
+create table [DomainProperty] (
   Id int not null,
   Version int not null,
   [Name] NVARCHAR(255) not null,
