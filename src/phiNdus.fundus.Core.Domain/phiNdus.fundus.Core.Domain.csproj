@@ -67,8 +67,9 @@
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Item.cs" />
-    <Compile Include="Entities\ItemProperty.cs" />
-    <Compile Include="Entities\ItemPropertyType.cs" />
+    <Compile Include="Entities\DomainProperty.cs" />
+    <Compile Include="Entities\DomainPropertyType.cs" />
+    <Compile Include="Entities\DomainPropertyValue.cs" />
     <Compile Include="Entities\Membership.cs" />
     <Compile Include="Entities\Model.cs" />
     <Compile Include="Entities\Role.cs" />
@@ -78,10 +79,10 @@
     <Compile Include="InvalidPasswordException.cs" />
     <Compile Include="KeyGenerator.cs" />
     <Compile Include="PasswordEncryptor.cs" />
-    <Compile Include="Repositories\IItemPropertyRepository.cs" />
+    <Compile Include="Repositories\IDomainPropertyRepository.cs" />
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\ISettingRepository.cs" />
-    <Compile Include="Repositories\ItemPropertyRepository.cs" />
+    <Compile Include="Repositories\DomainPropertyRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
@@ -126,9 +127,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\ItemProperty.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <Content Include="Mappings\DomainProperty.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

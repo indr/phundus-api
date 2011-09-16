@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 {
     [TestFixture]
-    public class ItemPropertyRepositoryTests : BaseTestFixture
+    public class DomainPropertyRepositoryTests : BaseTestFixture
     {
         [Test]
         public void Can_create()
         {
-            new ItemPropertyRepository();
+            new DomainPropertyRepository();
         }
 
         [Test]
         public void Can_find_all()
         {
-            var sut = new ItemPropertyRepository();
+            var sut = new DomainPropertyRepository();
             using (var uow = UnitOfWork.Start())
             {
                 var actual = sut.FindAll();
