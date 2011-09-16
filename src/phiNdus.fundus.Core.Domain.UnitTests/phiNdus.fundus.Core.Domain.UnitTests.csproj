@@ -56,7 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\BaseEntityTests.cs" />
+    <Compile Include="Entities\ItemPropertyTests.cs" />
+    <Compile Include="Entities\ItemPropertyTypeTests.cs" />
+    <Compile Include="Entities\ItemTests.cs" />
     <Compile Include="Entities\MembershipTests.cs" />
+    <Compile Include="Entities\ModelTests.cs" />
     <Compile Include="Entities\RoleTests.cs" />
     <Compile Include="Entities\SettingTests.cs" />
     <Compile Include="Entities\UserTests.cs" />

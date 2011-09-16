@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappings\MappingTests.cs" />
+    <Compile Include="Repositories\ItemPropertyRepositoryTests.cs" />
     <Compile Include="Repositories\RoleRepositoryTests.cs" />
     <Compile Include="Repositories\SettingRepositoryTests.cs" />
     <Compile Include="Repositories\UserRepositoryTests.cs" />

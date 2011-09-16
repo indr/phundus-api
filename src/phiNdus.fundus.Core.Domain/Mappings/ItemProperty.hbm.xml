@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Core.Domain" namespace="phiNdus.fundus.Core.Domain.Entities">
+
+  <class name="ItemProperty" table="[ItemProperty]">
+    <id name="Id">
+      <generator class="hilo" />
+    </id>
+    <version name="Version" />
+    <property name="Name" />
+    <property name="Type" />
+  </class>
+</hibernate-mapping>

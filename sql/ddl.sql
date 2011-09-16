@@ -47,10 +47,18 @@ create table [Setting] (
   Id int not null,
   Version int not null,
   [Key] NVARCHAR(255) not null,
-  StringValue NVARCHAR(max) null,
+  [StringValue] NVARCHAR(max) null,
   [DecimalValue] decimal null,
   [IntegerValue] int null,
   primary key (Id)
+)
+
+create table [ItemProperty] (
+  Id int not null,
+  Version int not null,
+  [Name] NVARCHAR(255) not null,
+  [Type] TINYINT not null,
+  primary key(Id)
 )
 
 alter table [Membership] 
