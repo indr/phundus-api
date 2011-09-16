@@ -2,7 +2,7 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Core.Domain" namespace="phiNdus.fundus.Core.Domain.Entities">
 
-  <class name="ItemProperty" table="[ItemProperty]">
+  <class name="DomainProperty" table="[DomainProperty]">
     <id name="Id">
       <generator class="hilo" />
     </id>

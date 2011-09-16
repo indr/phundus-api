@@ -4,8 +4,8 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Repositories
 {
-    public interface IItemPropertyRepository : IRepository<ItemProperty>
+    public interface IDomainPropertyRepository : IRepository<DomainProperty>
     {
-        ICollection<ItemProperty> FindAll();
+        ICollection<DomainProperty> FindAll();
     }
 }
