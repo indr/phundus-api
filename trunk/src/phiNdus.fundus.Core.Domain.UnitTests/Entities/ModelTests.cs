@@ -9,14 +9,15 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Can_create()
         {
-            new Model();
+            var sut =new Model();
+            Assert.That(sut, Is.Not.Null);
         }
 
         [Test]
         public void Is_derived_from_BasePropertyEntity()
         {
-            var model = new Model();
-            Assert.That(model, Is.InstanceOf(typeof (BasePropertyEntity)));
+            var sut = new Model();
+            Assert.That(sut, Is.InstanceOf(typeof (BasePropertyEntity)));
         }
     }
 }

@@ -75,6 +75,20 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void HasProperty_after_RemoveProperty_returns_false()
+        {
+            var sut = new BasePropertyEntity();
+
+            sut.AddProperty(_nameProperty);
+            var actual = sut.HasProperty(_nameProperty);
+            Assert.That(actual, Is.True);
+            
+            sut.RemoveProperty(_nameProperty);
+            actual = sut.HasProperty(_nameProperty);
+            Assert.That(actual, Is.False);
+        }
+
+        [Test]
         public void Is_derived_from_BaseEntity()
         {
             var sut = new BasePropertyEntity();
@@ -95,6 +109,23 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             var sut = new BasePropertyEntity();
             var ex = Assert.Throws<Exception>(() => sut.SetPropertyValue(_nameProperty, "Pullover"));
             Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));
+        }
+
+        [Test]
+        public void RemoveProperty_without_the_presence_of_the_property_throws()
+        {
+            var sut = new BasePropertyEntity();
+            var ex = Assert.Throws<Exception>(() => sut.RemoveProperty(_nameProperty));
+            Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));    
+        }
+
+        [Test]
+        public void AddProperty_with_the_property_already_added_throws()
+        {
+            var sut = new BasePropertyEntity();
+            sut.AddProperty(_nameProperty);
+            var ex = Assert.Throws<Exception>(() => sut.AddProperty(_nameProperty));
+            Assert.That(ex.Message, Is.EqualTo("Property bereits vorhanden."));    
         }
     }
 }
