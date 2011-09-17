@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\BasePropertyEntity.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\DomainProperty.cs" />
     <Compile Include="Entities\DomainPropertyType.cs" />
