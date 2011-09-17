@@ -48,7 +48,7 @@ create table [Setting] (
   Version int not null,
   [Key] NVARCHAR(255) not null,
   [StringValue] NVARCHAR(max) null,
-  [DecimalValue] decimal null,
+  [DecimalValue] decimal(18,3) null,
   [IntegerValue] int null,
   primary key (Id)
 )
@@ -61,6 +61,25 @@ create table [DomainProperty] (
   primary key(Id)
 )
 
+create table [DomainPropertyValue] (
+  Id int not null,
+  Version int not null,
+  DomainPropertyId int not null,
+  BooleanValue bit null,
+  TextValue NVARCHAR(max) null,
+  IntegerValue int null,
+  DecimalValue decimal(18,3) null,
+  DateTimeValue datetime null,
+  ModelId int null,
+  primary key(Id)
+)
+
+create table [Model] (
+  Id int not null,
+  Version int not null,
+  primary key(Id)
+)
+
 alter table [Membership] 
   add constraint FkMembershipToUser 
   foreign key (Id) 
@@ -70,3 +89,14 @@ alter table [User]
   add constraint FkUserToRole 
   foreign key (RoleId) 
   references [Role];
+
+alter table [DomainPropertyValue]
+  add constraint FkDomainPropertyValueToDomainProperty
+  foreign key (DomainPropertyId)
+  references [DomainProperty];
+
+alter table [DomainPropertyValue]
+  add constraint FkDomainPropertyValueToModel
+  foreign key (ModelId)
+  references [Model];  
+  

@@ -11,7 +11,7 @@
             Name = name;
             Type = type;
         }
-
+        
         public DomainProperty(DomainPropertyType type) : this(0, "", type)
         {
         }

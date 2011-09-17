@@ -4,14 +4,18 @@ namespace phiNdus.fundus.Core.Domain.Entities
 {
     public class DomainPropertyValue : BaseEntity
     {
-        public DomainPropertyValue(DomainProperty property)
+        protected DomainPropertyValue() : base()
+        {
+        }
+
+        public DomainPropertyValue(DomainProperty property) : base()
         {
             Property = property;
         }
 
-        public DomainProperty Property { get; protected set; }
+        public virtual DomainProperty Property { get; protected set; }
 
-        public object Value
+        public virtual object Value
         {
             get
             {

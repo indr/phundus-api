@@ -17,7 +17,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
             _properties = properties;
         }
 
-        public bool HasProperty(DomainProperty property)
+        public virtual bool HasProperty(DomainProperty property)
         {
             foreach (var each in _properties)
             {
@@ -27,12 +27,12 @@ namespace phiNdus.fundus.Core.Domain.Entities
             return false;
         }
 
-        public void AddProperty(DomainProperty property)
+        public virtual void AddProperty(DomainProperty property)
         {
             _properties.Add(new DomainPropertyValue(property));
         }
 
-        public object GetPropertyValue(DomainProperty property)
+        public virtual object GetPropertyValue(DomainProperty property)
         {
             foreach (var each in _properties)
             {
@@ -42,7 +42,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
             throw new Exception("Property nicht vorhanden.");
         }
 
-        public void SetPropertyValue(DomainProperty property, object value)
+        public virtual void SetPropertyValue(DomainProperty property, object value)
         {
             foreach (var each in _properties)
                 if (each.Property == property)

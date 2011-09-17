@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappings\DomainPropertyValuePersistenceTests.cs" />
     <Compile Include="Mappings\MappingTests.cs" />
     <Compile Include="Repositories\DomainPropertyRepositoryTests.cs" />
     <Compile Include="Repositories\RoleRepositoryTests.cs" />
