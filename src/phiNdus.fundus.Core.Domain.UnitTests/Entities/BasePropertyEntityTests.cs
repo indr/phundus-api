@@ -21,7 +21,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 
         #endregion
 
-        private readonly DomainProperty _nameProperty = new DomainProperty(1, "Name", DomainPropertyType.Text);
+        private readonly DomainPropertyDefinition _namePropertyDefinition = new DomainPropertyDefinition(1, "Name", DomainPropertyType.Text);
 
         [Test]
         public void Can_create()
@@ -34,18 +34,18 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void Can_get_and_set_PropertyValue()
         {
             var sut = new BasePropertyEntity();
-            sut.AddProperty(_nameProperty);
-            Assert.That(sut.GetPropertyValue(_nameProperty), Is.Null);
-            sut.SetPropertyValue(_nameProperty, "Pullover");
-            Assert.That(sut.GetPropertyValue(_nameProperty), Is.EqualTo("Pullover"));
+            sut.AddProperty(_namePropertyDefinition);
+            Assert.That(sut.GetPropertyValue(_namePropertyDefinition), Is.Null);
+            sut.SetPropertyValue(_namePropertyDefinition, "Pullover");
+            Assert.That(sut.GetPropertyValue(_namePropertyDefinition), Is.EqualTo("Pullover"));
         }
 
         [Test]
         public void GetPropertyValue_after_AddProperty_returns_null()
         {
             var sut = new BasePropertyEntity();
-            sut.AddProperty(_nameProperty);
-            var actual = sut.GetPropertyValue(_nameProperty);
+            sut.AddProperty(_namePropertyDefinition);
+            var actual = sut.GetPropertyValue(_namePropertyDefinition);
             Assert.That(actual, Is.Null);
         }
 
@@ -53,7 +53,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void GetPropertyValue_without_the_presence_of_the_property_throws()
         {
             var sut = new BasePropertyEntity();
-            var ex = Assert.Throws<Exception>(() => sut.GetPropertyValue(_nameProperty));
+            var ex = Assert.Throws<Exception>(() => sut.GetPropertyValue(_namePropertyDefinition));
             Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));
         }
 
@@ -61,8 +61,8 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void HasProperty_after_AddProperty_returns_true()
         {
             var sut = new BasePropertyEntity();
-            sut.AddProperty(_nameProperty);
-            var actual = sut.HasProperty(_nameProperty);
+            sut.AddProperty(_namePropertyDefinition);
+            var actual = sut.HasProperty(_namePropertyDefinition);
             Assert.That(actual, Is.True);
         }
 
@@ -70,7 +70,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void HasProperty_returns_false()
         {
             var sut = new BasePropertyEntity();
-            var actual = sut.HasProperty(_nameProperty);
+            var actual = sut.HasProperty(_namePropertyDefinition);
             Assert.That(actual, Is.False);
         }
 
@@ -79,12 +79,12 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         {
             var sut = new BasePropertyEntity();
 
-            sut.AddProperty(_nameProperty);
-            var actual = sut.HasProperty(_nameProperty);
+            sut.AddProperty(_namePropertyDefinition);
+            var actual = sut.HasProperty(_namePropertyDefinition);
             Assert.That(actual, Is.True);
             
-            sut.RemoveProperty(_nameProperty);
-            actual = sut.HasProperty(_nameProperty);
+            sut.RemoveProperty(_namePropertyDefinition);
+            actual = sut.HasProperty(_namePropertyDefinition);
             Assert.That(actual, Is.False);
         }
 
@@ -99,15 +99,15 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void SetPropertyValue_after_AddProperty()
         {
             var sut = new BasePropertyEntity();
-            sut.AddProperty(_nameProperty);
-            sut.SetPropertyValue(_nameProperty, "Pullover");
+            sut.AddProperty(_namePropertyDefinition);
+            sut.SetPropertyValue(_namePropertyDefinition, "Pullover");
         }
 
         [Test]
         public void SetPropertyValue_without_the_presence_of_the_property_throws()
         {
             var sut = new BasePropertyEntity();
-            var ex = Assert.Throws<Exception>(() => sut.SetPropertyValue(_nameProperty, "Pullover"));
+            var ex = Assert.Throws<Exception>(() => sut.SetPropertyValue(_namePropertyDefinition, "Pullover"));
             Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));
         }
 
@@ -115,7 +115,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void RemoveProperty_without_the_presence_of_the_property_throws()
         {
             var sut = new BasePropertyEntity();
-            var ex = Assert.Throws<Exception>(() => sut.RemoveProperty(_nameProperty));
+            var ex = Assert.Throws<Exception>(() => sut.RemoveProperty(_namePropertyDefinition));
             Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));    
         }
 
@@ -123,8 +123,8 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void AddProperty_with_the_property_already_added_throws()
         {
             var sut = new BasePropertyEntity();
-            sut.AddProperty(_nameProperty);
-            var ex = Assert.Throws<Exception>(() => sut.AddProperty(_nameProperty));
+            sut.AddProperty(_namePropertyDefinition);
+            var ex = Assert.Throws<Exception>(() => sut.AddProperty(_namePropertyDefinition));
             Assert.That(ex.Message, Is.EqualTo("Property bereits vorhanden."));    
         }
     }

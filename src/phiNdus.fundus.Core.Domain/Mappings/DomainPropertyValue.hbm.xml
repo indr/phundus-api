@@ -7,8 +7,8 @@
       <generator class="hilo" />
     </id>
     <version name="Version" />
-    <many-to-one class="DomainProperty" name="Property" not-null="true">
-      <column name="DomainPropertyId" />
+    <many-to-one class="DomainPropertyDefinition" name="PropertyDefinition" not-null="true">
+      <column name="DomainPropertyDefinitionId" />
     </many-to-one>
 
     <property name="BooleanValue" />

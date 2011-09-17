@@ -7,16 +7,16 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Repositories
 {
-    public class DomainPropertyRepository : NHRepository<DomainProperty>, IDomainPropertyRepository
+    public class DomainPropertyDefinitionRepository : NHRepository<DomainPropertyDefinition>, IDomainPropertyDefinitionRepository
     {
-        private IQueryable<DomainProperty> ItemProperties
+        private IQueryable<DomainPropertyDefinition> ItemProperties
         {
-            get { return Session.Query<DomainProperty>(); }
+            get { return Session.Query<DomainPropertyDefinition>(); }
         }
 
-        #region IDomainPropertyRepository Members
+        #region IDomainPropertyDefinitionRepository Members
 
-        public ICollection<DomainProperty> FindAll()
+        public ICollection<DomainPropertyDefinition> FindAll()
         {
             var query = from u in ItemProperties select u;
             return query.ToList();

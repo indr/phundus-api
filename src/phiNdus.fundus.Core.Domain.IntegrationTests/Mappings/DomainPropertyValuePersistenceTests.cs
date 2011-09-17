@@ -16,33 +16,33 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         {
             using (var uow = UnitOfWork.Start())
             {
-                var propertyRepo = IoC.Resolve<IDomainPropertyRepository>();
-                BooleanProperty = propertyRepo.Get(1);
-                Assert.That(BooleanProperty.Type, Is.EqualTo(DomainPropertyType.Boolean));
-                TextProperty = propertyRepo.Get(2);
-                Assert.That(TextProperty.Type, Is.EqualTo(DomainPropertyType.Text));
-                IntegerProperty = propertyRepo.Get(3);
-                Assert.That(IntegerProperty.Type, Is.EqualTo(DomainPropertyType.Integer));
-                DecimalProperty = propertyRepo.Get(4);
-                Assert.That(DecimalProperty.Type, Is.EqualTo(DomainPropertyType.Decimal));
-                DateTimeProperty = propertyRepo.Get(5);
-                Assert.That(DateTimeProperty.Type, Is.EqualTo(DomainPropertyType.DateTime));
+                var propertyRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
+                _booleanPropertyDefinition = propertyRepo.Get(1);
+                Assert.That(_booleanPropertyDefinition.DataType, Is.EqualTo(DomainPropertyType.Boolean));
+                _textPropertyDefinition = propertyRepo.Get(2);
+                Assert.That(_textPropertyDefinition.DataType, Is.EqualTo(DomainPropertyType.Text));
+                _integerPropertyDefinition = propertyRepo.Get(3);
+                Assert.That(_integerPropertyDefinition.DataType, Is.EqualTo(DomainPropertyType.Integer));
+                _decimalPropertyDefinition = propertyRepo.Get(4);
+                Assert.That(_decimalPropertyDefinition.DataType, Is.EqualTo(DomainPropertyType.Decimal));
+                _dateTimePropertyDefinition = propertyRepo.Get(5);
+                Assert.That(_dateTimePropertyDefinition.DataType, Is.EqualTo(DomainPropertyType.DateTime));
             }
         }
 
         #endregion
 
-        private DomainProperty BooleanProperty;
-        private DomainProperty TextProperty;
-        private DomainProperty IntegerProperty;
-        private DomainProperty DecimalProperty;
-        private DomainProperty DateTimeProperty;
+        private DomainPropertyDefinition _booleanPropertyDefinition;
+        private DomainPropertyDefinition _textPropertyDefinition;
+        private DomainPropertyDefinition _integerPropertyDefinition;
+        private DomainPropertyDefinition _decimalPropertyDefinition;
+        private DomainPropertyDefinition _dateTimePropertyDefinition;
 
 
-        private static int Save(DomainProperty property, object value)
+        private static int Save(DomainPropertyDefinition propertyDefinition, object value)
         {
             var result = 0;
-            var propertyValue = new DomainPropertyValue(property);
+            var propertyValue = new DomainPropertyValue(propertyDefinition);
             propertyValue.Value = value;
 
             using (var uow = UnitOfWork.Start())
@@ -67,7 +67,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         [Test]
         public void CanSaveAndLoadBooleanProperty()
         {
-            var id = Save(BooleanProperty, true);
+            var id = Save(_booleanPropertyDefinition, true);
             var value = Load(id);
             Assert.That(value, Is.EqualTo(true));
         }
@@ -80,7 +80,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
             // TODO: datetime-Datentyp in MSSQL speichert keine Sekundenbruchteile
             now = new DateTime(now.Ticks - (now.Ticks % TimeSpan.TicksPerSecond), now.Kind);
 
-            var id = Save(DateTimeProperty, now);
+            var id = Save(_dateTimePropertyDefinition, now);
             var value = Load(id);
             Assert.That(value, Is.EqualTo(now));
         }
@@ -88,7 +88,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         [Test]
         public void CanSaveAndLoadDecimalProperty()
         {
-            var id = Save(DecimalProperty, 2.1d);
+            var id = Save(_decimalPropertyDefinition, 2.1d);
             var value = Load(id);
             Assert.That(value, Is.EqualTo(2.1d));
         }
@@ -96,7 +96,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         [Test]
         public void CanSaveAndLoadIntegerProperty()
         {
-            var id = Save(IntegerProperty, 2);
+            var id = Save(_integerPropertyDefinition, 2);
             var value = Load(id);
             Assert.That(value, Is.EqualTo(2));
         }
@@ -104,7 +104,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         [Test]
         public void CanSaveAndLoadTextProperty()
         {
-            var id = Save(TextProperty, "Dies ist ein Text!");
+            var id = Save(_textPropertyDefinition, "Dies ist ein Text!");
             var value = Load(id);
             Assert.That(value, Is.EqualTo("Dies ist ein Text!"));
         }
