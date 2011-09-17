@@ -69,7 +69,7 @@
   <ItemGroup>
     <Compile Include="Mappings\DomainPropertyValuePersistenceTests.cs" />
     <Compile Include="Mappings\MappingTests.cs" />
-    <Compile Include="Repositories\DomainPropertyRepositoryTests.cs" />
+    <Compile Include="Repositories\DomainPropertyDefinitionRepositoryTests.cs" />
     <Compile Include="Repositories\ModelRepositoryTests.cs" />
     <Compile Include="Repositories\RoleRepositoryTests.cs" />
     <Compile Include="Repositories\SettingRepositoryTests.cs" />

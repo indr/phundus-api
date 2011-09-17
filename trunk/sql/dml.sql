@@ -27,14 +27,14 @@ END');
   3: Decimal
   4: DateTime
 */
-insert into [DomainProperty] (Id, Version, Name, [Type])
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
   values (1, 1, 'Verfügbar', 0);
-insert into [DomainProperty] (Id, Version, Name, [Type])
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
   values (2, 1, 'Name', 1);
-insert into [DomainProperty] (Id, Version, Name, [Type])
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
   values (3, 1, 'Menge', 2);  
-insert into [DomainProperty] (Id, Version, Name, [Type])
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
   values (4, 1, 'Preis', 3);
-insert into [DomainProperty] (Id, Version, Name, [Type])
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
   values (5, 1, 'Erfassungsdatum', 4);  
 

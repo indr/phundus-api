@@ -53,18 +53,18 @@ create table [Setting] (
   primary key (Id)
 )
 
-create table [DomainProperty] (
+create table [DomainPropertyDefinition] (
   Id int not null,
   Version int not null,
   [Name] NVARCHAR(255) not null,
-  [Type] TINYINT not null,
+  [DataType] TINYINT not null,
   primary key(Id)
 )
 
 create table [DomainPropertyValue] (
   Id int not null,
   Version int not null,
-  DomainPropertyId int not null,
+  DomainPropertyDefinitionId int not null,
   BooleanValue bit null,
   TextValue NVARCHAR(max) null,
   IntegerValue int null,
@@ -92,8 +92,8 @@ alter table [User]
 
 alter table [DomainPropertyValue]
   add constraint FkDomainPropertyValueToDomainProperty
-  foreign key (DomainPropertyId)
-  references [DomainProperty];
+  foreign key (DomainPropertyDefinitionId)
+  references [DomainPropertyDefinition];
 
 alter table [DomainPropertyValue]
   add constraint FkDomainPropertyValueToModel

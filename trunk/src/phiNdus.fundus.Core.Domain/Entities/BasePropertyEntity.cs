@@ -22,39 +22,39 @@ namespace phiNdus.fundus.Core.Domain.Entities
             set { _propertyValues = value; }
         }
 
-        public virtual bool HasProperty(DomainProperty property)
+        public virtual bool HasProperty(DomainPropertyDefinition propertyDefinition)
         {
             foreach (var each in PropertyValues)
             {
-                if (each.Property.Id == property.Id)
+                if (each.PropertyDefinition.Id == propertyDefinition.Id)
                     return true;
             }
             return false;
         }
 
-        public virtual void AddProperty(DomainProperty property)
+        public virtual void AddProperty(DomainPropertyDefinition propertyDefinition)
         {
-            if (HasProperty(property))
+            if (HasProperty(propertyDefinition))
                 throw new Exception("Property bereits vorhanden.");
 
-            PropertyValues.Add(new DomainPropertyValue(property));
+            PropertyValues.Add(new DomainPropertyValue(propertyDefinition));
         }
 
-        public virtual object GetPropertyValue(DomainProperty property)
+        public virtual object GetPropertyValue(DomainPropertyDefinition propertyDefinition)
         {
             foreach (var each in PropertyValues)
             {
-                if (each.Property.Id == property.Id)
+                if (each.PropertyDefinition.Id == propertyDefinition.Id)
                     return each.Value;
             }
             throw new Exception("Property nicht vorhanden.");
         }
 
-        public virtual void SetPropertyValue(DomainProperty property, object value)
+        public virtual void SetPropertyValue(DomainPropertyDefinition propertyDefinition, object value)
         {
             foreach (var each in PropertyValues)
             {
-                if (each.Property.Id == property.Id)
+                if (each.PropertyDefinition.Id == propertyDefinition.Id)
                 {
                     each.Value = value;
                     return;
@@ -63,11 +63,11 @@ namespace phiNdus.fundus.Core.Domain.Entities
             throw new Exception("Property nicht vorhanden.");
         }
 
-        public virtual void RemoveProperty(DomainProperty property)
+        public virtual void RemoveProperty(DomainPropertyDefinition propertyDefinition)
         {
             DomainPropertyValue propertyValue = null;
             foreach (var each in PropertyValues)
-                if (each.Property.Id == property.Id)
+                if (each.PropertyDefinition.Id == propertyDefinition.Id)
                 {
                     propertyValue = each;
                     break;

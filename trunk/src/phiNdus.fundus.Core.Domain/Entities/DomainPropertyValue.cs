@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
@@ -8,58 +9,56 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
         }
 
-        public DomainPropertyValue(DomainProperty property) : base()
+        public DomainPropertyValue(DomainPropertyDefinition propertyDefinition) : base()
         {
-            Property = property;
+            _propertyDefinition = propertyDefinition;
         }
 
-        public virtual DomainProperty Property { get; protected set; }
+        private DomainPropertyDefinition _propertyDefinition;
+        public virtual DomainPropertyDefinition PropertyDefinition
+        {
+            get { return _propertyDefinition; }
+            protected set { _propertyDefinition = value; }
+        }
 
         public virtual object Value
         {
             get
             {
-                switch (Property.Type)
+                switch (PropertyDefinition.DataType)
                 {
-#pragma warning disable 162 // Unreachable code. Siehe "break".
                     case DomainPropertyType.Boolean:
                         return BooleanValue;
-                        break;
                     case DomainPropertyType.Text:
                         return TextValue;
-                        break;
                     case DomainPropertyType.Integer:
                         return IntegerValue;
-                        break;
                     case DomainPropertyType.Decimal:
                         return DecimalValue;
-                        break;
                     case DomainPropertyType.DateTime:
                         return DateTimeValue;
-                        break;
-#pragma warning restore 162
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
             set
             {
-                switch (Property.Type)
+                switch (PropertyDefinition.DataType)
                 {
                     case DomainPropertyType.Boolean:
-                        BooleanValue = Convert.ToBoolean(value);
+                        BooleanValue = Convert.ToBoolean(value, CultureInfo.InvariantCulture);
                         break;
                     case DomainPropertyType.Text:
-                        TextValue = Convert.ToString(value);
+                        TextValue = Convert.ToString(value, CultureInfo.InvariantCulture);
                         break;
                     case DomainPropertyType.Integer:
-                        IntegerValue = Convert.ToInt32(value);
+                        IntegerValue = Convert.ToInt32(value, CultureInfo.InvariantCulture);
                         break;
                     case DomainPropertyType.Decimal:
-                        DecimalValue = Convert.ToDouble(value);
+                        DecimalValue = Convert.ToDouble(value, CultureInfo.InvariantCulture);
                         break;
                     case DomainPropertyType.DateTime:
-                        DateTimeValue = Convert.ToDateTime(value);
+                        DateTimeValue = Convert.ToDateTime(value, CultureInfo.InvariantCulture);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

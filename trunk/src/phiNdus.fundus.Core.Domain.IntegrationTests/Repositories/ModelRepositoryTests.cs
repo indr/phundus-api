@@ -14,13 +14,13 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         public void SetUp()
         {
             Sut = IoC.Resolve<IModelRepository>();
-            PropertyRepo = IoC.Resolve<IDomainPropertyRepository>();
+            PropertyDefinitionRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
 
 
             using (var uow = UnitOfWork.Start())
             {
-                NameProperty = PropertyRepo.Get(2);
-                PriceProperty = PropertyRepo.Get(4);
+                NamePropertyDefinition = PropertyDefinitionRepo.Get(2);
+                PricePropertyDefinition = PropertyDefinitionRepo.Get(4);
 
                 UnitOfWork.CurrentSession.Delete("from Model");
                 uow.TransactionalFlush();
@@ -29,11 +29,11 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 
         #endregion
 
-        protected DomainProperty NameProperty { get; set; }
+        protected DomainPropertyDefinition NamePropertyDefinition { get; set; }
 
-        protected DomainProperty PriceProperty { get; set; }
+        protected DomainPropertyDefinition PricePropertyDefinition { get; set; }
 
-        protected IDomainPropertyRepository PropertyRepo { get; set; }
+        protected IDomainPropertyDefinitionRepository PropertyDefinitionRepo { get; set; }
 
         protected IModelRepository Sut { get; set; }
 
@@ -43,8 +43,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         {
             var modelId = 0;
             var model = new Model();
-            model.AddProperty(NameProperty);
-            model.AddProperty(PriceProperty);
+            model.AddProperty(NamePropertyDefinition);
+            model.AddProperty(PricePropertyDefinition);
 
             using (var uow = UnitOfWork.Start())
             {
@@ -57,8 +57,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
             using (var uow = UnitOfWork.Start())
             {
                 model = Sut.Get(modelId);
-                Assert.That(model.HasProperty(NameProperty));
-                Assert.That(model.HasProperty(PriceProperty));
+                Assert.That(model.HasProperty(NamePropertyDefinition));
+                Assert.That(model.HasProperty(PricePropertyDefinition));
             }
         }
 
@@ -67,8 +67,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         {
             var modelId = 0;
             var model = new Model();
-            model.AddProperty(NameProperty);
-            model.AddProperty(PriceProperty);
+            model.AddProperty(NamePropertyDefinition);
+            model.AddProperty(PricePropertyDefinition);
 
             // Insert
             using (var uow = UnitOfWork.Start())
@@ -82,7 +82,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
             using (var uow = UnitOfWork.Start())
             {
                 model = Sut.Get(modelId);
-                model.RemoveProperty(PriceProperty);
+                model.RemoveProperty(PricePropertyDefinition);
                 Sut.Save(model);
                 uow.TransactionalFlush();
             }
@@ -90,8 +90,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
             using (var uow = UnitOfWork.Start())
             {
                 model = Sut.Get(modelId);
-                Assert.That(model.HasProperty(NameProperty));
-                Assert.That(model.HasProperty(PriceProperty), Is.False);
+                Assert.That(model.HasProperty(NamePropertyDefinition));
+                Assert.That(model.HasProperty(PricePropertyDefinition), Is.False);
             }
         }
     }

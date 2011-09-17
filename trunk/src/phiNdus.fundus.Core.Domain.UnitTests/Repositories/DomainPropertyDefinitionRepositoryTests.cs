@@ -4,12 +4,12 @@ using phiNdus.fundus.Core.Domain.Repositories;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Repositories
 {
     [TestFixture]
-    public class DomainPropertyRepositoryTests
+    public class DomainPropertyDefinitionRepositoryTests
     {
         [Test]
         public void Can_create()
         {
-            IDomainPropertyRepository sut = new DomainPropertyRepository();
+            IDomainPropertyDefinitionRepository sut = new DomainPropertyDefinitionRepository();
             Assert.That(sut, Is.Not.Null);
         }
     }

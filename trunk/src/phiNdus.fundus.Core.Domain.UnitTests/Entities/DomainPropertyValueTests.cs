@@ -16,7 +16,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 
         private static DomainPropertyValue CreateSut(DomainPropertyType type)
         {
-            return new DomainPropertyValue(new DomainProperty(type));
+            return new DomainPropertyValue(new DomainPropertyDefinition(type));
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Can_get_and_set_with_BooleanDomainProperty()
         {
-            var sut = new DomainPropertyValue(new DomainProperty(DomainPropertyType.Boolean));
+            var sut = new DomainPropertyValue(new DomainPropertyDefinition(DomainPropertyType.Boolean));
             Assert.That(sut.Value, Is.Null);
             sut.Value = true;
             Assert.That(sut.Value, Is.True);
