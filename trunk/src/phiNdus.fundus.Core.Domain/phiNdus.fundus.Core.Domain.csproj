@@ -79,6 +79,7 @@
     <Compile Include="InvalidPasswordException.cs" />
     <Compile Include="KeyGenerator.cs" />
     <Compile Include="PasswordEncryptor.cs" />
+    <Compile Include="PropertyException.cs" />
     <Compile Include="Repositories\DomainPropertyDefinitionRepository.cs" />
     <Compile Include="Repositories\IDomainPropertyDefinitionRepository.cs" />
     <Compile Include="Repositories\IModelRepository.cs" />

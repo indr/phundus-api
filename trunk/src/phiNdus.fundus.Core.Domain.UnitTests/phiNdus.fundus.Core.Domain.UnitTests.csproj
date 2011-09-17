@@ -68,6 +68,7 @@
     <Compile Include="KeyGeneratorTests.cs" />
     <Compile Include="PasswordEncryptorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyExceptionTests.cs" />
     <Compile Include="Repositories\DomainPropertyDefinitionRepositoryTests.cs" />
     <Compile Include="Repositories\ModelRepositoryTests.cs" />
     <Compile Include="Repositories\RoleRepositoryTests.cs" />
