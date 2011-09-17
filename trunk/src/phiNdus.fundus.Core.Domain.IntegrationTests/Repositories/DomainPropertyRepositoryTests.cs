@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
+using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
@@ -7,20 +9,27 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
     [TestFixture]
     public class DomainPropertyRepositoryTests : BaseTestFixture
     {
-        [Test]
-        public void Can_create()
+        [SetUp]
+        public void SetUp()
         {
-            new DomainPropertyRepository();
+            Sut = IoC.Resolve<IDomainPropertyRepository>();
         }
+
+        protected IDomainPropertyRepository Sut { get; set; }
 
         [Test]
         public void Can_find_all()
         {
-            var sut = new DomainPropertyRepository();
             using (var uow = UnitOfWork.Start())
             {
-                var actual = sut.FindAll();
-                Assert.That(actual.Count, Is.EqualTo(1));
+                var actual = Sut.FindAll();
+
+                Assert.That(actual, Has.Count.EqualTo(5));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Name").And.Property("Type").EqualTo(DomainPropertyType.Text));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Preis").And.Property("Type").EqualTo(DomainPropertyType.Decimal));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Verfügbar").And.Property("Type").EqualTo(DomainPropertyType.Boolean));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Menge").And.Property("Type").EqualTo(DomainPropertyType.Integer));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Erfassungsdatum").And.Property("Type").EqualTo(DomainPropertyType.DateTime));
             }
         }
     }

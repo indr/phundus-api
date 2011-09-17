@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Core.Domain" namespace="phiNdus.fundus.Core.Domain.Entities">
+
+  <class name="DomainPropertyValue" table="[DomainPropertyValue]">
+    <id name="Id">
+      <generator class="hilo" />
+    </id>
+    <version name="Version" />
+    <many-to-one class="DomainProperty" name="Property" not-null="true">
+      <column name="DomainPropertyId" />
+    </many-to-one>
+
+    <property name="BooleanValue" />
+    <property name="TextValue" />
+    <property name="IntegerValue" />
+    <property name="DecimalValue" />
+    <property name="DateTimeValue" />
+  </class>
+</hibernate-mapping>

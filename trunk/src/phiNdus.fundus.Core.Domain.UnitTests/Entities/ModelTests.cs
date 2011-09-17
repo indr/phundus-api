@@ -13,10 +13,10 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Is_derived_from_BaseEntity()
+        public void Is_derived_from_BasePropertyEntity()
         {
             var model = new Model();
-            Assert.That(model, Is.InstanceOf(typeof (BaseEntity)));
+            Assert.That(model, Is.InstanceOf(typeof (BasePropertyEntity)));
         }
     }
 }

@@ -67,12 +67,10 @@
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\BasePropertyEntity.cs" />
-    <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\DomainProperty.cs" />
     <Compile Include="Entities\DomainPropertyType.cs" />
     <Compile Include="Entities\DomainPropertyValue.cs" />
     <Compile Include="Entities\Membership.cs" />
-    <Compile Include="Entities\Model.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\User.cs" />
@@ -129,6 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\DomainProperty.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\DomainPropertyValue.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
