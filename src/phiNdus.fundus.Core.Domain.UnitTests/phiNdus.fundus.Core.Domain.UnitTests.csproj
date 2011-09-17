@@ -61,6 +61,7 @@
     <Compile Include="Entities\DomainPropertyTypeTests.cs" />
     <Compile Include="Entities\DomainPropertyValueTests.cs" />
     <Compile Include="Entities\MembershipTests.cs" />
+    <Compile Include="Entities\ModelTests.cs" />
     <Compile Include="Entities\RoleTests.cs" />
     <Compile Include="Entities\SettingTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="PasswordEncryptorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DomainPropertyRepositoryTests.cs" />
+    <Compile Include="Repositories\ModelRepositoryTests.cs" />
     <Compile Include="Repositories\RoleRepositoryTests.cs" />
     <Compile Include="Repositories\SettingRepositoryTests.cs" />
     <Compile Include="Repositories\UserRepositoryTests.cs" />
