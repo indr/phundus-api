@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\BaseEntityTests.cs" />
+    <Compile Include="Entities\BasePropertyEntityTests.cs" />
     <Compile Include="Entities\DomainPropertyTests.cs" />
     <Compile Include="Entities\DomainPropertyTypeTests.cs" />
     <Compile Include="Entities\DomainPropertyValueTests.cs" />
