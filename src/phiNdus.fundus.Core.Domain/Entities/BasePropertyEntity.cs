@@ -35,7 +35,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
         public virtual void AddProperty(DomainPropertyDefinition propertyDefinition)
         {
             if (HasProperty(propertyDefinition))
-                throw new Exception("Property bereits vorhanden.");
+                throw new PropertyException("Property bereits vorhanden.");
 
             PropertyValues.Add(new DomainPropertyValue(propertyDefinition));
         }
@@ -47,7 +47,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
                 if (each.PropertyDefinition.Id == propertyDefinition.Id)
                     return each.Value;
             }
-            throw new Exception("Property nicht vorhanden.");
+            throw new PropertyException("Property nicht vorhanden.");
         }
 
         public virtual void SetPropertyValue(DomainPropertyDefinition propertyDefinition, object value)
@@ -60,7 +60,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
                     return;
                 }
             }
-            throw new Exception("Property nicht vorhanden.");
+            throw new PropertyException("Property nicht vorhanden.");
         }
 
         public virtual void RemoveProperty(DomainPropertyDefinition propertyDefinition)
@@ -75,7 +75,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
             if (propertyValue != null)
                 PropertyValues.Remove(propertyValue);
             else
-                throw new Exception("Property nicht vorhanden.");
+                throw new PropertyException("Property nicht vorhanden.");
         }
     }
 }

@@ -53,7 +53,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void GetPropertyValue_without_the_presence_of_the_property_throws()
         {
             var sut = new BasePropertyEntity();
-            var ex = Assert.Throws<Exception>(() => sut.GetPropertyValue(_namePropertyDefinition));
+            var ex = Assert.Throws<PropertyException>(() => sut.GetPropertyValue(_namePropertyDefinition));
             Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));
         }
 
@@ -107,7 +107,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void SetPropertyValue_without_the_presence_of_the_property_throws()
         {
             var sut = new BasePropertyEntity();
-            var ex = Assert.Throws<Exception>(() => sut.SetPropertyValue(_namePropertyDefinition, "Pullover"));
+            var ex = Assert.Throws<PropertyException>(() => sut.SetPropertyValue(_namePropertyDefinition, "Pullover"));
             Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));
         }
 
@@ -115,7 +115,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void RemoveProperty_without_the_presence_of_the_property_throws()
         {
             var sut = new BasePropertyEntity();
-            var ex = Assert.Throws<Exception>(() => sut.RemoveProperty(_namePropertyDefinition));
+            var ex = Assert.Throws<PropertyException>(() => sut.RemoveProperty(_namePropertyDefinition));
             Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));    
         }
 
@@ -124,7 +124,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         {
             var sut = new BasePropertyEntity();
             sut.AddProperty(_namePropertyDefinition);
-            var ex = Assert.Throws<Exception>(() => sut.AddProperty(_namePropertyDefinition));
+            var ex = Assert.Throws<PropertyException>(() => sut.AddProperty(_namePropertyDefinition));
             Assert.That(ex.Message, Is.EqualTo("Property bereits vorhanden."));    
         }
     }
