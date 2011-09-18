@@ -37,4 +37,8 @@ insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
   values (4, 1, 'Preis', 3);
 insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
   values (5, 1, 'Erfassungsdatum', 4);  
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
+  values (6, 1, 'Reservierbar', 0);
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
+  values (7, 1, 'Ausleihbar', 0);
 
