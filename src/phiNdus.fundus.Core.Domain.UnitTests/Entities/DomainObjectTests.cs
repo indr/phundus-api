@@ -1,16 +1,41 @@
-﻿using NUnit.Framework;
+﻿using System;
+using Iesi.Collections.Generic;
+using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.TestHelpers;
 
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    public class DomainObjectTests
+    public class DomainObjectTests : MockTestBase<DomainObject>
     {
+        protected override DomainObject CreateSut()
+        {
+            StubPropertyValues = new HashedSet<DomainPropertyValue>();
+            return new DomainObject(StubPropertyValues);
+        }
+
+        private ISet<DomainPropertyValue> StubPropertyValues { get; set; }
+
+        private readonly DomainPropertyDefinition _textPropertyDef =
+            new DomainPropertyDefinition(DomainPropertyDefinition.NameId, "Name",
+                                         DomainPropertyType.Text);
+
         [Test]
         public void Can_create()
         {
-            var sut =new DomainObject();
+            var sut = new DomainObject();
             Assert.That(sut, Is.Not.Null);
+            Assert.That(sut.PropertyValues, Is.Not.Null);
+        }
+
+        [Test]
+        public void Can_create_with_PropertyValues()
+        {
+            var propertyValues = new HashedSet<DomainPropertyValue>();
+            var sut = new DomainObject(propertyValues);
+            Assert.That(sut, Is.Not.Null);
+            Assert.That(sut.PropertyValues, Is.SameAs(propertyValues));
         }
 
         [Test]
@@ -36,6 +61,14 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             var sut = new DomainObject();
             parent.AddChild(sut);
             Assert.That(sut.Parent, Is.SameAs(parent));
+        }
+
+        [Test]
+        public void GetName()
+        {
+            Assert.That(Sut.Name, Is.EqualTo(""));
+            StubPropertyValues.Add(new DomainPropertyValue(_textPropertyDef, "Name of object"));
+            Assert.That(Sut.Name, Is.EqualTo("Name of object"));
         }
     }
 }

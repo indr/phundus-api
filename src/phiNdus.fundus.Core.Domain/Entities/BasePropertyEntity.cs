@@ -13,20 +13,25 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public BasePropertyEntity(ISet<DomainPropertyValue> propertyValues)
         {
-            PropertyValues = propertyValues;
+            _propertyValues = propertyValues;
         }
 
-        protected ISet<DomainPropertyValue> PropertyValues
+        public virtual ISet<DomainPropertyValue> PropertyValues
         {
             get { return _propertyValues; }
-            set { _propertyValues = value; }
+            protected set { _propertyValues = value; }
         }
 
         public virtual bool HasProperty(DomainPropertyDefinition propertyDefinition)
         {
+            return HasProperty(propertyDefinition.Id);
+        }
+
+        public virtual bool HasProperty(int propertyDefinitionId)
+        {
             foreach (var each in PropertyValues)
             {
-                if (each.PropertyDefinition.Id == propertyDefinition.Id)
+                if (each.PropertyDefinition.Id == propertyDefinitionId)
                     return true;
             }
             return false;
@@ -47,9 +52,14 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public virtual object GetPropertyValue(DomainPropertyDefinition propertyDefinition)
         {
+            return GetPropertyValue(propertyDefinition.Id);
+        }
+
+        public virtual object GetPropertyValue(int propertyDefinitionId)
+        {
             foreach (var each in PropertyValues)
             {
-                if (each.PropertyDefinition.Id == propertyDefinition.Id)
+                if (each.PropertyDefinition.Id == propertyDefinitionId)
                     return each.Value;
             }
             throw new PropertyException("Property nicht vorhanden.");

@@ -8,6 +8,8 @@
         public static int MengeId { get { return 3; } }
         public static int PreisId { get { return 4; } }
         public static int ErfassungsdatumId { get { return 5; } }
+        public static int ReservierbarId { get { return 6; } }
+        public static int AusleihbarId { get { return 7; } }
 
         public DomainPropertyDefinition()
         {

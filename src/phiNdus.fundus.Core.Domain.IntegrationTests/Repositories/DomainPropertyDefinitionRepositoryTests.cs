@@ -24,12 +24,14 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
             {
                 var actual = Sut.FindAll();
 
-                Assert.That(actual, Has.Count.EqualTo(5));
+                Assert.That(actual, Has.Count.EqualTo(7));
                 Assert.That(actual, Has.Some.Property("Name").EqualTo("Name").And.Property("DataType").EqualTo(DomainPropertyType.Text));
                 Assert.That(actual, Has.Some.Property("Name").EqualTo("Preis").And.Property("DataType").EqualTo(DomainPropertyType.Decimal));
                 Assert.That(actual, Has.Some.Property("Name").EqualTo("Verfügbar").And.Property("DataType").EqualTo(DomainPropertyType.Boolean));
                 Assert.That(actual, Has.Some.Property("Name").EqualTo("Menge").And.Property("DataType").EqualTo(DomainPropertyType.Integer));
                 Assert.That(actual, Has.Some.Property("Name").EqualTo("Erfassungsdatum").And.Property("DataType").EqualTo(DomainPropertyType.DateTime));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Reservierbar").And.Property("DataType").EqualTo(DomainPropertyType.Boolean));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Ausleihbar").And.Property("DataType").EqualTo(DomainPropertyType.Boolean));
             }
         }
     }
