@@ -4,17 +4,17 @@ using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
+namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 {
     [TestFixture]
-    public class ModelRepositoryTests : BaseTestFixture
+    public class DomainObjectPersistenceTests : BaseTestFixture
     {
         #region Setup/Teardown
 
         [SetUp]
         public void SetUp()
         {
-            Sut = IoC.Resolve<IModelRepository>();
+            Sut = new NHRepository<DomainObject>();
             PropertyDefinitionRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
 
 
@@ -36,7 +36,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 
         protected IDomainPropertyDefinitionRepository PropertyDefinitionRepo { get; set; }
 
-        protected IModelRepository Sut { get; set; }
+        protected IRepository<DomainObject> Sut { get; set; }
 
 
         [Test]
