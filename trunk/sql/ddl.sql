@@ -70,11 +70,11 @@ create table [DomainPropertyValue] (
   IntegerValue int null,
   DecimalValue decimal(18,3) null,
   DateTimeValue datetime null,
-  ModelId int null,
+  DomainObjectId int null,
   primary key(Id)
 )
 
-create table [Model] (
+create table [DomainObject] (
   Id int not null,
   Version int not null,
   ParentId int null,
@@ -97,7 +97,7 @@ alter table [DomainPropertyValue]
   references [DomainPropertyDefinition];
 
 alter table [DomainPropertyValue]
-  add constraint FkDomainPropertyValueToModel
-  foreign key (ModelId)
-  references [Model];  
+  add constraint FkDomainPropertyValueToDomainObject
+  foreign key (DomainObjectId)
+  references [DomainObject];  
   

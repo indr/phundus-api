@@ -23,7 +23,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 NamePropertyDefinition = PropertyDefinitionRepo.Get(2);
                 PricePropertyDefinition = PropertyDefinitionRepo.Get(4);
 
-                UnitOfWork.CurrentSession.Delete("from Model");
+                UnitOfWork.CurrentSession.Delete("from DomainObject");
                 uow.TransactionalFlush();
             }
         }
@@ -43,22 +43,22 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         public void Can_save_and_load_with_children()
         {
             var parentId = 0;
-            var parent = new Model();
+            var parent = new DomainObject();
             parent.AddProperty(NamePropertyDefinition, "Parent");
             
-            var child1 = new Model();
+            var child1 = new DomainObject();
             child1.AddProperty(NamePropertyDefinition, "Child 1");
             parent.AddChild(child1);
 
-            var child2 = new Model();
+            var child2 = new DomainObject();
             child2.AddProperty(NamePropertyDefinition, "Child 2");
             parent.AddChild(child2);
 
-            var child2_1 = new Model();
+            var child2_1 = new DomainObject();
             child2_1.AddProperty(NamePropertyDefinition, "Child 2.1");
             child2.AddChild(child2_1);
 
-            var child2_2 = new Model();
+            var child2_2 = new DomainObject();
             child2_2.AddProperty(NamePropertyDefinition, "Child 2.2");
             child2.AddChild(child2_2);
 
@@ -88,7 +88,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         public void Can_save_and_load_adding_properties()
         {
             var modelId = 0;
-            var model = new Model();
+            var model = new DomainObject();
             model.AddProperty(NamePropertyDefinition);
             model.AddProperty(PricePropertyDefinition);
 
@@ -112,7 +112,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         public void Can_save_and_load_removing_properties()
         {
             var modelId = 0;
-            var model = new Model();
+            var model = new DomainObject();
             model.AddProperty(NamePropertyDefinition);
             model.AddProperty(PricePropertyDefinition);
 

@@ -2,21 +2,21 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Core.Domain" namespace="phiNdus.fundus.Core.Domain.Entities">
 
-  <class name="Model" table="[Model]">
+  <class name="DomainObject" table="[DomainObject]">
     <id name="Id">
       <generator class="hilo" />
     </id>
     <version name="Version" />
 
     <set name="PropertyValues" cascade="all-delete-orphan" lazy="false">
-      <key column="ModelId" />
+      <key column="DomainObjectId" />
       <one-to-many class="DomainPropertyValue" />
     </set>
 
-    <many-to-one name="Parent" column="ParentId" class="Model" not-null="false" />
+    <many-to-one name="Parent" column="ParentId" class="DomainObject" not-null="false" />
     <set name="Children" cascade="all-delete-orphan" lazy="true" inverse="true" >
       <key column="ParentId" />
-      <one-to-many class="Model" />
+      <one-to-many class="DomainObject" />
     </set>
   </class>
 </hibernate-mapping>
