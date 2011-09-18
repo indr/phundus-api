@@ -4,12 +4,12 @@ using phiNdus.fundus.Core.Domain.Repositories;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Repositories
 {
     [TestFixture]
-    public class ModelRepositoryTests
+    public class ArticleRepositoryTests
     {
         [Test]
         public void Can_create()
         {
-            IModelRepository sut = new ModelRepository();
+            IArticleRepository sut = new ArticleRepository();
             Assert.That(sut, Is.Not.Null);
         }
     }

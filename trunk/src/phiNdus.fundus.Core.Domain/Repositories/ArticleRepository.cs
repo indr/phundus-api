@@ -3,7 +3,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Repositories
 {
-    public class ModelRepository : NHRepository<DomainObject>, IModelRepository
+    public class ArticleRepository : NHRepository<DomainObject>, IArticleRepository
     {
     }
 }

@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ArticleTests.cs" />
     <Compile Include="Entities\BaseEntityTests.cs" />
     <Compile Include="Entities\BasePropertyEntityTests.cs" />
     <Compile Include="Entities\DomainPropertyTests.cs" />
@@ -73,7 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyExceptionTests.cs" />
     <Compile Include="Repositories\DomainPropertyDefinitionRepositoryTests.cs" />
-    <Compile Include="Repositories\ModelRepositoryTests.cs" />
+    <Compile Include="Repositories\ArticleRepositoryTests.cs" />
     <Compile Include="Repositories\RoleRepositoryTests.cs" />
     <Compile Include="Repositories\SettingRepositoryTests.cs" />
     <Compile Include="Repositories\UserRepositoryTests.cs" />
