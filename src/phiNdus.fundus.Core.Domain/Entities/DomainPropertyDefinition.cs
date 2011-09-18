@@ -2,6 +2,13 @@
 {
     public class DomainPropertyDefinition : BaseEntity
     {
+        // According to dml.sql
+        public static int VerfuegbarId { get { return 1; } }
+        public static int NameId { get { return 2; } }
+        public static int MengeId { get { return 3; } }
+        public static int PreisId { get { return 4; } }
+        public static int ErfassungsdatumId { get { return 5; } }
+
         public DomainPropertyDefinition()
         {
         }

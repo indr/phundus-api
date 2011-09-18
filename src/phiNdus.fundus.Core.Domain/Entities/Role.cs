@@ -2,9 +2,11 @@
 {
     public class Role : BaseEntity
     {
-        public static readonly Role User = new Role(1, "Benutzer");
-        public static readonly Role Administrator = new Role(2, "Administrator");
-        private string _name;
+        private static readonly Role _userRole = new Role(1, "Benutzer");
+        public static Role User { get { return _userRole; } }
+
+        private static readonly Role _administrator = new Role(2, "Administrator");
+        public static Role Administrator { get { return _administrator; } }
 
         public Role()
         {
@@ -15,6 +17,7 @@
             _name = name;
         }
 
+        private string _name;
         public virtual string Name
         {
             get { return _name; }
