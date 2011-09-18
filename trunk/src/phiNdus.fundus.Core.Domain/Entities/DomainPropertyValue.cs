@@ -38,7 +38,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
                     case DomainPropertyType.DateTime:
                         return DateTimeValue;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException("DataType");
                 }
             }
             set
@@ -61,7 +61,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
                         DateTimeValue = Convert.ToDateTime(value, CultureInfo.InvariantCulture);
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException("DataType");
                 }
             }
         }

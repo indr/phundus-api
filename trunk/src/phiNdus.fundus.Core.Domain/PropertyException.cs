@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using System.Security;
 
 namespace phiNdus.fundus.Core.Domain
 {
+    [Serializable]
     public class PropertyException : Exception
     {
         public PropertyException()
@@ -18,7 +18,6 @@ namespace phiNdus.fundus.Core.Domain
         {
         }
 
-        [SecuritySafeCritical]
         protected PropertyException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
