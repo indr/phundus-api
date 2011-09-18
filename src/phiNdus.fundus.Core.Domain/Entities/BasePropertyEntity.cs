@@ -34,10 +34,15 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public virtual void AddProperty(DomainPropertyDefinition propertyDefinition)
         {
+            AddProperty(propertyDefinition, null);
+        }
+
+        public virtual void AddProperty(DomainPropertyDefinition propertyDefinition, object value)
+        {
             if (HasProperty(propertyDefinition))
                 throw new PropertyException("Property bereits vorhanden.");
 
-            PropertyValues.Add(new DomainPropertyValue(propertyDefinition));
+            PropertyValues.Add(new DomainPropertyValue(propertyDefinition, value));
         }
 
         public virtual object GetPropertyValue(DomainPropertyDefinition propertyDefinition)
@@ -77,5 +82,6 @@ namespace phiNdus.fundus.Core.Domain.Entities
             else
                 throw new PropertyException("Property nicht vorhanden.");
         }
+
     }
 }

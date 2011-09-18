@@ -22,7 +22,18 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Can_create()
         {
-            CreateSut(DomainPropertyType.Boolean);
+            var sut = CreateSut(DomainPropertyType.Boolean);
+            Assert.That(sut, Is.Not.Null);
+            Assert.That(sut.PropertyDefinition, Is.Not.Null);
+        }
+
+        [Test]
+        public void Can_create_with_type_and_value()
+        {
+            var sut = new DomainPropertyValue(new DomainPropertyDefinition(DomainPropertyType.Text), "Value");
+            Assert.That(sut, Is.Not.Null);
+            Assert.That(sut.PropertyDefinition, Is.Not.Null);
+            Assert.That(sut.Value, Is.EqualTo("Value"));
         }
 
         [Test]

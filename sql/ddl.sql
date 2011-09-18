@@ -77,6 +77,7 @@ create table [DomainPropertyValue] (
 create table [Model] (
   Id int not null,
   Version int not null,
+  ParentId int null,
   primary key(Id)
 )
 

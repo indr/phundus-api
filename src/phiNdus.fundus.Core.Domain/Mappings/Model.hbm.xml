@@ -12,5 +12,11 @@
       <key column="ModelId" />
       <one-to-many class="DomainPropertyValue" />
     </set>
+
+    <many-to-one name="Parent" column="ParentId" class="Model" not-null="false" />
+    <set name="Children" cascade="all-delete-orphan" lazy="true" inverse="true" >
+      <key column="ParentId" />
+      <one-to-many class="Model" />
+    </set>
   </class>
 </hibernate-mapping>

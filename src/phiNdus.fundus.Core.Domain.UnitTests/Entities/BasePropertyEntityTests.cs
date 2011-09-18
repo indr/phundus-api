@@ -67,6 +67,15 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void AddProperty_with_value()
+        {
+            var sut = new BasePropertyEntity();
+            sut.AddProperty(_namePropertyDefinition, "Value of Name");
+            Assert.That(sut.HasProperty(_namePropertyDefinition), Is.True);
+            Assert.That(sut.GetPropertyValue(_namePropertyDefinition), Is.EqualTo("Value of Name"));
+        }
+
+        [Test]
         public void HasProperty_returns_false()
         {
             var sut = new BasePropertyEntity();
