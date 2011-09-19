@@ -15,9 +15,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests
         public virtual void SetUp()
         {
             IoC.Initialize(new WindsorContainer());
-            MockFactory = new MockRepository();
+            Obsolete_MockFactory = new MockRepository();
             
-            MockUnitOfWork = CreateAndRegisterStrictUnitOfWorkMock();
+            MockUnitOfWork = Obsolete_CreateAndRegisterStrictUnitOfWorkMock();
             Settings.SetGlobalNonThreadSafeSettings(null);
         }
 
@@ -66,31 +66,31 @@ namespace phiNdus.fundus.Core.Business.UnitTests
 
 
         #region obsolete
-        protected MockRepository MockFactory { get; set; }
-        protected T CreateAndRegisterDynamicMock<T>() where T : class
+        protected MockRepository Obsolete_MockFactory { get; set; }
+        protected T Obsolete_CreateAndRegisterDynamicMock<T>() where T : class
         {
-            var result = MockFactory.DynamicMock<T>();
+            var result = Obsolete_MockFactory.DynamicMock<T>();
             IoC.Container.Register(Component.For<T>().Instance(result));
             return result;
         }
 
-        protected T CreateAndRegisterStrictMock<T>()
+        protected T Obsolete_CreateAndRegisterStrictMock<T>()
         {
-            var result = MockFactory.StrictMock<T>();
+            var result = Obsolete_MockFactory.StrictMock<T>();
             IoC.Container.Register(Component.For<T>().Instance(result));
             return result;
         }
 
-        protected IUnitOfWork CreateAndRegisterDynamicUnitOfWorkMock()
+        protected IUnitOfWork Obsolete_CreateAndRegisterDynamicUnitOfWorkMock()
         {
-            var result = MockFactory.DynamicMock<IUnitOfWork>();
+            var result = Obsolete_MockFactory.DynamicMock<IUnitOfWork>();
             UnitOfWork.RegisterGlobalUnitOfWork(result);
             return result;
         }
 
-        protected IUnitOfWork CreateAndRegisterStrictUnitOfWorkMock()
+        protected IUnitOfWork Obsolete_CreateAndRegisterStrictUnitOfWorkMock()
         {
-            var result = MockFactory.StrictMock<IUnitOfWork>();
+            var result = Obsolete_MockFactory.StrictMock<IUnitOfWork>();
             UnitOfWork.RegisterGlobalUnitOfWork(result);
             return result;
         }

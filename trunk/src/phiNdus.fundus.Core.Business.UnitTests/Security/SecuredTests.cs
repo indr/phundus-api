@@ -15,7 +15,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         {
             base.SetUp();
 
-            using (MockFactory.Record()) {
+            using (Obsolete_MockFactory.Record()) {
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
         }
@@ -23,7 +23,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Do_does_not_call_func_lambda_and_throws_when_constraints_are_not_met()
         {
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var invoked = false;
                 Sut = Secured.With(new AlwaysFalseConstraint());
@@ -39,7 +39,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Do_does_not_call_func_lambda_and_throws_when_constraint_added_with_And_is_not_met()
         {
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var invoked = false;
                 Sut = Secured.With(new AlwaysTrueConstraint());
@@ -56,7 +56,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Do_does_not_call_proc_lambda_and_throws_when_constraints_are_not_met()
         {
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var invoked = false;
                 Sut = Secured.With(new AlwaysFalseConstraint());
@@ -68,7 +68,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Do_does_not_call_proc_lambda_and_throws_when_constraint_added_with_And_is_not_met()
         {
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var invoked = false;
                 Sut = Secured.With(new AlwaysTrueConstraint());
@@ -81,7 +81,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Do_func_instantiates_service()
         {
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 BaseService serviceRef = null;
                 Sut = Secured.With(new AlwaysTrueConstraint());
@@ -97,7 +97,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Do_func_invokes_lambda()
         {
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var invoked = false;
                 Sut = Secured.With(new AlwaysTrueConstraint());
@@ -113,7 +113,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Do_func_sets_SecurityContext_on_service()
         {
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 SecurityContext securityContext = null;
                 Sut = Secured.With(new AlwaysTrueConstraint());
@@ -129,7 +129,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Do_proc_instantiates_service()
         {
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 BaseService serviceRef = null;
                 Sut = Secured.With(new AlwaysTrueConstraint());
@@ -141,7 +141,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Do_proc_invokes_lambda()
         {
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var invoked = false;
                 Sut = Secured.With(new AlwaysTrueConstraint());
@@ -153,7 +153,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Do_proc_sets_SecurityContext_on_service()
         {
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 SecurityContext securityContext = null;
                 Sut = Secured.With(new AlwaysTrueConstraint());
@@ -165,12 +165,12 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Do_proc_secured_with_null_sets_SecurityContext_to_null()
         {
-            MockFactory.BackToRecordAll();
-            using (MockFactory.Record())
+            Obsolete_MockFactory.BackToRecordAll();
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(() => MockUnitOfWork.Dispose()).Repeat.Never();
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var securityContext = new SecurityContext();
                 Sut = Secured.With(null);

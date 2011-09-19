@@ -3,6 +3,8 @@ using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Core.Domain.Repositories;
+using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 {
@@ -14,12 +16,20 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             base.SetUp();
 
+            StubDomainPropertyDefinitionRepository = GenerateAndRegisterStub<IDomainPropertyDefinitionRepository>();
+
+            StubDomainPropertyDefinitionRepository.Expect(x => x.Get(DomainPropertyDefinition.CaptionId))
+                .Return(new DomainPropertyDefinition(DomainPropertyDefinition.CaptionId, "Name", DomainPropertyType.Text));
+
             ArticleDto = new ArticleDto();
             ArticleDto.Id = 1;
             ArticleDto.Version = 2;
 
             Article = new Article(1, 2);
+            Article.Caption = "Artikel";
         }
+
+        protected IDomainPropertyDefinitionRepository StubDomainPropertyDefinitionRepository { get; set; }
 
         private Article Article { get; set; }
         private ArticleDto ArticleDto { get; set; }
@@ -56,6 +66,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Id, Is.EqualTo(Article.Id));
             Assert.That(dto.Version, Is.EqualTo(Article.Version));
+            Assert.That(dto.Properties, Has.Some.Property("PropertyId").EqualTo(DomainPropertyDefinition.CaptionId)
+                .And.Property("Value").EqualTo("Artikel"));
         }
     }
 }

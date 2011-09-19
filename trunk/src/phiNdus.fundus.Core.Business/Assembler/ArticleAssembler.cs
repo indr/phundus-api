@@ -15,6 +15,24 @@ namespace phiNdus.fundus.Core.Business.Assembler
             return result;
         }
 
+        private static ArticleDto WriteProperties(Article subject, ArticleDto result)
+        {
+            foreach(var each in subject.PropertyValues)
+            {
+                var dtoProperty = new DtoProperty();
+                dtoProperty.PropertyId = each.PropertyDefinition.Id;
+                dtoProperty.Caption = each.PropertyDefinition.Name;
+
+                dtoProperty.ValueId = each.Id;
+                dtoProperty.Value = each.Value;
+
+                result.AddProperty(dtoProperty);
+            }
+
+
+            return result;
+        }
+
         public static ArticleDto CreateDto(Article subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
@@ -22,7 +40,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             var result = new ArticleDto();
             result.Id = subject.Id;
             result.Version = subject.Version;
-            return result;
+            return WriteProperties(subject, result);
         }
     }
 }

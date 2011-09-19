@@ -16,7 +16,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services.UserService
         {
             base.SetUp();
 
-            MockFactory = null;
+            Obsolete_MockFactory = null;
 
             MockUnitOfWork = GenerateAndRegisterMockUnitOfWork();
             MockUserRepository = GenerateAndRegisterMock<IUserRepository>();

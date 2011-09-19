@@ -16,7 +16,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         {
             base.SetUp();
 
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
         }
 
         #endregion
@@ -28,13 +28,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         {
             var user = new User();
 
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("ABCD")).Return(user);
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var session = SecuritySession.FromKey("ABCD");
                 Assert.That(session, Is.Not.Null);
@@ -46,13 +46,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void FromKey_with_invalid_throws()
         {
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("this.is.an.invalid.key")).Return(null);
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 Assert.Throws<InvalidSessionKeyException>(() => SecuritySession.FromKey("this.is.an.invalid.key"));
             }

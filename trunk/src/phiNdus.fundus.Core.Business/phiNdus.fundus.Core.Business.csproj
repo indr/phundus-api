@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Castle.Windsor\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NHibernate\Required_Bins\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Commons">
       <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.dll</HintPath>
     </Reference>
@@ -58,6 +62,8 @@
   <ItemGroup>
     <Compile Include="Assembler\ArticleAssembler.cs" />
     <Compile Include="Dto\ArticleDto.cs" />
+    <Compile Include="Dto\BasePropertiesDto.cs" />
+    <Compile Include="Dto\DtoProperty.cs" />
     <Compile Include="Security\Constraints\AbstractConstraint.cs" />
     <Compile Include="Security\Constraints\AndConstraint.cs" />
     <Compile Include="Security\AuthorizationException.cs" />

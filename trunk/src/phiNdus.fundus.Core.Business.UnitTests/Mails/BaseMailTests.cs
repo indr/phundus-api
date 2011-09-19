@@ -15,9 +15,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
         public override void SetUp()
         {
             base.SetUp();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
-            MockMailTemplateSettings = MockFactory.StrictMock<IMailTemplateSettings>();
-            MockSettings = CreateAndRegisterStrictMock<ISettings>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
+            MockMailTemplateSettings = Obsolete_MockFactory.StrictMock<IMailTemplateSettings>();
+            MockSettings = Obsolete_CreateAndRegisterStrictMock<ISettings>();
             Settings.SetGlobalNonThreadSafeSettings(MockSettings);
         }
 
@@ -57,7 +57,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
         [Test]
         public void ReplacesUserAccountValidationLink()
         {
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockMailTemplateSettings.Subject).Return("Subject");
                 Expect.Call(MockMailTemplateSettings.Body).Return("[Link.UserAccountValidation]");
@@ -67,7 +67,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
                     Arg<string>.Matches(y => y.StartsWith("http://fundus.domain.test/Account/Validation/?key=[Membership.ValidationKey]"))));
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var sut = new HackedBaseMail(MockMailTemplateSettings);
                 sut.Send();
@@ -77,7 +77,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
         [Test]
         public void ReplacesVariablesRecursivTwoTimes()
         {
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockMailTemplateSettings.Subject).Return("Subject");
                 Expect.Call(MockMailTemplateSettings.Body).Return("[Test.FirstVariable]");
@@ -87,7 +87,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
                     Arg<string>.Matches(y => y.StartsWith("I'm First and next says I'm Second"))));
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var sut = new HackedBaseMail(MockMailTemplateSettings);
                 sut.AddData("Test", new RecursiveTestData());
@@ -98,7 +98,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
         [Test]
         public void ReplacesNullVariableWithEmptyString()
         {
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockMailTemplateSettings.Subject).Return("Subject");
                 Expect.Call(MockMailTemplateSettings.Body).Return("Start[Test.ImNull]End");
@@ -108,7 +108,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
                     Arg<string>.Matches(y => y.StartsWith("StartEnd"))));
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var sut = new HackedBaseMail(MockMailTemplateSettings);
                 sut.AddData("Test", new NullTestData());
