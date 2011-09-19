@@ -25,7 +25,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 
         private string GetNewSessionId()
         {
-            return Guid.NewGuid().ToString().Replace("-", "");
+            return Guid.NewGuid().ToString("N");
         }
 
         [Test]

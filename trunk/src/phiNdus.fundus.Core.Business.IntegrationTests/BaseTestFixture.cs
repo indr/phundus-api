@@ -22,7 +22,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
 
         protected static string GetNewSessionKey()
         {
-            return Guid.NewGuid().ToString().Replace("-", "");
+            return Guid.NewGuid().ToString("N");
         }
     }
 }
