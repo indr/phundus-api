@@ -137,7 +137,9 @@
     <EmbeddedResource Include="Mappings\DomainPropertyDefinition.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\DomainObject.hbm.xml" />
+    <EmbeddedResource Include="Mappings\DomainObject.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

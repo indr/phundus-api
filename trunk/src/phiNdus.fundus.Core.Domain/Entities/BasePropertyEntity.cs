@@ -16,6 +16,10 @@ namespace phiNdus.fundus.Core.Domain.Entities
             _propertyValues = propertyValues;
         }
 
+        public BasePropertyEntity(int id, int version) : base(id, version)
+        {
+        }
+
         public virtual ISet<DomainPropertyValue> PropertyValues
         {
             get { return _propertyValues; }

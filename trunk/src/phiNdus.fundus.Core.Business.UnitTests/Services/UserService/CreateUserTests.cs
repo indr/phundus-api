@@ -18,10 +18,10 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services.UserService
 
             MockFactory = null;
 
-            MockUnitOfWork = GenerateAndRegisterDynamicUnitOfWorkMock();
-            MockUserRepository = GenerateAndRegisterDynamic<IUserRepository>();
-            MockRoleRepository = GenerateAndRegisterDynamic<IRoleRepository>();
-            MockMailGateway = GenerateAndRegisterDynamic<IMailGateway>();
+            MockUnitOfWork = GenerateAndRegisterMockUnitOfWork();
+            MockUserRepository = GenerateAndRegisterMock<IUserRepository>();
+            MockRoleRepository = GenerateAndRegisterMock<IRoleRepository>();
+            MockMailGateway = GenerateAndRegisterMock<IMailGateway>();
 
             StubSettings = MockRepository.GenerateMock<ISettings>();
             Settings.SetGlobalNonThreadSafeSettings(StubSettings);
