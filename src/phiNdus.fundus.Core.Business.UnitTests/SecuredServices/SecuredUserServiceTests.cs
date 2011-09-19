@@ -246,7 +246,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 
         private string GetNewSessionId()
         {
-            return Guid.NewGuid().ToString().Replace("-", "");
+            return Guid.NewGuid().ToString("N");
         }
 
         [Test]
