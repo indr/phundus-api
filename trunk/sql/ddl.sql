@@ -76,6 +76,7 @@ create table [DomainPropertyValue] (
 
 create table [DomainObject] (
   Id int not null,
+  [Type] nvarchar(127),
   Version int not null,
   ParentId int null,
   primary key(Id)

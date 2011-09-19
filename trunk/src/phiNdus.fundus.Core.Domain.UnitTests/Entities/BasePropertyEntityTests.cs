@@ -69,6 +69,15 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             Assert.That(sut.GetPropertyValue(_namePropertyDefinition), Is.Null);
             sut.SetPropertyValue(_namePropertyDefinition, "Pullover");
             Assert.That(sut.GetPropertyValue(_namePropertyDefinition), Is.EqualTo("Pullover"));
+        }
+
+        [Test]
+        public void Can_get_and_set_PropertyValue_with_PropertyDefinitionId()
+        {
+            var sut = new BasePropertyEntity();
+            sut.AddProperty(_namePropertyDefinition);
+            Assert.That(sut.GetPropertyValue(_namePropertyDefinition.Id), Is.Null);
+            sut.SetPropertyValue(_namePropertyDefinition.Id, "Pullover");
             Assert.That(sut.GetPropertyValue(_namePropertyDefinition.Id), Is.EqualTo("Pullover"));
         }
 

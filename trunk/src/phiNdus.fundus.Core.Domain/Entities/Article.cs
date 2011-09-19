@@ -1,5 +1,7 @@
 ﻿using System;
 using Iesi.Collections.Generic;
+using phiNdus.fundus.Core.Domain.Repositories;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
@@ -13,48 +15,68 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
         }
 
-        public bool IsReservable
+        public virtual bool IsReservable
         {
             get
             {
-                if (!HasProperty(DomainPropertyDefinition.ReservierbarId))
+                if (!HasProperty(DomainPropertyDefinition.IsReservableId))
                     return false;
-                return Convert.ToBoolean(GetPropertyValue(DomainPropertyDefinition.ReservierbarId));
+                return Convert.ToBoolean(GetPropertyValue(DomainPropertyDefinition.IsReservableId));
             }
-            set { throw new NotImplementedException(); }
+            set
+            {
+                if (!HasProperty(DomainPropertyDefinition.IsReservableId))
+                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.IsReservableId));
+                SetPropertyValue(DomainPropertyDefinition.IsReservableId, value);
+            }
         }
 
-        public bool IsLendable
+        public virtual bool IsLendable
         {
             get
             {
-                if (!HasProperty(DomainPropertyDefinition.AusleihbarId))
+                if (!HasProperty(DomainPropertyDefinition.IsLendableId))
                     return false;
-                return Convert.ToBoolean(GetPropertyValue(DomainPropertyDefinition.AusleihbarId));
+                return Convert.ToBoolean(GetPropertyValue(DomainPropertyDefinition.IsLendableId));
             }
-            set { throw new NotImplementedException(); }
+            set
+            {
+                if (!HasProperty(DomainPropertyDefinition.IsLendableId))
+                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.IsLendableId));
+                SetPropertyValue(DomainPropertyDefinition.IsLendableId, value);
+            }
         }
 
-        public int Amount
+        public virtual int Stock
         {
             get
             {
-                if (!HasProperty(DomainPropertyDefinition.MengeId))
+                if (!HasProperty(DomainPropertyDefinition.StockId))
                     return 0;
-                return Convert.ToInt32(GetPropertyValue(DomainPropertyDefinition.MengeId));
+                return Convert.ToInt32(GetPropertyValue(DomainPropertyDefinition.StockId));
             }
-            set { throw new NotImplementedException(); }
+            set
+            {
+                if (!HasProperty(DomainPropertyDefinition.StockId))
+                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.StockId));
+                SetPropertyValue(DomainPropertyDefinition.StockId, value);
+            }
         }
 
-        public double Price
+        public virtual double Price
         {
             get
             {
-                if (!HasProperty(DomainPropertyDefinition.PreisId))
+                if (!HasProperty(DomainPropertyDefinition.PriceId))
                     return 0.0d;
-                return Convert.ToDouble(GetPropertyValue(DomainPropertyDefinition.PreisId));
+                return Convert.ToDouble(GetPropertyValue(DomainPropertyDefinition.PriceId));
             }
-            set { throw new NotImplementedException(); }
+            set
+            {
+                if (!HasProperty(DomainPropertyDefinition.PriceId))
+                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.PriceId));
+                SetPropertyValue(DomainPropertyDefinition.PriceId, value);
+            }
         }
     }
 }

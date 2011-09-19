@@ -1,13 +1,29 @@
-﻿using Iesi.Collections.Generic;
+﻿using System;
+using Castle.MicroKernel.Registration;
+using Iesi.Collections.Generic;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Core.Domain.Repositories;
 using phiNdus.fundus.TestHelpers;
+using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
     public class ArticleTests : MockTestBase<Article>
     {
+        protected override void RegisterDependencies(Castle.Windsor.IWindsorContainer container)
+        {
+            base.RegisterDependencies(container);
+
+            StubPropertyDefinitionRepository = MockRepository.GenerateStub<IDomainPropertyDefinitionRepository>();
+
+            container.Register(
+                Component.For<IDomainPropertyDefinitionRepository>().Instance(StubPropertyDefinitionRepository));
+        }
+
+        protected IDomainPropertyDefinitionRepository StubPropertyDefinitionRepository { get; set; }
+
         protected override Article CreateSut()
         {
             StubPropertyValues = new HashedSet<DomainPropertyValue>();
@@ -17,19 +33,19 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         private ISet<DomainPropertyValue> StubPropertyValues { get; set; }
 
         private readonly DomainPropertyDefinition _isReservablePropertyDef =
-            new DomainPropertyDefinition(DomainPropertyDefinition.ReservierbarId, "Reservierbar",
+            new DomainPropertyDefinition(DomainPropertyDefinition.IsReservableId, "Reservierbar",
                                          DomainPropertyType.Boolean);
 
         private readonly DomainPropertyDefinition _isLendablePropertyDef =
-            new DomainPropertyDefinition(DomainPropertyDefinition.AusleihbarId, "Ausleihbar",
+            new DomainPropertyDefinition(DomainPropertyDefinition.IsLendableId, "Ausleihbar",
                                          DomainPropertyType.Boolean);
         
         private readonly DomainPropertyDefinition _amountPropertyDef =
-                    new DomainPropertyDefinition(DomainPropertyDefinition.MengeId, "Menge",
+                    new DomainPropertyDefinition(DomainPropertyDefinition.StockId, "Menge",
                                                  DomainPropertyType.Integer);
 
         private readonly DomainPropertyDefinition _pricePropertyDef =
-                    new DomainPropertyDefinition(DomainPropertyDefinition.PreisId, "Preis",
+                    new DomainPropertyDefinition(DomainPropertyDefinition.PriceId, "Preis",
                                                  DomainPropertyType.Decimal);
 
         [Test]
@@ -57,6 +73,16 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void SetIsLendable()
+        {
+            StubPropertyDefinitionRepository.Stub(x => x.Get(_isLendablePropertyDef.Id)).Return(_isLendablePropertyDef);
+
+            Assert.That(Sut.IsLendable, Is.False);
+            Sut.IsLendable = true;
+            Assert.That(Sut.IsLendable, Is.True);
+        }
+
+        [Test]
         public void GetIsReservable()
         {
             Assert.That(Sut.IsReservable, Is.False);
@@ -65,11 +91,31 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void GetAmount()
+        public void SetIsReservable()
         {
-            Assert.That(Sut.Amount, Is.EqualTo(0));
+            StubPropertyDefinitionRepository.Stub(x => x.Get(_isReservablePropertyDef.Id)).Return(_isReservablePropertyDef);
+
+            Assert.That(Sut.IsReservable, Is.False);
+            Sut.IsReservable = true;
+            Assert.That(Sut.IsReservable, Is.True);
+        }
+
+        [Test]
+        public void GetStock()
+        {
+            Assert.That(Sut.Stock, Is.EqualTo(0));
             StubPropertyValues.Add(new DomainPropertyValue(_amountPropertyDef, 1));
-            Assert.That(Sut.Amount, Is.EqualTo(1));
+            Assert.That(Sut.Stock, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void SetStock()
+        {
+            StubPropertyDefinitionRepository.Stub(x => x.Get(_amountPropertyDef.Id)).Return(_amountPropertyDef);
+
+            Assert.That(Sut.Stock, Is.EqualTo(0));
+            Sut.Stock = 1;
+            Assert.That(Sut.Stock, Is.EqualTo(1));
         }
 
         [Test]
@@ -77,6 +123,16 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         {
             Assert.That(Sut.Price, Is.EqualTo(0.0d));
             StubPropertyValues.Add(new DomainPropertyValue(_pricePropertyDef, 1.1d));
+            Assert.That(Sut.Price, Is.EqualTo(1.1d));
+        }
+
+        [Test]
+        public void SetPrice()
+        {
+            StubPropertyDefinitionRepository.Stub(x => x.Get(_pricePropertyDef.Id)).Return(_pricePropertyDef);
+
+            Assert.That(Sut.Price, Is.EqualTo(0.0d));
+            Sut.Price = 1.1d;
             Assert.That(Sut.Price, Is.EqualTo(1.1d));
         }
 

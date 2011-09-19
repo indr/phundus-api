@@ -4,12 +4,12 @@
     {
         // According to dml.sql
         public static int VerfuegbarId { get { return 1; } }
-        public static int NameId { get { return 2; } }
-        public static int MengeId { get { return 3; } }
-        public static int PreisId { get { return 4; } }
+        public static int CaptionId { get { return 2; } }
+        public static int StockId { get { return 3; } }
+        public static int PriceId { get { return 4; } }
         public static int ErfassungsdatumId { get { return 5; } }
-        public static int ReservierbarId { get { return 6; } }
-        public static int AusleihbarId { get { return 7; } }
+        public static int IsReservableId { get { return 6; } }
+        public static int IsLendableId { get { return 7; } }
 
         public DomainPropertyDefinition()
         {

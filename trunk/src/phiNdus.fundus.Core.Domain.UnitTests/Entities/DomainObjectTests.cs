@@ -1,14 +1,29 @@
 ﻿using System;
+using Castle.MicroKernel.Registration;
 using Iesi.Collections.Generic;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Core.Domain.Repositories;
 using phiNdus.fundus.TestHelpers;
+using Rhino.Commons;
+using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
     public class DomainObjectTests : MockTestBase<DomainObject>
     {
+
+        protected override void RegisterDependencies(Castle.Windsor.IWindsorContainer container)
+        {
+            base.RegisterDependencies(container);
+
+            StubPropertyDefinitionRepository = MockRepository.GenerateStub<IDomainPropertyDefinitionRepository>();
+            
+            container.Register(
+                Component.For<IDomainPropertyDefinitionRepository>().Instance(StubPropertyDefinitionRepository));
+        }
+        
         protected override DomainObject CreateSut()
         {
             StubPropertyValues = new HashedSet<DomainPropertyValue>();
@@ -16,9 +31,10 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         private ISet<DomainPropertyValue> StubPropertyValues { get; set; }
+        private IDomainPropertyDefinitionRepository StubPropertyDefinitionRepository { get; set; }
 
-        private readonly DomainPropertyDefinition _textPropertyDef =
-            new DomainPropertyDefinition(DomainPropertyDefinition.NameId, "Name",
+        private readonly DomainPropertyDefinition _namePropertyDef =
+            new DomainPropertyDefinition(DomainPropertyDefinition.CaptionId, "Name",
                                          DomainPropertyType.Text);
 
         [Test]
@@ -64,11 +80,22 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void GetName()
+        public void GetCaption()
         {
-            Assert.That(Sut.Name, Is.EqualTo(""));
-            StubPropertyValues.Add(new DomainPropertyValue(_textPropertyDef, "Name of object"));
-            Assert.That(Sut.Name, Is.EqualTo("Name of object"));
+            Assert.That(Sut.Caption, Is.EqualTo(""));
+            StubPropertyValues.Add(new DomainPropertyValue(_namePropertyDef, "Name of object"));
+            Assert.That(Sut.Caption, Is.EqualTo("Name of object"));
+        }
+
+        [Test]
+        public void SetCaption()
+        {
+            StubPropertyDefinitionRepository.Stub(x => x.Get(_namePropertyDef.Id))
+                .Return(_namePropertyDef);
+
+            Assert.That(Sut.Caption, Is.EqualTo(""));
+            Sut.Caption = "Name of object";
+            Assert.That(Sut.Caption, Is.EqualTo("Name of object"));
         }
     }
 }
