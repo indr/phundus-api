@@ -64,6 +64,8 @@
     <Compile Include="Dto\ArticleDto.cs" />
     <Compile Include="Dto\BasePropertiesDto.cs" />
     <Compile Include="Dto\DtoProperty.cs" />
+    <Compile Include="SecuredServices\IArticleService.cs" />
+    <Compile Include="SecuredServices\SecuredArticleService.cs" />
     <Compile Include="Security\Constraints\AbstractConstraint.cs" />
     <Compile Include="Security\Constraints\AndConstraint.cs" />
     <Compile Include="Security\AuthorizationException.cs" />

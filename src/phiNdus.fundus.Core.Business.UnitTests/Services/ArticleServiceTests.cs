@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Castle.MicroKernel.Registration;
 using NUnit.Framework;
+using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
@@ -20,10 +21,22 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         {
             base.SetUp();
 
+            FakeUnitOfWork = GenerateAndRegisterStubUnitOfWork();
+
             Sut = new ArticleService();
         }
 
         protected ArticleService Sut { get; set; }
+
+        protected IUnitOfWork FakeUnitOfWork { get; set; }
+
+        protected IArticleRepository ArticleRepo { get; set; }
+
+        private void GenerateAndRegisterMissingStubs()
+        {
+            if (IoC.TryResolve<IArticleRepository>() == null)
+                ArticleRepo = GenerateAndRegisterStub<IArticleRepository>();
+        }
 
         [Test]
         public void Can_create()
@@ -44,69 +57,94 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void GetArticles_calls_repository_FindAll()
         {
-            var mockArticleRepository = GenerateAndRegisterMock<IArticleRepository>();
-            mockArticleRepository.Expect(x => x.FindAll()).Return(new List<Article>());
+            ArticleRepo = GenerateAndRegisterMock<IArticleRepository>();
+            GenerateAndRegisterMissingStubs();
 
+            ArticleRepo.Expect(x => x.FindAll()).Return(new List<Article>());
             Sut.GetArticles();
 
-            mockArticleRepository.VerifyAllExpectations();
+            ArticleRepo.VerifyAllExpectations();
         }
         
         [Test]
         public void GetArticle_calls_repository_Get()
         {
-            var mockArticleRepository = GenerateAndRegisterMock<IArticleRepository>();
-            mockArticleRepository.Expect(x => x.Get(1));
-
+            ArticleRepo = GenerateAndRegisterMock<IArticleRepository>();
+            GenerateAndRegisterMissingStubs();
+            
+            ArticleRepo.Expect(x => x.Get(1)).Return(null);
             Sut.GetArticle(1);
 
-            mockArticleRepository.VerifyAllExpectations();
+            ArticleRepo.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void GetArticle_with_invalid_id_returns_null()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            Assert.That(Sut.GetArticle(1), Is.Null);
+        }
+
+        [Test]
+        public void GetArticle_returns_dto()
+        {
+            GenerateAndRegisterMissingStubs();
+            
+            ArticleRepo.Expect(x => x.Get(1)).Return(new Article(1, 2));
+            ArticleDto actual = Sut.GetArticle(1);
+
+            Assert.That(actual, Is.Not.Null);
+            Assert.That(actual.Id, Is.EqualTo(1));
+            Assert.That(actual.Version, Is.EqualTo(2));
         }
 
         [Test]
         public void CreateArticle_stores_article_in_repository()
         {
-            var mockArticleRepository = GenerateAndRegisterMock<IArticleRepository>();
-            mockArticleRepository.Expect(x => x.Save(Arg<Article>.Is.Anything));
+            ArticleRepo = GenerateAndRegisterMock<IArticleRepository>();
+            GenerateAndRegisterMissingStubs();
 
+            ArticleRepo.Expect(x => x.Save(Arg<Article>.Is.Anything));
             Sut.CreateArticle();
 
-            mockArticleRepository.VerifyAllExpectations();
+            ArticleRepo.VerifyAllExpectations();
         }
 
         [Test]
         public void CreateArticle_flushes_transaction()
         {
-            GenerateAndRegisterStub<IArticleRepository>();
-            var mockUnitOfWork = GenerateAndRegisterMockUnitOfWork();
-            mockUnitOfWork.Expect(x => x.TransactionalFlush());
-
+            FakeUnitOfWork = GenerateAndRegisterMockUnitOfWork();
+            GenerateAndRegisterMissingStubs();
+            
+            FakeUnitOfWork.Expect(x => x.TransactionalFlush());
             Sut.CreateArticle();
 
-            mockUnitOfWork.VerifyAllExpectations();
+            FakeUnitOfWork.VerifyAllExpectations();
         }
 
         [Test]
         public void UpdateArticle_stores_article_in_repository()
         {
-            var mockArticleRepository = GenerateAndRegisterMock<IArticleRepository>();
-            mockArticleRepository.Expect(x => x.Save(Arg<Article>.Is.Anything));
+            ArticleRepo = GenerateAndRegisterMock<IArticleRepository>();
+            GenerateAndRegisterMissingStubs();
 
+            ArticleRepo.Expect(x => x.Save(Arg<Article>.Is.Anything));
             Sut.UpdateArticle();
 
-            mockArticleRepository.VerifyAllExpectations();
+            ArticleRepo.VerifyAllExpectations();
         }
 
         [Test]
         public void UpdateArticle_flushes_transaction()
         {
-            GenerateAndRegisterStub<IArticleRepository>();
-            var mockUnitOfWork = GenerateAndRegisterMockUnitOfWork();
-            mockUnitOfWork.Expect(x => x.TransactionalFlush());
+            FakeUnitOfWork = GenerateAndRegisterMockUnitOfWork();
+            GenerateAndRegisterMissingStubs();
 
+            FakeUnitOfWork.Expect(x => x.TransactionalFlush());
             Sut.UpdateArticle();
 
-            mockUnitOfWork.VerifyAllExpectations();
+            FakeUnitOfWork.VerifyAllExpectations();
         }
     }
 }

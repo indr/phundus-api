@@ -1,4 +1,7 @@
 ﻿using System;
+using phiNdus.fundus.Core.Business.Assembler;
+using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
@@ -11,17 +14,20 @@ namespace phiNdus.fundus.Core.Business.Services
             get { return IoC.Resolve<IArticleRepository>(); }
         }
 
-        public void GetArticles()
+        public virtual void GetArticles()
         {
             Articles.FindAll();
         }
 
-        public void GetArticle(int id)
+        public virtual ArticleDto GetArticle(int id)
         {
-            Articles.Get(id);
+            var article = Articles.Get(id);
+            if (article == null)
+                return null;
+            return ArticleAssembler.CreateDto(article);
         }
 
-        public void CreateArticle()
+        public virtual void CreateArticle()
         {
             using (var uow = UnitOfWork.Start())
             {
@@ -30,7 +36,7 @@ namespace phiNdus.fundus.Core.Business.Services
             }
         }
 
-        public void UpdateArticle()
+        public virtual void UpdateArticle()
         {
             using (var uow = UnitOfWork.Start())
             {
