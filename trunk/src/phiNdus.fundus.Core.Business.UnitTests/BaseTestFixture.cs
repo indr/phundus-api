@@ -64,6 +64,12 @@ namespace phiNdus.fundus.Core.Business.UnitTests
             return result;
         }
 
+        protected IUnitOfWork GenerateAndRegisterStubUnitOfWork()
+        {
+            var result = MockRepository.GenerateStub<IUnitOfWork>();
+            UnitOfWork.RegisterGlobalUnitOfWork(result);
+            return result;
+        }
 
         #region obsolete
         protected MockRepository Obsolete_MockFactory { get; set; }
@@ -95,7 +101,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests
             return result;
         }
         #endregion
-
 
         
     }
