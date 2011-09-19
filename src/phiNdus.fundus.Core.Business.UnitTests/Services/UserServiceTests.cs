@@ -21,7 +21,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         {
             base.SetUp();
 
-            MockUnitOfWork = CreateAndRegisterStrictUnitOfWorkMock();
+            MockUnitOfWork = Obsolete_CreateAndRegisterStrictUnitOfWorkMock();
 
             Sut = new Business.Services.UserService();
 
@@ -53,12 +53,12 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void DeleteUser_deletes_repository_and_flushes_transaction()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
             var user = new User();
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindByEmail("user@example.com")).Return(user);
                 Expect.Call(() => MockUserRepository.Delete(user));
@@ -66,7 +66,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                 Expect.Call(() => MockUnitOfWork.Dispose()).Repeat.Any();
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 bool actual = Sut.DeleteUser("user@example.com");
                 Assert.That(actual, Is.True);
@@ -76,9 +76,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void DeleteUser_with_email_null_throws()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
             var ex = Assert.Throws<ArgumentNullException>(() => Sut.DeleteUser(null));
             Assert.That(ex.ParamName, Is.EqualTo("email"));
@@ -87,18 +87,18 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void GetUser_lowers_email()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(
                     MockUserRepository.FindByEmail("ted.mosby@example.com")).Return(TedMosby);
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 UserDto dto = Sut.GetUser("Ted.Mosby@example.com");
                 Assert.That(dto, Is.Not.Null);
@@ -109,19 +109,19 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void GetUser_returns_dto()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
             var user = new User();
             user.Membership.Email = "user@example.com";
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindByEmail("user@example.com")).Return(user);
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 UserDto actual = Sut.GetUser("user@example.com");
                 Assert.That(actual, Is.Not.Null);
@@ -132,17 +132,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void GetUser_returns_null()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindByEmail("user@example.com")).Return(null);
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 UserDto actual = Sut.GetUser("user@example.com");
                 Assert.That(actual, Is.Null);
@@ -152,12 +152,12 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void UpdateUser_updates_repository_and_flushes_transaction()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
             var user = new User();
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.Get(1)).Return(user);
                 Expect.Call(() => MockUserRepository.Update(user));
@@ -165,7 +165,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 Sut.UpdateUser(new UserDto {Id = 1});
             }
@@ -174,17 +174,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void UpdateUser_with_invalid_id_throws()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.Get(0)).Return(null);
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 Assert.Throws<EntityNotFoundException>(() => Sut.UpdateUser(new UserDto {Id = 0}));
             }
@@ -193,9 +193,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void UpdateUser_with_null_subject_throws()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
             Assert.Throws<ArgumentNullException>(() => Sut.UpdateUser(null));
         }
@@ -203,17 +203,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void UpdateUser_with_out_of_date_userdto_throws()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.Get(1)).Return(new User());
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 Assert.Throws<DtoOutOfDateException>(() => Sut.UpdateUser(new UserDto {Id = 1, Version = -1}));
             }
@@ -227,11 +227,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void ValidateUser_returns_true()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(
                     MockUserRepository.FindByEmail("unknown@example.com")).Return(TedMosby);
@@ -239,7 +239,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 bool actual = Sut.ValidateUser(GetNewSessionId(), "unknown@example.com", "1234");
                 Assert.That(actual, Is.True);
@@ -249,18 +249,18 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void ValidateUser_with_invalid_password_returns_null()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(
                     MockUserRepository.FindByEmail("unknown@example.com")).Return(TedMosby);
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 bool actual = Sut.ValidateUser(GetNewSessionId(), "unknown@example.com", "123");
                 Assert.That(actual, Is.False);
@@ -270,18 +270,18 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void ValidateUser_with_unknown_email_returns_null()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(
                     MockUserRepository.FindByEmail("unknown@example.com")).Return(null);
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 bool actual = Sut.ValidateUser(GetNewSessionId(), "unknown@example.com", "");
                 Assert.That(actual, Is.False);
@@ -291,11 +291,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void ValidateUser_with_uppercase_email_returns_not_null()
         {
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = CreateAndRegisterStrictMock<IMailGateway>();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
+            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
 
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(
                     MockUserRepository.FindByEmail("unknown@example.com")).Return(TedMosby);
@@ -303,7 +303,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
 
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 bool actual = Sut.ValidateUser(GetNewSessionId(), "UNKNOWN@example.com", "1234");
                 Assert.That(actual, Is.True);

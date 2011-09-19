@@ -21,9 +21,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         {
             base.SetUp();
 
-            MockUnitOfWork = CreateAndRegisterDynamicUnitOfWorkMock();
-            MockUserRepository = CreateAndRegisterStrictMock<IUserRepository>();
-            MockUserService = CreateAndRegisterStrictMock<UserService>();
+            MockUnitOfWork = Obsolete_CreateAndRegisterDynamicUnitOfWorkMock();
+            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
+            MockUserService = Obsolete_CreateAndRegisterStrictMock<UserService>();
 
             User = new User(1);
             User.Role = Role.User;
@@ -47,11 +47,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void CreateUser_with_sessionKey_null_does_not_throw()
         {
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserService.CreateUser("user@example.com", "1234", "", ""));
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 Sut.CreateUser(null, "user@example.com", "1234", "", "");
             }
@@ -61,11 +61,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         public void CreateUser_returns_dto()
         {
             var dto = new UserDto();
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserService.CreateUser("user@example.com", "1234", "John", "Doe")).Return(dto);
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var actual = Sut.CreateUser("maybevalid", "user@example.com", "1234", "John", "Doe");
                 Assert.That(actual, Is.SameAs(dto));
@@ -75,12 +75,12 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void DeleteUser_other_with_administrator_roll()
         {
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("valid")).Return(Admin);
                 Expect.Call(MockUserService.DeleteUser("user@example.com")).Return(true);
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var actual = Sut.DeleteUser("valid", "user@example.com");
                 Assert.That(actual, Is.True);
@@ -90,11 +90,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void DeleteUser_other_with_user_roll_throws()
         {
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("valid")).Return(User);
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 Assert.Throws<AuthorizationException>(() => Sut.DeleteUser("valid", "other@example.com"));
             }
@@ -103,11 +103,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void DeleteUser_with_invalid_sessionKey_throws()
         {
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("invalid")).Return(null);
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 Assert.Throws<InvalidSessionKeyException>(() => Sut.DeleteUser("invalid", null));
             }
@@ -116,8 +116,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void DeleteUser_with_sessionKey_null_throws()
         {
-            MockFactory.ReplayAll();
-            using (MockFactory.Playback())
+            Obsolete_MockFactory.ReplayAll();
+            using (Obsolete_MockFactory.Playback())
             {
                 var ex = Assert.Throws<ArgumentNullException>(() => Sut.DeleteUser(null, ""));
                 Assert.That(ex.ParamName, Is.EqualTo("key"));
@@ -127,11 +127,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetUser_other_with_user_roll_throws()
         {
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("valid")).Return(User);
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 Assert.Throws<AuthorizationException>(() => Sut.GetUser("valid", "other@example.com"));
             }
@@ -140,12 +140,12 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetUser_own_with_user_roll()
         {
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("valid")).Return(User);
                 Expect.Call(MockUserService.GetUser("user@example.com")).Return(new UserDto());
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var actual = Sut.GetUser("valid", "user@example.com");
                 Assert.That(actual, Is.Not.Null);
@@ -155,11 +155,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetUser_with_invalid_sessionKey_throws()
         {
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("invalid")).Return(null);
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 Assert.Throws<InvalidSessionKeyException>(() => Sut.GetUser("invalid", ""));
             }
@@ -168,8 +168,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetUser_with_sessionKey_null_throws()
         {
-            MockFactory.ReplayAll();
-            using (MockFactory.Playback())
+            Obsolete_MockFactory.ReplayAll();
+            using (Obsolete_MockFactory.Playback())
             {
                 var ex = Assert.Throws<ArgumentNullException>(() => Sut.GetUser(null, ""));
                 Assert.That(ex.ParamName, Is.EqualTo("key"));
@@ -179,8 +179,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void UpdateUser_with_user_null_throws()
         {
-            MockFactory.ReplayAll();
-            using (MockFactory.Playback())
+            Obsolete_MockFactory.ReplayAll();
+            using (Obsolete_MockFactory.Playback())
             {
                 var ex = Assert.Throws<ArgumentNullException>(() => Sut.UpdateUser("valid", null));
                 Assert.That(ex.ParamName, Is.EqualTo("user"));
@@ -190,11 +190,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void UpdateUser_with_invalid_sessionKey_throws()
         {
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("invalid")).Return(null);
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 Assert.Throws<InvalidSessionKeyException>(() => Sut.UpdateUser("invalid", new UserDto()));
             }
@@ -203,8 +203,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void UpdateUser_with_sessionKey_null_throws()
         {
-            MockFactory.ReplayAll();
-            using (MockFactory.Playback())
+            Obsolete_MockFactory.ReplayAll();
+            using (Obsolete_MockFactory.Playback())
             {
                 var ex = Assert.Throws<ArgumentNullException>(() => Sut.UpdateUser(null, new UserDto()));
                 Assert.That(ex.ParamName, Is.EqualTo("key"));
@@ -217,11 +217,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             var userDto = new UserDto();
             userDto.Id = 2;
 
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("valid")).Return(User);
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 Assert.Throws<AuthorizationException>(() => Sut.UpdateUser("valid", userDto));
             }
@@ -233,12 +233,12 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             var userDto = new UserDto();
             userDto.Id = 2;
 
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.FindBySessionKey("valid")).Return(Admin);
                 Expect.Call(() => MockUserService.UpdateUser(userDto));
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 Sut.UpdateUser("valid", userDto);
             }
@@ -253,13 +253,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         public void ValidateUser_returns()
         {
             var sessionId = GetNewSessionId();
-            using (MockFactory.Record())
+            using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserService.ValidateUser(Arg<string>.Is.Equal(sessionId),
                      Arg<string>.Is.Equal("user@example.com"),
                      Arg<string>.Is.Equal("1234"))).Return(true);
             }
-            using (MockFactory.Playback())
+            using (Obsolete_MockFactory.Playback())
             {
                 var actual = Sut.ValidateUser(sessionId, "user@example.com", "1234");
                 Assert.That(actual, Is.True);

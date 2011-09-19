@@ -20,6 +20,20 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         protected ArticleDto Sut { get; set; }
 
         [Test]
+        public void Can_create()
+        {
+            var sut = new ArticleDto();
+            Assert.That(sut, Is.Not.Null);
+        }
+
+        [Test]
+        public void Is_derived_from_BaseDtoWithDynProperties()
+        {
+            var sut = new ArticleDto();
+            Assert.That(sut, Is.InstanceOf(typeof(BasePropertiesDto)));
+        }
+
+        [Test]
         public void Can_get_and_set_Id()
         {
             Sut.Id = 1;
