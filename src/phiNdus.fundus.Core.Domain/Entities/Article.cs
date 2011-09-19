@@ -15,6 +15,10 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
         }
 
+        public Article(int id, int version) : base(id, version)
+        {
+        }
+
         public virtual bool IsReservable
         {
             get

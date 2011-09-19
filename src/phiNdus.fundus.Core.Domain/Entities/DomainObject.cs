@@ -17,6 +17,10 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
         }
 
+        public DomainObject(int id, int version) : base(id, version)
+        {
+        }
+
         public virtual ISet<DomainObject> Children
         {
             get { return _children; }

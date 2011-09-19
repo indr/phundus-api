@@ -73,7 +73,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         private UserDto _dto;
 
         [Test]
-        public void CreateDomainObjectWithNullSubjectThrowsCreateNullSubjectThrows()
+        public void CreateDomainObjectWithNullSubjectThrows()
         {
             Assert.Throws<ArgumentNullException>(() => UserAssembler.CreateDomainObject(null));
         }

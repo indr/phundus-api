@@ -9,8 +9,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests
 {
     public class BaseTestFixture
     {
-        protected MockRepository MockFactory { get; set; }
-
         protected IUnitOfWork MockUnitOfWork { get; set; }
 
         [SetUp]
@@ -31,35 +29,44 @@ namespace phiNdus.fundus.Core.Business.UnitTests
             IoC.Container.Dispose();
         }
 
-        protected T GenerateAndRegisterDynamic<T>() where T: class
+        protected T GenerateAndRegisterMock<T>() where T : class
         {
             var result = MockRepository.GenerateMock<T>();
             IoC.Container.Register(Component.For<T>().Instance(result));
             return result;
         }
 
-        protected T GenerateAndRegisterStric<T>()
+        protected T GenerateAndRegisterStub<T>() where T : class
+        {
+            var result = MockRepository.GenerateStub<T>();
+            IoC.Container.Register(Component.For<T>().Instance(result));
+            return result;
+        }
+
+        protected T GenerateAndRegisterStrictMock<T>()
         {
             var result = MockRepository.GenerateStrictMock<T>();
             IoC.Container.Register(Component.For<T>().Instance(result));
             return result;
         }
 
-        protected IUnitOfWork GenerateAndRegisterDynamicUnitOfWorkMock()
+        protected IUnitOfWork GenerateAndRegisterMockUnitOfWork()
         {
             var result = MockRepository.GenerateMock<IUnitOfWork>();
             UnitOfWork.RegisterGlobalUnitOfWork(result);
             return result;
         }
 
-        protected IUnitOfWork GenerateAndRegisterStrictUnitOfWorkMock()
+        protected IUnitOfWork GenerateAndRegisterStrictMockUnitOfWork()
         {
             var result = MockRepository.GenerateStrictMock<IUnitOfWork>();
             UnitOfWork.RegisterGlobalUnitOfWork(result);
             return result;
         }
 
+
         #region obsolete
+        protected MockRepository MockFactory { get; set; }
         protected T CreateAndRegisterDynamicMock<T>() where T : class
         {
             var result = MockFactory.DynamicMock<T>();
@@ -88,5 +95,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests
             return result;
         }
         #endregion
+
+
+        
     }
 }

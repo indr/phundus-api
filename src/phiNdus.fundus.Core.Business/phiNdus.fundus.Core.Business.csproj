@@ -56,6 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assembler\ArticleAssembler.cs" />
+    <Compile Include="Dto\ArticleDto.cs" />
     <Compile Include="Security\Constraints\AbstractConstraint.cs" />
     <Compile Include="Security\Constraints\AndConstraint.cs" />
     <Compile Include="Security\AuthorizationException.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Security\SecurityContext.cs" />
     <Compile Include="Security\SecuritySession.cs" />
     <Compile Include="Security\Constraints\Session.cs" />
+    <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Services\UserService.cs">
       <SubType>Code</SubType>
     </Compile>
