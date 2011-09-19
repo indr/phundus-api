@@ -21,18 +21,25 @@ namespace phiNdus.fundus.Core.Business.Services
 
         public virtual ArticleDto GetArticle(int id)
         {
-            var article = Articles.Get(id);
-            if (article == null)
-                return null;
-            return ArticleAssembler.CreateDto(article);
+            using(var uow = UnitOfWork.Start())
+            {
+                var article = Articles.Get(id);
+                if (article == null)
+                    return null;
+                return ArticleAssembler.CreateDto(article);
+            }
         }
 
-        public virtual void CreateArticle()
+        public virtual int CreateArticle(ArticleDto subject)
         {
+            Guard.Against<ArgumentNullException>(subject == null, "subject");
+
             using (var uow = UnitOfWork.Start())
             {
-                Articles.Save(null);
+                var article = ArticleAssembler.CreateDomainObject(subject);
+                var id = Articles.Save(article).Id;
                 uow.TransactionalFlush();
+                return id;
             }
         }
 

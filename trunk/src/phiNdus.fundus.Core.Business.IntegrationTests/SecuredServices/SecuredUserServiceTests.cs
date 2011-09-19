@@ -20,11 +20,6 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
 
         protected IUserService Sut { get; set; }
 
-        private string GetNewSessionKey()
-        {
-            return Guid.NewGuid().ToString().Replace("-", "");
-        }
-
         [Test]
         public void GetUser_own_with_user_roll()
         {

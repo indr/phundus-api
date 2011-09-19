@@ -1,4 +1,5 @@
-﻿using Castle.Windsor;
+﻿using System;
+using Castle.Windsor;
 using NUnit.Framework;
 using Rhino.Commons;
 
@@ -17,6 +18,11 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
         public void FixtureTearDown()
         {
             IoC.Container.Dispose();
+        }
+
+        protected static string GetNewSessionKey()
+        {
+            return Guid.NewGuid().ToString().Replace("-", "");
         }
     }
 }

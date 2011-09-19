@@ -1,17 +1,29 @@
 ﻿using System;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Assembler
 {
     public class ArticleAssembler
     {
-        public static Article CreateDomainObject(object subject)
+        public static Article CreateDomainObject(ArticleDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
             var result = new Article();
+            WriteProperties(subject, result);
+            return result;
+        }
+
+        private static Article WriteProperties(ArticleDto subject, Article result)
+        {
+            var propertyDefinitionRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
+            foreach (var each in subject.Properties)
+            {
+                result.AddProperty(propertyDefinitionRepo.Get(each.PropertyId), each.Value);
+            }
             return result;
         }
 
@@ -40,7 +52,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
             var result = new ArticleDto();
             result.Id = subject.Id;
             result.Version = subject.Version;
-            return WriteProperties(subject, result);
+            result = WriteProperties(subject, result);
+            return result;
         }
     }
 }
