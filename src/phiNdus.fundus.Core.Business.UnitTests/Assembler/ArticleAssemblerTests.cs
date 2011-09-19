@@ -24,6 +24,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             ArticleDto = new ArticleDto();
             ArticleDto.Id = 1;
             ArticleDto.Version = 2;
+            ArticleDto.AddProperty(new DtoProperty
+                                       {
+                                           Caption = "Name",
+                                           DataType = DtoPropertyDataType.Text,
+                                           PropertyId = DomainPropertyDefinition.CaptionId,
+                                           Value = "Artikel"
+                                       });
 
             Article = new Article(1, 2);
             Article.Caption = "Artikel";
@@ -49,6 +56,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(domainObject, Is.Not.Null);
             Assert.That(domainObject.Id, Is.EqualTo(0));
             Assert.That(domainObject.Version, Is.EqualTo(0));
+            Assert.That(domainObject.Caption, Is.EqualTo("Artikel"));
         }
 
         [Test]
