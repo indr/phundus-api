@@ -67,9 +67,14 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public virtual void SetPropertyValue(DomainPropertyDefinition propertyDefinition, object value)
         {
+            SetPropertyValue(propertyDefinition.Id, value);
+        }
+
+        public virtual void SetPropertyValue(int propertyDefinitionId, object value)
+        {
             foreach (var each in PropertyValues)
             {
-                if (each.PropertyDefinition.Id == propertyDefinition.Id)
+                if (each.PropertyDefinition.Id == propertyDefinitionId)
                 {
                     each.Value = value;
                     return;
@@ -92,6 +97,5 @@ namespace phiNdus.fundus.Core.Domain.Entities
             else
                 throw new PropertyException("Property nicht vorhanden.");
         }
-
     }
 }

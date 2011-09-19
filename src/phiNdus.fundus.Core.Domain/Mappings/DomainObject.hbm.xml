@@ -6,6 +6,7 @@
     <id name="Id">
       <generator class="hilo" />
     </id>
+    <discriminator column="[Type]" type="String" />
     <version name="Version" />
 
     <set name="PropertyValues" cascade="all-delete-orphan" lazy="false">
@@ -18,5 +19,7 @@
       <key column="ParentId" />
       <one-to-many class="DomainObject" />
     </set>
+
+    <subclass name="Article" />
   </class>
 </hibernate-mapping>

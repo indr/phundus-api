@@ -1,5 +1,7 @@
 ﻿using System;
 using Iesi.Collections.Generic;
+using phiNdus.fundus.Core.Domain.Repositories;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
@@ -23,15 +25,20 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public virtual DomainObject Parent { get; protected set; }
 
-        public virtual string Name
+        public virtual string Caption
         {
             get
             {
-                if (!HasProperty(DomainPropertyDefinition.NameId))
+                if (!HasProperty(DomainPropertyDefinition.CaptionId))
                     return "";
-                return Convert.ToString(GetPropertyValue(DomainPropertyDefinition.NameId));
+                return Convert.ToString(GetPropertyValue(DomainPropertyDefinition.CaptionId));
             }
-            set { throw new NotImplementedException(); }
+            set
+            {
+                if (!HasProperty(DomainPropertyDefinition.CaptionId))
+                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.CaptionId));
+                SetPropertyValue(DomainPropertyDefinition.CaptionId, value);
+            }
         }
 
         public virtual void AddChild(DomainObject item)
