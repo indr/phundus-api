@@ -7,6 +7,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
     public class BasePropertiesDtoTests
     {
         [Test]
+        public void Can_add_DtoProperty()
+        {
+            var sut = new BasePropertiesDto();
+
+            var dtoProperty = new DtoProperty();
+            sut.AddProperty(dtoProperty);
+
+            Assert.That(sut.Properties, Contains.Item(dtoProperty));
+        }
+
+        [Test]
         public void Can_create()
         {
             var sut = new BasePropertiesDto();
@@ -16,14 +27,32 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         }
 
         [Test]
-        public void Can_add_DtoProperty()
+        public void Can_remove_DtoProperty_by_PropertyId()
         {
             var sut = new BasePropertiesDto();
+            var dtoProperty = new DtoProperty
+                                  {
+                                      PropertyId = 1
+                                  };
+            sut.AddProperty(dtoProperty);
+            Assert.That(sut.Properties, Contains.Item(dtoProperty));
 
+            sut.RemoveProperty(1);
+            Assert.That(sut.Properties, Has.Count.EqualTo(0));
+        }
+
+        [Test]
+        public void Can_remove_DtoProperty_by_reference()
+        {
+            var sut = new BasePropertiesDto();
             var dtoProperty = new DtoProperty();
             sut.AddProperty(dtoProperty);
 
             Assert.That(sut.Properties, Contains.Item(dtoProperty));
+
+            sut.RemoveProperty(dtoProperty);
+
+            Assert.That(sut.Properties, Has.Count.EqualTo(0));
         }
     }
 }

@@ -111,33 +111,33 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         [Test]
         public void Can_save_and_load_removing_properties()
         {
-            var modelId = 0;
-            var model = new DomainObject();
-            model.AddProperty(NamePropertyDefinition);
-            model.AddProperty(PricePropertyDefinition);
+            var domainObjectId = 0;
+            var domainObject = new DomainObject();
+            domainObject.AddProperty(NamePropertyDefinition);
+            domainObject.AddProperty(PricePropertyDefinition);
 
             // Insert
             using (var uow = UnitOfWork.Start())
             {
-                Sut.Save(model);
-                modelId = model.Id;
+                Sut.Save(domainObject);
+                domainObjectId = domainObject.Id;
                 uow.TransactionalFlush();
             }
 
             // Update (Remove aus Collection)
             using (var uow = UnitOfWork.Start())
             {
-                model = Sut.Get(modelId);
-                model.RemoveProperty(PricePropertyDefinition);
-                Sut.Save(model);
+                domainObject = Sut.Get(domainObjectId);
+                domainObject.RemoveProperty(PricePropertyDefinition);
+                Sut.Save(domainObject);
                 uow.TransactionalFlush();
             }
 
             using (var uow = UnitOfWork.Start())
             {
-                model = Sut.Get(modelId);
-                Assert.That(model.HasProperty(NamePropertyDefinition));
-                Assert.That(model.HasProperty(PricePropertyDefinition), Is.False);
+                domainObject = Sut.Get(domainObjectId);
+                Assert.That(domainObject.HasProperty(NamePropertyDefinition));
+                Assert.That(domainObject.HasProperty(PricePropertyDefinition), Is.False);
             }
         }
     }
