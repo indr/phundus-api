@@ -6,5 +6,6 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
     {
         ArticleDto GetArticle(string sessionKey, int id);
         int CreateArticle(string sessionKey, ArticleDto subject);
+        void UpdateArticle(string sessionKey, ArticleDto subject);
     }
 }
