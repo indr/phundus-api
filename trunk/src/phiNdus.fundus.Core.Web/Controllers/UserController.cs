@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using Rhino.Commons;
@@ -31,12 +30,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            try {
+            try
+            {
                 var userService = IoC.Resolve<IUserService>();
                 return View(userService.GetUser(Session.SessionID, id));
-                }
-            // TODO: Logging
-            // TODO: Exception-Handling
+            }
+                // TODO: Logging
+                // TODO: Exception-Handling
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
@@ -49,12 +49,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            try {
+            try
+            {
                 var userService = IoC.Resolve<IUserService>();
                 return View(userService.GetUser(Session.SessionID, id));
             }
-            // TODO: Logging
-            // TODO: Exception-Handling
+                // TODO: Logging
+                // TODO: Exception-Handling
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
@@ -76,9 +77,9 @@ namespace phiNdus.fundus.Core.Web.Controllers
                 userService.UpdateUser(Session.SessionID, user);
                 return RedirectToAction("Index");
             }
-            // TODO: Logging
-            // TODO: Exception-Handling
-            catch(Exception ex)
+                // TODO: Logging
+                // TODO: Exception-Handling
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
                 return View(user);

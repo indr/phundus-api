@@ -22,6 +22,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             _domainObject = new User(1, 2);
             _domainObject.FirstName = "John";
             _domainObject.LastName = "Wayne";
+            _domainObject.Role = new Role(1, "Benutzer");
+            
             var membership = new DerivedMembership();
             membership.SetCreateDate(new DateTime(2011, 6, 5, 14, 48, 55));
             _domainObject.Membership = membership;
@@ -101,6 +103,20 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(dto.Email, Is.EqualTo("john.wayne@example.com"));
             Assert.That(dto.CreateDate, Is.EqualTo(new DateTime(2011, 6, 5, 14, 48, 55)));
             Assert.That(dto.IsApproved, Is.True);
+            Assert.That(dto.RoleId, Is.EqualTo(1));
+            Assert.That(dto.RoleName, Is.EqualTo("Benutzer"));
+        }
+
+        [Test]
+        public void CreateDto_without_role_returns_dto()
+        {
+            _domainObject.Role = null;
+
+            var dto = UserAssembler.CreateDto(_domainObject);
+
+            Assert.That(dto.Id, Is.EqualTo(1));
+            Assert.That(dto.RoleId, Is.EqualTo(0));
+            Assert.That(dto.RoleName, Is.Null);
         }
 
         [Test]
