@@ -23,6 +23,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             FakeUnitOfWork = GenerateAndRegisterStubUnitOfWork();
 
             Sut = new ArticleService();
+
+            Article = new Article(1, 2);
         }
 
         #endregion
@@ -36,8 +38,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
         private void GenerateAndRegisterMissingStubs()
         {
-            if (IoC.TryResolve<IArticleRepository>() == null)
+            if (IoC.TryResolve<IArticleRepository>() == null) {
                 FakeArticleRepo = GenerateAndRegisterStub<IArticleRepository>();
+                FakeArticleRepo.Expect(x => x.Get(Article.Id)).Return(Article);
+                FakeArticleRepo.Expect(x => x.Save(Arg<Domain.Entities.Article>.Is.Anything)).Return(Article);
+            }
             if (IoC.TryResolve<IDomainPropertyDefinitionRepository>() == null)
                 FakePropertyDefRepo = GenerateAndRegisterStub<IDomainPropertyDefinitionRepository>();
         }
@@ -55,7 +60,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             FakeUnitOfWork = GenerateAndRegisterMockUnitOfWork();
             GenerateAndRegisterMissingStubs();
 
-            FakeArticleRepo.Expect(x => x.Save(Arg<Article>.Is.Anything)).Return(new Article());
             FakeUnitOfWork.Expect(x => x.TransactionalFlush());
             Sut.CreateArticle(new ArticleDto());
 
@@ -109,7 +113,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         {
             GenerateAndRegisterMissingStubs();
 
-            FakeArticleRepo.Expect(x => x.Get(1)).Return(new Article(1, 2));
             ArticleDto actual = Sut.GetArticle(1);
 
             Assert.That(actual, Is.Not.Null);
@@ -117,12 +120,14 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             Assert.That(actual.Version, Is.EqualTo(2));
         }
 
+        protected Article Article { get; set; }
+
         [Test]
         public void GetArticle_with_invalid_id_returns_null()
         {
             GenerateAndRegisterMissingStubs();
 
-            Assert.That(Sut.GetArticle(1), Is.Null);
+            Assert.That(Sut.GetArticle(101), Is.Null);
         }
 
         [Test]
@@ -152,7 +157,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             GenerateAndRegisterMissingStubs();
 
             FakeUnitOfWork.Expect(x => x.TransactionalFlush());
-            Sut.UpdateArticle();
+            Sut.UpdateArticle(new ArticleDto{Id = 1, Version = 2});
 
             FakeUnitOfWork.VerifyAllExpectations();
         }
@@ -163,10 +168,18 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             FakeArticleRepo = GenerateAndRegisterMock<IArticleRepository>();
             GenerateAndRegisterMissingStubs();
 
-            FakeArticleRepo.Expect(x => x.Save(Arg<Article>.Is.Anything));
-            Sut.UpdateArticle();
+            FakeArticleRepo.Stub(x => x.Get(1)).Return(Article);
+            FakeArticleRepo.Expect(x => x.Save(Arg<Article>.Is.Equal(Article))).Return(Article);
+            Sut.UpdateArticle(new ArticleDto { Id = 1, Version = 2 });
 
             FakeArticleRepo.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void UpdateArticle_with_null_subject_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.UpdateArticle(null));
+            Assert.That(ex.ParamName, Is.EqualTo("subject"));
         }
     }
 }

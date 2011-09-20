@@ -96,8 +96,9 @@ namespace phiNdus.fundus.Core.Domain.Entities
                     propertyValue = each;
                     break;
                 }
-            if (propertyValue != null)
+            if (propertyValue != null) {
                 PropertyValues.Remove(propertyValue);
+            }
             else
                 throw new PropertyException("Property nicht vorhanden.");
         }

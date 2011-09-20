@@ -43,11 +43,12 @@ namespace phiNdus.fundus.Core.Business.Services
             }
         }
 
-        public virtual void UpdateArticle()
+        public virtual void UpdateArticle(ArticleDto subject)
         {
             using (var uow = UnitOfWork.Start())
             {
-                Articles.Save(null);
+                var article = ArticleAssembler.UpdateDomainObject(subject);
+                Articles.Save(article);
                 uow.TransactionalFlush();
             }
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace phiNdus.fundus.Core.Business.Dto
 {
@@ -14,6 +15,21 @@ namespace phiNdus.fundus.Core.Business.Dto
         public void AddProperty(DtoProperty subject)
         {
             _properties.Add(subject);
+        }
+
+        public void RemoveProperty(DtoProperty subject)
+        {
+            _properties.Remove(subject);
+        }
+
+        public void RemoveProperty(int propertyId)
+        {
+            foreach (var each in _properties)
+                if (each.PropertyId == propertyId)
+                {
+                    RemoveProperty(each);
+                    break;
+                }
         }
     }
 }

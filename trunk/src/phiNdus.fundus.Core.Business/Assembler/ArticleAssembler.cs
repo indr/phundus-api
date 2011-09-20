@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
@@ -8,13 +10,18 @@ namespace phiNdus.fundus.Core.Business.Assembler
 {
     public class ArticleAssembler
     {
+        private static Article WriteDomainObject(ArticleDto subject, Article result)
+        {
+            WriteProperties(subject, result);
+            return result;
+        }
+
         public static Article CreateDomainObject(ArticleDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
             var result = new Article();
-            WriteProperties(subject, result);
-            return result;
+            return WriteDomainObject(subject, result);
         }
 
         private static Article WriteProperties(ArticleDto subject, Article result)
@@ -22,8 +29,20 @@ namespace phiNdus.fundus.Core.Business.Assembler
             var propertyDefinitionRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
             foreach (var each in subject.Properties)
             {
-                result.AddProperty(propertyDefinitionRepo.Get(each.PropertyId), each.Value);
+                if (result.HasProperty(each.PropertyId))
+                    result.SetPropertyValue(each.PropertyId, each.Value);
+                else
+                    result.AddProperty(propertyDefinitionRepo.Get(each.PropertyId), each.Value);
             }
+
+            var propertiesToRemove = new List<DomainPropertyValue>();
+            foreach (var each in result.PropertyValues)
+            {
+                if (subject.Properties.FirstOrDefault(x => x.PropertyId == each.PropertyDefinition.Id) == null)
+                    propertiesToRemove.Add(each);
+            }
+            foreach (var each in propertiesToRemove)
+                result.RemoveProperty(each.PropertyDefinition);
             return result;
         }
 
@@ -54,6 +73,17 @@ namespace phiNdus.fundus.Core.Business.Assembler
             result.Version = subject.Version;
             result = WriteProperties(subject, result);
             return result;
+        }
+
+        public static Article UpdateDomainObject(ArticleDto subject)
+        {
+            Guard.Against<ArgumentNullException>(subject == null, "subject");
+
+            var result = IoC.Resolve<IArticleRepository>().Get(subject.Id);
+            Guard.Against<EntityNotFoundException>(result == null, "Article entity not found");
+            Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
+
+            return WriteDomainObject(subject, result);
         }
     }
 }
