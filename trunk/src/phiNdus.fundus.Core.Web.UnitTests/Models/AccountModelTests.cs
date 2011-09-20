@@ -23,7 +23,7 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Models {
             var exception = Assert.Throws<ValidationException>(
                 () => ModelValidator.Validate<LogOnModel>(model));
 
-            Assert.That(exception.Message, Contains.Substring(@"Email").And.Contains(@"required"));
+            Assert.That(exception.Message, Contains.Substring(@"Email").And.Contains(@"erforderlich"));
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Models {
             var exception = Assert.Throws<ValidationException>(
                 () => ModelValidator.Validate<LogOnModel>(model));
 
-            Assert.That(exception.Message, Contains.Substring(@"E-Mail").And.Contains(@"Ungültige"));
+            Assert.That(exception.Message, Contains.Substring(@"E-Mail").And.Contains(@"erforderlich"));
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Models {
             var exception = Assert.Throws<ValidationException>(
                 () => ModelValidator.Validate<LogOnModel>(model));
 
-            Assert.That(exception.Message, Contains.Substring(@"Password").And.Contains(@"required"));
+            Assert.That(exception.Message, Contains.Substring(@"Password").And.Contains(@"erforderlich"));
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Models {
             var exception = Assert.Throws<ValidationException>(
                 () => ModelValidator.Validate<SignUpModel>(model));
 
-            Assert.That(exception.Message, Contains.Substring(@"Email").And.Contains(@"required"));
+            Assert.That(exception.Message, Contains.Substring(@"Email").And.Contains(@"erforderlich"));
         }
 
         [Test]
@@ -99,7 +99,7 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Models {
             var exception = Assert.Throws<ValidationException>(
                 () => ModelValidator.Validate<SignUpModel>(model));
 
-            Assert.That(exception.Message, Contains.Substring(@"FirstName").And.Contains(@"required"));
+            Assert.That(exception.Message, Contains.Substring(@"FirstName").And.Contains(@"erforderlich"));
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Models {
             var exception = Assert.Throws<ValidationException>(
                 () => ModelValidator.Validate<SignUpModel>(model));
 
-            Assert.That(exception.Message, Contains.Substring(@"LastName").And.Contains(@"required"));
+            Assert.That(exception.Message, Contains.Substring(@"LastName").And.Contains(@"erforderlich"));
         }
 
         [Test]
@@ -127,7 +127,7 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Models {
             var exception = Assert.Throws<ValidationException>(
                 () => ModelValidator.Validate<SignUpModel>(model));
 
-            Assert.That(exception.Message, Contains.Substring(@"Password").And.Contains(@"required"));
+            Assert.That(exception.Message, Contains.Substring(@"Password").And.Contains(@"erforderlich"));
         }
 
         [Test]
