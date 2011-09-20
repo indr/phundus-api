@@ -1,4 +1,5 @@
-﻿@model phiNdus.fundus.Core.Business.Dto.UserDto
+﻿@*model phiNdus.fundus.Core.Business.Dto.UserDto*@
+@model phiNdus.fundus.Core.Web.Models.UserModel
 
 @{
     ViewBag.Title = "Edit";
@@ -32,13 +33,13 @@
             @Html.ValidationMessageFor(model => model.LastName)
         </div>
 
-        @*<div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(model => model.RoleName)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.RoleId)
+            @Html.DropDownListFor(model => model.RoleId, Model.Roles)
             @Html.ValidationMessageFor(model => model.RoleId)
-        </div>*@
+        </div>
 
         <p>
             <input type="submit" value="Save" />

@@ -70,7 +70,9 @@
     <Compile Include="Dto\PropertyDtoDataType.cs" />
     <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="SecuredServices\IArticleService.cs" />
+    <Compile Include="SecuredServices\IRoleService.cs" />
     <Compile Include="SecuredServices\SecuredArticleService.cs" />
+    <Compile Include="SecuredServices\SecuredRoleService.cs" />
     <Compile Include="Security\Constraints\AbstractConstraint.cs" />
     <Compile Include="Security\Constraints\AndConstraint.cs" />
     <Compile Include="Security\AuthorizationException.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Security\SecuritySession.cs" />
     <Compile Include="Security\Constraints\Session.cs" />
     <Compile Include="Services\ArticleService.cs" />
+    <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\UserService.cs">
       <SubType>Code</SubType>
     </Compile>
