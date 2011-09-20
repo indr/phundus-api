@@ -143,6 +143,35 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         [Test]
+        public void GetProperties_calls_repository_FindAll()
+        {
+            FakePropertyDefRepo = GenerateAndRegisterMock<IDomainPropertyDefinitionRepository>();
+            GenerateAndRegisterMissingStubs();
+
+            FakePropertyDefRepo.Expect(x => x.FindAll()).Return(new List<DomainPropertyDefinition>());
+            Sut.GetProperties();
+
+            FakePropertyDefRepo.VerifyAllExpectations();
+        }
+        
+        [Test]
+        public void GetProperties_returns_dtos()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            var propertyDefinitions = new List<DomainPropertyDefinition>();
+            propertyDefinitions.Add(new DomainPropertyDefinition(1, "Name 1", DomainPropertyType.Boolean));
+            propertyDefinitions.Add(new DomainPropertyDefinition(1, "Name 2", DomainPropertyType.Text));
+            FakePropertyDefRepo.Expect(x => x.FindAll()).Return(propertyDefinitions);
+
+            var dtos = Sut.GetProperties();
+
+            Assert.That(dtos, Has.Length.EqualTo(2));
+            Assert.That(dtos, Has.Some.Property("Caption").EqualTo("Name 1"));
+            Assert.That(dtos, Has.Some.Property("Caption").EqualTo("Name 2"));
+        }
+
+        [Test]
         public void Is_derived_from_BaseService()
         {
             var sut = new ArticleService();
