@@ -51,6 +51,7 @@
       <HintPath>..\..\tools\Rhino.Mocks\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -63,8 +64,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Installers\ControllerInstallerTest.cs" />
+    <Compile Include="Models\AccountModelTests.cs" />
     <Compile Include="Models\MembershipServiceTests.cs" />
+    <Compile Include="ModelValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\FundusMembershipProviderTests.cs" />
   </ItemGroup>

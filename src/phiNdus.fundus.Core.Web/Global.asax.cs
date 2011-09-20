@@ -30,7 +30,6 @@ namespace phiNdus.fundus.Core.Web {
             );
         }
 
-        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822", MessageId = "Mark members as static",
             Justification = "Kann nicht geändert werden, da vom Framework so vorgegeben.")]
         protected void Application_Start() {
@@ -49,16 +48,6 @@ namespace phiNdus.fundus.Core.Web {
         protected void Application_End() {
             container.Dispose();
         }
-
-        /*
-        public override void Dispose() {
-            base.Dispose();
-
-            if (container != null) {
-                container.Dispose();
-            }
-        }
-        */
 
         private static void BootstrapContainer() {
             // Locking?
