@@ -62,9 +62,12 @@
     <Compile Include="Assembler\ArticleAssemblerTests.cs" />
     <Compile Include="Assembler\UserAssemblerTests.cs" />
     <Compile Include="BaseTestFixture.cs" />
+    <Compile Include="DtoOutOfDateExceptionTests.cs" />
     <Compile Include="Dto\ArticleDtoTests.cs" />
     <Compile Include="Dto\BasePropertiesDtoTests.cs" />
     <Compile Include="Dto\DtoPropertyTests.cs" />
+    <Compile Include="EmailAlreadyTakenExceptionTests.cs" />
+    <Compile Include="EntityNotFoundExceptionTests.cs" />
     <Compile Include="Mails\BaseMailTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecuredServices\SecuredArticleServiceTests.cs" />

@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExceptionTestBase.cs" />
     <Compile Include="MockTestBase.cs" />
     <Compile Include="Pop3Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
