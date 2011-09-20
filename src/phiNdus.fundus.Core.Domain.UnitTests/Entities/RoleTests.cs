@@ -9,7 +9,17 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Can_create()
         {
-            new Role();
+            var sut = new Role();
+            Assert.That(sut, Is.Not.Null);
+        }
+
+        [Test]
+        public void Can_create_with_id_and_name()
+        {
+            var sut = new Role(1, "Name");
+            Assert.That(sut, Is.Not.Null);
+            Assert.That(sut.Id, Is.EqualTo(1));
+            Assert.That(sut.Name, Is.EqualTo("Name"));
         }
 
         [Test]

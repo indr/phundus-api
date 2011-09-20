@@ -13,23 +13,11 @@
 -->
 <table>
     <tr>
-        <th>
-            FirstName
-        </th>
-        <th>
-            LastName
-        </th>
-        <th>
-            Email
-        </th>
-        <th>
-            IsApproved
-        </th>
-        <th>
-            CreateDate
-        </th>
-        <th>
-        </th>
+        <th>Vorname</th>
+        <th>Name</th>
+        <th>E-Mail-Adresse</th>
+        <th>Rolle</th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -44,10 +32,7 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsApproved)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
+            @Html.DisplayFor(modelItem => item.RoleName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

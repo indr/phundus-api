@@ -54,6 +54,11 @@ namespace phiNdus.fundus.Core.Business.Assembler
             result.Version = subject.Version;
             result.FirstName = subject.FirstName;
             result.LastName = subject.LastName;
+            if (subject.Role != null)
+            {
+                result.RoleId = subject.Role.Id;
+                result.RoleName = subject.Role.Name;
+            }
             return WriteDtoMembership(subject.Membership, result);
         }
 

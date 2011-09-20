@@ -1,4 +1,6 @@
-﻿namespace phiNdus.fundus.Core.Domain.Entities
+﻿using System;
+
+namespace phiNdus.fundus.Core.Domain.Entities
 {
     public class Role : BaseEntity
     {
@@ -12,7 +14,7 @@
         {
         }
 
-        private Role(int id, string name) : base(id)
+        public Role(int id, string name) : base(id)
         {
             _name = name;
         }
