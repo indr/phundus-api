@@ -54,6 +54,46 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         }
 
         [Test]
+        public void CreateArticle_calls_CreateArticle()
+        {
+            FakeArticleService = GenerateAndRegisterStrictMock<ArticleService>();
+            GenerateAndRegisterMissingStubs();
+
+            var dto = new ArticleDto();
+            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
+            FakeArticleService.Expect(x => x.CreateArticle(Arg<ArticleDto>.Is.Equal(dto))).Return(1);
+            Sut.CreateArticle("valid", dto);
+
+            FakeArticleService.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void CreateArticle_returns_id()
+        {
+            GenerateAndRegisterMissingStubs();
+            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
+            FakeArticleService.Expect(x => x.CreateArticle(Arg<ArticleDto>.Is.Anything)).Return(1);
+
+            var actual = Sut.CreateArticle("valid", new ArticleDto());
+
+            Assert.That(actual, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CreateArticle_with_invalid_sessionKey_throws()
+        {
+            GenerateAndRegisterMissingStubs();
+            Assert.Throws<InvalidSessionKeyException>(() => Sut.CreateArticle("invalid", null));
+        }
+
+        [Test]
+        public void CreateArticle_with_sessionKey_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.CreateArticle(null, null));
+            Assert.That(ex.ParamName, Is.EqualTo("key"));
+        }
+
+        [Test]
         public void GetArticle_calls_GetArticle()
         {
             FakeArticleService = GenerateAndRegisterStrictMock<ArticleService>();
@@ -74,7 +114,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionUser);
             FakeArticleService.Expect(x => x.GetArticle(1)).Return(new ArticleDto());
             var actual = Sut.GetArticle("valid", 1);
-            
+
             Assert.That(actual, Is.Not.Null);
         }
 
