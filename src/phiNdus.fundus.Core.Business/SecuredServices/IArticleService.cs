@@ -5,5 +5,6 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
     public interface IArticleService
     {
         ArticleDto GetArticle(string sessionKey, int id);
+        int CreateArticle(string sessionKey, ArticleDto subject);
     }
 }
