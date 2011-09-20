@@ -61,9 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assembler\ArticleAssembler.cs" />
+    <Compile Include="Assembler\PropertyDefinitionAssembler.cs" />
     <Compile Include="Dto\ArticleDto.cs" />
     <Compile Include="Dto\BasePropertiesDto.cs" />
     <Compile Include="Dto\DtoProperty.cs" />
+    <Compile Include="Dto\PropertyDto.cs" />
+    <Compile Include="Dto\PropertyDtoDataType.cs" />
     <Compile Include="SecuredServices\IArticleService.cs" />
     <Compile Include="SecuredServices\SecuredArticleService.cs" />
     <Compile Include="Security\Constraints\AbstractConstraint.cs" />
