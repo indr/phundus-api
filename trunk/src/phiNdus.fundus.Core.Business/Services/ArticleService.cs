@@ -1,7 +1,6 @@
 ﻿using System;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
@@ -21,7 +20,7 @@ namespace phiNdus.fundus.Core.Business.Services
 
         public virtual ArticleDto GetArticle(int id)
         {
-            using(var uow = UnitOfWork.Start())
+            using (var uow = UnitOfWork.Start())
             {
                 var article = Articles.Get(id);
                 if (article == null)
