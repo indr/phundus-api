@@ -143,6 +143,21 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         [Test]
+        public void GetArticles_returns_dtos()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            var articles = new List<Article>();
+            articles.Add(new Article());
+            articles.Add(new Article());
+            FakeArticleRepo.Expect(x => x.FindAll()).Return(articles);
+            var dtos = Sut.GetArticles();
+
+            Assert.That(dtos, Is.Not.Null);
+            Assert.That(dtos, Has.Length.EqualTo(2));
+        }
+
+        [Test]
         public void GetProperties_calls_repository_FindAll()
         {
             FakePropertyDefRepo = GenerateAndRegisterMock<IDomainPropertyDefinitionRepository>();

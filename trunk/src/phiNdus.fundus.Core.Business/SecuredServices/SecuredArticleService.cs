@@ -37,6 +37,12 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
                 .Do<ArticleService, PropertyDto[]>(svc => svc.GetProperties());
         }
 
+        public ArticleDto[] GetArticles(string sessionKey)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .Do<ArticleService, ArticleDto[]>(svc => svc.GetArticles());
+        }
+
         #endregion
     }
 }

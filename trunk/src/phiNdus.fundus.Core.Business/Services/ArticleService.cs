@@ -18,9 +18,13 @@ namespace phiNdus.fundus.Core.Business.Services
             get { return IoC.Resolve<IDomainPropertyDefinitionRepository>(); }
         }
 
-        public virtual void GetArticles()
+        public virtual ArticleDto[] GetArticles()
         {
-            Articles.FindAll();
+            using (var uow = UnitOfWork.Start())
+            {
+                var articles = Articles.FindAll();
+                return ArticleAssembler.CreateDtos(articles);
+            }
         }
 
         public virtual ArticleDto GetArticle(int id)
