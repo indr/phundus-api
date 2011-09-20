@@ -3,25 +3,31 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using phiNdus.fundus.Core.Web.Models;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Controllers
 {
     public class AccountController : Controller
     {
-        public IMembershipService MembershipService { get; set; }
-        public IFormsService FormsService { get; set; }
-
-        protected override void Initialize(RequestContext requestContext)
-        {
-            // Todo,chris: per Castle laden?
-            if (FormsService == null)
-                FormsService = new FormsAuthenticationService();
-
-            if (MembershipService == null)
-                MembershipService = new MembershipService();
-
-            base.Initialize(requestContext);
+        public AccountController() {
+            this.FormsService = IoC.Resolve<IFormsService>();
+            this.MembershipService = IoC.Resolve<IMembershipService>();
         }
+
+        private IMembershipService MembershipService { get; set; }
+        private IFormsService FormsService { get; set; }
+
+        //protected override void Initialize(RequestContext requestContext)
+        //{
+        //    // Todo,chris: per Castle laden?
+        //    //if (FormsService == null)
+        //    //    FormsService = new FormsAuthenticationService();            
+
+        //    //if (MembershipService == null)
+        //    //    MembershipService = new MembershipService();
+
+        //    base.Initialize(requestContext);
+        //}
 
         public ActionResult LogOn()
         {

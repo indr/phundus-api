@@ -601,7 +601,7 @@
       </in>
       <do>
         <exec program="${fxcop.dir}/FxCopCmd.exe"
-          commandline="/f:&quot;${filename}&quot; /out:&quot;${reports.dir}/${path::get-file-name(filename)}-FxCop.xml&quot;"
+          commandline="/f:&quot;${filename}&quot; /out:&quot;${reports.dir}/${path::get-file-name(filename)}-FxCop.xml&quot; /searchgac"
         />
         <echo message="##teamcity[importData type='FxCop' path='${reports.dir}/${path::get-file-name(filename)}-FxCop.xml']" />
       </do>

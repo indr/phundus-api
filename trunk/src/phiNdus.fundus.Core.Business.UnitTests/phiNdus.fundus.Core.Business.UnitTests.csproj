@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Assembler\ArticleAssemblerTests.cs" />
     <Compile Include="Assembler\PropertyDefinitionAssemblerTests.cs" />
+    <Compile Include="Assembler\RoleAssemblerTest.cs" />
     <Compile Include="Assembler\UserAssemblerTests.cs" />
     <Compile Include="BaseTestFixture.cs" />
     <Compile Include="DtoOutOfDateExceptionTests.cs" />
