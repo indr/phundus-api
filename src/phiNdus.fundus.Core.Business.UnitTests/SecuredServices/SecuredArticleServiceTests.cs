@@ -187,6 +187,48 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             Assert.Throws<AuthorizationException>(() => Sut.UpdateArticle("valid", null));
         }
 
+
+        [Test]
+        public void GetProperties_calls_GetProperties()
+        {
+            FakeArticleService = GenerateAndRegisterStrictMock<ArticleService>();
+            GenerateAndRegisterMissingStubs();
+
+            FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
+            FakeArticleService.Expect(x => x.GetProperties()).Return(null);
+            Sut.GetProperties("valid");
+
+            FakeArticleService.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void GetProperties_returns_dtos()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            var dtos = new PropertyDto[0];
+            FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
+            FakeArticleService.Expect(x => x.GetProperties()).Return(dtos);
+            var actual = Sut.GetProperties("valid");
+
+            Assert.That(actual, Is.SameAs(dtos));
+        }
+
+        [Test]
+        public void GetProperties_with_invalid_sessionKey_throws()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            Assert.Throws<InvalidSessionKeyException>(() => Sut.GetProperties("invalid"));
+        }
+
+        [Test]
+        public void GetProperties_with_sessionKey_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.GetProperties(null));
+            Assert.That(ex.ParamName, Is.EqualTo("key"));
+        }
+
         [Test]
         public void Is_derived_from_BaseSecuredService()
         {
