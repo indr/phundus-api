@@ -41,11 +41,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             if (IoC.TryResolve<IUserRepository>() == null)
                 FakeUserRepo = GenerateAndRegisterStub<IUserRepository>();
 
-            if (SessionAdmin == null) {
+            if (SessionAdmin == null)
+            {
                 SessionAdmin = new User();
                 SessionAdmin.Role = Role.Administrator;
             }
-            if (SessionUser == null) {
+            if (SessionUser == null)
+            {
                 SessionUser = new User();
                 SessionUser.Role = Role.User;
             }
@@ -105,7 +107,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         {
             GenerateAndRegisterMissingStubs();
             FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
-            
+
             Assert.Throws<AuthorizationException>(() => Sut.CreateArticle("valid", new ArticleDto()));
         }
 
@@ -150,43 +152,45 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         }
 
         [Test]
-        public void UpdateArticle_calls_UpdateArticle()
+        public void GetArticles_calls_GetArticles()
         {
             FakeArticleService = GenerateAndRegisterStrictMock<ArticleService>();
             GenerateAndRegisterMissingStubs();
 
-            var dto = new ArticleDto();
-            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
-            FakeArticleService.Expect(x => x.UpdateArticle(Arg<ArticleDto>.Is.Equal(dto)));
-            Sut.UpdateArticle("valid", dto);
+            FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
+            FakeArticleService.Expect(x => x.GetArticles()).Return(null);
+            Sut.GetArticles("valid");
 
             FakeArticleService.VerifyAllExpectations();
         }
 
         [Test]
-        public void UpdateArticle_with_invalid_sessionKey_throws()
+        public void GetArticles_returns_dtos()
         {
             GenerateAndRegisterMissingStubs();
 
-            Assert.Throws<InvalidSessionKeyException>(() => Sut.UpdateArticle("invalid", null));
+            var dtos = new ArticleDto[0];
+            FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
+            FakeArticleService.Expect(x => x.GetArticles()).Return(dtos);
+            var actual = Sut.GetArticles("valid");
+
+            Assert.That(actual, Is.SameAs(dtos));
         }
 
         [Test]
-        public void UpdateArticle_with_sessionKey_null_throws()
+        public void GetArticles_with_invalid_sessionKey_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => Sut.UpdateArticle(null, null));
+            GenerateAndRegisterMissingStubs();
+
+            Assert.Throws<InvalidSessionKeyException>(() => Sut.GetArticles("invalid"));
+        }
+
+        [Test]
+        public void GetArticles_with_sessionKey_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.GetArticles(null));
             Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
-
-        [Test]
-        public void UpdateArticle_with_user_roll_throws()
-        {
-            GenerateAndRegisterMissingStubs();
-            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
-
-            Assert.Throws<AuthorizationException>(() => Sut.UpdateArticle("valid", null));
-        }
-
 
         [Test]
         public void GetProperties_calls_GetProperties()
@@ -233,6 +237,44 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         public void Is_derived_from_BaseSecuredService()
         {
             Assert.That(Sut, Is.InstanceOf(typeof (BaseSecuredService)));
+        }
+
+        [Test]
+        public void UpdateArticle_calls_UpdateArticle()
+        {
+            FakeArticleService = GenerateAndRegisterStrictMock<ArticleService>();
+            GenerateAndRegisterMissingStubs();
+
+            var dto = new ArticleDto();
+            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
+            FakeArticleService.Expect(x => x.UpdateArticle(Arg<ArticleDto>.Is.Equal(dto)));
+            Sut.UpdateArticle("valid", dto);
+
+            FakeArticleService.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void UpdateArticle_with_invalid_sessionKey_throws()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            Assert.Throws<InvalidSessionKeyException>(() => Sut.UpdateArticle("invalid", null));
+        }
+
+        [Test]
+        public void UpdateArticle_with_sessionKey_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.UpdateArticle(null, null));
+            Assert.That(ex.ParamName, Is.EqualTo("key"));
+        }
+
+        [Test]
+        public void UpdateArticle_with_user_roll_throws()
+        {
+            GenerateAndRegisterMissingStubs();
+            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
+
+            Assert.Throws<AuthorizationException>(() => Sut.UpdateArticle("valid", null));
         }
     }
 }

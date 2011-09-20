@@ -8,5 +8,6 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         int CreateArticle(string sessionKey, ArticleDto subject);
         void UpdateArticle(string sessionKey, ArticleDto subject);
         PropertyDto[] GetProperties(string sessionKey);
+        ArticleDto[] GetArticles(string sessionKey);
     }
 }

@@ -85,5 +85,15 @@ namespace phiNdus.fundus.Core.Business.Assembler
 
             return WriteDomainObject(subject, result);
         }
+
+        public static ArticleDto[] CreateDtos(ICollection<Article> subjects)
+        {
+            Guard.Against<ArgumentNullException>(subjects == null, "subjects");
+
+            var result = new List<ArticleDto>();
+            foreach (var each in subjects)
+                result.Add(CreateDto(each));
+            return result.ToArray();
+        }
     }
 }

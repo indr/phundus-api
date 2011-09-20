@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Assembler;
@@ -104,6 +105,26 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             var ex = Assert.Throws<ArgumentNullException>(() => ArticleAssembler.CreateDto(null));
             Assert.That(ex.ParamName, Is.EqualTo("subject"));
+        }
+
+        [Test]
+        public void CreateDtos_returns_dtos()
+        {
+            var articles = new List<Article>();
+            articles.Add(Article);
+            articles.Add(Article);
+
+            var dtos = ArticleAssembler.CreateDtos(articles);
+
+            Assert.That(dtos, Is.Not.Null);
+            Assert.That(dtos, Has.Length.EqualTo(2));
+        }
+
+        [Test]
+        public void CreateDtos_with_subjects_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => ArticleAssembler.CreateDtos(null));
+            Assert.That(ex.ParamName, Is.EqualTo("subjects"));
         }
 
         [Test]
