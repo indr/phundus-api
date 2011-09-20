@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using phiNdus.fundus.Core.Business.Dto;
+using System.Web.Mvc;
 
 namespace phiNdus.fundus.Core.Web.Models {
-    public class UserDetailModel {
+    public class UserModel {
 
         private int Version { get; set; }
 
@@ -20,10 +21,11 @@ namespace phiNdus.fundus.Core.Web.Models {
         public int RoleId { get; set; }
         public string RoleName { get; set; }
 
-        //public IList<RolesDto
+        public IEnumerable<SelectListItem> Roles { get; set; }
 
-        public static UserDetailModel FromDto(UserDto dto) {
-            return new UserDetailModel {
+        public static UserModel FromDto(UserDto dto, IEnumerable<RoleDto> roles) {
+            
+            return new UserModel {
                 Id = dto.Id,
                 Version = dto.Version,
                 Email = dto.Email,
@@ -32,11 +34,16 @@ namespace phiNdus.fundus.Core.Web.Models {
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 RoleId = dto.RoleId,
-                RoleName = dto.RoleName
+                RoleName = dto.RoleName,
+                Roles = roles.Select(r => new SelectListItem {
+                    Value = r.Id.ToString(),                    
+                    Text = r.Name,                     
+                    Selected = r.Id == dto.RoleId 
+                })
             };
         }
 
-        public static UserDto ToDto(UserDetailModel model) {
+        public static UserDto ToDto(UserModel model) {
             return new UserDto {
                 Id = model.Id,
                 Version = model.Version,

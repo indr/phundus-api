@@ -36,7 +36,7 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Models {
             var exception = Assert.Throws<ValidationException>(
                 () => ModelValidator.Validate<LogOnModel>(model));
 
-            Assert.That(exception.Message, Contains.Substring(@"E-Mail").And.Contains(@"erforderlich"));
+            Assert.That(exception.Message, Contains.Substring(@"E-Mail").And.Contains(@"Ungültige"));
         }
 
         [Test]

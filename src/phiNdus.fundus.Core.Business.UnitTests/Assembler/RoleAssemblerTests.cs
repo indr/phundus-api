@@ -9,7 +9,7 @@ using phiNdus.fundus.Core.Domain.Entities;
 namespace phiNdus.fundus.Core.Business.UnitTests.Assembler {
     
     [TestFixture]
-    public class RoleAssemblerTest {
+    public class RoleAssemblerTests {
 
         [SetUp]
         public void SetUp() {
