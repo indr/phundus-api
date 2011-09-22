@@ -160,6 +160,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockUserRepository.Get(1)).Return(user);
+                Expect.Call(MockRoleRepository.Get(0)).Return(null);
                 Expect.Call(() => MockUserRepository.Update(user));
                 Expect.Call(() => MockUnitOfWork.TransactionalFlush());
                 Expect.Call(() => MockUnitOfWork.Dispose());
