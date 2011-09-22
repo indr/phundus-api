@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.SecuredServices;
-using Rhino.Commons;
 using phiNdus.fundus.Core.Web.Models;
-using System.Linq;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Controllers
 {
     [Authorize]
     public class UserController : Controller
     {
-        private IUserService UserService {
+        private static IUserService UserService
+        {
             get { return IoC.Resolve<IUserService>(); }
-        }
-
-        private IRoleService RoleService {
-            get { return IoC.Resolve<IRoleService>(); }
         }
 
         //
@@ -31,9 +27,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult List()
         {
-            //var userService = IoC.Resolve<IUserService>();
-            //return View(userService.GetUsers(Session.SessionID));
-            return View(this.UserService.GetUsers(Session.SessionID));
+            return View(UserService.GetUsers(Session.SessionID));
         }
 
         //
@@ -43,14 +37,12 @@ namespace phiNdus.fundus.Core.Web.Controllers
         {
             try
             {
-                //var userService = IoC.Resolve<IUserService>();
-                //return View(userService.GetUser(Session.SessionID, id));
-                return View(this.UserService.GetUser(Session.SessionID, id));
+                return View(new UserModel(id));
             }
-                // TODO: Logging
-                // TODO: Exception-Handling
             catch (Exception ex)
             {
+                // TODO: Logging
+                // TODO: Exception-Handling
                 ModelState.AddModelError("", ex.Message);
                 return RedirectToAction("Index");
             }
@@ -63,17 +55,12 @@ namespace phiNdus.fundus.Core.Web.Controllers
         {
             try
             {
-                var user = this.UserService.GetUser(Session.SessionID, id);
-                var roles = this.RoleService.GetRoles(Session.SessionID);
-
-                return View(UserModel.FromDto(user, roles));
-                //var userService = IoC.Resolve<IUserService>();
-                //return View(userService.GetUser(Session.SessionID, id));
+                return View(new UserModel(id));
             }
-                // TODO: Logging
-                // TODO: Exception-Handling
             catch (Exception ex)
             {
+                // TODO: Logging
+                // TODO: Exception-Handling
                 ModelState.AddModelError("", ex.Message);
                 return RedirectToAction("Index");
             }
@@ -85,29 +72,20 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            //var userService = IoC.Resolve<IUserService>();
-            //var user = userService.GetUser(Session.SessionID, id);
-            var user = this.UserService.GetUser(Session.SessionID, id);
-            var roles = this.RoleService.GetRoles(Session.SessionID);
-            //var userModel = new UserModel();
+            var userModel = new UserModel(id);
             try
             {
-                UpdateModel(user, collection.ToValueProvider());
-
-                // Todo,jac(low): Review. Der Rollenname wird manuell aktualisiert
-                // da das binding nur über die id läuft.
-                user.RoleName = roles.Single(r => r.Id == user.RoleId).Name;
-
-                this.UserService.UpdateUser(Session.SessionID, user);
+                UpdateModel(userModel, collection.ToValueProvider());
+                userModel.Update();
 
                 return RedirectToAction("Index");
             }
-                // TODO: Logging
-                // TODO: Exception-Handling
             catch (Exception ex)
             {
+                // TODO: Logging
+                // TODO: Exception-Handling
                 ModelState.AddModelError("", ex.Message);
-                return View(UserModel.FromDto(user, roles));
+                return View(userModel);
             }
         }
     }

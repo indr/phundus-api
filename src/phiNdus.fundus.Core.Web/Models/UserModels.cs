@@ -2,16 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using phiNdus.fundus.Core.Business.Dto;
 using System.Web.Mvc;
+using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Core.Business.SecuredServices;
+using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Web.Models {
-    public class UserModel {
+namespace phiNdus.fundus.Core.Web.Models
+{
+    public class UserModel
+    {
+        private IEnumerable<SelectListItem> _roles;
 
-        private int Version { get; set; }
+        public UserModel(int id)
+        {
+            var subject = UserService.GetUser(HttpContext.Current.Session.SessionID, id);
+            Load(subject);
+        }
+
+        protected static string SessionId
+        {
+            get { return HttpContext.Current.Session.SessionID; }
+        }
 
         public int Id { get; private set; }
-        
+        public int Version { get; set; }
         public string Email { get; set; }
         public bool IsApproved { get; set; }
         public DateTime CreateDate { get; set; }
@@ -21,40 +35,71 @@ namespace phiNdus.fundus.Core.Web.Models {
         public int RoleId { get; set; }
         public string RoleName { get; set; }
 
-        public IEnumerable<SelectListItem> Roles { get; set; }
-
-        public static UserModel FromDto(UserDto dto, IEnumerable<RoleDto> roles) {
-            
-            return new UserModel {
-                Id = dto.Id,
-                Version = dto.Version,
-                Email = dto.Email,
-                IsApproved = dto.IsApproved,
-                CreateDate = dto.CreateDate,
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                RoleId = dto.RoleId,
-                RoleName = dto.RoleName,
-                Roles = roles.Select(r => new SelectListItem {
-                    Value = r.Id.ToString(),                    
-                    Text = r.Name,                     
-                    Selected = r.Id == dto.RoleId 
-                })
-            };
+        public IEnumerable<SelectListItem> Roles
+        {
+            get
+            {
+                if (_roles == null)
+                    GetRoles();
+                return _roles;
+            }
         }
 
-        public static UserDto ToDto(UserModel model) {
-            return new UserDto {
-                Id = model.Id,
-                Version = model.Version,
-                Email = model.Email,
-                IsApproved = model.IsApproved,
-                CreateDate = model.CreateDate,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                RoleId = model.RoleId,
-                RoleName = model.RoleName
-            };
+        private static IUserService UserService
+        {
+            get { return IoC.Resolve<IUserService>(); }
+        }
+
+        private static IRoleService RoleService
+        {
+            get { return IoC.Resolve<IRoleService>(); }
+        }
+
+        private void GetRoles()
+        {
+            var roleDtos = RoleService.GetRoles(HttpContext.Current.Session.SessionID);
+            _roles = roleDtos.Select(r => new SelectListItem
+                                              {
+                                                  Value = r.Id.ToString(),
+                                                  Text = r.Name,
+                                                  Selected = r.Id == RoleId
+                                              });
+        }
+
+
+        private void Load(UserDto subject)
+        {
+            Id = subject.Id;
+            Version = subject.Version;
+            Email = subject.Email;
+            IsApproved = subject.IsApproved;
+            CreateDate = subject.CreateDate;
+            FirstName = subject.FirstName;
+            LastName = subject.LastName;
+            RoleId = subject.RoleId;
+            RoleName = subject.RoleName;
+        }
+
+        private UserDto Save()
+        {
+            return new UserDto
+                       {
+                           Id = Id,
+                           Version = Version,
+                           Email = Email,
+                           IsApproved = IsApproved,
+                           CreateDate = CreateDate,
+                           FirstName = FirstName,
+                           LastName = LastName,
+                           RoleId = RoleId,
+                           RoleName = RoleName
+                       };
+        }
+
+        public void Update()
+        {
+            var subject = Save();
+            UserService.UpdateUser(SessionId, subject);
         }
     }
 }
