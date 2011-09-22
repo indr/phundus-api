@@ -11,7 +11,8 @@
     <RootNamespace>phiNdus.fundus.Core.CliTools</RootNamespace>
     <AssemblyName>phiNdus.fundus.Core.CliTools</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -46,6 +47,12 @@
     <Compile Include="Commands.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\phiNdus.fundus.Core.Domain\phiNdus.fundus.Core.Domain.csproj">
+      <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>
+      <Name>phiNdus.fundus.Core.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
