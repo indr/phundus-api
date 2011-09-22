@@ -1,6 +1,4 @@
 ﻿using System;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
@@ -12,50 +10,38 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 {
     [TestFixture]
-    public class UserAssemblerTests
+    public class UserAssemblerTests : BaseTestFixture
     {
         #region Setup/Teardown
 
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
-            _domainObject = new User(1, 2);
-            _domainObject.FirstName = "John";
-            _domainObject.LastName = "Wayne";
-            _domainObject.Role = new Role(1, "Benutzer");
-            
+            base.SetUp();
+
+            UserDto = new UserDto();
+            UserDto.CreateDate = new DateTime(2011, 6, 5, 14, 48, 55);
+            UserDto.Email = "john.wayne@example.com";
+            UserDto.FirstName = "John";
+            UserDto.Id = 1;
+            UserDto.Version = 2;
+            UserDto.IsApproved = true;
+            UserDto.LastName = "Wayne";
+
+            User = new User(1, 2);
+            User.FirstName = "John";
+            User.LastName = "Wayne";
+            User.Role = new Role(1, "Benutzer");
             var membership = new DerivedMembership();
             membership.SetCreateDate(new DateTime(2011, 6, 5, 14, 48, 55));
-            _domainObject.Membership = membership;
-            _domainObject.Membership.Comment = "No one reads comments.";
-            _domainObject.Membership.Email = "john.wayne@example.com";
-            _domainObject.Membership.IsApproved = true;
-            _domainObject.Membership.IsLockedOut = true;
-            _domainObject.Membership.LastLockoutDate = null;
-            _domainObject.Membership.LastLogOnDate = null;
-            _domainObject.Membership.LastPasswordChangeDate = null;
-
-            _dto = new UserDto();
-            _dto.CreateDate = new DateTime(2011, 6, 5, 14, 48, 55);
-            _dto.Email = "john.wayne@example.com";
-            _dto.FirstName = "John";
-            _dto.Id = 1;
-            _dto.Version = 2;
-            _dto.IsApproved = true;
-            _dto.LastName = "Wayne";
-            _dto.Version = 0;
-
-            MockFactory = new MockRepository();
-            MockUserRepository = MockFactory.StrictMock<IUserRepository>();
-
-            IoC.Initialize(new WindsorContainer());
-            IoC.Container.Register(Component.For<IUserRepository>().Instance(MockUserRepository));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            IoC.Container.Dispose();
+            User.Membership = membership;
+            User.Membership.Comment = "No one reads comments.";
+            User.Membership.Email = "john.wayne@example.com";
+            User.Membership.IsApproved = true;
+            User.Membership.IsLockedOut = true;
+            User.Membership.LastLockoutDate = null;
+            User.Membership.LastLogOnDate = null;
+            User.Membership.LastPasswordChangeDate = null;
         }
 
         #endregion
@@ -68,22 +54,36 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             }
         }
 
-        protected MockRepository MockFactory { get; set; }
-        protected IUserRepository MockUserRepository { get; set; }
+        protected IUserRepository FakeUserRepository { get; set; }
+        protected IRoleRepository FakeRoleRepository { get; set; }
 
-        private User _domainObject;
-        private UserDto _dto;
+        private User User { get; set; }
+        private UserDto UserDto { get; set; }
 
-        [Test]
-        public void CreateDomainObjectWithNullSubjectThrows()
+        private void GenerateAndRegisterMissingStubs()
         {
-            Assert.Throws<ArgumentNullException>(() => UserAssembler.CreateDomainObject(null));
+            if (IoC.TryResolve<IUserRepository>() == null)
+            {
+                FakeUserRepository = GenerateAndRegisterStub<IUserRepository>();
+                FakeUserRepository.Expect(x => x.Get(1)).Return(User);
+            }
+
+            if (IoC.TryResolve<IRoleRepository>() == null)
+            {
+                FakeRoleRepository = GenerateAndRegisterStub<IRoleRepository>();
+                FakeRoleRepository.Expect(x => x.Get(1)).Return(Role.User);
+                FakeRoleRepository.Expect(x => x.Get(2)).Return(Role.Administrator);
+            }
         }
+
+        
 
         [Test]
         public void CreateDomainObject_returns_new_domain_object()
         {
-            var domainObject = UserAssembler.CreateDomainObject(_dto);
+            GenerateAndRegisterMissingStubs();
+
+            var domainObject = UserAssembler.CreateDomainObject(UserDto);
 
             Assert.That(domainObject, Is.Not.Null);
             Assert.That(domainObject.Id, Is.EqualTo(0));
@@ -92,9 +92,16 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         }
 
         [Test]
+        public void CreateDomainObject_with_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => UserAssembler.CreateDomainObject(null));
+            Assert.That(ex.ParamName, Is.EqualTo("subject"));
+        }
+
+        [Test]
         public void CreateDto_returns_correct_dto()
         {
-            var dto = UserAssembler.CreateDto(_domainObject);
+            var dto = UserAssembler.CreateDto(User);
 
             Assert.That(dto.Id, Is.EqualTo(1));
             Assert.That(dto.Version, Is.EqualTo(2));
@@ -108,22 +115,10 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         }
 
         [Test]
-        public void CreateDto_without_role_returns_dto()
-        {
-            _domainObject.Role = null;
-
-            var dto = UserAssembler.CreateDto(_domainObject);
-
-            Assert.That(dto.Id, Is.EqualTo(1));
-            Assert.That(dto.RoleId, Is.EqualTo(0));
-            Assert.That(dto.RoleName, Is.Null);
-        }
-
-        [Test]
         public void CreateDto_with_membership_null_throws()
         {
-            _domainObject.Membership = null;
-            Assert.Throws<ArgumentNullException>(() => UserAssembler.CreateDto(_domainObject));
+            User.Membership = null;
+            Assert.Throws<ArgumentNullException>(() => UserAssembler.CreateDto(User));
         }
 
         [Test]
@@ -133,60 +128,62 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         }
 
         [Test]
+        public void CreateDto_without_role_returns_dto()
+        {
+            User.Role = null;
+
+            var dto = UserAssembler.CreateDto(User);
+
+            Assert.That(dto.Id, Is.EqualTo(1));
+            Assert.That(dto.RoleId, Is.EqualTo(0));
+            Assert.That(dto.RoleName, Is.Null);
+        }
+
+        [Test]
         public void UpdateDomainObject_returns_correct_updated_domain_object()
         {
-            using (MockFactory.Record())
-            {
-                Expect.Call(MockUserRepository.Get(1)).Return(new User(1));
-            }
+            GenerateAndRegisterMissingStubs();
 
-            using (MockFactory.Playback())
-            {
-                var domainObject = UserAssembler.UpdateDomainObject(_dto);
+            // Update Dto
+            UserDto.RoleId = 2;
 
-                // Updated
-                Assert.That(domainObject, Is.Not.Null);
-                Assert.That(domainObject.Id, Is.GreaterThan(0));
-                Assert.That(domainObject.FirstName, Is.EqualTo("John"));
-                Assert.That(domainObject.LastName, Is.EqualTo("Wayne"));
+            var actual = UserAssembler.UpdateDomainObject(UserDto);
 
-                // Unchanged
-                Assert.That(domainObject.Membership.Comment, Is.Null);
-                Assert.That(domainObject.Membership.CreateDate, Is.Not.EqualTo(new DateTime(2011, 6, 5, 14, 48, 55)));
-            }
+            // Updated
+            Assert.That(actual, Is.Not.Null);
+            Assert.That(actual.Id, Is.GreaterThan(0));
+            Assert.That(actual.FirstName, Is.EqualTo("John"));
+            Assert.That(actual.LastName, Is.EqualTo("Wayne"));
+
+            Assert.That(actual.Role, Is.Not.Null);
+            Assert.That(actual.Role.Id, Is.EqualTo(2));
         }
 
         [Test]
         public void UpdateDomainObject_with_id_not_in_repository_throws()
         {
-            using (MockFactory.Record())
-            {
-                Expect.Call(MockUserRepository.Get(1)).Return(null);
-            }
-            using (MockFactory.Playback())
-            {
-                Assert.Throws<EntityNotFoundException>(() => UserAssembler.UpdateDomainObject(_dto));
-            }
+            FakeUserRepository = GenerateAndRegisterStub<IUserRepository>();
+            GenerateAndRegisterMissingStubs();
+
+            FakeUserRepository.Expect(x => x.Get(1)).Return(null);
+
+            Assert.Throws<EntityNotFoundException>(() => UserAssembler.UpdateDomainObject(UserDto));
         }
 
         [Test]
         public void UpdateDomainObject_with_null_subject_throws()
         {
-            Assert.Throws<ArgumentNullException>(() => UserAssembler.UpdateDomainObject(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => UserAssembler.UpdateDomainObject(null));
+            Assert.That(ex.ParamName, Is.EqualTo("subject"));
         }
 
         [Test]
         public void UpdateDomainObject_with_version_not_equal_from_repository_throws()
         {
-            _dto.Version = 1;
-            using (MockFactory.Record())
-            {
-                Expect.Call(MockUserRepository.Get(1)).Return(new User());
-            }
-            using (MockFactory.Playback())
-            {
-                Assert.Throws<DtoOutOfDateException>(() => UserAssembler.UpdateDomainObject(_dto));
-            }
+            GenerateAndRegisterMissingStubs();
+            UserDto.Version = 1;
+
+            Assert.Throws<DtoOutOfDateException>(() => UserAssembler.UpdateDomainObject(UserDto));
         }
     }
 }
