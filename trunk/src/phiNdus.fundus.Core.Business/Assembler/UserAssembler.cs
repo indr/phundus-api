@@ -29,9 +29,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
             var result = new User();
-            result.FirstName = subject.FirstName;
-            result.LastName = subject.LastName;
-            return result;
+            return WriteDomainObject(subject, result);
         }
 
         public static User UpdateDomainObject(UserDto subject)
@@ -75,6 +73,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
         {
             result.FirstName = subject.FirstName;
             result.LastName = subject.LastName;
+            if ((result.Role == null) || (result.Role.Id != subject.RoleId))
+                result.Role = IoC.Resolve<IRoleRepository>().Get(subject.RoleId);
             return result;
         }
     }
