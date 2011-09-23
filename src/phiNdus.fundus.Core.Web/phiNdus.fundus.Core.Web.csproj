@@ -108,6 +108,7 @@
     <Compile Include="Security\FundusRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\fundus-menu-bg.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
@@ -200,6 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_UpperMenu.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

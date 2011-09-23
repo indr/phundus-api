@@ -1,14 +1,8 @@
 @inherits System.Web.Mvc.WebViewPage<dynamic>
 
-@if (Request.IsAuthenticated)
-{
-    <ul>
-        <li>Verwaltung
-            <ul>
-                <li>@Html.ActionLink("Benutzer", "Index", "User")</li>
-                <li>@Html.ActionLink("Artikel", "Index", "Article")</li>
-            </ul>
-            
-        </li>
-    </ul>
+@if (Request.IsAuthenticated) {
+    @Html.ActionLink("Benutzer", "Index", "User")
+    @Html.ActionLink("Artikel", "Index", "Article")
+} else { 
+    <a href="#">HOME</a>
 }

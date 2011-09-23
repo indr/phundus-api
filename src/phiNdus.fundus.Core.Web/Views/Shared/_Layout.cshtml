@@ -10,16 +10,22 @@
 
     <body>
         <div class="head-menu"> 
-            @Html.Partial("_HeadMenu")
+            <div class="upper-menu">
+                @Html.Partial("_UpperMenu")
+            </div>
+            <div class="main-menu">
+                @Html.Partial("_MainMenu")
+            </div>
+            <div class="breadcrumb">
+                @RenderSection("Breadcrumbs", required: false)
+            </div>
         </div>
-        <div class="main-menu">
-            @Html.Partial("_MainMenu")
+        <div style="width:80%; margin: auto;">
+            @RenderBody()
         </div>
-        @RenderBody()
-
-        <div>
+        <div style="width:80%; margin: auto; margin-top:20px; border-top: solid 1px #f0f0f0; font-size:10px; color:#909090;">
             <p>SessionID: @Html.Label(Session.SessionID)</p>
-        </div>
+        </div>        
     </body>
 </html>
 

@@ -1,0 +1,11 @@
+﻿@inherits System.Web.Mvc.WebViewPage<dynamic>
+
+@if (Request.IsAuthenticated) {
+    @:<a href="#">Mein Profil</a> |
+    @:<a href="#">Warenkorb</a> |
+    @Html.ActionLink("Abmelden", "LogOff", "Account")
+} else {
+    @:<a href="#">Hilfe</a> |
+    @Html.ActionLink("Registrieren", "SignUp", "Account") @:|
+    @Html.ActionLink("Anmelden", "LogOn", "Account")
+}
