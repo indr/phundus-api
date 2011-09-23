@@ -1,4 +1,4 @@
-body
+/* body
 {
     font-size: 75%;
     font-family: Verdana, Tahoma, Arial, "Helvetica Neue", Helvetica, Sans-Serif;
@@ -7,10 +7,10 @@ body
     margin: 0;
 }
 
-/* custom Styles (draft jac)
------------------------------------------------------------*/
+# custom Styles (draft jac)
+#-----------------------------------------------------------
+
 .head-menu {
-    /*height: 55px;*/
     background-color: #f0f0f0;
     border-bottom: solid 1px #109033;
     text-align: right;
@@ -25,8 +25,8 @@ body
 a:link 
 {
     text-decoration: none;
-    /*color: #ad0;*/
-    color: #a2bc13  ;
+    
+    color: #a2bc13;
 }
 
 a:visited 
@@ -40,8 +40,8 @@ a:hover
     color: #ad0;
 }
 
-/* Styles for basic forms
------------------------------------------------------------*/
+# Styles for basic forms
+#-----------------------------------------------------------
 
 fieldset 
 {
@@ -72,8 +72,8 @@ textarea
 }
 
 
-/* Styles for validation helpers
------------------------------------------------------------*/
+# Styles for validation helpers
+#-----------------------------------------------------------
 .field-validation-error
 {
     color: #ff0000;
@@ -101,10 +101,195 @@ textarea
     display: none;
 }
 
-/* Custom Styles */
+# Custom Styles 
+
 .formular-box {
     border:solid 1px #109033; 
     background:#f0f0f0; 
     margin: auto; 
     padding:20px;
+}
+
+*/
+body {    
+    font-family: Arial, Helvetica, Sans-Serif;
+    color: #505050;
+    background-color: #fff;
+    margin: 0;
+}
+
+/* Menü ganz zuoberst 
+---------------------------------------------------------*/
+.upper-menu {
+    background-color: #f0f0f0;    
+    text-align: right;
+    padding: 20px 5px 5px 0;
+    text-transform: uppercase;
+    font-weight:bold;
+    font-size:10px;
+}
+
+.upper-menu a {
+    padding-left:5px;
+    padding-right:5px;
+}
+
+.upper-menu a:link {
+    text-decoration:none;
+}
+
+.upper-menu a:visited {
+    text-decoration:none;
+}
+
+/* Hauptmenu (das grüne teil)
+---------------------------------------------------------*/
+.main-menu {
+    height: 40px;
+    padding-top:10px;
+    color: #fff;
+    font-size:12px;
+    background: url('Images/fundus-menu-bg.png') repeat-x #109033;
+}
+
+.main-menu a {
+    margin-left: 30px;    
+    line-height: 30px;    
+    color:#fff;
+}
+
+.main-menu a:link {
+    color:#fff;
+}
+
+.main-menu a:visited {
+    color:#fff;
+}
+
+/* Brotkrümel (pfad zur aktuellen seite)
+---------------------------------------------------------*/
+.breadcrumb {
+    background-color: #000;
+    color:#999;
+    text-transform: uppercase;
+    font-size:10px;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+    line-height: 6px;
+}
+
+.breadcrumb a {
+    padding-left:5px;
+    padding-right:5px;
+    color: #fff;
+}
+
+.breadcrumb a:link {
+    text-decoration: none;    
+    color: #fff;
+}
+
+.breadcrumb a:visited {
+    color: #f0f0f0;
+}
+
+.breadcrumb a:hover {
+    text-decoration: none;
+    color: #505050;
+}
+
+
+a:link {
+    text-decoration: none;    
+    color: #109033;
+}
+
+a:visited {
+    color: #109033;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #ad0; /*170 221 000 */
+}
+
+/* formularelemente
+---------------------------------------------------------*/
+input[type="text"] {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;    
+}
+
+input[type="password"] {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+}
+
+input[type="submit"] {
+    border: 1px solid #ccc;
+    /*background-color: #109033;*/
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    width: 280px;
+}
+
+.text-input {
+    border: 1px solid #ccc;
+    width: 280px;
+}
+
+p.formular-item {
+    /*margin-top: -10px;*/
+}
+
+p.formular-action {
+    padding-top: 25px;
+}
+
+.formular-box label {
+    color: #333;
+    display: inline;
+    font-weight: bold;
+    padding-bottom: 3px;
+    position: relative;
+    /*font: 12px/1.55 Arial,Helvetica,sans-serif;*/
+    font-size: 11px;
+}
+
+/* Validierung
+---------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+    display: inline;
+    font-weight: bold;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    position: relative;
+    font: 12px/1.55 Arial,Helvetica,sans-serif;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+}
+
+.validation-summary-errors {
+    color: #f00;
+    display: inline;
+    font-weight: bold;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    position: relative;
+    font: 12px/1.55 Arial,Helvetica,sans-serif;
+}
+
+.validation-summary-valid {
+    display: none;
 }

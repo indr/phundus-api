@@ -4,7 +4,12 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+@section Breadcrumbs {
+     @Html.ActionLink("Artikel", "List") &gt; &Uuml;bersicht
+}
+
+@*
+<h2>List</h2>*@
 
 <p>
     @Html.ActionLink("Create New", "Create")

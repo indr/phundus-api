@@ -1,13 +1,32 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<dynamic>
 
 @if (Request.IsAuthenticated) {
-    @:<a href="#">Hilfe</a> |
-    @:@Html.ActionLink("Abmelden", "LogOff", "Account")
-
+    @*@:<a href="#">Hilfe</a> |
+    @:@Html.ActionLink("Abmelden", "LogOff", "Account")*@
+    <div class="upper-menu">
+        <a href="#">Hilfe</a> |
+        <a href="#">Warenkorb</a> |
+        @Html.ActionLink("Abmelden", "LogOff", "Account")
+    </div>
 } else {
-    @:<a href="#">Hilfe</a> |
-    @:@Html.ActionLink("Registrieren", "SignUp", "Account") |
-    @:@Html.ActionLink("Anmelden", "LogOn", "Account")
+    <div class="upper-menu">
+        <a href="#">Hilfe</a> |
+        @Html.ActionLink("Registrieren", "SignUp", "Account") |
+        @Html.ActionLink("Anmelden", "LogOn", "Account")
+    </div>
+    <div class="menu">
+        @*<a href="#">HOME</a>
+        <a href="#">Artikel</a>
+        <a href="#">Benutzerverwaltung</a>*@
+        @Html.Partial("_MainMenu")
+    </div>
+    <div class="breadcrumb">
+    <!-- Todo: breadcrumbs.. -->
+        @*<a href="#">Home</a> &gt;
+        <a href="#">Benutzerverwaltung</a> &gt;&nbsp;
+        Fritz Muster*@
+        @*@RenderSection("Breadcrumbs", required: false)*@
 
+    </div>
 }
  
