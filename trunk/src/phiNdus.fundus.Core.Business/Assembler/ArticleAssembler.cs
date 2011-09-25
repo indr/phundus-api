@@ -21,7 +21,20 @@ namespace phiNdus.fundus.Core.Business.Assembler
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
             var result = new Article();
-            return WriteDomainObject(subject, result);
+            result = WriteDomainObject(subject, result);
+            result = CreateChildObjects(subject, result);
+            return result;
+        }
+
+        private static Article CreateChildObjects(ArticleDto subject, Article result)
+        {
+            foreach (var each in subject.Children)
+            {
+                var child = new Article();
+                child = WriteDomainObject(each, child);
+                result.AddChild(child);
+            }
+            return result;
         }
 
         private static Article WriteProperties(ArticleDto subject, Article result)
@@ -91,6 +104,16 @@ namespace phiNdus.fundus.Core.Business.Assembler
             result.Id = subject.Id;
             result.Version = subject.Version;
             result = WriteProperties(subject, result);
+            result = WriteChildren(subject, result);
+            return result;
+        }
+
+        private static ArticleDto WriteChildren(Article subject, ArticleDto result)
+        {
+            foreach (var each in subject.Children) {
+                // TODO: Generics anstelle Cast?
+                result.AddChild(CreateDto((Article)each));
+            }
             return result;
         }
 
@@ -102,7 +125,18 @@ namespace phiNdus.fundus.Core.Business.Assembler
             Guard.Against<EntityNotFoundException>(result == null, "Article entity not found");
             Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 
-            return WriteDomainObject(subject, result);
+            result = WriteDomainObject(subject, result);
+            result = WriteChildren(subject, result);
+            return result;
+        }
+
+        private static Article WriteChildren(ArticleDto subject, Article result)
+        {
+            foreach (var each in subject.Children)
+            {
+                // Hier kompliziert =)
+            }
+            return subject;
         }
 
         public static ArticleDto[] CreateDtos(ICollection<Article> subjects)
