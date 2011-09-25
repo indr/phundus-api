@@ -9,19 +9,14 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Models
 {
-    public class UserModel
+    public class UserModel : ModelBase
     {
         private IEnumerable<SelectListItem> _roles;
 
         public UserModel(int id)
         {
-            var subject = UserService.GetUser(HttpContext.Current.Session.SessionID, id);
+            var subject = UserService.GetUser(SessionId, id);
             Load(subject);
-        }
-
-        protected static string SessionId
-        {
-            get { return HttpContext.Current.Session.SessionID; }
         }
 
         public int Id { get; private set; }
@@ -57,7 +52,7 @@ namespace phiNdus.fundus.Core.Web.Models
 
         private void GetRoles()
         {
-            var roleDtos = RoleService.GetRoles(HttpContext.Current.Session.SessionID);
+            var roleDtos = RoleService.GetRoles(SessionId);
             _roles = roleDtos.Select(r => new SelectListItem
                                               {
                                                   Value = r.Id.ToString(),
