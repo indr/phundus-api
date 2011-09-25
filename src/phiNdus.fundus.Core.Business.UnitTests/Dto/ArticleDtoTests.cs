@@ -46,5 +46,16 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
             Sut.Version = 1;
             Assert.That(Sut.Version, Is.EqualTo(1));
         }
+
+        [Test]
+        public void Can_add_and_remove_Child()
+        {
+            Assert.That(Sut.Children, Has.Count.EqualTo(0));
+            var child = new ArticleDto();
+            Sut.AddChild(child);
+            Assert.That(Sut.Children, Has.Count.EqualTo(1));
+            Sut.RemoveChild(child);
+            Assert.That(Sut.Children, Has.Count.EqualTo(0));
+        }
     }
 }

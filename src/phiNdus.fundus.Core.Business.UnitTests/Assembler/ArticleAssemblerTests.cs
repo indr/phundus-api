@@ -48,10 +48,44 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
                                            Value = 12.50
                                        });
 
+            ChildDto1 = new ArticleDto();
+            ChildDto1.Id = 2;
+            ChildDto1.Version = 2;
+            ChildDto1.AddProperty(new DtoProperty
+            {
+                Caption = "Name",
+                DataType = PropertyDataType.Text,
+                PropertyId = DomainPropertyDefinition.CaptionId,
+                Value = "Child 1"
+            });
+            ArticleDto.AddChild(ChildDto1);
+
+            ChildDto2 = new ArticleDto();
+            ChildDto2.Id = 2;
+            ChildDto2.Version = 2;
+            ChildDto2.AddProperty(new DtoProperty
+            {
+                Caption = "Name",
+                DataType = PropertyDataType.Text,
+                PropertyId = DomainPropertyDefinition.CaptionId,
+                Value = "Child 2"
+            });
+            ArticleDto.AddChild(ChildDto2);
+            
             Article = new Article(1, 2);
             Article.Caption = "Artikel";
             Article.Price = 12.50;
+
+            Child1 = new Article(2, 2);
+            Child1.Caption = "Child 1";
+            Article.AddChild(Child1);
+
+            Child2 = new Article(3, 2);
+            Child2.Caption = "Child 2";
+            Article.AddChild(Child2);
         }
+
+        
 
         #endregion
 
@@ -59,7 +93,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         protected IArticleRepository FakeArticleRepo { get; set; }
 
         private Article Article { get; set; }
+        private Article Child1 { get; set; }
+        private Article Child2 { get; set; }
         private ArticleDto ArticleDto { get; set; }
+        private ArticleDto ChildDto1 { get; set; }
+        private ArticleDto ChildDto2 { get; set; }
 
         private void GenerateAndRegisterMissingStubs()
         {
@@ -89,6 +127,15 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         }
 
         [Test]
+        public void CreateDomainObject_returns_new_domain_object_with_children()
+        {
+            var domainObject = ArticleAssembler.CreateDomainObject(ArticleDto);
+
+            Assert.That(domainObject, Is.Not.Null);
+            Assert.That(domainObject.Children, Has.Count.EqualTo(2));
+        }
+
+        [Test]
         public void CreateDto_returns_dto()
         {
             var dto = ArticleAssembler.CreateDto(Article);
@@ -105,6 +152,15 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             var ex = Assert.Throws<ArgumentNullException>(() => ArticleAssembler.CreateDto(null));
             Assert.That(ex.ParamName, Is.EqualTo("subject"));
+        }
+
+        [Test]
+        public void CreateDto_assembles_children()
+        {
+            var dto = ArticleAssembler.CreateDto(Article);
+
+            Assert.That(dto, Is.Not.Null);
+            Assert.That(dto.Children, Has.Count.EqualTo(2));
         }
 
         [Test]
@@ -169,6 +225,21 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(updated, Is.SameAs(Article));
             Assert.That(updated.Caption, Is.EqualTo("Artikel (Updated)"));
             Assert.That(updated.Price, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void UpdateDomainObject_returns_updated_domain_object_with_children()
+        {
+            Assert.Ignore("Work in progress");
+            GenerateAndRegisterMissingStubs();
+
+            ArticleDto.RemoveChild(ChildDto1);
+            ArticleDto.AddChild(new ArticleDto());
+
+            var updated = ArticleAssembler.UpdateDomainObject(ArticleDto);
+
+            Assert.That(updated, Is.Not.Null);
+            Assert.That(updated.Children, Has.Count.EqualTo(2));
         }
     }
 }

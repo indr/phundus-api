@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
@@ -23,12 +21,12 @@ namespace phiNdus.fundus.Core.Web.Models
             get
             {
                 var properties = ArticleService.GetProperties(SessionId).ToList();
-                //properties.RemoveAll(x => Item.Properties.SingleOrDefault(y => y.PropertyId == x.Id) == null);
+                properties.RemoveAll(x => Item.Properties.SingleOrDefault(y => y.PropertyId == x.Id) != null);
                 return properties.Select(p => new SelectListItem
-                                              {
-                                                  Value = p.Id.ToString(),
-                                                  Text = p.Caption
-                                              });
+                                                  {
+                                                      Value = p.Id.ToString(),
+                                                      Text = p.Caption
+                                                  });
             }
         }
 
@@ -36,7 +34,8 @@ namespace phiNdus.fundus.Core.Web.Models
         {
             var properties = ArticleService.GetProperties(SessionId);
             foreach (var each in properties)
-                if (each.Id == propertyId) {
+                if (each.Id == propertyId)
+                {
                     Item.AddProperty(new DtoProperty
                                          {
                                              Caption = each.Caption,
@@ -71,14 +70,13 @@ namespace phiNdus.fundus.Core.Web.Models
         {
             Item = new ArticleDto();
         }
-        
+
         public void Create()
         {
             ArticleService.CreateArticle(SessionId, Item);
         }
     }
 
-    
 
     public class ArticleEditModel : ArticleModel
     {
