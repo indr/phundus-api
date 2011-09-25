@@ -9,7 +9,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Models
 {
-    public abstract class ArticleModel
+    public abstract class ArticleModel : ModelBase
     {
         protected IArticleService ArticleService
         {
@@ -22,7 +22,7 @@ namespace phiNdus.fundus.Core.Web.Models
         {
             get
             {
-                var properties = ArticleService.GetProperties(HttpContext.Current.Session.SessionID).ToList();
+                var properties = ArticleService.GetProperties(SessionId).ToList();
                 //properties.RemoveAll(x => Item.Properties.SingleOrDefault(y => y.PropertyId == x.Id) == null);
                 return properties.Select(p => new SelectListItem
                                               {
@@ -34,7 +34,7 @@ namespace phiNdus.fundus.Core.Web.Models
 
         public void AddPropertyById(int propertyId)
         {
-            var properties = ArticleService.GetProperties(HttpContext.Current.Session.SessionID);
+            var properties = ArticleService.GetProperties(SessionId);
             foreach (var each in properties)
                 if (each.Id == propertyId) {
                     Item.AddProperty(new DtoProperty
@@ -74,30 +74,32 @@ namespace phiNdus.fundus.Core.Web.Models
         
         public void Create()
         {
-            ArticleService.CreateArticle(HttpContext.Current.Session.SessionID, Item);
+            ArticleService.CreateArticle(SessionId, Item);
         }
     }
+
+    
 
     public class ArticleEditModel : ArticleModel
     {
         public ArticleEditModel(int id)
         {
-            Item = ArticleService.GetArticle(HttpContext.Current.Session.SessionID, id);
+            Item = ArticleService.GetArticle(SessionId, id);
         }
 
         public void Update()
         {
-            ArticleService.UpdateArticle(HttpContext.Current.Session.SessionID, Item);
+            ArticleService.UpdateArticle(SessionId, Item);
         }
 
         public void Delete()
         {
-            ArticleService.DeleteArticle(HttpContext.Current.Session.SessionID, Item);
+            ArticleService.DeleteArticle(SessionId, Item);
         }
     }
 
 
-    public class ArticleListModel
+    public class ArticleListModel : ModelBase
     {
         private IEnumerable<PropertyDto> _headings;
         private IEnumerable<ArticleDto> _items;
@@ -112,7 +114,7 @@ namespace phiNdus.fundus.Core.Web.Models
             get
             {
                 if (_items == null)
-                    _items = ArticleService.GetArticles(HttpContext.Current.Session.SessionID);
+                    _items = ArticleService.GetArticles(SessionId);
                 return _items;
             }
         }
@@ -129,7 +131,7 @@ namespace phiNdus.fundus.Core.Web.Models
 
         private IEnumerable<PropertyDto> ComputeHeadings()
         {
-            var result = ArticleService.GetProperties(HttpContext.Current.Session.SessionID);
+            var result = ArticleService.GetProperties(SessionId);
             return result;
             /*
             var result = new List<PropertyDto>
