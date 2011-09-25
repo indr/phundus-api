@@ -36,14 +36,14 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             ArticleDto.AddProperty(new DtoProperty
                                        {
                                            Caption = "Name",
-                                           DataType = DtoPropertyDataType.Text,
+                                           DataType = PropertyDataType.Text,
                                            PropertyId = DomainPropertyDefinition.CaptionId,
                                            Value = "Artikel"
                                        });
             ArticleDto.AddProperty(new DtoProperty
                                        {
                                            Caption = "Preis",
-                                           DataType = DtoPropertyDataType.Text,
+                                           DataType = PropertyDataType.Text,
                                            PropertyId = DomainPropertyDefinition.PriceId,
                                            Value = 12.50
                                        });

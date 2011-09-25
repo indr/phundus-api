@@ -8,6 +8,6 @@
 
         public string Caption { get; set; }
 
-        public PropertyDtoDataType DataType { get; set; }
+        public PropertyDataType DataType { get; set; }
     }
 }

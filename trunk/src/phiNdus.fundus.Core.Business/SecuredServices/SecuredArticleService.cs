@@ -1,4 +1,5 @@
-﻿using phiNdus.fundus.Core.Business.Dto;
+﻿using System;
+using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Security.Constraints;
 using phiNdus.fundus.Core.Business.Services;
@@ -41,6 +42,13 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         {
             return Secured.With(Session.FromKey(sessionKey))
                 .Do<ArticleService, ArticleDto[]>(svc => svc.GetArticles());
+        }
+
+        public void DeleteArticle(string sessionKey, ArticleDto subject)
+        {
+            Secured.With(Session.FromKey(sessionKey))
+                .And(User.InRole(Role.Administrator))
+                .Do<ArticleService>(svc => svc.DeleteArticle(subject));
         }
 
         #endregion

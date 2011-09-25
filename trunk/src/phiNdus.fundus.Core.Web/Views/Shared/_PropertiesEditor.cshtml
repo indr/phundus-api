@@ -1,0 +1,31 @@
+﻿@model phiNdus.fundus.Core.Web.Models.ArticleModel
+   
+   @for (var idx = 0; idx < Model.Item.Properties.Count; idx++)
+        {
+            @Html.HiddenFor(x => x.Item.Properties[idx].Caption)
+            @Html.HiddenFor(x => x.Item.Properties[idx].DataType)
+            @Html.HiddenFor(x => x.Item.Properties[idx].PropertyId)
+            @Html.HiddenFor(x => x.Item.Properties[idx].ValueId)
+            <div class="editor-label">
+                @Model.Item.Properties[idx].Caption
+            </div>
+            <div class="editor-field">
+               @switch (Model.Item.Properties[idx].DataType)
+               {
+                   case phiNdus.fundus.Core.Business.Dto.PropertyDataType.Boolean:
+                       @Html.CheckBoxFor(x => x.Item.Properties[idx].ValueAsBoolean);
+                       break;
+                   default:
+                       @Html.TextBoxFor(x => x.Item.Properties[idx].ValueAsString);
+                                                                                  break;
+
+               }
+               <input type="submit" name="btnSubmit" value="@String.Concat("RemoveProperty_", Model.Item.Properties[idx].PropertyId)" />
+            </div>
+        }
+
+        <p>
+            Feld hinzufügen:<br />
+            @Html.DropDownList("DropDownListRemainingProperties", Model.RemainingProperties)
+            <input type="submit" name="btnSubmit" value="AddProperty" />
+        </p>

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
+using phiNdus.fundus.Core.Web.Models;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Controllers
@@ -22,8 +23,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult List()
         {
-            var articleService = IoC.Resolve<IArticleService>();
-            return View(articleService.GetArticles(Session.SessionID));
+            return View(new ArticleListModel());
         }
 
         //
@@ -31,7 +31,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            return View(new ArticleEditModel(id));
         }
 
         //
@@ -39,21 +39,34 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(new ArticleCreateModel());
         }
 
         //
         // POST: /Article/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(string btnSubmit, FormCollection collection)
         {
-            var article = new ArticleDto();
+            var model = new ArticleCreateModel();
             try
             {
-                UpdateModel(article, collection.ToValueProvider());
-                var articleService = IoC.Resolve<IArticleService>();
-                articleService.CreateArticle(Session.SessionID, article);
+                UpdateModel(model, collection.ToValueProvider());
+
+                if (btnSubmit == "AddProperty")
+                {
+                    var propertyId = Convert.ToInt32(collection["DropDownListRemainingProperties"]);
+                    model.AddPropertyById(propertyId);
+                    return View(model);
+                }
+                else if(btnSubmit.StartsWith("RemoveProperty"))
+                {
+                    var propertyId = Convert.ToInt32(btnSubmit.Remove(0, 15));
+                    model.RemovePropertyById(propertyId);
+                    return View(model);
+                }
+
+                model.Create();
                 return RedirectToAction("Index");
             }
             // TODO: Logging
@@ -61,7 +74,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
             catch(Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return View();
+                return View(model);
             }
         }
 
@@ -70,24 +83,42 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(new ArticleEditModel(id));
         }
 
         //
         // POST: /Article/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, string btnSubmit, FormCollection collection)
         {
+            var model = new ArticleEditModel(id);
             try
             {
-                // TODO: Add update logic here
+                UpdateModel(model, collection.ToValueProvider());
 
+                if (btnSubmit == "AddProperty")
+                {
+                    var propertyId = Convert.ToInt32(collection["DropDownListRemainingProperties"]);
+                    model.AddPropertyById(propertyId);
+                    return View(model);
+                }
+                else if (btnSubmit.StartsWith("RemoveProperty"))
+                {
+                    var propertyId = Convert.ToInt32(btnSubmit.Remove(0, 15));
+                    model.RemovePropertyById(propertyId);
+                    return View(model);
+                }
+
+                model.Update();
                 return RedirectToAction("Index");
             }
-            catch
+            // TODO: Logging
+            // TODO: Exception-Handling
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
+                return View(model);
             }
         }
 
@@ -96,7 +127,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(new ArticleEditModel(id));
         }
 
         //
@@ -105,15 +136,15 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            var model = new ArticleEditModel(id);
             try
             {
-                // TODO: Add delete logic here
-
+                model.Delete();
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
     }

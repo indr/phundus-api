@@ -1,4 +1,4 @@
-﻿@model IEnumerable<phiNdus.fundus.Core.Business.Dto.ArticleDto>
+﻿@model phiNdus.fundus.Core.Web.Models.ArticleListModel
 
 @{
     ViewBag.Title = "List";
@@ -12,32 +12,41 @@
 <h2>List</h2>*@
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Neuer Artikel hinzufügen", "Create")
 </p>
 <table>
     <tr>
         <th>
-            Bezeichnung
+            Id
         </th>
-        <th>
-            Inventarcode            
-        </th>
+        @foreach (var heading in Model.Headings)
+        {
+            <th>
+                @heading.Caption
+            </th>
+        }
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-             @*@Html.DisplayFor(modelItem => item.)*@
-        </td>
-        <td>
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+    
+    @foreach (var item in Model.Items) {
+        <tr>
+            <td>
+                @item.Id.ToString()
+            </td>
+            @foreach (var heading in Model.Headings)
+            {
+                <td>
+                    @item.GetPropertyValue(heading.Id)
+                </td>
+            }
+             <td>
+                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+             </td>
+        </tr>
+    }
 </table>
+<p>
+    @Html.ActionLink("Neuer Artikel hinzufügen", "Create")
+</p>

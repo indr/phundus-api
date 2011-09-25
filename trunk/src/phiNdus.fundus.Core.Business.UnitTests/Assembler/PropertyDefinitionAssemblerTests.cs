@@ -28,27 +28,27 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(
                 PropertyDefinitionAssembler.CreateDto(
                     new DomainPropertyDefinition(DomainPropertyType.Boolean)).DataType,
-                Is.EqualTo(PropertyDtoDataType.Boolean));
+                Is.EqualTo(PropertyDataType.Boolean));
 
             Assert.That(
                 PropertyDefinitionAssembler.CreateDto(
                     new DomainPropertyDefinition(DomainPropertyType.DateTime)).DataType,
-                Is.EqualTo(PropertyDtoDataType.DateTime));
+                Is.EqualTo(PropertyDataType.DateTime));
 
             Assert.That(
                 PropertyDefinitionAssembler.CreateDto(
                     new DomainPropertyDefinition(DomainPropertyType.Decimal)).DataType,
-                Is.EqualTo(PropertyDtoDataType.Decimal));
+                Is.EqualTo(PropertyDataType.Decimal));
 
             Assert.That(
                 PropertyDefinitionAssembler.CreateDto(
                     new DomainPropertyDefinition(DomainPropertyType.Integer)).DataType,
-                Is.EqualTo(PropertyDtoDataType.Integer));
+                Is.EqualTo(PropertyDataType.Integer));
 
             Assert.That(
                 PropertyDefinitionAssembler.CreateDto(
                     new DomainPropertyDefinition(DomainPropertyType.Text)).DataType,
-                Is.EqualTo(PropertyDtoDataType.Text));
+                Is.EqualTo(PropertyDataType.Text));
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(dto.Id, Is.EqualTo(1));
             Assert.That(dto.Version, Is.EqualTo(0));
             Assert.That(dto.Caption, Is.EqualTo("Caption"));
-            Assert.That(dto.DataType, Is.EqualTo(PropertyDtoDataType.Text));
+            Assert.That(dto.DataType, Is.EqualTo(PropertyDataType.Text));
         }
 
         [Test]
