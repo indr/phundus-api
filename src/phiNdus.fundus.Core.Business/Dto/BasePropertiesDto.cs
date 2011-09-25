@@ -5,8 +5,8 @@ namespace phiNdus.fundus.Core.Business.Dto
 {
     public class BasePropertiesDto
     {
-        private ICollection<DtoProperty> _properties = new List<DtoProperty>();
-        public ICollection<DtoProperty> Properties
+        private IList<DtoProperty> _properties = new List<DtoProperty>();
+        public IList<DtoProperty> Properties
         {
             get { return _properties; }
             set { _properties = value; }
@@ -30,6 +30,14 @@ namespace phiNdus.fundus.Core.Business.Dto
                     RemoveProperty(each);
                     break;
                 }
+        }
+
+        public string GetPropertyValue(int propertyId)
+        {
+            foreach (var each in _properties)
+                if (each.PropertyId == propertyId)
+                    return Convert.ToString(each.Value);
+            return null;
         }
     }
 }

@@ -35,8 +35,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         [Test]
         public void Can_get_and_set_DataType()
         {
-            Sut.DataType = DtoPropertyDataType.Text;
-            Assert.That(Sut.DataType, Is.EqualTo(DtoPropertyDataType.Text));
+            Sut.DataType = PropertyDataType.Text;
+            Assert.That(Sut.DataType, Is.EqualTo(PropertyDataType.Text));
         }
 
         [Test]

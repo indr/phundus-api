@@ -53,7 +53,26 @@ namespace phiNdus.fundus.Core.Business.Assembler
                 var dtoProperty = new DtoProperty();
                 dtoProperty.PropertyId = each.PropertyDefinition.Id;
                 dtoProperty.Caption = each.PropertyDefinition.Name;
-
+                switch (each.PropertyDefinition.DataType)
+                {
+                    case DomainPropertyType.Boolean:
+                        dtoProperty.DataType = PropertyDataType.Boolean;
+                        break;
+                    case DomainPropertyType.Text:
+                        dtoProperty.DataType = PropertyDataType.Text;
+                        break;
+                    case DomainPropertyType.Integer:
+                        dtoProperty.DataType = PropertyDataType.Integer;
+                        break;
+                    case DomainPropertyType.Decimal:
+                        dtoProperty.DataType = PropertyDataType.Decimal;
+                        break;
+                    case DomainPropertyType.DateTime:
+                        dtoProperty.DataType = PropertyDataType.DateTime;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
                 dtoProperty.ValueId = each.Id;
                 dtoProperty.Value = each.Value;
 

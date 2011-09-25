@@ -28,7 +28,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
             dto.AddProperty(new DtoProperty
                                 {
                                     PropertyId = DomainPropertyDefinition.CaptionId,
-                                    DataType =  DtoPropertyDataType.Text,
+                                    DataType =  PropertyDataType.Text,
                                     Value = "Artikel"
                                 });
             var id = Sut.CreateArticle(dto);
@@ -50,7 +50,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
             dto.AddProperty(new DtoProperty
             {
                 PropertyId = DomainPropertyDefinition.CaptionId,
-                DataType = DtoPropertyDataType.Text,
+                DataType = PropertyDataType.Text,
                 Value = "Artikel"
             });
             var id = Sut.CreateArticle(dto);
@@ -60,7 +60,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
             dto.AddProperty(new DtoProperty
                                 {
                                     PropertyId =  DomainPropertyDefinition.PriceId,
-                                    DataType = DtoPropertyDataType.Decimal,
+                                    DataType = PropertyDataType.Decimal,
                                     Value = 12.50
                                 });
             dto.RemoveProperty(DomainPropertyDefinition.CaptionId);

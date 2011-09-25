@@ -69,5 +69,15 @@ namespace phiNdus.fundus.Core.Business.Services
                 return PropertyDefinitionAssembler.CreateDtos(propertyDefs);
             }
         }
+
+        public virtual void DeleteArticle(ArticleDto subject)
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var article = ArticleAssembler.UpdateDomainObject(subject);
+                Articles.Delete(article);
+                uow.TransactionalFlush();
+            }
+        }
     }
 }

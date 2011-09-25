@@ -8,20 +8,20 @@ namespace phiNdus.fundus.Core.Business.Assembler
 {
     public class PropertyDefinitionAssembler
     {
-        private static PropertyDtoDataType ConvertDataType(DomainPropertyType value)
+        private static PropertyDataType ConvertDataType(DomainPropertyType value)
         {
             switch (value)
             {
                 case DomainPropertyType.Boolean:
-                    return PropertyDtoDataType.Boolean;
+                    return PropertyDataType.Boolean;
                 case DomainPropertyType.Text:
-                    return PropertyDtoDataType.Text;
+                    return PropertyDataType.Text;
                 case DomainPropertyType.Integer:
-                    return PropertyDtoDataType.Integer;
+                    return PropertyDataType.Integer;
                 case DomainPropertyType.Decimal:
-                    return PropertyDtoDataType.Decimal;
+                    return PropertyDataType.Decimal;
                 case DomainPropertyType.DateTime:
-                    return PropertyDtoDataType.DateTime;
+                    return PropertyDataType.DateTime;
                 default:
                     throw new ArgumentOutOfRangeException("value");
             }

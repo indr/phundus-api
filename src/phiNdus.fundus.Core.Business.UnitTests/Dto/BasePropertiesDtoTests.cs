@@ -54,5 +54,33 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
 
             Assert.That(sut.Properties, Has.Count.EqualTo(0));
         }
+
+        [Test]
+        public void GetPropertyValue_by_PropertyId()
+        {
+            var sut = new BasePropertiesDto();
+            var dtoProperty = new DtoProperty
+                                  {
+                                      PropertyId = 1,
+                                      Value = "Value"
+                                  };
+            
+            sut.AddProperty(dtoProperty);
+
+            var actual = sut.GetPropertyValue(1);
+
+            Assert.That(actual, Is.EqualTo("Value"));
+        }
+
+        [Test]
+        public void GetPropertyValue_by_PropertyId_with_property_not_defined_returns_null()
+        {
+            var sut = new BasePropertiesDto();
+
+            var actual = sut.GetPropertyValue(1);
+
+            Assert.That(actual, Is.Null);
+
+        }
     }
 }
