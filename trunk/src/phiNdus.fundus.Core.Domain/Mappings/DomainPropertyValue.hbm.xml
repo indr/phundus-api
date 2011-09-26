@@ -10,7 +10,7 @@
     <many-to-one class="DomainPropertyDefinition" name="PropertyDefinition" not-null="true">
       <column name="DomainPropertyDefinitionId" />
     </many-to-one>
-
+    <property name="IsDiscriminator" />
     <property name="BooleanValue" />
     <property name="TextValue" />
     <property name="IntegerValue" />

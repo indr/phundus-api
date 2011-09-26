@@ -39,19 +39,23 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         private DomainPropertyDefinition _dateTimePropertyDefinition;
 
 
-        private static int Save(DomainPropertyDefinition propertyDefinition, object value)
+        private static int Save(DomainPropertyValue propertyValue, object value)
         {
             var result = 0;
-            var propertyValue = new DomainPropertyValue(propertyDefinition);
             propertyValue.Value = value;
-
             using (var uow = UnitOfWork.Start())
             {
                 UnitOfWork.CurrentSession.Save(propertyValue);
                 result = propertyValue.Id;
                 uow.TransactionalFlush();
             }
-            return result;
+            return result;            
+        }
+
+        private static int Save(DomainPropertyDefinition propertyDefinition, object value)
+        {
+            var propertyValue = new DomainPropertyValue(propertyDefinition);
+            return Save(propertyValue, value);
         }
 
         private static object Load(int id)
@@ -107,6 +111,21 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
             var id = Save(_textPropertyDefinition, "Dies ist ein Text!");
             var value = Load(id);
             Assert.That(value, Is.EqualTo("Dies ist ein Text!"));
+        }
+
+        [Test]
+        public void Can_save_and_load_PropertyAsDiscriminator()
+        {
+            var propertyValue = new DomainPropertyValue(_textPropertyDefinition);
+            propertyValue.IsDiscriminator = true;
+            var id = Save(propertyValue, "");
+
+            using (var uow = UnitOfWork.Start())
+            {
+                propertyValue = UnitOfWork.CurrentSession.Get<DomainPropertyValue>(id);
+                Assert.That(propertyValue, Is.Not.Null);
+            }
+            Assert.That(propertyValue.IsDiscriminator, Is.True);
         }
     }
 }
