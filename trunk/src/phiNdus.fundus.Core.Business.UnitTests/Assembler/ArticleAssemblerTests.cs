@@ -23,12 +23,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
             StubDomainPropertyDefinitionRepository = GenerateAndRegisterStub<IDomainPropertyDefinitionRepository>();
 
+            _captionPropertyDefinition = new DomainPropertyDefinition(DomainPropertyDefinition.CaptionId, "Name",
+                                                                      DomainPropertyType.Text);
+            _pricePropertyDefinition = new DomainPropertyDefinition(DomainPropertyDefinition.PriceId, "Preis",
+                                                                    DomainPropertyType.Decimal);
+            _colorPropertyDefinition = new DomainPropertyDefinition(101, "Farbe", DomainPropertyType.Text);
+
             StubDomainPropertyDefinitionRepository.Expect(x => x.Get(DomainPropertyDefinition.CaptionId))
-                .Return(new DomainPropertyDefinition(DomainPropertyDefinition.CaptionId, "Name",
-                                                     DomainPropertyType.Text));
+                .Return(_captionPropertyDefinition);
             StubDomainPropertyDefinitionRepository.Expect(x => x.Get(DomainPropertyDefinition.PriceId))
-                .Return(new DomainPropertyDefinition(DomainPropertyDefinition.PriceId, "Preis",
-                                                     DomainPropertyType.Decimal));
+                .Return(_pricePropertyDefinition);
+            StubDomainPropertyDefinitionRepository.Expect(x => x.Get(101)).Return(_colorPropertyDefinition);
 
             ArticleDto = new ArticleDto();
             ArticleDto.Id = 1;
@@ -45,18 +50,32 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
                                            Caption = "Preis",
                                            DataType = PropertyDataType.Text,
                                            PropertyId = DomainPropertyDefinition.PriceId,
-                                           Value = 12.50
+                                           Value = 12.50,
+                                       });
+            ArticleDto.AddProperty(new DtoProperty
+                                       {
+                                           Caption = "Farbe",
+                                           DataType = PropertyDataType.Text,
+                                           PropertyId = 101,
+                                           IsDiscriminator = true
                                        });
 
             ChildDto1 = new ArticleDto();
             ChildDto1.Id = 2;
             ChildDto1.Version = 2;
             ChildDto1.AddProperty(new DtoProperty
+                                      {
+                                          Caption = "Name",
+                                          DataType = PropertyDataType.Text,
+                                          PropertyId = DomainPropertyDefinition.CaptionId,
+                                          Value = "Child 1"
+                                      });
+            ChildDto1.AddProperty(new DtoProperty
             {
-                Caption = "Name",
+                Caption = "Farbe",
                 DataType = PropertyDataType.Text,
-                PropertyId = DomainPropertyDefinition.CaptionId,
-                Value = "Child 1"
+                PropertyId = 101,
+                Value = "Rot"
             });
             ArticleDto.AddChild(ChildDto1);
 
@@ -64,30 +83,42 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             ChildDto2.Id = 3;
             ChildDto2.Version = 2;
             ChildDto2.AddProperty(new DtoProperty
+                                      {
+                                          Caption = "Name",
+                                          DataType = PropertyDataType.Text,
+                                          PropertyId = DomainPropertyDefinition.CaptionId,
+                                          Value = "Child 2"
+                                      });
+            ChildDto2.AddProperty(new DtoProperty
             {
-                Caption = "Name",
+                Caption = "Farbe",
                 DataType = PropertyDataType.Text,
-                PropertyId = DomainPropertyDefinition.CaptionId,
-                Value = "Child 2"
+                PropertyId = 101,
+                Value = "Blau"
             });
             ArticleDto.AddChild(ChildDto2);
-            
+
             Article = new Article(1, 2);
             Article.Caption = "Artikel";
+            Article.AddProperty(_colorPropertyDefinition).IsDiscriminator = true;
             Article.Price = 12.50;
 
             Child1 = new Article(2, 2);
             Child1.Caption = "Child 1";
+            Child1.AddProperty(_colorPropertyDefinition, "Rot");
             Article.AddChild(Child1);
 
             Child2 = new Article(3, 2);
             Child2.Caption = "Child 2";
+            Child2.AddProperty(_colorPropertyDefinition, "Blau");
             Article.AddChild(Child2);
         }
 
-        
-
         #endregion
+
+        private DomainPropertyDefinition _pricePropertyDefinition;
+        private DomainPropertyDefinition _captionPropertyDefinition;
+        private DomainPropertyDefinition _colorPropertyDefinition;
 
         protected IDomainPropertyDefinitionRepository StubDomainPropertyDefinitionRepository { get; set; }
         protected IArticleRepository FakeArticleRepo { get; set; }
@@ -101,7 +132,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
         private void GenerateAndRegisterMissingStubs()
         {
-            if (IoC.TryResolve<IArticleRepository>() == null) {
+            if (IoC.TryResolve<IArticleRepository>() == null)
+            {
                 FakeArticleRepo = GenerateAndRegisterStub<IArticleRepository>();
                 FakeArticleRepo.Expect(x => x.Get(1)).Return(Article);
                 FakeArticleRepo.Expect(x => x.Get(2)).Return(Child1);
@@ -119,13 +151,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(domainObject.Version, Is.EqualTo(0));
             Assert.That(domainObject.Caption, Is.EqualTo("Artikel"));
             Assert.That(domainObject.Price, Is.EqualTo(12.50));
-        }
-
-        [Test]
-        public void CreateDomainObject_with_null_subject_throws()
-        {
-            var ex = Assert.Throws<ArgumentNullException>(() => ArticleAssembler.CreateDomainObject(null));
-            Assert.That(ex.ParamName, Is.EqualTo("subject"));
+            Assert.That(domainObject.PropertyValues, Has.Some.Property("IsDiscriminator").EqualTo(true));
         }
 
         [Test]
@@ -138,21 +164,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         }
 
         [Test]
-        public void CreateDto_returns_dto()
+        public void CreateDomainObject_with_null_subject_throws()
         {
-            var dto = ArticleAssembler.CreateDto(Article);
-
-            Assert.That(dto, Is.Not.Null);
-            Assert.That(dto.Id, Is.EqualTo(Article.Id));
-            Assert.That(dto.Version, Is.EqualTo(Article.Version));
-            Assert.That(dto.Properties, Has.Some.Property("PropertyId").EqualTo(DomainPropertyDefinition.CaptionId)
-                                            .And.Property("Value").EqualTo("Artikel"));
-        }
-
-        [Test]
-        public void CreateDto_with_null_subject_throws()
-        {
-            var ex = Assert.Throws<ArgumentNullException>(() => ArticleAssembler.CreateDto(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => ArticleAssembler.CreateDomainObject(null));
             Assert.That(ex.ParamName, Is.EqualTo("subject"));
         }
 
@@ -163,6 +177,27 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Children, Has.Count.EqualTo(2));
+        }
+
+        [Test]
+        public void CreateDto_returns_dto()
+        {
+            var dto = ArticleAssembler.CreateDto(Article);
+
+            Assert.That(dto, Is.Not.Null);
+            Assert.That(dto.Id, Is.EqualTo(Article.Id));
+            Assert.That(dto.Version, Is.EqualTo(Article.Version));
+            Assert.That(dto.Properties, Has.Some.Property("PropertyId").EqualTo(DomainPropertyDefinition.CaptionId)
+                                            .And.Property("Value").EqualTo("Artikel"));
+            Assert.That(dto.Properties, Has.Some.Property("PropertyId").EqualTo(101)
+                                            .And.Property("IsDiscriminator").EqualTo(true));
+        }
+
+        [Test]
+        public void CreateDto_with_null_subject_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => ArticleAssembler.CreateDto(null));
+            Assert.That(ex.ParamName, Is.EqualTo("subject"));
         }
 
         [Test]
@@ -183,33 +218,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             var ex = Assert.Throws<ArgumentNullException>(() => ArticleAssembler.CreateDtos(null));
             Assert.That(ex.ParamName, Is.EqualTo("subjects"));
-        }
-
-        [Test]
-        public void UpdateDomainObject_with_null_subject_throws()
-        {
-            var ex = Assert.Throws<ArgumentNullException>(() => ArticleAssembler.UpdateDomainObject(null));
-            Assert.That(ex.ParamName, Is.EqualTo("subject"));
-        }
-
-        [Test]
-        public void UpdateDomainObject_with_id_not_in_repository_throws()
-        {
-            FakeArticleRepo = GenerateAndRegisterStub<IArticleRepository>();
-            GenerateAndRegisterMissingStubs();
-
-            FakeArticleRepo.Expect(x => x.Get(1)).Return(null);
-            
-            Assert.Throws<EntityNotFoundException>(() => ArticleAssembler.UpdateDomainObject(ArticleDto));
-        }
-
-        [Test]
-        public void UpdateDomainObject_with_version_not_equal_from_repository_throws()
-        {
-            GenerateAndRegisterMissingStubs();
-
-            ArticleDto.Version = 3;
-            Assert.Throws<DtoOutOfDateException>(() => ArticleAssembler.UpdateDomainObject(ArticleDto));
         }
 
         [Test]
@@ -243,6 +251,33 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(updated.Children, Has.Count.EqualTo(2));
             Assert.That(updated.Children, Has.Some.Property("Id").EqualTo(3));
             Assert.That(updated.Children, Has.Some.Property("Id").EqualTo(0));
+        }
+
+        [Test]
+        public void UpdateDomainObject_with_id_not_in_repository_throws()
+        {
+            FakeArticleRepo = GenerateAndRegisterStub<IArticleRepository>();
+            GenerateAndRegisterMissingStubs();
+
+            FakeArticleRepo.Expect(x => x.Get(1)).Return(null);
+
+            Assert.Throws<EntityNotFoundException>(() => ArticleAssembler.UpdateDomainObject(ArticleDto));
+        }
+
+        [Test]
+        public void UpdateDomainObject_with_null_subject_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => ArticleAssembler.UpdateDomainObject(null));
+            Assert.That(ex.ParamName, Is.EqualTo("subject"));
+        }
+
+        [Test]
+        public void UpdateDomainObject_with_version_not_equal_from_repository_throws()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            ArticleDto.Version = 3;
+            Assert.Throws<DtoOutOfDateException>(() => ArticleAssembler.UpdateDomainObject(ArticleDto));
         }
     }
 }
