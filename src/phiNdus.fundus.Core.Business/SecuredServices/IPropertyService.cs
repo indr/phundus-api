@@ -8,5 +8,6 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         void UpdateProperty(string sessionKey, PropertyDto subject);
         PropertyDto GetProperty(string sessionKey, int id);
         int CreateProperty(string sessionKey, PropertyDto subject);
+        void DeleteProperty(string sessionKey, PropertyDto subject);
     }
 }

@@ -58,6 +58,7 @@ create table [DomainPropertyDefinition] (
   Version int not null,
   [Name] NVARCHAR(255) not null,
   [DataType] TINYINT not null,
+  IsSystemProperty bit not null default 0,
   primary key(Id)
 )
 

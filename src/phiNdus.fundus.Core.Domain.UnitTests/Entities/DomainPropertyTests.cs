@@ -32,5 +32,12 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             var sut = new DomainPropertyDefinition(1, "Name", DomainPropertyType.Text);
             Assert.That(sut.DataType, Is.EqualTo(DomainPropertyType.Text));
         }
+
+        [Test]
+        public void Can_get_IsSystemProperty()
+        {
+            var sut = new DomainPropertyDefinition(1, 2, "Name", DomainPropertyType.Text, true);
+            Assert.That(sut.IsSystemProperty, Is.True);
+        }
     }
 }

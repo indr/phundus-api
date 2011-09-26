@@ -44,5 +44,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
             sut.Version = 1;
             Assert.That(sut.Version, Is.EqualTo(1));
         }
+
+        [Test]
+        public void Can_get_and_set_IsSystemProperty()
+        {
+            var sut = new PropertyDto();
+            sut.IsSystemProperty = true;
+            Assert.That(sut.IsSystemProperty, Is.True);
+        }
     }
 }
