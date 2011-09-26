@@ -1,4 +1,5 @@
 ﻿using System;
+using Castle.MicroKernel.Registration;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
@@ -42,6 +43,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
                 FakePropertyService = GenerateAndRegisterStub<PropertyService>();
             if (IoC.TryResolve<IUserRepository>() == null)
                 FakeUserRepo = GenerateAndRegisterStub<IUserRepository>();
+            if (IoC.TryResolve<IPropertyService>() == null)
+                IoC.Container.Register(Component.For<IPropertyService>().ImplementedBy(typeof (SecuredPropertyService)));
 
             if (SessionAdmin == null)
             {
@@ -233,6 +236,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetProperties_with_sessionKey_null_throws()
         {
+            GenerateAndRegisterMissingStubs();
+
             var ex = Assert.Throws<ArgumentNullException>(() => Sut.GetProperties(null));
             Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
