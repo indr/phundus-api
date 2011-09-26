@@ -61,7 +61,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             ArticleDto.AddChild(ChildDto1);
 
             ChildDto2 = new ArticleDto();
-            ChildDto2.Id = 2;
+            ChildDto2.Id = 3;
             ChildDto2.Version = 2;
             ChildDto2.AddProperty(new DtoProperty
             {
@@ -104,6 +104,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             if (IoC.TryResolve<IArticleRepository>() == null) {
                 FakeArticleRepo = GenerateAndRegisterStub<IArticleRepository>();
                 FakeArticleRepo.Expect(x => x.Get(1)).Return(Article);
+                FakeArticleRepo.Expect(x => x.Get(2)).Return(Child1);
+                FakeArticleRepo.Expect(x => x.Get(3)).Return(Child2);
             }
         }
 
@@ -230,7 +232,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [Test]
         public void UpdateDomainObject_returns_updated_domain_object_with_children()
         {
-            Assert.Ignore("Work in progress");
             GenerateAndRegisterMissingStubs();
 
             ArticleDto.RemoveChild(ChildDto1);
@@ -240,6 +241,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
             Assert.That(updated, Is.Not.Null);
             Assert.That(updated.Children, Has.Count.EqualTo(2));
+            Assert.That(updated.Children, Has.Some.Property("Id").EqualTo(3));
+            Assert.That(updated.Children, Has.Some.Property("Id").EqualTo(0));
         }
     }
 }

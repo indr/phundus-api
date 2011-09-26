@@ -45,10 +45,16 @@ namespace phiNdus.fundus.Core.Domain.Entities
             }
         }
 
-        public virtual void AddChild(DomainObject item)
+        public virtual void AddChild(DomainObject child)
         {
-            _children.Add(item);
-            item.Parent = this;
+            _children.Add(child);
+            child.Parent = this;
+        }
+
+        public virtual void RemoveChild(DomainObject child)
+        {
+            Children.Remove(child);
+            child.Parent = null;
         }
     }
 }
