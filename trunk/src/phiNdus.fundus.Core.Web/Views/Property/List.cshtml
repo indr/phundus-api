@@ -1,0 +1,49 @@
+﻿@model IEnumerable<phiNdus.fundus.Core.Business.Dto.PropertyDto>
+
+@{
+    ViewBag.Title = "List";
+}
+
+@section Breadcrumbs {
+     @Html.ActionLink("Artikel", "Index", "Article") &gt;
+     @Html.ActionLink("Eigenschaften", "List") &gt;
+     &Uuml;bersicht
+}
+
+@*<h2>List</h2>*@
+
+<p>
+    @Html.ActionLink("Neue Eigenschaft hinzufügen", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Datentyp
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Caption)
+        </td>
+        <td>
+            @item.DataType.ToString()
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+<p>
+    @Html.ActionLink("Neue Eigenschaft hinzufügen", "Create")
+</p>
+
