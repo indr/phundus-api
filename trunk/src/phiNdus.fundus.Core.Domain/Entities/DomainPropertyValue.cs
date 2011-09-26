@@ -46,19 +46,31 @@ namespace phiNdus.fundus.Core.Domain.Entities
             switch (dataType)
             {
                 case DomainPropertyType.Boolean:
-                    BooleanValue = Convert.ToBoolean(value, CultureInfo.InvariantCulture);
+                    if (value == null)
+                        BooleanValue = null;
+                    else
+                        BooleanValue = Convert.ToBoolean(value, CultureInfo.InvariantCulture);
                     break;
                 case DomainPropertyType.Text:
-                    TextValue = Convert.ToString(value, CultureInfo.InvariantCulture);
+                    TextValue = value == null ? null : Convert.ToString(value, CultureInfo.InvariantCulture);
                     break;
                 case DomainPropertyType.Integer:
-                    IntegerValue = Convert.ToInt32(value, CultureInfo.InvariantCulture);
+                    if (value == null)
+                        IntegerValue = null;
+                    else
+                        IntegerValue = Convert.ToInt32(value, CultureInfo.InvariantCulture);
                     break;
                 case DomainPropertyType.Decimal:
-                    DecimalValue = Convert.ToDouble(value, CultureInfo.InvariantCulture);
+                    if (value == null)
+                        DecimalValue = null;
+                    else
+                        DecimalValue = Convert.ToDouble(value, CultureInfo.InvariantCulture);
                     break;
                 case DomainPropertyType.DateTime:
-                    DateTimeValue = Convert.ToDateTime(value, CultureInfo.InvariantCulture);
+                    if (value == null)
+                        DateTimeValue = null;
+                    else
+                        DateTimeValue = Convert.ToDateTime(value, CultureInfo.InvariantCulture);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("dataType");
@@ -87,6 +99,16 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         protected string TextValue { get; set; }
 
-        public virtual bool IsDiscriminator { get; set; }
+        private bool _isDiscriminator;
+        public virtual bool IsDiscriminator
+        {
+            get { return _isDiscriminator; }
+            set
+            {
+                if (value)
+                    Value = null;
+                _isDiscriminator = value;
+            }
+        }
     }
 }
