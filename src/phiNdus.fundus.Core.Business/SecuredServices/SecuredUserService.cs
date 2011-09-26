@@ -9,7 +9,7 @@ using User = phiNdus.fundus.Core.Business.Security.Constraints.User;
 
 namespace phiNdus.fundus.Core.Business.SecuredServices
 {
-    public class SecuredUserService : BaseSecuredService, IUserService
+    public class SecuredUserService : SecuredServiceBase, IUserService
     {
         #region IUserService Members
 

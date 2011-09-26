@@ -76,8 +76,10 @@
     <Compile Include="Dto\PropertyDataType.cs" />
     <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="SecuredServices\IArticleService.cs" />
+    <Compile Include="SecuredServices\IPropertyService.cs" />
     <Compile Include="SecuredServices\IRoleService.cs" />
     <Compile Include="SecuredServices\SecuredArticleService.cs" />
+    <Compile Include="SecuredServices\SecuredPropertyService.cs" />
     <Compile Include="SecuredServices\SecuredRoleService.cs" />
     <Compile Include="Security\Constraints\AbstractConstraint.cs" />
     <Compile Include="Security\Constraints\AndConstraint.cs" />
@@ -93,7 +95,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Assembler\UserAssembler.cs" />
     <Compile Include="Dto\UserDto.cs" />
-    <Compile Include="SecuredServices\BaseSecuredService.cs" />
+    <Compile Include="SecuredServices\SecuredServiceBase.cs" />
     <Compile Include="SecuredServices\IUserService.cs" />
     <Compile Include="SecuredServices\SecuredUserService.cs" />
     <Compile Include="Security\Constraints\NotConstraint.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="Security\SecuritySession.cs" />
     <Compile Include="Security\Constraints\Session.cs" />
     <Compile Include="Services\ArticleService.cs" />
+    <Compile Include="Services\PropertyService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\UserService.cs">
       <SubType>Code</SubType>

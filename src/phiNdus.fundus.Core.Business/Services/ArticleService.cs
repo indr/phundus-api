@@ -13,11 +13,6 @@ namespace phiNdus.fundus.Core.Business.Services
             get { return IoC.Resolve<IArticleRepository>(); }
         }
 
-        private static IDomainPropertyDefinitionRepository PropertyDefinitions
-        {
-            get { return IoC.Resolve<IDomainPropertyDefinitionRepository>(); }
-        }
-
         public virtual ArticleDto[] GetArticles()
         {
             using (var uow = UnitOfWork.Start())
@@ -58,15 +53,6 @@ namespace phiNdus.fundus.Core.Business.Services
                 var article = ArticleAssembler.UpdateDomainObject(subject);
                 Articles.Save(article);
                 uow.TransactionalFlush();
-            }
-        }
-
-        public virtual PropertyDto[] GetProperties()
-        {
-            using (var uow = UnitOfWork.Start())
-            {
-                var propertyDefs = PropertyDefinitions.FindAll();
-                return PropertyDefinitionAssembler.CreateDtos(propertyDefs);
             }
         }
 

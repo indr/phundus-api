@@ -38,6 +38,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         {
             if (IoC.TryResolve<ArticleService>() == null)
                 FakeArticleService = GenerateAndRegisterStub<ArticleService>();
+            if (IoC.TryResolve<PropertyService>() == null)
+                FakePropertyService = GenerateAndRegisterStub<PropertyService>();
             if (IoC.TryResolve<IUserRepository>() == null)
                 FakeUserRepo = GenerateAndRegisterStub<IUserRepository>();
 
@@ -195,15 +197,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetProperties_calls_GetProperties()
         {
-            FakeArticleService = GenerateAndRegisterStrictMock<ArticleService>();
+            FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
             GenerateAndRegisterMissingStubs();
 
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
-            FakeArticleService.Expect(x => x.GetProperties()).Return(null);
+            FakePropertyService.Expect(x => x.GetProperties()).Return(null);
             Sut.GetProperties("valid");
 
-            FakeArticleService.VerifyAllExpectations();
+            FakePropertyService.VerifyAllExpectations();
         }
+
+        protected PropertyService FakePropertyService { get; set; }
 
         [Test]
         public void GetProperties_returns_dtos()
@@ -212,7 +216,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 
             var dtos = new PropertyDto[0];
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
-            FakeArticleService.Expect(x => x.GetProperties()).Return(dtos);
+            FakePropertyService.Expect(x => x.GetProperties()).Return(dtos);
             var actual = Sut.GetProperties("valid");
 
             Assert.That(actual, Is.SameAs(dtos));
@@ -236,7 +240,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void Is_derived_from_BaseSecuredService()
         {
-            Assert.That(Sut, Is.InstanceOf(typeof (BaseSecuredService)));
+            Assert.That(Sut, Is.InstanceOf(typeof (SecuredServiceBase)));
         }
 
         [Test]
