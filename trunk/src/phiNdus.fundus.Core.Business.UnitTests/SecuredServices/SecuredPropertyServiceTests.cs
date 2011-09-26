@@ -112,7 +112,44 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         }
 
         [Test]
-        public void GetProperty_call_GetProperty()
+        public void DeleteProperty_calls_DeleteProperty()
+        {
+            FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
+            GenerateAndRegisterMissingStubs();
+
+            var dto = new PropertyDto();
+            FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
+            FakePropertyService.Expect(x => x.DeleteProperty(dto));
+            Sut.DeleteProperty("valid", dto);
+
+            FakePropertyService.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void DeleteProperty_with_invalid_sessionKey_throws()
+        {
+            GenerateAndRegisterMissingStubs();
+            Assert.Throws<InvalidSessionKeyException>(() => Sut.DeleteProperty("invalid", null));
+        }
+
+        [Test]
+        public void DeleteProperty_with_sessionKey_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.DeleteProperty(null, null));
+            Assert.That(ex.ParamName, Is.EqualTo("key"));
+        }
+
+        [Test]
+        public void DeleteProperty_with_user_roll_throws()
+        {
+            GenerateAndRegisterMissingStubs();
+            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
+
+            Assert.Throws<AuthorizationException>(() => Sut.DeleteProperty("valid", new PropertyDto()));
+        }
+
+        [Test]
+        public void GetProperty_calls_GetProperty()
         {
             FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
             GenerateAndRegisterMissingStubs();

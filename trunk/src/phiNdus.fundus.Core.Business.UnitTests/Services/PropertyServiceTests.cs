@@ -89,6 +89,48 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         [Test]
+        public void DeleteProperty_flushes_transaction()
+        {
+            FakeUnitOfWork = GenerateAndRegisterMockUnitOfWork();
+            GenerateAndRegisterMissingStubs();
+
+            FakeUnitOfWork.Expect(x => x.TransactionalFlush());
+            Sut.DeleteProperty(new PropertyDto { Id = 1, Version = 2 });
+
+            FakeUnitOfWork.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void DeleteProperty_deletes_property_in_repository()
+        {
+            FakePropertyDefRepo = GenerateAndRegisterMock<IDomainPropertyDefinitionRepository>();
+            GenerateAndRegisterMissingStubs();
+
+            FakePropertyDefRepo.Expect(x => x.Get(1)).Return(new DomainPropertyDefinition());
+            FakePropertyDefRepo.Expect(x => x.Delete(Arg<DomainPropertyDefinition>.Is.NotNull));
+            Sut.DeleteProperty(new PropertyDto {Id = 1});
+
+            FakePropertyDefRepo.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void DeleteProperty_with_subject_IsSystemProperty_throws()
+        {
+            DomainPropertyDefinition = new DomainPropertyDefinition(1, 2, "Caption", DomainPropertyType.Text, true);
+            GenerateAndRegisterMissingStubs();
+
+            var ex = Assert.Throws<InvalidOperationException>(() => Sut.DeleteProperty(new PropertyDto {Id = 1, Version = 2}));
+            Assert.That(ex.Message, Is.EqualTo("System-Eigenschaften können nicht gelöscht werden."));
+        }
+
+        [Test]
+        public void DeleteProperty_with_null_subject_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.DeleteProperty(null));
+            Assert.That(ex.ParamName, Is.EqualTo("subject"));
+        }
+
+        [Test]
         public void GetProperty_calls_repository_Get()
         {
             FakePropertyDefRepo = GenerateAndRegisterMock<IDomainPropertyDefinitionRepository>();

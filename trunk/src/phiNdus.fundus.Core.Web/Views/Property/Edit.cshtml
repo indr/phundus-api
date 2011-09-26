@@ -36,8 +36,22 @@
             Datentyp (Achtung, ich, Inder, bin zu blöd den richtigen Wert vorzubelegen (o:  )
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.Item.DataType, Model.PropertyDataTypes)
-            @Html.ValidationMessageFor(model => model.Item.DataType)
+            @if (Model.Item.IsSystemProperty)
+            {
+                @Model.Item.DataType.ToString()
+            }
+            else
+            {
+                @Html.DropDownListFor(model => model.Item.DataType, Model.PropertyDataTypes)
+                @Html.ValidationMessageFor(model => model.Item.DataType)
+            }
+        </div>
+
+        <div class="editor-label">
+            Systemeigenschaft
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Item.IsSystemProperty)
         </div>
 
         <p>

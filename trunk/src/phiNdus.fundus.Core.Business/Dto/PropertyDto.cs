@@ -9,5 +9,7 @@
         public string Caption { get; set; }
 
         public PropertyDataType DataType { get; set; }
+
+        public bool IsSystemProperty { get; set; }
     }
 }

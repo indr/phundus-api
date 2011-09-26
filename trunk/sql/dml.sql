@@ -27,18 +27,21 @@ END');
   3: Decimal
   4: DateTime
 */
-insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
-  values (1, 1, 'Verfügbar', 0);
-insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
-  values (2, 1, 'Name', 1);
-insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
-  values (3, 1, 'Menge', 2);  
-insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
-  values (4, 1, 'Preis', 3);
-insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
-  values (5, 1, 'Erfassungsdatum', 4);  
-insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
-  values (6, 1, 'Reservierbar', 0);
-insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType])
-  values (7, 1, 'Ausleihbar', 0);
-
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemProperty)
+  values (1, 1, 'Verfügbar', 0, 1);
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemProperty)
+  values (2, 1, 'Name', 1, 1);
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemProperty)
+  values (3, 1, 'Menge', 2, 1);  
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemProperty)
+  values (4, 1, 'Preis', 3, 1);
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemProperty)
+  values (5, 1, 'Erfassungsdatum', 4, 1);  
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemProperty)
+  values (6, 1, 'Reservierbar', 0, 1);
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemProperty)
+  values (7, 1, 'Ausleihbar', 0, 1);
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemProperty)
+  values (8, 1, 'Farbe', 1, 0);
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemProperty)
+  values (9, 1, 'Grösse', 1, 0);  

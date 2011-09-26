@@ -53,5 +53,18 @@ namespace phiNdus.fundus.Core.Business.Services
                 uow.TransactionalFlush();
             }
         }
+
+        public virtual void DeleteProperty(PropertyDto subject)
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var propertyDef = PropertyDefinitionAssembler.UpdateDomainObject(subject);
+                if (propertyDef.IsSystemProperty)
+                    throw new InvalidOperationException("System-Eigenschaften können nicht gelöscht werden.");
+
+                PropertyDefinitions.Delete(propertyDef);
+                uow.TransactionalFlush();
+            }
+        }
     }
 }

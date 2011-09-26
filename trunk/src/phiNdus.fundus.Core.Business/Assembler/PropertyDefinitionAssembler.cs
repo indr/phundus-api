@@ -56,6 +56,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             result.Version = subject.Version;
             result.Caption = subject.Name;
             result.DataType = ConvertDataType(subject.DataType);
+            result.IsSystemProperty = subject.IsSystemProperty;
 
             return result;
         }

@@ -23,6 +23,10 @@
     <div class="display-field">
         @Model.DataType.ToString()
     </div>
+    <div class="display-label">Systemeigenschaft</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsSystemProperty)
+    </div>
 </fieldset>
 <p>
     @Html.ActionLink("Bearbeiten", "Edit", new { id=Model.Id }) |

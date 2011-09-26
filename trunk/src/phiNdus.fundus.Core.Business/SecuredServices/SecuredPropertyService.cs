@@ -38,6 +38,13 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
                 .Do<PropertyService, int>(svc => svc.CreateProperty(subject));
         }
 
+        public void DeleteProperty(string sessionKey, PropertyDto subject)
+        {
+            Secured.With(Session.FromKey(sessionKey))
+                .And(User.InRole(Role.Administrator))
+                .Do<PropertyService>(svc => svc.DeleteProperty(subject));
+        }
+
         #endregion
     }
 }

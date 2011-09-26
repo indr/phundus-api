@@ -115,15 +115,18 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            var model = PropertyService.GetProperty(Session.SessionID, id);
             try
             {
-                // TODO: Add delete logic here
- 
+                PropertyService.DeleteProperty(Session.SessionID, model);
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                // TODO: Logging
+                // TODO: Exception-Handling
+                ModelState.AddModelError("", ex.Message);
+                return View(model);
             }
         }
     }
