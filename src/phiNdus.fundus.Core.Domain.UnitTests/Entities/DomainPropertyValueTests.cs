@@ -7,13 +7,6 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
     [TestFixture]
     public class DomainPropertyValueTests
     {
-
-        [SetUp]
-        public void SetUp()
-        {
-            
-        }
-
         private static DomainPropertyValue CreateSut(DomainPropertyType type)
         {
             return new DomainPropertyValue(new DomainPropertyDefinition(type));
@@ -51,10 +44,18 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Can_get_and_set_with_BooleanDomainProperty()
         {
-            var sut = new DomainPropertyValue(new DomainPropertyDefinition(DomainPropertyType.Boolean));
+            var sut = CreateSut(DomainPropertyType.Boolean);
             Assert.That(sut.Value, Is.Null);
             sut.Value = true;
             Assert.That(sut.Value, Is.True);
+        }
+
+        [Test]
+        public void Can_set_BooleanDomainProperty_to_null()
+        {
+            var sut = CreateSut(DomainPropertyType.Boolean);
+            sut.Value = null;
+            Assert.That(sut.Value, Is.Null);
         }
 
         [Test]
@@ -67,6 +68,14 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void Can_set_TextDomainProperty_to_null()
+        {
+            var sut = CreateSut(DomainPropertyType.Text);
+            sut.Value = null;
+            Assert.That(sut.Value, Is.Null);
+        }
+
+        [Test]
         public void Can_get_and_set_with_IntegerDomainProperty()
         {
             var sut = CreateSut(DomainPropertyType.Integer);
@@ -76,12 +85,28 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void Can_set_IntegerDomainProperty_to_null()
+        {
+            var sut = CreateSut(DomainPropertyType.Integer);
+            sut.Value = null;
+            Assert.That(sut.Value, Is.Null);
+        }
+
+        [Test]
         public void Can_get_and_set_with_DecimalDomainProperty()
         {
             var sut = CreateSut(DomainPropertyType.Decimal);
             Assert.That(sut.Value, Is.Null);
             sut.Value = 1.1d;
             Assert.That(sut.Value, Is.EqualTo(1.1d));
+        }
+
+        [Test]
+        public void Can_set_DecimalDomainProperty_to_null()
+        {
+            var sut = CreateSut(DomainPropertyType.Decimal);
+            sut.Value = null;
+            Assert.That(sut.Value, Is.Null);
         }
 
         [Test]
@@ -95,6 +120,14 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void Can_set_DateTimeDomainProperty_to_null()
+        {
+            var sut = CreateSut(DomainPropertyType.DateTime);
+            sut.Value = null;
+            Assert.That(sut.Value, Is.Null);
+        }
+
+        [Test]
         public void Can_get_and_set_IsDiscriminator()
         {
             var sut = CreateSut();
@@ -103,6 +136,13 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             Assert.That(sut.IsDiscriminator, Is.True);
         }
 
-        
+        [Test]
+        public void Set_IsDiscriminator_sets_value_to_null()
+        {
+            var sut = CreateSut(DomainPropertyType.Text);
+            sut.Value = "Text-Value";
+            sut.IsDiscriminator = true;
+            Assert.That(sut.Value, Is.Null);
+        }
     }
 }
