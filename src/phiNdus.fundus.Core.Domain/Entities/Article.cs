@@ -23,14 +23,14 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
             get
             {
-                if (!HasProperty(DomainPropertyDefinition.IsReservableId))
-                    return false;
-                return Convert.ToBoolean(GetPropertyValue(DomainPropertyDefinition.IsReservableId));
+                return HasProperty(DomainPropertyDefinition.IsReservableId) &&
+                       Convert.ToBoolean(GetPropertyValue(DomainPropertyDefinition.IsReservableId));
             }
             set
             {
                 if (!HasProperty(DomainPropertyDefinition.IsReservableId))
-                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.IsReservableId));
+                    AddProperty(
+                        IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.IsReservableId));
                 SetPropertyValue(DomainPropertyDefinition.IsReservableId, value);
             }
         }
@@ -39,14 +39,14 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
             get
             {
-                if (!HasProperty(DomainPropertyDefinition.IsBorrowableId))
-                    return false;
-                return Convert.ToBoolean(GetPropertyValue(DomainPropertyDefinition.IsBorrowableId));
+                return HasProperty(DomainPropertyDefinition.IsBorrowableId) &&
+                       Convert.ToBoolean(GetPropertyValue(DomainPropertyDefinition.IsBorrowableId));
             }
             set
             {
                 if (!HasProperty(DomainPropertyDefinition.IsBorrowableId))
-                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.IsBorrowableId));
+                    AddProperty(
+                        IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.IsBorrowableId));
                 SetPropertyValue(DomainPropertyDefinition.IsBorrowableId, value);
             }
         }
@@ -55,9 +55,9 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
             get
             {
-                if (!HasProperty(DomainPropertyDefinition.StockId))
-                    return 0;
-                return Convert.ToInt32(GetPropertyValue(DomainPropertyDefinition.StockId));
+                return !HasProperty(DomainPropertyDefinition.StockId)
+                           ? 0
+                           : Convert.ToInt32(GetPropertyValue(DomainPropertyDefinition.StockId));
             }
             set
             {
@@ -71,9 +71,9 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
             get
             {
-                if (!HasProperty(DomainPropertyDefinition.PriceId))
-                    return 0.0d;
-                return Convert.ToDouble(GetPropertyValue(DomainPropertyDefinition.PriceId));
+                return !HasProperty(DomainPropertyDefinition.PriceId)
+                           ? 0.0d
+                           : Convert.ToDouble(GetPropertyValue(DomainPropertyDefinition.PriceId));
             }
             set
             {

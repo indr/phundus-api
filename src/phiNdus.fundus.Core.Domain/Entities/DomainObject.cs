@@ -33,14 +33,15 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
             get
             {
-                if (!HasProperty(DomainPropertyDefinition.CaptionId))
-                    return "";
-                return Convert.ToString(GetPropertyValue(DomainPropertyDefinition.CaptionId));
+                return !HasProperty(DomainPropertyDefinition.CaptionId)
+                           ? ""
+                           : Convert.ToString(GetPropertyValue(DomainPropertyDefinition.CaptionId));
             }
             set
             {
                 if (!HasProperty(DomainPropertyDefinition.CaptionId))
-                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.CaptionId));
+                    AddProperty(
+                        IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.CaptionId));
                 SetPropertyValue(DomainPropertyDefinition.CaptionId, value);
             }
         }

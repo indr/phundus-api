@@ -65,6 +65,7 @@ create table [DomainPropertyValue] (
   Id int not null,
   Version int not null,
   DomainPropertyDefinitionId int not null,
+  IsDiscriminator bit not null default 0,
   BooleanValue bit null,
   TextValue NVARCHAR(max) null,
   IntegerValue int null,

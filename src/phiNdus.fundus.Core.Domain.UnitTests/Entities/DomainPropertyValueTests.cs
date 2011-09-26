@@ -19,6 +19,11 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             return new DomainPropertyValue(new DomainPropertyDefinition(type));
         }
 
+        private static DomainPropertyValue CreateSut()
+        {
+            return CreateSut(DomainPropertyType.Text);
+        }
+
         [Test]
         public void Can_create()
         {
@@ -88,5 +93,16 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             sut.Value = now;
             Assert.That(sut.Value, Is.EqualTo(now));
         }
+
+        [Test]
+        public void Can_get_and_set_IsDiscriminator()
+        {
+            var sut = CreateSut();
+            Assert.That(sut.IsDiscriminator, Is.False);
+            sut.IsDiscriminator = true;
+            Assert.That(sut.IsDiscriminator, Is.True);
+        }
+
+        
     }
 }
