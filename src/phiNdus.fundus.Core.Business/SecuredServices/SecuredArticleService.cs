@@ -4,6 +4,7 @@ using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Security.Constraints;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
+using Rhino.Commons;
 using User = phiNdus.fundus.Core.Business.Security.Constraints.User;
 
 namespace phiNdus.fundus.Core.Business.SecuredServices
@@ -34,8 +35,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 
         public PropertyDto[] GetProperties(string sessionKey)
         {
-            return Secured.With(Session.FromKey(sessionKey))
-                .Do<PropertyService, PropertyDto[]>(svc => svc.GetProperties());
+            return IoC.Resolve<IPropertyService>().GetProperties(sessionKey);
         }
 
         public ArticleDto[] GetArticles(string sessionKey)
