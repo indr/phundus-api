@@ -20,7 +20,12 @@
         {
         }
 
-        public DomainPropertyDefinition(int id, string name, DomainPropertyType type) : base(id)
+        public DomainPropertyDefinition(int id, string name, DomainPropertyType type) : this(id, 0, name, type)
+        {
+            
+        }
+
+        public DomainPropertyDefinition(int id, int version, string name, DomainPropertyType type) : base(id, version)
         {
             _name = name;
             _dataType = type;
@@ -30,14 +35,14 @@
         public virtual string Name
         {
             get { return _name; }
-            protected set { _name = value; }
+            set { _name = value; }
         }
 
         private DomainPropertyType _dataType;
         public virtual DomainPropertyType DataType
         {
             get { return _dataType; }
-            protected set { _dataType = value; }
+            set { _dataType = value; }
         }
     }
 }

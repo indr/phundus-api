@@ -243,12 +243,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         }
 
         [Test]
-        public void Is_derived_from_BaseSecuredService()
-        {
-            Assert.That(Sut, Is.InstanceOf(typeof (SecuredServiceBase)));
-        }
-
-        [Test]
         public void UpdateArticle_calls_UpdateArticle()
         {
             FakeArticleService = GenerateAndRegisterStrictMock<ArticleService>();

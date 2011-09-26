@@ -63,6 +63,96 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         }
 
         [Test]
+        public void CreateProperty_calls_CreateProperty()
+        {
+            FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
+            GenerateAndRegisterMissingStubs();
+
+            var dto = new PropertyDto();
+            FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
+            FakePropertyService.Expect(x => x.CreateProperty(dto)).Return(1);
+            Sut.CreateProperty("valid", dto);
+
+            FakePropertyService.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void CreateProperty_returns_id()
+        {
+            GenerateAndRegisterMissingStubs();
+            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
+            FakePropertyService.Expect(x => x.CreateProperty(Arg<PropertyDto>.Is.Anything)).Return(1);
+
+            var actual = Sut.CreateProperty("valid", new PropertyDto());
+
+            Assert.That(actual, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CreateProperty_with_invalid_sessionKey_throws()
+        {
+            GenerateAndRegisterMissingStubs();
+            Assert.Throws<InvalidSessionKeyException>(() => Sut.CreateProperty("invalid", null));
+        }
+
+        [Test]
+        public void CreateProperty_with_sessionKey_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.CreateProperty(null, null));
+            Assert.That(ex.ParamName, Is.EqualTo("key"));
+        }
+
+        [Test]
+        public void CreateProperty_with_user_roll_throws()
+        {
+            GenerateAndRegisterMissingStubs();
+            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
+
+            Assert.Throws<AuthorizationException>(() => Sut.CreateProperty("valid", new PropertyDto()));
+        }
+
+        [Test]
+        public void GetProperty_call_GetProperty()
+        {
+            FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
+            GenerateAndRegisterMissingStubs();
+
+            FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
+            FakePropertyService.Expect(x => x.GetProperty(1)).Return(null);
+            Sut.GetProperty("valid", 1);
+
+            FakePropertyService.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void GetProperty_returns_dto()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            var dto = new PropertyDto();
+            FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
+            FakePropertyService.Expect(x => x.GetProperty(1)).Return(dto);
+            var actual = Sut.GetProperty("valid", 1);
+
+            Assert.That(actual, Is.SameAs(dto));
+        }
+
+        [Test]
+        public void GetProperty_with_invalid_sessionKey_throws()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            Assert.Throws<InvalidSessionKeyException>(() => Sut.GetProperty("invalid", 1));
+        }
+
+        [Test]
+        public void GetProperty_with_sessionKey_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.GetProperty(null, 1));
+            Assert.That(ex.ParamName, Is.EqualTo("key"));
+        }
+
+        [Test]
         public void GetProperties_calls_GetProperties()
         {
             FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
@@ -101,6 +191,44 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         {
             var ex = Assert.Throws<ArgumentNullException>(() => Sut.GetProperties(null));
             Assert.That(ex.ParamName, Is.EqualTo("key"));
+        }
+
+        [Test]
+        public void UpdateProperty_calls_UpdateArticle()
+        {
+            FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
+            GenerateAndRegisterMissingStubs();
+
+            var dto = new PropertyDto();
+            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
+            FakePropertyService.Expect(x => x.UpdateProperty(Arg<PropertyDto>.Is.Equal(dto)));
+            Sut.UpdateProperty("valid", dto);
+
+            FakePropertyService.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void UpdateProperty_with_invalid_sessionKey_throws()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            Assert.Throws<InvalidSessionKeyException>(() => Sut.UpdateProperty("invalid", null));
+        }
+
+        [Test]
+        public void UpdateProperty_with_sessionKey_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.UpdateProperty(null, null));
+            Assert.That(ex.ParamName, Is.EqualTo("key"));
+        }
+
+        [Test]
+        public void UpdateProperty_with_user_roll_throws()
+        {
+            GenerateAndRegisterMissingStubs();
+            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
+
+            Assert.Throws<AuthorizationException>(() => Sut.UpdateProperty("valid", null));
         }
     }
 }
