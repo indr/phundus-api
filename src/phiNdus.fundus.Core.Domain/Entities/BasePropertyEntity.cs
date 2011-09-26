@@ -41,17 +41,19 @@ namespace phiNdus.fundus.Core.Domain.Entities
             return false;
         }
 
-        public virtual void AddProperty(DomainPropertyDefinition propertyDefinition)
+        public virtual DomainPropertyValue AddProperty(DomainPropertyDefinition propertyDefinition)
         {
-            AddProperty(propertyDefinition, null);
+            return AddProperty(propertyDefinition, null);
         }
 
-        public virtual void AddProperty(DomainPropertyDefinition propertyDefinition, object value)
+        public virtual DomainPropertyValue AddProperty(DomainPropertyDefinition propertyDefinition, object value)
         {
             if (HasProperty(propertyDefinition))
                 throw new PropertyException("Property bereits vorhanden.");
 
-            PropertyValues.Add(new DomainPropertyValue(propertyDefinition, value));
+            var result = new DomainPropertyValue(propertyDefinition, value);
+            PropertyValues.Add(result);
+            return result;
         }
 
         public virtual object GetPropertyValue(DomainPropertyDefinition propertyDefinition)
@@ -69,19 +71,19 @@ namespace phiNdus.fundus.Core.Domain.Entities
             throw new PropertyException("Property nicht vorhanden.");
         }
 
-        public virtual void SetPropertyValue(DomainPropertyDefinition propertyDefinition, object value)
+        public virtual DomainPropertyValue SetPropertyValue(DomainPropertyDefinition propertyDefinition, object value)
         {
-            SetPropertyValue(propertyDefinition.Id, value);
+            return SetPropertyValue(propertyDefinition.Id, value);
         }
 
-        public virtual void SetPropertyValue(int propertyDefinitionId, object value)
+        public virtual DomainPropertyValue SetPropertyValue(int propertyDefinitionId, object value)
         {
             foreach (var each in PropertyValues)
             {
                 if (each.PropertyDefinition.Id == propertyDefinitionId)
                 {
                     each.Value = value;
-                    return;
+                    return each;
                 }
             }
             throw new PropertyException("Property nicht vorhanden.");

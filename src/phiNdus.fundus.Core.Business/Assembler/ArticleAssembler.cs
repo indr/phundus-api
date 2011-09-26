@@ -90,10 +90,14 @@ namespace phiNdus.fundus.Core.Business.Assembler
             var propertyDefinitionRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
             foreach (var each in subject.Properties)
             {
-                if (result.HasProperty(each.PropertyId))
-                    result.SetPropertyValue(each.PropertyId, each.Value);
+                DomainPropertyValue propertyValue = null;
+                if (result.HasProperty(each.PropertyId)) {
+                    propertyValue = result.SetPropertyValue(each.PropertyId, each.Value);
+                }
                 else
-                    result.AddProperty(propertyDefinitionRepo.Get(each.PropertyId), each.Value);
+                    propertyValue = result.AddProperty(propertyDefinitionRepo.Get(each.PropertyId), each.Value);
+
+                propertyValue.IsDiscriminator = each.IsDiscriminator;
             }
 
             // Properties, die nicht mehr im DTO vorhanden sind, entfernen.
@@ -141,6 +145,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
                 }
                 dtoProperty.ValueId = each.Id;
                 dtoProperty.Value = each.Value;
+                dtoProperty.IsDiscriminator = each.IsDiscriminator;
 
                 result.AddProperty(dtoProperty);
             }

@@ -60,5 +60,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
             Sut.ValueId = 1;
             Assert.That(Sut.ValueId, Is.EqualTo(1));
         }
+
+        [Test]
+        public void Can_get_and_set_IsDiscriminator()
+        {
+            Assert.That(Sut.IsDiscriminator, Is.False);
+            Sut.IsDiscriminator = true;
+            Assert.That(Sut.IsDiscriminator, Is.True);
+        }
     }
 }

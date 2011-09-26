@@ -14,6 +14,8 @@ namespace phiNdus.fundus.Core.Business.Dto
         /// </summary>
         public int PropertyId { get; set; }
 
+        public bool IsDiscriminator { get; set; }
+
         private object _value;
         public object Value
         {
