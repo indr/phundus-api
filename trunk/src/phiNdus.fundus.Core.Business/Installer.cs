@@ -14,7 +14,7 @@ namespace phiNdus.fundus.Core.Business
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(AllTypes.FromThisAssembly()
-                                   .BasedOn<BaseSecuredService>()
+                                   .BasedOn<SecuredServiceBase>()
                                    .WithService.AllInterfaces()
                                    .Configure(c => c.LifeStyle.Transient));
 

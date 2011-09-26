@@ -8,7 +8,7 @@ using User = phiNdus.fundus.Core.Business.Security.Constraints.User;
 
 namespace phiNdus.fundus.Core.Business.SecuredServices
 {
-    public class SecuredArticleService : BaseSecuredService, IArticleService
+    public class SecuredArticleService : SecuredServiceBase, IArticleService
     {
         #region IArticleService Members
 
@@ -35,7 +35,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         public PropertyDto[] GetProperties(string sessionKey)
         {
             return Secured.With(Session.FromKey(sessionKey))
-                .Do<ArticleService, PropertyDto[]>(svc => svc.GetProperties());
+                .Do<PropertyService, PropertyDto[]>(svc => svc.GetProperties());
         }
 
         public ArticleDto[] GetArticles(string sessionKey)

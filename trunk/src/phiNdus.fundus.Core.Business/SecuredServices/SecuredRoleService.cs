@@ -7,7 +7,7 @@ using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Services;
 
 namespace phiNdus.fundus.Core.Business.SecuredServices {
-    public class SecuredRoleService : BaseSecuredService, IRoleService {
+    public class SecuredRoleService : SecuredServiceBase, IRoleService {
 
         public IEnumerable<RoleDto> GetRoles(string sessionKey) {
             return Secured.With(null)
