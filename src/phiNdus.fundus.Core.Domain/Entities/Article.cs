@@ -35,19 +35,19 @@ namespace phiNdus.fundus.Core.Domain.Entities
             }
         }
 
-        public virtual bool IsLendable
+        public virtual bool IsBorrowable
         {
             get
             {
-                if (!HasProperty(DomainPropertyDefinition.IsLendableId))
+                if (!HasProperty(DomainPropertyDefinition.IsBorrowableId))
                     return false;
-                return Convert.ToBoolean(GetPropertyValue(DomainPropertyDefinition.IsLendableId));
+                return Convert.ToBoolean(GetPropertyValue(DomainPropertyDefinition.IsBorrowableId));
             }
             set
             {
-                if (!HasProperty(DomainPropertyDefinition.IsLendableId))
-                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.IsLendableId));
-                SetPropertyValue(DomainPropertyDefinition.IsLendableId, value);
+                if (!HasProperty(DomainPropertyDefinition.IsBorrowableId))
+                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.IsBorrowableId));
+                SetPropertyValue(DomainPropertyDefinition.IsBorrowableId, value);
             }
         }
 
