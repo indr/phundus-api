@@ -1,0 +1,34 @@
+﻿@model phiNdus.fundus.Core.Business.Dto.PropertyDto
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@section Breadcrumbs {
+     @Html.ActionLink("Artikel", "Index", "Article") &gt;
+     @Html.ActionLink("Eigenschaften", "List") &gt;
+     L&Ouml;schen
+}
+
+@*<h2>Delete</h2>*@
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Artikeleigenschaft</legend>
+
+    <div class="display-label">Caption</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Caption)
+    </div>
+
+    <div class="display-label">Datentyp</div>
+    <div class="display-field">
+        @Model.DataType.ToString()
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Zurück zur Übersicht", "Index")
+    </p>
+}

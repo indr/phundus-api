@@ -8,11 +8,11 @@
      @Html.ActionLink("Artikel", "List") &gt; &Uuml;bersicht
 }
 
-@*
-<h2>List</h2>*@
+@*<h2>List</h2>*@
 
 <p>
-    @Html.ActionLink("Neuer Artikel hinzufügen", "Create")
+    @Html.ActionLink("Neuer Artikel hinzufügen", "Create") |
+    @Html.ActionLink("Artikeleigenschaften bearbeiten", "Index", "Property")
 </p>
 <table>
     <tr>
@@ -48,5 +48,6 @@
     }
 </table>
 <p>
-    @Html.ActionLink("Neuer Artikel hinzufügen", "Create")
+    @Html.ActionLink("Neuer Artikel hinzufügen", "Create") |
+    @Html.ActionLink("Artikeleigenschaften bearbeiten", "Index", "Property")
 </p>

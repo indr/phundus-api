@@ -1,0 +1,30 @@
+﻿@model phiNdus.fundus.Core.Business.Dto.PropertyDto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@section Breadcrumbs {
+     @Html.ActionLink("Artikel", "Index", "Article") &gt;
+     @Html.ActionLink("Eigenschaften", "List") &gt;
+     Details
+}
+
+@*<h2>Details</h2>*@
+
+<fieldset>
+    <legend>Artikeleigenschaft</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Caption)
+    </div>
+    <div class="display-label">Datentyp</div>
+    <div class="display-field">
+        @Model.DataType.ToString()
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Bearbeiten", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Zurück zur Übersicht", "Index")
+</p>
