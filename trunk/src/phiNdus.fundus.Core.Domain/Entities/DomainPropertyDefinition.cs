@@ -9,7 +9,7 @@
         public static int PriceId { get { return 4; } }
         public static int ErfassungsdatumId { get { return 5; } }
         public static int IsReservableId { get { return 6; } }
-        public static int IsLendableId { get { return 7; } }
+        public static int IsBorrowableId { get { return 7; } }
 
         public DomainPropertyDefinition()
         {

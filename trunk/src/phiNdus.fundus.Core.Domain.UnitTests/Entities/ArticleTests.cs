@@ -36,8 +36,8 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             new DomainPropertyDefinition(DomainPropertyDefinition.IsReservableId, "Reservierbar",
                                          DomainPropertyType.Boolean);
 
-        private readonly DomainPropertyDefinition _isLendablePropertyDef =
-            new DomainPropertyDefinition(DomainPropertyDefinition.IsLendableId, "Ausleihbar",
+        private readonly DomainPropertyDefinition _isBorrowablePropertyDef =
+            new DomainPropertyDefinition(DomainPropertyDefinition.IsBorrowableId, "Ausleihbar",
                                          DomainPropertyType.Boolean);
         
         private readonly DomainPropertyDefinition _amountPropertyDef =
@@ -74,21 +74,21 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void GetIsLendable()
+        public void GetIsBorrowable()
         {
-            Assert.That(Sut.IsLendable, Is.False);
-            StubPropertyValues.Add(new DomainPropertyValue(_isLendablePropertyDef, true));
-            Assert.That(Sut.IsLendable, Is.True);
+            Assert.That(Sut.IsBorrowable, Is.False);
+            StubPropertyValues.Add(new DomainPropertyValue(_isBorrowablePropertyDef, true));
+            Assert.That(Sut.IsBorrowable, Is.True);
         }
 
         [Test]
         public void SetIsLendable()
         {
-            StubPropertyDefinitionRepository.Stub(x => x.Get(_isLendablePropertyDef.Id)).Return(_isLendablePropertyDef);
+            StubPropertyDefinitionRepository.Stub(x => x.Get(_isBorrowablePropertyDef.Id)).Return(_isBorrowablePropertyDef);
 
-            Assert.That(Sut.IsLendable, Is.False);
-            Sut.IsLendable = true;
-            Assert.That(Sut.IsLendable, Is.True);
+            Assert.That(Sut.IsBorrowable, Is.False);
+            Sut.IsBorrowable = true;
+            Assert.That(Sut.IsBorrowable, Is.True);
         }
 
         [Test]
