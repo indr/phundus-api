@@ -10,35 +10,83 @@ namespace phiNdus.fundus.Core.Business.Assembler
 {
     public class ArticleAssembler
     {
-        private static Article WriteDomainObject(ArticleDto subject, Article result)
+        
+
+        /// <summary>
+        /// Assembliert das übergebene Domain-Object in ein neues DTO.
+        /// </summary>
+        /// <param name="subject">Das zu assemblierende Domain-Object.</param>
+        /// <returns></returns>
+        public static ArticleDto CreateDto(Article subject)
         {
+            Guard.Against<ArgumentNullException>(subject == null, "subject");
+
+            var result = new ArticleDto();
+            result.Id = subject.Id;
+            result.Version = subject.Version;
             WriteProperties(subject, result);
+            CreateChildren(subject, result);
             return result;
         }
 
+        /// <summary>
+        /// Assembliert die übergebenen Domain-Objects in neue DTOs.
+        /// </summary>
+        /// <param name="subjects">Die zu assemblierende Domain-Objects.</param>
+        /// <returns></returns>
+        public static ArticleDto[] CreateDtos(ICollection<Article> subjects)
+        {
+            Guard.Against<ArgumentNullException>(subjects == null, "subjects");
+
+            var result = new List<ArticleDto>();
+            foreach (var each in subjects)
+                result.Add(CreateDto(each));
+            return result.ToArray();
+        }
+
+        /// <summary>
+        /// Wandelt das übergebene Article-DTO-Objekt in ein neues
+        /// Article-Domain-Objekt um.
+        /// </summary>
+        /// <param name="subject">Das zu assemblierende DTO-Objekt</param>
+        /// <returns></returns>
         public static Article CreateDomainObject(ArticleDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
             var result = new Article();
-            result = WriteDomainObject(subject, result);
-            result = CreateChildObjects(subject, result);
+            WriteProperties(subject, result);
+            CreateChildren(subject, result);
             return result;
         }
 
-        private static Article CreateChildObjects(ArticleDto subject, Article result)
+        /// <summary>
+        /// Assembliert das übergebene DTO in das korrespondierende Domain-Object,
+        /// welches zuerst aus dem Repository geladen wird.
+        /// </summary>
+        /// <param name="subject">Das zu assemblierende DTO.</param>
+        /// <returns></returns>
+        public static Article UpdateDomainObject(ArticleDto subject)
         {
-            foreach (var each in subject.Children)
-            {
-                var child = new Article();
-                child = WriteDomainObject(each, child);
-                result.AddChild(child);
-            }
+            Guard.Against<ArgumentNullException>(subject == null, "subject");
+
+            var result = IoC.Resolve<IArticleRepository>().Get(subject.Id);
+            Guard.Against<EntityNotFoundException>(result == null, "Article entity not found");
+            Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
+
+            WriteProperties(subject, result);
+            UpdateChildren(subject, result);
             return result;
         }
 
-        private static Article WriteProperties(ArticleDto subject, Article result)
+        /// <summary>
+        /// Assembliert die Properties des übergebenen DTOs in das übergebene Domain-Object.
+        /// </summary>
+        /// <param name="subject">Das zu assemblierende DTO.</param>
+        /// <param name="result">Das zu aktualisierende Domain-Object.</param>
+        private static void WriteProperties(BasePropertiesDto subject, BasePropertyEntity result)
         {
+            // Neue Properties hinzufügen, oder bestehende Property-Values aktualisieren.
             var propertyDefinitionRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
             foreach (var each in subject.Properties)
             {
@@ -48,6 +96,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
                     result.AddProperty(propertyDefinitionRepo.Get(each.PropertyId), each.Value);
             }
 
+            // Properties, die nicht mehr im DTO vorhanden sind, entfernen.
             var propertiesToRemove = new List<DomainPropertyValue>();
             foreach (var each in result.PropertyValues)
             {
@@ -56,12 +105,16 @@ namespace phiNdus.fundus.Core.Business.Assembler
             }
             foreach (var each in propertiesToRemove)
                 result.RemoveProperty(each.PropertyDefinition);
-            return result;
         }
 
-        private static ArticleDto WriteProperties(Article subject, ArticleDto result)
+        /// <summary>
+        /// Assembliert die Properties des übergebenen Domain-Objects in das übergebene DTO.
+        /// </summary>
+        /// <param name="subject">Das zu assemblierende Domain-Object.</param>
+        /// <param name="result">Das zu aktualisierende DTO.</param>
+        private static void WriteProperties(BasePropertyEntity subject, BasePropertiesDto result)
         {
-            foreach(var each in subject.PropertyValues)
+            foreach (var each in subject.PropertyValues)
             {
                 var dtoProperty = new DtoProperty();
                 dtoProperty.PropertyId = each.PropertyDefinition.Id;
@@ -91,62 +144,54 @@ namespace phiNdus.fundus.Core.Business.Assembler
 
                 result.AddProperty(dtoProperty);
             }
-
-
-            return result;
         }
 
-        public static ArticleDto CreateDto(Article subject)
-        {
-            Guard.Against<ArgumentNullException>(subject == null, "subject");
-
-            var result = new ArticleDto();
-            result.Id = subject.Id;
-            result.Version = subject.Version;
-            result = WriteProperties(subject, result);
-            result = WriteChildren(subject, result);
-            return result;
-        }
-
-        private static ArticleDto WriteChildren(Article subject, ArticleDto result)
-        {
-            foreach (var each in subject.Children) {
-                // TODO: Generics anstelle Cast?
-                result.AddChild(CreateDto((Article)each));
-            }
-            return result;
-        }
-
-        public static Article UpdateDomainObject(ArticleDto subject)
-        {
-            Guard.Against<ArgumentNullException>(subject == null, "subject");
-
-            var result = IoC.Resolve<IArticleRepository>().Get(subject.Id);
-            Guard.Against<EntityNotFoundException>(result == null, "Article entity not found");
-            Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
-
-            result = WriteDomainObject(subject, result);
-            result = WriteChildren(subject, result);
-            return result;
-        }
-
-        private static Article WriteChildren(ArticleDto subject, Article result)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="subject"></param>
+        /// <param name="result"></param>
+        private static void CreateChildren(DomainObject subject, ArticleDto result)
         {
             foreach (var each in subject.Children)
             {
-                // Hier kompliziert =)
+                // TODO: Generics anstelle Cast?
+                result.AddChild(CreateDto((Article) each));
             }
-            return subject;
         }
 
-        public static ArticleDto[] CreateDtos(ICollection<Article> subjects)
+        private static void CreateChildren(ArticleDto subject, Article result)
         {
-            Guard.Against<ArgumentNullException>(subjects == null, "subjects");
+            foreach (var each in subject.Children)
+            {
+                var child = new Article();
+                WriteProperties(each, child);
+                result.AddChild(child);
+            }
+        }
 
-            var result = new List<ArticleDto>();
-            foreach (var each in subjects)
-                result.Add(CreateDto(each));
-            return result.ToArray();
+        private static void UpdateChildren(ArticleDto subject, Article result)
+        {
+            // Neue Childs hinzufügen, oder bestehende Updaten
+            foreach (var each in subject.Children)
+            {
+                Article child = null;
+                if (each.Id > 0)
+                    child = UpdateDomainObject(each);
+                else
+                    child = CreateDomainObject(each);
+                result.AddChild(child);
+            }
+
+            // Children, die nicht mehr im DTO vorhanden sind, entfernen.
+            var childrenToRemove = new List<DomainObject>();
+            foreach (var each in result.Children)
+            {
+                if (subject.Children.SingleOrDefault(x => x.Id == each.Id) == null)
+                    childrenToRemove.Add(each);
+            }
+            foreach (var each in childrenToRemove)
+                result.RemoveChild((Article)each);
         }
     }
 }
