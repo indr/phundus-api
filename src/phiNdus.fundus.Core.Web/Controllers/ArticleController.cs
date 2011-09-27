@@ -65,6 +65,14 @@ namespace phiNdus.fundus.Core.Web.Controllers
                     model.AddDiscriminatorById(propertyId);
                     return View(model);
                 }
+                if (btnSubmit == "AddChild")
+                {
+                    return View(model);
+                }
+                if (btnSubmit.StartsWith("RemoveChild"))
+                {
+                    return View(model);
+                }
                 if(btnSubmit.StartsWith("RemoveProperty"))
                 {
                     var propertyId = Convert.ToInt32(btnSubmit.Remove(0, 15));
