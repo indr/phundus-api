@@ -36,7 +36,14 @@
             @foreach (var heading in Model.Headings)
             {
                 <td>
-                    @item.GetPropertyValue(heading.Id)
+                    @if (item.IsDiscriminator(heading.Id))
+                    {
+                        @Html.Raw("<i>D</i>")
+                    }
+                    else
+                    {
+                        @item.GetPropertyValue(heading.Id)
+                    }
                 </td>
             }
              <td>

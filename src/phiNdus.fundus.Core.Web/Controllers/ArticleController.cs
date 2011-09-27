@@ -59,7 +59,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
                     model.AddPropertyById(propertyId);
                     return View(model);
                 }
-                else if(btnSubmit.StartsWith("RemoveProperty"))
+                if (btnSubmit == "AddDiscriminator")
+                {
+                    var propertyId = Convert.ToInt32(collection["DropDownListRemainingProperties"]);
+                    model.AddDiscriminatorById(propertyId);
+                    return View(model);
+                }
+                if(btnSubmit.StartsWith("RemoveProperty"))
                 {
                     var propertyId = Convert.ToInt32(btnSubmit.Remove(0, 15));
                     model.RemovePropertyById(propertyId);
@@ -103,7 +109,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
                     model.AddPropertyById(propertyId);
                     return View(model);
                 }
-                else if (btnSubmit.StartsWith("RemoveProperty"))
+                if (btnSubmit == "AddDiscriminator")
+                {
+                    var propertyId = Convert.ToInt32(collection["DropDownListRemainingProperties"]);
+                    model.AddDiscriminatorById(propertyId);
+                    return View(model);
+                }
+                if (btnSubmit.StartsWith("RemoveProperty"))
                 {
                     var propertyId = Convert.ToInt32(btnSubmit.Remove(0, 15));
                     model.RemovePropertyById(propertyId);

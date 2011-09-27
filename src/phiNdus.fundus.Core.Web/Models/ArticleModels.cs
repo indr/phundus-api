@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -30,22 +31,31 @@ namespace phiNdus.fundus.Core.Web.Models
             }
         }
 
-        public void AddPropertyById(int propertyId)
+        public DtoProperty AddPropertyById(int propertyId)
         {
             var properties = ArticleService.GetProperties(SessionId);
             foreach (var each in properties)
                 if (each.Id == propertyId)
                 {
-                    Item.AddProperty(new DtoProperty
-                                         {
-                                             Caption = each.Caption,
-                                             DataType = each.DataType,
-                                             Value = null,
-                                             ValueId = 0,
-                                             PropertyId = each.Id
-                                         });
-                    break;
+                    var result = new DtoProperty
+                                     {
+                                         Caption = each.Caption,
+                                         DataType = each.DataType,
+                                         Value = null,
+                                         ValueId = 0,
+                                         PropertyId = each.Id
+                                     };
+                    Item.AddProperty(result);
+                    return result;
                 }
+            return null;
+        }
+
+        public void AddDiscriminatorById(int propertyId)
+        {
+            var property = AddPropertyById(propertyId);
+            if (property != null)
+                property.IsDiscriminator = true;
         }
 
 
@@ -94,6 +104,8 @@ namespace phiNdus.fundus.Core.Web.Models
         {
             ArticleService.DeleteArticle(SessionId, Item);
         }
+
+        
     }
 
 
