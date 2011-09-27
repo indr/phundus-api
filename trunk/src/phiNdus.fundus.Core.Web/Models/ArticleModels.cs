@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
@@ -8,6 +9,25 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Models
 {
+    public static class ArticleDtoExtensions
+    {
+        private static IArticleService ArticleService
+        {
+            get { return IoC.Resolve<IArticleService>(); }
+        }
+
+        public static IEnumerable<SelectListItem> RemainingProperties(this ArticleDto articleDto)
+        {
+            var properties = ArticleService.GetProperties(HttpContext.Current.Session.SessionID).ToList();
+            properties.RemoveAll(x => articleDto.Properties.SingleOrDefault(y => y.PropertyId == x.Id) != null);
+            return properties.Select(p => new SelectListItem
+                                                  {
+                                                      Value = p.Id.ToString(),
+                                                      Text = p.Caption
+                                                  });
+        }
+    }
+
     public abstract class ArticleModel : ModelBase
     {
         protected IArticleService ArticleService
@@ -16,20 +36,6 @@ namespace phiNdus.fundus.Core.Web.Models
         }
 
         public ArticleDto Item { get; set; }
-
-        public IEnumerable<SelectListItem> RemainingProperties
-        {
-            get
-            {
-                var properties = ArticleService.GetProperties(SessionId).ToList();
-                properties.RemoveAll(x => Item.Properties.SingleOrDefault(y => y.PropertyId == x.Id) != null);
-                return properties.Select(p => new SelectListItem
-                                                  {
-                                                      Value = p.Id.ToString(),
-                                                      Text = p.Caption
-                                                  });
-            }
-        }
 
         public DtoProperty AddPropertyById(int propertyId)
         {
