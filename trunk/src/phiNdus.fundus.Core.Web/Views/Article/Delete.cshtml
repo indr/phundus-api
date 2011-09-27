@@ -14,11 +14,19 @@
     {
         <div class="display-label">@each.Caption</div>
         <div class="display-field">
+             @if (each.IsDiscriminator)
+             {
+                @Html.Raw("<i>Diskriminante</i>")
+             }
+             else
+             {
             @Html.DisplayFor(model => each.ValueAsString)
+             }
         </div>
     }
 </fieldset>
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     <p>
         <input type="submit" value="Delete" /> |
         @Html.ActionLink("Back to List", "Index")

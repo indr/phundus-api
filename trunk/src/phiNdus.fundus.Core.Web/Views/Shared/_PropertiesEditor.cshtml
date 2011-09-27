@@ -10,22 +10,31 @@
                 @Model.Item.Properties[idx].Caption
             </div>
             <div class="editor-field">
-               @switch (Model.Item.Properties[idx].DataType)
+            @if (Model.Item.Properties[idx].IsDiscriminator)
+            {
+                @Html.CheckBoxFor(x => x.Item.Properties[idx].IsDiscriminator)
+            }
+            else
+            {
+               switch (Model.Item.Properties[idx].DataType)
                {
                    case phiNdus.fundus.Core.Business.Dto.PropertyDataType.Boolean:
                        @Html.CheckBoxFor(x => x.Item.Properties[idx].ValueAsBoolean);
-                       break;
+                                                                                    break;
                    default:
                        @Html.TextBoxFor(x => x.Item.Properties[idx].ValueAsString);
                                                                                   break;
 
                }
+            }               
                <input type="submit" name="btnSubmit" value="@String.Concat("RemoveProperty_", Model.Item.Properties[idx].PropertyId)" />
             </div>
+            
         }
 
         <p>
             Feld hinzufügen:<br />
             @Html.DropDownList("DropDownListRemainingProperties", Model.RemainingProperties)
             <input type="submit" name="btnSubmit" value="AddProperty" />
+            <input type="submit" name="btnSubmit" value="AddDiscriminator" />
         </p>

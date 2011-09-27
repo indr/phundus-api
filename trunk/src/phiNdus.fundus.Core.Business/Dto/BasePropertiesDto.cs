@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace phiNdus.fundus.Core.Business.Dto
 {
@@ -32,12 +33,21 @@ namespace phiNdus.fundus.Core.Business.Dto
                 }
         }
 
+        protected DtoProperty GetProperty(int propertyId)
+        {
+            return _properties.FirstOrDefault(each => each.PropertyId == propertyId);
+        }
+
         public string GetPropertyValue(int propertyId)
         {
-            foreach (var each in _properties)
-                if (each.PropertyId == propertyId)
-                    return Convert.ToString(each.Value);
-            return null;
+            var property = GetProperty(propertyId);
+            return property != null ? Convert.ToString(property.Value) : null;
+        }
+
+        public bool IsDiscriminator(int propertyId)
+        {
+            var property = GetProperty(propertyId);
+            return property != null ? property.IsDiscriminator : false;
         }
     }
 }
