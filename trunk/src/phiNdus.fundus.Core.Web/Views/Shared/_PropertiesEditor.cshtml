@@ -33,9 +33,10 @@
         }
 
         <p>
-            Feld hinzufügen:<br />
+            Eigenschaft hinzufügen:<br />
             @using phiNdus.fundus.Core.Web.Models
             @Html.DropDownList("DropDownListRemainingProperties", Model.Item.RemainingProperties())
             <input type="submit" name="btnSubmit" value="AddProperty" />
             <input type="submit" name="btnSubmit" value="AddDiscriminator" />
+            @Html.ActionLink("Eigenschaften bearbeiten", "Index", "Property")
         </p>
