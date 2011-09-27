@@ -14,6 +14,11 @@
     @Html.ValidationSummary(true, "Fehler bei der Anmeldung")
 
     <div class="formular-box">        
+        <p>Im Staging-Deployment sind diese Benutzer vordefiniert:</p>
+        <ul>
+            <li>user@example.com, 1234</li>
+            <li>admin@example.com, 1234</li>
+        </ul>
         <p class="formular-item">
             @Html.LabelFor(m => m.Email)<br />
             @Html.TextBoxFor(m => m.Email, new { @class = "text-input" })<br />
@@ -32,6 +37,7 @@
             <input type="submit" value="Anmelden" />
         </p>
     </div>
+    
  
     @*<div style="width: 100%">
         @Html.ActionLink("Passwort vergessen?", "ResetPassword") | @Html.ActionLink("Neues Konto erstellen", "SignUp")

@@ -658,6 +658,13 @@
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${build.dir}\Settings.Merged.sql" />
       
+    <if test="${file::exists(sql.custom-dml)}">
+      <echo message="Executing ${sql.custom-dml}" />
+      <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
+        transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
+        source="${sql.custom-dml}" />
+    </if>      
+      
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/grant.sql" />
@@ -742,6 +749,7 @@
   
     <property name="sql.database-name" value="${acceptance.database-name}" />
     <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
+    <property name="sql.custom-dml" value="" />
     
     <property name="deploy.settings" value="${config.dir}\Settings.Acceptance.csv" />
     <property name="deploy.connstring" value="${acceptance.connstring}" />
@@ -762,6 +770,7 @@
 
     <property name="sql.database-name" value="${staging.database-name}" />
     <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
+    <property name="sql.custom-dml" value="${sql.dir}\dml-staging.sql" />
     
     <property name="deploy.settings" value="${config.dir}\Settings.Staging.csv" />
     <property name="deploy.connstring" value="${staging.connstring}" />
