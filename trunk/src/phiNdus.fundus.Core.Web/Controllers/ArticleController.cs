@@ -6,7 +6,7 @@ using phiNdus.fundus.Core.Web.Models;
 
 namespace phiNdus.fundus.Core.Web.Controllers
 {
-    public class MyHttpParamActionAttribute : ActionNameSelectorAttribute
+    internal class MyHttpParamActionAttribute : ActionNameSelectorAttribute
     {
         public override bool IsValidName(ControllerContext controllerContext, string actionName, MethodInfo methodInfo)
         {
