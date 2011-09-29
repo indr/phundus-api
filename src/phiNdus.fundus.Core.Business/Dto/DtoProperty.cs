@@ -22,6 +22,7 @@ namespace phiNdus.fundus.Core.Business.Dto
             get { return _value; }
             set
             {
+                IsDiscriminator = false;
                 // TODO: UpdateModel() übergibt ein Array?
                 if (value is Array)
                 {

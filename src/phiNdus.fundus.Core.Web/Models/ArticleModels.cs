@@ -28,11 +28,44 @@ namespace phiNdus.fundus.Core.Web.Models
         }
     }
 
-    public abstract class ArticleModel : ModelBase
+    public class ArticleModel : ModelBase
     {
         protected IArticleService ArticleService
         {
             get { return IoC.Resolve<IArticleService>(); }
+        }
+
+        public ArticleModel()
+        {
+            Item = new ArticleDto();
+        }
+
+        public ArticleModel(int id)
+        {
+            Item = ArticleService.GetArticle(SessionId, id);
+        }
+
+        public ArticleModel(int? id)
+        {
+            if (id.HasValue)
+                Item = ArticleService.GetArticle(SessionId, id.Value);
+            else
+                Item = new ArticleDto();
+        }
+
+        public void Create()
+        {
+            ArticleService.CreateArticle(SessionId, Item);
+        }
+
+        public void Update()
+        {
+            ArticleService.UpdateArticle(SessionId, Item);
+        }
+
+        public void Delete()
+        {
+            ArticleService.DeleteArticle(SessionId, Item);
         }
 
         public ArticleDto Item { get; set; }
@@ -79,41 +112,6 @@ namespace phiNdus.fundus.Core.Web.Models
                 Item.Properties.Remove(property);
         }
     }
-
-    public class ArticleCreateModel : ArticleModel
-    {
-        public ArticleCreateModel()
-        {
-            Item = new ArticleDto();
-        }
-
-        public void Create()
-        {
-            ArticleService.CreateArticle(SessionId, Item);
-        }
-    }
-
-
-    public class ArticleEditModel : ArticleModel
-    {
-        public ArticleEditModel(int id)
-        {
-            Item = ArticleService.GetArticle(SessionId, id);
-        }
-
-        public void Update()
-        {
-            ArticleService.UpdateArticle(SessionId, Item);
-        }
-
-        public void Delete()
-        {
-            ArticleService.DeleteArticle(SessionId, Item);
-        }
-
-        
-    }
-
 
     public class ArticleListModel : ModelBase
     {
