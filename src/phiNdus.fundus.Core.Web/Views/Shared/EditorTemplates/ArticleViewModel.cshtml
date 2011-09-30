@@ -1,0 +1,31 @@
+@model phiNdus.fundus.Core.Web.Models.ArticleViewModel
+
+<div class="article-editor">
+<h3>Eigenschaften</h3>
+<div class="article-properties-editor">
+@using (Html.BeginContainerFor(m => m.PropertyValues))
+{
+    @Html.EditorFor(x => x.PropertyValues);
+}
+<h4>Neue Eigenschaft hinzufügen</h4>
+@Html.DropDownListFor(m => m.RemainingPropertyId, Model.RemainingProperties)
+<a href="#" onclick="addProperty(
+    '@Html.IdFor(m => m.RemainingPropertyId)',
+    '@Html.IdFor(m => m.RemainingDiscriminatorId)',
+    '@Html.IdFor(m => m.PropertyValues)'); return false;">Eigenschaft hinzufügen</a>
+</div>
+
+<h3>Diskriminatoren</h3>
+<div class="article-discriminators-editor">
+@using (Html.BeginContainerFor(m => m.Discriminators))
+{
+    @Html.EditorFor(x => x.Discriminators);
+}
+<h4>Neuer Diskriminator hinzufügen</h4>
+@Html.DropDownListFor(m => m.RemainingDiscriminatorId, Model.RemainingProperties)
+<a href="#" onclick="addDiscriminator(
+    '@Html.IdFor(m => m.RemainingPropertyId)',
+    '@Html.IdFor(m => m.RemainingDiscriminatorId)',
+    '@Html.IdFor(m => m.Discriminators)'); return false;">Diskriminator hinzufügen</a>
+</div>
+</div>

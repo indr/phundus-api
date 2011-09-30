@@ -1,0 +1,13 @@
+@model phiNdus.fundus.Core.Web.Models.DiscriminatorViewModel
+
+@using (Html.BeginContainerFor(m => m))
+{
+    <div class="editor-label">
+        @Html.DisplayFor(m => m.Caption)
+    </div>
+    <div class="editor-field">
+        @Html.HiddenFor(m => m.PropertyDefinitionId)
+        @Html.HiddenFor(m => m.PropertyValueId)
+        <a href="#" onclick="removeDiscriminator('@Html.IdFor(m => m)', '@Model.Caption', @Model.PropertyDefinitionId); return false;">Diskriminator entfernen</a>
+    </div>
+}

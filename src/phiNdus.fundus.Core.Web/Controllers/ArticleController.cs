@@ -2,7 +2,10 @@
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
+using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Web.Models;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Controllers
 {
@@ -48,8 +51,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
     }
 
     [Authorize]
-    public class ArticleController : Controller
+    public class ArticleController : ControllerBase
     {
+        protected IArticleService ArticleService
+        {
+            get { return IoC.Resolve<IArticleService>(); }
+        }
+
         //
         // GET: /Article/
 
@@ -71,78 +79,81 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            return View(new ArticleModel(id));
+            return View(new ArticleViewModel());
         }
 
         //
         // GET: /Article/Create
         public ActionResult Create()
         {
-            var model = new ArticleModel();
+            var model = new ArticleViewModel(
+                    ArticleService.GetProperties(Session.SessionID)
+                );
+            
             return View(model);
         }
 
         //
         // POST: /Article/Create/AddProperty
-        [HttpPost]
-        [HttpParamAction]
-        public ActionResult AddProperty(int? id, FormCollection collection)
-        {
-            var model = new ArticleModel();
-            UpdateModel(model, collection.ToValueProvider());
-            var propertyId = Convert.ToInt32(collection["DropDownListRemainingProperties"]);
-            model.AddPropertyById(propertyId);
-            ModelState.Clear();
-            if (!id.HasValue)
-            {
-                return View("Create", model);
-            }
-            else
-            {
-                return View("Edit", model);
-            }
-        }
+        //[HttpPost]
+        //[HttpParamAction]
+        //public ActionResult AddProperty(int? id, FormCollection collection)
+        //{
+        //    var model = new ArticleViewModel();
+        //    UpdateModel(model, collection.ToValueProvider());
+        //    var propertyId = Convert.ToInt32(collection["DropDownListRemainingProperties"]);
+        //    model.AddPropertyById(propertyId);
+        //    ModelState.Clear();
+        //    if (!id.HasValue)
+        //    {
+        //        return View("Create", model);
+        //    }
+        //    else
+        //    {
+        //        return View("Edit", model);
+        //    }
+        //}
 
         //
         // POST: /Article/Action/CreateAddDiscriminator
-        [HttpPost]
-        [HttpParamAction]
-        public ActionResult AddDiscriminator(int? id, FormCollection collection)
-        {
-            var model = new ArticleModel();
-            UpdateModel(model, collection.ToValueProvider());
-            var propertyId = Convert.ToInt32(collection["DropDownListRemainingProperties"]);
-            model.AddDiscriminatorById(propertyId);
-            ModelState.Clear();
-            if (!id.HasValue)
-            {
-                return View("Create", model);
-            }
-            else
-            {
-                return View("Edit", model);
-            }
-        }
+        //[HttpPost]
+        //[HttpParamAction]
+        //public ActionResult AddDiscriminator(int? id, FormCollection collection)
+        //{
+        //    var model = new ArticleViewModel();
+        //    UpdateModel(model, collection.ToValueProvider());
+        //    var propertyId = Convert.ToInt32(collection["DropDownListRemainingProperties"]);
+        //    model.AddDiscriminatorById(propertyId);
+        //    ModelState.Clear();
+        //    if (!id.HasValue)
+        //    {
+        //        return View("Create", model);
+        //    }
+        //    else
+        //    {
+        //        return View("Edit", model);
+        //    }
+        //}
 
         //
         // POST: /Article/Action/CreateRemoveProperty
-        [HttpPost]
-        [MyHttpParamAction]
-        public ActionResult RemoveProperty(int? id, int propertyId, FormCollection collection)
-        {
-            var model = new ArticleModel();
-            UpdateModel(model, collection.ToValueProvider());
-            model.RemovePropertyById(propertyId);
-            ModelState.Clear();
-            if (!id.HasValue)
-            {
-                return View("Create", model);
-            }
-            else
-            {
-                return View("Edit", model);
-            }
-        }
+        //[HttpPost]
+        //[MyHttpParamAction]
+        //public ActionResult RemoveProperty(int? id, int propertyId, FormCollection collection)
+        //{
+        //    var model = new ArticleViewModel();
+        //    UpdateModel(model, collection.ToValueProvider());
+        //    model.RemovePropertyById(propertyId);
+        //    ModelState.Clear();
+        //    if (!id.HasValue)
+        //    {
+        //        return View("Create", model);
+        //    }
+        //    else
+        //    {
+        //        return View("Edit", model);
+        //    }
+        //}
 
 
         ////
@@ -189,11 +200,11 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpParamAction]
         public ActionResult Create(FormCollection collection)
         {
-            var model = new ArticleModel();
+            var model = new ArticleViewModel();
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                model.Create();
+                ArticleService.CreateArticle(Session.SessionID, model.CreateDto());
                 return RedirectToAction("Index");
             }
                 
@@ -210,7 +221,10 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Article/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(new ArticleModel(id));
+            var model = new ArticleViewModel(
+                ArticleService.GetArticle(Session.SessionID, id),
+                ArticleService.GetProperties(Session.SessionID));
+            return View(model);
         }
 
         ////
@@ -255,13 +269,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // POST: /Article/Action/5
         [HttpPost]
         [HttpParamAction]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(FormCollection collection)
         {
-            var model = new ArticleModel();
+            var model = new ArticleViewModel();
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                model.Update();
+                ArticleService.UpdateArticle(Session.SessionID, model.CreateDto());
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -273,29 +287,76 @@ namespace phiNdus.fundus.Core.Web.Controllers
             }
         }
 
+        //[HttpPost]
+        //[HttpParamAction]
+        //public ActionResult CreateOrEdit(int? id, FormCollection collection)
+        //{
+        //    var model = new ArticleViewModel();
+        //    try
+        //    {
+        //        UpdateModel(model, collection.ToValueProvider());
+        //        if ((id.HasValue) && (id.Value > 0))
+        //            model.Update();
+        //        else
+        //            model.Create();
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // TODO: Logging
+        //        // TODO: Exception-Handling
+        //        ModelState.AddModelError("", ex.Message);
+        //        if ((id.HasValue) && (id.Value > 0))
+        //            return View("Edit", model);
+        //        else
+        //            return View("Create", model);
+        //    }
+        //}
+
         //
         // GET: /Article/Delete/5
 
         public ActionResult Delete(int id)
         {
-            return View(new ArticleModel(id));
+            //return View(new ArticleViewModel(id));
+            throw new NotImplementedException();
         }
 
         //
         // POST: /Article/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, int version)
         {
-            var model = new ArticleModel(id);
+            var model = new ArticleViewModel();
             try
             {
-                model.Delete();
+                model.Id = id;
+                model.Version = version;
+                ArticleService.DeleteArticle(Session.SessionID, model.CreateDto());
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View(model);
             }
+        }
+
+        [HttpGet]
+        public ActionResult AddPropertyAjax(int id)
+        {
+            var svc = IoC.Resolve<IPropertyService>();
+            var prop = svc.GetProperty(Session.SessionID, id);
+            var model = ArticleViewModel.ConvertToPropertyValueViewModel(prop);
+            return EditorFor(model);
+        }
+
+        [HttpGet]
+        public ActionResult AddDiscriminatorAjax(int id)
+        {
+            var svc = IoC.Resolve<IPropertyService>();
+            var prop = svc.GetProperty(Session.SessionID, id);
+            var model = ArticleViewModel.ConvertToDiscriminatorViewModel(prop);
+            return EditorFor(model);
         }
 
         [HttpDelete]
