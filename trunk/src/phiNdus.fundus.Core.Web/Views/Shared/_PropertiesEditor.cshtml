@@ -1,4 +1,4 @@
-﻿@model phiNdus.fundus.Core.Web.Models.ArticleModel
+﻿@*@model phiNdus.fundus.Core.Web.Models.ArticleModel
    
    @for (var idx = 0; idx < Model.Item.Properties.Count; idx++)
         {
@@ -16,7 +16,7 @@
             }
             else
             {
-               @*@Html.HiddenFor(x => x.Item.Properties[idx].IsDiscriminator)*@
+               @*Html.HiddenFor(x => x.Item.Properties[idx].IsDiscriminator)
                switch (Model.Item.Properties[idx].DataType)
                {
                    case phiNdus.fundus.Core.Business.Dto.PropertyDataType.Boolean:
@@ -35,7 +35,7 @@
                <br />ValueAsString (Inline): @Model.Item.Properties[idx].ValueAsString
                <br />ValueAsString (Lambda): @Html.DisplayTextFor(x => x.Item.Properties[idx].ValueAsString)
                <br />@Html.TextBoxFor(x => x.Item.Properties[idx].ValueAsString);
-               <br />ValueAsBoolean: @Model.Item.Properties[idx].ValueAsBoolean.ToString()*@
+               <br />ValueAsBoolean: @Model.Item.Properties[idx].ValueAsBoolean.ToString()
             </div>
             
         }
@@ -47,4 +47,4 @@
             <input type="submit" name="addProperty" value="Eigenschaft hinzufügen" />
             <input type="submit" name="addDiscriminator" value="Diskriminator hinzufügen" />
             @Html.ActionLink("Eigenschaften bearbeiten", "Index", "Property")
-        </p>
+        </p>*@
