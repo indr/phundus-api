@@ -1,19 +1,16 @@
-﻿@model phiNdus.fundus.Core.Web.Models.ArticleViewModel
+﻿@model ArticleViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Neuer Artikel erfassen";
 }
 
 @section Breadcrumbs {
-     @Html.ActionLink("Artikel", "Index") &gt; Erstellen
+     @Html.ActionLink("Artikel", "Index") &gt; Erfassen
 }
-
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
 <h2>Neuer Artikel erfassen</h2>
 
-@using (Html.BeginForm("Action", "Article"))
+@using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
 

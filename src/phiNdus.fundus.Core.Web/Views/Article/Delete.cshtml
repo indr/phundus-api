@@ -1,6 +1,15 @@
-﻿@model phiNdus.fundus.Core.Web.Models.ArticleViewModel
+﻿@model ArticleViewModel
 
-<h3>Möchten Sie diesen Artikel wirklich löschen?</h3>
+@{
+    ViewBag.Title = "Artikel löschen";
+}
+
+@section Breadcrumbs {
+     @Html.ActionLink("Artikel", "Index") &gt; Löschen
+}
+
+<h2>Artikel löschen</h2>
+<p>Möchten Sie diesen Artikel wirklich löschen?</p>
 @using (Html.BeginForm()) {
     <p>
         <input type="submit" value="Löschen" /> |
