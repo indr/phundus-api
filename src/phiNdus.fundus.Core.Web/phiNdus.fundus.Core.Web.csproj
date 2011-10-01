@@ -102,24 +102,19 @@
     </Compile>
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\MvcContainer.cs" />
-    <Compile Include="HttpParamActionAttribute.cs" />
     <Compile Include="Installers\AuthenticationInstaller.cs" />
     <Compile Include="Installers\ControllerInstaller.cs" />
     <Compile Include="Installers\LoggerInstaller.cs" />
     <Compile Include="Installers\StateManagerInstaller.cs" />
     <Compile Include="Models\ArticleModels.cs" />
-    <Compile Include="Models\ArticleViewModel.cs" />
     <Compile Include="Models\CartModels.cs" />
-    <Compile Include="Models\DiscriminatorViewModel.cs" />
     <Compile Include="Models\MembershipService.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\FormsAuthenticationService.cs" />
     <Compile Include="Models\IFormsService.cs" />
     <Compile Include="Models\IMembershipService.cs" />
-    <Compile Include="Models\MessageBoxViewModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\PropertyModels.cs" />
-    <Compile Include="Models\PropertyValueViewModel.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -127,6 +122,10 @@
     <Compile Include="Security\FundusRoleProvider.cs" />
     <Compile Include="State\IStateManager.cs" />
     <Compile Include="State\SessionStateManager.cs" />
+    <Compile Include="ViewModels\ArticleViewModel.cs" />
+    <Compile Include="ViewModels\DiscriminatorViewModel.cs" />
+    <Compile Include="ViewModels\MessageBoxViewModel.cs" />
+    <Compile Include="ViewModels\PropertyValueViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\error.png" />

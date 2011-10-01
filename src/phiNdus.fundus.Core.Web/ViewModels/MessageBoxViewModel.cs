@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace phiNdus.fundus.Core.Web.Models
+﻿namespace phiNdus.fundus.Core.Web.ViewModels
 {
     public enum MessageBoxType
     {
