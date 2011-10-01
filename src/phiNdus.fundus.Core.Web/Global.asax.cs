@@ -7,6 +7,7 @@ using System.Web.Routing;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using phiNdus.fundus.Core.Web.Plumbing;
+using Castle.MicroKernel.Registration;
 
 namespace phiNdus.fundus.Core.Web {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -15,7 +16,7 @@ namespace phiNdus.fundus.Core.Web {
     public class MvcApplication : System.Web.HttpApplication {
 
         private static IWindsorContainer container;
-        
+
         public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
             filters.Add(new HandleErrorAttribute());
         }
@@ -54,7 +55,17 @@ namespace phiNdus.fundus.Core.Web {
             container = new WindsorContainer()
                 .Install(FromAssembly.This())
                 .Install(FromAssembly.Named("phiNdus.fundus.Core.Business"));
-                //.Install(FromAssembly.Named("phiNdus.fundus.Core.Domain"));
+
+            // Todo,jac: Move to custom Installer
+            // HttpContext registrieren für den SessionStateManager
+            container.Register(
+                Component.For<HttpContextBase>()
+                .LifeStyle
+                .PerWebRequest
+                .UsingFactoryMethod(() => new HttpContextWrapper(HttpContext.Current)));
+
+            container.Register(Component.For<phiNdus.fundus.Core.Web.State.IStateManager>()
+                .ImplementedBy<phiNdus.fundus.Core.Web.State.SessionStateManager>());
 
             var controllerFactory = new WindsorControllerFactory(container.Kernel);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
