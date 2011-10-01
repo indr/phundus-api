@@ -18,6 +18,7 @@
                 @Html.TextBoxFor(m => m.StringValue);
                 break;
         }
+        @Html.HiddenFor(m => m.IsDeleted)
         <a href="#" onclick="removeProperty('@Html.IdFor(m => m)', '@Model.Caption', @Model.PropertyDefinitionId); return false;">Eigenschaft entfernen</a>
     </div>
 }

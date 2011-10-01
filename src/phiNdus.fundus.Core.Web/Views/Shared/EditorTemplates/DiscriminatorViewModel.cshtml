@@ -8,6 +8,7 @@
     <div class="editor-field">
         @Html.HiddenFor(m => m.PropertyDefinitionId)
         @Html.HiddenFor(m => m.PropertyValueId)
+        @Html.HiddenFor(m => m.IsDeleted)
         <a href="#" onclick="removeDiscriminator('@Html.IdFor(m => m)', '@Model.Caption', @Model.PropertyDefinitionId); return false;">Diskriminator entfernen</a>
     </div>
 }

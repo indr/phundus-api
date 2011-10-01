@@ -162,8 +162,33 @@ namespace phiNdus.fundus.Core.Web.Models
             var result = new ArticleDto();
             result.Id = Id;
             result.Version = Version;
-            throw new NotImplementedException();
-            //result.Properties = PropertyValues;
+
+            foreach (var each in PropertyValues)
+            {
+                if (each.IsDeleted)
+                    continue;
+
+                result.Properties.Add(new DtoProperty
+                                          {
+                                            PropertyId = each.PropertyDefinitionId,
+                                            Value = each.Value,
+                                            ValueId = each.PropertyValueId
+                                          });
+            }
+
+            foreach (var each in Discriminators)
+            {
+                if (each.IsDeleted)
+                    continue;
+
+                result.Properties.Add(new DtoProperty
+                                          {
+                                              PropertyId = each.PropertyDefinitionId,
+                                              ValueId = each.PropertyValueId,
+                                              IsDiscriminator = true
+                                          });
+            }
+
             return result;
         }
     }

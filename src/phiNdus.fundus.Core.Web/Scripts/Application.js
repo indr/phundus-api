@@ -3,12 +3,14 @@
 
 function addProperty(propertyDropDownListBoxId, discriminatorDropDownListBoxId, targetId) {
     var id = $('select#' + propertyDropDownListBoxId).val();
+    var target = $('div#' + targetId);
     $.ajax({
         url: '/Article/AddPropertyAjax/' + id,
+        data: { prefix: targetId + '[' + target.children().length + ']' },
         dataType: 'html',
         type: 'GET',
         success: function (result) {
-            $('div#' + targetId).append(result);
+            target.append(result);
             removePropertyFromDropDownListBox(propertyDropDownListBoxId, id);
             removePropertyFromDropDownListBox(discriminatorDropDownListBoxId, id);
         }
@@ -18,12 +20,14 @@ function addProperty(propertyDropDownListBoxId, discriminatorDropDownListBoxId, 
 
 function addDiscriminator(propertyDropDownListBoxId, discriminatorDropDownListBoxId, targetId) {
     var id = $('select#' + discriminatorDropDownListBoxId).val();
+    var target = $('div#' + targetId);
     $.ajax({
         url: '/Article/AddDiscriminatorAjax/' + id,
+        data: { prefix: targetId + '[' + target.children().length + ']' },
         dataType: 'html',
         type: 'GET',
         success: function (result) {
-            $('div#' + targetId).append(result);
+            target.append(result);
             removePropertyFromDropDownListBox(propertyDropDownListBoxId, id);
             removePropertyFromDropDownListBox(discriminatorDropDownListBoxId, id);
         }
@@ -38,7 +42,8 @@ function removeProperty(propertyContainerId, caption, propertyDefId) {
     children.each(function () {
         addPropertyToDropDownListBox(this.id, caption, propertyDefId);
     });
-    divToRemove.remove();
+    divToRemove.hide();
+    divToRemove.find("input#" + propertyContainerId + "_IsDeleted").val('True');
     sortDropDownListByText();
 }
 
@@ -49,7 +54,8 @@ function removeDiscriminator(discriminatorContainerId, caption, propertyDefId) {
     children.each(function () {
         addPropertyToDropDownListBox(this.id, caption, propertyDefId);
     });
-    divToRemove.remove();
+    divToRemove.hide();
+    divToRemove.find("input#" + propertyContainerId + "_IsDeleted").val('True');
     sortDropDownListByText();
 }
 
