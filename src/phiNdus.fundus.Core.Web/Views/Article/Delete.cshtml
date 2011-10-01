@@ -1,0 +1,10 @@
+﻿@model phiNdus.fundus.Core.Web.Models.ArticleViewModel
+
+<h3>Möchten Sie diesen Artikel wirklich löschen?</h3>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Löschen" /> |
+        @Html.ActionLink("Abbrechen", "Details", new { id = Model.Id }) |
+        @Html.ActionLink("Zurück zur Übersicht", "Index")
+    </p>
+}

@@ -1,0 +1,5 @@
+﻿@model phiNdus.fundus.Core.Web.Models.MessageBoxViewModel
+
+<div class="@Model.Type.ToString().ToLowerInvariant()">
+    @Html.DisplayFor(m => m.Message)
+</div>
