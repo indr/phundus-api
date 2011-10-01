@@ -1,0 +1,15 @@
+﻿@model phiNdus.fundus.Core.Web.Models.ArticleViewModel
+
+<div class="article-display">
+<h3>Eigenschaften</h3>
+@using (Html.BeginContainerFor(m => m.PropertyValues))
+{
+    @Html.DisplayFor(x => x.PropertyValues);
+}
+
+<h3>Diskriminatoren</h3>
+@using (Html.BeginContainerFor(m => m.Discriminators))
+{
+    @Html.DisplayFor(x => x.Discriminators);
+}
+</div>

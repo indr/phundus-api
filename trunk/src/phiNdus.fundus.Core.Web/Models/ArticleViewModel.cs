@@ -16,6 +16,10 @@ namespace phiNdus.fundus.Core.Web.Models
         {
         }
 
+        public ArticleViewModel(ArticleDto article) : this(article, new PropertyDto[0])
+        {
+        }
+
         public ArticleViewModel(PropertyDto[] propertyDefinitions)
             : this(new ArticleDto(), propertyDefinitions)
         {
