@@ -7,38 +7,33 @@ using System.Collections.Generic;
 
 namespace phiNdus.fundus.Core.Web.Models {
 
-    // Todo,jac: create session-based-model klasse
     public class CartModel {
 
-        //private static string SessionKey { get { return @"Cart"; } }
-
-        //public CartModel(HttpSessionStateBase session) {
-        //    this.Session = session;
-        //    this.Load();
-        //}
-
-        //public List<string> Items { get; set; }
-
-        //private HttpSessionStateBase Session { get; set; }
-
-        //private void Load() {
-        //    var items = this.Session[SessionKey] as List<string>;
-
-        //    if (items == null) {
-        //        items = new List<string>();
-        //    }
-
-        //    this.Items = items;
-        //}
-
-        //public void Persist() {
-        //    this.Session[SessionKey] = this.Items;
-        //}
-
         public CartModel() {
-            this.Items = new List<string>();
+            this.Items = new List<CartItem>();
         }
 
-        public List<string> Items { get; set; }
+        public List<CartItem> Items { get; set; }
+    }
+
+    /// <summary>
+    /// Repräsentiert ein Item im Warenkorb.
+    /// </summary>
+    public class CartItem {
+        public int ItemId { get; set; }
+
+        [DisplayName("Bezeichnung")]
+        public string Caption { get; set; }
+
+        [Required]
+        [DisplayName("Ausleihbeginn")]
+        public DateTime Begin { get; set; }
+
+        [Required]
+        [DisplayName("Ausleihende")]
+        public DateTime End { get; set; }
+
+        [DisplayName("Anzahl")]
+        public int Amount { get; set; }
     }
 }

@@ -19,7 +19,8 @@
 
 @foreach (var cartItem in Model.Items) {
     <tr>
-        <td>@cartItem</td>
+        <td>@cartItem.Amount</td>
+        <td>@cartItem.Caption</td>
     </tr>
 }
 
