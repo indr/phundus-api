@@ -1,0 +1,20 @@
+﻿@model PropertyDefinitionViewModel
+           
+<div class="display-label">
+    Name
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.Item.Caption)
+</div>
+<div class="display-label">
+    Datentyp
+</div>
+<div class="display-field">
+    @Model.Item.DataType.ToString()
+</div>
+<div class="display-label">
+    Systemeigenschaft
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.Item.IsSystemProperty)
+</div>

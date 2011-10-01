@@ -1,5 +1,5 @@
-﻿@model phiNdus.fundus.Core.Business.Dto.PropertyDto
-
+﻿@model PropertyDefinitionViewModel
+           
 @{
     ViewBag.Title = "Details";
 }
@@ -10,25 +10,15 @@
      Details
 }
 
-@*<h2>Details</h2>*@
+<h2>Eigenschaftdetails</h2>
 
-<fieldset>
-    <legend>Artikeleigenschaft</legend>
+@Html.DisplayForModel()
 
-    <div class="display-label">Name</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Caption)
-    </div>
-    <div class="display-label">Datentyp</div>
-    <div class="display-field">
-        @Model.DataType.ToString()
-    </div>
-    <div class="display-label">Systemeigenschaft</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IsSystemProperty)
-    </div>
-</fieldset>
 <p>
-    @Html.ActionLink("Bearbeiten", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Zurück zur Übersicht", "Index")
+    @Html.ActionLink("Zurück zur Übersicht", "Index") |
+    @Html.ActionLink("Bearbeiten", "Edit", new { id = Model.Item.Id })
+    @if (!Model.Item.IsSystemProperty) {
+                @Html.Raw(" | ")
+                @Html.ActionLink("Löschen", "Delete", new { id = Model.Item.Id })
+    }
 </p>
