@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.Dto;
@@ -40,8 +38,8 @@ namespace phiNdus.fundus.Core.Web.Controllers
         public ActionResult Details(int id)
         {
             return View(new ArticleViewModel(
-                    ArticleService.GetArticle(Session.SessionID, id)
-                ));
+                            ArticleService.GetArticle(Session.SessionID, id)
+                            ));
         }
 
         //
@@ -78,7 +76,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         public ActionResult Create(FormCollection collection)
         {
             var model = new ArticleViewModel(
-                    ArticleService.GetProperties(Session.SessionID)
+                ArticleService.GetProperties(Session.SessionID)
                 );
             try
             {
@@ -134,8 +132,8 @@ namespace phiNdus.fundus.Core.Web.Controllers
         public ActionResult Delete(int id)
         {
             return View(new ArticleViewModel(
-                    ArticleService.GetArticle(Session.SessionID, id)
-                ));
+                            ArticleService.GetArticle(Session.SessionID, id)
+                            ));
         }
 
         //
@@ -144,7 +142,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         public ActionResult Delete(int id, int version)
         {
             var model = new ArticleViewModel(
-                    ArticleService.GetArticle(Session.SessionID, id)
+                ArticleService.GetArticle(Session.SessionID, id)
                 );
             try
             {
@@ -158,7 +156,32 @@ namespace phiNdus.fundus.Core.Web.Controllers
             }
         }
 
-        // "PropertyValues_{0}_"
+        //
+        // DELETE: /Article/Delete/5
+        [HttpDelete]
+        [ActionName("Delete")]
+        public ActionResult AjaxDelete(int id)
+        {
+            MessageBoxViewModel result = null;
+            try
+            {
+                result = new MessageBoxViewModel
+                             {
+                                 Message = "Der Artikel wurde erfolgreich gelöscht.",
+                                 Type = MessageBoxType.Success
+                             };
+            }
+            catch (Exception ex)
+            {
+                result = new MessageBoxViewModel
+                             {
+                                 Message = ex.Message,
+                                 Type = MessageBoxType.Error
+                             };
+            }
+            return DisplayFor(result);
+        }
+
         [HttpGet]
         public ActionResult AddPropertyAjax(int id, string prefix)
         {
@@ -178,13 +201,6 @@ namespace phiNdus.fundus.Core.Web.Controllers
             ViewData.TemplateInfo.HtmlFieldPrefix = String.Format(prefix, TempSurrogateKey.Next);
             return EditorFor(model);
         }
-
-        [HttpDelete]
-        [ActionName("Delete")]
-        public ActionResult AjaxDelete(int id)
-        {
-            return PartialView("_Deleted", "Der Artikel sollte nun gelöscht sein :o)");
-        }
     }
 
     internal class TempSurrogateKey
@@ -195,7 +211,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         {
             get
             {
-                var tempSurrogateKey = (TempSurrogateKey)HttpContext.Current.Session["TempSurrogateKey"];
+                var tempSurrogateKey = (TempSurrogateKey) HttpContext.Current.Session["TempSurrogateKey"];
                 if (tempSurrogateKey == null)
                 {
                     tempSurrogateKey = new TempSurrogateKey();

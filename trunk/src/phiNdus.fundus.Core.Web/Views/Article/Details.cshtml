@@ -14,5 +14,7 @@
 @Html.DisplayForModel()
     
 <p>
-    @Html.ActionLink("Zurück zur Übersicht", "Index")
+    @Html.ActionLink("Zurück zur Übersicht", "Index") |
+    @Html.ActionLink("Bearbeiten", "Edit", new { id = Model.Id }) |
+    @Ajax.ActionLink("Löschen", "Delete", new { id = Model.Id, version = Model.Version }, new AjaxOptions { Confirm = "Möchten Sie diesen Artikel wirklich löschen?", HttpMethod = "Delete", UpdateTargetId = "messagebox" })
 </p>
