@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Web.Models;
+using phiNdus.fundus.Core.Web.ViewModels;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Controllers
@@ -107,8 +108,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         //
         // POST: /Article/Action/5
         [HttpPost]
-        [HttpParamAction]
-        public ActionResult Edit(FormCollection collection)
+        public ActionResult Edit(int id, FormCollection collection)
         {
             var model = new ArticleViewModel();
             try

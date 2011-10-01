@@ -1,6 +1,6 @@
-﻿namespace phiNdus.fundus.Core.Web.Models
+﻿namespace phiNdus.fundus.Core.Web.ViewModels
 {
-    public class DiscriminatorViewModel : ModelBase
+    public class DiscriminatorViewModel
     {
         public string Caption { get; set; }
         public int PropertyDefinitionId { get; set; }
