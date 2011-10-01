@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.Dto;
 
-namespace phiNdus.fundus.Core.Web.Models
+namespace phiNdus.fundus.Core.Web.ViewModels
 {
-    public class PropertyViewModel : ModelBase
+    public class PropertyDefinitionViewModel
     {
         private readonly IList<PropertyDataType> _propertyDataTypes;
 
-        public PropertyViewModel() : this(new PropertyDto())
+        public PropertyDefinitionViewModel() : this(new PropertyDto())
         {
         }
 
-        public PropertyViewModel(PropertyDto subject)
+        public PropertyDefinitionViewModel(PropertyDto subject)
         {
             Item = subject;
             _propertyDataTypes = new List<PropertyDataType>

@@ -1,0 +1,31 @@
+﻿@model PropertyDefinitionViewModel
+
+<div class="editor-label">
+    @Html.LabelFor(m => m.Item.Caption, "Name")
+</div>
+<div class="editor-field">
+    @Html.EditorFor(m => m.Item.Caption)
+    @Html.ValidationMessageFor(m => m.Item.Caption)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(m => m.Item.DataType, "Datentyp")
+    <p>Achtung, ich, Inder, bin zu blöd den richtigen Wert vorzubelegen (o:</p>
+</div>
+<div class="editor-field">
+    @if (Model.Item.IsSystemProperty)
+    {
+        @Html.DisplayFor(m => m.Item.DataType)
+    }
+    else
+    {
+        @Html.DropDownListFor(m => m.Item.DataType, Model.PropertyDataTypes)
+        @Html.ValidationMessageFor(m => m.Item.DataType)
+    }
+</div>
+<div class="editor-label">
+    @Html.LabelFor(m => m.Item.IsSystemProperty, "Systemeigenschaft")
+</div>
+<div class="editor-field">
+    @Html.DisplayFor(model => model.Item.IsSystemProperty)
+</div>

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.SecuredServices;
-using phiNdus.fundus.Core.Web.Models;
+using phiNdus.fundus.Core.Web.ViewModels;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Controllers
@@ -19,7 +16,6 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         //
         // GET: /Property/
-
         public ActionResult Index()
         {
             return RedirectToAction("List");
@@ -35,34 +31,32 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         //
         // GET: /Property/Details/5
-
         public ActionResult Details(int id)
         {
-            return View(PropertyService.GetProperty(Session.SessionID, id));
+            var model = new PropertyDefinitionViewModel(PropertyService.GetProperty(Session.SessionID, id));
+            return View(model);
         }
 
         //
         // GET: /Property/Create
-
         public ActionResult Create()
         {
-            return View(new PropertyViewModel());
-        } 
+            return View(new PropertyDefinitionViewModel());
+        }
 
         //
         // POST: /Property/Create
-
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            var model = new PropertyViewModel();
+            var model = new PropertyDefinitionViewModel();
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
                 PropertyService.CreateProperty(Session.SessionID, model.Item);
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // TODO: Logging
                 // TODO: Exception-Handling
@@ -70,29 +64,27 @@ namespace phiNdus.fundus.Core.Web.Controllers
                 return View(model);
             }
         }
-        
+
         //
         // GET: /Property/Edit/5
- 
         public ActionResult Edit(int id)
         {
-            return View(new PropertyViewModel(PropertyService.GetProperty(Session.SessionID, id)));
+            return View(new PropertyDefinitionViewModel(PropertyService.GetProperty(Session.SessionID, id)));
         }
 
         //
         // POST: /Property/Edit/5
-
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            var model = new PropertyViewModel(PropertyService.GetProperty(Session.SessionID, id));
+            var model = new PropertyDefinitionViewModel(PropertyService.GetProperty(Session.SessionID, id));
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
                 PropertyService.UpdateProperty(Session.SessionID, model.Item);
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // TODO: Logging
                 // TODO: Exception-Handling
@@ -103,25 +95,23 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         //
         // GET: /Property/Delete/5
- 
         public ActionResult Delete(int id)
         {
-            return View(PropertyService.GetProperty(Session.SessionID, id));
+            return View(new PropertyDefinitionViewModel(PropertyService.GetProperty(Session.SessionID, id)));
         }
 
         //
         // POST: /Property/Delete/5
-
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            var model = PropertyService.GetProperty(Session.SessionID, id);
+            var model = new PropertyDefinitionViewModel(PropertyService.GetProperty(Session.SessionID, id));
             try
             {
-                PropertyService.DeleteProperty(Session.SessionID, model);
+                PropertyService.DeleteProperty(Session.SessionID, model.Item);
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // TODO: Logging
                 // TODO: Exception-Handling
