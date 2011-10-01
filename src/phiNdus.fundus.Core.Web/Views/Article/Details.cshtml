@@ -1,0 +1,18 @@
+﻿@model phiNdus.fundus.Core.Web.Models.ArticleViewModel
+      
+@{
+    ViewBag.Title = "Details";
+}
+
+@section Breadcrumbs {
+     @Html.ActionLink("Artikel", "Index") &gt; Details
+}
+
+
+<h2>Artikeldetails</h2>
+
+@Html.DisplayForModel()
+    
+<p>
+    @Html.ActionLink("Zurück zur Übersicht", "Index")
+</p>

@@ -1,0 +1,17 @@
+﻿@model phiNdus.fundus.Core.Web.Models.PropertyValueViewModel
+@using phiNdus.fundus.Core.Business.Dto
+
+<div class="display-label">
+        @Html.DisplayFor(m => m.Caption)
+    </div>
+    <div class="display-field">
+        @switch (Model.DataType)
+        {
+            case PropertyDataType.Boolean:
+                @Html.DisplayFor(m => m.BooleanValue);
+                break;
+            default:
+                @Html.DisplayFor(m => m.StringValue);
+                break;
+        }
+    </div>
