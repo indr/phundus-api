@@ -56,16 +56,12 @@ namespace phiNdus.fundus.Core.Web {
                 .Install(FromAssembly.This())
                 .Install(FromAssembly.Named("phiNdus.fundus.Core.Business"));
 
-            // Todo,jac: Move to custom Installer
             // HttpContext registrieren für den SessionStateManager
             container.Register(
                 Component.For<HttpContextBase>()
                 .LifeStyle
                 .PerWebRequest
                 .UsingFactoryMethod(() => new HttpContextWrapper(HttpContext.Current)));
-
-            container.Register(Component.For<phiNdus.fundus.Core.Web.State.IStateManager>()
-                .ImplementedBy<phiNdus.fundus.Core.Web.State.SessionStateManager>());
 
             var controllerFactory = new WindsorControllerFactory(container.Kernel);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
