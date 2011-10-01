@@ -10,6 +10,7 @@ namespace phiNdus.fundus.Core.Web.Models
         public int PropertyDefinitionId { get; set; }
         public int PropertyValueId { get; set; }
         public object Value { get; set; }
+        public bool IsDeleted { get; set; }
         public string StringValue
         {
             get { return Convert.ToString(Value); }
@@ -17,7 +18,17 @@ namespace phiNdus.fundus.Core.Web.Models
         }
         public bool BooleanValue
         {
-            get { return Convert.ToBoolean(Value); }
+            get
+            {
+                try
+                {
+                    return Convert.ToBoolean(Value);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
             set { Value = value; }
         }
     }
