@@ -2,7 +2,7 @@
 
 @if (Request.IsAuthenticated) {
     @:<a href="#">Mein Profil</a> |
-    @:<a href="#">Warenkorb</a> |
+    @Html.ActionLink("Warenkorb", "Index", "Cart") @:|
     @Html.ActionLink("Abmelden", "LogOff", "Account")
 } else {
     @:<a href="#">Hilfe</a> |
