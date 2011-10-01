@@ -32,11 +32,25 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return View(this.StateManager.Load<CartModel>());
         }
 
+        private static List<string> Captions = new List<string> {
+            "Schwimmwesten (gelb)", "Kamera", "Schrauben", "Notizblöcke", "Funkgerät", "Pullover (grün)"
+        };
+
+        // mit post lösen
         public ActionResult Add() {
             var state = this.StateManager.Load<CartModel>();
 
-            state.Items.Add(DateTime.Now.ToString());
+            var random = new Random();
 
+            state.Items.Add(new CartItem {
+                Amount = random.Next(2, 34),
+                Begin = DateTime.Now.AddDays(random.Next(0, 7)),
+                End = DateTime.Now.AddDays(random.Next(8, 21)),
+                ItemId = state.Items.Count() + 1,
+                Caption = Captions[random.Next(0, Captions.Count)]
+            });
+
+            // ist eigentlich optional..
             this.StateManager.Save(state);
 
             return RedirectToAction(Actions.List);
