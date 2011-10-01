@@ -106,7 +106,7 @@
     <Compile Include="Installers\ControllerInstaller.cs" />
     <Compile Include="Installers\LoggerInstaller.cs" />
     <Compile Include="Installers\StateManagerInstaller.cs" />
-    <Compile Include="Models\ArticleModels.cs" />
+    <Compile Include="ViewModels\ArticleListViewModel.cs" />
     <Compile Include="Models\CartModels.cs" />
     <Compile Include="Models\MembershipService.cs" />
     <Compile Include="Models\AccountModels.cs" />
