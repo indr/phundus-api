@@ -3,7 +3,6 @@ using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
-using phiNdus.fundus.Core.Web.Models;
 using phiNdus.fundus.Core.Web.ViewModels;
 using Rhino.Commons;
 
@@ -30,7 +29,11 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult List()
         {
-            return View(new ArticleListModel());
+            var model = new ArticleListViewModel(
+                ArticleService.GetArticles(Session.SessionID),
+                ArticleService.GetProperties(Session.SessionID)
+                );
+            return View(model);
         }
 
         //
