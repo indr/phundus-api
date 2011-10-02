@@ -134,10 +134,10 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void GenerateValidationKeySetKeyWithLengthOf20()
+        public void GenerateValidationKeySetKeyWithLengthOf24()
         {
             Sut.GenerateValidationKey();
-            Assert.That(Sut.ValidationKey.Length, Is.EqualTo(20));
+            Assert.That(Sut.ValidationKey.Length, Is.EqualTo(24));
         }
 
         [Test]

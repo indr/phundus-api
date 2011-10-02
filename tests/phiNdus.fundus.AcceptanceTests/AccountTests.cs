@@ -24,12 +24,12 @@ namespace phiNdus.fundus.AcceptanceTests
                 pop3Helper.ConfirmEmailWasReceived("[fundus] User Account Validation").FindFirstPlainTextVersion().
                     GetBodyAsText();
 
-            var match = new Regex(Context.BaseUri + @"/Account/Validation/\?key=[\w]{20}").Match(body);
+            var match = new Regex(Context.BaseUri + @"/Account/Validation/[\w]{24}").Match(body);
             Assert.That(match.Success, Is.True, "Validation link not found");
 
             var validationWindow = new ValidationWindowDriver(Context, match.Value);
 
-            validationWindow.ContainsText("Thank you");
+            validationWindow.ContainsText("Vielen Dank");
 
             var user = adminApi.GetUser(pop3Helper.Address);
             Assert.That(user.IsApproved, Is.True, "User not approved");
@@ -61,7 +61,7 @@ namespace phiNdus.fundus.AcceptanceTests
                             @"Hello Hans
 
 Please go to the following link in order to validate your account:"));
-            Assert.That(body, Is.StringMatching(Context.BaseUri + @"/Account/Validation/\?key=[\w]{20}"));
+            Assert.That(body, Is.StringMatching(Context.BaseUri + @"/Account/Validation/[\w]{24}"));
         }
 
         [Test]

@@ -1,7 +1,28 @@
-﻿@{
-    ViewBag.Title = "Validation";
+﻿@model ValidationViewModel
+
+@{
+    ViewBag.Title = "Validierung";
 }
 
-<h2>Validation</h2>
+@section Breadcrumbs {
+    <a href="#">Benutzer</a> &gt; Validierung
+}
 
-<p>Thank you</p>
+<h2>Validierung</h2>
+
+@using (Html.BeginForm(new { id = (string)null }))
+{
+    @Html.ValidationSummary(true, "Fehler bei der Validierung")
+
+    <div class="formular-box">        
+        <p class="formular-item">
+            @Html.LabelFor(m => m.Key)<br />
+            @Html.TextBoxFor(m => m.Key, new { @class = "text-input" })<br />
+            @Html.ValidationMessageFor(m => m.Key)
+        </p>
+        <p class="formular-action">
+            <input type="submit" value="Validieren" />
+        </p>
+    </div>
+}
+

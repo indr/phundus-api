@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using phiNdus.fundus.Core.Web.Models;
+using phiNdus.fundus.Core.Web.ViewModels;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Controllers
@@ -37,10 +38,9 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if ((ModelState.IsValid) && (MembershipService.ValidateUser(model.Email, model.Password)))
             {
-                if (MembershipService.ValidateUser(model.Email, model.Password))
-                {
+                
                     FormsService.SignIn(model.Email, model.RememberMe);
                     if (!String.IsNullOrEmpty(returnUrl))
                     {
@@ -50,11 +50,11 @@ namespace phiNdus.fundus.Core.Web.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
-                }
+                
             }
             else
             {
-                ModelState.AddModelError("", "Benutzername oder Passwort inkorrekt");
+                ModelState.AddModelError("", "Benutzername oder Passwort inkorrekt.");
             }
 
             // Nicht erfolgreich
@@ -68,14 +68,25 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Validation()
+        [HttpGet]
+        public ActionResult Validation(string id)
         {
-            if (Request.QueryString["key"] != null)
+            return Validation(new ValidationViewModel {Key = id});
+        }
+
+        [HttpPost]
+        public ActionResult Validation(ValidationViewModel model)
+        {
+            if (!String.IsNullOrEmpty(model.Key))
             {
-                if (MembershipService.ValidateValidationKey(Request.QueryString["key"]))
+                if (MembershipService.ValidateValidationKey(model.Key))
                     return View("ValidationDone");
+                else
+                {
+                    ModelState.AddModelError("", "Unbekannter oder ungültiger Code.");
+                }
             }
-            return View();
+            return View(model);
         }
 
         public ActionResult SignUp()

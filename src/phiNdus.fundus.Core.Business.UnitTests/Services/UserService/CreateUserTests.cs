@@ -116,8 +116,8 @@ Link: [Link.UserAccountValidation]
             MockMailGateway.AssertWasCalled(x => x.Send(
                 Arg<string>.Is.Equal("ted.mosby@example.com"),
                 Arg<string>.Is.Same("[fundus] User Account Validation"),
-                Arg<string>.Matches(y => y.StartsWith("Hello Ted") && y.Contains(@"http://fundus.example.com/Account/Validation/?key=")
-                        && new Regex(@"/\?key=[\w]{20}").Match(y).Success)));
+                Arg<string>.Matches(y => y.StartsWith("Hello Ted") && y.Contains(@"http://fundus.example.com/Account/Validation/")
+                        && new Regex(@"/[\w]{24}").Match(y).Success)));
         }
 
         [Test]

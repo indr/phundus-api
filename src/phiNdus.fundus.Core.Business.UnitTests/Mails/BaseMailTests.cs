@@ -64,7 +64,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
                 Expect.Call(MockSettings.Common.ServerUrl).Return("fundus.domain.test");
 
                 Expect.Call(() => MockMailGateway.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything,
-                    Arg<string>.Matches(y => y.StartsWith("http://fundus.domain.test/Account/Validation/?key=[Membership.ValidationKey]"))));
+                    Arg<string>.Matches(y => y.StartsWith("http://fundus.domain.test/Account/Validation/[Membership.ValidationKey]"))));
             }
 
             using (Obsolete_MockFactory.Playback())

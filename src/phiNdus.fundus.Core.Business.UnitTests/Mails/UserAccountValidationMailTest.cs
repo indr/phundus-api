@@ -146,7 +146,7 @@ Thanks";
                     @"Hello Ted
 
 Please go to the following link in order to validate your account:
-" + "http://fundus.domain.com/Account/Validation/?key=" + User.Membership.ValidationKey + @"
+" + "http://fundus.domain.com/Account/Validation/" + User.Membership.ValidationKey + @"
 
 Thanks
 
