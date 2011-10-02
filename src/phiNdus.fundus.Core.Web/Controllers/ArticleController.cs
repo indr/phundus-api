@@ -36,7 +36,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult List()
         {
-            var model = new ArticleListViewModel(
+            var model = new ArticlesTableViewModel(
                 ArticleService.GetArticles(Session.SessionID),
                 ArticleService.GetProperties(Session.SessionID)
                 );

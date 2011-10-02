@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -7,7 +8,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
 {
     public class ArticleViewModel
     {
-        private readonly PropertyDto[] _propertyDefinitions;
+        private readonly IList<PropertyDto> _propertyDefinitions;
         private IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
         private IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
         private IList<ArticleViewModel> _children = new List<ArticleViewModel>();
@@ -20,12 +21,12 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         {
         }
 
-        public ArticleViewModel(PropertyDto[] propertyDefinitions)
+        public ArticleViewModel(IList<PropertyDto> propertyDefinitions)
             : this(new ArticleDto(), propertyDefinitions)
         {
         }
 
-        public ArticleViewModel(ArticleDto article, PropertyDto[] propertyDefinitions)
+        public ArticleViewModel(ArticleDto article, IList<PropertyDto> propertyDefinitions)
         {
             Id = article.Id;
             Version = article.Version;
@@ -59,6 +60,17 @@ namespace phiNdus.fundus.Core.Web.ViewModels
 
         public int Id { get; set; }
         public int Version { get; set; }
+
+        protected PropertyValueViewModel GetProperty(int propertyDefinitionId)
+        {
+            return _propertyValues.SingleOrDefault(each => each.PropertyDefinitionId == propertyDefinitionId);
+        }
+
+        public object GetPropertyValue(int propertyId)
+        {
+            var property = GetProperty(propertyId);
+            return property != null ? Convert.ToString(property.Value) : null;
+        }
 
         public IList<PropertyValueViewModel> PropertyValues
         {
