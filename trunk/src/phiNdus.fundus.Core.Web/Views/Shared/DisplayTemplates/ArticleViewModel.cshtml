@@ -4,12 +4,18 @@
 <h3>Eigenschaften</h3>
 @using (Html.BeginContainerFor(m => m.PropertyValues))
 {
-    @Html.DisplayFor(x => x.PropertyValues);
+    @Html.DisplayFor(m => m.PropertyValues);
 }
 
 <h3>Diskriminatoren</h3>
 @using (Html.BeginContainerFor(m => m.Discriminators))
 {
-    @Html.DisplayFor(x => x.Discriminators);
+    @Html.DisplayFor(m => m.Discriminators);
+}
+
+@if (Model.Children.Count > 0)
+{
+<h3>&quot;Kinder&quot;</h3>
+@Html.DisplayFor(m => m.Children)
 }
 </div>

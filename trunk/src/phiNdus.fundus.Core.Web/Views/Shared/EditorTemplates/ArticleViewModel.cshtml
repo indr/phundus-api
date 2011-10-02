@@ -12,9 +12,12 @@
 <a href="#" onclick="addProperty(
     '@Html.IdFor(m => m.RemainingPropertyId)',
     '@Html.IdFor(m => m.RemainingDiscriminatorId)',
-    '@Html.IdFor(m => m.PropertyValues)'); return false;">Eigenschaft hinzufügen</a>
+    '@Html.IdFor(m => m.PropertyValues)',
+    '@Html.NameFor(m => m.PropertyValues)'); return false;">Eigenschaft hinzufügen</a>
 </div>
 
+@if (!Model.IsChild)
+{
 <h3>Diskriminatoren</h3>
 <div class="article-discriminators-editor">
 @using (Html.BeginContainerFor(m => m.Discriminators))
@@ -26,6 +29,20 @@
 <a href="#" onclick="addDiscriminator(
     '@Html.IdFor(m => m.RemainingPropertyId)',
     '@Html.IdFor(m => m.RemainingDiscriminatorId)',
-    '@Html.IdFor(m => m.Discriminators)'); return false;">Diskriminator hinzufügen</a>
+    '@Html.IdFor(m => m.Discriminators)',
+    '@Html.NameFor(m => m.Discriminators)'); return false;">Diskriminator hinzufügen</a>
 </div>
+}
+
+@if (!Model.IsChild)
+{
+<h3>&quot;Kinder&quot;</h3>
+<div class="article-children-editor">
+@using (Html.BeginContainerFor(m => m.Children))
+{
+@Html.EditorFor(m => m.Children)
+}
+</div>
+<a href="#" onclick="addChild('@Html.NameFor(m => m.Children)'); return false;">Neues &quot;Kind&quot; hinzufügen</a>
+}
 </div>

@@ -192,7 +192,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             var childrenToRemove = new List<DomainObject>();
             foreach (var each in result.Children)
             {
-                if (subject.Children.SingleOrDefault(x => x.Id == each.Id) == null)
+                if (subject.Children.FirstOrDefault(x => x.Id == each.Id) == null)
                     childrenToRemove.Add(each);
             }
             foreach (var each in childrenToRemove)
