@@ -1,0 +1,32 @@
+﻿@model ArticleViewModel
+@{
+    ViewBag.Title = "Artikeldetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Breadcrumbs {
+     @Html.ActionLink("Artikel", "Index") &gt; Details
+}
+
+<h2>Artikeldetails</h2>
+    <div class="tabs">
+        <ul>
+            <li>@Ajax.ActionLink("Verfügbarkeit", "Availability", new { id = Model.Id }, new AjaxOptions {
+               HttpMethod = "GET", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
+
+            <li>@Ajax.ActionLink("Eigenschaften", "Details",new { id = Model.Id }, new AjaxOptions {
+               HttpMethod = "GET", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
+
+            <li>@Ajax.ActionLink("Kategorien", "Categories", new { id = Model.Id }, new AjaxOptions {
+               HttpMethod = "GET", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
+        </ul>
+        <div class="tab" id="tabContent">
+            @RenderBody()
+        </div>
+    </div>
+    
+<p>
+    @Html.ActionLink("Zurück zur Übersicht", "Index") |
+    @Html.ActionLink("Bearbeiten", "Edit", new { id = Model.Id }) |
+    @Ajax.ActionLink("Löschen", "Delete", new { id = Model.Id, version = Model.Version }, new AjaxOptions { Confirm = "Möchten Sie diesen Artikel wirklich löschen?", HttpMethod = "Delete", UpdateTargetId = "messagebox" })
+</p>
+

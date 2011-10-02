@@ -40,6 +40,7 @@ namespace phiNdus.fundus.Core.Web.Models
     }
 
 
+    // TODO: fundus-16
     [AttributeUsage(AttributeTargets.Property, AllowMultiple=false)]
     public sealed class EmailAttribute : RegularExpressionAttribute
     {
