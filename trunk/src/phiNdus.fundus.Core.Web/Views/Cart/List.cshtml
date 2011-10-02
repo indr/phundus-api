@@ -15,14 +15,5 @@
     @Html.ActionLink("\"Warenkorb leeren\"", "Clear")
 </p>
 
-<table>
-
-@foreach (var cartItem in Model.Items) {
-    <tr>
-        <td>@cartItem.Amount</td>
-        <td>@cartItem.Caption</td>
-    </tr>
-}
-
-</table>
+@Html.EditorFor(m => m)
 
