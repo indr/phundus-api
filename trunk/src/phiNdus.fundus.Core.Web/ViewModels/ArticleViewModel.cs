@@ -48,6 +48,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             _propertyDefinitions = propertyDefinitions;
         }
 
+        public bool IsDeleted { get; set; }
         public bool IsChild { get; set; }
 
         // fundus-14: Entfernen
@@ -212,7 +213,8 @@ namespace phiNdus.fundus.Core.Web.ViewModels
 
             foreach (var each in Children)
             {
-                // TODO: each.IsDeleted
+                if (each.IsDeleted)
+                    continue;
                 result.AddChild(each.CreateDto());
             }
 

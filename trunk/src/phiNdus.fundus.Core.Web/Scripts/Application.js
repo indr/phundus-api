@@ -47,6 +47,13 @@ function addDiscriminator(propertyDropDownListBoxId, discriminatorDropDownListBo
 }
 
 
+function removeChildArticle(isDeletedFieldId) {
+    var isDeleted = $("input#" + isDeletedFieldId);
+    var closest = isDeleted.closest(".article-editor");
+    closest.hide();
+    isDeleted.val('True');
+}
+
 function removeProperty(propertyContainerId, caption, propertyDefId) {
     var divToRemove = $("div#" + propertyContainerId);
     var closest = divToRemove.closest(".article-editor");
