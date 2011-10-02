@@ -669,15 +669,17 @@
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/grant.sql" />
     
-    <copy file="${config.dir}/Web.config.tmpl"
-          tofile="${website.dir}/Web.config">
+    <fail if="${file::exists(website.dir + '\Web.config')}" message="File ${website.dir}\Web.config already exists." />
+    <copy file="${config.dir}\Web.config.tmpl"
+          tofile="${website.dir}\Web.config">
       <filterchain>
         <expandproperties />
       </filterchain>
     </copy>
     
-    <copy file="${config.dir}/Views.Web.config.tmpl"
-          tofile="${website.dir}/Views/Web.config">
+    <fail if="${file::exists(website.dir + '\Views\Web.config')}" message="File ${website.dir}\Views\Web.config already exists." />
+    <copy file="${config.dir}\Views.Web.config.tmpl"
+          tofile="${website.dir}\Views\Web.config">
       <filterchain>
         <expandproperties />
       </filterchain>
