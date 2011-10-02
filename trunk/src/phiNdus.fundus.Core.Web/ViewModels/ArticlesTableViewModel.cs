@@ -3,17 +3,21 @@ using phiNdus.fundus.Core.Business.Dto;
 
 namespace phiNdus.fundus.Core.Web.ViewModels
 {
-    public class ArticleListViewModel
+    public class ArticlesTableViewModel
     {
         private readonly IEnumerable<ArticleDto> _articles = new List<ArticleDto>();
         private readonly IList<PropertyDto> _propertyDefinitions = new List<PropertyDto>();
         private IEnumerable<PropertyDto> _headings;
 
-        public ArticleListViewModel(IEnumerable<ArticleDto> articles,
-            IList<PropertyDto> propertyDefinitions)
+        public ArticlesTableViewModel(IEnumerable<ArticleDto> articles, IList<PropertyDto> propertyDefinitions)
         {
             _articles = articles;
             _propertyDefinitions = propertyDefinitions;
+        }
+        
+        public IEnumerable<ArticleDto> Articles
+        {
+            get { return _articles; }
         }
 
         public IEnumerable<PropertyDto> Headings
@@ -26,15 +30,9 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             }
         }
 
-        public IEnumerable<ArticleDto> Articles
-        {
-            get { return _articles; }
-        }
-
         private IEnumerable<PropertyDto> ComputeHeadings()
         {
-            var result = _propertyDefinitions;
-            return result;
+            return _propertyDefinitions;
         }
     }
 }

@@ -96,6 +96,7 @@
     <Compile Include="ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -106,7 +107,7 @@
     <Compile Include="Installers\ControllerInstaller.cs" />
     <Compile Include="Installers\LoggerInstaller.cs" />
     <Compile Include="Installers\StateManagerInstaller.cs" />
-    <Compile Include="ViewModels\ArticleListViewModel.cs" />
+    <Compile Include="ViewModels\ArticlesTableViewModel.cs" />
     <Compile Include="Models\CartModels.cs" />
     <Compile Include="Models\MembershipService.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Models\IFormsService.cs" />
     <Compile Include="Models\IMembershipService.cs" />
     <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="ViewModels\ArticlesViewModel.cs" />
     <Compile Include="ViewModels\PropertyDefinitionViewModel.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
@@ -302,6 +304,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shop\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
