@@ -61,5 +61,12 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
             return RedirectToAction(Actions.List);
         }
+
+        //[HttpPost]
+        //public ActionResult Remove(CartItem cartItem) {
+        //    //this.StateManager.Remove<CartModel>();
+
+        //    return RedirectToAction(Actions.List);
+        //}
     }
 }

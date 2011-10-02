@@ -22,18 +22,23 @@ namespace phiNdus.fundus.Core.Web.Models {
     public class CartItem {
         public int ItemId { get; set; }
 
-        [DisplayName("Bezeichnung")]
+        [DisplayName("Bezeichnung")]        
         public string Caption { get; set; }
+
+        [DisplayName("Anzahl")]
+        //[CustomValidation( <-- verfügbarkeit prüfen..
+        public int Amount { get; set; }
 
         [Required]
         [DisplayName("Ausleihbeginn")]
+        [DataType(DataType.Date)]
+        //[CustomValidation( <-- verfügbarkeit prüfen..
         public DateTime Begin { get; set; }
 
         [Required]
         [DisplayName("Ausleihende")]
+        [DataType(DataType.Date)]
+        //[CustomValidation( <-- verfügbarkeit prüfen..
         public DateTime End { get; set; }
-
-        [DisplayName("Anzahl")]
-        public int Amount { get; set; }
     }
 }
