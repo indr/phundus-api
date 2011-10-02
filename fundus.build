@@ -769,7 +769,7 @@
 " />  
 
     <property name="sql.database-name" value="${staging.database-name}" />
-    <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
+    <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${staging.data-source}; Integrated Security=SSPI" />
     <property name="sql.custom-dml" value="${sql.dir}\dml-staging.sql" />
     
     <property name="deploy.settings" value="${config.dir}\Settings.Staging.csv" />
