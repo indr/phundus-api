@@ -11,6 +11,15 @@ namespace phiNdus.fundus.Core.Web.Controllers
     [Authorize]
     public class ArticleController : ControllerBase
     {
+        private static string MasterView { get { return @"_Tabs"; } }
+
+        private static class Views
+        {
+            public static string Availability { get { return @"Availability"; } }
+            public static string Categories { get {return @"Categories"; } }
+            public static string Details { get { return @"Details"; } }
+        }
+
         protected IArticleService ArticleService { get { return IoC.Resolve<IArticleService>(); } }
         protected IPropertyService PropertyService { get { return IoC.Resolve<IPropertyService>(); } }
 
@@ -35,13 +44,51 @@ namespace phiNdus.fundus.Core.Web.Controllers
         }
 
         //
+        // Get: /Article/Availability/5
+        
+        public ActionResult Availability(int id)
+        {
+            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(Views.Availability, model);
+            }
+            else
+            {
+                return View(Views.Availability, MasterView, model);
+            }
+        }
+
+        //
         // GET: /Article/Details/5
 
         public ActionResult Details(int id)
         {
-            return View(new ArticleViewModel(
-                            ArticleService.GetArticle(Session.SessionID, id)
-                            ));
+            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(Views.Details, model);
+            }
+            else
+            {
+                return View(Views.Details, MasterView, model);
+            }
+        }
+
+        //
+        // GET: /Article/Categories/5
+
+        public ActionResult Categories(int id)
+        {
+            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(Views.Categories, model);
+            }
+            else
+            {
+                return View(Views.Categories, MasterView, model);
+            }
         }
 
         //

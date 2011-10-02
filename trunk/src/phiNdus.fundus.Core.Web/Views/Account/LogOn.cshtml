@@ -34,13 +34,7 @@
             @Html.LabelFor(m => m.RememberMe)
         </p>
         <p class="formular-action">
-            <input type="submit" value="Anmelden" />
+            <input type="submit" value="Anmelden" /> | @Html.ActionLink("Passwort vergessen?", "ResetPassword") | @Html.ActionLink("Neues Konto erstellen", "SignUp")
         </p>
     </div>
-    
- 
-    @*<div style="width: 100%">
-        @Html.ActionLink("Passwort vergessen?", "ResetPassword") | @Html.ActionLink("Neues Konto erstellen", "SignUp")
-    </div>*@
-
 }
