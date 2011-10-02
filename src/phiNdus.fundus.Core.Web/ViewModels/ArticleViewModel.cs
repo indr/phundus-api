@@ -10,6 +10,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         private readonly PropertyDto[] _propertyDefinitions;
         private IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
         private IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
+        private IList<ArticleViewModel> _children = new List<ArticleViewModel>();
 
         public ArticleViewModel()
         {
@@ -31,20 +32,28 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             foreach (var each in article.Properties)
             {
                 if (each.IsDiscriminator)
-                {
                     _discriminators.Add(ConvertToDiscriminatorViewModel(each));
-                }
                 else
-                {
                     _propertyValues.Add(ConvertToPropertyValueViewModel(each));
-                }
             }
+
+            foreach (var each in article.Children)
+            {
+                var child = new ArticleViewModel(each, propertyDefinitions);
+                child.IsChild = true;
+                _children.Add(child);
+            }
+            
 
             _propertyDefinitions = propertyDefinitions;
         }
 
+        public bool IsChild { get; set; }
 
+        // fundus-14: Entfernen
         public int RemainingPropertyId { get; set; }
+        
+        // fundus-14: Entfernen
         public int RemainingDiscriminatorId { get; set; }
 
         public int Id { get; set; }
@@ -66,6 +75,9 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         {
             get
             {
+                if (_propertyDefinitions == null)
+                    return new List<SelectListItem>();
+
                 var propertyDefinitions = _propertyDefinitions.ToList();
                 propertyDefinitions.RemoveAll(each =>
                                               (PropertyValues.FirstOrDefault(v => v.PropertyDefinitionId == each.Id) !=
@@ -82,6 +94,12 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                                  orderby p.Text select p);
                 
             }
+        }
+
+        public IList<ArticleViewModel> Children
+        {
+            get { return _children; }
+            set { _children = value; }
         }
 
         public static DiscriminatorViewModel ConvertToDiscriminatorViewModel(DtoProperty each)
@@ -190,6 +208,12 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                                               ValueId = each.PropertyValueId,
                                               IsDiscriminator = true
                                           });
+            }
+
+            foreach (var each in Children)
+            {
+                // TODO: each.IsDeleted
+                result.AddChild(each.CreateDto());
             }
 
             return result;

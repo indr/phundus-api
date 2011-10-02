@@ -1,12 +1,24 @@
 
+function addChild(targetId) {
+    var target = $('div#' + targetId);
+    $.ajax({
+        url: '/Article/AddChild',
+        data: { prefix: targetId + '[' + target.children().length + ']' },
+        dataType: 'html',
+        type: 'GET',
+        success: function (result) {
+            target.append(result);
+        }
+    });
+}
 
 
-function addProperty(propertyDropDownListBoxId, discriminatorDropDownListBoxId, targetId) {
+function addProperty(propertyDropDownListBoxId, discriminatorDropDownListBoxId, targetId, targetName) {
     var id = $('select#' + propertyDropDownListBoxId).val();
     var target = $('div#' + targetId);
     $.ajax({
         url: '/Article/AddPropertyAjax/' + id,
-        data: { prefix: targetId + '[' + target.children().length + ']' },
+        data: { prefix: targetName + '[' + target.children().length + ']' },
         dataType: 'html',
         type: 'GET',
         success: function (result) {
@@ -18,12 +30,12 @@ function addProperty(propertyDropDownListBoxId, discriminatorDropDownListBoxId, 
     });
 }
 
-function addDiscriminator(propertyDropDownListBoxId, discriminatorDropDownListBoxId, targetId) {
+function addDiscriminator(propertyDropDownListBoxId, discriminatorDropDownListBoxId, targetId, targetName) {
     var id = $('select#' + discriminatorDropDownListBoxId).val();
     var target = $('div#' + targetId);
     $.ajax({
         url: '/Article/AddDiscriminatorAjax/' + id,
-        data: { prefix: targetId + '[' + target.children().length + ']' },
+        data: { prefix: targetName + '[' + target.children().length + ']' },
         dataType: 'html',
         type: 'GET',
         success: function (result) {

@@ -11,12 +11,10 @@ namespace phiNdus.fundus.Core.Web.Controllers
     [Authorize]
     public class ArticleController : ControllerBase
     {
-        protected IArticleService ArticleService
-        {
-            get { return IoC.Resolve<IArticleService>(); }
-        }
+        protected IArticleService ArticleService { get { return IoC.Resolve<IArticleService>(); } }
+        protected IPropertyService PropertyService { get { return IoC.Resolve<IPropertyService>(); } }
 
-        //
+            //
         // GET: /Article/
 
         public ActionResult Index()
@@ -50,9 +48,8 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Article/Create
         public ActionResult Create()
         {
-            var model = new ArticleViewModel(
-                ArticleService.GetProperties(Session.SessionID)
-                );
+            var properties = ArticleService.GetProperties(Session.SessionID);
+            var model = new ArticleViewModel(properties);
             model.PropertyValues.Add(new PropertyValueViewModel
                                          {
                                              Caption = "Name",
@@ -65,12 +62,45 @@ namespace phiNdus.fundus.Core.Web.Controllers
                                              DataType = PropertyDataType.Decimal,
                                              PropertyDefinitionId = 4
                                          });
-            model.PropertyValues.Add(new PropertyValueViewModel
+            model.Discriminators.Add(new DiscriminatorViewModel
                                          {
-                                             Caption = "Menge",
-                                             DataType = PropertyDataType.Integer,
-                                             PropertyDefinitionId = 3
+                                             Caption = "Grösse",
+                                             PropertyDefinitionId = 9
                                          });
+            
+            var child1 = new ArticleViewModel(properties);
+            child1.PropertyValues.Add(new PropertyValueViewModel
+            {
+                Caption = "Grösse",
+                DataType = PropertyDataType.Text,
+                PropertyDefinitionId = 9,
+                Value = "M"
+            });
+            child1.PropertyValues.Add(new PropertyValueViewModel
+            {
+                Caption = "Menge",
+                DataType = PropertyDataType.Integer,
+                PropertyDefinitionId = 3
+            });
+            var child2 = new ArticleViewModel(properties);
+            child2.PropertyValues.Add(new PropertyValueViewModel
+            {
+                Caption = "Grösse",
+                DataType = PropertyDataType.Text,
+                PropertyDefinitionId = 9,
+                Value = "L"
+            });
+            child2.PropertyValues.Add(new PropertyValueViewModel
+            {
+                Caption = "Menge",
+                DataType = PropertyDataType.Integer,
+                PropertyDefinitionId = 3
+            });
+            model.Children.Add(child1);
+            child1.IsChild = true;
+            model.Children.Add(child2);
+            child2.IsChild = true;
+
             return View(model);
         }
 
@@ -113,7 +143,9 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            var model = new ArticleViewModel();
+            var model = new ArticleViewModel(
+                    ArticleService.GetProperties(Session.SessionID)
+                );
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
@@ -188,40 +220,25 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpGet]
         public ActionResult AddPropertyAjax(int id, string prefix)
         {
-            var svc = IoC.Resolve<IPropertyService>();
-            var prop = svc.GetProperty(Session.SessionID, id);
+            var prop = PropertyService.GetProperty(Session.SessionID, id);
             var model = ArticleViewModel.ConvertToPropertyValueViewModel(prop);
-            ViewData.TemplateInfo.HtmlFieldPrefix = String.Format(prefix, TempSurrogateKey.Next);
-            return EditorFor(model);
+            return EditorFor(model, prefix);
         }
 
         [HttpGet]
         public ActionResult AddDiscriminatorAjax(int id, string prefix)
         {
-            var svc = IoC.Resolve<IPropertyService>();
-            var prop = svc.GetProperty(Session.SessionID, id);
+            var prop = PropertyService.GetProperty(Session.SessionID, id);
             var model = ArticleViewModel.ConvertToDiscriminatorViewModel(prop);
-            ViewData.TemplateInfo.HtmlFieldPrefix = String.Format(prefix, TempSurrogateKey.Next);
-            return EditorFor(model);
+            return EditorFor(model, prefix);
         }
-    }
 
-    internal class TempSurrogateKey
-    {
-        private int next = 1001;
-
-        public static int Next
+        [HttpGet]
+        public ActionResult AddChild(string prefix)
         {
-            get
-            {
-                var tempSurrogateKey = (TempSurrogateKey) HttpContext.Current.Session["TempSurrogateKey"];
-                if (tempSurrogateKey == null)
-                {
-                    tempSurrogateKey = new TempSurrogateKey();
-                    HttpContext.Current.Session["TempSurrogateKey"] = tempSurrogateKey;
-                }
-                return tempSurrogateKey.next++;
-            }
+            var model = new ArticleViewModel(PropertyService.GetProperties(Session.SessionID));
+            model.IsChild = true;
+            return EditorFor(model, prefix);
         }
     }
 }
