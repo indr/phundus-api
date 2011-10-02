@@ -1,5 +1,7 @@
 @model ArticleViewModel
 
+@Html.HiddenFor(m => m.Id)
+@Html.HiddenFor(m => m.Version)
 <div class="article-editor">
 <h3>Eigenschaften</h3>
 <div class="article-properties-editor">
@@ -15,6 +17,8 @@
     '@Html.IdFor(m => m.PropertyValues)',
     '@Html.NameFor(m => m.PropertyValues)'); return false;">Eigenschaft hinzufügen</a>
 </div>
+
+
 
 @if (!Model.IsChild)
 {
@@ -34,6 +38,12 @@
 </div>
 }
 
+@if (Model.IsChild)
+{
+    @Html.HiddenFor(m => m.IsDeleted)
+    <a href="#" onclick="removeChildArticle('@Html.IdFor(m => m.IsDeleted)'); return false;">&quot;Kind&quot; entfernen</a>
+}
+
 @if (!Model.IsChild)
 {
 <h3>&quot;Kinder&quot;</h3>
@@ -45,4 +55,6 @@
 </div>
 <a href="#" onclick="addChild('@Html.NameFor(m => m.Children)'); return false;">Neues &quot;Kind&quot; hinzufügen</a>
 }
+
+
 </div>
