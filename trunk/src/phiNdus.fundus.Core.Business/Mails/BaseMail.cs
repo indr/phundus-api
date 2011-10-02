@@ -30,7 +30,7 @@ namespace phiNdus.fundus.Core.Business.Mails
 
             public string UserAccountValidation
             {
-                get { return "http://" + _serverUrl + "/Account/Validation/?key=[Membership.ValidationKey]"; }
+                get { return "http://" + _serverUrl + "/Account/Validation/[Membership.ValidationKey]"; }
             }
         }
 

@@ -1,3 +1,3 @@
 common.server-url,${deploy.iisserver}${deploy.vdir}
 mail.templates.user-account-validation.subject,[fundus] User Account Validation
-mail.templates.user-account-validation.body,Hello [User.FirstName]' + CHAR(13)+CHAR(10) + '' + CHAR(13)+CHAR(10) + 'Please go to the following link in order to validate your account:' + CHAR(13)+CHAR(10) + '[Link.UserAccountValidation]' + CHAR(13)+CHAR(10) + '' + CHAR(13)+CHAR(10) + 'Thanks
+mail.templates.user-account-validation.body,Hello [User.FirstName]' + CHAR(13)+CHAR(10) + '' + CHAR(13)+CHAR(10) + 'Please go to the following link in order to validate your account:' + CHAR(13)+CHAR(10) + '[Link.UserAccountValidation]' + CHAR(13)+CHAR(10) + '' + CHAR(13)+CHAR(10) + 'If the link doesnt work, you can enter the code manually using this token:' + CHAR(13)+CHAR(10) + '[Membership.ValidationKey]' + CHAR(13)+CHAR(10) + '' + CHAR(13)+CHAR(10) + 'Thanks

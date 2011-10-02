@@ -82,7 +82,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public string GenerateValidationKey()
         {
-            var key = KeyGenerator.CreateKey(20);
+            var key = KeyGenerator.CreateKey(24);
             ValidationKey = key;
             return key;
         }

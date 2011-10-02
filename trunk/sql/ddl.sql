@@ -22,7 +22,7 @@ create table [Membership] (
   LastPasswordChangeDate DATETIME null,
   LastLockoutDate DATETIME null,
   Comment NVARCHAR(255) null,
-  ValidationKey NVARCHAR(20) null,
+  ValidationKey NVARCHAR(24) null,
   primary key (Id),
   unique (Email)
 );
