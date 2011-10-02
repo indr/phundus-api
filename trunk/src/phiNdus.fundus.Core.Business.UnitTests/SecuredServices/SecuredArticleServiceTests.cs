@@ -226,20 +226,19 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         }
 
         [Test]
-        public void GetProperties_with_invalid_sessionKey_throws()
+        public void GetProperties_with_invalid_sessionKey_does_not_throw()
         {
             GenerateAndRegisterMissingStubs();
 
-            Assert.Throws<InvalidSessionKeyException>(() => Sut.GetProperties("invalid"));
+            Assert.DoesNotThrow(() => Sut.GetProperties("invalid"));
         }
 
         [Test]
-        public void GetProperties_with_sessionKey_null_throws()
+        public void GetProperties_with_sessionKey_null_does_not_throw()
         {
             GenerateAndRegisterMissingStubs();
 
-            var ex = Assert.Throws<ArgumentNullException>(() => Sut.GetProperties(null));
-            Assert.That(ex.ParamName, Is.EqualTo("key"));
+            Assert.DoesNotThrow(() => Sut.GetProperties(null));
         }
 
         [Test]

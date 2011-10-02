@@ -94,7 +94,9 @@
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="ControllerBase.cs" />
+    <Compile Include="Controllers\ContractController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -307,6 +309,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shop\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Contract\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\List.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
