@@ -676,6 +676,7 @@
         <expandproperties />
       </filterchain>
     </copy>
+    <echo message="##teamcity[publishArtifacts '${website.dir}\Web.config']" />
     
     <fail if="${file::exists(website.dir + '\Views\Web.config')}" message="File ${website.dir}\Views\Web.config already exists." />
     <copy file="${config.dir}\Views.Web.config.tmpl"
@@ -684,6 +685,7 @@
         <expandproperties />
       </filterchain>
     </copy>
+    <echo message="##teamcity[publishArtifacts '${website.dir}\Views\Web.config']" />
          
     <delete>
       <fileset basedir="${deploy.dir}">
