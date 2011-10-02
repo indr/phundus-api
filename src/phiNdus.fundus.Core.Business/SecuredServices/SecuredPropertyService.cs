@@ -14,8 +14,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 
         public PropertyDto[] GetProperties(string sessionKey)
         {
-            return Secured.With(Session.FromKey(sessionKey))
-                .Do<PropertyService, PropertyDto[]>(svc => svc.GetProperties());
+            return Unsecured.Do<PropertyService, PropertyDto[]>(svc => svc.GetProperties());
         }
 
         public void UpdateProperty(string sessionKey, PropertyDto subject)

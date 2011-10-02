@@ -100,6 +100,7 @@
     <Compile Include="SecuredServices\SecuredUserService.cs" />
     <Compile Include="Security\Constraints\NotConstraint.cs" />
     <Compile Include="Security\Constraints\SessionFromKeyConstraint.cs" />
+    <Compile Include="Security\Constraints\TrueConstraint.cs" />
     <Compile Include="Security\Constraints\UserHasEmailConstraint.cs" />
     <Compile Include="Security\Constraints\UserIsContraint.cs" />
     <Compile Include="Security\Constraints\UserInRoleConstraint.cs" />

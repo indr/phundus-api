@@ -1,8 +1,15 @@
 @inherits System.Web.Mvc.WebViewPage<dynamic>
 
+@Html.ActionLink("Home", "Index", "Shop")
 @if (Request.IsAuthenticated) {
-    @Html.ActionLink("Benutzer", "Index", "User")
+    //TODO: Administratoren
+    @Html.ActionLink("Bestellungen", "Index", "Order")
+    @Html.ActionLink("Verträge", "Index", "Contract")
     @Html.ActionLink("Artikel", "Index", "Article")
-} else { 
-    <a href="#">HOME</a>
+    @Html.ActionLink("Benutzer", "Index", "User")
+    @Html.ActionLink("Einstellungen", "Index", "Setting")
+}
+else
+{ 
+    @*<a href="#">HOME</a>*@
 }

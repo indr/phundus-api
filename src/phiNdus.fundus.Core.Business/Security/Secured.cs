@@ -5,6 +5,23 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Security
 {
+    public class Unsecured
+    {
+        protected static AbstractConstraint Nothing { get { return new TrueConstraint(); } }
+
+        public static void Do<TService>(Action<TService> func)
+            where TService : BaseService, new()
+        {
+            Secured.With(Nothing).Do(func);
+        }
+
+        public static TResult Do<TService, TResult>(System.Func<TService, TResult> func)
+            where TService : BaseService, new()
+        {
+            return Secured.With(Nothing).Do(func);
+        }
+    }
+
     public class Secured
     {
         private AbstractConstraint _constraint;
