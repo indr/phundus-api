@@ -1,43 +1,3 @@
-/* TODO: Ich, Reto, habs einfach mal hingeklatscht. Merci jemand anderem :o) */
-
-
-.article-editor 
-{
-    border:1px solid #000;
-    padding: 5px;
-}
-
-/* Css: http://css.dzone.com/news/css-message-boxes-different-me */
-/* Icons: http://itweek.deviantart.com/art/Knob-Buttons-Toolbar-icons-73463960 */
-.info, .success, .warning, .error, .validation, .validation-summary-errors {
-    border: 1px solid;
-    margin: 10px 0px;
-    padding:15px 10px 15px 50px;
-    background-repeat: no-repeat;
-    background-position: 10px center;
-}
-.info {
-    color: #00529B;
-    background-color: #BDE5F8;
-    background-image: url('/Content/Images/info.png');
-}
-.success {
-    color: #4F8A10;
-    background-color: #DFF2BF;
-    background-image:url('/Content/Images/success.png');
-}
-.warning {
-    color: #9F6000;
-    background-color: #FEEFB3;
-    background-image: url('/Content/Images/warning.png');
-}
-.error, .validation, .validation-summary-errors {
-    color: #D8000C;
-    background-color: #FFBABA;
-    background-image: url('/Content/Images/error.png');
-}
-
-
 
 
 /* body
@@ -325,7 +285,11 @@ p.formular-action {
     border: 1px solid #f00;
 }
 
-/*.validation-summary-errors {
+
+/* TODO, Jacques: Bitte prüfen. Ich, Reto, hab das rausgenommen. Siehe
+                  gemeinsame Klassendefinition zur Zeit in ToVerify.css */
+/*
+.validation-summary-errors {
     color: #f00;
     display: inline;
     font-weight: bold;
@@ -333,7 +297,8 @@ p.formular-action {
     padding-left: 5px;
     position: relative;
     font: 12px/1.55 Arial,Helvetica,sans-serif;
-}*/
+}
+*/
 
 .validation-summary-valid {
     display: none;
