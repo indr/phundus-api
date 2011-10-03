@@ -12,22 +12,6 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
     [TestFixture]
     public class OrderPersistenceTests : BaseTestFixture
     {
-
-        public User CreatePersistetUser()
-        {
-            var result = new User();
-            result.Membership.Email = "user@example.com";
-            using (var uow = UnitOfWork.Start())
-            {
-                var session = UnitOfWork.CurrentSession;
-                result.Role = session.Query<Role>().First();
-                session.Save(result.Membership);
-                session.Save(result);
-            }
-            return result;
-        }
-
-
         [Test]
         public void Can_save_and_load()
         {
@@ -37,7 +21,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 
             using (var uow = UnitOfWork.Start())
             {
-                sut.Reserver = CreatePersistetUser();
+                sut.Reserver = CreateOrGetUser("user@example.com");
                 UnitOfWork.CurrentSession.Save(sut);
                 id = sut.Id;
                 uow.TransactionalFlush();

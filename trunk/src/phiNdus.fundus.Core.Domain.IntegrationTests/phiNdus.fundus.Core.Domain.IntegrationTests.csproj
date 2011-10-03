@@ -77,6 +77,7 @@
     <Compile Include="Repositories\ArticleRepositoryTests.cs" />
     <Compile Include="Repositories\DomainPropertyDefinitionRepositoryTests.cs" />
     <Compile Include="Mappings\DomainObjectPersistenceTests.cs" />
+    <Compile Include="Repositories\OrderRepositoryTests.cs" />
     <Compile Include="Repositories\RoleRepositoryTests.cs" />
     <Compile Include="Repositories\SettingRepositoryTests.cs" />
     <Compile Include="Repositories\UserRepositoryTests.cs" />
