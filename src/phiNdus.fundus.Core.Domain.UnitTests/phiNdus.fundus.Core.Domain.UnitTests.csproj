@@ -66,6 +66,8 @@
     <Compile Include="Entities\DomainPropertyValueTests.cs" />
     <Compile Include="Entities\MembershipTests.cs" />
     <Compile Include="Entities\DomainObjectTests.cs" />
+    <Compile Include="Entities\OrderItemTests.cs" />
+    <Compile Include="Entities\OrderTests.cs" />
     <Compile Include="Entities\RoleTests.cs" />
     <Compile Include="Entities\SettingTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
