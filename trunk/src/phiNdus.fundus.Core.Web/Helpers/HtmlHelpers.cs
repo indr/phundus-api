@@ -1,5 +1,7 @@
 using System;
 using System.Linq.Expressions;
+using System.Net.Mime;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -51,6 +53,14 @@ namespace phiNdus.fundus.Core.Web.Helpers
             var htmlFieldName = ExpressionHelper.GetExpressionText(expression);
             var id = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldId(htmlFieldName);
             return new MvcContainer(htmlHelper.ViewContext, id);
+        }
+
+        public static MvcHtmlString DisplayVersion(this HtmlHelper htmlHelper)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var version = assembly.GetName().Version.ToString(3);
+            var build = assembly.GetName().Version.Build;
+            return MvcHtmlString.Create(String.Format("{0} (build {1})", version, build));
         }
     }
 }

@@ -617,7 +617,7 @@
   </target>
 
 
-  <target name="init-deploy" depends="clean">
+  <target name="init-deploy">
     <echo message="
 *************** INIT-DEPLOY ***************
 " />
