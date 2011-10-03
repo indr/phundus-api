@@ -1,6 +1,11 @@
 ﻿using Castle.Windsor;
+using NHibernate.Linq;
+using NHibernate.Util;
 using NUnit.Framework;
+using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
+using Order = NHibernate.Criterion.Order;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests
 {
@@ -17,6 +22,24 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
         public void FixtureTearDown()
         {
             IoC.Container.Dispose();
+        }
+
+
+
+        protected User CreateOrGetUser(string email)
+        {
+            var users = IoC.Resolve<IUserRepository>();
+            var roles = IoC.Resolve<IRoleRepository>();
+
+            var result = users.FindByEmail(email);
+            if (result == null)
+            {
+                result = new User();
+                result.Membership.Email = "user@example.com";
+                result.Role = roles.FindFirst(new Order[0]);
+                users.Save(result);
+            }
+            return result;
         }
     }
 }
