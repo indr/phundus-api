@@ -59,8 +59,8 @@ namespace phiNdus.fundus.Core.Web.Helpers
         {
             var assembly = Assembly.GetExecutingAssembly();
             var version = assembly.GetName().Version.ToString(3);
-            var build = assembly.GetName().Version.Build;
-            return MvcHtmlString.Create(String.Format("{0} (build {1})", version, build));
+            var revision = assembly.GetName().Version.Revision;
+            return MvcHtmlString.Create(String.Format("{0} (rev {1})", version, revision));
         }
     }
 }
