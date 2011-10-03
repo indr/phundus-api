@@ -75,6 +75,7 @@
     <Compile Include="Entities\DomainObject.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderItem.cs" />
+    <Compile Include="Entities\OrderStatus.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\User.cs" />

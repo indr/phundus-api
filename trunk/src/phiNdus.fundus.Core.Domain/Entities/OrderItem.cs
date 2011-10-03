@@ -2,6 +2,6 @@
 {
     public class OrderItem : BaseEntity
     {
-        public Order Order { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

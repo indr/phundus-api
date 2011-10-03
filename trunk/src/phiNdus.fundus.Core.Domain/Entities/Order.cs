@@ -1,5 +1,6 @@
 ﻿using System;
 using Iesi.Collections.Generic;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
@@ -19,24 +20,60 @@ namespace phiNdus.fundus.Core.Domain.Entities
             set { _createDate = value; }
         }
 
-        public ISet<OrderItem> Items
+        public virtual ISet<OrderItem> Items
         {
             get { return _items; }
             set { _items = value; }
         }
 
-        public bool AddItem(OrderItem item)
+        public virtual User Reserver { get; set; }
+
+        public virtual OrderStatus Status { get; set; }
+
+        public virtual User Approver { get; set; }
+
+        public virtual DateTime? ApproveDate { get; set; }
+
+        public virtual User Rejecter { get; set; }
+
+        public virtual bool AddItem(OrderItem item)
         {
             var result = Items.Add(item);
             item.Order = this;
             return result;
         }
 
-        public bool RemoveItem(OrderItem item)
+        public virtual bool RemoveItem(OrderItem item)
         {
             var result = Items.Remove(item);
             item.Order = null;
             return result;
+        }
+
+        public virtual void Approve(User approver)
+        {
+            Guard.Against<ArgumentNullException>(approver == null, "approver");
+
+            Guard.Against<InvalidOperationException>(Status == OrderStatus.Approved,
+                                                     "Die Bestellung wurde bereits bewilligt.");
+            Guard.Against<InvalidOperationException>(Status == OrderStatus.Rejected,
+                                                     "Die Bestellung wurde bereits abgelehnt.");
+
+            Status = OrderStatus.Approved;
+            Approver = approver;
+        }
+
+        public virtual void Reject(User rejecter)
+        {
+            Guard.Against<ArgumentNullException>(rejecter == null, "rejecter");
+
+            Guard.Against<InvalidOperationException>(Status == OrderStatus.Approved,
+                                                     "Die Bestellung wurde bereits bewilligt.");
+            Guard.Against<InvalidOperationException>(Status == OrderStatus.Rejected,
+                                                     "Die Bestellung wurde bereits abgelehnt.");
+
+            Status = OrderStatus.Rejected;
+            Rejecter = rejecter;
         }
     }
 }

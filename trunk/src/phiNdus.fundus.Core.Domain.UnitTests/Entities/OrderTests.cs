@@ -40,6 +40,15 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void Can_get_and_set_Reserver()
+        {
+            var sut = CreateSut();
+            var reserver = new User();
+            sut.Reserver = reserver;
+            Assert.That(sut.Reserver, Is.SameAs(reserver));
+        }
+
+        [Test]
         public void Create_assignes_empty_Items_collection()
         {
             var sut = new Order();
@@ -52,6 +61,27 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         {
             var sut = new Order();
             Assert.That(sut.CreateDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
+        }
+
+        [Test]
+        public void Create_sets_Status_to_Pending()
+        {
+            var sut = new Order();
+            Assert.That(sut.Status, Is.EqualTo(OrderStatus.Pending));
+        }
+
+        [Test]
+        public void Create_sets_Approver_to_null()
+        {
+            var sut = new Order();
+            Assert.That(sut.Approver, Is.Null);
+        }
+
+        [Test]
+        public void Create_sets_ApprovedDate_to_null()
+        {
+            var sut = new Order();
+            Assert.That(sut.ApproveDate, Is.Null);
         }
 
         [Test]
@@ -88,6 +118,92 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             var sut = CreateSut();
             var item = new OrderItem();
             Assert.That(sut.RemoveItem(item), Is.False);
+        }
+
+        [Test]
+        public void Approve_with_null_approver_throws()
+        {
+            var sut = CreateSut();
+            var ex = Assert.Throws<ArgumentNullException>(() => sut.Approve(null));
+            Assert.That(ex.ParamName, Is.EqualTo("approver"));
+        }
+
+        [Test]
+        public void Approve_sets_Approver_to_supplied_user()
+        {
+            var sut = CreateSut();
+            var approver = new User();
+            sut.Approve(approver);
+            Assert.That(sut.Approver, Is.SameAs(approver));
+        }
+
+        [Test]
+        public void Approve_sets_Status_to_Approved()
+        {
+            var sut = CreateSut();
+            sut.Approve(new User());
+            Assert.That(sut.Status, Is.EqualTo(OrderStatus.Approved));
+        }
+
+        [Test]
+        public void Approve_with_status_Approved_throws()
+        {
+            var sut = CreateSut();
+            sut.Approve(new User());
+            var ex = Assert.Throws<InvalidOperationException>(() => sut.Approve(new User()));
+            Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits bewilligt."));
+        }
+
+        [Test]
+        public void Approve_with_status_Rejected_throws()
+        {
+            var sut = CreateSut();
+            sut.Reject(new User());
+            var ex = Assert.Throws<InvalidOperationException>(() => sut.Approve(new User()));
+            Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits abgelehnt."));
+        }
+
+        [Test]
+        public void Reject_with_null_rejecter_throws()
+        {
+            var sut = CreateSut();
+            var ex = Assert.Throws<ArgumentNullException>(() => sut.Reject(null));
+            Assert.That(ex.ParamName, Is.EqualTo("rejecter"));
+        }
+
+        [Test]
+        public void Reject_sets_Rejecter_to_supplied_user()
+        {
+            var sut = CreateSut();
+            var rejecter = new User();
+            sut.Reject(rejecter);
+            Assert.That(sut.Rejecter, Is.SameAs(rejecter));
+        }
+
+        [Test]
+        public void Reject_sets_Status_to_Rejected()
+        {
+            var sut = CreateSut();
+            sut.Reject(new User());
+            Assert.That(sut.Status, Is.EqualTo(OrderStatus.Rejected));
+        }
+
+        [Test]
+        public void Reject_with_status_Approved_throws()
+        {
+            var sut = CreateSut();
+            sut.Approve(new User());
+            var ex = Assert.Throws<InvalidOperationException>(() => sut.Reject(new User()));
+            Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits bewilligt."));
+        }
+
+        [Test]
+        public void Reject_with_status_Rejected_throws()
+        {
+            var sut = CreateSut();
+            sut.Reject(new User());
+            var ex = Assert.Throws<InvalidOperationException>(() => sut.Reject(new User()));
+            Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits abgelehnt."));
         }
     }
 }
