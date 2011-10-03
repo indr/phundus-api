@@ -28,13 +28,15 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public virtual User Reserver { get; set; }
 
-        public virtual OrderStatus Status { get; set; }
+        public virtual OrderStatus Status { get; protected set; }
 
-        public virtual User Approver { get; set; }
+        public virtual User Approver { get; protected set; }
 
-        public virtual DateTime? ApproveDate { get; set; }
+        public virtual DateTime? ApproveDate { get; protected set; }
 
-        public virtual User Rejecter { get; set; }
+        public virtual User Rejecter { get; protected set; }
+
+        public virtual DateTime? RejectDate { get; protected set; }
 
         public virtual bool AddItem(OrderItem item)
         {
@@ -61,6 +63,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
             Status = OrderStatus.Approved;
             Approver = approver;
+            ApproveDate = DateTime.Now;
         }
 
         public virtual void Reject(User rejecter)
@@ -74,6 +77,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
             Status = OrderStatus.Rejected;
             Rejecter = rejecter;
+            RejectDate = DateTime.Now;
         }
     }
 }

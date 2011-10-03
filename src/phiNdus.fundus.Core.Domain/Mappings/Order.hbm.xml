@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Core.Domain" namespace="phiNdus.fundus.Core.Domain.Entities">
+
+  <class name="Order" table="[Order]">
+    <id name="Id">
+      <generator class="hilo" />
+    </id>
+    <version name="Version" />
+
+    <property name="CreateDate" />
+    <property name="Status" />
+
+    <many-to-one name="Reserver" class="User" column="ReserverId" />
+    
+    <property name="ApproveDate" />
+    <many-to-one name="Approver" class="User" column="ApproverId" />
+    <property name="RejectDate" />
+    <many-to-one name="Rejecter" class="User" column="RejecterId" />
+  </class>
+</hibernate-mapping>

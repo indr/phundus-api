@@ -78,10 +78,17 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Create_sets_ApprovedDate_to_null()
+        public void Create_sets_ApproveDate_to_null()
         {
             var sut = new Order();
             Assert.That(sut.ApproveDate, Is.Null);
+        }
+
+        [Test]
+        public void Create_sets_RejectDate_to_null()
+        {
+            var sut = new Order();
+            Assert.That(sut.RejectDate, Is.Null);
         }
 
         [Test]
@@ -138,6 +145,14 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void Approve_sets_ApproveDate()
+        {
+            var sut = CreateSut();
+            sut.Approve(new User());
+            Assert.That(sut.ApproveDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
+        }
+
+        [Test]
         public void Approve_sets_Status_to_Approved()
         {
             var sut = CreateSut();
@@ -178,6 +193,14 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             var rejecter = new User();
             sut.Reject(rejecter);
             Assert.That(sut.Rejecter, Is.SameAs(rejecter));
+        }
+
+        [Test]
+        public void Approve_sets_RejectDate()
+        {
+            var sut = CreateSut();
+            sut.Reject(new User());
+            Assert.That(sut.RejectDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
         }
 
         [Test]

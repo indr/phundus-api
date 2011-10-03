@@ -84,6 +84,19 @@ create table [DomainObject] (
   primary key(Id)
 )
 
+create table [Order] (
+  Id int not null,
+  Version int not null,
+  
+  CreateDate datetime not null,
+  Status tinyint not null,
+  ReserverId int not null,
+  ApproveDate datetime null,
+  ApproverId int null,
+  RejectDate datetime null,
+  RejecterId int null,
+)
+
 alter table [Membership] 
   add constraint FkMembershipToUser 
   foreign key (Id) 
