@@ -1,121 +1,3 @@
-
-
-/* body
-{
-    font-size: 75%;
-    font-family: Verdana, Tahoma, Arial, "Helvetica Neue", Helvetica, Sans-Serif;
-    color: #232323;
-    background-color: #fff;
-    margin: 0;
-}
-
-
-
-
-# custom Styles (draft jac)
-#-----------------------------------------------------------
-
-.head-menu {
-    background-color: #f0f0f0;
-    border-bottom: solid 1px #109033;
-    text-align: right;
-    padding: 20px 5px 5px 0;
-}
-
-.main-menu 
-{
-    float: left;
-}
-
-a:link 
-{
-    text-decoration: none;
-    
-    color: #a2bc13;
-}
-
-a:visited 
-{
-    color: #a2bc13;
-}
-
-a:hover
-{
-    text-decoration: none;
-    color: #ad0;
-}
-
-# Styles for basic forms
-#-----------------------------------------------------------
-
-fieldset 
-{
-    border:1px solid #ddd;
-    padding:0 1.4em 1.4em 1.4em;
-    margin:0 0 1.5em 0;
-}
-
-legend 
-{
-    font-size:1.2em;
-    font-weight: bold;
-}
-
-textarea 
-{
-    min-height: 75px;
-}
-
-.editor-label 
-{
-    margin: 1em 0 0 0;
-}
-
-.editor-field 
-{
-    margin:0.5em 0 0 0;
-}
-
-
-# Styles for validation helpers
-#-----------------------------------------------------------
-.field-validation-error
-{
-    color: #ff0000;
-}
-
-.field-validation-valid
-{
-    display: none;
-}
-
-.input-validation-error
-{
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
-}
-
-.validation-summary-errors
-{
-    font-weight: bold;
-    color: #ff0000;
-}
-
-.validation-summary-valid
-{
-    display: none;
-}
-
-# Custom Styles 
-
-.formular-box {
-    border:solid 1px #109033; 
-    background:#f0f0f0; 
-    margin: auto; 
-    padding:20px;
-}
-
-*/
 body {    
     font-family: Arial, Helvetica, Sans-Serif;
     color: #505050;
@@ -221,30 +103,20 @@ a:hover {
 
 /* formularelemente
 ---------------------------------------------------------*/
-input[type="text"] {
-    height: 30px;
-    line-height: 30px;
-    padding: 0 5px;    
-}
-
-input[type="password"] {
+.formular-item .text-input {
     height: 30px;
     line-height: 30px;
     padding: 0 5px;
+    border: 1px solid #ccc;
+    width: 280px;
 }
 
-input[type="submit"] {
+.formular-box .action {
     border: 1px solid #ccc;
-    /*background-color: #109033;*/
     height: 30px;
     line-height: 30px;
-    padding: 0 5px;
-    width: 280px;
-}
-
-.text-input {
-    border: 1px solid #ccc;
-    width: 280px;
+    padding: 0 15px;
+    /*width: 280px;*/
 }
 
 p.formular-item {
@@ -263,6 +135,37 @@ p.formular-action {
     position: relative;
     /*font: 12px/1.55 Arial,Helvetica,sans-serif;*/
     font-size: 11px;
+}
+
+/* Tabellen
+---------------------------------------------------------*/
+.list {
+    border-collapse: collapse;
+}
+
+.list td {
+    padding:6px;
+}
+
+.list th {
+    text-align: left;
+    padding: 6px;
+    border-bottom: solid 2px #505050;
+}
+
+tr.alt td {
+    background: #f0f0f0;
+}
+
+tr.over td {
+    background: #e9e9e9;
+}
+
+.list input {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    border: 1px solid #ccc;
 }
 
 /* Validierung
@@ -303,3 +206,6 @@ p.formular-action {
 .validation-summary-valid {
     display: none;
 }
+
+/* temporärer fix datepicker*/
+.ui-datepicker { background-color: #ccc; }

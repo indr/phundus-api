@@ -41,9 +41,19 @@
     </body>
 </html>
 
-<!-- Editoren anpassen -->
+<!-- Editoren anpassen evlt. auslagern -->
 <script type="text/javascript">
     $(document).ready(function () {
+        // Datumspicker
         $('.date').datepicker({ dateFormat: "dd.mm.yy" });
+
+        // Zebratabellen
+        $('.list tr:odd').addClass('alt');
+        $('.list tr').mouseover(function () {
+            $(this).addClass('over');
+        });
+        $('.list tr').mouseout(function () {
+            $(this).removeClass('over');
+        });
     });
 </script>

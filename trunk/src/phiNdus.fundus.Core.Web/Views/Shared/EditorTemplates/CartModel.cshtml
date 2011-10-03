@@ -1,6 +1,6 @@
 ﻿@model phiNdus.fundus.Core.Web.Models.CartModel
 
-<table width="100%">
+<table width="100%" class="list">
     <thead>
         <tr>
             <th>Bezeichnung</th>
@@ -8,6 +8,7 @@
             <th>Ausleihbeginn</th>
             <th>Ausleihende</th>
             <th>Ausleihdauer</th>
+            <th>Preis</th>
             <th></th>
         </tr>
     </thead>
@@ -15,11 +16,12 @@
         @foreach (var item in Model.Items) {
             <tr>
                 <td>@item.Caption</td>
-                <td>@Html.EditorFor(m => item.Amount)</td>
+                <td>@Html.TextBoxFor(m => item.Amount, new { @class = "text-input", @width = "50px" })</td>
                 <td>@Html.EditorFor(m => item.Begin)</td>
                 <td>@Html.EditorFor(m => item.End)</td>
                 <!-- updaten wenn datum ändert-->
                 <td>@item.End.Subtract(item.Begin).TotalDays Tag(e)</td>
+                <td>CHF 10.- <i>fixme</i></td>
                 <td>
                     @*Todo,jac: Ajax*@
                     @*@Html.ActionLink("Entfernen", "Remove", new { Id = @item.ItemId })*@
