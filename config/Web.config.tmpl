@@ -89,7 +89,7 @@
       </namespaces>
     </pages>
 	
-	<!-- Fuer IIS6 und IIS7 im Klassischen Modus -->
+	<!-- Für IIS6 und IIS7 im Klassischen Modus -->
 	<httpModules>
       <add name="PerRequestLifestyle" type="Castle.MicroKernel.Lifestyle.PerWebRequestLifestyleModule, Castle.Windsor" />
     </httpModules>
@@ -97,7 +97,7 @@
 
   <system.webServer>
     <validation validateIntegratedModeConfiguration="false"/>
-	<!-- F�r IIS7 im Integrierten Modus -->
+	<!-- Für IIS7 im Integrierten Modus -->
     <modules runAllManagedModulesForAllRequests="true">
 		<add name="PerRequestLifestyle" type="Castle.MicroKernel.Lifestyle.PerWebRequestLifestyleModule, Castle.Windsor" />
 	</modules>
