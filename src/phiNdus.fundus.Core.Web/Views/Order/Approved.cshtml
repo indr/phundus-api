@@ -1,0 +1,43 @@
+﻿@model OrdersTableViewModel
+
+<h2>Bestätigte Bestellungen</h2>
+
+<table>
+    <tr>
+        <th>Nummer</th>
+        <th>Datum</th>
+        <th>Reservierer</th>
+        <th>Anzahl Artikel</th>
+        <th>Bestätigt am</th>
+        <th>Bestätigt von</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Orders) {
+    <tr>
+        <td>
+            @item.Id
+        </td>
+        <td>
+            @item.CreateDate
+        </td>
+        <td>
+            @item.ReserverName
+        </td>
+        <td>
+            @item.Items.Count
+        </td>
+        <td>
+            @item.ApproveDate
+        </td>
+        <td>
+            @item.ApproverName
+        </td>
+        <td>
+            <a href="#">Anzeigen</a> |
+            <a href="#">PDF drucken</a>
+        </td>
+    </tr>
+}
+
+</table>

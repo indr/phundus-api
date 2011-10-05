@@ -11,7 +11,7 @@ using User = phiNdus.fundus.Core.Business.Security.Constraints.User;
 
 namespace phiNdus.fundus.Core.Business.SecuredServices
 {
-    public class SecuredOrderService : IOrderService
+    public class SecuredOrderService : SecuredServiceBase, IOrderService
     {
         public OrderDto GetOrder(string sessionKey, int id)
         {

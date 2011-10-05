@@ -1,0 +1,44 @@
+﻿@model OrdersTableViewModel
+
+
+<h2>Abgelehnte Bestellungen</h2>
+
+<table>
+    <tr>
+        <th>Nummer</th>
+        <th>Datum</th>
+        <th>Reservierer</th>
+        <th>Anzahl Artikel</th>
+        <th>Abgelehnt am</th>
+        <th>Abgelehnt von</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Orders) {
+    <tr>
+        <td>
+            @item.Id
+        </td>
+        <td>
+            @item.CreateDate
+        </td>
+        <td>
+            @item.ReserverName
+        </td>
+        <td>
+            @item.Items.Count
+        </td>
+        <td>
+            @item.RejectDate
+        </td>
+        <td>
+            @item.RejecterName
+        </td>
+        <td>
+            <a href="#">Anzeigen</a> |
+            <a href="#">PDF drucken</a>
+        </td>
+    </tr>
+}
+
+</table>
