@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
 
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
@@ -26,6 +27,39 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             var sut = new OrderItem();
             Assert.That(sut.Id, Is.EqualTo(0));
             Assert.That(sut.Version, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Can_get_and_set_Amount()
+        {
+            var sut = CreateSut();
+            sut.Amount = 1;
+            Assert.That(sut.Amount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Can_get_and_set_From()
+        {
+            var sut = CreateSut();
+            sut.From = DateTime.Today.AddDays(-1);
+            Assert.That(sut.From, Is.EqualTo(DateTime.Today.AddDays(-1)));
+        }
+
+        [Test]
+        public void Can_get_and_set_To()
+        {
+            var sut = CreateSut();
+            sut.To = DateTime.Today.AddDays(1);
+            Assert.That(sut.To, Is.EqualTo(DateTime.Today.AddDays(1)));
+        }
+
+        [Test]
+        public void Can_get_and_Set_Article()
+        {
+            var article = new Article();
+            var sut = CreateSut();
+            sut.Article = article;
+            Assert.That(sut.Article, Is.SameAs(article));
         }
     }
 }

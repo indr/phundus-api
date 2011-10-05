@@ -17,5 +17,10 @@
     <many-to-one name="Approver" class="User" column="ApproverId" />
     <property name="RejectDate" />
     <many-to-one name="Rejecter" class="User" column="RejecterId" />
+
+    <set name="Items" cascade="all-delete-orphan" lazy="true" inverse="true" >
+      <key column="OrderId" />
+      <one-to-many class="OrderItem" />
+    </set>
   </class>
 </hibernate-mapping>
