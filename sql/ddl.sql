@@ -95,6 +95,19 @@ create table [Order] (
   ApproverId int null,
   RejectDate datetime null,
   RejecterId int null,
+  primary key(Id)
+)
+
+create table [OrderItem] (
+  Id int not null,
+  Version int not null,
+  
+  OrderId int not null,
+  Amount int not null,
+  [From] datetime not null,
+  [To] datetime not null,
+  [ArticleId] int not null,
+  primary key(Id)
 )
 
 alter table [Membership] 
@@ -116,4 +129,24 @@ alter table [DomainPropertyValue]
   add constraint FkDomainPropertyValueToDomainObject
   foreign key (DomainObjectId)
   references [DomainObject];  
+  
+alter table [Order]
+  add constraint FkOrderToReserver
+  foreign key (ReserverId)
+  references [User];
+
+alter table [Order]
+  add constraint FkOrderToApprover
+  foreign key (ApproverId)
+  references [User];
+
+alter table [Order]
+  add constraint FkOrderToRejecter
+  foreign key (RejecterId)
+  references [User];  
+  
+alter table [OrderItem]
+  add constraint FkOrderItemToOrder
+  foreign key (OrderId)
+  references [Order];
   

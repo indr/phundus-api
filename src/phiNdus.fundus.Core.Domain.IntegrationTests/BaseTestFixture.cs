@@ -1,4 +1,5 @@
-﻿using Castle.Windsor;
+﻿using System;
+using Castle.Windsor;
 using NHibernate.Linq;
 using NHibernate.Util;
 using NUnit.Framework;
@@ -25,8 +26,12 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
         }
 
 
+        protected User CreatePersistentUser()
+        {
+            return CreatePersistentUser("user@example.com");
+        }
 
-        protected User CreateOrGetUser(string email)
+        protected User CreatePersistentUser(string email)
         {
             var users = IoC.Resolve<IUserRepository>();
             var roles = IoC.Resolve<IRoleRepository>();
@@ -35,11 +40,32 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
             if (result == null)
             {
                 result = new User();
-                result.Membership.Email = "user@example.com";
+                result.Membership.Email = email;
                 result.Role = roles.FindFirst(new Order[0]);
                 users.Save(result);
             }
             return result;
+        }
+
+        protected Article CreatePersistentArticle()
+        {
+
+            using (var uow = UnitOfWork.Start())
+            {
+                var result = new Article();
+                UnitOfWork.CurrentSession.Save(result);
+                return result;
+            }
+        }
+
+        protected OrderItem CreateTransientOrderItem()
+        {
+            var random = new Random();
+            return new OrderItem
+            {
+                From = DateTime.Today.AddDays(random.Next(0, 3)),
+                To = DateTime.Today.AddDays(random.Next(4, 7))
+            };
         }
     }
 }

@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappings\ArticlePersistenceTests.cs" />
     <Compile Include="Mappings\DomainPropertyValuePersistenceTests.cs" />
     <Compile Include="Mappings\MappingTests.cs" />
     <Compile Include="Mappings\OrderPersistenceTests.cs" />
