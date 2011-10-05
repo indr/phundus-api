@@ -31,6 +31,15 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void Can_get_DisplayName()
+        {
+            var sut = new User();
+            sut.FirstName = "Hans";
+            sut.LastName = "Wahrig";
+            Assert.That(sut.DisplayName, Is.EqualTo("Hans Wahrig"));
+        }
+
+        [Test]
         public void Can_set_and_get_Role()
         {
             var role = new Role();
@@ -40,7 +49,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Constructor_assignes_Membership()
+        public void Create_assignes_Membership()
         {
             var sut = new User();
             Assert.That(sut.Membership, Is.Not.Null);
@@ -48,7 +57,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Constructor_assignes_User_role()
+        public void Create_assignes_User_role()
         {
             var sut = new User();
             Assert.That(sut.Role, Is.Not.Null);

@@ -13,6 +13,14 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void Can_create_with_Id_and_Version()
+        {
+            var sut = new Order(1, 2);
+            Assert.That(sut.Id, Is.EqualTo(1));
+            Assert.That(sut.Version, Is.EqualTo(2));
+        }
+
+        [Test]
         public void AddItem_returns_true_and_adds_item_to_Items()
         {
             var sut = CreateSut();

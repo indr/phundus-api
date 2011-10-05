@@ -9,7 +9,11 @@ namespace phiNdus.fundus.Core.Domain.Entities
         private DateTime _createDate;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
 
-        public Order()
+        public Order() : this(0, 0)
+        {
+        }
+
+        public Order(int id, int version) : base(id, version)
         {
             _createDate = DateTime.Now;
         }
