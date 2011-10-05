@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Bestellungen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+     @Html.ActionLink("Bestellungen", "List") &gt; &Uuml;bersicht
+}
+
+<h2>Bestellungen</h2>
+
+<p>
+    @Html.ActionLink("Hängig", "Pending") |
+    @Html.ActionLink("Bestätigt", "Approved") |
+    @Html.ActionLink("Abgelehnt", "Rejected")
+</p>
+
+@RenderBody()

@@ -118,6 +118,7 @@
     <Compile Include="Models\IMembershipService.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="ViewModels\ArticlesViewModel.cs" />
+    <Compile Include="ViewModels\OrdersTableViewModel.cs" />
     <Compile Include="ViewModels\PropertyDefinitionViewModel.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
@@ -314,13 +315,22 @@
     <Content Include="Views\Contract\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Order\List.cshtml" />
+    <Content Include="Views\Order\_Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="logs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\Pending.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\Approved.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\Rejected.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
