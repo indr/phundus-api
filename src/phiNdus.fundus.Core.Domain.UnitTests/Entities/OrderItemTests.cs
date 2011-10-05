@@ -54,7 +54,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_get_and_Set_Article()
+        public void Can_get_and_set_Article()
         {
             var article = new Article();
             var sut = CreateSut();
