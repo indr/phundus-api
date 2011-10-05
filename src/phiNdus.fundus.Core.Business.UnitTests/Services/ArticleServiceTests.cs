@@ -36,6 +36,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         protected IArticleRepository FakeArticleRepo { get; set; }
         protected IDomainPropertyDefinitionRepository FakePropertyDefRepo { get; set; }
 
+        protected Article Article { get; set; }
+
         private void GenerateAndRegisterMissingStubs()
         {
             if (IoC.TryResolve<IArticleRepository>() == null) {
@@ -119,8 +121,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             Assert.That(actual.Id, Is.EqualTo(1));
             Assert.That(actual.Version, Is.EqualTo(2));
         }
-
-        protected Article Article { get; set; }
 
         [Test]
         public void GetArticle_with_invalid_id_returns_null()

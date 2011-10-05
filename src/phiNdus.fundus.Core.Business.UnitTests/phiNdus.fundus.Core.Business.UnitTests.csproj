@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assembler\ArticleAssemblerTests.cs" />
+    <Compile Include="Assembler\OrderAssemblerTests.cs" />
     <Compile Include="Assembler\PropertyDefinitionAssemblerTests.cs" />
     <Compile Include="Assembler\RoleAssemblerTests.cs" />
     <Compile Include="Assembler\UserAssemblerTests.cs" />
@@ -78,6 +79,8 @@
     <Compile Include="Dto\ArticleDtoTests.cs" />
     <Compile Include="Dto\BasePropertiesDtoTests.cs" />
     <Compile Include="Dto\DtoPropertyTests.cs" />
+    <Compile Include="Dto\OrderDtoTests.cs" />
+    <Compile Include="Dto\OrderItemDtoTests.cs" />
     <Compile Include="Dto\PropertyDtoTests.cs" />
     <Compile Include="Dto\UserDtoTests.cs" />
     <Compile Include="EmailAlreadyTakenExceptionTests.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="Services\ArticleServiceTests.cs" />
     <Compile Include="Services\BaseServiceTests.cs" />
     <Compile Include="Mails\UserAccountValidationMailTest.cs" />
+    <Compile Include="Services\OrderServiceTests.cs" />
     <Compile Include="Services\PropertyServiceTests.cs" />
     <Compile Include="Services\UserService\CreateUserTests.cs" />
     <Compile Include="Services\UserServiceTests.cs" />

@@ -1,4 +1,6 @@
-﻿namespace phiNdus.fundus.Core.Domain.Entities
+﻿using System;
+
+namespace phiNdus.fundus.Core.Domain.Entities
 {
     public class User : BaseEntity
     {
@@ -47,5 +49,7 @@
             get { return _role; }
             set { _role = value; }
         }
+
+        public string DisplayName { get { return String.Format("{0} {1}", FirstName, LastName); } }
     }
 }
