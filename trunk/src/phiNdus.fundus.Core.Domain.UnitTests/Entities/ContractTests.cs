@@ -105,5 +105,30 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             var item = new ContractItem();
             Assert.That(sut.RemoveItem(item), Is.False);
         }
+
+        [Test]
+        public void Can_get_and_set_From()
+        {
+            var sut = CreateSut();
+            sut.From = DateTime.Today;
+            Assert.That(sut.From, Is.EqualTo(DateTime.Today));
+        }
+
+        [Test]
+        public void Can_get_and_set_To()
+        {
+            var sut = CreateSut();
+            sut.To = DateTime.Today;
+            Assert.That(sut.To, Is.EqualTo(DateTime.Today));
+        }
+
+        [Test]
+        public void Can_get_and_set_Order()
+        {
+            var sut = CreateSut();
+            var order = new Order();
+            sut.Order = order;
+            Assert.That(sut.Order, Is.SameAs(order));
+        }
     }
 }

@@ -110,6 +110,33 @@ create table [OrderItem] (
   primary key(Id)
 )
 
+create table [Contract] (
+  Id int not null,
+  Version int not null,
+  
+  CreateDate datetime not null,
+  OrderId int null,
+  BorrowerId int not null,
+  [From] datetime not null,
+  [To] datetime not null,
+  primary key(Id)
+)
+
+create table [ContractItem] (
+  Id int not null,
+  Version int not null,
+  
+  ContractId int not null,
+  OrderItemId int null,
+  ArticleId int not null,
+  
+  ReturnDate datetime null,
+  InventoryCode nvarchar(255) null,
+  Name nvarchar(255) null,
+  Amount int not null,
+  primary key(Id)
+)
+
 alter table [Membership] 
   add constraint FkMembershipToUser 
   foreign key (Id) 
@@ -149,4 +176,24 @@ alter table [OrderItem]
   add constraint FkOrderItemToOrder
   foreign key (OrderId)
   references [Order];
+  
+alter table [Contract]
+  add constraint FkContractToOrder
+  foreign key (OrderId)
+  references [Order];
+  
+alter table [Contract]
+  add constraint FkContractToBorrower
+  foreign key (BorrowerId)
+  references [User];
+  
+alter table [ContractItem]
+  add constraint FkContractItemToContract
+  foreign key (ContractId)
+  references [Contract];
+  
+alter table [ContractItem]
+  add constraint FkContractItemToOrderItem
+  foreign key (OrderItemId)
+  references [OrderItem];
   

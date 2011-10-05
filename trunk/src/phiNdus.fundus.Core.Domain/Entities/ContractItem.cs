@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
@@ -13,17 +10,15 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public ContractItem(int id, int version) : base(id, version)
         {
-            
         }
 
-        public DateTime? ReturnDate { get; set; }
+        public virtual DateTime? ReturnDate { get; set; }
 
-        public Contract Contract { get; set; }
-
-        public int Amount { get; set; }
-        public Article Article { get; set; }
-        public string InventoryCode { get; set; }
-        public string Name { get; set; }
-        
+        public virtual Contract Contract { get; set; }
+        public OrderItem OrderItem { get; set; }
+        public virtual int Amount { get; set; }
+        public virtual Article Article { get; set; }
+        public virtual string InventoryCode { get; set; }
+        public virtual string Name { get; set; }
     }
 }
