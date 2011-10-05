@@ -90,5 +90,25 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             var ex = Assert.Throws<ArgumentNullException>(() => OrderAssembler.CreateDto(null));
             Assert.That(ex.ParamName, Is.EqualTo("subject"));
         }
+
+        [Test]
+        public void CreateDtos_returns_dtos()
+        {
+            var orders = new List<Order>();
+            orders.Add(CreateOrder());
+            orders.Add(CreateOrder());
+
+            var dtos = OrderAssembler.CreateDtos(orders);
+
+            Assert.That(dtos, Is.Not.Null);
+            Assert.That(dtos, Has.Count.EqualTo(2));
+        }
+
+        [Test]
+        public void CreateDtos_with_subjects_null_throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => OrderAssembler.CreateDtos(null));
+            Assert.That(ex.ParamName, Is.EqualTo("subjects"));
+        }
     }
 }

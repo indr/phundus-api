@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,16 @@ namespace phiNdus.fundus.Core.Business.Assembler
                 result.RejecterName = subject.Rejecter.DisplayName;
             }
 
+            return result;
+        }
+
+        public static IList<OrderDto> CreateDtos(ICollection<Order> subjects)
+        {
+            Guard.Against<ArgumentNullException>(subjects == null, "subjects");
+
+            var result = new List<OrderDto>();
+            foreach (var each in subjects)
+                result.Add(CreateDto(each));
             return result;
         }
     }

@@ -21,7 +21,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             Sut = new OrderService();
 
-            OrderDomainObject = new Order(1, 2);
+            OrderDomainObject1 = new Order(1, 2);
+            OrderDomainObject2 = new Order(2, 3);
         }
 
         #endregion
@@ -31,14 +32,30 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         protected IUnitOfWork FakeUnitOfWork { get; set; }
         protected IOrderRepository FakeOrderRepo { get; set; }
 
-        protected Order OrderDomainObject { get; set; }
+        protected Order OrderDomainObject1 { get; set; }
+        protected Order OrderDomainObject2 { get; set; }
 
         private void GenerateAndRegisterMissingStubs()
         {
             if (IoC.TryResolve<IOrderRepository>() == null)
             {
                 FakeOrderRepo = GenerateAndRegisterStub<IOrderRepository>();
-                FakeOrderRepo.Expect(x => x.Get(1)).Return(OrderDomainObject);
+                FakeOrderRepo.Expect(x => x.Get(1)).Return(OrderDomainObject1);
+                FakeOrderRepo.Expect(x => x.FindPending()).Return(new System.Collections.Generic.List<Order>
+                                                                     {
+                                                                         OrderDomainObject1,
+                                                                         OrderDomainObject2
+                                                                     });
+                FakeOrderRepo.Expect(x => x.FindApproved()).Return(new System.Collections.Generic.List<Order>
+                                                                     {
+                                                                         OrderDomainObject1,
+                                                                         OrderDomainObject2
+                                                                     });
+                FakeOrderRepo.Expect(x => x.FindRejected()).Return(new System.Collections.Generic.List<Order>
+                                                                     {
+                                                                         OrderDomainObject1,
+                                                                         OrderDomainObject2
+                                                                     });
             }
         }
 
@@ -50,18 +67,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
         
         [Test]
-        public void GetOrder_disposes_UnitOfWork()
-        {
-            FakeUnitOfWork = GenerateAndRegisterMockUnitOfWork();
-            GenerateAndRegisterMissingStubs();
-            FakeUnitOfWork.Expect(x => x.Dispose());
-
-            Sut.GetOrder(1);
-
-            FakeUnitOfWork.VerifyAllExpectations();
-        }
-
-        [Test]
         public void GetOrder_calls_repository_Get()
         {
             FakeOrderRepo = GenerateAndRegisterMock<IOrderRepository>();
@@ -71,6 +76,18 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             Sut.GetOrder(1);
 
             FakeOrderRepo.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void GetOrder_disposes_UnitOfWork()
+        {
+            FakeUnitOfWork = GenerateAndRegisterMockUnitOfWork();
+            GenerateAndRegisterMissingStubs();
+            FakeUnitOfWork.Expect(x => x.Dispose());
+
+            Sut.GetOrder(1);
+
+            FakeUnitOfWork.VerifyAllExpectations();
         }
 
         [Test]
@@ -93,6 +110,109 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             Assert.That(Sut.GetOrder(404), Is.Null);
         }
 
-        
+        [Test]
+        public void GetPending_calls_repository_FindPendings()
+        {
+            FakeOrderRepo = GenerateAndRegisterMock<IOrderRepository>();
+            GenerateAndRegisterMissingStubs();
+
+            FakeOrderRepo.Expect(x => x.FindPending()).Return(new System.Collections.Generic.List<Order>());
+            Sut.GetPending();
+
+            FakeOrderRepo.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void GetPending_disposes_UnitOfWork()
+        {
+            FakeUnitOfWork = GenerateAndRegisterMockUnitOfWork();
+            GenerateAndRegisterMissingStubs();
+            FakeUnitOfWork.Expect(x => x.Dispose());
+
+            Sut.GetPending();
+
+            FakeUnitOfWork.VerifyAllExpectations();            
+        }
+
+        [Test]
+        public void GetPending_returns_dtos()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            var actual = Sut.GetPending();
+
+            Assert.That(actual, Is.Not.Null);
+            Assert.That(actual, Has.Count.EqualTo(2));
+        }
+
+        [Test]
+        public void GetApproved_calls_repository_FindApproved()
+        {
+            FakeOrderRepo = GenerateAndRegisterMock<IOrderRepository>();
+            GenerateAndRegisterMissingStubs();
+
+            FakeOrderRepo.Expect(x => x.FindApproved()).Return(new System.Collections.Generic.List<Order>());
+            Sut.GetApproved();
+
+            FakeOrderRepo.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void GetApproved_disposes_UnitOfWork()
+        {
+            FakeUnitOfWork = GenerateAndRegisterMockUnitOfWork();
+            GenerateAndRegisterMissingStubs();
+            FakeUnitOfWork.Expect(x => x.Dispose());
+
+            Sut.GetApproved();
+
+            FakeUnitOfWork.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void GetApproved_returns_dtos()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            var actual = Sut.GetApproved();
+
+            Assert.That(actual, Is.Not.Null);
+            Assert.That(actual, Has.Count.EqualTo(2));
+        }
+
+        [Test]
+        public void GetRejected_calls_repository_FindRejected()
+        {
+            FakeOrderRepo = GenerateAndRegisterMock<IOrderRepository>();
+            GenerateAndRegisterMissingStubs();
+
+            FakeOrderRepo.Expect(x => x.FindRejected()).Return(new System.Collections.Generic.List<Order>());
+            Sut.GetRejected();
+
+            FakeOrderRepo.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void GetRejected_disposes_UnitOfWork()
+        {
+            FakeUnitOfWork = GenerateAndRegisterMockUnitOfWork();
+            GenerateAndRegisterMissingStubs();
+            FakeUnitOfWork.Expect(x => x.Dispose());
+
+            Sut.GetRejected();
+
+            FakeUnitOfWork.VerifyAllExpectations();            
+        }
+
+        [Test]
+        public void GetRejected_returns_dtos()
+        {
+            GenerateAndRegisterMissingStubs();
+
+            var actual = Sut.GetRejected();
+
+            Assert.That(actual, Is.Not.Null);
+            Assert.That(actual, Has.Count.EqualTo(2));
+        }
     }
 }
