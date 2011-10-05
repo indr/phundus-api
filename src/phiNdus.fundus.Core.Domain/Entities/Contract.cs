@@ -5,6 +5,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
 {
     public class Contract : BaseEntity
     {
+        private DateTime _createDate;
         private ISet<ContractItem> _items;
 
         public Contract()
@@ -18,33 +19,34 @@ namespace phiNdus.fundus.Core.Domain.Entities
             _items = new HashedSet<ContractItem>();
         }
 
-        private DateTime _createDate;
-        public DateTime CreateDate
+        public virtual DateTime CreateDate
         {
             get { return _createDate; }
             set { _createDate = value; }
         }
 
-        public User Borrower { get; set; }
+        public virtual User Borrower { get; set; }
 
-        public ISet<ContractItem> Items
+        public virtual ISet<ContractItem> Items
         {
-            get {
-                return _items;
-            }
-            set {
-                _items = value;
-            }
+            get { return _items; }
+            set { _items = value; }
         }
 
-        public bool AddItem(ContractItem item)
+        public virtual DateTime From { get; set; }
+
+        public virtual DateTime To { get; set; }
+
+        public virtual Order Order { get; set; }
+
+        public virtual bool AddItem(ContractItem item)
         {
             var result = Items.Add(item);
             item.Contract = this;
             return result;
         }
 
-        public bool RemoveItem(ContractItem item)
+        public virtual bool RemoveItem(ContractItem item)
         {
             var result = Items.Remove(item);
             item.Contract = null;

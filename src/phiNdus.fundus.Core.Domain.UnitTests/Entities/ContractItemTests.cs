@@ -82,5 +82,14 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             sut.Name = "ThinkPad";
             Assert.That(sut.Name, Is.EqualTo("ThinkPad"));
         }
+
+        [Test]
+        public void Can_get_and_set_OrderItem()
+        {
+            var sut = new ContractItem();
+            var orderItem = new OrderItem();
+            sut.OrderItem = orderItem;
+            Assert.That(sut.OrderItem, Is.SameAs(orderItem));
+        }
     }
 }
