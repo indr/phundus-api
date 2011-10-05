@@ -50,6 +50,6 @@ namespace phiNdus.fundus.Core.Domain.Entities
             set { _role = value; }
         }
 
-        public string DisplayName { get { return String.Format("{0} {1}", FirstName, LastName); } }
+        public virtual string DisplayName { get { return String.Format("{0} {1}", FirstName, LastName); } }
     }
 }

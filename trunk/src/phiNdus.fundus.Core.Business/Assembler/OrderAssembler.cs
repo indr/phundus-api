@@ -19,11 +19,15 @@ namespace phiNdus.fundus.Core.Business.Assembler
                            Id = subject.Id,
                            Version = subject.Version,
                            CreateDate = subject.CreateDate,
-                           ReserverId = subject.Reserver.Id,
-                           ReserverName = subject.Reserver.DisplayName,
                            ApproveDate = subject.ApproveDate,
                            RejectDate = subject.RejectDate
                        };
+            if (subject.Reserver != null)
+            {
+                result.ReserverId = subject.Reserver.Id;
+                result.ReserverName = subject.Reserver.DisplayName;
+            }
+
             if (subject.Approver != null)
             {
                 result.ApproverId = subject.Approver.Id;
