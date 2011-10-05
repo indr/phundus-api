@@ -29,6 +29,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 
         #endregion
 
+        private IArticleService Sut { get; set; }
+
         private ArticleService FakeArticleService { get; set; }
         private IUserRepository FakeUserRepo { get; set; }
 
@@ -57,8 +59,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
                 SessionUser.Role = Role.User;
             }
         }
-
-        private IArticleService Sut { get; set; }
 
         [Test]
         public void Can_create()

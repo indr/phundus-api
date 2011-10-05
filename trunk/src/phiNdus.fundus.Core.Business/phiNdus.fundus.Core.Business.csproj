@@ -79,9 +79,11 @@
     <Compile Include="Dto\PropertyDataType.cs" />
     <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="SecuredServices\IArticleService.cs" />
+    <Compile Include="SecuredServices\IOrderService.cs" />
     <Compile Include="SecuredServices\IPropertyService.cs" />
     <Compile Include="SecuredServices\IRoleService.cs" />
     <Compile Include="SecuredServices\SecuredArticleService.cs" />
+    <Compile Include="SecuredServices\SecuredOrderService.cs" />
     <Compile Include="SecuredServices\SecuredPropertyService.cs" />
     <Compile Include="SecuredServices\SecuredRoleService.cs" />
     <Compile Include="Security\Constraints\AbstractConstraint.cs" />
