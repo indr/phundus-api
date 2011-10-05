@@ -83,5 +83,105 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
             }
 
         }
+
+        private Order CreatePersistentPendingOrder()
+        {
+            var result = new Order();
+            result.Reserver = CreatePersistentUser();
+            UnitOfWork.CurrentSession.Save(result);
+            return result;
+        }
+
+        private Order CreatePersistentApprovedOrder()
+        {
+            var result = CreatePersistentPendingOrder();
+            result.Approve(CreatePersistentUser());
+            UnitOfWork.CurrentSession.Save(result);
+            return result;
+        }
+
+        private Order CreatePersistentRejectedOrder()
+        {
+            var result = CreatePersistentPendingOrder();
+            result.Reject(CreatePersistentUser());
+            UnitOfWork.CurrentSession.Save(result);
+            return result;
+            
+        }
+
+        [Test]
+        public void FindPending()
+        {
+            Order pending;
+            Order approved;
+            Order rejected;
+            using (var uow = UnitOfWork.Start())
+            {
+                pending = CreatePersistentPendingOrder();
+                approved = CreatePersistentApprovedOrder();
+                rejected = CreatePersistentRejectedOrder();    
+                uow.TransactionalFlush();
+            }
+
+            using (UnitOfWork.Start())
+            {
+                var orders = Sut.FindPending();
+
+                Assert.That(orders, Is.Not.Null);
+                Assert.That(orders, Has.Some.Property("Id").EqualTo(pending.Id));
+                Assert.That(orders, Has.No.Some.Property("Id").EqualTo(approved.Id));
+                Assert.That(orders, Has.No.Some.Property("Id").EqualTo(rejected.Id));
+            }
+        }
+
+        [Test]
+        public void FindApproved()
+        {
+            Order pending;
+            Order approved;
+            Order rejected;
+            using (var uow = UnitOfWork.Start())
+            {
+                pending = CreatePersistentPendingOrder();
+                approved = CreatePersistentApprovedOrder();
+                rejected = CreatePersistentRejectedOrder();
+                uow.TransactionalFlush();
+            }
+
+            using (UnitOfWork.Start())
+            {
+                var orders = Sut.FindApproved();
+
+                Assert.That(orders, Is.Not.Null);
+                Assert.That(orders, Has.No.Some.Property("Id").EqualTo(pending.Id));
+                Assert.That(orders, Has.Some.Property("Id").EqualTo(approved.Id));
+                Assert.That(orders, Has.No.Some.Property("Id").EqualTo(rejected.Id));
+            }
+        }
+
+        [Test]
+        public void FindRejected()
+        {
+            Order pending;
+            Order approved;
+            Order rejected;
+            using (var uow = UnitOfWork.Start())
+            {
+                pending = CreatePersistentPendingOrder();
+                approved = CreatePersistentApprovedOrder();
+                rejected = CreatePersistentRejectedOrder();
+                uow.TransactionalFlush();
+            }
+
+            using (UnitOfWork.Start())
+            {
+                var orders = Sut.FindRejected();
+
+                Assert.That(orders, Is.Not.Null);
+                Assert.That(orders, Has.No.Some.Property("Id").EqualTo(pending.Id));
+                Assert.That(orders, Has.No.Some.Property("Id").EqualTo(approved.Id));
+                Assert.That(orders, Has.Some.Property("Id").EqualTo(rejected.Id));
+            }
+        }
     }
 }

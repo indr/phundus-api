@@ -7,7 +7,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Services
 {
-    public class OrderService
+    public class OrderService : BaseService
     {
         public virtual OrderDto GetOrder(int id)
         {
@@ -20,7 +20,7 @@ namespace phiNdus.fundus.Core.Business.Services
             }
         }
 
-        public IList<OrderDto> GetPending()
+        public virtual IList<OrderDto> GetPending()
         {
             using (UnitOfWork.Start())
             {
@@ -29,7 +29,7 @@ namespace phiNdus.fundus.Core.Business.Services
             }
         }
 
-        public IList<OrderDto> GetApproved()
+        public virtual IList<OrderDto> GetApproved()
         {
             using (UnitOfWork.Start())
             {
@@ -39,7 +39,7 @@ namespace phiNdus.fundus.Core.Business.Services
             
         }
 
-        public IList<OrderDto> GetRejected()
+        public virtual IList<OrderDto> GetRejected()
         {
             using (UnitOfWork.Start())
             {

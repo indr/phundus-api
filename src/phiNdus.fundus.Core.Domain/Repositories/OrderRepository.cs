@@ -16,19 +16,25 @@ namespace phiNdus.fundus.Core.Domain.Repositories
 
         public ICollection<Order> FindPending()
         {
-            var query = from o in Orders select o;
+            var query = from o in Orders
+                        where o.Status == OrderStatus.Pending
+                        select o;
             return query.ToList();
         }
 
         public ICollection<Order> FindApproved()
         {
-            var query = from o in Orders select o;
+            var query = from o in Orders
+                        where o.Status == OrderStatus.Approved
+                        select o;
             return query.ToList();
         }
 
         public ICollection<Order> FindRejected()
         {
-            var query = from o in Orders select o;
+            var query = from o in Orders
+                        where o.Status == OrderStatus.Rejected
+                        select o;
             return query.ToList();
         }
     }
