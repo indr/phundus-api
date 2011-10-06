@@ -58,7 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\ArticleTests.cs" />
+    <Compile Include="Entities\ArticleTests\ArticleGrossStockTests.cs" />
+    <Compile Include="Entities\ArticleTests\TrivialArticleTests.cs" />
     <Compile Include="Entities\BaseEntityTests.cs" />
     <Compile Include="Entities\BasePropertyEntityTests.cs" />
     <Compile Include="Entities\ContractItemTests.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Entities\RoleTests.cs" />
     <Compile Include="Entities\SettingTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
+    <Compile Include="IllegalAttachedFieldExceptionTests.cs" />
     <Compile Include="KeyGeneratorTests.cs" />
     <Compile Include="PasswordEncryptorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

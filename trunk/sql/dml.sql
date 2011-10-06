@@ -45,3 +45,7 @@ insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemP
   values (8, 1, 'Farbe', 1, 0);
 insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemProperty)
   values (9, 1, 'Grösse', 1, 0);  
+insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemProperty)
+  values (10, 1, 'Bestand (Brutto)', 2, 1);  
+  insert into [DomainPropertyDefinition] (Id, Version, Name, [DataType], IsSystemProperty)
+  values (11, 1, 'Bestand (Netto)', 2, 1);  
