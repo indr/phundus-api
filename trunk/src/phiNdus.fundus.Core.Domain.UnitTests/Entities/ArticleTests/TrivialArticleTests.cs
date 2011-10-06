@@ -157,24 +157,6 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         }
 
         [Test]
-        public void Can_get_GrossStock()
-        {
-            Assert.That(Sut.GrossStock, Is.EqualTo(0));
-            StubPropertyValues.Add(new DomainPropertyValue(_grossStockPropertyDef, 2));
-            Assert.That(Sut.GrossStock, Is.EqualTo(2));
-        }
-
-        [Test]
-        public void Can_set_GrossStock()
-        {
-            StubPropertyDefinitionRepository.Stub(x => x.Get(_grossStockPropertyDef.Id)).Return(_grossStockPropertyDef);
-
-            Assert.That(Sut.GrossStock, Is.EqualTo(0));
-            Sut.GrossStock = 10;
-            Assert.That(Sut.GrossStock, Is.EqualTo(10));
-        }
-
-        [Test]
         public void Can_get_HasChildren()
         {
             Assert.That(Sut.HasChildren, Is.False);

@@ -110,6 +110,8 @@ namespace phiNdus.fundus.Core.Domain.Entities
             }
             set
             {
+                if (HasChildren)
+                    throw new InvalidOperationException("Der Bruttobestand kann nicht gesetzt werden, da mindestens eine Ausprägung vorhanden ist.");
                 if (!HasProperty(DomainPropertyDefinition.GrossStockId))
                     AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.GrossStockId));
                 SetPropertyValue(DomainPropertyDefinition.GrossStockId, value);
