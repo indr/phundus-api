@@ -85,5 +85,21 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
             var actual = Sut.GrossStock;
             Assert.That(actual, Is.EqualTo(30));
         }
+
+
+        [Test]
+        public void Set_with_children_throws()
+        {
+            AddChild();
+            Assert.Throws<InvalidOperationException>(() => Sut.GrossStock = 1);
+        }
+
+        [Test]
+        public void Set_without_children()
+        {
+            AddGrossStockProperty(1);
+            Sut.GrossStock = 10;
+            Assert.That(Sut.GrossStock, Is.EqualTo(10));
+        }
     }
 }
