@@ -62,6 +62,19 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return RedirectToAction(Actions.List);
         }
 
+        [AcceptVerbs(HttpVerbs.Post)]
+        public bool AddItem(CartItem cartItem) {
+            var state = this.StateManager.Load<CartModel>();
+
+            state.Items.Add(cartItem);
+
+            this.StateManager.Save(state);
+
+            // anz. items in cart
+            //return state.Items.Count;
+            return true;
+        }
+
         //[HttpPost]
         //public ActionResult Remove(CartItem cartItem) {
         //    //this.StateManager.Remove<CartModel>();
