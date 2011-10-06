@@ -89,6 +89,14 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void Can_get_HasChildren()
+        {
+            Assert.That(Sut.HasChildren, Is.False);
+            Sut.AddChild(new DomainObject());
+            Assert.That(Sut.HasChildren, Is.True);
+        }
+
+        [Test]
         public void GetCaption()
         {
             Assert.That(Sut.Caption, Is.EqualTo(""));
