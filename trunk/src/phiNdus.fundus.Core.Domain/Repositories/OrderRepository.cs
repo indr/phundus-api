@@ -14,6 +14,13 @@ namespace phiNdus.fundus.Core.Domain.Repositories
             get { return Session.Query<Order>(); }
         }
 
+        public ICollection<Order> FindAll()
+        {
+            var query = from o in Orders
+                        select o;
+            return query.ToList();
+        }
+
         public ICollection<Order> FindPending()
         {
             var query = from o in Orders

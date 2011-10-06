@@ -22,12 +22,8 @@ namespace phiNdus.fundus.Core.Business.Dto
         public int ReserverId { get; set; }
         public string ReserverName { get; set; }
 
-        public DateTime? ApproveDate { get; set; }
-        public int? ApproverId { get; set; }
-        public string ApproverName { get; set; }
-
-        public DateTime? RejectDate { get; set; }
-        public int? RejecterId { get; set; }
-        public string RejecterName { get; set; }
+        public DateTime? ModifyDate { get; set; }
+        public int? ModifierId { get; set; }
+        public string ModifierName { get; set; }
     }
 }

@@ -34,13 +34,9 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public virtual OrderStatus Status { get; protected set; }
 
-        public virtual User Approver { get; protected set; }
+        public virtual User Modifier { get; protected set; }
 
-        public virtual DateTime? ApproveDate { get; protected set; }
-
-        public virtual User Rejecter { get; protected set; }
-
-        public virtual DateTime? RejectDate { get; protected set; }
+        public virtual DateTime? ModifyDate { get; protected set; }
 
         public virtual bool AddItem(OrderItem item)
         {
@@ -66,8 +62,8 @@ namespace phiNdus.fundus.Core.Domain.Entities
                                                      "Die Bestellung wurde bereits abgelehnt.");
 
             Status = OrderStatus.Approved;
-            Approver = approver;
-            ApproveDate = DateTime.Now;
+            Modifier = approver;
+            ModifyDate = DateTime.Now;
         }
 
         public virtual void Reject(User rejecter)
@@ -80,8 +76,8 @@ namespace phiNdus.fundus.Core.Domain.Entities
                                                      "Die Bestellung wurde bereits abgelehnt.");
 
             Status = OrderStatus.Rejected;
-            Rejecter = rejecter;
-            RejectDate = DateTime.Now;
+            Modifier = rejecter;
+            ModifyDate = DateTime.Now;
         }
     }
 }

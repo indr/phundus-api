@@ -16,7 +16,16 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Order/
         public ActionResult Index()
         {
-            return RedirectToAction("Pending");
+            return RedirectToAction("All");
+        }
+
+        // GET: /Order/All
+        public ActionResult All()
+        {
+            return View("All", "_Orders", new OrdersTableViewModel
+                                              {
+                                                  Orders = OrderService.GetOrders(Session.SessionID)
+                                              });
         }
 
         //

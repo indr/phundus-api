@@ -39,5 +39,12 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
                 .And(User.InRole(Role.Administrator))
                 .Do<OrderService, IList<OrderDto>>(svc => svc.GetRejected());
         }
+
+        public IList<OrderDto> GetOrders(string sessionKey)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .And(User.InRole(Role.Administrator))
+                .Do<OrderService, IList<OrderDto>>(svc => svc.GetOrders());
+        }
     }
 }

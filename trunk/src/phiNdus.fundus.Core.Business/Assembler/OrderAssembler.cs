@@ -20,8 +20,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
                            Id = subject.Id,
                            Version = subject.Version,
                            CreateDate = subject.CreateDate,
-                           ApproveDate = subject.ApproveDate,
-                           RejectDate = subject.RejectDate
+                           ModifyDate = subject.ModifyDate
+                           
                        };
             if (subject.Reserver != null)
             {
@@ -29,16 +29,10 @@ namespace phiNdus.fundus.Core.Business.Assembler
                 result.ReserverName = subject.Reserver.DisplayName;
             }
 
-            if (subject.Approver != null)
+            if (subject.Modifier != null)
             {
-                result.ApproverId = subject.Approver.Id;
-                result.ApproverName = subject.Approver.DisplayName;
-            }
-
-            if (subject.Rejecter != null)
-            {
-                result.RejecterId = subject.Rejecter.Id;
-                result.RejecterName = subject.Rejecter.DisplayName;
+                result.ModifierId = subject.Modifier.Id;
+                result.ModifierName = subject.Modifier.DisplayName;
             }
 
             return result;

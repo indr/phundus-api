@@ -91,10 +91,8 @@ create table [Order] (
   CreateDate datetime not null,
   Status tinyint not null,
   ReserverId int not null,
-  ApproveDate datetime null,
-  ApproverId int null,
-  RejectDate datetime null,
-  RejecterId int null,
+  ModifyDate datetime null,
+  ModifierId int null,
   primary key(Id)
 )
 
@@ -163,14 +161,9 @@ alter table [Order]
   references [User];
 
 alter table [Order]
-  add constraint FkOrderToApprover
-  foreign key (ApproverId)
+  add constraint FkOrderToModifier
+  foreign key (ModifierId)
   references [User];
-
-alter table [Order]
-  add constraint FkOrderToRejecter
-  foreign key (RejecterId)
-  references [User];  
   
 alter table [OrderItem]
   add constraint FkOrderItemToOrder
