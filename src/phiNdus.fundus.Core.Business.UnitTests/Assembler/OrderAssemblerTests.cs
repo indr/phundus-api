@@ -54,12 +54,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(dto.CreateDate, Is.InRange(DateTime.Now.AddHours(-1), DateTime.Now.AddHours(1)));
             Assert.That(dto.ReserverId, Is.EqualTo(Reserver.Id));
             Assert.That(dto.ReserverName, Is.EqualTo(Reserver.DisplayName));
-            Assert.That(dto.ApproveDate, Is.Null);
-            Assert.That(dto.ApproverId, Is.Null);
-            Assert.That(dto.ApproverName, Is.Null);
-            Assert.That(dto.RejectDate, Is.Null);
-            Assert.That(dto.RejecterId, Is.Null);
-            Assert.That(dto.RejecterName, Is.Null);
+            Assert.That(dto.ModifyDate, Is.Null);
+            Assert.That(dto.ModifierId, Is.Null);
+            Assert.That(dto.ModifierName, Is.Null);
         }
 
         [Test]
@@ -68,9 +65,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             var domain = CreateOrder();
             domain.Approve(Approver);
             var dto = OrderAssembler.CreateDto(domain);
-            Assert.That(dto.ApproveDate, Is.EqualTo(domain.ApproveDate));
-            Assert.That(dto.ApproverId, Is.EqualTo(domain.Approver.Id));
-            Assert.That(dto.ApproverName, Is.EqualTo(domain.Approver.DisplayName));
+            Assert.That(dto.ModifyDate, Is.EqualTo(domain.ModifyDate));
+            Assert.That(dto.ModifierId, Is.EqualTo(domain.Modifier.Id));
+            Assert.That(dto.ModifierName, Is.EqualTo(domain.Modifier.DisplayName));
         }
 
         [Test]
@@ -79,9 +76,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             var domain = CreateOrder();
             domain.Reject(Rejecter);
             var dto = OrderAssembler.CreateDto(domain);
-            Assert.That(dto.RejectDate, Is.EqualTo(domain.RejectDate));
-            Assert.That(dto.RejecterId, Is.EqualTo(domain.Rejecter.Id));
-            Assert.That(dto.RejecterName, Is.EqualTo(domain.Rejecter.DisplayName));
+            Assert.That(dto.ModifyDate, Is.EqualTo(domain.ModifyDate));
+            Assert.That(dto.ModifierId, Is.EqualTo(domain.Modifier.Id));
+            Assert.That(dto.ModifierName, Is.EqualTo(domain.Modifier.DisplayName));
         }
 
         [Test]

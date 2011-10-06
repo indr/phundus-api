@@ -13,10 +13,8 @@
 
     <many-to-one name="Reserver" class="User" column="ReserverId" />
     
-    <property name="ApproveDate" />
-    <many-to-one name="Approver" class="User" column="ApproverId" />
-    <property name="RejectDate" />
-    <many-to-one name="Rejecter" class="User" column="RejecterId" />
+    <property name="ModifyDate" />
+    <many-to-one name="Modifier" class="User" column="ModifierId" />
 
     <set name="Items" cascade="all-delete-orphan" lazy="true" inverse="true" >
       <key column="OrderId" />

@@ -47,5 +47,14 @@ namespace phiNdus.fundus.Core.Business.Services
                 return OrderAssembler.CreateDtos(orders);
             }
         }
+
+        public virtual IList<OrderDto> GetOrders()
+        {
+            using (UnitOfWork.Start())
+            {
+                var orders = IoC.Resolve<IOrderRepository>().FindAll();
+                return OrderAssembler.CreateDtos(orders);
+            }
+        }
     }
 }

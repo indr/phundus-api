@@ -79,24 +79,17 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Create_sets_Approver_to_null()
+        public void Create_sets_Modifier_to_null()
         {
             var sut = new Order();
-            Assert.That(sut.Approver, Is.Null);
+            Assert.That(sut.Modifier, Is.Null);
         }
 
         [Test]
-        public void Create_sets_ApproveDate_to_null()
+        public void Create_sets_ModifyDate_to_null()
         {
             var sut = new Order();
-            Assert.That(sut.ApproveDate, Is.Null);
-        }
-
-        [Test]
-        public void Create_sets_RejectDate_to_null()
-        {
-            var sut = new Order();
-            Assert.That(sut.RejectDate, Is.Null);
+            Assert.That(sut.ModifyDate, Is.Null);
         }
 
         [Test]
@@ -144,20 +137,20 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Approve_sets_Approver_to_supplied_user()
+        public void Approve_sets_Mofidier_to_supplied_user()
         {
             var sut = CreateSut();
             var approver = new User();
             sut.Approve(approver);
-            Assert.That(sut.Approver, Is.SameAs(approver));
+            Assert.That(sut.Modifier, Is.SameAs(approver));
         }
 
         [Test]
-        public void Approve_sets_ApproveDate()
+        public void Approve_sets_ModifyDate()
         {
             var sut = CreateSut();
             sut.Approve(new User());
-            Assert.That(sut.ApproveDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
+            Assert.That(sut.ModifyDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
         }
 
         [Test]
@@ -195,20 +188,20 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Reject_sets_Rejecter_to_supplied_user()
+        public void Reject_sets_Modifier_to_supplied_user()
         {
             var sut = CreateSut();
             var rejecter = new User();
             sut.Reject(rejecter);
-            Assert.That(sut.Rejecter, Is.SameAs(rejecter));
+            Assert.That(sut.Modifier, Is.SameAs(rejecter));
         }
 
         [Test]
-        public void Approve_sets_RejectDate()
+        public void Reject_sets_ModifyDate()
         {
             var sut = CreateSut();
             sut.Reject(new User());
-            Assert.That(sut.RejectDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
+            Assert.That(sut.ModifyDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
         }
 
         [Test]

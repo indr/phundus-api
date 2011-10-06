@@ -27,45 +27,24 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         }
 
         [Test]
-        public void Create_sets_ApproveDate_to_null()
+        public void Create_sets_ModifyDate_to_null()
         {
             var sut = new OrderDto();
-            Assert.That(sut.ApproveDate, Is.Null);
+            Assert.That(sut.ModifyDate, Is.Null);
         }
 
         [Test]
-        public void Create_sets_ApproverId_to_null()
+        public void Create_sets_ModifierId_to_null()
         {
             var sut = new OrderDto();
-            Assert.That(sut.ApproverId, Is.Null);
+            Assert.That(sut.ModifierId, Is.Null);
         }
 
         [Test]
-        public void Create_sets_ApproverName_to_null()
+        public void Create_sets_ModifierName_to_null()
         {
             var sut = new OrderDto();
-            Assert.That(sut.ApproverName, Is.Null);
-        }
-
-        [Test]
-        public void Create_sets_RejectDate_to_null()
-        {
-            var sut = new OrderDto();
-            Assert.That(sut.RejectDate, Is.Null);
-        }
-
-        [Test]
-        public void Create_sets_RejecterId_to_null()
-        {
-            var sut = new OrderDto();
-            Assert.That(sut.RejecterId, Is.Null);
-        }
-
-        [Test]
-        public void Create_sets_RejecterName_to_null()
-        {
-            var sut = new OrderDto();
-            Assert.That(sut.RejecterName, Is.Null);
+            Assert.That(sut.ModifierName, Is.Null);
         }
 
         [Test]
@@ -104,45 +83,24 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         }
 
         [Test]
-        public void Can_get_and_set_ApproveDate()
+        public void Can_get_and_set_ModifyDate()
         {
-            Sut.ApproveDate = DateTime.Today;
-            Assert.That(Sut.ApproveDate, Is.EqualTo(DateTime.Today));
+            Sut.ModifyDate = DateTime.Today;
+            Assert.That(Sut.ModifyDate, Is.EqualTo(DateTime.Today));
         }
 
         [Test]
-        public void Can_get_and_set_ApproverId()
+        public void Can_get_and_set_ModifierId()
         {
-            Sut.ApproverId = 1;
-            Assert.That(Sut.ApproverId, Is.EqualTo(1));
+            Sut.ModifierId = 1;
+            Assert.That(Sut.ModifierId, Is.EqualTo(1));
         }
 
         [Test]
-        public void Can_get_and_set_ApproverName()
+        public void Can_get_and_set_ModifierName()
         {
-            Sut.ApproverName = "Jakobli";
-            Assert.That(Sut.ApproverName, Is.EqualTo("Jakobli"));
-        }
-
-        [Test]
-        public void Can_get_and_set_RejectDate()
-        {
-            Sut.RejectDate = DateTime.Today;
-            Assert.That(Sut.RejectDate, Is.EqualTo(DateTime.Today));
-        }
-
-        [Test]
-        public void Can_get_and_set_RejecterId()
-        {
-            Sut.RejecterId = 1;
-            Assert.That(Sut.RejecterId, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Can_get_and_set_RejecterName()
-        {
-            Sut.RejecterName = "Babettli";
-            Assert.That(Sut.RejecterName, Is.EqualTo("Babettli"));
+            Sut.ModifierName = "Jakobli";
+            Assert.That(Sut.ModifierName, Is.EqualTo("Jakobli"));
         }
     }
 }
