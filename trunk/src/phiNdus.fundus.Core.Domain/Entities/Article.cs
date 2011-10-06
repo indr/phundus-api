@@ -117,10 +117,5 @@ namespace phiNdus.fundus.Core.Domain.Entities
                 SetPropertyValue(DomainPropertyDefinition.GrossStockId, value);
             }
         }
-
-        public bool HasChildren
-        {
-            get { return Children.Count > 0; }
-        }
     }
 }

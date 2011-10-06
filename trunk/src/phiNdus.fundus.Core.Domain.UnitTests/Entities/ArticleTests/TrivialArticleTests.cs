@@ -155,13 +155,5 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
             Assert.That(sut, Is.Not.Null);
             Assert.That(sut, Is.InstanceOf(typeof (DomainObject)));
         }
-
-        [Test]
-        public void Can_get_HasChildren()
-        {
-            Assert.That(Sut.HasChildren, Is.False);
-            Sut.AddChild(new DomainObject());
-            Assert.That(Sut.HasChildren, Is.True);
-        }
     }
 }

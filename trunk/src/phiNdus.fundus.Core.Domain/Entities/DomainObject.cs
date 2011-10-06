@@ -57,5 +57,10 @@ namespace phiNdus.fundus.Core.Domain.Entities
             Children.Remove(child);
             child.Parent = null;
         }
+
+        public virtual bool HasChildren
+        {
+            get { return Children.Count > 0; }
+        }
     }
 }
