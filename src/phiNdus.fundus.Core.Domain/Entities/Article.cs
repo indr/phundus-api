@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Iesi.Collections.Generic;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
@@ -51,6 +52,10 @@ namespace phiNdus.fundus.Core.Domain.Entities
             }
         }
 
+        /// <summary>
+        /// Menge, verwende in Zukunft GrossStock (Bruttobestand)
+        /// </summary>
+        ///[Obsolete("Siehe GrossStock")]
         public virtual int Stock
         {
             get
@@ -67,6 +72,11 @@ namespace phiNdus.fundus.Core.Domain.Entities
             }
         }
 
+        /// <summary>
+        /// Preis, quasi inkl. MWSt, da alles ohne Mehrwertsteuer ;o)
+        /// Grund: Wird einmal MWSt eingeführt, so sind die Preise keine
+        /// ungeraden Zahlen.
+        /// </summary>
         public virtual double Price
         {
             get
@@ -81,6 +91,34 @@ namespace phiNdus.fundus.Core.Domain.Entities
                     AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.PriceId));
                 SetPropertyValue(DomainPropertyDefinition.PriceId, value);
             }
+        }
+
+        /// <summary>
+        /// Bestand (Brutto)
+        /// </summary>
+        public virtual int GrossStock
+        {
+            get
+            {
+                if (HasProperty(DomainPropertyDefinition.GrossStockId))
+                {
+                    if (HasChildren)
+                        throw new IllegalAttachedFieldException();
+                    return Convert.ToInt32(GetPropertyValue(DomainPropertyDefinition.GrossStockId));
+                }
+                return !HasChildren ? 1 : Children.Sum(child => ((Article) child).GrossStock);
+            }
+            set
+            {
+                if (!HasProperty(DomainPropertyDefinition.GrossStockId))
+                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.GrossStockId));
+                SetPropertyValue(DomainPropertyDefinition.GrossStockId, value);
+            }
+        }
+
+        public bool HasChildren
+        {
+            get { return Children.Count > 0; }
         }
     }
 }

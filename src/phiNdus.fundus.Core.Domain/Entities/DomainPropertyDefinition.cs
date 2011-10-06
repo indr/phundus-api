@@ -67,6 +67,16 @@
             get { return 7; }
         }
 
+        public static int GrossStockId
+        {
+            get { return 10; }
+        }
+
+        public static int NetStockId
+        {
+            get { return 11; }
+        }
+
         public virtual string Name
         {
             get { return _name; }

@@ -14,7 +14,7 @@ namespace phiNdus.fundus.TestHelpers {
         protected TSut Sut { get; private set; }
 
         [SetUp]
-        public void Setup() {
+        public virtual void Setup() {
             this.MockFactory = new MockRepository();
 
             var container = new WindsorContainer();

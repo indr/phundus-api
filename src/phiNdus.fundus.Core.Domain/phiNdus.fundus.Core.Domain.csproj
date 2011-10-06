@@ -81,6 +81,7 @@
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="IllegalAttachedFieldException.cs" />
     <Compile Include="Installer.cs" />
     <Compile Include="InvalidPasswordException.cs" />
     <Compile Include="KeyGenerator.cs" />

@@ -1,5 +1,4 @@
-﻿using System;
-using Castle.MicroKernel.Registration;
+﻿using Castle.MicroKernel.Registration;
 using Iesi.Collections.Generic;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
@@ -7,10 +6,10 @@ using phiNdus.fundus.Core.Domain.Repositories;
 using phiNdus.fundus.TestHelpers;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
+namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
 {
     [TestFixture]
-    public class ArticleTests : MockTestBase<Article>
+    public class TrivialArticleTests : MockTestBase<Article>
     {
         protected override void RegisterDependencies(Castle.Windsor.IWindsorContainer container)
         {
@@ -47,6 +46,10 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         private readonly DomainPropertyDefinition _pricePropertyDef =
                     new DomainPropertyDefinition(DomainPropertyDefinition.PriceId, "Preis",
                                                  DomainPropertyType.Decimal);
+
+        private readonly DomainPropertyDefinition _grossStockPropertyDef =
+                    new DomainPropertyDefinition(DomainPropertyDefinition.GrossStockId, "Bestand (Brutto)",
+                        DomainPropertyType.Integer);
 
         [Test]
         public void Can_create()
@@ -151,6 +154,32 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             var sut = new Article();
             Assert.That(sut, Is.Not.Null);
             Assert.That(sut, Is.InstanceOf(typeof (DomainObject)));
+        }
+
+        [Test]
+        public void Can_get_GrossStock()
+        {
+            Assert.That(Sut.GrossStock, Is.EqualTo(0));
+            StubPropertyValues.Add(new DomainPropertyValue(_grossStockPropertyDef, 2));
+            Assert.That(Sut.GrossStock, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Can_set_GrossStock()
+        {
+            StubPropertyDefinitionRepository.Stub(x => x.Get(_grossStockPropertyDef.Id)).Return(_grossStockPropertyDef);
+
+            Assert.That(Sut.GrossStock, Is.EqualTo(0));
+            Sut.GrossStock = 10;
+            Assert.That(Sut.GrossStock, Is.EqualTo(10));
+        }
+
+        [Test]
+        public void Can_get_HasChildren()
+        {
+            Assert.That(Sut.HasChildren, Is.False);
+            Sut.AddChild(new DomainObject());
+            Assert.That(Sut.HasChildren, Is.True);
         }
     }
 }
