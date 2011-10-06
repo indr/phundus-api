@@ -1,0 +1,87 @@
+﻿@model phiNdus.fundus.Core.Web.ViewModels.ArticleViewModel
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+     @Html.ActionLink("Shop", "Index") &gt; Detail
+}
+
+<h2>@Model.Caption</h2>
+
+<p>Menge: @Model.GetPropertyValue(3)</p>
+<p>Reservierbar: @Model.GetPropertyValue(6)</p>
+<p>Ausleihbar: @Model.GetPropertyValue(7)</p>
+
+@if (Model.IsReservable) {
+    <div id="cartItemConfig" class="formular-box" style="border:solid 1px #109033; padding:4px;">
+        @Html.HiddenFor(m => m.Id, new { @id = "cartItemId" });
+        @Html.HiddenFor(m => m.Caption, new { @id = "cartItemCaption" });
+        <table>    
+            <tr>
+                <td>
+                    <p class="formular-item">
+                        Anzahl<br />
+                        <input type="text" id="cartItemAmount" />
+                    </p>
+                </td>
+                <td>
+                   <p class="formular-item">
+                        Abholdatum<br />
+                        <input type="text" id="cartItemBegin" class="date" />
+                    </p> 
+                </td>
+                <td>
+                    <p class="formular-item">
+                        Zurückbringdatum<br />
+                        <input type="text" id="cartItemEnd" class="date" />
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" align="right">
+                    <p class="formular-action">
+                        <input type="button" onclick="javascript:addToCart();" class="action" value="In den Warenkorb (Ajax)" />
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <p id="cartItemSuccess" style="display:none; color:#109033; font-weight:bold;">
+                        Item erfolgreich dem Warenkorb hinzugefügt
+                    </p>
+                    <p id="cartItemFailure" style="display:none; color:#a00; font-weight:bold;">
+                        Item erfolgreich dem Warenkorb hinzugefügt
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+
+<script type="text/javascript">
+
+    function addToCart() {
+        $("#cartItemFailure").hide();
+        $("#cartItemSuccess").hide();
+
+        $.post(
+            "/Cart/AddItem", {
+                Amount: $("#cartItemAmount").val(),
+                Begin: $("#cartItemBegin").val(),
+                End: $("#cartItemEnd").val(),
+                ItemId: $("#cartItemId").val(),
+                Caption: $("#cartItemCaption").val() + " [fixme]"
+            },
+            function (data) {
+                if (data) {
+                    $("#cartItemSuccess").fadeIn('slow');
+                } else {
+                    $("#cartItemFailure").fadeIn('slow');
+                }
+            });
+    }    
+
+</script>

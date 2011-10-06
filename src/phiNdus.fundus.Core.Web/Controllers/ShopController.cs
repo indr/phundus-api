@@ -4,6 +4,7 @@ using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Web.ViewModels;
 using Rhino.Commons;
+using System.Linq;
 
 namespace phiNdus.fundus.Core.Web.Controllers
 {
@@ -21,6 +22,14 @@ namespace phiNdus.fundus.Core.Web.Controllers
         {
             var model = CreateTestArticlesViewModel();
             return View(model);
+        }
+
+        //
+        // GET: /Shop/Details/ArticleId
+        public ActionResult Details(int id) {
+            var model = CreateTestArticlesViewModel();
+
+            return View(model.Articles.Single(a => a.Id == id));
         }
 
 
@@ -86,6 +95,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
             ArticleDto article;
 
             article = new ArticleDto();
+            article.Id = 1;
             article.AddProperty(CreateNameProperty("Schraube (10 Stk)"));
             article.AddProperty(CreatePreisProperty(2.50));
             article.AddProperty(CreateMengeProperty(6));
@@ -94,6 +104,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
             articleDtos.Add(article);
 
             article = new ArticleDto();
+            article.Id = 2;
             article.AddProperty(CreateNameProperty("Canon IXUS 100IS"));
             article.AddProperty(CreatePreisProperty(49.90));
             article.AddProperty(CreateReservierbarProperty(true));
@@ -103,6 +114,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
             articleDtos.Add(article);
             
             article = new ArticleDto();
+            article.Id = 3;
             article.AddProperty(CreateNameProperty("Pullover"));
             article.AddProperty(CreatePreisProperty(29.90));
             article.AddProperty(CreateReservierbarProperty(false));

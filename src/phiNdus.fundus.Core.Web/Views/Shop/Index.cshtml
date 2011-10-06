@@ -9,7 +9,7 @@
 }
 
 <h2>Willkommen im fundus</h2>
-<div style="float: left; width: 59%;">
+@*<div style="float: left; width: 59%;">
     <h3>Diese Startseite</h3>
     <p>Hier vielleicht eine Beschreibung was fundus ist?</p>
     <p>Hinweis auf den Vermieter, Pfadi, Stiftung.</p>
@@ -32,8 +32,42 @@
     <li>Reservierbar: @each.GetPropertyValue(6)</li>
     <li>Ausleihbar: @each.GetPropertyValue(7)</li>
     </ul>
-    
-    
 }
 </div>
-<div style="clear: both;">&nbsp;</div>
+<div style="clear: both;">&nbsp;</div>*@
+
+<h3>Artikel</h3>
+<table width="100%" class="list">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Menge</th>
+            <th>Reservierbar</th>
+            <th>Ausleihbar</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var each in Model.Articles) {
+            <tr>
+                <td>@each.GetPropertyValue(2)</td>
+                <td>@each.GetPropertyValue(3)</td>
+                <td>@each.GetPropertyValue(6)</td>
+                <td>@each.GetPropertyValue(7)</td>
+                <td>@Html.ActionLink("Detail", "Details", new { id = each.Id })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Diese Startseite</h3>
+<p>Hier vielleicht eine Beschreibung was fundus ist?</p>
+<p>Hinweis auf den Vermieter, Pfadi, Stiftung.</p>
+<p>Fötelis vom Lager oder so. Keine Ahnung.</p>
+<p>Meiner Meinung vielleicht auch gleich ein Suchformular, oder die wichtigsten Funktionen verlinken.</p>
+<p>Und ganz wichtig: Telefonnummer und Adresse. Nichts ärgerlicher als die Kontaktdaten nicht zu finden!</p>
+
+<h3>Verschiedene Ansichten im Shop</h3>
+<p>Cool wär doch so wie im Windows Explorer, wo man die Detailstufe einstellen kann: Grosse Symbole, Liste, Details usw...</p>
+<p>Zum Glück sind wir hier beim model-VIEW-controller... Hehe...</p>
+<p>Fänd ich cool ;o)</p>
