@@ -333,6 +333,9 @@
     <Content Include="Views\Order\Rejected.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Shop\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\Order\All.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

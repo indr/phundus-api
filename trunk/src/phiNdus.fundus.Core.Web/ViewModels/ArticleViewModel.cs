@@ -72,6 +72,27 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             return property != null ? Convert.ToString(property.Value) : null;
         }
 
+        public string Caption {
+            get {
+                var property = GetProperty(2);
+                return property != null ? (string)property.Value : null;
+            }
+        }
+
+        public bool IsReservable {
+            get {
+                var property = GetProperty(6);
+                return property != null ? (bool)property.Value : false;
+            }
+        }
+
+        public bool IsBorrowable {
+            get {
+                var property = GetProperty(7);
+                return property != null ? (bool)property.Value : false;
+            }
+        }
+
         public IList<PropertyValueViewModel> PropertyValues
         {
             get { return _propertyValues; }
