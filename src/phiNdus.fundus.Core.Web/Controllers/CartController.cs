@@ -6,10 +6,12 @@ using System.Web.Mvc;
 using phiNdus.fundus.Core.Web.Models;
 using phiNdus.fundus.Core.Web.State;
 using Rhino.Commons;
+using phiNdus.fundus.Core.Web.ViewModels;
+using System.Globalization;
 
 namespace phiNdus.fundus.Core.Web.Controllers
-{    
-    public class CartController : Controller
+{
+    public class CartController : ControllerBase
     {
         private static class Actions {
             public static string List { get { return @"List"; } }
@@ -23,38 +25,21 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         //
         // GET: /Cart/
+
         public ActionResult Index()
         {
             return RedirectToAction(Actions.List);
         }
 
+        //
+        // GET: /Cart/List
+
         public ActionResult List() {
             return View(this.StateManager.Load<CartModel>());
         }
 
-        private static List<string> Captions = new List<string> {
-            "Schwimmwesten (gelb)", "Kamera", "Schrauben", "Notizblöcke", "Funkgerät", "Pullover (grün)"
-        };
-
-        // mit post lösen
-        public ActionResult Add() {
-            var state = this.StateManager.Load<CartModel>();
-
-            var random = new Random();
-
-            state.Items.Add(new CartItem {
-                Amount = random.Next(2, 34),
-                Begin = DateTime.Now.AddDays(random.Next(0, 7)),
-                End = DateTime.Now.AddDays(random.Next(8, 21)),
-                ItemId = state.Items.Count() + 1,
-                Caption = Captions[random.Next(0, Captions.Count)]
-            });
-
-            // ist eigentlich optional..
-            this.StateManager.Save(state);
-
-            return RedirectToAction(Actions.List);
-        }
+        //
+        // GET: /Cart/Clear
 
         public ActionResult Clear() {
             this.StateManager.Remove<CartModel>();
@@ -62,24 +47,58 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return RedirectToAction(Actions.List);
         }
 
+        //
+        // POST: /Cart/AddItem
+
         [AcceptVerbs(HttpVerbs.Post)]
-        public bool AddItem(CartItem cartItem) {
+        public ActionResult AddItem(CartItem cartItem) {
+            // Todo,jac: Verfügubarkeit prüfen
+
+            // Todo,jac: Caption aus DB laden
+            cartItem.Caption = string.Format("[Id={0}]", cartItem.ItemId);
+
             var state = this.StateManager.Load<CartModel>();
 
-            state.Items.Add(cartItem);
+            var response = this.AddCartItemInternal(state, cartItem);
 
             this.StateManager.Save(state);
 
-            // anz. items in cart
-            //return state.Items.Count;
-            return true;
+            if (Request.IsAjaxRequest()) {
+                return DisplayFor(response);
+            } else {
+               return RedirectToAction(Actions.List);
+            }
         }
 
-        //[HttpPost]
-        //public ActionResult Remove(CartItem cartItem) {
-        //    //this.StateManager.Remove<CartModel>();
+        private bool DateIsEqual(DateTime x, DateTime y) {
+            return x.Year == y.Year && x.Month == y.Month && x.Day == y.Day;
+        }
 
-        //    return RedirectToAction(Actions.List);
-        //}
+        private MessageBoxViewModel AddCartItemInternal(CartModel state, CartItem newItem) {
+            MessageBoxViewModel response;
+
+            var existingItem = state.Items.SingleOrDefault(s =>
+                s.ItemId == newItem.ItemId &&
+                DateIsEqual(s.Begin, newItem.Begin) &&
+                DateIsEqual(s.End, newItem.End));
+
+            if (existingItem != null) {
+                existingItem.Amount += newItem.Amount;
+                response = new MessageBoxViewModel {
+                    Type = MessageBoxType.Warning,
+                    Message = string.Format(CultureInfo.InvariantCulture, 
+                        "Dieser Artikel war für den angegebenen Ausleihzeitraum bereits im Warenkorb. Die Anzahl dieses Artikels im Warenkorb wurde um {0} auf {1} erhöht.", newItem.Amount, existingItem.Amount)
+                };
+            } else {
+                state.Items.Add(newItem);
+
+                response = new MessageBoxViewModel {
+                    Type = MessageBoxType.Success,
+                    Message = "Der Artikel wurde dem Warenkorb hinzugefügt."
+                };
+            }
+
+            return response;
+        }
     }
 }
