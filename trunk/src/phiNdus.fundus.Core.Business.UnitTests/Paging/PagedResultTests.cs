@@ -13,15 +13,15 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Paging {
         [Test]
         public void Throws_when_no_PageIndex_is_not_provided() {
             var exception = Assert.Throws<ArgumentNullException>(() =>
-                PagedResult<DomainEntity>.For(null, new List<DomainEntity>(), 0));
-
+                new PagedResult<DomainEntity>(null, new List<DomainEntity>(), 0));
+            
             Assert.That(exception, Is.Not.Null);
         }
 
         [Test]
         public void Throws_when_items_is_not_provided() {
             var exception = Assert.Throws<ArgumentNullException>(() => 
-                PagedResult<DomainEntity>.For<DomainEntity>(new PageIndex(), null, 0));
+                new PagedResult<DomainEntity>(new PageIndex(), null, 0));
 
             Assert.That(exception, Is.Not.Null);
         }
@@ -29,7 +29,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Paging {
         [Test]
         public void Can_be_created_from_PageIndex() {
             var pageIndex = new PageIndex { Index = 3, PageSize = 20 };
-            var pagedResult = PagedResult<DomainEntity>.For(pageIndex,
+            var pagedResult = new PagedResult<DomainEntity>(pageIndex,
                 new List<DomainEntity> { new DomainEntity(1) }, 943);
 
             Assert.That(pagedResult, Is.Not.Null);

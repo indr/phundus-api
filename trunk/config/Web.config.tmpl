@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <!--
   For more information on how to configure your ASP.NET application, please visit
   http://go.microsoft.com/fwlink/?LinkId=152368
@@ -97,7 +97,7 @@
       </namespaces>
     </pages>
 	
-	<!-- Für IIS6 und IIS7 im Klassischen Modus -->
+	<!-- Fuer IIS6 und IIS7 im Klassischen Modus -->
 	<httpModules>
       <add name="PerRequestLifestyle" type="Castle.MicroKernel.Lifestyle.PerWebRequestLifestyleModule, Castle.Windsor" />
     </httpModules>
@@ -105,7 +105,7 @@
 
   <system.webServer>
     <validation validateIntegratedModeConfiguration="false"/>
-	<!-- Für IIS7 im Integrierten Modus -->
+	<!-- Fuer IIS7 im Integrierten Modus -->
     <modules runAllManagedModulesForAllRequests="true">
 		<add name="PerRequestLifestyle" type="Castle.MicroKernel.Lifestyle.PerWebRequestLifestyleModule, Castle.Windsor" />
 	</modules>

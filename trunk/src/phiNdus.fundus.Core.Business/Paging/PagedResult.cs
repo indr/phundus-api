@@ -4,12 +4,38 @@ using System.Linq;
 using System.Text;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Business.Paging {
+namespace phiNdus.fundus.Core.Business.Paging
+{
 
     /// <summary>
     /// Liefert ein "gepagtes" Resultat für einen bestimmten Typ.
     /// </summary>
-    public class PagedResult<T> {
+    public class PagedResult<TItems>
+    {
+
+        public PagedResult(PageIndex pageIndex, IList<TItems> items, int total) {
+            Guard.Against<ArgumentNullException>(pageIndex == null, "pageIndex");
+            Guard.Against<ArgumentNullException>(items == null, "items");
+
+            PageIndex = pageIndex.Index;
+            PageSize = pageIndex.PageSize;
+            Items = items;
+            Total = total;
+        }
+
+        //public PagedResult<T> For<T>(PageIndex pageIndex, IList<T> items, int total)
+        //{
+        //    Guard.Against<ArgumentNullException>(pageIndex == null, "pageIndex");
+        //    Guard.Against<ArgumentNullException>(items == null, "items");
+
+        //    return new PagedResult<T>
+        //    {
+        //        PageIndex = pageIndex.Index,
+        //        PageSize = pageIndex.PageSize,
+        //        Items = items,
+        //        Total = total
+        //    };
+        //}
 
         /// <summary>
         /// Index des Seitenausschnittes in Items.
@@ -29,18 +55,8 @@ namespace phiNdus.fundus.Core.Business.Paging {
         /// <summary>
         /// Die Items für die angegebene Konfiguration.
         /// </summary>
-        public IList<T> Items { get; set; }
+        public IList<TItems> Items { get; private set; }
 
-        public static PagedResult<T> For<T>(PageIndex pageIndex, IList<T> items, int total) {
-            Guard.Against<ArgumentNullException>(pageIndex == null, "pageIndex");
-            Guard.Against<ArgumentNullException>(items == null, "items");
 
-            return new PagedResult<T> {
-                PageIndex = pageIndex.Index,
-                PageSize = pageIndex.PageSize,
-                Items = items,
-                Total = total
-            };
-        }
     }
 }
