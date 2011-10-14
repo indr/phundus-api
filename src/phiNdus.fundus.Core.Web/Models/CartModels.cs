@@ -20,6 +20,9 @@ namespace phiNdus.fundus.Core.Web.Models {
     /// Repräsentiert ein Item im Warenkorb.
     /// </summary>
     public class CartItem {
+
+        public Guid Gid { get; set; }
+
         public int ItemId { get; set; }
 
         [DisplayName("Bezeichnung")]        
@@ -40,5 +43,8 @@ namespace phiNdus.fundus.Core.Web.Models {
         [DataType(DataType.Date)]
         //[CustomValidation( <-- verfügbarkeit prüfen..
         public DateTime End { get; set; }
+
+        [DisplayName("Preis")]
+        public decimal Price { get; set; }
     }
 }

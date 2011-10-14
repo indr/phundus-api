@@ -6,6 +6,9 @@
         <title>@ViewBag.Title</title>
         <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
         <link href="@Url.Content("~/Content/ToVerify.css")" rel="stylesheet" type="text/css" />
+
+        <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
+
         <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
         
         <script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
@@ -61,6 +64,15 @@
             $(this).fadeTo('fast', 0.1).fadeTo('slow', 1.0);
         });
         $("input[type='button']").click(function () {
+            $(this).fadeTo('fast', 0.1).fadeTo('slow', 1.0);
+        });
+
+        // Icons
+        $('.ui-state-default').hover(
+	        function () { $(this).addClass('ui-state-hover'); },
+	        function () { $(this).removeClass('ui-state-hover'); }
+        );
+        $(".ui-state-default").click(function () {
             $(this).fadeTo('fast', 0.1).fadeTo('slow', 1.0);
         });
     });

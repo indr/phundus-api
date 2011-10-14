@@ -21,11 +21,9 @@
                 <td>@Html.EditorFor(m => item.End)</td>
                 <!-- updaten wenn datum ändert-->
                 <td>@item.End.Subtract(item.Begin).TotalDays Tag(e)</td>
-                <td>CHF 10.- <i>fixme</i></td>
+                <td>@item.Price.ToString("C2", new System.Globalization.CultureInfo("de-CH"))</td>
                 <td>
-                    @*Todo,jac: Ajax*@
-                    @*@Html.ActionLink("Entfernen", "Remove", new { Id = @item.ItemId })*@
-                    <i>entfernen</i>
+                    @Html.ActionLinkIcon("Aus dem Warenkorb entfernen", ActionLinkIcon.Remove, "RemoveItem", new { gid = @item.Gid })
                 </td>
             </tr>
         }

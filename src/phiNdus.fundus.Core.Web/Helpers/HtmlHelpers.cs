@@ -9,6 +9,15 @@ using phiNdus.fundus.Core.Business.Dto;
 
 namespace phiNdus.fundus.Core.Web.Helpers
 {
+    // http://jquery-ui.googlecode.com/svn/trunk/tests/static/icons.html
+    public static class ActionLinkIcon
+    {
+        public static string Edit { get { return @"ui-icon-pencil"; } }
+        public static string Detail { get { return @"ui-icon-search"; } }
+        public static string Remove { get { return @"ui-icon-trash"; } }
+        public static string Print { get { return @"ui-icon-print"; } }
+    }
+
     public static class HtmlHelpers
     {
         public static IHtmlString LinkToRemoveProperty(this HtmlHelper htmlHelper, string linkText, string container)
@@ -20,6 +29,36 @@ namespace phiNdus.fundus.Core.Web.Helpers
             tagBuilder.InnerHtml = linkText;
             var tag = tagBuilder.ToString(TagRenderMode.Normal);
             return MvcHtmlString.Create(tag);
+        }
+
+        // http://stackoverflow.com/questions/989005/make-an-html-actionlink-around-an-image-in-asp-net-mvc
+        public static IHtmlString ActionLinkIcon(this HtmlHelper htmlHelper, string tooltip, string iconName, string actionName, object routedValues)
+        {
+            var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
+
+            /* <a link="controller/action/..">
+             *     <div class="icon ui-state-default ui-corner-all">
+             *         <span class="ui-icon ui-icon-trash"></span>
+             *     </div>
+             * </a>
+             */
+
+            var spanBuilder = new TagBuilder("span");
+            spanBuilder.AddCssClass(string.Format("ui-icon {0}", iconName));
+
+            var divBuilder = new TagBuilder("div") {
+                InnerHtml = spanBuilder.ToString(TagRenderMode.Normal)
+            };
+            divBuilder.AddCssClass("icon ui-state-default ui-corner-all");
+
+            TagBuilder tagBuilder = new TagBuilder("a")
+            {
+                InnerHtml = divBuilder.ToString(TagRenderMode.Normal)
+            };
+            tagBuilder.MergeAttribute("href", urlHelper.Action(actionName, routedValues));
+            tagBuilder.Attributes.Add("title", tooltip);
+
+            return MvcHtmlString.Create(tagBuilder.ToString(TagRenderMode.Normal));            
         }
 
         // http://stackoverflow.com/questions/3065307/client-id-for-property-asp-net-mvc
