@@ -10,73 +10,7 @@
 }
 
 <p>
-    @Html.ActionLink("Item hinzufügen", "Add") | 
     @Html.ActionLink("\"Warenkorb leeren\"", "Clear")
 </p>
 
 @Html.EditorFor(m => m)
-@*
-<br />
-<br />
-<br />
-
-
-    <div id="cartItemSelector">    
-        <div id="cartItemConfig" class="formular-box">
-            <p class="formular-item">
-                Item<br />
-                <select id="cartItemCaption" size="1">
-                    <option value="1">Kamera XHT32</option>
-                    <option value="2">Schwimmwesten (gelb)</option>
-                    <option value="3">Walkie Talkie</option>
-                </select>
-            </p>
-            <p class="formular-item">
-                Anzahl<br />
-                <input type="text" id="cartItemAmount" />
-            </p>
-            <p class="formular-item">
-                Begin<br />
-                <input type="text" id="cartItemBegin" class="date" />
-            </p>
-            <p class="formular-item">
-                Ende<br />
-                <input type="text" id="cartItemEnd" class="date" />
-            </p>
-            <p class="formular-action">
-                <input type="button" onclick="javascript:addToCart();" class="action" value="In den Warenkorb (Ajax)" />
-            </p>
-        </div>
-        <p id="cartItemSuccess" style="display:none; color:Green; font-weight:bold;">
-            Item erfolgreich dem Warenkorb hinzugefügt
-        </p>
-        <p id="cartItemFailure" style="display:none; color:#a00; font-weight:bold;">
-            Item erfolgreich dem Warenkorb hinzugefügt
-        </p>
-    </div>
-
-    <script type="text/javascript">
-
-        function addToCart() {
-            $("#cartItemFailure").hide();
-            $("#cartItemSuccess").hide();
-
-            $.post(
-                "/Cart/AddItem", {
-                    Amount: $("#cartItemAmount").val(),
-                    Begin: $("#cartItemBegin").val(),
-                    End: $("#cartItemEnd").val(),
-                    ItemId: $("#cartItemCaption").val(),
-                    Caption: $("#cartItemCaption :selected").text()
-                },
-                function (data) {
-                    if (data) {
-                        $("#cartItemSuccess").fadeIn('slow');
-                    } else {
-                        $("#cartItemFailure").fadeIn('slow');
-                    }
-                });
-        }    
-
-    </script>
-@*}*@

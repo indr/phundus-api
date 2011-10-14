@@ -54,8 +54,11 @@ namespace phiNdus.fundus.Core.Web.Controllers
         public ActionResult AddItem(CartItem cartItem) {
             // Todo,jac: Verfügubarkeit prüfen
 
+            // Todo,jac: Preis ermitteln
+
             // Todo,jac: Caption aus DB laden
             cartItem.Caption = string.Format("[Id={0}]", cartItem.ItemId);
+            cartItem.Gid = Guid.NewGuid();
 
             var state = this.StateManager.Load<CartModel>();
 
@@ -68,6 +71,19 @@ namespace phiNdus.fundus.Core.Web.Controllers
             } else {
                return RedirectToAction(Actions.List);
             }
+        }
+
+        //
+        // GET: /Cart/RemoveItem/Id
+
+        public ActionResult RemoveItem(Guid gid) {
+            var state = this.StateManager.Load<CartModel>();
+
+            state.Items.RemoveAll(i => i.Gid == gid);
+
+            this.StateManager.Save(state);
+
+            return RedirectToAction(Actions.List);
         }
 
         private bool DateIsEqual(DateTime x, DateTime y) {

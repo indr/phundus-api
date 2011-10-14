@@ -54,7 +54,8 @@
                 <td>@each.GetPropertyValue(3)</td>
                 <td>@each.GetPropertyValue(6)</td>
                 <td>@each.GetPropertyValue(7)</td>
-                <td>@Html.ActionLink("Detail", "Details", new { id = each.Id })</td>
+                @*<td>@Html.ActionLink("Detail", "Details", new { id = each.Id })</td>*@
+                <td>@Html.ActionLinkIcon("Details anzeigen", ActionLinkIcon.Detail, "Details", new { id = each.Id })</td>
             </tr>
         }
     </tbody>
