@@ -222,9 +222,6 @@ tr.over td {
     background-image: url('/Content/Images/error.png');
 }
 
-/* temporärer fix datepicker*/
-.ui-datepicker { background-color: #ccc; }
-
 /* UI Icons (temp)*/
 span.ui-icon { float: left; margin: 0 4px; }
 div.icon { margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}

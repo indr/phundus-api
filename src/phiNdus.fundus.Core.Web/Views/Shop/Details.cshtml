@@ -19,19 +19,18 @@
     if (Model.IsReservable) {
         <div class="formular-box" style="border:solid 1px #109033; padding:4px;">
             @using (Ajax.BeginForm("AddItem", "Cart", new AjaxOptions { UpdateTargetId = "message-box-container" })) {
-                @*@Html.HiddenFor(m => m.Id, new { @name = "ItemId" })*@
                 <input type="hidden" name="ItemId" value="@Model.Id" />
                 <p class="formular-item">
                     <label for="Amount">Anzahl</label><br />
-                    <input type="text" name="Amount" />
+                    <input type="text" name="Amount" class="text-input" />
                 </p>
                 <p class="formular-item">
                     <label for="Begin">Abholdatum</label><br />
-                    <input type="text" name="Begin" />
+                    <input type="text" name="Begin" class="date-picker text-input" />
                 </p>
                 <p class="formular-item">
                     <label for="End">Zurückbringdatum</label><br />
-                    <input type="text" name="End" />
+                    <input type="text" name="End" class="date-picker text-input" />
                 </p>
                 <p class="formular-action">
                     <input type="submit" value="In den Warenkorb" class="action" />
