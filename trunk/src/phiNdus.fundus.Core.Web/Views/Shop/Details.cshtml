@@ -1,51 +1,129 @@
 ﻿@model phiNdus.fundus.Core.Web.ViewModels.ArticleViewModel
-
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @section Breadcrumbs {
-     @Html.ActionLink("Shop", "Index") &gt; Detail
+    @Html.ActionLink("Shop", "Index") &gt; Detail
 }
-
 <h2>@Model.Caption</h2>
+<p>
+    Menge: @Model.GetPropertyValue(3)</p>
+<p>
+    Reservierbar: @Model.GetPropertyValue(6)</p>
+<p>
+    Ausleihbar: @Model.GetPropertyValue(7)</p>
+@if (Request.IsAuthenticated)
+{
+    if (Model.IsReservable)
+    {
+    <div class="formular-box" style="border: solid 1px rgb(155,210,23);">
+        <div style="background-color: rgb(155,210,23); color: #fff; padding: 4px;">
+            <b>Ausleihen</b>
+        </div>
+        @using (Ajax.BeginForm("AddItem", "Cart", new AjaxOptions { UpdateTargetId = "message-box-container", OnSuccess = "UpdateCartItemCount" }))
+        {
+            <div style="margin: 4px;">
+                <table class="list" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Anzahl
+                            </th>
+                            <th>
+                                Abholdatum
+                            </th>
+                            <th>
+                                Zurückbringdatum
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="hidden" name="ItemId" value="@Model.Id" />
+                                <input type="text" name="Amount" class="text-input" />
+                            </td>
+                            <td>
+                                <input type="text" name="Begin" class="date-picker text-input" />
+                            </td>
+                            <td>
+                                <input type="text" name="End" class="date-picker text-input" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="formular-action" style="margin-left: 4px;">
+                    <input type="submit" value="In den Warenkorb" class="action" />
+                </p>
+            </div>           
+        }
+    </div>
+    }
+    else
+    {
+    <div class="formular-box" style="border: solid 1px rgb(155,210,23);">
+        <div style="background-color: rgb(155,210,23); color: #fff; padding: 4px;">
+            <b>Ausleihen</b>
+        </div>
+        @using (Ajax.BeginForm("AddItems", "Cart", new AjaxOptions { UpdateTargetId = "message-box-container", OnSuccess = "UpdateCartItemCount" }))
+        {
+            <div style="margin: 4px;">
+                <table class="list" width="100%">
+                    <thead>
+                        <tr>
+                            @foreach (var item in Model.Discriminators)
+                            {
+                                <th>@item.Caption
+                                </th>
+                            }
+                            <th>
+                                Anzahl
+                            </th>
+                            <th>
+                                Abholdatum
+                            </th>
+                            <th>
+                                Zurückbringdatum
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Children.Count; i++)
+                        {
+                            var child = Model.Children[i];
 
-<p>Menge: @Model.GetPropertyValue(3)</p>
-<p>Reservierbar: @Model.GetPropertyValue(6)</p>
-<p>Ausleihbar: @Model.GetPropertyValue(7)</p>
-
-@if (Request.IsAuthenticated) {
-    if (Model.IsReservable) {
-        <div class="formular-box" style="border:solid 1px #109033; padding:4px;">
-            @using (Ajax.BeginForm("AddItem", "Cart", new AjaxOptions { UpdateTargetId = "message-box-container", OnSuccess = "UpdateCartItemCount" })) {
-                <input type="hidden" name="ItemId" value="@Model.Id" />
-                <p class="formular-item">
-                    <label for="Amount">Anzahl</label><br />
-                    <input type="text" name="Amount" class="text-input" />
-                </p>
-                <p class="formular-item">
-                    <label for="Begin">Abholdatum</label><br />
-                    <input type="text" name="Begin" class="date-picker text-input" />
-                </p>
-                <p class="formular-item">
-                    <label for="End">Zurückbringdatum</label><br />
-                    <input type="text" name="End" class="date-picker text-input" />
-                </p>
+                            <tr>
+                                @foreach (var discriminator in Model.Discriminators)
+                                {                
+                                    <td>@child.GetPropertyValue(discriminator.PropertyDefinitionId)
+                                    </td>
+                                }
+                                <td>
+                                    <input type="hidden" name="[@i].ItemId" value="@child.Id" />
+                                    <input type="text" name="[@i].Amount" class="text-input" style="width:50px;" />
+                                </td>
+                                <td>
+                                    <input type="text" name="[@i].Begin"class="date-picker text-input" />
+                                </td>
+                                <td>
+                                    <input type="text" name="[@i].End"class="date-picker text-input" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
                 <p class="formular-action">
                     <input type="submit" value="In den Warenkorb" class="action" />
-                </p>            
-            }
-        </div>
-    } else { 
-        <p>Artikel selber kann nicht ausgeliehen werden => Diskriminatorentabelle anzeigen (tbd)</p>
+                </p>
+            </div>
+        }
+    </div>
     }
 }
-
 <script type="text/javascript">
     function UpdateCartItemCount() {
         $.get('@Url.Content("~/Cart/GetCartItemsCount")', function (data) {
-            //alert("items in cart: " + data);
             $('#cart').text("Warenkorb (" + data + ")");
         });
     }
