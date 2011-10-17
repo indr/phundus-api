@@ -1,10 +1,18 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<dynamic>
-
-@if (Request.IsAuthenticated) {
+@if (Request.IsAuthenticated)
+{   
     @:<a href="#">Mein Profil</a> |
-    @Html.ActionLink("Warenkorb", "Index", "Cart") @:|
+    {
+        // hierrauf bin ich nicht wirklich Stolz, Änderungsvorschläge sind willkommen..
+        var stateManager = Rhino.Commons.IoC.Resolve<phiNdus.fundus.Core.Web.State.IStateManager>();
+        var cartState = stateManager.Load<phiNdus.fundus.Core.Web.Models.CartModel>();
+    
+        @Html.ActionLink("Warenkorb (" + cartState.Items.Count + ")", "Index", "Cart", null, new { id = "cart" }) @:|
+    }
     @Html.ActionLink("Abmelden", "LogOff", "Account")
-} else {
+}
+else
+{
     @Html.ActionLink("Registrieren", "SignUp", "Account") @:|
     @Html.ActionLink("Anmelden", "LogOn", "Account")
 }
