@@ -86,6 +86,14 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return RedirectToAction(Actions.List);
         }
 
+        //
+        // GET: /Cart/GetCartItemsCount
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public int GetCartItemsCount() {
+            return this.StateManager.Load<CartModel>().Items.Count;
+        }
+
         private bool DateIsEqual(DateTime x, DateTime y) {
             return x.Year == y.Year && x.Month == y.Month && x.Day == y.Day;
         }
@@ -93,27 +101,42 @@ namespace phiNdus.fundus.Core.Web.Controllers
         private MessageBoxViewModel AddCartItemInternal(CartModel state, CartItem newItem) {
             MessageBoxViewModel response;
 
-            var existingItem = state.Items.SingleOrDefault(s =>
-                s.ItemId == newItem.ItemId &&
-                DateIsEqual(s.Begin, newItem.Begin) &&
-                DateIsEqual(s.End, newItem.End));
-
-            if (existingItem != null) {
-                existingItem.Amount += newItem.Amount;
-                response = new MessageBoxViewModel {
-                    Type = MessageBoxType.Warning,
-                    Message = string.Format(CultureInfo.InvariantCulture, 
-                        "Dieser Artikel war für den angegebenen Ausleihzeitraum bereits im Warenkorb. Die Anzahl dieses Artikels im Warenkorb wurde um {0} auf {1} erhöht.", newItem.Amount, existingItem.Amount)
-                };
-            } else {
-                state.Items.Add(newItem);
-
-                response = new MessageBoxViewModel {
-                    Type = MessageBoxType.Success,
-                    Message = "Der Artikel wurde dem Warenkorb hinzugefügt."
+            if (newItem.Begin >= newItem.End)
+            {
+                response = new MessageBoxViewModel
+                {
+                    Type = MessageBoxType.Error,
+                    Message = "Das Anfangsdatum muss vor dem Enddatum liegen."
                 };
             }
+            else
+            {
+                var existingItem = state.Items.SingleOrDefault(s =>
+                    s.ItemId == newItem.ItemId &&
+                    DateIsEqual(s.Begin, newItem.Begin) &&
+                    DateIsEqual(s.End, newItem.End));
 
+                if (existingItem != null)
+                {
+                    existingItem.Amount += newItem.Amount;
+                    response = new MessageBoxViewModel
+                    {
+                        Type = MessageBoxType.Warning,
+                        Message = string.Format(CultureInfo.InvariantCulture,
+                            "Dieser Artikel war für den angegebenen Ausleihzeitraum bereits im Warenkorb. Die Anzahl dieses Artikels im Warenkorb wurde um {0} auf {1} erhöht.", newItem.Amount, existingItem.Amount)
+                    };
+                }
+                else
+                {
+                    state.Items.Add(newItem);
+
+                    response = new MessageBoxViewModel
+                    {
+                        Type = MessageBoxType.Success,
+                        Message = "Der Artikel wurde dem Warenkorb hinzugefügt."
+                    };
+                }
+            }
             return response;
         }
     }

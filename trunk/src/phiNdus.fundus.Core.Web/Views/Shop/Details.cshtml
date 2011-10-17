@@ -18,7 +18,7 @@
 @if (Request.IsAuthenticated) {
     if (Model.IsReservable) {
         <div class="formular-box" style="border:solid 1px #109033; padding:4px;">
-            @using (Ajax.BeginForm("AddItem", "Cart", new AjaxOptions { UpdateTargetId = "message-box-container" })) {
+            @using (Ajax.BeginForm("AddItem", "Cart", new AjaxOptions { UpdateTargetId = "message-box-container", OnSuccess = "UpdateCartItemCount" })) {
                 <input type="hidden" name="ItemId" value="@Model.Id" />
                 <p class="formular-item">
                     <label for="Amount">Anzahl</label><br />
@@ -41,3 +41,12 @@
         <p>Artikel selber kann nicht ausgeliehen werden => Diskriminatorentabelle anzeigen (tbd)</p>
     }
 }
+
+<script type="text/javascript">
+    function UpdateCartItemCount() {
+        $.get('@Url.Content("~/Cart/GetCartItemsCount")', function (data) {
+            //alert("items in cart: " + data);
+            $('#cart').text("Warenkorb (" + data + ")");
+        });
+    }
+</script>
