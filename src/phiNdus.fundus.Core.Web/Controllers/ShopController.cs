@@ -26,10 +26,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         //
         // GET: /Shop/Details/ArticleId
-        public ActionResult Details(int id) {
+        public ActionResult Details(int id)
+        {
             var model = CreateTestArticlesViewModel();
 
-            return View(model.Articles.Single(a => a.Id == id));
+            var article = model.Articles.Single(a => a.Id == id);
+
+            return View(article);
         }
 
 
@@ -88,7 +91,31 @@ namespace phiNdus.fundus.Core.Web.Controllers
             };
         }
 
-        private ArticlesViewModel CreateTestArticlesViewModel()
+        private static DtoProperty CreateFarbeProperty(string value, bool discriminator)
+        {
+            return new DtoProperty
+            {
+                Caption = "Farbe",
+                DataType = PropertyDataType.Text,
+                PropertyId = 8,
+                Value = value,
+                IsDiscriminator = discriminator
+            };
+        }
+
+        private static DtoProperty CreateGrösseProperty(string value, bool discriminator)
+        {
+            return new DtoProperty
+            {
+                Caption = "Grösse",
+                DataType = PropertyDataType.Text,
+                PropertyId = 9,
+                Value = value,
+                IsDiscriminator = discriminator
+            };
+        }
+
+        internal ArticlesViewModel CreateTestArticlesViewModel()
         {
             var articleDtos = new List<ArticleDto>();
 
@@ -112,7 +139,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
             // Hier fehlt mindestens eine Diskriminante: z.B. Inventarcode
             // und natürlich Kinder, aber eine Mengenangabe ist eigentlich überflüssig, bzw. = 1
             articleDtos.Add(article);
-            
+
             article = new ArticleDto();
             article.Id = 3;
             article.AddProperty(CreateNameProperty("Pullover"));
@@ -121,15 +148,37 @@ namespace phiNdus.fundus.Core.Web.Controllers
             article.AddProperty(CreateAusleihbarProperty(false));
             // Hier fehlt mindestens eine Diskriminante: z.B. Inventarcode, sicher
             // aber auch z.B. Farbe und Grösse.
+            article.AddProperty(CreateFarbeProperty(null, true));
+            article.AddProperty(CreateGrösseProperty(null, true));
             // ... und natürlich Kinder die entsprechenden Kinder mit der Menge.
+            article.Children.Add(CreateChildPullover(4, "rot", "S", 23));
+            article.Children.Add(CreateChildPullover(5, "rot", "M", 21));
+            article.Children.Add(CreateChildPullover(6, "rot", "L", 12));
+            article.Children.Add(CreateChildPullover(7, "blau", "M", 19));
+            article.Children.Add(CreateChildPullover(8, "blau", "L", 13));
+            article.Children.Add(CreateChildPullover(9, "grün", "XS", 5));
+            article.Children.Add(CreateChildPullover(10, "grün", "XL", 11));
+
             articleDtos.Add(article);
 
-            
 
             return new ArticlesViewModel(
                 articleDtos,
                 ArticleService.GetProperties(Session.SessionID)
                 );
+        }
+
+        private ArticleDto CreateChildPullover(int id, string farbe, string grösse, int menge)
+        {
+            var article = new ArticleDto();
+            article.Id = id;
+
+            article.AddProperty(CreateNameProperty(string.Format("Pullover ({0}, {1})", farbe, grösse)));
+            article.AddProperty(CreateGrösseProperty(grösse, false));
+            article.AddProperty(CreateFarbeProperty(farbe, false));
+            article.AddProperty(CreateMengeProperty(menge));
+
+            return article;
         }
     }
 }

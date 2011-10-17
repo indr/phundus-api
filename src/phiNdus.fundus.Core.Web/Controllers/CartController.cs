@@ -13,11 +13,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
 {
     public class CartController : ControllerBase
     {
-        private static class Actions {
+        private static class Actions
+        {
             public static string List { get { return @"List"; } }
         }
 
-        public CartController() {
+        public CartController()
+        {
             this.StateManager = IoC.Resolve<IStateManager>();
         }
 
@@ -34,14 +36,16 @@ namespace phiNdus.fundus.Core.Web.Controllers
         //
         // GET: /Cart/List
 
-        public ActionResult List() {
+        public ActionResult List()
+        {
             return View(this.StateManager.Load<CartModel>());
         }
 
         //
         // GET: /Cart/Clear
 
-        public ActionResult Clear() {
+        public ActionResult Clear()
+        {
             this.StateManager.Remove<CartModel>();
 
             return RedirectToAction(Actions.List);
@@ -51,13 +55,14 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // POST: /Cart/AddItem
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult AddItem(CartItem cartItem) {
+        public ActionResult AddItem(CartItem cartItem)
+        {
             // Todo,jac: Verfügubarkeit prüfen
 
             // Todo,jac: Preis ermitteln
 
             // Todo,jac: Caption aus DB laden
-            cartItem.Caption = string.Format("[Id={0}]", cartItem.ItemId);
+            cartItem.Caption = RäubereCaption(cartItem.ItemId);
             cartItem.Gid = Guid.NewGuid();
 
             var state = this.StateManager.Load<CartModel>();
@@ -66,17 +71,48 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
             this.StateManager.Save(state);
 
-            if (Request.IsAjaxRequest()) {
+            if (Request.IsAjaxRequest())
+            {
                 return DisplayFor(response);
-            } else {
-               return RedirectToAction(Actions.List);
             }
+            else
+            {
+                return RedirectToAction(Actions.List);
+            }
+        }
+
+        //
+        // POST: /Cart/AddItems
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult AddItems(ICollection<CartItem> cartItems)
+        {
+            // Todo,jac: Proper refactoring
+            var state = this.StateManager.Load<CartModel>();
+
+            var responses = new List<MessageBoxViewModel>();
+
+            foreach (var cartItem in cartItems.Where(c => c.Amount > 0))
+            {
+                cartItem.Caption = RäubereCaption(cartItem.ItemId);
+                cartItem.Gid = Guid.NewGuid();
+
+                responses.Add(this.AddCartItemInternal(state, cartItem));
+            }
+
+            this.StateManager.Save(state);
+
+            return DisplayFor(new MessageBoxViewModel {
+                Type = MessageBoxType.Info, 
+                Message = string.Format("{0} Artikel dem Warenkorb hinzugefügt", responses.Where(r => r.Type == MessageBoxType.Success).Count())}
+            );
         }
 
         //
         // GET: /Cart/RemoveItem/Id
 
-        public ActionResult RemoveItem(Guid gid) {
+        public ActionResult RemoveItem(Guid gid)
+        {
             var state = this.StateManager.Load<CartModel>();
 
             state.Items.RemoveAll(i => i.Gid == gid);
@@ -90,15 +126,18 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Cart/GetCartItemsCount
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public int GetCartItemsCount() {
+        public int GetCartItemsCount()
+        {
             return this.StateManager.Load<CartModel>().Items.Count;
         }
 
-        private bool DateIsEqual(DateTime x, DateTime y) {
+        private bool DateIsEqual(DateTime x, DateTime y)
+        {
             return x.Year == y.Year && x.Month == y.Month && x.Day == y.Day;
         }
 
-        private MessageBoxViewModel AddCartItemInternal(CartModel state, CartItem newItem) {
+        private MessageBoxViewModel AddCartItemInternal(CartModel state, CartItem newItem)
+        {
             MessageBoxViewModel response;
 
             if (newItem.Begin >= newItem.End)
@@ -139,5 +178,29 @@ namespace phiNdus.fundus.Core.Web.Controllers
             }
             return response;
         }
+
+        // muss wegrationalisiert werden, wenn die daten von der db kommen
+        private string RäubereCaption(int articleId)
+        {
+            if (Caption.ContainsKey(articleId))
+            {
+                return Caption[articleId];
+            }
+
+            return "unknonwn article";
+        }
+
+        private static IDictionary<int, string> Caption = new Dictionary<int, string>
+        {
+            {1," Schraube (10 Stk)"},
+            {2, "Canon IXUS 100IS"},
+            {4, "Pullover (rot, S)"},
+            {5, "Pullover (rot, M)"},
+            {6, "Pullover (rot L,)"},
+            {7, "Pullover (blau, M)"},
+            {8, "Pullover (blau, L)"},
+            {9, "Pullover (grün, XS)"},
+            {10, "Pullover (grün, XL)"},
+        };
     }
 }
