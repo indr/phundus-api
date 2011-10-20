@@ -237,39 +237,5 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 Assert.That(actual, Is.EqualTo(5));
             }
         }
-
-        [Test]
-        public void CountReserved()
-        {
-            Article article;
-            Order order;
-            using (var uow = UnitOfWork.Start())
-            {
-                var user = CreateAndPersistUser("user@example.com");
-                var admin = CreateAndPersistUser("admin@example.com");
-                article = CreatePersistentArticle();
-                
-                order = CreateAndPersistentOrder(user);
-                CreateAndPersistOrderItem(order, article, 2);
-
-                order = CreateAndPersistentOrder(user);
-                CreateAndPersistOrderItem(order, article, 3);
-                order.Approve(admin);
-
-                order = CreateAndPersistentOrder(user);
-                CreateAndPersistOrderItem(order, article, 4);
-                order.Reject(admin);
-
-                uow.TransactionalFlush();
-            }
-            
-            using (UnitOfWork.Start())
-            {
-                var actual = Sut.CountReserved(article.Id);
-                Assert.That(actual, Is.EqualTo(5));
-            }
-        }
-
-
     }
 }
