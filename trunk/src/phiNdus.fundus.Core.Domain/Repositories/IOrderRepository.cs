@@ -10,5 +10,7 @@ namespace phiNdus.fundus.Core.Domain.Repositories
         ICollection<Order> FindPending();
         ICollection<Order> FindApproved();
         ICollection<Order> FindRejected();
+        int CountReserved(int articleId);
+        int SumReservedAmount(int articleId);
     }
 }

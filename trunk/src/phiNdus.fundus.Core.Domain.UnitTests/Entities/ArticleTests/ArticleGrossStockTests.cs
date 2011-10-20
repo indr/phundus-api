@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Iesi.Collections.Generic;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
@@ -11,61 +8,12 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
 {
     [TestFixture]
-    public class ArticleGrossStockTests : MockTestBase<Article>
+    public class ArticleGrossStockTests : ArticleTestBase
     {
-        private DomainPropertyDefinition _grossStockPropertyDef;
-
-        [SetUp]
-        public override void  Setup()
-        {
- 	        base.Setup();
-
-            _grossStockPropertyDef = new DomainPropertyDefinition(DomainPropertyDefinition.GrossStockId, "Bestand (Brutto)", DomainPropertyType.Integer);
-        }
-
-        protected override Article CreateSut()
-        {
-            StubPropertyValues = new HashedSet<DomainPropertyValue>();
-            return new Article(StubPropertyValues);
-        }
-
-        protected HashedSet<DomainPropertyValue> StubPropertyValues { get; set; }
-
-        protected void AddGrossStockProperty(int amount)
-        {
-            StubPropertyValues.Add(new DomainPropertyValue(_grossStockPropertyDef, amount));
-        }
-
-        protected Article AddChild()
-        {
-            var result = new Article();
-            Sut.AddChild(result);
-            return result;
-        }
-
-        /// <summary>
-        /// Kein definierter Bestand, keine Kindelemente => Bruttobestand = 1
-        /// </summary>
         [Test]
-        public void Get_without_children_and_without_attached_property_returns_1()
+        public void Get_with_children_and_attached_gross_stock_field_throws()
         {
-            var actual = Sut.GrossStock;
-            Assert.That(actual, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Get_without_children_and_attached_property_returns_propertyValue()
-        {
-            AddGrossStockProperty(100);
-
-            var actual = Sut.GrossStock;
-            Assert.That(actual, Is.EqualTo(100));
-        }
-
-        [Test]
-        public void Get_with_children_and_attached_property_throws()
-        {
-            AddGrossStockProperty(100);
+            Sut.GrossStock = 100;
             AddChild();
 
             Assert.Throws<IllegalAttachedFieldException>(delegate { object current = Sut.GrossStock; });
@@ -86,9 +34,27 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
             Assert.That(actual, Is.EqualTo(30));
         }
 
+        [Test]
+        public void Get_without_children_and_attached_gross_stock_field_returns_field_value()
+        {
+            Sut.GrossStock = 100;
+
+            var actual = Sut.GrossStock;
+            Assert.That(actual, Is.EqualTo(100));
+        }
+
+        /// <summary>
+        /// Kein definierter Bestand, keine Kindelemente => Bruttobestand = 1
+        /// </summary>
+        [Test]
+        public void Get_without_children_and_without_attached_gross_stock_field_returns_1()
+        {
+            var actual = Sut.GrossStock;
+            Assert.That(actual, Is.EqualTo(1));
+        }
 
         [Test]
-        public void Set_with_children_throws()
+        public void Set_gross_stock_with_children_throws()
         {
             AddChild();
             Assert.Throws<InvalidOperationException>(() => Sut.GrossStock = 1);
@@ -97,7 +63,6 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         [Test]
         public void Set_without_children()
         {
-            AddGrossStockProperty(1);
             Sut.GrossStock = 10;
             Assert.That(Sut.GrossStock, Is.EqualTo(10));
         }

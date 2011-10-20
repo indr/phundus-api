@@ -38,6 +38,13 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void Set_Amount_less_than_1_throws()
+        {
+            var sut = CreateSut();
+            Assert.Throws<ArgumentOutOfRangeException>(() => sut.Amount = 0);
+        }
+
+        [Test]
         public void Can_get_and_set_From()
         {
             var sut = CreateSut();

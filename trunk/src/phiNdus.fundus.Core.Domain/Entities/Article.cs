@@ -12,11 +12,13 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
         }
 
-        public Article(ISet<DomainPropertyValue> propertyValues) : base(propertyValues)
+        public Article(ISet<DomainPropertyValue> propertyValues)
+            : base(propertyValues)
         {
         }
 
-        public Article(int id, int version) : base(id, version)
+        public Article(int id, int version)
+            : base(id, version)
         {
         }
 
@@ -111,11 +113,27 @@ namespace phiNdus.fundus.Core.Domain.Entities
             set
             {
                 if (HasChildren)
-                    throw new InvalidOperationException("Der Bruttobestand kann nicht gesetzt werden, da mindestens eine Ausprägung vorhanden ist.");
+                    throw new InvalidOperationException(
+                        "Der Bruttobestand kann nicht gesetzt werden, da mindestens eine Ausprägung vorhanden ist.");
                 if (!HasProperty(DomainPropertyDefinition.GrossStockId))
-                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.GrossStockId));
+                    AddProperty(
+                        IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.GrossStockId));
                 SetPropertyValue(DomainPropertyDefinition.GrossStockId, value);
             }
+        }
+
+        public virtual int BorrowableStock
+        {
+            get
+            {
+                return
+                    GrossStock - OrderRepository.SumReservedAmount(Id);
+            }
+        }
+
+        protected virtual IOrderRepository OrderRepository
+        {
+            get { return IoC.Resolve<IOrderRepository>(); }
         }
     }
 }

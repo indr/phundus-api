@@ -25,13 +25,12 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
             IoC.Container.Dispose();
         }
 
-
-        protected User CreatePersistentUser()
+        protected User CreateAndPersistUser()
         {
-            return CreatePersistentUser("user@example.com");
+            return CreateAndPersistUser("user@example.com");
         }
 
-        protected User CreatePersistentUser(string email)
+        protected User CreateAndPersistUser(string email)
         {
             var users = IoC.Resolve<IUserRepository>();
             var roles = IoC.Resolve<IRoleRepository>();
