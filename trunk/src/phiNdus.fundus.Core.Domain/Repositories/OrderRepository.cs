@@ -51,15 +51,6 @@ namespace phiNdus.fundus.Core.Domain.Repositories
             return query.ToList();
         }
 
-        public int CountReserved(int articleId)
-        {
-            var query = (from i in Items
-                         where i.Article.Id == articleId
-                               && i.Order.Status != OrderStatus.Rejected
-                         select i).Sum(x => x.Amount);
-            return query;
-        }
-
         public int SumReservedAmount(int articleId)
         {
             return (from i in Items

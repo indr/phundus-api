@@ -10,8 +10,6 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         [Test]
         public void Get_with_children_returns_sum_of_childrens_BorrowableStock()
         {
-            Assert.Ignore("Work in progress");
-
             // Typ-C, Mengenwaren
             var child1 = MockRepository.GenerateMock<Article>();
             var child2 = MockRepository.GenerateMock<Article>();

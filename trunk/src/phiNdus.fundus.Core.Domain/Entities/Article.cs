@@ -126,8 +126,8 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
             get
             {
-                return
-                    GrossStock - OrderRepository.SumReservedAmount(Id);
+                return GrossStock - OrderRepository.SumReservedAmount(Id)
+                    + Children.Sum(child => ((Article) child).BorrowableStock);
             }
         }
 
