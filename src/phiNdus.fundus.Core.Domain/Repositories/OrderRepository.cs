@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Linq;
 using phiNdus.fundus.Core.Domain.Entities;
@@ -13,6 +12,13 @@ namespace phiNdus.fundus.Core.Domain.Repositories
         {
             get { return Session.Query<Order>(); }
         }
+
+        private IQueryable<OrderItem> Items
+        {
+            get { return Session.Query<OrderItem>(); }
+        }
+
+        #region IOrderRepository Members
 
         public ICollection<Order> FindAll()
         {
@@ -44,5 +50,25 @@ namespace phiNdus.fundus.Core.Domain.Repositories
                         select o;
             return query.ToList();
         }
+
+        public int CountReserved(int articleId)
+        {
+            var query = (from i in Items
+                         where i.Article.Id == articleId
+                               && i.Order.Status != OrderStatus.Rejected
+                         select i).Sum(x => x.Amount);
+            return query;
+        }
+
+        public int SumReservedAmount(int articleId)
+        {
+            return (from i in Items
+                    where i.Article.Id == articleId
+                          && i.Order.Status != OrderStatus.Rejected
+                    select i)
+                .Sum(x => x.Amount);
+        }
+
+        #endregion
     }
 }

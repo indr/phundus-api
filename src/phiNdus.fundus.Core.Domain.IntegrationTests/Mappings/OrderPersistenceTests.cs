@@ -21,7 +21,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 
             using (var uow = UnitOfWork.Start())
             {
-                sut.Reserver = CreatePersistentUser("user@example.com");
+                sut.Reserver = CreateAndPersistUser("user@example.com");
                 UnitOfWork.CurrentSession.Save(sut);
                 id = sut.Id;
                 uow.TransactionalFlush();
@@ -42,7 +42,9 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         {
             var sut = new Order();
             var item1 = CreateTransientOrderItem();
+            item1.Amount = 1;
             var item2 = CreateTransientOrderItem();
+            item2.Amount = 1;
             Assert.True(sut.AddItem(item1));
             Assert.True(sut.AddItem(item2));
 
@@ -50,7 +52,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
             var orderId = 0;
             using (var uow = UnitOfWork.Start())
             {
-                sut.Reserver = CreatePersistentUser();
+                sut.Reserver = CreateAndPersistUser();
                 item1.Article = CreatePersistentArticle();
                 item2.Article = CreatePersistentArticle();
                 UnitOfWork.CurrentSession.Save(sut);

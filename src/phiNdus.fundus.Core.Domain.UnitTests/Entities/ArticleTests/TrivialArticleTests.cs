@@ -8,6 +8,7 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
 {
+    // TODO: Inherit from ArticleTestBase
     [TestFixture]
     public class TrivialArticleTests : MockTestBase<Article>
     {

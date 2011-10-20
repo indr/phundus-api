@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
@@ -34,7 +35,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 
             using (var uow = UnitOfWork.Start())
             {
-                order.Reserver = CreatePersistentUser("user@example.com");
+                order.Reserver = CreateAndPersistUser("user@example.com");
                 Sut.Save(order);
                 orderId = order.Id;
                 uow.TransactionalFlush();
@@ -56,14 +57,16 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
             
             var order = new Order();
             var item1 = CreateTransientOrderItem();
+            item1.Amount = 1;
             var item2 = CreateTransientOrderItem();
+            item2.Amount = 2;
             order.AddItem(item1);
             order.AddItem(item2);
 
             var orderId = 0;
             using (var uow = UnitOfWork.Start())
             {
-                order.Reserver = CreatePersistentUser();
+                order.Reserver = CreateAndPersistUser();
                 item1.Article = CreatePersistentArticle();
                 item2.Article = CreatePersistentArticle();
                 Sut.Save(order);
@@ -87,7 +90,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         private Order CreatePersistentPendingOrder()
         {
             var result = new Order();
-            result.Reserver = CreatePersistentUser();
+            result.Reserver = CreateAndPersistUser();
             UnitOfWork.CurrentSession.Save(result);
             return result;
         }
@@ -95,7 +98,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         private Order CreatePersistentApprovedOrder()
         {
             var result = CreatePersistentPendingOrder();
-            result.Approve(CreatePersistentUser());
+            result.Approve(CreateAndPersistUser());
             UnitOfWork.CurrentSession.Save(result);
             return result;
         }
@@ -103,10 +106,29 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         private Order CreatePersistentRejectedOrder()
         {
             var result = CreatePersistentPendingOrder();
-            result.Reject(CreatePersistentUser());
+            result.Reject(CreateAndPersistUser());
             UnitOfWork.CurrentSession.Save(result);
             return result;
-            
+        }
+
+        private static OrderItem CreateAndPersistOrderItem(Order order, Article article, int amount = 1)
+        {
+            var result = new OrderItem();
+            result.From = DateTime.Today;
+            result.To = DateTime.Today;
+            result.Article = article;
+            result.Amount = amount;
+            order.AddItem(result);
+            UnitOfWork.CurrentSession.Save(result);
+            return result;
+        }
+
+        private static Order CreateAndPersistentOrder(User reserver)
+        {
+            var result = new Order();
+            result.Reserver = reserver;
+            UnitOfWork.CurrentSession.Save(result);
+            return result;
         }
 
         [Test]
@@ -183,5 +205,71 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 Assert.That(orders, Has.Some.Property("Id").EqualTo(rejected.Id));
             }
         }
+
+
+        [Test]
+        public void SumReservedAmount()
+        {
+            Article article;
+            using (var uow = UnitOfWork.Start())
+            {
+                var user = CreateAndPersistUser("user@example.com");
+                var admin = CreateAndPersistUser("admin@example.com");
+                article = CreatePersistentArticle();
+
+                var order = CreateAndPersistentOrder(user);
+                CreateAndPersistOrderItem(order, article, 2);
+
+                order = CreateAndPersistentOrder(user);
+                CreateAndPersistOrderItem(order, article, 3);
+                order.Approve(admin);
+
+                order = CreateAndPersistentOrder(user);
+                CreateAndPersistOrderItem(order, article, 4);
+                order.Reject(admin);
+
+                uow.TransactionalFlush();
+            }
+
+            using (UnitOfWork.Start())
+            {
+                var actual = Sut.SumReservedAmount(article.Id);
+                Assert.That(actual, Is.EqualTo(5));
+            }
+        }
+
+        [Test]
+        public void CountReserved()
+        {
+            Article article;
+            Order order;
+            using (var uow = UnitOfWork.Start())
+            {
+                var user = CreateAndPersistUser("user@example.com");
+                var admin = CreateAndPersistUser("admin@example.com");
+                article = CreatePersistentArticle();
+                
+                order = CreateAndPersistentOrder(user);
+                CreateAndPersistOrderItem(order, article, 2);
+
+                order = CreateAndPersistentOrder(user);
+                CreateAndPersistOrderItem(order, article, 3);
+                order.Approve(admin);
+
+                order = CreateAndPersistentOrder(user);
+                CreateAndPersistOrderItem(order, article, 4);
+                order.Reject(admin);
+
+                uow.TransactionalFlush();
+            }
+            
+            using (UnitOfWork.Start())
+            {
+                var actual = Sut.CountReserved(article.Id);
+                Assert.That(actual, Is.EqualTo(5));
+            }
+        }
+
+
     }
 }

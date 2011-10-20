@@ -1,4 +1,5 @@
-﻿using Castle.Windsor;
+﻿using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using NUnit.Framework;
 using Rhino.Commons;
 using Rhino.Mocks;
@@ -38,5 +39,14 @@ namespace phiNdus.fundus.TestHelpers {
         /// Dependencies registriert wurden.
         /// </summary>
         protected abstract TSut CreateSut();
+
+
+
+        protected T GenerateAndRegisterStub<T>() where T : class
+        {
+            var result = MockRepository.GenerateStub<T>();
+            IoC.Container.Register(Component.For<T>().Instance(result));
+            return result;
+        }
     }
 }

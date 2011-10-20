@@ -88,6 +88,7 @@
     <Compile Include="PasswordEncryptor.cs" />
     <Compile Include="PropertyException.cs" />
     <Compile Include="Repositories\DomainPropertyDefinitionRepository.cs" />
+    <Compile Include="Repositories\IContractRepository.cs" />
     <Compile Include="Repositories\IDomainPropertyDefinitionRepository.cs" />
     <Compile Include="Repositories\IArticleRepository.cs" />
     <Compile Include="Repositories\IOrderRepository.cs" />
