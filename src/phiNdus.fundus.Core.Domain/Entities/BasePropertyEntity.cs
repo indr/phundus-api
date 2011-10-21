@@ -5,13 +5,13 @@ namespace phiNdus.fundus.Core.Domain.Entities
 {
     public class BasePropertyEntity : BaseEntity
     {
-        private ISet<DomainPropertyValue> _propertyValues = new HashedSet<DomainPropertyValue>();
+        private ISet<FieldValue> _propertyValues = new HashedSet<FieldValue>();
 
         public BasePropertyEntity()
         {
         }
 
-        public BasePropertyEntity(ISet<DomainPropertyValue> propertyValues)
+        public BasePropertyEntity(ISet<FieldValue> propertyValues)
         {
             _propertyValues = propertyValues;
         }
@@ -20,7 +20,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
         }
 
-        public virtual ISet<DomainPropertyValue> PropertyValues
+        public virtual ISet<FieldValue> PropertyValues
         {
             get { return _propertyValues; }
             protected set { _propertyValues = value; }
@@ -41,17 +41,17 @@ namespace phiNdus.fundus.Core.Domain.Entities
             return false;
         }
 
-        public virtual DomainPropertyValue AddProperty(FieldDefinition propertyDefinition)
+        public virtual FieldValue AddProperty(FieldDefinition propertyDefinition)
         {
             return AddProperty(propertyDefinition, null);
         }
 
-        public virtual DomainPropertyValue AddProperty(FieldDefinition propertyDefinition, object value)
+        public virtual FieldValue AddProperty(FieldDefinition propertyDefinition, object value)
         {
             if (HasProperty(propertyDefinition))
                 throw new PropertyException("Property bereits vorhanden.");
 
-            var result = new DomainPropertyValue(propertyDefinition, value);
+            var result = new FieldValue(propertyDefinition, value);
             PropertyValues.Add(result);
             return result;
         }
@@ -71,12 +71,12 @@ namespace phiNdus.fundus.Core.Domain.Entities
             throw new PropertyException("Property nicht vorhanden.");
         }
 
-        public virtual DomainPropertyValue SetPropertyValue(FieldDefinition propertyDefinition, object value)
+        public virtual FieldValue SetPropertyValue(FieldDefinition propertyDefinition, object value)
         {
             return SetPropertyValue(propertyDefinition.Id, value);
         }
 
-        public virtual DomainPropertyValue SetPropertyValue(int propertyDefinitionId, object value)
+        public virtual FieldValue SetPropertyValue(int propertyDefinitionId, object value)
         {
             foreach (var each in PropertyValues)
             {
@@ -91,7 +91,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public virtual void RemoveProperty(FieldDefinition propertyDefinition)
         {
-            DomainPropertyValue propertyValue = null;
+            FieldValue propertyValue = null;
             foreach (var each in PropertyValues)
                 if (each.PropertyDefinition.Id == propertyDefinition.Id)
                 {

@@ -26,11 +26,11 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         
         protected override DomainObject CreateSut()
         {
-            StubPropertyValues = new HashedSet<DomainPropertyValue>();
+            StubPropertyValues = new HashedSet<FieldValue>();
             return new DomainObject(StubPropertyValues);
         }
 
-        private ISet<DomainPropertyValue> StubPropertyValues { get; set; }
+        private ISet<FieldValue> StubPropertyValues { get; set; }
         private IDomainPropertyDefinitionRepository StubPropertyDefinitionRepository { get; set; }
 
         private readonly FieldDefinition _namePropertyDef =
@@ -57,7 +57,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Can_create_with_PropertyValues()
         {
-            var propertyValues = new HashedSet<DomainPropertyValue>();
+            var propertyValues = new HashedSet<FieldValue>();
             var sut = new DomainObject(propertyValues);
             Assert.That(sut, Is.Not.Null);
             Assert.That(sut.PropertyValues, Is.SameAs(propertyValues));
@@ -100,7 +100,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void GetCaption()
         {
             Assert.That(Sut.Caption, Is.EqualTo(""));
-            StubPropertyValues.Add(new DomainPropertyValue(_namePropertyDef, "Name of object"));
+            StubPropertyValues.Add(new FieldValue(_namePropertyDef, "Name of object"));
             Assert.That(Sut.Caption, Is.EqualTo("Name of object"));
         }
 

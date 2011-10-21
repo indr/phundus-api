@@ -12,7 +12,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
         }
 
-        public Article(ISet<DomainPropertyValue> propertyValues)
+        public Article(ISet<FieldValue> propertyValues)
             : base(propertyValues)
         {
         }
