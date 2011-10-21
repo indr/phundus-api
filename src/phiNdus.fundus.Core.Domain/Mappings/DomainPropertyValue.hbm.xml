@@ -2,13 +2,13 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Core.Domain" namespace="phiNdus.fundus.Core.Domain.Entities">
 
-  <class name="DomainPropertyValue" table="[DomainPropertyValue]">
+  <class name="DomainPropertyValue" table="[FieldValue]">
     <id name="Id">
       <generator class="hilo" />
     </id>
     <version name="Version" />
     <many-to-one class="DomainPropertyDefinition" name="PropertyDefinition" not-null="true">
-      <column name="DomainPropertyDefinitionId" />
+      <column name="FieldDefinitionId" />
     </many-to-one>
     <property name="IsDiscriminator" />
     <property name="BooleanValue" />

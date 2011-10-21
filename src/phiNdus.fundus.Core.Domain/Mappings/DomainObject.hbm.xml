@@ -2,7 +2,7 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Core.Domain" namespace="phiNdus.fundus.Core.Domain.Entities">
 
-  <class name="DomainObject" table="[DomainObject]">
+  <class name="DomainObject" table="[Article]">
     <id name="Id">
       <generator class="hilo" />
     </id>
@@ -10,7 +10,7 @@
     <version name="Version" />
 
     <set name="PropertyValues" cascade="all-delete-orphan" lazy="false">
-      <key column="DomainObjectId" />
+      <key column="ArticleId" />
       <one-to-many class="DomainPropertyValue" />
     </set>
 

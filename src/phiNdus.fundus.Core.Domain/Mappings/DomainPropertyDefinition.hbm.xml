@@ -2,13 +2,13 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Core.Domain" namespace="phiNdus.fundus.Core.Domain.Entities">
 
-  <class name="DomainPropertyDefinition" table="[DomainPropertyDefinition]">
+  <class name="DomainPropertyDefinition" table="[FieldDefinition]">
     <id name="Id">
       <generator class="hilo" />
     </id>
     <version name="Version" />
     <property name="Name" />
     <property name="DataType" />
-    <property name="IsSystemProperty" />
+    <property name="IsSystemProperty" column="IsSystemField" />
   </class>
 </hibernate-mapping>
