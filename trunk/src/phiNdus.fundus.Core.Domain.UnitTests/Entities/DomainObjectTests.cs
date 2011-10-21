@@ -11,7 +11,7 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    public class DomainObjectTests : MockTestBase<DomainObject>
+    public class DomainObjectTests : MockTestBase<CompositeEntity>
     {
 
         protected override void RegisterDependencies(Castle.Windsor.IWindsorContainer container)
@@ -24,23 +24,21 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
                 Component.For<IDomainPropertyDefinitionRepository>().Instance(StubPropertyDefinitionRepository));
         }
         
-        protected override DomainObject CreateSut()
+        protected override CompositeEntity CreateSut()
         {
             StubPropertyValues = new HashedSet<FieldValue>();
-            return new DomainObject(StubPropertyValues);
+            return new CompositeEntity(StubPropertyValues);
         }
 
         private ISet<FieldValue> StubPropertyValues { get; set; }
         private IDomainPropertyDefinitionRepository StubPropertyDefinitionRepository { get; set; }
 
-        private readonly FieldDefinition _namePropertyDef =
-            new FieldDefinition(FieldDefinition.CaptionId, "Name",
-                                         FieldType.Text);
+       
 
         [Test]
         public void Can_create()
         {
-            var sut = new DomainObject();
+            var sut = new CompositeEntity();
             Assert.That(sut, Is.Not.Null);
             Assert.That(sut.FieldValues, Is.Not.Null);
         }
@@ -48,7 +46,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Can_create_with_Id_and_Version()
         {
-            var sut = new DomainObject(1, 2);
+            var sut = new CompositeEntity(1, 2);
             Assert.That(sut, Is.Not.Null);
             Assert.That(sut.Id, Is.EqualTo(1));
             Assert.That(sut.Version, Is.EqualTo(2));
@@ -58,7 +56,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void Can_create_with_PropertyValues()
         {
             var propertyValues = new HashedSet<FieldValue>();
-            var sut = new DomainObject(propertyValues);
+            var sut = new CompositeEntity(propertyValues);
             Assert.That(sut, Is.Not.Null);
             Assert.That(sut.FieldValues, Is.SameAs(propertyValues));
         }
@@ -66,15 +64,15 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Is_derived_from_BasePropertyEntity()
         {
-            var sut = new DomainObject();
+            var sut = new CompositeEntity();
             Assert.That(sut, Is.InstanceOf(typeof (FieldedEntity)));
         }
 
         [Test]
         public void AddChild()
         {
-            var sut = new DomainObject();
-            var child = new DomainObject();
+            var sut = new CompositeEntity();
+            var child = new CompositeEntity();
             sut.AddChild(child);
             Assert.That(sut.Children, Has.Count.EqualTo(1));
         }
@@ -82,8 +80,8 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void AddChild_sets_Parent()
         {
-            var parent = new DomainObject();
-            var sut = new DomainObject();
+            var parent = new CompositeEntity();
+            var sut = new CompositeEntity();
             parent.AddChild(sut);
             Assert.That(sut.Parent, Is.SameAs(parent));
         }
@@ -92,27 +90,10 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void Can_get_HasChildren()
         {
             Assert.That(Sut.HasChildren, Is.False);
-            Sut.AddChild(new DomainObject());
+            Sut.AddChild(new CompositeEntity());
             Assert.That(Sut.HasChildren, Is.True);
         }
 
-        [Test]
-        public void GetCaption()
-        {
-            Assert.That(Sut.Caption, Is.EqualTo(""));
-            StubPropertyValues.Add(new FieldValue(_namePropertyDef, "Name of object"));
-            Assert.That(Sut.Caption, Is.EqualTo("Name of object"));
-        }
-
-        [Test]
-        public void SetCaption()
-        {
-            StubPropertyDefinitionRepository.Stub(x => x.Get(_namePropertyDef.Id))
-                .Return(_namePropertyDef);
-
-            Assert.That(Sut.Caption, Is.EqualTo(""));
-            Sut.Caption = "Name of object";
-            Assert.That(Sut.Caption, Is.EqualTo("Name of object"));
-        }
+        
     }
 }
