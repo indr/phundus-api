@@ -18,25 +18,25 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
             {
                 var propertyRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
                 _booleanPropertyDefinition = propertyRepo.Get(1);
-                Assert.That(_booleanPropertyDefinition.DataType, Is.EqualTo(DomainPropertyType.Boolean));
+                Assert.That(_booleanPropertyDefinition.DataType, Is.EqualTo(FieldType.Boolean));
                 _textPropertyDefinition = propertyRepo.Get(2);
-                Assert.That(_textPropertyDefinition.DataType, Is.EqualTo(DomainPropertyType.Text));
+                Assert.That(_textPropertyDefinition.DataType, Is.EqualTo(FieldType.Text));
                 _integerPropertyDefinition = propertyRepo.Get(3);
-                Assert.That(_integerPropertyDefinition.DataType, Is.EqualTo(DomainPropertyType.Integer));
+                Assert.That(_integerPropertyDefinition.DataType, Is.EqualTo(FieldType.Integer));
                 _decimalPropertyDefinition = propertyRepo.Get(4);
-                Assert.That(_decimalPropertyDefinition.DataType, Is.EqualTo(DomainPropertyType.Decimal));
+                Assert.That(_decimalPropertyDefinition.DataType, Is.EqualTo(FieldType.Decimal));
                 _dateTimePropertyDefinition = propertyRepo.Get(5);
-                Assert.That(_dateTimePropertyDefinition.DataType, Is.EqualTo(DomainPropertyType.DateTime));
+                Assert.That(_dateTimePropertyDefinition.DataType, Is.EqualTo(FieldType.DateTime));
             }
         }
 
         #endregion
 
-        private DomainPropertyDefinition _booleanPropertyDefinition;
-        private DomainPropertyDefinition _textPropertyDefinition;
-        private DomainPropertyDefinition _integerPropertyDefinition;
-        private DomainPropertyDefinition _decimalPropertyDefinition;
-        private DomainPropertyDefinition _dateTimePropertyDefinition;
+        private FieldDefinition _booleanPropertyDefinition;
+        private FieldDefinition _textPropertyDefinition;
+        private FieldDefinition _integerPropertyDefinition;
+        private FieldDefinition _decimalPropertyDefinition;
+        private FieldDefinition _dateTimePropertyDefinition;
 
 
         private static int Save(DomainPropertyValue propertyValue, object value)
@@ -52,7 +52,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
             return result;            
         }
 
-        private static int Save(DomainPropertyDefinition propertyDefinition, object value)
+        private static int Save(FieldDefinition propertyDefinition, object value)
         {
             var propertyValue = new DomainPropertyValue(propertyDefinition);
             return Save(propertyValue, value);

@@ -9,45 +9,45 @@ namespace phiNdus.fundus.Core.Business.Assembler
 {
     public class PropertyDefinitionAssembler
     {
-        private static PropertyDataType ConvertDataType(DomainPropertyType value)
+        private static PropertyDataType ConvertDataType(FieldType value)
         {
             switch (value)
             {
-                case DomainPropertyType.Boolean:
+                case FieldType.Boolean:
                     return PropertyDataType.Boolean;
-                case DomainPropertyType.Text:
+                case FieldType.Text:
                     return PropertyDataType.Text;
-                case DomainPropertyType.Integer:
+                case FieldType.Integer:
                     return PropertyDataType.Integer;
-                case DomainPropertyType.Decimal:
+                case FieldType.Decimal:
                     return PropertyDataType.Decimal;
-                case DomainPropertyType.DateTime:
+                case FieldType.DateTime:
                     return PropertyDataType.DateTime;
                 default:
                     throw new ArgumentOutOfRangeException("value");
             }
         }
 
-        private static DomainPropertyType ConvertDataType(PropertyDataType value)
+        private static FieldType ConvertDataType(PropertyDataType value)
         {
             switch (value)
             {
                 case PropertyDataType.Boolean:
-                    return DomainPropertyType.Boolean;
+                    return FieldType.Boolean;
                 case PropertyDataType.Text:
-                    return DomainPropertyType.Text;
+                    return FieldType.Text;
                 case PropertyDataType.Integer:
-                    return DomainPropertyType.Integer;
+                    return FieldType.Integer;
                 case PropertyDataType.Decimal:
-                    return DomainPropertyType.Decimal;
+                    return FieldType.Decimal;
                 case PropertyDataType.DateTime:
-                    return DomainPropertyType.DateTime;
+                    return FieldType.DateTime;
                 default:
                     throw new ArgumentOutOfRangeException("value");
             }
         }
 
-        public static PropertyDto CreateDto(DomainPropertyDefinition subject)
+        public static PropertyDto CreateDto(FieldDefinition subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
@@ -61,7 +61,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             return result;
         }
 
-        public static PropertyDto[] CreateDtos(ICollection<DomainPropertyDefinition> subjects)
+        public static PropertyDto[] CreateDtos(ICollection<FieldDefinition> subjects)
         {
             Guard.Against<ArgumentNullException>(subjects == null, "subjects");
 
@@ -71,18 +71,18 @@ namespace phiNdus.fundus.Core.Business.Assembler
             return result.ToArray();
         }
 
-        public static DomainPropertyDefinition CreateDomainObject(PropertyDto subject)
+        public static FieldDefinition CreateDomainObject(PropertyDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
-            var result = new DomainPropertyDefinition();
+            var result = new FieldDefinition();
             result.Name = subject.Caption;
             result.DataType = ConvertDataType(subject.DataType);
             return result;
         }
 
 
-        public static DomainPropertyDefinition UpdateDomainObject(PropertyDto subject)
+        public static FieldDefinition UpdateDomainObject(PropertyDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
             var result = IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(subject.Id);

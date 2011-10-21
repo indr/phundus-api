@@ -125,19 +125,19 @@ namespace phiNdus.fundus.Core.Business.Assembler
                 dtoProperty.Caption = each.PropertyDefinition.Name;
                 switch (each.PropertyDefinition.DataType)
                 {
-                    case DomainPropertyType.Boolean:
+                    case FieldType.Boolean:
                         dtoProperty.DataType = PropertyDataType.Boolean;
                         break;
-                    case DomainPropertyType.Text:
+                    case FieldType.Text:
                         dtoProperty.DataType = PropertyDataType.Text;
                         break;
-                    case DomainPropertyType.Integer:
+                    case FieldType.Integer:
                         dtoProperty.DataType = PropertyDataType.Integer;
                         break;
-                    case DomainPropertyType.Decimal:
+                    case FieldType.Decimal:
                         dtoProperty.DataType = PropertyDataType.Decimal;
                         break;
-                    case DomainPropertyType.DateTime:
+                    case FieldType.DateTime:
                         dtoProperty.DataType = PropertyDataType.DateTime;
                         break;
                     default:

@@ -30,9 +30,9 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 
         #endregion
 
-        protected DomainPropertyDefinition NamePropertyDefinition { get; set; }
+        protected FieldDefinition NamePropertyDefinition { get; set; }
 
-        protected DomainPropertyDefinition PricePropertyDefinition { get; set; }
+        protected FieldDefinition PricePropertyDefinition { get; set; }
 
         protected IDomainPropertyDefinitionRepository PropertyDefinitionRepo { get; set; }
 

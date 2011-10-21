@@ -21,8 +21,8 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 
         #endregion
 
-        private readonly DomainPropertyDefinition _namePropertyDefinition = new DomainPropertyDefinition(1, "Name",
-                                                                                                         DomainPropertyType
+        private readonly FieldDefinition _namePropertyDefinition = new FieldDefinition(1, "Name",
+                                                                                                         FieldType
                                                                                                              .Text);
 
         [Test]

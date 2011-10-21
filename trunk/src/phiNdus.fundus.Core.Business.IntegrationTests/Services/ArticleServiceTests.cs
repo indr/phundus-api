@@ -27,14 +27,14 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
             var dto = new ArticleDto();
             dto.AddProperty(new DtoProperty
                                 {
-                                    PropertyId = DomainPropertyDefinition.CaptionId,
+                                    PropertyId = FieldDefinition.CaptionId,
                                     DataType =  PropertyDataType.Text,
                                     Value = "Artikel"
                                 });
             var child = new ArticleDto();
             child.AddProperty(new DtoProperty
             {
-                PropertyId = DomainPropertyDefinition.CaptionId,
+                PropertyId = FieldDefinition.CaptionId,
                 DataType = PropertyDataType.Text,
                 Value = "Kind 1"
             });
@@ -59,14 +59,14 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
             var dto = new ArticleDto();
             dto.AddProperty(new DtoProperty
             {
-                PropertyId = DomainPropertyDefinition.CaptionId,
+                PropertyId = FieldDefinition.CaptionId,
                 DataType = PropertyDataType.Text,
                 Value = "Artikel"
             });
             var child1 = new ArticleDto();
             child1.AddProperty(new DtoProperty
             {
-                PropertyId = DomainPropertyDefinition.CaptionId,
+                PropertyId = FieldDefinition.CaptionId,
                 DataType = PropertyDataType.Text,
                 Value = "Kind 1"
             });
@@ -74,7 +74,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
             var child2 = new ArticleDto();
             child2.AddProperty(new DtoProperty
             {
-                PropertyId = DomainPropertyDefinition.CaptionId,
+                PropertyId = FieldDefinition.CaptionId,
                 DataType = PropertyDataType.Text,
                 Value = "Kind 2"
             });
@@ -85,17 +85,17 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
             dto = Sut.GetArticle(id);
             dto.AddProperty(new DtoProperty
                                 {
-                                    PropertyId =  DomainPropertyDefinition.PriceId,
+                                    PropertyId =  FieldDefinition.PriceId,
                                     DataType = PropertyDataType.Decimal,
                                     Value = 12.50
                                 });
-            dto.RemoveProperty(DomainPropertyDefinition.CaptionId);
+            dto.RemoveProperty(FieldDefinition.CaptionId);
             child1 = dto.Children.Where(eachChild => eachChild.Properties.Any(eachProperty => eachProperty.ValueAsString == "Kind 1")).FirstOrDefault();
             dto.RemoveChild(child1);
             var child3 = new ArticleDto();
             child3.AddProperty(new DtoProperty
             {
-                PropertyId = DomainPropertyDefinition.CaptionId,
+                PropertyId = FieldDefinition.CaptionId,
                 DataType = PropertyDataType.Text,
                 Value = "Kind 3"
             });

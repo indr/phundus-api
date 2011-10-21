@@ -20,7 +20,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             base.SetUp();
 
-            Domain = new DomainPropertyDefinition(1, 2, "Caption", DomainPropertyType.Text, true);
+            Domain = new FieldDefinition(1, 2, "Caption", FieldType.Text, true);
 
             Dto = new PropertyDto();
             Dto.Id = 1;
@@ -32,7 +32,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         #endregion
 
         protected PropertyDto Dto { get; set; }
-        protected DomainPropertyDefinition Domain { get; set; }
+        protected FieldDefinition Domain { get; set; }
 
         protected IDomainPropertyDefinitionRepository FakePropertyDefRepo { get; set; }
 
@@ -50,27 +50,27 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             Assert.That(
                 PropertyDefinitionAssembler.CreateDto(
-                    new DomainPropertyDefinition(DomainPropertyType.Boolean)).DataType,
+                    new FieldDefinition(FieldType.Boolean)).DataType,
                 Is.EqualTo(PropertyDataType.Boolean));
 
             Assert.That(
                 PropertyDefinitionAssembler.CreateDto(
-                    new DomainPropertyDefinition(DomainPropertyType.DateTime)).DataType,
+                    new FieldDefinition(FieldType.DateTime)).DataType,
                 Is.EqualTo(PropertyDataType.DateTime));
 
             Assert.That(
                 PropertyDefinitionAssembler.CreateDto(
-                    new DomainPropertyDefinition(DomainPropertyType.Decimal)).DataType,
+                    new FieldDefinition(FieldType.Decimal)).DataType,
                 Is.EqualTo(PropertyDataType.Decimal));
 
             Assert.That(
                 PropertyDefinitionAssembler.CreateDto(
-                    new DomainPropertyDefinition(DomainPropertyType.Integer)).DataType,
+                    new FieldDefinition(FieldType.Integer)).DataType,
                 Is.EqualTo(PropertyDataType.Integer));
 
             Assert.That(
                 PropertyDefinitionAssembler.CreateDto(
-                    new DomainPropertyDefinition(DomainPropertyType.Text)).DataType,
+                    new FieldDefinition(FieldType.Text)).DataType,
                 Is.EqualTo(PropertyDataType.Text));
         }
 
@@ -97,9 +97,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [Test]
         public void CreateDtos_returns_array()
         {
-            var propertyDefinitions = new List<DomainPropertyDefinition>();
-            propertyDefinitions.Add(new DomainPropertyDefinition(1, "Name 1", DomainPropertyType.Boolean));
-            propertyDefinitions.Add(new DomainPropertyDefinition(2, "Name 2", DomainPropertyType.Text));
+            var propertyDefinitions = new List<FieldDefinition>();
+            propertyDefinitions.Add(new FieldDefinition(1, "Name 1", FieldType.Boolean));
+            propertyDefinitions.Add(new FieldDefinition(2, "Name 2", FieldType.Text));
             var dtos = PropertyDefinitionAssembler.CreateDtos(propertyDefinitions);
 
             Assert.That(dtos, Has.Length.EqualTo(2));
@@ -130,7 +130,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(domainObject.Id, Is.EqualTo(0));
             Assert.That(domainObject.Version, Is.EqualTo(0));
             Assert.That(domainObject.Name, Is.EqualTo("Caption"));
-            Assert.That(domainObject.DataType, Is.EqualTo(DomainPropertyType.Text));
+            Assert.That(domainObject.DataType, Is.EqualTo(FieldType.Text));
             Assert.That(domainObject.IsSystemProperty, Is.False);
         }
 
@@ -154,7 +154,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(domainObject.Id, Is.EqualTo(1));
             Assert.That(domainObject.Version, Is.EqualTo(2));
             Assert.That(domainObject.Name, Is.EqualTo("Caption (Updated)"));
-            Assert.That(domainObject.DataType, Is.EqualTo(DomainPropertyType.Text));
+            Assert.That(domainObject.DataType, Is.EqualTo(FieldType.Text));
         }
 
         [Test]

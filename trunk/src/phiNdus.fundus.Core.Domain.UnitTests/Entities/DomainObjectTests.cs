@@ -33,9 +33,9 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         private ISet<DomainPropertyValue> StubPropertyValues { get; set; }
         private IDomainPropertyDefinitionRepository StubPropertyDefinitionRepository { get; set; }
 
-        private readonly DomainPropertyDefinition _namePropertyDef =
-            new DomainPropertyDefinition(DomainPropertyDefinition.CaptionId, "Name",
-                                         DomainPropertyType.Text);
+        private readonly FieldDefinition _namePropertyDef =
+            new FieldDefinition(FieldDefinition.CaptionId, "Name",
+                                         FieldType.Text);
 
         [Test]
         public void Can_create()

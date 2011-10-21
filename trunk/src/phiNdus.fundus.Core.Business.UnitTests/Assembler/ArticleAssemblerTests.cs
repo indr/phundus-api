@@ -23,15 +23,15 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
             StubDomainPropertyDefinitionRepository = GenerateAndRegisterStub<IDomainPropertyDefinitionRepository>();
 
-            _captionPropertyDefinition = new DomainPropertyDefinition(DomainPropertyDefinition.CaptionId, "Name",
-                                                                      DomainPropertyType.Text);
-            _pricePropertyDefinition = new DomainPropertyDefinition(DomainPropertyDefinition.PriceId, "Preis",
-                                                                    DomainPropertyType.Decimal);
-            _colorPropertyDefinition = new DomainPropertyDefinition(101, "Farbe", DomainPropertyType.Text);
+            _captionPropertyDefinition = new FieldDefinition(FieldDefinition.CaptionId, "Name",
+                                                                      FieldType.Text);
+            _pricePropertyDefinition = new FieldDefinition(FieldDefinition.PriceId, "Preis",
+                                                                    FieldType.Decimal);
+            _colorPropertyDefinition = new FieldDefinition(101, "Farbe", FieldType.Text);
 
-            StubDomainPropertyDefinitionRepository.Expect(x => x.Get(DomainPropertyDefinition.CaptionId))
+            StubDomainPropertyDefinitionRepository.Expect(x => x.Get(FieldDefinition.CaptionId))
                 .Return(_captionPropertyDefinition);
-            StubDomainPropertyDefinitionRepository.Expect(x => x.Get(DomainPropertyDefinition.PriceId))
+            StubDomainPropertyDefinitionRepository.Expect(x => x.Get(FieldDefinition.PriceId))
                 .Return(_pricePropertyDefinition);
             StubDomainPropertyDefinitionRepository.Expect(x => x.Get(101)).Return(_colorPropertyDefinition);
 
@@ -42,14 +42,14 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
                                        {
                                            Caption = "Name",
                                            DataType = PropertyDataType.Text,
-                                           PropertyId = DomainPropertyDefinition.CaptionId,
+                                           PropertyId = FieldDefinition.CaptionId,
                                            Value = "Artikel"
                                        });
             ArticleDto.AddProperty(new DtoProperty
                                        {
                                            Caption = "Preis",
                                            DataType = PropertyDataType.Text,
-                                           PropertyId = DomainPropertyDefinition.PriceId,
+                                           PropertyId = FieldDefinition.PriceId,
                                            Value = 12.50,
                                        });
             ArticleDto.AddProperty(new DtoProperty
@@ -67,7 +67,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
                                       {
                                           Caption = "Name",
                                           DataType = PropertyDataType.Text,
-                                          PropertyId = DomainPropertyDefinition.CaptionId,
+                                          PropertyId = FieldDefinition.CaptionId,
                                           Value = "Child 1"
                                       });
             ChildDto1.AddProperty(new DtoProperty
@@ -86,7 +86,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
                                       {
                                           Caption = "Name",
                                           DataType = PropertyDataType.Text,
-                                          PropertyId = DomainPropertyDefinition.CaptionId,
+                                          PropertyId = FieldDefinition.CaptionId,
                                           Value = "Child 2"
                                       });
             ChildDto2.AddProperty(new DtoProperty
@@ -116,9 +116,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
         #endregion
 
-        private DomainPropertyDefinition _pricePropertyDefinition;
-        private DomainPropertyDefinition _captionPropertyDefinition;
-        private DomainPropertyDefinition _colorPropertyDefinition;
+        private FieldDefinition _pricePropertyDefinition;
+        private FieldDefinition _captionPropertyDefinition;
+        private FieldDefinition _colorPropertyDefinition;
 
         protected IDomainPropertyDefinitionRepository StubDomainPropertyDefinitionRepository { get; set; }
         protected IArticleRepository FakeArticleRepo { get; set; }
@@ -187,7 +187,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Id, Is.EqualTo(Article.Id));
             Assert.That(dto.Version, Is.EqualTo(Article.Version));
-            Assert.That(dto.Properties, Has.Some.Property("PropertyId").EqualTo(DomainPropertyDefinition.CaptionId)
+            Assert.That(dto.Properties, Has.Some.Property("PropertyId").EqualTo(FieldDefinition.CaptionId)
                                             .And.Property("Value").EqualTo("Artikel"));
             Assert.That(dto.Properties, Has.Some.Property("PropertyId").EqualTo(101)
                                             .And.Property("IsDiscriminator").EqualTo(true));
@@ -225,9 +225,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             GenerateAndRegisterMissingStubs();
 
-            ArticleDto.Properties.First(x => x.PropertyId == DomainPropertyDefinition.CaptionId).Value =
+            ArticleDto.Properties.First(x => x.PropertyId == FieldDefinition.CaptionId).Value =
                 "Artikel (Updated)";
-            ArticleDto.RemoveProperty(ArticleDto.Properties.First(x => x.PropertyId == DomainPropertyDefinition.PriceId));
+            ArticleDto.RemoveProperty(ArticleDto.Properties.First(x => x.PropertyId == FieldDefinition.PriceId));
 
             var updated = ArticleAssembler.UpdateDomainObject(ArticleDto);
 

@@ -33,16 +33,16 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
             get
             {
-                return !HasProperty(DomainPropertyDefinition.CaptionId)
+                return !HasProperty(FieldDefinition.CaptionId)
                            ? ""
-                           : Convert.ToString(GetPropertyValue(DomainPropertyDefinition.CaptionId));
+                           : Convert.ToString(GetPropertyValue(FieldDefinition.CaptionId));
             }
             set
             {
-                if (!HasProperty(DomainPropertyDefinition.CaptionId))
+                if (!HasProperty(FieldDefinition.CaptionId))
                     AddProperty(
-                        IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(DomainPropertyDefinition.CaptionId));
-                SetPropertyValue(DomainPropertyDefinition.CaptionId, value);
+                        IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(FieldDefinition.CaptionId));
+                SetPropertyValue(FieldDefinition.CaptionId, value);
             }
         }
 

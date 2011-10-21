@@ -24,7 +24,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             Sut = new PropertyService();
 
-            DomainPropertyDefinition = new DomainPropertyDefinition(1, 2, "Caption", DomainPropertyType.Text);
+            FieldDefinition = new FieldDefinition(1, 2, "Caption", FieldType.Text);
         }
 
         #endregion
@@ -34,15 +34,15 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         protected IUnitOfWork FakeUnitOfWork { get; set; }
         protected IDomainPropertyDefinitionRepository FakePropertyDefRepo { get; set; }
 
-        protected DomainPropertyDefinition DomainPropertyDefinition { get; set; }
+        protected FieldDefinition FieldDefinition { get; set; }
 
         private void GenerateAndRegisterMissingStubs()
         {
             if (IoC.TryResolve<IDomainPropertyDefinitionRepository>() == null)
             {
                 FakePropertyDefRepo = GenerateAndRegisterStub<IDomainPropertyDefinitionRepository>();
-                FakePropertyDefRepo.Expect(x => x.Get(DomainPropertyDefinition.Id)).Return(DomainPropertyDefinition);
-                FakePropertyDefRepo.Expect(x => x.Save(Arg<DomainPropertyDefinition>.Is.Anything)).Return(DomainPropertyDefinition);
+                FakePropertyDefRepo.Expect(x => x.Get(FieldDefinition.Id)).Return(FieldDefinition);
+                FakePropertyDefRepo.Expect(x => x.Save(Arg<FieldDefinition>.Is.Anything)).Return(FieldDefinition);
             }
         }
 
@@ -64,7 +64,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             FakePropertyDefRepo = GenerateAndRegisterMock<IDomainPropertyDefinitionRepository>();
             GenerateAndRegisterMissingStubs();
 
-            FakePropertyDefRepo.Expect(x => x.Save(Arg<DomainPropertyDefinition>.Is.NotNull));
+            FakePropertyDefRepo.Expect(x => x.Save(Arg<FieldDefinition>.Is.NotNull));
             Sut.CreateProperty(new PropertyDto());
 
             FakePropertyDefRepo.VerifyAllExpectations();
@@ -75,7 +75,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         {
             GenerateAndRegisterMissingStubs();
 
-            FakePropertyDefRepo.Expect(x => x.Save(Arg<DomainPropertyDefinition>.Is.Anything)).Return(new DomainPropertyDefinition(1, "Caption", DomainPropertyType.Text));
+            FakePropertyDefRepo.Expect(x => x.Save(Arg<FieldDefinition>.Is.Anything)).Return(new FieldDefinition(1, "Caption", FieldType.Text));
             var actual = Sut.CreateProperty(new PropertyDto());
 
             Assert.That(actual, Is.EqualTo(1));
@@ -106,8 +106,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             FakePropertyDefRepo = GenerateAndRegisterMock<IDomainPropertyDefinitionRepository>();
             GenerateAndRegisterMissingStubs();
 
-            FakePropertyDefRepo.Expect(x => x.Get(1)).Return(new DomainPropertyDefinition());
-            FakePropertyDefRepo.Expect(x => x.Delete(Arg<DomainPropertyDefinition>.Is.NotNull));
+            FakePropertyDefRepo.Expect(x => x.Get(1)).Return(new FieldDefinition());
+            FakePropertyDefRepo.Expect(x => x.Delete(Arg<FieldDefinition>.Is.NotNull));
             Sut.DeleteProperty(new PropertyDto {Id = 1});
 
             FakePropertyDefRepo.VerifyAllExpectations();
@@ -116,7 +116,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void DeleteProperty_with_subject_IsSystemProperty_throws()
         {
-            DomainPropertyDefinition = new DomainPropertyDefinition(1, 2, "Caption", DomainPropertyType.Text, true);
+            FieldDefinition = new FieldDefinition(1, 2, "Caption", FieldType.Text, true);
             GenerateAndRegisterMissingStubs();
 
             var ex = Assert.Throws<InvalidOperationException>(() => Sut.DeleteProperty(new PropertyDto {Id = 1, Version = 2}));
@@ -168,7 +168,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             FakePropertyDefRepo = GenerateAndRegisterMock<IDomainPropertyDefinitionRepository>();
             GenerateAndRegisterMissingStubs();
 
-            FakePropertyDefRepo.Expect(x => x.FindAll()).Return(new List<DomainPropertyDefinition>());
+            FakePropertyDefRepo.Expect(x => x.FindAll()).Return(new List<FieldDefinition>());
             Sut.GetProperties();
 
             FakePropertyDefRepo.VerifyAllExpectations();
@@ -179,9 +179,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         {
             GenerateAndRegisterMissingStubs();
 
-            var propertyDefinitions = new List<DomainPropertyDefinition>();
-            propertyDefinitions.Add(new DomainPropertyDefinition(1, "Name 1", DomainPropertyType.Boolean));
-            propertyDefinitions.Add(new DomainPropertyDefinition(1, "Name 2", DomainPropertyType.Text));
+            var propertyDefinitions = new List<FieldDefinition>();
+            propertyDefinitions.Add(new FieldDefinition(1, "Name 1", FieldType.Boolean));
+            propertyDefinitions.Add(new FieldDefinition(1, "Name 2", FieldType.Text));
             FakePropertyDefRepo.Expect(x => x.FindAll()).Return(propertyDefinitions);
 
             var dtos = Sut.GetProperties();
@@ -209,8 +209,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             FakePropertyDefRepo = GenerateAndRegisterMock<IDomainPropertyDefinitionRepository>();
             GenerateAndRegisterMissingStubs();
 
-            FakePropertyDefRepo.Stub(x => x.Get(1)).Return(DomainPropertyDefinition);
-            FakePropertyDefRepo.Expect(x => x.Save(Arg<DomainPropertyDefinition>.Is.Equal(DomainPropertyDefinition))).Return(DomainPropertyDefinition);
+            FakePropertyDefRepo.Stub(x => x.Get(1)).Return(FieldDefinition);
+            FakePropertyDefRepo.Expect(x => x.Save(Arg<FieldDefinition>.Is.Equal(FieldDefinition))).Return(FieldDefinition);
             Sut.UpdateProperty(new PropertyDto { Id = 1, Version = 2 });
 
             FakePropertyDefRepo.VerifyAllExpectations();

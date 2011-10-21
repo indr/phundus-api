@@ -7,7 +7,7 @@
       <generator class="hilo" />
     </id>
     <version name="Version" />
-    <many-to-one class="DomainPropertyDefinition" name="PropertyDefinition" not-null="true">
+    <many-to-one class="FieldDefinition" name="PropertyDefinition" not-null="true">
       <column name="FieldDefinitionId" />
     </many-to-one>
     <property name="IsDiscriminator" />
