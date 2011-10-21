@@ -16,7 +16,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void Is_derived_from_BaseEntity()
         {
             var sut = new FieldDefinition();
-            Assert.That(sut, Is.InstanceOf(typeof (BaseEntity)));
+            Assert.That(sut, Is.InstanceOf(typeof (Entity)));
         }
 
         [Test]

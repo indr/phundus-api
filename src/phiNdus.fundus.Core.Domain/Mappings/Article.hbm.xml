@@ -9,7 +9,7 @@
     <discriminator column="[Type]" type="String" />
     <version name="Version" />
 
-    <set name="PropertyValues" cascade="all-delete-orphan" lazy="false">
+    <set name="FieldValues" cascade="all-delete-orphan" lazy="false">
       <key column="ArticleId" />
       <one-to-many class="FieldValue" />
     </set>

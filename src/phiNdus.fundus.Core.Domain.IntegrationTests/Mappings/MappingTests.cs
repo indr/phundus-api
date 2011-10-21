@@ -12,7 +12,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         [Test]
         public void Can_create_dll_from_hibernate_mapping()
         {
-            var cfg = new Configuration().AddAssembly(Assembly.GetAssembly(typeof (BaseEntity)));
+            var cfg = new Configuration().AddAssembly(Assembly.GetAssembly(typeof (Entity)));
             var export = new SchemaExport(cfg);
             export.SetOutputFile("Ddl-Generated.sql");
             export.Execute(false, false, false);

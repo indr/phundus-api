@@ -63,7 +63,7 @@
     <Compile Include="Entities\ArticleTests\ArticleGrossStockTests.cs" />
     <Compile Include="Entities\ArticleTests\ArticleNetStockTests.cs" />
     <Compile Include="Entities\ArticleTests\TrivialArticleTests.cs" />
-    <Compile Include="Entities\BaseEntityTests.cs" />
+    <Compile Include="Entities\EntityTests.cs" />
     <Compile Include="Entities\BasePropertyEntityTests.cs" />
     <Compile Include="Entities\ContractItemTests.cs" />
     <Compile Include="Entities\ContractTests.cs" />

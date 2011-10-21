@@ -1,26 +1,24 @@
 ﻿using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Entities;
 
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    public class BaseEntityTests
+    public class EntityTests
     {
-        private class InstantiableBaseEntity : BaseEntity
+        private class Entity : Domain.Entities.Entity
         {
         }
 
-        [Test]
         public void Get_Id()
         {
-            var entity = new InstantiableBaseEntity();
+            var entity = new Entity();
             Assert.That(entity.Id, Is.EqualTo(0));
         }
 
         [Test]
         public void Get_Version()
         {
-            var entity = new InstantiableBaseEntity();
+            var entity = new Entity();
             Assert.That(entity.Version, Is.EqualTo(0));
         }
     }

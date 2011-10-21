@@ -3,7 +3,7 @@ using Iesi.Collections.Generic;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public class Contract : BaseEntity
+    public class Contract : Entity
     {
         private DateTime _createDate;
         private ISet<ContractItem> _items;

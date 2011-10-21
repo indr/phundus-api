@@ -2,7 +2,7 @@
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public class Setting : BaseEntity
+    public class Setting : Entity
     {
         private double? _decimalValue;
         private int? _integerValue;

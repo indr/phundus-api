@@ -19,7 +19,7 @@ namespace phiNdus.fundus.Core.Domain
                                    .Configure(c => c.LifeStyle.Transient));
             container.Register(Component.For<IUnitOfWorkFactory>()
                                    .Instance(
-                                       new NHibernateUnitOfWorkFactory(new[] {Assembly.GetAssembly(typeof (BaseEntity))})));
+                                       new NHibernateUnitOfWorkFactory(new[] {Assembly.GetAssembly(typeof (Entity))})));
         }
 
         #endregion

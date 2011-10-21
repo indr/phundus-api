@@ -2,7 +2,7 @@
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public class User : BaseEntity
+    public class User : Entity
     {
         private string _firstName;
         private string _lastName;

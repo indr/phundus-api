@@ -151,7 +151,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(domainObject.Version, Is.EqualTo(0));
             Assert.That(domainObject.Caption, Is.EqualTo("Artikel"));
             Assert.That(domainObject.Price, Is.EqualTo(12.50));
-            Assert.That(domainObject.PropertyValues, Has.Some.Property("IsDiscriminator").EqualTo(true));
+            Assert.That(domainObject.FieldValues, Has.Some.Property("IsDiscriminator").EqualTo(true));
         }
 
         [Test]
