@@ -5,7 +5,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public class DomainObject : BasePropertyEntity
+    public class DomainObject : FieldedEntity
     {
         private ISet<DomainObject> _children = new HashedSet<DomainObject>();
 

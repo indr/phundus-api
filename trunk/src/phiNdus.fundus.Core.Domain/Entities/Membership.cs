@@ -3,7 +3,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public class Membership : BaseEntity
+    public class Membership : Entity
     {
         private DateTime _createDate;
         private string _password;

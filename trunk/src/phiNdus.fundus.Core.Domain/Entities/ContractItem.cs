@@ -2,7 +2,7 @@
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public class ContractItem : BaseEntity
+    public class ContractItem : Entity
     {
         public ContractItem() : this(0, 0)
         {

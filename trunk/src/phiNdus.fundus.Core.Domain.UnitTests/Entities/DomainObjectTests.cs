@@ -42,7 +42,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         {
             var sut = new DomainObject();
             Assert.That(sut, Is.Not.Null);
-            Assert.That(sut.PropertyValues, Is.Not.Null);
+            Assert.That(sut.FieldValues, Is.Not.Null);
         }
 
         [Test]
@@ -60,14 +60,14 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             var propertyValues = new HashedSet<FieldValue>();
             var sut = new DomainObject(propertyValues);
             Assert.That(sut, Is.Not.Null);
-            Assert.That(sut.PropertyValues, Is.SameAs(propertyValues));
+            Assert.That(sut.FieldValues, Is.SameAs(propertyValues));
         }
 
         [Test]
         public void Is_derived_from_BasePropertyEntity()
         {
             var sut = new DomainObject();
-            Assert.That(sut, Is.InstanceOf(typeof (BasePropertyEntity)));
+            Assert.That(sut, Is.InstanceOf(typeof (FieldedEntity)));
         }
 
         [Test]

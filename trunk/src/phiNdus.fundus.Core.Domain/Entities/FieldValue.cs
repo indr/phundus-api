@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public class FieldValue : BaseEntity
+    public class FieldValue : Entity
     {
         private FieldDefinition _propertyDefinition;
 

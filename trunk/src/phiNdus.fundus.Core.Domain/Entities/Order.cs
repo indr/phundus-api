@@ -4,7 +4,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public class Order : BaseEntity
+    public class Order : Entity
     {
         private DateTime _createDate;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();

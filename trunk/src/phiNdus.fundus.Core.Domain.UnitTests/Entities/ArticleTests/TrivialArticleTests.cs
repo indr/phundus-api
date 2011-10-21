@@ -74,7 +74,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
             var propertyValues = new HashedSet<FieldValue>();
             var sut = new Article(propertyValues);
             Assert.That(sut, Is.Not.Null);
-            Assert.That(sut.PropertyValues, Is.SameAs(propertyValues));
+            Assert.That(sut.FieldValues, Is.SameAs(propertyValues));
         }
 
         [Test]

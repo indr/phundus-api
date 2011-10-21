@@ -114,7 +114,7 @@ namespace phiNdus.fundus.Core.Business.Services
             email = email.ToLower(CultureInfo.CurrentCulture);
             UserDto result;
 
-            using (IUnitOfWork uow = UnitOfWork.Start())
+            using (var uow = UnitOfWork.Start())
             {
                 // Prüfen ob Benutzer bereits exisitiert.
                 if (Users.FindByEmail(email) != null)

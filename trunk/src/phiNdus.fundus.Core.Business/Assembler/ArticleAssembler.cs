@@ -84,7 +84,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
         /// </summary>
         /// <param name="subject">Das zu assemblierende DTO.</param>
         /// <param name="result">Das zu aktualisierende Domain-Object.</param>
-        private static void WriteProperties(BasePropertiesDto subject, BasePropertyEntity result)
+        private static void WriteProperties(BasePropertiesDto subject, FieldedEntity result)
         {
             // Neue Properties hinzufügen, oder bestehende Property-Values aktualisieren.
             var propertyDefinitionRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
@@ -102,7 +102,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
 
             // Properties, die nicht mehr im DTO vorhanden sind, entfernen.
             var propertiesToRemove = new List<FieldValue>();
-            foreach (var each in result.PropertyValues)
+            foreach (var each in result.FieldValues)
             {
                 if (subject.Properties.FirstOrDefault(x => x.PropertyId == each.PropertyDefinition.Id) == null)
                     propertiesToRemove.Add(each);
@@ -116,9 +116,9 @@ namespace phiNdus.fundus.Core.Business.Assembler
         /// </summary>
         /// <param name="subject">Das zu assemblierende Domain-Object.</param>
         /// <param name="result">Das zu aktualisierende DTO.</param>
-        private static void WriteProperties(BasePropertyEntity subject, BasePropertiesDto result)
+        private static void WriteProperties(FieldedEntity subject, BasePropertiesDto result)
         {
-            foreach (var each in subject.PropertyValues)
+            foreach (var each in subject.FieldValues)
             {
                 var dtoProperty = new DtoProperty();
                 dtoProperty.PropertyId = each.PropertyDefinition.Id;

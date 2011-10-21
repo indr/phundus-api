@@ -1,6 +1,6 @@
 ﻿namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public class FieldDefinition : BaseEntity
+    public class FieldDefinition : Entity
     {
         private FieldType _dataType;
         private string _name;
