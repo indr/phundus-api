@@ -15,13 +15,13 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         {
             base.Setup();
 
-            _grossStockPropertyDef = new DomainPropertyDefinition(DomainPropertyDefinition.GrossStockId,
-                                                                  "Bestand (Brutto)", DomainPropertyType.Integer);
+            _grossStockPropertyDef = new FieldDefinition(FieldDefinition.GrossStockId,
+                                                                  "Bestand (Brutto)", FieldType.Integer);
         }
 
         #endregion
 
-        private DomainPropertyDefinition _grossStockPropertyDef;
+        private FieldDefinition _grossStockPropertyDef;
 
         protected override Article CreateSut()
         {

@@ -1,29 +1,29 @@
 ﻿namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public class DomainPropertyDefinition : BaseEntity
+    public class FieldDefinition : BaseEntity
     {
-        private DomainPropertyType _dataType;
+        private FieldType _dataType;
         private string _name;
 
-        public DomainPropertyDefinition()
+        public FieldDefinition()
         {
         }
 
-        public DomainPropertyDefinition(DomainPropertyType type)
+        public FieldDefinition(FieldType type)
             : this(0, "", type)
         {
         }
 
-        public DomainPropertyDefinition(int id, string name, DomainPropertyType type) : this(id, 0, name, type)
+        public FieldDefinition(int id, string name, FieldType type) : this(id, 0, name, type)
         {
         }
 
-        public DomainPropertyDefinition(int id, int version, string name, DomainPropertyType type)
+        public FieldDefinition(int id, int version, string name, FieldType type)
             : this(id, version, name, type, false)
         {
         }
 
-        public DomainPropertyDefinition(int id, int version, string name, DomainPropertyType type, bool isSystemProperty)
+        public FieldDefinition(int id, int version, string name, FieldType type, bool isSystemProperty)
             : base(id, version)
         {
             _name = name;
@@ -83,7 +83,7 @@
             set { _name = value; }
         }
 
-        public virtual DomainPropertyType DataType
+        public virtual FieldType DataType
         {
             get { return _dataType; }
             set { _dataType = value; }

@@ -15,12 +15,12 @@ namespace phiNdus.fundus.Core.Domain.UnitTests
         {
             base.Setup();
 
-            _grossStockFieldDef = new DomainPropertyDefinition(DomainPropertyDefinition.GrossStockId,
-                                                               "Bestand (Brutto)", DomainPropertyType.Integer);
-            _isBorrowableFieldDef = new DomainPropertyDefinition(DomainPropertyDefinition.IsBorrowableId,
-                                                                 "Ausleihbar", DomainPropertyType.Boolean);
-            _isReserverableFieldDef = new DomainPropertyDefinition(DomainPropertyDefinition.IsReservableId,
-                                                                   "Reservierbar", DomainPropertyType.Boolean);
+            _grossStockFieldDef = new FieldDefinition(FieldDefinition.GrossStockId,
+                                                               "Bestand (Brutto)", FieldType.Integer);
+            _isBorrowableFieldDef = new FieldDefinition(FieldDefinition.IsBorrowableId,
+                                                                 "Ausleihbar", FieldType.Boolean);
+            _isReserverableFieldDef = new FieldDefinition(FieldDefinition.IsReservableId,
+                                                                   "Reservierbar", FieldType.Boolean);
 
             FakeFieldDefRepository = GenerateAndRegisterStub<IDomainPropertyDefinitionRepository>();
             FakeOrderRepository = GenerateAndRegisterStub<IOrderRepository>();
@@ -33,9 +33,9 @@ namespace phiNdus.fundus.Core.Domain.UnitTests
 
         #endregion
 
-        private DomainPropertyDefinition _grossStockFieldDef;
-        private DomainPropertyDefinition _isBorrowableFieldDef;
-        private DomainPropertyDefinition _isReserverableFieldDef;
+        private FieldDefinition _grossStockFieldDef;
+        private FieldDefinition _isBorrowableFieldDef;
+        private FieldDefinition _isReserverableFieldDef;
 
         protected IDomainPropertyDefinitionRepository FakeFieldDefRepository { get; set; }
         protected IOrderRepository FakeOrderRepository { get; set; }

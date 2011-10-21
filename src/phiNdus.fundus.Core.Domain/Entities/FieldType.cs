@@ -1,6 +1,6 @@
 ﻿namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public enum DomainPropertyType
+    public enum FieldType
     {
         Boolean,
         Text,

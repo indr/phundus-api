@@ -26,7 +26,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
             protected set { _propertyValues = value; }
         }
 
-        public virtual bool HasProperty(DomainPropertyDefinition propertyDefinition)
+        public virtual bool HasProperty(FieldDefinition propertyDefinition)
         {
             return HasProperty(propertyDefinition.Id);
         }
@@ -41,12 +41,12 @@ namespace phiNdus.fundus.Core.Domain.Entities
             return false;
         }
 
-        public virtual DomainPropertyValue AddProperty(DomainPropertyDefinition propertyDefinition)
+        public virtual DomainPropertyValue AddProperty(FieldDefinition propertyDefinition)
         {
             return AddProperty(propertyDefinition, null);
         }
 
-        public virtual DomainPropertyValue AddProperty(DomainPropertyDefinition propertyDefinition, object value)
+        public virtual DomainPropertyValue AddProperty(FieldDefinition propertyDefinition, object value)
         {
             if (HasProperty(propertyDefinition))
                 throw new PropertyException("Property bereits vorhanden.");
@@ -56,7 +56,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
             return result;
         }
 
-        public virtual object GetPropertyValue(DomainPropertyDefinition propertyDefinition)
+        public virtual object GetPropertyValue(FieldDefinition propertyDefinition)
         {
             return GetPropertyValue(propertyDefinition.Id);
         }
@@ -71,7 +71,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
             throw new PropertyException("Property nicht vorhanden.");
         }
 
-        public virtual DomainPropertyValue SetPropertyValue(DomainPropertyDefinition propertyDefinition, object value)
+        public virtual DomainPropertyValue SetPropertyValue(FieldDefinition propertyDefinition, object value)
         {
             return SetPropertyValue(propertyDefinition.Id, value);
         }
@@ -89,7 +89,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
             throw new PropertyException("Property nicht vorhanden.");
         }
 
-        public virtual void RemoveProperty(DomainPropertyDefinition propertyDefinition)
+        public virtual void RemoveProperty(FieldDefinition propertyDefinition)
         {
             DomainPropertyValue propertyValue = null;
             foreach (var each in PropertyValues)

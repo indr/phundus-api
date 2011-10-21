@@ -32,25 +32,25 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
 
         private ISet<DomainPropertyValue> StubPropertyValues { get; set; }
 
-        private readonly DomainPropertyDefinition _isReservablePropertyDef =
-            new DomainPropertyDefinition(DomainPropertyDefinition.IsReservableId, "Reservierbar",
-                                         DomainPropertyType.Boolean);
+        private readonly FieldDefinition _isReservablePropertyDef =
+            new FieldDefinition(FieldDefinition.IsReservableId, "Reservierbar",
+                                         FieldType.Boolean);
 
-        private readonly DomainPropertyDefinition _isBorrowablePropertyDef =
-            new DomainPropertyDefinition(DomainPropertyDefinition.IsBorrowableId, "Ausleihbar",
-                                         DomainPropertyType.Boolean);
+        private readonly FieldDefinition _isBorrowablePropertyDef =
+            new FieldDefinition(FieldDefinition.IsBorrowableId, "Ausleihbar",
+                                         FieldType.Boolean);
         
-        private readonly DomainPropertyDefinition _amountPropertyDef =
-                    new DomainPropertyDefinition(DomainPropertyDefinition.StockId, "Menge",
-                                                 DomainPropertyType.Integer);
+        private readonly FieldDefinition _amountPropertyDef =
+                    new FieldDefinition(FieldDefinition.StockId, "Menge",
+                                                 FieldType.Integer);
 
-        private readonly DomainPropertyDefinition _pricePropertyDef =
-                    new DomainPropertyDefinition(DomainPropertyDefinition.PriceId, "Preis",
-                                                 DomainPropertyType.Decimal);
+        private readonly FieldDefinition _pricePropertyDef =
+                    new FieldDefinition(FieldDefinition.PriceId, "Preis",
+                                                 FieldType.Decimal);
 
-        private readonly DomainPropertyDefinition _grossStockPropertyDef =
-                    new DomainPropertyDefinition(DomainPropertyDefinition.GrossStockId, "Bestand (Brutto)",
-                        DomainPropertyType.Integer);
+        private readonly FieldDefinition _grossStockPropertyDef =
+                    new FieldDefinition(FieldDefinition.GrossStockId, "Bestand (Brutto)",
+                        FieldType.Integer);
 
         [Test]
         public void Can_create()
