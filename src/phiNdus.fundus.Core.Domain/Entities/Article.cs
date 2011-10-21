@@ -6,7 +6,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public class Article : DomainObject
+    public class Article : CompositeEntity
     {
         public Article()
         {
@@ -51,6 +51,23 @@ namespace phiNdus.fundus.Core.Domain.Entities
                     AddProperty(
                         IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(FieldDefinition.IsBorrowableId));
                 SetPropertyValue(FieldDefinition.IsBorrowableId, value);
+            }
+        }
+
+        public virtual string Caption
+        {
+            get
+            {
+                return !HasProperty(FieldDefinition.CaptionId)
+                           ? ""
+                           : Convert.ToString(GetPropertyValue(FieldDefinition.CaptionId));
+            }
+            set
+            {
+                if (!HasProperty(FieldDefinition.CaptionId))
+                    AddProperty(
+                        IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(FieldDefinition.CaptionId));
+                SetPropertyValue(FieldDefinition.CaptionId, value);
             }
         }
 

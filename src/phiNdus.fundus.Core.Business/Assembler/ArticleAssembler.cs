@@ -156,7 +156,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
         /// </summary>
         /// <param name="subject"></param>
         /// <param name="result"></param>
-        private static void CreateChildren(DomainObject subject, ArticleDto result)
+        private static void CreateChildren(CompositeEntity subject, ArticleDto result)
         {
             foreach (var each in subject.Children)
             {
@@ -189,7 +189,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             }
 
             // Children, die nicht mehr im DTO vorhanden sind, entfernen.
-            var childrenToRemove = new List<DomainObject>();
+            var childrenToRemove = new List<CompositeEntity>();
             foreach (var each in result.Children)
             {
                 if (subject.Children.FirstOrDefault(x => x.Id == each.Id) == null)

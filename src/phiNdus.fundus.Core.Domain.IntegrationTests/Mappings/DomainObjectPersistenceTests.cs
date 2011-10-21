@@ -14,7 +14,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         [SetUp]
         public void SetUp()
         {
-            Sut = new NHRepository<DomainObject>();
+            Sut = new NHRepository<CompositeEntity>();
             PropertyDefinitionRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
 
 
@@ -23,7 +23,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
                 NamePropertyDefinition = PropertyDefinitionRepo.Get(2);
                 PricePropertyDefinition = PropertyDefinitionRepo.Get(4);
 
-                UnitOfWork.CurrentSession.Delete("from DomainObject");
+                UnitOfWork.CurrentSession.Delete("from CompositeEntity");
                 uow.TransactionalFlush();
             }
         }
@@ -36,29 +36,29 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 
         protected IDomainPropertyDefinitionRepository PropertyDefinitionRepo { get; set; }
 
-        protected IRepository<DomainObject> Sut { get; set; }
+        protected IRepository<CompositeEntity> Sut { get; set; }
 
 
         [Test]
         public void Can_save_and_load_with_children()
         {
             var parentId = 0;
-            var parent = new DomainObject();
+            var parent = new CompositeEntity();
             parent.AddProperty(NamePropertyDefinition, "Parent");
             
-            var child1 = new DomainObject();
+            var child1 = new CompositeEntity();
             child1.AddProperty(NamePropertyDefinition, "Child 1");
             parent.AddChild(child1);
 
-            var child2 = new DomainObject();
+            var child2 = new CompositeEntity();
             child2.AddProperty(NamePropertyDefinition, "Child 2");
             parent.AddChild(child2);
 
-            var child2_1 = new DomainObject();
+            var child2_1 = new CompositeEntity();
             child2_1.AddProperty(NamePropertyDefinition, "Child 2.1");
             child2.AddChild(child2_1);
 
-            var child2_2 = new DomainObject();
+            var child2_2 = new CompositeEntity();
             child2_2.AddProperty(NamePropertyDefinition, "Child 2.2");
             child2.AddChild(child2_2);
 
@@ -88,7 +88,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         public void Can_save_and_load_adding_properties()
         {
             var modelId = 0;
-            var model = new DomainObject();
+            var model = new CompositeEntity();
             model.AddProperty(NamePropertyDefinition);
             model.AddProperty(PricePropertyDefinition);
 
@@ -112,7 +112,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         public void Can_save_and_load_removing_properties()
         {
             var domainObjectId = 0;
-            var domainObject = new DomainObject();
+            var domainObject = new CompositeEntity();
             domainObject.AddProperty(NamePropertyDefinition);
             domainObject.AddProperty(PricePropertyDefinition);
 

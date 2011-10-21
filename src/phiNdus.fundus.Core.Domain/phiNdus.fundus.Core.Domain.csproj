@@ -74,7 +74,7 @@
     <Compile Include="Entities\FieldValue.cs" />
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\Membership.cs" />
-    <Compile Include="Entities\DomainObject.cs" />
+    <Compile Include="Entities\CompositeEntity.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderItem.cs" />
     <Compile Include="Entities\OrderStatus.cs" />

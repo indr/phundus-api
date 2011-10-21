@@ -52,6 +52,10 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
                     new FieldDefinition(FieldDefinition.GrossStockId, "Bestand (Brutto)",
                         FieldType.Integer);
 
+        private readonly FieldDefinition _namePropertyDef =
+           new FieldDefinition(FieldDefinition.CaptionId, "Name",
+                                        FieldType.Text);
+
         [Test]
         public void Can_create()
         {
@@ -154,7 +158,26 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         {
             var sut = new Article();
             Assert.That(sut, Is.Not.Null);
-            Assert.That(sut, Is.InstanceOf(typeof (DomainObject)));
+            Assert.That(sut, Is.InstanceOf(typeof (CompositeEntity)));
+        }
+
+        [Test]
+        public void GetCaption()
+        {
+            Assert.That(Sut.Caption, Is.EqualTo(""));
+            StubPropertyValues.Add(new FieldValue(_namePropertyDef, "Name of object"));
+            Assert.That(Sut.Caption, Is.EqualTo("Name of object"));
+        }
+
+        [Test]
+        public void SetCaption()
+        {
+            StubPropertyDefinitionRepository.Stub(x => x.Get(_namePropertyDef.Id))
+                .Return(_namePropertyDef);
+
+            Assert.That(Sut.Caption, Is.EqualTo(""));
+            Sut.Caption = "Name of object";
+            Assert.That(Sut.Caption, Is.EqualTo("Name of object"));
         }
     }
 }
