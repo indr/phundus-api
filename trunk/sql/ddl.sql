@@ -53,30 +53,30 @@ create table [Setting] (
   primary key (Id)
 )
 
-create table [DomainPropertyDefinition] (
+create table [FieldDefinition] (
   Id int not null,
   Version int not null,
   [Name] NVARCHAR(255) not null,
   [DataType] TINYINT not null,
-  IsSystemProperty bit not null default 0,
+  IsSystemField bit not null default 0,
   primary key(Id)
 )
 
-create table [DomainPropertyValue] (
+create table [FieldValue] (
   Id int not null,
   Version int not null,
-  DomainPropertyDefinitionId int not null,
+  FieldDefinitionId int not null,
   IsDiscriminator bit not null default 0,
   BooleanValue bit null,
   TextValue NVARCHAR(max) null,
   IntegerValue int null,
   DecimalValue decimal(18,3) null,
   DateTimeValue datetime null,
-  DomainObjectId int null,
+  ArticleId int null,
   primary key(Id)
 )
 
-create table [DomainObject] (
+create table [Article] (
   Id int not null,
   [Type] nvarchar(127),
   Version int not null,
@@ -145,15 +145,15 @@ alter table [User]
   foreign key (RoleId) 
   references [Role];
 
-alter table [DomainPropertyValue]
-  add constraint FkDomainPropertyValueToDomainProperty
-  foreign key (DomainPropertyDefinitionId)
-  references [DomainPropertyDefinition];
+alter table [FieldValue]
+  add constraint FkFieldValueToFieldDefinition
+  foreign key (FieldDefinitionId)
+  references [FieldDefinition];
 
-alter table [DomainPropertyValue]
-  add constraint FkDomainPropertyValueToDomainObject
-  foreign key (DomainObjectId)
-  references [DomainObject];  
+alter table [FieldValue]
+  add constraint FkFieldValueToArticle
+  foreign key (ArticleId)
+  references [Article];  
   
 alter table [Order]
   add constraint FkOrderToReserver
