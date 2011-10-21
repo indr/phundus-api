@@ -7,12 +7,12 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
     [TestFixture]
     public class DomainPropertyValueTests
     {
-        private static DomainPropertyValue CreateSut(FieldType type)
+        private static FieldValue CreateSut(FieldType type)
         {
-            return new DomainPropertyValue(new FieldDefinition(type));
+            return new FieldValue(new FieldDefinition(type));
         }
 
-        private static DomainPropertyValue CreateSut()
+        private static FieldValue CreateSut()
         {
             return CreateSut(FieldType.Text);
         }
@@ -28,7 +28,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Can_create_with_type_and_value()
         {
-            var sut = new DomainPropertyValue(new FieldDefinition(FieldType.Text), "Value");
+            var sut = new FieldValue(new FieldDefinition(FieldType.Text), "Value");
             Assert.That(sut, Is.Not.Null);
             Assert.That(sut.PropertyDefinition, Is.Not.Null);
             Assert.That(sut.Value, Is.EqualTo("Value"));

@@ -26,11 +26,11 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
 
         protected override Article CreateSut()
         {
-            StubPropertyValues = new HashedSet<DomainPropertyValue>();
+            StubPropertyValues = new HashedSet<FieldValue>();
             return new Article(StubPropertyValues);
         }
 
-        private ISet<DomainPropertyValue> StubPropertyValues { get; set; }
+        private ISet<FieldValue> StubPropertyValues { get; set; }
 
         private readonly FieldDefinition _isReservablePropertyDef =
             new FieldDefinition(FieldDefinition.IsReservableId, "Reservierbar",
@@ -71,7 +71,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         [Test]
         public void Can_create_with_PropertyValues()
         {
-            var propertyValues = new HashedSet<DomainPropertyValue>();
+            var propertyValues = new HashedSet<FieldValue>();
             var sut = new Article(propertyValues);
             Assert.That(sut, Is.Not.Null);
             Assert.That(sut.PropertyValues, Is.SameAs(propertyValues));
@@ -81,7 +81,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         public void GetIsBorrowable()
         {
             Assert.That(Sut.IsBorrowable, Is.False);
-            StubPropertyValues.Add(new DomainPropertyValue(_isBorrowablePropertyDef, true));
+            StubPropertyValues.Add(new FieldValue(_isBorrowablePropertyDef, true));
             Assert.That(Sut.IsBorrowable, Is.True);
         }
 
@@ -99,7 +99,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         public void GetIsReservable()
         {
             Assert.That(Sut.IsReservable, Is.False);
-            StubPropertyValues.Add(new DomainPropertyValue(_isReservablePropertyDef, true));
+            StubPropertyValues.Add(new FieldValue(_isReservablePropertyDef, true));
             Assert.That(Sut.IsReservable, Is.True);
         }
 
@@ -117,7 +117,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         public void GetStock()
         {
             Assert.That(Sut.Stock, Is.EqualTo(0));
-            StubPropertyValues.Add(new DomainPropertyValue(_amountPropertyDef, 1));
+            StubPropertyValues.Add(new FieldValue(_amountPropertyDef, 1));
             Assert.That(Sut.Stock, Is.EqualTo(1));
         }
 
@@ -135,7 +135,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         public void GetPrice()
         {
             Assert.That(Sut.Price, Is.EqualTo(0.0d));
-            StubPropertyValues.Add(new DomainPropertyValue(_pricePropertyDef, 1.1d));
+            StubPropertyValues.Add(new FieldValue(_pricePropertyDef, 1.1d));
             Assert.That(Sut.Price, Is.EqualTo(1.1d));
         }
 

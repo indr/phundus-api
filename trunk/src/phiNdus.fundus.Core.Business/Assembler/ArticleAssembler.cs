@@ -90,7 +90,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             var propertyDefinitionRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
             foreach (var each in subject.Properties)
             {
-                DomainPropertyValue propertyValue = null;
+                FieldValue propertyValue = null;
                 if (result.HasProperty(each.PropertyId)) {
                     propertyValue = result.SetPropertyValue(each.PropertyId, each.Value);
                 }
@@ -101,7 +101,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             }
 
             // Properties, die nicht mehr im DTO vorhanden sind, entfernen.
-            var propertiesToRemove = new List<DomainPropertyValue>();
+            var propertiesToRemove = new List<FieldValue>();
             foreach (var each in result.PropertyValues)
             {
                 if (subject.Properties.FirstOrDefault(x => x.PropertyId == each.PropertyDefinition.Id) == null)

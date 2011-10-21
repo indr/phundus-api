@@ -64,7 +64,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Can_create_with_PropertyValues()
         {
-            var propertyValues = new HashedSet<DomainPropertyValue>();
+            var propertyValues = new HashedSet<FieldValue>();
             var sut = new BasePropertyEntity(propertyValues);
             Assert.That(sut, Is.Not.Null);
             Assert.That(sut.PropertyValues, Is.SameAs(propertyValues));

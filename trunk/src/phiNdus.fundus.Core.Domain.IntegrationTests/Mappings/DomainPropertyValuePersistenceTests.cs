@@ -39,7 +39,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         private FieldDefinition _dateTimePropertyDefinition;
 
 
-        private static int Save(DomainPropertyValue propertyValue, object value)
+        private static int Save(FieldValue propertyValue, object value)
         {
             var result = 0;
             propertyValue.Value = value;
@@ -54,7 +54,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 
         private static int Save(FieldDefinition propertyDefinition, object value)
         {
-            var propertyValue = new DomainPropertyValue(propertyDefinition);
+            var propertyValue = new FieldValue(propertyDefinition);
             return Save(propertyValue, value);
         }
 
@@ -62,7 +62,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         {
             using (var uow = UnitOfWork.Start())
             {
-                var propertyValue = UnitOfWork.CurrentSession.Get<DomainPropertyValue>(id);
+                var propertyValue = UnitOfWork.CurrentSession.Get<FieldValue>(id);
                 Assert.That(propertyValue, Is.Not.Null);
                 return propertyValue.Value;
             }
@@ -116,13 +116,13 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         [Test]
         public void Can_save_and_load_PropertyAsDiscriminator()
         {
-            var propertyValue = new DomainPropertyValue(_textPropertyDefinition);
+            var propertyValue = new FieldValue(_textPropertyDefinition);
             propertyValue.IsDiscriminator = true;
             var id = Save(propertyValue, "");
 
             using (var uow = UnitOfWork.Start())
             {
-                propertyValue = UnitOfWork.CurrentSession.Get<DomainPropertyValue>(id);
+                propertyValue = UnitOfWork.CurrentSession.Get<FieldValue>(id);
                 Assert.That(propertyValue, Is.Not.Null);
             }
             Assert.That(propertyValue.IsDiscriminator, Is.True);

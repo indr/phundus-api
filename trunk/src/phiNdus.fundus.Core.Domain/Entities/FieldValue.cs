@@ -3,19 +3,19 @@ using System.Globalization;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
-    public class DomainPropertyValue : BaseEntity
+    public class FieldValue : BaseEntity
     {
         private FieldDefinition _propertyDefinition;
 
-        protected DomainPropertyValue()
+        protected FieldValue()
         {
         }
 
-        public DomainPropertyValue(FieldDefinition propertyDefinition) : this(propertyDefinition, null)
+        public FieldValue(FieldDefinition propertyDefinition) : this(propertyDefinition, null)
         {
         }
 
-        public DomainPropertyValue(FieldDefinition propertyDefinition, object value)
+        public FieldValue(FieldDefinition propertyDefinition, object value)
         {
             _propertyDefinition = propertyDefinition;
             if (value != null)

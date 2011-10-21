@@ -71,7 +71,7 @@
     <Compile Include="Entities\ContractItem.cs" />
     <Compile Include="Entities\FieldDefinition.cs" />
     <Compile Include="Entities\FieldType.cs" />
-    <Compile Include="Entities\DomainPropertyValue.cs" />
+    <Compile Include="Entities\FieldValue.cs" />
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\Membership.cs" />
     <Compile Include="Entities\DomainObject.cs" />

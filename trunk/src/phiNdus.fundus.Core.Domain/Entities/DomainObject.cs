@@ -13,7 +13,7 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
         }
 
-        public DomainObject(ISet<DomainPropertyValue> propertyValues) : base(propertyValues)
+        public DomainObject(ISet<FieldValue> propertyValues) : base(propertyValues)
         {
         }
 

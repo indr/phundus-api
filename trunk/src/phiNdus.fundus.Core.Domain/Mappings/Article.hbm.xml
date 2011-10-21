@@ -11,7 +11,7 @@
 
     <set name="PropertyValues" cascade="all-delete-orphan" lazy="false">
       <key column="ArticleId" />
-      <one-to-many class="DomainPropertyValue" />
+      <one-to-many class="FieldValue" />
     </set>
 
     <many-to-one name="Parent" column="ParentId" class="DomainObject" not-null="false" />

@@ -25,15 +25,15 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
 
         protected override Article CreateSut()
         {
-            StubPropertyValues = new HashedSet<DomainPropertyValue>();
+            StubPropertyValues = new HashedSet<FieldValue>();
             return new Article(StubPropertyValues);
         }
 
-        protected HashedSet<DomainPropertyValue> StubPropertyValues { get; set; }
+        protected HashedSet<FieldValue> StubPropertyValues { get; set; }
 
         protected void AddGrossStockProperty(int amount)
         {
-            StubPropertyValues.Add(new DomainPropertyValue(_grossStockPropertyDef, amount));
+            StubPropertyValues.Add(new FieldValue(_grossStockPropertyDef, amount));
         }
 
         protected Article AddChild()
