@@ -5,7 +5,7 @@ using phiNdus.fundus.Core.Domain.Entities;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    public class DomainPropertyValueTests
+    public class FieldValueTests
     {
         private static FieldValue CreateSut(DataType type)
         {
@@ -42,7 +42,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_get_and_set_with_BooleanDomainProperty()
+        public void Can_get_and_set_with_BooleanField()
         {
             var sut = CreateSut(DataType.Boolean);
             Assert.That(sut.Value, Is.Null);
@@ -51,7 +51,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_set_BooleanDomainProperty_to_null()
+        public void Can_set_BooleanField_to_null()
         {
             var sut = CreateSut(DataType.Boolean);
             sut.Value = null;
@@ -59,7 +59,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_get_and_set_with_TextDomainProperty()
+        public void Can_get_and_set_with_TextField()
         {
             var sut = CreateSut(DataType.Text);
             Assert.That(sut.Value, Is.Null);
@@ -68,7 +68,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_set_TextDomainProperty_to_null()
+        public void Can_set_TextField_to_null()
         {
             var sut = CreateSut(DataType.Text);
             sut.Value = null;
@@ -76,7 +76,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_get_and_set_with_IntegerDomainProperty()
+        public void Can_get_and_set_with_IntegerField()
         {
             var sut = CreateSut(DataType.Integer);
             Assert.That(sut.Value, Is.Null);
@@ -85,7 +85,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_set_IntegerDomainProperty_to_null()
+        public void Can_set_IntegerField_to_null()
         {
             var sut = CreateSut(DataType.Integer);
             sut.Value = null;
@@ -93,7 +93,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_get_and_set_with_DecimalDomainProperty()
+        public void Can_get_and_set_with_DecimalField()
         {
             var sut = CreateSut(DataType.Decimal);
             Assert.That(sut.Value, Is.Null);
@@ -102,7 +102,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_set_DecimalDomainProperty_to_null()
+        public void Can_set_DecimalField_to_null()
         {
             var sut = CreateSut(DataType.Decimal);
             sut.Value = null;
@@ -110,7 +110,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_get_and_set_with_DateTimeDomainProperty()
+        public void Can_get_and_set_with_DateTimeField()
         {
             var now = DateTime.Now;
             var sut = CreateSut(DataType.DateTime);
@@ -120,7 +120,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_set_DateTimeDomainProperty_to_null()
+        public void Can_set_DateTimeField_to_null()
         {
             var sut = CreateSut(DataType.DateTime);
             sut.Value = null;

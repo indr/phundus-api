@@ -67,9 +67,9 @@
     <Compile Include="Entities\FieldedEntityTests.cs" />
     <Compile Include="Entities\ContractItemTests.cs" />
     <Compile Include="Entities\ContractTests.cs" />
-    <Compile Include="Entities\DomainPropertyTests.cs" />
-    <Compile Include="Entities\DomainPropertyTypeTests.cs" />
-    <Compile Include="Entities\DomainPropertyValueTests.cs" />
+    <Compile Include="Entities\FieldDefinitionTests.cs" />
+    <Compile Include="Entities\DataTypeTests.cs" />
+    <Compile Include="Entities\FieldValueTests.cs" />
     <Compile Include="Entities\MembershipTests.cs" />
     <Compile Include="Entities\CompositeEntityTests.cs" />
     <Compile Include="Entities\OrderItemTests.cs" />
@@ -83,7 +83,7 @@
     <Compile Include="PasswordEncryptorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FieldAlreadyAttachedExceptionTests.cs" />
-    <Compile Include="Repositories\DomainPropertyDefinitionRepositoryTests.cs" />
+    <Compile Include="Repositories\FieldDefinitionRepositoryTests.cs" />
     <Compile Include="Repositories\ArticleRepositoryTests.cs" />
     <Compile Include="Repositories\OrderRepositoryTests.cs" />
     <Compile Include="Repositories\RoleRepositoryTests.cs" />

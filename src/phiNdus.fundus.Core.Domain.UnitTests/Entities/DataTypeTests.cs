@@ -5,7 +5,7 @@ using phiNdus.fundus.Core.Domain.Entities;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    public class DomainPropertyTypeTests
+    public class DataTypeTests
     {
         private static void AssertValue(DataType actual, int expected)
         {

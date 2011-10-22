@@ -18,20 +18,20 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         {
             base.RegisterDependencies(container);
 
-            StubPropertyDefinitionRepository = MockRepository.GenerateStub<IFieldDefinitionRepository>();
+            StubFieldDefinitionRepository = MockRepository.GenerateStub<IFieldDefinitionRepository>();
             
             container.Register(
-                Component.For<IFieldDefinitionRepository>().Instance(StubPropertyDefinitionRepository));
+                Component.For<IFieldDefinitionRepository>().Instance(StubFieldDefinitionRepository));
         }
         
         protected override CompositeEntity CreateSut()
         {
-            StubPropertyValues = new HashedSet<FieldValue>();
-            return new CompositeEntity(StubPropertyValues);
+            StubFieldValues = new HashedSet<FieldValue>();
+            return new CompositeEntity(StubFieldValues);
         }
 
-        private ISet<FieldValue> StubPropertyValues { get; set; }
-        private IFieldDefinitionRepository StubPropertyDefinitionRepository { get; set; }
+        private ISet<FieldValue> StubFieldValues { get; set; }
+        private IFieldDefinitionRepository StubFieldDefinitionRepository { get; set; }
 
         [Test]
         public void Can_create()
@@ -51,12 +51,12 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_create_with_PropertyValues()
+        public void Can_create_with_FieldValues()
         {
-            var propertyValues = new HashedSet<FieldValue>();
-            var sut = new CompositeEntity(propertyValues);
+            var fieldValues = new HashedSet<FieldValue>();
+            var sut = new CompositeEntity(fieldValues);
             Assert.That(sut, Is.Not.Null);
-            Assert.That(sut.FieldValues, Is.SameAs(propertyValues));
+            Assert.That(sut.FieldValues, Is.SameAs(fieldValues));
         }
 
         [Test]

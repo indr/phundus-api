@@ -6,52 +6,57 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Domain.UnitTests
 {
-    public class ArticleTestBase : MockTestBase<Article>
+    public class ArticleTestBase : UnitTestBase
     {
         #region Setup/Teardown
 
         [SetUp]
-        public override void Setup()
+        public override void SetUp()
         {
-            base.Setup();
-
-            _grossStockFieldDef = new FieldDefinition(FieldDefinition.GrossStockId,
-                                                               "Bestand (Brutto)", DataType.Integer);
-            _isBorrowableFieldDef = new FieldDefinition(FieldDefinition.IsBorrowableId,
-                                                                 "Ausleihbar", DataType.Boolean);
-            _isReserverableFieldDef = new FieldDefinition(FieldDefinition.IsReservableId,
-                                                                   "Reservierbar", DataType.Boolean);
+            base.SetUp();
 
             FakeFieldDefRepository = GenerateAndRegisterStub<IFieldDefinitionRepository>();
             FakeOrderRepository = GenerateAndRegisterStub<IOrderRepository>();
             FakeContractRepository = GenerateAndRegisterStub<IContractRepository>();
 
-            FakeFieldDefRepository.Expect(x => x.Get(_grossStockFieldDef.Id)).Return(_grossStockFieldDef);
-            FakeFieldDefRepository.Expect(x => x.Get(_isBorrowableFieldDef.Id)).Return(_isBorrowableFieldDef);
-            FakeFieldDefRepository.Expect(x => x.Get(_isReserverableFieldDef.Id)).Return(_isReserverableFieldDef);
+            FakeFieldDefRepository.Expect(x => x.Get(GrossStockFieldDef.Id)).Return(GrossStockFieldDef);
+            FakeFieldDefRepository.Expect(x => x.Get(IsBorrowableFieldDef.Id)).Return(IsBorrowableFieldDef);
+            FakeFieldDefRepository.Expect(x => x.Get(IsReservableFieldDef.Id)).Return(IsReservableFieldDef);
         }
 
         #endregion
 
-        private FieldDefinition _grossStockFieldDef;
-        private FieldDefinition _isBorrowableFieldDef;
-        private FieldDefinition _isReserverableFieldDef;
+        protected readonly FieldDefinition AmountFieldDef =
+            new FieldDefinition(FieldDefinition.StockId, "Menge",
+                                DataType.Integer);
+
+        protected readonly FieldDefinition GrossStockFieldDef = new FieldDefinition(FieldDefinition.GrossStockId,
+                                                                                    "Bestand (Brutto)", DataType.Integer);
+
+        protected readonly FieldDefinition IsBorrowableFieldDef = new FieldDefinition(FieldDefinition.IsBorrowableId,
+                                                                                      "Ausleihbar", DataType.Boolean);
+
+        protected readonly FieldDefinition IsReservableFieldDef = new FieldDefinition(FieldDefinition.IsReservableId,
+                                                                                      "Reservierbar", DataType.Boolean);
+
+        protected readonly FieldDefinition NameFieldDef =
+            new FieldDefinition(FieldDefinition.CaptionId, "Name",
+                                DataType.Text);
+
+        protected readonly FieldDefinition PriceFieldDef =
+            new FieldDefinition(FieldDefinition.PriceId, "Preis",
+                                DataType.Decimal);
 
         protected IFieldDefinitionRepository FakeFieldDefRepository { get; set; }
         protected IOrderRepository FakeOrderRepository { get; set; }
         protected IContractRepository FakeContractRepository { get; set; }
 
-        protected override Article CreateSut()
-        {
-            return new Article();
-        }
-
-        protected Article AddChild(bool isBorrowable = false, bool isReserverable = false)
+        protected Article AddChild(Article parent, bool isBorrowable = false, bool isReserverable = false)
         {
             var result = new Article();
-            Sut.AddChild(result);
-            Sut.IsBorrowable = isBorrowable;
-            Sut.IsReservable = isReserverable;
+            parent.AddChild(result);
+            parent.IsBorrowable = isBorrowable;
+            parent.IsReservable = isReserverable;
             return result;
         }
 

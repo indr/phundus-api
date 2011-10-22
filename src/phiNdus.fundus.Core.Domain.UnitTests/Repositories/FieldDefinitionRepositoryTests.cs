@@ -4,7 +4,7 @@ using phiNdus.fundus.Core.Domain.Repositories;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Repositories
 {
     [TestFixture]
-    public class DomainPropertyDefinitionRepositoryTests
+    public class FieldDefinitionRepositoryTests
     {
         [Test]
         public void Can_create()

@@ -1,45 +1,29 @@
 using Iesi.Collections.Generic;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
-using phiNdus.fundus.TestHelpers;
 
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
 {
     [TestFixture]
-    public class ArticleNetStockTests : MockTestBase<Article>
+    public class ArticleNetStockTests : ArticleTestBase
     {
-        #region SetUp/TearDown
-
-        [SetUp]
-        public override void Setup()
+        protected Article CreateSut()
         {
-            base.Setup();
-
-            _grossStockPropertyDef = new FieldDefinition(FieldDefinition.GrossStockId,
-                                                                  "Bestand (Brutto)", DataType.Integer);
+            StubFieldValues = new HashedSet<FieldValue>();
+            return new Article(StubFieldValues);
         }
 
-        #endregion
+        protected HashedSet<FieldValue> StubFieldValues { get; set; }
 
-        private FieldDefinition _grossStockPropertyDef;
-
-        protected override Article CreateSut()
+        protected void AddGrossStockField(int amount)
         {
-            StubPropertyValues = new HashedSet<FieldValue>();
-            return new Article(StubPropertyValues);
+            StubFieldValues.Add(new FieldValue(GrossStockFieldDef, amount));
         }
 
-        protected HashedSet<FieldValue> StubPropertyValues { get; set; }
-
-        protected void AddGrossStockProperty(int amount)
-        {
-            StubPropertyValues.Add(new FieldValue(_grossStockPropertyDef, amount));
-        }
-
-        protected Article AddChild()
+        protected Article AddChild(Article parent)
         {
             var result = new Article();
-            Sut.AddChild(result);
+            parent.AddChild(result);
             return result;
         }
 

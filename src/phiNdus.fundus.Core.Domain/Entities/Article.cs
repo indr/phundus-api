@@ -94,12 +94,15 @@ namespace phiNdus.fundus.Core.Domain.Entities
             }
         }
 
-        public virtual int BorrowableStock
+        /// <summary>
+        /// Reservierbarer Bestand
+        /// </summary>
+        public virtual int ReservableStock
         {
             get
             {
                 return GrossStock - OrderRepository.SumReservedAmount(Id)
-                       + Children.Sum(child => ((Article) child).BorrowableStock);
+                       + Children.Sum(child => ((Article) child).ReservableStock);
             }
         }
     }

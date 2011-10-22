@@ -1,60 +1,21 @@
-﻿using Castle.MicroKernel.Registration;
-using Iesi.Collections.Generic;
+﻿using Iesi.Collections.Generic;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
-using phiNdus.fundus.Core.Domain.Repositories;
-using phiNdus.fundus.TestHelpers;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
 {
-    // TODO: Inherit from ArticleTestBase
     [TestFixture]
-    public class TrivialArticleTests : MockTestBase<Article>
+    public class TrivialArticleTests : ArticleTestBase
     {
-        protected override void RegisterDependencies(Castle.Windsor.IWindsorContainer container)
+        protected Article CreateSut()
         {
-            base.RegisterDependencies(container);
-
-            StubPropertyDefinitionRepository = MockRepository.GenerateStub<IFieldDefinitionRepository>();
-
-            container.Register(
-                Component.For<IFieldDefinitionRepository>().Instance(StubPropertyDefinitionRepository));
+            FakeFieldValues = new HashedSet<FieldValue>();
+            return new Article(FakeFieldValues);
         }
 
-        protected IFieldDefinitionRepository StubPropertyDefinitionRepository { get; set; }
+        private ISet<FieldValue> FakeFieldValues { get; set; }
 
-        protected override Article CreateSut()
-        {
-            StubPropertyValues = new HashedSet<FieldValue>();
-            return new Article(StubPropertyValues);
-        }
-
-        private ISet<FieldValue> StubPropertyValues { get; set; }
-
-        private readonly FieldDefinition _isReservablePropertyDef =
-            new FieldDefinition(FieldDefinition.IsReservableId, "Reservierbar",
-                                         DataType.Boolean);
-
-        private readonly FieldDefinition _isBorrowablePropertyDef =
-            new FieldDefinition(FieldDefinition.IsBorrowableId, "Ausleihbar",
-                                         DataType.Boolean);
-        
-        private readonly FieldDefinition _amountPropertyDef =
-                    new FieldDefinition(FieldDefinition.StockId, "Menge",
-                                                 DataType.Integer);
-
-        private readonly FieldDefinition _pricePropertyDef =
-                    new FieldDefinition(FieldDefinition.PriceId, "Preis",
-                                                 DataType.Decimal);
-
-        private readonly FieldDefinition _grossStockPropertyDef =
-                    new FieldDefinition(FieldDefinition.GrossStockId, "Bestand (Brutto)",
-                        DataType.Integer);
-
-        private readonly FieldDefinition _namePropertyDef =
-           new FieldDefinition(FieldDefinition.CaptionId, "Name",
-                                        DataType.Text);
 
         [Test]
         public void Can_create()
@@ -73,111 +34,115 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         }
 
         [Test]
-        public void Can_create_with_PropertyValues()
+        public void Can_create_with_FieldValues()
         {
-            var propertyValues = new HashedSet<FieldValue>();
-            var sut = new Article(propertyValues);
+            var fieldValues = new HashedSet<FieldValue>();
+            var sut = new Article(fieldValues);
             Assert.That(sut, Is.Not.Null);
-            Assert.That(sut.FieldValues, Is.SameAs(propertyValues));
-        }
-
-        [Test]
-        public void GetIsBorrowable()
-        {
-            Assert.That(Sut.IsBorrowable, Is.False);
-            StubPropertyValues.Add(new FieldValue(_isBorrowablePropertyDef, true));
-            Assert.That(Sut.IsBorrowable, Is.True);
-        }
-
-        [Test]
-        public void SetIsLendable()
-        {
-            StubPropertyDefinitionRepository.Stub(x => x.Get(_isBorrowablePropertyDef.Id)).Return(_isBorrowablePropertyDef);
-
-            Assert.That(Sut.IsBorrowable, Is.False);
-            Sut.IsBorrowable = true;
-            Assert.That(Sut.IsBorrowable, Is.True);
-        }
-
-        [Test]
-        public void GetIsReservable()
-        {
-            Assert.That(Sut.IsReservable, Is.False);
-            StubPropertyValues.Add(new FieldValue(_isReservablePropertyDef, true));
-            Assert.That(Sut.IsReservable, Is.True);
-        }
-
-        [Test]
-        public void SetIsReservable()
-        {
-            StubPropertyDefinitionRepository.Stub(x => x.Get(_isReservablePropertyDef.Id)).Return(_isReservablePropertyDef);
-
-            Assert.That(Sut.IsReservable, Is.False);
-            Sut.IsReservable = true;
-            Assert.That(Sut.IsReservable, Is.True);
-        }
-
-        [Test]
-        public void GetStock()
-        {
-            Assert.That(Sut.Stock, Is.EqualTo(0));
-            StubPropertyValues.Add(new FieldValue(_amountPropertyDef, 1));
-            Assert.That(Sut.Stock, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void SetStock()
-        {
-            StubPropertyDefinitionRepository.Stub(x => x.Get(_amountPropertyDef.Id)).Return(_amountPropertyDef);
-
-            Assert.That(Sut.Stock, Is.EqualTo(0));
-            Sut.Stock = 1;
-            Assert.That(Sut.Stock, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void GetPrice()
-        {
-            Assert.That(Sut.Price, Is.EqualTo(0.0d));
-            StubPropertyValues.Add(new FieldValue(_pricePropertyDef, 1.1d));
-            Assert.That(Sut.Price, Is.EqualTo(1.1d));
-        }
-
-        [Test]
-        public void SetPrice()
-        {
-            StubPropertyDefinitionRepository.Stub(x => x.Get(_pricePropertyDef.Id)).Return(_pricePropertyDef);
-
-            Assert.That(Sut.Price, Is.EqualTo(0.0d));
-            Sut.Price = 1.1d;
-            Assert.That(Sut.Price, Is.EqualTo(1.1d));
-        }
-
-        [Test]
-        public void Is_derived_from_DomainObject()
-        {
-            var sut = new Article();
-            Assert.That(sut, Is.Not.Null);
-            Assert.That(sut, Is.InstanceOf(typeof (CompositeEntity)));
+            Assert.That(sut.FieldValues, Is.SameAs(fieldValues));
         }
 
         [Test]
         public void GetCaption()
         {
-            Assert.That(Sut.Caption, Is.EqualTo(""));
-            StubPropertyValues.Add(new FieldValue(_namePropertyDef, "Name of object"));
-            Assert.That(Sut.Caption, Is.EqualTo("Name of object"));
+            var sut = CreateSut();
+            Assert.That(sut.Caption, Is.EqualTo(""));
+            FakeFieldValues.Add(new FieldValue(NameFieldDef, "Name of object"));
+            Assert.That(sut.Caption, Is.EqualTo("Name of object"));
+        }
+
+        [Test]
+        public void GetIsBorrowable()
+        {
+            var sut = CreateSut();
+            Assert.That(sut.IsBorrowable, Is.False);
+            FakeFieldValues.Add(new FieldValue(IsBorrowableFieldDef, true));
+            Assert.That(sut.IsBorrowable, Is.True);
+        }
+
+        [Test]
+        public void GetIsReservable()
+        {
+            var sut = CreateSut();
+            Assert.That(sut.IsReservable, Is.False);
+            FakeFieldValues.Add(new FieldValue(IsReservableFieldDef, true));
+            Assert.That(sut.IsReservable, Is.True);
+        }
+
+        [Test]
+        public void GetPrice()
+        {
+            var sut = CreateSut();
+            Assert.That(sut.Price, Is.EqualTo(0.0d));
+            FakeFieldValues.Add(new FieldValue(PriceFieldDef, 1.1d));
+            Assert.That(sut.Price, Is.EqualTo(1.1d));
+        }
+
+        [Test]
+        public void GetStock()
+        {
+            var sut = CreateSut();
+            Assert.That(sut.Stock, Is.EqualTo(0));
+            FakeFieldValues.Add(new FieldValue(AmountFieldDef, 1));
+            Assert.That(sut.Stock, Is.EqualTo(1));
         }
 
         [Test]
         public void SetCaption()
         {
-            StubPropertyDefinitionRepository.Stub(x => x.Get(_namePropertyDef.Id))
-                .Return(_namePropertyDef);
+            var sut = CreateSut();
+            FakeFieldDefRepository.Stub(x => x.Get(NameFieldDef.Id))
+                .Return(NameFieldDef);
 
-            Assert.That(Sut.Caption, Is.EqualTo(""));
-            Sut.Caption = "Name of object";
-            Assert.That(Sut.Caption, Is.EqualTo("Name of object"));
+            Assert.That(sut.Caption, Is.EqualTo(""));
+            sut.Caption = "Name of object";
+            Assert.That(sut.Caption, Is.EqualTo("Name of object"));
+        }
+
+        [Test]
+        public void SetIsLendable()
+        {
+            var sut = CreateSut();
+            FakeFieldDefRepository.Stub(x => x.Get(IsBorrowableFieldDef.Id)).Return(
+                IsBorrowableFieldDef);
+
+            Assert.That(sut.IsBorrowable, Is.False);
+            sut.IsBorrowable = true;
+            Assert.That(sut.IsBorrowable, Is.True);
+        }
+
+        [Test]
+        public void SetIsReservable()
+        {
+            var sut = CreateSut();
+            FakeFieldDefRepository.Stub(x => x.Get(IsReservableFieldDef.Id)).Return(
+                IsReservableFieldDef);
+
+            Assert.That(sut.IsReservable, Is.False);
+            sut.IsReservable = true;
+            Assert.That(sut.IsReservable, Is.True);
+        }
+
+        [Test]
+        public void SetPrice()
+        {
+            var sut = CreateSut();
+            FakeFieldDefRepository.Stub(x => x.Get(PriceFieldDef.Id)).Return(PriceFieldDef);
+
+            Assert.That(sut.Price, Is.EqualTo(0.0d));
+            sut.Price = 1.1d;
+            Assert.That(sut.Price, Is.EqualTo(1.1d));
+        }
+
+        [Test]
+        public void SetStock()
+        {
+            var sut = CreateSut();
+            FakeFieldDefRepository.Stub(x => x.Get(AmountFieldDef.Id)).Return(AmountFieldDef);
+
+            Assert.That(sut.Stock, Is.EqualTo(0));
+            sut.Stock = 1;
+            Assert.That(sut.Stock, Is.EqualTo(1));
         }
     }
 }
