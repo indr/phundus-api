@@ -2,33 +2,33 @@
 {
     public class FieldDefinition : Entity
     {
-        private FieldType _dataType;
+        private DataType _dataType;
         private string _name;
 
         public FieldDefinition()
         {
         }
 
-        public FieldDefinition(FieldType type)
+        public FieldDefinition(DataType type)
             : this(0, "", type)
         {
         }
 
-        public FieldDefinition(int id, string name, FieldType type) : this(id, 0, name, type)
+        public FieldDefinition(int id, string name, DataType type) : this(id, 0, name, type)
         {
         }
 
-        public FieldDefinition(int id, int version, string name, FieldType type)
+        public FieldDefinition(int id, int version, string name, DataType type)
             : this(id, version, name, type, false)
         {
         }
 
-        public FieldDefinition(int id, int version, string name, FieldType type, bool isSystemProperty)
+        public FieldDefinition(int id, int version, string name, DataType type, bool isSystemField)
             : base(id, version)
         {
             _name = name;
             _dataType = type;
-            IsSystemProperty = isSystemProperty;
+            _isSystemField = isSystemField;
         }
 
         // According to dml.sql
@@ -83,12 +83,17 @@
             set { _name = value; }
         }
 
-        public virtual FieldType DataType
+        public virtual DataType DataType
         {
             get { return _dataType; }
             set { _dataType = value; }
         }
 
-        public virtual bool IsSystemProperty { get; protected set; }
+        private bool _isSystemField;
+        public virtual bool IsSystemField
+        {
+            get { return _isSystemField; }
+            protected set { _isSystemField = value; }
+        }
     }
 }

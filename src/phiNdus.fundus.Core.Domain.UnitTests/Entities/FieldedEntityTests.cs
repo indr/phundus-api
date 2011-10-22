@@ -5,32 +5,18 @@ using phiNdus.fundus.Core.Domain.Entities;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    public class BasePropertyEntityTests
+    public class FieldedEntityTests
     {
-        #region Setup/Teardown
-
-        [SetUp]
-        public void SetUp()
-        {
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-        }
-
-        #endregion
-
         private readonly FieldDefinition _namePropertyDefinition = new FieldDefinition(1, "Name",
-                                                                                                         FieldType
-                                                                                                             .Text);
+                                                                                       DataType
+                                                                                           .Text);
 
         [Test]
         public void AddProperty_with_the_property_already_added_throws()
         {
             var sut = new FieldedEntity();
-            sut.AddProperty(_namePropertyDefinition);
-            var ex = Assert.Throws<PropertyException>(() => sut.AddProperty(_namePropertyDefinition));
+            sut.AddField(_namePropertyDefinition);
+            var ex = Assert.Throws<FieldAlreadyAttachedException>(() => sut.AddField(_namePropertyDefinition));
             Assert.That(ex.Message, Is.EqualTo("Property bereits vorhanden."));
         }
 
@@ -38,10 +24,10 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void AddProperty_with_value()
         {
             var sut = new FieldedEntity();
-            sut.AddProperty(_namePropertyDefinition, "Value of Name");
-            Assert.That(sut.HasProperty(_namePropertyDefinition), Is.True);
-            Assert.That(sut.GetPropertyValue(_namePropertyDefinition), Is.EqualTo("Value of Name"));
-            Assert.That(sut.GetPropertyValue(_namePropertyDefinition.Id), Is.EqualTo("Value of Name"));
+            sut.AddField(_namePropertyDefinition, "Value of Name");
+            Assert.That(sut.HasField(_namePropertyDefinition), Is.True);
+            Assert.That(sut.GetFieldValue(_namePropertyDefinition), Is.EqualTo("Value of Name"));
+            Assert.That(sut.GetFieldValue(_namePropertyDefinition.Id), Is.EqualTo("Value of Name"));
         }
 
         [Test]
@@ -74,39 +60,39 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void Can_get_and_set_PropertyValue()
         {
             var sut = new FieldedEntity();
-            sut.AddProperty(_namePropertyDefinition);
-            Assert.That(sut.GetPropertyValue(_namePropertyDefinition), Is.Null);
-            sut.SetPropertyValue(_namePropertyDefinition, "Pullover");
-            Assert.That(sut.GetPropertyValue(_namePropertyDefinition), Is.EqualTo("Pullover"));
+            sut.AddField(_namePropertyDefinition);
+            Assert.That(sut.GetFieldValue(_namePropertyDefinition), Is.Null);
+            sut.SetFieldValue(_namePropertyDefinition, "Pullover");
+            Assert.That(sut.GetFieldValue(_namePropertyDefinition), Is.EqualTo("Pullover"));
         }
 
         [Test]
         public void Can_get_and_set_PropertyValue_with_PropertyDefinitionId()
         {
             var sut = new FieldedEntity();
-            sut.AddProperty(_namePropertyDefinition);
-            Assert.That(sut.GetPropertyValue(_namePropertyDefinition.Id), Is.Null);
-            sut.SetPropertyValue(_namePropertyDefinition.Id, "Pullover");
-            Assert.That(sut.GetPropertyValue(_namePropertyDefinition.Id), Is.EqualTo("Pullover"));
+            sut.AddField(_namePropertyDefinition);
+            Assert.That(sut.GetFieldValue(_namePropertyDefinition.Id), Is.Null);
+            sut.SetFieldValue(_namePropertyDefinition.Id, "Pullover");
+            Assert.That(sut.GetFieldValue(_namePropertyDefinition.Id), Is.EqualTo("Pullover"));
         }
 
         [Test]
         public void GetPropertyValue_after_AddProperty_returns_null()
         {
             var sut = new FieldedEntity();
-            sut.AddProperty(_namePropertyDefinition);
-            Assert.That(sut.GetPropertyValue(_namePropertyDefinition), Is.Null);
-            Assert.That(sut.GetPropertyValue(_namePropertyDefinition.Id), Is.Null);
+            sut.AddField(_namePropertyDefinition);
+            Assert.That(sut.GetFieldValue(_namePropertyDefinition), Is.Null);
+            Assert.That(sut.GetFieldValue(_namePropertyDefinition.Id), Is.Null);
         }
 
         [Test]
         public void GetPropertyValue_without_the_presence_of_the_property_throws()
         {
             var sut = new FieldedEntity();
-            var ex = Assert.Throws<PropertyException>(() => sut.GetPropertyValue(_namePropertyDefinition));
+            var ex = Assert.Throws<FieldAlreadyAttachedException>(() => sut.GetFieldValue(_namePropertyDefinition));
             Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));
 
-            ex = Assert.Throws<PropertyException>(() => sut.GetPropertyValue(_namePropertyDefinition.Id));
+            ex = Assert.Throws<FieldAlreadyAttachedException>(() => sut.GetFieldValue(_namePropertyDefinition.Id));
             Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));
         }
 
@@ -114,9 +100,9 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void HasProperty_after_AddProperty_returns_true()
         {
             var sut = new FieldedEntity();
-            sut.AddProperty(_namePropertyDefinition);
-            Assert.That(sut.HasProperty(_namePropertyDefinition), Is.True);
-            Assert.That(sut.HasProperty(_namePropertyDefinition.Id), Is.True);
+            sut.AddField(_namePropertyDefinition);
+            Assert.That(sut.HasField(_namePropertyDefinition), Is.True);
+            Assert.That(sut.HasField(_namePropertyDefinition.Id), Is.True);
         }
 
         [Test]
@@ -124,21 +110,21 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         {
             var sut = new FieldedEntity();
 
-            sut.AddProperty(_namePropertyDefinition);
-            Assert.That(sut.HasProperty(_namePropertyDefinition), Is.True);
-            Assert.That(sut.HasProperty(_namePropertyDefinition.Id), Is.True);
+            sut.AddField(_namePropertyDefinition);
+            Assert.That(sut.HasField(_namePropertyDefinition), Is.True);
+            Assert.That(sut.HasField(_namePropertyDefinition.Id), Is.True);
 
-            sut.RemoveProperty(_namePropertyDefinition);
-            Assert.That(sut.HasProperty(_namePropertyDefinition), Is.False);
-            Assert.That(sut.HasProperty(_namePropertyDefinition.Id), Is.False);
+            sut.RemoveField(_namePropertyDefinition);
+            Assert.That(sut.HasField(_namePropertyDefinition), Is.False);
+            Assert.That(sut.HasField(_namePropertyDefinition.Id), Is.False);
         }
 
         [Test]
         public void HasProperty_returns_false()
         {
             var sut = new FieldedEntity();
-            Assert.That(sut.HasProperty(_namePropertyDefinition), Is.False);
-            Assert.That(sut.HasProperty(_namePropertyDefinition.Id), Is.False);
+            Assert.That(sut.HasField(_namePropertyDefinition), Is.False);
+            Assert.That(sut.HasField(_namePropertyDefinition.Id), Is.False);
         }
 
         [Test]
@@ -152,7 +138,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void RemoveProperty_without_the_presence_of_the_property_throws()
         {
             var sut = new FieldedEntity();
-            var ex = Assert.Throws<PropertyException>(() => sut.RemoveProperty(_namePropertyDefinition));
+            var ex = Assert.Throws<FieldAlreadyAttachedException>(() => sut.RemoveField(_namePropertyDefinition));
             Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));
         }
 
@@ -160,15 +146,15 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         public void SetPropertyValue_after_AddProperty()
         {
             var sut = new FieldedEntity();
-            sut.AddProperty(_namePropertyDefinition);
-            sut.SetPropertyValue(_namePropertyDefinition, "Pullover");
+            sut.AddField(_namePropertyDefinition);
+            sut.SetFieldValue(_namePropertyDefinition, "Pullover");
         }
 
         [Test]
         public void SetPropertyValue_without_the_presence_of_the_property_throws()
         {
             var sut = new FieldedEntity();
-            var ex = Assert.Throws<PropertyException>(() => sut.SetPropertyValue(_namePropertyDefinition, "Pullover"));
+            var ex = Assert.Throws<FieldAlreadyAttachedException>(() => sut.SetFieldValue(_namePropertyDefinition, "Pullover"));
             Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));
         }
     }

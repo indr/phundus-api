@@ -1,7 +1,5 @@
 ﻿using System;
 using Iesi.Collections.Generic;
-using phiNdus.fundus.Core.Domain.Repositories;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
@@ -32,23 +30,27 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public virtual CompositeEntity Parent { get; protected set; }
 
-
-
-        public virtual void AddChild(CompositeEntity child)
-        {
-            _children.Add(child);
-            child.Parent = this;
-        }
-
-        public virtual void RemoveChild(CompositeEntity child)
-        {
-            Children.Remove(child);
-            child.Parent = null;
-        }
-
         public virtual bool HasChildren
         {
             get { return Children.Count > 0; }
         }
+
+        public virtual bool AddChild(CompositeEntity child)
+        {
+            var result = _children.Add(child);
+            if (result)
+                child.Parent = this;
+            return result;
+        }
+
+        public virtual bool RemoveChild(CompositeEntity child)
+        {
+            var result = Children.Remove(child);
+            if (result)
+                child.Parent = null;
+            return result;
+        }
+
+        
     }
 }

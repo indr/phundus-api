@@ -1,0 +1,25 @@
+﻿using System;
+using NUnit.Framework;
+using phiNdus.fundus.TestHelpers;
+
+namespace phiNdus.fundus.Core.Domain.UnitTests
+{
+    [TestFixture]
+    public class FieldAlreadyAttachedExceptionTests : ExceptionTestBase<FieldAlreadyAttachedException>
+    {
+        protected override FieldAlreadyAttachedException CreateSut()
+        {
+            return new FieldAlreadyAttachedException();
+        }
+
+        protected override FieldAlreadyAttachedException CreateSut(string message)
+        {
+            return new FieldAlreadyAttachedException(message);
+        }
+
+        protected override FieldAlreadyAttachedException CreateSut(string message, Exception innerException)
+        {
+            return new FieldAlreadyAttachedException(message, innerException);
+        }
+    }
+}

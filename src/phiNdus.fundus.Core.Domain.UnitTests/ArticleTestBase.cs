@@ -16,13 +16,13 @@ namespace phiNdus.fundus.Core.Domain.UnitTests
             base.Setup();
 
             _grossStockFieldDef = new FieldDefinition(FieldDefinition.GrossStockId,
-                                                               "Bestand (Brutto)", FieldType.Integer);
+                                                               "Bestand (Brutto)", DataType.Integer);
             _isBorrowableFieldDef = new FieldDefinition(FieldDefinition.IsBorrowableId,
-                                                                 "Ausleihbar", FieldType.Boolean);
+                                                                 "Ausleihbar", DataType.Boolean);
             _isReserverableFieldDef = new FieldDefinition(FieldDefinition.IsReservableId,
-                                                                   "Reservierbar", FieldType.Boolean);
+                                                                   "Reservierbar", DataType.Boolean);
 
-            FakeFieldDefRepository = GenerateAndRegisterStub<IDomainPropertyDefinitionRepository>();
+            FakeFieldDefRepository = GenerateAndRegisterStub<IFieldDefinitionRepository>();
             FakeOrderRepository = GenerateAndRegisterStub<IOrderRepository>();
             FakeContractRepository = GenerateAndRegisterStub<IContractRepository>();
 
@@ -37,7 +37,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests
         private FieldDefinition _isBorrowableFieldDef;
         private FieldDefinition _isReserverableFieldDef;
 
-        protected IDomainPropertyDefinitionRepository FakeFieldDefRepository { get; set; }
+        protected IFieldDefinitionRepository FakeFieldDefRepository { get; set; }
         protected IOrderRepository FakeOrderRepository { get; set; }
         protected IContractRepository FakeContractRepository { get; set; }
 

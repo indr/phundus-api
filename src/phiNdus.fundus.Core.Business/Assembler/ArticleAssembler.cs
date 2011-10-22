@@ -87,15 +87,15 @@ namespace phiNdus.fundus.Core.Business.Assembler
         private static void WriteProperties(BasePropertiesDto subject, FieldedEntity result)
         {
             // Neue Properties hinzufügen, oder bestehende Property-Values aktualisieren.
-            var propertyDefinitionRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
+            var propertyDefinitionRepo = IoC.Resolve<IFieldDefinitionRepository>();
             foreach (var each in subject.Properties)
             {
                 FieldValue propertyValue = null;
-                if (result.HasProperty(each.PropertyId)) {
-                    propertyValue = result.SetPropertyValue(each.PropertyId, each.Value);
+                if (result.HasField(each.PropertyId)) {
+                    propertyValue = result.SetFieldValue(each.PropertyId, each.Value);
                 }
                 else
-                    propertyValue = result.AddProperty(propertyDefinitionRepo.Get(each.PropertyId), each.Value);
+                    propertyValue = result.AddField(propertyDefinitionRepo.Get(each.PropertyId), each.Value);
 
                 propertyValue.IsDiscriminator = each.IsDiscriminator;
             }
@@ -104,11 +104,11 @@ namespace phiNdus.fundus.Core.Business.Assembler
             var propertiesToRemove = new List<FieldValue>();
             foreach (var each in result.FieldValues)
             {
-                if (subject.Properties.FirstOrDefault(x => x.PropertyId == each.PropertyDefinition.Id) == null)
+                if (subject.Properties.FirstOrDefault(x => x.PropertyId == each.FieldDefinition.Id) == null)
                     propertiesToRemove.Add(each);
             }
             foreach (var each in propertiesToRemove)
-                result.RemoveProperty(each.PropertyDefinition);
+                result.RemoveField(each.FieldDefinition);
         }
 
         /// <summary>
@@ -121,23 +121,23 @@ namespace phiNdus.fundus.Core.Business.Assembler
             foreach (var each in subject.FieldValues)
             {
                 var dtoProperty = new DtoProperty();
-                dtoProperty.PropertyId = each.PropertyDefinition.Id;
-                dtoProperty.Caption = each.PropertyDefinition.Name;
-                switch (each.PropertyDefinition.DataType)
+                dtoProperty.PropertyId = each.FieldDefinition.Id;
+                dtoProperty.Caption = each.FieldDefinition.Name;
+                switch (each.FieldDefinition.DataType)
                 {
-                    case FieldType.Boolean:
+                    case DataType.Boolean:
                         dtoProperty.DataType = PropertyDataType.Boolean;
                         break;
-                    case FieldType.Text:
+                    case DataType.Text:
                         dtoProperty.DataType = PropertyDataType.Text;
                         break;
-                    case FieldType.Integer:
+                    case DataType.Integer:
                         dtoProperty.DataType = PropertyDataType.Integer;
                         break;
-                    case FieldType.Decimal:
+                    case DataType.Decimal:
                         dtoProperty.DataType = PropertyDataType.Decimal;
                         break;
-                    case FieldType.DateTime:
+                    case DataType.DateTime:
                         dtoProperty.DataType = PropertyDataType.DateTime;
                         break;
                     default:

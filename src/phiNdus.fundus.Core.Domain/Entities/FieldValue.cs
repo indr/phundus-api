@@ -5,68 +5,68 @@ namespace phiNdus.fundus.Core.Domain.Entities
 {
     public class FieldValue : Entity
     {
-        private FieldDefinition _propertyDefinition;
+        private FieldDefinition _fieldDefinition;
 
         protected FieldValue()
         {
         }
 
-        public FieldValue(FieldDefinition propertyDefinition) : this(propertyDefinition, null)
+        public FieldValue(FieldDefinition fieldDefinition) : this(fieldDefinition, null)
         {
         }
 
-        public FieldValue(FieldDefinition propertyDefinition, object value)
+        public FieldValue(FieldDefinition fieldDefinition, object value)
         {
-            _propertyDefinition = propertyDefinition;
+            _fieldDefinition = fieldDefinition;
             if (value != null)
-                InternalSetValue(_propertyDefinition.DataType, value);
+                InternalSetValue(_fieldDefinition.DataType, value);
         }
 
-        private object InternalGetValue(FieldType dataType)
+        private object InternalGetValue(DataType dataType)
         {
             switch (dataType)
             {
-                case FieldType.Boolean:
+                case DataType.Boolean:
                     return BooleanValue;
-                case FieldType.Text:
+                case DataType.Text:
                     return TextValue;
-                case FieldType.Integer:
+                case DataType.Integer:
                     return IntegerValue;
-                case FieldType.Decimal:
+                case DataType.Decimal:
                     return DecimalValue;
-                case FieldType.DateTime:
+                case DataType.DateTime:
                     return DateTimeValue;
                 default:
                     throw new ArgumentOutOfRangeException("dataType");
             }
         }
 
-        private void InternalSetValue(FieldType dataType, object value)
+        private void InternalSetValue(DataType dataType, object value)
         {
             switch (dataType)
             {
-                case FieldType.Boolean:
+                case DataType.Boolean:
                     if (value == null)
                         BooleanValue = null;
                     else
                         BooleanValue = Convert.ToBoolean(value, CultureInfo.InvariantCulture);
                     break;
-                case FieldType.Text:
+                case DataType.Text:
                     TextValue = value == null ? null : Convert.ToString(value, CultureInfo.InvariantCulture);
                     break;
-                case FieldType.Integer:
+                case DataType.Integer:
                     if (value == null)
                         IntegerValue = null;
                     else
                         IntegerValue = Convert.ToInt32(value, CultureInfo.InvariantCulture);
                     break;
-                case FieldType.Decimal:
+                case DataType.Decimal:
                     if (value == null)
                         DecimalValue = null;
                     else
                         DecimalValue = Convert.ToDouble(value, CultureInfo.InvariantCulture);
                     break;
-                case FieldType.DateTime:
+                case DataType.DateTime:
                     if (value == null)
                         DateTimeValue = null;
                     else
@@ -77,16 +77,16 @@ namespace phiNdus.fundus.Core.Domain.Entities
             }
         }
 
-        public virtual FieldDefinition PropertyDefinition
+        public virtual FieldDefinition FieldDefinition
         {
-            get { return _propertyDefinition; }
-            protected set { _propertyDefinition = value; }
+            get { return _fieldDefinition; }
+            protected set { _fieldDefinition = value; }
         }
 
         public virtual object Value
         {
-            get { return InternalGetValue(PropertyDefinition.DataType); }
-            set { InternalSetValue(PropertyDefinition.DataType, value); }
+            get { return InternalGetValue(FieldDefinition.DataType); }
+            set { InternalSetValue(FieldDefinition.DataType, value); }
         }
 
         protected DateTime? DateTimeValue { get; set; }

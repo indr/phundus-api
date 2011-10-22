@@ -22,22 +22,22 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Can_get_Name()
         {
-            var sut = new FieldDefinition(1, "Name", FieldType.Text);
+            var sut = new FieldDefinition(1, "Name", DataType.Text);
             Assert.That(sut.Name, Is.EqualTo("Name"));
         }
 
         [Test]
         public void Can_get_Type()
         {
-            var sut = new FieldDefinition(1, "Name", FieldType.Text);
-            Assert.That(sut.DataType, Is.EqualTo(FieldType.Text));
+            var sut = new FieldDefinition(1, "Name", DataType.Text);
+            Assert.That(sut.DataType, Is.EqualTo(DataType.Text));
         }
 
         [Test]
         public void Can_get_IsSystemProperty()
         {
-            var sut = new FieldDefinition(1, 2, "Name", FieldType.Text, true);
-            Assert.That(sut.IsSystemProperty, Is.True);
+            var sut = new FieldDefinition(1, 2, "Name", DataType.Text, true);
+            Assert.That(sut.IsSystemField, Is.True);
         }
     }
 }

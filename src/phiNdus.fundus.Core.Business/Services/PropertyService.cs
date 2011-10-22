@@ -8,9 +8,9 @@ namespace phiNdus.fundus.Core.Business.Services
 {
     public class PropertyService : BaseService
     {
-        private static IDomainPropertyDefinitionRepository PropertyDefinitions
+        private static IFieldDefinitionRepository PropertyDefinitions
         {
-            get { return IoC.Resolve<IDomainPropertyDefinitionRepository>(); }
+            get { return IoC.Resolve<IFieldDefinitionRepository>(); }
         }
 
         public virtual PropertyDto[] GetProperties()
@@ -59,7 +59,7 @@ namespace phiNdus.fundus.Core.Business.Services
             using (var uow = UnitOfWork.Start())
             {
                 var propertyDef = PropertyDefinitionAssembler.UpdateDomainObject(subject);
-                if (propertyDef.IsSystemProperty)
+                if (propertyDef.IsSystemField)
                     throw new InvalidOperationException("System-Eigenschaften können nicht gelöscht werden.");
 
                 PropertyDefinitions.Delete(propertyDef);

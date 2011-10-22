@@ -34,7 +34,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         protected IUnitOfWork FakeUnitOfWork { get; set; }
 
         protected IArticleRepository FakeArticleRepo { get; set; }
-        protected IDomainPropertyDefinitionRepository FakePropertyDefRepo { get; set; }
+        protected IFieldDefinitionRepository FakePropertyDefRepo { get; set; }
 
         protected Article Article { get; set; }
 
@@ -45,8 +45,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
                 FakeArticleRepo.Expect(x => x.Get(Article.Id)).Return(Article);
                 FakeArticleRepo.Expect(x => x.Save(Arg<Article>.Is.Anything)).Return(Article);
             }
-            if (IoC.TryResolve<IDomainPropertyDefinitionRepository>() == null)
-                FakePropertyDefRepo = GenerateAndRegisterStub<IDomainPropertyDefinitionRepository>();
+            if (IoC.TryResolve<IFieldDefinitionRepository>() == null)
+                FakePropertyDefRepo = GenerateAndRegisterStub<IFieldDefinitionRepository>();
         }
 
         [Test]

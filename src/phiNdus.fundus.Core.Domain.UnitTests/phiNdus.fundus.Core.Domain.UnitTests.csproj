@@ -64,14 +64,14 @@
     <Compile Include="Entities\ArticleTests\ArticleNetStockTests.cs" />
     <Compile Include="Entities\ArticleTests\TrivialArticleTests.cs" />
     <Compile Include="Entities\EntityTests.cs" />
-    <Compile Include="Entities\BasePropertyEntityTests.cs" />
+    <Compile Include="Entities\FieldedEntityTests.cs" />
     <Compile Include="Entities\ContractItemTests.cs" />
     <Compile Include="Entities\ContractTests.cs" />
     <Compile Include="Entities\DomainPropertyTests.cs" />
     <Compile Include="Entities\DomainPropertyTypeTests.cs" />
     <Compile Include="Entities\DomainPropertyValueTests.cs" />
     <Compile Include="Entities\MembershipTests.cs" />
-    <Compile Include="Entities\DomainObjectTests.cs" />
+    <Compile Include="Entities\CompositeEntityTests.cs" />
     <Compile Include="Entities\OrderItemTests.cs" />
     <Compile Include="Entities\OrderStatusTests.cs" />
     <Compile Include="Entities\OrderTests.cs" />
@@ -82,7 +82,7 @@
     <Compile Include="KeyGeneratorTests.cs" />
     <Compile Include="PasswordEncryptorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyExceptionTests.cs" />
+    <Compile Include="FieldAlreadyAttachedExceptionTests.cs" />
     <Compile Include="Repositories\DomainPropertyDefinitionRepositoryTests.cs" />
     <Compile Include="Repositories\ArticleRepositoryTests.cs" />
     <Compile Include="Repositories\OrderRepositoryTests.cs" />

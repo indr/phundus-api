@@ -12,8 +12,8 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
         }
 
-        public Article(ISet<FieldValue> propertyValues)
-            : base(propertyValues)
+        public Article(ISet<FieldValue> fieldValues)
+            : base(fieldValues)
         {
         }
 
@@ -21,55 +21,30 @@ namespace phiNdus.fundus.Core.Domain.Entities
             : base(id, version)
         {
         }
+        
+        protected virtual IOrderRepository OrderRepository
+        {
+            get { return IoC.Resolve<IOrderRepository>(); }
+        }
 
         public virtual bool IsReservable
         {
-            get
-            {
-                return HasProperty(FieldDefinition.IsReservableId) &&
-                       Convert.ToBoolean(GetPropertyValue(FieldDefinition.IsReservableId));
-            }
-            set
-            {
-                if (!HasProperty(FieldDefinition.IsReservableId))
-                    AddProperty(
-                        IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(FieldDefinition.IsReservableId));
-                SetPropertyValue(FieldDefinition.IsReservableId, value);
-            }
+            get { return GetFieldValueAsBoolean(FieldDefinition.IsReservableId, false); }
+            set { SetFieldValue(FieldDefinition.IsReservableId, value, true); }
         }
 
         public virtual bool IsBorrowable
         {
-            get
-            {
-                return HasProperty(FieldDefinition.IsBorrowableId) &&
-                       Convert.ToBoolean(GetPropertyValue(FieldDefinition.IsBorrowableId));
-            }
-            set
-            {
-                if (!HasProperty(FieldDefinition.IsBorrowableId))
-                    AddProperty(
-                        IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(FieldDefinition.IsBorrowableId));
-                SetPropertyValue(FieldDefinition.IsBorrowableId, value);
-            }
+            get { return GetFieldValueAsBoolean(FieldDefinition.IsBorrowableId, false); }
+            set { SetFieldValue(FieldDefinition.IsBorrowableId, value, true); }
         }
 
         public virtual string Caption
         {
-            get
-            {
-                return !HasProperty(FieldDefinition.CaptionId)
-                           ? ""
-                           : Convert.ToString(GetPropertyValue(FieldDefinition.CaptionId));
-            }
-            set
-            {
-                if (!HasProperty(FieldDefinition.CaptionId))
-                    AddProperty(
-                        IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(FieldDefinition.CaptionId));
-                SetPropertyValue(FieldDefinition.CaptionId, value);
-            }
+            get { return GetFieldValueAsString(FieldDefinition.CaptionId, ""); }
+            set { SetFieldValue(FieldDefinition.CaptionId, value, true); }
         }
+
 
         /// <summary>
         /// Menge, verwende in Zukunft GrossStock (Bruttobestand)
@@ -77,18 +52,8 @@ namespace phiNdus.fundus.Core.Domain.Entities
         ///[Obsolete("Siehe GrossStock")]
         public virtual int Stock
         {
-            get
-            {
-                return !HasProperty(FieldDefinition.StockId)
-                           ? 0
-                           : Convert.ToInt32(GetPropertyValue(FieldDefinition.StockId));
-            }
-            set
-            {
-                if (!HasProperty(FieldDefinition.StockId))
-                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(FieldDefinition.StockId));
-                SetPropertyValue(FieldDefinition.StockId, value);
-            }
+            get { return GetFieldValueAsInt32(FieldDefinition.StockId, 0); }
+            set { SetFieldValue(FieldDefinition.StockId, value, true); }
         }
 
         /// <summary>
@@ -98,18 +63,8 @@ namespace phiNdus.fundus.Core.Domain.Entities
         /// </summary>
         public virtual double Price
         {
-            get
-            {
-                return !HasProperty(FieldDefinition.PriceId)
-                           ? 0.0d
-                           : Convert.ToDouble(GetPropertyValue(FieldDefinition.PriceId));
-            }
-            set
-            {
-                if (!HasProperty(FieldDefinition.PriceId))
-                    AddProperty(IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(FieldDefinition.PriceId));
-                SetPropertyValue(FieldDefinition.PriceId, value);
-            }
+            get { return GetFieldValueAsDouble(FieldDefinition.PriceId, 0.0d); }
+            set { SetFieldValue(FieldDefinition.PriceId, value, true); }
         }
 
         /// <summary>
@@ -119,11 +74,11 @@ namespace phiNdus.fundus.Core.Domain.Entities
         {
             get
             {
-                if (HasProperty(FieldDefinition.GrossStockId))
+                if (HasField(FieldDefinition.GrossStockId))
                 {
                     if (HasChildren)
                         throw new IllegalAttachedFieldException();
-                    return Convert.ToInt32(GetPropertyValue(FieldDefinition.GrossStockId));
+                    return Convert.ToInt32(GetFieldValue(FieldDefinition.GrossStockId));
                 }
                 return !HasChildren ? 1 : Children.Sum(child => ((Article) child).GrossStock);
             }
@@ -132,10 +87,10 @@ namespace phiNdus.fundus.Core.Domain.Entities
                 if (HasChildren)
                     throw new InvalidOperationException(
                         "Der Bruttobestand kann nicht gesetzt werden, da mindestens eine Ausprägung vorhanden ist.");
-                if (!HasProperty(FieldDefinition.GrossStockId))
-                    AddProperty(
-                        IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(FieldDefinition.GrossStockId));
-                SetPropertyValue(FieldDefinition.GrossStockId, value);
+                if (!HasField(FieldDefinition.GrossStockId))
+                    AddField(
+                        IoC.Resolve<IFieldDefinitionRepository>().Get(FieldDefinition.GrossStockId));
+                SetFieldValue(FieldDefinition.GrossStockId, value);
             }
         }
 
@@ -144,13 +99,8 @@ namespace phiNdus.fundus.Core.Domain.Entities
             get
             {
                 return GrossStock - OrderRepository.SumReservedAmount(Id)
-                    + Children.Sum(child => ((Article) child).BorrowableStock);
+                       + Children.Sum(child => ((Article) child).BorrowableStock);
             }
-        }
-
-        protected virtual IOrderRepository OrderRepository
-        {
-            get { return IoC.Resolve<IOrderRepository>(); }
         }
     }
 }

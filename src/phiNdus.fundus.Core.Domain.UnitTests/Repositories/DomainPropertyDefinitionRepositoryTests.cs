@@ -9,7 +9,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Repositories
         [Test]
         public void Can_create()
         {
-            IDomainPropertyDefinitionRepository sut = new DomainPropertyDefinitionRepository();
+            IFieldDefinitionRepository sut = new FieldDefinitionRepository();
             Assert.That(sut, Is.Not.Null);
         }
     }

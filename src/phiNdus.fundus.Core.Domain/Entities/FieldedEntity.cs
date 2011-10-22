@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Linq;
 using Iesi.Collections.Generic;
+using phiNdus.fundus.Core.Domain.Repositories;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Entities
 {
+    /// <summary>
+    /// Die Klasse FieldedEntity stellt Funktionen für dynamische Felder zur Verfügung.
+    /// </summary>
     public class FieldedEntity : Entity
     {
         private ISet<FieldValue> _fieldValues = new HashedSet<FieldValue>();
@@ -26,83 +32,105 @@ namespace phiNdus.fundus.Core.Domain.Entities
             protected set { _fieldValues = value; }
         }
 
-        public virtual bool HasProperty(FieldDefinition propertyDefinition)
+        public virtual FieldValue AddField(FieldDefinition fieldDefinition)
         {
-            return HasProperty(propertyDefinition.Id);
+            return AddField(fieldDefinition, null);
         }
 
-        public virtual bool HasProperty(int propertyDefinitionId)
+        public virtual FieldValue AddField(FieldDefinition fieldDefinition, object value)
         {
-            foreach (var each in FieldValues)
-            {
-                if (each.PropertyDefinition.Id == propertyDefinitionId)
-                    return true;
-            }
-            return false;
-        }
+            if (HasField(fieldDefinition))
+                throw new FieldAlreadyAttachedException("Property bereits vorhanden.");
 
-        public virtual FieldValue AddProperty(FieldDefinition propertyDefinition)
-        {
-            return AddProperty(propertyDefinition, null);
-        }
-
-        public virtual FieldValue AddProperty(FieldDefinition propertyDefinition, object value)
-        {
-            if (HasProperty(propertyDefinition))
-                throw new PropertyException("Property bereits vorhanden.");
-
-            var result = new FieldValue(propertyDefinition, value);
+            var result = new FieldValue(fieldDefinition, value);
             FieldValues.Add(result);
             return result;
         }
 
-        public virtual object GetPropertyValue(FieldDefinition propertyDefinition)
+        public virtual object GetFieldValue(FieldDefinition fieldDefinition)
         {
-            return GetPropertyValue(propertyDefinition.Id);
+            return GetFieldValue(fieldDefinition.Id);
         }
 
-        public virtual object GetPropertyValue(int propertyDefinitionId)
+        public virtual object GetFieldValue(int fieldDefinitionId)
         {
-            foreach (var each in FieldValues)
+            foreach (var each in FieldValues.Where(each => each.FieldDefinition.Id == fieldDefinitionId))
             {
-                if (each.PropertyDefinition.Id == propertyDefinitionId)
-                    return each.Value;
+                return each.Value;
             }
-            throw new PropertyException("Property nicht vorhanden.");
+            throw new FieldAlreadyAttachedException("Property nicht vorhanden.");
         }
 
-        public virtual FieldValue SetPropertyValue(FieldDefinition propertyDefinition, object value)
+        protected virtual int GetFieldValueAsInt32(int fieldDefinitionId, int defaultValue)
         {
-            return SetPropertyValue(propertyDefinition.Id, value);
+            return !HasField(fieldDefinitionId)
+                       ? defaultValue
+                       : Convert.ToInt32(GetFieldValue(fieldDefinitionId));
         }
 
-        public virtual FieldValue SetPropertyValue(int propertyDefinitionId, object value)
+        protected bool GetFieldValueAsBoolean(int fieldDefinitionId, bool defaultValue)
         {
-            foreach (var each in FieldValues)
+            return !HasField(fieldDefinitionId)
+                       ? defaultValue
+                       : Convert.ToBoolean(GetFieldValue(fieldDefinitionId));
+        }
+
+        protected string GetFieldValueAsString(int fieldDefinitionId, string defaultValue)
+        {
+            return !HasField(fieldDefinitionId)
+                       ? defaultValue
+                       : Convert.ToString(GetFieldValue(fieldDefinitionId));
+        }
+
+        protected double GetFieldValueAsDouble(int fieldDefinitionId, double defaultValue)
+        {
+            return !HasField(fieldDefinitionId)
+                       ? defaultValue
+                       : Convert.ToDouble(GetFieldValue(fieldDefinitionId));
+        }
+
+
+        public virtual bool HasField(FieldDefinition fieldDefinition)
+        {
+            return HasField(fieldDefinition.Id);
+        }
+
+        public virtual bool HasField(int fieldDefinitionId)
+        {
+            return FieldValues.Any(each => each.FieldDefinition.Id == fieldDefinitionId);
+        }
+
+        public virtual void RemoveField(FieldDefinition fieldDefinition)
+        {
+            var fieldValue = FieldValues.FirstOrDefault(each => each.FieldDefinition.Id == fieldDefinition.Id);
+            if (fieldValue != null)
             {
-                if (each.PropertyDefinition.Id == propertyDefinitionId)
-                {
-                    each.Value = value;
-                    return each;
-                }
-            }
-            throw new PropertyException("Property nicht vorhanden.");
-        }
-
-        public virtual void RemoveProperty(FieldDefinition propertyDefinition)
-        {
-            FieldValue propertyValue = null;
-            foreach (var each in FieldValues)
-                if (each.PropertyDefinition.Id == propertyDefinition.Id)
-                {
-                    propertyValue = each;
-                    break;
-                }
-            if (propertyValue != null) {
-                FieldValues.Remove(propertyValue);
+                FieldValues.Remove(fieldValue);
             }
             else
-                throw new PropertyException("Property nicht vorhanden.");
+                throw new FieldAlreadyAttachedException("Property nicht vorhanden.");
+        }
+
+        public virtual FieldValue SetFieldValue(FieldDefinition fieldDefinition, object value)
+        {
+            return SetFieldValue(fieldDefinition.Id, value);
+        }
+
+        public virtual FieldValue SetFieldValue(int fieldDefinitionId, object value)
+        {
+            return SetFieldValue(fieldDefinitionId, value, false);
+        }
+
+        public virtual FieldValue SetFieldValue(int fieldDefinitionId, object value, bool attachIfNotExists)
+        {
+            if (attachIfNotExists && !HasField(fieldDefinitionId))
+                AddField(IoC.Resolve<IFieldDefinitionRepository>().Get(fieldDefinitionId));
+            foreach (var each in FieldValues.Where(each => each.FieldDefinition.Id == fieldDefinitionId))
+            {
+                each.Value = value;
+                return each;
+            }
+            throw new FieldAlreadyAttachedException("Property nicht vorhanden.");
         }
     }
 }
