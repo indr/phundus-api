@@ -1,0 +1,43 @@
+﻿using NUnit.Framework;
+using phiNdus.fundus.Core.Domain.Entities;
+
+namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
+{
+    [TestFixture]
+    public class FieldDefinitionTests
+    {
+        [Test]
+        public void Can_create()
+        {
+            new FieldDefinition();
+        }
+
+        [Test]
+        public void Is_derived_from_BaseEntity()
+        {
+            var sut = new FieldDefinition();
+            Assert.That(sut, Is.InstanceOf(typeof (Entity)));
+        }
+
+        [Test]
+        public void Can_get_Name()
+        {
+            var sut = new FieldDefinition(1, "Name", DataType.Text);
+            Assert.That(sut.Name, Is.EqualTo("Name"));
+        }
+
+        [Test]
+        public void Can_get_Type()
+        {
+            var sut = new FieldDefinition(1, "Name", DataType.Text);
+            Assert.That(sut.DataType, Is.EqualTo(DataType.Text));
+        }
+
+        [Test]
+        public void Can_get_IsSystemField()
+        {
+            var sut = new FieldDefinition(1, 2, "Name", DataType.Text, true);
+            Assert.That(sut.IsSystemField, Is.True);
+        }
+    }
+}
