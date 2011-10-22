@@ -10,21 +10,31 @@ namespace phiNdus.fundus.Core.Domain.Entities
     {
         public Article()
         {
+            _createDate = DateTime.Now;
         }
 
         public Article(ISet<FieldValue> fieldValues)
             : base(fieldValues)
         {
+            _createDate = DateTime.Now;
         }
 
         public Article(int id, int version)
             : base(id, version)
         {
+            _createDate = DateTime.Now;
         }
         
         protected virtual IOrderRepository OrderRepository
         {
             get { return IoC.Resolve<IOrderRepository>(); }
+        }
+
+        private DateTime _createDate;
+        public virtual DateTime CreateDate
+        {
+            get { return _createDate; }
+            protected set { _createDate = value; }
         }
 
         public virtual bool IsReservable
