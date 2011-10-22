@@ -80,6 +80,7 @@ create table [Article] (
   Id int not null,
   [Type] nvarchar(127),
   Version int not null,
+  CreateDate datetime not null default getdate(),
   ParentId int null,
   primary key(Id)
 )

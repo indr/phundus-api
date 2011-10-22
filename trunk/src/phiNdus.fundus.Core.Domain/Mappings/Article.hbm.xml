@@ -9,6 +9,8 @@
     <discriminator column="[Type]" type="String" />
     <version name="Version" />
 
+    
+    
     <set name="FieldValues" cascade="all-delete-orphan" lazy="false">
       <key column="ArticleId" />
       <one-to-many class="FieldValue" />
@@ -20,6 +22,8 @@
       <one-to-many class="CompositeEntity" />
     </set>
 
-    <subclass name="Article" />
+    <subclass name="Article">
+      <property name="CreateDate" update="false" />
+    </subclass>
   </class>
 </hibernate-mapping>

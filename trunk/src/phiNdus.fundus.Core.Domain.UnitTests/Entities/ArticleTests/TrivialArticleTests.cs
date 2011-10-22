@@ -1,4 +1,5 @@
-﻿using Iesi.Collections.Generic;
+﻿using System;
+using Iesi.Collections.Generic;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
 using Rhino.Mocks;
@@ -143,6 +144,13 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
             Assert.That(sut.Stock, Is.EqualTo(0));
             sut.Stock = 1;
             Assert.That(sut.Stock, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Create_sets_CreateDate()
+        {
+            var sut = CreateSut();
+            Assert.That(sut.CreateDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
         }
     }
 }
