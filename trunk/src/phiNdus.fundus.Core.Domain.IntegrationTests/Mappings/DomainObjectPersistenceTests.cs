@@ -15,13 +15,13 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         public void SetUp()
         {
             Sut = new NHRepository<CompositeEntity>();
-            PropertyDefinitionRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
+            PropertyDefinitionRepo = IoC.Resolve<IFieldDefinitionRepository>();
 
 
             using (var uow = UnitOfWork.Start())
             {
-                NamePropertyDefinition = PropertyDefinitionRepo.Get(2);
-                PricePropertyDefinition = PropertyDefinitionRepo.Get(4);
+                NameFieldDef = PropertyDefinitionRepo.Get(2);
+                PriceFieldDef = PropertyDefinitionRepo.Get(4);
 
                 UnitOfWork.CurrentSession.Delete("from CompositeEntity");
                 uow.TransactionalFlush();
@@ -30,11 +30,11 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 
         #endregion
 
-        protected FieldDefinition NamePropertyDefinition { get; set; }
+        protected FieldDefinition NameFieldDef { get; set; }
 
-        protected FieldDefinition PricePropertyDefinition { get; set; }
+        protected FieldDefinition PriceFieldDef { get; set; }
 
-        protected IDomainPropertyDefinitionRepository PropertyDefinitionRepo { get; set; }
+        protected IFieldDefinitionRepository PropertyDefinitionRepo { get; set; }
 
         protected IRepository<CompositeEntity> Sut { get; set; }
 
@@ -44,22 +44,22 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         {
             var parentId = 0;
             var parent = new CompositeEntity();
-            parent.AddProperty(NamePropertyDefinition, "Parent");
+            parent.AddField(NameFieldDef, "Parent");
             
             var child1 = new CompositeEntity();
-            child1.AddProperty(NamePropertyDefinition, "Child 1");
+            child1.AddField(NameFieldDef, "Child 1");
             parent.AddChild(child1);
 
             var child2 = new CompositeEntity();
-            child2.AddProperty(NamePropertyDefinition, "Child 2");
+            child2.AddField(NameFieldDef, "Child 2");
             parent.AddChild(child2);
 
             var child2_1 = new CompositeEntity();
-            child2_1.AddProperty(NamePropertyDefinition, "Child 2.1");
+            child2_1.AddField(NameFieldDef, "Child 2.1");
             child2.AddChild(child2_1);
 
             var child2_2 = new CompositeEntity();
-            child2_2.AddProperty(NamePropertyDefinition, "Child 2.2");
+            child2_2.AddField(NameFieldDef, "Child 2.2");
             child2.AddChild(child2_2);
 
             using (var uow = UnitOfWork.Start())
@@ -77,8 +77,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
                 Assert.That(parent.Children, Has.Count.EqualTo(2));
                 child1 = parent.Children.First();
                 child2 = parent.Children.Last();
-                Assert.That(child1.GetPropertyValue(NamePropertyDefinition), Is.EqualTo("Child 1"));
-                Assert.That(child2.GetPropertyValue(NamePropertyDefinition), Is.EqualTo("Child 2"));
+                Assert.That(child1.GetFieldValue(NameFieldDef), Is.EqualTo("Child 1"));
+                Assert.That(child2.GetFieldValue(NameFieldDef), Is.EqualTo("Child 2"));
 
                 Assert.That(child2.Children, Has.Count.EqualTo(2));
             }
@@ -89,8 +89,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         {
             var modelId = 0;
             var model = new CompositeEntity();
-            model.AddProperty(NamePropertyDefinition);
-            model.AddProperty(PricePropertyDefinition);
+            model.AddField(NameFieldDef);
+            model.AddField(PriceFieldDef);
 
             using (var uow = UnitOfWork.Start())
             {
@@ -103,8 +103,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
             using (var uow = UnitOfWork.Start())
             {
                 model = Sut.Get(modelId);
-                Assert.That(model.HasProperty(NamePropertyDefinition));
-                Assert.That(model.HasProperty(PricePropertyDefinition));
+                Assert.That(model.HasField(NameFieldDef));
+                Assert.That(model.HasField(PriceFieldDef));
             }
         }
 
@@ -113,8 +113,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         {
             var domainObjectId = 0;
             var domainObject = new CompositeEntity();
-            domainObject.AddProperty(NamePropertyDefinition);
-            domainObject.AddProperty(PricePropertyDefinition);
+            domainObject.AddField(NameFieldDef);
+            domainObject.AddField(PriceFieldDef);
 
             // Insert
             using (var uow = UnitOfWork.Start())
@@ -128,7 +128,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
             using (var uow = UnitOfWork.Start())
             {
                 domainObject = Sut.Get(domainObjectId);
-                domainObject.RemoveProperty(PricePropertyDefinition);
+                domainObject.RemoveField(PriceFieldDef);
                 Sut.Save(domainObject);
                 uow.TransactionalFlush();
             }
@@ -136,8 +136,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
             using (var uow = UnitOfWork.Start())
             {
                 domainObject = Sut.Get(domainObjectId);
-                Assert.That(domainObject.HasProperty(NamePropertyDefinition));
-                Assert.That(domainObject.HasProperty(PricePropertyDefinition), Is.False);
+                Assert.That(domainObject.HasField(NameFieldDef));
+                Assert.That(domainObject.HasField(PriceFieldDef), Is.False);
             }
         }
     }

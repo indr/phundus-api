@@ -16,17 +16,17 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         {
             using (var uow = UnitOfWork.Start())
             {
-                var propertyRepo = IoC.Resolve<IDomainPropertyDefinitionRepository>();
+                var propertyRepo = IoC.Resolve<IFieldDefinitionRepository>();
                 _booleanPropertyDefinition = propertyRepo.Get(1);
-                Assert.That(_booleanPropertyDefinition.DataType, Is.EqualTo(FieldType.Boolean));
+                Assert.That(_booleanPropertyDefinition.DataType, Is.EqualTo(DataType.Boolean));
                 _textPropertyDefinition = propertyRepo.Get(2);
-                Assert.That(_textPropertyDefinition.DataType, Is.EqualTo(FieldType.Text));
+                Assert.That(_textPropertyDefinition.DataType, Is.EqualTo(DataType.Text));
                 _integerPropertyDefinition = propertyRepo.Get(3);
-                Assert.That(_integerPropertyDefinition.DataType, Is.EqualTo(FieldType.Integer));
+                Assert.That(_integerPropertyDefinition.DataType, Is.EqualTo(DataType.Integer));
                 _decimalPropertyDefinition = propertyRepo.Get(4);
-                Assert.That(_decimalPropertyDefinition.DataType, Is.EqualTo(FieldType.Decimal));
+                Assert.That(_decimalPropertyDefinition.DataType, Is.EqualTo(DataType.Decimal));
                 _dateTimePropertyDefinition = propertyRepo.Get(5);
-                Assert.That(_dateTimePropertyDefinition.DataType, Is.EqualTo(FieldType.DateTime));
+                Assert.That(_dateTimePropertyDefinition.DataType, Is.EqualTo(DataType.DateTime));
             }
         }
 

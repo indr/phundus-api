@@ -16,7 +16,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
             base.Setup();
 
             _grossStockPropertyDef = new FieldDefinition(FieldDefinition.GrossStockId,
-                                                                  "Bestand (Brutto)", FieldType.Integer);
+                                                                  "Bestand (Brutto)", DataType.Integer);
         }
 
         #endregion

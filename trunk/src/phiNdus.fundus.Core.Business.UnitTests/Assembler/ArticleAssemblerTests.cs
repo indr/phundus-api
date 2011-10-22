@@ -21,19 +21,19 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             base.SetUp();
 
-            StubDomainPropertyDefinitionRepository = GenerateAndRegisterStub<IDomainPropertyDefinitionRepository>();
+            StubFieldDefinitionRepository = GenerateAndRegisterStub<IFieldDefinitionRepository>();
 
             _captionPropertyDefinition = new FieldDefinition(FieldDefinition.CaptionId, "Name",
-                                                                      FieldType.Text);
+                                                                      DataType.Text);
             _pricePropertyDefinition = new FieldDefinition(FieldDefinition.PriceId, "Preis",
-                                                                    FieldType.Decimal);
-            _colorPropertyDefinition = new FieldDefinition(101, "Farbe", FieldType.Text);
+                                                                    DataType.Decimal);
+            _colorPropertyDefinition = new FieldDefinition(101, "Farbe", DataType.Text);
 
-            StubDomainPropertyDefinitionRepository.Expect(x => x.Get(FieldDefinition.CaptionId))
+            StubFieldDefinitionRepository.Expect(x => x.Get(FieldDefinition.CaptionId))
                 .Return(_captionPropertyDefinition);
-            StubDomainPropertyDefinitionRepository.Expect(x => x.Get(FieldDefinition.PriceId))
+            StubFieldDefinitionRepository.Expect(x => x.Get(FieldDefinition.PriceId))
                 .Return(_pricePropertyDefinition);
-            StubDomainPropertyDefinitionRepository.Expect(x => x.Get(101)).Return(_colorPropertyDefinition);
+            StubFieldDefinitionRepository.Expect(x => x.Get(101)).Return(_colorPropertyDefinition);
 
             ArticleDto = new ArticleDto();
             ArticleDto.Id = 1;
@@ -100,17 +100,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
             Article = new Article(1, 2);
             Article.Caption = "Artikel";
-            Article.AddProperty(_colorPropertyDefinition).IsDiscriminator = true;
+            Article.AddField(_colorPropertyDefinition).IsDiscriminator = true;
             Article.Price = 12.50;
 
             Child1 = new Article(2, 2);
             Child1.Caption = "Child 1";
-            Child1.AddProperty(_colorPropertyDefinition, "Rot");
+            Child1.AddField(_colorPropertyDefinition, "Rot");
             Article.AddChild(Child1);
 
             Child2 = new Article(3, 2);
             Child2.Caption = "Child 2";
-            Child2.AddProperty(_colorPropertyDefinition, "Blau");
+            Child2.AddField(_colorPropertyDefinition, "Blau");
             Article.AddChild(Child2);
         }
 
@@ -120,7 +120,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         private FieldDefinition _captionPropertyDefinition;
         private FieldDefinition _colorPropertyDefinition;
 
-        protected IDomainPropertyDefinitionRepository StubDomainPropertyDefinitionRepository { get; set; }
+        protected IFieldDefinitionRepository StubFieldDefinitionRepository { get; set; }
         protected IArticleRepository FakeArticleRepo { get; set; }
 
         private Article Article { get; set; }

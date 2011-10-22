@@ -12,10 +12,10 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         [SetUp]
         public void SetUp()
         {
-            Sut = IoC.Resolve<IDomainPropertyDefinitionRepository>();
+            Sut = IoC.Resolve<IFieldDefinitionRepository>();
         }
 
-        protected IDomainPropertyDefinitionRepository Sut { get; set; }
+        protected IFieldDefinitionRepository Sut { get; set; }
 
         [Test]
         public void Can_find_all()
@@ -25,13 +25,13 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
                 var actual = Sut.FindAll();
 
                 Assert.That(actual, Has.Count.EqualTo(11));
-                Assert.That(actual, Has.Some.Property("Name").EqualTo("Name").And.Property("DataType").EqualTo(FieldType.Text));
-                Assert.That(actual, Has.Some.Property("Name").EqualTo("Preis").And.Property("DataType").EqualTo(FieldType.Decimal));
-                Assert.That(actual, Has.Some.Property("Name").EqualTo("Verfügbar").And.Property("DataType").EqualTo(FieldType.Boolean));
-                Assert.That(actual, Has.Some.Property("Name").EqualTo("Menge").And.Property("DataType").EqualTo(FieldType.Integer));
-                Assert.That(actual, Has.Some.Property("Name").EqualTo("Erfassungsdatum").And.Property("DataType").EqualTo(FieldType.DateTime));
-                Assert.That(actual, Has.Some.Property("Name").EqualTo("Reservierbar").And.Property("DataType").EqualTo(FieldType.Boolean));
-                Assert.That(actual, Has.Some.Property("Name").EqualTo("Ausleihbar").And.Property("DataType").EqualTo(FieldType.Boolean));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Name").And.Property("DataType").EqualTo(DataType.Text));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Preis").And.Property("DataType").EqualTo(DataType.Decimal));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Verfügbar").And.Property("DataType").EqualTo(DataType.Boolean));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Menge").And.Property("DataType").EqualTo(DataType.Integer));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Erfassungsdatum").And.Property("DataType").EqualTo(DataType.DateTime));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Reservierbar").And.Property("DataType").EqualTo(DataType.Boolean));
+                Assert.That(actual, Has.Some.Property("Name").EqualTo("Ausleihbar").And.Property("DataType").EqualTo(DataType.Boolean));
             }
         }
     }

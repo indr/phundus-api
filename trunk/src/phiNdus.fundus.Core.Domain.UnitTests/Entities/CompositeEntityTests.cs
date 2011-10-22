@@ -11,17 +11,17 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    public class DomainObjectTests : MockTestBase<CompositeEntity>
+    public class CompositeEntityTests : MockTestBase<CompositeEntity>
     {
 
         protected override void RegisterDependencies(Castle.Windsor.IWindsorContainer container)
         {
             base.RegisterDependencies(container);
 
-            StubPropertyDefinitionRepository = MockRepository.GenerateStub<IDomainPropertyDefinitionRepository>();
+            StubPropertyDefinitionRepository = MockRepository.GenerateStub<IFieldDefinitionRepository>();
             
             container.Register(
-                Component.For<IDomainPropertyDefinitionRepository>().Instance(StubPropertyDefinitionRepository));
+                Component.For<IFieldDefinitionRepository>().Instance(StubPropertyDefinitionRepository));
         }
         
         protected override CompositeEntity CreateSut()
@@ -31,9 +31,7 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         private ISet<FieldValue> StubPropertyValues { get; set; }
-        private IDomainPropertyDefinitionRepository StubPropertyDefinitionRepository { get; set; }
-
-       
+        private IFieldDefinitionRepository StubPropertyDefinitionRepository { get; set; }
 
         [Test]
         public void Can_create()
@@ -62,18 +60,12 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Is_derived_from_BasePropertyEntity()
-        {
-            var sut = new CompositeEntity();
-            Assert.That(sut, Is.InstanceOf(typeof (FieldedEntity)));
-        }
-
-        [Test]
         public void AddChild()
         {
             var sut = new CompositeEntity();
             var child = new CompositeEntity();
-            sut.AddChild(child);
+            var actual = sut.AddChild(child);
+            Assert.That(actual, Is.True);
             Assert.That(sut.Children, Has.Count.EqualTo(1));
         }
 
@@ -93,7 +85,5 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
             Sut.AddChild(new CompositeEntity());
             Assert.That(Sut.HasChildren, Is.True);
         }
-
-        
     }
 }

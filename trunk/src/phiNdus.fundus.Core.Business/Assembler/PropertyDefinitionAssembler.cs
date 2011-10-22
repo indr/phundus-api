@@ -9,39 +9,39 @@ namespace phiNdus.fundus.Core.Business.Assembler
 {
     public class PropertyDefinitionAssembler
     {
-        private static PropertyDataType ConvertDataType(FieldType value)
+        private static PropertyDataType ConvertDataType(DataType value)
         {
             switch (value)
             {
-                case FieldType.Boolean:
+                case DataType.Boolean:
                     return PropertyDataType.Boolean;
-                case FieldType.Text:
+                case DataType.Text:
                     return PropertyDataType.Text;
-                case FieldType.Integer:
+                case DataType.Integer:
                     return PropertyDataType.Integer;
-                case FieldType.Decimal:
+                case DataType.Decimal:
                     return PropertyDataType.Decimal;
-                case FieldType.DateTime:
+                case DataType.DateTime:
                     return PropertyDataType.DateTime;
                 default:
                     throw new ArgumentOutOfRangeException("value");
             }
         }
 
-        private static FieldType ConvertDataType(PropertyDataType value)
+        private static DataType ConvertDataType(PropertyDataType value)
         {
             switch (value)
             {
                 case PropertyDataType.Boolean:
-                    return FieldType.Boolean;
+                    return DataType.Boolean;
                 case PropertyDataType.Text:
-                    return FieldType.Text;
+                    return DataType.Text;
                 case PropertyDataType.Integer:
-                    return FieldType.Integer;
+                    return DataType.Integer;
                 case PropertyDataType.Decimal:
-                    return FieldType.Decimal;
+                    return DataType.Decimal;
                 case PropertyDataType.DateTime:
-                    return FieldType.DateTime;
+                    return DataType.DateTime;
                 default:
                     throw new ArgumentOutOfRangeException("value");
             }
@@ -56,7 +56,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             result.Version = subject.Version;
             result.Caption = subject.Name;
             result.DataType = ConvertDataType(subject.DataType);
-            result.IsSystemProperty = subject.IsSystemProperty;
+            result.IsSystemProperty = subject.IsSystemField;
 
             return result;
         }
@@ -85,7 +85,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
         public static FieldDefinition UpdateDomainObject(PropertyDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
-            var result = IoC.Resolve<IDomainPropertyDefinitionRepository>().Get(subject.Id);
+            var result = IoC.Resolve<IFieldDefinitionRepository>().Get(subject.Id);
             Guard.Against<EntityNotFoundException>(result == null, "Property entity not found");
             Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 

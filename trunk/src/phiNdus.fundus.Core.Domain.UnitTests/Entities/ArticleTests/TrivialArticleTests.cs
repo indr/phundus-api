@@ -16,13 +16,13 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         {
             base.RegisterDependencies(container);
 
-            StubPropertyDefinitionRepository = MockRepository.GenerateStub<IDomainPropertyDefinitionRepository>();
+            StubPropertyDefinitionRepository = MockRepository.GenerateStub<IFieldDefinitionRepository>();
 
             container.Register(
-                Component.For<IDomainPropertyDefinitionRepository>().Instance(StubPropertyDefinitionRepository));
+                Component.For<IFieldDefinitionRepository>().Instance(StubPropertyDefinitionRepository));
         }
 
-        protected IDomainPropertyDefinitionRepository StubPropertyDefinitionRepository { get; set; }
+        protected IFieldDefinitionRepository StubPropertyDefinitionRepository { get; set; }
 
         protected override Article CreateSut()
         {
@@ -34,27 +34,27 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
 
         private readonly FieldDefinition _isReservablePropertyDef =
             new FieldDefinition(FieldDefinition.IsReservableId, "Reservierbar",
-                                         FieldType.Boolean);
+                                         DataType.Boolean);
 
         private readonly FieldDefinition _isBorrowablePropertyDef =
             new FieldDefinition(FieldDefinition.IsBorrowableId, "Ausleihbar",
-                                         FieldType.Boolean);
+                                         DataType.Boolean);
         
         private readonly FieldDefinition _amountPropertyDef =
                     new FieldDefinition(FieldDefinition.StockId, "Menge",
-                                                 FieldType.Integer);
+                                                 DataType.Integer);
 
         private readonly FieldDefinition _pricePropertyDef =
                     new FieldDefinition(FieldDefinition.PriceId, "Preis",
-                                                 FieldType.Decimal);
+                                                 DataType.Decimal);
 
         private readonly FieldDefinition _grossStockPropertyDef =
                     new FieldDefinition(FieldDefinition.GrossStockId, "Bestand (Brutto)",
-                        FieldType.Integer);
+                        DataType.Integer);
 
         private readonly FieldDefinition _namePropertyDef =
            new FieldDefinition(FieldDefinition.CaptionId, "Name",
-                                        FieldType.Text);
+                                        DataType.Text);
 
         [Test]
         public void Can_create()

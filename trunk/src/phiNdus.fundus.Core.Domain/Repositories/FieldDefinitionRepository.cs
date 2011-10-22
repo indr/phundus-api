@@ -7,14 +7,14 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Repositories
 {
-    public class DomainPropertyDefinitionRepository : NHRepository<FieldDefinition>, IDomainPropertyDefinitionRepository
+    public class FieldDefinitionRepository : NHRepository<FieldDefinition>, IFieldDefinitionRepository
     {
         private IQueryable<FieldDefinition> ItemProperties
         {
             get { return Session.Query<FieldDefinition>(); }
         }
 
-        #region IDomainPropertyDefinitionRepository Members
+        #region IFieldDefinitionRepository Members
 
         public ICollection<FieldDefinition> FindAll()
         {
