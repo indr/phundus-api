@@ -7,18 +7,18 @@ namespace phiNdus.fundus.Core.Web.ViewModels
     public class ArticlesViewModel
     {
         private readonly IEnumerable<ArticleViewModel> _articles;
-        private readonly IList<PropertyDto> _propertyDefinitions;
+        private readonly IList<FieldDefinitionDto> _propertyDefinitions;
 
         public ArticlesViewModel(
             IEnumerable<ArticleDto> articles,
-            IList<PropertyDto> propertyDefinitions
+            IList<FieldDefinitionDto> propertyDefinitions
             )
         {
             _articles = articles.Select(each => new ArticleViewModel(each, propertyDefinitions));
             _propertyDefinitions = propertyDefinitions;
         }
 
-        protected IList<PropertyDto> PropertyDefinitions
+        protected IList<FieldDefinitionDto> PropertyDefinitions
         {
             get { return _propertyDefinitions; }
         }

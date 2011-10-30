@@ -120,25 +120,25 @@ namespace phiNdus.fundus.Core.Business.Assembler
         {
             foreach (var each in subject.FieldValues)
             {
-                var dtoProperty = new DtoProperty();
+                var dtoProperty = new FieldValueDto();
                 dtoProperty.PropertyId = each.FieldDefinition.Id;
                 dtoProperty.Caption = each.FieldDefinition.Name;
                 switch (each.FieldDefinition.DataType)
                 {
                     case DataType.Boolean:
-                        dtoProperty.DataType = PropertyDataType.Boolean;
+                        dtoProperty.DataType = FieldDataType.Boolean;
                         break;
                     case DataType.Text:
-                        dtoProperty.DataType = PropertyDataType.Text;
+                        dtoProperty.DataType = FieldDataType.Text;
                         break;
                     case DataType.Integer:
-                        dtoProperty.DataType = PropertyDataType.Integer;
+                        dtoProperty.DataType = FieldDataType.Integer;
                         break;
                     case DataType.Decimal:
-                        dtoProperty.DataType = PropertyDataType.Decimal;
+                        dtoProperty.DataType = FieldDataType.Decimal;
                         break;
                     case DataType.DateTime:
-                        dtoProperty.DataType = PropertyDataType.DateTime;
+                        dtoProperty.DataType = FieldDataType.DateTime;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

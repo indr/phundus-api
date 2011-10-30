@@ -68,15 +68,15 @@
   <ItemGroup>
     <Compile Include="Assembler\ArticleAssembler.cs" />
     <Compile Include="Assembler\OrderAssembler.cs" />
-    <Compile Include="Assembler\PropertyDefinitionAssembler.cs" />
+    <Compile Include="Assembler\FieldDefinitionAssembler.cs" />
     <Compile Include="Assembler\RoleAssembler.cs" />
     <Compile Include="Dto\ArticleDto.cs" />
     <Compile Include="Dto\BasePropertiesDto.cs" />
-    <Compile Include="Dto\DtoProperty.cs" />
+    <Compile Include="Dto\FieldValueDto.cs" />
     <Compile Include="Dto\OrderDto.cs" />
     <Compile Include="Dto\OrderItemDto.cs" />
-    <Compile Include="Dto\PropertyDto.cs" />
-    <Compile Include="Dto\PropertyDataType.cs" />
+    <Compile Include="Dto\FieldDefinitionDto.cs" />
+    <Compile Include="Dto\FieldDataType.cs" />
     <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="Paging\PagedResult.cs" />
     <Compile Include="Paging\PageIndex.cs" />

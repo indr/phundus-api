@@ -11,7 +11,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         {
             var sut = new BasePropertiesDto();
 
-            var dtoProperty = new DtoProperty();
+            var dtoProperty = new FieldValueDto();
             sut.AddProperty(dtoProperty);
 
             Assert.That(sut.Properties, Contains.Item(dtoProperty));
@@ -30,7 +30,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         public void Can_remove_DtoProperty_by_PropertyId()
         {
             var sut = new BasePropertiesDto();
-            var dtoProperty = new DtoProperty
+            var dtoProperty = new FieldValueDto
                                   {
                                       PropertyId = 1
                                   };
@@ -45,7 +45,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         public void Can_remove_DtoProperty_by_reference()
         {
             var sut = new BasePropertiesDto();
-            var dtoProperty = new DtoProperty();
+            var dtoProperty = new FieldValueDto();
             sut.AddProperty(dtoProperty);
 
             Assert.That(sut.Properties, Contains.Item(dtoProperty));
@@ -59,7 +59,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         public void GetPropertyValue_by_PropertyId()
         {
             var sut = new BasePropertiesDto();
-            var dtoProperty = new DtoProperty
+            var dtoProperty = new FieldValueDto
                                   {
                                       PropertyId = 1,
                                       Value = "Value"

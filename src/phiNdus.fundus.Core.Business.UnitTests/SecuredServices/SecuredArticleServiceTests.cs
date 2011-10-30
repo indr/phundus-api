@@ -217,7 +217,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         {
             GenerateAndRegisterMissingStubs();
 
-            var dtos = new PropertyDto[0];
+            var dtos = new FieldDefinitionDto[0];
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
             FakePropertyService.Expect(x => x.GetProperties()).Return(dtos);
             var actual = Sut.GetProperties("valid");

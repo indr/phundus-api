@@ -4,10 +4,10 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 {
     public interface IPropertyService
     {
-        PropertyDto[] GetProperties(string sessionKey);
-        void UpdateProperty(string sessionKey, PropertyDto subject);
-        PropertyDto GetProperty(string sessionKey, int id);
-        int CreateProperty(string sessionKey, PropertyDto subject);
-        void DeleteProperty(string sessionKey, PropertyDto subject);
+        FieldDefinitionDto[] GetProperties(string sessionKey);
+        void UpdateProperty(string sessionKey, FieldDefinitionDto subject);
+        FieldDefinitionDto GetProperty(string sessionKey, int id);
+        int CreateProperty(string sessionKey, FieldDefinitionDto subject);
+        void DeleteProperty(string sessionKey, FieldDefinitionDto subject);
     }
 }

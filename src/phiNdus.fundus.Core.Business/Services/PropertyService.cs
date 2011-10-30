@@ -13,52 +13,52 @@ namespace phiNdus.fundus.Core.Business.Services
             get { return IoC.Resolve<IFieldDefinitionRepository>(); }
         }
 
-        public virtual PropertyDto[] GetProperties()
+        public virtual FieldDefinitionDto[] GetProperties()
         {
             using (var uow = UnitOfWork.Start())
             {
                 var propertyDefs = PropertyDefinitions.FindAll();
-                return PropertyDefinitionAssembler.CreateDtos(propertyDefs);
+                return FieldDefinitionAssembler.CreateDtos(propertyDefs);
             }
         }
 
-        public virtual int CreateProperty(PropertyDto subject)
+        public virtual int CreateProperty(FieldDefinitionDto subject)
         {
             using (var uow = UnitOfWork.Start())
             {
-                var propetyDef = PropertyDefinitionAssembler.CreateDomainObject(subject);
+                var propetyDef = FieldDefinitionAssembler.CreateDomainObject(subject);
                 var id = PropertyDefinitions.Save(propetyDef).Id;
                 uow.TransactionalFlush();
                 return id;
             }
         }
 
-        public virtual PropertyDto GetProperty(int id)
+        public virtual FieldDefinitionDto GetProperty(int id)
         {
             using (var uow = UnitOfWork.Start())
             {
                 var propertyDef = PropertyDefinitions.Get(id);
                 if (propertyDef == null)
                     return null;
-                return PropertyDefinitionAssembler.CreateDto(propertyDef);
+                return FieldDefinitionAssembler.CreateDto(propertyDef);
             }
         }
 
-        public virtual void UpdateProperty(PropertyDto subject)
+        public virtual void UpdateProperty(FieldDefinitionDto subject)
         {
             using (var uow = UnitOfWork.Start())
             {
-                var propertyDef = PropertyDefinitionAssembler.UpdateDomainObject(subject);
+                var propertyDef = FieldDefinitionAssembler.UpdateDomainObject(subject);
                 PropertyDefinitions.Save(propertyDef);
                 uow.TransactionalFlush();
             }
         }
 
-        public virtual void DeleteProperty(PropertyDto subject)
+        public virtual void DeleteProperty(FieldDefinitionDto subject)
         {
             using (var uow = UnitOfWork.Start())
             {
-                var propertyDef = PropertyDefinitionAssembler.UpdateDomainObject(subject);
+                var propertyDef = FieldDefinitionAssembler.UpdateDomainObject(subject);
                 if (propertyDef.IsSystemField)
                     throw new InvalidOperationException("System-Eigenschaften können nicht gelöscht werden.");
 

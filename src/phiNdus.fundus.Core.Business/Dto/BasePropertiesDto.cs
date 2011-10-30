@@ -6,19 +6,19 @@ namespace phiNdus.fundus.Core.Business.Dto
 {
     public class BasePropertiesDto
     {
-        private IList<DtoProperty> _properties = new List<DtoProperty>();
-        public IList<DtoProperty> Properties
+        private IList<FieldValueDto> _properties = new List<FieldValueDto>();
+        public IList<FieldValueDto> Properties
         {
             get { return _properties; }
             set { _properties = value; }
         }
 
-        public void AddProperty(DtoProperty subject)
+        public void AddProperty(FieldValueDto subject)
         {
             _properties.Add(subject);
         }
 
-        public void RemoveProperty(DtoProperty subject)
+        public void RemoveProperty(FieldValueDto subject)
         {
             _properties.Remove(subject);
         }
@@ -33,7 +33,7 @@ namespace phiNdus.fundus.Core.Business.Dto
                 }
         }
 
-        protected DtoProperty GetProperty(int propertyId)
+        protected FieldValueDto GetProperty(int propertyId)
         {
             return _properties.FirstOrDefault(each => each.PropertyId == propertyId);
         }

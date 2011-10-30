@@ -2,7 +2,7 @@
 
 namespace phiNdus.fundus.Core.Business.Dto
 {
-    public class DtoProperty
+    public class FieldValueDto
     {
         /// <summary>
         /// DomainPropertyValueId
@@ -58,6 +58,6 @@ namespace phiNdus.fundus.Core.Business.Dto
 
         public string Caption { get; set; }
 
-        public PropertyDataType DataType { get; set; }
+        public FieldDataType DataType { get; set; }
     }
 }

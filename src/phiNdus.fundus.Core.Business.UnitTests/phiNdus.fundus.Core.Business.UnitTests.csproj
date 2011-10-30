@@ -78,10 +78,10 @@
     <Compile Include="DtoOutOfDateExceptionTests.cs" />
     <Compile Include="Dto\ArticleDtoTests.cs" />
     <Compile Include="Dto\BasePropertiesDtoTests.cs" />
-    <Compile Include="Dto\DtoPropertyTests.cs" />
+    <Compile Include="Dto\FieldValueDtoTests.cs" />
     <Compile Include="Dto\OrderDtoTests.cs" />
     <Compile Include="Dto\OrderItemDtoTests.cs" />
-    <Compile Include="Dto\PropertyDtoTests.cs" />
+    <Compile Include="Dto\FieldDefinitionDtoTests.cs" />
     <Compile Include="Dto\UserDtoTests.cs" />
     <Compile Include="EmailAlreadyTakenExceptionTests.cs" />
     <Compile Include="EntityNotFoundExceptionTests.cs" />

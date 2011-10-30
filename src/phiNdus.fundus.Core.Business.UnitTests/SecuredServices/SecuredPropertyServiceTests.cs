@@ -68,7 +68,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
             GenerateAndRegisterMissingStubs();
 
-            var dto = new PropertyDto();
+            var dto = new FieldDefinitionDto();
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
             FakePropertyService.Expect(x => x.CreateProperty(dto)).Return(1);
             Sut.CreateProperty("valid", dto);
@@ -81,9 +81,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         {
             GenerateAndRegisterMissingStubs();
             FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
-            FakePropertyService.Expect(x => x.CreateProperty(Arg<PropertyDto>.Is.Anything)).Return(1);
+            FakePropertyService.Expect(x => x.CreateProperty(Arg<FieldDefinitionDto>.Is.Anything)).Return(1);
 
-            var actual = Sut.CreateProperty("valid", new PropertyDto());
+            var actual = Sut.CreateProperty("valid", new FieldDefinitionDto());
 
             Assert.That(actual, Is.EqualTo(1));
         }
@@ -108,7 +108,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             GenerateAndRegisterMissingStubs();
             FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
 
-            Assert.Throws<AuthorizationException>(() => Sut.CreateProperty("valid", new PropertyDto()));
+            Assert.Throws<AuthorizationException>(() => Sut.CreateProperty("valid", new FieldDefinitionDto()));
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
             GenerateAndRegisterMissingStubs();
 
-            var dto = new PropertyDto();
+            var dto = new FieldDefinitionDto();
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
             FakePropertyService.Expect(x => x.DeleteProperty(dto));
             Sut.DeleteProperty("valid", dto);
@@ -145,7 +145,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             GenerateAndRegisterMissingStubs();
             FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
 
-            Assert.Throws<AuthorizationException>(() => Sut.DeleteProperty("valid", new PropertyDto()));
+            Assert.Throws<AuthorizationException>(() => Sut.DeleteProperty("valid", new FieldDefinitionDto()));
         }
 
         [Test]
@@ -166,7 +166,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         {
             GenerateAndRegisterMissingStubs();
 
-            var dto = new PropertyDto();
+            var dto = new FieldDefinitionDto();
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
             FakePropertyService.Expect(x => x.GetProperty(1)).Return(dto);
             var actual = Sut.GetProperty("valid", 1);
@@ -207,7 +207,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         {
             GenerateAndRegisterMissingStubs();
 
-            var dtos = new PropertyDto[0];
+            var dtos = new FieldDefinitionDto[0];
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
             FakePropertyService.Expect(x => x.GetProperties()).Return(dtos);
             var actual = Sut.GetProperties("valid");
@@ -237,9 +237,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
             GenerateAndRegisterMissingStubs();
 
-            var dto = new PropertyDto();
+            var dto = new FieldDefinitionDto();
             FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
-            FakePropertyService.Expect(x => x.UpdateProperty(Arg<PropertyDto>.Is.Equal(dto)));
+            FakePropertyService.Expect(x => x.UpdateProperty(Arg<FieldDefinitionDto>.Is.Equal(dto)));
             Sut.UpdateProperty("valid", dto);
 
             FakePropertyService.VerifyAllExpectations();

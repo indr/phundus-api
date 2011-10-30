@@ -53,7 +53,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             GenerateAndRegisterMissingStubs();
 
             FakeUnitOfWork.Expect(x => x.TransactionalFlush());
-            Sut.CreateProperty(new PropertyDto());
+            Sut.CreateProperty(new FieldDefinitionDto());
 
             FakeUnitOfWork.VerifyAllExpectations();
         }
@@ -65,7 +65,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             GenerateAndRegisterMissingStubs();
 
             FakePropertyDefRepo.Expect(x => x.Save(Arg<FieldDefinition>.Is.NotNull));
-            Sut.CreateProperty(new PropertyDto());
+            Sut.CreateProperty(new FieldDefinitionDto());
 
             FakePropertyDefRepo.VerifyAllExpectations();
         }
@@ -76,7 +76,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             GenerateAndRegisterMissingStubs();
 
             FakePropertyDefRepo.Expect(x => x.Save(Arg<FieldDefinition>.Is.Anything)).Return(new FieldDefinition(1, "Caption", DataType.Text));
-            var actual = Sut.CreateProperty(new PropertyDto());
+            var actual = Sut.CreateProperty(new FieldDefinitionDto());
 
             Assert.That(actual, Is.EqualTo(1));
         }
@@ -95,7 +95,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             GenerateAndRegisterMissingStubs();
 
             FakeUnitOfWork.Expect(x => x.TransactionalFlush());
-            Sut.DeleteProperty(new PropertyDto { Id = 1, Version = 2 });
+            Sut.DeleteProperty(new FieldDefinitionDto { Id = 1, Version = 2 });
 
             FakeUnitOfWork.VerifyAllExpectations();
         }
@@ -108,7 +108,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             FakePropertyDefRepo.Expect(x => x.Get(1)).Return(new FieldDefinition());
             FakePropertyDefRepo.Expect(x => x.Delete(Arg<FieldDefinition>.Is.NotNull));
-            Sut.DeleteProperty(new PropertyDto {Id = 1});
+            Sut.DeleteProperty(new FieldDefinitionDto {Id = 1});
 
             FakePropertyDefRepo.VerifyAllExpectations();
         }
@@ -119,7 +119,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             FieldDefinition = new FieldDefinition(1, 2, "Caption", DataType.Text, true);
             GenerateAndRegisterMissingStubs();
 
-            var ex = Assert.Throws<InvalidOperationException>(() => Sut.DeleteProperty(new PropertyDto {Id = 1, Version = 2}));
+            var ex = Assert.Throws<InvalidOperationException>(() => Sut.DeleteProperty(new FieldDefinitionDto {Id = 1, Version = 2}));
             Assert.That(ex.Message, Is.EqualTo("System-Eigenschaften können nicht gelöscht werden."));
         }
 
@@ -147,7 +147,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         {
             GenerateAndRegisterMissingStubs();
 
-            PropertyDto actual = Sut.GetProperty(1);
+            FieldDefinitionDto actual = Sut.GetProperty(1);
 
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual.Id, Is.EqualTo(1));
@@ -198,7 +198,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
             GenerateAndRegisterMissingStubs();
 
             FakeUnitOfWork.Expect(x => x.TransactionalFlush());
-            Sut.UpdateProperty(new PropertyDto { Id = 1, Version = 2 });
+            Sut.UpdateProperty(new FieldDefinitionDto { Id = 1, Version = 2 });
 
             FakeUnitOfWork.VerifyAllExpectations();
         }
@@ -211,7 +211,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             FakePropertyDefRepo.Stub(x => x.Get(1)).Return(FieldDefinition);
             FakePropertyDefRepo.Expect(x => x.Save(Arg<FieldDefinition>.Is.Equal(FieldDefinition))).Return(FieldDefinition);
-            Sut.UpdateProperty(new PropertyDto { Id = 1, Version = 2 });
+            Sut.UpdateProperty(new FieldDefinitionDto { Id = 1, Version = 2 });
 
             FakePropertyDefRepo.VerifyAllExpectations();
         }

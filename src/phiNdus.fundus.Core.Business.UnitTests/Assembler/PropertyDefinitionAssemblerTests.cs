@@ -22,16 +22,16 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
             Domain = new FieldDefinition(1, 2, "Caption", DataType.Text, true);
 
-            Dto = new PropertyDto();
+            Dto = new FieldDefinitionDto();
             Dto.Id = 1;
             Dto.Version = 2;
             Dto.Caption = "Caption";
-            Dto.DataType = PropertyDataType.Text;
+            Dto.DataType = FieldDataType.Text;
         }
 
         #endregion
 
-        protected PropertyDto Dto { get; set; }
+        protected FieldDefinitionDto Dto { get; set; }
         protected FieldDefinition Domain { get; set; }
 
         protected IFieldDefinitionRepository FakePropertyDefRepo { get; set; }
@@ -49,48 +49,48 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         public void CreateDto_regarding_DataType()
         {
             Assert.That(
-                PropertyDefinitionAssembler.CreateDto(
+                FieldDefinitionAssembler.CreateDto(
                     new FieldDefinition(DataType.Boolean)).DataType,
-                Is.EqualTo(PropertyDataType.Boolean));
+                Is.EqualTo(FieldDataType.Boolean));
 
             Assert.That(
-                PropertyDefinitionAssembler.CreateDto(
+                FieldDefinitionAssembler.CreateDto(
                     new FieldDefinition(DataType.DateTime)).DataType,
-                Is.EqualTo(PropertyDataType.DateTime));
+                Is.EqualTo(FieldDataType.DateTime));
 
             Assert.That(
-                PropertyDefinitionAssembler.CreateDto(
+                FieldDefinitionAssembler.CreateDto(
                     new FieldDefinition(DataType.Decimal)).DataType,
-                Is.EqualTo(PropertyDataType.Decimal));
+                Is.EqualTo(FieldDataType.Decimal));
 
             Assert.That(
-                PropertyDefinitionAssembler.CreateDto(
+                FieldDefinitionAssembler.CreateDto(
                     new FieldDefinition(DataType.Integer)).DataType,
-                Is.EqualTo(PropertyDataType.Integer));
+                Is.EqualTo(FieldDataType.Integer));
 
             Assert.That(
-                PropertyDefinitionAssembler.CreateDto(
+                FieldDefinitionAssembler.CreateDto(
                     new FieldDefinition(DataType.Text)).DataType,
-                Is.EqualTo(PropertyDataType.Text));
+                Is.EqualTo(FieldDataType.Text));
         }
 
         [Test]
         public void CreateDto_returns_dto()
         {
-            var dto = PropertyDefinitionAssembler.CreateDto(Domain);
+            var dto = FieldDefinitionAssembler.CreateDto(Domain);
 
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Id, Is.EqualTo(1));
             Assert.That(dto.Version, Is.EqualTo(2));
             Assert.That(dto.Caption, Is.EqualTo("Caption"));
-            Assert.That(dto.DataType, Is.EqualTo(PropertyDataType.Text));
+            Assert.That(dto.DataType, Is.EqualTo(FieldDataType.Text));
             Assert.That(dto.IsSystemProperty, Is.True);
         }
 
         [Test]
         public void CreateDto_with_subject_null_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => PropertyDefinitionAssembler.CreateDto(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => FieldDefinitionAssembler.CreateDto(null));
             Assert.That(ex.ParamName, Is.EqualTo("subject"));
         }
 
@@ -100,7 +100,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             var propertyDefinitions = new List<FieldDefinition>();
             propertyDefinitions.Add(new FieldDefinition(1, "Name 1", DataType.Boolean));
             propertyDefinitions.Add(new FieldDefinition(2, "Name 2", DataType.Text));
-            var dtos = PropertyDefinitionAssembler.CreateDtos(propertyDefinitions);
+            var dtos = FieldDefinitionAssembler.CreateDtos(propertyDefinitions);
 
             Assert.That(dtos, Has.Length.EqualTo(2));
         }
@@ -108,20 +108,20 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [Test]
         public void CreateDtos_with_subjects_null_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => PropertyDefinitionAssembler.CreateDtos(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => FieldDefinitionAssembler.CreateDtos(null));
             Assert.That(ex.ParamName, Is.EqualTo("subjects"));
         }
 
         [Test]
         public void CreateDomainObject_returns_new_domain_object()
         {
-            var domainObject = PropertyDefinitionAssembler.CreateDomainObject(
-                    new PropertyDto
+            var domainObject = FieldDefinitionAssembler.CreateDomainObject(
+                    new FieldDefinitionDto
                         {
                             Id = 1,
                             Version = 2,
                             Caption = "Caption",
-                            DataType = PropertyDataType.Text,
+                            DataType = FieldDataType.Text,
                             IsSystemProperty = true
                         }
                 );
@@ -137,7 +137,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [Test]
         public void CreateDomainObject_with_subject_null_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => PropertyDefinitionAssembler.CreateDomainObject(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => FieldDefinitionAssembler.CreateDomainObject(null));
             Assert.That(ex.ParamName, Is.EqualTo("subject"));
         }
 
@@ -148,7 +148,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
             Dto.Caption = "Caption (Updated)";
 
-            var domainObject = PropertyDefinitionAssembler.UpdateDomainObject(Dto);
+            var domainObject = FieldDefinitionAssembler.UpdateDomainObject(Dto);
 
             Assert.That(domainObject, Is.Not.Null);
             Assert.That(domainObject.Id, Is.EqualTo(1));
@@ -164,7 +164,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
             Dto.IsSystemProperty = false;
 
-            var domain = PropertyDefinitionAssembler.UpdateDomainObject(Dto);
+            var domain = FieldDefinitionAssembler.UpdateDomainObject(Dto);
             Assert.That(domain, Is.Not.Null);
             Assert.That(domain.IsSystemField, Is.True);
         }
@@ -177,13 +177,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 
             FakePropertyDefRepo.Expect(x => x.Get(1)).Return(null);
 
-            Assert.Throws<EntityNotFoundException>(() => PropertyDefinitionAssembler.UpdateDomainObject(Dto));
+            Assert.Throws<EntityNotFoundException>(() => FieldDefinitionAssembler.UpdateDomainObject(Dto));
         }
 
         [Test]
         public void UpdateDomainObject_with_subject_null_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => PropertyDefinitionAssembler.UpdateDomainObject(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => FieldDefinitionAssembler.UpdateDomainObject(null));
             Assert.That(ex.ParamName, Is.EqualTo("subject"));   
         }
 
@@ -193,7 +193,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             GenerateAndRegisterMissingStubs();
 
             Dto.Version = 3;
-            Assert.Throws<DtoOutOfDateException>(() => PropertyDefinitionAssembler.UpdateDomainObject(Dto));
+            Assert.Throws<DtoOutOfDateException>(() => FieldDefinitionAssembler.UpdateDomainObject(Dto));
         }
     }
 }
