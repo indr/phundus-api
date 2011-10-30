@@ -46,11 +46,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         }
 
         [Test]
-        public void Can_get_and_set_IsSystemProperty()
+        public void Can_get_and_set_IsSystem()
         {
             var sut = new FieldDefinitionDto();
-            sut.IsSystemProperty = true;
-            Assert.That(sut.IsSystemProperty, Is.True);
+            sut.IsSystem = true;
+            Assert.That(sut.IsSystem, Is.True);
         }
     }
 }

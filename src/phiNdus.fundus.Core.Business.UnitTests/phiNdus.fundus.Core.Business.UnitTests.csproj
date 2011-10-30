@@ -71,7 +71,7 @@
   <ItemGroup>
     <Compile Include="Assembler\ArticleAssemblerTests.cs" />
     <Compile Include="Assembler\OrderAssemblerTests.cs" />
-    <Compile Include="Assembler\PropertyDefinitionAssemblerTests.cs" />
+    <Compile Include="Assembler\FieldDefinitionAssemblerTests.cs" />
     <Compile Include="Assembler\RoleAssemblerTests.cs" />
     <Compile Include="Assembler\UserAssemblerTests.cs" />
     <Compile Include="BaseTestFixture.cs" />

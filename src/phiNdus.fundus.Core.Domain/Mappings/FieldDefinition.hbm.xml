@@ -9,6 +9,8 @@
     <version name="Version" />
     <property name="Name" />
     <property name="DataType" />
-    <property name="IsSystemField" column="IsSystemField" />
+    <property name="IsSystem" column="IsSystem" />
+    <property name="IsDefault" />
+    <property name="Position" />
   </class>
 </hibernate-mapping>

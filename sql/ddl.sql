@@ -58,7 +58,9 @@ create table [FieldDefinition] (
   Version int not null,
   [Name] NVARCHAR(255) not null,
   [DataType] TINYINT not null,
-  IsSystemField bit not null default 0,
+  IsSystem bit not null default 0,
+  IsDefault bit not null default 0,
+  Position int not null default 255,
   primary key(Id)
 )
 

@@ -13,7 +13,7 @@
     <p>Achtung, ich, Inder, bin zu blöd den richtigen Wert vorzubelegen (o:</p>
 </div>
 <div class="editor-field">
-    @if (Model.Item.IsSystemProperty)
+    @if (Model.Item.IsSystem)
     {
         @Html.DisplayFor(m => m.Item.DataType)
     }
@@ -24,8 +24,8 @@
     }
 </div>
 <div class="editor-label">
-    @Html.LabelFor(m => m.Item.IsSystemProperty, "Systemeigenschaft")
+    @Html.LabelFor(m => m.Item.IsSystem, "Systemeigenschaft")
 </div>
 <div class="editor-field">
-    @Html.DisplayFor(model => model.Item.IsSystemProperty)
+    @Html.DisplayFor(model => model.Item.IsSystem)
 </div>

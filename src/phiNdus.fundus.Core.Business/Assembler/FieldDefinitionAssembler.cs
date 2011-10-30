@@ -56,7 +56,9 @@ namespace phiNdus.fundus.Core.Business.Assembler
             result.Version = subject.Version;
             result.Caption = subject.Name;
             result.DataType = ConvertDataType(subject.DataType);
-            result.IsSystemProperty = subject.IsSystemField;
+            result.IsSystem = subject.IsSystem;
+            result.IsDefault = subject.IsDefault;
+            result.Position = subject.Position;
 
             return result;
         }
@@ -78,6 +80,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
             var result = new FieldDefinition();
             result.Name = subject.Caption;
             result.DataType = ConvertDataType(subject.DataType);
+            result.Position = subject.Position;
+            result.IsDefault = subject.IsDefault;
             return result;
         }
 
