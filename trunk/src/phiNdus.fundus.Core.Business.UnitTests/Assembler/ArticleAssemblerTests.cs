@@ -38,24 +38,24 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             ArticleDto = new ArticleDto();
             ArticleDto.Id = 1;
             ArticleDto.Version = 2;
-            ArticleDto.AddProperty(new DtoProperty
+            ArticleDto.AddProperty(new FieldValueDto
                                        {
                                            Caption = "Name",
-                                           DataType = PropertyDataType.Text,
+                                           DataType = FieldDataType.Text,
                                            PropertyId = FieldDefinition.CaptionId,
                                            Value = "Artikel"
                                        });
-            ArticleDto.AddProperty(new DtoProperty
+            ArticleDto.AddProperty(new FieldValueDto
                                        {
                                            Caption = "Preis",
-                                           DataType = PropertyDataType.Text,
+                                           DataType = FieldDataType.Text,
                                            PropertyId = FieldDefinition.PriceId,
                                            Value = 12.50,
                                        });
-            ArticleDto.AddProperty(new DtoProperty
+            ArticleDto.AddProperty(new FieldValueDto
                                        {
                                            Caption = "Farbe",
-                                           DataType = PropertyDataType.Text,
+                                           DataType = FieldDataType.Text,
                                            PropertyId = 101,
                                            IsDiscriminator = true
                                        });
@@ -63,17 +63,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             ChildDto1 = new ArticleDto();
             ChildDto1.Id = 2;
             ChildDto1.Version = 2;
-            ChildDto1.AddProperty(new DtoProperty
+            ChildDto1.AddProperty(new FieldValueDto
                                       {
                                           Caption = "Name",
-                                          DataType = PropertyDataType.Text,
+                                          DataType = FieldDataType.Text,
                                           PropertyId = FieldDefinition.CaptionId,
                                           Value = "Child 1"
                                       });
-            ChildDto1.AddProperty(new DtoProperty
+            ChildDto1.AddProperty(new FieldValueDto
             {
                 Caption = "Farbe",
-                DataType = PropertyDataType.Text,
+                DataType = FieldDataType.Text,
                 PropertyId = 101,
                 Value = "Rot"
             });
@@ -82,17 +82,17 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             ChildDto2 = new ArticleDto();
             ChildDto2.Id = 3;
             ChildDto2.Version = 2;
-            ChildDto2.AddProperty(new DtoProperty
+            ChildDto2.AddProperty(new FieldValueDto
                                       {
                                           Caption = "Name",
-                                          DataType = PropertyDataType.Text,
+                                          DataType = FieldDataType.Text,
                                           PropertyId = FieldDefinition.CaptionId,
                                           Value = "Child 2"
                                       });
-            ChildDto2.AddProperty(new DtoProperty
+            ChildDto2.AddProperty(new FieldValueDto
             {
                 Caption = "Farbe",
-                DataType = PropertyDataType.Text,
+                DataType = FieldDataType.Text,
                 PropertyId = 101,
                 Value = "Blau"
             });

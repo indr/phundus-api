@@ -4,24 +4,24 @@ using phiNdus.fundus.Core.Business.Dto;
 namespace phiNdus.fundus.Core.Business.UnitTests.Dto
 {
     [TestFixture]
-    public class DtoPropertyTests
+    public class FieldValueDtoTests
     {
         #region Setup/Teardown
 
         [SetUp]
         public void SetUp()
         {
-            Sut = new DtoProperty();
+            Sut = new FieldValueDto();
         }
 
         #endregion
 
-        protected DtoProperty Sut { get; set; }
+        protected FieldValueDto Sut { get; set; }
 
         [Test]
         public void Can_create()
         {
-            var sut = new DtoProperty();
+            var sut = new FieldValueDto();
             Assert.That(sut, Is.Not.Null);
         }
 
@@ -35,8 +35,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         [Test]
         public void Can_get_and_set_DataType()
         {
-            Sut.DataType = PropertyDataType.Text;
-            Assert.That(Sut.DataType, Is.EqualTo(PropertyDataType.Text));
+            Sut.DataType = FieldDataType.Text;
+            Assert.That(Sut.DataType, Is.EqualTo(FieldDataType.Text));
         }
 
         [Test]

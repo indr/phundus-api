@@ -36,79 +36,79 @@ namespace phiNdus.fundus.Core.Web.Controllers
         }
 
 
-        private static DtoProperty CreateNameProperty(string value)
+        private static FieldValueDto CreateNameProperty(string value)
         {
-            return new DtoProperty
+            return new FieldValueDto
                        {
                            Caption = "Name",
-                           DataType = PropertyDataType.Text,
+                           DataType = FieldDataType.Text,
                            PropertyId = 2,
                            Value = value
                        };
         }
 
-        private static DtoProperty CreatePreisProperty(double value)
+        private static FieldValueDto CreatePreisProperty(double value)
         {
-            return new DtoProperty
+            return new FieldValueDto
                        {
                            Caption = "Preis",
-                           DataType = PropertyDataType.Decimal,
+                           DataType = FieldDataType.Decimal,
                            PropertyId = 4,
                            Value = value
                        };
         }
 
-        private static DtoProperty CreateMengeProperty(int value)
+        private static FieldValueDto CreateMengeProperty(int value)
         {
-            return new DtoProperty
+            return new FieldValueDto
                        {
                            Caption = "Menge",
-                           DataType = PropertyDataType.Integer,
+                           DataType = FieldDataType.Integer,
                            PropertyId = 3,
                            Value = value
                        };
         }
 
-        private static DtoProperty CreateReservierbarProperty(bool value)
+        private static FieldValueDto CreateReservierbarProperty(bool value)
         {
-            return new DtoProperty
+            return new FieldValueDto
             {
                 Caption = "Reservierbar",
-                DataType = PropertyDataType.Boolean,
+                DataType = FieldDataType.Boolean,
                 PropertyId = 6,
                 Value = value
             };
         }
 
-        private static DtoProperty CreateAusleihbarProperty(bool value)
+        private static FieldValueDto CreateAusleihbarProperty(bool value)
         {
-            return new DtoProperty
+            return new FieldValueDto
             {
                 Caption = "Ausleihbar",
-                DataType = PropertyDataType.Boolean,
+                DataType = FieldDataType.Boolean,
                 PropertyId = 7,
                 Value = value
             };
         }
 
-        private static DtoProperty CreateFarbeProperty(string value, bool discriminator)
+        private static FieldValueDto CreateFarbeProperty(string value, bool discriminator)
         {
-            return new DtoProperty
+            return new FieldValueDto
             {
                 Caption = "Farbe",
-                DataType = PropertyDataType.Text,
+                DataType = FieldDataType.Text,
                 PropertyId = 8,
                 Value = value,
                 IsDiscriminator = discriminator
             };
         }
 
-        private static DtoProperty CreateGrösseProperty(string value, bool discriminator)
+        private static FieldValueDto CreateGrösseProperty(string value, bool discriminator)
         {
-            return new DtoProperty
+            return new FieldValueDto
             {
                 Caption = "Grösse",
-                DataType = PropertyDataType.Text,
+                DataType = FieldDataType.Text,
                 PropertyId = 9,
                 Value = value,
                 IsDiscriminator = discriminator

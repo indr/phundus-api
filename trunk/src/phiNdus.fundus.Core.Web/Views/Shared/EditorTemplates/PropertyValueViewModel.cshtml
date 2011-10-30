@@ -11,7 +11,7 @@
         @Html.HiddenFor(m => m.PropertyValueId)
         @switch (Model.DataType)
         {
-            case PropertyDataType.Boolean:
+            case FieldDataType.Boolean:
                 @Html.CheckBoxFor(m => m.BooleanValue);
                 break;
             default:

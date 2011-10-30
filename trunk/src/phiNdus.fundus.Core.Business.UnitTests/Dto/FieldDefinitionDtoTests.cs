@@ -4,19 +4,19 @@ using phiNdus.fundus.Core.Business.Dto;
 namespace phiNdus.fundus.Core.Business.UnitTests.Dto
 {
     [TestFixture]
-    public class PropertyDtoTests
+    public class FieldDefinitionDtoTests
     {
         [Test]
         public void Can_create()
         {
-            var sut = new PropertyDto();
+            var sut = new FieldDefinitionDto();
             Assert.That(sut, Is.Not.Null);
         }
 
         [Test]
         public void Can_get_and_set_Caption()
         {
-            var sut = new PropertyDto();
+            var sut = new FieldDefinitionDto();
             sut.Caption = "Bezeichnung";
             Assert.That(sut.Caption, Is.EqualTo("Bezeichnung"));
         }
@@ -24,15 +24,15 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         [Test]
         public void Can_get_and_set_DataType()
         {
-            var sut = new PropertyDto();
-            sut.DataType = PropertyDataType.Text;
-            Assert.That(sut.DataType, Is.EqualTo(PropertyDataType.Text));
+            var sut = new FieldDefinitionDto();
+            sut.DataType = FieldDataType.Text;
+            Assert.That(sut.DataType, Is.EqualTo(FieldDataType.Text));
         }
 
         [Test]
         public void Can_get_and_set_Id()
         {
-            var sut = new PropertyDto();
+            var sut = new FieldDefinitionDto();
             sut.Id = 1;
             Assert.That(sut.Id, Is.EqualTo(1));
         }
@@ -40,7 +40,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         [Test]
         public void Can_get_and_set_Version()
         {
-            var sut = new PropertyDto();
+            var sut = new FieldDefinitionDto();
             sut.Version = 1;
             Assert.That(sut.Version, Is.EqualTo(1));
         }
@@ -48,7 +48,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Dto
         [Test]
         public void Can_get_and_set_IsSystemProperty()
         {
-            var sut = new PropertyDto();
+            var sut = new FieldDefinitionDto();
             sut.IsSystemProperty = true;
             Assert.That(sut.IsSystemProperty, Is.True);
         }

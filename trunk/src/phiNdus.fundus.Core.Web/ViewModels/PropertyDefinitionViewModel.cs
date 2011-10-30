@@ -7,27 +7,27 @@ namespace phiNdus.fundus.Core.Web.ViewModels
 {
     public class PropertyDefinitionViewModel
     {
-        private readonly IList<PropertyDataType> _propertyDataTypes;
+        private readonly IList<FieldDataType> _propertyDataTypes;
 
-        public PropertyDefinitionViewModel() : this(new PropertyDto())
+        public PropertyDefinitionViewModel() : this(new FieldDefinitionDto())
         {
         }
 
-        public PropertyDefinitionViewModel(PropertyDto subject)
+        public PropertyDefinitionViewModel(FieldDefinitionDto subject)
         {
             Item = subject;
-            _propertyDataTypes = new List<PropertyDataType>
+            _propertyDataTypes = new List<FieldDataType>
                                      {
-                                         PropertyDataType.Boolean,
-                                         PropertyDataType.DateTime,
-                                         PropertyDataType.Decimal,
-                                         PropertyDataType.Integer,
-                                         PropertyDataType.Text
+                                         FieldDataType.Boolean,
+                                         FieldDataType.DateTime,
+                                         FieldDataType.Decimal,
+                                         FieldDataType.Integer,
+                                         FieldDataType.Text
                                      };
         }
 
 
-        public PropertyDto Item { get; set; }
+        public FieldDefinitionDto Item { get; set; }
 
 
         public IEnumerable<SelectListItem> PropertyDataTypes

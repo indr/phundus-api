@@ -33,7 +33,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
                 .Do<ArticleService>(svc => svc.UpdateArticle(subject));
         }
 
-        public PropertyDto[] GetProperties(string sessionKey)
+        public FieldDefinitionDto[] GetProperties(string sessionKey)
         {
             return IoC.Resolve<IPropertyService>().GetProperties(sessionKey);
         }

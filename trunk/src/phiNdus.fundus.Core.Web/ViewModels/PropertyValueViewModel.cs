@@ -6,7 +6,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
     public class PropertyValueViewModel
     {
         public string Caption { get; set; }
-        public PropertyDataType DataType { get; set; }
+        public FieldDataType DataType { get; set; }
         public int PropertyDefinitionId { get; set; }
         public int PropertyValueId { get; set; }
         public object Value { get; set; }

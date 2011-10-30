@@ -6,10 +6,10 @@ namespace phiNdus.fundus.Core.Web.ViewModels
     public class ArticlesTableViewModel
     {
         private readonly IEnumerable<ArticleDto> _articles = new List<ArticleDto>();
-        private readonly IList<PropertyDto> _propertyDefinitions = new List<PropertyDto>();
-        private IEnumerable<PropertyDto> _headings;
+        private readonly IList<FieldDefinitionDto> _propertyDefinitions = new List<FieldDefinitionDto>();
+        private IEnumerable<FieldDefinitionDto> _headings;
 
-        public ArticlesTableViewModel(IEnumerable<ArticleDto> articles, IList<PropertyDto> propertyDefinitions)
+        public ArticlesTableViewModel(IEnumerable<ArticleDto> articles, IList<FieldDefinitionDto> propertyDefinitions)
         {
             _articles = articles;
             _propertyDefinitions = propertyDefinitions;
@@ -20,7 +20,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             get { return _articles; }
         }
 
-        public IEnumerable<PropertyDto> Headings
+        public IEnumerable<FieldDefinitionDto> Headings
         {
             get
             {
@@ -30,7 +30,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             }
         }
 
-        private IEnumerable<PropertyDto> ComputeHeadings()
+        private IEnumerable<FieldDefinitionDto> ComputeHeadings()
         {
             return _propertyDefinitions;
         }

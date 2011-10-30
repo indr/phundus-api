@@ -1,6 +1,6 @@
 ﻿namespace phiNdus.fundus.Core.Business.Dto
 {
-    public enum PropertyDataType
+    public enum FieldDataType
     {
         Boolean,
         Text,

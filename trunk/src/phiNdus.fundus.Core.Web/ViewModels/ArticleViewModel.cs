@@ -8,7 +8,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
 {
     public class ArticleViewModel
     {
-        private readonly IList<PropertyDto> _propertyDefinitions;
+        private readonly IList<FieldDefinitionDto> _propertyDefinitions;
         private IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
         private IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
         private IList<ArticleViewModel> _children = new List<ArticleViewModel>();
@@ -17,16 +17,16 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         {
         }
 
-        public ArticleViewModel(ArticleDto article) : this(article, new PropertyDto[0])
+        public ArticleViewModel(ArticleDto article) : this(article, new FieldDefinitionDto[0])
         {
         }
 
-        public ArticleViewModel(IList<PropertyDto> propertyDefinitions)
+        public ArticleViewModel(IList<FieldDefinitionDto> propertyDefinitions)
             : this(new ArticleDto(), propertyDefinitions)
         {
         }
 
-        public ArticleViewModel(ArticleDto article, IList<PropertyDto> propertyDefinitions)
+        public ArticleViewModel(ArticleDto article, IList<FieldDefinitionDto> propertyDefinitions)
         {
             Id = article.Id;
             Version = article.Version;
@@ -136,7 +136,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             set { _children = value; }
         }
 
-        public static DiscriminatorViewModel ConvertToDiscriminatorViewModel(DtoProperty each)
+        public static DiscriminatorViewModel ConvertToDiscriminatorViewModel(FieldValueDto each)
         {
             return new DiscriminatorViewModel
                        {
@@ -146,9 +146,9 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                        };
         }
 
-        public static DiscriminatorViewModel ConvertToDiscriminatorViewModel(PropertyDto each)
+        public static DiscriminatorViewModel ConvertToDiscriminatorViewModel(FieldDefinitionDto each)
         {
-            return ConvertToDiscriminatorViewModel(new DtoProperty
+            return ConvertToDiscriminatorViewModel(new FieldValueDto
                                                        {
                                                            Caption = each.Caption,
                                                            DataType = each.DataType,
@@ -156,9 +156,9 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                                                        });
         }
 
-        public static PropertyValueViewModel ConvertToPropertyValueViewModel(PropertyDto each)
+        public static PropertyValueViewModel ConvertToPropertyValueViewModel(FieldDefinitionDto each)
         {
-            return ConvertToPropertyValueViewModel(new DtoProperty
+            return ConvertToPropertyValueViewModel(new FieldValueDto
                                                        {
                                                            Caption = each.Caption,
                                                            DataType = each.DataType,
@@ -166,36 +166,36 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                                                        });
         }
 
-        public static PropertyValueViewModel ConvertToPropertyValueViewModel(DtoProperty each)
+        public static PropertyValueViewModel ConvertToPropertyValueViewModel(FieldValueDto each)
         {
             var propertyValueViewModel = new PropertyValueViewModel();
             //switch (each.DataType)
             //{
-            //    case PropertyDataType.Boolean:
+            //    case FieldDataType.Boolean:
             //        propertyValueViewModel = new PropertyValueViewModelEx<bool>
             //                                     {
             //                                         Value = Convert.ToBoolean(each.Value)
             //                                     };
             //        break;
-            //    case PropertyDataType.Text:
+            //    case FieldDataType.Text:
             //        propertyValueViewModel = new PropertyValueViewModelEx<string>
             //                                     {
             //                                         Value = Convert.ToString(each.Value)
             //                                     };
             //        break;
-            //    case PropertyDataType.Integer:
+            //    case FieldDataType.Integer:
             //        propertyValueViewModel = new PropertyValueViewModelEx<int>
             //                                     {
             //                                         Value = Convert.ToInt32(each.Value)
             //                                     };
             //        break;
-            //    case PropertyDataType.Decimal:
+            //    case FieldDataType.Decimal:
             //        propertyValueViewModel = new PropertyValueViewModelEx<double>
             //                                     {
             //                                         Value = Convert.ToDouble(each.Value)
             //                                     };
             //        break;
-            //    case PropertyDataType.DateTime:
+            //    case FieldDataType.DateTime:
             //        propertyValueViewModel = new PropertyValueViewModelEx<DateTime>
             //                                     {
             //                                         Value = Convert.ToDateTime(each.Value)
@@ -223,7 +223,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 if (each.IsDeleted)
                     continue;
 
-                result.Properties.Add(new DtoProperty
+                result.Properties.Add(new FieldValueDto
                                           {
                                             PropertyId = each.PropertyDefinitionId,
                                             Value = each.Value,
@@ -236,7 +236,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 if (each.IsDeleted)
                     continue;
 
-                result.Properties.Add(new DtoProperty
+                result.Properties.Add(new FieldValueDto
                                           {
                                               PropertyId = each.PropertyDefinitionId,
                                               ValueId = each.PropertyValueId,

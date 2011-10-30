@@ -100,13 +100,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
             model.PropertyValues.Add(new PropertyValueViewModel
                                          {
                                              Caption = "Name",
-                                             DataType = PropertyDataType.Text,
+                                             DataType = FieldDataType.Text,
                                              PropertyDefinitionId = 2
                                          });
             model.PropertyValues.Add(new PropertyValueViewModel
                                          {
                                              Caption = "Preis",
-                                             DataType = PropertyDataType.Decimal,
+                                             DataType = FieldDataType.Decimal,
                                              PropertyDefinitionId = 4
                                          });
             model.Discriminators.Add(new DiscriminatorViewModel
@@ -119,28 +119,28 @@ namespace phiNdus.fundus.Core.Web.Controllers
             child1.PropertyValues.Add(new PropertyValueViewModel
             {
                 Caption = "Grösse",
-                DataType = PropertyDataType.Text,
+                DataType = FieldDataType.Text,
                 PropertyDefinitionId = 9,
                 Value = "M"
             });
             child1.PropertyValues.Add(new PropertyValueViewModel
             {
                 Caption = "Menge",
-                DataType = PropertyDataType.Integer,
+                DataType = FieldDataType.Integer,
                 PropertyDefinitionId = 3
             });
             var child2 = new ArticleViewModel(properties);
             child2.PropertyValues.Add(new PropertyValueViewModel
             {
                 Caption = "Grösse",
-                DataType = PropertyDataType.Text,
+                DataType = FieldDataType.Text,
                 PropertyDefinitionId = 9,
                 Value = "L"
             });
             child2.PropertyValues.Add(new PropertyValueViewModel
             {
                 Caption = "Menge",
-                DataType = PropertyDataType.Integer,
+                DataType = FieldDataType.Integer,
                 PropertyDefinitionId = 3
             });
             model.Children.Add(child1);
