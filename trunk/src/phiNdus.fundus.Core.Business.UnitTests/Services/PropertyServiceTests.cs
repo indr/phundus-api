@@ -114,7 +114,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         [Test]
-        public void DeleteProperty_with_subject_IsSystemProperty_throws()
+        public void DeleteProperty_with_subject_IsSystem_throws()
         {
             FieldDefinition = new FieldDefinition(1, 2, "Caption", DataType.Text, true);
             GenerateAndRegisterMissingStubs();

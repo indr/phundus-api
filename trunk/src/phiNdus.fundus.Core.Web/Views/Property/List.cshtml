@@ -38,13 +38,13 @@
             @item.DataType.ToString()
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsSystemProperty)
+            @Html.DisplayFor(modelItem => item.IsSystem)
         </td>
         <td>
             @Html.ActionLink("Anzeigen", "Details", new { id = item.Id }) |
             @Html.ActionLink("Bearbeiten", "Edit", new { id = item.Id })
             
-            @if (!item.IsSystemProperty)
+            @if (!item.IsSystem)
             {
                 @Html.Raw(" | ")
                 @Html.ActionLink("Löschen", "Delete", new { id = item.Id })

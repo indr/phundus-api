@@ -17,7 +17,7 @@
 <p>
     @Html.ActionLink("Zurück zur Übersicht", "Index") |
     @Html.ActionLink("Bearbeiten", "Edit", new { id = Model.Item.Id })
-    @if (!Model.Item.IsSystemProperty) {
+    @if (!Model.Item.IsSystem) {
                 @Html.Raw(" | ")
                 @Html.ActionLink("Löschen", "Delete", new { id = Model.Item.Id })
     }

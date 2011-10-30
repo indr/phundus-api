@@ -59,7 +59,7 @@ namespace phiNdus.fundus.Core.Business.Services
             using (var uow = UnitOfWork.Start())
             {
                 var propertyDef = FieldDefinitionAssembler.UpdateDomainObject(subject);
-                if (propertyDef.IsSystemField)
+                if (propertyDef.IsSystem)
                     throw new InvalidOperationException("System-Eigenschaften können nicht gelöscht werden.");
 
                 PropertyDefinitions.Delete(propertyDef);

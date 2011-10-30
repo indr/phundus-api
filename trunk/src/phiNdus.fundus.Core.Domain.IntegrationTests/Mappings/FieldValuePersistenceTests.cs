@@ -7,7 +7,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 {
     [TestFixture]
-    public class DomainPropertyValuePersistenceTests : BaseTestFixture
+    public class FieldValuePersistenceTests : BaseTestFixture
     {
         #region Setup/Teardown
 

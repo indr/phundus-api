@@ -7,7 +7,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 {
     [TestFixture]
-    public class DomainPropertyDefinitionRepositoryTests : BaseTestFixture
+    public class FieldDefinitionRepositoryTests : BaseTestFixture
     {
         [SetUp]
         public void SetUp()
@@ -20,11 +20,11 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         [Test]
         public void Can_find_all()
         {
-            using (var uow = UnitOfWork.Start())
+            using (UnitOfWork.Start())
             {
                 var actual = Sut.FindAll();
 
-                Assert.That(actual, Has.Count.EqualTo(11));
+                Assert.That(actual, Has.Count.GreaterThanOrEqualTo(11));
                 Assert.That(actual, Has.Some.Property("Name").EqualTo("Name").And.Property("DataType").EqualTo(DataType.Text));
                 Assert.That(actual, Has.Some.Property("Name").EqualTo("Preis").And.Property("DataType").EqualTo(DataType.Decimal));
                 Assert.That(actual, Has.Some.Property("Name").EqualTo("Verfügbar").And.Property("DataType").EqualTo(DataType.Boolean));

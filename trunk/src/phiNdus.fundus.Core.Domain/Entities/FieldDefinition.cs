@@ -23,12 +23,12 @@
         {
         }
 
-        public FieldDefinition(int id, int version, string name, DataType type, bool isSystemField)
+        public FieldDefinition(int id, int version, string name, DataType type, bool isSystem)
             : base(id, version)
         {
             _name = name;
             _dataType = type;
-            _isSystemField = isSystemField;
+            _isSystem = isSystem;
         }
 
         // According to dml.sql
@@ -89,11 +89,40 @@
             set { _dataType = value; }
         }
 
-        private bool _isSystemField;
-        public virtual bool IsSystemField
+        private bool _isSystem;
+
+        /// <summary>
+        /// Gibt an, ob das Feld systemrelevant ist und nicht entfernt
+        /// werden kann (z.B. Menge, Preis usw.).
+        /// </summary>
+        public virtual bool IsSystem
         {
-            get { return _isSystemField; }
-            protected set { _isSystemField = value; }
+            get { return _isSystem; }
+            protected set { _isSystem = value; }
+        }
+
+        private bool _isDefault;
+        
+        /// <summary>
+        /// Angabe ob das Feld bei der Erfassung eines neuen Artikels
+        /// automatisch hinzugefügt wird.
+        /// </summary>
+        public virtual bool IsDefault
+        {
+            get { return _isDefault; }
+            set { _isDefault = value; }
+        }
+
+        private int _position;
+
+        /// <summary>
+        /// Die Anzeigeposition beim Erfassen, Bearbeiten und Anzeigen
+        /// eines Artikels.
+        /// </summary>
+        public virtual int Position
+        {
+            get { return _position; }
+            set { _position = value; }
         }
     }
 }

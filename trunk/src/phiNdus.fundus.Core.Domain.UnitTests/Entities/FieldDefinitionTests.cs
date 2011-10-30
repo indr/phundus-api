@@ -34,10 +34,10 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_get_IsSystemField()
+        public void Can_get_IsSystem()
         {
             var sut = new FieldDefinition(1, 2, "Name", DataType.Text, true);
-            Assert.That(sut.IsSystemField, Is.True);
+            Assert.That(sut.IsSystem, Is.True);
         }
     }
 }
