@@ -20,6 +20,7 @@
   <property name="src.dir" value="${base.dir}\src" />
   <property name="sql.dir" value="${base.dir}\sql" />
   <property name="build.dir" value="${base.dir}\build" />
+  <property name="packages.dir" value="${base.dir}\packages" />
   <property name="tests.dir" value="${base.dir}\tests" />
   <property name="tools.dir" value="${base.dir}\tools" />
   <property name="artifacts.dir" value="${base.dir}\artifacts" />
@@ -35,7 +36,7 @@
   <!--
     Tools directories
   -->
-  <property name="nunit.dir" value="${tools.dir}\NUnit" />
+  <property name="nunit.dir" value="${packages.dir}\NUnit.2.5.10.11092\tools" />
   <property name="partcover.dir" value="${tools.dir}\PartCover" />
   <property name="reportgenerator.dir" value="${tools.dir}\ReportGenerator" />
   <property name="msbuild.dir" value="${path::get-full-path(tools.dir + '\MSBuild')}" />
