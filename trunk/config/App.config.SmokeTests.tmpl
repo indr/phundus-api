@@ -34,12 +34,9 @@
       <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
       <property name="connection.connection_string">${deploy.connstring}</property>
       <property name="dialect">NHibernate.Dialect.MsSql2008Dialect</property>
-      <!--<property name='proxyfactory.factory_class'>NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle</property>-->
       <property name="show_sql">false</property>
 
-      <!-- Warum funktioniert dies nicht? -->
       <mapping assembly="phiNdus.fundus.Core.Domain" />
-      <!-- <mapping resource="User.hbm.xml" assembly="phiNdus.fundus.Core.Domain" /> -->
     </session-factory>
   </hibernate-configuration>
 </configuration>
