@@ -35,7 +35,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 
         public FieldDefinitionDto[] GetProperties(string sessionKey)
         {
-            return IoC.Resolve<IPropertyService>().GetProperties(sessionKey);
+            return IoC.Resolve<IFieldsService>().GetProperties(sessionKey);
         }
 
         public ArticleDto[] GetArticles(string sessionKey)

@@ -8,36 +8,36 @@ using User = phiNdus.fundus.Core.Business.Security.Constraints.User;
 
 namespace phiNdus.fundus.Core.Business.SecuredServices
 {
-    public class SecuredPropertyService : SecuredServiceBase, IPropertyService
+    public class SecuredFieldsService : SecuredServiceBase, IFieldsService
     {
-        #region IPropertyService Members
+        #region IFieldsService Members
 
         public FieldDefinitionDto[] GetProperties(string sessionKey)
         {
             return Unsecured.Do<PropertyService, FieldDefinitionDto[]>(svc => svc.GetProperties());
         }
 
-        public void UpdateProperty(string sessionKey, FieldDefinitionDto subject)
+        public void UpdateField(string sessionKey, FieldDefinitionDto subject)
         {
             Secured.With(Session.FromKey(sessionKey))
                 .And(User.InRole(Role.Administrator))
                 .Do<PropertyService>(svc => svc.UpdateProperty(subject));
         }
 
-        public FieldDefinitionDto GetProperty(string sessionKey, int id)
+        public FieldDefinitionDto GetField(string sessionKey, int id)
         {
             return Secured.With(Session.FromKey(sessionKey))
                 .Do<PropertyService, FieldDefinitionDto>(svc => svc.GetProperty(id));
         }
 
-        public int CreateProperty(string sessionKey, FieldDefinitionDto subject)
+        public int CreateField(string sessionKey, FieldDefinitionDto subject)
         {
             return Secured.With(Session.FromKey(sessionKey))
                 .And(User.InRole(Role.Administrator))
                 .Do<PropertyService, int>(svc => svc.CreateProperty(subject));
         }
 
-        public void DeleteProperty(string sessionKey, FieldDefinitionDto subject)
+        public void DeleteField(string sessionKey, FieldDefinitionDto subject)
         {
             Secured.With(Session.FromKey(sessionKey))
                 .And(User.InRole(Role.Administrator))

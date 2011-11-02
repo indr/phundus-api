@@ -1,4 +1,4 @@
-﻿@model PropertyDefinitionViewModel
+﻿@model FieldDefinitionViewModel
 
 <div class="editor-label">
     @Html.LabelFor(m => m.Item.Caption, "Name")
@@ -19,7 +19,7 @@
     }
     else
     {
-        @Html.DropDownListFor(m => m.Item.DataType, Model.PropertyDataTypes)
+        @Html.DropDownListFor(m => m.Item.DataType, Model.FieldDataTypes)
         @Html.ValidationMessageFor(m => m.Item.DataType)
     }
 </div>

@@ -5,18 +5,18 @@ using phiNdus.fundus.Core.Business.Dto;
 
 namespace phiNdus.fundus.Core.Web.ViewModels
 {
-    public class PropertyDefinitionViewModel
+    public class FieldDefinitionViewModel
     {
-        private readonly IList<FieldDataType> _propertyDataTypes;
+        private readonly IList<FieldDataType> _fieldDataTypes;
 
-        public PropertyDefinitionViewModel() : this(new FieldDefinitionDto())
+        public FieldDefinitionViewModel() : this(new FieldDefinitionDto())
         {
         }
 
-        public PropertyDefinitionViewModel(FieldDefinitionDto subject)
+        public FieldDefinitionViewModel(FieldDefinitionDto subject)
         {
             Item = subject;
-            _propertyDataTypes = new List<FieldDataType>
+            _fieldDataTypes = new List<FieldDataType>
                                      {
                                          FieldDataType.Boolean,
                                          FieldDataType.DateTime,
@@ -30,12 +30,12 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         public FieldDefinitionDto Item { get; set; }
 
 
-        public IEnumerable<SelectListItem> PropertyDataTypes
+        public IEnumerable<SelectListItem> FieldDataTypes
         {
             get
             {
                 var result = new List<SelectListItem>();
-                foreach (var each in _propertyDataTypes)
+                foreach (var each in _fieldDataTypes)
                 {
                     var item = new SelectListItem();
                     item.Value = Convert.ToString(Convert.ToInt32(each));
@@ -45,7 +45,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 }
                 return result;
                 // TODO,Inder: Hilfe, ich kann Selected nicht setzen?!
-                //return _propertyDataTypes.Select(each => new SelectListItem
+                //return _fieldDataTypes.Select(each => new SelectListItem
                 //                                             {
                 //                                                 Value = Convert.ToString(Convert.ToInt32(each)),
                 //                                                 Text = Convert.ToString(each),

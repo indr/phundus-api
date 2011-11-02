@@ -45,8 +45,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
                 FakePropertyService = GenerateAndRegisterStub<PropertyService>();
             if (IoC.TryResolve<IUserRepository>() == null)
                 FakeUserRepo = GenerateAndRegisterStub<IUserRepository>();
-            if (IoC.TryResolve<IPropertyService>() == null)
-                IoC.Container.Register(Component.For<IPropertyService>().ImplementedBy(typeof (SecuredPropertyService)));
+            if (IoC.TryResolve<IFieldsService>() == null)
+                IoC.Container.Register(Component.For<IFieldsService>().ImplementedBy(typeof (SecuredFieldsService)));
 
             if (SessionAdmin == null)
             {

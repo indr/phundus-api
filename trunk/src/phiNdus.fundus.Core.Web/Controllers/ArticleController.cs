@@ -21,7 +21,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         }
 
         protected IArticleService ArticleService { get { return IoC.Resolve<IArticleService>(); } }
-        protected IPropertyService PropertyService { get { return IoC.Resolve<IPropertyService>(); } }
+        protected IFieldsService FieldsService { get { return IoC.Resolve<IFieldsService>(); } }
 
             //
         // GET: /Article/
@@ -267,7 +267,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpGet]
         public ActionResult AddPropertyAjax(int id, string prefix)
         {
-            var prop = PropertyService.GetProperty(Session.SessionID, id);
+            var prop = FieldsService.GetField(Session.SessionID, id);
             var model = ArticleViewModel.ConvertToPropertyValueViewModel(prop);
             return EditorFor(model, prefix);
         }
@@ -275,7 +275,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpGet]
         public ActionResult AddDiscriminatorAjax(int id, string prefix)
         {
-            var prop = PropertyService.GetProperty(Session.SessionID, id);
+            var prop = FieldsService.GetField(Session.SessionID, id);
             var model = ArticleViewModel.ConvertToDiscriminatorViewModel(prop);
             return EditorFor(model, prefix);
         }
@@ -283,7 +283,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpGet]
         public ActionResult AddChild(string prefix)
         {
-            var model = new ArticleViewModel(PropertyService.GetProperties(Session.SessionID));
+            var model = new ArticleViewModel(FieldsService.GetProperties(Session.SessionID));
             model.IsChild = true;
             return EditorFor(model, prefix);
         }
