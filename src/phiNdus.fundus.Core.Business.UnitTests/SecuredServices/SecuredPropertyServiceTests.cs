@@ -23,7 +23,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 
             GenerateAndRegisterStubUnitOfWork();
 
-            Sut = new SecuredPropertyService();
+            Sut = new SecuredFieldsService();
         }
 
         #endregion
@@ -53,12 +53,12 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             }
         }
 
-        private IPropertyService Sut { get; set; }
+        private IFieldsService Sut { get; set; }
 
         [Test]
         public void Can_create()
         {
-            var sut = new SecuredPropertyService();
+            var sut = new SecuredFieldsService();
             Assert.That(sut, Is.Not.Null);
         }
 
@@ -71,7 +71,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             var dto = new FieldDefinitionDto();
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
             FakePropertyService.Expect(x => x.CreateProperty(dto)).Return(1);
-            Sut.CreateProperty("valid", dto);
+            Sut.CreateField("valid", dto);
 
             FakePropertyService.VerifyAllExpectations();
         }
@@ -83,7 +83,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
             FakePropertyService.Expect(x => x.CreateProperty(Arg<FieldDefinitionDto>.Is.Anything)).Return(1);
 
-            var actual = Sut.CreateProperty("valid", new FieldDefinitionDto());
+            var actual = Sut.CreateField("valid", new FieldDefinitionDto());
 
             Assert.That(actual, Is.EqualTo(1));
         }
@@ -92,13 +92,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         public void CreateProperty_with_invalid_sessionKey_throws()
         {
             GenerateAndRegisterMissingStubs();
-            Assert.Throws<InvalidSessionKeyException>(() => Sut.CreateProperty("invalid", null));
+            Assert.Throws<InvalidSessionKeyException>(() => Sut.CreateField("invalid", null));
         }
 
         [Test]
         public void CreateProperty_with_sessionKey_null_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => Sut.CreateProperty(null, null));
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.CreateField(null, null));
             Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
 
@@ -108,7 +108,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             GenerateAndRegisterMissingStubs();
             FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
 
-            Assert.Throws<AuthorizationException>(() => Sut.CreateProperty("valid", new FieldDefinitionDto()));
+            Assert.Throws<AuthorizationException>(() => Sut.CreateField("valid", new FieldDefinitionDto()));
         }
 
         [Test]
@@ -120,7 +120,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             var dto = new FieldDefinitionDto();
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
             FakePropertyService.Expect(x => x.DeleteProperty(dto));
-            Sut.DeleteProperty("valid", dto);
+            Sut.DeleteField("valid", dto);
 
             FakePropertyService.VerifyAllExpectations();
         }
@@ -129,13 +129,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         public void DeleteProperty_with_invalid_sessionKey_throws()
         {
             GenerateAndRegisterMissingStubs();
-            Assert.Throws<InvalidSessionKeyException>(() => Sut.DeleteProperty("invalid", null));
+            Assert.Throws<InvalidSessionKeyException>(() => Sut.DeleteField("invalid", null));
         }
 
         [Test]
         public void DeleteProperty_with_sessionKey_null_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => Sut.DeleteProperty(null, null));
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.DeleteField(null, null));
             Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
 
@@ -145,7 +145,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             GenerateAndRegisterMissingStubs();
             FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
 
-            Assert.Throws<AuthorizationException>(() => Sut.DeleteProperty("valid", new FieldDefinitionDto()));
+            Assert.Throws<AuthorizationException>(() => Sut.DeleteField("valid", new FieldDefinitionDto()));
         }
 
         [Test]
@@ -156,7 +156,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
             FakePropertyService.Expect(x => x.GetProperty(1)).Return(null);
-            Sut.GetProperty("valid", 1);
+            Sut.GetField("valid", 1);
 
             FakePropertyService.VerifyAllExpectations();
         }
@@ -169,7 +169,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             var dto = new FieldDefinitionDto();
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
             FakePropertyService.Expect(x => x.GetProperty(1)).Return(dto);
-            var actual = Sut.GetProperty("valid", 1);
+            var actual = Sut.GetField("valid", 1);
 
             Assert.That(actual, Is.SameAs(dto));
         }
@@ -179,13 +179,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         {
             GenerateAndRegisterMissingStubs();
 
-            Assert.Throws<InvalidSessionKeyException>(() => Sut.GetProperty("invalid", 1));
+            Assert.Throws<InvalidSessionKeyException>(() => Sut.GetField("invalid", 1));
         }
 
         [Test]
         public void GetProperty_with_sessionKey_null_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => Sut.GetProperty(null, 1));
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.GetField(null, 1));
             Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
 
@@ -240,7 +240,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             var dto = new FieldDefinitionDto();
             FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
             FakePropertyService.Expect(x => x.UpdateProperty(Arg<FieldDefinitionDto>.Is.Equal(dto)));
-            Sut.UpdateProperty("valid", dto);
+            Sut.UpdateField("valid", dto);
 
             FakePropertyService.VerifyAllExpectations();
         }
@@ -250,13 +250,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         {
             GenerateAndRegisterMissingStubs();
 
-            Assert.Throws<InvalidSessionKeyException>(() => Sut.UpdateProperty("invalid", null));
+            Assert.Throws<InvalidSessionKeyException>(() => Sut.UpdateField("invalid", null));
         }
 
         [Test]
         public void UpdateProperty_with_sessionKey_null_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => Sut.UpdateProperty(null, null));
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.UpdateField(null, null));
             Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
 
@@ -266,7 +266,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             GenerateAndRegisterMissingStubs();
             FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
 
-            Assert.Throws<AuthorizationException>(() => Sut.UpdateProperty("valid", null));
+            Assert.Throws<AuthorizationException>(() => Sut.UpdateField("valid", null));
         }
     }
 }

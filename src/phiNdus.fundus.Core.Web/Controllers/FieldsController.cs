@@ -7,53 +7,53 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Web.Controllers
 {
     [Authorize]
-    public class PropertyController : Controller
+    public class FieldsController : Controller
     {
-        protected IPropertyService PropertyService
+        protected IFieldsService FieldsService
         {
-            get { return IoC.Resolve<IPropertyService>(); }
+            get { return IoC.Resolve<IFieldsService>(); }
         }
 
         //
-        // GET: /Property/
+        // GET: /Fields/
         public ActionResult Index()
         {
             return RedirectToAction("List");
         }
 
         //
-        // GET: /Property/List
+        // GET: /Fields/List
 
         public ActionResult List()
         {
-            return View(PropertyService.GetProperties(Session.SessionID));
+            return View(FieldsService.GetProperties(Session.SessionID));
         }
 
         //
-        // GET: /Property/Details/5
+        // GET: /Fields/Details/5
         public ActionResult Details(int id)
         {
-            var model = new PropertyDefinitionViewModel(PropertyService.GetProperty(Session.SessionID, id));
+            var model = new FieldDefinitionViewModel(FieldsService.GetField(Session.SessionID, id));
             return View(model);
         }
 
         //
-        // GET: /Property/Create
+        // GET: /Fields/Create
         public ActionResult Create()
         {
-            return View(new PropertyDefinitionViewModel());
+            return View(new FieldDefinitionViewModel());
         }
 
         //
-        // POST: /Property/Create
+        // POST: /Fields/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            var model = new PropertyDefinitionViewModel();
+            var model = new FieldDefinitionViewModel();
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                PropertyService.CreateProperty(Session.SessionID, model.Item);
+                FieldsService.CreateField(Session.SessionID, model.Item);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -66,22 +66,22 @@ namespace phiNdus.fundus.Core.Web.Controllers
         }
 
         //
-        // GET: /Property/Edit/5
+        // GET: /Fields/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(new PropertyDefinitionViewModel(PropertyService.GetProperty(Session.SessionID, id)));
+            return View(new FieldDefinitionViewModel(FieldsService.GetField(Session.SessionID, id)));
         }
 
         //
-        // POST: /Property/Edit/5
+        // POST: /Fields/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            var model = new PropertyDefinitionViewModel(PropertyService.GetProperty(Session.SessionID, id));
+            var model = new FieldDefinitionViewModel(FieldsService.GetField(Session.SessionID, id));
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                PropertyService.UpdateProperty(Session.SessionID, model.Item);
+                FieldsService.UpdateField(Session.SessionID, model.Item);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -94,21 +94,21 @@ namespace phiNdus.fundus.Core.Web.Controllers
         }
 
         //
-        // GET: /Property/Delete/5
+        // GET: /Fields/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(new PropertyDefinitionViewModel(PropertyService.GetProperty(Session.SessionID, id)));
+            return View(new FieldDefinitionViewModel(FieldsService.GetField(Session.SessionID, id)));
         }
 
         //
-        // POST: /Property/Delete/5
+        // POST: /Fields/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            var model = new PropertyDefinitionViewModel(PropertyService.GetProperty(Session.SessionID, id));
+            var model = new FieldDefinitionViewModel(FieldsService.GetField(Session.SessionID, id));
             try
             {
-                PropertyService.DeleteProperty(Session.SessionID, model.Item);
+                FieldsService.DeleteField(Session.SessionID, model.Item);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
