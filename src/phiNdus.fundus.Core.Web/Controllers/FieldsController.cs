@@ -23,10 +23,46 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         //
         // GET: /Fields/List
-
         public ActionResult List()
         {
-            return View(FieldsService.GetProperties(Session.SessionID));
+            var model = new FieldDefinitionsViewModel
+                            {
+                                Items = FieldsService.GetProperties(Session.SessionID)
+                            };
+            return View(model);
+        }
+
+        //
+        // POST: /Fields/List
+        [HttpPost]
+        public ActionResult List(FormCollection collection)
+        {
+            var model = new FieldDefinitionsViewModel
+                            {
+                                Items = FieldsService.GetProperties(Session.SessionID)
+                            };
+            try
+            {
+                // UpdateModel erstellt Items in der Collection ohne Caption usw., sondern
+                // nur mit den Werten aus der collection. Das hat zur Folge, dass beim Service.UpdateFields()
+                // die DTOs in Domain-Objects umgewandelt werden und z.B. die Caption auf NULL gesetzt wird.
+
+                // Jaaaa und klick mal zwei Mal auf speichern... Obwohl model.Items neu gesetzt wird, also
+                // die neusten Dinger via GetProperties geholt werden, wird in der View das Hidden-Field
+                // für Version nicht aktualisiert.
+
+                // Scheiss Framework. Schiistmi a. Ehrlech. För alles wo ned sempel esch verlührsch ewigs Ziit...
+                UpdateModel(model, collection.ToValueProvider());
+                FieldsService.UpdateFields(Session.SessionID, model.Items);
+                model.Items = FieldsService.GetProperties(Session.SessionID);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.ToString());
+                model.Items = FieldsService.GetProperties(Session.SessionID);
+                return View(model);
+            }
         }
 
         //

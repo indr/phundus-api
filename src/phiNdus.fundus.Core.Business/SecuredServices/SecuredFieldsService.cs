@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Security.Constraints;
@@ -12,9 +13,9 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
     {
         #region IFieldsService Members
 
-        public FieldDefinitionDto[] GetProperties(string sessionKey)
+        public IList<FieldDefinitionDto> GetProperties(string sessionKey)
         {
-            return Unsecured.Do<PropertyService, FieldDefinitionDto[]>(svc => svc.GetProperties());
+            return Unsecured.Do<PropertyService, IList<FieldDefinitionDto>>(svc => svc.GetProperties());
         }
 
         public void UpdateField(string sessionKey, FieldDefinitionDto subject)
@@ -42,6 +43,13 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
             Secured.With(Session.FromKey(sessionKey))
                 .And(User.InRole(Role.Administrator))
                 .Do<PropertyService>(svc => svc.DeleteProperty(subject));
+        }
+
+        public void UpdateFields(string sessionKey, IList<FieldDefinitionDto> subjects)
+        {
+            Secured.With(Session.FromKey(sessionKey))
+                .And(User.InRole(Role.Administrator))
+                .Do<PropertyService>(svc => svc.UpdateFields(subjects));
         }
 
         #endregion

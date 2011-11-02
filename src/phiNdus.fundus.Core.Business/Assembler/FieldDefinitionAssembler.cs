@@ -63,14 +63,14 @@ namespace phiNdus.fundus.Core.Business.Assembler
             return result;
         }
 
-        public static FieldDefinitionDto[] CreateDtos(ICollection<FieldDefinition> subjects)
+        public static IList<FieldDefinitionDto> CreateDtos(ICollection<FieldDefinition> subjects)
         {
             Guard.Against<ArgumentNullException>(subjects == null, "subjects");
 
             var result = new List<FieldDefinitionDto>();
             foreach (var each in subjects)
                 result.Add(CreateDto(each));
-            return result.ToArray();
+            return result;
         }
 
         public static FieldDefinition CreateDomainObject(FieldDefinitionDto subject)
@@ -95,6 +95,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
 
             result.Name = subject.Caption;
             result.DataType = ConvertDataType(subject.DataType);
+            result.IsDefault = subject.IsDefault;
+            result.Position = subject.Position;
             return result;
         }
     }

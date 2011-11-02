@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Domain.Repositories;
@@ -13,7 +14,7 @@ namespace phiNdus.fundus.Core.Business.Services
             get { return IoC.Resolve<IFieldDefinitionRepository>(); }
         }
 
-        public virtual FieldDefinitionDto[] GetProperties()
+        public virtual IList<FieldDefinitionDto> GetProperties()
         {
             using (var uow = UnitOfWork.Start())
             {
@@ -63,6 +64,23 @@ namespace phiNdus.fundus.Core.Business.Services
                     throw new InvalidOperationException("System-Eigenschaften können nicht gelöscht werden.");
 
                 PropertyDefinitions.Delete(propertyDef);
+                uow.TransactionalFlush();
+            }
+        }
+
+        public void UpdateFields(IList<FieldDefinitionDto> subjects)
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                foreach (var each in subjects)
+                {
+                    var fieldDefinition = PropertyDefinitions.Get(each.Id);
+                    Guard.Against<DtoOutOfDateException>(fieldDefinition.Version != each.Version, "Dto is out of date");
+                    fieldDefinition.IsDefault = each.IsDefault;
+                    fieldDefinition.Position = each.Position;
+                    PropertyDefinitions.SaveOrUpdate(fieldDefinition);
+                    uow.TransactionalFlush();
+                }
                 uow.TransactionalFlush();
             }
         }

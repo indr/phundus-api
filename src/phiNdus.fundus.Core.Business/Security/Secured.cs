@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using phiNdus.fundus.Core.Business.Security.Constraints;
 using phiNdus.fundus.Core.Business.Services;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Security
 {
+    [DebuggerStepThrough]
     public class Unsecured
     {
         protected static AbstractConstraint Nothing { get { return new TrueConstraint(); } }
@@ -22,6 +24,7 @@ namespace phiNdus.fundus.Core.Business.Security
         }
     }
 
+    [DebuggerStepThrough]
     public class Secured
     {
         private AbstractConstraint _constraint;

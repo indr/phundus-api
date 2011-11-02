@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Linq;
 using phiNdus.fundus.Core.Domain.Entities;
@@ -9,7 +8,7 @@ namespace phiNdus.fundus.Core.Domain.Repositories
 {
     public class FieldDefinitionRepository : NHRepository<FieldDefinition>, IFieldDefinitionRepository
     {
-        private IQueryable<FieldDefinition> ItemProperties
+        private IQueryable<FieldDefinition> FieldDefinitions
         {
             get { return Session.Query<FieldDefinition>(); }
         }
@@ -18,8 +17,7 @@ namespace phiNdus.fundus.Core.Domain.Repositories
 
         public ICollection<FieldDefinition> FindAll()
         {
-            var query = from u in ItemProperties select u;
-            return query.ToList();
+            return (from fd in FieldDefinitions orderby fd.Position ascending select fd).ToList();
         }
 
         #endregion

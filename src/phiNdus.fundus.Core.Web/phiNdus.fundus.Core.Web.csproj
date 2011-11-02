@@ -110,6 +110,7 @@
     <Compile Include="Models\IMembershipService.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="ViewModels\ArticlesViewModel.cs" />
+    <Compile Include="ViewModels\FieldDefinitionsViewModel.cs" />
     <Compile Include="ViewModels\OrdersTableViewModel.cs" />
     <Compile Include="ViewModels\FieldDefinitionViewModel.cs" />
     <Compile Include="Models\UserModels.cs" />

@@ -186,7 +186,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             var dtos = Sut.GetProperties();
 
-            Assert.That(dtos, Has.Length.EqualTo(2));
+            Assert.That(dtos, Has.Count.EqualTo(2));
             Assert.That(dtos, Has.Some.Property("Caption").EqualTo("Name 1"));
             Assert.That(dtos, Has.Some.Property("Caption").EqualTo("Name 2"));
         }
