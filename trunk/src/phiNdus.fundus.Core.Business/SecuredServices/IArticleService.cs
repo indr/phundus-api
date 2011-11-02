@@ -1,4 +1,5 @@
-﻿using phiNdus.fundus.Core.Business.Dto;
+﻿using System.Collections.Generic;
+using phiNdus.fundus.Core.Business.Dto;
 
 namespace phiNdus.fundus.Core.Business.SecuredServices
 {
@@ -7,7 +8,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         ArticleDto GetArticle(string sessionKey, int id);
         int CreateArticle(string sessionKey, ArticleDto subject);
         void UpdateArticle(string sessionKey, ArticleDto subject);
-        FieldDefinitionDto[] GetProperties(string sessionKey);
+        IList<FieldDefinitionDto> GetProperties(string sessionKey);
         ArticleDto[] GetArticles(string sessionKey);
         void DeleteArticle(string sessionKey, ArticleDto subject);
     }

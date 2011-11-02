@@ -109,7 +109,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             propertyDefinitions.Add(new FieldDefinition(2, "Name 2", DataType.Text));
             var dtos = FieldDefinitionAssembler.CreateDtos(propertyDefinitions);
 
-            Assert.That(dtos, Has.Length.EqualTo(2));
+            Assert.That(dtos, Has.Count.EqualTo(2));
         }
 
         [Test]
