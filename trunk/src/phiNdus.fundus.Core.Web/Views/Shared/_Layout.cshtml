@@ -48,8 +48,8 @@
         // Evtl. ganze Webseite sperren?
         // http://stackoverflow.com/questions/5938505/asp-mvc-3-loadingelementid-element-only-shows-on-first-request
         $('#message-box-container').ajaxStart(function () {
-                $(this).empty().append('<div class="warning">Bitte warten...</div>');
-          });
+            $(this).empty().append('<div class="warning">Bitte warten...</div>');
+        });
 
         // Datumspicker
         $('.date-picker').datepicker({ dateFormat: "dd.mm.yy" });
@@ -79,5 +79,22 @@
         $(".ui-state-default").click(function () {
             $(this).fadeTo('fast', 0.1).fadeTo('slow', 1.0);
         });
+
+        // Table Drag'n'Drop: Position-Inputs durch Icon "ersetzen"
+        $('td.dnd-idx').css('cursor', 'move').append('@Html.Icon("Verschieben", ActionLinkIcon.DragAndDrop, "move")').find('input').hide();
+
+        // Table Drag'n'Drop: Aktivierung
+        $('table.dnd').tableDnD({
+            dragHandle: 'dnd-idx',
+            onDrop: function (table, row) {
+                $(table).find('td.dnd-idx').find('input').each(function (index) {
+                    $(this).val(index);
+                });
+
+                $(table).closest('form').submit();
+            }
+        });
     });
 </script>
+
+
