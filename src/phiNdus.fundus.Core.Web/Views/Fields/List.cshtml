@@ -59,13 +59,12 @@
             @Html.HiddenFor(m => m.Items[idx].Id)
             @Html.HiddenFor(m => m.Items[idx].Version)
 
-            @Html.ActionLink("Anzeigen", "Details", new { id = Model.Items[idx].Id }) |
-            @Html.ActionLink("Bearbeiten", "Edit", new { id = Model.Items[idx].Id })
+            @Html.ActionLinkIcon("Anzeigen", ActionLinkIcon.Detail, "Details", new { id = Model.Items[idx].Id })
+            @Html.ActionLinkIcon("Bearbeiten", ActionLinkIcon.Edit, "Edit", new { id = Model.Items[idx].Id })
             
             @if (!Model.Items[idx].IsSystem)
             {
-                @Html.Raw(" | ")
-                @Html.ActionLink("Löschen", "Delete", new { id = Model.Items[idx].Id })
+                @Html.ActionLinkIcon("Löschen", ActionLinkIcon.Remove, "Delete", new { id = Model.Items[idx].Id })
             }
         </td>
     </tr>
@@ -75,19 +74,5 @@
 <p>
    <input type="submit" value="Speichern" /> | @Html.ActionLink("Neues Feld hinzufügen", "Create")
 </p>
-    <p id="loading-id" style="visibility: hidden">Speichere Änderungen...</p>
 }
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        // Table Drag'n'Drop
-        $('table.dnd').tableDnD({ onDrop: function (table, row) {
-            $(table).find('td.dnd-idx').find('input').each(function (index) {
-                $(this).val(index);
-            });
-
-            $(table).closest('form').submit();
-        }
-        });
-    });
-</script>

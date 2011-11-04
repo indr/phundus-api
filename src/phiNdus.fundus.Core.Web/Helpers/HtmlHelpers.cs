@@ -16,6 +16,7 @@ namespace phiNdus.fundus.Core.Web.Helpers
         public static string Detail { get { return @"ui-icon-search"; } }
         public static string Remove { get { return @"ui-icon-trash"; } }
         public static string Print { get { return @"ui-icon-print"; } }
+        public static string DragAndDrop { get { return @"ui-icon-arrowthick-2-n-s"; } }
     }
 
     public static class HtmlHelpers
@@ -29,6 +30,23 @@ namespace phiNdus.fundus.Core.Web.Helpers
             tagBuilder.InnerHtml = linkText;
             var tag = tagBuilder.ToString(TagRenderMode.Normal);
             return MvcHtmlString.Create(tag);
+        }
+
+        public static IHtmlString Icon(this HtmlHelper htmlHelper, string tooltip, string iconName, string cursor)
+        {
+            var spanBuilder = new TagBuilder("span");
+            spanBuilder.AddCssClass(string.Format("ui-icon {0}", iconName));
+
+            var divBuilder = new TagBuilder("div")
+            {
+                InnerHtml = spanBuilder.ToString(TagRenderMode.Normal)
+            };
+            divBuilder.AddCssClass("icon ui-state-default ui-corner-all");
+            divBuilder.Attributes.Add("title", tooltip);
+            // TODO: Pls Refactor. De Schneller esch de Gschwender!
+            if (!String.IsNullOrWhiteSpace(cursor))
+                divBuilder.Attributes.Add("style", "cursor: " + cursor);
+            return MvcHtmlString.Create(divBuilder.ToString(TagRenderMode.Normal));
         }
 
         // http://stackoverflow.com/questions/989005/make-an-html-actionlink-around-an-image-in-asp-net-mvc
