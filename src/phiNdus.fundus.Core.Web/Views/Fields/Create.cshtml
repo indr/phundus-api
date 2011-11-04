@@ -7,10 +7,10 @@
 @section Breadcrumbs {
      @Html.ActionLink("Artikel", "Index", "Article") &gt;
      @Html.ActionLink("Felder", "List") &gt;
-     Erfassen
+     @ViewBag.Title
 }
 
-<h2>Neue Eigenschaft erfassen</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)

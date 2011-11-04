@@ -4,7 +4,7 @@
     Name
 </div>
 <div class="display-field">
-    @Html.DisplayFor(model => model.Item.Caption)
+    @Html.DisplayFor(m => m.Item.Caption)
 </div>
 <div class="display-label">
     Datentyp
@@ -16,5 +16,11 @@
     Systemeigenschaft
 </div>
 <div class="display-field">
-    @Html.DisplayFor(model => model.Item.IsSystem)
+    @Html.DisplayFor(m => m.Item.IsSystem)
+</div>
+<div class="display-label">
+    Standard beim Erfassen eines neuen Artikels
+</div>
+<div class="display-field">
+    @Html.DisplayFor(m => m.Item.IsDefault)
 </div>
