@@ -17,7 +17,7 @@ namespace phiNdus.fundus.Core.Domain.Repositories
 
         public ICollection<FieldDefinition> FindAll()
         {
-            return (from fd in FieldDefinitions orderby fd.Position ascending select fd).ToList();
+            return (from fd in FieldDefinitions orderby fd.Position, fd.Id select fd).ToList();
         }
 
         #endregion

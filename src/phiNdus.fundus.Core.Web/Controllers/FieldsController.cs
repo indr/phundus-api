@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Web.ViewModels;
 using Rhino.Commons;
@@ -25,43 +27,37 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Fields/List
         public ActionResult List()
         {
-            var model = new FieldDefinitionsViewModel
-                            {
-                                Items = FieldsService.GetProperties(Session.SessionID)
-                            };
-            return View(model);
+            return View(new FieldsViewModel());
         }
 
         //
         // POST: /Fields/List
         [HttpPost]
-        public ActionResult List(FormCollection collection)
+        public ActionResult List(IList<FieldDefinitionDto> items)
         {
-            var model = new FieldDefinitionsViewModel
-                            {
-                                Items = FieldsService.GetProperties(Session.SessionID)
-                            };
+            var model = new FieldsViewModel();
             try
             {
-                // UpdateModel erstellt Items in der Collection ohne Caption usw., sondern
-                // nur mit den Werten aus der collection. Das hat zur Folge, dass beim Service.UpdateFields()
-                // die DTOs in Domain-Objects umgewandelt werden und z.B. die Caption auf NULL gesetzt wird.
+                if (model.Items.Count != items.Count)
+                    throw new Exception("Daten sind veraltet :-P");
 
-                // Jaaaa und klick mal zwei Mal auf speichern... Obwohl model.Items neu gesetzt wird, also
-                // die neusten Dinger via GetProperties geholt werden, wird in der View das Hidden-Field
-                // für Version nicht aktualisiert.
+                for (var idx = 0; idx < items.Count; idx++)
+                {
+                    if ((model.Items[idx].Id != items[idx].Id) || (model.Items[idx].Version != items[idx].Version))
+                        throw new Exception("Daten sind veraltet :-P");
 
-                // Scheiss Framework. Schiistmi a. Ehrlech. För alles wo ned sempel esch verlührsch ewigs Ziit...
-                UpdateModel(model, collection.ToValueProvider());
+                    model.Items[idx].IsDefault = items[idx].IsDefault;
+                    model.Items[idx].Position = items[idx].Position;
+                }
+                
                 FieldsService.UpdateFields(Session.SessionID, model.Items);
-                model.Items = FieldsService.GetProperties(Session.SessionID);
-                return View(model);
+                ModelState.Clear();
+                return View(new FieldsViewModel());
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex.ToString());
-                model.Items = FieldsService.GetProperties(Session.SessionID);
-                return View(model);
+                ModelState.AddModelError("", ex.Message);
+                return View(new FieldsViewModel());
             }
         }
 
@@ -69,7 +65,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Fields/Details/5
         public ActionResult Details(int id)
         {
-            var model = new FieldDefinitionViewModel(FieldsService.GetField(Session.SessionID, id));
+            var model = new FieldViewModel(FieldsService.GetField(Session.SessionID, id));
             return View(model);
         }
 
@@ -77,7 +73,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Fields/Create
         public ActionResult Create()
         {
-            return View(new FieldDefinitionViewModel());
+            return View(new FieldViewModel());
         }
 
         //
@@ -85,7 +81,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            var model = new FieldDefinitionViewModel();
+            var model = new FieldViewModel();
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
@@ -105,7 +101,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Fields/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(new FieldDefinitionViewModel(FieldsService.GetField(Session.SessionID, id)));
+            return View(new FieldViewModel(FieldsService.GetField(Session.SessionID, id)));
         }
 
         //
@@ -113,7 +109,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            var model = new FieldDefinitionViewModel(FieldsService.GetField(Session.SessionID, id));
+            var model = new FieldViewModel(FieldsService.GetField(Session.SessionID, id));
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
@@ -133,7 +129,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Fields/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(new FieldDefinitionViewModel(FieldsService.GetField(Session.SessionID, id)));
+            return View(new FieldViewModel(FieldsService.GetField(Session.SessionID, id)));
         }
 
         //
@@ -141,7 +137,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            var model = new FieldDefinitionViewModel(FieldsService.GetField(Session.SessionID, id));
+            var model = new FieldViewModel(FieldsService.GetField(Session.SessionID, id));
             try
             {
                 FieldsService.DeleteField(Session.SessionID, model.Item);

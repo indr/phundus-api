@@ -5,15 +5,15 @@ using phiNdus.fundus.Core.Business.Dto;
 
 namespace phiNdus.fundus.Core.Web.ViewModels
 {
-    public class FieldDefinitionViewModel
+    public class FieldViewModel
     {
         private readonly IList<FieldDataType> _fieldDataTypes;
 
-        public FieldDefinitionViewModel() : this(new FieldDefinitionDto())
+        public FieldViewModel() : this(new FieldDefinitionDto())
         {
         }
 
-        public FieldDefinitionViewModel(FieldDefinitionDto subject)
+        public FieldViewModel(FieldDefinitionDto subject)
         {
             Item = subject;
             _fieldDataTypes = new List<FieldDataType>
