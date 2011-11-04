@@ -16,6 +16,7 @@
         <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
         <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
         <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.tablednd_0_5.js")" type="text/javascript""></script>
     </head>
 
     <body>
@@ -43,6 +44,13 @@
 <!-- Editoren anpassen evlt. auslagern -->
 <script type="text/javascript">
     $(document).ready(function () {
+        // Meldung anzeigen, wenn ein Ajax-Request gemacht wird.
+        // Evtl. ganze Webseite sperren?
+        // http://stackoverflow.com/questions/5938505/asp-mvc-3-loadingelementid-element-only-shows-on-first-request
+        $('#message-box-container').ajaxStart(function () {
+                $(this).empty().append('<div class="warning">Bitte warten...</div>');
+          });
+
         // Datumspicker
         $('.date-picker').datepicker({ dateFormat: "dd.mm.yy" });
 

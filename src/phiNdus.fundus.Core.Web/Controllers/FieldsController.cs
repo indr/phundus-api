@@ -9,7 +9,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Web.Controllers
 {
     [Authorize]
-    public class FieldsController : Controller
+    public class FieldsController : ControllerBase
     {
         protected IFieldsService FieldsService
         {
@@ -51,13 +51,36 @@ namespace phiNdus.fundus.Core.Web.Controllers
                 }
                 
                 FieldsService.UpdateFields(Session.SessionID, model.Items);
-                ModelState.Clear();
-                return View(new FieldsViewModel());
+
+                if (Request.IsAjaxRequest())
+                {
+                    return DisplayFor(new MessageBoxViewModel
+                                          {
+                                              Message = "Erfolgreich gespeichert.",
+                                              Type = MessageBoxType.Success
+                                          });
+                }
+                else
+                {
+                    ModelState.Clear();
+                    return View(new FieldsViewModel());
+                }
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex.Message);
-                return View(new FieldsViewModel());
+                if (Request.IsAjaxRequest())
+                {
+                    return DisplayFor(new MessageBoxViewModel
+                    {
+                        Message = ex.Message,
+                        Type = MessageBoxType.Error
+                    });
+                }
+                else
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    return View(new FieldsViewModel());
+                }
             }
         }
 

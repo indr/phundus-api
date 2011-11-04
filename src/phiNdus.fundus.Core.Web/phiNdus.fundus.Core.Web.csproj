@@ -150,6 +150,7 @@
     <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Scripts\Application.js" />
+    <Content Include="Scripts\jquery.tablednd_0_5.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
