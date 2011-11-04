@@ -1,31 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
-using phiNdus.fundus.Core.Business.Security.Constraints;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.ViewModels
 {
     public class FieldsViewModel : ViewModelBase
     {
-        public FieldsViewModel()
-        {
-            Items = FieldsService.GetProperties(HttpContext.Current.Session.SessionID);
-        }
+        private IList<FieldViewModel> _items = new List<FieldViewModel>();
 
         protected IFieldsService FieldsService
         {
             get { return IoC.Resolve<IFieldsService>(); }
         }
 
-        public IList<FieldDefinitionDto> Items { get; set; }
+        public IList<FieldViewModel> Items
+        {
+            get { return _items; }
+            set { _items = value; }
+        }
 
         public void Save()
         {
-            FieldsService.UpdateFields(SessionId, Items);
+            var dtos = Items.Select(each => each.CreateDto()).ToList();
+            FieldsService.UpdateFields(SessionId, dtos);
+        }
+
+        public FieldsViewModel Load()
+        {
+            Items.Clear();
+            foreach (var each in FieldsService.GetProperties(SessionId))
+            {
+                Items.Add(new FieldViewModel().Load(each));
+            }
+            return this;
         }
     }
 }
