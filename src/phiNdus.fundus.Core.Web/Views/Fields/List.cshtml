@@ -1,7 +1,7 @@
 ﻿@model FieldsViewModel
 
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Artikelfelder";
 }
 
 @section Breadcrumbs {
@@ -14,65 +14,69 @@
 {
     @Html.ValidationSummary(true)
     
-<p>
-    <input type="submit" value="Speichern" /> | @Html.ActionLink("Neues Feld hinzufügen", "Create")
-</p>
-<table class="list dnd">
-    <tr>
-        <th>
-            Position
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            Datentyp
-        </th>
-        <th>
-            Systemfeld
-        </th>
-        <th>
-            Standard
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        <input type="submit" value="Speichern" /> | @Html.ActionLink("Neues Feld hinzufügen", "Create")
+    </p>
+    <table class="list dnd">
+        <tr>
+            <th>
+                Position
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Datentyp
+            </th>
+            <th>
+                Systemfeld
+            </th>
+            <th>
+                Standard
+            </th>
+            <th></th>
+        </tr>
 
-@for (var idx = 0; idx < Model.Items.Count; idx++)
-{
-    <tr>
-        <td class="dnd-idx">
-            @Html.EditorFor(m => m.Items[idx].Position)
-        </td>
-        <td>
-            @Html.DisplayFor(m => m.Items[idx].Caption)
-        </td>
-        <td>
-            @Model.Items[idx].DataType.ToString()
-        </td>
-        <td>
-            @Html.DisplayFor(m => m.Items[idx].IsSystem)
-        </td>
-        <td>
-            @Html.EditorFor(m => m.Items[idx].IsDefault)
-        </td>
-        <td>
-            @Html.HiddenFor(m => m.Items[idx].Id)
-            @Html.HiddenFor(m => m.Items[idx].Version)
+    @for (var idx = 0; idx < Model.Items.Count; idx++)
+    {
+        <tr>
+            <td class="dnd-idx">
+                @Html.EditorFor(m => m.Items[idx].Position)
+            </td>
+            <td>
+                @Html.DisplayFor(m => m.Items[idx].Caption)
+            </td>
+            <td>
+                @Model.Items[idx].DataType.ToString()
+            </td>
+            <td>
+                @Html.DisplayFor(m => m.Items[idx].IsSystem)
+            </td>
+            <td>
+                @Html.EditorFor(m => m.Items[idx].IsDefault)
+            </td>
+            <td>
+                @Html.HiddenFor(m => m.Items[idx].Id)
+                @Html.HiddenFor(m => m.Items[idx].Version)
 
-            @Html.ActionLinkIcon("Anzeigen", ActionLinkIcon.Detail, "Details", new { id = Model.Items[idx].Id })
-            @Html.ActionLinkIcon("Bearbeiten", ActionLinkIcon.Edit, "Edit", new { id = Model.Items[idx].Id })
+                @Html.ActionLinkIcon("Anzeigen", ActionLinkIcon.Detail, "Details", new { id = Model.Items[idx].Id })
+                @Html.ActionLinkIcon("Bearbeiten", ActionLinkIcon.Edit, "Edit", new { id = Model.Items[idx].Id })
             
-            @if (!Model.Items[idx].IsSystem)
-            {
-                @Html.ActionLinkIcon("Löschen", ActionLinkIcon.Remove, "Delete", new { id = Model.Items[idx].Id })
-            }
-        </td>
-    </tr>
-}
-
-</table>
-<p>
-   <input type="submit" value="Speichern" /> | @Html.ActionLink("Neues Feld hinzufügen", "Create")
-</p>
+                @if (!Model.Items[idx].IsSystem)
+                {
+                    @Html.ActionLinkIcon("Löschen", ActionLinkIcon.Remove, "Delete", new { id = Model.Items[idx].Id, version = Model.Items[idx].Version })
+                }
+            </td>
+        </tr>
+    }
+    </table>
+    <p>
+        <input type="submit" value="Speichern" /> | @Html.ActionLink("Neues Feld hinzufügen", "Create")
+    </p>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+        });
+    </script>
 }
 

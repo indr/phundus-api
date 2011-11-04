@@ -1,7 +1,7 @@
 ﻿@model FieldViewModel
 
 @{
-    ViewBag.Title = "Feld \"" + Model.Item.Caption + "\" bearbeiten";
+    ViewBag.Title = "Feld \"" + Model.Caption + "\" bearbeiten";
 }
 
 @section Breadcrumbs {
@@ -15,8 +15,8 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     
-    @Html.HiddenFor(x => x.Item.Id)
-    @Html.HiddenFor(x => x.Item.Version)
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.Version)
 
     @Html.EditorForModel()
 

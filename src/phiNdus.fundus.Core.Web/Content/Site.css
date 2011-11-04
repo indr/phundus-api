@@ -127,7 +127,7 @@ p.formular-action {
     padding-top: 25px;
 }
 
-.formular-box label {
+.formular-box label, .display-label, .editor-label {
     color: #333;
     display: inline;
     font-weight: bold;

@@ -125,6 +125,7 @@
     <Compile Include="ViewModels\MessageBoxViewModel.cs" />
     <Compile Include="ViewModels\PropertyValueViewModel.cs" />
     <Compile Include="ViewModels\ValidationViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\error.png" />

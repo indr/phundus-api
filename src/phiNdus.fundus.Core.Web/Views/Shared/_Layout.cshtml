@@ -83,6 +83,11 @@
         // Table Drag'n'Drop: Position-Inputs durch Icon "ersetzen"
         $('td.dnd-idx').css('cursor', 'move').append('@Html.Icon("Verschieben", ActionLinkIcon.DragAndDrop, "move")').find('input').hide();
 
+        // Table Drag'n'Drop: Checkboxen sollen auch Post-Back auslösen.
+        $('table.dnd').find('input[type="checkbox"]').click(function () {
+            $(this).closest('form').submit();
+        });
+
         // Table Drag'n'Drop: Aktivierung
         $('table.dnd').tableDnD({
             dragHandle: 'dnd-idx',
