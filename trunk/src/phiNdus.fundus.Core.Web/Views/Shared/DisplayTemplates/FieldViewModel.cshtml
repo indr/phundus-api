@@ -1,26 +1,26 @@
 ﻿@model FieldViewModel
            
 <div class="display-label">
-    Name
+    @Html.LabelFor(m => m.Caption)
 </div>
 <div class="display-field">
-    @Html.DisplayFor(m => m.Item.Caption)
+    @Html.DisplayFor(m => m.Caption)
 </div>
 <div class="display-label">
-    Datentyp
+    @Html.LabelFor(m => m.DataType)
 </div>
 <div class="display-field">
-    @Model.Item.DataType.ToString()
+    @Model.DataType.ToString()
 </div>
 <div class="display-label">
-    Systemeigenschaft
+    @Html.LabelFor(m => m.IsSystem)
 </div>
 <div class="display-field">
-    @Html.DisplayFor(m => m.Item.IsSystem)
+    @Html.DisplayFor(m => m.IsSystem)
 </div>
 <div class="display-label">
-    Standard beim Erfassen eines neuen Artikels
+    @Html.LabelFor(m => m.IsDefault)
 </div>
 <div class="display-field">
-    @Html.DisplayFor(m => m.Item.IsDefault)
+    @Html.DisplayFor(m => m.IsDefault)
 </div>

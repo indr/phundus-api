@@ -1,7 +1,7 @@
 ﻿@model FieldViewModel
            
 @{
-    ViewBag.Title = "Feld \"" + Model.Item.Caption + "\"";
+    ViewBag.Title = "Feld \"" + Model.Caption + "\"";
 }
 
 @section Breadcrumbs {
@@ -16,9 +16,9 @@
 
 <p>
     @Html.ActionLink("Zurück zur Übersicht", "Index") |
-    @Html.ActionLink("Bearbeiten", "Edit", new { id = Model.Item.Id })
-    @if (!Model.Item.IsSystem) {
+    @Html.ActionLink("Bearbeiten", "Edit", new { id = Model.Id })
+    @if (!Model.IsSystem) {
                 @Html.Raw(" | ")
-                @Html.ActionLink("Löschen", "Delete", new { id = Model.Item.Id })
+                @Html.ActionLink("Löschen", "Delete", new { id = Model.Id })
     }
 </p>

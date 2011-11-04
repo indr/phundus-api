@@ -11,6 +11,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
     [Authorize]
     public class FieldsController : ControllerBase
     {
+        [Obsolete]
         protected IFieldsService FieldsService
         {
             get { return IoC.Resolve<IFieldsService>(); }
@@ -49,17 +50,12 @@ namespace phiNdus.fundus.Core.Web.Controllers
                     model.Items[idx].IsDefault = items[idx].IsDefault;
                     model.Items[idx].Position = items[idx].Position;
                 }
+
+                model.Save();
                 
-                FieldsService.UpdateFields(Session.SessionID, model.Items);
 
                 if (Request.IsAjaxRequest())
-                {
-                    return DisplayFor(new MessageBoxViewModel
-                                          {
-                                              Message = "Erfolgreich gespeichert.",
-                                              Type = MessageBoxType.Success
-                                          });
-                }
+                    return DisplayFor(MessageBox.Success("Erfolgreich gespeichert."));
                 else
                 {
                     ModelState.Clear();
@@ -69,13 +65,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
             catch (Exception ex)
             {
                 if (Request.IsAjaxRequest())
-                {
-                    return DisplayFor(new MessageBoxViewModel
-                    {
-                        Message = ex.Message,
-                        Type = MessageBoxType.Error
-                    });
-                }
+                    return DisplayFor(MessageBox.Error(ex.Message));
                 else
                 {
                     ModelState.AddModelError("", ex.Message);
@@ -88,8 +78,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Fields/Details/5
         public ActionResult Details(int id)
         {
-            var model = new FieldViewModel(FieldsService.GetField(Session.SessionID, id));
-            return View(model);
+            return View(new FieldViewModel().Load(id));
         }
 
         //
@@ -108,7 +97,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                FieldsService.CreateField(Session.SessionID, model.Item);
+                model.Save();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -124,25 +113,23 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Fields/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(new FieldViewModel(FieldsService.GetField(Session.SessionID, id)));
+            return View(new FieldViewModel().Load(id));
         }
 
         //
         // POST: /Fields/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, int version, FormCollection collection)
         {
-            var model = new FieldViewModel(FieldsService.GetField(Session.SessionID, id));
+            var model = new FieldViewModel().Load(id, version);
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                FieldsService.UpdateField(Session.SessionID, model.Item);
+                model.Save();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                // TODO: Logging
-                // TODO: Exception-Handling
                 ModelState.AddModelError("", ex.Message);
                 return View(model);
             }
@@ -152,24 +139,22 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Fields/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(new FieldViewModel(FieldsService.GetField(Session.SessionID, id)));
+            return View(new FieldViewModel().Load(id));
         }
 
         //
         // POST: /Fields/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, int version)
         {
-            var model = new FieldViewModel(FieldsService.GetField(Session.SessionID, id));
+            var model = new FieldViewModel().Load(id, version);
             try
             {
-                FieldsService.DeleteField(Session.SessionID, model.Item);
+                model.Delete();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                // TODO: Logging
-                // TODO: Exception-Handling
                 ModelState.AddModelError("", ex.Message);
                 return View(model);
             }

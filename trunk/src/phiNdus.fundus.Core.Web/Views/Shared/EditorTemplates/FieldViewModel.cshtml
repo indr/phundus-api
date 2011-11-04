@@ -1,31 +1,28 @@
 ﻿@model FieldViewModel
 
 <div class="editor-label">
-    @Html.LabelFor(m => m.Item.Caption, "Name")
+    @Html.LabelFor(m => m.Caption)
 </div>
 <div class="editor-field">
-    @Html.EditorFor(m => m.Item.Caption)
-    @Html.ValidationMessageFor(m => m.Item.Caption)
+    @Html.EditorFor(m => m.Caption)
+    @Html.ValidationMessageFor(m => m.Caption)
 </div>
 
+@if (!Model.IsSystem)
+{
+    <div class="editor-label">
+        @Html.LabelFor(m => m.DataType)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(m => m.DataType, Model.FieldDataTypes)
+        @Html.ValidationMessageFor(m => m.DataType)
+
+    </div>
+}
+
 <div class="editor-label">
-    @Html.LabelFor(m => m.Item.DataType, "Datentyp")
-    <p>Achtung, ich, Inder, bin zu blöd den richtigen Wert vorzubelegen (o:</p>
+    @Html.LabelFor(m => m.IsDefault)
 </div>
 <div class="editor-field">
-    @if (Model.Item.IsSystem)
-    {
-        @Html.DisplayFor(m => m.Item.DataType)
-    }
-    else
-    {
-        @Html.DropDownListFor(m => m.Item.DataType, Model.FieldDataTypes)
-        @Html.ValidationMessageFor(m => m.Item.DataType)
-    }
-</div>
-<div class="editor-label">
-    @Html.LabelFor(m => m.Item.IsSystem, "Systemeigenschaft")
-</div>
-<div class="editor-field">
-    @Html.DisplayFor(model => model.Item.IsSystem)
+    @Html.EditorFor(m => m.IsDefault)
 </div>
