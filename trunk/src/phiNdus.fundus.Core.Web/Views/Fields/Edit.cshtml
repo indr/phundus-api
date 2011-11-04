@@ -1,16 +1,16 @@
 ﻿@model FieldViewModel
 
 @{
-    ViewBag.Title = "Eigenschaft bearbeiten";
+    ViewBag.Title = "Feld \"" + Model.Item.Caption + "\" bearbeiten";
 }
 
 @section Breadcrumbs {
      @Html.ActionLink("Artikel", "Index", "Article") &gt;
-     @Html.ActionLink("Eigenschaften", "List") &gt;
-     Bearbeiten
+     @Html.ActionLink("Felder", "List") &gt;
+     @ViewBag.Title
 }
 
-<h2>Eigenschaft bearbeiten</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)

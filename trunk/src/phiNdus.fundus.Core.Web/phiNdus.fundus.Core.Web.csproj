@@ -285,10 +285,10 @@
     <Content Include="Views\Shared\EditorTemplates\CartModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\PropertyDefinitionViewModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\FieldViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\DisplayTemplates\PropertyDefinitionViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\FieldViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\Availability.cshtml" />

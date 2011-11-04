@@ -1,16 +1,16 @@
 ﻿@model FieldViewModel
            
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Feld \"" + Model.Item.Caption + "\"";
 }
 
 @section Breadcrumbs {
      @Html.ActionLink("Artikel", "Index", "Article") &gt;
-     @Html.ActionLink("Eigenschaften", "List") &gt;
-     Details
+     @Html.ActionLink("Felder", "List") &gt;
+     @ViewBag.Title
 }
 
-<h2>Eigenschaftdetails</h2>
+<h2>@ViewBag.Title</h2>
 
 @Html.DisplayForModel()
 
