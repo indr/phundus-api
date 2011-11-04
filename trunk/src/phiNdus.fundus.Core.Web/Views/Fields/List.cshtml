@@ -10,14 +10,14 @@
      &Uuml;bersicht
 }
 
-@using (Html.BeginForm())
+@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "message-box-container" }))
 {
     @Html.ValidationSummary(true)
     
 <p>
     <input type="submit" value="Speichern" /> | @Html.ActionLink("Neues Feld hinzufügen", "Create")
 </p>
-<table class="list">
+<table class="list dnd">
     <tr>
         <th>
             Position
@@ -40,7 +40,7 @@
 @for (var idx = 0; idx < Model.Items.Count; idx++)
 {
     <tr>
-        <td>
+        <td class="dnd-idx">
             @Html.EditorFor(m => m.Items[idx].Position)
         </td>
         <td>
@@ -75,4 +75,19 @@
 <p>
    <input type="submit" value="Speichern" /> | @Html.ActionLink("Neues Feld hinzufügen", "Create")
 </p>
+    <p id="loading-id" style="visibility: hidden">Speichere Änderungen...</p>
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Table Drag'n'Drop
+        $('table.dnd').tableDnD({ onDrop: function (table, row) {
+            $(table).find('td.dnd-idx').find('input').each(function (index) {
+                $(this).val(index);
+            });
+
+            $(table).closest('form').submit();
+        }
+        });
+    });
+</script>
