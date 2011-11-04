@@ -1,0 +1,24 @@
+﻿@model FieldDefinitionViewModel
+
+@{
+    ViewBag.Title = "Neues Feld erfassen";
+}
+
+@section Breadcrumbs {
+     @Html.ActionLink("Artikel", "Index", "Article") &gt;
+     @Html.ActionLink("Felder", "List") &gt;
+     Erfassen
+}
+
+<h2>Neue Eigenschaft erfassen</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    @Html.EditorForModel()
+    
+    <p>
+        <input type="submit" value="Speichern" /> | @Html.ActionLink("Zurück zur Übersicht", "Index")
+    </p>
+}
+

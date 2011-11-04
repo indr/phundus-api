@@ -1,0 +1,26 @@
+﻿@model FieldDefinitionViewModel
+
+@{
+    ViewBag.Title = "Eigenschaft bearbeiten";
+}
+
+@section Breadcrumbs {
+     @Html.ActionLink("Artikel", "Index", "Article") &gt;
+     @Html.ActionLink("Eigenschaften", "List") &gt;
+     Bearbeiten
+}
+
+<h2>Eigenschaft bearbeiten</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    
+    @Html.HiddenFor(x => x.Item.Id)
+    @Html.HiddenFor(x => x.Item.Version)
+
+    @Html.EditorForModel()
+
+    <p>
+        <input type="submit" value="Speichern" /> | @Html.ActionLink("Abbrechen", "Index")
+    </p>
+}
