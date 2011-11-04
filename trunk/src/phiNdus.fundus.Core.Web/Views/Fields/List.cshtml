@@ -47,7 +47,7 @@
                 @Html.DisplayFor(m => m.Items[idx].Caption)
             </td>
             <td>
-                @Model.Items[idx].DataType.ToString()
+                @Html.DisplayFor(m => m.Items[idx].DataTypeAsText)
             </td>
             <td>
                 @Html.DisplayFor(m => m.Items[idx].IsSystem)

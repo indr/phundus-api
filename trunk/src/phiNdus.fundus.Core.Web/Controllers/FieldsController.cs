@@ -11,12 +11,6 @@ namespace phiNdus.fundus.Core.Web.Controllers
     [Authorize]
     public class FieldsController : ControllerBase
     {
-        [Obsolete]
-        protected IFieldsService FieldsService
-        {
-            get { return IoC.Resolve<IFieldsService>(); }
-        }
-
         //
         // GET: /Fields/
         public ActionResult Index()
@@ -28,15 +22,15 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Fields/List
         public ActionResult List()
         {
-            return View(new FieldsViewModel());
+            return View(new FieldsViewModel().Load());
         }
 
         //
         // POST: /Fields/List
         [HttpPost]
-        public ActionResult List(IList<FieldDefinitionDto> items)
+        public ActionResult List(IList<FieldViewModel> items)
         {
-            var model = new FieldsViewModel();
+            var model = new FieldsViewModel().Load();
             try
             {
                 if (model.Items.Count != items.Count)
@@ -56,21 +50,16 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
                 if (Request.IsAjaxRequest())
                     return DisplayFor(MessageBox.Success("Erfolgreich gespeichert."));
-                else
-                {
-                    ModelState.Clear();
-                    return View(new FieldsViewModel());
-                }
+                ModelState.Clear();
+                return View(new FieldsViewModel().Load());
             }
             catch (Exception ex)
             {
                 if (Request.IsAjaxRequest())
                     return DisplayFor(MessageBox.Error(ex.Message));
-                else
-                {
-                    ModelState.AddModelError("", ex.Message);
-                    return View(new FieldsViewModel());
-                }
+                
+                ModelState.AddModelError("", ex.Message);
+                return View(new FieldsViewModel().Load());
             }
         }
 

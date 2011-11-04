@@ -26,13 +26,21 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         public int Id
         {
             get { return Dto.Id; }
-            //set { Dto.Id = value; }
+            set
+            {
+                if (Dto.Id == 0)
+                    Dto.Id = value;
+            }
         }
 
         public int Version
         {
             get { return Dto.Version; }
-            //set { Dto.Version = value; }
+            set
+            {
+                if (Dto.Version == 0)
+                    Dto.Version = value;
+            }
         }
 
         [DisplayName("Name")]
@@ -51,6 +59,12 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 if (!IsSystem)
                     Dto.DataType = (FieldDataType)value;
             }
+        }
+
+        [DisplayName("Datentyp")]
+        public string DataTypeAsText
+        {
+            get { return Convert.ToString(Dto.DataType); }
         }
 
         [DisplayName("Systemfeld")]
@@ -88,6 +102,12 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         }
 
 
+        public FieldViewModel Load(FieldDefinitionDto dto)
+        {
+            Dto = dto;
+            return this;
+        }
+
         public void Save()
         {
             if (Dto.Id > 0)
@@ -116,6 +136,11 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 result.Sort((x,y) => x.Text.CompareTo(y.Text));
                 return result;
             }
+        }
+
+        public FieldDefinitionDto CreateDto()
+        {
+            return Dto;
         }
     }
 }

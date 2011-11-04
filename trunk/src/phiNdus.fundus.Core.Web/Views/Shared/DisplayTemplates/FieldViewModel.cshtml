@@ -7,10 +7,10 @@
     @Html.DisplayFor(m => m.Caption)
 </div>
 <div class="display-label">
-    @Html.LabelFor(m => m.DataType)
+    @Html.LabelFor(m => m.DataTypeAsText)
 </div>
 <div class="display-field">
-    @Model.DataType.ToString()
+    @Html.DisplayFor(m => m.DataTypeAsText)
 </div>
 <div class="display-label">
     @Html.LabelFor(m => m.IsSystem)
