@@ -1,10 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Web.ViewModels;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Controllers
 {
@@ -34,30 +32,50 @@ namespace phiNdus.fundus.Core.Web.Controllers
             try
             {
                 if (model.Items.Count != items.Count)
-                    throw new Exception("Daten sind veraltet :-P");
+                    throw new Exception("Daten sind veraltet :-P (1)");
 
-                for (var idx = 0; idx < items.Count; idx++)
+                foreach (var each in items)
                 {
-                    if ((model.Items[idx].Id != items[idx].Id) || (model.Items[idx].Version != items[idx].Version))
-                        throw new Exception("Daten sind veraltet :-P");
+                    var item = model.Items.First(i => i.Id == each.Id);
+                    item.IsDefault = each.IsDefault;
+                    item.Position = each.Position;
 
-                    model.Items[idx].IsDefault = items[idx].IsDefault;
-                    model.Items[idx].Position = items[idx].Position;
                 }
 
+                //for (var idx = 0; idx < items.Count; idx++)
+                //{
+                //    if ((model.Items[idx].Id != items[idx].Id))
+                //        throw new Exception("Daten sind veraltet :-P (2)");
+
+                //    model.Items[idx].IsDefault = items[idx].IsDefault;
+                //    model.Items[idx].Position = items[idx].Position;
+                //}
+
                 model.Save();
-                
+
+                model = new FieldsViewModel().Load();
+
 
                 if (Request.IsAjaxRequest())
                     return DisplayFor(MessageBox.Success("Erfolgreich gespeichert."));
+                //{
+                //    var data = new List<object>();
+                //    foreach (var each in model.Items)
+                //        data.Add(new {id = each.Id, version = each.Version});
+                //    return Json(new
+                //                    {
+                //                        message = @"<div class=""success"">Erfolgreich gespeichert (2).</div>",
+                //                        data = data
+                //                    });
+                //}
                 ModelState.Clear();
-                return View(new FieldsViewModel().Load());
+                return View(model);
             }
             catch (Exception ex)
             {
                 if (Request.IsAjaxRequest())
                     return DisplayFor(MessageBox.Error(ex.Message));
-                
+
                 ModelState.AddModelError("", ex.Message);
                 return View(new FieldsViewModel().Load());
             }
