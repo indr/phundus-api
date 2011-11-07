@@ -12,9 +12,23 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Core.Business.UnitTests.Mails
 {
     [TestFixture]
-    public class UserAccountValidationMailTest : MockTestBase<UserAccountValidationMail>
+    public class UserAccountValidationMailTest : UnitTestBase
     {
-        protected override void RegisterDependencies(IWindsorContainer container)
+        [SetUp]
+        public override void SetUp()
+        {
+            base.SetUp();
+
+            MockFactory = new MockRepository();
+            
+            
+            RegisterDependencies(IoC.Container);
+
+        }
+
+        private MockRepository MockFactory { get; set; }
+
+        protected void RegisterDependencies(IWindsorContainer container)
         {
             MockMailGateway = MockFactory.StrictMock<IMailGateway>();
             IoC.Container.Register(Component.For<IMailGateway>().Instance(MockMailGateway));
@@ -52,13 +66,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
         private IMailGateway MockMailGateway { get; set; }
         private ISettings MockSettings { get; set; }
 
-        protected override UserAccountValidationMail CreateSut()
-        {
-            return null;
-        }
-
         [TearDown]
-        public void TearDown()
+        public override void TearDown()
         {
             Settings.SetGlobalNonThreadSafeSettings(null);
         }
