@@ -11,20 +11,20 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    public class CompositeEntityTests : MockTestBase<CompositeEntity>
+    public class CompositeEntityTests : UnitTestBase
     {
-
-        protected override void RegisterDependencies(Castle.Windsor.IWindsorContainer container)
+        [SetUp]
+        public override void SetUp()
         {
-            base.RegisterDependencies(container);
+            base.SetUp();
 
             StubFieldDefinitionRepository = MockRepository.GenerateStub<IFieldDefinitionRepository>();
-            
-            container.Register(
-                Component.For<IFieldDefinitionRepository>().Instance(StubFieldDefinitionRepository));
+
+            IoC.Container.Register(Component.For<IFieldDefinitionRepository>()
+                .Instance(StubFieldDefinitionRepository));
         }
-        
-        protected override CompositeEntity CreateSut()
+
+        protected CompositeEntity CreateSut()
         {
             StubFieldValues = new HashedSet<FieldValue>();
             return new CompositeEntity(StubFieldValues);
@@ -81,9 +81,10 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
         [Test]
         public void Can_get_HasChildren()
         {
-            Assert.That(Sut.HasChildren, Is.False);
-            Sut.AddChild(new CompositeEntity());
-            Assert.That(Sut.HasChildren, Is.True);
+            var sut = new CompositeEntity();
+            Assert.That(sut.HasChildren, Is.False);
+            sut.AddChild(new CompositeEntity());
+            Assert.That(sut.HasChildren, Is.True);
         }
     }
 }

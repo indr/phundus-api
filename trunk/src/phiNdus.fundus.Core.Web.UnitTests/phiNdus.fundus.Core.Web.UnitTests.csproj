@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Installers\ControllerInstallerTest.cs" />
+    <Compile Include="MockTestBase.cs" />
     <Compile Include="Models\AccountModelTests.cs" />
     <Compile Include="Models\MembershipServiceTests.cs" />
     <Compile Include="ModelValidator.cs" />
