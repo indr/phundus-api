@@ -1,24 +1,20 @@
 ﻿using System;
 using System.Reflection;
-using Castle.MicroKernel.Registration;
 using NHibernate;
-using NHibernate.ByteCode.Castle;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Driver;
 using NHibernate.Tool.hbm2ddl;
-using phiNdus.fundus.Core.Domain.Entities;
-using Rhino.Commons;
 using Environment = NHibernate.Cfg.Environment;
 
 namespace phiNdus.fundus.TestHelpers
 {
-    public class InMemoryDatabaseTestBase : IDisposable
+    public class InMemoryDatabaseTestBase : UnitTestBase, IDisposable
     {
         private static Configuration _configuration;
         private static ISessionFactory _sessionFactory;
 
-        public InMemoryDatabaseTestBase()
+        public InMemoryDatabaseTestBase(Assembly assemblyContainingMappings)
         {
             if (_configuration == null)
             {
@@ -27,9 +23,10 @@ namespace phiNdus.fundus.TestHelpers
                     .SetProperty(Environment.Dialect, typeof (SQLiteDialect).AssemblyQualifiedName)
                     .SetProperty(Environment.ConnectionDriver, typeof (SQLite20Driver).AssemblyQualifiedName)
                     .SetProperty(Environment.ConnectionString, "data source=:memory:")
-                    .SetProperty(Environment.ProxyFactoryFactoryClass,
-                                 typeof (ProxyFactoryFactory).AssemblyQualifiedName)
-                    .AddAssembly(Assembly.GetAssembly(typeof (Entity)));
+                    // Standard in NHibernate 3.2 ist die eigene ProxyFactory-Factory.
+                    //.SetProperty(Environment.ProxyFactoryFactoryClass,
+                    //             typeof (ProxyFactoryFactory).AssemblyQualifiedName)
+                    .AddAssembly(assemblyContainingMappings);
 
                 _sessionFactory = _configuration.BuildSessionFactory();
             }
@@ -37,9 +34,6 @@ namespace phiNdus.fundus.TestHelpers
             Session = _sessionFactory.OpenSession();
 
             new SchemaExport(_configuration).Execute(true, true, false, Session.Connection, Console.Out);
-
-            var unitOfWork = new NHibernateUnitOfWorkAdapter(null, Session, null);
-            UnitOfWork.RegisterGlobalUnitOfWork(unitOfWork);
         }
 
         protected ISession Session { get; set; }
