@@ -128,6 +128,7 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
     <Content Include="Content\Images\error.png" />
     <Content Include="Content\Images\fundus-menu-bg.png" />
     <Content Include="Content\Images\info.png" />
