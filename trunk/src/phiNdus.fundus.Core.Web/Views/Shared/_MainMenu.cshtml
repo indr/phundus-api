@@ -1,15 +1,32 @@
 @inherits System.Web.Mvc.WebViewPage<dynamic>
 
-@Html.ActionLink("Home", "Index", "Shop")
-@if (Request.IsAuthenticated) {
-    //TODO: Administratoren
-    @Html.ActionLink("Bestellungen", "Index", "Order")
-    @Html.ActionLink("Verträge", "Index", "Contract")
-    @Html.ActionLink("Artikel", "Index", "Article")
-    @Html.ActionLink("Benutzer", "Index", "User")
-    @Html.ActionLink("Einstellungen", "Index", "Setting")
-}
-else
-{ 
-    @*<a href="#">HOME</a>*@
-}
+
+<ul class="nav-1">
+    <li>@Html.ActionLink("Home", "Index", "Shop")</li>
+
+    @if (Request.IsAuthenticated) {
+        <li>@Html.ActionLink("Bestellungen", "Index", "Order")
+            <ul class="nav-2">
+                <li>@Html.ActionLink("Alle", "All", "Order")</li>
+                <li>@Html.ActionLink("Provisorische", "Pending", "Order")</li>
+                <li>@Html.ActionLink("Bestätigte", "Approved", "Order")</li>
+                <li>@Html.ActionLink("Abgeschlossene", "Closed", "Order")</li>
+                <li>@Html.ActionLink("Abgelehnte", "Rejected", "Order")</li>
+            </ul>
+        </li>
+        <li>@Html.ActionLink("Verträge", "Index", "Contract")
+            <ul class="nav-2">
+                <li>@Html.ActionLink("Unterschriebene", "Signed", "Contract")</li>
+                <li>@Html.ActionLink("Abgeschlossene", "Closed", "Contract")</li>
+            </ul>
+        </li>
+        
+        <li>@Html.ActionLink("Artikel", "Index", "Article")
+            <ul class="nav-2">
+                <li>@Html.ActionLink("Neu", "Create", "Article")</li>
+            </ul>
+        </li>
+        <li>@Html.ActionLink("Benutzer", "Index", "User")</li>
+        <li>@Html.ActionLink("Einstellungen", "Index", "Setting")</li>
+    }
+</ul>

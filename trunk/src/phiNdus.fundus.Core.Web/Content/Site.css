@@ -32,26 +32,72 @@ body {
 /* Hauptmenu (das grüne teil)
 ---------------------------------------------------------*/
 .main-menu {
-    height: 40px;
-    padding-top:10px;
+    height: 50px;
+    padding:0;
     color: #fff;
     font-size:12px;
     background: url('Images/fundus-menu-bg.png') repeat-x #109033;
 }
 
-.main-menu a {
-    margin-left: 30px;    
-    line-height: 30px;    
-    color:#fff;
-}
+.main-menu ul.nav-1
+	{ margin:0; padding:1px 0; list-style:none;
+	  width:100%; height:50px;
+	  /*border-top:1px solid #b9121b; border-bottom:1px solid #b9121b;
+      font:normal 8pt verdana, arial, helvetica; */}
+.main-menu ul.nav-1 li
+	{ margin:0; padding:0; display:block; float:left; position:relative;
+	  width:148px; }
+.main-menu ul.nav-1 li a:link,
+.main-menu ul.nav-1 li a:visited
+	{ padding:10px 0; display:block;
+	  width:148px; height:30px;
+	  text-align:center; text-decoration:none; color:#ffffff; }
+.main-menu ul.nav-1 li:hover a,
+.main-menu ul.nav-1 li a:hover,
+.main-menu ul.nav-1 li a:active
+	{ padding:10px 0; display:block; 
+	  width:148px; height:30px;
+	  /*background:#ec454e; border-left:1px solid #ffffff; border-right:1px solid #ffffff;*/
+	  text-align:center; text-decoration:none;  color:#ffffff; }
+	
+.main-menu ul.nav-1 li ul.nav-2
+	{ margin:0; padding:1px 1px 0; list-style:none; display:none;
+	  width:148px; position:absolute; top:45px; left:-1px; 
+	  background:#ffffff; border:1px solid #109033; border-top:none; }
+.main-menu ul.nav-1 li:hover ul.nav-2
+	{ display:block; }
+.main-menu ul.nav-1 li ul.nav-2 li
+	{ width:146px; clear:left; width:146px; }
+.main-menu ul.nav-1 li ul.nav-2 li a:link,
+.main-menu ul.nav-1 li ul.nav-2 li a:visited
+	{ clear:left; padding:4px 0; width:146px;
+	  background:#ffffff;
+	  border:none; border-bottom:1px solid #ffffff; position:relative; z-index:1000;
+	  color:#109033;}
+.main-menu ul.nav-1 li ul.nav-2 li:hover a,
+.main-menu ul.nav-1 li ul.nav-2 li a:active,
+.main-menu ul.nav-1 li ul.nav-2 li a:hover
+	{ clear:left; padding:4px 0; width:146px;
+	  background:#109033;
+	  border:none; border-bottom:1px solid #ffffff; position:relative; z-index:1000;
+	  color:#ffffff;}
 
-.main-menu a:link {
-    color:#fff;
-}
-
-.main-menu a:visited {
-    color:#fff;
-}
+.main-menu ul.nav-1 li ul.nav-2 li ul.nav-3
+	{ display:none; margin:0; padding:0; list-style:none; position:absolute; left:145px; top:-2px; padding:1px 1px 0 1px; border:1px solid #b9121b; border-left:1px solid #b9121b; background:#ffffff; z-index:900; }
+.main-menu ul.nav-1 li ul.nav-2 li:hover ul.nav-3
+	{ display:block; }
+.main-menu ul.nav-1 li ul.nav-2 li ul.nav-3 li a:link,
+.main-menu ul.nav-1 li ul.nav-2 li ul.nav-3 li a:visited
+	{ background:#b9121b; }
+.main-menu ul.nav-1 li ul.nav-2 li ul.nav-3 li:hover a,
+.main-menu ul.nav-1 li ul.nav-2 li ul.nav-3 li a:hover,
+.main-menu ul.nav-1 li ul.nav-2 li ul.nav-3 li a:active
+	{ background:#ec454e; }
+.main-menu ul.nav-1 li ul.nav-2 li a span
+	{ position:absolute; top:0; left:132px; font-size:12pt; color:#fe676f; }
+.main-menu ul.nav-1 li ul.nav-2 li:hover a span,
+.main-menu ul.nav-1 li ul.nav-2 li a:hover span
+	{ position:absolute; top:0; left:132px; font-size:12pt; color:#ffffff; }
 
 /* Brotkrümel (pfad zur aktuellen seite)
 ---------------------------------------------------------*/

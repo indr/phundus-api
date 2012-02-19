@@ -4,17 +4,17 @@
 }
 
 @section Breadcrumbs {
-     @Html.ActionLink("Bestellungen", "List") &gt; &Uuml;bersicht
+     @Html.ActionLink("Bestellungen", "Index") &gt; &Uuml;bersicht
 }
 
-<h2>Bestellungen</h2>
+@*<h2>Bestellungen</h2>
 
 <p>
     @Html.ActionLink("Alle", "All") |
     @Html.ActionLink("Provisorisch", "Pending") |
     @Html.ActionLink("Bestätigt", "Approved") |
-    @Html.ActionLink("Abgeschlossen", "Closed") 
-    @Html.ActionLink("Abgelehnt", "Rejected") |
-</p>
+    @Html.ActionLink("Abgeschlossen", "Closed") |
+    @Html.ActionLink("Abgelehnt", "Rejected")
+</p>*@
 
 @RenderBody()
