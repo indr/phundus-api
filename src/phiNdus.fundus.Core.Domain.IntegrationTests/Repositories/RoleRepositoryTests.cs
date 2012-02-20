@@ -50,7 +50,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
             {
                 var fromRepo = Sut.Get(1);
                 Assert.That(fromRepo, Is.Not.Null);
-                Assert.That(fromRepo.Name, Is.EqualTo("Benutzer"));
+                Assert.That(fromRepo.Name, Is.EqualTo("User"));
             }
         }
 
@@ -61,7 +61,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
             {
                 var fromRepo = Sut.Get(2);
                 Assert.That(fromRepo, Is.Not.Null);
-                Assert.That(fromRepo.Name, Is.EqualTo("Administrator"));
+                Assert.That(fromRepo.Name, Is.EqualTo("Admin"));
             }
         }
 

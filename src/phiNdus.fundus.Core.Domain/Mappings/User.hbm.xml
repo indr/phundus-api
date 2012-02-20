@@ -10,6 +10,6 @@
     <property name="FirstName" />
     <property name="LastName" />
     <one-to-one name="Membership" class="Membership" cascade="all-delete-orphan" />
-    <many-to-one name="Role" column="RoleId" />
+    <many-to-one name="Role" column="RoleId" lazy="false" />
   </class>
 </hibernate-mapping>

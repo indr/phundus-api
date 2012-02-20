@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using phiNdus.fundus.Core.Business.SecuredServices;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Security {
     public class FundusRoleProvider : RoleProvider {
@@ -40,8 +42,9 @@ namespace phiNdus.fundus.Core.Web.Security {
             throw new NotImplementedException();
         }
 
-        public override string[] GetRolesForUser(string username) {
-            throw new NotImplementedException();
+        public override string[] GetRolesForUser(string username)
+        {
+            return IoC.Resolve<IRoleService>().GetRolesForUser(HttpContext.Current.Session.SessionID);
         }
 
         public override string[] GetUsersInRole(string roleName) {

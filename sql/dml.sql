@@ -7,9 +7,9 @@ SET QUOTED_IDENTIFIER ON;
 insert into hibernate_unique_key values ( 1 );
 
 insert into [Role] (Id, Version, Name)
-  values (1, 1, 'Benutzer');
+  values (1, 1, 'User');
 insert into [Role] (Id, Version, Name)
-  values (2, 1, 'Administrator');
+  values (2, 1, 'Admin');
 
 EXEC('CREATE TRIGGER [DenyInsertUpdateDeleteRole] ON [dbo].[Role] AFTER INSERT, UPDATE, DELETE
 AS 

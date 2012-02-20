@@ -4,8 +4,10 @@
 <ul class="nav-1">
     <li>@Html.ActionLink("Home", "Index", "Shop")</li>
 
-    @if (Request.IsAuthenticated) {
+    @if (Request.IsAuthenticated && User.IsInRole("User")) {
         <li>@Html.ActionLink("Bestellungen", "Index", "Order")
+            @if (User.IsInRole("Admin"))
+            {
             <ul class="nav-2">
                 <li>@Html.ActionLink("Alle", "All", "Order")</li>
                 <li>@Html.ActionLink("Provisorische", "Pending", "Order")</li>
@@ -13,14 +15,20 @@
                 <li>@Html.ActionLink("Abgeschlossene", "Closed", "Order")</li>
                 <li>@Html.ActionLink("Abgelehnte", "Rejected", "Order")</li>
             </ul>
+            }
         </li>
         <li>@Html.ActionLink("Verträge", "Index", "Contract")
+            @if (User.IsInRole("Administrators"))
+            {
             <ul class="nav-2">
                 <li>@Html.ActionLink("Unterschriebene", "Signed", "Contract")</li>
                 <li>@Html.ActionLink("Abgeschlossene", "Closed", "Contract")</li>
             </ul>
+            }
         </li>
         
+        if (User.IsInRole("Administrators"))
+        {
         <li>@Html.ActionLink("Artikel", "Index", "Article")
             <ul class="nav-2">
                 <li>@Html.ActionLink("Neu", "Create", "Article")</li>
@@ -28,5 +36,6 @@
         </li>
         <li>@Html.ActionLink("Benutzer", "Index", "User")</li>
         <li>@Html.ActionLink("Einstellungen", "Index", "Setting")</li>
+        }
     }
 </ul>

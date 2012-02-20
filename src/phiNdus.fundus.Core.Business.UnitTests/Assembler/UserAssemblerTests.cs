@@ -31,7 +31,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             User = new User(1, 2);
             User.FirstName = "John";
             User.LastName = "Wayne";
-            User.Role = new Role(1, "Benutzer");
+            User.Role = new Role(1, "User");
             var membership = new DerivedMembership();
             membership.SetCreateDate(new DateTime(2011, 6, 5, 14, 48, 55));
             User.Membership = membership;
@@ -111,7 +111,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             Assert.That(dto.CreateDate, Is.EqualTo(new DateTime(2011, 6, 5, 14, 48, 55)));
             Assert.That(dto.IsApproved, Is.True);
             Assert.That(dto.RoleId, Is.EqualTo(1));
-            Assert.That(dto.RoleName, Is.EqualTo("Benutzer"));
+            Assert.That(dto.RoleName, Is.EqualTo("User"));
         }
 
         [Test]
