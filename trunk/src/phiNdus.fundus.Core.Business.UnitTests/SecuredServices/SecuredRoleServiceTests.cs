@@ -21,8 +21,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices {
             var roles = this.Sut.GetRoles(null);
 
             Assert.That(roles.Count(), Is.EqualTo(2));
-            Assert.That(roles.SingleOrDefault(r => r.Name == "Administrator"), Is.Not.Null);
-            Assert.That(roles.SingleOrDefault(r => r.Name == "Benutzer"), Is.Not.Null);
+            Assert.That(roles.SingleOrDefault(r => r.Name == "User"), Is.Not.Null);
+            Assert.That(roles.SingleOrDefault(r => r.Name == "Admin"), Is.Not.Null);
         }
     }
 }

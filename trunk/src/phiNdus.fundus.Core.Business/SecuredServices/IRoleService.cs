@@ -11,5 +11,12 @@ namespace phiNdus.fundus.Core.Business.SecuredServices {
         /// Liefert alle im System definierten Rollen.
         /// </summary>
         IEnumerable<RoleDto> GetRoles(string sessionKey);
+
+        /// <summary>
+        /// Liefert die Rollen, in welchen der angegeben Benutzer ist.
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <returns></returns>
+        string[] GetRolesForUser(string sessionKey);
     }
 }

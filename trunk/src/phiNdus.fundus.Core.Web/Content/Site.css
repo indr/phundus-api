@@ -49,39 +49,40 @@ body {
 	  width:148px; }
 .main-menu ul.nav-1 li a:link,
 .main-menu ul.nav-1 li a:visited
-	{ padding:10px 0; display:block;
-	  width:148px; height:30px;
-	  text-align:center; text-decoration:none; color:#ffffff; }
+	{ padding:16px 0; display:block;
+	  width:148px; height:24px;
+	  text-align:center; text-decoration:none; color:#ffffff; font-weight:normal; }
 .main-menu ul.nav-1 li:hover a,
 .main-menu ul.nav-1 li a:hover,
 .main-menu ul.nav-1 li a:active
-	{ padding:10px 0; display:block; 
-	  width:148px; height:30px;
+	{ padding:16px 0; display:block; 
+	  width:148px; height:24px;
 	  /*background:#ec454e; border-left:1px solid #ffffff; border-right:1px solid #ffffff;*/
-	  text-align:center; text-decoration:none;  color:#ffffff; }
+	  text-align:center; text-decoration:none; color:#ffffff; font-weight:bold; }
 	
 .main-menu ul.nav-1 li ul.nav-2
-	{ margin:0; padding:1px 1px 0; list-style:none; display:none;
-	  width:148px; position:absolute; top:45px; left:-1px; 
-	  background:#ffffff; border:1px solid #109033; border-top:none; }
+	{ margin:0; padding:1px 1px; list-style:none; display:none;
+	  width:146px; position:absolute; top:45px; /*left:-1px; */
+	  background:#ffffff; border:1px solid #9bd217; border-top:none; }
 .main-menu ul.nav-1 li:hover ul.nav-2
 	{ display:block; }
 .main-menu ul.nav-1 li ul.nav-2 li
 	{ width:146px; clear:left; width:146px; }
 .main-menu ul.nav-1 li ul.nav-2 li a:link,
 .main-menu ul.nav-1 li ul.nav-2 li a:visited
-	{ clear:left; padding:4px 0; width:146px;
+	{ clear:left; padding:16px 0; width:146px;
 	  background:#ffffff;
 	  border:none; border-bottom:1px solid #ffffff; position:relative; z-index:1000;
-	  color:#109033;}
+	  color:#109033; font-weight:normal;}
 .main-menu ul.nav-1 li ul.nav-2 li:hover a,
 .main-menu ul.nav-1 li ul.nav-2 li a:active,
 .main-menu ul.nav-1 li ul.nav-2 li a:hover
-	{ clear:left; padding:4px 0; width:146px;
-	  background:#109033;
+	{ clear:left; padding:16px 0; width:146px;
+	  background:#9bd217;
 	  border:none; border-bottom:1px solid #ffffff; position:relative; z-index:1000;
-	  color:#ffffff;}
+	  color:#ffffff; font-weight:bold;}
 
+/*
 .main-menu ul.nav-1 li ul.nav-2 li ul.nav-3
 	{ display:none; margin:0; padding:0; list-style:none; position:absolute; left:145px; top:-2px; padding:1px 1px 0 1px; border:1px solid #b9121b; border-left:1px solid #b9121b; background:#ffffff; z-index:900; }
 .main-menu ul.nav-1 li ul.nav-2 li:hover ul.nav-3
@@ -98,6 +99,7 @@ body {
 .main-menu ul.nav-1 li ul.nav-2 li:hover a span,
 .main-menu ul.nav-1 li ul.nav-2 li a:hover span
 	{ position:absolute; top:0; left:132px; font-size:12pt; color:#ffffff; }
+*/
 
 /* Brotkrümel (pfad zur aktuellen seite)
 ---------------------------------------------------------*/
