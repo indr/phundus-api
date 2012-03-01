@@ -1,7 +1,7 @@
 ﻿@model FieldViewModel
 
 @{
-    ViewBag.Title = "Neues Feld erfassen";
+    ViewBag.Title = "Neue Eigenschaft";
 }
 
 @section Breadcrumbs {
@@ -10,15 +10,18 @@
      @ViewBag.Title
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>Materialeigenschaften</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Create", "Fields", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+    <legend>Neue Eigenschaft erstellen</legend>
     @Html.ValidationSummary(true)
-
     @Html.EditorForModel()
-    
-    <p>
-        <input type="submit" value="Speichern" /> | @Html.ActionLink("Zurück zur Übersicht", "Index")
-    </p>
+    <div class="form-actions">
+        @Html.SubmitButton("Speichern")
+        @Html.ActionLinkButton("Abbrechen", "Index")
+    </div>
+    </fieldset>
 }
 

@@ -12,15 +12,18 @@
 
 <h2>Materialeigenschaften</h2>
 
-@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId="message-box-container" }))
+@*@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "message-box-container" }))*@
+@using (Ajax.BeginForm(new AjaxOptions { }))
 {
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(false)
     
     <p>
-        <span class="unobtrusive-remove"><input type="submit" value="Speichern" /> | </span>@Html.ActionLink("Neues Feld hinzufügen", "Create")
+        <span class="unobtrusive-remove"><input type="submit" value="Speichern" /> | </span>
+        @Html.ActionLinkButton("Neue Eigenschaft", "Create", new { }, "", ButtonClass.Primary)
     </p>
-    <table class="list dnd">
-        <tr>
+    <table class="table table-bordered table-striped dnd">
+       <thead>
+        <tr class="nodrop">
             <th>
                 Position
             </th>
@@ -39,9 +42,11 @@
             <th></th>
         </tr>
 
+        </thead>
+        <tbody>
     @for (var idx = 0; idx < Model.Items.Count; idx++)
     {
-        <tr>
+        <tr id="@Html.Raw(Model.Items[idx].Id.ToString())">
             <td class="dnd-idx">
                 @Html.EditorFor(m => m.Items[idx].Position)
             </td>
@@ -60,24 +65,24 @@
             <td>
                 @Html.HiddenFor(m => m.Items[idx].Id)
 
-                @Html.ActionLinkIcon("Anzeigen", ActionLinkIcon.Detail, "Details", new { id = Model.Items[idx].Id })
-                @Html.ActionLinkIcon("Bearbeiten", ActionLinkIcon.Edit, "Edit", new { id = Model.Items[idx].Id })
-            
+                @Html.ActionLinkButton("Bearbeiten", "Edit", new { id = Model.Items[idx].Id })
                 @if (!Model.Items[idx].IsSystem)
                 {
-                    @Html.ActionLinkIcon("Löschen", ActionLinkIcon.Remove, "Delete", new { id = Model.Items[idx].Id, version = Model.Items[idx].Version })
+                    @Html.ActionLinkButton("Löschen", "Delete", new { id = Model.Items[idx].Id, version = Model.Items[idx].Version }, "", ButtonClass.Danger)
                 }
             </td>
         </tr>
     }
+   </tbody>
     </table>
     <p>
-        <span class="unobtrusive-remove"><input type="submit" value="Speichern" /> | </span>@Html.ActionLink("Neues Feld hinzufügen", "Create")
+        <span class="unobtrusive-remove"><input type="submit" value="Speichern" /> | </span>
+        @Html.ActionLinkButton("Neue Eigenschaft", "Create", new { }, "", ButtonClass.Primary)
     </p>
 }
 
 
-@*<script type="text/javascript">
+@*<!--<script type="text/javascript">
     function mysuccess(data) {
         $('#message-box-container').empty().append(data.message);
 
@@ -97,4 +102,4 @@
         }
         
     }
-</script>*@
+</script>-->*@
