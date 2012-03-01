@@ -96,6 +96,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ActiveTabExtension.cs" />
     <Compile Include="Helpers\LabelExtensions.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\MvcContainer.cs" />
@@ -205,6 +206,7 @@
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Scripts\Application.js" />
     <Content Include="Scripts\bootstrap-dropdown.js" />
+    <Content Include="Scripts\bootstrap-tab.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
@@ -294,7 +296,7 @@
     <Content Include="Views\Shared\_UpperMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Article\Edit.cshtml" />
+    <Content Include="Views\Article\Fields.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Cart\List.cshtml" />

@@ -15,10 +15,10 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         private static class Views
         {
+            public static string Fields { get { return @"Fields"; } }
             public static string Images { get { return @"Images"; } }
+            public static string Categories { get { return @"Categories"; } }
             public static string Availability { get { return @"Availability"; } }
-            public static string Categories { get {return @"Categories"; } }
-            public static string Details { get { return @"Details"; } }
         }
 
         protected IArticleService ArticleService { get { return IoC.Resolve<IArticleService>(); } }
@@ -44,6 +44,19 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return View(model);
         }
 
+        public ActionResult Fields(int id)
+        {
+            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(Views.Fields, model);
+            }
+            else
+            {
+                return View(Views.Fields, MasterView, model);
+            }
+        }
+
         //
         // Get: /Article/Availability/5
         
@@ -63,18 +76,18 @@ namespace phiNdus.fundus.Core.Web.Controllers
         //
         // GET: /Article/Details/5
 
-        public ActionResult Details(int id)
-        {
-            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView(Views.Details, model);
-            }
-            else
-            {
-                return View(Views.Details, MasterView, model);
-            }
-        }
+        //public ActionResult Details(int id)
+        //{
+        //    var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
+        //    if (Request.IsAjaxRequest())
+        //    {
+        //        return PartialView(Views.Details, model);
+        //    }
+        //    else
+        //    {
+        //        return View(Views.Details, MasterView, model);
+        //    }
+        //}
 
         //
         // GET: /Article/Categories/5
@@ -193,7 +206,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
             var model = new ArticleViewModel(
                 ArticleService.GetArticle(Session.SessionID, id),
                 ArticleService.GetProperties(Session.SessionID));
-            return View(model);
+            return View(Views.Fields, MasterView, model);
         }
 
         //
