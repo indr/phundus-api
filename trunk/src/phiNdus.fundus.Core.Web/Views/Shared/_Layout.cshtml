@@ -161,8 +161,16 @@
                 });
                 $(table).closest('form').submit();
             }
-            
+
         });
+
+        // Tabs: Active setzen bei (unobstrusiven) Tabs, die den tab-content dynamisch laden (Ajax.ActionLinks).
+        $('.nav-tabs li a').click(function () {
+            var li = $(this).closest('li');
+            li.siblings('.active').removeClass('active');
+            li.addClass('active');
+        });
+
         $('.unobtrusive-remove').remove();
     });
 </script>
