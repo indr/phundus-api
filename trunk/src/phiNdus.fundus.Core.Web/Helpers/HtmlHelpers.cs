@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using System.Web.UI.WebControls;
 using phiNdus.fundus.Core.Business.Dto;
 
 namespace phiNdus.fundus.Core.Web.Helpers
@@ -19,7 +20,7 @@ namespace phiNdus.fundus.Core.Web.Helpers
         public static string DragAndDrop { get { return @"ui-icon-arrowthick-2-n-s"; } }
     }
 
-    public static class ActionButtonIcon
+    public static class Icon
     {
         public static string None { get { return @""; } }
         public static string Edit { get { return @"icon-pencil"; } }
@@ -28,6 +29,19 @@ namespace phiNdus.fundus.Core.Web.Helpers
         public static string Print { get { return @"icon-print"; } }
         public static string DragAndDrop { get { return @"icon-arrowthick-2-n-s"; } }
     }
+
+    public static class ButtonClass
+    {
+        public static string None { get { return @""; } }
+        public static string Primary { get { return @"btn-primary"; } }
+        public static string Info { get { return @"btn-info"; } }
+        public static string Success { get { return @"btn-success"; } }
+        public static string Warning { get { return @"btn-warning"; } }
+        public static string Danger { get { return @"btn-danger"; } }
+        public static string Inverse { get { return @"btn-inverse"; } }
+    }
+
+    
 
     public static class HtmlHelpers
     {
@@ -41,8 +55,6 @@ namespace phiNdus.fundus.Core.Web.Helpers
             var tag = tagBuilder.ToString(TagRenderMode.Normal);
             return MvcHtmlString.Create(tag);
         }
-
-        
 
         public static IHtmlString Icon(this HtmlHelper htmlHelper, string tooltip, string iconName, string cursor)
         {
@@ -61,22 +73,59 @@ namespace phiNdus.fundus.Core.Web.Helpers
             return MvcHtmlString.Create(divBuilder.ToString(TagRenderMode.Normal));
         }
 
-        
-        
-        public static IHtmlString ActionButton(this HtmlHelper htmlHelper, string caption, string buttonIcon, string actionName, object routedValues)
+        public static IHtmlString SubmitButton(this HtmlHelper htmlHelper, string caption)
         {
-            
-            
-            var i = new TagBuilder("i");
-            i.AddCssClass(buttonIcon);
-            i.AddCssClass("icon-white");
+            return SubmitButton(htmlHelper, caption, ButtonClass.Primary);
+        }
 
+        public static IHtmlString SubmitButton(this HtmlHelper htmlHelper, string caption, string buttonClass)
+        {
+            //<input class="btn {buttonClass}" type="submit" value="Speichern" />
+            var builder = new TagBuilder("input");
+            builder.MergeAttribute("type", "submit");
+            builder.MergeAttribute("value", caption);
+            builder.AddCssClass("btn");
+            builder.AddCssClass(buttonClass);
+            return MvcHtmlString.Create(builder.ToString());
+        }
+
+        public static IHtmlString ActionLinkButton(this HtmlHelper htmlHelper, string caption,
+            string actionName, object routedValues, string buttonIcon)
+        {
+            return ActionLinkButton(htmlHelper, caption, actionName, routedValues, buttonIcon, ButtonClass.None);
+        }
+
+        public static IHtmlString ActionLinkButton(this HtmlHelper htmlHelper, string caption,
+            string actionName, object routedValues, string buttonIcon, string buttonClass)
+        {
+            return ActionLinkButton(htmlHelper, caption, actionName, "", routedValues, buttonIcon, ButtonClass.None);
+        }
+
+        public static IHtmlString ActionLinkButton(this HtmlHelper htmlHelper, string caption,
+            string actionName, string controllerName, object routedValues, string buttonIcon)
+        {
+            return ActionLinkButton(htmlHelper, caption, actionName, controllerName, routedValues, buttonIcon, ButtonClass.None);
+        }
+
+        public static IHtmlString ActionLinkButton(HtmlHelper htmlHelper, string caption, string actionName, string controllerName, object routedValues, string buttonIcon, string buttonClass)
+        {
+            var innerHtml = caption;
+            if (!String.IsNullOrWhiteSpace(buttonIcon))
+            {
+                var i = new TagBuilder("i");
+                i.AddCssClass(buttonIcon);
+                innerHtml = i.ToString(TagRenderMode.Normal);
+
+                if (!String.IsNullOrWhiteSpace(caption))
+                    innerHtml += @"&nbsp;" + caption; 
+            }
 
             var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
             var a = new TagBuilder("a");
-            a.MergeAttribute("href", urlHelper.Action(actionName, routedValues));
-            a.InnerHtml = i.ToString(TagRenderMode.Normal) + caption;
+            a.MergeAttribute("href", urlHelper.Action(actionName, controllerName, routedValues));
+            a.InnerHtml = innerHtml;
             a.AddCssClass("btn");
+            a.AddCssClass(buttonClass);
 
             return MvcHtmlString.Create(a.ToString(TagRenderMode.Normal));
         }
@@ -85,13 +134,6 @@ namespace phiNdus.fundus.Core.Web.Helpers
         public static IHtmlString ActionLinkIcon(this HtmlHelper htmlHelper, string tooltip, string iconName, string actionName, object routedValues)
         {
             var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
-
-            /* <a link="controller/action/..">
-             *     <div class="icon ui-state-default ui-corner-all">
-             *         <span class="ui-icon ui-icon-trash"></span>
-             *     </div>
-             * </a>
-             */
 
             var spanBuilder = new TagBuilder("span");
             spanBuilder.AddCssClass(string.Format("ui-icon {0}", iconName));

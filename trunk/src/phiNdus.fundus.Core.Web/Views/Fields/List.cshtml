@@ -1,7 +1,7 @@
 ﻿@model FieldsViewModel
 
 @{
-    ViewBag.Title = "Artikelfelder";
+    ViewBag.Title = "Materialeigenschaften";
 }
 
 @section Breadcrumbs {
@@ -9,6 +9,8 @@
      @Html.ActionLink("Felder", "List") &gt;
      &Uuml;bersicht
 }
+
+<h2>Materialeigenschaften</h2>
 
 @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId="message-box-container" }))
 {

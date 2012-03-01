@@ -1,20 +1,15 @@
 ﻿@model phiNdus.fundus.Core.Business.Dto.UserDto[]
            
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Benutzer";
 }
 
 @section Breadcrumbs {
      @Html.ActionLink("Benutzer", "Index") &gt; &Uuml;bersicht
 }
 
-@*<h2>List</h2>*@
-
-<!--
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
--->
+<h2>Benutzer</h2>
+<p></p>
 <table class="table table-bordered table-striped">
     <tr>
         <th>Vorname</th>
@@ -39,9 +34,8 @@
             @Html.DisplayFor(modelItem => item.RoleName)
         </td>
         <td>
-            @Html.ActionButton("Details", ActionButtonIcon.Detail, "Details", new { id = item.Id })
-            @Html.ActionButton("Bearbeiten", ActionButtonIcon.Edit, "Edit", new { id = item.Id })
-            @Html.ActionButton("Löschen", ActionButtonIcon.Remove, "Delete", new { id = item.Id })
+            @Html.ActionLinkButton("", "Details", new { id = item.Id }, Icon.Detail)
+            @Html.ActionLinkButton("", "Edit", new { id = item.Id }, Icon.Edit)
         </td>
     </tr>
 }

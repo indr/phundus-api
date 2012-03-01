@@ -12,17 +12,18 @@
 
 @using (Html.BeginForm(new { id = (string)null }))
 {
-    @Html.ValidationSummary(true, "Fehler bei der Validierung")
+    <fieldset>
+        <div class="control-group">
+            @Html.LabelFor(m => m.Key, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Key)
+                @Html.ValidationMessageFor(m => m.Key)
+            </div>
+        </div>
 
-    <div class="formular-box">        
-        <p class="formular-item">
-            @Html.LabelFor(m => m.Key)<br />
-            @Html.TextBoxFor(m => m.Key, new { @class = "text-input" })<br />
-            @Html.ValidationMessageFor(m => m.Key)
-        </p>
-        <p class="formular-action">
-            <input type="submit" value="Validieren" class="action" />
-        </p>
-    </div>
+        @Html.ValidationSummary(true, "Fehler bei der Validierung:")
+        <div class="form-actions">
+            @Html.SubmitButton("Validieren")
+        </div>
+    </fieldset>
 }
-
