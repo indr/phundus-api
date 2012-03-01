@@ -19,6 +19,16 @@ namespace phiNdus.fundus.Core.Web.Helpers
         public static string DragAndDrop { get { return @"ui-icon-arrowthick-2-n-s"; } }
     }
 
+    public static class ActionButtonIcon
+    {
+        public static string None { get { return @""; } }
+        public static string Edit { get { return @"icon-pencil"; } }
+        public static string Detail { get { return @"icon-search"; } }
+        public static string Remove { get { return @"icon-trash"; } }
+        public static string Print { get { return @"icon-print"; } }
+        public static string DragAndDrop { get { return @"icon-arrowthick-2-n-s"; } }
+    }
+
     public static class HtmlHelpers
     {
         public static IHtmlString LinkToRemoveProperty(this HtmlHelper htmlHelper, string linkText, string container)
@@ -31,6 +41,8 @@ namespace phiNdus.fundus.Core.Web.Helpers
             var tag = tagBuilder.ToString(TagRenderMode.Normal);
             return MvcHtmlString.Create(tag);
         }
+
+        
 
         public static IHtmlString Icon(this HtmlHelper htmlHelper, string tooltip, string iconName, string cursor)
         {
@@ -47,6 +59,26 @@ namespace phiNdus.fundus.Core.Web.Helpers
             if (!String.IsNullOrWhiteSpace(cursor))
                 divBuilder.Attributes.Add("style", "cursor: " + cursor);
             return MvcHtmlString.Create(divBuilder.ToString(TagRenderMode.Normal));
+        }
+
+        
+        
+        public static IHtmlString ActionButton(this HtmlHelper htmlHelper, string caption, string buttonIcon, string actionName, object routedValues)
+        {
+            
+            
+            var i = new TagBuilder("i");
+            i.AddCssClass(buttonIcon);
+            i.AddCssClass("icon-white");
+
+
+            var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
+            var a = new TagBuilder("a");
+            a.MergeAttribute("href", urlHelper.Action(actionName, routedValues));
+            a.InnerHtml = i.ToString(TagRenderMode.Normal) + caption;
+            a.AddCssClass("btn");
+
+            return MvcHtmlString.Create(a.ToString(TagRenderMode.Normal));
         }
 
         // http://stackoverflow.com/questions/989005/make-an-html-actionlink-around-an-image-in-asp-net-mvc

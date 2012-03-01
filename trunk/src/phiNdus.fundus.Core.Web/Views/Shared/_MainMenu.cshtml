@@ -1,41 +1,55 @@
 @inherits System.Web.Mvc.WebViewPage<dynamic>
 
 
-<ul class="nav-1">
+<ul class="nav">
     <li>@Html.ActionLink("Home", "Index", "Shop")</li>
 
     @if (Request.IsAuthenticated && User.IsInRole("User")) {
-        <li>@Html.ActionLink("Bestellungen", "Index", "Order")
+        <li class="dropdown">
             @if (User.IsInRole("Admin"))
             {
-            <ul class="nav-2">
-                <li>@Html.ActionLink("Alle", "All", "Order")</li>
-                <li>@Html.ActionLink("Provisorische", "Pending", "Order")</li>
-                <li>@Html.ActionLink("Bestätigte", "Approved", "Order")</li>
-                <li>@Html.ActionLink("Abgeschlossene", "Closed", "Order")</li>
-                <li>@Html.ActionLink("Abgelehnte", "Rejected", "Order")</li>
-            </ul>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bestellungen<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Alle", "All", "Order")</li>
+                    <li>@Html.ActionLink("Provisorische", "Pending", "Order")</li>
+                    <li>@Html.ActionLink("Bestätigte", "Approved", "Order")</li>
+                    <li>@Html.ActionLink("Abgeschlossene", "Closed", "Order")</li>
+                    <li>@Html.ActionLink("Abgelehnte", "Rejected", "Order")</li>
+                </ul>
+            }
+            else
+            {
+                @Html.ActionLink("Bestellungen", "Index", "Order")
             }
         </li>
-        <li>@Html.ActionLink("Verträge", "Index", "Contract")
-            @if (User.IsInRole("Administrators"))
+        <li class="dropdown">
+            
+            
+            @if (User.IsInRole("Admin"))
             {
-            <ul class="nav-2">
-                <li>@Html.ActionLink("Unterschriebene", "Signed", "Contract")</li>
-                <li>@Html.ActionLink("Abgeschlossene", "Closed", "Contract")</li>
-            </ul>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Verträge<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Unterschriebene", "Signed", "Contract")</li>
+                    <li>@Html.ActionLink("Abgeschlossene", "Closed", "Contract")</li>
+                </ul>
+            }
+            else
+            {
+                @Html.ActionLink("Verträge", "Index", "Contract")
             }
         </li>
         
-        if (User.IsInRole("Administrators"))
+        if (User.IsInRole("Admin"))
         {
-        <li>@Html.ActionLink("Artikel", "Index", "Article")
-            <ul class="nav-2">
-                <li>@Html.ActionLink("Neu", "Create", "Article")</li>
-            </ul>
-        </li>
-        <li>@Html.ActionLink("Benutzer", "Index", "User")</li>
-        <li>@Html.ActionLink("Einstellungen", "Index", "Setting")</li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Artikel<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Neu", "Create", "Article")</li>
+                    <li>@Html.ActionLink("Suchen", "Index", "Article")</li>
+                </ul>
+            </li>
+            <li>@Html.ActionLink("Benutzer", "Index", "User")</li>
+            <li>@Html.ActionLink("Einstellungen", "Index", "Setting")</li>
         }
     }
 </ul>

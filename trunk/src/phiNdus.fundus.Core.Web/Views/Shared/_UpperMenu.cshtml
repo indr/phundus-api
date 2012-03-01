@@ -1,4 +1,6 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<dynamic>
+              
+<p class="navbar-text pull-right">
 @if (Request.IsAuthenticated)
 {   
     @:<a href="#">Mein Profil</a> |
@@ -16,3 +18,4 @@ else
     @Html.ActionLink("Registrieren", "SignUp", "Account") @:|
     @Html.ActionLink("Anmelden", "LogOn", "Account")
 }
+</p>

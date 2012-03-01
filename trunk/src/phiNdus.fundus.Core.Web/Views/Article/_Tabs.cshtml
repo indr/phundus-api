@@ -11,13 +11,16 @@
     <div class="tabs">
         <ul>
             <li>@Ajax.ActionLink("Verfügbarkeit", "Availability", new { id = Model.Id }, new AjaxOptions {
-               HttpMethod = "GET", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
+               HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
 
             <li>@Ajax.ActionLink("Eigenschaften", "Details",new { id = Model.Id }, new AjaxOptions {
-               HttpMethod = "GET", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
+               HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
 
             <li>@Ajax.ActionLink("Kategorien", "Categories", new { id = Model.Id }, new AjaxOptions {
-               HttpMethod = "GET", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
+               HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
+            
+            <li>@Ajax.ActionLink("Bilder", "Images", new { id = Model.Id }, new AjaxOptions {
+               HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
         </ul>
         <div class="tab" id="tabContent">
             @RenderBody()

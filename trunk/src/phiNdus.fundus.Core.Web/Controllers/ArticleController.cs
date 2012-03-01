@@ -15,6 +15,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         private static class Views
         {
+            public static string Images { get { return @"Images"; } }
             public static string Availability { get { return @"Availability"; } }
             public static string Categories { get {return @"Categories"; } }
             public static string Details { get { return @"Details"; } }
@@ -89,6 +90,16 @@ namespace phiNdus.fundus.Core.Web.Controllers
             {
                 return View(Views.Categories, MasterView, model);
             }
+        }
+
+        //
+        // GET: /Article/Images
+        public ActionResult Images(int id)
+        {
+            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
+            if (Request.IsAjaxRequest())
+                return PartialView(Views.Images, model);
+            return View(Views.Images, MasterView, model);
         }
 
         //
