@@ -303,9 +303,6 @@
     <Content Include="Views\Fields\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Fields\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Fields\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -343,12 +340,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\CartModel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\FieldViewModel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\DisplayTemplates\FieldViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\Availability.cshtml" />
@@ -396,6 +387,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Article\Images.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\FieldViewModel.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

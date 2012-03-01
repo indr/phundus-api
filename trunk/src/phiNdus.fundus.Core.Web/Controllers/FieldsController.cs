@@ -82,13 +82,6 @@ namespace phiNdus.fundus.Core.Web.Controllers
         }
 
         //
-        // GET: /Fields/Details/5
-        public ActionResult Details(int id)
-        {
-            return View(new FieldViewModel().Load(id));
-        }
-
-        //
         // GET: /Fields/Create
         public ActionResult Create()
         {

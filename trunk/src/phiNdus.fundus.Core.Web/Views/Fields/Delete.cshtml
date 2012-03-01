@@ -1,7 +1,7 @@
 ﻿@model FieldViewModel
 
 @{
-    ViewBag.Title = "Feld \"" + Model.Caption + "\" löschen";
+    ViewBag.Title = "Eigenschaft \"" + Model.Caption + "\" löschen";
 }
 
 @section Breadcrumbs {
@@ -10,16 +10,20 @@
      @ViewBag.Title
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>Materialeigenschaften</h2>
+@using (Html.BeginForm())
+{
+    <fieldset>
+    <legend>@ViewBag.Title</legend>
+    @Html.HiddenFor(m => m.Version)
 
-<p>Möchten Sie dieses Feld wirklich löschen?</p>
-<p> Alle Werte die auf Artikeln in diesem Feld gespeichert sind, gehen verloren.</p>
-<p>Dieser Vorgang kann nicht rückgängig gemacht werden.</p>
-@using (Html.BeginForm()) {
-    <p>
-        @Html.HiddenFor(m => m.Version)
-        <input type="submit" value="Löschen" /> |
-        @Html.ActionLink("Abbrechen", "Details", new { id = Model.Id }) |
-        @Html.ActionLink("Zurück zur Übersicht", "Index")
-    </p>
+    <p>Möchten Sie diese Eigenschaft wirklich löschen?</p>
+    <p>Alle Werte die auf Artikeln in diesem Feld gespeichert sind, gehen verloren.</p>
+    <p>Dieser Vorgang kann nicht rückgängig gemacht werden.</p>
+    
+    <div class="form-actions">
+        @Html.SubmitButton("Ja, löschen!", ButtonClass.Danger)
+        @Html.ActionLinkButton("Abbrechen", "Index")
+    </div>
+</fieldset>    
 }

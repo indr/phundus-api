@@ -16,10 +16,10 @@
 
 @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
 {
-    @Html.ValidationSummary(true)
+    
     <fieldset>
         <legend>Benutzer bearbeiten</legend>
-        
+        @Html.ValidationSummary(true)    
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.Version)
         

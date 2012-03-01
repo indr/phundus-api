@@ -1,7 +1,7 @@
 ﻿@model FieldViewModel
 
 @{
-    ViewBag.Title = "Feld \"" + Model.Caption + "\" bearbeiten";
+    ViewBag.Title = "Eigenschaft \"" + Model.Caption + "\" bearbeiten";
 }
 
 @section Breadcrumbs {
@@ -10,9 +10,12 @@
      @ViewBag.Title
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>Materialeigeschaften</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Edit", "Fields", FormMethod.Post, new { @class = "form-horizontal" })) {
+    <fieldset>
+        <legend>@ViewBag.Title</legend>
+    
     @Html.ValidationSummary(true)
     
     @Html.HiddenFor(x => x.Id)
@@ -20,7 +23,8 @@
 
     @Html.EditorForModel()
 
-    <p>
-        <input type="submit" value="Speichern" /> | @Html.ActionLink("Abbrechen", "Index")
-    </p>
+    <div class="form-actions">
+        @Html.SubmitButton("Speichern") @Html.ActionLinkButton("Abbrechen", "Index")
+    </div>
+    </fieldset>
 }

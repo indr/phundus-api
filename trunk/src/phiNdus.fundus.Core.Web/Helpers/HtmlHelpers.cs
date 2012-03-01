@@ -89,6 +89,21 @@ namespace phiNdus.fundus.Core.Web.Helpers
             return MvcHtmlString.Create(builder.ToString());
         }
 
+        public static IHtmlString Button(this HtmlHelper htmlHelper, string caption)
+        {
+            return MvcHtmlString.Empty;
+        }
+
+        public static IHtmlString ActionLinkButton(this HtmlHelper htmlHelper, string caption, string actionName)
+        {
+            return ActionLinkButton(htmlHelper, caption, actionName, null);
+        }
+
+        public static IHtmlString ActionLinkButton(this HtmlHelper htmlHelper, string caption, string actionName, object routedValues)
+        {
+            return ActionLinkButton(htmlHelper, caption, actionName, routedValues, String.Empty);
+        }
+
         public static IHtmlString ActionLinkButton(this HtmlHelper htmlHelper, string caption,
             string actionName, object routedValues, string buttonIcon)
         {
@@ -98,7 +113,7 @@ namespace phiNdus.fundus.Core.Web.Helpers
         public static IHtmlString ActionLinkButton(this HtmlHelper htmlHelper, string caption,
             string actionName, object routedValues, string buttonIcon, string buttonClass)
         {
-            return ActionLinkButton(htmlHelper, caption, actionName, "", routedValues, buttonIcon, ButtonClass.None);
+            return ActionLinkButton(htmlHelper, caption, actionName, null, routedValues, buttonIcon, buttonClass);
         }
 
         public static IHtmlString ActionLinkButton(this HtmlHelper htmlHelper, string caption,
