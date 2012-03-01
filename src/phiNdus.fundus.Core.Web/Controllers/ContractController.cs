@@ -17,5 +17,20 @@ namespace phiNdus.fundus.Core.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult My()
+        {
+            return RedirectToAction("List");
+        }
+
+        public ActionResult Signed()
+        {
+            return RedirectToAction("List");
+        }
+
+        public ActionResult Closed()
+        {
+            return RedirectToAction("List");
+        }
     }
 }

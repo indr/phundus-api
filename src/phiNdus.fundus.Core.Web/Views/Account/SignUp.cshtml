@@ -9,85 +9,44 @@
 }
 
 <h2>Registrieren</h2>
+<p></p>
 
-@{
-    HtmlHelper.ClientValidationEnabled = true;
-    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
-}
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <div class="control-group">
+            @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.FirstName)
+                @Html.ValidationMessageFor(m => m.FirstName)
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.LastName)
+                @Html.ValidationMessageFor(m => m.LastName)
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+            <div class="controls">
+                @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+        </div>
 
-
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true, "Konnte Benutzer nicht erstellen")
-
-    <div class="formular-box">
-
-        <p class="formular-item">
-            @Html.LabelFor(m => m.FirstName)<br />
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "text-input" })<br />
-            @Html.ValidationMessageFor(m => m.FirstName)
-        </p>
-
-        <p class="formular-item">
-            @Html.LabelFor(m => m.LastName)<br />
-            @Html.TextBoxFor(m => m.LastName, new { @class = "text-input" })<br />
-            @Html.ValidationMessageFor(m => m.LastName)
-        </p>
-
-        <p class="formular-item">
-            @Html.LabelFor(m => m.Email)<br />
-            @Html.TextBoxFor(m => m.Email, new { @class = "text-input" })<br />
-            @Html.ValidationMessageFor(m => m.Email)
-        </p>
-
-
-        <p class="formular-item">
-            @Html.LabelFor(m => m.Password)<br />
-            @Html.PasswordFor(m => m.Password, new { @class = "text-input" })<br />
-            @Html.ValidationMessageFor(m => m.Password)
-        </p>
-
-        <p class="formular-action">
-            <input type="submit" value="Registrieren" class="action" />
-        </p>
-
-        @*<tr>
-            <td colspan="2"></td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => m.FirstName)</td>
-            <td>@Html.TextBoxFor(m => m.FirstName)</td>
-        </tr>
-        <tr>
-            <td colspan="2">@Html.ValidationMessageFor(m => m.FirstName)</td>
-        </tr>
-    
-        <tr>
-            <td>@Html.LabelFor(m => m.LastName)</td>
-            <td>@Html.TextBoxFor(m => m.LastName)</td>
-        </tr>
-        <tr>
-            <td colspan="2">@Html.ValidationMessageFor(m => m.LastName)</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.Email)</td>
-            <td>@Html.TextBoxFor(m => m.Email)</td>
-        </tr>
-        <tr>
-            <td colspan="2">@Html.ValidationMessageFor(m => m.Email)</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.Password)</td>
-            <td>@Html.PasswordFor(m => m.Password)</td>
-        </tr>
-        <tr>
-            <td colspan="2">@Html.ValidationMessageFor(m => m.Password)</td>
-        </tr>
-
-        <tr>
-            <td></td>
-            <td style="text-align: right"><input type="submit" value="Registrieren" /></td>
-        </tr>*@
-    </div>
+        @Html.ValidationSummary(true, "Fehler bei der Registrierung:", new { @class = "alert alert-error"})
+        <div class="form-actions">
+            @Html.SubmitButton("Registrieren")
+            @Html.ActionLinkButton("Abbrechen", "Index", "Home", new { }, Icon.None)
+        </div>
+    </fieldset>
 }

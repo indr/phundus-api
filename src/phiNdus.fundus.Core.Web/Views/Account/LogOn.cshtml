@@ -9,41 +9,44 @@
 }
 
 <h2>Anmelden</h2>
-
+<p>Im Staging-Deployment sind diese Benutzer vordefiniert:</p>
+<ul>
+    <li>user@example.com, 1234</li>
+    <li>admin@example.com, 1234</li>
+</ul>
+<p>Wer aber sein eigenes Login mit seiner E-Mail-Adresse haben möchte und sich nicht jedes Mal frisch registrieren will, dem sei hier ein Rätsel gestellt:</p>
+<ul>
+    <li>/sql/dml-staging.sql</li>
+    <li>/src/phiNdus.fundus.Core.CliTools</li>
+</ul>
+<p>Viel Spass!</p>
 @using (Html.BeginForm()) {
-    @Html.ValidationSummary(true, "Fehler bei der Anmeldung")
+    <fieldset>
+        <div class="control-group">
+            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+            <div class="controls">
+                @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+        </div>           
+        <div class="control-group">
+            @Html.LabelFor(m => m.RememberMe, new { @class = "control-label" })
+            <div class="controls">
+                @Html.CheckBoxFor(m => m.RememberMe)
+            </div>
+        </div>
 
-    <div class="formular-box">        
-        <p>Im Staging-Deployment sind diese Benutzer vordefiniert:</p>
-        <ul>
-            <li>user@example.com, 1234</li>
-            <li>admin@example.com, 1234</li>
-        </ul>
-        <p>Wer aber sein eigenes Login mit seiner E-Mail-Adresse haben möchte und sich nicht jedes Mal frisch registrieren will, dem sei hier ein Rätsel gestellt:</p>
-        <ul>
-            <li>/sql/dml-staging.sql</li>
-            <li>/src/phiNdus.fundus.Core.CliTools</li>
-        </ul>
-        <p>Viel Spass!</p>
-        <p class="formular-item">
-            @Html.LabelFor(m => m.Email)<br />
-            @Html.TextBoxFor(m => m.Email, new { @class = "text-input" })<br />
-            @Html.ValidationMessageFor(m => m.Email)
-        </p>
-        <p class="formular-item">
-            @Html.LabelFor(m => m.Password)<br />
-            @Html.PasswordFor(m => m.Password, new { @class = "text-input" })<br />
-            @Html.ValidationMessageFor(m => m.Password)
-        </p>            
-        <p class="formular-item">
-            @Html.CheckBoxFor(m => m.RememberMe)
-            @Html.LabelFor(m => m.RememberMe)
-        </p>
-        <p class="formular-action">
-            <input type="submit" value="Anmelden" class="action" /> 
-            <p>
-                @Html.ActionLink("Passwort vergessen?", "ResetPassword") | @Html.ActionLink("Neues Konto erstellen", "SignUp")
-            </p>
-        </p>
-    </div>
+        @Html.ValidationSummary(true, "Fehler bei der Anmeldung:", new { @class = "alert alert-error"})
+        <div class="form-actions">
+            @Html.SubmitButton("Anmelden")
+            @Html.ActionLink("Passwort vergessen?", "ResetPassword") | @Html.ActionLink("Neues Konto erstellen", "SignUp")
+        </div>
+    </fieldset>
 }
