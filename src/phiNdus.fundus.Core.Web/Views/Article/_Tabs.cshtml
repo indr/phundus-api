@@ -1,31 +1,39 @@
 ﻿@model ArticleViewModel
+
 @{
-    ViewBag.Title = "Artikeldetails";
+    ViewBag.Title = "Material";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @section Breadcrumbs {
      @Html.ActionLink("Artikel", "Index") &gt; Details
 }
 
-<h2>Artikeldetails</h2>
-    <div class="tabs">
-        <ul>
-            <li>@Ajax.ActionLink("Verfügbarkeit", "Availability", new { id = Model.Id }, new AjaxOptions {
-               HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
+<h2>Material</h2>
+    
+    <div class="tabbable">
+        <ul class="nav nav-tabs">
+            <li class="@Html.ActiveTab("Article", new string[] { "Edit", "Fields" })">@Ajax.ActionLink("Eigenschaften", "Fields",new { id = Model.Id }, new AjaxOptions {
+               HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" })</li>
 
-            <li>@Ajax.ActionLink("Eigenschaften", "Details",new { id = Model.Id }, new AjaxOptions {
-               HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
+            <li class="@Html.ActiveTab("Article", new string[] { "Images"})">@Ajax.ActionLink("Bilder", "Images", new { id = Model.Id }, new AjaxOptions {
+               HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" })</li>
 
-            <li>@Ajax.ActionLink("Kategorien", "Categories", new { id = Model.Id }, new AjaxOptions {
-               HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
-            
-            <li>@Ajax.ActionLink("Bilder", "Images", new { id = Model.Id }, new AjaxOptions {
-               HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tabContent" })</li>
+            <li class="@Html.ActiveTab("Article", new string[] { "Categories"})">@Ajax.ActionLink("Kategorien", "Categories", new { id = Model.Id }, new AjaxOptions {
+               HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" })</li>
+
+            <li class=" class="@Html.ActiveTab("Article", new string[] { "Availability" })">@Ajax.ActionLink("Verfügbarkeit", "Availability", new { id = Model.Id }, new AjaxOptions
+                                                                                       {
+               HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" })</li>
         </ul>
-        <div class="tab" id="tabContent">
+        
+        <div class="tab-content" id="tab-content">
             @RenderBody()
         </div>
     </div>
+
+
+    
     
 <p>
     @Html.ActionLink("Zurück zur Übersicht", "Index") |

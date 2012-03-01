@@ -8,12 +8,14 @@
      @Html.ActionLink("Artikel", "Index") &gt; Löschen
 }
 
-<h2>Artikel löschen</h2>
-<p>Möchten Sie diesen Artikel wirklich löschen?</p>
+<h2>Material</h2>
 @using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Löschen" /> |
-        @Html.ActionLink("Abbrechen", "Details", new { id = Model.Id }) |
-        @Html.ActionLink("Zurück zur Übersicht", "Index")
-    </p>
+    <fieldset>
+    <legend>@ViewBag.Title</legend>
+    <p>Möchten Sie diesen Artikel wirklich löschen?</p>
+    <div class="form-actions">
+        @Html.SubmitButton("Ja, löschen!", ButtonClass.Danger)
+        @Html.ActionLinkButton("Abbrechen", "Index")
+    </div>
+    </fieldset>
 }
