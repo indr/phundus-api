@@ -193,6 +193,14 @@ namespace phiNdus.fundus.Core.Web.Helpers
             return MvcHtmlString.Create(name);
         }
 
+        public static MvcFieldSet BeginFieldSetFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TValue>> expression, string legend)
+        {
+            var htmlFieldName = ExpressionHelper.GetExpressionText(expression);
+            var id = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldId(htmlFieldName);
+            return new MvcFieldSet(htmlHelper.ViewContext, id, legend);
+        }
+
         public static MvcContainer BeginContainerFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TValue>> expression)
         {

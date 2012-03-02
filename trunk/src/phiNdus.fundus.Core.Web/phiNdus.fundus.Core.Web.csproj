@@ -104,6 +104,7 @@
     <Compile Include="Installers\ControllerInstaller.cs" />
     <Compile Include="Installers\LoggerInstaller.cs" />
     <Compile Include="Installers\StateManagerInstaller.cs" />
+    <Content Include="Scripts\fundus.js" />
     <Compile Include="ViewModels\ArticlesTableViewModel.cs" />
     <Compile Include="Models\CartModels.cs" />
     <Compile Include="Models\MembershipService.cs" />

@@ -27,4 +27,20 @@ namespace phiNdus.fundus.Core.Web.Helpers
             _viewContext.Writer.WriteLine("</div>");
         }
     }
+
+    public class MvcFieldSet : IDisposable
+    {
+        private readonly ViewContext _viewContext;
+
+        public MvcFieldSet(ViewContext viewContext, string id, string legend)
+        {
+            _viewContext = viewContext;
+            _viewContext.Writer.WriteLine("<fieldset id=\"{0}\"><legend>{1}</legend>", id, legend);
+        }
+
+        public void Dispose()
+        {
+            _viewContext.Writer.WriteLine("</fieldset>");
+        }
+    }
 }
