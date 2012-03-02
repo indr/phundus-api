@@ -1,5 +1,48 @@
 ﻿@model ArticleViewModel
 
-    
+@using (Html.BeginForm("Fields", "Article", FormMethod.Post, new { @class = "form-horizontal" }))
+{
     @Html.EditorForModel()
-    
+
+    <div class="form-actions">
+        @Html.SubmitButton("Speichern")
+    </div>
+}
+
+<script type="text/javascript">
+
+
+
+
+function addChild(targetId) {
+    var target = $('div#' + targetId);
+    $.ajax({
+        url: '@Url.Action("AddChild", "Article")',
+        data: { prefix: targetId + '[' + target.children().length + ']' },
+        dataType: 'html',
+        type: 'GET',
+        success: function (result) {
+            target.append(result);
+        }
+    });
+}
+
+
+
+
+
+function removeChildArticle(isDeletedFieldId) {
+    var isDeleted = $("input#" + isDeletedFieldId);
+    var closest = isDeleted.closest(".article-editor");
+    closest.hide();
+    isDeleted.val('True');
+}
+
+
+
+
+
+
+
+
+</script>    
