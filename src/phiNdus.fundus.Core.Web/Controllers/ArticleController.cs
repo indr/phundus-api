@@ -209,6 +209,27 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return View(Views.Fields, MasterView, model);
         }
 
+        [HttpPost]
+        public ActionResult Fields(int id, FormCollection collection)
+        {
+            var model = new ArticleViewModel(
+                    ArticleService.GetProperties(Session.SessionID)
+                );
+            try
+            {
+                UpdateModel(model, collection.ToValueProvider());
+                ArticleService.UpdateArticle(Session.SessionID, model.CreateDto());
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // TODO: Logging
+                // TODO: Exception-Handling
+                ModelState.AddModelError("", ex.Message);
+                return View("Edit", model);
+            }
+        }
+
         //
         // POST: /Article/Action/5
         [HttpPost]
