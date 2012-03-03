@@ -201,9 +201,8 @@
     <Content Include="Content\Images\info.png" />
     <Content Include="Content\Images\success.png" />
     <Content Include="Content\Images\warning.png" />
-    <Content Include="Content\ToVerify.css" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\fundus.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Scripts\Application.js" />
     <Content Include="Scripts\bootstrap-dropdown.js" />
