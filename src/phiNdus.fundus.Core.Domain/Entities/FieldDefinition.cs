@@ -42,11 +42,6 @@
             get { return 2; }
         }
 
-        public static int StockId
-        {
-            get { return 3; }
-        }
-
         public static int PriceId
         {
             get { return 4; }

@@ -80,15 +80,6 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
         }
 
         [Test]
-        public void GetStock()
-        {
-            var sut = CreateSut();
-            Assert.That(sut.Stock, Is.EqualTo(0));
-            FakeFieldValues.Add(new FieldValue(AmountFieldDef, 1));
-            Assert.That(sut.Stock, Is.EqualTo(1));
-        }
-
-        [Test]
         public void SetCaption()
         {
             var sut = CreateSut();
@@ -133,17 +124,6 @@ namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
             Assert.That(sut.Price, Is.EqualTo(0.0d));
             sut.Price = 1.1d;
             Assert.That(sut.Price, Is.EqualTo(1.1d));
-        }
-
-        [Test]
-        public void SetStock()
-        {
-            var sut = CreateSut();
-            FakeFieldDefRepository.Stub(x => x.Get(AmountFieldDef.Id)).Return(AmountFieldDef);
-
-            Assert.That(sut.Stock, Is.EqualTo(0));
-            sut.Stock = 1;
-            Assert.That(sut.Stock, Is.EqualTo(1));
         }
 
         [Test]
