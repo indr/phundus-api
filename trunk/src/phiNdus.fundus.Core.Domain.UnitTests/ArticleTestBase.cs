@@ -26,10 +26,6 @@ namespace phiNdus.fundus.Core.Domain.UnitTests
 
         #endregion
 
-        protected readonly FieldDefinition AmountFieldDef =
-            new FieldDefinition(FieldDefinition.StockId, "Menge",
-                                DataType.Integer);
-
         protected readonly FieldDefinition GrossStockFieldDef = new FieldDefinition(FieldDefinition.GrossStockId,
                                                                                     "Bestand (Brutto)", DataType.Integer);
 

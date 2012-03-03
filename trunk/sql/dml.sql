@@ -32,8 +32,6 @@ insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefaul
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, Position)
   values (2, 1, 'Name', 1, 1, 0, 0);
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, Position)
-  values (3, 1, 'Menge', 2, 1, 0, 0);  
-insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, Position)
   values (4, 1, 'Preis', 3, 1, 0, 0);
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, Position)
   values (5, 1, 'Erfassungsdatum', 4, 1, 0, 0);  

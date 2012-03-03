@@ -55,17 +55,6 @@ namespace phiNdus.fundus.Core.Domain.Entities
             set { SetFieldValue(FieldDefinition.CaptionId, value, true); }
         }
 
-
-        /// <summary>
-        /// Menge, verwende in Zukunft GrossStock (Bruttobestand)
-        /// </summary>
-        ///[Obsolete("Siehe GrossStock")]
-        public virtual int Stock
-        {
-            get { return GetFieldValueAsInt32(FieldDefinition.StockId, 0); }
-            set { SetFieldValue(FieldDefinition.StockId, value, true); }
-        }
-
         /// <summary>
         /// Preis, quasi inkl. MWSt, da alles ohne Mehrwertsteuer ;o)
         /// Grund: Wird einmal MWSt eingeführt, so sind die Preise keine

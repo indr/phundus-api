@@ -21,7 +21,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
                 Assert.That(_booleanPropertyDefinition.DataType, Is.EqualTo(DataType.Boolean));
                 _textPropertyDefinition = propertyRepo.Get(2);
                 Assert.That(_textPropertyDefinition.DataType, Is.EqualTo(DataType.Text));
-                _integerPropertyDefinition = propertyRepo.Get(3);
+                _integerPropertyDefinition = propertyRepo.Get(10);
                 Assert.That(_integerPropertyDefinition.DataType, Is.EqualTo(DataType.Integer));
                 _decimalPropertyDefinition = propertyRepo.Get(4);
                 Assert.That(_decimalPropertyDefinition.DataType, Is.EqualTo(DataType.Decimal));
