@@ -207,6 +207,7 @@
     <Content Include="Scripts\Application.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\fundus.locale.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -366,6 +367,7 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Images\Articles\" />
     <Folder Include="logs\" />
   </ItemGroup>
   <ItemGroup>
