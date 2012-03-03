@@ -1,23 +1,38 @@
 ﻿@model ArticleViewModel
 
 @{
-    ViewBag.Title = "Neuer Artikel erfassen";
+    ViewBag.Title = "Neues Material erfassen";
 }
 
 @section Breadcrumbs {
      @Html.ActionLink("Artikel", "Index") &gt; Erfassen
 }
 
-<h2>Neuer Artikel erfassen</h2>
+<h2>@ViewBag.Title</h2>
 
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#">Eigenschaften</a></li>
+
+        <li class=""><a href="#">Bilder</a></li>
+
+        <li class=""><a href="#">Kategorien</a></li>
+
+        <li class=""><a href="#">Verfügbarkeit</a></li>
+    </ul>
+    <div class="tab-content" id="tab-content">
+    
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
 
     @Html.EditorForModel()    
     
-    <p>
-        <input type="submit" value="Speichern" /> | @Html.ActionLink("Abbrechen", "Index")
-    </p>
+    <div class="form-actions">
+        @Html.SubmitButton("Speichern")
+        @Html.ActionLinkButton("Abbrechen", "Index")
+    </div>
 }
 
+</div>
+</div>

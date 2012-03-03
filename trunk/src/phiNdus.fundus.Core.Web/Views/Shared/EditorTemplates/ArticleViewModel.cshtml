@@ -84,7 +84,7 @@
         var selectDiscsId = this.selectDiscsId;
         $.ajax({
             url: '@Url.Action("AddPropertyAjax", "Article")/' + fieldId,
-            data: { prefix: this.fieldSetFieldsId + '[' + this.fieldSetFields.children().length + ']' },
+            data: { prefix: this.fieldSetFieldsId + '[' + (this.fieldSetFields.children().length - 1) + ']' },
             dataType: 'html',
             type: 'GET',
             success: function (result) {

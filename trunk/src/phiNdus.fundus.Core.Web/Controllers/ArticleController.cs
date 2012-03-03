@@ -24,16 +24,10 @@ namespace phiNdus.fundus.Core.Web.Controllers
         protected IArticleService ArticleService { get { return IoC.Resolve<IArticleService>(); } }
         protected IFieldsService FieldsService { get { return IoC.Resolve<IFieldsService>(); } }
 
-            //
-        // GET: /Article/
-
         public ActionResult Index()
         {
             return RedirectToAction("List");
         }
-
-        //
-        // GET: /Article/List
 
         public ActionResult List()
         {
@@ -44,139 +38,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Fields(int id)
-        {
-            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView(Views.Fields, model);
-            }
-            else
-            {
-                return View(Views.Fields, MasterView, model);
-            }
-        }
-
-        //
-        // Get: /Article/Availability/5
-        
-        public ActionResult Availability(int id)
-        {
-            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView(Views.Availability, model);
-            }
-            else
-            {
-                return View(Views.Availability, MasterView, model);
-            }
-        }
-
-        //
-        // GET: /Article/Details/5
-
-        //public ActionResult Details(int id)
-        //{
-        //    var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
-        //    if (Request.IsAjaxRequest())
-        //    {
-        //        return PartialView(Views.Details, model);
-        //    }
-        //    else
-        //    {
-        //        return View(Views.Details, MasterView, model);
-        //    }
-        //}
-
-        //
-        // GET: /Article/Categories/5
-
-        public ActionResult Categories(int id)
-        {
-            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView(Views.Categories, model);
-            }
-            else
-            {
-                return View(Views.Categories, MasterView, model);
-            }
-        }
-
-        //
-        // GET: /Article/Images
-        public ActionResult Images(int id)
-        {
-            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
-            if (Request.IsAjaxRequest())
-                return PartialView(Views.Images, model);
-            return View(Views.Images, MasterView, model);
-        }
-
-        //
-        // GET: /Article/Create
         public ActionResult Create()
         {
             var properties = ArticleService.GetProperties(Session.SessionID);
             var model = new ArticleViewModel(properties);
-            model.PropertyValues.Add(new PropertyValueViewModel
-                                         {
-                                             Caption = "Name",
-                                             DataType = FieldDataType.Text,
-                                             PropertyDefinitionId = 2
-                                         });
-            model.PropertyValues.Add(new PropertyValueViewModel
-                                         {
-                                             Caption = "Preis",
-                                             DataType = FieldDataType.Decimal,
-                                             PropertyDefinitionId = 4
-                                         });
-            model.Discriminators.Add(new DiscriminatorViewModel
-                                         {
-                                             Caption = "Grösse",
-                                             PropertyDefinitionId = 9
-                                         });
-            
-            var child1 = new ArticleViewModel(properties);
-            child1.PropertyValues.Add(new PropertyValueViewModel
-            {
-                Caption = "Grösse",
-                DataType = FieldDataType.Text,
-                PropertyDefinitionId = 9,
-                Value = "M"
-            });
-            child1.PropertyValues.Add(new PropertyValueViewModel
-            {
-                Caption = "Menge",
-                DataType = FieldDataType.Integer,
-                PropertyDefinitionId = 3
-            });
-            var child2 = new ArticleViewModel(properties);
-            child2.PropertyValues.Add(new PropertyValueViewModel
-            {
-                Caption = "Grösse",
-                DataType = FieldDataType.Text,
-                PropertyDefinitionId = 9,
-                Value = "L"
-            });
-            child2.PropertyValues.Add(new PropertyValueViewModel
-            {
-                Caption = "Menge",
-                DataType = FieldDataType.Integer,
-                PropertyDefinitionId = 3
-            });
-            model.Children.Add(child1);
-            child1.IsChild = true;
-            model.Children.Add(child2);
-            child2.IsChild = true;
-
             return View(model);
         }
 
-        //
-        // POST: /Article/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -199,13 +67,27 @@ namespace phiNdus.fundus.Core.Web.Controllers
             }
         }
 
-        //
-        // GET: /Article/Edit/5
+
         public ActionResult Edit(int id)
+        {
+            return Fields(id);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            return Fields(id, collection);
+        }
+
+        public ActionResult Fields(int id)
         {
             var model = new ArticleViewModel(
                 ArticleService.GetArticle(Session.SessionID, id),
                 ArticleService.GetProperties(Session.SessionID));
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(Views.Fields, model);
+            }
             return View(Views.Fields, MasterView, model);
         }
 
@@ -230,31 +112,33 @@ namespace phiNdus.fundus.Core.Web.Controllers
             }
         }
 
-        //
-        // POST: /Article/Action/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Images(int id)
         {
-            var model = new ArticleViewModel(
-                    ArticleService.GetProperties(Session.SessionID)
-                );
-            try
-            {
-                UpdateModel(model, collection.ToValueProvider());
-                ArticleService.UpdateArticle(Session.SessionID, model.CreateDto());
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                // TODO: Logging
-                // TODO: Exception-Handling
-                ModelState.AddModelError("", ex.Message);
-                return View("Edit", model);
-            }
+            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
+            if (Request.IsAjaxRequest())
+                return PartialView(Views.Images, model);
+            return View(Views.Images, MasterView, model);
         }
 
-        //
-        // GET: /Article/Delete/5
+        public ActionResult Availability(int id)
+        {
+            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(Views.Availability, model);
+            }
+            return View(Views.Availability, MasterView, model);
+        }
+
+        public ActionResult Categories(int id)
+        {
+            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(Views.Categories, model);
+            }
+            return View(Views.Categories, MasterView, model);
+        }
 
         public ActionResult Delete(int id)
         {
@@ -263,8 +147,6 @@ namespace phiNdus.fundus.Core.Web.Controllers
                             ));
         }
 
-        //
-        // POST: /Article/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, int version)
         {
@@ -283,8 +165,6 @@ namespace phiNdus.fundus.Core.Web.Controllers
             }
         }
 
-        //
-        // DELETE: /Article/Delete/5
         [HttpDelete]
         [ActionName("Delete")]
         public ActionResult AjaxDelete(int id)

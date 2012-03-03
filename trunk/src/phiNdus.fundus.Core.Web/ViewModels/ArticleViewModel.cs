@@ -30,13 +30,31 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         {
             Id = article.Id;
             Version = article.Version;
-            foreach (var each in article.Properties)
+            
+            // View-Models aus Properties für Felder und Diskriminatoren erstellen
+            if (article.Properties.Count > 0)
             {
-                if (each.IsDiscriminator)
-                    _discriminators.Add(ConvertToDiscriminatorViewModel(each));
-                else
-                    _propertyValues.Add(ConvertToPropertyValueViewModel(each));
+                foreach (var each in article.Properties)
+                {
+                    if (each.IsDiscriminator)
+                        _discriminators.Add(ConvertToDiscriminatorViewModel(each));
+                    else
+                        _propertyValues.Add(ConvertToPropertyValueViewModel(each));
+                }
             }
+            else
+            {
+                // Standard-Properties hinzufügen
+                foreach (var each in propertyDefinitions)
+                {
+                    if (each.IsDefault)
+                    {
+                        _propertyValues.Add(ConvertToPropertyValueViewModel(each));
+                    }
+                }
+            }
+
+            
 
             foreach (var each in article.Children)
             {
