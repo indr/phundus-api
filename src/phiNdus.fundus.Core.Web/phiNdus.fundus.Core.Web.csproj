@@ -205,8 +205,6 @@
     <Content Include="Content\fundus.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Scripts\Application.js" />
-    <Content Include="Scripts\bootstrap-dropdown.js" />
-    <Content Include="Scripts\bootstrap-tab.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />

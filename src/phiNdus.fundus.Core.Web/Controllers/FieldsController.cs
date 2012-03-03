@@ -39,35 +39,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
                     var item = model.Items.First(i => i.Id == each.Id);
                     item.IsDefault = each.IsDefault;
                     item.Position = each.Position;
+                    item.IsColumn = each.IsColumn;
 
                 }
-
-                //for (var idx = 0; idx < items.Count; idx++)
-                //{
-                //    if ((model.Items[idx].Id != items[idx].Id))
-                //        throw new Exception("Daten sind veraltet :-P (2)");
-
-                //    model.Items[idx].IsDefault = items[idx].IsDefault;
-                //    model.Items[idx].Position = items[idx].Position;
-                //}
-
                 model.Save();
-
                 model = new FieldsViewModel().Load();
-
-
                 if (Request.IsAjaxRequest())
                     return DisplayFor(MessageBox.Success("Erfolgreich gespeichert."));
-                //{
-                //    var data = new List<object>();
-                //    foreach (var each in model.Items)
-                //        data.Add(new {id = each.Id, version = each.Version});
-                //    return Json(new
-                //                    {
-                //                        message = @"<div class=""success"">Erfolgreich gespeichert (2).</div>",
-                //                        data = data
-                //                    });
-                //}
                 ModelState.Clear();
                 return View(model);
             }

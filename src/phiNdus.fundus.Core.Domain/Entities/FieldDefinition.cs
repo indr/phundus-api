@@ -3,6 +3,7 @@
     public class FieldDefinition : Entity
     {
         private DataType _dataType;
+        private bool _isSystem;
         private string _name;
 
         public FieldDefinition()
@@ -84,8 +85,6 @@
             set { _dataType = value; }
         }
 
-        private bool _isSystem;
-
         /// <summary>
         /// Gibt an, ob das Feld systemrelevant ist und nicht entfernt
         /// werden kann (z.B. Menge, Preis usw.).
@@ -96,28 +95,22 @@
             protected set { _isSystem = value; }
         }
 
-        private bool _isDefault;
-        
         /// <summary>
         /// Angabe ob das Feld bei der Erfassung eines neuen Artikels
         /// automatisch hinzugefügt wird.
         /// </summary>
-        public virtual bool IsDefault
-        {
-            get { return _isDefault; }
-            set { _isDefault = value; }
-        }
+        public virtual bool IsDefault { get; set; }
 
-        private int _position;
+
+        /// <summary>
+        /// Angabe ob das Feld in Tabellen als Spalte angezeigt wird.
+        /// </summary>
+        public virtual bool IsColumn { get; set; }
 
         /// <summary>
         /// Die Anzeigeposition beim Erfassen, Bearbeiten und Anzeigen
         /// eines Artikels.
         /// </summary>
-        public virtual int Position
-        {
-            get { return _position; }
-            set { _position = value; }
-        }
+        public virtual int Position { get; set; }
     }
 }
