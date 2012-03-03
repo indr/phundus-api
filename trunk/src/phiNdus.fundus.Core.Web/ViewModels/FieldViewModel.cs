@@ -73,6 +73,13 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             get { return Dto.IsSystem; }
         }
 
+        [DisplayName("Spalte in Tabellen")]
+        public bool IsColumn
+        {
+            get { return Dto.IsColumn; }
+            set { Dto.IsColumn = value; }
+        }
+
         [DisplayName("Position")]
         public int Position
         {

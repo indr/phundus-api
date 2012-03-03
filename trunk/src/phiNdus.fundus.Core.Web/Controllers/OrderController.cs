@@ -19,6 +19,11 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return RedirectToAction("All");
         }
 
+        public ActionResult My()
+        {
+            return RedirectToAction("List");
+        }
+
         // GET: /Order/All
         public ActionResult All()
         {

@@ -11,6 +11,7 @@
     <property name="DataType" />
     <property name="IsSystem" column="IsSystem" />
     <property name="IsDefault" />
+    <property name="IsColumn" />
     <property name="Position" />
   </class>
 </hibernate-mapping>

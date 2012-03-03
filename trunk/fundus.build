@@ -828,7 +828,7 @@
   
     <property name="sql.database-name" value="${acceptance.database-name}" />
     <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
-    <property name="sql.custom-dml" value="" />
+    <property name="sql.custom-dml" value="${sql.dir}\dml-acceptance.sql" />
     
     <property name="deploy.settings" value="${config.dir}\Settings.Acceptance.csv" />
     <property name="deploy.connstring" value="${acceptance.connstring}" />

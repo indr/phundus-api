@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using phiNdus.fundus.Core.Business.Dto;
 
 namespace phiNdus.fundus.Core.Web.ViewModels
@@ -32,7 +33,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
 
         private IEnumerable<FieldDefinitionDto> ComputeHeadings()
         {
-            return _propertyDefinitions;
+            return _propertyDefinitions.Where(each => each.IsColumn).ToList();
         }
     }
 }

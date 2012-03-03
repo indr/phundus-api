@@ -78,6 +78,7 @@ namespace phiNdus.fundus.Core.Business.Services
                     Guard.Against<DtoOutOfDateException>(fieldDefinition.Version != each.Version, "Dto is out of date");
                     fieldDefinition.IsDefault = each.IsDefault;
                     fieldDefinition.Position = each.Position;
+                    fieldDefinition.IsColumn = each.IsColumn;
                     PropertyDefinitions.Update(fieldDefinition);
                 }
                 uow.TransactionalFlush();

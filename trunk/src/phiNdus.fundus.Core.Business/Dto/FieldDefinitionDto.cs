@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace phiNdus.fundus.Core.Business.Dto
+﻿namespace phiNdus.fundus.Core.Business.Dto
 {
     public class FieldDefinitionDto
     {
@@ -17,5 +15,7 @@ namespace phiNdus.fundus.Core.Business.Dto
         public int Position { get; set; }
 
         public bool IsDefault { get; set; }
+
+        public bool IsColumn { get; set; }
     }
 }
