@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
+using phiNdus.fundus.Core.Web.Helpers;
 using phiNdus.fundus.Core.Web.ViewModels;
 using Rhino.Commons;
 
@@ -121,42 +122,29 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return View(Views.Images, MasterView, model);
         }
 
-        [HttpPost]
-        public ActionResult Images(int id, object dummy)
+        public ActionResult ImageStore(int id, string name)
         {
-            var result = new System.Collections.Generic.List<ViewDataUploadFilesResult>();
-            foreach (string file in HttpContext.Request.Files)
+            
+            var path = String.Format(@"~\Content\Images\Articles\{0}", id);
+            var store = new BlueImpFileUploadStore(
+                Server.MapPath(path),
+                Url.Content(path),
+                Url.Action("ImageStore", "Article")
+            );
+
+            if (Request.HttpMethod == "POST")
             {
-                var postedFile = HttpContext.Request.Files[file];
-                var originalFileName = postedFile.FileName;
-                
-                // TODO: ???
-                if (HttpContext.Request.Browser.Browser.ToUpper() == "IE")
-                {
-                    string[] files = originalFileName.Split(new char[] { '\\' });
-                    originalFileName = files[files.Length - 1];
-                }
-
-                if (postedFile.ContentLength == 0)
-                    continue;
-
-                var contentPath = String.Format(@"~\Content\Images\Articles\{0}", id);
-                var path = Server.MapPath(contentPath);
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
-                
-                var savedFileName = path + Path.DirectorySeparatorChar + originalFileName;
-                postedFile.SaveAs(savedFileName);
-
-                result.Add(new ViewDataUploadFilesResult()
-                {
-                    Thumbnail_url = Url.Content(contentPath + '\\' + originalFileName),
-                    Name = originalFileName,
-                    Length = postedFile.ContentLength,
-                    Type = postedFile.ContentType
-                });
+                return Json(store.Post(HttpContext.Request.Files));
             }
-            return Json(result.ToArray());
+            if (Request.HttpMethod == "GET")
+            {
+                return Json(store.Get(), JsonRequestBehavior.AllowGet);
+            }
+            if (Request.HttpMethod == "DELETE")
+            {
+                store.Delete(name);
+            }
+            return Json("");
         }
 
         public ActionResult Availability(int id)
@@ -251,13 +239,9 @@ namespace phiNdus.fundus.Core.Web.Controllers
             model.IsChild = true;
             return EditorFor(model, prefix);
         }
+
+        
     }
 
-    public class ViewDataUploadFilesResult
-    {
-        public string Thumbnail_url { get; set; }
-        public string Name { get; set; }
-        public int Length { get; set; }
-        public string Type { get; set; }
-    }
+    
 }
