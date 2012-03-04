@@ -30,6 +30,13 @@ namespace phiNdus.fundus.Core.Domain.Entities
             get { return IoC.Resolve<IOrderRepository>(); }
         }
 
+        private ISet<Image> _images = new HashedSet<Image>();
+        public virtual ISet<Image> Images
+        {
+            get { return _images; }
+            set { _images = value; }
+        }
+
         private DateTime _createDate;
         public virtual DateTime CreateDate
         {
@@ -103,6 +110,20 @@ namespace phiNdus.fundus.Core.Domain.Entities
                 return GrossStock - OrderRepository.SumReservedAmount(Id)
                        + Children.Sum(child => ((Article) child).ReservableStock);
             }
+        }
+
+        public virtual bool AddImage(Image image)
+        {
+            var result = Images.Add(image);
+            image.Article = this;
+            return result;
+        }
+
+        public virtual bool RemoveImage(Image image)
+        {
+            var result = Images.Remove(image);
+            image.Article = null;
+            return result;
         }
     }
 }

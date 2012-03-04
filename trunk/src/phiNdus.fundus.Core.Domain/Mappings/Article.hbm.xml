@@ -24,6 +24,11 @@
 
     <subclass name="Article">
       <property name="CreateDate" update="false" />
+
+      <set name="Images" cascade="all-delete-orphan" lazy="true" inverse="true" >
+        <key column="ArticleId" />
+        <one-to-many class="Image" />
+      </set>
     </subclass>
   </class>
 </hibernate-mapping>

@@ -11,9 +11,6 @@
 
 <script type="text/javascript">
 
-
-
-
 function addChild(targetId) {
     var target = $('div#' + targetId);
     $.ajax({
@@ -27,22 +24,11 @@ function addChild(targetId) {
     });
 }
 
-
-
-
-
 function removeChildArticle(isDeletedFieldId) {
     var isDeleted = $("input#" + isDeletedFieldId);
     var closest = isDeleted.closest(".article-editor");
     closest.hide();
     isDeleted.val('True');
 }
-
-
-
-
-
-
-
 
 </script>    
