@@ -1,14 +1,13 @@
 @inherits System.Web.Mvc.WebViewPage<dynamic>
 
-
-            <div class="navbar-inner">
-                <div class="container">
-                   @Html.ActionLink("fundus", "Index", "Home", new { }, new { @class = "brand" })
+<div class="navbar-inner">
+    <div class="container">
+        @Html.ActionLink("fundus", "Index", "Home", new { }, new { @class = "brand" })
                     
                     
 <ul class="nav">
     <li>
-        @Html.ActionLink("Shop", "Index", "Home")
+        @Html.ActionLink("Shop", "Index", "Shop")
     </li>
     @if (Request.IsAuthenticated && User.IsInRole("User"))
     {
