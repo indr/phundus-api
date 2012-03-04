@@ -881,12 +881,14 @@
         </items>
       </in>
       <do>
+        <property name="tofile" value="${bin.dir + '/' + path::get-file-name(filename) + '.config'}" />
         <copy file="${config.dir}/App.config.AcceptanceTests.tmpl"
-              tofile="${bin.dir + '/' + path::get-file-name(filename) + '.config'}">
+              tofile="${tofile}">
           <filterchain>
             <expandproperties />
           </filterchain>
         </copy>
+        <echo message="##teamcity[publishArtifacts '${tofile}']" />
       </do>
     </foreach>
   </target>
