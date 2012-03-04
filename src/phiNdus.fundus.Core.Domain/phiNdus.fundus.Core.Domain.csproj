@@ -70,6 +70,7 @@
     <Compile Include="Entities\DataType.cs" />
     <Compile Include="Entities\FieldValue.cs" />
     <Compile Include="Entities\Article.cs" />
+    <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Membership.cs" />
     <Compile Include="Entities\CompositeEntity.cs" />
     <Compile Include="Entities\Order.cs" />
@@ -159,6 +160,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Image.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

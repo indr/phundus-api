@@ -146,9 +146,10 @@
     }
     
 
-
-
-var ae = new ArticleEditor('@Html.IdFor(m => m.PropertyValues)', '@Html.IdFor(m => m.RemainingPropertyId)', '@Html.IdFor(m => m.Discriminators)', '@Html.IdFor(m => m.RemainingDiscriminatorId)');
+var ae = null;
+$(function () {
+    ae = new ArticleEditor('@Html.IdFor(m => m.PropertyValues)', '@Html.IdFor(m => m.RemainingPropertyId)', '@Html.IdFor(m => m.Discriminators)', '@Html.IdFor(m => m.RemainingDiscriminatorId)');
+});
 </script>
 
 

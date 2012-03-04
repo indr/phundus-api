@@ -64,12 +64,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assembler\ArticleAssembler.cs" />
+    <Compile Include="Assembler\ImageAssembler.cs" />
     <Compile Include="Assembler\OrderAssembler.cs" />
     <Compile Include="Assembler\FieldDefinitionAssembler.cs" />
     <Compile Include="Assembler\RoleAssembler.cs" />
     <Compile Include="Dto\ArticleDto.cs" />
     <Compile Include="Dto\BasePropertiesDto.cs" />
     <Compile Include="Dto\FieldValueDto.cs" />
+    <Compile Include="Dto\ImageDto.cs" />
     <Compile Include="Dto\OrderDto.cs" />
     <Compile Include="Dto\OrderItemDto.cs" />
     <Compile Include="Dto\FieldDefinitionDto.cs" />

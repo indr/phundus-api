@@ -88,6 +88,16 @@ create table [Article] (
   primary key(Id)
 )
 
+create table [Image] (
+  Id int not null,
+  Version int not null,
+  ArticleId int not null,
+  IsPreview bit not null default 0,
+  [Length] bigint not null,
+  [Type] nvarchar(31),
+  FileName nvarchar(255)
+)
+
 create table [Order] (
   Id int not null,
   Version int not null,

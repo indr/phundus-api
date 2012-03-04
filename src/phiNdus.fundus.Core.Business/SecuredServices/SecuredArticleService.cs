@@ -52,6 +52,27 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
                 .Do<ArticleService>(svc => svc.DeleteArticle(subject));
         }
 
+        public void AddImage(string sessionKey, int articleId, ImageDto subject)
+        {
+            Secured.With(Session.FromKey(sessionKey))
+                .And(User.InRole(Role.Administrator))
+                .Do<ArticleService>(svc => svc.AddImage(articleId, subject));
+        }
+
+        public void DeleteImage(string sessionKey, int articleId, string imageName)
+        {
+            Secured.With(Session.FromKey(sessionKey))
+                .And(User.InRole(Role.Administrator))
+                .Do<ArticleService>(svc => svc.DeleteImage(articleId, imageName));
+        }
+
+        public IList<ImageDto> GetImages(string sessionKey, int articleId)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .And(User.InRole(Role.Administrator))
+                .Do<ArticleService, IList<ImageDto>>(svc => svc.GetImages(articleId));
+        }
+
         #endregion
     }
 }

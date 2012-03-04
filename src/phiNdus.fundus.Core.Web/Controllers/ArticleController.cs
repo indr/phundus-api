@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.Dto;
@@ -124,25 +125,39 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult ImageStore(int id, string name)
         {
-            
             var path = String.Format(@"~\Content\Images\Articles\{0}", id);
-            var store = new BlueImpFileUploadStore(
-                Server.MapPath(path),
-                Url.Content(path),
-                Url.Action("ImageStore", "Article")
-            );
+            
+            var store = new ImageStore();
+            store.FilePath = path;
+            
+            var factory = new BlueImpFileUploadJsonResultFactory();
+            factory.ImageUrl = Url.Content(path);
+            factory.DeleteUrl = Url.Action("ImageStore", "Article");
+
+            var handler = new BlueImpFileUploadHandler(store);
 
             if (Request.HttpMethod == "POST")
             {
-                return Json(store.Post(HttpContext.Request.Files));
+                var images = handler.Post(HttpContext.Request.Files);
+                foreach (var each in images)
+                {
+                    ArticleService.AddImage(Session.SessionID, id, each);
+                }
+                var result = factory.Create(images);
+                return Json(result);
             }
             if (Request.HttpMethod == "GET")
             {
-                return Json(store.Get(), JsonRequestBehavior.AllowGet);
+                var images = ArticleService.GetImages(Session.SessionID, id);
+                var result = factory.Create(images);
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             if (Request.HttpMethod == "DELETE")
             {
+                var fileName = store.FilePath + Path.DirectorySeparatorChar + name;
+                ArticleService.DeleteImage(Session.SessionID, id, fileName);
                 store.Delete(name);
+                return Json("");
             }
             return Json("");
         }
