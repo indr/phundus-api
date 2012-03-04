@@ -6,7 +6,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Shop");
+            return View();
         }
     }
 }
