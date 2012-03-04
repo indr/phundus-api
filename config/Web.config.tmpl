@@ -8,7 +8,8 @@
 <configuration>
   <configSections>
     <section name="hibernate-configuration" type="NHibernate.Cfg.ConfigurationSectionHandler, NHibernate" />
-    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler"/>
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler" />
+    <section name="resizer" type="ImageResizer.ResizerSection,ImageResizer" requirePermission="false" />
   </configSections>
 
   <runtime>
@@ -62,6 +63,17 @@
     </logger>
   </log4net>
   
+  <resizer>
+    <!-- Unless you (a) use Integrated mode, or (b) map all reqeusts to ASP.NET, 
+         you'll need to add .ashx to your image URLs: image.jpg.ashx?width=200&height=20 -->
+    <pipeline fakeExtensions=".ashx" />
+
+    <plugins>
+      <!-- <add name="DiskCache" /> -->
+      <!-- <add name="PrettyGifs" /> -->
+    </plugins>  
+  </resizer>
+  
   <appSettings>
     <add key="ClientValidationEnabled" value="true"/> 
     <add key="UnobtrusiveJavaScriptEnabled" value="true"/> 
@@ -107,18 +119,20 @@
       </namespaces>
     </pages>
 	
-	<!-- Fuer IIS6 und IIS7 im Klassischen Modus -->
-	<httpModules>
+    <!-- Fuer IIS6 und IIS7 im Klassischen Modus -->
+    <httpModules>
       <add name="PerRequestLifestyle" type="Castle.MicroKernel.Lifestyle.PerWebRequestLifestyleModule, Castle.Windsor" />
+      <add name="ImageResizingModule" type="ImageResizer.InterceptModule" />
     </httpModules>
   </system.web>
 
   <system.webServer>
     <validation validateIntegratedModeConfiguration="false"/>
-	<!-- Fuer IIS7 im Integrierten Modus -->
+    <!-- Fuer IIS7+ im Integrierten Modus -->
     <modules runAllManagedModulesForAllRequests="true">
-		<add name="PerRequestLifestyle" type="Castle.MicroKernel.Lifestyle.PerWebRequestLifestyleModule, Castle.Windsor" />
-	</modules>
+      <add name="PerRequestLifestyle" type="Castle.MicroKernel.Lifestyle.PerWebRequestLifestyleModule, Castle.Windsor" />
+      <add name="ImageResizingModule" type="ImageResizer.InterceptModule"/>
+    </modules>
   </system.webServer>
 
   <runtime>
