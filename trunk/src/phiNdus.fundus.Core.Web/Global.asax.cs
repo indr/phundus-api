@@ -29,6 +29,9 @@ namespace phiNdus.fundus.Core.Web {
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
+
+            routes.MapRoute("ImageStore",
+                            "{controller}/{action}/{id}/{name}");
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822", MessageId = "Mark members as static",
