@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -24,11 +25,19 @@ namespace phiNdus.fundus.Core.Web.Models
         public string Email { get; set; }
         public bool IsApproved { get; set; }
         public DateTime CreateDate { get; set; }
+
+        [DisplayName("Vorname")]
         public string FirstName { get; set; }
+
+        [DisplayName("Name")]
         public string LastName { get; set; }
 
         public int RoleId { get; set; }
+
+        [DisplayName("Rolle")]
         public string RoleName { get; set; }
+
+        public string DisplayName { get { return FirstName + " " + LastName; }}
 
         public IEnumerable<SelectListItem> Roles
         {
