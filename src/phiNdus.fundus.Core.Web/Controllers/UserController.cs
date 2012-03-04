@@ -14,42 +14,15 @@ namespace phiNdus.fundus.Core.Web.Controllers
             get { return IoC.Resolve<IUserService>(); }
         }
 
-        //
-        // GET: /User/
-
         public ActionResult Index()
         {
             return RedirectToAction("List");
         }
 
-        //
-        // GET: /User/List
-
         public ActionResult List()
         {
             return View(UserService.GetUsers(Session.SessionID));
         }
-
-        //
-        // GET: /User/Details/5
-
-        public ActionResult Details(int id)
-        {
-            try
-            {
-                return View(new UserModel(id));
-            }
-            catch (Exception ex)
-            {
-                // TODO: Logging
-                // TODO: Exception-Handling
-                ModelState.AddModelError("", ex.Message);
-                return RedirectToAction("Index");
-            }
-        }
-
-        //
-        // GET: /User/Edit/5
 
         public ActionResult Edit(int id)
         {
@@ -65,9 +38,6 @@ namespace phiNdus.fundus.Core.Web.Controllers
                 return RedirectToAction("Index");
             }
         }
-
-        //
-        // POST: /User/Edit/5
 
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
