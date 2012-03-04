@@ -24,7 +24,7 @@ namespace phiNdus.fundus.SmokeTests
             var stream = new StreamReader(response.GetResponseStream());
             var content = stream.ReadToEnd();
 
-            Assert.That(content, Contains.Substring("<h2>Willkommen"));
+            Assert.That(content, Contains.Substring("<h1>Willkommen im fundus!</h1>"));
         }
     }
 }
