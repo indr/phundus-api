@@ -6,11 +6,13 @@ SET QUOTED_IDENTIFIER ON;
 
 insert into hibernate_unique_key values ( 1 );
 
+SET IDENTITY_INSERT [Role] ON;
 insert into [Role] (Id, Version, Name)
   values (1, 1, 'User');
 insert into [Role] (Id, Version, Name)
   values (2, 1, 'Admin');
-
+SET IDENTITY_INSERT [Role] OFF;  
+  
 EXEC('CREATE TRIGGER [DenyInsertUpdateDeleteRole] ON [dbo].[Role] AFTER INSERT, UPDATE, DELETE
 AS 
 BEGIN
@@ -27,6 +29,7 @@ END');
   3: Decimal
   4: DateTime
 */
+SET IDENTITY_INSERT [FieldDefinition] ON;
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
   values (1, 1, 'Verfügbar', 0, 1, 0, 0, 999);
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
@@ -47,3 +50,4 @@ insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefaul
   values (10, 1, 'Bestand (Brutto)', 2, 1, 0, 1, 3);  
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
   values (11, 1, 'Bestand (Netto)', 2, 1, 0, 1, 4);
+SET IDENTITY_INSERT [FieldDefinition] OFF;

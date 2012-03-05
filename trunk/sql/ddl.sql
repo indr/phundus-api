@@ -9,7 +9,7 @@ create table hibernate_unique_key (
 );
 
 create table [Membership] (
-  Id INT not null,
+  Id INT not null, /* foreign User-Identity */
   Version INT not null,
   SessionKey VARCHAR(24) null,
   Password NVARCHAR(255) null,
@@ -28,7 +28,7 @@ create table [Membership] (
 );
 
 create table [User] (
-  Id INT not null,
+  Id INT identity (1000, 1),
   Version INT not null,
   RoleId INT null,
   FirstName NVARCHAR(255) null,
@@ -37,14 +37,14 @@ create table [User] (
 );
 
 create table [Role] (
-  Id INT not null,
+  Id INT identity (1, 1),
   Version INT not null,
   Name NVARCHAR(255) null,
   primary key (Id)
 )
     
 create table [Setting] (
-  Id int not null,
+  Id int not null, /* generator hilo */
   Version int not null,
   [Key] NVARCHAR(255) not null,
   [StringValue] NVARCHAR(max) null,
@@ -54,7 +54,7 @@ create table [Setting] (
 )
 
 create table [FieldDefinition] (
-  Id int not null,
+  Id int identity (100, 1),
   Version int not null,
   [Name] NVARCHAR(255) not null,
   [DataType] TINYINT not null,
@@ -66,7 +66,7 @@ create table [FieldDefinition] (
 )
 
 create table [FieldValue] (
-  Id int not null,
+  Id int not null, /* generator hilo */
   Version int not null,
   FieldDefinitionId int not null,
   IsDiscriminator bit not null default 0,
@@ -80,7 +80,7 @@ create table [FieldValue] (
 )
 
 create table [Article] (
-  Id int not null,
+  Id int identity (10000, 1),
   [Type] nvarchar(127),
   Version int not null,
   CreateDate datetime not null default getdate(),
@@ -89,7 +89,7 @@ create table [Article] (
 )
 
 create table [Image] (
-  Id int not null,
+  Id int not null, /* generator hilo */
   Version int not null,
   ArticleId int not null,
   IsPreview bit not null default 0,
@@ -99,7 +99,7 @@ create table [Image] (
 )
 
 create table [Order] (
-  Id int not null,
+  Id int identity (10000, 1),
   Version int not null,
   
   CreateDate datetime not null,
@@ -111,7 +111,7 @@ create table [Order] (
 )
 
 create table [OrderItem] (
-  Id int not null,
+  Id int not null, /* generator hilo */
   Version int not null,
   
   OrderId int not null,
@@ -123,7 +123,7 @@ create table [OrderItem] (
 )
 
 create table [Contract] (
-  Id int not null,
+  Id int identity (10000, 1),
   Version int not null,
   
   CreateDate datetime not null,
@@ -135,7 +135,7 @@ create table [Contract] (
 )
 
 create table [ContractItem] (
-  Id int not null,
+  Id int not null, /* generator hilo */
   Version int not null,
   
   ContractId int not null,

@@ -4,7 +4,7 @@
 
   <class name="User" table="[User]">
     <id name="Id">
-      <generator class="hilo" />
+      <generator class="native" />
     </id>
     <version name="Version" />
     <property name="FirstName" />

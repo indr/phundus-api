@@ -4,7 +4,7 @@
 
   <class name="CompositeEntity" table="[Article]">
     <id name="Id">
-      <generator class="hilo" />
+      <generator class="native" />
     </id>
     <discriminator column="[Type]" type="String" />
     <version name="Version" />

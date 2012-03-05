@@ -73,8 +73,9 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
             {
                 var role = new Role();
                 role.Name = "New Role";
-                Sut.Save(role);
-                Assert.Throws<GenericADOException>(() => uow.TransactionalFlush());
+                Assert.Throws<GenericADOException>(() => Sut.Save(role));
+                // Bei HiLo:
+                //Assert.Throws<GenericADOException>(() => uow.TransactionalFlush());
             }
         }
 
