@@ -25,16 +25,20 @@ namespace phiNdus.fundus.Core.Web.Controllers
         }
 
         //
-        // GET: /Shop/Details/ArticleId
-        public ActionResult Details(int id)
+        // GET: /Shop/Article/ArticleId
+        public ActionResult Article(int id)
         {
-            var model = CreateTestArticlesViewModel();
-
-            var article = model.Articles.Single(a => a.Id == id);
-
-            return View(article);
+            var model = new ArticleViewModel(id);
+            
+            return PartialView("Article", model);
         }
 
+        public ActionResult Search(string query)
+        {
+            var model = new ShopSearchResultViewModel(query);
+
+            return PartialView("Result-Table", model);
+        }
 
         private static FieldValueDto CreateNameProperty(string value)
         {

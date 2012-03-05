@@ -135,6 +135,7 @@
     <Compile Include="ViewModels\DiscriminatorViewModel.cs" />
     <Compile Include="ViewModels\MessageBoxViewModel.cs" />
     <Compile Include="ViewModels\PropertyValueViewModel.cs" />
+    <Compile Include="ViewModels\ShopSearchResultViewModel.cs" />
     <Compile Include="ViewModels\ValidationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
@@ -384,7 +385,7 @@
     <Content Include="Views\Order\Rejected.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shop\Details.cshtml" />
+    <Content Include="Views\Shop\Article.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Order\All.cshtml" />
@@ -394,6 +395,7 @@
     <Content Include="Views\Article\Images.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\FieldViewModel.cshtml" />
+    <Content Include="Views\Shop\Result-Table.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

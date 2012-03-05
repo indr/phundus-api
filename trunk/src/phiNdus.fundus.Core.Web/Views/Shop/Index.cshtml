@@ -23,31 +23,12 @@
     </div>
 </div>
 
-<h3>Artikel</h3>
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Menge</th>
-            <th>Reservierbar</th>
-            <th>Ausleihbar</th>
-            <th>&nbsp;</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var each in Model.Articles) {
-            <tr>
-                <td>@each.GetPropertyValue(2)</td>
-                <td>@each.GetPropertyValue(3)</td>
-                <td>@each.GetPropertyValue(6)</td>
-                <td>@each.GetPropertyValue(7)</td>
-                @*<td>@Html.ActionLink("Detail", "Details", new { id = each.Id })</td>*@
-                <td>@Html.ActionLinkIcon("Details anzeigen", ActionLinkIcon.Detail, "Details", new { id = each.Id })</td>
-            </tr>
-        }
-    </tbody>
-</table>
-<h3>Verschiedene Ansichten im Shop</h3>
-<p>Cool wär doch so wie im Windows Explorer, wo man die Detailstufe einstellen kann: Grosse Symbole, Liste, Details usw...</p>
-<p>Zum Glück sind wir hier beim model-VIEW-controller... Hehe...</p>
-<p>Fänd ich cool ;o)</p>
+@using (Ajax.BeginForm("Search", "Shop", new AjaxOptions { HttpMethod = "POST", UpdateTargetId="search-results"  }, new { @class = "form-search" }))
+{
+    <input type="text" id="query" class="input-medium search-query" />
+    <button type="submit" class="btn">Suchen</button>
+}
+
+
+<div id="search-results">
+</div>

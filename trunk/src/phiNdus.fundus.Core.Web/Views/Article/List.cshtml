@@ -22,7 +22,7 @@
                 @heading.Caption
             </th>
         }
-        <th></th>
+        <th style="width: 190px;"></th>
     </tr>
     </thead>
     <tbody>
@@ -45,9 +45,22 @@
                 </td>
             }
              <td>
-                 @Html.ActionLinkButton("Bearbeiten", "Edit", new { id = item.Id })
-                 @Html.ActionLinkButton("Löschen", "Delete", new { id = item.Id, version = item.Version }, Icon.None, ButtonClass.Danger)
-             </td>
+                <div class="btn-toolbar" style="margin: 0;">
+                    <div class="btn-group">
+                        <a href="@Url.Action("Edit", new { id = item.Id})" class="btn">Bearbeiten</a>
+                        <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Fields", new { id = item.Id})">Eigenschaften</a></li>
+                            <li><a href="@Url.Action("Images", new { id = item.Id})">Bilder</a></li>
+                            <li><a href="@Url.Action("Categories", new { id = item.Id})">Kategorien</a></li>
+                            <li><a href="@Url.Action("Availability", new { id = item.Id})">Verfügbarkeit</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        @Html.ActionLinkButton("Löschen", "Delete", new { id = item.Id, version = item.Version }, Icon.None, ButtonClass.Danger)                 
+                    </div>
+                </div>
+            </td>
         </tr>
     }
     </tbody>

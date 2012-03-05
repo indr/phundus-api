@@ -73,6 +73,12 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
                 .Do<ArticleService, IList<ImageDto>>(svc => svc.GetImages(articleId));
         }
 
+        public IList<ArticleDto> FindArticles(string sessionKey, string query)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .Do<ArticleService, IList<ArticleDto>>(svc => svc.FindArticles(query));
+        }
+
         #endregion
     }
 }

@@ -57,8 +57,8 @@ namespace phiNdus.fundus.Core.Web.Controllers
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                ArticleService.CreateArticle(Session.SessionID, model.CreateDto());
-                return RedirectToAction("Index");
+                var articleId = ArticleService.CreateArticle(Session.SessionID, model.CreateDto());
+                return RedirectToAction("Images", new { id = articleId });
             }
 
             catch (Exception ex)
