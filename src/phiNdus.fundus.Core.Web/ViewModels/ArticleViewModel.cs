@@ -3,34 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Core.Business.SecuredServices;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.ViewModels
 {
-    public class ArticleViewModel
+    public class ArticleViewModel : ViewModelBase
     {
-        private readonly IList<FieldDefinitionDto> _propertyDefinitions;
+        private IList<FieldDefinitionDto> _propertyDefinitions;
         private IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
         private IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
         private IList<ArticleViewModel> _children = new List<ArticleViewModel>();
 
+        [Obsolete("Yay!")]
         public ArticleViewModel()
         {
         }
 
-        public ArticleViewModel(ArticleDto article) : this(article, new FieldDefinitionDto[0])
+        public ArticleViewModel(int id)
         {
+            Load(IoC.Resolve<IArticleService>().GetArticle(SessionId, id), new List<FieldDefinitionDto>(0));
+        }
+
+        public ArticleViewModel(ArticleDto article)
+        {
+            Load(article, new FieldDefinitionDto[0]);
         }
 
         public ArticleViewModel(IList<FieldDefinitionDto> propertyDefinitions)
-            : this(new ArticleDto(), propertyDefinitions)
         {
+            Load(new ArticleDto(), propertyDefinitions);
         }
 
         public ArticleViewModel(ArticleDto article, IList<FieldDefinitionDto> propertyDefinitions)
         {
+            Load(article, propertyDefinitions);
+        }
+
+        private void Load(ArticleDto article, IList<FieldDefinitionDto> propertyDefinitions)
+        {
             Id = article.Id;
             Version = article.Version;
-            
+
             // View-Models aus Properties für Felder und Diskriminatoren erstellen
             if (article.Properties.Count > 0)
             {
@@ -54,7 +68,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 }
             }
 
-            
+
 
             foreach (var each in article.Children)
             {
@@ -62,7 +76,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 child.IsChild = true;
                 _children.Add(child);
             }
-            
+
 
             _propertyDefinitions = propertyDefinitions;
         }

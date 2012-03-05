@@ -94,11 +94,20 @@ namespace phiNdus.fundus.Core.Business.Services
 
         public IList<ImageDto> GetImages(int articleId)
         {
-            using (var uow = UnitOfWork.Start())
+            using (UnitOfWork.Start())
             {
                 var article = Articles.Get(articleId);
                 var assembler = new ImageAssembler();
                 return assembler.CreateDtos(article.Images);
+            }
+        }
+
+        public IList<ArticleDto> FindArticles(string query)
+        {
+            using (UnitOfWork.Start())
+            {
+                var result = Articles.FindAll();
+                return ArticleAssembler.CreateDtos(result).ToList();
             }
         }
     }

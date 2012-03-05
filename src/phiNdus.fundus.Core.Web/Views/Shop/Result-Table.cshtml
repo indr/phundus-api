@@ -1,0 +1,22 @@
+﻿@model ShopSearchResultViewModel
+
+<h3>Artikel</h3>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var each in Model.Articles) {
+            <tr>
+                <td>@each.Caption</td>
+                
+                <td>@Ajax.ActionLink("Details", "Article", new { id = each.Id}, new AjaxOptions { UpdateTargetId="article"})</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="article">
+</div>
