@@ -771,6 +771,11 @@
     <exec program="${framework::get-tool-path('aspnet_compiler.exe')}" verbose="true"
       commandline="-v &quot;${deploy.vdir}&quot; -p &quot;${website.dir}&quot; &quot;${deploy.dir}&quot; -nologo" />
     
+    <mkdir dir="${deploy.dir}\Content\Images\Articles" unless="${directory::exists(deploy.dir + '\Content\Images\Articles')}" />
+    
+    <exec program="icacls" basedir="${deploy.dir}\Content\Images"
+          commandline='/grant "IIS_IUSRS":(OI)(CI)(M)' verbose="true" />
+    
     <echo message="
 *************** INIT-SMOKE-TEST ***************
 " />
