@@ -4,7 +4,7 @@
 
   <class name="Order" table="[Order]">
     <id name="Id">
-      <generator class="hilo" />
+      <generator class="native" />
     </id>
     <version name="Version" />
 

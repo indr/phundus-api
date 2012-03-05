@@ -20,7 +20,7 @@ SET QUOTED_IDENTIFIER ON;
 4: Administrator, Approved
 5: Inserted by Integration-Test
 */
-
+SET IDENTITY_INSERT [User] ON;
 INSERT INTO [User] (Id, Version, RoleId, FirstName, LastName)
   VALUES (1, 1, 1, 'Ted', 'Mosby');
 INSERT INTO [User] (Id, Version, RoleId, FirstName, LastName)
@@ -29,6 +29,7 @@ INSERT INTO [User] (Id, Version, RoleId, FirstName, LastName)
   VALUES (3, 1, 1, 'Robin', 'Scherbatsky');
 INSERT INTO [User] (Id, Version, RoleId, FirstName, LastName)
   VALUES (4, 1, 2, 'Barney', 'Stinson');
+SET IDENTITY_INSERT [User] OFF;
 
 INSERT INTO [Membership] (Id, Version, SessionKey, Password, Salt, Email, IsApproved, IsLockedOut, CreateDate)
   VALUES (1, 1, NULL,                   /* ted: */    'c8386351d4f7a637083b620a43de446d' , '123ab', 'ted.mosby@example.com', 0, 0, '2011-05-10');
