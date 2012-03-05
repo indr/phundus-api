@@ -5,24 +5,25 @@
     <form id="fileupload" method="post" enctype="multipart/form-data" action="@Url.Action("ImageStore")/@Model.Id" novalidate="novalidate">
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
-            <div class="span7">
+            <div class="span8">
+                <p>Um Dateien hochzuladen, klicke auf "Dateien hinzufügen..." oder ziehe die Bilder in dieses Browser-Fenster!</p>
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button">
-                    <span><i class="icon-plus icon-white"></i> Add files...</span>
+                    <span><i class="icon-plus icon-white"></i> Dateien hinzufügen...</span>
                     <input type="file" name="files" multiple />
                 </span>
                 <button type="submit" class="btn btn-primary start">
-                    <i class="icon-upload icon-white"></i> Start upload
+                    <i class="icon-upload icon-white"></i> Hochladen starten
                 </button>
                 <button type="reset" class="btn btn-warning cancel">
-                    <i class="icon-ban-circle icon-white"></i> Cancel upload
+                    <i class="icon-ban-circle icon-white"></i> Abbrechen
                 </button>
                 <button type="button" class="btn btn-danger delete">
-                    <i class="icon-trash icon-white"></i> Delete
+                    <i class="icon-trash icon-white"></i> Löschen
                 </button>
                 <input type="checkbox" class="toggle">
             </div>
-            <div class="span5">
+            <div class="span4">
                 <!-- The global progress bar -->
                 <div class="progress progress-success progress-striped active fade">
                     <div class="bar" style="width:0%;"></div>
@@ -45,10 +46,10 @@
     </div>
     <div class="modal-body"><div class="modal-image"></div></div>
     <div class="modal-footer">
-        <a class="btn btn-primary modal-next">Next <i class="icon-arrow-right icon-white"></i></a>
-        <a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Previous</a>
-        <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Slideshow</a>
-        <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Download</a>
+        <a class="btn btn-primary modal-next">Weiter <i class="icon-arrow-right icon-white"></i></a>
+        <a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Zurück</a>
+        <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Diashow</a>
+        <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Herunterladen</a>
     </div>
 </div>
 
