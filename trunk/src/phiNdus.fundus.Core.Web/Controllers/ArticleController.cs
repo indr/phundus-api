@@ -43,17 +43,14 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Create()
         {
-            var properties = ArticleService.GetProperties(Session.SessionID);
-            var model = new ArticleViewModel(properties);
+            var model = new ArticleViewModel();
             return View(model);
         }
 
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            var model = new ArticleViewModel(
-                ArticleService.GetProperties(Session.SessionID)
-                );
+            var model = new ArticleViewModel();
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
@@ -97,9 +94,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpPost]
         public ActionResult Fields(int id, FormCollection collection)
         {
-            var model = new ArticleViewModel(
-                    ArticleService.GetProperties(Session.SessionID)
-                );
+            var model = new ArticleViewModel();
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
@@ -117,7 +112,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Images(int id)
         {
-            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
+            var model = new ArticleViewModel(id);
             if (Request.IsAjaxRequest())
                 return PartialView(Views.Images, model);
             return View(Views.Images, MasterView, model);
@@ -164,7 +159,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Availability(int id)
         {
-            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
+            var model = new ArticleViewModel(id);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(Views.Availability, model);
@@ -174,7 +169,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Categories(int id)
         {
-            var model = new ArticleViewModel(ArticleService.GetArticle(Session.SessionID, id));
+            var model = new ArticleViewModel(id);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(Views.Categories, model);
@@ -184,17 +179,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View(new ArticleViewModel(
-                            ArticleService.GetArticle(Session.SessionID, id)
-                            ));
+            return View(new ArticleViewModel(id));
         }
 
         [HttpPost]
         public ActionResult Delete(int id, int version)
         {
-            var model = new ArticleViewModel(
-                ArticleService.GetArticle(Session.SessionID, id)
-                );
+            var model = new ArticleViewModel(id);
             try
             {
                 model.Version = version;
@@ -250,7 +241,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [HttpGet]
         public ActionResult AddChild(string prefix)
         {
-            var model = new ArticleViewModel(FieldsService.GetProperties(Session.SessionID));
+            var model = new ArticleViewModel();
             model.IsChild = true;
             return EditorFor(model, prefix);
         }

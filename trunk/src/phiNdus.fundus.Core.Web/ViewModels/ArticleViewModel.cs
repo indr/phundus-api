@@ -15,29 +15,27 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         private IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
         private IList<ArticleViewModel> _children = new List<ArticleViewModel>();
 
-        [Obsolete("Yay!")]
         public ArticleViewModel()
         {
+            Load(new ArticleDto(), ArticleService.GetProperties(SessionId));
+        }
+
+        protected IArticleService ArticleService
+        {
+            get { return IoC.Resolve<IArticleService>(); }
         }
 
         public ArticleViewModel(int id)
         {
-            Load(IoC.Resolve<IArticleService>().GetArticle(SessionId, id), new List<FieldDefinitionDto>(0));
+            // TODO: In einen Aufruf kapseln
+            var articleDto = ArticleService.GetArticle(SessionId, id);
+            var fieldDefinitionDtos = ArticleService.GetProperties(SessionId);
+            Load(articleDto, fieldDefinitionDtos);
         }
 
-        public ArticleViewModel(ArticleDto article)
+        public ArticleViewModel(ArticleDto articleDto, IList<FieldDefinitionDto> fieldDefinitionDtos)
         {
-            Load(article, new FieldDefinitionDto[0]);
-        }
-
-        public ArticleViewModel(IList<FieldDefinitionDto> propertyDefinitions)
-        {
-            Load(new ArticleDto(), propertyDefinitions);
-        }
-
-        public ArticleViewModel(ArticleDto article, IList<FieldDefinitionDto> propertyDefinitions)
-        {
-            Load(article, propertyDefinitions);
+            Load(articleDto, fieldDefinitionDtos);
         }
 
         private void Load(ArticleDto article, IList<FieldDefinitionDto> propertyDefinitions)

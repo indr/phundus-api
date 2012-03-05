@@ -16,12 +16,15 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             Search(query);
         }
 
+        protected IArticleService ArticleService { get { return IoC.Resolve<IArticleService>(); } }
+
         private void Search(string query)
         {
-
+            var fieldDefinitions = ArticleService.GetProperties(SessionId);
             foreach (var each in IoC.Resolve<IArticleService>().FindArticles(SessionId, query))
             {
-                Articles.Add(new ArticleViewModel(each));
+
+                Articles.Add(new ArticleViewModel(each, fieldDefinitions));
             }
         }
 
