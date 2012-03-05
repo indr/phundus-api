@@ -773,8 +773,9 @@
     
     <mkdir dir="${deploy.dir}\Content\Images\Articles" unless="${directory::exists(deploy.dir + '\Content\Images\Articles')}" />
     
-    <exec program="icacls" basedir="${deploy.dir}\Content\Images"
-          commandline='/grant "IIS_IUSRS":(OI)(CI)(M)' verbose="true" />
+    <exec program="icacls" verbose="true">
+      <arg line='${deploy.dir}\Content\Images /grant "IIS_IUSRS":(OI)(CI)(M)' />
+    </exec>
     
     <echo message="
 *************** INIT-SMOKE-TEST ***************
