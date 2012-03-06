@@ -1,48 +1,24 @@
-﻿function Fundus() {
+﻿function Fundus(baseUrl) {
+    this.baseUrl = baseUrl;
+}
+
+Fundus.prototype.init = function () {
+
+    $('body').ajaxComplete(function () {
+        //alert('ajax complete!');
+        fundus.reinit();
+    });
+
+    this.reinit();
 
 }
 
+Fundus.prototype.reinit = function () {
 
-Fundus.prototype.init = function() {
-    // Meldung anzeigen, wenn ein Ajax-Request gemacht wird.
-    // Evtl. ganze Webseite sperren?
-    // http://stackoverflow.com/questions/5938505/asp-mvc-3-loadingelementid-element-only-shows-on-first-request
-    //$('#message-box-container').ajaxStart(function () {
-    //    $(this).empty().append('<div class="warning">Bitte warten...</div>');
-    //});
-
+    //alert('reinit');
+    
     // Datumspicker
     $('.date-picker').datepicker({ dateFormat: "dd.mm.yy" });
-
-    /*
-    // Zebratabellen
-    $('.list tr:odd').addClass('alt');
-    $('.list tr').mouseover(function () {
-    $(this).addClass('over');
-    });
-    $('.list tr').mouseout(function () {
-    $(this).removeClass('over');
-    });
-    */
-
-    /*
-    // Feeback bei Button klick
-    $("input[type='submit']").click(function () {
-    $(this).fadeTo('fast', 0.1).fadeTo('slow', 1.0);
-    });
-    $("input[type='button']").click(function () {
-    $(this).fadeTo('fast', 0.1).fadeTo('slow', 1.0);
-    });
-
-    // Icons
-    $('.ui-state-default').hover(
-    function () { $(this).addClass('ui-state-hover'); },
-    function () { $(this).removeClass('ui-state-hover'); }
-    );
-    $(".ui-state-default").click(function () {
-    $(this).fadeTo('fast', 0.1).fadeTo('slow', 1.0);
-    });
-    */
 
     // Table Drag'n'Drop: Position-Inputs durch Icon "ersetzen"
     $('td.dnd-idx').css('cursor', 'move')
@@ -106,8 +82,18 @@ Fundus.prototype.init = function() {
 
     $('.unobtrusive-remove').remove();
 
-
-    
-
-
+    // http://www.tinymce.com/wiki.php/jQuery_Plugin
+    // Initializes all textareas with the tinymce class
+    $('textarea.tinymce').tinymce({
+        //script_url: this.baseUrl + 'Scripts/tinymce/tiny_mce.js',
+        theme: "simple"
+    });
 }
+
+
+// Meldung anzeigen, wenn ein Ajax-Request gemacht wird.
+// Evtl. ganze Webseite sperren?
+// http://stackoverflow.com/questions/5938505/asp-mvc-3-loadingelementid-element-only-shows-on-first-request
+//$('#message-box-container').ajaxStart(function () {
+//    $(this).empty().append('<div class="warning">Bitte warten...</div>');
+//});

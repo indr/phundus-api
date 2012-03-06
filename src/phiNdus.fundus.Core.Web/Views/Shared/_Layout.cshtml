@@ -68,10 +68,13 @@
         <script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
         <script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
 
+        <script src="@Url.Content("~/Scripts/tinymce/jquery.tinymce.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/tinymce/tiny_mce.js")" type="text/javascript"></script>
+
         <script src="@Url.Content("~/Scripts/fundus.locale.js")" type="text/javascript"></script>
         <script src="@Url.Content("~/Scripts/fundus.js")" type="text/javascript"></script>
         <script type="text/javascript">
-            var fundus = new Fundus();
+            var fundus = new Fundus('@Url.Content("~")');
             $(function () {
                 fundus.init();
             });
