@@ -140,8 +140,11 @@ namespace phiNdus.fundus.Core.Business.Assembler
                     case DataType.DateTime:
                         dtoProperty.DataType = FieldDataType.DateTime;
                         break;
+                    case DataType.RichText:
+                        dtoProperty.DataType = FieldDataType.RichText;
+                        break;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException("FieldDefinition.DataType", "Datentypen müssen in den Klasse DataType und FieldDataType übereinstimmen");
                 }
                 dtoProperty.ValueId = each.Id;
                 dtoProperty.Value = each.Value;

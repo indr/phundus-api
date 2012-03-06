@@ -23,6 +23,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
                     return FieldDataType.Decimal;
                 case DataType.DateTime:
                     return FieldDataType.DateTime;
+                case DataType.RichText:
+                    return FieldDataType.RichText;
                 default:
                     throw new ArgumentOutOfRangeException("value");
             }
@@ -42,6 +44,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
                     return DataType.Decimal;
                 case FieldDataType.DateTime:
                     return DataType.DateTime;
+                case FieldDataType.RichText:
+                    return DataType.RichText;
                 default:
                     throw new ArgumentOutOfRangeException("value");
             }

@@ -18,6 +18,9 @@
         {
             case FieldDataType.Boolean:
                 @Html.CheckBoxFor(m => m.BooleanValue); break;
+            case FieldDataType.RichText:
+                @Html.TextAreaFor(m => m.StringValue, new { @class = "span4", rows="10" }); break;
+                break;                                                     
             default:
                 @Html.TextBoxFor(m => m.StringValue); break;
         }

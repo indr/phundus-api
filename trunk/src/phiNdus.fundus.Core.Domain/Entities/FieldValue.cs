@@ -36,6 +36,8 @@ namespace phiNdus.fundus.Core.Domain.Entities
                     return DecimalValue;
                 case DataType.DateTime:
                     return DateTimeValue;
+                case DataType.RichText:
+                    return TextValue;
                 default:
                     throw new ArgumentOutOfRangeException("dataType");
             }
@@ -71,6 +73,9 @@ namespace phiNdus.fundus.Core.Domain.Entities
                         DateTimeValue = null;
                     else
                         DateTimeValue = Convert.ToDateTime(value, CultureInfo.InvariantCulture);
+                    break;
+                case DataType.RichText:
+                    TextValue = value == null ? null : Convert.ToString(value, CultureInfo.InvariantCulture);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("dataType");

@@ -28,6 +28,7 @@ END');
   2: Integer
   3: Decimal
   4: DateTime
+  5: Rich Text
 */
 SET IDENTITY_INSERT [FieldDefinition] ON;
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
@@ -43,7 +44,7 @@ insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefaul
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
   values (7, 1, 'Ausleihbar', 0, 1, 0, 0, 999);
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
-  values (8, 1, 'Farbe', 1, 0, 0, 0, 999);
+  values (8, 1, 'Beschreibung', 5, 0, 0, 0, 100);
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
   values (9, 1, 'Grösse', 1, 0, 0, 0, 999);  
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
