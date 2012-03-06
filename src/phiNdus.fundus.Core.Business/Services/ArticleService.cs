@@ -106,7 +106,7 @@ namespace phiNdus.fundus.Core.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var result = Articles.FindAll();
+                var result = Articles.FindMany(query);
                 return ArticleAssembler.CreateDtos(result).ToList();
             }
         }

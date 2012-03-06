@@ -25,7 +25,7 @@
 
 @using (Ajax.BeginForm("Search", "Shop", new AjaxOptions { HttpMethod = "POST", UpdateTargetId="search-results"  }, new { @class = "form-search" }))
 {
-    <input type="text" id="query" class="input-medium search-query" />
+    <input type="text" name="query" class="input-medium search-query" />
     <button type="submit" class="btn">Suchen</button>
 }
 
