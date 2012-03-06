@@ -48,6 +48,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(FormCollection collection)
         {
             var model = new ArticleViewModel();
@@ -74,6 +75,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(int id, FormCollection collection)
         {
             return Fields(id, collection);
