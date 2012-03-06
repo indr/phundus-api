@@ -6,6 +6,7 @@
         Text,
         Integer,
         Decimal,
-        DateTime
+        DateTime,
+        RichText,
     }
 }
