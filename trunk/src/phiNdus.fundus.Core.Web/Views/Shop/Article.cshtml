@@ -1,13 +1,31 @@
 ﻿@model phiNdus.fundus.Core.Web.ViewModels.ArticleViewModel
-@{
-    ViewBag.Title = "Detail";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@section Breadcrumbs {
-    @Html.ActionLink("Shop", "Index") &gt; Detail
-}
+
 <h2>@Model.Caption</h2>
-<p>
+    <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#1" data-toggle="tab">Beschreibung</a></li>
+            <li class=""><a href="#2" data-toggle="tab">Bilder (0)</a></li>
+            <li class=""><a href="#3" data-toggle="tab">Verfügbarkeit</a></li>
+            <li class=""><a href="#4" data-toggle="tab">Ausleihen</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="1">
+                <p>I'm in Section 1.</p>
+            </div>
+            <div class="tab-pane" id="2">
+                <p>Howdy, I'm in Section 2.</p>
+            </div>
+            <div class="tab-pane" id="3">
+                <p>Howdy, I'm in Section 3.</p>
+            </div>
+            <div class="tab-pane" id="4">
+                <p>Howdy, I'm in Section 4.</p>
+            </div>
+        </div>
+    </div>
+
+
+@*<p>
     Menge: @Model.GetPropertyValue(3)</p>
 <p>
     Reservierbar: @Model.GetPropertyValue(6)</p>
@@ -127,4 +145,4 @@
             $('#cart').text("Warenkorb (" + data + ")");
         });
     }
-</script>
+</script>*@

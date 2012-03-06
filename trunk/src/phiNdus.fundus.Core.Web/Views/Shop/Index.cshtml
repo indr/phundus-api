@@ -1,6 +1,4 @@
-﻿@model ArticlesViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Shop";
 }
 
@@ -9,8 +7,15 @@
 }
 
 <div class="row">
-    <div class="span6">
+    <div class="span1">
         <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="span5" style="padding-top:5px;">
+        @using (Ajax.BeginForm("Search", "Shop", new AjaxOptions { HttpMethod = "POST", UpdateTargetId="search-results"  }, new { @class = "form-search" }))
+        {
+            <input type="text" name="query" class="input-medium search-query" />
+            <button type="submit" class="btn">Suchen</button>
+        }
     </div>
     <div class="span6">
         <div class="toolbar pull-right">
@@ -22,13 +27,5 @@
         </div>
     </div>
 </div>
-
-@using (Ajax.BeginForm("Search", "Shop", new AjaxOptions { HttpMethod = "POST", UpdateTargetId="search-results"  }, new { @class = "form-search" }))
-{
-    <input type="text" name="query" class="input-medium search-query" />
-    <button type="submit" class="btn">Suchen</button>
-}
-
-
 <div id="search-results">
 </div>
