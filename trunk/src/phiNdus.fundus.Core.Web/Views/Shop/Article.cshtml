@@ -4,7 +4,7 @@
     <div class="tabbable tabs-left">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#@Model.Id-D" data-toggle="tab">Beschreibung</a></li>
-            <li class=""><a href="#@Model.Id-I" data-toggle="tab">Bilder (@Model.Images.Count)</a></li>
+            <li class=""><a href="#@Model.Id-I" @if (Model.Images.Count > 0) { Html.Raw("data-toggle=\"tab\")"); }>Bilder (@Model.Images.Count)</a></li>
             <li class=""><a href="#@Model.Id-A" data-toggle="tab">Verfügbarkeit</a></li>
             <li class=""><a href="#@Model.Id-L" data-toggle="tab">Ausleihen</a></li>
         </ul>
