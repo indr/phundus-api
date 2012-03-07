@@ -14,16 +14,16 @@
 <div class="tabbable">
     <ul class="nav nav-tabs">
         <li class="@Html.ActiveTab("Article", new string[] { "Edit", "Fields" })">@Ajax.ActionLink("Eigenschaften", "Fields",new { id = Model.Id }, new AjaxOptions {
-            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" })</li>
+            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
         <li class="@Html.ActiveTab("Article", new string[] { "Images"})">@Ajax.ActionLink("Bilder", "Images", new { id = Model.Id }, new AjaxOptions {
-            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" })</li>
+            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
         <li class="@Html.ActiveTab("Article", new string[] { "Categories"})">@Ajax.ActionLink("Kategorien", "Categories", new { id = Model.Id }, new AjaxOptions {
-            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" })</li>
+            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
         <li class="@Html.ActiveTab("Article", new string[] { "Availability" })">@Ajax.ActionLink("Verfügbarkeit", "Availability", new { id = Model.Id }, new AjaxOptions {
-            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" })</li>
+            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
     </ul>
         
     <div class="tab-content" id="tab-content">
