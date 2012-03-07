@@ -69,12 +69,10 @@
         <script src="@Url.Content("~/Scripts/fundus.locale.js")" type="text/javascript"></script>
         <script src="@Url.Content("~/Scripts/fundus.js")" type="text/javascript"></script>
         <script type="text/javascript">
-            fundus.baseUri = '@Url.Content("~")';
-            fundus.init();
-            //var fundus = new Fundus('@Url.Content("~")');
-            //$(function () {
-            //    fundus.init();
-            //});
+            $(function() {
+                fundus.baseUri = '@Url.Content("~")';
+                fundus.init();
+            });
         </script>
 
             <div class="modal hide fade" id="modal-show-error">
