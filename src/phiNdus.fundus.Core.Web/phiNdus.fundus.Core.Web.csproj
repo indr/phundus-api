@@ -111,6 +111,7 @@
     <Compile Include="Installers\ControllerInstaller.cs" />
     <Compile Include="Installers\LoggerInstaller.cs" />
     <Compile Include="Installers\StateManagerInstaller.cs" />
+    <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Scripts\bootstrap-image-gallery.js" />
     <Content Include="Scripts\bootstrap-image-gallery.min.js" />
     <Content Include="Scripts\fundus.js" />
