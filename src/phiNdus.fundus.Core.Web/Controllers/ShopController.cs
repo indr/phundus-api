@@ -37,7 +37,10 @@ namespace phiNdus.fundus.Core.Web.Controllers
         {
             var model = new ArticleViewModel(id);
 
-            return PartialView("Article", model);
+            return Json(new {
+                                caption = model.Caption,
+                                content = RenderPartialViewToString("Article", model)
+                            }, JsonRequestBehavior.AllowGet);
         }
 
         private static FieldValueDto CreateNameProperty(string value)
