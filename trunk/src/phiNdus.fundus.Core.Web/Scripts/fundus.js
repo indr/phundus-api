@@ -16,6 +16,23 @@ var fundus;
                     fundus.showError(e, xhr, opts);
                 });
 
+                $('form').on('submit', function () {
+                    if ($(this).valid()) {
+                        $(this).find('div.control-group').each(function () {
+                            if ($(this).find('span.field-validation-error').length == 0) {
+                                $(this).removeClass('error');
+                            }
+                        });
+                    }
+                    else {
+                        $(this).find('div.control-group').each(function () {
+                            if ($(this).find('span.field-validation-error').length > 0) {
+                                $(this).addClass('error');
+                            }
+                        });
+                    }
+                });
+
                 // Tabs: Active setzen bei (unobstrusiven) Tabs, die den tab-content dynamisch laden (Ajax.ActionLinks).
                 $('.nav-tabs li a').on('click', function () {
                     var $li = $(this).closest('li');
@@ -48,6 +65,18 @@ var fundus;
             },
 
             reinit: function () {
+                $('span.field-validation-valid, span.field-validation-error').each(function () {
+                    $(this).addClass('help-inline');
+                });
+
+                $('form').each(function () {
+                    $(this).find('div.control-group').each(function () {
+                        if ($(this).find('span.field-validation-error').length > 0) {
+                            $(this).addClass('error');
+                        }
+                    });
+                });
+                
                 $('a.fundus-shop-showArticle').each(function (elem) {
                     var id = $(this).attr('article-id');
                     var href = $(this).attr('href');
@@ -106,67 +135,4 @@ var fundus;
             }
         };
     });
-}( window.jQuery );
-
-
-
-
-
-
-
-
-
-
-//Fundus.prototype.reinit = function () {
-
-//    //alert('reinit');
-//    
-//    // Datumspicker
-//    $('.date-picker').datepicker({ dateFormat: "dd.mm.yy" });
-
-//    
-
-//    
-
-
-//    $('span.field-validation-valid, span.field-validation-error').each(function () {
-//        $(this).addClass('help-inline');
-//    });
-
-//    $('form').submit(function () {
-//        if ($(this).valid()) {
-//            $(this).find('div.control-group').each(function () {
-//                if ($(this).find('span.field-validation-error').length == 0) {
-//                    $(this).removeClass('error');
-//                }
-//            });
-//        }
-//        else {
-//            $(this).find('div.control-group').each(function () {
-//                if ($(this).find('span.field-validation-error').length > 0) {
-//                    $(this).addClass('error');
-//                }
-//            });
-//        }
-//    });
-
-//    $('form').each(function () {
-//        $(this).find('div.control-group').each(function () {
-//            if ($(this).find('span.field-validation-error').length > 0) {
-//                $(this).addClass('error');
-//            }
-//        });
-//    });
-
-
-
-//    
-//}
-
-
-// Meldung anzeigen, wenn ein Ajax-Request gemacht wird.
-// Evtl. ganze Webseite sperren?
-// http://stackoverflow.com/questions/5938505/asp-mvc-3-loadingelementid-element-only-shows-on-first-request
-//$('#message-box-container').ajaxStart(function () {
-//    $(this).empty().append('<div class="warning">Bitte warten...</div>');
-//});
+} (window.jQuery);
