@@ -1,17 +1,14 @@
 ﻿
-
-
-
-
-
-
-
 var fundus = {
     baseUri: undefined,
 
     init: function () {
         $('body').ajaxSuccess(function (e, xhr, opts) {
             fundus.reinit();
+        });
+
+        $('body').ajaxError(function (e, xhr, opts) {
+            fundus.showError(e, xhr, opts);
         });
 
         // Tabs: Active setzen bei (unobstrusiven) Tabs, die den tab-content dynamisch laden (Ajax.ActionLinks).
@@ -41,7 +38,6 @@ var fundus = {
                 });
                 $(table).closest('form').submit();
             }
-
         });
 
         this.reinit();
@@ -56,8 +52,40 @@ var fundus = {
             script_url: this.baseUri + 'Scripts/tinymce/tiny_mce.js',
             theme: "simple"
         });
+    },
+
+    showError: function (e, xhr, opts) {
+        if (this.showError === true) {
+            alert('hmm');
+            return;
+        }
+        this.showingError = true;
+        var $div = $('#modal-show-error');
+
+        $div.find('.modal-header h3').html(xhr.status + ': ' + xhr.statusText);
+
+        $div.find('.modal-body').html('<p>Oops! Das hätte nicht passieren dürfen!</p>');
+        $div.modal();
+        this.showingError = false;
     }
 }
+
+fundus.shop = {
+    sayHello: function () {
+        alert('hellas fellas!');
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 //Fundus.prototype.reinit = function () {
 

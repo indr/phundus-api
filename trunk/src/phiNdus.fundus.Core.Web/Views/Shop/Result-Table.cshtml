@@ -12,10 +12,11 @@
             <tr>
                 <td>@each.Caption</td>
                 
-                <td>@Ajax.ActionLink("Details", "Article", new { id = each.Id}, new AjaxOptions { UpdateTargetId="article"})</td>
+                <td>@Ajax.ActionLink("Details", "Article", new { id = each.Id },
+                    new AjaxOptions {
+                        OnComplete="fundus.shop.sayHello()"
+                    })</td>
             </tr>
         }
     </tbody>
 </table>
-
-<div id="article"></div>
