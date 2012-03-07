@@ -14,6 +14,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         private IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
         private IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
         private IList<ArticleViewModel> _children = new List<ArticleViewModel>();
+        private IList<ImageDto> _images = new List<ImageDto>();
 
         public ArticleViewModel()
         {
@@ -74,9 +75,12 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 child.IsChild = true;
                 _children.Add(child);
             }
-
+            
+            _images = article.Images;
 
             _propertyDefinitions = propertyDefinitions;
+
+            
         }
 
         public bool IsDeleted { get; set; }
@@ -165,6 +169,11 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             get { return _children; }
             set { _children = value; }
         }
+
+        public IList<ImageDto> Images
+        {
+            get { return _images; }
+        }            
 
         public static DiscriminatorViewModel ConvertToDiscriminatorViewModel(FieldValueDto each)
         {

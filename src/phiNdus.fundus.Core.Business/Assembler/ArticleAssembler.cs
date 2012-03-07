@@ -26,6 +26,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
             result.Version = subject.Version;
             WriteProperties(subject, result);
             CreateChildren(subject, result);
+            foreach (var each in subject.Images)
+                result.AddImage(new ImageAssembler().CreateDto(each));
             return result;
         }
 

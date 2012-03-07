@@ -4,7 +4,7 @@
     <div class="tabbable tabs-left">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#@Model.Id-D" data-toggle="tab">Beschreibung</a></li>
-            <li class=""><a href="#@Model.Id-I" data-toggle="tab">Bilder (0)</a></li>
+            <li class=""><a href="#@Model.Id-I" data-toggle="tab">Bilder (@Model.Images.Count)</a></li>
             <li class=""><a href="#@Model.Id-A" data-toggle="tab">Verfügbarkeit</a></li>
             <li class=""><a href="#@Model.Id-L" data-toggle="tab">Ausleihen</a></li>
         </ul>
@@ -13,7 +13,18 @@
                 <p>I'm in Section 1.</p>
             </div>
             <div class="tab-pane" id="@Model.Id-I">
-                <p>Howdy, I'm in Section 2.</p>
+                <div data-target="#modal-gallery" data-toggle="modal-gallery">
+                    <ul class="thumbnails">
+                        @foreach (var each in Model.Images)
+                        {
+                            <li>
+                                <a rel="gallery" class="thumbnail" href="@Html.Raw(Url.Content(each.FileName))" title="@Path.GetFileName(each.FileName)">
+                                    <img src="@String.Concat(Html.Raw(Url.Content(each.FileName)), ".ashx?maxwidth=150&maxheight=150")" />
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
             <div class="tab-pane" id="@Model.Id-A">
                 <p>Howdy, I'm in Section 3.</p>
