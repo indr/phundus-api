@@ -48,6 +48,12 @@ var fundus;
             },
 
             reinit: function () {
+                $('a.fundus-shop-showArticle').each(function (elem) {
+                    var id = $(this).attr('article-id');
+                    var href = $(this).attr('href');
+                    $(this).click(function (e) { fundus.shop.showArticle(id, href); }).attr('href', '#').removeClass('fundus-shop-showArticle');
+                });
+
                 $('.unobtrusive-remove').remove();
 
                 // http://www.tinymce.com/wiki.php/jQuery_Plugin
@@ -75,6 +81,26 @@ var fundus;
         };
 
         fundus.shop = {
+            showArticle: function (id, url) {
+                var $div = $('#selected-articles');
+
+                // Artikel bereits angezeigt?
+                if ($div.find('a[href="#' + id + '"]').tab('show').length == 0) {
+
+                    $.ajax({
+                        url: url,
+                        success: function (data, textStatus, jqXHR) {
+                            $div.find('.nav-tabs').first().append('<li><a href="#' + id + '" data-toggle="tab">' + data.caption + '</a></li>');
+                            $div.find('.tab-content').first().append('<div class="tab-pane" id="' + id + '">' + data.content + '</div>');
+
+                            $div.find('a[href="#' + id + '"]').tab('show');
+                        }
+                    });
+
+                    
+                }
+            },
+
             sayHello: function () {
                 alert('hellas fellas!');
             }

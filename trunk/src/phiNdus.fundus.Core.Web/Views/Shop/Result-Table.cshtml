@@ -11,11 +11,7 @@
         @foreach (var each in Model.Articles) {
             <tr>
                 <td>@each.Caption</td>
-                
-                <td>@Ajax.ActionLink("Details", "Article", new { id = each.Id },
-                    new AjaxOptions {
-                        OnComplete="fundus.shop.sayHello()"
-                    })</td>
+                <td>@Html.ActionLink("Details", "Article", new { id = each.Id }, new { @class = "btn fundus-shop-showArticle", article_id = each.Id })</td>
             </tr>
         }
     </tbody>
