@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Core.Business.Paging;
 
 namespace phiNdus.fundus.Core.Business.SecuredServices
 {
@@ -15,6 +16,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         void AddImage(string sessionKey, int articleId, ImageDto subject);
         void DeleteImage(string sessionKey, int articleId, string imageName);
         IList<ImageDto> GetImages(string sessionKey, int articleId);
-        IList<ArticleDto> FindArticles(string sessionKey, string query);
+
+        PagedResult<ArticleDto> FindArticles(string sessionKey, PageRequest pageRequest, string query);
     }
 }

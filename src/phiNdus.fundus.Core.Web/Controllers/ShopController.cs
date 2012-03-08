@@ -42,9 +42,9 @@ namespace phiNdus.fundus.Core.Web.Controllers
             }
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            return Search(null);
+            return Search(null, page);
         }
 
         public ActionResult Large()
@@ -65,10 +65,10 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return Index();
         }
 
-        public ActionResult Search(string query)
+        public ActionResult Search(string query, int page)
         {
             Query = query;
-            var model = new ShopSearchResultViewModel(Query);
+            var model = new ShopSearchResultViewModel(Query, page);
             if (Request.IsAjaxRequest())
                 return PartialView(ShopView, model);
             return View(ShopView, MasterView, model);

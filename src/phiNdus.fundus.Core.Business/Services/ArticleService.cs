@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Core.Business.Paging;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
@@ -102,12 +103,13 @@ namespace phiNdus.fundus.Core.Business.Services
             }
         }
 
-        public IList<ArticleDto> FindArticles(string query)
+        public PagedResult<ArticleDto> FindArticles(PageRequest pageRequest, string query)
         {
             using (UnitOfWork.Start())
             {
                 var result = Articles.FindMany(query);
-                return ArticleAssembler.CreateDtos(result).ToList();
+                var dtos = ArticleAssembler.CreateDtos(result).ToList();
+                return new PagedResult<ArticleDto>(PageResponse.From(pageRequest, 100), dtos);
             }
         }
     }

@@ -140,6 +140,7 @@
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\DiscriminatorViewModel.cs" />
     <Compile Include="ViewModels\MessageBoxViewModel.cs" />
+    <Compile Include="ViewModels\PageSelectorViewModel.cs" />
     <Compile Include="ViewModels\PropertyValueViewModel.cs" />
     <Compile Include="ViewModels\ShopSearchResultViewModel.cs" />
     <Compile Include="ViewModels\ValidationViewModel.cs" />
@@ -596,6 +597,7 @@
     <Content Include="Views\Shop\Result-Table.cshtml" />
     <Content Include="Views\Shop\Result-Large.cshtml" />
     <Content Include="Views\Shop\Result-Small.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\PageSelectorViewModel.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

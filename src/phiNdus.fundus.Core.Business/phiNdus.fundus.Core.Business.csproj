@@ -78,7 +78,8 @@
     <Compile Include="Dto\FieldDataType.cs" />
     <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="Paging\PagedResult.cs" />
-    <Compile Include="Paging\PageIndex.cs" />
+    <Compile Include="Paging\PageRequest.cs" />
+    <Compile Include="Paging\PageResponse.cs" />
     <Compile Include="SecuredServices\IArticleService.cs" />
     <Compile Include="SecuredServices\IOrderService.cs" />
     <Compile Include="SecuredServices\IFieldsService.cs" />

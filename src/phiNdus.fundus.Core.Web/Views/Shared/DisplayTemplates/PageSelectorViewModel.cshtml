@@ -1,0 +1,28 @@
+﻿@model PageSelectorViewModel
+           
+@if (Model.TotalPages > 1)
+{
+    <div class="btn-toolbar pull-right">
+        <div class="btn-group">
+            @Html.ActionLink(new Appearance { Caption = "Vorherige", Button = Button.Normal }, "Index", new { page = 1 })
+        @{int prev = 0;}
+        @foreach (var each in Model.Pages)
+        {
+            if (each - prev > 1)
+            {
+                @Html.Raw("</div><div class=\"btn-group\">");
+            }
+            if (each == Model.ActivePage)
+            {
+                @Html.ActionLink(new Appearance { Caption = each.ToString(), Button = Button.Inverse }, "Index", new { page = each });
+            }
+            else
+            {
+                @Html.ActionLink(new Appearance { Caption = each.ToString(), Button = Button.Normal }, "Index", new { page = each });
+            }
+            prev = each;
+        }
+            @Html.ActionLink(new Appearance { Caption = "Nächste", Button = Button.Normal }, "Index", new { page = Model.TotalPages })
+        </div>
+    </div>
+}
