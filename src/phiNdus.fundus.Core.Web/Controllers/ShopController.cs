@@ -65,7 +65,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
             return Index();
         }
 
-        public ActionResult Search(string query, int page)
+        public ActionResult Search(string query, int page = 1)
         {
             Query = query;
             var model = new ShopSearchResultViewModel(Query, page);

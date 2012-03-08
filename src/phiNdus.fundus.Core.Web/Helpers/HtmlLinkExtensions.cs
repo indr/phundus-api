@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
 using System.Web.Routing;
 
 namespace phiNdus.fundus.Core.Web.Helpers
@@ -13,7 +14,106 @@ namespace phiNdus.fundus.Core.Web.Helpers
         public Button Button { get; set; }
     }
 
-    public static class LinkExtensions
+    public static class AjaxLinkExtensions
+    {
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, AjaxOptions ajaxOptions)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, object routeValues, AjaxOptions ajaxOptions)
+        {
+            var htmlAttributes = new Dictionary<string, object>();
+
+            if (appearance.Button != Button.None)
+            {
+                
+                switch (appearance.Button)
+                {
+                    case Button.None:
+                        break;
+                    case Button.Normal:
+                        htmlAttributes.Add("class", "btn");
+                        break;
+                    case Button.Primary:
+                        htmlAttributes.Add("class", "btn btn-primary");
+                        break;
+                    case Button.Info:
+                        htmlAttributes.Add("class", "btn btn-info");
+                        break;
+                    case Button.Success:
+                        htmlAttributes.Add("class", "btn btn-success");
+                        break;
+                    case Button.Warning:
+                        htmlAttributes.Add("class", "btn btn-warning");
+                        break;
+                    case Button.Danger:
+                        htmlAttributes.Add("class", "btn btn-danger");
+                        break;
+                    case Button.Inverse:
+                        htmlAttributes.Add("class", "btn btn-inverse");
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            return ajaxHelper.ActionLink(appearance.Caption, actionName, new RouteValueDictionary(routeValues), ajaxOptions, htmlAttributes);
+        }
+
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, RouteValueDictionary routeValues, AjaxOptions ajaxOptions)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, string controllerName, AjaxOptions ajaxOptions)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, object routeValues, AjaxOptions ajaxOptions, object htmlAttributes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, RouteValueDictionary routeValues, AjaxOptions ajaxOptions, IDictionary<string, object> htmlAttributes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, string controllerName, object routeValues, AjaxOptions ajaxOptions)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, string controllerName, RouteValueDictionary routeValues, AjaxOptions ajaxOptions)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, string controllerName, object routeValues, AjaxOptions ajaxOptions, object htmlAttributes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, string controllerName, RouteValueDictionary routeValues, AjaxOptions ajaxOptions, IDictionary<string, object> htmlAttributes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, string controllerName, string protocol, string hostName, string fragment, object routeValues, AjaxOptions ajaxOptions, object htmlAttributes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, string controllerName, string protocol, string hostName, string fragment, RouteValueDictionary routeValues, AjaxOptions ajaxOptions, IDictionary<string, object> htmlAttributes)
+        {
+            throw new NotImplementedException();
+        }
+  
+    }
+
+    public static class HtmlLinkExtensions
     {
         public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, Appearance appearance, string actionName)
         {
@@ -98,7 +198,6 @@ namespace phiNdus.fundus.Core.Web.Helpers
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
             }
 
             return MvcHtmlString.Create(a.ToString(TagRenderMode.Normal));

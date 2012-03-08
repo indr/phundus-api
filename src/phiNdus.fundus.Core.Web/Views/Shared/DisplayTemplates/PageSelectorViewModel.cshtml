@@ -1,10 +1,23 @@
 ﻿@model PageSelectorViewModel
            
+@{
+    var ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        LoadingElementId = "query-loading",
+        UpdateTargetId = "search-results"
+    };
+}
+
 @if (Model.TotalPages > 1)
 {
     <div class="btn-toolbar pull-right">
         <div class="btn-group">
-            @Html.ActionLink(new Appearance { Caption = "Vorherige", Button = Button.Normal }, "Index", new { page = 1 })
+        @if (Model.ActivePage > 1)
+        {
+            @Ajax.ActionLink(new Appearance { Caption = "Vorherige", Button = Button.Normal }, "Index", new { page = Model.ActivePage - 1 }, ajaxOptions)
+        }
+        
         @{int prev = 0;}
         @foreach (var each in Model.Pages)
         {
@@ -14,15 +27,19 @@
             }
             if (each == Model.ActivePage)
             {
-                @Html.ActionLink(new Appearance { Caption = each.ToString(), Button = Button.Inverse }, "Index", new { page = each });
+                @Ajax.ActionLink(new Appearance { Caption = each.ToString(), Button = Button.Inverse }, "Index", new { page = each }, ajaxOptions);
             }
             else
             {
-                @Html.ActionLink(new Appearance { Caption = each.ToString(), Button = Button.Normal }, "Index", new { page = each });
+                @Ajax.ActionLink(new Appearance { Caption = each.ToString(), Button = Button.Normal }, "Index", new { page = each }, ajaxOptions);
             }
             prev = each;
         }
-            @Html.ActionLink(new Appearance { Caption = "Nächste", Button = Button.Normal }, "Index", new { page = Model.TotalPages })
+        
+        @if (Model.ActivePage < Model.TotalPages)
+        {
+            @Ajax.ActionLink(new Appearance { Caption = "Nächste", Button = Button.Normal }, "Index", new { page = Model.ActivePage + 1 }, ajaxOptions)
+        }
         </div>
     </div>
 }
