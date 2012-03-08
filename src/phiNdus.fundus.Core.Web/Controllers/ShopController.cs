@@ -1,5 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using phiNdus.fundus.Core.Web.State;
 using phiNdus.fundus.Core.Web.ViewModels;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Controllers
 {
@@ -10,18 +13,65 @@ namespace phiNdus.fundus.Core.Web.Controllers
             get { return @"Index"; }
         }
 
+        private static class ShopViews
+        {
+            public static string Large { get { return @"Result-Large"; } }
+            public static string Small { get { return @"Result-Small"; } }
+            public static string Table { get { return @"Result-Table"; } }
+            public static string Default { get { return Large; } }
+        }
+
+        private string ShopView
+        {
+            get {
+                var result = Convert.ToString(Session["Shop-View"]);
+                if (!String.IsNullOrEmpty(result))
+                    return result;
+                return ShopViews.Default;
+            } 
+            set { Session["Shop-View"] = value; }
+        }
+
+        private string Query
+        {
+            get { return Convert.ToString(Session["Shop-Query"]); }
+            set
+            {
+                if (value != null)
+                    Session["Shop-Query"] = value;
+            }
+        }
+
         public ActionResult Index()
         {
-            var model = new ShopSearchResultViewModel();
-            return View("Result-Table", MasterView, model);
+            return Search(null);
+        }
+
+        public ActionResult Large()
+        {
+            ShopView = ShopViews.Large;
+            return Index();
+        }
+
+        public ActionResult Small()
+        {
+            ShopView = ShopViews.Small;
+            return Index();
+        }
+
+        public ActionResult Table()
+        {
+            ShopView = ShopViews.Table;
+            return Index();
         }
 
         public ActionResult Search(string query)
         {
-            var model = new ShopSearchResultViewModel(query);
+            Query = query;
+            var model = new ShopSearchResultViewModel(Query);
             if (Request.IsAjaxRequest())
-                return PartialView("Result-Table", model);
-            return View("Result-Table", MasterView, model);
+                return PartialView(ShopView, model);
+            return View(ShopView, MasterView, model);
         }
 
         public ActionResult Article(int id)

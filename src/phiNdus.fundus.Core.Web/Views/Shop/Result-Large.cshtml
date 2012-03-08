@@ -1,0 +1,30 @@
+﻿@model ShopSearchResultViewModel
+
+<ul class="thumbnails" data-target="#modal-gallery" data-toggle="modal-gallery">
+    @foreach (var each in Model.Articles)
+    {
+    <li class="span3">
+        <div class="thumbnail">
+            @if (each.Images.Count > 0)
+            {
+                <div style="text-align:center;">
+                    <a rel="gallery" href="@Html.Raw(Url.Content(each.Images.First().FileName))" title="@each.Caption - @Path.GetFileName(each.Images.First().FileName)">
+                        <img src="@String.Concat(Html.Raw(Url.Content(each.Images.First().FileName)), ".ashx?maxwidth=260&maxheight=180")" />
+                    </a>
+                </div>
+            }
+            else
+            {
+                <img src="http://placehold.it/260x180" alt="" />
+             }
+            <h5>@if (each.Caption == null) {
+                    @Html.Raw("&nbsp;");
+                }
+                else {
+                    @each.Caption;
+                }</h5>
+            <div class="modal-footer" style="margin-bottom: 0;padding: 0px 1px 1px; background-color: transparent; border-width:0;">@Html.ActionLink("Details", "Article", new { id = each.Id }, new { @class = "btn fundus-shop-showArticle", article_id = each.Id })</div>
+        </div>
+    </li>
+    }
+</ul>
