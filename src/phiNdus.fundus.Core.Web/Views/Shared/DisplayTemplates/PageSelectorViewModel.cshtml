@@ -9,9 +9,10 @@
     };
 }
 
-@if (Model.TotalPages > 1)
-{
+
     <div class="btn-toolbar pull-right">
+        @if (Model.TotalPages > 1)
+{
         <div class="btn-group">
         @if (Model.ActivePage > 1)
         {
@@ -41,5 +42,23 @@
             @Ajax.ActionLink(new Appearance { Caption = "Nächste", Button = Button.Normal }, "Index", new { page = Model.ActivePage + 1 }, ajaxOptions)
         }
         </div>
+            }
+        
+        <div class="btn-group" style="padding-left: 20px;">
+        @using (Ajax.BeginForm("Index", new AjaxOptions
+        {
+            HttpMethod = "POST",
+            LoadingElementId = "query-loading",
+            UpdateTargetId = "search-results"
+        }))
+        {
+            <div class="btn-group">
+            @Html.DropDownList("rowsPerPage", Model.RowsPerPageOptions, new { style = "width:auto;margin-top:-10px;" }) 
+            </div>
+            <div class="btn-group">
+            @Html.SubmitButton("Go")
+            </div>
+        }
+        </div>
+        
     </div>
-}

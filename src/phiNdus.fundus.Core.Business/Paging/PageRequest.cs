@@ -10,7 +10,7 @@
         /// </summary>
         public int Index { get; set; }
 
-        private int _size = 2;
+        private int _size = 8;
 
         /// <summary>
         /// Anzahl Elemente pro Seite.
