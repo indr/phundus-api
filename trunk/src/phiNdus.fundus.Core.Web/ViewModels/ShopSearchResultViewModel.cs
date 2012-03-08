@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using Rhino.Commons;
 
@@ -13,9 +14,13 @@ namespace phiNdus.fundus.Core.Web.ViewModels
 
         public ShopSearchResultViewModel(string query)
         {
+            Query = query;
             Articles = new List<ArticleViewModel>();
-            Search(query);
+            
+            Search(Query);
         }
+
+        public string Query { get; protected set; }
 
         protected IArticleService ArticleService
         {

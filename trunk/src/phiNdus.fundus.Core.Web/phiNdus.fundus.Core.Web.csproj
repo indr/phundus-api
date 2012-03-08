@@ -103,6 +103,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ActiveTabExtension.cs" />
+    <Compile Include="Helpers\AjaxExtensions.cs" />
     <Compile Include="Helpers\BlueImpFileUploadHandler.cs" />
     <Compile Include="Helpers\LabelExtensions.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
@@ -591,6 +592,8 @@
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\FieldViewModel.cshtml" />
     <Content Include="Views\Shop\Result-Table.cshtml" />
+    <Content Include="Views\Shop\Result-Large.cshtml" />
+    <Content Include="Views\Shop\Result-Small.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
