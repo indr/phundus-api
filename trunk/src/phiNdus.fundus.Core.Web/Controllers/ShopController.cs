@@ -42,33 +42,56 @@ namespace phiNdus.fundus.Core.Web.Controllers
             }
         }
 
-        public ActionResult Index(int page = 1)
+        private int? RowsPerPage
         {
-            return Search(null, page);
+            get
+            {
+                var value = Session["Shop-RowsPerPage"];
+                if (value == null)
+                    return 8;
+                return Convert.ToInt32(value);
+            }
+            set
+            {
+                if (value != null)
+                    Session["Shop-RowsPerPage"] = value;
+            }
+        }
+
+        public ActionResult Index(int? page, FormCollection collection = null)
+        {
+            if (collection != null)
+            {
+                var value = collection.GetValue("PageSelectorModel.rowsPerPage");
+                    if (value != null)
+                        RowsPerPage = Convert.ToInt32(value.AttemptedValue);
+            }
+            
+            return Search(null, page.HasValue ? page.Value : 1);
         }
 
         public ActionResult Large()
         {
             ShopView = ShopViews.Large;
-            return Index();
+            return Index(null, null);
         }
 
         public ActionResult Small()
         {
             ShopView = ShopViews.Small;
-            return Index();
+            return Index(null, null);
         }
 
         public ActionResult Table()
         {
             ShopView = ShopViews.Table;
-            return Index();
+            return Index(null, null);
         }
 
         public ActionResult Search(string query, int page = 1)
         {
             Query = query;
-            var model = new ShopSearchResultViewModel(Query, page);
+            var model = new ShopSearchResultViewModel(Query, page, RowsPerPage.Value);
             if (Request.IsAjaxRequest())
                 return PartialView(ShopView, model);
             return View(ShopView, MasterView, model);
