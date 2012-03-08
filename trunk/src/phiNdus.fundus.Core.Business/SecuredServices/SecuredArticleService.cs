@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Core.Business.Paging;
 using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Security.Constraints;
 using phiNdus.fundus.Core.Business.Services;
@@ -73,10 +74,10 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
                 .Do<ArticleService, IList<ImageDto>>(svc => svc.GetImages(articleId));
         }
 
-        public IList<ArticleDto> FindArticles(string sessionKey, string query)
+        public PagedResult<ArticleDto> FindArticles(string sessionKey, PageRequest pageRequest, string query)
         {
             return Secured.With(Session.FromKey(sessionKey))
-                .Do<ArticleService, IList<ArticleDto>>(svc => svc.FindArticles(query));
+                .Do<ArticleService, PagedResult<ArticleDto>>(svc => svc.FindArticles(pageRequest, query));
         }
 
         #endregion
