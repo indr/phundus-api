@@ -105,8 +105,9 @@
     <Compile Include="Helpers\ActiveTabExtension.cs" />
     <Compile Include="Helpers\AjaxExtensions.cs" />
     <Compile Include="Helpers\BlueImpFileUploadHandler.cs" />
+    <Compile Include="Helpers\ButtonClass.cs" />
     <Compile Include="Helpers\LabelExtensions.cs" />
-    <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Helpers\HtmlExtensions.cs" />
     <Compile Include="Helpers\MvcContainer.cs" />
     <Compile Include="Installers\AuthenticationInstaller.cs" />
     <Compile Include="Installers\ControllerInstaller.cs" />
