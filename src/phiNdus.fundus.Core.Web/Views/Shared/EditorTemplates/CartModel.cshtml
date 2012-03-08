@@ -23,7 +23,7 @@
                 <td>@item.End.Subtract(item.Begin).TotalDays Tag(e)</td>
                 <td>@item.Price.ToString("C2", new System.Globalization.CultureInfo("de-CH"))</td>
                 <td>
-                    @Html.ActionLinkIcon("Aus dem Warenkorb entfernen", ActionLinkIcon.Remove, "RemoveItem", new { gid = @item.Gid })
+                    Remove @*@Html.ActionLinkIcon("Aus dem Warenkorb entfernen", ActionLinkIcon.Remove, "RemoveItem", new { gid = @item.Gid })*@
                 </td>
             </tr>
         }
