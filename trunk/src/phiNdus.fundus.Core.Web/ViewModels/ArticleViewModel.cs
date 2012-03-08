@@ -113,6 +113,13 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             }
         }
 
+        public string Description {
+            get {
+                var property = GetProperty(8);
+                return property != null ? (string) property.Value : null;
+            }
+        }
+
         public bool IsReservable {
             get {
                 var property = GetProperty(6);

@@ -44,7 +44,7 @@ insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefaul
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
   values (7, 1, 'Ausleihbar', 0, 1, 0, 0, 999);
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
-  values (8, 1, 'Beschreibung', 5, 0, 0, 0, 100);
+  values (8, 1, 'Beschreibung', 5, 1, 0, 0, 100);
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
   values (9, 1, 'Grösse', 1, 0, 0, 0, 999);  
 insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
