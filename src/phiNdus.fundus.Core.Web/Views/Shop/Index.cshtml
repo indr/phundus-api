@@ -1,5 +1,8 @@
-﻿@{
+﻿@model ShopSearchResultViewModel
+           
+@{
     ViewBag.Title = "Shop";
+    Layout = "~/Views/Shared/_Layout.cshtml";    
 }
 
 @section Breadcrumbs {
@@ -34,6 +37,7 @@
     </div>
 </div>
 <div id="search-results">
+    @RenderBody();
 </div>
 <div class="tabbable" id="selected-articles">
     <ul class="nav nav-tabs">
