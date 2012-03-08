@@ -76,7 +76,7 @@ var fundus;
                         }
                     });
                 });
-                
+
                 $('a.fundus-shop-showArticle').each(function (elem) {
                     var id = $(this).attr('article-id');
                     var href = $(this).attr('href');
@@ -119,15 +119,33 @@ var fundus;
                     $.ajax({
                         url: url,
                         success: function (data, textStatus, jqXHR) {
-                            $div.find('.nav-tabs').first().append('<li><a href="#' + id + '" data-toggle="tab">' + data.caption + '</a></li>');
+                            $div.find('.nav-tabs').first().append('<li><a href="#' + id + '" data-toggle="tab">' + data.caption + ' <span class="close" style="margin:-2px -4px 0 8px;" onclick="fundus.shop.closeArticle(' + id + ')">×</span></a></li>');
                             $div.find('.tab-content').first().append('<div class="tab-pane" id="' + id + '">' + data.content + '</div>');
 
                             $div.find('a[href="#' + id + '"]').tab('show');
                         }
                     });
 
-                    
+
                 }
+            },
+
+            closeArticle: function (id) {
+                var $div = $('#selected-articles');
+
+                var $li = $div.find('a[href="#' + id + '"]').parent('li');
+                if ($li.hasClass('active')) {
+                    var $next = $li.next();
+                    if ($next.length == 0)
+                        $next = $li.prev();
+                    $next.find('a').tab('show');
+                }
+
+                $li.remove();
+                $div.find('div#' + id).remove();
+
+                
+
             },
 
             sayHello: function () {
