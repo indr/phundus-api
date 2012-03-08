@@ -34,7 +34,7 @@
             @Html.DisplayFor(modelItem => item.RoleName)
         </td>
         <td>
-            @Html.ActionLinkButton("Bearbeiten", "Edit", new { id = item.Id })
+            @Html.ActionLink(new Appearance { Caption = "Bearbeiten", Button = Button.Normal }, "Edit", new { id = item.Id })
         </td>
     </tr>
 }

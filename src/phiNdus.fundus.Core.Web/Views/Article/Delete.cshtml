@@ -15,7 +15,7 @@
     <p>Möchten Sie diesen Artikel wirklich löschen?</p>
     <div class="form-actions">
         @Html.SubmitButton("Ja, löschen!", ButtonClass.Danger)
-        @Html.ActionLinkButton("Abbrechen", "Index")
+        @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index")
     </div>
     </fieldset>
 }

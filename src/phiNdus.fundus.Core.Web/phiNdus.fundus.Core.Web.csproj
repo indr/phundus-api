@@ -108,6 +108,7 @@
     <Compile Include="Helpers\ButtonClass.cs" />
     <Compile Include="Helpers\LabelExtensions.cs" />
     <Compile Include="Helpers\HtmlExtensions.cs" />
+    <Compile Include="Helpers\LinkExtensions.cs" />
     <Compile Include="Helpers\MvcContainer.cs" />
     <Compile Include="Installers\AuthenticationInstaller.cs" />
     <Compile Include="Installers\ControllerInstaller.cs" />

@@ -57,7 +57,7 @@
                         </ul>
                     </div>
                     <div class="btn-group">
-                        @Html.ActionLinkButton("Löschen", "Delete", new { id = item.Id, version = item.Version }, Icon.None, ButtonClass.Danger)                 
+                        @Html.ActionLink(new Appearance { Caption = "Löschen", Button = Button.Danger}, "Delete", new { id = item.Id, version = item.Version })                 
                     </div>
                 </div>
             </td>
