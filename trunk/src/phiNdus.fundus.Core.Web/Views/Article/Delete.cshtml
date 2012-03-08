@@ -14,7 +14,7 @@
     <legend>@ViewBag.Title</legend>
     <p>Möchten Sie diesen Artikel wirklich löschen?</p>
     <div class="form-actions">
-        @Html.SubmitButton("Ja, löschen!", ButtonClass.Danger)
+        @Html.SubmitButton("Ja, löschen!", "btn-danger")
         @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index")
     </div>
     </fieldset>
