@@ -6,16 +6,18 @@ using System.Web.Mvc;
 
 namespace phiNdus.fundus.Core.Web.Helpers
 {
-    
-
     public static class LabelExtensions
     {
-        public static MvcHtmlString LabelFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, object htmlAttributes)
+        public static MvcHtmlString LabelFor<TModel, TValue>(this HtmlHelper<TModel> html,
+                                                             Expression<Func<TModel, TValue>> expression,
+                                                             object htmlAttributes)
         {
             return html.LabelFor(expression, null, htmlAttributes);
         }
 
-        public static MvcHtmlString LabelFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, string labelText, object htmlAttributes)
+        public static MvcHtmlString LabelFor<TModel, TValue>(this HtmlHelper<TModel> html,
+                                                             Expression<Func<TModel, TValue>> expression,
+                                                             string labelText, object htmlAttributes)
         {
             return html.LabelHelper(
                 ModelMetadata.FromLambdaExpression(expression, html.ViewData),
@@ -24,19 +26,22 @@ namespace phiNdus.fundus.Core.Web.Helpers
                 labelText);
         }
 
-        private static MvcHtmlString LabelHelper(this HtmlHelper html, ModelMetadata metadata, string htmlFieldName, IDictionary<string, object> htmlAttributes, string labelText = null)
+        private static MvcHtmlString LabelHelper(this HtmlHelper html, ModelMetadata metadata, string htmlFieldName,
+                                                 IDictionary<string, object> htmlAttributes, string labelText = null)
         {
             var str = labelText
-                ?? (metadata.DisplayName
-                ?? (metadata.PropertyName
-                ?? htmlFieldName.Split(new[] { '.' }).Last()));
+                      ?? (metadata.DisplayName
+                          ?? (metadata.PropertyName
+                              ?? htmlFieldName.Split(new[] {'.'}).Last()));
 
             if (string.IsNullOrEmpty(str))
                 return MvcHtmlString.Empty;
 
             var tagBuilder = new TagBuilder("label");
             tagBuilder.MergeAttributes(htmlAttributes);
-            tagBuilder.Attributes.Add("for", TagBuilder.CreateSanitizedId(html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)));
+            tagBuilder.Attributes.Add("for",
+                                      TagBuilder.CreateSanitizedId(
+                                          html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)));
             tagBuilder.SetInnerText(str);
 
             return tagBuilder.ToMvcHtmlString(TagRenderMode.Normal);

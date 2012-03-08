@@ -20,7 +20,7 @@
     @Html.EditorForModel()
     <div class="form-actions">
         @Html.SubmitButton("Speichern")
-        @Html.ActionLinkButton("Abbrechen", "Index")
+        @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index")
     </div>
     </fieldset>
 }

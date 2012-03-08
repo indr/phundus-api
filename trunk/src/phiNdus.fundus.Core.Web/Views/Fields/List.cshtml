@@ -19,7 +19,7 @@
     
     <p>
         <span class="unobtrusive-remove"><input type="submit" value="Speichern" /> | </span>
-        @Html.ActionLinkButton("Neue Eigenschaft", "Create", new { }, "", ButtonClass.Primary)
+        @Html.ActionLink(new Appearance { Caption = "Neue Eigenschaft", Button = Button.Primary }, "Create")
     </p>
     <table class="table table-bordered table-striped dnd">
        <thead>
@@ -71,10 +71,10 @@
             <td>
                 @Html.HiddenFor(m => m.Items[idx].Id)
 
-                @Html.ActionLinkButton("Bearbeiten", "Edit", new { id = Model.Items[idx].Id })
+                @Html.ActionLink(new Appearance { Caption = "Bearbeiten", Button = Button.Normal }, "Edit", new { id = Model.Items[idx].Id })
                 @if (!Model.Items[idx].IsSystem)
                 {
-                    @Html.ActionLinkButton("Löschen", "Delete", new { id = Model.Items[idx].Id, version = Model.Items[idx].Version }, "", ButtonClass.Danger)
+                    @Html.ActionLink(new Appearance { Caption = "Löschen", Button = Button.Danger }, "Delete", new { id = Model.Items[idx].Id, version = Model.Items[idx].Version })
                 }
             </td>
         </tr>
@@ -83,29 +83,6 @@
     </table>
     <p>
         <span class="unobtrusive-remove"><input type="submit" value="Speichern" /> | </span>
-        @Html.ActionLinkButton("Neue Eigenschaft", "Create", new { }, "", ButtonClass.Primary)
+        @Html.ActionLink(new Appearance { Caption = "Neue Eigenschaft", Button = Button.Primary }, "Create")
     </p>
 }
-
-
-@*<!--<script type="text/javascript">
-    function mysuccess(data) {
-        $('#message-box-container').empty().append(data.message);
-
-
-        var table = $("table.dnd");
-        for (var idx = 0; idx < data.data.length; idx++) {
-            var item = data.data[idx];
-
-            //alert(item.id);
-            var input = $(table).find('#Items_' + idx + '__Version');
-            input.val(item.version);
-            //alert(input.id + "; wert= " + input.val());
-
-            $(table).find('input[value="' + item.id + '"]').each(function (index) {
-                if($(this).
-            });
-        }
-        
-    }
-</script>-->*@

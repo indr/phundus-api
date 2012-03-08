@@ -94,6 +94,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Fields(int id, FormCollection collection)
         {
             var model = new ArticleViewModel();
