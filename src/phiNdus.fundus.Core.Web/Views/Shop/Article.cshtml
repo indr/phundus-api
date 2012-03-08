@@ -12,7 +12,7 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="@Model.Id-D">
-                @Model.Description
+                @Html.Raw(Model.Description)
             </div>
             <div class="tab-pane" id="@Model.Id-I">
                 <ul class="thumbnails" data-target="#modal-gallery" data-toggle="modal-gallery">

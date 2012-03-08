@@ -61,6 +61,11 @@ var fundus;
                     }
                 });
 
+                $('form').on('submit', function () {
+                    $('textarea.tinymce').triggerSave();
+                    //tinyMCE.triggerSave();
+                });
+
                 this.reinit();
             },
 
@@ -87,7 +92,7 @@ var fundus;
 
                 // http://www.tinymce.com/wiki.php/jQuery_Plugin
                 // Initializes all textareas with the tinymce class
-                $('textarea.tinymce').tinymce({
+                $('textarea.tinymce-init').removeClass('tinymce-init').addClass('tinymce').tinymce({
                     script_url: this.baseUri + 'Scripts/tinymce/tiny_mce.js',
                     theme: "simple"
                 });
@@ -144,7 +149,7 @@ var fundus;
                 $li.remove();
                 $div.find('div#' + id).remove();
 
-                
+
 
             },
 
