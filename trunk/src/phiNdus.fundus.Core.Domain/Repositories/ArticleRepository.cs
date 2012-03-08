@@ -22,12 +22,14 @@ namespace phiNdus.fundus.Core.Domain.Repositories
             return query.ToList();
         }
 
-        public ICollection<Article> FindMany(string query)
+        public ICollection<Article> FindMany(string query, int start, int count, out int total)
         {
-            return Session.QueryOver<Article>()
+            var q = Session.QueryOver<Article>()
                 .JoinQueryOver<FieldValue>(a => a.FieldValues)
                 .WhereRestrictionOn(fv => fv.TextValue).IsLike(query, MatchMode.Anywhere)
-                .List().Distinct().ToList();
+                .List().Distinct();
+            total = q.Count();
+            return q.Skip(start).Take(count).ToList();
         }
 
         #endregion

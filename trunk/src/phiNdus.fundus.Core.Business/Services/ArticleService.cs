@@ -107,9 +107,10 @@ namespace phiNdus.fundus.Core.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var result = Articles.FindMany(query);
+                int total;
+                var result = Articles.FindMany(query, pageRequest.Index * pageRequest.Size, pageRequest.Size, out total);
                 var dtos = ArticleAssembler.CreateDtos(result).ToList();
-                return new PagedResult<ArticleDto>(PageResponse.From(pageRequest, 100), dtos);
+                return new PagedResult<ArticleDto>(PageResponse.From(pageRequest, total), dtos);
             }
         }
     }
