@@ -15,7 +15,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
     {
         private static class Actions
         {
-            public static string List { get { return @"List"; } }
+            public static string List { get { return @"Index"; } }
         }
 
         public CartController()
@@ -30,15 +30,9 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction(Actions.List);
-        }
-
-        //
-        // GET: /Cart/List
-
-        public ActionResult List()
-        {
-            return View(this.StateManager.Load<CartModel>());
+            throw new Exception("Papperlappap!");
+            //return View(this.StateManager.Load<CartModel>());
+            return View();
         }
 
         //
