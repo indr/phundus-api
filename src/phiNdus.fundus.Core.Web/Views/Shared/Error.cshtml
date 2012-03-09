@@ -1,15 +1,22 @@
-﻿@{
-    Layout = null;
+﻿@model System.Web.Mvc.HandleErrorInfo
+           
+@{
+    ViewBag.Title = "Fehler";
 }
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <title>Error</title>
-    </head>
-    <body>
-        <h2>Sorry, an error occurred while processing your request.</h2>
-    </body>
-</html>
+<!--<h2>Oops, da ist ein Fehler aufgetreten!</h2>-->
+<!--<h2>Sorry, an error occurred while processing your request.</h2>-->
+
+    <div class="alert alert-block alert-error" style="margin-bottom:60px;">
+    <h4 class="alert-heading">Oops, da ist ein Fehler augetreten!</h4>
+    Anscheinend hat der Programmierer geschlampt, denn dies dürfte nicht vorkommen.
+    </div>
+<table>
+<tr><td style="font-weight:bold;padding:5px;width:100px;">Controller:</td><td>@Model.ControllerName</td></tr>
+<tr><td style="font-weight:bold;padding:5px;">Action:</td><td>@Model.ActionName</td></tr>
+<tr><td style="font-weight:bold;padding:5px;">Message:</td><td>@Model.Exception.Message</td></tr>
+<tr><td style="font-weight:bold;padding:5px;">Stack Trace:</td><td></td></tr>
+</table>
+<pre>@Model.Exception.StackTrace</pre>
+            
+        

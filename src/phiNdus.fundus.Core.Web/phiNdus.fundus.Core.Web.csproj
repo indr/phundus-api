@@ -502,7 +502,7 @@
     <Content Include="Views\Article\Fields.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Cart\List.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Fields\List.cshtml" />
