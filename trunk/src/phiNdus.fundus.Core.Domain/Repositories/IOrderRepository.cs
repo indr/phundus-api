@@ -11,5 +11,6 @@ namespace phiNdus.fundus.Core.Domain.Repositories
         ICollection<Order> FindApproved();
         ICollection<Order> FindRejected();
         int SumReservedAmount(int articleId);
+        Order FindCart(int userId);
     }
 }

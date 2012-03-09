@@ -11,7 +11,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
 {
     public class OrderAssembler
     {
-        public static OrderDto CreateDto(Order subject)
+        public OrderDto CreateDto(Order subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
@@ -38,7 +38,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             return result;
         }
 
-        public static IList<OrderDto> CreateDtos(ICollection<Order> subjects)
+        public IList<OrderDto> CreateDtos(ICollection<Order> subjects)
         {
             Guard.Against<ArgumentNullException>(subjects == null, "subjects");
 
