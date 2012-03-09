@@ -1,6 +1,7 @@
 ﻿namespace phiNdus.fundus.Core.Web.Models
 {
-    public interface IFormsService {
+    public interface IFormsService
+    {
         /// <summary>
         /// Speichert die Benutzerdaten in einer Session
         /// </summary>

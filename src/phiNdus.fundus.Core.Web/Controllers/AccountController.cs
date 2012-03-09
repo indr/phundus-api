@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Security;
 using phiNdus.fundus.Core.Web.Models;
 using phiNdus.fundus.Core.Web.ViewModels;
@@ -10,25 +9,14 @@ namespace phiNdus.fundus.Core.Web.Controllers
 {
     public class AccountController : Controller
     {
-        public AccountController() {
-            this.FormsService = IoC.Resolve<IFormsService>();
-            this.MembershipService = IoC.Resolve<IMembershipService>();
+        public AccountController()
+        {
+            FormsService = IoC.Resolve<IFormsService>();
+            MembershipService = IoC.Resolve<IMembershipService>();
         }
 
-        private IMembershipService MembershipService { get; set; }
         private IFormsService FormsService { get; set; }
-
-        //protected override void Initialize(RequestContext requestContext)
-        //{
-        //    // Todo,chris: per Castle laden?
-        //    //if (FormsService == null)
-        //    //    FormsService = new FormsAuthenticationService();            
-
-        //    //if (MembershipService == null)
-        //    //    MembershipService = new MembershipService();
-
-        //    base.Initialize(requestContext);
-        //}
+        private IMembershipService MembershipService { get; set; }
 
         public ActionResult LogOn()
         {
@@ -40,24 +28,13 @@ namespace phiNdus.fundus.Core.Web.Controllers
         {
             if ((ModelState.IsValid) && (MembershipService.ValidateUser(model.Email, model.Password)))
             {
-                
-                    FormsService.SignIn(model.Email, model.RememberMe);
-                    if (!String.IsNullOrEmpty(returnUrl))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                
-            }
-            else
-            {
-                ModelState.AddModelError("", "Benutzername oder Passwort inkorrekt.");
+                FormsService.SignIn(model.Email, model.RememberMe);
+                if (!String.IsNullOrEmpty(returnUrl))
+                    return Redirect(returnUrl);
+                return RedirectToAction("Index", "Home");
             }
 
-            // Nicht erfolgreich
+            ModelState.AddModelError("", "Benutzername oder Passwort inkorrekt.");
             return View();
         }
 
@@ -81,10 +58,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
             {
                 if (MembershipService.ValidateValidationKey(model.Key))
                     return View("ValidationDone");
-                else
-                {
-                    ModelState.AddModelError("", "Unbekannter oder ungültiger Code.");
-                }
+                ModelState.AddModelError("", "Unbekannter oder ungültiger Code.");
             }
             return View(model);
         }
@@ -108,29 +82,29 @@ namespace phiNdus.fundus.Core.Web.Controllers
                 {
                     case MembershipCreateStatus.Success:
                         return View("SignUpDone");
-                    //case MembershipCreateStatus.InvalidUserName:
-                    //    break;
-                    //case MembershipCreateStatus.InvalidPassword:
-                    //    break;
-                    //case MembershipCreateStatus.InvalidQuestion:
-                    //    break;
-                    //case MembershipCreateStatus.InvalidAnswer:
-                    //    break;
-                    //case MembershipCreateStatus.InvalidEmail:
-                    //    break;
-                    //case MembershipCreateStatus.DuplicateUserName:
-                    //    break;
+                        //case MembershipCreateStatus.InvalidUserName:
+                        //    break;
+                        //case MembershipCreateStatus.InvalidPassword:
+                        //    break;
+                        //case MembershipCreateStatus.InvalidQuestion:
+                        //    break;
+                        //case MembershipCreateStatus.InvalidAnswer:
+                        //    break;
+                        //case MembershipCreateStatus.InvalidEmail:
+                        //    break;
+                        //case MembershipCreateStatus.DuplicateUserName:
+                        //    break;
                     case MembershipCreateStatus.DuplicateEmail:
                         ModelState.AddModelError("", "Die E-Mail-Adresse wird bereits verwendet.");
                         break;
-                    //case MembershipCreateStatus.UserRejected:
-                    //    break;
-                    //case MembershipCreateStatus.InvalidProviderUserKey:
-                    //    break;
-                    //case MembershipCreateStatus.DuplicateProviderUserKey:
-                    //    break;
-                    //case MembershipCreateStatus.ProviderError:
-                    //    break;
+                        //case MembershipCreateStatus.UserRejected:
+                        //    break;
+                        //case MembershipCreateStatus.InvalidProviderUserKey:
+                        //    break;
+                        //case MembershipCreateStatus.DuplicateProviderUserKey:
+                        //    break;
+                        //case MembershipCreateStatus.ProviderError:
+                        //    break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

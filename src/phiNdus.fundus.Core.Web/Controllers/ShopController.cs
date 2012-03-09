@@ -6,6 +6,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Controllers
 {
+    [Authorize]
     public class ShopController : ControllerBase
     {
         private static string MasterView

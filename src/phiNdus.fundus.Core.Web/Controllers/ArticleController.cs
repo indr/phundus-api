@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Web.Helpers;
 using phiNdus.fundus.Core.Web.ViewModels;
@@ -205,7 +202,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         [ActionName("Delete")]
         public ActionResult AjaxDelete(int id)
         {
-            MessageBoxViewModel result = null;
+            MessageBoxViewModel result;
             try
             {
                 result = new MessageBoxViewModel

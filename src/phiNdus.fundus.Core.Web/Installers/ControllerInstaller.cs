@@ -1,21 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Castle.Windsor;
+using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
-using System.Web.Mvc;
+using Castle.Windsor;
 
-namespace phiNdus.fundus.Core.Web.Installers {
-    public class ControllerInstaller : IWindsorInstaller {
+namespace phiNdus.fundus.Core.Web.Installers
+{
+    public class ControllerInstaller : IWindsorInstaller
+    {
+        #region IWindsorInstaller Members
 
-        public void Install(IWindsorContainer container, IConfigurationStore store) {
+        public void Install(IWindsorContainer container, IConfigurationStore store)
+        {
             container.Register(AllTypes.FromThisAssembly()
-                                .BasedOn<IController>()
-                                .If(Component.IsInNamespace("phiNdus.fundus.Core.Web.Controllers", true))
-                                .If(t => t.Name.EndsWith("Controller", StringComparison.InvariantCulture))
-                                .Configure(c => c.LifeStyle.Transient));
+                                   .BasedOn<IController>()
+                                   .If(Component.IsInNamespace("phiNdus.fundus.Core.Web.Controllers", true))
+                                   .If(t => t.Name.EndsWith("Controller", StringComparison.InvariantCulture))
+                                   .Configure(c => c.LifeStyle.Transient));
         }
+
+        #endregion
     }
 }
