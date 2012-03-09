@@ -25,14 +25,10 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         private IStateManager StateManager { get; set; }
 
-        //
-        // GET: /Cart/
-
         public ActionResult Index()
         {
-            throw new Exception("Papperlappap!");
-            //return View(this.StateManager.Load<CartModel>());
-            return View();
+            var model = new CartViewModel();
+            return View(model);
         }
 
         //

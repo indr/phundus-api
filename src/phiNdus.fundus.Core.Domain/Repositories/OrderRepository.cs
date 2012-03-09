@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Linq;
 using phiNdus.fundus.Core.Domain.Entities;
@@ -58,6 +59,15 @@ namespace phiNdus.fundus.Core.Domain.Repositories
                           && i.Order.Status != OrderStatus.Rejected
                     select i)
                 .Sum(x => x.Amount);
+        }
+
+        public Order FindCart(int userId)
+        {
+            var q = (from o in Orders
+                     where o.Status == OrderStatus.Card
+                          && o.Reserver.Id == userId
+                     select o);
+            return q.FirstOrDefault();
         }
 
         #endregion

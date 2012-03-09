@@ -1,5 +1,4 @@
-﻿@model phiNdus.fundus.Core.Web.Models.CartModel
-
+﻿@model phiNdus.fundus.Core.Web.ViewModels.CartViewModel
 @{
     ViewBag.Title = "Warenkorb";
     //Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,8 +8,8 @@
      @Html.ActionLink("Warenkorb", "Index") &gt; &Uuml;bersicht
 }
 
-<p>
-    @Html.ActionLink("\"Warenkorb leeren\"", "Clear")
-</p>
+<h2>Warenkorb</h2>
 
-@Html.EditorFor(m => m)
+<table class="table">
+
+</table>

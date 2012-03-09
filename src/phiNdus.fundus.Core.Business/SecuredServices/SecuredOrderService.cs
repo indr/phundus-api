@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Security.Constraints;
@@ -11,8 +8,20 @@ using User = phiNdus.fundus.Core.Business.Security.Constraints.User;
 
 namespace phiNdus.fundus.Core.Business.SecuredServices
 {
-    public class SecuredOrderService : SecuredServiceBase, IOrderService
+    public class SecuredOrderService : SecuredServiceBase, IOrderService, ICartService
     {
+        #region ICartService Members
+
+        public OrderDto GetCart(string sessionKey)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .Do<OrderService, OrderDto>(svc => svc.GetCart());
+        }
+
+        #endregion
+
+        #region IOrderService Members
+
         public OrderDto GetOrder(string sessionKey, int id)
         {
             return Secured.With(Session.FromKey(sessionKey))
@@ -46,5 +55,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
                 .And(User.InRole(Role.Administrator))
                 .Do<OrderService, IList<OrderDto>>(svc => svc.GetOrders());
         }
+
+        #endregion
     }
 }
