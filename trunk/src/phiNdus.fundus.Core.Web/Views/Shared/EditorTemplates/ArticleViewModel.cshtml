@@ -7,9 +7,9 @@
 
 <div class="row-fluid">
     <div class="span7">
-        @using (Html.BeginFieldSetFor(m => m.PropertyValues, "Eigenschaften"))
+        @using (Html.BeginFieldSetFor(m => m.EditableFieldValues, "Eigenschaften"))
         {
-            @Html.EditorFor(x => x.PropertyValues);
+            @Html.EditorFor(x => x.EditableFieldValues);
         }
     </div>
 
@@ -148,7 +148,7 @@
 
 var ae = null;
 $(function () {
-    ae = new ArticleEditor('@Html.IdFor(m => m.PropertyValues)', '@Html.IdFor(m => m.RemainingPropertyId)', '@Html.IdFor(m => m.Discriminators)', '@Html.IdFor(m => m.RemainingDiscriminatorId)');
+    ae = new ArticleEditor('@Html.IdFor(m => m.EditableFieldValues)', '@Html.IdFor(m => m.RemainingPropertyId)', '@Html.IdFor(m => m.Discriminators)', '@Html.IdFor(m => m.RemainingDiscriminatorId)');
 });
 </script>
 

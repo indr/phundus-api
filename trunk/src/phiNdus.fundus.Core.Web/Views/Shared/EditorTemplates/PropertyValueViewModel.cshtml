@@ -10,17 +10,11 @@
                 @Html.LabelFor(m => m.StringValue, Model.Caption) break;
     }
     <div class="controls">
-        @if (Model.IsCalculated)
-        {
-            @Html.DisplayFor(m => m.Value)
-        }
-        else
-        {
         @Html.HiddenFor(m => m.IsDeleted)
         @Html.HiddenFor(m => m.PropertyDefinitionId)
         @Html.HiddenFor(m => m.PropertyValueId)
 
-        switch (Model.DataType)
+        @switch (Model.DataType)
         {
             case FieldDataType.Boolean:
                 @Html.CheckBoxFor(m => m.BooleanValue); break;
@@ -33,7 +27,6 @@
         <span class="help-inline">
             <a href="#" class="btn btn-danger" onclick="ae.removeField('@Html.IdFor(m => m)', '@Model.Caption', @Model.PropertyDefinitionId); return false;">Entfernen</a>
         </span>
-        }
     </div>
 </div>
 
