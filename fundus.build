@@ -773,6 +773,12 @@
     
     <mkdir dir="${deploy.dir}\Content\Images\Articles" unless="${directory::exists(deploy.dir + '\Content\Images\Articles')}" />
     
+    <copy todir="${deploy.dir}\Content">
+      <fileset basedir="${base.dir}\content">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    
     <exec program="icacls" verbose="true">
       <arg line='${deploy.dir}\Content\Images\Articles /grant "IIS_IUSRS":(OI)(CI)(M)' />
     </exec>
