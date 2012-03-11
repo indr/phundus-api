@@ -73,6 +73,12 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             get { return Dto.IsSystem; }
         }
 
+        [DisplayName("Hinzufügbar")]
+        public bool IsAttachable
+        {
+            get { return Dto.IsAttachable; }
+        }
+
         [DisplayName("Spalte in Tabellen")]
         public bool IsColumn
         {

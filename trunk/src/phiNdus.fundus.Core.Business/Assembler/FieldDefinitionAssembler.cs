@@ -63,6 +63,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             result.IsSystem = subject.IsSystem;
             result.IsColumn = subject.IsColumn;
             result.IsDefault = subject.IsDefault;
+            result.IsAttachable = subject.IsAttachable;
             result.Position = subject.Position;
 
             return result;

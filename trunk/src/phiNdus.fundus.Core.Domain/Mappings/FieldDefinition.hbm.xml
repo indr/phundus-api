@@ -10,6 +10,7 @@
     <property name="Name" />
     <property name="DataType" />
     <property name="IsSystem" column="IsSystem" />
+    <property name="IsAttachable" column="IsAttachable" update="false" />
     <property name="IsDefault" />
     <property name="IsColumn" />
     <property name="Position" />
