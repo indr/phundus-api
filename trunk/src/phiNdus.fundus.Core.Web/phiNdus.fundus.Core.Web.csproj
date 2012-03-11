@@ -176,6 +176,8 @@
     <Content Include="Scripts\jquery.fileupload-ui.js" />
     <Content Include="Scripts\jquery.fileupload.js" />
     <Content Include="Scripts\jquery.iframe-transport.js" />
+    <Content Include="Scripts\jquery.smooth-scroll.js" />
+    <Content Include="Scripts\jquery.smooth-scroll.min.js" />
     <Content Include="Scripts\jquery.tablednd.0.6.min.js" />
     <Content Include="Scripts\jquery.tablednd.js" />
     <Content Include="Scripts\jQuery.tmpl.js" />

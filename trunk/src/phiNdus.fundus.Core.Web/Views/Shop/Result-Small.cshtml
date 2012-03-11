@@ -5,18 +5,18 @@
     {
     <li class="span2">
         <div class="thumbnail">
-            @if (each.Images.Count > 0)
-            {
-                <div style="text-align:center;">
+            <div style="text-align:center; height:110px;">
+                @if (each.Images.Count > 0)
+                {
                     <a rel="gallery" href="@Html.Raw(Url.Content(each.Images.First().FileName))" title="@each.Caption - @Path.GetFileName(each.Images.First().FileName)">
                         <img src="@String.Concat(Html.Raw(Url.Content(each.Images.First().FileName)), ".ashx?maxwidth=160&maxheight=110")" />
                     </a>
-                </div>
-            }
-            else
-            {
-                <img src="http://placehold.it/160x110" alt="" />
-            }
+                }
+                else
+                {
+                    <img src="http://placehold.it/160x110" alt="" />
+                }
+            </div>
             <h5>@if (each.Caption == null) {
                     @Html.Raw("&nbsp;");
                 }

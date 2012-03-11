@@ -62,8 +62,10 @@ var fundus;
                 });
 
                 $('form').on('submit', function () {
-                    $('textarea.tinymce').triggerSave();
-                    //tinyMCE.triggerSave();
+                    if (typeof window.triggerSave == 'function') {
+                        $('textarea.tinymce').triggerSave();
+                        //tinyMCE.triggerSave();
+                    }
                 });
 
                 this.reinit();
@@ -118,8 +120,15 @@ var fundus;
             showArticle: function (id, url) {
                 var $div = $('#selected-articles');
 
+                //$.scrollTo($div);
+
                 // Artikel bereits angezeigt?
-                if ($div.find('a[href="#' + id + '"]').tab('show').length == 0) {
+                if ($tab = $div.find('a[href="#' + id + '"]') > 0) {
+                    $.smoothScroll({
+                        scrollTarget: '#' + id
+                    });
+                }
+                else {
 
                     $.ajax({
                         url: url,
@@ -127,11 +136,14 @@ var fundus;
                             $div.find('.nav-tabs').first().append('<li><a href="#' + id + '" data-toggle="tab">' + data.caption + ' <span class="close" style="margin:-2px -4px 0 8px;" onclick="fundus.shop.closeArticle(' + id + ')">×</span></a></li>');
                             $div.find('.tab-content').first().append('<div class="tab-pane" id="' + id + '">' + data.content + '</div>');
 
-                            $div.find('a[href="#' + id + '"]').tab('show');
+                            var $tab = $div.find('a[href="#' + id + '"]');
+                            $tab.tab('show');
+
+                            $.smoothScroll({
+                              scrollTarget: '#' + id
+                            });
                         }
                     });
-
-
                 }
             },
 
