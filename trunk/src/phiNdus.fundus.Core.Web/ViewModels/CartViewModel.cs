@@ -25,43 +25,10 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         private void Load(OrderDto orderDto)
         {
             foreach (var each in orderDto.Items)
-                Items.Add(new CartItemViewModel(each));
+                Items.Add(new CartItemViewModel(each, each.ArticleId, 0.99)); // TODO: Preis aufs DTO
         }
     }
 
 
-    public class CartItemViewModel : ViewModelBase
-    {
-        public CartItemViewModel(OrderItemDto orderItemDto)
-        {
-            Load(orderItemDto);
-        }
-
-        private void Load(OrderItemDto orderItemDto)
-        {
-            Caption = orderItemDto.ArticleId.ToString();
-        }
-
-        [DisplayName("Bezeichnung")]
-        public string Caption { get; set; }
-
-        [DisplayName("Anzahl")]
-        //[CustomValidation( <-- verfügbarkeit prüfen..
-        public int Amount { get; set; }
-
-        [Required]
-        [DisplayName("Ausleihbeginn")]
-        [DataType(DataType.Date)]
-        //[CustomValidation( <-- verfügbarkeit prüfen..
-        public DateTime Begin { get; set; }
-
-        [Required]
-        [DisplayName("Ausleihende")]
-        [DataType(DataType.Date)]
-        //[CustomValidation( <-- verfügbarkeit prüfen..
-        public DateTime End { get; set; }
-
-        [DisplayName("Preis")]
-        public decimal Price { get; set; }
-    }
+    
 }

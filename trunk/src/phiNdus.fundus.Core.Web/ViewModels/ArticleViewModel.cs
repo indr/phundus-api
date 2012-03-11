@@ -8,6 +8,24 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.ViewModels
 {
+    public class ShopArticleViewModel : ArticleViewModel
+    {
+        protected ICartService CartService { get { return IoC.Resolve<ICartService>(); } }
+
+
+        public ShopArticleViewModel(int id) : base(id)
+        {
+            var cartDto = CartService.GetCart(SessionId);
+            var cartItemDto = cartDto.Items.Where(p => p.ArticleId == id).SingleOrDefault();
+            if (cartItemDto == null)
+                cartItemDto = new OrderItemDto();
+            var price = GetPropertyValue(4);
+            CartItem = new CartItemViewModel(cartItemDto, id, Convert.ToDouble(price));
+        }
+
+        public CartItemViewModel CartItem { get; set; }
+    }
+
     public class ArticleViewModel : ViewModelBase
     {
         private IList<FieldDefinitionDto> _propertyDefinitions;

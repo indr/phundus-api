@@ -16,7 +16,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         public ShopSearchResultViewModel(string query, int page, int rowsPerPage)
         {
             Query = query;
-            RowsPerPage = rowsPerPage;       
+            RowsPerPage = rowsPerPage;
             Articles = new List<ArticleViewModel>();
 
             Search(Query, page);

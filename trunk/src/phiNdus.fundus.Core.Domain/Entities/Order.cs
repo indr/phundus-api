@@ -1,5 +1,6 @@
 ﻿using System;
 using Iesi.Collections.Generic;
+using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.Entities
@@ -43,6 +44,16 @@ namespace phiNdus.fundus.Core.Domain.Entities
             var result = Items.Add(item);
             item.Order = this;
             return result;
+        }
+
+        public virtual bool AddItem(int articleId, int amount, DateTime begin, DateTime end)
+        {
+            var item = new OrderItem();
+            item.Article = IoC.Resolve<IArticleRepository>().Get(articleId);
+            item.Amount = amount;
+            item.From = begin;
+            item.To = end;
+            return AddItem(item);
         }
 
         public virtual bool RemoveItem(OrderItem item)

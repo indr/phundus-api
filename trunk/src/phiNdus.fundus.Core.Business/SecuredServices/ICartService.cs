@@ -5,5 +5,6 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
     public interface ICartService
     {
         OrderDto GetCart(string sessionKey);
+        OrderDto AddItem(string sessionKey, OrderItemDto orderItemDto);
     }
 }
