@@ -2,6 +2,15 @@
 {
     public class FieldDefinition : Entity
     {
+        public static int VerfuegbarId = 1;
+        public static int CaptionId = 2;
+        public static int PriceId = 4;
+        public static int CreateDateId = 5;
+        public static int IsReservableId = 6;
+        public static int IsBorrowableId = 7;
+        public static int GrossStockId = 10;
+        public static int NetStockId = 11;
+
         private DataType _dataType;
         private bool _isAttachable = true;
         private bool _isSystem;
@@ -33,46 +42,6 @@
             _isSystem = isSystem;
         }
 
-        // According to dml.sql
-        public static int VerfuegbarId
-        {
-            get { return 1; }
-        }
-
-        public static int CaptionId
-        {
-            get { return 2; }
-        }
-
-        public static int PriceId
-        {
-            get { return 4; }
-        }
-
-        public static int CreateDateId
-        {
-            get { return 5; }
-        }
-
-        public static int IsReservableId
-        {
-            get { return 6; }
-        }
-
-        public static int IsBorrowableId
-        {
-            get { return 7; }
-        }
-
-        public static int GrossStockId
-        {
-            get { return 10; }
-        }
-
-        public static int NetStockId
-        {
-            get { return 11; }
-        }
 
         public virtual string Name
         {
