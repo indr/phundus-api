@@ -21,7 +21,7 @@ namespace phiNdus.fundus.Core.Business.Services
             using (var uow = UnitOfWork.Start())
             {
                 var articles = Articles.FindAll();
-                return ArticleAssembler.CreateDtos(articles);
+                return ArticleDtoAssembler.CreateDtos(articles);
             }
         }
 
@@ -32,7 +32,7 @@ namespace phiNdus.fundus.Core.Business.Services
                 var article = Articles.Get(id);
                 if (article == null)
                     return null;
-                return ArticleAssembler.CreateDto(article);
+                return ArticleDtoAssembler.CreateDto(article);
             }
         }
 
@@ -109,7 +109,7 @@ namespace phiNdus.fundus.Core.Business.Services
             {
                 int total;
                 var result = Articles.FindMany(query, pageRequest.Index * pageRequest.Size, pageRequest.Size, out total);
-                var dtos = ArticleAssembler.CreateDtos(result).ToList();
+                var dtos = ArticleDtoAssembler.CreateDtos(result).ToList();
                 return new PagedResult<ArticleDto>(PageResponse.From(pageRequest, total), dtos);
             }
         }
