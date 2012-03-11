@@ -161,7 +161,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                                               (Discriminators.FirstOrDefault(d => d.PropertyDefinitionId == each.Id) !=
                                                null)
                     );
-                return (from p in propertyDefinitions.Select(p => new SelectListItem
+                return (from p in propertyDefinitions.Where(p => p.IsAttachable).Select(p => new SelectListItem
                                                            {
                                                                Value = p.Id.ToString(),
                                                                Text = p.Caption

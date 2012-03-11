@@ -61,6 +61,7 @@ create table [FieldDefinition] (
   IsSystem bit not null default 0,
   IsDefault bit not null default 0,
   IsColumn bit not null default 0,
+  IsAttachable bit not null default 1,
   Position int not null default 255,
   primary key(Id)
 )

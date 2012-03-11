@@ -37,6 +37,9 @@
                 Systemfeld
             </th>
             <th>
+                Hinzufügbar
+            </th>
+            <th>
                 Spalte
             </th>
             <th>
@@ -61,6 +64,9 @@
             </td>
             <td>
                 @Html.DisplayFor(m => m.Items[idx].IsSystem)
+            </td>
+            <td>
+                @Html.DisplayFor(m => m.Items[idx].IsAttachable)
             </td>
             <td>
                 @Html.EditorFor(m => m.Items[idx].IsColumn)

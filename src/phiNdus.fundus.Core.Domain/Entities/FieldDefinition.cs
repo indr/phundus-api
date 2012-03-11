@@ -3,6 +3,7 @@
     public class FieldDefinition : Entity
     {
         private DataType _dataType;
+        private bool _isAttachable = true;
         private bool _isSystem;
         private string _name;
 
@@ -93,6 +94,16 @@
         {
             get { return _isSystem; }
             protected set { _isSystem = value; }
+        }
+
+        /// <summary>
+        /// Gibt an, ob das Feld vom Benutzer einem Material hinzugefügt
+        /// werden kann. (z.B. Netto-Bestand darf nicht hinzugefügt werden usw.)
+        /// </summary>
+        public virtual bool IsAttachable
+        {
+            get { return _isAttachable; }
+            protected set { _isAttachable = value; }
         }
 
         /// <summary>
