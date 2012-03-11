@@ -59,5 +59,9 @@ namespace phiNdus.fundus.Core.Business.Dto
         public string Caption { get; set; }
 
         public FieldDataType DataType { get; set; }
+
+        public bool IsCalculated { get; set; }
+
+        public int Position { get; set; }
     }
 }

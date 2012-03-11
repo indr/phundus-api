@@ -56,7 +56,10 @@ namespace phiNdus.fundus.Core.Business.Assembler
             var propertyDefinitionRepo = IoC.Resolve<IFieldDefinitionRepository>();
             foreach (var each in subject.Properties)
             {
-                FieldValue propertyValue = null;
+                if (each.IsCalculated)
+                    continue;
+
+                FieldValue propertyValue;
                 if (result.HasField(each.PropertyId))
                 {
                     propertyValue = result.SetFieldValue(each.PropertyId, each.Value);

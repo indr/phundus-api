@@ -11,11 +11,13 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         public int PropertyValueId { get; set; }
         public object Value { get; set; }
         public bool IsDeleted { get; set; }
+
         public string StringValue
         {
             get { return Convert.ToString(Value); }
             set { Value = value; }
         }
+
         public bool BooleanValue
         {
             get
@@ -31,10 +33,9 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             }
             set { Value = value; }
         }
-    }
 
-    //public class PropertyValueViewModelEx<T> : PropertyValueViewModel
-    //{
-    //    //public T Value { get; set; }
-    //}
+        public bool IsCalculated { get; set; }
+
+        public int Position { get; set; }
+    }
 }
