@@ -54,11 +54,11 @@ namespace phiNdus.fundus.Core.Domain.Repositories
 
         public int SumReservedAmount(int articleId)
         {
-            return (from i in Items
-                    where i.Article.Id == articleId
-                          && i.Order.Status != OrderStatus.Rejected
-                    select i)
-                .Sum(x => x.Amount);
+            var query = from i in Items
+                        where i.Article.Id == articleId
+                              && i.Order.Status != OrderStatus.Rejected && i.Order.Status == OrderStatus.Card
+                        select i;
+            return query.Sum(x => (int?)x.Amount).GetValueOrDefault();
         }
 
         public Order FindCart(int userId)
