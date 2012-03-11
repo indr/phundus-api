@@ -18,21 +18,21 @@ namespace phiNdus.fundus.Core.Business.Services
 
         public virtual ArticleDto[] GetArticles()
         {
-            using (var uow = UnitOfWork.Start())
+            using (UnitOfWork.Start())
             {
                 var articles = Articles.FindAll();
-                return ArticleDtoAssembler.CreateDtos(articles);
+                return new ArticleDtoAssembler().CreateDtos(articles);
             }
         }
 
         public virtual ArticleDto GetArticle(int id)
         {
-            using (var uow = UnitOfWork.Start())
+            using (UnitOfWork.Start())
             {
                 var article = Articles.Get(id);
                 if (article == null)
                     return null;
-                return ArticleDtoAssembler.CreateDto(article);
+                return new ArticleDtoAssembler().CreateDto(article);
             }
         }
 
@@ -109,7 +109,7 @@ namespace phiNdus.fundus.Core.Business.Services
             {
                 int total;
                 var result = Articles.FindMany(query, pageRequest.Index * pageRequest.Size, pageRequest.Size, out total);
-                var dtos = ArticleDtoAssembler.CreateDtos(result).ToList();
+                var dtos = new ArticleDtoAssembler().CreateDtos(result).ToList();
                 return new PagedResult<ArticleDto>(PageResponse.From(pageRequest, total), dtos);
             }
         }
