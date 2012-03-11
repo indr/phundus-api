@@ -173,7 +173,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [Test]
         public void CreateDto_assembles_children()
         {
-            var dto = ArticleAssembler.CreateDto(Article);
+            var dto = ArticleDtoAssembler.CreateDto(Article);
 
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Children, Has.Count.EqualTo(2));
@@ -182,7 +182,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [Test]
         public void CreateDto_returns_dto()
         {
-            var dto = ArticleAssembler.CreateDto(Article);
+            var dto = ArticleDtoAssembler.CreateDto(Article);
 
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Id, Is.EqualTo(Article.Id));
@@ -196,7 +196,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [Test]
         public void CreateDto_with_null_subject_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => ArticleAssembler.CreateDto(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => ArticleDtoAssembler.CreateDto(null));
             Assert.That(ex.ParamName, Is.EqualTo("subject"));
         }
 
@@ -207,7 +207,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             articles.Add(Article);
             articles.Add(Article);
 
-            var dtos = ArticleAssembler.CreateDtos(articles);
+            var dtos = ArticleDtoAssembler.CreateDtos(articles);
 
             Assert.That(dtos, Is.Not.Null);
             Assert.That(dtos, Has.Length.EqualTo(2));
@@ -216,7 +216,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [Test]
         public void CreateDtos_with_subjects_null_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => ArticleAssembler.CreateDtos(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => ArticleDtoAssembler.CreateDtos(null));
             Assert.That(ex.ParamName, Is.EqualTo("subjects"));
         }
 

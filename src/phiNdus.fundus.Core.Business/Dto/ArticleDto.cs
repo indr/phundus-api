@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace phiNdus.fundus.Core.Business.Dto
 {
@@ -7,7 +6,7 @@ namespace phiNdus.fundus.Core.Business.Dto
     {
         private IList<ArticleDto> _children = new List<ArticleDto>();
         private IList<ImageDto> _images = new List<ImageDto>();
-        
+
         public int Id { get; set; }
         public int Version { get; set; }
 
@@ -15,6 +14,12 @@ namespace phiNdus.fundus.Core.Business.Dto
         {
             get { return _children; }
             set { _children = value; }
+        }
+
+        public IList<ImageDto> Images
+        {
+            get { return _images; }
+            set { _images = value; }
         }
 
         public void AddChild(ArticleDto child)
@@ -25,12 +30,6 @@ namespace phiNdus.fundus.Core.Business.Dto
         public void RemoveChild(ArticleDto child)
         {
             Children.Remove(child);
-        }
-
-        public IList<ImageDto> Images
-        {
-            get { return _images; }
-            set { _images = value; }
         }
 
         public void AddImage(ImageDto image)

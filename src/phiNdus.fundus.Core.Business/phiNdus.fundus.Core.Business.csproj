@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assembler\ArticleAssembler.cs" />
+    <Compile Include="Assembler\ArticleDtoAssembler.cs" />
     <Compile Include="Assembler\ImageAssembler.cs" />
     <Compile Include="Assembler\OrderAssembler.cs" />
     <Compile Include="Assembler\FieldDefinitionAssembler.cs" />
