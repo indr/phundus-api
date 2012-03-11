@@ -123,7 +123,7 @@ var fundus;
                 //$.scrollTo($div);
 
                 // Artikel bereits angezeigt?
-                if ($tab = $div.find('a[href="#' + id + '"]') > 0) {
+                if ($div.find('a[href="#' + id + '"]').length > 0) {
                     $.smoothScroll({
                         scrollTarget: '#' + id
                     });
