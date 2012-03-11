@@ -24,7 +24,7 @@
     <table class="table table-bordered table-striped dnd">
        <thead>
         <tr class="nodrop">
-            <th>
+            <th style="width:80px;">
                 Position
             </th>
             <th>
@@ -45,7 +45,7 @@
             <th>
                 Standard
             </th>
-            <th></th>
+            <th style="width:160px;"></th>
         </tr>
 
         </thead>
@@ -72,7 +72,14 @@
                 @Html.EditorFor(m => m.Items[idx].IsColumn)
             </td>
             <td>
+            @if (Model.Items[idx].IsAttachable)
+            {
                 @Html.EditorFor(m => m.Items[idx].IsDefault)
+            }
+            else
+            {
+                @Html.DisplayFor(m => m.Items[idx].IsDefault)
+            }
             </td>
             <td>
                 @Html.HiddenFor(m => m.Items[idx].Id)

@@ -13,6 +13,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         private IList<FieldDefinitionDto> _propertyDefinitions;
         private IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
         private IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
+        private IList<PropertyValueViewModel> _editableFieldValues = new List<PropertyValueViewModel>();
         private IList<ArticleViewModel> _children = new List<ArticleViewModel>();
         private IList<ImageDto> _images = new List<ImageDto>();
 
@@ -28,7 +29,6 @@ namespace phiNdus.fundus.Core.Web.ViewModels
 
         public ArticleViewModel(int id)
         {
-            // TODO: In einen Aufruf kapseln
             var articleDto = ArticleService.GetArticle(SessionId, id);
             var fieldDefinitionDtos = ArticleService.GetProperties(SessionId);
             Load(articleDto, fieldDefinitionDtos);
@@ -68,6 +68,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             }
 
             _propertyValues = _propertyValues.OrderBy(k => k.Position).ToList();
+            _editableFieldValues = _propertyValues.Where(p => !p.IsCalculated).ToList();
 
             foreach (var each in article.Children)
             {
@@ -138,6 +139,12 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         {
             get { return _propertyValues; }
             set { _propertyValues = value; }
+        }
+
+        public IList<PropertyValueViewModel> EditableFieldValues
+        {
+            get { return _editableFieldValues; }
+            set { _editableFieldValues = value; }
         }
 
         public IList<DiscriminatorViewModel> Discriminators
@@ -231,7 +238,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             result.Id = Id;
             result.Version = Version;
 
-            foreach (var each in PropertyValues)
+            foreach (var each in EditableFieldValues)
             {
                 if (each.IsDeleted)
                     continue;
