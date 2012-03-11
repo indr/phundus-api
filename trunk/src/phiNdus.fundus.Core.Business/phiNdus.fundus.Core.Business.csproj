@@ -63,7 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assembler\ArticleAssembler.cs" />
+    <Compile Include="Assembler\ArticleDomainAssembler.cs" />
     <Compile Include="Assembler\ArticleDtoAssembler.cs" />
     <Compile Include="Assembler\ImageAssembler.cs" />
     <Compile Include="Assembler\OrderAssembler.cs" />

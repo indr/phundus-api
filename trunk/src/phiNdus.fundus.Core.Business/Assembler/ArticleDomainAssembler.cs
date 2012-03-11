@@ -8,7 +8,10 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Assembler
 {
-    public class ArticleAssembler
+    /// <summary>
+    /// Die <c>ArticleDomainAssembler</c> wandelt Article-DTOs in Article-Domain-Objects.
+    /// </summary>
+    public class ArticleDomainAssembler
     {
         /// <summary>
         /// Wandelt das übergebene Article-DTO-Objekt in ein neues

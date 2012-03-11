@@ -42,7 +42,7 @@ namespace phiNdus.fundus.Core.Business.Services
 
             using (var uow = UnitOfWork.Start())
             {
-                var article = ArticleAssembler.CreateDomainObject(subject);
+                var article = ArticleDomainAssembler.CreateDomainObject(subject);
                 var id = Articles.Save(article).Id;
                 uow.TransactionalFlush();
                 return id;
@@ -53,7 +53,7 @@ namespace phiNdus.fundus.Core.Business.Services
         {
             using (var uow = UnitOfWork.Start())
             {
-                var article = ArticleAssembler.UpdateDomainObject(subject);
+                var article = ArticleDomainAssembler.UpdateDomainObject(subject);
                 Articles.Save(article);
                 uow.TransactionalFlush();
             }
@@ -63,7 +63,7 @@ namespace phiNdus.fundus.Core.Business.Services
         {
             using (var uow = UnitOfWork.Start())
             {
-                var article = ArticleAssembler.UpdateDomainObject(subject);
+                var article = ArticleDomainAssembler.UpdateDomainObject(subject);
                 Articles.Delete(article);
                 uow.TransactionalFlush();
             }

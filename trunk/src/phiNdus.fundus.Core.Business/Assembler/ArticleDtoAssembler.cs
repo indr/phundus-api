@@ -7,6 +7,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Assembler
 {
+    /// <summary>
+    /// Die <c>ArticleDtoAssembler</c>-Klasse wandelt Article-Domain-Objects in Article-DTOs.
+    /// </summary>
     public class ArticleDtoAssembler
     {
         /// <summary>
@@ -53,7 +56,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
             foreach (var each in subject.FieldValues)
                 WriteField(each, result);
 
-            WriteField(FieldDefinition.ErfassungsdatumId, subject.CreateDate, result);
+            WriteField(FieldDefinition.CreateDateId, subject.CreateDate, result);
             //WriteField(FieldDefinition.NetStockId, subject.ReservableStock, result);
         }
 

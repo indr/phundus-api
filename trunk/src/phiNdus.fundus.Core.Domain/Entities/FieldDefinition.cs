@@ -49,7 +49,7 @@
             get { return 4; }
         }
 
-        public static int ErfassungsdatumId
+        public static int CreateDateId
         {
             get { return 5; }
         }
