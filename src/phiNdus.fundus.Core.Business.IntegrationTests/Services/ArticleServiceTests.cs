@@ -46,7 +46,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Id, Is.EqualTo(id));
             Assert.That(dto.Version, Is.EqualTo(1));
-            Assert.That(dto.Properties, Has.Count.EqualTo(1));
+            Assert.That(dto.Properties, Has.Count.EqualTo(2));
             Assert.That(dto.Properties, Has.Some.Property("Value").EqualTo("Artikel"));
             
             Assert.That(dto.Children, Has.Count.EqualTo(1));
@@ -107,7 +107,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Id, Is.EqualTo(id));
             Assert.That(dto.Version, Is.EqualTo(2));
-            Assert.That(dto.Properties, Has.Count.EqualTo(1));
+            Assert.That(dto.Properties, Has.Count.EqualTo(2));
             Assert.That(dto.Properties, Has.Some.Property("Value").EqualTo(12.50));
 
             Assert.That(dto.Children, Has.Count.EqualTo(2));
