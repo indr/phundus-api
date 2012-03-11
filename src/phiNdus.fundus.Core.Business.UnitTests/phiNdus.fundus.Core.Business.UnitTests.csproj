@@ -75,7 +75,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assembler\ArticleAssemblerTests.cs" />
+    <Compile Include="Assembler\ArticleAssemblerTestBase.cs" />
+    <Compile Include="Assembler\ArticleDomainAssemblerTests.cs" />
+    <Compile Include="Assembler\ArticleDtoAssemblerTests.cs" />
     <Compile Include="Assembler\OrderAssemblerTests.cs" />
     <Compile Include="Assembler\FieldDefinitionAssemblerTests.cs" />
     <Compile Include="Assembler\RoleAssemblerTests.cs" />
