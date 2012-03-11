@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Assembler
@@ -9,30 +10,11 @@ namespace phiNdus.fundus.Core.Business.Assembler
     public class ArticleDtoAssembler
     {
         /// <summary>
-        /// Assembliert das übergebene Domain-Object in ein neues DTO.
-        /// </summary>
-        /// <param name="subject">Das zu assemblierende Domain-Object.</param>
-        /// <returns></returns>
-        public static ArticleDto CreateDto(Article subject)
-        {
-            Guard.Against<ArgumentNullException>(subject == null, "subject");
-
-            var result = new ArticleDto();
-            result.Id = subject.Id;
-            result.Version = subject.Version;
-            WriteProperties(subject, result);
-            CreateChildren(subject, result);
-            foreach (var each in subject.Images)
-                result.AddImage(new ImageAssembler().CreateDto(each));
-            return result;
-        }
-
-        /// <summary>
         /// Assembliert die übergebenen Domain-Objects in neue DTOs.
         /// </summary>
         /// <param name="subjects">Die zu assemblierende Domain-Objects.</param>
         /// <returns></returns>
-        public static ArticleDto[] CreateDtos(ICollection<Article> subjects)
+        public ArticleDto[] CreateDtos(ICollection<Article> subjects)
         {
             Guard.Against<ArgumentNullException>(subjects == null, "subjects");
 
@@ -43,47 +25,86 @@ namespace phiNdus.fundus.Core.Business.Assembler
         }
 
         /// <summary>
+        /// Assembliert das übergebene Domain-Object in ein neues DTO.
+        /// </summary>
+        /// <param name="subject">Das zu assemblierende Domain-Object.</param>
+        /// <returns></returns>
+        public ArticleDto CreateDto(Article subject)
+        {
+            Guard.Against<ArgumentNullException>(subject == null, "subject");
+
+            var result = new ArticleDto();
+            result.Id = subject.Id;
+            result.Version = subject.Version;
+            WriteFields(subject, result);
+            CreateChildren(subject, result);
+            foreach (var each in subject.Images)
+                result.AddImage(new ImageAssembler().CreateDto(each));
+            return result;
+        }
+
+        /// <summary>
         /// Assembliert die Properties des übergebenen Domain-Objects in das übergebene DTO.
         /// </summary>
         /// <param name="subject">Das zu assemblierende Domain-Object.</param>
         /// <param name="result">Das zu aktualisierende DTO.</param>
-        private static void WriteProperties(FieldedEntity subject, BasePropertiesDto result)
+        private void WriteFields(Article subject, BasePropertiesDto result)
         {
             foreach (var each in subject.FieldValues)
-            {
-                var dtoProperty = new FieldValueDto();
-                dtoProperty.PropertyId = each.FieldDefinition.Id;
-                dtoProperty.Caption = each.FieldDefinition.Name;
-                switch (each.FieldDefinition.DataType)
-                {
-                    case DataType.Boolean:
-                        dtoProperty.DataType = FieldDataType.Boolean;
-                        break;
-                    case DataType.Text:
-                        dtoProperty.DataType = FieldDataType.Text;
-                        break;
-                    case DataType.Integer:
-                        dtoProperty.DataType = FieldDataType.Integer;
-                        break;
-                    case DataType.Decimal:
-                        dtoProperty.DataType = FieldDataType.Decimal;
-                        break;
-                    case DataType.DateTime:
-                        dtoProperty.DataType = FieldDataType.DateTime;
-                        break;
-                    case DataType.RichText:
-                        dtoProperty.DataType = FieldDataType.RichText;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException("FieldDefinition.DataType",
-                                                              "Datentypen müssen in den Klasse DataType und FieldDataType übereinstimmen");
-                }
-                dtoProperty.ValueId = each.Id;
-                dtoProperty.Value = each.Value;
-                dtoProperty.IsDiscriminator = each.IsDiscriminator;
+                WriteField(each, result);
 
-                result.AddProperty(dtoProperty);
+            WriteField(FieldDefinition.ErfassungsdatumId, subject.CreateDate, result);
+            //WriteField(FieldDefinition.NetStockId, subject.ReservableStock, result);
+        }
+
+        private void WriteField(int fieldDefinitionId, object value, BasePropertiesDto result)
+        {
+            var fieldDefinition = IoC.Resolve<IFieldDefinitionRepository>().Get(fieldDefinitionId);
+            var fieldValueDto = CreateFieldValueDto(fieldDefinition);
+            fieldValueDto.Value = value;
+            result.AddProperty(fieldValueDto);
+        }
+
+        private void WriteField(FieldValue subject, BasePropertiesDto result)
+        {
+            var fieldValueDto = CreateFieldValueDto(subject.FieldDefinition);
+            fieldValueDto.ValueId = subject.Id;
+            fieldValueDto.Value = subject.Value;
+            fieldValueDto.IsDiscriminator = subject.IsDiscriminator;
+
+            result.AddProperty(fieldValueDto);
+        }
+
+        private FieldValueDto CreateFieldValueDto(FieldDefinition fieldDefinition)
+        {
+            var result = new FieldValueDto();
+            result.PropertyId = fieldDefinition.Id;
+            result.Caption = fieldDefinition.Name;
+            switch (fieldDefinition.DataType)
+            {
+                case DataType.Boolean:
+                    result.DataType = FieldDataType.Boolean;
+                    break;
+                case DataType.Text:
+                    result.DataType = FieldDataType.Text;
+                    break;
+                case DataType.Integer:
+                    result.DataType = FieldDataType.Integer;
+                    break;
+                case DataType.Decimal:
+                    result.DataType = FieldDataType.Decimal;
+                    break;
+                case DataType.DateTime:
+                    result.DataType = FieldDataType.DateTime;
+                    break;
+                case DataType.RichText:
+                    result.DataType = FieldDataType.RichText;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("FieldDefinition.DataType",
+                                                          "Datentypen müssen in den Klasse DataType und FieldDataType übereinstimmen");
             }
+            return result;
         }
 
         /// <summary>
@@ -91,7 +112,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
         /// </summary>
         /// <param name="subject"></param>
         /// <param name="result"></param>
-        private static void CreateChildren(CompositeEntity subject, ArticleDto result)
+        private void CreateChildren(CompositeEntity subject, ArticleDto result)
         {
             foreach (var each in subject.Children)
             {
