@@ -57,7 +57,7 @@ namespace phiNdus.fundus.Core.Business.Assembler
                 WriteField(each, result);
 
             WriteField(FieldDefinition.CreateDateId, subject.CreateDate, result);
-            WriteField(FieldDefinition.NetStockId, subject.ReservableStock, result);
+            //WriteField(FieldDefinition.NetStockId, subject.ReservableStock, result);
         }
 
         private void WriteField(int fieldDefinitionId, object value, BasePropertiesDto result)

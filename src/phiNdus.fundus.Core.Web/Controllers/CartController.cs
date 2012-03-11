@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Web.Models;
 using phiNdus.fundus.Core.Web.State;
 using Rhino.Commons;
@@ -42,34 +43,37 @@ namespace phiNdus.fundus.Core.Web.Controllers
         }
 
         //
-        // POST: /Cart/AddItem
-
+        // POST: /Cart/Add
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult AddItem(CartItem cartItem)
+        public ActionResult Add(CartItemViewModel cartItem)
         {
-            // Todo,jac: Verfügubarkeit prüfen
+            // TODO: if (ModelState.IsValid)
 
-            // Todo,jac: Preis ermitteln
+            cartItem.Update();
+            // Verfügbarkeit im Service prüfen
+            // Preis im Service (re)ermitteln
+            
+            //cartItem.Caption = RäubereCaption(cartItem.ItemId);
+            //cartItem.Gid = Guid.NewGuid();
 
-            // Todo,jac: Caption aus DB laden
-            cartItem.Caption = RäubereCaption(cartItem.ItemId);
-            cartItem.Gid = Guid.NewGuid();
+            //var state = this.StateManager.Load<CartModel>();
 
-            var state = this.StateManager.Load<CartModel>();
+            //var response = this.AddCartItemInternal(state, cartItem);
 
-            var response = this.AddCartItemInternal(state, cartItem);
+            //this.StateManager.Save(state);
 
-            this.StateManager.Save(state);
-
-            if (Request.IsAjaxRequest())
-            {
-                return DisplayFor(response);
-            }
-            else
-            {
-                return RedirectToAction(Actions.List);
-            }
+            //if (Request.IsAjaxRequest())
+            //{
+            //    return DisplayFor(response);
+            //}
+            //else
+            //{
+            //    return RedirectToAction(Actions.List);
+            //}
+            throw new NotImplementedException("asdfa sldkfj asdf");
         }
+
+        
 
         //
         // POST: /Cart/AddItems

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Security.Constraints;
@@ -16,6 +17,12 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         {
             return Secured.With(Session.FromKey(sessionKey))
                 .Do<OrderService, OrderDto>(svc => svc.GetCart());
+        }
+
+        public OrderDto AddItem(string sessionKey, OrderItemDto item)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .Do<OrderService, OrderDto>(svc => svc.AddToCart(item));
         }
 
         #endregion

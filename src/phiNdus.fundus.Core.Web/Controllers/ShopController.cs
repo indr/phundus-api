@@ -100,7 +100,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Article(int id)
         {
-            var model = new ArticleViewModel(id);
+            var model = new ShopArticleViewModel(id);
 
             return Json(new
                             {
@@ -108,5 +108,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
                                 content = RenderPartialViewToString("Article", model)
                             }, JsonRequestBehavior.AllowGet);
         }
+
+        
     }
 }

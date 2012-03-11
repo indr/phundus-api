@@ -1,4 +1,4 @@
-﻿@model phiNdus.fundus.Core.Web.ViewModels.ArticleViewModel
+﻿@model phiNdus.fundus.Core.Web.ViewModels.ShopArticleViewModel
 
 
     <h2>@Model.Caption</h2>
@@ -30,7 +30,41 @@
                 <p>Howdy, I'm in Section 3.</p>
             </div>
             <div class="tab-pane" id="@Model.Id-L">
-                <p>Howdy, I'm in Section 4.</p>
+                @using (Ajax.BeginForm("Add", "Cart", new AjaxOptions{}))
+                {
+                    <fieldset>
+                        @Html.HiddenFor(m => m.CartItem.Id)
+                        @Html.HiddenFor(m => m.CartItem.Version)
+
+                        <div class="control-group">    
+                            @Html.LabelFor(model => model.CartItem.Begin, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.EditorFor(model => model.CartItem.Begin)
+                                @Html.ValidationMessageFor(model => model.CartItem.Begin)
+                            </div>
+                        </div>
+
+                        <div class="control-group">    
+                            @Html.LabelFor(model => model.CartItem.End, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.EditorFor(model => model.CartItem.End)
+                                @Html.ValidationMessageFor(model => model.CartItem.End)
+                            </div>
+                        </div>
+
+                        <div class="control-group">    
+                            @Html.LabelFor(model => model.CartItem.Amount, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.EditorFor(model => model.CartItem.Amount)
+                                @Html.ValidationMessageFor(model => model.CartItem.Amount)
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            @Html.SubmitButton("» in den Warenkorb")
+                        </div>
+                    </fieldset>
+                }
             </div>
         </div>
     </div>

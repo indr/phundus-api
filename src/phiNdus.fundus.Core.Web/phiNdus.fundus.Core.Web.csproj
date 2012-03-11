@@ -127,6 +127,7 @@
     <Compile Include="Models\IMembershipService.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="ViewModels\ArticlesViewModel.cs" />
+    <Compile Include="ViewModels\CartItemViewModel.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\FieldsViewModel.cs" />
     <Compile Include="ViewModels\OrdersTableViewModel.cs" />
