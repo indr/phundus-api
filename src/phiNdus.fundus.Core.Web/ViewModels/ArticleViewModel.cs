@@ -67,7 +67,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 }
             }
 
-
+            _propertyValues = _propertyValues.OrderBy(k => k.Position).ToList();
 
             foreach (var each in article.Children)
             {
@@ -215,46 +215,13 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         public static PropertyValueViewModel ConvertToPropertyValueViewModel(FieldValueDto each)
         {
             var propertyValueViewModel = new PropertyValueViewModel();
-            //switch (each.DataType)
-            //{
-            //    case FieldDataType.Boolean:
-            //        propertyValueViewModel = new PropertyValueViewModelEx<bool>
-            //                                     {
-            //                                         Value = Convert.ToBoolean(each.Value)
-            //                                     };
-            //        break;
-            //    case FieldDataType.Text:
-            //        propertyValueViewModel = new PropertyValueViewModelEx<string>
-            //                                     {
-            //                                         Value = Convert.ToString(each.Value)
-            //                                     };
-            //        break;
-            //    case FieldDataType.Integer:
-            //        propertyValueViewModel = new PropertyValueViewModelEx<int>
-            //                                     {
-            //                                         Value = Convert.ToInt32(each.Value)
-            //                                     };
-            //        break;
-            //    case FieldDataType.Decimal:
-            //        propertyValueViewModel = new PropertyValueViewModelEx<double>
-            //                                     {
-            //                                         Value = Convert.ToDouble(each.Value)
-            //                                     };
-            //        break;
-            //    case FieldDataType.DateTime:
-            //        propertyValueViewModel = new PropertyValueViewModelEx<DateTime>
-            //                                     {
-            //                                         Value = Convert.ToDateTime(each.Value)
-            //                                     };
-            //        break;
-            //    default:
-            //        throw new ArgumentOutOfRangeException();
-            //}
             propertyValueViewModel.Value = each.Value;
             propertyValueViewModel.Caption = each.Caption;
             propertyValueViewModel.DataType = each.DataType;
             propertyValueViewModel.PropertyDefinitionId = each.PropertyId;
             propertyValueViewModel.PropertyValueId = each.ValueId;
+            propertyValueViewModel.IsCalculated = each.IsCalculated;
+            propertyValueViewModel.Position = each.Position;
             return propertyValueViewModel;
         }
 

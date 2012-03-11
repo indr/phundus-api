@@ -80,6 +80,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
             var result = new FieldValueDto();
             result.PropertyId = fieldDefinition.Id;
             result.Caption = fieldDefinition.Name;
+            result.IsCalculated = !fieldDefinition.IsAttachable;
+            result.Position = fieldDefinition.Position;
             switch (fieldDefinition.DataType)
             {
                 case DataType.Boolean:
