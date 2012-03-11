@@ -31,24 +31,14 @@ END');
   5: Rich Text
 */
 SET IDENTITY_INSERT [FieldDefinition] ON;
-insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
-  values (1, 1, 'Verfügbar', 0, 1, 0, 0, 999);
-insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
-  values (2, 1, 'Name', 1, 1, 0, 1, 1);
-insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
-  values (4, 1, 'Preis', 3, 1, 0, 1, 2);
-insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
-  values (5, 1, 'Erfassungsdatum', 4, 1, 0, 1, 999);  
-insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
-  values (6, 1, 'Reservierbar', 0, 1, 0, 0, 999);
-insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
-  values (7, 1, 'Ausleihbar', 0, 1, 0, 0, 999);
-insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
-  values (8, 1, 'Beschreibung', 5, 1, 0, 0, 100);
-insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
-  values (9, 1, 'Grösse', 1, 0, 0, 0, 999);  
-insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
-  values (10, 1, 'Bestand (Brutto)', 2, 1, 0, 1, 3);  
-insert into [FieldDefinition] (Id, Version, Name, [DataType], IsSystem, IsDefault, IsColumn, Position)
-  values (11, 1, 'Bestand (Netto)', 2, 1, 0, 1, 4);
+INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [Position]) VALUES (1, 1, N'Verfügbar', 0, 1, 0, 0, 999)
+INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [Position]) VALUES (2, 1, N'Name', 1, 1, 0, 1, 1)
+INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [Position]) VALUES (4, 1, N'Preis', 3, 1, 0, 1, 2)
+INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [Position]) VALUES (5, 1, N'Erfassungsdatum', 4, 1, 0, 1, 999)
+INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [Position]) VALUES (6, 1, N'Reservierbar', 0, 1, 0, 0, 999)
+INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [Position]) VALUES (7, 1, N'Ausleihbar', 0, 1, 0, 0, 999)
+INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [Position]) VALUES (8, 1, N'Beschreibung', 5, 1, 0, 0, 100)
+INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [Position]) VALUES (9, 1, N'Grösse', 1, 0, 0, 0, 999);  
+INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [Position]) VALUES (10, 1, N'Bestand (Brutto)', 2, 1, 0, 1, 3)
+INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [Position]) VALUES (11, 1, N'Bestand (Netto)', 2, 1, 0, 1, 4)
 SET IDENTITY_INSERT [FieldDefinition] OFF;
