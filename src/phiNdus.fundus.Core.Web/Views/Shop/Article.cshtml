@@ -30,7 +30,7 @@
                 <p>Howdy, I'm in Section 3.</p>
             </div>
             <div class="tab-pane" id="@Model.Id-L">
-                @using (Ajax.BeginForm("Add", "Cart", new AjaxOptions{}))
+                @using (Ajax.BeginForm("Add", "Cart", new AjaxOptions { }, new { @class = "form-horizontal" }))
                 {
                     <fieldset>
                         @Html.HiddenFor(m => m.CartItem.Id)

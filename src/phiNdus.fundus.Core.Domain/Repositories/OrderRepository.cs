@@ -63,7 +63,7 @@ namespace phiNdus.fundus.Core.Domain.Repositories
         public Order FindCart(int userId)
         {
             var q = (from o in Orders
-                     where o.Status == OrderStatus.Card
+                     where o.Status == OrderStatus.Cart
                            && o.Reserver.Id == userId
                      select o);
             return q.FirstOrDefault();
