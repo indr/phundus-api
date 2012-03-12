@@ -444,6 +444,7 @@
     <Content Include="Scripts\tinymce\utils\form_utils.js" />
     <Content Include="Scripts\tinymce\utils\mctabs.js" />
     <Content Include="Scripts\tinymce\utils\validate.js" />
+    <Content Include="Scripts\xdate.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

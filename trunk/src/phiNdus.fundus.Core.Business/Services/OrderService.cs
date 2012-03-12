@@ -72,24 +72,31 @@ namespace phiNdus.fundus.Core.Business.Services
         public OrderDto AddToCart(OrderItemDto orderItemDto)
         {
             Guard.Against<ArgumentNullException>(orderItemDto == null, "orderItemDto");
-            Guard.Against<ArgumentException>(orderItemDto.OrderId <= 0, "OrderId cannot be less or equal 0");
             Guard.Against<ArgumentException>(orderItemDto.Amount <= 0, "Amount cannot be less or equal 0");
             Guard.Against<ArgumentException>(orderItemDto.ArticleId <= 0, "ArticleId cannot be less or equal 0");
 
 
             using (var uow = UnitOfWork.Start())
             {
-                var repo = IoC.Resolve<IOrderRepository>();
-                var order = repo.Get(orderItemDto.OrderId);
-                Guard.Against<ArgumentException>(order == null, "Order not found");
+                Order order;
+                var orderRepo = IoC.Resolve<IOrderRepository>();
+                if (orderItemDto.OrderId > 0)
+                {
+                    order = orderRepo.Get(orderItemDto.OrderId);
+                    Guard.Against<ArgumentException>(order == null, "Order not found");
+                }
+                else
+                {
+                    order = new Order();
+                    order.Reserver = SecurityContext.SecuritySession.User;
+                    orderRepo.Save(order);
+                }
 
                 order.AddItem(orderItemDto.ArticleId, orderItemDto.Amount, orderItemDto.From, orderItemDto.To);
 
                 uow.TransactionalFlush();
-
-                // TODO: Hmm... Nach Commit, neue Transaktion oder wie?
-                return new OrderAssembler().CreateDto(repo.Get(order.Id));
             }
+            return null;
         }
     }
 }
