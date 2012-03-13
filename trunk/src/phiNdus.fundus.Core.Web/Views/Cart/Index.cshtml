@@ -9,7 +9,40 @@
 }
 
 <h2>Warenkorb</h2>
-
-<table class="table">
-
+<p></p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Artikel</th>
+            <th>Von</th>
+            <th>Bis</th>
+            <th>Anzahl</th>
+            <th>Stückpreis</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Items.Count == 0)
+        {
+            <tr>
+                <td class="no-data" colspan="6">Der Warenkorb ist leer.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var each in Model.Items)
+            {
+                <tr>
+                    <td></td>    
+                </tr>       
+            }
+        }
+    </tbody>
 </table>
+@if (Model.Items.Count >= 0)
+{
+    <div class="form-actions">
+        @Ajax.ActionLink(new Appearance { Button = phiNdus.fundus.Core.Web.Helpers.Button.Normal, Caption="Aktualisieren"}, "CheckOut", new {}, new AjaxOptions {})
+        @Html.SubmitButton("Bestellen")
+    </div>
+}

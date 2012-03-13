@@ -64,7 +64,6 @@ var fundus;
                 $('form').on('submit', function () {
                     if (typeof window.triggerSave == 'function') {
                         $('textarea.tinymce').triggerSave();
-                        //tinyMCE.triggerSave();
                     }
                 });
 
@@ -100,10 +99,7 @@ var fundus;
                     entity_encoding: "raw"
                 });
 
-                // http://www.eyecon.ro/bootstrap-datepicker/
                 $('.datepicker').datepicker();
-                //var $datepickers = $('input.datepicker');
-                //$datepickers.each(function(index, element) { new DatePicker(element); });
             },
 
             showError: function (e, xhr, opts) {

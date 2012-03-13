@@ -8,3 +8,9 @@ footer p
 {
     font-size: 12px;
 }
+
+td.no-data 
+{
+    text-align: center;
+    padding: 40px;
+}
