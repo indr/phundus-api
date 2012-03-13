@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using Rhino.Commons;
@@ -10,6 +7,8 @@ namespace phiNdus.fundus.Core.Web.ViewModels
 {
     public class CartViewModel : ViewModelBase
     {
+        private IList<CartItemViewModel> _items = new List<CartItemViewModel>();
+
         public CartViewModel()
         {
             Load(CartService.GetCart(SessionId));
@@ -20,7 +19,11 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             get { return IoC.Resolve<ICartService>(); }
         }
 
-        public IList<CartItemViewModel> Items { get; set; }
+        public IList<CartItemViewModel> Items
+        {
+            get { return _items; }
+            set { _items = value; }
+        }
 
         private void Load(OrderDto orderDto)
         {
@@ -28,7 +31,4 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 Items.Add(new CartItemViewModel(each, each.ArticleId, 0.99)); // TODO: Preis aufs DTO
         }
     }
-
-
-    
 }

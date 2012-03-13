@@ -113,7 +113,7 @@ namespace phiNdus.fundus.Core.Web.Helpers
   
     }
 
-    public static class HtmlLinkExtensions
+    public static class ActionLinkExtensions
     {
         public static MvcHtmlString ActionLink(this HtmlHelper htmlHelper, Appearance appearance, string actionName)
         {
