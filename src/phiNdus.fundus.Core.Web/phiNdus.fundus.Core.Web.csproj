@@ -115,6 +115,7 @@
     <Compile Include="Installers\LoggerInstaller.cs" />
     <Compile Include="Installers\StateManagerInstaller.cs" />
     <Content Include="Content\Images\ajax-loader.gif" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-image-gallery.js" />
     <Content Include="Scripts\bootstrap-image-gallery.min.js" />
     <Content Include="Scripts\fundus.js" />
@@ -171,8 +172,7 @@
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.18.js" />
-    <Content Include="Scripts\jquery-ui-1.8.18.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.18.custom.min.js" />
     <Content Include="Scripts\jquery.fileupload-ip.js" />
     <Content Include="Scripts\jquery.fileupload-ui.js" />
     <Content Include="Scripts\jquery.fileupload.js" />

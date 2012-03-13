@@ -179,16 +179,19 @@ var fundus;
 } (window.jQuery);
 
 
-//function parseDayMonthYear(str) {
-//    // this example parses dates like "month/date/year"
-//    var parts = str.split('.');
-//    if (parts.length == 3) {
-//        return new XDate(
-//parseInt(parts[2]), // year
-//parseInt(parts[1]), // month
-//parseInt(parts[0]) // date
-//);
-//    }
-//}
-
-//XDate.parsers.push(parseDayMonthYear);
+if (typeof XDate != 'undefined') {
+    !function () {
+        "use strict";
+        function parseDayMonthYear(str) {
+            var parts = str.split('.');
+            if (parts.length == 3) {
+                return new XDate(
+                    parseInt(parts[2]), // year
+                    parseInt(parts[1]), // month
+                    parseInt(parts[0]) // date
+                );
+            }
+        }
+        XDate.parsers.push(parseDayMonthYear);
+    } ();
+}
