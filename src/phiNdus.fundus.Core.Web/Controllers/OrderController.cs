@@ -1,66 +1,54 @@
 ﻿using System.Web.Mvc;
-using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Web.ViewModels;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Web.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
-        private IOrderService OrderService
-        {
-            get { return IoC.Resolve<IOrderService>(); }
-        }
-
         //
         // GET: /Order/
         public ActionResult Index()
         {
-            return RedirectToAction("All");
+            return My();
         }
 
         public ActionResult My()
         {
-            return RedirectToAction("List");
-        }
-
-        // GET: /Order/All
-        public ActionResult All()
-        {
-            return View("All", "_Orders", new OrdersTableViewModel
-                                              {
-                                                  Orders = OrderService.GetOrders(Session.SessionID)
-                                              });
+            var model = new MyOrdersViewModel();
+            return View("My", model);
         }
 
         //
         // GET: /Order/Pending
+        [Authorize(Roles = "Admin")]
         public ActionResult Pending()
         {
-            return View("Pending", "_Orders", new OrdersTableViewModel
-                                       {
-                                           Orders = OrderService.GetPendingOrders(Session.SessionID)
-                                       });
+            return View("Pending", new OrdersViewModel());
         }
 
         //
         // GET: /Order/Approved
+        [Authorize(Roles = "Admin")]
         public ActionResult Approved()
         {
-            return View("Approved", "_Orders", new OrdersTableViewModel
-                                        {
-                                            Orders = OrderService.GetApprovedOrders(Session.SessionID)
-                                        });
+            return View("Approved", new OrdersViewModel());
+        }
+
+        //
+        // GET: /Order/Closed
+        [Authorize(Roles = "Admin")]
+        public ActionResult Closed()
+        {
+            return View("Closed", new OrdersViewModel());
         }
 
         //
         // GET: /Order/Rejected
+        [Authorize(Roles = "Admin")]
         public ActionResult Rejected()
         {
-            return View("Rejected", "_Orders", new OrdersTableViewModel
-                                        {
-                                            Orders = OrderService.GetRejectedOrders(Session.SessionID)
-                                        });
+            return View("Rejected", new OrdersViewModel());
         }
     }
 }

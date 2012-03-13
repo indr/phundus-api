@@ -1,43 +1,59 @@
-﻿@model OrdersTableViewModel
+﻿@model OrdersViewModel
 
-<h2>Bestätigte Bestellungen</h2>
-
-<table>
-    <tr>
-        <th>Nummer</th>
-        <th>Datum</th>
-        <th>Reservierer</th>
-        <th>Anzahl Artikel</th>
-        <th>Bestätigt am</th>
-        <th>Bestätigt von</th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model.Orders) {
-    <tr>
-        <td>
-            @item.Id
-        </td>
-        <td>
-            @item.CreateDate
-        </td>
-        <td>
-            @item.ReserverName
-        </td>
-        <td>
-            @item.Items.Count
-        </td>
-        <td>
-            @item.ModifyDate
-        </td>
-        <td>
-            @item.ModifierName
-        </td>
-        <td>
-            <a href="#">Anzeigen</a> |
-            <a href="#">PDF drucken</a>
-        </td>
-    </tr>
+@{
+    ViewBag.Title = "Bestätigte Bestellungen";
 }
 
+<h2>@ViewBag.Title</h2>
+<p></p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nummer</th>
+            <th>Datum</th>
+            <th>Reservierer</th>
+            <th>Anzahl Artikel</th>
+            <th>Bestätigt am</th>
+            <th>Bestätigt von</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Items.Count == 0)
+        {
+            <tr>
+                <td class="no-data" colspan="7">Keine bestätigten Bestellungen vorhanden.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.CreateDate
+                    </td>
+                    <td>
+                        @item.ReserverName
+                    </td>
+                    <td>
+                        @item.ItemCount
+                    </td>
+                    <td>
+                        @item.ModifyDate
+                    </td>
+                    <td>
+                        @item.ModifierName
+                    </td>
+                    <td>
+                        <a href="#">Anzeigen</a> |
+                        <a href="#">PDF drucken</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
 </table>

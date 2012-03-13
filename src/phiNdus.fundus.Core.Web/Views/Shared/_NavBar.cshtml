@@ -16,6 +16,8 @@
             {
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bestellungen<b class="caret"></b></a>
                 <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Meine Bestellungen", "Index", "Order")</li>
+                    <li class="divider"></li>
                     <li>@Html.ActionLink("Provisorische", "Pending", "Order")</li>
                     <li>@Html.ActionLink("Bestätigte", "Approved", "Order")</li>
                     <li class="divider"></li>
@@ -34,7 +36,7 @@
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Verträge<b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li>@Html.ActionLink("Meine", "My", "Contract")</li>
+                <li>@Html.ActionLink("Meine Verträge", "Index", "Contract")</li>
                 <li class="divider"></li>
                 <li>@Html.ActionLink("Unterschriebene", "Signed", "Contract")</li>
                 <li>@Html.ActionLink("Abgeschlossene", "Closed", "Contract")</li>
