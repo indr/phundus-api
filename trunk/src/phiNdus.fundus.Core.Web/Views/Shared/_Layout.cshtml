@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/bootstrap.min.css")" />
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/bootstrap-responsive.min.css")" />
         <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
-        <link rel="stylesheet" type="http://blueimp.github.com/Bootstrap-Image-Gallery/css/bootstrap-image-gallery.min.css" />
+        <link rel="stylesheet" type="text/css" href="http://blueimp.github.com/Bootstrap-Image-Gallery/css/bootstrap-image-gallery.min.css" />
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/bootstrap-datepicker.css")" />
         <link rel="Stylesheet" type="text/css" href="@Url.Content("~/Content/jquery.fileupload-ui.css")" />
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/fundus.css")" />
@@ -72,31 +72,30 @@
             });
         </script>
 
-            <div class="modal hide fade" id="modal-show-error">
-                <div class="modal-header">
-                    <a class="close" data-dismiss="modal">×</a>
-                    <h3>Fehler</h3>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn" data-dismiss="modal">Close</a>
-                </div>  
+        <div class="modal hide fade" id="modal-show-error">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Fehler</h3>
             </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Close</a>
+            </div>  
+        </div>
 
-            <!-- modal-gallery is the modal dialog used for the image gallery -->
-            <div id="modal-gallery" class="modal modal-gallery hide fade">
-                <div class="modal-header">
-                    <a class="close" data-dismiss="modal">&times;</a>
-                    <h3 class="modal-title"></h3>
-                </div>
-                <div class="modal-body"><div class="modal-image"></div></div>
-                <div class="modal-footer">
-                    <a class="btn btn-primary modal-next">Weiter <i class="icon-arrow-right icon-white"></i></a>
-                    <a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Zurück</a>
-                    <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Diashow</a>
-                    <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Herunterladen</a>
-                </div>
+        <!-- modal-gallery is the modal dialog used for the image gallery -->
+        <div id="modal-gallery" class="modal modal-gallery hide fade">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">&times;</a>
+                <h3 class="modal-title"></h3>
+            </div>
+            <div class="modal-body"><div class="modal-image"></div></div>
+            <div class="modal-footer">
+                <a class="btn btn-primary modal-next">Weiter <i class="icon-arrow-right icon-white"></i></a>
+                <a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Zurück</a>
+                <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Diashow</a>
+                <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Herunterladen</a>
             </div>
         </div>
     </body>
