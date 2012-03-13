@@ -139,7 +139,7 @@
     <Compile Include="ViewModels\CartItemViewModel.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\FieldsViewModel.cs" />
-    <Compile Include="ViewModels\OrdersTableViewModel.cs" />
+    <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="ViewModels\FieldViewModel.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
@@ -151,6 +151,7 @@
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\DiscriminatorViewModel.cs" />
     <Compile Include="ViewModels\MessageBoxViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\PageSelectorViewModel.cs" />
     <Compile Include="ViewModels\PropertyValueViewModel.cs" />
     <Compile Include="ViewModels\ShopSearchResultViewModel.cs" />
@@ -580,9 +581,6 @@
     <Content Include="Views\Contract\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Order\_Orders.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -602,9 +600,6 @@
     <Content Include="Views\Shop\Article.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Order\All.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\Article\Images.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
@@ -613,6 +608,8 @@
     <Content Include="Views\Shop\Result-Large.cshtml" />
     <Content Include="Views\Shop\Result-Small.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PageSelectorViewModel.cshtml" />
+    <Content Include="Views\Order\My.cshtml" />
+    <Content Include="Views\Order\Closed.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

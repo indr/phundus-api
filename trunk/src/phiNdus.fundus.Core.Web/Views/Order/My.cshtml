@@ -1,0 +1,26 @@
+﻿@model MyOrdersViewModel
+
+@{
+    ViewBag.Title = "Meine Bestellungen";
+}
+
+<h2>@ViewBag.Title</h2>
+<p></p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nummer</th>
+            <th>Datum</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Items.Count == 0)
+        {
+            <tr>
+                <td class="no-data" colspan="3">Keine Bestellungen vorhanden.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

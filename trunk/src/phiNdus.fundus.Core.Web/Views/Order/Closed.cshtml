@@ -1,7 +1,7 @@
 ﻿@model OrdersViewModel
 
 @{
-    ViewBag.Title = "Abgelehnte Bestellungen";
+    ViewBag.Title = "Abgeschlossene Bestellungen";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -13,8 +13,8 @@
             <th>Datum</th>
             <th>Reservierer</th>
             <th>Anzahl Artikel</th>
-            <th>Abgelehnt am</th>
-            <th>Abgelehnt von</th>
+            <th>Abgeschlossen am</th>
+            <th>Abgeschlossen von</th>
             <th></th>
         </tr>
     </thead>
@@ -22,7 +22,7 @@
         @if (Model.Items.Count == 0)
         {
             <tr>
-                <td class="no-data" colspan="7">Keine abgelehnte Bestellungen vorhanden.</td>
+                <td class="no-data" colspan="7">Keine abgeschlossenen Bestellungen vorhanden.</td>
             </tr>
         }
         else
