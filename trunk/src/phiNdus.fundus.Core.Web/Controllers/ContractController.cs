@@ -1,36 +1,32 @@
 ﻿using System.Web.Mvc;
+using phiNdus.fundus.Core.Web.ViewModels;
 
 namespace phiNdus.fundus.Core.Web.Controllers
 {
+    [Authorize]
     public class ContractController : Controller
     {
         //
         // GET: /Contract/
         public ActionResult Index()
         {
-            return RedirectToAction("List");
+            return View("My", new MyContractsViewModel());
         }
 
         //
-        // GET: /Contract/List
-        public ActionResult List()
-        {
-            return View();
-        }
-
-        public ActionResult My()
-        {
-            return RedirectToAction("List");
-        }
-
+        // GET: /Contract/Signed
+        [Authorize(Roles = "Admin")]
         public ActionResult Signed()
         {
-            return RedirectToAction("List");
+            return View("Signed", new ContractsViewModel());
         }
 
+        //
+        // GET: /Contract/Closed
+        [Authorize(Roles = "Admin")]
         public ActionResult Closed()
         {
-            return RedirectToAction("List");
+            return View("Closed", new ContractsViewModel());
         }
     }
 }

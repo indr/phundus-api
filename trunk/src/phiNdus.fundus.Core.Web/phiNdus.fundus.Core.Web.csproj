@@ -91,6 +91,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="ViewModels\ContractsViewModel.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\ContractController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="ViewModels\ArticlesViewModel.cs" />
     <Compile Include="ViewModels\CartItemViewModel.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
+    <Compile Include="ViewModels\ContractViewModel.cs" />
     <Compile Include="ViewModels\FieldsViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="ViewModels\FieldViewModel.cs" />
@@ -578,7 +580,7 @@
     <Content Include="Views\Shop\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Contract\List.cshtml" />
+    <Content Include="Views\Contract\My.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Footer.cshtml" />
@@ -610,6 +612,8 @@
     <Content Include="Views\Shared\DisplayTemplates\PageSelectorViewModel.cshtml" />
     <Content Include="Views\Order\My.cshtml" />
     <Content Include="Views\Order\Closed.cshtml" />
+    <Content Include="Views\Contract\Closed.cshtml" />
+    <Content Include="Views\Contract\Signed.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
