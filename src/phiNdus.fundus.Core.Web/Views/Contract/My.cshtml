@@ -1,0 +1,32 @@
+﻿@model MyContractsViewModel
+
+@{
+    ViewBag.Title = "Meine Verträge";
+}
+
+<h2>@ViewBag.Title</h2>
+<p></p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Column1</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Items.Count == 0)
+        {
+            <tr>
+                <td colspan="1" class="no-data">Keine Verträge vorhanden.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var each in Model.Items)
+            {
+                <tr>
+                    <td>tbd</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

@@ -10,13 +10,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
         // GET: /Order/
         public ActionResult Index()
         {
-            return My();
-        }
-
-        public ActionResult My()
-        {
-            var model = new MyOrdersViewModel();
-            return View("My", model);
+            return View("My", new MyOrdersViewModel());
         }
 
         //
