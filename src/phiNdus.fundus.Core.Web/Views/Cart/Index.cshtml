@@ -33,13 +33,18 @@
             foreach (var each in Model.Items)
             {
                 <tr>
-                    <td></td>    
+                    <td>@each.Caption</td>    
+                    <td>@each.Begin</td>
+                    <td>@each.End</td>
+                    <td>@each.Amount</td>
+                    <td>tbd</td>
+                    <td>@each.Price</td>
                 </tr>       
             }
         }
     </tbody>
 </table>
-@if (Model.Items.Count >= 0)
+@if (Model.Items.Count > 0)
 {
     <div class="form-actions">
         @Ajax.ActionLink(new Appearance { Button = phiNdus.fundus.Core.Web.Helpers.Button.Normal, Caption="Aktualisieren"}, "CheckOut", new {}, new AjaxOptions {})

@@ -30,11 +30,13 @@
                 <p>Howdy, I'm in Section 3.</p>
             </div>
             <div class="tab-pane" id="@Model.Id-L">
-                @using (Ajax.BeginForm("Add", "Cart", new AjaxOptions { }, new { @class = "form-horizontal" }))
+                @using (Ajax.BeginForm("AddToCart", "Shop", new {}, new AjaxOptions { }, new { @class = "form-horizontal" }))
                 {
                     <fieldset>
                         @Html.HiddenFor(m => m.CartItem.Id)
                         @Html.HiddenFor(m => m.CartItem.Version)
+                        @Html.HiddenFor(m => m.CartItem.ArticleId)
+                        @Html.HiddenFor(m => m.CartItem.Price)
 
                         <div class="control-group">    
                             @Html.LabelFor(model => model.CartItem.Begin, new { @class = "control-label" })

@@ -100,15 +100,40 @@ namespace phiNdus.fundus.Core.Web.Controllers
 
         public ActionResult Article(int id)
         {
-            var model = new ShopArticleViewModel(id);
-
-            return Json(new
-                            {
-                                caption = model.Caption,
-                                content = RenderPartialViewToString("Article", model)
-                            }, JsonRequestBehavior.AllowGet);
+            return Article(id, null);
         }
 
-        
+        private ActionResult Article(int id, CartItemViewModel cartItem)
+        {
+            
+                var model = new ShopArticleViewModel(id, cartItem);
+
+                return Json(new
+                                {
+                                    caption = model.Caption,
+                                    content = RenderPartialViewToString("Article", model)
+                                }, JsonRequestBehavior.AllowGet);
+            
+            
+        }
+
+        //
+        // POST: /Shop/AddToCart
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult AddToCart([Bind(Prefix="CartItem")] CartItemViewModel cartItem)
+        {
+            // TODO: Ist merkwürdigerweise immer true...
+            if (!ModelState.IsValid)
+            {
+                return Article(cartItem.ArticleId, cartItem);
+            }
+
+            cartItem.Update();
+
+            if (Request.IsAjaxRequest())
+                return new JsonResult();
+
+            throw new NotImplementedException("/Shop/AddToCart kann voerst nur per Ajax aufgerufen werden.");
+        }
     }
 }

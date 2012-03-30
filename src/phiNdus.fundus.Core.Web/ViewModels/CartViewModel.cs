@@ -28,7 +28,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         private void Load(OrderDto orderDto)
         {
             foreach (var each in orderDto.Items)
-                Items.Add(new CartItemViewModel(each, each.ArticleId, 0.99)); // TODO: Preis aufs DTO
+                Items.Add(new CartItemViewModel(each)); // TODO: Preis aufs DTO
         }
     }
 }

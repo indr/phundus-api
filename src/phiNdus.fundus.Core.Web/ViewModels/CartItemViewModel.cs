@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using DataAnnotationsExtensions;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using Rhino.Commons;
@@ -35,6 +36,11 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             Load(orderItemDto, articleId, price);
         }
 
+        public CartItemViewModel(OrderItemDto orderItemDto)
+        {
+            Load(orderItemDto, orderItemDto.ArticleId, 0.99);
+        }
+
         private void Load(OrderItemDto orderItemDto, int articleId, double price)
         {
             ArticleId = articleId;
@@ -46,6 +52,8 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 Version = orderItemDto.Version;
                 Begin = orderItemDto.From;
                 End = orderItemDto.To;
+                Caption = orderItemDto.Text;
+                Amount = orderItemDto.Amount;
             }
             
             if (Begin == DateTime.MinValue)
@@ -68,30 +76,29 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             return result;
         }
 
-        
-
         public int Id { get; set; }
         public int Version { get; set; }
         protected int OrderId { get; set; }
+
+        [Required]
+        [Min(1)]
         public int ArticleId { get; set; }
 
         [DisplayName("Bezeichnung")]
         public string Caption { get; set; }
 
+        [Min(1)]
         [DisplayName("Anzahl")]
-        //[CustomValidation( <-- verfügbarkeit prüfen..
         public int Amount { get; set; }
 
         [Required]
         [DisplayName("Ausleihbeginn")]
         [DataType(DataType.Date)]
-        //[CustomValidation( <-- verfügbarkeit prüfen..
         public DateTime Begin { get; set; }
 
         [Required]
         [DisplayName("Ausleihende")]
         [DataType(DataType.Date)]
-        //[CustomValidation( <-- verfügbarkeit prüfen..
         public DateTime End { get; set; }
 
         [DisplayName("Preis")]

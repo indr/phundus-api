@@ -17,7 +17,7 @@ namespace phiNdus.fundus.Core.Business.Services
                 var order = IoC.Resolve<IOrderRepository>().Get(id);
                 if (order == null)
                     return null;
-                return new OrderAssembler().CreateDto(order);
+                return new OrderDtoAssembler().CreateDto(order);
             }
         }
 
@@ -26,7 +26,7 @@ namespace phiNdus.fundus.Core.Business.Services
             using (UnitOfWork.Start())
             {
                 var orders = IoC.Resolve<IOrderRepository>().FindPending();
-                return new OrderAssembler().CreateDtos(orders);
+                return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
 
@@ -35,7 +35,7 @@ namespace phiNdus.fundus.Core.Business.Services
             using (UnitOfWork.Start())
             {
                 var orders = IoC.Resolve<IOrderRepository>().FindApproved();
-                return new OrderAssembler().CreateDtos(orders);
+                return new OrderDtoAssembler().CreateDtos(orders);
             }
             
         }
@@ -45,7 +45,7 @@ namespace phiNdus.fundus.Core.Business.Services
             using (UnitOfWork.Start())
             {
                 var orders = IoC.Resolve<IOrderRepository>().FindRejected();
-                return new OrderAssembler().CreateDtos(orders);
+                return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
 
@@ -54,7 +54,7 @@ namespace phiNdus.fundus.Core.Business.Services
             using (UnitOfWork.Start())
             {
                 var orders = IoC.Resolve<IOrderRepository>().FindAll();
-                return new OrderAssembler().CreateDtos(orders);
+                return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
 
@@ -65,7 +65,7 @@ namespace phiNdus.fundus.Core.Business.Services
                 var order = IoC.Resolve<IOrderRepository>().FindCart(SecurityContext.SecuritySession.User.Id);
                 if (order == null)
                     order = new Order();
-                return new OrderAssembler().CreateDto(order);
+                return new OrderDtoAssembler().CreateDto(order);
             }
         }
 
@@ -89,10 +89,10 @@ namespace phiNdus.fundus.Core.Business.Services
                 {
                     order = new Order();
                     order.Reserver = SecurityContext.SecuritySession.User;
-                    orderRepo.Save(order);
                 }
 
                 order.AddItem(orderItemDto.ArticleId, orderItemDto.Amount, orderItemDto.From, orderItemDto.To);
+                orderRepo.Save(order);
 
                 uow.TransactionalFlush();
             }
