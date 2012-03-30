@@ -13,5 +13,7 @@ namespace phiNdus.fundus.Core.Business.Dto
         public DateTime From { get; set; }
         public DateTime To { get; set; }
         public int Amount { get; set; }
+
+        public string Text { get; internal set; }
     }
 }

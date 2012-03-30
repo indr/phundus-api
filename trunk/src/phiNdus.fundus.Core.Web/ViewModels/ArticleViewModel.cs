@@ -13,16 +13,34 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         protected ICartService CartService { get { return IoC.Resolve<ICartService>(); } }
 
 
-        public ShopArticleViewModel(int id) : base(id)
+        public ShopArticleViewModel(int id) : this(id, null)
         {
+        }
+
+        public ShopArticleViewModel(int id, CartItemViewModel cartItem) : base(id)
+        {
+            // Warenkorb holen
             var cartDto = CartService.GetCart(SessionId);
+
+            // Warenkorb-Item erzeugen, wenn für den Artikel noch keins vorhanden ist
             var cartItemDto = cartDto.Items.Where(p => p.ArticleId == id).SingleOrDefault();
             if (cartItemDto == null)
                 cartItemDto = new OrderItemDto();
-            var price = GetPropertyValue(4);
-            CartItem = new CartItemViewModel(cartItemDto, id, Convert.ToDouble(price));
+
+            var price = Convert.ToDouble(GetPropertyValue(4));
+            
+            if (cartItem == null)
+            {
+                CartItem = new CartItemViewModel(cartItemDto, id, price);
+            }
+            else
+            {
+                CartItem = cartItem;
+                CartItem.Price = price;
+            }
         }
 
+        
         public CartItemViewModel CartItem { get; set; }
     }
 

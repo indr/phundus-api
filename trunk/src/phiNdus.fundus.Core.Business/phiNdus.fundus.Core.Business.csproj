@@ -66,7 +66,7 @@
     <Compile Include="Assembler\ArticleDomainAssembler.cs" />
     <Compile Include="Assembler\ArticleDtoAssembler.cs" />
     <Compile Include="Assembler\ImageAssembler.cs" />
-    <Compile Include="Assembler\OrderAssembler.cs" />
+    <Compile Include="Assembler\OrderDtoAssembler.cs" />
     <Compile Include="Assembler\FieldDefinitionAssembler.cs" />
     <Compile Include="Assembler\RoleAssembler.cs" />
     <Compile Include="Dto\ArticleDto.cs" />

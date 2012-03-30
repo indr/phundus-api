@@ -14,16 +14,6 @@ namespace phiNdus.fundus.Core.Web.Controllers
 {
     public class CartController : ControllerBase
     {
-        private static class Actions
-        {
-            public static string List { get { return @"Index"; } }
-        }
-
-        public CartController()
-        {
-            this.StateManager = IoC.Resolve<IStateManager>();
-        }
-
         private IStateManager StateManager { get; set; }
 
         public ActionResult Index()
@@ -31,49 +21,6 @@ namespace phiNdus.fundus.Core.Web.Controllers
             var model = new CartViewModel();
             return View(model);
         }
-
-        //
-        // GET: /Cart/Clear
-
-        public ActionResult Clear()
-        {
-            this.StateManager.Remove<CartModel>();
-
-            return RedirectToAction(Actions.List);
-        }
-
-        //
-        // POST: /Cart/Add
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Add(CartItemViewModel cartItem)
-        {
-            // TODO: if (ModelState.IsValid)
-
-            cartItem.Update();
-            // Verfügbarkeit im Service prüfen
-            // Preis im Service (re)ermitteln
-            
-            //cartItem.Caption = RäubereCaption(cartItem.ItemId);
-            //cartItem.Gid = Guid.NewGuid();
-
-            //var state = this.StateManager.Load<CartModel>();
-
-            //var response = this.AddCartItemInternal(state, cartItem);
-
-            //this.StateManager.Save(state);
-
-            //if (Request.IsAjaxRequest())
-            //{
-            //    return DisplayFor(response);
-            //}
-            //else
-            //{
-            //    return RedirectToAction(Actions.List);
-            //}
-            throw new NotImplementedException("asdfa sldkfj asdf");
-        }
-
-        
 
         //
         // POST: /Cart/AddItems
@@ -105,16 +52,16 @@ namespace phiNdus.fundus.Core.Web.Controllers
         //
         // GET: /Cart/RemoveItem/Id
 
-        public ActionResult RemoveItem(Guid gid)
-        {
-            var state = this.StateManager.Load<CartModel>();
+        //public ActionResult RemoveItem(Guid gid)
+        //{
+        //    var state = this.StateManager.Load<CartModel>();
 
-            state.Items.RemoveAll(i => i.Gid == gid);
+        //    state.Items.RemoveAll(i => i.Gid == gid);
 
-            this.StateManager.Save(state);
+        //    this.StateManager.Save(state);
 
-            return RedirectToAction(Actions.List);
-        }
+        //    return RedirectToAction(Actions.List);
+        //}
 
         //
         // GET: /Cart/GetCartItemsCount

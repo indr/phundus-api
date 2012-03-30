@@ -9,7 +9,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Assembler
 {
-    public class OrderAssembler
+    public class OrderDtoAssembler
     {
         public OrderDto CreateDto(Order subject)
         {
@@ -21,8 +21,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
                            Version = subject.Version,
                            CreateDate = subject.CreateDate,
                            ModifyDate = subject.ModifyDate
-                           
                        };
+
             if (subject.Reserver != null)
             {
                 result.ReserverId = subject.Reserver.Id;
@@ -33,6 +33,21 @@ namespace phiNdus.fundus.Core.Business.Assembler
             {
                 result.ModifierId = subject.Modifier.Id;
                 result.ModifierName = subject.Modifier.DisplayName;
+            }
+
+            foreach (var item in subject.Items)
+            {
+                result.Items.Add(new OrderItemDto
+                    {
+                        Amount = item.Amount,
+                        ArticleId = item.Article.Id,
+                        From = item.From,
+                        Id = item.Id,
+                        OrderId = item.Order.Id,
+                        To = item.To,
+                        Version = item.Version,
+                        Text = item.Article.Caption
+                    });
             }
 
             return result;
@@ -47,6 +62,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
                 result.Add(CreateDto(each));
             return result;
         }
+
+        
     }
 }
     

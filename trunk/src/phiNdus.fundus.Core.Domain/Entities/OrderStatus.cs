@@ -2,9 +2,9 @@
 {
     public enum OrderStatus
     {
+        Cart,
         Pending,
         Approved,
-        Rejected,
-        Cart
+        Rejected
     }
 }

@@ -46,7 +46,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         public void CreateDto_returns_dto()
         {
             var domain = CreateOrder();
-            var dto = new OrderAssembler().CreateDto(domain);
+            var dto = new OrderDtoAssembler().CreateDto(domain);
 
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Id, Is.EqualTo(1));
@@ -64,7 +64,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             var domain = CreateOrder();
             domain.Approve(Approver);
-            var dto = new OrderAssembler().CreateDto(domain);
+            var dto = new OrderDtoAssembler().CreateDto(domain);
             Assert.That(dto.ModifyDate, Is.EqualTo(domain.ModifyDate));
             Assert.That(dto.ModifierId, Is.EqualTo(domain.Modifier.Id));
             Assert.That(dto.ModifierName, Is.EqualTo(domain.Modifier.DisplayName));
@@ -75,7 +75,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             var domain = CreateOrder();
             domain.Reject(Rejecter);
-            var dto = new OrderAssembler().CreateDto(domain);
+            var dto = new OrderDtoAssembler().CreateDto(domain);
             Assert.That(dto.ModifyDate, Is.EqualTo(domain.ModifyDate));
             Assert.That(dto.ModifierId, Is.EqualTo(domain.Modifier.Id));
             Assert.That(dto.ModifierName, Is.EqualTo(domain.Modifier.DisplayName));
@@ -84,7 +84,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [Test]
         public void CreateDto_with_subject_null_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => new OrderAssembler().CreateDto(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => new OrderDtoAssembler().CreateDto(null));
             Assert.That(ex.ParamName, Is.EqualTo("subject"));
         }
 
@@ -95,7 +95,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
             orders.Add(CreateOrder());
             orders.Add(CreateOrder());
 
-            var dtos = new OrderAssembler().CreateDtos(orders);
+            var dtos = new OrderDtoAssembler().CreateDtos(orders);
 
             Assert.That(dtos, Is.Not.Null);
             Assert.That(dtos, Has.Count.EqualTo(2));
@@ -104,7 +104,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [Test]
         public void CreateDtos_with_subjects_null_throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => new OrderAssembler().CreateDtos(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => new OrderDtoAssembler().CreateDtos(null));
             Assert.That(ex.ParamName, Is.EqualTo("subjects"));
         }
     }
