@@ -36,5 +36,19 @@ namespace phiNdus.fundus.TestHelpers
             IoC.Container.Register(Component.For<T>().Instance(result));
             return result;
         }
+
+        protected IUnitOfWork GenerateAndRegisterMockUnitOfWork()
+        {
+            var result = MockRepository.GenerateMock<IUnitOfWork>();
+            UnitOfWork.RegisterGlobalUnitOfWork(result);
+            return result;
+        }
+
+        protected IUnitOfWork GenerateAndRegisterStubUnitOfWork()
+        {
+            var result = MockRepository.GenerateStub<IUnitOfWork>();
+            UnitOfWork.RegisterGlobalUnitOfWork(result);
+            return result;
+        }
     }
 }
