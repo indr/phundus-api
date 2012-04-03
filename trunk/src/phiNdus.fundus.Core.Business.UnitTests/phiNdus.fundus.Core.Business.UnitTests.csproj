@@ -114,13 +114,14 @@
     <Compile Include="Security\SecurityContextTests.cs" />
     <Compile Include="Security\SessionHelper.cs" />
     <Compile Include="Security\SecuritySessionTests.cs" />
-    <Compile Include="Services\ArticleServiceTests.cs" />
-    <Compile Include="Services\BaseServiceTests.cs" />
+    <Compile Include="ServicesTests\ArticleServiceTests.cs" />
+    <Compile Include="ServicesTests\BaseServiceTests.cs" />
     <Compile Include="Mails\UserAccountValidationMailTest.cs" />
-    <Compile Include="Services\OrderServiceTests.cs" />
-    <Compile Include="Services\PropertyServiceTests.cs" />
-    <Compile Include="Services\UserService\CreateUserTests.cs" />
-    <Compile Include="Services\UserServiceTests.cs" />
+    <Compile Include="ServicesTests\OrderServiceTests\CartTests.cs" />
+    <Compile Include="ServicesTests\OrderServiceTests\GetAndFindTests.cs" />
+    <Compile Include="ServicesTests\PropertyServiceTests.cs" />
+    <Compile Include="ServicesTests\UserService\CreateUserTests.cs" />
+    <Compile Include="ServicesTests\UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tests\phiNdus.fundus.TestHelpers\phiNdus.fundus.TestHelpers.csproj">

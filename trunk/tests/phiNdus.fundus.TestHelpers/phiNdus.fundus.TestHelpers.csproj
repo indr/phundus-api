@@ -60,6 +60,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino.Commons.NHibernate">
+      <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Mocks">
       <HintPath>..\..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
     </Reference>
