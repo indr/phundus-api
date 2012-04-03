@@ -1,14 +1,13 @@
 ﻿using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Services
+namespace phiNdus.fundus.Core.Business.UnitTests.ServicesTests.OrderServiceTests
 {
     [TestFixture]
-    public class OrderServiceTests : BaseTestFixture
+    public class GetAndFindTests : BaseTestFixture
     {
         #region SetUp/TearDown
 
@@ -19,7 +18,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             FakeUnitOfWork = GenerateAndRegisterStubUnitOfWork();
 
-            Sut = new OrderService();
+            Sut = new Business.Services.OrderService();
 
             OrderDomainObject1 = new Order(1, 2);
             OrderDomainObject2 = new Order(2, 3);
@@ -27,7 +26,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
         #endregion
 
-        protected OrderService Sut { get; set; }
+        protected Business.Services.OrderService Sut { get; set; }
 
         protected IUnitOfWork FakeUnitOfWork { get; set; }
         protected IOrderRepository FakeOrderRepo { get; set; }
@@ -62,7 +61,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         [Test]
         public void Can_create()
         {
-            var sut = new OrderService();
+            var sut = new Business.Services.OrderService();
             Assert.That(sut, Is.Not.Null);
         }
         
