@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace phiNdus.fundus.TestHelpers
 {
-    public abstract class ExceptionTestBase<T> where T : Exception
+    public abstract class ExceptionTestBase<T> where T : Exception, new()
     {
         protected abstract T CreateSut();
         protected abstract T CreateSut(string message);

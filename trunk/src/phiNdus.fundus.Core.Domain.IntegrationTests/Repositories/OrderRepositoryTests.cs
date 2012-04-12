@@ -91,6 +91,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         {
             var result = new Order();
             result.Reserver = CreateAndPersistUser();
+            result.Checkout();
             UnitOfWork.CurrentSession.Save(result);
             return result;
         }
@@ -127,6 +128,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         {
             var result = new Order();
             result.Reserver = reserver;
+            result.Checkout();
             UnitOfWork.CurrentSession.Save(result);
             return result;
         }

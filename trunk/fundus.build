@@ -114,19 +114,6 @@
     <mkdir dir="${build.dir}" verbose="${verbose}" />
     <mkdir dir="${reports.dir}" verbose="${verbose}" />
     
-    <property name="assembly.title" value="Core-Environment" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="21035e24-d5c4-4c8a-82ba-7903da246e69" />
-    <property name="assembly.cls-compliant" value="true" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Environment\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>    
-    
     <property name="assembly.title" value="Core-Domain" />
     <property name="assembly.description" value="" />
     <property name="assembly.guid" value="52a78ccd-cf4c-4567-8040-6f712a7eeb74" />
@@ -197,28 +184,6 @@
         <expandproperties />
       </filterchain>
     </copy>
-    
-    <property name="assembly.title" value="Core-Environment-UnitTests" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="9f068397-99d3-4442-ba1d-b5b854a5e688" />
-    <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Environment.UnitTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
-    <copy file="${config.dir}\App.config.UnitTests.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Environment.UnitTests\App.config"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
-    
     
     <property name="assembly.title" value="Core-Domain-UnitTests" />
     <property name="assembly.description" value="" />

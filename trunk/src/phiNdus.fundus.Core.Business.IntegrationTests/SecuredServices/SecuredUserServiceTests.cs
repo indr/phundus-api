@@ -6,19 +6,19 @@ using phiNdus.fundus.Core.Business.Security;
 namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
 {
     [TestFixture]
-    public class SecuredUserServiceTests : BaseTestFixture
+    public class SecuredUserServiceTests : BaseTestFixture<IUserService>
     {
         #region Setup/Teardown
 
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
+            base.SetUp();
+
             Sut = new SecuredUserService();
         }
 
         #endregion
-
-        protected IUserService Sut { get; set; }
 
         [Test]
         public void GetUser_own_with_user_roll()

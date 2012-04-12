@@ -75,6 +75,7 @@
     <Compile Include="SecuredServices\SecuredUserServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ArticleServiceTests.cs" />
+    <Compile Include="Services\CartServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\phiNdus.fundus.Core.Business\phiNdus.fundus.Core.Business.csproj">
