@@ -1,5 +1,6 @@
 ﻿using System;
 using Iesi.Collections.Generic;
+using log4net;
 using phiNdus.fundus.Core.Domain.Repositories;
 using Rhino.Commons;
 
@@ -61,6 +62,12 @@ namespace phiNdus.fundus.Core.Domain.Entities
             var result = Items.Remove(item);
             item.Order = null;
             return result;
+        }
+
+        public virtual void Checkout()
+        {
+            Status = OrderStatus.Pending;
+            LogManager.GetLogger(GetType()).Warn("Checkout() is not implemented!");
         }
 
         public virtual void Approve(User approver)

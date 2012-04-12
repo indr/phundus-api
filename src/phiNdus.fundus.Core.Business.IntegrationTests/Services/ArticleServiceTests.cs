@@ -10,15 +10,15 @@ using phiNdus.fundus.Core.Domain.Entities;
 namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
 {
     [TestFixture]
-    public class ArticleServiceTests : BaseTestFixture
+    public class ArticleServiceTests : BaseTestFixture<ArticleService>
     {
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
+            base.SetUp();
+
             Sut = new ArticleService();
         }
-
-        protected ArticleService Sut { get; set; }
 
         [Test]
         public void Can_create_article()
