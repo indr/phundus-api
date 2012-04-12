@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace phiNdus.fundus.TestHelpers
+namespace phiNdus.fundus.TestHelpers.TestBases
 {
     public abstract class ExceptionTestBase<T> where T : Exception, new()
     {

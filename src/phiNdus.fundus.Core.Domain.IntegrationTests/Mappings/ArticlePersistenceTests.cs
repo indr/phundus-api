@@ -7,7 +7,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 {
     [TestFixture]
-    public class ArticlePersistenceTests : BaseTestFixture
+    public class ArticlePersistenceTests : DomainComponentTestBase<Article>
     {
         [Test]
         public void Can_save_and_load()

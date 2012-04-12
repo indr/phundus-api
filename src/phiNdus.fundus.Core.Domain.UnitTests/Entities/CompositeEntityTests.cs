@@ -5,13 +5,14 @@ using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using phiNdus.fundus.TestHelpers;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Domain.UnitTests.Entities
 {
     [TestFixture]
-    public class CompositeEntityTests : UnitTestBase
+    public class CompositeEntityTests : UnitTestBase<object>
     {
         [SetUp]
         public override void SetUp()

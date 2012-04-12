@@ -1,22 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Business.Services;
+using phiNdus.fundus.TestHelpers.TestBases;
 
 namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
 {
     [TestFixture]
-    public class CartServiceTests : BaseTestFixture<OrderService>
+    public class CartServiceTests : ComponentTestBase<OrderService>
     {
+        #region Setup/Teardown
+
         [SetUp]
         public override void SetUp()
         {
+            base.SetUp();
+
             Sut = new OrderService();
         }
+
+        #endregion
 
         [Test]
         [Ignore]
@@ -25,8 +27,8 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
             // Arrange
 
             // Act
-            Sut.AddToCart(new OrderItemDto { Amount = 1, ArticleId = 1 });
-            Sut.AddToCart(new OrderItemDto { Amount = 2, ArticleId = 2 });
+            Sut.AddToCart(new OrderItemDto {Amount = 1, ArticleId = 1});
+            Sut.AddToCart(new OrderItemDto {Amount = 2, ArticleId = 2});
             var cart = Sut.GetCart();
 
             // Assert

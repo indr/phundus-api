@@ -7,13 +7,15 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 {
     [TestFixture]
-    public class UserRepositoryTests : BaseTestFixture
+    public class UserRepositoryTests : DomainComponentTestBase<IUserRepository>
     {
         #region Setup/Teardown
 
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
+            base.SetUp();
+
             Sut = IoC.Resolve<IUserRepository>();
 
             using (IUnitOfWork uow = UnitOfWork.Start())
@@ -25,8 +27,6 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         }
 
         #endregion
-
-        private IUserRepository Sut { get; set; }
 
         private static User CreateUser()
         {

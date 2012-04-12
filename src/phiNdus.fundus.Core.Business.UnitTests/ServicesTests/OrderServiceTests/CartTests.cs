@@ -7,12 +7,13 @@ using phiNdus.fundus.Core.Business.UnitTests.Security;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using phiNdus.fundus.TestHelpers;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.ServicesTests.OrderServiceTests
 {
     [TestFixture]
-    public class CartTests : UnitTestBase
+    public class CartTests : UnitTestBase<OrderService>
     {
         #region Setup/Teardown
 
@@ -33,8 +34,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.ServicesTests.OrderServiceTests
             result.SecuritySession = SessionHelper.CreateSession(new User(userId), key);
             return result;
         }
-
-        protected OrderService Sut { get; set; }
 
         [Test]
         public void AddToCart_WithAmountZero_Throws()

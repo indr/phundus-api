@@ -17,9 +17,13 @@ namespace phiNdus.fundus.Core.Domain
                                    .BasedOn(typeof (IRepository<>))
                                    .WithService.AllInterfaces()
                                    .Configure(c => c.LifeStyle.Transient));
-            container.Register(Component.For<IUnitOfWorkFactory>()
-                                   .Instance(
-                                       new NHibernateUnitOfWorkFactory(new[] {Assembly.GetAssembly(typeof (Entity))})));
+
+            if (container.ResolveAll<IUnitOfWorkFactory>().Length == 0)
+            {
+                container.Register(Component.For<IUnitOfWorkFactory>()
+                                       .Instance(
+                                           new NHibernateUnitOfWorkFactory(new[] {Assembly.GetAssembly(typeof (Entity))})));
+            }
         }
 
         #endregion

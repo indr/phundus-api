@@ -7,19 +7,19 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 {
     [TestFixture]
-    public class RoleRepositoryTests : BaseTestFixture
+    public class RoleRepositoryTests : DomainComponentTestBase<IRoleRepository>
     {
         #region Setup/Teardown
 
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
+            base.SetUp();
+
             Sut = IoC.Resolve<IRoleRepository>();
         }
 
         #endregion
-
-        protected IRoleRepository Sut { get; set; }
 
         [Test]
         public void Delete_throws()

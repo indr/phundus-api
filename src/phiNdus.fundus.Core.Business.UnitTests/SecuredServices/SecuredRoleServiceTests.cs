@@ -1,24 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.SecuredServices;
+using phiNdus.fundus.TestHelpers.TestBases;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices {
+namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
+{
     [TestFixture]
-    public class SecuredRoleServiceTests : BaseTestFixture {
+    public class SecuredRoleServiceTests : UnitTestBase<SecuredRoleService>
+    {
+        #region Setup/Teardown
 
         [SetUp]
-        public void SetUpSut() {
-            this.Sut = new SecuredRoleService();
+        public override void SetUp()
+        {
+            base.SetUp();
+
+            Sut = new SecuredRoleService();
         }
 
-        protected SecuredRoleService Sut { get; set; }
+        #endregion
 
         [Test]
-        public void Get_roles_returns_existing_roles() {
-            var roles = this.Sut.GetRoles(null);
+        public void Get_roles_returns_existing_roles()
+        {
+            var roles = Sut.GetRoles(null);
 
             Assert.That(roles.Count(), Is.EqualTo(2));
             Assert.That(roles.SingleOrDefault(r => r.Name == "User"), Is.Not.Null);

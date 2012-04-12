@@ -7,15 +7,13 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 {
     [TestFixture]
-    public class ArticleRepositoryTests : BaseTestFixture
+    public class ArticleRepositoryTests : DomainComponentTestBase<IArticleRepository>
     {
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
-            Sut = IoC.Resolve<IArticleRepository>();
+            base.SetUp();
         }
-
-        protected IArticleRepository Sut { get; set; }
 
         [Test]
         public void Can_save_and_load()

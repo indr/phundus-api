@@ -6,13 +6,14 @@ using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 {
     [TestFixture]
-    public class SecuredUserServiceTests : BaseTestFixture
+    public class SecuredUserServiceTests : UnitTestBase<SecuredUserService>
     {
         #region Setup/Teardown
 
@@ -40,7 +41,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 
         protected UserService MockUserService { get; set; }
         protected IUserRepository MockUserRepository { get; set; }
-        protected SecuredUserService Sut { get; set; }
         protected User User { get; set; }
         protected User Admin { get; set; }
 

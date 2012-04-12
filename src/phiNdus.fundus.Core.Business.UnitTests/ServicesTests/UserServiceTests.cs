@@ -1,24 +1,23 @@
 ﻿using System;
-using System.Reflection;
-using System.Text.RegularExpressions;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Services
+namespace phiNdus.fundus.Core.Business.UnitTests.ServicesTests
 {
     [TestFixture]
-    public class UserServiceTests : BaseTestFixture
+    public class UserServiceTests : UnitTestBase<Business.Services.UserService>
     {
         #region Setup/Teardown
 
         [SetUp]
         public override void SetUp()
         {
+
             base.SetUp();
 
             MockUnitOfWork = Obsolete_CreateAndRegisterStrictUnitOfWorkMock();
@@ -45,7 +44,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         private IRoleRepository MockRoleRepository { get; set; }
         private IMailGateway MockMailGateway { get; set; }
 
-        private Business.Services.UserService Sut { get; set; }
         private User TedMosby { get; set; }
 
        
@@ -168,7 +166,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (Obsolete_MockFactory.Playback())
             {
-                Sut.UpdateUser(new UserDto {Id = 1});
+                Sut.UpdateUser(new UserDto { Id = 1 });
             }
         }
 
@@ -187,7 +185,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
 
             using (Obsolete_MockFactory.Playback())
             {
-                Assert.Throws<EntityNotFoundException>(() => Sut.UpdateUser(new UserDto {Id = 0}));
+                Assert.Throws<EntityNotFoundException>(() => Sut.UpdateUser(new UserDto { Id = 0 }));
             }
         }
 

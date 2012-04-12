@@ -7,12 +7,12 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 {
     [TestFixture]
-    public class OrderRepositoryTests : BaseTestFixture
+    public class OrderRepositoryTests : DomainComponentTestBase<IOrderRepository>
     {
         #region Setup/Teardown
 
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
             Sut = IoC.Resolve<IOrderRepository>();
             Users = IoC.Resolve<IUserRepository>();
@@ -20,8 +20,6 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         }
 
         #endregion
-        
-        protected IOrderRepository Sut { get; set; }
         
         protected IUserRepository Users { get; set; }
 
