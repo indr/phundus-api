@@ -82,7 +82,6 @@
     <Compile Include="Assembler\FieldDefinitionAssemblerTests.cs" />
     <Compile Include="Assembler\RoleAssemblerTests.cs" />
     <Compile Include="Assembler\UserAssemblerTests.cs" />
-    <Compile Include="BaseTestFixture.cs" />
     <Compile Include="DtoOutOfDateExceptionTests.cs" />
     <Compile Include="Dto\ArticleDtoTests.cs" />
     <Compile Include="Dto\BasePropertiesDtoTests.cs" />

@@ -3,17 +3,20 @@ using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Security
 {
     [TestFixture]
-    public class SecuritySessionTests : BaseTestFixture
+    public class SecuritySessionTests : UnitTestBase<object>
     {
         #region Setup/Teardown
 
+        [SetUp]
         public override void SetUp()
         {
+           
             base.SetUp();
 
             MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();

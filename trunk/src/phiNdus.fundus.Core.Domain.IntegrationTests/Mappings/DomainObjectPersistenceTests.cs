@@ -7,12 +7,12 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 {
     [TestFixture]
-    public class DomainObjectPersistenceTests : BaseTestFixture
+    public class DomainObjectPersistenceTests : DomainComponentTestBase<IRepository<CompositeEntity>>
     {
         #region Setup/Teardown
 
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
             Sut = new NHRepository<CompositeEntity>();
             PropertyDefinitionRepo = IoC.Resolve<IFieldDefinitionRepository>();
@@ -35,9 +35,6 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         protected FieldDefinition PriceFieldDef { get; set; }
 
         protected IFieldDefinitionRepository PropertyDefinitionRepo { get; set; }
-
-        protected IRepository<CompositeEntity> Sut { get; set; }
-
 
         [Test]
         public void Can_save_and_load_with_children()

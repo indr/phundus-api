@@ -7,13 +7,14 @@ using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 {
     [TestFixture]
-    public class SecuredArticleServiceTests : BaseTestFixture
+    public class SecuredArticleServiceTests : UnitTestBase<IArticleService>
     {
         #region Setup/Teardown
 
@@ -28,8 +29,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         }
 
         #endregion
-
-        private IArticleService Sut { get; set; }
 
         private ArticleService FakeArticleService { get; set; }
         private IUserRepository FakeUserRepo { get; set; }
@@ -70,7 +69,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void CreateArticle_calls_CreateArticle()
         {
-            FakeArticleService = GenerateAndRegisterStrictMock<ArticleService>();
+            FakeArticleService = GenerateAndRegisterMock<ArticleService>();
             GenerateAndRegisterMissingStubs();
 
             var dto = new ArticleDto();
@@ -119,7 +118,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetArticle_calls_GetArticle()
         {
-            FakeArticleService = GenerateAndRegisterStrictMock<ArticleService>();
+            FakeArticleService = GenerateAndRegisterMock<ArticleService>();
             GenerateAndRegisterMissingStubs();
 
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
@@ -159,7 +158,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetArticles_calls_GetArticles()
         {
-            FakeArticleService = GenerateAndRegisterStrictMock<ArticleService>();
+            FakeArticleService = GenerateAndRegisterMock<ArticleService>();
             GenerateAndRegisterMissingStubs();
 
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
@@ -200,7 +199,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetProperties_calls_GetProperties()
         {
-            FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
+            FakePropertyService = GenerateAndRegisterMock<PropertyService>();
             GenerateAndRegisterMissingStubs();
 
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
@@ -244,7 +243,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void UpdateArticle_calls_UpdateArticle()
         {
-            FakeArticleService = GenerateAndRegisterStrictMock<ArticleService>();
+            FakeArticleService = GenerateAndRegisterMock<ArticleService>();
             GenerateAndRegisterMissingStubs();
 
             var dto = new ArticleDto();

@@ -8,11 +8,13 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests
 {
-    public abstract class SettingsTestFixture<TSut> : BaseTestFixture
+    public abstract class SettingsTestFixture<TSut> : DomainComponentTestBase<TSut>
     {
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
+            base.SetUp();
+
             using (var uow = UnitOfWork.Start())
             {
                 UnitOfWork.CurrentSession.Delete("from Setting");
@@ -22,7 +24,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
             Sut = CreateSut();
         }
 
-        protected TSut Sut { get; private set; }
+        
 
         protected abstract TSut CreateSut();
 

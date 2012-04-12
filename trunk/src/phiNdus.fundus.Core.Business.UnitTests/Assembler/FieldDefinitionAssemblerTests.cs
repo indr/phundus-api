@@ -5,13 +5,14 @@ using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 {
     [TestFixture]
-    public class FieldDefinitionAssemblerTests : BaseTestFixture
+    public class FieldDefinitionAssemblerTests : UnitTestBase<object>
     {
         #region Setup/Teardown
 

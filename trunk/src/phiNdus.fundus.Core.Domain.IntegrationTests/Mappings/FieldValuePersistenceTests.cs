@@ -7,13 +7,15 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 {
     [TestFixture]
-    public class FieldValuePersistenceTests : BaseTestFixture
+    public class FieldValuePersistenceTests : DomainComponentTestBase<FieldValue>
     {
         #region Setup/Teardown
 
         [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
+            base.SetUp();
+
             using (var uow = UnitOfWork.Start())
             {
                 var propertyRepo = IoC.Resolve<IFieldDefinitionRepository>();

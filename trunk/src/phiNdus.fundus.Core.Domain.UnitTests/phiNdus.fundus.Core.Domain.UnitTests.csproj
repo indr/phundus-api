@@ -105,7 +105,6 @@
     <Compile Include="Settings\MailSettingsTest.cs" />
     <Compile Include="Settings\MailTemplatesSettingsTests.cs" />
     <Compile Include="Settings\SettingsTests.cs" />
-    <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tests\phiNdus.fundus.TestHelpers\phiNdus.fundus.TestHelpers.csproj">

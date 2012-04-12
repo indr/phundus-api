@@ -5,7 +5,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 {
     [TestFixture]
-    public class FieldDefinitionTests : BaseTestFixture
+    public class FieldDefinitionTests : DomainComponentTestBase<FieldDefinition>
     {
 
         [Test]

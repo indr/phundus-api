@@ -1,13 +1,14 @@
 ﻿using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.ServicesTests.OrderServiceTests
 {
     [TestFixture]
-    public class GetAndFindTests : BaseTestFixture
+    public class GetAndFindTests : UnitTestBase<Business.Services.OrderService>
     {
         #region SetUp/TearDown
 
@@ -25,8 +26,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.ServicesTests.OrderServiceTests
         }
 
         #endregion
-
-        protected Business.Services.OrderService Sut { get; set; }
 
         protected IUnitOfWork FakeUnitOfWork { get; set; }
         protected IOrderRepository FakeOrderRepo { get; set; }

@@ -1,13 +1,13 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Mails;
 using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Mails
 {
     [TestFixture]
-    public class BaseMailTests : BaseTestFixture
+    public class BaseMailTests : UnitTestBase<object>
     {
         #region Setup/Teardown
 
@@ -28,9 +28,9 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
             base.TearDown();
         }
 
-        protected ISettings MockSettings { get; set; }
-
         #endregion
+
+        protected ISettings MockSettings { get; set; }
 
         private class HackedBaseMail : BaseMail
         {
@@ -53,6 +53,53 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
 
         protected IMailTemplateSettings MockMailTemplateSettings { get; set; }
 
+
+        private class NullTestData
+        {
+            public string ImNull
+            {
+                get { return null; }
+            }
+        }
+
+        private class RecursiveTestData
+        {
+            public string FirstVariable
+            {
+                get { return "I'm First and next says [Test.SecondVariable]"; }
+            }
+
+            public string SecondVariable
+            {
+                get { return "I'm Second and next says [Test.ThirdVariable]"; }
+            }
+
+            public string ThirdVariable
+            {
+                get { return "I'm Thrid"; }
+            }
+        }
+
+        [Test]
+        public void ReplacesNullVariableWithEmptyString()
+        {
+            using (Obsolete_MockFactory.Record())
+            {
+                Expect.Call(MockMailTemplateSettings.Subject).Return("Subject");
+                Expect.Call(MockMailTemplateSettings.Body).Return("Start[Test.ImNull]End");
+                Expect.Call(MockSettings.Common.ServerUrl).Return("fundus.domain.test");
+
+                Expect.Call(() => MockMailGateway.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything,
+                                                       Arg<string>.Matches(y => y.StartsWith("StartEnd"))));
+            }
+
+            using (Obsolete_MockFactory.Playback())
+            {
+                var sut = new HackedBaseMail(MockMailTemplateSettings);
+                sut.AddData("Test", new NullTestData());
+                sut.Send();
+            }
+        }
 
         [Test]
         public void ReplacesUserAccountValidationLink()
@@ -84,7 +131,8 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
                 Expect.Call(MockSettings.Common.ServerUrl).Return("fundus.domain.test");
 
                 Expect.Call(() => MockMailGateway.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything,
-                    Arg<string>.Matches(y => y.StartsWith("I'm First and next says I'm Second"))));
+                                                       Arg<string>.Matches(
+                                                           y => y.StartsWith("I'm First and next says I'm Second"))));
             }
 
             using (Obsolete_MockFactory.Playback())
@@ -93,39 +141,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Mails
                 sut.AddData("Test", new RecursiveTestData());
                 sut.Send();
             }
-        }
-
-        [Test]
-        public void ReplacesNullVariableWithEmptyString()
-        {
-            using (Obsolete_MockFactory.Record())
-            {
-                Expect.Call(MockMailTemplateSettings.Subject).Return("Subject");
-                Expect.Call(MockMailTemplateSettings.Body).Return("Start[Test.ImNull]End");
-                Expect.Call(MockSettings.Common.ServerUrl).Return("fundus.domain.test");
-
-                Expect.Call(() => MockMailGateway.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything,
-                    Arg<string>.Matches(y => y.StartsWith("StartEnd"))));
-            }
-
-            using (Obsolete_MockFactory.Playback())
-            {
-                var sut = new HackedBaseMail(MockMailTemplateSettings);
-                sut.AddData("Test", new NullTestData());
-                sut.Send();
-            }
-        }
-
-        private class NullTestData
-        {
-            public string ImNull { get { return null; } }
-        }
-
-        private class RecursiveTestData
-        {
-            public string FirstVariable { get { return "I'm First and next says [Test.SecondVariable]"; } }
-            public string SecondVariable { get { return "I'm Second and next says [Test.ThirdVariable]"; } }
-            public string ThirdVariable { get { return "I'm Thrid"; } }
         }
     }
 }

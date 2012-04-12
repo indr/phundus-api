@@ -7,13 +7,14 @@ using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 {
     [TestFixture]
-    public class SecuredOrderServiceTests : BaseTestFixture
+    public class SecuredOrderServiceTests : UnitTestBase<IOrderService>
     {
         #region SetUp/TearDown
 
@@ -28,8 +29,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         }
 
         #endregion
-
-        private IOrderService Sut { get; set; }
 
         private OrderService FakeOrderService { get; set; }
         private IUserRepository FakeUserRepo { get; set; }
@@ -59,7 +58,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetOrder_calls_GetOrder()
         {
-            FakeOrderService = GenerateAndRegisterStrictMock<OrderService>();
+            FakeOrderService = GenerateAndRegisterMock<OrderService>();
             GenerateAndRegisterMissingStubs();
 
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
@@ -111,7 +110,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetPendingOrders_calls_GetPending()
         {
-            FakeOrderService = GenerateAndRegisterStrictMock<OrderService>();
+            FakeOrderService = GenerateAndRegisterMock<OrderService>();
             GenerateAndRegisterMissingStubs();
 
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
@@ -161,7 +160,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetApprovedOrders_calls_GetApproved()
         {
-            FakeOrderService = GenerateAndRegisterStrictMock<OrderService>();
+            FakeOrderService = GenerateAndRegisterMock<OrderService>();
             GenerateAndRegisterMissingStubs();
 
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
@@ -210,7 +209,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetRejectedOrders_calls_GetPending()
         {
-            FakeOrderService = GenerateAndRegisterStrictMock<OrderService>();
+            FakeOrderService = GenerateAndRegisterMock<OrderService>();
             GenerateAndRegisterMissingStubs();
 
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);

@@ -6,13 +6,14 @@ using phiNdus.fundus.Core.Business.Mails;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Settings;
 using phiNdus.fundus.TestHelpers;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Mails
 {
     [TestFixture]
-    public class UserAccountValidationMailTest : UnitTestBase
+    public class UserAccountValidationMailTest : UnitTestBase<object>
     {
         [SetUp]
         public override void SetUp()

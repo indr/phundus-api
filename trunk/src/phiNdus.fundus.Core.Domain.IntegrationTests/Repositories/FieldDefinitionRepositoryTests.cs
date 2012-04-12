@@ -7,16 +7,8 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
 {
     [TestFixture]
-    public class FieldDefinitionRepositoryTests : BaseTestFixture
+    public class FieldDefinitionRepositoryTests : DomainComponentTestBase<IFieldDefinitionRepository>
     {
-        [SetUp]
-        public void SetUp()
-        {
-            Sut = IoC.Resolve<IFieldDefinitionRepository>();
-        }
-
-        protected IFieldDefinitionRepository Sut { get; set; }
-
         [Test]
         public void Can_find_all()
         {

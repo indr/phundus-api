@@ -5,11 +5,12 @@ using System.Text;
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.TestHelpers.TestBases;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
 {
     [TestFixture]
-    public class OrderAssemblerTests : BaseTestFixture
+    public class OrderAssemblerTests : UnitTestBase<object>
     {
         [SetUp]
         public override void SetUp()

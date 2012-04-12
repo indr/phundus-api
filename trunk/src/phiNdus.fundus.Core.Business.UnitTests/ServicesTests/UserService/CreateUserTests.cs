@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
+using phiNdus.fundus.Core.Business.UnitTests.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Services.UserService
+namespace phiNdus.fundus.Core.Business.UnitTests.ServicesTests.UserService
 {
     [TestFixture]
-    public class CreateUserTests : BaseTestFixture
+    public class CreateUserTests : UnitTestBase<Business.Services.UserService>
     {
         [SetUp]
         public override void SetUp()
@@ -35,9 +37,11 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services.UserService
             StubSettings.Mail.Templates.UserAccountValidation.Stub(x => x.Body).Return("");
 
             Sut = new Business.Services.UserService();
-        }
 
-        protected Business.Services.UserService Sut { get; set; }
+            MockRoleRepository.Stub(x => x.Get(1)).Return(new Role());
+            MockUserRepository.Stub(x => x.Save(Arg<User>.Is.Anything));
+            MockMailGateway.Stub(x => x.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything, Arg<string>.Is.Anything));
+        }
 
         protected ISettings StubSettings { get; set; }
 
@@ -108,6 +112,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services.UserService
 
 Link: [Link.UserAccountValidation]
 ");
+            MockUserRepository.Stub(x => x.FindByEmail(Arg<string>.Is.Anything)).Return(null);
 
             Sut.CreateUser("ted.mosby@example.com", "password", "Ted", "");
 

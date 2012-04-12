@@ -10,7 +10,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
 {
     [TestFixture]
-    public class OrderPersistenceTests : BaseTestFixture
+    public class OrderPersistenceTests : DomainComponentTestBase<object>
     {
         [Test]
         public void Can_save_and_load()

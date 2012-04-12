@@ -6,13 +6,14 @@ using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
 {
     [TestFixture]
-    public class SecuredPropertyServiceTests : BaseTestFixture
+    public class SecuredPropertyServiceTests : UnitTestBase<IFieldsService>
     {
         #region Setup/Teardown
 
@@ -53,8 +54,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
             }
         }
 
-        private IFieldsService Sut { get; set; }
-
         [Test]
         public void Can_create()
         {
@@ -65,7 +64,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void CreateProperty_calls_CreateProperty()
         {
-            FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
+            FakePropertyService = GenerateAndRegisterMock<PropertyService>();
             GenerateAndRegisterMissingStubs();
 
             var dto = new FieldDefinitionDto();
@@ -114,7 +113,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void DeleteProperty_calls_DeleteProperty()
         {
-            FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
+            FakePropertyService = GenerateAndRegisterMock<PropertyService>();
             GenerateAndRegisterMissingStubs();
 
             var dto = new FieldDefinitionDto();
@@ -151,7 +150,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetProperty_calls_GetProperty()
         {
-            FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
+            FakePropertyService = GenerateAndRegisterMock<PropertyService>();
             GenerateAndRegisterMissingStubs();
 
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
@@ -192,7 +191,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void GetProperties_calls_GetProperties()
         {
-            FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
+            FakePropertyService = GenerateAndRegisterMock<PropertyService>();
             GenerateAndRegisterMissingStubs();
 
             FakeUserRepo.Expect(x => x.FindBySessionKey("valid")).Return(SessionAdmin);
@@ -234,7 +233,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
         [Test]
         public void UpdateProperty_calls_UpdateArticle()
         {
-            FakePropertyService = GenerateAndRegisterStrictMock<PropertyService>();
+            FakePropertyService = GenerateAndRegisterMock<PropertyService>();
             GenerateAndRegisterMissingStubs();
 
             var dto = new FieldDefinitionDto();

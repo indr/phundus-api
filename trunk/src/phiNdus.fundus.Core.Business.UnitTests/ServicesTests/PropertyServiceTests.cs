@@ -5,13 +5,14 @@ using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Services
+namespace phiNdus.fundus.Core.Business.UnitTests.ServicesTests
 {
     [TestFixture]
-    public class PropertyServiceTests : BaseTestFixture
+    public class PropertyServiceTests : UnitTestBase<PropertyService>
     {
         #region Setup/Teardown
 
@@ -28,8 +29,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         }
 
         #endregion
-
-        protected PropertyService Sut { get; set; }
 
         protected IUnitOfWork FakeUnitOfWork { get; set; }
         protected IFieldDefinitionRepository FakePropertyDefRepo { get; set; }

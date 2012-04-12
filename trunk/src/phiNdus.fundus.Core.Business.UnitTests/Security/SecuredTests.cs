@@ -2,20 +2,21 @@
 using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Business.UnitTests.Security.Constraints;
+using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Security
 {
     [TestFixture]
-    public class SecuredTests : BaseTestFixture
+    public class SecuredTests : UnitTestBase<Secured>
     {
-        private Secured Sut { get; set; }
-
+        [SetUp]
         public override void SetUp()
         {
             base.SetUp();
 
-            using (Obsolete_MockFactory.Record()) {
+            using (Obsolete_MockFactory.Record())
+            {
                 Expect.Call(() => MockUnitOfWork.Dispose());
             }
         }
@@ -23,17 +24,18 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         [Test]
         public void Do_does_not_call_func_lambda_and_throws_when_constraints_are_not_met()
         {
-            using (Obsolete_MockFactory.Playback())
-            {
-                var invoked = false;
-                Sut = Secured.With(new AlwaysFalseConstraint());
-                Assert.Throws<AuthorizationException>(() => Sut.Do<BaseService, int>(service =>
+            // Arrange
+            Sut = Secured.With(new AlwaysFalseConstraint());
+            var invoked = false;
+
+            // Act
+            var ex = Assert.Throws<AuthorizationException>(() => Sut.Do<BaseService, int>(service =>
                                                                                          {
                                                                                              invoked = true;
                                                                                              return 0;
                                                                                          }));
-                Assert.That(invoked, Is.False);
-            }
+            // Assert
+            Assert.That(invoked, Is.False);
         }
 
         [Test]

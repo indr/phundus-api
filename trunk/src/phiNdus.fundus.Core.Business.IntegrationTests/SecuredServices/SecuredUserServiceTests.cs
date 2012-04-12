@@ -2,11 +2,12 @@
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Business.Security;
+using phiNdus.fundus.TestHelpers.TestBases;
 
 namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
 {
     [TestFixture]
-    public class SecuredUserServiceTests : BaseTestFixture<IUserService>
+    public class SecuredUserServiceTests : ComponentTestBase<IUserService>
     {
         #region Setup/Teardown
 
@@ -19,6 +20,11 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
         }
 
         #endregion
+        
+        protected static string GetNewSessionKey()
+        {
+            return Guid.NewGuid().ToString("N");
+        }
 
         [Test]
         public void GetUser_own_with_user_roll()

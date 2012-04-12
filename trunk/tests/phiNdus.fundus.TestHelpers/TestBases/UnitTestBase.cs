@@ -1,39 +1,26 @@
-﻿using Castle.MicroKernel.Registration;
-using Castle.Windsor;
+﻿using System;
+using Castle.MicroKernel.Registration;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Settings;
 using Rhino.Commons;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Business.UnitTests
+namespace phiNdus.fundus.TestHelpers.TestBases
 {
-    public class BaseTestFixture
+    public class UnitTestBase<TSut> : TestBase
     {
+        [SetUp]
+        public override void SetUp()
+        {
+            base.SetUp();
+            Obsolete_MockFactory = new MockRepository();
+            MockUnitOfWork = Obsolete_CreateAndRegisterStrictUnitOfWorkMock();
+        }
+
+        protected TSut Sut { get; set; }
         protected IUnitOfWork MockUnitOfWork { get; set; }
 
-        [SetUp]
-        public virtual void SetUp()
+        protected virtual void GenerateMissingStubs()
         {
-            IoC.Initialize(new WindsorContainer());
-            Obsolete_MockFactory = new MockRepository();
-            
-            MockUnitOfWork = Obsolete_CreateAndRegisterStrictUnitOfWorkMock();
-            Settings.SetGlobalNonThreadSafeSettings(null);
-        }
-
-        [TearDown]
-        public virtual void TearDown()
-        {
-            Settings.SetGlobalNonThreadSafeSettings(null);
-            UnitOfWork.RegisterGlobalUnitOfWork(null);
-            IoC.Container.Dispose();
-        }
-
-        protected T GenerateAndRegisterMock<T>() where T : class
-        {
-            var result = MockRepository.GenerateMock<T>();
-            IoC.Container.Register(Component.For<T>().Instance(result));
-            return result;
         }
 
         protected T GenerateAndRegisterStub<T>() where T : class
@@ -43,7 +30,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests
             return result;
         }
 
-        protected T GenerateAndRegisterStrictMock<T>()
+        protected T GenerateAndRegisterMock<T>() where T : class
         {
             var result = MockRepository.GenerateStrictMock<T>();
             IoC.Container.Register(Component.For<T>().Instance(result));
@@ -57,13 +44,6 @@ namespace phiNdus.fundus.Core.Business.UnitTests
             return result;
         }
 
-        protected IUnitOfWork GenerateAndRegisterStrictMockUnitOfWork()
-        {
-            var result = MockRepository.GenerateStrictMock<IUnitOfWork>();
-            UnitOfWork.RegisterGlobalUnitOfWork(result);
-            return result;
-        }
-
         protected IUnitOfWork GenerateAndRegisterStubUnitOfWork()
         {
             var result = MockRepository.GenerateStub<IUnitOfWork>();
@@ -71,7 +51,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests
             return result;
         }
 
-        #region obsolete
+        #region Obsolete
         protected MockRepository Obsolete_MockFactory { get; set; }
         protected T Obsolete_CreateAndRegisterDynamicMock<T>() where T : class
         {
@@ -101,7 +81,5 @@ namespace phiNdus.fundus.Core.Business.UnitTests
             return result;
         }
         #endregion
-
-        
     }
 }
