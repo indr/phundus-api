@@ -14,6 +14,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         [SetUp]
         public override void SetUp()
         {
+            base.SetUp();
+
             Sut = IoC.Resolve<IOrderRepository>();
             Users = IoC.Resolve<IUserRepository>();
             Roles = IoC.Resolve<IRoleRepository>();
