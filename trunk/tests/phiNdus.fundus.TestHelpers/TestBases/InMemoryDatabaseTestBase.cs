@@ -12,11 +12,27 @@ using Environment = NHibernate.Cfg.Environment;
 
 namespace phiNdus.fundus.TestHelpers.TestBases
 {
+    public class SQLiteInMemoryTestingConnectionProvider : NHibernate.Connection.DriverConnectionProvider
+    {
+        public static System.Data.IDbConnection Connection = null;
+
+        public override System.Data.IDbConnection GetConnection()
+        {
+            if (Connection == null)
+                Connection = base.GetConnection();
+
+            return Connection;
+        }
+
+        public override void CloseConnection(System.Data.IDbConnection conn) { }
+    }
+
     public class InMemoryDatabaseTestBase : TestBase, IDisposable
     {
         private static Configuration _configuration;
         private static ISessionFactory _sessionFactory;
-        
+        private readonly NHibernateUnitOfWorkFactory _factory;
+
         //[TestFixtureSetUp]
         public InMemoryDatabaseTestBase(Assembly assemblyContainingMappings)
         {
@@ -26,6 +42,7 @@ namespace phiNdus.fundus.TestHelpers.TestBases
                     //.SetProperty(Environment.ReleaseConnections, "on_close")
                     .SetProperty(Environment.Dialect, typeof(SQLiteDialect).AssemblyQualifiedName)
                     .SetProperty(Environment.ConnectionDriver, typeof(SQLite20Driver).AssemblyQualifiedName)
+                    .SetProperty(Environment.ConnectionProvider, typeof(SQLiteInMemoryTestingConnectionProvider).AssemblyQualifiedName)
                     .SetProperty(Environment.ConnectionString, "data source=:memory:")
                     // Standard in NHibernate 3.2 ist die eigene ProxyFactory-Factory.
                     //.SetProperty(Environment.ProxyFactoryFactoryClass,
@@ -39,30 +56,32 @@ namespace phiNdus.fundus.TestHelpers.TestBases
             if (_sessionFactory == null)
                 throw new Exception("Die Session-Factory konnte anscheinend nicht erzeugt werden! o.O");
 
-            Session = _sessionFactory.OpenSession();
-                new SchemaExport(_configuration).Execute(true, true, false, Session.Connection, null);
-        }
+            _factory = new NHibernateUnitOfWorkFactory();
+            _factory.RegisterSessionFactory(_configuration, _sessionFactory);
 
-        private ISession Session { get; set; }
+
+            var session = _sessionFactory.OpenSession();
+            new SchemaExport(_configuration).Execute(true, true, false, session.Connection, null);
+        }
 
         [SetUp]
         public override void SetUp()
         {
             base.SetUp();
 
-            var factory = new NHibernateUnitOfWorkFactory();
-            factory.RegisterSessionFactory(_configuration, _sessionFactory);
-            
-
             IoC.Container.Register(Component.For<IUnitOfWorkFactory>()
-                                       .Instance(factory));
+                                       .Instance(_factory));
         }
 
         #region IDisposable Members
 
         public void Dispose()
         {
-            Session.Dispose();
+            if (SQLiteInMemoryTestingConnectionProvider.Connection != null)
+                    SQLiteInMemoryTestingConnectionProvider.Connection.Close();
+
+            SQLiteInMemoryTestingConnectionProvider.Connection = null;
+            //Session.Dispose();
         }
 
         #endregion

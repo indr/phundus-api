@@ -1,4 +1,5 @@
 ﻿using System;
+using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using phiNdus.fundus.TestHelpers.TestBases;
@@ -9,6 +10,14 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
 {
     public class DomainComponentTestBase<TSut> : ComponentTestBase<TSut>
     {
+        [SetUp]
+        public override void SetUp()
+        {
+            base.SetUp();
+
+            IoC.Container.Install(new Installer());
+        }
+
         protected User CreateAndPersistUser()
         {
             return CreateAndPersistUser("user@example.com");
