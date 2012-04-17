@@ -12,6 +12,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         [Test]
         public void Can_find_all()
         {
+            Sut = new FieldDefinitionRepository();
+
             using (UnitOfWork.Start())
             {
                 var actual = Sut.FindAll();

@@ -34,11 +34,16 @@ namespace phiNdus.fundus.Core.Domain.Entities
 
         public virtual FieldValue AddField(FieldDefinition fieldDefinition)
         {
+            if (fieldDefinition == null)
+                throw new ArgumentNullException("fieldDefinition");
             return AddField(fieldDefinition, null);
         }
 
         public virtual FieldValue AddField(FieldDefinition fieldDefinition, object value)
         {
+            if (fieldDefinition == null)
+                throw new ArgumentNullException("fieldDefinition");
+
             if (HasField(fieldDefinition))
                 throw new FieldAlreadyAttachedException("Property bereits vorhanden.");
 

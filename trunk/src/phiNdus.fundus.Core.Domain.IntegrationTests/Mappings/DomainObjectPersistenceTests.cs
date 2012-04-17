@@ -14,6 +14,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
         [SetUp]
         public override void SetUp()
         {
+            base.SetUp();
+
             Sut = new NHRepository<CompositeEntity>();
             PropertyDefinitionRepo = IoC.Resolve<IFieldDefinitionRepository>();
 

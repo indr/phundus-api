@@ -13,6 +13,8 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         public override void SetUp()
         {
             base.SetUp();
+
+            Sut = new ArticleRepository();
         }
 
         [Test]
