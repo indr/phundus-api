@@ -8,7 +8,7 @@ using phiNdus.fundus.TestHelpers.TestBases;
 namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
 {
     [TestFixture]
-    public class ArticleServiceTests : TestBase<ArticleService>
+    public class ArticleServiceTests : BusinessComponentTestBase<ArticleService>
     {
         #region Setup/Teardown
 

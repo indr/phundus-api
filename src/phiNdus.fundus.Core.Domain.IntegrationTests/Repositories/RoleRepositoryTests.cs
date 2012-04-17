@@ -27,6 +27,7 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
             using (var uow = UnitOfWork.Start())
             {
                 var fromRepo = Sut.Get(1);
+                Assert.That(fromRepo, Is.Not.Null);
                 fromRepo.Name = fromRepo.Name + " updated";
                 Sut.Delete(fromRepo);
                 Assert.Throws<GenericADOException>(() => uow.TransactionalFlush());

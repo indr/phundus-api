@@ -8,7 +8,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.IntegrationTests
 {
-    public class TestBase<TSut> : ComponentTestBase<TSut>
+    public class BusinessComponentTestBase<TSut> : ComponentTestBase<TSut>
     {
         [SetUp]
         public override void SetUp()

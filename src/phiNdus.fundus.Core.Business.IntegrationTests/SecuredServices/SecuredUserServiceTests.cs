@@ -7,7 +7,7 @@ using phiNdus.fundus.TestHelpers.TestBases;
 namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
 {
     [TestFixture]
-    public class SecuredUserServiceTests : ComponentTestBase<IUserService>
+    public class SecuredUserServiceTests : BusinessComponentTestBase<IUserService>
     {
         #region Setup/Teardown
 
