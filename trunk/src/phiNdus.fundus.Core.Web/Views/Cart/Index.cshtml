@@ -8,6 +8,9 @@
      @Html.ActionLink("Warenkorb", "Index") &gt; &Uuml;bersicht
 }
 
+@using (Html.BeginForm())
+{
+
 <h2>Warenkorb</h2>
 <p></p>
 <table class="table table-bordered table-striped">
@@ -31,27 +34,30 @@
         }
         else
         {
-            foreach (var each in Model.Items)
+            for (var idx = 0; idx < Model.Items.Count; idx++)
             {
+                @Html.HiddenFor(x => Model.Items[idx].Id)
                 <tr>
-                    <td>@each.Caption</td>    
-                    <td>@Html.EditorFor(x => each.Begin)</td>
-                    <td>@Html.EditorFor(x => each.End)</td>
-                    <td>@Html.EditorFor(x => each.Amount)</td>
+                    <td>@Model.Items[idx].Caption</td>    
+                    <td>@Html.EditorFor(x => Model.Items[idx].Begin)</td>
+                    <td>@Html.EditorFor(x => Model.Items[idx].End)</td>
+                    <td>@Html.EditorFor(x => Model.Items[idx].Amount)</td>
                     <td>tbd</td>
-                    <td>@each.Price</td>
+                    <td>@Model.Items[idx].Price</td>
                     <td>
-                        @Html.ActionLink(new Appearance { Caption = "Entfernen", Button = Button.Danger }, "Remove", new { id = each.Id, version = each.Version })
+                        @Html.ActionLink(new Appearance { Caption = "Entfernen", Button = Button.Danger }, "Remove", new { id = Model.Items[idx].Id, version = Model.Items[idx].Version })
                     </td>
                 </tr>       
             }
         }
     </tbody>
 </table>
-@if (Model.Items.Count > 0)
-{
+        if (Model.Items.Count > 0)
+        {
     <div class="form-actions">
-        @Ajax.ActionLink(new Appearance { Button = phiNdus.fundus.Core.Web.Helpers.Button.Normal, Caption="Aktualisieren"}, "CheckOut", new {}, new AjaxOptions {})
-        @Html.SubmitButton("Bestellen")
+        @Html.SubmitButton("Aktualisieren", "")
+        @*@Ajax.ActionLink(new Appearance { Button = phiNdus.fundus.Core.Web.Helpers.Button.Normal, Caption="Aktualisieren"}, "CheckOut", new {}, new AjaxOptions {})*@
+        @*@Html.SubmitButton("Bestellen")*@
     </div>
+}
 }

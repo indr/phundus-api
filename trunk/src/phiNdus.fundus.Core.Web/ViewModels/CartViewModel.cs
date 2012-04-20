@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using Rhino.Commons;
@@ -29,6 +31,12 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         {
             foreach (var each in orderDto.Items)
                 Items.Add(new CartItemViewModel(each)); // TODO: Preis aufs DTO
+        }
+
+        public void Save()
+        {
+            var dtos = Items.Select(each => each.CreateDto()).ToList();
+            CartService.UpdateItems(SessionId, dtos);
         }
     }
 }

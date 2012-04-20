@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Core.Business.SecuredServices;
@@ -10,7 +12,27 @@ namespace phiNdus.fundus.Core.Web.Controllers
 {
     public class CartController : ControllerBase
     {
-        public ActionResult Index()
+        public ActionResult Index(IList<CartItemViewModel> items)
+        {
+            // Warenkorb aktualisieren
+            if (HttpContext.Request.HttpMethod == "POST")
+            {
+                var model = new CartViewModel();
+                foreach (var each in items)
+                {
+                    var item = model.Items.First(i => i.Id == each.Id);
+                    item.Begin = each.Begin;
+                    item.End = each.End;
+                    item.Amount = each.Amount;
+
+                }
+                model.Save();
+            }
+
+            return CartOverview();
+        }
+
+        private ActionResult CartOverview()
         {
             var model = new CartViewModel();
             return View("Index", model);
@@ -27,7 +49,7 @@ namespace phiNdus.fundus.Core.Web.Controllers
             service.RemoveItem(Session.SessionID, id, version);
 
             // Warenkorb-Übersicht zurück geben
-            return Index();
+            return CartOverview();
         }
     }
 }

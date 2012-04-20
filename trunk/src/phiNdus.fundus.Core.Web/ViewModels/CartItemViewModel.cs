@@ -63,7 +63,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 End = SessionAdapter.ShopEnd;
         }
 
-        private OrderItemDto CreateDto()
+        public OrderItemDto CreateDto()
         {
             var result = new OrderItemDto();
             result.Id = Id;

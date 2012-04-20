@@ -31,6 +31,12 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
                 .Do<OrderService>(svc => svc.RemoveFromCart(orderItemId, version));
         }
 
+        public void UpdateItems(string sessionId, ICollection<OrderItemDto> orderItemDtos)
+        {
+            Secured.With(Session.FromKey(sessionId))
+                .Do<OrderService>(svc => svc.UpdateCartItems(orderItemDtos));
+        }
+
         #endregion
 
         #region IOrderService Members

@@ -128,5 +128,26 @@ namespace phiNdus.fundus.Core.Business.Services
                 uow.TransactionalFlush();
             }
         }
+
+        public void UpdateCartItems(ICollection<OrderItemDto> orderItemDtos)
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var cart = FindCart();
+                if (cart == null)
+                    return;
+
+                foreach (var each in cart.Items)
+                {
+                    var item = orderItemDtos.First(x => (x.Id == each.Id) && (x.Version == each.Version));
+                    each.Amount = item.Amount;
+                    each.From = item.From;
+                    each.To = item.To;
+                }
+                IoC.Resolve<IOrderRepository>().Save(cart);
+
+                uow.TransactionalFlush();
+            }
+        }
     }
 }
