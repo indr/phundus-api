@@ -18,27 +18,6 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests
             IoC.Container.Install(new Installer());
         }
 
-        protected User CreateAndPersistUser()
-        {
-            return CreateAndPersistUser("user@example.com");
-        }
-
-        protected User CreateAndPersistUser(string email)
-        {
-            var users = IoC.Resolve<IUserRepository>();
-            var roles = IoC.Resolve<IRoleRepository>();
-
-            var result = users.FindByEmail(email);
-            if (result == null)
-            {
-                result = new User();
-                result.Membership.Email = email;
-                result.Role = roles.FindFirst(new Order[0]);
-                users.Save(result);
-            }
-            return result;
-        }
-
         protected Article CreatePersistentArticle()
         {
             using (var uow = UnitOfWork.Start())

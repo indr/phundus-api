@@ -62,11 +62,17 @@ namespace phiNdus.fundus.Core.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var order = IoC.Resolve<IOrderRepository>().FindCart(SecurityContext.SecuritySession.User.Id);
-                if (order == null)
-                    order = new Order();
+                var order = GetOrCreateCart();
                 return new OrderDtoAssembler().CreateDto(order);
             }
+        }
+
+        private Order GetOrCreateCart()
+        {
+            var order = IoC.Resolve<IOrderRepository>().FindCart(SecurityContext.SecuritySession.User.Id);
+            if (order == null)
+                order = new Order();
+            return order;
         }
 
         public OrderDto AddToCart(OrderItemDto orderItemDto)
@@ -87,7 +93,7 @@ namespace phiNdus.fundus.Core.Business.Services
                 }
                 else
                 {
-                    order = new Order();
+                    order = GetOrCreateCart();
                     order.Reserver = SecurityContext.SecuritySession.User;
                 }
 

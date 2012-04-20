@@ -3,6 +3,7 @@ using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Security;
 using phiNdus.fundus.Core.Business.Services;
 using phiNdus.fundus.Core.Business.UnitTests.Security;
+using phiNdus.fundus.TestHelpers.Builders;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Services
 {
@@ -25,7 +26,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Services
         public void Can_set_and_get_SecurityContextr()
         {
             var context = new SecurityContext();
-            context.SecuritySession = SessionHelper.CreateSession(null, null);
+            context.SecuritySession = new SecuritySessionBuilder(null, null).Build();
             Assert.That(Sut.SecurityContext, Is.Null);
             Sut.SecurityContext = context;
             Assert.That(Sut.SecurityContext, Is.Not.Null);
