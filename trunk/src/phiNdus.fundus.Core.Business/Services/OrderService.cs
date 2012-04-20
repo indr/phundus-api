@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using phiNdus.fundus.Core.Business.Assembler;
 using phiNdus.fundus.Core.Business.Dto;
 using phiNdus.fundus.Core.Domain.Entities;
@@ -67,9 +68,14 @@ namespace phiNdus.fundus.Core.Business.Services
             }
         }
 
+        private Order FindCart()
+        {
+            return IoC.Resolve<IOrderRepository>().FindCart(SecurityContext.SecuritySession.User.Id);
+        }
+
         private Order GetOrCreateCart()
         {
-            var order = IoC.Resolve<IOrderRepository>().FindCart(SecurityContext.SecuritySession.User.Id);
+            var order = FindCart();
             if (order == null)
                 order = new Order();
             return order;
@@ -103,6 +109,24 @@ namespace phiNdus.fundus.Core.Business.Services
                 uow.TransactionalFlush();
             }
             return null;
+        }
+
+        public void RemoveFromCart(int orderItemId, int version)
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var cart = FindCart();
+                if (cart == null)
+                    return;
+
+                var orderItem = cart.Items.FirstOrDefault(x => x.Id == orderItemId && x.Version == version);
+                if (orderItem == null)
+                    return;
+                
+                cart.RemoveItem(orderItem);
+                IoC.Resolve<IOrderRepository>().Save(cart);
+                uow.TransactionalFlush();
+            }
         }
     }
 }
