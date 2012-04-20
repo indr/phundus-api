@@ -76,6 +76,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\ArticleBuilder.cs" />
+    <Compile Include="Builders\BuilderBase.cs" />
+    <Compile Include="Builders\RoleBuilder.cs" />
+    <Compile Include="Builders\SecurityContextBuilder.cs" />
+    <Compile Include="Builders\SecuritySessionBuilder.cs" />
+    <Compile Include="Builders\UserBuilder.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="TestBases\ComponentTestBase.cs" />
     <Compile Include="TestBases\ExceptionTestBase.cs" />
@@ -92,6 +98,10 @@
     <Folder Include="Scenarios\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\phiNdus.fundus.Core.Business\phiNdus.fundus.Core.Business.csproj">
+      <Project>{97AA64DB-12BF-4AF3-B732-97DE1A9919B1}</Project>
+      <Name>phiNdus.fundus.Core.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\phiNdus.fundus.Core.Domain\phiNdus.fundus.Core.Domain.csproj">
       <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>
       <Name>phiNdus.fundus.Core.Domain</Name>

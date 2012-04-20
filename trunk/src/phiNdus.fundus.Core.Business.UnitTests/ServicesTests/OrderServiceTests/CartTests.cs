@@ -7,6 +7,7 @@ using phiNdus.fundus.Core.Business.UnitTests.Security;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
 using phiNdus.fundus.TestHelpers;
+using phiNdus.fundus.TestHelpers.Builders;
 using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Mocks;
 
@@ -31,7 +32,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.ServicesTests.OrderServiceTests
         protected SecurityContext SecurityContext(int userId, string key)
         {
             var result = new SecurityContext();
-            result.SecuritySession = SessionHelper.CreateSession(new User(userId), key);
+            result.SecuritySession = new SecuritySessionBuilder(new User(userId), key).Build();
             return result;
         }
 

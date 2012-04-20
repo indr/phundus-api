@@ -112,7 +112,6 @@
     <Compile Include="Security\Constraints\UserIsContraintTests.cs" />
     <Compile Include="Security\SecuredTests.cs" />
     <Compile Include="Security\SecurityContextTests.cs" />
-    <Compile Include="Security\SessionHelper.cs" />
     <Compile Include="Security\SecuritySessionTests.cs" />
     <Compile Include="ServicesTests\ArticleServiceTests.cs" />
     <Compile Include="ServicesTests\BaseServiceTests.cs" />

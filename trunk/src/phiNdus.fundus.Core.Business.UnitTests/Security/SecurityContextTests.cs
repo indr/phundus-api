@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using phiNdus.fundus.Core.Business.Security;
+using phiNdus.fundus.TestHelpers.Builders;
 
 namespace phiNdus.fundus.Core.Business.UnitTests.Security
 {
@@ -22,7 +23,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Security
         public void Set_and_get_Session()
         {
             Assert.That(Sut.SecuritySession, Is.Null);
-            Sut.SecuritySession = SessionHelper.CreateSession(null, "");
+            Sut.SecuritySession = new SecuritySessionBuilder(null, "").Build();
             Assert.That(Sut.SecuritySession, Is.Not.Null);
         }
     }
