@@ -19,6 +19,7 @@
             <th>Anzahl</th>
             <th>Stückpreis</th>
             <th>Total</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -34,11 +35,14 @@
             {
                 <tr>
                     <td>@each.Caption</td>    
-                    <td>@each.Begin</td>
-                    <td>@each.End</td>
-                    <td>@each.Amount</td>
+                    <td>@Html.EditorFor(x => each.Begin)</td>
+                    <td>@Html.EditorFor(x => each.End)</td>
+                    <td>@Html.EditorFor(x => each.Amount)</td>
                     <td>tbd</td>
                     <td>@each.Price</td>
+                    <td>
+                        @Html.ActionLink(new Appearance { Caption = "Entfernen", Button = Button.Danger }, "Remove", new { id = each.Id, version = each.Version })
+                    </td>
                 </tr>       
             }
         }
