@@ -19,7 +19,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
 
             Sut = IoC.Resolve<IUserRepository>();
 
-            Assert.Ignore("Weder mol en 32/64-Bit-Klassiker?!");
+            //Assert.Ignore("Weder mol en 32/64-Bit-Klassiker?!");
             // Oder heds en absolut logische Zämmehang mettem Fluent Migrator?!
 
             using (IUnitOfWork uow = UnitOfWork.Start())
