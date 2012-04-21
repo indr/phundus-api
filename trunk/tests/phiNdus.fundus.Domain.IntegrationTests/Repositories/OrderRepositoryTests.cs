@@ -22,6 +22,8 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
 
             using (IUnitOfWork uow = UnitOfWork.Start())
             {
+                // TODO: Immer alle löschen...
+                UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
                 uow.TransactionalFlush();
             }
         }
