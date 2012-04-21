@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.Services;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.Services;
+using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.TestHelpers.TestBases;
 
-namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
+namespace phiNdus.fundus.Business.IntegrationTests.Services
 {
     [TestFixture]
     public class ArticleServiceTests : BusinessComponentTestBase<ArticleService>

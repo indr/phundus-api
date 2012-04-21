@@ -3,10 +3,10 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
-using phiNdus.fundus.Core.Web.Plumbing;
+using phiNdus.fundus.Web.Plumbing;
 using Castle.MicroKernel.Registration;
 
-namespace phiNdus.fundus.Core.Web {
+namespace phiNdus.fundus.Web {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
@@ -57,7 +57,7 @@ namespace phiNdus.fundus.Core.Web {
             // Locking?
             _container = new WindsorContainer()
                 .Install(FromAssembly.This())
-                .Install(FromAssembly.Named("phiNdus.fundus.Core.Business"));
+                .Install(FromAssembly.Named("phiNdus.fundus.Business"));
 
             // HttpContext registrieren für den SessionStateManager
             _container.Register(

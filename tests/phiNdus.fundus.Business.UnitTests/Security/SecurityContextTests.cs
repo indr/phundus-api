@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Security;
+using phiNdus.fundus.Business.Security;
 using phiNdus.fundus.TestHelpers.Builders;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Security
+namespace phiNdus.fundus.Business.UnitTests.Security
 {
     [TestFixture]
     public class SecurityContextTests

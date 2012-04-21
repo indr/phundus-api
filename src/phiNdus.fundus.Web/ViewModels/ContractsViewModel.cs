@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace phiNdus.fundus.Core.Web.ViewModels
+namespace phiNdus.fundus.Web.ViewModels
 {
     public class ContractsViewModel : ViewModelBase
     {

@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Core.Business.Security
+﻿namespace phiNdus.fundus.Business.Security
 {
     public class SecurityContext
     {

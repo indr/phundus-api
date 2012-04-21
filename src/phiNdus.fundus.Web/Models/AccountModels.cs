@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System;
 
-namespace phiNdus.fundus.Core.Web.Models
+namespace phiNdus.fundus.Web.Models
 {
     public class LogOnModel
     {

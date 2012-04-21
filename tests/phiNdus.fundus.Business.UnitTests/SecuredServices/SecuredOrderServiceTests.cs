@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.SecuredServices;
-using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.Core.Business.Services;
-using phiNdus.fundus.Core.Domain.Entities;
-using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Business.Security;
+using phiNdus.fundus.Business.Services;
+using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
+namespace phiNdus.fundus.Business.UnitTests.SecuredServices
 {
     [TestFixture]
     public class SecuredOrderServiceTests : UnitTestBase<IOrderService>

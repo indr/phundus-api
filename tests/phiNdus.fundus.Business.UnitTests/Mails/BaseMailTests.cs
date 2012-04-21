@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Mails;
-using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.Business.Mails;
+using phiNdus.fundus.Domain.Settings;
 using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Mails
+namespace phiNdus.fundus.Business.UnitTests.Mails
 {
     [TestFixture]
     public class BaseMailTests : UnitTestBase<object>

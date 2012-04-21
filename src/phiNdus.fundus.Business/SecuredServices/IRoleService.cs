@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Business.Dto;
 
-namespace phiNdus.fundus.Core.Business.SecuredServices {
+namespace phiNdus.fundus.Business.SecuredServices {
     public interface IRoleService {
 
         /// <summary>

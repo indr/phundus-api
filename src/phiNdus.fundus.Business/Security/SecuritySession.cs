@@ -1,9 +1,9 @@
 ﻿using System;
-using phiNdus.fundus.Core.Domain.Entities;
-using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Business.Security
+namespace phiNdus.fundus.Business.Security
 {
     public class SecuritySession
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace phiNdus.fundus.Core.CliTools
+namespace phiNdus.fundus.CliTools
 {
     internal class Program
     {

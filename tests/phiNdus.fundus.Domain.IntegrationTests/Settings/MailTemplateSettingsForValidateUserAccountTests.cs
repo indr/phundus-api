@@ -1,9 +1,9 @@
 ﻿using System;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.Domain.Settings;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain.IntegrationTests.Settings
+namespace phiNdus.fundus.Domain.IntegrationTests.Settings
 {
     [TestFixture]
     public class MailTemplateSettingsForValidateUserAccountTests : SettingsTestFixture<IMailTemplateSettings>

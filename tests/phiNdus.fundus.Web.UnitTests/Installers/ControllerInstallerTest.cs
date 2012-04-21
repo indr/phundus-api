@@ -5,10 +5,10 @@ using Castle.Windsor;
 using Castle.MicroKernel;
 using System.Web.Mvc;
 using Castle.Core;
-using phiNdus.fundus.Core.Web.Installers;
-using phiNdus.fundus.Core.Web.Controllers;
+using phiNdus.fundus.Web.Installers;
+using phiNdus.fundus.Web.Controllers;
 
-namespace phiNdus.fundus.Core.Web.UnitTests.Installers {
+namespace phiNdus.fundus.Web.UnitTests.Installers {
 
     [TestFixture]
     public class ControllerInstallerTest {

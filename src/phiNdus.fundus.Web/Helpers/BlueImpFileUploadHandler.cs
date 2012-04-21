@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web;
-using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Business.Dto;
 
-namespace phiNdus.fundus.Core.Web.Helpers
+namespace phiNdus.fundus.Web.Helpers
 {
     public class ImageStore
     {

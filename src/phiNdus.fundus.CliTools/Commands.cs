@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using phiNdus.fundus.Core.Domain;
+using phiNdus.fundus.Domain;
 
-namespace phiNdus.fundus.Core.CliTools
+namespace phiNdus.fundus.CliTools
 {
     public class Commands
     {

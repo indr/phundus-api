@@ -1,4 +1,4 @@
-﻿using phiNdus.fundus.Core.Domain.Entities;
+﻿using phiNdus.fundus.Domain.Entities;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.TestHelpers.Builders

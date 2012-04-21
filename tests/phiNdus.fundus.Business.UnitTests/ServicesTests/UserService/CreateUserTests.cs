@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.UnitTests.Services;
-using phiNdus.fundus.Core.Domain.Entities;
-using phiNdus.fundus.Core.Domain.Repositories;
-using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.Business.UnitTests.Services;
+using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Repositories;
+using phiNdus.fundus.Domain.Settings;
 using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.ServicesTests.UserService
+namespace phiNdus.fundus.Business.UnitTests.ServicesTests.UserService
 {
     [TestFixture]
     public class CreateUserTests : UnitTestBase<Business.Services.UserService>

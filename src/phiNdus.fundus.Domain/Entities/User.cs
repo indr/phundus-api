@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace phiNdus.fundus.Core.Domain.Entities
+namespace phiNdus.fundus.Domain.Entities
 {
     public class User : Entity
     {

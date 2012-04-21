@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace phiNdus.fundus.Core.Business.Dto
+namespace phiNdus.fundus.Business.Dto
 {
     public class BasePropertiesDto
     {

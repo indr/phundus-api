@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace phiNdus.fundus.Core.Domain.UnitTests.Settings
+namespace phiNdus.fundus.Domain.UnitTests.Settings
 {
     [TestFixture]
     public class SettingsTests

@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Core.Domain.Entities
+﻿namespace phiNdus.fundus.Domain.Entities
 {
     /// <summary>
     ///   Basisklasse für alle Entitäten im Domain Model.

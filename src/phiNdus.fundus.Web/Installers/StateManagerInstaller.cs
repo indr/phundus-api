@@ -1,9 +1,9 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using phiNdus.fundus.Core.Web.State;
+using phiNdus.fundus.Web.State;
 
-namespace phiNdus.fundus.Core.Web.Installers
+namespace phiNdus.fundus.Web.Installers
 {
     public class StateManagerInstaller : IWindsorInstaller
     {

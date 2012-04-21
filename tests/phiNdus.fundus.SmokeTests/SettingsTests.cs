@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using Castle.Windsor;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business;
-using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.Business;
+using phiNdus.fundus.Domain.Settings;
 using phiNdus.fundus.TestHelpers;
 using Rhino.Commons;
 

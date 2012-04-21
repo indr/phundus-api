@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace phiNdus.fundus.Core.Domain
+namespace phiNdus.fundus.Domain
 {
     public static class KeyGenerator
     {

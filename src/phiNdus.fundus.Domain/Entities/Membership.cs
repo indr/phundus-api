@@ -1,7 +1,7 @@
 ﻿using System;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain.Entities
+namespace phiNdus.fundus.Domain.Entities
 {
     public class Membership : Entity
     {

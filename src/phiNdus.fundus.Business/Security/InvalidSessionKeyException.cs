@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace phiNdus.fundus.Core.Business.Security
+namespace phiNdus.fundus.Business.Security
 {
     [Serializable]
     public class InvalidSessionKeyException : Exception

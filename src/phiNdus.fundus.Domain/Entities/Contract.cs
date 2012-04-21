@@ -1,7 +1,7 @@
 ﻿using System;
 using Iesi.Collections.Generic;
 
-namespace phiNdus.fundus.Core.Domain.Entities
+namespace phiNdus.fundus.Domain.Entities
 {
     public class Contract : Entity
     {

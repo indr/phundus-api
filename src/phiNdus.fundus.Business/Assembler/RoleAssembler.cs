@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Domain.Entities;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Business.Assembler {
+namespace phiNdus.fundus.Business.Assembler {
     public static class RoleAssembler {
 
         public static RoleDto CreateDto(Role subject) {

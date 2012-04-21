@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.SessionState;
 
-namespace phiNdus.fundus.Core.Web.State {
+namespace phiNdus.fundus.Web.State {
     public class SessionStateManager : IStateManager {
 
         public SessionStateManager() {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using phiNdus.fundus.Core.Business.SecuredServices;
+using phiNdus.fundus.Business.SecuredServices;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Web.ViewModels
+namespace phiNdus.fundus.Web.ViewModels
 {
     public class FieldsViewModel : ViewModelBase
     {

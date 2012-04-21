@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.MicroKernel;
 
-namespace phiNdus.fundus.Core.Web.Plumbing
+namespace phiNdus.fundus.Web.Plumbing
 {
     public class WindsorControllerFactory : DefaultControllerFactory
     {

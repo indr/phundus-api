@@ -4,7 +4,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 
-namespace phiNdus.fundus.Core.Web.Installers
+namespace phiNdus.fundus.Web.Installers
 {
     public class ControllerInstaller : IWindsorInstaller
     {
@@ -14,7 +14,7 @@ namespace phiNdus.fundus.Core.Web.Installers
         {
             container.Register(AllTypes.FromThisAssembly()
                                    .BasedOn<IController>()
-                                   .If(Component.IsInNamespace("phiNdus.fundus.Core.Web.Controllers", true))
+                                   .If(Component.IsInNamespace("phiNdus.fundus.Web.Controllers", true))
                                    .If(t => t.Name.EndsWith("Controller", StringComparison.InvariantCulture))
                                    .Configure(c => c.LifeStyle.Transient));
         }

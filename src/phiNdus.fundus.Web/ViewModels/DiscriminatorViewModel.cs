@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Core.Web.ViewModels
+﻿namespace phiNdus.fundus.Web.ViewModels
 {
     public class DiscriminatorViewModel
     {

@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Core.Web.Helpers
+﻿namespace phiNdus.fundus.Web.Helpers
 {
     public enum Button
     {

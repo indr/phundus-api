@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace phiNdus.fundus.Core.Business.Dto
+namespace phiNdus.fundus.Business.Dto
 {
     public class OrderDto
     {

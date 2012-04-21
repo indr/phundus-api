@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using phiNdus.fundus.Core.Web.ViewModels;
+using phiNdus.fundus.Web.ViewModels;
 
-namespace phiNdus.fundus.Core.Web.Controllers
+namespace phiNdus.fundus.Web.Controllers
 {
     [Authorize]
     public class ContractController : Controller

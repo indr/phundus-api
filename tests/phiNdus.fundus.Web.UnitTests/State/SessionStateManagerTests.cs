@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Web.State;
+using phiNdus.fundus.Web.State;
 using phiNdus.fundus.TestHelpers;
 using System.Web;
 using Castle.MicroKernel.Registration;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Web.UnitTests.State {
+namespace phiNdus.fundus.Web.UnitTests.State {
 
     [TestFixture]
     public class SessionStateManagerTests : MockTestBase<IStateManager> {

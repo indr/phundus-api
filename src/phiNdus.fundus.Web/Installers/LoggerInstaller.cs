@@ -3,7 +3,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 
-namespace phiNdus.fundus.Core.Web.Installers
+namespace phiNdus.fundus.Web.Installers
 {
     public class LoggerInstaller : IWindsorInstaller
     {

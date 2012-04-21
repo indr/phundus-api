@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.SecuredServices;
+using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.TestHelpers.TestBases;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.SecuredServices
+namespace phiNdus.fundus.Business.UnitTests.SecuredServices
 {
     [TestFixture]
     public class SecuredRoleServiceTests : UnitTestBase<SecuredRoleService>

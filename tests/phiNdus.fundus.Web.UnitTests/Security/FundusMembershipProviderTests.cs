@@ -4,14 +4,14 @@ using System.Web.Security;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business;
-using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.SecuredServices;
-using phiNdus.fundus.Core.Web.Security;
+using phiNdus.fundus.Business;
+using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Web.Security;
 using phiNdus.fundus.TestHelpers;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Web.UnitTests.Security
+namespace phiNdus.fundus.Web.UnitTests.Security
 {
     [TestFixture]
     public class FundusMembershipProviderTests : MockTestBase<FundusMembershipProvider>

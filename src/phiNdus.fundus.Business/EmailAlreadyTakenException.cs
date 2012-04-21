@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace phiNdus.fundus.Core.Business
+namespace phiNdus.fundus.Business
 {
     [Serializable]
     public class EmailAlreadyTakenException : Exception

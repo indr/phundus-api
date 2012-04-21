@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using Castle.Windsor;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business;
+using phiNdus.fundus.Business;
 using Rhino.Commons;
 using WatiN.Core;
 

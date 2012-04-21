@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Core.Domain
+﻿namespace phiNdus.fundus.Domain
 {
     public static class SessionKeyGenerator
     {

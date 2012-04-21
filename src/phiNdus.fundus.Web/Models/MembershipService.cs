@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web.Security;
-using phiNdus.fundus.Core.Web.Security;
+using phiNdus.fundus.Web.Security;
 
-namespace phiNdus.fundus.Core.Web.Models
+namespace phiNdus.fundus.Web.Models
 {
     public class MembershipService : IMembershipService
     {

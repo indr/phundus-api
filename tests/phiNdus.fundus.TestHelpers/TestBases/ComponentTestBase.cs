@@ -1,6 +1,6 @@
 ﻿using System;
-using phiNdus.fundus.Core.Domain.Entities;
-using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
 using Order = NHibernate.Criterion.Order;
 

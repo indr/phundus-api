@@ -6,7 +6,7 @@ using NUnit.Framework;
 using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Business.IntegrationTests
+namespace phiNdus.fundus.Business.IntegrationTests
 {
     public class BusinessComponentTestBase<TSut> : ComponentTestBase<TSut>
     {
@@ -15,7 +15,7 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests
         {
             base.SetUp();
 
-            IoC.Container.Install(new phiNdus.fundus.Core.Business.Installer());
+            IoC.Container.Install(new phiNdus.fundus.Business.Installer());
         }
 
         protected void Transactional(Action action)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace phiNdus.fundus.Core.Business.Security.Constraints
+namespace phiNdus.fundus.Business.Security.Constraints
 {
     class TrueConstraint : AbstractConstraint
     {

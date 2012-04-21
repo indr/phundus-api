@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Linq;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Domain.Entities;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain.Repositories
+namespace phiNdus.fundus.Domain.Repositories
 {
     public class UserRepository : NHRepository<User>, IUserRepository
     {

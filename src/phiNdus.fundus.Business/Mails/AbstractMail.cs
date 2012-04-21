@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.Domain.Settings;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Business.Mails
+namespace phiNdus.fundus.Business.Mails
 {
     public abstract class AbstractMail
     {

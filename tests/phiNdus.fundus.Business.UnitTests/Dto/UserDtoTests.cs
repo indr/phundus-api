@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Business.Dto;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Dto
+namespace phiNdus.fundus.Business.UnitTests.Dto
 {
     [TestFixture]
     public class UserDtoTests

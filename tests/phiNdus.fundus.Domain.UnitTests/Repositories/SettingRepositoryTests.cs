@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.Domain.Repositories;
 
-namespace phiNdus.fundus.Core.Domain.UnitTests.Repositories
+namespace phiNdus.fundus.Domain.UnitTests.Repositories
 {
     [TestFixture]
     public class SettingRepositoryTests

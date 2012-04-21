@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.Core.Business.Services;
-using phiNdus.fundus.Core.Business.UnitTests.Security.Constraints;
+using phiNdus.fundus.Business.Security;
+using phiNdus.fundus.Business.Services;
+using phiNdus.fundus.Business.UnitTests.Security.Constraints;
 using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Security
+namespace phiNdus.fundus.Business.UnitTests.Security
 {
     [TestFixture]
     public class SecuredTests : UnitTestBase<Secured>

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
-using phiNdus.fundus.Core.Web.State;
-using phiNdus.fundus.Core.Web.ViewModels;
+using phiNdus.fundus.Web.State;
+using phiNdus.fundus.Web.ViewModels;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Web.Controllers
+namespace phiNdus.fundus.Web.Controllers
 {
     [Authorize]
     public class ShopController : ControllerBase

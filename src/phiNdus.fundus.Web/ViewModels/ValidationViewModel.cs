@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace phiNdus.fundus.Core.Web.ViewModels
+namespace phiNdus.fundus.Web.ViewModels
 {
     public class ValidationViewModel
     {

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.Paging;
-using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.Core.Business.Security.Constraints;
-using phiNdus.fundus.Core.Business.Services;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.Paging;
+using phiNdus.fundus.Business.Security;
+using phiNdus.fundus.Business.Security.Constraints;
+using phiNdus.fundus.Business.Services;
+using phiNdus.fundus.Domain.Entities;
 using Rhino.Commons;
-using User = phiNdus.fundus.Core.Business.Security.Constraints.User;
+using User = phiNdus.fundus.Business.Security.Constraints.User;
 
-namespace phiNdus.fundus.Core.Business.SecuredServices
+namespace phiNdus.fundus.Business.SecuredServices
 {
     public class SecuredArticleService : SecuredServiceBase, IArticleService
     {

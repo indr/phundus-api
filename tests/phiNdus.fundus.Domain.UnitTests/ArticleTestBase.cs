@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Entities;
-using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.TestHelpers;
 using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Domain.UnitTests
+namespace phiNdus.fundus.Domain.UnitTests
 {
     public class ArticleTestBase : UnitTestBase<Article>
     {

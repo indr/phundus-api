@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.Domain.Settings;
 
-namespace phiNdus.fundus.Core.Domain.UnitTests.Settings
+namespace phiNdus.fundus.Domain.UnitTests.Settings
 {
     [TestFixture]
     public class MailSettingsTest

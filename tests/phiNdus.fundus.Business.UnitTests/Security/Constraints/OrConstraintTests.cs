@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.Core.Business.Security.Constraints;
+using phiNdus.fundus.Business.Security;
+using phiNdus.fundus.Business.Security.Constraints;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Security.Constraints
+namespace phiNdus.fundus.Business.UnitTests.Security.Constraints
 {
     [TestFixture]
     public class OrConstraintTests

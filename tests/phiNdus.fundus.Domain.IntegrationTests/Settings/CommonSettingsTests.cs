@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Entities;
-using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Settings;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain.IntegrationTests.Settings
+namespace phiNdus.fundus.Domain.IntegrationTests.Settings
 {
     [TestFixture]
     public class CommonSettingsTests : SettingsTestFixture<ICommonSettings>

@@ -1,11 +1,11 @@
 ﻿using System;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.Core.Business.Services;
-using phiNdus.fundus.Core.Business.UnitTests.Security;
+using phiNdus.fundus.Business.Security;
+using phiNdus.fundus.Business.Services;
+using phiNdus.fundus.Business.UnitTests.Security;
 using phiNdus.fundus.TestHelpers.Builders;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Services
+namespace phiNdus.fundus.Business.UnitTests.Services
 {
     [TestFixture]
     public class BaseServiceTests

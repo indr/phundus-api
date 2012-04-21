@@ -22,7 +22,7 @@ BEGIN
 END');
 
 /*
-  Types (phiNdus.fundus.Core.Domain.Entities.DomainPropertyType)
+  Types (phiNdus.fundus.Domain.Entities.DomainPropertyType)
   0: Boolean
   1: Text
   2: Integer

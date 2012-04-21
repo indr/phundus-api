@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 
-namespace phiNdus.fundus.Core.Web.Helpers
+namespace phiNdus.fundus.Web.Helpers
 {
     public static class ActiveTabExtension
     {

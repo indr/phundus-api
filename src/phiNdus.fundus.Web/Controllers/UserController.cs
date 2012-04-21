@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
-using phiNdus.fundus.Core.Business.SecuredServices;
-using phiNdus.fundus.Core.Web.Models;
+using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Web.Models;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Web.Controllers
+namespace phiNdus.fundus.Web.Controllers
 {
     [Authorize]
     public class UserController : Controller

@@ -2,11 +2,11 @@
 using System.Web.Security;
 using Castle.Windsor;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Web.Models;
+using phiNdus.fundus.Web.Models;
 using phiNdus.fundus.TestHelpers;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Web.UnitTests.Models
+namespace phiNdus.fundus.Web.UnitTests.Models
 {
     [TestFixture]
     public class MembershipServiceTests : MockTestBase<IMembershipService>
