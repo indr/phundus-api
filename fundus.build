@@ -544,10 +544,6 @@
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/dml.sql"
     />
-    <sql connstring="${sql.connstring}"
-      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/dml-integration.sql"
-    />
     
     <!--
     <echo message="${my::merge-settings(config.dir + '\Settings.csv,' + config.dir + '\Settings.Commit.csv')}"
