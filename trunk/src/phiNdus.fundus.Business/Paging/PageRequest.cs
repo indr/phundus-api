@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Core.Business.Paging
+﻿namespace phiNdus.fundus.Business.Paging
 {
     /// <summary>
     /// Definiert den zu ladenden Ausschnitt.

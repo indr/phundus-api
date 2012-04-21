@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Web.Models;
+using phiNdus.fundus.Web.Models;
 
-namespace phiNdus.fundus.Core.Web.UnitTests.Models {
+namespace phiNdus.fundus.Web.UnitTests.Models {
     [TestFixture]
     public class AccountModelTests {
 

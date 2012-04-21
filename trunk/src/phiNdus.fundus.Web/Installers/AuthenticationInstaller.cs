@@ -1,9 +1,9 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using phiNdus.fundus.Core.Web.Models;
+using phiNdus.fundus.Web.Models;
 
-namespace phiNdus.fundus.Core.Web.Installers
+namespace phiNdus.fundus.Web.Installers
 {
     public class AuthenticationInstaller : IWindsorInstaller
     {

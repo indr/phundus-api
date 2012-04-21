@@ -1,12 +1,12 @@
 ﻿using System;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Entities;
-using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Order = NHibernate.Criterion.Order;
 
-namespace phiNdus.fundus.Core.Domain.IntegrationTests
+namespace phiNdus.fundus.Domain.IntegrationTests
 {
     public class DomainComponentTestBase<TSut> : ComponentTestBase<TSut>
     {

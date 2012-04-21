@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Web.Mvc;
-using phiNdus.fundus.Core.Business.SecuredServices;
-using phiNdus.fundus.Core.Web.Helpers;
-using phiNdus.fundus.Core.Web.ViewModels;
+using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Web.Helpers;
+using phiNdus.fundus.Web.ViewModels;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Web.Controllers
+namespace phiNdus.fundus.Web.Controllers
 {
     [Authorize]
     public class ArticleController : ControllerBase

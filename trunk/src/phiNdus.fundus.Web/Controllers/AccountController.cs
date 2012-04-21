@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Security;
-using phiNdus.fundus.Core.Web.Models;
-using phiNdus.fundus.Core.Web.ViewModels;
+using phiNdus.fundus.Web.Models;
+using phiNdus.fundus.Web.ViewModels;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Web.Controllers
+namespace phiNdus.fundus.Web.Controllers
 {
     public class AccountController : Controller
     {

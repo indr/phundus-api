@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using phiNdus.fundus.Core.Domain.Entities;
-using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain.Settings
+namespace phiNdus.fundus.Domain.Settings
 {
     public class BaseSettings
     {

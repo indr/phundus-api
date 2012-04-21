@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Domain.Entities;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
+namespace phiNdus.fundus.Domain.IntegrationTests.Mappings
 {
     [TestFixture]
     public class ArticlePersistenceTests : DomainComponentTestBase<Article>

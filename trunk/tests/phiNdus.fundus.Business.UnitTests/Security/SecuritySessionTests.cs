@@ -1,12 +1,12 @@
 ﻿using System;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.Core.Domain.Entities;
-using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.Business.Security;
+using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Security
+namespace phiNdus.fundus.Business.UnitTests.Security
 {
     [TestFixture]
     public class SecuritySessionTests : UnitTestBase<object>

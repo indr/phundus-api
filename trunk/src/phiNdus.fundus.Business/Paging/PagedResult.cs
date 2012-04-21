@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Business.Paging
+namespace phiNdus.fundus.Business.Paging
 {
     /// <summary>
     /// Liefert ein "gepagtes" Resultat für einen bestimmten Typ.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace phiNdus.fundus.Core.Domain
+namespace phiNdus.fundus.Domain
 {
     [Serializable]
     public class UserLockedOutException : Exception

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.Core.Business.Security.Constraints;
-using phiNdus.fundus.Core.Business.Services;
+using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.Security;
+using phiNdus.fundus.Business.Security.Constraints;
+using phiNdus.fundus.Business.Services;
 
-namespace phiNdus.fundus.Core.Business.SecuredServices {
+namespace phiNdus.fundus.Business.SecuredServices {
     public class SecuredRoleService : SecuredServiceBase, IRoleService {
 
         public IEnumerable<RoleDto> GetRoles(string sessionKey) {

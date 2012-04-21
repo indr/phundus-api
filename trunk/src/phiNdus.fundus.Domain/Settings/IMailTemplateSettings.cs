@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Core.Domain.Settings
+﻿namespace phiNdus.fundus.Domain.Settings
 {
     public interface IMailTemplateSettings
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using phiNdus.fundus.Core.Business.Paging;
-using phiNdus.fundus.Core.Business.SecuredServices;
+using phiNdus.fundus.Business.Paging;
+using phiNdus.fundus.Business.SecuredServices;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Web.ViewModels
+namespace phiNdus.fundus.Web.ViewModels
 {
     public class ShopSearchResultViewModel : ViewModelBase
     {

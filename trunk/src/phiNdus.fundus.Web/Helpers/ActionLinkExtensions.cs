@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Routing;
 
-namespace phiNdus.fundus.Core.Web.Helpers
+namespace phiNdus.fundus.Web.Helpers
 {
     public class Appearance
     {

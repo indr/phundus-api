@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace phiNdus.fundus.Core.Web.UnitTests {
+namespace phiNdus.fundus.Web.UnitTests {
     internal static class ModelValidator {
 
         /// <summary>

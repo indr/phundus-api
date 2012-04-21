@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain
+namespace phiNdus.fundus.Domain
 {
     public static class PasswordEncryptor
     {

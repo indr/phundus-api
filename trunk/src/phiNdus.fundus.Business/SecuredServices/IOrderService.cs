@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Business.Dto;
 
-namespace phiNdus.fundus.Core.Business.SecuredServices
+namespace phiNdus.fundus.Business.SecuredServices
 {
     public interface IOrderService
     {

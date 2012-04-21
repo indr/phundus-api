@@ -1,9 +1,9 @@
 ﻿using System;
-using phiNdus.fundus.Core.Domain.Entities;
-using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Settings;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Business.Mails
+namespace phiNdus.fundus.Business.Mails
 {
     public class UserAccountValidationMail : BaseMail
     {

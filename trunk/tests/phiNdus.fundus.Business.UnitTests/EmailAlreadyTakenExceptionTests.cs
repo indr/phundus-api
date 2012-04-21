@@ -3,7 +3,7 @@ using NUnit.Framework;
 using phiNdus.fundus.TestHelpers;
 using phiNdus.fundus.TestHelpers.TestBases;
 
-namespace phiNdus.fundus.Core.Business.UnitTests
+namespace phiNdus.fundus.Business.UnitTests
 {
     [TestFixture]
     public class EmailAlreadyTakenExceptionTests : ExceptionTestBase<EmailAlreadyTakenException>

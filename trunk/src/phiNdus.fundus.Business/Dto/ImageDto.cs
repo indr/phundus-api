@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Core.Business.Dto
+﻿namespace phiNdus.fundus.Business.Dto
 {
     public class ImageDto
     {

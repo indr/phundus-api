@@ -1,11 +1,11 @@
 ﻿using System;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.SecuredServices;
-using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Business.Security;
+using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.TestHelpers.Builders;
 
-namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
+namespace phiNdus.fundus.Business.IntegrationTests.SecuredServices
 {
     [TestFixture]
     public class SecuredUserServiceTests : BusinessComponentTestBase<IUserService>

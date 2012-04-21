@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Core.Business
+﻿namespace phiNdus.fundus.Business
 {
     public interface IMailGateway
     {

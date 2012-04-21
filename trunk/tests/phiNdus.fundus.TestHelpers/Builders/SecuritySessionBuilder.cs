@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Business.Security;
+using phiNdus.fundus.Domain.Entities;
 
 namespace phiNdus.fundus.TestHelpers.Builders
 {

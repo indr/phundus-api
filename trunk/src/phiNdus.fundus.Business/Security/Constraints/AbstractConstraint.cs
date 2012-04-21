@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Core.Business.Security.Constraints
+﻿namespace phiNdus.fundus.Business.Security.Constraints
 {
     public abstract class AbstractConstraint
     {

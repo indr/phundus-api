@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Core.Business.SecuredServices
+﻿namespace phiNdus.fundus.Business.SecuredServices
 {
     public class SecuredServiceBase
     {

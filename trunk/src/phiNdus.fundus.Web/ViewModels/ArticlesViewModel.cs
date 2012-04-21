@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using phiNdus.fundus.Core.Business.Dto;
+using phiNdus.fundus.Business.Dto;
 
-namespace phiNdus.fundus.Core.Web.ViewModels
+namespace phiNdus.fundus.Web.ViewModels
 {
     public class ArticlesViewModel
     {

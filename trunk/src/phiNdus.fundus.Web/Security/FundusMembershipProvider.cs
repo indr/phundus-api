@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Web;
 using System.Web.Security;
-using phiNdus.fundus.Core.Business.SecuredServices;
+using phiNdus.fundus.Business.SecuredServices;
 using Rhino.Commons;
-using phiNdus.fundus.Core.Business;
-using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.Services;
+using phiNdus.fundus.Business;
+using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.Services;
 using System.Globalization;
 
-namespace phiNdus.fundus.Core.Web.Security {
+namespace phiNdus.fundus.Web.Security {
     public class FundusMembershipProvider : MembershipProvider {
 
         //=========================================================================================

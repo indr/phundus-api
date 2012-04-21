@@ -2,10 +2,10 @@
 using System.Linq;
 using Iesi.Collections.Generic;
 using log4net;
-using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain.Entities
+namespace phiNdus.fundus.Domain.Entities
 {
     public class Order : Entity
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
-namespace phiNdus.fundus.Core.Domain.UnitTests
+namespace phiNdus.fundus.Domain.UnitTests
 {
     [TestFixture]
     public class PasswordEncryptorTests

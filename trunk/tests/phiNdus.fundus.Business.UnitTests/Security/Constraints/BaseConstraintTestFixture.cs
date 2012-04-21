@@ -1,8 +1,8 @@
-﻿using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.Core.Domain.Entities;
+﻿using phiNdus.fundus.Business.Security;
+using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.TestHelpers.Builders;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Security.Constraints
+namespace phiNdus.fundus.Business.UnitTests.Security.Constraints
 {
     public class BaseConstraintTestFixture
     {

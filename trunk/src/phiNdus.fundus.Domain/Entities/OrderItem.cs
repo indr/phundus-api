@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace phiNdus.fundus.Core.Domain.Entities
+namespace phiNdus.fundus.Domain.Entities
 {
     public class OrderItem : Entity
     {

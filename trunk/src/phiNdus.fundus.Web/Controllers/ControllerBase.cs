@@ -1,7 +1,7 @@
 using System.IO;
 using System.Web.Mvc;
 
-namespace phiNdus.fundus.Core.Web.Controllers
+namespace phiNdus.fundus.Web.Controllers
 {
     public abstract class ControllerBase : Controller
     {

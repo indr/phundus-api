@@ -1,5 +1,5 @@
-﻿using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.Services;
+﻿using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.Services;
 
 namespace phiNdus.fundus.AcceptanceTests.AppDriver
 {

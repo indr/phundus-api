@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Domain.Entities;
 using Rhino.Mocks;
 
-namespace phiNdus.fundus.Core.Domain.UnitTests.Entities.ArticleTests
+namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
 {
     [TestFixture]
     public class ArticleBorrowableStockTests : ArticleTestBase

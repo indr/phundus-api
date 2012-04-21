@@ -33,13 +33,13 @@
       <property name="dialect">NHibernate.Dialect.MsSql2008Dialect</property>
       <property name="show_sql">false</property>
 
-      <mapping assembly="phiNdus.fundus.Core.Domain" />
+      <mapping assembly="phiNdus.fundus.Domain" />
     </session-factory>
   </hibernate-configuration>
   
   <log4net>
     <appender name="RollingFileAppender" type="log4net.Appender.RollingFileAppender">
-      <file value="logs/core.log" />
+      <file value="Logs/fundus.log" />
       <appendToFile value="true" />
       <maximumFileSize value="1MB" />
       <maxSizeRollBackups value="2" />
@@ -97,14 +97,14 @@
     <membership defaultProvider="FundusMembershipProvider">
       <providers>
         <clear/>
-        <add name="FundusMembershipProvider" type="phiNdus.fundus.Core.Web.Security.FundusMembershipProvider" enablePasswordRetrieval="false" enablePasswordReset="true" maxInvalidPasswordAttempts="5" minRequiredPasswordLength="8" minRequiredNonAlphanumericCharacters="2" passwordAttemptWindow="10" applicationName="fundus" />
+        <add name="FundusMembershipProvider" type="phiNdus.fundus.Web.Security.FundusMembershipProvider" enablePasswordRetrieval="false" enablePasswordReset="true" maxInvalidPasswordAttempts="5" minRequiredPasswordLength="8" minRequiredNonAlphanumericCharacters="2" passwordAttemptWindow="10" applicationName="fundus" />
       </providers>
     </membership>
     
     <roleManager enabled="true" defaultProvider="FundusRoleProvider">
 			<providers>
 				<clear/>
-				<add name="FundusRoleProvider" type="phiNdus.fundus.Core.Web.Security.FundusRoleProvider" applicationName="fundus" />
+				<add name="FundusRoleProvider" type="phiNdus.fundus.Web.Security.FundusRoleProvider" applicationName="fundus" />
 			</providers>
 		</roleManager>
     

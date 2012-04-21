@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Domain.Entities;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain.IntegrationTests
+namespace phiNdus.fundus.Domain.IntegrationTests
 {
     public abstract class SettingsTestFixture<TSut> : DomainComponentTestBase<TSut>
     {

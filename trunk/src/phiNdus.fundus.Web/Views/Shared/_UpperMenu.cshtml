@@ -6,8 +6,8 @@
     @:<a href="#">Mein Profil</a> |
     {
         // hierrauf bin ich nicht wirklich Stolz, Änderungsvorschläge sind willkommen..
-        var stateManager = Rhino.Commons.IoC.Resolve<phiNdus.fundus.Core.Web.State.IStateManager>();
-        var cartState = stateManager.Load<phiNdus.fundus.Core.Web.Models.CartModel>();
+        var stateManager = Rhino.Commons.IoC.Resolve<phiNdus.fundus.Web.State.IStateManager>();
+        var cartState = stateManager.Load<phiNdus.fundus.Web.Models.CartModel>();
     
         @Html.ActionLink("Warenkorb (" + cartState.Items.Count + ")", "Index", "Cart", null, new { id = "cart" }) @:|
     }

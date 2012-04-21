@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Net.Mail;
-using phiNdus.fundus.Core.Domain.Settings;
+using phiNdus.fundus.Domain.Settings;
 
-namespace phiNdus.fundus.Core.Business.Gateways
+namespace phiNdus.fundus.Business.Gateways
 {
     public class MailGateway : IMailGateway
     {

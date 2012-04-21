@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Core.Web.Models
+﻿namespace phiNdus.fundus.Web.Models
 {
     public interface IFormsService
     {

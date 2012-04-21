@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using phiNdus.fundus.Core.Business.SecuredServices;
+using phiNdus.fundus.Business.SecuredServices;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Web.Security {
+namespace phiNdus.fundus.Web.Security {
     public class FundusRoleProvider : RoleProvider {
 
         //=========================================================================================

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace phiNdus.fundus.Core.Domain.Entities
+namespace phiNdus.fundus.Domain.Entities
 {
     public class FieldValue : Entity
     {

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using phiNdus.fundus.TestHelpers;
 using phiNdus.fundus.TestHelpers.TestBases;
 
-namespace phiNdus.fundus.Core.Domain.UnitTests
+namespace phiNdus.fundus.Domain.UnitTests
 {
     [TestFixture]
     public class FieldAlreadyAttachedExceptionTests : ExceptionTestBase<FieldAlreadyAttachedException>

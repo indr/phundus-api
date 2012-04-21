@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace phiNdus.fundus.Core.Web.Controllers
+namespace phiNdus.fundus.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class SettingsController : Controller

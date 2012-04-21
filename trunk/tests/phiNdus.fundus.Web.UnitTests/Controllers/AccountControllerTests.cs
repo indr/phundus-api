@@ -1,13 +1,13 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Web.Controllers;
-using phiNdus.fundus.Core.Web.Models;
+using phiNdus.fundus.Web.Controllers;
+using phiNdus.fundus.Web.Models;
 using phiNdus.fundus.TestHelpers;
 using Rhino.Mocks;
-using models = phiNdus.fundus.Core.Web.Models;
+using models = phiNdus.fundus.Web.Models;
 
-namespace phiNdus.fundus.Core.Web.UnitTests.Controllers {
+namespace phiNdus.fundus.Web.UnitTests.Controllers {
 
     [TestFixture]
     public class AccountControllerTests : MockTestBase<AccountController> {
@@ -32,7 +32,7 @@ namespace phiNdus.fundus.Core.Web.UnitTests.Controllers {
         [Test]
         public void LogOn_should_return_login_page() {
             var view = (System.Web.Mvc.ViewResult)this.Sut.LogOn();
-            var model = (phiNdus.fundus.Core.Web.Models.LogOnModel)view.Model;
+            var model = (phiNdus.fundus.Web.Models.LogOnModel)view.Model;
 
             // ist das richtig so?
             Assert.That(model, Is.Null);

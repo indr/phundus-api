@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 
-namespace phiNdus.fundus.Core.Web.Helpers
+namespace phiNdus.fundus.Web.Helpers
 {
     public static class HtmlExtensions
     {

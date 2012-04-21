@@ -1,8 +1,8 @@
 ﻿using System;
-using phiNdus.fundus.Core.Business.Security;
+using phiNdus.fundus.Business.Security;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Business.Services
+namespace phiNdus.fundus.Business.Services
 {
     public class BaseService
     {

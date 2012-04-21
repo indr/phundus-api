@@ -2,10 +2,10 @@
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Domain.Entities;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain
+namespace phiNdus.fundus.Domain
 {
     public class Installer : IWindsorInstaller
     {

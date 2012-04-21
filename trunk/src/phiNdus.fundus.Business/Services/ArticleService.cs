@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using phiNdus.fundus.Core.Business.Assembler;
-using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.Paging;
-using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.Business.Assembler;
+using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.Paging;
+using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Business.Services
+namespace phiNdus.fundus.Business.Services
 {
     public class ArticleService : BaseService
     {

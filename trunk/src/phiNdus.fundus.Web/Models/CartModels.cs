@@ -5,7 +5,7 @@ using System.Web;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace phiNdus.fundus.Core.Web.Models {
+namespace phiNdus.fundus.Web.Models {
 
     public class CartModel {
 

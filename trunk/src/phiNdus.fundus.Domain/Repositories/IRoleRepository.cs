@@ -1,7 +1,7 @@
-﻿using phiNdus.fundus.Core.Domain.Entities;
+﻿using phiNdus.fundus.Domain.Entities;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Domain.Repositories
+namespace phiNdus.fundus.Domain.Repositories
 {
     public interface IRoleRepository : IRepository<Role>
     {

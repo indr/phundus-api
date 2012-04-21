@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Paging;
+using phiNdus.fundus.Business.Paging;
 
-namespace phiNdus.fundus.Core.Business.UnitTests.Paging {
+namespace phiNdus.fundus.Business.UnitTests.Paging {
 
     //[TestFixture]
     //public class PagedResultTests {

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace phiNdus.fundus.Core.Web.Controllers
+namespace phiNdus.fundus.Web.Controllers
 {
     public class HomeController : Controller
     {

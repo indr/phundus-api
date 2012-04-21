@@ -2,9 +2,9 @@
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Domain.Entities;
 
-namespace phiNdus.fundus.Core.Domain.IntegrationTests.Mappings
+namespace phiNdus.fundus.Domain.IntegrationTests.Mappings
 {
     [TestFixture]
     public class MappingTests

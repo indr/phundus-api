@@ -1,14 +1,14 @@
 ﻿using System;
 using NUnit.Framework;
-using phiNdus.fundus.Core.Business.Dto;
-using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.Core.Business.Services;
-using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.Security;
+using phiNdus.fundus.Business.Services;
+using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.TestHelpers.Builders;
 using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Business.IntegrationTests.Services
+namespace phiNdus.fundus.Business.IntegrationTests.Services
 {
 
     

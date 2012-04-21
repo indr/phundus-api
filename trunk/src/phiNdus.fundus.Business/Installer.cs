@@ -1,11 +1,11 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using phiNdus.fundus.Core.Business.Gateways;
-using phiNdus.fundus.Core.Business.SecuredServices;
-using phiNdus.fundus.Core.Business.Security;
+using phiNdus.fundus.Business.Gateways;
+using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Business.Security;
 
-namespace phiNdus.fundus.Core.Business
+namespace phiNdus.fundus.Business
 {
     public class Installer : IWindsorInstaller
     {

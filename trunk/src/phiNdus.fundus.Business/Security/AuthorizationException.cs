@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Security;
 
-namespace phiNdus.fundus.Core.Business.Security
+namespace phiNdus.fundus.Business.Security
 {
     [Serializable]
     public class AuthorizationException : Exception

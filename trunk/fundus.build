@@ -376,7 +376,7 @@
 *************** BUILD ***************
 " />
   
-    <msbuild project="${base.dir}\phiNdus.fundus.Core.sln" verbosity="Minimal">
+    <msbuild project="${base.dir}\phiNdus.fundus.sln" verbosity="Minimal">
       <property name="Configuration" value="Debug" />
       <property name="OutputPath" value="${path::get-full-path(bin.dir)}" />
       <property name="MSBuildExtensionsPath32" value="${msbuild.dir}" />

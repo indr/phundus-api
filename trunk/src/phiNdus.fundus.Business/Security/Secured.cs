@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using phiNdus.fundus.Core.Business.Security.Constraints;
-using phiNdus.fundus.Core.Business.Services;
+using phiNdus.fundus.Business.Security.Constraints;
+using phiNdus.fundus.Business.Services;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Core.Business.Security
+namespace phiNdus.fundus.Business.Security
 {
     [DebuggerStepThrough]
     public class Unsecured
