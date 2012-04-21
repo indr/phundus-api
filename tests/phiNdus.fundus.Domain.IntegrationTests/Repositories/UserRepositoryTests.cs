@@ -19,7 +19,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
 
             Sut = IoC.Resolve<IUserRepository>();
 
-            using (IUnitOfWork uow = UnitOfWork.Start())
+            using (var uow = UnitOfWork.Start())
             {
                 // TODO: Immer alle löschen...
                 UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
