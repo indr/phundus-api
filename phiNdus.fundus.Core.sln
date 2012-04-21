@@ -1,27 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Web", "src\phiNdus.fundus.Core.Web\phiNdus.fundus.Core.Web.csproj", "{08F0E680-EAD6-4698-90C4-111C16620424}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Web", "src\phiNdus.fundus.Web\phiNdus.fundus.Web.csproj", "{08F0E680-EAD6-4698-90C4-111C16620424}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Business", "src\phiNdus.fundus.Core.Business\phiNdus.fundus.Core.Business.csproj", "{97AA64DB-12BF-4AF3-B732-97DE1A9919B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Business", "src\phiNdus.fundus.Business\phiNdus.fundus.Business.csproj", "{97AA64DB-12BF-4AF3-B732-97DE1A9919B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Domain", "src\phiNdus.fundus.Core.Domain\phiNdus.fundus.Core.Domain.csproj", "{00B767FE-A820-43B2-A494-B70732B09CF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Domain", "src\phiNdus.fundus.Domain\phiNdus.fundus.Domain.csproj", "{00B767FE-A820-43B2-A494-B70732B09CF8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Application", "01 Application", "{D1924B2C-E00A-4D8C-90C2-DC9E1623F952}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Business.UnitTests", "tests\phiNdus.fundus.Core.Business.UnitTests\phiNdus.fundus.Core.Business.UnitTests.csproj", "{C3A49666-132D-497C-A135-E4C2E87FA01B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Business.UnitTests", "tests\phiNdus.fundus.Business.Unittests\phiNdus.fundus.Business.UnitTests.csproj", "{C3A49666-132D-497C-A135-E4C2E87FA01B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Web.UnitTests", "tests\phiNdus.fundus.Core.Web.UnitTests\phiNdus.fundus.Core.Web.UnitTests.csproj", "{3A958280-7EFB-4AC3-AD66-942EC83018EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Web.UnitTests", "tests\phiNdus.fundus.Web.Unittests\phiNdus.fundus.Web.UnitTests.csproj", "{3A958280-7EFB-4AC3-AD66-942EC83018EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Domain.UnitTests", "tests\phiNdus.fundus.Core.Domain.UnitTests\phiNdus.fundus.Core.Domain.UnitTests.csproj", "{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Domain.UnitTests", "tests\phiNdus.fundus.Domain.Unittests\phiNdus.fundus.Domain.UnitTests.csproj", "{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Domain.IntegrationTests", "tests\phiNdus.fundus.Core.Domain.IntegrationTests\phiNdus.fundus.Core.Domain.IntegrationTests.csproj", "{4DFF5DDE-A0FD-48F9-AF63-241A34E26BF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Domain.IntegrationTests", "tests\phiNdus.fundus.Domain.Integrationtests\phiNdus.fundus.Domain.IntegrationTests.csproj", "{4DFF5DDE-A0FD-48F9-AF63-241A34E26BF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Business.IntegrationTests", "tests\phiNdus.fundus.Core.Business.IntegrationTests\phiNdus.fundus.Core.Business.IntegrationTests.csproj", "{58C99E38-EB57-4190-9CF1-01CE75A1B738}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Business.IntegrationTests", "tests\phiNdus.fundus.Business.Integrationtests\phiNdus.fundus.Business.IntegrationTests.csproj", "{58C99E38-EB57-4190-9CF1-01CE75A1B738}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "30 Tools", "30 Tools", "{D9245908-A0DF-49AA-BE89-157D4AD3BFAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.CliTools", "src\phiNdus.fundus.Core.CliTools\phiNdus.fundus.Core.CliTools.csproj", "{80CB9A46-90B0-4269-B2C8-3D9E11287D99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.CliTools", "src\phiNdus.fundus.CliTools\phiNdus.fundus.CliTools.csproj", "{80CB9A46-90B0-4269-B2C8-3D9E11287D99}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "23 SmokeTests", "23 SmokeTests", "{ADC4BA07-1C4C-4F79-81A2-438B981B1A96}"
 EndProject

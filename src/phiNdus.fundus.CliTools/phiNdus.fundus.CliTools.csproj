@@ -8,8 +8,8 @@
     <ProjectGuid>{80CB9A46-90B0-4269-B2C8-3D9E11287D99}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>phiNdus.fundus.Core.CliTools</RootNamespace>
-    <AssemblyName>phiNdus.fundus.Core.CliTools</AssemblyName>
+    <RootNamespace>phiNdus.fundus.CliTools</RootNamespace>
+    <AssemblyName>phiNdus.fundus.CliTools</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -49,9 +49,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\phiNdus.fundus.Core.Domain\phiNdus.fundus.Core.Domain.csproj">
+    <ProjectReference Include="..\phiNdus.fundus.Domain\phiNdus.fundus.Domain.csproj">
       <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>
-      <Name>phiNdus.fundus.Core.Domain</Name>
+      <Name>phiNdus.fundus.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

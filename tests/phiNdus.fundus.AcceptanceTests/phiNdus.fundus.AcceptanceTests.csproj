@@ -81,13 +81,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\phiNdus.fundus.Core.Business\phiNdus.fundus.Core.Business.csproj">
+    <ProjectReference Include="..\..\src\phiNdus.fundus.Business\phiNdus.fundus.Business.csproj">
       <Project>{97AA64DB-12BF-4AF3-B732-97DE1A9919B1}</Project>
-      <Name>phiNdus.fundus.Core.Business</Name>
+      <Name>phiNdus.fundus.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\phiNdus.fundus.Core.Domain\phiNdus.fundus.Core.Domain.csproj">
+    <ProjectReference Include="..\..\src\phiNdus.fundus.Domain\phiNdus.fundus.Domain.csproj">
       <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>
-      <Name>phiNdus.fundus.Core.Domain</Name>
+      <Name>phiNdus.fundus.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\phiNdus.fundus.TestHelpers\phiNdus.fundus.TestHelpers.csproj">
       <Project>{752C7B51-7C57-460D-BC8C-0902A0E880E6}</Project>

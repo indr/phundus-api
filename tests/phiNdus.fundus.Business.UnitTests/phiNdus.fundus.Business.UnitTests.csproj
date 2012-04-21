@@ -8,8 +8,8 @@
     <ProjectGuid>{C3A49666-132D-497C-A135-E4C2E87FA01B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>phiNdus.fundus.Core.Business.UnitTests</RootNamespace>
-    <AssemblyName>phiNdus.fundus.Core.Business.UnitTests</AssemblyName>
+    <RootNamespace>phiNdus.fundus.Business.UnitTests</RootNamespace>
+    <AssemblyName>phiNdus.fundus.Business.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core">
-      <HintPath>..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+      <HintPath>..\..\packages\Castle.2.5.2\lib\NET35\Castle.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Windsor">
       <HintPath>..\..\packages\Castle.Windsor.2.5.4\lib\net40\Castle.Windsor.dll</HintPath>
@@ -127,13 +127,13 @@
       <Project>{752C7B51-7C57-460D-BC8C-0902A0E880E6}</Project>
       <Name>phiNdus.fundus.TestHelpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\phiNdus.fundus.Core.Business\phiNdus.fundus.Core.Business.csproj">
+    <ProjectReference Include="..\..\src\phiNdus.fundus.Business\phiNdus.fundus.Business.csproj">
       <Project>{97AA64DB-12BF-4AF3-B732-97DE1A9919B1}</Project>
-      <Name>phiNdus.fundus.Core.Business</Name>
+      <Name>phiNdus.fundus.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\phiNdus.fundus.Core.Domain\phiNdus.fundus.Core.Domain.csproj">
+    <ProjectReference Include="..\..\src\phiNdus.fundus.Domain\phiNdus.fundus.Domain.csproj">
       <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>
-      <Name>phiNdus.fundus.Core.Domain</Name>
+      <Name>phiNdus.fundus.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
