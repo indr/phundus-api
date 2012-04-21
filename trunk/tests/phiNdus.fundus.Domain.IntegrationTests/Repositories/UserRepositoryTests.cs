@@ -166,7 +166,8 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
                             // TODO: Etwas besseres finden...
                             Is.StringContaining("Cannot insert duplicate key in object 'dbo.Membership'")
                             .Or.StringContaining("Ein doppelter Schlüssel kann in das 'dbo.Membership'-Objekt nicht eingefügt werden")
-                            .Or.StringContaining("Cannot insert duplicate key row in object 'dbo.Membership' with unique index"));
+                            .Or.StringContaining("Cannot insert duplicate key row in object 'dbo.Membership' with unique index")
+                            .Or.StringContaining("Eine Zeile mit doppeltem Schlüssel kann in das 'dbo.Membership'-Objekt mit dem eindeutigen"));
             }
         }
 
