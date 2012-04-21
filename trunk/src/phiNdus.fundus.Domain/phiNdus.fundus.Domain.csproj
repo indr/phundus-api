@@ -8,8 +8,8 @@
     <ProjectGuid>{00B767FE-A820-43B2-A494-B70732B09CF8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>phiNdus.fundus.Core.Domain</RootNamespace>
-    <AssemblyName>phiNdus.fundus.Core.Domain</AssemblyName>
+    <RootNamespace>phiNdus.fundus.Domain</RootNamespace>
+    <AssemblyName>phiNdus.fundus.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -10,8 +10,8 @@
     <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>phiNdus.fundus.Core.Web</RootNamespace>
-    <AssemblyName>phiNdus.fundus.Core.Web</AssemblyName>
+    <RootNamespace>phiNdus.fundus.Web</RootNamespace>
+    <AssemblyName>phiNdus.fundus.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
@@ -489,9 +489,9 @@
     <Content Include="Views\Account\LogOn.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\phiNdus.fundus.Core.Business\phiNdus.fundus.Core.Business.csproj">
+    <ProjectReference Include="..\phiNdus.fundus.Business\phiNdus.fundus.Business.csproj">
       <Project>{97AA64DB-12BF-4AF3-B732-97DE1A9919B1}</Project>
-      <Name>phiNdus.fundus.Core.Business</Name>
+      <Name>phiNdus.fundus.Business</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
