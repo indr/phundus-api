@@ -42,13 +42,18 @@
                     <td>@Html.EditorFor(x => Model.Items[idx].Begin)</td>
                     <td>@Html.EditorFor(x => Model.Items[idx].End)</td>
                     <td>@Html.EditorFor(x => Model.Items[idx].Amount)</td>
-                    <td>tbd</td>
-                    <td>@Model.Items[idx].Price</td>
+                    <td>@Model.Items[idx].UnitPrice</td>
+                    <td>@Model.Items[idx].LineTotal</td>
                     <td>
                         @Html.ActionLink(new Appearance { Caption = "Entfernen", Button = Button.Danger }, "Remove", new { id = Model.Items[idx].Id, version = Model.Items[idx].Version })
                     </td>
                 </tr>       
             }
+            <tr>
+                <td colspan="5">Total</td>
+                <td>@Model.TotalPrice</td>
+                <td></td>
+            </tr>
         }
     </tbody>
 </table>
@@ -58,6 +63,7 @@
         @Html.SubmitButton("Aktualisieren", "")
         @*@Ajax.ActionLink(new Appearance { Button = phiNdus.fundus.Core.Web.Helpers.Button.Normal, Caption="Aktualisieren"}, "CheckOut", new {}, new AjaxOptions {})*@
         @*@Html.SubmitButton("Bestellen")*@
+        @*@Html.ActionLink(new Appearance { Button = Button.Primary, Caption="Bestellen" }, "*@
     </div>
 }
 }

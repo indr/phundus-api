@@ -27,8 +27,11 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             set { _items = value; }
         }
 
+        public double TotalPrice { get; set; }
+
         private void Load(OrderDto orderDto)
         {
+            TotalPrice = orderDto.TotalPrice;
             foreach (var each in orderDto.Items)
                 Items.Add(new CartItemViewModel(each)); // TODO: Preis aufs DTO
         }

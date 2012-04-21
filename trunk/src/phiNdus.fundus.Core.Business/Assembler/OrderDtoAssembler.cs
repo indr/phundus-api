@@ -20,7 +20,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
                            Id = subject.Id,
                            Version = subject.Version,
                            CreateDate = subject.CreateDate,
-                           ModifyDate = subject.ModifyDate
+                           ModifyDate = subject.ModifyDate,
+                           TotalPrice = subject.TotalPrice
                        };
 
             if (subject.Reserver != null)
@@ -45,6 +46,8 @@ namespace phiNdus.fundus.Core.Business.Assembler
                         Id = item.Id,
                         OrderId = item.Order.Id,
                         To = item.To,
+                        UnitPrice = item.UnitPrice,
+                        LineTotal = item.LineTotal,
                         Version = item.Version,
                         Text = item.Article.Caption
                     });

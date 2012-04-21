@@ -25,5 +25,15 @@ namespace phiNdus.fundus.Core.Domain.Entities
         public virtual DateTime To { get; set; }
 
         public virtual Article Article { get; set; }
+
+        public virtual double UnitPrice
+        {
+            get { return Article.Price; }
+        }
+
+        public virtual double LineTotal
+        {
+            get { return Article.Price * Amount; }
+        }
     }
 }

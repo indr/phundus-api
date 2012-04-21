@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Iesi.Collections.Generic;
 using log4net;
 using phiNdus.fundus.Core.Domain.Repositories;
@@ -39,6 +40,8 @@ namespace phiNdus.fundus.Core.Domain.Entities
         public virtual User Modifier { get; protected set; }
 
         public virtual DateTime? ModifyDate { get; protected set; }
+
+        public virtual double TotalPrice { get { return Items.Sum(x => x.LineTotal); } }
 
         public virtual bool AddItem(OrderItem item)
         {

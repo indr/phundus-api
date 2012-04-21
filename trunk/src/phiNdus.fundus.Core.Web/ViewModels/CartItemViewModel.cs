@@ -44,7 +44,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         private void Load(OrderItemDto orderItemDto, int articleId, double price)
         {
             ArticleId = articleId;
-            Price = price;
+            LineTotal = price;
 
             if (orderItemDto != null)
             {
@@ -54,6 +54,8 @@ namespace phiNdus.fundus.Core.Web.ViewModels
                 End = orderItemDto.To;
                 Caption = orderItemDto.Text;
                 Amount = orderItemDto.Amount;
+                UnitPrice = orderItemDto.UnitPrice;
+                LineTotal = orderItemDto.LineTotal;
             }
             
             if (Begin == DateTime.MinValue)
@@ -101,8 +103,11 @@ namespace phiNdus.fundus.Core.Web.ViewModels
         [DataType(DataType.Date)]
         public DateTime End { get; set; }
 
+        [DisplayName("Einzelpreis")]
+        public double UnitPrice { get; set; }
+
         [DisplayName("Preis")]
-        public double Price { get; set; }
+        public double LineTotal { get; set; }
 
         public void Update()
         {

@@ -186,35 +186,6 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         }
 
         [Test]
-        public void Save_inserts_new_user_with_membership()
-        {
-            int id = 0;
-            using (IUnitOfWork uow = UnitOfWork.Start())
-            {
-                var user = new User();
-                user.FirstName = "Lily";
-                user.LastName = "Aldrin";
-                user.Membership.Email = "lily.aldrin@example.com";
-                // TODO,Inder: Session-API-Model mit detached Objects nicht verstanden? =)
-                UnitOfWork.CurrentSession.Refresh(user.Role);
-                Sut.Save(user);
-                uow.TransactionalFlush();
-                id = user.Id;
-                Assert.That(user.Id, Is.GreaterThan(0));
-            }
-
-            using (UnitOfWork.Start())
-            {
-                User user = Sut.Get(id);
-                Assert.That(user, Is.Not.Null);
-                Assert.That(user.FirstName, Is.EqualTo("Lily"));
-                Assert.That(user.LastName, Is.EqualTo("Aldrin"));
-                Assert.That(user.Membership, Is.Not.Null);
-                Assert.That(user.Membership.Email, Is.EqualTo("lily.aldrin@example.com"));
-            }
-        }
-
-        [Test]
         public void Update_user_increments_version()
         {
             // Arrange
