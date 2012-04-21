@@ -19,6 +19,11 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
             Sut = IoC.Resolve<IOrderRepository>();
             Users = IoC.Resolve<IUserRepository>();
             Roles = IoC.Resolve<IRoleRepository>();
+
+            using (IUnitOfWork uow = UnitOfWork.Start())
+            {
+                uow.TransactionalFlush();
+            }
         }
 
         #endregion
