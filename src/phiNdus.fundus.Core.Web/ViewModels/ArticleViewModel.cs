@@ -36,7 +36,7 @@ namespace phiNdus.fundus.Core.Web.ViewModels
             else
             {
                 CartItem = cartItem;
-                CartItem.Price = price;
+                CartItem.LineTotal = price;
             }
         }
 

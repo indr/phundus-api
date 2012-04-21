@@ -13,6 +13,8 @@ namespace phiNdus.fundus.Core.Business.Dto
         private IList<OrderItemDto> _items = new List<OrderItemDto>();
 
 
+        public double TotalPrice { get; set; }
+
         public IList<OrderItemDto> Items
         {
             get { return _items; }
