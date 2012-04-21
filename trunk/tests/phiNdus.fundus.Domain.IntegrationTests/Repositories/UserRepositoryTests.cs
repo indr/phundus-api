@@ -18,13 +18,6 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
             base.SetUp();
 
             Sut = IoC.Resolve<IUserRepository>();
-
-            using (var uow = UnitOfWork.Start())
-            {
-                // TODO: Immer alle löschen...
-                UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
-                uow.TransactionalFlush();
-            }
         }
 
         #endregion
@@ -43,6 +36,13 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         [Test]
         public void CanFindByEmail()
         {
+            using (var uow = UnitOfWork.Start())
+            {
+                // TODO: Immer alle löschen...
+                UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
+                uow.TransactionalFlush();
+            }
+
             int id;
             using (IUnitOfWork uow = UnitOfWork.Start())
             {
@@ -64,6 +64,13 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         [Test]
         public void CanSaveAndGetById()
         {
+            using (var uow = UnitOfWork.Start())
+            {
+                // TODO: Immer alle löschen...
+                UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
+                uow.TransactionalFlush();
+            }
+
             object id;
             string validationKey;
             using (IUnitOfWork uow = UnitOfWork.Start())
@@ -88,6 +95,13 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         [Test]
         public void Can_find_by_SessionKey()
         {
+            using (var uow = UnitOfWork.Start())
+            {
+                // TODO: Immer alle löschen...
+                UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
+                uow.TransactionalFlush();
+            }
+
             // Arrange
             int userId;
             using (var uow = UnitOfWork.Start())
@@ -110,6 +124,13 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         [Test]
         public void FindByValidationKeyReturnsNull()
         {
+            using (var uow = UnitOfWork.Start())
+            {
+                // TODO: Immer alle löschen...
+                UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
+                uow.TransactionalFlush();
+            }
+
             using (UnitOfWork.Start())
             {
                 User user = Sut.FindByValidationKey("not.existing.key");
@@ -120,6 +141,13 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         [Test]
         public void FindByValidationKeyReturnsUser()
         {
+            using (var uow = UnitOfWork.Start())
+            {
+                // TODO: Immer alle löschen...
+                UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
+                uow.TransactionalFlush();
+            }
+
             int id;
             string validationKey;
             using (IUnitOfWork uow = UnitOfWork.Start())
@@ -142,6 +170,13 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         [Test]
         public void Find_by_email_returns_null()
         {
+            using (var uow = UnitOfWork.Start())
+            {
+                // TODO: Immer alle löschen...
+                UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
+                uow.TransactionalFlush();
+            }
+
             using (UnitOfWork.Start())
             {
                 User user = Sut.FindByEmail("this.does@not.exist");
@@ -152,6 +187,13 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         [Test]
         public void SaveWithAlreadyExistingEmailThrows()
         {
+            using (var uow = UnitOfWork.Start())
+            {
+                // TODO: Immer alle löschen...
+                UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
+                uow.TransactionalFlush();
+            }
+
             using (IUnitOfWork uow = UnitOfWork.Start())
             {
                 User user1 = CreateUser();
@@ -174,6 +216,13 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         [Test]
         public void SaveWithNullEmailThrows()
         {
+            using (var uow = UnitOfWork.Start())
+            {
+                // TODO: Immer alle löschen...
+                UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
+                uow.TransactionalFlush();
+            }
+
             using (IUnitOfWork uow = UnitOfWork.Start())
             {
                 User user = CreateUser();
@@ -190,6 +239,13 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         [Test]
         public void Update_user_increments_version()
         {
+            using (var uow = UnitOfWork.Start())
+            {
+                // TODO: Immer alle löschen...
+                UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
+                uow.TransactionalFlush();
+            }
+
             // Arrange
             var userId = 0;
             var version = 0;
