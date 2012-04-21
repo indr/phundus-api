@@ -556,12 +556,20 @@
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/create.sql"
     />
+
+    <!--
+    
+    NAnt-Task migrate kann nicht verwendet werden, da dann die Assembly (DbMigrations.dll) im Zugriff bleibt!!!
     
     <migrate
       database="sql"
       connection="Data Source=${integration.data-source};Initial Catalog=${integration.database-name}; Integrated Security=SSPI"
       target="${build.dir}\bin\phiNdus.fundus.DbMigrations.dll"
     />
+    -->
+    <exec program="${fluentmigrator-tools.dir}\Migrate.exe" verbose="true"
+          commandline="/conn &quot;Data Source=${integration.data-source};Initial Catalog=${integration.database-name}; Integrated Security=SSPI&quot; /provider sql /assembly &quot;${build.dir}\bin\phiNdus.fundus.DbMigrations.dll&quot;" />
+
     
     <!--
     <echo message="${my::merge-settings(config.dir + '\Settings.csv,' + config.dir + '\Settings.Commit.csv')}"
