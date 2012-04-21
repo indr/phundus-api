@@ -31,7 +31,15 @@ namespace phiNdus.fundus.Core.Business.Services
                 User user = Users.FindByEmail(email);
                 if (user == null)
                     return null;
-                return UserAssembler.CreateDto(user);
+                return new UserAssembler().CreateDto(user);
+            }
+        }
+
+        public UserDto GetUser()
+        {
+            using (UnitOfWork.Start())
+            {
+                return new UserAssembler().CreateDto(SecurityContext.SecuritySession.User);
             }
         }
 
@@ -42,7 +50,7 @@ namespace phiNdus.fundus.Core.Business.Services
                 User user = Users.Get(id);
                 if (user == null)
                     return null;
-                return UserAssembler.CreateDto(user);
+                return new UserAssembler().CreateDto(user);
             }
         }
 
@@ -50,7 +58,7 @@ namespace phiNdus.fundus.Core.Business.Services
         {
             using (var uow = UnitOfWork.Start())
             {
-                return UserAssembler.CreateDtos(Users.FindAll());
+                return new UserAssembler().CreateDtos(Users.FindAll());
             }
         }
 
@@ -133,7 +141,7 @@ namespace phiNdus.fundus.Core.Business.Services
                 // E-Mail mit Verifikationslink senden
                 new UserAccountValidationMail().For(user).Send(user);
 
-                result = UserAssembler.CreateDto(user);
+                result = new UserAssembler().CreateDto(user);
                 uow.TransactionalFlush();
             }
             return result;
@@ -156,6 +164,5 @@ namespace phiNdus.fundus.Core.Business.Services
             return result;
         }
 
-        
     }
 }

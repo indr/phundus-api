@@ -44,6 +44,7 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
 
         bool ValidateValidationKey(string key);
         UserDto[] GetUsers(string sessionKey);
-        
+
+        UserDto GetUser(string sessionKey);
     }
 }

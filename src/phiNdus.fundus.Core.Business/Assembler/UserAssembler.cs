@@ -7,14 +7,14 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Business.Assembler
 {
-    public static class UserAssembler
+    public class UserAssembler
     {
-        public static UserDto CreateDto(User subject)
+        public UserDto CreateDto(User subject)
         {
             return WriteDto(subject);
         }
 
-        public static UserDto[] CreateDtos(ICollection<User> subjects)
+        public UserDto[] CreateDtos(ICollection<User> subjects)
         {
             var result = new List<UserDto>();
             foreach (var each in subjects)

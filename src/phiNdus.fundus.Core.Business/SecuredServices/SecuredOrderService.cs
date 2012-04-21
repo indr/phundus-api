@@ -75,6 +75,12 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
                 .Do<OrderService, IList<OrderDto>>(svc => svc.GetOrders());
         }
 
+        public void CheckOut(string sessionKey)
+        {
+            Secured.With(Session.FromKey(sessionKey))
+                .Do<OrderService>(svc => svc.CheckOut());
+        }
+
         #endregion
     }
 }
