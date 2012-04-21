@@ -544,34 +544,6 @@
     </if>
   </target>
   
-  <target name="wip-target">
-    <property name="sql.database-name" value="${integration.database-name}" />
-    <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
-    
-    <sql connstring="${sql.connstring}"
-      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/create.sql"
-    />
-    
-    <!--
-    <sql connstring="${sql.connstring}"
-      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/ddl.sql"
-    />
-    
-    <sql connstring="${sql.connstring}"
-      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/dml.sql"
-    />
-    -->
-    <migrate
-      database="sql"
-      connection="Data Source=${integration.data-source};Initial Catalog=${integration.database-name}; Integrated Security=SSPI"
-      target="${build.dir}\bin\phiNdus.fundus.DbMigrations.dll"
-    />
-  </target>
-  
-  
   <target name="init-integration-test" depends="build">
     <echo message="
 *************** INIT-INTEGRATION-TEST ***************
@@ -589,12 +561,6 @@
       database="sql"
       connection="Data Source=${integration.data-source};Initial Catalog=${integration.database-name}; Integrated Security=SSPI"
       target="${build.dir}\bin\phiNdus.fundus.DbMigrations.dll"
-    />
-    
-    
-    <sql connstring="${sql.connstring}"
-      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/dml.sql"
     />
     
     <!--
@@ -718,12 +684,17 @@
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/create.sql" />
+    
+    
+    <fail message="Mit Migrator tun..." />
+    <!--
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/ddl.sql" />
     <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/dml.sql" />
+    -->
       
     <echo message="${my::merge-settings(config.dir + '\Settings.csv,' + deploy.settings)}"
          file="${build.dir}\Settings.Merged.csv" />
