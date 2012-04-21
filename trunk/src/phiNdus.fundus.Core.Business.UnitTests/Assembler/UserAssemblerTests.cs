@@ -102,7 +102,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         [Test]
         public void CreateDto_returns_correct_dto()
         {
-            var dto = UserAssembler.CreateDto(User);
+            var dto = new UserAssembler().CreateDto(User);
 
             Assert.That(dto.Id, Is.EqualTo(1));
             Assert.That(dto.Version, Is.EqualTo(2));
@@ -119,13 +119,13 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         public void CreateDto_with_membership_null_throws()
         {
             User.Membership = null;
-            Assert.Throws<ArgumentNullException>(() => UserAssembler.CreateDto(User));
+            Assert.Throws<ArgumentNullException>(() => new UserAssembler().CreateDto(User));
         }
 
         [Test]
         public void CreateDto_with_null_subject_throws()
         {
-            Assert.Throws<ArgumentNullException>(() => UserAssembler.CreateDto(null));
+            Assert.Throws<ArgumentNullException>(() => new UserAssembler().CreateDto(null));
         }
 
         [Test]
@@ -133,7 +133,7 @@ namespace phiNdus.fundus.Core.Business.UnitTests.Assembler
         {
             User.Role = null;
 
-            var dto = UserAssembler.CreateDto(User);
+            var dto = new UserAssembler().CreateDto(User);
 
             Assert.That(dto.Id, Is.EqualTo(1));
             Assert.That(dto.RoleId, Is.EqualTo(0));

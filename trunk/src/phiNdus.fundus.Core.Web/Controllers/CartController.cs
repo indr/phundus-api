@@ -51,5 +51,21 @@ namespace phiNdus.fundus.Core.Web.Controllers
             // Warenkorb-Übersicht zurück geben
             return CartOverview();
         }
+
+
+        public ActionResult CheckOut()
+        {
+            // Bestellen
+            if (HttpContext.Request.HttpMethod == "POST")
+            {
+                var service = IoC.Resolve<IOrderService>();
+                service.CheckOut(Session.SessionID);
+
+                return View("CheckOutDone");
+            }
+
+            var model = new CheckOutViewModel();
+            return View("CheckOut", model);
+        }
     }
 }

@@ -77,6 +77,12 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
                 .Do<UserService, UserDto[]>(svc => svc.GetUsers());
         }
 
+        public UserDto GetUser(string sessionKey)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .Do<UserService, UserDto>(svc => svc.GetUser());
+        }
+
         #endregion
     }
 }

@@ -14,12 +14,17 @@ namespace phiNdus.fundus.Core.Web.Models
     {
         private IEnumerable<SelectListItem> _roles;
 
+        public UserModel()
+        {
+            Load(UserService.GetUser(SessionId));
+        }
+        
         public UserModel(int id)
         {
-            var subject = UserService.GetUser(SessionId, id);
-            Load(subject);
+            Load(UserService.GetUser(SessionId, id));
         }
 
+    
         public int Id { get; private set; }
         public int Version { get; set; }
         public string Email { get; set; }

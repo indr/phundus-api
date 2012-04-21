@@ -36,7 +36,8 @@
                         @Html.HiddenFor(m => m.CartItem.Id)
                         @Html.HiddenFor(m => m.CartItem.Version)
                         @Html.HiddenFor(m => m.CartItem.ArticleId)
-                        @Html.HiddenFor(m => m.CartItem.Price)
+                        @*TODO: Warum den Preis?*@
+                        @Html.HiddenFor(m => m.CartItem.LineTotal)
 
                         <div class="control-group">    
                             @Html.LabelFor(model => model.CartItem.Begin, new { @class = "control-label" })

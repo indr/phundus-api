@@ -10,5 +10,6 @@ namespace phiNdus.fundus.Core.Business.SecuredServices
         IList<OrderDto> GetApprovedOrders(string sessionKey);
         IList<OrderDto> GetRejectedOrders(string sessionKey);
         IList<OrderDto> GetOrders(string sessionKey);
+        void CheckOut(string sessionKey);
     }
 }

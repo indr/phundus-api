@@ -11,7 +11,7 @@
 @using (Html.BeginForm())
 {
 
-<h2>Warenkorb</h2>
+<h2>@ViewBag.Title</h2>
 <p></p>
 <table class="table table-bordered table-striped">
     <thead>
@@ -61,9 +61,7 @@
         {
     <div class="form-actions">
         @Html.SubmitButton("Aktualisieren", "")
-        @*@Ajax.ActionLink(new Appearance { Button = phiNdus.fundus.Core.Web.Helpers.Button.Normal, Caption="Aktualisieren"}, "CheckOut", new {}, new AjaxOptions {})*@
-        @*@Html.SubmitButton("Bestellen")*@
-        @*@Html.ActionLink(new Appearance { Button = Button.Primary, Caption="Bestellen" }, "*@
+        @Html.ActionLink(new Appearance { Button = Button.Primary, Caption="Bestellen" }, "CheckOut")
     </div>
 }
 }

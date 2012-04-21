@@ -1,0 +1,65 @@
+﻿@model phiNdus.fundus.Core.Web.ViewModels.CheckOutViewModel
+@{
+    ViewBag.Title = "Bestellung prüfen";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+     @Html.ActionLink("Warenkorb", "CheckOut") &gt; &Uuml;bersicht
+}
+
+
+<h2>@ViewBag.Title</h2>
+<p></p>
+<h3>Artikel</h3>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Artikel</th>
+            <th>Von</th>
+            <th>Bis</th>
+            <th>Anzahl</th>
+            <th>Stückpreis</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Cart.Items.Count == 0)
+        {
+            <tr>
+                <td class="no-data" colspan="6">TODO</td>
+            </tr>
+        }
+        else
+        {
+            for (var idx = 0; idx < Model.Cart.Items.Count; idx++)
+            {
+                @Html.HiddenFor(x => Model.Cart.Items[idx].Id)
+                <tr>
+                    <td>@Model.Cart.Items[idx].Caption</td>    
+                    <td>@Model.Cart.Items[idx].Begin</td>
+                    <td>@Model.Cart.Items[idx].End</td>
+                    <td>@Model.Cart.Items[idx].Amount</td>
+                    <td>@Model.Cart.Items[idx].UnitPrice</td>
+                    <td>@Model.Cart.Items[idx].LineTotal</td>
+                </tr>       
+            }
+            <tr>
+                <td colspan="5">Total</td>
+                <td>@Model.Cart.TotalPrice</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h3>Benutzer</h3>
+<p>@Model.Customer.DisplayName</p>
+
+@using (Html.BeginForm())
+{
+    if (Model.Cart.Items.Count > 0)
+    {
+    <div class="form-actions">
+        @Html.SubmitButton("Bestellen")
+    </div>
+    }
+}

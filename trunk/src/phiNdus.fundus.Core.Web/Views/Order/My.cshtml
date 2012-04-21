@@ -21,6 +21,17 @@
                 <td class="no-data" colspan="3">Keine Bestellungen vorhanden.</td>
             </tr>
         }
+        else
+        {
+            foreach (var each in Model.Items)
+            {
+                <tr>
+                    <td>@each.Id</td>
+                    <td>@each.CreateDate</td>
+                    <td>tbd</td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
 

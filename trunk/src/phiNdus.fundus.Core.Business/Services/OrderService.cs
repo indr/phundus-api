@@ -149,5 +149,19 @@ namespace phiNdus.fundus.Core.Business.Services
                 uow.TransactionalFlush();
             }
         }
+
+        public void CheckOut()
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var cart = FindCart();
+                if (cart == null)
+                    throw new InvalidOperationException("Kein oder leerer Warenkorb");
+
+                cart.Checkout();
+                IoC.Resolve<IOrderRepository>().Save(cart);
+                uow.TransactionalFlush();
+            }
+        }
     }
 }
