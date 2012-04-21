@@ -557,31 +557,15 @@
       source="${base.dir}/sql/create.sql"
     />
 
-    <!--
-    
-    NAnt-Task migrate kann nicht verwendet werden, da dann die Assembly (DbMigrations.dll) im Zugriff bleibt!!!
-    
+    <!-- NAnt-Task migrate kann nicht verwendet werden, da dann die Assembly (DbMigrations.dll) im Zugriff bleibt!!!
     <migrate
       database="sql"
       connection="Data Source=${integration.data-source};Initial Catalog=${integration.database-name}; Integrated Security=SSPI"
       target="${build.dir}\bin\phiNdus.fundus.DbMigrations.dll"
-    />
-    -->
+    /> -->
     <exec program="${fluentmigrator-tools.dir}\Migrate.exe" verbose="true"
           commandline="/conn &quot;Data Source=${integration.data-source};Initial Catalog=${integration.database-name}; Integrated Security=SSPI&quot; /provider sql /assembly &quot;${build.dir}\bin\phiNdus.fundus.DbMigrations.dll&quot;" />
 
-    
-    <!--
-    <echo message="${my::merge-settings(config.dir + '\Settings.csv,' + config.dir + '\Settings.Commit.csv')}"
-         file="${build.dir}\Settings.Merged.csv" />
-    <echo message="${my::generate-settings-dml(build.dir + '\Settings.Merged.csv')}"
-          file="${build.dir}\Settings.Merged.sql" />
-    <sql connstring="${sql.connstring}"
-      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${build.dir}\Settings.Merged.sql"
-    />
-    -->
-    
     <foreach item="File" property="filename">
       <in>
         <items>
@@ -693,19 +677,18 @@
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/create.sql" />
     
-    
-    <fail message="Mit Migrator tun..." />
-    <!--
-    <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
-      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/ddl.sql" />
-    <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
-      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/dml.sql" />
-    -->
+    <!-- NAnt-Task migrate kann nicht verwendet werden, da dann die Assembly (DbMigrations.dll) im Zugriff bleibt!!!
+    <migrate
+      database="sql"
+      connection="${sql.connstring}"
+      target="${website.dir}\bin\phiNdus.fundus.DbMigrations.dll"
+    /> -->
+    <exec program="${fluentmigrator-tools.dir}\Migrate.exe" verbose="true"
+          commandline="/conn &quot;${sql.connstring}&quot; /provider sql /assembly &quot;${website.dir}\bin\phiNdus.fundus.DbMigrations.dll&quot;"
+    />
       
     <echo message="${my::merge-settings(config.dir + '\Settings.csv,' + deploy.settings)}"
-         file="${build.dir}\Settings.Merged.csv" />
+          file="${build.dir}\Settings.Merged.csv" />
     <echo message="${my::generate-settings-dml(build.dir + '\Settings.Merged.csv')}"
           file="${build.dir}\Settings.Merged.sql" />
     
@@ -831,7 +814,7 @@
 " />
   
     <property name="sql.database-name" value="${acceptance.database-name}" />
-    <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
+    <property name="sql.connstring" value="Data Source=${acceptance.data-source}; Initial Catalog=${sql.database-name}; Integrated Security=SSPI" />
     <property name="sql.custom-dml" value="${sql.dir}\dml-acceptance.sql" />
     
     <property name="deploy.settings" value="${config.dir}\Settings.Acceptance.csv" />
@@ -852,7 +835,7 @@
 " />  
 
     <property name="sql.database-name" value="${staging.database-name}" />
-    <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${staging.data-source}; Integrated Security=SSPI" />
+    <property name="sql.connstring" value="Data Source=${staging.data-source}; Integrated Security=SSPI" />
     <property name="sql.custom-dml" value="${sql.dir}\dml-staging.sql" />
     
     <property name="deploy.settings" value="${config.dir}\Settings.Staging.csv" />
