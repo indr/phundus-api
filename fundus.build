@@ -18,6 +18,7 @@
   <property name="config.dir" value="${base.dir}\config" />
   <property name="lib.dir" value="${base.dir}\lib" />
   <property name="src.dir" value="${base.dir}\src" />
+  <property name="db.dir" value="${base.dir}\db" />
   <property name="sql.dir" value="${base.dir}\sql" />
   <property name="build.dir" value="${base.dir}\build" />
   <property name="packages.dir" value="${base.dir}\packages" />
@@ -96,6 +97,12 @@
         <include name="${src.dir}\**\bin\**" />
         <include name="${src.dir}\**\obj\**" />
         
+        <include name="${db.dir}\**\AssemblyInfo.cs" />
+        <include name="${db.dir}\**\Web*.config" />
+        <include name="${db.dir}\**\App*.config" />
+        <include name="${db.dir}\**\bin\**" />
+        <include name="${db.dir}\**\obj\**" />
+        
         <include name="${tests.dir}\**\AssemblyInfo.cs" />
         <include name="${tests.dir}\**\Web*.config" />
         <include name="${tests.dir}\**\App*.config" />
@@ -113,6 +120,19 @@
 
     <mkdir dir="${build.dir}" verbose="${verbose}" />
     <mkdir dir="${reports.dir}" verbose="${verbose}" />
+    
+    <property name="assembly.title" value="Database-Migrations" />
+    <property name="assembly.description" value="" />
+    <property name="assembly.guid" value="7a9024dc-acab-4d7f-9a1e-ea24f973ccf9" />
+    <property name="assembly.cls-compliant" value="true" />
+    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
+          tofile="${db.dir}\phiNdus.fundus.DbMigrations\Properties\AssemblyInfo.cs"
+          outputencoding="UTF-8" overwrite="true"
+          verbose="${verbose}">
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
     
     <property name="assembly.title" value="Core-Domain" />
     <property name="assembly.description" value="" />
