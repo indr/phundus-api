@@ -2,7 +2,8 @@
 using NUnit.Framework;
 using phiNdus.fundus.Core.Business.SecuredServices;
 using phiNdus.fundus.Core.Business.Security;
-using phiNdus.fundus.TestHelpers.TestBases;
+using phiNdus.fundus.Core.Domain.Entities;
+using phiNdus.fundus.TestHelpers.Builders;
 
 namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
 {
@@ -20,44 +21,52 @@ namespace phiNdus.fundus.Core.Business.IntegrationTests.SecuredServices
         }
 
         #endregion
-        
-        protected static string GetNewSessionKey()
-        {
-            return Guid.NewGuid().ToString("N");
-        }
 
         [Test]
-        public void GetUser_own_with_user_roll()
+        public void GetUser_other_with_administrator_roll()
         {
-            var sessionKey = GetNewSessionKey();
-            var valid = Sut.ValidateUser(sessionKey, "robin.scherbatsky@example.com", "robin");
-            Assert.That(valid, Is.True);
+            // Arrange
+            var adminSessionKey = "";
+            var otherUserMail = "";
+            Transactional(() =>
+                              {
+                                  adminSessionKey = new UserBuilder().Admin().Build().Membership.SessionKey;
+                                  otherUserMail = new UserBuilder().Build().Membership.Email;
+                              });
 
-            var actual = Sut.GetUser(sessionKey, "robin.scherbatsky@example.com");
+            // Act
+            var actual = Sut.GetUser(adminSessionKey, otherUserMail);
+
+            // Assert
             Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Email, Is.EqualTo("robin.scherbatsky@example.com"));
+            Assert.That(actual.Email, Is.EqualTo(otherUserMail));
         }
 
         [Test]
         public void GetUser_other_with_user_roll_throws()
         {
-            var sessionKey = GetNewSessionKey();
-            var valid = Sut.ValidateUser(sessionKey, "robin.scherbatsky@example.com", "robin");
-            Assert.That(valid, Is.True);
+            // Arrange
+            var sessionKey = "";
+            Transactional(() => { sessionKey = new UserBuilder().Build().Membership.SessionKey; });
 
-            Assert.Throws<AuthorizationException>(() => Sut.GetUser(sessionKey, "barney.stinson@example.com"));
+            // Act/Assert
+            Assert.Throws<AuthorizationException>(() => Sut.GetUser(sessionKey, "other@example.com"));
         }
 
         [Test]
-        public void GetUser_other_with_administrator_roll()
+        public void GetUser_own_with_user_roll()
         {
-            var sessionKey = GetNewSessionKey();
-            var valid = Sut.ValidateUser(sessionKey, "barney.stinson@example.com", "barney");
-            Assert.That(valid, Is.True);
+            // Arrange
+            var sessionKey = "";
+            Transactional(() => { sessionKey = new UserBuilder().Build().Membership.SessionKey; });
 
-            var actual = Sut.GetUser(sessionKey, "robin.scherbatsky@example.com");
+            // Act
+            var actual = Sut.GetUser(sessionKey, "user@example.com");
+
+            // Assert
             Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Email, Is.EqualTo("robin.scherbatsky@example.com"));
+            Assert.That(actual.RoleId, Is.EqualTo(Role.User.Id));
+            Assert.That(actual.Email, Is.EqualTo("user@example.com"));
         }
     }
 }

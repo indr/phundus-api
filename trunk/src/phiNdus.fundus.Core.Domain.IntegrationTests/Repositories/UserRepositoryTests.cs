@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using phiNdus.fundus.Core.Domain.Entities;
 using phiNdus.fundus.Core.Domain.Repositories;
+using phiNdus.fundus.TestHelpers.Builders;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
@@ -87,11 +88,22 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         [Test]
         public void Can_find_by_SessionKey()
         {
+            // Arrange
+            int userId;
+            using (var uow = UnitOfWork.Start())
+            {
+                var user = new UserBuilder().Build();
+                user.Membership.LogOn("abcd", "1234");
+                userId = user.Id;
+                uow.TransactionalFlush();
+            }
+
+            // Assert
             using (UnitOfWork.Start())
             {
-                User user = Sut.FindBySessionKey("0eb6182f7d75197bafc6");
+                User user = Sut.FindBySessionKey("abcd");
                 Assert.That(user, Is.Not.Null);
-                Assert.That(user.Id, Is.EqualTo(2));
+                Assert.That(user.Id, Is.EqualTo(userId));
             }
         }
 
@@ -205,20 +217,29 @@ namespace phiNdus.fundus.Core.Domain.IntegrationTests.Repositories
         [Test]
         public void Update_user_increments_version()
         {
-            int version = 0;
-
-            using (IUnitOfWork uow = UnitOfWork.Start())
+            // Arrange
+            var userId = 0;
+            var version = 0;
+            using (var uow = UnitOfWork.Start())
             {
-                User user = Sut.Get(2);
+                userId = new UserBuilder().Build().Id;
+                uow.TransactionalFlush();
+            }
+
+            // Act
+            using (var uow = UnitOfWork.Start())
+            {
+                var user = Sut.Get(userId);
                 version = user.Version;
-                user.FirstName = "Marshall " + (version + 1);
+                user.FirstName = "FirstName " + (version + 1);
                 Sut.Update(user);
                 uow.TransactionalFlush();
             }
 
+            // Assert
             using (UnitOfWork.Start())
             {
-                User user = Sut.Get(2);
+                var user = Sut.Get(userId);
                 Assert.That(user.Version, Is.EqualTo(version + 1));
             }
         }
