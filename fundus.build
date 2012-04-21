@@ -190,7 +190,7 @@
     <property name="assembly.guid" value="615cd7e5-2292-42fa-8764-0a05cb46c214" />
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Domain.UnitTests\Properties\AssemblyInfo.cs"
+          tofile="${tests.dir}\phiNdus.fundus.Core.Domain.UnitTests\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
@@ -198,7 +198,7 @@
       </filterchain>
     </copy>
     <copy file="${config.dir}\App.config.UnitTests.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Domain.UnitTests\App.config"
+          tofile="${tests.dir}\phiNdus.fundus.Core.Domain.UnitTests\App.config"
           outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
@@ -211,7 +211,7 @@
     <property name="assembly.guid" value="615cd7e5-2292-42fa-8764-0a05cb46c214" />
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Domain.IntegrationTests\Properties\AssemblyInfo.cs"
+          tofile="${tests.dir}\phiNdus.fundus.Core.Domain.IntegrationTests\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
@@ -219,7 +219,7 @@
       </filterchain>
     </copy>
     <copy file="${config.dir}\App.config.IntegrationTests.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Domain.IntegrationTests\App.config"
+          tofile="${tests.dir}\phiNdus.fundus.Core.Domain.IntegrationTests\App.config"
           outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
@@ -232,7 +232,7 @@
     <property name="assembly.guid" value="19d6b1f4-9bd6-4ee8-91c2-be2977a13fb8" />
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Business.UnitTests\Properties\AssemblyInfo.cs"
+          tofile="${tests.dir}\phiNdus.fundus.Core.Business.UnitTests\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
@@ -240,7 +240,7 @@
       </filterchain>
     </copy>
     <copy file="${config.dir}\App.config.UnitTests.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Business.UnitTests\App.config"
+          tofile="${tests.dir}\phiNdus.fundus.Core.Business.UnitTests\App.config"
           outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
@@ -253,7 +253,7 @@
     <property name="assembly.guid" value="58C99E38-EB57-4190-9CF1-01CE75A1B738" />
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Business.IntegrationTests\Properties\AssemblyInfo.cs"
+          tofile="${tests.dir}\phiNdus.fundus.Core.Business.IntegrationTests\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
@@ -261,7 +261,7 @@
       </filterchain>
     </copy>   
     <copy file="${config.dir}\App.config.IntegrationTests.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Business.IntegrationTests\App.config"
+          tofile="${tests.dir}\phiNdus.fundus.Core.Business.IntegrationTests\App.config"
           outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
@@ -274,7 +274,7 @@
     <property name="assembly.guid" value="453b1282-6fe5-43f3-8563-066c9f2a94fa" />
     <property name="assembly.cls-compliant" value="false" />
     <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Web.UnitTests\Properties\AssemblyInfo.cs"
+          tofile="${tests.dir}\phiNdus.fundus.Core.Web.UnitTests\Properties\AssemblyInfo.cs"
           outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>
@@ -282,7 +282,7 @@
       </filterchain>
     </copy>
     <copy file="${config.dir}\App.config.UnitTests.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Core.Web.UnitTests\App.config"
+          tofile="${tests.dir}\phiNdus.fundus.Core.Web.UnitTests\App.config"
           outputencoding="UTF-8" overwrite="true"
           verbose="${verbose}">
       <filterchain>

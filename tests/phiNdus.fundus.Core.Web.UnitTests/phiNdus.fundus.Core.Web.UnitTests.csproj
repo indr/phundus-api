@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{58C99E38-EB57-4190-9CF1-01CE75A1B738}</ProjectGuid>
+    <ProjectGuid>{3A958280-7EFB-4AC3-AD66-942EC83018EB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>phiNdus.fundus.Core.Business.IntegrationTests</RootNamespace>
-    <AssemblyName>phiNdus.fundus.Core.Business.IntegrationTests</AssemblyName>
+    <RootNamespace>phiNdus.fundus.Core.Web.UnitTests</RootNamespace>
+    <AssemblyName>phiNdus.fundus.Core.Web.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,12 +37,6 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\..\packages\Castle.Windsor.2.5.4\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate">
-      <HintPath>..\..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
@@ -55,16 +48,19 @@
       <HintPath>..\..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Rhino.Commons, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.dll</HintPath>
     </Reference>
-    <Reference Include="Rhino.Commons.Clr">
-      <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.Clr.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Commons.NHibernate">
-      <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.NHibernate.dll</HintPath>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,32 +68,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SecuredServices\SecuredUserServiceTests.cs" />
+    <Compile Include="Controllers\AccountControllerTests.cs" />
+    <Compile Include="Installers\ControllerInstallerTest.cs" />
+    <Compile Include="MockTestBase.cs" />
+    <Compile Include="Models\AccountModelTests.cs" />
+    <Compile Include="Models\MembershipServiceTests.cs" />
+    <Compile Include="ModelValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ArticleServiceTests.cs" />
-    <Compile Include="Services\CartServiceTests.cs" />
-    <Compile Include="BusinessComponentTestBase.cs" />
+    <Compile Include="Security\FundusMembershipProviderTests.cs" />
+    <Compile Include="State\SessionStateManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tests\phiNdus.fundus.TestHelpers\phiNdus.fundus.TestHelpers.csproj">
       <Project>{752C7B51-7C57-460D-BC8C-0902A0E880E6}</Project>
       <Name>phiNdus.fundus.TestHelpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\phiNdus.fundus.Core.Business\phiNdus.fundus.Core.Business.csproj">
+    <ProjectReference Include="..\..\src\phiNdus.fundus.Core.Business\phiNdus.fundus.Core.Business.csproj">
       <Project>{97AA64DB-12BF-4AF3-B732-97DE1A9919B1}</Project>
       <Name>phiNdus.fundus.Core.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\phiNdus.fundus.Core.Domain\phiNdus.fundus.Core.Domain.csproj">
-      <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>
-      <Name>phiNdus.fundus.Core.Domain</Name>
+    <ProjectReference Include="..\..\src\phiNdus.fundus.Core.Web\phiNdus.fundus.Core.Web.csproj">
+      <Project>{08F0E680-EAD6-4698-90C4-111C16620424}</Project>
+      <Name>phiNdus.fundus.Core.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

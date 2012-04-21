@@ -54,7 +54,10 @@
     <Reference Include="pnunit.framework">
       <HintPath>..\..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Rhino.Commons, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL" />
+    <Reference Include="Rhino.Commons, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Commons.NHibernate">
       <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.NHibernate.dll</HintPath>
     </Reference>
@@ -112,7 +115,7 @@
       <Project>{752C7B51-7C57-460D-BC8C-0902A0E880E6}</Project>
       <Name>phiNdus.fundus.TestHelpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\phiNdus.fundus.Core.Domain\phiNdus.fundus.Core.Domain.csproj">
+    <ProjectReference Include="..\..\src\phiNdus.fundus.Core.Domain\phiNdus.fundus.Core.Domain.csproj">
       <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>
       <Name>phiNdus.fundus.Core.Domain</Name>
     </ProjectReference>
