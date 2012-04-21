@@ -5,7 +5,7 @@ namespace phiNdus.fundus.DbMigrations
 {
     public abstract class MigrationBase : Migration
     {
-        private string _schemaName = String.Empty;
+        private string _schemaName = "dbo";
 
         protected string SchemaName
         {

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="201204\InsertRolesAndCreateTrigger.cs" />
     <Compile Include="201204\M0001_CreateNHibernateUniqueKeyTable.cs" />
     <Compile Include="201204\M0002_CreateTableUser.cs" />
     <Compile Include="201204\M0003_CreateTableMembership.cs" />
