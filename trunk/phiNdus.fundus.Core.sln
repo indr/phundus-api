@@ -9,15 +9,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Domain"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Application", "01 Application", "{D1924B2C-E00A-4D8C-90C2-DC9E1623F952}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Business.UnitTests", "src\phiNdus.fundus.Core.Business.UnitTests\phiNdus.fundus.Core.Business.UnitTests.csproj", "{C3A49666-132D-497C-A135-E4C2E87FA01B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Business.UnitTests", "tests\phiNdus.fundus.Core.Business.UnitTests\phiNdus.fundus.Core.Business.UnitTests.csproj", "{C3A49666-132D-497C-A135-E4C2E87FA01B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Web.UnitTests", "src\phiNdus.fundus.Core.Web.UnitTests\phiNdus.fundus.Core.Web.UnitTests.csproj", "{3A958280-7EFB-4AC3-AD66-942EC83018EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Web.UnitTests", "tests\phiNdus.fundus.Core.Web.UnitTests\phiNdus.fundus.Core.Web.UnitTests.csproj", "{3A958280-7EFB-4AC3-AD66-942EC83018EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Domain.UnitTests", "src\phiNdus.fundus.Core.Domain.UnitTests\phiNdus.fundus.Core.Domain.UnitTests.csproj", "{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Domain.UnitTests", "tests\phiNdus.fundus.Core.Domain.UnitTests\phiNdus.fundus.Core.Domain.UnitTests.csproj", "{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Domain.IntegrationTests", "src\phiNdus.fundus.Core.Domain.IntegrationTests\phiNdus.fundus.Core.Domain.IntegrationTests.csproj", "{4DFF5DDE-A0FD-48F9-AF63-241A34E26BF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Domain.IntegrationTests", "tests\phiNdus.fundus.Core.Domain.IntegrationTests\phiNdus.fundus.Core.Domain.IntegrationTests.csproj", "{4DFF5DDE-A0FD-48F9-AF63-241A34E26BF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Business.IntegrationTests", "src\phiNdus.fundus.Core.Business.IntegrationTests\phiNdus.fundus.Core.Business.IntegrationTests.csproj", "{58C99E38-EB57-4190-9CF1-01CE75A1B738}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Core.Business.IntegrationTests", "tests\phiNdus.fundus.Core.Business.IntegrationTests\phiNdus.fundus.Core.Business.IntegrationTests.csproj", "{58C99E38-EB57-4190-9CF1-01CE75A1B738}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "30 Tools", "30 Tools", "{D9245908-A0DF-49AA-BE89-157D4AD3BFAF}"
 EndProject
