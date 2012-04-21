@@ -43,7 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="201204\M0001_CreateNHibernateUniqueKeyTable.cs" />
+    <Compile Include="201204\M0002_CreateTableUser.cs" />
+    <Compile Include="201204\M0003_CreateTableMembership.cs" />
+    <Compile Include="201204\M0004_CreateTableRole.cs" />
+    <Compile Include="201204\M0005_CreateTableSetting.cs" />
+    <Compile Include="201204\M0006_CreateTableFieldDefinition.cs" />
+    <Compile Include="201204\M0007_CreateTableFieldValue.cs" />
+    <Compile Include="201204\M0008_CreateTableArticle.cs" />
+    <Compile Include="201204\M0009_CreateTableImage.cs" />
+    <Compile Include="201204\M0010_CreateTableOrder.cs" />
+    <Compile Include="201204\M0011_CreateTableOrderItem.cs" />
+    <Compile Include="201204\M0012_CreateTableContract.cs" />
+    <Compile Include="201204\M0012_CreateTableContractItem.cs" />
+    <Compile Include="MigrationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -45,6 +45,7 @@
   <property name="corflags.dir" value="${tools.dir}" />
   <property name="fxcop.dir" value="${tools.dir}\FxCop" />
   <property name="rhino-mocks.dir" value="${tools.dir}\Rhino.Mocks" />
+  <property name="fluentmigrator-tools.dir" value="${packages.dir}\FluentMigrator.Tools.1.0.1.0\tools\AnyCPU\40" />
   
   <!--
     Libraries directories
@@ -70,7 +71,7 @@
     Prepare nant/nant contrib
   -->
   <loadtasks assembly="${nantcontrib.dir}\NAnt.Contrib.Tasks.dll" />
-  
+  <loadtasks assembly="${fluentmigrator-tools.dir}\FluentMigrator.NAnt.dll" />
   
   <target name="help">
     <echo message="
@@ -543,6 +544,33 @@
     </if>
   </target>
   
+  <target name="wip-target">
+    <property name="sql.database-name" value="${integration.database-name}" />
+    <property name="sql.connstring" value="Provider=SQLOLEDB; Data Source=${integration.data-source}; Integrated Security=SSPI" />
+    
+    <sql connstring="${sql.connstring}"
+      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
+      source="${base.dir}/sql/create.sql"
+    />
+    
+    <!--
+    <sql connstring="${sql.connstring}"
+      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
+      source="${base.dir}/sql/ddl.sql"
+    />
+    
+    <sql connstring="${sql.connstring}"
+      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
+      source="${base.dir}/sql/dml.sql"
+    />
+    -->
+    <migrate
+      database="sql"
+      connection="Data Source=${integration.data-source};Initial Catalog=${integration.database-name}; Integrated Security=SSPI"
+      target="${build.dir}\bin\phiNdus.fundus.DbMigrations.dll"
+    />
+  </target>
+  
   
   <target name="init-integration-test" depends="build">
     <echo message="
@@ -556,10 +584,14 @@
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/create.sql"
     />
-    <sql connstring="${sql.connstring}"
-      transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
-      source="${base.dir}/sql/ddl.sql"
+    
+    <migrate
+      database="sql"
+      connection="Data Source=${integration.data-source};Initial Catalog=${integration.database-name}; Integrated Security=SSPI"
+      target="${build.dir}\bin\phiNdus.fundus.DbMigrations.dll"
     />
+    
+    
     <sql connstring="${sql.connstring}"
       transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
       source="${base.dir}/sql/dml.sql"
