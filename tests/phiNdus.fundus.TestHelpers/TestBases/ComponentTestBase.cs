@@ -36,5 +36,14 @@ namespace phiNdus.fundus.TestHelpers.TestBases
             }
             return result;
         }
+
+        protected void Transactional(Action action)
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                action();
+                uow.TransactionalFlush();
+            }
+        }
     }
 }
