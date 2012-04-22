@@ -63,6 +63,11 @@ namespace phiNdus.fundus.Web.Controllers
             return View(model);
         }
 
+        public ActionResult Profile()
+        {
+            return View();
+        }
+
         public ActionResult SignUp()
         {
             return View();
