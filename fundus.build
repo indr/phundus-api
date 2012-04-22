@@ -71,7 +71,8 @@
     Prepare nant/nant contrib
   -->
   <loadtasks assembly="${nantcontrib.dir}\NAnt.Contrib.Tasks.dll" />
-  <loadtasks assembly="${fluentmigrator-tools.dir}\FluentMigrator.NAnt.dll" />
+  <!-- NAnt-Task migrate kann nicht verwendet werden, da dann die Assembly (DbMigrations.dll) im Zugriff bleibt!!!
+  <loadtasks assembly="${fluentmigrator-tools.dir}\FluentMigrator.NAnt.dll" />-->
   
   <target name="help">
     <echo message="
