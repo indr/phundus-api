@@ -23,6 +23,8 @@ namespace phiNdus.fundus.DbMigrations
                 .ToTable(TableName).InSchema(SchemaName)
                 .PrimaryColumn("Id")
                 .OnDeleteOrUpdate(Rule.Cascade);
+
+            Execute.Sql(@"dbcc checkident('Article', reseed, 10000)");
         }
 
         public override void Down()
