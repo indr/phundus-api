@@ -22,12 +22,12 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
             //Assert.Ignore("Weder mol en 32/64-Bit-Klassiker?!");
             // Oder heds en absolut logische Zämmehang mettem Fluent Migrator?!
 
-            using (IUnitOfWork uow = UnitOfWork.Start())
-            {
-                // TODO: Immer alle löschen...
-                UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
-                uow.TransactionalFlush();
-            }
+            //using (IUnitOfWork uow = UnitOfWork.Start())
+            //{
+            //    // TODO: Immer alle löschen...
+            //    UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
+            //    uow.TransactionalFlush();
+            //}
         }
 
         #endregion
@@ -46,45 +46,57 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         [Test]
         public void CanFindByEmail()
         {
-            int id;
-            using (IUnitOfWork uow = UnitOfWork.Start())
-            {
-                User user = CreateUser();
-                user.Membership.Email = "john.doe@example.com";
-                id = Sut.Save(user).Id;
-                uow.TransactionalFlush();
-            }
+            const string email = "user@example.com";
+            var id = 0;
+
+            Transactional(() =>
+                              {
+                                  id = new UserBuilder().WithEmail(email).Build().Id;
+                              });
 
             using (UnitOfWork.Start())
             {
-                User user = Sut.FindByEmail("john.doe@example.com");
+                var user = Sut.FindByEmail(email);
                 Assert.That(user, Is.Not.Null);
                 Assert.That(user.Id, Is.EqualTo(id));
-                Assert.That(user.Membership.Email, Is.EqualTo("john.doe@example.com"));
+                Assert.That(user.Membership.Email, Is.EqualTo(email));
             }
         }
 
         [Test]
         public void CanSaveAndGetById()
         {
+            // Arrange
+            Role role = null;
+            Transactional(() =>
+                              {
+                                  UnitOfWork.CurrentSession.Delete("from Membership");
+                                  role = UnitOfWork.CurrentSession.Get<Role>(1);
+                              });
+            var user = new UserBuilder().WithRole(role).Build();
+            user.FirstName = "John";
+            user.LastName = "Doe";
+
+
+            // Act
             object id;
             string validationKey;
-            using (IUnitOfWork uow = UnitOfWork.Start())
+            using (var uow = UnitOfWork.Start())
             {
-                User user = CreateUser();
                 validationKey = user.Membership.ValidationKey;
                 id = Sut.Save(user).Id;
                 uow.TransactionalFlush();
             }
 
+            // Assert
             using (UnitOfWork.Start())
             {
-                User user = Sut.Get(id);
-                Assert.That(user, Is.Not.Null);
-                Assert.That(user.Id, Is.EqualTo(id));
-                Assert.That(user.FirstName, Is.EqualTo("John"));
-                Assert.That(user.LastName, Is.EqualTo("Doe"));
-                Assert.That(user.Membership.ValidationKey, Is.EqualTo(validationKey));
+                var fromRepo = Sut.Get(id);
+                Assert.That(fromRepo, Is.Not.Null);
+                Assert.That(fromRepo.Id, Is.EqualTo(id));
+                Assert.That(fromRepo.FirstName, Is.EqualTo("John"));
+                Assert.That(fromRepo.LastName, Is.EqualTo("Doe"));
+                Assert.That(fromRepo.Membership.ValidationKey, Is.EqualTo(validationKey));
             }
         }
 
@@ -121,17 +133,21 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         }
 
         [Test]
-        public void FindByValidationKeyReturnsUser()
+        public void FindByValidationKey_ReturnsUser()
         {
-            int id;
-            string validationKey;
-            using (IUnitOfWork uow = UnitOfWork.Start())
-            {
-                User user = CreateUser();
-                validationKey = user.Membership.GenerateValidationKey();
-                id = Sut.Save(user).Id;
-                uow.TransactionalFlush();
-            }
+            var id = 0;
+            var validationKey = "";
+            
+            Transactional(() =>
+                              {
+                                  var user = new UserBuilder().Build();
+                                  id = user.Id;
+                                  user.Membership.GenerateValidationKey();
+                                  validationKey = user.Membership.ValidationKey;
+
+                              });
+
+            Assert.That(validationKey, Is.Not.Null);
 
             using (UnitOfWork.Start())
             {
@@ -143,11 +159,11 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         }
 
         [Test]
-        public void Find_by_email_returns_null()
+        public void FindByEmail_with_not_existing_user_returns_null()
         {
             using (UnitOfWork.Start())
             {
-                User user = Sut.FindByEmail("this.does@not.exist");
+                User user = Sut.FindByEmail("invalid.email@not.exist.ent");
                 Assert.That(user, Is.Null);
             }
         }

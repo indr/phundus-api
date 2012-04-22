@@ -17,14 +17,5 @@ namespace phiNdus.fundus.Business.IntegrationTests
 
             IoC.Container.Install(new phiNdus.fundus.Business.Installer());
         }
-
-        protected void Transactional(Action action)
-        {
-            using (var uow = UnitOfWork.Start())
-            {
-                action();
-                uow.TransactionalFlush();
-            }
-        }
     }
 }
