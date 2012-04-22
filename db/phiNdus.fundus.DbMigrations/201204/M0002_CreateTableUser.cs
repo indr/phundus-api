@@ -15,6 +15,8 @@ namespace phiNdus.fundus.DbMigrations
                 .WithColumn("RoleId").AsInt32().Nullable()
                 .WithColumn("FirstName").AsString(255).Nullable()
                 .WithColumn("LastName").AsString(255).Nullable();
+
+            Execute.Sql(@"dbcc checkident('User', reseed, 1000)");
         }
 
         public override void Down()
