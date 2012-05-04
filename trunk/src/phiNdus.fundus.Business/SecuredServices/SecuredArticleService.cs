@@ -17,8 +17,7 @@ namespace phiNdus.fundus.Business.SecuredServices
 
         public ArticleDto GetArticle(string sessionKey, int id)
         {
-            return Secured.With(Session.FromKey(sessionKey))
-                .Do<ArticleService, ArticleDto>(svc => svc.GetArticle(id));
+            return Unsecured.Do<ArticleService, ArticleDto>(svc => svc.GetArticle(id));
         }
 
         public int CreateArticle(string sessionKey, ArticleDto subject)
@@ -76,8 +75,7 @@ namespace phiNdus.fundus.Business.SecuredServices
 
         public PagedResult<ArticleDto> FindArticles(string sessionKey, PageRequest pageRequest, string query)
         {
-            return Secured.With(Session.FromKey(sessionKey))
-                .Do<ArticleService, PagedResult<ArticleDto>>(svc => svc.FindArticles(pageRequest, query));
+            return Unsecured.Do<ArticleService, PagedResult<ArticleDto>>(svc => svc.FindArticles(pageRequest, query));
         }
 
         #endregion
