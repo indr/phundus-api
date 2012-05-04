@@ -140,20 +140,20 @@ namespace phiNdus.fundus.Business.UnitTests.SecuredServices
             Assert.That(actual, Is.Not.Null);
         }
 
-        [Test]
-        public void GetArticle_with_invalid_sessionKey_throws()
-        {
-            GenerateAndRegisterMissingStubs();
+        //[Test]
+        //public void GetArticle_with_invalid_sessionKey_throws()
+        //{
+        //    GenerateAndRegisterMissingStubs();
 
-            Assert.Throws<InvalidSessionKeyException>(() => Sut.GetArticle("invalid", 0));
-        }
+        //    Assert.Throws<InvalidSessionKeyException>(() => Sut.GetArticle("invalid", 0));
+        //}
 
-        [Test]
-        public void GetArticle_with_sessionKey_null_throws()
-        {
-            var ex = Assert.Throws<ArgumentNullException>(() => Sut.GetArticle(null, 0));
-            Assert.That(ex.ParamName, Is.EqualTo("key"));
-        }
+        //[Test]
+        //public void GetArticle_with_sessionKey_null_throws()
+        //{
+        //    var ex = Assert.Throws<ArgumentNullException>(() => Sut.GetArticle(null, 0));
+        //    Assert.That(ex.ParamName, Is.EqualTo("key"));
+        //}
 
         [Test]
         public void GetArticles_calls_GetArticles()
