@@ -6,7 +6,6 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
-    [Authorize]
     public class ShopController : ControllerBase
     {
         private static string MasterView
@@ -119,6 +118,7 @@ namespace phiNdus.fundus.Web.Controllers
 
         //
         // POST: /Shop/AddToCart
+        [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult AddToCart([Bind(Prefix="CartItem")] CartItemViewModel cartItem)
         {

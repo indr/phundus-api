@@ -30,7 +30,13 @@
                 <p>Howdy, I'm in Section 3.</p>
             </div>
             <div class="tab-pane" id="@Model.Id-L">
-                @using (Ajax.BeginForm("AddToCart", "Shop", new {}, new AjaxOptions { }, new { @class = "form-horizontal" }))
+                @if (!Request.IsAuthenticated)
+                {
+                    <p>Melden Sie sich an, um einen Artikel auszuleihen.</p>
+                }
+                else
+                {
+                using (Ajax.BeginForm("AddToCart", "Shop", new { }, new AjaxOptions { }, new { @class = "form-horizontal" }))
                 {
                     <fieldset>
                         @Html.HiddenFor(m => m.CartItem.Id)
@@ -68,7 +74,9 @@
                         </div>
                     </fieldset>
                 }
+                }
             </div>
+            }
         </div>
     </div>
 
