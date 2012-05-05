@@ -15,26 +15,34 @@
         <th>Vorname</th>
         <th>Name</th>
         <th>E-Mail-Adresse</th>
+        <th>J+S-Nummer</th>
+        <th>Bestätigt</th>
         <th>Rolle</th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var each in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(m => each.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastName)
+            @Html.DisplayFor(m => each.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
+            @Html.DisplayFor(m => each.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.RoleName)
+            @Html.DisplayFor(m => each.JsNumber)
         </td>
         <td>
-            @Html.ActionLink(new Appearance { Caption = "Bearbeiten", Button = Button.Normal }, "Edit", new { id = item.Id })
+            @Html.DisplayFor(m => each.IsApproved)
+        </td>
+        <td>
+            @Html.DisplayFor(m => each.RoleName)
+        </td>
+        <td>
+            @Html.ActionLink(new Appearance { Caption = "Bearbeiten", Button = Button.Normal }, "Edit", new { id = each.Id })
         </td>
     </tr>
 }
