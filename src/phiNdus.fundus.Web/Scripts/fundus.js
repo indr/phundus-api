@@ -99,7 +99,7 @@ var fundus;
                     entity_encoding: "raw"
                 });
 
-                $('.datepicker').datepicker();
+                $('input.date').datepicker();
             },
 
             showError: function (e, xhr, opts) {

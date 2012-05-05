@@ -123,10 +123,10 @@ namespace phiNdus.fundus.Web.Controllers
         public ActionResult AddToCart([Bind(Prefix="CartItem")] CartItemViewModel cartItem)
         {
             // TODO: Ist merkwürdigerweise immer true...
-            if (!ModelState.IsValid)
-            {
-                return Article(cartItem.ArticleId, cartItem);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Article(cartItem.ArticleId, cartItem);
+            //}
 
             cartItem.Update();
 
