@@ -145,7 +145,7 @@ namespace phiNdus.fundus.Web.UnitTests.Models {
             var exception = Assert.Throws<ValidationException>(
                 () => ModelValidator.Validate<SignUpModel>(model));
 
-            Assert.That(exception.Message, Contains.Substring(@"JsNumber").And.Contains(@"greater than or equal to 1"));
+            Assert.That(exception.Message, Contains.Substring(@"JsNumber").And.Contains(@"zwischen 1 und 999999 liegen"));
         }
 
         [Test]
