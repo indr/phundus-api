@@ -80,7 +80,7 @@ namespace phiNdus.fundus.Web.Controllers
             {
                 MembershipCreateStatus status;
                 //MembershipService.CreateUser(model.Email, model.Password, out status);
-                MembershipService.CreateUser(model.Email, model.Password, model.FirstName, model.LastName, out status);
+                MembershipService.CreateUser(model.Email, model.Password, model.FirstName, model.LastName, model.JsNumber, out status);
 
 
                 switch (status)

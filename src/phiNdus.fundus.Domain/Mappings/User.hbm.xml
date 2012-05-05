@@ -9,6 +9,7 @@
     <version name="Version" />
     <property name="FirstName" />
     <property name="LastName" />
+    <property name="JsNumber" />
     <one-to-one name="Membership" class="Membership" cascade="all-delete-orphan" />
     <many-to-one name="Role" column="RoleId" lazy="false" />
   </class>

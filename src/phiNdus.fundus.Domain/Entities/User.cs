@@ -8,6 +8,7 @@ namespace phiNdus.fundus.Domain.Entities
         private string _lastName;
         private Membership _membership;
         private Role _role;
+        private int? _jsNumber;
 
         public User() : this(0)
         {
@@ -51,5 +52,18 @@ namespace phiNdus.fundus.Domain.Entities
         }
 
         public virtual string DisplayName { get { return String.Format("{0} {1}", FirstName, LastName); } }
+
+        public virtual int? JsNumber
+        {
+            get {
+                return _jsNumber;
+            }
+            set {
+
+                if (value.HasValue && ((value > 999999) || (value < 1)))
+                    throw new ArgumentOutOfRangeException("value", "Die J+S-Nummer muss sechsstellig sein.");
+                _jsNumber = value;
+            }
+        }
     }
 }

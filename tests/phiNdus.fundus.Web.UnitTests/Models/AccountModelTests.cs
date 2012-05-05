@@ -122,6 +122,7 @@ namespace phiNdus.fundus.Web.UnitTests.Models {
                 Email = DefaultEmail,
                 FirstName = DefaultFistName,
                 LastName = DefaultLastName
+                
             };
 
             var exception = Assert.Throws<ValidationException>(
@@ -131,12 +132,30 @@ namespace phiNdus.fundus.Web.UnitTests.Models {
         }
 
         [Test]
+        public void SignUpModel_ensures_that_jsNumber_is_required()
+        {
+            var model = new SignUpModel
+            {
+                Email = DefaultEmail,
+                FirstName = DefaultFistName,
+                LastName = DefaultLastName,
+                Password = DefaultPassword
+            };
+
+            var exception = Assert.Throws<ValidationException>(
+                () => ModelValidator.Validate<SignUpModel>(model));
+
+            Assert.That(exception.Message, Contains.Substring(@"JsNumber").And.Contains(@"greater than or equal to 1"));
+        }
+
+        [Test]
         public void SignUpModel_ensure_that_model_validates() {
             var model = new SignUpModel {
                 Email = DefaultEmail,
                 FirstName = DefaultFistName,
                 LastName = DefaultLastName,
-                Password = DefaultPassword
+                Password = DefaultPassword,
+                JsNumber = 1
             };
 
             ModelValidator.Validate<SignUpModel>(model);

@@ -10,7 +10,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Mappings
     public class MappingTests
     {
         [Test]
-        public void Can_create_dll_from_hibernate_mapping()
+        public void Can_create_ddl_from_hibernate_mapping()
         {
             var cfg = new Configuration().AddAssembly(Assembly.GetAssembly(typeof (Entity)));
             var export = new SchemaExport(cfg);

@@ -15,5 +15,7 @@ namespace phiNdus.fundus.Business.Dto
 
         public int RoleId { get; set; }
         public string RoleName { get; set; }
+
+        public int? JsNumber { get; set; }
     }
 }

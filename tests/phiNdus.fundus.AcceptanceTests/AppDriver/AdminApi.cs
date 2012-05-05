@@ -17,7 +17,7 @@ namespace phiNdus.fundus.AcceptanceTests.AppDriver
         {
             var userService = new UserService();
             if (userService.GetUser(email) == null)
-                userService.CreateUser(email, "password", "", "");
+                userService.CreateUser(email, "password", "", "", 1);
         }
 
         public UserDto GetUser(string email)

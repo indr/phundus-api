@@ -79,14 +79,14 @@ namespace phiNdus.fundus.Web.UnitTests.Security
 
             using (MockFactory.Record())
             {
-                Expect.Call(MockUserService.CreateUser(null, "dave@example.com", "1234", "", "")).Throw(
+                Expect.Call(MockUserService.CreateUser(null, "dave@example.com", "1234", "", "", 1)).Throw(
                     new EmailAlreadyTakenException());
             }
 
             using (MockFactory.Playback())
             {
                 MembershipCreateStatus status;
-                Sut.CreateUser("dave@example.com", "1234", "", "", out status);
+                Sut.CreateUser("dave@example.com", "1234", "", "", 1, out status);
                 Assert.That(status, Is.EqualTo(MembershipCreateStatus.DuplicateEmail));
             }
         }
@@ -108,6 +108,7 @@ namespace phiNdus.fundus.Web.UnitTests.Security
             var firstName = "John";
             var lastName = "Doe";
             var isApproved = false;
+            var jsNumber = 1;
 
             var status = (MembershipCreateStatus) (-1);
             MembershipUser createdUser = null;
@@ -115,7 +116,7 @@ namespace phiNdus.fundus.Web.UnitTests.Security
 
             With.Mocks(MockFactory).Expecting(delegate
                                                   {
-                                                      Expect.Call(MockUserService.CreateUser(null, email, password, firstName, lastName))
+                                                      Expect.Call(MockUserService.CreateUser(null, email, password, firstName, lastName, jsNumber))
                                                           .Return(new UserDto
                                                                       {
                                                                           Email = email,
@@ -125,7 +126,7 @@ namespace phiNdus.fundus.Web.UnitTests.Security
                                                   }).Verify(
                                                       delegate
                                                           {
-                                                              createdUser = Sut.CreateUser(email, password, firstName, lastName, out status);
+                                                              createdUser = Sut.CreateUser(email, password, firstName, lastName, jsNumber, out status);
                                                           });
 
             Assert.That(status, Is.EqualTo(MembershipCreateStatus.Success));
