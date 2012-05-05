@@ -117,7 +117,7 @@ namespace phiNdus.fundus.Business.Services
             throw new NotImplementedException();
         }
 
-        public virtual UserDto CreateUser(string email, string password, string firstName, string lastName)
+        public virtual UserDto CreateUser(string email, string password, string firstName, string lastName, int jsNumber)
         {
             email = email.ToLower(CultureInfo.CurrentCulture);
             UserDto result;
@@ -132,6 +132,7 @@ namespace phiNdus.fundus.Business.Services
                 var user = new User();
                 user.FirstName = firstName;
                 user.LastName = lastName;
+                user.JsNumber = jsNumber;
                 user.Membership.Email = email;
                 user.Membership.Password = password;
                 user.Role = Roles.Get(Role.User.Id);

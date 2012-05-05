@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System;
+using DataAnnotationsExtensions;
 
 namespace phiNdus.fundus.Web.Models
 {
@@ -37,6 +38,11 @@ namespace phiNdus.fundus.Web.Models
         [Required]
         [DisplayName("Passwort")]
         public string Password { get; set; }
+
+        [Required]
+        [Range(1, 999999)]
+        [DisplayName("J+S-Nummer")]
+        public int JsNumber { get; set; }
     }
 
 

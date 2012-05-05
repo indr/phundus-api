@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using phiNdus.fundus.Domain.Entities;
 
 namespace phiNdus.fundus.Domain.UnitTests.Entities
@@ -37,6 +38,24 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
             sut.FirstName = "Hans";
             sut.LastName = "Wahrig";
             Assert.That(sut.DisplayName, Is.EqualTo("Hans Wahrig"));
+        }
+
+        [Test]
+        public void Set_JsNumber_less_than_six_numbers_throws()
+        {
+            var sut = new User();
+            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => sut.JsNumber = 0);
+            Assert.That(ex.ParamName, Is.EqualTo("value"));
+            Assert.That(ex.Message, Is.StringStarting("Die J+S-Nummer muss sechsstellig sein."));
+        }
+
+        [Test]
+        public void Set_JsNumber_more_than_six_numbers_throws()
+        {
+            var sut = new User();
+            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => sut.JsNumber = 1000000);
+            Assert.That(ex.ParamName, Is.EqualTo("value"));
+            Assert.That(ex.Message, Is.StringStarting("Die J+S-Nummer muss sechsstellig sein."));
         }
 
         [Test]

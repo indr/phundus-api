@@ -61,7 +61,7 @@ namespace phiNdus.fundus.Web.Security {
             throw new InvalidOperationException();
         }
 
-        public MembershipUser CreateUser(string email, string password, string firstName, string lastName, out MembershipCreateStatus status)
+        public MembershipUser CreateUser(string email, string password, string firstName, string lastName, int jsNumber, out MembershipCreateStatus status)
         {
             // Todo,jac: Behandlung der verschiednen Fehlerfälle und Status entsprechend setzen.
             status = MembershipCreateStatus.Success;
@@ -69,7 +69,7 @@ namespace phiNdus.fundus.Web.Security {
             try
             {
                 return ConvertToExternal(
-                    this.UserService.CreateUser(HttpContext.Current.Session.SessionID, email, password, firstName, lastName));
+                    this.UserService.CreateUser(HttpContext.Current.Session.SessionID, email, password, firstName, lastName, jsNumber));
             }
             catch (EmailAlreadyTakenException)
             {

@@ -52,6 +52,7 @@ namespace phiNdus.fundus.Business.Assembler
             result.Version = subject.Version;
             result.FirstName = subject.FirstName;
             result.LastName = subject.LastName;
+            result.JsNumber = subject.JsNumber;
             if (subject.Role != null)
             {
                 result.RoleId = subject.Role.Id;

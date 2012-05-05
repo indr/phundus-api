@@ -30,7 +30,7 @@ namespace phiNdus.fundus.Web.Models
             return _provider.ValidateUser(email, password);
         }
 
-        public MembershipUser CreateUser(string email, string password, string firstName, string lastName, out MembershipCreateStatus status)
+        public MembershipUser CreateUser(string email, string password, string firstName, string lastName, int jsNumber, out MembershipCreateStatus status)
         {
             if (String.IsNullOrWhiteSpace(email))
                 throw new ArgumentException("Kann nicht leer sein", "email");
@@ -39,7 +39,7 @@ namespace phiNdus.fundus.Web.Models
                 throw new ArgumentException("Kann nicht leer sein", "password");
 
             var provider = new FundusMembershipProvider();
-            return provider.CreateUser(email, password, firstName, lastName, out status);
+            return provider.CreateUser(email, password, firstName, lastName, jsNumber, out status);
         }
 
         public bool ValidateValidationKey(string key)

@@ -31,18 +31,25 @@ namespace phiNdus.fundus.AcceptanceTests.AppDriver.WindowDriver
             Context.Browser.TextField(Find.ById("LastName")).TypeText(lastName);
         }
 
+        public void SpecifyJsNumber(string jsNumber)
+        {
+            Context.Browser.TextField(Find.ById("JsNumber")).TypeText(jsNumber);
+        }
+
         public void SpecifyPassword(string password)
         {
             Context.Browser.TextField(Find.ById("Password")).TypeText(password);
         }
 
         public void SpecifyAll(string email, string password = "password", string firstName = "Dave",
-            string lastName = "Miller")
+            string lastName = "Miller", string jsNumber = "1")
         {
             SpecifyFirstName(firstName);
             SpecifyLastName(lastName);
             SpecifyEmail(email);
+            SpecifyJsNumber(jsNumber);
             SpecifyPassword(password);
+            
         }
     }
 }

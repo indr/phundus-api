@@ -27,10 +27,10 @@ namespace phiNdus.fundus.Business.SecuredServices
                 .Do<UserService, UserDto>(svc => svc.GetUser(id));
         }
 
-        public UserDto CreateUser(string sessionKey, string email, string password, string firstName, string lastName)
+        public UserDto CreateUser(string sessionKey, string email, string password, string firstName, string lastName, int jsNumber)
         {
             return Secured.With(null)
-                .Do<UserService, UserDto>(svc => svc.CreateUser(email, password, firstName, lastName));
+                .Do<UserService, UserDto>(svc => svc.CreateUser(email, password, firstName, lastName, jsNumber));
         }
 
         public void UpdateUser(string sessionKey, UserDto user)
