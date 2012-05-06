@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Web.State;
 using phiNdus.fundus.Web.ViewModels;
 using Rhino.Commons;
@@ -106,7 +107,7 @@ namespace phiNdus.fundus.Web.Controllers
         {
             
                 var model = new ShopArticleViewModel(id, cartItem);
-
+                model.Availabilities = IoC.Resolve<IArticleService>().GetAvailability(Session.SessionID, id);
                 return Json(new
                                 {
                                     caption = model.Caption,

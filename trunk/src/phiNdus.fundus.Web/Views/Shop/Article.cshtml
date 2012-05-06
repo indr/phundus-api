@@ -27,7 +27,23 @@
                 </ul>
             </div>
             <div class="tab-pane" id="@Model.Id-A">
-                <p>Howdy, I'm in Section 3.</p>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Menge</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var each in Model.Availabilities)
+                        {
+                            <tr>
+                                <td>@each.Date</td>
+                                <td>@each.Amount</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
             <div class="tab-pane" id="@Model.Id-L">
                 @if (!Request.IsAuthenticated)

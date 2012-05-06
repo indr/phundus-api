@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NHibernate.Transform;
 using phiNdus.fundus.Business.Assembler;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.Paging;
@@ -108,9 +109,47 @@ namespace phiNdus.fundus.Business.Services
             using (UnitOfWork.Start())
             {
                 int total;
-                var result = Articles.FindMany(query, pageRequest.Index * pageRequest.Size, pageRequest.Size, out total);
+                var result = Articles.FindMany(query, pageRequest.Index*pageRequest.Size, pageRequest.Size, out total);
                 var dtos = new ArticleDtoAssembler().CreateDtos(result).ToList();
                 return new PagedResult<ArticleDto>(PageResponse.From(pageRequest, total), dtos);
+            }
+        }
+
+        public IList<AvailabilityDto> GetAvailability(int id)
+        {
+            using (UnitOfWork.Start())
+            {
+                var article = Articles.Get(id);
+                var grossStock = article.GrossStock;
+
+                var result = UnitOfWork.CurrentSession.CreateSQLQuery(
+                    @"select [Date], sum([Amount]) as [Amount] from
+(
+	select [from] as [Date], 0 - sum(amount) as [Amount] from OrderItem
+        where ArticleId = :id
+        group by [from]
+	union
+	select dateadd(day, 1, [to]) as [Date], sum(amount) as [Amount] from OrderItem
+        where ArticleId = :id
+        group by [to]
+) temp
+group by [Date]
+order by [Date] asc")
+                    .SetParameter("id", id)
+                    .SetResultTransformer(Transformers.AliasToBean(typeof (AvailabilityDto)))
+                    .List<AvailabilityDto>();
+
+                var amount = grossStock;
+                foreach (var each in result)
+                {
+                    amount = amount + each.Amount;
+                    each.Amount = amount;
+                }
+
+                if (result.SingleOrDefault(p => p.Date == DateTime.Today) == null)
+                    result.Insert(0, new AvailabilityDto {Date = DateTime.Today, Amount = grossStock});
+
+                return result;
             }
         }
     }

@@ -52,6 +52,11 @@ namespace phiNdus.fundus.Business.SecuredServices
                 .Do<ArticleService>(svc => svc.DeleteArticle(subject));
         }
 
+        public IList<AvailabilityDto> GetAvailability(string sessionKey, int id)
+        {
+            return Unsecured.Do<ArticleService, IList<AvailabilityDto>>(svc => svc.GetAvailability(id));
+        }
+
         public void AddImage(string sessionKey, int articleId, ImageDto subject)
         {
             Secured.With(Session.FromKey(sessionKey))
