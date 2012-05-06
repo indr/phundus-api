@@ -6,6 +6,7 @@ using phiNdus.fundus.Business.Assembler;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.Paging;
 using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Inventory;
 using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
 
@@ -118,44 +119,11 @@ namespace phiNdus.fundus.Business.Services
 
         public IList<AvailabilityDto> GetAvailability(int id)
         {
-            
             using (UnitOfWork.Start())
             {
                 var article = Articles.Get(id);
-                var grossStock = article.GrossStock;
-
-                var result = UnitOfWork.CurrentSession.CreateSQLQuery(
-                    @"select [Date], sum([Amount]) as [Amount] from
-(
-	select [from] as [Date], 0 - sum(amount) as [Amount] from OrderItem
-        inner join [Order] on [Order].Id = [OrderItem].OrderId and ([Order].Status = :pending or [Order].Status = :approved)
-        where ArticleId = :id and [From] >= getdate()
-        group by [from]
-	union
-	select dateadd(day, 1, [to]) as [Date], sum(amount) as [Amount] from OrderItem
-        inner join [Order] on [Order].Id = [OrderItem].OrderId and ([Order].Status = :pending or [Order].Status = :approved)
-        where ArticleId = :id and [To] >= getdate()
-        group by [to]
-) temp
-group by [Date]
-order by [Date] asc")
-                    .SetParameter("id", id)
-                    .SetParameter("pending", OrderStatus.Pending)
-                    .SetParameter("approved", OrderStatus.Approved)
-                    .SetResultTransformer(Transformers.AliasToBean(typeof (AvailabilityDto)))
-                    .List<AvailabilityDto>();
-
-                var amount = grossStock;
-                foreach (var each in result)
-                {
-                    amount = amount + each.Amount;
-                    each.Amount = amount;
-                }
-
-                if (result.SingleOrDefault(p => p.Date == DateTime.Today) == null)
-                    result.Insert(0, new AvailabilityDto {Date = DateTime.Today, Amount = grossStock});
-
-                return result;
+                var availabilities = new NetStockCalculator(article).From(DateTime.Today).To(DateTime.Today.AddYears(1));
+                return  availabilities.Select(each => new AvailabilityDto {Date = each.Date, Amount = each.Amount}).ToList();
             }
         }
     }

@@ -85,6 +85,8 @@
     <Compile Include="IllegalAttachedFieldException.cs" />
     <Compile Include="Installer.cs" />
     <Compile Include="InvalidPasswordException.cs" />
+    <Compile Include="Inventory\AvailabilityChecker.cs" />
+    <Compile Include="Inventory\GrossStockCalculator.cs" />
     <Compile Include="KeyGenerator.cs" />
     <Compile Include="PasswordEncryptor.cs" />
     <Compile Include="FieldAlreadyAttachedException.cs" />
