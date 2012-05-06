@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Domain.Entities;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
@@ -29,14 +30,17 @@ namespace phiNdus.fundus.Web.ViewModels
 
     public class OrdersViewModel : OrdersViewModelBase
     {
-        
+        public OrdersViewModel(OrderStatus status)
+        {
+            Load(Service.GetOrders(SessionId, status));
+        }
     }
 
     public class MyOrdersViewModel : OrdersViewModelBase
     {
         public MyOrdersViewModel() : base()
         {
-            Load(Service.GetOrders(SessionId));
+            Load(Service.GetMyOrders(SessionId));
         }
     }
 }

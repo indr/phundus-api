@@ -13,7 +13,7 @@
             <th>Datum</th>
             <th>Total</th>
             <th>Status</th>
-            <th></th>
+            <th style="width: 165px;"></th>
         </tr>
     </thead>
     <tbody>
@@ -34,6 +34,7 @@
                     <td>@Html.DisplayFor(m => each.Status)</td>
                     <td>
                         @Html.ActionLink(new Appearance { Caption = "Details", Button = Button.Normal }, "Details", new { id = each.Id })
+                        @Html.ActionLink(new Appearance { Caption = "PDF drucken", Button = Button.Normal }, "Print", new { id = each.Id })
                     </td>
                 </tr>
             }

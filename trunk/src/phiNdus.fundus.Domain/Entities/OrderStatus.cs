@@ -5,6 +5,7 @@
         Cart,
         Pending,
         Approved,
-        Rejected
+        Rejected,
+        Closed
     }
 }

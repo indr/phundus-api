@@ -15,7 +15,7 @@
             <th>Anzahl Artikel</th>
             <th>Abgelehnt am</th>
             <th>Abgelehnt von</th>
-            <th></th>
+            <th style="width: 164px;"></th>
         </tr>
     </thead>
     <tbody>
@@ -27,30 +27,30 @@
         }
         else
         {
-            foreach (var item in Model.Items)
+            foreach (var each in Model.Items)
             {
                 <tr>
                     <td>
-                        @item.Id
+                        @each.Id
                     </td>
                     <td>
-                        @item.CreateDate
+                        @each.CreateDate
                     </td>
                     <td>
-                        @item.ReserverName
+                        @each.ReserverName
                     </td>
                     <td>
-                        @item.ItemCount
+                        @each.ItemCount
                     </td>
                     <td>
-                        @item.ModifyDate
+                        @each.ModifyDate
                     </td>
                     <td>
-                        @item.ModifierName
+                        @each.ModifierName
                     </td>
                     <td>
-                        <a href="#">Anzeigen</a> |
-                        <a href="#">PDF drucken</a>
+                        @Html.ActionLink(new Appearance { Caption = "Details", Button = Button.Normal }, "Details", new { id = each.Id })|
+                        @Html.ActionLink(new Appearance { Caption = "PDF drucken", Button = Button.Normal }, "Print", new { id = each.Id })
                     </td>
                 </tr>
             }

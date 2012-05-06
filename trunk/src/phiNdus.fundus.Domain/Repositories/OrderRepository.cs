@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Linq;
 using phiNdus.fundus.Domain.Entities;
@@ -20,9 +21,12 @@ namespace phiNdus.fundus.Domain.Repositories
 
         #region IOrderRepository Members
 
-        public ICollection<Order> FindAll()
+        public ICollection<Order> FindMy(int userId)
         {
             var query = from o in Orders
+                        where o.Reserver.Id == userId
+                            && o.Status != OrderStatus.Cart
+                        orderby o.Status ascending 
                         select o;
             return query.ToList();
         }
@@ -51,6 +55,14 @@ namespace phiNdus.fundus.Domain.Repositories
             return query.ToList();
         }
 
+        public ICollection<Order> FindClosed()
+        {
+            var query = from o in Orders
+                        where o.Status == OrderStatus.Closed
+                        select o;
+            return query.ToList();
+        }
+
         public int SumReservedAmount(int articleId)
         {
             var query = from i in Items
@@ -68,6 +80,8 @@ namespace phiNdus.fundus.Domain.Repositories
                      select o);
             return q.FirstOrDefault();
         }
+
+        
 
         #endregion
     }

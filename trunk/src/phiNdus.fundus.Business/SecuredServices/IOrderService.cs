@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Domain.Entities;
 
 namespace phiNdus.fundus.Business.SecuredServices
 {
@@ -9,7 +10,8 @@ namespace phiNdus.fundus.Business.SecuredServices
         IList<OrderDto> GetPendingOrders(string sessionKey);
         IList<OrderDto> GetApprovedOrders(string sessionKey);
         IList<OrderDto> GetRejectedOrders(string sessionKey);
-        IList<OrderDto> GetOrders(string sessionKey);
+        IList<OrderDto> GetMyOrders(string sessionKey);
         void CheckOut(string sessionKey);
+        IList<OrderDto> GetOrders(string sessionKey, OrderStatus status);
     }
 }
