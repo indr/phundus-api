@@ -101,6 +101,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Helpers\HandleAjaxErrorAttribute.cs" />
+    <Compile Include="Helpers\HandleModelStateExceptionAttribute.cs" />
     <Compile Include="ViewModels\ArticleAvailabilityViewModel.cs" />
     <Compile Include="ViewModels\CheckOutViewModel.cs" />
     <Compile Include="ViewModels\ContractsViewModel.cs" />

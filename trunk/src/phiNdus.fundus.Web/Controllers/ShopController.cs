@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Web.Helpers;
 using phiNdus.fundus.Web.State;
 using phiNdus.fundus.Web.ViewModels;
 using Rhino.Commons;
@@ -121,6 +122,7 @@ namespace phiNdus.fundus.Web.Controllers
         // POST: /Shop/AddToCart
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
+        [HandleAjaxError]
         public ActionResult AddToCart([Bind(Prefix="CartItem")] CartItemViewModel cartItem)
         {
             // TODO: Ist merkwürdigerweise immer true...
@@ -130,11 +132,11 @@ namespace phiNdus.fundus.Web.Controllers
             //}
 
             cartItem.Update();
-
+            
             if (Request.IsAjaxRequest())
                 return new JsonResult();
 
-            throw new NotImplementedException("/Shop/AddToCart kann voerst nur per Ajax aufgerufen werden.");
+            throw new NotImplementedException("/Shop/AddToCart kann vorerst nur per Ajax aufgerufen werden.");
         }
     }
 }
