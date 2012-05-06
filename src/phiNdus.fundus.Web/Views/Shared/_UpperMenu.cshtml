@@ -3,15 +3,12 @@
 <p class="navbar-text pull-right">
 @if (Request.IsAuthenticated)
 {   
-    {
-        // hierrauf bin ich nicht wirklich Stolz, Änderungsvorschläge sind willkommen..
-        //var stateManager = Rhino.Commons.IoC.Resolve<phiNdus.fundus.Web.State.IStateManager>();
-        //var cartState = stateManager.Load<phiNdus.fundus.Web.Models.CartModel>();
-        //(" + cartState.Items.Count + ")
-        @Html.ActionLink("Warenkorb", "Index", "Cart", null, new { id = "cart" }) @:|
-    }
-    @Html.ActionLink(User.Identity.Name, "Profile", "Account") @:|
-    @Html.ActionLink("Abmelden", "LogOff", "Account")
+    @Html.ActionLink("Warenkorb", "Index", "Cart", null, new { id = "cart" }) @:|
+
+    @Html.Raw("Angemeldet als ")@Html.ActionLink(User.Identity.Name, "Profile", "Account") @:(@Html.ActionLink("Abmelden", "LogOff", "Account"))
+    
+
+        
 }
 else
 {
