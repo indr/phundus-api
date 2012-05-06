@@ -13,6 +13,9 @@ namespace phiNdus.fundus.Business.SecuredServices
         ArticleDto[] GetArticles(string sessionKey);
         void DeleteArticle(string sessionKey, ArticleDto subject);
 
+
+        IList<AvailabilityDto> GetAvailability(string sessionKey, int id);
+
         void AddImage(string sessionKey, int articleId, ImageDto subject);
         void DeleteImage(string sessionKey, int articleId, string imageName);
         IList<ImageDto> GetImages(string sessionKey, int articleId);

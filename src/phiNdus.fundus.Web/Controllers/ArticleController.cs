@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.IO;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.SecuredServices;
@@ -159,7 +160,9 @@ namespace phiNdus.fundus.Web.Controllers
 
         public ActionResult Availability(int id)
         {
-            var model = new ArticleViewModel(id);
+            var model = new ArticleAvailabilityViewModel();
+            model.Id = id;
+            model.Availabilites = IoC.Resolve<IArticleService>().GetAvailability(Session.SessionID, id);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(Views.Availability, model);

@@ -101,6 +101,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="ViewModels\ArticleAvailabilityViewModel.cs" />
     <Compile Include="ViewModels\CheckOutViewModel.cs" />
     <Compile Include="ViewModels\ContractsViewModel.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />

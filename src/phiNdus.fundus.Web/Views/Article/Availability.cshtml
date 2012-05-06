@@ -1,3 +1,19 @@
-﻿@model ArticleViewModel
+﻿@model ArticleAvailabilityViewModel
       
-<p>Verfügbarkeit</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Menge</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var each in Model.Availabilites)
+        {
+            <tr>
+                <td>@each.Date</td>
+                <td>@each.Amount</td>
+            </tr>
+        }
+    </tbody>
+</table>

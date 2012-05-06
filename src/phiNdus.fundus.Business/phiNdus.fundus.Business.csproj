@@ -81,6 +81,7 @@
     <Compile Include="Paging\PagedResult.cs" />
     <Compile Include="Paging\PageRequest.cs" />
     <Compile Include="Paging\PageResponse.cs" />
+    <Compile Include="Dto\AvailabilityDto.cs" />
     <Compile Include="SecuredServices\IArticleService.cs" />
     <Compile Include="SecuredServices\ICartService.cs" />
     <Compile Include="SecuredServices\IOrderService.cs" />

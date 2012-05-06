@@ -42,6 +42,8 @@ namespace phiNdus.fundus.Web.ViewModels
 
         
         public CartItemViewModel CartItem { get; set; }
+
+        public IList<AvailabilityDto> Availabilities { get; set; }
     }
 
     public class ArticleViewModel : ViewModelBase
