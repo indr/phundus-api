@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using phiNdus.fundus.Domain.Entities;
 
 namespace phiNdus.fundus.Business.Dto
 {
@@ -27,5 +28,7 @@ namespace phiNdus.fundus.Business.Dto
         public DateTime? ModifyDate { get; set; }
         public int? ModifierId { get; set; }
         public string ModifierName { get; set; }
+
+        public OrderStatus Status { get; set; }
     }
 }

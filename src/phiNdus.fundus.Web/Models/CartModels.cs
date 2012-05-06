@@ -45,6 +45,7 @@ namespace phiNdus.fundus.Web.Models {
         public DateTime End { get; set; }
 
         [DisplayName("Preis")]
+        [DisplayFormat(DataFormatString = "{0:0.00}")]
         public decimal Price { get; set; }
     }
 }

@@ -16,12 +16,13 @@ namespace phiNdus.fundus.Business.Assembler
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
             var result = new OrderDto
-                       {
-                           Id = subject.Id,
-                           Version = subject.Version,
-                           CreateDate = subject.CreateDate,
-                           ModifyDate = subject.ModifyDate,
-                           TotalPrice = subject.TotalPrice
+                             {
+                                 Id = subject.Id,
+                                 Version = subject.Version,
+                                 CreateDate = subject.CreateDate,
+                                 ModifyDate = subject.ModifyDate,
+                                 TotalPrice = subject.TotalPrice,
+                                 Status = subject.Status
                        };
 
             if (subject.Reserver != null)

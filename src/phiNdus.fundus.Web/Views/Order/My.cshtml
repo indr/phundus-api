@@ -11,6 +11,7 @@
         <tr>
             <th>Nummer</th>
             <th>Datum</th>
+            <th>Total</th>
             <th>Status</th>
         </tr>
     </thead>
@@ -27,8 +28,9 @@
             {
                 <tr>
                     <td>@each.Id</td>
-                    <td>@each.CreateDate</td>
-                    <td>tbd</td>
+                    <td>@Html.DisplayFor(m => each.CreateDate)</td>
+                    <td>@Html.DisplayFor(m => each.TotalPrice)</td>
+                    <td>@Html.DisplayFor(m => each.Status)</td>
                 </tr>
             }
         }

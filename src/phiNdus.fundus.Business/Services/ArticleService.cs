@@ -5,6 +5,7 @@ using NHibernate.Transform;
 using phiNdus.fundus.Business.Assembler;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.Paging;
+using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
 
@@ -117,6 +118,7 @@ namespace phiNdus.fundus.Business.Services
 
         public IList<AvailabilityDto> GetAvailability(int id)
         {
+            
             using (UnitOfWork.Start())
             {
                 var article = Articles.Get(id);
@@ -126,16 +128,20 @@ namespace phiNdus.fundus.Business.Services
                     @"select [Date], sum([Amount]) as [Amount] from
 (
 	select [from] as [Date], 0 - sum(amount) as [Amount] from OrderItem
-        where ArticleId = :id
+        inner join [Order] on [Order].Id = [OrderItem].OrderId and ([Order].Status = :pending or [Order].Status = :approved)
+        where ArticleId = :id and [From] >= getdate()
         group by [from]
 	union
 	select dateadd(day, 1, [to]) as [Date], sum(amount) as [Amount] from OrderItem
-        where ArticleId = :id
+        inner join [Order] on [Order].Id = [OrderItem].OrderId and ([Order].Status = :pending or [Order].Status = :approved)
+        where ArticleId = :id and [To] >= getdate()
         group by [to]
 ) temp
 group by [Date]
 order by [Date] asc")
                     .SetParameter("id", id)
+                    .SetParameter("pending", OrderStatus.Pending)
+                    .SetParameter("approved", OrderStatus.Approved)
                     .SetResultTransformer(Transformers.AliasToBean(typeof (AvailabilityDto)))
                     .List<AvailabilityDto>();
 

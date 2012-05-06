@@ -104,9 +104,11 @@ namespace phiNdus.fundus.Web.ViewModels
         public DateTime End { get; set; }
 
         [DisplayName("Einzelpreis")]
+        [DisplayFormat(DataFormatString = "{0:0.00}")]
         public double UnitPrice { get; set; }
 
         [DisplayName("Preis")]
+        [DisplayFormat(DataFormatString = "{0:0.00}")]
         public double LineTotal { get; set; }
 
         public void Update()

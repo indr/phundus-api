@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.SecuredServices;
@@ -27,6 +28,7 @@ namespace phiNdus.fundus.Web.ViewModels
             set { _items = value; }
         }
 
+        [DisplayFormat(DataFormatString = "{0:0.00}")]
         public double TotalPrice { get; set; }
 
         private void Load(OrderDto orderDto)
