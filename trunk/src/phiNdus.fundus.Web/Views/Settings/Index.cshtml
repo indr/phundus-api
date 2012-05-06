@@ -1,6 +1,42 @@
-﻿@{
+﻿@model MailTemplateSettingsViewModel
+
+@{
     ViewBag.Title = "Einstellungen";
 }
 
-<h2>Einstellungen</h2>
-<p>tbd</p>
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("MailTemplates", "Settings", FormMethod.Post, new { @class = "form-horizontal" })) 
+{
+
+    for (var idx = 0; idx < Model.Items.Count; idx++)
+    {
+        @Html.EditorFor(m => Model.Items[idx])
+    }
+    
+    <div class="form-actions">
+            @Html.SubmitButton("Speichern")
+            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index")
+    </div>
+    
+    
+    
+    
+    @*foreach (var each in Model.Items)
+    {
+    <fieldset>
+        <legend>E-Mail</legend>
+         
+         <div class="control-group">    
+            @Html.LabelFor(m => each.Key , new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(m => each.Value)
+                @Html.ValidationMessageFor(m => each.Value)
+            </div>
+        </div>   
+        
+    </fieldset>
+    }*@
+}
+    
+
