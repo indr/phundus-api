@@ -99,7 +99,7 @@ var fundus;
                     entity_encoding: "raw"
                 });
 
-                $('input.date').datepicker();
+                $('.add-datepicker').datepicker();
             },
 
             showError: function (e, xhr, opts) {
@@ -191,3 +191,13 @@ if (typeof XDate != 'undefined') {
         XDate.parsers.push(parseDayMonthYear);
     } ();
 }
+
+
+jQuery.extend(jQuery.validator.methods, {
+    date: function (value, element) {
+        return this.optional(element) || /^\d\d?\.\d\d?\.\d\d\d?\d?$/.test(value);
+    },
+    number: function (value, element) {
+        return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:\.\d{3})+)(?:,\d+)?$/.test(value);
+    }
+});
