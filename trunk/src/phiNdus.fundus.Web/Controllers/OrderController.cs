@@ -44,5 +44,12 @@ namespace phiNdus.fundus.Web.Controllers
         {
             return View("Rejected", new OrdersViewModel());
         }
+
+        public ActionResult Details(int id)
+        {
+            var model = new OrderViewModel(id);
+
+            return View("Details", model);
+        }
     }
 }
