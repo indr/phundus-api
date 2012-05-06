@@ -12,8 +12,8 @@ var fundus;
                     fundus.reinit();
                 });
 
-                $('body').ajaxError(function (e, xhr, opts) {
-                    fundus.showError(e, xhr, opts);
+                $('body').ajaxError(function (event, request, settings) {
+                    fundus.showError(event, request, settings);
                 });
 
                 $('form').on('submit', function () {
@@ -102,19 +102,17 @@ var fundus;
                 $('.add-datepicker').datepicker();
             },
 
-            showError: function (e, xhr, opts) {
-                if (this.showError === true) {
-                    alert('hmm');
-                    return;
-                }
-                this.showingError = true;
+            showError: function (event, request, settings) {
+                this.messageBox(request.status + ': ' + request.statusText, request.responseText);
+            },
+
+            messageBox: function (title, body) {
                 var $div = $('#modal-show-error');
 
-                $div.find('.modal-header h3').html(xhr.status + ': ' + xhr.statusText);
+                $div.find('.modal-header h3').html(title);
 
-                $div.find('.modal-body').html('<p>Oops! Das hätte nicht passieren dürfen!</p>');
+                $div.find('.modal-body').html(body);
                 $div.modal();
-                this.showingError = false;
             }
         };
 

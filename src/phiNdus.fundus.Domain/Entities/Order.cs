@@ -2,6 +2,7 @@
 using System.Linq;
 using Iesi.Collections.Generic;
 using log4net;
+using phiNdus.fundus.Domain.Inventory;
 using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
 
@@ -45,6 +46,10 @@ namespace phiNdus.fundus.Domain.Entities
 
         public virtual bool AddItem(OrderItem item)
         {
+            var checker = new AvailabilityChecker(item.Article);
+            if (!checker.Check(item.From, item.To, item.Amount))
+                throw new ArticleNotAvailableException(item);
+
             var result = Items.Add(item);
             item.Order = this;
             return result;
@@ -69,8 +74,14 @@ namespace phiNdus.fundus.Domain.Entities
 
         public virtual void Checkout()
         {
+            foreach (var each in Items)
+            {
+                var checker = new AvailabilityChecker(each.Article);
+                if (!checker.Check(each.From, each.To, each.Amount))
+                    throw new ArticleNotAvailableException(each);
+            }
+                
             Status = OrderStatus.Pending;
-            LogManager.GetLogger(GetType()).Warn("Checkout() is not implemented!");
         }
 
         public virtual void Approve(User approver)
@@ -100,5 +111,16 @@ namespace phiNdus.fundus.Domain.Entities
             Modifier = rejecter;
             ModifyDate = DateTime.Now;
         }
+    }
+
+    public class ArticleNotAvailableException : Exception
+    {
+        public ArticleNotAvailableException(OrderItem orderItem)
+            : base("Die gewünschte Menge ist im gewünschten Zeitraum nicht vorhanden.")
+        {
+            OrderItemId = orderItem.Id;
+        }
+
+        public int OrderItemId { get; set; }
     }
 }

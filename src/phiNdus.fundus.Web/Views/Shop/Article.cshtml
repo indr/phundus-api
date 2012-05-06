@@ -52,7 +52,7 @@
                 }
                 else
                 {
-                using (Ajax.BeginForm("AddToCart", "Shop", new { }, new AjaxOptions { OnSuccess="alert('Der Artikel wurde erfolgreich in den Warenkorb gelegt.');", OnFailure="alert('Fehler beim Ablegen des Artikels in den Warenkorb.');" }, new { @class = "form-horizontal add-to-cart" }))
+                    using (Ajax.BeginForm("AddToCart", "Shop", new { }, new AjaxOptions { OnSuccess = "fundus.messageBox('Jawohl!', '<p>Der Artikel wurde erfolgreich in den Warenkorb gelegt.</p><p>Klicken Sie rechts oben auf &quot;Warenkorb&quot um die vorhandenen Artikel anzuzeigen und die Mengen und Zeiträume zu ändern.</p>');" }, new { @class = "form-horizontal add-to-cart" }))
                 {
                     <fieldset>
                         @Html.HiddenFor(m => m.CartItem.Id)
