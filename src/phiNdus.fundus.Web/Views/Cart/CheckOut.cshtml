@@ -37,16 +37,16 @@
                 @Html.HiddenFor(x => Model.Cart.Items[idx].Id)
                 <tr>
                     <td>@Model.Cart.Items[idx].Caption</td>    
-                    <td>@Model.Cart.Items[idx].Begin</td>
-                    <td>@Model.Cart.Items[idx].End</td>
-                    <td>@Model.Cart.Items[idx].Amount</td>
-                    <td>@Model.Cart.Items[idx].UnitPrice</td>
-                    <td>@Model.Cart.Items[idx].LineTotal</td>
+                    <td>@Html.DisplayFor(m => m.Cart.Items[idx].Begin)</td>
+                    <td>@Html.DisplayFor(m => m.Cart.Items[idx].End)</td>
+                    <td style="text-align: right;">@Html.DisplayFor(m => m.Cart.Items[idx].Amount)</td>
+                    <td style="text-align: right;">@Html.DisplayFor(m => m.Cart.Items[idx].UnitPrice)</td>
+                    <td style="text-align: right;">@Html.DisplayFor(m => m.Cart.Items[idx].LineTotal)</td>
                 </tr>       
             }
             <tr>
-                <td colspan="5">Total</td>
-                <td>@Model.Cart.TotalPrice</td>
+                <td colspan="5" style="text-align: right; font-weight: bold;">Total</td>
+                <td style="text-align: right; font-weight: bold;">@Html.DisplayFor(m => m.Cart.TotalPrice)</td>
             </tr>
         }
     </tbody>
