@@ -50,11 +50,20 @@ namespace phiNdus.fundus.Business.Services
             }
         }
 
-        public virtual IList<OrderDto> GetOrders()
+        private IList<OrderDto> GetClosed()
         {
             using (UnitOfWork.Start())
             {
-                var orders = IoC.Resolve<IOrderRepository>().FindAll();
+                var orders = IoC.Resolve<IOrderRepository>().FindClosed();
+                return new OrderDtoAssembler().CreateDtos(orders);
+            }
+        }
+
+        public virtual IList<OrderDto> GetMyOrders()
+        {
+            using (UnitOfWork.Start())
+            {
+                var orders = IoC.Resolve<IOrderRepository>().FindMy(SecurityContext.SecuritySession.User.Id);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
@@ -163,5 +172,31 @@ namespace phiNdus.fundus.Business.Services
                 uow.TransactionalFlush();
             }
         }
+
+        public IList<OrderDto> GetOrders(OrderStatus status)
+        {
+            switch (status)
+            {
+                case OrderStatus.Cart:
+                    throw new InvalidOperationException("");
+                    break;
+                case OrderStatus.Pending:
+                    return GetPending();
+                    break;
+                case OrderStatus.Approved:
+                    return GetApproved();
+                    break;
+                case OrderStatus.Rejected:
+                    return GetRejected();
+                    break;
+                case OrderStatus.Closed:
+                    return GetClosed();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
+
+        
     }
 }

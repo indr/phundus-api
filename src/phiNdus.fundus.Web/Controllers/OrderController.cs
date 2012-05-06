@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Web.ViewModels;
 
 namespace phiNdus.fundus.Web.Controllers
@@ -18,7 +19,7 @@ namespace phiNdus.fundus.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Pending()
         {
-            return View("Pending", new OrdersViewModel());
+            return View("Pending", new OrdersViewModel(OrderStatus.Pending));
         }
 
         //
@@ -26,7 +27,7 @@ namespace phiNdus.fundus.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Approved()
         {
-            return View("Approved", new OrdersViewModel());
+            return View("Approved", new OrdersViewModel(OrderStatus.Approved));
         }
 
         //
@@ -34,7 +35,7 @@ namespace phiNdus.fundus.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Closed()
         {
-            return View("Closed", new OrdersViewModel());
+            return View("Closed", new OrdersViewModel(OrderStatus.Closed));
         }
 
         //
@@ -42,7 +43,7 @@ namespace phiNdus.fundus.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Rejected()
         {
-            return View("Rejected", new OrdersViewModel());
+            return View("Rejected", new OrdersViewModel(OrderStatus.Rejected));
         }
 
         public ActionResult Details(int id)

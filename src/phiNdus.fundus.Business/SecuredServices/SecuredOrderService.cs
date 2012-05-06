@@ -68,17 +68,23 @@ namespace phiNdus.fundus.Business.SecuredServices
                 .Do<OrderService, IList<OrderDto>>(svc => svc.GetRejected());
         }
 
-        public IList<OrderDto> GetOrders(string sessionKey)
+        public IList<OrderDto> GetMyOrders(string sessionKey)
         {
             return Secured.With(Session.FromKey(sessionKey))
                 .And(User.InRole(Role.Administrator))
-                .Do<OrderService, IList<OrderDto>>(svc => svc.GetOrders());
+                .Do<OrderService, IList<OrderDto>>(svc => svc.GetMyOrders());
         }
 
         public void CheckOut(string sessionKey)
         {
             Secured.With(Session.FromKey(sessionKey))
                 .Do<OrderService>(svc => svc.CheckOut());
+        }
+
+        public IList<OrderDto> GetOrders(string sessionKey, OrderStatus status)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .Do<OrderService, IList<OrderDto>>(svc => svc.GetOrders(status));
         }
 
         #endregion
