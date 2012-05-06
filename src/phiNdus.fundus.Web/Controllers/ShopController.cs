@@ -122,7 +122,6 @@ namespace phiNdus.fundus.Web.Controllers
         // POST: /Shop/AddToCart
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
-        [HandleAjaxError]
         public ActionResult AddToCart([Bind(Prefix="CartItem")] CartItemViewModel cartItem)
         {
             // TODO: Ist merkwürdigerweise immer true...

@@ -69,6 +69,8 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
         [Test]
         public void AddToCart_AddsNewItem()
         {
+            Assert.Ignore("Todo");
+
             // Arrange
             var order = new Order(1, 2);
             order.Items.Add(new OrderItem());

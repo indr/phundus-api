@@ -13,7 +13,12 @@ var fundus;
                 });
 
                 $('body').ajaxError(function (event, request, settings) {
-                    fundus.showError(event, request, settings);
+                    var regex = new RegExp("<title>(.*?)</title>");
+                    var matches = regex.exec(request.responseText);
+                    if (matches.length > 0)
+                        fundus.messageBox(request.status + ': ' + request.statusText, matches[1]);
+                    else
+                        fundus.messageBox(request.status + ': ' + request.statusText, '');
                 });
 
                 $('form').on('submit', function () {
@@ -100,10 +105,6 @@ var fundus;
                 });
 
                 $('.add-datepicker').datepicker();
-            },
-
-            showError: function (event, request, settings) {
-                this.messageBox(request.status + ': ' + request.statusText, request.responseText);
             },
 
             messageBox: function (title, body) {
