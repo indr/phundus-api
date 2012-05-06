@@ -1,24 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Domain.Entities;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
-    public class OrderViewModel
+    public class OrderViewModel : ViewModelBase
     {
-        public OrderViewModel(OrderDto each)
+        public OrderViewModel(OrderDto dto)
         {
-            Id = each.Id;
-            CreateDate = each.CreateDate;
+            Load(dto);
+        }
 
-            ReserverName = each.ReserverName;
-            ModifierName = each.ModifierName;
-            Status = each.Status;
+        public OrderViewModel(int id)
+        {
+            var dto = IoC.Resolve<IOrderService>().GetOrder(SessionId, id);
+            Load(dto);
+        }
 
-            ModifyDate = each.ModifyDate;
+        private void Load(OrderDto dto)
+        {
+            Id = dto.Id;
+            CreateDate = dto.CreateDate;
 
-            TotalPrice = each.TotalPrice;
+            ReserverName = dto.ReserverName;
+            ModifierName = dto.ModifierName;
+            Status = dto.Status;
+
+            ModifyDate = dto.ModifyDate;
+
+            TotalPrice = dto.TotalPrice;
+
+            Items = dto.Items;
         }
 
         public int Id { get; set; }
@@ -37,5 +53,8 @@ namespace phiNdus.fundus.Web.ViewModels
 
         [DisplayFormat(DataFormatString = "{0:0.00}")]
         public double TotalPrice { get; set; }
+
+
+        public IList<OrderItemDto> Items { get; set; }
     }
 }

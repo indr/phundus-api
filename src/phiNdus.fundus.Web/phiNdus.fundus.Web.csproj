@@ -637,6 +637,7 @@
     <Content Include="Views\Cart\CheckOut.cshtml" />
     <Content Include="Views\Cart\CheckOutDone.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
