@@ -44,6 +44,8 @@ namespace phiNdus.fundus.Business.IntegrationTests.Services
         [Test]
         public void GetCart_AfterAddItem_HasItems()
         {
+            Assert.Ignore("TODO");
+
             // Arrange
 
 
