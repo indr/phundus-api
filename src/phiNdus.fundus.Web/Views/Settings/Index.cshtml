@@ -1,42 +1,33 @@
-﻿@model MailTemplateSettingsViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Einstellungen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
-
-@using (Html.BeginForm("MailTemplates", "Settings", FormMethod.Post, new { @class = "form-horizontal" })) 
-{
-
-    for (var idx = 0; idx < Model.Items.Count; idx++)
-    {
-        @Html.EditorFor(m => Model.Items[idx])
-    }
-    
-    <div class="form-actions">
-            @Html.SubmitButton("Speichern")
-            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index")
-    </div>
-    
-    
-    
-    
-    @*foreach (var each in Model.Items)
-    {
-    <fieldset>
-        <legend>E-Mail</legend>
-         
-         <div class="control-group">    
-            @Html.LabelFor(m => each.Key , new { @class = "control-label" })
-            <div class="controls">
-                @Html.EditorFor(m => each.Value)
-                @Html.ValidationMessageFor(m => each.Value)
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span2">
+            <div class="well" style="padding: 8px 0;">
+                <ul class="nav nav-list">
+                    <li>
+                        @Html.ActionLink("Allgemein", SettingsActionNames.General, ControllerNames.Settings)
+                    </li>
+                    <li class="nav-header">
+                        E-Mail
+                    </li>
+                    <li>
+                        @Html.ActionLink("Allgemein", SettingsActionNames.MailGeneral, ControllerNames.Settings)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Templates", SettingsActionNames.MailTemplates, ControllerNames.Settings)
+                    </li>
+                </ul>
             </div>
-        </div>   
-        
-    </fieldset>
-    }*@
-}
+        </div>
+        <div class="span10">
+            @RenderBody()
+        </div>
+    </div>    
+</div>
+
     
 

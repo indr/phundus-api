@@ -1,0 +1,24 @@
+﻿@model MailTemplateSettingsViewModel
+           
+@{
+    ViewBag.Title = "E-Mail-Templates";
+    Layout = "~/Views/Settings/Index.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<p></p>
+
+@using (Html.BeginForm("MailTemplates", "Settings", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+
+    for (var idx = 0; idx < Model.Items.Count; idx++)
+    {
+        @Html.EditorFor(m => Model.Items[idx])
+    }
+    
+    <div class="form-actions">
+            @Html.SubmitButton("Speichern")
+            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index")
+    </div>
+}
+

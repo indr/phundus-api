@@ -1,9 +1,53 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 
 namespace phiNdus.fundus.Web.Helpers
 {
+
+    public class ModelStateException : Exception
+    {
+        public Dictionary<string, string> Errors { get; private set; }
+
+        public ModelStateDictionary ModelState { get; private set; }
+
+        public override string Message
+        {
+            get
+            {
+                if (this.Errors.Count > 0)
+                {
+                    return this.Errors.First().Value;
+                }
+                return null;
+            }
+        }
+
+        private ModelStateException()
+        {
+            this.Errors = new Dictionary<string, string>();
+        }
+
+        public ModelStateException(ModelStateDictionary modelState)
+            : this()
+        {
+            this.ModelState = modelState;
+            if (!modelState.IsValid)
+            {
+                foreach (KeyValuePair<string, ModelState> state in modelState)
+                {
+                    if (state.Value.Errors.Count > 0)
+                    {
+                        this.Errors.Add(state.Key, state.Value.Errors[0].ErrorMessage);
+                    }
+                }
+            }
+        }
+    }
+
+
     ///// <summary>
     ///// Represents errors that occur due to invalid application model state.
     ///// </summary>
