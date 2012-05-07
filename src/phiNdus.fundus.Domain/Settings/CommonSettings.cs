@@ -13,9 +13,9 @@ namespace phiNdus.fundus.Domain.Settings
             get { return GetString("server-url", "localhost"); }
         }
 
-        public string AdminEmail
+        public string AdminEmailAddress
         {
-            get { return GetString("admin-email", ""); }
+            get { return GetString("admin-email-address", ""); }
         }
     }
 }

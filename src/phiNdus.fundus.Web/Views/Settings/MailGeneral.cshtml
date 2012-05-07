@@ -13,6 +13,8 @@
     <fieldset>
         <legend>SMTP</legend>
         
+        @Html.HiddenFor(x => x.Keyspace)
+
         <div class="control-group">
             @Html.HiddenFor(m => m.HostVersion)
             @Html.LabelFor(m => m.Host, new { @class = "control-label" })
@@ -57,7 +59,7 @@
     </fieldset>
     <div class="form-actions">
             @Html.SubmitButton("Speichern")
-            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index")
+            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, SettingsActionNames.MailGeneral)
     </div>
     
     

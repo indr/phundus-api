@@ -3,6 +3,6 @@
     public interface ICommonSettings
     {
         string ServerUrl { get; }
-        string AdminEmail { get; }
+        string AdminEmailAddress { get; }
     }
 }
