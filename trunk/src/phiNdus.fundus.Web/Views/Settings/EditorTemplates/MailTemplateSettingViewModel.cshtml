@@ -9,7 +9,7 @@
             @Html.HiddenFor(x => x.SubjectVersion)
             @Html.LabelFor(m => m.Subject, new { @class = "control-label" })
             <div class="controls">
-                @Html.EditorFor(m => m.Subject)
+                @Html.EditorFor(m => m.Subject, new { style = "width: 700px;" })
                 @Html.ValidationMessageFor(m => m.Subject)
             </div>
         </div>
@@ -20,6 +20,15 @@
             <div class="controls">
                 @Html.TextAreaFor(m => m.BodyPlain, new { style = "width: 700px; height: 200px; font-family:Monospace" })
                 @Html.ValidationMessageFor(m => m.BodyPlain)
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.HiddenFor(x => x.BodyHtmlVersion)
+            @Html.LabelFor(m => m.BodyHtml, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextAreaFor(m => m.BodyHtml, new { style = "width: 700px; height: 200px; font-family:Monospace" })
+                @Html.ValidationMessageFor(m => m.BodyHtml)
             </div>
         </div>
     </fieldset>

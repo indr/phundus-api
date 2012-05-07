@@ -190,6 +190,8 @@ namespace phiNdus.fundus.Web.ViewModels
         public void Load()
         {
             Items.Add(new MailTemplateSettingViewModel("mail.templates.user-account-validation"));
+            Items.Add(new MailTemplateSettingViewModel("mail.templates.user-account-created"));
+            Items.Add(new MailTemplateSettingViewModel("mail.templates.order-received"));
             Items.Add(new MailTemplateSettingViewModel("mail.templates.order-approved"));
             Items.Add(new MailTemplateSettingViewModel("mail.templates.order-rejected"));
         }
@@ -226,8 +228,13 @@ namespace phiNdus.fundus.Web.ViewModels
         public int BodyPlainVersion { get; set; }
 
         [DisplayName("Text")]
-        [Required]
         public string BodyPlain { get; set; }
+
+        [Required]
+        public int BodyHtmlVersion { get; set; }
+
+        [DisplayName("HTML")]
+        public string BodyHtml { get; set; }
 
         private void Load(string keyspace)
         {
@@ -237,14 +244,8 @@ namespace phiNdus.fundus.Web.ViewModels
                 Keyspace = keyspace;
                 LoadSubject(settings.Values.FirstOrDefault(p => p.Key.EndsWith("subject")));
                 LoadBodyPlain(settings.Values.FirstOrDefault(p => p.Key.EndsWith("body")));
+                LoadBodyHtml(settings.Values.FirstOrDefault(p => p.Key.EndsWith("html-body")));
             }
-        }
-
-        private void LoadBodyPlain(Setting setting)
-        {
-            if (setting == null) return;
-            BodyPlainVersion = setting.Version;
-            BodyPlain = setting.StringValue;
         }
 
         private void LoadSubject(Setting setting)
@@ -254,6 +255,19 @@ namespace phiNdus.fundus.Web.ViewModels
             Subject = setting.StringValue;
         }
 
+        private void LoadBodyPlain(Setting setting)
+        {
+            if (setting == null) return;
+            BodyPlainVersion = setting.Version;
+            BodyPlain = setting.StringValue;
+        }
+
+        private void LoadBodyHtml(Setting setting)
+        {
+            if (setting == null) return;
+            BodyHtmlVersion = setting.Version;
+            BodyHtml = setting.StringValue;
+        }
 
         public void SaveChanges()
         {
@@ -273,9 +287,15 @@ namespace phiNdus.fundus.Web.ViewModels
             if (bodyPlain == null)
                 bodyPlain = new Setting(Keyspace + ".body");
             bodyPlain.StringValue = BodyPlain;
-
-            
             repo.SaveOrUpdate(bodyPlain);
+
+            var bodyHtml = repo.FindByKey(Keyspace + ".html-body");
+            if (bodyHtml != null && bodyHtml.Version != BodyHtmlVersion)
+                throw new Exception("Die Daten wurden in der zwischenzeit verändert.");
+            if (bodyHtml == null)
+                bodyHtml = new Setting(Keyspace + ".html-body");
+            bodyHtml.StringValue = BodyHtml;
+            repo.SaveOrUpdate(bodyHtml);
         }
     }
 }

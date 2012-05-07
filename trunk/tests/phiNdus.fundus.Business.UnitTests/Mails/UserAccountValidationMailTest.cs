@@ -2,6 +2,7 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NUnit.Framework;
+using phiNdus.fundus.Business.Gateways;
 using phiNdus.fundus.Business.Mails;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Settings;
@@ -57,7 +58,7 @@ namespace phiNdus.fundus.Business.UnitTests.Mails
 
             Expect.Call(MockMailTemplateSettings.Subject)
                 .Return("[fundus] User Account Validation").Repeat.Any();
-            Expect.Call(MockMailTemplateSettings.Body)
+            Expect.Call(MockMailTemplateSettings.TextBody)
                 .Return("Hello [User.FirstName]\r\n\r\nPlease go to the following link in order to validate your account:\r\n[Link.UserAccountValidation]\r\n\r\nThanks")
                 .Repeat.Any();
             Expect.Call(MockCommonSettings.ServerUrl).Return("fundus.domain.com").Repeat.Any();
@@ -87,7 +88,7 @@ namespace phiNdus.fundus.Business.UnitTests.Mails
             {
                 var sut = new UserAccountValidationMail();
                 Assert.That(sut.Subject, Is.EqualTo(TemplateSubject));
-                Assert.That(sut.Body, Is.EqualTo(TemplateBody));
+                Assert.That(sut.TextBody, Is.EqualTo(TemplateBody));
             }
         }
 

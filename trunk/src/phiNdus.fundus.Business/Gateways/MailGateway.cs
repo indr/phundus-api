@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Mail;
 using phiNdus.fundus.Domain.Settings;
 
@@ -35,6 +36,14 @@ namespace phiNdus.fundus.Business.Gateways
             var client = new SmtpClient(_host);
             client.Credentials = new NetworkCredential(_userName, _password);
             client.Send(_from, recipients, subject, body);
+        }
+
+        public void Send(MailMessage message)
+        {
+            message.From = new MailAddress(_from);
+            var client = new SmtpClient(_host);
+            client.Credentials = new NetworkCredential(_userName, _password);
+            client.Send(message);
         }
 
         #endregion
