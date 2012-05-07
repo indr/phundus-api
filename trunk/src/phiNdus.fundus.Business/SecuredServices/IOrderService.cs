@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Domain.Entities;
 
@@ -11,7 +12,12 @@ namespace phiNdus.fundus.Business.SecuredServices
         IList<OrderDto> GetApprovedOrders(string sessionKey);
         IList<OrderDto> GetRejectedOrders(string sessionKey);
         IList<OrderDto> GetMyOrders(string sessionKey);
-        void CheckOut(string sessionKey);
+
         IList<OrderDto> GetOrders(string sessionKey, OrderStatus status);
+
+        void CheckOut(string sessionKey);
+        void Reject(string sessionId, int id);
+        void Confirm(string sessionId, int id);
+        Stream GetPdf(string sessionId, int id);
     }
 }

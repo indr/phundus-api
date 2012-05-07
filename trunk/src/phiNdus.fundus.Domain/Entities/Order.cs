@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Iesi.Collections.Generic;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using log4net;
 using phiNdus.fundus.Domain.Inventory;
 using phiNdus.fundus.Domain.Repositories;
@@ -110,6 +113,19 @@ namespace phiNdus.fundus.Domain.Entities
             Status = OrderStatus.Rejected;
             Modifier = rejecter;
             ModifyDate = DateTime.Now;
+        }
+
+        public virtual Stream GeneratePdf()
+        {
+            var result = new MemoryStream();
+            var doc = new Document();
+            var writer = PdfWriter.GetInstance(doc, result);
+            writer.CloseStream = false;
+            doc.Open();
+            doc.Add(new Paragraph("Hello fundus!"));
+            doc.Close();
+            result.Position = 0;
+            return result;
         }
     }
 
