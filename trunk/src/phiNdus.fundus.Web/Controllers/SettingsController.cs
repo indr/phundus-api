@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.Gateways;
-using phiNdus.fundus.Web.Helpers;
 using phiNdus.fundus.Web.ViewModels;
 using RazorEngine;
 using Rhino.Commons;
@@ -11,15 +10,11 @@ namespace phiNdus.fundus.Web.Controllers
     [Authorize(Roles = "Admin")]
     public class SettingsController : ControllerBase
     {
-        private static string MasterView { get { return @"Index"; } }
-
-        private static class Views
+        private static string MasterView
         {
-            public static string General { get { return @"General"; } }
-            public static string MailGeneral { get { return @"MailGeneral"; } }
-            public static string MailTemplates { get { return @"MailTemplates"; } }
+            get { return @"Index"; }
         }
-        
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -29,7 +24,26 @@ namespace phiNdus.fundus.Web.Controllers
         [HttpGet]
         public ActionResult General()
         {
-            return View(Views.General, MasterView);
+            ModelState.Clear();
+            var model = new GeneralSettingsViewModel();
+            model.Load();
+            return View(Views.General, MasterView, model);
+        }
+
+        [HttpPost]
+        public ActionResult General(GeneralSettingsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var uow = UnitOfWork.Start())
+                {
+                    model.SaveChanges();
+                    uow.TransactionalFlush();
+                }
+                return General();
+            }
+
+            return View(Views.General, MasterView, model);
         }
 
         [HttpGet]
@@ -51,9 +65,9 @@ namespace phiNdus.fundus.Web.Controllers
                     model.SaveChanges();
                     uow.TransactionalFlush();
                 }
+                return MailGeneral();
             }
-
-            return MailGeneral();
+            return View(Views.MailGeneral, MasterView, model);
         }
 
         [HttpGet]
@@ -70,14 +84,15 @@ namespace phiNdus.fundus.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                    using (var uow = UnitOfWork.Start())
-                    {
-                        model.SaveChanges();
-                        uow.TransactionalFlush();
-                    }
+                using (var uow = UnitOfWork.Start())
+                {
+                    model.SaveChanges();
+                    uow.TransactionalFlush();
+                }
+                return MailTemplates();
             }
 
-            return MailTemplates();
+            return View(Views.MailTemplates, MasterView, model);
         }
 
         [HttpPost]
@@ -103,12 +118,33 @@ namespace phiNdus.fundus.Web.Controllers
                 return PartialView(@"~\Views\Settings\EditorTemplates\SendTestEmailViewModel.cshtml", model);
             }
 
-            
 
             var gateway = new MailGateway(model.TestHost, model.TestUserName, model.TestPassword, model.TestFrom);
             gateway.Send(model.TestTo, "[fundus] Test E-Mail", body);
 
             return null;
         }
+
+        #region Nested type: Views
+
+        private static class Views
+        {
+            public static string General
+            {
+                get { return @"General"; }
+            }
+
+            public static string MailGeneral
+            {
+                get { return @"MailGeneral"; }
+            }
+
+            public static string MailTemplates
+            {
+                get { return @"MailTemplates"; }
+            }
+        }
+
+        #endregion
     }
 }

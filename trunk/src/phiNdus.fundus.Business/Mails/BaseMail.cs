@@ -64,7 +64,7 @@ namespace phiNdus.fundus.Business.Mails
 --
 This is automatically generated message from fundus.
 -
-If you think it was sent incorrectly contact the administrator at @Model.Settings.Common.AdminEmail.";
+If you think it was sent incorrectly contact the administrator at @Model.Settings.Common.AdminEmailAddress.";
             }
         }
 

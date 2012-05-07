@@ -8,7 +8,7 @@
 <h2>@ViewBag.Title</h2>
 <p></p>
 
-@using (Html.BeginForm("MailTemplates", "Settings", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm(SettingsActionNames.MailTemplates, ControllerNames.Settings, FormMethod.Post, new { @class = "form-horizontal" }))
 {
 
     for (var idx = 0; idx < Model.Items.Count; idx++)
@@ -18,7 +18,7 @@
     
     <div class="form-actions">
             @Html.SubmitButton("Speichern")
-            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index")
+            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, SettingsActionNames.MailTemplates)
     </div>
 }
 

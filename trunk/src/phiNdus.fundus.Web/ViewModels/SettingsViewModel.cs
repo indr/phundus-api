@@ -9,10 +9,79 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
-    public class SmtpSettingsViewModel : ViewModelBase
+    public class SettingsViewModelBase : ViewModelBase
     {
-        private IDictionary<string, Setting> _settings;
+        protected IDictionary<string, Setting> _settings = new Dictionary<string, Setting>();
 
+        protected void Load(string key, Action<int, string> action)
+        {
+            var setting = _settings.Values.FirstOrDefault(p => p.Key.EndsWith(key));
+            if (setting != null)
+                action(setting.Version, setting.StringValue);
+        }
+    }
+
+    public class GeneralSettingsViewModel : SettingsViewModelBase
+    {
+        [Required]
+        public string Keyspace { get; set; }
+
+        [DisplayName("Server-URL")]
+        [Required]
+        public string ServerUrl { get; set; }
+
+        public int ServerUrlVersion { get; set; }
+
+        [DisplayName("E-Mail-Adresse des Administrators")]
+        [Required]
+        public string AdminEmailAddress { get; set; }
+
+        public int AdminEmailAddressVersion { get; set; }
+
+        public void Load()
+        {
+            using (UnitOfWork.Start())
+            {
+                Keyspace = "common";
+                _settings = IoC.Resolve<ISettingRepository>().FindByKeyspace(Keyspace);
+
+                Load("server-url", (version, value) =>
+                {
+                    ServerUrlVersion = version;
+                    ServerUrl = value;
+                });
+                Load("admin-email-address", (version, value) =>
+                {
+                    AdminEmailAddressVersion = version;
+                    AdminEmailAddress = value;
+                });
+            }
+        }
+
+        public void SaveChanges()
+        {
+            var repo = IoC.Resolve<ISettingRepository>();
+
+            var serverUrl = repo.FindByKey(Keyspace + ".server-url");
+            if (serverUrl != null && serverUrl.Version != ServerUrlVersion)
+                throw new Exception("Die Daten wurden in der zwischenzeit verändert.");
+            if (serverUrl == null)
+                serverUrl = new Setting(Keyspace + ".server-url");
+            serverUrl.StringValue = ServerUrl;
+            repo.SaveOrUpdate(serverUrl);
+
+            var adminEmailAddress = repo.FindByKey(Keyspace + ".admin-email-address");
+            if (adminEmailAddress != null && adminEmailAddress.Version != AdminEmailAddressVersion)
+                throw new Exception("Die Daten wurden in der zwischenzeit verändert.");
+            if (adminEmailAddress == null)
+                adminEmailAddress = new Setting(Keyspace + ".admin-email-address");
+            adminEmailAddress.StringValue = AdminEmailAddress;
+            repo.SaveOrUpdate(adminEmailAddress);
+        }
+    }
+
+    public class SmtpSettingsViewModel : SettingsViewModelBase
+    {
         [Required]
         public string Keyspace { get; set; }
 
@@ -38,11 +107,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public int FromVersion { get; set; }
 
-        private void Load(string key, Action<int, string> action)
-        {
-            var setting = _settings.Values.FirstOrDefault(p => p.Key.EndsWith(key));
-            action(setting.Version, setting.StringValue);
-        }
+       
 
         public void Load()
         {
@@ -76,6 +141,39 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public void SaveChanges()
         {
+            var repo = IoC.Resolve<ISettingRepository>();
+            
+            var subject = repo.FindByKey(Keyspace + ".host");
+            if (subject != null && subject.Version != HostVersion)
+                throw new Exception("Die Daten wurden in der zwischenzeit verändert.");
+            if (subject == null)
+                subject = new Setting(Keyspace + ".host");
+            subject.StringValue = Host;
+            repo.SaveOrUpdate(subject);
+
+            var userName = repo.FindByKey(Keyspace + ".user-name");
+            if (userName != null && userName.Version != UserNameVersion)
+                throw new Exception("Die Daten wurden in der zwischenzeit verändert.");
+            if (userName == null)
+                userName = new Setting(Keyspace + ".user-name");
+            userName.StringValue = UserName;
+            repo.SaveOrUpdate(userName);
+
+            var password = repo.FindByKey(Keyspace + ".password");
+            if (password != null && password.Version != PasswordVersion)
+                throw new Exception("Die Daten wurden in der zwischenzeit verändert.");
+            if (password == null)
+                password = new Setting(Keyspace + ".password");
+            password.StringValue = Password;
+            repo.SaveOrUpdate(password);
+
+            var from = repo.FindByKey(Keyspace + ".from");
+            if (from != null && from.Version != FromVersion)
+                throw new Exception("Die Daten wurden in der zwischenzeit verändert.");
+            if (from == null)
+                from = new Setting(Keyspace + ".from");
+            from.StringValue = From;
+            repo.SaveOrUpdate(from);
         }
     }
 
@@ -167,6 +265,7 @@ namespace phiNdus.fundus.Web.ViewModels
             if (subject == null)
                 subject = new Setting(Keyspace + ".subject");
             subject.StringValue = Subject;
+            repo.SaveOrUpdate(subject);
 
             var bodyPlain = repo.FindByKey(Keyspace + ".body");
             if (bodyPlain != null && bodyPlain.Version != BodyPlainVersion)
@@ -175,7 +274,7 @@ namespace phiNdus.fundus.Web.ViewModels
                 bodyPlain = new Setting(Keyspace + ".body");
             bodyPlain.StringValue = BodyPlain;
 
-            repo.SaveOrUpdate(subject);
+            
             repo.SaveOrUpdate(bodyPlain);
         }
     }

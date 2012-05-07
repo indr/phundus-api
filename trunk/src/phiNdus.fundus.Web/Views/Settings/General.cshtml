@@ -1,6 +1,41 @@
-﻿@{
-    ViewBag.Title = "General";
+﻿@model GeneralSettingsViewModel
+
+@{
+    ViewBag.Title = "Einstellungen";
     Layout = "~/Views/Settings/Index.cshtml";
 }
 
-<h2>Allgemein</h2>
+<h2>@ViewBag.Title</h2>
+<p></p>
+
+@using (Html.BeginForm(SettingsActionNames.General, ControllerNames.Settings, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+        <legend>Allgemein</legend>
+        
+        @Html.HiddenFor(x => x.Keyspace)
+
+        <div class="control-group">
+            @Html.HiddenFor(m => m.ServerUrlVersion)
+            @Html.LabelFor(m => m.ServerUrl, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(m => m.ServerUrl)
+                @Html.ValidationMessageFor(m => m.ServerUrl)
+            </div>
+        </div>
+    
+        <div class="control-group">
+            @Html.HiddenFor(m => m.AdminEmailAddressVersion)
+            @Html.LabelFor(m => m.AdminEmailAddress, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(m => m.AdminEmailAddress)
+                @Html.ValidationMessageFor(m => m.AdminEmailAddress)
+            </div>
+        </div>
+    </fieldset>
+    
+    <div class="form-actions">
+        @Html.SubmitButton("Speichern")
+        @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, SettingsActionNames.General)
+    </div>
+}
