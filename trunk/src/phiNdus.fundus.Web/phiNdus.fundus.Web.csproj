@@ -68,7 +68,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.Clr.dll</HintPath>
     </Reference>
-    <Reference Include="Rhino.Commons.NHibernate, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL" />
+    <Reference Include="Rhino.Commons.NHibernate">
+      <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\ASP.NET MVC 3\System.Web.Mvc.dll</HintPath>
@@ -99,9 +101,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
+    <Compile Include="ControllerNames.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="ViewModels\SendTestEmailViewModel.cs" />
     <Compile Include="Helpers\HandleAjaxErrorAttribute.cs" />
     <Compile Include="Helpers\HandleModelStateExceptionAttribute.cs" />
     <Compile Include="ViewModels\ArticleAvailabilityViewModel.cs" />
@@ -643,6 +647,11 @@
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Settings\EditorTemplates\MailTemplateSettingViewModel.cshtml" />
+    <Content Include="Views\Settings\MailTemplates.cshtml" />
+    <Content Include="Views\Settings\MailGeneral.cshtml" />
+    <Content Include="Views\Settings\General.cshtml" />
+    <Content Include="Views\Settings\EditorTemplates\SendTestEmailViewModel.cshtml" />
+    <Content Include="Views\Settings\SendTestEmailViewModelDialog.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
