@@ -241,5 +241,18 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
             var ex = Assert.Throws<InvalidOperationException>(() => sut.Reject(new User()));
             Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits abgelehnt."));
         }
+
+        [Test]
+        public void GetTotalPrice()
+        {
+            // Arrange
+            var sut = new Order();
+
+            // Act
+            var totalPrice = sut.TotalPrice;
+
+            // Assert
+            Assert.That(totalPrice, Is.EqualTo(0.0));
+        }
     }
 }
