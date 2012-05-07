@@ -20,8 +20,14 @@ namespace phiNdus.fundus.Business.Mails
         {
             Guard.Against<ArgumentNullException>(user == null, "user");
 
-            DataContext.Add("User", user);
-            DataContext.Add("Membership", user.Membership);
+            Model = new
+                        {
+                            Settings = Settings.GetSettings(),
+                            Urls = new Urls(Settings.Common.ServerUrl),
+                            User = user
+                        };
+            //DataContext.Add("User", user);
+            //DataContext.Add("Membership", user.Membership);
             return this;
         }
     }

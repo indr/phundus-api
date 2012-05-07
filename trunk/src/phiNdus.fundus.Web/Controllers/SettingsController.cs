@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using phiNdus.fundus.Business.Gateways;
 using phiNdus.fundus.Web.Helpers;
 using phiNdus.fundus.Web.ViewModels;
+using RazorEngine;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
@@ -82,11 +83,30 @@ namespace phiNdus.fundus.Web.Controllers
         [HttpPost]
         public ActionResult SendTestEmail(SendTestEmailViewModel model)
         {
+            var body = String.Empty;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    body = Razor.Parse(model.TestBodyTemplate);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("TestBodyTemplate", ex.GetType().Name + ": " + ex.Message);
+                }
+            }
+
             if (!ModelState.IsValid)
-                throw new ModelStateException(ModelState);
+            {
+                HttpContext.Response.StatusCode = 400;
+                HttpContext.Response.Clear();
+                return PartialView(@"~\Views\Settings\EditorTemplates\SendTestEmailViewModel.cshtml", model);
+            }
+
+            
 
             var gateway = new MailGateway(model.TestHost, model.TestUserName, model.TestPassword, model.TestFrom);
-            gateway.Send(model.TestTo, "[fundus] Test E-Mail", model.TestBodyTemplate);
+            gateway.Send(model.TestTo, "[fundus] Test E-Mail", body);
 
             return null;
         }

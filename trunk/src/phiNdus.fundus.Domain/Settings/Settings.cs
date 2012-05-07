@@ -17,7 +17,7 @@ namespace phiNdus.fundus.Domain.Settings
             get { return GetSettings().Common; }
         }
 
-        private static ISettings GetSettings()
+        public static ISettings GetSettings()
         {
             if (_globalNonThreadSafeSettings != null)
                 return _globalNonThreadSafeSettings;
