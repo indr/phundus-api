@@ -7,7 +7,7 @@ namespace phiNdus.fundus.Web.ViewModels
     {
         public SendTestEmailViewModel()
         {
-            TestBodyTemplate = "Dies ist ein Test!";
+            //TestBodyTemplate = "Dies ist ein Test!";
         }
 
         [DisplayName("Host")]
@@ -27,6 +27,7 @@ namespace phiNdus.fundus.Web.ViewModels
         public string TestTo { get; set; }
 
         [DisplayName("Text")]
+        [Required]
         public string TestBodyTemplate { get; set; }
     }
 }

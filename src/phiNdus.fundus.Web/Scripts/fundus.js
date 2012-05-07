@@ -13,14 +13,20 @@ var fundus;
                 });
 
                 $('body').ajaxError(function (event, request, settings) {
-                    var regex = new RegExp("<title>(.*?)</title>");
-                    var matches = regex.exec(request.responseText);
-                    if (matches.length > 0)
-                        fundus.messageBox(request.status + ': ' + request.statusText, matches[1]);
-                    else
-                        fundus.messageBox(request.status + ': ' + request.statusText, '');
+                    if (request.status == '500') {
+                        var regex = new RegExp("<title>(.*?)</title>");
+                        var matches = regex.exec(request.responseText);
+                        if (matches.length > 0)
+                            fundus.messageBox(request.status + ': ' + request.statusText, matches[1]);
+                        else
+                            fundus.messageBox(request.status + ': ' + request.statusText, '');
+                    }
+                    else if (request.status == '400') {
+                        fundus.reinit();
+                    }
                 });
 
+                // http://www.braindonor.net/blog/integrating-bootstrap-error-styling-with-mvcs-unobtrusive-error-validation/381/
                 $('form').on('submit', function () {
                     if ($(this).valid()) {
                         $(this).find('div.control-group').each(function () {
@@ -80,6 +86,7 @@ var fundus;
                     $(this).addClass('help-inline');
                 });
 
+                // http://www.braindonor.net/blog/integrating-bootstrap-error-styling-with-mvcs-unobtrusive-error-validation/381/
                 $('form').each(function () {
                     $(this).find('div.control-group').each(function () {
                         if ($(this).find('span.field-validation-error').length > 0) {

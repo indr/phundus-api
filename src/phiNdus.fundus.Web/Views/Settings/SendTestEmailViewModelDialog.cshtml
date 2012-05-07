@@ -2,7 +2,10 @@
        
        <div class="modal hide fade" id="modal-send-test-email">
         @using (Ajax.BeginForm(SettingsActionNames.SendTestEmail, ControllerNames.Settings,
-                new AjaxOptions { OnComplete="$('#modal-send-test-email').modal('hide');", OnSuccess = "fundus.messageBox('Information', 'Das E-Mail wurde erfolgreich versendet.');"}, new { style = "margin: 0px" }))
+                new AjaxOptions { 
+                    //OnComplete="$('#modal-send-test-email').modal('hide');",
+                    OnSuccess = "$('#modal-send-test-email').modal('hide');fundus.messageBox('Information', 'Das E-Mail wurde erfolgreich versendet.');",
+                    OnFailure = "$('#modal-send-test-email .modal-body').html(xhr.responseText);" }, new { style = "margin: 0px" }))
         {
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
