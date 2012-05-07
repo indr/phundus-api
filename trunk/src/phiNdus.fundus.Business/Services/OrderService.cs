@@ -212,8 +212,8 @@ namespace phiNdus.fundus.Business.Services
             {
                 var repo = IoC.Resolve<IOrderRepository>();
                 var order = repo.Get(id);
-                //order.Reject(SecurityContext.SecuritySession.User);
-                //repo.Update(order);
+                order.Reject(SecurityContext.SecuritySession.User);
+                repo.Update(order);
 
                 new OrderRejectedMail().For(order).Send(order.Reserver);
 
@@ -227,8 +227,8 @@ namespace phiNdus.fundus.Business.Services
             {
                 var repo = IoC.Resolve<IOrderRepository>();
                 var order = repo.Get(id);
-                //order.Approve(SecurityContext.SecuritySession.User);
-                //repo.Update(order);
+                order.Approve(SecurityContext.SecuritySession.User);
+                repo.Update(order);
 
                 new OrderApprovedMail().For(order).Send(order.Reserver);
 

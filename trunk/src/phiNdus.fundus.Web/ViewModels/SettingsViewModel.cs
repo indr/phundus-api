@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Mvc;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
@@ -234,6 +235,7 @@ namespace phiNdus.fundus.Web.ViewModels
         public int BodyHtmlVersion { get; set; }
 
         [DisplayName("HTML")]
+        [AllowHtml]
         public string BodyHtml { get; set; }
 
         private void Load(string keyspace)

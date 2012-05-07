@@ -40,6 +40,7 @@ namespace phiNdus.fundus.AcceptanceTests
         [Test]
         public void SignUpSendsValidationEmail()
         {
+            Assert.Ignore("TODO");
             // When I sign up
             // Then I receive email with subject [fundus] User Account Validation
 
@@ -61,7 +62,7 @@ namespace phiNdus.fundus.AcceptanceTests
 
             Assert.That(body,
                         Is.StringStarting(
-                            @"Hello Hans
+                            @"Hallo Hans
 
 Please go to the following link in order to validate your account:"));
             Assert.That(body, Is.StringMatching(Context.BaseUri + @"/account/validation/[\w]{24}"));

@@ -14,18 +14,15 @@ namespace phiNdus.fundus.Business.Mails
 {
     public class BaseMail
     {
-        //private readonly IDictionary<string, object> _dataContext = new Dictionary<string, object>();
-
         protected BaseMail(IMailTemplateSettings settings) : this(settings.Subject, settings.TextBody, settings.HtmlBody)
         {
-            
         }
 
         protected BaseMail(string subject, string textBody, string htmlBody)
         {
             Subject = subject;
             TextBody = textBody;
-            //_dataContext.Add("Link", new Urls(Settings.Common.ServerUrl));
+            HtmlBody = htmlBody;
         }
 
         public class Urls
@@ -59,6 +56,36 @@ namespace phiNdus.fundus.Business.Mails
             set { _model = value; }
         }
 
+        private const string TextSignature = @"
+
+--
+This is an automatically generated message from fundus.
+-
+If you think it was sent incorrectly contact the administrator at @Model.Settings.Common.AdminEmailAddress.";
+
+        private const string HtmlFooter = @"<hr />
+<footer>
+    <p>This is an automatically generated message from fundus.<br />If you think it was sent incorrectly contact the administrator at @Model.Settings.Common.AdminEmailAddress.</p>
+</footer>
+</div>
+</body>
+</html>
+";
+
+        private const string HtmlHeader = @"<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""
+    ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">
+<html xmlns=""http://www.w3.org/1999/xhtml"" xml:lang=""en"" lang=""en"">
+<head>
+    <meta http-equiv=""Content-Type"" content=""text/html;charset=utf-8"" />
+    <link rel=""stylesheet"" type=""text/css"" href=""http://@Model.Settings.Common.ServerUrl/Content/bootstrap.min.css"" />
+    <link rel=""stylesheet"" type=""text/css"" href=""http://@Model.Settings.Common.ServerUrl/Content/fundus.css"" />
+    <style type=""text/css"">
+    body { margin: 0; padding: 0; color: #333333; font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px; }
+    </style>
+</head>
+<body>
+<div class=""container"" style=""margin: 10px; padding: 0;"">";
+
         private string GenerateSubject()
         {
             if (String.IsNullOrWhiteSpace(Subject))
@@ -70,14 +97,14 @@ namespace phiNdus.fundus.Business.Mails
         {
             if (String.IsNullOrWhiteSpace(TextBody))
                 return String.Empty;
-            return Razor.Parse(TextBody, Model);
+            return Razor.Parse(TextBody + TextSignature, Model);
         }
 
         private string GenerateHtmlBody()
         {
             if (String.IsNullOrWhiteSpace(HtmlBody))
                 return String.Empty;
-            return Razor.Parse(HtmlBody, Model);
+            return Razor.Parse(HtmlHeader + HtmlBody + HtmlFooter, Model);
         }
 
         protected void Send(string recipients)
