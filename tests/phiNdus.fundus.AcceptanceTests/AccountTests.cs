@@ -64,7 +64,7 @@ namespace phiNdus.fundus.AcceptanceTests
                             @"Hello Hans
 
 Please go to the following link in order to validate your account:"));
-            Assert.That(body, Is.StringMatching(Context.BaseUri + @"/Account/Validation/[\w]{24}"));
+            Assert.That(body, Is.StringMatching(Context.BaseUri + @"/account/validation/[\w]{24}"));
         }
 
         [Test]
