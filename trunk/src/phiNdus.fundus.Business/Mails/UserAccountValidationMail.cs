@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mail;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Settings;
 using Rhino.Commons;
@@ -82,6 +83,11 @@ namespace phiNdus.fundus.Business.Mails
                             User = order.Reserver,
                             Order = order
                         };
+            
+            Attachments.Add(new Attachment(order.GeneratePdf(),
+                                           String.Format("Order-{0}.pdf", order.Id),
+                                           "application/pdf"));
+            
             return this;
         }
 
@@ -114,6 +120,11 @@ namespace phiNdus.fundus.Business.Mails
                 User = order.Reserver,
                 Order = order
             };
+
+            Attachments.Add(new Attachment(order.GeneratePdf(),
+                                           String.Format("Order-{0}.pdf", order.Id),
+                                           "application/pdf"));
+
             return this;
         }
 
@@ -139,6 +150,11 @@ namespace phiNdus.fundus.Business.Mails
                 User = order.Reserver,
                 Order = order
             };
+
+            Attachments.Add(new Attachment(order.GeneratePdf(),
+                                           String.Format("Order-{0}.pdf", order.Id),
+                                           "application/pdf"));
+            
             return this;
         }
 

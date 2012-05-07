@@ -107,6 +107,13 @@ If you think it was sent incorrectly contact the administrator at @Model.Setting
             return Razor.Parse(HtmlHeader + HtmlBody + HtmlFooter, Model);
         }
 
+        private IList<Attachment> _attachments = new List<Attachment>();
+        protected IList<Attachment> Attachments
+        {
+            get { return _attachments; }
+            set { _attachments = value; }
+        }
+
         protected void Send(string recipients)
         {
             var gateway = IoC.Resolve<IMailGateway>();
@@ -115,7 +122,7 @@ If you think it was sent incorrectly contact the administrator at @Model.Setting
             var htmlBody = GenerateHtmlBody();
 
             var message = new MailMessage { Subject = GenerateSubject() };
-
+            
             message.To.Add(recipients);
             
             if (!string.IsNullOrEmpty(htmlBody) && !string.IsNullOrEmpty(textBody))
@@ -133,6 +140,9 @@ If you think it was sent incorrectly contact the administrator at @Model.Setting
                 message.Body = textBody;
                 message.IsBodyHtml = false;
             }
+
+            foreach (var each in Attachments)
+                message.Attachments.Add(each);
 
             gateway.Send(message);
         }

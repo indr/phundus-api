@@ -71,6 +71,7 @@ Please go to the following link in order to validate your account:"));
         [Test]
         public void SignUpShowsCompletionStep()
         {
+            Assert.Ignore("TODO");
             // When I sign up
             // Then I see instructions for sign up completion
 
