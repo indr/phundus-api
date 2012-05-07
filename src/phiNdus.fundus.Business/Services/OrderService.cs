@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 using phiNdus.fundus.Business.Assembler;
 using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.Mails;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
+using phiNdus.fundus.Domain.Settings;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services
@@ -170,6 +172,11 @@ namespace phiNdus.fundus.Business.Services
 
                 cart.Checkout();
                 IoC.Resolve<IOrderRepository>().Save(cart);
+
+                new OrderReceivedMail().For(cart)
+                    .Send(cart.Reserver)
+                    .Send(Settings.Common.AdminEmailAddress);
+
                 uow.TransactionalFlush();
             }
         }
@@ -201,12 +208,32 @@ namespace phiNdus.fundus.Business.Services
 
         public void Reject(int id)
         {
-            throw new NotImplementedException();
+            using (var uow = UnitOfWork.Start())
+            {
+                var repo = IoC.Resolve<IOrderRepository>();
+                var order = repo.Get(id);
+                //order.Reject(SecurityContext.SecuritySession.User);
+                //repo.Update(order);
+
+                new OrderRejectedMail().For(order).Send(order.Reserver);
+
+                uow.TransactionalFlush();
+            }
         }
 
         public void Confirm(int id)
         {
-            throw new NotImplementedException();
+            using (var uow = UnitOfWork.Start())
+            {
+                var repo = IoC.Resolve<IOrderRepository>();
+                var order = repo.Get(id);
+                //order.Approve(SecurityContext.SecuritySession.User);
+                //repo.Update(order);
+
+                new OrderApprovedMail().For(order).Send(order.Reserver);
+
+                uow.TransactionalFlush();
+            }
         }
 
         public Stream GetPdf(int id)

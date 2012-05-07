@@ -6,6 +6,7 @@ using phiNdus.fundus.Business.Mails;
 using phiNdus.fundus.Domain;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
+using phiNdus.fundus.Domain.Settings;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services
@@ -160,6 +161,9 @@ namespace phiNdus.fundus.Business.Services
                 result = user.Membership.ValidateValidationKey(key);
                 if (result)
                     Users.Save(user);
+
+                new UserAccountCreatedMail().For(user).Send(Settings.Common.AdminEmailAddress);
+
                 uow.TransactionalFlush();
             }
             return result;

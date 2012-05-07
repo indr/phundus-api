@@ -13,7 +13,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Settings
         {
             InsertSetting("mail.templates.user-account-validation.body", "Hello");
 
-            var actual = Sut.Body;
+            var actual = Sut.TextBody;
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual, Is.StringStarting("Hello"));
         }

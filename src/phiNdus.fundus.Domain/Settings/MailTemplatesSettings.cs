@@ -1,4 +1,6 @@
-﻿namespace phiNdus.fundus.Domain.Settings
+﻿using System;
+
+namespace phiNdus.fundus.Domain.Settings
 {
     public class MailTemplatesSettings : BaseSettings, IMailTemplatesSettings
     {
@@ -11,6 +13,26 @@
         public IMailTemplateSettings UserAccountValidation
         {
             get { return new MailTemplateSettings(Keyspace + ".user-account-validation"); }
+        }
+
+        public IMailTemplateSettings UserAccountCreated
+        {
+            get { return new MailTemplateSettings(Keyspace + ".user-account-created"); }
+        }
+
+        public IMailTemplateSettings OrderRejected
+        {
+            get { return new MailTemplateSettings(Keyspace + ".order-rejected"); }
+        }
+
+        public IMailTemplateSettings OrderApproved
+        {
+            get { return new MailTemplateSettings(Keyspace + ".order-approved"); }
+        }
+
+        public IMailTemplateSettings OrderReceived
+        {
+            get { return new MailTemplateSettings(Keyspace + ".order-received"); }
         }
 
         #endregion

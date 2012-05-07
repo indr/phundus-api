@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.Gateways;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.Domain.Settings;

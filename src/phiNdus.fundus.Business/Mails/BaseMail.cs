@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using phiNdus.fundus.Business.Gateways;
 using phiNdus.fundus.Domain.Settings;
 using RazorEngine;
 using Rhino.Commons;
@@ -12,15 +16,15 @@ namespace phiNdus.fundus.Business.Mails
     {
         //private readonly IDictionary<string, object> _dataContext = new Dictionary<string, object>();
 
-        protected BaseMail(IMailTemplateSettings settings) : this(settings.Subject, settings.Body)
+        protected BaseMail(IMailTemplateSettings settings) : this(settings.Subject, settings.TextBody, settings.HtmlBody)
         {
             
         }
 
-        protected BaseMail(string subject, string body)
+        protected BaseMail(string subject, string textBody, string htmlBody)
         {
             Subject = subject;
-            Body = body;
+            TextBody = textBody;
             //_dataContext.Add("Link", new Urls(Settings.Common.ServerUrl));
         }
 
@@ -45,7 +49,8 @@ namespace phiNdus.fundus.Business.Mails
         //}
 
         public string Subject { get; protected set; }
-        public string Body { get; protected set; }
+        public string TextBody { get; protected set; }
+        public string HtmlBody { get; protected set; }
 
         private dynamic _model = new {};
         public dynamic Model
@@ -54,37 +59,55 @@ namespace phiNdus.fundus.Business.Mails
             set { _model = value; }
         }
 
-        private static string Signature
-        {
-            get
-            {
-                return
-                    @"
-
---
-This is automatically generated message from fundus.
--
-If you think it was sent incorrectly contact the administrator at @Model.Settings.Common.AdminEmailAddress.";
-            }
-        }
-
         private string GenerateSubject()
         {
+            if (String.IsNullOrWhiteSpace(Subject))
+                return String.Empty;
             return Razor.Parse(Subject, Model);
-            //return ReplacePlaceholders(Subject);
         }
 
-        private string GenerateBody()
+        private string GenerateTextBody()
         {
-            return Razor.Parse(Body + Signature, Model);
-            //return ReplacePlaceholders(Body + Signature);
+            if (String.IsNullOrWhiteSpace(TextBody))
+                return String.Empty;
+            return Razor.Parse(TextBody, Model);
+        }
+
+        private string GenerateHtmlBody()
+        {
+            if (String.IsNullOrWhiteSpace(HtmlBody))
+                return String.Empty;
+            return Razor.Parse(HtmlBody, Model);
         }
 
         protected void Send(string recipients)
         {
             var gateway = IoC.Resolve<IMailGateway>();
+
+            var textBody = GenerateTextBody();
+            var htmlBody = GenerateHtmlBody();
+
+            var message = new MailMessage { Subject = GenerateSubject() };
+
+            message.To.Add(recipients);
             
-            gateway.Send(recipients, GenerateSubject(), GenerateBody());
+            if (!string.IsNullOrEmpty(htmlBody) && !string.IsNullOrEmpty(textBody))
+            {
+                message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(htmlBody, new ContentType(ContentTypes.Html)));
+                message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(textBody, new ContentType(ContentTypes.Text)));
+            }
+            else if (!string.IsNullOrEmpty(htmlBody))
+            {
+                message.Body = htmlBody;
+                message.IsBodyHtml = true;
+            }
+            else if (!string.IsNullOrEmpty(textBody))
+            {
+                message.Body = textBody;
+                message.IsBodyHtml = false;
+            }
+
+            gateway.Send(message);
         }
 
         //private string GetValue(string key)
@@ -133,5 +156,11 @@ If you think it was sent incorrectly contact the administrator at @Model.Setting
         //        return ReplacePlaceholders(result, depth + 1);
         //    return result;
         //}
+    }
+
+    public static class ContentTypes
+    {
+        public const string Html = "text/html";
+        public const string Text = "text/plain";
     }
 }

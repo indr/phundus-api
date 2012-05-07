@@ -2,6 +2,7 @@
 using Castle.Windsor;
 using NUnit.Framework;
 using phiNdus.fundus.Business;
+using phiNdus.fundus.Business.Gateways;
 using phiNdus.fundus.TestHelpers;
 using Rhino.Commons;
 

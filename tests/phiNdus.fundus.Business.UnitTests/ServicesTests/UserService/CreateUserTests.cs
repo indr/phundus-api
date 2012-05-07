@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
+using phiNdus.fundus.Business.Gateways;
 using phiNdus.fundus.Business.UnitTests.Services;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
@@ -36,7 +37,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.UserService
             StubSettings.Mail.Stub(x => x.Templates).Return(MockRepository.GenerateMock<IMailTemplatesSettings>());
             StubSettings.Mail.Templates.Stub(x => x.UserAccountValidation).Return(MockRepository.GenerateMock<IMailTemplateSettings>());
             StubSettings.Mail.Templates.UserAccountValidation.Stub(x => x.Subject).Return("");
-            StubSettings.Mail.Templates.UserAccountValidation.Stub(x => x.Body).Return("");
+            StubSettings.Mail.Templates.UserAccountValidation.Stub(x => x.TextBody).Return("");
 
             Sut = new Business.Services.UserService();
 
@@ -111,7 +112,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.UserService
         {
             StubSettings.Mail.Templates.UserAccountValidation.ClearBehavior();
             StubSettings.Mail.Templates.UserAccountValidation.Stub(x => x.Subject).Return("[fundus] User Account Validation");
-            StubSettings.Mail.Templates.UserAccountValidation.Stub(x => x.Body).Return(@"Hello [User.FirstName]
+            StubSettings.Mail.Templates.UserAccountValidation.Stub(x => x.TextBody).Return(@"Hello [User.FirstName]
 
 Link: [Link.UserAccountValidation]
 ");

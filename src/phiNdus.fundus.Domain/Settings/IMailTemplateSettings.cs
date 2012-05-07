@@ -3,6 +3,7 @@
     public interface IMailTemplateSettings
     {
         string Subject { get; }
-        string Body { get; }
+        string TextBody { get; }
+        string HtmlBody { get; }
     }
 }

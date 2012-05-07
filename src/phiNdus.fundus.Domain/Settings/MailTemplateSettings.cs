@@ -1,4 +1,6 @@
-﻿namespace phiNdus.fundus.Domain.Settings
+﻿using System;
+
+namespace phiNdus.fundus.Domain.Settings
 {
     public class MailTemplateSettings : BaseSettings, IMailTemplateSettings
     {
@@ -13,9 +15,14 @@
             get { return GetString("subject"); }
         }
 
-        public string Body
+        public string TextBody
         {
             get { return GetString("body"); }
+        }
+
+        public string HtmlBody
+        {
+            get { return GetString("html-body"); }
         }
 
         #endregion

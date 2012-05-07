@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using phiNdus.fundus.Business.Gateways;
 using phiNdus.fundus.Business.Mails;
 using phiNdus.fundus.Domain.Settings;
 using phiNdus.fundus.TestHelpers.TestBases;
@@ -88,7 +89,7 @@ namespace phiNdus.fundus.Business.UnitTests.Mails
             using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockMailTemplateSettings.Subject).Return("Subject");
-                Expect.Call(MockMailTemplateSettings.Body).Return("Start[Test.ImNull]End");
+                Expect.Call(MockMailTemplateSettings.TextBody).Return("Start[Test.ImNull]End");
                 Expect.Call(MockSettings.Common.ServerUrl).Return("fundus.domain.test");
 
                 Expect.Call(() => MockMailGateway.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything,
@@ -109,7 +110,7 @@ namespace phiNdus.fundus.Business.UnitTests.Mails
             using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockMailTemplateSettings.Subject).Return("Subject");
-                Expect.Call(MockMailTemplateSettings.Body).Return("[Link.UserAccountValidation]");
+                Expect.Call(MockMailTemplateSettings.TextBody).Return("[Link.UserAccountValidation]");
                 Expect.Call(MockSettings.Common.ServerUrl).Return("fundus.domain.test");
 
                 Expect.Call(() => MockMailGateway.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything,
@@ -129,7 +130,7 @@ namespace phiNdus.fundus.Business.UnitTests.Mails
             using (Obsolete_MockFactory.Record())
             {
                 Expect.Call(MockMailTemplateSettings.Subject).Return("Subject");
-                Expect.Call(MockMailTemplateSettings.Body).Return("[Test.FirstVariable]");
+                Expect.Call(MockMailTemplateSettings.TextBody).Return("[Test.FirstVariable]");
                 Expect.Call(MockSettings.Common.ServerUrl).Return("fundus.domain.test");
 
                 Expect.Call(() => MockMailGateway.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything,

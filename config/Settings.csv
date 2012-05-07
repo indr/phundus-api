@@ -1,3 +1,16 @@
 common.server-url,${deploy.iisserver}${deploy.vdir}
 mail.templates.user-account-validation.subject,[fundus] User Account Validation
 mail.templates.user-account-validation.body,Hello @Model.User.FirstName' + CHAR(13)+CHAR(10) + '' + CHAR(13)+CHAR(10) + 'Please go to the following link in order to validate your account:' + CHAR(13)+CHAR(10) + '@Model.Urls.UserAccountValidation/@Model.User.Membership.ValidationKey' + CHAR(13)+CHAR(10) + '' + CHAR(13)+CHAR(10) + 'If the link doesnt work, you can enter the code manually using this token:' + CHAR(13)+CHAR(10) + '@Model.User.Membership.ValidationKey' + CHAR(13)+CHAR(10) + '' + CHAR(13)+CHAR(10) + 'Thanks
+mail.templates.user-account-validation.html-body,
+mail.templates.user-account-created.subject,[fundus] User Account Created
+mail.templates.user-account-created.body,
+mail.templates.user-account-created.html-body,
+mail.templates.order-received.subject,[fundus] Neue Bestellung
+mail.templates.order-received.body,Hallo' + CHAR(13)+CHAR(10) + 'Neue Bestellung eingetroffen
+mail.templates.order-received.html-body,
+mail.templates.order-approved.subject,[fundus] Bestellung genehmigt
+mail.templates.order-approved.body,
+mail.templates.order-approved.html-body,
+mail.templates.order-rejected.subject,[fundus] Bestellung abgelehnt
+mail.templates.order-rejected.body,
+mail.templates.order-rejected.html-body,
