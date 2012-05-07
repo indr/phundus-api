@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
+using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Web.ViewModels;
+using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
@@ -51,6 +53,33 @@ namespace phiNdus.fundus.Web.Controllers
             var model = new OrderViewModel(id);
 
             return View("Details", model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult Reject(int id)
+        {
+            var service = IoC.Resolve<IOrderService>();
+            service.Reject(Session.SessionID, id);
+            return null;
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult Confirm(int id)
+        {
+            var service = IoC.Resolve<IOrderService>();
+            service.Confirm(Session.SessionID, id);
+            return null;
+        }
+
+        [HttpGet]
+        [Authorize]
+        public FileStreamResult Print(int id)
+        {
+            var service = IoC.Resolve<IOrderService>();
+            var stream = service.GetPdf(Session.SessionID, id);
+            return new FileStreamResult(stream, "application/pdf");
         }
     }
 }

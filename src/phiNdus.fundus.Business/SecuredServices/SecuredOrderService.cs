@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.Security;
 using phiNdus.fundus.Business.Security.Constraints;
@@ -79,6 +80,24 @@ namespace phiNdus.fundus.Business.SecuredServices
         {
             Secured.With(Session.FromKey(sessionKey))
                 .Do<OrderService>(svc => svc.CheckOut());
+        }
+
+        public void Reject(string sessionId, int id)
+        {
+            Secured.With(Session.FromKey(sessionId))
+                .Do<OrderService>(svc => svc.Reject(id));
+        }
+
+        public void Confirm(string sessionId, int id)
+        {
+            Secured.With(Session.FromKey(sessionId))
+                .Do<OrderService>(svc => svc.Confirm(id));
+        }
+
+        public Stream GetPdf(string sessionId, int id)
+        {
+            return Secured.With(Session.FromKey(sessionId))
+                .Do<OrderService, Stream>(svc => svc.GetPdf(id));
         }
 
         public IList<OrderDto> GetOrders(string sessionKey, OrderStatus status)

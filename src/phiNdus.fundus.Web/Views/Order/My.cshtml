@@ -34,7 +34,7 @@
                     <td>@Html.DisplayFor(m => each.Status)</td>
                     <td>
                         @Html.ActionLink(new Appearance { Caption = "Details", Button = Button.Normal }, "Details", new { id = each.Id })
-                        @Html.ActionLink(new Appearance { Caption = "PDF drucken", Button = Button.Normal }, "Print", new { id = each.Id })
+                        @Html.ActionLink(new Appearance { Caption = "PDF drucken", Button = Button.Normal }, OrdersActionNames.Print, new { id = each.Id })
                     </td>
                 </tr>
             }

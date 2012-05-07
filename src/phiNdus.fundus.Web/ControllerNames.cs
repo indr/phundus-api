@@ -13,4 +13,11 @@
 
         public static string SendTestEmail { get { return @"sendtestemail"; } }
     }
+
+    public class OrdersActionNames
+    {
+        public static string Confirm { get { return @"confirm"; } }
+        public static string Reject { get { return @"reject"; } }
+        public static string Print { get { return @"print"; } }
+    }
 }

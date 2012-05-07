@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using phiNdus.fundus.Business.Assembler;
 using phiNdus.fundus.Business.Dto;
@@ -197,6 +198,26 @@ namespace phiNdus.fundus.Business.Services
             }
         }
 
-        
+
+        public void Reject(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Confirm(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Stream GetPdf(int id)
+        {
+            // TODO: Prüfen ob Admin oder Besitzer der Bestellung
+            using (UnitOfWork.Start())
+            {
+                var repo = IoC.Resolve<IOrderRepository>();
+                var order = repo.Get(id);
+                return order.GeneratePdf();
+            }
+        }
     }
 }
