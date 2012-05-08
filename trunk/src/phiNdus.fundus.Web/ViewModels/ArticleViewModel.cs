@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.SecuredServices;
@@ -19,24 +20,27 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public ShopArticleViewModel(int id, CartItemViewModel cartItem) : base(id)
         {
-            // Warenkorb holen
-            var cartDto = CartService.GetCart(SessionId);
-
-            // Warenkorb-Item erzeugen, wenn für den Artikel noch keins vorhanden ist
-            var cartItemDto = cartDto.Items.Where(p => p.ArticleId == id).SingleOrDefault();
-            if (cartItemDto == null)
-                cartItemDto = new OrderItemDto();
-
-            var price = Convert.ToDouble(GetPropertyValue(4));
-            
-            if (cartItem == null)
+            if (HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                CartItem = new CartItemViewModel(cartItemDto, id, price);
-            }
-            else
-            {
-                CartItem = cartItem;
-                CartItem.LineTotal = price;
+                // Warenkorb holen
+                var cartDto = CartService.GetCart(SessionId);
+
+                // Warenkorb-Item erzeugen, wenn für den Artikel noch keins vorhanden ist
+                var cartItemDto = cartDto.Items.Where(p => p.ArticleId == id).SingleOrDefault();
+                if (cartItemDto == null)
+                    cartItemDto = new OrderItemDto();
+
+                var price = Convert.ToDouble(GetPropertyValue(4));
+
+                if (cartItem == null)
+                {
+                    CartItem = new CartItemViewModel(cartItemDto, id, price);
+                }
+                else
+                {
+                    CartItem = cartItem;
+                    CartItem.LineTotal = price;
+                }
             }
         }
 

@@ -79,7 +79,11 @@ namespace phiNdus.fundus.Web.Controllers
         {
             var service = IoC.Resolve<IOrderService>();
             var stream = service.GetPdf(Session.SessionID, id);
-            return new FileStreamResult(stream, "application/pdf");
+
+            return new FileStreamResult(stream, "application/pdf")
+                             {
+                                 FileDownloadName = string.Format("Order-{0}.pdf", id)
+                             };
         }
     }
 }
