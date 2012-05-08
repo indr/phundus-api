@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Iesi.Collections.Generic;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -118,12 +119,120 @@ namespace phiNdus.fundus.Domain.Entities
         public virtual Stream GeneratePdf()
         {
             var result = new MemoryStream();
-            var doc = new Document();
+            var doc = new Document(PageSize.A4, 0, 0, 36.0f, 36.0f);
             var writer = PdfWriter.GetInstance(doc, result);
             writer.CloseStream = false;
             doc.Open();
-            doc.Add(new Paragraph("Hello fundus!"));
+
+            var fontsFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Fonts);
+
+            FontFactory.RegisterDirectory(fontsFolder, false);
+
+            //Environment
+            //FontFactory.Register(@"C:\\Windows"););
+            //foreach (var each in FontFactory.RegisteredFonts)
+           // {
+           //     doc.Add(new Paragraph(each));
+            //}
+
+            var defaultFont = FontFactory.GetFont("calibri", 11);
+            var defaultFontGray = FontFactory.GetFont("calibri", 11, BaseColor.GRAY);
+            var defaultFontBold = FontFactory.GetFont("calibri-bold", 11);
+
+            var title = new Paragraph("Bestätigung - fundus", FontFactory.GetFont("calibri-bold", 22));
+            title.IndentationLeft = 36.0f;
+            doc.Add(title);
+
+
+            //doc.
+            var backGroundColor = new GrayColor(210);
+            var table = new PdfPTable(3);
+
+            table.SpacingBefore = 20;
+            table.SpacingAfter = 10;
+
+            table.WidthPercentage = 100;
+            table.DefaultCell.BorderWidth = 0;
+            table.DefaultCell.BackgroundColor = backGroundColor;
+            table.DefaultCell.Padding = 3;
+
+            table.TotalWidth = 100;
+            
+            var orderNumberCell = new PdfPCell(new Phrase(Id.ToString(),
+                FontFactory.GetFont("calibri-bold", 36, BaseColor.WHITE)));
+            orderNumberCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+            orderNumberCell.Rowspan = 5;
+            orderNumberCell.PaddingTop = 0;
+            orderNumberCell.PaddingRight = 18.0f;
+            orderNumberCell.PaddingBottom += 20; 
+            orderNumberCell.BorderWidth = 0;
+            orderNumberCell.BackgroundColor = backGroundColor;
+
+            
+            table.SetWidths(new int[] { 2, 4, 2 });
+
+            
+
+            PdfPCell cell = null;
+
+            cell = new PdfPCell(new Phrase("Mietende Person:", defaultFontGray));
+            cell.BorderWidth = 0;
+            cell.BackgroundColor = backGroundColor;
+            cell.Padding = 3;
+            cell.PaddingLeft = 36.0f;
+            table.AddCell(cell);
+            table.AddCell(new Phrase("Hans Muster", defaultFont));
+            table.AddCell(orderNumberCell);
+
+            cell = new PdfPCell(new Phrase("Abholdatum / -zeit:", defaultFontGray));
+            cell.BorderWidth = 0;
+            cell.BackgroundColor = backGroundColor;
+            cell.Padding = 3;
+            cell.PaddingLeft = 36.0f;
+            table.AddCell(cell);
+            table.AddCell(new Phrase("Donnerstag 12.November 2011 – 17:00", defaultFontBold));
+            
+            cell = new PdfPCell(new Phrase("Abholort:", defaultFontGray));
+            cell.BorderWidth = 0;
+            cell.BackgroundColor = backGroundColor;
+            cell.Padding = 3;
+            cell.PaddingLeft = 36.0f;
+            table.AddCell(cell);
+            table.AddCell(new Phrase("Pfadisekretariat - Rodteggstrasse 31 - 6005 Luzern", defaultFont));
+
+            cell = new PdfPCell(new Phrase("Rückgabedatum / -zeit:", defaultFontGray));
+            cell.BorderWidth = 0;
+            cell.BackgroundColor = backGroundColor;
+            cell.Padding = 3;
+            cell.PaddingLeft = 36.0f;
+            table.AddCell(cell);
+            table.AddCell(new Phrase("Donnerstag 12.November 2011 – 17:00", defaultFont));
+
+            cell = new PdfPCell(new Phrase("Rückgabeort:", defaultFontGray));
+            cell.BorderWidth = 0;
+            cell.BackgroundColor = backGroundColor;
+            cell.Padding = 3;
+            cell.PaddingLeft = 36.0f;
+            table.AddCell(cell);
+            table.AddCell(new Phrase("Pfadisekretariat - Rodteggstrasse 31 - 6005 Luzern", defaultFont));
+
+
+            foreach (var each in table.Rows[0].GetCells())
+            {
+                each.PaddingTop += 5;
+            }
+
+            foreach (var each in table.Rows[4].GetCells())
+            {
+                if (each != null)
+                    each.PaddingBottom += 10;
+            }
+            doc.Add(table);
+            
             doc.Close();
+
+
+
             result.Position = 0;
             return result;
         }
