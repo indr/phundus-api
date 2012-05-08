@@ -9,6 +9,7 @@ using log4net;
 using phiNdus.fundus.Domain.Inventory;
 using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
+using Rectangle = iTextSharp.text.Rectangle;
 
 namespace phiNdus.fundus.Domain.Entities
 {
@@ -228,15 +229,91 @@ namespace phiNdus.fundus.Domain.Entities
                     each.PaddingBottom += 10;
             }
             doc.Add(table);
+
+
             
+            table = new PdfPTable(7);
+            table.WidthPercentage = 95;
+            table.DefaultCell.Padding = 3;
+            table.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
+            table.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            table.AddCell(new Phrase("Pos.", defaultFontBold));
+            table.AddCell(new Phrase("Stk.", defaultFontBold));
+            table.AddCell(new Phrase("Artikel", defaultFontBold));
+            table.AddCell(new Phrase("Art.-Nr.", defaultFontBold));
+            table.AddCell(new Phrase("Bemerkung", defaultFontBold));
+            table.AddCell(new Phrase("Stk. Preis", defaultFontBold));
+            table.AddCell(new Phrase("Total", defaultFontBold));
+            
+
+            int pos = 0;
+            foreach (var item in Items)
+            {
+                pos++;
+                table.AddCell(new Phrase(pos.ToString(), defaultFont));
+                table.AddCell(new Phrase(item.Amount.ToString(), defaultFont));
+                table.AddCell(new Phrase(item.Article.Caption, defaultFont));
+                table.AddCell(new Phrase(item.Article.Id.ToString(), defaultFont));
+                table.AddCell(new Phrase("", defaultFont));
+                table.AddCell(new Phrase(item.UnitPrice.ToString("N"), defaultFont));
+                table.AddCell(new Phrase(item.LineTotal.ToString("N"), defaultFont));
+            }
+
+            table.AddCell(new Phrase("", defaultFont));
+            table.AddCell(new Phrase("", defaultFont));
+            table.AddCell(new Phrase("", defaultFont));
+            table.AddCell(new Phrase("", defaultFont));
+            table.AddCell(new Phrase("", defaultFont));
+            table.AddCell(new Phrase("", defaultFont));
+            table.AddCell(new Phrase(this.TotalPrice.ToString("N"), defaultFontBold));
+            doc.Add(table);
+
+            table = new PdfPTable(1);
+            cell = new PdfPCell()
+            {
+                CellEvent = new RoundRectangle(),
+                Border = PdfPCell.NO_BORDER,
+                Padding = 10,
+                PaddingTop = 7,
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                Phrase = new Phrase(@"Sekretariat PFADI Luzern
+c/o Stiftung Rodtegg, bürowärkstatt
+Rodteggstrasse 3a, 6005 Luzern 
+Tel. 041 368 40 35   Fax 041 368 42 94
+Web www.pfadiluzern.ch
+E-Mail sekretariat@pfadiluzern.ch
+", defaultFont) 
+            };
+            table.AddCell(cell);
+            table.TotalWidth = doc.PageSize.Width / 2.8f;
+            table.WriteSelectedRows(0, -1, -10, 150, writer.DirectContent);
+
             doc.Close();
-
-
-
             result.Position = 0;
             return result;
         }
     }
+
+    public class RoundRectangle : IPdfPCellEvent
+    {
+        public void CellLayout(
+          PdfPCell cell, Rectangle rect, PdfContentByte[] canvas
+        )
+        {
+            PdfContentByte cb = canvas[PdfPTable.LINECANVAS];
+            cb.RoundRectangle(
+              rect.Left,
+              rect.Bottom,
+              rect.Width,
+              rect.Height,
+              8 // change to adjust how "round" corner is displayed
+            );
+            cb.SetLineWidth(1f);
+            cb.SetCMYKColorStrokeF(0f, 0f, 0f, 1f);
+            cb.Stroke();
+        }
+    }
+
 
     public class ArticleNotAvailableException : Exception
     {
