@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using System.Web.Security;
+using phiNdus.fundus.Business.Security;
 
 namespace phiNdus.fundus.Web.Helpers
 {
@@ -43,6 +45,33 @@ namespace phiNdus.fundus.Web.Helpers
                         this.Errors.Add(state.Key, state.Value.Errors[0].ErrorMessage);
                     }
                 }
+            }
+        }
+    }
+
+    public class InvalidSessionKeyAttribute : FilterAttribute, IExceptionFilter
+    {
+        public void OnException(ExceptionContext filterContext)
+        {
+            if (filterContext == null)
+            {
+                throw new ArgumentNullException("filterContext");
+            }
+
+            if (filterContext.Exception != null && typeof(InvalidSessionKeyException).IsInstanceOfType(filterContext.Exception) && !filterContext.ExceptionHandled)
+            {
+                FormsAuthentication.SignOut();
+                FormsAuthentication.RedirectToLoginPage();
+                
+                //filterContext.Result = new HttpUnauthorizedResult();
+                //if (!filterContext.ExceptionHandled)
+                // {
+                //     filterContext.ExceptionHandled = true;
+                //
+                //    if (filterContext.RequestContext.HttpContext.Session != null)
+                //        filterContext.RequestContext.HttpContext.Session.Abandon();
+                //    filterContext.Result = new System.Web.Mvc.HttpStatusCodeResult(401);
+                // }
             }
         }
     }

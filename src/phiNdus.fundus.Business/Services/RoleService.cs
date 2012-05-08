@@ -23,6 +23,9 @@ namespace phiNdus.fundus.Business.Services {
             if (SecurityContext == null)
                 return new string[0];
 
+            if (SecurityContext.SecuritySession == null)
+                return new string[0];
+
             var role = SecurityContext.SecuritySession.User.Role.Name;
             if (role == "Admin")
                 return new[] {"User", "Admin"};
