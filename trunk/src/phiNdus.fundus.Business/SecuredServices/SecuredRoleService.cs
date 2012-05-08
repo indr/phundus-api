@@ -17,8 +17,15 @@ namespace phiNdus.fundus.Business.SecuredServices {
 
         public string[] GetRolesForUser(string sessionKey)
         {
-            return Secured.With(Session.FromKey(sessionKey))
-                .Do<RoleService, string[]>(s => s.GetRolesForUser());
+            try
+            {
+                return Secured.With(Session.FromKey(sessionKey))
+                    .Do<RoleService, string[]>(s => s.GetRolesForUser());
+            }
+            catch (InvalidSessionKeyException)
+            {
+                return Unsecured.Do<RoleService, string[]>(svc => svc.GetRolesForUser());    
+            }
         }
     }
 }

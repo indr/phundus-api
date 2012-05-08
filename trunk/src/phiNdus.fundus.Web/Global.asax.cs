@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using phiNdus.fundus.Web.Helpers;
 using phiNdus.fundus.Web.Plumbing;
 using Castle.MicroKernel.Registration;
 
@@ -15,6 +16,7 @@ namespace phiNdus.fundus.Web {
         private static IWindsorContainer _container;
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
+            filters.Add(new InvalidSessionKeyAttribute());
             filters.Add(new HandleErrorAttribute());
         }
 
