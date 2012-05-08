@@ -746,7 +746,7 @@
       <fileset basedir="${deploy.dir}">
         <include name="bin\**\*" />
         <include name="Content\**\*" />
-        <exclude name="Content\Images\Articles" />
+        <exclude name="Content\Images\Articles\**\*" />
         <include name="Scripts\**\*" />
         <include name="Views\**\*" />
       </fileset>
