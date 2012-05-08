@@ -235,6 +235,8 @@ namespace phiNdus.fundus.Domain.Entities
             table = new PdfPTable(7);
             table.WidthPercentage = 95;
             table.DefaultCell.Padding = 3;
+            table.DefaultCell.BorderWidth = 0.5f;
+            table.DefaultCell.BorderColor = BaseColor.LIGHT_GRAY;
             table.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
             table.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
             table.AddCell(new Phrase("Pos.", defaultFontBold));
@@ -268,22 +270,32 @@ namespace phiNdus.fundus.Domain.Entities
             table.AddCell(new Phrase(this.TotalPrice.ToString("N"), defaultFontBold));
             doc.Add(table);
 
+            var img = iTextSharp.text.Image.GetInstance(@"D:\PdfFooter.png");
+            img.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
+            img.SetAbsolutePosition(0, 40);
+            img.BorderColor = BaseColor.LIGHT_GRAY;
+            img.BorderWidthTop = 1.0f;
+            img.BorderWidthBottom = 1.0f;
+            doc.Add(img);
+
+
             table = new PdfPTable(1);
             cell = new PdfPCell()
             {
                 CellEvent = new RoundRectangle(),
                 Border = PdfPCell.NO_BORDER,
                 Padding = 10,
-                PaddingTop = 7,
-                HorizontalAlignment = Element.ALIGN_RIGHT,
-                Phrase = new Phrase(@"Sekretariat PFADI Luzern
+                PaddingTop = 0,
+                HorizontalAlignment = Element.ALIGN_RIGHT
+            };
+            defaultFont = FontFactory.GetFont("calibri", 10);
+            cell.AddElement(new Paragraph(@"Sekretariat PFADI Luzern
 c/o Stiftung Rodtegg, bürowärkstatt
 Rodteggstrasse 3a, 6005 Luzern 
 Tel. 041 368 40 35   Fax 041 368 42 94
 Web www.pfadiluzern.ch
-E-Mail sekretariat@pfadiluzern.ch
-", defaultFont) 
-            };
+E-Mail sekretariat@pfadiluzern.ch", defaultFont) { Alignment = Element.ALIGN_RIGHT });
+
             table.AddCell(cell);
             table.TotalWidth = doc.PageSize.Width / 2.8f;
             table.WriteSelectedRows(0, -1, -10, 150, writer.DirectContent);
@@ -300,7 +312,9 @@ E-Mail sekretariat@pfadiluzern.ch
           PdfPCell cell, Rectangle rect, PdfContentByte[] canvas
         )
         {
-            PdfContentByte cb = canvas[PdfPTable.LINECANVAS];
+            PdfContentByte cb;
+
+            cb = canvas[PdfPTable.BACKGROUNDCANVAS];
             cb.RoundRectangle(
               rect.Left,
               rect.Bottom,
@@ -308,9 +322,22 @@ E-Mail sekretariat@pfadiluzern.ch
               rect.Height,
               8 // change to adjust how "round" corner is displayed
             );
-            cb.SetLineWidth(1f);
+            cb.SetColorFill(BaseColor.WHITE);
+            cb.Fill();
+
+            cb = canvas[PdfPTable.LINECANVAS];
+            cb.RoundRectangle(
+              rect.Left,
+              rect.Bottom,
+              rect.Width,
+              rect.Height,
+              8 // change to adjust how "round" corner is displayed
+            );
+            cb.SetLineWidth(0.5f);
             cb.SetCMYKColorStrokeF(0f, 0f, 0f, 1f);
             cb.Stroke();
+
+            
         }
     }
 
