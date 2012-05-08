@@ -72,7 +72,7 @@ namespace phiNdus.fundus.Business.SecuredServices
         public IList<OrderDto> GetMyOrders(string sessionKey)
         {
             return Secured.With(Session.FromKey(sessionKey))
-                .And(User.InRole(Role.Administrator))
+                .And(User.InRole(Role.User))
                 .Do<OrderService, IList<OrderDto>>(svc => svc.GetMyOrders());
         }
 
