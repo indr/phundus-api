@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Web;
 using Iesi.Collections.Generic;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -269,8 +270,8 @@ namespace phiNdus.fundus.Domain.Entities
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase(this.TotalPrice.ToString("N"), defaultFontBold));
             doc.Add(table);
-
-            var img = iTextSharp.text.Image.GetInstance(@"D:\PdfFooter.png");
+            var path = HttpContext.Current.Server.MapPath(@"~\Content\Images\PdfFooter.png");
+            var img = iTextSharp.text.Image.GetInstance(path);
             img.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
             img.SetAbsolutePosition(0, 40);
             img.BorderColor = BaseColor.LIGHT_GRAY;

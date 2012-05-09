@@ -148,6 +148,7 @@
     <Content Include="Content\bootstrap-image-gallery.min.css" />
     <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="Content\Images\loading.gif" />
+    <Content Include="Content\Images\PdfFooter.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-image-gallery.js" />
     <Content Include="Scripts\bootstrap-image-gallery.min.js" />
