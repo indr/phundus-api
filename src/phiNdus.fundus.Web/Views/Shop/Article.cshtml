@@ -8,7 +8,7 @@
             <li class="active"><a href="#@Model.Id-D" data-toggle="tab">Beschreibung</a></li>
             <li class=""><a href="#@Model.Id-I" data-toggle="tab">Bilder (@Model.Images.Count)</a></li>
             <li class=""><a href="#@Model.Id-A" data-toggle="tab">Verfügbarkeit</a></li>
-            <li class=""><a href="#@Model.Id-L" data-toggle="tab">Ausleihen</a></li>
+            @*<li class=""><a href="#@Model.Id-L" data-toggle="tab">Ausleihen</a></li>*@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="@Model.Id-D">
@@ -45,7 +45,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="tab-pane" id="@Model.Id-L">
+            @*<div class="tab-pane" id="@Model.Id-L">
                 @if (!Request.IsAuthenticated)
                 {
                     <p>Melden Sie sich an, um einen Artikel auszuleihen.</p>
@@ -53,12 +53,12 @@
                 else
                 {
                     using (Ajax.BeginForm("AddToCart", "Shop", new { }, new AjaxOptions { OnSuccess = "fundus.messageBox('Jawohl!', '<p>Der Artikel wurde erfolgreich in den Warenkorb gelegt.</p><p>Klicken Sie rechts oben auf &quot;Warenkorb&quot um die vorhandenen Artikel anzuzeigen und die Mengen und Zeiträume zu ändern.</p>');" }, new { @class = "form-horizontal add-to-cart" }))
-                {
+                    {
                     <fieldset>
                         @Html.HiddenFor(m => m.CartItem.Id)
                         @Html.HiddenFor(m => m.CartItem.Version)
                         @Html.HiddenFor(m => m.CartItem.ArticleId)
-                        @*TODO: Warum den Preis?*@
+                        <!-- TODO: Warum den Preis? -->
                         @Html.HiddenFor(m => m.CartItem.LineTotal)
 
                         <div class="control-group">    
@@ -91,12 +91,75 @@
                             @Html.SubmitButton("» in den Warenkorb")
                         </div>
                     </fieldset>
+                    }
                 }
-                }
-            </div>
+            </div>*@
         </div>
     </div>
+    
+    @if (!Request.IsAuthenticated)
+                {
+                    <p>Melden Sie sich an, um einen Artikel auszuleihen.</p>
+                }
+                else
+                {
+                    using (Ajax.BeginForm("AddToCart", "Shop", new { }, new AjaxOptions { OnSuccess = "fundus.messageBox('Jawohl!', '<p>Der Artikel wurde erfolgreich in den Warenkorb gelegt.</p><p>Klicken Sie rechts oben auf &quot;Warenkorb&quot um die vorhandenen Artikel anzuzeigen und die Mengen und Zeiträume zu ändern.</p>');" }, new { @class = "form-horizontal add-to-cart" }))
+                    {
+                        
+                    <fieldset>
+                        <legend>Ausleihen</legend>
+                        <div class="row">
+                        @Html.HiddenFor(m => m.CartItem.Id)
+                        @Html.HiddenFor(m => m.CartItem.Version)
+                        @Html.HiddenFor(m => m.CartItem.ArticleId)
+                        <!-- TODO: Warum den Preis? -->
+                        @Html.HiddenFor(m => m.CartItem.LineTotal)
+                        
+                        <div class="span4">
+                        <div class="control-group">    
+                            @Html.LabelFor(model => model.CartItem.Amount, new { @class = "control-label" })
+                            <div class="controls">
+                                <div class="input-append">
+                                    @Html.TextBoxFor(model => model.CartItem.Amount, new { @class = "input-mini add-inc-dec" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.CartItem.Amount)
+                            </div>
+                        </div>
+                        </div>
 
+                        <div class="span3">
+                        <div class="control-group">    
+                            @Html.LabelFor(model => model.CartItem.Begin, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.EditorFor(model => model.CartItem.Begin)
+                                @Html.ValidationMessageFor(model => model.CartItem.Begin)
+                            </div>
+                        </div>
+                        </div>
+                       
+                        <div class="span3">
+                        <div class="control-group">    
+                            @Html.LabelFor(model => model.CartItem.End, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.EditorFor(model => model.CartItem.End)
+                                @Html.ValidationMessageFor(model => model.CartItem.End)
+                            </div>
+                        </div>
+                        </div>
+
+                        
+                        
+                            
+                        
+                        </div>
+                        
+                     </fieldset>       
+                    <div class="form-actions">
+                            @Html.SubmitButton("» in den Warenkorb")
+                            </div>
+                    
+                    }
+                }
 
 @*<p>
     Menge: @Model.GetPropertyValue(3)</p>
