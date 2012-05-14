@@ -35,6 +35,16 @@ namespace phiNdus.fundus.Domain.Settings
             get { return new MailTemplateSettings(Keyspace + ".order-received"); }
         }
 
+        public IMailTemplateSettings UserUnlocked
+        {
+            get { return new MailTemplateSettings(Keyspace + ".user-unlocked"); }
+        }
+
+        public IMailTemplateSettings UserLockedOut
+        {
+            get { return new MailTemplateSettings(Keyspace + ".user-locked-out"); }
+        }
+
         #endregion
     }
 }
