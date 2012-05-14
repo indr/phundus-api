@@ -121,12 +121,18 @@ var fundus;
 
                 $('.add-inc').removeClass('add-inc').click(function () {
                     var input = $(this).siblings('input');
-                    input.val(parseFloat(input.val()) + 1);
+                    var value = parseFloat(input.val()) + 1;
+                    if (isNaN(value))
+                        value = 1;
+                    input.val(value);
                 });
 
                 $('.add-dec').removeClass('add-dec').click(function () {
                     var input = $(this).siblings('input');
-                    input.val(parseFloat(input.val()) - 1);
+                    var value = parseFloat(input.val()) - 1;
+                    if (isNaN(value) || (value < 0))
+                        value = 0;
+                    input.val(value);
                 });
             },
 
