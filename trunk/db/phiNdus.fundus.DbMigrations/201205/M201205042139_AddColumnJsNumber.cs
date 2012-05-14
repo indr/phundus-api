@@ -3,7 +3,7 @@
 namespace phiNdus.fundus.DbMigrations._201204
 {
     [Migration(201205042139)]
-    public class M0015_AddColumnJsNumber : MigrationBase
+    public class M201205042139_AddColumnJsNumber : MigrationBase
     {
         public override void Up()
         {

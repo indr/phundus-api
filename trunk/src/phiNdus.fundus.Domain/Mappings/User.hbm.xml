@@ -10,6 +10,7 @@
     <property name="FirstName" />
     <property name="LastName" />
     <property name="JsNumber" />
+    <property name="MobileNumber" />
     <one-to-one name="Membership" class="Membership" cascade="all-delete-orphan" />
     <many-to-one name="Role" column="RoleId" lazy="false" />
   </class>

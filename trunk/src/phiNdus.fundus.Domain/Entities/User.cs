@@ -65,5 +65,8 @@ namespace phiNdus.fundus.Domain.Entities
                 _jsNumber = value;
             }
         }
+
+        public virtual string MobileNumber { get; set; }
+        
     }
 }
