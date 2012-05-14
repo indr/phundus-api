@@ -81,16 +81,16 @@ namespace phiNdus.fundus.Business.SecuredServices
                 .Do<OrderService>(svc => svc.CheckOut());
         }
 
-        public void Reject(string sessionId, int id)
+        public OrderDto Reject(string sessionId, int id)
         {
-            Secured.With(Session.FromKey(sessionId))
-                .Do<OrderService>(svc => svc.Reject(id));
+            return Secured.With(Session.FromKey(sessionId))
+                .Do<OrderService, OrderDto>(svc => svc.Reject(id));
         }
 
-        public void Confirm(string sessionId, int id)
+        public OrderDto Confirm(string sessionId, int id)
         {
-            Secured.With(Session.FromKey(sessionId))
-                .Do<OrderService>(svc => svc.Confirm(id));
+            return Secured.With(Session.FromKey(sessionId))
+                .Do<OrderService, OrderDto>(svc => svc.Confirm(id));
         }
 
         public Stream GetPdf(string sessionId, int id)

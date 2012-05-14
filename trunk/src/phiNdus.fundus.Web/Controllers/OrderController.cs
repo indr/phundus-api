@@ -60,8 +60,8 @@ namespace phiNdus.fundus.Web.Controllers
         public ActionResult Reject(int id)
         {
             var service = IoC.Resolve<IOrderService>();
-            service.Reject(Session.SessionID, id);
-            return null;
+            var orderDto = service.Reject(Session.SessionID, id);
+            return Json(orderDto);
         }
 
         [HttpPost]
@@ -69,8 +69,8 @@ namespace phiNdus.fundus.Web.Controllers
         public ActionResult Confirm(int id)
         {
             var service = IoC.Resolve<IOrderService>();
-            service.Confirm(Session.SessionID, id);
-            return null;
+            var orderDto = service.Confirm(Session.SessionID, id);
+            return Json(orderDto);
         }
 
         [HttpGet]

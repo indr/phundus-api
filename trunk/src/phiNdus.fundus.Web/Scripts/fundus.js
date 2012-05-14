@@ -173,6 +173,16 @@ var fundus;
 
             },
 
+            orderConfirmed: function (orderDto) {
+                alert('Die Bestellung wurde erfolgreich bestätigt und ein E-Mail wurde an ' + orderDto.ReserverName + ' gesendet.');
+                $('tr#order-' + orderDto.Id).fadeOut(300, function () { $(this).remove; });
+            },
+
+            orderRejected: function (orderDto) {
+                alert('Die Bestellung wurde abgelehnt und ein E-Mail wurde an ' + orderDto.ReserverName + ' gesendet.');
+                $('tr#order-' + orderDto.Id).fadeOut(300, function () { $(this).remove; });
+            },
+
             sayHello: function () {
                 alert('hellas fellas!');
             }
