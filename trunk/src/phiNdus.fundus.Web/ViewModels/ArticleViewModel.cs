@@ -156,6 +156,13 @@ namespace phiNdus.fundus.Web.ViewModels
             }
         }
 
+        public double Price
+        {
+            get { var property = GetProperty(4);
+                return property != null ? (double) property.Value : 0.0d;
+            }
+        }
+
         public string Description {
             get {
                 var property = GetProperty(8);
