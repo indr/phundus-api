@@ -213,13 +213,15 @@ namespace phiNdus.fundus.Domain.Entities
             table.AddCell(cell);
             table.AddCell(new Phrase(Reserver.JsNumber.ToString(), defaultFontBold));
             
-            cell = new PdfPCell(new Phrase("E-Mail-Adresse:", defaultFontGray));
+            cell = new PdfPCell(new Phrase("Telefon / E-Mail:", defaultFontGray));
             cell.BorderWidth = 0;
             cell.BackgroundColor = backGroundColor;
             cell.Padding = 3;
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
-            table.AddCell(new Phrase(Reserver.Membership.Email, defaultFont));
+            table.AddCell(new Phrase(Reserver.MobileNumber + " / " + Reserver.Membership.Email, defaultFont));
+
+            
 
 
             cell = new PdfPCell(new Phrase("Abholen:", defaultFontGray));

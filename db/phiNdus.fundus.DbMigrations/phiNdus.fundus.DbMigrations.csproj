@@ -58,7 +58,8 @@
     <Compile Include="201204\M0011_CreateTableOrderItem.cs" />
     <Compile Include="201204\M0012_CreateTableContract.cs" />
     <Compile Include="201204\M0012_CreateTableContractItem.cs" />
-    <Compile Include="201205\M0015_AddColumnJsNumber.cs" />
+    <Compile Include="201205\M201205141612_AddColumnMobileNumber.cs" />
+    <Compile Include="201205\M201205042139_AddColumnJsNumber.cs" />
     <Compile Include="MigrationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
