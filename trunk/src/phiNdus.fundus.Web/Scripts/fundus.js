@@ -148,6 +148,24 @@ var fundus;
 
         };
 
+        fundus.users = {
+            locked: function (id) {
+                alert('Der Benutzer wurde erfolgreich gesperrt.')
+
+                $('tr#user-' + id).find('a[data-ajax-success="fundus.users.locked"]').hide();
+                $('tr#user-' + id).find('a[data-ajax-success="fundus.users.unlocked"]').show();
+                $('tr#user-' + id).find('td[name="isLockedOut"] input').prop('checked', true);
+            },
+
+            unlocked: function (id) {
+                alert('Der Benutzer wurde erfolgreich entsperrt.');
+
+                $('tr#user-' + id).find('a[data-ajax-success="fundus.users.unlocked"]').hide();
+                $('tr#user-' + id).find('a[data-ajax-success="fundus.users.locked"]').show();
+                $('tr#user-' + id).find('td[name="isLockedOut"] input').prop('checked', false);
+            }
+        };
+
         fundus.shop = {
             showArticle: function (id, url) {
                 var $div = $('#selected-articles');
