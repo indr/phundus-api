@@ -93,5 +93,10 @@ namespace phiNdus.fundus.Domain.Entities
                 return IsApproved = true;
             return false;
         }
+
+        public void Unlock()
+        {
+            IsLockedOut = false;
+        }
     }
 }

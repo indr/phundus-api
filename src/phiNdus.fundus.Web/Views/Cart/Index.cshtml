@@ -64,13 +64,19 @@
                     </td>
                 </tr>       
             }
-            <tr>
-                <td colspan="6" style="text-align:right; font-weight:bold;">Total</td>
-                <td style="text-align:right; font-weight:bold;">@Html.DisplayFor(m => m.TotalPrice)</td>
-                <td colspan="1"></td>
-            </tr>
         }
     </tbody>
+
+    @if (Model.Items.Count > 0)
+    {
+    <tfoot>
+        <tr>
+            <td colspan="6" style="text-align:right; font-weight:bold;">Total</td>
+            <td style="text-align:right; font-weight:bold;">@Html.DisplayFor(m => m.TotalPrice)</td>
+            <td colspan="1"></td>
+        </tr>
+    </tfoot>
+    }
 </table>
         if (Model.Items.Count > 0)
         {

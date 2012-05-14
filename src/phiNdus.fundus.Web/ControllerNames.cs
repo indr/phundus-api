@@ -20,4 +20,10 @@
         public static string Reject { get { return @"reject"; } }
         public static string Print { get { return @"print"; } }
     }
+
+    public class UsersActionNames
+    {
+        public static string LockOut { get { return @"lockout"; } }
+        public static string Unlock { get { return @"unlock"; } }
+    }
 }

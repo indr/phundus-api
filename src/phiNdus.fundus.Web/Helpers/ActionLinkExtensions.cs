@@ -23,42 +23,7 @@ namespace phiNdus.fundus.Web.Helpers
 
         public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, object routeValues, AjaxOptions ajaxOptions)
         {
-            var htmlAttributes = new Dictionary<string, object>();
-
-            if (appearance.Button != Button.None)
-            {
-                
-                switch (appearance.Button)
-                {
-                    case Button.None:
-                        break;
-                    case Button.Normal:
-                        htmlAttributes.Add("class", "btn");
-                        break;
-                    case Button.Primary:
-                        htmlAttributes.Add("class", "btn btn-primary");
-                        break;
-                    case Button.Info:
-                        htmlAttributes.Add("class", "btn btn-info");
-                        break;
-                    case Button.Success:
-                        htmlAttributes.Add("class", "btn btn-success");
-                        break;
-                    case Button.Warning:
-                        htmlAttributes.Add("class", "btn btn-warning");
-                        break;
-                    case Button.Danger:
-                        htmlAttributes.Add("class", "btn btn-danger");
-                        break;
-                    case Button.Inverse:
-                        htmlAttributes.Add("class", "btn btn-inverse");
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            return ajaxHelper.ActionLink(appearance.Caption, actionName, new RouteValueDictionary(routeValues), ajaxOptions, htmlAttributes);
+            return ajaxHelper.ActionLink(appearance, actionName, new RouteValueDictionary(routeValues), ajaxOptions, new Dictionary<string, object>());
         }
 
         public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, RouteValueDictionary routeValues, AjaxOptions ajaxOptions)
@@ -73,12 +38,14 @@ namespace phiNdus.fundus.Web.Helpers
 
         public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, object routeValues, AjaxOptions ajaxOptions, object htmlAttributes)
         {
-            throw new NotImplementedException();
+            return ajaxHelper.ActionLink(appearance, actionName, new RouteValueDictionary(routeValues), ajaxOptions, new RouteValueDictionary(htmlAttributes));
         }
 
         public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, RouteValueDictionary routeValues, AjaxOptions ajaxOptions, IDictionary<string, object> htmlAttributes)
         {
-            throw new NotImplementedException();
+            AddButtonClasses(appearance, htmlAttributes);
+
+            return ajaxHelper.ActionLink(appearance.Caption, actionName, routeValues, ajaxOptions, htmlAttributes);
         }
 
         public static MvcHtmlString ActionLink(this AjaxHelper ajaxHelper, Appearance appearance, string actionName, string controllerName, object routeValues, AjaxOptions ajaxOptions)
@@ -110,7 +77,41 @@ namespace phiNdus.fundus.Web.Helpers
         {
             throw new NotImplementedException();
         }
-  
+
+        private static void AddButtonClasses(Appearance appearance, IDictionary<string, object> htmlAttributes)
+        {
+            if (appearance.Button != Button.None)
+            {
+                switch (appearance.Button)
+                {
+                    case Button.None:
+                        break;
+                    case Button.Normal:
+                        htmlAttributes.Add("class", "btn");
+                        break;
+                    case Button.Primary:
+                        htmlAttributes.Add("class", "btn btn-primary");
+                        break;
+                    case Button.Info:
+                        htmlAttributes.Add("class", "btn btn-info");
+                        break;
+                    case Button.Success:
+                        htmlAttributes.Add("class", "btn btn-success");
+                        break;
+                    case Button.Warning:
+                        htmlAttributes.Add("class", "btn btn-warning");
+                        break;
+                    case Button.Danger:
+                        htmlAttributes.Add("class", "btn btn-danger");
+                        break;
+                    case Button.Inverse:
+                        htmlAttributes.Add("class", "btn btn-inverse");
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
     }
 
     public static class ActionLinkExtensions
