@@ -33,6 +33,74 @@ namespace phiNdus.fundus.Business.Mails
         }
     }
 
+    public class UserUnlockedMail : BaseMail
+    {
+        public UserUnlockedMail()
+            : base(Settings.Mail.Templates.UserUnlocked)
+        {
+        }
+
+        public UserUnlockedMail Send(User user)
+        {
+            Send(user.Membership.Email);
+            return this;
+        }
+
+        public UserUnlockedMail For(User user)
+        {
+            Guard.Against<ArgumentNullException>(user == null, "user");
+
+            Model = new
+            {
+                Settings = Settings.GetSettings(),
+                Urls = new Urls(Settings.Common.ServerUrl),
+                User = user
+            };
+            //DataContext.Add("User", user);
+            //DataContext.Add("Membership", user.Membership);
+            return this;
+        }
+
+        public new void Send(string address)
+        {
+            base.Send(address);
+        }
+    }
+
+    public class UserLockedOutMail : BaseMail
+    {
+        public UserLockedOutMail()
+            : base(Settings.Mail.Templates.UserLockedOut)
+        {
+        }
+
+        public UserLockedOutMail Send(User user)
+        {
+            Send(user.Membership.Email);
+            return this;
+        }
+
+        public UserLockedOutMail For(User user)
+        {
+            Guard.Against<ArgumentNullException>(user == null, "user");
+
+            Model = new
+            {
+                Settings = Settings.GetSettings(),
+                Urls = new Urls(Settings.Common.ServerUrl),
+                User = user
+            };
+            //DataContext.Add("User", user);
+            //DataContext.Add("Membership", user.Membership);
+            return this;
+        }
+
+        public new void Send(string address)
+        {
+            base.Send(address);
+        }
+    }
+
     
     public class UserAccountCreatedMail : BaseMail
     {

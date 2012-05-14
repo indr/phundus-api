@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
+using phiNdus.fundus.Business.Mails;
 using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Domain.Repositories;
+using phiNdus.fundus.Domain.Settings;
 using phiNdus.fundus.Web.Models;
 using Rhino.Commons;
 
@@ -71,6 +73,11 @@ namespace phiNdus.fundus.Web.Controllers
 
                 user.Membership.LockOut();
                 UnitOfWork.CurrentSession.Update(user);
+
+                new UserLockedOutMail().For(user)
+                    .Send(user)
+                    .Send(Settings.Common.AdminEmailAddress);
+
                 uow.TransactionalFlush();
             }
             return null;
@@ -87,6 +94,11 @@ namespace phiNdus.fundus.Web.Controllers
 
                 user.Membership.Unlock();
                 UnitOfWork.CurrentSession.Update(user);
+
+                new UserUnlockedMail().For(user)
+                    .Send(user)
+                    .Send(Settings.Common.AdminEmailAddress);
+
                 uow.TransactionalFlush();
             }
             return null;
