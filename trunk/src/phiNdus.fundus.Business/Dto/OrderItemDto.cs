@@ -26,5 +26,7 @@ namespace phiNdus.fundus.Business.Dto
         public double LineTotal { get; set; }
 
         public string Text { get; internal set; }
+
+        public bool Availability { get; set; }
     }
 }

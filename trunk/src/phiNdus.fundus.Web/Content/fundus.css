@@ -14,3 +14,8 @@ td.no-data
     text-align: center;
     padding: 40px;
 }
+
+td input, td button, td .input-prepend, td .input-append
+{
+    margin-bottom: 0;
+}

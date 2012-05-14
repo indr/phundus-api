@@ -80,7 +80,9 @@
                         <div class="control-group">    
                             @Html.LabelFor(model => model.CartItem.Amount, new { @class = "control-label" })
                             <div class="controls">
-                                @Html.EditorFor(model => model.CartItem.Amount)
+                                <div class="input-append">
+                                    @Html.TextBoxFor(model => model.CartItem.Amount, new { @class = "input-mini add-inc-dec" })
+                                </div>
                                 @Html.ValidationMessageFor(model => model.CartItem.Amount)
                             </div>
                         </div>

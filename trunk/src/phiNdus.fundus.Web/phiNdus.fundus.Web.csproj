@@ -146,12 +146,20 @@
     <Content Include="Content\bootstrap-ie6.min.css" />
     <Content Include="Content\bootstrap-image-gallery.css" />
     <Content Include="Content\bootstrap-image-gallery.min.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\ajax-loader.gif" />
+    <Content Include="Content\Images\glyphicons-halflings-white.png" />
+    <Content Include="Content\Images\glyphicons-halflings.png" />
     <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\PdfFooter.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-image-gallery.js" />
     <Content Include="Scripts\bootstrap-image-gallery.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\canvas-to-blob.js" />
     <Content Include="Scripts\canvas-to-blob.min.js" />
     <Content Include="Scripts\fundus.js" />
@@ -189,12 +197,6 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\glyphicons-halflings-white.png" />
-    <Content Include="Content\Images\glyphicons-halflings.png" />
     <Content Include="Content\Images\pbar-ani.gif" />
     <Content Include="Content\jquery.fileupload-ui.css" />
     <Content Include="favicon.ico" />
@@ -205,8 +207,6 @@
     <Content Include="Content\Images\warning.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\fundus.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\fundus.locale.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
