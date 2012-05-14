@@ -56,6 +56,7 @@ namespace phiNdus.fundus.Web.ViewModels
                 Amount = orderItemDto.Amount;
                 UnitPrice = orderItemDto.UnitPrice;
                 LineTotal = orderItemDto.LineTotal;
+                Availability = orderItemDto.Availability;
             }
             
             if (Begin == DateTime.MinValue)
@@ -110,6 +111,8 @@ namespace phiNdus.fundus.Web.ViewModels
         [DisplayName("Preis")]
         [DisplayFormat(DataFormatString = "{0:0.00}")]
         public double LineTotal { get; set; }
+
+        public bool Availability { get; set; }
 
         public void Update()
         {

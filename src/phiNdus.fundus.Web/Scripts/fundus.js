@@ -112,6 +112,22 @@ var fundus;
                 });
 
                 $('.add-datepicker').datepicker();
+
+                $('input.add-inc-dec').removeClass('add-inc-dec').each(function () {
+                    $(this).wrap('<div class="input-append">');
+                    $(this).after('<button class="btn add-inc" type="button"><i class="icon-plus"></i></button>',
+                                  '<button class="btn add-dec" type="button"><i class="icon-minus"></i></button>');
+                });
+
+                $('.add-inc').removeClass('add-inc').click(function () {
+                    var input = $(this).siblings('input');
+                    input.val(parseFloat(input.val()) + 1);
+                });
+
+                $('.add-dec').removeClass('add-dec').click(function () {
+                    var input = $(this).siblings('input');
+                    input.val(parseFloat(input.val()) - 1);
+                });
             },
 
             messageBox: function (title, body) {
@@ -122,6 +138,8 @@ var fundus;
                 $div.find('.modal-body').html(body);
                 $div.modal();
             }
+
+
         };
 
         fundus.shop = {
