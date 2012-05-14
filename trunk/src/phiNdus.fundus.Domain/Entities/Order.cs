@@ -141,7 +141,26 @@ namespace phiNdus.fundus.Domain.Entities
             var defaultFontGray = FontFactory.GetFont("calibri", 11, BaseColor.GRAY);
             var defaultFontBold = FontFactory.GetFont("calibri-bold", 11);
 
-            var title = new Paragraph("Bestätigung - fundus", FontFactory.GetFont("calibri-bold", 22));
+            var titleCaption = "Bestellung - Provisorisch";
+            switch (Status)
+            {
+                case OrderStatus.Cart:
+                    break;
+                case OrderStatus.Pending:
+                    break;
+                case OrderStatus.Approved:
+                    titleCaption = "Bestellung - Bestätigung";
+                    break;
+                case OrderStatus.Rejected:
+                    titleCaption = "Bestellung - Abgelehnt";
+                    break;
+                case OrderStatus.Closed:
+                    titleCaption = "Bestellung - Abgeschlossen";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            var title = new Paragraph(titleCaption, FontFactory.GetFont("calibri-bold", 22));
             title.IndentationLeft = 36.0f;
             doc.Add(title);
 
@@ -183,40 +202,41 @@ namespace phiNdus.fundus.Domain.Entities
             cell.Padding = 3;
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
-            table.AddCell(new Phrase("Hans Muster", defaultFont));
+            table.AddCell(new Phrase(Reserver.DisplayName, defaultFont));
             table.AddCell(orderNumberCell);
 
-            cell = new PdfPCell(new Phrase("Abholdatum / -zeit:", defaultFontGray));
+            cell = new PdfPCell(new Phrase("J+S-Nummer:", defaultFontGray));
             cell.BorderWidth = 0;
             cell.BackgroundColor = backGroundColor;
             cell.Padding = 3;
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
-            table.AddCell(new Phrase("Donnerstag 12.November 2011 – 17:00", defaultFontBold));
+            table.AddCell(new Phrase(Reserver.JsNumber.ToString(), defaultFontBold));
             
-            cell = new PdfPCell(new Phrase("Abholort:", defaultFontGray));
+            cell = new PdfPCell(new Phrase("E-Mail-Adresse:", defaultFontGray));
             cell.BorderWidth = 0;
             cell.BackgroundColor = backGroundColor;
             cell.Padding = 3;
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
-            table.AddCell(new Phrase("Pfadisekretariat - Rodteggstrasse 31 - 6005 Luzern", defaultFont));
+            table.AddCell(new Phrase(Reserver.Membership.Email, defaultFont));
 
-            cell = new PdfPCell(new Phrase("Rückgabedatum / -zeit:", defaultFontGray));
-            cell.BorderWidth = 0;
-            cell.BackgroundColor = backGroundColor;
-            cell.Padding = 3;
-            cell.PaddingLeft = 36.0f;
-            table.AddCell(cell);
-            table.AddCell(new Phrase("Donnerstag 12.November 2011 – 17:00", defaultFont));
 
-            cell = new PdfPCell(new Phrase("Rückgabeort:", defaultFontGray));
+            cell = new PdfPCell(new Phrase("Abholen:", defaultFontGray));
             cell.BorderWidth = 0;
             cell.BackgroundColor = backGroundColor;
             cell.Padding = 3;
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
-            table.AddCell(new Phrase("Pfadisekretariat - Rodteggstrasse 31 - 6005 Luzern", defaultFont));
+            table.AddCell(new Phrase(FirstFrom.ToString("d"), defaultFont));
+
+            cell = new PdfPCell(new Phrase("Rückgabe:", defaultFontGray));
+            cell.BorderWidth = 0;
+            cell.BackgroundColor = backGroundColor;
+            cell.Padding = 3;
+            cell.PaddingLeft = 36.0f;
+            table.AddCell(cell);
+            table.AddCell(new Phrase(LastTo.ToString("d"), defaultFont));
 
 
             foreach (var each in table.Rows[0].GetCells())
@@ -233,8 +253,8 @@ namespace phiNdus.fundus.Domain.Entities
 
 
             
-            table = new PdfPTable(7);
-            table.WidthPercentage = 95;
+            table = new PdfPTable(new float[] { 5, 5, 36, 10, 12, 12, 10, 10 });
+            table.WidthPercentage = 90;
             table.DefaultCell.Padding = 3;
             table.DefaultCell.BorderWidth = 0.5f;
             table.DefaultCell.BorderColor = BaseColor.LIGHT_GRAY;
@@ -244,7 +264,8 @@ namespace phiNdus.fundus.Domain.Entities
             table.AddCell(new Phrase("Stk.", defaultFontBold));
             table.AddCell(new Phrase("Artikel", defaultFontBold));
             table.AddCell(new Phrase("Art.-Nr.", defaultFontBold));
-            table.AddCell(new Phrase("Bemerkung", defaultFontBold));
+            table.AddCell(new Phrase("Von", defaultFontBold));
+            table.AddCell(new Phrase("Bis", defaultFontBold));
             table.AddCell(new Phrase("Stk. Preis", defaultFontBold));
             table.AddCell(new Phrase("Total", defaultFontBold));
             
@@ -257,11 +278,13 @@ namespace phiNdus.fundus.Domain.Entities
                 table.AddCell(new Phrase(item.Amount.ToString(), defaultFont));
                 table.AddCell(new Phrase(item.Article.Caption, defaultFont));
                 table.AddCell(new Phrase(item.Article.Id.ToString(), defaultFont));
-                table.AddCell(new Phrase("", defaultFont));
+                table.AddCell(new Phrase(item.From.ToString("d"), defaultFont));
+                table.AddCell(new Phrase(item.To.ToString("d"), defaultFont));
                 table.AddCell(new Phrase(item.UnitPrice.ToString("N"), defaultFont));
                 table.AddCell(new Phrase(item.LineTotal.ToString("N"), defaultFont));
             }
 
+            table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
@@ -304,6 +327,16 @@ E-Mail sekretariat@pfadiluzern.ch", defaultFont) { Alignment = Element.ALIGN_RIG
             doc.Close();
             result.Position = 0;
             return result;
+        }
+
+        protected DateTime LastTo
+        {
+            get { return Items.Max(s => s.To); }
+        }
+
+        protected DateTime FirstFrom
+        {
+            get { return Items.Min(s => s.From); }
         }
     }
 
