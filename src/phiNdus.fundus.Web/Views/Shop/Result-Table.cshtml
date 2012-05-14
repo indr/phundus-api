@@ -4,6 +4,7 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th>Preis pro Woche</th>
             <th style="width: 60px;">&nbsp;</th>
         </tr>
     </thead>
@@ -11,6 +12,7 @@
         @foreach (var each in Model.Articles) {
             <tr>
                 <td>@each.Caption</td>
+                <td>CHF @each.Price.ToString("N")</td>
                 <td>@Html.ActionLink("Details", "Article", new { id = each.Id }, new { @class = "btn fundus-shop-showArticle", article_id = each.Id })</td>
             </tr>
         }
