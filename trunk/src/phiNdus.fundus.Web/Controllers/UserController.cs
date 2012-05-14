@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.Web.Models;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private static IUserService UserService
@@ -57,6 +58,38 @@ namespace phiNdus.fundus.Web.Controllers
                 ModelState.AddModelError("", ex.Message);
                 return View(userModel);
             }
+        }
+
+        [HttpPost]
+        public ActionResult LockOut(int id)
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var user = IoC.Resolve<IUserRepository>().Get(id);
+                if (user == null)
+                    return HttpNotFound();
+
+                user.Membership.LockOut();
+                UnitOfWork.CurrentSession.Update(user);
+                uow.TransactionalFlush();
+            }
+            return null;
+        }
+
+        [HttpPost]
+        public ActionResult Unlock(int id)
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var user = IoC.Resolve<IUserRepository>().Get(id);
+                if (user == null)
+                    return HttpNotFound();
+
+                user.Membership.Unlock();
+                UnitOfWork.CurrentSession.Update(user);
+                uow.TransactionalFlush();
+            }
+            return null;
         }
     }
 }

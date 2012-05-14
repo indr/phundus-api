@@ -67,6 +67,7 @@ namespace phiNdus.fundus.Business.Assembler
             result.Email = subject.Email;
             result.CreateDate = subject.CreateDate;
             result.IsApproved = subject.IsApproved;
+            result.IsLockedOut = subject.IsLockedOut;
             return result;
         }
 
