@@ -25,7 +25,7 @@
     </thead>
     <tbody>
         @foreach (var each in Model) {
-        <tr>
+        <tr id="user-@each.Id">
             <td>
                 @Html.DisplayFor(m => each.JsNumber)
             </td>
@@ -44,13 +44,13 @@
             <td>
                 @Html.DisplayFor(m => each.RoleName)
             </td>
-            <td>
+            <td name="isLockedOut">
                 @Html.DisplayFor(m => each.IsLockedOut)
             </td>
             <td>
                 @Html.ActionLink(new Appearance { Caption = "Bearbeiten", Button = Button.Normal }, "Edit", new { id = each.Id })
-                @Ajax.ActionLink(new Appearance { Caption = "Entsperren", Button = Button.Danger }, UsersActionNames.Unlock, new { id = each.Id }, new AjaxOptions { Confirm = "Möchten Sie diesen Benutzer wirklich entsperren?", OnSuccess = "alert('Der Benutzer wurde erfolgreich entsperrt.')", HttpMethod = "POST" }, new { style = each.IsLockedOut ? "" : "display: none;" })
-                @Ajax.ActionLink(new Appearance { Caption = "Sperren", Button = Button.Inverse }, UsersActionNames.LockOut, new { id = each.Id }, new AjaxOptions { Confirm = "Möchten Sie diesen Benutzer wirklich sperren?", OnSuccess = "alert('Der Benutzer wurde erfolgreich gesperrt.')", HttpMethod = "POST" }, new { style = !each.IsLockedOut ? "" : "display: none;" })
+                @Ajax.ActionLink(new Appearance { Caption = "Entsperren", Button = Button.Danger }, UsersActionNames.Unlock, new { id = each.Id }, new AjaxOptions { Confirm = "Möchten Sie diesen Benutzer wirklich entsperren?", OnSuccess = "fundus.users.unlocked", HttpMethod = "POST" }, new { style = each.IsLockedOut ? "" : "display: none;" })
+                @Ajax.ActionLink(new Appearance { Caption = "Sperren", Button = Button.Inverse }, UsersActionNames.LockOut, new { id = each.Id }, new AjaxOptions { Confirm = "Möchten Sie diesen Benutzer wirklich sperren?", OnSuccess = "fundus.users.locked", HttpMethod = "POST" }, new { style = !each.IsLockedOut ? "" : "display: none;" })
             </td>
         </tr>
         }

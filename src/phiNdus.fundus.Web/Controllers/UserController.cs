@@ -80,7 +80,7 @@ namespace phiNdus.fundus.Web.Controllers
 
                 uow.TransactionalFlush();
             }
-            return null;
+            return Json(id);
         }
 
         [HttpPost]
@@ -101,7 +101,7 @@ namespace phiNdus.fundus.Web.Controllers
 
                 uow.TransactionalFlush();
             }
-            return null;
+            return Json(id);
         }
     }
 }
