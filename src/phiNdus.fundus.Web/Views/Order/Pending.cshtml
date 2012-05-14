@@ -27,7 +27,7 @@
         {
             foreach (var each in Model.Items)
             {
-                <tr>
+                <tr id="order-@each.Id">
                     <td>
                         @each.Id
                     </td>
@@ -42,8 +42,8 @@
                     </td>
                     <td style="text-align: right;">
                         @Html.ActionLink(new Appearance { Caption = "Details", Button = Button.Normal }, "Details", new { id = each.Id })
-                        @Ajax.ActionLink(new Appearance { Caption = "Bestätigen", Button = Button.Primary }, OrdersActionNames.Confirm, new { id = each.Id }, new AjaxOptions { Confirm = "Möchten Sie diese Bestellung wirklich bestätigen?", HttpMethod="POST" })
-                        @Ajax.ActionLink(new Appearance { Caption = "Ablehnen", Button = Button.Danger }, OrdersActionNames.Reject, new { id = each.Id }, new AjaxOptions { Confirm = "Möchten Sie diese Bestellung wirklich ablehnen?", HttpMethod = "POST" })
+                        @Ajax.ActionLink(new Appearance { Caption = "Bestätigen", Button = Button.Primary }, OrdersActionNames.Confirm, new { id = each.Id }, new AjaxOptions { Confirm = "Möchten Sie diese Bestellung wirklich bestätigen?", OnSuccess="fundus.shop.orderConfirmed", HttpMethod="POST" })
+                        @Ajax.ActionLink(new Appearance { Caption = "Ablehnen", Button = Button.Danger }, OrdersActionNames.Reject, new { id = each.Id }, new AjaxOptions { Confirm = "Möchten Sie diese Bestellung wirklich ablehnen?", OnSuccess="fundus.shop.orderRejected", HttpMethod = "POST" })
                         @Html.ActionLink(new Appearance { Caption = "PDF drucken", Button = Button.Normal }, OrdersActionNames.Print, new { id = each.Id })
                     </td>
                 </tr>

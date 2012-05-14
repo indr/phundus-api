@@ -206,34 +206,43 @@ namespace phiNdus.fundus.Business.Services
         }
 
 
-        public void Reject(int id)
+        public OrderDto Reject(int id)
         {
             using (var uow = UnitOfWork.Start())
             {
                 var repo = IoC.Resolve<IOrderRepository>();
                 var order = repo.Get(id);
+                
                 //order.Reject(SecurityContext.SecuritySession.User);
                 //repo.Update(order);
 
-                new OrderRejectedMail().For(order).Send(order.Reserver);
+                new OrderRejectedMail()
+                    .For(order)
+                    .Send(order.Reserver);
 
                 uow.TransactionalFlush();
             }
+
+            return GetOrder(id);
         }
 
-        public void Confirm(int id)
+        public OrderDto Confirm(int id)
         {
             using (var uow = UnitOfWork.Start())
             {
                 var repo = IoC.Resolve<IOrderRepository>();
                 var order = repo.Get(id);
+                
                 //order.Approve(SecurityContext.SecuritySession.User);
                 //repo.Update(order);
 
-                new OrderApprovedMail().For(order).Send(order.Reserver);
+                new OrderApprovedMail()
+                    .For(order)
+                    .Send(order.Reserver);
 
                 uow.TransactionalFlush();
             }
+            return GetOrder(id);
         }
 
         public Stream GetPdf(int id)

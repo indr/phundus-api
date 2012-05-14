@@ -16,8 +16,8 @@ namespace phiNdus.fundus.Business.SecuredServices
         IList<OrderDto> GetOrders(string sessionKey, OrderStatus status);
 
         void CheckOut(string sessionKey);
-        void Reject(string sessionId, int id);
-        void Confirm(string sessionId, int id);
+        OrderDto Reject(string sessionId, int id);
+        OrderDto Confirm(string sessionId, int id);
         Stream GetPdf(string sessionId, int id);
     }
 }
