@@ -37,7 +37,7 @@
             @Html.HiddenFor(m => m.PasswordVersion)
             @Html.LabelFor(m => m.Password, new { @class = "control-label" })
             <div class="controls">
-                @Html.EditorFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password)
                 @Html.ValidationMessageFor(m => m.Password)
             </div>
         </div>
