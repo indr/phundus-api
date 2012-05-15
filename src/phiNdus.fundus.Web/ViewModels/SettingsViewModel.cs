@@ -160,13 +160,16 @@ namespace phiNdus.fundus.Web.ViewModels
             userName.StringValue = UserName;
             repo.SaveOrUpdate(userName);
 
-            var password = repo.FindByKey(Keyspace + ".password");
-            if (password != null && password.Version != PasswordVersion)
-                throw new Exception("Die Daten wurden in der zwischenzeit verändert.");
-            if (password == null)
-                password = new Setting(Keyspace + ".password");
-            password.StringValue = Password;
-            repo.SaveOrUpdate(password);
+            if (Password != null)
+            {
+                var password = repo.FindByKey(Keyspace + ".password");
+                if (password != null && password.Version != PasswordVersion)
+                    throw new Exception("Die Daten wurden in der zwischenzeit verändert.");
+                if (password == null)
+                    password = new Setting(Keyspace + ".password");
+                password.StringValue = Password;
+                repo.SaveOrUpdate(password);
+            }
 
             var from = repo.FindByKey(Keyspace + ".from");
             if (from != null && from.Version != FromVersion)
