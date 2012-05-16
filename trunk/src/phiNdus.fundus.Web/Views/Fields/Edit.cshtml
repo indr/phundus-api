@@ -12,7 +12,7 @@
 
 <h2>Materialeigeschaften</h2>
 
-@using (Html.BeginForm("Edit", "Fields", FormMethod.Post, new { @class = "form-horizontal" })) {
+@using (Html.BeginForm("Edit", ControllerNames.Fields, FormMethod.Post, new { @class = "form-horizontal" })) {
     <fieldset>
         <legend>@ViewBag.Title</legend>
     

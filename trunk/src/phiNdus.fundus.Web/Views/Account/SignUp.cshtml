@@ -53,7 +53,7 @@
         @Html.ValidationSummary(true, "Fehler bei der Registrierung:", new { @class = "alert alert-error"})
         <div class="form-actions">
             @Html.SubmitButton("Registrieren")
-            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index", "Home")
+            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index", ControllerNames.Home)
         </div>
     </fieldset>
 }

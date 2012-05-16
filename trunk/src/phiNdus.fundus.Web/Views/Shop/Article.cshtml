@@ -52,7 +52,7 @@
                 }
                 else
                 {
-                    using (Ajax.BeginForm("AddToCart", "Shop", new { }, new AjaxOptions { OnSuccess = "fundus.messageBox('Jawohl!', '<p>Der Artikel wurde erfolgreich in den Warenkorb gelegt.</p><p>Klicken Sie rechts oben auf &quot;Warenkorb&quot um die vorhandenen Artikel anzuzeigen und die Mengen und Zeiträume zu ändern.</p>');" }, new { @class = "form-horizontal add-to-cart" }))
+                    using (Ajax.BeginForm("AddToCart", ControllerNames.Shop, new { }, new AjaxOptions { OnSuccess = "fundus.messageBox('Jawohl!', '<p>Der Artikel wurde erfolgreich in den Warenkorb gelegt.</p><p>Klicken Sie rechts oben auf &quot;Warenkorb&quot um die vorhandenen Artikel anzuzeigen und die Mengen und Zeiträume zu ändern.</p>');" }, new { @class = "form-horizontal add-to-cart" }))
                     {
                     <fieldset>
                         @Html.HiddenFor(m => m.CartItem.Id)
@@ -103,7 +103,7 @@
                 }
                 else
                 {
-                    using (Ajax.BeginForm("AddToCart", "Shop", new { }, new AjaxOptions { OnSuccess = "fundus.messageBox('Jawohl!', '<p>Der Artikel wurde erfolgreich in den Warenkorb gelegt.</p><p>Klicken Sie rechts oben auf &quot;Warenkorb&quot um die vorhandenen Artikel anzuzeigen und die Mengen und Zeiträume zu ändern.</p>');" }, new { @class = "form-horizontal add-to-cart" }))
+                    using (Ajax.BeginForm("AddToCart", ControllerNames.Shop, new { }, new AjaxOptions { OnSuccess = "fundus.messageBox('Jawohl!', '<p>Der Artikel wurde erfolgreich in den Warenkorb gelegt.</p><p>Klicken Sie rechts oben auf &quot;Warenkorb&quot um die vorhandenen Artikel anzuzeigen und die Mengen und Zeiträume zu ändern.</p>');" }, new { @class = "form-horizontal add-to-cart" }))
                     {
                         
                     <fieldset>
@@ -175,7 +175,7 @@
         <div style="background-color: rgb(155,210,23); color: #fff; padding: 4px;">
             <b>Ausleihen</b>
         </div>
-        @using (Ajax.BeginForm("AddItem", "Cart", new AjaxOptions { UpdateTargetId = "message-box-container", OnSuccess = "UpdateCartItemCount" }))
+        @using (Ajax.BeginForm("AddItem", ControllerNames.Cart, new AjaxOptions { UpdateTargetId = "message-box-container", OnSuccess = "UpdateCartItemCount" }))
         {
             <div style="margin: 4px;">
                 <table class="list" width="100%">
@@ -220,7 +220,7 @@
         <div style="background-color: rgb(155,210,23); color: #fff; padding: 4px;">
             <b>Ausleihen</b>
         </div>
-        @using (Ajax.BeginForm("AddItems", "Cart", new AjaxOptions { UpdateTargetId = "message-box-container", OnSuccess = "UpdateCartItemCount" }))
+        @using (Ajax.BeginForm("AddItems", ControllerNames.Cart, new AjaxOptions { UpdateTargetId = "message-box-container", OnSuccess = "UpdateCartItemCount" }))
         {
             <div style="margin: 4px;">
                 <table class="list" width="100%">

@@ -31,7 +31,7 @@ namespace phiNdus.fundus.Web.Controllers
                 FormsService.SignIn(model.Email, model.RememberMe);
                 if (!String.IsNullOrEmpty(returnUrl))
                     return Redirect(returnUrl);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", ControllerNames.Home);
             }
 
             ModelState.AddModelError("", "Benutzername oder Passwort inkorrekt.");
@@ -42,7 +42,7 @@ namespace phiNdus.fundus.Web.Controllers
         public ActionResult LogOff()
         {
             FormsService.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", ControllerNames.Home);
         }
 
         [HttpGet]
