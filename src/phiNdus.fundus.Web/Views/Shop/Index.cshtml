@@ -14,7 +14,7 @@
         <h2>@ViewBag.Title</h2>
     </div>
     <div class="span5" style="padding-top:5px;">
-        @using (Ajax.BeginForm("Search", "Shop", new AjaxOptions {
+        @using (Ajax.BeginForm("Search", ControllerNames.Shop, new AjaxOptions {
             HttpMethod = "POST",
             LoadingElementId = "query-loading",
             UpdateTargetId="search-results"  }, new { @class = "form-search" }))

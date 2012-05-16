@@ -3,16 +3,16 @@
 <p class="navbar-text pull-right">
 @if (Request.IsAuthenticated)
 {   
-    @Html.ActionLink("Warenkorb", "Index", "Cart", null, new { id = "cart" }) @:|
+    @Html.ActionLink("Warenkorb", "Index", ControllerNames.Cart, null, new { id = "cart" }) @:|
 
-    @Html.Raw("Angemeldet als ")@Html.ActionLink(User.Identity.Name, "Profile", "Account") @:(@Html.ActionLink("Abmelden", "LogOff", "Account"))
+    @Html.Raw("Angemeldet als ")@Html.ActionLink(User.Identity.Name, "Profile", ControllerNames.Account) @:(@Html.ActionLink("Abmelden", "LogOff", ControllerNames.Accounts))
     
 
         
 }
 else
 {
-    @Html.ActionLink("Registrieren", "SignUp", "Account") @:|
-    @Html.ActionLink("Anmelden", "LogOn", "Account")
+    @Html.ActionLink("Registrieren", "SignUp", ControllerNames.Account) @:|
+    @Html.ActionLink("Anmelden", "LogOn", ControllerNames.Account)
 }
 </p>
