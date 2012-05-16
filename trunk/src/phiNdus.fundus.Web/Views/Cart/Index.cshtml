@@ -4,85 +4,80 @@
     //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section Breadcrumbs {
-     @Html.ActionLink("Warenkorb", "Index") &gt; &Uuml;bersicht
-}
-
 @using (Html.BeginForm())
 {
-    
-<h2>@ViewBag.Title</h2>
-<p></p>
-<table class="table table-bordered table-striped table-condensed">
-    <thead>
-        <tr>
-            <th style="">Artikel</th>
-            <th style="width:80px">Verfügbar</th>
-            <th style="width:80px">Von</th>
-            <th style="width:80px">Bis</th>
-            <th style="width:140px">Anzahl</th>
-            <th style="width:80px">Stückpreis</th>
-            <th style="width:80px">Total</th>
-            <th style="width:80px"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Items.Count == 0)
-        {
+    <h2>@ViewBag.Title</h2>
+    <p></p>
+    <table class="table table-bordered table-striped table-condensed">
+        <thead>
             <tr>
-                <td class="no-data" colspan="8">Der Warenkorb ist leer.</td>
+                <th style="">Artikel</th>
+                <th style="width:80px">Verfügbar</th>
+                <th style="width:80px">Von</th>
+                <th style="width:80px">Bis</th>
+                <th style="width:140px">Anzahl</th>
+                <th style="width:80px">Stückpreis</th>
+                <th style="width:80px">Total</th>
+                <th style="width:80px"></th>
             </tr>
-        }
-        else
-        {
-            for (var idx = 0; idx < Model.Items.Count; idx++)
+        </thead>
+        <tbody>
+            @if (Model.Items.Count == 0)
             {
-                <tr id="order-line-@Model.Items[idx].Id">
-                    
-                    <td style="vertical-align:middle;">@Html.HiddenFor(x => Model.Items[idx].Id)@Model.Items[idx].Caption</td>    
-                    <td style="text-align:center;vertical-align:middle;">
-                        @if(Model.Items[idx].Availability)
-                        {
-                            <i class="icon-ok"></i>
-                        }
-                        else
-                        {
-                            <i class="icon-remove"></i>
-                        }
-                        
-                    </td>
-                    <td>@Html.EditorFor(x => Model.Items[idx].Begin)</td>
-                    <td>@Html.EditorFor(x => Model.Items[idx].End)</td>
-                    <td>
-                        @Html.TextBoxFor(x => Model.Items[idx].Amount, new { @class="input-mini add-inc-dec"})
-                    </td>
-                    <td style="text-align:right;vertical-align:middle;">@Html.DisplayFor(x => Model.Items[idx].UnitPrice)</td>
-                    <td style="text-align:right;vertical-align:middle;">@Html.DisplayFor(x => Model.Items[idx].LineTotal)</td>
-                    
-                    <td>
-                        @Html.ActionLink(new Appearance { Caption = "Entfernen", Button = Button.Danger }, "Remove", new { id = Model.Items[idx].Id, version = Model.Items[idx].Version })
-                    </td>
-                </tr>       
+                <tr>
+                    <td class="no-data" colspan="8">Der Warenkorb ist leer.</td>
+                </tr>
             }
-        }
-    </tbody>
+            else
+            {
+                for (var idx = 0; idx < Model.Items.Count; idx++)
+                {
+                    <tr id="order-line-@Model.Items[idx].Id">
+                    
+                        <td style="vertical-align:middle;">@Html.HiddenFor(x => Model.Items[idx].Id)@Model.Items[idx].Caption</td>    
+                        <td style="text-align:center;vertical-align:middle;">
+                            @if(Model.Items[idx].Availability)
+                            {
+                                <i class="icon-ok"></i>
+                            }
+                            else
+                            {
+                                <i class="icon-remove"></i>
+                            }
+                        
+                        </td>
+                        <td>@Html.EditorFor(x => Model.Items[idx].Begin)</td>
+                        <td>@Html.EditorFor(x => Model.Items[idx].End)</td>
+                        <td>
+                            @Html.TextBoxFor(x => Model.Items[idx].Amount, new { @class="input-mini add-inc-dec"})
+                        </td>
+                        <td style="text-align:right;vertical-align:middle;">@Html.DisplayFor(x => Model.Items[idx].UnitPrice)</td>
+                        <td style="text-align:right;vertical-align:middle;">@Html.DisplayFor(x => Model.Items[idx].LineTotal)</td>
+                    
+                        <td>
+                            @Html.ActionLink(new Appearance { Caption = "Entfernen", Button = Button.Danger }, CartActionNames.Remove, new { id = Model.Items[idx].Id, version = Model.Items[idx].Version })
+                        </td>
+                    </tr>       
+                }
+            }
+        </tbody>
 
-    @if (Model.Items.Count > 0)
-    {
-    <tfoot>
-        <tr>
-            <td colspan="6" style="text-align:right; font-weight:bold;">Total</td>
-            <td style="text-align:right; font-weight:bold;">@Html.DisplayFor(m => m.TotalPrice)</td>
-            <td colspan="1"></td>
-        </tr>
-    </tfoot>
-    }
-</table>
-        if (Model.Items.Count > 0)
+        @if (Model.Items.Count > 0)
         {
-    <div class="form-actions">
-        @Html.SubmitButton("Aktualisieren", "")
-        @Html.ActionLink(new Appearance { Button = Button.Primary, Caption = "Bestellen" }, "CheckOut")
-    </div>
-}
+        <tfoot>
+            <tr>
+                <td colspan="6" style="text-align:right; font-weight:bold;">Total</td>
+                <td style="text-align:right; font-weight:bold;">@Html.DisplayFor(m => m.TotalPrice)</td>
+                <td colspan="1"></td>
+            </tr>
+        </tfoot>
+        }
+    </table>
+            if (Model.Items.Count > 0)
+            {
+        <div class="form-actions">
+            @Html.SubmitButton("Aktualisieren", "")
+            @Html.ActionLink(new Appearance { Button = Button.Primary, Caption = "Bestellen" }, CartActionNames.CheckOut)
+        </div>
+    }
 }

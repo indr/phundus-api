@@ -4,15 +4,10 @@
     ViewBag.Title = "Eigenschaft \"" + Model.Caption + "\" bearbeiten";
 }
 
-@section Breadcrumbs {
-     @Html.ActionLink("Artikel", "Index", "Article") &gt;
-     @Html.ActionLink("Felder", "List") &gt;
-     @ViewBag.Title
-}
-
 <h2>Materialeigeschaften</h2>
-
-@using (Html.BeginForm("Edit", ControllerNames.Fields, FormMethod.Post, new { @class = "form-horizontal" })) {
+<p></p>
+@using (Html.BeginForm("Edit", ControllerNames.Fields, FormMethod.Post, new { @class = "form-horizontal" }))
+{
     <fieldset>
         <legend>@ViewBag.Title</legend>
     
@@ -25,7 +20,7 @@
 
     <div class="form-actions">
         @Html.SubmitButton("Speichern")
-        @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index")
+        @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, FieldsActionNames.Index)
     </div>
     </fieldset>
 }

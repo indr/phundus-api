@@ -4,10 +4,6 @@
     ViewBag.Title = "Benutzer";
 }
 
-@section Breadcrumbs {
-     @Html.ActionLink("Benutzer", "Index") &gt; &Uuml;bersicht
-}
-
 <h2>Benutzer</h2>
 <p></p>
 <table class="table table-bordered table-striped table-condensed">
@@ -48,7 +44,7 @@
                 @Html.DisplayFor(m => each.IsLockedOut)
             </td>
             <td>
-                @Html.ActionLink(new Appearance { Caption = "Bearbeiten", Button = Button.Normal }, "Edit", new { id = each.Id })
+                @Html.ActionLink(new Appearance { Caption = "Bearbeiten", Button = Button.Normal }, UsersActionNames.Edit, new { id = each.Id })
                 @Ajax.ActionLink(new Appearance { Caption = "Entsperren", Button = Button.Danger }, UsersActionNames.Unlock, new { id = each.Id }, new AjaxOptions { Confirm = "Möchten Sie diesen Benutzer wirklich entsperren?", OnSuccess = "fundus.users.unlocked", HttpMethod = "POST" }, new { style = each.IsLockedOut ? "" : "display: none;" })
                 @Ajax.ActionLink(new Appearance { Caption = "Sperren", Button = Button.Inverse }, UsersActionNames.LockOut, new { id = each.Id }, new AjaxOptions { Confirm = "Möchten Sie diesen Benutzer wirklich sperren?", OnSuccess = "fundus.users.locked", HttpMethod = "POST" }, new { style = !each.IsLockedOut ? "" : "display: none;" })
             </td>

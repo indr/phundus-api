@@ -1,11 +1,6 @@
 ﻿@model ArticleViewModel
-
 @{
     ViewBag.Title = "Artikel löschen";
-}
-
-@section Breadcrumbs {
-     @Html.ActionLink("Artikel", "Index") &gt; Löschen
 }
 
 <h2>Material</h2>
@@ -15,7 +10,7 @@
     <p>Möchten Sie diesen Artikel wirklich löschen?</p>
     <div class="form-actions">
         @Html.SubmitButton("Ja, löschen!", "btn-danger")
-        @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index")
+        @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, ArticlesActionNames.Index)
     </div>
     </fieldset>
 }
