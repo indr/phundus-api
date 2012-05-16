@@ -4,22 +4,15 @@
     ViewBag.Title = "Materialeigenschaften";
 }
 
-@section Breadcrumbs {
-     @Html.ActionLink("Artikel", "Index", "Article") &gt;
-     @Html.ActionLink("Felder", "List") &gt;
-     &Uuml;bersicht
-}
-
 <h2>Materialeigenschaften</h2>
 
-@*@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "message-box-container" }))*@
 @using (Ajax.BeginForm(new AjaxOptions { }))
 {
     @Html.ValidationSummary(false)
     
     <p>
         <span class="unobtrusive-remove"><input type="submit" value="Speichern" /> | </span>
-        @Html.ActionLink(new Appearance { Caption = "Neue Eigenschaft", Button = Button.Primary }, "Create")
+        @Html.ActionLink(new Appearance { Caption = "Neue Eigenschaft", Button = Button.Primary }, FieldsActionNames.Create)
     </p>
     <table class="table table-bordered table-striped dnd">
        <thead>
@@ -84,10 +77,10 @@
             <td>
                 @Html.HiddenFor(m => m.Items[idx].Id)
 
-                @Html.ActionLink(new Appearance { Caption = "Bearbeiten", Button = Button.Normal }, "Edit", new { id = Model.Items[idx].Id })
+                @Html.ActionLink(new Appearance { Caption = "Bearbeiten", Button = Button.Normal }, FieldsActionNames.Edit, new { id = Model.Items[idx].Id })
                 @if (!Model.Items[idx].IsSystem)
                 {
-                    @Html.ActionLink(new Appearance { Caption = "Löschen", Button = Button.Danger }, "Delete", new { id = Model.Items[idx].Id, version = Model.Items[idx].Version })
+                    @Html.ActionLink(new Appearance { Caption = "Löschen", Button = Button.Danger }, FieldsActionNames.Delete, new { id = Model.Items[idx].Id, version = Model.Items[idx].Version })
                 }
             </td>
         </tr>
@@ -96,6 +89,6 @@
     </table>
     <p>
         <span class="unobtrusive-remove"><input type="submit" value="Speichern" /> | </span>
-        @Html.ActionLink(new Appearance { Caption = "Neue Eigenschaft", Button = Button.Primary }, "Create")
+        @Html.ActionLink(new Appearance { Caption = "Neue Eigenschaft", Button = Button.Primary }, FieldsActionNames.Create)
     </p>
 }

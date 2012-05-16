@@ -1,14 +1,9 @@
 ﻿@model ArticlesTableViewModel
-
 @{
     ViewBag.Title = "Material";
 }
 
-@section Breadcrumbs {
-     @Html.ActionLink("Artikel", "List") &gt; &Uuml;bersicht
-}
-
-<h2>Material</h2>
+<h2>@ViewBag.Title</h2>
 <p></p>
 <table class="table table-bordered table-striped">
     <thead>
@@ -57,7 +52,7 @@
                         </ul>
                     </div>
                     <div class="btn-group">
-                        @Html.ActionLink(new Appearance { Caption = "Löschen", Button = Button.Danger}, "Delete", new { id = item.Id, version = item.Version })                 
+                        @Html.ActionLink(new Appearance { Caption = "Löschen", Button = Button.Danger}, ArticlesActionNames.Delete, new { id = item.Id, version = item.Version })                 
                     </div>
                 </div>
             </td>

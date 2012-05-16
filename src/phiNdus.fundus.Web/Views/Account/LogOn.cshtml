@@ -37,7 +37,7 @@
         @Html.ValidationSummary(true, "Fehler bei der Anmeldung:", new { @class = "alert alert-error"})
         <div class="form-actions">
             @Html.SubmitButton("Anmelden")
-            @Html.ActionLink("Passwort vergessen?", "ResetPassword") | @Html.ActionLink("Neues Konto erstellen", "SignUp")
+            @Html.ActionLink("Passwort vergessen?", AccountActionNames.ResetPassword) | @Html.ActionLink("Neues Konto erstellen", AccountActionNames.SignUp)
         </div>
     </fieldset>
 }

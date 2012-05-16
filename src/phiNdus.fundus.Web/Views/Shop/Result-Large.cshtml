@@ -25,7 +25,7 @@
                     @each.Caption;
                 }</h5>
             <p>CHF @each.Price.ToString("N") / Woche</p>
-            <div class="modal-footer" style="margin-bottom: 0;padding: 0px 1px 1px; background-color: transparent; border-width:0;">@Html.ActionLink("Details", "Article", new { id = each.Id }, new { @class = "btn fundus-shop-showArticle", article_id = each.Id })</div>
+            <div class="modal-footer" style="margin-bottom: 0;padding: 0px 1px 1px; background-color: transparent; border-width:0;">@Html.ActionLink("Details", ShopActionNames.Article, new { id = each.Id }, new { @class = "btn fundus-shop-showArticle", article_id = each.Id })</div>
         </div>
     </li>
     }

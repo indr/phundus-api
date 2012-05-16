@@ -1,11 +1,6 @@
 ﻿@model ArticleViewModel
-
 @{
     ViewBag.Title = "Neues Material erfassen";
-}
-
-@section Breadcrumbs {
-     @Html.ActionLink("Artikel", "Index") &gt; Erfassen
 }
 
 <h2>@ViewBag.Title</h2>
@@ -23,7 +18,7 @@
         @Html.EditorForModel()    
         <div class="form-actions">
             @Html.SubmitButton("Speichern")
-            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index")
+            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, ArticlesActionNames.Index)
         </div>
     }
 </div>

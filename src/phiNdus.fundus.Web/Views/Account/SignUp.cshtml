@@ -1,5 +1,4 @@
 ﻿@model phiNdus.fundus.Web.Models.SignUpModel
-
 @{
     ViewBag.Title = "Registrieren";
 }
@@ -53,7 +52,7 @@
         @Html.ValidationSummary(true, "Fehler bei der Registrierung:", new { @class = "alert alert-error"})
         <div class="form-actions">
             @Html.SubmitButton("Registrieren")
-            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index", ControllerNames.Home)
+            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, HomeActionNames.Index, ControllerNames.Home)
         </div>
     </fieldset>
 }

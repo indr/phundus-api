@@ -4,14 +4,8 @@
     ViewBag.Title = "Neue Eigenschaft";
 }
 
-@section Breadcrumbs {
-     @Html.ActionLink("Artikel", "Index", "Article") &gt;
-     @Html.ActionLink("Felder", "List") &gt;
-     @ViewBag.Title
-}
-
 <h2>Materialeigenschaften</h2>
-
+<p></p>
 @using (Html.BeginForm("Create", ControllerNames.Fields, FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <fieldset>
@@ -20,7 +14,7 @@
     @Html.EditorForModel()
     <div class="form-actions">
         @Html.SubmitButton("Speichern")
-        @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, "Index")
+        @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, FieldsActionNames.Index)
     </div>
     </fieldset>
 }

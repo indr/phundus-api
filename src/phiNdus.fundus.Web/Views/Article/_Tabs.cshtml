@@ -1,28 +1,23 @@
 ﻿@model dynamic
-
 @{
     ViewBag.Title = "Material";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@section Breadcrumbs {
-     @Html.ActionLink("Artikel", "Index") &gt; Details
 }
 
 <h2>Material</h2>
     
 <div class="tabbable">
     <ul class="nav nav-tabs">
-        <li class="@Html.ActiveTab("Article", new string[] { "Edit", "Fields" })">@Ajax.ActionLink("Eigenschaften", "Fields",new { id = Model.Id }, new AjaxOptions {
+        <li class="@Html.ActiveTab("Article", new string[] { "Edit", "Fields" })">@Ajax.ActionLink("Eigenschaften", ArticlesActionNames.Fields,new { id = Model.Id }, new AjaxOptions {
             HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
-        <li class="@Html.ActiveTab("Article", new string[] { "Images"})">@Ajax.ActionLink("Bilder", "Images", new { id = Model.Id }, new AjaxOptions {
+        <li class="@Html.ActiveTab("Article", new string[] { "Images"})">@Ajax.ActionLink("Bilder", ArticlesActionNames.Images, new { id = Model.Id }, new AjaxOptions {
             HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
-        <li class="@Html.ActiveTab("Article", new string[] { "Categories"})">@Ajax.ActionLink("Kategorien", "Categories", new { id = Model.Id }, new AjaxOptions {
+        <li class="@Html.ActiveTab("Article", new string[] { "Categories"})">@Ajax.ActionLink("Kategorien", ArticlesActionNames.Categories, new { id = Model.Id }, new AjaxOptions {
             HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
-        <li class="@Html.ActiveTab("Article", new string[] { "Availability" })">@Ajax.ActionLink("Verfügbarkeit", "Availability", new { id = Model.Id }, new AjaxOptions {
+        <li class="@Html.ActiveTab("Article", new string[] { "Availability" })">@Ajax.ActionLink("Verfügbarkeit", ArticlesActionNames.Availability, new { id = Model.Id }, new AjaxOptions {
             HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
     </ul>
         
