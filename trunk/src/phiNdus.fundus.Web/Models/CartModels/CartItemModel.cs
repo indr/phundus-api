@@ -1,42 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using DataAnnotationsExtensions;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Web.ViewModels;
 using Rhino.Commons;
 
-namespace phiNdus.fundus.Web.ViewModels
+namespace phiNdus.fundus.Web.Models.CartModels
 {
-    public static class SessionAdapter
+    public class CartItemModel : ViewModelBase
     {
-        public static DateTime ShopBegin
+        public CartItemModel()
         {
-            get { return DateTime.Today.AddDays(1); }
         }
 
-        public static DateTime ShopEnd
-        {
-            get { return DateTime.Today.AddDays(7); }
-        }
-    }
-
-    public class CartItemViewModel : ViewModelBase
-    {
-        public CartItemViewModel()
-        {
-            
-        }
-
-        public CartItemViewModel(OrderItemDto orderItemDto, int articleId, double price)
+        public CartItemModel(OrderItemDto orderItemDto, int articleId, double price)
         {
             Load(orderItemDto, articleId, price);
         }
 
-        public CartItemViewModel(OrderItemDto orderItemDto)
+        public CartItemModel(OrderItemDto orderItemDto)
         {
             Load(orderItemDto, orderItemDto.ArticleId, 0.99);
         }
@@ -66,6 +50,11 @@ namespace phiNdus.fundus.Web.ViewModels
                 End = SessionAdapter.ShopEnd;
         }
 
+        public void Update()
+        {
+            IoC.Resolve<ICartService>().AddItem(SessionId, CreateDto());
+        }
+
         public OrderItemDto CreateDto()
         {
             var result = new OrderItemDto();
@@ -78,6 +67,7 @@ namespace phiNdus.fundus.Web.ViewModels
             result.To = End;
             return result;
         }
+
 
         public int Id { get; set; }
         public int Version { get; set; }
@@ -113,10 +103,5 @@ namespace phiNdus.fundus.Web.ViewModels
         public double LineTotal { get; set; }
 
         public bool Availability { get; set; }
-
-        public void Update()
-        {
-            IoC.Resolve<ICartService>().AddItem(SessionId, CreateDto());
-        }
     }
 }

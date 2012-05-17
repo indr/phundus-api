@@ -76,7 +76,6 @@
     <Compile Include="ModelValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\FundusMembershipProviderTests.cs" />
-    <Compile Include="State\SessionStateManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tests\phiNdus.fundus.TestHelpers\phiNdus.fundus.TestHelpers.csproj">
