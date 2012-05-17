@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Web.Models.CartModels;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
@@ -18,7 +19,7 @@ namespace phiNdus.fundus.Web.ViewModels
         {
         }
 
-        public ShopArticleViewModel(int id, CartItemViewModel cartItem) : base(id)
+        public ShopArticleViewModel(int id, CartItemModel cartItem) : base(id)
         {
             if (HttpContext.Current.User.Identity.IsAuthenticated)
             {
@@ -34,7 +35,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
                 if (cartItem == null)
                 {
-                    CartItem = new CartItemViewModel(cartItemDto, id, price);
+                    CartItem = new CartItemModel(cartItemDto, id, price);
                 }
                 else
                 {
@@ -45,7 +46,7 @@ namespace phiNdus.fundus.Web.ViewModels
         }
 
         
-        public CartItemViewModel CartItem { get; set; }
+        public CartItemModel CartItem { get; set; }
 
         public IList<AvailabilityDto> Availabilities { get; set; }
     }

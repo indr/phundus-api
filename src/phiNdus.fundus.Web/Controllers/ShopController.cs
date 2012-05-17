@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.SecuredServices;
-using phiNdus.fundus.Web.Helpers;
-using phiNdus.fundus.Web.State;
+using phiNdus.fundus.Web.Models.CartModels;
 using phiNdus.fundus.Web.ViewModels;
 using Rhino.Commons;
 
@@ -15,22 +14,15 @@ namespace phiNdus.fundus.Web.Controllers
             get { return @"Index"; }
         }
 
-        private static class ShopViews
-        {
-            public static string Large { get { return @"Result-Large"; } }
-            public static string Small { get { return @"Result-Small"; } }
-            public static string Table { get { return @"Result-Table"; } }
-            public static string Default { get { return Large; } }
-        }
-
         private string ShopView
         {
-            get {
+            get
+            {
                 var result = Convert.ToString(Session["Shop-View"]);
                 if (!String.IsNullOrEmpty(result))
                     return result;
                 return ShopViews.Default;
-            } 
+            }
             set { Session["Shop-View"] = value; }
         }
 
@@ -65,10 +57,10 @@ namespace phiNdus.fundus.Web.Controllers
             if (collection != null)
             {
                 var value = collection.GetValue("PageSelectorModel.rowsPerPage");
-                    if (value != null)
-                        RowsPerPage = Convert.ToInt32(value.AttemptedValue);
+                if (value != null)
+                    RowsPerPage = Convert.ToInt32(value.AttemptedValue);
             }
-            
+
             return Search(null, page.HasValue ? page.Value : 1);
         }
 
@@ -104,25 +96,22 @@ namespace phiNdus.fundus.Web.Controllers
             return Article(id, null);
         }
 
-        private ActionResult Article(int id, CartItemViewModel cartItem)
+        private ActionResult Article(int id, CartItemModel cartItem)
         {
-            
-                var model = new ShopArticleViewModel(id, cartItem);
-                model.Availabilities = IoC.Resolve<IArticleService>().GetAvailability(Session.SessionID, id);
-                return Json(new
-                                {
-                                    caption = model.Caption,
-                                    content = RenderPartialViewToString("Article", model)
-                                }, JsonRequestBehavior.AllowGet);
-            
-            
+            var model = new ShopArticleViewModel(id, cartItem);
+            model.Availabilities = IoC.Resolve<IArticleService>().GetAvailability(Session.SessionID, id);
+            return Json(new
+                            {
+                                caption = model.Caption,
+                                content = RenderPartialViewToString("Article", model)
+                            }, JsonRequestBehavior.AllowGet);
         }
 
         //
         // POST: /Shop/AddToCart
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult AddToCart([Bind(Prefix="CartItem")] CartItemViewModel cartItem)
+        public ActionResult AddToCart([Bind(Prefix = "CartItem")] CartItemModel cartItem)
         {
             // TODO: Ist merkwürdigerweise immer true...
             //if (!ModelState.IsValid)
@@ -131,11 +120,38 @@ namespace phiNdus.fundus.Web.Controllers
             //}
 
             cartItem.Update();
-            
+
             if (Request.IsAjaxRequest())
                 return new JsonResult();
 
             throw new NotImplementedException("/Shop/AddToCart kann vorerst nur per Ajax aufgerufen werden.");
         }
+
+        #region Nested type: ShopViews
+
+        private static class ShopViews
+        {
+            public static string Large
+            {
+                get { return @"Result-Large"; }
+            }
+
+            public static string Small
+            {
+                get { return @"Result-Small"; }
+            }
+
+            public static string Table
+            {
+                get { return @"Result-Table"; }
+            }
+
+            public static string Default
+            {
+                get { return Large; }
+            }
+        }
+
+        #endregion
     }
 }

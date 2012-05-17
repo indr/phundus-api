@@ -5,6 +5,7 @@ using System.Web;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Web.Models;
+using phiNdus.fundus.Web.Models.CartModels;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
@@ -13,12 +14,13 @@ namespace phiNdus.fundus.Web.ViewModels
     {
         public CheckOutViewModel() : base()
         {
-            Cart = new CartViewModel();
+            Cart = new CartModel();
+            Cart.Load();
             Customer = new UserModel();
         }
 
 
-        public CartViewModel Cart { get; set; }
+        public CartModel Cart { get; set; }
         public UserModel Customer { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿@model phiNdus.fundus.Web.ViewModels.CartViewModel
 @{
     ViewBag.Title = "Warenkorb";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm())
@@ -34,8 +33,8 @@
                 {
                     <tr id="order-line-@Model.Items[idx].Id">
                     
-                        <td style="vertical-align:middle;">@Html.HiddenFor(x => Model.Items[idx].Id)@Model.Items[idx].Caption</td>    
-                        <td style="text-align:center;vertical-align:middle;">
+                        <td style="vertical-align: middle;">@Html.HiddenFor(x => Model.Items[idx].Id)@Model.Items[idx].Caption</td>    
+                        <td style="text-align: center; vertical-align:middle;">
                             @if(Model.Items[idx].Availability)
                             {
                                 <i class="icon-ok"></i>
@@ -44,16 +43,22 @@
                             {
                                 <i class="icon-remove"></i>
                             }
-                        
                         </td>
-                        <td>@Html.EditorFor(x => Model.Items[idx].Begin)</td>
-                        <td>@Html.EditorFor(x => Model.Items[idx].End)</td>
+                        <td>
+                            @Html.EditorFor(x => Model.Items[idx].Begin)
+                        </td>
+                        <td>
+                            @Html.EditorFor(x => Model.Items[idx].End)
+                        </td>
                         <td>
                             @Html.TextBoxFor(x => Model.Items[idx].Amount, new { @class="input-mini add-inc-dec"})
                         </td>
-                        <td style="text-align:right;vertical-align:middle;">@Html.DisplayFor(x => Model.Items[idx].UnitPrice)</td>
-                        <td style="text-align:right;vertical-align:middle;">@Html.DisplayFor(x => Model.Items[idx].LineTotal)</td>
-                    
+                        <td style="text-align: right; vertical-align: middle;">
+                            @Html.DisplayFor(x => Model.Items[idx].UnitPrice)
+                        </td>
+                        <td style="text-align: right; vertical-align: middle;">
+                            @Html.DisplayFor(x => Model.Items[idx].LineTotal)
+                        </td>
                         <td>
                             @Html.ActionLink(new Appearance { Caption = "Entfernen", Button = Button.Danger }, CartActionNames.Remove, new { id = Model.Items[idx].Id, version = Model.Items[idx].Version })
                         </td>
@@ -64,17 +69,17 @@
 
         @if (Model.Items.Count > 0)
         {
-        <tfoot>
-            <tr>
-                <td colspan="6" style="text-align:right; font-weight:bold;">Total</td>
-                <td style="text-align:right; font-weight:bold;">@Html.DisplayFor(m => m.TotalPrice)</td>
-                <td colspan="1"></td>
-            </tr>
-        </tfoot>
+            <tfoot>
+                <tr>
+                    <td colspan="6" style="text-align: right; font-weight: bold;">Total</td>
+                    <td style="text-align :right; font-weight: bold;">@Html.DisplayFor(m => m.TotalPrice)</td>
+                    <td colspan="1"></td>
+                </tr>
+            </tfoot>
         }
     </table>
-            if (Model.Items.Count > 0)
-            {
+    if (Model.Items.Count > 0)
+    {
         <div class="form-actions">
             @Html.SubmitButton("Aktualisieren", "")
             @Html.ActionLink(new Appearance { Button = Button.Primary, Caption = "Bestellen" }, CartActionNames.CheckOut)
