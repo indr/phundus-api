@@ -25,7 +25,10 @@ namespace phiNdus.fundus.Web.Models.CartModels
 
         public void Load(OrderDto cartDto)
         {
+            Id = cartDto.Id;
+            Version = cartDto.Version;
             TotalPrice = cartDto.TotalPrice;
+            Items.Clear();
             foreach (var each in cartDto.Items)
                 Items.Add(new CartItemModel(each));
         }
@@ -33,6 +36,8 @@ namespace phiNdus.fundus.Web.Models.CartModels
         public void Save()
         {
             var dtos = Items.Select(each => each.CreateDto()).ToList();
+            // TODO: Ganzer Warenkorb updaten, damit Optimistic Offline Locking funktioniert
+            //CartService.Update(cartDto);
             CartService.UpdateItems(SessionId, dtos);
         }
 
@@ -41,6 +46,12 @@ namespace phiNdus.fundus.Web.Models.CartModels
             get { return _items; }
             set { _items = value; }
         }
+
+        [Required]
+        public int Id { get; set; }
+
+        [Required]
+        public int Version { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:0.00}")]
         public double TotalPrice { get; set; }
