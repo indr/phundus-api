@@ -21,28 +21,31 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public ShopArticleViewModel(int id, CartItemModel cartItem) : base(id)
         {
-            if (HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                // Warenkorb holen
-                var cartDto = CartService.GetCart(SessionId);
+            throw new NotImplementedException("ShopArticleViewModel(int id, CartItemModel cartItem)");
+            //if (HttpContext.Current.User.Identity.IsAuthenticated)
+            //{
+            //    // Warenkorb holen
 
-                // Warenkorb-Item erzeugen, wenn für den Artikel noch keins vorhanden ist
-                var cartItemDto = cartDto.Items.Where(p => p.ArticleId == id).SingleOrDefault();
-                if (cartItemDto == null)
-                    cartItemDto = new OrderItemDto();
 
-                var price = Convert.ToDouble(GetPropertyValue(4));
+            //    CartService.AddItem(SessionId, new OrderItemDto
+            //                                       {
+            //                                           ArticleId = cartItem.ArticleId,
 
-                if (cartItem == null)
-                {
-                    CartItem = new CartItemModel(cartItemDto, id, price);
-                }
-                else
-                {
-                    CartItem = cartItem;
-                    CartItem.LineTotal = price;
-                }
-            }
+            //                                       });
+
+                
+            //    var price = Convert.ToDouble(GetPropertyValue(4));
+
+            //    if (cartItem == null)
+            //    {
+            //        CartItem = new CartItemModel(cartItemDto, id, price);
+            //    }
+            //    else
+            //    {
+            //        CartItem = cartItem;
+            //        CartItem.LineTotal = price;
+            //    }
+            //}
         }
 
         

@@ -15,38 +15,26 @@ namespace phiNdus.fundus.Web.Models.CartModels
         {
         }
 
-        public CartItemModel(OrderItemDto orderItemDto, int articleId, double price)
-        {
-            Load(orderItemDto, articleId, price);
-        }
-
         public CartItemModel(OrderItemDto orderItemDto)
         {
-            Load(orderItemDto, orderItemDto.ArticleId, 0.99);
-        }
+            if (orderItemDto == null)
+                throw new ArgumentNullException("orderItemDto");
 
-        private void Load(OrderItemDto orderItemDto, int articleId, double price)
-        {
-            ArticleId = articleId;
-            LineTotal = price;
+            Id = orderItemDto.Id;
+            Version = orderItemDto.Version;
+            ArticleId = orderItemDto.ArticleId;
+            Begin = orderItemDto.From;
+            End = orderItemDto.To;
+            Caption = orderItemDto.Text;
+            Amount = orderItemDto.Amount;
+            UnitPrice = orderItemDto.UnitPrice;
+            LineTotal = orderItemDto.LineTotal;
+            Availability = orderItemDto.Availability;
 
-            if (orderItemDto != null)
-            {
-                Id = orderItemDto.Id;
-                Version = orderItemDto.Version;
-                Begin = orderItemDto.From;
-                End = orderItemDto.To;
-                Caption = orderItemDto.Text;
-                Amount = orderItemDto.Amount;
-                UnitPrice = orderItemDto.UnitPrice;
-                LineTotal = orderItemDto.LineTotal;
-                Availability = orderItemDto.Availability;
-            }
-            
             if (Begin == DateTime.MinValue)
                 Begin = SessionAdapter.ShopBegin;
 
-            if(End == DateTime.MinValue)
+            if (End == DateTime.MinValue)
                 End = SessionAdapter.ShopEnd;
         }
 
@@ -68,13 +56,13 @@ namespace phiNdus.fundus.Web.Models.CartModels
             return result;
         }
 
-
+        [Required]
         public int Id { get; set; }
-        public int Version { get; set; }
-        protected int OrderId { get; set; }
 
         [Required]
-        [Min(1)]
+        public int Version { get; set; }
+
+        protected int OrderId { get; set; }
         public int ArticleId { get; set; }
 
         [DisplayName("Bezeichnung")]

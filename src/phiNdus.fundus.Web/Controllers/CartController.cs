@@ -14,23 +14,19 @@ namespace phiNdus.fundus.Web.Controllers
         {
             var model = new CartModel();
             model.Load();
-            return View("Index", model);
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult Index(IList<CartItemModel> items)
+        public ActionResult Index(CartModel model)
         {
-            var model = new CartModel();
-            model.Load();
-            foreach (var each in items)
+            if (!ModelState.IsValid)
             {
-                var item = model.Items.First(i => i.Id == each.Id);
-                item.Begin = each.Begin;
-                item.End = each.End;
-                item.Amount = each.Amount;
+                model.Load();
+                return View(model);
             }
             model.Save();
-
+            //ModelState.Clear();
             return Index();
         }
 

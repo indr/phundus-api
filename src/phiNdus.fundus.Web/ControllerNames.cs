@@ -48,7 +48,7 @@
         public static string CartOverview { get { return @"CartOverview"; } }
         public static string CheckOut { get { return @"checkout"; } }
         public static string Index { get { return @""; } }
-        public static string Remove { get { return @"Remove"; } }
+        public static string Remove { get { return @"remove"; } }
     }
 
     public class ContractsActionNames

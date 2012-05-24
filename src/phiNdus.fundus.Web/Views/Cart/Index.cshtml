@@ -1,4 +1,4 @@
-﻿@model phiNdus.fundus.Web.ViewModels.CartViewModel
+﻿@model phiNdus.fundus.Web.Models.CartModels.CartModel
 @{
     ViewBag.Title = "Warenkorb";
 }
@@ -7,6 +7,7 @@
 {
     <h2>@ViewBag.Title</h2>
     <p></p>
+    @Html.ValidationSummary()
     <table class="table table-bordered table-striped table-condensed">
         <thead>
             <tr>
@@ -15,8 +16,8 @@
                 <th style="width:80px">Von</th>
                 <th style="width:80px">Bis</th>
                 <th style="width:140px">Anzahl</th>
-                <th style="width:80px">Stückpreis</th>
-                <th style="width:80px">Total</th>
+                <th style="width:80px;text-align:right;">Stückpreis</th>
+                <th style="width:80px;text-align: right;">Total</th>
                 <th style="width:80px"></th>
             </tr>
         </thead>
@@ -32,8 +33,9 @@
                 for (var idx = 0; idx < Model.Items.Count; idx++)
                 {
                     <tr id="order-line-@Model.Items[idx].Id">
-                    
-                        <td style="vertical-align: middle;">@Html.HiddenFor(x => Model.Items[idx].Id)@Model.Items[idx].Caption</td>    
+                        @Html.HiddenFor(x => Model.Items[idx].Id)
+                        @Html.HiddenFor(x => Model.Items[idx].Version)
+                        <td style="vertical-align: middle;">@Model.Items[idx].Caption<br />Version: @Model.Items[idx].Version</td>    
                         <td style="text-align: center; vertical-align:middle;">
                             @if(Model.Items[idx].Availability)
                             {
