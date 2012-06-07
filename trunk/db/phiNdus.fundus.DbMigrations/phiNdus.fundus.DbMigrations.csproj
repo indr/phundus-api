@@ -60,6 +60,8 @@
     <Compile Include="201204\M0012_CreateTableContractItem.cs" />
     <Compile Include="201205\M201205141612_AddColumnMobileNumber.cs" />
     <Compile Include="201205\M201205042139_AddColumnJsNumber.cs" />
+    <Compile Include="201206\M201206072135_CreateTableCart.cs" />
+    <Compile Include="201206\M201206072146_CreateTableCartItem.cs" />
     <Compile Include="MigrationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -5,6 +5,7 @@ using System.Linq;
 using phiNdus.fundus.Business.Assembler;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.Mails;
+using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.Domain.Settings;

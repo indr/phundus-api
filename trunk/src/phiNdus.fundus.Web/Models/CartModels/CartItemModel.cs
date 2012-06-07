@@ -15,7 +15,7 @@ namespace phiNdus.fundus.Web.Models.CartModels
         {
         }
 
-        public CartItemModel(OrderItemDto orderItemDto)
+        public CartItemModel(CartItemDto orderItemDto)
         {
             if (orderItemDto == null)
                 throw new ArgumentNullException("orderItemDto");
@@ -26,10 +26,10 @@ namespace phiNdus.fundus.Web.Models.CartModels
             Begin = orderItemDto.From;
             End = orderItemDto.To;
             Caption = orderItemDto.Text;
-            Amount = orderItemDto.Amount;
+            Amount = orderItemDto.Quantity;
             UnitPrice = orderItemDto.UnitPrice;
             LineTotal = orderItemDto.LineTotal;
-            Availability = orderItemDto.Availability;
+            //Availability = orderItemDto.Availability;
 
             if (Begin == DateTime.MinValue)
                 Begin = SessionAdapter.ShopBegin;
@@ -40,7 +40,8 @@ namespace phiNdus.fundus.Web.Models.CartModels
 
         public void Update()
         {
-            IoC.Resolve<ICartService>().AddItem(SessionId, CreateDto());
+            throw new NotImplementedException();
+            //IoC.Resolve<ICartService>().AddItem(SessionId, CreateDto());
         }
 
         public OrderItemDto CreateDto()

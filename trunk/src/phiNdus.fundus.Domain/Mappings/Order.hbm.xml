@@ -21,4 +21,18 @@
       <one-to-many class="OrderItem" />
     </set>
   </class>
+
+  <class name="Cart" table="[Cart]">
+    <id name="Id">
+      <generator class="native" />
+    </id>
+    <version name="Version" />
+    
+    <many-to-one name="Customer" class="User" column="CustomerId" />
+    
+    <set name="Items" cascade="all-delete-orphan" lazy="true" inverse="true" >
+      <key column="CartId" />
+      <one-to-many class="CartItem" />
+    </set>
+  </class>
 </hibernate-mapping>

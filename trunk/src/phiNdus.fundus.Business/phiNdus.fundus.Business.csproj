@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Assembler\ArticleDomainAssembler.cs" />
     <Compile Include="Assembler\ArticleDtoAssembler.cs" />
+    <Compile Include="Assembler\CartAssembler.cs" />
     <Compile Include="Assembler\ImageAssembler.cs" />
     <Compile Include="Assembler\OrderDtoAssembler.cs" />
     <Compile Include="Assembler\FieldDefinitionAssembler.cs" />
@@ -93,12 +94,14 @@
     <Compile Include="Paging\PageRequest.cs" />
     <Compile Include="Paging\PageResponse.cs" />
     <Compile Include="Dto\AvailabilityDto.cs" />
+    <Compile Include="Dto\CartDto.cs" />
     <Compile Include="SecuredServices\IArticleService.cs" />
     <Compile Include="SecuredServices\ICartService.cs" />
     <Compile Include="SecuredServices\IOrderService.cs" />
     <Compile Include="SecuredServices\IFieldsService.cs" />
     <Compile Include="SecuredServices\IRoleService.cs" />
     <Compile Include="SecuredServices\SecuredArticleService.cs" />
+    <Compile Include="SecuredServices\SecuredCartService.cs" />
     <Compile Include="SecuredServices\SecuredOrderService.cs" />
     <Compile Include="SecuredServices\SecuredFieldsService.cs" />
     <Compile Include="SecuredServices\SecuredRoleService.cs" />
@@ -133,6 +136,7 @@
     <Compile Include="Security\SecuritySession.cs" />
     <Compile Include="Security\Constraints\Session.cs" />
     <Compile Include="Services\ArticleService.cs" />
+    <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\PropertyService.cs" />
     <Compile Include="Services\RoleService.cs" />
