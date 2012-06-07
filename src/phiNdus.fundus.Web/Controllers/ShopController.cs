@@ -113,6 +113,8 @@ namespace phiNdus.fundus.Web.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult AddToCart([Bind(Prefix = "CartItem")] CartItemModel cartItem)
         {
+            throw new NotImplementedException();
+
             // TODO: Ist merkwürdigerweise immer true...
             //if (!ModelState.IsValid)
             //{

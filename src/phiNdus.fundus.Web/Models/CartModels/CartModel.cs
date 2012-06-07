@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using phiNdus.fundus.Business.Dto;
@@ -23,7 +24,7 @@ namespace phiNdus.fundus.Web.Models.CartModels
             Load(cartDto);
         }
 
-        public void Load(OrderDto cartDto)
+        public void Load(CartDto cartDto)
         {
             Id = cartDto.Id;
             Version = cartDto.Version;
@@ -35,10 +36,11 @@ namespace phiNdus.fundus.Web.Models.CartModels
 
         public void Save()
         {
+            throw new NotImplementedException();
             var dtos = Items.Select(each => each.CreateDto()).ToList();
             // TODO: Ganzer Warenkorb updaten, damit Optimistic Offline Locking funktioniert
             //CartService.Update(cartDto);
-            CartService.UpdateItems(SessionId, dtos);
+            //CartService.UpdateItems(SessionId, dtos);
         }
 
         public IList<CartItemModel> Items

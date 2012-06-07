@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\FieldedEntity.cs" />
     <Compile Include="Entities\Contract.cs" />
@@ -94,7 +95,9 @@
     <Compile Include="KeyGenerator.cs" />
     <Compile Include="PasswordEncryptor.cs" />
     <Compile Include="FieldAlreadyAttachedException.cs" />
+    <Compile Include="Repositories\CartRepository.cs" />
     <Compile Include="Repositories\FieldDefinitionRepository.cs" />
+    <Compile Include="Repositories\ICartRepository.cs" />
     <Compile Include="Repositories\IContractRepository.cs" />
     <Compile Include="Repositories\IFieldDefinitionRepository.cs" />
     <Compile Include="Repositories\IArticleRepository.cs" />

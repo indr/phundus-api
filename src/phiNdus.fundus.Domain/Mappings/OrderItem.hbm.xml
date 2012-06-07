@@ -16,4 +16,20 @@
 
     <many-to-one name="Article" class="Article" column="ArticleId" />
   </class>
+
+
+  <class name="CartItem" table="[CartItem]">
+    <id name="Id">
+      <generator class="hilo" />
+    </id>
+    <version name="Version" />
+
+    <many-to-one name="Cart" class="Cart" column="CartId" />
+
+    <property name="Quantity" />
+    <property name="From" column="[From]" />
+    <property name="To" column="[To]" />
+
+    <many-to-one name="Article" class="Article" column="ArticleId" />
+  </class>
 </hibernate-mapping>

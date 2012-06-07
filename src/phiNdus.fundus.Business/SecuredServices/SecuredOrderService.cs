@@ -10,7 +10,7 @@ using User = phiNdus.fundus.Business.Security.Constraints.User;
 
 namespace phiNdus.fundus.Business.SecuredServices
 {
-    public class SecuredOrderService : SecuredServiceBase, IOrderService, ICartService
+    public class SecuredOrderService : SecuredServiceBase, IOrderService
     {
         #region ICartService Members
 

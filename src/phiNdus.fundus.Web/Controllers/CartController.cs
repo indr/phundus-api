@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.SecuredServices;
@@ -26,16 +27,23 @@ namespace phiNdus.fundus.Web.Controllers
                 return View(model);
             }
             model.Save();
-            //ModelState.Clear();
             return Index();
+        }
+
+        [HttpPost]
+        public ActionResult Add(int articleId, DateTime from, DateTime to, int quantity)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPost]
         public ActionResult Remove(int id, int version)
         {
+            throw new NotImplementedException();
+
             // Hier nicht über ein Model gehen... 
             var service = IoC.Resolve<ICartService>();
-            service.RemoveItem(Session.SessionID, id, version);
+            //service.RemoveItem(Session.SessionID, id, version);
 
             return Index();
         }
