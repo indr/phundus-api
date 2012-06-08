@@ -82,6 +82,9 @@ namespace phiNdus.fundus.Web.Controllers
             }
 
             var cartDto = CartService.GetCart(SessionId, null);
+            if (!cartDto.AreItemsAvailable)
+                return RedirectToAction(CartActionNames.Index);
+
             var model = new CheckOutViewModel();
             model.Cart = new CartModel(cartDto);
             model.Customer = new UserModel(cartDto.CustomerId);

@@ -7,11 +7,15 @@ namespace phiNdus.fundus.Business.Dto
     public class CartDto
     {
         private IList<CartItemDto> _items = new List<CartItemDto>();
-        
+
         public int Id { get; set; }
         public int Version { get; set; }
 
-        public IList<CartItemDto> Items { get { return _items; } set { _items = value; } }
+        public IList<CartItemDto> Items
+        {
+            get { return _items; }
+            set { _items = value; }
+        }
 
         public double TotalPrice
         {
@@ -19,6 +23,8 @@ namespace phiNdus.fundus.Business.Dto
         }
 
         public int CustomerId { get; set; }
+
+        public bool AreItemsAvailable { get; set; }
     }
 
     public class CartItemDto

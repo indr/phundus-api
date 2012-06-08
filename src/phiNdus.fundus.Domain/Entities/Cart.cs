@@ -35,7 +35,7 @@ namespace phiNdus.fundus.Domain.Entities
 
         public virtual bool AreItemsAvailable
         {
-            get { return Items.Count(p => p.IsAvailable == false) > 0; }
+            get { return Items.Count(p => p.IsAvailable == false) == 0; }
         }
 
         public virtual void AddItem(int articleId, int quantity, DateTime @from, DateTime to)
@@ -69,7 +69,13 @@ namespace phiNdus.fundus.Domain.Entities
 
         public virtual Order PlaceOrder()
         {
-            throw new NotImplementedException();
+            var result = new Order();
+            result.Reserver = Customer;
+            foreach (var each in Items)
+                result.AddItem(each.Article.Id, each.Quantity, each.From, each.To);
+
+            IoC.Resolve<IOrderRepository>().Save(result);
+            return result;
         }
     }
 

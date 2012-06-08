@@ -76,9 +76,6 @@ namespace phiNdus.fundus.Business.Services
         {
             switch (status)
             {
-                case OrderStatus.Cart:
-                    throw new InvalidOperationException("");
-                    break;
                 case OrderStatus.Pending:
                     return GetPending();
                     break;

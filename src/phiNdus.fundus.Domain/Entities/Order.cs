@@ -132,8 +132,6 @@ namespace phiNdus.fundus.Domain.Entities
             var titleCaption = "Bestellung - Provisorisch";
             switch (Status)
             {
-                case OrderStatus.Cart:
-                    break;
                 case OrderStatus.Pending:
                     break;
                 case OrderStatus.Approved:

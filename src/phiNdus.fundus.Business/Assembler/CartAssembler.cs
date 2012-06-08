@@ -15,6 +15,7 @@ namespace phiNdus.fundus.Business.Assembler
             result.Id = cart.Id;
             result.Version = cart.Version;
             result.CustomerId = cart.Customer.Id;
+            result.AreItemsAvailable = cart.AreItemsAvailable;
             foreach (var each in cart.Items)
             {
                 result.Items.Add(CreateItemDto(each));

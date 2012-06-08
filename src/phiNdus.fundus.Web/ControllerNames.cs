@@ -80,6 +80,7 @@
         public static string Index { get { return @""; } }
         public static string Pending { get { return @"pending"; } }
         public static string Print { get { return @"print"; } }
+        public static string Reject { get { return @"reject"; } }
         public static string Rejected { get { return @"rejected"; } }
     }
 
