@@ -25,7 +25,6 @@ namespace phiNdus.fundus.Domain.Repositories
         {
             var query = from o in Orders
                         where o.Reserver.Id == userId
-                            && o.Status != OrderStatus.Cart
                         orderby o.Status ascending 
                         select o;
             return query.ToList();
@@ -71,17 +70,6 @@ namespace phiNdus.fundus.Domain.Repositories
                         select i;
             return query.Sum(x => (int?) x.Amount).GetValueOrDefault();
         }
-
-        public Order FindCart(int userId)
-        {
-            var q = (from o in Orders
-                     where o.Status == OrderStatus.Cart
-                           && o.Reserver.Id == userId
-                     select o);
-            return q.FirstOrDefault();
-        }
-
-        
 
         #endregion
     }

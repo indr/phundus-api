@@ -7,12 +7,6 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
     public class OrderStatusTests
     {
         [Test]
-        public void Cart_is_0()
-        {
-            Assert.That((int)OrderStatus.Cart, Is.EqualTo(0));
-        }
-
-        [Test]
         public void Pending_is_1()
         {
             Assert.That((int)OrderStatus.Pending, Is.EqualTo(1));
