@@ -7,7 +7,7 @@ namespace phiNdus.fundus.Business.SecuredServices
 {
     public interface IOrderService
     {
-        void CheckOut(string sessionId);
+        //void CheckOut(string sessionId);
         OrderDto Reject(string sessionId, int id);
         OrderDto Confirm(string sessionId, int id);
         

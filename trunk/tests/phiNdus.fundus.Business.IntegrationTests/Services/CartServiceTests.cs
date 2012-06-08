@@ -14,7 +14,7 @@ namespace phiNdus.fundus.Business.IntegrationTests.Services
     
 
     [TestFixture]
-    public class CartServiceTests : BusinessComponentTestBase<OrderService>
+    public class CartServiceTests : BusinessComponentTestBase<CartService>
     {
         #region Setup/Teardown
 
@@ -31,7 +31,7 @@ namespace phiNdus.fundus.Business.IntegrationTests.Services
                 uow.TransactionalFlush();
             }
 
-            Sut = new OrderService();
+            Sut = new CartService();
             Sut.SecurityContext = new SecurityContextBuilder().ForUser(_user).Build();
         }
 
@@ -50,9 +50,9 @@ namespace phiNdus.fundus.Business.IntegrationTests.Services
 
 
             // Act
-            Sut.AddToCart(new OrderItemDto { Amount = 1, ArticleId = _article1.Id, From = DateTime.Today, To = DateTime.Today});
-            Sut.AddToCart(new OrderItemDto { Amount = 2, ArticleId = _article2.Id, From = DateTime.Today, To = DateTime.Today });
-            var cart = Sut.GetCart();
+            Sut.AddItem(new CartItemDto { Quantity = 1, ArticleId = _article1.Id, From = DateTime.Today, To = DateTime.Today });
+            Sut.AddItem(new CartItemDto { Quantity = 2, ArticleId = _article2.Id, From = DateTime.Today, To = DateTime.Today });
+            var cart = Sut.GetCart(null);
 
             // Assert
             Assert.That(cart.Items, Has.Count.EqualTo(2));

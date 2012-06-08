@@ -12,34 +12,6 @@ namespace phiNdus.fundus.Business.SecuredServices
 {
     public class SecuredOrderService : SecuredServiceBase, IOrderService
     {
-        #region ICartService Members
-
-        public OrderDto GetCart(string sessionKey)
-        {
-            return Secured.With(Session.FromKey(sessionKey))
-                .Do<OrderService, OrderDto>(svc => svc.GetCart());
-        }
-
-        public OrderDto AddItem(string sessionKey, OrderItemDto item)
-        {
-            return Secured.With(Session.FromKey(sessionKey))
-                .Do<OrderService, OrderDto>(svc => svc.AddToCart(item));
-        }
-
-        public void RemoveItem(string sessionId, int orderItemId, int version)
-        {
-            Secured.With(Session.FromKey(sessionId))
-                .Do<OrderService>(svc => svc.RemoveFromCart(orderItemId, version));
-        }
-
-        public void UpdateItems(string sessionId, ICollection<OrderItemDto> orderItemDtos)
-        {
-            Secured.With(Session.FromKey(sessionId))
-                .Do<OrderService>(svc => svc.UpdateCartItems(orderItemDtos));
-        }
-
-        #endregion
-
         #region IOrderService Members
 
         public OrderDto GetOrder(string sessionKey, int id)
@@ -73,12 +45,6 @@ namespace phiNdus.fundus.Business.SecuredServices
         {
             return Secured.With(Session.FromKey(sessionKey))
                 .Do<OrderService, IList<OrderDto>>(svc => svc.GetMyOrders());
-        }
-
-        public void CheckOut(string sessionId)
-        {
-            Secured.With(Session.FromKey(sessionId))
-                .Do<OrderService>(svc => svc.CheckOut());
         }
 
         public OrderDto Reject(string sessionId, int id)

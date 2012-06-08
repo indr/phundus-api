@@ -38,7 +38,7 @@
                     <tr id="order-line-@Model.Items[idx].Id">
                         @Html.HiddenFor(x => Model.Items[idx].Id)
                         @Html.HiddenFor(x => Model.Items[idx].Version)
-                        <td style="vertical-align: middle;">@Model.Items[idx].Caption<br />Version: @Model.Items[idx].Version</td>    
+                        <td style="vertical-align: middle;">@Model.Items[idx].Caption</td>    
                         <td style="text-align: center; vertical-align:middle;">
                             @if(Model.Items[idx].Availability)
                             {
