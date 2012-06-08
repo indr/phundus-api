@@ -33,6 +33,7 @@ namespace phiNdus.fundus.Business.Assembler
             result.Quantity = each.Quantity;
             result.UnitPrice = each.UnitPrice;
             result.LineTotal = each.LineTotal;
+            result.IsAvailable = each.IsAvailable;
 
             return result;
         }

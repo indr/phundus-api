@@ -1,5 +1,6 @@
 ﻿using System;
 using Iesi.Collections.Generic;
+using phiNdus.fundus.Domain.Inventory;
 using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
 
@@ -55,6 +56,24 @@ namespace phiNdus.fundus.Domain.Entities
             item.Cart = null;
             Items.Remove(item);
         }
+
+        public virtual void CalculateAvailability()
+        {
+            var checker = new InventoryService();
+            checker.CalculateAvailability(this);
+        }
+    }
+
+    public class InventoryService
+    {
+        public void CalculateAvailability(Cart cart)
+        {
+            foreach (var each in cart.Items)
+            {
+                var checker = new AvailabilityChecker(each.Article);
+                each.IsAvailable = checker.Check(each.From, each.To, each.Quantity);
+            }
+        }
     }
 
     public class CartItem : Entity
@@ -80,5 +99,7 @@ namespace phiNdus.fundus.Domain.Entities
         {
             get { return Quantity*UnitPrice; }
         }
+
+        public virtual bool IsAvailable { get; set; }
     }
 }

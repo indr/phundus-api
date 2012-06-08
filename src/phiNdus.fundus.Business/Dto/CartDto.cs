@@ -32,5 +32,7 @@ namespace phiNdus.fundus.Business.Dto
         public string Text { get; set; }
         public double UnitPrice { get; set; }
         public double LineTotal { get; set; }
+
+        public bool IsAvailable { get; set; }
     }
 }
