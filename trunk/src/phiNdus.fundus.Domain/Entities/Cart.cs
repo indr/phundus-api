@@ -44,7 +44,7 @@ namespace phiNdus.fundus.Domain.Entities
             item.Quantity = quantity;
             item.From = from;
             item.To = to;
-            
+
             AddItem(item);
         }
     }
@@ -53,15 +53,24 @@ namespace phiNdus.fundus.Domain.Entities
     {
         public virtual Cart Cart { get; set; }
 
+        public virtual Article Article { get; set; }
         public virtual int Quantity { get; set; }
         public virtual DateTime From { get; set; }
         public virtual DateTime To { get; set; }
 
-        public virtual Article Article { get; set; }
+        public virtual string LineText
+        {
+            get { return Article.Caption; }
+        }
+
+        public virtual double UnitPrice
+        {
+            get { return Article.Price; }
+        }
 
         public virtual double LineTotal
         {
-            get { return Quantity*Article.Price; }
+            get { return Quantity*UnitPrice; }
         }
     }
 }

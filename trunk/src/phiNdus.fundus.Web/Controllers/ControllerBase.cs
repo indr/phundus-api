@@ -5,6 +5,8 @@ namespace phiNdus.fundus.Web.Controllers
 {
     public abstract class ControllerBase : Controller
     {
+        protected string SessionId { get { return Session.SessionID; } }
+
         // Source: http://stackoverflow.com/questions/2374046/returning-an-editortemplate-as-a-partialview-in-an-action-result-asp-net-mvc-2
         protected PartialViewResult EditorFor(object model)
         {

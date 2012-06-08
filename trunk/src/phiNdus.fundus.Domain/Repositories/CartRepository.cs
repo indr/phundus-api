@@ -20,5 +20,10 @@ namespace phiNdus.fundus.Domain.Repositories
                         select c;
             return query.SingleOrDefault();
         }
+
+        public Cart FindById(int id)
+        {
+            return Get(id);
+        }
     }
 }

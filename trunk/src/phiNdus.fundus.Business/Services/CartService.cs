@@ -1,4 +1,5 @@
 ﻿using System;
+using NHibernate;
 using phiNdus.fundus.Business.Assembler;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Domain.Entities;
@@ -11,7 +12,7 @@ namespace phiNdus.fundus.Business.Services
     {
         protected User User { get { return SecurityContext.SecuritySession.User; } }
 
-        public CartDto GetCart()
+        public CartDto GetCart(int? version)
         {
             using (var uow = UnitOfWork.Start())
             {
@@ -23,6 +24,9 @@ namespace phiNdus.fundus.Business.Services
                     carts.Save(cart);
                     uow.TransactionalFlush();
                 }
+
+                if (version.HasValue && cart.Version != version.Value)
+                    throw new DtoOutOfDateException();
 
                 var assembler = new CartAssembler();
                 return assembler.CreateDto(cart);
@@ -40,6 +44,21 @@ namespace phiNdus.fundus.Business.Services
                 uow.TransactionalFlush();
 
                 var assembler = new CartAssembler();
+                return assembler.CreateDto(cart);
+            }
+        }
+
+        public CartDto UpdateCart(CartDto cartDto)
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var assembler = new CartAssembler();
+                var cart = assembler.CreateDomainObject(cartDto);
+
+                var carts = IoC.Resolve<ICartRepository>();
+                carts.Update(cart);
+                uow.TransactionalFlush();
+
                 return assembler.CreateDto(cart);
             }
         }
