@@ -14,7 +14,7 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
 {
     [TestFixture]
-    public class CartTests : UnitTestBase<OrderService>
+    public class CartTests : UnitTestBase<CartService>
     {
         #region Setup/Teardown
 
@@ -23,7 +23,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
         {
             base.SetUp();
 
-            Sut = new OrderService();
+            Sut = new CartService();
             Sut.SecurityContext = SecurityContext(1, "key");
         }
 
@@ -40,7 +40,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
         public void AddToCart_WithAmountZero_Throws()
         {
             // Act
-            var ex = Assert.Throws<ArgumentException>(() => Sut.AddToCart(new OrderItemDto {Amount = 0, ArticleId = 1}));
+            var ex = Assert.Throws<ArgumentException>(() => Sut.AddItem(new CartItemDto {Quantity = 0, ArticleId = 1}));
 
             // Assert
             Assert.That(ex.Message, Is.EqualTo("Amount cannot be less or equal 0"));
@@ -50,7 +50,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
         public void AddToCart_WithArticleIdZero_Throws()
         {
             // Act
-            var ex = Assert.Throws<ArgumentException>(() => Sut.AddToCart(new OrderItemDto {Amount = 1, ArticleId = 0}));
+            var ex = Assert.Throws<ArgumentException>(() => Sut.AddItem(new CartItemDto {Quantity = 1, ArticleId = 0}));
 
             // Assert
             Assert.That(ex.Message, Is.EqualTo("ArticleId cannot be less or equal 0"));
@@ -60,7 +60,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
         public void AddToCart_WithNullSubject_Throws()
         {
             // Act
-            var ex = Assert.Throws<ArgumentNullException>(() => Sut.AddToCart(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.AddItem(null));
 
             // Assert
             Assert.That(ex.ParamName, Is.EqualTo("orderItemDto"));
@@ -79,7 +79,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             GenerateAndRegisterStub<IArticleRepository>().Expect(x => x.Get(1)).Return(new Article(1, 2));
 
             // Act
-            Sut.AddToCart(new OrderItemDto {OrderId = 1, Amount = 1, ArticleId = 1});
+            Sut.AddItem(new CartItemDto {Quantity = 1, ArticleId = 1});
 
             // Assert
             Assert.That(order.Items, Has.Count.EqualTo(2));
@@ -93,7 +93,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             GenerateAndRegisterStub<IOrderRepository>().Expect(x => x.FindCart(1)).Return(new Order(1, 2));
 
             // Act
-            var cartDto = Sut.GetCart();
+            var cartDto = Sut.GetCart(null);
 
             // Assert
             Assert.That(cartDto, Is.Not.Null);
@@ -109,7 +109,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             GenerateAndRegisterStub<IOrderRepository>();
 
             // Act
-            var cartDto = Sut.GetCart();
+            var cartDto = Sut.GetCart(null);
 
             // Assert
             Assert.That(cartDto, Is.Not.Null);

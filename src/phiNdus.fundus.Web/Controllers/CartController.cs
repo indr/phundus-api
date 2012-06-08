@@ -74,16 +74,16 @@ namespace phiNdus.fundus.Web.Controllers
         {
             throw new NotImplementedException();
             // Bestellen
-            if (HttpContext.Request.HttpMethod == "POST")
-            {
-                var service = IoC.Resolve<IOrderService>();
-                service.CheckOut(Session.SessionID);
+            //if (HttpContext.Request.HttpMethod == "POST")
+            //{
+            //    var service = IoC.Resolve<IOrderService>();
+            //    service.CheckOut(Session.SessionID);
 
-                return View("CheckOutDone");
-            }
+            //    return View("CheckOutDone");
+            //}
 
-            var model = new CheckOutViewModel();
-            return View("CheckOut", model);
+            //var model = new CheckOutViewModel();
+            //return View("CheckOut", model);
         }
     }
 }

@@ -72,115 +72,24 @@ namespace phiNdus.fundus.Business.Services
             }
         }
 
-        public OrderDto GetCart()
-        {
-            using (UnitOfWork.Start())
-            {
-                var order = GetOrCreateCart();
-                return new OrderDtoAssembler().CreateDto(order);
-            }
-        }
+        //public void CheckOut()
+        //{
+        //    using (var uow = UnitOfWork.Start())
+        //    {
+        //        var cart = FindCart();
+        //        if (cart == null)
+        //            throw new InvalidOperationException("Kein oder leerer Warenkorb");
 
-        private Order FindCart()
-        {
-            return IoC.Resolve<IOrderRepository>().FindCart(SecurityContext.SecuritySession.User.Id);
-        }
+        //        cart.Checkout();
+        //        IoC.Resolve<IOrderRepository>().Save(cart);
 
-        private Order GetOrCreateCart()
-        {
-            var order = FindCart();
-            if (order == null)
-                order = new Order();
-            return order;
-        }
+        //        new OrderReceivedMail().For(cart)
+        //            .Send(cart.Reserver)
+        //            .Send(Settings.Common.AdminEmailAddress);
 
-        public OrderDto AddToCart(OrderItemDto orderItemDto)
-        {
-            Guard.Against<ArgumentNullException>(orderItemDto == null, "orderItemDto");
-            Guard.Against<ArgumentException>(orderItemDto.Amount <= 0, "Amount cannot be less or equal 0");
-            Guard.Against<ArgumentException>(orderItemDto.ArticleId <= 0, "ArticleId cannot be less or equal 0");
-
-
-            using (var uow = UnitOfWork.Start())
-            {
-                Order order;
-                var orderRepo = IoC.Resolve<IOrderRepository>();
-                if (orderItemDto.OrderId > 0)
-                {
-                    order = orderRepo.Get(orderItemDto.OrderId);
-                    Guard.Against<ArgumentException>(order == null, "Order not found");
-                }
-                else
-                {
-                    order = GetOrCreateCart();
-                    order.Reserver = SecurityContext.SecuritySession.User;
-                }
-
-                order.AddItem(orderItemDto.ArticleId, orderItemDto.Amount, orderItemDto.From, orderItemDto.To);
-                orderRepo.Save(order);
-
-                uow.TransactionalFlush();
-            }
-            return null;
-        }
-
-        public void RemoveFromCart(int orderItemId, int version)
-        {
-            using (var uow = UnitOfWork.Start())
-            {
-                var cart = FindCart();
-                if (cart == null)
-                    return;
-
-                var orderItem = cart.Items.FirstOrDefault(x => x.Id == orderItemId && x.Version == version);
-                if (orderItem == null)
-                    return;
-                
-                cart.RemoveItem(orderItem);
-                IoC.Resolve<IOrderRepository>().Save(cart);
-                uow.TransactionalFlush();
-            }
-        }
-
-        public void UpdateCartItems(ICollection<OrderItemDto> orderItemDtos)
-        {
-            using (var uow = UnitOfWork.Start())
-            {
-                var cart = FindCart();
-                if (cart == null)
-                    return;
-
-                foreach (var each in cart.Items)
-                {
-                    var item = orderItemDtos.First(x => (x.Id == each.Id) && (x.Version == each.Version));
-                    each.Amount = item.Amount;
-                    each.From = item.From;
-                    each.To = item.To;
-                }
-                IoC.Resolve<IOrderRepository>().Save(cart);
-
-                uow.TransactionalFlush();
-            }
-        }
-
-        public void CheckOut()
-        {
-            using (var uow = UnitOfWork.Start())
-            {
-                var cart = FindCart();
-                if (cart == null)
-                    throw new InvalidOperationException("Kein oder leerer Warenkorb");
-
-                cart.Checkout();
-                IoC.Resolve<IOrderRepository>().Save(cart);
-
-                new OrderReceivedMail().For(cart)
-                    .Send(cart.Reserver)
-                    .Send(Settings.Common.AdminEmailAddress);
-
-                uow.TransactionalFlush();
-            }
-        }
+        //        uow.TransactionalFlush();
+        //    }
+        //}
 
         public IList<OrderDto> GetOrders(OrderStatus status)
         {
