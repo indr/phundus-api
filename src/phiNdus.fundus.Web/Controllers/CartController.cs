@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using phiNdus.fundus.Business;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Web.Models;
 using phiNdus.fundus.Web.Models.CartModels;
 using phiNdus.fundus.Web.ViewModels;
 using Rhino.Commons;
@@ -72,18 +73,20 @@ namespace phiNdus.fundus.Web.Controllers
 
         public ActionResult CheckOut()
         {
-            throw new NotImplementedException();
-            // Bestellen
-            //if (HttpContext.Request.HttpMethod == "POST")
-            //{
-            //    var service = IoC.Resolve<IOrderService>();
-            //    service.CheckOut(Session.SessionID);
+            if (HttpContext.Request.HttpMethod == "POST")
+            {
+                var orderDto = CartService.PlaceOrder(Session.SessionID);
+                if (orderDto != null)
+                    return View("CheckOutDone");
+                return RedirectToAction(CartActionNames.Index);
+            }
 
-            //    return View("CheckOutDone");
-            //}
+            var cartDto = CartService.GetCart(SessionId, null);
+            var model = new CheckOutViewModel();
+            model.Cart = new CartModel(cartDto);
+            model.Customer = new UserModel(cartDto.CustomerId);
 
-            //var model = new CheckOutViewModel();
-            //return View("CheckOut", model);
+            return View("CheckOut", model);
         }
     }
 }

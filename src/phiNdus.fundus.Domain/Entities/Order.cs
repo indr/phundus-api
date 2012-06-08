@@ -78,18 +78,6 @@ namespace phiNdus.fundus.Domain.Entities
             return result;
         }
 
-        public virtual void Checkout()
-        {
-            foreach (var each in Items)
-            {
-                var checker = new AvailabilityChecker(each.Article);
-                if (!checker.Check(each.From, each.To, each.Amount))
-                    throw new ArticleNotAvailableException(each);
-            }
-                
-            Status = OrderStatus.Pending;
-        }
-
         public virtual void Approve(User approver)
         {
             Guard.Against<ArgumentNullException>(approver == null, "approver");

@@ -3,8 +3,10 @@ using System.Linq;
 using NHibernate;
 using phiNdus.fundus.Business.Assembler;
 using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.Mails;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
+using phiNdus.fundus.Domain.Settings;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services
@@ -12,17 +14,17 @@ namespace phiNdus.fundus.Business.Services
     public class CartService : BaseService
     {
         protected User User { get { return SecurityContext.SecuritySession.User; } }
+        protected ICartRepository Carts { get { return IoC.Resolve<ICartRepository>(); } }
 
         public CartDto GetCart(int? version)
         {
             using (var uow = UnitOfWork.Start())
             {
-                var carts = IoC.Resolve<ICartRepository>();
-                var cart = carts.FindByCustomer(User);
+                var cart = Carts.FindByCustomer(User);
                 if (cart == null)
                 {
                     cart = new Cart(User);
-                    carts.Save(cart);
+                    Carts.Save(cart);
                     uow.TransactionalFlush();
                 }
 
@@ -39,10 +41,9 @@ namespace phiNdus.fundus.Business.Services
         {
             using (var uow = UnitOfWork.Start())
             {
-                var carts = IoC.Resolve<ICartRepository>();
-                var cart = carts.FindByCustomer(User);
+                var cart = Carts.FindByCustomer(User);
                 cart.AddItem(item.ArticleId, item.Quantity, item.From, item.To);
-                carts.SaveOrUpdate(cart);
+                Carts.SaveOrUpdate(cart);
                 uow.TransactionalFlush();
 
                 cart.CalculateAvailability();
@@ -58,8 +59,7 @@ namespace phiNdus.fundus.Business.Services
                 var assembler = new CartAssembler();
                 var cart = assembler.CreateDomainObject(cartDto);
 
-                var carts = IoC.Resolve<ICartRepository>();
-                carts.Update(cart);
+                Carts.Update(cart);
                 uow.TransactionalFlush();
 
                 cart.CalculateAvailability();
@@ -71,8 +71,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (var uow = UnitOfWork.Start())
             {
-                var carts = IoC.Resolve<ICartRepository>();
-                var cart = carts.FindByCustomer(User);
+                var cart = Carts.FindByCustomer(User);
 
                 var item = cart.Items.SingleOrDefault(p => p.Id == id);
                 if (item == null)
@@ -81,7 +80,7 @@ namespace phiNdus.fundus.Business.Services
                     throw new DtoOutOfDateException();
 
                 cart.RemoveItem(item);
-                carts.Update(cart);
+                Carts.Update(cart);
                 uow.TransactionalFlush();
 
                 cart.CalculateAvailability();
@@ -89,5 +88,46 @@ namespace phiNdus.fundus.Business.Services
                 return assembler.CreateDto(cart);
             }
         }
+
+        public OrderDto PlaceOrder()
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var cart = Carts.FindByCustomer(User);
+                cart.CalculateAvailability();
+                if (!cart.AreItemsAvailable)
+                    return null;
+                
+                var order = cart.PlaceOrder();
+
+                uow.TransactionalFlush();
+
+                new OrderReceivedMail().For(order)
+                    .Send(order.Reserver)
+                    .Send(Settings.Common.AdminEmailAddress);
+
+                var assembler = new OrderDtoAssembler();
+                return assembler.CreateDto(order);
+            }
+        }
+
+        //public void CheckOut()
+        //{
+        //    using (var uow = UnitOfWork.Start())
+        //    {
+        //        var cart = FindCart();
+        //        if (cart == null)
+        //            throw new InvalidOperationException("Kein oder leerer Warenkorb");
+
+        //        cart.Checkout();
+        //        IoC.Resolve<IOrderRepository>().Save(cart);
+
+        //        new OrderReceivedMail().For(cart)
+        //            .Send(cart.Reserver)
+        //            .Send(Settings.Common.AdminEmailAddress);
+
+        //        uow.TransactionalFlush();
+        //    }
+        //}
     }
 }

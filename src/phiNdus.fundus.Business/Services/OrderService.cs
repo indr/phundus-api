@@ -72,25 +72,6 @@ namespace phiNdus.fundus.Business.Services
             }
         }
 
-        //public void CheckOut()
-        //{
-        //    using (var uow = UnitOfWork.Start())
-        //    {
-        //        var cart = FindCart();
-        //        if (cart == null)
-        //            throw new InvalidOperationException("Kein oder leerer Warenkorb");
-
-        //        cart.Checkout();
-        //        IoC.Resolve<IOrderRepository>().Save(cart);
-
-        //        new OrderReceivedMail().For(cart)
-        //            .Send(cart.Reserver)
-        //            .Send(Settings.Common.AdminEmailAddress);
-
-        //        uow.TransactionalFlush();
-        //    }
-        //}
-
         public IList<OrderDto> GetOrders(OrderStatus status)
         {
             switch (status)

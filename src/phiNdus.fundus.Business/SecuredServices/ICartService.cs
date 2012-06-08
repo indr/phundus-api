@@ -10,5 +10,6 @@ namespace phiNdus.fundus.Business.SecuredServices
         CartDto AddItem(string sessionKey, CartItemDto item);
         CartDto RemoveItem(string sessionKey, int id, int version);
         CartDto UpdateCart(string sessionKey, CartDto cart);
+        OrderDto PlaceOrder(string sessionKey);
     }
 }

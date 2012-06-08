@@ -75,10 +75,10 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Create_sets_Status_to_Cart()
+        public void Create_sets_Status_to_Pending()
         {
             var sut = new Order();
-            Assert.That(sut.Status, Is.EqualTo(OrderStatus.Cart));
+            Assert.That(sut.Status, Is.EqualTo(OrderStatus.Pending));
         }
 
         [Test]
@@ -130,14 +130,6 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
             var sut = CreateSut();
             var item = new OrderItem();
             Assert.That(sut.RemoveItem(item), Is.False);
-        }
-
-        [Test]
-        public void Checkout_sets_Status_to_Pending()
-        {
-            var sut = CreateSut();
-            sut.Checkout();
-            Assert.That(sut.Status, Is.EqualTo(OrderStatus.Pending));
         }
 
         [Test]

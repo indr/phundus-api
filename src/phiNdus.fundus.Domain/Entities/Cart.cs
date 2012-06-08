@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Iesi.Collections.Generic;
 using phiNdus.fundus.Domain.Inventory;
 using phiNdus.fundus.Domain.Repositories;
@@ -32,7 +33,10 @@ namespace phiNdus.fundus.Domain.Entities
             set { _items = value; }
         }
 
-        
+        public virtual bool AreItemsAvailable
+        {
+            get { return Items.Count(p => p.IsAvailable == false) > 0; }
+        }
 
         public virtual void AddItem(int articleId, int quantity, DateTime @from, DateTime to)
         {
@@ -61,6 +65,11 @@ namespace phiNdus.fundus.Domain.Entities
         {
             var checker = new InventoryService();
             checker.CalculateAvailability(this);
+        }
+
+        public virtual Order PlaceOrder()
+        {
+            throw new NotImplementedException();
         }
     }
 
