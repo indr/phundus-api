@@ -29,6 +29,7 @@ namespace phiNdus.fundus.Business.Services
                 if (version.HasValue && cart.Version != version.Value)
                     throw new DtoOutOfDateException();
 
+                cart.CalculateAvailability();
                 var assembler = new CartAssembler();
                 return assembler.CreateDto(cart);
             }
@@ -44,6 +45,7 @@ namespace phiNdus.fundus.Business.Services
                 carts.SaveOrUpdate(cart);
                 uow.TransactionalFlush();
 
+                cart.CalculateAvailability();
                 var assembler = new CartAssembler();
                 return assembler.CreateDto(cart);
             }
@@ -60,6 +62,7 @@ namespace phiNdus.fundus.Business.Services
                 carts.Update(cart);
                 uow.TransactionalFlush();
 
+                cart.CalculateAvailability();
                 return assembler.CreateDto(cart);
             }
         }
@@ -81,6 +84,7 @@ namespace phiNdus.fundus.Business.Services
                 carts.Update(cart);
                 uow.TransactionalFlush();
 
+                cart.CalculateAvailability();
                 var assembler = new CartAssembler();
                 return assembler.CreateDto(cart);
             }

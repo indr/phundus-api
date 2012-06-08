@@ -3,9 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using DataAnnotationsExtensions;
 using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Web.ViewModels;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Models.CartModels
 {
@@ -15,21 +13,21 @@ namespace phiNdus.fundus.Web.Models.CartModels
         {
         }
 
-        public CartItemModel(CartItemDto orderItemDto)
+        public CartItemModel(CartItemDto itemDto)
         {
-            if (orderItemDto == null)
-                throw new ArgumentNullException("orderItemDto");
+            if (itemDto == null)
+                throw new ArgumentNullException("itemDto");
 
-            Id = orderItemDto.Id;
-            Version = orderItemDto.Version;
-            ArticleId = orderItemDto.ArticleId;
-            Begin = orderItemDto.From;
-            End = orderItemDto.To;
-            Caption = orderItemDto.Text;
-            Amount = orderItemDto.Quantity;
-            UnitPrice = orderItemDto.UnitPrice;
-            LineTotal = orderItemDto.LineTotal;
-            //Availability = orderItemDto.Availability;
+            Id = itemDto.Id;
+            Version = itemDto.Version;
+            ArticleId = itemDto.ArticleId;
+            Begin = itemDto.From;
+            End = itemDto.To;
+            Caption = itemDto.Text;
+            Amount = itemDto.Quantity;
+            UnitPrice = itemDto.UnitPrice;
+            LineTotal = itemDto.LineTotal;
+            IsAvailable = itemDto.IsAvailable;
 
             if (Begin == DateTime.MinValue)
                 Begin = SessionAdapter.ShopBegin;
@@ -38,31 +36,12 @@ namespace phiNdus.fundus.Web.Models.CartModels
                 End = SessionAdapter.ShopEnd;
         }
 
-        public void Update()
-        {
-            throw new NotImplementedException();
-            //IoC.Resolve<ICartService>().AddItem(SessionId, CreateDto());
-        }
-
-        public CartItemDto CreateDto()
-        {
-            var result = new CartItemDto();
-            result.Id = Id;
-            result.Version = Version;
-            result.ArticleId = ArticleId;
-            result.Quantity = Amount;
-            result.From = Begin;
-            result.To = End;
-            return result;
-        }
-
         [Required]
         public int Id { get; set; }
 
         [Required]
         public int Version { get; set; }
 
-        protected int OrderId { get; set; }
         public int ArticleId { get; set; }
 
         [DisplayName("Bezeichnung")]
@@ -90,6 +69,18 @@ namespace phiNdus.fundus.Web.Models.CartModels
         [DisplayFormat(DataFormatString = "{0:0.00}")]
         public double LineTotal { get; set; }
 
-        public bool Availability { get; set; }
+        public bool IsAvailable { get; set; }
+
+        public CartItemDto CreateDto()
+        {
+            var result = new CartItemDto();
+            result.Id = Id;
+            result.Version = Version;
+            result.ArticleId = ArticleId;
+            result.Quantity = Amount;
+            result.From = Begin;
+            result.To = End;
+            return result;
+        }
     }
 }

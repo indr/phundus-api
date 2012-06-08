@@ -40,7 +40,7 @@
                         @Html.HiddenFor(x => Model.Items[idx].Version)
                         <td style="vertical-align: middle;">@Model.Items[idx].Caption</td>    
                         <td style="text-align: center; vertical-align:middle;">
-                            @if(Model.Items[idx].Availability)
+                            @if(Model.Items[idx].IsAvailable)
                             {
                                 <i class="icon-ok"></i>
                             }
