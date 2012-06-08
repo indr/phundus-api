@@ -34,5 +34,11 @@ namespace phiNdus.fundus.Business.SecuredServices
             return Secured.With(Session.FromKey(sessionKey))
                 .Do<CartService, CartDto>(svc => svc.UpdateCart(cart));
         }
+
+        public OrderDto PlaceOrder(string sessionKey)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .Do<CartService, OrderDto>(svc => svc.PlaceOrder());
+        }
     }
 }

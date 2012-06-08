@@ -17,6 +17,8 @@ namespace phiNdus.fundus.Business.Dto
         {
             get { return Items.Sum(s => s.LineTotal); }
         }
+
+        public int CustomerId { get; set; }
     }
 
     public class CartItemDto

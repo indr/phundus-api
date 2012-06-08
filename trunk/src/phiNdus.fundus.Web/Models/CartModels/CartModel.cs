@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Web.ViewModels;
@@ -8,6 +9,16 @@ namespace phiNdus.fundus.Web.Models.CartModels
     public class CartModel : ViewModelBase
     {
         private IList<CartItemModel> _items = new List<CartItemModel>();
+
+        public CartModel()
+        {
+            
+        }
+
+        public CartModel(CartDto cartDto)
+        {
+            Load(cartDto);
+        }
 
         public IList<CartItemModel> Items
         {
