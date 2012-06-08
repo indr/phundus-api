@@ -13,17 +13,6 @@ namespace phiNdus.fundus.Web.Models.CartModels
     {
         private IList<CartItemModel> _items = new List<CartItemModel>();
 
-        private static ICartService CartService
-        {
-            get { return IoC.Resolve<ICartService>(); }
-        }
-
-        public void Load()
-        {
-            var cartDto = CartService.GetCart(SessionId);
-            Load(cartDto);
-        }
-
         public void Load(CartDto cartDto)
         {
             Id = cartDto.Id;
@@ -32,6 +21,16 @@ namespace phiNdus.fundus.Web.Models.CartModels
             Items.Clear();
             foreach (var each in cartDto.Items)
                 Items.Add(new CartItemModel(each));
+        }
+
+        public CartDto CreateDto()
+        {
+            var result = new CartDto();
+            result.Id = Id;
+            result.Version = Version;
+            foreach (var each in Items)
+                result.Items.Add(each.CreateDto());
+            return result;
         }
 
         public void Save()

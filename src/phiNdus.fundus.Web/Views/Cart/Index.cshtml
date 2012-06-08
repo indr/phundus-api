@@ -8,6 +8,9 @@
     <h2>@ViewBag.Title</h2>
     <p></p>
     @Html.ValidationSummary()
+
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Version)
     <table class="table table-bordered table-striped table-condensed">
         <thead>
             <tr>

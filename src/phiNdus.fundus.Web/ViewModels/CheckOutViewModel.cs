@@ -14,8 +14,9 @@ namespace phiNdus.fundus.Web.ViewModels
     {
         public CheckOutViewModel() : base()
         {
+            throw new NotImplementedException();
             Cart = new CartModel();
-            Cart.Load();
+            //Cart.Load();
             Customer = new UserModel();
         }
 

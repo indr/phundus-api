@@ -11,35 +11,46 @@ namespace phiNdus.fundus.Web.Controllers
 {
     public class CartController : ControllerBase
     {
-        public ActionResult Index()
+        protected static ICartService CartService
         {
+            get { return IoC.Resolve<ICartService>(); }
+        }
+
+        public ActionResult Index(int? version)
+        {
+            var cartDto = CartService.GetCart(SessionId, version);
+            
             var model = new CartModel();
-            model.Load();
+            model.Load(cartDto);
+
+            ModelState.Clear();
             return View(model);
         }
 
         [HttpPost]
         public ActionResult Index(CartModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                model.Load();
-                return View(model);
-            }
-            model.Save();
-            return Index();
+            var cartDto = CartService.GetCart(SessionId, model.Version);
+            if (ModelState.IsValid)
+                cartDto = CartService.UpdateCart(SessionId, model.CreateDto());
+            model.Load(cartDto);
+
+            ModelState.Clear();
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult Remove(int id, int version)
         {
+            
+
             throw new NotImplementedException();
 
             // Hier nicht über ein Model gehen... 
             var service = IoC.Resolve<ICartService>();
             //service.RemoveItem(Session.SessionID, id, version);
 
-            return Index();
+            //return Index();
         }
 
 
