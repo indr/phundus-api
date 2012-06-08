@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using phiNdus.fundus.Business;
+using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Web.Models.CartModels;
 using phiNdus.fundus.Web.ViewModels;
@@ -39,23 +41,38 @@ namespace phiNdus.fundus.Web.Controllers
             return View(model);
         }
 
-        [HttpPost]
         public ActionResult Remove(int id, int version)
         {
-            
+            CartDto cartDto;
+            try
+            {
+                cartDto = CartService.RemoveItem(SessionId, id, version);
+            }
+            // Nicht besonders RESTful...
+            catch (EntityNotFoundException)
+            {
+                // TODO: Meldung anzeigen, dass das Item nicht gefunden werden konnte, evtl. weil der
+                // Warenkorb in der Zwischenzeit bereits verändert wurde...
+                return RedirectToAction(CartActionNames.Index);
+            }
+            // Nicht besonders RESTful...
+            catch (DtoOutOfDateException)
+            {
+                // TODO: Meldung anzeigen, dass das Item nicht entfernt werden konnte, da der Warenkorb
+                // in der Zwischenzeit bereits verändert wurde...
+                return RedirectToAction(CartActionNames.Index);
+            }
 
-            throw new NotImplementedException();
+            var model = new CartModel();
+            model.Load(cartDto);
 
-            // Hier nicht über ein Model gehen... 
-            var service = IoC.Resolve<ICartService>();
-            //service.RemoveItem(Session.SessionID, id, version);
-
-            //return Index();
+            ModelState.Clear();
+            return View("Index", model);
         }
-
 
         public ActionResult CheckOut()
         {
+            throw new NotImplementedException();
             // Bestellen
             if (HttpContext.Request.HttpMethod == "POST")
             {

@@ -8,10 +8,7 @@ namespace phiNdus.fundus.Business.SecuredServices
     {
         CartDto GetCart(string sessionKey, int? version);
         CartDto AddItem(string sessionKey, CartItemDto item);
+        CartDto RemoveItem(string sessionKey, int id, int version);
         CartDto UpdateCart(string sessionKey, CartDto cart);
-        
-        //void RemoveItem(string sessionId, int orderItemId, int version);
-        //void UpdateItems(string sessionId, ICollection<OrderItemDto> orderItemDtos);
-        
     }
 }

@@ -31,11 +31,7 @@ namespace phiNdus.fundus.Domain.Entities
             set { _items = value; }
         }
 
-        protected virtual void AddItem(CartItem item)
-        {
-            Items.Add(item);
-            item.Cart = this;
-        }
+        
 
         public virtual void AddItem(int articleId, int quantity, DateTime @from, DateTime to)
         {
@@ -46,6 +42,18 @@ namespace phiNdus.fundus.Domain.Entities
             item.To = to;
 
             AddItem(item);
+        }
+
+        protected virtual void AddItem(CartItem item)
+        {
+            Items.Add(item);
+            item.Cart = this;
+        }
+
+        public virtual void RemoveItem(CartItem item)
+        {
+            item.Cart = null;
+            Items.Remove(item);
         }
     }
 
