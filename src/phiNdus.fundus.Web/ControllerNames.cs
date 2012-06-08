@@ -45,10 +45,10 @@
 
     public class CartActionNames
     {
-        public static string CartOverview { get { return @"CartOverview"; } }
-        public static string CheckOut { get { return @"checkout"; } }
         public static string Index { get { return @""; } }
+        public static string Add { get { return @"add"; } }
         public static string Remove { get { return @"remove"; } }
+        public static string CheckOut { get { return @"checkout"; } }
     }
 
     public class ContractsActionNames
@@ -85,8 +85,9 @@
 
     public class ShopActionNames
     {
-        public static string Article { get { return @"article"; } }
         public static string Index { get { return @""; } }
+        public static string Article { get { return @"article"; } }
+        public static string AddToCart { get { return @"addtocart"; } }
     }
 
     public class SettingsActionNames

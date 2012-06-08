@@ -16,5 +16,11 @@ namespace phiNdus.fundus.Business.SecuredServices
             return Secured.With(Session.FromKey(sessionKey))
                 .Do<CartService, CartDto>(svc => svc.GetCart());
         }
+
+        public CartDto AddItem(string sessionKey, CartItemDto item)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .Do<CartService, CartDto>(svc => svc.AddItem(item));
+        }
     }
 }

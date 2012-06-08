@@ -28,5 +28,20 @@ namespace phiNdus.fundus.Business.Services
                 return assembler.CreateDto(cart);
             }
         }
+
+        public CartDto AddItem(CartItemDto item)
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var carts = IoC.Resolve<ICartRepository>();
+                var cart = carts.FindByCustomer(User);
+                cart.AddItem(item.ArticleId, item.Quantity, item.From, item.To);
+                carts.SaveOrUpdate(cart);
+                uow.TransactionalFlush();
+
+                var assembler = new CartAssembler();
+                return assembler.CreateDto(cart);
+            }
+        }
     }
 }

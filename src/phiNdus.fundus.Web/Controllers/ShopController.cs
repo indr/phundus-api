@@ -91,14 +91,11 @@ namespace phiNdus.fundus.Web.Controllers
             return View(ShopView, MasterView, model);
         }
 
+       
         public ActionResult Article(int id)
         {
-            return Article(id, null);
-        }
-
-        private ActionResult Article(int id, CartItemModel cartItem)
-        {
-            var model = new ShopArticleViewModel(id, cartItem);
+            var model = new ShopArticleViewModel(id);
+            
             model.Availabilities = IoC.Resolve<IArticleService>().GetAvailability(Session.SessionID, id);
             return Json(new
                             {
@@ -111,22 +108,21 @@ namespace phiNdus.fundus.Web.Controllers
         // POST: /Shop/AddToCart
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult AddToCart([Bind(Prefix = "CartItem")] CartItemModel cartItem)
+        public ActionResult AddToCart(CartItemModel item)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                if (Request.IsAjaxRequest())
+                    return new HttpStatusCodeResult(400);
+                return RedirectToAction(ShopActionNames.Article, item.ArticleId);
+            }
 
-            // TODO: Ist merkwürdigerweise immer true...
-            //if (!ModelState.IsValid)
-            //{
-            //    return Article(cartItem.ArticleId, cartItem);
-            //}
-
-            cartItem.Update();
+            var service = IoC.Resolve<ICartService>();
+            var cart = service.AddItem(Session.SessionID, item.CreateDto());
 
             if (Request.IsAjaxRequest())
-                return new JsonResult();
-
-            throw new NotImplementedException("/Shop/AddToCart kann vorerst nur per Ajax aufgerufen werden.");
+                return Json(cart);
+            return RedirectToAction(CartActionNames.Index, ControllerNames.Cart);
         }
 
         #region Nested type: ShopViews
