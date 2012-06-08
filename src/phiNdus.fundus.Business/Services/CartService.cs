@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using NHibernate;
 using phiNdus.fundus.Business.Assembler;
 using phiNdus.fundus.Business.Dto;
@@ -59,6 +60,28 @@ namespace phiNdus.fundus.Business.Services
                 carts.Update(cart);
                 uow.TransactionalFlush();
 
+                return assembler.CreateDto(cart);
+            }
+        }
+
+        public CartDto RemoveItem(int id, int version)
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var carts = IoC.Resolve<ICartRepository>();
+                var cart = carts.FindByCustomer(User);
+
+                var item = cart.Items.SingleOrDefault(p => p.Id == id);
+                if (item == null)
+                    throw new EntityNotFoundException();
+                if (item.Version != version)
+                    throw new DtoOutOfDateException();
+
+                cart.RemoveItem(item);
+                carts.Update(cart);
+                uow.TransactionalFlush();
+
+                var assembler = new CartAssembler();
                 return assembler.CreateDto(cart);
             }
         }
