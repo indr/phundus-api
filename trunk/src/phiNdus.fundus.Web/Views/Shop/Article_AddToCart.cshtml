@@ -1,0 +1,49 @@
+﻿@model phiNdus.fundus.Web.Models.CartModels.CartItemModel
+
+
+@using (Ajax.BeginForm(ShopActionNames.AddToCart, ControllerNames.Shop, new { },
+    new AjaxOptions { OnSuccess = "fundus.messageBox('Jawohl!', '<p>Der Artikel wurde erfolgreich in den Warenkorb gelegt.</p><p>Klicken Sie rechts oben auf &quot;Warenkorb&quot um die vorhandenen Artikel anzuzeigen und die Mengen und Zeiträume zu ändern.</p>');" },
+    new { @class = "form-horizontal add-to-cart" }))
+{
+    <fieldset>
+        <legend>Ausleihen</legend>
+        <div class="row">
+            @Html.HiddenFor(m => m.ArticleId)
+                        
+            <div class="span4">
+                <div class="control-group">    
+                    @Html.LabelFor(m => m.Amount, new { @class = "control-label" })
+                    <div class="controls">
+                        <div class="input-append">
+                            @Html.TextBoxFor(m => m.Amount, new { @class = "input-mini add-inc-dec" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Amount)
+                    </div>
+                </div>
+            </div>
+
+            <div class="span3">
+                <div class="control-group">    
+                    @Html.LabelFor(m => m.Begin, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(m => m.Begin)
+                        @Html.ValidationMessageFor(m => m.Begin)
+                    </div>
+                </div>
+            </div>
+                       
+            <div class="span3">
+                <div class="control-group">    
+                    @Html.LabelFor(m => m.End, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.EditorFor(m => m.End)
+                        @Html.ValidationMessageFor(m => m.End)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>       
+    <div class="form-actions">
+        @Html.SubmitButton("» in den Warenkorb")
+    </div>
+}

@@ -31,12 +31,6 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(int articleId, DateTime from, DateTime to, int quantity)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpPost]
         public ActionResult Remove(int id, int version)
         {
             throw new NotImplementedException();

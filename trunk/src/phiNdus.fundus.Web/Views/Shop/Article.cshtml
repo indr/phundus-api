@@ -1,284 +1,34 @@
 ﻿@model phiNdus.fundus.Web.ViewModels.ShopArticleViewModel
 
+<h2>@Model.Caption</h2>
+<p></p>
+<div class="tabbable tabs-left">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#@Model.Id-D" data-toggle="tab">Beschreibung</a></li>
+        <li class=""><a href="#@Model.Id-I" data-toggle="tab">Bilder (@Model.Images.Count)</a></li>
+        <li class=""><a href="#@Model.Id-A" data-toggle="tab">Verfügbarkeit</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="@Model.Id-D">
+            @Html.Raw(Model.Description)
+        </div>
 
-    <h2>@Model.Caption</h2>
-    <p></p>
-    <div class="tabbable tabs-left">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#@Model.Id-D" data-toggle="tab">Beschreibung</a></li>
-            <li class=""><a href="#@Model.Id-I" data-toggle="tab">Bilder (@Model.Images.Count)</a></li>
-            <li class=""><a href="#@Model.Id-A" data-toggle="tab">Verfügbarkeit</a></li>
-            @*<li class=""><a href="#@Model.Id-L" data-toggle="tab">Ausleihen</a></li>*@
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="@Model.Id-D">
-                @Html.Raw(Model.Description)
-            </div>
-            <div class="tab-pane" id="@Model.Id-I">
-                <ul class="thumbnails" data-target="#modal-gallery" data-toggle="modal-gallery">
-                    @foreach (var each in Model.Images)
-                    {
-                        <li>
-                            <a rel="gallery" class="thumbnail" href="@Html.Raw(Url.Content(each.FileName))" title="@Path.GetFileName(each.FileName)">
-                                <img src="@String.Concat(Html.Raw(Url.Content(each.FileName)), ".ashx?maxwidth=150&maxheight=150")" />
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-            <div class="tab-pane" id="@Model.Id-A">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Datum</th>
-                            <th>Menge</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var each in Model.Availabilities)
-                        {
-                            <tr>
-                                <td>@Html.DisplayFor(m => each.Date)</td>
-                                <td>@Html.DisplayFor(m => each.Amount)</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-            @*<div class="tab-pane" id="@Model.Id-L">
-                @if (!Request.IsAuthenticated)
-                {
-                    <p>Melden Sie sich an, um einen Artikel auszuleihen.</p>
-                }
-                else
-                {
-                    using (Ajax.BeginForm("AddToCart", ControllerNames.Shop, new { }, new AjaxOptions { OnSuccess = "fundus.messageBox('Jawohl!', '<p>Der Artikel wurde erfolgreich in den Warenkorb gelegt.</p><p>Klicken Sie rechts oben auf &quot;Warenkorb&quot um die vorhandenen Artikel anzuzeigen und die Mengen und Zeiträume zu ändern.</p>');" }, new { @class = "form-horizontal add-to-cart" }))
-                    {
-                    <fieldset>
-                        @Html.HiddenFor(m => m.CartItem.Id)
-                        @Html.HiddenFor(m => m.CartItem.Version)
-                        @Html.HiddenFor(m => m.CartItem.ArticleId)
-                        <!-- TODO: Warum den Preis? -->
-                        @Html.HiddenFor(m => m.CartItem.LineTotal)
+        <div class="tab-pane" id="@Model.Id-I">
+            @Html.Partial("Article_Images", Model)
+        </div>
 
-                        <div class="control-group">    
-                            @Html.LabelFor(model => model.CartItem.Begin, new { @class = "control-label" })
-                            <div class="controls">
-                                @Html.EditorFor(model => model.CartItem.Begin)
-                                @Html.ValidationMessageFor(model => model.CartItem.Begin)
-                            </div>
-                        </div>
-
-                        <div class="control-group">    
-                            @Html.LabelFor(model => model.CartItem.End, new { @class = "control-label" })
-                            <div class="controls">
-                                @Html.EditorFor(model => model.CartItem.End)
-                                @Html.ValidationMessageFor(model => model.CartItem.End)
-                            </div>
-                        </div>
-
-                        <div class="control-group">    
-                            @Html.LabelFor(model => model.CartItem.Amount, new { @class = "control-label" })
-                            <div class="controls">
-                                <div class="input-append">
-                                    @Html.TextBoxFor(model => model.CartItem.Amount, new { @class = "input-mini add-inc-dec" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.CartItem.Amount)
-                            </div>
-                        </div>
-
-                        <div class="form-actions">
-                            @Html.SubmitButton("» in den Warenkorb")
-                        </div>
-                    </fieldset>
-                    }
-                }
-            </div>*@
+        <div class="tab-pane" id="@Model.Id-A">
+            @Html.Partial("Article_Availability", Model)
         </div>
     </div>
+</div>
     
-    @if (!Request.IsAuthenticated)
-                {
-                    <p>Melden Sie sich an, um einen Artikel auszuleihen.</p>
-                }
-                else
-                {
-                    using (Ajax.BeginForm("AddToCart", ControllerNames.Shop, new { }, new AjaxOptions { OnSuccess = "fundus.messageBox('Jawohl!', '<p>Der Artikel wurde erfolgreich in den Warenkorb gelegt.</p><p>Klicken Sie rechts oben auf &quot;Warenkorb&quot um die vorhandenen Artikel anzuzeigen und die Mengen und Zeiträume zu ändern.</p>');" }, new { @class = "form-horizontal add-to-cart" }))
-                    {
-                        
-                    <fieldset>
-                        <legend>Ausleihen</legend>
-                        <div class="row">
-                        @Html.HiddenFor(m => m.CartItem.Id)
-                        @Html.HiddenFor(m => m.CartItem.Version)
-                        @Html.HiddenFor(m => m.CartItem.ArticleId)
-                        <!-- TODO: Warum den Preis? -->
-                        @Html.HiddenFor(m => m.CartItem.LineTotal)
-                        
-                        <div class="span4">
-                        <div class="control-group">    
-                            @Html.LabelFor(model => model.CartItem.Amount, new { @class = "control-label" })
-                            <div class="controls">
-                                <div class="input-append">
-                                    @Html.TextBoxFor(model => model.CartItem.Amount, new { @class = "input-mini add-inc-dec" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.CartItem.Amount)
-                            </div>
-                        </div>
-                        </div>
-
-                        <div class="span3">
-                        <div class="control-group">    
-                            @Html.LabelFor(model => model.CartItem.Begin, new { @class = "control-label" })
-                            <div class="controls">
-                                @Html.EditorFor(model => model.CartItem.Begin)
-                                @Html.ValidationMessageFor(model => model.CartItem.Begin)
-                            </div>
-                        </div>
-                        </div>
-                       
-                        <div class="span3">
-                        <div class="control-group">    
-                            @Html.LabelFor(model => model.CartItem.End, new { @class = "control-label" })
-                            <div class="controls">
-                                @Html.EditorFor(model => model.CartItem.End)
-                                @Html.ValidationMessageFor(model => model.CartItem.End)
-                            </div>
-                        </div>
-                        </div>
-
-                        
-                        
-                            
-                        
-                        </div>
-                        
-                     </fieldset>       
-                    <div class="form-actions">
-                            @Html.SubmitButton("» in den Warenkorb")
-                            </div>
-                    
-                    }
-                }
-
-@*<p>
-    Menge: @Model.GetPropertyValue(3)</p>
-<p>
-    Reservierbar: @Model.GetPropertyValue(6)</p>
-<p>
-    Ausleihbar: @Model.GetPropertyValue(7)</p>
-@if (Request.IsAuthenticated)
+@if (!Request.IsAuthenticated)
 {
-    if (Model.IsReservable)
-    {
-    <div class="formular-box" style="border: solid 1px rgb(155,210,23);">
-        <div style="background-color: rgb(155,210,23); color: #fff; padding: 4px;">
-            <b>Ausleihen</b>
-        </div>
-        @using (Ajax.BeginForm("AddItem", ControllerNames.Cart, new AjaxOptions { UpdateTargetId = "message-box-container", OnSuccess = "UpdateCartItemCount" }))
-        {
-            <div style="margin: 4px;">
-                <table class="list" width="100%">
-                    <thead>
-                        <tr>
-                            <th>
-                                Anzahl
-                            </th>
-                            <th>
-                                Abholdatum
-                            </th>
-                            <th>
-                                Zurückbringdatum
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type="hidden" name="ItemId" value="@Model.Id" />
-                                <input type="text" name="Amount" class="text-input" />
-                            </td>
-                            <td>
-                                <input type="text" name="Begin" class="date-picker text-input" />
-                            </td>
-                            <td>
-                                <input type="text" name="End" class="date-picker text-input" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p class="formular-action" style="margin-left: 4px;">
-                    <input type="submit" value="In den Warenkorb" class="action" />
-                </p>
-            </div>           
-        }
-    </div>
-    }
-    else
-    {
-    <div class="formular-box" style="border: solid 1px rgb(155,210,23);">
-        <div style="background-color: rgb(155,210,23); color: #fff; padding: 4px;">
-            <b>Ausleihen</b>
-        </div>
-        @using (Ajax.BeginForm("AddItems", ControllerNames.Cart, new AjaxOptions { UpdateTargetId = "message-box-container", OnSuccess = "UpdateCartItemCount" }))
-        {
-            <div style="margin: 4px;">
-                <table class="list" width="100%">
-                    <thead>
-                        <tr>
-                            @foreach (var item in Model.Discriminators)
-                            {
-                                <th>@item.Caption
-                                </th>
-                            }
-                            <th>
-                                Anzahl
-                            </th>
-                            <th>
-                                Abholdatum
-                            </th>
-                            <th>
-                                Zurückbringdatum
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < Model.Children.Count; i++)
-                        {
-                            var child = Model.Children[i];
-
-                            <tr>
-                                @foreach (var discriminator in Model.Discriminators)
-                                {                
-                                    <td>@child.GetPropertyValue(discriminator.PropertyDefinitionId)
-                                    </td>
-                                }
-                                <td>
-                                    <input type="hidden" name="[@i].ItemId" value="@child.Id" />
-                                    <input type="text" name="[@i].Amount" class="text-input" style="width:50px;" />
-                                </td>
-                                <td>
-                                    <input type="text" name="[@i].Begin"class="date-picker text-input" />
-                                </td>
-                                <td>
-                                    <input type="text" name="[@i].End"class="date-picker text-input" />
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <p class="formular-action">
-                    <input type="submit" value="In den Warenkorb" class="action" />
-                </p>
-            </div>
-        }
-    </div>
-    }
+    <p>Melden Sie sich an, um einen Artikel auszuleihen.</p>
 }
-<script type="text/javascript">
-    function UpdateCartItemCount() {
-        $.get('@Url.Content("~/Cart/GetCartItemsCount")', function (data) {
-            $('#cart').text("Warenkorb (" + data + ")");
-        });
-    }
-</script>*@
+else
+{
+    @Html.Partial("Article_AddToCart", Model.CartItem)
+}
+

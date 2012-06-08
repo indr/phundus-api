@@ -15,41 +15,19 @@ namespace phiNdus.fundus.Web.ViewModels
         protected ICartService CartService { get { return IoC.Resolve<ICartService>(); } }
 
 
-        public ShopArticleViewModel(int id) : this(id, null)
+        public ShopArticleViewModel(int id) : base(id)
         {
+            CartItem.ArticleId = id;
+            CartItem.Begin = SessionAdapter.ShopBegin;
+            CartItem.End = SessionAdapter.ShopEnd;
         }
 
-        public ShopArticleViewModel(int id, CartItemModel cartItem) : base(id)
+        private CartItemModel _cartItem = new CartItemModel();
+        public CartItemModel CartItem
         {
-            throw new NotImplementedException("ShopArticleViewModel(int id, CartItemModel cartItem)");
-            //if (HttpContext.Current.User.Identity.IsAuthenticated)
-            //{
-            //    // Warenkorb holen
-
-
-            //    CartService.AddItem(SessionId, new OrderItemDto
-            //                                       {
-            //                                           ArticleId = cartItem.ArticleId,
-
-            //                                       });
-
-                
-            //    var price = Convert.ToDouble(GetPropertyValue(4));
-
-            //    if (cartItem == null)
-            //    {
-            //        CartItem = new CartItemModel(cartItemDto, id, price);
-            //    }
-            //    else
-            //    {
-            //        CartItem = cartItem;
-            //        CartItem.LineTotal = price;
-            //    }
-            //}
+            get { return _cartItem; }
+            set { _cartItem = value; }
         }
-
-        
-        public CartItemModel CartItem { get; set; }
 
         public IList<AvailabilityDto> Availabilities { get; set; }
     }

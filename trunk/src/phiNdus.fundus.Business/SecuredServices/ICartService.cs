@@ -7,7 +7,7 @@ namespace phiNdus.fundus.Business.SecuredServices
     public interface ICartService
     {
         CartDto GetCart(string sessionKey);
-        //OrderDto AddItem(string sessionKey, OrderItemDto orderItemDto);
+        CartDto AddItem(string sessionKey, CartItemDto item);
         //void RemoveItem(string sessionId, int orderItemId, int version);
         //void UpdateItems(string sessionId, ICollection<OrderItemDto> orderItemDtos);
     }

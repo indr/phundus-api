@@ -44,14 +44,13 @@ namespace phiNdus.fundus.Web.Models.CartModels
             //IoC.Resolve<ICartService>().AddItem(SessionId, CreateDto());
         }
 
-        public OrderItemDto CreateDto()
+        public CartItemDto CreateDto()
         {
-            var result = new OrderItemDto();
+            var result = new CartItemDto();
             result.Id = Id;
             result.Version = Version;
-            result.Amount = Amount;
             result.ArticleId = ArticleId;
-            result.OrderId = OrderId;
+            result.Quantity = Amount;
             result.From = Begin;
             result.To = End;
             return result;
