@@ -113,7 +113,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
         {
             // Arrange
             GenerateAndRegisterStubUnitOfWork();
-            GenerateAndRegisterStub<IOrderRepository>();
+            GenerateAndRegisterStub<ICartRepository>();
 
             // Act
             var cartDto = Sut.GetCart(null);
