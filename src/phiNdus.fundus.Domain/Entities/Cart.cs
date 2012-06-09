@@ -75,6 +75,7 @@ namespace phiNdus.fundus.Domain.Entities
                 result.AddItem(each.Article.Id, each.Quantity, each.From, each.To);
 
             IoC.Resolve<IOrderRepository>().Save(result);
+            IoC.Resolve<ICartRepository>().Delete(this);
             return result;
         }
     }
