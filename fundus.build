@@ -878,12 +878,12 @@
 *************** DEPLOY-STAGING ***************
 " />  
 
-    <property name="sql.recreate" value="true" />
+    <property name="sql.recreate" value="false" />
     <property name="sql.database-name" value="${staging.database-name}" />
     <property name="sql.connstring" value="Data Source=${staging.data-source}; Initial Catalog=${sql.database-name}; Integrated Security=SSPI" />
     <property name="sql.custom-dml" value="${sql.dir}\dml-staging.sql" />
     
-    <property name="deploy.clean" value="true" />
+    <property name="deploy.clean" value="false" />
     <property name="deploy.settings" value="${config.dir}\Settings.Staging.csv" />
     <property name="deploy.connstring" value="${staging.connstring}" />
     <property name="deploy.providername" value="${staging.providername}" />
