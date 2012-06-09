@@ -42,7 +42,12 @@ namespace phiNdus.fundus.Domain.Entities
 
         public virtual User Reserver { get; set; }
 
-        public virtual OrderStatus Status { get; protected set; }
+        private OrderStatus _status = OrderStatus.Pending;
+        public virtual OrderStatus Status
+        {
+            get { return _status; }
+            protected set { _status = value; }
+        }
 
         public virtual User Modifier { get; protected set; }
 
