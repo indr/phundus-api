@@ -670,6 +670,7 @@
 " />
 
     <if test="${sql.recreate}">
+      <echo message="Recreating database..." />
       <sql connstring="Provider=SQLOLEDB;${sql.connstring}"
            transaction="true" delimiter=";" delimstyle="Normal" print="false" batch="true"
            source="${base.dir}/sql/create.sql" />
