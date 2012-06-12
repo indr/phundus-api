@@ -19,6 +19,7 @@ namespace phiNdus.fundus.Web.ViewModels
         public ShopArticleViewModel(int id) : base(id)
         {
             CartItem.ArticleId = id;
+            CartItem.Amount = 1;
             CartItem.Begin = SessionAdapter.ShopBegin;
             CartItem.End = SessionAdapter.ShopEnd;
         }
