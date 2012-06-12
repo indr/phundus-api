@@ -10,7 +10,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         private static IUserService UserService
         {
@@ -19,26 +19,21 @@ namespace phiNdus.fundus.Web.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("List");
-        }
-
-        public ActionResult List()
-        {
-            return View(UserService.GetUsers(Session.SessionID));
+            var model = UserService.GetUsers(Session.SessionID);
+            return View(model);
         }
 
         public ActionResult Edit(int id)
         {
             try
             {
-                return View(new UserModel(id));
+                var model = new UserModel(id);
+                return View(model);
             }
             catch (Exception ex)
             {
-                // TODO: Logging
-                // TODO: Exception-Handling
                 ModelState.AddModelError("", ex.Message);
-                return RedirectToAction("Index");
+                return RedirectToAction(UsersActionNames.Index);
             }
         }
 
@@ -51,12 +46,10 @@ namespace phiNdus.fundus.Web.Controllers
                 UpdateModel(userModel, collection.ToValueProvider());
                 userModel.Update();
 
-                return RedirectToAction("Index");
+                return RedirectToAction(UsersActionNames.Index);
             }
             catch (Exception ex)
             {
-                // TODO: Logging
-                // TODO: Exception-Handling
                 ModelState.AddModelError("", ex.Message);
                 return View(userModel);
             }

@@ -11,7 +11,7 @@
         public static string Orders { get { return @"order"; } }
         public static string Settings { get { return @"settings"; } }
         public static string Shop { get { return @"shop"; } }
-        public static string Users { get { return @"user"; } }
+        public static string Users { get { return @"users"; } }
     }
 
     public class AccountActionNames
@@ -103,6 +103,7 @@
     public class UsersActionNames
     {
         public static string Index { get { return @""; } }
+        public static string Edit { get { return @"edit"; } }
         public static string LockOut { get { return @"lockout"; } }
         public static string Unlock { get { return @"unlock"; } }
     }
