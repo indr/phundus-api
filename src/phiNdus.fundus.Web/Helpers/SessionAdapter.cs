@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace phiNdus.fundus.Web.Models.CartModels
+namespace phiNdus.fundus.Web.Helpers
 {
     public static class SessionAdapter
     {
