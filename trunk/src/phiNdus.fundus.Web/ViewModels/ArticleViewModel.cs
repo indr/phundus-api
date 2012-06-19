@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.SecuredServices;
@@ -13,8 +12,7 @@ namespace phiNdus.fundus.Web.ViewModels
 {
     public class ShopArticleViewModel : ArticleViewModel
     {
-        protected ICartService CartService { get { return IoC.Resolve<ICartService>(); } }
-
+        private CartItemModel _cartItem = new CartItemModel();
 
         public ShopArticleViewModel(int id) : base(id)
         {
@@ -24,7 +22,11 @@ namespace phiNdus.fundus.Web.ViewModels
             CartItem.End = SessionAdapter.ShopEnd;
         }
 
-        private CartItemModel _cartItem = new CartItemModel();
+        protected ICartService CartService
+        {
+            get { return IoC.Resolve<ICartService>(); }
+        }
+
         public CartItemModel CartItem
         {
             get { return _cartItem; }
@@ -36,21 +38,16 @@ namespace phiNdus.fundus.Web.ViewModels
 
     public class ArticleViewModel : ViewModelBase
     {
-        private IList<FieldDefinitionDto> _propertyDefinitions;
-        private IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
-        private IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
-        private IList<PropertyValueViewModel> _editableFieldValues = new List<PropertyValueViewModel>();
         private IList<ArticleViewModel> _children = new List<ArticleViewModel>();
+        private IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
+        private IList<PropertyValueViewModel> _editableFieldValues = new List<PropertyValueViewModel>();
         private IList<ImageDto> _images = new List<ImageDto>();
+        private IList<FieldDefinitionDto> _propertyDefinitions;
+        private IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
 
         public ArticleViewModel()
         {
             Load(new ArticleDto(), ArticleService.GetProperties(SessionId));
-        }
-
-        protected IArticleService ArticleService
-        {
-            get { return IoC.Resolve<IArticleService>(); }
         }
 
         public ArticleViewModel(int id)
@@ -63,6 +60,123 @@ namespace phiNdus.fundus.Web.ViewModels
         public ArticleViewModel(ArticleDto articleDto, IList<FieldDefinitionDto> fieldDefinitionDtos)
         {
             Load(articleDto, fieldDefinitionDtos);
+        }
+
+        protected IArticleService ArticleService
+        {
+            get { return IoC.Resolve<IArticleService>(); }
+        }
+
+        public bool IsDeleted { get; set; }
+        public bool IsChild { get; set; }
+
+        // fundus-14: Entfernen
+        public int RemainingPropertyId { get; set; }
+
+        // fundus-14: Entfernen
+        public int RemainingDiscriminatorId { get; set; }
+
+        public int Id { get; set; }
+        public int Version { get; set; }
+
+        public string Caption
+        {
+            get
+            {
+                var property = GetProperty(2);
+                return property != null ? (string) property.Value : null;
+            }
+        }
+
+        public double Price
+        {
+            get
+            {
+                var property = GetProperty(4);
+                return property != null && property.Value != null ? (double) property.Value : 0.0d;
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                var property = GetProperty(8);
+                return property != null ? (string) property.Value : null;
+            }
+        }
+
+        public bool IsReservable
+        {
+            get
+            {
+                var property = GetProperty(6);
+                return property != null ? (bool) property.Value : false;
+            }
+        }
+
+        public bool IsBorrowable
+        {
+            get
+            {
+                var property = GetProperty(7);
+                return property != null ? (bool) property.Value : false;
+            }
+        }
+
+        public IList<PropertyValueViewModel> PropertyValues
+        {
+            get { return _propertyValues; }
+            set { _propertyValues = value; }
+        }
+
+        public IList<PropertyValueViewModel> EditableFieldValues
+        {
+            get { return _editableFieldValues; }
+            set { _editableFieldValues = value; }
+        }
+
+        public IList<DiscriminatorViewModel> Discriminators
+        {
+            get { return _discriminators; }
+            set { _discriminators = value; }
+        }
+
+        public IEnumerable<SelectListItem> RemainingProperties
+        {
+            get
+            {
+                if (_propertyDefinitions == null)
+                    return new List<SelectListItem>();
+
+                var propertyDefinitions = _propertyDefinitions.ToList();
+                propertyDefinitions.RemoveAll(each =>
+                                              (PropertyValues.FirstOrDefault(v => v.PropertyDefinitionId == each.Id) !=
+                                               null)
+                                              ||
+                                              (Discriminators.FirstOrDefault(d => d.PropertyDefinitionId == each.Id) !=
+                                               null)
+                    );
+                return (from p in propertyDefinitions.Where(p => p.IsAttachable).Select(p => new SelectListItem
+                                                                                                 {
+                                                                                                     Value =
+                                                                                                         p.Id.ToString(),
+                                                                                                     Text = p.Caption
+                                                                                                 })
+                        orderby p.Text
+                        select p);
+            }
+        }
+
+        public IList<ArticleViewModel> Children
+        {
+            get { return _children; }
+            set { _children = value; }
+        }
+
+        public IList<ImageDto> Images
+        {
+            get { return _images; }
         }
 
         private void Load(ArticleDto article, IList<FieldDefinitionDto> propertyDefinitions)
@@ -102,25 +216,11 @@ namespace phiNdus.fundus.Web.ViewModels
                 child.IsChild = true;
                 _children.Add(child);
             }
-            
+
             _images = article.Images;
 
             _propertyDefinitions = propertyDefinitions;
-
-            
         }
-
-        public bool IsDeleted { get; set; }
-        public bool IsChild { get; set; }
-
-        // fundus-14: Entfernen
-        public int RemainingPropertyId { get; set; }
-        
-        // fundus-14: Entfernen
-        public int RemainingDiscriminatorId { get; set; }
-
-        public int Id { get; set; }
-        public int Version { get; set; }
 
         protected PropertyValueViewModel GetProperty(int propertyDefinitionId)
         {
@@ -132,95 +232,6 @@ namespace phiNdus.fundus.Web.ViewModels
             var property = GetProperty(propertyId);
             return property != null ? Convert.ToString(property.Value) : null;
         }
-
-        public string Caption {
-            get {
-                var property = GetProperty(2);
-                return property != null ? (string)property.Value : null;
-            }
-        }
-
-        public double Price
-        {
-            get { var property = GetProperty(4);
-                return property != null ? (double) property.Value : 0.0d;
-            }
-        }
-
-        public string Description {
-            get {
-                var property = GetProperty(8);
-                return property != null ? (string) property.Value : null;
-            }
-        }
-
-        public bool IsReservable {
-            get {
-                var property = GetProperty(6);
-                return property != null ? (bool)property.Value : false;
-            }
-        }
-
-        public bool IsBorrowable {
-            get {
-                var property = GetProperty(7);
-                return property != null ? (bool)property.Value : false;
-            }
-        }
-
-        public IList<PropertyValueViewModel> PropertyValues
-        {
-            get { return _propertyValues; }
-            set { _propertyValues = value; }
-        }
-
-        public IList<PropertyValueViewModel> EditableFieldValues
-        {
-            get { return _editableFieldValues; }
-            set { _editableFieldValues = value; }
-        }
-
-        public IList<DiscriminatorViewModel> Discriminators
-        {
-            get { return _discriminators; }
-            set { _discriminators = value; }
-        }
-
-        public IEnumerable<SelectListItem> RemainingProperties
-        {
-            get
-            {
-                if (_propertyDefinitions == null)
-                    return new List<SelectListItem>();
-
-                var propertyDefinitions = _propertyDefinitions.ToList();
-                propertyDefinitions.RemoveAll(each =>
-                                              (PropertyValues.FirstOrDefault(v => v.PropertyDefinitionId == each.Id) !=
-                                               null)
-                                              ||
-                                              (Discriminators.FirstOrDefault(d => d.PropertyDefinitionId == each.Id) !=
-                                               null)
-                    );
-                return (from p in propertyDefinitions.Where(p => p.IsAttachable).Select(p => new SelectListItem
-                                                           {
-                                                               Value = p.Id.ToString(),
-                                                               Text = p.Caption
-                                                           })
-                                 orderby p.Text select p);
-                
-            }
-        }
-
-        public IList<ArticleViewModel> Children
-        {
-            get { return _children; }
-            set { _children = value; }
-        }
-
-        public IList<ImageDto> Images
-        {
-            get { return _images; }
-        }            
 
         public static DiscriminatorViewModel ConvertToDiscriminatorViewModel(FieldValueDto each)
         {
@@ -278,9 +289,9 @@ namespace phiNdus.fundus.Web.ViewModels
 
                 result.Properties.Add(new FieldValueDto
                                           {
-                                            PropertyId = each.PropertyDefinitionId,
-                                            Value = each.Value,
-                                            ValueId = each.PropertyValueId
+                                              PropertyId = each.PropertyDefinitionId,
+                                              Value = each.Value,
+                                              ValueId = each.PropertyValueId
                                           });
             }
 
