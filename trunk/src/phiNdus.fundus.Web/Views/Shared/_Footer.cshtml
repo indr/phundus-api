@@ -3,7 +3,7 @@
 <hr />
 <footer>
     <div style="float: left; width: 33%">
-        <p><a href="http://fundus.phindus.ch/help">Hilfe</a> | <a href="http://fundus.phindus.ch/feedback">Feedback</a></p>
+        <p><a href="http://fundus.phindus.ch/help">Hilfe</a> | @Html.ActionLink("Feedback", FeedbackActionNames.Index, ControllerNames.Feedback)</p>
     </div>
     <div style="float: left; width: 33%; text-align: center;">
         <p><a href="http://fundus.phindus.ch/">fundus</a> @Html.DisplayVersion()</p>

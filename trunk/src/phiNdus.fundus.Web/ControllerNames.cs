@@ -6,6 +6,7 @@
         public static string Articles { get { return @"article"; } }
         public static string Cart { get { return @"cart"; } }
         public static string Contracts { get { return @"contract"; } }
+        public static string Feedback { get { return @"feedback";}}
         public static string Fields { get { return @"fields"; } }
         public static string Home { get { return @"home"; } }
         public static string Orders { get { return @"order"; } }
@@ -106,5 +107,10 @@
         public static string Edit { get { return @"edit"; } }
         public static string LockOut { get { return @"lockout"; } }
         public static string Unlock { get { return @"unlock"; } }
+    }
+
+    public class FeedbackActionNames
+    {
+        public static string Index { get { return @""; } }
     }
 }
