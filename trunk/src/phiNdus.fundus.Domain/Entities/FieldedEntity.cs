@@ -9,7 +9,7 @@ namespace phiNdus.fundus.Domain.Entities
     /// <summary>
     /// Die Klasse FieldedEntity stellt Funktionen für dynamische Felder zur Verfügung.
     /// </summary>
-    public class FieldedEntity : Entity
+    public class FieldedEntity : EntityBase
     {
         private ISet<FieldValue> _fieldValues = new HashedSet<FieldValue>();
 

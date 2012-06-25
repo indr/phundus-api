@@ -7,7 +7,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Entities
 {
-    public class Cart : Entity
+    public class Cart : EntityBase
     {
         private User _customer;
         private ISet<CartItem> _items = new HashedSet<CartItem>();
@@ -63,8 +63,11 @@ namespace phiNdus.fundus.Domain.Entities
 
         public virtual void CalculateAvailability()
         {
-            var checker = new InventoryService();
-            checker.CalculateAvailability(this);
+            foreach (var each in Items)
+            {
+                var checker = new AvailabilityChecker(each.Article);
+                each.IsAvailable = checker.Check(each.From, each.To, each.Quantity);
+            }
         }
 
         public virtual Order PlaceOrder()
@@ -80,19 +83,8 @@ namespace phiNdus.fundus.Domain.Entities
         }
     }
 
-    public class InventoryService
-    {
-        public void CalculateAvailability(Cart cart)
-        {
-            foreach (var each in cart.Items)
-            {
-                var checker = new AvailabilityChecker(each.Article);
-                each.IsAvailable = checker.Check(each.From, each.To, each.Quantity);
-            }
-        }
-    }
-
-    public class CartItem : Entity
+    
+    public class CartItem : EntityBase
     {
         public virtual Cart Cart { get; set; }
 

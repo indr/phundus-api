@@ -1,6 +1,6 @@
 ﻿namespace phiNdus.fundus.Domain.Entities
 {
-    public class Image : Entity
+    public class Image : EntityBase
     {
         public virtual Article Article { get; set; }
 

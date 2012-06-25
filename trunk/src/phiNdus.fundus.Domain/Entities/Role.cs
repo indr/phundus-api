@@ -2,7 +2,7 @@
 
 namespace phiNdus.fundus.Domain.Entities
 {
-    public class Role : Entity
+    public class Role : EntityBase
     {
         private static readonly Role _userRole = new Role(1, "User");
         public static Role User { get { return _userRole; } }

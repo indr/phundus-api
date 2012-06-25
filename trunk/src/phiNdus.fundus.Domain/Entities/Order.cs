@@ -14,7 +14,7 @@ using Rectangle = iTextSharp.text.Rectangle;
 
 namespace phiNdus.fundus.Domain.Entities
 {
-    public class Order : Entity
+    public class Order : EntityBase
     {
         private DateTime _createDate;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();

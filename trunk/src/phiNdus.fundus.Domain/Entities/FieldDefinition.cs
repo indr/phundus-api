@@ -1,6 +1,6 @@
 ﻿namespace phiNdus.fundus.Domain.Entities
 {
-    public class FieldDefinition : Entity
+    public class FieldDefinition : EntityBase
     {
         public static int VerfuegbarId = 1;
         public static int CaptionId = 2;
