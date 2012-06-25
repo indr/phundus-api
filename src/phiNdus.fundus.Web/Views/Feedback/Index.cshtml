@@ -1,0 +1,32 @@
+﻿@model phiNdus.fundus.Web.Models.FeedbackModel
+
+@{
+    ViewBag.Title = "Feedback";
+}
+
+<h2>@ViewBag.Title</h2>
+<p></p>
+
+@using (Html.BeginForm())
+{
+    <div class="control-group">
+        @Html.LabelFor(m => m.EmailAddress)
+        <div class="control">
+            @Html.EditorFor(m => m.EmailAddress)
+            @Html.ValidationMessageFor(m => m.EmailAddress)
+        </div>
+    </div>
+    
+    <div class="control-group">
+        @Html.LabelFor(m => m.Comment)
+        <div class="control">
+            @Html.TextAreaFor(m => m.Comment, new { Style = "width: 500px;", Rows = 20})
+            @Html.ValidationMessageFor(m => m.Comment)
+        </div>
+    </div>
+    
+    <div class="form-actions">
+        <input class="btn-primary btn" type="submit" value="Senden"></input>
+        <a class="btn" href="/fundus-debug/">Abbrechen</a>
+    </div>
+}
