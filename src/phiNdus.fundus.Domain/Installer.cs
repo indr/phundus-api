@@ -13,7 +13,7 @@ namespace phiNdus.fundus.Domain
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(AllTypes.FromAssemblyContaining(typeof (Entity))
+            container.Register(AllTypes.FromAssemblyContaining(typeof (EntityBase))
                                    .BasedOn(typeof (IRepository<>))
                                    .WithService.AllInterfaces()
                                    .Configure(c => c.LifeStyle.Transient));
@@ -21,7 +21,7 @@ namespace phiNdus.fundus.Domain
 
             container.Register(Component.For<IUnitOfWorkFactory>()
                                    .Instance(
-                                       new NHibernateUnitOfWorkFactory(new[] {Assembly.GetAssembly(typeof (Entity))})));
+                                       new NHibernateUnitOfWorkFactory(new[] {Assembly.GetAssembly(typeof (EntityBase))})));
         }
 
         #endregion

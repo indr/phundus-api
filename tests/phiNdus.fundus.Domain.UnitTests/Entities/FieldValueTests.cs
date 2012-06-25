@@ -38,7 +38,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         public void Is_derived_from_BaseEntity()
         {
             var sut = CreateSut(DataType.Boolean);
-            Assert.That(sut, Is.InstanceOf(typeof(Entity)));
+            Assert.That(sut, Is.InstanceOf(typeof(EntityBase)));
         }
 
         [Test]

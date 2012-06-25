@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
@@ -12,9 +9,8 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
     [TestFixture]
     public class CartTests : UnitTestBase<Cart>
     {
-
         [Test]
-        public void AreItemsAvailable_ReturnsFalse()
+        public void AreItemsAvailable_WithOneItemUnavailable_ReturnsFalse()
         {
             // Arrange
             GenerateAndRegisterStub<IArticleRepository>();

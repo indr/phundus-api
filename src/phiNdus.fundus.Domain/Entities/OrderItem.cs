@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace phiNdus.fundus.Domain.Entities
 {
-    public class OrderItem : Entity
+    public class OrderItem : EntityBase
     {
         public virtual Order Order { get; set; }
 
