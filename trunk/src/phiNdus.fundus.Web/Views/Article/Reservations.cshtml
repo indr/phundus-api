@@ -1,0 +1,22 @@
+﻿@model phiNdus.fundus.Web.Models.ArticleModels.ArticleReservationsModel
+
+      
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Von</th>
+            <th>Bis</th>
+            <th>Anzahl</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var each in Model.Items)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => each.From)</td>
+                <td>@Html.DisplayFor(m => each.To)</td>
+                <td>@Html.DisplayFor(m => each.Quantity)</td>
+            </tr>
+        }
+    </tbody>
+</table>

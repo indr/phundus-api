@@ -3,7 +3,10 @@ using System.Dynamic;
 using System.IO;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.SecuredServices;
+using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.Web.Helpers;
+using phiNdus.fundus.Web.Models.ArticleModels;
 using phiNdus.fundus.Web.ViewModels;
 using Rhino.Commons;
 
@@ -20,6 +23,7 @@ namespace phiNdus.fundus.Web.Controllers
             public static string Images { get { return @"Images"; } }
             public static string Categories { get { return @"Categories"; } }
             public static string Availability { get { return @"Availability"; } }
+            public static string Reservations { get { return @"Reservations"; } }
         }
 
         protected IArticleService ArticleService { get { return IoC.Resolve<IArticleService>(); } }
@@ -168,6 +172,18 @@ namespace phiNdus.fundus.Web.Controllers
                 return PartialView(Views.Availability, model);
             }
             return View(Views.Availability, MasterView, model);
+        }
+
+        public ActionResult Reservations(int id)
+        {
+            using (UnitOfWork.Start())
+            {
+                var model = new ArticleReservationsModel();
+                model.Items = IoC.Resolve<IReservationRepository>().Find(new Article(id, 0));
+                if (Request.IsAjaxRequest())
+                    return PartialView(Views.Reservations, model);
+                return View(Views.Reservations, MasterView, model);
+            }
         }
 
         public ActionResult Categories(int id)

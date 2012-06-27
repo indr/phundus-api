@@ -19,6 +19,9 @@
 
         <li class="@Html.ActiveTab("Article", new string[] { "Availability" })">@Ajax.ActionLink("Verfügbarkeit", ArticlesActionNames.Availability, new { id = Model.Id }, new AjaxOptions {
             HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
+
+        <li class="@Html.ActiveTab("Article", new string[] { "Reservations" })">@Ajax.ActionLink("Reservationen", ArticlesActionNames.Reservations, new { id = Model.Id }, new AjaxOptions { 
+            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
     </ul>
         
     <div class="tab-content" id="tab-content">

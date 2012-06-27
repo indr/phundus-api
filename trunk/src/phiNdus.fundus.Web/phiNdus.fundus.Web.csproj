@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\FeedbackController.cs" />
+    <Compile Include="Models\ArticleModels\ArticleReservationsModel.cs" />
     <Compile Include="Models\FeedbackModel.cs" />
     <Compile Include="Plumbing\RegisterClientValidationExtensions.cs" />
     <Compile Include="ControllerNames.cs" />
@@ -668,6 +669,7 @@
     <Content Include="Views\Shop\Article_AddToCart.cshtml" />
     <Content Include="Views\Feedback\Index.cshtml" />
     <Content Include="Views\Feedback\Done.cshtml" />
+    <Content Include="Views\Article\Reservations.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
