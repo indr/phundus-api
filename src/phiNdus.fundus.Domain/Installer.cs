@@ -3,6 +3,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using phiNdus.fundus.Domain.Entities;
+using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain
@@ -17,6 +18,8 @@ namespace phiNdus.fundus.Domain
                                    .BasedOn(typeof (IRepository<>))
                                    .WithService.AllInterfaces()
                                    .Configure(c => c.LifeStyle.Transient));
+            container.Register(Component.For<IReservationRepository>()
+                                   .ImplementedBy<ReservationRepository>());
 
 
             container.Register(Component.For<IUnitOfWorkFactory>()
