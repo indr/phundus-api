@@ -42,6 +42,11 @@ namespace phiNdus.fundus.Business.Services
             using (var uow = UnitOfWork.Start())
             {
                 var cart = Carts.FindByCustomer(User);
+                if (cart == null)
+                {
+                    cart = new Cart(User);
+                    Carts.Save(cart);
+                }
                 cart.AddItem(item.ArticleId, item.Quantity, item.From, item.To);
                 Carts.SaveOrUpdate(cart);
                 uow.TransactionalFlush();
