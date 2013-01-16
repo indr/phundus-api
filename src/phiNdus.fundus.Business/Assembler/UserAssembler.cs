@@ -63,6 +63,13 @@ namespace phiNdus.fundus.Business.Assembler
 
         private static UserDto WriteDtoMembership(Membership subject, UserDto result)
         {
+            // TODO: Bei der Registrierung scheint noch ein Bug zu sein, da irgendwie ein Benutzer- aber kein Membership-Datensatz angelegt wird...
+            if (subject == null)
+            {
+                result.IsApproved = false;
+                result.IsLockedOut = true;
+                return result;
+            }
             Guard.Against<ArgumentNullException>(subject == null, "subject");
             result.Email = subject.Email;
             result.CreateDate = subject.CreateDate;
