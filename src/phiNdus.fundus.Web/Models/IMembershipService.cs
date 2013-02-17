@@ -19,5 +19,7 @@ namespace phiNdus.fundus.Web.Models
         /// <param name="key"></param>
         /// <returns><c>True</c>, wenn der Key gefunden und der Benutzer aktiviert werden konnte, andernfalls <c>False</c>.</returns>
         bool ValidateValidationKey(string key);
+
+        bool ChangePassword(string email, string oldPassword, string newPassword);
     }
 }

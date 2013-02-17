@@ -7,4 +7,6 @@
 }
 
 <h2>@ViewBag.Title</h2>
-<p>tbd</p>
+<h3>Kontoeinstellungen</h3>
+<p>@Html.ActionLink(new Appearance { Caption = "E-Mail-Adresse ändern", Button = Button.Normal }, AccountActionNames.ChangeEmail, ControllerNames.Account)</p>
+<p>@Html.ActionLink(new Appearance { Caption = "Passwort ändern", Button = Button.Normal }, AccountActionNames.ChangePassword, ControllerNames.Account)</p>

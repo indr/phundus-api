@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using phiNdus.fundus.Web.Models;
 using phiNdus.fundus.Web.ViewModels;
+using phiNdus.fundus.Web.ViewModels.Account;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
@@ -71,6 +72,41 @@ namespace phiNdus.fundus.Web.Controllers
         public ActionResult SignUp()
         {
             return View();
+        }
+
+        public ActionResult ChangeEmail()
+        {
+            return View();
+        }
+
+        public ActionResult ChangePassword()
+        {
+            return View(new ChangePasswordViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Eines oder mehrere Felder enthalten ungültige Daten.");
+                return View(model);
+            }
+
+            try
+            {
+                if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
+                    return View("ChangePasswordDone");
+
+                ModelState.AddModelError("", "Unbekannter Fehler beim Ändern des Passwortes.");
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(model);
+            }
+
         }
 
         [HttpPost]

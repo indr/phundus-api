@@ -88,7 +88,14 @@ namespace phiNdus.fundus.Business.Services
 
         public virtual bool ChangePassword(string email, string oldPassword, string newPassword)
         {
-            throw new NotImplementedException();
+            Guard.Against<ArgumentNullException>(email == null, "email");
+            using (var uow = UnitOfWork.Start())
+            {
+                var user = Users.FindByEmail(email);
+                user.Membership.ChangePassword(oldPassword, newPassword);
+                uow.TransactionalFlush();
+            }
+            return true;
         }
 
         public virtual bool ValidateUser(string sessionId, string email, string password)
