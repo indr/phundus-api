@@ -51,7 +51,9 @@ namespace phiNdus.fundus.Business.SecuredServices
 
         public bool ChangePassword(string sessionKey, string email, string oldPassword, string newPassword)
         {
-            throw new NotImplementedException();
+            return Secured.With(Session.FromKey(sessionKey))
+                .And(User.HasEmail(email))
+                .Do<UserService, bool>(svc => svc.ChangePassword(email, oldPassword, newPassword));
         }
 
         public bool ValidateUser(string sessionId, string email, string password)

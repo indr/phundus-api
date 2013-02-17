@@ -48,6 +48,12 @@ namespace phiNdus.fundus.Web.Models
             return provider.ValidateValidationKey(key);
         }
 
+        public bool ChangePassword(string email, string oldPassword, string newPassword)
+        {
+            var provider = new FundusMembershipProvider();
+            return provider.ChangePassword(email, oldPassword, newPassword);
+        }
+
         #endregion
     }
 }

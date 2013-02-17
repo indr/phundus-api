@@ -80,6 +80,17 @@ namespace phiNdus.fundus.Domain.Entities
             LastLogOnDate = DateTime.Now;
         }
 
+        public void ChangePassword(string oldPassword, string newPassword)
+        {
+            Guard.Against<ArgumentNullException>(oldPassword == null, "oldPassword");
+            Guard.Against<ArgumentNullException>(newPassword == null, "newPassword");
+
+            Guard.Against<InvalidPasswordException>(
+                Password != PasswordEncryptor.Encrypt(oldPassword, Salt), "Das alte Passwort ist falsch.");
+
+            Password = newPassword;
+        }
+
         public string GenerateValidationKey()
         {
             var key = KeyGenerator.CreateKey(24);

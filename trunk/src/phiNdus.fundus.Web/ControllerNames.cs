@@ -23,6 +23,8 @@
         public static string Profile { get { return @"profile"; } }
         public static string ResetPassword { get { return @"resetpassword"; } }
         public static string SignUp { get { return @"signup"; } }
+        public static string ChangeEmail { get { return @"changeemail"; } }
+        public static string ChangePassword { get { return @"changepassword"; } }
     }
 
     public class ArticlesActionNames
