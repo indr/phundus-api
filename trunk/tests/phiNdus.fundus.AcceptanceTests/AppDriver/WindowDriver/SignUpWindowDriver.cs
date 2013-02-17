@@ -42,7 +42,7 @@ namespace phiNdus.fundus.AcceptanceTests.AppDriver.WindowDriver
         }
 
         public void SpecifyAll(string email, string password = "password", string firstName = "Dave",
-            string lastName = "Miller", string jsNumber = "1")
+            string lastName = "Miller", string jsNumber = "100000")
         {
             SpecifyFirstName(firstName);
             SpecifyLastName(lastName);
