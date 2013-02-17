@@ -115,7 +115,7 @@ namespace phiNdus.fundus.Business.Services
                 var user = Users.FindByEmail(email);
                 user.Membership.RequestedEmail = newEmail;
                 user.Membership.GenerateValidationKey();
-                Users.Save(user);
+                Users.Update(user);
                 new UserChangeEmailValidationMail().For(user).Send(user);
                 uow.TransactionalFlush();
             }
@@ -191,7 +191,7 @@ namespace phiNdus.fundus.Business.Services
 
                 result = user.Membership.ValidateValidationKey(key);
                 if (result)
-                    Users.Save(user);
+                    Users.Update(user);
 
                 new UserAccountCreatedMail().For(user).Send(Settings.Common.AdminEmailAddress);
 
@@ -215,7 +215,7 @@ namespace phiNdus.fundus.Business.Services
 
                 result = user.Membership.ValidateEmailKey(key);
                 if (result)
-                    Users.Save(user);
+                    Users.Update(user);
 
                 //new UserAccountCreatedMail().For(user).Send(Settings.Common.AdminEmailAddress);
 
