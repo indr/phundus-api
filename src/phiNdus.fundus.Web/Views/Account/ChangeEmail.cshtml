@@ -1,4 +1,5 @@
-﻿@{
+﻿@model phiNdus.fundus.Web.ViewModels.Account.ChangeEmailViewModel
+@{
     ViewBag.Title = "E-Mail-Adresse ändern";
 }
 
@@ -7,3 +8,21 @@
 }
 
 <h2>E-Mail-Adresse ändern</h2>
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <div class="control-group">
+            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+
+        @Html.ValidationSummary(true, "Fehler beim Ändern der E-Mail-Adresse:", new { @class = "alert alert-error"})
+        <div class="form-actions">
+            @Html.SubmitButton("Bestätigungs-E-Mail senden")
+            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, HomeActionNames.Index, ControllerNames.Home)
+        </div>
+    </fieldset>
+}
