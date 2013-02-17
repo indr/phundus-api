@@ -678,6 +678,7 @@
     <Content Include="Views\Account\ChangeEmailDone.cshtml" />
     <Content Include="Views\Account\EmailValidation.cshtml" />
     <Content Include="Views\Account\EmailValidationDone.cshtml" />
+    <Content Include="Views\Shop\Article_Documents.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

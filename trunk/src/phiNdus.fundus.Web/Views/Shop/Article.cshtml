@@ -6,6 +6,7 @@
     <ul class="nav nav-tabs">
         <li class="active"><a href="#@Model.Id-D" data-toggle="tab">Beschreibung</a></li>
         <li class=""><a href="#@Model.Id-I" data-toggle="tab">Bilder (@Model.Images.Count)</a></li>
+        <li class=""><a href="#@Model.Id-F" data-toggle="tab">Dokumente (@Model.Documents.Count)</a></li>
         <li class=""><a href="#@Model.Id-A" data-toggle="tab">Verfügbarkeit</a></li>
     </ul>
     <div class="tab-content">
@@ -15,6 +16,10 @@
 
         <div class="tab-pane" id="@Model.Id-I">
             @Html.Partial("Article_Images", Model)
+        </div>
+
+        <div class="tab-pane" id="@Model.Id-F">
+            @Html.Partial("Article_Documents", Model)
         </div>
 
         <div class="tab-pane" id="@Model.Id-A">

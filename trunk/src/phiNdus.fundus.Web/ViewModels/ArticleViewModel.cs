@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.Dto;
@@ -41,7 +42,7 @@ namespace phiNdus.fundus.Web.ViewModels
         private IList<ArticleViewModel> _children = new List<ArticleViewModel>();
         private IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
         private IList<PropertyValueViewModel> _editableFieldValues = new List<PropertyValueViewModel>();
-        private IList<ImageDto> _images = new List<ImageDto>();
+        private IList<ImageDto> _files = new List<ImageDto>();
         private IList<FieldDefinitionDto> _propertyDefinitions;
         private IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
 
@@ -174,10 +175,21 @@ namespace phiNdus.fundus.Web.ViewModels
             set { _children = value; }
         }
 
+        public IList<ImageDto> Files
+        {
+            get { return _files; }
+        }
+
         public IList<ImageDto> Images
         {
-            get { return _images; }
+            get { return _files.Where(p => !p.FileName.EndsWith("pdf", true, CultureInfo.InvariantCulture)).ToList(); }
         }
+
+        public IList<ImageDto> Documents
+        {
+            get { return _files.Where(p => p.FileName.EndsWith("pdf", true, CultureInfo.InvariantCulture)).ToList(); }
+        }
+
 
         private void Load(ArticleDto article, IList<FieldDefinitionDto> propertyDefinitions)
         {
@@ -217,7 +229,7 @@ namespace phiNdus.fundus.Web.ViewModels
                 _children.Add(child);
             }
 
-            _images = article.Images;
+            _files = article.Images;
 
             _propertyDefinitions = propertyDefinitions;
         }

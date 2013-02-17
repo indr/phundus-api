@@ -11,7 +11,7 @@
         <li class="@Html.ActiveTab("Article", new string[] { "Edit", "Fields" })">@Ajax.ActionLink("Eigenschaften", ArticlesActionNames.Fields,new { id = Model.Id }, new AjaxOptions {
             HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
-        <li class="@Html.ActiveTab("Article", new string[] { "Images"})">@Ajax.ActionLink("Bilder", ArticlesActionNames.Images, new { id = Model.Id }, new AjaxOptions {
+        <li class="@Html.ActiveTab("Article", new string[] { "Images"})">@Ajax.ActionLink("Dateien", ArticlesActionNames.Images, new { id = Model.Id }, new AjaxOptions {
             HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
         <li class="@Html.ActiveTab("Article", new string[] { "Categories"})">@Ajax.ActionLink("Kategorien", ArticlesActionNames.Categories, new { id = Model.Id }, new AjaxOptions {
