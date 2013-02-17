@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Security;
+using phiNdus.fundus.Business;
 using phiNdus.fundus.Web.Models;
 using phiNdus.fundus.Web.ViewModels;
 using phiNdus.fundus.Web.ViewModels.Account;
@@ -75,9 +76,17 @@ namespace phiNdus.fundus.Web.Controllers
         {
             if (!String.IsNullOrEmpty(model.Key))
             {
-                if (MembershipService.ValidateEmailKey(model.Key))
-                    return View("EmailValidationDone");
-                ModelState.AddModelError("", "Unbekannter oder ungültiger Code.");
+                try
+                {
+                    if (MembershipService.ValidateEmailKey(model.Key))
+                        return View("EmailValidationDone");
+                    ModelState.AddModelError("", "Unbekannter oder ungültiger Code.");
+                }
+                catch (EmailAlreadyTakenException)
+                {
+                    ModelState.AddModelError("", "Die E-Mail-Adresse wird bereits verwendet.");
+                }
+                
             }
             return View(model);
         }
@@ -108,10 +117,18 @@ namespace phiNdus.fundus.Web.Controllers
 
             try
             {
-                if (MembershipService.ChangeEmailAddress(User.Identity.Name, model.Email))
-                    return View("ChangeEmailDone");
+                try
+                {
+                    if (MembershipService.ChangeEmailAddress(User.Identity.Name, model.Email))
+                        return View("ChangeEmailDone");
+                    ModelState.AddModelError("", "Unbekannter Fehler beim Ändern der E-Mail-Adresse.");
+                }
+                catch (EmailAlreadyTakenException)
+                {
+                    ModelState.AddModelError("", "Die E-Mail-Adresse wird bereits verwendet.");
+                }
 
-                ModelState.AddModelError("", "Unbekannter Fehler beim Ändern der E-Mail-Adresse.");
+                
                 return View(model);
             }
             catch (Exception ex)
