@@ -56,6 +56,13 @@ namespace phiNdus.fundus.Business.SecuredServices
                 .Do<UserService, bool>(svc => svc.ChangePassword(email, oldPassword, newPassword));
         }
 
+        public bool ChangeEmail(string sessionKey, string email, string newEmail)
+        {
+            return Secured.With(Session.FromKey(sessionKey))
+                .And(User.HasEmail(email))
+                .Do<UserService, bool>(svc => svc.ChangeEmail(email, newEmail));
+        }
+
         public bool ValidateUser(string sessionId, string email, string password)
         {
             return Secured.With(null)
@@ -73,6 +80,12 @@ namespace phiNdus.fundus.Business.SecuredServices
                 .Do<UserService, bool>(svc => svc.ValidateValidationKey(key));
         }
 
+        public bool ValidateEmailKey(string key)
+        {
+            return Secured.With(null)
+                .Do<UserService, bool>(svc => svc.ValidateEmailKey(key));
+        }
+
         public UserDto[] GetUsers(string sessionKey)
         {
             return Secured.With(Session.FromKey(sessionKey))
@@ -84,6 +97,8 @@ namespace phiNdus.fundus.Business.SecuredServices
             return Secured.With(Session.FromKey(sessionKey))
                 .Do<UserService, UserDto>(svc => svc.GetUser());
         }
+
+        
 
         #endregion
     }

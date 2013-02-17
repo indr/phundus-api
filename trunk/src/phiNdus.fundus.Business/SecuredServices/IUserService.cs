@@ -46,5 +46,7 @@ namespace phiNdus.fundus.Business.SecuredServices
         UserDto[] GetUsers(string sessionKey);
 
         UserDto GetUser(string sessionKey);
+        bool ChangeEmail(string sessionKey, string email, string newEmail);
+        bool ValidateEmailKey(string key);
     }
 }

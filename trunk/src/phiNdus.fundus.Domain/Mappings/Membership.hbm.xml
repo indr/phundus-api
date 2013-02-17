@@ -18,6 +18,7 @@
     <property name="Email">
       <column name="Email" unique-key="MembershipEmail" />
     </property>
+    <property name="RequestedEmail" />
     <property name="IsApproved" />
     <property name="IsLockedOut" />
     <property name="CreateDate" />

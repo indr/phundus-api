@@ -38,6 +38,11 @@ namespace phiNdus.fundus.Business.Mails
             {
                 get { return "http://" + _serverUrl + "/account/validation"; }
             }
+
+            public string UserEmailValidation
+            {
+                get { return "http://" + _serverUrl + "/account/emailvalidation"; }
+            }
         }
 
         //protected IDictionary<string, object> DataContext

@@ -59,6 +59,8 @@ namespace phiNdus.fundus.Domain.Entities
 
         public string ValidationKey { get; protected set; }
 
+        public string RequestedEmail { get; set; }
+        
         public void LockOut()
         {
             IsLockedOut = true;
@@ -101,7 +103,23 @@ namespace phiNdus.fundus.Domain.Entities
         public bool ValidateValidationKey(string key)
         {
             if (key == ValidationKey)
+            {
                 return IsApproved = true;
+            }
+            return false;
+        }
+
+        public bool ValidateEmailKey(string key)
+        {
+            if (key == ValidationKey)
+            {
+                if (RequestedEmail != null)
+                {
+                    Email = RequestedEmail;
+                    RequestedEmail = null;
+                }
+                return true;
+            }
             return false;
         }
 

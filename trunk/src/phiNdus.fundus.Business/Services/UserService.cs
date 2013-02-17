@@ -98,9 +98,33 @@ namespace phiNdus.fundus.Business.Services
             return true;
         }
 
+
+        public bool ChangeEmail(string email, string newEmail)
+        {
+            Guard.Against<ArgumentNullException>(email == null, "email");
+            Guard.Against<ArgumentNullException>(newEmail == null, "newEmail");
+            email = email.ToLower(CultureInfo.CurrentCulture).Trim();
+            newEmail = newEmail.ToLower(CultureInfo.CurrentCulture).Trim();
+
+            using (var uow = UnitOfWork.Start())
+            {
+                // Prüfen ob Benutzer bereits exisitiert.
+                if (Users.FindByEmail(newEmail) != null)
+                    throw new EmailAlreadyTakenException();
+
+                var user = Users.FindByEmail(email);
+                user.Membership.RequestedEmail = newEmail;
+                user.Membership.GenerateValidationKey();
+                Users.Save(user);
+                new UserChangeEmailValidationMail().For(user).Send(user);
+                uow.TransactionalFlush();
+            }
+            return true;
+        }
+
         public virtual bool ValidateUser(string sessionId, string email, string password)
         {
-            email = email.ToLower(CultureInfo.CurrentCulture);
+            email = email.ToLower(CultureInfo.CurrentCulture).Trim();
 
             using (IUnitOfWork uow = UnitOfWork.Start())
             {
@@ -127,7 +151,7 @@ namespace phiNdus.fundus.Business.Services
 
         public virtual UserDto CreateUser(string email, string password, string firstName, string lastName, int jsNumber)
         {
-            email = email.ToLower(CultureInfo.CurrentCulture);
+            email = email.ToLower(CultureInfo.CurrentCulture).Trim();
             UserDto result;
 
             using (var uow = UnitOfWork.Start())
@@ -176,5 +200,28 @@ namespace phiNdus.fundus.Business.Services
             return result;
         }
 
+        public virtual bool ValidateEmailKey(string key)
+        {
+            var result = false;
+            using (var uow = UnitOfWork.Start())
+            {
+                var user = Users.FindByValidationKey(key);
+                if (user == null)
+                    return false;
+
+                // Prüfen ob Benutzer bereits exisitiert.
+                if (Users.FindByEmail(user.Membership.RequestedEmail) != null)
+                    throw new EmailAlreadyTakenException();
+
+                result = user.Membership.ValidateEmailKey(key);
+                if (result)
+                    Users.Save(user);
+
+                //new UserAccountCreatedMail().For(user).Send(Settings.Common.AdminEmailAddress);
+
+                uow.TransactionalFlush();
+            }
+            return result;
+        }
     }
 }

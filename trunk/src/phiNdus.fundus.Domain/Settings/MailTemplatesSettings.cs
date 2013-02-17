@@ -20,6 +20,11 @@ namespace phiNdus.fundus.Domain.Settings
             get { return new MailTemplateSettings(Keyspace + ".user-account-created"); }
         }
 
+        public IMailTemplateSettings UserChangeEmailValidationMail
+        {
+            get { return new MailTemplateSettings(Keyspace + ".user-change-email-validation"); }
+        }
+
         public IMailTemplateSettings OrderRejected
         {
             get { return new MailTemplateSettings(Keyspace + ".order-rejected"); }
