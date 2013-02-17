@@ -53,7 +53,7 @@ namespace phiNdus.fundus.AcceptanceTests
             signUpWindow.SpecifyLastName("Muster");
             signUpWindow.SpecifyEmail(pop3Helper.Address);
             signUpWindow.SpecifyPassword("123qwe");
-            signUpWindow.SpecifyJsNumber("123456");
+            signUpWindow.SpecifyJsNumber("1234567");
             signUpWindow.SignUp();
 
             var body =

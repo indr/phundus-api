@@ -46,16 +46,32 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
             var sut = new User();
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => sut.JsNumber = 0);
             Assert.That(ex.ParamName, Is.EqualTo("value"));
-            Assert.That(ex.Message, Is.StringStarting("Die J+S-Nummer muss sechsstellig sein."));
+            Assert.That(ex.Message, Is.StringStarting("Die J+S-Nummer muss sechs- oder siebenstellig sein."));
         }
 
         [Test]
-        public void Set_JsNumber_more_than_six_numbers_throws()
+        public void CanSetJsNumberWithSixDigits()
         {
             var sut = new User();
-            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => sut.JsNumber = 1000000);
+            sut.JsNumber = 123456;
+            Assert.That(sut.JsNumber, Is.EqualTo(123456));
+        }
+
+        [Test]
+        public void CanSetJsNumberWithSevenDigits()
+        {
+            var sut = new User();
+            sut.JsNumber = 1234567;
+            Assert.That(sut.JsNumber, Is.EqualTo(1234567));
+        }
+
+        [Test]
+        public void Set_JsNumber_more_than_seven_numbers_throws()
+        {
+            var sut = new User();
+            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => sut.JsNumber = 10000000);
             Assert.That(ex.ParamName, Is.EqualTo("value"));
-            Assert.That(ex.Message, Is.StringStarting("Die J+S-Nummer muss sechsstellig sein."));
+            Assert.That(ex.Message, Is.StringStarting("Die J+S-Nummer muss sechs- oder siebenstellig sein."));
         }
 
         [Test]

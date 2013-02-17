@@ -40,7 +40,7 @@ namespace phiNdus.fundus.Web.Models
         public string Password { get; set; }
 
         [Required]
-        [Range(1, 999999)]
+        [Range(1, 9999999)]
         [DisplayName("J+S-Nummer")]
         public int JsNumber { get; set; }
     }
