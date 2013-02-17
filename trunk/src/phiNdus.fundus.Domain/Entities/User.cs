@@ -60,8 +60,8 @@ namespace phiNdus.fundus.Domain.Entities
             }
             set {
 
-                if (value.HasValue && ((value > 999999) || (value < 1)))
-                    throw new ArgumentOutOfRangeException("value", "Die J+S-Nummer muss sechsstellig sein.");
+                if (value.HasValue && ((value > 9999999) || (value < 1)))
+                    throw new ArgumentOutOfRangeException("value", "Die J+S-Nummer muss sechs- oder siebenstellig sein.");
                 _jsNumber = value;
             }
         }
