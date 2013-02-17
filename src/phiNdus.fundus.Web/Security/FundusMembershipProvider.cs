@@ -55,6 +55,11 @@ namespace phiNdus.fundus.Web.Security {
             return this.UserService.ChangePassword(HttpContext.Current.Session.SessionID, username, oldPassword, newPassword);
         }
 
+        public bool ChangeEmail(string email, string newEmail)
+        {
+            return this.UserService.ChangeEmail(HttpContext.Current.Session.SessionID, email, newEmail);
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021", MessageId = "Avoid out parameters",
             Justification = "Kann nicht geändert werden, da vom Framework so vorgegeben.")]
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status) {
@@ -81,6 +86,11 @@ namespace phiNdus.fundus.Web.Security {
         public bool ValidateValidationKey(string key)
         {
             return this.UserService.ValidateValidationKey(key);
+        }
+
+        public bool ValidateEmailKey(string key)
+        {
+            return this.UserService.ValidateEmailKey(key);
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData) {
@@ -210,6 +220,7 @@ namespace phiNdus.fundus.Web.Security {
 
         #endregion
         //=========================================================================================
+        
     }
 
 

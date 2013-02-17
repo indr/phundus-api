@@ -2,12 +2,15 @@
 {
     public interface IMailTemplatesSettings
     {
-        IMailTemplateSettings UserAccountValidation { get; }
-        IMailTemplateSettings UserAccountCreated { get; }
+        
         IMailTemplateSettings OrderRejected { get; }
         IMailTemplateSettings OrderApproved { get; }
         IMailTemplateSettings OrderReceived { get; }
+        IMailTemplateSettings UserAccountValidation { get; }
+        IMailTemplateSettings UserAccountCreated { get; }
+        IMailTemplateSettings UserChangeEmailValidationMail { get; }
         IMailTemplateSettings UserUnlocked { get; }
         IMailTemplateSettings UserLockedOut { get; }
+        
     }
 }

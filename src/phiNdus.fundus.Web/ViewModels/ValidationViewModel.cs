@@ -14,4 +14,12 @@ namespace phiNdus.fundus.Web.ViewModels
         [StringLength(24, ErrorMessage = "Der Code muss 24 Zeichen enthalten.", MinimumLength = 24)]
         public string Key { get; set; }
     }
+
+    public class EmailValidationViewModel
+    {
+        [Required]
+        [DisplayName("Code")]
+        [StringLength(24, ErrorMessage = "Der Code muss 24 Zeichen enthalten.", MinimumLength = 24)]
+        public string Key { get; set; }
+    }
 }

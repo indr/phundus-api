@@ -9,6 +9,6 @@ namespace phiNdus.fundus.Web.ViewModels.Account
         [Required]
         [DisplayName("E-Mail-Adresse")]
         [Email(ErrorMessage = "Ungültige E-Mail-Adresse")]
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
     }
 }

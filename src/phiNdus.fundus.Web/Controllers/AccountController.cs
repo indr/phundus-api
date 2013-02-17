@@ -64,6 +64,24 @@ namespace phiNdus.fundus.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult EmailValidation(string id)
+        {
+            return EmailValidation(new EmailValidationViewModel {Key = id});
+        }
+
+        [HttpPost]
+        public ActionResult EmailValidation(EmailValidationViewModel model)
+        {
+            if (!String.IsNullOrEmpty(model.Key))
+            {
+                if (MembershipService.ValidateEmailKey(model.Key))
+                    return View("EmailValidationDone");
+                ModelState.AddModelError("", "Unbekannter oder ungültiger Code.");
+            }
+            return View(model);
+        }
+
         public ActionResult Profile()
         {
             return View();
@@ -76,7 +94,31 @@ namespace phiNdus.fundus.Web.Controllers
 
         public ActionResult ChangeEmail()
         {
-            return View();
+            return View(new ChangeEmailViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult ChangeEmail(ChangeEmailViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Eines oder mehrere Felder enthalten ungültige Werte.");
+                return View(model);
+            }
+
+            try
+            {
+                if (MembershipService.ChangeEmailAddress(User.Identity.Name, model.Email))
+                    return View("ChangeEmailDone");
+
+                ModelState.AddModelError("", "Unbekannter Fehler beim Ändern der E-Mail-Adresse.");
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(model);
+            }
         }
 
         public ActionResult ChangePassword()
@@ -89,7 +131,7 @@ namespace phiNdus.fundus.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Eines oder mehrere Felder enthalten ungültige Daten.");
+                ModelState.AddModelError("", "Eines oder mehrere Felder enthalten ungültige Werte.");
                 return View(model);
             }
 
