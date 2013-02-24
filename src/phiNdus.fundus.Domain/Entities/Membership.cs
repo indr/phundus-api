@@ -93,6 +93,13 @@ namespace phiNdus.fundus.Domain.Entities
             Password = newPassword;
         }
 
+        public string ResetPassword()
+        {
+            var result = PasswordGenerator.CreatePassword();
+            Password = result;
+            return result;
+        }
+
         public string GenerateValidationKey()
         {
             var key = KeyGenerator.CreateKey(24);
@@ -127,5 +134,7 @@ namespace phiNdus.fundus.Domain.Entities
         {
             IsLockedOut = false;
         }
+
+        
     }
 }

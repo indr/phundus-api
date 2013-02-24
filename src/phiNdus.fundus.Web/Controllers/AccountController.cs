@@ -48,6 +48,36 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            return View(new ResetPasswordViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Eines oder mehrere Felder enthalten ungültige Werte.");
+                return View(model);
+            }
+
+            try
+            {
+                if (MembershipService.ResetPassword(model.Email))
+                    return View("ResetPasswordDone");
+
+                ModelState.AddModelError("", "Unbekannter Fehler beim Ändern des Passwortes.");
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(model);
+            }
+        }
+
+        [HttpGet]
         public ActionResult Validation(string id)
         {
             return Validation(new ValidationViewModel {Key = id});

@@ -35,6 +35,34 @@ namespace phiNdus.fundus.Business.Mails
         }
     }
 
+    public class UserResetPasswordMail : BaseMail
+    {
+        public UserResetPasswordMail()
+            : base(Settings.Mail.Templates.UserResetPasswordMail)
+        {
+            
+        }
+
+        public void Send(User user)
+        {
+            Send(user.Membership.Email);
+        }
+
+        public UserResetPasswordMail For(User user, string password)
+        {
+            Guard.Against<ArgumentNullException>(user == null, "user");
+
+            Model = new
+            {
+                Settings = Settings.GetSettings(),
+                Urls = new Urls(Settings.Common.ServerUrl),
+                Password = password,
+                User = user
+            };
+            return this;
+        }
+    }
+
     public class UserAccountValidationMail : BaseMail
     {
         public UserAccountValidationMail() : base(Settings.Mail.Templates.UserAccountValidation)

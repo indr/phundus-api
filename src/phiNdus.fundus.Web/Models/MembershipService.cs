@@ -54,6 +54,12 @@ namespace phiNdus.fundus.Web.Models
             return provider.ValidateEmailKey(key);
         }
 
+        public bool ResetPassword(string email)
+        {
+            var provider = new FundusMembershipProvider();
+            return provider.ResetPassword(email, null) != null;
+        }
+
         public bool ChangePassword(string email, string oldPassword, string newPassword)
         {
             var provider = new FundusMembershipProvider();

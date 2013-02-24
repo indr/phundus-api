@@ -71,7 +71,8 @@ namespace phiNdus.fundus.Business.SecuredServices
 
         public string ResetPassword(string sessionKey, string email)
         {
-            throw new NotImplementedException();
+            return Secured.With(null)
+                .Do<UserService, string>(svc => svc.ResetPassword(email));
         }
 
         public bool ValidateValidationKey(string key)

@@ -97,6 +97,7 @@
     <Compile Include="KeyGenerator.cs" />
     <Compile Include="PasswordEncryptor.cs" />
     <Compile Include="FieldAlreadyAttachedException.cs" />
+    <Compile Include="PasswordGenerator.cs" />
     <Compile Include="Repositories\CartRepository.cs" />
     <Compile Include="Repositories\FieldDefinitionRepository.cs" />
     <Compile Include="Repositories\ICartRepository.cs" />
