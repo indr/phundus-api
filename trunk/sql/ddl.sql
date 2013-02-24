@@ -43,6 +43,13 @@ create table [Role] (
   primary key (Id)
 )
     
+create table [Organization] (
+  Id INT identity(1000, 1),
+  Version INT not null,
+  Name NVARCHAR(255) not null,
+  primary key (Id)
+)
+	
 create table [Setting] (
   Id int not null, /* generator hilo */
   Version int not null,
