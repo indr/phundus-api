@@ -198,6 +198,7 @@ namespace phiNdus.fundus.Web.ViewModels
             Items.Add(new MailTemplateSettingViewModel("mail.templates.user-locked-out"));
             Items.Add(new MailTemplateSettingViewModel("mail.templates.user-unlocked"));
             Items.Add(new MailTemplateSettingViewModel("mail.templates.user-change-email-validation"));
+            Items.Add(new MailTemplateSettingViewModel("mail.templates.user-reset-password"));
             Items.Add(new MailTemplateSettingViewModel("mail.templates.order-received"));
             Items.Add(new MailTemplateSettingViewModel("mail.templates.order-approved"));
             Items.Add(new MailTemplateSettingViewModel("mail.templates.order-rejected"));

@@ -7,7 +7,7 @@ using System.Text;
 namespace phiNdus.fundus.Domain
 {
     public static class KeyGenerator
-    {
+{
         public static string CreateKey(int length)
         {
             var rng = new RNGCryptoServiceProvider();

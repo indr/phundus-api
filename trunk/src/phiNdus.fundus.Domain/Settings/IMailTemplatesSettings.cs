@@ -9,6 +9,7 @@
         IMailTemplateSettings UserAccountValidation { get; }
         IMailTemplateSettings UserAccountCreated { get; }
         IMailTemplateSettings UserChangeEmailValidationMail { get; }
+        IMailTemplateSettings UserResetPasswordMail { get; }
         IMailTemplateSettings UserUnlocked { get; }
         IMailTemplateSettings UserLockedOut { get; }
         

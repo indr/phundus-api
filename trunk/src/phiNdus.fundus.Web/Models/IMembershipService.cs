@@ -23,5 +23,6 @@ namespace phiNdus.fundus.Web.Models
         bool ChangePassword(string email, string oldPassword, string newPassword);
         bool ChangeEmailAddress(string email, string newEmail);
         bool ValidateEmailKey(string key);
+        bool ResetPassword(string email);
     }
 }

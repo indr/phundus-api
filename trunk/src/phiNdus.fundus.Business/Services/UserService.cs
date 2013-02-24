@@ -146,7 +146,20 @@ namespace phiNdus.fundus.Business.Services
 
         public virtual string ResetPassword(string email)
         {
-            throw new NotImplementedException();
+            Guard.Against<ArgumentNullException>(email == null, "email");
+            email = email.ToLower(CultureInfo.CurrentCulture).Trim();
+
+            using (var uow = UnitOfWork.Start())
+            {
+                var user = Users.FindByEmail(email);
+                if (user == null)
+                    throw new Exception("Die E-Mail-Adresse konnte nicht gefunden werden.");
+                var password = user.Membership.ResetPassword();
+                Users.Update(user);
+                new UserResetPasswordMail().For(user, password).Send(user);
+                uow.TransactionalFlush();
+                return password;
+            }
         }
 
         public virtual UserDto CreateUser(string email, string password, string firstName, string lastName, int jsNumber)

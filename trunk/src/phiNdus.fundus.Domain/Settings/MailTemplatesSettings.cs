@@ -25,6 +25,11 @@ namespace phiNdus.fundus.Domain.Settings
             get { return new MailTemplateSettings(Keyspace + ".user-change-email-validation"); }
         }
 
+        public IMailTemplateSettings UserResetPasswordMail
+        {
+            get { return new MailTemplateSettings(Keyspace + ".user-reset-password");}
+        }
+
         public IMailTemplateSettings OrderRejected
         {
             get { return new MailTemplateSettings(Keyspace + ".order-rejected"); }
