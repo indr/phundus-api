@@ -84,5 +84,9 @@ namespace phiNdus.fundus.Domain.Entities
             get { return _memberships; }
             set { _memberships = value; }
         }
+
+        public virtual string Street { get; set; }
+        public virtual string Postcode { get; set; }
+        public virtual string City { get; set; }
     }
 }

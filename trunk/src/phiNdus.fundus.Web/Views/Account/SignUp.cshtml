@@ -12,28 +12,10 @@
 <p>Mit der Anmeldung bestätigst du Verantwortungsbewusst mit den Materialen umzugehen. Dir ist ersichtlich, dass du Teil sehr grossen Interessensgemeinschaft bist und vermeidest Nachlässigkeiten. Bestätigte Buchungen können nicht rückgängig gemacht werden. Der Mietbetrag ist beim Abholen des Material bar zu bezahlen. Bei Unsachgemässer Anwendung kannst du jederzeit vom FUNDUS ausgeschlossen werden.</p>
 @using (Html.BeginForm())
 {
+    @Html.ValidationSummary(true, "Fehler bei der Registrierung:", new { @class = "alert alert-error" })
+
     <fieldset>
-        <div class="control-group">
-            @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextBoxFor(m => m.FirstName)
-                @Html.ValidationMessageFor(m => m.FirstName)
-            </div>
-        </div>
-        <div class="control-group">
-            @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextBoxFor(m => m.LastName)
-                @Html.ValidationMessageFor(m => m.LastName)
-            </div>
-        </div>
-        <div class="control-group">
-            @Html.LabelFor(m => m.JsNumber, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextBoxFor(m => m.JsNumber)
-                @Html.ValidationMessageFor(m => m.JsNumber)
-            </div>
-        </div>
+        <legend>Benutzerkonto</legend>
         <div class="control-group">
             @Html.LabelFor(m => m.Email, new { @class = "control-label" })
             <div class="controls">
@@ -48,7 +30,67 @@
                 @Html.ValidationMessageFor(m => m.Password)
             </div>
         </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.PasswordAgain, new { @class = "control-label" })
+            <div class="controls">
+                @Html.PasswordFor(m => m.PasswordAgain)
+                @Html.ValidationMessageFor(m => m.PasswordAgain)
+            </div>
+        </div>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Kontakt</legend>
+        <div class="control-group">
+            @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.FirstName)
+                @Html.ValidationMessageFor(m => m.FirstName)
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.LastName)
+                @Html.ValidationMessageFor(m => m.LastName)
+            </div>
+        </div>
+        
+        <div class="control-group">
+            @Html.LabelFor(m => m.Street, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Street)
+                @Html.ValidationMessageFor(m => m.Street)
+            </div>
+        </div>
 
+        <div class="control-group">
+            @Html.LabelFor(m => m.Postcode, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Postcode)
+                @Html.ValidationMessageFor(m => m.Postcode)
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.City, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.City)
+                @Html.ValidationMessageFor(m => m.City)
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.MobilePhone, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.MobilePhone)
+                @Html.ValidationMessageFor(m => m.MobilePhone)
+            </div>
+        </div>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Verband / Organisation</legend>
         <div class="control-group">
             @Html.LabelFor(m => m.OrganizationId, new { @class = "control-label" })
             <div class="controls">
@@ -57,10 +99,19 @@
             </div>       
         </div>
 
-        @Html.ValidationSummary(true, "Fehler bei der Registrierung:", new { @class = "alert alert-error"})
-        <div class="form-actions">
-            @Html.SubmitButton("Registrieren")
-            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, HomeActionNames.Index, ControllerNames.Home)
+        <div class="control-group">
+            @Html.LabelFor(m => m.JsNumber, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextBoxFor(m => m.JsNumber)
+                @Html.ValidationMessageFor(m => m.JsNumber)
+            </div>
         </div>
     </fieldset>
+    
+    
+    
+    <div class="form-actions">
+            @Html.SubmitButton("Registrieren")
+            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, HomeActionNames.Index, ControllerNames.Home)
+    </div>
 }

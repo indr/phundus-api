@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using System.Web.Security;
 using phiNdus.fundus.Business;
+using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.Web.Models;
 using phiNdus.fundus.Web.ViewModels;
@@ -19,6 +21,7 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         public IOrganizationRepository Organizations { get; set; }
+        public IUserService UserService { get; set; }
 
         private IFormsService FormsService { get; set; }
         private IMembershipService MembershipService { get; set; }
@@ -213,40 +216,29 @@ namespace phiNdus.fundus.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                MembershipCreateStatus status;
-                MembershipService.CreateUser(model.Email, model.Password, model.FirstName, model.LastName,
-                                             model.JsNumber, model.OrganizationId, out status);
 
 
-                switch (status)
+                try
                 {
-                    case MembershipCreateStatus.Success:
-                        return View("SignUpDone");
-                        //case MembershipCreateStatus.InvalidUserName:
-                        //    break;
-                        //case MembershipCreateStatus.InvalidPassword:
-                        //    break;
-                        //case MembershipCreateStatus.InvalidQuestion:
-                        //    break;
-                        //case MembershipCreateStatus.InvalidAnswer:
-                        //    break;
-                        //case MembershipCreateStatus.InvalidEmail:
-                        //    break;
-                        //case MembershipCreateStatus.DuplicateUserName:
-                        //    break;
-                    case MembershipCreateStatus.DuplicateEmail:
-                        ModelState.AddModelError("", "Die E-Mail-Adresse wird bereits verwendet.");
-                        break;
-                        //case MembershipCreateStatus.UserRejected:
-                        //    break;
-                        //case MembershipCreateStatus.InvalidProviderUserKey:
-                        //    break;
-                        //case MembershipCreateStatus.DuplicateProviderUserKey:
-                        //    break;
-                        //case MembershipCreateStatus.ProviderError:
-                        //    break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    UserService.CreateUser(HttpContext.Session.SessionID,
+                                           new UserDto
+                                               {
+                                                   Email = model.Email,
+                                                   FirstName = model.FirstName,
+                                                   LastName = model.LastName,
+                                                   Street = model.Street,
+                                                   Postcode = model.Postcode,
+                                                   City = model.City,
+                                                   MobilePhone = model.MobilePhone,
+                                                   JsNumber = model.JsNumber
+                                               },
+                                           model.Password,
+                                           model.OrganizationId);
+                    return View("SignUpDone");
+                }
+                catch (EmailAlreadyTakenException)
+                {
+                    ModelState.AddModelError("Email", "Die E-Mail-Adresse wird bereits verwendet.");
                 }
             }
             else
@@ -255,7 +247,9 @@ namespace phiNdus.fundus.Web.Controllers
             }
 
             // Nicht erfolgreich
-            return View();
+            using (UnitOfWork.Start())
+                model.Organizations = Organizations.FindAll();
+            return View(model);
         }
     }
 }

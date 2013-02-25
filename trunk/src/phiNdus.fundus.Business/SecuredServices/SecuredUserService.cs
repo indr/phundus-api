@@ -33,6 +33,12 @@ namespace phiNdus.fundus.Business.SecuredServices
                 .Do<UserService, UserDto>(svc => svc.CreateUser(email, password, firstName, lastName, jsNumber, organizationId));
         }
 
+        public UserDto CreateUser(string sessionKey, UserDto userDto, string password, int? organizationId)
+        {
+            return Secured.With(null)
+                .Do<UserService, UserDto>(svc => svc.CreateUser(userDto, password, organizationId));
+        }
+
         public void UpdateUser(string sessionKey, UserDto user)
         {
             Guard.Against<ArgumentNullException>(user == null, "user");
