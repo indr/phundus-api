@@ -49,6 +49,14 @@
             </div>
         </div>
 
+        <div class="control-group">
+            @Html.LabelFor(m => m.OrganizationId, new { @class = "control-label" })
+            <div class="controls">
+                @Html.DropDownListFor(m => m.OrganizationId, new SelectList(Model.Organizations, "Id", "Name"), "Bitte wählen") 
+                @Html.ValidationMessageFor(m => m.OrganizationId)
+            </div>       
+        </div>
+
         @Html.ValidationSummary(true, "Fehler bei der Registrierung:", new { @class = "alert alert-error"})
         <div class="form-actions">
             @Html.SubmitButton("Registrieren")

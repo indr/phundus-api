@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace phiNdus.fundus.DbMigrations._201204
+namespace phiNdus.fundus.DbMigrations._201302
 {
     [Migration(201302241438)]
     public class M201302241438_CreateTableOrganization : MigrationBase

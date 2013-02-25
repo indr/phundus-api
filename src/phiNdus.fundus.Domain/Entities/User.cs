@@ -1,4 +1,5 @@
 ﻿using System;
+using Iesi.Collections.Generic;
 
 namespace phiNdus.fundus.Domain.Entities
 {
@@ -67,6 +68,21 @@ namespace phiNdus.fundus.Domain.Entities
         }
 
         public virtual string MobileNumber { get; set; }
-        
+
+        public virtual void Join(Organization organization)
+        {
+            var membership = new OrganizationMembership();
+            membership.Organization = organization;
+            membership.User = this;
+            Memberships.Add(membership);
+        }
+
+        private ISet<OrganizationMembership> _memberships = new HashedSet<OrganizationMembership>();
+
+        public virtual ISet<OrganizationMembership> Memberships
+        {
+            get { return _memberships; }
+            set { _memberships = value; }
+        }
     }
 }

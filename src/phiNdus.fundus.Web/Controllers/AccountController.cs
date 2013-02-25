@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Security;
 using phiNdus.fundus.Business;
+using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.Web.Models;
 using phiNdus.fundus.Web.ViewModels;
 using phiNdus.fundus.Web.ViewModels.Account;
@@ -16,6 +17,8 @@ namespace phiNdus.fundus.Web.Controllers
             FormsService = IoC.Resolve<IFormsService>();
             MembershipService = IoC.Resolve<IMembershipService>();
         }
+
+        public IOrganizationRepository Organizations { get; set; }
 
         private IFormsService FormsService { get; set; }
         private IMembershipService MembershipService { get; set; }
@@ -116,7 +119,6 @@ namespace phiNdus.fundus.Web.Controllers
                 {
                     ModelState.AddModelError("", "Die E-Mail-Adresse wird bereits verwendet.");
                 }
-                
             }
             return View(model);
         }
@@ -126,10 +128,6 @@ namespace phiNdus.fundus.Web.Controllers
             return View();
         }
 
-        public ActionResult SignUp()
-        {
-            return View();
-        }
 
         public ActionResult ChangeEmail()
         {
@@ -158,7 +156,7 @@ namespace phiNdus.fundus.Web.Controllers
                     ModelState.AddModelError("", "Die E-Mail-Adresse wird bereits verwendet.");
                 }
 
-                
+
                 return View(model);
             }
             catch (Exception ex)
@@ -195,7 +193,19 @@ namespace phiNdus.fundus.Web.Controllers
                 ModelState.AddModelError("", ex.Message);
                 return View(model);
             }
+        }
 
+        [HttpGet]
+        public ActionResult SignUp()
+        {
+            using (UnitOfWork.Start())
+            {
+                var model = new SignUpModel
+                                {
+                                    Organizations = Organizations.FindAll()
+                                };
+                return View(model);
+            }
         }
 
         [HttpPost]
@@ -204,8 +214,8 @@ namespace phiNdus.fundus.Web.Controllers
             if (ModelState.IsValid)
             {
                 MembershipCreateStatus status;
-                //MembershipService.CreateUser(model.Email, model.Password, out status);
-                MembershipService.CreateUser(model.Email, model.Password, model.FirstName, model.LastName, model.JsNumber, out status);
+                MembershipService.CreateUser(model.Email, model.Password, model.FirstName, model.LastName,
+                                             model.JsNumber, model.OrganizationId, out status);
 
 
                 switch (status)

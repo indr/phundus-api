@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Domain" namespace="phiNdus.fundus.Domain.Entities">
+
+  <class name="OrganizationMembership" table="[OrganizationMembership]">
+    <id name="Id">
+      <generator class="hilo" />
+    </id>
+    <version name="Version" />
+
+    <many-to-one name="User" class="User" column="UserId" />
+    <many-to-one name="Organization" class="Organization" column="OrganizationId" />
+    
+    <property name="Role" />
+  </class>
+</hibernate-mapping>

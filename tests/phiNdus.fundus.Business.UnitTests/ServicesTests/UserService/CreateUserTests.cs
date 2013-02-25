@@ -59,7 +59,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.UserService
         {
             MockUserRepository.Stub(x => x.FindByEmail(Arg<string>.Is.Anything)).Return(null);
 
-            Sut.CreateUser("john@example.com", "1234", "", "", 1);
+            Sut.CreateUser("john@example.com", "1234", "", "", 1, null);
 
             MockUnitOfWork.AssertWasCalled(x => x.TransactionalFlush());
             MockUnitOfWork.AssertWasCalled(x => x.Dispose());
@@ -69,7 +69,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.UserService
         public void CreateUserWithEmptyEmailThrows()
         {
             Assert.Ignore("TODO");
-            var ex = Assert.Throws<ArgumentNullException>(() => Sut.CreateUser("", "", "", "", 1));
+            var ex = Assert.Throws<ArgumentNullException>(() => Sut.CreateUser("", "", "", "", 1, null));
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.UserService
         {
             MockUserRepository.Stub(x => x.FindByEmail(Arg<string>.Is.Anything)).Return(null);
 
-            var dto = Sut.CreateUser("Ted.Mosby@example.com", "", "", "", 1);
+            var dto = Sut.CreateUser("Ted.Mosby@example.com", "", "", "", 1, null);
 
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
@@ -88,7 +88,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.UserService
         {
             MockUserRepository.Stub(x => x.FindByEmail(Arg<string>.Is.Anything)).Return(null);
 
-            var dto = Sut.CreateUser("ted.mosby@example.com", "", "Ted", "Mosby", 123456);
+            var dto = Sut.CreateUser("ted.mosby@example.com", "", "Ted", "Mosby", 123456, null);
 
             Assert.That(dto, Is.Not.Null);
             Assert.That(dto.Email, Is.EqualTo("ted.mosby@example.com"));
@@ -102,7 +102,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.UserService
         {
             MockUserRepository.Stub(x => x.FindByEmail(Arg<string>.Is.Anything)).Return(null);
 
-            Sut.CreateUser("ted.mosby@example.com", "", "", "", 1);
+            Sut.CreateUser("ted.mosby@example.com", "", "", "", 1, null);
 
             MockUserRepository.AssertWasCalled(x => x.Save(Arg<User>.Is.Anything));
         }
@@ -118,7 +118,7 @@ Link: [Link.UserAccountValidation]
 ");
             MockUserRepository.Stub(x => x.FindByEmail(Arg<string>.Is.Anything)).Return(null);
 
-            Sut.CreateUser("ted.mosby@example.com", "password", "Ted", "", 1);
+            Sut.CreateUser("ted.mosby@example.com", "password", "Ted", "", 1, null);
 
             MockMailGateway.AssertWasCalled(x => x.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything, Arg<string>.Is.Anything));
 
@@ -134,7 +134,7 @@ Link: [Link.UserAccountValidation]
         {
             MockUserRepository.Expect(x => x.FindByEmail("ted.mosby@example.com")).Return(new User());
 
-            Assert.Throws<EmailAlreadyTakenException>(() => Sut.CreateUser("ted.mosby@example.com", "", "", "", 1));
+            Assert.Throws<EmailAlreadyTakenException>(() => Sut.CreateUser("ted.mosby@example.com", "", "", "", 1, null));
         }
     }
 }

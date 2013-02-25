@@ -49,11 +49,11 @@ namespace phiNdus.fundus.Business.UnitTests.SecuredServices
         {
             using (Obsolete_MockFactory.Record())
             {
-                Expect.Call(MockUserService.CreateUser("user@example.com", "1234", "", "", 1));
+                Expect.Call(MockUserService.CreateUser("user@example.com", "1234", "", "", 1, null));
             }
             using (Obsolete_MockFactory.Playback())
             {
-                Sut.CreateUser(null, "user@example.com", "1234", "", "", 1);
+                Sut.CreateUser(null, "user@example.com", "1234", "", "", 1, null);
             }
         }
 
@@ -63,11 +63,11 @@ namespace phiNdus.fundus.Business.UnitTests.SecuredServices
             var dto = new UserDto();
             using (Obsolete_MockFactory.Record())
             {
-                Expect.Call(MockUserService.CreateUser("user@example.com", "1234", "John", "Doe", 1)).Return(dto);
+                Expect.Call(MockUserService.CreateUser("user@example.com", "1234", "John", "Doe", 1, null)).Return(dto);
             }
             using (Obsolete_MockFactory.Playback())
             {
-                var actual = Sut.CreateUser("maybevalid", "user@example.com", "1234", "John", "Doe", 1);
+                var actual = Sut.CreateUser("maybevalid", "user@example.com", "1234", "John", "Doe", 1, null);
                 Assert.That(actual, Is.SameAs(dto));
             }
         }
