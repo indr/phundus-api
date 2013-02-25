@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using NUnit.Framework;
+using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Web.Models;
 
 namespace phiNdus.fundus.Web.UnitTests.Models {
@@ -15,6 +16,12 @@ namespace phiNdus.fundus.Web.UnitTests.Models {
         private const string InvalidEmail = @"dave@example";
         private const string DefaultFistName = @"Dave";
         private const string DefaultLastName = @"Example";
+        private const string DefaultStreet = @"Street";
+        private const string DefaultPostcode = @"1000";
+        private const string DefaultCity = @"City";
+        private const string DefaultMobilePhone = @"0790001122";
+        private const int DefaultJsNumber = 123456;
+        private const int DefaultOrganizationId = 0;
 
         [Test]
         public void LogOnModel_ensure_that_eMail_is_required() {
@@ -93,7 +100,15 @@ namespace phiNdus.fundus.Web.UnitTests.Models {
             var model = new SignUpModel {
                 Email = DefaultEmail,
                 LastName = DefaultLastName,
-                Password = DefaultPassword
+                MobilePhone = DefaultMobilePhone,
+                Street = DefaultStreet,
+                Postcode = DefaultPostcode,
+                City = DefaultCity,
+                JsNumber = DefaultJsNumber,
+                Password = DefaultPassword,
+                PasswordAgain = DefaultPassword,
+                Organizations = new List<Organization>{ new Organization{Name ="Name"}},
+                OrganizationId = DefaultOrganizationId
             };
 
             var exception = Assert.Throws<ValidationException>(
@@ -107,7 +122,15 @@ namespace phiNdus.fundus.Web.UnitTests.Models {
             var model = new SignUpModel {
                 Email = DefaultEmail,
                 FirstName = DefaultFistName,
-                Password = DefaultPassword
+                MobilePhone = DefaultMobilePhone,
+                Street = DefaultStreet,
+                Postcode = DefaultPostcode,
+                City = DefaultCity,
+                JsNumber = DefaultJsNumber,
+                Password = DefaultPassword,
+                PasswordAgain = DefaultPassword,
+                Organizations = new List<Organization> { new Organization { Name = "Name" } },
+                OrganizationId = DefaultOrganizationId
             };
 
             var exception = Assert.Throws<ValidationException>(
@@ -139,13 +162,20 @@ namespace phiNdus.fundus.Web.UnitTests.Models {
                 Email = DefaultEmail,
                 FirstName = DefaultFistName,
                 LastName = DefaultLastName,
-                Password = DefaultPassword
+                Street = DefaultStreet,
+                Postcode = DefaultPostcode,
+                City = DefaultCity,
+                MobilePhone = DefaultMobilePhone,
+                Password = DefaultPassword,
+                PasswordAgain = DefaultPassword,
+                Organizations = new List<Organization> { new Organization { Name = "Name" } },
+                OrganizationId = DefaultOrganizationId
             };
 
             var exception = Assert.Throws<ValidationException>(
                 () => ModelValidator.Validate<SignUpModel>(model));
 
-            Assert.That(exception.Message, Contains.Substring(@"JsNumber").And.Contains(@"zwischen 100000 und 9999999 liegen"));
+            Assert.That(exception.Message, Contains.Substring(@"JsNumber").And.Contains(@"zwischen 1 und 9999999999 liegen"));
         }
 
         [Test]
@@ -154,8 +184,15 @@ namespace phiNdus.fundus.Web.UnitTests.Models {
                 Email = DefaultEmail,
                 FirstName = DefaultFistName,
                 LastName = DefaultLastName,
+                MobilePhone = DefaultMobilePhone,
+                Street = DefaultStreet,
+                Postcode = DefaultPostcode,
+                City = DefaultCity,
+                JsNumber = DefaultJsNumber,
                 Password = DefaultPassword,
-                JsNumber = 100000
+                PasswordAgain = DefaultPassword,
+                Organizations = new List<Organization> { new Organization { Name = "Name" } },
+                OrganizationId = DefaultOrganizationId
             };
 
             ModelValidator.Validate<SignUpModel>(model);

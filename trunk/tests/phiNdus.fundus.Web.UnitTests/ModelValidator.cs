@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace phiNdus.fundus.Web.UnitTests {
     internal static class ModelValidator {
@@ -24,6 +25,8 @@ namespace phiNdus.fundus.Web.UnitTests {
                 var attributes = propertyInfo.GetCustomAttributes(false).OfType<ValidationAttribute>();
 
                 foreach (var attribute in attributes) {
+                    if (attribute is CompareAttribute)
+                        continue;
                     attribute.Validate(propertyValue, propertyInfo.Name);
                 }
             }
