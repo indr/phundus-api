@@ -11,7 +11,7 @@ namespace phiNdus.fundus.Web.Models
         /// <returns>true wenn gültig</returns>
         bool ValidateUser(string email, string password);
 
-        MembershipUser CreateUser(string email, string password, string firstName, string lastName, int jsNumber, out MembershipCreateStatus status);
+        MembershipUser CreateUser(string email, string password, string firstName, string lastName, int jsNumber, int? organizationId, out MembershipCreateStatus status);
 
         /// <summary>
         /// Prüft ob der Validierungskey gültig ist und aktiviert den Benutzer.

@@ -18,6 +18,11 @@ namespace phiNdus.fundus.Business.Services
             get { return IoC.Resolve<IUserRepository>(); }
         }
 
+        private static IOrganizationRepository Organizations
+        {
+            get { return IoC.Resolve<IOrganizationRepository>(); }
+        }
+
         private static IRoleRepository Roles
         {
             get { return IoC.Resolve<IRoleRepository>(); }
@@ -162,7 +167,8 @@ namespace phiNdus.fundus.Business.Services
             }
         }
 
-        public virtual UserDto CreateUser(string email, string password, string firstName, string lastName, int jsNumber)
+        public virtual UserDto CreateUser(string email, string password, string firstName, string lastName, int jsNumber,
+                                          int? organizationId)
         {
             email = email.ToLower(CultureInfo.CurrentCulture).Trim();
             UserDto result;
@@ -173,6 +179,15 @@ namespace phiNdus.fundus.Business.Services
                 if (Users.FindByEmail(email) != null)
                     throw new EmailAlreadyTakenException();
 
+                Organization organization = null;
+                if (organizationId.HasValue)
+                {
+                    organization = Organizations.FindById(organizationId.Value);
+                    if (organization == null)
+                        throw new Exception(String.Format("Die Organization mit der Id {0} ist nicht vorhanden.",
+                                                          organizationId));
+                }
+
                 // Neuer Benutzer speichern.
                 var user = new User();
                 user.FirstName = firstName;
@@ -182,6 +197,8 @@ namespace phiNdus.fundus.Business.Services
                 user.Membership.Password = password;
                 user.Role = Roles.Get(Role.User.Id);
                 user.Membership.GenerateValidationKey();
+                if (organization != null)
+                    user.Join(organization);
                 Users.Save(user);
 
                 // E-Mail mit Verifikationslink senden

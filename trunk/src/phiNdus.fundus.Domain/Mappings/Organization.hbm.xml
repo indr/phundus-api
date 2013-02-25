@@ -2,20 +2,15 @@
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Domain" namespace="phiNdus.fundus.Domain.Entities">
 
-  <class name="User" table="[User]">
+  <class name="Organization" table="[Organization]">
     <id name="Id">
       <generator class="native" />
     </id>
     <version name="Version" />
-    <property name="FirstName" />
-    <property name="LastName" />
-    <property name="JsNumber" />
-    <property name="MobileNumber" />
-    <one-to-one name="Membership" class="Membership" cascade="all-delete-orphan" />
-    <many-to-one name="Role" column="RoleId" lazy="false" />
+    <property name="Name" />
 
     <set name="Memberships" cascade="all-delete-orphan" lazy="true" inverse="true" >
-      <key column="UserId" />
+      <key column="OrganizationId" />
       <one-to-many class="OrganizationMembership" />
     </set>
   </class>

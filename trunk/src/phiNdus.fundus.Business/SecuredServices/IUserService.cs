@@ -13,7 +13,7 @@ namespace phiNdus.fundus.Business.SecuredServices
         /// <summary>
         /// Erstelllt einen neuen Benutzer.
         /// </summary>
-        UserDto CreateUser(string sessionKey, string email, string password, string firstName, string lastName, int jsNumber);
+        UserDto CreateUser(string sessionKey, string email, string password, string firstName, string lastName, int jsNumber, int? organizationId);
 
         /// <summary>
         /// Aktualisiert einen bestehenden Benutzer.
