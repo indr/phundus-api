@@ -9,8 +9,11 @@
     <version name="Version" />
     <property name="FirstName" />
     <property name="LastName" />
-    <property name="JsNumber" />
+    <property name="Street" />
+    <property name="Postcode" />
+    <property name="City" />
     <property name="MobileNumber" />
+    
     <one-to-one name="Membership" class="Membership" cascade="all-delete-orphan" />
     <many-to-one name="Role" column="RoleId" lazy="false" />
 
@@ -18,5 +21,7 @@
       <key column="UserId" />
       <one-to-many class="OrganizationMembership" />
     </set>
+
+    <property name="JsNumber" />
   </class>
 </hibernate-mapping>

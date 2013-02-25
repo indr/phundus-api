@@ -167,6 +167,52 @@ namespace phiNdus.fundus.Business.Services
             }
         }
 
+        public UserDto CreateUser(UserDto userDto, string password, int? organizationId)
+        {
+            var email = userDto.Email.ToLower(CultureInfo.CurrentCulture).Trim();
+            UserDto result;
+
+            using (var uow = UnitOfWork.Start())
+            {
+                // Prüfen ob Benutzer bereits exisitiert.
+                if (Users.FindByEmail(email) != null)
+                    throw new EmailAlreadyTakenException();
+
+                Organization organization = null;
+                if (organizationId.HasValue)
+                {
+                    organization = Organizations.FindById(organizationId.Value);
+                    if (organization == null)
+                        throw new Exception(String.Format("Die Organization mit der Id {0} ist nicht vorhanden.",
+                                                          organizationId));
+                }
+
+                // Neuer Benutzer speichern.
+                var user = new User();
+                user.FirstName = userDto.FirstName;
+                user.LastName = userDto.LastName;
+                user.Street = userDto.Street;
+                user.Postcode = userDto.Postcode;
+                user.City = userDto.City;
+                user.MobileNumber = userDto.MobilePhone;
+                user.JsNumber = userDto.JsNumber;
+                user.Membership.Email = email;
+                user.Membership.Password = password;
+                user.Role = Roles.Get(Role.User.Id);
+                user.Membership.GenerateValidationKey();
+                if (organization != null)
+                    user.Join(organization);
+                Users.Save(user);
+
+                // E-Mail mit Verifikationslink senden
+                new UserAccountValidationMail().For(user).Send(user);
+
+                result = new UserAssembler().CreateDto(user);
+                uow.TransactionalFlush();
+            }
+            return result;
+        }
+
         public virtual UserDto CreateUser(string email, string password, string firstName, string lastName, int jsNumber,
                                           int? organizationId)
         {
@@ -253,5 +299,7 @@ namespace phiNdus.fundus.Business.Services
             }
             return result;
         }
+
+        
     }
 }
