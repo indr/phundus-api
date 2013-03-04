@@ -23,7 +23,8 @@
 
     <body>
         <div class="navbar navbar-fixed-top">
-            @Html.Partial("_NavBar")
+            @Html.Action("NavBar", "Layout");
+            
         </div>
         <!--<div class="breadcrumb">
            @RenderSection("Breadcrumbs", required: false)
