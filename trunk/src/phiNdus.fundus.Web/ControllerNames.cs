@@ -13,12 +13,13 @@
         public static string Settings { get { return @"settings"; } }
         public static string Shop { get { return @"shop"; } }
         public static string Users { get { return @"users"; } }
-        public static string Organization { get { return @"organzation"; } }
+        public static string Organization { get { return @"organization"; } }
     }
 
     public class OrganizationActionNames
     {
-        public static string Index { get { return @"index"; } }
+        public static string Id { get { return @"id"; } }
+        public static string Select { get { return @"select"; } }
         public static string Search { get { return @"search"; } }
         public static string Establish { get { return @"establish"; } }
         public static string Members { get { return @"members"; } }
