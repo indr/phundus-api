@@ -19,6 +19,7 @@ namespace phiNdus.fundus.Web.Controllers
                 var user = UserRepository.FindByEmail(User.Identity.Name);
                 if (user != null)
                 {
+                    model.Selected = user.SelectedOrganization;
                     foreach (var each in user.Memberships)
                     {
                         model.Organizations.Add(each.Organization);

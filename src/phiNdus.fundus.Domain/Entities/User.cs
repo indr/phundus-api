@@ -75,6 +75,7 @@ namespace phiNdus.fundus.Domain.Entities
             membership.Organization = organization;
             membership.User = this;
             Memberships.Add(membership);
+            SelectedOrganization = organization;
         }
 
         private ISet<OrganizationMembership> _memberships = new HashedSet<OrganizationMembership>();
@@ -88,5 +89,19 @@ namespace phiNdus.fundus.Domain.Entities
         public virtual string Street { get; set; }
         public virtual string Postcode { get; set; }
         public virtual string City { get; set; }
+
+        public virtual void SelectOrganization(Organization organization)
+        {
+            foreach (var each in Memberships)
+            {
+                if (each.Organization == organization)
+                {
+                    SelectedOrganization = each.Organization;
+                    return;
+                }
+            }
+        }
+
+        public virtual Organization SelectedOrganization { get; set; }
     }
 }

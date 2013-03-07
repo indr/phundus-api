@@ -23,5 +23,7 @@
     </set>
 
     <property name="JsNumber" />
+
+    <many-to-one name="SelectedOrganization" column="SelectedOrganizationId" />
   </class>
 </hibernate-mapping>
