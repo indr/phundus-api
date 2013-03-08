@@ -1,4 +1,5 @@
 ﻿using System;
+using NHibernate;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
 using Rhino.Commons;
@@ -25,8 +26,12 @@ namespace phiNdus.fundus.Business.Security
             {
                 var repo = IoC.Resolve<IUserRepository>();
                 user = repo.FindBySessionKey(key);
+
+                Guard.Against<InvalidSessionKeyException>(user == null, "");
+
+                NHibernateUtil.Initialize(user.Memberships);
             }
-            Guard.Against<InvalidSessionKeyException>(user == null, "");
+            
 
             return new SecuritySession(user, key);
         }

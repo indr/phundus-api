@@ -37,7 +37,7 @@
     @if (Request.IsAuthenticated && User.IsInRole("User"))
     {
         <li class="dropdown">
-            @if (User.IsInRole("Admin"))
+            @if (User.IsInRole("Chief"))
             {
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bestellungen<b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -56,8 +56,8 @@
             }
         </li>
         
-            if (User.IsInRole("Admin"))
-            {
+        if (User.IsInRole("Chief"))
+        {
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Verträge<b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -67,41 +67,33 @@
                     <li>@Html.ActionLink("Abgeschlossene", ContractsActionNames.Closed, ControllerNames.Contracts)</li>
                 </ul>
             </li>
-            }
-            else
-            {
+        }
+        else
+        {
             <li>
                 @Html.ActionLink("Verträge", ContractsActionNames.Index, ControllerNames.Contracts)
             </li>
-            }
+        }
 
 
-            if (Request.IsAuthenticated && User.IsInRole("Admin"))
-            {
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Material<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li>@Html.ActionLink("Neu", ArticlesActionNames.Create, ControllerNames.Articles)</li>
-                    <li>@Html.ActionLink("Erfasst", ArticlesActionNames.Index, ControllerNames.Articles)</li>
-                </ul>
-            </li>
-            }
-
-            if (User.IsInRole("Admin"))
-            {
+        if (User.IsInRole("Chief"))
+        {
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Verwaltung<b class="caret"></b></a>
                 <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Neu", ArticlesActionNames.Create, ControllerNames.Articles)</li>
+                    <li>@Html.ActionLink("Erfasst", ArticlesActionNames.Index, ControllerNames.Articles)</li>
+                    <li class="divider"></li>
                     <li>@Html.ActionLink("Mitglieder", OrganizationActionNames.Members, ControllerNames.Organization)</li>
                     <li>@Html.ActionLink("Einstellungen", OrganizationActionNames.Settings, ControllerNames.Organization)</li>
                 </ul>
             </li>
-            }
+        }
 
 
 
-            if (User.IsInRole("Admin"))
-            {
+        if (User.IsInRole("Admin"))
+        {
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration<b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -111,7 +103,7 @@
                     <li>@Html.ActionLink("Materialfelder", FieldsActionNames.Index, ControllerNames.Fields)</li>
                 </ul>
             </li>
-            }
+        }
     }
 </ul>
 

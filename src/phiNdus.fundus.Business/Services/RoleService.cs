@@ -26,10 +26,20 @@ namespace phiNdus.fundus.Business.Services {
             if (SecurityContext.SecuritySession == null)
                 return new string[0];
 
-            var role = SecurityContext.SecuritySession.User.Role.Name;
-            if (role == "Admin")
-                return new[] {"User", "Admin"};
-            return new[] {role};
+            var result = new List<string>();
+
+            var user = SecurityContext.SecuritySession.User;
+            var role = user.Role.Name;
+
+            if (role == @"Admin")
+                result.Add(@"Admin");
+
+            if (user.IsChiefOf(user.SelectedOrganization))
+                result.Add(@"Chief");
+
+            result.Add(@"User");
+
+            return result.ToArray();
         }
     }
 }
