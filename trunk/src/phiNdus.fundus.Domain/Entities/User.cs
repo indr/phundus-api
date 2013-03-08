@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Iesi.Collections.Generic;
 
 namespace phiNdus.fundus.Domain.Entities
@@ -74,6 +75,7 @@ namespace phiNdus.fundus.Domain.Entities
             var membership = new OrganizationMembership();
             membership.Organization = organization;
             membership.User = this;
+            membership.Role = Role.User.Id;
             Memberships.Add(membership);
             SelectedOrganization = organization;
         }
@@ -103,5 +105,15 @@ namespace phiNdus.fundus.Domain.Entities
         }
 
         public virtual Organization SelectedOrganization { get; set; }
+
+        public virtual bool IsChiefOf(Organization organization)
+        {
+            if (organization == null)
+                return false;
+
+            return (from each in Memberships
+                    where each.Organization.Id == organization.Id
+                    select each.Role == Role.Chief.Id).FirstOrDefault();
+        }
     }
 }

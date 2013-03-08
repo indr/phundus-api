@@ -14,5 +14,6 @@ namespace phiNdus.fundus.Web.ViewModels.Layout
         }
 
         public Organization Selected { get; set; }
+        public OrganizationMembership Membership { get; set; }
     }
 }

@@ -69,6 +69,7 @@
     <Compile Include="201302\M201302252131_CreateTableOrganizationMembership.cs" />
     <Compile Include="201302\M201302241438_CreateTableOrganization.cs" />
     <Compile Include="201302\M201205141612_AddColumnMobileNumber.cs" />
+    <Compile Include="201303\M201303082109_InsertAndUpdateRoles.cs" />
     <Compile Include="201303\M201303080004_AddColumnSelectedOrganizationId.cs" />
     <Compile Include="MigrationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

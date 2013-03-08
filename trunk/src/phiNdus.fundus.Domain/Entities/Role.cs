@@ -4,10 +4,13 @@ namespace phiNdus.fundus.Domain.Entities
 {
     public class Role : EntityBase
     {
-        private static readonly Role _userRole = new Role(1, "User");
-        public static Role User { get { return _userRole; } }
+        private static readonly Role _user = new Role(1, "User");
+        public static Role User { get { return _user; } }
 
-        private static readonly Role _administrator = new Role(2, "Admin");
+        private static readonly Role _chief = new Role(2, "Chief");
+        public static Role Chief { get { return _chief; } }
+
+        private static readonly Role _administrator = new Role(3, "Admin");
         public static Role Administrator { get { return _administrator; } }
 
         public Role()
