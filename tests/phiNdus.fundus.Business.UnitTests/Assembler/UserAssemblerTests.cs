@@ -72,8 +72,9 @@ namespace phiNdus.fundus.Business.UnitTests.Assembler
             if (IoC.TryResolve<IRoleRepository>() == null)
             {
                 FakeRoleRepository = GenerateAndRegisterStub<IRoleRepository>();
-                FakeRoleRepository.Expect(x => x.Get(1)).Return(Role.User);
-                FakeRoleRepository.Expect(x => x.Get(2)).Return(Role.Administrator);
+                FakeRoleRepository.Expect(x => x.Get(Role.User.Id)).Return(Role.User);
+                FakeRoleRepository.Expect(x => x.Get(Role.Chief.Id)).Return(Role.Chief);
+                FakeRoleRepository.Expect(x => x.Get(Role.Administrator.Id)).Return(Role.Administrator);
             }
         }
 
