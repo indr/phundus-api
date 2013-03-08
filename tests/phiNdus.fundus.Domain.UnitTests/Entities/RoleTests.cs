@@ -38,6 +38,14 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         {
             var role = Role.Administrator;
             Assert.That(role, Is.Not.Null);
+            Assert.That(role.Id, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void Get_Chief_role()
+        {
+            var role = Role.Chief;
+            Assert.That(role, Is.Not.Null);
             Assert.That(role.Id, Is.EqualTo(2));
         }
 
