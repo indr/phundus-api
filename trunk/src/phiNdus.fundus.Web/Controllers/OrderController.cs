@@ -18,7 +18,7 @@ namespace phiNdus.fundus.Web.Controllers
 
         //
         // GET: /Order/Pending
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Chief")]
         public ActionResult Pending()
         {
             return View("Pending", new OrdersViewModel(OrderStatus.Pending));
@@ -26,7 +26,7 @@ namespace phiNdus.fundus.Web.Controllers
 
         //
         // GET: /Order/Approved
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Chief")]
         public ActionResult Approved()
         {
             return View("Approved", new OrdersViewModel(OrderStatus.Approved));
@@ -34,7 +34,7 @@ namespace phiNdus.fundus.Web.Controllers
 
         //
         // GET: /Order/Closed
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Chief")]
         public ActionResult Closed()
         {
             return View("Closed", new OrdersViewModel(OrderStatus.Closed));
@@ -42,7 +42,7 @@ namespace phiNdus.fundus.Web.Controllers
 
         //
         // GET: /Order/Rejected
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Chief")]
         public ActionResult Rejected()
         {
             return View("Rejected", new OrdersViewModel(OrderStatus.Rejected));
@@ -56,7 +56,7 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Chief")]
         public ActionResult Reject(int id)
         {
             var service = IoC.Resolve<IOrderService>();
@@ -65,7 +65,7 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Chief")]
         public ActionResult Confirm(int id)
         {
             var service = IoC.Resolve<IOrderService>();

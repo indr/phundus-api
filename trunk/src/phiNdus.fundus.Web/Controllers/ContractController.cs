@@ -15,7 +15,7 @@ namespace phiNdus.fundus.Web.Controllers
 
         //
         // GET: /Contract/Signed
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Chief")]
         public ActionResult Signed()
         {
             return View("Signed", new ContractsViewModel());
@@ -23,7 +23,7 @@ namespace phiNdus.fundus.Web.Controllers
 
         //
         // GET: /Contract/Closed
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Chief")]
         public ActionResult Closed()
         {
             return View("Closed", new ContractsViewModel());

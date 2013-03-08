@@ -24,6 +24,7 @@ namespace phiNdus.fundus.Web.Controllers
             return View("tbd");
         }
 
+        [Authorize]
         public ActionResult Select(int id)
         {
             using (var uow = UnitOfWork.Start())
@@ -52,5 +53,16 @@ namespace phiNdus.fundus.Web.Controllers
             return View("tbd");
         }
 
+        [Authorize(Roles = "Chief")]
+        public ActionResult Members()
+        {
+            return View("tbd");
+        }
+
+        [Authorize(Roles = "Chief")]
+        public ActionResult Settings()
+        {
+            return View("tbd");
+        }
     }
 }

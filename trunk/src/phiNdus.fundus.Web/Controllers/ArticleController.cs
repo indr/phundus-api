@@ -12,7 +12,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Chief")]
     public class ArticleController : ControllerBase
     {
         private static string MasterView { get { return @"_Tabs"; } }
@@ -29,9 +29,10 @@ namespace phiNdus.fundus.Web.Controllers
         protected IArticleService ArticleService { get { return IoC.Resolve<IArticleService>(); } }
         protected IFieldsService FieldsService { get { return IoC.Resolve<IFieldsService>(); } }
 
+        
         public ActionResult Index()
         {
-            return RedirectToAction("List");
+            return RedirectToAction("list");
         }
 
         public ActionResult List()
@@ -69,7 +70,6 @@ namespace phiNdus.fundus.Web.Controllers
                 return View("Create", model);
             }
         }
-
 
         public ActionResult Edit(int id)
         {
@@ -264,9 +264,5 @@ namespace phiNdus.fundus.Web.Controllers
             model.IsChild = true;
             return EditorFor(model, prefix);
         }
-
-        
     }
-
-    
 }

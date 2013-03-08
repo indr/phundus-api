@@ -6,7 +6,7 @@ using phiNdus.fundus.Web.ViewModels;
 
 namespace phiNdus.fundus.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class FieldsController : ControllerBase
     {
         //
