@@ -40,7 +40,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
             using (UnitOfWork.Start())
             {
                 var fromRepo = Sut.FindAll();
-                Assert.That(fromRepo.Count, Is.EqualTo(2));
+                Assert.That(fromRepo.Count, Is.EqualTo(3));
             }
         }
 
@@ -56,13 +56,24 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         }
 
         [Test]
-        public void Get_2_returns_Administrator_role()
+        public void Get_3_returns_Administrator_role()
+        {
+            using (UnitOfWork.Start())
+            {
+                var fromRepo = Sut.Get(3);
+                Assert.That(fromRepo, Is.Not.Null);
+                Assert.That(fromRepo.Name, Is.EqualTo("Admin"));
+            }
+        }
+
+        [Test]
+        public void Get_2_returns_Chief_role()
         {
             using (UnitOfWork.Start())
             {
                 var fromRepo = Sut.Get(2);
                 Assert.That(fromRepo, Is.Not.Null);
-                Assert.That(fromRepo.Name, Is.EqualTo("Admin"));
+                Assert.That(fromRepo.Name, Is.EqualTo("Chief"));
             }
         }
 
