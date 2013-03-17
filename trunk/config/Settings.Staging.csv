@@ -1,4 +1,4 @@
-mail.smtp.host,mail.phindus.ch
-mail.smtp.user-name,no-reply@fundus.phindus.ch
+mail.smtp.host,mail.phundus.ch
+mail.smtp.user-name,no-reply@phundus.ch
 mail.smtp.password,hide-this
-mail.smtp.from,no-reply@fundus.phindus.ch
+mail.smtp.from,no-reply@phundus.ch

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
- * Copyright 2011 Reto Inderbitzin, phiNdus.ch
+ * Copyright 2011 Reto Inderbitzin, phundus.ch
  *
 -->
 <project name="fundus" default="help">
