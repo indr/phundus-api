@@ -12,11 +12,18 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Mappings
         [Test]
         public void Can_save_and_load()
         {
+            var organization = new Organization();
+            organization.Name = Guid.NewGuid().ToString("N");
+            var organizationId = 0;
+
             var article = new Article();
             var articleId = 0;
 
             using (var uow = UnitOfWork.Start())
             {
+                UnitOfWork.CurrentSession.Save(organization);
+                organizationId = organization.Id;
+                article.Organization = organization;
                 UnitOfWork.CurrentSession.Save(article);
                 articleId = article.Id;
                 uow.TransactionalFlush();
@@ -30,6 +37,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Mappings
                 Assert.That(fromSession, Is.Not.Null);
                 // TODO: Assert.That(fromSession, Is.EqualTo(article));
                 Assert.That(fromSession.Id, Is.EqualTo(articleId));
+                Assert.That(fromSession.Organization.Id, Is.EqualTo(organizationId));
             }
         }
 
@@ -45,6 +53,10 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Mappings
 
             using (var uow = UnitOfWork.Start())
             {
+                var organization = new Organization();
+                organization.Name = Guid.NewGuid().ToString("N");
+                UnitOfWork.CurrentSession.Save(organization);
+                article.Organization = organization;
                 UnitOfWork.CurrentSession.Save(article);
                 articleId = article.Id;
                 uow.TransactionalFlush();
