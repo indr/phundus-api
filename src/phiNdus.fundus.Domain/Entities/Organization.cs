@@ -1,4 +1,5 @@
-﻿using Iesi.Collections.Generic;
+﻿using System;
+using Iesi.Collections.Generic;
 
 namespace phiNdus.fundus.Domain.Entities
 {
@@ -7,6 +8,11 @@ namespace phiNdus.fundus.Domain.Entities
         public virtual string Name { get; set; }
 
         private ISet<OrganizationMembership> _memberships = new HashedSet<OrganizationMembership>();
+
+        public Organization(int id) : base(id)
+        {
+            
+        }
 
         public virtual ISet<OrganizationMembership> Memberships
         {

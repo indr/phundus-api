@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using phiNdus.fundus.Business.Dto;
+using phiNdus.fundus.Business.Security;
 using phiNdus.fundus.Business.Services;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
+using phiNdus.fundus.TestHelpers.Builders;
 using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Rhino.Mocks;
@@ -24,11 +26,23 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests
             FakeUnitOfWork = GenerateAndRegisterStubUnitOfWork();
 
             Sut = new ArticleService();
+            Sut.SecurityContext = SecurityContext(1, "key");
+            
 
             Article = new Article(1, 2);
+            Article.Organization = new Organization(1001);
         }
 
         #endregion
+
+        protected SecurityContext SecurityContext(int userId, string key)
+        {
+            var result = new SecurityContext();
+            var user = new User(userId);
+            user.SelectedOrganization = new Organization(1001);
+            result.SecuritySession = new SecuritySessionBuilder(user, key).Build();
+            return result;
+        }
 
         protected IUnitOfWork FakeUnitOfWork { get; set; }
 
