@@ -9,6 +9,11 @@ namespace phiNdus.fundus.Domain.Entities
 
         private ISet<OrganizationMembership> _memberships = new HashedSet<OrganizationMembership>();
 
+        public Organization()
+        {
+            
+        }
+
         public Organization(int id) : base(id)
         {
             
