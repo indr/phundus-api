@@ -21,6 +21,10 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Mappings
 
             using (var uow = UnitOfWork.Start())
             {
+                var organization = new Organization();
+                organization.Name = Guid.NewGuid().ToString("N");
+                UnitOfWork.CurrentSession.Save(organization);
+                sut.Organization = organization;
                 sut.Reserver = CreateAndPersistUser("user@example.com");
                 UnitOfWork.CurrentSession.Save(sut);
                 id = sut.Id;
@@ -54,6 +58,10 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Mappings
             var orderId = 0;
             using (var uow = UnitOfWork.Start())
             {
+                var organization = new Organization();
+                organization.Name = Guid.NewGuid().ToString("N");
+                UnitOfWork.CurrentSession.Save(organization);
+                sut.Organization = organization;
                 sut.Reserver = CreateAndPersistUser();
                 item1.Article = CreatePersistentArticle();
                 item2.Article = CreatePersistentArticle();

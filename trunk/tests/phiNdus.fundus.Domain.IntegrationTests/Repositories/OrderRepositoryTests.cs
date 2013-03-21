@@ -26,6 +26,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
             {
                 // TODO: Immer alle löschen...
                 UnitOfWork.CurrentSession.Delete("from Membership m where m.Email = 'john.doe@example.com'");
+                _organization = CreateAndPersistOrganization(Guid.NewGuid().ToString("N"));
                 uow.TransactionalFlush();
             }
         }
@@ -101,7 +102,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         private Order CreatePersistentPendingOrder()
         {
             var result = new Order();
-            result.Organization = CreateAndPersistOrganization();
+            result.Organization = _organization;
             result.Reserver = CreateAndPersistUser();
             UnitOfWork.CurrentSession.Save(result);
             return result;
@@ -110,7 +111,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         private Order CreatePersistentApprovedOrder()
         {
             var result = CreatePersistentPendingOrder();
-            result.Organization = CreateAndPersistOrganization();
+            result.Organization = _organization;
             result.Approve(CreateAndPersistUser());
             UnitOfWork.CurrentSession.Save(result);
             return result;
@@ -119,7 +120,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         private Order CreatePersistentRejectedOrder()
         {
             var result = CreatePersistentPendingOrder();
-            result.Organization = CreateAndPersistOrganization();
+            result.Organization = _organization;
             result.Reject(CreateAndPersistUser());
             UnitOfWork.CurrentSession.Save(result);
             return result;
