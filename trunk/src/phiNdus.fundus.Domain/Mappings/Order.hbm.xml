@@ -11,6 +11,7 @@
     <property name="CreateDate" />
     <property name="Status" />
 
+    <many-to-one name="Organization" class="Organization" column="OrganizationId" />
     <many-to-one name="Reserver" class="User" column="ReserverId" />
     
     <property name="ModifyDate" />
