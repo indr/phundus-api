@@ -23,6 +23,10 @@ namespace phiNdus.fundus.Domain.IntegrationTests
             using (var uow = UnitOfWork.Start())
             {
                 var result = new Article();
+                var organization = new Organization();
+                organization.Name = Guid.NewGuid().ToString("N");
+                UnitOfWork.CurrentSession.Save(organization);
+                result.Organization = organization;
                 UnitOfWork.CurrentSession.Save(result);
                 return result;
             }
