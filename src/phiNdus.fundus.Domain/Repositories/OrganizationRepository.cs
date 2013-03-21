@@ -28,6 +28,12 @@ namespace phiNdus.fundus.Domain.Repositories
             return query.SingleOrDefault();
         }
 
+        public Organization FindByName(string name)
+        {
+            var query = from o in Organizations where o.Name == name select o;
+            return query.SingleOrDefault();
+        }
+
         #endregion
     }
 
@@ -35,5 +41,6 @@ namespace phiNdus.fundus.Domain.Repositories
     {
         ICollection<Organization> FindAll();
         Organization FindById(int id);
+        Organization FindByName(string name);
     }
 }

@@ -11,6 +11,7 @@ namespace phiNdus.fundus.TestHelpers.Builders
         private bool _loggedIn = true;
         private string _password = "1234";
         private Role _role;
+        private Organization _organization;
 
         protected override void Persist(User obj)
         {
@@ -49,6 +50,8 @@ namespace phiNdus.fundus.TestHelpers.Builders
 
             if (_loggedIn)
                 result.Membership.LogOn(Guid.NewGuid().ToString("N"), _password);
+            if (_organization != null)
+                result.Join(_organization);
             Persist(result);
             return result;
         }
@@ -57,6 +60,12 @@ namespace phiNdus.fundus.TestHelpers.Builders
         public UserBuilder WithRole(Role role)
         {
             _role = role;
+            return this;
+        }
+
+        public UserBuilder Chief(Organization organization)
+        {
+            _organization = organization;
             return this;
         }
     }

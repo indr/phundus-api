@@ -1,5 +1,6 @@
 ﻿using System;
 using phiNdus.fundus.Business.Security;
+using phiNdus.fundus.Domain.Entities;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services
@@ -18,6 +19,11 @@ namespace phiNdus.fundus.Business.Services
                 _sessionSet = true;
                 _securityContext = value;
             }
+        }
+
+        public Organization SelectedOrganization
+        {
+            get { return SecurityContext.SecuritySession.User.SelectedOrganization; }
         }
     }
 }

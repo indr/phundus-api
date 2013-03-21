@@ -25,9 +25,10 @@ namespace phiNdus.fundus.Business.IntegrationTests.Services
 
             using (var uow = UnitOfWork.Start())
             {
-                _user = new UserBuilder().Build();
-                _article1 = new ArticleBuilder().Build();
-                _article2 = new ArticleBuilder().Build();
+                _organization = new OrganizationBuilder().Build();
+                _user = new UserBuilder().Chief(_organization).Build();
+                _article1 = new ArticleBuilder().Organization(_organization).Build();
+                _article2 = new ArticleBuilder().Organization(_organization).Build();
                 uow.TransactionalFlush();
             }
 
@@ -38,6 +39,7 @@ namespace phiNdus.fundus.Business.IntegrationTests.Services
         private User _user;
         private Article _article1;
         private Article _article2;
+        private Organization _organization;
 
         #endregion
 

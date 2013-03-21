@@ -30,6 +30,8 @@ namespace phiNdus.fundus.Domain.Entities
             get { return IoC.Resolve<IOrderRepository>(); }
         }
 
+        public virtual Organization Organization { get; set; }
+
         private ISet<Image> _images = new HashedSet<Image>();
         public virtual ISet<Image> Images
         {

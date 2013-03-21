@@ -16,6 +16,20 @@ namespace phiNdus.fundus.TestHelpers.TestBases
         protected TSut Sut { get; set; }
 
 
+        protected Organization CreateAndPersistOrganization(string name = "Pfadi Lego")
+        {
+            var organizations = IoC.Resolve<IOrganizationRepository>();
+
+            var result = organizations.FindByName(name);
+            if (result == null)
+            {
+                result = new Organization();
+                result.Name = name;
+                organizations.Save(result);
+            }
+            return result;
+        }
+
         protected User CreateAndPersistUser()
         {
             return CreateAndPersistUser("user@example.com");
