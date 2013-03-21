@@ -9,8 +9,6 @@
     <discriminator column="[Type]" type="String" />
     <version name="Version" />
 
-    
-    
     <set name="FieldValues" cascade="all-delete-orphan" lazy="false">
       <key column="ArticleId" />
       <one-to-many class="FieldValue" />
@@ -23,6 +21,8 @@
     </set>
 
     <subclass name="Article">
+      <many-to-one name="Organization" column="OrganizationId" class="Organization" not-null="true" />
+      
       <property name="CreateDate" update="false" />
 
       <set name="Images" cascade="all-delete-orphan" lazy="true" inverse="true" >

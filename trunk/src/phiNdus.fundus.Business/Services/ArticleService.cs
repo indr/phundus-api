@@ -46,6 +46,7 @@ namespace phiNdus.fundus.Business.Services
             using (var uow = UnitOfWork.Start())
             {
                 var article = ArticleDomainAssembler.CreateDomainObject(subject);
+                article.Organization = SelectedOrganization;
                 var id = Articles.Save(article).Id;
                 uow.TransactionalFlush();
                 return id;
@@ -57,6 +58,8 @@ namespace phiNdus.fundus.Business.Services
             using (var uow = UnitOfWork.Start())
             {
                 var article = ArticleDomainAssembler.UpdateDomainObject(subject);
+                if (article.Organization.Id != SelectedOrganization.Id)
+                    throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
                 Articles.Save(article);
                 uow.TransactionalFlush();
             }
@@ -67,6 +70,8 @@ namespace phiNdus.fundus.Business.Services
             using (var uow = UnitOfWork.Start())
             {
                 var article = ArticleDomainAssembler.UpdateDomainObject(subject);
+                if (article.Organization.Id != SelectedOrganization.Id)
+                    throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
                 Articles.Delete(article);
                 uow.TransactionalFlush();
             }
@@ -77,6 +82,8 @@ namespace phiNdus.fundus.Business.Services
             using (var uow = UnitOfWork.Start())
             {
                 var article = Articles.Get(articleId);
+                if (article.Organization.Id != SelectedOrganization.Id)
+                    throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
                 var assembler = new ImageAssembler();
                 article.AddImage(assembler.CreateDomainObject(subject));
                 Articles.Update(article);
@@ -89,6 +96,8 @@ namespace phiNdus.fundus.Business.Services
             using (var uow = UnitOfWork.Start())
             {
                 var article = Articles.Get(articleId);
+                if (article.Organization.Id != SelectedOrganization.Id)
+                    throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
                 var image = article.Images.Where(i => i.FileName == imageName).FirstOrDefault();
                 article.RemoveImage(image);
                 Articles.Update(article);
