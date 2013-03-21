@@ -30,7 +30,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var orders = IoC.Resolve<IOrderRepository>().FindPending();
+                var orders = IoC.Resolve<IOrderRepository>().FindPending(SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
@@ -39,7 +39,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var orders = IoC.Resolve<IOrderRepository>().FindApproved();
+                var orders = IoC.Resolve<IOrderRepository>().FindApproved(SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
             
@@ -49,7 +49,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var orders = IoC.Resolve<IOrderRepository>().FindRejected();
+                var orders = IoC.Resolve<IOrderRepository>().FindRejected(SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
@@ -58,7 +58,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var orders = IoC.Resolve<IOrderRepository>().FindClosed();
+                var orders = IoC.Resolve<IOrderRepository>().FindClosed(SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }

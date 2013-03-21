@@ -9,6 +9,8 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
     [TestFixture]
     public class OrderRepositoryTests : DomainComponentTestBase<IOrderRepository>
     {
+        private Organization _organization;
+
         #region Setup/Teardown
 
         [SetUp]
@@ -45,6 +47,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
                 order.Reserver = CreateAndPersistUser("user@example.com");
                 Sut.Save(order);
                 orderId = order.Id;
+                _organization = CreateAndPersistOrganization();
                 uow.TransactionalFlush();
             }
 
@@ -98,6 +101,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         private Order CreatePersistentPendingOrder()
         {
             var result = new Order();
+            result.Organization = CreateAndPersistOrganization();
             result.Reserver = CreateAndPersistUser();
             UnitOfWork.CurrentSession.Save(result);
             return result;
@@ -106,6 +110,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         private Order CreatePersistentApprovedOrder()
         {
             var result = CreatePersistentPendingOrder();
+            result.Organization = CreateAndPersistOrganization();
             result.Approve(CreateAndPersistUser());
             UnitOfWork.CurrentSession.Save(result);
             return result;
@@ -114,6 +119,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
         private Order CreatePersistentRejectedOrder()
         {
             var result = CreatePersistentPendingOrder();
+            result.Organization = CreateAndPersistOrganization();
             result.Reject(CreateAndPersistUser());
             UnitOfWork.CurrentSession.Save(result);
             return result;
@@ -131,9 +137,10 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
             return result;
         }
 
-        private static Order CreateAndPersistentOrder(User reserver)
+        private Order CreateAndPersistentOrder(User reserver)
         {
             var result = new Order();
+            result.Organization = CreateAndPersistOrganization();
             result.Reserver = reserver;
             UnitOfWork.CurrentSession.Save(result);
             return result;
@@ -155,7 +162,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
 
             using (UnitOfWork.Start())
             {
-                var orders = Sut.FindPending();
+                var orders = Sut.FindPending(_organization);
 
                 Assert.That(orders, Is.Not.Null);
                 Assert.That(orders, Has.Some.Property("Id").EqualTo(pending.Id));
@@ -180,7 +187,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
 
             using (UnitOfWork.Start())
             {
-                var orders = Sut.FindApproved();
+                var orders = Sut.FindApproved(_organization);
 
                 Assert.That(orders, Is.Not.Null);
                 Assert.That(orders, Has.No.Some.Property("Id").EqualTo(pending.Id));
@@ -205,7 +212,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
 
             using (UnitOfWork.Start())
             {
-                var orders = Sut.FindRejected();
+                var orders = Sut.FindRejected(_organization);
 
                 Assert.That(orders, Is.Not.Null);
                 Assert.That(orders, Has.No.Some.Property("Id").EqualTo(pending.Id));

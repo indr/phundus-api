@@ -30,34 +30,38 @@ namespace phiNdus.fundus.Domain.Repositories
             return query.ToList();
         }
 
-        public ICollection<Order> FindPending()
+        public ICollection<Order> FindPending(Organization organization)
         {
             var query = from o in Orders
                         where o.Status == OrderStatus.Pending
+                          && o.Organization.Id == organization.Id
                         select o;
             return query.ToList();
         }
 
-        public ICollection<Order> FindApproved()
+        public ICollection<Order> FindApproved(Organization organization)
         {
             var query = from o in Orders
                         where o.Status == OrderStatus.Approved
+                          && o.Organization.Id == organization.Id
                         select o;
             return query.ToList();
         }
 
-        public ICollection<Order> FindRejected()
+        public ICollection<Order> FindRejected(Organization organization)
         {
             var query = from o in Orders
                         where o.Status == OrderStatus.Rejected
+                          && o.Organization.Id == organization.Id
                         select o;
             return query.ToList();
         }
 
-        public ICollection<Order> FindClosed()
+        public ICollection<Order> FindClosed(Organization organization)
         {
             var query = from o in Orders
                         where o.Status == OrderStatus.Closed
+                          && o.Organization.Id == organization.Id
                         select o;
             return query.ToList();
         }

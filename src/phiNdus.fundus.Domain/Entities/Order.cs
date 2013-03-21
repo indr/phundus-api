@@ -28,6 +28,8 @@ namespace phiNdus.fundus.Domain.Entities
             _createDate = DateTime.Now;
         }
 
+        public virtual Organization Organization { get; set; }
+
         public virtual DateTime CreateDate
         {
             get { return _createDate; }
