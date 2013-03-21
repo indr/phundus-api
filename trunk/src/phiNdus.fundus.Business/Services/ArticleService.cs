@@ -23,7 +23,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var articles = Articles.FindAll();
+                var articles = Articles.FindAll(SelectedOrganization);
                 return new ArticleDtoAssembler().CreateDtos(articles);
             }
         }

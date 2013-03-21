@@ -16,13 +16,15 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests
     [TestFixture]
     public class ArticleServiceTests : UnitTestBase<ArticleService>
     {
+        private Organization _organization;
+
         #region Setup/Teardown
 
         [SetUp]
         public override void SetUp()
         {
             base.SetUp();
-
+            _organization = new Organization(1001);
             FakeUnitOfWork = GenerateAndRegisterStubUnitOfWork();
 
             Sut = new ArticleService();
@@ -30,7 +32,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests
             
 
             Article = new Article(1, 2);
-            Article.Organization = new Organization(1001);
+            Article.Organization = _organization;
         }
 
         #endregion
@@ -39,7 +41,8 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests
         {
             var result = new SecurityContext();
             var user = new User(userId);
-            user.SelectedOrganization = new Organization(1001);
+           
+            user.SelectedOrganization = _organization;
             result.SecuritySession = new SecuritySessionBuilder(user, key).Build();
             return result;
         }
@@ -154,7 +157,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests
             FakeArticleRepo = GenerateAndRegisterMock<IArticleRepository>();
             GenerateAndRegisterMissingStubs();
 
-            FakeArticleRepo.Expect(x => x.FindAll()).Return(new List<Article>());
+            FakeArticleRepo.Expect(x => x.FindAll(_organization)).Return(new List<Article>());
             Sut.GetArticles();
 
             FakeArticleRepo.VerifyAllExpectations();
@@ -168,7 +171,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests
             var articles = new List<Article>();
             articles.Add(new Article());
             articles.Add(new Article());
-            FakeArticleRepo.Expect(x => x.FindAll()).Return(articles);
+            FakeArticleRepo.Expect(x => x.FindAll(_organization)).Return(articles);
             var dtos = Sut.GetArticles();
 
             Assert.That(dtos, Is.Not.Null);

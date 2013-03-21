@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Criterion;
 using NHibernate.Linq;
@@ -16,9 +17,9 @@ namespace phiNdus.fundus.Domain.Repositories
 
         #region IArticleRepository Members
 
-        public ICollection<Article> FindAll()
+        public ICollection<Article> FindAll(Organization selectedOrganization)
         {
-            var query = from a in Articles select a;
+            var query = from a in Articles where a.Organization.Id == selectedOrganization.Id select a;
             return query.ToList();
         }
 

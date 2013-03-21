@@ -6,7 +6,7 @@ namespace phiNdus.fundus.Domain.Repositories
 {
     public interface IArticleRepository : IRepository<Article>
     {
-        ICollection<Article> FindAll();
+        ICollection<Article> FindAll(Organization selectedOrganization);
         ICollection<Article> FindMany(string query, int start, int count, out int total);
     }
 }
