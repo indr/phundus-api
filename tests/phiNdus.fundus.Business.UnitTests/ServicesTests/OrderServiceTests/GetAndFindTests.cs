@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
+using phiNdus.fundus.TestHelpers.Builders;
 using phiNdus.fundus.TestHelpers.TestBases;
 using Rhino.Commons;
 using Rhino.Mocks;
@@ -20,6 +21,9 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             FakeUnitOfWork = GenerateAndRegisterStubUnitOfWork();
 
             Sut = new Business.Services.OrderService();
+            var user = new User();
+            Sut.SecurityContext = new SecurityContextBuilder().ForUser(user).Build();
+            user.SelectedOrganization = new Organization(1);
 
             OrderDomainObject1 = new Order(1, 2);
             OrderDomainObject2 = new Order(2, 3);
@@ -114,7 +118,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             FakeOrderRepo = GenerateAndRegisterMock<IOrderRepository>();
             GenerateAndRegisterMissingStubs();
 
-            FakeOrderRepo.Expect(x => x.FindPending(null)).Return(new System.Collections.Generic.List<Order>());
+            FakeOrderRepo.Expect(x => x.FindPending(Arg<Organization>.Is.Anything)).Return(new System.Collections.Generic.List<Order>());
             Sut.GetPending();
 
             FakeOrderRepo.VerifyAllExpectations();
@@ -149,7 +153,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             FakeOrderRepo = GenerateAndRegisterMock<IOrderRepository>();
             GenerateAndRegisterMissingStubs();
 
-            FakeOrderRepo.Expect(x => x.FindApproved(null)).Return(new System.Collections.Generic.List<Order>());
+            FakeOrderRepo.Expect(x => x.FindApproved(Arg<Organization>.Is.Anything)).Return(new System.Collections.Generic.List<Order>());
             Sut.GetApproved();
 
             FakeOrderRepo.VerifyAllExpectations();
@@ -184,7 +188,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             FakeOrderRepo = GenerateAndRegisterMock<IOrderRepository>();
             GenerateAndRegisterMissingStubs();
 
-            FakeOrderRepo.Expect(x => x.FindRejected(null)).Return(new System.Collections.Generic.List<Order>());
+            FakeOrderRepo.Expect(x => x.FindRejected(Arg<Organization>.Is.Anything)).Return(new System.Collections.Generic.List<Order>());
             Sut.GetRejected();
 
             FakeOrderRepo.VerifyAllExpectations();
