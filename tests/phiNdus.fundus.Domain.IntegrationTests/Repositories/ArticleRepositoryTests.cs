@@ -26,6 +26,10 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
 
             using (var uow = UnitOfWork.Start())
             {
+                var organization = new Organization();
+                organization.Name = Guid.NewGuid().ToString("N");
+                UnitOfWork.CurrentSession.Save(organization);
+                article.Organization = organization;
                 article.Caption = "Artikel";
 
                 Sut.Save(article);
