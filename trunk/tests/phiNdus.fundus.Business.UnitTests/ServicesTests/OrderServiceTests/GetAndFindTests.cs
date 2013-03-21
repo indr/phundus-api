@@ -39,17 +39,17 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             {
                 FakeOrderRepo = GenerateAndRegisterStub<IOrderRepository>();
                 FakeOrderRepo.Expect(x => x.Get(1)).Return(OrderDomainObject1);
-                FakeOrderRepo.Expect(x => x.FindPending()).Return(new System.Collections.Generic.List<Order>
+                FakeOrderRepo.Expect(x => x.FindPending(Arg<Organization>.Is.Anything)).Return(new System.Collections.Generic.List<Order>
                                                                      {
                                                                          OrderDomainObject1,
                                                                          OrderDomainObject2
                                                                      });
-                FakeOrderRepo.Expect(x => x.FindApproved()).Return(new System.Collections.Generic.List<Order>
+                FakeOrderRepo.Expect(x => x.FindApproved(Arg<Organization>.Is.Anything)).Return(new System.Collections.Generic.List<Order>
                                                                      {
                                                                          OrderDomainObject1,
                                                                          OrderDomainObject2
                                                                      });
-                FakeOrderRepo.Expect(x => x.FindRejected()).Return(new System.Collections.Generic.List<Order>
+                FakeOrderRepo.Expect(x => x.FindRejected(Arg<Organization>.Is.Anything)).Return(new System.Collections.Generic.List<Order>
                                                                      {
                                                                          OrderDomainObject1,
                                                                          OrderDomainObject2
@@ -114,7 +114,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             FakeOrderRepo = GenerateAndRegisterMock<IOrderRepository>();
             GenerateAndRegisterMissingStubs();
 
-            FakeOrderRepo.Expect(x => x.FindPending()).Return(new System.Collections.Generic.List<Order>());
+            FakeOrderRepo.Expect(x => x.FindPending(null)).Return(new System.Collections.Generic.List<Order>());
             Sut.GetPending();
 
             FakeOrderRepo.VerifyAllExpectations();
@@ -149,7 +149,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             FakeOrderRepo = GenerateAndRegisterMock<IOrderRepository>();
             GenerateAndRegisterMissingStubs();
 
-            FakeOrderRepo.Expect(x => x.FindApproved()).Return(new System.Collections.Generic.List<Order>());
+            FakeOrderRepo.Expect(x => x.FindApproved(null)).Return(new System.Collections.Generic.List<Order>());
             Sut.GetApproved();
 
             FakeOrderRepo.VerifyAllExpectations();
@@ -184,7 +184,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             FakeOrderRepo = GenerateAndRegisterMock<IOrderRepository>();
             GenerateAndRegisterMissingStubs();
 
-            FakeOrderRepo.Expect(x => x.FindRejected()).Return(new System.Collections.Generic.List<Order>());
+            FakeOrderRepo.Expect(x => x.FindRejected(null)).Return(new System.Collections.Generic.List<Order>());
             Sut.GetRejected();
 
             FakeOrderRepo.VerifyAllExpectations();
