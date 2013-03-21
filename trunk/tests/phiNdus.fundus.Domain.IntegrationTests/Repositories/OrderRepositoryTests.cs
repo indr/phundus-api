@@ -46,6 +46,7 @@ namespace phiNdus.fundus.Domain.IntegrationTests.Repositories
             using (var uow = UnitOfWork.Start())
             {
                 order.Reserver = CreateAndPersistUser("user@example.com");
+                order.Organization = _organization;
                 Sut.Save(order);
                 orderId = order.Id;
                 _organization = CreateAndPersistOrganization();
