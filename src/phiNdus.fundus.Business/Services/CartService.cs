@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using phiNdus.fundus.Business.Assembler;
@@ -116,6 +117,31 @@ namespace phiNdus.fundus.Business.Services
             }
         }
 
+        public ICollection<OrderDto> PlaceOrders()
+        {
+            using (var uow = UnitOfWork.Start())
+            {
+                var cart = Carts.FindByCustomer(User);
+                cart.CalculateAvailability();
+                if (!cart.AreItemsAvailable)
+                    return null;
+
+                var orders = cart.PlaceOrders();
+
+                uow.TransactionalFlush();
+
+                foreach (var order in orders)
+                {
+                    new OrderReceivedMail().For(order)
+                        .Send(order.Reserver)
+                        .Send(Settings.Common.AdminEmailAddress);
+                }
+
+                var assembler = new OrderDtoAssembler();
+                return assembler.CreateDtos(orders);
+            }
+        }
+
         //public void CheckOut()
         //{
         //    using (var uow = UnitOfWork.Start())
@@ -134,5 +160,6 @@ namespace phiNdus.fundus.Business.Services
         //        uow.TransactionalFlush();
         //    }
         //}
+        
     }
 }

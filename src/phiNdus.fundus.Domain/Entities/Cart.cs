@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Iesi.Collections.Generic;
 using phiNdus.fundus.Domain.Inventory;
@@ -10,7 +11,7 @@ namespace phiNdus.fundus.Domain.Entities
     public class Cart : EntityBase
     {
         private User _customer;
-        private ISet<CartItem> _items = new HashedSet<CartItem>();
+        private Iesi.Collections.Generic.ISet<CartItem> _items = new HashedSet<CartItem>();
 
         public Cart()
         {
@@ -27,7 +28,7 @@ namespace phiNdus.fundus.Domain.Entities
             set { _customer = value; }
         }
 
-        public virtual ISet<CartItem> Items
+        public virtual Iesi.Collections.Generic.ISet<CartItem> Items
         {
             get { return _items; }
             set { _items = value; }
@@ -78,6 +79,28 @@ namespace phiNdus.fundus.Domain.Entities
                 result.AddItem(each.Article.Id, each.Quantity, each.From, each.To);
 
             IoC.Resolve<IOrderRepository>().Save(result);
+            IoC.Resolve<ICartRepository>().Delete(this);
+            return result;
+        }
+
+        public virtual ICollection<Order> PlaceOrders()
+        {
+            var result = new List<Order>();
+            var orders = IoC.Resolve<IOrderRepository>();
+
+            var organizations = (from i in Items select i.Article.Organization).Distinct();
+
+            foreach (var organization in organizations)
+            {
+                var order = new Order();
+                order.Reserver = Customer;
+                var items = from i in Items where i.Article.Organization.Id == organization.Id select i;
+                foreach (var item in items)
+                    order.AddItem(item.Article.Id, item.Quantity, item.From, item.To);
+
+                orders.Save(order);
+                result.Add(order);
+            }
             IoC.Resolve<ICartRepository>().Delete(this);
             return result;
         }

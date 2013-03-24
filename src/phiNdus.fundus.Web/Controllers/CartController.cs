@@ -75,8 +75,8 @@ namespace phiNdus.fundus.Web.Controllers
         {
             if (HttpContext.Request.HttpMethod == "POST")
             {
-                var orderDto = CartService.PlaceOrder(Session.SessionID);
-                if (orderDto != null)
+                var orderDtos = CartService.PlaceOrders(Session.SessionID);
+                if (orderDtos != null)
                     return View("CheckOutDone");
                 return RedirectToAction(CartActionNames.Index);
             }
