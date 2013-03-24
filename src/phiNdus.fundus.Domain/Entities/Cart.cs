@@ -93,6 +93,7 @@ namespace phiNdus.fundus.Domain.Entities
             foreach (var organization in organizations)
             {
                 var order = new Order();
+                order.Organization = organization;
                 order.Reserver = Customer;
                 var items = from i in Items where i.Article.Organization.Id == organization.Id select i;
                 foreach (var item in items)

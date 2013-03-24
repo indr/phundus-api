@@ -4,8 +4,7 @@
            
 <div class="navbar-inner">
     <div class="container">
-        @Html.ActionLink("phundus", HomeActionNames.Index, ControllerNames.Home, new { }, new { @class = "brand" })
-                    
+        Html.ActionLink(Model.Selected == null ? "phundus" : Model.Selected.Name, HomeActionNames.Index, ControllerNames.Home, new { }, new { @class = "brand" })
                     
 <ul class="nav">
     <li>

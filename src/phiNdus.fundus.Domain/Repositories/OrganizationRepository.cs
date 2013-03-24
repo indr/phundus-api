@@ -18,7 +18,7 @@ namespace phiNdus.fundus.Domain.Repositories
 
         public ICollection<Organization> FindAll()
         {
-            var query = from o in Organizations select o;
+            var query = from o in Organizations where o.Name != "Reserved" select o;
             return query.ToList();
         }
 
