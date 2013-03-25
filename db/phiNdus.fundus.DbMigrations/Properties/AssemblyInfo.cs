@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("${assembly.title}")]
-[assembly: AssemblyDescription("${assembly.description}")]
+[assembly: AssemblyTitle("Database-Migrations")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("piNuts.ch")]
 [assembly: AssemblyProduct("fundus")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("${assembly.guid}")]
+[assembly: Guid("7a9024dc-acab-4d7f-9a1e-ea24f973ccf9")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("${build.number}")]
-[assembly: AssemblyFileVersion("${build.number}")]
+[assembly: AssemblyVersion("0.0.0.0")]
+[assembly: AssemblyFileVersion("0.0.0.0")]
 
-[assembly:CLSCompliant(${assembly.cls-compliant})]
+[assembly:CLSCompliant(true)]
