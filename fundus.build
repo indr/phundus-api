@@ -93,19 +93,16 @@
     <delete dir="${build.dir}" verbose="${verbose}" />
     <delete>
       <fileset>
-        <include name="${src.dir}\**\AssemblyInfo.cs" />
         <include name="${src.dir}\**\Web*.config" />
         <include name="${src.dir}\**\App*.config" />
         <include name="${src.dir}\**\bin\**" />
         <include name="${src.dir}\**\obj\**" />
         
-        <include name="${db.dir}\**\AssemblyInfo.cs" />
         <include name="${db.dir}\**\Web*.config" />
         <include name="${db.dir}\**\App*.config" />
         <include name="${db.dir}\**\bin\**" />
         <include name="${db.dir}\**\obj\**" />
         
-        <include name="${tests.dir}\**\AssemblyInfo.cs" />
         <include name="${tests.dir}\**\Web*.config" />
         <include name="${tests.dir}\**\App*.config" />
         <include name="${tests.dir}\**\bin\**" />
@@ -123,57 +120,7 @@
     <mkdir dir="${build.dir}" verbose="${verbose}" />
     <mkdir dir="${reports.dir}" verbose="${verbose}" />
     
-    <property name="assembly.title" value="Database-Migrations" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="7a9024dc-acab-4d7f-9a1e-ea24f973ccf9" />
-    <property name="assembly.cls-compliant" value="true" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${db.dir}\phiNdus.fundus.DbMigrations\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
     
-    <property name="assembly.title" value="Core-Domain" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="52a78ccd-cf4c-4567-8040-6f712a7eeb74" />
-    <property name="assembly.cls-compliant" value="true" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Domain\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
-    
-    <property name="assembly.title" value="Core-Business" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="8f4ec48d-ceec-4008-9391-26956335493d" />
-    <property name="assembly.cls-compliant" value="true" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Business\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
-    
-    <property name="assembly.title" value="Core-Web" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="fc2dfb3c-500b-4709-ad3b-bb36eedef0f5" />
-    <property name="assembly.cls-compliant" value="true" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Web\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
     <copy file="${config.dir}\Web.config.tmpl"
           tofile="${src.dir}\phiNdus.fundus.Web\Web.config"
           outputencoding="UTF-8" overwrite="true"
@@ -207,18 +154,7 @@
       </filterchain>
     </copy>
     
-    <property name="assembly.title" value="Core-Domain-UnitTests" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="615cd7e5-2292-42fa-8764-0a05cb46c214" />
-    <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.Domain.UnitTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
+    
     <copy file="${config.dir}\App.config.UnitTests.tmpl"
           tofile="${tests.dir}\phiNdus.fundus.Domain.UnitTests\App.config"
           outputencoding="UTF-8" overwrite="true"
@@ -228,18 +164,7 @@
       </filterchain>
     </copy> 
     
-    <property name="assembly.title" value="Core-Domain-IntegrationTests" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="615cd7e5-2292-42fa-8764-0a05cb46c214" />
-    <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.Domain.IntegrationTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
+    
     <copy file="${config.dir}\App.config.IntegrationTests.tmpl"
           tofile="${tests.dir}\phiNdus.fundus.Domain.IntegrationTests\App.config"
           outputencoding="UTF-8" overwrite="true"
@@ -249,18 +174,7 @@
       </filterchain>
     </copy>
     
-    <property name="assembly.title" value="Core-Business-UnitTests" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="19d6b1f4-9bd6-4ee8-91c2-be2977a13fb8" />
-    <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.Business.UnitTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
+    
     <copy file="${config.dir}\App.config.UnitTests.tmpl"
           tofile="${tests.dir}\phiNdus.fundus.Business.UnitTests\App.config"
           outputencoding="UTF-8" overwrite="true"
@@ -270,18 +184,7 @@
       </filterchain>
     </copy>     
     
-    <property name="assembly.title" value="Core-Business-IntegrationTests" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="58C99E38-EB57-4190-9CF1-01CE75A1B738" />
-    <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.Business.IntegrationTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>   
+      
     <copy file="${config.dir}\App.config.IntegrationTests.tmpl"
           tofile="${tests.dir}\phiNdus.fundus.Business.IntegrationTests\App.config"
           outputencoding="UTF-8" overwrite="true"
@@ -291,18 +194,7 @@
       </filterchain>
     </copy>
     
-    <property name="assembly.title" value="Core-Web-UnitTests" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="453b1282-6fe5-43f3-8563-066c9f2a94fa" />
-    <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.Web.UnitTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
+    
     <copy file="${config.dir}\App.config.UnitTests.tmpl"
           tofile="${tests.dir}\phiNdus.fundus.Web.UnitTests\App.config"
           outputencoding="UTF-8" overwrite="true"
@@ -312,31 +204,9 @@
       </filterchain>
     </copy> 
     
-    <property name="assembly.title" value="TestHelpers" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="e3cf7d17-6faf-4bfa-8d1f-c5b3f431b89d" />
-    <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.TestHelpers\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
     
-    <property name="assembly.title" value="SmokeTests" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="8d5c9f9d-1fd6-44ae-8286-b8c0900fd1ae" />
-    <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.SmokeTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>   
+    
+    
     <copy file="${config.dir}\App.config.SmokeTests.tmpl"
           tofile="${tests.dir}\phiNdus.fundus.SmokeTests\App.config"
           outputencoding="UTF-8" overwrite="true"
@@ -346,18 +216,7 @@
       </filterchain>
     </copy>  
     
-    <property name="assembly.title" value="AcceptanceTests" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="1fcb1ebf-1bda-4977-a7fb-ac748a7f0d47" />
-    <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.AcceptanceTests\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
+    
     <property name="deploy.connstring" value="${acceptance.connstring}" />
     <property name="deploy.iisserver" value="${acceptance.iisserver}" />
     <property name="deploy.vdir" value="${acceptance.vdir}" />
@@ -370,18 +229,7 @@
       </filterchain>
     </copy>    
     
-    <property name="assembly.title" value="CliTools" />
-    <property name="assembly.description" value="" />
-    <property name="assembly.guid" value="be75437a-285e-4eba-b88a-5b2627a94e54" />
-    <property name="assembly.cls-compliant" value="false" />
-    <copy file="${config.dir}\AssemblyInfo.cs.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.CliTools\Properties\AssemblyInfo.cs"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>  
+    
     <copy file="${config.dir}\App.config.CliTools.tmpl"
           tofile="${src.dir}\phiNdus.fundus.CliTools\App.config"
           outputencoding="UTF-8" overwrite="true"
