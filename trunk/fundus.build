@@ -93,18 +93,12 @@
     <delete dir="${build.dir}" verbose="${verbose}" />
     <delete>
       <fileset>
-        <include name="${src.dir}\**\Web*.config" />
-        <include name="${src.dir}\**\App*.config" />
         <include name="${src.dir}\**\bin\**" />
         <include name="${src.dir}\**\obj\**" />
         
-        <include name="${db.dir}\**\Web*.config" />
-        <include name="${db.dir}\**\App*.config" />
         <include name="${db.dir}\**\bin\**" />
         <include name="${db.dir}\**\obj\**" />
         
-        <include name="${tests.dir}\**\Web*.config" />
-        <include name="${tests.dir}\**\App*.config" />
         <include name="${tests.dir}\**\bin\**" />
         <include name="${tests.dir}\**\obj\**" />
       </fileset>
@@ -121,88 +115,9 @@
     <mkdir dir="${reports.dir}" verbose="${verbose}" />
     
     
-    <copy file="${config.dir}\Web.config.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Web\Web.config"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
-    <copy file="${config.dir}\Web.Debug.config.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Web\Web.Debug.config"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
-    <copy file="${config.dir}\Web.Release.config.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Web\Web.Release.config"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
-    <copy file="${config.dir}\Views.Web.config.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.Web\Views\Web.config"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
     
     
-    <copy file="${config.dir}\App.config.UnitTests.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.Domain.UnitTests\App.config"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy> 
     
-    
-    <copy file="${config.dir}\App.config.IntegrationTests.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.Domain.IntegrationTests\App.config"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
-    
-    
-    <copy file="${config.dir}\App.config.UnitTests.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.Business.UnitTests\App.config"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>     
-    
-      
-    <copy file="${config.dir}\App.config.IntegrationTests.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.Business.IntegrationTests\App.config"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
-    
-    
-    <copy file="${config.dir}\App.config.UnitTests.tmpl"
-          tofile="${tests.dir}\phiNdus.fundus.Web.UnitTests\App.config"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy> 
     
     
     
@@ -228,16 +143,7 @@
         <expandproperties />
       </filterchain>
     </copy>    
-    
-    
-    <copy file="${config.dir}\App.config.CliTools.tmpl"
-          tofile="${src.dir}\phiNdus.fundus.CliTools\App.config"
-          outputencoding="UTF-8" overwrite="true"
-          verbose="${verbose}">
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy> 
+
   </target>
 
   
