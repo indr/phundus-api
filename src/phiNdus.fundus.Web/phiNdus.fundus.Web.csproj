@@ -25,6 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DeployIisAppPath>Default Web Site/phundus-debug</DeployIisAppPath>
+    <DesktopBuildPackageLocation>..\..\artifacts\packages\Debug\piNuts.phundus.zip</DesktopBuildPackageLocation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,9 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
-    <DeployIisAppPath>Default Web Site/phundus-release</DeployIisAppPath>
+    <DesktopBuildPackageLocation>..\..\artifacts\packages\Release\piNuts.phundus.zip</DesktopBuildPackageLocation>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core">
@@ -508,9 +507,6 @@
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Web.Production.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -692,10 +688,7 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordDone.cshtml" />
     <Content Include="Views\Shared\tbd.cshtml" />
-    <Content Include="Web.Staging.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Acceptance.config">
+    <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
