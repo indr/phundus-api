@@ -78,16 +78,12 @@ namespace phiNdus.fundus.Business.Services
             {
                 case OrderStatus.Pending:
                     return GetPending();
-                    break;
                 case OrderStatus.Approved:
                     return GetApproved();
-                    break;
                 case OrderStatus.Rejected:
                     return GetRejected();
-                    break;
                 case OrderStatus.Closed:
                     return GetClosed();
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException("status");
             }
