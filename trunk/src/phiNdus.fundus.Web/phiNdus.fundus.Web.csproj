@@ -25,7 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DeployIisAppPath>Default Web Site/phundus-debug</DeployIisAppPath>
-    <DesktopBuildPackageLocation>..\..\artifacts\packages\Debug\phundus-Debug.zip</DesktopBuildPackageLocation>
+    <DesktopBuildPackageLocation>..\..\artifacts\packages\Debug\phundus.zip</DesktopBuildPackageLocation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DesktopBuildPackageLocation>..\..\artifacts\packages\Release\phundus-Release.zip</DesktopBuildPackageLocation>
+    <DesktopBuildPackageLocation>..\..\artifacts\packages\Release\phundus.zip</DesktopBuildPackageLocation>
     <DeployIisAppPath>Default Web Site/phundus-release</DeployIisAppPath>
   </PropertyGroup>
   <ItemGroup>
