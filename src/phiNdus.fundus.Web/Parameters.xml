@@ -6,6 +6,6 @@
              tags="DBConnectionString">
     <parameterEntry kind="XmlFile"
                     scope="Web\.config$"
-                    match="/configuration/hibernate-configuration/session-factory/property[@name='connection.connection_string']/value/text()" />
+                    match="/configuration/hibernate-configuration/session-factory/property[@name='connection.connection_string']/text()" />
   </parameter>          
 </parameters>
