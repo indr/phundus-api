@@ -1,0 +1,12 @@
+"C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" ^
+  -source:package='artifacts\phundus.zip' ^
+  -dest:auto,wmsvc='%wmsvc%',userName='%username%',password='%password%',includeAcls='False' ^
+  -verb:sync -disableLink:AppPoolExtension ^
+  -disableLink:ContentExtension ^
+  -disableLink:CertificateExtension ^
+  -skip:Directory=App_Data\\Logs ^
+  -skip:Directory=Content\\Images\\Article ^
+  -setParam:'IIS Web Application Name'='%iis_web_application_name%' ^
+  -setParam:'Server URI'='%server_uri%' ^
+  -setParam:'phundus-Web.config Connection String'='%phundus_web_config_connection_string%' ^
+  -allowUntrusted

@@ -38,6 +38,13 @@ namespace phiNdus.fundus.Web {
 // ReSharper disable InconsistentNaming
         protected void Application_Start() {
 // ReSharper restore InconsistentNaming
+
+            // TODO: Erstellen der Ordner ~\App_Data\Logs und ~\Content\Images\Articles
+
+            // TODO: Datenbank-Migration
+
+            // TODO: Datenbank mit Test-Daten bestücken, wenn sie leer ist
+
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
