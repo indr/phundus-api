@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- WebDeploy-Package-SetParameters.xml -->
 <parameters>
   <setParameter name="IIS Web Application Name" value="test.phundus.ch/acceptance" />
 </parameters>
