@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="Connection String"
+             description="NHibernate Connection String"
+             defaultValue="App_Data\phundus.mdb"
+             tags="DBConnectionString">
+    <parameterEntry kind="XmlFile"
+                    scope="obj\\Debug\\Package\\PackageTmp\\Web\.config$"
+                    match="//session-factory//property[@name='connection.connection_string']/value/text()" />
+  </parameter>          
+</parameters>
