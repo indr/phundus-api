@@ -5,7 +5,7 @@
              defaultValue=""
              tags="DBConnectionString">
     <parameterEntry kind="XmlFile"
-                    scope="obj\\Debug\\Package\\PackageTmp\\Web\.config$"
+                    scope="Web\.config$"
                     match="/configuration/hibernate-configuration/session-factory/property[@name='connection.connection_string']/value/text()" />
   </parameter>          
 </parameters>
