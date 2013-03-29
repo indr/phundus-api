@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="UpdateXml" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+    http://stackoverflow.com/questions/6051054/how-do-i-pass-a-property-to-msbuild-via-command-line-that-could-be-parsed-into-a
+  -->
+  
+  <ItemGroup>
+    <XmlConfigUpdates Include="ConfigUpdates-AppConfig">
+      <XPath>/configuration/appSettings/add[@key='ServerUri']/@value</XPath>
+      <NewValue>$(ServerUri)</NewValue>
+    </XmlConfigUpdates>
+  </ItemGroup>
+
+  <Target Name="UpdateXml">
+    <Message Text="Aktualisiere $(XmlFile)" />
+    <XmlPoke XmlInputPath="$(XmlFile)"
+             Query="%(XmlConfigUpdates.XPath)"
+             Value="%(XmlConfigUpdates.NewValue)"/>
+  </Target>
+</Project>
