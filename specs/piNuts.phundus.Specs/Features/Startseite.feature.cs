@@ -76,7 +76,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
  testRunner.Then("sollte ich gross \"Materialverleih der Pfadi Luzern\" sehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line 6
- testRunner.And("sollte im Fenstertitel muss \"Willkommen - phundus\" stehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+ testRunner.And("sollte im Fenstertitel muss \"Index - phundus\" stehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
             this.ScenarioCleanup();
         }
