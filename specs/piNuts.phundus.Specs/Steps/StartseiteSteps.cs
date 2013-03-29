@@ -36,7 +36,7 @@ namespace piNuts.phundus.Specs.Steps
             var revision = assembly.GetName().Version.Revision;
             var expected = String.Format("{0} (rev {1})", version, revision);
 
-            Assert.That(Browser.Span(Find.ByClass("versionTag")), Is.EqualTo(expected));
+            Assert.That(Browser.Span(Find.ByClass("versionTag")).Text, Is.EqualTo(expected));
         }
     }
 }
