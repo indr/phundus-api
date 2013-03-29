@@ -66,16 +66,35 @@ namespace piNuts.phundus.Specs.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Aufruf der Webseite")]
+        [NUnit.Framework.CategoryAttribute("isSmoker")]
         public virtual void AufrufDerWebseite()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Aufruf der Webseite", ((string[])(null)));
-#line 3
-this.ScenarioSetup(scenarioInfo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Aufruf der Webseite", new string[] {
+                        "isSmoker"});
 #line 4
- testRunner.When("ich die Webseite aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+this.ScenarioSetup(scenarioInfo);
 #line 5
- testRunner.Then("sollte ich gross \"Materialverleih der Pfadi Luzern\" sehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+ testRunner.When("ich die Webseite aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
 #line 6
+ testRunner.Then("sollte ich gross \"Materialverleih der Pfadi Luzern\" sehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+#line 7
+ testRunner.And("sollte im Fenstertitel muss \"Index - phundus\" stehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Aufruf der Webseite ohne isSmoker-Tag")]
+        public virtual void AufrufDerWebseiteOhneIsSmoker_Tag()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Aufruf der Webseite ohne isSmoker-Tag", ((string[])(null)));
+#line 10
+this.ScenarioSetup(scenarioInfo);
+#line 11
+ testRunner.When("ich die Webseite aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 12
+ testRunner.Then("sollte ich gross \"Materialverleih der Pfadi Luzern\" sehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+#line 13
  testRunner.And("sollte im Fenstertitel muss \"Index - phundus\" stehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
             this.ScenarioCleanup();
