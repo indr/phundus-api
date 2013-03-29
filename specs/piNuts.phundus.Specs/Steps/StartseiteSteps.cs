@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Reflection;
 using TechTalk.SpecFlow;
+using WatiN.Core;
 
 namespace piNuts.phundus.Specs.Steps
 {
@@ -24,6 +26,17 @@ namespace piNuts.phundus.Specs.Steps
         public void DannSollteImFenstertitelMussStehen(string p0)
         {
             Assert.That(Browser.Title, Is.EqualTo(p0));
+        }
+
+        [Then(@"sollte die Version entsprechend der zuletzt installierten Version sein")]
+        public void DannSollteDieVersionEntsprechendDerZuletztInstalliertenVersionSein()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var version = assembly.GetName().Version.ToString(3);
+            var revision = assembly.GetName().Version.Revision;
+            var expected = String.Format("{0} (rev {1})", version, revision);
+
+            Assert.That(Browser.Span(Find.ByClass("versionTag")), Is.EqualTo(expected));
         }
     }
 }

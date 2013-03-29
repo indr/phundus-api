@@ -99,6 +99,23 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Korrekte Version wurde installiert")]
+        [NUnit.Framework.CategoryAttribute("isSmoker")]
+        public virtual void KorrekteVersionWurdeInstalliert()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Korrekte Version wurde installiert", new string[] {
+                        "isSmoker"});
+#line 16
+this.ScenarioSetup(scenarioInfo);
+#line 17
+ testRunner.When("ich die Webseite aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 18
+ testRunner.Then("sollte die Version entsprechend der zuletzt installierten Version sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
