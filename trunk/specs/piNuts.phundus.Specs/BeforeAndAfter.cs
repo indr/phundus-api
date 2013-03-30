@@ -40,10 +40,7 @@ namespace piNuts.phundus.Specs
         [AfterTestRun]
         public static void AfterTestRun()
         {
-            if (!ScenarioContext.Current.ContainsKey("browser"))
-                return;
-            var browser = ScenarioContext.Current["browser"] as IeBrowser;
-            if (browser != null) browser.Close();
+            Browser.Current.Close();
         }
     }
 }
