@@ -16,3 +16,8 @@ Szenario: Aufruf der Webseite ohne isSmoker-Tag
 Szenario: Korrekte Version wurde installiert
 	Wenn ich die Webseite aufrufe
 	Dann sollte die Version entsprechend der zuletzt installierten Version sein
+
+@isSmoker
+Szenario: Server-URL wurde hinterlegt
+	Wenn ich die Webseite aufrufe
+	Dann sollte die Server-URL entsprechend der Konfiguration gesetzt sein
