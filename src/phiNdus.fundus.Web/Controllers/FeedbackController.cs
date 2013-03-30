@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.Gateways;
 using phiNdus.fundus.Web.Models;
@@ -24,7 +25,8 @@ namespace phiNdus.fundus.Web.Controllers
 
             var mailGateway = IoC.Resolve<IMailGateway>();
             var body = "Feedback von " + model.EmailAddress + Environment.NewLine + Environment.NewLine + model.Comment;
-            mailGateway.Send("mail@indr.ch,lukas.mueller@piNuts.ch", "[fundus] Feedback", body);
+            //mailGateway.Send("mail@indr.ch,lukas.mueller@piNuts.ch", "[fundus] Feedback", body);
+            mailGateway.Send(ConfigurationManager.AppSettings["FeedbackRecipients"] + "," + model.EmailAddress, "[phundus] Feedback", body);
             return View("Done");
         }
     }
