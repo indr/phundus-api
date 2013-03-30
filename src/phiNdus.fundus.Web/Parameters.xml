@@ -11,7 +11,7 @@
              description=""
              defaultValue="">
     <parameterEntry kind="XmlFile"
-                    scrope="\\Web\.config$"
+                    scope="\\Web\.config$"
                     match="/configuration/appSettings/add[@key='FeedbackRecipients']/@value" />
   </parameter>
 </parameters>
