@@ -56,6 +56,9 @@
     <Reference Include="DataAnnotationsExtensions.ClientValidation">
       <HintPath>..\..\packages\DataAnnotationsExtensions.MVC3.1.0.2.0\lib\NETFramework40\DataAnnotationsExtensions.ClientValidation.dll</HintPath>
     </Reference>
+    <Reference Include="FluentMigrator">
+      <HintPath>..\..\packages\FluentMigrator.1.0.6.0\lib\40\FluentMigrator.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
     <Reference Include="ImageResizer">
       <HintPath>..\..\packages\ImageResizer.3.1.5\lib\ImageResizer.dll</HintPath>
@@ -637,7 +640,6 @@
   <ItemGroup>
     <Folder Include="App_Data\Logs\" />
     <Folder Include="Content\Images\Articles\" />
-    <Folder Include="logs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Order\Pending.cshtml" />
