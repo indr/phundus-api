@@ -1,5 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -43,12 +46,9 @@ namespace phiNdus.fundus.Web
 
         protected void Application_Start()
         {
-            Directory.CreateDirectory(Server.MapPath(@"~\App_Data\Logs"));
-            Directory.CreateDirectory(Server.MapPath(@"~\Content\Images\Articles"));
-
-            // TODO: Datenbank-Migration
-
-            // TODO: Datenbank mit Test-Daten bestücken, wenn sie leer ist
+            CreateMissingDirectory();
+            MigrateDatabase();
+            PopulateDatabase();
 
             AreaRegistration.RegisterAllAreas();
 
@@ -83,5 +83,26 @@ namespace phiNdus.fundus.Web
 
             IoC.Initialize(_container);
         }
+
+        private void CreateMissingDirectory()
+        {
+            Directory.CreateDirectory(Server.MapPath(@"~\App_Data\Logs"));
+            Directory.CreateDirectory(Server.MapPath(@"~\Content\Images\Articles"));
+        }
+
+        private void MigrateDatabase()
+        {
+            using (var writer = new StreamWriter(Server.MapPath(@"~\App_Data\Logs\DbMigration.log")))
+            {
+                //DbMigrations.Runner.MigrateToLatest(ConfigurationManager.ConnectionStrings["phundus"].ConnectionString, writer);
+            }
+        }
+
+        private static void PopulateDatabase()
+        {
+            
+        }
     }
+
+    
 }
