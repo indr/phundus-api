@@ -9,7 +9,8 @@
 
         public IeBrowser()
         {
-            AutoClose = true;
+            // TODO: AutoClose wieder auf true stellen, wenn false nichts bewirkt hat.
+            AutoClose = false;
             Settings.AutoMoveMousePointerToTopLeft = false;
 
             ClearCache();
