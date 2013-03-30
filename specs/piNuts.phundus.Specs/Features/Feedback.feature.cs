@@ -109,29 +109,33 @@ this.ScenarioSetup(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Feedback senden")]
+        [NUnit.Framework.CategoryAttribute("isSmoker")]
         public virtual void FeedbackSenden()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Feedback senden", ((string[])(null)));
-#line 23
-this.ScenarioSetup(scenarioInfo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Feedback senden", new string[] {
+                        "isSmoker"});
 #line 24
- testRunner.Given("ich bin auf der Feedbackseite", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+this.ScenarioSetup(scenarioInfo);
 #line 25
+ testRunner.Given("ich bin auf der Feedbackseite", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+#line 26
  testRunner.And("ich tippe ins Feld \"E-Mail-Adresse\" \"user@test.phundus.ch\" ein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
-#line 26
- testRunner.And("ich tippe ins Feld \"Feedback\":", "Grüsse vom Feedback-Feature-Szenario \"Feedback senden\"!\r\n\r\nServer-Url: {AppSettin" +
+#line 27
+ testRunner.And("ich füge ins Feld \"Feedback\" ein:", "Grüsse vom Feedback-Feature-Szenario \"Feedback senden\"!\r\n\r\nServer-Url: {AppSettin" +
                     "gs.ServerUrl}\r\nVersion: {Assembly.Version}", ((TechTalk.SpecFlow.Table)(null)), "Und ");
-#line 33
- testRunner.When("ich auf \"Senden\" drücke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
 #line 34
- testRunner.Then("muss die Meldung \"Merci!\" erscheinen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+ testRunner.When("ich auf \"Senden\" drücke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
 #line 35
- testRunner.And("muss \"user@test.phundus.ch\" ein E-Mail mit dem Betreff \"[phundus] Feedback\" erhal" +
-                    "ten haben", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+ testRunner.Then("muss die Meldung \"Merci!\" erscheinen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+#line hidden
 #line 36
- testRunner.And("muss \"admin@test.phundus.ch\" ein E-Mail mit dem Betreff \"[phundus] Feedback\" erha" +
-                    "lten haben", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+ testRunner.And("muss \"user@test.phundus.ch\" ein E-Mail erhalten mit dem Betreff \"Vielen Dank fürs" +
+                    " Feedback\" und dem Text:", "Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.\r\n" +
+                    "\r\nVielen Dank und freundliche Grüsse\r\n\r\nDas phundus-Team", ((TechTalk.SpecFlow.Table)(null)), "Und ");
+#line 44
+ testRunner.And("muss \"admin@test.phundus.ch\" ein E-Mail erhalten mit dem Betreff \"[phundus] Feedb" +
+                    "ack\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
             this.ScenarioCleanup();
         }

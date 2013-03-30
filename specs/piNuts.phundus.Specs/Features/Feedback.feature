@@ -20,17 +20,25 @@ Szenario: Feedback ohne Angabe des Feedbacks
 	Und muss das Feld "Feedback" rot sein
 
 
+@isSmoker
 Szenario: Feedback senden
 	Angenommen ich bin auf der Feedbackseite
 	Und ich tippe ins Feld "E-Mail-Adresse" "user@test.phundus.ch" ein
-	Und ich tippe ins Feld "Feedback":
-	  """
-	  Grüsse vom Feedback-Feature-Szenario "Feedback senden"!
-
-	  Server-Url: {AppSettings.ServerUrl}
-	  Version: {Assembly.Version}
-	  """
+	Und ich füge ins Feld "Feedback" ein:
+		"""
+		Grüsse vom Feedback-Feature-Szenario "Feedback senden"!
+		
+		Server-Url: {AppSettings.ServerUrl}
+		Version: {Assembly.Version}
+		"""
 	Wenn ich auf "Senden" drücke
 	Dann muss die Meldung "Merci!" erscheinen
-	Und muss "user@test.phundus.ch" ein E-Mail mit dem Betreff "[phundus] Feedback" erhalten haben
-	Und muss "admin@test.phundus.ch" ein E-Mail mit dem Betreff "[phundus] Feedback" erhalten haben
+	Und muss "user@test.phundus.ch" ein E-Mail erhalten mit dem Betreff "Vielen Dank fürs Feedback" und dem Text:
+		"""
+		Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
+
+		Vielen Dank und freundliche Grüsse
+
+		Das phundus-Team
+		"""
+	Und muss "admin@test.phundus.ch" ein E-Mail erhalten mit dem Betreff "[phundus] Feedback"

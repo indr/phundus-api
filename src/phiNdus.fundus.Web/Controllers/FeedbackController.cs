@@ -24,10 +24,18 @@ namespace phiNdus.fundus.Web.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            const string subject = "[phundus] Feedback";
-            var body = "Feedback von " + model.EmailAddress + Environment.NewLine + Environment.NewLine + model.Comment;
-            MailGateway.Send(ConfigurationManager.AppSettings["FeedbackRecipients"], subject, body);
-            MailGateway.Send(model.EmailAddress, subject, body);
+            MailGateway.Send(ConfigurationManager.AppSettings["FeedbackRecipients"],
+                @"[phundus] Feedback",
+                @"Feedback von " + model.EmailAddress + Environment.NewLine + Environment.NewLine + model.Comment);
+            
+            
+            MailGateway.Send(model.EmailAddress,
+                @"Vielen Dank fürs Feedback",
+                @"Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
+
+Vielen Dank und freundliche Grüsse
+
+Das phundus-Team");
 
             return View("Done");
         }
