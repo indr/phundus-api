@@ -12,7 +12,7 @@
     
     <XmlConfigUpdates Include="ConfigUpdates-AppConfig">
       <XPath>/configuration/appSettings/add[@key='FeedbackRecipients']/@value</XPath>
-      <NewValue>$(FeedbackRecipients)</NewValue>
+      <NewValue>admin@test.phundus.ch,$(FeedbackRecipients)</NewValue>
     </XmlConfigUpdates>
   </ItemGroup>
 
