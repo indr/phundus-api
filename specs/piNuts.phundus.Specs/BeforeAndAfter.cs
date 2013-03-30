@@ -9,7 +9,7 @@
     [Binding]
     public class BeforeAndAfter
     {
-        [AfterScenario]
+        [AfterTestRun]
         public static void AfterTestRun()
         {
             if (!ScenarioContext.Current.ContainsKey("browser"))

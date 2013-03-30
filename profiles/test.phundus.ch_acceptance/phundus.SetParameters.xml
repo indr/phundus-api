@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <setParameter name="IIS Web Application Name" value="test.phundus.ch/acceptance" />
-  <setParameter name="Connection String" value="Data Source=localhost\SQLEXPRESS; Initial Catalog=fundus-Acceptance; Integrated Security=SSPI" />
-</parameters>
