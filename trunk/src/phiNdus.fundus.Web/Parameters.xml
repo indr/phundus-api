@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="Server URI"
+  <parameter name="Server URL"
              description=""
              defaultValue="">
     <parameterEntry kind="XmlFile"
                     scope="\\Web\.config$"
-                    match="/configuration/appSettings/add[@key='ServerUri']/@value" />
-  </parameter>          
+                    match="/configuration/appSettings/add[@key='ServerUrl']/@value" />
+  </parameter>
+  <parameter name="Feedback Recipients"
+             description=""
+             defaultValue="">
+    <parameterEntry kind="XmlFile"
+                    scrope="\\Web\.config$"
+                    match="/configuration/appSettings/add[@key='FeedbackRecipients']/@value" />
+  </parameter>
 </parameters>

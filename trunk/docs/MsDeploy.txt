@@ -7,6 +7,7 @@
   -skip:Directory=App_Data\\Logs ^
   -skip:Directory=Content\\Images\\Article ^
   -setParam:'IIS Web Application Name'='%iis_web_application_name%' ^
-  -setParam:'Server URI'='%server_uri%' ^
+  -setParam:'Server URL'='%server_url%' ^
+  -setParam:'Feedback Recipients'='%feedback_recipients%' ^
   -setParam:'phundus-Web.config Connection String'='%phundus_web_config_connection_string%' ^
   -allowUntrusted

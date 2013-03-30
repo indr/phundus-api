@@ -6,8 +6,13 @@
   
   <ItemGroup>
     <XmlConfigUpdates Include="ConfigUpdates-AppConfig">
-      <XPath>/configuration/appSettings/add[@key='ServerUri']/@value</XPath>
-      <NewValue>$(ServerUri)</NewValue>
+      <XPath>/configuration/appSettings/add[@key='ServerUrl']/@value</XPath>
+      <NewValue>$(ServerUrl)</NewValue>
+    </XmlConfigUpdates>
+    
+    <XmlConfigUpdates Include="ConfigUpdates-AppConfig">
+      <XPath>/configuration/appSettings/add[@key='FeedbackRecipients']/@value</XPath>
+      <NewValue>$(FeedbackRecipients)</NewValue>
     </XmlConfigUpdates>
   </ItemGroup>
 

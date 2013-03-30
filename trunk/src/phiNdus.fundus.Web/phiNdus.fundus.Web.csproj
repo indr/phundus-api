@@ -693,6 +693,7 @@
     <Content Include="Views\Shared\tbd.cshtml" />
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -714,7 +715,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3655</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/phundus</IISUrl>
+          <IISUrl>http://localhost/phundus-debug</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
