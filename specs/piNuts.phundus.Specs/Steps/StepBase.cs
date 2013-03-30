@@ -1,19 +1,13 @@
 ﻿namespace piNuts.phundus.Specs.Steps
 {
     using System.Configuration;
-    using TechTalk.SpecFlow;
-    using piNuts.phundus.Specs.Browsers;
+    using Browsers;
 
     public class StepBase
     {
         protected static IeBrowser Browser
         {
-            get
-            {
-                if (!ScenarioContext.Current.ContainsKey("browser"))
-                    ScenarioContext.Current["browser"] = new IeBrowser();
-                return ScenarioContext.Current["browser"] as IeBrowser;
-            }
+            get { return Browsers.Browser.Current; }
         }
 
         protected static string BaseUrl
