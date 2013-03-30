@@ -33,17 +33,16 @@ namespace phiNdus.fundus.Business.Gateways
 
         public void Send(string recipients, string subject, string body)
         {
-            var client = new SmtpClient(_host);
-            client.Credentials = new NetworkCredential(_userName, _password);
-            client.Send(_from, recipients, subject, body);
+            var message = new MailMessage();
+            message.To.Add(recipients);
+            message.Subject = subject;
+            message.Body = body;
+            Send(message);
         }
 
         public void Send(MailMessage message)
         {
-            message.From = new MailAddress(_from);
-            var client = new SmtpClient(_host);
-            client.Credentials = new NetworkCredential(_userName, _password);
-            client.Send(message);
+            new SmtpClient().Send(message);
         }
 
         #endregion
