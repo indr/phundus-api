@@ -45,7 +45,7 @@ namespace piNuts.phundus.Specs.Steps
         {
             var expected = "http://" + ConfigurationManager.AppSettings["ServerUrl"];
             var actual = Browser.Span(Find.ByClass("serverUrlTag")).Link(Find.ByText("phundus")).Url;
-
+            actual = actual.TrimEnd('/');
             Assert.That(actual, Is.EqualTo(expected));
         }
 
