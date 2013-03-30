@@ -18,7 +18,7 @@
 
         protected static string BaseUrl
         {
-            get { return ConfigurationManager.AppSettings["ServerUri"]; }
+            get { return ConfigurationManager.AppSettings["ServerUrl"]; }
         }
     }
 }
