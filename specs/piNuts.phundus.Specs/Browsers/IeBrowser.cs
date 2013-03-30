@@ -15,7 +15,7 @@
             ClearCache();
             ClearCookies();
 
-            BaseUrl = ConfigurationManager.AppSettings["ServerUri"];
+            BaseUrl = ConfigurationManager.AppSettings["ServerUrl"];
         }
 
         //public T GoToPage<T>() where T : PageBase<T>, new()
