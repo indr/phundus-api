@@ -2,9 +2,11 @@
 using System.Configuration;
 using System.Reflection;
 using NUnit.Framework;
+using OpenPop.Mime;
 using piNuts.phundus.Specs.Infrastructure;
 using TechTalk.SpecFlow;
 using WatiN.Core;
+using WatiN.Core.Actions;
 
 namespace piNuts.phundus.Specs.Steps
 {
@@ -18,18 +20,31 @@ namespace piNuts.phundus.Specs.Steps
         }
 
         [Given(@"ich tippe ins Feld ""(.*)"" ""(.*)"" ein")]
-        public void AngenommenIchTippeInsFeldEin(string p0, string p1)
+        public void AngenommenIchTippeInsFeldEin(string feld, string text)
         {
-            p1 = p1.Replace("{AppSettings.ServerUrl}", ConfigurationManager.AppSettings["ServerUrl"]);
-            p1 = p1.Replace("{Assembly.Version}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
-
-            Browser.TextField(Find.ByLabelText(p0)).TypeText(p1);
+            text = text.Replace("{AppSettings.ServerUrl}", ConfigurationManager.AppSettings["ServerUrl"]);
+            text = text.Replace("{Assembly.Version}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            Browser.TextField(Find.ByLabelText(feld)).TypeText(text);
         }
 
-        [Given(@"ich tippe ins Feld ""(.*)"":")]
-        public void AngenommenIchTippeInsFeld(string p0, string multilineText)
+        [Given(@"ich tippe ins Feld ""(.*)"" ein:")]
+        public void AngenommenIchTippeInsFeld(string feld, string multilineText)
         {
-            AngenommenIchTippeInsFeldEin(p0, multilineText);
+            AngenommenIchTippeInsFeldEin(feld, multilineText);
+        }
+
+        [Given(@"ich füge ins Feld ""(.*)"" ""(.*)"" ein")]
+        public void AngenommenIchFügeInsFeldEin(string feld, string text)
+        {
+            text = text.Replace("{AppSettings.ServerUrl}", ConfigurationManager.AppSettings["ServerUrl"]);
+            text = text.Replace("{Assembly.Version}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            Browser.TextField(Find.ByLabelText(feld)).Value = text;
+        }
+
+        [Given(@"ich füge ins Feld ""(.*)"" ein:")]
+        public void AngenommenIchFügeInsFeld(string feld, string multilineText)
+        {
+            AngenommenIchFügeInsFeldEin(feld, multilineText);
         }
 
         [When(@"ich auf ""(.*)"" drücke")]
@@ -50,16 +65,23 @@ namespace piNuts.phundus.Specs.Steps
             Assert.That(Browser.Label(p => p.Text == p0).Parent.ClassName, Is.EqualTo("control-group error"));
         }
 
-        [Then(@"muss ""(.*)"" ein E-Mail mit dem Betreff ""(.*)"" erhalten haben")]
-        public void DannMussEinFeedback_E_MailErhaltenHaben(string p0, string p1)
+        [Then(@"muss ""(.*)"" ein E-Mail erhalten mit dem Betreff ""(.*)""")]
+        public Message DannMussEinEMailErhaltenMitDemBetreff(string adresse, string betreff)
         {
-            var mailbox = Mailbox.For(p0);
-            var message = mailbox.Find(p1);
+            var mailbox = Mailbox.For(adresse);
+            var message = mailbox.Find(betreff);
 
             if (message == null)
                 Assert.Fail(String.Format("Das E-Mail mit Betreff \"{0}\" im Postfach für \"{1}\" konnte nicht gefunden werden.",
-                    p1, p0));
+                    betreff, adresse));
+            return message;
         }
 
+        [Then(@"muss ""(.*)"" ein E-Mail erhalten mit dem Betreff ""(.*)"" und dem Text:")]
+        public void DannMussEinEMailErhaltenMitDemBetreffUndDemText(string adresse, string betreff, string text)
+        {
+            var message = DannMussEinEMailErhaltenMitDemBetreff(adresse, betreff);
+            Assert.That(message.FindFirstPlainTextVersion().GetBodyAsText(), Is.EqualTo(text));
+        }
     }
 }
