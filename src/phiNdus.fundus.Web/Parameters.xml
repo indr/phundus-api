@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="Server URL"
-             description=""
-             defaultValue="">
+  <parameter name="Server URL">
     <parameterEntry kind="XmlFile"
                     scope="\\Web\.config$"
-                    match="/configuration/appSettings/add[@key='ServerUrl']/@value" />
+                    match="/configuration/appSettings/add[@key='ServerUrl']/@value"/>
   </parameter>
-  <parameter name="Feedback Recipients"
-             description=""
-             defaultValue="">
+  <parameter name="Feedback Recipients">
     <parameterEntry kind="XmlFile"
                     scope="\\Web\.config$"
-                    match="/configuration/appSettings/add[@key='FeedbackRecipients']/@value" />
+                    match="/configuration/appSettings/add[@key='FeedbackRecipients']/@value"/>
+  </parameter>
+
+  <parameter name="SMTP From">
+    <parameterEntry kind="XmlFile"
+                    scope="\\Web\.config$"
+                    match="/configuration/system.net/mailSettings/smtp/@from"/>
   </parameter>
 </parameters>
