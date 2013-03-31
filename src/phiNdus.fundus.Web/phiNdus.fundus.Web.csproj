@@ -160,6 +160,10 @@
     <Compile Include="Installers\AuthenticationInstaller.cs" />
     <Compile Include="Installers\ControllerInstaller.cs" />
     <Compile Include="Installers\LoggerInstaller.cs" />
+    <Content Include="App_Data\phundus.mdf" />
+    <Content Include="App_Data\phundus_log.ldf">
+      <DependentUpon>phundus.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\placeholder.txt" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-ie6.css" />
