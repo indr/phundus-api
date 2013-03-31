@@ -160,10 +160,14 @@
     <Compile Include="Installers\AuthenticationInstaller.cs" />
     <Compile Include="Installers\ControllerInstaller.cs" />
     <Compile Include="Installers\LoggerInstaller.cs" />
-    <None Include="App_Data\phundus.mdf" />
-    <None Include="App_Data\phundus_log.ldf">
-      <DependentUpon>phundus.mdf</DependentUpon>
+    <None Include="App_Data\Empty.mdf" />
+    <None Include="App_Data\Empty_log.ldf">
+      <DependentUpon>Empty.mdf</DependentUpon>
     </None>
+    <Content Include="App_Data\Debug.mdf" />
+    <Content Include="App_Data\Debug_log.ldf">
+      <DependentUpon>Debug.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\placeholder.txt" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-ie6.css" />
@@ -729,4 +733,8 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>copy /y $(ProjectDir)App_Data\Empty.mdf $(ProjectDir)App_Data\Debug.mdf
+copy /y $(ProjectDir)App_Data\Empty_log.ldf $(ProjectDir)App_Data\Debug_log.ldf</PreBuildEvent>
+  </PropertyGroup>
 </Project>
