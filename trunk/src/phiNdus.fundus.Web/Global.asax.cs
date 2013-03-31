@@ -13,6 +13,8 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web
 {
+    using System;
+
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
@@ -90,7 +92,7 @@ namespace phiNdus.fundus.Web
 
         private void MigrateDatabase()
         {
-            using (var writer = new StreamWriter(Server.MapPath(@"~\App_Data\Logs\DbMigration.log")))
+            using (var writer = new StreamWriter(Server.MapPath(@"~\App_Data\Logs\DbMigration.log"), true))
             {
                 Runner.MigrateToLatest(ConfigurationManager.ConnectionStrings["phundus"].ConnectionString, writer);
             }
