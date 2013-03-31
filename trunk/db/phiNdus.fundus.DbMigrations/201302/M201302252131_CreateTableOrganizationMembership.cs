@@ -1,8 +1,8 @@
-﻿using System.Data;
-using FluentMigrator;
-
-namespace phiNdus.fundus.DbMigrations._201302
+﻿namespace phiNdus.fundus.DbMigrations
 {
+    using System.Data;
+    using FluentMigrator;
+
     [Migration(201302252131)]
     public class M201302252131_CreateTableOrganizationMembership : MigrationBase
     {

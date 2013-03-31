@@ -1,40 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using FluentMigrator;
-using FluentMigrator.Runner;
-using FluentMigrator.Runner.Announcers;
-using FluentMigrator.Runner.Initialization;
-
-namespace phiNdus.fundus.DbMigrations
+﻿namespace phiNdus.fundus.DbMigrations
 {
+    using System.IO;
+    using System.Reflection;
+    using FluentMigrator;
+    using FluentMigrator.Runner;
+    using FluentMigrator.Runner.Announcers;
+    using FluentMigrator.Runner.Initialization;
+    using FluentMigrator.Runner.Processors;
+    using FluentMigrator.Runner.Processors.SqlServer;
+
     public static class Runner
     {
-        public class MigrationOptions : IMigrationProcessorOptions
-        {
-            public bool PreviewOnly { get; set; }
-            public int Timeout { get; set; }
-        }
-
         public static void MigrateToLatest(string connectionString, TextWriter writer)
         {
-            // var announcer = new NullAnnouncer();
             var announcer = new TextWriterAnnouncer(writer);
-            var assembly = Assembly.GetExecutingAssembly();
+            var assembly = Assembly.GetAssembly(typeof (M0_EmptyDatabase));
 
             var migrationContext = new RunnerContext(announcer)
-            {
-                Namespace = "phiNdus.fundus.DbMigrations"
-            };
-
-            var options = new MigrationOptions { PreviewOnly = true, Timeout = 60 };
-            var factory = new FluentMigrator.Runner.Processors.SqlServer.SqlServer2008ProcessorFactory();
+                                       {
+                                           Namespace = "phiNdus.fundus.DbMigrations"
+                                       };
+            IMigrationProcessorOptions options = new ProcessorOptions
+                                                     {
+                                                         PreviewOnly = false,
+                                                         Timeout = 60
+                                                     };
+            var factory = new SqlServer2008ProcessorFactory();
             var processor = factory.Create(connectionString, announcer, options);
+
             var runner = new MigrationRunner(assembly, migrationContext, processor);
-            runner.MigrateUp(true);
+            runner.MigrateUp();
         }
     }
 }

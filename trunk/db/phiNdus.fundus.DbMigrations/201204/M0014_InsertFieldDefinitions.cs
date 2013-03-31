@@ -1,7 +1,7 @@
-﻿using FluentMigrator;
-
-namespace phiNdus.fundus.DbMigrations._201204
+﻿namespace phiNdus.fundus.DbMigrations
 {
+    using FluentMigrator;
+
     [Migration(201204212047)]
     public class M0014_InsertFieldDefinitions : MigrationBase
     {
