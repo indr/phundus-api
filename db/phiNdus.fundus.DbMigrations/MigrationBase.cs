@@ -1,8 +1,7 @@
-﻿using System;
-using FluentMigrator;
-
-namespace phiNdus.fundus.DbMigrations
+﻿namespace phiNdus.fundus.DbMigrations
 {
+    using FluentMigrator;
+
     public abstract class MigrationBase : Migration
     {
         private string _schemaName = "dbo";

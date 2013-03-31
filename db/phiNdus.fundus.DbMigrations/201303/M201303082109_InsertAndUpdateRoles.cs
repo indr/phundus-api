@@ -1,8 +1,8 @@
-﻿using System;
-using FluentMigrator;
-
-namespace phiNdus.fundus.DbMigrations._201204
+﻿namespace phiNdus.fundus.DbMigrations
 {
+    using System;
+    using FluentMigrator;
+
     [Migration(201303082109)]
     public class M201303082109_InsertAndUpdateRoles : MigrationBase
     {

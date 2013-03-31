@@ -1,7 +1,7 @@
-﻿using FluentMigrator;
-
-namespace phiNdus.fundus.DbMigrations._201204
+﻿namespace phiNdus.fundus.DbMigrations
 {
+    using FluentMigrator;
+
     [Migration(201205131612)]
     public class M201205131612_AddColumnMobileNumber : MigrationBase
     {

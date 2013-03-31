@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentMigrator;
-
-namespace phiNdus.fundus.DbMigrations._201204
+﻿namespace phiNdus.fundus.DbMigrations
 {
+    using System;
+    using FluentMigrator;
+
     [Migration(201204211924)]
     public class M0013_InsertRolesAndCreateTrigger : MigrationBase
     {

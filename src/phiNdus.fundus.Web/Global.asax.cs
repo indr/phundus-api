@@ -1,14 +1,12 @@
-﻿using System;
-using System.Configuration;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Configuration;
 using System.IO;
-using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using phiNdus.fundus.DbMigrations;
 using phiNdus.fundus.Web.Helpers;
 using phiNdus.fundus.Web.Plumbing;
 using Rhino.Commons;
@@ -94,15 +92,12 @@ namespace phiNdus.fundus.Web
         {
             using (var writer = new StreamWriter(Server.MapPath(@"~\App_Data\Logs\DbMigration.log")))
             {
-                //DbMigrations.Runner.MigrateToLatest(ConfigurationManager.ConnectionStrings["phundus"].ConnectionString, writer);
+                Runner.MigrateToLatest(ConfigurationManager.ConnectionStrings["phundus"].ConnectionString, writer);
             }
         }
 
         private static void PopulateDatabase()
         {
-            
         }
     }
-
-    
 }

@@ -1,7 +1,7 @@
-﻿using FluentMigrator;
-
-namespace phiNdus.fundus.DbMigrations._201302
+﻿namespace phiNdus.fundus.DbMigrations
 {
+    using FluentMigrator;
+
     [Migration(201302252312)]
     public class M201302252312_AddUniqueKeyToOrganizationMembership : MigrationBase
     {

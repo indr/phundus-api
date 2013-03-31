@@ -1,7 +1,7 @@
-﻿using FluentMigrator;
-
-namespace phiNdus.fundus.DbMigrations._201302
+﻿namespace phiNdus.fundus.DbMigrations
 {
+    using FluentMigrator;
+
     [Migration(201302171552)]
     public class M201302171552_AddColumnRequestedEmail : MigrationBase
     {

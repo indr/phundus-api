@@ -56,9 +56,6 @@
     <Reference Include="DataAnnotationsExtensions.ClientValidation">
       <HintPath>..\..\packages\DataAnnotationsExtensions.MVC3.1.0.2.0\lib\NETFramework40\DataAnnotationsExtensions.ClientValidation.dll</HintPath>
     </Reference>
-    <Reference Include="FluentMigrator">
-      <HintPath>..\..\packages\FluentMigrator.1.0.6.0\lib\40\FluentMigrator.dll</HintPath>
-    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
     <Reference Include="ImageResizer">
       <HintPath>..\..\packages\ImageResizer.3.1.5\lib\ImageResizer.dll</HintPath>
@@ -163,9 +160,7 @@
     <Compile Include="Installers\AuthenticationInstaller.cs" />
     <Compile Include="Installers\ControllerInstaller.cs" />
     <Compile Include="Installers\LoggerInstaller.cs" />
-    <Content Include="App_Data\placeholder.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="App_Data\placeholder.txt" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-ie6.css" />
     <Content Include="Content\bootstrap-ie6.min.css" />
@@ -526,6 +521,10 @@
     <Content Include="Views\Account\LogOn.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\db\phiNdus.fundus.DbMigrations\phiNdus.fundus.DbMigrations.csproj">
+      <Project>{7B58707A-84EC-4E7E-A0FD-946F1E16361E}</Project>
+      <Name>phiNdus.fundus.DbMigrations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\phiNdus.fundus.Business\phiNdus.fundus.Business.csproj">
       <Project>{97AA64DB-12BF-4AF3-B732-97DE1A9919B1}</Project>
       <Name>phiNdus.fundus.Business</Name>

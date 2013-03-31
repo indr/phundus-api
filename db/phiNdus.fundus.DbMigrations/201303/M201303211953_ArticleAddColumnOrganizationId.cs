@@ -1,8 +1,8 @@
-﻿using System.Data;
-using FluentMigrator;
-
-namespace phiNdus.fundus.DbMigrations._201302
+﻿namespace phiNdus.fundus.DbMigrations
 {
+    using System.Data;
+    using FluentMigrator;
+
     [Migration(201303211953)]
     public class M201303211953_ArticleAddColumnOrganizationId : MigrationBase
     {

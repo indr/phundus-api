@@ -1,7 +1,7 @@
-﻿using FluentMigrator;
-
-namespace phiNdus.fundus.DbMigrations._201302
+﻿namespace phiNdus.fundus.DbMigrations
 {
+    using FluentMigrator;
+
     [Migration(201302252319)]
     public class M201302252319_MoveUsersToDefaultOrganization : MigrationBase
     {

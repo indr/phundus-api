@@ -1,0 +1,9 @@
+<Configuration>
+  <NamespaceFolders>
+    <SkipFolder>7B58707A-84EC-4E7E-A0FD-946F1E16361E/d:201204</SkipFolder>
+    <SkipFolder>7B58707A-84EC-4E7E-A0FD-946F1E16361E/d:201303</SkipFolder>
+    <SkipFolder>7B58707A-84EC-4E7E-A0FD-946F1E16361E/d:201205</SkipFolder>
+    <SkipFolder>7B58707A-84EC-4E7E-A0FD-946F1E16361E/d:201206</SkipFolder>
+    <SkipFolder>7B58707A-84EC-4E7E-A0FD-946F1E16361E/d:201302</SkipFolder>
+  </NamespaceFolders>
+</Configuration>
