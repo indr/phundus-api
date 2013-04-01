@@ -56,7 +56,7 @@ namespace piNuts.phundus.Specs.Steps
             var pattern = @"Angemeldet als\s+<a href=""([^\""]+)\"">" + userName + "</a>";
             var regex = new Regex(pattern, RegexOptions.Singleline);
             Assert.That(regex.Match(Browser.Body.InnerHtml).Success,
-                String.Format("\"{0}\" in Body.InnerHtml nicht gefunden."));            
+                String.Format("\"{0}\" in Body.InnerHtml nicht gefunden.", pattern));            
         }
 
         [Then(@"ich sollte auf der Startseite sein")]

@@ -47,9 +47,10 @@ namespace piNuts.phundus.Specs.Steps
         }
 
         [Then(@"muss die Meldung ""(.*)"" erscheinen")]
-        public void DannMussNebenDemFeldErscheinen(string p0)
+        public void DannMussDieMeldungErscheinen(string meldung)
         {
-            Assert.That(Browser.ContainsText(p0), Is.True);
+            Assert.That(Browser.ContainsText(meldung), Is.True,
+                String.Format("Die Meldung \"{0}\" ist nicht vorhanden.", meldung));
         }
 
         [Then(@"muss das Feld ""(.*)"" rot sein")]

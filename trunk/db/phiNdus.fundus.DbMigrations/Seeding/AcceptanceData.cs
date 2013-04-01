@@ -15,6 +15,7 @@ namespace phiNdus.fundus.DbMigrations
     {
         public override void Up()
         {
+            Delete.FromTable("Cart").InSchema(SchemaName).AllRows();
             Delete.FromTable("Order").InSchema(SchemaName).AllRows();
             Delete.FromTable("FieldValue").InSchema(SchemaName).AllRows();   
             Delete.FromTable("Image").InSchema(SchemaName).AllRows();
@@ -74,7 +75,7 @@ namespace phiNdus.fundus.DbMigrations
                     ArticleId = each.Id,
                     FieldDefinitionId = 10,
                     IsDiscriminator = false,
-                    DecimalValue = each.Bestand
+                    IntegerValue = each.Bestand
                 });
             }
 
