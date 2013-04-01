@@ -68,8 +68,8 @@ namespace phiNdus.fundus.Web.Controllers
                 UnitOfWork.CurrentSession.Update(user);
 
                 new UserLockedOutMail().For(user)
-                    .Send(user)
-                    .Send(Settings.Common.AdminEmailAddress);
+                    .Send(user);
+                    //.Send(Settings.Common.AdminEmailAddress);
 
                 uow.TransactionalFlush();
             }
@@ -89,8 +89,8 @@ namespace phiNdus.fundus.Web.Controllers
                 UnitOfWork.CurrentSession.Update(user);
 
                 new UserUnlockedMail().For(user)
-                    .Send(user)
-                    .Send(Settings.Common.AdminEmailAddress);
+                    .Send(user);
+                    //.Send(Settings.Common.AdminEmailAddress);
 
                 uow.TransactionalFlush();
             }

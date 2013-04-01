@@ -6,9 +6,9 @@
 10005;User;Bjørnstjerne;Kjelsrud;Höhenweg 132;3429;Hellsau;;chief@test.phundus.ch;1234;
 10006;User;Ragnveig;Berisha;Clius 118;5420;Oberehrendingen;;chief-1@test.phundus.ch;1234;
 10007;User;Ledis;Ensrud;Brunnacherstrasse 55;8050;Zürich;;chief-2@test.phundus.ch;1234;
-10008;User;Nils;Oftedal;Via Gabbietta 96;2829;Vermes;;admin@test.phundus.ch;1234;
-10009;User;Kay;Gleditsch;Sonnenweg 69;4805;Mättenwil;;admin-1@test.phundus.ch;1234;
-10010;User;Salmine;Eggum;Seefeldstrasse 3;3629;Kiesen;;admin-2@test.phundus.ch;1234;
+10008;Admin;Nils;Oftedal;Via Gabbietta 96;2829;Vermes;;admin@test.phundus.ch;1234;
+10009;Admin;Kay;Gleditsch;Sonnenweg 69;4805;Mättenwil;;admin-1@test.phundus.ch;1234;
+10010;Admin;Salmine;Eggum;Seefeldstrasse 3;3629;Kiesen;;admin-2@test.phundus.ch;1234;
 10011;User;Imma;Kvam;Via Muraccio 34;8492;Tablat;;;;
 10012;User;Børre;Seim;Püntstrasse 121;3934;Zeneggen;;;;
 10013;User;Estella;Pollestad;Mattenstrasse 30;4450;Sissach;;;;
