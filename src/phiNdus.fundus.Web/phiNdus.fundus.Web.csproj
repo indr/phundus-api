@@ -164,10 +164,6 @@
     <None Include="App_Data\Empty_log.ldf">
       <DependentUpon>Empty.mdf</DependentUpon>
     </None>
-    <Content Include="App_Data\Debug.mdf" />
-    <Content Include="App_Data\Debug_log.ldf">
-      <DependentUpon>Debug.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\placeholder.txt" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-ie6.css" />
@@ -742,6 +738,6 @@
   copy /y "$(ProjectDir)App_Data\Empty.mdf" "$(ProjectDir)App_Data\Debug.mdf"
   copy /y "$(ProjectDir)App_Data\Empty_log.ldf" "$(ProjectDir)App_Data\Debug_log.ldf"
 )
-if exist "$(ProjectDir)App_Data\Logs\DbMigration.log" (del "$(ProjectDir)App_Data\Logs\DbMigration.log")</PreBuildEvent>
+rem if exist "$(ProjectDir)App_Data\Logs\DbMigration.log" (del "$(ProjectDir)App_Data\Logs\DbMigration.log")</PreBuildEvent>
   </PropertyGroup>
 </Project>
