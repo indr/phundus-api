@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Web.Hosting;
@@ -14,28 +15,73 @@ namespace phiNdus.fundus.DbMigrations
     {
         public override void Up()
         {
+            Delete.FromTable("FieldValue").InSchema(SchemaName).AllRows();            
+            Delete.FromTable("Article").InSchema(SchemaName).AllRows();
             Delete.FromTable("OrganizationMembership").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Organization").InSchema(SchemaName).AllRows();
             Delete.FromTable("Membership").InSchema(SchemaName).AllRows();
             Delete.FromTable("User").InSchema(SchemaName).AllRows();
-
+            Delete.FromTable("Organization").InSchema(SchemaName).AllRows();
 
             Import<Organization>("Organizations.csv", "Organization");
             Import<User>("Users.csv", "User");
             Import<UserMembership>("Users.csv", "Membership", false);
             Import<Membership>("Memberships.csv", "OrganizationMembership", false);
+            ImportArticle();
+        }
+
+        private void ImportArticle()
+        {
+            var records = GetRecords<Article>("Articles.csv");
+            Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}].[{1}] ON", SchemaName, "Article"));
+
+            var fieldValueId = 1;
+            foreach (var each in records)
+            {
+                Insert.IntoTable("Article").InSchema(SchemaName).Row(new
+                                                                         {
+                                                                             @Id = each.Id,
+                                                                             @Version = each.Version,
+                                                                             @Type =
+                                                                         "phiNdus.fundus.Domain.Entities.Article",
+                                                                             @OrganizationId = each.OrganizationId,
+                                                                             CreateDate = DateTime.Now
+                                                                         });
+ 
+                Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
+                {
+                    Id = fieldValueId++,
+                    Version = each.Version,
+                    ArticleId = each.Id,
+                    FieldDefinitionId = 2,
+                    IsDiscriminator = false,
+                    TextValue = each.Name
+                });
+                Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
+                {
+                    Id = fieldValueId++,
+                    Version = each.Version,
+                    ArticleId = each.Id,
+                    FieldDefinitionId = 4,
+                    IsDiscriminator = false,
+                    DecimalValue = each.Preis
+                });
+                Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
+                {
+                    Id = fieldValueId++,
+                    Version = each.Version,
+                    ArticleId = each.Id,
+                    FieldDefinitionId = 10,
+                    IsDiscriminator = false,
+                    DecimalValue = each.Bestand
+                });
+            }
+
+            Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}].[{1}] OFF", SchemaName, "Article"));
         }
 
         private void Import<T>(string fileName, string tableName, bool allowIdentityInsert = true) where T : class
         {
-            var configuration = new CsvConfiguration
-                                    {
-                                        Delimiter = ";",
-                                        Encoding = Encoding.ASCII
-                                    };
-            var csv = new CsvReader(new StreamReader(HostingEnvironment.MapPath(@"~\App_Data\Seeds\" + fileName)),
-                                    configuration);
-            var records = csv.GetRecords<T>();
+            var records = GetRecords<T>(fileName);
 
             if (allowIdentityInsert)
                 Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}].[{1}] ON", SchemaName, tableName));
@@ -47,10 +93,78 @@ namespace phiNdus.fundus.DbMigrations
                 Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}].[{1}] OFF", SchemaName, tableName));
         }
 
+        private static IEnumerable<T> GetRecords<T>(string fileName) where T : class
+        {
+            var configuration = new CsvConfiguration
+                                    {
+                                        Delimiter = ";",
+                                        Encoding = Encoding.UTF8
+                                    };
+            var csv = new CsvReader(new StreamReader(HostingEnvironment.MapPath(@"~\App_Data\Seeds\" + fileName)),
+                                    configuration);
+            return csv.GetRecords<T>();
+        }
+
         public override void Down()
         {
             // Nothing to do here...
         }
+
+        #region Nested type: Article
+
+        public class Article
+        {
+            [CsvField(Name = "Id")]
+            public int Id { get; set; }
+
+            public int Version
+            {
+                get { return 1; }
+            }
+
+            [CsvField(Name = "OrganizationId")]
+            public int OrganizationId { get; set; }
+
+            [CsvField(Name = "Name")]
+            public string Name { get; set; }
+
+            [CsvField(Name = "Preis")]
+            public double Preis { get; set; }
+
+            [CsvField(Name = "Bestand")]
+            public double Bestand { get; set; }
+        }
+
+        #endregion
+
+        #region Nested type: Membership
+
+        public class Membership
+        {
+            private static int _id = 1;
+
+            public int Id
+            {
+                get { return _id++; }
+            }
+
+            public int Version
+            {
+                get { return 1; }
+            }
+
+            [CsvField(Name = "UserId")]
+            public int UserId { get; set; }
+
+            [CsvField(Name = "OrganizationId")]
+            public int OrganizationId { get; set; }
+
+            [CsvField(Name = "Role")]
+            [TypeConverter(typeof (RoleConverter))]
+            public int Role { get; set; }
+        }
+
+        #endregion
 
         #region Nested type: Organization
 
@@ -70,31 +184,12 @@ namespace phiNdus.fundus.DbMigrations
 
         #endregion
 
-        public class Membership
-        {
-            private static int _id = 1;
-            public int Id { get { return _id++; } }
-
-            public int Version
-            {
-                get { return 1; }
-            }
-
-            [CsvField(Name = "UserId")]
-            public int UserId { get; set; }
-
-            [CsvField(Name = "OrganizationId")]
-            public int OrganizationId { get; set; }
-
-            [CsvField(Name = "Role")]
-            [TypeConverter(typeof(RoleConverter))]
-            public int Role { get; set; }
-        }
-
         #region Nested type: User
 
         public class User
         {
+            private string _jsNumber;
+
             [CsvField(Name = "Id")]
             public int Id { get; set; }
 
@@ -124,8 +219,6 @@ namespace phiNdus.fundus.DbMigrations
 
             [CsvField(Name = "Mobile")]
             public string MobileNumber { get; set; }
-
-            private string _jsNumber;
 
             [CsvField(Name = "JS-Nummer")]
             public string JsNumber
