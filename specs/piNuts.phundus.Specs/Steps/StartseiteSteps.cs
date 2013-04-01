@@ -53,10 +53,9 @@ namespace piNuts.phundus.Specs.Steps
         [Then(@"sollte ich als ""(.*)"" angemeldet sein")]
         public void DannSollteIchAlsAngemeldetSein(string userName)
         {
-            var pattern = @"Angemeldet als\s+<a href=""([^\""]+)\"">" + userName + "</a>";
-            var regex = new Regex(pattern, RegexOptions.Singleline);
-            Assert.That(regex.Match(Browser.Body.InnerHtml).Success,
-                String.Format("\"{0}\" in Body.InnerHtml nicht gefunden.", pattern));            
+            var link = Browser.Link(Find.ByClass("loggedOnTag"));
+            Assert.That(link, Is.Not.Null);
+            Assert.That(link.InnerHtml, Is.EqualTo(userName));
         }
 
         [Then(@"ich sollte auf der Startseite sein")]
