@@ -80,7 +80,7 @@
     <Compile Include="2013\02\M201302252319_MoveUsersToDefaultOrganization.cs" />
     <Compile Include="2013\04\M01_11_13_AlterFkOrderItemToOrder.cs" />
     <Compile Include="2013\04\M01_09_24_AlterFkCartItemToCart.cs" />
-    <Compile Include="2013\04\Z_Future_DeleteSettings.cs" />
+    <Compile Include="2013\04\M01_17_53_DeleteSettings.cs" />
     <Compile Include="2013\03\M201303080004_AddColumnSelectedOrganizationId.cs" />
     <Compile Include="2013\03\M201303082109_InsertAndUpdateRoles.cs" />
     <Compile Include="2013\03\M201303211953_ArticleAddColumnOrganizationId.cs" />
