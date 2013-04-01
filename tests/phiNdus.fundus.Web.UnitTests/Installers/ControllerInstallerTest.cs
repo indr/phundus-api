@@ -5,7 +5,7 @@ using Castle.Windsor;
 using Castle.MicroKernel;
 using System.Web.Mvc;
 using Castle.Core;
-using phiNdus.fundus.Web.Installers;
+using phiNdus.fundus.Web.App_Start.Installers;
 using phiNdus.fundus.Web.Controllers;
 
 namespace phiNdus.fundus.Web.UnitTests.Installers {

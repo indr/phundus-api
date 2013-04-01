@@ -8,7 +8,7 @@ namespace phiNdus.fundus.Web.Controllers
 {
     using Domain.Infrastructure;
 
-    public class FeedbackController : Controller
+    public class FeedbackController : ControllerBase
     {
         public IMailGateway MailGateway { get; set; }
 

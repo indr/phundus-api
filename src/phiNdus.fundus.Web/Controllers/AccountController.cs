@@ -12,7 +12,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
         public AccountController()
         {

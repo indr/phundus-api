@@ -10,7 +10,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class UsersController : Controller
+    public class UsersController : ControllerBase
     {
         private static IUserService UserService
         {

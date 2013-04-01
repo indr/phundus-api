@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
@@ -14,13 +15,14 @@ namespace phiNdus.fundus.Domain
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(AllTypes.FromAssemblyContaining(typeof (EntityBase))
-                                   .BasedOn(typeof (IRepository<>))
-                                   .WithService.AllInterfaces()
-                                   .Configure(c => c.LifeStyle.Transient));
+            container.Register(Types.FromAssemblyContaining(typeof (EntityBase))
+                                   //.BasedOn(typeof (IRepository<>))
+                                   .BasedOn(typeof (NHRepository<>))
+                                   .WithServiceAllInterfaces()
+                                   .LifestyleTransient());
+
             container.Register(Component.For<IReservationRepository>()
                                    .ImplementedBy<ReservationRepository>());
-
 
             container.Register(Component.For<IUnitOfWorkFactory>()
                                    .Instance(

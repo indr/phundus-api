@@ -13,10 +13,10 @@ namespace phiNdus.fundus.Business
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(AllTypes.FromThisAssembly()
+            container.Register(Types.FromThisAssembly()
                                    .BasedOn<SecuredServiceBase>()
                                    .WithService.AllInterfaces()
-                                   .Configure(c => c.LifeStyle.Transient));
+                                   .LifestyleTransient());
 
             container.Register(Component.For<Secured>()
                                    .ImplementedBy(typeof (Secured))

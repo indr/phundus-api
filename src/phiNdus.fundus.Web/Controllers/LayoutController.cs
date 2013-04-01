@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using NHibernate;
 using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.Web.ViewModels.Layout;
@@ -6,13 +7,16 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
-    public class LayoutController : Controller
+    public class LayoutController : ControllerBase
     {
         public IUserRepository UserRepository { get; set; }
 
         [ChildActionOnly]
         public ActionResult NavBar()
         {
+            var resolved = IoC.Resolve<IUserRepository>();
+            if (resolved == null)
+                throw new Exception("IUserRepository nicht installiert.");
             var model = new NavBarModel();
             using (UnitOfWork.Start())
             {
