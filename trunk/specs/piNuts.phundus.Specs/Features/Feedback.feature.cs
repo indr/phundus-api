@@ -77,7 +77,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 9
  testRunner.And("ich tippe ins Feld \"Feedback\" \"Hallo\" ein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line 10
- testRunner.When("ich auf \"Senden\" drücke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.When("ich auf \"Senden\" klicke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
 #line 11
  testRunner.Then("muss die Meldung \"Das Feld \"E-Mail-Adresse\" ist erforderlich.\" erscheinen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line 12
@@ -98,7 +98,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 17
  testRunner.And("ich tippe ins Feld \"E-Mail-Adresse\" \"user@example.com\" ein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line 18
- testRunner.When("ich auf \"Senden\" drücke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.When("ich auf \"Senden\" klicke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
 #line 19
  testRunner.Then("muss die Meldung \"Das Feld \"Feedback\" ist erforderlich.\" erscheinen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line 20
@@ -125,7 +125,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("ich füge ins Feld \"Feedback\" ein:", "Grüsse vom Feedback-Feature-Szenario \"Feedback senden\"!\r\n\r\nServer-Url: {AppSettin" +
                     "gs.ServerUrl}\r\nVersion: {Assembly.Version}", ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line 34
- testRunner.When("ich auf \"Senden\" drücke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.When("ich auf \"Senden\" klicke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
 #line 35
  testRunner.Then("muss die Meldung \"Merci!\" erscheinen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line hidden

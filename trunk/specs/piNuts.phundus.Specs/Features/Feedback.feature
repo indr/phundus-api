@@ -7,7 +7,7 @@
 Szenario: Feedback ohne Angabe der E-Mail-Adresse
 	Angenommen ich bin auf der Feedbackseite
 	Und ich tippe ins Feld "Feedback" "Hallo" ein
-	Wenn ich auf "Senden" drücke
+	Wenn ich auf "Senden" klicke
 	Dann muss die Meldung "Das Feld "E-Mail-Adresse" ist erforderlich." erscheinen
 	Und muss das Feld "E-Mail-Adresse" rot sein
 
@@ -15,7 +15,7 @@ Szenario: Feedback ohne Angabe der E-Mail-Adresse
 Szenario: Feedback ohne Angabe des Feedbacks
 	Angenommen ich bin auf der Feedbackseite
 	Und ich tippe ins Feld "E-Mail-Adresse" "user@example.com" ein
-	Wenn ich auf "Senden" drücke
+	Wenn ich auf "Senden" klicke
 	Dann muss die Meldung "Das Feld "Feedback" ist erforderlich." erscheinen
 	Und muss das Feld "Feedback" rot sein
 
@@ -31,7 +31,7 @@ Szenario: Feedback senden
 		Server-Url: {AppSettings.ServerUrl}
 		Version: {Assembly.Version}
 		"""
-	Wenn ich auf "Senden" drücke
+	Wenn ich auf "Senden" klicke
 	Dann muss die Meldung "Merci!" erscheinen
 	Und muss "user@test.phundus.ch" ein E-Mail erhalten mit dem Betreff "Vielen Dank fürs Feedback" und dem Text:
 		"""

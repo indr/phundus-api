@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
 using WatiN.Core;
 
@@ -47,6 +48,20 @@ namespace piNuts.phundus.Specs.Steps
             var actual = Browser.Span(Find.ByClass("serverUrlTag")).Link(Find.ByText("phundus")).Url;
             actual = actual.TrimEnd('/');
             Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Then(@"sollte ich als ""(.*)"" angemeldet sein")]
+        public void DannSollteIchAlsAngemeldetSein(string userName)
+        {
+            var pattern = @"Angemeldet als\s+<a href=""([^\""]+)\"">" + userName + "</a>";
+            var regex = new Regex(pattern, RegexOptions.Singleline);
+            Assert.That(regex.Match(Browser.Body.InnerHtml).Success);            
+        }
+
+        [Then(@"ich sollte auf der Startseite sein")]
+        public void DannIchSollteAufDerStartseiteSein()
+        {
+            Assert.That(Browser.Url, Is.EqualTo("http://" + BaseUrl + "/"));
         }
 
     }
