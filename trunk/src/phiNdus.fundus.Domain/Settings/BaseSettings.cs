@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Repositories;
-using Rhino.Commons;
-
-namespace phiNdus.fundus.Domain.Settings
+﻿namespace phiNdus.fundus.Domain.Settings
 {
+    using System.Collections.Generic;
+    using Entities;
+    using Repositories;
+    using Rhino.Commons;
+
     public class BaseSettings
     {
         private readonly string _keyspace;

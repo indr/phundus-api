@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
-using phiNdus.fundus.Domain.Settings;
-
-namespace phiNdus.fundus.Domain.UnitTests.Settings
+﻿namespace phiNdus.fundus.Domain.UnitTests.Settings
 {
+    using Domain.Settings;
+    using NUnit.Framework;
+
     [TestFixture]
     public class MailSettingsTest
     {
@@ -17,13 +17,6 @@ namespace phiNdus.fundus.Domain.UnitTests.Settings
         #endregion
 
         protected MailSettings Sut { get; set; }
-
-        [Test]
-        public void Can_get_Smtp()
-        {
-            var smtpSettings = Sut.Smtp;
-            Assert.That(smtpSettings, Is.Not.Null);
-        }
 
         [Test]
         public void Can_get_Templates()

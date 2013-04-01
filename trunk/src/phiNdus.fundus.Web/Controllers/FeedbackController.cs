@@ -6,6 +6,8 @@ using phiNdus.fundus.Web.Models;
 
 namespace phiNdus.fundus.Web.Controllers
 {
+    using Domain.Infrastructure;
+
     public class FeedbackController : Controller
     {
         public IMailGateway MailGateway { get; set; }
@@ -24,7 +26,7 @@ namespace phiNdus.fundus.Web.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            MailGateway.Send(ConfigurationManager.AppSettings["FeedbackRecipients"],
+            MailGateway.Send(Config.FeedbackRecipients,
                 @"[phundus] Feedback",
                 @"Feedback von " + model.EmailAddress + Environment.NewLine + Environment.NewLine + model.Comment);
             

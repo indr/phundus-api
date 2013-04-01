@@ -107,7 +107,6 @@
     <Compile Include="Repositories\SettingRepositoryTests.cs" />
     <Compile Include="Repositories\UserRepositoryTests.cs" />
     <Compile Include="SessionKeyGeneratorTests.cs" />
-    <Compile Include="Settings\HowToMockSettingsTests.cs" />
     <Compile Include="Settings\MailSettingsTest.cs" />
     <Compile Include="Settings\MailTemplatesSettingsTests.cs" />
     <Compile Include="Settings\SettingsTests.cs" />

@@ -90,7 +90,6 @@ namespace phiNdus.fundus.Business.UnitTests.Mails
             {
                 Expect.Call(MockMailTemplateSettings.Subject).Return("Subject");
                 Expect.Call(MockMailTemplateSettings.TextBody).Return("Start[Test.ImNull]End");
-                Expect.Call(MockSettings.Common.ServerUrl).Return("fundus.domain.test");
 
                 Expect.Call(() => MockMailGateway.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything,
                                                        Arg<string>.Matches(y => y.StartsWith("StartEnd"))));
@@ -111,7 +110,6 @@ namespace phiNdus.fundus.Business.UnitTests.Mails
             {
                 Expect.Call(MockMailTemplateSettings.Subject).Return("Subject");
                 Expect.Call(MockMailTemplateSettings.TextBody).Return("[Link.UserAccountValidation]");
-                Expect.Call(MockSettings.Common.ServerUrl).Return("fundus.domain.test");
 
                 Expect.Call(() => MockMailGateway.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything,
                     Arg<string>.Matches(y => y.StartsWith("http://fundus.domain.test/Account/Validation/[Membership.ValidationKey]"))));
@@ -131,7 +129,6 @@ namespace phiNdus.fundus.Business.UnitTests.Mails
             {
                 Expect.Call(MockMailTemplateSettings.Subject).Return("Subject");
                 Expect.Call(MockMailTemplateSettings.TextBody).Return("[Test.FirstVariable]");
-                Expect.Call(MockSettings.Common.ServerUrl).Return("fundus.domain.test");
 
                 Expect.Call(() => MockMailGateway.Send(Arg<string>.Is.Anything, Arg<string>.Is.Anything,
                                                        Arg<string>.Matches(

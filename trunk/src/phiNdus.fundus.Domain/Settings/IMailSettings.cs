@@ -2,7 +2,6 @@
 {
     public interface IMailSettings
     {
-        ISmtpSettings Smtp { get; }
         IMailTemplatesSettings Templates { get; }
     }
 }

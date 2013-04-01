@@ -11,6 +11,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services
 {
+    using System.Configuration;
+    using Domain.Infrastructure;
+
     public class UserService : BaseService
     {
         private static IUserRepository Users
@@ -269,7 +272,7 @@ namespace phiNdus.fundus.Business.Services
                 if (result)
                     Users.Update(user);
 
-                new UserAccountCreatedMail().For(user).Send(Settings.Common.AdminEmailAddress);
+                new UserAccountCreatedMail().For(user).Send(Config.FeedbackRecipients);
 
                 uow.TransactionalFlush();
             }
