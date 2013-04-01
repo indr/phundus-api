@@ -40,7 +40,10 @@ namespace piNuts.phundus.Specs
         [AfterTestRun]
         public static void AfterTestRun()
         {
-            Browser.Current.Close();
+            if (ConfigurationManager.AppSettings["ForceClose"] == "true")
+                Browser.Current.ForceClose();
+            else
+                Browser.Current.Close();
         }
     }
 }
