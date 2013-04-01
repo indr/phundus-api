@@ -186,7 +186,7 @@
     <Content Include="App_Data\Seeds\Memberships.csv" />
     <Content Include="App_Data\Seeds\Organizations.csv" />
     <Content Include="App_Data\Seeds\Users.csv" />
-    <None Include="App_Data\Seeds\Articles.csv" />
+    <Content Include="App_Data\Seeds\Articles.csv" />
     <None Include="Parameters.xml" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-image-gallery.js" />
