@@ -65,15 +65,37 @@ namespace piNuts.phundus.Specs.Features
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 6
+#line 7
+ testRunner.Given("ich bin als Benutzer angemeldet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+#line 8
+ testRunner.And("mein Warenkorb ist leer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+#line hidden
+        }
+        
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Checkout")]
-        [NUnit.Framework.IgnoreAttribute()]
         public virtual void Checkout()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Checkout", new string[] {
-                        "ignore"});
-#line 7
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Checkout", ((string[])(null)));
+#line 11
 this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 12
+ testRunner.Given("ich lege den Artikel mit der Id 10001 in den Warenkorb", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+#line 13
+ testRunner.And("ich lege den Artikel mit der Id 10002 in den Warenkorb", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+#line 14
+ testRunner.When("ich bestelle", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 15
+ testRunner.Then("muss \"chief-1@test.phundus.ch\" ein E-Mail erhalten mit dem Betreff \"[phundus] Neu" +
+                    "e Bestellung\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+#line 16
+ testRunner.And("muss \"chief-2@test.phundus.ch\" ein E-Mail erhalten mit dem Betreff \"[phundus] Neu" +
+                    "e Bestellung\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
             this.ScenarioCleanup();
         }

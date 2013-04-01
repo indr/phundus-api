@@ -3,9 +3,15 @@
 	As a math idiot
 	I want to be told the sum of two numbers
 
-@ignore
+Grundlage: 
+	Angenommen ich bin als Benutzer angemeldet
+	Und mein Warenkorb ist leer
+
+
 Szenario: Checkout 
-	Given I have entered 50 into the calculator
-	And I have entered 70 into the calculator
-	When I press add
-	Then the result should be 120 on the screen
+	Angenommen ich lege den Artikel mit der Id 10001 in den Warenkorb
+	Und ich lege den Artikel mit der Id 10002 in den Warenkorb
+	Wenn ich bestelle
+	Dann muss "chief-1@test.phundus.ch" ein E-Mail erhalten mit dem Betreff "[phundus] Neue Bestellung"
+	Und muss "chief-2@test.phundus.ch" ein E-Mail erhalten mit dem Betreff "[phundus] Neue Bestellung"
+

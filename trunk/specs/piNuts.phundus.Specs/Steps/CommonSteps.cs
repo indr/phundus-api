@@ -25,6 +25,15 @@ namespace piNuts.phundus.Specs.Steps
             Browser.GoTo(link.Url);
         }
 
+        [Given(@"ich bin als Benutzer angemeldet")]
+        public void AngenommenIchBinAlsBenutzerAngemeldet()
+        {
+            Browser.GoTo(BaseUrl + "/account/logon");
+            AngenommenIchFügeInsFeldEin("E-Mail-Adresse", "user@test.phundus.ch");
+            AngenommenIchFügeInsFeldEin("Passwort", "1234");
+            Browser.Button(Find.ByValue("Anmelden")).Click();
+        }
+
         [Given(@"ich tippe ins Feld ""(.*)"" ""(.*)"" ein")]
         public void AngenommenIchTippeInsFeldEin(string feld, string text)
         {

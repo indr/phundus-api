@@ -17,19 +17,21 @@ namespace phiNdus.fundus.DbMigrations
         {
             Delete.FromTable("Cart").InSchema(SchemaName).AllRows();
             Delete.FromTable("Order").InSchema(SchemaName).AllRows();
-            Delete.FromTable("FieldValue").InSchema(SchemaName).AllRows();   
+            Delete.FromTable("FieldValue").InSchema(SchemaName).AllRows();
             Delete.FromTable("Image").InSchema(SchemaName).AllRows();
             Delete.FromTable("Article").InSchema(SchemaName).AllRows();
             Delete.FromTable("OrganizationMembership").InSchema(SchemaName).AllRows();
             Delete.FromTable("Membership").InSchema(SchemaName).AllRows();
             Delete.FromTable("User").InSchema(SchemaName).AllRows();
             Delete.FromTable("Organization").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Setting").InSchema(SchemaName).AllRows();
 
             Import<Organization>("Organizations.csv", "Organization");
             Import<User>("Users.csv", "User");
             Import<UserMembership>("Users.csv", "Membership", false);
             Import<Membership>("Memberships.csv", "OrganizationMembership", false);
             ImportArticle();
+            Import<Setting>("Settings.csv", "Setting", false);
         }
 
         private void ImportArticle()
@@ -42,41 +44,41 @@ namespace phiNdus.fundus.DbMigrations
             {
                 Insert.IntoTable("Article").InSchema(SchemaName).Row(new
                                                                          {
-                                                                             @Id = each.Id,
-                                                                             @Version = each.Version,
+                                                                             each.Id,
+                                                                             each.Version,
                                                                              @Type =
                                                                          "phiNdus.fundus.Domain.Entities.Article",
-                                                                             @OrganizationId = each.OrganizationId,
+                                                                             each.OrganizationId,
                                                                              CreateDate = DateTime.Now
                                                                          });
- 
+
                 Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                {
-                    Id = fieldValueId++,
-                    Version = each.Version,
-                    ArticleId = each.Id,
-                    FieldDefinitionId = 2,
-                    IsDiscriminator = false,
-                    TextValue = each.Name
-                });
+                                                                            {
+                                                                                Id = fieldValueId++,
+                                                                                each.Version,
+                                                                                ArticleId = each.Id,
+                                                                                FieldDefinitionId = 2,
+                                                                                IsDiscriminator = false,
+                                                                                TextValue = each.Name
+                                                                            });
                 Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                {
-                    Id = fieldValueId++,
-                    Version = each.Version,
-                    ArticleId = each.Id,
-                    FieldDefinitionId = 4,
-                    IsDiscriminator = false,
-                    DecimalValue = each.Preis
-                });
+                                                                            {
+                                                                                Id = fieldValueId++,
+                                                                                each.Version,
+                                                                                ArticleId = each.Id,
+                                                                                FieldDefinitionId = 4,
+                                                                                IsDiscriminator = false,
+                                                                                DecimalValue = each.Preis
+                                                                            });
                 Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                {
-                    Id = fieldValueId++,
-                    Version = each.Version,
-                    ArticleId = each.Id,
-                    FieldDefinitionId = 10,
-                    IsDiscriminator = false,
-                    IntegerValue = each.Bestand
-                });
+                                                                            {
+                                                                                Id = fieldValueId++,
+                                                                                each.Version,
+                                                                                ArticleId = each.Id,
+                                                                                FieldDefinitionId = 10,
+                                                                                IsDiscriminator = false,
+                                                                                IntegerValue = each.Bestand
+                                                                            });
             }
 
             Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}].[{1}] OFF", SchemaName, "Article"));
@@ -183,6 +185,24 @@ namespace phiNdus.fundus.DbMigrations
 
             [CsvField(Name = "Name")]
             public string Name { get; set; }
+        }
+
+        #endregion
+
+        #region Nested type: Setting
+
+        public class Setting
+        {
+            public int Version
+            {
+                get { return 1; }
+            }
+
+            [CsvField(Name = "Key")]
+            public string Key { get; set; }
+
+            [CsvField(Name = "StringValue")]
+            public string StringValue { get; set; }
         }
 
         #endregion

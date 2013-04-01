@@ -183,6 +183,7 @@
     <Content Include="App_Data\Seeds\Organizations.csv" />
     <Content Include="App_Data\Seeds\Users.csv" />
     <Content Include="App_Data\Seeds\Articles.csv" />
+    <Content Include="App_Data\Seeds\Settings.csv" />
     <None Include="Parameters.xml" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-image-gallery.js" />

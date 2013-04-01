@@ -90,6 +90,7 @@
     <Compile Include="Infrastructure\Mailbox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Browsers\Browser.cs" />
+    <Compile Include="Steps\ShopSteps.cs" />
     <Compile Include="Steps\CommonSteps.cs" />
     <Compile Include="Steps\FeedbackSteps.cs" />
     <Compile Include="Steps\LoginSteps.cs" />
