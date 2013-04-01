@@ -4,7 +4,7 @@ using phiNdus.fundus.Web.ViewModels;
 namespace phiNdus.fundus.Web.Controllers
 {
     [Authorize]
-    public class ContractController : Controller
+    public class ContractController : ControllerBase
     {
         //
         // GET: /Contract/

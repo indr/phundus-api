@@ -60,7 +60,7 @@ namespace phiNdus.fundus.TestHelpers.TestBases
             return result;
         }
 
-        protected T Obsolete_CreateAndRegisterStrictMock<T>()
+        protected T Obsolete_CreateAndRegisterStrictMock<T>() where T : class
         {
             var result = Obsolete_MockFactory.StrictMock<T>();
             IoC.Container.Register(Component.For<T>().Instance(result));

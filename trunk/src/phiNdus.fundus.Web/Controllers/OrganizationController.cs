@@ -9,7 +9,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
-    public class OrganizationController : Controller
+    public class OrganizationController : ControllerBase
     {
         public IOrganizationRepository Organizations { get; set; }
         public IUserRepository Users { get; set; }

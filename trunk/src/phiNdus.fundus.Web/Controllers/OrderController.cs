@@ -7,7 +7,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Web.Controllers
 {
     [Authorize]
-    public class OrderController : Controller
+    public class OrderController : ControllerBase
     {
         //
         // GET: /Order/

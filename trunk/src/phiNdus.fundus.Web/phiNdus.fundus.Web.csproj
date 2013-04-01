@@ -214,9 +214,9 @@
     <Compile Include="Helpers\HtmlExtensions.cs" />
     <Compile Include="Helpers\ActionLinkExtensions.cs" />
     <Compile Include="Helpers\MvcContainer.cs" />
-    <Compile Include="Installers\AuthenticationInstaller.cs" />
-    <Compile Include="Installers\ControllerInstaller.cs" />
-    <Compile Include="Installers\LoggerInstaller.cs" />
+    <Compile Include="App_Start\Installers\AuthenticationInstaller.cs" />
+    <Compile Include="App_Start\Installers\ControllerInstaller.cs" />
+    <Compile Include="App_Start\Installers\LoggerInstaller.cs" />
     <None Include="App_Data\Empty.mdf" />
     <None Include="App_Data\Empty_log.ldf">
       <DependentUpon>Empty.mdf</DependentUpon>
