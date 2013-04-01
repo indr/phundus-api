@@ -8,12 +8,12 @@ namespace phiNdus.fundus.Web.Helpers
 {
     public static class LabelExtensions
     {
-        public static MvcHtmlString LabelFor<TModel, TValue>(this HtmlHelper<TModel> html,
-                                                             Expression<Func<TModel, TValue>> expression,
-                                                             object htmlAttributes)
-        {
-            return html.LabelFor(expression, null, htmlAttributes);
-        }
+        //public static MvcHtmlString LabelFor<TModel, TValue>(this HtmlHelper<TModel> html,
+        //                                                     Expression<Func<TModel, TValue>> expression,
+        //                                                     object htmlAttributes)
+        //{
+        //    return html.LabelFor(expression, null, htmlAttributes);
+        //}
 
         public static MvcHtmlString LabelFor<TModel, TValue>(this HtmlHelper<TModel> html,
                                                              Expression<Func<TModel, TValue>> expression,
