@@ -94,7 +94,13 @@ namespace phiNdus.fundus.Web
         {
             using (var writer = new StreamWriter(Server.MapPath(@"~\App_Data\Logs\DbMigration.log"), true))
             {
-                Runner.MigrateToLatest(ConfigurationManager.ConnectionStrings["phundus"].ConnectionString, writer);
+                var connectionString = ConfigurationManager.ConnectionStrings["phundus"].ConnectionString;
+                var tags = ConfigurationManager.AppSettings["Tags"].Split(',');
+
+                Runner.MigrateToLatest(
+                    connectionString,
+                    writer,
+                    tags);
             }
         }
 
