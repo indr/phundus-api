@@ -13,11 +13,6 @@
 
         #region IMailSettings Members
 
-        public ISmtpSettings Smtp
-        {
-            get { return new SmtpSettings(Keyspace + ".smtp"); }
-        }
-
         public IMailTemplatesSettings Templates
         {
             get { return new MailTemplatesSettings(Keyspace + ".templates"); }

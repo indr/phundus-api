@@ -31,9 +31,6 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.UserService
             StubSettings = MockRepository.GenerateMock<ISettings>();
             Settings.SetGlobalNonThreadSafeSettings(StubSettings);
             StubSettings.Stub(x => x.Mail).Return(MockRepository.GenerateMock<IMailSettings>());
-            StubSettings.Stub(x => x.Common).Return(MockRepository.GenerateMock<ICommonSettings>());
-            StubSettings.Common.Stub(x => x.ServerUrl).Return("fundus.example.com");
-            StubSettings.Mail.Stub(x => x.Smtp).Return(MockRepository.GenerateMock<ISmtpSettings>());
             StubSettings.Mail.Stub(x => x.Templates).Return(MockRepository.GenerateMock<IMailTemplatesSettings>());
             StubSettings.Mail.Templates.Stub(x => x.UserAccountValidation).Return(MockRepository.GenerateMock<IMailTemplateSettings>());
             StubSettings.Mail.Templates.UserAccountValidation.Stub(x => x.Subject).Return("");

@@ -6,6 +6,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Mails
 {
+    using System.Configuration;
+    using Domain.Infrastructure;
+
     public class UserChangeEmailValidationMail : BaseMail
     {
         public UserChangeEmailValidationMail()
@@ -26,7 +29,7 @@ namespace phiNdus.fundus.Business.Mails
             Model = new
             {
                 Settings = Settings.GetSettings(),
-                Urls = new Urls(Settings.Common.ServerUrl),
+                Urls = new Urls(Config.ServerUrl),
                 User = user
             };
             //DataContext.Add("User", user);
@@ -55,7 +58,7 @@ namespace phiNdus.fundus.Business.Mails
             Model = new
             {
                 Settings = Settings.GetSettings(),
-                Urls = new Urls(Settings.Common.ServerUrl),
+                Urls = new Urls(Config.ServerUrl),
                 Password = password,
                 User = user
             };
@@ -81,7 +84,7 @@ namespace phiNdus.fundus.Business.Mails
             Model = new
                         {
                             Settings = Settings.GetSettings(),
-                            Urls = new Urls(Settings.Common.ServerUrl),
+                            Urls = new Urls(Config.ServerUrl),
                             User = user
                         };
             //DataContext.Add("User", user);
@@ -110,7 +113,7 @@ namespace phiNdus.fundus.Business.Mails
             Model = new
             {
                 Settings = Settings.GetSettings(),
-                Urls = new Urls(Settings.Common.ServerUrl),
+                Urls = new Urls(Config.ServerUrl),
                 User = user
             };
             //DataContext.Add("User", user);
@@ -144,7 +147,7 @@ namespace phiNdus.fundus.Business.Mails
             Model = new
             {
                 Settings = Settings.GetSettings(),
-                Urls = new Urls(Settings.Common.ServerUrl),
+                Urls = new Urls(Config.ServerUrl),
                 User = user
             };
             //DataContext.Add("User", user);
@@ -178,7 +181,7 @@ namespace phiNdus.fundus.Business.Mails
             Model = new
                         {
                             Settings = Settings.GetSettings(),
-                            Urls = new Urls(Settings.Common.ServerUrl),
+                            Urls = new Urls(Config.ServerUrl),
                             User = user
                         };
             //DataContext.Add("User", user);
@@ -204,7 +207,7 @@ namespace phiNdus.fundus.Business.Mails
             Model = new
                         {
                             Settings = Settings.GetSettings(),
-                            Urls = new Urls(Settings.Common.ServerUrl),
+                            Urls = new Urls(Config.ServerUrl),
                             User = order.Reserver,
                             Order = order
                         };
@@ -241,7 +244,7 @@ namespace phiNdus.fundus.Business.Mails
             Model = new
             {
                 Settings = Settings.GetSettings(),
-                Urls = new Urls(Settings.Common.ServerUrl),
+                Urls = new Urls(Config.ServerUrl),
                 User = order.Reserver,
                 Order = order
             };
@@ -271,7 +274,7 @@ namespace phiNdus.fundus.Business.Mails
             Model = new
             {
                 Settings = Settings.GetSettings(),
-                Urls = new Urls(Settings.Common.ServerUrl),
+                Urls = new Urls(Config.ServerUrl),
                 User = order.Reserver,
                 Order = order
             };

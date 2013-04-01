@@ -1,22 +1,16 @@
-﻿using NUnit.Framework;
-
-namespace phiNdus.fundus.Domain.UnitTests.Settings
+﻿namespace phiNdus.fundus.Domain.UnitTests.Settings
 {
+    using Domain.Settings;
+    using NUnit.Framework;
+
     [TestFixture]
     public class SettingsTests
     {
         [Test]
         public void CanGetMail()
         {
-            var mailSettings = Domain.Settings.Settings.Mail;
+            var mailSettings = Settings.Mail;
             Assert.That(mailSettings, Is.Not.Null);
-        }
-
-        [Test]
-        public void CanGetCommon()
-        {
-            var commonSettings = Domain.Settings.Settings.Common;
-            Assert.That(commonSettings, Is.Not.Null);
         }
     }
 }

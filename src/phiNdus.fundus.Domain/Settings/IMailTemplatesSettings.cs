@@ -2,7 +2,6 @@
 {
     public interface IMailTemplatesSettings
     {
-        
         IMailTemplateSettings OrderRejected { get; }
         IMailTemplateSettings OrderApproved { get; }
         IMailTemplateSettings OrderReceived { get; }
@@ -12,6 +11,5 @@
         IMailTemplateSettings UserResetPasswordMail { get; }
         IMailTemplateSettings UserUnlocked { get; }
         IMailTemplateSettings UserLockedOut { get; }
-        
     }
 }

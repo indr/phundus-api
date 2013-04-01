@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace phiNdus.fundus.Domain.Settings
+﻿namespace phiNdus.fundus.Domain.Settings
 {
     public class MailTemplateSettings : BaseSettings, IMailTemplateSettings
     {

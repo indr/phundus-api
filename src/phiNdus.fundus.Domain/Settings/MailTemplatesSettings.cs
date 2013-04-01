@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace phiNdus.fundus.Domain.Settings
+﻿namespace phiNdus.fundus.Domain.Settings
 {
     public class MailTemplatesSettings : BaseSettings, IMailTemplatesSettings
     {
@@ -27,7 +25,7 @@ namespace phiNdus.fundus.Domain.Settings
 
         public IMailTemplateSettings UserResetPasswordMail
         {
-            get { return new MailTemplateSettings(Keyspace + ".user-reset-password");}
+            get { return new MailTemplateSettings(Keyspace + ".user-reset-password"); }
         }
 
         public IMailTemplateSettings OrderRejected

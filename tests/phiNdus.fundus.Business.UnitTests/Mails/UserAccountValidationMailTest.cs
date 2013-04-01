@@ -37,7 +37,6 @@ namespace phiNdus.fundus.Business.UnitTests.Mails
 
             MockSettings = MockFactory.Stub<ISettings>();
             MockMailTemplateSettings = MockFactory.Stub<IMailTemplateSettings>();
-            MockCommonSettings = MockFactory.Stub<ICommonSettings>();
 
             User = new User();
             User.FirstName = "Ted";
@@ -46,22 +45,17 @@ namespace phiNdus.fundus.Business.UnitTests.Mails
             User.Membership.GenerateValidationKey();
         }
 
-        protected ICommonSettings MockCommonSettings { get; set; }
-
         private void RecordSettings()
         {
             Settings.SetGlobalNonThreadSafeSettings(MockSettings);
             Expect.Call(MockSettings.Mail.Templates.UserAccountValidation)
                 .Return(MockMailTemplateSettings).Repeat.Any();
-            Expect.Call(MockSettings.Common)
-                .Return(MockCommonSettings).Repeat.Any();
 
             Expect.Call(MockMailTemplateSettings.Subject)
                 .Return("[fundus] User Account Validation").Repeat.Any();
             Expect.Call(MockMailTemplateSettings.TextBody)
                 .Return("Hello [User.FirstName]\r\n\r\nPlease go to the following link in order to validate your account:\r\n[Link.UserAccountValidation]\r\n\r\nThanks")
                 .Repeat.Any();
-            Expect.Call(MockCommonSettings.ServerUrl).Return("fundus.domain.com").Repeat.Any();
         }
 
         private IMailTemplateSettings MockMailTemplateSettings { get; set; }

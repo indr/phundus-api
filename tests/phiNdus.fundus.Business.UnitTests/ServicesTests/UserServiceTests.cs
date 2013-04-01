@@ -35,8 +35,6 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests
 
         #endregion
 
-        protected ICommonSettings StubCommonSettings { get; set; }
-
         protected IMailTemplateSettings StubMailTemplateSettings { get; set; }
 
         protected ISettings StubSettings { get; set; }

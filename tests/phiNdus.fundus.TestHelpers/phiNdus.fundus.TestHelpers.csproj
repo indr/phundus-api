@@ -48,9 +48,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="OpenPop">
-      <HintPath>..\..\tools\OpenPop.NET\binaries\unsigned\OpenPop.dll</HintPath>
-    </Reference>
     <Reference Include="Rhino.Commons, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.dll</HintPath>
@@ -80,7 +77,6 @@
     <Compile Include="TestBases\ComponentTestBase.cs" />
     <Compile Include="TestBases\ExceptionTestBase.cs" />
     <Compile Include="TestBases\InMemoryDatabaseTestBase.cs" />
-    <Compile Include="Helpers\Pop3Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBases\TestBase.cs" />
     <Compile Include="TestBases\UnitTestBase.cs" />

@@ -60,6 +60,7 @@
       <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -91,6 +92,7 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Factories\ReservationFactory.cs" />
     <Compile Include="IllegalAttachedFieldException.cs" />
+    <Compile Include="Infrastructure\Config.cs" />
     <Compile Include="Installer.cs" />
     <Compile Include="InvalidPasswordException.cs" />
     <Compile Include="Inventory\AvailabilityChecker.cs" />
@@ -119,19 +121,15 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="SessionKeyGenerator.cs" />
     <Compile Include="Settings\BaseSettings.cs" />
-    <Compile Include="Settings\CommonSettings.cs" />
-    <Compile Include="Settings\ICommonSettings.cs" />
     <Compile Include="Settings\IMailSettings.cs" />
     <Compile Include="Settings\IMailTemplateSettings.cs" />
     <Compile Include="Settings\IMailTemplatesSettings.cs" />
     <Compile Include="Settings\ISettings.cs" />
-    <Compile Include="Settings\ISmtpSettings.cs" />
     <Compile Include="Settings\MailSettings.cs" />
     <Compile Include="Settings\MailTemplateSettings.cs" />
     <Compile Include="Settings\MailTemplatesSettings.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Settings\SettingsImpl.cs" />
-    <Compile Include="Settings\SmtpSettings.cs" />
     <Compile Include="UserLockedOutException.cs" />
     <Compile Include="UserNotApprovedException.cs" />
   </ItemGroup>

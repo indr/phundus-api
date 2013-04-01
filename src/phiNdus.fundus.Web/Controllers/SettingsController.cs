@@ -119,7 +119,7 @@ namespace phiNdus.fundus.Web.Controllers
             }
 
 
-            var gateway = new MailGateway(model.TestHost, model.TestUserName, model.TestPassword, model.TestFrom);
+            var gateway = new MailGateway();
             gateway.Send(model.TestTo, "[fundus] Test E-Mail", body);
 
             return null;

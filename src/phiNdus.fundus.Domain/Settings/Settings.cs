@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace phiNdus.fundus.Domain.Settings
+﻿namespace phiNdus.fundus.Domain.Settings
 {
+    using System;
+
     public static class Settings
     {
         [ThreadStatic] private static ISettings _settings;
@@ -10,11 +10,6 @@ namespace phiNdus.fundus.Domain.Settings
         public static IMailSettings Mail
         {
             get { return GetSettings().Mail; }
-        }
-
-        public static ICommonSettings Common
-        {
-            get { return GetSettings().Common; }
         }
 
         public static ISettings GetSettings()
