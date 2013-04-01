@@ -12,11 +12,11 @@ namespace phiNdus.fundus.Web.Installers
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(AllTypes.FromThisAssembly()
+            container.Register(Types.FromThisAssembly()
                                    .BasedOn<IController>()
                                    .If(Component.IsInNamespace("phiNdus.fundus.Web.Controllers", true))
                                    .If(t => t.Name.EndsWith("Controller", StringComparison.InvariantCulture))
-                                   .Configure(c => c.LifeStyle.Transient));
+                                   .LifestyleTransient());
         }
 
         #endregion
