@@ -16,7 +16,8 @@ namespace phiNdus.fundus.DbMigrations
         public override void Up()
         {
             Delete.FromTable("Order").InSchema(SchemaName).AllRows();
-            Delete.FromTable("FieldValue").InSchema(SchemaName).AllRows();            
+            Delete.FromTable("FieldValue").InSchema(SchemaName).AllRows();   
+            Delete.FromTable("Image").InSchema(SchemaName).AllRows();
             Delete.FromTable("Article").InSchema(SchemaName).AllRows();
             Delete.FromTable("OrganizationMembership").InSchema(SchemaName).AllRows();
             Delete.FromTable("Membership").InSchema(SchemaName).AllRows();
