@@ -126,7 +126,8 @@ namespace phiNdus.fundus.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Profile()
+        // TODO: Profile ist neues Property des Base-Controllers von MVC 4
+        public new ActionResult Profile()
         {
             return View();
         }
