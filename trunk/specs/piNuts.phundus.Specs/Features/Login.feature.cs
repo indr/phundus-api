@@ -65,22 +65,32 @@ namespace piNuts.phundus.Specs.Features
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 6
+#line 7
+ testRunner.Given("ich bin nicht angemeldet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+#line hidden
+        }
+        
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Unbekannter Benutzer")]
         public virtual void UnbekannterBenutzer()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Unbekannter Benutzer", ((string[])(null)));
-#line 7
-this.ScenarioSetup(scenarioInfo);
-#line 8
- testRunner.Given("ich bin auf der Loginseite", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
-#line 9
- testRunner.And("ich tippe ins Feld \"E-Mail-Adresse\" \"gibt-es-nicht@test.phundus.ch\" ein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line 10
- testRunner.And("ich tippe ins Feld \"Passwort\" \"1234\" ein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
 #line 11
- testRunner.When("ich auf \"Anmelden\" klicke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.Given("ich bin auf der Loginseite", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
 #line 12
+ testRunner.And("ich tippe ins Feld \"E-Mail-Adresse\" \"gibt-es-nicht@test.phundus.ch\" ein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+#line 13
+ testRunner.And("ich tippe ins Feld \"Passwort\" \"1234\" ein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+#line 14
+ testRunner.When("ich auf \"Anmelden\" klicke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 15
  testRunner.Then("muss die Meldung \"Benutzername oder Passwort inkorrekt.\" erscheinen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line hidden
             this.ScenarioCleanup();
@@ -91,19 +101,21 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ErfolgreichesLogin()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Erfolgreiches Login", ((string[])(null)));
-#line 15
-this.ScenarioSetup(scenarioInfo);
-#line 16
- testRunner.Given("ich bin auf der Loginseite", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
-#line 17
- testRunner.And("ich tippe ins Feld \"E-Mail-Adresse\" \"user@test.phundus.ch\" ein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line 18
- testRunner.And("ich tippe ins Feld \"Passwort\" \"1234\" ein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
 #line 19
- testRunner.When("ich auf \"Anmelden\" klicke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.Given("ich bin auf der Loginseite", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
 #line 20
- testRunner.Then("sollte ich als \"user@test.phundus.ch\" angemeldet sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+ testRunner.And("ich tippe ins Feld \"E-Mail-Adresse\" \"user@test.phundus.ch\" ein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line 21
+ testRunner.And("ich tippe ins Feld \"Passwort\" \"1234\" ein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+#line 22
+ testRunner.When("ich auf \"Anmelden\" klicke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 23
+ testRunner.Then("sollte ich als \"user@test.phundus.ch\" angemeldet sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+#line 24
  testRunner.And("ich sollte auf der Startseite sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
             this.ScenarioCleanup();

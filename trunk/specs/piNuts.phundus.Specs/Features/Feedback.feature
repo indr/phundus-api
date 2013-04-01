@@ -3,6 +3,9 @@
 	Als ein Benutzer
 	Will ich ein Feedbackformular ausfüllen
 
+Grundlage:
+	Angenommen ich bin nicht angemeldet
+
 
 Szenario: Feedback ohne Angabe der E-Mail-Adresse
 	Angenommen ich bin auf der Feedbackseite

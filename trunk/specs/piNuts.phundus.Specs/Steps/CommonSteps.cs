@@ -12,6 +12,19 @@ namespace piNuts.phundus.Specs.Steps
     [Binding]
     public class CommonSteps : StepBase
     {
+        [Given(@"ich bin nicht angemeldet")]
+        public void AngenommenIchBinNichtAngemeldet()
+        {
+            if (Browser.Url == "about:blank")
+                return;
+
+            var link = Browser.Link(Find.ByClass("logOffTag"));
+
+            if (!link.Exists)
+                return;
+            Browser.GoTo(link.Url);
+        }
+
         [Given(@"ich tippe ins Feld ""(.*)"" ""(.*)"" ein")]
         public void AngenommenIchTippeInsFeldEin(string feld, string text)
         {
@@ -41,9 +54,9 @@ namespace piNuts.phundus.Specs.Steps
         }
 
         [When(@"ich auf ""(.*)"" klicke")]
-        public void WennIchAufDrucke(string p0)
+        public void WennIchAufDrucke(string value)
         {
-            Browser.Button(Find.ByValue(p0)).Click();
+            Browser.Button(Find.ByValue(value)).Click();
         }
 
         [Then(@"muss die Meldung ""(.*)"" erscheinen")]

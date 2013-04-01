@@ -3,6 +3,9 @@
 	As a math idiot
 	I want to be told the sum of two numbers
 
+Grundlage:
+	Angenommen ich bin nicht angemeldet
+
 
 Szenario: Unbekannter Benutzer
 	Angenommen ich bin auf der Loginseite

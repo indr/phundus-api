@@ -5,7 +5,7 @@
 {   
     @Html.ActionLink("Warenkorb", CartActionNames.Index, ControllerNames.Cart, null, new { id = "cart" }) @:|
 
-    @Html.Raw("Angemeldet als ")@Html.ActionLink(User.Identity.Name, AccountActionNames.Profile, ControllerNames.Account) @:(@Html.ActionLink("Abmelden", AccountActionNames.LogOff, ControllerNames.Account))
+    @Html.Raw("Angemeldet als ")@Html.ActionLink(User.Identity.Name, AccountActionNames.Profile, ControllerNames.Account, new { @class = "loggedOnTag" }) @:(@Html.ActionLink("Abmelden", AccountActionNames.LogOff, ControllerNames.Account, new { @class = "logOffTag" }))
     
 
         
