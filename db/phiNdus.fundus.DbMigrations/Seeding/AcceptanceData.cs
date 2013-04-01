@@ -193,6 +193,13 @@ namespace phiNdus.fundus.DbMigrations
 
         public class Setting
         {
+            private static int _id = 1;
+
+            public int Id
+            {
+                get { return _id++; }
+            }
+
             public int Version
             {
                 get { return 1; }

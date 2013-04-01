@@ -106,11 +106,13 @@ namespace phiNdus.fundus.Business.Services
                 
                 var order = cart.PlaceOrder();
 
+                var mail = new OrderReceivedMail().For(order);
+                var chiefs = order.Organization.Memberships.Where(m => m.Role == Role.Chief.Id);
+                foreach (var chief in chiefs)
+                    mail.Send(chief.User.Membership.Email);
+                mail.Send(order.Reserver);
+                
                 uow.TransactionalFlush();
-
-                new OrderReceivedMail().For(order)
-                    .Send(order.Reserver)
-                    .Send(Settings.Common.AdminEmailAddress);
 
                 var assembler = new OrderDtoAssembler();
                 return assembler.CreateDto(order);
@@ -132,9 +134,11 @@ namespace phiNdus.fundus.Business.Services
 
                 foreach (var order in orders)
                 {
-                    new OrderReceivedMail().For(order)
-                        .Send(order.Reserver)
-                        .Send(Settings.Common.AdminEmailAddress);
+                    var mail = new OrderReceivedMail().For(order);
+                    var chiefs = order.Organization.Memberships.Where(m => m.Role == Role.Chief.Id);
+                    foreach (var chief in chiefs)
+                        mail.Send(chief.User.Membership.Email);
+                    mail.Send(order.Reserver);
                 }
 
                 var assembler = new OrderDtoAssembler();
