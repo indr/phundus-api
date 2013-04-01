@@ -9,8 +9,7 @@
 
         public IeBrowser()
         {
-            // TODO: AutoClose wieder auf true stellen, wenn false nichts bewirkt hat.
-            AutoClose = false;
+            AutoClose = ConfigurationManager.AppSettings["Unattended"] == "true";
             Settings.AutoMoveMousePointerToTopLeft = false;
 
             ClearCache();
