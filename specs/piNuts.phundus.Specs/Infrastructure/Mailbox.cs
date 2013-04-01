@@ -56,7 +56,7 @@ namespace piNuts.phundus.Specs.Infrastructure
                         for (var i = 1; i <= count; i++)
                         {
                             var msg = client.GetMessageHeaders(i);
-                            if (msg.Subject.Equals(subject))
+                            if ((msg.Subject != null) && (msg.Subject.Equals(subject)))
                                 return client.GetMessage(i);
                         }
                     }
