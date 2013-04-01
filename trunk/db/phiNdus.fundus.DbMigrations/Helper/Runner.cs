@@ -1,4 +1,6 @@
-﻿namespace phiNdus.fundus.DbMigrations
+﻿using System.Collections.Generic;
+
+namespace phiNdus.fundus.DbMigrations
 {
     using System;
     using System.IO;
@@ -12,7 +14,7 @@
 
     public static class Runner
     {
-        public static void MigrateToLatest(string connectionString, TextWriter writer)
+        public static void MigrateToLatest(string connectionString, TextWriter writer, IEnumerable<string> tags)
         {
             writer.WriteLine();
             writer.WriteLine("/* ========== Start Migration " + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " */\n");
@@ -29,12 +31,14 @@
 
                 var migrationContext = new RunnerContext(announcer)
                                            {
-                                               Namespace = "phiNdus.fundus.DbMigrations"
+                                               Namespace = "phiNdus.fundus.DbMigrations",
+                                               Tags = tags
                                            };
+                
                 IMigrationProcessorOptions options = new ProcessorOptions
                                                          {
                                                              PreviewOnly = false,
-                                                             Timeout = 60
+                                                             Timeout = 60                                                             
                                                          };
                 var factory = new SqlServer2008ProcessorFactory();
                 var processor = factory.Create(connectionString, announcer, options);
