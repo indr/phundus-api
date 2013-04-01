@@ -95,12 +95,14 @@ namespace phiNdus.fundus.Web
             using (var writer = new StreamWriter(Server.MapPath(@"~\App_Data\Logs\DbMigration.log"), true))
             {
                 var connectionString = ConfigurationManager.ConnectionStrings["phundus"].ConnectionString;
-                var tags = ConfigurationManager.AppSettings["Tags"].Split(',');
+                var tags = ConfigurationManager.AppSettings["MigrationTags"].Split(',');
+                var profile = ConfigurationManager.AppSettings["MigrationProfile"];
 
                 Runner.MigrateToLatest(
                     connectionString,
                     writer,
-                    tags);
+                    tags,
+                    profile);
             }
         }
 

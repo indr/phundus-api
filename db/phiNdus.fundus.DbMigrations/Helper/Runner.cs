@@ -14,7 +14,7 @@ namespace phiNdus.fundus.DbMigrations
 
     public static class Runner
     {
-        public static void MigrateToLatest(string connectionString, TextWriter writer, IEnumerable<string> tags)
+        public static void MigrateToLatest(string connectionString, TextWriter writer, IEnumerable<string> tags, string profile)
         {
             writer.WriteLine();
             writer.WriteLine("/* ========== Start Migration " + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " */\n");
@@ -32,7 +32,8 @@ namespace phiNdus.fundus.DbMigrations
                 var migrationContext = new RunnerContext(announcer)
                                            {
                                                Namespace = "phiNdus.fundus.DbMigrations",
-                                               Tags = tags
+                                               Tags = tags,
+                                               Profile = profile
                                            };
                 
                 IMigrationProcessorOptions options = new ProcessorOptions

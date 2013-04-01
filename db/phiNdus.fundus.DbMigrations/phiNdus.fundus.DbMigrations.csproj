@@ -83,7 +83,8 @@
     <Compile Include="2013\03\M201303082109_InsertAndUpdateRoles.cs" />
     <Compile Include="2013\03\M201303211953_ArticleAddColumnOrganizationId.cs" />
     <Compile Include="2013\03\M201303212259_OrderAddColumnOrganizationId.cs" />
-    <Compile Include="Seeding\M201304010255_InsertAcceptanceData.cs" />
+    <Compile Include="Seeding\AcceptanceData.cs" />
+    <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
     <Compile Include="Helper\DatedAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
