@@ -33,6 +33,26 @@
             ImportArticle();
             Import<Setting>("Settings.csv", "Setting", false);
             Import<ArticleImage>("ArticleImages.csv", "Image", false);
+
+            CopyImages();
+        }
+
+        private static void CopyImages()
+        {
+            var sourcePath = HostingEnvironment.MapPath(@"~\App_Data\Seeds\ArticleImages");
+            var destinationPath = HostingEnvironment.MapPath(@"~\Content\Images\Articles");
+
+            // http://stackoverflow.com/questions/58744/best-way-to-copy-the-entire-contents-of-a-directory-in-c-sharp#
+
+            //Now Create all of the directories
+            foreach (string dirPath in Directory.GetDirectories(sourcePath, "*",
+                SearchOption.AllDirectories))
+                Directory.CreateDirectory(dirPath.Replace(sourcePath, destinationPath));
+
+            //Copy all the files
+            foreach (string newPath in Directory.GetFiles(sourcePath, "*.*",
+                SearchOption.AllDirectories))
+                File.Copy(newPath, newPath.Replace(sourcePath, destinationPath));
         }
 
         private void ImportArticle()
