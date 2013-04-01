@@ -32,6 +32,7 @@
             Import<Membership>("Memberships.csv", "OrganizationMembership", false);
             ImportArticle();
             Import<Setting>("Settings.csv", "Setting", false);
+            Import<ArticleImage>("ArticleImages.csv", "Image", false);
         }
 
         private void ImportArticle()
@@ -131,6 +132,26 @@
         public override void Down()
         {
             // Nothing to do here...
+        }
+
+        public class ArticleImage
+        {
+            private static int _id = 1;
+            public int Id { get { return _id++; } }
+
+            public int Version { get { return 1; } }
+
+            [CsvField(Name = "ArtikelId")]
+            public int ArticleId { get; set; }
+
+            [CsvField(Name = "Länge")]
+            public int Length { get; set; }
+
+            [CsvField(Name = "Typ")]
+            public string Type { get; set; }
+
+            [CsvField(Name = "Dateiname")]
+            public string FileName { get; set; }
         }
 
         #region Nested type: Article
