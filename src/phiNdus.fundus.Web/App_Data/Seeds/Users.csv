@@ -1,6 +1,6 @@
 Id;Role;Vorname;Nachname;Strasse;Plz;Ort;Mobile;E-Mail;Passwort;JS-Nummer
 10001;Admin;Reto;Inderbitzin;Sonstwo 42;6003;Luzern;;mail@indr.ch;1234;
-10002;User;Davidine;Honningsvåg;Wingertweg 96;2829;Envelier;;;;
+10002;User;Davidine;Honningsvåg;Wingertweg 96;2829;Envelier;;user@test.phundus.ch;1234;
 10003;User;Ludwik;Helgerud;Lichtmattstrasse 69;4917;Busswil bei Melchnau;;;;
 10004;User;Nelborg;Abbas;Bahnhofplatz 107;7473;Alvaneu Bad;;;;
 10005;User;Bjørnstjerne;Kjelsrud;Höhenweg 132;3429;Hellsau;;;;
