@@ -1,0 +1,18 @@
+Id;Role;Vorname;Nachname;Strasse;Plz;Ort;Mobile;E-Mail;Passwort;JS-Nummer
+10001;Admin;Reto;Inderbitzin;Sonstwo 42;6003;Luzern;;mail@indr.ch;1234;
+10002;User;Davidine;Honningsvåg;Wingertweg 96;2829;Envelier;;;;
+10003;User;Ludwik;Helgerud;Lichtmattstrasse 69;4917;Busswil bei Melchnau;;;;
+10004;User;Nelborg;Abbas;Bahnhofplatz 107;7473;Alvaneu Bad;;;;
+10005;User;Bjørnstjerne;Kjelsrud;Höhenweg 132;3429;Hellsau;;;;
+10006;User;Ragnveig;Berisha;Clius 118;5420;Oberehrendingen;;;;
+10007;User;Ledis;Ensrud;Brunnacherstrasse 55;8050;Zürich;;;;
+10008;User;Nils;Oftedal;Via Gabbietta 96;2829;Vermes;;;;
+10009;User;Kay;Gleditsch;Sonnenweg 69;4805;Mättenwil;;;;
+10010;User;Salmine;Eggum;Seefeldstrasse 3;3629;Kiesen;;;;
+10011;User;Imma;Kvam;Via Muraccio 34;8492;Tablat;;;;
+10012;User;Børre;Seim;Püntstrasse 121;3934;Zeneggen;;;;
+10013;User;Estella;Pollestad;Mattenstrasse 30;4450;Sissach;;;;
+10014;User;Dorte;Rødseth;Im Sandbüel 138;5324;Full;;;;
+10015;User;Daghild;Høyland;Langwiesstrasse 64;8372;Wiezikon;;;;
+10016;User;Edbjørn;Muri;Plattenstrasse 116;4433;Ramlinsburg;;;;
+10017;User;Ernestine;Stubberud;Im Wingert 91;1934;Le Sapey;;;;
