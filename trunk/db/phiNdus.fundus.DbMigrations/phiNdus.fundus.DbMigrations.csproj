@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper">
+      <HintPath>..\..\packages\CsvHelper.1.17.0\lib\net40-client\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="FluentMigrator">
       <HintPath>..\..\packages\FluentMigrator.1.0.6.0\lib\40\FluentMigrator.dll</HintPath>
     </Reference>
@@ -40,6 +43,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -74,12 +78,12 @@
     <Compile Include="2013\02\M201302252247_AddColumnsStreetCityAndPostcode.cs" />
     <Compile Include="2013\02\M201302252312_AddUniqueKeyToOrganizationMembership.cs" />
     <Compile Include="2013\02\M201302252319_MoveUsersToDefaultOrganization.cs" />
-    <Compile Include="2013\Z_Future_DeleteSettings.cs" />
+    <Compile Include="2013\04\Z_Future_DeleteSettings.cs" />
     <Compile Include="2013\03\M201303080004_AddColumnSelectedOrganizationId.cs" />
     <Compile Include="2013\03\M201303082109_InsertAndUpdateRoles.cs" />
     <Compile Include="2013\03\M201303211953_ArticleAddColumnOrganizationId.cs" />
     <Compile Include="2013\03\M201303212259_OrderAddColumnOrganizationId.cs" />
-    <Compile Include="2013\M201304010255_InsertAcceptanceData.cs" />
+    <Compile Include="Seeding\M201304010255_InsertAcceptanceData.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
     <Compile Include="Helper\DatedAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

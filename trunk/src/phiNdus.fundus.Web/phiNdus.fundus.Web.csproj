@@ -169,6 +169,9 @@
       <DependentUpon>Debug.mdf</DependentUpon>
     </Content>
     <Content Include="App_Data\placeholder.txt" />
+    <Content Include="App_Data\Seeds\Memberships.txt" />
+    <Content Include="App_Data\Seeds\Organizations.txt" />
+    <Content Include="App_Data\Seeds\Users.txt" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-ie6.css" />
     <Content Include="Content\bootstrap-ie6.min.css" />
@@ -183,6 +186,7 @@
     <Content Include="Content\Images\glyphicons-halflings.png" />
     <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\PdfFooter.png" />
+    <None Include="App_Data\Seeds\Seeds.xlsx" />
     <None Include="Parameters.xml" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-image-gallery.js" />
