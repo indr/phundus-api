@@ -1,10 +1,9 @@
 ﻿namespace phiNdus.fundus.DbMigrations
 {
     using System.Collections.Generic;
-    using FluentMigrator;
 
-    //[Migration(201303312206)]
-    public class M201303312206_DeleteSettings : MigrationBase
+    [Dated(0, 2013, 4, 1, 17, 53)]
+    public class M01_17_53_DeleteSettings : MigrationBase
     {
         public override void Up()
         {
@@ -18,7 +17,7 @@
                                    "mail.smtp.user-name"
                                };
             foreach (var each in settings)
-                Delete.FromTable("Setting").InSchema(SchemaName).Row(new { Key = each });
+                Delete.FromTable("Setting").InSchema(SchemaName).Row(new {Key = each});
         }
 
         public override void Down()
