@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Web.Hosting;
-using CsvHelper;
-using CsvHelper.Configuration;
-using CsvHelper.TypeConversion;
-using FluentMigrator;
-
-namespace phiNdus.fundus.DbMigrations
+﻿namespace phiNdus.fundus.DbMigrations
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+    using System.Web.Hosting;
+    using CsvHelper;
+    using CsvHelper.Configuration;
+    using CsvHelper.TypeConversion;
+    using FluentMigrator;
+
     [Profile("Acceptance")]
     public class AcceptanceData : MigrationBase
     {
@@ -66,9 +66,27 @@ namespace phiNdus.fundus.DbMigrations
                                                                                 Id = fieldValueId++,
                                                                                 each.Version,
                                                                                 ArticleId = each.Id,
+                                                                                FieldDefinitionId = 3,
+                                                                                IsDiscriminator = false,
+                                                                                TextValue = each.Marke
+                                                                            });
+                Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
+                                                                            {
+                                                                                Id = fieldValueId++,
+                                                                                each.Version,
+                                                                                ArticleId = each.Id,
                                                                                 FieldDefinitionId = 4,
                                                                                 IsDiscriminator = false,
                                                                                 DecimalValue = each.Preis
+                                                                            });
+                Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
+                                                                            {
+                                                                                Id = fieldValueId++,
+                                                                                each.Version,
+                                                                                ArticleId = each.Id,
+                                                                                FieldDefinitionId = 8,
+                                                                                IsDiscriminator = false,
+                                                                                TextValue = each.Beschreibung
                                                                             });
                 Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
                                                                             {
@@ -133,11 +151,17 @@ namespace phiNdus.fundus.DbMigrations
             [CsvField(Name = "Name")]
             public string Name { get; set; }
 
+            [CsvField(Name = "Marke")]
+            public string Marke { get; set; }
+
             [CsvField(Name = "Preis")]
             public double Preis { get; set; }
 
             [CsvField(Name = "Bestand")]
             public double Bestand { get; set; }
+
+            [CsvField(Name = "Beschreibung")]
+            public string Beschreibung { get; set; }
         }
 
         #endregion
