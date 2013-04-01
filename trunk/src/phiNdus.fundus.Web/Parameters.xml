@@ -18,10 +18,17 @@
                     match="/configuration/system.net/mailSettings/smtp/@from" />
   </parameter>
 
-  <parameter name="Tags"
+  <parameter name="Migration Tags"
              defaultValue="">
     <parameterEntry kind="XmlFile"
                     scope="\\Web\.config$"
-                    match="/configuration/appSettings/add[@key='Tags']/@value" />
+                    match="/configuration/appSettings/add[@key='MigrationTags']/@value" />
+  </parameter>
+
+  <parameter name="Migration Profile"
+             defaultValue="">
+    <parameterEntry kind="XmlFile"
+                    scope="\\Web\.config$"
+                    match="/configuration/appSettings/add[@key='MigrationProfile']/@value" />
   </parameter>
 </parameters>

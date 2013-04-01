@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Web.Hosting;
@@ -10,12 +9,17 @@ using FluentMigrator;
 
 namespace phiNdus.fundus.DbMigrations
 {
-    [Tags("Acceptance")]
-    [Dated(branch: 0, year: 2013, month: 04, day: 01, hour: 02, minute: 55)]
-    public class M201304010255_InsertAcceptanceData : MigrationBase
+    [Profile("Acceptance")]
+    public class AcceptanceData : MigrationBase
     {
         public override void Up()
         {
+            Delete.FromTable("OrganizationMembership").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Organization").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Membership").InSchema(SchemaName).AllRows();
+            Delete.FromTable("User").InSchema(SchemaName).AllRows();
+
+
             Import<Organization>("Organizations.csv", "Organization");
             Import<User>("Users.csv", "User");
             Import<UserMembership>("Users.csv", "Membership", false);
@@ -191,27 +195,5 @@ namespace phiNdus.fundus.DbMigrations
         }
 
         #endregion
-    }
-
-    public class RoleConverter : DefaultTypeConverter
-    {
-        public override object ConvertFromString(string text)
-        {
-            return ConvertFromString(CultureInfo.InvariantCulture, text);
-        }
-
-        public override object ConvertFromString(CultureInfo culture, string text)
-        {
-            if (text == "Admin")
-                return 3;
-            if (text == "Chief")
-                return 2;
-            return 1;
-        }
-
-        public override bool CanConvertFrom(Type type)
-        {
-            return type == typeof (string);
-        }
     }
 }
