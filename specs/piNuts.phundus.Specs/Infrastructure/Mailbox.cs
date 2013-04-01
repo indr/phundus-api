@@ -30,8 +30,9 @@ namespace piNuts.phundus.Specs.Infrastructure
                 return new Mailbox("phundus.ch", "user@test.phundus.ch", "p@ss_w03d");
             if (emailAddress == "admin@test.phundus.ch")
                 return new Mailbox("phundus.ch", "admin@test.phundus.ch", "p@ss_w03d");
-            throw new ArgumentOutOfRangeException(
-                String.Format("Die Login-Daten zur E-Mail-Adresse \"{0}\" sind nicht bekannt."));
+            return new Mailbox("phundus.ch", emailAddress, "p@ss_w03d");
+            //throw new ArgumentOutOfRangeException(
+            //    String.Format("Die Login-Daten zur E-Mail-Adresse \"{0}\" sind nicht bekannt."));
         }
 
         private Pop3Client ConnectAndAuthenticate()
