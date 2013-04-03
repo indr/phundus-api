@@ -7,7 +7,9 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Business.Security
 {
     using phiNdus.fundus.Domain;
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Rhino;
 
     public class SecuritySession
     {

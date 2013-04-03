@@ -8,6 +8,7 @@ namespace phiNdus.fundus.Business.Mails
 {
     using System.Configuration;
     using Domain.Infrastructure;
+    using piNuts.phundus.Infrastructure.Rhino;
 
     public class UserChangeEmailValidationMail : BaseMail
     {

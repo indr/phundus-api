@@ -3,6 +3,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Entities
 {
+    using System.Web.Caching;
+    using piNuts.phundus.Infrastructure.Rhino;
+
     public class Membership : EntityBase
     {
         private DateTime _createDate;

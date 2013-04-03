@@ -11,6 +11,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Web.Models
 {
     using phiNdus.fundus.Domain;
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
 
     public class UserModel : ModelBase

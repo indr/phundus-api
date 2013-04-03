@@ -5,6 +5,8 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services
 {
+    using piNuts.phundus.Infrastructure.Rhino;
+
     public class BaseService
     {
         private SecurityContext _securityContext;

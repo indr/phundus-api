@@ -4,6 +4,8 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Paging
 {
+    using piNuts.phundus.Infrastructure.Rhino;
+
     /// <summary>
     /// Liefert ein "gepagtes" Resultat für einen bestimmten Typ.
     /// </summary>

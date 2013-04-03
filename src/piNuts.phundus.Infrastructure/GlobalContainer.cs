@@ -27,7 +27,7 @@
 
         public static bool IsInitialized
         {
-            get { return Infrastructure.GlobalContainer.Container != null; }
+            get { return GlobalContainer.Container != null; }
         }
 
         public static void Initialize(IWindsorContainer windsorContainer)
@@ -37,55 +37,55 @@
 
         public static object Resolve(Type serviceType)
         {
-            return Infrastructure.GlobalContainer.Container.Resolve(serviceType);
+            return GlobalContainer.Container.Resolve(serviceType);
         }
 
         public static object Resolve(Type serviceType, string serviceName)
         {
-            return Infrastructure.GlobalContainer.Container.Resolve(serviceName, serviceType);
+            return GlobalContainer.Container.Resolve(serviceName, serviceType);
         }
 
         public static T TryResolve<T>()
         {
-            return Infrastructure.GlobalContainer.TryResolve<T>(default(T));
+            return GlobalContainer.TryResolve<T>(default(T));
         }
 
         public static T TryResolve<T>(T defaultValue)
         {
-            if (!Infrastructure.GlobalContainer.Container.Kernel.HasComponent(typeof (T)))
+            if (!GlobalContainer.Container.Kernel.HasComponent(typeof (T)))
                 return defaultValue;
             else
-                return Infrastructure.GlobalContainer.Container.Resolve<T>();
+                return GlobalContainer.Container.Resolve<T>();
         }
 
         public static T Resolve<T>()
         {
-            return Infrastructure.GlobalContainer.Container.Resolve<T>();
+            return GlobalContainer.Container.Resolve<T>();
         }
 
         public static T Resolve<T>(string name)
         {
-            return Infrastructure.GlobalContainer.Container.Resolve<T>(name);
+            return GlobalContainer.Container.Resolve<T>(name);
         }
 
         public static T Resolve<T>(object argumentsAsAnonymousType)
         {
-            return Infrastructure.GlobalContainer.Container.Resolve<T>(argumentsAsAnonymousType);
+            return GlobalContainer.Container.Resolve<T>(argumentsAsAnonymousType);
         }
 
         public static T Resolve<T>(IDictionary parameters)
         {
-            return Infrastructure.GlobalContainer.Container.Resolve<T>(parameters);
+            return GlobalContainer.Container.Resolve<T>(parameters);
         }
 
         public static Array ResolveAll(Type service)
         {
-            return Infrastructure.GlobalContainer.Container.ResolveAll(service);
+            return GlobalContainer.Container.ResolveAll(service);
         }
 
         public static T[] ResolveAll<T>()
         {
-            return Infrastructure.GlobalContainer.Container.ResolveAll<T>();
+            return GlobalContainer.Container.ResolveAll<T>();
         }
     }
 }

@@ -9,6 +9,7 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Web.App_Start
 {
     using phiNdus.fundus.Domain;
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
 
     public class ContainerConfig

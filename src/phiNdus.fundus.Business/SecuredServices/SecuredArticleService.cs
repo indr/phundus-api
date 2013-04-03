@@ -12,6 +12,7 @@ using User = phiNdus.fundus.Business.Security.Constraints.User;
 namespace phiNdus.fundus.Business.SecuredServices
 {
     using phiNdus.fundus.Domain;
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
 
     public class SecuredArticleService : SecuredServiceBase, IArticleService

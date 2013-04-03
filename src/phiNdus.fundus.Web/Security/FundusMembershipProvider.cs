@@ -10,6 +10,7 @@ using System.Globalization;
 
 namespace phiNdus.fundus.Web.Security {
     using phiNdus.fundus.Domain;
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
 
     public class FundusMembershipProvider : MembershipProvider {
