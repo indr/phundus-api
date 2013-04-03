@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NHibernate;
 using NHibernate.Linq;
 using phiNdus.fundus.Domain.Entities;
 using Rhino.Commons;
@@ -9,12 +10,19 @@ namespace phiNdus.fundus.Domain.Repositories
 {
     public class UserRepository : NHRepository<User>, IUserRepository
     {
+        public Func<ISession> SessionFactory { get; set; }
+
         private IQueryable<User> Users
         {
             get { return Session.Query<User>(); }
         }
 
         #region IUserRepository Members
+
+        public bool IsSessionFactoryAssigned()
+        {
+            return SessionFactory != null;
+        }
 
         public ICollection<User> FindAll()
         {

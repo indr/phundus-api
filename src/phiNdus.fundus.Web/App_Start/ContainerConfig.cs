@@ -4,14 +4,10 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using phiNdus.fundus.Web.Plumbing;
-using Rhino.Commons;
+using piNuts.phundus.Infrastructure;
 
 namespace phiNdus.fundus.Web.App_Start
 {
-    using phiNdus.fundus.Domain;
-    using Rhino.Commons;
-    using piNuts.phundus.Infrastructure;
-
     public class ContainerConfig
     {
         public static IWindsorContainer Bootstrap()
@@ -19,7 +15,8 @@ namespace phiNdus.fundus.Web.App_Start
             // Locking?
             var container = new WindsorContainer()
                 .Install(FromAssembly.This())
-                .Install(FromAssembly.Named("phiNdus.fundus.Business"));
+                .Install(FromAssembly.Named("phiNdus.fundus.Business"))
+                .Install(FromAssembly.Named("piNuts.phundus.Infrastructure"));
 
             // HttpContext registrieren für den SessionStateManager
             container.Register(

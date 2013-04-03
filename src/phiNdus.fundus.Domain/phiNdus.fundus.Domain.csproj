@@ -49,17 +49,7 @@
       <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
-      <HintPath>..\..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Commons">
-      <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Commons.Clr">
-      <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.Clr.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Commons.NHibernate, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Rhino.Commons\Rhino.Commons.NHibernate.dll</HintPath>
+      <HintPath>..\..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
