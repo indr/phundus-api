@@ -6,6 +6,7 @@ namespace phiNdus.fundus.Domain.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
+        bool IsSessionFactoryAssigned();
         ICollection<User> FindAll();
         User FindByEmail(string email);
         User FindBySessionKey(string sessionKey);

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Castle.Services.Transaction</id>
+    <version>3.0.202.2202</version>
+    <title>Castle Transaction Services</title>
+    <authors>Henrik Feldt,  Hamilton Verissimo</authors>
+    <owners>Henrik Feldt,  Hamilton Verissimo</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/castleproject/Castle.Services.Transaction</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>The Castle Transaction Services enables a common interface to both .Net Transactions with LTM/Lightweight Transaction Manager and powerful file-system transactions with Transactional NTFS/TxF.</description>
+    <summary>The Castle Transaction Services enables a common interface to both .Net Transactions with LTM/Lightweight Transaction Manager and powerful file-system transactions with Transactional NTFS/TxF.</summary>
+    <dependencies>
+      <dependency id="Castle.Core" version="2.5.2" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Transactions" targetFramework=".NETFramework4.0" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

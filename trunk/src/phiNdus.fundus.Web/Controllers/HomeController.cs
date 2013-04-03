@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using phiNdus.fundus.Domain.Repositories;
 
 namespace phiNdus.fundus.Web.Controllers
 {
@@ -6,7 +8,10 @@ namespace phiNdus.fundus.Web.Controllers
     {
         public ActionResult Index()
         {
+            ViewData["IsAssigned"] = Users.IsSessionFactoryAssigned();
             return View();
         }
+
+        public IUserRepository Users { get; set; }
     }
 }
