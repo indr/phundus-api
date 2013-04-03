@@ -8,6 +8,9 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     [TestFixture]
     public class GetAndFindTests : UnitTestBase<Business.Services.OrderService>
     {
@@ -39,7 +42,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
 
         private void GenerateAndRegisterMissingStubs()
         {
-            if (IoC.TryResolve<IOrderRepository>() == null)
+            if (GlobalContainer.TryResolve<IOrderRepository>() == null)
             {
                 FakeOrderRepo = GenerateAndRegisterStub<IOrderRepository>();
                 FakeOrderRepo.Expect(x => x.Get(1)).Return(OrderDomainObject1);

@@ -7,6 +7,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Assembler
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class CartAssembler
     {
         public CartDto CreateDto(Cart cart)
@@ -42,7 +45,7 @@ namespace phiNdus.fundus.Business.Assembler
 
         public Cart CreateDomainObject(CartDto cartDto)
         {
-            var carts = IoC.Resolve<ICartRepository>();
+            var carts = GlobalContainer.Resolve<ICartRepository>();
             var cart = carts.FindById(cartDto.Id);
 
             if (cart == null)

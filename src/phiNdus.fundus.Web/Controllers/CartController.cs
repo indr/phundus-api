@@ -12,11 +12,14 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class CartController : ControllerBase
     {
         protected static ICartService CartService
         {
-            get { return IoC.Resolve<ICartService>(); }
+            get { return GlobalContainer.Resolve<ICartService>(); }
         }
 
         public ActionResult Index(int? version)

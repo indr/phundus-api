@@ -6,6 +6,8 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Entities
 {
+    using piNuts.phundus.Infrastructure;
+
     public class Article : CompositeEntity
     {
         public Article()
@@ -27,7 +29,7 @@ namespace phiNdus.fundus.Domain.Entities
         
         protected virtual IOrderRepository OrderRepository
         {
-            get { return IoC.Resolve<IOrderRepository>(); }
+            get { return GlobalContainer.Resolve<IOrderRepository>(); }
         }
 
         public virtual Organization Organization { get; set; }
@@ -97,7 +99,7 @@ namespace phiNdus.fundus.Domain.Entities
                         "Der Bruttobestand kann nicht gesetzt werden, da mindestens eine Ausprägung vorhanden ist.");
                 if (!HasField(FieldDefinition.GrossStockId))
                     AddField(
-                        IoC.Resolve<IFieldDefinitionRepository>().Get(FieldDefinition.GrossStockId));
+                        GlobalContainer.Resolve<IFieldDefinitionRepository>().Get(FieldDefinition.GrossStockId));
                 SetFieldValue(FieldDefinition.GrossStockId, value);
             }
         }

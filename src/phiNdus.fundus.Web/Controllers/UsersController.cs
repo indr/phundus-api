@@ -9,12 +9,15 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
     {
         private static IUserService UserService
         {
-            get { return IoC.Resolve<IUserService>(); }
+            get { return GlobalContainer.Resolve<IUserService>(); }
         }
 
         public ActionResult Index()
@@ -60,7 +63,7 @@ namespace phiNdus.fundus.Web.Controllers
         {
             using (var uow = UnitOfWork.Start())
             {
-                var user = IoC.Resolve<IUserRepository>().Get(id);
+                var user = GlobalContainer.Resolve<IUserRepository>().Get(id);
                 if (user == null)
                     return HttpNotFound();
 
@@ -81,7 +84,7 @@ namespace phiNdus.fundus.Web.Controllers
         {
             using (var uow = UnitOfWork.Start())
             {
-                var user = IoC.Resolve<IUserRepository>().Get(id);
+                var user = GlobalContainer.Resolve<IUserRepository>().Get(id);
                 if (user == null)
                     return HttpNotFound();
 

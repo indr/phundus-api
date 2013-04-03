@@ -9,6 +9,9 @@ using phiNdus.fundus.Business.Services;
 using System.Globalization;
 
 namespace phiNdus.fundus.Web.Security {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class FundusMembershipProvider : MembershipProvider {
 
         //=========================================================================================
@@ -36,7 +39,7 @@ namespace phiNdus.fundus.Web.Security {
         //=========================================================================================
 
         public FundusMembershipProvider() {
-            this.UserService = IoC.Resolve<IUserService>();
+            this.UserService = GlobalContainer.Resolve<IUserService>();
         }
 
         private IUserService UserService { get; set; }

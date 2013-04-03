@@ -7,6 +7,9 @@ using phiNdus.fundus.Business.SecuredServices;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Security {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class FundusRoleProvider : RoleProvider {
 
         //=========================================================================================
@@ -44,7 +47,7 @@ namespace phiNdus.fundus.Web.Security {
 
         public override string[] GetRolesForUser(string username)
         {
-            return IoC.Resolve<IRoleService>().GetRolesForUser(HttpContext.Current.Session.SessionID);
+            return GlobalContainer.Resolve<IRoleService>().GetRolesForUser(HttpContext.Current.Session.SessionID);
         }
 
         public override string[] GetUsersInRole(string roleName) {

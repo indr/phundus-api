@@ -7,6 +7,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Assembler
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class UserAssembler
     {
         public UserDto CreateDto(User subject)
@@ -36,7 +39,7 @@ namespace phiNdus.fundus.Business.Assembler
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
-            var result = IoC.Resolve<IUserRepository>().Get(subject.Id);
+            var result = GlobalContainer.Resolve<IUserRepository>().Get(subject.Id);
             Guard.Against<EntityNotFoundException>(result == null, "User entity not found");
             Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 
@@ -83,7 +86,7 @@ namespace phiNdus.fundus.Business.Assembler
             result.FirstName = subject.FirstName;
             result.LastName = subject.LastName;
             if ((result.Role == null) || (result.Role.Id != subject.RoleId))
-                result.Role = IoC.Resolve<IRoleRepository>().Get(subject.RoleId);
+                result.Role = GlobalContainer.Resolve<IRoleRepository>().Get(subject.RoleId);
             return result;
         }
     }

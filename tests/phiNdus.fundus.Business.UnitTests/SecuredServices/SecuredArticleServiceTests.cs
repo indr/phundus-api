@@ -13,6 +13,9 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Business.UnitTests.SecuredServices
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     [TestFixture]
     public class SecuredArticleServiceTests : UnitTestBase<IArticleService>
     {
@@ -38,14 +41,14 @@ namespace phiNdus.fundus.Business.UnitTests.SecuredServices
 
         private void GenerateAndRegisterMissingStubs()
         {
-            if (IoC.TryResolve<ArticleService>() == null)
+            if (GlobalContainer.TryResolve<ArticleService>() == null)
                 FakeArticleService = GenerateAndRegisterStub<ArticleService>();
-            if (IoC.TryResolve<PropertyService>() == null)
+            if (GlobalContainer.TryResolve<PropertyService>() == null)
                 FakePropertyService = GenerateAndRegisterStub<PropertyService>();
-            if (IoC.TryResolve<IUserRepository>() == null)
+            if (GlobalContainer.TryResolve<IUserRepository>() == null)
                 FakeUserRepo = GenerateAndRegisterStub<IUserRepository>();
-            if (IoC.TryResolve<IFieldsService>() == null)
-                IoC.Container.Register(Component.For<IFieldsService>().ImplementedBy(typeof (SecuredFieldsService)));
+            if (GlobalContainer.TryResolve<IFieldsService>() == null)
+                GlobalContainer.Container.Register(Component.For<IFieldsService>().ImplementedBy(typeof (SecuredFieldsService)));
 
             if (SessionAdmin == null)
             {

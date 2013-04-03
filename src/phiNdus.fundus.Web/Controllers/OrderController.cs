@@ -6,6 +6,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     [Authorize]
     public class OrderController : ControllerBase
     {
@@ -59,7 +62,7 @@ namespace phiNdus.fundus.Web.Controllers
         [Authorize(Roles = "Chief")]
         public ActionResult Reject(int id)
         {
-            var service = IoC.Resolve<IOrderService>();
+            var service = GlobalContainer.Resolve<IOrderService>();
             var orderDto = service.Reject(Session.SessionID, id);
             return Json(orderDto);
         }
@@ -68,7 +71,7 @@ namespace phiNdus.fundus.Web.Controllers
         [Authorize(Roles = "Chief")]
         public ActionResult Confirm(int id)
         {
-            var service = IoC.Resolve<IOrderService>();
+            var service = GlobalContainer.Resolve<IOrderService>();
             var orderDto = service.Confirm(Session.SessionID, id);
             return Json(orderDto);
         }
@@ -77,7 +80,7 @@ namespace phiNdus.fundus.Web.Controllers
         [Authorize]
         public FileStreamResult Print(int id)
         {
-            var service = IoC.Resolve<IOrderService>();
+            var service = GlobalContainer.Resolve<IOrderService>();
             var stream = service.GetPdf(Session.SessionID, id);
 
             return new FileStreamResult(stream, "application/pdf")

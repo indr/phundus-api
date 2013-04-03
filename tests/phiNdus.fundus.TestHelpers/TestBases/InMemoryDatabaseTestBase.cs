@@ -12,6 +12,9 @@ using Environment = NHibernate.Cfg.Environment;
 
 namespace phiNdus.fundus.TestHelpers.TestBases
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class SQLiteInMemoryTestingConnectionProvider : NHibernate.Connection.DriverConnectionProvider
     {
         public static System.Data.IDbConnection Connection = null;
@@ -69,7 +72,7 @@ namespace phiNdus.fundus.TestHelpers.TestBases
         {
             base.SetUp();
 
-            IoC.Container.Register(Component.For<IUnitOfWorkFactory>()
+            GlobalContainer.Container.Register(Component.For<IUnitOfWorkFactory>()
                                        .Instance(_factory));
         }
 

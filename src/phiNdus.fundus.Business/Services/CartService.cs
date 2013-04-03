@@ -12,10 +12,13 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class CartService : BaseService
     {
         protected User User { get { return SecurityContext.SecuritySession.User; } }
-        protected ICartRepository Carts { get { return IoC.Resolve<ICartRepository>(); } }
+        protected ICartRepository Carts { get { return GlobalContainer.Resolve<ICartRepository>(); } }
 
         public CartDto GetCart(int? version)
         {
@@ -155,7 +158,7 @@ namespace phiNdus.fundus.Business.Services
         //            throw new InvalidOperationException("Kein oder leerer Warenkorb");
 
         //        cart.Checkout();
-        //        IoC.Resolve<IOrderRepository>().Save(cart);
+        //        GlobalContainer.Resolve<IOrderRepository>().Save(cart);
 
         //        new OrderReceivedMail().For(cart)
         //            .Send(cart.Reserver)

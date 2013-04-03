@@ -13,22 +13,23 @@ namespace phiNdus.fundus.Business.Services
 {
     using System.Configuration;
     using Domain.Infrastructure;
+    using piNuts.phundus.Infrastructure;
 
     public class UserService : BaseService
     {
         private static IUserRepository Users
         {
-            get { return IoC.Resolve<IUserRepository>(); }
+            get { return GlobalContainer.Resolve<IUserRepository>(); }
         }
 
         private static IOrganizationRepository Organizations
         {
-            get { return IoC.Resolve<IOrganizationRepository>(); }
+            get { return GlobalContainer.Resolve<IOrganizationRepository>(); }
         }
 
         private static IRoleRepository Roles
         {
-            get { return IoC.Resolve<IRoleRepository>(); }
+            get { return GlobalContainer.Resolve<IRoleRepository>(); }
         }
 
         public virtual UserDto GetUser(string email)

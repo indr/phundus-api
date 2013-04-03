@@ -6,6 +6,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class OrdersViewModelBase: ViewModelBase
     {
         private IList<OrderViewModel> _items = new List<OrderViewModel>();
@@ -24,7 +27,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         protected IOrderService Service
         {
-            get { return IoC.Resolve<IOrderService>(); }
+            get { return GlobalContainer.Resolve<IOrderService>(); }
         }
     }
 

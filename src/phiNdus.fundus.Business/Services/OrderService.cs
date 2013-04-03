@@ -13,13 +13,16 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class OrderService : BaseService
     {
         public virtual OrderDto GetOrder(int id)
         {
             using (UnitOfWork.Start())
             {
-                var order = IoC.Resolve<IOrderRepository>().Get(id);
+                var order = GlobalContainer.Resolve<IOrderRepository>().Get(id);
                 if (order == null)
                     return null;
                 return new OrderDtoAssembler().CreateDto(order);
@@ -30,7 +33,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var orders = IoC.Resolve<IOrderRepository>().FindPending(SelectedOrganization);
+                var orders = GlobalContainer.Resolve<IOrderRepository>().FindPending(SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
@@ -39,7 +42,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var orders = IoC.Resolve<IOrderRepository>().FindApproved(SelectedOrganization);
+                var orders = GlobalContainer.Resolve<IOrderRepository>().FindApproved(SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
             
@@ -49,7 +52,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var orders = IoC.Resolve<IOrderRepository>().FindRejected(SelectedOrganization);
+                var orders = GlobalContainer.Resolve<IOrderRepository>().FindRejected(SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
@@ -58,7 +61,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var orders = IoC.Resolve<IOrderRepository>().FindClosed(SelectedOrganization);
+                var orders = GlobalContainer.Resolve<IOrderRepository>().FindClosed(SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
@@ -67,7 +70,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (UnitOfWork.Start())
             {
-                var orders = IoC.Resolve<IOrderRepository>().FindMy(SecurityContext.SecuritySession.User.Id);
+                var orders = GlobalContainer.Resolve<IOrderRepository>().FindMy(SecurityContext.SecuritySession.User.Id);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
@@ -94,7 +97,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (var uow = UnitOfWork.Start())
             {
-                var repo = IoC.Resolve<IOrderRepository>();
+                var repo = GlobalContainer.Resolve<IOrderRepository>();
                 var order = repo.Get(id);
                 
                 order.Reject(SecurityContext.SecuritySession.User);
@@ -114,7 +117,7 @@ namespace phiNdus.fundus.Business.Services
         {
             using (var uow = UnitOfWork.Start())
             {
-                var repo = IoC.Resolve<IOrderRepository>();
+                var repo = GlobalContainer.Resolve<IOrderRepository>();
                 var order = repo.Get(id);
                 
                 order.Approve(SecurityContext.SecuritySession.User);
@@ -134,7 +137,7 @@ namespace phiNdus.fundus.Business.Services
             // TODO: Prüfen ob Admin oder Besitzer der Bestellung
             using (UnitOfWork.Start())
             {
-                var repo = IoC.Resolve<IOrderRepository>();
+                var repo = GlobalContainer.Resolve<IOrderRepository>();
                 var order = repo.Get(id);
                 return order.GeneratePdf();
             }

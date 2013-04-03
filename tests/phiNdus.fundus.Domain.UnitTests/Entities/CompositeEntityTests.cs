@@ -11,6 +11,8 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
+    using piNuts.phundus.Infrastructure;
+
     [TestFixture]
     public class CompositeEntityTests : UnitTestBase<object>
     {
@@ -21,7 +23,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
 
             StubFieldDefinitionRepository = MockRepository.GenerateStub<IFieldDefinitionRepository>();
 
-            IoC.Container.Register(Component.For<IFieldDefinitionRepository>()
+            GlobalContainer.Container.Register(Component.For<IFieldDefinitionRepository>()
                 .Instance(StubFieldDefinitionRepository));
         }
 

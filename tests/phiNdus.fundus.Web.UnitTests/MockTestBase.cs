@@ -5,6 +5,9 @@ using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.TestHelpers {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public abstract class MockTestBase<TSut> {
 
         protected MockRepository MockFactory { get; private set; }
@@ -19,7 +22,7 @@ namespace phiNdus.fundus.TestHelpers {
             this.MockFactory = new MockRepository();
 
             var container = new WindsorContainer();
-            IoC.Initialize(container);
+            GlobalContainer.Initialize(container);
 
             this.RegisterDependencies(container);
 
@@ -28,7 +31,7 @@ namespace phiNdus.fundus.TestHelpers {
 
         /// <summary>
         /// Über diese Methode können für die einzelnen Testfälle die entsprechenden Dependencies
-        /// registriert werden. Der Container wird über IoC.Initialize gesetzt.
+        /// registriert werden. Der Container wird über GlobalContainer.Initialize gesetzt.
         /// </summary>
         protected virtual void RegisterDependencies(IWindsorContainer container) {
         }
@@ -45,7 +48,7 @@ namespace phiNdus.fundus.TestHelpers {
         protected T GenerateAndRegisterStub<T>() where T : class
         {
             var result = MockRepository.GenerateStub<T>();
-            IoC.Container.Register(Component.For<T>().Instance(result));
+            GlobalContainer.Container.Register(Component.For<T>().Instance(result));
             return result;
         }
     }

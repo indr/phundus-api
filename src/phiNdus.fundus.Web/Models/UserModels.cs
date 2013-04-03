@@ -10,6 +10,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Models
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class UserModel : ModelBase
     {
         private IEnumerable<SelectListItem> _roles;
@@ -56,12 +59,12 @@ namespace phiNdus.fundus.Web.Models
 
         private static IUserService UserService
         {
-            get { return IoC.Resolve<IUserService>(); }
+            get { return GlobalContainer.Resolve<IUserService>(); }
         }
 
         private static IRoleService RoleService
         {
-            get { return IoC.Resolve<IRoleService>(); }
+            get { return GlobalContainer.Resolve<IRoleService>(); }
         }
 
         private void GetRoles()

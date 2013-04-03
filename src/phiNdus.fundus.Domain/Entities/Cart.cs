@@ -8,6 +8,8 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Entities
 {
+    using piNuts.phundus.Infrastructure;
+
     public class Cart : EntityBase
     {
         private User _customer;
@@ -42,7 +44,7 @@ namespace phiNdus.fundus.Domain.Entities
         public virtual void AddItem(int articleId, int quantity, DateTime @from, DateTime to)
         {
             var item = new CartItem();
-            item.Article = IoC.Resolve<IArticleRepository>().Get(articleId);
+            item.Article = GlobalContainer.Resolve<IArticleRepository>().Get(articleId);
             item.Quantity = quantity;
             item.From = from;
             item.To = to;
@@ -78,15 +80,15 @@ namespace phiNdus.fundus.Domain.Entities
             foreach (var each in Items)
                 result.AddItem(each.Article.Id, each.Quantity, each.From, each.To);
 
-            IoC.Resolve<IOrderRepository>().Save(result);
-            IoC.Resolve<ICartRepository>().Delete(this);
+            GlobalContainer.Resolve<IOrderRepository>().Save(result);
+            GlobalContainer.Resolve<ICartRepository>().Delete(this);
             return result;
         }
 
         public virtual ICollection<Order> PlaceOrders()
         {
             var result = new List<Order>();
-            var orders = IoC.Resolve<IOrderRepository>();
+            var orders = GlobalContainer.Resolve<IOrderRepository>();
 
             var organizations = (from i in Items select i.Article.Organization).Distinct();
 
@@ -102,7 +104,7 @@ namespace phiNdus.fundus.Domain.Entities
                 orders.Save(order);
                 result.Add(order);
             }
-            IoC.Resolve<ICartRepository>().Delete(this);
+            GlobalContainer.Resolve<ICartRepository>().Delete(this);
             return result;
         }
     }

@@ -7,6 +7,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class ShopController : ControllerBase
     {
         private static string MasterView
@@ -96,7 +99,7 @@ namespace phiNdus.fundus.Web.Controllers
         {
             var model = new ShopArticleViewModel(id);
             
-            model.Availabilities = IoC.Resolve<IArticleService>().GetAvailability(Session.SessionID, id);
+            model.Availabilities = GlobalContainer.Resolve<IArticleService>().GetAvailability(Session.SessionID, id);
             return Json(new
                             {
                                 caption = model.Caption,
@@ -117,7 +120,7 @@ namespace phiNdus.fundus.Web.Controllers
                 return RedirectToAction(ShopActionNames.Article, item.ArticleId);
             }
 
-            var service = IoC.Resolve<ICartService>();
+            var service = GlobalContainer.Resolve<ICartService>();
             var cart = service.AddItem(Session.SessionID, item.CreateDto());
 
             if (Request.IsAjaxRequest())

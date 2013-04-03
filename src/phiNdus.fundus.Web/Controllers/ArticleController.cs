@@ -12,6 +12,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     [Authorize(Roles = "Chief")]
     public class ArticleController : ControllerBase
     {
@@ -26,8 +29,8 @@ namespace phiNdus.fundus.Web.Controllers
             public static string Reservations { get { return @"Reservations"; } }
         }
 
-        protected IArticleService ArticleService { get { return IoC.Resolve<IArticleService>(); } }
-        protected IFieldsService FieldsService { get { return IoC.Resolve<IFieldsService>(); } }
+        protected IArticleService ArticleService { get { return GlobalContainer.Resolve<IArticleService>(); } }
+        protected IFieldsService FieldsService { get { return GlobalContainer.Resolve<IFieldsService>(); } }
 
         
         public ActionResult Index()
@@ -166,7 +169,7 @@ namespace phiNdus.fundus.Web.Controllers
         {
             var model = new ArticleAvailabilityViewModel();
             model.Id = id;
-            model.Availabilites = IoC.Resolve<IArticleService>().GetAvailability(Session.SessionID, id);
+            model.Availabilites = GlobalContainer.Resolve<IArticleService>().GetAvailability(Session.SessionID, id);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(Views.Availability, model);
@@ -179,7 +182,7 @@ namespace phiNdus.fundus.Web.Controllers
             using (UnitOfWork.Start())
             {
                 var model = new ArticleReservationsModel();
-                model.Items = IoC.Resolve<IReservationRepository>().Find(new Article(id, 0));
+                model.Items = GlobalContainer.Resolve<IReservationRepository>().Find(new Article(id, 0));
                 if (Request.IsAjaxRequest())
                     return PartialView(Views.Reservations, model);
                 return View(Views.Reservations, MasterView, model);

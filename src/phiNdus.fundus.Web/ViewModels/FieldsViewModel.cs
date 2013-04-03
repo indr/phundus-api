@@ -5,13 +5,16 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class FieldsViewModel : ViewModelBase
     {
         private IList<FieldViewModel> _items = new List<FieldViewModel>();
 
         protected IFieldsService FieldsService
         {
-            get { return IoC.Resolve<IFieldsService>(); }
+            get { return GlobalContainer.Resolve<IFieldsService>(); }
         }
 
         public IList<FieldViewModel> Items

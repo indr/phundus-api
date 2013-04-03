@@ -12,12 +12,15 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class AccountController : ControllerBase
     {
         public AccountController()
         {
-            FormsService = IoC.Resolve<IFormsService>();
-            MembershipService = IoC.Resolve<IMembershipService>();
+            FormsService = GlobalContainer.Resolve<IFormsService>();
+            MembershipService = GlobalContainer.Resolve<IMembershipService>();
         }
 
         public IOrganizationRepository Organizations { get; set; }

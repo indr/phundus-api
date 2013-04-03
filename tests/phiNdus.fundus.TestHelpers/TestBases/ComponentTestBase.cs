@@ -6,6 +6,9 @@ using Order = NHibernate.Criterion.Order;
 
 namespace phiNdus.fundus.TestHelpers.TestBases
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class ComponentTestBase<TSut> : TestBase
     {
         public ComponentTestBase() : base()
@@ -18,7 +21,7 @@ namespace phiNdus.fundus.TestHelpers.TestBases
 
         protected Organization CreateAndPersistOrganization(string name = "Pfadi Lego")
         {
-            var organizations = IoC.Resolve<IOrganizationRepository>();
+            var organizations = GlobalContainer.Resolve<IOrganizationRepository>();
 
             var result = organizations.FindByName(name);
             if (result == null)
@@ -37,8 +40,8 @@ namespace phiNdus.fundus.TestHelpers.TestBases
 
         protected User CreateAndPersistUser(string email)
         {
-            var users = IoC.Resolve<IUserRepository>();
-            var roles = IoC.Resolve<IRoleRepository>();
+            var users = GlobalContainer.Resolve<IUserRepository>();
+            var roles = GlobalContainer.Resolve<IRoleRepository>();
 
             var result = users.FindByEmail(email);
             if (result == null)

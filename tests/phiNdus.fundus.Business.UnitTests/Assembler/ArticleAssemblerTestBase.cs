@@ -9,6 +9,9 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Business.UnitTests.Assembler
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class ArticleAssemblerTestBase : UnitTestBase<object>
     {
         #region Setup/Teardown
@@ -133,7 +136,7 @@ namespace phiNdus.fundus.Business.UnitTests.Assembler
 
         protected void GenerateAndRegisterMissingStubs()
         {
-            if (IoC.TryResolve<IArticleRepository>() == null)
+            if (GlobalContainer.TryResolve<IArticleRepository>() == null)
             {
                 FakeArticleRepo = GenerateAndRegisterStub<IArticleRepository>();
                 FakeArticleRepo.Expect(x => x.Get(1)).Return(Article);

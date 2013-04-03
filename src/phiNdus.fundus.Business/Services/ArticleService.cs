@@ -12,11 +12,14 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class ArticleService : BaseService
     {
         private static IArticleRepository Articles
         {
-            get { return IoC.Resolve<IArticleRepository>(); }
+            get { return GlobalContainer.Resolve<IArticleRepository>(); }
         }
 
         public virtual ArticleDto[] GetArticles()
