@@ -7,6 +7,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Assembler
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class FieldDefinitionAssembler
     {
         private static FieldDataType ConvertDataType(DataType value)
@@ -96,7 +99,7 @@ namespace phiNdus.fundus.Business.Assembler
         public static FieldDefinition UpdateDomainObject(FieldDefinitionDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
-            var result = IoC.Resolve<IFieldDefinitionRepository>().Get(subject.Id);
+            var result = GlobalContainer.Resolve<IFieldDefinitionRepository>().Get(subject.Id);
             Guard.Against<EntityNotFoundException>(result == null, "Property entity not found");
             Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 

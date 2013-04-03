@@ -7,6 +7,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Assembler
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     /// <summary>
     /// Die <c>ArticleDtoAssembler</c>-Klasse wandelt Article-Domain-Objects in Article-DTOs.
     /// </summary>
@@ -62,7 +65,7 @@ namespace phiNdus.fundus.Business.Assembler
 
         private void WriteField(int fieldDefinitionId, object value, BasePropertiesDto result)
         {
-            var fieldDefinition = IoC.Resolve<IFieldDefinitionRepository>().Get(fieldDefinitionId);
+            var fieldDefinition = GlobalContainer.Resolve<IFieldDefinitionRepository>().Get(fieldDefinitionId);
             var fieldValueDto = CreateFieldValueDto(fieldDefinition);
             fieldValueDto.Value = value;
             result.AddProperty(fieldValueDto);

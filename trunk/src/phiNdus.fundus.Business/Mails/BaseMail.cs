@@ -12,6 +12,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Mails
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class BaseMail
     {
         protected BaseMail(IMailTemplateSettings settings) : this(settings.Subject, settings.TextBody, settings.HtmlBody)
@@ -121,7 +124,7 @@ If you think it was sent incorrectly contact the administrator at @Model.Setting
 
         protected void Send(string recipients)
         {
-            var gateway = IoC.Resolve<IMailGateway>();
+            var gateway = GlobalContainer.Resolve<IMailGateway>();
 
             var textBody = GenerateTextBody();
             var htmlBody = GenerateHtmlBody();

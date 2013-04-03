@@ -10,6 +10,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class SettingsViewModelBase : ViewModelBase
     {
         protected IDictionary<string, Setting> _settings = new Dictionary<string, Setting>();
@@ -44,7 +47,7 @@ namespace phiNdus.fundus.Web.ViewModels
             using (UnitOfWork.Start())
             {
                 Keyspace = "common";
-                _settings = IoC.Resolve<ISettingRepository>().FindByKeyspace(Keyspace);
+                _settings = GlobalContainer.Resolve<ISettingRepository>().FindByKeyspace(Keyspace);
 
                 Load("server-url", (version, value) =>
                 {
@@ -61,7 +64,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public void SaveChanges()
         {
-            var repo = IoC.Resolve<ISettingRepository>();
+            var repo = GlobalContainer.Resolve<ISettingRepository>();
 
             var serverUrl = repo.FindByKey(Keyspace + ".server-url");
             if (serverUrl != null && serverUrl.Version != ServerUrlVersion)
@@ -115,7 +118,7 @@ namespace phiNdus.fundus.Web.ViewModels
             using (UnitOfWork.Start())
             {
                 Keyspace = "mail.smtp";
-                _settings = IoC.Resolve<ISettingRepository>().FindByKeyspace(Keyspace);
+                _settings = GlobalContainer.Resolve<ISettingRepository>().FindByKeyspace(Keyspace);
 
                 Load("host", (version, value) =>
                                  {
@@ -142,7 +145,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public void SaveChanges()
         {
-            var repo = IoC.Resolve<ISettingRepository>();
+            var repo = GlobalContainer.Resolve<ISettingRepository>();
             
             var subject = repo.FindByKey(Keyspace + ".host");
             if (subject != null && subject.Version != HostVersion)
@@ -249,7 +252,7 @@ namespace phiNdus.fundus.Web.ViewModels
         {
             using (UnitOfWork.Start())
             {
-                var settings = IoC.Resolve<ISettingRepository>().FindByKeyspace(keyspace);
+                var settings = GlobalContainer.Resolve<ISettingRepository>().FindByKeyspace(keyspace);
                 Keyspace = keyspace;
                 LoadSubject(settings.Values.FirstOrDefault(p => p.Key.EndsWith("subject")));
                 LoadBodyPlain(settings.Values.FirstOrDefault(p => p.Key.EndsWith("body")));
@@ -280,7 +283,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public void SaveChanges()
         {
-            var repo = IoC.Resolve<ISettingRepository>();
+            var repo = GlobalContainer.Resolve<ISettingRepository>();
 
             var subject = repo.FindByKey(Keyspace + ".subject");
             if (subject != null && subject.Version != SubjectVersion)

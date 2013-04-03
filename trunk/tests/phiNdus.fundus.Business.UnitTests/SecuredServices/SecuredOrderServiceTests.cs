@@ -13,6 +13,9 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Business.UnitTests.SecuredServices
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     [TestFixture]
     public class SecuredOrderServiceTests : UnitTestBase<IOrderService>
     {
@@ -38,9 +41,9 @@ namespace phiNdus.fundus.Business.UnitTests.SecuredServices
 
         private void GenerateAndRegisterMissingStubs()
         {
-            if (IoC.TryResolve<OrderService>() == null)
+            if (GlobalContainer.TryResolve<OrderService>() == null)
                 FakeOrderService = GenerateAndRegisterStub<OrderService>();
-            if (IoC.TryResolve<IUserRepository>() == null)
+            if (GlobalContainer.TryResolve<IUserRepository>() == null)
                 FakeUserRepo = GenerateAndRegisterStub<IUserRepository>();
 
             if (SessionAdmin == null)

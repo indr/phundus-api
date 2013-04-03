@@ -4,6 +4,7 @@
     using Entities;
     using Repositories;
     using Rhino.Commons;
+    using piNuts.phundus.Infrastructure;
 
     public class BaseSettings
     {
@@ -30,7 +31,7 @@
         {
             using (UnitOfWork.Start())
             {
-                var repo = IoC.Resolve<ISettingRepository>();
+                var repo = GlobalContainer.Resolve<ISettingRepository>();
                 return repo.FindByKeyspace(_keyspace);
             }
         }

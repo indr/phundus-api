@@ -11,6 +11,9 @@ using User = phiNdus.fundus.Business.Security.Constraints.User;
 
 namespace phiNdus.fundus.Business.SecuredServices
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class SecuredArticleService : SecuredServiceBase, IArticleService
     {
         #region IArticleService Members
@@ -36,7 +39,7 @@ namespace phiNdus.fundus.Business.SecuredServices
 
         public IList<FieldDefinitionDto> GetProperties(string sessionKey)
         {
-            return IoC.Resolve<IFieldsService>().GetProperties(sessionKey);
+            return GlobalContainer.Resolve<IFieldsService>().GetProperties(sessionKey);
         }
 
         public ArticleDto[] GetArticles(string sessionKey)

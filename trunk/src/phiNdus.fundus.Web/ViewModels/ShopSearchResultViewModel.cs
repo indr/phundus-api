@@ -6,6 +6,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class ShopSearchResultViewModel : ViewModelBase
     {
         public ShopSearchResultViewModel()
@@ -31,13 +34,13 @@ namespace phiNdus.fundus.Web.ViewModels
 
         protected IArticleService ArticleService
         {
-            get { return IoC.Resolve<IArticleService>(); }
+            get { return GlobalContainer.Resolve<IArticleService>(); }
         }
 
         private void Search(string query, int page)
         {
             var fieldDefinitions = ArticleService.GetProperties(SessionId);
-            var queryResult = IoC.Resolve<IArticleService>().FindArticles(SessionId,
+            var queryResult = GlobalContainer.Resolve<IArticleService>().FindArticles(SessionId,
                     new PageRequest { Index = page - 1, Size = RowsPerPage }, query);
             PageSelectorModel = new PageSelectorViewModel(queryResult.Pages);
             foreach (var each in queryResult.Items)

@@ -2,10 +2,19 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Web", "src\phiNdus.fundus.Web\phiNdus.fundus.Web.csproj", "{08F0E680-EAD6-4698-90C4-111C16620424}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25} = {9D30515E-5D3C-4FE5-8AA4-B8352328EF25}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Business", "src\phiNdus.fundus.Business\phiNdus.fundus.Business.csproj", "{97AA64DB-12BF-4AF3-B732-97DE1A9919B1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25} = {9D30515E-5D3C-4FE5-8AA4-B8352328EF25}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Domain", "src\phiNdus.fundus.Domain\phiNdus.fundus.Domain.csproj", "{00B767FE-A820-43B2-A494-B70732B09CF8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25} = {9D30515E-5D3C-4FE5-8AA4-B8352328EF25}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Business.UnitTests", "tests\phiNdus.fundus.Business.Unittests\phiNdus.fundus.Business.UnitTests.csproj", "{C3A49666-132D-497C-A135-E4C2E87FA01B}"
 EndProject
@@ -27,6 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9C4BD9
 	ProjectSection(SolutionItems) = preProject
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "piNuts.phundus.Infrastructure", "src\piNuts.phundus.Infrastructure\piNuts.phundus.Infrastructure.csproj", "{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -144,6 +155,16 @@ Global
 		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Release|x86.ActiveCfg = Release|Any CPU
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

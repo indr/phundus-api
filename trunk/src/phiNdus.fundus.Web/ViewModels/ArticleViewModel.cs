@@ -11,6 +11,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class ShopArticleViewModel : ArticleViewModel
     {
         private CartItemModel _cartItem = new CartItemModel();
@@ -25,7 +28,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         protected ICartService CartService
         {
-            get { return IoC.Resolve<ICartService>(); }
+            get { return GlobalContainer.Resolve<ICartService>(); }
         }
 
         public CartItemModel CartItem
@@ -65,7 +68,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         protected IArticleService ArticleService
         {
-            get { return IoC.Resolve<IArticleService>(); }
+            get { return GlobalContainer.Resolve<IArticleService>(); }
         }
 
         public bool IsDeleted { get; set; }

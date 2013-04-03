@@ -6,6 +6,8 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Entities
 {
+    using piNuts.phundus.Infrastructure;
+
     /// <summary>
     /// Die Klasse FieldedEntity stellt Funktionen für dynamische Felder zur Verfügung.
     /// </summary>
@@ -129,7 +131,7 @@ namespace phiNdus.fundus.Domain.Entities
         public virtual FieldValue SetFieldValue(int fieldDefinitionId, object value, bool attachIfNotExists)
         {
             if (attachIfNotExists && !HasField(fieldDefinitionId))
-                AddField(IoC.Resolve<IFieldDefinitionRepository>().Get(fieldDefinitionId));
+                AddField(GlobalContainer.Resolve<IFieldDefinitionRepository>().Get(fieldDefinitionId));
             foreach (var each in FieldValues.Where(each => each.FieldDefinition.Id == fieldDefinitionId))
             {
                 each.Value = value;

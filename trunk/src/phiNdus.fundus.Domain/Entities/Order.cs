@@ -14,6 +14,8 @@ using Rectangle = iTextSharp.text.Rectangle;
 
 namespace phiNdus.fundus.Domain.Entities
 {
+    using piNuts.phundus.Infrastructure;
+
     public class Order : EntityBase
     {
         private DateTime _createDate;
@@ -71,7 +73,7 @@ namespace phiNdus.fundus.Domain.Entities
         public virtual bool AddItem(int articleId, int amount, DateTime begin, DateTime end)
         {
             var item = new OrderItem();
-            item.Article = IoC.Resolve<IArticleRepository>().Get(articleId);
+            item.Article = GlobalContainer.Resolve<IArticleRepository>().Get(articleId);
             item.Amount = amount;
             item.From = begin;
             item.To = end;

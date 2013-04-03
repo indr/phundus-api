@@ -11,6 +11,9 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Business.UnitTests.ServicesTests
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     [TestFixture]
     public class PropertyServiceTests : UnitTestBase<PropertyService>
     {
@@ -37,7 +40,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests
 
         private void GenerateAndRegisterMissingStubs()
         {
-            if (IoC.TryResolve<IFieldDefinitionRepository>() == null)
+            if (GlobalContainer.TryResolve<IFieldDefinitionRepository>() == null)
             {
                 FakePropertyDefRepo = GenerateAndRegisterStub<IFieldDefinitionRepository>();
                 FakePropertyDefRepo.Expect(x => x.Get(FieldDefinition.Id)).Return(FieldDefinition);

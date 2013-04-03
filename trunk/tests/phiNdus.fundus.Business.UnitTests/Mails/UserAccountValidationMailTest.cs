@@ -13,6 +13,9 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Business.UnitTests.Mails
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     [TestFixture]
     public class UserAccountValidationMailTest : UnitTestBase<object>
     {
@@ -24,7 +27,7 @@ namespace phiNdus.fundus.Business.UnitTests.Mails
             MockFactory = new MockRepository();
             
             
-            RegisterDependencies(IoC.Container);
+            RegisterDependencies(GlobalContainer.Container);
 
         }
 
@@ -33,7 +36,7 @@ namespace phiNdus.fundus.Business.UnitTests.Mails
         protected void RegisterDependencies(IWindsorContainer container)
         {
             MockMailGateway = MockFactory.StrictMock<IMailGateway>();
-            IoC.Container.Register(Component.For<IMailGateway>().Instance(MockMailGateway));
+            GlobalContainer.Container.Register(Component.For<IMailGateway>().Instance(MockMailGateway));
 
             MockSettings = MockFactory.Stub<ISettings>();
             MockMailTemplateSettings = MockFactory.Stub<IMailTemplateSettings>();

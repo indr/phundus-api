@@ -6,6 +6,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Security
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class SecuritySession
     {
         private SecuritySession(User user, string key)
@@ -24,7 +27,7 @@ namespace phiNdus.fundus.Business.Security
             User user;
             using (UnitOfWork.Start())
             {
-                var repo = IoC.Resolve<IUserRepository>();
+                var repo = GlobalContainer.Resolve<IUserRepository>();
                 user = repo.FindBySessionKey(key);
 
                 Guard.Against<InvalidSessionKeyException>(user == null, "");

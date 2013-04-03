@@ -153,6 +153,10 @@
       <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>
       <Name>phiNdus.fundus.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\piNuts.phundus.Infrastructure\piNuts.phundus.Infrastructure.csproj">
+      <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>
+      <Name>piNuts.phundus.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\BaseService.cs" />

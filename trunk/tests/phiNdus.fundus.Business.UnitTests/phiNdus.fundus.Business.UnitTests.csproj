@@ -116,6 +116,10 @@
     <Compile Include="ServicesTests\UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\piNuts.phundus.Infrastructure\piNuts.phundus.Infrastructure.csproj">
+      <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>
+      <Name>piNuts.phundus.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\tests\phiNdus.fundus.TestHelpers\phiNdus.fundus.TestHelpers.csproj">
       <Project>{752C7B51-7C57-460D-BC8C-0902A0E880E6}</Project>
       <Name>phiNdus.fundus.TestHelpers</Name>

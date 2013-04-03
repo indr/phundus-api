@@ -8,6 +8,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.App_Start
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class ContainerConfig
     {
         public static IWindsorContainer Bootstrap()
@@ -27,7 +30,7 @@ namespace phiNdus.fundus.Web.App_Start
             var controllerFactory = new WindsorControllerFactory(container.Kernel);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
 
-            IoC.Initialize(container);
+            GlobalContainer.Initialize(container);
 
             return container;
         }

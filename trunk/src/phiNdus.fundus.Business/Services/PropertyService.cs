@@ -7,11 +7,14 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class PropertyService : BaseService
     {
         private static IFieldDefinitionRepository PropertyDefinitions
         {
-            get { return IoC.Resolve<IFieldDefinitionRepository>(); }
+            get { return GlobalContainer.Resolve<IFieldDefinitionRepository>(); }
         }
 
         public virtual IList<FieldDefinitionDto> GetProperties()

@@ -12,6 +12,9 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Business.UnitTests.SecuredServices
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     [TestFixture]
     public class SecuredPropertyServiceTests : UnitTestBase<IFieldsService>
     {
@@ -37,9 +40,9 @@ namespace phiNdus.fundus.Business.UnitTests.SecuredServices
 
         private void GenerateAndRegisterMissingStubs()
         {
-            if (IoC.TryResolve<PropertyService>() == null)
+            if (GlobalContainer.TryResolve<PropertyService>() == null)
                 FakePropertyService = GenerateAndRegisterStub<PropertyService>();
-            if (IoC.TryResolve<IUserRepository>() == null)
+            if (GlobalContainer.TryResolve<IUserRepository>() == null)
                 FakeUserRepo = GenerateAndRegisterStub<IUserRepository>();
 
             if (SessionAdmin == null)

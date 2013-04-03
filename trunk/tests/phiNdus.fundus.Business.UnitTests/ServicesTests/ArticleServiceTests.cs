@@ -13,6 +13,9 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Business.UnitTests.ServicesTests
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     [TestFixture]
     public class ArticleServiceTests : UnitTestBase<ArticleService>
     {
@@ -56,13 +59,13 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests
 
         private void GenerateAndRegisterMissingStubs()
         {
-            if (IoC.TryResolve<IArticleRepository>() == null)
+            if (GlobalContainer.TryResolve<IArticleRepository>() == null)
             {
                 FakeArticleRepo = GenerateAndRegisterStub<IArticleRepository>();
                 FakeArticleRepo.Expect(x => x.Get(Article.Id)).Return(Article);
                 FakeArticleRepo.Expect(x => x.Save(Arg<Article>.Is.Anything)).Return(Article);
             }
-            if (IoC.TryResolve<IFieldDefinitionRepository>() == null)
+            if (GlobalContainer.TryResolve<IFieldDefinitionRepository>() == null)
             {
                 FakePropertyDefRepo = GenerateAndRegisterStub<IFieldDefinitionRepository>();
                 FakePropertyDefRepo.Expect(x => x.Get(FieldDefinition.CreateDateId)).Return(

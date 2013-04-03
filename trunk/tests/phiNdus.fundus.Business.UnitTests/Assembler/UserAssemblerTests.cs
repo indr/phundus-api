@@ -10,6 +10,9 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Business.UnitTests.Assembler
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     [TestFixture]
     public class UserAssemblerTests : UnitTestBase<object>
     {
@@ -63,13 +66,13 @@ namespace phiNdus.fundus.Business.UnitTests.Assembler
 
         private void GenerateAndRegisterMissingStubs()
         {
-            if (IoC.TryResolve<IUserRepository>() == null)
+            if (GlobalContainer.TryResolve<IUserRepository>() == null)
             {
                 FakeUserRepository = GenerateAndRegisterStub<IUserRepository>();
                 FakeUserRepository.Expect(x => x.Get(1)).Return(User);
             }
 
-            if (IoC.TryResolve<IRoleRepository>() == null)
+            if (GlobalContainer.TryResolve<IRoleRepository>() == null)
             {
                 FakeRoleRepository = GenerateAndRegisterStub<IRoleRepository>();
                 FakeRoleRepository.Expect(x => x.Get(Role.User.Id)).Return(Role.User);

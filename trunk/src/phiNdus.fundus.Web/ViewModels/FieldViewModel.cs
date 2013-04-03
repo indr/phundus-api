@@ -8,6 +8,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class FieldViewModel : ViewModelBase
     {
         private FieldDefinitionDto _dto = new FieldDefinitionDto();
@@ -19,7 +22,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         protected IFieldsService FieldsService
         {
-            get { return IoC.Resolve<IFieldsService>(); }
+            get { return GlobalContainer.Resolve<IFieldsService>(); }
         }
 
 

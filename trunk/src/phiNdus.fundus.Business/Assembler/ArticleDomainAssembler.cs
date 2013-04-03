@@ -8,6 +8,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Assembler
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     /// <summary>
     /// Die <c>ArticleDomainAssembler</c> wandelt Article-DTOs in Article-Domain-Objects.
     /// </summary>
@@ -39,7 +42,7 @@ namespace phiNdus.fundus.Business.Assembler
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
-            var result = IoC.Resolve<IArticleRepository>().Get(subject.Id);
+            var result = GlobalContainer.Resolve<IArticleRepository>().Get(subject.Id);
             Guard.Against<EntityNotFoundException>(result == null, "Article entity not found");
             Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 
@@ -56,7 +59,7 @@ namespace phiNdus.fundus.Business.Assembler
         private static void WriteProperties(BasePropertiesDto subject, FieldedEntity result)
         {
             // Neue Properties hinzufügen, oder bestehende Property-Values aktualisieren.
-            var propertyDefinitionRepo = IoC.Resolve<IFieldDefinitionRepository>();
+            var propertyDefinitionRepo = GlobalContainer.Resolve<IFieldDefinitionRepository>();
             foreach (var each in subject.Properties)
             {
                 if (each.IsCalculated)

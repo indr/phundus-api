@@ -6,6 +6,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Security
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     [DebuggerStepThrough]
     public class Unsecured
     {
@@ -73,7 +76,7 @@ namespace phiNdus.fundus.Business.Security
             }
 
             // TODO,Inder: Tjaaa... Dependency-Injection hier schwierig...
-            var service = IoC.TryResolve<TService>();
+            var service = GlobalContainer.TryResolve<TService>();
             if (service == null)
                 service = new TService();
             service.SecurityContext = context;

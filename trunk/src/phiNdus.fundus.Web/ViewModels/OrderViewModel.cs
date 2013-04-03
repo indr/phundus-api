@@ -8,6 +8,9 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
+
     public class OrderViewModel : ViewModelBase
     {
         public OrderViewModel(OrderDto dto)
@@ -17,7 +20,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public OrderViewModel(int id)
         {
-            var dto = IoC.Resolve<IOrderService>().GetOrder(SessionId, id);
+            var dto = GlobalContainer.Resolve<IOrderService>().GetOrder(SessionId, id);
             Load(dto);
         }
 
