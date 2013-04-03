@@ -7,6 +7,7 @@ using Order = NHibernate.Criterion.Order;
 namespace phiNdus.fundus.TestHelpers.TestBases
 {
     using phiNdus.fundus.Domain;
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
 
     public class ComponentTestBase<TSut> : TestBase

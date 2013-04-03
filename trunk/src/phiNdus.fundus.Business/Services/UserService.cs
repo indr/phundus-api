@@ -13,7 +13,9 @@ namespace phiNdus.fundus.Business.Services
 {
     using System.Configuration;
     using Domain.Infrastructure;
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Rhino;
 
     public class UserService : BaseService
     {

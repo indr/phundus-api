@@ -9,6 +9,8 @@ using User = phiNdus.fundus.Business.Security.Constraints.User;
 
 namespace phiNdus.fundus.Business.SecuredServices
 {
+    using piNuts.phundus.Infrastructure.Rhino;
+
     public class SecuredUserService : SecuredServiceBase, IUserService
     {
         #region IUserService Members

@@ -8,7 +8,9 @@ using Rhino.Commons;
 namespace phiNdus.fundus.Business.Assembler
 {
     using phiNdus.fundus.Domain;
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Rhino;
 
     /// <summary>
     /// Die <c>ArticleDtoAssembler</c>-Klasse wandelt Article-Domain-Objects in Article-DTOs.

@@ -14,6 +14,7 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Business.UnitTests.Mails
 {
     using phiNdus.fundus.Domain;
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
 
     [TestFixture]

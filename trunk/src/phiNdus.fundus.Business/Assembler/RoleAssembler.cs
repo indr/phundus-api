@@ -7,6 +7,8 @@ using phiNdus.fundus.Domain.Entities;
 using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Assembler {
+    using piNuts.phundus.Infrastructure.Rhino;
+
     public static class RoleAssembler {
 
         public static RoleDto CreateDto(Role subject) {

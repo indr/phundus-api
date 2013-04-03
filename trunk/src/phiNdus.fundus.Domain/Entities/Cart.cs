@@ -8,6 +8,7 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Entities
 {
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
 
     public class Cart : EntityBase

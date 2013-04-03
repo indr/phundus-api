@@ -9,6 +9,8 @@ using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Assembler
 {
+    using piNuts.phundus.Infrastructure.Rhino;
+
     public class OrderDtoAssembler
     {
         public OrderDto CreateDto(Order subject)

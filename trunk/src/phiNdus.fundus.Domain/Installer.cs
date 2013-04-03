@@ -24,9 +24,9 @@ namespace phiNdus.fundus.Domain
             container.Register(Component.For<IReservationRepository>()
                                    .ImplementedBy<ReservationRepository>());
 
-            container.Register(Component.For<IUnitOfWorkFactory>()
-                                   .Instance(
-                                       new NHibernateUnitOfWorkFactory(new[] {Assembly.GetAssembly(typeof (EntityBase))})));
+            //container.Register(Component.For<IUnitOfWorkFactory>()
+            //                       .Instance(
+            //                           new NHibernateUnitOfWorkFactory(new[] {Assembly.GetAssembly(typeof (EntityBase))})));
         }
 
         #endregion

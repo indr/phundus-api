@@ -14,7 +14,9 @@ using Rectangle = iTextSharp.text.Rectangle;
 
 namespace phiNdus.fundus.Domain.Entities
 {
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Rhino;
 
     public class Order : EntityBase
     {

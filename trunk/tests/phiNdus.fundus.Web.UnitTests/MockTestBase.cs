@@ -6,6 +6,7 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.TestHelpers {
     using phiNdus.fundus.Domain;
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
 
     public abstract class MockTestBase<TSut> {

@@ -26,8 +26,8 @@ namespace phiNdus.fundus.Domain.Repositories
 
         public IDictionary<string, Setting> FindByKeyspace(string keyspace)
         {
-            Guard.Against<ArgumentException>(keyspace.EndsWith(".", StringComparison.OrdinalIgnoreCase),
-                                             "Keyspace darf nicht mit einem Punkt enden");
+            if (keyspace.EndsWith(".", StringComparison.OrdinalIgnoreCase))
+                throw new ArgumentException( "Keyspace darf nicht mit einem Punkt enden");
 
             var query = from s in Settings
                         where s.Key.StartsWith(keyspace)

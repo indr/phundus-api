@@ -10,9 +10,11 @@ namespace phiNdus.fundus.Domain
     {
         public static string Encrypt(string value, string salt)
         {
-            Guard.Against<ArgumentNullException>(value == null, "value");
-            Guard.Against<ArgumentNullException>(salt == null, "salt");
-
+            if (value == null)
+                throw new ArgumentNullException("value");
+            if (salt == null)
+                throw new ArgumentNullException("salt");
+            
             var md5 = new MD5CryptoServiceProvider();
             var hashed = md5.ComputeHash(new UnicodeEncoding().GetBytes(salt + value));
             return BitConverter.ToString(hashed).Replace("-", "").ToLower(CultureInfo.CurrentCulture);

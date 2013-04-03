@@ -11,6 +11,7 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
+    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
 
     [TestFixture]
