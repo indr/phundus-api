@@ -7,7 +7,7 @@ namespace phiNdus.fundus.Domain.Repositories
 {
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class FieldDefinitionRepository : NHRepository<FieldDefinition>, IFieldDefinitionRepository
+    public class FieldDefinitionRepository : RepositoryBase<FieldDefinition>, IFieldDefinitionRepository
     {
         private IQueryable<FieldDefinition> FieldDefinitions
         {

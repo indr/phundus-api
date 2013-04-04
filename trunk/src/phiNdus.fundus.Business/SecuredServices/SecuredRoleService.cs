@@ -1,30 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.Security;
-using phiNdus.fundus.Business.Security.Constraints;
-using phiNdus.fundus.Business.Services;
+﻿namespace phiNdus.fundus.Business.SecuredServices
+{
+    using System.Collections.Generic;
+    using Castle.Transactions;
+    using phiNdus.fundus.Business.Dto;
+    using phiNdus.fundus.Business.Security;
+    using phiNdus.fundus.Business.Security.Constraints;
+    using phiNdus.fundus.Business.Services;
 
-namespace phiNdus.fundus.Business.SecuredServices {
-    public class SecuredRoleService : SecuredServiceBase, IRoleService {
-
-        public IEnumerable<RoleDto> GetRoles(string sessionKey) {
+    public class SecuredRoleService : SecuredServiceBase, IRoleService
+    {
+        [Transaction]
+        public IEnumerable<RoleDto> GetRoles(string sessionKey)
+        {
             return Secured.With(null)
-                .Do<RoleService, IEnumerable<RoleDto>>(s => s.GetRoles());
+                          .Do<RoleService, IEnumerable<RoleDto>>(s => s.GetRoles());
         }
 
-        public string[] GetRolesForUser(string sessionKey)
+        [Transaction]
+        public virtual string[] GetRolesForUser(string sessionKey)
         {
             try
             {
                 return Secured.With(Session.FromKey(sessionKey))
-                    .Do<RoleService, string[]>(s => s.GetRolesForUser());
+                              .Do<RoleService, string[]>(s => s.GetRolesForUser());
             }
             catch (InvalidSessionKeyException)
             {
-                return Unsecured.Do<RoleService, string[]>(svc => svc.GetRolesForUser());    
+                return Unsecured.Do<RoleService, string[]>(svc => svc.GetRolesForUser());
             }
         }
     }

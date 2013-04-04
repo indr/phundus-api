@@ -9,7 +9,7 @@ namespace phiNdus.fundus.Domain.Repositories
 {
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class ArticleRepository : NHRepository<Article>, IArticleRepository
+    public class ArticleRepository : RepositoryBase<Article>, IArticleRepository
     {
         private IQueryable<Article> Articles
         {

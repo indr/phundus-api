@@ -54,7 +54,7 @@
     <Compile Include="App_Start\Installer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Obsolete\Guard.cs" />
-    <Compile Include="Obsolete\NHRepository.cs" />
+    <Compile Include="Obsolete\RepositoryBase.cs" />
     <Compile Include="Obsolete\Repositories.cs" />
     <Compile Include="Obsolete\UnitOfWorkcs.cs" />
   </ItemGroup>

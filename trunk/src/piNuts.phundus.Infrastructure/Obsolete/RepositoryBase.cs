@@ -3,13 +3,25 @@
     using System;
     using NHibernate;
     using NHibernate.Criterion;
-    using piNuts.phundus.Infrastructure;
 
-    public class NHRepository<T> : IRepository<T>
+    public class RepositoryBase<T> : IRepository<T>
     {
+        public Type ConcreteType
+        {
+            get { throw new InvalidOperationException(); }
+            set { throw new InvalidOperationException(); }
+        }
+
+        public Func<ISession> SessionFactory { get; set; }
+
+        protected virtual ISession Session
+        {
+            get { return SessionFactory(); }
+        }
+
         public T Get(object id)
         {
-            throw new InvalidOperationException();    
+            return Session.Get<T>(id);
         }
 
         public T Load(object id)
@@ -55,26 +67,6 @@
         public void DeleteAll()
         {
             throw new InvalidOperationException();
-        }
-
-        public Type ConcreteType
-        {
-            get
-            {
-                throw new InvalidOperationException();    
-            }
-            set
-            {
-                throw new InvalidOperationException();    
-            }
-        }
-
-        protected virtual ISession Session
-        {
-            get
-            {
-                return GlobalContainer.Resolve<Func<ISession>>()();
-            }
         }
     }
 }
