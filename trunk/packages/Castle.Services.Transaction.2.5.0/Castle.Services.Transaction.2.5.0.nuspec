@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Castle.Services.Transaction</id>
+    <version>2.5.0</version>
+    <title>Castle.Services.Transaction</title>
+    <authors>Castle Project Contributors</authors>
+    <owners>Castle Project Contributors</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>http://www.castleproject.org/services/transaction/</projectUrl>
+    <iconUrl>http://www.castleproject.org/images/cp_logo32.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Castle.Service.Transaction was inspired by the Java Transaction API (JTA), although it is a simplified version with no support for two phase commit.
+
+Basically there is a transaction manager that is able to create transactions, that are associated with the thread. You can only have one active transaction per thread.
+
+The transaction object only orchestrates the resources enlisted with it. It is up to the resource implementation to provide integration with some external transaction-capable entity, typically a database connection.</description>
+    <summary>Castle.Service.Transaction was inspired by the Java Transaction API (JTA), although it is a simplified version with no support for two phase commit.  Basically there is a transaction manager that is able to create transactions, that are associated with the thread. You can only have one active transaction per thread.  The transaction object only orchestrates the resources enlisted with it. It is up to the resource implementation to provide integration with some external transaction-capable entity, typically a database connection.</summary>
+    <tags>Castle</tags>
+    <dependencies>
+      <dependency id="Castle.Core" version="2.5.1" />
+    </dependencies>
+    <references>
+      <reference file="Castle.Services.Transaction.dll" />
+    </references>
+  </metadata>
+</package>
