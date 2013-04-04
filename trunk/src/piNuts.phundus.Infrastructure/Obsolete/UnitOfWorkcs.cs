@@ -63,6 +63,8 @@
 
     public static class UnitOfWork
     {
+        static IUnitOfWork _globalUnitOfWork;
+
         public static ISession CurrentSession
         {
             get { throw new InvalidOperationException(); }
@@ -76,6 +78,8 @@
 
         public static IUnitOfWork Start()
         {
+            if (_globalUnitOfWork != null)
+                return _globalUnitOfWork;
             //TODO: Hmm
             //throw new InvalidOperationException();
             return new UnitOfWorkImpl();
@@ -91,7 +95,7 @@
 
         public static void RegisterGlobalUnitOfWork(IUnitOfWork result)
         {
-            throw new InvalidOperationException();
+            _globalUnitOfWork = result;
         }
     }
 }
