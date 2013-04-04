@@ -13,6 +13,5 @@
         T SaveOrUpdate(T entity);
         T SaveOrUpdateCopy(T entity);
         void Update(T entity);
-        T FindFirst(params Order[] orders);
     }
 }
