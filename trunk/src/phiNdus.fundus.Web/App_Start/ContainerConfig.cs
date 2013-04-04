@@ -8,11 +8,15 @@ using piNuts.phundus.Infrastructure;
 
 namespace phiNdus.fundus.Web.App_Start
 {
+    using System;
+    using System.Reflection;
+    using System.Text;
     using Castle.Facilities.AutoTx;
     using Castle.Facilities.NHibernate;
     using Castle.Transactions;
     using FluentNHibernate.Cfg;
     using NHibernate;
+    using phiNdus.fundus.Domain.Entities;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class ContainerConfig
@@ -57,12 +61,17 @@ namespace phiNdus.fundus.Web.App_Start
 
         public FluentConfiguration BuildFluent()
         {
-            return Fluently.Configure(new NHibernate.Cfg.Configuration());
+            var cfg = new NHibernate.Cfg.Configuration();
+
+            var assembly = typeof (EntityBase).Assembly;
+            cfg.AddAssembly(assembly);
+
+            return Fluently.Configure(cfg);
         }
 
         public void Registered(ISessionFactory factory)
         {
-            
+            //
         }
 
         public bool IsDefault { get { return true; } }
