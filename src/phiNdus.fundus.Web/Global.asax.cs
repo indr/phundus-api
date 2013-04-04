@@ -6,11 +6,11 @@
     using System.Web.Optimization;
     using System.Web.Routing;
     using Castle.Windsor;
-    using App_Start;
+    using phiNdus.fundus.Web.App_Start;
 
     public class MvcApplication : HttpApplication
     {
-        private static IWindsorContainer _container;
+        static IWindsorContainer _container;
 
         protected void Application_Start()
         {
@@ -29,7 +29,8 @@
 
         protected void Application_End()
         {
-            _container.Dispose();
+            if (_container != null)
+                _container.Dispose();
         }
     }
 }

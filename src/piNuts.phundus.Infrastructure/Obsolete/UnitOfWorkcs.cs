@@ -1,7 +1,4 @@
-﻿// ReSharper disable CheckNamespace
-
-namespace Rhino.Commons
-// ReSharper restore CheckNamespace
+﻿namespace piNuts.phundus.Infrastructure.Obsolete
 {
     using System;
     using System.Reflection;
@@ -46,14 +43,22 @@ namespace Rhino.Commons
         }
     }
 
-    namespace Rhino.Commons
-    {
-    }
-
-
     public interface IUnitOfWork : IDisposable
     {
         void TransactionalFlush();
+    }
+
+    public class UnitOfWorkImpl : IUnitOfWork
+    {
+        public void Dispose()
+        {
+            // Do nothing
+        }
+
+        public void TransactionalFlush()
+        {
+            // Do nothing
+        }
     }
 
     public static class UnitOfWork
@@ -71,7 +76,9 @@ namespace Rhino.Commons
 
         public static IUnitOfWork Start()
         {
-            throw new InvalidOperationException();
+            //TODO: Hmm
+            //throw new InvalidOperationException();
+            return new UnitOfWorkImpl();
         }
 
         public static bool IsStarted

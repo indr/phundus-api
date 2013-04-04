@@ -5,10 +5,11 @@ using NHibernate;
 using NHibernate.Linq;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Factories;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
+    using piNuts.phundus.Infrastructure.Obsolete;
+
     public class ReservationRepository : IReservationRepository
     {
         private static ISession Session

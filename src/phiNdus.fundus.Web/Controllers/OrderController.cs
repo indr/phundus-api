@@ -2,13 +2,12 @@
 using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Web.ViewModels;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     [Authorize]
     public class OrderController : ControllerBase

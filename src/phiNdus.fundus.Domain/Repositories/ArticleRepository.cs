@@ -4,10 +4,11 @@ using System.Linq;
 using NHibernate.Criterion;
 using NHibernate.Linq;
 using phiNdus.fundus.Domain.Entities;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
+    using piNuts.phundus.Infrastructure.Obsolete;
+
     public class ArticleRepository : NHRepository<Article>, IArticleRepository
     {
         private IQueryable<Article> Articles

@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Transform;
 using phiNdus.fundus.Domain.Entities;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Inventory
 {
+    using piNuts.phundus.Infrastructure.Obsolete;
+
     public class Availability
     {
         public DateTime Date { get; set; }

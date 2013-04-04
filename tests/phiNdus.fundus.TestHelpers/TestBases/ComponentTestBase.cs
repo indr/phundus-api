@@ -1,14 +1,13 @@
 ﻿using System;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
-using Rhino.Commons;
 using Order = NHibernate.Criterion.Order;
 
 namespace phiNdus.fundus.TestHelpers.TestBases
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class ComponentTestBase<TSut> : TestBase
     {

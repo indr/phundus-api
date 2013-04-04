@@ -5,13 +5,12 @@ using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.Domain.Settings;
 using phiNdus.fundus.Web.Models;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase

@@ -2,12 +2,11 @@
 using System.Linq;
 using Iesi.Collections.Generic;
 using phiNdus.fundus.Domain.Repositories;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Entities
 {
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class Article : CompositeEntity
     {

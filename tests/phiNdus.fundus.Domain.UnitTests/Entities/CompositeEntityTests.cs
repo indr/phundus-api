@@ -6,13 +6,12 @@ using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.TestHelpers;
 using phiNdus.fundus.TestHelpers.TestBases;
-using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     [TestFixture]
     public class CompositeEntityTests : UnitTestBase<object>

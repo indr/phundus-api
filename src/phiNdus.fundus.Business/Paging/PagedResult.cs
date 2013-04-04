@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Paging
 {
-    using piNuts.phundus.Infrastructure.Rhino;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     /// <summary>
     /// Liefert ein "gepagtes" Resultat für einen bestimmten Typ.

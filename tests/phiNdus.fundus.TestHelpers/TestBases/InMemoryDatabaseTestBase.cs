@@ -7,13 +7,12 @@ using NHibernate.Dialect;
 using NHibernate.Driver;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
-using Rhino.Commons;
 using Environment = NHibernate.Cfg.Environment;
 
 namespace phiNdus.fundus.TestHelpers.TestBases
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class SQLiteInMemoryTestingConnectionProvider : NHibernate.Connection.DriverConnectionProvider
     {

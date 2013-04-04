@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using phiNdus.fundus.Domain.Entities;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
+    using piNuts.phundus.Infrastructure.Obsolete;
+
     public interface IArticleRepository : IRepository<Article>
     {
         ICollection<Article> FindAll(Organization selectedOrganization);

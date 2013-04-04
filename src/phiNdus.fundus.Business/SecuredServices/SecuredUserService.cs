@@ -4,12 +4,11 @@ using phiNdus.fundus.Business.Security;
 using phiNdus.fundus.Business.Security.Constraints;
 using phiNdus.fundus.Business.Services;
 using phiNdus.fundus.Domain.Entities;
-using Rhino.Commons;
 using User = phiNdus.fundus.Business.Security.Constraints.User;
 
 namespace phiNdus.fundus.Business.SecuredServices
 {
-    using piNuts.phundus.Infrastructure.Rhino;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class SecuredUserService : SecuredServiceBase, IUserService
     {

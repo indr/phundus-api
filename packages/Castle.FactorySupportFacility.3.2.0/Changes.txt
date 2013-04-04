@@ -1,7 +1,66 @@
+3.2.0 (2013-02-16)
+==================
+- implemented IOC-375 - List duplicate registrations that are registered through convention
+- implemented IOC-366 - support scoped lifestyle in XML config
+- implemented IOC-365 - Provide convenience methods in the registration API to bind to nearest subgraph (in addition to existing - widest)
+- implemented IOC-362 - New container diagnostic - duplicated dependencies
+- implemented IOC-360 - Ability to register types based on one or several of multiple bases
+- implemented IOC-358 - add ability to specify dependency on an embedded resource
+- implemented IOC-357 - Provide some internal logging in Windsor to be able to see non-critical errors
+- implemented IOC-355 - Add a mechanism to mark constructors as unselectable for injection, much like DoNotWireAttribute is for property injection
+- implemented IOC-353 - Add Classes.FromAssemblyInThisApplication() for parity with FromAssembly class
+- implemented IOC-348 - Explict sort order for convention-based configuration would be nice
+
+- fixed FACILITIES-160 - Wcf Facility doesn't support multiple IErrorHandlers
+- fixed IOC-374 - Container.Register causing NotSupportedException in ASP .NET MVC 4.
+- fixed IOC-373 - Open Generics won't resolve with LateBoundComponent Implementation
+- fixed IOC-372 - Performance Counters not updated on releasing a typed factory
+- fixed IOC-371 - AssemblyFilter cannot find assemblies on case-sensitive filesystems
+- fixed IOC-370 - Deadlock
+- fixed IOC-369 - Probably bug with generic interceptors
+- fixed IOC-364 - It is impossible to use bound lifestyle with chain of components binding to innermost one
+- fixed IOC-359 - Property filtering API is confusing and buggy
+- fixed IOC-356 - Specifying a hook should be enough to create an implementation-less proxy
+- fixed IOC-354 - Deadlock in pooled lifestyle under heavy load
+- fixed IOC-334 - FacilityConfig is null in facility Init()
+- fixed IOC-300 - OnCreate does not work for generic components
+
+3.1.0 (2012-08-05)
+==================
+- fixed IOC-347 - WithServiceAllInterfaces throws exception (regression)
+
+3.1.0 RC (2012-07-08)
+==================
+- Refined WCF Discovery Load Balancing approach
+- Added WCF behavior to specify an IDataContractSurrogate
+- Import Bindings instead of endpoints for WCF Discovery
+- Improved concurrency during WCF channel failover
+- Refactored WCF proxying to support all channels (not just ones based on RealProxy)
+- Added additional WCF Discovery support for managed Discovery Proxies
+- Exposes notifications when channels are refreshed
+- Added exponential backoff client policy for WCF Facility
+
+- implemented IOC-343 - Add ability to specify fallback components that should never take precedence over non-fallback ones
+- implemented IOC-339 - Add extension point to decide whether open generic component wants to support particular closed version
+- implemented FACILITIES-159 - Add option to skip configuring log4net/nlog in LoggingFacility
+
+- fixed IOC-345 - When using child containers, parent components are released with child container in certain cases
+- fixed IOC-342 - Should error when trying to use PerWebRequest lifestyle when linked against the client profile
+- fixed IOC-341 - IHandlerFilter returning empty array ignored
+- fixed IOC-338 - SerializationException thrown when using remoting within default lifetime scope (Failed to load expression host assembly. Details: Type '[...]CallContextLifetimeScope[...]' is not marked as serializable.)
+- fixed IOC-336 - Failing resolution of proxied components implementing multiple generic service interfaces
+- fixed IOC-332 - UsingFactoryMethod resolving a proxy without a target throws NullReferenceException instead of a better exception
+- fixed IOC-331 - TypedFactoryFacility should ignore Func<string>
+- fixed IOC-328 - Hard-to-understand comment
+- fixed IOC-326 - Component is Disposed before the OnDestroy delegate is invoked
+- fixed IOC-325 - ParentHandlerWithChildResolver.TryResolve throws exception
+- fixed IOC-241 - .NET 4 security transparency and APTCA
+- fixed FACILITIES-155 - PerWcfSession throws NullReferenceException when not in a session
+
 3.0.0 (2011-12-13)
 ==================
 no major changes
-==================
+
 3.0.0 RC 1 (2011-11-20)
 ==================
 - implemented IOC-318 - Provide more high level API for fitering (and ignoring/requiring) properties at registration time
@@ -85,7 +144,7 @@ no major changes
 - implemented IOC-243 - Unseal the InterceptorAttribute class
 - fixed IOC-239 - ArrayResolver attempts to instantiate an unresolvable array dependency
 - fixed IOC-238 - Resolving Composite depending on a Decorator may fire up cycle detection fuse
-- fixed IOC-237 - Castle Windsor : Possible bug with Startable Facility and “decorator pattern” dependencies
+- fixed IOC-237 - Castle Windsor : Possible bug with Startable Facility and "decorator pattern" dependencies
 - fixed IOC-236 - Typed Factory Facility causes memory leak because it keeps a reference after releasing object in list 'trackedComponents'
 - fixed IOC-235 - TypedFactoryFacility with inherited interfaces throws an exception
 - fixed IOC-234 - StackOverflow causing inability to use debugger view when there are components with dependency cycles in the container

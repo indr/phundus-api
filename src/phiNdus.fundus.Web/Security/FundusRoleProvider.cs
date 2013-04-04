@@ -4,12 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using phiNdus.fundus.Business.SecuredServices;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Security {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class FundusRoleProvider : RoleProvider {
 

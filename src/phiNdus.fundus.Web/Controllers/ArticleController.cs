@@ -8,13 +8,12 @@ using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.Web.Helpers;
 using phiNdus.fundus.Web.Models.ArticleModels;
 using phiNdus.fundus.Web.ViewModels;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     [Authorize(Roles = "Chief")]
     public class ArticleController : ControllerBase

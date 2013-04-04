@@ -2,10 +2,11 @@
 using System.Linq;
 using NHibernate.Linq;
 using phiNdus.fundus.Domain.Entities;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
+    using piNuts.phundus.Infrastructure.Obsolete;
+
     public class CartRepository : NHRepository<Cart>, ICartRepository
     {
         private IQueryable<Cart> Carts

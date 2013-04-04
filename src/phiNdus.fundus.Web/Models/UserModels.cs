@@ -6,13 +6,12 @@ using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.SecuredServices;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Models
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class UserModel : ModelBase
     {

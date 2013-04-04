@@ -13,6 +13,7 @@ namespace phiNdus.fundus.Web.App_Start
     using Castle.Transactions;
     using FluentNHibernate.Cfg;
     using NHibernate;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class ContainerConfig
     {

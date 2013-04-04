@@ -50,12 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalContainer.cs" />
+    <Compile Include="Obsolete\GlobalContainer.cs" />
     <Compile Include="App_Start\Installer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rhino\Guard.cs" />
-    <Compile Include="Rhino\Repositories.cs" />
-    <Compile Include="Rhino\UnitOfWorkcs.cs" />
+    <Compile Include="Obsolete\Guard.cs" />
+    <Compile Include="Obsolete\NHRepository.cs" />
+    <Compile Include="Obsolete\Repositories.cs" />
+    <Compile Include="Obsolete\UnitOfWorkcs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

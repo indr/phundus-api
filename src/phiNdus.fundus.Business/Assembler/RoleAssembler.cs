@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Domain.Entities;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Assembler {
-    using piNuts.phundus.Infrastructure.Rhino;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public static class RoleAssembler {
 

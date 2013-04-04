@@ -2,14 +2,12 @@
 using NHibernate;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Security
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Rhino;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class SecuritySession
     {

@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using Entities;
     using Repositories;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class BaseSettings
     {
