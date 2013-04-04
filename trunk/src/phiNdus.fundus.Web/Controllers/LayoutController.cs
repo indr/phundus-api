@@ -1,14 +1,11 @@
-﻿using System;
-using System.Web.Mvc;
-using NHibernate;
-using phiNdus.fundus.Domain.Repositories;
-using phiNdus.fundus.Web.ViewModels.Layout;
-
-namespace phiNdus.fundus.Web.Controllers
+﻿namespace phiNdus.fundus.Web.Controllers
 {
+    using System;
+    using System.Web.Mvc;
     using Castle.Transactions;
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using NHibernate;
+    using phiNdus.fundus.Domain.Repositories;
+    using phiNdus.fundus.Web.ViewModels.Layout;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class LayoutController : ControllerBase
@@ -16,7 +13,8 @@ namespace phiNdus.fundus.Web.Controllers
         public IUserRepository UserRepository { get; set; }
 
         [ChildActionOnly]
-        public ActionResult NavBar()
+        [Transaction]
+        public virtual ActionResult NavBar()
         {
             var resolved = GlobalContainer.Resolve<IUserRepository>();
             if (resolved == null)
@@ -32,7 +30,7 @@ namespace phiNdus.fundus.Web.Controllers
                     {
                         model.Organizations.Add(each.Organization);
                         NHibernateUtil.Initialize(each.Organization);
-                    }                    
+                    }
                 }
             }
 
