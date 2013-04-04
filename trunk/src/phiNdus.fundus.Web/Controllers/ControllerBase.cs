@@ -1,16 +1,18 @@
-using System.IO;
-using System.Web.Mvc;
-
 namespace phiNdus.fundus.Web.Controllers
 {
+    using System.IO;
+    using System.Web.Mvc;
+
     public abstract class ControllerBase : Controller
     {
-        protected string SessionId { get { return Session.SessionID; } }
+        protected string SessionId
+        {
+            get { return Session.SessionID; }
+        }
 
         // Source: http://stackoverflow.com/questions/2374046/returning-an-editortemplate-as-a-partialview-in-an-action-result-asp-net-mvc-2
         protected PartialViewResult EditorFor(object model)
         {
-           
             return PartialView("~/Views/Shared/EditorTemplates/" + model.GetType().Name + ".cshtml", model);
         }
 
@@ -20,7 +22,7 @@ namespace phiNdus.fundus.Web.Controllers
             return EditorFor(model);
         }
 
-        
+
         protected PartialViewResult DisplayFor(object model)
         {
             return PartialView("~/Views/Shared/DisplayTemplates/" + model.GetType().Name + ".cshtml", model);

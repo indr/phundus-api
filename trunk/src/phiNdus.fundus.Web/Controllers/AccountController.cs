@@ -1,18 +1,15 @@
-﻿using System;
-using System.Web.Mvc;
-using System.Web.Security;
-using phiNdus.fundus.Business;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.SecuredServices;
-using phiNdus.fundus.Domain.Repositories;
-using phiNdus.fundus.Web.Models;
-using phiNdus.fundus.Web.ViewModels;
-using phiNdus.fundus.Web.ViewModels.Account;
-
-namespace phiNdus.fundus.Web.Controllers
+﻿namespace phiNdus.fundus.Web.Controllers
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System;
+    using System.Web.Mvc;
+    using Castle.Transactions;
+    using phiNdus.fundus.Business;
+    using phiNdus.fundus.Business.Dto;
+    using phiNdus.fundus.Business.SecuredServices;
+    using phiNdus.fundus.Domain.Repositories;
+    using phiNdus.fundus.Web.Models;
+    using phiNdus.fundus.Web.ViewModels;
+    using phiNdus.fundus.Web.ViewModels.Account;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class AccountController : ControllerBase
@@ -26,16 +23,18 @@ namespace phiNdus.fundus.Web.Controllers
         public IOrganizationRepository Organizations { get; set; }
         public IUserService UserService { get; set; }
 
-        private IFormsService FormsService { get; set; }
-        private IMembershipService MembershipService { get; set; }
+        IFormsService FormsService { get; set; }
+        IMembershipService MembershipService { get; set; }
 
-        public ActionResult LogOn()
+        [Transaction]
+        public virtual ActionResult LogOn()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        [Transaction]
+        public virtual ActionResult LogOn(LogOnModel model, string returnUrl)
         {
             if ((ModelState.IsValid) && (MembershipService.ValidateUser(model.Email, model.Password)))
             {
@@ -50,20 +49,23 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult LogOff()
+        [Transaction]
+        public virtual ActionResult LogOff()
         {
             FormsService.SignOut();
             return RedirectToAction("Index", ControllerNames.Home);
         }
 
         [HttpGet]
-        public ActionResult ResetPassword()
+        [Transaction]
+        public virtual ActionResult ResetPassword()
         {
             return View(new ResetPasswordViewModel());
         }
 
         [HttpPost]
-        public ActionResult ResetPassword(ResetPasswordViewModel model)
+        [Transaction]
+        public virtual ActionResult ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -87,13 +89,15 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Validation(string id)
+        [Transaction]
+        public virtual ActionResult Validation(string id)
         {
             return Validation(new ValidationViewModel {Key = id});
         }
 
         [HttpPost]
-        public ActionResult Validation(ValidationViewModel model)
+        [Transaction]
+        public virtual ActionResult Validation(ValidationViewModel model)
         {
             if (!String.IsNullOrEmpty(model.Key))
             {
@@ -105,13 +109,15 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult EmailValidation(string id)
+        [Transaction]
+        public virtual ActionResult EmailValidation(string id)
         {
             return EmailValidation(new EmailValidationViewModel {Key = id});
         }
 
         [HttpPost]
-        public ActionResult EmailValidation(EmailValidationViewModel model)
+        [Transaction]
+        public virtual ActionResult EmailValidation(EmailValidationViewModel model)
         {
             if (!String.IsNullOrEmpty(model.Key))
             {
@@ -136,13 +142,15 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
 
-        public ActionResult ChangeEmail()
+        [Transaction]
+        public virtual ActionResult ChangeEmail()
         {
             return View(new ChangeEmailViewModel());
         }
 
         [HttpPost]
-        public ActionResult ChangeEmail(ChangeEmailViewModel model)
+        [Transaction]
+        public virtual ActionResult ChangeEmail(ChangeEmailViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -173,13 +181,15 @@ namespace phiNdus.fundus.Web.Controllers
             }
         }
 
-        public ActionResult ChangePassword()
+        [Transaction]
+        public virtual ActionResult ChangePassword()
         {
             return View(new ChangePasswordViewModel());
         }
 
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordViewModel model)
+        [Transaction]
+        public virtual ActionResult ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -203,7 +213,8 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult SignUp()
+        [Transaction]
+        public virtual ActionResult SignUp()
         {
             using (UnitOfWork.Start())
             {
@@ -216,12 +227,11 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignUp(SignUpModel model)
+        [Transaction]
+        public virtual ActionResult SignUp(SignUpModel model)
         {
             if (ModelState.IsValid)
             {
-
-
                 try
                 {
                     UserService.CreateUser(HttpContext.Session.SessionID,

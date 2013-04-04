@@ -1,23 +1,20 @@
-﻿using System;
-using System.Web.Mvc;
-using phiNdus.fundus.Business.SecuredServices;
-using phiNdus.fundus.Web.Models.CartModels;
-using phiNdus.fundus.Web.ViewModels;
-
-namespace phiNdus.fundus.Web.Controllers
+﻿namespace phiNdus.fundus.Web.Controllers
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System;
+    using System.Web.Mvc;
+    using phiNdus.fundus.Business.SecuredServices;
+    using phiNdus.fundus.Web.Models.CartModels;
+    using phiNdus.fundus.Web.ViewModels;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class ShopController : ControllerBase
     {
-        private static string MasterView
+        static string MasterView
         {
             get { return @"Index"; }
         }
 
-        private string ShopView
+        string ShopView
         {
             get
             {
@@ -29,7 +26,7 @@ namespace phiNdus.fundus.Web.Controllers
             set { Session["Shop-View"] = value; }
         }
 
-        private string Query
+        string Query
         {
             get { return Convert.ToString(Session["Shop-Query"]); }
             set
@@ -39,7 +36,7 @@ namespace phiNdus.fundus.Web.Controllers
             }
         }
 
-        private int? RowsPerPage
+        int? RowsPerPage
         {
             get
             {
@@ -55,7 +52,8 @@ namespace phiNdus.fundus.Web.Controllers
             }
         }
 
-        public ActionResult Index(int? page, FormCollection collection = null)
+        [Transaction]
+        public virtual ActionResult Index(int? page, FormCollection collection = null)
         {
             if (collection != null)
             {
@@ -67,25 +65,29 @@ namespace phiNdus.fundus.Web.Controllers
             return Search(null, page.HasValue ? page.Value : 1);
         }
 
-        public ActionResult Large()
+        [Transaction]
+        public virtual ActionResult Large()
         {
             ShopView = ShopViews.Large;
             return Index(null, null);
         }
 
-        public ActionResult Small()
+        [Transaction]
+        public virtual ActionResult Small()
         {
             ShopView = ShopViews.Small;
             return Index(null, null);
         }
 
-        public ActionResult Table()
+        [Transaction]
+        public virtual ActionResult Table()
         {
             ShopView = ShopViews.Table;
             return Index(null, null);
         }
 
-        public ActionResult Search(string query, int page = 1)
+        [Transaction]
+        public virtual ActionResult Search(string query, int page = 1)
         {
             Query = query;
             var model = new ShopSearchResultViewModel(Query, page, RowsPerPage.Value);
@@ -94,11 +96,12 @@ namespace phiNdus.fundus.Web.Controllers
             return View(ShopView, MasterView, model);
         }
 
-       
-        public ActionResult Article(int id)
+
+        [Transaction]
+        public virtual ActionResult Article(int id)
         {
             var model = new ShopArticleViewModel(id);
-            
+
             model.Availabilities = GlobalContainer.Resolve<IArticleService>().GetAvailability(Session.SessionID, id);
             return Json(new
                             {
@@ -111,7 +114,8 @@ namespace phiNdus.fundus.Web.Controllers
         // POST: /Shop/AddToCart
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult AddToCart(CartItemModel item)
+        [Transaction]
+        public virtual ActionResult AddToCart(CartItemModel item)
         {
             if (!ModelState.IsValid)
             {
@@ -130,7 +134,7 @@ namespace phiNdus.fundus.Web.Controllers
 
         #region Nested type: ShopViews
 
-        private static class ShopViews
+        static class ShopViews
         {
             public static string Large
             {

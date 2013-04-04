@@ -1,12 +1,10 @@
-﻿using System.Web.Mvc;
-using phiNdus.fundus.Business.SecuredServices;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Web.ViewModels;
-
-namespace phiNdus.fundus.Web.Controllers
+﻿namespace phiNdus.fundus.Web.Controllers
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System.Web.Mvc;
+    using Castle.Transactions;
+    using phiNdus.fundus.Business.SecuredServices;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Web.ViewModels;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     [Authorize]
@@ -14,7 +12,8 @@ namespace phiNdus.fundus.Web.Controllers
     {
         //
         // GET: /Order/
-        public ActionResult Index()
+        [Transaction]
+        public virtual ActionResult Index()
         {
             return View("My", new MyOrdersViewModel());
         }
@@ -22,7 +21,8 @@ namespace phiNdus.fundus.Web.Controllers
         //
         // GET: /Order/Pending
         [Authorize(Roles = "Chief")]
-        public ActionResult Pending()
+        [Transaction]
+        public virtual ActionResult Pending()
         {
             return View("Pending", new OrdersViewModel(OrderStatus.Pending));
         }
@@ -30,7 +30,8 @@ namespace phiNdus.fundus.Web.Controllers
         //
         // GET: /Order/Approved
         [Authorize(Roles = "Chief")]
-        public ActionResult Approved()
+        [Transaction]
+        public virtual ActionResult Approved()
         {
             return View("Approved", new OrdersViewModel(OrderStatus.Approved));
         }
@@ -38,7 +39,8 @@ namespace phiNdus.fundus.Web.Controllers
         //
         // GET: /Order/Closed
         [Authorize(Roles = "Chief")]
-        public ActionResult Closed()
+        [Transaction]
+        public virtual ActionResult Closed()
         {
             return View("Closed", new OrdersViewModel(OrderStatus.Closed));
         }
@@ -46,12 +48,14 @@ namespace phiNdus.fundus.Web.Controllers
         //
         // GET: /Order/Rejected
         [Authorize(Roles = "Chief")]
-        public ActionResult Rejected()
+        [Transaction]
+        public virtual ActionResult Rejected()
         {
             return View("Rejected", new OrdersViewModel(OrderStatus.Rejected));
         }
 
-        public ActionResult Details(int id)
+        [Transaction]
+        public virtual ActionResult Details(int id)
         {
             var model = new OrderViewModel(id);
 
@@ -60,7 +64,8 @@ namespace phiNdus.fundus.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Chief")]
-        public ActionResult Reject(int id)
+        [Transaction]
+        public virtual ActionResult Reject(int id)
         {
             var service = GlobalContainer.Resolve<IOrderService>();
             var orderDto = service.Reject(Session.SessionID, id);
@@ -69,7 +74,8 @@ namespace phiNdus.fundus.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Chief")]
-        public ActionResult Confirm(int id)
+        [Transaction]
+        public virtual ActionResult Confirm(int id)
         {
             var service = GlobalContainer.Resolve<IOrderService>();
             var orderDto = service.Confirm(Session.SessionID, id);
@@ -84,9 +90,9 @@ namespace phiNdus.fundus.Web.Controllers
             var stream = service.GetPdf(Session.SessionID, id);
 
             return new FileStreamResult(stream, "application/pdf")
-                             {
-                                 FileDownloadName = string.Format("Order-{0}.pdf", id)
-                             };
+                       {
+                           FileDownloadName = string.Format("Order-{0}.pdf", id)
+                       };
         }
     }
 }
