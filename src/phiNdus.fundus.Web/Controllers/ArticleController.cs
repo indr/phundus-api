@@ -1,44 +1,44 @@
-﻿using System;
-using System.Dynamic;
-using System.IO;
-using System.Web.Mvc;
-using phiNdus.fundus.Business.SecuredServices;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Repositories;
-using phiNdus.fundus.Web.Helpers;
-using phiNdus.fundus.Web.Models.ArticleModels;
-using phiNdus.fundus.Web.ViewModels;
-
-namespace phiNdus.fundus.Web.Controllers
+﻿namespace phiNdus.fundus.Web.Controllers
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System;
+    using System.IO;
+    using System.Web.Mvc;
+    using Castle.Transactions;
+    using phiNdus.fundus.Business.SecuredServices;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Repositories;
+    using phiNdus.fundus.Web.Helpers;
+    using phiNdus.fundus.Web.Models.ArticleModels;
+    using phiNdus.fundus.Web.ViewModels;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     [Authorize(Roles = "Chief")]
     public class ArticleController : ControllerBase
     {
-        private static string MasterView { get { return @"_Tabs"; } }
-
-        private static class Views
+        static string MasterView
         {
-            public static string Fields { get { return @"Fields"; } }
-            public static string Images { get { return @"Images"; } }
-            public static string Categories { get { return @"Categories"; } }
-            public static string Availability { get { return @"Availability"; } }
-            public static string Reservations { get { return @"Reservations"; } }
+            get { return @"_Tabs"; }
         }
 
-        protected IArticleService ArticleService { get { return GlobalContainer.Resolve<IArticleService>(); } }
-        protected IFieldsService FieldsService { get { return GlobalContainer.Resolve<IFieldsService>(); } }
+        protected IArticleService ArticleService
+        {
+            get { return GlobalContainer.Resolve<IArticleService>(); }
+        }
 
-        
-        public ActionResult Index()
+        protected IFieldsService FieldsService
+        {
+            get { return GlobalContainer.Resolve<IFieldsService>(); }
+        }
+
+
+        [Transaction]
+        public virtual ActionResult Index()
         {
             return RedirectToAction("list");
         }
 
-        public ActionResult List()
+        [Transaction]
+        public virtual ActionResult List()
         {
             var model = new ArticlesTableViewModel(
                 ArticleService.GetArticles(Session.SessionID),
@@ -47,7 +47,8 @@ namespace phiNdus.fundus.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Create()
+        [Transaction]
+        public virtual ActionResult Create()
         {
             var model = new ArticleViewModel();
             return View(model);
@@ -55,14 +56,15 @@ namespace phiNdus.fundus.Web.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(FormCollection collection)
+        [Transaction]
+        public virtual ActionResult Create(FormCollection collection)
         {
             var model = new ArticleViewModel();
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
                 var articleId = ArticleService.CreateArticle(Session.SessionID, model.CreateDto());
-                return RedirectToAction("Images", new { id = articleId });
+                return RedirectToAction("Images", new {id = articleId});
             }
 
             catch (Exception ex)
@@ -74,19 +76,22 @@ namespace phiNdus.fundus.Web.Controllers
             }
         }
 
-        public ActionResult Edit(int id)
+        [Transaction]
+        public virtual ActionResult Edit(int id)
         {
             return Fields(id);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Edit(int id, FormCollection collection)
+        [Transaction]
+        public virtual ActionResult Edit(int id, FormCollection collection)
         {
             return Fields(id, collection);
         }
 
-        public ActionResult Fields(int id)
+        [Transaction]
+        public virtual ActionResult Fields(int id)
         {
             var model = new ArticleViewModel(
                 ArticleService.GetArticle(Session.SessionID, id),
@@ -100,7 +105,8 @@ namespace phiNdus.fundus.Web.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Fields(int id, FormCollection collection)
+        [Transaction]
+        public virtual ActionResult Fields(int id, FormCollection collection)
         {
             var model = new ArticleViewModel();
             try
@@ -118,7 +124,8 @@ namespace phiNdus.fundus.Web.Controllers
             }
         }
 
-        public ActionResult Images(int id)
+        [Transaction]
+        public virtual ActionResult Images(int id)
         {
             var model = new ArticleViewModel(id);
             if (Request.IsAjaxRequest())
@@ -126,13 +133,14 @@ namespace phiNdus.fundus.Web.Controllers
             return View(Views.Images, MasterView, model);
         }
 
-        public ActionResult ImageStore(int id, string name)
+        [Transaction]
+        public virtual ActionResult ImageStore(int id, string name)
         {
             var path = String.Format(@"~\Content\Images\Articles\{0}", id);
-            
+
             var store = new ImageStore();
             store.FilePath = path;
-            
+
             var factory = new BlueImpFileUploadJsonResultFactory();
             factory.ImageUrl = Url.Content(path);
             factory.DeleteUrl = Url.Action("ImageStore", "Article");
@@ -165,7 +173,8 @@ namespace phiNdus.fundus.Web.Controllers
             return Json("");
         }
 
-        public ActionResult Availability(int id)
+        [Transaction]
+        public virtual ActionResult Availability(int id)
         {
             var model = new ArticleAvailabilityViewModel();
             model.Id = id;
@@ -177,7 +186,8 @@ namespace phiNdus.fundus.Web.Controllers
             return View(Views.Availability, MasterView, model);
         }
 
-        public ActionResult Reservations(int id)
+        [Transaction]
+        public virtual ActionResult Reservations(int id)
         {
             using (UnitOfWork.Start())
             {
@@ -189,7 +199,8 @@ namespace phiNdus.fundus.Web.Controllers
             }
         }
 
-        public ActionResult Categories(int id)
+        [Transaction]
+        public virtual ActionResult Categories(int id)
         {
             var model = new ArticleViewModel(id);
             if (Request.IsAjaxRequest())
@@ -199,13 +210,15 @@ namespace phiNdus.fundus.Web.Controllers
             return View(Views.Categories, MasterView, model);
         }
 
-        public ActionResult Delete(int id)
+        [Transaction]
+        public virtual ActionResult Delete(int id)
         {
             return View(new ArticleViewModel(id));
         }
 
         [HttpPost]
-        public ActionResult Delete(int id, int version)
+        [Transaction]
+        public virtual ActionResult Delete(int id, int version)
         {
             var model = new ArticleViewModel(id);
             try
@@ -222,7 +235,8 @@ namespace phiNdus.fundus.Web.Controllers
 
         [HttpDelete]
         [ActionName("Delete")]
-        public ActionResult AjaxDelete(int id)
+        [Transaction]
+        public virtual ActionResult AjaxDelete(int id)
         {
             MessageBoxViewModel result;
             try
@@ -245,7 +259,8 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddPropertyAjax(int id, string prefix)
+        [Transaction]
+        public virtual ActionResult AddPropertyAjax(int id, string prefix)
         {
             var prop = FieldsService.GetField(Session.SessionID, id);
             var model = ArticleViewModel.ConvertToPropertyValueViewModel(prop);
@@ -253,7 +268,8 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddDiscriminatorAjax(int id, string prefix)
+        [Transaction]
+        public virtual ActionResult AddDiscriminatorAjax(int id, string prefix)
         {
             var prop = FieldsService.GetField(Session.SessionID, id);
             var model = ArticleViewModel.ConvertToDiscriminatorViewModel(prop);
@@ -261,11 +277,40 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddChild(string prefix)
+        [Transaction]
+        public virtual ActionResult AddChild(string prefix)
         {
             var model = new ArticleViewModel();
             model.IsChild = true;
             return EditorFor(model, prefix);
+        }
+
+        static class Views
+        {
+            public static string Fields
+            {
+                get { return @"Fields"; }
+            }
+
+            public static string Images
+            {
+                get { return @"Images"; }
+            }
+
+            public static string Categories
+            {
+                get { return @"Categories"; }
+            }
+
+            public static string Availability
+            {
+                get { return @"Availability"; }
+            }
+
+            public static string Reservations
+            {
+                get { return @"Reservations"; }
+            }
         }
     }
 }

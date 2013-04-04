@@ -1,14 +1,16 @@
-﻿using System.Web.Mvc;
-using phiNdus.fundus.Web.ViewModels;
-
-namespace phiNdus.fundus.Web.Controllers
+﻿namespace phiNdus.fundus.Web.Controllers
 {
+    using System.Web.Mvc;
+    using Castle.Transactions;
+    using phiNdus.fundus.Web.ViewModels;
+
     [Authorize]
     public class ContractController : ControllerBase
     {
         //
         // GET: /Contract/
-        public ActionResult Index()
+        [Transaction]
+        public virtual ActionResult Index()
         {
             return View("My", new MyContractsViewModel());
         }
@@ -16,7 +18,8 @@ namespace phiNdus.fundus.Web.Controllers
         //
         // GET: /Contract/Signed
         [Authorize(Roles = "Chief")]
-        public ActionResult Signed()
+        [Transaction]
+        public virtual ActionResult Signed()
         {
             return View("Signed", new ContractsViewModel());
         }
@@ -24,7 +27,8 @@ namespace phiNdus.fundus.Web.Controllers
         //
         // GET: /Contract/Closed
         [Authorize(Roles = "Chief")]
-        public ActionResult Closed()
+        [Transaction]
+        public virtual ActionResult Closed()
         {
             return View("Closed", new ContractsViewModel());
         }

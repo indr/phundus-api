@@ -1,32 +1,31 @@
-﻿using System;
-using System.Web.Mvc;
-using phiNdus.fundus.Business.Mails;
-using phiNdus.fundus.Business.SecuredServices;
-using phiNdus.fundus.Domain.Repositories;
-using phiNdus.fundus.Domain.Settings;
-using phiNdus.fundus.Web.Models;
-
-namespace phiNdus.fundus.Web.Controllers
+﻿namespace phiNdus.fundus.Web.Controllers
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System;
+    using System.Web.Mvc;
+    using Castle.Transactions;
+    using phiNdus.fundus.Business.Mails;
+    using phiNdus.fundus.Business.SecuredServices;
+    using phiNdus.fundus.Domain.Repositories;
+    using phiNdus.fundus.Web.Models;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
     {
-        private static IUserService UserService
+        static IUserService UserService
         {
             get { return GlobalContainer.Resolve<IUserService>(); }
         }
 
-        public ActionResult Index()
+        [Transaction]
+        public virtual ActionResult Index()
         {
             var model = UserService.GetUsers(Session.SessionID);
             return View(model);
         }
 
-        public ActionResult Edit(int id)
+        [Transaction]
+        public virtual ActionResult Edit(int id)
         {
             try
             {
@@ -41,7 +40,8 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [Transaction]
+        public virtual ActionResult Edit(int id, FormCollection collection)
         {
             var userModel = new UserModel(id);
             try
@@ -59,7 +59,8 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult LockOut(int id)
+        [Transaction]
+        public virtual ActionResult LockOut(int id)
         {
             using (var uow = UnitOfWork.Start())
             {
@@ -71,8 +72,8 @@ namespace phiNdus.fundus.Web.Controllers
                 UnitOfWork.CurrentSession.Update(user);
 
                 new UserLockedOutMail().For(user)
-                    .Send(user);
-                    //.Send(Settings.Common.AdminEmailAddress);
+                                       .Send(user);
+                //.Send(Settings.Common.AdminEmailAddress);
 
                 uow.TransactionalFlush();
             }
@@ -80,7 +81,8 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Unlock(int id)
+        [Transaction]
+        public virtual ActionResult Unlock(int id)
         {
             using (var uow = UnitOfWork.Start())
             {
@@ -92,8 +94,8 @@ namespace phiNdus.fundus.Web.Controllers
                 UnitOfWork.CurrentSession.Update(user);
 
                 new UserUnlockedMail().For(user)
-                    .Send(user);
-                    //.Send(Settings.Common.AdminEmailAddress);
+                                      .Send(user);
+                //.Send(Settings.Common.AdminEmailAddress);
 
                 uow.TransactionalFlush();
             }

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Authentication;
-using System.Web;
-using System.Web.Mvc;
-using phiNdus.fundus.Domain.Repositories;
-
-namespace phiNdus.fundus.Web.Controllers
+﻿namespace phiNdus.fundus.Web.Controllers
 {
+    using System.Security.Authentication;
+    using System.Web;
+    using System.Web.Mvc;
+    using Castle.Transactions;
+    using phiNdus.fundus.Domain.Repositories;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class OrganizationController : ControllerBase
@@ -15,25 +12,28 @@ namespace phiNdus.fundus.Web.Controllers
         public IOrganizationRepository Organizations { get; set; }
         public IUserRepository Users { get; set; }
 
-        public ActionResult Index()
+        [Transaction]
+        public virtual ActionResult Index()
         {
             return View("tbd");
         }
 
-        public ActionResult Id(int id)
+        [Transaction]
+        public virtual ActionResult Id(int id)
         {
             return View("tbd");
         }
 
         [Authorize]
-        public ActionResult Select(int id)
+        [Transaction]
+        public virtual ActionResult Select(int id)
         {
             using (var uow = UnitOfWork.Start())
             {
                 var organization = Organizations.FindById(id);
                 if (organization == null)
                     throw new HttpException(404, "Organisation nicht gefunden.");
-                
+
                 var user = Users.FindByEmail(User.Identity.Name);
                 if (user == null)
                     throw new AuthenticationException("Um eine Organisation auszuwählen, müssen Sie sich anmelden.");
@@ -44,24 +44,28 @@ namespace phiNdus.fundus.Web.Controllers
             return Id(id);
         }
 
-        public ActionResult Search()
+        [Transaction]
+        public virtual ActionResult Search()
         {
             return View("tbd");
         }
 
-        public ActionResult Establish()
+        [Transaction]
+        public virtual ActionResult Establish()
         {
             return View("tbd");
         }
 
         [Authorize(Roles = "Chief")]
-        public ActionResult Members()
+        [Transaction]
+        public virtual ActionResult Members()
         {
             return View("tbd");
         }
 
         [Authorize(Roles = "Chief")]
-        public ActionResult Settings()
+        [Transaction]
+        public virtual ActionResult Settings()
         {
             return View("tbd");
         }

@@ -1,24 +1,27 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using phiNdus.fundus.Web.ViewModels;
-
-namespace phiNdus.fundus.Web.Controllers
+﻿namespace phiNdus.fundus.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    using Castle.Transactions;
+    using phiNdus.fundus.Web.ViewModels;
+
     [Authorize(Roles = "Admin")]
     public class FieldsController : ControllerBase
     {
         //
         // GET: /Fields/
-        public ActionResult Index()
+        [Transaction]
+        public virtual ActionResult Index()
         {
             return RedirectToAction("List");
         }
 
         //
         // GET: /Fields/List
-        public ActionResult List()
+        [Transaction]
+        public virtual ActionResult List()
         {
             return View(new FieldsViewModel().Load());
         }
@@ -26,7 +29,8 @@ namespace phiNdus.fundus.Web.Controllers
         //
         // POST: /Fields/List
         [HttpPost]
-        public ActionResult List(IList<FieldViewModel> items)
+        [Transaction]
+        public virtual ActionResult List(IList<FieldViewModel> items)
         {
             var model = new FieldsViewModel().Load();
             try
@@ -40,7 +44,6 @@ namespace phiNdus.fundus.Web.Controllers
                     item.IsDefault = each.IsDefault;
                     item.Position = each.Position;
                     item.IsColumn = each.IsColumn;
-
                 }
                 model.Save();
                 model = new FieldsViewModel().Load();
@@ -61,7 +64,8 @@ namespace phiNdus.fundus.Web.Controllers
 
         //
         // GET: /Fields/Create
-        public ActionResult Create()
+        [Transaction]
+        public virtual ActionResult Create()
         {
             return View(new FieldViewModel());
         }
@@ -69,7 +73,8 @@ namespace phiNdus.fundus.Web.Controllers
         //
         // POST: /Fields/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [Transaction]
+        public virtual ActionResult Create(FormCollection collection)
         {
             var model = new FieldViewModel();
             try
@@ -89,7 +94,8 @@ namespace phiNdus.fundus.Web.Controllers
 
         //
         // GET: /Fields/Edit/5
-        public ActionResult Edit(int id)
+        [Transaction]
+        public virtual ActionResult Edit(int id)
         {
             return View(new FieldViewModel().Load(id));
         }
@@ -97,7 +103,8 @@ namespace phiNdus.fundus.Web.Controllers
         //
         // POST: /Fields/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, int version, FormCollection collection)
+        [Transaction]
+        public virtual ActionResult Edit(int id, int version, FormCollection collection)
         {
             var model = new FieldViewModel().Load(id, version);
             try
@@ -115,7 +122,8 @@ namespace phiNdus.fundus.Web.Controllers
 
         //
         // GET: /Fields/Delete/5
-        public ActionResult Delete(int id)
+        [Transaction]
+        public virtual ActionResult Delete(int id)
         {
             return View(new FieldViewModel().Load(id));
         }
@@ -123,7 +131,8 @@ namespace phiNdus.fundus.Web.Controllers
         //
         // POST: /Fields/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, int version)
+        [Transaction]
+        public virtual ActionResult Delete(int id, int version)
         {
             var model = new FieldViewModel().Load(id, version);
             try

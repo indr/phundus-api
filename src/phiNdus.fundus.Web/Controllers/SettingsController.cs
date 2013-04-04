@@ -1,29 +1,31 @@
-﻿using System;
-using System.Web.Mvc;
-using phiNdus.fundus.Business.Gateways;
-using phiNdus.fundus.Web.ViewModels;
-using RazorEngine;
-
-namespace phiNdus.fundus.Web.Controllers
+﻿namespace phiNdus.fundus.Web.Controllers
 {
+    using System;
+    using System.Web.Mvc;
+    using Castle.Transactions;
+    using RazorEngine;
+    using phiNdus.fundus.Business.Gateways;
+    using phiNdus.fundus.Web.ViewModels;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     [Authorize(Roles = "Admin")]
     public class SettingsController : ControllerBase
     {
-        private static string MasterView
+        static string MasterView
         {
             get { return @"Index"; }
         }
 
         [HttpGet]
-        public ActionResult Index()
+        [Transaction]
+        public virtual ActionResult Index()
         {
             return General();
         }
 
         [HttpGet]
-        public ActionResult General()
+        [Transaction]
+        public virtual ActionResult General()
         {
             ModelState.Clear();
             var model = new GeneralSettingsViewModel();
@@ -32,7 +34,8 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult General(GeneralSettingsViewModel model)
+        [Transaction]
+        public virtual ActionResult General(GeneralSettingsViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -48,7 +51,8 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult MailGeneral()
+        [Transaction]
+        public virtual ActionResult MailGeneral()
         {
             ModelState.Clear();
             var model = new SmtpSettingsViewModel();
@@ -57,7 +61,8 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult MailGeneral(SmtpSettingsViewModel model)
+        [Transaction]
+        public virtual ActionResult MailGeneral(SmtpSettingsViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +77,8 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult MailTemplates()
+        [Transaction]
+        public virtual ActionResult MailTemplates()
         {
             ModelState.Clear();
             var model = new MailTemplateSettingsViewModel();
@@ -81,7 +87,8 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult MailTemplates(MailTemplateSettingsViewModel model)
+        [Transaction]
+        public virtual ActionResult MailTemplates(MailTemplateSettingsViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +104,8 @@ namespace phiNdus.fundus.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendTestEmail(SendTestEmailViewModel model)
+        [Transaction]
+        public virtual ActionResult SendTestEmail(SendTestEmailViewModel model)
         {
             var body = String.Empty;
             if (ModelState.IsValid)
@@ -128,7 +136,7 @@ namespace phiNdus.fundus.Web.Controllers
 
         #region Nested type: Views
 
-        private static class Views
+        static class Views
         {
             public static string General
             {
