@@ -9,14 +9,12 @@ using iTextSharp.text.pdf;
 using log4net;
 using phiNdus.fundus.Domain.Inventory;
 using phiNdus.fundus.Domain.Repositories;
-using Rhino.Commons;
 using Rectangle = iTextSharp.text.Rectangle;
 
 namespace phiNdus.fundus.Domain.Entities
 {
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Rhino;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class Order : EntityBase
     {

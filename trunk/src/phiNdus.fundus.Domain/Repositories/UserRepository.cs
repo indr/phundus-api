@@ -4,10 +4,11 @@ using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using phiNdus.fundus.Domain.Entities;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
+    using piNuts.phundus.Infrastructure.Obsolete;
+
     public class UserRepository : NHRepository<User>, IUserRepository
     {
         public Func<ISession> SessionFactory { get; set; }

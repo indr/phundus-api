@@ -2,13 +2,12 @@
 using System.Net.Mail;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Settings;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Mails
 {
     using System.Configuration;
     using Domain.Infrastructure;
-    using piNuts.phundus.Infrastructure.Rhino;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class UserChangeEmailValidationMail : BaseMail
     {

@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using phiNdus.fundus.Business.Paging;
 using phiNdus.fundus.Business.SecuredServices;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class ShopSearchResultViewModel : ViewModelBase
     {

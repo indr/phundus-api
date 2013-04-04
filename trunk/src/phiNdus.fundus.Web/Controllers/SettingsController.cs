@@ -3,10 +3,11 @@ using System.Web.Mvc;
 using phiNdus.fundus.Business.Gateways;
 using phiNdus.fundus.Web.ViewModels;
 using RazorEngine;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
+    using piNuts.phundus.Infrastructure.Obsolete;
+
     [Authorize(Roles = "Admin")]
     public class SettingsController : ControllerBase
     {

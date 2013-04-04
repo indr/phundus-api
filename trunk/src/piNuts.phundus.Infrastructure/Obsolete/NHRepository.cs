@@ -1,10 +1,9 @@
-﻿// ReSharper disable CheckNamespace
-namespace Rhino.Commons
-// ReSharper restore CheckNamespace
+﻿namespace piNuts.phundus.Infrastructure.Obsolete
 {
     using System;
     using NHibernate;
     using NHibernate.Criterion;
+    using piNuts.phundus.Infrastructure;
 
     public class NHRepository<T> : IRepository<T>
     {
@@ -74,22 +73,8 @@ namespace Rhino.Commons
         {
             get
             {
-                throw new InvalidOperationException();    
+                return GlobalContainer.Resolve<Func<ISession>>()();
             }
         }
-    }
-
-    public interface IRepository<T>
-    {
-        T Get(object id);
-        T Load(object id);
-        void Delete(T entity);
-        void DeleteAll();
-        void DeleteAll(DetachedCriteria where);
-        T Save(T entity);
-        T SaveOrUpdate(T entity);
-        T SaveOrUpdateCopy(T entity);
-        void Update(T entity);
-        T FindFirst(params Order[] orders);
     }
 }

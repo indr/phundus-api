@@ -3,13 +3,12 @@ using System.Web.Mvc;
 using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Web.Models.CartModels;
 using phiNdus.fundus.Web.ViewModels;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class ShopController : ControllerBase
     {

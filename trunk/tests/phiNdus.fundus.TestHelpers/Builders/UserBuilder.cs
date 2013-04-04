@@ -1,9 +1,10 @@
 ﻿using System;
 using phiNdus.fundus.Domain.Entities;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.TestHelpers.Builders
 {
+    using piNuts.phundus.Infrastructure.Obsolete;
+
     public class UserBuilder : BuilderBase<User>
     {
         private bool _approved = true;

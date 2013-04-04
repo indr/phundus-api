@@ -1,14 +1,13 @@
 ﻿using System;
 using Castle.MicroKernel.Registration;
 using NUnit.Framework;
-using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.TestHelpers.TestBases
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class UnitTestBase<TSut> : TestBase
     {

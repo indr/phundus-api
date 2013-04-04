@@ -8,13 +8,12 @@ using System.Text.RegularExpressions;
 using phiNdus.fundus.Business.Gateways;
 using phiNdus.fundus.Domain.Settings;
 using RazorEngine;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Mails
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class BaseMail
     {

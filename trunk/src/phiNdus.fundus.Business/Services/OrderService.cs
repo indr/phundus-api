@@ -9,13 +9,12 @@ using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.Domain.Settings;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class OrderService : BaseService
     {

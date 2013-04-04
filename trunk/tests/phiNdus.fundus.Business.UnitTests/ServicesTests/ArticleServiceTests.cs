@@ -8,14 +8,13 @@ using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.TestHelpers.Builders;
 using phiNdus.fundus.TestHelpers.TestBases;
-using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Business.UnitTests.ServicesTests
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     [TestFixture]
     public class ArticleServiceTests : UnitTestBase<ArticleService>

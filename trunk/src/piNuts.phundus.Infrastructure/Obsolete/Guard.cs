@@ -1,4 +1,4 @@
-﻿namespace piNuts.phundus.Infrastructure.Rhino
+﻿namespace piNuts.phundus.Infrastructure.Obsolete
 {
     using System;
 

@@ -7,7 +7,6 @@ using phiNdus.fundus.Business.Services;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
 using phiNdus.fundus.TestHelpers.TestBases;
-using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Business.UnitTests.SecuredServices

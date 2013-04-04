@@ -6,7 +6,6 @@ using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.Assembler;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services {
     internal class RoleService : BaseService {

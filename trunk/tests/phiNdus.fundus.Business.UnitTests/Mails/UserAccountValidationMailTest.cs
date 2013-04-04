@@ -8,14 +8,13 @@ using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Settings;
 using phiNdus.fundus.TestHelpers;
 using phiNdus.fundus.TestHelpers.TestBases;
-using Rhino.Commons;
 using Rhino.Mocks;
 
 namespace phiNdus.fundus.Business.UnitTests.Mails
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     [TestFixture]
     public class UserAccountValidationMailTest : UnitTestBase<object>

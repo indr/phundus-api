@@ -1,10 +1,9 @@
 ﻿using System;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Entities
 {
     using System.Web.Caching;
-    using piNuts.phundus.Infrastructure.Rhino;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class Membership : EntityBase
     {

@@ -1,11 +1,10 @@
 ﻿using System;
 using phiNdus.fundus.Business.Security;
 using phiNdus.fundus.Domain.Entities;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Services
 {
-    using piNuts.phundus.Infrastructure.Rhino;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class BaseService
     {

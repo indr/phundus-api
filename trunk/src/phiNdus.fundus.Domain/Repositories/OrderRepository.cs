@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Linq;
 using phiNdus.fundus.Domain.Entities;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
+    using piNuts.phundus.Infrastructure.Obsolete;
+
     public class OrderRepository : NHRepository<Order>, IOrderRepository
     {
         private IQueryable<Order> Orders

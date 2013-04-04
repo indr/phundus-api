@@ -1,4 +1,4 @@
-﻿namespace piNuts.phundus.Infrastructure
+﻿namespace piNuts.phundus.Infrastructure.Obsolete
 {
     using System;
     using System.Collections;

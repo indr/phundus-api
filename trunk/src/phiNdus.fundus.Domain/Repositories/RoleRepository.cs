@@ -1,8 +1,9 @@
 ﻿using phiNdus.fundus.Domain.Entities;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
+    using piNuts.phundus.Infrastructure.Obsolete;
+
     public class RoleRepository : NHRepository<Role>, IRoleRepository
     {
     }

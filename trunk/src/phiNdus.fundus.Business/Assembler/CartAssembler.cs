@@ -3,13 +3,12 @@ using System.Linq;
 using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Domain.Repositories;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Business.Assembler
 {
     using phiNdus.fundus.Domain;
-    using Rhino.Commons;
     using piNuts.phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class CartAssembler
     {

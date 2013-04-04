@@ -6,7 +6,6 @@ using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Web.Models;
 using phiNdus.fundus.Web.Models.CartModels;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.ViewModels
 {

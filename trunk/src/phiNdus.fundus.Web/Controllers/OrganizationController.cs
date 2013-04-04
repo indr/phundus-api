@@ -5,10 +5,11 @@ using System.Security.Authentication;
 using System.Web;
 using System.Web.Mvc;
 using phiNdus.fundus.Domain.Repositories;
-using Rhino.Commons;
 
 namespace phiNdus.fundus.Web.Controllers
 {
+    using piNuts.phundus.Infrastructure.Obsolete;
+
     public class OrganizationController : ControllerBase
     {
         public IOrganizationRepository Organizations { get; set; }
