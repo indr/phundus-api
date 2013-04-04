@@ -48,7 +48,7 @@ namespace phiNdus.fundus.TestHelpers.TestBases
             {
                 result = new User();
                 result.Membership.Email = email;
-                result.Role = roles.FindFirst(new Order[0]);
+                result.Role = roles.FindFirst(null);
                 users.Save(result);
             }
             return result;
