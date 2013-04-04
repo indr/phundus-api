@@ -8,7 +8,7 @@ namespace phiNdus.fundus.Domain.Repositories
 {
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class OrderRepository : NHRepository<Order>, IOrderRepository
+    public class OrderRepository : RepositoryBase<Order>, IOrderRepository
     {
         private IQueryable<Order> Orders
         {

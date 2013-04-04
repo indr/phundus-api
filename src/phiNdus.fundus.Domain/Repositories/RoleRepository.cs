@@ -4,7 +4,7 @@ namespace phiNdus.fundus.Domain.Repositories
 {
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class RoleRepository : NHRepository<Role>, IRoleRepository
+    public class RoleRepository : RepositoryBase<Role>, IRoleRepository
     {
     }
 }

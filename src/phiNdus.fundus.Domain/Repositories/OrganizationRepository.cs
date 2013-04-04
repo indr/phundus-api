@@ -8,7 +8,7 @@ namespace phiNdus.fundus.Domain.Repositories
 {
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class OrganizationRepository : NHRepository<Organization>, IOrganizationRepository
+    public class OrganizationRepository : RepositoryBase<Organization>, IOrganizationRepository
     {
         private IQueryable<Organization> Organizations
         {

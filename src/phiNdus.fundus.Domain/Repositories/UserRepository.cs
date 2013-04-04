@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NHibernate;
-using NHibernate.Linq;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Domain.Repositories
+﻿namespace phiNdus.fundus.Domain.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using NHibernate.Linq;
+    using phiNdus.fundus.Domain.Entities;
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class UserRepository : NHRepository<User>, IUserRepository
+    public class UserRepository : RepositoryBase<User>, IUserRepository
     {
-        public Func<ISession> SessionFactory { get; set; }
-
-        private IQueryable<User> Users
+        IQueryable<User> Users
         {
             get { return Session.Query<User>(); }
         }

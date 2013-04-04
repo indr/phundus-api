@@ -18,7 +18,7 @@ namespace phiNdus.fundus.Domain
         {
             container.Register(Types.FromAssemblyContaining(typeof (EntityBase))
                                    //.BasedOn(typeof (IRepository<>))
-                                   .BasedOn(typeof (NHRepository<>))
+                                   .BasedOn(typeof (RepositoryBase<>))
                                    .WithServiceAllInterfaces()
                                    .LifestyleTransient());
 

@@ -1,22 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Web.Mvc;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.SecuredServices;
-using phiNdus.fundus.Web.Helpers;
-using phiNdus.fundus.Web.Models.CartModels;
-
 namespace phiNdus.fundus.Web.ViewModels
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Web.Mvc;
+    using phiNdus.fundus.Business.Dto;
+    using phiNdus.fundus.Business.SecuredServices;
+    using phiNdus.fundus.Web.Helpers;
+    using phiNdus.fundus.Web.Models.CartModels;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class ShopArticleViewModel : ArticleViewModel
     {
-        private CartItemModel _cartItem = new CartItemModel();
+        CartItemModel _cartItem = new CartItemModel();
 
         public ShopArticleViewModel(int id) : base(id)
         {
@@ -42,12 +39,12 @@ namespace phiNdus.fundus.Web.ViewModels
 
     public class ArticleViewModel : ViewModelBase
     {
-        private IList<ArticleViewModel> _children = new List<ArticleViewModel>();
-        private IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
-        private IList<PropertyValueViewModel> _editableFieldValues = new List<PropertyValueViewModel>();
-        private IList<ImageDto> _files = new List<ImageDto>();
-        private IList<FieldDefinitionDto> _propertyDefinitions;
-        private IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
+        IList<ArticleViewModel> _children = new List<ArticleViewModel>();
+        IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
+        IList<PropertyValueViewModel> _editableFieldValues = new List<PropertyValueViewModel>();
+        IList<ImageDto> _files = new List<ImageDto>();
+        IList<FieldDefinitionDto> _propertyDefinitions;
+        IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
 
         public ArticleViewModel()
         {
@@ -194,7 +191,7 @@ namespace phiNdus.fundus.Web.ViewModels
         }
 
 
-        private void Load(ArticleDto article, IList<FieldDefinitionDto> propertyDefinitions)
+        void Load(ArticleDto article, IList<FieldDefinitionDto> propertyDefinitions)
         {
             Id = article.Id;
             Version = article.Version;

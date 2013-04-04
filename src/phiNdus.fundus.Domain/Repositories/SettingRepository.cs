@@ -8,7 +8,7 @@ namespace phiNdus.fundus.Domain.Repositories
 {
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class SettingRepository : NHRepository<Setting>, ISettingRepository
+    public class SettingRepository : RepositoryBase<Setting>, ISettingRepository
     {
         private IQueryable<Setting> Settings
         {

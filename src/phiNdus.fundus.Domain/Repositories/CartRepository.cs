@@ -7,7 +7,7 @@ namespace phiNdus.fundus.Domain.Repositories
 {
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class CartRepository : NHRepository<Cart>, ICartRepository
+    public class CartRepository : RepositoryBase<Cart>, ICartRepository
     {
         private IQueryable<Cart> Carts
         {

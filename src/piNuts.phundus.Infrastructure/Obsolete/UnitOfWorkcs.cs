@@ -67,7 +67,7 @@
 
         public static ISession CurrentSession
         {
-            get { throw new InvalidOperationException(); }
+            get { return GlobalContainer.Resolve<Func<ISession>>()(); }
             internal set { throw new InvalidOperationException(); }
         }
 
