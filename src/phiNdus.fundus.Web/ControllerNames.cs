@@ -108,11 +108,8 @@
 
     public class SettingsActionNames
     {
-        public static string General { get { return @"general"; } }
         public static string Index { get { return @""; } }
-        public static string MailGeneral { get { return @"mailgeneral"; } }
         public static string MailTemplates { get { return @"mailtemplates"; } }
-        public static string SendTestEmail { get { return @"sendtestemail"; } }
     }
 
     public class UsersActionNames

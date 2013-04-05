@@ -785,10 +785,6 @@
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Settings\EditorTemplates\MailTemplateSettingViewModel.cshtml" />
     <Content Include="Views\Settings\MailTemplates.cshtml" />
-    <Content Include="Views\Settings\MailGeneral.cshtml" />
-    <Content Include="Views\Settings\General.cshtml" />
-    <Content Include="Views\Settings\EditorTemplates\SendTestEmailViewModel.cshtml" />
-    <Content Include="Views\Settings\SendTestEmailViewModelDialog.cshtml" />
     <Content Include="Views\Shop\Article_Images.cshtml" />
     <Content Include="Views\Shop\Article_Availability.cshtml" />
     <Content Include="Views\Shop\Article_AddToCart.cshtml" />
