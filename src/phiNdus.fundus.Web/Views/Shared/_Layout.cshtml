@@ -24,7 +24,6 @@
     <body>
         <div class="navbar navbar-fixed-top">
             @Html.Action("NavBar", "Layout");
-            
         </div>
         <!--<div class="breadcrumb">
            @RenderSection("Breadcrumbs", required: false)
@@ -35,6 +34,8 @@
             @Html.Partial("_Footer")
         </div>
         
+        @Scripts.Render("~/js/angular")
+        <!-- TODO: In Bundles packen -->
         <script src="@Url.Content("~/Scripts/xdate.js")" type="text/javascript"></script>
         <script src="@Url.Content("~/Scripts/jquery-ui-1.8.18.custom.min.js")" type="text/javascript"></script>
         <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -99,5 +100,7 @@
                 <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Herunterladen</a>
             </div>
         </div>
+        
+        @RenderSection("scripts", required: false)
     </body>
 </html>

@@ -57,10 +57,9 @@
         }
 
         [Authorize(Roles = "Chief")]
-        [Transaction]
         public virtual ActionResult Members()
         {
-            return View("tbd");
+            return View();
         }
 
         [Authorize(Roles = "Chief")]
