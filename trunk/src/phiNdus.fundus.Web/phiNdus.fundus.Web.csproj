@@ -178,6 +178,7 @@
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\WebApi\MembersController.cs" />
     <Compile Include="Models\Account\SignUpModel.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\ChangeEmailViewModel.cs" />
