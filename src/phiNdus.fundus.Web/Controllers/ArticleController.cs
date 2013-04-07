@@ -120,7 +120,7 @@
                 // TODO: Logging
                 // TODO: Exception-Handling
                 ModelState.AddModelError("", ex.Message);
-                return View("Edit", model);
+                return View(Views.Fields, model);
             }
         }
 
@@ -133,6 +133,7 @@
             return View(Views.Images, MasterView, model);
         }
 
+        [AllowAnonymous]
         [Transaction]
         public virtual ActionResult ImageStore(int id, string name)
         {
