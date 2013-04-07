@@ -172,8 +172,8 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests
             GenerateAndRegisterMissingStubs();
 
             var articles = new List<Article>();
-            articles.Add(new Article());
-            articles.Add(new Article());
+            articles.Add(new Article() { Organization = new Organization()});
+            articles.Add(new Article() { Organization = new Organization() });
             FakeArticleRepo.Expect(x => x.FindAll(_organization)).Return(articles);
             var dtos = Sut.GetArticles();
 
