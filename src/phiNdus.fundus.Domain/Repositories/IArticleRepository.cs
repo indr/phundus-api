@@ -8,6 +8,6 @@ namespace phiNdus.fundus.Domain.Repositories
     public interface IArticleRepository : IRepository<Article>
     {
         ICollection<Article> FindAll(Organization selectedOrganization);
-        ICollection<Article> FindMany(string query, int start, int count, out int total);
+        ICollection<Article> FindMany(string query, int? organization, int start, int count, out int total);
     }
 }

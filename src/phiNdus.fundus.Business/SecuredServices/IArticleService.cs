@@ -20,6 +20,6 @@ namespace phiNdus.fundus.Business.SecuredServices
         void DeleteImage(string sessionKey, int articleId, string imageName);
         IList<ImageDto> GetImages(string sessionKey, int articleId);
 
-        PagedResult<ArticleDto> FindArticles(string sessionKey, PageRequest pageRequest, string query);
+        PagedResult<ArticleDto> FindArticles(string sessionKey, PageRequest pageRequest, string query, int? organization);
     }
 }

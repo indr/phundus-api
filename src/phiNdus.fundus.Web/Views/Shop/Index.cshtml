@@ -9,20 +9,22 @@
     <div class="span1">
         <h2>@ViewBag.Title</h2>
     </div>
-    <div class="span5" style="padding-top:5px;">
+    <div class="span7" style="padding-top:5px;">
         @using (Ajax.BeginForm("Search", ControllerNames.Shop, new AjaxOptions {
             HttpMethod = "POST",
             LoadingElementId = "query-loading",
             UpdateTargetId="search-results"  }, new { @class = "form-search" }))
         {
-            <input type="text" name="query" class="input-medium search-query" value="@Model.Query" />
-            <button type="submit" class="btn">Suchen</button>
+            <input type="text" name="QueryString" class="input-medium search-query" value="@Model.Query" placeholder="Suchen" />
+            <span class="muted"> in </span>
+            @Html.DropDownListFor(m => m.QueryOrganizationId, new SelectList(Model.Organizations, "Id", "Name", Model.QueryOrganizationId), "allen Organisationen")
+            <button type="submit" class="btn btn-primary">phinden!</button>
             <span class="help-inline hide" id="query-loading">
                 <img src="@Url.Content("~/Content/Images/ajax-loader.gif")" style="vertical-align:middle;" />
             </span>
         }
     </div>
-    <div class="span6">
+    <div class="span4">
         <div class="toolbar pull-right">
             <div class="btn-group">
                 @Ajax.RawActionLink("<i class=\"icon-th-large\"></i>", "Large", new { }, new AjaxOptions {
