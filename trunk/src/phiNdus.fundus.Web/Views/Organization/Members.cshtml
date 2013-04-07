@@ -3,7 +3,7 @@
 }
 
 <h2>Mitglieder</h2>
-<div class="row-fluid" ng-app="project">
+<div class="row-fluid" ng-app="members" ng-init="organizationId=@Session["OrganizationId"];">
     <div ng-view></div>
 </div>
 

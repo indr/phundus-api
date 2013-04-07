@@ -15,11 +15,6 @@
 
         #region IUserRepository Members
 
-        public bool IsSessionFactoryAssigned()
-        {
-            return SessionFactory != null;
-        }
-
         public ICollection<User> FindAll()
         {
             var query = from u in Users select u;

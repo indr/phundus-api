@@ -1,13 +1,10 @@
-﻿using System;
-using System.Reflection;
-using Castle.MicroKernel.Registration;
-using Castle.MicroKernel.SubSystems.Configuration;
-using Castle.Windsor;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Repositories;
-
-namespace phiNdus.fundus.Domain
+﻿namespace phiNdus.fundus.Domain
 {
+    using Castle.MicroKernel.Registration;
+    using Castle.MicroKernel.SubSystems.Configuration;
+    using Castle.Windsor;
+    using Entities;
+    using Repositories;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class Installer : IWindsorInstaller
@@ -18,12 +15,16 @@ namespace phiNdus.fundus.Domain
         {
             container.Register(Types.FromAssemblyContaining(typeof (EntityBase))
                                    //.BasedOn(typeof (IRepository<>))
-                                   .BasedOn(typeof (RepositoryBase<>))
-                                   .WithServiceAllInterfaces()
-                                   .LifestyleTransient());
+                                    .BasedOn(typeof (RepositoryBase<>))
+                                    .WithServiceAllInterfaces()
+                                    .LifestyleTransient());
+
+            //container.Register(Component.For<IMemberRepository>()
+            //                            .ImplementedBy<MemberRepository>().LifestyleTransient());
 
             container.Register(Component.For<IReservationRepository>()
-                                   .ImplementedBy<ReservationRepository>());
+                                        .ImplementedBy<ReservationRepository>()
+                                        .LifestyleTransient());
 
             //container.Register(Component.For<IUnitOfWorkFactory>()
             //                       .Instance(

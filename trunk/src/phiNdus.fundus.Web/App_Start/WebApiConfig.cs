@@ -1,15 +1,20 @@
-﻿using System.Web.Http;
-
-namespace phiNdus.fundus.Web.App_Start
+﻿namespace phiNdus.fundus.Web.App_Start
 {
+    using System.Web.Http;
+    using Newtonsoft.Json.Serialization;
+
     public class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
+            //var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            config.Formatters.JsonFormatter
+                  .SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
             config.Routes.MapHttpRoute(
                 name: "OrganizationApiRoute",
                 routeTemplate: "api/{organization}/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new {id = RouteParameter.Optional}
                 );
 
             config.Routes.MapHttpRoute(
@@ -17,8 +22,6 @@ namespace phiNdus.fundus.Web.App_Start
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new {id = RouteParameter.Optional}
                 );
-
-            
         }
     }
 }

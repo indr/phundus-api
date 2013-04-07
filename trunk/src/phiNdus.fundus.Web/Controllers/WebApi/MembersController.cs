@@ -1,80 +1,81 @@
-﻿using System.Collections.Generic;
-using System.Web.Http;
-
-namespace phiNdus.fundus.Web.Controllers.WebApi
+﻿namespace phiNdus.fundus.Web.Controllers.WebApi
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Http;
+    using Castle.Transactions;
+    using Domain.Repositories;
+
     public class MembersController : ApiController
     {
+        public IMemberRepository Members { get; set; }
+
         // GET api/{organization}/members
-        public IEnumerable<MemberListDto> Get(string organization)
+        [Transaction]
+        public virtual IEnumerable<MemberListDto> Get(int organization)
         {
-            return new List<MemberListDto>
-                {
-                    new MemberListDto
-                        {
-                            EmailAddress = "user@test.phundus.ch",
-                            FirstName = "Hans",
-                            LastName = "Müller",
-                            IsLocked = false
-                        },
-                    new MemberListDto
-                        {
-                            EmailAddress = "admin@test.phundus.ch",
-                            FirstName = "Kari",
-                            LastName = "Zuppiger",
-                            IsLocked = false
-                        },
-                    new MemberListDto
-                        {
-                            EmailAddress = "peter@test.phundus.ch",
-                            FirstName = "peter",
-                            LastName = "Müller",
-                            IsLocked = true
-                        }
-                };
+            var result = new List<MemberListDto>();
+            var members = Members.FindByOrganization(organization);
+
+            foreach (var each in members)
+            {
+                var membership = each.Memberships.First(p => p.Organization.Id == organization);
+                result.Add(new MemberListDto()
+                    {
+                        EmailAddress = each.Membership.Email,
+                        FirstName = each.FirstName,
+                        Id = each.Id,
+                        IsLocked = each.Membership.IsLockedOut,
+                        LastName = each.LastName,
+                        Role = membership.Role
+                    });
+            }
+
+            return result;
         }
 
         // GET api/{organization}/members/5
-        public MemberDto Get(string organization, int id)
-        {
-            return new MemberDto
-                {
-                    EmailAddress = "admin@test.phundus.ch",
-                    FirstName = "Kari",
-                    LastName = "Zuppiger",
-                    IsLocked = false
-                };
-        }
+        //public MemberDto Get(string organization, int id)
+        //{
+        //    return new MemberDto
+        //        {
+        //            EmailAddress = "admin@test.phundus.ch",
+        //            FirstName = "Kari",
+        //            LastName = "Zuppiger",
+        //            IsLocked = false
+        //        };
+        //}
 
         // POST api/{organization}/members
-        public void Post(string organization, [FromBody] MemberDto value)
-        {
-        }
+        //public void Post(string organization, [FromBody] MemberDto value)
+        //{
+        //}
 
         // PUT api/{organization}/members/5
-        public void Put(string organization, int id, [FromBody] MemberDto value)
+        [Transaction]
+        public virtual MemberDto Put(string organization, int id, [FromBody] MemberDto value)
         {
+            value.Role = 0;
+            return value;
         }
 
         // DELETE api/{organization}/members/5
-        public void Delete(string organization, int id)
-        {
-        }
+        //public void Delete(string organization, int id)
+        //{
+        //}
     }
 
     public class MemberListDto
     {
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
+        public int Role { get; set; }
         public bool IsLocked { get; set; }
     }
 
-    public class MemberDto
+    public class MemberDto : MemberListDto
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string EmailAddress { get; set; }
-        public bool IsLocked { get; set; }
     }
 }
