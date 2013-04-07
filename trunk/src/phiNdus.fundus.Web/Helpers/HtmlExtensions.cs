@@ -38,13 +38,13 @@ namespace phiNdus.fundus.Web.Helpers
 
 
         // http://stackoverflow.com/questions/3065307/client-id-for-property-asp-net-mvc
-        public static MvcHtmlString IdFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper,
-                                                          Expression<Func<TModel, TValue>> expression)
-        {
-            var htmlFieldName = ExpressionHelper.GetExpressionText(expression);
-            var inputFieldId = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldId(htmlFieldName);
-            return MvcHtmlString.Create(inputFieldId);
-        }
+        //public static MvcHtmlString IdFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper,
+        //                                                  Expression<Func<TModel, TValue>> expression)
+        //{
+        //    var htmlFieldName = ExpressionHelper.GetExpressionText(expression);
+        //    var inputFieldId = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldId(htmlFieldName);
+        //    return MvcHtmlString.Create(inputFieldId);
+        //}
 
         public static MvcHtmlString IdForProp<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
                                                                  Expression<Func<TModel, TProperty>> expression)

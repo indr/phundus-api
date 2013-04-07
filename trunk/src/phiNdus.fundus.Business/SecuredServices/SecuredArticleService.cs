@@ -26,14 +26,14 @@ namespace phiNdus.fundus.Business.SecuredServices
         public int CreateArticle(string sessionKey, ArticleDto subject)
         {
             return Secured.With(Session.FromKey(sessionKey))
-                .And(User.InRole(Role.Administrator))
+                //.And(User.InRole(Role.Chief))
                 .Do<ArticleService, int>(svc => svc.CreateArticle(subject));
         }
 
         public void UpdateArticle(string sessionKey, ArticleDto subject)
         {
             Secured.With(Session.FromKey(sessionKey))
-                .And(User.InRole(Role.Administrator))
+                //.And(User.InRole(Role.Chief))
                 .Do<ArticleService>(svc => svc.UpdateArticle(subject));
         }
 
@@ -51,7 +51,7 @@ namespace phiNdus.fundus.Business.SecuredServices
         public void DeleteArticle(string sessionKey, ArticleDto subject)
         {
             Secured.With(Session.FromKey(sessionKey))
-                .And(User.InRole(Role.Administrator))
+                //.And(User.InRole(Role.Chief))
                 .Do<ArticleService>(svc => svc.DeleteArticle(subject));
         }
 
@@ -63,21 +63,21 @@ namespace phiNdus.fundus.Business.SecuredServices
         public void AddImage(string sessionKey, int articleId, ImageDto subject)
         {
             Secured.With(Session.FromKey(sessionKey))
-                .And(User.InRole(Role.Administrator))
+                //.And(User.InRole(Role.Chief))
                 .Do<ArticleService>(svc => svc.AddImage(articleId, subject));
         }
 
         public void DeleteImage(string sessionKey, int articleId, string imageName)
         {
             Secured.With(Session.FromKey(sessionKey))
-                .And(User.InRole(Role.Administrator))
+                //.And(User.InRole(Role.Chief))
                 .Do<ArticleService>(svc => svc.DeleteImage(articleId, imageName));
         }
 
         public IList<ImageDto> GetImages(string sessionKey, int articleId)
         {
             return Secured.With(Session.FromKey(sessionKey))
-                .And(User.InRole(Role.Administrator))
+                //.And(User.InRole(Role.Chief))
                 .Do<ArticleService, IList<ImageDto>>(svc => svc.GetImages(articleId));
         }
 
