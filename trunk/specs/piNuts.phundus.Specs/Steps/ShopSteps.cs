@@ -44,5 +44,12 @@ namespace piNuts.phundus.Specs.Steps
             var button = Browser.Button(Find.ByValue("Bestellen"));
             button.Click();
         }
+
+        [Then(@"ich sollte auf der Shopseite sein")]
+        public void DannIchSollteAufDerShopseiteSein()
+        {
+            Assert.That(Browser.Url, Is.EqualTo("http://" + BaseUrl + "/shop"));
+        }
+
     }
 }

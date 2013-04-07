@@ -21,7 +21,7 @@ namespace piNuts.phundus.Specs.Steps
         [Then(@"sollte ich gross ""(.*)"" sehen")]
         public void DannSollteIchGrossSehen(string p0)
         {
-            Assert.That(Browser.ElementWithTag("h1", Find.ByIndex(0)).Text, Is.EqualTo(p0));
+            Assert.That(Browser.ElementWithTag("h2", Find.ByIndex(0)).Text, Is.EqualTo(p0));
         }
         
         [Then(@"sollte im Fenstertitel muss ""(.*)"" stehen")]
