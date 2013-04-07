@@ -116,7 +116,7 @@ this.FeatureBackground();
 #line 23
  testRunner.Then("sollte ich als \"user@test.phundus.ch\" angemeldet sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line 24
- testRunner.And("ich sollte auf der Startseite sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+ testRunner.And("ich sollte auf der Shopseite sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
             this.ScenarioCleanup();
         }

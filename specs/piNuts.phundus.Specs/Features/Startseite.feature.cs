@@ -76,26 +76,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
  testRunner.When("ich die Webseite aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
 #line 6
- testRunner.Then("sollte ich gross \"Materialverleih der Pfadi Luzern\" sehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+ testRunner.Then("sollte ich gross \"Shop\" sehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line 7
- testRunner.And("sollte im Fenstertitel muss \"Index - phundus\" stehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Aufruf der Webseite ohne isSmoker-Tag")]
-        public virtual void AufrufDerWebseiteOhneIsSmoker_Tag()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Aufruf der Webseite ohne isSmoker-Tag", ((string[])(null)));
-#line 10
-this.ScenarioSetup(scenarioInfo);
-#line 11
- testRunner.When("ich die Webseite aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
-#line 12
- testRunner.Then("sollte ich gross \"Materialverleih der Pfadi Luzern\" sehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
-#line 13
- testRunner.And("sollte im Fenstertitel muss \"Index - phundus\" stehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+ testRunner.And("sollte im Fenstertitel muss \"Shop - phundus\" stehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -107,11 +90,11 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Korrekte Version wurde installiert", new string[] {
                         "isSmoker"});
-#line 16
+#line 11
 this.ScenarioSetup(scenarioInfo);
-#line 17
+#line 12
  testRunner.When("ich die Webseite aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
-#line 18
+#line 13
  testRunner.Then("sollte die Version entsprechend der zuletzt installierten Version sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line hidden
             this.ScenarioCleanup();
@@ -124,11 +107,11 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Server-URL wurde hinterlegt", new string[] {
                         "isSmoker"});
-#line 21
+#line 17
 this.ScenarioSetup(scenarioInfo);
-#line 22
+#line 18
  testRunner.When("ich die Webseite aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
-#line 23
+#line 19
  testRunner.Then("sollte die Server-URL entsprechend der Konfiguration gesetzt sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line hidden
             this.ScenarioCleanup();

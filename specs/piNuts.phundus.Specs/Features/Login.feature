@@ -21,4 +21,4 @@ Szenario: Erfolgreiches Login
 	Und ich tippe ins Feld "Passwort" "1234" ein
 	Wenn ich auf "Anmelden" klicke
 	Dann sollte ich als "user@test.phundus.ch" angemeldet sein
-	Und ich sollte auf der Startseite sein
+	Und ich sollte auf der Shopseite sein
