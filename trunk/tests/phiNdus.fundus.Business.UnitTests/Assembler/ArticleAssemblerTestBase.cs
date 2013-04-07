@@ -103,16 +103,19 @@ namespace phiNdus.fundus.Business.UnitTests.Assembler
 
             Article = new Article(1, 2);
             Article.Caption = "Artikel";
+            Article.Organization = new Organization(1) { Name = "Organisation"};
             Article.AddField(_colorPropertyDefinition).IsDiscriminator = true;
             Article.Price = 12.50;
 
             Child1 = new Article(2, 2);
             Child1.Caption = "Child 1";
+            Child1.Organization = new Organization(1) { Name = "Organisation" };
             Child1.AddField(_colorPropertyDefinition, "Rot");
             Article.AddChild(Child1);
 
             Child2 = new Article(3, 2);
             Child2.Caption = "Child 2";
+            Child2.Organization = new Organization(1) { Name = "Organisation" };
             Child2.AddField(_colorPropertyDefinition, "Blau");
             Article.AddChild(Child2);
         }
