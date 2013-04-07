@@ -19,6 +19,7 @@
     public class OrganizationActionNames
     {
         public static string Id { get { return @"id"; } }
+        public static string Home { get { return @"home"; } }
         public static string Select { get { return @"select"; } }
         public static string Search { get { return @"search"; } }
         public static string Establish { get { return @"establish"; } }

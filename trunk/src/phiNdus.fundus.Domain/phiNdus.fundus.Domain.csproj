@@ -76,6 +76,7 @@
     <Compile Include="Entities\OrderItem.cs" />
     <Compile Include="Entities\OrderStatus.cs" />
     <Compile Include="Entities\Organization.cs" />
+    <Compile Include="Entities\OrganizationMembership.cs" />
     <Compile Include="Entities\Reservation.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Setting.cs" />

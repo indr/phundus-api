@@ -1,10 +1,11 @@
 ﻿namespace phiNdus.fundus.Web.Controllers
 {
+    using System;
     using System.Security.Authentication;
     using System.Web;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using phiNdus.fundus.Domain.Repositories;
+    using Domain.Repositories;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class OrganizationController : ControllerBase
@@ -18,10 +19,21 @@
             return View("tbd");
         }
 
-        [Transaction]
         public virtual ActionResult Id(int id)
         {
-            return View("tbd");
+            return Home(id, null);
+        }
+
+        [Transaction]
+        public virtual ActionResult Home(int id, string name)
+        {
+            var model = Organizations.FindById(id);
+            if (model == null)
+                throw new Exception(
+                    String.Format(
+                        "Die Organisation mit der Id {0} und/oder dem Namen \"{1}\" konnte nicht gefunden werden.",
+                        id, name));
+            return View(model);
         }
 
         [Authorize]
@@ -40,8 +52,9 @@
 
                 user.SelectOrganization(organization);
                 uow.TransactionalFlush();
+
+                return RedirectToRoute("Organization", new {name = organization.Url});
             }
-            return Id(id);
         }
 
         [Transaction]
