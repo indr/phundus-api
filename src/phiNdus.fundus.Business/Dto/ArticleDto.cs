@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace phiNdus.fundus.Business.Dto
+﻿namespace phiNdus.fundus.Business.Dto
 {
+    using System.Collections.Generic;
+
     public class ArticleDto : BasePropertiesDto
     {
-        private IList<ArticleDto> _children = new List<ArticleDto>();
-        private IList<ImageDto> _images = new List<ImageDto>();
+        IList<ArticleDto> _children = new List<ArticleDto>();
+        IList<ImageDto> _images = new List<ImageDto>();
 
         public int Id { get; set; }
         public int Version { get; set; }
@@ -21,6 +21,8 @@ namespace phiNdus.fundus.Business.Dto
             get { return _images; }
             set { _images = value; }
         }
+
+        public string OrganizationName { get; set; }
 
         public void AddChild(ArticleDto child)
         {

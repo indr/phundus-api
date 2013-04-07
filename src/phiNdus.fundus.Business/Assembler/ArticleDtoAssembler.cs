@@ -42,6 +42,7 @@ namespace phiNdus.fundus.Business.Assembler
             var result = new ArticleDto();
             result.Id = subject.Id;
             result.Version = subject.Version;
+            result.OrganizationName = subject.Organization.Name;
             WriteFields(subject, result);
             CreateChildren(subject, result);
             foreach (var each in subject.Images)
