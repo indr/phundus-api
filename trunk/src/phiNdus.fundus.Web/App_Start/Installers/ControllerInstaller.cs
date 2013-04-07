@@ -23,7 +23,7 @@
                                     .BasedOn<IHttpController>()
                                     .If(Component.IsInNamespace("phiNdus.fundus.Web.Controllers.WebApi", true))
                                     .If(t => t.Name.EndsWith("Controller", StringComparison.InvariantCulture))
-                                    .LifestyleTransient());
+                                    .LifestyleScoped());
         }
 
         #endregion
