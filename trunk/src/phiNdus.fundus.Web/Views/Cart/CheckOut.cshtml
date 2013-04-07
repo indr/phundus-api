@@ -26,8 +26,17 @@
         }
         else
         {
+            string lastOrganizationName = null;
             for (var idx = 0; idx < Model.Cart.Items.Count; idx++)
             {
+                if (lastOrganizationName != Model.Cart.Items[idx].OrganizationName)
+                {
+                    <tr>
+                        <td colspan="8" style="padding-left:40px;"><h4><br />@Model.Cart.Items[idx].OrganizationName</h4></td>
+                    </tr>
+                    lastOrganizationName = Model.Cart.Items[idx].OrganizationName;
+                }
+                    
                 @Html.HiddenFor(x => Model.Cart.Items[idx].Id)
                 <tr>
                     <td>@Model.Cart.Items[idx].Caption</td>    

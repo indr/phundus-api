@@ -42,5 +42,7 @@ namespace phiNdus.fundus.Business.Dto
         public double LineTotal { get; set; }
 
         public bool IsAvailable { get; set; }
+
+        public string OrganizationName { get; set; }
     }
 }
