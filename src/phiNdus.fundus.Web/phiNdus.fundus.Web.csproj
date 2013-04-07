@@ -180,6 +180,8 @@
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\WebApi\MembersController.cs" />
     <Compile Include="Models\Account\SignUpModel.cs" />
+    <Compile Include="Plumbing\WindsorDependencyResolver.cs" />
+    <Compile Include="Plumbing\WindsorDependencyScope.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\ChangeEmailViewModel.cs" />
     <Compile Include="Models\ArticleModels\ArticleReservationsModel.cs" />
@@ -341,7 +343,6 @@
     <Compile Include="ViewModels\ShopSearchResultViewModel.cs" />
     <Compile Include="ViewModels\ValidationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Content Include="Scripts\modules\member.js" />
     <Content Include="Scripts\modules\mongolab.js" />
     <Content Include="Scripts\modules\phundus-api.js" />
     <Content Include="Scripts\modules\project.js" />

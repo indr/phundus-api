@@ -11,6 +11,7 @@ namespace phiNdus.fundus.Web.App_Start
     using System;
     using System.Reflection;
     using System.Text;
+    using System.Web.Http;
     using Castle.Facilities.AutoTx;
     using Castle.Facilities.NHibernate;
     using Castle.Transactions;
@@ -41,9 +42,13 @@ namespace phiNdus.fundus.Web.App_Start
                 .ImplementedBy<NHibernateInstaller>());
             container.AddFacility<NHibernateFacility>();
 
-            var controllerFactory = new WindsorControllerFactory(container.Kernel);
-            ControllerBuilder.Current.SetControllerFactory(controllerFactory);
+            
+            GlobalConfiguration.Configuration.DependencyResolver
+                = new WindsorDependencyResolver(container);
 
+            ControllerBuilder.Current.SetControllerFactory(
+                new WindsorControllerFactory(container.Kernel));
+            
             GlobalContainer.Initialize(container);
 
             return container;

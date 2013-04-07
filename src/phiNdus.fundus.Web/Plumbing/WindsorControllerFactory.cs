@@ -1,15 +1,15 @@
-﻿using System;
-using System.Globalization;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Castle.MicroKernel;
-
-namespace phiNdus.fundus.Web.Plumbing
+﻿namespace phiNdus.fundus.Web.Plumbing
 {
+    using System;
+    using System.Globalization;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Routing;
+    using Castle.MicroKernel;
+
     public class WindsorControllerFactory : DefaultControllerFactory
     {
-        private readonly IKernel _kernel;
+        readonly IKernel _kernel;
 
         public WindsorControllerFactory(IKernel kernel)
         {

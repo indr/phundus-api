@@ -51,6 +51,8 @@
                     throw new AuthenticationException("Um eine Organisation auszuwählen, müssen Sie sich anmelden.");
 
                 user.SelectOrganization(organization);
+
+                Session["OrganizationId"] = organization.Id;
                 uow.TransactionalFlush();
 
                 return RedirectToRoute("Organization", new {name = organization.Url});
@@ -72,8 +74,8 @@
         [Authorize(Roles = "Chief")]
         public virtual ActionResult Members()
         {
-            //return View();
-            return View("tbd");
+            return View();
+            //return View("tbd");
         }
 
         [Authorize(Roles = "Chief")]
