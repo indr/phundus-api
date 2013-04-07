@@ -6,6 +6,8 @@ using phiNdus.fundus.Web.ViewModels;
 
 namespace phiNdus.fundus.Web.Models.CartModels
 {
+    using System.Linq;
+
     public class CartModel : ViewModelBase
     {
         private IList<CartItemModel> _items = new List<CartItemModel>();
@@ -41,7 +43,7 @@ namespace phiNdus.fundus.Web.Models.CartModels
             Version = cartDto.Version;
             TotalPrice = cartDto.TotalPrice;
             Items.Clear();
-            foreach (var each in cartDto.Items)
+            foreach (var each in cartDto.Items.OrderBy(k => k.OrganizationName))
                 Items.Add(new CartItemModel(each));
         }
 

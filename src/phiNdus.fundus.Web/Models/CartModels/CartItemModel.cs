@@ -29,6 +29,7 @@ namespace phiNdus.fundus.Web.Models.CartModels
             UnitPrice = itemDto.UnitPrice;
             LineTotal = itemDto.LineTotal;
             IsAvailable = itemDto.IsAvailable;
+            OrganizationName = itemDto.OrganizationName;
 
             if (Begin == DateTime.MinValue)
                 Begin = SessionAdapter.ShopBegin;
@@ -36,6 +37,8 @@ namespace phiNdus.fundus.Web.Models.CartModels
             if (End == DateTime.MinValue)
                 End = SessionAdapter.ShopEnd;
         }
+
+        public string OrganizationName { get; set; }
 
         [Required]
         public int Id { get; set; }

@@ -33,14 +33,24 @@
             }
             else
             {
+
+                string lastOrganizationName = null;
                 for (var idx = 0; idx < Model.Items.Count; idx++)
                 {
+                    if (lastOrganizationName != Model.Items[idx].OrganizationName)
+                    {
+                        <tr>
+                            <td colspan="8" style="padding-left:40px;"><h4><br />@Model.Items[idx].OrganizationName</h4></td>
+                        </tr>
+                        lastOrganizationName = Model.Items[idx].OrganizationName;
+                    }
+
                     <tr id="order-line-@Model.Items[idx].Id">
                         @Html.HiddenFor(x => Model.Items[idx].Id)
                         @Html.HiddenFor(x => Model.Items[idx].Version)
                         <td style="vertical-align: middle;">@Model.Items[idx].Caption</td>    
                         <td style="text-align: center; vertical-align:middle;">
-                            @if(Model.Items[idx].IsAvailable)
+                            @if (Model.Items[idx].IsAvailable)
                             {
                                 <i class="icon-ok"></i>
                             }
@@ -56,7 +66,7 @@
                             @Html.EditorFor(x => Model.Items[idx].End)
                         </td>
                         <td>
-                            @Html.TextBoxFor(x => Model.Items[idx].Amount, new { @class="input-mini add-inc-dec"})
+                            @Html.TextBoxFor(x => Model.Items[idx].Amount, new { @class = "input-mini add-inc-dec" })
                         </td>
                         <td style="text-align: right; vertical-align: middle;">
                             @Html.DisplayFor(x => Model.Items[idx].UnitPrice)
@@ -83,8 +93,8 @@
             </tfoot>
         }
     </table>
-    if (Model.Items.Count > 0)
-    {
+        if (Model.Items.Count > 0)
+        {
         <div class="form-actions">
             @Html.SubmitButton("Aktualisieren", "")
             @Html.ActionLink(new Appearance { Button = Button.Primary, Caption = "Bestellen" }, CartActionNames.CheckOut)
