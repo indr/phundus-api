@@ -290,36 +290,36 @@ namespace phiNdus.fundus.Domain.Entities
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase(this.TotalPrice.ToString("N"), defaultFontBold));
             doc.Add(table);
-            var path = HttpContext.Current.Server.MapPath(@"~\Content\Images\PdfFooter.png");
-            var img = iTextSharp.text.Image.GetInstance(path);
-            img.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
-            img.SetAbsolutePosition(0, 40);
-            img.BorderColor = BaseColor.LIGHT_GRAY;
-            img.BorderWidthTop = 1.0f;
-            img.BorderWidthBottom = 1.0f;
-            doc.Add(img);
+//            var path = HttpContext.Current.Server.MapPath(@"~\Content\Images\PdfFooter.png");
+//            var img = iTextSharp.text.Image.GetInstance(path);
+//            img.ScaleToFit(doc.PageSize.Width, doc.PageSize.Height);
+//            img.SetAbsolutePosition(0, 40);
+//            img.BorderColor = BaseColor.LIGHT_GRAY;
+//            img.BorderWidthTop = 1.0f;
+//            img.BorderWidthBottom = 1.0f;
+//            doc.Add(img);
 
 
-            table = new PdfPTable(1);
-            cell = new PdfPCell()
-            {
-                CellEvent = new RoundRectangle(),
-                Border = PdfPCell.NO_BORDER,
-                Padding = 10,
-                PaddingTop = 0,
-                HorizontalAlignment = Element.ALIGN_RIGHT
-            };
-            defaultFont = FontFactory.GetFont("calibri", 10);
-            cell.AddElement(new Paragraph(@"Sekretariat PFADI Luzern
-c/o Stiftung Rodtegg, bürowärkstatt
-Rodteggstrasse 3a, 6005 Luzern 
-Tel. 041 368 40 35   Fax 041 368 42 94
-Web www.pfadiluzern.ch
-E-Mail sekretariat@pfadiluzern.ch", defaultFont) { Alignment = Element.ALIGN_RIGHT });
+//            table = new PdfPTable(1);
+//            cell = new PdfPCell()
+//            {
+//                CellEvent = new RoundRectangle(),
+//                Border = PdfPCell.NO_BORDER,
+//                Padding = 10,
+//                PaddingTop = 0,
+//                HorizontalAlignment = Element.ALIGN_RIGHT
+//            };
+//            defaultFont = FontFactory.GetFont("calibri", 10);
+//            cell.AddElement(new Paragraph(@"Sekretariat PFADI Luzern
+//c/o Stiftung Rodtegg, bürowärkstatt
+//Rodteggstrasse 3a, 6005 Luzern 
+//Tel. 041 368 40 35   Fax 041 368 42 94
+//Web www.pfadiluzern.ch
+//E-Mail sekretariat@pfadiluzern.ch", defaultFont) { Alignment = Element.ALIGN_RIGHT });
 
-            table.AddCell(cell);
-            table.TotalWidth = doc.PageSize.Width / 2.8f;
-            table.WriteSelectedRows(0, -1, -10, 150, writer.DirectContent);
+//            table.AddCell(cell);
+//            table.TotalWidth = doc.PageSize.Width / 2.8f;
+//            table.WriteSelectedRows(0, -1, -10, 150, writer.DirectContent);
 
             doc.Close();
             result.Position = 0;
