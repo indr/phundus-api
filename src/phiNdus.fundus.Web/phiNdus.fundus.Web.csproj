@@ -346,6 +346,7 @@
     <Content Include="Scripts\modules\phundus-api.js" />
     <Content Include="Scripts\modules\project.js" />
     <Content Include="Views\Organization\Members.cshtml" />
+    <Content Include="Views\Organization\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\pbar-ani.gif" />

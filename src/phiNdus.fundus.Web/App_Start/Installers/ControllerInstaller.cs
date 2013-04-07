@@ -1,12 +1,12 @@
-﻿using System;
-using System.Web.Http.Controllers;
-using System.Web.Mvc;
-using Castle.MicroKernel.Registration;
-using Castle.MicroKernel.SubSystems.Configuration;
-using Castle.Windsor;
-
-namespace phiNdus.fundus.Web.App_Start.Installers
+﻿namespace phiNdus.fundus.Web.App_Start.Installers
 {
+    using System;
+    using System.Web.Http.Controllers;
+    using System.Web.Mvc;
+    using Castle.MicroKernel.Registration;
+    using Castle.MicroKernel.SubSystems.Configuration;
+    using Castle.Windsor;
+
     public class ControllerInstaller : IWindsorInstaller
     {
         #region IWindsorInstaller Members
