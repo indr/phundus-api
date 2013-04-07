@@ -5,24 +5,24 @@ using phiNdus.fundus.Business.SecuredServices;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using Domain.Entities;
     using phiNdus.fundus.Domain;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class ShopSearchResultViewModel : ViewModelBase
     {
-        public ShopSearchResultViewModel()
-            : this(null, 1, 8)
-        {
-        }
+        readonly ICollection<Organization> _organizations;
 
-        public ShopSearchResultViewModel(string query, int page, int rowsPerPage)
+        public ShopSearchResultViewModel(string queryString, int? queryOrganizationId, int page, int rowsPerPage, ICollection<Organization> organizations)
         {
-            Query = query;
+            Query = queryString;
+            QueryOrganizationId = queryOrganizationId;
             RowsPerPage = rowsPerPage;
             Articles = new List<ArticleViewModel>();
+            _organizations = organizations;
 
-            Search(Query, page);
+            Search(Query, QueryOrganizationId, page);
         }
 
         protected int RowsPerPage { get; set; }
@@ -31,17 +31,20 @@ namespace phiNdus.fundus.Web.ViewModels
         public PageSelectorViewModel PageSelectorModel { get; set; }
         public IList<ArticleViewModel> Articles { get; private set; }
         
+        public IEnumerable<Organization> Organizations { get { return _organizations; }}
+
+        public int? QueryOrganizationId { get; set; }
 
         protected IArticleService ArticleService
         {
             get { return GlobalContainer.Resolve<IArticleService>(); }
         }
 
-        private void Search(string query, int page)
+        private void Search(string query, int? organization, int page)
         {
             var fieldDefinitions = ArticleService.GetProperties(SessionId);
             var queryResult = GlobalContainer.Resolve<IArticleService>().FindArticles(SessionId,
-                    new PageRequest { Index = page - 1, Size = RowsPerPage }, query);
+                    new PageRequest { Index = page - 1, Size = RowsPerPage }, query, organization);
             PageSelectorModel = new PageSelectorViewModel(queryResult.Pages);
             foreach (var each in queryResult.Items)
             {

@@ -118,12 +118,12 @@ namespace phiNdus.fundus.Business.Services
             }
         }
 
-        public PagedResult<ArticleDto> FindArticles(PageRequest pageRequest, string query)
+        public PagedResult<ArticleDto> FindArticles(PageRequest pageRequest, string query, int? organization)
         {
             using (UnitOfWork.Start())
             {
                 int total;
-                var result = Articles.FindMany(query, pageRequest.Index*pageRequest.Size, pageRequest.Size, out total);
+                var result = Articles.FindMany(query, organization, pageRequest.Index*pageRequest.Size, pageRequest.Size, out total);
                 var dtos = new ArticleDtoAssembler().CreateDtos(result).ToList();
                 return new PagedResult<ArticleDto>(PageResponse.From(pageRequest, total), dtos);
             }

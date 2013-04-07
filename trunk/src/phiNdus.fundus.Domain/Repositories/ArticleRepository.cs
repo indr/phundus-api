@@ -24,14 +24,18 @@ namespace phiNdus.fundus.Domain.Repositories
             return query.ToList();
         }
 
-        public ICollection<Article> FindMany(string query, int start, int count, out int total)
+        public ICollection<Article> FindMany(string query, int? organization, int start, int count, out int total)
         {
-            var q = Session.QueryOver<Article>()
-                .JoinQueryOver<FieldValue>(a => a.FieldValues)
+            var q = Session.QueryOver<Article>();
+
+            if (organization.HasValue)
+                q = q.Where(a => a.Organization.Id == organization.Value);
+                
+            var d = q.JoinQueryOver<FieldValue>(a => a.FieldValues)
                 .WhereRestrictionOn(fv => fv.TextValue).IsLike(query, MatchMode.Anywhere)
                 .List().Distinct();
-            total = q.Count();
-            return q.Skip(start).Take(count).ToList();
+            total = d.Count();
+            return d.Skip(start).Take(count).ToList();
         }
 
         #endregion

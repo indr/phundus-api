@@ -3,6 +3,7 @@
     using System;
     using System.Web.Mvc;
     using Castle.Transactions;
+    using Domain.Repositories;
     using phiNdus.fundus.Business.SecuredServices;
     using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;
@@ -10,6 +11,8 @@
 
     public class ShopController : ControllerBase
     {
+        public IOrganizationRepository Organizations { get; set; }
+
         static string MasterView
         {
             get { return @"Index"; }
@@ -27,14 +30,20 @@
             set { Session["Shop-View"] = value; }
         }
 
-        string Query
+        string QueryString
         {
-            get { return Convert.ToString(Session["Shop-Query"]); }
+            get { return Convert.ToString(Session["Shop-QueryString"]); }
             set
             {
                 if (value != null)
-                    Session["Shop-Query"] = value;
+                    Session["Shop-QueryString"] = value;
             }
+        }
+
+        int? QueryOrganizationId
+        {
+            get { return Session["Shop-QueryOrganizationId"]  as int?; }
+            set { Session["Shop-QueryOrganizationId"] = value; }
         }
 
         int? RowsPerPage
@@ -63,7 +72,7 @@
                     RowsPerPage = Convert.ToInt32(value.AttemptedValue);
             }
 
-            return Search(null, page.HasValue ? page.Value : 1);
+            return Search(QueryString, QueryOrganizationId, page);
         }
 
         [Transaction]
@@ -88,10 +97,18 @@
         }
 
         [Transaction]
-        public virtual ActionResult Search(string query, int page = 1)
+        public virtual ActionResult Search(string queryString, int? queryOrganizationId, int? page)
         {
-            Query = query;
-            var model = new ShopSearchResultViewModel(Query, page, RowsPerPage.Value);
+            if (page == null)
+                page = 1;
+            QueryString = queryString;
+            QueryOrganizationId = queryOrganizationId;
+            var model = new ShopSearchResultViewModel(
+                QueryString,
+                QueryOrganizationId,
+                page.Value,
+                RowsPerPage.Value,
+                Organizations.FindAll());
             if (Request.IsAjaxRequest())
                 return PartialView(ShopView, model);
             return View(ShopView, MasterView, model);

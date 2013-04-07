@@ -81,9 +81,9 @@ namespace phiNdus.fundus.Business.SecuredServices
                 .Do<ArticleService, IList<ImageDto>>(svc => svc.GetImages(articleId));
         }
 
-        public PagedResult<ArticleDto> FindArticles(string sessionKey, PageRequest pageRequest, string query)
+        public PagedResult<ArticleDto> FindArticles(string sessionKey, PageRequest pageRequest, string query, int? organization)
         {
-            return Unsecured.Do<ArticleService, PagedResult<ArticleDto>>(svc => svc.FindArticles(pageRequest, query));
+            return Unsecured.Do<ArticleService, PagedResult<ArticleDto>>(svc => svc.FindArticles(pageRequest, query, organization));
         }
 
         #endregion
