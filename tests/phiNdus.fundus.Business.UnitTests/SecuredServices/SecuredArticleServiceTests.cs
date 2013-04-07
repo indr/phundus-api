@@ -109,14 +109,14 @@ namespace phiNdus.fundus.Business.UnitTests.SecuredServices
             Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
 
-        [Test]
-        public void CreateArticle_with_user_roll_throws()
-        {
-            GenerateAndRegisterMissingStubs();
-            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
+        //[Test]
+        //public void CreateArticle_with_user_roll_throws()
+        //{
+        //    GenerateAndRegisterMissingStubs();
+        //    FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
 
-            Assert.Throws<AuthorizationException>(() => Sut.CreateArticle("valid", new ArticleDto()));
-        }
+        //    Assert.Throws<AuthorizationException>(() => Sut.CreateArticle("valid", new ArticleDto()));
+        //}
 
         [Test]
         public void GetArticle_calls_GetArticle()
@@ -272,13 +272,13 @@ namespace phiNdus.fundus.Business.UnitTests.SecuredServices
             Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
 
-        [Test]
-        public void UpdateArticle_with_user_roll_throws()
-        {
-            GenerateAndRegisterMissingStubs();
-            FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
+        //[Test]
+        //public void UpdateArticle_with_user_roll_throws()
+        //{
+        //    GenerateAndRegisterMissingStubs();
+        //    FakeUserRepo.Stub(x => x.FindBySessionKey("valid")).Return(SessionUser);
 
-            Assert.Throws<AuthorizationException>(() => Sut.UpdateArticle("valid", null));
-        }
+        //    Assert.Throws<AuthorizationException>(() => Sut.UpdateArticle("valid", null));
+        //}
     }
 }
