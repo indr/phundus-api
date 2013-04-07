@@ -89,6 +89,8 @@ namespace phiNdus.fundus.Web.ViewModels
             }
         }
 
+        public string OrganizationName { get; set; }
+
         public double Price
         {
             get
@@ -195,6 +197,7 @@ namespace phiNdus.fundus.Web.ViewModels
         {
             Id = article.Id;
             Version = article.Version;
+            OrganizationName = article.OrganizationName;
 
             // View-Models aus Properties für Felder und Diskriminatoren erstellen
             if (article.Properties.Count > 0)
