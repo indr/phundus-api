@@ -11,14 +11,15 @@
     </div>
     <div class="span7" style="padding-top:5px;">
         @using (Ajax.BeginForm("Search", ControllerNames.Shop, new AjaxOptions {
-            HttpMethod = "POST",
-            LoadingElementId = "query-loading",
-            UpdateTargetId="search-results"  }, new { @class = "form-search" }))
+                HttpMethod = "POST",
+                LoadingElementId = "query-loading",
+                UpdateTargetId = "search-results" },
+                new { @class = "form-search" }))
         {
             <input type="text" name="QueryString" class="input-medium search-query" value="@Model.Query" placeholder="Suchen" />
             <span class="muted"> in </span>
             @Html.DropDownListFor(m => m.QueryOrganizationId, new SelectList(Model.Organizations, "Id", "Name", Model.QueryOrganizationId), "allen Organisationen")
-            <button type="submit" class="btn btn-primary">phinden!</button>
+            <button type="submit" class="btn btn-primary" onclick="submit()">phinden!</button>
             <span class="help-inline hide" id="query-loading">
                 <img src="@Url.Content("~/Content/Images/ajax-loader.gif")" style="vertical-align:middle;" />
             </span>
