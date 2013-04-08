@@ -11,6 +11,8 @@ using phiNdus.fundus.Domain.Settings;
 namespace phiNdus.fundus.Business.Services
 {
     using System.Configuration;
+    using System.Linq;
+    using System.Web;
     using Domain.Infrastructure;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -143,6 +145,11 @@ namespace phiNdus.fundus.Business.Services
                 try
                 {
                     user.Membership.LogOn(sessionId, password);
+                    if (user.SelectedOrganization == null && user.Memberships.Count > 0)
+                        user.SelectOrganization(user.Memberships.First().Organization);
+                    if (user.SelectedOrganization != null)
+                        HttpContext.Current.Session["OrganizationId"] = user.SelectedOrganization.Id;
+
                     uow.TransactionalFlush();
                     return true;
                 }
