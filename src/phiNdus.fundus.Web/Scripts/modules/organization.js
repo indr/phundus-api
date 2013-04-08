@@ -1,13 +1,27 @@
 ﻿angular
-    .module('members', ['phundus-api'])
+    .module('organization', ['phundus-api'])
     .config(function ($routeProvider) {
         $routeProvider
-            .when('/', { controller: ListCtrl, templateUrl: '../Content/Members/list.html' })
-            .otherwise({ redirectTo: '/' });
+            .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Organization/Members.html' })
+            .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Organization/Settings.html' })
+            .otherwise({ redirectTo: '/members' });
     });
 
 
-function ListCtrl($scope, members) {
+function SettingsCtrl($scope, organizations) {
+    $scope.settings = organizations.get({ id: $scope.organizationId });
+
+    $scope.reset = function() {
+        $scope.settings = organizations.get({ id: $scope.organizationId });
+    };
+
+    $scope.save = function () {
+        $scope.settings.$update();
+    };
+
+}
+
+function MembersCtrl($scope, members) {
     // TODO: org in RouteParams
     $scope.members = members.query({ org: $scope.organizationId });
     $scope.order = 'lastName';

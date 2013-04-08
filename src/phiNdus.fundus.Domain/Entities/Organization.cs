@@ -1,11 +1,13 @@
 ﻿namespace phiNdus.fundus.Domain.Entities
 {
+    using System;
     using System.Text.RegularExpressions;
     using Iesi.Collections.Generic;
 
     public class Organization : EntityBase
     {
         ISet<OrganizationMembership> _memberships = new HashedSet<OrganizationMembership>();
+        string _startpage;
 
         public Organization()
         {
@@ -34,6 +36,21 @@
         {
             get { return _memberships; }
             set { _memberships = value; }
+        }
+
+        public virtual string Address { get; set; }
+
+        public virtual string Coordinate { get; set; }
+
+        public virtual string Startpage
+        {
+            get
+            {
+                if (String.IsNullOrWhiteSpace(_startpage))
+                    return String.Format("<p>Startseite der Organisation\"{0}\".", Name);
+                return _startpage;
+            }
+            set { _startpage = value; }
         }
     }
 }

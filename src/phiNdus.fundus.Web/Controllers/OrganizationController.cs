@@ -13,10 +13,9 @@
         public IOrganizationRepository Organizations { get; set; }
         public IUserRepository Users { get; set; }
 
-        [Transaction]
         public virtual ActionResult Index()
         {
-            return View("tbd");
+            return View();
         }
 
         public virtual ActionResult Id(int id)
@@ -57,32 +56,6 @@
 
                 return RedirectToRoute("Organization", new {name = organization.Url});
             }
-        }
-
-        [Transaction]
-        public virtual ActionResult Search()
-        {
-            return View("tbd");
-        }
-
-        [Transaction]
-        public virtual ActionResult Establish()
-        {
-            return View("tbd");
-        }
-
-        [Authorize(Roles = "Chief")]
-        public virtual ActionResult Members()
-        {
-            return View();
-            //return View("tbd");
-        }
-
-        [Authorize(Roles = "Chief")]
-        [Transaction]
-        public virtual ActionResult Settings()
-        {
-            return View("tbd");
         }
     }
 }

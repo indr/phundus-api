@@ -1,7 +1,7 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<dynamic>
               
 <p class="navbar-text pull-right">
-@if (Request.IsAuthenticated)
+@if (Request.IsAuthenticated && User.Identity.IsAuthenticated)
 {   
     @Html.ActionLink("Warenkorb", CartActionNames.Index, ControllerNames.Cart, null, new { id = "cart" }) @:|
 

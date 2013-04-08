@@ -9,8 +9,7 @@ namespace phiNdus.fundus.Web.App_Start
             bundles.Add(new ScriptBundle("~/js/angular").Include(
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-resource.js",
-                "~/Scripts/modules/members.js",
-                "~/Scripts/modules/phundus-api.js"));
+                "~/Scripts/modules/*.js"));
 
 
             // Bundling and minification is enabled or disabled by setting the value of the debug
