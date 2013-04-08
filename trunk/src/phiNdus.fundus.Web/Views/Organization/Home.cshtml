@@ -13,9 +13,12 @@
 
         <h3>Kontakt</h3>
         <address>
-            @foreach (var each in Model.Address.Replace('\r', '\n').Split('\n'))
+            @if (!String.IsNullOrEmpty(Model.Address))
             {
-                @each<br />
+                foreach (var each in Model.Address.Replace('\r', '\n').Split('\n'))
+                {
+                    @each<br />
+                }
             }
         </address>
     </div>
