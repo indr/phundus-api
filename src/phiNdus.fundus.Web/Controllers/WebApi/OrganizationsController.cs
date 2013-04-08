@@ -1,15 +1,22 @@
 ﻿namespace phiNdus.fundus.Web.Controllers.WebApi
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
     using System.Web.Http;
     using Castle.Transactions;
+    using NHibernate;
+    using phiNdus.fundus.Business.Security;
+    using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
 
     public class OrganizationsController : ApiController
     {
+        public IUserRepository Users { get; set; }
         public IOrganizationRepository Organizations { get; set; }
+
+        public Func<ISession> SessionFactory { get; set; }
 
         [Transaction]
         public virtual IEnumerable<OrganizationDto> Get()
@@ -33,16 +40,45 @@
             if (result == null)
                 throw new HttpException(404, "Die Organisation ist nicht vorhanden.");
 
+            return ToDto(result);
+        }
+
+        static OrganizationDto ToDto(Organization organization)
+        {
             return new OrganizationDto
                        {
-                           Id = result.Id,
-                           Version = result.Version,
-                           Name = result.Name,
-                           Url = result.Url,
-                           Address = result.Address,
-                           Coordinate = result.Coordinate,
-                           Startpage = result.Startpage
+                           Id = organization.Id,
+                           Version = organization.Version,
+                           Name = organization.Name,
+                           Url = organization.Url,
+                           Address = organization.Address,
+                           Coordinate = organization.Coordinate,
+                           Startpage = organization.Startpage
                        };
+        }
+
+        // PUT api/organizations/5
+        [Transaction]
+        [Authorize]
+        public virtual OrganizationDto Put(int id, [FromBody] OrganizationDto value)
+        {
+            var org = Organizations.FindById(id);
+            var user = Users.FindByEmail(User.Identity.Name);
+
+            if (org == null)
+                throw new HttpException(404, "Die Organisation ist nicht vorhanden.");
+
+            if (user == null || !user.IsChiefOf(org))
+                throw new AuthorizationException("Sie haben keine Berechtigung um die Organisation zu aktualisieren.");
+
+            org.Address = value.Address;
+            org.Coordinate = value.Coordinate;
+            org.Startpage = value.Startpage;
+
+            Organizations.Update(org);
+            SessionFactory().Flush();
+
+            return ToDto(org);
         }
     }
 

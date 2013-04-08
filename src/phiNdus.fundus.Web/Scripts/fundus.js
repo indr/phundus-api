@@ -106,7 +106,7 @@ var fundus;
                 // http://www.tinymce.com/wiki.php/jQuery_Plugin
                 // Initializes all textareas with the tinymce class
                 $('textarea.tinymce-init').removeClass('tinymce-init').addClass('tinymce').tinymce({
-                    script_url: this.baseUri + 'Scripts/tinymce/tiny_mce.js',
+                    //script_url: this.baseUri + 'Scripts/tinymce/tiny_mce.js',
                     theme: "simple",
                     entity_encoding: "raw"
                 });
