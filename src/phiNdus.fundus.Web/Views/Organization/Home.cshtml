@@ -1,4 +1,4 @@
-﻿@model phiNdus.fundus.Domain.Entities.Organization
+﻿@model phiNdus.fundus.Web.Models.Organization.OrganizationModel
 @{
     ViewBag.Title = Model.Name;
 }
@@ -9,14 +9,31 @@
         @Html.Raw(Model.Startpage)
     </div>
     <div class="span6">
+        @if (Model.HasOptions)
+        {
+            <h3>Mitgliedschaft</h3>
+            if (Model.HasOptionJoin)
+            {
+                <p>Sie können dieser Organisation <a href="" class="btn">beitreten</a>.</p>
+            }
+            else if (Model.HasOptionLeave)
+            {
+                <p>Sie können aus dieser Organisation <a href="" class="btn">austreten</a>.</p>
+            }
+            else
+            {
+                <p>Ihr Beitritt wurde bereits beantragt.</p>
+            }
+        }
+
         @if (!String.IsNullOrWhiteSpace(Model.Address))
         {
             <h3>Kontakt</h3>
             <address>
-            @foreach (var each in Model.Address.Replace('\r', '\n').Split('\n'))
-            {
-                @each<br/>
-            }
+                @foreach (var each in Model.Address.Replace('\r', '\n').Split('\n'))
+                {
+                    @each<br/>
+                }
             </address>
         }
         @if(!String.IsNullOrWhiteSpace(Model.Coordinate))

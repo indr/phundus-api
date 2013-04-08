@@ -6,6 +6,7 @@
     using System.Web.Mvc;
     using Castle.Transactions;
     using Domain.Repositories;
+    using Models.Organization;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class OrganizationController : ControllerBase
@@ -26,12 +27,23 @@
         [Transaction]
         public virtual ActionResult Home(int id, string name)
         {
-            var model = Organizations.FindById(id);
-            if (model == null)
+            var organization = Organizations.FindById(id);
+            if (organization == null)
                 throw new Exception(
                     String.Format(
                         "Die Organisation mit der Id {0} und/oder dem Namen \"{1}\" konnte nicht gefunden werden.",
                         id, name));
+
+            var user = Users.FindByEmail(User.Identity.Name);
+            var model = new OrganizationModel(organization);
+            if (user != null)
+            {
+                bool isMemberOf = user.IsMemberOf(organization);
+                model.HasOptionJoin = !isMemberOf;
+                model.HasOptionLeave = isMemberOf;
+            }
+            
+
             return View(model);
         }
 
