@@ -5,11 +5,11 @@
     using System.Linq;
     using System.Web;
     using System.Web.Http;
+    using Business.Security;
     using Castle.Transactions;
+    using Domain.Entities;
+    using Domain.Repositories;
     using NHibernate;
-    using phiNdus.fundus.Business.Security;
-    using phiNdus.fundus.Domain.Entities;
-    using phiNdus.fundus.Domain.Repositories;
 
     public class MembersController : ApiController
     {
@@ -73,19 +73,20 @@
             if (member == null)
                 throw new HttpException(404, "Das Mitglied ist nicht vorhanden.");
 
-            var membership = member.Memberships.First(p => p.Organization.Id == organization);
+            var membership = member.Memberships.FirstOrDefault(p => p.Organization.Id == organization);
+            if (membership == null)
+                throw new HttpException(404, "Die Mitgliedschaft ist nicht vorhanden.");
 
             if ((member.Version != value.MemberVersion)
-                || (member.Membership.Version != value.UsershipVersion)
                 || (membership.Version != value.MembershipVersion))
-                throw new HttpException(409, "Das Mitglied wurde in der Zwischenzeit verändert.");
+                throw new HttpException(409, "Das Mitglied oder die Mitgliedschaft wurde in der Zwischenzeit verändert.");
 
-            if (member.Membership.IsLockedOut != value.IsLocked)
+            if (membership.IsLocked != value.IsLocked)
             {
                 if (value.IsLocked)
-                    member.Membership.LockOut();
+                    membership.Lock();
                 else if (value.IsLocked == false)
-                    member.Membership.Unlock();
+                    membership.Unlock();
             }
 
             membership.Role = value.Role;
@@ -105,18 +106,17 @@
         static MemberDto ToDto(User member, OrganizationMembership membership)
         {
             return new MemberDto
-                       {
-                           EmailAddress = member.Membership.Email,
-                           FirstName = member.FirstName,
-                           Id = member.Id,
-                           IsLocked = member.Membership.IsLockedOut,
-                           JsNumber = member.JsNumber,
-                           LastName = member.LastName,
-                           Role = membership.Role,
-                           MemberVersion = member.Version,
-                           UsershipVersion = member.Membership.Version,
-                           MembershipVersion = membership.Version
-                       };
+                {
+                    Id = member.Id,
+                    MemberVersion = member.Version,
+                    MembershipVersion = membership.Version,
+                    FirstName = member.FirstName,
+                    LastName = member.LastName,
+                    JsNumber = member.JsNumber,
+                    EmailAddress = member.Membership.Email,
+                    Role = membership.Role,
+                    IsLocked = membership.IsLocked
+                };
         }
     }
 
@@ -130,7 +130,6 @@
         public int Role { get; set; }
         public bool IsLocked { get; set; }
         public int MemberVersion { get; set; }
-        public int UsershipVersion { get; set; }
         public int MembershipVersion { get; set; }
     }
 

@@ -78,6 +78,7 @@
     <Compile Include="2013\02\M201302252247_AddColumnsStreetCityAndPostcode.cs" />
     <Compile Include="2013\02\M201302252312_AddUniqueKeyToOrganizationMembership.cs" />
     <Compile Include="2013\02\M201302252319_MoveUsersToDefaultOrganization.cs" />
+    <Compile Include="2013\04\M08_21_42_AddColumnsToOrganization.cs" />
     <Compile Include="2013\04\M08_14_55_AddColumnsToOrganization.cs" />
     <Compile Include="2013\04\M01_11_13_AlterFkOrderItemToOrder.cs" />
     <Compile Include="2013\04\M01_09_24_AlterFkCartItemToCart.cs" />

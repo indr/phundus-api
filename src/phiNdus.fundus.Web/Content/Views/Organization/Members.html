@@ -1,18 +1,17 @@
-﻿
-<h2>Mitglieder</h2>
+﻿<h2>Mitglieder</h2>
 <p>
     <input type="text" ng-model="search" class="search-query" placeholder="Suchen">
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th><a href="#/" ng-click="orderBy('id')">#</a></th>
-            <th><a href="#/" ng-click="orderBy('firstName')">Vorname</a></th>
-            <th><a href="#/" ng-click="orderBy('lastName')">Nachname</a></th>
-            <th><a href="#/" ng-click="orderBy('jsNumber')">J+S-Nummer</a></th>
-            <th><a href="#/" ng-click="orderBy('emailAddress')">E-Mail-Adresse</a></th>
-            <th><a href="#/" ng-click="orderBy('role')">Rolle</a></th>
-            <th><a href="#/" ng-click="orderBy('isLocked')">Status</a></th>
+            <th><a href="" ng-click="orderBy('id')">#</a></th>
+            <th><a href="" ng-click="orderBy('firstName')">Vorname</a></th>
+            <th><a href="" ng-click="orderBy('lastName')">Nachname</a></th>
+            <th><a href="" ng-click="orderBy('jsNumber')">J+S-Nummer</a></th>
+            <th><a href="" ng-click="orderBy('emailAddress')">E-Mail-Adresse</a></th>
+            <th><a href="" ng-click="orderBy('role')">Rolle</a></th>
+            <th><a href="" ng-click="orderBy('isLocked')">Status</a></th>
             <!--<th><a href="#/new"><i class="icon-plus-sign"></i></a></th>-->
         </tr>
     </thead>
@@ -25,44 +24,41 @@
             <td>{{member.emailAddress}}</td>
             <td ng-show="member.role == 0">
                 <div class="btn-group">
-                    <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="">
                         Gast
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ng-repeat="each in roles"><a href="#/" ng-click="setRole(member, each.name, each.value)">{{each.name}}</a></li>
+                        <li ng-repeat="each in roles"><a href="" ng-click="setRole(member, each.name, each.value)">{{each.name}}</a></li>
                     </ul>
                 </div>
             </td>
             <td ng-show="member.role == 1">
                 <div class="btn-group" >
-                    <a class="btn btn-small btn-info dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="btn btn-small btn-info dropdown-toggle" data-toggle="dropdown" href="">
                         Mitglied
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ng-repeat="each in roles"><a href="#/" ng-click="setRole(member, each.name, each.value)">{{each.name}}</a></li>
+                        <li ng-repeat="each in roles"><a href="" ng-click="setRole(member, each.name, each.value)">{{each.name}}</a></li>
                     </ul>
                 </div>
             </td>
             <td ng-show="member.role == 2">
                 <div class="btn-group">
-                    <a class="btn btn-small btn-warning dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="btn btn-small btn-warning dropdown-toggle" data-toggle="dropdown" href="">
                         Verwaltung
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ng-repeat="each in roles"><a href="#/" ng-click="setRole(member, each.name, each.value)">{{each.name}}</a></li>
+                        <li ng-repeat="each in roles"><a href="" ng-click="setRole(member, each.name, each.value)">{{each.name}}</a></li>
                     </ul>
                 </div>
             </td>
             <td>
-                <a class="btn btn-small btn-danger" href="#/" ng-show="member.isLocked" ng-click="unlock(member)">Entsperren</a>
-                <a class="btn btn-small btn-inverse" href="#/" ng-hide="member.isLocked" ng-click="lock(member)">Sperren</a>
+                <a class="btn btn-small btn-danger" ng-show="member.isLocked" href="" ng-click="unlock(member)">Entsperren</a>
+                <a class="btn btn-small btn-inverse" ng-hide="member.isLocked" href="" ng-click="lock(member)">Sperren</a>
             </td>
-            <!--<td>
-                <a class="btn btn-small" href="#/{{member.id}}">Details</a>
-            </td>-->
         </tr>
     </tbody>
 </table>

@@ -13,7 +13,7 @@
         {
             <h3>Kontakt</h3>
             <address>
-            foreach (var each in Model.Address.Replace('\r', '\n').Split('\n'))
+            @foreach (var each in Model.Address.Replace('\r', '\n').Split('\n'))
             {
                 @each<br/>
             }
