@@ -4,7 +4,7 @@
         $routeProvider
             .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Organization/Members.html' })
             .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Organization/Settings.html' })
-            .otherwise({ redirectTo: '/members' });
+            .otherwise({ redirectTo: '/' });
     });
 
 

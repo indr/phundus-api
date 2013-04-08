@@ -16,23 +16,21 @@
                 <span class="help-block">Die Startseite der Organisation kann direkt mit <strong>http://phundus.ch/{{settings.url}}</strong> verlinkt werden.</span>
             </div>
         </div>
-        
+   
         <div class="control-group">
-            <label class="control-label" for="address">Adresse</label>
+            <label class="control-label" for="coordinate">Karte</label>
             <div class="controls">
-                <textarea id="address" name="address" placeholder="Adresse" ng-model="settings.address"></textarea>
-            </div>
-        </div>
-    
-    
-        <div class="control-group">
-            <label class="control-label" for="coordinate">Koordinate</label>
-            <div class="controls">
-                <input type="text" id="coordinate" placeholder="xx.xx,yy.yy" ng-model="settings.coordinate">
+                <input type="text" id="coordinate" placeholder="xx.xxxx,yy.yyyy" ng-model="settings.coordinate">
             </div>
         </div>
         
-        
+        <div class="control-group">
+            <label class="control-label" for="address">Kontakt</label>
+            <div class="controls">
+                <textarea ng-model="settings.address" class="input-xxlarge" rows="4"></textarea>
+            </div>
+        </div>
+
         <div class="control-group">
             <label class="control-label" for="startpage">Startseite</label>
             <div class="controls">

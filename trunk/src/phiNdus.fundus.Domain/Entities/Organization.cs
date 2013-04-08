@@ -47,7 +47,7 @@
             get
             {
                 if (String.IsNullOrWhiteSpace(_startpage))
-                    return String.Format("<p>Startseite der Organisation\"{0}\".", Name);
+                    return String.Format("<p>Startseite der Organisation \"{0}\".</p><p>Diese Seite kann unter \"Verwaltung\" / \"Einstellungen\" angepasst werden.", Name);
                 return _startpage;
             }
             set { _startpage = value; }
