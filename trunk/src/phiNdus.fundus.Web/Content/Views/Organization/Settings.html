@@ -1,0 +1,54 @@
+﻿<h2>Einstellungen</h2>
+<p></p>
+<form class="form-horizontal">
+    <fieldset>
+        <div class="control-group">
+            <label class="control-label" for="name">Name</label>
+            <div class="controls">
+                <input type="text" id="name" placeholder="Name" value="{{settings.name}}">
+            </div>
+        </div>  
+    
+        <div class="control-group">
+            <label class="control-label" for="url">URL</label>
+            <div class="controls">
+                <input type="text" id="url" placeholder="Name" value="{{settings.url}}" readonly="readonly">
+                <span class="help-block">Die Startseite der Organisation kann direkt mit <strong>http://phundus.ch/{{settings.url}}</strong> verlinkt werden.</span>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" for="address">Adresse</label>
+            <div class="controls">
+                <textarea id="address" name="address" placeholder="Adresse">{{settings.address}}</textarea>
+            </div>
+        </div>
+    
+    
+        <div class="control-group">
+            <label class="control-label" for="coordinate">Koordinate</label>
+            <div class="controls">
+                <input type="text" id="coordinate" placeholder="xx.xx,yy.yy" value="{{settings.coordinate}}">
+            </div>
+        </div>
+        
+        
+        <div class="control-group">
+            <label class="control-label" for="startpage">Startseite</label>
+            <div class="controls">
+                <textarea ui-tinymce ng-model="settings.startpage"></textarea>
+            </div>
+        </div>
+        
+        <p>Preview</p>
+        <div>{{settings.startpage}}</div>
+    </fieldset>
+    
+    <div class="form-actions">
+        <button type="button" class="btn btn-primary" ng-click="save()">Speichern</button>
+        <button type="button" class="btn" ng-click="reset()">Abbrechen</button>
+    </div>
+    <script type="text/javascript">
+        fundus.reinit();
+    </script>
+</form>
