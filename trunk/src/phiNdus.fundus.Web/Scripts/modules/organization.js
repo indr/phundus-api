@@ -3,8 +3,8 @@
     .config(function ($routeProvider) {
         $routeProvider
             .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Organization/Members.html' })
-            .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Organization/Settings.html' })
-            .otherwise({ redirectTo: '/' });
+            .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Organization/Settings.html' });
+            //.otherwise({ redirectTo: '/' });
     });
 
 
@@ -53,7 +53,12 @@ function MembersCtrl($scope, members) {
         if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich die Rolle "' + roleName + '" geben?')) {
             member.role = roleValue;
             // TODO: org in RouteParams
-            member.$update({ org: $scope.organizationId });
+            member.$update({ org: $scope.organizationId },
+            function (data, putResponseHeaders) {
+            },
+            function (err) {
+                alert('Fehler: ' + err.data.exceptionMessage);
+            });
         }
     };
 
@@ -61,7 +66,12 @@ function MembersCtrl($scope, members) {
         if (confirm('Möchen Sie "' + member.firstName + ' ' + member.lastName + '" wirklich sperren?')) {
             member.isLocked = true;
             // TODO: org in RouteParams
-            member.$update({ org: $scope.organizationId });
+            member.$update({ org: $scope.organizationId },
+            function (data, putResponseHeaders) {
+            },
+            function (err) {
+                alert('Fehler: ' + err.data.exceptionMessage);
+            });
         }
     };
 
@@ -69,7 +79,12 @@ function MembersCtrl($scope, members) {
         if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich entsperren?')) {
             member.isLocked = false;
             // TODO: org in RouteParams
-            member.$update({ org: $scope.organizationId });
+            member.$update({ org: $scope.organizationId },
+            function (data, putResponseHeaders) {
+            },
+            function (err) {
+                alert('Fehler: ' + err.data.exceptionMessage);
+            });
         }
     };
 }

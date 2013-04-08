@@ -12,5 +12,6 @@
     <many-to-one name="Organization" class="Organization" column="OrganizationId" />
     
     <property name="Role" />
+    <property name="IsLocked" />
   </class>
 </hibernate-mapping>
