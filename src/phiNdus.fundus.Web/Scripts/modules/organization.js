@@ -2,11 +2,29 @@
     .module('organization', ['phundus-api', 'ui', 'ui.bootstrap'])
     .config(function ($routeProvider) {
         $routeProvider
+            .when('/search', { controller: SearchCtrl, templateUrl: './Content/Views/Organization/Search.html' })
+            .when('/establish', { controller: EstablishCtrl, templateUrl: './Content/Views/Organization/Establish.html' })
             .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Organization/Members.html' })
-            .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Organization/Settings.html' });
-            //.otherwise({ redirectTo: '/' });
+            .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Organization/Settings.html' })
+            .otherwise({ redirectTo: '/search' });
     });
 
+
+
+function SearchCtrl($scope, organizations) {
+    $scope.organizations = organizations.query();
+    $scope.order = 'name';
+    $scope.orderBy = function (by) {
+        if ($scope.order == by)
+            $scope.order = '-' + by;
+        else
+            $scope.order = by;
+    };
+}
+
+function EstablishCtrl($scope) {
+    
+}
 
 function SettingsCtrl($scope, organizations) {
     $scope.alerts = [];

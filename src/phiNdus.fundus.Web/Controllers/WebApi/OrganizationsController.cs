@@ -19,15 +19,17 @@
         public Func<ISession> SessionFactory { get; set; }
 
         [Transaction]
-        public virtual IEnumerable<OrganizationDto> Get()
+        public virtual IEnumerable<OrganizationListDto> Get()
         {
             return Organizations
                 .FindAll()
-                .Select(each => new OrganizationDto
+                .Select(each => new OrganizationListDto
                                     {
                                         Id = each.Id,
                                         Version = each.Version,
-                                        Url = each.Url
+                                        Name = each.Name,
+                                        Url = each.Url,
+                                        Address = each.Address
                                     })
                 .ToList();
         }
@@ -84,14 +86,18 @@
             return ToDto(org);
         }
     }
-
-    public class OrganizationDto
+    
+    public class OrganizationListDto
     {
         public int Id { get; set; }
         public int Version { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
         public string Address { get; set; }
+    }
+
+    public class OrganizationDto : OrganizationListDto
+    {
         public string Coordinate { get; set; }
         public string Startpage { get; set; }
     }

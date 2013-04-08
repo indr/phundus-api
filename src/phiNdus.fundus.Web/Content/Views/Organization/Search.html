@@ -1,0 +1,18 @@
+﻿<h2>Organisation suchen</h2>
+<p>
+    <input type="text" ng-model="search" class="search-query" placeholder="Suchen">
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th><a href="" ng-click="orderBy('name')">Name</a></th>
+            <th><a href="" ng-click="orderBy('address')">Kontakt</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="organization in organizations | filter:search | orderBy:order">
+            <td><a href="./{{organization.url}}">{{organization.name}}</a></td>
+            <td>{{organization.address}}</td>
+        </tr>
+    </tbody>
+</table>
