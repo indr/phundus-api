@@ -44,19 +44,19 @@
         </div>
             }
         
-        <div class="btn-group" style="padding-left: 20px;">
+        <div class="btn-group" style="padding-left: 20px; padding-top:20px;">
         @using (Ajax.BeginForm("Index", new AjaxOptions
         {
             HttpMethod = "POST",
             LoadingElementId = "query-loading",
-            UpdateTargetId = "search-results"
+            UpdateTargetId = "search-results",
         }))
         {
-            <div class="btn-group">
-            @Html.DropDownList("rowsPerPage", Model.RowsPerPageOptions, new { style = "width:auto;margin-top:-10px;" }) 
+            <div class="btn-group" style="vertical-align: bottom; margin-top: 0px;">
+            @Html.DropDownList("rowsPerPage", Model.RowsPerPageOptions, new { style = "width:auto; margin:0;" }) 
             </div>
-            <div class="btn-group">
-            @Html.SubmitButton("Go")
+            <div class="btn-group" style="vertical-align: bottom; margin-top: 0px; padding-top:0px;">
+            <button type="submit" class="btn btn-primary" onclick="submit()">Go</button>
             </div>
         }
         </div>

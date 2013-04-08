@@ -5,6 +5,7 @@ using phiNdus.fundus.Business.SecuredServices;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using System.ComponentModel.DataAnnotations;
     using Domain.Entities;
     using phiNdus.fundus.Domain;
     using piNuts.phundus.Infrastructure;
@@ -27,12 +28,15 @@ namespace phiNdus.fundus.Web.ViewModels
 
         protected int RowsPerPage { get; set; }
 
+        [Required(AllowEmptyStrings = true)]
         public string Query { get; protected set; }
+
         public PageSelectorViewModel PageSelectorModel { get; set; }
         public IList<ArticleViewModel> Articles { get; private set; }
         
         public IEnumerable<Organization> Organizations { get { return _organizations; }}
 
+        
         public int? QueryOrganizationId { get; set; }
 
         protected IArticleService ArticleService

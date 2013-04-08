@@ -8,11 +8,11 @@ var fundus;
             baseUri: undefined,
 
             init: function () {
-                $('body').ajaxSuccess(function (e, xhr, opts) {
+                $(document).ajaxSuccess(function (e, xhr, opts) {
                     fundus.reinit();
                 });
 
-                $('body').ajaxError(function (event, request, settings) {
+                $(document).ajaxError(function (event, request, settings) {
                     if (request.status == '500') {
                         var regex = new RegExp("<title>(.*?)</title>");
                         var matches = regex.exec(request.responseText);
