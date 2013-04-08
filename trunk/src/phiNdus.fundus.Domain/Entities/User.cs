@@ -115,5 +115,15 @@ namespace phiNdus.fundus.Domain.Entities
                     where each.Organization.Id == organization.Id
                     select each.Role == Role.Chief.Id).FirstOrDefault();
         }
+
+        public virtual bool IsMemberOf(Organization organization)
+        {
+            if (organization == null)
+                return false;
+
+            return (from each in Memberships 
+                    where each.Organization.Id == organization.Id
+                    select each.Role >= Role.User.Id).FirstOrDefault();
+        }
     }
 }
