@@ -66,7 +66,7 @@
             if (org == null)
                 throw new HttpException(404, "Die Organisation ist nicht vorhanden.");
 
-            if (!user.IsChiefOf(org))
+            if (user == null || !user.IsChiefOf(org))
                 throw new AuthorizationException("Sie haben keine Berechtigung um die Mitglieder zu lesen.");
 
             var member = Members.FindById(value.Id);

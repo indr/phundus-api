@@ -1,5 +1,5 @@
 ﻿angular
-    .module('organization', ['phundus-api'])
+    .module('organization', ['phundus-api', 'ui'])
     .config(function ($routeProvider) {
         $routeProvider
             .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Organization/Members.html' })
