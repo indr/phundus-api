@@ -17,7 +17,7 @@
                 @heading.Caption
             </th>
         }
-        <th style="width: 190px;"></th>
+        <th style="width: 230px;"></th>
     </tr>
     </thead>
     <tbody>
@@ -41,9 +41,9 @@
             }
              <td>
                 <div class="btn-toolbar" style="margin: 0;">
-                    <div class="btn-group">
-                        <a href="@Url.Action("Edit", new { id = item.Id})" class="btn">Bearbeiten</a>
-                        <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></a>
+                    <div class="btn-group btn-small">
+                        <a href="@Url.Action("Edit", new { id = item.Id})" class="btn btn-small">Bearbeiten</a>
+                        <a href="#" data-toggle="dropdown" class="btn btn-small dropdown-toggle"><span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="@Url.Action("Fields", new { id = item.Id})">Eigenschaften</a></li>
                             <li><a href="@Url.Action("Images", new { id = item.Id})">Dateien</a></li>
@@ -51,8 +51,8 @@
                             <li><a href="@Url.Action("Availability", new { id = item.Id})">Verfügbarkeit</a></li>
                         </ul>
                     </div>
-                    <div class="btn-group">
-                        @Html.ActionLink(new Appearance { Caption = "Löschen", Button = Button.Danger}, ArticlesActionNames.Delete, new { id = item.Id, version = item.Version })                 
+                    <div class="btn-group btn-small">
+                        @Html.ActionLink("Löschen", ArticlesActionNames.Delete, ControllerNames.Articles, new { id = item.Id, version = item.Version }, new { @class = "btn btn-danger btn-small"})
                     </div>
                 </div>
             </td>
