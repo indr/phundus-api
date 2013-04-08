@@ -7,6 +7,7 @@
                 <th><a href="#/" ng-click="orderBy('id')">#</a></th>
                 <th><a href="#/" ng-click="orderBy('firstName')">Vorname</a></th>
                 <th><a href="#/" ng-click="orderBy('lastName')">Nachname</a></th>
+                <th><a href="#/" ng-click="orderBy('jsNumber')">J+S-Nummer</a></th>
                 <th><a href="#/" ng-click="orderBy('emailAddress')">E-Mail-Adresse</a></th>
                 <th><a href="#/" ng-click="orderBy('role')">Rolle</a></th>
                 <th><a href="#/" ng-click="orderBy('isLocked')">Status</a></th>
@@ -18,6 +19,7 @@
                 <td>{{member.id}}</td>
                 <td>{{member.firstName}}</td>
                 <td>{{member.lastName}}</td>
+                <td>{{member.jsNumber}}</td>
                 <td>{{member.emailAddress}}</td>
                 <td ng-show="member.role == 0">
                     <div class="btn-group">
