@@ -4,7 +4,8 @@
     using System.Linq;
     using System.Web.Http;
     using Castle.Transactions;
-    using Domain.Repositories;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Repositories;
 
     public class MembersController : ApiController
     {
@@ -20,49 +21,63 @@
             foreach (var each in members)
             {
                 var membership = each.Memberships.First(p => p.Organization.Id == organization);
-                result.Add(new MemberListDto()
-                    {
-                        EmailAddress = each.Membership.Email,
-                        FirstName = each.FirstName,
-                        Id = each.Id,
-                        IsLocked = each.Membership.IsLockedOut,
-                        LastName = each.LastName,
-                        Role = membership.Role
-                    });
+                result.Add(ToDto(each, membership));
             }
 
             return result;
         }
 
         // GET api/{organization}/members/5
-        //public MemberDto Get(string organization, int id)
+        //public MemberDto Get(int organization, int id)
         //{
-        //    return new MemberDto
-        //        {
-        //            EmailAddress = "admin@test.phundus.ch",
-        //            FirstName = "Kari",
-        //            LastName = "Zuppiger",
-        //            IsLocked = false
-        //        };
+        //    throw new NotImplementedException();
         //}
 
         // POST api/{organization}/members
-        //public void Post(string organization, [FromBody] MemberDto value)
+        //public void Post(int organization, [FromBody] MemberDto value)
         //{
+        //    throw new NotImplementedException();
         //}
 
         // PUT api/{organization}/members/5
         [Transaction]
-        public virtual MemberDto Put(string organization, int id, [FromBody] MemberDto value)
+        public virtual MemberDto Put(int organization, int id, [FromBody] MemberDto value)
         {
-            value.Role = 0;
-            return value;
+            var member = Members.FindById(value.Id);
+
+            if (member.Membership.IsLockedOut != value.IsLocked)
+            {
+                if (value.IsLocked)
+                    member.Membership.LockOut();
+                else if (value.IsLocked == false)
+                    member.Membership.Unlock();
+            }
+
+            var membership = member.Memberships.First(p => p.Organization.Id == organization);
+            membership.Role = value.Role;
+
+            return ToDto(member, membership);
         }
 
         // DELETE api/{organization}/members/5
-        //public void Delete(string organization, int id)
+        //public void Delete(int organization, int id)
         //{
+        //    throw new NotImplementedException();
         //}
+
+        static MemberDto ToDto(User member, OrganizationMembership membership)
+        {
+            return new MemberDto
+                       {
+                           EmailAddress = member.Membership.Email,
+                           FirstName = member.FirstName,
+                           Id = member.Id,
+                           IsLocked = member.Membership.IsLockedOut,
+                           JsNumber = member.JsNumber,
+                           LastName = member.LastName,
+                           Role = membership.Role
+                       };
+        }
     }
 
     public class MemberListDto
@@ -70,6 +85,7 @@
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public int? JsNumber { get; set; }
         public string EmailAddress { get; set; }
         public int Role { get; set; }
         public bool IsLocked { get; set; }

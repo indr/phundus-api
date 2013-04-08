@@ -7,5 +7,6 @@
     public interface IMemberRepository : IRepository<User>
     {
         ICollection<User> FindByOrganization(int organizationId);
+        User FindById(int id);
     }
 }

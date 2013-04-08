@@ -19,5 +19,10 @@
                 .Where(om => om.Organization.Id == organizationId);
             return q.List<User>();
         }
+
+        public User FindById(int id)
+        {
+            return Members.Where(p => p.Id == id).SingleOrDefault();
+        }
     }
 }

@@ -289,7 +289,6 @@
     <Content Include="App_Data\Seeds\Settings.csv" />
     <Content Include="App_Data\Seeds\ArticleImages.csv" />
     <None Include="Parameters.xml" />
-    <Content Include="Content\Members\detail.html" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
     <Content Include="Scripts\angular-bootstrap.js" />
@@ -343,9 +342,8 @@
     <Compile Include="ViewModels\ShopSearchResultViewModel.cs" />
     <Compile Include="ViewModels\ValidationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Content Include="Scripts\modules\mongolab.js" />
     <Content Include="Scripts\modules\phundus-api.js" />
-    <Content Include="Scripts\modules\project.js" />
+    <Content Include="Scripts\modules\members.js" />
     <Content Include="Views\Organization\Members.cshtml" />
     <Content Include="Views\Organization\Home.cshtml" />
   </ItemGroup>
