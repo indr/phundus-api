@@ -2,6 +2,6 @@
     ViewBag.Title = "Organisation";
 }
 
-<div ng-app="organization" ng-init="organizationId=@Session["OrganizationId"];">
+<div ng-app="organization" ng-init="organizationId=@Session["OrganizationId"] + 0;">
     <div ng-view></div>
 </div>

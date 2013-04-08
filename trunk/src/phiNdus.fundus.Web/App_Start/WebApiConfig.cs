@@ -15,7 +15,7 @@
                name: "DefaultApi",
                routeTemplate: "api/{controller}/{id}",
                defaults: new { id = RouteParameter.Optional },
-               constraints: new { id = @"^[\d]+$" }
+               constraints: new { id = @"^[\d]*$" }
                );
 
             config.Routes.MapHttpRoute(

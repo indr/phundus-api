@@ -29,8 +29,9 @@
                         }
                         <li class="divider"></li>
                     }
-                    <li>@Html.ActionLink("Suchen", OrganizationActionNames.Search, ControllerNames.Organization)</li>
-                    <li>@Html.ActionLink("Gründen", OrganizationActionNames.Establish, ControllerNames.Organization)</li>
+            <li><a href="@Url.Content("~/organization#/search")">Suchen</a></li>
+            <li><a href="@Url.Content("~/organization#/establish")">Gründen</a></li>
+                    
         </ul>
     </li>
     @if (Request.IsAuthenticated && User.IsInRole("User"))

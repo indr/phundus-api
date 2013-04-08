@@ -297,6 +297,8 @@
     <Content Include="Content\select2.png" />
     <Content Include="Content\select2x2.png" />
     <Content Include="Content\spinner.gif" />
+    <Content Include="Content\Views\Organization\Search.html" />
+    <Content Include="Content\Views\Organization\Establish.html" />
     <Content Include="Content\Views\Organization\Members.html" />
     <Content Include="Content\Views\Organization\Settings.html" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
