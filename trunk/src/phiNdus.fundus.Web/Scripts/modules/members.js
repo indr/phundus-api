@@ -8,6 +8,7 @@
 
 
 function ListCtrl($scope, members) {
+    // TODO: org in RouteParams
     $scope.members = members.query({ org: $scope.organizationId });
     $scope.order = 'lastName';
     $scope.orderBy = function (by) {
@@ -20,6 +21,7 @@ function ListCtrl($scope, members) {
     $scope.setRole = function (member, roleName, roleValue) {
         if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich die Rolle "' + roleName + '" geben?')) {
             member.role = roleValue;
+            // TODO: org in RouteParams
             member.$update({ org: $scope.organizationId });
         }
     };
@@ -27,6 +29,7 @@ function ListCtrl($scope, members) {
     $scope.lock = function (member) {
         if (confirm('Möchen Sie "' + member.firstName + ' ' + member.lastName + '" wirklich sperren?')) {
             member.isLocked = true;
+            // TODO: org in RouteParams
             member.$update({ org: $scope.organizationId });
         }
     };
@@ -34,6 +37,7 @@ function ListCtrl($scope, members) {
     $scope.unlock = function (member) {
         if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich entsperren?')) {
             member.isLocked = false;
+            // TODO: org in RouteParams
             member.$update({ org: $scope.organizationId });
         }
     };
