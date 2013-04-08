@@ -1,16 +1,18 @@
-﻿using System.Web.Optimization;
-
-namespace phiNdus.fundus.Web.App_Start
+﻿namespace phiNdus.fundus.Web.App_Start
 {
+    using System.Web.Optimization;
+
     public class BundleConfig
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/js/angular").Include(
                 "~/Scripts/angular.js",
-                "~/Scripts/angular-bootstrap.js",
-                "~/Scripts/angular-resource.js",
-                "~/Scripts/angular-ui.js"));
+                "~/Scripts/angular-resource.js"));
+
+            bundles.Add(new ScriptBundle("~/js/angular-ui").Include(
+                "~/Scripts/angular-ui.js",
+                "~/Scripts/angular-bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/js/modules").Include(
                 "~/Scripts/modules/*.js"));
