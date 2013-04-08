@@ -1,5 +1,5 @@
 ﻿angular
-    .module('organization', ['phundus-api', 'ui'])
+    .module('organization', ['phundus-api', 'ui', 'ui.bootstrap'])
     .config(function ($routeProvider) {
         $routeProvider
             .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Organization/Members.html' })
@@ -9,14 +9,31 @@
 
 
 function SettingsCtrl($scope, organizations) {
+    $scope.alerts = [];
+
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
+
     $scope.settings = organizations.get({ id: $scope.organizationId });
 
-    $scope.reset = function() {
+    $scope.reset = function () {
+        $scope.alerts.length = 0;
         $scope.settings = organizations.get({ id: $scope.organizationId });
     };
 
     $scope.save = function () {
-        $scope.settings.$update();
+        $scope.alerts.length = 0;
+        $scope.alerts.push({ type: 'info', msg: 'Die Änderungen werden gespeichert...' });
+        $scope.settings.$update({},
+            function (data, putResponseHeaders) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({ type: 'success', msg: 'Die Änderungen wurden erfolgreich gespeichert.' });
+            },
+            function (err) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({ type: 'error', msg: 'Fehler: ' + err.data.exceptionMessage });
+            });
     };
 
 }
