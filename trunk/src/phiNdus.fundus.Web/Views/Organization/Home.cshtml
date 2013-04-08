@@ -12,10 +12,12 @@
         @if (!String.IsNullOrWhiteSpace(Model.Address))
         {
             <h3>Kontakt</h3>
+            <address>
             foreach (var each in Model.Address.Replace('\r', '\n').Split('\n'))
             {
                 @each<br/>
             }
+            </address>
         }
         @if(!String.IsNullOrWhiteSpace(Model.Coordinate))
         {

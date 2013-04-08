@@ -71,6 +71,9 @@
             if (user == null || !user.IsChiefOf(org))
                 throw new AuthorizationException("Sie haben keine Berechtigung um die Organisation zu aktualisieren.");
 
+            if (org.Version != value.Version)
+                throw new HttpException(409, "Die Organisation wurde in der Zwischenzeit verändert.");
+
             org.Address = value.Address;
             org.Coordinate = value.Coordinate;
             org.Startpage = value.Startpage;

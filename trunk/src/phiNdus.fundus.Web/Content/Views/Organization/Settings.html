@@ -37,9 +37,15 @@
                 <textarea ui-tinymce ng-model="settings.startpage" class="input-xxlarge" rows="16"></textarea>
             </div>
         </div>
+        
+        
     </fieldset>
-    
+
     <div class="form-actions">
+        <div class="input-xxlarge">
+            <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+
         <button type="button" class="btn btn-primary" ng-click="save()">Speichern</button>
         <button type="button" class="btn" ng-click="reset()">Abbrechen</button>
     </div>
