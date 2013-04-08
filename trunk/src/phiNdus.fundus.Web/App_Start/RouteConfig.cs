@@ -4,10 +4,12 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Web.Controllers.WebApi;
 
     public class RouteConfig
     {
-        public static void RegisterRoutes(RouteCollection routes)
+        public static void RegisterRoutes(RouteCollection routes, IEnumerable<Organization> organizations)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
@@ -15,7 +17,7 @@
                 "Organization",
                 "{name}",
                 new {controller = ControllerNames.Organization, action = "Home"},
-                new {name = new OrganizationExistsConstraint()});
+                new {name = new OrganizationExistsConstraint(organizations)});
 
             routes.MapRoute(
                 "Default",
@@ -30,22 +32,13 @@
 
     public class OrganizationExistsConstraint : IRouteConstraint
     {
-        // TODO: Verzeichnis anhand Daten in der Datenbank erzeugen.
-        readonly IDictionary<string, int> _organizations = new Dictionary<string, int>
-            {
-                // Acceptance
-                {"pfadi-lego", 1001},
-                {"jubla-playmobil", 1002},
-                {"cevi-dupplo", 1003},
+        readonly IDictionary<string, int> _organizations = new Dictionary<string, int>();
 
-                // Production
-                {"pfadi-luzern", 1001},
-                {"jasol", 1002},
-                {"jubla-luzern", 1003},
-                {"sac-pilatus", 1004},
-                {"cevi-zürich", 1005},
-                {"cevi-zuerich", 1005}
-            };
+        public OrganizationExistsConstraint(IEnumerable<Organization> organizations)
+        {
+            foreach (var each in organizations)
+                _organizations.Add(each.Url, each.Id);
+        }
 
         public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values,
                           RouteDirection routeDirection)

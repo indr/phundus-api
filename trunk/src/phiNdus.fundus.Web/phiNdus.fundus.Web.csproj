@@ -179,6 +179,7 @@
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\WebApi\MembersController.cs" />
+    <Compile Include="Controllers\WebApi\OrganizationsController.cs" />
     <Compile Include="Models\Account\SignUpModel.cs" />
     <Compile Include="Plumbing\WindsorDependencyResolver.cs" />
     <Compile Include="Plumbing\WindsorDependencyScope.cs" />
