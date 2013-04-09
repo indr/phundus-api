@@ -5,6 +5,10 @@
 <div class="tabbable tabs-left">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#@Model.Id-D" data-toggle="tab">Beschreibung</a></li>
+        @if (!String.IsNullOrWhiteSpace(Model.Specification))
+        {
+            <li class=""><a href="#@Model.Id-S" data-toggle="tab">Spezifikation</a></li>
+        }
         <li class=""><a href="#@Model.Id-I" data-toggle="tab">Bilder (@Model.Images.Count)</a></li>
         <li class=""><a href="#@Model.Id-F" data-toggle="tab">Dokumente (@Model.Documents.Count)</a></li>
         <li class=""><a href="#@Model.Id-A" data-toggle="tab">Verfügbarkeit</a></li>
@@ -13,6 +17,13 @@
         <div class="tab-pane active" id="@Model.Id-D">
             @Html.Raw(Model.Description)
         </div>
+        
+        @if (!String.IsNullOrWhiteSpace(Model.Specification))
+        {
+            <div class="tab-pane" id="@Model.Id-S">
+                @Html.Raw(Model.Specification)
+            </div>
+        }
 
         <div class="tab-pane" id="@Model.Id-I">
             @Html.Partial("Article_Images", Model)

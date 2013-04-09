@@ -109,6 +109,15 @@ namespace phiNdus.fundus.Web.ViewModels
             }
         }
 
+        public string Specification
+        {
+            get
+            {
+                var property = GetProperty(9);
+                return property != null ? (string) property.Value : null;
+            }
+        }
+
         public bool IsReservable
         {
             get

@@ -28,7 +28,7 @@ INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDe
 INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [IsAttachable], [Position]) VALUES (6, 1, N'Reservierbar', 0, 1, 0, 0, 0, 999)
 INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [IsAttachable], [Position]) VALUES (7, 1, N'Ausleihbar', 0, 1, 0, 0, 0, 999)
 INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [IsAttachable], [Position]) VALUES (8, 1, N'Beschreibung', 5, 1, 0, 0, 1, 100)
-INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [IsAttachable], [Position]) VALUES (9, 1, N'Grösse', 1, 0, 0, 0, 1, 999);  
+INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [IsAttachable], [Position]) VALUES (9, 1, N'Produktdaten', 5, 0, 0, 0, 1, 999);  
 INSERT [FieldDefinition] ([Id], [Version], [Name], [DataType], [IsSystem], [IsDefault], [IsColumn], [IsAttachable], [Position]) VALUES (10, 1, N'Bestand', 2, 1, 1, 1, 1, 3)
 SET IDENTITY_INSERT [FieldDefinition] OFF;");
         }
