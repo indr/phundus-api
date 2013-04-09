@@ -52,5 +52,9 @@
             }
             set { _startpage = value; }
         }
+
+        public virtual string EmailAddress { get; set; }
+
+        public virtual string Website { get; set; }
     }
 }

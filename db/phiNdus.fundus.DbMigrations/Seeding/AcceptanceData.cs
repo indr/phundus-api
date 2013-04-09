@@ -242,7 +242,7 @@
 
         #region Nested type: Organization
 
-        public class Organization
+        internal class Organization
         {
             [CsvField(Name = "Id")]
             public int Id { get; set; }
@@ -254,6 +254,12 @@
 
             [CsvField(Name = "Name")]
             public string Name { get; set; }
+
+            [CsvField(Name = "EmailAddress")]
+            public string EmailAddress { get; set; }
+
+            [CsvField(Name = "Website")]
+            public string Website { get; set; }
         }
 
         #endregion

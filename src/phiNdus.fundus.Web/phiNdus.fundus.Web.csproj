@@ -225,6 +225,7 @@
     <Compile Include="App_Start\Installers\AuthenticationInstaller.cs" />
     <Compile Include="App_Start\Installers\ControllerInstaller.cs" />
     <Compile Include="App_Start\Installers\LoggerInstaller.cs" />
+    <Compile Include="Views\Helper.cs" />
     <Content Include="App_Data\Empty.mdf" />
     <Content Include="App_Data\Empty_log.ldf">
       <DependentUpon>Empty.mdf</DependentUpon>
