@@ -56,10 +56,35 @@
         @if(!String.IsNullOrWhiteSpace(Model.Coordinate))
         {
             <h3>Karte</h3>
-
-            <iframe width="570" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                    src="http://maps.google.ch/maps/ms?msa=0&amp;msid=213582391938164233090.0004ba870e30240878218&amp;hl=de&amp;ie=UTF8&amp;ll=@Model.Coordinate&amp;spn=0,0&amp;t=h&amp;output=embed"></iframe>
+            <div id="map-canvas" style="height:350px;width:570px;"></div>
+            <p></p>
         }
-        
     </div>
 </div>
+
+@section scripts {
+    @if (!String.IsNullOrWhiteSpace(Model.Coordinate))
+    {
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJKDC2eU6SvzZMj3aoPOw_-Pb6qDoxBiM&sensor=false"></script>
+        <script type="text/javascript">
+            $(function() {
+                var splitted = '@Model.Coordinate'.split(',');
+                var point = new google.maps.LatLng(splitted[0], splitted[1]);
+
+                var mapOptions = {
+                    center: point,
+                    zoom: 14,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var elem = document.getElementById("map-canvas");
+                var map = new google.maps.Map(elem, mapOptions);
+
+                var marker = new google.maps.Marker({
+                    position: point,
+                    title: "@Model.Name"
+                });
+                marker.setMap(map);
+            });
+        </script>
+    }
+}
