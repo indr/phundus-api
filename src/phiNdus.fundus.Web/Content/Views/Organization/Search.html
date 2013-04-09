@@ -12,7 +12,7 @@
     <tbody>
         <tr ng-repeat="organization in organizations | filter:search | orderBy:order">
             <td><a href="./{{organization.url}}">{{organization.name}}</a></td>
-            <td>{{organization.address}}</td>
+            <td>{{organization.address|replace:' *[\r\n]+ *':', '}}</td>
         </tr>
     </tbody>
 </table>

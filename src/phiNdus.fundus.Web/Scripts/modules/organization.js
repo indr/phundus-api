@@ -1,5 +1,12 @@
 ﻿angular
     .module('organization', ['phundus-api', 'ui', 'ui.bootstrap'])
+    .filter('replace', function () {
+        return function (input, pattern, replace) {
+            if (input == null)
+                return null;
+            return input.replace(new RegExp(pattern, 'mg'), replace);
+        };
+    })
     .config(function ($routeProvider) {
         $routeProvider
             .when('/search', { controller: SearchCtrl, templateUrl: './Content/Views/Organization/Search.html' })
