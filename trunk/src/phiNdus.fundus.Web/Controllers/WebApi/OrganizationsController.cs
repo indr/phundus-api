@@ -54,6 +54,8 @@
                            Name = organization.Name,
                            Url = organization.Url,
                            Address = organization.Address,
+                           EmailAddress = organization.EmailAddress,
+                           Website = organization.Website,
                            Coordinate = organization.Coordinate,
                            Startpage = organization.Startpage
                        };
@@ -77,6 +79,8 @@
                 throw new HttpException(409, "Die Organisation wurde in der Zwischenzeit verändert.");
 
             org.Address = value.Address;
+            org.EmailAddress = value.EmailAddress;
+            org.Website = value.Website;
             org.Coordinate = value.Coordinate;
             org.Startpage = value.Startpage;
 
@@ -98,6 +102,8 @@
 
     public class OrganizationDto : OrganizationListDto
     {
+        public string EmailAddress { get; set; }
+        public string Website { get; set; }
         public string Coordinate { get; set; }
         public string Startpage { get; set; }
     }

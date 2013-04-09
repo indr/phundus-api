@@ -3,7 +3,7 @@
     using System;
 
     [Dated(0, 2013, 4, 8, 21, 42)]
-    public class M08_21_42_AddColumnsToOrganization : MigrationBase
+    public class M08_21_42_AddColumnsToOrganizationMembership : MigrationBase
     {
         public override void Up()
         {

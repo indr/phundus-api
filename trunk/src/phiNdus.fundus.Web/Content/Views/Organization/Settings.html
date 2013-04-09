@@ -5,18 +5,39 @@
         <div class="control-group">
             <label class="control-label" for="name">Name</label>
             <div class="controls">
-                <input type="text" id="name" placeholder="Name" ng-model="settings.name">
+                <input type="text" id="name" placeholder="Name" ng-model="settings.name" />
             </div>
         </div>  
     
         <div class="control-group">
             <label class="control-label" for="url">URL</label>
             <div class="controls">
-                <input type="text" id="url" placeholder="Name" ng-model="settings.url" readonly="readonly">
+                <input type="text" id="url" placeholder="Name" ng-model="settings.url" readonly="readonly" />
                 <span class="help-block">Die Startseite der Organisation kann direkt mit <strong>http://phundus.ch/{{settings.url}}</strong> verlinkt werden.</span>
             </div>
         </div>
    
+        <div class="control-group">
+            <label class="control-label" for="emailAddress">E-Mail-Adresse</label>
+            <div class="controls">
+                <input type="text" id="emailAddress" placeholder="" ng-model="settings.emailAddress" />
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" for="emailAddress">Webseite</label>
+            <div class="controls">
+                <input type="text" id="Text1" placeholder="www.domain.ch" ng-model="settings.website" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="address">Kontakt</label>
+            <div class="controls">
+                <textarea id="address" ng-model="settings.address" class="input-xxlarge" rows="4"></textarea>
+            </div>
+        </div>
+
         <div class="control-group">
             <label class="control-label" for="coordinate">Karte</label>
             <div class="controls">
@@ -24,17 +45,12 @@
             </div>
         </div>
         
-        <div class="control-group">
-            <label class="control-label" for="address">Kontakt</label>
-            <div class="controls">
-                <textarea ng-model="settings.address" class="input-xxlarge" rows="4"></textarea>
-            </div>
-        </div>
+        
 
         <div class="control-group">
             <label class="control-label" for="startpage">Startseite</label>
             <div class="controls">
-                <textarea ui-tinymce ng-model="settings.startpage" class="input-xxlarge" rows="16"></textarea>
+                <textarea id="startpage"  ui-tinymce ng-model="settings.startpage" class="input-xxlarge" rows="16"></textarea>
             </div>
         </div>
     </fieldset>

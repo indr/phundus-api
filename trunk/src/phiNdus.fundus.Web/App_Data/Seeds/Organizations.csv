@@ -1,4 +1,4 @@
-﻿Id;Name
-1001;Pfadi Lego
-1002;JuBla Playmobil
-1003;Cevi Dupplo
+﻿Id;Name;EmailAddress;Website
+1001;Pfadi Lego;pfadi-lego@test.phundus.ch;pfadi-lego.phundus.ch
+1002;JuBla Playmobil;;
+1003;Cevi Dupplo;;

@@ -11,6 +11,8 @@
     <property name="Address" />
     <property name="Coordinate" />
     <property name="Startpage" />
+    <property name="EmailAddress" />
+    <property name="Website" />
     
 
     <set name="Memberships" cascade="all-delete-orphan" lazy="true" inverse="true" >

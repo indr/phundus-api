@@ -1,5 +1,6 @@
 ﻿namespace phiNdus.fundus.Web.Models.Organization
 {
+    using System;
     using Domain.Entities;
 
     public class OrganizationModel
@@ -11,6 +12,8 @@
             Address = organization.Address;
             Coordinate = organization.Coordinate;
             Startpage = organization.Startpage;
+            EmailAddress = organization.EmailAddress;
+            Website = organization.Website;
         }
 
         public int Id { get; set; }
@@ -28,5 +31,15 @@
         public bool HasOptionLeave { get; set; }
 
         public bool HasOptions { get { return HasOptionJoin || HasOptionLeave; } }
+
+        public string EmailAddress { get; set; }
+
+        public string Website { get; set; }
+
+        public bool HasContactOptions { get
+        {
+            return !String.IsNullOrWhiteSpace(Address) || !String.IsNullOrWhiteSpace(EmailAddress) ||
+                   !String.IsNullOrWhiteSpace(Website);
+        }}
     }
 }

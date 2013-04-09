@@ -1,4 +1,5 @@
-﻿@model phiNdus.fundus.Web.Models.Organization.OrganizationModel
+﻿@using phiNdus.fundus.Web.Views
+@model phiNdus.fundus.Web.Models.Organization.OrganizationModel
 @{
     ViewBag.Title = Model.Name;
 }
@@ -25,17 +26,33 @@
                 <p>Ihr Beitritt wurde bereits beantragt.</p>
             }
         }
-
-        @if (!String.IsNullOrWhiteSpace(Model.Address))
+        
+        @if (Model.HasContactOptions)
         {
             <h3>Kontakt</h3>
             <address>
-                @foreach (var each in Model.Address.Replace('\r', '\n').Split('\n'))
+                @if (!String.IsNullOrWhiteSpace(Model.Address))
                 {
-                    @each<br/>
+                    foreach (var each in Model.Address.Replace('\r', '\n').Split('\n'))
+                    {
+                        @each<br/>
+                    }
+                    <br />
+                }
+                @if (!String.IsNullOrWhiteSpace(Model.EmailAddress))
+                {
+                    WriteLiteral("E-Mail: ");
+                    @Html.DisplayEmail(Model.EmailAddress, replace: true)<br />
+                }
+                @if (!String.IsNullOrWhiteSpace(Model.Website))
+                {
+                    WriteLiteral("Webseite: ");
+                    <a href="@Html.DisplayUrl(Model.Website)">@Model.Website </a>
                 }
             </address>
-        }
+        }        
+            
+        
         @if(!String.IsNullOrWhiteSpace(Model.Coordinate))
         {
             <h3>Karte</h3>
