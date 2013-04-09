@@ -4,16 +4,23 @@
            
 <div class="navbar-inner">
     <div class="container">
-        @Html.ActionLink(Model.Selected == null ? "phundus" : Model.Selected.Name, HomeActionNames.Index, ControllerNames.Home, new { }, new { @class = "brand" })
+        @if (Model.Selected == null)
+        {
+            @Html.ActionLink( "phundus", HomeActionNames.Index, ControllerNames.Home, new {}, new {@class = "brand"})
+        }
+        else
+        {
+            <a href="@Url.Content(Model.Selected.Url)" class="brand">@Model.Selected.Name</a>
+        }
                     
-<ul class="nav">
-    <li>
-        @Html.ActionLink("Shop", ShopActionNames.Index, ControllerNames.Shop)
-    </li>
+        <ul class="nav">
+            <li>
+                @Html.ActionLink("Shop", ShopActionNames.Index, ControllerNames.Shop)
+            </li>
     
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Organisationen<b class="caret"></b></a>
-        <ul class="dropdown-menu">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Organisationen<b class="caret"></b></a>
+                <ul class="dropdown-menu">
                     @if (Request.IsAuthenticated && User.IsInRole("User") && (Model.Organizations.Count > 0))
                     {
                         foreach (var each in Model.Organizations)
@@ -29,32 +36,32 @@
                         }
                         <li class="divider"></li>
                     }
-            <li><a href="@Url.Content("~/organization#/search")">Suchen</a></li>
-            <li><a href="@Url.Content("~/organization#/establish")">Gründen</a></li>
+                    <li><a href="@Url.Content("~/organization#/search")">Suchen</a></li>
+                    <li><a href="@Url.Content("~/organization#/establish")">Gründen</a></li>
                     
-        </ul>
-    </li>
-    @if (Request.IsAuthenticated && User.IsInRole("User"))
-    {
-        <li class="dropdown">
-            @if (User.IsInRole("Chief"))
-            {
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bestellungen<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li>@Html.ActionLink("Meine Bestellungen", OrdersActionNames.Index, ControllerNames.Orders)</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Provisorische", OrdersActionNames.Pending, ControllerNames.Orders)</li>
-                    <li>@Html.ActionLink("Bestätigte", OrdersActionNames.Approved, ControllerNames.Orders)</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Abgeschlossene", OrdersActionNames.Closed, ControllerNames.Orders)</li>
-                    <li>@Html.ActionLink("Abgelehnte", OrdersActionNames.Rejected, ControllerNames.Orders)</li>
                 </ul>
-            }
-            else
+            </li>
+            @if (Request.IsAuthenticated && User.IsInRole("User"))
             {
-                @Html.ActionLink("Bestellungen", OrdersActionNames.Index, ControllerNames.Orders)
-            }
-        </li>
+                <li class="dropdown">
+                    @if (User.IsInRole("Chief"))
+                    {
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bestellungen<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Meine Bestellungen", OrdersActionNames.Index, ControllerNames.Orders)</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Provisorische", OrdersActionNames.Pending, ControllerNames.Orders)</li>
+                            <li>@Html.ActionLink("Bestätigte", OrdersActionNames.Approved, ControllerNames.Orders)</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Abgeschlossene", OrdersActionNames.Closed, ControllerNames.Orders)</li>
+                            <li>@Html.ActionLink("Abgelehnte", OrdersActionNames.Rejected, ControllerNames.Orders)</li>
+                        </ul>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Bestellungen", OrdersActionNames.Index, ControllerNames.Orders)
+                    }
+                </li>
         
         @*if (User.IsInRole("Chief"))
         {
@@ -76,38 +83,38 @@
         }*@
 
 
-        if (User.IsInRole("Chief"))
-        {
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Verwaltung<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li>@Html.ActionLink("Neues Material", ArticlesActionNames.Create, ControllerNames.Articles)</li>
-                    <li>@Html.ActionLink("Erfasstes Material", ArticlesActionNames.Index, ControllerNames.Articles)</li>
-                    <li class="divider"></li>
-                    <li><a href="@Url.Content("~/organization#/members")">Mitglieder</a></li>
-                    <li><a href="@Url.Content("~/organization#/settings")">Einstellungen</a></li>
-                </ul>
-            </li>
-        }
+                if (User.IsInRole("Chief"))
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Verwaltung<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Neues Material", ArticlesActionNames.Create, ControllerNames.Articles)</li>
+                            <li>@Html.ActionLink("Erfasstes Material", ArticlesActionNames.Index, ControllerNames.Articles)</li>
+                            <li class="divider"></li>
+                            <li><a href="@Url.Content("~/organization#/members")">Mitglieder</a></li>
+                            <li><a href="@Url.Content("~/organization#/settings")">Einstellungen</a></li>
+                        </ul>
+                    </li>
+                }
 
 
 
-        if (User.IsInRole("Admin"))
-        {
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li>@Html.ActionLink("Benutzer", UsersActionNames.Index, ControllerNames.Users)</li>
-                    <li>@Html.ActionLink("Einstellungen", SettingsActionNames.Index, ControllerNames.Settings)</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Materialfelder", FieldsActionNames.Index, ControllerNames.Fields)</li>
-                </ul>
-            </li>
-        }
-    }
-</ul>
+                if (User.IsInRole("Admin"))
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Benutzer", UsersActionNames.Index, ControllerNames.Users)</li>
+                            <li>@Html.ActionLink("Einstellungen", SettingsActionNames.Index, ControllerNames.Settings)</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Materialfelder", FieldsActionNames.Index, ControllerNames.Fields)</li>
+                        </ul>
+                    </li>
+                }
+            }
+        </ul>
 
-@Html.Partial("_UpperMenu")
-                </div>
+        @Html.Partial("_UpperMenu")
+    </div>
             </div>
         
