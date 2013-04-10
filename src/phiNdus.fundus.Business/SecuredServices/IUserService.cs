@@ -22,12 +22,6 @@ namespace phiNdus.fundus.Business.SecuredServices
         /// </summary>
         void UpdateUser(string sessionKey, UserDto user);
 
-        // TODO,Inder: Warum retournieren wir einen Boolean?
-        /// <summary>
-        /// Markiert einen User als gelöscht.
-        /// </summary>
-        bool DeleteUser(string sessionKey, string email);
-
         /// <summary>
         /// Ändert das Passwort eines Benutzers.
         /// </summary>

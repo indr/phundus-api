@@ -45,42 +45,6 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests
 
         private User TedMosby { get; set; }
 
-       
-
-        [Test]
-        public void DeleteUser_deletes_repository_and_flushes_transaction()
-        {
-            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
-
-            var user = new User();
-            using (Obsolete_MockFactory.Record())
-            {
-                Expect.Call(MockUserRepository.FindByEmail("user@example.com")).Return(user);
-                Expect.Call(() => MockUserRepository.Delete(user));
-                Expect.Call(() => MockUnitOfWork.TransactionalFlush());
-                Expect.Call(() => MockUnitOfWork.Dispose()).Repeat.Any();
-            }
-
-            using (Obsolete_MockFactory.Playback())
-            {
-                bool actual = Sut.DeleteUser("user@example.com");
-                Assert.That(actual, Is.True);
-            }
-        }
-
-        [Test]
-        public void DeleteUser_with_email_null_throws()
-        {
-            MockUserRepository = Obsolete_CreateAndRegisterStrictMock<IUserRepository>();
-            MockRoleRepository = Obsolete_CreateAndRegisterStrictMock<IRoleRepository>();
-            MockMailGateway = Obsolete_CreateAndRegisterStrictMock<IMailGateway>();
-
-            var ex = Assert.Throws<ArgumentNullException>(() => Sut.DeleteUser(null));
-            Assert.That(ex.ParamName, Is.EqualTo("email"));
-        }
-
         [Test]
         public void GetUser_lowers_email()
         {

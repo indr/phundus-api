@@ -72,58 +72,6 @@ namespace phiNdus.fundus.Business.UnitTests.SecuredServices
         }
 
         [Test]
-        public void DeleteUser_other_with_administrator_roll()
-        {
-            using (Obsolete_MockFactory.Record())
-            {
-                Expect.Call(MockUserRepository.FindBySessionKey("valid")).Return(Admin);
-                Expect.Call(MockUserService.DeleteUser("user@example.com")).Return(true);
-            }
-            using (Obsolete_MockFactory.Playback())
-            {
-                var actual = Sut.DeleteUser("valid", "user@example.com");
-                Assert.That(actual, Is.True);
-            }
-        }
-
-        [Test]
-        public void DeleteUser_other_with_user_roll_throws()
-        {
-            using (Obsolete_MockFactory.Record())
-            {
-                Expect.Call(MockUserRepository.FindBySessionKey("valid")).Return(User);
-            }
-            using (Obsolete_MockFactory.Playback())
-            {
-                Assert.Throws<AuthorizationException>(() => Sut.DeleteUser("valid", "other@example.com"));
-            }
-        }
-
-        [Test]
-        public void DeleteUser_with_invalid_sessionKey_throws()
-        {
-            using (Obsolete_MockFactory.Record())
-            {
-                Expect.Call(MockUserRepository.FindBySessionKey("invalid")).Return(null);
-            }
-            using (Obsolete_MockFactory.Playback())
-            {
-                Assert.Throws<InvalidSessionKeyException>(() => Sut.DeleteUser("invalid", null));
-            }
-        }
-
-        [Test]
-        public void DeleteUser_with_sessionKey_null_throws()
-        {
-            Obsolete_MockFactory.ReplayAll();
-            using (Obsolete_MockFactory.Playback())
-            {
-                var ex = Assert.Throws<ArgumentNullException>(() => Sut.DeleteUser(null, ""));
-                Assert.That(ex.ParamName, Is.EqualTo("key"));
-            }
-        }
-
-        [Test]
         public void GetUser_other_with_user_roll_throws()
         {
             using (Obsolete_MockFactory.Record())
