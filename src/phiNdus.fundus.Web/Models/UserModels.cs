@@ -6,25 +6,35 @@
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
+    using Business.Assembler;
     using Business.Dto;
     using Business.SecuredServices;
     using Domain.Entities;
+    using Domain.Repositories;
     using piNuts.phundus.Infrastructure.Obsolete;
+    using User = Business.Security.Constraints.User;
 
     public class UserModel : ModelBase
     {
         IEnumerable<SelectListItem> _roles;
 
-        public UserModel()
+        public UserModel(UserDto user)
         {
-            Load(UserService.GetUser(SessionId));
+            Load(user);
         }
 
-        public UserModel(int id)
+        void Load(UserDto subject)
         {
-            Load(UserService.GetUser(SessionId, id));
+            Id = subject.Id;
+            Version = subject.Version;
+            Email = subject.Email;
+            IsApproved = subject.IsApproved;
+            CreateDate = subject.CreateDate;
+            FirstName = subject.FirstName;
+            LastName = subject.LastName;
+            RoleId = subject.RoleId;
+            RoleName = subject.RoleName;
         }
-
 
         public int Id { get; private set; }
         public int Version { get; set; }
@@ -58,11 +68,7 @@
             }
         }
 
-        static IUserService UserService
-        {
-            get { return GlobalContainer.Resolve<IUserService>(); }
-        }
-
+       
 
         void GetRoles()
         {
@@ -75,18 +81,7 @@
         }
 
 
-        void Load(UserDto subject)
-        {
-            Id = subject.Id;
-            Version = subject.Version;
-            Email = subject.Email;
-            IsApproved = subject.IsApproved;
-            CreateDate = subject.CreateDate;
-            FirstName = subject.FirstName;
-            LastName = subject.LastName;
-            RoleId = subject.RoleId;
-            RoleName = subject.RoleName;
-        }
+        
 
         UserDto Save()
         {
@@ -107,7 +102,8 @@
         public void Update()
         {
             var subject = Save();
-            UserService.UpdateUser(SessionId, subject);
+            var user = UserAssembler.UpdateDomainObject(subject);
+            GlobalContainer.Resolve<IUserRepository>().Update(user);
         }
     }
 }

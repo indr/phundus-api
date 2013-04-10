@@ -82,7 +82,6 @@
     <Compile Include="SecuredServices\SecuredArticleServiceTests.cs" />
     <Compile Include="SecuredServices\SecuredOrderServiceTests.cs" />
     <Compile Include="SecuredServices\SecuredPropertyServiceTests.cs" />
-    <Compile Include="SecuredServices\SecuredUserServiceTests.cs" />
     <Compile Include="Security\Constraints\BaseConstraintTestFixture.cs" />
     <Compile Include="Security\Constraints\AlwaysFalseConstraint.cs" />
     <Compile Include="Security\Constraints\AlwaysTrueConstraint.cs" />
@@ -101,8 +100,6 @@
     <Compile Include="ServicesTests\OrderServiceTests\CartTests.cs" />
     <Compile Include="ServicesTests\OrderServiceTests\GetAndFindTests.cs" />
     <Compile Include="ServicesTests\PropertyServiceTests.cs" />
-    <Compile Include="ServicesTests\UserService\CreateUserTests.cs" />
-    <Compile Include="ServicesTests\UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\piNuts.phundus.Infrastructure\piNuts.phundus.Infrastructure.csproj">

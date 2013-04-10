@@ -116,8 +116,6 @@
     <Compile Include="Assembler\UserAssembler.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="SecuredServices\SecuredServiceBase.cs" />
-    <Compile Include="SecuredServices\IUserService.cs" />
-    <Compile Include="SecuredServices\SecuredUserService.cs" />
     <Compile Include="Security\Constraints\NotConstraint.cs" />
     <Compile Include="Security\Constraints\SessionFromKeyConstraint.cs" />
     <Compile Include="Security\Constraints\TrueConstraint.cs" />
@@ -135,9 +133,6 @@
     <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\PropertyService.cs" />
-    <Compile Include="Services\UserService.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\phiNdus.fundus.Domain\phiNdus.fundus.Domain.csproj">

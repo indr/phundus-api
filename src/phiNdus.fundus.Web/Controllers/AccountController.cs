@@ -1,15 +1,19 @@
 ﻿namespace phiNdus.fundus.Web.Controllers
 {
     using System;
+    using System.Globalization;
     using System.Web.Mvc;
+    using Business;
+    using Business.Dto;
+    using Business.Mails;
+    using Business.SecuredServices;
     using Castle.Transactions;
-    using phiNdus.fundus.Business;
-    using phiNdus.fundus.Business.Dto;
-    using phiNdus.fundus.Business.SecuredServices;
-    using phiNdus.fundus.Domain.Repositories;
-    using phiNdus.fundus.Web.Models;
-    using phiNdus.fundus.Web.ViewModels;
-    using phiNdus.fundus.Web.ViewModels.Account;
+    using Domain.Entities;
+    using Domain.Repositories;
+    using Models;
+    using Security;
+    using ViewModels;
+    using ViewModels.Account;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class AccountController : ControllerBase
@@ -20,11 +24,15 @@
             MembershipService = GlobalContainer.Resolve<IMembershipService>();
         }
 
+        public CustomMembershipProvider MembershipProvider { get; set; }
         public IOrganizationRepository Organizations { get; set; }
-        public IUserService UserService { get; set; }
+        
 
-        IFormsService FormsService { get; set; }
-        IMembershipService MembershipService { get; set; }
+        private IFormsService FormsService { get; set; }
+        private IMembershipService MembershipService { get; set; }
+
+        public IUserRepository Users { get; set; }
+        public IRoleRepository Roles { get; set; }
 
         [Transaction]
         public virtual ActionResult LogOn()
@@ -36,7 +44,7 @@
         [Transaction]
         public virtual ActionResult LogOn(LogOnModel model, string returnUrl)
         {
-            if ((ModelState.IsValid) && (MembershipService.ValidateUser(model.Email, model.Password)))
+            if ((ModelState.IsValid) && (MembershipProvider.ValidateUser(model.Email, model.Password)))
             {
                 FormsService.SignIn(model.Email, model.RememberMe);
                 if (!String.IsNullOrEmpty(returnUrl))
@@ -162,7 +170,7 @@
             {
                 try
                 {
-                    if (MembershipService.ChangeEmailAddress(User.Identity.Name, model.Email))
+                    if (MembershipProvider.ChangeEmail(User.Identity.Name, model.Email))
                         return View("ChangeEmailDone");
                     ModelState.AddModelError("", "Unbekannter Fehler beim Ändern der E-Mail-Adresse.");
                 }
@@ -199,7 +207,7 @@
 
             try
             {
-                if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
+                if (MembershipProvider.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
                     return View("ChangePasswordDone");
 
                 ModelState.AddModelError("", "Unbekannter Fehler beim Ändern des Passwortes.");
@@ -219,9 +227,9 @@
             using (UnitOfWork.Start())
             {
                 var model = new SignUpModel
-                                {
-                                    Organizations = Organizations.FindAll()
-                                };
+                    {
+                        Organizations = Organizations.FindAll()
+                    };
                 return View(model);
             }
         }
@@ -234,20 +242,55 @@
             {
                 try
                 {
-                    UserService.CreateUser(HttpContext.Session.SessionID,
-                                           new UserDto
-                                               {
-                                                   Email = model.Email,
-                                                   FirstName = model.FirstName,
-                                                   LastName = model.LastName,
-                                                   Street = model.Street,
-                                                   Postcode = model.Postcode,
-                                                   City = model.City,
-                                                   MobilePhone = model.MobilePhone,
-                                                   JsNumber = model.JsNumber
-                                               },
-                                           model.Password,
-                                           model.OrganizationId);
+                    var userDto = new UserDto
+                        {
+                            Email = model.Email,
+                            FirstName = model.FirstName,
+                            LastName = model.LastName,
+                            Street = model.Street,
+                            Postcode = model.Postcode,
+                            City = model.City,
+                            MobilePhone = model.MobilePhone,
+                            JsNumber = model.JsNumber
+                        };
+                    var password = model.Password;
+                    var organizationId = model.OrganizationId;
+
+                    var email = userDto.Email.ToLower(CultureInfo.CurrentCulture).Trim();
+
+                    // Prüfen ob Benutzer bereits exisitiert.
+                    if (Users.FindByEmail(email) != null)
+                        throw new EmailAlreadyTakenException();
+
+                    Organization organization = null;
+                    if (organizationId.HasValue)
+                    {
+                        organization = Organizations.FindById(organizationId.Value);
+                        if (organization == null)
+                            throw new Exception(String.Format("Die Organization mit der Id {0} ist nicht vorhanden.",
+                                                              organizationId));
+                    }
+
+                    // Neuer Benutzer speichern.
+                    var user = new User();
+                    user.FirstName = userDto.FirstName;
+                    user.LastName = userDto.LastName;
+                    user.Street = userDto.Street;
+                    user.Postcode = userDto.Postcode;
+                    user.City = userDto.City;
+                    user.MobileNumber = userDto.MobilePhone;
+                    user.JsNumber = userDto.JsNumber;
+                    user.Membership.Email = email;
+                    user.Membership.Password = password;
+                    user.Role = Roles.Get(Role.User.Id);
+                    user.Membership.GenerateValidationKey();
+                    if (organization != null)
+                        user.Join(organization);
+                    Users.Save(user);
+
+                    // E-Mail mit Verifikationslink senden
+                    new UserAccountValidationMail().For(user).Send(user);
+
                     return View("SignUpDone");
                 }
                 catch (EmailAlreadyTakenException)

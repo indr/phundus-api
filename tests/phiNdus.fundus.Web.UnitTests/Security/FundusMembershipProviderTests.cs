@@ -16,17 +16,6 @@ namespace phiNdus.fundus.Web.UnitTests.Security
     [TestFixture]
     public class FundusMembershipProviderTests : MockTestBase<CustomMembershipProvider>
     {
-        private IUserService MockUserService { get; set; }
-
-        protected override void RegisterDependencies(IWindsorContainer container)
-        {
-            base.RegisterDependencies(container);
-
-            MockUserService = MockFactory.StrictMock<IUserService>();
-
-            container.Register(Component.For<IUserService>().Instance(MockUserService));
-        }
-
         protected override CustomMembershipProvider CreateSut()
         {
             var provider = new CustomMembershipProvider();
@@ -46,95 +35,15 @@ namespace phiNdus.fundus.Web.UnitTests.Security
             return provider;
         }
 
-        [Test]
-        public void Changing_the_password_should_relay_action_to_business_layer()
-        {
-            Assert.Ignore("HttpContext.Current faken.");
+        
 
-            var email = "john.doe@google.com";
-            var oldPassword = "23ioN09*c$sE";
-            var newPassword = "Nlwä2$_n32#@";
-            var passwordChanged = false;
-
-            With.Mocks(MockFactory).Expecting(delegate
-                                                  {
-                                                      Expect.Call(MockUserService.ChangePassword(null, email,
-                                                                                                 oldPassword,
-                                                                                                 newPassword))
-                                                          .Return(true);
-                                                  }).Verify(
-                                                      delegate
-                                                          {
-                                                              passwordChanged = Sut.ChangePassword(email, oldPassword,
-                                                                                                   newPassword);
-                                                          });
-
-            Assert.That(passwordChanged, Is.True);
-        }
-
-        [Test]
-        public void CreateUser_sets_status_when_business_layer_throws_EmailAlreadyTaken()
-        {
-            Assert.Ignore("HttpContext.Current faken.");
-
-            using (MockFactory.Record())
-            {
-                Expect.Call(MockUserService.CreateUser(null, "dave@example.com", "1234", "", "", 1, null)).Throw(
-                    new EmailAlreadyTakenException());
-            }
-
-            using (MockFactory.Playback())
-            {
-                MembershipCreateStatus status;
-                Sut.CreateUser("dave@example.com", "1234", "", "", 1, null, out status);
-                Assert.That(status, Is.EqualTo(MembershipCreateStatus.DuplicateEmail));
-            }
-        }
+        
 
         [Test]
         public void DefaultCreateUserMethodThrows()
         {
             MembershipCreateStatus status;
             Assert.Throws<InvalidOperationException>(() => Sut.CreateUser("", "", "", "", "", false, null, out status));
-        }
-
-        [Test]
-        public void Creating_a_new_user_should_relay_action_to_business_layer()
-        {
-            Assert.Ignore("HttpContext.Current faken.");
-
-            var email = "john.doe@google.com";
-            var password = "Nlwä2$_n32#@";
-            var firstName = "John";
-            var lastName = "Doe";
-            var isApproved = false;
-            var jsNumber = 1;
-
-            var status = (MembershipCreateStatus) (-1);
-            MembershipUser createdUser = null;
-            var creationDate = DateTime.Now;
-
-            With.Mocks(MockFactory).Expecting(delegate
-                                                  {
-                                                      Expect.Call(MockUserService.CreateUser(null, email, password, firstName, lastName, jsNumber, null))
-                                                          .Return(new UserDto
-                                                                      {
-                                                                          Email = email,
-                                                                          IsApproved = isApproved,
-                                                                          CreateDate = creationDate
-                                                                      });
-                                                  }).Verify(
-                                                      delegate
-                                                          {
-                                                              createdUser = Sut.CreateUser(email, password, firstName, lastName, jsNumber, null, out status);
-                                                          });
-
-            Assert.That(status, Is.EqualTo(MembershipCreateStatus.Success));
-
-            Assert.That(createdUser, Is.Not.Null);
-            Assert.That(createdUser.UserName, Is.EqualTo(email));
-            Assert.That(createdUser.Email, Is.EqualTo(email));
-            Assert.That(createdUser.CreationDate, Is.EqualTo(creationDate));
         }
 
         [Test]

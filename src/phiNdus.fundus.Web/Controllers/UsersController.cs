@@ -2,25 +2,23 @@
 {
     using System;
     using System.Web.Mvc;
+    using Business.Assembler;
+    using Business.Mails;
+    using Business.SecuredServices;
     using Castle.Transactions;
-    using phiNdus.fundus.Business.Mails;
-    using phiNdus.fundus.Business.SecuredServices;
-    using phiNdus.fundus.Domain.Repositories;
-    using phiNdus.fundus.Web.Models;
+    using Domain.Repositories;
+    using Models;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
     {
-        static IUserService UserService
-        {
-            get { return GlobalContainer.Resolve<IUserService>(); }
-        }
+        public IUserRepository Users { get; set; }
 
         [Transaction]
         public virtual ActionResult Index()
         {
-            var model = UserService.GetUsers(Session.SessionID);
+            var model = new UserAssembler().CreateDtos(Users.FindAll());
             return View(model);
         }
 
@@ -29,7 +27,7 @@
         {
             try
             {
-                var model = new UserModel(id);
+                var model = new UserModel(new UserAssembler().CreateDto(Users.Get(id)));
                 return View(model);
             }
             catch (Exception ex)
@@ -43,7 +41,7 @@
         [Transaction]
         public virtual ActionResult Edit(int id, FormCollection collection)
         {
-            var userModel = new UserModel(id);
+            var userModel = new UserModel(new UserAssembler().CreateDto(Users.Get(id)));
             try
             {
                 UpdateModel(userModel, collection.ToValueProvider());
