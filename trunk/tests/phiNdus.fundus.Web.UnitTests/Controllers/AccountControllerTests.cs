@@ -13,16 +13,14 @@ namespace phiNdus.fundus.Web.UnitTests.Controllers {
     public class AccountControllerTests : MockTestBase<AccountController> {
 
         private IMembershipService MembershipServiceMock { get; set; }
-        private IFormsService FormsServiceMock { get; set; }
+        
 
         protected override void RegisterDependencies(IWindsorContainer container) {
             base.RegisterDependencies(container);
         
             this.MembershipServiceMock = this.MockFactory.StrictMock<IMembershipService>();
-            this.FormsServiceMock = this.MockFactory.StrictMock<IFormsService>();
 
             container.Register(Component.For<IMembershipService>().Instance(this.MembershipServiceMock));
-            container.Register(Component.For<IFormsService>().Instance(this.FormsServiceMock));
         }
 
         protected override AccountController CreateSut() {
@@ -55,17 +53,6 @@ namespace phiNdus.fundus.Web.UnitTests.Controllers {
         
         
 
-        [Test]
-        public void When_logging_off_user_should_be_signed_out() {
-            using (this.MockFactory.Record()) {
-                Expect.Call(() => this.FormsServiceMock.SignOut());
-            }
-
-            using (this.MockFactory.Playback()) {
-                var view = this.Sut.LogOff();
-
-                // Todo,jac: Validieren der ViewDaten
-            }
-        }
+        
     }
 }

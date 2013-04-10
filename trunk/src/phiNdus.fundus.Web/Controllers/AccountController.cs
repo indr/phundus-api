@@ -3,10 +3,10 @@
     using System;
     using System.Globalization;
     using System.Web.Mvc;
+    using System.Web.Security;
     using Business;
     using Business.Dto;
     using Business.Mails;
-    using Business.SecuredServices;
     using Castle.Transactions;
     using Domain.Entities;
     using Domain.Repositories;
@@ -18,19 +18,9 @@
 
     public class AccountController : ControllerBase
     {
-        public AccountController()
-        {
-            FormsService = GlobalContainer.Resolve<IFormsService>();
-            MembershipService = GlobalContainer.Resolve<IMembershipService>();
-        }
-
         public CustomMembershipProvider MembershipProvider { get; set; }
         public IOrganizationRepository Organizations { get; set; }
-        
-
-        private IFormsService FormsService { get; set; }
-        private IMembershipService MembershipService { get; set; }
-
+        public IMembershipService MembershipService { get; set; }
         public IUserRepository Users { get; set; }
         public IRoleRepository Roles { get; set; }
 
@@ -46,7 +36,7 @@
         {
             if ((ModelState.IsValid) && (MembershipProvider.ValidateUser(model.Email, model.Password)))
             {
-                FormsService.SignIn(model.Email, model.RememberMe);
+                FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
                 if (!String.IsNullOrEmpty(returnUrl))
                     return Redirect(returnUrl);
                 return RedirectToAction("Index", ControllerNames.Home);
@@ -60,7 +50,7 @@
         [Transaction]
         public virtual ActionResult LogOff()
         {
-            FormsService.SignOut();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", ControllerNames.Home);
         }
 
