@@ -49,13 +49,6 @@ namespace phiNdus.fundus.Business.SecuredServices
                 .Do<UserService>(svc => svc.UpdateUser(user));
         }
 
-        public bool DeleteUser(string sessionKey, string email)
-        {
-            return Secured.With(Session.FromKey(sessionKey))
-                .And(User.HasEmail(email) || User.InRole(Role.Administrator))
-                .Do<UserService, bool>(svc => svc.DeleteUser(email));
-        }
-
         public bool ChangePassword(string sessionKey, string email, string oldPassword, string newPassword)
         {
             return Secured.With(Session.FromKey(sessionKey))

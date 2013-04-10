@@ -1,230 +1,259 @@
-﻿using System;
-using System.Web;
-using System.Web.Security;
-using phiNdus.fundus.Business.SecuredServices;
-using phiNdus.fundus.Business;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.Services;
-using System.Globalization;
-
-namespace phiNdus.fundus.Web.Security {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+﻿namespace phiNdus.fundus.Web.Security
+{
+    using System;
+    using System.Collections.Specialized;
+    using System.Globalization;
+    using System.Web.Security;
+    using Domain.Repositories;
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class FundusMembershipProvider : MembershipProvider {
+    public class FundusMembershipProvider : MembershipProvider
+    {
+        bool _enablePasswordReset;
+        bool _enablePasswordRetrieval;
+        int _maxInvalidPasswordAttempts;
+        int _minRequiredNonAlphanumericCharacters;
+        int _minRequiredPasswordLength;
+        int _passwordAttemptWindow;
 
-        //=========================================================================================
-        #region Configuration
-
-        private bool _enablePasswordReset;
-        private bool _enablePasswordRetrieval;
-        private int _maxInvalidPasswordAttempts;
-        private int _minRequiredPasswordLength;
-        private int _minRequiredNonAlphanumericCharacters;
-        private int _passwordAttemptWindow;
-
-        public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config) {
-            base.Initialize(name, config);
-
-            this._enablePasswordReset = bool.Parse(config["enablePasswordReset"] ?? "false");
-            this._enablePasswordRetrieval = bool.Parse(config["enablePasswordRetrieval"] ?? "false");
-            this.ApplicationName = config["applicationName"];
-            this._maxInvalidPasswordAttempts = int.Parse(config["maxInvalidPasswordAttempts"] ?? "5", CultureInfo.InvariantCulture);
-            this._minRequiredPasswordLength = int.Parse(config["minRequiredPasswordLength"] ?? "8", CultureInfo.InvariantCulture);
-            this._minRequiredNonAlphanumericCharacters = int.Parse(config["minRequiredNonAlphanumericCharacters"] ?? "2", CultureInfo.InvariantCulture);
-            this._passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"] ?? "10", CultureInfo.InvariantCulture); // 10 Minuten
-        }
-        #endregion
-        //=========================================================================================
-
-        public FundusMembershipProvider() {
-            this.UserService = GlobalContainer.Resolve<IUserService>();
+        public FundusMembershipProvider()
+        {
+            UserRepositoryFactory = () => GlobalContainer.Resolve<IUserRepository>();
         }
 
-        private IUserService UserService { get; set; }
+        protected IUserRepository UserRepository
+        {
+            get { return UserRepositoryFactory(); }
+        }
 
         public override string ApplicationName { get; set; }
 
-        public override bool EnablePasswordReset {
-            get { return this._enablePasswordReset; }
+        public Func<IUserRepository> UserRepositoryFactory { get; set; }
+
+        public override bool EnablePasswordReset
+        {
+            get { return _enablePasswordReset; }
         }
 
-        public override bool EnablePasswordRetrieval {
-            get { return this._enablePasswordRetrieval; }
+        public override bool EnablePasswordRetrieval
+        {
+            get { return _enablePasswordRetrieval; }
         }
 
-        public override bool ChangePassword(string username, string oldPassword, string newPassword) {
-            return this.UserService.ChangePassword(HttpContext.Current.Session.SessionID, username, oldPassword, newPassword);
+        public override int MaxInvalidPasswordAttempts
+        {
+            get { return _maxInvalidPasswordAttempts; }
+        }
+
+        public override int MinRequiredNonAlphanumericCharacters
+        {
+            get { return _minRequiredNonAlphanumericCharacters; }
+        }
+
+        public override int MinRequiredPasswordLength
+        {
+            get { return _minRequiredPasswordLength; }
+        }
+
+        public override int PasswordAttemptWindow
+        {
+            get { return _passwordAttemptWindow; }
+        }
+
+        public override MembershipPasswordFormat PasswordFormat
+        {
+            get { return MembershipPasswordFormat.Hashed; }
+        }
+
+        public override string PasswordStrengthRegularExpression
+        {
+            get { return null; }
+        }
+
+        public override bool RequiresQuestionAndAnswer
+        {
+            get { return false; }
+        }
+
+        public override bool RequiresUniqueEmail
+        {
+            get { return true; }
+        }
+
+        public override void Initialize(string name, NameValueCollection config)
+        {
+            base.Initialize(name, config);
+
+            _enablePasswordReset = bool.Parse(config["enablePasswordReset"] ?? "false");
+            _enablePasswordRetrieval = bool.Parse(config["enablePasswordRetrieval"] ?? "false");
+            ApplicationName = config["applicationName"];
+            _maxInvalidPasswordAttempts = int.Parse(config["maxInvalidPasswordAttempts"] ?? "5",
+                                                    CultureInfo.InvariantCulture);
+            _minRequiredPasswordLength = int.Parse(config["minRequiredPasswordLength"] ?? "8",
+                                                   CultureInfo.InvariantCulture);
+            _minRequiredNonAlphanumericCharacters = int.Parse(config["minRequiredNonAlphanumericCharacters"] ?? "2",
+                                                              CultureInfo.InvariantCulture);
+            _passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"] ?? "10", CultureInfo.InvariantCulture);
+            // 10 Minuten
+        }
+
+        public override bool ChangePassword(string username, string oldPassword, string newPassword)
+        {
+            //return UserService.ChangePassword(HttpContext.Current.Session.SessionID, username, oldPassword, newPassword);
+            throw new NotSupportedException();
         }
 
         public bool ChangeEmail(string email, string newEmail)
         {
-            return this.UserService.ChangeEmail(HttpContext.Current.Session.SessionID, email, newEmail);
+            //return UserService.ChangeEmail(HttpContext.Current.Session.SessionID, email, newEmail);
+            throw new NotSupportedException();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021", MessageId = "Avoid out parameters",
-            Justification = "Kann nicht geändert werden, da vom Framework so vorgegeben.")]
-        public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status) {
-            throw new InvalidOperationException();
-        }
-
-        public MembershipUser CreateUser(string email, string password, string firstName, string lastName, int jsNumber, int? organizationId, out MembershipCreateStatus status)
+        public override MembershipUser CreateUser(string username, string password, string email,
+                                                  string passwordQuestion, string passwordAnswer, bool isApproved,
+                                                  object providerUserKey, out MembershipCreateStatus status)
         {
-            // Todo,jac: Behandlung der verschiednen Fehlerfälle und Status entsprechend setzen.
-            status = MembershipCreateStatus.Success;
+            throw new NotSupportedException();
+        }
 
-            try
-            {
-                return ConvertToExternal(
-                    this.UserService.CreateUser(HttpContext.Current.Session.SessionID, email, password, firstName, lastName, jsNumber, organizationId));
-            }
-            catch (EmailAlreadyTakenException)
-            {
-                status = MembershipCreateStatus.DuplicateEmail;
-                return null;
-            }
+        public MembershipUser CreateUser(string email, string password, string firstName, string lastName, int jsNumber,
+                                         int? organizationId, out MembershipCreateStatus status)
+        {
+            //// To Do,jac: Behandlung der verschiednen Fehlerfälle und Status entsprechend setzen.
+            //status = MembershipCreateStatus.Success;
+
+            //try
+            //{
+            //    return ConvertToExternal(
+            //        UserService.CreateUser(HttpContext.Current.Session.SessionID, email, password, firstName, lastName,
+            //                               jsNumber, organizationId));
+            //}
+            //catch (EmailAlreadyTakenException)
+            //{
+            //    status = MembershipCreateStatus.DuplicateEmail;
+            //    return null;
+            //}
+            throw new NotSupportedException();
         }
 
         public bool ValidateValidationKey(string key)
         {
-            return this.UserService.ValidateValidationKey(key);
+            //return UserService.ValidateValidationKey(key);
+            throw new NotSupportedException();
         }
 
         public bool ValidateEmailKey(string key)
         {
-            return this.UserService.ValidateEmailKey(key);
+            //return UserService.ValidateEmailKey(key);
+            throw new NotSupportedException();
         }
 
-        public override bool DeleteUser(string username, bool deleteAllRelatedData) {
-            return this.UserService.DeleteUser(HttpContext.Current.Session.SessionID, username);
+        public override bool DeleteUser(string username, bool deleteAllRelatedData)
+        {
+            throw new NotSupportedException();
         }
 
-        public override MembershipUser GetUser(string username, bool userIsOnline) {
-            return ConvertToExternal(this.UserService.GetUser(HttpContext.Current.Session.SessionID, username));
+        public override MembershipUser GetUser(string username, bool userIsOnline)
+        {
+            //return ConvertToExternal(UserService.GetUser(HttpContext.Current.Session.SessionID, username));
+            throw new NotSupportedException();
         }
 
-        public override string GetUserNameByEmail(string email) {
-            return email;
+        public override string GetUserNameByEmail(string email)
+        {
+            //return email;
+            throw new NotSupportedException();
         }
 
-        public override int MaxInvalidPasswordAttempts {
-            get { return this._maxInvalidPasswordAttempts; }
+        public override string ResetPassword(string username, string answer)
+        {
+            //return UserService.ResetPassword(HttpContext.Current.Session.SessionID, username);
+            throw new NotSupportedException();
         }
 
-        public override int MinRequiredNonAlphanumericCharacters {
-            get { return this._minRequiredNonAlphanumericCharacters; }
-        }
-
-        public override int MinRequiredPasswordLength {
-            get { return this._minRequiredPasswordLength; }
-        }
-
-        public override int PasswordAttemptWindow {
-            get { return this._passwordAttemptWindow; }
-        }
-
-        public override MembershipPasswordFormat PasswordFormat {
-            get { return MembershipPasswordFormat.Hashed; }
-        }
-
-        public override string PasswordStrengthRegularExpression {
-            get { return null; }
-        }
-
-        public override bool RequiresQuestionAndAnswer {
-            get { return false; }
-        }
-
-        public override bool RequiresUniqueEmail {
-            get { return true; }
-        }
-
-        public override string ResetPassword(string username, string answer) {
-            return this.UserService.ResetPassword(HttpContext.Current.Session.SessionID, username);
-        }
-
-        public override void UpdateUser(MembershipUser user) {
-            this.UserService.UpdateUser(HttpContext.Current.Session.SessionID, ConvertToInternal(user));
+        public override void UpdateUser(MembershipUser user)
+        {
+            //UserService.UpdateUser(HttpContext.Current.Session.SessionID, ConvertToInternal(user));
+            throw new NotSupportedException();
         }
 
         public override bool ValidateUser(string username, string password)
         {
-            // ASP.NET-Bug? Session-Id ändert sich, falls nichts in der Session ist.
-            HttpContext.Current.Session["dummy"] = new object();
-            return this.UserService.ValidateUser(HttpContext.Current.Session.SessionID, username, password);
+            //return UserService.ValidateUser(HttpContext.Current.Session.SessionID, username, password);
+            throw new NotSupportedException();
         }
 
-        //=========================================================================================
-        #region Conversion Helper
 
-        private static MembershipUser ConvertToExternal(UserDto userDto) {
-            return new MembershipUser(
-                Membership.Provider.Name,
-                userDto.Email,
-                userDto,
-                userDto.Email,
-                null,
-                null,
-                userDto.IsApproved,
-                false,
-                userDto.CreateDate,
-                DateTime.Now,
-                DateTime.Now,
-                DateTime.Now,
-                DateTime.Now);
+        //static MembershipUser ConvertToExternal(UserDto userDto)
+        //{
+        //    return new MembershipUser(
+        //        Membership.Provider.Name,
+        //        userDto.Email,
+        //        userDto,
+        //        userDto.Email,
+        //        null,
+        //        null,
+        //        userDto.IsApproved,
+        //        false,
+        //        userDto.CreateDate,
+        //        DateTime.Now,
+        //        DateTime.Now,
+        //        DateTime.Now,
+        //        DateTime.Now);
+        //}
+
+        //static UserDto ConvertToInternal(MembershipUser membershipUser)
+        //{
+        //    return new UserDto
+        //        {
+        //            Email = membershipUser.UserName,
+        //            IsApproved = membershipUser.IsApproved,
+        //            CreateDate = membershipUser.CreationDate
+        //        };
+        //}
+
+
+        public override bool ChangePasswordQuestionAndAnswer(string username, string password,
+                                                             string newPasswordQuestion, string newPasswordAnswer)
+        {
+            throw new NotSupportedException();
         }
 
-        private static UserDto ConvertToInternal(MembershipUser membershipUser) {
-            return new UserDto {
-                Email = membershipUser.UserName,
-                IsApproved = membershipUser.IsApproved,
-                CreateDate = membershipUser.CreationDate
-            };
+        public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize,
+                                                                  out int totalRecords)
+        {
+            throw new NotSupportedException();
         }
 
-        #endregion
-        //=========================================================================================
-
-        //=========================================================================================
-        #region not yet implemented
-
-        public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer) {
-            throw new NotImplementedException();
+        public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize,
+                                                                 out int totalRecords)
+        {
+            throw new NotSupportedException();
         }
 
-        public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords) {
-            throw new NotImplementedException();
+        public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
+        {
+            throw new NotSupportedException();
         }
 
-        public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords) {
-            throw new NotImplementedException();
+        public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
+        {
+            throw new NotSupportedException();
         }
 
-        public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords) {
-            throw new NotImplementedException();
+        public override int GetNumberOfUsersOnline()
+        {
+            throw new NotSupportedException();
         }
 
-        public override MembershipUser GetUser(object providerUserKey, bool userIsOnline) {
-            throw new NotImplementedException();
+        public override string GetPassword(string username, string answer)
+        {
+            throw new NotSupportedException();
         }
 
-        public override int GetNumberOfUsersOnline() {
-            throw new NotImplementedException();
+        public override bool UnlockUser(string userName)
+        {
+            throw new NotSupportedException();
         }
-
-        public override string GetPassword(string username, string answer) {
-            throw new NotImplementedException();
-        }
-
-        public override bool UnlockUser(string userName) {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-        //=========================================================================================
-        
     }
-
-
 }

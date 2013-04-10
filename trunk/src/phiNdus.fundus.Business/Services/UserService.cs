@@ -1,35 +1,31 @@
-﻿using System;
-using System.Globalization;
-using phiNdus.fundus.Business.Assembler;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.Mails;
-using phiNdus.fundus.Domain;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Repositories;
-using phiNdus.fundus.Domain.Settings;
-
-namespace phiNdus.fundus.Business.Services
+﻿namespace phiNdus.fundus.Business.Services
 {
-    using System.Configuration;
+    using System;
+    using System.Globalization;
     using System.Linq;
     using System.Web;
+    using Assembler;
+    using Domain;
+    using Domain.Entities;
     using Domain.Infrastructure;
-    using piNuts.phundus.Infrastructure;
+    using Domain.Repositories;
+    using Dto;
+    using Mails;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class UserService : BaseService
     {
-        private static IUserRepository Users
+        static IUserRepository Users
         {
             get { return GlobalContainer.Resolve<IUserRepository>(); }
         }
 
-        private static IOrganizationRepository Organizations
+        static IOrganizationRepository Organizations
         {
             get { return GlobalContainer.Resolve<IOrganizationRepository>(); }
         }
 
-        private static IRoleRepository Roles
+        static IRoleRepository Roles
         {
             get { return GlobalContainer.Resolve<IRoleRepository>(); }
         }
@@ -83,18 +79,6 @@ namespace phiNdus.fundus.Business.Services
                 Users.Update(user);
                 uow.TransactionalFlush();
             }
-        }
-
-        public virtual bool DeleteUser(string email)
-        {
-            Guard.Against<ArgumentNullException>(email == null, "email");
-            using (IUnitOfWork uow = UnitOfWork.Start())
-            {
-                User user = Users.FindByEmail(email);
-                Users.Delete(user);
-                uow.TransactionalFlush();
-            }
-            return true;
         }
 
         public virtual bool ChangePassword(string email, string oldPassword, string newPassword)
@@ -310,7 +294,5 @@ namespace phiNdus.fundus.Business.Services
             }
             return result;
         }
-
-        
     }
 }
