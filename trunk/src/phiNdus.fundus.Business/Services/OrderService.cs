@@ -68,11 +68,11 @@
                 case OrderStatus.Pending:
                     return GetPendingOrders();
                 case OrderStatus.Approved:
-                    return GetPendingOrders();
+                    return GetApprovedOrders();
                 case OrderStatus.Rejected:
-                    return GetPendingOrders();
+                    return GetRejectedOrders();
                 case OrderStatus.Closed:
-                    return GetPendingOrders();
+                    return GetClosedOrders();
                 default:
                     throw new ArgumentOutOfRangeException("status");
             }
