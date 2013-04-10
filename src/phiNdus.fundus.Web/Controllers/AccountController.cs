@@ -20,7 +20,6 @@
     {
         public CustomMembershipProvider MembershipProvider { get; set; }
         public IOrganizationRepository Organizations { get; set; }
-        public IMembershipService MembershipService { get; set; }
         public IUserRepository Users { get; set; }
         public IRoleRepository Roles { get; set; }
 
@@ -73,7 +72,7 @@
 
             try
             {
-                if (MembershipService.ResetPassword(model.Email))
+                if (MembershipProvider.ResetPassword(model.Email, null) != null)
                     return View("ResetPasswordDone");
 
                 ModelState.AddModelError("", "Unbekannter Fehler beim Ändern des Passwortes.");
@@ -99,7 +98,7 @@
         {
             if (!String.IsNullOrEmpty(model.Key))
             {
-                if (MembershipService.ValidateValidationKey(model.Key))
+                if (MembershipProvider.ValidateValidationKey(model.Key))
                     return View("ValidationDone");
                 ModelState.AddModelError("", "Unbekannter oder ungültiger Code.");
             }
@@ -121,7 +120,7 @@
             {
                 try
                 {
-                    if (MembershipService.ValidateEmailKey(model.Key))
+                    if (MembershipProvider.ValidateEmailKey(model.Key))
                         return View("EmailValidationDone");
                     ModelState.AddModelError("", "Unbekannter oder ungültiger Code.");
                 }
