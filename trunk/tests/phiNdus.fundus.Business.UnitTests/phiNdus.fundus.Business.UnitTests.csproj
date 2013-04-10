@@ -93,7 +93,6 @@
     <Compile Include="ServicesTests\ArticleServiceTests.cs" />
     <Compile Include="ServicesTests\BaseServiceTests.cs" />
     <Compile Include="Mails\UserAccountValidationMailTest.cs" />
-    <Compile Include="ServicesTests\OrderServiceTests\CartTests.cs" />
     <Compile Include="ServicesTests\OrderServiceTests\GetAndFindTests.cs" />
     <Compile Include="ServicesTests\PropertyServiceTests.cs" />
   </ItemGroup>
