@@ -63,12 +63,6 @@ namespace phiNdus.fundus.Business.SecuredServices
                 .Do<UserService, bool>(svc => svc.ChangeEmail(email, newEmail));
         }
 
-        public bool ValidateUser(string sessionId, string email, string password)
-        {
-            return Secured.With(null)
-                .Do<UserService, bool>(svc => svc.ValidateUser(sessionId, email, password));
-        }
-
         public string ResetPassword(string sessionKey, string email)
         {
             return Secured.With(null)

@@ -5,14 +5,24 @@
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using App_Start;
+    using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using phiNdus.fundus.Domain.Repositories;
-    using phiNdus.fundus.Web.App_Start;
-    using phiNdus.fundus.Web.Controllers.WebApi;
+    using Domain.Repositories;
+    using Security;
 
-    public class MvcApplication : HttpApplication
+    public class MvcApplication : HttpApplication, IContainerAccessor
     {
-        static IWindsorContainer _container;
+        private static IWindsorContainer _container;
+
+        #region IContainerAccessor Members
+
+        public IWindsorContainer Container
+        {
+            get { return _container; }
+        }
+
+        #endregion
 
         protected void Application_Start()
         {
@@ -20,7 +30,10 @@
             DatabaseMigrator.Migrate(s => Server.MapPath(s));
 
             _container = ContainerConfig.Bootstrap();
-
+            _container.Register(Component.For<CustomMembershipProvider>()
+                                         .Named("MembershipProvider").LifestyleTransient());
+            _container.Register(Component.For<CustomRoleProvider>()
+                                         .Named("RoleProvider").LifestyleTransient());
 
             var organizations = _container.Resolve<IOrganizationRepository>().FindAll();
 

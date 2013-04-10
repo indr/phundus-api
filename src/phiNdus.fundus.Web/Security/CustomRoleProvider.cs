@@ -4,24 +4,14 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Web.Security;
+    using Castle.Transactions;
     using Domain.Repositories;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class FundusRoleProvider : RoleProvider
+    public class CustomRoleProvider : RoleProvider
     {
-        public FundusRoleProvider()
-        {
-            UserRepositoryFactory = () => GlobalContainer.Resolve<IUserRepository>();
-        }
-
-        protected IUserRepository Users
-        {
-            get { return UserRepositoryFactory(); }
-        }
+        public IUserRepository Users { get; set; }
 
         public override string ApplicationName { get; set; }
-
-        public Func<IUserRepository> UserRepositoryFactory { get; set; }
 
         public override void Initialize(string name, NameValueCollection config)
         {
@@ -55,6 +45,7 @@
             throw new NotSupportedException();
         }
 
+        [Transaction]
         public override string[] GetRolesForUser(string username)
         {
             var user = Users.FindByEmail(username);

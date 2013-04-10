@@ -22,7 +22,6 @@
             return query.ToList();
         }
 
-        [Transaction]
         public User FindByEmail(string email)
         {
             var query = from u in Users
