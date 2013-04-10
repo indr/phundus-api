@@ -4,7 +4,7 @@
     using Business;
     using Business.Assembler;
     using Business.Dto;
-    using Business.SecuredServices;
+    using Business.Services;
     using Castle.Transactions;
     using Domain.Repositories;
     using Models;
@@ -24,7 +24,7 @@
         [Transaction]
         public virtual ActionResult Index(int? version)
         {
-            var cartDto = CartService.GetCart(SessionId, version);
+            var cartDto = CartService.GetCart(version);
 
             var model = new CartModel();
             model.Load(cartDto);
@@ -37,9 +37,9 @@
         [Transaction]
         public virtual ActionResult Index(CartModel model)
         {
-            var cartDto = CartService.GetCart(SessionId, model.Version);
+            var cartDto = CartService.GetCart(model.Version);
             if (ModelState.IsValid)
-                cartDto = CartService.UpdateCart(SessionId, model.CreateDto());
+                cartDto = CartService.UpdateCart(model.CreateDto());
             model.Load(cartDto);
 
             ModelState.Clear();
@@ -52,7 +52,7 @@
             CartDto cartDto;
             try
             {
-                cartDto = CartService.RemoveItem(SessionId, id, version);
+                cartDto = CartService.RemoveItem(id, version);
             }
                 // Nicht besonders RESTful...
             catch (EntityNotFoundException)
@@ -81,13 +81,13 @@
         {
             if (HttpContext.Request.HttpMethod == "POST")
             {
-                var orderDtos = CartService.PlaceOrders(Session.SessionID);
+                var orderDtos = CartService.PlaceOrders();
                 if (orderDtos != null)
                     return View("CheckOutDone");
                 return RedirectToAction(CartActionNames.Index);
             }
 
-            var cartDto = CartService.GetCart(SessionId, null);
+            var cartDto = CartService.GetCart(null);
             if (!cartDto.AreItemsAvailable)
                 return RedirectToAction(CartActionNames.Index);
 

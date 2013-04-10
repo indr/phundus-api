@@ -79,9 +79,6 @@
     <Compile Include="Mails\BaseMailTests.cs" />
     <Compile Include="Paging\PagedResultTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SecuredServices\SecuredArticleServiceTests.cs" />
-    <Compile Include="SecuredServices\SecuredOrderServiceTests.cs" />
-    <Compile Include="SecuredServices\SecuredPropertyServiceTests.cs" />
     <Compile Include="Security\Constraints\BaseConstraintTestFixture.cs" />
     <Compile Include="Security\Constraints\AlwaysFalseConstraint.cs" />
     <Compile Include="Security\Constraints\AlwaysTrueConstraint.cs" />

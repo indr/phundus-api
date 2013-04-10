@@ -3,8 +3,8 @@
     using System;
     using System.IO;
     using System.Web.Mvc;
+    using Business.Services;
     using Castle.Transactions;
-    using phiNdus.fundus.Business.SecuredServices;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Helpers;
@@ -41,8 +41,8 @@
         public virtual ActionResult List()
         {
             var model = new ArticlesTableViewModel(
-                ArticleService.GetArticles(Session.SessionID),
-                ArticleService.GetProperties(Session.SessionID)
+                ArticleService.GetArticles(),
+                ArticleService.GetProperties()
                 );
             return View(model);
         }
@@ -63,7 +63,7 @@
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                var articleId = ArticleService.CreateArticle(Session.SessionID, model.CreateDto());
+                var articleId = ArticleService.CreateArticle(model.CreateDto());
                 return RedirectToAction("Images", new {id = articleId});
             }
 
@@ -94,8 +94,8 @@
         public virtual ActionResult Fields(int id)
         {
             var model = new ArticleViewModel(
-                ArticleService.GetArticle(Session.SessionID, id),
-                ArticleService.GetProperties(Session.SessionID));
+                ArticleService.GetArticle(id),
+                ArticleService.GetProperties());
             if (Request.IsAjaxRequest())
             {
                 return PartialView(Views.Fields, model);
@@ -112,7 +112,7 @@
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                ArticleService.UpdateArticle(Session.SessionID, model.CreateDto());
+                ArticleService.UpdateArticle(model.CreateDto());
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -153,21 +153,21 @@
                 var images = handler.Post(HttpContext.Request.Files);
                 foreach (var each in images)
                 {
-                    ArticleService.AddImage(Session.SessionID, id, each);
+                    ArticleService.AddImage(id, each);
                 }
                 var result = factory.Create(images);
                 return Json(result);
             }
             if (Request.HttpMethod == "GET")
             {
-                var images = ArticleService.GetImages(Session.SessionID, id);
+                var images = ArticleService.GetImages(id);
                 var result = factory.Create(images);
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             if (Request.HttpMethod == "DELETE")
             {
                 var fileName = store.FilePath + Path.DirectorySeparatorChar + name;
-                ArticleService.DeleteImage(Session.SessionID, id, fileName);
+                ArticleService.DeleteImage(id, fileName);
                 store.Delete(name);
                 return Json("");
             }
@@ -179,7 +179,7 @@
         {
             var model = new ArticleAvailabilityViewModel();
             model.Id = id;
-            model.Availabilites = GlobalContainer.Resolve<IArticleService>().GetAvailability(Session.SessionID, id);
+            model.Availabilites = GlobalContainer.Resolve<IArticleService>().GetAvailability(id);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(Views.Availability, model);
@@ -225,7 +225,7 @@
             try
             {
                 model.Version = version;
-                ArticleService.DeleteArticle(Session.SessionID, model.CreateDto());
+                ArticleService.DeleteArticle(model.CreateDto());
                 return RedirectToAction("Index");
             }
             catch
@@ -263,7 +263,7 @@
         [Transaction]
         public virtual ActionResult AddPropertyAjax(int id, string prefix)
         {
-            var prop = FieldsService.GetField(Session.SessionID, id);
+            var prop = FieldsService.GetField(id);
             var model = ArticleViewModel.ConvertToPropertyValueViewModel(prop);
             return EditorFor(model, prefix);
         }
@@ -272,7 +272,7 @@
         [Transaction]
         public virtual ActionResult AddDiscriminatorAjax(int id, string prefix)
         {
-            var prop = FieldsService.GetField(Session.SessionID, id);
+            var prop = FieldsService.GetField(id);
             var model = ArticleViewModel.ConvertToDiscriminatorViewModel(prop);
             return EditorFor(model, prefix);
         }

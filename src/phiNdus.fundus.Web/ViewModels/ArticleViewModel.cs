@@ -5,8 +5,8 @@ namespace phiNdus.fundus.Web.ViewModels
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
+    using Business.Services;
     using phiNdus.fundus.Business.Dto;
-    using phiNdus.fundus.Business.SecuredServices;
     using phiNdus.fundus.Web.Helpers;
     using phiNdus.fundus.Web.Models.CartModels;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -48,13 +48,13 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public ArticleViewModel()
         {
-            Load(new ArticleDto(), ArticleService.GetProperties(SessionId));
+            Load(new ArticleDto(), ArticleService.GetProperties());
         }
 
         public ArticleViewModel(int id)
         {
-            var articleDto = ArticleService.GetArticle(SessionId, id);
-            var fieldDefinitionDtos = ArticleService.GetProperties(SessionId);
+            var articleDto = ArticleService.GetArticle(id);
+            var fieldDefinitionDtos = ArticleService.GetProperties();
             Load(articleDto, fieldDefinitionDtos);
         }
 

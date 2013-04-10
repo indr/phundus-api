@@ -4,7 +4,6 @@
     using System.Web.Mvc;
     using Business.Assembler;
     using Business.Mails;
-    using Business.SecuredServices;
     using Castle.Transactions;
     using Domain.Repositories;
     using Models;

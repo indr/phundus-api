@@ -1,24 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NHibernate;
-using phiNdus.fundus.Business.Assembler;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.Mails;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Repositories;
-using phiNdus.fundus.Domain.Settings;
-
-namespace phiNdus.fundus.Business.Services
+﻿namespace phiNdus.fundus.Business.Services
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Assembler;
+    using Domain.Entities;
+    using Domain.Repositories;
+    using Dto;
+    using Mails;
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class CartService : BaseService
+    public class CartService : BaseService, ICartService
     {
-        protected User User { get { return SecurityContext.SecuritySession.User; } }
-        protected ICartRepository Carts { get { return GlobalContainer.Resolve<ICartRepository>(); } }
+        protected User User
+        {
+            get { return SecurityContext.SecuritySession.User; }
+        }
+
+        protected ICartRepository Carts
+        {
+            get { return GlobalContainer.Resolve<ICartRepository>(); }
+        }
+
+        #region ICartService Members
 
         public CartDto GetCart(int? version)
         {
@@ -106,7 +109,7 @@ namespace phiNdus.fundus.Business.Services
                 cart.CalculateAvailability();
                 if (!cart.AreItemsAvailable)
                     return null;
-                
+
                 var order = cart.PlaceOrder();
 
                 var mail = new OrderReceivedMail().For(order);
@@ -114,7 +117,7 @@ namespace phiNdus.fundus.Business.Services
                 foreach (var chief in chiefs)
                     mail.Send(chief.User.Membership.Email);
                 mail.Send(order.Reserver);
-                
+
                 uow.TransactionalFlush();
 
                 var assembler = new OrderDtoAssembler();
@@ -149,6 +152,8 @@ namespace phiNdus.fundus.Business.Services
             }
         }
 
+        #endregion
+
         //public void CheckOut()
         //{
         //    using (var uow = UnitOfWork.Start())
@@ -167,6 +172,5 @@ namespace phiNdus.fundus.Business.Services
         //        uow.TransactionalFlush();
         //    }
         //}
-        
     }
 }

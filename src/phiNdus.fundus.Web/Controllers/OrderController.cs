@@ -1,8 +1,8 @@
 ﻿namespace phiNdus.fundus.Web.Controllers
 {
     using System.Web.Mvc;
+    using Business.Services;
     using Castle.Transactions;
-    using phiNdus.fundus.Business.SecuredServices;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Web.ViewModels;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -68,7 +68,7 @@
         public virtual ActionResult Reject(int id)
         {
             var service = GlobalContainer.Resolve<IOrderService>();
-            var orderDto = service.Reject(Session.SessionID, id);
+            var orderDto = service.Reject(id);
             return Json(orderDto);
         }
 
@@ -78,7 +78,7 @@
         public virtual ActionResult Confirm(int id)
         {
             var service = GlobalContainer.Resolve<IOrderService>();
-            var orderDto = service.Confirm(Session.SessionID, id);
+            var orderDto = service.Confirm(id);
             return Json(orderDto);
         }
 
@@ -87,7 +87,7 @@
         public FileStreamResult Print(int id)
         {
             var service = GlobalContainer.Resolve<IOrderService>();
-            var stream = service.GetPdf(Session.SessionID, id);
+            var stream = service.GetPdf(id);
 
             return new FileStreamResult(stream, "application/pdf")
                        {

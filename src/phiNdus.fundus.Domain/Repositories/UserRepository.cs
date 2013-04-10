@@ -2,14 +2,13 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Transactions;
     using Entities;
     using NHibernate.Linq;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
-        IQueryable<User> Users
+        private IQueryable<User> Users
         {
             get { return Session.Query<User>(); }
         }

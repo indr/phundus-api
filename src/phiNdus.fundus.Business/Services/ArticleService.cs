@@ -1,25 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NHibernate.Transform;
-using phiNdus.fundus.Business.Assembler;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.Paging;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Inventory;
-using phiNdus.fundus.Domain.Repositories;
-
-namespace phiNdus.fundus.Business.Services
+﻿namespace phiNdus.fundus.Business.Services
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Assembler;
+    using Domain.Inventory;
+    using Domain.Repositories;
+    using Dto;
+    using Paging;
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class ArticleService : BaseService
+    public class ArticleService : BaseService, IArticleService
     {
         private static IArticleRepository Articles
         {
             get { return GlobalContainer.Resolve<IArticleRepository>(); }
+        }
+
+        public IPropertyService PropertyService { get; set; }
+
+        #region IArticleService Members
+
+        public IList<FieldDefinitionDto> GetProperties()
+        {
+            return PropertyService.GetProperties();
         }
 
         public virtual ArticleDto[] GetArticles()
@@ -123,7 +127,8 @@ namespace phiNdus.fundus.Business.Services
             using (UnitOfWork.Start())
             {
                 int total;
-                var result = Articles.FindMany(query, organization, pageRequest.Index*pageRequest.Size, pageRequest.Size, out total);
+                var result = Articles.FindMany(query, organization, pageRequest.Index*pageRequest.Size, pageRequest.Size,
+                                               out total);
                 var dtos = new ArticleDtoAssembler().CreateDtos(result).ToList();
                 return new PagedResult<ArticleDto>(PageResponse.From(pageRequest, total), dtos);
             }
@@ -135,8 +140,11 @@ namespace phiNdus.fundus.Business.Services
             {
                 var article = Articles.Get(id);
                 var availabilities = new NetStockCalculator(article).From(DateTime.Today).To(DateTime.Today.AddYears(1));
-                return  availabilities.Select(each => new AvailabilityDto {Date = each.Date, Amount = each.Amount}).ToList();
+                return
+                    availabilities.Select(each => new AvailabilityDto {Date = each.Date, Amount = each.Amount}).ToList();
             }
         }
+
+        #endregion
     }
 }
