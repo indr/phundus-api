@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using Assembler;
     using Domain.Entities;
     using Domain.Repositories;
@@ -11,15 +12,8 @@
 
     public class CartService : BaseService, ICartService
     {
-        protected User User
-        {
-            get { return SecurityContext.SecuritySession.User; }
-        }
-
-        protected ICartRepository Carts
-        {
-            get { return GlobalContainer.Resolve<ICartRepository>(); }
-        }
+        public ICartRepository Carts { get; set; }
+        public IUserRepository Users { get; set; }
 
         #region ICartService Members
 
@@ -27,10 +21,11 @@
         {
             using (var uow = UnitOfWork.Start())
             {
-                var cart = Carts.FindByCustomer(User);
+                var user = Users.FindByEmail(HttpContext.Current.User.Identity.Name);
+                var cart = Carts.FindByCustomer(user);
                 if (cart == null)
                 {
-                    cart = new Cart(User);
+                    cart = new Cart(user);
                     Carts.Save(cart);
                     uow.TransactionalFlush();
                 }
@@ -48,10 +43,11 @@
         {
             using (var uow = UnitOfWork.Start())
             {
-                var cart = Carts.FindByCustomer(User);
+                var user = Users.FindByEmail(HttpContext.Current.User.Identity.Name);
+                var cart = Carts.FindByCustomer(user);
                 if (cart == null)
                 {
-                    cart = new Cart(User);
+                    cart = new Cart(user);
                     Carts.Save(cart);
                 }
                 cart.AddItem(item.ArticleId, item.Quantity, item.From, item.To);
@@ -83,7 +79,8 @@
         {
             using (var uow = UnitOfWork.Start())
             {
-                var cart = Carts.FindByCustomer(User);
+                var user = Users.FindByEmail(HttpContext.Current.User.Identity.Name);
+                var cart = Carts.FindByCustomer(user);
 
                 var item = cart.Items.SingleOrDefault(p => p.Id == id);
                 if (item == null)
@@ -105,7 +102,8 @@
         {
             using (var uow = UnitOfWork.Start())
             {
-                var cart = Carts.FindByCustomer(User);
+                var user = Users.FindByEmail(HttpContext.Current.User.Identity.Name);
+                var cart = Carts.FindByCustomer(user);
                 cart.CalculateAvailability();
                 if (!cart.AreItemsAvailable)
                     return null;
@@ -129,7 +127,8 @@
         {
             using (var uow = UnitOfWork.Start())
             {
-                var cart = Carts.FindByCustomer(User);
+                var user = Users.FindByEmail(HttpContext.Current.User.Identity.Name);
+                var cart = Carts.FindByCustomer(user);
                 cart.CalculateAvailability();
                 if (!cart.AreItemsAvailable)
                     return null;
@@ -153,24 +152,5 @@
         }
 
         #endregion
-
-        //public void CheckOut()
-        //{
-        //    using (var uow = UnitOfWork.Start())
-        //    {
-        //        var cart = FindCart();
-        //        if (cart == null)
-        //            throw new InvalidOperationException("Kein oder leerer Warenkorb");
-
-        //        cart.Checkout();
-        //        GlobalContainer.Resolve<IOrderRepository>().Save(cart);
-
-        //        new OrderReceivedMail().For(cart)
-        //            .Send(cart.Reserver)
-        //            .Send(Settings.Common.AdminEmailAddress);
-
-        //        uow.TransactionalFlush();
-        //    }
-        //}
     }
 }

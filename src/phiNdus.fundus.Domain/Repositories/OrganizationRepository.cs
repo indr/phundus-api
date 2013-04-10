@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Castle.Transactions;
     using Entities;
     using NHibernate.Linq;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -15,6 +16,7 @@
 
         #region IOrganizationRepository Members
 
+        [Transaction]
         public ICollection<Organization> FindAll()
         {
             var query = from o in Organizations where o.Name != "Reserved" select o;
