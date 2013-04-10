@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Castle.Transactions;
+    using Entities;
     using NHibernate.Linq;
-    using phiNdus.fundus.Domain.Entities;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class UserRepository : RepositoryBase<User>, IUserRepository
@@ -21,6 +22,7 @@
             return query.ToList();
         }
 
+        [Transaction]
         public User FindByEmail(string email)
         {
             var query = from u in Users

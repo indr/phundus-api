@@ -65,7 +65,6 @@
     <Compile Include="Assembler\ArticleDtoAssemblerTests.cs" />
     <Compile Include="Assembler\OrderAssemblerTests.cs" />
     <Compile Include="Assembler\FieldDefinitionAssemblerTests.cs" />
-    <Compile Include="Assembler\RoleAssemblerTests.cs" />
     <Compile Include="Assembler\UserAssemblerTests.cs" />
     <Compile Include="DtoOutOfDateExceptionTests.cs" />
     <Compile Include="Dto\ArticleDtoTests.cs" />
@@ -83,7 +82,6 @@
     <Compile Include="SecuredServices\SecuredArticleServiceTests.cs" />
     <Compile Include="SecuredServices\SecuredOrderServiceTests.cs" />
     <Compile Include="SecuredServices\SecuredPropertyServiceTests.cs" />
-    <Compile Include="SecuredServices\SecuredRoleServiceTests.cs" />
     <Compile Include="SecuredServices\SecuredUserServiceTests.cs" />
     <Compile Include="Security\Constraints\BaseConstraintTestFixture.cs" />
     <Compile Include="Security\Constraints\AlwaysFalseConstraint.cs" />

@@ -1,29 +1,26 @@
 ﻿namespace phiNdus.fundus.Web.Security
 {
     using System;
-    using System.Web;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.Web.Security;
-    using phiNdus.fundus.Business.SecuredServices;
+    using Domain.Repositories;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class FundusRoleProvider : RoleProvider
     {
-        #region Configuration
+        public IUserRepository Users { get; set; }
 
-        public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
+        public override string ApplicationName { get; set; }
+
+        public override void Initialize(string name, NameValueCollection config)
         {
             base.Initialize(name, config);
 
+            Users = GlobalContainer.Resolve<IUserRepository>();
+
             ApplicationName = config["applicationName"];
         }
-
-        #endregion
-
-        //=========================================================================================
-
-        //=========================================================================================
-
-        public override string ApplicationName { get; set; }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
@@ -52,7 +49,20 @@
 
         public override string[] GetRolesForUser(string username)
         {
-            return GlobalContainer.Resolve<IRoleService>().GetRolesForUser(HttpContext.Current.Session.SessionID);
+            var user = Users.FindByEmail(username);
+            var role = user.Role.Name;
+
+            var result = new List<string>();
+
+            if (role == @"Admin")
+                result.Add(@"Admin");
+
+            if (user.IsChiefOf(user.SelectedOrganization))
+                result.Add(@"Chief");
+
+            result.Add(@"User");
+
+            return result.ToArray();
         }
 
         public override string[] GetUsersInRole(string roleName)

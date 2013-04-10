@@ -1,33 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.SecuredServices;
-
-namespace phiNdus.fundus.Web.Models
+﻿namespace phiNdus.fundus.Web.Models
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Globalization;
+    using System.Linq;
+    using System.Web.Mvc;
+    using Business.Dto;
+    using Business.SecuredServices;
+    using Domain.Entities;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class UserModel : ModelBase
     {
-        private IEnumerable<SelectListItem> _roles;
+        IEnumerable<SelectListItem> _roles;
 
         public UserModel()
         {
             Load(UserService.GetUser(SessionId));
         }
-        
+
         public UserModel(int id)
         {
             Load(UserService.GetUser(SessionId, id));
         }
 
-    
+
         public int Id { get; private set; }
         public int Version { get; set; }
         public string Email { get; set; }
@@ -45,7 +43,10 @@ namespace phiNdus.fundus.Web.Models
         [DisplayName("Rolle")]
         public string RoleName { get; set; }
 
-        public string DisplayName { get { return FirstName + " " + LastName; }}
+        public string DisplayName
+        {
+            get { return FirstName + " " + LastName; }
+        }
 
         public IEnumerable<SelectListItem> Roles
         {
@@ -57,29 +58,24 @@ namespace phiNdus.fundus.Web.Models
             }
         }
 
-        private static IUserService UserService
+        static IUserService UserService
         {
             get { return GlobalContainer.Resolve<IUserService>(); }
         }
 
-        private static IRoleService RoleService
-        {
-            get { return GlobalContainer.Resolve<IRoleService>(); }
-        }
 
-        private void GetRoles()
+        void GetRoles()
         {
-            var roleDtos = RoleService.GetRoles(SessionId);
-            _roles = roleDtos.Select(r => new SelectListItem
-                                              {
-                                                  Value = r.Id.ToString(),
-                                                  Text = r.Name,
-                                                  Selected = r.Id == RoleId
-                                              });
+            _roles = new List<Role> {Role.Administrator, Role.User}.Select(r => new SelectListItem
+                {
+                    Value = r.Id.ToString(CultureInfo.InvariantCulture),
+                    Text = r.Name,
+                    Selected = r.Id == RoleId
+                });
         }
 
 
-        private void Load(UserDto subject)
+        void Load(UserDto subject)
         {
             Id = subject.Id;
             Version = subject.Version;
@@ -92,20 +88,20 @@ namespace phiNdus.fundus.Web.Models
             RoleName = subject.RoleName;
         }
 
-        private UserDto Save()
+        UserDto Save()
         {
             return new UserDto
-                       {
-                           Id = Id,
-                           Version = Version,
-                           Email = Email,
-                           IsApproved = IsApproved,
-                           CreateDate = CreateDate,
-                           FirstName = FirstName,
-                           LastName = LastName,
-                           RoleId = RoleId,
-                           RoleName = RoleName
-                       };
+                {
+                    Id = Id,
+                    Version = Version,
+                    Email = Email,
+                    IsApproved = IsApproved,
+                    CreateDate = CreateDate,
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    RoleId = RoleId,
+                    RoleName = RoleName
+                };
         }
 
         public void Update()
