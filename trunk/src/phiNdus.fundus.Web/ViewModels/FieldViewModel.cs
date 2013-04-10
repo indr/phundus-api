@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
 using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.SecuredServices;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using Business.Services;
     using phiNdus.fundus.Domain;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -105,7 +105,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public FieldViewModel Load(int id)
         {
-            Dto = FieldsService.GetField(SessionId, id);
+            Dto = FieldsService.GetField(id);
             return this;
         }
 
@@ -127,14 +127,14 @@ namespace phiNdus.fundus.Web.ViewModels
         public void Save()
         {
             if (Dto.Id > 0)
-                FieldsService.UpdateField(SessionId, Dto);
+                FieldsService.UpdateField(Dto);
             else
-                FieldsService.CreateField(SessionId, Dto);
+                FieldsService.CreateField(Dto);
         }
 
         public void Delete()
         {
-            FieldsService.DeleteField(SessionId, Dto);
+            FieldsService.DeleteField(Dto);
         }
 
         public IEnumerable<SelectListItem> FieldDataTypes

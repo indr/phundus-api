@@ -2,11 +2,12 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using phiNdus.fundus.Business.Gateways;
-using phiNdus.fundus.Business.SecuredServices;
 using phiNdus.fundus.Business.Security;
 
 namespace phiNdus.fundus.Business
 {
+    using Services;
+
     public class Installer : IWindsorInstaller
     {
         #region IWindsorInstaller Members
@@ -14,7 +15,7 @@ namespace phiNdus.fundus.Business
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Types.FromThisAssembly()
-                                   .BasedOn<SecuredServiceBase>()
+                                   .BasedOn<BaseService>()
                                    .WithService.AllInterfaces()
                                    .LifestyleTransient());
 

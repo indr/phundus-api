@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using phiNdus.fundus.Business.Assembler;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.Mails;
-using phiNdus.fundus.Business.SecuredServices;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Repositories;
-using phiNdus.fundus.Domain.Settings;
-
-namespace phiNdus.fundus.Business.Services
+﻿namespace phiNdus.fundus.Business.Services
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using Assembler;
+    using Domain.Entities;
+    using Domain.Repositories;
+    using Dto;
+    using Mails;
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class OrderService : BaseService
+    public class OrderService : BaseService, IOrderService
     {
+        #region IOrderService Members
+
         public virtual OrderDto GetOrder(int id)
         {
             using (UnitOfWork.Start())
@@ -29,7 +25,7 @@ namespace phiNdus.fundus.Business.Services
             }
         }
 
-        public virtual IList<OrderDto> GetPending()
+        public virtual IList<OrderDto> GetPendingOrders()
         {
             using (UnitOfWork.Start())
             {
@@ -38,30 +34,20 @@ namespace phiNdus.fundus.Business.Services
             }
         }
 
-        public virtual IList<OrderDto> GetApproved()
+        public virtual IList<OrderDto> GetApprovedOrders()
         {
             using (UnitOfWork.Start())
             {
                 var orders = GlobalContainer.Resolve<IOrderRepository>().FindApproved(SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
-            
         }
 
-        public virtual IList<OrderDto> GetRejected()
+        public virtual IList<OrderDto> GetRejectedOrders()
         {
             using (UnitOfWork.Start())
             {
                 var orders = GlobalContainer.Resolve<IOrderRepository>().FindRejected(SelectedOrganization);
-                return new OrderDtoAssembler().CreateDtos(orders);
-            }
-        }
-
-        private IList<OrderDto> GetClosed()
-        {
-            using (UnitOfWork.Start())
-            {
-                var orders = GlobalContainer.Resolve<IOrderRepository>().FindClosed(SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
@@ -80,13 +66,13 @@ namespace phiNdus.fundus.Business.Services
             switch (status)
             {
                 case OrderStatus.Pending:
-                    return GetPending();
+                    return GetPendingOrders();
                 case OrderStatus.Approved:
-                    return GetApproved();
+                    return GetPendingOrders();
                 case OrderStatus.Rejected:
-                    return GetRejected();
+                    return GetPendingOrders();
                 case OrderStatus.Closed:
-                    return GetClosed();
+                    return GetPendingOrders();
                 default:
                     throw new ArgumentOutOfRangeException("status");
             }
@@ -99,7 +85,7 @@ namespace phiNdus.fundus.Business.Services
             {
                 var repo = GlobalContainer.Resolve<IOrderRepository>();
                 var order = repo.Get(id);
-                
+
                 order.Reject(SecurityContext.SecuritySession.User);
                 repo.Update(order);
 
@@ -119,7 +105,7 @@ namespace phiNdus.fundus.Business.Services
             {
                 var repo = GlobalContainer.Resolve<IOrderRepository>();
                 var order = repo.Get(id);
-                
+
                 order.Approve(SecurityContext.SecuritySession.User);
                 repo.Update(order);
 
@@ -140,6 +126,17 @@ namespace phiNdus.fundus.Business.Services
                 var repo = GlobalContainer.Resolve<IOrderRepository>();
                 var order = repo.Get(id);
                 return order.GeneratePdf();
+            }
+        }
+
+        #endregion
+
+        private IList<OrderDto> GetClosedOrders()
+        {
+            using (UnitOfWork.Start())
+            {
+                var orders = GlobalContainer.Resolve<IOrderRepository>().FindClosed(SelectedOrganization);
+                return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
     }

@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.SecuredServices;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Web.ViewModels
+﻿namespace phiNdus.fundus.Web.ViewModels
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System.Collections.Generic;
+    using Business.Dto;
+    using Business.Services;
+    using Domain.Entities;
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class OrdersViewModelBase: ViewModelBase
+    public class OrdersViewModelBase : ViewModelBase
     {
         private IList<OrderViewModel> _items = new List<OrderViewModel>();
 
@@ -19,15 +16,15 @@ namespace phiNdus.fundus.Web.ViewModels
             set { _items = value; }
         }
 
+        protected IOrderService Service
+        {
+            get { return GlobalContainer.Resolve<IOrderService>(); }
+        }
+
         protected void Load(IList<OrderDto> orderDtos)
         {
             foreach (var each in orderDtos)
                 Items.Add(new OrderViewModel(each));
-        }
-
-        protected IOrderService Service
-        {
-            get { return GlobalContainer.Resolve<IOrderService>(); }
         }
     }
 
@@ -35,15 +32,15 @@ namespace phiNdus.fundus.Web.ViewModels
     {
         public OrdersViewModel(OrderStatus status)
         {
-            Load(Service.GetOrders(SessionId, status));
+            Load(Service.GetOrders(status));
         }
     }
 
     public class MyOrdersViewModel : OrdersViewModelBase
     {
-        public MyOrdersViewModel() : base()
+        public MyOrdersViewModel()
         {
-            Load(Service.GetMyOrders(SessionId));
+            Load(Service.GetMyOrders());
         }
     }
 }

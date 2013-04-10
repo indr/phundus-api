@@ -122,7 +122,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             GenerateAndRegisterMissingStubs();
 
             FakeOrderRepo.Expect(x => x.FindPending(Arg<Organization>.Is.Anything)).Return(new System.Collections.Generic.List<Order>());
-            Sut.GetPending();
+            Sut.GetOrders(OrderStatus.Pending);
 
             FakeOrderRepo.VerifyAllExpectations();
         }
@@ -134,7 +134,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             GenerateAndRegisterMissingStubs();
             FakeUnitOfWork.Expect(x => x.Dispose());
 
-            Sut.GetPending();
+            Sut.GetOrders(OrderStatus.Pending);
 
             FakeUnitOfWork.VerifyAllExpectations();            
         }
@@ -144,7 +144,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
         {
             GenerateAndRegisterMissingStubs();
 
-            var actual = Sut.GetPending();
+            var actual = Sut.GetOrders(OrderStatus.Pending);
 
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual, Has.Count.EqualTo(2));
@@ -157,7 +157,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             GenerateAndRegisterMissingStubs();
 
             FakeOrderRepo.Expect(x => x.FindApproved(Arg<Organization>.Is.Anything)).Return(new System.Collections.Generic.List<Order>());
-            Sut.GetApproved();
+            Sut.GetOrders(OrderStatus.Approved);
 
             FakeOrderRepo.VerifyAllExpectations();
         }
@@ -169,7 +169,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             GenerateAndRegisterMissingStubs();
             FakeUnitOfWork.Expect(x => x.Dispose());
 
-            Sut.GetApproved();
+            Sut.GetOrders(OrderStatus.Approved);
 
             FakeUnitOfWork.VerifyAllExpectations();
         }
@@ -179,7 +179,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
         {
             GenerateAndRegisterMissingStubs();
 
-            var actual = Sut.GetApproved();
+            var actual = Sut.GetOrders(OrderStatus.Approved);
 
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual, Has.Count.EqualTo(2));
@@ -192,7 +192,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             GenerateAndRegisterMissingStubs();
 
             FakeOrderRepo.Expect(x => x.FindRejected(Arg<Organization>.Is.Anything)).Return(new System.Collections.Generic.List<Order>());
-            Sut.GetRejected();
+            Sut.GetOrders(OrderStatus.Rejected);
 
             FakeOrderRepo.VerifyAllExpectations();
         }
@@ -204,7 +204,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
             GenerateAndRegisterMissingStubs();
             FakeUnitOfWork.Expect(x => x.Dispose());
 
-            Sut.GetRejected();
+            Sut.GetOrders(OrderStatus.Rejected);
 
             FakeUnitOfWork.VerifyAllExpectations();            
         }
@@ -214,7 +214,7 @@ namespace phiNdus.fundus.Business.UnitTests.ServicesTests.OrderServiceTests
         {
             GenerateAndRegisterMissingStubs();
 
-            var actual = Sut.GetRejected();
+            var actual = Sut.GetOrders(OrderStatus.Rejected);
 
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual, Has.Count.EqualTo(2));

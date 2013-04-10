@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using phiNdus.fundus.Business.Assembler;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Domain.Repositories;
-
-namespace phiNdus.fundus.Business.Services
+﻿namespace phiNdus.fundus.Business.Services
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System;
+    using System.Collections.Generic;
+    using Assembler;
+    using Domain.Repositories;
+    using Dto;
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class PropertyService : BaseService
+    public class PropertyService : BaseService, IPropertyService
     {
         private static IFieldDefinitionRepository PropertyDefinitions
         {
             get { return GlobalContainer.Resolve<IFieldDefinitionRepository>(); }
         }
+
+        #region IPropertyService Members
 
         public virtual IList<FieldDefinitionDto> GetProperties()
         {
@@ -25,6 +24,8 @@ namespace phiNdus.fundus.Business.Services
                 return FieldDefinitionAssembler.CreateDtos(propertyDefs);
             }
         }
+
+        #endregion
 
         public virtual int CreateProperty(FieldDefinitionDto subject)
         {
@@ -87,5 +88,10 @@ namespace phiNdus.fundus.Business.Services
                 uow.TransactionalFlush();
             }
         }
+    }
+
+    public interface IPropertyService
+    {
+        IList<FieldDefinitionDto> GetProperties();
     }
 }

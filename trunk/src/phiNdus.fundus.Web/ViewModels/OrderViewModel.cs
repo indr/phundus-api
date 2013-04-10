@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Business.SecuredServices;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Web.ViewModels
+﻿namespace phiNdus.fundus.Web.ViewModels
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using Business.Dto;
+    using Business.Services;
+    using Domain.Entities;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class OrderViewModel : ViewModelBase
@@ -20,24 +17,8 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public OrderViewModel(int id)
         {
-            var dto = GlobalContainer.Resolve<IOrderService>().GetOrder(SessionId, id);
+            var dto = GlobalContainer.Resolve<IOrderService>().GetOrder(id);
             Load(dto);
-        }
-
-        private void Load(OrderDto dto)
-        {
-            Id = dto.Id;
-            CreateDate = dto.CreateDate;
-
-            ReserverName = dto.ReserverName;
-            ModifierName = dto.ModifierName;
-            Status = dto.Status;
-
-            ModifyDate = dto.ModifyDate;
-
-            TotalPrice = dto.TotalPrice;
-
-            Items = dto.Items;
         }
 
         public int Id { get; set; }
@@ -59,5 +40,21 @@ namespace phiNdus.fundus.Web.ViewModels
 
 
         public IList<OrderItemDto> Items { get; set; }
+
+        private void Load(OrderDto dto)
+        {
+            Id = dto.Id;
+            CreateDate = dto.CreateDate;
+
+            ReserverName = dto.ReserverName;
+            ModifierName = dto.ModifierName;
+            Status = dto.Status;
+
+            ModifyDate = dto.ModifyDate;
+
+            TotalPrice = dto.TotalPrice;
+
+            Items = dto.Items;
+        }
     }
 }

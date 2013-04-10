@@ -8,7 +8,6 @@
     using System.Web.Mvc;
     using Business.Assembler;
     using Business.Dto;
-    using Business.SecuredServices;
     using Domain.Entities;
     using Domain.Repositories;
     using piNuts.phundus.Infrastructure.Obsolete;

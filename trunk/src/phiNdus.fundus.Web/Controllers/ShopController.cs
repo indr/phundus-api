@@ -2,9 +2,9 @@
 {
     using System;
     using System.Web.Mvc;
+    using Business.Services;
     using Castle.Transactions;
     using Domain.Repositories;
-    using phiNdus.fundus.Business.SecuredServices;
     using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -120,7 +120,7 @@
         {
             var model = new ShopArticleViewModel(id);
 
-            model.Availabilities = GlobalContainer.Resolve<IArticleService>().GetAvailability(Session.SessionID, id);
+            model.Availabilities = GlobalContainer.Resolve<IArticleService>().GetAvailability(id);
             return Json(new
                             {
                                 caption = model.Caption,
@@ -143,7 +143,7 @@
             }
 
             var service = GlobalContainer.Resolve<ICartService>();
-            var cart = service.AddItem(Session.SessionID, item.CreateDto());
+            var cart = service.AddItem(item.CreateDto());
 
             if (Request.IsAjaxRequest())
                 return Json(cart);

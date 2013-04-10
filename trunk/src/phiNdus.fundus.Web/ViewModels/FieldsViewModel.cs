@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using phiNdus.fundus.Business.SecuredServices;
-
-namespace phiNdus.fundus.Web.ViewModels
+﻿namespace phiNdus.fundus.Web.ViewModels
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Business.Services;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class FieldsViewModel : ViewModelBase
@@ -26,13 +23,13 @@ namespace phiNdus.fundus.Web.ViewModels
         public void Save()
         {
             var dtos = Items.Select(each => each.CreateDto()).ToList();
-            FieldsService.UpdateFields(SessionId, dtos);
+            FieldsService.UpdateFields(dtos);
         }
 
         public FieldsViewModel Load()
         {
             Items.Clear();
-            foreach (var each in FieldsService.GetProperties(SessionId))
+            foreach (var each in FieldsService.GetProperties())
             {
                 Items.Add(new FieldViewModel().Load(each));
             }

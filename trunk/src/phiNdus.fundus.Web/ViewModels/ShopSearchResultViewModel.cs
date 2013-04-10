@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using phiNdus.fundus.Business.Paging;
-using phiNdus.fundus.Business.SecuredServices;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
+    using Business.Services;
     using Domain.Entities;
     using phiNdus.fundus.Domain;
     using piNuts.phundus.Infrastructure;
@@ -46,8 +46,8 @@ namespace phiNdus.fundus.Web.ViewModels
 
         private void Search(string query, int? organization, int page)
         {
-            var fieldDefinitions = ArticleService.GetProperties(SessionId);
-            var queryResult = GlobalContainer.Resolve<IArticleService>().FindArticles(SessionId,
+            var fieldDefinitions = ArticleService.GetProperties();
+            var queryResult = GlobalContainer.Resolve<IArticleService>().FindArticles(
                     new PageRequest { Index = page - 1, Size = RowsPerPage }, query, organization);
             PageSelectorModel = new PageSelectorViewModel(queryResult.Pages);
             foreach (var each in queryResult.Items)
