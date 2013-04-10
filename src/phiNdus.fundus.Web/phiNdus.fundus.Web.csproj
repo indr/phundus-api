@@ -226,7 +226,6 @@
     <Compile Include="Helpers\HtmlExtensions.cs" />
     <Compile Include="Helpers\ActionLinkExtensions.cs" />
     <Compile Include="Helpers\MvcContainer.cs" />
-    <Compile Include="App_Start\Installers\AuthenticationInstaller.cs" />
     <Compile Include="App_Start\Installers\ControllerInstaller.cs" />
     <Compile Include="App_Start\Installers\LoggerInstaller.cs" />
     <Compile Include="Views\Helper.cs" />
@@ -338,8 +337,6 @@
     <Compile Include="ViewModels\ArticlesTableViewModel.cs" />
     <Compile Include="Models\MembershipService.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\FormsAuthenticationService.cs" />
-    <Compile Include="Models\IFormsService.cs" />
     <Compile Include="Models\IMembershipService.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="ViewModels\ArticlesViewModel.cs" />
