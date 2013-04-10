@@ -3,32 +3,25 @@
     using System;
     using System.Collections.Specialized;
     using System.Globalization;
+    using System.Linq;
+    using System.Web;
     using System.Web.Security;
+    using Domain;
+    using Domain.Entities;
     using Domain.Repositories;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class FundusMembershipProvider : MembershipProvider
+    public class CustomMembershipProvider : MembershipProvider
     {
-        bool _enablePasswordReset;
-        bool _enablePasswordRetrieval;
-        int _maxInvalidPasswordAttempts;
-        int _minRequiredNonAlphanumericCharacters;
-        int _minRequiredPasswordLength;
-        int _passwordAttemptWindow;
+        private bool _enablePasswordReset;
+        private bool _enablePasswordRetrieval;
+        private int _maxInvalidPasswordAttempts;
+        private int _minRequiredNonAlphanumericCharacters;
+        private int _minRequiredPasswordLength;
+        private int _passwordAttemptWindow;
 
-        public FundusMembershipProvider()
-        {
-            UserRepositoryFactory = () => GlobalContainer.Resolve<IUserRepository>();
-        }
-
-        protected IUserRepository UserRepository
-        {
-            get { return UserRepositoryFactory(); }
-        }
+        public IUserRepository Users { get; set; }
 
         public override string ApplicationName { get; set; }
-
-        public Func<IUserRepository> UserRepositoryFactory { get; set; }
 
         public override bool EnablePasswordReset
         {
@@ -179,39 +172,26 @@
 
         public override bool ValidateUser(string username, string password)
         {
-            //return UserService.ValidateUser(HttpContext.Current.Session.SessionID, username, password);
-            throw new NotSupportedException();
+            username = username.ToLower(CultureInfo.CurrentCulture).Trim();
+            var user = Users.FindByEmail(username);
+            
+            if (user == null)
+                return false;
+            
+            try
+            {
+                user.Membership.LogOn(HttpContext.Current.Session.SessionID, password);
+                if (user.SelectedOrganization == null && user.Memberships.Count > 0)
+                    user.SelectOrganization(user.Memberships.First().Organization);
+                if (user.SelectedOrganization != null)
+                    HttpContext.Current.Session["OrganizationId"] = user.SelectedOrganization.Id;
+                return true;
+            }
+            catch (InvalidPasswordException)
+            {
+                return false;
+            }
         }
-
-
-        //static MembershipUser ConvertToExternal(UserDto userDto)
-        //{
-        //    return new MembershipUser(
-        //        Membership.Provider.Name,
-        //        userDto.Email,
-        //        userDto,
-        //        userDto.Email,
-        //        null,
-        //        null,
-        //        userDto.IsApproved,
-        //        false,
-        //        userDto.CreateDate,
-        //        DateTime.Now,
-        //        DateTime.Now,
-        //        DateTime.Now,
-        //        DateTime.Now);
-        //}
-
-        //static UserDto ConvertToInternal(MembershipUser membershipUser)
-        //{
-        //    return new UserDto
-        //        {
-        //            Email = membershipUser.UserName,
-        //            IsApproved = membershipUser.IsApproved,
-        //            CreateDate = membershipUser.CreationDate
-        //        };
-        //}
-
 
         public override bool ChangePasswordQuestionAndAnswer(string username, string password,
                                                              string newPasswordQuestion, string newPasswordAnswer)

@@ -38,37 +38,37 @@ namespace phiNdus.fundus.Web.Models
             if (String.IsNullOrWhiteSpace(password))
                 throw new ArgumentException("Kann nicht leer sein", "password");
 
-            var provider = new FundusMembershipProvider();
+            var provider = new CustomMembershipProvider();
             return provider.CreateUser(email, password, firstName, lastName, jsNumber, organizationId, out status);
         }
 
         public bool ValidateValidationKey(string key)
         {
-            var provider = new FundusMembershipProvider();
+            var provider = new CustomMembershipProvider();
             return provider.ValidateValidationKey(key);
         }
 
         public bool ValidateEmailKey(string key)
         {
-            var provider = new FundusMembershipProvider();
+            var provider = new CustomMembershipProvider();
             return provider.ValidateEmailKey(key);
         }
 
         public bool ResetPassword(string email)
         {
-            var provider = new FundusMembershipProvider();
+            var provider = new CustomMembershipProvider();
             return provider.ResetPassword(email, null) != null;
         }
 
         public bool ChangePassword(string email, string oldPassword, string newPassword)
         {
-            var provider = new FundusMembershipProvider();
+            var provider = new CustomMembershipProvider();
             return provider.ChangePassword(email, oldPassword, newPassword);
         }
 
         public bool ChangeEmailAddress(string email, string newEmail)
         {
-            var provider = new FundusMembershipProvider();
+            var provider = new CustomMembershipProvider();
             return provider.ChangeEmail(email, newEmail);
         }
 

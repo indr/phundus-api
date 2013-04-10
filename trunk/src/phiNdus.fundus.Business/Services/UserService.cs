@@ -117,33 +117,6 @@
             return true;
         }
 
-        public virtual bool ValidateUser(string sessionId, string email, string password)
-        {
-            email = email.ToLower(CultureInfo.CurrentCulture).Trim();
-
-            using (IUnitOfWork uow = UnitOfWork.Start())
-            {
-                User user = Users.FindByEmail(email);
-                if (user == null)
-                    return false;
-                try
-                {
-                    user.Membership.LogOn(sessionId, password);
-                    if (user.SelectedOrganization == null && user.Memberships.Count > 0)
-                        user.SelectOrganization(user.Memberships.First().Organization);
-                    if (user.SelectedOrganization != null)
-                        HttpContext.Current.Session["OrganizationId"] = user.SelectedOrganization.Id;
-
-                    uow.TransactionalFlush();
-                    return true;
-                }
-                catch (InvalidPasswordException)
-                {
-                    return false;
-                }
-            }
-        }
-
         public virtual string ResetPassword(string email)
         {
             Guard.Against<ArgumentNullException>(email == null, "email");

@@ -14,7 +14,7 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Web.UnitTests.Security
 {
     [TestFixture]
-    public class FundusMembershipProviderTests : MockTestBase<FundusMembershipProvider>
+    public class FundusMembershipProviderTests : MockTestBase<CustomMembershipProvider>
     {
         private IUserService MockUserService { get; set; }
 
@@ -27,11 +27,11 @@ namespace phiNdus.fundus.Web.UnitTests.Security
             container.Register(Component.For<IUserService>().Instance(MockUserService));
         }
 
-        protected override FundusMembershipProvider CreateSut()
+        protected override CustomMembershipProvider CreateSut()
         {
-            var provider = new FundusMembershipProvider();
+            var provider = new CustomMembershipProvider();
 
-            provider.Initialize("FundusMembershipProvider",
+            provider.Initialize("CustomerMembershipProvider",
                                 new NameValueCollection
                                     {
                                         {"enablePasswordReset", "true"},
