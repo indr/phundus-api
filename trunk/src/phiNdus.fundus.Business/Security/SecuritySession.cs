@@ -5,6 +5,7 @@ using phiNdus.fundus.Domain.Repositories;
 
 namespace phiNdus.fundus.Business.Security
 {
+    using System.Web;
     using phiNdus.fundus.Domain;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -28,7 +29,8 @@ namespace phiNdus.fundus.Business.Security
             using (UnitOfWork.Start())
             {
                 var repo = GlobalContainer.Resolve<IUserRepository>();
-                user = repo.FindBySessionKey(key);
+                //user = repo.FindBySessionKey(key);
+                user = repo.FindByEmail(HttpContext.Current.User.Identity.Name);
 
                 Guard.Against<InvalidSessionKeyException>(user == null, "");
 

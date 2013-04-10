@@ -15,11 +15,11 @@ namespace piNuts.phundus.Specs.Steps
             if (Browser.TableCell(Find.ByClass("no-data")).Exists)
                 return;
 
-            var link = Browser.Links.Where(p => p.InnerHtml == "Entfernen").SingleOrDefault();
+            var link = Browser.Links.FirstOrDefault(p => p.InnerHtml == "Entfernen");
             while (link != null && link.Exists)
             {
                 link.Click();
-                link = Browser.Links.Where(p => p.InnerHtml == "Entfernen").SingleOrDefault();
+                link = Browser.Links.FirstOrDefault(p => p.InnerHtml == "Entfernen");
             }
             Browser.GoTo(BaseUrl + "/cart");
             var td = Browser.TableCell(Find.ByClass("no-data"));
