@@ -19,16 +19,7 @@ namespace phiNdus.fundus.Web.Models
 
         #region IMembershipService Members
 
-        public bool ValidateUser(string email, string password)
-        {
-            if (String.IsNullOrWhiteSpace(email))
-                throw new ArgumentException("Kann nicht leer sein", "email");
-
-            if (String.IsNullOrWhiteSpace(password))
-                throw new ArgumentException("Kann nicht leer sein", "password");
-
-            return _provider.ValidateUser(email, password);
-        }
+        
 
         public MembershipUser CreateUser(string email, string password, string firstName, string lastName, int jsNumber, int? organizationId, out MembershipCreateStatus status)
         {
@@ -60,17 +51,7 @@ namespace phiNdus.fundus.Web.Models
             return provider.ResetPassword(email, null) != null;
         }
 
-        public bool ChangePassword(string email, string oldPassword, string newPassword)
-        {
-            var provider = new CustomMembershipProvider();
-            return provider.ChangePassword(email, oldPassword, newPassword);
-        }
-
-        public bool ChangeEmailAddress(string email, string newEmail)
-        {
-            var provider = new CustomMembershipProvider();
-            return provider.ChangeEmail(email, newEmail);
-        }
+        
 
         #endregion
     }

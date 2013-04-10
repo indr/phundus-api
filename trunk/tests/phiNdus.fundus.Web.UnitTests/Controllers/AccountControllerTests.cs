@@ -53,28 +53,7 @@ namespace phiNdus.fundus.Web.UnitTests.Controllers {
             // Todo,jac: Validieren der ViewDaten    
         }
         
-        [Test]
-        public void When_logging_in_with_valid_credentials() {
-            var email = "barney@stinson.com";
-            var password = "no1old3RtH4n22";
-            var createCookie = true;
-
-            using (this.MockFactory.Record()) {
-                Expect.Call(this.MembershipServiceMock.ValidateUser(email, password))
-                    .Return(true);
-                Expect.Call(() => this.FormsServiceMock.SignIn(email, createCookie));
-            }
-
-            using (this.MockFactory.Playback()) {
-                var view = this.Sut.LogOn(new LogOnModel {
-                    Email = email,
-                    Password = password,
-                    RememberMe = createCookie
-                }, "GeheimerBereich.cshtml");
-
-                // Todo,jac: Validieren der ViewDaten
-            }
-        }
+        
 
         [Test]
         public void When_logging_off_user_should_be_signed_out() {

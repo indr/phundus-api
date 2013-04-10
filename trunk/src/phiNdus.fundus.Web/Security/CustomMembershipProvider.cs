@@ -6,8 +6,10 @@
     using System.Linq;
     using System.Web;
     using System.Web.Security;
+    using Business;
+    using Business.Mails;
     using Domain;
-    using Domain.Entities;
+    using Domain.Infrastructure;
     using Domain.Repositories;
 
     public class CustomMembershipProvider : MembershipProvider
@@ -92,14 +94,27 @@
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            //return UserService.ChangePassword(HttpContext.Current.Session.SessionID, username, oldPassword, newPassword);
-            throw new NotSupportedException();
+            var user = Users.FindByEmail(username);
+            user.Membership.ChangePassword(oldPassword, newPassword);
+            return true;
         }
 
         public bool ChangeEmail(string email, string newEmail)
         {
-            //return UserService.ChangeEmail(HttpContext.Current.Session.SessionID, email, newEmail);
-            throw new NotSupportedException();
+            email = email.ToLower(CultureInfo.CurrentCulture).Trim();
+            newEmail = newEmail.ToLower(CultureInfo.CurrentCulture).Trim();
+
+            // TODO: In User.ChangeEmail()-Methode verschieben. Teffig bitte!
+            if (Users.FindByEmail(newEmail) != null)
+                throw new EmailAlreadyTakenException();
+
+            var user = Users.FindByEmail(email);
+            user.Membership.RequestedEmail = newEmail;
+            user.Membership.GenerateValidationKey();
+            Users.Update(user);
+            new UserChangeEmailValidationMail().For(user).Send(user);
+
+            return true;
         }
 
         public override MembershipUser CreateUser(string username, string password, string email,
@@ -131,14 +146,36 @@
 
         public bool ValidateValidationKey(string key)
         {
-            //return UserService.ValidateValidationKey(key);
-            throw new NotSupportedException();
+            var user = Users.FindByValidationKey(key);
+            if (user == null)
+                return false;
+
+            var result = user.Membership.ValidateValidationKey(key);
+            if (result)
+            {
+                Users.Update(user);
+                new UserAccountCreatedMail().For(user).Send(Config.FeedbackRecipients);
+            }
+            return result;
         }
 
         public bool ValidateEmailKey(string key)
         {
-            //return UserService.ValidateEmailKey(key);
-            throw new NotSupportedException();
+            var user = Users.FindByValidationKey(key);
+            if (user == null)
+                return false;
+
+            // Prüfen ob Benutzer bereits exisitiert.
+            if (Users.FindByEmail(user.Membership.RequestedEmail) != null)
+                throw new EmailAlreadyTakenException();
+
+            var result = user.Membership.ValidateEmailKey(key);
+            if (result)
+            {
+                Users.Update(user);
+                //new UserAccountCreatedMail().For(user).Send(Settings.Common.AdminEmailAddress);
+            }
+            return result;
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
@@ -154,14 +191,18 @@
 
         public override string GetUserNameByEmail(string email)
         {
-            //return email;
-            throw new NotSupportedException();
+            return email;
         }
 
         public override string ResetPassword(string username, string answer)
         {
-            //return UserService.ResetPassword(HttpContext.Current.Session.SessionID, username);
-            throw new NotSupportedException();
+            var user = Users.FindByEmail(username);
+            if (user == null)
+                throw new Exception("Die E-Mail-Adresse konnte nicht gefunden werden.");
+            var password = user.Membership.ResetPassword();
+            Users.Update(user);
+            new UserResetPasswordMail().For(user, password).Send(user);
+            return password;
         }
 
         public override void UpdateUser(MembershipUser user)
@@ -174,10 +215,10 @@
         {
             username = username.ToLower(CultureInfo.CurrentCulture).Trim();
             var user = Users.FindByEmail(username);
-            
+
             if (user == null)
                 return false;
-            
+
             try
             {
                 user.Membership.LogOn(HttpContext.Current.Session.SessionID, password);

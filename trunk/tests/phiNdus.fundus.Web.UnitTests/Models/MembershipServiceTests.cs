@@ -75,48 +75,6 @@ namespace phiNdus.fundus.Web.UnitTests.Models
             Assert.That(ex.ParamName, Is.EqualTo("password"));
         }
 
-        [Test]
-        public void ValidateUser_should_relay_to_MembershipProvider()
-        {
-            using (MockFactory.Record())
-            {
-                Expect.Call(MockMembershipProvider.ValidateUser("dave@example.com", "password")).Return(true);
-            }
-
-            using (MockFactory.Playback())
-            {
-                bool actual = Sut.ValidateUser("dave@example.com", "password");
-                Assert.That(actual, Is.True);
-            }
-        }
-
-        [Test]
-        public void ValidateUser_with_empty_email_throws()
-        {
-            var ex = Assert.Throws<ArgumentException>(() => Sut.ValidateUser("", "password"));
-            Assert.That(ex.ParamName, Is.EqualTo("email"));
-        }
-
-        [Test]
-        public void ValidateUser_with_empty_password_throws()
-        {
-            var ex = Assert.Throws<ArgumentException>(() => Sut.ValidateUser("dave@example.com", ""));
-            Assert.That(ex.ParamName, Is.EqualTo("password"));
-        }
-
-
-        [Test]
-        public void ValidateUser_with_white_space_email_throws()
-        {
-            var ex = Assert.Throws<ArgumentException>(() => Sut.ValidateUser(" ", "password"));
-            Assert.That(ex.ParamName, Is.EqualTo("email"));
-        }
-
-        [Test]
-        public void ValidateUser_with_white_space_password_throws()
-        {
-            var ex = Assert.Throws<ArgumentException>(() => Sut.ValidateUser("dave@example.com", " "));
-            Assert.That(ex.ParamName, Is.EqualTo("password"));
-        }
+        
     }
 }

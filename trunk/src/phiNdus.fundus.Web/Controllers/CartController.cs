@@ -1,13 +1,15 @@
 ﻿namespace phiNdus.fundus.Web.Controllers
 {
     using System.Web.Mvc;
+    using Business;
+    using Business.Assembler;
+    using Business.Dto;
+    using Business.SecuredServices;
     using Castle.Transactions;
-    using phiNdus.fundus.Business;
-    using phiNdus.fundus.Business.Dto;
-    using phiNdus.fundus.Business.SecuredServices;
-    using phiNdus.fundus.Web.Models;
-    using phiNdus.fundus.Web.Models.CartModels;
-    using phiNdus.fundus.Web.ViewModels;
+    using Domain.Repositories;
+    using Models;
+    using Models.CartModels;
+    using ViewModels;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class CartController : ControllerBase
@@ -16,6 +18,8 @@
         {
             get { return GlobalContainer.Resolve<ICartService>(); }
         }
+
+        public IUserRepository Users { get; set; }
 
         [Transaction]
         public virtual ActionResult Index(int? version)
@@ -89,7 +93,7 @@
 
             var model = new CheckOutViewModel();
             model.Cart = new CartModel(cartDto);
-            model.Customer = new UserModel(cartDto.CustomerId);
+            model.Customer = new UserModel(new UserAssembler().CreateDto(Users.Get(cartDto.CustomerId)));
 
             return View("CheckOut", model);
         }

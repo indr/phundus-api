@@ -1,17 +1,11 @@
-﻿using System.Web.Security;
-
-namespace phiNdus.fundus.Web.Models
+﻿namespace phiNdus.fundus.Web.Models
 {
-    public interface IMembershipService {
-        /// <summary>
-        /// Prüft ob Benutzername und Passwort gültig sind
-        /// </summary>
-        /// <param name="email">E-Mail Adresse des Benutzers</param>
-        /// <param name="password">Passwort des Benutzers</param>
-        /// <returns>true wenn gültig</returns>
-        bool ValidateUser(string email, string password);
+    using System.Web.Security;
 
-        MembershipUser CreateUser(string email, string password, string firstName, string lastName, int jsNumber, int? organizationId, out MembershipCreateStatus status);
+    public interface IMembershipService
+    {
+        MembershipUser CreateUser(string email, string password, string firstName, string lastName, int jsNumber,
+                                  int? organizationId, out MembershipCreateStatus status);
 
         /// <summary>
         /// Prüft ob der Validierungskey gültig ist und aktiviert den Benutzer.
@@ -20,8 +14,7 @@ namespace phiNdus.fundus.Web.Models
         /// <returns><c>True</c>, wenn der Key gefunden und der Benutzer aktiviert werden konnte, andernfalls <c>False</c>.</returns>
         bool ValidateValidationKey(string key);
 
-        bool ChangePassword(string email, string oldPassword, string newPassword);
-        bool ChangeEmailAddress(string email, string newEmail);
+
         bool ValidateEmailKey(string key);
         bool ResetPassword(string email);
     }
