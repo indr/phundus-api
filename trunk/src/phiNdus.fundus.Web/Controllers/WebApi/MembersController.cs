@@ -3,13 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.Http;
-    using Business.Security;
     using Castle.Transactions;
-    using Domain.Entities;
-    using Domain.Repositories;
     using NHibernate;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Repositories;
 
     public class MembersController : ApiController
     {
@@ -27,10 +25,10 @@
             var user = Users.FindByEmail(User.Identity.Name);
 
             if (org == null)
-                throw new HttpException(404, "Die Organisation ist nicht vorhanden.");
+                throw new HttpNotFoundException("Die Organisation ist nicht vorhanden.");
 
             if (!user.IsChiefOf(org))
-                throw new AuthorizationException("Sie haben keine Berechtigung um die Mitglieder zu lesen.");
+                throw new HttpForbiddenException("Sie haben keine Berechtigung um die Mitglieder zu lesen.");
 
             var result = new List<MemberListDto>();
             var members = Members.FindByOrganization(organization);
@@ -64,22 +62,23 @@
             var user = Users.FindByEmail(User.Identity.Name);
 
             if (org == null)
-                throw new HttpException(404, "Die Organisation ist nicht vorhanden.");
+                throw new HttpNotFoundException("Die Organisation ist nicht vorhanden.");
 
             if (user == null || !user.IsChiefOf(org))
-                throw new AuthorizationException("Sie haben keine Berechtigung um die Mitglieder zu lesen.");
+                throw new HttpForbiddenException("Sie haben keine Berechtigung um die Mitglieder zu lesen.");
 
             var member = Members.FindById(value.Id);
             if (member == null)
-                throw new HttpException(404, "Das Mitglied ist nicht vorhanden.");
+                throw new HttpNotFoundException("Das Mitglied ist nicht vorhanden.");
 
             var membership = member.Memberships.FirstOrDefault(p => p.Organization.Id == organization);
             if (membership == null)
-                throw new HttpException(404, "Die Mitgliedschaft ist nicht vorhanden.");
+                throw new HttpNotFoundException("Die Mitgliedschaft ist nicht vorhanden.");
 
             if ((member.Version != value.MemberVersion)
                 || (membership.Version != value.MembershipVersion))
-                throw new HttpException(409, "Das Mitglied oder die Mitgliedschaft wurde in der Zwischenzeit verändert.");
+                throw new HttpConflictException(
+                    "Das Mitglied oder die Mitgliedschaft wurde in der Zwischenzeit verändert.");
 
             if (membership.IsLocked != value.IsLocked)
             {
@@ -103,20 +102,20 @@
         //    throw new NotImplementedException();
         //}
 
-        static MemberDto ToDto(User member, OrganizationMembership membership)
+        private static MemberDto ToDto(User member, OrganizationMembership membership)
         {
             return new MemberDto
-                {
-                    Id = member.Id,
-                    MemberVersion = member.Version,
-                    MembershipVersion = membership.Version,
-                    FirstName = member.FirstName,
-                    LastName = member.LastName,
-                    JsNumber = member.JsNumber,
-                    EmailAddress = member.Membership.Email,
-                    Role = membership.Role,
-                    IsLocked = membership.IsLocked
-                };
+                       {
+                           Id = member.Id,
+                           MemberVersion = member.Version,
+                           MembershipVersion = membership.Version,
+                           FirstName = member.FirstName,
+                           LastName = member.LastName,
+                           JsNumber = member.JsNumber,
+                           EmailAddress = member.Membership.Email,
+                           Role = membership.Role,
+                           IsLocked = membership.IsLocked
+                       };
         }
     }
 

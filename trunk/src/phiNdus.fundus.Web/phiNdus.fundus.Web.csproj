@@ -176,9 +176,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Exceptions\HttpConflictException.cs" />
+    <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Exceptions\HttpNotFoundException.cs" />
     <Compile Include="Models\Organization\OrganizationModel.cs" />
     <Compile Include="Controllers\WebApi\MembersController.cs" />
     <Compile Include="Controllers\WebApi\OrganizationsController.cs" />

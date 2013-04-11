@@ -97,7 +97,6 @@
     <Compile Include="Services\ICartService.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IFieldsService.cs" />
-    <Compile Include="Security\AuthorizationException.cs" />
     <Compile Include="DtoOutOfDateException.cs" />
     <Compile Include="EmailAlreadyTakenException.cs" />
     <Compile Include="EntityNotFoundException.cs" />
