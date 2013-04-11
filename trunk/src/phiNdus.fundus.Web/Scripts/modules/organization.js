@@ -64,9 +64,10 @@ function SettingsCtrl($scope, organizations) {
 }
 
 function MembersCtrl($scope, members) {
-    // TODO: org in RouteParams
     $scope.members = members.query({ org: $scope.organizationId });
+
     $scope.order = 'lastName';
+    
     $scope.orderBy = function (by) {
         if ($scope.order == by)
             $scope.order = '-' + by;
@@ -76,45 +77,76 @@ function MembersCtrl($scope, members) {
 
     $scope.setRole = function (member, roleName, roleValue) {
         if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich die Rolle "' + roleName + '" geben?')) {
-            member.role = roleValue;
-            // TODO: org in RouteParams
-            member.$update({ org: $scope.organizationId },
+            member.$update({ org: $scope.organizationId, action: 'setrole' },
             function (data, putResponseHeaders) {
+                member.role = roleValue;
             },
             function (err) {
-                alert('Fehler: ' + err.data.exceptionMessage);
+                var msg = err.data.message;
+                if (err.data.exceptionMessage != undefined)
+                    msg += "\n\n" + err.data.exceptionMessage;
+                if (err.data.messageDetail != undefined)
+                    msg += "\n\n" + err.data.messageDetail;
+
+
+                alert('Fehler: ' + "\n\n" + msg);
             });
         }
     };
 
-    $scope.approve = function(member) {
+    $scope.approve = function (member) {
         if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich bestätigen?')) {
+            member.$update({ org: $scope.organizationId, action: 'approve' },
+            function (data, putResponseHeaders) {
+                member.isApproved = true;
+            },
+            function (err) {
+                var msg = err.data.message;
+                if (err.data.exceptionMessage != undefined)
+                    msg += "\n\n" + err.data.exceptionMessage;
+                if (err.data.messageDetail != undefined)
+                    msg += "\n\n" + err.data.messageDetail;
 
+
+                alert('Fehler: ' + "\n\n" + msg);
+            });
         }
     };
 
     $scope.lock = function (member) {
         if (confirm('Möchen Sie "' + member.firstName + ' ' + member.lastName + '" wirklich sperren?')) {
-            member.isLocked = true;
-            // TODO: org in RouteParams
-            member.$update({ org: $scope.organizationId },
+            member.$update({ org: $scope.organizationId, action: 'lock' },
             function (data, putResponseHeaders) {
+                member.isLocked = true;
             },
             function (err) {
-                alert('Fehler: ' + err.data.exceptionMessage);
+                var msg = err.data.message;
+                if (err.data.exceptionMessage != undefined)
+                    msg += "\n\n" + err.data.exceptionMessage;
+                if (err.data.messageDetail != undefined)
+                    msg += "\n\n" + err.data.messageDetail;
+
+
+                alert('Fehler: ' + "\n\n" + msg);
             });
         }
     };
 
     $scope.unlock = function (member) {
         if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich entsperren?')) {
-            member.isLocked = false;
-            // TODO: org in RouteParams
-            member.$update({ org: $scope.organizationId },
+            member.$update({ org: $scope.organizationId, action: 'unlock' },
             function (data, putResponseHeaders) {
+                member.isLocked = false;
             },
             function (err) {
-                alert('Fehler: ' + err.data.exceptionMessage);
+                var msg = err.data.message;
+                if (err.data.exceptionMessage != undefined)
+                    msg += "\n\n" + err.data.exceptionMessage;
+                if (err.data.messageDetail != undefined)
+                    msg += "\n\n" + err.data.messageDetail;
+
+
+                alert('Fehler: ' + "\n\n" + msg);
             });
         }
     };

@@ -3,10 +3,9 @@
 
     .factory('members', function ($resource) {
         var member = $resource(
-        // TODO: Url?
-            './api/:org/members/:id',
+            './api/:org/members/:id/:action',
             { id: '@id' },
-            { update: { method: 'PUT'} }
+            { update: { method: 'PUT' } }
         );
 
         return member;
@@ -15,7 +14,7 @@
     .factory('organizations', function ($resource) {
         var organization = $resource(
             './api/organizations/:id',
-            { id: '@id'},
+            { id: '@id', action: 'update' },
             { update: { method: 'PUT' } }
         );
 
