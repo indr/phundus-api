@@ -1,12 +1,10 @@
-﻿using System;
-using System.Net.Mail;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Settings;
-
-namespace phiNdus.fundus.Business.Mails
+﻿namespace phiNdus.fundus.Business.Mails
 {
-    using System.Configuration;
+    using System;
+    using System.Net.Mail;
+    using Domain.Entities;
     using Domain.Infrastructure;
+    using Domain.Settings;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class UserChangeEmailValidationMail : BaseMail
@@ -14,7 +12,6 @@ namespace phiNdus.fundus.Business.Mails
         public UserChangeEmailValidationMail()
             : base(Settings.Mail.Templates.UserChangeEmailValidationMail)
         {
-            
         }
 
         public void Send(User user)
@@ -27,11 +24,11 @@ namespace phiNdus.fundus.Business.Mails
             Guard.Against<ArgumentNullException>(user == null, "user");
 
             Model = new
-            {
-                Settings = Settings.GetSettings(),
-                Urls = new Urls(Config.ServerUrl),
-                User = user
-            };
+                {
+                    Settings = Settings.GetSettings(),
+                    Urls = new Urls(Config.ServerUrl),
+                    User = user
+                };
             //DataContext.Add("User", user);
             //DataContext.Add("Membership", user.Membership);
             return this;
@@ -43,7 +40,6 @@ namespace phiNdus.fundus.Business.Mails
         public UserResetPasswordMail()
             : base(Settings.Mail.Templates.UserResetPasswordMail)
         {
-            
         }
 
         public void Send(User user)
@@ -56,12 +52,12 @@ namespace phiNdus.fundus.Business.Mails
             Guard.Against<ArgumentNullException>(user == null, "user");
 
             Model = new
-            {
-                Settings = Settings.GetSettings(),
-                Urls = new Urls(Config.ServerUrl),
-                Password = password,
-                User = user
-            };
+                {
+                    Settings = Settings.GetSettings(),
+                    Urls = new Urls(Config.ServerUrl),
+                    Password = password,
+                    User = user
+                };
             return this;
         }
     }
@@ -82,11 +78,11 @@ namespace phiNdus.fundus.Business.Mails
             Guard.Against<ArgumentNullException>(user == null, "user");
 
             Model = new
-                        {
-                            Settings = Settings.GetSettings(),
-                            Urls = new Urls(Config.ServerUrl),
-                            User = user
-                        };
+                {
+                    Settings = Settings.GetSettings(),
+                    Urls = new Urls(Config.ServerUrl),
+                    User = user
+                };
             //DataContext.Add("User", user);
             //DataContext.Add("Membership", user.Membership);
             return this;
@@ -111,11 +107,11 @@ namespace phiNdus.fundus.Business.Mails
             Guard.Against<ArgumentNullException>(user == null, "user");
 
             Model = new
-            {
-                Settings = Settings.GetSettings(),
-                Urls = new Urls(Config.ServerUrl),
-                User = user
-            };
+                {
+                    Settings = Settings.GetSettings(),
+                    Urls = new Urls(Config.ServerUrl),
+                    User = user
+                };
             //DataContext.Add("User", user);
             //DataContext.Add("Membership", user.Membership);
             return this;
@@ -145,11 +141,11 @@ namespace phiNdus.fundus.Business.Mails
             Guard.Against<ArgumentNullException>(user == null, "user");
 
             Model = new
-            {
-                Settings = Settings.GetSettings(),
-                Urls = new Urls(Config.ServerUrl),
-                User = user
-            };
+                {
+                    Settings = Settings.GetSettings(),
+                    Urls = new Urls(Config.ServerUrl),
+                    User = user
+                };
             //DataContext.Add("User", user);
             //DataContext.Add("Membership", user.Membership);
             return this;
@@ -161,7 +157,7 @@ namespace phiNdus.fundus.Business.Mails
         }
     }
 
-    
+
     public class UserAccountCreatedMail : BaseMail
     {
         public UserAccountCreatedMail()
@@ -179,11 +175,11 @@ namespace phiNdus.fundus.Business.Mails
             Guard.Against<ArgumentNullException>(user == null, "user");
 
             Model = new
-                        {
-                            Settings = Settings.GetSettings(),
-                            Urls = new Urls(Config.ServerUrl),
-                            User = user
-                        };
+                {
+                    Settings = Settings.GetSettings(),
+                    Urls = new Urls(Config.ServerUrl),
+                    User = user
+                };
             //DataContext.Add("User", user);
             //DataContext.Add("Membership", user.Membership);
             return this;
@@ -205,17 +201,17 @@ namespace phiNdus.fundus.Business.Mails
         public OrderReceivedMail For(Order order)
         {
             Model = new
-                        {
-                            Settings = Settings.GetSettings(),
-                            Urls = new Urls(Config.ServerUrl),
-                            User = order.Reserver,
-                            Order = order
-                        };
-            
+                {
+                    Settings = Settings.GetSettings(),
+                    Urls = new Urls(Config.ServerUrl),
+                    User = order.Reserver,
+                    Order = order
+                };
+
             Attachments.Add(new Attachment(order.GeneratePdf(),
                                            String.Format("Order-{0}.pdf", order.Id),
                                            "application/pdf"));
-            
+
             return this;
         }
 
@@ -242,12 +238,12 @@ namespace phiNdus.fundus.Business.Mails
         public OrderRejectedMail For(Order order)
         {
             Model = new
-            {
-                Settings = Settings.GetSettings(),
-                Urls = new Urls(Config.ServerUrl),
-                User = order.Reserver,
-                Order = order
-            };
+                {
+                    Settings = Settings.GetSettings(),
+                    Urls = new Urls(Config.ServerUrl),
+                    User = order.Reserver,
+                    Order = order
+                };
 
             Attachments.Add(new Attachment(order.GeneratePdf(),
                                            String.Format("Order-{0}.pdf", order.Id),
@@ -272,17 +268,17 @@ namespace phiNdus.fundus.Business.Mails
         public OrderApprovedMail For(Order order)
         {
             Model = new
-            {
-                Settings = Settings.GetSettings(),
-                Urls = new Urls(Config.ServerUrl),
-                User = order.Reserver,
-                Order = order
-            };
+                {
+                    Settings = Settings.GetSettings(),
+                    Urls = new Urls(Config.ServerUrl),
+                    User = order.Reserver,
+                    Order = order
+                };
 
             Attachments.Add(new Attachment(order.GeneratePdf(),
                                            String.Format("Order-{0}.pdf", order.Id),
                                            "application/pdf"));
-            
+
             return this;
         }
 
