@@ -42,6 +42,27 @@
             return result;
         }
 
+        [HttpPut]
+        [Transaction]
+        public virtual void Approve(int organization, int id)
+        {
+            throw new HttpForbiddenException("Trallalla: Approve");
+        }
+
+        [HttpPut]
+        [Transaction]
+        public virtual void Lock(int organization, int id)
+        {
+            throw new HttpForbiddenException("Trallalla: Lock");
+        }
+        
+        [HttpPut]
+        [Transaction]
+        public virtual void Unlock(int organization, int id)
+        {
+            throw new HttpForbiddenException("Trallalla: Unlock");
+        }
+
         // GET api/{organization}/members/5
         //public MemberDto Get(int organization, int id)
         //{
@@ -79,14 +100,6 @@
                 || (membership.Version != value.MembershipVersion))
                 throw new HttpConflictException(
                     "Das Mitglied oder die Mitgliedschaft wurde in der Zwischenzeit verändert.");
-
-            if (membership.IsLockedOut != value.IsLocked)
-            {
-                if (value.IsLocked)
-                    membership.Lock();
-                else if (value.IsLocked == false)
-                    membership.Unlock();
-            }
 
             membership.Role = value.Role;
 
