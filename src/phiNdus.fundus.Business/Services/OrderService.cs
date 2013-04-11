@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Web;
     using Assembler;
     using Domain.Entities;
     using Domain.Repositories;
@@ -12,6 +13,8 @@
 
     public class OrderService : BaseService, IOrderService
     {
+        public IUserRepository Users { get; set; }
+
         #region IOrderService Members
 
         public virtual OrderDto GetOrder(int id)
@@ -56,7 +59,8 @@
         {
             using (UnitOfWork.Start())
             {
-                var orders = GlobalContainer.Resolve<IOrderRepository>().FindMy(SecurityContext.SecuritySession.User.Id);
+                var user = Users.FindByEmail(HttpContext.Current.User.Identity.Name);
+                var orders = GlobalContainer.Resolve<IOrderRepository>().FindMy(user.Id);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
@@ -86,7 +90,8 @@
                 var repo = GlobalContainer.Resolve<IOrderRepository>();
                 var order = repo.Get(id);
 
-                order.Reject(SecurityContext.SecuritySession.User);
+                var user = Users.FindByEmail(HttpContext.Current.User.Identity.Name);
+                order.Reject(user);
                 repo.Update(order);
 
                 new OrderRejectedMail()
@@ -106,7 +111,8 @@
                 var repo = GlobalContainer.Resolve<IOrderRepository>();
                 var order = repo.Get(id);
 
-                order.Approve(SecurityContext.SecuritySession.User);
+                var user = Users.FindByEmail(HttpContext.Current.User.Identity.Name);
+                order.Approve(user);
                 repo.Update(order);
 
                 new OrderApprovedMail()

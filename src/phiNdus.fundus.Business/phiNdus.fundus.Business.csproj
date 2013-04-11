@@ -97,8 +97,6 @@
     <Compile Include="Services\ICartService.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IFieldsService.cs" />
-    <Compile Include="Security\Constraints\AbstractConstraint.cs" />
-    <Compile Include="Security\Constraints\AndConstraint.cs" />
     <Compile Include="Security\AuthorizationException.cs" />
     <Compile Include="DtoOutOfDateException.cs" />
     <Compile Include="EmailAlreadyTakenException.cs" />
@@ -111,18 +109,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Assembler\UserAssembler.cs" />
     <Compile Include="Dto\UserDto.cs" />
-    <Compile Include="Security\Constraints\NotConstraint.cs" />
-    <Compile Include="Security\Constraints\SessionFromKeyConstraint.cs" />
-    <Compile Include="Security\Constraints\TrueConstraint.cs" />
-    <Compile Include="Security\Constraints\UserHasEmailConstraint.cs" />
-    <Compile Include="Security\Constraints\UserIsContraint.cs" />
-    <Compile Include="Security\Constraints\UserInRoleConstraint.cs" />
-    <Compile Include="Security\InvalidSessionKeyException.cs" />
-    <Compile Include="Security\Constraints\OrConstraint.cs" />
-    <Compile Include="Security\Constraints\User.cs" />
     <Compile Include="Security\SecurityContext.cs" />
     <Compile Include="Security\SecuritySession.cs" />
-    <Compile Include="Security\Constraints\Session.cs" />
     <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\OrderService.cs" />

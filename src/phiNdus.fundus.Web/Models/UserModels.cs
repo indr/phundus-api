@@ -11,7 +11,7 @@
     using Domain.Entities;
     using Domain.Repositories;
     using piNuts.phundus.Infrastructure.Obsolete;
-    using User = Business.Security.Constraints.User;
+    
 
     public class UserModel : ModelBase
     {

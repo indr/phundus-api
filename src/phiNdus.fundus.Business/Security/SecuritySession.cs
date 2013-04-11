@@ -32,7 +32,7 @@ namespace phiNdus.fundus.Business.Security
                 //user = repo.FindBySessionKey(key);
                 user = repo.FindByEmail(HttpContext.Current.User.Identity.Name);
 
-                Guard.Against<InvalidSessionKeyException>(user == null, "");
+                Guard.Against<Exception>(user == null, "");
 
                 NHibernateUtil.Initialize(user.Memberships);
             }
