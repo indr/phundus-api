@@ -120,7 +120,6 @@
     <Compile Include="Security\InvalidSessionKeyException.cs" />
     <Compile Include="Security\Constraints\OrConstraint.cs" />
     <Compile Include="Security\Constraints\User.cs" />
-    <Compile Include="Security\Secured.cs" />
     <Compile Include="Security\SecurityContext.cs" />
     <Compile Include="Security\SecuritySession.cs" />
     <Compile Include="Security\Constraints\Session.cs" />
