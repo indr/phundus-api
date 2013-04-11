@@ -80,7 +80,7 @@
                 throw new HttpConflictException(
                     "Das Mitglied oder die Mitgliedschaft wurde in der Zwischenzeit verändert.");
 
-            if (membership.IsLocked != value.IsLocked)
+            if (membership.IsLockedOut != value.IsLocked)
             {
                 if (value.IsLocked)
                     membership.Lock();
@@ -114,7 +114,12 @@
                            JsNumber = member.JsNumber,
                            EmailAddress = member.Membership.Email,
                            Role = membership.Role,
-                           IsLocked = membership.IsLocked
+
+                           RequestDate = membership.RequestDate,
+                           IsLocked = membership.IsLockedOut,
+                           LastLockoutDate = membership.LastLockoutDate,
+                           IsApproved = membership.IsApproved,
+                           ApprovalDate = membership.ApprovalDate
                        };
         }
     }
@@ -122,14 +127,24 @@
     public class MemberListDto
     {
         public int Id { get; set; }
+        public int MemberVersion { get; set; }
+        public int MembershipVersion { get; set; }
+        
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int? JsNumber { get; set; }
         public string EmailAddress { get; set; }
+        
         public int Role { get; set; }
+
+        public DateTime? RequestDate { get; set; }
+
         public bool IsLocked { get; set; }
-        public int MemberVersion { get; set; }
-        public int MembershipVersion { get; set; }
+        public DateTime? LastLockoutDate { get; set; }
+
+        public bool IsApproved { get; set; }
+        public DateTime? ApprovalDate { get; set; }
+        
     }
 
     public class MemberDto : MemberListDto

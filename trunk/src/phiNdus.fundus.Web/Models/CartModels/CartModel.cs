@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Web.ViewModels;
 
 namespace phiNdus.fundus.Web.Models.CartModels
 {
     using System.Linq;
+    using Business.Dto;
 
     public class CartModel : ViewModelBase
     {

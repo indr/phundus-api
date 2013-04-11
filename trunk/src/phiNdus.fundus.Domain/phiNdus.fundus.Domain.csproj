@@ -102,7 +102,15 @@
     <Compile Include="Inventory\GrossStockCalculator.cs" />
     <Compile Include="KeyGenerator.cs" />
     <Compile Include="Mails\BaseMail.cs" />
+    <Compile Include="Mails\OrderApprovedMail.cs" />
+    <Compile Include="Mails\OrderReceivedMail.cs" />
+    <Compile Include="Mails\OrderRejectedMail.cs" />
+    <Compile Include="Mails\UserAccountCreatedMail.cs" />
     <Compile Include="Mails\UserAccountValidationMail.cs" />
+    <Compile Include="Mails\UserChangeEmailValidationMail.cs" />
+    <Compile Include="Mails\UserLockedOutMail.cs" />
+    <Compile Include="Mails\UserResetPasswordMail.cs" />
+    <Compile Include="Mails\UserUnlockedMail.cs" />
     <Compile Include="PasswordEncryptor.cs" />
     <Compile Include="FieldAlreadyAttachedException.cs" />
     <Compile Include="PasswordGenerator.cs" />

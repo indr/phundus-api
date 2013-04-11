@@ -1,8 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace phiNdus.fundus.Business.Dto
+﻿namespace phiNdus.fundus.Web.Business.Dto
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class AvailabilityDto
     {
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]

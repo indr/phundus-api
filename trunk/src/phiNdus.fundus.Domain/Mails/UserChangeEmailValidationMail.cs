@@ -6,18 +6,19 @@
     using Settings;
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class UserAccountValidationMail : BaseMail
+    public class UserChangeEmailValidationMail : BaseMail
     {
-        public UserAccountValidationMail() : base(Settings.Mail.Templates.UserAccountValidation)
+        public UserChangeEmailValidationMail()
+            : base(Settings.Mail.Templates.UserChangeEmailValidationMail)
         {
         }
 
         public void Send(User user)
         {
-            Send(user.Membership.Email);
+            Send(user.Membership.RequestedEmail);
         }
 
-        public UserAccountValidationMail For(User user)
+        public UserChangeEmailValidationMail For(User user)
         {
             Guard.Against<ArgumentNullException>(user == null, "user");
 

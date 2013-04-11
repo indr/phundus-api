@@ -1,10 +1,11 @@
-﻿namespace phiNdus.fundus.Business.Services
+﻿namespace phiNdus.fundus.Web.Business.Services
 {
     using System;
     using System.Collections.Generic;
     using Assembler;
-    using Domain.Repositories;
     using Dto;
+    using fundus.Business;
+    using phiNdus.fundus.Domain.Repositories;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class PropertyService : BaseService, IPropertyService

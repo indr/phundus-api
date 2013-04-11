@@ -3,8 +3,8 @@
     using System;
     using System.Web.Mvc;
     using Business.Assembler;
-    using Business.Mails;
     using Castle.Transactions;
+    using Domain.Mails;
     using Domain.Repositories;
     using Models;
     using piNuts.phundus.Infrastructure.Obsolete;

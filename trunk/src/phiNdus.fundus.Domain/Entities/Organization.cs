@@ -8,6 +8,7 @@
     {
         ISet<OrganizationMembership> _memberships = new HashedSet<OrganizationMembership>();
         string _startpage;
+        private DateTime _createDate = DateTime.Now;
 
         public Organization()
         {
@@ -15,6 +16,12 @@
 
         public Organization(int id) : base(id)
         {
+        }
+
+        public virtual DateTime CreateDate
+        {
+            get { return _createDate; }
+            protected set { _createDate = value; }
         }
 
         public virtual string Name { get; set; }

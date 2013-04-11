@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace phiNdus.fundus.Business.Dto
+﻿namespace phiNdus.fundus.Web.Business.Dto
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class BasePropertiesDto
     {
         private IList<FieldValueDto> _properties = new List<FieldValueDto>();

@@ -7,10 +7,11 @@
     using System.Web;
     using System.Web.Security;
     using Business;
-    using Business.Mails;
     using Domain;
     using Domain.Infrastructure;
+    using Domain.Mails;
     using Domain.Repositories;
+    using fundus.Business;
 
     public class CustomMembershipProvider : MembershipProvider
     {

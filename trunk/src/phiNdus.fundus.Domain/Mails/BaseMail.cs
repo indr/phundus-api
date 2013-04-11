@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Net.Mime;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using phiNdus.fundus.Business.Gateways;
-using phiNdus.fundus.Domain.Settings;
-using RazorEngine;
-
-namespace phiNdus.fundus.Business.Mails
+﻿namespace phiNdus.fundus.Domain.Mails
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Mail;
+    using System.Net.Mime;
+    using phiNdus.fundus.Business.Gateways;
+    using phiNdus.fundus.Domain.Settings;
+    using RazorEngine;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class BaseMail

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace phiNdus.fundus.Business.Dto
+﻿namespace phiNdus.fundus.Web.Business.Dto
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class CartDto
     {
         private IList<CartItemDto> _items = new List<CartItemDto>();

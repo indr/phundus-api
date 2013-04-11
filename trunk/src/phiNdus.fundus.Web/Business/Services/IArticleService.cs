@@ -1,8 +1,8 @@
-﻿namespace phiNdus.fundus.Business.Services
+﻿namespace phiNdus.fundus.Web.Business.Services
 {
     using System.Collections.Generic;
     using Dto;
-    using Paging;
+    using phiNdus.fundus.Business.Paging;
 
     public interface IArticleService
     {

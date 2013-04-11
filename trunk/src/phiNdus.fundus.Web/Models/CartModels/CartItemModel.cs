@@ -2,12 +2,13 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using DataAnnotationsExtensions;
-using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Web.Helpers;
 using phiNdus.fundus.Web.ViewModels;
 
 namespace phiNdus.fundus.Web.Models.CartModels
 {
+    using Business.Dto;
+
     public class CartItemModel : ViewModelBase
     {
         public CartItemModel()

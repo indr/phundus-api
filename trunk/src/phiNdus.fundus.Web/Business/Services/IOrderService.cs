@@ -1,9 +1,9 @@
-﻿namespace phiNdus.fundus.Business.Services
+﻿namespace phiNdus.fundus.Web.Business.Services
 {
     using System.Collections.Generic;
     using System.IO;
+    using Dto;
     using phiNdus.fundus.Domain.Entities;
-    using phiNdus.fundus.Business.Dto;
 
     public interface IOrderService
     {

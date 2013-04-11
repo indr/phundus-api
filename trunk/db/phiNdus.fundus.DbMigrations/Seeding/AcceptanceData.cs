@@ -68,60 +68,60 @@
             foreach (var each in records)
             {
                 Insert.IntoTable("Article").InSchema(SchemaName).Row(new
-                                                                         {
-                                                                             each.Id,
-                                                                             each.Version,
-                                                                             @Type =
+                    {
+                        each.Id,
+                        each.Version,
+                        @Type =
                                                                          "phiNdus.fundus.Domain.Entities.Article",
-                                                                             each.OrganizationId,
-                                                                             CreateDate = DateTime.Now
-                                                                         });
+                        each.OrganizationId,
+                        CreateDate = DateTime.Now
+                    });
 
                 Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                                                                            {
-                                                                                Id = fieldValueId++,
-                                                                                each.Version,
-                                                                                ArticleId = each.Id,
-                                                                                FieldDefinitionId = 2,
-                                                                                IsDiscriminator = false,
-                                                                                TextValue = each.Name
-                                                                            });
+                    {
+                        Id = fieldValueId++,
+                        each.Version,
+                        ArticleId = each.Id,
+                        FieldDefinitionId = 2,
+                        IsDiscriminator = false,
+                        TextValue = each.Name
+                    });
                 Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                                                                            {
-                                                                                Id = fieldValueId++,
-                                                                                each.Version,
-                                                                                ArticleId = each.Id,
-                                                                                FieldDefinitionId = 3,
-                                                                                IsDiscriminator = false,
-                                                                                TextValue = each.Marke
-                                                                            });
+                    {
+                        Id = fieldValueId++,
+                        each.Version,
+                        ArticleId = each.Id,
+                        FieldDefinitionId = 3,
+                        IsDiscriminator = false,
+                        TextValue = each.Marke
+                    });
                 Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                                                                            {
-                                                                                Id = fieldValueId++,
-                                                                                each.Version,
-                                                                                ArticleId = each.Id,
-                                                                                FieldDefinitionId = 4,
-                                                                                IsDiscriminator = false,
-                                                                                DecimalValue = each.Preis
-                                                                            });
+                    {
+                        Id = fieldValueId++,
+                        each.Version,
+                        ArticleId = each.Id,
+                        FieldDefinitionId = 4,
+                        IsDiscriminator = false,
+                        DecimalValue = each.Preis
+                    });
                 Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                                                                            {
-                                                                                Id = fieldValueId++,
-                                                                                each.Version,
-                                                                                ArticleId = each.Id,
-                                                                                FieldDefinitionId = 8,
-                                                                                IsDiscriminator = false,
-                                                                                TextValue = each.Beschreibung
-                                                                            });
+                    {
+                        Id = fieldValueId++,
+                        each.Version,
+                        ArticleId = each.Id,
+                        FieldDefinitionId = 8,
+                        IsDiscriminator = false,
+                        TextValue = each.Beschreibung
+                    });
                 Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                                                                            {
-                                                                                Id = fieldValueId++,
-                                                                                each.Version,
-                                                                                ArticleId = each.Id,
-                                                                                FieldDefinitionId = 10,
-                                                                                IsDiscriminator = false,
-                                                                                IntegerValue = each.Bestand
-                                                                            });
+                    {
+                        Id = fieldValueId++,
+                        each.Version,
+                        ArticleId = each.Id,
+                        FieldDefinitionId = 10,
+                        IsDiscriminator = false,
+                        IntegerValue = each.Bestand
+                    });
             }
 
             Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}].[{1}] OFF", SchemaName, "Article"));
@@ -144,10 +144,10 @@
         private static IEnumerable<T> GetRecords<T>(string fileName) where T : class
         {
             var configuration = new CsvConfiguration
-                                    {
-                                        Delimiter = ";",
-                                        Encoding = Encoding.UTF8
-                                    };
+                {
+                    Delimiter = ";",
+                    Encoding = Encoding.UTF8
+                };
             var csv = new CsvReader(new StreamReader(HostingEnvironment.MapPath(@"~\App_Data\Seeds\" + fileName)),
                                     configuration);
             return csv.GetRecords<T>();
@@ -158,29 +158,9 @@
             // Nothing to do here...
         }
 
-        public class ArticleImage
-        {
-            private static int _id = 1;
-            public int Id { get { return _id++; } }
-
-            public int Version { get { return 1; } }
-
-            [CsvField(Name = "ArtikelId")]
-            public int ArticleId { get; set; }
-
-            [CsvField(Name = "Länge")]
-            public int Length { get; set; }
-
-            [CsvField(Name = "Typ")]
-            public string Type { get; set; }
-
-            [CsvField(Name = "Dateiname")]
-            public string FileName { get; set; }
-        }
-
         #region Nested type: Article
 
-        public class Article
+        internal class Article
         {
             [CsvField(Name = "Id")]
             public int Id { get; set; }
@@ -211,11 +191,43 @@
 
         #endregion
 
-        #region Nested type: Membership
+        #region Nested type: ArticleImage
 
-        public class Membership
+        public class ArticleImage
         {
             private static int _id = 1;
+
+            public int Id
+            {
+                get { return _id++; }
+            }
+
+            public int Version
+            {
+                get { return 1; }
+            }
+
+            [CsvField(Name = "ArtikelId")]
+            public int ArticleId { get; set; }
+
+            [CsvField(Name = "Länge")]
+            public int Length { get; set; }
+
+            [CsvField(Name = "Typ")]
+            public string Type { get; set; }
+
+            [CsvField(Name = "Dateiname")]
+            public string FileName { get; set; }
+        }
+
+        #endregion
+
+        #region Nested type: Membership
+
+        internal class Membership
+        {
+            private static int _id = 1;
+            private bool _isApproved = true;
 
             public int Id
             {
@@ -236,6 +248,28 @@
             [CsvField(Name = "Role")]
             [TypeConverter(typeof (RoleConverter))]
             public int Role { get; set; }
+
+            public DateTime RequestDate
+            {
+                get { return DateTime.Now; }
+            }
+
+            [CsvField(Name = "IsApproved")]
+            public bool IsApproved
+            {
+                get { return _isApproved; }
+                set { _isApproved = value; }
+            }
+
+            public DateTime ApprovalDate
+            {
+                get { return DateTime.Now; }
+            }
+
+            public bool IsLocked
+            {
+                get { return false; }
+            }
         }
 
         #endregion
@@ -260,13 +294,18 @@
 
             [CsvField(Name = "Website")]
             public string Website { get; set; }
+
+            public DateTime CreateDate
+            {
+                get { return DateTime.Now; }
+            }
         }
 
         #endregion
 
         #region Nested type: Setting
 
-        public class Setting
+        internal class Setting
         {
             private static int _id = 1;
 
@@ -291,7 +330,7 @@
 
         #region Nested type: User
 
-        public class User
+        internal class User
         {
             private string _jsNumber;
 
@@ -337,7 +376,7 @@
 
         #region Nested type: UserMembership
 
-        public class UserMembership
+        internal class UserMembership
         {
             private string _email;
 

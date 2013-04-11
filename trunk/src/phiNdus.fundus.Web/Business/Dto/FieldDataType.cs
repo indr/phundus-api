@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Business.Dto
+﻿namespace phiNdus.fundus.Web.Business.Dto
 {
     public enum FieldDataType
     {

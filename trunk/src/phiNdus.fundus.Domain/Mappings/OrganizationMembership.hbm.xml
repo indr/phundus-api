@@ -12,6 +12,14 @@
     <many-to-one name="Organization" class="Organization" column="OrganizationId" />
     
     <property name="Role" />
-    <property name="IsLocked" />
+
+    <property name="RequestDate" update="false" />
+  
+    <property name="IsApproved" />
+    <property name="ApprovalDate" />
+    
+    <property name="IsLockedOut" column="IsLocked" />
+    <property name="LastLockoutDate" />
+    
   </class>
 </hibernate-mapping>

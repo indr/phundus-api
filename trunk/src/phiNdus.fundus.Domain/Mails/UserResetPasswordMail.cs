@@ -6,9 +6,10 @@
     using Settings;
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class UserAccountValidationMail : BaseMail
+    public class UserResetPasswordMail : BaseMail
     {
-        public UserAccountValidationMail() : base(Settings.Mail.Templates.UserAccountValidation)
+        public UserResetPasswordMail()
+            : base(Settings.Mail.Templates.UserResetPasswordMail)
         {
         }
 
@@ -17,7 +18,7 @@
             Send(user.Membership.Email);
         }
 
-        public UserAccountValidationMail For(User user)
+        public UserResetPasswordMail For(User user, string password)
         {
             Guard.Against<ArgumentNullException>(user == null, "user");
 
@@ -25,10 +26,9 @@
                 {
                     Settings = Settings.GetSettings(),
                     Urls = new Urls(Config.ServerUrl),
+                    Password = password,
                     User = user
                 };
-            //DataContext.Add("User", user);
-            //DataContext.Add("Membership", user.Membership);
             return this;
         }
     }

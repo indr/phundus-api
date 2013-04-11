@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web;
-using phiNdus.fundus.Business.Dto;
 
 namespace phiNdus.fundus.Web.Helpers
 {
+    using Business.Dto;
+
     public class ImageStore
     {
         private string _filePath;

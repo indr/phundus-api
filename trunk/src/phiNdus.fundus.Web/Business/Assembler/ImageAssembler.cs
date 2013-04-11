@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Business.Assembler
+﻿namespace phiNdus.fundus.Web.Business.Assembler
 {
+    using System.Collections.Generic;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Web.Business.Dto;
+
     public class ImageAssembler
     {
         public Image CreateDomainObject(ImageDto subject)

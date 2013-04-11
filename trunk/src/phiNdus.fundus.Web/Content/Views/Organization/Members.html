@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody ng-init="roles = [{name:'Verwaltung',value:'2' },{name:'Mitglied',value:'1'},{name:'Gast',value: '0'}]">
-        <tr ng-repeat="member in members | filter:search | orderBy:order">
+        <tr ng-repeat="member in members | filter:search |  orderBy:'isApproved' | orderBy:order">
             <td>{{member.id}}</td>
             <td>{{member.firstName}}</td>
             <td>{{member.lastName}}</td>
@@ -35,7 +35,7 @@
             </td>
             <td ng-show="member.role == 1">
                 <div class="btn-group" >
-                    <a class="btn btn-small btn-info dropdown-toggle" data-toggle="dropdown" href="">
+                    <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="">
                         Mitglied
                         <span class="caret"></span>
                     </a>
@@ -56,8 +56,9 @@
                 </div>
             </td>
             <td>
-                <a class="btn btn-small btn-danger" ng-show="member.isLocked" href="" ng-click="unlock(member)">Entsperren</a>
-                <a class="btn btn-small btn-inverse" ng-hide="member.isLocked" href="" ng-click="lock(member)">Sperren</a>
+                <a class="btn btn-small btn-inverse" ng-show="member.isLocked && member.isApproved" href="" ng-click="unlock(member)">Entsperren</a>
+                <a class="btn btn-small" ng-show="!member.isLocked && member.isApproved" href="" ng-click="lock(member)">Sperren</a>
+                <a class="btn btn-small btn-success" ng-show="!member.isApproved" href="" ng-click="approve(member)">Bestätigen</a>
             </td>
         </tr>
     </tbody>

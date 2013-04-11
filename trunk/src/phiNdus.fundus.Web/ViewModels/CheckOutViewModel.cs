@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using phiNdus.fundus.Business.Dto;
 using phiNdus.fundus.Web.Models;
 using phiNdus.fundus.Web.Models.CartModels;
 

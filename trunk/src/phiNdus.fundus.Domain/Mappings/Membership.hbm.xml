@@ -21,7 +21,7 @@
     <property name="RequestedEmail" />
     <property name="IsApproved" />
     <property name="IsLockedOut" />
-    <property name="CreateDate" />
+    <property name="CreateDate" update="false" />
     <property name="LastLogOnDate" />
     <property name="LastPasswordChangeDate" />
     <property name="LastLockoutDate" />
