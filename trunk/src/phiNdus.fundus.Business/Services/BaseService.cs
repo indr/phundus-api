@@ -1,25 +1,13 @@
-﻿using System;
-using phiNdus.fundus.Business.Security;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Business.Services
+﻿namespace phiNdus.fundus.Business.Services
 {
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using phiNdus.fundus.Business.Security;
+    using phiNdus.fundus.Domain.Entities;
 
     public class BaseService
     {
-        private SecurityContext _securityContext;
-        private bool _sessionSet;
-
-        public SecurityContext SecurityContext
+        private SecurityContext SecurityContext
         {
-            get { return _securityContext; }
-            set
-            {
-                Guard.Against<InvalidOperationException>(_sessionSet, "SecurityContext can only be set once");
-                _sessionSet = true;
-                _securityContext = value;
-            }
+            get { return null; }
         }
 
         public Organization SelectedOrganization

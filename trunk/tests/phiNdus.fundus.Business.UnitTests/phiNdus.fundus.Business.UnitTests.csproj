@@ -79,21 +79,7 @@
     <Compile Include="Mails\BaseMailTests.cs" />
     <Compile Include="Paging\PagedResultTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\Constraints\BaseConstraintTestFixture.cs" />
-    <Compile Include="Security\Constraints\AlwaysFalseConstraint.cs" />
-    <Compile Include="Security\Constraints\AlwaysTrueConstraint.cs" />
-    <Compile Include="Security\Constraints\AndConstraintTests.cs" />
-    <Compile Include="Security\Constraints\NotConstraintTests.cs" />
-    <Compile Include="Security\Constraints\OrConstraintTests.cs" />
-    <Compile Include="Security\Constraints\UserHasEmailConstraint.cs" />
-    <Compile Include="Security\Constraints\UserInRoleConstraintTests.cs" />
-    <Compile Include="Security\Constraints\UserIsContraintTests.cs" />
-    <Compile Include="Security\SecurityContextTests.cs" />
-    <Compile Include="ServicesTests\ArticleServiceTests.cs" />
-    <Compile Include="ServicesTests\BaseServiceTests.cs" />
     <Compile Include="Mails\UserAccountValidationMailTest.cs" />
-    <Compile Include="ServicesTests\OrderServiceTests\GetAndFindTests.cs" />
-    <Compile Include="ServicesTests\PropertyServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\piNuts.phundus.Infrastructure\piNuts.phundus.Infrastructure.csproj">
