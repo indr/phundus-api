@@ -57,7 +57,8 @@
                            EmailAddress = organization.EmailAddress,
                            Website = organization.Website,
                            Coordinate = organization.Coordinate,
-                           Startpage = organization.Startpage
+                           Startpage = organization.Startpage,
+                           CreateDate = organization.CreateDate
                        };
         }
 
@@ -106,5 +107,6 @@
         public string Website { get; set; }
         public string Coordinate { get; set; }
         public string Startpage { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }

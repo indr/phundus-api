@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using phiNdus.fundus.Business.Dto;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using Business.Dto;
+
     public class ArticlesViewModel
     {
         private readonly IEnumerable<ArticleViewModel> _articles;

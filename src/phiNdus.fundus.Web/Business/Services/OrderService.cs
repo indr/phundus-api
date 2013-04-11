@@ -1,14 +1,14 @@
-﻿namespace phiNdus.fundus.Business.Services
+﻿namespace phiNdus.fundus.Web.Business.Services
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Web;
     using Assembler;
-    using Domain.Entities;
-    using Domain.Repositories;
+    using Domain.Mails;
     using Dto;
-    using Mails;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Repositories;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class OrderService : BaseService, IOrderService

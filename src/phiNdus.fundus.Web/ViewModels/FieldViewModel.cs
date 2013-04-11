@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
-using phiNdus.fundus.Business.Dto;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using Business.Dto;
     using Business.Services;
     using phiNdus.fundus.Domain;
     using piNuts.phundus.Infrastructure;

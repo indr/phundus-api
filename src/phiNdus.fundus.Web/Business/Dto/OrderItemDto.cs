@@ -1,8 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace phiNdus.fundus.Business.Dto
+﻿namespace phiNdus.fundus.Web.Business.Dto
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class OrderItemDto
     {
         public int Id { get; set; }

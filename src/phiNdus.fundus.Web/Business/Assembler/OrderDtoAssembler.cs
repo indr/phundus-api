@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Business.Assembler
+﻿namespace phiNdus.fundus.Web.Business.Assembler
 {
+    using System;
+    using System.Collections.Generic;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Web.Business.Dto;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class OrderDtoAssembler

@@ -1,13 +1,13 @@
-﻿namespace phiNdus.fundus.Business.Services
+﻿namespace phiNdus.fundus.Web.Business.Services
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Assembler;
-    using Domain.Inventory;
-    using Domain.Repositories;
     using Dto;
-    using Paging;
+    using phiNdus.fundus.Domain.Inventory;
+    using phiNdus.fundus.Domain.Repositories;
+    using phiNdus.fundus.Business.Paging;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class ArticleService : BaseService, IArticleService

@@ -5,8 +5,8 @@ namespace phiNdus.fundus.Web.ViewModels
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
+    using Business.Dto;
     using Business.Services;
-    using phiNdus.fundus.Business.Dto;
     using phiNdus.fundus.Web.Helpers;
     using phiNdus.fundus.Web.Models.CartModels;
     using piNuts.phundus.Infrastructure.Obsolete;

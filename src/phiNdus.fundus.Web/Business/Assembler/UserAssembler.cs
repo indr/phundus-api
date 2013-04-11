@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using phiNdus.fundus.Business.Dto;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Repositories;
-
-namespace phiNdus.fundus.Business.Assembler
+﻿namespace phiNdus.fundus.Web.Business.Assembler
 {
-    using phiNdus.fundus.Domain;
-    using piNuts.phundus.Infrastructure;
+    using System;
+    using System.Collections.Generic;
+    using fundus.Business;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Repositories;
+    using phiNdus.fundus.Web.Business.Dto;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class UserAssembler

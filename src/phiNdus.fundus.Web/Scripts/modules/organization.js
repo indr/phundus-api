@@ -87,6 +87,12 @@ function MembersCtrl($scope, members) {
         }
     };
 
+    $scope.approve = function(member) {
+        if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich bestätigen?')) {
+
+        }
+    };
+
     $scope.lock = function (member) {
         if (confirm('Möchen Sie "' + member.firstName + ' ' + member.lastName + '" wirklich sperren?')) {
             member.isLocked = true;

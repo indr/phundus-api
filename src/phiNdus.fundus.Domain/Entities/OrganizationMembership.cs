@@ -1,24 +1,40 @@
 ﻿namespace phiNdus.fundus.Domain.Entities
 {
+    using System;
+
     public class OrganizationMembership : EntityBase
     {
+        private DateTime _requestDate = DateTime.Now;
         public virtual User User { get; set; }
         public virtual Organization Organization { get; set; }
         public virtual int Role { get; set; }
-        public virtual bool IsLocked { get; protected set; }
+
+        public virtual DateTime RequestDate
+        {
+            get { return _requestDate; }
+            protected set { _requestDate = value; }
+        }
+
+        public virtual bool IsApproved { get; protected set; }
+
+        public virtual DateTime? ApprovalDate { get; protected set; }
+
+        public virtual bool IsLockedOut { get; protected set; }
+        public virtual DateTime? LastLockoutDate { get; protected set; }
 
         public virtual void Lock()
         {
             // TODO: Audit
             // TODO: E-Mail an Benutzer senden
-            IsLocked = true;
+            IsLockedOut = true;
+            LastLockoutDate = DateTime.Now;
         }
 
         public virtual void Unlock()
         {
             // TODO: Audit
             // TODO: E-Mail an Benutzer senden
-            IsLocked = false;
+            IsLockedOut = false;
         }
     }
 }

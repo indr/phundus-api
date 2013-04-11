@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace phiNdus.fundus.Business.Dto
+﻿namespace phiNdus.fundus.Web.Business.Dto
 {
+    using System;
+
     public class UserDto
     {
         public int Id { get; set; }

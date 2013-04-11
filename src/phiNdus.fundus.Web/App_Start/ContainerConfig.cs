@@ -12,6 +12,7 @@ namespace phiNdus.fundus.Web.App_Start
     using System.Reflection;
     using System.Text;
     using System.Web.Http;
+    using Business.Services;
     using Castle.Facilities.AutoTx;
     using Castle.Facilities.NHibernate;
     using Castle.Transactions;
@@ -29,6 +30,12 @@ namespace phiNdus.fundus.Web.App_Start
                 .Install(FromAssembly.This())
                 .Install(FromAssembly.Named("phiNdus.fundus.Domain"))
                 .Install(FromAssembly.Named("piNuts.phundus.Infrastructure"));
+
+
+            container.Register(Types.FromThisAssembly()
+                                    .BasedOn<BaseService>()
+                                    .WithServiceFirstInterface()
+                                    .LifestyleTransient());
 
             // HttpContext registrieren für den SessionStateManager
             //container.Register(

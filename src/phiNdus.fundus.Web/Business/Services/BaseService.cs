@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Business.Services
+﻿namespace phiNdus.fundus.Web.Business.Services
 {
     using phiNdus.fundus.Business.Security;
     using phiNdus.fundus.Domain.Entities;

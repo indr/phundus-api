@@ -6,9 +6,10 @@
     using Settings;
     using piNuts.phundus.Infrastructure.Obsolete;
 
-    public class UserAccountValidationMail : BaseMail
+    public class UserAccountCreatedMail : BaseMail
     {
-        public UserAccountValidationMail() : base(Settings.Mail.Templates.UserAccountValidation)
+        public UserAccountCreatedMail()
+            : base(Settings.Mail.Templates.UserAccountCreated)
         {
         }
 
@@ -17,7 +18,7 @@
             Send(user.Membership.Email);
         }
 
-        public UserAccountValidationMail For(User user)
+        public UserAccountCreatedMail For(User user)
         {
             Guard.Against<ArgumentNullException>(user == null, "user");
 
@@ -30,6 +31,11 @@
             //DataContext.Add("User", user);
             //DataContext.Add("Membership", user.Membership);
             return this;
+        }
+
+        public new void Send(string address)
+        {
+            base.Send(address);
         }
     }
 }

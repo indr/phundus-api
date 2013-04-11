@@ -1,8 +1,9 @@
 ﻿using System;
-using phiNdus.fundus.Business.Dto;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using Business.Dto;
+
     public class PropertyValueViewModel
     {
         public string Caption { get; set; }

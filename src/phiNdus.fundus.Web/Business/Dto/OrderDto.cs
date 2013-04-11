@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Business.Dto
+﻿namespace phiNdus.fundus.Web.Business.Dto
 {
+    using System;
+    using System.Collections.Generic;
+    using phiNdus.fundus.Domain.Entities;
+
     public class OrderDto
     {
         public int Id { get; set; }
