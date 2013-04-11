@@ -19,10 +19,6 @@ namespace phiNdus.fundus.Business
                                    .WithService.AllInterfaces()
                                    .LifestyleTransient());
 
-            container.Register(Component.For<Secured>()
-                                   .ImplementedBy(typeof (Secured))
-                                   .LifeStyle.Transient);
-
             container.Register(Component.For<IMailGateway>()
                                    .ImplementedBy(typeof (MailGateway))
                                    .LifeStyle.Transient);
