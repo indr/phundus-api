@@ -40,7 +40,7 @@
         {
             var result = Organizations.FindById(id);
             if (result == null)
-                throw new HttpException(404, "Die Organisation ist nicht vorhanden.");
+                throw new HttpNotFoundException("Die Organisation ist nicht vorhanden.");
 
             return ToDto(result);
         }
@@ -70,13 +70,13 @@
             var user = Users.FindByEmail(User.Identity.Name);
 
             if (org == null)
-                throw new HttpException(404, "Die Organisation ist nicht vorhanden.");
+                throw new HttpNotFoundException("Die Organisation ist nicht vorhanden.");
 
             if (user == null || !user.IsChiefOf(org))
-                throw new AuthorizationException("Sie haben keine Berechtigung um die Organisation zu aktualisieren.");
+                throw new HttpForbiddenException("Sie haben keine Berechtigung um die Organisation zu aktualisieren.");
 
             if (org.Version != value.Version)
-                throw new HttpException(409, "Die Organisation wurde in der Zwischenzeit verändert.");
+                throw new HttpConflictException("Die Organisation wurde in der Zwischenzeit verändert.");
 
             org.Address = value.Address;
             org.EmailAddress = value.EmailAddress;
