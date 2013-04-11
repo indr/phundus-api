@@ -87,6 +87,7 @@
     <Compile Include="Entities\RoleTests.cs" />
     <Compile Include="Entities\SettingTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
+    <Compile Include="ExceptionTestBase.cs" />
     <Compile Include="IllegalAttachedFieldExceptionTests.cs" />
     <Compile Include="Inventory\AvailabilityCheckerTests.cs" />
     <Compile Include="KeyGeneratorTests.cs" />
@@ -103,15 +104,13 @@
     <Compile Include="Settings\MailSettingsTest.cs" />
     <Compile Include="Settings\MailTemplatesSettingsTests.cs" />
     <Compile Include="Settings\SettingsTests.cs" />
+    <Compile Include="TestBase.cs" />
+    <Compile Include="UnitTestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\piNuts.phundus.Infrastructure\piNuts.phundus.Infrastructure.csproj">
       <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>
       <Name>piNuts.phundus.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\tests\phiNdus.fundus.TestHelpers\phiNdus.fundus.TestHelpers.csproj">
-      <Project>{752C7B51-7C57-460D-BC8C-0902A0E880E6}</Project>
-      <Name>phiNdus.fundus.TestHelpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\phiNdus.fundus.Domain\phiNdus.fundus.Domain.csproj">
       <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>

@@ -27,7 +27,7 @@ namespace phiNdus.fundus.Web.App_Start
             // Locking?
             var container = new WindsorContainer()
                 .Install(FromAssembly.This())
-                .Install(FromAssembly.Named("phiNdus.fundus.Business"))
+                .Install(FromAssembly.Named("phiNdus.fundus.Domain"))
                 .Install(FromAssembly.Named("piNuts.phundus.Infrastructure"));
 
             // HttpContext registrieren für den SessionStateManager

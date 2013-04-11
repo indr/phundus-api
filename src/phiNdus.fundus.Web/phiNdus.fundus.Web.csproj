@@ -95,10 +95,6 @@
     <Reference Include="NHibernate">
       <HintPath>..\..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="RazorEngine, Version=3.2.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\RazorEngine.3.2.0\lib\net40\RazorEngine.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
     </Reference>
@@ -176,6 +172,42 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Business\Assembler\ArticleDomainAssembler.cs" />
+    <Compile Include="Business\Assembler\ArticleDtoAssembler.cs" />
+    <Compile Include="Business\Assembler\CartAssembler.cs" />
+    <Compile Include="Business\Assembler\FieldDefinitionAssembler.cs" />
+    <Compile Include="Business\Assembler\ImageAssembler.cs" />
+    <Compile Include="Business\Assembler\OrderDtoAssembler.cs" />
+    <Compile Include="Business\Assembler\UserAssembler.cs" />
+    <Compile Include="Business\DtoOutOfDateException.cs" />
+    <Compile Include="Business\Dto\ArticleDto.cs" />
+    <Compile Include="Business\Dto\AvailabilityDto.cs" />
+    <Compile Include="Business\Dto\BasePropertiesDto.cs" />
+    <Compile Include="Business\Dto\CartDto.cs" />
+    <Compile Include="Business\Dto\FieldDataType.cs" />
+    <Compile Include="Business\Dto\FieldDefinitionDto.cs" />
+    <Compile Include="Business\Dto\FieldValueDto.cs" />
+    <Compile Include="Business\Dto\ImageDto.cs" />
+    <Compile Include="Business\Dto\OrderDto.cs" />
+    <Compile Include="Business\Dto\OrderItemDto.cs" />
+    <Compile Include="Business\Dto\RoleDto.cs" />
+    <Compile Include="Business\Dto\UserDto.cs" />
+    <Compile Include="Business\EmailAlreadyTakenException.cs" />
+    <Compile Include="Business\EntityNotFoundException.cs" />
+    <Compile Include="Business\Paging\PagedResult.cs" />
+    <Compile Include="Business\Paging\PageRequest.cs" />
+    <Compile Include="Business\Paging\PageResponse.cs" />
+    <Compile Include="Business\Security\SecurityContext.cs" />
+    <Compile Include="Business\Security\SecuritySession.cs" />
+    <Compile Include="Business\Services\ArticleService.cs" />
+    <Compile Include="Business\Services\BaseService.cs" />
+    <Compile Include="Business\Services\CartService.cs" />
+    <Compile Include="Business\Services\IArticleService.cs" />
+    <Compile Include="Business\Services\ICartService.cs" />
+    <Compile Include="Business\Services\IFieldsService.cs" />
+    <Compile Include="Business\Services\IOrderService.cs" />
+    <Compile Include="Business\Services\OrderService.cs" />
+    <Compile Include="Business\Services\PropertyService.cs" />
     <Compile Include="Exceptions\HttpConflictException.cs" />
     <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
@@ -845,10 +877,6 @@
     <ProjectReference Include="..\..\db\phiNdus.fundus.DbMigrations\phiNdus.fundus.DbMigrations.csproj">
       <Project>{7B58707A-84EC-4E7E-A0FD-946F1E16361E}</Project>
       <Name>phiNdus.fundus.DbMigrations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\phiNdus.fundus.Business\phiNdus.fundus.Business.csproj">
-      <Project>{97AA64DB-12BF-4AF3-B732-97DE1A9919B1}</Project>
-      <Name>phiNdus.fundus.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\phiNdus.fundus.Domain\phiNdus.fundus.Domain.csproj">
       <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>

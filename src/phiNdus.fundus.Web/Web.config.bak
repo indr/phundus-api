@@ -13,7 +13,7 @@
     <add key="ServerUrl" value="localhost/phundus-debug" />
     <add key="FeedbackRecipients" value="admin@test.phundus.ch" />
     <add key="MigrationTags" value="" />
-    <add key="MigrationProfile" value="Acceptance" />
+    <add key="MigrationProfile" value="" />
   </appSettings>
   <connectionStrings>
     <add name="phundus" connectionString="Data Source=(local)\SQLEXPRESS; AttachDbFilename=|DataDirectory|\Debug.mdf; Integrated Security=True" providerName="System.Data.SqlClient" />
@@ -111,13 +111,17 @@
     <membership defaultProvider="CustomProvider">
       <providers>
         <clear />
-        <add name="CustomProvider" type="phiNdus.fundus.Web.Security.WebWindsorMembershipProvider" applicationName="phundus" providerId="MembershipProvider" enablePasswordRetrieval="false" enablePasswordReset="true" maxInvalidPasswordAttempts="5" minRequiredPasswordLength="8" minRequiredNonAlphanumericCharacters="2" passwordAttemptWindow="10" />
+        <add name="CustomProvider" type="phiNdus.fundus.Web.Security.WebWindsorMembershipProvider"
+             applicationName="phundus" providerId="MembershipProvider" enablePasswordRetrieval="false" enablePasswordReset="true"
+             maxInvalidPasswordAttempts="5" minRequiredPasswordLength="8"
+             minRequiredNonAlphanumericCharacters="2" passwordAttemptWindow="10" />
       </providers>
     </membership>
     <roleManager enabled="true" defaultProvider="CustomProvider">
       <providers>
         <clear />
-        <add name="CustomProvider" type="phiNdus.fundus.Web.Security.WebWindsorRoleProvider" applicationName="phundus" providerId="RoleProvider" />
+        <add name="CustomProvider" type="phiNdus.fundus.Web.Security.WebWindsorRoleProvider"
+             applicationName="phundus" providerId="RoleProvider" />
       </providers>
     </roleManager>
   </system.web>
