@@ -29,6 +29,8 @@
             FileSystemConfig.CreateMissingDirectory(s => Server.MapPath(s));
             DatabaseMigrator.Migrate(s => Server.MapPath(s));
 
+            AutoMapperConfig.Config();
+
             _container = ContainerConfig.Bootstrap();
             _container.Register(Component.For<CustomMembershipProvider>()
                                          .Named("MembershipProvider").LifestyleTransient());

@@ -11,7 +11,7 @@
             <th><a href="" ng-click="orderBy('jsNumber')">J+S-Nummer</a></th>
             <th><a href="" ng-click="orderBy('emailAddress')">E-Mail-Adresse</a></th>
             <th><a href="" ng-click="orderBy('role')">Rolle</a></th>
-            <th><a href="" ng-click="orderBy('isLocked')">Status</a></th>
+            <th><a href="" ng-click="orderBy('isLockedOut')">Status</a></th>
             <!--<th><a href="#/new"><i class="icon-plus-sign"></i></a></th>-->
         </tr>
     </thead>
@@ -56,8 +56,8 @@
                 </div>
             </td>
             <td>
-                <a class="btn btn-small btn-inverse" ng-show="member.isLocked && member.isApproved" href="" ng-click="unlock(member)">Entsperren</a>
-                <a class="btn btn-small" ng-show="!member.isLocked && member.isApproved" href="" ng-click="lock(member)">Sperren</a>
+                <a class="btn btn-small btn-inverse" ng-show="member.isLockedOut && member.isApproved" href="" ng-click="unlock(member)">Entsperren</a>
+                <a class="btn btn-small" ng-show="!member.isLockedOut && member.isApproved" href="" ng-click="lock(member)">Sperren</a>
                 <a class="btn btn-small btn-success" ng-show="!member.isApproved" href="" ng-click="approve(member)">Bestätigen</a>
             </td>
         </tr>
