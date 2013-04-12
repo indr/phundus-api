@@ -36,5 +36,13 @@
             // TODO: E-Mail an Benutzer senden
             IsLockedOut = false;
         }
+
+        public void Approve()
+        {
+            // TODO: Audit
+            // TODO: E-Mail an Benutzer senden
+            IsApproved = true;
+            ApprovalDate = DateTime.Now;
+        }
     }
 }

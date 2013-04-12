@@ -38,6 +38,9 @@
     <DeployIisAppPath>Default Web Site/phundus-release</DeployIisAppPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\..\packages\Castle.Core.3.2.0\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
@@ -165,6 +168,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
     <Compile Include="App_Start\DatabaseMigrator.cs" />
@@ -208,6 +212,8 @@
     <Compile Include="Business\Services\IOrderService.cs" />
     <Compile Include="Business\Services\OrderService.cs" />
     <Compile Include="Business\Services\PropertyService.cs" />
+    <Compile Include="Controllers\WebApi\Dtos\MemberDto.cs" />
+    <Compile Include="Controllers\WebApi\Dtos\MemberDtos.cs" />
     <Compile Include="Exceptions\HttpConflictException.cs" />
     <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
