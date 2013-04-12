@@ -212,6 +212,7 @@
     <Compile Include="Business\Services\IOrderService.cs" />
     <Compile Include="Business\Services\OrderService.cs" />
     <Compile Include="Business\Services\PropertyService.cs" />
+    <Compile Include="Controllers\WebApi\ApiControllerBase.cs" />
     <Compile Include="Controllers\WebApi\Dtos\MemberDto.cs" />
     <Compile Include="Controllers\WebApi\Dtos\MemberDtos.cs" />
     <Compile Include="Exceptions\HttpConflictException.cs" />
