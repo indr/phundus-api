@@ -3,15 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.Http;
     using Castle.Transactions;
+    using Domain.Entities;
+    using Domain.Repositories;
     using NHibernate;
-    using phiNdus.fundus.Business.Security;
-    using phiNdus.fundus.Domain.Entities;
-    using phiNdus.fundus.Domain.Repositories;
 
-    public class OrganizationsController : ApiController
+    public class OrganizationsController : ApiControllerBase
     {
         public IUserRepository Users { get; set; }
         public IOrganizationRepository Organizations { get; set; }
@@ -24,13 +22,13 @@
             return Organizations
                 .FindAll()
                 .Select(each => new OrganizationListDto
-                                    {
-                                        Id = each.Id,
-                                        Version = each.Version,
-                                        Name = each.Name,
-                                        Url = each.Url,
-                                        Address = each.Address
-                                    })
+                    {
+                        Id = each.Id,
+                        Version = each.Version,
+                        Name = each.Name,
+                        Url = each.Url,
+                        Address = each.Address
+                    })
                 .ToList();
         }
 
@@ -45,21 +43,21 @@
             return ToDto(result);
         }
 
-        static OrganizationDto ToDto(Organization organization)
+        private static OrganizationDto ToDto(Organization organization)
         {
             return new OrganizationDto
-                       {
-                           Id = organization.Id,
-                           Version = organization.Version,
-                           Name = organization.Name,
-                           Url = organization.Url,
-                           Address = organization.Address,
-                           EmailAddress = organization.EmailAddress,
-                           Website = organization.Website,
-                           Coordinate = organization.Coordinate,
-                           Startpage = organization.Startpage,
-                           CreateDate = organization.CreateDate
-                       };
+                {
+                    Id = organization.Id,
+                    Version = organization.Version,
+                    Name = organization.Name,
+                    Url = organization.Url,
+                    Address = organization.Address,
+                    EmailAddress = organization.EmailAddress,
+                    Website = organization.Website,
+                    Coordinate = organization.Coordinate,
+                    Startpage = organization.Startpage,
+                    CreateDate = organization.CreateDate
+                };
         }
 
         // PUT api/organizations/5
@@ -91,7 +89,7 @@
             return ToDto(org);
         }
     }
-    
+
     public class OrganizationListDto
     {
         public int Id { get; set; }

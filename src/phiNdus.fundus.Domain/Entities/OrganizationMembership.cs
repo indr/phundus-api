@@ -37,7 +37,7 @@
             IsLockedOut = false;
         }
 
-        public void Approve()
+        public virtual void Approve()
         {
             // TODO: Audit
             // TODO: E-Mail an Benutzer senden
