@@ -5,6 +5,7 @@ using phiNdus.fundus.Domain.Repositories;
 
 namespace phiNdus.fundus.Domain.Entities
 {
+    using Microsoft.Practices.ServiceLocation;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
 
@@ -29,7 +30,7 @@ namespace phiNdus.fundus.Domain.Entities
         
         protected virtual IOrderRepository OrderRepository
         {
-            get { return GlobalContainer.Resolve<IOrderRepository>(); }
+            get { return ServiceLocator.Current.GetInstance<IOrderRepository>(); }
         }
 
         public virtual Organization Organization { get; set; }
@@ -99,7 +100,7 @@ namespace phiNdus.fundus.Domain.Entities
                         "Der Bruttobestand kann nicht gesetzt werden, da mindestens eine Ausprägung vorhanden ist.");
                 if (!HasField(FieldDefinition.GrossStockId))
                     AddField(
-                        GlobalContainer.Resolve<IFieldDefinitionRepository>().Get(FieldDefinition.GrossStockId));
+                        ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().Get(FieldDefinition.GrossStockId));
                 SetFieldValue(FieldDefinition.GrossStockId, value);
             }
         }

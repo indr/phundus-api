@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Assembler;
     using Dto;
+    using Microsoft.Practices.ServiceLocation;
     using fundus.Business;
     using phiNdus.fundus.Domain.Repositories;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -12,7 +13,7 @@
     {
         private static IFieldDefinitionRepository PropertyDefinitions
         {
-            get { return GlobalContainer.Resolve<IFieldDefinitionRepository>(); }
+            get { return ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>(); }
         }
 
         #region IPropertyService Members

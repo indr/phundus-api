@@ -5,6 +5,7 @@ using phiNdus.fundus.Domain.Repositories;
 
 namespace phiNdus.fundus.Domain.Entities
 {
+    using Microsoft.Practices.ServiceLocation;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
 
@@ -131,7 +132,7 @@ namespace phiNdus.fundus.Domain.Entities
         public virtual FieldValue SetFieldValue(int fieldDefinitionId, object value, bool attachIfNotExists)
         {
             if (attachIfNotExists && !HasField(fieldDefinitionId))
-                AddField(GlobalContainer.Resolve<IFieldDefinitionRepository>().Get(fieldDefinitionId));
+                AddField(ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().Get(fieldDefinitionId));
             foreach (var each in FieldValues.Where(each => each.FieldDefinition.Id == fieldDefinitionId))
             {
                 each.Value = value;

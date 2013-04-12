@@ -5,6 +5,7 @@
     using System.Web.Mvc;
     using Business.Services;
     using Castle.Transactions;
+    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Helpers;
@@ -22,12 +23,12 @@
 
         protected IArticleService ArticleService
         {
-            get { return GlobalContainer.Resolve<IArticleService>(); }
+            get { return ServiceLocator.Current.GetInstance<IArticleService>(); }
         }
 
         protected IFieldsService FieldsService
         {
-            get { return GlobalContainer.Resolve<IFieldsService>(); }
+            get { return ServiceLocator.Current.GetInstance<IFieldsService>(); }
         }
 
 
@@ -179,7 +180,7 @@
         {
             var model = new ArticleAvailabilityViewModel();
             model.Id = id;
-            model.Availabilites = GlobalContainer.Resolve<IArticleService>().GetAvailability(id);
+            model.Availabilites = ServiceLocator.Current.GetInstance<IArticleService>().GetAvailability(id);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(Views.Availability, model);
@@ -193,7 +194,7 @@
             using (UnitOfWork.Start())
             {
                 var model = new ArticleReservationsModel();
-                model.Items = GlobalContainer.Resolve<IReservationRepository>().Find(new Article(id, 0));
+                model.Items = ServiceLocator.Current.GetInstance<IReservationRepository>().Find(new Article(id, 0));
                 if (Request.IsAjaxRequest())
                     return PartialView(Views.Reservations, model);
                 return View(Views.Reservations, MasterView, model);

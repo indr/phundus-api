@@ -5,6 +5,7 @@
     using System.Linq;
     using Assembler;
     using Dto;
+    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain.Inventory;
     using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Business.Paging;
@@ -14,7 +15,7 @@
     {
         private static IArticleRepository Articles
         {
-            get { return GlobalContainer.Resolve<IArticleRepository>(); }
+            get { return ServiceLocator.Current.GetInstance<IArticleRepository>(); }
         }
 
         public IPropertyService PropertyService { get; set; }

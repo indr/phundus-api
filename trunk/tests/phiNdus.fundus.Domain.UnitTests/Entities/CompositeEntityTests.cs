@@ -23,7 +23,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
 
             StubFieldDefinitionRepository = MockRepository.GenerateStub<IFieldDefinitionRepository>();
 
-            GlobalContainer.Container.Register(Component.For<IFieldDefinitionRepository>()
+            Container.Register(Component.For<IFieldDefinitionRepository>()
                 .Instance(StubFieldDefinitionRepository));
         }
 

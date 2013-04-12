@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Microsoft.Practices.ServiceLocation;
     using fundus.Business;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
@@ -97,7 +98,7 @@
         public static FieldDefinition UpdateDomainObject(FieldDefinitionDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
-            var result = GlobalContainer.Resolve<IFieldDefinitionRepository>().Get(subject.Id);
+            var result = ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().Get(subject.Id);
             Guard.Against<EntityNotFoundException>(result == null, "Property entity not found");
             Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 

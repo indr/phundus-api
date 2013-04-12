@@ -7,6 +7,7 @@ namespace phiNdus.fundus.Web.ViewModels
     using System.ComponentModel.DataAnnotations;
     using Business.Services;
     using Domain.Entities;
+    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -41,13 +42,13 @@ namespace phiNdus.fundus.Web.ViewModels
 
         protected IArticleService ArticleService
         {
-            get { return GlobalContainer.Resolve<IArticleService>(); }
+            get { return ServiceLocator.Current.GetInstance<IArticleService>(); }
         }
 
         private void Search(string query, int? organization, int page)
         {
             var fieldDefinitions = ArticleService.GetProperties();
-            var queryResult = GlobalContainer.Resolve<IArticleService>().FindArticles(
+            var queryResult = ServiceLocator.Current.GetInstance<IArticleService>().FindArticles(
                     new PageRequest { Index = page - 1, Size = RowsPerPage }, query, organization);
             PageSelectorModel = new PageSelectorViewModel(queryResult.Pages);
             foreach (var each in queryResult.Items)

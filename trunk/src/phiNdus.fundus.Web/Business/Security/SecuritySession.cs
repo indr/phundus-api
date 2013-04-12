@@ -6,6 +6,7 @@ using phiNdus.fundus.Domain.Repositories;
 namespace phiNdus.fundus.Business.Security
 {
     using System.Web;
+    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -28,7 +29,7 @@ namespace phiNdus.fundus.Business.Security
             User user;
             using (UnitOfWork.Start())
             {
-                var repo = GlobalContainer.Resolve<IUserRepository>();
+                var repo = ServiceLocator.Current.GetInstance<IUserRepository>();
                 //user = repo.FindBySessionKey(key);
                 user = repo.FindByEmail(HttpContext.Current.User.Identity.Name);
 

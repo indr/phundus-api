@@ -5,6 +5,7 @@
     using Business.Services;
     using Castle.Transactions;
     using Domain.Repositories;
+    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -120,7 +121,7 @@
         {
             var model = new ShopArticleViewModel(id);
 
-            model.Availabilities = GlobalContainer.Resolve<IArticleService>().GetAvailability(id);
+            model.Availabilities = ServiceLocator.Current.GetInstance<IArticleService>().GetAvailability(id);
             return Json(new
                             {
                                 caption = model.Caption,
@@ -142,7 +143,7 @@
                 return RedirectToAction(ShopActionNames.Article, item.ArticleId);
             }
 
-            var service = GlobalContainer.Resolve<ICartService>();
+            var service = ServiceLocator.Current.GetInstance<ICartService>();
             var cart = service.AddItem(item.CreateDto());
 
             if (Request.IsAjaxRequest())

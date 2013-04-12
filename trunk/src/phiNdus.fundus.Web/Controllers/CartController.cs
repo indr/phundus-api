@@ -7,6 +7,7 @@
     using Business.Services;
     using Castle.Transactions;
     using Domain.Repositories;
+    using Microsoft.Practices.ServiceLocation;
     using Models;
     using Models.CartModels;
     using ViewModels;
@@ -17,7 +18,7 @@
     {
         protected static ICartService CartService
         {
-            get { return GlobalContainer.Resolve<ICartService>(); }
+            get { return ServiceLocator.Current.GetInstance<ICartService>(); }
         }
 
         public IUserRepository Users { get; set; }

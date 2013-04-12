@@ -5,7 +5,9 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.TestHelpers.TestBases
 {
+    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain;
+    using phiNdus.fundus.Domain.UnitTests;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
 
@@ -29,14 +31,14 @@ namespace phiNdus.fundus.TestHelpers.TestBases
         protected T GenerateAndRegisterStub<T>() where T : class
         {
             var result = MockRepository.GenerateStub<T>();
-            GlobalContainer.Container.Register(Component.For<T>().Instance(result));
+            Container.Register(Component.For<T>().Instance(result));
             return result;
         }
 
         protected T GenerateAndRegisterMock<T>() where T : class
         {
             var result = MockRepository.GenerateStrictMock<T>();
-            GlobalContainer.Container.Register(Component.For<T>().Instance(result));
+            Container.Register(Component.For<T>().Instance(result));
             return result;
         }
 
@@ -59,14 +61,14 @@ namespace phiNdus.fundus.TestHelpers.TestBases
         protected T Obsolete_CreateAndRegisterDynamicMock<T>() where T : class
         {
             var result = Obsolete_MockFactory.DynamicMock<T>();
-            GlobalContainer.Container.Register(Component.For<T>().Instance(result));
+            Container.Register(Component.For<T>().Instance(result));
             return result;
         }
 
         protected T Obsolete_CreateAndRegisterStrictMock<T>() where T : class
         {
             var result = Obsolete_MockFactory.StrictMock<T>();
-            GlobalContainer.Container.Register(Component.For<T>().Instance(result));
+            Container.Register(Component.For<T>().Instance(result));
             return result;
         }
 
