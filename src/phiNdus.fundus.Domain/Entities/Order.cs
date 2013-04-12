@@ -13,6 +13,7 @@ using Rectangle = iTextSharp.text.Rectangle;
 
 namespace phiNdus.fundus.Domain.Entities
 {
+    using Microsoft.Practices.ServiceLocation;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
 
@@ -73,7 +74,7 @@ namespace phiNdus.fundus.Domain.Entities
         public virtual bool AddItem(int articleId, int amount, DateTime begin, DateTime end)
         {
             var item = new OrderItem();
-            item.Article = GlobalContainer.Resolve<IArticleRepository>().Get(articleId);
+            item.Article = ServiceLocator.Current.GetInstance<IArticleRepository>().Get(articleId);
             item.Amount = amount;
             item.From = begin;
             item.To = end;

@@ -7,6 +7,7 @@ using phiNdus.fundus.Domain.Repositories;
 
 namespace phiNdus.fundus.Domain.Entities
 {
+    using Microsoft.Practices.ServiceLocation;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
 
@@ -44,7 +45,7 @@ namespace phiNdus.fundus.Domain.Entities
         public virtual void AddItem(int articleId, int quantity, DateTime @from, DateTime to)
         {
             var item = new CartItem();
-            item.Article = GlobalContainer.Resolve<IArticleRepository>().Get(articleId);
+            item.Article = ServiceLocator.Current.GetInstance<IArticleRepository>().Get(articleId);
             item.Quantity = quantity;
             item.From = from;
             item.To = to;
@@ -80,15 +81,15 @@ namespace phiNdus.fundus.Domain.Entities
             foreach (var each in Items)
                 result.AddItem(each.Article.Id, each.Quantity, each.From, each.To);
 
-            GlobalContainer.Resolve<IOrderRepository>().Save(result);
-            GlobalContainer.Resolve<ICartRepository>().Delete(this);
+            ServiceLocator.Current.GetInstance<IOrderRepository>().Save(result);
+            ServiceLocator.Current.GetInstance<ICartRepository>().Delete(this);
             return result;
         }
 
         public virtual ICollection<Order> PlaceOrders()
         {
             var result = new List<Order>();
-            var orders = GlobalContainer.Resolve<IOrderRepository>();
+            var orders = ServiceLocator.Current.GetInstance<IOrderRepository>();
 
             var organizations = (from i in Items select i.Article.Organization).Distinct();
 
@@ -104,7 +105,7 @@ namespace phiNdus.fundus.Domain.Entities
                 orders.Save(order);
                 result.Add(order);
             }
-            GlobalContainer.Resolve<ICartRepository>().Delete(this);
+            ServiceLocator.Current.GetInstance<ICartRepository>().Delete(this);
             return result;
         }
     }

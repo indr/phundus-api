@@ -16,7 +16,9 @@ namespace phiNdus.fundus.Web.App_Start
     using Castle.Facilities.AutoTx;
     using Castle.Facilities.NHibernate;
     using Castle.Transactions;
+    using CommonServiceLocator.WindsorAdapter;
     using FluentNHibernate.Cfg;
+    using Microsoft.Practices.ServiceLocation;
     using NHibernate;
     using phiNdus.fundus.Domain.Entities;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -56,7 +58,8 @@ namespace phiNdus.fundus.Web.App_Start
             ControllerBuilder.Current.SetControllerFactory(
                 new WindsorControllerFactory(container.Kernel));
             
-            GlobalContainer.Initialize(container);
+
+            ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
 
             return container;
         }

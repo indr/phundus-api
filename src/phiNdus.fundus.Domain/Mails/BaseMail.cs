@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Net.Mail;
     using System.Net.Mime;
+    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Business.Gateways;
     using phiNdus.fundus.Domain.Settings;
     using RazorEngine;
@@ -118,7 +119,7 @@ If you think it was sent incorrectly contact the administrator at @Model.Setting
 
         protected void Send(string recipients)
         {
-            var gateway = GlobalContainer.Resolve<IMailGateway>();
+            var gateway = ServiceLocator.Current.GetInstance<IMailGateway>();
 
             var textBody = GenerateTextBody();
             var htmlBody = GenerateHtmlBody();

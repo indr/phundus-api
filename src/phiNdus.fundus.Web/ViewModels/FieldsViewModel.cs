@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Business.Services;
+    using Microsoft.Practices.ServiceLocation;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class FieldsViewModel : ViewModelBase
@@ -11,7 +12,7 @@
 
         protected IFieldsService FieldsService
         {
-            get { return GlobalContainer.Resolve<IFieldsService>(); }
+            get { return ServiceLocator.Current.GetInstance<IFieldsService>(); }
         }
 
         public IList<FieldViewModel> Items

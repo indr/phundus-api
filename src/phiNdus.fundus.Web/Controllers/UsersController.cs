@@ -6,6 +6,7 @@
     using Castle.Transactions;
     using Domain.Mails;
     using Domain.Repositories;
+    using Microsoft.Practices.ServiceLocation;
     using Models;
     using piNuts.phundus.Infrastructure.Obsolete;
 
@@ -61,7 +62,7 @@
         {
             using (var uow = UnitOfWork.Start())
             {
-                var user = GlobalContainer.Resolve<IUserRepository>().Get(id);
+                var user = ServiceLocator.Current.GetInstance<IUserRepository>().Get(id);
                 if (user == null)
                     return HttpNotFound();
 
@@ -83,7 +84,7 @@
         {
             using (var uow = UnitOfWork.Start())
             {
-                var user = GlobalContainer.Resolve<IUserRepository>().Get(id);
+                var user = ServiceLocator.Current.GetInstance<IUserRepository>().Get(id);
                 if (user == null)
                     return HttpNotFound();
 

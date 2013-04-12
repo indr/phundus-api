@@ -10,6 +10,8 @@ using piNuts.phundus.Infrastructure.Obsolete;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using Microsoft.Practices.ServiceLocation;
+
     public class SettingsViewModelBase : ViewModelBase
     {
         private readonly IDictionary<string, Setting> _settings = new Dictionary<string, Setting>();
@@ -90,7 +92,7 @@ namespace phiNdus.fundus.Web.ViewModels
         {
             using (UnitOfWork.Start())
             {
-                var settings = GlobalContainer.Resolve<ISettingRepository>().FindByKeyspace(keyspace);
+                var settings = ServiceLocator.Current.GetInstance<ISettingRepository>().FindByKeyspace(keyspace);
                 Keyspace = keyspace;
                 LoadSubject(settings.Values.FirstOrDefault(p => p.Key.EndsWith("subject")));
                 LoadBodyPlain(settings.Values.FirstOrDefault(p => p.Key.EndsWith("body")));
@@ -121,7 +123,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public void SaveChanges()
         {
-            var repo = GlobalContainer.Resolve<ISettingRepository>();
+            var repo = ServiceLocator.Current.GetInstance<ISettingRepository>();
 
             var subject = repo.FindByKey(Keyspace + ".subject");
             if (subject != null && subject.Version != SubjectVersion)

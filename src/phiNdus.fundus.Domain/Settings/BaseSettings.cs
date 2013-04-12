@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Entities;
+    using Microsoft.Practices.ServiceLocation;
     using Repositories;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -31,7 +32,7 @@
         {
             using (UnitOfWork.Start())
             {
-                var repo = GlobalContainer.Resolve<ISettingRepository>();
+                var repo = ServiceLocator.Current.GetInstance<ISettingRepository>();
                 return repo.FindByKeyspace(_keyspace);
             }
         }

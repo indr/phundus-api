@@ -4,6 +4,7 @@
     using Business.Dto;
     using Business.Services;
     using Domain.Entities;
+    using Microsoft.Practices.ServiceLocation;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class OrdersViewModelBase : ViewModelBase
@@ -18,7 +19,7 @@
 
         protected IOrderService Service
         {
-            get { return GlobalContainer.Resolve<IOrderService>(); }
+            get { return ServiceLocator.Current.GetInstance<IOrderService>(); }
         }
 
         protected void Load(IList<OrderDto> orderDtos)

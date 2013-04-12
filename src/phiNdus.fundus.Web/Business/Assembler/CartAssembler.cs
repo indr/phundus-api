@@ -1,6 +1,7 @@
 ﻿namespace phiNdus.fundus.Web.Business.Assembler
 {
     using System.Linq;
+    using Microsoft.Practices.ServiceLocation;
     using fundus.Business;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
@@ -43,7 +44,7 @@
 
         public Cart CreateDomainObject(CartDto cartDto)
         {
-            var carts = GlobalContainer.Resolve<ICartRepository>();
+            var carts = ServiceLocator.Current.GetInstance<ICartRepository>();
             var cart = carts.FindById(cartDto.Id);
 
             if (cart == null)

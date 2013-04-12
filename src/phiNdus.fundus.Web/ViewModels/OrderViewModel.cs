@@ -6,6 +6,7 @@
     using Business.Dto;
     using Business.Services;
     using Domain.Entities;
+    using Microsoft.Practices.ServiceLocation;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class OrderViewModel : ViewModelBase
@@ -17,7 +18,7 @@
 
         public OrderViewModel(int id)
         {
-            var dto = GlobalContainer.Resolve<IOrderService>().GetOrder(id);
+            var dto = ServiceLocator.Current.GetInstance<IOrderService>().GetOrder(id);
             Load(dto);
         }
 

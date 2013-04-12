@@ -7,6 +7,7 @@ namespace phiNdus.fundus.Web.ViewModels
 {
     using Business.Dto;
     using Business.Services;
+    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -22,7 +23,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         protected IFieldsService FieldsService
         {
-            get { return GlobalContainer.Resolve<IFieldsService>(); }
+            get { return ServiceLocator.Current.GetInstance<IFieldsService>(); }
         }
 
 

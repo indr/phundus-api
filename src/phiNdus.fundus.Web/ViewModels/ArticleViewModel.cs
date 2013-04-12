@@ -7,6 +7,7 @@ namespace phiNdus.fundus.Web.ViewModels
     using System.Web.Mvc;
     using Business.Dto;
     using Business.Services;
+    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.Helpers;
     using phiNdus.fundus.Web.Models.CartModels;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -25,7 +26,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         protected ICartService CartService
         {
-            get { return GlobalContainer.Resolve<ICartService>(); }
+            get { return ServiceLocator.Current.GetInstance<ICartService>(); }
         }
 
         public CartItemModel CartItem
@@ -65,7 +66,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         protected IArticleService ArticleService
         {
-            get { return GlobalContainer.Resolve<IArticleService>(); }
+            get { return ServiceLocator.Current.GetInstance<IArticleService>(); }
         }
 
         public bool IsDeleted { get; set; }

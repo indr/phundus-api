@@ -3,6 +3,7 @@
     using System.Web.Mvc;
     using Business.Services;
     using Castle.Transactions;
+    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Web.ViewModels;
     using piNuts.phundus.Infrastructure.Obsolete;
@@ -67,7 +68,7 @@
         [Transaction]
         public virtual ActionResult Reject(int id)
         {
-            var service = GlobalContainer.Resolve<IOrderService>();
+            var service = ServiceLocator.Current.GetInstance<IOrderService>();
             var orderDto = service.Reject(id);
             return Json(orderDto);
         }
@@ -77,7 +78,7 @@
         [Transaction]
         public virtual ActionResult Confirm(int id)
         {
-            var service = GlobalContainer.Resolve<IOrderService>();
+            var service = ServiceLocator.Current.GetInstance<IOrderService>();
             var orderDto = service.Confirm(id);
             return Json(orderDto);
         }
@@ -86,7 +87,7 @@
         [Authorize]
         public FileStreamResult Print(int id)
         {
-            var service = GlobalContainer.Resolve<IOrderService>();
+            var service = ServiceLocator.Current.GetInstance<IOrderService>();
             var stream = service.GetPdf(id);
 
             return new FileStreamResult(stream, "application/pdf")

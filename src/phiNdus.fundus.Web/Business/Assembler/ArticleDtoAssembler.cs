@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Dto;
@@ -63,7 +64,7 @@
 
         private void WriteField(int fieldDefinitionId, object value, BasePropertiesDto result)
         {
-            var fieldDefinition = GlobalContainer.Resolve<IFieldDefinitionRepository>().Get(fieldDefinitionId);
+            var fieldDefinition = ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().Get(fieldDefinitionId);
             var fieldValueDto = CreateFieldValueDto(fieldDefinition);
             fieldValueDto.Value = value;
             result.AddProperty(fieldValueDto);

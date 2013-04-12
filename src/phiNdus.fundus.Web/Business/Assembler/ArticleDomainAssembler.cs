@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Microsoft.Practices.ServiceLocation;
     using fundus.Business;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
@@ -40,7 +41,7 @@
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
-            var result = GlobalContainer.Resolve<IArticleRepository>().Get(subject.Id);
+            var result = ServiceLocator.Current.GetInstance<IArticleRepository>().Get(subject.Id);
             Guard.Against<EntityNotFoundException>(result == null, "Article entity not found");
             Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 
@@ -57,7 +58,7 @@
         private static void WriteProperties(BasePropertiesDto subject, FieldedEntity result)
         {
             // Neue Properties hinzufügen, oder bestehende Property-Values aktualisieren.
-            var propertyDefinitionRepo = GlobalContainer.Resolve<IFieldDefinitionRepository>();
+            var propertyDefinitionRepo = ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>();
             foreach (var each in subject.Properties)
             {
                 if (each.IsCalculated)

@@ -10,6 +10,7 @@
     using Business.Dto;
     using Domain.Entities;
     using Domain.Repositories;
+    using Microsoft.Practices.ServiceLocation;
     using piNuts.phundus.Infrastructure.Obsolete;
     
 
@@ -102,7 +103,7 @@
         {
             var subject = Save();
             var user = UserAssembler.UpdateDomainObject(subject);
-            GlobalContainer.Resolve<IUserRepository>().Update(user);
+            ServiceLocator.Current.GetInstance<IUserRepository>().Update(user);
         }
     }
 }
