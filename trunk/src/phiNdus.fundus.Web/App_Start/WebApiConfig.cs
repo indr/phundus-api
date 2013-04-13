@@ -12,26 +12,26 @@
                   .SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             config.Routes.MapHttpRoute(
+                name: "ActionApi",
+                routeTemplate: "api/{controller}/{action}",
+                defaults: new { action = RouteParameter.Optional },
+                constraints: new {action = @"^[a-z]*$"});
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}/{action}",
-                defaults: new
-                    {
-                        id = RouteParameter.Optional,
-                        action = RouteParameter.Optional
-                    },
-                constraints: new {id = @"^[\d]*$"}
-                );
+                defaults: new {id = RouteParameter.Optional, action = RouteParameter.Optional},
+                constraints: new {id = @"^[\d]*$"});
+
 
             config.Routes.MapHttpRoute(
                 name: "OrganizationApiRoute",
                 routeTemplate: "api/{organization}/{controller}/{id}/{action}",
-                defaults: new
-                    {
-                        id = RouteParameter.Optional,
-                        action = RouteParameter.Optional
-                    },
-                constraints: new {id = @"^[\d]*$"}
-                );
+                defaults: new {id = RouteParameter.Optional, action = RouteParameter.Optional},
+                constraints: new {id = @"^[\d]*$"});
+
+
+            
         }
     }
 }

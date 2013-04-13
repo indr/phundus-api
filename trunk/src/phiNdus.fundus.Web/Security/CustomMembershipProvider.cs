@@ -222,7 +222,10 @@
 
             try
             {
-                user.Membership.LogOn(HttpContext.Current.Session.SessionID, password);
+                var id = SessionKeyGenerator.CreateKey();
+                if ((HttpContext.Current != null) && (HttpContext.Current.Session != null))
+                    id = HttpContext.Current.Session.SessionID;
+                user.Membership.LogOn(id, password);
                 if (user.SelectedOrganization == null && user.Memberships.Count > 0)
                     user.SelectOrganization(user.Memberships.First().Organization);
                 if (user.SelectedOrganization != null)
