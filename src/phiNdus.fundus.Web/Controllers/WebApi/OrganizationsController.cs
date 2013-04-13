@@ -7,6 +7,7 @@
     using Castle.Transactions;
     using Domain.Entities;
     using Domain.Repositories;
+    using Dtos;
     using NHibernate;
 
     public class OrganizationsController : ApiControllerBase
@@ -66,6 +67,7 @@
         public virtual OrganizationDto Put(int id, [FromBody] OrganizationDto value)
         {
             var org = Organizations.FindById(id);
+
             var user = Users.FindByEmail(User.Identity.Name);
 
             if (org == null)
@@ -88,23 +90,5 @@
 
             return ToDto(org);
         }
-    }
-
-    public class OrganizationListDto
-    {
-        public int Id { get; set; }
-        public int Version { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
-        public string Address { get; set; }
-    }
-
-    public class OrganizationDto : OrganizationListDto
-    {
-        public string EmailAddress { get; set; }
-        public string Website { get; set; }
-        public string Coordinate { get; set; }
-        public string Startpage { get; set; }
-        public DateTime CreateDate { get; set; }
     }
 }
