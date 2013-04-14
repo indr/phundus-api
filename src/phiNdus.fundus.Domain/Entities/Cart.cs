@@ -108,15 +108,6 @@ namespace phiNdus.fundus.Domain.Entities
             ServiceLocator.Current.GetInstance<ICartRepository>().Delete(this);
             return result;
         }
-
-        public virtual void Clear()
-        {
-            CartItem item;
-            while (null != (item = Items.FirstOrDefault()))
-            {
-                RemoveItem(item);
-            }
-        }
     }
 
     

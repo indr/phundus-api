@@ -37,14 +37,14 @@
 
         #endregion
 
-        [HttpPost]
+        [HttpGet]
         [Transaction]
-        public virtual bool Login([FromBody] LogInDto value)
+        public virtual bool Login(string username, string password)
         {
-            if (!Membership.ValidateUser(value.Username, value.Password))
+            if (!Membership.ValidateUser(username, password))
                 return false;
 
-            FormsAuthentication.SetAuthCookie(value.Username, false);
+            FormsAuthentication.SetAuthCookie(username, false);
             return true;
         }
 
@@ -53,15 +53,5 @@
         {
             FormsAuthentication.SignOut();
         }
-
-        #region Nested type: LogInDto
-
-        public class LogInDto
-        {
-            public string Password { get; set; }
-            public string Username { get; set; }
-        }
-
-        #endregion
     }
 }
