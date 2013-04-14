@@ -11,20 +11,19 @@ namespace piNuts.phundus.Specs.Steps
         [Given(@"mein Warenkorb ist leer")]
         public void AngenommenMeinWarenkorbIstLeer()
         {
-            ApiCall("/basket/clear");
-            //Browser.GoTo(BaseUrl + "/cart");
-            //if (Browser.TableCell(Find.ByClass("no-data")).Exists)
-            //    return;
+            Browser.GoTo(BaseUrl + "/cart");
+            if (Browser.TableCell(Find.ByClass("no-data")).Exists)
+                return;
 
-            //var link = Browser.Links.FirstOrDefault(p => p.InnerHtml == "Entfernen");
-            //while (link != null && link.Exists)
-            //{
-            //    link.Click();
-            //    link = Browser.Links.FirstOrDefault(p => p.InnerHtml == "Entfernen");
-            //}
-            //Browser.GoTo(BaseUrl + "/cart");
-            //var td = Browser.TableCell(Find.ByClass("no-data"));
-            //Assert.That(td.Exists, Is.True);
+            var link = Browser.Links.FirstOrDefault(p => p.InnerHtml == "Entfernen");
+            while (link != null && link.Exists)
+            {
+                link.Click();
+                link = Browser.Links.FirstOrDefault(p => p.InnerHtml == "Entfernen");
+            }
+            Browser.GoTo(BaseUrl + "/cart");
+            var td = Browser.TableCell(Find.ByClass("no-data"));
+            Assert.That(td.Exists, Is.True);
         }
 
         [Given(@"ich lege den Artikel mit der Id (.*) in den Warenkorb")]
