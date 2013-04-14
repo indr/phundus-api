@@ -29,43 +29,6 @@
             Browser.GoTo(link.Url);
         }
 
-        private void Login(string username, string password)
-        {
-            var content =
-                new FormUrlEncodedContent(new Dictionary<string, string>
-                    {
-                        {"username", "user@test.phundus.ch"},
-                        {"password", "1234"}
-                    });
-
-            var cookies = new CookieContainer();
-            var handler = new HttpClientHandler();
-            handler.CookieContainer = cookies;
-            var client = new HttpClient(handler);
-            var response = client.PostAsync("http://" + BaseUrl + "/api/auth/login", content).Result;
-            response.EnsureSuccessStatusCode();
-
-
-            //Browser.ClearCookies("http://" + BaseUrl);
-            //Browser.GoTo(BaseUrl);
-            foreach (var each in cookies.GetCookies(new Uri("http://" + BaseUrl)).Cast<Cookie>())
-            {
-                var data = String.Format("{0}={1}; expires={2}", new[]
-                    {
-                        each.Name,
-                        each.Value,
-                        DateTime.Now.AddMinutes(30).ToString("R")
-                    });
-                Browser.SetCookie("http://" + BaseUrl, data);
-            }
-            //Browser.GoTo(BaseUrl);
-
-            //Browser.GoTo(BaseUrl + "/account/logon");
-            //AngenommenIchFügeInsFeldEin("E-Mail-Adresse", "user@test.phundus.ch");
-            //AngenommenIchFügeInsFeldEin("Passwort", "1234");
-            //Browser.Button(Find.ByValue("Anmelden")).Click();
-        }
-
         [Given(@"ich bin als Benutzer angemeldet")]
         public void AngenommenIchBinAlsBenutzerAngemeldet()
         {
