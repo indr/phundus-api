@@ -29,8 +29,7 @@
             Browser.GoTo(link.Url);
         }
 
-        [Given(@"ich bin als Benutzer angemeldet")]
-        public void AngenommenIchBinAlsBenutzerAngemeldet()
+        private void Login(string username, string password)
         {
             var content =
                 new FormUrlEncodedContent(new Dictionary<string, string>
@@ -65,6 +64,24 @@
             //AngenommenIchFügeInsFeldEin("E-Mail-Adresse", "user@test.phundus.ch");
             //AngenommenIchFügeInsFeldEin("Passwort", "1234");
             //Browser.Button(Find.ByValue("Anmelden")).Click();
+        }
+
+        [Given(@"ich bin als Benutzer angemeldet")]
+        public void AngenommenIchBinAlsBenutzerAngemeldet()
+        {
+            Login("user@test.phundus.ch", "1234");
+        }
+
+        [Given(@"ich bin als Verwalter angemeldet")]
+        public void AngenommenIchBinAlsVerwalterAngemeldet()
+        {
+            Login("chief@test.phundus.ch", "1234");
+        }
+
+        [Given(@"ich bin als Administrator angemeldet")]
+        public void AngenommenIchBinAlsAdministratorAngemeldet()
+        {
+            Login("admin@test.phundus.ch", "1234");
         }
 
         [Given(@"ich tippe ins Feld ""(.*)"" ""(.*)"" ein")]
