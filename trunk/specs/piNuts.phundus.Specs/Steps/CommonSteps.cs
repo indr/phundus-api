@@ -1,14 +1,18 @@
-﻿using System;
-using System.Configuration;
-using System.Reflection;
-using NUnit.Framework;
-using OpenPop.Mime;
-using piNuts.phundus.Specs.Infrastructure;
-using TechTalk.SpecFlow;
-using WatiN.Core;
-
-namespace piNuts.phundus.Specs.Steps
+﻿namespace piNuts.phundus.Specs.Steps
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Reflection;
+    using Infrastructure;
+    using NUnit.Framework;
+    using OpenPop.Mime;
+    using TechTalk.SpecFlow;
+    using WatiN.Core;
+
     [Binding]
     public class CommonSteps : StepBase
     {
@@ -28,10 +32,39 @@ namespace piNuts.phundus.Specs.Steps
         [Given(@"ich bin als Benutzer angemeldet")]
         public void AngenommenIchBinAlsBenutzerAngemeldet()
         {
-            Browser.GoTo(BaseUrl + "/account/logon");
-            AngenommenIchFügeInsFeldEin("E-Mail-Adresse", "user@test.phundus.ch");
-            AngenommenIchFügeInsFeldEin("Passwort", "1234");
-            Browser.Button(Find.ByValue("Anmelden")).Click();
+            var content =
+                new FormUrlEncodedContent(new Dictionary<string, string>
+                    {
+                        {"username", "user@test.phundus.ch"},
+                        {"password", "1234"}
+                    });
+
+            var cookies = new CookieContainer();
+            var handler = new HttpClientHandler();
+            handler.CookieContainer = cookies;
+            var client = new HttpClient(handler);
+            var response = client.PostAsync("http://" + BaseUrl + "/api/auth/login", content).Result;
+            response.EnsureSuccessStatusCode();
+
+
+            //Browser.ClearCookies("http://" + BaseUrl);
+            //Browser.GoTo(BaseUrl);
+            foreach (var each in cookies.GetCookies(new Uri("http://" + BaseUrl)).Cast<Cookie>())
+            {
+                var data = String.Format("{0}={1}; expires={2}", new[]
+                    {
+                        each.Name,
+                        each.Value,
+                        DateTime.Now.AddMinutes(30).ToString("R")
+                    });
+                Browser.SetCookie("http://" + BaseUrl, data);
+            }
+            //Browser.GoTo(BaseUrl);
+
+            //Browser.GoTo(BaseUrl + "/account/logon");
+            //AngenommenIchFügeInsFeldEin("E-Mail-Adresse", "user@test.phundus.ch");
+            //AngenommenIchFügeInsFeldEin("Passwort", "1234");
+            //Browser.Button(Find.ByValue("Anmelden")).Click();
         }
 
         [Given(@"ich tippe ins Feld ""(.*)"" ""(.*)"" ein")]
@@ -72,7 +105,7 @@ namespace piNuts.phundus.Specs.Steps
         public void DannMussDieMeldungErscheinen(string meldung)
         {
             Assert.That(Browser.ContainsText(meldung), Is.True,
-                String.Format("Die Meldung \"{0}\" ist nicht vorhanden.", meldung));
+                        String.Format("Die Meldung \"{0}\" ist nicht vorhanden.", meldung));
         }
 
         [Then(@"muss das Feld ""(.*)"" rot sein")]
