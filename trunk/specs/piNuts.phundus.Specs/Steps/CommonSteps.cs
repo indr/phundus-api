@@ -1,14 +1,18 @@
-﻿using System;
-using System.Configuration;
-using System.Reflection;
-using NUnit.Framework;
-using OpenPop.Mime;
-using piNuts.phundus.Specs.Infrastructure;
-using TechTalk.SpecFlow;
-using WatiN.Core;
-
-namespace piNuts.phundus.Specs.Steps
+﻿namespace piNuts.phundus.Specs.Steps
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Reflection;
+    using Infrastructure;
+    using NUnit.Framework;
+    using OpenPop.Mime;
+    using TechTalk.SpecFlow;
+    using WatiN.Core;
+
     [Binding]
     public class CommonSteps : StepBase
     {
@@ -28,10 +32,19 @@ namespace piNuts.phundus.Specs.Steps
         [Given(@"ich bin als Benutzer angemeldet")]
         public void AngenommenIchBinAlsBenutzerAngemeldet()
         {
-            Browser.GoTo(BaseUrl + "/account/logon");
-            AngenommenIchFügeInsFeldEin("E-Mail-Adresse", "user@test.phundus.ch");
-            AngenommenIchFügeInsFeldEin("Passwort", "1234");
-            Browser.Button(Find.ByValue("Anmelden")).Click();
+            Login("user@test.phundus.ch", "1234");
+        }
+
+        [Given(@"ich bin als Verwalter angemeldet")]
+        public void AngenommenIchBinAlsVerwalterAngemeldet()
+        {
+            Login("chief@test.phundus.ch", "1234");
+        }
+
+        [Given(@"ich bin als Administrator angemeldet")]
+        public void AngenommenIchBinAlsAdministratorAngemeldet()
+        {
+            Login("admin@test.phundus.ch", "1234");
         }
 
         [Given(@"ich tippe ins Feld ""(.*)"" ""(.*)"" ein")]
@@ -72,7 +85,7 @@ namespace piNuts.phundus.Specs.Steps
         public void DannMussDieMeldungErscheinen(string meldung)
         {
             Assert.That(Browser.ContainsText(meldung), Is.True,
-                String.Format("Die Meldung \"{0}\" ist nicht vorhanden.", meldung));
+                        String.Format("Die Meldung \"{0}\" ist nicht vorhanden.", meldung));
         }
 
         [Then(@"muss das Feld ""(.*)"" rot sein")]
