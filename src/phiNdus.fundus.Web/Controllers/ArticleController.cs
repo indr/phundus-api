@@ -5,6 +5,7 @@
     using System.Web.Mvc;
     using Business.Services;
     using Castle.Transactions;
+    using Helpers.FileUpload;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
@@ -139,9 +140,7 @@
         public virtual ActionResult ImageStore(int id, string name)
         {
             var path = String.Format(@"~\Content\Images\Articles\{0}", id);
-
-            var store = new ImageStore();
-            store.FilePath = path;
+            var store = new ImageStore(path);            
 
             var factory = new BlueImpFileUploadJsonResultFactory();
             factory.ImageUrl = Url.Content(path);

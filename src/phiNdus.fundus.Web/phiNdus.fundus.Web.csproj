@@ -218,6 +218,7 @@
     <Compile Include="Business\Services\IOrderService.cs" />
     <Compile Include="Business\Services\OrderService.cs" />
     <Compile Include="Business\Services\PropertyService.cs" />
+    <Compile Include="Controllers\Orgs\FilesController.cs" />
     <Compile Include="Controllers\WebApi\ApiControllerBase.cs" />
     <Compile Include="Controllers\WebApi\AuthController.cs" />
     <Compile Include="Controllers\WebApi\BasketController.cs" />
@@ -231,6 +232,10 @@
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Exceptions\HttpNotFoundException.cs" />
+    <Compile Include="Helpers\FileUpload\BlueImpFileUploadHandler.cs" />
+    <Compile Include="Helpers\FileUpload\BlueImpFileUploadJsonResult.cs" />
+    <Compile Include="Helpers\FileUpload\BlueImpFileUploadJsonResultFactory.cs" />
+    <Compile Include="Helpers\FileUpload\ImageStore.cs" />
     <Compile Include="Models\Organization\OrganizationModel.cs" />
     <Compile Include="Controllers\WebApi\MembersController.cs" />
     <Compile Include="Controllers\WebApi\OrganizationsController.cs" />
@@ -272,7 +277,6 @@
     </Compile>
     <Compile Include="Helpers\ActiveTabExtension.cs" />
     <Compile Include="Helpers\AjaxExtensions.cs" />
-    <Compile Include="Helpers\BlueImpFileUploadHandler.cs" />
     <Compile Include="Helpers\ButtonClass.cs" />
     <Compile Include="Helpers\LabelExtensions.cs" />
     <Compile Include="Helpers\HtmlExtensions.cs" />
@@ -354,6 +358,7 @@
     <Content Include="Content\select2.png" />
     <Content Include="Content\select2x2.png" />
     <Content Include="Content\spinner.gif" />
+    <Content Include="Content\Views\Organization\Files.html" />
     <Content Include="Content\Views\Organization\Search.html" />
     <Content Include="Content\Views\Organization\Establish.html" />
     <Content Include="Content\Views\Organization\Members.html" />

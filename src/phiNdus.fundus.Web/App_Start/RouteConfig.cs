@@ -20,6 +20,13 @@
                 new {name = new OrganizationExistsConstraint(organizations)});
 
             routes.MapRoute(
+                "Orgs",
+                "orgs/{orgId}/{controller}/{action}/{id}",
+                defaults: new { action = "Index", id = UrlParameter.Optional },
+                constraints: new { orgId = @"^[\d]+$" }
+        );
+
+            routes.MapRoute(
                 "Default",
                 "{controller}/{action}/{id}",
                 new {controller = ControllerNames.Home, action = "Index", id = UrlParameter.Optional});

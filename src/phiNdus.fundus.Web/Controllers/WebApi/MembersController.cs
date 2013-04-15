@@ -7,6 +7,7 @@
     using Domain.Repositories;
     using Dtos;
 
+    [Authorize(Roles="Chief")]
     public class MembersController : ApiControllerBase
     {
         public IUserRepository Users { get; set; }
