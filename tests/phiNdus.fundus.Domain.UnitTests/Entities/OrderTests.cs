@@ -4,6 +4,9 @@ using phiNdus.fundus.Domain.Entities;
 
 namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
+    using NHibernate;
+    using Rhino.Mocks;
+
     [TestFixture]
     public class OrderTests
     {
@@ -20,35 +23,11 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
             Assert.That(sut.Version, Is.EqualTo(2));
         }
 
-        [Test]
-        public void AddItem_returns_true_and_adds_item_to_Items()
-        {
-            Assert.Ignore("TODO");
-            var sut = CreateSut();
-            var item = new OrderItem();
-            Assert.That(sut.AddItem(item), Is.True);
-            Assert.That(sut.Items, Has.Some.SameAs(item));
-        }
+        
 
-        [Test]
-        public void AddItem_sets_Order_on_Item()
-        {
-            Assert.Ignore("TODO");
-            var sut = CreateSut();
-            var item = new OrderItem();
-            sut.AddItem(item);
-            Assert.That(item.Order, Is.SameAs(sut));
-        }
+        
 
-        [Test]
-        public void AddItem_with_item_already_added_returns_false()
-        {
-            Assert.Ignore("TODO");
-            var sut = CreateSut();
-            var item = new OrderItem();
-            sut.AddItem(item);
-            Assert.That(sut.AddItem(item), Is.False);
-        }
+        
 
         [Test]
         public void Can_get_and_set_Reserver()
@@ -103,16 +82,6 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
             Assert.That(sut.Version, Is.EqualTo(0));
         }
 
-        [Test]
-        public void RemoveItem_returns_true_and_removes_item_from_Items()
-        {
-            Assert.Ignore("TODO");
-            var sut = CreateSut();
-            var item = new OrderItem();
-            sut.AddItem(item);
-            Assert.That(sut.RemoveItem(item), Is.True);
-            Assert.That(sut.Items, Has.No.Some.SameAs(item));
-        }
 
         [Test]
         public void RemoveItem_sets_Order_on_Item_to_null()

@@ -4,17 +4,16 @@
     using System.Globalization;
     using System.Web.Mvc;
     using System.Web.Security;
-    using Business;
-    using Business.Dto;
     using Castle.Transactions;
-    using Domain.Entities;
-    using Domain.Mails;
-    using Domain.Repositories;
-    using Models;
-    using Security;
-    using ViewModels;
-    using ViewModels.Account;
-    using fundus.Business;
+    using phiNdus.fundus.Business;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Mails;
+    using phiNdus.fundus.Domain.Repositories;
+    using phiNdus.fundus.Web.Business.Dto;
+    using phiNdus.fundus.Web.Models;
+    using phiNdus.fundus.Web.Security;
+    using phiNdus.fundus.Web.ViewModels;
+    using phiNdus.fundus.Web.ViewModels.Account;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class AccountController : ControllerBase
@@ -160,7 +159,7 @@
             {
                 try
                 {
-                    if (MembershipProvider.ChangeEmail(User.Identity.Name, model.Email))
+                    if (MembershipProvider.ChangeEmail(Identity.Name, model.Email))
                         return View("ChangeEmailDone");
                     ModelState.AddModelError("", "Unbekannter Fehler beim Ändern der E-Mail-Adresse.");
                 }
@@ -197,7 +196,7 @@
 
             try
             {
-                if (MembershipProvider.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
+                if (MembershipProvider.ChangePassword(Identity.Name, model.OldPassword, model.NewPassword))
                     return View("ChangePasswordDone");
 
                 ModelState.AddModelError("", "Unbekannter Fehler beim Ändern des Passwortes.");
@@ -214,14 +213,11 @@
         [Transaction]
         public virtual ActionResult SignUp()
         {
-            using (UnitOfWork.Start())
-            {
-                var model = new SignUpModel
-                    {
-                        Organizations = Organizations.FindAll()
-                    };
-                return View(model);
-            }
+            var model = new SignUpModel
+                            {
+                                Organizations = Organizations.FindAll()
+                            };
+            return View(model);
         }
 
         [HttpPost]
@@ -233,16 +229,16 @@
                 try
                 {
                     var userDto = new UserDto
-                        {
-                            Email = model.Email,
-                            FirstName = model.FirstName,
-                            LastName = model.LastName,
-                            Street = model.Street,
-                            Postcode = model.Postcode,
-                            City = model.City,
-                            MobilePhone = model.MobilePhone,
-                            JsNumber = model.JsNumber
-                        };
+                                      {
+                                          Email = model.Email,
+                                          FirstName = model.FirstName,
+                                          LastName = model.LastName,
+                                          Street = model.Street,
+                                          Postcode = model.Postcode,
+                                          City = model.City,
+                                          MobilePhone = model.MobilePhone,
+                                          JsNumber = model.JsNumber
+                                      };
                     var password = model.Password;
                     var organizationId = model.OrganizationId;
 
@@ -294,8 +290,7 @@
             }
 
             // Nicht erfolgreich
-            using (UnitOfWork.Start())
-                model.Organizations = Organizations.FindAll();
+            model.Organizations = Organizations.FindAll();
             return View(model);
         }
     }

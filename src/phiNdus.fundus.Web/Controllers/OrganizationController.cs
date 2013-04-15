@@ -5,9 +5,8 @@
     using System.Web;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using Domain.Repositories;
-    using Models.Organization;
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using phiNdus.fundus.Domain.Repositories;
+    using phiNdus.fundus.Web.Models.Organization;
 
     public class OrganizationController : ControllerBase
     {
@@ -34,7 +33,7 @@
                         "Die Organisation mit der Id {0} und/oder dem Namen \"{1}\" konnte nicht gefunden werden.",
                         id, name));
 
-            var user = Users.FindByEmail(User.Identity.Name);
+            var user = Users.FindByEmail(Identity.Name);
             var model = new OrganizationModel(organization);
             if (user != null)
             {
@@ -42,7 +41,7 @@
                 model.HasOptionJoin = !isMemberOf;
                 model.HasOptionLeave = isMemberOf;
             }
-            
+
 
             return View(model);
         }
@@ -51,23 +50,20 @@
         [Transaction]
         public virtual ActionResult Select(int id)
         {
-            using (var uow = UnitOfWork.Start())
-            {
-                var organization = Organizations.FindById(id);
-                if (organization == null)
-                    throw new HttpException(404, "Organisation nicht gefunden.");
+            var organization = Organizations.FindById(id);
+            if (organization == null)
+                throw new HttpException(404, "Organisation nicht gefunden.");
 
-                var user = Users.FindByEmail(User.Identity.Name);
-                if (user == null)
-                    throw new AuthenticationException("Um eine Organisation auszuwählen, müssen Sie sich anmelden.");
+            var user = Users.FindByEmail(Identity.Name);
+            if (user == null)
+                throw new AuthenticationException("Um eine Organisation auszuwählen, müssen Sie sich anmelden.");
 
-                user.SelectOrganization(organization);
+            user.SelectOrganization(organization);
 
-                Session["OrganizationId"] = organization.Id;
-                uow.TransactionalFlush();
+            Session["OrganizationId"] = organization.Id;
 
-                return RedirectToRoute("Organization", new {name = organization.Url});
-            }
+
+            return RedirectToRoute("Organization", new {name = organization.Url});
         }
     }
 }

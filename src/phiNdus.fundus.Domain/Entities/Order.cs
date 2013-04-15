@@ -6,6 +6,7 @@
     using System.Web.Hosting;
     using Iesi.Collections.Generic;
     using Microsoft.Practices.ServiceLocation;
+    using NHibernate;
     using iTextSharp.text;
     using iTextSharp.text.exceptions;
     using iTextSharp.text.pdf;
@@ -69,9 +70,9 @@
             get { return Items.Min(s => s.From); }
         }
 
-        public virtual bool AddItem(OrderItem item)
+        public virtual bool AddItem(OrderItem item, ISession session)
         {
-            var checker = new AvailabilityChecker(item.Article);
+            var checker = new AvailabilityChecker(item.Article, session);
             if (!checker.Check(item.From, item.To, item.Amount))
                 throw new ArticleNotAvailableException(item);
 
@@ -80,14 +81,14 @@
             return result;
         }
 
-        public virtual bool AddItem(int articleId, int amount, DateTime begin, DateTime end)
+        public virtual bool AddItem(int articleId, int amount, DateTime begin, DateTime end, ISession session)
         {
             var item = new OrderItem();
             item.Article = ServiceLocator.Current.GetInstance<IArticleRepository>().Get(articleId);
             item.Amount = amount;
             item.From = begin;
             item.To = end;
-            return AddItem(item);
+            return AddItem(item, session);
         }
 
         public virtual bool RemoveItem(OrderItem item)
@@ -131,14 +132,15 @@
             if (!String.IsNullOrEmpty(Organization.DocTemplateFileName))
             {
                 var fileName = HostingEnvironment.MapPath(
-                    String.Format(@"~\Content\Uploads\Organizations\{0}\{1}", Organization.Id, Organization.DocTemplateFileName));
+                    String.Format(@"~\Content\Uploads\Organizations\{0}\{1}", Organization.Id,
+                                  Organization.DocTemplateFileName));
                 if (File.Exists(fileName))
                 {
                     try
                     {
                         reader = new PdfReader(fileName);
                     }
-                    catch (InvalidPdfException ex)
+                    catch (InvalidPdfException)
                     {
                         reader = null;
                     }

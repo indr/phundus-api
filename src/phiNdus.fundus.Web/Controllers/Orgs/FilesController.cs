@@ -1,15 +1,13 @@
 ﻿namespace phiNdus.fundus.Web.Controllers
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Mvc;
     using Castle.Transactions;
     using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Helpers.FileUpload;
 
     [Authorize(Roles = "Chief")]
-    public class FilesController : Controller
+    public class FilesController : ControllerBase
     {
         public IUserRepository Users { get; set; }
         public IOrganizationRepository Organizations { get; set; }
@@ -38,7 +36,7 @@
         [Transaction]
         public virtual JsonResult Index(int orgId)
         {
-            var user = Users.FindByEmail(User.Identity.Name);
+            var user = Users.FindByEmail(Identity.Name);
             var org = Organizations.FindById(orgId);
             if (!user.IsChiefOf(org))
                 throw new HttpForbiddenException();
@@ -54,7 +52,7 @@
         [Transaction]
         public virtual JsonResult Delete(int orgId, string id)
         {
-            var user = Users.FindByEmail(User.Identity.Name);
+            var user = Users.FindByEmail(Identity.Name);
             var org = Organizations.FindById(orgId);
             if (!user.IsChiefOf(org))
                 throw new HttpForbiddenException();
@@ -69,7 +67,7 @@
         [Transaction]
         public virtual JsonResult Index(int orgId, string id)
         {
-            var user = Users.FindByEmail(User.Identity.Name);
+            var user = Users.FindByEmail(Identity.Name);
             var org = Organizations.FindById(orgId);
             if (!user.IsChiefOf(org))
                 throw new HttpForbiddenException();

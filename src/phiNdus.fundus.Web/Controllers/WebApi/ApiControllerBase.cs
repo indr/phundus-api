@@ -1,5 +1,6 @@
 ﻿namespace phiNdus.fundus.Web.Controllers.WebApi
 {
+    using System.Security.Principal;
     using System.Web.Http;
     using AutoMapper;
     using Castle.Core.Logging;
@@ -13,6 +14,8 @@
             get { return _log; }
             set { _log = value; }
         }
+
+        public IIdentity Identity { get; set; }
 
         protected static TDestination Map<TDestination>(object source)
         {

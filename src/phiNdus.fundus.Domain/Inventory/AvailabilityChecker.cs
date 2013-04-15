@@ -7,6 +7,7 @@ using phiNdus.fundus.Domain.Entities;
 
 namespace phiNdus.fundus.Domain.Inventory
 {
+    using NHibernate;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class Availability
@@ -25,15 +26,17 @@ namespace phiNdus.fundus.Domain.Inventory
     public class AvailabilityChecker
     {
         private readonly Article _article;
+        private ISession _session;
 
-        public AvailabilityChecker(Article article)
+        public AvailabilityChecker(Article article, ISession session)
         {
             _article = article;
+            _session = session;
         }
 
         public bool Check(DateTime start, DateTime end, int amount)
         {
-            var netStock = new NetStockCalculator(_article);
+            var netStock = new NetStockCalculator(_article, _session);
             var netStocks = netStock.From(start).To(end);
 
             return netStocks.All(each => each.Amount >= amount);
@@ -45,12 +48,14 @@ namespace phiNdus.fundus.Domain.Inventory
         private readonly Article _article;
         private DateTime _start;
         private DateTime _to;
+        private ISession _session;
 
-        public NetStockCalculator(Article article)
+        public NetStockCalculator(Article article, ISession session)
         {
             _article = article;
             _start = DateTime.Today;
             _to = DateTime.Today.AddYears(1);
+            _session = session;
         }
 
         public NetStockCalculator From(DateTime start)
@@ -68,13 +73,13 @@ namespace phiNdus.fundus.Domain.Inventory
         private int At(DateTime day)
         {
             var grossStock = _article.GrossStock;
-            var netStockChanges = GetNetStockChanges(new DateTime(2000, 1, 1), day.AddDays(-1));
+            var netStockChanges = GetNetStockChanges(_session, new DateTime(2000, 1, 1), day.AddDays(-1));
             return grossStock + netStockChanges.Sum(s => s.Delta);
         }
 
         private IList<Availability> Compute()
         {
-            var netStockChanges = GetNetStockChanges(_start, _to);
+            var netStockChanges = GetNetStockChanges(_session, _start, _to);
             var result = new List<Availability>();
             var netStockAtStart = At(_start);
             var netStock = netStockAtStart;
@@ -90,9 +95,10 @@ namespace phiNdus.fundus.Domain.Inventory
             return result;
         }
 
-        private IEnumerable<NetStockChangeByDate> GetNetStockChanges(DateTime from, DateTime to)
+        private IEnumerable<NetStockChangeByDate> GetNetStockChanges(ISession session, DateTime from, DateTime to)
         {
-           return UnitOfWork.CurrentSession.CreateSQLQuery(
+
+            return session.CreateSQLQuery(
                 @"select [Date], sum([Amount]) as [Delta] from (
 	select [from] as [Date], 0 - sum(amount) as [Amount] from OrderItem
         inner join [Order] on [Order].Id = [OrderItem].OrderId and ([Order].Status = :pending or [Order].Status = :approved)

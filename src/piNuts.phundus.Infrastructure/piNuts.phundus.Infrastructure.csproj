@@ -71,7 +71,6 @@
     <Compile Include="Obsolete\Guard.cs" />
     <Compile Include="Obsolete\RepositoryBase.cs" />
     <Compile Include="Obsolete\Repositories.cs" />
-    <Compile Include="Obsolete\UnitOfWork.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

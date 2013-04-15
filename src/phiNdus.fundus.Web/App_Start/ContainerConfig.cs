@@ -1,27 +1,22 @@
-﻿using System.Web;
-using System.Web.Mvc;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
-using Castle.Windsor.Installer;
-using phiNdus.fundus.Web.Plumbing;
-using piNuts.phundus.Infrastructure;
-
-namespace phiNdus.fundus.Web.App_Start
+﻿namespace phiNdus.fundus.Web.App_Start
 {
-    using System;
-    using System.Reflection;
-    using System.Text;
+    using System.Security.Principal;
+    using System.Web;
     using System.Web.Http;
-    using Business.Services;
+    using System.Web.Mvc;
     using Castle.Facilities.AutoTx;
     using Castle.Facilities.NHibernate;
+    using Castle.MicroKernel.Registration;
     using Castle.Transactions;
+    using Castle.Windsor;
+    using Castle.Windsor.Installer;
     using CommonServiceLocator.WindsorAdapter;
     using FluentNHibernate.Cfg;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
     using phiNdus.fundus.Domain.Entities;
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using phiNdus.fundus.Web.Business.Services;
+    using phiNdus.fundus.Web.Plumbing;
 
     public class ContainerConfig
     {
@@ -48,16 +43,25 @@ namespace phiNdus.fundus.Web.App_Start
 
             container.AddFacility<AutoTxFacility>();
             container.Register(Component.For<INHibernateInstaller>()
-                .ImplementedBy<NHibernateInstaller>());
+                                        .ImplementedBy<NHibernateInstaller>());
             container.AddFacility<NHibernateFacility>();
 
-            
+
             GlobalConfiguration.Configuration.DependencyResolver
                 = new WindsorDependencyResolver(container);
 
             ControllerBuilder.Current.SetControllerFactory(
                 new WindsorControllerFactory(container.Kernel));
-            
+
+
+            container.Register(Component.For<IPrincipal>()
+                                        .LifestylePerWebRequest()
+                                        .UsingFactoryMethod(() => HttpContext.Current.User));
+
+            container.Register(Component.For<IIdentity>()
+                                        .LifestylePerWebRequest()
+                                        .UsingFactoryMethod(() => HttpContext.Current.User.Identity));
+                
 
             ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
 
@@ -74,6 +78,8 @@ namespace phiNdus.fundus.Web.App_Start
             _interceptor = Maybe.None<IInterceptor>();
         }
 
+        #region INHibernateInstaller Members
+
         public FluentConfiguration BuildFluent()
         {
             var cfg = new NHibernate.Cfg.Configuration();
@@ -89,8 +95,21 @@ namespace phiNdus.fundus.Web.App_Start
             //
         }
 
-        public bool IsDefault { get { return true; } }
-        public string SessionFactoryKey { get { return "sf.default"; } }
-        public Maybe<IInterceptor> Interceptor { get { return _interceptor; } }
+        public bool IsDefault
+        {
+            get { return true; }
+        }
+
+        public string SessionFactoryKey
+        {
+            get { return "sf.default"; }
+        }
+
+        public Maybe<IInterceptor> Interceptor
+        {
+            get { return _interceptor; }
+        }
+
+        #endregion
     }
 }

@@ -3,21 +3,19 @@
     using System;
     using System.IO;
     using System.Web.Mvc;
-    using Business.Services;
     using Castle.Transactions;
-    using Helpers.FileUpload;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
-    using phiNdus.fundus.Web.Helpers;
+    using phiNdus.fundus.Web.Business.Services;
+    using phiNdus.fundus.Web.Helpers.FileUpload;
     using phiNdus.fundus.Web.Models.ArticleModels;
     using phiNdus.fundus.Web.ViewModels;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     [Authorize(Roles = "Chief")]
     public class ArticleController : ControllerBase
     {
-        static string MasterView
+        private static string MasterView
         {
             get { return @"_Tabs"; }
         }
@@ -140,7 +138,7 @@
         public virtual ActionResult ImageStore(int id, string name)
         {
             var path = String.Format(@"~\Content\Images\Articles\{0}", id);
-            var store = new ImageStore(path);            
+            var store = new ImageStore(path);
 
             var factory = new BlueImpFileUploadJsonResultFactory();
             factory.ImageUrl = Url.Content(path);
@@ -190,14 +188,11 @@
         [Transaction]
         public virtual ActionResult Reservations(int id)
         {
-            using (UnitOfWork.Start())
-            {
-                var model = new ArticleReservationsModel();
-                model.Items = ServiceLocator.Current.GetInstance<IReservationRepository>().Find(new Article(id, 0));
-                if (Request.IsAjaxRequest())
-                    return PartialView(Views.Reservations, model);
-                return View(Views.Reservations, MasterView, model);
-            }
+            var model = new ArticleReservationsModel();
+            model.Items = ServiceLocator.Current.GetInstance<IReservationRepository>().Find(new Article(id, 0));
+            if (Request.IsAjaxRequest())
+                return PartialView(Views.Reservations, model);
+            return View(Views.Reservations, MasterView, model);
         }
 
         [Transaction]
@@ -286,7 +281,9 @@
             return EditorFor(model, prefix);
         }
 
-        static class Views
+        #region Nested type: Views
+
+        private static class Views
         {
             public static string Fields
             {
@@ -313,5 +310,7 @@
                 get { return @"Reservations"; }
             }
         }
+
+        #endregion
     }
 }

@@ -8,6 +8,7 @@ using phiNdus.fundus.Domain.Repositories;
 namespace phiNdus.fundus.Domain.Entities
 {
     using Microsoft.Practices.ServiceLocation;
+    using NHibernate;
     using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
 
@@ -65,28 +66,28 @@ namespace phiNdus.fundus.Domain.Entities
             Items.Remove(item);
         }
 
-        public virtual void CalculateAvailability()
+        public virtual void CalculateAvailability(ISession session)
         {
             foreach (var each in Items)
             {
-                var checker = new AvailabilityChecker(each.Article);
+                var checker = new AvailabilityChecker(each.Article, session);
                 each.IsAvailable = checker.Check(each.From, each.To, each.Quantity);
             }
         }
 
-        public virtual Order PlaceOrder()
+        public virtual Order PlaceOrder(ISession session)
         {
             var result = new Order();
             result.Reserver = Customer;
             foreach (var each in Items)
-                result.AddItem(each.Article.Id, each.Quantity, each.From, each.To);
+                result.AddItem(each.Article.Id, each.Quantity, each.From, each.To, session);
 
             ServiceLocator.Current.GetInstance<IOrderRepository>().Save(result);
             ServiceLocator.Current.GetInstance<ICartRepository>().Delete(this);
             return result;
         }
 
-        public virtual ICollection<Order> PlaceOrders()
+        public virtual ICollection<Order> PlaceOrders(ISession session)
         {
             var result = new List<Order>();
             var orders = ServiceLocator.Current.GetInstance<IOrderRepository>();
@@ -100,7 +101,7 @@ namespace phiNdus.fundus.Domain.Entities
                 order.Reserver = Customer;
                 var items = from i in Items where i.Article.Organization.Id == organization.Id select i;
                 foreach (var item in items)
-                    order.AddItem(item.Article.Id, item.Quantity, item.From, item.To);
+                    order.AddItem(item.Article.Id, item.Quantity, item.From, item.To, session);
 
                 orders.Save(order);
                 result.Add(order);

@@ -15,8 +15,8 @@
         public virtual ActionResult Index()
         {
             var model = new FeedbackModel();
-            if (User.Identity.IsAuthenticated)
-                model.EmailAddress = User.Identity.Name;
+            if (Identity.IsAuthenticated)
+                model.EmailAddress = Identity.Name;
             return View(model);
         }
 

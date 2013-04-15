@@ -18,7 +18,7 @@
         public virtual MemberDtos Get(int organization)
         {
             var org = Organizations.FindById(organization);
-            var user = Users.FindByEmail(User.Identity.Name);
+            var user = Users.FindByEmail(Identity.Name);
 
             if (org == null)
                 throw new HttpNotFoundException("Die Organisation ist nicht vorhanden.");
@@ -78,7 +78,7 @@
         private OrganizationMembership DoSomeStuffIDontHaveWordsFor(int organization, int id)
         {
             var org = Organizations.FindById(organization);
-            var user = Users.FindByEmail(User.Identity.Name);
+            var user = Users.FindByEmail(Identity.Name);
 
             if (org == null)
                 throw new HttpNotFoundException("Die Organisation ist nicht vorhanden.");
