@@ -57,7 +57,8 @@
                     Website = organization.Website,
                     Coordinate = organization.Coordinate,
                     Startpage = organization.Startpage,
-                    CreateDate = organization.CreateDate
+                    CreateDate = organization.CreateDate,
+                    DocumentTemplate = organization.DocTemplateFileName
                 };
         }
 
@@ -84,6 +85,7 @@
             org.Website = value.Website;
             org.Coordinate = value.Coordinate;
             org.Startpage = value.Startpage;
+            org.DocTemplateFileName = value.DocumentTemplate;
 
             Organizations.Update(org);
             SessionFactory().Flush();
