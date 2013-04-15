@@ -52,6 +52,15 @@
                 <textarea id="startpage"  ui-tinymce ng-model="settings.startpage" class="input-xxlarge" rows="16"></textarea>
             </div>
         </div>
+        
+        <div class="control-group">
+            <label class="control-label" for="documentTemplate">Dokumentvorlage</label>
+            <div class="controls">
+                <select ng-model="settings.documentTemplate" ng-options="value.name as value.name for value in files">
+                    <option value="">-- Weisse Seite --</option>
+                </select>
+            </div>
+        </div>
     </fieldset>
 
     <div class="form-actions">

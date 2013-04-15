@@ -63,5 +63,7 @@
         public virtual string EmailAddress { get; set; }
 
         public virtual string Website { get; set; }
+
+        public virtual string DocTemplateFileName { get; set; }
     }
 }
