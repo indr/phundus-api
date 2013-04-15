@@ -12,11 +12,60 @@
             .when('/search', { controller: SearchCtrl, templateUrl: './Content/Views/Organization/Search.html' })
             .when('/establish', { controller: EstablishCtrl, templateUrl: './Content/Views/Organization/Establish.html' })
             .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Organization/Members.html' })
-            .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Organization/Settings.html' })
+            .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Organization/Settings.html' })            
+            .when('/files', { controller: FilesCtrl, templateUrl: './Content/Views/Organization/Files.html'})
             .otherwise({ redirectTo: '/search' });
     });
 
 
+    function FilesCtrl($scope) {
+
+        $('#fileupload').attr("action", "./orgs/" + $scope.organizationId + "/files");
+
+
+        // Initialize the jQuery File Upload widget:
+        $('#fileupload').fileupload();
+
+        // Enable iframe cross-domain access via redirect option:
+        $('#fileupload').fileupload(
+            'option',
+            'redirect',
+            window.location.href.replace(
+                /\/[^\/]*$/,
+                '/cors/result.html?%s'
+            )
+        );
+
+        // Load existing files:
+        $('#fileupload').each(function () {
+            var that = this;
+            $.getJSON(this.action, function (result) {
+                if (result && result.length) {
+                    $(that).fileupload('option', 'done')
+                        .call(that, null, { result: result });
+                }
+            });
+        });
+
+//    $scope.fileList = [];
+//    $('#fileupload').bind('fileuploadadd', function (e, data) {
+//        // Add the files to the list
+//        //var numFiles = $scope.fileList.length;
+//        for (var i = 0; i < data.files.length; ++i) {
+//            var file = data.files[i];
+//            // .$apply to update angular when something else makes changes
+//            $scope.$apply(
+//            $scope.fileList.push({ name: file.name })
+//            );
+//        }
+//        // Begin upload immediately
+//        data.submit();
+//    });
+//    $scope.addButtonClicked = function() {
+//        var numFiles = $scope.fileList.length;
+//        $scope.fileList.push({ name: ('fileName' + numFiles) });
+//    };
+    }
 
 function SearchCtrl($scope, organizations) {
     $scope.organizations = organizations.query();
