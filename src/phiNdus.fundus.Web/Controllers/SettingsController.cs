@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using Castle.Transactions;
 using phiNdus.fundus.Web.ViewModels;
-using piNuts.phundus.Infrastructure.Obsolete;
 
 namespace phiNdus.fundus.Web.Controllers
 {

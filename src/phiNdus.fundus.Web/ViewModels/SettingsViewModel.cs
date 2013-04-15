@@ -126,7 +126,7 @@
             if (subject == null)
                 subject = new Setting(Keyspace + ".subject");
             subject.StringValue = Subject;
-            repo.SaveOrUpdate(subject);
+            repo.Add(subject);
 
             var bodyPlain = repo.FindByKey(Keyspace + ".body");
             if (bodyPlain != null && bodyPlain.Version != BodyPlainVersion)
@@ -134,7 +134,7 @@
             if (bodyPlain == null)
                 bodyPlain = new Setting(Keyspace + ".body");
             bodyPlain.StringValue = BodyPlain;
-            repo.SaveOrUpdate(bodyPlain);
+            repo.Add(bodyPlain);
 
             var bodyHtml = repo.FindByKey(Keyspace + ".html-body");
             if (bodyHtml != null && bodyHtml.Version != BodyHtmlVersion)
@@ -142,7 +142,7 @@
             if (bodyHtml == null)
                 bodyHtml = new Setting(Keyspace + ".html-body");
             bodyHtml.StringValue = BodyHtml;
-            repo.SaveOrUpdate(bodyHtml);
+            repo.Add(bodyHtml);
         }
     }
 }

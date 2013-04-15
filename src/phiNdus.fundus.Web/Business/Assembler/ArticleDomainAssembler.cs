@@ -4,11 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.Practices.ServiceLocation;
-    using fundus.Business;
+    using phiNdus.fundus.Business;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Dto;
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using piNuts.phundus.Infrastructure;
 
     /// <summary>
     /// Die <c>ArticleDomainAssembler</c> wandelt Article-DTOs in Article-Domain-Objects.
@@ -41,7 +41,7 @@
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
-            var result = ServiceLocator.Current.GetInstance<IArticleRepository>().Get(subject.Id);
+            var result = ServiceLocator.Current.GetInstance<IArticleRepository>().ById(subject.Id);
             Guard.Against<EntityNotFoundException>(result == null, "Article entity not found");
             Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 
@@ -70,7 +70,7 @@
                     propertyValue = result.SetFieldValue(each.PropertyId, each.Value);
                 }
                 else
-                    propertyValue = result.AddField(propertyDefinitionRepo.Get(each.PropertyId), each.Value);
+                    propertyValue = result.AddField(propertyDefinitionRepo.ById(each.PropertyId), each.Value);
 
                 propertyValue.IsDiscriminator = each.IsDiscriminator;
             }

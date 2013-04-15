@@ -19,7 +19,7 @@
 
         public virtual OrderDto GetOrder(int id)
         {
-            var order = ServiceLocator.Current.GetInstance<IOrderRepository>().Get(id);
+            var order = ServiceLocator.Current.GetInstance<IOrderRepository>().ById(id);
             if (order == null)
                 return null;
             return new OrderDtoAssembler().CreateDto(order);
@@ -77,7 +77,7 @@
         public OrderDto Reject(int id)
         {
             var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
-            var order = repo.Get(id);
+            var order = repo.ById(id);
 
             var user = Users.FindByEmail(Identity.Name);
             order.Reject(user);
@@ -94,7 +94,7 @@
         public OrderDto Confirm(int id)
         {
             var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
-            var order = repo.Get(id);
+            var order = repo.ById(id);
 
             var user = Users.FindByEmail(Identity.Name);
             order.Approve(user);
@@ -112,7 +112,7 @@
         public Stream GetPdf(int id)
         {
             var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
-            var order = repo.Get(id);
+            var order = repo.ById(id);
             return order.GeneratePdf();
         }
 

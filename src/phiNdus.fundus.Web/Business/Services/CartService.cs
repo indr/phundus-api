@@ -23,7 +23,7 @@
             if (cart == null)
             {
                 cart = new Cart(user);
-                Carts.Save(cart);
+                Carts.Add(cart);
             }
 
             if (version.HasValue && cart.Version != version.Value)
@@ -41,10 +41,10 @@
             if (cart == null)
             {
                 cart = new Cart(user);
-                Carts.Save(cart);
+                Carts.Add(cart);
             }
             cart.AddItem(item.ArticleId, item.Quantity, item.From, item.To);
-            Carts.SaveOrUpdate(cart);
+            Carts.Add(cart);
 
             cart.CalculateAvailability(SessionFact());
             var assembler = new CartAssembler();

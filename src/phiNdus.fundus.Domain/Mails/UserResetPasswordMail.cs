@@ -4,7 +4,7 @@
     using Entities;
     using Infrastructure;
     using Settings;
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using piNuts.phundus.Infrastructure;
 
     public class UserResetPasswordMail : BaseMail
     {

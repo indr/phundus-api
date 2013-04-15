@@ -6,7 +6,6 @@
     using Entities;
     using Repositories;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class Installer : IWindsorInstaller
     {

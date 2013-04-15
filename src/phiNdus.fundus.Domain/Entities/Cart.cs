@@ -10,7 +10,6 @@ namespace phiNdus.fundus.Domain.Entities
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class Cart : EntityBase
     {
@@ -46,7 +45,7 @@ namespace phiNdus.fundus.Domain.Entities
         public virtual void AddItem(int articleId, int quantity, DateTime @from, DateTime to)
         {
             var item = new CartItem();
-            item.Article = ServiceLocator.Current.GetInstance<IArticleRepository>().Get(articleId);
+            item.Article = ServiceLocator.Current.GetInstance<IArticleRepository>().ById(articleId);
             item.Quantity = quantity;
             item.From = from;
             item.To = to;
@@ -82,8 +81,8 @@ namespace phiNdus.fundus.Domain.Entities
             foreach (var each in Items)
                 result.AddItem(each.Article.Id, each.Quantity, each.From, each.To, session);
 
-            ServiceLocator.Current.GetInstance<IOrderRepository>().Save(result);
-            ServiceLocator.Current.GetInstance<ICartRepository>().Delete(this);
+            ServiceLocator.Current.GetInstance<IOrderRepository>().Add(result);
+            ServiceLocator.Current.GetInstance<ICartRepository>().Remove(this);
             return result;
         }
 
@@ -103,10 +102,10 @@ namespace phiNdus.fundus.Domain.Entities
                 foreach (var item in items)
                     order.AddItem(item.Article.Id, item.Quantity, item.From, item.To, session);
 
-                orders.Save(order);
+                orders.Add(order);
                 result.Add(order);
             }
-            ServiceLocator.Current.GetInstance<ICartRepository>().Delete(this);
+            ServiceLocator.Current.GetInstance<ICartRepository>().Remove(this);
             return result;
         }
 

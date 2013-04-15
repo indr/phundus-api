@@ -7,7 +7,6 @@ namespace phiNdus.fundus.Domain.Entities
 {
     using Microsoft.Practices.ServiceLocation;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     /// <summary>
     /// Die Klasse FieldedEntity stellt Funktionen für dynamische Felder zur Verfügung.
@@ -132,7 +131,7 @@ namespace phiNdus.fundus.Domain.Entities
         public virtual FieldValue SetFieldValue(int fieldDefinitionId, object value, bool attachIfNotExists)
         {
             if (attachIfNotExists && !HasField(fieldDefinitionId))
-                AddField(ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().Get(fieldDefinitionId));
+                AddField(ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().ById(fieldDefinitionId));
             foreach (var each in FieldValues.Where(each => each.FieldDefinition.Id == fieldDefinitionId))
             {
                 each.Value = value;

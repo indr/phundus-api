@@ -8,7 +8,6 @@
     using phiNdus.fundus.Business.Gateways;
     using phiNdus.fundus.Domain.Settings;
     using RazorEngine;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class BaseMail
     {

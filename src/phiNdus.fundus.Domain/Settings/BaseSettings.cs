@@ -5,7 +5,6 @@
     using Microsoft.Practices.ServiceLocation;
     using Repositories;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class BaseSettings
     {

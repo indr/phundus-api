@@ -8,7 +8,6 @@
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class ShopController : ControllerBase
     {

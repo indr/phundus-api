@@ -4,7 +4,6 @@ namespace phiNdus.fundus.Domain.Repositories
 {
     using NHibernate.Criterion;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class RoleRepository : RepositoryBase<Role>, IRoleRepository
     {

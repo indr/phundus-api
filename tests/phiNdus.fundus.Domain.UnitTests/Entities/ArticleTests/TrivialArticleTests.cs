@@ -83,7 +83,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         public void SetCaption()
         {
             var sut = CreateSut();
-            FakeFieldDefRepository.Stub(x => x.Get(NameFieldDef.Id))
+            FakeFieldDefRepository.Stub(x => x.ById(NameFieldDef.Id))
                 .Return(NameFieldDef);
 
             Assert.That(sut.Caption, Is.EqualTo(""));
@@ -95,7 +95,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         public void SetIsLendable()
         {
             var sut = CreateSut();
-            FakeFieldDefRepository.Stub(x => x.Get(IsBorrowableFieldDef.Id)).Return(
+            FakeFieldDefRepository.Stub(x => x.ById(IsBorrowableFieldDef.Id)).Return(
                 IsBorrowableFieldDef);
 
             Assert.That(sut.IsBorrowable, Is.False);
@@ -107,7 +107,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         public void SetIsReservable()
         {
             var sut = CreateSut();
-            FakeFieldDefRepository.Stub(x => x.Get(IsReservableFieldDef.Id)).Return(
+            FakeFieldDefRepository.Stub(x => x.ById(IsReservableFieldDef.Id)).Return(
                 IsReservableFieldDef);
 
             Assert.That(sut.IsReservable, Is.False);
@@ -119,7 +119,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         public void SetPrice()
         {
             var sut = CreateSut();
-            FakeFieldDefRepository.Stub(x => x.Get(PriceFieldDef.Id)).Return(PriceFieldDef);
+            FakeFieldDefRepository.Stub(x => x.ById(PriceFieldDef.Id)).Return(PriceFieldDef);
 
             Assert.That(sut.Price, Is.EqualTo(0.0d));
             sut.Price = 1.1d;

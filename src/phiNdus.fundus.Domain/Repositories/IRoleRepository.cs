@@ -1,10 +1,8 @@
-﻿using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Domain.Repositories
+﻿namespace phiNdus.fundus.Domain.Repositories
 {
-    using NHibernate.Criterion;
+    using phiNdus.fundus.Domain.Entities;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using Order = NHibernate.Criterion.Order;
 
     public interface IRoleRepository : IRepository<Role>
     {

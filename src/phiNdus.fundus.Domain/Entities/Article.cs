@@ -7,7 +7,6 @@ namespace phiNdus.fundus.Domain.Entities
 {
     using Microsoft.Practices.ServiceLocation;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class Article : CompositeEntity
     {
@@ -100,7 +99,7 @@ namespace phiNdus.fundus.Domain.Entities
                         "Der Bruttobestand kann nicht gesetzt werden, da mindestens eine Ausprägung vorhanden ist.");
                 if (!HasField(FieldDefinition.GrossStockId))
                     AddField(
-                        ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().Get(FieldDefinition.GrossStockId));
+                        ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().ById(FieldDefinition.GrossStockId));
                 SetFieldValue(FieldDefinition.GrossStockId, value);
             }
         }

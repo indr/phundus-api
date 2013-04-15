@@ -2,7 +2,6 @@
 {
     using System;
     using NHibernate;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class RepositoryBase<T> : IRepository<T>
     {
@@ -23,31 +22,25 @@
 
         #region IRepository<T> Members
 
-        public T Get(object id)
+        public T ById(object id)
         {
             return (T) Session.Get(ConcreteType, id);
         }
 
-        public void Delete(T entity)
+        public void Remove(T entity)
         {
-            Session.Delete((object) entity);
+            Session.Delete(entity);
         }
 
-        public T Save(T entity)
+        public T Add(T entity)
         {
-            Session.Save((object) entity);
-            return entity;
-        }
-
-        public T SaveOrUpdate(T entity)
-        {
-            Session.SaveOrUpdate((object) entity);
+            Session.SaveOrUpdate(entity);
             return entity;
         }
 
         public void Update(T entity)
         {
-            Session.Update((object) entity);
+            Session.Update(entity);
         }
 
         #endregion

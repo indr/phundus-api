@@ -7,7 +7,7 @@
     using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Assembler;
     using phiNdus.fundus.Web.Business.Dto;
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using piNuts.phundus.Infrastructure;
 
     public class PropertyService : BaseService, IPropertyService
     {
@@ -29,13 +29,13 @@
         public virtual int CreateProperty(FieldDefinitionDto subject)
         {
             var propetyDef = FieldDefinitionAssembler.CreateDomainObject(subject);
-            var id = PropertyDefinitions.Save(propetyDef).Id;
+            var id = PropertyDefinitions.Add(propetyDef).Id;
             return id;
         }
 
         public virtual FieldDefinitionDto GetProperty(int id)
         {
-            var propertyDef = PropertyDefinitions.Get(id);
+            var propertyDef = PropertyDefinitions.ById(id);
             if (propertyDef == null)
                 return null;
             return FieldDefinitionAssembler.CreateDto(propertyDef);
@@ -44,7 +44,7 @@
         public virtual void UpdateProperty(FieldDefinitionDto subject)
         {
             var propertyDef = FieldDefinitionAssembler.UpdateDomainObject(subject);
-            PropertyDefinitions.Save(propertyDef);
+            PropertyDefinitions.Add(propertyDef);
         }
 
         public virtual void DeleteProperty(FieldDefinitionDto subject)
@@ -53,14 +53,14 @@
             if (propertyDef.IsSystem)
                 throw new InvalidOperationException("System-Eigenschaften können nicht gelöscht werden.");
 
-            PropertyDefinitions.Delete(propertyDef);
+            PropertyDefinitions.Remove(propertyDef);
         }
 
         public void UpdateFields(IList<FieldDefinitionDto> subjects)
         {
             foreach (var each in subjects)
             {
-                var fieldDefinition = PropertyDefinitions.Get(each.Id);
+                var fieldDefinition = PropertyDefinitions.ById(each.Id);
                 Guard.Against<DtoOutOfDateException>(fieldDefinition.Version != each.Version, "Dto is out of date");
                 fieldDefinition.IsDefault = each.IsDefault;
                 fieldDefinition.Position = each.Position;

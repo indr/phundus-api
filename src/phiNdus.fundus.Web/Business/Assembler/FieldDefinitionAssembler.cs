@@ -7,7 +7,7 @@
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Dto;
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using piNuts.phundus.Infrastructure;
 
     public class FieldDefinitionAssembler
     {
@@ -98,7 +98,7 @@
         public static FieldDefinition UpdateDomainObject(FieldDefinitionDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
-            var result = ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().Get(subject.Id);
+            var result = ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().ById(subject.Id);
             Guard.Against<EntityNotFoundException>(result == null, "Property entity not found");
             Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 

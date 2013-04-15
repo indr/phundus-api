@@ -8,7 +8,6 @@ using phiNdus.fundus.Domain.Entities;
 namespace phiNdus.fundus.Domain.Inventory
 {
     using NHibernate;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class Availability
     {

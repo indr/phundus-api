@@ -1,9 +1,8 @@
 ﻿namespace phiNdus.fundus.Domain.Repositories
 {
     using System.Collections.Generic;
-    using Entities;
+    using phiNdus.fundus.Domain.Entities;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public interface IMemberRepository : IRepository<User>
     {
