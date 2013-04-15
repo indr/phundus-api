@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NHibernate.Linq;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Domain.Repositories
+﻿namespace phiNdus.fundus.Domain.Repositories
 {
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using NHibernate.Linq;
+    using phiNdus.fundus.Domain.Entities;
+    using piNuts.phundus.Infrastructure;
 
     public class SettingRepository : RepositoryBase<Setting>, ISettingRepository
     {
@@ -28,7 +27,7 @@ namespace phiNdus.fundus.Domain.Repositories
         public IDictionary<string, Setting> FindByKeyspace(string keyspace)
         {
             if (keyspace.EndsWith(".", StringComparison.OrdinalIgnoreCase))
-                throw new ArgumentException( "Keyspace darf nicht mit einem Punkt enden");
+                throw new ArgumentException("Keyspace darf nicht mit einem Punkt enden");
 
             var query = from s in Settings
                         where s.Key.StartsWith(keyspace)
