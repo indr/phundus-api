@@ -7,7 +7,6 @@
     using Business.Services;
     using Domain.Entities;
     using Microsoft.Practices.ServiceLocation;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class OrderViewModel : ViewModelBase
     {

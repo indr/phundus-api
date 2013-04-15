@@ -12,7 +12,7 @@
     using iTextSharp.text.pdf;
     using phiNdus.fundus.Domain.Inventory;
     using phiNdus.fundus.Domain.Repositories;
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using piNuts.phundus.Infrastructure;
 
     public class Order : EntityBase
     {
@@ -84,7 +84,7 @@
         public virtual bool AddItem(int articleId, int amount, DateTime begin, DateTime end, ISession session)
         {
             var item = new OrderItem();
-            item.Article = ServiceLocator.Current.GetInstance<IArticleRepository>().Get(articleId);
+            item.Article = ServiceLocator.Current.GetInstance<IArticleRepository>().ById(articleId);
             item.Amount = amount;
             item.From = begin;
             item.To = end;

@@ -11,8 +11,7 @@
     using Domain.Entities;
     using Domain.Repositories;
     using Microsoft.Practices.ServiceLocation;
-    using piNuts.phundus.Infrastructure.Obsolete;
-    
+
 
     public class UserModel : ModelBase
     {

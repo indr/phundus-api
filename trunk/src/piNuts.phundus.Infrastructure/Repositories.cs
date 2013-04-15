@@ -1,11 +1,14 @@
 ﻿namespace piNuts.phundus.Infrastructure
 {
+    using System;
+
     public interface IRepository<T>
     {
-        T Get(object id);
-        void Delete(T entity);
-        T Save(T entity);
-        T SaveOrUpdate(T entity);
+        T ById(object id);
+        void Remove(T entity);
+        T Add(T entity);
+
+        [Obsolete]
         void Update(T entity);
     }
 }

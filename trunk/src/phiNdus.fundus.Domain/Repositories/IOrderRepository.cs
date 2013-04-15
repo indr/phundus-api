@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Domain.Repositories
+﻿namespace phiNdus.fundus.Domain.Repositories
 {
+    using System.Collections.Generic;
+    using phiNdus.fundus.Domain.Entities;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public interface IOrderRepository : IRepository<Order>
     {
@@ -14,6 +12,5 @@ namespace phiNdus.fundus.Domain.Repositories
         ICollection<Order> FindRejected(Organization organization);
         ICollection<Order> FindClosed(Organization organization);
         int SumReservedAmount(int articleId);
-        
     }
 }

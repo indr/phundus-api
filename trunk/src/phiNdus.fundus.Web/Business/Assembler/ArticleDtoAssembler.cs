@@ -6,7 +6,7 @@
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Dto;
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using piNuts.phundus.Infrastructure;
 
     /// <summary>
     /// Die <c>ArticleDtoAssembler</c>-Klasse wandelt Article-Domain-Objects in Article-DTOs.
@@ -64,7 +64,7 @@
 
         private void WriteField(int fieldDefinitionId, object value, BasePropertiesDto result)
         {
-            var fieldDefinition = ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().Get(fieldDefinitionId);
+            var fieldDefinition = ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().ById(fieldDefinitionId);
             var fieldValueDto = CreateFieldValueDto(fieldDefinition);
             fieldValueDto.Value = value;
             result.AddProperty(fieldValueDto);

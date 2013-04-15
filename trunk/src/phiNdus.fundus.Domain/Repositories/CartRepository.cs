@@ -6,7 +6,6 @@ using phiNdus.fundus.Domain.Entities;
 namespace phiNdus.fundus.Domain.Repositories
 {
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class CartRepository : RepositoryBase<Cart>, ICartRepository
     {
@@ -25,7 +24,7 @@ namespace phiNdus.fundus.Domain.Repositories
 
         public Cart FindById(int id)
         {
-            return Get(id);
+            return ById(id);
         }
     }
 }

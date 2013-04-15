@@ -4,7 +4,6 @@
     using System.Linq;
     using Business.Services;
     using Microsoft.Practices.ServiceLocation;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class FieldsViewModel : ViewModelBase
     {

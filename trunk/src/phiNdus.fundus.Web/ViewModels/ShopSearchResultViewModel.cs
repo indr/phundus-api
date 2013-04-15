@@ -10,7 +10,6 @@ namespace phiNdus.fundus.Web.ViewModels
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class ShopSearchResultViewModel : ViewModelBase
     {

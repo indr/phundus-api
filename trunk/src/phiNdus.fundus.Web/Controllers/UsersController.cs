@@ -8,7 +8,6 @@
     using Domain.Repositories;
     using Microsoft.Practices.ServiceLocation;
     using Models;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
@@ -28,7 +27,7 @@
         {
             try
             {
-                var model = new UserModel(new UserAssembler().CreateDto(Users.Get(id)));
+                var model = new UserModel(new UserAssembler().CreateDto(Users.ById(id)));
                 return View(model);
             }
             catch (Exception ex)
@@ -42,7 +41,7 @@
         [Transaction]
         public virtual ActionResult Edit(int id, FormCollection collection)
         {
-            var userModel = new UserModel(new UserAssembler().CreateDto(Users.Get(id)));
+            var userModel = new UserModel(new UserAssembler().CreateDto(Users.ById(id)));
             try
             {
                 UpdateModel(userModel, collection.ToValueProvider());
@@ -63,7 +62,7 @@
         {
             
             
-                var user = ServiceLocator.Current.GetInstance<IUserRepository>().Get(id);
+                var user = ServiceLocator.Current.GetInstance<IUserRepository>().ById(id);
                 if (user == null)
                     return HttpNotFound();
 
@@ -85,7 +84,7 @@
         {
             
             
-                var user = ServiceLocator.Current.GetInstance<IUserRepository>().Get(id);
+                var user = ServiceLocator.Current.GetInstance<IUserRepository>().ById(id);
                 if (user == null)
                     return HttpNotFound();
 

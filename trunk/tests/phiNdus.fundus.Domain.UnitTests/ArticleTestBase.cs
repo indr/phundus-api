@@ -20,9 +20,9 @@ namespace phiNdus.fundus.Domain.UnitTests
             FakeOrderRepository = GenerateAndRegisterStub<IOrderRepository>();
             FakeContractRepository = GenerateAndRegisterStub<IContractRepository>();
 
-            FakeFieldDefRepository.Expect(x => x.Get(GrossStockFieldDef.Id)).Return(GrossStockFieldDef);
-            FakeFieldDefRepository.Expect(x => x.Get(IsBorrowableFieldDef.Id)).Return(IsBorrowableFieldDef);
-            FakeFieldDefRepository.Expect(x => x.Get(IsReservableFieldDef.Id)).Return(IsReservableFieldDef);
+            FakeFieldDefRepository.Expect(x => x.ById(GrossStockFieldDef.Id)).Return(GrossStockFieldDef);
+            FakeFieldDefRepository.Expect(x => x.ById(IsBorrowableFieldDef.Id)).Return(IsBorrowableFieldDef);
+            FakeFieldDefRepository.Expect(x => x.ById(IsReservableFieldDef.Id)).Return(IsReservableFieldDef);
         }
 
         #endregion

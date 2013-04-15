@@ -6,7 +6,6 @@
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Web.ViewModels;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     [Authorize]
     public class OrderController : ControllerBase

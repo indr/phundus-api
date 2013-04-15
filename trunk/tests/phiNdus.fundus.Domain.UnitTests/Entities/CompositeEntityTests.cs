@@ -11,7 +11,6 @@ using Rhino.Mocks;
 namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     [TestFixture]
     public class CompositeEntityTests : UnitTestBase<object>

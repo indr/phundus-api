@@ -10,7 +10,7 @@
     using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Assembler;
     using phiNdus.fundus.Web.Business.Dto;
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using piNuts.phundus.Infrastructure;
 
     public class ArticleService : BaseService, IArticleService
     {
@@ -41,7 +41,7 @@
 
         public virtual ArticleDto GetArticle(int id)
         {
-            var article = Articles.Get(id);
+            var article = Articles.ById(id);
             if (article == null)
                 return null;
             return new ArticleDtoAssembler().CreateDto(article);
@@ -54,7 +54,7 @@
             var article = ArticleDomainAssembler.CreateDomainObject(subject);
             var user = Users.FindByEmail(Identity.Name);
             article.Organization = user.SelectedOrganization;
-            var id = Articles.Save(article).Id;
+            var id = Articles.Add(article).Id;
             return id;
         }
 
@@ -65,7 +65,7 @@
             var article = ArticleDomainAssembler.UpdateDomainObject(subject);
             if (article.Organization.Id != user.SelectedOrganization.Id)
                 throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
-            Articles.Save(article);
+            Articles.Add(article);
         }
 
         public virtual void DeleteArticle(ArticleDto subject)
@@ -74,34 +74,34 @@
             var article = ArticleDomainAssembler.UpdateDomainObject(subject);
             if (article.Organization.Id != user.SelectedOrganization.Id)
                 throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
-            Articles.Delete(article);
+            Articles.Remove(article);
         }
 
         public void AddImage(int articleId, ImageDto subject)
         {
             var user = Users.FindByEmail(Identity.Name);
-            var article = Articles.Get(articleId);
+            var article = Articles.ById(articleId);
             if (article.Organization.Id != user.SelectedOrganization.Id)
                 throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
             var assembler = new ImageAssembler();
             article.AddImage(assembler.CreateDomainObject(subject));
-            Articles.Update(article);
+            Articles.Add(article);
         }
 
         public void DeleteImage(int articleId, string imageName)
         {
             var user = Users.FindByEmail(Identity.Name);
-            var article = Articles.Get(articleId);
+            var article = Articles.ById(articleId);
             if (article.Organization.Id != user.SelectedOrganization.Id)
                 throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
             var image = article.Images.Where(i => i.FileName == imageName).FirstOrDefault();
             article.RemoveImage(image);
-            Articles.Update(article);
+            Articles.Add(article);
         }
 
         public IList<ImageDto> GetImages(int articleId)
         {
-            var article = Articles.Get(articleId);
+            var article = Articles.ById(articleId);
             var assembler = new ImageAssembler();
             return assembler.CreateDtos(article.Images);
         }
@@ -118,7 +118,7 @@
 
         public IList<AvailabilityDto> GetAvailability(int id)
         {
-            var article = Articles.Get(id);
+            var article = Articles.ById(id);
             var availabilities = new NetStockCalculator(article, Session())
                 .From(DateTime.Today).To(DateTime.Today.AddYears(1));
             return

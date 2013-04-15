@@ -5,7 +5,6 @@
     using Entities;
     using NHibernate.Linq;
     using piNuts.phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {

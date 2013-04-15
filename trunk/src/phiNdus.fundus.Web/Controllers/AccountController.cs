@@ -14,7 +14,6 @@
     using phiNdus.fundus.Web.Security;
     using phiNdus.fundus.Web.ViewModels;
     using phiNdus.fundus.Web.ViewModels.Account;
-    using piNuts.phundus.Infrastructure.Obsolete;
 
     public class AccountController : ControllerBase
     {
@@ -268,11 +267,11 @@
                     user.JsNumber = userDto.JsNumber;
                     user.Membership.Email = email;
                     user.Membership.Password = password;
-                    user.Role = Roles.Get(Role.User.Id);
+                    user.Role = Roles.ById(Role.User.Id);
                     user.Membership.GenerateValidationKey();
                     if (organization != null)
                         user.Join(organization);
-                    Users.Save(user);
+                    Users.Add(user);
 
                     // E-Mail mit Verifikationslink senden
                     new UserAccountValidationMail().For(user).Send(user);
