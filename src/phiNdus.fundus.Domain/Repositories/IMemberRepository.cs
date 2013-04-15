@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Entities;
+    using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public interface IMemberRepository : IRepository<User>

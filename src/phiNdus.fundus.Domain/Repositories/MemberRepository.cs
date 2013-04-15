@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Entities;
     using NHibernate;
+    using piNuts.phundus.Infrastructure;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class MemberRepository : RepositoryBase<User>, IMemberRepository
