@@ -4,12 +4,13 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Web;
-    using Assembler;
-    using Domain.Mails;
-    using Dto;
+    using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Mails;
     using phiNdus.fundus.Domain.Repositories;
+    using phiNdus.fundus.Web.Business.Assembler;
+    using phiNdus.fundus.Web.Business.Dto;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class OrderService : BaseService, IOrderService
@@ -33,7 +34,9 @@
         {
             using (UnitOfWork.Start())
             {
-                var orders = ServiceLocator.Current.GetInstance<IOrderRepository>().FindPending(SelectedOrganization);
+                var user = Users.FindByEmail(HttpContext.Current.User.Identity.Name);
+                var orders = ServiceLocator.Current.GetInstance<IOrderRepository>()
+                                           .FindPending(user.SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
@@ -42,7 +45,9 @@
         {
             using (UnitOfWork.Start())
             {
-                var orders = ServiceLocator.Current.GetInstance<IOrderRepository>().FindApproved(SelectedOrganization);
+                var user = Users.FindByEmail(HttpContext.Current.User.Identity.Name);
+                var orders = ServiceLocator.Current.GetInstance<IOrderRepository>()
+                                           .FindApproved(user.SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
@@ -51,7 +56,9 @@
         {
             using (UnitOfWork.Start())
             {
-                var orders = ServiceLocator.Current.GetInstance<IOrderRepository>().FindRejected(SelectedOrganization);
+                var user = Users.FindByEmail(HttpContext.Current.User.Identity.Name);
+                var orders = ServiceLocator.Current.GetInstance<IOrderRepository>()
+                                           .FindRejected(user.SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }
@@ -125,15 +132,12 @@
             return GetOrder(id);
         }
 
+        [Transaction]
         public Stream GetPdf(int id)
         {
-            // TODO: Prüfen ob Admin oder Besitzer der Bestellung
-            using (UnitOfWork.Start())
-            {
-                var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
-                var order = repo.Get(id);
-                return order.GeneratePdf();
-            }
+            var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
+            var order = repo.Get(id);
+            return order.GeneratePdf();
         }
 
         #endregion
@@ -142,7 +146,9 @@
         {
             using (UnitOfWork.Start())
             {
-                var orders = ServiceLocator.Current.GetInstance<IOrderRepository>().FindClosed(SelectedOrganization);
+                var user = Users.FindByEmail(HttpContext.Current.User.Identity.Name);
+                var orders = ServiceLocator.Current.GetInstance<IOrderRepository>()
+                                           .FindClosed(user.SelectedOrganization);
                 return new OrderDtoAssembler().CreateDtos(orders);
             }
         }

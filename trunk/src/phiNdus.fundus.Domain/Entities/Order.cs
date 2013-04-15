@@ -1,26 +1,23 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web;
-using Iesi.Collections.Generic;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using log4net;
-using phiNdus.fundus.Domain.Inventory;
-using phiNdus.fundus.Domain.Repositories;
-using Rectangle = iTextSharp.text.Rectangle;
-
-namespace phiNdus.fundus.Domain.Entities
+﻿namespace phiNdus.fundus.Domain.Entities
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Web.Hosting;
+    using Iesi.Collections.Generic;
     using Microsoft.Practices.ServiceLocation;
-    using piNuts.phundus.Infrastructure;
+    using iTextSharp.text;
+    using iTextSharp.text.exceptions;
+    using iTextSharp.text.pdf;
+    using phiNdus.fundus.Domain.Inventory;
+    using phiNdus.fundus.Domain.Repositories;
     using piNuts.phundus.Infrastructure.Obsolete;
 
     public class Order : EntityBase
     {
         private DateTime _createDate;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
+        private OrderStatus _status = OrderStatus.Pending;
 
         public Order() : this(0, 0)
         {
@@ -47,7 +44,6 @@ namespace phiNdus.fundus.Domain.Entities
 
         public virtual User Reserver { get; set; }
 
-        private OrderStatus _status = OrderStatus.Pending;
         public virtual OrderStatus Status
         {
             get { return _status; }
@@ -58,7 +54,20 @@ namespace phiNdus.fundus.Domain.Entities
 
         public virtual DateTime? ModifyDate { get; protected set; }
 
-        public virtual double TotalPrice { get { return Items.Sum(x => x.LineTotal); } }
+        public virtual double TotalPrice
+        {
+            get { return Items.Sum(x => x.LineTotal); }
+        }
+
+        protected DateTime LastTo
+        {
+            get { return Items.Max(s => s.To); }
+        }
+
+        protected DateTime FirstFrom
+        {
+            get { return Items.Min(s => s.From); }
+        }
 
         public virtual bool AddItem(OrderItem item)
         {
@@ -118,11 +127,38 @@ namespace phiNdus.fundus.Domain.Entities
 
         public virtual Stream GeneratePdf()
         {
+            PdfReader reader = null;
+            if (!String.IsNullOrEmpty(Organization.DocTemplateFileName))
+            {
+                var fileName = HostingEnvironment.MapPath(
+                    String.Format(@"~\Content\Uploads\Organizations\{0}\{1}", Organization.Id, Organization.DocTemplateFileName));
+                if (File.Exists(fileName))
+                {
+                    try
+                    {
+                        reader = new PdfReader(fileName);
+                    }
+                    catch (InvalidPdfException ex)
+                    {
+                        reader = null;
+                    }
+                }
+            }
+
+
             var result = new MemoryStream();
             var doc = new Document(PageSize.A4, 0, 0, 36.0f, 36.0f);
             var writer = PdfWriter.GetInstance(doc, result);
             writer.CloseStream = false;
+
             doc.Open();
+
+            if (reader != null)
+            {
+                var importedPage = writer.GetImportedPage(reader, 1);
+
+                writer.DirectContentUnder.AddTemplate(importedPage, 0, 0);
+            }
 
             var fontsFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Fonts);
 
@@ -131,8 +167,8 @@ namespace phiNdus.fundus.Domain.Entities
             //Environment
             //FontFactory.Register(@"C:\\Windows"););
             //foreach (var each in FontFactory.RegisteredFonts)
-           // {
-           //     doc.Add(new Paragraph(each));
+            // {
+            //     doc.Add(new Paragraph(each));
             //}
 
             var defaultFont = FontFactory.GetFont("calibri", 11);
@@ -174,21 +210,20 @@ namespace phiNdus.fundus.Domain.Entities
             table.DefaultCell.Padding = 3;
 
             table.TotalWidth = 100;
-            
+
             var orderNumberCell = new PdfPCell(new Phrase(Id.ToString(),
-                FontFactory.GetFont("calibri-bold", 36, BaseColor.WHITE)));
+                                                          FontFactory.GetFont("calibri-bold", 36, BaseColor.WHITE)));
             orderNumberCell.HorizontalAlignment = Element.ALIGN_RIGHT;
             orderNumberCell.Rowspan = 5;
             orderNumberCell.PaddingTop = 0;
             orderNumberCell.PaddingRight = 18.0f;
-            orderNumberCell.PaddingBottom += 20; 
+            orderNumberCell.PaddingBottom += 20;
             orderNumberCell.BorderWidth = 0;
             orderNumberCell.BackgroundColor = backGroundColor;
 
-            
-            table.SetWidths(new int[] { 2, 4, 2 });
 
-            
+            table.SetWidths(new int[] {2, 4, 2});
+
 
             PdfPCell cell = null;
 
@@ -208,7 +243,7 @@ namespace phiNdus.fundus.Domain.Entities
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
             table.AddCell(new Phrase(Reserver.JsNumber.ToString(), defaultFontBold));
-            
+
             cell = new PdfPCell(new Phrase("Telefon / E-Mail:", defaultFontGray));
             cell.BorderWidth = 0;
             cell.BackgroundColor = backGroundColor;
@@ -216,8 +251,6 @@ namespace phiNdus.fundus.Domain.Entities
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
             table.AddCell(new Phrase(Reserver.MobileNumber + " / " + Reserver.Membership.Email, defaultFont));
-
-            
 
 
             cell = new PdfPCell(new Phrase("Abholen:", defaultFontGray));
@@ -250,8 +283,7 @@ namespace phiNdus.fundus.Domain.Entities
             doc.Add(table);
 
 
-            
-            table = new PdfPTable(new float[] { 5, 5, 36, 10, 12, 12, 10, 10 });
+            table = new PdfPTable(new float[] {5, 5, 36, 10, 12, 12, 10, 10});
             table.WidthPercentage = 90;
             table.DefaultCell.Padding = 3;
             table.DefaultCell.BorderWidth = 0.5f;
@@ -266,7 +298,7 @@ namespace phiNdus.fundus.Domain.Entities
             table.AddCell(new Phrase("Bis", defaultFontBold));
             table.AddCell(new Phrase("Stk. Preis", defaultFontBold));
             table.AddCell(new Phrase("Total", defaultFontBold));
-            
+
 
             int pos = 0;
             foreach (var item in Items)
@@ -289,7 +321,7 @@ namespace phiNdus.fundus.Domain.Entities
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
             table.AddCell(new Phrase("", defaultFont));
-            table.AddCell(new Phrase(this.TotalPrice.ToString("N"), defaultFontBold));
+            table.AddCell(new Phrase(TotalPrice.ToString("N"), defaultFontBold));
             doc.Add(table);
 //            var path = HttpContext.Current.Server.MapPath(@"~\Content\Images\PdfFooter.png");
 //            var img = iTextSharp.text.Image.GetInstance(path);
@@ -323,54 +355,48 @@ namespace phiNdus.fundus.Domain.Entities
 //            table.WriteSelectedRows(0, -1, -10, 150, writer.DirectContent);
 
             doc.Close();
+            if (reader != null)
+                reader.Close();
             result.Position = 0;
             return result;
-        }
-
-        protected DateTime LastTo
-        {
-            get { return Items.Max(s => s.To); }
-        }
-
-        protected DateTime FirstFrom
-        {
-            get { return Items.Min(s => s.From); }
         }
     }
 
     public class RoundRectangle : IPdfPCellEvent
     {
+        #region IPdfPCellEvent Members
+
         public void CellLayout(
-          PdfPCell cell, Rectangle rect, PdfContentByte[] canvas
-        )
+            PdfPCell cell, Rectangle rect, PdfContentByte[] canvas
+            )
         {
             PdfContentByte cb;
 
             cb = canvas[PdfPTable.BACKGROUNDCANVAS];
             cb.RoundRectangle(
-              rect.Left,
-              rect.Bottom,
-              rect.Width,
-              rect.Height,
-              8 // change to adjust how "round" corner is displayed
-            );
+                rect.Left,
+                rect.Bottom,
+                rect.Width,
+                rect.Height,
+                8 // change to adjust how "round" corner is displayed
+                );
             cb.SetColorFill(BaseColor.WHITE);
             cb.Fill();
 
             cb = canvas[PdfPTable.LINECANVAS];
             cb.RoundRectangle(
-              rect.Left,
-              rect.Bottom,
-              rect.Width,
-              rect.Height,
-              8 // change to adjust how "round" corner is displayed
-            );
+                rect.Left,
+                rect.Bottom,
+                rect.Width,
+                rect.Height,
+                8 // change to adjust how "round" corner is displayed
+                );
             cb.SetLineWidth(0.5f);
             cb.SetCMYKColorStrokeF(0f, 0f, 0f, 1f);
             cb.Stroke();
-
-            
         }
+
+        #endregion
     }
 
 

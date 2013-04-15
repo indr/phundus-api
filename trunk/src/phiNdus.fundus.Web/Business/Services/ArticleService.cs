@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Principal;
+    using System.Web;
     using Assembler;
     using Dto;
     using Microsoft.Practices.ServiceLocation;
@@ -18,6 +20,7 @@
             get { return ServiceLocator.Current.GetInstance<IArticleRepository>(); }
         }
 
+        public IUserRepository Users { get; set; }
         public IPropertyService PropertyService { get; set; }
 
         #region IArticleService Members
@@ -31,7 +34,8 @@
         {
             using (UnitOfWork.Start())
             {
-                var articles = Articles.FindAll(SelectedOrganization);
+                var user = Users.FindByEmail(Identity.Name);
+                var articles = Articles.FindAll(user.SelectedOrganization);
                 return new ArticleDtoAssembler().CreateDtos(articles);
             }
         }
@@ -54,19 +58,25 @@
             using (var uow = UnitOfWork.Start())
             {
                 var article = ArticleDomainAssembler.CreateDomainObject(subject);
-                article.Organization = SelectedOrganization;
+                var user = Users.FindByEmail(Identity.Name);
+                article.Organization = user.SelectedOrganization;
                 var id = Articles.Save(article).Id;
                 uow.TransactionalFlush();
                 return id;
             }
         }
 
+        public IPrincipal User { get { return HttpContext.Current.User; }}
+        public IIdentity Identity { get { return User.Identity; } }
+
+
         public virtual void UpdateArticle(ArticleDto subject)
         {
             using (var uow = UnitOfWork.Start())
             {
+                var user = Users.FindByEmail(Identity.Name);
                 var article = ArticleDomainAssembler.UpdateDomainObject(subject);
-                if (article.Organization.Id != SelectedOrganization.Id)
+                if (article.Organization.Id != user.SelectedOrganization.Id)
                     throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
                 Articles.Save(article);
                 uow.TransactionalFlush();
@@ -77,8 +87,9 @@
         {
             using (var uow = UnitOfWork.Start())
             {
+                var user = Users.FindByEmail(Identity.Name);
                 var article = ArticleDomainAssembler.UpdateDomainObject(subject);
-                if (article.Organization.Id != SelectedOrganization.Id)
+                if (article.Organization.Id != user.SelectedOrganization.Id)
                     throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
                 Articles.Delete(article);
                 uow.TransactionalFlush();
@@ -89,8 +100,9 @@
         {
             using (var uow = UnitOfWork.Start())
             {
+                var user = Users.FindByEmail(Identity.Name);
                 var article = Articles.Get(articleId);
-                if (article.Organization.Id != SelectedOrganization.Id)
+                if (article.Organization.Id != user.SelectedOrganization.Id)
                     throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
                 var assembler = new ImageAssembler();
                 article.AddImage(assembler.CreateDomainObject(subject));
@@ -103,8 +115,9 @@
         {
             using (var uow = UnitOfWork.Start())
             {
+                var user = Users.FindByEmail(Identity.Name);
                 var article = Articles.Get(articleId);
-                if (article.Organization.Id != SelectedOrganization.Id)
+                if (article.Organization.Id != user.SelectedOrganization.Id)
                     throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
                 var image = article.Images.Where(i => i.FileName == imageName).FirstOrDefault();
                 article.RemoveImage(image);
