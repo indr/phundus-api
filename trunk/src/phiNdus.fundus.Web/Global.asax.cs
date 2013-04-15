@@ -5,11 +5,11 @@
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using App_Start;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using Domain.Repositories;
-    using Security;
+    using phiNdus.fundus.Domain.Repositories;
+    using phiNdus.fundus.Web.App_Start;
+    using phiNdus.fundus.Web.Security;
 
     public class MvcApplication : HttpApplication, IContainerAccessor
     {
@@ -26,9 +26,8 @@
 
         protected void Application_Start()
         {
-            FileSystemConfig.CreateMissingDirectory(s => Server.MapPath(s));
-            DatabaseMigrator.Migrate(s => Server.MapPath(s));
-
+            FileSystemConfig.CreateMissingDirectory();
+            DatabaseMigrator.Migrate();
             AutoMapperConfig.Config();
 
             _container = ContainerConfig.Bootstrap();
