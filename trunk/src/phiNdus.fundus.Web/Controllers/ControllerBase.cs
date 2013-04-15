@@ -1,10 +1,17 @@
 namespace phiNdus.fundus.Web.Controllers
 {
+    using System;
     using System.IO;
+    using System.Security.Principal;
     using System.Web.Mvc;
+    using NHibernate;
 
     public abstract class ControllerBase : Controller
     {
+        public IIdentity Identity { get; set; }
+
+        public Func<ISession> SessionFact { get; set; }
+
         protected string SessionId
         {
             get { return Session.SessionID; }

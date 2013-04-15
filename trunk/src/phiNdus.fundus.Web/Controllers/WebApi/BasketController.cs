@@ -1,11 +1,10 @@
 ﻿namespace phiNdus.fundus.Web.Controllers.WebApi
 {
-    using System.Web;
     using System.Web.Http;
     using Castle.Transactions;
-    using Domain.Repositories;
+    using phiNdus.fundus.Domain.Repositories;
 
-    public class BasketController : ApiController
+    public class BasketController : ApiControllerBase
     {
         public IUserRepository Users { get; set; }
         public ICartRepository Carts { get; set; }
@@ -16,7 +15,7 @@
         [Transaction]
         public virtual void Clear()
         {
-            var user = Users.FindByEmail(User.Identity.Name);
+            var user = Users.FindByEmail(Identity.Name);
             var cart = Carts.FindByCustomer(user);
             if (cart != null)
                 cart.Clear();

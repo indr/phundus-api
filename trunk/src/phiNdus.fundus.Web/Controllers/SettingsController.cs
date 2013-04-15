@@ -36,11 +36,11 @@ namespace phiNdus.fundus.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var uow = UnitOfWork.Start())
-                {
+                
+                
                     model.SaveChanges();
-                    uow.TransactionalFlush();
-                }
+                    
+                
                 return MailTemplates();
             }
 

@@ -15,7 +15,7 @@
         public virtual ActionResult NavBar()
         {
             var model = new NavBarModel();
-            var user = Users.FindByEmail(User.Identity.Name);
+            var user = Users.FindByEmail(Identity.Name);
             if (user != null)
             {
                 model.Selected = user.SelectedOrganization;

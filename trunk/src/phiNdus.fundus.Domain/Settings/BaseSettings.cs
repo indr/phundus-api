@@ -30,11 +30,10 @@
 
         private IDictionary<string, Setting> Load()
         {
-            using (UnitOfWork.Start())
-            {
+            
                 var repo = ServiceLocator.Current.GetInstance<ISettingRepository>();
                 return repo.FindByKeyspace(_keyspace);
-            }
+            
         }
 
         protected string GetString(string key)

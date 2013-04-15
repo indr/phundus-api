@@ -207,8 +207,6 @@
     <Compile Include="Business\Paging\PagedResult.cs" />
     <Compile Include="Business\Paging\PageRequest.cs" />
     <Compile Include="Business\Paging\PageResponse.cs" />
-    <Compile Include="Business\Security\SecurityContext.cs" />
-    <Compile Include="Business\Security\SecuritySession.cs" />
     <Compile Include="Business\Services\ArticleService.cs" />
     <Compile Include="Business\Services\BaseService.cs" />
     <Compile Include="Business\Services\CartService.cs" />

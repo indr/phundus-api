@@ -15,6 +15,7 @@
     {
         public IUserRepository Users { get; set; }
 
+
         [Transaction]
         public virtual ActionResult Index()
         {
@@ -60,21 +61,21 @@
         [Transaction]
         public virtual ActionResult LockOut(int id)
         {
-            using (var uow = UnitOfWork.Start())
-            {
+            
+            
                 var user = ServiceLocator.Current.GetInstance<IUserRepository>().Get(id);
                 if (user == null)
                     return HttpNotFound();
 
                 user.Membership.LockOut();
-                UnitOfWork.CurrentSession.Update(user);
+                SessionFact().Update(user);
 
                 new UserLockedOutMail().For(user)
                                        .Send(user);
                 //.Send(Settings.Common.AdminEmailAddress);
 
-                uow.TransactionalFlush();
-            }
+                
+            
             return Json(id);
         }
 
@@ -82,21 +83,21 @@
         [Transaction]
         public virtual ActionResult Unlock(int id)
         {
-            using (var uow = UnitOfWork.Start())
-            {
+            
+            
                 var user = ServiceLocator.Current.GetInstance<IUserRepository>().Get(id);
                 if (user == null)
                     return HttpNotFound();
 
                 user.Membership.Unlock();
-                UnitOfWork.CurrentSession.Update(user);
+                SessionFact().Update(user);
 
                 new UserUnlockedMail().For(user)
                                       .Send(user);
                 //.Send(Settings.Common.AdminEmailAddress);
 
-                uow.TransactionalFlush();
-            }
+                
+            
             return Json(id);
         }
     }

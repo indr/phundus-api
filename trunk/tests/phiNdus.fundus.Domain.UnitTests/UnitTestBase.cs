@@ -18,11 +18,11 @@ namespace phiNdus.fundus.TestHelpers.TestBases
         {
             base.SetUp();
             Obsolete_MockFactory = new MockRepository();
-            MockUnitOfWork = Obsolete_CreateAndRegisterStrictUnitOfWorkMock();
+            
         }
 
         protected TSut Sut { get; set; }
-        protected IUnitOfWork MockUnitOfWork { get; set; }
+        
 
         protected virtual void GenerateMissingStubs()
         {
@@ -42,20 +42,6 @@ namespace phiNdus.fundus.TestHelpers.TestBases
             return result;
         }
 
-        protected IUnitOfWork GenerateAndRegisterMockUnitOfWork()
-        {
-            var result = MockRepository.GenerateMock<IUnitOfWork>();
-            UnitOfWork.RegisterGlobalUnitOfWork(result);
-            return result;
-        }
-
-        protected IUnitOfWork GenerateAndRegisterStubUnitOfWork()
-        {
-            var result = MockRepository.GenerateStub<IUnitOfWork>();
-            UnitOfWork.RegisterGlobalUnitOfWork(result);
-            return result;
-        }
-
         #region Obsolete
         protected MockRepository Obsolete_MockFactory { get; set; }
         protected T Obsolete_CreateAndRegisterDynamicMock<T>() where T : class
@@ -72,19 +58,6 @@ namespace phiNdus.fundus.TestHelpers.TestBases
             return result;
         }
 
-        protected IUnitOfWork Obsolete_CreateAndRegisterDynamicUnitOfWorkMock()
-        {
-            var result = Obsolete_MockFactory.DynamicMock<IUnitOfWork>();
-            UnitOfWork.RegisterGlobalUnitOfWork(result);
-            return result;
-        }
-
-        protected IUnitOfWork Obsolete_CreateAndRegisterStrictUnitOfWorkMock()
-        {
-            var result = Obsolete_MockFactory.StrictMock<IUnitOfWork>();
-            UnitOfWork.RegisterGlobalUnitOfWork(result);
-            return result;
-        }
         #endregion
     }
 }

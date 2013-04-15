@@ -69,7 +69,7 @@
         {
             var org = Organizations.FindById(id);
 
-            var user = Users.FindByEmail(User.Identity.Name);
+            var user = Users.FindByEmail(Identity.Name);
 
             if (org == null)
                 throw new HttpNotFoundException("Die Organisation ist nicht vorhanden.");

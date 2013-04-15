@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web.Mvc;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Repositories;
-using piNuts.phundus.Infrastructure.Obsolete;
-
-namespace phiNdus.fundus.Web.ViewModels
+﻿namespace phiNdus.fundus.Web.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Web.Mvc;
     using Microsoft.Practices.ServiceLocation;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Repositories;
 
     public class SettingsViewModelBase : ViewModelBase
     {
@@ -90,14 +88,11 @@ namespace phiNdus.fundus.Web.ViewModels
 
         private void Load(string keyspace)
         {
-            using (UnitOfWork.Start())
-            {
-                var settings = ServiceLocator.Current.GetInstance<ISettingRepository>().FindByKeyspace(keyspace);
-                Keyspace = keyspace;
-                LoadSubject(settings.Values.FirstOrDefault(p => p.Key.EndsWith("subject")));
-                LoadBodyPlain(settings.Values.FirstOrDefault(p => p.Key.EndsWith("body")));
-                LoadBodyHtml(settings.Values.FirstOrDefault(p => p.Key.EndsWith("html-body")));
-            }
+            var settings = ServiceLocator.Current.GetInstance<ISettingRepository>().FindByKeyspace(keyspace);
+            Keyspace = keyspace;
+            LoadSubject(settings.Values.FirstOrDefault(p => p.Key.EndsWith("subject")));
+            LoadBodyPlain(settings.Values.FirstOrDefault(p => p.Key.EndsWith("body")));
+            LoadBodyHtml(settings.Values.FirstOrDefault(p => p.Key.EndsWith("html-body")));
         }
 
         private void LoadSubject(Setting setting)

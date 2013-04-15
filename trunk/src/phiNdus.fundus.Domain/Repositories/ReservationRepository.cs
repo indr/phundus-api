@@ -1,31 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NHibernate;
-using NHibernate.Linq;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Factories;
-
-namespace phiNdus.fundus.Domain.Repositories
+﻿namespace phiNdus.fundus.Domain.Repositories
 {
-    using piNuts.phundus.Infrastructure.Obsolete;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using NHibernate;
+    using NHibernate.Linq;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Factories;
 
     public class ReservationRepository : IReservationRepository
     {
-        private static ISession Session
-        {
-            get { return UnitOfWork.CurrentSession; }
-        }
+        public Func<ISession> Session { get; set; }
 
-        private static IQueryable<OrderItem> OrderItems
+        private IQueryable<OrderItem> OrderItems
         {
-            get { return Session.Query<OrderItem>(); }
+            get { return Session().Query<OrderItem>(); }
         }
 
         private IQueryable<ContractItem> ContractItems
         {
-            get { return Session.Query<ContractItem>(); }
+            get { return Session().Query<ContractItem>(); }
         }
+
+        #region IReservationRepository Members
 
         public ICollection<Reservation> Find(Article article)
         {
@@ -34,13 +31,15 @@ namespace phiNdus.fundus.Domain.Repositories
 
             var query = from oi in OrderItems
                         where oi.Article.Id == article.Id
-                              //&& oi.To > DateTime.Today
+                        //&& oi.To > DateTime.Today
                         select oi;
 
             result.AddRange(factory.Create(query));
 
             return result;
         }
+
+        #endregion
     }
 
     public interface IReservationRepository

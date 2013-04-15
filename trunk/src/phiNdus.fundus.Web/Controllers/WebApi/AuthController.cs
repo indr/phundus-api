@@ -1,12 +1,10 @@
 ﻿namespace phiNdus.fundus.Web.Controllers.WebApi
 {
-    using System;
-    using System.Web;
     using System.Web.Http;
     using System.Web.Security;
     using Castle.Transactions;
 
-    public class AuthController : ApiController
+    public class AuthController : ApiControllerBase
     {
         #region Default Actions
 
@@ -39,7 +37,6 @@
 
         #endregion
 
-        
         [HttpPost]
         [Transaction]
         public virtual bool Login([FromBody] LogInDto value)
@@ -67,7 +64,7 @@
         [Authorize]
         public virtual string Secured()
         {
-            return "This is secured for " + User.Identity.Name;
+            return "This is secured for " + Identity.Name;
         }
 
         [HttpGet]
