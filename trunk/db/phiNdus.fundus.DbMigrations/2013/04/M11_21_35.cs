@@ -10,8 +10,8 @@
             Alter.Table("Organization").InSchema(SchemaName)
                  .AddColumn("CreateDate").AsDateTime().Nullable();
 
-            Execute.Sql(String.Format("update [{0}].[Organization] set [CreateDate] = '{1}'",
-                SchemaName, DateTime.Now));
+            Execute.Sql(String.Format("update [Organization] set [CreateDate] = '{0}'",
+                DateTime.Now));
 
             Alter.Table("Organization").InSchema(SchemaName)
                  .AlterColumn("CreateDate").AsDateTime().NotNullable();

@@ -12,8 +12,7 @@
                 .WithColumn("Version").AsInt32().NotNullable()
                 .WithColumn("Name").AsString(255).NotNullable();
 
-            Execute.Sql(@"dbcc checkident('Organization', reseed, 1000)");
-            
+            //Execute.Sql(@"dbcc checkident('Organization', reseed, 1000)");
         }
 
         public override void Down()

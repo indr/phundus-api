@@ -10,7 +10,7 @@
             Alter.Table("OrganizationMembership").InSchema(SchemaName)
                  .AddColumn("IsLocked").AsBoolean().WithDefaultValue(true);
 
-            Execute.Sql(String.Format("update [{0}].[OrganizationMembership] set [IsLocked] = 0", SchemaName));
+            Execute.Sql(String.Format("update [OrganizationMembership] set [IsLocked] = 0"));//, SchemaName));
         }
 
         public override void Down()
