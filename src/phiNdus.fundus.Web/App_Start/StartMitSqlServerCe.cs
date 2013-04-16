@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace phiNdus.fundus.Web.App_Start
+﻿namespace phiNdus.fundus.Web.App_Start
 {
+    using System;
     using System.Configuration;
     using System.Data.SqlServerCe;
     using System.IO;
 
-    /// <summary>
-    /// <connectionStrings>
-    ///   <add name="phundus" connectionString="Data Source=testdb.sdf" providerName="System.Data.SqlServerCe.4.0" />
-    /// </connectionStrings>
-    /// Es müsste dann auch noch die NHibernate-Konfig angepasst werden...
-    /// </summary>
     public static class StartMitSqlServerCe
     {
         public static void TuEs()
@@ -33,6 +23,7 @@ namespace phiNdus.fundus.Web.App_Start
 
 
         /// <summary>
+        /// Geräubert von Umbraco...
         /// Replaces the data directory with a local path.
         /// </summary>
         /// <param name="path">The path.</param>
@@ -45,8 +36,8 @@ namespace phiNdus.fundus.Web.App_Start
                 if (!string.IsNullOrEmpty(dataDirectory))
                 {
                     path = path.Contains(@"|\")
-                        ? path.Replace("|DataDirectory|", dataDirectory)
-                        : path.Replace("|DataDirectory|", dataDirectory + System.IO.Path.DirectorySeparatorChar);
+                               ? path.Replace("|DataDirectory|", dataDirectory)
+                               : path.Replace("|DataDirectory|", dataDirectory + System.IO.Path.DirectorySeparatorChar);
                 }
             }
 
