@@ -1099,10 +1099,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>if not exist "$(ProjectDir)App_Data\Debug.mdf" (
-  copy /y "$(ProjectDir)App_Data\Empty.mdf" "$(ProjectDir)App_Data\Debug.mdf"
-  copy /y "$(ProjectDir)App_Data\Empty_log.ldf" "$(ProjectDir)App_Data\Debug_log.ldf"
-)
-rem if exist "$(ProjectDir)App_Data\Logs\DbMigration.log" (del "$(ProjectDir)App_Data\Logs\DbMigration.log")</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
