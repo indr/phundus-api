@@ -3,6 +3,7 @@
 namespace phiNdus.fundus.DbMigrations
 {
     using System;
+    using System.Configuration;
     using System.IO;
     using System.Reflection;
     using FluentMigrator;
@@ -14,7 +15,7 @@ namespace phiNdus.fundus.DbMigrations
 
     public static class Runner
     {
-        public static void MigrateToLatest(string connectionString, TextWriter writer, IEnumerable<string> tags, string profile)
+        public static void MigrateToLatest(ConnectionStringSettings connectionString, TextWriter writer, IEnumerable<string> tags, string profile)
         {
             writer.WriteLine();
             writer.WriteLine("/* ========== Start Migration " + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " */\n");
@@ -41,8 +42,18 @@ namespace phiNdus.fundus.DbMigrations
                                                              PreviewOnly = false,
                                                              Timeout = 60                                                             
                                                          };
-                var factory = new SqlServer2008ProcessorFactory();
-                var processor = factory.Create(connectionString, announcer, options);
+                
+                MigrationProcessorFactory factory;
+                if (connectionString.ProviderName == "System.Data.SqlServerCe.4.0")
+                {
+                    factory = new SqlServerCeProcessorFactory();
+                }
+                else
+                {
+                    factory = new SqlServer2008ProcessorFactory();
+                }
+
+                var processor = factory.Create(connectionString.ConnectionString, announcer, options);
 
                 var runner = new MigrationRunner(assembly, migrationContext, processor);
                 runner.MigrateUp();

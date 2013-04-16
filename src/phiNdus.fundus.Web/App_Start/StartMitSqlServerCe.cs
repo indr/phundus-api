@@ -15,9 +15,9 @@ namespace phiNdus.fundus.Web.App_Start
     /// </connectionStrings>
     /// Es müsste dann auch noch die NHibernate-Konfig angepasst werden...
     /// </summary>
-    public class StartMitSqlServerCe
+    public static class StartMitSqlServerCe
     {
-        public void TuEs()
+        public static void TuEs()
         {
             if (ConfigurationManager.ConnectionStrings["phundus"].ProviderName == "System.Data.SqlServerCe.4.0")
             {
@@ -37,7 +37,7 @@ namespace phiNdus.fundus.Web.App_Start
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns>A local path with the resolved 'DataDirectory' mapping.</returns>
-        private string ReplaceDataDirectory(string path)
+        private static string ReplaceDataDirectory(string path)
         {
             if (!string.IsNullOrWhiteSpace(path) && path.Contains("|DataDirectory|"))
             {
