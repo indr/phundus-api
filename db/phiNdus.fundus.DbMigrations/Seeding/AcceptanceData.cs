@@ -62,7 +62,7 @@
         private void ImportArticle()
         {
             var records = GetRecords<Article>("Articles.csv");
-            Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}].[{1}] ON", SchemaName, "Article"));
+            Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] ON", "Article"));
 
             var fieldValueId = 1;
             foreach (var each in records)
@@ -124,7 +124,7 @@
                     });
             }
 
-            Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}].[{1}] OFF", SchemaName, "Article"));
+            Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] OFF", "Article"));
         }
 
         private void Import<T>(string fileName, string tableName, bool allowIdentityInsert = true) where T : class
@@ -132,13 +132,13 @@
             var records = GetRecords<T>(fileName);
 
             if (allowIdentityInsert)
-                Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}].[{1}] ON", SchemaName, tableName));
+                Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] ON", tableName));
             foreach (var each in records)
             {
                 Insert.IntoTable(tableName).InSchema(SchemaName).Row(each);
             }
             if (allowIdentityInsert)
-                Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}].[{1}] OFF", SchemaName, tableName));
+                Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] OFF", tableName));
         }
 
         private static IEnumerable<T> GetRecords<T>(string fileName) where T : class
