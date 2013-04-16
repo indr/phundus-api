@@ -20,7 +20,7 @@ namespace phiNdus.fundus.DbMigrations
                 .ToTable("User").InSchema(SchemaName)
                 .PrimaryColumn("Id");
 
-            Execute.Sql(@"dbcc checkident('Cart', reseed, 10000)");
+            //Execute.Sql(@"dbcc checkident('Cart', reseed, 10000)");
         }
 
         public override void Down()

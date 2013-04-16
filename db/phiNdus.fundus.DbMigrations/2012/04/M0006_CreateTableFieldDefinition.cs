@@ -20,7 +20,7 @@ namespace phiNdus.fundus.DbMigrations
                 .WithColumn("IsAttachable").AsBoolean().NotNullable().WithDefaultValue(true)
                 .WithColumn("Position").AsInt32().NotNullable().WithDefaultValue(255);
 
-            Execute.Sql(@"dbcc checkident('FieldDefinition', reseed, 100)");
+            //Execute.Sql(@"dbcc checkident('FieldDefinition', reseed, 100)");
         }
 
         public override void Down()

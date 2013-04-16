@@ -13,11 +13,11 @@
                  .AddColumn("ApprovalDate").AsDateTime().Nullable()
                  .AddColumn("LastLockoutDate").AsDateTime().Nullable();
 
-            Execute.Sql(String.Format(@"update [{0}].[OrganizationMembership] set " +
-                                      "[RequestDate] = '{1}', " +
+            Execute.Sql(String.Format(@"update [OrganizationMembership] set " +
+                                      "[RequestDate] = '{0}', " +
                                       "[IsApproved] = 1, " +
-                                      "[ApprovalDate] = '{1}'",
-                                      SchemaName, DateTime.Now));
+                                      "[ApprovalDate] = '{0}'",
+                                      DateTime.Now));
 
             Alter.Table("OrganizationMembership").InSchema(SchemaName)
                  .AlterColumn("RequestDate").AsDateTime().NotNullable();
