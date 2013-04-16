@@ -27,6 +27,9 @@
         protected void Application_Start()
         {
             FileSystemConfig.CreateMissingDirectory();
+
+            StartMitSqlServerCe.TuEs();
+
             DatabaseMigrator.Migrate();
             AutoMapperConfig.Config();
 
