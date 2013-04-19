@@ -16,6 +16,19 @@
     [Binding]
     public class CommonSteps : StepBase
     {
+        [Given(@"ich bin auf der Seite ""(.*)""")]
+        public void AngenommenIchBinAufDerSeite(string url)
+        {
+            Browser.GoTo(BaseUrl + url);
+        }
+
+
+        [Given(@"ich bin auf der Registrierenseite")]
+        public void AngenommenIchBinAufDerRegistrierenseite()
+        {
+            Browser.GoTo(BaseUrl + "/account/signup");
+        }
+
         [Given(@"ich bin nicht angemeldet")]
         public void AngenommenIchBinNichtAngemeldet()
         {
