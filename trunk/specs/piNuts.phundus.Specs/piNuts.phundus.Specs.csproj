@@ -67,6 +67,9 @@
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
+    <Reference Include="TechTalk.SpecRun, Version=1.1.0.25, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SpecRun.NUnit.1.1.0\lib\net40\TechTalk.SpecRun.dll</HintPath>
+    </Reference>
     <Reference Include="WatiN.Core">
       <HintPath>..\..\packages\WatiN.2.1.0\lib\net40\WatiN.Core.dll</HintPath>
     </Reference>
@@ -89,6 +92,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Login.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Registrierung.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Registrierung.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Startseite.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -108,6 +116,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Default.srprofile">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Features\Checkout.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Checkout.feature.cs</LastGenOutput>
@@ -120,6 +131,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Login.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\Registrierung.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Registrierung.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Startseite.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Startseite.feature.cs</LastGenOutput>
@@ -127,6 +142,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="runtests.cmd" />
+    <None Include="SpecRunTestProfile.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="UpdateAppConfig.proj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
