@@ -27,7 +27,8 @@
                     Settings = Settings.GetSettings(),
                     Urls = new Urls(Config.ServerUrl),
                     Password = password,
-                    User = user
+                    User = user,
+                    Admins = Config.FeedbackRecipients
                 };
             return this;
         }
