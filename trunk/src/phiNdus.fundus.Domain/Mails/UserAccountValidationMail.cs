@@ -25,7 +25,8 @@
                 {
                     Settings = Settings.GetSettings(),
                     Urls = new Urls(Config.ServerUrl),
-                    User = user
+                    User = user,
+                    Admins = Config.FeedbackRecipients
                 };
             //DataContext.Add("User", user);
             //DataContext.Add("Membership", user.Membership);

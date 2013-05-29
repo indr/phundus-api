@@ -20,7 +20,8 @@
                     Settings = Settings.GetSettings(),
                     Urls = new Urls(Config.ServerUrl),
                     User = order.Reserver,
-                    Order = order
+                    Order = order,
+                    Admins = Config.FeedbackRecipients
                 };
 
             Attachments.Add(new Attachment(order.GeneratePdf(),

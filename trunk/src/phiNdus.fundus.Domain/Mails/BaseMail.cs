@@ -31,6 +31,11 @@
                 _serverUrl = serverUrl;
             }
 
+            public string ServerUrl
+            {
+                get { return _serverUrl; }
+            }
+
             public string UserAccountValidation
             {
                 get { return "http://" + _serverUrl + "/account/validation"; }
@@ -61,13 +66,13 @@
         private const string TextSignature = @"
 
 --
-This is an automatically generated message from fundus.
+This is an automatically generated message from phundus.
 -
-If you think it was sent incorrectly contact the administrator at @Model.Settings.Common.AdminEmailAddress.";
+If you think it was sent incorrectly contact the administrator(s) at @Model.Admins.";
 
         private const string HtmlFooter = @"<hr />
 <footer>
-    <p>This is an automatically generated message from fundus.<br />If you think it was sent incorrectly contact the administrator at @Model.Settings.Common.AdminEmailAddress.</p>
+    <p>This is an automatically generated message from phundus.<br />If you think it was sent incorrectly contact the administrator(s) at @Model.Admins.</p>
 </footer>
 </div>
 </body>
@@ -79,8 +84,8 @@ If you think it was sent incorrectly contact the administrator at @Model.Setting
 <html xmlns=""http://www.w3.org/1999/xhtml"" xml:lang=""en"" lang=""en"">
 <head>
     <meta http-equiv=""Content-Type"" content=""text/html;charset=utf-8"" />
-    <link rel=""stylesheet"" type=""text/css"" href=""http://@Model.Settings.Common.ServerUrl/Content/bootstrap.min.css"" />
-    <link rel=""stylesheet"" type=""text/css"" href=""http://@Model.Settings.Common.ServerUrl/Content/fundus.css"" />
+    <link rel=""stylesheet"" type=""text/css"" href=""http://@Model.Urls.ServerUrl/Content/bootstrap.min.css"" />
+    <link rel=""stylesheet"" type=""text/css"" href=""http://@Model.Urls.ServerUrl/Content/fundus.css"" />
     <style type=""text/css"">
     body { margin: 0; padding: 0; color: #333333; font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 13px; }
     </style>
