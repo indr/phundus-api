@@ -4,22 +4,22 @@
     ViewBag.Title = Model.Name;
 }
 
-<div class="row-fluid" ng-app="organization">
+<div class="row-fluid" ng-app="organization" ng-init="organizationId=@Model.Id + 0;">
     <div class="span6">
         <h2>@Model.Name</h2>
         @Html.Raw(Model.Startpage)
     </div>
-    <div class="span6">
+    <div class="span6" ng-controller="HomeCtrl">
         @if (Model.HasOptions)
         {
             <h3>Mitgliedschaft</h3>
             if (Model.HasOptionJoin)
             {
-                <p>Sie können dieser Organisation <a href="" class="btn btn-small">beitreten</a>.</p>
+                <p>Sie können dieser Organisation <a ng-click="join()" class="btn btn-small">beitreten</a>.</p>
             }
             else if (Model.HasOptionLeave)
             {
-                <p>Sie können aus dieser Organisation <a href="" class="btn btn-small">austreten</a>.</p>
+                <p>Sie können aus dieser Organisation <a ng-click="leave()" class="btn btn-small">austreten</a>.</p>
             }
             else
             {

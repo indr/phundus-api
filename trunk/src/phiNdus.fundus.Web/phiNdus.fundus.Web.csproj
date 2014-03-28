@@ -228,6 +228,7 @@
     <Compile Include="Controllers\WebApi\Dtos\MemberDtos.cs" />
     <Compile Include="Controllers\WebApi\Dtos\OrganizationDto.cs" />
     <Compile Include="Controllers\WebApi\Dtos\OrganizationListDto.cs" />
+    <Compile Include="Controllers\WebApi\Organizations\MembershipApplicationsController.cs" />
     <Compile Include="Exceptions\HttpConflictException.cs" />
     <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
@@ -901,6 +902,10 @@
     <ProjectReference Include="..\phiNdus.fundus.Domain\phiNdus.fundus.Domain.csproj">
       <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>
       <Name>phiNdus.fundus.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Phundus.Core\Phundus.Core.csproj">
+      <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
+      <Name>Phundus.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\piNuts.phundus.Infrastructure\piNuts.phundus.Infrastructure.csproj">
       <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>

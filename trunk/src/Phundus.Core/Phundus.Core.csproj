@@ -41,7 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\MembershipService.cs" />
+    <Compile Include="Services\IOrganizationService.cs" />
+    <Compile Include="Services\OrganizationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
