@@ -46,25 +46,24 @@
                 }
             });
         });
+    }
+    
+    function HomeCtrl($scope, membershipapplications) {
+        $scope.join = function () {
+            return;
+            
+            if (!confirm('Möchten Sie dieser Organisation beitreten?'))
+                return;
 
-//    $scope.fileList = [];
-//    $('#fileupload').bind('fileuploadadd', function (e, data) {
-//        // Add the files to the list
-//        //var numFiles = $scope.fileList.length;
-//        for (var i = 0; i < data.files.length; ++i) {
-//            var file = data.files[i];
-//            // .$apply to update angular when something else makes changes
-//            $scope.$apply(
-//            $scope.fileList.push({ name: file.name })
-//            );
-//        }
-//        // Begin upload immediately
-//        data.submit();
-//    });
-//    $scope.addButtonClicked = function() {
-//        var numFiles = $scope.fileList.length;
-//        $scope.fileList.push({ name: ('fileName' + numFiles) });
-//    };
+            membershipapplications.save({ orgId: $scope.organizationId },
+            function (data, putResponseHeaders) {
+                alert('Ein Beitrittsgesuch wurde platziert.');
+            },
+            function (err) {
+                alert('Fehler: ' + err.data.exceptionMessage);
+            });
+
+        };
     }
 
 function SearchCtrl($scope, organizations) {
