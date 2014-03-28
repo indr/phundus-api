@@ -1,4 +1,4 @@
-﻿namespace piNuts.phundus.Domain.Tests
+﻿namespace Phundus.Core.Tests
 {
     using Machine.Specifications;
 
