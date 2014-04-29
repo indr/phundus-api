@@ -26,7 +26,8 @@
             var container = new WindsorContainer()
                 .Install(FromAssembly.This())
                 .Install(FromAssembly.Named("phiNdus.fundus.Domain"))
-                .Install(FromAssembly.Named("piNuts.phundus.Infrastructure"));
+                .Install(FromAssembly.Named("piNuts.phundus.Infrastructure"))
+                .Install(FromAssembly.Named("Phundus.Core"));
 
 
             container.Register(Types.FromThisAssembly()
