@@ -52,7 +52,7 @@
     <Compile Include="CoreInstaller.cs" />
     <Compile Include="Cqrs\ICommand.cs" />
     <Compile Include="Cqrs\ICommandDispatcher.cs" />
-    <Compile Include="Cqrs\ICommandHandler.cs" />
+    <Compile Include="Cqrs\IHandleCommand.cs" />
     <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IOrganizationService.cs" />

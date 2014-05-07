@@ -30,7 +30,7 @@
                     Component.For<ITypedFactoryComponentSelector>().ImplementedBy<CommandHandlerSelector>(),
                     Component.For<AutoReleaseHandlerInterceptor>(),
                     Classes.FromAssembly(_assemblyContainingCommandsAndHandlers)
-                        .BasedOn(typeof (ICommandHandler<>))
+                        .BasedOn(typeof (IHandleCommand<>))
                         .WithService.Base()
                         .Configure(
                             c =>

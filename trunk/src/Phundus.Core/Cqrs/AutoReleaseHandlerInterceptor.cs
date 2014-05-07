@@ -8,7 +8,7 @@
     [Transient]
     public class AutoReleaseHandlerInterceptor : IInterceptor
     {
-        private static readonly MethodInfo Execute = typeof(ICommandHandler).GetMethod("Execute");
+        private static readonly MethodInfo Execute = typeof(IHandleCommand).GetMethod("Execute");
 
         private readonly IKernel _kernel;
 

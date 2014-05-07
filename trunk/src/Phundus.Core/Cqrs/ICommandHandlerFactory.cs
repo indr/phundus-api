@@ -2,6 +2,6 @@
 {
     public interface ICommandHandlerFactory
     {
-        ICommandHandler[] GetHandlersForCommand(ICommand command);
+        IHandleCommand[] GetHandlersForCommand(ICommand command);
     }
 }

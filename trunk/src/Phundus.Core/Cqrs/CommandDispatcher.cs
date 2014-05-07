@@ -1,16 +1,21 @@
 ﻿namespace Phundus.Core.Cqrs
 {
+    using Castle.Windsor;
+
     public class CommandDispatcher : ICommandDispatcher
     {
         public ICommandHandlerFactory Factory { get; set; }
 
-        public void Dispatch(ICommand command)
+        public IWindsorContainer Container { get; set; }
+
+        public void Dispatch<TCommand>(TCommand command)
         {
-            var handlers = Factory.GetHandlersForCommand(command);
+            IHandleCommand<TCommand>[] handlers = Container.ResolveAll<IHandleCommand<TCommand>>();
+                //Factory.GetHandlersForCommand<TCommand>();
 
             foreach (var each in handlers)
             {
-                each.Execute();
+                each.Handle(command);
             }
         }
     }
