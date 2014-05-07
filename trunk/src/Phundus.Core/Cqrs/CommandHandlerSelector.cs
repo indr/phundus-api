@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Common
+﻿namespace Phundus.Core.Cqrs
 {
     using System;
     using System.Reflection;

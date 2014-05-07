@@ -1,6 +1,6 @@
-﻿namespace Phundus.Core.Common
+﻿namespace Phundus.Core.Cqrs
 {
-    public interface ICommandHandler<T> : ICommandHandler where T : ICommand
+    public interface ICommandHandler<T> : ICommandHandler
     {
         T Command { get; set; }
     }
