@@ -1,16 +1,13 @@
 ﻿namespace Phundus.Core.Cqrs
 {
+    using System.Collections;
+
     public interface IHandleCommand
     {
     }
 
     public interface IHandleCommand<in TCommand> : IHandleCommand
     {
-        void Handle(TCommand command);
+        IEnumerable Handle(TCommand command);
     }
-
-    //public interface IHandleCommand<TCommand, TAggregate>
-    //{
-    //   IEnumerable Handle(Func<Guid, TAggregate> al, TCommand c);
-    //}
 }

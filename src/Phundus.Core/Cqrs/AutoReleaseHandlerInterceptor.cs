@@ -8,7 +8,7 @@
     [Transient]
     public class AutoReleaseHandlerInterceptor : IInterceptor
     {
-        private static readonly MethodInfo Execute = typeof(IHandleCommand).GetMethod("Execute");
+        private static readonly MethodInfo MethodHandle = typeof(IHandleCommand<ICommand>).GetMethod("Handle");
 
         private readonly IKernel _kernel;
 
@@ -20,7 +20,7 @@
 
         public void Intercept(IInvocation invocation)
         {
-            if (invocation.Method != Execute)
+            if (invocation.Method != MethodHandle)
             {
                 invocation.Proceed();
                 return;

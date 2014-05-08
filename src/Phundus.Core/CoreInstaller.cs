@@ -29,9 +29,9 @@
                 .Register(
                     Component.For<ITypedFactoryComponentSelector>().ImplementedBy<CommandHandlerSelector>(),
                     Component.For<AutoReleaseHandlerInterceptor>(),
-                    Classes.FromAssembly(_assemblyContainingCommandsAndHandlers)
+                    Types.FromAssembly(_assemblyContainingCommandsAndHandlers)
                         .BasedOn(typeof (IHandleCommand<>))
-                        .WithService.Base()
+                        .WithServiceAllInterfaces()
                         .Configure(
                             c =>
                                 c.LifeStyle.Is(LifestyleType.Transient)
