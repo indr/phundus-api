@@ -15,9 +15,10 @@
         {
             if (arguments.Length > 0 && arguments[0] is ICommand)
             {
-                var handlerType = typeof(IHandleCommand<>).MakeGenericType(arguments[0].GetType());
+                Type handlerType =
+                    typeof (IHandleCommand<>).MakeGenericType(arguments[0].GetType());
 
-                return handlerType.MakeArrayType();
+                return handlerType;
             }
 
             return base.GetComponentType(method, arguments);
