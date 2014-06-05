@@ -698,6 +698,7 @@
     <Content Include="Scripts\ui-bootstrap-tpls-0.2.0.min.js" />
     <Content Include="Views\Organization\Home.cshtml" />
     <Content Include="Views\Organization\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\TestProfile.pubxml" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
   </ItemGroup>
   <ItemGroup>
