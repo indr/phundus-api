@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Core.Tests.Cqrs
 {
     using System;
-    using System.Collections;
     using Castle.Windsor;
     using Core.Cqrs;
     using Machine.Specifications;
@@ -25,7 +24,7 @@
             () => _expectedException = Catch.Exception(() => dispatcher.Dispatch(new TestCommand1()));
 
         private It should_have_expected_message =
-            () => _expectedException.Message.ShouldEqual("TestHandler1.Handle(TestCommand1)");
+            () => _expectedException.Message.ShouldEqual("TestCommand1Handler.Handle(TestCommand1)");
 
         private It should_throw_Exception =
             () => _expectedException.ShouldNotBeNull();
