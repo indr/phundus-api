@@ -44,7 +44,7 @@
       <HintPath>..\..\packages\WatiN.2.1.0\lib\net40\Microsoft.mshtml.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="OpenPop">
       <HintPath>..\..\packages\OpenPop.NET.2.0.4.369\lib\net20\OpenPop.dll</HintPath>
