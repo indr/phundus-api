@@ -1,15 +1,15 @@
-﻿using Iesi.Collections.Generic;
-using NUnit.Framework;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
+    using Iesi.Collections.Generic;
+    using NUnit.Framework;
+    using Phundus.Core.Entities;
+
     [TestFixture]
     public class FieldedEntityTests
     {
         private readonly FieldDefinition _namePropertyDefinition = new FieldDefinition(1, "Name",
-                                                                                       DataType
-                                                                                           .Text);
+            DataType
+                .Text);
 
         [Test]
         public void AddProperty_with_the_property_already_added_throws()
@@ -154,7 +154,9 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         public void SetPropertyValue_without_the_presence_of_the_property_throws()
         {
             var sut = new FieldedEntity();
-            var ex = Assert.Throws<FieldAlreadyAttachedException>(() => sut.SetFieldValue(_namePropertyDefinition, "Pullover"));
+            var ex =
+                Assert.Throws<FieldAlreadyAttachedException>(
+                    () => sut.SetFieldValue(_namePropertyDefinition, "Pullover"));
             Assert.That(ex.Message, Is.EqualTo("Property nicht vorhanden."));
         }
     }

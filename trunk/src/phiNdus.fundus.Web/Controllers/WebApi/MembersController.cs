@@ -3,9 +3,9 @@
     using System.Linq;
     using System.Web.Http;
     using Castle.Transactions;
-    using Domain.Entities;
-    using Domain.Repositories;
     using Dtos;
+    using Phundus.Core.Entities;
+    using Phundus.Core.Repositories;
 
     [Authorize(Roles="Chief")]
     public class MembersController : ApiControllerBase

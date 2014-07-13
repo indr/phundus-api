@@ -5,11 +5,11 @@
     using System.IO;
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
-    using phiNdus.fundus.Domain.Entities;
-    using phiNdus.fundus.Domain.Mails;
-    using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Assembler;
     using phiNdus.fundus.Web.Business.Dto;
+    using Phundus.Core.Entities;
+    using Phundus.Core.Mails;
+    using Phundus.Core.Repositories;
 
     public class OrderService : BaseService, IOrderService
     {

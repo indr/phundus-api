@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using phiNdus.fundus.Domain.Entities;
+    using Phundus.Core.Entities;
 
     public class OrderDto
     {

@@ -1,8 +1,8 @@
 ﻿namespace phiNdus.fundus.Web.Business.Assembler
 {
     using System.Collections.Generic;
-    using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Web.Business.Dto;
+    using Phundus.Core.Entities;
 
     public class ImageAssembler
     {

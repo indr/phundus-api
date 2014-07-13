@@ -1,9 +1,9 @@
-﻿using System;
-using NUnit.Framework;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
+    using System;
+    using NUnit.Framework;
+    using Phundus.Core.Entities;
+
     [TestFixture]
     public class OrderItemTests
     {
@@ -13,12 +13,45 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void Can_get_and_set_Amount()
+        {
+            OrderItem sut = CreateSut();
+            sut.Amount = 1;
+            Assert.That(sut.Amount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Can_get_and_set_Article()
+        {
+            var article = new Article();
+            OrderItem sut = CreateSut();
+            sut.Article = article;
+            Assert.That(sut.Article, Is.SameAs(article));
+        }
+
+        [Test]
+        public void Can_get_and_set_From()
+        {
+            OrderItem sut = CreateSut();
+            sut.From = DateTime.Today.AddDays(-1);
+            Assert.That(sut.From, Is.EqualTo(DateTime.Today.AddDays(-1)));
+        }
+
+        [Test]
         public void Can_get_and_set_Order()
         {
-            var sut = CreateSut();
+            OrderItem sut = CreateSut();
             var order = new Order();
             sut.Order = order;
             Assert.That(sut.Order, Is.SameAs(order));
+        }
+
+        [Test]
+        public void Can_get_and_set_To()
+        {
+            OrderItem sut = CreateSut();
+            sut.To = DateTime.Today.AddDays(1);
+            Assert.That(sut.To, Is.EqualTo(DateTime.Today.AddDays(1)));
         }
 
         [Test]
@@ -30,43 +63,10 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_get_and_set_Amount()
-        {
-            var sut = CreateSut();
-            sut.Amount = 1;
-            Assert.That(sut.Amount, Is.EqualTo(1));
-        }
-
-        [Test]
         public void Set_Amount_less_than_1_throws()
         {
-            var sut = CreateSut();
+            OrderItem sut = CreateSut();
             Assert.Throws<ArgumentOutOfRangeException>(() => sut.Amount = 0);
-        }
-
-        [Test]
-        public void Can_get_and_set_From()
-        {
-            var sut = CreateSut();
-            sut.From = DateTime.Today.AddDays(-1);
-            Assert.That(sut.From, Is.EqualTo(DateTime.Today.AddDays(-1)));
-        }
-
-        [Test]
-        public void Can_get_and_set_To()
-        {
-            var sut = CreateSut();
-            sut.To = DateTime.Today.AddDays(1);
-            Assert.That(sut.To, Is.EqualTo(DateTime.Today.AddDays(1)));
-        }
-
-        [Test]
-        public void Can_get_and_set_Article()
-        {
-            var article = new Article();
-            var sut = CreateSut();
-            sut.Article = article;
-            Assert.That(sut.Article, Is.SameAs(article));
         }
     }
 }

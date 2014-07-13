@@ -3,7 +3,6 @@
     using System;
     using System.Security.Principal;
     using NHibernate;
-    using phiNdus.fundus.Domain.Entities;
 
     public class BaseService
     {

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using NUnit.Framework;
-using phiNdus.fundus.Domain.Entities;
 using phiNdus.fundus.Web.Models;
 
 namespace phiNdus.fundus.Web.UnitTests.Models {
+    using Phundus.Core.Entities;
+
     [TestFixture]
     public class AccountModelTests {
 

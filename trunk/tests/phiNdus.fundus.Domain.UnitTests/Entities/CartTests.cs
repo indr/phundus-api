@@ -1,11 +1,11 @@
-﻿using System;
-using NUnit.Framework;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Repositories;
-using phiNdus.fundus.TestHelpers.TestBases;
-
-namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
+    using System;
+    using NUnit.Framework;
+    using Phundus.Core.Entities;
+    using Phundus.Core.Repositories;
+    using TestHelpers.TestBases;
+
     [TestFixture]
     public class CartTests : UnitTestBase<Cart>
     {
@@ -18,7 +18,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
             sut.AddItem(1, 1, DateTime.Today, DateTime.Today.AddDays(1));
 
             // Act
-            var actual = sut.AreItemsAvailable;
+            bool actual = sut.AreItemsAvailable;
 
             // Assert
             Assert.That(actual, Is.False);

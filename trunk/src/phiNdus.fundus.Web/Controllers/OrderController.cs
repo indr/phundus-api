@@ -4,8 +4,8 @@
     using Business.Services;
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
-    using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Web.ViewModels;
+    using Phundus.Core.Entities;
 
     [Authorize]
     public class OrderController : ControllerBase

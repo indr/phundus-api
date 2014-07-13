@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using phiNdus.fundus.Domain.Entities;
 
 namespace phiNdus.fundus.Web.ViewModels.Layout
 {
+    using Phundus.Core.Entities;
+
     public class NavBarModel
     {
         private IList<Organization> _organizations = new List<Organization>();

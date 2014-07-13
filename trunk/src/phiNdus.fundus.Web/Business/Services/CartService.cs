@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using phiNdus.fundus.Business;
-    using phiNdus.fundus.Domain.Entities;
-    using phiNdus.fundus.Domain.Mails;
-    using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Assembler;
     using phiNdus.fundus.Web.Business.Dto;
+    using Phundus.Core.Entities;
+    using Phundus.Core.Mails;
+    using Phundus.Core.Repositories;
 
     public class CartService : BaseService, ICartService
     {

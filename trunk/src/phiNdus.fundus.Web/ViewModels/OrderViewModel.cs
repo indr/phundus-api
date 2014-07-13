@@ -5,8 +5,8 @@
     using System.ComponentModel.DataAnnotations;
     using Business.Dto;
     using Business.Services;
-    using Domain.Entities;
     using Microsoft.Practices.ServiceLocation;
+    using Phundus.Core.Entities;
 
     public class OrderViewModel : ViewModelBase
     {

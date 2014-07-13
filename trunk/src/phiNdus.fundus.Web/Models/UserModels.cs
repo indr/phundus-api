@@ -8,9 +8,9 @@
     using System.Web.Mvc;
     using Business.Assembler;
     using Business.Dto;
-    using Domain.Entities;
-    using Domain.Repositories;
     using Microsoft.Practices.ServiceLocation;
+    using Phundus.Core.Entities;
+    using Phundus.Core.Repositories;
 
 
     public class UserModel : ModelBase

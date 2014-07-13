@@ -4,10 +4,10 @@
     using System.Web.Mvc;
     using Business.Services;
     using Castle.Transactions;
-    using Domain.Repositories;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;
+    using Phundus.Core.Repositories;
 
     public class ShopController : ControllerBase
     {

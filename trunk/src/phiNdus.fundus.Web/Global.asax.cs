@@ -7,9 +7,9 @@
     using System.Web.Routing;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.App_Start;
     using phiNdus.fundus.Web.Security;
+    using Phundus.Core.Repositories;
 
     public class MvcApplication : HttpApplication, IContainerAccessor
     {

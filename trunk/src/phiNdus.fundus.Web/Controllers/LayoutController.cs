@@ -3,8 +3,8 @@
     using System.Web.Mvc;
     using Castle.Transactions;
     using NHibernate;
-    using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.ViewModels.Layout;
+    using Phundus.Core.Repositories;
 
     public class LayoutController : ControllerBase
     {

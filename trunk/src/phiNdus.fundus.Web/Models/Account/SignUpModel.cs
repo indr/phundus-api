@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using phiNdus.fundus.Domain.Entities;
 
 namespace phiNdus.fundus.Web.Models
 {
@@ -59,6 +58,6 @@ namespace phiNdus.fundus.Web.Models
         [DisplayName("Verband")]
         public int? OrganizationId { get; set; }
 
-        public IEnumerable<Domain.Entities.Organization> Organizations { get; set; }
+        public IEnumerable<Phundus.Core.Entities.Organization> Organizations { get; set; }
     }
 }

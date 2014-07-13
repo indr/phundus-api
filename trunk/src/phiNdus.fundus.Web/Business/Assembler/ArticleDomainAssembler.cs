@@ -5,9 +5,10 @@
     using System.Linq;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Business;
-    using phiNdus.fundus.Domain.Entities;
-    using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Dto;
+    using Phundus.Core.Entities;
+    using Phundus.Core.Repositories;
+    using Phundus.Infrastructure;
     using piNuts.phundus.Infrastructure;
 
     /// <summary>

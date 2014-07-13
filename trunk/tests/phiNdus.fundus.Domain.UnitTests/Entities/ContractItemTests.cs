@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
+    using NUnit.Framework;
+    using Phundus.Core.Entities;
+
     [TestFixture]
     public class ContractItemTests
     {
-
         [Test]
         public void Can_create()
         {
@@ -28,29 +23,6 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Create_sets_ReturnDate_to_null()
-        {
-            var sut = new ContractItem();
-            Assert.That(sut.ReturnDate, Is.Null);
-        }
-
-        [Test]
-        public void Create_with_Id_and_Version_sets_ReturnDate_to_null()
-        {
-            var sut = new ContractItem(1, 2);
-            Assert.That(sut.ReturnDate, Is.Null);
-        }
-
-        [Test]
-        public void Can_get_and_set_Contract()
-        {
-            var contract = new Contract();
-            var sut = new ContractItem();
-            sut.Contract = contract;
-            Assert.That(sut.Contract, Is.SameAs(contract));
-        }
-
-        [Test]
         public void Can_get_and_set_Amount()
         {
             var sut = new ContractItem();
@@ -65,6 +37,15 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
             var sut = new ContractItem();
             sut.Article = article;
             Assert.That(sut.Article, Is.SameAs(article));
+        }
+
+        [Test]
+        public void Can_get_and_set_Contract()
+        {
+            var contract = new Contract();
+            var sut = new ContractItem();
+            sut.Contract = contract;
+            Assert.That(sut.Contract, Is.SameAs(contract));
         }
 
         [Test]
@@ -90,6 +71,20 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
             var orderItem = new OrderItem();
             sut.OrderItem = orderItem;
             Assert.That(sut.OrderItem, Is.SameAs(orderItem));
+        }
+
+        [Test]
+        public void Create_sets_ReturnDate_to_null()
+        {
+            var sut = new ContractItem();
+            Assert.That(sut.ReturnDate, Is.Null);
+        }
+
+        [Test]
+        public void Create_with_Id_and_Version_sets_ReturnDate_to_null()
+        {
+            var sut = new ContractItem(1, 2);
+            Assert.That(sut.ReturnDate, Is.Null);
         }
     }
 }

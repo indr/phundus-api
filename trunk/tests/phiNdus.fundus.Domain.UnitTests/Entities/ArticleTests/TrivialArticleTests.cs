@@ -1,11 +1,11 @@
-﻿using System;
-using Iesi.Collections.Generic;
-using NUnit.Framework;
-using phiNdus.fundus.Domain.Entities;
-using Rhino.Mocks;
-
-namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
+﻿namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
 {
+    using System;
+    using Iesi.Collections.Generic;
+    using NUnit.Framework;
+    using Phundus.Core.Entities;
+    using Rhino.Mocks;
+
     [TestFixture]
     public class TrivialArticleTests : ArticleTestBase
     {
@@ -26,15 +26,6 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         }
 
         [Test]
-        public void Can_create_with_Id_and_Version()
-        {
-            var sut = new Article(1, 2);
-            Assert.That(sut, Is.Not.Null);
-            Assert.That(sut.Id, Is.EqualTo(1));
-            Assert.That(sut.Version, Is.EqualTo(2));
-        }
-
-        [Test]
         public void Can_create_with_FieldValues()
         {
             var fieldValues = new HashedSet<FieldValue>();
@@ -44,9 +35,25 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         }
 
         [Test]
+        public void Can_create_with_Id_and_Version()
+        {
+            var sut = new Article(1, 2);
+            Assert.That(sut, Is.Not.Null);
+            Assert.That(sut.Id, Is.EqualTo(1));
+            Assert.That(sut.Version, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Create_sets_CreateDate()
+        {
+            Article sut = CreateSut();
+            Assert.That(sut.CreateDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
+        }
+
+        [Test]
         public void GetCaption()
         {
-            var sut = CreateSut();
+            Article sut = CreateSut();
             Assert.That(sut.Caption, Is.EqualTo(""));
             FakeFieldValues.Add(new FieldValue(NameFieldDef, "Name of object"));
             Assert.That(sut.Caption, Is.EqualTo("Name of object"));
@@ -55,7 +62,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         [Test]
         public void GetIsBorrowable()
         {
-            var sut = CreateSut();
+            Article sut = CreateSut();
             Assert.That(sut.IsBorrowable, Is.False);
             FakeFieldValues.Add(new FieldValue(IsBorrowableFieldDef, true));
             Assert.That(sut.IsBorrowable, Is.True);
@@ -64,7 +71,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         [Test]
         public void GetIsReservable()
         {
-            var sut = CreateSut();
+            Article sut = CreateSut();
             Assert.That(sut.IsReservable, Is.False);
             FakeFieldValues.Add(new FieldValue(IsReservableFieldDef, true));
             Assert.That(sut.IsReservable, Is.True);
@@ -73,7 +80,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         [Test]
         public void GetPrice()
         {
-            var sut = CreateSut();
+            Article sut = CreateSut();
             Assert.That(sut.Price, Is.EqualTo(0.0d));
             FakeFieldValues.Add(new FieldValue(PriceFieldDef, 1.1d));
             Assert.That(sut.Price, Is.EqualTo(1.1d));
@@ -82,7 +89,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         [Test]
         public void SetCaption()
         {
-            var sut = CreateSut();
+            Article sut = CreateSut();
             FakeFieldDefRepository.Stub(x => x.ById(NameFieldDef.Id))
                 .Return(NameFieldDef);
 
@@ -94,7 +101,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         [Test]
         public void SetIsLendable()
         {
-            var sut = CreateSut();
+            Article sut = CreateSut();
             FakeFieldDefRepository.Stub(x => x.ById(IsBorrowableFieldDef.Id)).Return(
                 IsBorrowableFieldDef);
 
@@ -106,7 +113,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         [Test]
         public void SetIsReservable()
         {
-            var sut = CreateSut();
+            Article sut = CreateSut();
             FakeFieldDefRepository.Stub(x => x.ById(IsReservableFieldDef.Id)).Return(
                 IsReservableFieldDef);
 
@@ -118,19 +125,12 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
         [Test]
         public void SetPrice()
         {
-            var sut = CreateSut();
+            Article sut = CreateSut();
             FakeFieldDefRepository.Stub(x => x.ById(PriceFieldDef.Id)).Return(PriceFieldDef);
 
             Assert.That(sut.Price, Is.EqualTo(0.0d));
             sut.Price = 1.1d;
             Assert.That(sut.Price, Is.EqualTo(1.1d));
-        }
-
-        [Test]
-        public void Create_sets_CreateDate()
-        {
-            var sut = CreateSut();
-            Assert.That(sut.CreateDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
         }
     }
 }

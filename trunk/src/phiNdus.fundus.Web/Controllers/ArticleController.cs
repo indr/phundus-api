@@ -5,12 +5,12 @@
     using System.Web.Mvc;
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
-    using phiNdus.fundus.Domain.Entities;
-    using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Services;
     using phiNdus.fundus.Web.Helpers.FileUpload;
     using phiNdus.fundus.Web.Models.ArticleModels;
     using phiNdus.fundus.Web.ViewModels;
+    using Phundus.Core.Entities;
+    using Phundus.Core.Repositories;
 
     [Authorize(Roles = "Chief")]
     public class ArticleController : ControllerBase
