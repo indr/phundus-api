@@ -1,9 +1,9 @@
-﻿using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Domain.Repositories
+﻿namespace Phundus.Persistence.Legacy.Repositories
 {
-    using NHibernate.Criterion;
-    using Phundus.Infrastructure;
+    using Infrastructure;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Repositories;
+    using Order = NHibernate.Criterion.Order;
 
     public class RoleRepository : RepositoryBase<Role>, IRoleRepository
     {

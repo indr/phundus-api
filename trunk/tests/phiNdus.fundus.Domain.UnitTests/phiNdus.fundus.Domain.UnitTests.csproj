@@ -105,12 +105,6 @@
     <Compile Include="PasswordEncryptorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FieldAlreadyAttachedExceptionTests.cs" />
-    <Compile Include="Repositories\FieldDefinitionRepositoryTests.cs" />
-    <Compile Include="Repositories\ArticleRepositoryTests.cs" />
-    <Compile Include="Repositories\OrderRepositoryTests.cs" />
-    <Compile Include="Repositories\RoleRepositoryTests.cs" />
-    <Compile Include="Repositories\SettingRepositoryTests.cs" />
-    <Compile Include="Repositories\UserRepositoryTests.cs" />
     <Compile Include="SessionKeyGeneratorTests.cs" />
     <Compile Include="Settings\MailSettingsTest.cs" />
     <Compile Include="Settings\MailTemplatesSettingsTests.cs" />

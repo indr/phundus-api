@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NHibernate.Linq;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Domain.Repositories
+﻿namespace Phundus.Persistence.Legacy.Repositories
 {
-    using Phundus.Infrastructure;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Infrastructure;
+    using NHibernate.Linq;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Repositories;
 
     public class FieldDefinitionRepository : RepositoryBase<FieldDefinition>, IFieldDefinitionRepository
     {
