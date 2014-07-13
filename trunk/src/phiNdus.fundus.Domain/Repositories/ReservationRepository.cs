@@ -1,4 +1,4 @@
-﻿namespace Phundus.Persistence.Legacy.Repositories
+﻿namespace phiNdus.fundus.Domain.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,6 @@
     using NHibernate.Linq;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Factories;
-    using phiNdus.fundus.Domain.Repositories;
 
     public class ReservationRepository : IReservationRepository
     {
@@ -43,5 +42,8 @@
         #endregion
     }
 
-    
+    public interface IReservationRepository
+    {
+        ICollection<Reservation> Find(Article article);
+    }
 }

@@ -1,11 +1,12 @@
-﻿namespace Phundus.Persistence.Legacy.Repositories
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using NHibernate.Linq;
+using phiNdus.fundus.Domain.Entities;
+
+namespace phiNdus.fundus.Domain.Repositories
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Infrastructure;
-    using NHibernate.Linq;
-    using phiNdus.fundus.Domain.Entities;
-    using phiNdus.fundus.Domain.Repositories;
+    using Phundus.Infrastructure;
 
     public class OrderRepository : RepositoryBase<Order>, IOrderRepository
     {

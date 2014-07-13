@@ -1,7 +1,15 @@
-﻿namespace Phundus.Core.Organizations.Handlers
+﻿namespace Phundus.Core.Model.Organizations
 {
-    using Commands;
     using Infrastructure.Cqrs;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Repositories;
+
+
+    public class ApplyForMembership
+    {
+        public int MemberId { get; set; }
+        public int OrganizationId { get; set; }
+    }
 
     public class ApplyForMembershipHandler : IHandleCommand<ApplyForMembership>
     {

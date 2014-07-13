@@ -31,24 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\..\packages\Castle.Core.3.2.0\lib\net40-client\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Transactions">
-      <HintPath>..\..\packages\Castle.Transactions.3.2.207.2207\lib\net40\Castle.Transactions.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor">
-      <HintPath>..\..\packages\Castle.Windsor.3.2.0\lib\net40\Castle.Windsor.dll</HintPath>
-    </Reference>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate">
-      <HintPath>..\..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,31 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Installer.cs" />
-    <Compile Include="Legacy\Repositories\ArticleRepository.cs" />
-    <Compile Include="Legacy\Repositories\CartRepository.cs" />
-    <Compile Include="Legacy\Repositories\FieldDefinitionRepository.cs" />
-    <Compile Include="Legacy\Repositories\OrderRepository.cs" />
-    <Compile Include="Legacy\Repositories\OrganizationRepository.cs" />
-    <Compile Include="Legacy\Repositories\ReservationRepository.cs" />
-    <Compile Include="Legacy\Repositories\RoleRepository.cs" />
-    <Compile Include="Legacy\Repositories\SettingRepository.cs" />
-    <Compile Include="Legacy\Repositories\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\phiNdus.fundus.Domain\phiNdus.fundus.Domain.csproj">
-      <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>
-      <Name>phiNdus.fundus.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\piNuts.phundus.Infrastructure\Phundus.Infrastructure.csproj">
-      <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>
-      <Name>Phundus.Infrastructure</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
