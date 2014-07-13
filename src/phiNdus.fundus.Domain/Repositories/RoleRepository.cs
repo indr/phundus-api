@@ -3,7 +3,7 @@
 namespace phiNdus.fundus.Domain.Repositories
 {
     using NHibernate.Criterion;
-    using Phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure;
 
     public class RoleRepository : RepositoryBase<Role>, IRoleRepository
     {

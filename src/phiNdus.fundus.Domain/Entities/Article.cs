@@ -6,6 +6,7 @@ using phiNdus.fundus.Domain.Repositories;
 namespace phiNdus.fundus.Domain.Entities
 {
     using Microsoft.Practices.ServiceLocation;
+    using piNuts.phundus.Infrastructure;
 
     public class Article : CompositeEntity
     {

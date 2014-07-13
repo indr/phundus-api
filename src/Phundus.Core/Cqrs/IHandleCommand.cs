@@ -1,5 +1,7 @@
-﻿namespace Phundus.Infrastructure.Cqrs
+﻿namespace Phundus.Core.Cqrs
 {
+    using System.Collections;
+
     public interface IHandleCommand
     {
     }

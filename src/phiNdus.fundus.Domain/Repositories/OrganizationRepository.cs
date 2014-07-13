@@ -5,7 +5,7 @@
     using Castle.Transactions;
     using Entities;
     using NHibernate.Linq;
-    using Phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure;
 
     public class OrganizationRepository : RepositoryBase<Organization>, IOrganizationRepository
     {

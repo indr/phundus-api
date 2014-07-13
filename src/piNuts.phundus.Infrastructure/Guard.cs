@@ -1,4 +1,4 @@
-﻿namespace Phundus.Infrastructure
+﻿namespace piNuts.phundus.Infrastructure
 {
     using System;
 

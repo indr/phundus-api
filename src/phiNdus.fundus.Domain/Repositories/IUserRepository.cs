@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using Entities;
-    using Phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure;
 
     public interface IUserRepository : IRepository<User>
     {

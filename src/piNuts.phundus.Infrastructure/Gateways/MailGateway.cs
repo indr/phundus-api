@@ -1,4 +1,4 @@
-﻿namespace Phundus.Infrastructure.Gateways
+﻿namespace phiNdus.fundus.Business.Gateways
 {
     using System.Net.Mail;
 

@@ -5,7 +5,7 @@
     using Entities;
     using NHibernate;
     using NHibernate.Linq;
-    using Phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure;
 
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {

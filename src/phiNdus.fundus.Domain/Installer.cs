@@ -4,8 +4,8 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Entities;
-    using Phundus.Infrastructure;
     using Repositories;
+    using piNuts.phundus.Infrastructure;
 
     public class Installer : IWindsorInstaller
     {

@@ -1,7 +1,7 @@
-﻿namespace Phundus.Infrastructure.Gateways
-{
-    using System.Net.Mail;
+﻿using System.Net.Mail;
 
+namespace phiNdus.fundus.Business.Gateways
+{
     public interface IMailGateway
     {
         void Send(string recipients, string subject, string body);
