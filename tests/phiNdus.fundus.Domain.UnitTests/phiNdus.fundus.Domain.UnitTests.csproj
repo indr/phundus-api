@@ -119,9 +119,9 @@
     <Compile Include="UnitTestBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\piNuts.phundus.Infrastructure\piNuts.phundus.Infrastructure.csproj">
+    <ProjectReference Include="..\..\src\piNuts.phundus.Infrastructure\Phundus.Infrastructure.csproj">
       <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>
-      <Name>piNuts.phundus.Infrastructure</Name>
+      <Name>Phundus.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\phiNdus.fundus.Domain\phiNdus.fundus.Domain.csproj">
       <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>

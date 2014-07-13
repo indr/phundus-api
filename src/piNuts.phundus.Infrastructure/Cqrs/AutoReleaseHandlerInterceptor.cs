@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Cqrs
+﻿namespace Phundus.Infrastructure.Cqrs
 {
     using System.Reflection;
     using Castle.Core;

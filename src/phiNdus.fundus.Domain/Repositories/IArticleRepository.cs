@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using phiNdus.fundus.Domain.Entities;
-    using piNuts.phundus.Infrastructure;
+    using Phundus.Infrastructure;
 
     public interface IArticleRepository : IRepository<Article>
     {

@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Core.Model.Organizations
 {
-    using Cqrs;
+    using Infrastructure.Cqrs;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
 

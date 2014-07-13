@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace phiNdus.fundus.Business.Paging
 {
-    using piNuts.phundus.Infrastructure;
+    using Phundus.Infrastructure;
 
     /// <summary>
     /// Liefert ein "gepagtes" Resultat für einen bestimmten Typ.

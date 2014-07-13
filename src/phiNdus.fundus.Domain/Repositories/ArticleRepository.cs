@@ -7,7 +7,7 @@ using phiNdus.fundus.Domain.Entities;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
-    using piNuts.phundus.Infrastructure;
+    using Phundus.Infrastructure;
 
     public class ArticleRepository : RepositoryBase<Article>, IArticleRepository
     {

@@ -5,7 +5,7 @@
     using System.Linq;
     using NHibernate.Linq;
     using phiNdus.fundus.Domain.Entities;
-    using piNuts.phundus.Infrastructure;
+    using Phundus.Infrastructure;
 
     public class SettingRepository : RepositoryBase<Setting>, ISettingRepository
     {

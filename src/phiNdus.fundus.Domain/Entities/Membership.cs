@@ -3,7 +3,7 @@
 namespace phiNdus.fundus.Domain.Entities
 {
     using System.Web.Caching;
-    using piNuts.phundus.Infrastructure;
+    using Phundus.Infrastructure;
 
     public class Membership : EntityBase
     {

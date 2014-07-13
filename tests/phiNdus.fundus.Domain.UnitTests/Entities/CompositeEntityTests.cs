@@ -10,8 +10,6 @@ using Rhino.Mocks;
 
 namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
-    using piNuts.phundus.Infrastructure;
-
     [TestFixture]
     public class CompositeEntityTests : UnitTestBase<object>
     {

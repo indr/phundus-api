@@ -8,7 +8,6 @@ namespace phiNdus.fundus.TestHelpers.TestBases
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain;
     using phiNdus.fundus.Domain.UnitTests;
-    using piNuts.phundus.Infrastructure;
 
     public class UnitTestBase<TSut> : TestBase
     {
