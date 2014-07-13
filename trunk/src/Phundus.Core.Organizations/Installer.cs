@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core
+﻿namespace Phundus.Core.Organizations
 {
     using System.Reflection;
     using Castle.Core;
@@ -8,15 +8,15 @@
     using Castle.Windsor;
     using Infrastructure.Cqrs;
 
-    public class CoreInstaller : IWindsorInstaller
+    public class Installer : IWindsorInstaller
     {
         private readonly Assembly _assemblyContainingCommandsAndHandlers;
 
-        public CoreInstaller() : this(typeof (CoreInstaller).Assembly)
+        public Installer() : this(typeof (Installer).Assembly)
         {
         }
 
-        public CoreInstaller(Assembly assemblyContainingCommandsAndHandlers)
+        public Installer(Assembly assemblyContainingCommandsAndHandlers)
         {
             _assemblyContainingCommandsAndHandlers = assemblyContainingCommandsAndHandlers;
         }
