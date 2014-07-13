@@ -8,7 +8,7 @@
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure;
 
     /// <summary>
     /// Die <c>ArticleDomainAssembler</c> wandelt Article-DTOs in Article-Domain-Objects.

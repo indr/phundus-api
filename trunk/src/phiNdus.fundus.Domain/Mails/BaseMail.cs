@@ -5,8 +5,8 @@
     using System.Net.Mail;
     using System.Net.Mime;
     using Microsoft.Practices.ServiceLocation;
+    using phiNdus.fundus.Business.Gateways;
     using phiNdus.fundus.Domain.Settings;
-    using Phundus.Infrastructure.Gateways;
     using RazorEngine;
 
     public class BaseMail

@@ -9,6 +9,7 @@ namespace phiNdus.fundus.Web.ViewModels
     using Business.Services;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain;
+    using piNuts.phundus.Infrastructure;
 
     public class FieldViewModel : ViewModelBase
     {

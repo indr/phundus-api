@@ -5,7 +5,7 @@ using phiNdus.fundus.Domain.Entities;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
-    using Phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure;
 
     public class CartRepository : RepositoryBase<Cart>, ICartRepository
     {

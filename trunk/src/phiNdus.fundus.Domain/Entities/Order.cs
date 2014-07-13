@@ -12,7 +12,7 @@
     using iTextSharp.text.pdf;
     using phiNdus.fundus.Domain.Inventory;
     using phiNdus.fundus.Domain.Repositories;
-    using Phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure;
 
     public class Order : EntityBase
     {

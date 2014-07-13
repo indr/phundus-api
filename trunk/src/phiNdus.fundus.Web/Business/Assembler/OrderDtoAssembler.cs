@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure;
 
     public class OrderDtoAssembler
     {

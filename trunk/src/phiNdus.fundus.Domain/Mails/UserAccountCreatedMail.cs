@@ -3,8 +3,8 @@
     using System;
     using Entities;
     using Infrastructure;
-    using Phundus.Infrastructure;
     using Settings;
+    using piNuts.phundus.Infrastructure;
 
     public class UserAccountCreatedMail : BaseMail
     {

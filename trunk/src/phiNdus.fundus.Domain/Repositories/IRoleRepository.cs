@@ -1,7 +1,7 @@
 ﻿namespace phiNdus.fundus.Domain.Repositories
 {
     using phiNdus.fundus.Domain.Entities;
-    using Phundus.Infrastructure;
+    using piNuts.phundus.Infrastructure;
     using Order = NHibernate.Criterion.Order;
 
     public interface IRoleRepository : IRepository<Role>
