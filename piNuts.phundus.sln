@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.DbMigrations
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "piNuts.phundus.Specs", "specs\piNuts.phundus.Specs\piNuts.phundus.Specs.csproj", "{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "piNuts.phundus.Web.Tests", "tests\piNuts.phundus.Web.Tests\piNuts.phundus.Web.Tests.csproj", "{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Infrastructure", "src\piNuts.phundus.Infrastructure\Phundus.Infrastructure.csproj", "{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Core", "src\Phundus.Core\Phundus.Core.csproj", "{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}"
@@ -90,16 +88,6 @@ Global
 		{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}.Release|x86.ActiveCfg = Release|Any CPU
-		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{FE0618B9-DD38-4139-A54E-1A90EC2B06EF}.Release|x86.ActiveCfg = Release|Any CPU
 		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

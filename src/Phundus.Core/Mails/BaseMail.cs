@@ -5,7 +5,7 @@
     using System.Net.Mail;
     using System.Net.Mime;
     using Microsoft.Practices.ServiceLocation;
-    using phiNdus.fundus.Business.Gateways;
+    using Phundus.Infrastructure.Gateways;
     using Settings;
     using RazorEngine;
 

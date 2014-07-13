@@ -5,7 +5,6 @@
     using phiNdus.fundus.Web.Business.Dto;
     using Phundus.Core.Entities;
     using Phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure;
 
     public class OrderDtoAssembler
     {

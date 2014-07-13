@@ -11,7 +11,6 @@
     using Phundus.Core.Inventory;
     using Phundus.Core.Repositories;
     using Phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure;
 
     public class ArticleService : BaseService, IArticleService
     {

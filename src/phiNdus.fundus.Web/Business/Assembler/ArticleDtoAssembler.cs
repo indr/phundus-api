@@ -7,7 +7,6 @@
     using Phundus.Core.Entities;
     using Phundus.Core.Repositories;
     using Phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure;
 
     /// <summary>
     /// Die <c>ArticleDtoAssembler</c>-Klasse wandelt Article-Domain-Objects in Article-DTOs.
