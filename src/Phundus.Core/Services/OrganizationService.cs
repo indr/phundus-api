@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Core.Services
 {
     using System;
-    using phiNdus.fundus.Domain.Repositories;
+    using Repositories;
 
     public class OrganizationService : IOrganizationService
     {

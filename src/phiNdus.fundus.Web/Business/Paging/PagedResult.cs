@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace phiNdus.fundus.Business.Paging
 {
+    using Phundus.Infrastructure;
     using piNuts.phundus.Infrastructure;
 
     /// <summary>

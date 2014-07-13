@@ -2,7 +2,7 @@
 {
     using AutoMapper;
     using Controllers.WebApi.Dtos;
-    using Domain.Entities;
+    using Phundus.Core.Entities;
 
     public class AutoMapperConfig
     {

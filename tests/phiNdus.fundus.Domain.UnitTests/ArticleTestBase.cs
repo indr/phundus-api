@@ -1,12 +1,11 @@
-﻿using NUnit.Framework;
-using phiNdus.fundus.Domain.Entities;
-using phiNdus.fundus.Domain.Repositories;
-using phiNdus.fundus.TestHelpers;
-using phiNdus.fundus.TestHelpers.TestBases;
-using Rhino.Mocks;
-
-namespace phiNdus.fundus.Domain.UnitTests
+﻿namespace phiNdus.fundus.Domain.UnitTests
 {
+    using NUnit.Framework;
+    using Phundus.Core.Entities;
+    using Phundus.Core.Repositories;
+    using Rhino.Mocks;
+    using TestHelpers.TestBases;
+
     public class ArticleTestBase : UnitTestBase<Article>
     {
         #region Setup/Teardown
@@ -28,21 +27,21 @@ namespace phiNdus.fundus.Domain.UnitTests
         #endregion
 
         protected readonly FieldDefinition GrossStockFieldDef = new FieldDefinition(FieldDefinition.GrossStockId,
-                                                                                    "Bestand (Brutto)", DataType.Integer);
+            "Bestand (Brutto)", DataType.Integer);
 
         protected readonly FieldDefinition IsBorrowableFieldDef = new FieldDefinition(FieldDefinition.IsBorrowableId,
-                                                                                      "Ausleihbar", DataType.Boolean);
+            "Ausleihbar", DataType.Boolean);
 
         protected readonly FieldDefinition IsReservableFieldDef = new FieldDefinition(FieldDefinition.IsReservableId,
-                                                                                      "Reservierbar", DataType.Boolean);
+            "Reservierbar", DataType.Boolean);
 
         protected readonly FieldDefinition NameFieldDef =
             new FieldDefinition(FieldDefinition.CaptionId, "Name",
-                                DataType.Text);
+                DataType.Text);
 
         protected readonly FieldDefinition PriceFieldDef =
             new FieldDefinition(FieldDefinition.PriceId, "Preis",
-                                DataType.Decimal);
+                DataType.Decimal);
 
         protected IFieldDefinitionRepository FakeFieldDefRepository { get; set; }
         protected IOrderRepository FakeOrderRepository { get; set; }

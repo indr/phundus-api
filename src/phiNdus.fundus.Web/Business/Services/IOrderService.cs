@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.IO;
     using Dto;
-    using phiNdus.fundus.Domain.Entities;
+    using Phundus.Core.Entities;
 
     public interface IOrderService
     {

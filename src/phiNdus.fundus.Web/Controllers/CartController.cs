@@ -6,10 +6,10 @@
     using Business.Dto;
     using Business.Services;
     using Castle.Transactions;
-    using Domain.Repositories;
     using Microsoft.Practices.ServiceLocation;
     using Models;
     using Models.CartModels;
+    using Phundus.Core.Repositories;
     using ViewModels;
     using fundus.Business;
 

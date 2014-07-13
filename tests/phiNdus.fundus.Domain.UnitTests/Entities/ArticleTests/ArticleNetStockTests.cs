@@ -1,9 +1,9 @@
-using Iesi.Collections.Generic;
-using NUnit.Framework;
-using phiNdus.fundus.Domain.Entities;
-
 namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
 {
+    using Iesi.Collections.Generic;
+    using NUnit.Framework;
+    using Phundus.Core.Entities;
+
     [TestFixture]
     public class ArticleNetStockTests : ArticleTestBase
     {

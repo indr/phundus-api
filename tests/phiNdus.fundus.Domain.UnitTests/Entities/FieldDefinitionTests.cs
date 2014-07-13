@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
+    using NUnit.Framework;
+    using Phundus.Core.Entities;
+
     [TestFixture]
     public class FieldDefinitionTests
     {
@@ -13,10 +13,10 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Is_derived_from_BaseEntity()
+        public void Can_get_IsSystem()
         {
-            var sut = new FieldDefinition();
-            Assert.That(sut, Is.InstanceOf(typeof (EntityBase)));
+            var sut = new FieldDefinition(1, 2, "Name", DataType.Text, true);
+            Assert.That(sut.IsSystem, Is.True);
         }
 
         [Test]
@@ -34,10 +34,10 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Can_get_IsSystem()
+        public void Is_derived_from_BaseEntity()
         {
-            var sut = new FieldDefinition(1, 2, "Name", DataType.Text, true);
-            Assert.That(sut.IsSystem, Is.True);
+            var sut = new FieldDefinition();
+            Assert.That(sut, Is.InstanceOf(typeof (EntityBase)));
         }
     }
 }

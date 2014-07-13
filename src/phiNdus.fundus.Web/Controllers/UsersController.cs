@@ -4,10 +4,10 @@
     using System.Web.Mvc;
     using Business.Assembler;
     using Castle.Transactions;
-    using Domain.Mails;
-    using Domain.Repositories;
     using Microsoft.Practices.ServiceLocation;
     using Models;
+    using Phundus.Core.Mails;
+    using Phundus.Core.Repositories;
 
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase

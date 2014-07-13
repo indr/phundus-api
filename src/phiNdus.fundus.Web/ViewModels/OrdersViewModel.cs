@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using Business.Dto;
     using Business.Services;
-    using Domain.Entities;
     using Microsoft.Practices.ServiceLocation;
+    using Phundus.Core.Entities;
 
     public class OrdersViewModelBase : ViewModelBase
     {

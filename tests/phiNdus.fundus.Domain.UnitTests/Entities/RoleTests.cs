@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
+    using NUnit.Framework;
+    using Phundus.Core.Entities;
+
     [TestFixture]
     public class RoleTests
     {
@@ -36,7 +36,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         [Test]
         public void Get_Administrator_role()
         {
-            var role = Role.Administrator;
+            Role role = Role.Administrator;
             Assert.That(role, Is.Not.Null);
             Assert.That(role.Id, Is.EqualTo(3));
         }
@@ -44,7 +44,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         [Test]
         public void Get_Chief_role()
         {
-            var role = Role.Chief;
+            Role role = Role.Chief;
             Assert.That(role, Is.Not.Null);
             Assert.That(role.Id, Is.EqualTo(2));
         }
@@ -59,7 +59,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         [Test]
         public void Get_User_role()
         {
-            var role = Role.User;
+            Role role = Role.User;
             Assert.That(role, Is.Not.Null);
             Assert.That(role.Id, Is.EqualTo(1));
         }

@@ -7,8 +7,8 @@
     using System.Linq;
     using System.Web.Mvc;
     using Microsoft.Practices.ServiceLocation;
-    using phiNdus.fundus.Domain.Entities;
-    using phiNdus.fundus.Domain.Repositories;
+    using Phundus.Core.Entities;
+    using Phundus.Core.Repositories;
 
     public class SettingsViewModelBase : ViewModelBase
     {

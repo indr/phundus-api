@@ -5,10 +5,10 @@
     using System.Linq;
     using System.Web.Http;
     using Castle.Transactions;
-    using Domain.Entities;
-    using Domain.Repositories;
     using Dtos;
     using NHibernate;
+    using Phundus.Core.Entities;
+    using Phundus.Core.Repositories;
 
     public class OrganizationsController : ApiControllerBase
     {

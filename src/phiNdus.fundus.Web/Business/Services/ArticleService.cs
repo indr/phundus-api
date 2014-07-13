@@ -6,10 +6,11 @@
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
     using phiNdus.fundus.Business.Paging;
-    using phiNdus.fundus.Domain.Inventory;
-    using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Assembler;
     using phiNdus.fundus.Web.Business.Dto;
+    using Phundus.Core.Inventory;
+    using Phundus.Core.Repositories;
+    using Phundus.Infrastructure;
     using piNuts.phundus.Infrastructure;
 
     public class ArticleService : BaseService, IArticleService

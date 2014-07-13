@@ -5,8 +5,8 @@
     using System.Web;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Models.Organization;
+    using Phundus.Core.Repositories;
 
     public class OrganizationController : ControllerBase
     {

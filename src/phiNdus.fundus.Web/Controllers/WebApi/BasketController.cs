@@ -2,7 +2,7 @@
 {
     using System.Web.Http;
     using Castle.Transactions;
-    using phiNdus.fundus.Domain.Repositories;
+    using Phundus.Core.Repositories;
 
     public class BasketController : ApiControllerBase
     {

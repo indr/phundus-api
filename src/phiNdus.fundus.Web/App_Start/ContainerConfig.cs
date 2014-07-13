@@ -14,9 +14,9 @@
     using FluentNHibernate.Cfg;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
-    using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Web.Business.Services;
     using phiNdus.fundus.Web.Plumbing;
+    using Phundus.Core.Entities;
 
     public class ContainerConfig
     {

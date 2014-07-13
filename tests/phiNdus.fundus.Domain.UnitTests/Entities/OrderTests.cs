@@ -1,11 +1,8 @@
-﻿using System;
-using NUnit.Framework;
-using phiNdus.fundus.Domain.Entities;
-
-namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
-    using NHibernate;
-    using Rhino.Mocks;
+    using System;
+    using NUnit.Framework;
+    using Phundus.Core.Entities;
 
     [TestFixture]
     public class OrderTests
@@ -16,6 +13,57 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         }
 
         [Test]
+        public void Approve_sets_ModifyDate()
+        {
+            Order sut = CreateSut();
+            sut.Approve(new User());
+            Assert.That(sut.ModifyDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
+        }
+
+        [Test]
+        public void Approve_sets_Mofidier_to_supplied_user()
+        {
+            Order sut = CreateSut();
+            var approver = new User();
+            sut.Approve(approver);
+            Assert.That(sut.Modifier, Is.SameAs(approver));
+        }
+
+        [Test]
+        public void Approve_sets_Status_to_Approved()
+        {
+            Order sut = CreateSut();
+            sut.Approve(new User());
+            Assert.That(sut.Status, Is.EqualTo(OrderStatus.Approved));
+        }
+
+        [Test]
+        public void Approve_with_null_approver_throws()
+        {
+            Order sut = CreateSut();
+            var ex = Assert.Throws<ArgumentNullException>(() => sut.Approve(null));
+            Assert.That(ex.ParamName, Is.EqualTo("approver"));
+        }
+
+        [Test]
+        public void Approve_with_status_Approved_throws()
+        {
+            Order sut = CreateSut();
+            sut.Approve(new User());
+            var ex = Assert.Throws<InvalidOperationException>(() => sut.Approve(new User()));
+            Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits bewilligt."));
+        }
+
+        [Test]
+        public void Approve_with_status_Rejected_throws()
+        {
+            Order sut = CreateSut();
+            sut.Reject(new User());
+            var ex = Assert.Throws<InvalidOperationException>(() => sut.Approve(new User()));
+            Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits abgelehnt."));
+        }
+
+        [Test]
         public void Can_create_with_Id_and_Version()
         {
             var sut = new Order(1, 2);
@@ -23,16 +71,11 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
             Assert.That(sut.Version, Is.EqualTo(2));
         }
 
-        
-
-        
-
-        
 
         [Test]
         public void Can_get_and_set_Reserver()
         {
-            var sut = CreateSut();
+            Order sut = CreateSut();
             var reserver = new User();
             sut.Reserver = reserver;
             Assert.That(sut.Reserver, Is.SameAs(reserver));
@@ -54,10 +97,11 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Create_sets_Status_to_Pending()
+        public void Create_sets_Id_and_Version_to_0()
         {
             var sut = new Order();
-            Assert.That(sut.Status, Is.EqualTo(OrderStatus.Pending));
+            Assert.That(sut.Id, Is.EqualTo(0));
+            Assert.That(sut.Version, Is.EqualTo(0));
         }
 
         [Test]
@@ -75,132 +119,10 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
         }
 
         [Test]
-        public void Create_sets_Id_and_Version_to_0()
+        public void Create_sets_Status_to_Pending()
         {
             var sut = new Order();
-            Assert.That(sut.Id, Is.EqualTo(0));
-            Assert.That(sut.Version, Is.EqualTo(0));
-        }
-
-
-        [Test]
-        public void RemoveItem_sets_Order_on_Item_to_null()
-        {
-            var sut = CreateSut();
-            var item = new OrderItem();
-            item.Order = sut;
-            sut.RemoveItem(item);
-            Assert.That(item.Order, Is.Null);
-        }
-
-        [Test]
-        public void RemoveItem_without_item_added_returns_false()
-        {
-            var sut = CreateSut();
-            var item = new OrderItem();
-            Assert.That(sut.RemoveItem(item), Is.False);
-        }
-
-        [Test]
-        public void Approve_with_null_approver_throws()
-        {
-            var sut = CreateSut();
-            var ex = Assert.Throws<ArgumentNullException>(() => sut.Approve(null));
-            Assert.That(ex.ParamName, Is.EqualTo("approver"));
-        }
-
-        [Test]
-        public void Approve_sets_Mofidier_to_supplied_user()
-        {
-            var sut = CreateSut();
-            var approver = new User();
-            sut.Approve(approver);
-            Assert.That(sut.Modifier, Is.SameAs(approver));
-        }
-
-        [Test]
-        public void Approve_sets_ModifyDate()
-        {
-            var sut = CreateSut();
-            sut.Approve(new User());
-            Assert.That(sut.ModifyDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
-        }
-
-        [Test]
-        public void Approve_sets_Status_to_Approved()
-        {
-            var sut = CreateSut();
-            sut.Approve(new User());
-            Assert.That(sut.Status, Is.EqualTo(OrderStatus.Approved));
-        }
-
-        [Test]
-        public void Approve_with_status_Approved_throws()
-        {
-            var sut = CreateSut();
-            sut.Approve(new User());
-            var ex = Assert.Throws<InvalidOperationException>(() => sut.Approve(new User()));
-            Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits bewilligt."));
-        }
-
-        [Test]
-        public void Approve_with_status_Rejected_throws()
-        {
-            var sut = CreateSut();
-            sut.Reject(new User());
-            var ex = Assert.Throws<InvalidOperationException>(() => sut.Approve(new User()));
-            Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits abgelehnt."));
-        }
-
-        [Test]
-        public void Reject_with_null_rejecter_throws()
-        {
-            var sut = CreateSut();
-            var ex = Assert.Throws<ArgumentNullException>(() => sut.Reject(null));
-            Assert.That(ex.ParamName, Is.EqualTo("rejecter"));
-        }
-
-        [Test]
-        public void Reject_sets_Modifier_to_supplied_user()
-        {
-            var sut = CreateSut();
-            var rejecter = new User();
-            sut.Reject(rejecter);
-            Assert.That(sut.Modifier, Is.SameAs(rejecter));
-        }
-
-        [Test]
-        public void Reject_sets_ModifyDate()
-        {
-            var sut = CreateSut();
-            sut.Reject(new User());
-            Assert.That(sut.ModifyDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
-        }
-
-        [Test]
-        public void Reject_sets_Status_to_Rejected()
-        {
-            var sut = CreateSut();
-            sut.Reject(new User());
-            Assert.That(sut.Status, Is.EqualTo(OrderStatus.Rejected));
-        }
-
-        [Test]
-        public void Reject_with_status_Approved_throws()
-        {
-            var sut = CreateSut();
-            sut.Approve(new User());
-            var ex = Assert.Throws<InvalidOperationException>(() => sut.Reject(new User()));
-            Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits bewilligt."));
-        }
-
-        [Test]
-        public void Reject_with_status_Rejected_throws()
-        {
-            var sut = CreateSut();
-            sut.Reject(new User());
-            var ex = Assert.Throws<InvalidOperationException>(() => sut.Reject(new User()));
-            Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits abgelehnt."));
+            Assert.That(sut.Status, Is.EqualTo(OrderStatus.Pending));
         }
 
         [Test]
@@ -210,10 +132,79 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
             var sut = new Order();
 
             // Act
-            var totalPrice = sut.TotalPrice;
+            double totalPrice = sut.TotalPrice;
 
             // Assert
             Assert.That(totalPrice, Is.EqualTo(0.0));
+        }
+
+        [Test]
+        public void Reject_sets_Modifier_to_supplied_user()
+        {
+            Order sut = CreateSut();
+            var rejecter = new User();
+            sut.Reject(rejecter);
+            Assert.That(sut.Modifier, Is.SameAs(rejecter));
+        }
+
+        [Test]
+        public void Reject_sets_ModifyDate()
+        {
+            Order sut = CreateSut();
+            sut.Reject(new User());
+            Assert.That(sut.ModifyDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
+        }
+
+        [Test]
+        public void Reject_sets_Status_to_Rejected()
+        {
+            Order sut = CreateSut();
+            sut.Reject(new User());
+            Assert.That(sut.Status, Is.EqualTo(OrderStatus.Rejected));
+        }
+
+        [Test]
+        public void Reject_with_null_rejecter_throws()
+        {
+            Order sut = CreateSut();
+            var ex = Assert.Throws<ArgumentNullException>(() => sut.Reject(null));
+            Assert.That(ex.ParamName, Is.EqualTo("rejecter"));
+        }
+
+        [Test]
+        public void Reject_with_status_Approved_throws()
+        {
+            Order sut = CreateSut();
+            sut.Approve(new User());
+            var ex = Assert.Throws<InvalidOperationException>(() => sut.Reject(new User()));
+            Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits bewilligt."));
+        }
+
+        [Test]
+        public void Reject_with_status_Rejected_throws()
+        {
+            Order sut = CreateSut();
+            sut.Reject(new User());
+            var ex = Assert.Throws<InvalidOperationException>(() => sut.Reject(new User()));
+            Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits abgelehnt."));
+        }
+
+        [Test]
+        public void RemoveItem_sets_Order_on_Item_to_null()
+        {
+            Order sut = CreateSut();
+            var item = new OrderItem();
+            item.Order = sut;
+            sut.RemoveItem(item);
+            Assert.That(item.Order, Is.Null);
+        }
+
+        [Test]
+        public void RemoveItem_without_item_added_returns_false()
+        {
+            Order sut = CreateSut();
+            var item = new OrderItem();
+            Assert.That(sut.RemoveItem(item), Is.False);
         }
     }
 }

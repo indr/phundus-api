@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using phiNdus.fundus.Domain.Inventory;
-using phiNdus.fundus.TestHelpers.TestBases;
-
-namespace phiNdus.fundus.Domain.UnitTests.Inventory
+﻿namespace phiNdus.fundus.Domain.UnitTests.Inventory
 {
+    using NUnit.Framework;
+    using Phundus.Core.Inventory;
+    using TestHelpers.TestBases;
+
     [TestFixture]
     public class AvailabilityCheckerTests : UnitTestBase<AvailabilityChecker>
     {

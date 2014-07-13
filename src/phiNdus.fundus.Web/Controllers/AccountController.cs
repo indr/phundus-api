@@ -6,14 +6,14 @@
     using System.Web.Security;
     using Castle.Transactions;
     using phiNdus.fundus.Business;
-    using phiNdus.fundus.Domain.Entities;
-    using phiNdus.fundus.Domain.Mails;
-    using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Dto;
     using phiNdus.fundus.Web.Models;
     using phiNdus.fundus.Web.Security;
     using phiNdus.fundus.Web.ViewModels;
     using phiNdus.fundus.Web.ViewModels.Account;
+    using Phundus.Core.Entities;
+    using Phundus.Core.Mails;
+    using Phundus.Core.Repositories;
 
     public class AccountController : ControllerBase
     {

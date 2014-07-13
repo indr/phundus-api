@@ -3,8 +3,8 @@
     using System;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Helpers.FileUpload;
+    using Phundus.Core.Repositories;
 
     [Authorize(Roles = "Chief")]
     public class FilesController : ControllerBase

@@ -8,10 +8,10 @@
     using System.Web.Security;
     using Business;
     using Domain;
-    using Domain.Infrastructure;
-    using Domain.Mails;
-    using Domain.Repositories;
     using fundus.Business;
+    using Phundus.Core.Infrastructure;
+    using Phundus.Core.Mails;
+    using Phundus.Core.Repositories;
 
     public class CustomMembershipProvider : MembershipProvider
     {

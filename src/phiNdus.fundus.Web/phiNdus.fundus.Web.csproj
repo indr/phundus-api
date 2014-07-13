@@ -910,17 +910,13 @@
       <Project>{7B58707A-84EC-4E7E-A0FD-946F1E16361E}</Project>
       <Name>phiNdus.fundus.DbMigrations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\phiNdus.fundus.Domain\phiNdus.fundus.Domain.csproj">
-      <Project>{00B767FE-A820-43B2-A494-B70732B09CF8}</Project>
-      <Name>phiNdus.fundus.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Phundus.Core\Phundus.Core.csproj">
       <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
       <Name>Phundus.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\piNuts.phundus.Infrastructure\piNuts.phundus.Infrastructure.csproj">
+    <ProjectReference Include="..\piNuts.phundus.Infrastructure\Phundus.Infrastructure.csproj">
       <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>
-      <Name>piNuts.phundus.Infrastructure</Name>
+      <Name>Phundus.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
