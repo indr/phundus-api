@@ -1,9 +1,9 @@
-﻿namespace piNuts.phundus.Infrastructure
+﻿namespace Phundus.Infrastructure
 {
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using phiNdus.fundus.Business.Gateways;
+    using Gateways;
 
     public class Installer : IWindsorInstaller
     {

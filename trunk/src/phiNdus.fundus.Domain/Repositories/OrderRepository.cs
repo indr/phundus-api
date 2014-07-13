@@ -6,7 +6,7 @@ using phiNdus.fundus.Domain.Entities;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
-    using piNuts.phundus.Infrastructure;
+    using Phundus.Infrastructure;
 
     public class OrderRepository : RepositoryBase<Order>, IOrderRepository
     {

@@ -4,7 +4,6 @@
     using Entities;
     using Microsoft.Practices.ServiceLocation;
     using Repositories;
-    using piNuts.phundus.Infrastructure;
 
     public class BaseSettings
     {

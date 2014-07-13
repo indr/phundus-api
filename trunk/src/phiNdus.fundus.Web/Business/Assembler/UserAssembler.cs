@@ -7,7 +7,7 @@
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
     using phiNdus.fundus.Web.Business.Dto;
-    using piNuts.phundus.Infrastructure;
+    using Phundus.Infrastructure;
 
     public class UserAssembler
     {

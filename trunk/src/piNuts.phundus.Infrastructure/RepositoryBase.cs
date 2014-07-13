@@ -1,4 +1,4 @@
-﻿namespace piNuts.phundus.Infrastructure
+﻿namespace Phundus.Infrastructure
 {
     using System;
     using NHibernate;

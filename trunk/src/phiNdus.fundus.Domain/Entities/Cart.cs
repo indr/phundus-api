@@ -9,7 +9,6 @@ namespace phiNdus.fundus.Domain.Entities
 {
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
-    using piNuts.phundus.Infrastructure;
 
     public class Cart : EntityBase
     {

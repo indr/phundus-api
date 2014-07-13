@@ -3,9 +3,9 @@
     using System;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using phiNdus.fundus.Business.Gateways;
     using phiNdus.fundus.Domain.Infrastructure;
     using phiNdus.fundus.Web.Models;
+    using Phundus.Infrastructure.Gateways;
 
     public class FeedbackController : ControllerBase
     {
