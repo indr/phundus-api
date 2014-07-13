@@ -134,6 +134,8 @@
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\SettingRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Services\IOrganizationService.cs" />
+    <Compile Include="Services\OrganizationService.cs" />
     <Compile Include="SessionKeyGenerator.cs" />
     <Compile Include="Settings\BaseSettings.cs" />
     <Compile Include="Settings\IMailSettings.cs" />
