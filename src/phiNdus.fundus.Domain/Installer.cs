@@ -5,7 +5,6 @@
     using Castle.Windsor;
     using Entities;
     using Phundus.Infrastructure;
-    using Phundus.Persistence.Legacy.Repositories;
     using Repositories;
 
     public class Installer : IWindsorInstaller
