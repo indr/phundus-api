@@ -1,21 +1,22 @@
 ﻿namespace Phundus.Core.Services
 {
+    using System;
     using phiNdus.fundus.Domain.Repositories;
 
     public class OrganizationService : IOrganizationService
     {
         public IOrganizationRepository Organizations { get; set; }
 
-        public IMemberRepository Members { get; set; }
+        public IUserRepository Users { get; set; }
 
-
+        [Obsolete]
         public void CreateMembershipApplication(int organizationId, int userId)
         {
-            var member = Members.FindById(userId);
+            var user = Users.FindById(userId);
 
             var organization = Organizations.FindById(organizationId);
 
-            member.Join(organization);
+            user.Join(organization);
         }
     }
 }

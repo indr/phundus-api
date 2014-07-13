@@ -4,6 +4,7 @@
     using phiNdus.fundus.Domain.Entities;
     using phiNdus.fundus.Domain.Repositories;
 
+
     public class ApplyForMembership
     {
         public int MemberId { get; set; }
@@ -12,17 +13,17 @@
 
     public class ApplyForMembershipHandler : IHandleCommand<ApplyForMembership>
     {
-        public IOrganizationRepository Organizations { get; set; }
+        //public IOrganizationRepository Organizations { get; set; }
 
-        public IMemberRepository Members { get; set; }
+        //public IMemberRepository Members { get; set; }
 
         public void Handle(ApplyForMembership command)
         {
-            Organization organization = Organizations.FindById(command.OrganizationId);
+            //Organization organization = Organizations.FindById(command.OrganizationId);
 
-            User user = Members.FindById(command.MemberId);
+            //User user = Members.FindById(command.MemberId);
 
-            user.Join(organization);
+            //user.Join(organization);
         }
     }
 }

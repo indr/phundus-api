@@ -12,7 +12,7 @@
     {
         public IUserRepository Users { get; set; }
         public IOrganizationRepository Organizations { get; set; }
-        public IMemberRepository Members { get; set; }
+        public IUserRepository Members { get; set; }
 
         [Transaction]
         public virtual MemberDtos Get(int organization)

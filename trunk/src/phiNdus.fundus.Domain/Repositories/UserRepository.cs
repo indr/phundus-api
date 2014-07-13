@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Entities;
+    using NHibernate;
     using NHibernate.Linq;
     using piNuts.phundus.Infrastructure;
 
@@ -13,35 +14,53 @@
             get { return Session.Query<User>(); }
         }
 
+        private IQueryOver<User, User> Members
+        {
+            get { return Session.QueryOver<User>(); }
+        }
+
         #region IUserRepository Members
+
+        public ICollection<User> FindByOrganization(int organizationId)
+        {
+            IQueryOver<User, OrganizationMembership> q = Members
+                .JoinQueryOver<OrganizationMembership>(m => m.Memberships)
+                .Where(om => om.Organization.Id == organizationId);
+            return q.List<User>();
+        }
+
+        public User FindById(int id)
+        {
+            return Members.Where(p => p.Id == id).SingleOrDefault();
+        }
 
         public ICollection<User> FindAll()
         {
-            var query = from u in Users select u;
+            IQueryable<User> query = from u in Users select u;
             return query.ToList();
         }
 
         public User FindByEmail(string email)
         {
-            var query = from u in Users
-                        where u.Membership.Email == email
-                        select u;
+            IQueryable<User> query = from u in Users
+                where u.Membership.Email == email
+                select u;
             return query.FirstOrDefault();
         }
 
         public User FindBySessionKey(string sessionKey)
         {
-            var query = from u in Users
-                        where u.Membership.SessionKey == sessionKey
-                        select u;
+            IQueryable<User> query = from u in Users
+                where u.Membership.SessionKey == sessionKey
+                select u;
             return query.FirstOrDefault();
         }
 
         public User FindByValidationKey(string validationKey)
         {
-            var query = from u in Users
-                        where u.Membership.ValidationKey == validationKey
-                        select u;
+            IQueryable<User> query = from u in Users
+                where u.Membership.ValidationKey == validationKey
+                select u;
             return query.FirstOrDefault();
         }
 
