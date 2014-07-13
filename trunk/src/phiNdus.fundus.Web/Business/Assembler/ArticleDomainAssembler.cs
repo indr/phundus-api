@@ -9,7 +9,6 @@
     using Phundus.Core.Entities;
     using Phundus.Core.Repositories;
     using Phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure;
 
     /// <summary>
     /// Die <c>ArticleDomainAssembler</c> wandelt Article-DTOs in Article-Domain-Objects.

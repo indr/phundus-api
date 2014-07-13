@@ -8,7 +8,6 @@
     using Phundus.Core.Entities;
     using Phundus.Core.Repositories;
     using Phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure;
 
     public class UserAssembler
     {

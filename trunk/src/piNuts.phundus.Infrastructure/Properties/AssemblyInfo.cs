@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
-[assembly: AssemblyTitle("piNuts.phundus.Web.Tests")]
+[assembly: AssemblyTitle("piNuts.phundus.Infrastructure")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("piNuts.phundus.Web.Tests")]
+[assembly: AssemblyProduct("piNuts.phundus.Infrastructure")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
-[assembly: Guid("2d54fbd7-491c-449c-96c5-d659bb1ae4c8")]
+[assembly: Guid("ea3db976-ef64-4d22-a643-921cc4f0c37b")]
 
 // Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 //

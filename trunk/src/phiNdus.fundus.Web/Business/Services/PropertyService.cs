@@ -8,7 +8,6 @@
     using phiNdus.fundus.Web.Business.Dto;
     using Phundus.Core.Repositories;
     using Phundus.Infrastructure;
-    using piNuts.phundus.Infrastructure;
 
     public class PropertyService : BaseService, IPropertyService
     {
