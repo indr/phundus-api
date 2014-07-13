@@ -8,6 +8,6 @@
 
     public interface IHandleCommand<in TCommand> : IHandleCommand
     {
-        IEnumerable Handle(TCommand command);
+        void Handle(TCommand command);
     }
 }
