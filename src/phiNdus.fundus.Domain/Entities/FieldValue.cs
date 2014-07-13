@@ -102,7 +102,7 @@ namespace phiNdus.fundus.Domain.Entities
 
         protected bool? BooleanValue { get; set; }
 
-        protected internal virtual string TextValue { get; set; }
+        public virtual string TextValue { get; set; }
 
         private bool _isDiscriminator;
         public virtual bool IsDiscriminator

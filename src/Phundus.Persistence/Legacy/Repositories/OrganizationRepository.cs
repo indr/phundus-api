@@ -1,11 +1,12 @@
-﻿namespace phiNdus.fundus.Domain.Repositories
+﻿namespace Phundus.Persistence.Legacy.Repositories
 {
     using System.Collections.Generic;
     using System.Linq;
     using Castle.Transactions;
-    using Entities;
+    using Infrastructure;
     using NHibernate.Linq;
-    using Phundus.Infrastructure;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Repositories;
 
     public class OrganizationRepository : RepositoryBase<Organization>, IOrganizationRepository
     {
@@ -36,12 +37,5 @@
         }
 
         #endregion
-    }
-
-    public interface IOrganizationRepository : IRepository<Organization>
-    {
-        ICollection<Organization> FindAll();
-        Organization FindById(int id);
-        Organization FindByName(string name);
     }
 }

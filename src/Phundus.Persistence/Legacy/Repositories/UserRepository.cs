@@ -1,11 +1,12 @@
-﻿namespace phiNdus.fundus.Domain.Repositories
+﻿namespace Phundus.Persistence.Legacy.Repositories
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Entities;
+    using Infrastructure;
     using NHibernate;
     using NHibernate.Linq;
-    using Phundus.Infrastructure;
+    using phiNdus.fundus.Domain.Entities;
+    using phiNdus.fundus.Domain.Repositories;
 
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
