@@ -2,7 +2,6 @@
 {
     using Cqrs;
 
-
     public class ApplyForMembership
     {
         public int MemberId { get; set; }
