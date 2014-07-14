@@ -2,6 +2,7 @@
 {
     using System;
     using Entities;
+    using IdentityAndAccessCtx.DomainModel;
     using Infrastructure;
     using Phundus.Infrastructure;
 

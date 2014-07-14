@@ -3,6 +3,7 @@
     using System;
     using System.Net.Mail;
     using Entities;
+    using IdentityAndAccessCtx.DomainModel;
     using Infrastructure;
 
     public class OrderReceivedMail : BaseMail

@@ -6,6 +6,7 @@
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
     using Models;
+    using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.Mails;
     using Phundus.Core.Repositories;
 

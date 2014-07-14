@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Entities
 {
     using System;
+    using IdentityAndAccessCtx.DomainModel;
 
     public class OrganizationMembership : EntityBase
     {

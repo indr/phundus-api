@@ -5,6 +5,7 @@
     using Castle.Transactions;
     using Dtos;
     using Phundus.Core.Entities;
+    using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.Repositories;
 
     [Authorize(Roles="Chief")]
