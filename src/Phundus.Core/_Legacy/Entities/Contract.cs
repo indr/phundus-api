@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Entities
 {
     using System;
+    using IdentityAndAccessCtx.DomainModel;
     using Iesi.Collections.Generic;
 
     public class Contract : EntityBase

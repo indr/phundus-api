@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.OrganizationCtx.Model
+﻿namespace Phundus.Core.OrganisationCtx.DomainModel
 {
     public class MembershipRequestRejected
     {

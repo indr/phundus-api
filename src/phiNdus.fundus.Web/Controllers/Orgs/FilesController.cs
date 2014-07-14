@@ -4,6 +4,7 @@
     using System.Web.Mvc;
     using Castle.Transactions;
     using phiNdus.fundus.Web.Helpers.FileUpload;
+    using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.Repositories;
 
     [Authorize(Roles = "Chief")]

@@ -1,5 +1,7 @@
-﻿namespace Phundus.Core.Entities
+﻿namespace Phundus.Core.IdentityAndAccessCtx.DomainModel
 {
+    using Entities;
+
     public class Role : EntityBase
     {
         private static readonly Role _user = new Role(1, "User");

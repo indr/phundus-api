@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Repositories
 {
+    using IdentityAndAccessCtx.DomainModel;
     using Phundus.Core.Entities;
 
     public interface ICartRepository : IRepository<Cart>

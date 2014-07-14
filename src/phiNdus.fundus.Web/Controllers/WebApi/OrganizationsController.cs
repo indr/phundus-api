@@ -8,6 +8,7 @@
     using Dtos;
     using NHibernate;
     using Phundus.Core.Entities;
+    using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.Repositories;
 
     public class OrganizationsController : ApiControllerBase

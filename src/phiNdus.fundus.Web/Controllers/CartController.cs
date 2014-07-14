@@ -9,6 +9,7 @@
     using Microsoft.Practices.ServiceLocation;
     using Models;
     using Models.CartModels;
+    using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.Repositories;
     using ViewModels;
     using fundus.Business;

@@ -1,6 +1,7 @@
-﻿namespace Phundus.Core.Entities
+﻿namespace Phundus.Core.IdentityAndAccessCtx.DomainModel
 {
     using System;
+    using Entities;
     using phiNdus.fundus.Domain;
     using Phundus.Infrastructure;
 

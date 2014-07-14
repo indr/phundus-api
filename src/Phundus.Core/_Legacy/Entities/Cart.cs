@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using IdentityAndAccessCtx.DomainModel;
     using Iesi.Collections.Generic;
     using Inventory;
     using Microsoft.Practices.ServiceLocation;

@@ -6,6 +6,8 @@
     using phiNdus.fundus.Web.Business.Assembler;
     using phiNdus.fundus.Web.Business.Dto;
     using Phundus.Core.Entities;
+    using Phundus.Core.IdentityAndAccessCtx.DomainModel;
+    using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.Mails;
     using Phundus.Core.Repositories;
 

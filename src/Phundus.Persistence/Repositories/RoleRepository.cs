@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Persistence.Repositories
 {
     using Core.Entities;
+    using Core.IdentityAndAccessCtx.DomainModel;
+    using Core.IdentityAndAccessCtx.Repositories;
     using Core.Repositories;
     using phiNdus.fundus.Domain.Repositories;
     using Phundus.Persistence;

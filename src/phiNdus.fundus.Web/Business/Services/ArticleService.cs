@@ -8,6 +8,7 @@
     using phiNdus.fundus.Business.Paging;
     using phiNdus.fundus.Web.Business.Assembler;
     using phiNdus.fundus.Web.Business.Dto;
+    using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.Inventory;
     using Phundus.Core.Repositories;
     using Phundus.Infrastructure;

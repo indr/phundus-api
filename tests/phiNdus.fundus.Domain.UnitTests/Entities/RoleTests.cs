@@ -2,6 +2,7 @@
 {
     using NUnit.Framework;
     using Phundus.Core.Entities;
+    using Phundus.Core.IdentityAndAccessCtx.DomainModel;
 
     [TestFixture]
     public class RoleTests

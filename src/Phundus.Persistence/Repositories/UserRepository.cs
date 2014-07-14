@@ -5,6 +5,8 @@
     using NHibernate;
     using NHibernate.Linq;
     using Phundus.Core.Entities;
+    using Phundus.Core.IdentityAndAccessCtx.DomainModel;
+    using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.Repositories;
     using Phundus.Persistence;
 

@@ -76,6 +76,14 @@
     <Compile Include="Cqrs\ICommandDispatcher.cs" />
     <Compile Include="Cqrs\IHandleCommand.cs" />
     <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
+    <Compile Include="Ddd\EventPublisher.cs" />
+    <Compile Include="OrganisationCtx\DomainModel\Member.cs" />
+    <Compile Include="OrganisationCtx\DomainModel\Membership.cs" />
+    <Compile Include="OrganisationCtx\DomainModel\Organisation.cs" />
+    <Compile Include="OrganisationCtx\Repositories\IOrganizationRepository.cs" />
+    <Compile Include="OrganisationCtx\Services\IMemberService.cs" />
+    <Compile Include="OrganisationCtx\Services\MemberService.cs" />
+    <Compile Include="OrganisationCtx\Services\UserRepositoryAdapter.cs" />
     <Compile Include="_Legacy\Entities\Article.cs" />
     <Compile Include="_Legacy\Entities\Cart.cs" />
     <Compile Include="_Legacy\Entities\CompositeEntity.cs" />
@@ -87,16 +95,16 @@
     <Compile Include="_Legacy\Entities\FieldedEntity.cs" />
     <Compile Include="_Legacy\Entities\FieldValue.cs" />
     <Compile Include="_Legacy\Entities\Image.cs" />
-    <Compile Include="_Legacy\Entities\Membership.cs" />
+    <Compile Include="IdentityAndAccessCtx\DomainModel\Membership.cs" />
     <Compile Include="_Legacy\Entities\Order.cs" />
     <Compile Include="_Legacy\Entities\OrderItem.cs" />
     <Compile Include="_Legacy\Entities\OrderStatus.cs" />
     <Compile Include="_Legacy\Entities\Organization.cs" />
     <Compile Include="_Legacy\Entities\OrganizationMembership.cs" />
     <Compile Include="_Legacy\Entities\Reservation.cs" />
-    <Compile Include="_Legacy\Entities\Role.cs" />
+    <Compile Include="IdentityAndAccessCtx\DomainModel\Role.cs" />
     <Compile Include="_Legacy\Entities\Setting.cs" />
-    <Compile Include="_Legacy\Entities\User.cs" />
+    <Compile Include="IdentityAndAccessCtx\DomainModel\User.cs" />
     <Compile Include="_Legacy\Factories\ReservationFactory.cs" />
     <Compile Include="_Legacy\Infrastructure\Config.cs" />
     <Compile Include="_Legacy\Inventory\AvailabilityChecker.cs" />
@@ -120,10 +128,10 @@
     <Compile Include="_Legacy\Mails\UserLockedOutMail.cs" />
     <Compile Include="_Legacy\Mails\UserResetPasswordMail.cs" />
     <Compile Include="_Legacy\Mails\UserUnlockedMail.cs" />
-    <Compile Include="OrganizationCtx\Commands\ApplyForMembership.cs" />
-    <Compile Include="OrganizationCtx\DomainModel\MembershipRequestApproved.cs" />
-    <Compile Include="OrganizationCtx\DomainModel\MembershipRequested.cs" />
-    <Compile Include="OrganizationCtx\DomainModel\MembershipRequestRejected.cs" />
+    <Compile Include="OrganisationCtx\Commands\ApplyForMembership.cs" />
+    <Compile Include="OrganisationCtx\DomainModel\MembershipRequestApproved.cs" />
+    <Compile Include="OrganisationCtx\DomainModel\MembershipRequested.cs" />
+    <Compile Include="OrganisationCtx\DomainModel\MembershipRequestRejected.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Legacy\Repositories\IArticleRepository.cs" />
     <Compile Include="_Legacy\Repositories\ICartRepository.cs" />
@@ -133,9 +141,9 @@
     <Compile Include="_Legacy\Repositories\IOrganizationRepository.cs" />
     <Compile Include="_Legacy\Repositories\IRepository.cs" />
     <Compile Include="_Legacy\Repositories\IReservationRepository.cs" />
-    <Compile Include="_Legacy\Repositories\IRoleRepository.cs" />
+    <Compile Include="IdentityAndAccessCtx\Repositories\IRoleRepository.cs" />
     <Compile Include="_Legacy\Repositories\ISettingRepository.cs" />
-    <Compile Include="_Legacy\Repositories\IUserRepository.cs" />
+    <Compile Include="IdentityAndAccessCtx\Repositories\IUserRepository.cs" />
     <Compile Include="_Legacy\Settings\BaseSettings.cs" />
     <Compile Include="_Legacy\Settings\IMailSettings.cs" />
     <Compile Include="_Legacy\Settings\IMailTemplateSettings.cs" />
@@ -158,12 +166,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IdentityAndAccessCtx\Commands\" />
-    <Folder Include="IdentityAndAccessCtx\DomainModel\" />
     <Folder Include="IdentityAndAccessCtx\ReadModel\" />
-    <Folder Include="IdentityAndAccessCtx\Repositories\" />
-    <Folder Include="OrganizationCtx\ReadModel\" />
-    <Folder Include="OrganizationCtx\Repositories\" />
-    <Folder Include="OrganizationCtx\Services\" />
+    <Folder Include="OrganisationCtx\ReadModel\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

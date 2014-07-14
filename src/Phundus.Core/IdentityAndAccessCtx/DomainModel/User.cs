@@ -1,7 +1,8 @@
-﻿namespace Phundus.Core.Entities
+﻿namespace Phundus.Core.IdentityAndAccessCtx.DomainModel
 {
     using System;
     using System.Linq;
+    using Entities;
     using Iesi.Collections.Generic;
 
     public class User : EntityBase

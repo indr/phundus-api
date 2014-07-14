@@ -3,7 +3,7 @@
     using System;
     using System.Web.Http;
     using Phundus.Core.Cqrs;
-    using Phundus.Core.Model.Organizations;
+    using Phundus.Core.OrganisationCtx.Commands;
 
     public class MembershipApplicationsController : ApiController
     {
