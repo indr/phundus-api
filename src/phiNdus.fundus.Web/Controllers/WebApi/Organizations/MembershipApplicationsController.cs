@@ -1,17 +1,17 @@
 ﻿namespace phiNdus.fundus.Web.Controllers.WebApi.Organizations
 {
     using System;
-    using System.Collections.Generic;
     using System.Web.Http;
-    using Phundus.Core.Services;
+    using Phundus.Core.Cqrs;
+    using Phundus.Core.Model.Organizations;
 
     public class MembershipApplicationsController : ApiController
     {
-        public IOrganizationService OrganizationService { get; set; }
+        public ICommandDispatcher Dispatcher { get; set; }
 
         public void Post(int orgId, MembershipApplicationDoc dto)
         {
-            OrganizationService.CreateMembershipApplication(orgId, dto.UserId);
+            Dispatcher.Dispatch(new ApplyForMembership {MemberId = dto.UserId, OrganizationId = orgId});
         }
     }
 
@@ -20,7 +20,7 @@
         private DateTime _createdOn = DateTime.UtcNow;
 
         public int OrgId { get; set; }
-        
+
         public int UserId { get; set; }
 
         public DateTime CreatedOn
