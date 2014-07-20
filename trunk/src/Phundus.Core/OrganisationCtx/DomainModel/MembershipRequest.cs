@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.OrganisationCtx.DomainModel
 {
+    using System;
     using Ddd;
 
     public class Membership
@@ -19,6 +20,8 @@
         public Membership Approve()
         {
             EventPublisher.Publish(new MembershipRequestApproved());
+
+            throw new NotImplementedException();
         }
 
         public void Reject()

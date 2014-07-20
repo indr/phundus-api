@@ -80,6 +80,7 @@
     <Compile Include="OrganisationCtx\DomainModel\Member.cs" />
     <Compile Include="OrganisationCtx\DomainModel\MembershipRequest.cs" />
     <Compile Include="OrganisationCtx\DomainModel\Organisation.cs" />
+    <Compile Include="OrganisationCtx\ReadModel\MembershipApplicationsReadModel.cs" />
     <Compile Include="OrganisationCtx\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="OrganisationCtx\Repositories\IOrganizationRepository.cs" />
     <Compile Include="OrganisationCtx\Services\IMemberService.cs" />
@@ -168,7 +169,6 @@
   <ItemGroup>
     <Folder Include="IdentityAndAccessCtx\Commands\" />
     <Folder Include="IdentityAndAccessCtx\ReadModel\" />
-    <Folder Include="OrganisationCtx\ReadModel\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

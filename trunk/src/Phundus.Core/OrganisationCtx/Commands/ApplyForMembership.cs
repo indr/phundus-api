@@ -29,8 +29,10 @@
             var member = Members.MemberFrom(command.MemberId);
             Guard.Against<EntityNotFoundException>(member == null, "Member not found");
 
-            var request = organization.CreateMembershipRequest(Requests.NextIdentity(), member);
-            Requests.Add(request);
+
+            throw new NotImplementedException();
+            //var request = organization.RequestMembershipFor(member);
+            //Requests.Add(request);
         }
     }
 

@@ -1,7 +1,8 @@
-﻿namespace phiNdus.fundus.Domain.Repositories
+﻿namespace Phundus.Persistence.Repositories
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Castle.Transactions;
     using NHibernate.Linq;
     using Phundus.Core.Entities;
     using Phundus.Core.Repositories;
@@ -16,6 +17,7 @@
 
         #region IOrganizationRepository Members
 
+        [Transaction]
         public ICollection<Organization> FindAll()
         {
             var query = from o in Organizations where o.Name != "Reserved" select o;

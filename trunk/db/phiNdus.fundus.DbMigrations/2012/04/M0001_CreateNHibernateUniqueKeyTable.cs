@@ -12,7 +12,7 @@ namespace phiNdus.fundus.DbMigrations
             Create.Table(TableName).InSchema(SchemaName)
                 .WithColumn("next_hi").AsInt32();
 
-            Execute.Sql(string.Format("insert into [{0}].hibernate_unique_key values ( 1 );", SchemaName));
+            Execute.Sql("insert into hibernate_unique_key values ( 1 );");
         }
 
         public override void Down()

@@ -22,12 +22,11 @@
     {
         public static IWindsorContainer Bootstrap()
         {
-            // Locking?
             var container = new WindsorContainer()
+                .Install(FromAssembly.Named("Phundus.Infrastructure"))
+                .Install(FromAssembly.Named("Phundus.Core"))
                 .Install(FromAssembly.This())
-                .Install(FromAssembly.Named("phiNdus.fundus.Domain"))
-                .Install(FromAssembly.Named("piNuts.phundus.Infrastructure"))
-                .Install(FromAssembly.Named("Phundus.Core"));
+                .Install(FromAssembly.Named("Phundus.Persistence"));
 
 
             container.Register(Types.FromThisAssembly()
