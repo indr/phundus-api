@@ -5,7 +5,13 @@
     using Ddd;
     using DomainModel;
 
-    public class MembershipApplicationsReadModel : ISubscribeTo<MembershipRequested>,
+    public interface IMembershipApplicationsReadModel
+    {
+        MembershipApplicationDtos ByOrganization(int orgId);
+    }
+
+    public class MembershipApplicationsReadModel : IMembershipApplicationsReadModel,
+            ISubscribeTo<MembershipRequested>,
         ISubscribeTo<MembershipRequestApproved>, ISubscribeTo<MembershipRequestRejected>
     {
         public void Handle(MembershipRequestApproved @event)
