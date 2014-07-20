@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Domain" namespace="phiNdus.fundus.Domain.Entities">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.IdentityAndAccessCtx.DomainModel">
 
   <class name="User" table="[User]">
     <id name="Id">
@@ -19,7 +19,7 @@
 
     <set name="Memberships" cascade="all-delete-orphan" lazy="true" inverse="true" >
       <key column="UserId" />
-      <one-to-many class="OrganizationMembership" />
+      <one-to-many class="Phundus.Core.Entities.OrganizationMembership" />
     </set>
 
     <property name="JsNumber" />

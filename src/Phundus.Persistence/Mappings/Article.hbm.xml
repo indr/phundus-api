@@ -1,34 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Domain" namespace="phiNdus.fundus.Domain.Entities">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.Entities">
+	<class name="CompositeEntity" table="[Article]">
+		<id name="Id">
+			<generator class="native" />
+		</id>
+		<discriminator column="[Type]" type="String" />
+		<version name="Version" />
 
-  <class name="CompositeEntity" table="[Article]">
-    <id name="Id">
-      <generator class="native" />
-    </id>
-    <discriminator column="[Type]" type="String" />
-    <version name="Version" />
+		<set name="FieldValues" cascade="all-delete-orphan" lazy="false">
+			<key column="ArticleId" />
+			<one-to-many class="FieldValue" />
+		</set>
 
-    <set name="FieldValues" cascade="all-delete-orphan" lazy="false">
-      <key column="ArticleId" />
-      <one-to-many class="FieldValue" />
-    </set>
+		<many-to-one name="Parent" column="ParentId" class="CompositeEntity" not-null="false" />
+		<set name="Children" cascade="all-delete-orphan" lazy="true" inverse="true" >
+			<key column="ParentId" />
+			<one-to-many class="CompositeEntity" />
+		</set>
 
-    <many-to-one name="Parent" column="ParentId" class="CompositeEntity" not-null="false" />
-    <set name="Children" cascade="all-delete-orphan" lazy="true" inverse="true" >
-      <key column="ParentId" />
-      <one-to-many class="CompositeEntity" />
-    </set>
+		<subclass name="Article">
+			<many-to-one name="Organization" column="OrganizationId" class="Organization" not-null="true" />
 
-    <subclass name="Article">
-      <many-to-one name="Organization" column="OrganizationId" class="Organization" not-null="true" />
-      
-      <property name="CreateDate" update="false" />
+			<property name="CreateDate" update="false" />
 
-      <set name="Images" cascade="all-delete-orphan" lazy="true" inverse="true" >
-        <key column="ArticleId" />
-        <one-to-many class="Image" />
-      </set>
-    </subclass>
-  </class>
+			<set name="Images" cascade="all-delete-orphan" lazy="true" inverse="true" >
+				<key column="ArticleId" />
+				<one-to-many class="Image" />
+			</set>
+		</subclass>
+	</class>
 </hibernate-mapping>
