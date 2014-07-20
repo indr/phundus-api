@@ -2,12 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using Castle.Transactions;
     using Ddd;
     using DomainModel;
+    using Repositories;
 
     public interface IMembershipApplicationsReadModel
     {
-        MembershipApplicationDtos ByOrganization(int orgId);
+        MembershipApplicationDtos ByOrganization(int organizationId);
     }
 
     public class MembershipApplicationsReadModel : IMembershipApplicationsReadModel,
@@ -29,9 +31,26 @@
             throw new NotImplementedException();
         }
 
-        public MembershipApplicationDtos ByOrganization(int orgId)
+        public IMembershipRequestRepository MembershipRequestRepository { get; set; }
+
+        [Transaction]
+        public MembershipApplicationDtos ByOrganization(int organizationId)
         {
-            return new MembershipApplicationDtos();
+            var requests = MembershipRequestRepository.ByOrganization(organizationId);
+
+            var result = new MembershipApplicationDtos();
+
+            foreach (var each in requests)
+            {
+                result.Add(new MembershipApplicationDto
+                {
+                    OrgId = each.OrganizationId,
+                    UserId = each.MemberId,
+                    CreatedOn = each.RequestDate
+                });
+            }
+
+            return result;
         }
     }
 
