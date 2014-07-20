@@ -24,7 +24,7 @@ namespace Phundus.Persistence
             
             cfg.AddAssembly(Assembly.GetExecutingAssembly());
 
-            return Fluently.Configure(cfg);
+            return Fluently. Configure(cfg).Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()));
         }
 
         public void Registered(ISessionFactory factory)

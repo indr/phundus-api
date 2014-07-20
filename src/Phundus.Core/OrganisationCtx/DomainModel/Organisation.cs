@@ -5,6 +5,9 @@
 
     public class Organisation
     {
+        public virtual int Id { get; set; }
+        public virtual int Version { get; set; }
+
         private ISet<MembershipRequest> _membershipRequests =  new HashedSet<MembershipRequest>();
 
         public virtual ISet<MembershipRequest> MembershipRequests
@@ -13,7 +16,7 @@
             set { _membershipRequests = value; }
         }
 
-        public void RequestMembershipFor(Member member)
+        public virtual void RequestMembershipFor(Member member)
         {
             _membershipRequests.Add(new MembershipRequest(member.Id));
 

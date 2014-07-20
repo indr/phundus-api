@@ -1,10 +1,10 @@
 ﻿namespace Phundus.Core.OrganisationCtx.Repositories
 {
+    using Core.Repositories;
     using DomainModel;
 
-    public interface IMembershipRequestRepository
+    public interface IMembershipRequestRepository : IRepository<MembershipRequest>
     {
         int NextIdentity();
-        void Add(MembershipRequest entity);
     }
 }

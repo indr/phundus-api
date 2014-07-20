@@ -34,6 +34,8 @@
                 routeTemplate: "api/{controller}/{id}/{action}",
                 defaults: new {id = RouteParameter.Optional, action = RouteParameter.Optional},
                 constraints: new {id = @"^[\d]*$"});
+
+            config.Formatters.XmlFormatter.UseXmlSerializer = true;
         }
     }
 }

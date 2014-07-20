@@ -16,9 +16,9 @@
             return MembershipApplications.ByOrganization(organization);
         }
 
-        public void Post(int orgId, MembershipApplicationDto dto)
+        public void Post(int organization, MembershipApplicationDto dto)
         {
-            Dispatcher.Dispatch(new ApplyForMembership {MemberId = dto.UserId, OrganizationId = orgId});
+            Dispatcher.Dispatch(new ApplyForMembership {MemberId = dto.UserId, OrganizationId = organization});
         }
     }
 }
