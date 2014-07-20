@@ -78,8 +78,9 @@
     <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
     <Compile Include="Ddd\EventPublisher.cs" />
     <Compile Include="OrganisationCtx\DomainModel\Member.cs" />
-    <Compile Include="OrganisationCtx\DomainModel\Membership.cs" />
+    <Compile Include="OrganisationCtx\DomainModel\MembershipRequest.cs" />
     <Compile Include="OrganisationCtx\DomainModel\Organisation.cs" />
+    <Compile Include="OrganisationCtx\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="OrganisationCtx\Repositories\IOrganizationRepository.cs" />
     <Compile Include="OrganisationCtx\Services\IMemberService.cs" />
     <Compile Include="OrganisationCtx\Services\MemberService.cs" />

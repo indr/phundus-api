@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Core.OrganisationCtx.DomainModel
 {
-    public class MembershipRequestApproved
+    using Ddd;
+
+    public class MembershipRequestApproved : DomainEvent
     {
 
     }
