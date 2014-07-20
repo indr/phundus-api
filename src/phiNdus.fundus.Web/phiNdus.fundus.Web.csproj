@@ -914,6 +914,10 @@
       <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
       <Name>Phundus.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Phundus.Persistence\Phundus.Persistence.csproj">
+      <Project>{7ddea0a9-50ea-4df6-9608-9edb8f2b5024}</Project>
+      <Name>Phundus.Persistence</Name>
+    </ProjectReference>
     <ProjectReference Include="..\piNuts.phundus.Infrastructure\Phundus.Infrastructure.csproj">
       <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>
       <Name>Phundus.Infrastructure</Name>

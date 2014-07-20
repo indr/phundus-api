@@ -13,7 +13,7 @@
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Types.FromAssemblyContaining(typeof (EntityBase))
+            container.Register(Types.FromThisAssembly()
                                    //.BasedOn(typeof (IRepository<>))
                                     .BasedOn(typeof (RepositoryBase<>))
                                     .WithServiceAllInterfaces()

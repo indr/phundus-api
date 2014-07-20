@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Core.Repositories
 {
     using System.Collections.Generic;
-    using Phundus.Core.Entities;
+    using Entities;
 
     public interface IOrganizationRepository : IRepository<Organization>
     {
