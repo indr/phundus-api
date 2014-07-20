@@ -19,9 +19,56 @@
         public int OrganizationId { get; set; }
     }
 
+    public class ApproveMembershipRequest
+    {
+        public Guid RequestId { get; set; }
+    }
+
+    public class RejectMembershipRequest
+    {
+        public Guid RequestId { get; set; }
+    }
+
+    public class ApproveMembershipRequestHandler : IHandleCommand<ApproveMembershipRequest>
+    {
+        public IMembershipRequestRepository Requests { get; set; }
+
+        public IOrganisationRepository Organisations { get; set; }
+
+        [Transaction]
+        public void Handle(ApproveMembershipRequest command)
+        {
+            var request = Requests.ById(command.RequestId);
+            Guard.Against<EntityNotFoundException>(request == null, "Membership request not found");
+
+            var organisation = Organisations.ById(request.OrganizationId);
+            Guard.Against<EntityNotFoundException>(organisation == null, "Organization not found");
+            organisation.ApproveMembershipRequest(request);
+        }
+    }
+
+    public class RejectMembershipRequestHandler : IHandleCommand<RejectMembershipRequest>
+    {
+        public IMembershipRequestRepository Requests { get; set; }
+
+        public IOrganisationRepository Organisations { get; set; }
+
+        [Transaction]
+        public void Handle(RejectMembershipRequest command)
+        {
+            var request = Requests.ById(command.RequestId);
+            Guard.Against<EntityNotFoundException>(request == null, "Membership request not found");
+
+            var organisation = Organisations.ById(request.OrganizationId);
+            Guard.Against<EntityNotFoundException>(organisation == null, "Organization not found");
+            organisation.RejectMembershipRequest(request);
+        }
+    }
+
     public class ApplyForMembershipHandler : IHandleCommand<ApplyForMembership>
     {
         public IMembershipApplicationsReadModel ReadModel { get; set; }
+
         public IOrganisationRepository Organisations { get; set; }
 
         public IMemberService Members { get; set; }

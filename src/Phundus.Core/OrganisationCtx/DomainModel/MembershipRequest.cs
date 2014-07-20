@@ -7,10 +7,6 @@
 
     #endregion
 
-    public class Membership
-    {
-    }
-
     public class MembershipRequest
     {
         private Guid _id;
@@ -56,18 +52,22 @@
             protected set { _requestDate = value; }
         }
 
-        public virtual Membership Approve()
-        {
-            EventPublisher.Publish(new MembershipRequestApproved());
+        public virtual DateTime? ApprovalDate { get; protected set; }
 
-            throw new NotImplementedException();
+        public virtual DateTime? RejectDate { get; protected set; }
+
+        public virtual void Approve()
+        {
+            ApprovalDate = DateTime.Now;
+
+            EventPublisher.Publish(new MembershipRequestApproved());
         }
 
         public virtual void Reject()
         {
-            EventPublisher.Publish(new MembershipRequestRejected());
+            RejectDate = DateTime.Now;
 
-            throw new NotImplementedException();
+            EventPublisher.Publish(new MembershipRequestRejected());
         }
     }
 }

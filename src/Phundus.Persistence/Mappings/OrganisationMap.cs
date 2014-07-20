@@ -23,6 +23,8 @@
             Map(x => x.OrganizationId);
             Map(x => x.MemberId);
             Map(x => x.RequestDate);
+            Map(x => x.ApprovalDate);
+            Map(x => x.RejectDate);
         }
     }
 }

@@ -21,7 +21,7 @@
                 name: "OrganizationApiRoute",
                 routeTemplate: "api/{organization}/{controller}/{id}/{action}",
                 defaults: new {id = RouteParameter.Optional, action = RouteParameter.Optional},
-                constraints: new {organization = @"^[\d]+$", id = @"^[\d]*$"});
+                constraints: new {organization = @"^[\d]+$", id = @"^[\d\-a-z]*$"});
 
             //config.Routes.MapHttpRoute(
             //    name: "OrganizationsApiRoute",
