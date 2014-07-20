@@ -39,6 +39,9 @@
                     Component.For<ICommandDispatcher>().ImplementedBy<CommandDispatcher>().LifestyleTransient(),
                     Component.For<ICommandHandlerFactory>().AsFactory(c => c.SelectedWith<CommandHandlerSelector>())
                 );
+
+            container.Register(
+                Classes.FromThisAssembly().Where(p => p.Name.EndsWith("ReadModel")).WithServiceDefaultInterfaces());
         }
 
         #endregion

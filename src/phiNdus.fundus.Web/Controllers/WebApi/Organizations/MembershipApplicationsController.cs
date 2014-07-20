@@ -9,11 +9,11 @@
     {
         public ICommandDispatcher Dispatcher { get; set; }
 
-        public MembershipApplicationsReadModel MembershipApplications { get; set; }
+        public IMembershipApplicationsReadModel MembershipApplications { get; set; }
 
-        public MembershipApplicationDtos Get(int orgId)
+        public MembershipApplicationDtos Get(int organization)
         {
-            return MembershipApplications.ByOrganization(orgId);
+            return MembershipApplications.ByOrganization(organization);
         }
 
         public void Post(int orgId, MembershipApplicationDto dto)
