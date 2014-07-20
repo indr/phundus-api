@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="phiNdus.fundus.Domain" namespace="phiNdus.fundus.Domain.Entities">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.Entities">
 
   <class name="Order" table="[Order]">
     <id name="Id">
@@ -12,10 +12,10 @@
     <property name="Status" />
 
     <many-to-one name="Organization" class="Organization" column="OrganizationId" />
-    <many-to-one name="Reserver" class="User" column="ReserverId" />
+    <many-to-one name="Reserver" class="Phundus.Core.IdentityAndAccessCtx.DomainModel.User" column="ReserverId" />
     
     <property name="ModifyDate" />
-    <many-to-one name="Modifier" class="User" column="ModifierId" />
+    <many-to-one name="Modifier" class="Phundus.Core.IdentityAndAccessCtx.DomainModel.User" column="ModifierId" />
 
     <set name="Items" cascade="all-delete-orphan" lazy="true" inverse="true" >
       <key column="OrderId" />
@@ -29,7 +29,7 @@
     </id>
     <version name="Version" />
     
-    <many-to-one name="Customer" class="User" column="CustomerId" />
+    <many-to-one name="Customer" class="Phundus.Core.IdentityAndAccessCtx.DomainModel.User" column="CustomerId" />
     
     <set name="Items" cascade="all-delete-orphan" lazy="true" inverse="true" >
       <key column="CartId" />

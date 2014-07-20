@@ -4,25 +4,22 @@
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
+    using Business.Services;
     using Castle.Facilities.AutoTx;
     using Castle.Facilities.NHibernate;
     using Castle.MicroKernel.Registration;
-    using Castle.Transactions;
     using Castle.Windsor;
     using Castle.Windsor.Installer;
     using CommonServiceLocator.WindsorAdapter;
-    using FluentNHibernate.Cfg;
     using Microsoft.Practices.ServiceLocation;
-    using NHibernate;
-    using phiNdus.fundus.Web.Business.Services;
-    using phiNdus.fundus.Web.Plumbing;
-    using Phundus.Core.Entities;
+    using Phundus.Persistence;
+    using Plumbing;
 
     public class ContainerConfig
     {
         public static IWindsorContainer Bootstrap()
         {
-            var container = new WindsorContainer()
+            IWindsorContainer container = new WindsorContainer()
                 .Install(FromAssembly.Named("Phundus.Infrastructure"))
                 .Install(FromAssembly.Named("Phundus.Core"))
                 .Install(FromAssembly.This())
@@ -30,9 +27,9 @@
 
 
             container.Register(Types.FromThisAssembly()
-                                    .BasedOn<BaseService>()
-                                    .WithServiceFirstInterface()
-                                    .LifestyleTransient());
+                .BasedOn<BaseService>()
+                .WithServiceFirstInterface()
+                .LifestyleTransient());
 
             // HttpContext registrieren für den SessionStateManager
             //container.Register(
@@ -43,7 +40,7 @@
 
             container.AddFacility<AutoTxFacility>();
             container.Register(Component.For<INHibernateInstaller>()
-                                        .ImplementedBy<NHibernateInstaller>());
+                .ImplementedBy<NHibernateInstaller>());
             container.AddFacility<NHibernateFacility>();
 
 
@@ -55,61 +52,17 @@
 
 
             container.Register(Component.For<IPrincipal>()
-                                        .LifestylePerWebRequest()
-                                        .UsingFactoryMethod(() => HttpContext.Current.User));
+                .LifestylePerWebRequest()
+                .UsingFactoryMethod(() => HttpContext.Current.User));
 
             container.Register(Component.For<IIdentity>()
-                                        .LifestylePerWebRequest()
-                                        .UsingFactoryMethod(() => HttpContext.Current.User.Identity));
-                
+                .LifestylePerWebRequest()
+                .UsingFactoryMethod(() => HttpContext.Current.User.Identity));
+
 
             ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
 
             return container;
         }
-    }
-
-    public class NHibernateInstaller : INHibernateInstaller
-    {
-        private readonly Maybe<IInterceptor> _interceptor;
-
-        public NHibernateInstaller()
-        {
-            _interceptor = Maybe.None<IInterceptor>();
-        }
-
-        #region INHibernateInstaller Members
-
-        public FluentConfiguration BuildFluent()
-        {
-            var cfg = new NHibernate.Cfg.Configuration();
-
-            var assembly = typeof (EntityBase).Assembly;
-            cfg.AddAssembly(assembly);
-
-            return Fluently.Configure(cfg);
-        }
-
-        public void Registered(ISessionFactory factory)
-        {
-            //
-        }
-
-        public bool IsDefault
-        {
-            get { return true; }
-        }
-
-        public string SessionFactoryKey
-        {
-            get { return "sf.default"; }
-        }
-
-        public Maybe<IInterceptor> Interceptor
-        {
-            get { return _interceptor; }
-        }
-
-        #endregion
     }
 }
