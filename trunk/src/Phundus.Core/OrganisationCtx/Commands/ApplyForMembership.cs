@@ -1,5 +1,7 @@
 ﻿namespace Phundus.Core.OrganisationCtx.Commands
 {
+    #region
+
     using System;
     using Castle.Transactions;
     using Cqrs;
@@ -8,6 +10,8 @@
     using ReadModel;
     using Repositories;
     using Services;
+
+    #endregion
 
     public class ApplyForMembership
     {
@@ -27,16 +31,18 @@
         [Transaction]
         public void Handle(ApplyForMembership command)
         {
-            var organization = Organisations.ById(command.OrganizationId);
+            Organisation organization = Organisations.ById(command.OrganizationId);
             Guard.Against<EntityNotFoundException>(organization == null, "Organization not found");
 
             var member = Members.MemberFrom(command.MemberId);
             Guard.Against<EntityNotFoundException>(member == null, "Member not found");
 
+            var request = organization.RequestMembership(
+                Requests.NextIdentity(),
+                member
+                );
 
-            throw new NotImplementedException();
-            //var request = organization.RequestMembershipFor(member);
-            //Requests.Add(request);
+            Requests.Add(request);
         }
     }
 
@@ -44,7 +50,6 @@
     {
         public EntityNotFoundException(string message) : base(message)
         {
-            
         }
     }
 }

@@ -1,15 +1,23 @@
 ﻿namespace Phundus.Core.OrganisationCtx.Services
 {
     using DomainModel;
+    using IdentityAndAccessCtx.DomainModel;
     using IdentityAndAccessCtx.Repositories;
 
     public class UserRepositoryAdapter
     {
-        public IUserRepository Users { get; set; }
+        private readonly IUserRepository _users;
+
+        public UserRepositoryAdapter(IUserRepository users)
+        {
+            _users = users;
+        }
 
         public Member ToMember(int id)
         {
-            var user = Users.FindById(id);
+            User user = _users.FindById(id);
+            if (user == null)
+                return null;
 
             return new Member(user.Id, user.FirstName, user.LastName);
         }

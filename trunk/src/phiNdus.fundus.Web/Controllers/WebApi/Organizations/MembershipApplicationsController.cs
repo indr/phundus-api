@@ -1,6 +1,7 @@
 ﻿namespace phiNdus.fundus.Web.Controllers.WebApi.Organizations
 {
     using System.Web.Http;
+    using Castle.Transactions;
     using Phundus.Core.Cqrs;
     using Phundus.Core.OrganisationCtx.Commands;
     using Phundus.Core.OrganisationCtx.ReadModel;

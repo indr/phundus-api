@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.OrganisationCtx.DomainModel
 {
+    using System;
     using Ddd;
     using Iesi.Collections.Generic;
 
@@ -8,19 +9,18 @@
         public virtual int Id { get; set; }
         public virtual int Version { get; set; }
 
-        private ISet<MembershipRequest> _membershipRequests =  new HashedSet<MembershipRequest>();
+        
 
-        public virtual ISet<MembershipRequest> MembershipRequests
+        public virtual MembershipRequest RequestMembership(Guid requestId, Member member)
         {
-            get { return _membershipRequests; }
-            set { _membershipRequests = value; }
-        }
-
-        public virtual void RequestMembershipFor(Member member)
-        {
-            _membershipRequests.Add(new MembershipRequest(member.Id));
+            var request = new MembershipRequest(
+                requestId,
+                Id,
+                member.Id);
 
             EventPublisher.Publish(new MembershipRequested());
+
+            return request;
         }
     }
 }
