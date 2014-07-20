@@ -2,6 +2,7 @@
 {
     using System;
     using Cqrs;
+    using DomainModel;
     using Phundus.Infrastructure;
     using Repositories;
     using Services;
@@ -18,6 +19,8 @@
 
         public IMemberService Members { get; set; }
 
+        public IMembershipRequestRepository Requests { get; set; }
+
         public void Handle(ApplyForMembership command)
         {
             var organization = Organizations.ById(command.OrganizationId);
@@ -26,7 +29,8 @@
             var member = Members.MemberFrom(command.MemberId);
             Guard.Against<EntityNotFoundException>(member == null, "Member not found");
 
-            organization.CreateMembership(member);
+            var request = organization.CreateMembershipRequest(Requests.NextIdentity(), member);
+            Requests.Add(request);
         }
     }
 

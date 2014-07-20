@@ -5,17 +5,17 @@
 
     public class Organisation
     {
-        private ISet<Membership> _memberships =  new HashedSet<Membership>();
+        private ISet<MembershipRequest> _membershipRequests =  new HashedSet<MembershipRequest>();
 
-        public virtual ISet<Membership> Memberships
+        public virtual ISet<MembershipRequest> MembershipRequests
         {
-            get { return _memberships; }
-            set { _memberships = value; }
+            get { return _membershipRequests; }
+            set { _membershipRequests = value; }
         }
 
-        public void CreateMembership(Member member)
+        public void RequestMembershipFor(Member member)
         {
-            _memberships.Add(new Membership(member.Id));
+            _membershipRequests.Add(new MembershipRequest(member.Id));
 
             EventPublisher.Publish(new MembershipRequested());
         }
