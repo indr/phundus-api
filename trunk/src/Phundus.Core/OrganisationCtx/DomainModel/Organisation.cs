@@ -22,5 +22,15 @@
 
             return request;
         }
+
+        public virtual void ApproveMembershipRequest(MembershipRequest request)
+        {
+            request.Approve();
+        }
+
+        public virtual void RejectMembershipRequest(MembershipRequest request)
+        {
+            request.Reject();
+        }
     }
 }
