@@ -1,7 +1,7 @@
-﻿namespace Phundus.Core.OrganisationCtx.Services
+﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Services
 {
-    using DomainModel;
     using IdentityAndAccessCtx.Queries;
+    using Model;
 
     public class MemberService : IMemberService
     {

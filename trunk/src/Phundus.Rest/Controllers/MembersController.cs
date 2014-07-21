@@ -5,9 +5,7 @@
     using System.Web.Http;
     using Castle.Transactions;
     using Core.IdentityAndAccessCtx.Repositories;
-    using Core.OrganisationCtx;
-    using Core.OrganisationCtx.DomainModel;
-    using Core.OrganisationCtx.Repositories;
+    using Core.OrganizationAndMembershipCtx.Repositories;
     using Dtos;
     using Exceptions;
 

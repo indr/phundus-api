@@ -1,9 +1,8 @@
-﻿namespace Phundus.Core.OrganisationCtx
+﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Model
 {
     using System;
     using System.Text.RegularExpressions;
     using Ddd;
-    using DomainModel;
     using Iesi.Collections.Generic;
 
     public class Organization : EntityBase

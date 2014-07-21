@@ -1,7 +1,7 @@
 ﻿namespace phiNdus.fundus.Web.Models.Organization
 {
     using System;
-    using Phundus.Core.OrganisationCtx;
+    using Phundus.Core.OrganizationAndMembershipCtx.Model;
 
     public class OrganizationModel
     {

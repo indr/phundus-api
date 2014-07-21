@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.OrganisationCtx.Commands
+﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Commands
 {
     using System;
 

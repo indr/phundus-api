@@ -7,7 +7,7 @@ using NHibernate.Linq;
 namespace phiNdus.fundus.Domain.Repositories
 {
     using Phundus.Core.InventoryCtx;
-    using Phundus.Core.OrganisationCtx;
+    using Phundus.Core.OrganizationAndMembershipCtx.Model;
     using Phundus.Persistence;
 
     public class ArticleRepository : RepositoryBase<Article>, IArticleRepository

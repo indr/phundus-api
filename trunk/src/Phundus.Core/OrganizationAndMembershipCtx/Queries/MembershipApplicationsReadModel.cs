@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.OrganisationCtx.ReadModel
+﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Queries
 {
     #region
 
@@ -6,7 +6,7 @@
     using System.Collections.Generic;
     using Castle.Transactions;
     using Ddd;
-    using DomainModel;
+    using Model;
     using Repositories;
 
     #endregion

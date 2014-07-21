@@ -1,8 +1,7 @@
 ﻿namespace phiNdus.fundus.Web.ViewModels.Layout
 {
     using System.Collections.Generic;
-    using Phundus.Core.OrganisationCtx;
-    using Phundus.Core.OrganisationCtx.DomainModel;
+    using Phundus.Core.OrganizationAndMembershipCtx.Model;
 
     public class NavBarModel
     {

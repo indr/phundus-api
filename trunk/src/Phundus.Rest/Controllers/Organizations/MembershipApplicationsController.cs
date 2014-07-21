@@ -3,8 +3,8 @@
     #region
 
     using System;
-    using Core.OrganisationCtx.Commands;
-    using Core.OrganisationCtx.ReadModel;
+    using Core.OrganizationAndMembershipCtx.Commands;
+    using Core.OrganizationAndMembershipCtx.Queries;
 
     #endregion
 

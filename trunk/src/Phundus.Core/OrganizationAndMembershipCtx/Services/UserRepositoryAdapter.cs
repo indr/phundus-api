@@ -1,8 +1,8 @@
-﻿namespace Phundus.Core.OrganisationCtx.Services
+﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Services
 {
-    using DomainModel;
     using IdentityAndAccessCtx.DomainModel;
     using IdentityAndAccessCtx.Queries;
+    using Model;
 
     public class UserRepositoryAdapter
     {

@@ -1,6 +1,6 @@
-﻿namespace Phundus.Core.OrganisationCtx.Services
+﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Services
 {
-    using DomainModel;
+    using Model;
 
     public interface IMemberService
     {
