@@ -13,6 +13,7 @@
     using CommonServiceLocator.WindsorAdapter;
     using Microsoft.Practices.ServiceLocation;
     using Phundus.Persistence;
+    
     using Plumbing;
 
     public class ContainerConfig
@@ -23,7 +24,8 @@
                 .Install(FromAssembly.Named("Phundus.Infrastructure"))
                 .Install(FromAssembly.Named("Phundus.Core"))
                 .Install(FromAssembly.This())
-                .Install(FromAssembly.Named("Phundus.Persistence"));
+                .Install(FromAssembly.Named("Phundus.Persistence"))
+                .Install(FromAssembly.Named("Phundus.Rest"));
 
 
             container.Register(Types.FromThisAssembly()
@@ -43,9 +45,6 @@
                 .ImplementedBy<NHibernateInstaller>());
             container.AddFacility<NHibernateFacility>();
 
-
-            GlobalConfiguration.Configuration.DependencyResolver
-                = new WindsorDependencyResolver(container);
 
             ControllerBuilder.Current.SetControllerFactory(
                 new WindsorControllerFactory(container.Kernel));

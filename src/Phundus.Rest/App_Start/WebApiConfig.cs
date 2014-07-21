@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.App_Start
+﻿namespace Phundus.Rest
 {
     using System.Web.Http;
     using Newtonsoft.Json.Serialization;

@@ -195,7 +195,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartMitSqlServerCe.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Business\Assembler\ArticleDomainAssembler.cs" />
     <Compile Include="Business\Assembler\ArticleDtoAssembler.cs" />
     <Compile Include="Business\Assembler\CartAssembler.cs" />
@@ -238,7 +237,6 @@
     <Compile Include="Controllers\WebApi\Dtos\MemberDtos.cs" />
     <Compile Include="Controllers\WebApi\Dtos\OrganizationDto.cs" />
     <Compile Include="Controllers\WebApi\Dtos\OrganizationListDto.cs" />
-    <Compile Include="Controllers\WebApi\Organizations\MembershipApplicationsController.cs" />
     <Compile Include="Exceptions\HttpConflictException.cs" />
     <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
@@ -253,8 +251,6 @@
     <Compile Include="Controllers\WebApi\MembersController.cs" />
     <Compile Include="Controllers\WebApi\OrganizationsController.cs" />
     <Compile Include="Models\Account\SignUpModel.cs" />
-    <Compile Include="App_Start\Plumbing\WindsorDependencyResolver.cs" />
-    <Compile Include="App_Start\Plumbing\WindsorDependencyScope.cs" />
     <Compile Include="Security\WindsorMembershipProvider.cs" />
     <Compile Include="Security\WebWindsorRoleProvider.cs" />
     <Compile Include="Security\WebWindsorMembershipProvider.cs" />
@@ -918,6 +914,10 @@
       <Project>{7ddea0a9-50ea-4df6-9608-9edb8f2b5024}</Project>
       <Name>Phundus.Persistence</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Phundus.Rest\Phundus.Rest.csproj">
+      <Project>{54a42682-059d-43b5-8028-60d1e4058371}</Project>
+      <Name>Phundus.Rest</Name>
+    </ProjectReference>
     <ProjectReference Include="..\piNuts.phundus.Infrastructure\Phundus.Infrastructure.csproj">
       <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>
       <Name>Phundus.Infrastructure</Name>
@@ -1028,6 +1028,7 @@
   <ItemGroup>
     <Folder Include="App_Data\Logs\" />
     <Folder Include="Content\Images\Articles\" />
+    <Folder Include="Controllers\WebApi\Organizations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Order\Pending.cshtml" />

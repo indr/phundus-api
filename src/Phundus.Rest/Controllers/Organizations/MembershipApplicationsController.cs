@@ -1,12 +1,12 @@
-﻿namespace phiNdus.fundus.Web.Controllers.WebApi.Organizations
+﻿namespace Phundus.Rest.Controllers.Organizations
 {
     #region
 
     using System;
     using System.Web.Http;
-    using Phundus.Core.Cqrs;
-    using Phundus.Core.OrganisationCtx.Commands;
-    using Phundus.Core.OrganisationCtx.ReadModel;
+    using Core.Cqrs;
+    using Core.OrganisationCtx.Commands;
+    using Core.OrganisationCtx.ReadModel;
 
     #endregion
 

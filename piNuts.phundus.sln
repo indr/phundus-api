@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Persistence", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Core.Specs", "specs\Phundus.Core.Specs\Phundus.Core.Specs.csproj", "{66D6E700-BBC7-417B-AC78-1343BD0E267A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Rest", "src\Phundus.Rest\Phundus.Rest.csproj", "{54A42682-059D-43B5-8028-60D1E4058371}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -138,6 +140,16 @@ Global
 		{66D6E700-BBC7-417B-AC78-1343BD0E267A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{66D6E700-BBC7-417B-AC78-1343BD0E267A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{66D6E700-BBC7-417B-AC78-1343BD0E267A}.Release|x86.ActiveCfg = Release|Any CPU
+		{54A42682-059D-43B5-8028-60D1E4058371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54A42682-059D-43B5-8028-60D1E4058371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54A42682-059D-43B5-8028-60D1E4058371}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{54A42682-059D-43B5-8028-60D1E4058371}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{54A42682-059D-43B5-8028-60D1E4058371}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{54A42682-059D-43B5-8028-60D1E4058371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54A42682-059D-43B5-8028-60D1E4058371}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54A42682-059D-43B5-8028-60D1E4058371}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{54A42682-059D-43B5-8028-60D1E4058371}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{54A42682-059D-43B5-8028-60D1E4058371}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

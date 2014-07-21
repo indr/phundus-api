@@ -1,5 +1,7 @@
-﻿namespace phiNdus.fundus.Web.Plumbing
+﻿namespace Phundus.Rest
 {
+    #region
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -7,16 +9,20 @@
     using Castle.MicroKernel.Lifestyle;
     using Castle.Windsor;
 
+    #endregion
+
     public class WindsorDependencyScope : IDependencyScope
     {
         private readonly IWindsorContainer _container;
         private readonly IDisposable _scope;
         private bool _disposed;
+
         public WindsorDependencyScope(IWindsorContainer container)
         {
             _container = container;
             _scope = _container.BeginScope();
         }
+
         public void Dispose()
         {
             if (_disposed) return;
@@ -24,16 +30,19 @@
             _disposed = true;
             GC.SuppressFinalize(this);
         }
+
         public object GetService(Type serviceType)
         {
             EnsureNotDisposed();
             return _container.Kernel.HasComponent(serviceType) ? _container.Kernel.Resolve(serviceType) : null;
         }
+
         public IEnumerable<object> GetServices(Type serviceType)
         {
             EnsureNotDisposed();
             return _container.ResolveAll(serviceType).Cast<object>();
         }
+
         private void EnsureNotDisposed()
         {
             if (_disposed) throw new ObjectDisposedException("WindsorDependencyScope");
