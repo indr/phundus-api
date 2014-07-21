@@ -6,8 +6,8 @@ using NHibernate.Linq;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
-    using Phundus.Core.Entities;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.InventoryCtx;
+    using Phundus.Core.OrganisationCtx;
     using Phundus.Persistence;
 
     public class ArticleRepository : RepositoryBase<Article>, IArticleRepository

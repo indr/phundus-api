@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Core.IdentityAndAccessCtx.Repositories
 {
-    using Core.Repositories;
     using DomainModel;
+    using Phundus.Infrastructure;
 
     public interface IRoleRepository : IRepository<Role>
     {

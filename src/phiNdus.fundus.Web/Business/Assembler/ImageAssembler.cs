@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Core.Entities;
+    using Phundus.Core.InventoryCtx;
 
     public class ImageAssembler
     {

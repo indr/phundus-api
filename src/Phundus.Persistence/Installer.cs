@@ -3,9 +3,9 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using Core.Entities;
-    using Core.Repositories;
+    using Core.ReservationCtx;
     using phiNdus.fundus.Domain.Repositories;
+    using Repositories;
 
     public class Installer : IWindsorInstaller
     {

@@ -6,7 +6,7 @@
     using phiNdus.fundus.Business;
     using phiNdus.fundus.Web.Business.Assembler;
     using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.InventoryCtx;
     using Phundus.Infrastructure;
 
     public class PropertyService : BaseService, IPropertyService

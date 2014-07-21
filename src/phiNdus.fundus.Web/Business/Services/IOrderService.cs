@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.IO;
     using Dto;
-    using Phundus.Core.Entities;
+    using Phundus.Core.ReservationCtx;
 
     public interface IOrderService
     {

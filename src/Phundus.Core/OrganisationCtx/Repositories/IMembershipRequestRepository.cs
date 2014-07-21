@@ -1,13 +1,9 @@
 ﻿namespace Phundus.Core.OrganisationCtx.Repositories
 {
-    #region
-
     using System;
     using System.Collections.Generic;
-    using Core.Repositories;
     using DomainModel;
-
-    #endregion
+    using Phundus.Infrastructure;
 
     public interface IMembershipRequestRepository : IRepository<MembershipRequest>
     {

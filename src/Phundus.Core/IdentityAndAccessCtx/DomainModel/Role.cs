@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Core.IdentityAndAccessCtx.DomainModel
 {
-    using Entities;
+    using Ddd;
 
     public class Role : EntityBase
     {

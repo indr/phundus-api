@@ -7,7 +7,7 @@ using NUnit.Framework;
 using phiNdus.fundus.Web.Models;
 
 namespace phiNdus.fundus.Web.UnitTests.Models {
-    using Phundus.Core.Entities;
+    using Phundus.Core.OrganisationCtx;
 
     [TestFixture]
     public class AccountModelTests {

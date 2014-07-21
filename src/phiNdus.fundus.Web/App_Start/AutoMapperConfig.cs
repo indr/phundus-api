@@ -1,7 +1,7 @@
 ﻿namespace phiNdus.fundus.Web.App_Start
 {
     using AutoMapper;
-    using Phundus.Core.Entities;
+    using Phundus.Core.OrganisationCtx;
     using Phundus.Rest.Dtos;
 
     public class AutoMapperConfig

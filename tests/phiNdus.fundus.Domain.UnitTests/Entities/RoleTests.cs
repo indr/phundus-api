@@ -1,7 +1,6 @@
 ﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
     using NUnit.Framework;
-    using Phundus.Core.Entities;
     using Phundus.Core.IdentityAndAccessCtx.DomainModel;
 
     [TestFixture]

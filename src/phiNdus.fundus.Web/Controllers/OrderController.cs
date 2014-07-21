@@ -5,7 +5,7 @@
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.ViewModels;
-    using Phundus.Core.Entities;
+    using Phundus.Core.ReservationCtx;
 
     [Authorize]
     public class OrderController : ControllerBase

@@ -1,13 +1,12 @@
-﻿namespace phiNdus.fundus.Domain.Repositories
+﻿namespace Phundus.Persistence.Repositories
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using NHibernate;
     using NHibernate.Linq;
-    using Phundus.Core.Entities;
-    using Phundus.Core.Factories;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.InventoryCtx;
+    using Phundus.Core.ReservationCtx;
 
     public class ReservationRepository : IReservationRepository
     {

@@ -6,7 +6,7 @@
     using Business.Dto;
     using Business.Services;
     using Microsoft.Practices.ServiceLocation;
-    using Phundus.Core.Entities;
+    using Phundus.Core.ReservationCtx;
 
     public class OrderViewModel : ViewModelBase
     {

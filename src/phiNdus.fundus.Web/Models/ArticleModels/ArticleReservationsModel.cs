@@ -2,7 +2,7 @@
 
 namespace phiNdus.fundus.Web.Models.ArticleModels
 {
-    using Phundus.Core.Entities;
+    using Phundus.Core.ReservationCtx;
 
     public class ArticleReservationsModel
     {

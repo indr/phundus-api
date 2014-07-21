@@ -2,14 +2,12 @@
 {
     using System;
     using Ddd;
-    using Iesi.Collections.Generic;
 
     public class Organisation
     {
         public virtual int Id { get; set; }
-        public virtual int Version { get; set; }
 
-        
+        public virtual int Version { get; set; }
 
         public virtual MembershipRequest RequestMembership(Guid requestId, Member member)
         {
@@ -23,14 +21,20 @@
             return request;
         }
 
-        public virtual void ApproveMembershipRequest(MembershipRequest request)
+        public virtual Membership ApproveMembershipRequest(MembershipRequest request, Guid membershipId)
         {
-            request.Approve();
+            var membership = request.Approve(membershipId);
+
+            EventPublisher.Publish(new MembershipRequestApproved());
+
+            return membership;
         }
 
         public virtual void RejectMembershipRequest(MembershipRequest request)
         {
             request.Reject();
+
+            EventPublisher.Publish(new MembershipRequestRejected());
         }
     }
 }

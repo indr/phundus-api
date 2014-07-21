@@ -5,11 +5,10 @@
     using phiNdus.fundus.Business;
     using phiNdus.fundus.Web.Business.Assembler;
     using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Core.Entities;
     using Phundus.Core.IdentityAndAccessCtx.DomainModel;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.Mails;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.ReservationCtx.Mails;
+    using Phundus.Core.ShopCtx;
 
     public class CartService : BaseService, ICartService
     {

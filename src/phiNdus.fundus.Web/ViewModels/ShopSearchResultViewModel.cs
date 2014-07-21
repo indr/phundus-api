@@ -8,7 +8,7 @@ namespace phiNdus.fundus.Web.ViewModels
     using Business.Services;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain;
-    using Phundus.Core.Entities;
+    using Phundus.Core.OrganisationCtx;
 
     public class ShopSearchResultViewModel : ViewModelBase
     {

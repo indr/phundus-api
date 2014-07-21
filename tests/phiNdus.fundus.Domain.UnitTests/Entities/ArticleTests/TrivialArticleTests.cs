@@ -3,7 +3,7 @@
     using System;
     using Iesi.Collections.Generic;
     using NUnit.Framework;
-    using Phundus.Core.Entities;
+    using Phundus.Core.InventoryCtx;
     using Rhino.Mocks;
 
     [TestFixture]

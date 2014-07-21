@@ -3,9 +3,8 @@
     using System.Linq;
     using System.Web.Http;
     using Castle.Transactions;
-    using Core.Entities;
     using Core.IdentityAndAccessCtx.Repositories;
-    using Core.Repositories;
+    using Core.OrganisationCtx;
     using Dtos;
     using Exceptions;
 
