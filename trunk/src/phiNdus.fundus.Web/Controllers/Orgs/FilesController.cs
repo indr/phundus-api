@@ -5,7 +5,7 @@
     using Castle.Transactions;
     using phiNdus.fundus.Web.Helpers.FileUpload;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.OrganisationCtx;
     using Phundus.Rest;
     using Phundus.Rest.Exceptions;
 

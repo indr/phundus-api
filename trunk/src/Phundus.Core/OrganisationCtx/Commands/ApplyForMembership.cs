@@ -19,19 +19,11 @@
         public int OrganizationId { get; set; }
     }
 
-    public class ApproveMembershipRequest
-    {
-        public Guid RequestId { get; set; }
-    }
-
-    public class RejectMembershipRequest
-    {
-        public Guid RequestId { get; set; }
-    }
-
     public class ApproveMembershipRequestHandler : IHandleCommand<ApproveMembershipRequest>
     {
         public IMembershipRequestRepository Requests { get; set; }
+
+        public IMembershipRepository Memberships { get; set; }
 
         public IOrganisationRepository Organisations { get; set; }
 
@@ -43,7 +35,9 @@
 
             var organisation = Organisations.ById(request.OrganizationId);
             Guard.Against<EntityNotFoundException>(organisation == null, "Organization not found");
-            organisation.ApproveMembershipRequest(request);
+            var membership = organisation.ApproveMembershipRequest(request, Memberships.NextIdentity());
+
+            Memberships.Add(membership);
         }
     }
 

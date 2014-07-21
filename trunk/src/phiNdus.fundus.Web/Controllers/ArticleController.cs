@@ -9,8 +9,8 @@
     using phiNdus.fundus.Web.Helpers.FileUpload;
     using phiNdus.fundus.Web.Models.ArticleModels;
     using phiNdus.fundus.Web.ViewModels;
-    using Phundus.Core.Entities;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.InventoryCtx;
+    using Phundus.Core.ReservationCtx;
 
     [Authorize(Roles = "Chief")]
     public class ArticleController : ControllerBase

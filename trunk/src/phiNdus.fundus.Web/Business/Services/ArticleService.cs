@@ -9,8 +9,7 @@
     using phiNdus.fundus.Web.Business.Assembler;
     using phiNdus.fundus.Web.Business.Dto;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.Inventory;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.InventoryCtx;
     using Phundus.Infrastructure;
 
     public class ArticleService : BaseService, IArticleService

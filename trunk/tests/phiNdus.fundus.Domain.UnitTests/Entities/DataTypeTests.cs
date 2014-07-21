@@ -2,7 +2,7 @@
 {
     using System;
     using NUnit.Framework;
-    using Phundus.Core.Entities;
+    using Phundus.Core.InventoryCtx;
 
     [TestFixture]
     public class DataTypeTests

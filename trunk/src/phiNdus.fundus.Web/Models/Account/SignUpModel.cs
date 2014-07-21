@@ -58,6 +58,6 @@ namespace phiNdus.fundus.Web.Models
         [DisplayName("Verband")]
         public int? OrganizationId { get; set; }
 
-        public IEnumerable<Phundus.Core.Entities.Organization> Organizations { get; set; }
+        public IEnumerable<Phundus.Core.OrganisationCtx.Organization> Organizations { get; set; }
     }
 }

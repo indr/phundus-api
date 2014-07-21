@@ -1,7 +1,8 @@
 ﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
 {
     using NUnit.Framework;
-    using Phundus.Core.Entities;
+    using Phundus.Core.Ddd;
+    using Phundus.Core.InventoryCtx;
 
     [TestFixture]
     public class FieldDefinitionTests

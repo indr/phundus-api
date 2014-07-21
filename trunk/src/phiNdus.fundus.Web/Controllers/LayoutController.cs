@@ -5,7 +5,6 @@
     using NHibernate;
     using phiNdus.fundus.Web.ViewModels.Layout;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.Repositories;
 
     public class LayoutController : ControllerBase
     {

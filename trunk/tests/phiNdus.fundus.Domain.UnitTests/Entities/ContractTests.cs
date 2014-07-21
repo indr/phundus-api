@@ -2,8 +2,8 @@
 {
     using System;
     using NUnit.Framework;
-    using Phundus.Core.Entities;
     using Phundus.Core.IdentityAndAccessCtx.DomainModel;
+    using Phundus.Core.ReservationCtx;
 
     [TestFixture]
     public class ContractTests

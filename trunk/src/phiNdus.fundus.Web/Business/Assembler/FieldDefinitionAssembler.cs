@@ -5,8 +5,7 @@
     using Microsoft.Practices.ServiceLocation;
     using fundus.Business;
     using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Core.Entities;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.InventoryCtx;
     using Phundus.Infrastructure;
 
     public class FieldDefinitionAssembler

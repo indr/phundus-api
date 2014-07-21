@@ -4,8 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using NHibernate.Linq;
-    using Phundus.Core.Entities;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.SettingsCtx;
     using Phundus.Persistence;
 
     public class SettingRepository : RepositoryBase<Setting>, ISettingRepository

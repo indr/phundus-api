@@ -5,8 +5,8 @@ using NHibernate.Linq;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
-    using Phundus.Core.Entities;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.OrganisationCtx;
+    using Phundus.Core.ReservationCtx;
     using Phundus.Persistence;
 
     public class OrderRepository : RepositoryBase<Order>, IOrderRepository

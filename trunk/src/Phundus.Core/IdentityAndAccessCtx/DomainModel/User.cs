@@ -2,8 +2,9 @@
 {
     using System;
     using System.Linq;
-    using Entities;
+    using Ddd;
     using Iesi.Collections.Generic;
+    using OrganisationCtx;
 
     public class User : EntityBase
     {

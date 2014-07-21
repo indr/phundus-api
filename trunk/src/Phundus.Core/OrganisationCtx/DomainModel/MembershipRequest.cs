@@ -1,11 +1,6 @@
 ﻿namespace Phundus.Core.OrganisationCtx.DomainModel
 {
-    #region
-
     using System;
-    using Ddd;
-
-    #endregion
 
     public class MembershipRequest
     {
@@ -56,18 +51,16 @@
 
         public virtual DateTime? RejectDate { get; protected set; }
 
-        public virtual void Approve()
+        public virtual Membership Approve(Guid membershipId)
         {
             ApprovalDate = DateTime.Now;
 
-            EventPublisher.Publish(new MembershipRequestApproved());
+            return new Membership(membershipId, OrganizationId, MemberId, Id);
         }
 
         public virtual void Reject()
         {
             RejectDate = DateTime.Now;
-
-            EventPublisher.Publish(new MembershipRequestRejected());
         }
     }
 }

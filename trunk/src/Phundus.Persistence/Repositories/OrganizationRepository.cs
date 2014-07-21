@@ -3,9 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using Castle.Transactions;
+    using Core.OrganisationCtx;
     using NHibernate.Linq;
-    using Phundus.Core.Entities;
-    using Phundus.Core.Repositories;
     using Phundus.Persistence;
 
     public class OrganizationRepository : RepositoryBase<Organization>, IOrganizationRepository

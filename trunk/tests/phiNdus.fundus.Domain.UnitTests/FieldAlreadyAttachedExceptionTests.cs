@@ -5,6 +5,8 @@ using phiNdus.fundus.TestHelpers.TestBases;
 
 namespace phiNdus.fundus.Domain.UnitTests
 {
+    using Phundus.Core.InventoryCtx;
+
     [TestFixture]
     public class FieldAlreadyAttachedExceptionTests : ExceptionTestBase<FieldAlreadyAttachedException>
     {

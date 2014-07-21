@@ -3,7 +3,6 @@ namespace Phundus.Persistence
     using System.Reflection;
     using Castle.Facilities.NHibernate;
     using Castle.Transactions;
-    using Core.Entities;
     using FluentNHibernate.Cfg;
     using NHibernate;
 

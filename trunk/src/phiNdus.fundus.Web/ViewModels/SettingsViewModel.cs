@@ -7,8 +7,7 @@
     using System.Linq;
     using System.Web.Mvc;
     using Microsoft.Practices.ServiceLocation;
-    using Phundus.Core.Entities;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.SettingsCtx;
 
     public class SettingsViewModelBase : ViewModelBase
     {

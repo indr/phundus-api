@@ -2,7 +2,8 @@
 {
     using System;
     using NUnit.Framework;
-    using Phundus.Core.Entities;
+    using Phundus.Core.InventoryCtx;
+    using Phundus.Core.ReservationCtx;
 
     [TestFixture]
     public class OrderItemTests

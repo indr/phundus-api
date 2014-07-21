@@ -2,8 +2,8 @@
 {
     using System;
     using NUnit.Framework;
-    using Phundus.Core.Entities;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.InventoryCtx;
+    using Phundus.Core.ShopCtx;
     using TestHelpers.TestBases;
 
     [TestFixture]

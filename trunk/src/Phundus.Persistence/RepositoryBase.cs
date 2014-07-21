@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Persistence
 {
     using System;
-    using Core.Repositories;
+    using Infrastructure;
     using NHibernate;
 
     public class RepositoryBase<T> : IRepository<T>

@@ -3,7 +3,7 @@
     using System.Web.Http;
     using Castle.Transactions;
     using Core.IdentityAndAccessCtx.Repositories;
-    using Core.Repositories;
+    using Core.ShopCtx;
 
     public class BasketController : ApiControllerBase
     {

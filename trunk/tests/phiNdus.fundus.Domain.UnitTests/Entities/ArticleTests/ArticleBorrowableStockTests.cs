@@ -1,7 +1,7 @@
 ﻿namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
 {
     using NUnit.Framework;
-    using Phundus.Core.Entities;
+    using Phundus.Core.InventoryCtx;
     using Rhino.Mocks;
 
     [TestFixture]

@@ -4,8 +4,7 @@
     using System.Collections.Generic;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Core.Entities;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.InventoryCtx;
     using Phundus.Infrastructure;
 
     /// <summary>

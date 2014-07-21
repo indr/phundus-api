@@ -1,8 +1,8 @@
 ﻿namespace phiNdus.fundus.Domain.UnitTests
 {
     using NUnit.Framework;
-    using Phundus.Core.Entities;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.InventoryCtx;
+    using Phundus.Core.ReservationCtx;
     using Rhino.Mocks;
     using TestHelpers.TestBases;
 
@@ -17,7 +17,6 @@
 
             FakeFieldDefRepository = GenerateAndRegisterStub<IFieldDefinitionRepository>();
             FakeOrderRepository = GenerateAndRegisterStub<IOrderRepository>();
-            FakeContractRepository = GenerateAndRegisterStub<IContractRepository>();
 
             FakeFieldDefRepository.Expect(x => x.ById(GrossStockFieldDef.Id)).Return(GrossStockFieldDef);
             FakeFieldDefRepository.Expect(x => x.ById(IsBorrowableFieldDef.Id)).Return(IsBorrowableFieldDef);
@@ -45,7 +44,7 @@
 
         protected IFieldDefinitionRepository FakeFieldDefRepository { get; set; }
         protected IOrderRepository FakeOrderRepository { get; set; }
-        protected IContractRepository FakeContractRepository { get; set; }
+        
 
         protected Article AddChild(Article parent, bool isBorrowable = false, bool isReserverable = false)
         {

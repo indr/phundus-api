@@ -4,6 +4,7 @@
     using System.Web.Http;
     using AutoMapper;
     using Castle.Core.Logging;
+    using Core.Cqrs;
 
     public class ApiControllerBase : ApiController
     {
@@ -16,6 +17,13 @@
         }
 
         public IIdentity Identity { get; set; }
+
+        public ICommandDispatcher Dispatcher { get; set; }
+
+        protected void Dispatch<TCommand>(TCommand command)
+        {
+            Dispatcher.Dispatch(command);
+        }
 
         protected static TDestination Map<TDestination>(object source)
         {

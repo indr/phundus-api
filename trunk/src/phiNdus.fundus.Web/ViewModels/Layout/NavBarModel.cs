@@ -2,7 +2,7 @@
 
 namespace phiNdus.fundus.Web.ViewModels.Layout
 {
-    using Phundus.Core.Entities;
+    using Phundus.Core.OrganisationCtx;
 
     public class NavBarModel
     {

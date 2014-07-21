@@ -3,6 +3,8 @@ using NUnit.Framework;
 
 namespace phiNdus.fundus.Domain.UnitTests
 {
+    using Phundus.Core.IdentityAndAccessCtx;
+
     [TestFixture]
     public class SessionKeyGeneratorTests
     {

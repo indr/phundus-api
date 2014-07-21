@@ -2,7 +2,8 @@
 {
     using Iesi.Collections.Generic;
     using NUnit.Framework;
-    using Phundus.Core.Entities;
+    using Phundus.Core.Ddd;
+    using Phundus.Core.InventoryCtx;
 
     [TestFixture]
     public class FieldedEntityTests

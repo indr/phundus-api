@@ -11,11 +11,10 @@
     using phiNdus.fundus.Web.Security;
     using phiNdus.fundus.Web.ViewModels;
     using phiNdus.fundus.Web.ViewModels.Account;
-    using Phundus.Core.Entities;
     using Phundus.Core.IdentityAndAccessCtx.DomainModel;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.Mails;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.InventoryCtx.Mails;
+    using Phundus.Core.OrganisationCtx;
 
     public class AccountController : ControllerBase
     {

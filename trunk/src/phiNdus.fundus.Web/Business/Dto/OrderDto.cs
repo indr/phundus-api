@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Phundus.Core.Entities;
+    using Phundus.Core.ReservationCtx;
 
     public class OrderDto
     {

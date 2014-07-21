@@ -1,8 +1,7 @@
 ﻿namespace Phundus.Core.IdentityAndAccessCtx.DomainModel
 {
     using System;
-    using Entities;
-    using phiNdus.fundus.Domain;
+    using Ddd;
     using Phundus.Infrastructure;
 
     public class Membership : EntityBase

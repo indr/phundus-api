@@ -3,7 +3,7 @@
     using System;
     using System.Threading;
     using NUnit.Framework;
-    using Phundus.Core.Entities;
+    using Phundus.Core.IdentityAndAccessCtx;
     using Phundus.Core.IdentityAndAccessCtx.DomainModel;
 
     [TestFixture]

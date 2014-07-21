@@ -7,8 +7,7 @@
     using Microsoft.Practices.ServiceLocation;
     using Models;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.Mails;
-    using Phundus.Core.Repositories;
+    using Phundus.Core.InventoryCtx.Mails;
 
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase

@@ -5,7 +5,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities
     [TestFixture]
     public class EntityBaseTests
     {
-        private class EntityBase : Phundus.Core.Entities.EntityBase
+        private class EntityBase : Phundus.Core.Ddd.EntityBase
         {
         }
 
