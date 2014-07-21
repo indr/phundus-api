@@ -227,8 +227,9 @@
                 if ((HttpContext.Current != null) && (HttpContext.Current.Session != null))
                     id = HttpContext.Current.Session.SessionID;
                 user.Membership.LogOn(id, password);
-                if (user.SelectedOrganization == null && user.Memberships.Count > 0)
-                    user.SelectOrganization(user.Memberships.First().Organization);
+                // TODO: Autoselect organization
+                //if (user.SelectedOrganization == null && user.Memberships.Count > 0)
+                //    user.SelectOrganization(user.Memberships.First().Organization);
                 if (user.SelectedOrganization != null)
                     HttpContext.Current.Session["OrganizationId"] = user.SelectedOrganization.Id;
                 return true;

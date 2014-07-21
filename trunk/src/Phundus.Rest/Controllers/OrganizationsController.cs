@@ -7,6 +7,7 @@
     using Castle.Transactions;
     using Core.IdentityAndAccessCtx.Repositories;
     using Core.OrganisationCtx;
+    using Core.OrganisationCtx.Repositories;
     using Dtos;
     using Exceptions;
     using NHibernate;
@@ -69,30 +70,31 @@
         [Authorize]
         public virtual OrganizationDto Put(int id, [FromBody] OrganizationDto value)
         {
-            var org = Organizations.FindById(id);
+            throw new NotSupportedException();
+            //var org = Organizations.FindById(id);
 
-            var user = Users.FindByEmail(Identity.Name);
+            //var user = Users.FindByEmail(Identity.Name);
 
-            if (org == null)
-                throw new HttpNotFoundException("Die Organisation ist nicht vorhanden.");
+            //if (org == null)
+            //    throw new HttpNotFoundException("Die Organisation ist nicht vorhanden.");
 
-            if (user == null || !user.IsChiefOf(org))
-                throw new HttpForbiddenException("Sie haben keine Berechtigung um die Organisation zu aktualisieren.");
+            //if (user == null || !user.IsChiefOf(org))
+            //    throw new HttpForbiddenException("Sie haben keine Berechtigung um die Organisation zu aktualisieren.");
 
-            if (org.Version != value.Version)
-                throw new HttpConflictException("Die Organisation wurde in der Zwischenzeit verändert.");
+            //if (org.Version != value.Version)
+            //    throw new HttpConflictException("Die Organisation wurde in der Zwischenzeit verändert.");
 
-            org.Address = value.Address;
-            org.EmailAddress = value.EmailAddress;
-            org.Website = value.Website;
-            org.Coordinate = value.Coordinate;
-            org.Startpage = value.Startpage;
-            org.DocTemplateFileName = value.DocumentTemplate;
+            //org.Address = value.Address;
+            //org.EmailAddress = value.EmailAddress;
+            //org.Website = value.Website;
+            //org.Coordinate = value.Coordinate;
+            //org.Startpage = value.Startpage;
+            //org.DocTemplateFileName = value.DocumentTemplate;
 
-            Organizations.Update(org);
-            SessionFactory().Flush();
+            //Organizations.Update(org);
+            //SessionFactory().Flush();
 
-            return ToDto(org);
+            //return ToDto(org);
         }
     }
 }

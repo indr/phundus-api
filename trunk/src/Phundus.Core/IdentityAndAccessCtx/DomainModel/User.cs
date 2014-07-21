@@ -5,6 +5,7 @@
     using Ddd;
     using Iesi.Collections.Generic;
     using OrganisationCtx;
+    using OrganisationCtx.DomainModel;
 
     public class User : EntityBase
     {
@@ -72,60 +73,60 @@
 
         public virtual string MobileNumber { get; set; }
 
-        public virtual void Join(Organization organization)
-        {
-            var membership = new OrganizationMembership();
-            membership.Organization = organization;
-            membership.User = this;
-            membership.Role = Role.User.Id;
-            Memberships.Add(membership);
-            SelectedOrganization = organization;
-        }
+        //public virtual void Join(Organization organization)
+        //{
+        //    var membership = new OrganizationMembership();
+        //    membership.Organization = organization;
+        //    membership.User = this;
+        //    membership.Role = Role.User.Id;
+        //    Memberships.Add(membership);
+        //    SelectedOrganization = organization;
+        //}
 
-        private ISet<OrganizationMembership> _memberships = new HashedSet<OrganizationMembership>();
+        //private ISet<OrganizationMembership> _memberships = new HashedSet<OrganizationMembership>();
 
-        public virtual ISet<OrganizationMembership> Memberships
-        {
-            get { return _memberships; }
-            set { _memberships = value; }
-        }
+        //public virtual ISet<OrganizationMembership> Memberships
+        //{
+        //    get { return _memberships; }
+        //    set { _memberships = value; }
+        //}
 
         public virtual string Street { get; set; }
         public virtual string Postcode { get; set; }
         public virtual string City { get; set; }
 
-        public virtual void SelectOrganization(Organization organization)
-        {
-            foreach (var each in Memberships)
-            {
-                if (each.Organization == organization)
-                {
-                    SelectedOrganization = each.Organization;
-                    return;
-                }
-            }
-        }
+        //public virtual void SelectOrganization(Organization organization)
+        //{
+        //    foreach (var each in Memberships)
+        //    {
+        //        if (each.Organization == organization)
+        //        {
+        //            SelectedOrganization = each.Organization;
+        //            return;
+        //        }
+        //    }
+        //}
 
         public virtual Organization SelectedOrganization { get; set; }
 
-        public virtual bool IsChiefOf(Organization organization)
-        {
-            if (organization == null)
-                return false;
+        //public virtual bool IsChiefOf(Organization organization)
+        //{
+        //    if (organization == null)
+        //        return false;
 
-            return (from each in Memberships
-                    where each.Organization.Id == organization.Id
-                    select each.Role == Role.Chief.Id).FirstOrDefault();
-        }
+        //    return (from each in Memberships
+        //            where each.Organization.Id == organization.Id
+        //            select each.Role == Role.Chief.Id).FirstOrDefault();
+        //}
 
-        public virtual bool IsMemberOf(Organization organization)
-        {
-            if (organization == null)
-                return false;
+        //public virtual bool IsMemberOf(Organization organization)
+        //{
+        //    if (organization == null)
+        //        return false;
 
-            return (from each in Memberships 
-                    where each.Organization.Id == organization.Id
-                    select each.Role >= Role.User.Id).FirstOrDefault();
-        }
+        //    return (from each in Memberships 
+        //            where each.Organization.Id == organization.Id
+        //            select each.Role >= Role.User.Id).FirstOrDefault();
+        //}
     }
 }

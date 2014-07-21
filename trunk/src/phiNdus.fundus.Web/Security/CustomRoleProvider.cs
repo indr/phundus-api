@@ -56,8 +56,9 @@
             if (role == @"Admin")
                 result.Add(@"Admin");
 
-            if (user.IsChiefOf(user.SelectedOrganization))
-                result.Add(@"Chief");
+            // TODO: Security or Access
+            //if (user.IsChiefOf(user.SelectedOrganization))
+            //    result.Add(@"Chief");
 
             result.Add(@"User");
 

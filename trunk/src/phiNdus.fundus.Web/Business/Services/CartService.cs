@@ -96,8 +96,9 @@
 
             var mail = new OrderReceivedMail().For(order);
             var chiefs = order.Organization.Memberships.Where(m => m.Role == Role.Chief.Id);
-            foreach (var chief in chiefs)
-                mail.Send(chief.User.Membership.Email);
+            // TODO: Access
+            //foreach (var chief in chiefs)
+            //    mail.Send(chief.User.Membership.Email);
             mail.Send(order.Reserver);
 
 
@@ -120,8 +121,10 @@
             {
                 var mail = new OrderReceivedMail().For(order);
                 var chiefs = order.Organization.Memberships.Where(m => m.Role == Role.Chief.Id);
-                foreach (var chief in chiefs)
-                    mail.Send(chief.User.Membership.Email);
+
+                // TODO: Access
+                //foreach (var chief in chiefs)
+                //    mail.Send(chief.User.Membership.Email);
                 mail.Send(order.Reserver);
             }
 

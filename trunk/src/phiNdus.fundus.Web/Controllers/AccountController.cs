@@ -15,6 +15,7 @@
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.InventoryCtx.Mails;
     using Phundus.Core.OrganisationCtx;
+    using Phundus.Core.OrganisationCtx.Repositories;
 
     public class AccountController : ControllerBase
     {
@@ -270,8 +271,6 @@
                     user.Membership.Password = password;
                     user.Role = Roles.ById(Role.User.Id);
                     user.Membership.GenerateValidationKey();
-                    if (organization != null)
-                        user.Join(organization);
                     Users.Add(user);
 
                     // E-Mail mit Verifikationslink senden

@@ -85,16 +85,16 @@
     <Compile Include="Cqrs\IHandleCommand.cs" />
     <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
     <Compile Include="Ddd\EventPublisher.cs" />
+    <Compile Include="IdentityAndAccessCtx\Queries\IUserQueries.cs" />
+    <Compile Include="IdentityAndAccessCtx\Queries\UserQueries.cs" />
     <Compile Include="OrganisationCtx\Commands\ApproveMembershipRequest.cs" />
     <Compile Include="OrganisationCtx\Commands\RejectMembershipRequest.cs" />
     <Compile Include="OrganisationCtx\DomainModel\Member.cs" />
     <Compile Include="OrganisationCtx\DomainModel\Membership.cs" />
     <Compile Include="OrganisationCtx\DomainModel\MembershipRequest.cs" />
-    <Compile Include="OrganisationCtx\DomainModel\Organisation.cs" />
     <Compile Include="OrganisationCtx\ReadModel\MembershipApplicationsReadModel.cs" />
     <Compile Include="OrganisationCtx\Repositories\IMembershipRepository.cs" />
     <Compile Include="OrganisationCtx\Repositories\IMembershipRequestRepository.cs" />
-    <Compile Include="OrganisationCtx\Repositories\IOrganisationRepository.cs" />
     <Compile Include="OrganisationCtx\Services\IMemberService.cs" />
     <Compile Include="OrganisationCtx\Services\MemberService.cs" />
     <Compile Include="OrganisationCtx\Services\UserRepositoryAdapter.cs" />
@@ -113,8 +113,7 @@
     <Compile Include="ReservationCtx\Order.cs" />
     <Compile Include="ReservationCtx\OrderItem.cs" />
     <Compile Include="ReservationCtx\OrderStatus.cs" />
-    <Compile Include="OrganisationCtx\Organization.cs" />
-    <Compile Include="OrganisationCtx\OrganizationMembership.cs" />
+    <Compile Include="OrganisationCtx\DomainModel\Organization.cs" />
     <Compile Include="ReservationCtx\Reservation.cs" />
     <Compile Include="IdentityAndAccessCtx\DomainModel\Role.cs" />
     <Compile Include="SettingsCtx\Setting.cs" />
@@ -149,7 +148,7 @@
     <Compile Include="ShopCtx\ICartRepository.cs" />
     <Compile Include="InventoryCtx\IFieldDefinitionRepository.cs" />
     <Compile Include="ReservationCtx\IOrderRepository.cs" />
-    <Compile Include="OrganisationCtx\IOrganizationRepository.cs" />
+    <Compile Include="OrganisationCtx\Repositories\IOrganizationRepository.cs" />
     <Compile Include="ReservationCtx\IReservationRepository.cs" />
     <Compile Include="IdentityAndAccessCtx\Repositories\IRoleRepository.cs" />
     <Compile Include="SettingsCtx\ISettingRepository.cs" />
@@ -176,7 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IdentityAndAccessCtx\Commands\" />
-    <Folder Include="IdentityAndAccessCtx\ReadModel\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

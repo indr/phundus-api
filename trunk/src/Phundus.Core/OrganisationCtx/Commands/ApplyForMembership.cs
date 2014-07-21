@@ -6,7 +6,7 @@
     using Castle.Transactions;
     using Cqrs;
     using DomainModel;
-    using Phundus.Infrastructure;
+    using Infrastructure;
     using ReadModel;
     using Repositories;
     using Services;
@@ -25,7 +25,7 @@
 
         public IMembershipRepository Memberships { get; set; }
 
-        public IOrganisationRepository Organisations { get; set; }
+        public IOrganizationRepository OrganizationRepository { get; set; }
 
         [Transaction]
         public void Handle(ApproveMembershipRequest command)
@@ -33,9 +33,9 @@
             var request = Requests.ById(command.RequestId);
             Guard.Against<EntityNotFoundException>(request == null, "Membership request not found");
 
-            var organisation = Organisations.ById(request.OrganizationId);
-            Guard.Against<EntityNotFoundException>(organisation == null, "Organization not found");
-            var membership = organisation.ApproveMembershipRequest(request, Memberships.NextIdentity());
+            var organization = OrganizationRepository.ById(request.OrganizationId);
+            Guard.Against<EntityNotFoundException>(organization == null, "Organization not found");
+            var membership = organization.ApproveMembershipRequest(request, Memberships.NextIdentity());
 
             Memberships.Add(membership);
         }
@@ -45,7 +45,7 @@
     {
         public IMembershipRequestRepository Requests { get; set; }
 
-        public IOrganisationRepository Organisations { get; set; }
+        public IOrganizationRepository OrganizationRepository { get; set; }
 
         [Transaction]
         public void Handle(RejectMembershipRequest command)
@@ -53,9 +53,9 @@
             var request = Requests.ById(command.RequestId);
             Guard.Against<EntityNotFoundException>(request == null, "Membership request not found");
 
-            var organisation = Organisations.ById(request.OrganizationId);
-            Guard.Against<EntityNotFoundException>(organisation == null, "Organization not found");
-            organisation.RejectMembershipRequest(request);
+            var organization = OrganizationRepository.ById(request.OrganizationId);
+            Guard.Against<EntityNotFoundException>(organization == null, "Organization not found");
+            organization.RejectMembershipRequest(request);
         }
     }
 
@@ -63,7 +63,7 @@
     {
         public IMembershipApplicationsReadModel ReadModel { get; set; }
 
-        public IOrganisationRepository Organisations { get; set; }
+        public IOrganizationRepository OrganizationRepository { get; set; }
 
         public IMemberService Members { get; set; }
 
@@ -72,7 +72,7 @@
         [Transaction]
         public void Handle(ApplyForMembership command)
         {
-            Organisation organization = Organisations.ById(command.OrganizationId);
+            Organization organization = OrganizationRepository.ById(command.OrganizationId);
             Guard.Against<EntityNotFoundException>(organization == null, "Organization not found");
 
             var member = Members.MemberFrom(command.MemberId);

@@ -8,6 +8,7 @@
     using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;
     using Phundus.Core.OrganisationCtx;
+    using Phundus.Core.OrganisationCtx.Repositories;
 
     public class ShopController : ControllerBase
     {
