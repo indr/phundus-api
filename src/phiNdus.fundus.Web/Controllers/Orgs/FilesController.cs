@@ -6,6 +6,8 @@
     using phiNdus.fundus.Web.Helpers.FileUpload;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.Repositories;
+    using Phundus.Rest;
+    using Phundus.Rest.Exceptions;
 
     [Authorize(Roles = "Chief")]
     public class FilesController : ControllerBase

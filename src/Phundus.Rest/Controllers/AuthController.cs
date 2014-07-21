@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.Controllers.WebApi
+﻿namespace Phundus.Rest.Controllers
 {
     using System.Web.Http;
     using System.Web.Security;

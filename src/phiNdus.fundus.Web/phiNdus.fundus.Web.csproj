@@ -230,26 +230,14 @@
     <Compile Include="Business\Services\OrderService.cs" />
     <Compile Include="Business\Services\PropertyService.cs" />
     <Compile Include="Controllers\Orgs\FilesController.cs" />
-    <Compile Include="Controllers\WebApi\ApiControllerBase.cs" />
-    <Compile Include="Controllers\WebApi\AuthController.cs" />
-    <Compile Include="Controllers\WebApi\BasketController.cs" />
-    <Compile Include="Controllers\WebApi\Dtos\MemberDto.cs" />
-    <Compile Include="Controllers\WebApi\Dtos\MemberDtos.cs" />
-    <Compile Include="Controllers\WebApi\Dtos\OrganizationDto.cs" />
-    <Compile Include="Controllers\WebApi\Dtos\OrganizationListDto.cs" />
-    <Compile Include="Exceptions\HttpConflictException.cs" />
-    <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
-    <Compile Include="Exceptions\HttpNotFoundException.cs" />
     <Compile Include="Helpers\FileUpload\BlueImpFileUploadHandler.cs" />
     <Compile Include="Helpers\FileUpload\BlueImpFileUploadJsonResult.cs" />
     <Compile Include="Helpers\FileUpload\BlueImpFileUploadJsonResultFactory.cs" />
     <Compile Include="Helpers\FileUpload\ImageStore.cs" />
     <Compile Include="Models\Organization\OrganizationModel.cs" />
-    <Compile Include="Controllers\WebApi\MembersController.cs" />
-    <Compile Include="Controllers\WebApi\OrganizationsController.cs" />
     <Compile Include="Models\Account\SignUpModel.cs" />
     <Compile Include="Security\WindsorMembershipProvider.cs" />
     <Compile Include="Security\WebWindsorRoleProvider.cs" />
@@ -1028,7 +1016,6 @@
   <ItemGroup>
     <Folder Include="App_Data\Logs\" />
     <Folder Include="Content\Images\Articles\" />
-    <Folder Include="Controllers\WebApi\Organizations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Order\Pending.cshtml" />

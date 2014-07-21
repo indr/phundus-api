@@ -1,12 +1,13 @@
-﻿namespace phiNdus.fundus.Web.Controllers.WebApi
+﻿namespace Phundus.Rest.Controllers
 {
     using System.Linq;
     using System.Web.Http;
     using Castle.Transactions;
+    using Core.Entities;
+    using Core.IdentityAndAccessCtx.Repositories;
+    using Core.Repositories;
     using Dtos;
-    using Phundus.Core.Entities;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.Repositories;
+    using Exceptions;
 
     [Authorize(Roles="Chief")]
     public class MembersController : ApiControllerBase

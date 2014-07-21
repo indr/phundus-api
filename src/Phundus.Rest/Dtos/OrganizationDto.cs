@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.Controllers.WebApi.Dtos
+﻿namespace Phundus.Rest.Dtos
 {
     using System;
 
