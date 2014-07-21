@@ -6,8 +6,8 @@
     using System.Web.Http;
     using Castle.Transactions;
     using Core.IdentityAndAccessCtx.Repositories;
-    using Core.OrganisationCtx;
-    using Core.OrganisationCtx.Repositories;
+    using Core.OrganizationAndMembershipCtx.Model;
+    using Core.OrganizationAndMembershipCtx.Repositories;
     using Dtos;
     using Exceptions;
     using NHibernate;

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.OrganisationCtx.DomainModel
+﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Model
 {
     using Ddd;
 

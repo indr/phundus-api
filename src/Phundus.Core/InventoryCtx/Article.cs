@@ -4,7 +4,7 @@
     using System.Linq;
     using Iesi.Collections.Generic;
     using Microsoft.Practices.ServiceLocation;
-    using OrganisationCtx;
+    using OrganizationAndMembershipCtx.Model;
     using ReservationCtx;
 
     public class Article : CompositeEntity

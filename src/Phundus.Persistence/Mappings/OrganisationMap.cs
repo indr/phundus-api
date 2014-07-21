@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Persistence.Mappings
 {
-    using Core.OrganisationCtx.DomainModel;
+    using Core.OrganizationAndMembershipCtx.Model;
     using FluentNHibernate.Mapping;
 
     public class MembershipRequestMap : ClassMap<MembershipRequest>

@@ -14,8 +14,8 @@
     using Phundus.Core.IdentityAndAccessCtx.DomainModel;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.InventoryCtx.Mails;
-    using Phundus.Core.OrganisationCtx;
-    using Phundus.Core.OrganisationCtx.Repositories;
+    using Phundus.Core.OrganizationAndMembershipCtx.Model;
+    using Phundus.Core.OrganizationAndMembershipCtx.Repositories;
 
     public class AccountController : ControllerBase
     {

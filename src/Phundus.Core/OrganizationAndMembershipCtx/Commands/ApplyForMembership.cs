@@ -1,13 +1,13 @@
-﻿namespace Phundus.Core.OrganisationCtx.Commands
+﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Commands
 {
     #region
 
     using System;
     using Castle.Transactions;
     using Cqrs;
-    using DomainModel;
     using Infrastructure;
-    using ReadModel;
+    using Model;
+    using Queries;
     using Repositories;
     using Services;
 

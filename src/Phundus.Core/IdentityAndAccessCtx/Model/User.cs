@@ -4,8 +4,7 @@
     using System.Linq;
     using Ddd;
     using Iesi.Collections.Generic;
-    using OrganisationCtx;
-    using OrganisationCtx.DomainModel;
+    using OrganizationAndMembershipCtx.Model;
 
     public class User : EntityBase
     {

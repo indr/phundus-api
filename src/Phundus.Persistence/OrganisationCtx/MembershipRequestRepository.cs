@@ -4,8 +4,8 @@ namespace Phundus.Persistence.OrganisationCtx
 
     using System;
     using System.Collections.Generic;
-    using Core.OrganisationCtx.DomainModel;
-    using Core.OrganisationCtx.Repositories;
+    using Core.OrganizationAndMembershipCtx.Model;
+    using Core.OrganizationAndMembershipCtx.Repositories;
     using NHibernate;
 
     #endregion

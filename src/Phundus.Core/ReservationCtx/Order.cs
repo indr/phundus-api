@@ -14,7 +14,7 @@
     using iTextSharp.text.pdf;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
-    using OrganisationCtx;
+    using OrganizationAndMembershipCtx.Model;
 
     public class Order : EntityBase
     {

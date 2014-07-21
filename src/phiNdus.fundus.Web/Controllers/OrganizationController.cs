@@ -7,8 +7,7 @@
     using Castle.Transactions;
     using phiNdus.fundus.Web.Models.Organization;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.OrganisationCtx;
-    using Phundus.Core.OrganisationCtx.Repositories;
+    using Phundus.Core.OrganizationAndMembershipCtx.Repositories;
 
     public class OrganizationController : ControllerBase
     {

@@ -1,9 +1,9 @@
-﻿namespace Phundus.Core.OrganisationCtx.Repositories
+﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Repositories
 {
     using System;
     using System.Collections.Generic;
-    using DomainModel;
-    using Phundus.Infrastructure;
+    using Infrastructure;
+    using Model;
 
     public interface IMembershipRequestRepository : IRepository<MembershipRequest>
     {

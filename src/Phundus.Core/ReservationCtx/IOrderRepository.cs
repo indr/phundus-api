@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using Infrastructure;
-    using OrganisationCtx;
+    using OrganizationAndMembershipCtx.Model;
 
     public interface IOrderRepository : IRepository<Order>
     {
