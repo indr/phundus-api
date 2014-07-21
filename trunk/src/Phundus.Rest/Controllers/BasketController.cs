@@ -1,9 +1,9 @@
-﻿namespace phiNdus.fundus.Web.Controllers.WebApi
+﻿namespace Phundus.Rest.Controllers
 {
     using System.Web.Http;
     using Castle.Transactions;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.Repositories;
+    using Core.IdentityAndAccessCtx.Repositories;
+    using Core.Repositories;
 
     public class BasketController : ApiControllerBase
     {

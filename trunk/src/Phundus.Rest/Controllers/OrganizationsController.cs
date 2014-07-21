@@ -1,21 +1,23 @@
-﻿namespace phiNdus.fundus.Web.Controllers.WebApi
+﻿namespace Phundus.Rest.Controllers
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
     using Castle.Transactions;
+    using Core.Entities;
+    using Core.IdentityAndAccessCtx.Repositories;
+    using Core.Repositories;
     using Dtos;
+    using Exceptions;
     using NHibernate;
-    using Phundus.Core.Entities;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.Repositories;
 
     public class OrganizationsController : ApiControllerBase
     {
         public IUserRepository Users { get; set; }
         public IOrganizationRepository Organizations { get; set; }
 
+        // TODO: Remove dependency on NHibernate
         public Func<ISession> SessionFactory { get; set; }
 
         [Transaction]

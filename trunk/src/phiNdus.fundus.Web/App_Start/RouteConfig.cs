@@ -4,7 +4,6 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using phiNdus.fundus.Web.Controllers.WebApi;
     using Phundus.Core.Entities;
 
     public class RouteConfig

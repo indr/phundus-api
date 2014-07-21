@@ -1,8 +1,8 @@
 ﻿namespace phiNdus.fundus.Web.App_Start
 {
     using AutoMapper;
-    using Controllers.WebApi.Dtos;
     using Phundus.Core.Entities;
+    using Phundus.Rest.Dtos;
 
     public class AutoMapperConfig
     {
