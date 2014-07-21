@@ -15,6 +15,8 @@
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
+
             GlobalConfiguration.Configuration.DependencyResolver
                 = new WindsorDependencyResolver(container);
 
