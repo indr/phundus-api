@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace phiNdus.fundus.Web.ViewModels.Layout
+﻿namespace phiNdus.fundus.Web.ViewModels.Layout
 {
+    using System.Collections.Generic;
     using Phundus.Core.OrganisationCtx;
+    using Phundus.Core.OrganisationCtx.DomainModel;
 
     public class NavBarModel
     {
@@ -15,6 +15,6 @@ namespace phiNdus.fundus.Web.ViewModels.Layout
         }
 
         public Organization Selected { get; set; }
-        public OrganizationMembership Membership { get; set; }
+        public Membership Membership { get; set; }
     }
 }

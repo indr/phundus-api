@@ -27,17 +27,4 @@ namespace Phundus.Persistence.OrganisationCtx
             get { return Session.QueryOver<MembershipRequest>(); }
         }
     }
-
-    public class OrganisationRepository : RepositoryBase<Organisation>, IOrganisationRepository
-    {
-        private IQueryOver<Organisation, Organisation> Organisations
-        {
-            get { return Session.QueryOver<Organisation>(); }
-        }
-
-        public Organisation ById(int id)
-        {
-            return Organisations.Where(p => p.Id == id).SingleOrDefault();
-        }
-    }
 }

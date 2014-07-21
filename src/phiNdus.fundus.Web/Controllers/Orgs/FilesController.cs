@@ -6,6 +6,7 @@
     using phiNdus.fundus.Web.Helpers.FileUpload;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.OrganisationCtx;
+    using Phundus.Core.OrganisationCtx.Repositories;
     using Phundus.Rest;
     using Phundus.Rest.Exceptions;
 
@@ -41,8 +42,9 @@
         {
             var user = Users.FindByEmail(Identity.Name);
             var org = Organizations.FindById(orgId);
-            if (!user.IsChiefOf(org))
-                throw new HttpForbiddenException();
+            // TODO: Security
+            //if (!user.IsChiefOf(org))
+            //    throw new HttpForbiddenException();
 
             var path = GetPath(orgId);
             var store = CreateImageStore(path);
@@ -57,8 +59,9 @@
         {
             var user = Users.FindByEmail(Identity.Name);
             var org = Organizations.FindById(orgId);
-            if (!user.IsChiefOf(org))
-                throw new HttpForbiddenException();
+            // TODO: Security or Access
+            //if (!user.IsChiefOf(org))
+            //    throw new HttpForbiddenException();
 
             var path = GetPath(orgId);
             var store = CreateImageStore(path);
@@ -72,8 +75,9 @@
         {
             var user = Users.FindByEmail(Identity.Name);
             var org = Organizations.FindById(orgId);
-            if (!user.IsChiefOf(org))
-                throw new HttpForbiddenException();
+            // TODO: Security or Access
+            //if (!user.IsChiefOf(org))
+            //    throw new HttpForbiddenException();
 
             var path = GetPath(orgId);
             var store = CreateImageStore(path);

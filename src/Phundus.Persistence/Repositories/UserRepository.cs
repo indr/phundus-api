@@ -1,5 +1,6 @@
 ﻿namespace phiNdus.fundus.Domain.Repositories
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using NHibernate;
@@ -7,6 +8,7 @@
     using Phundus.Core.IdentityAndAccessCtx.DomainModel;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.OrganisationCtx;
+    using Phundus.Core.OrganisationCtx.DomainModel;
     using Phundus.Persistence;
 
     public class UserRepository : RepositoryBase<User>, IUserRepository
@@ -25,10 +27,11 @@
 
         public ICollection<User> FindByOrganization(int organizationId)
         {
-            IQueryOver<User, OrganizationMembership> q = Members
-                .JoinQueryOver<OrganizationMembership>(m => m.Memberships)
-                .Where(om => om.Organization.Id == organizationId);
-            return q.List<User>();
+            throw new NotSupportedException();
+            //IQueryOver<User, OrganizationMembership> q = Members
+            //    .JoinQueryOver<OrganizationMembership>(m => m.Memberships)
+            //    .Where(om => om.Organization.Id == organizationId);
+            //return q.List<User>();
         }
 
         public User FindById(int id)

@@ -3,13 +3,14 @@
     using System;
     using System.Text.RegularExpressions;
     using Ddd;
+    using DomainModel;
     using Iesi.Collections.Generic;
 
     public class Organization : EntityBase
     {
-        ISet<OrganizationMembership> _memberships = new HashedSet<OrganizationMembership>();
-        string _startpage;
         private DateTime _createDate = DateTime.Now;
+        private ISet<Membership> _memberships = new HashedSet<Membership>();
+        private string _startpage;
 
         public Organization()
         {
@@ -40,7 +41,7 @@
             }
         }
 
-        public virtual ISet<OrganizationMembership> Memberships
+        public virtual ISet<Membership> Memberships
         {
             get { return _memberships; }
             set { _memberships = value; }
@@ -55,7 +56,10 @@
             get
             {
                 if (String.IsNullOrWhiteSpace(_startpage))
-                    return String.Format("<p>Startseite der Organisation \"{0}\".</p><p>Diese Seite kann unter \"Verwaltung\" / \"Einstellungen\" angepasst werden.", Name);
+                    return
+                        String.Format(
+                            "<p>Startseite der Organisation \"{0}\".</p><p>Diese Seite kann unter \"Verwaltung\" / \"Einstellungen\" angepasst werden.",
+                            Name);
                 return _startpage;
             }
             set { _startpage = value; }
@@ -66,5 +70,33 @@
         public virtual string Website { get; set; }
 
         public virtual string DocTemplateFileName { get; set; }
+
+        public virtual MembershipRequest RequestMembership(Guid requestId, Member member)
+        {
+            var request = new MembershipRequest(
+                requestId,
+                Id,
+                member.Id);
+
+            EventPublisher.Publish(new MembershipRequested());
+
+            return request;
+        }
+
+        public virtual Membership ApproveMembershipRequest(MembershipRequest request, Guid membershipId)
+        {
+            var membership = request.Approve(membershipId);
+
+            EventPublisher.Publish(new MembershipRequestApproved());
+
+            return membership;
+        }
+
+        public virtual void RejectMembershipRequest(MembershipRequest request)
+        {
+            request.Reject();
+
+            EventPublisher.Publish(new MembershipRequestRejected());
+        }
     }
 }

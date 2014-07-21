@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.OrganisationCtx
+﻿namespace Phundus.Core.OrganisationCtx.Repositories
 {
     using System.Collections.Generic;
     using Infrastructure;

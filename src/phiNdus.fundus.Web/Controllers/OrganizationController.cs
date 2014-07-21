@@ -8,6 +8,7 @@
     using phiNdus.fundus.Web.Models.Organization;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.OrganisationCtx;
+    using Phundus.Core.OrganisationCtx.Repositories;
 
     public class OrganizationController : ControllerBase
     {
@@ -38,7 +39,8 @@
             var model = new OrganizationModel(organization);
             if (user != null)
             {
-                bool isMemberOf = user.IsMemberOf(organization);
+                // TODO: Security and Access
+                bool isMemberOf = false; //user.IsMemberOf(organization);
                 model.HasOptionJoin = !isMemberOf;
                 model.HasOptionLeave = isMemberOf;
             }
@@ -51,6 +53,7 @@
         [Transaction]
         public virtual ActionResult Select(int id)
         {
+            throw new NotSupportedException();
             var organization = Organizations.FindById(id);
             if (organization == null)
                 throw new HttpException(404, "Organisation nicht gefunden.");
@@ -59,7 +62,7 @@
             if (user == null)
                 throw new AuthenticationException("Um eine Organisation auszuwählen, müssen Sie sich anmelden.");
 
-            user.SelectOrganization(organization);
+            //user.SelectOrganization(organization);
 
             Session["OrganizationId"] = organization.Id;
 

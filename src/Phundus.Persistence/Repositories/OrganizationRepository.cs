@@ -4,6 +4,7 @@
     using System.Linq;
     using Castle.Transactions;
     using Core.OrganisationCtx;
+    using Core.OrganisationCtx.Repositories;
     using NHibernate.Linq;
     using Phundus.Persistence;
 

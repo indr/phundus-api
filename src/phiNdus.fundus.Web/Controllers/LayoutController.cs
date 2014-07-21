@@ -19,11 +19,11 @@
             if (user != null)
             {
                 model.Selected = user.SelectedOrganization;
-                foreach (var each in user.Memberships)
-                {
-                    model.Organizations.Add(each.Organization);
-                    NHibernateUtil.Initialize(each.Organization);
-                }
+                //foreach (var each in user.Memberships)
+                //{
+                //    model.Organizations.Add(each.Organization);
+                //    NHibernateUtil.Initialize(each.Organization);
+                //}
             }
             return PartialView("_NavBar", model);
         }

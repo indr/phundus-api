@@ -1,15 +1,15 @@
 ﻿namespace Phundus.Core.OrganisationCtx.Services
 {
     using DomainModel;
-    using IdentityAndAccessCtx.Repositories;
+    using IdentityAndAccessCtx.Queries;
 
     public class MemberService : IMemberService
     {
-        public IUserRepository Users { get; set; }
+        public IUserQueries UserQueries { get; set; }
 
         public Member MemberFrom(int id)
         {
-            return new UserRepositoryAdapter(Users).ToMember(id);
+            return new UserRepositoryAdapter(UserQueries).ToMember(id);
         }
     }
 }
