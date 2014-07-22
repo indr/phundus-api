@@ -1,14 +1,25 @@
 namespace Phundus.Persistence.OrganisationCtx
 {
-    #region
-
     using System;
     using System.Collections.Generic;
     using Core.OrganizationAndMembershipCtx.Model;
     using Core.OrganizationAndMembershipCtx.Repositories;
     using NHibernate;
 
-    #endregion
+    public class MembershipRepository : RepositoryBase<Membership>, IMembershipRepository
+    {
+        public Guid NextIdentity()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Membership> ByMemberId(int memberId)
+        {
+            return Entities.Where(p => p.MemberId == memberId).List();
+        }
+
+        private IQueryOver<Membership, Membership> Entities { get { return Session.QueryOver<Membership>(); } }
+    }
 
     public class MembershipRequestRepository : RepositoryBase<MembershipRequest>, IMembershipRequestRepository
     {

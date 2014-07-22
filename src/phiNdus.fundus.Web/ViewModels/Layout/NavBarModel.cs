@@ -1,19 +1,18 @@
 ﻿namespace phiNdus.fundus.Web.ViewModels.Layout
 {
     using System.Collections.Generic;
-    using Phundus.Core.OrganizationAndMembershipCtx.Model;
+    using Phundus.Core.OrganizationAndMembershipCtx.Queries;
 
     public class NavBarModel
     {
-        private IList<Organization> _organizations = new List<Organization>();
+        private IList<OrganizationDto> _organizations = new List<OrganizationDto>();
 
-        public IList<Organization> Organizations
+        public IList<OrganizationDto> Organizations
         {
             get { return _organizations; }
             set { _organizations = value; }
         }
 
-        public Organization Selected { get; set; }
-        public Membership Membership { get; set; }
+        public OrganizationDto Selected { get; set; }
     }
 }

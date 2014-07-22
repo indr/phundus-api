@@ -1,7 +1,5 @@
 ﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Commands
 {
-    #region
-
     using System;
     using Castle.Transactions;
     using Cqrs;
@@ -11,57 +9,15 @@
     using Repositories;
     using Services;
 
-    #endregion
-
     public class ApplyForMembership
     {
         public int MemberId { get; set; }
         public int OrganizationId { get; set; }
     }
 
-    public class ApproveMembershipRequestHandler : IHandleCommand<ApproveMembershipRequest>
-    {
-        public IMembershipRequestRepository Requests { get; set; }
-
-        public IMembershipRepository Memberships { get; set; }
-
-        public IOrganizationRepository OrganizationRepository { get; set; }
-
-        [Transaction]
-        public void Handle(ApproveMembershipRequest command)
-        {
-            var request = Requests.ById(command.RequestId);
-            Guard.Against<EntityNotFoundException>(request == null, "Membership request not found");
-
-            var organization = OrganizationRepository.ById(request.OrganizationId);
-            Guard.Against<EntityNotFoundException>(organization == null, "Organization not found");
-            var membership = organization.ApproveMembershipRequest(request, Memberships.NextIdentity());
-
-            Memberships.Add(membership);
-        }
-    }
-
-    public class RejectMembershipRequestHandler : IHandleCommand<RejectMembershipRequest>
-    {
-        public IMembershipRequestRepository Requests { get; set; }
-
-        public IOrganizationRepository OrganizationRepository { get; set; }
-
-        [Transaction]
-        public void Handle(RejectMembershipRequest command)
-        {
-            var request = Requests.ById(command.RequestId);
-            Guard.Against<EntityNotFoundException>(request == null, "Membership request not found");
-
-            var organization = OrganizationRepository.ById(request.OrganizationId);
-            Guard.Against<EntityNotFoundException>(organization == null, "Organization not found");
-            organization.RejectMembershipRequest(request);
-        }
-    }
-
     public class ApplyForMembershipHandler : IHandleCommand<ApplyForMembership>
     {
-        public IMembershipApplicationsReadModel ReadModel { get; set; }
+        public IMembershipApplicationQueries ReadModel { get; set; }
 
         public IOrganizationRepository OrganizationRepository { get; set; }
 

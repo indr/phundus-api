@@ -7,6 +7,7 @@
     using Castle.Transactions;
     using Core.IdentityAndAccessCtx.Repositories;
     using Core.OrganizationAndMembershipCtx.Model;
+    using Core.OrganizationAndMembershipCtx.Queries;
     using Core.OrganizationAndMembershipCtx.Repositories;
     using Dtos;
     using Exceptions;
@@ -21,11 +22,11 @@
         public Func<ISession> SessionFactory { get; set; }
 
         [Transaction]
-        public virtual IEnumerable<OrganizationListDto> Get()
+        public virtual IEnumerable<OrganizationDto> Get()
         {
             return Organizations
                 .FindAll()
-                .Select(each => new OrganizationListDto
+                .Select(each => new OrganizationDto
                     {
                         Id = each.Id,
                         Version = each.Version,
@@ -38,7 +39,7 @@
 
         // GET api/organizations/5
         [Transaction]
-        public virtual OrganizationDto Get(int id)
+        public virtual OrganizationDetailDto Get(int id)
         {
             var result = Organizations.FindById(id);
             if (result == null)
@@ -47,9 +48,9 @@
             return ToDto(result);
         }
 
-        private static OrganizationDto ToDto(Organization organization)
+        private static OrganizationDetailDto ToDto(Organization organization)
         {
-            return new OrganizationDto
+            return new OrganizationDetailDto
                 {
                     Id = organization.Id,
                     Version = organization.Version,
@@ -68,7 +69,7 @@
         // PUT api/organizations/5
         [Transaction]
         [Authorize]
-        public virtual OrganizationDto Put(int id, [FromBody] OrganizationDto value)
+        public virtual OrganizationDetailDto Put(int id, [FromBody] OrganizationDetailDto value)
         {
             throw new NotSupportedException();
             //var org = Organizations.FindById(id);

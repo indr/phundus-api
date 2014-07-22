@@ -104,8 +104,7 @@
     <Compile Include="Controllers\Organizations\MembershipApplicationsController.cs" />
     <Compile Include="Dtos\MemberDto.cs" />
     <Compile Include="Dtos\MemberDtos.cs" />
-    <Compile Include="Dtos\OrganizationDto.cs" />
-    <Compile Include="Dtos\OrganizationListDto.cs" />
+    <Compile Include="Dtos\OrganizationDetailDto.cs" />
     <Compile Include="Exceptions\HttpConflictException.cs" />
     <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Exceptions\HttpNotFoundException.cs" />

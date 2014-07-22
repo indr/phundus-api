@@ -1,18 +1,20 @@
 ﻿namespace phiNdus.fundus.Web.Controllers
 {
     using System;
-    using System.Security.Authentication;
     using System.Web;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using phiNdus.fundus.Web.Models.Organization;
+    using Models.Organization;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
+    using Phundus.Core.OrganizationAndMembershipCtx.Queries;
     using Phundus.Core.OrganizationAndMembershipCtx.Repositories;
 
     public class OrganizationController : ControllerBase
     {
         public IOrganizationRepository Organizations { get; set; }
         public IUserRepository Users { get; set; }
+
+        public IOrganizationQueries OrganizationQueries { get; set; }
 
         public virtual ActionResult Index()
         {
@@ -52,20 +54,12 @@
         [Transaction]
         public virtual ActionResult Select(int id)
         {
-            throw new NotSupportedException();
-            var organization = Organizations.FindById(id);
+            var organization = OrganizationQueries.ById(id);
+
             if (organization == null)
                 throw new HttpException(404, "Organisation nicht gefunden.");
 
-            var user = Users.FindByEmail(Identity.Name);
-            if (user == null)
-                throw new AuthenticationException("Um eine Organisation auszuwählen, müssen Sie sich anmelden.");
-
-            //user.SelectOrganization(organization);
-
             Session["OrganizationId"] = organization.Id;
-
-
             return RedirectToRoute("Organization", new {name = organization.Url});
         }
     }

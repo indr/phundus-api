@@ -4,7 +4,7 @@
 
   <class name="Membership" table="[OrganizationMembership]">
     <id name="Id">
-      <generator class="hilo" />
+      <generator class="assigned" />
     </id>
     <version name="Version" />
 
