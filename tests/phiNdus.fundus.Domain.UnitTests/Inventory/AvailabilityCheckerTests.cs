@@ -2,6 +2,7 @@
 {
     using NUnit.Framework;
     using Phundus.Core.InventoryCtx;
+    using Phundus.Core.InventoryCtx.Services;
     using TestHelpers.TestBases;
 
     [TestFixture]

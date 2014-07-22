@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.Entities">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.OrganizationAndMembershipCtx.Model" auto-import="false">
 
-  <class name="OrganizationMembership" table="[OrganizationMembership]">
+  <class name="Membership" table="[OrganizationMembership]">
     <id name="Id">
       <generator class="hilo" />
     </id>
     <version name="Version" />
 
-    <many-to-one name="User" class="Phundus.Core.IdentityAndAccessCtx.DomainModel.User" column="UserId" />
+    <!--<many-to-one name="User" class="Phundus.Core.IdentityAndAccessCtx.DomainModel.User" column="UserId" />-->
+	
+	<property name="MemberId" column="UserId" />
     <many-to-one name="Organization" class="Organization" column="OrganizationId" />
     
     <property name="Role" />

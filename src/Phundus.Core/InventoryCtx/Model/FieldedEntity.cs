@@ -1,10 +1,12 @@
-﻿namespace Phundus.Core.InventoryCtx
+﻿namespace Phundus.Core.InventoryCtx.Model
 {
     using System;
     using System.Linq;
     using Ddd;
+    using Exceptions;
     using Iesi.Collections.Generic;
     using Microsoft.Practices.ServiceLocation;
+    using Repositories;
 
     /// <summary>
     /// Die Klasse FieldedEntity stellt Funktionen für dynamische Felder zur Verfügung.

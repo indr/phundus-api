@@ -3,6 +3,7 @@
     using System;
     using NUnit.Framework;
     using Phundus.Core.InventoryCtx;
+    using Phundus.Core.InventoryCtx.Repositories;
     using Phundus.Core.ShopCtx;
     using TestHelpers.TestBases;
 

@@ -3,6 +3,7 @@ namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
     using Iesi.Collections.Generic;
     using NUnit.Framework;
     using Phundus.Core.InventoryCtx;
+    using Phundus.Core.InventoryCtx.Model;
 
     [TestFixture]
     public class ArticleNetStockTests : ArticleTestBase

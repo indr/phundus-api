@@ -5,9 +5,15 @@
     public class Membership
     {
         private Guid _id;
+        private int _version;
         private int _memberId;
         private int _organizationId;
         private Guid _requestId;
+
+        protected Membership()
+        {
+            
+        }
 
         public Membership(Guid id, int organizationId, int memberId, Guid requestId)
         {
@@ -21,6 +27,12 @@
         {
             get { return _id; }
             protected set { _id = value; }
+        }
+
+        public virtual int Version
+        {
+            get { return _version; }
+            protected set { _version = value; }
         }
 
         public virtual int MemberId

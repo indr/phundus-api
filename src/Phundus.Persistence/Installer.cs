@@ -4,6 +4,7 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Core.ReservationCtx;
+    using Core.ReservationCtx.Repositories;
     using phiNdus.fundus.Domain.Repositories;
     using Repositories;
 

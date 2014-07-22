@@ -5,6 +5,8 @@ using NHibernate.Linq;
 namespace phiNdus.fundus.Domain.Repositories
 {
     using Phundus.Core.InventoryCtx;
+    using Phundus.Core.InventoryCtx.Model;
+    using Phundus.Core.InventoryCtx.Repositories;
     using Phundus.Persistence;
 
     public class FieldDefinitionRepository : RepositoryBase<FieldDefinition>, IFieldDefinitionRepository

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.Entities">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.OrganizationAndMembershipCtx.Model">
 
   <class name="Organization" table="[Organization]">
     <id name="Id">
@@ -18,7 +18,7 @@
 
     <set name="Memberships" cascade="all-delete-orphan" lazy="true" inverse="true" >
       <key column="OrganizationId" />
-      <one-to-many class="OrganizationMembership" />
+      <one-to-many class="Membership" />
     </set>
   </class>
 </hibernate-mapping>

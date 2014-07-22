@@ -6,6 +6,7 @@
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.ViewModels;
     using Phundus.Core.ReservationCtx;
+    using Phundus.Core.ReservationCtx.Model;
 
     [Authorize]
     public class OrderController : ControllerBase

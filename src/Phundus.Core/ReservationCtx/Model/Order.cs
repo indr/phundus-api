@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.ReservationCtx
+﻿namespace Phundus.Core.ReservationCtx.Model
 {
     using System;
     using System.IO;
@@ -8,7 +8,8 @@
     using IdentityAndAccessCtx.DomainModel;
     using Iesi.Collections.Generic;
     using Infrastructure;
-    using InventoryCtx;
+    using InventoryCtx.Repositories;
+    using InventoryCtx.Services;
     using iTextSharp.text;
     using iTextSharp.text.exceptions;
     using iTextSharp.text.pdf;

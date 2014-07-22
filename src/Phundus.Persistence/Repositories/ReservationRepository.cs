@@ -3,6 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Core.InventoryCtx.Model;
+    using Core.ReservationCtx.Model;
+    using Core.ReservationCtx.Repositories;
+    using Core.ReservationCtx.Services;
     using NHibernate;
     using NHibernate.Linq;
     using Phundus.Core.InventoryCtx;

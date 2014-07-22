@@ -5,6 +5,8 @@
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.Business.Dto;
     using Phundus.Core.InventoryCtx;
+    using Phundus.Core.InventoryCtx.Model;
+    using Phundus.Core.InventoryCtx.Repositories;
     using Phundus.Infrastructure;
 
     /// <summary>

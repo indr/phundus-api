@@ -1,11 +1,13 @@
-﻿namespace Phundus.Core.InventoryCtx
+﻿namespace Phundus.Core.InventoryCtx.Services
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Model;
     using NHibernate;
     using NHibernate.Transform;
     using ReservationCtx;
+    using ReservationCtx.Model;
 
     public class Availability
     {

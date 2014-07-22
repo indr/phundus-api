@@ -7,6 +7,8 @@ namespace phiNdus.fundus.Domain.Repositories
 {
     using Phundus.Core.OrganizationAndMembershipCtx.Model;
     using Phundus.Core.ReservationCtx;
+    using Phundus.Core.ReservationCtx.Model;
+    using Phundus.Core.ReservationCtx.Repositories;
     using Phundus.Persistence;
 
     public class OrderRepository : RepositoryBase<Order>, IOrderRepository

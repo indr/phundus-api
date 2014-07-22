@@ -2,7 +2,10 @@
 {
     using NUnit.Framework;
     using Phundus.Core.InventoryCtx;
+    using Phundus.Core.InventoryCtx.Model;
+    using Phundus.Core.InventoryCtx.Repositories;
     using Phundus.Core.ReservationCtx;
+    using Phundus.Core.ReservationCtx.Repositories;
     using Rhino.Mocks;
     using TestHelpers.TestBases;
 

@@ -4,6 +4,7 @@
     using System.IO;
     using Dto;
     using Phundus.Core.ReservationCtx;
+    using Phundus.Core.ReservationCtx.Model;
 
     public interface IOrderService
     {

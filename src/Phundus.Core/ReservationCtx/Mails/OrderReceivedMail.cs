@@ -4,6 +4,7 @@
     using System.Net.Mail;
     using IdentityAndAccessCtx.DomainModel;
     using Infrastructure;
+    using Model;
     using SettingsCtx;
 
     public class OrderReceivedMail : BaseMail
