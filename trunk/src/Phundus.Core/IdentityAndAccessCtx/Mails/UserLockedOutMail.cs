@@ -1,23 +1,24 @@
-﻿namespace Phundus.Core.InventoryCtx.Mails
+﻿namespace Phundus.Core.IdentityAndAccessCtx.Mails
 {
     using System;
-    using IdentityAndAccessCtx.DomainModel;
+    using DomainModel;
     using Infrastructure;
     using SettingsCtx;
 
-    public class UserChangeEmailValidationMail : BaseMail
+    public class UserLockedOutMail : BaseMail
     {
-        public UserChangeEmailValidationMail()
-            : base(Settings.Mail.Templates.UserChangeEmailValidationMail)
+        public UserLockedOutMail()
+            : base(Settings.Mail.Templates.UserLockedOut)
         {
         }
 
-        public void Send(User user)
+        public UserLockedOutMail Send(User user)
         {
-            Send(user.Membership.RequestedEmail);
+            Send(user.Membership.Email);
+            return this;
         }
 
-        public UserChangeEmailValidationMail For(User user)
+        public UserLockedOutMail For(User user)
         {
             Guard.Against<ArgumentNullException>(user == null, "user");
 
@@ -31,6 +32,11 @@
             //DataContext.Add("User", user);
             //DataContext.Add("Membership", user.Membership);
             return this;
+        }
+
+        public new void Send(string address)
+        {
+            base.Send(address);
         }
     }
 }

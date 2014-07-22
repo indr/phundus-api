@@ -43,7 +43,7 @@
             
 
             container.Register(
-                Classes.FromThisAssembly().Where(p => p.Name.EndsWith("ReadModel")).WithServiceDefaultInterfaces());
+                Classes.FromThisAssembly().Where(p => p.Name.EndsWith("ReadModel")).WithServiceAllInterfaces());
 
             container.Register(
                 Classes.FromThisAssembly().Where(p => p.Name.EndsWith("Service")).WithServiceDefaultInterfaces());

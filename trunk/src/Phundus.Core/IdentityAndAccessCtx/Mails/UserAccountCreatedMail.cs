@@ -1,24 +1,23 @@
-﻿namespace Phundus.Core.InventoryCtx.Mails
+﻿namespace Phundus.Core.IdentityAndAccessCtx.Mails
 {
     using System;
-    using IdentityAndAccessCtx.DomainModel;
+    using DomainModel;
     using Infrastructure;
     using SettingsCtx;
 
-    public class UserLockedOutMail : BaseMail
+    public class UserAccountCreatedMail : BaseMail
     {
-        public UserLockedOutMail()
-            : base(Settings.Mail.Templates.UserLockedOut)
+        public UserAccountCreatedMail()
+            : base(Settings.Mail.Templates.UserAccountCreated)
         {
         }
 
-        public UserLockedOutMail Send(User user)
+        public void Send(User user)
         {
             Send(user.Membership.Email);
-            return this;
         }
 
-        public UserLockedOutMail For(User user)
+        public UserAccountCreatedMail For(User user)
         {
             Guard.Against<ArgumentNullException>(user == null, "user");
 
