@@ -85,6 +85,16 @@
     <Compile Include="Cqrs\IHandleCommand.cs" />
     <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
     <Compile Include="Ddd\EventPublisher.cs" />
+    <Compile Include="IdentityAndAccessCtx\Commands\ChangeEmailAddress.cs" />
+    <Compile Include="IdentityAndAccessCtx\Commands\ChangePassword.cs" />
+    <Compile Include="IdentityAndAccessCtx\Commands\ResetPassword.cs" />
+    <Compile Include="IdentityAndAccessCtx\Exceptions\EmailAlreadyTakenException.cs" />
+    <Compile Include="IdentityAndAccessCtx\Mails\UserAccountCreatedMail.cs" />
+    <Compile Include="IdentityAndAccessCtx\Mails\UserAccountValidationMail.cs" />
+    <Compile Include="IdentityAndAccessCtx\Mails\UserChangeEmailValidationMail.cs" />
+    <Compile Include="IdentityAndAccessCtx\Mails\UserLockedOutMail.cs" />
+    <Compile Include="IdentityAndAccessCtx\Mails\UserResetPasswordMail.cs" />
+    <Compile Include="IdentityAndAccessCtx\Mails\UserUnlockedMail.cs" />
     <Compile Include="IdentityAndAccessCtx\Queries\IUserQueries.cs" />
     <Compile Include="IdentityAndAccessCtx\Queries\UserDto.cs" />
     <Compile Include="IdentityAndAccessCtx\Queries\UserReadModel.cs" />
@@ -134,12 +144,6 @@
     <Compile Include="ReservationCtx\Mails\OrderApprovedMail.cs" />
     <Compile Include="ReservationCtx\Mails\OrderReceivedMail.cs" />
     <Compile Include="ReservationCtx\Mails\OrderRejectedMail.cs" />
-    <Compile Include="InventoryCtx\Mails\UserAccountCreatedMail.cs" />
-    <Compile Include="InventoryCtx\Mails\UserAccountValidationMail.cs" />
-    <Compile Include="InventoryCtx\Mails\UserChangeEmailValidationMail.cs" />
-    <Compile Include="InventoryCtx\Mails\UserLockedOutMail.cs" />
-    <Compile Include="InventoryCtx\Mails\UserResetPasswordMail.cs" />
-    <Compile Include="InventoryCtx\Mails\UserUnlockedMail.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Commands\ApplyForMembership.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Model\MembershipRequestApproved.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Model\MembershipRequested.cs" />
@@ -175,7 +179,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="IdentityAndAccessCtx\Commands\" />
+    <Folder Include="InventoryCtx\Mails\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-namespace phiNdus.fundus.Business
+﻿namespace Phundus.Core.IdentityAndAccessCtx.Exceptions
 {
+    using System;
+    using System.Runtime.Serialization;
+
     [Serializable]
     public class EmailAlreadyTakenException : Exception
     {

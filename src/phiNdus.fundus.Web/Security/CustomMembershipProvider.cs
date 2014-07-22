@@ -9,9 +9,12 @@
     using Business;
     using Domain;
     using fundus.Business;
+    using Phundus.Core.Cqrs;
     using Phundus.Core.IdentityAndAccessCtx;
+    using Phundus.Core.IdentityAndAccessCtx.Commands;
+    using Phundus.Core.IdentityAndAccessCtx.Exceptions;
+    using Phundus.Core.IdentityAndAccessCtx.Mails;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.InventoryCtx.Mails;
     using Phundus.Infrastructure;
 
     public class CustomMembershipProvider : MembershipProvider
@@ -24,6 +27,8 @@
         private int _passwordAttemptWindow;
 
         public IUserRepository Users { get; set; }
+
+        public ICommandDispatcher Dispatcher { get; set; }
 
         public override string ApplicationName { get; set; }
 
@@ -91,30 +96,18 @@
             _minRequiredNonAlphanumericCharacters = int.Parse(config["minRequiredNonAlphanumericCharacters"] ?? "2",
                                                               CultureInfo.InvariantCulture);
             _passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"] ?? "10", CultureInfo.InvariantCulture);
-            // 10 Minuten
         }
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            var user = Users.FindByEmail(username);
-            user.Membership.ChangePassword(oldPassword, newPassword);
+            Dispatcher.Dispatch(new ChangePassword(username, oldPassword, newPassword));
+
             return true;
         }
 
         public bool ChangeEmail(string email, string newEmail)
         {
-            email = email.ToLower(CultureInfo.CurrentCulture).Trim();
-            newEmail = newEmail.ToLower(CultureInfo.CurrentCulture).Trim();
-
-            // TODO: In User.ChangeEmail()-Methode verschieben. Teffig bitte!
-            if (Users.FindByEmail(newEmail) != null)
-                throw new EmailAlreadyTakenException();
-
-            var user = Users.FindByEmail(email);
-            user.Membership.RequestedEmail = newEmail;
-            user.Membership.GenerateValidationKey();
-            Users.Update(user);
-            new UserChangeEmailValidationMail().For(user).Send(user);
+            Dispatcher.Dispatch(new ChangeEmailAddress(email, newEmail));
 
             return true;
         }
@@ -129,6 +122,8 @@
         public MembershipUser CreateUser(string email, string password, string firstName, string lastName, int jsNumber,
                                          int? organizationId, out MembershipCreateStatus status)
         {
+            throw new NotSupportedException();
+
             //// To Do,jac: Behandlung der verschiednen Fehlerfälle und Status entsprechend setzen.
             //status = MembershipCreateStatus.Success;
 
@@ -143,7 +138,6 @@
             //    status = MembershipCreateStatus.DuplicateEmail;
             //    return null;
             //}
-            throw new NotSupportedException();
         }
 
         public bool ValidateValidationKey(string key)
@@ -198,13 +192,9 @@
 
         public override string ResetPassword(string username, string answer)
         {
-            var user = Users.FindByEmail(username);
-            if (user == null)
-                throw new Exception("Die E-Mail-Adresse konnte nicht gefunden werden.");
-            var password = user.Membership.ResetPassword();
-            Users.Update(user);
-            new UserResetPasswordMail().For(user, password).Send(user);
-            return password;
+            Dispatcher.Dispatch(new ResetPassword(username));
+
+            return null;
         }
 
         public override void UpdateUser(MembershipUser user)
@@ -215,6 +205,7 @@
 
         public override bool ValidateUser(string username, string password)
         {
+
             username = username.ToLower(CultureInfo.CurrentCulture).Trim();
             var user = Users.FindByEmail(username);
 

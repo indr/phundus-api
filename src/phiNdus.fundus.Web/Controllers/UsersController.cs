@@ -1,13 +1,14 @@
 ﻿namespace phiNdus.fundus.Web.Controllers
 {
     using System;
+    using System.Linq;
     using System.Web.Mvc;
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
     using Models;
+    using Phundus.Core.IdentityAndAccessCtx.Mails;
     using Phundus.Core.IdentityAndAccessCtx.Queries;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.InventoryCtx.Mails;
 
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
@@ -20,7 +21,7 @@
         public virtual ActionResult Index()
         {
             var model = UserQueries.All();
-            return View(model);
+            return View(model.ToArray());
         }
 
         [Transaction]
