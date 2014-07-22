@@ -10,6 +10,7 @@
     using Business.Dto;
     using Microsoft.Practices.ServiceLocation;
     using Phundus.Core.IdentityAndAccessCtx.DomainModel;
+    using Phundus.Core.IdentityAndAccessCtx.Queries;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
 
 

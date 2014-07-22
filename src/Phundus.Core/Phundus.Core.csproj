@@ -86,7 +86,8 @@
     <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
     <Compile Include="Ddd\EventPublisher.cs" />
     <Compile Include="IdentityAndAccessCtx\Queries\IUserQueries.cs" />
-    <Compile Include="IdentityAndAccessCtx\Queries\UserQueries.cs" />
+    <Compile Include="IdentityAndAccessCtx\Queries\UserDto.cs" />
+    <Compile Include="IdentityAndAccessCtx\Queries\UserReadModel.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Commands\ApproveMembershipRequest.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Commands\RejectMembershipRequest.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Model\Member.cs" />
