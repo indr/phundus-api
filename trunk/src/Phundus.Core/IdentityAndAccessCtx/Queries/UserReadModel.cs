@@ -15,6 +15,11 @@
             return CreateDto(UserRepository.FindById(id));
         }
 
+        public UserDto ByEmail(string email)
+        {
+            return CreateDto(UserRepository.FindByEmail(email));
+        }
+
         public IList<UserDto> All()
         {
             return CreateDtos(UserRepository.FindAll());
@@ -22,6 +27,8 @@
 
         public UserDto CreateDto(User subject)
         {
+            if (subject == null)
+                return null;
             return WriteDto(subject);
         }
 

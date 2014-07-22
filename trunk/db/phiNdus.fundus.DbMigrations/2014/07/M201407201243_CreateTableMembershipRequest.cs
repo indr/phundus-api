@@ -1,10 +1,6 @@
 ﻿namespace phiNdus.fundus.DbMigrations
 {
-    #region
-
     using FluentMigrator;
-
-    #endregion
 
     [Migration(201407201243)]
     public class M201407201243_CreateTableMembershipRequest : MigrationBase

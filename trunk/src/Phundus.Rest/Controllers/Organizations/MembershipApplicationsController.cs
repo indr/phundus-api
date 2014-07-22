@@ -1,16 +1,12 @@
 ﻿namespace Phundus.Rest.Controllers.Organizations
 {
-    #region
-
     using System;
     using Core.OrganizationAndMembershipCtx.Commands;
     using Core.OrganizationAndMembershipCtx.Queries;
 
-    #endregion
-
     public class MembershipApplicationsController : ApiControllerBase
     {
-        public IMembershipApplicationsReadModel MembershipApplications { get; set; }
+        public IMembershipApplicationQueries MembershipApplications { get; set; }
 
         public MembershipApplicationDtos Get(int organization)
         {

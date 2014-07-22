@@ -104,6 +104,8 @@
     <Compile Include="OrganizationAndMembershipCtx\Model\Membership.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Model\MembershipRequest.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Queries\MembershipApplicationsReadModel.cs" />
+    <Compile Include="OrganizationAndMembershipCtx\Queries\MembershipsReadModel.cs" />
+    <Compile Include="OrganizationAndMembershipCtx\Queries\OrganizationsReadModel.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Repositories\IMembershipRepository.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Services\IMemberService.cs" />

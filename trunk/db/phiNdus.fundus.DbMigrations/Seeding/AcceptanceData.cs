@@ -226,13 +226,8 @@
 
         internal class Membership
         {
-            private static int _id = 1;
+            //private static int _id = 1;
             private bool _isApproved = true;
-
-            public int Id
-            {
-                get { return _id++; }
-            }
 
             public int Version
             {

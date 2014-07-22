@@ -1,7 +1,5 @@
 ﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Queries
 {
-    #region
-
     using System;
     using System.Collections.Generic;
     using Castle.Transactions;
@@ -9,16 +7,14 @@
     using Model;
     using Repositories;
 
-    #endregion
-
-    public interface IMembershipApplicationsReadModel
+    public interface IMembershipApplicationQueries
     {
         MembershipApplicationDtos ByOrganization(int organizationId);
     }
 
-    public class MembershipApplicationsReadModel : IMembershipApplicationsReadModel,
-        ISubscribeTo<MembershipRequested>,
-        ISubscribeTo<MembershipRequestApproved>, ISubscribeTo<MembershipRequestRejected>
+    public class MembershipApplicationsReadModel : IMembershipApplicationQueries,
+        ISubscribeTo<MembershipRequested>, ISubscribeTo<MembershipRequestApproved>,
+        ISubscribeTo<MembershipRequestRejected>
     {
         public IMembershipRequestRepository MembershipRequestRepository { get; set; }
 

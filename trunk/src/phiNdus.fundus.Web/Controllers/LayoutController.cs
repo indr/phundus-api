@@ -1,30 +1,40 @@
 ﻿namespace phiNdus.fundus.Web.Controllers
 {
+    using System;
+    using System.Globalization;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using NHibernate;
-    using phiNdus.fundus.Web.ViewModels.Layout;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
+    using Phundus.Core.IdentityAndAccessCtx.Queries;
+    using Phundus.Core.OrganizationAndMembershipCtx.Queries;
+    using ViewModels.Layout;
 
     public class LayoutController : ControllerBase
     {
-        public IUserRepository Users { get; set; }
+        public IUserQueries UserQueries { get; set; }
+
+        public IOrganizationQueries OrganizationQueries { get; set; }
 
         [ChildActionOnly]
         [Transaction]
         public virtual ActionResult NavBar()
         {
             var model = new NavBarModel();
-            var user = Users.FindByEmail(Identity.Name);
-            if (user != null)
+            var user = UserQueries.ByEmail(Identity.Name);
+            if (user == null)
+                return PartialView("_NavBar", model);
+
+            var selectedOrganizationId = 0;
+            if (Session["OrganizationId"] != null)
+                selectedOrganizationId = Convert.ToInt32(Session["OrganizationId"]);
+            
+            foreach (var each in OrganizationQueries.ByMemberId(user.Id))
             {
-                model.Selected = user.SelectedOrganization;
-                //foreach (var each in user.Memberships)
-                //{
-                //    model.Organizations.Add(each.Organization);
-                //    NHibernateUtil.Initialize(each.Organization);
-                //}
+                if ((model.Selected == null) || (each.Id == selectedOrganizationId))
+                    model.Selected = each;
+                
+                model.Organizations.Add(each);
             }
+
             return PartialView("_NavBar", model);
         }
     }
