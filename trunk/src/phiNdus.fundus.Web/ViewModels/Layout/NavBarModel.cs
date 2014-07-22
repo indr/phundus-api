@@ -5,14 +5,14 @@
 
     public class NavBarModel
     {
-        private IList<OrganizationDto> _organizations = new List<OrganizationDto>();
+        private IList<MembershipDto> _memberships = new List<MembershipDto>();
 
-        public IList<OrganizationDto> Organizations
+        public MembershipDto Selected { get; set; }
+
+        public IList<MembershipDto> Memberships
         {
-            get { return _organizations; }
-            set { _organizations = value; }
+            get { return _memberships; }
+            set { _memberships = value; }
         }
-
-        public OrganizationDto Selected { get; set; }
     }
 }

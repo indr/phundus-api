@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Model
 {
     using System;
+    using IdentityAndAccessCtx.DomainModel;
 
     public class MembershipRequest
     {
@@ -54,6 +55,7 @@
         public virtual Membership Approve(Guid membershipId)
         {
             ApprovalDate = DateTime.Now;
+            
 
             return new Membership(membershipId, OrganizationId, MemberId, Id);
         }

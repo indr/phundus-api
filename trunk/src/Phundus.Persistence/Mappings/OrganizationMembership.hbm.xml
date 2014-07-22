@@ -11,6 +11,7 @@
     <!--<many-to-one name="User" class="Phundus.Core.IdentityAndAccessCtx.DomainModel.User" column="UserId" />-->
 	
 	<property name="MemberId" column="UserId" />
+	  <property name="OrganizationId" column="OrganizationId" />
     <many-to-one name="Organization" class="Organization" column="OrganizationId" />
     
     <property name="Role" />

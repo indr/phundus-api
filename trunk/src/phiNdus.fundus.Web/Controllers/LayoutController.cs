@@ -12,7 +12,7 @@
     {
         public IUserQueries UserQueries { get; set; }
 
-        public IOrganizationQueries OrganizationQueries { get; set; }
+        public IMembershipQueries MembershipQueries { get; set; }
 
         [ChildActionOnly]
         [Transaction]
@@ -26,13 +26,13 @@
             var selectedOrganizationId = 0;
             if (Session["OrganizationId"] != null)
                 selectedOrganizationId = Convert.ToInt32(Session["OrganizationId"]);
-            
-            foreach (var each in OrganizationQueries.ByMemberId(user.Id))
+
+            foreach (var each in MembershipQueries.ByMemberId(user.Id))
             {
-                if ((model.Selected == null) || (each.Id == selectedOrganizationId))
+                if ((model.Selected == null) || (each.OrganizationId == selectedOrganizationId))
                     model.Selected = each;
                 
-                model.Organizations.Add(each);
+                model.Memberships.Add(each);
             }
 
             return PartialView("_NavBar", model);

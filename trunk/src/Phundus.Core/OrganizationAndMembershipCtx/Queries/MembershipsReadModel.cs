@@ -23,9 +23,12 @@
                     Id = each.Id,
                     MemberId = each.MemberId,
                     OrganizationId = each.OrganizationId,
-                    OrganizationName = each.Organization.Name
+                    OrganizationName = each.Organization.Name,
+                    OrganizationUrl = each.Organization.Url,
+                    MembershipRole = (each.Role == 2 ? "Chief" : "Member")
                 });
             }
+
 
             return result;
         }
@@ -37,5 +40,7 @@
         public int MemberId { get; set; }
         public int OrganizationId { get; set; }
         public string OrganizationName { get; set; }
+        public string OrganizationUrl { get; set; }
+        public string MembershipRole { get; set; }
     }
 }
