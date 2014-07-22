@@ -1,9 +1,10 @@
 ﻿namespace Phundus.Core.IdentityAndAccessCtx.Queries
 {
-    using DomainModel;
+    using System.Collections.Generic;
 
     public interface IUserQueries
     {
-        User ById(int id);
+        UserDto ById(int id);
+        IList<UserDto> All();
     }
 }

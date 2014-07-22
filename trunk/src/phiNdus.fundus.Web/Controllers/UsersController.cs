@@ -2,10 +2,10 @@
 {
     using System;
     using System.Web.Mvc;
-    using Business.Assembler;
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
     using Models;
+    using Phundus.Core.IdentityAndAccessCtx.Queries;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.InventoryCtx.Mails;
 
@@ -14,11 +14,12 @@
     {
         public IUserRepository Users { get; set; }
 
+        public IUserQueries UserQueries { get; set; }
 
         [Transaction]
         public virtual ActionResult Index()
         {
-            var model = new UserAssembler().CreateDtos(Users.FindAll());
+            var model = UserQueries.All();
             return View(model);
         }
 
@@ -27,7 +28,7 @@
         {
             try
             {
-                var model = new UserModel(new UserAssembler().CreateDto(Users.ById(id)));
+                var model = new UserModel(UserQueries.ById(id));
                 return View(model);
             }
             catch (Exception ex)
@@ -41,7 +42,7 @@
         [Transaction]
         public virtual ActionResult Edit(int id, FormCollection collection)
         {
-            var userModel = new UserModel(new UserAssembler().CreateDto(Users.ById(id)));
+            var userModel = new UserModel(UserQueries.ById(id));
             try
             {
                 UpdateModel(userModel, collection.ToValueProvider());
@@ -60,21 +61,18 @@
         [Transaction]
         public virtual ActionResult LockOut(int id)
         {
-            
-            
-                var user = ServiceLocator.Current.GetInstance<IUserRepository>().ById(id);
-                if (user == null)
-                    return HttpNotFound();
+            var user = ServiceLocator.Current.GetInstance<IUserRepository>().ById(id);
+            if (user == null)
+                return HttpNotFound();
 
-                user.Membership.LockOut();
-                SessionFact().Update(user);
+            user.Membership.LockOut();
+            SessionFact().Update(user);
 
-                new UserLockedOutMail().For(user)
-                                       .Send(user);
-                //.Send(Settings.Common.AdminEmailAddress);
+            new UserLockedOutMail().For(user)
+                .Send(user);
+            //.Send(Settings.Common.AdminEmailAddress);
 
-                
-            
+
             return Json(id);
         }
 
@@ -82,21 +80,18 @@
         [Transaction]
         public virtual ActionResult Unlock(int id)
         {
-            
-            
-                var user = ServiceLocator.Current.GetInstance<IUserRepository>().ById(id);
-                if (user == null)
-                    return HttpNotFound();
+            var user = ServiceLocator.Current.GetInstance<IUserRepository>().ById(id);
+            if (user == null)
+                return HttpNotFound();
 
-                user.Membership.Unlock();
-                SessionFact().Update(user);
+            user.Membership.Unlock();
+            SessionFact().Update(user);
 
-                new UserUnlockedMail().For(user)
-                                      .Send(user);
-                //.Send(Settings.Common.AdminEmailAddress);
+            new UserUnlockedMail().For(user)
+                .Send(user);
+            //.Send(Settings.Common.AdminEmailAddress);
 
-                
-            
+
             return Json(id);
         }
     }

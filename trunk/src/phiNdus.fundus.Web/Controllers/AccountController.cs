@@ -12,6 +12,7 @@
     using phiNdus.fundus.Web.ViewModels;
     using phiNdus.fundus.Web.ViewModels.Account;
     using Phundus.Core.IdentityAndAccessCtx.DomainModel;
+    using Phundus.Core.IdentityAndAccessCtx.Queries;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.InventoryCtx.Mails;
     using Phundus.Core.OrganizationAndMembershipCtx.Model;

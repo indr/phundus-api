@@ -196,7 +196,6 @@
     <Compile Include="Business\Dto\OrderDto.cs" />
     <Compile Include="Business\Dto\OrderItemDto.cs" />
     <Compile Include="Business\Dto\RoleDto.cs" />
-    <Compile Include="Business\Dto\UserDto.cs" />
     <Compile Include="Business\EmailAlreadyTakenException.cs" />
     <Compile Include="Business\EntityNotFoundException.cs" />
     <Compile Include="Business\Paging\PagedResult.cs" />

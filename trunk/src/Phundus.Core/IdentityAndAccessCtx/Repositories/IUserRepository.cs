@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using DomainModel;
-    using Phundus.Infrastructure;
+    using Infrastructure;
 
     public interface IUserRepository : IRepository<User>
     {

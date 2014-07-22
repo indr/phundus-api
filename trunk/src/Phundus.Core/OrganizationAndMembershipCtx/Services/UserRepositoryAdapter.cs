@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Services
 {
-    using IdentityAndAccessCtx.DomainModel;
     using IdentityAndAccessCtx.Queries;
     using Model;
 
@@ -15,7 +14,7 @@
 
         public Member ToMember(int id)
         {
-            User user = _users.ById(id);
+            UserDto user = _users.ById(id);
             if (user == null)
                 return null;
 

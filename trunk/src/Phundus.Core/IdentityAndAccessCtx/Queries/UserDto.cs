@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.Business.Dto
+﻿namespace Phundus.Core.IdentityAndAccessCtx.Queries
 {
     using System;
 
