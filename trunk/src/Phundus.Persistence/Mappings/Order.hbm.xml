@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.Entities">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.ReservationCtx.Model">
 
   <class name="Order" table="[Order]">
     <id name="Id">
@@ -11,7 +11,7 @@
     <property name="CreateDate" />
     <property name="Status" />
 
-    <many-to-one name="Organization" class="Organization" column="OrganizationId" />
+    <many-to-one name="Organization" class="Phundus.Core.OrganizationAndMembershipCtx.Model.Organization" column="OrganizationId" />
     <many-to-one name="Reserver" class="Phundus.Core.IdentityAndAccessCtx.DomainModel.User" column="ReserverId" />
     
     <property name="ModifyDate" />
@@ -20,20 +20,6 @@
     <set name="Items" cascade="all-delete-orphan" lazy="true" inverse="true" >
       <key column="OrderId" />
       <one-to-many class="OrderItem" />
-    </set>
-  </class>
-
-  <class name="Cart" table="[Cart]">
-    <id name="Id">
-      <generator class="native" />
-    </id>
-    <version name="Version" />
-    
-    <many-to-one name="Customer" class="Phundus.Core.IdentityAndAccessCtx.DomainModel.User" column="CustomerId" />
-    
-    <set name="Items" cascade="all-delete-orphan" lazy="true" inverse="true" >
-      <key column="CartId" />
-      <one-to-many class="CartItem" />
     </set>
   </class>
 </hibernate-mapping>

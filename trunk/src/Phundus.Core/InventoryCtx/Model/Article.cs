@@ -1,11 +1,14 @@
-﻿namespace Phundus.Core.InventoryCtx
+﻿namespace Phundus.Core.InventoryCtx.Model
 {
     using System;
     using System.Linq;
+    using Exceptions;
     using Iesi.Collections.Generic;
     using Microsoft.Practices.ServiceLocation;
     using OrganizationAndMembershipCtx.Model;
+    using Repositories;
     using ReservationCtx;
+    using ReservationCtx.Repositories;
 
     public class Article : CompositeEntity
     {

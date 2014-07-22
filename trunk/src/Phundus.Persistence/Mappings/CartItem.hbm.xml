@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.ReservationCtx.Model">
-
-  <class name="OrderItem" table="[OrderItem]">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.ShopCtx">
+  <class name="CartItem" table="[CartItem]">
     <id name="Id">
       <generator class="hilo" />
     </id>
     <version name="Version" />
 
-    <many-to-one name="Order" class="Order" column="OrderId" />
-    
-    <property name="Amount" />
+    <many-to-one name="Cart" class="Cart" column="CartId" />
+
+    <property name="Quantity" />
     <property name="From" column="[From]" />
     <property name="To" column="[To]" />
 

@@ -10,6 +10,8 @@
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.ReservationCtx;
     using Phundus.Core.ReservationCtx.Mails;
+    using Phundus.Core.ReservationCtx.Model;
+    using Phundus.Core.ReservationCtx.Repositories;
 
     public class OrderService : BaseService, IOrderService
     {

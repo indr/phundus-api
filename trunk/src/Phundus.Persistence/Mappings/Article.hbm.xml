@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.Entities">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.InventoryCtx.Model">
 	<class name="CompositeEntity" table="[Article]">
 		<id name="Id">
 			<generator class="native" />
@@ -20,7 +20,7 @@
 		</set>
 
 		<subclass name="Article">
-			<many-to-one name="Organization" column="OrganizationId" class="Organization" not-null="true" />
+			<many-to-one name="Organization" column="OrganizationId" class="Phundus.Core.OrganizationAndMembershipCtx.Model.Organization" not-null="true" />
 
 			<property name="CreateDate" update="false" />
 

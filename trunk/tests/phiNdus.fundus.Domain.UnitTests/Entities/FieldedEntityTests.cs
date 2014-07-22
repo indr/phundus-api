@@ -4,6 +4,8 @@
     using NUnit.Framework;
     using Phundus.Core.Ddd;
     using Phundus.Core.InventoryCtx;
+    using Phundus.Core.InventoryCtx.Exceptions;
+    using Phundus.Core.InventoryCtx.Model;
 
     [TestFixture]
     public class FieldedEntityTests

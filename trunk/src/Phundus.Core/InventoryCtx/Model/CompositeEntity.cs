@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.InventoryCtx
+﻿namespace Phundus.Core.InventoryCtx.Model
 {
     using Iesi.Collections.Generic;
 

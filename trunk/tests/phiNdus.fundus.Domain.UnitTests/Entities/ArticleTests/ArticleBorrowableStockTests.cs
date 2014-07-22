@@ -2,6 +2,7 @@
 {
     using NUnit.Framework;
     using Phundus.Core.InventoryCtx;
+    using Phundus.Core.InventoryCtx.Model;
     using Rhino.Mocks;
 
     [TestFixture]

@@ -10,7 +10,9 @@
     using phiNdus.fundus.Web.Models.ArticleModels;
     using phiNdus.fundus.Web.ViewModels;
     using Phundus.Core.InventoryCtx;
+    using Phundus.Core.InventoryCtx.Model;
     using Phundus.Core.ReservationCtx;
+    using Phundus.Core.ReservationCtx.Repositories;
 
     [Authorize(Roles = "Chief")]
     public class ArticleController : ControllerBase

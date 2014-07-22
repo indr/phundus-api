@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using phiNdus.fundus.Web.Business.Dto;
     using Phundus.Core.ReservationCtx;
+    using Phundus.Core.ReservationCtx.Model;
     using Phundus.Infrastructure;
 
     public class OrderDtoAssembler

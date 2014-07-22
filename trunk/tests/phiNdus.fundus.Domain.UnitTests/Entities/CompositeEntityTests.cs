@@ -4,6 +4,8 @@
     using Iesi.Collections.Generic;
     using NUnit.Framework;
     using Phundus.Core.InventoryCtx;
+    using Phundus.Core.InventoryCtx.Model;
+    using Phundus.Core.InventoryCtx.Repositories;
     using Rhino.Mocks;
     using TestHelpers.TestBases;
 

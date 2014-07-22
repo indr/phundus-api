@@ -7,9 +7,14 @@
     using IdentityAndAccessCtx.DomainModel;
     using Iesi.Collections.Generic;
     using InventoryCtx;
+    using InventoryCtx.Model;
+    using InventoryCtx.Repositories;
+    using InventoryCtx.Services;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
     using ReservationCtx;
+    using ReservationCtx.Model;
+    using ReservationCtx.Repositories;
 
     public class Cart : EntityBase
     {

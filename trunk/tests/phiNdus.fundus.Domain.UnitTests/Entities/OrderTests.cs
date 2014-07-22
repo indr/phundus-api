@@ -4,6 +4,7 @@
     using NUnit.Framework;
     using Phundus.Core.IdentityAndAccessCtx.DomainModel;
     using Phundus.Core.ReservationCtx;
+    using Phundus.Core.ReservationCtx.Model;
 
     [TestFixture]
     public class OrderTests

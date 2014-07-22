@@ -1,7 +1,8 @@
-﻿namespace Phundus.Core.InventoryCtx
+﻿namespace Phundus.Core.InventoryCtx.Repositories
 {
     using System.Collections.Generic;
     using Infrastructure;
+    using Model;
     using OrganizationAndMembershipCtx.Model;
 
     public interface IArticleRepository : IRepository<Article>

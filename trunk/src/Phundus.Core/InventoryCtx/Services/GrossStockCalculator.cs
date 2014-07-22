@@ -1,6 +1,7 @@
-﻿namespace Phundus.Core.InventoryCtx
+﻿namespace Phundus.Core.InventoryCtx.Services
 {
     using System;
+    using Model;
 
     public class GrossStockCalculator
     {

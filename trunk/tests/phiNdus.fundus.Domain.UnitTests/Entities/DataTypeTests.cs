@@ -3,6 +3,7 @@
     using System;
     using NUnit.Framework;
     using Phundus.Core.InventoryCtx;
+    using Phundus.Core.InventoryCtx.Model;
 
     [TestFixture]
     public class DataTypeTests

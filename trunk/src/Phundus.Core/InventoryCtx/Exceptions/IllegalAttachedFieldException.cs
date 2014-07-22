@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.InventoryCtx
+﻿namespace Phundus.Core.InventoryCtx.Exceptions
 {
     using System;
     using System.Runtime.Serialization;

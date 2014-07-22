@@ -1,8 +1,8 @@
-﻿namespace Phundus.Core.ReservationCtx
+﻿namespace Phundus.Core.ReservationCtx.Model
 {
     using System;
     using Ddd;
-    using InventoryCtx;
+    using InventoryCtx.Model;
 
     public class OrderItem : EntityBase
     {

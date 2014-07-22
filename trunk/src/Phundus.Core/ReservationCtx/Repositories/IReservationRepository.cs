@@ -1,7 +1,8 @@
-namespace Phundus.Core.ReservationCtx
+namespace Phundus.Core.ReservationCtx.Repositories
 {
     using System.Collections.Generic;
-    using InventoryCtx;
+    using InventoryCtx.Model;
+    using Model;
 
     public interface IReservationRepository
     {
