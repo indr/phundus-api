@@ -1,11 +1,11 @@
 ﻿namespace phiNdus.fundus.Web.Models.Organization
 {
     using System;
-    using Phundus.Core.OrganizationAndMembershipCtx.Model;
+    using Phundus.Core.OrganizationAndMembershipCtx.Queries;
 
     public class OrganizationModel
     {
-        public OrganizationModel(Organization organization)
+        public OrganizationModel(OrganizationDetailDto organization)
         {
             Id = organization.Id;
             Name = organization.Name;
@@ -30,16 +30,22 @@
 
         public bool HasOptionLeave { get; set; }
 
-        public bool HasOptions { get { return HasOptionJoin || HasOptionLeave; } }
+        public bool HasOptions
+        {
+            get { return HasOptionJoin || HasOptionLeave; }
+        }
 
         public string EmailAddress { get; set; }
 
         public string Website { get; set; }
 
-        public bool HasContactOptions { get
+        public bool HasContactOptions
         {
-            return !String.IsNullOrWhiteSpace(Address) || !String.IsNullOrWhiteSpace(EmailAddress) ||
-                   !String.IsNullOrWhiteSpace(Website);
-        }}
+            get
+            {
+                return !String.IsNullOrWhiteSpace(Address) || !String.IsNullOrWhiteSpace(EmailAddress) ||
+                       !String.IsNullOrWhiteSpace(Website);
+            }
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace phiNdus.fundus.Web.Controllers
 {
     using System;
-    using System.Globalization;
     using System.Web.Mvc;
     using Castle.Transactions;
     using Phundus.Core.IdentityAndAccessCtx.Queries;
@@ -31,7 +30,7 @@
             {
                 if ((model.Selected == null) || (each.OrganizationId == selectedOrganizationId))
                     model.Selected = each;
-                
+
                 model.Memberships.Add(each);
             }
 

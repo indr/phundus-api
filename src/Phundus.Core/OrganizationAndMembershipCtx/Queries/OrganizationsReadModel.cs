@@ -9,7 +9,8 @@
     public interface IOrganizationQueries
     {
         IEnumerable<OrganizationDto> ByMemberId(int memberId);
-        OrganizationDto ById(int id);
+        OrganizationDetailDto ById(int id);
+        IEnumerable<OrganizationDto> All();
     }
 
     public class OrganizationsReadModel : IOrganizationQueries
@@ -34,27 +35,55 @@
             var result = new List<OrganizationDto>();
             foreach (var each in query.List())
             {
-                result.Add(new OrganizationDto
-                {
-                    Id = each.Id,
-                    Name = each.Name,
-                    Url = each.Url
-                });
+                result.Add(ToOrganizationDto(each));
             }
             return result;
         }
 
-        public OrganizationDto ById(int id)
+        private static OrganizationDto ToOrganizationDto(Organization organization)
+        {
+            return new OrganizationDto
+            {
+                Id = organization.Id,
+                Version = organization.Version,
+                Name = organization.Name,
+                Url = organization.Url,
+                Address = organization.Address
+            };
+        }
+
+        public OrganizationDetailDto ById(int id)
         {
             var organization = OrganizationRepository.FindById(id);
             if (organization == null)
                 return null;
 
-            return new OrganizationDto
+            return new OrganizationDetailDto
             {
                 Id = organization.Id,
-                Url = organization.Url
+                Version = organization.Version,
+                Name = organization.Name,
+                Url = organization.Url,
+                Address = organization.Address,
+                EmailAddress = organization.EmailAddress,
+                Website = organization.Website,
+                Coordinate = organization.Coordinate,
+                Startpage = organization.Startpage,
+                CreateDate = organization.CreateDate,
+                DocumentTemplate = organization.DocTemplateFileName
             };
+        }
+
+        public IEnumerable<OrganizationDto> All()
+        {
+            var result = new List<OrganizationDto>();
+
+            foreach (var each in OrganizationRepository.FindAll())
+            {
+                result.Add(ToOrganizationDto(each));
+            }
+
+            return result;
         }
     }
 
@@ -65,5 +94,21 @@
         public string Name { get; set; }
         public string Url { get; set; }
         public string Address { get; set; }
+    }
+
+    public class OrganizationDetailDto
+    {
+        public int Id { get; set; }
+        public int Version { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
+        public string Address { get; set; }
+
+        public string EmailAddress { get; set; }
+        public string Website { get; set; }
+        public string Coordinate { get; set; }
+        public string Startpage { get; set; }
+        public DateTime CreateDate { get; set; }
+        public string DocumentTemplate { get; set; }
     }
 }
