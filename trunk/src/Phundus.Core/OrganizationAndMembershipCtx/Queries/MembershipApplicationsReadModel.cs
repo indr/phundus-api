@@ -9,7 +9,7 @@
 
     public interface IMembershipApplicationQueries
     {
-        MembershipApplicationDtos ByOrganization(int organizationId);
+        MembershipApplicationDtos PendingByOrganizationId(int organizationId);
     }
 
     public class MembershipApplicationsReadModel : IMembershipApplicationQueries,
@@ -19,23 +19,15 @@
         public IMembershipRequestRepository MembershipRequestRepository { get; set; }
 
         [Transaction]
-        public MembershipApplicationDtos ByOrganization(int organizationId)
+        public MembershipApplicationDtos PendingByOrganizationId(int organizationId)
         {
-            var requests = MembershipRequestRepository.ByOrganization(organizationId);
+            var requests = MembershipRequestRepository.PendingByOrganization(organizationId);
 
             var result = new MembershipApplicationDtos();
 
             foreach (var each in requests)
             {
-                result.Add(new MembershipApplicationDto
-                {
-                    Id = each.Id,
-                    OrgId = each.OrganizationId,
-                    UserId = each.MemberId,
-                    CreatedOn = each.RequestDate,
-                    ApprovedOn = each.ApprovalDate,
-                    RejectedOn = each.RejectDate
-                });
+                result.Add(ToMembershipApplicationDto(each));
             }
 
             return result;
@@ -54,6 +46,19 @@
         public void Handle(MembershipRequestRejected @event)
         {
             throw new NotImplementedException();
+        }
+
+        private static MembershipApplicationDto ToMembershipApplicationDto(MembershipRequest each)
+        {
+            return new MembershipApplicationDto
+            {
+                Id = each.Id,
+                OrgId = each.OrganizationId,
+                UserId = each.MemberId,
+                CreatedOn = each.RequestDate,
+                ApprovedOn = each.ApprovalDate,
+                RejectedOn = each.RejectDate
+            };
         }
     }
 

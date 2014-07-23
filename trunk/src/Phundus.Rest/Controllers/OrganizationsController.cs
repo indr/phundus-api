@@ -5,13 +5,10 @@
     using System.Web.Http;
     using Castle.Transactions;
     using Core.OrganizationAndMembershipCtx.Queries;
-    using Core.OrganizationAndMembershipCtx.Repositories;
     using Exceptions;
 
     public class OrganizationsController : ApiControllerBase
     {
-        public IOrganizationRepository Organizations { get; set; }
-
         public IOrganizationQueries OrganizationQueries { get; set; }
 
         [Transaction]

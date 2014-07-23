@@ -6,19 +6,15 @@
     using Castle.Transactions;
     using Models.Organization;
     using Phundus.Core.IdentityAndAccessCtx.Queries;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
     using Phundus.Core.OrganizationAndMembershipCtx.Queries;
-    using Phundus.Core.OrganizationAndMembershipCtx.Repositories;
 
     public class OrganizationController : ControllerBase
     {
-        public IOrganizationRepository Organizations { get; set; }
-       
         public IUserQueries UserQueries { get; set; }
 
         public IOrganizationQueries OrganizationQueries { get; set; }
 
-        public IMembershipQueries MembershipQueries { get; set; }
+        public IRelationshipQueries RelationshipQueries { get; set; }
 
         public virtual ActionResult Index()
         {
@@ -41,13 +37,15 @@
                         "Die Organisation mit der Id {0} und/oder dem Namen \"{1}\" konnte nicht gefunden werden.",
                         id, name));
 
+            var model = new OrganizationModel(organization);
+
             var user = UserQueries.ByEmail(Identity.Name);
 
-            var model = new OrganizationModel(organization);
             if (user != null)
             {
-                // TODO: Security and Access
-                bool isMemberOf = false; //user.IsMemberOf(organization);
+                var relationship = RelationshipQueries.ByMemberIdForOrganizationId(user.Id, organization.Id);
+
+                bool isMemberOf = relationship.Membership != null;
                 model.HasOptionJoin = !isMemberOf;
                 model.HasOptionLeave = isMemberOf;
             }

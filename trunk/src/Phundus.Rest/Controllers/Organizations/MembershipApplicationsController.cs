@@ -10,7 +10,7 @@
 
         public MembershipApplicationDtos Get(int organization)
         {
-            return MembershipApplications.ByOrganization(organization);
+            return MembershipApplications.PendingByOrganizationId(organization);
         }
 
         public void Post(int organization, MembershipApplicationDto dto)
