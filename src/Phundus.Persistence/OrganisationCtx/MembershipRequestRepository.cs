@@ -8,6 +8,11 @@ namespace Phundus.Persistence.OrganisationCtx
 
     public class MembershipRepository : RepositoryBase<Membership>, IMembershipRepository
     {
+        private IQueryOver<Membership, Membership> Entities
+        {
+            get { return Session.QueryOver<Membership>(); }
+        }
+
         public Guid NextIdentity()
         {
             throw new NotImplementedException();
@@ -17,25 +22,26 @@ namespace Phundus.Persistence.OrganisationCtx
         {
             return Entities.Where(p => p.MemberId == memberId).List();
         }
-
-        private IQueryOver<Membership, Membership> Entities { get { return Session.QueryOver<Membership>(); } }
     }
 
     public class MembershipRequestRepository : RepositoryBase<MembershipRequest>, IMembershipRequestRepository
     {
+        private IQueryOver<MembershipRequest, MembershipRequest> Entities
+        {
+            get { return Session.QueryOver<MembershipRequest>(); }
+        }
+
         public Guid NextIdentity()
         {
             return Guid.NewGuid();
         }
 
-        public IEnumerable<MembershipRequest> ByOrganization(int organizationId)
+        public IEnumerable<MembershipRequest> PendingByOrganization(int organizationId)
         {
-            return Entities.Where(p => p.OrganizationId == organizationId).List();
-        }
-
-        private IQueryOver<MembershipRequest, MembershipRequest> Entities
-        {
-            get { return Session.QueryOver<MembershipRequest>(); }
+            return
+                Entities.Where(p => p.OrganizationId == organizationId)
+                    .Where(p => (p.ApprovalDate == null) || (p.RejectDate == null))
+                    .List();
         }
     }
 }
