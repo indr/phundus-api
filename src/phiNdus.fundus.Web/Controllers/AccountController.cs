@@ -5,24 +5,20 @@
     using System.Web.Mvc;
     using System.Web.Security;
     using Castle.Transactions;
-    using phiNdus.fundus.Business;
-    using phiNdus.fundus.Web.Business.Dto;
-    using phiNdus.fundus.Web.Models;
-    using phiNdus.fundus.Web.Security;
-    using phiNdus.fundus.Web.ViewModels;
-    using phiNdus.fundus.Web.ViewModels.Account;
+    using Models;
     using Phundus.Core.IdentityAndAccessCtx.DomainModel;
     using Phundus.Core.IdentityAndAccessCtx.Exceptions;
     using Phundus.Core.IdentityAndAccessCtx.Mails;
     using Phundus.Core.IdentityAndAccessCtx.Queries;
     using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.OrganizationAndMembershipCtx.Model;
-    using Phundus.Core.OrganizationAndMembershipCtx.Repositories;
+    using Security;
+    using ViewModels;
+    using ViewModels.Account;
 
     public class AccountController : ControllerBase
     {
         public CustomMembershipProvider MembershipProvider { get; set; }
-        public IOrganizationRepository Organizations { get; set; }
+
         public IUserRepository Users { get; set; }
         public IRoleRepository Roles { get; set; }
 
@@ -216,11 +212,7 @@
         [Transaction]
         public virtual ActionResult SignUp()
         {
-            var model = new SignUpModel
-                            {
-                                Organizations = Organizations.FindAll()
-                            };
-            return View(model);
+            return View(new SignUpModel());
         }
 
         [HttpPost]
@@ -232,33 +224,23 @@
                 try
                 {
                     var userDto = new UserDto
-                                      {
-                                          Email = model.Email,
-                                          FirstName = model.FirstName,
-                                          LastName = model.LastName,
-                                          Street = model.Street,
-                                          Postcode = model.Postcode,
-                                          City = model.City,
-                                          MobilePhone = model.MobilePhone,
-                                          JsNumber = model.JsNumber
-                                      };
+                    {
+                        Email = model.Email,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Street = model.Street,
+                        Postcode = model.Postcode,
+                        City = model.City,
+                        MobilePhone = model.MobilePhone,
+                        JsNumber = model.JsNumber
+                    };
                     var password = model.Password;
-                    var organizationId = model.OrganizationId;
 
                     var email = userDto.Email.ToLower(CultureInfo.CurrentCulture).Trim();
 
                     // Prüfen ob Benutzer bereits exisitiert.
                     if (Users.FindByEmail(email) != null)
                         throw new EmailAlreadyTakenException();
-
-                    Organization organization = null;
-                    if (organizationId.HasValue)
-                    {
-                        organization = Organizations.FindById(organizationId.Value);
-                        if (organization == null)
-                            throw new Exception(String.Format("Die Organization mit der Id {0} ist nicht vorhanden.",
-                                                              organizationId));
-                    }
 
                     // Neuer Benutzer speichern.
                     var user = new User();
@@ -290,8 +272,6 @@
                 ModelState.AddModelError("", "Ein oder mehrere Felder enthalten ungültige Daten");
             }
 
-            // Nicht erfolgreich
-            model.Organizations = Organizations.FindAll();
             return View(model);
         }
     }
