@@ -50,6 +50,7 @@
             result.Version = subject.Version;
             result.FirstName = subject.FirstName;
             result.LastName = subject.LastName;
+            result.Email = subject.Membership.Email;
             result.JsNumber = subject.JsNumber;
             if (subject.Role != null)
             {

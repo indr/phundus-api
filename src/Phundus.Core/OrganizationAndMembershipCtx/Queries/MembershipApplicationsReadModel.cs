@@ -2,14 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Castle.Transactions;
     using Ddd;
+    using IdentityAndAccessCtx.Queries;
     using Model;
     using Repositories;
 
     public interface IMembershipApplicationQueries
     {
-        MembershipApplicationDtos PendingByOrganizationId(int organizationId);
+        IList<MembershipApplicationDto> PendingByOrganizationId(int organizationId);
     }
 
     public class MembershipApplicationsReadModel : IMembershipApplicationQueries,
@@ -18,19 +20,14 @@
     {
         public IMembershipRequestRepository MembershipRequestRepository { get; set; }
 
+        public IUserQueries UserQueries { get; set; }
+
         [Transaction]
-        public MembershipApplicationDtos PendingByOrganizationId(int organizationId)
+        public IList<MembershipApplicationDto> PendingByOrganizationId(int organizationId)
         {
             var requests = MembershipRequestRepository.PendingByOrganization(organizationId);
 
-            var result = new MembershipApplicationDtos();
-
-            foreach (var each in requests)
-            {
-                result.Add(ToMembershipApplicationDto(each));
-            }
-
-            return result;
+            return requests.Select(x => ToMembershipApplicationDto(x, UserQueries.ById(x.MemberId))).ToList();
         }
 
         public void Handle(MembershipRequestApproved @event)
@@ -48,16 +45,21 @@
             throw new NotImplementedException();
         }
 
-        private static MembershipApplicationDto ToMembershipApplicationDto(MembershipRequest each)
+        private static MembershipApplicationDto ToMembershipApplicationDto(MembershipRequest membershipRequest, UserDto user)
         {
             return new MembershipApplicationDto
             {
-                Id = each.Id,
-                OrgId = each.OrganizationId,
-                UserId = each.MemberId,
-                CreatedOn = each.RequestDate,
-                ApprovedOn = each.ApprovalDate,
-                RejectedOn = each.RejectDate
+                Id = membershipRequest.Id,
+                OrgId = membershipRequest.OrganizationId,
+                UserId = membershipRequest.MemberId,
+                CreatedOn = membershipRequest.RequestDate,
+                ApprovedOn = membershipRequest.ApprovalDate,
+                RejectedOn = membershipRequest.RejectDate,
+
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                JsNumber = user.JsNumber
             };
         }
     }
@@ -70,12 +72,16 @@
 
         public int UserId { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Email { get; set; }
+
+        public int? JsNumber { get; set; }
+
         public DateTime CreatedOn { get; set; }
         public DateTime? ApprovedOn { get; set; }
         public DateTime? RejectedOn { get; set; }
-    }
-
-    public class MembershipApplicationDtos : List<MembershipApplicationDto>
-    {
     }
 }

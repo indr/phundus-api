@@ -1,0 +1,27 @@
+﻿<h2>Beitrittsanfragen</h2>
+<p>
+    <input type="text" ng-model="search" class="search-query" placeholder="Suchen">
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th><a href="" ng-click="orderBy('firstName')">Vorname</a></th>
+            <th><a href="" ng-click="orderBy('lastName')">Nachname</a></th>
+            <th><a href="" ng-click="orderBy('jsNumber')">J+S-Nummer</a></th>
+            <th><a href="" ng-click="orderBy('emailAddress')">E-Mail-Adresse</a></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="application in applications | filter:search | orderBy:order">
+            <td>{{application.firstName}}</td>
+            <td>{{application.lastName}}</td>
+            <td>{{application.jsNumber}}</td>
+            <td>{{application.email}}</td>
+            <td>
+                <a class="btn btn-small btn-success" href="" ng-click="approve(application)">Bestätigen</a>
+                <a class="btn btn-small" href="" ng-click="reject(application)">Ablehnen</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

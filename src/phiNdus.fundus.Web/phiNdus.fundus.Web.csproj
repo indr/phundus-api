@@ -332,6 +332,7 @@
     <Content Include="Content\select2x2.png" />
     <Content Include="Content\spinner.gif" />
     <Content Include="Content\Views\Organization\Files.html" />
+    <Content Include="Content\Views\Organization\Applications.html" />
     <Content Include="Content\Views\Organization\Search.html" />
     <Content Include="Content\Views\Organization\Establish.html" />
     <Content Include="Content\Views\Organization\Members.html" />
