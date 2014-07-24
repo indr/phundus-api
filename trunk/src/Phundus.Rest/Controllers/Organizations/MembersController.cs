@@ -1,45 +1,32 @@
 ﻿namespace Phundus.Rest.Controllers
 {
     using System;
-    using System.Linq;
+    using System.Collections.Generic;
+    using System.Security.Principal;
     using System.Web.Http;
     using Castle.Transactions;
+    using Core.IdentityAndAccessCtx.Queries;
     using Core.IdentityAndAccessCtx.Repositories;
+    using Core.OrganizationAndMembershipCtx.Queries;
     using Core.OrganizationAndMembershipCtx.Repositories;
-    using Dtos;
-    using Exceptions;
 
-    [Authorize(Roles="Chief")]
+    [Authorize]
     public class MembersController : ApiControllerBase
     {
         public IUserRepository Users { get; set; }
         public IOrganizationRepository Organizations { get; set; }
         public IUserRepository Members { get; set; }
 
+        public IUserQueries UserQueries { get; set; }
+
+        public IMembershipQueries MembershipQueries { get; set; }
+
+        public IMemberQueries MemberQueries { get; set; }
+
         [Transaction]
-        public virtual MemberDtos Get(int organization)
+        public virtual IList<MemberDto> Get(int organization)
         {
-            throw new NotSupportedException();
-            //var org = Organizations.FindById(organization);
-            //var user = Users.FindByEmail(Identity.Name);
-
-            //if (org == null)
-            //    throw new HttpNotFoundException("Die Organisation ist nicht vorhanden.");
-
-            //if (!user.IsChiefOf(org))
-            //    throw new HttpForbiddenException("Sie haben keine Berechtigung um die Mitglieder zu lesen.");
-
-            //var result = new MemberDtos();
-            //var members = Members.FindByOrganization(organization);
-
-            //foreach (var each in members)
-            //{
-            //    var membership = each.Memberships.First(p => p.Organization.Id == organization);
-            //    //result.Add(ToDto(membership));
-            //    result.Add(Map<MemberDto>(membership));
-            //}
-
-            //return result;
+            return MemberQueries.ByOrganizationId(organization);
         }
 
         [HttpPut]

@@ -10,5 +10,6 @@ namespace Phundus.Core.OrganizationAndMembershipCtx.Repositories
         Guid NextIdentity();
 
         IList<Membership> ByMemberId(int memberId);
+        IList<Membership> ByOrganizationId(int organizationId);
     }
 }
