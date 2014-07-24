@@ -18,6 +18,12 @@
                 constraints: new {controller = @"^[a-z]+$", action = @"^[a-z]*$"});
 
             config.Routes.MapHttpRoute(
+               name: "OrganizationsApiRoute",
+                routeTemplate: "api/organizations/{organization}/{controller}/{id}/{action}",
+                defaults: new { id = RouteParameter.Optional, action = RouteParameter.Optional },
+                constraints: new { organization = @"^[\d]+$", id = @"^[\d\-a-z]*$" });
+
+            config.Routes.MapHttpRoute(
                 name: "OrganizationApiRoute",
                 routeTemplate: "api/{organization}/{controller}/{id}/{action}",
                 defaults: new {id = RouteParameter.Optional, action = RouteParameter.Optional},

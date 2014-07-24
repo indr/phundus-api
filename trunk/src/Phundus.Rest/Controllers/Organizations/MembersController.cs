@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Security.Principal;
     using System.Web.Http;
     using Castle.Transactions;
     using Core.IdentityAndAccessCtx.Queries;

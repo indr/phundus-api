@@ -50,12 +50,12 @@
     
     function HomeCtrl($scope, membershipapplications) {
         $scope.join = function () {
-            return;
+            
             
             if (!confirm('Möchten Sie dieser Organisation beitreten?'))
                 return;
 
-            membershipapplications.save({ orgId: $scope.organizationId },
+            membershipapplications.save({ orgId: $scope.organizationId }, 
             function (data, putResponseHeaders) {
                 alert('Ein Beitrittsgesuch wurde platziert.');
             },
