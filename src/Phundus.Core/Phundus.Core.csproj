@@ -103,6 +103,7 @@
     <Compile Include="OrganizationAndMembershipCtx\Model\Member.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Model\Membership.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Model\MembershipRequest.cs" />
+    <Compile Include="OrganizationAndMembershipCtx\Queries\MembersReadModel.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Queries\MembershipApplicationsReadModel.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Queries\MembershipsReadModel.cs" />
     <Compile Include="OrganizationAndMembershipCtx\Queries\OrganizationsReadModel.cs" />

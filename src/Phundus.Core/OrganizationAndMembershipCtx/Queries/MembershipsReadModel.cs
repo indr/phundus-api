@@ -2,11 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using Model;
     using Repositories;
 
     public interface IMembershipQueries
     {
         IList<MembershipDto> ByMemberId(int memberId);
+        IList<MembershipDto> ByOrganizationId(int organizationId);
     }
 
     public class MembershipsReadModel : IMembershipQueries
@@ -15,22 +18,25 @@
 
         public IList<MembershipDto> ByMemberId(int memberId)
         {
-            var result = new List<MembershipDto>();
-            foreach (var each in MembershipRepository.ByMemberId(memberId))
+            return MembershipRepository.ByMemberId(memberId).Select(ToMembershipDto).ToList();
+        }
+
+        public IList<MembershipDto> ByOrganizationId(int organizationId)
+        {
+            return MembershipRepository.ByOrganizationId(organizationId).Select(ToMembershipDto).ToList();
+        }
+
+        private static MembershipDto ToMembershipDto(Membership each)
+        {
+            return new MembershipDto
             {
-                result.Add(new MembershipDto
-                {
-                    Id = each.Id,
-                    MemberId = each.MemberId,
-                    OrganizationId = each.OrganizationId,
-                    OrganizationName = each.Organization.Name,
-                    OrganizationUrl = each.Organization.Url,
-                    MembershipRole = (each.Role == 2 ? "Chief" : "Member")
-                });
-            }
-
-
-            return result;
+                Id = each.Id,
+                MemberId = each.MemberId,
+                OrganizationId = each.OrganizationId,
+                OrganizationName = each.Organization.Name,
+                OrganizationUrl = each.Organization.Url,
+                MembershipRole = (each.Role == 2 ? "Chief" : "Member")
+            };
         }
     }
 

@@ -91,11 +91,9 @@
     </Compile>
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
-    <Compile Include="Controllers\MembersController.cs" />
-    <Compile Include="Controllers\OrganizationsController.cs" />
+    <Compile Include="Controllers\Organizations\MembersController.cs" />
+    <Compile Include="Controllers\Organizations\OrganizationsController.cs" />
     <Compile Include="Controllers\Organizations\MembershipApplicationsController.cs" />
-    <Compile Include="Dtos\MemberDto.cs" />
-    <Compile Include="Dtos\MemberDtos.cs" />
     <Compile Include="Exceptions\HttpConflictException.cs" />
     <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Exceptions\HttpNotFoundException.cs" />

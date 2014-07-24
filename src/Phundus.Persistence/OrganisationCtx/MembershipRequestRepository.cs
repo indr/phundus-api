@@ -15,12 +15,17 @@ namespace Phundus.Persistence.OrganisationCtx
 
         public Guid NextIdentity()
         {
-            throw new NotImplementedException();
+            return Guid.NewGuid();
         }
 
         public IList<Membership> ByMemberId(int memberId)
         {
             return Entities.Where(p => p.MemberId == memberId).List();
+        }
+
+        public IList<Membership> ByOrganizationId(int organizationId)
+        {
+            return Entities.Where(p => p.OrganizationId == organizationId).List();
         }
     }
 
