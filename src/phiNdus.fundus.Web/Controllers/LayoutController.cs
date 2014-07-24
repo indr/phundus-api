@@ -29,7 +29,11 @@
             foreach (var each in MembershipQueries.ByMemberId(user.Id))
             {
                 if ((model.Selected == null) || (each.OrganizationId == selectedOrganizationId))
+                {
                     model.Selected = each;
+                    Session["OrganizationId"] = each.OrganizationId;
+                }
+                    
 
                 model.Memberships.Add(each);
             }

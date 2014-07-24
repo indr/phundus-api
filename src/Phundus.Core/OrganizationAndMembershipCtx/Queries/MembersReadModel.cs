@@ -30,7 +30,9 @@
                     FirstName = user.FirstName,
                     JsNumber = user.JsNumber,
                     LastName = user.LastName,
-                    Role = each.MembershipRole
+                    IsApproved = true,
+                    IsLockedOut = false,
+                    Role = each.MembershipRole == "Chief" ? 2 : 1
                 });
             }
 
@@ -49,7 +51,7 @@
         public int? JsNumber { get; set; }
         public string EmailAddress { get; set; }
 
-        public string Role { get; set; }
+        public int Role { get; set; }
 
         public DateTime? RequestDate { get; set; }
 

@@ -11,7 +11,7 @@
 
     public class ApplyForMembership
     {
-        public int MemberId { get; set; }
+        public int UserId { get; set; }
         public int OrganizationId { get; set; }
     }
 
@@ -31,7 +31,7 @@
             Organization organization = OrganizationRepository.ById(command.OrganizationId);
             Guard.Against<EntityNotFoundException>(organization == null, "Organization not found");
 
-            var member = Members.MemberFrom(command.MemberId);
+            var member = Members.MemberFrom(command.UserId);
             Guard.Against<EntityNotFoundException>(member == null, "Member not found");
 
             var request = organization.RequestMembership(

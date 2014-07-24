@@ -1,21 +1,28 @@
 ﻿namespace Phundus.Rest.Controllers.Organizations
 {
     using System;
+    using Castle.Transactions;
+    using Core.IdentityAndAccessCtx.Queries;
     using Core.OrganizationAndMembershipCtx.Commands;
     using Core.OrganizationAndMembershipCtx.Queries;
 
     public class MembershipApplicationsController : ApiControllerBase
     {
-        public IMembershipApplicationQueries MembershipApplications { get; set; }
+        public IMembershipApplicationQueries MembershipApplicationQueries { get; set; }
+
+        public IUserQueries UserQueries { get; set; }
 
         public MembershipApplicationDtos Get(int organization)
         {
-            return MembershipApplications.PendingByOrganizationId(organization);
+            return MembershipApplicationQueries.PendingByOrganizationId(organization);
         }
 
-        public void Post(int organization, MembershipApplicationDto dto)
+        [Transaction]
+        public virtual void Post(int organization)
         {
-            Dispatch(new ApplyForMembership {MemberId = dto.UserId, OrganizationId = organization});
+            var user = UserQueries.ByEmail(Identity.Name);
+                
+            Dispatch(new ApplyForMembership {UserId = user.Id, OrganizationId = organization});
         }
 
         public void Delete(int organization, Guid id)
