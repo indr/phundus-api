@@ -1,18 +1,16 @@
 ﻿namespace Phundus.Core.IdentityAndAccessCtx.DomainModel
 {
     using System;
-    using System.Linq;
     using Ddd;
-    using Iesi.Collections.Generic;
     using OrganizationAndMembershipCtx.Model;
 
     public class User : EntityBase
     {
         private string _firstName;
+        private int? _jsNumber;
         private string _lastName;
         private Membership _membership;
         private Role _role;
-        private int? _jsNumber;
 
         public User() : this(0)
         {
@@ -55,15 +53,16 @@
             set { _role = value; }
         }
 
-        public virtual string DisplayName { get { return String.Format("{0} {1}", FirstName, LastName); } }
+        public virtual string DisplayName
+        {
+            get { return String.Format("{0} {1}", FirstName, LastName); }
+        }
 
         public virtual int? JsNumber
         {
-            get {
-                return _jsNumber;
-            }
-            set {
-
+            get { return _jsNumber; }
+            set
+            {
                 if (value.HasValue && ((value > 9999999) || (value < 1)))
                     throw new ArgumentOutOfRangeException("value", "Die J+S-Nummer muss sechs- oder siebenstellig sein.");
                 _jsNumber = value;

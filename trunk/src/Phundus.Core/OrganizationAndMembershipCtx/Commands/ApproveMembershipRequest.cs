@@ -9,6 +9,7 @@
     public class ApproveMembershipRequest
     {
         public Guid RequestId { get; set; }
+        public int MemberId { get; set; }
     }
 
     public class ApproveMembershipRequestHandler : IHandleCommand<ApproveMembershipRequest>

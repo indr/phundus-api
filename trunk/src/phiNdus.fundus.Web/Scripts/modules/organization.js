@@ -12,6 +12,7 @@
             .when('/search', { controller: SearchCtrl, templateUrl: './Content/Views/Organization/Search.html' })
             .when('/establish', { controller: EstablishCtrl, templateUrl: './Content/Views/Organization/Establish.html' })
             .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Organization/Members.html' })
+            .when('/applications', {controller: ApplicationsCtrl, templateUrl: './Content/Views/Organization/Applications.html' })
             .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Organization/Settings.html' })            
             .when('/files', { controller: FilesCtrl, templateUrl: './Content/Views/Organization/Files.html'})
             .otherwise({ redirectTo: '/search' });
@@ -115,11 +116,40 @@ function SettingsCtrl($scope, organizations, files) {
 
 }
 
+function ApplicationsCtrl($scope, membershipapplications) {
+    $scope.applications = membershipapplications.query({ orgId: $scope.organizationId });
+    $scope.order = 'lastName';
+    $scope.orderBy = function (by) {
+        if ($scope.order == by)
+            $scope.order = '-' + by;
+        else
+            $scope.order = by;
+    };
+
+    $scope.approve = function (application) {
+        if (confirm('Möchten Sie "' + application.firstName + ' ' + application.lastName + '" wirklich bestätigen?')) {
+            application.$update({},
+            function (data, putResponseHeaders) {
+                //application.isApproved = true;
+            },
+            function (err) {
+                var msg = err.data.message;
+                if (err.data.exceptionMessage != undefined)
+                    msg += "\n\n" + err.data.exceptionMessage;
+                if (err.data.messageDetail != undefined)
+                    msg += "\n\n" + err.data.messageDetail;
+
+
+                alert('Fehler: ' + "\n\n" + msg);
+            });
+        }
+    };
+}
+
 function MembersCtrl($scope, members) {
     $scope.members = members.query({ org: $scope.organizationId });
 
     $scope.order = 'lastName';
-    
     $scope.orderBy = function (by) {
         if ($scope.order == by)
             $scope.order = '-' + by;

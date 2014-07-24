@@ -26,7 +26,7 @@
     })
     .factory('membershipapplications', function($resource) {
         return $resource(
-            './api/organizations/:orgId/membershipapplications',
-            { orgId: '@orgId' },
-            {});
+            './api/organizations/:orgId/membershipapplications/:id',
+            { orgId: '@orgId', id: '@id' },
+            { update: {method: 'PATCH'}});
     });
