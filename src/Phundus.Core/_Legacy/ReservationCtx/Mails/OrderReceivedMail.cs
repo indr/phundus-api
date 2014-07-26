@@ -34,7 +34,7 @@
 
         public OrderReceivedMail Send(User user)
         {
-            Send(user.SiteMembership.Email);
+            Send(user.Account.Email);
             return this;
         }
 

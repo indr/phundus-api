@@ -10,7 +10,7 @@
         private string _firstName;
         private int? _jsNumber;
         private string _lastName;
-        private SiteMembership _siteMembership;
+        private Account _account;
         private Role _role;
 
         public User() : this(0)
@@ -25,8 +25,8 @@
         {
             _firstName = "";
             _lastName = "";
-            _siteMembership = new SiteMembership();
-            _siteMembership.User = this;
+            _account = new Account();
+            _account.User = this;
             _role = Role.User;
         }
 
@@ -42,10 +42,10 @@
             set { _lastName = value; }
         }
 
-        public virtual SiteMembership SiteMembership
+        public virtual Account Account
         {
-            get { return _siteMembership; }
-            set { _siteMembership = value; }
+            get { return _account; }
+            set { _account = value; }
         }
 
         public virtual Role Role

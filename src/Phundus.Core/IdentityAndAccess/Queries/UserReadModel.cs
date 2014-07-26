@@ -51,17 +51,17 @@
             result.Version = subject.Version;
             result.FirstName = subject.FirstName;
             result.LastName = subject.LastName;
-            result.Email = subject.SiteMembership.Email;
+            result.Email = subject.Account.Email;
             result.JsNumber = subject.JsNumber;
             if (subject.Role != null)
             {
                 result.RoleId = subject.Role.Id;
                 result.RoleName = subject.Role.Name;
             }
-            return WriteDtoMembership(subject.SiteMembership, result);
+            return WriteDtoMembership(subject.Account, result);
         }
 
-        private static UserDto WriteDtoMembership(SiteMembership subject, UserDto result)
+        private static UserDto WriteDtoMembership(Account subject, UserDto result)
         {
             // TODO: Bei der Registrierung scheint noch ein Bug zu sein, da irgendwie ein Benutzer- aber kein Membership-Datensatz angelegt wird...
             if (subject == null)

@@ -66,7 +66,7 @@
             if (user == null)
                 return HttpNotFound();
 
-            user.SiteMembership.LockOut();
+            user.Account.LockOut();
             SessionFact().Update(user);
 
             new UserLockedOutMail().For(user)
@@ -85,7 +85,7 @@
             if (user == null)
                 return HttpNotFound();
 
-            user.SiteMembership.Unlock();
+            user.Account.Unlock();
             SessionFact().Update(user);
 
             new UserUnlockedMail().For(user)

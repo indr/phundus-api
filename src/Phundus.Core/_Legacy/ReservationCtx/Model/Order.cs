@@ -255,7 +255,7 @@
             cell.Padding = 3;
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
-            table.AddCell(new Phrase(Reserver.MobileNumber + " / " + Reserver.SiteMembership.Email, defaultFont));
+            table.AddCell(new Phrase(Reserver.MobileNumber + " / " + Reserver.Account.Email, defaultFont));
 
 
             cell = new PdfPCell(new Phrase("Abholen:", defaultFontGray));

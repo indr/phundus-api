@@ -34,7 +34,7 @@
 
         public void Send(User user)
         {
-            Send(user.SiteMembership.Email);
+            Send(user.Account.Email);
         }
     }
 }

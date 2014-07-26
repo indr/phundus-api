@@ -28,7 +28,7 @@
         public void Handle(ChangePassword command)
         {
             var user = UserRepository.FindByEmail(command.Username);
-            user.SiteMembership.ChangePassword(command.OldPassword, command.NewPassword);
+            user.Account.ChangePassword(command.OldPassword, command.NewPassword);
         }
     }
 }

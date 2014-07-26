@@ -251,10 +251,10 @@
                     user.City = userDto.City;
                     user.MobileNumber = userDto.MobilePhone;
                     user.JsNumber = userDto.JsNumber;
-                    user.SiteMembership.Email = email;
-                    user.SiteMembership.Password = password;
+                    user.Account.Email = email;
+                    user.Account.Password = password;
                     user.Role = Roles.ById(Role.User.Id);
-                    user.SiteMembership.GenerateValidationKey();
+                    user.Account.GenerateValidationKey();
                     Users.Add(user);
 
                     // E-Mail mit Verifikationslink senden

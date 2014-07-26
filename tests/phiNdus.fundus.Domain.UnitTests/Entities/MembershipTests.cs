@@ -13,13 +13,13 @@
         [SetUp]
         public void SetUp()
         {
-            Sut = new SiteMembership();
+            Sut = new Account();
             Sut.Password = "1234";
             Sut.IsApproved = true;
             Sut.IsLockedOut = false;
         }
 
-        protected SiteMembership Sut { get; set; }
+        protected Account Sut { get; set; }
 
         private string GetNewSessionId()
         {
@@ -137,8 +137,8 @@
         [Test]
         public void Set_same_password_to_different_memberships_results_in_different_encrypted_password()
         {
-            var membership1 = new SiteMembership();
-            var membership2 = new SiteMembership();
+            var membership1 = new Account();
+            var membership2 = new Account();
             membership1.Password = "1234";
             membership2.Password = "1234";
             Assert.That(membership2.Password, Is.Not.EqualTo(membership1.Password));

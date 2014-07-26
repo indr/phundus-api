@@ -46,7 +46,7 @@
         public User FindByEmail(string email)
         {
             IQueryable<User> query = from u in Users
-                where u.SiteMembership.Email == email
+                where u.Account.Email == email
                 select u;
             return query.FirstOrDefault();
         }
@@ -54,7 +54,7 @@
         public User FindBySessionKey(string sessionKey)
         {
             IQueryable<User> query = from u in Users
-                where u.SiteMembership.SessionKey == sessionKey
+                where u.Account.SessionKey == sessionKey
                 select u;
             return query.FirstOrDefault();
         }
@@ -62,7 +62,7 @@
         public User FindByValidationKey(string validationKey)
         {
             IQueryable<User> query = from u in Users
-                where u.SiteMembership.ValidationKey == validationKey
+                where u.Account.ValidationKey == validationKey
                 select u;
             return query.FirstOrDefault();
         }
