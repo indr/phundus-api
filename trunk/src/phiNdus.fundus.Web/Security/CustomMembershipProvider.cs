@@ -146,7 +146,7 @@
             if (user == null)
                 return false;
 
-            var result = user.Membership.ValidateValidationKey(key);
+            var result = user.SiteMembership.ValidateValidationKey(key);
             if (result)
             {
                 Users.Update(user);
@@ -162,10 +162,10 @@
                 return false;
 
             // Prüfen ob Benutzer bereits exisitiert.
-            if (Users.FindByEmail(user.Membership.RequestedEmail) != null)
+            if (Users.FindByEmail(user.SiteMembership.RequestedEmail) != null)
                 throw new EmailAlreadyTakenException();
 
-            var result = user.Membership.ValidateEmailKey(key);
+            var result = user.SiteMembership.ValidateEmailKey(key);
             if (result)
             {
                 Users.Update(user);
@@ -217,7 +217,7 @@
                 var id = SessionKeyGenerator.CreateKey();
                 if ((HttpContext.Current != null) && (HttpContext.Current.Session != null))
                     id = HttpContext.Current.Session.SessionID;
-                user.Membership.LogOn(id, password);
+                user.SiteMembership.LogOn(id, password);
                 // TODO: Autoselect organization
                 //if (user.SelectedOrganization == null && user.Memberships.Count > 0)
                 //    user.SelectOrganization(user.Memberships.First().Organization);

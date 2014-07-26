@@ -89,11 +89,11 @@
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\BasketController.cs" />
-    <Compile Include="Controllers\Organizations\MembersController.cs" />
-    <Compile Include="Controllers\Organizations\OrganizationsController.cs" />
-    <Compile Include="Controllers\Organizations\MembershipApplicationsController.cs" />
+    <Compile Include="Controllers\_Legacy\AuthController.cs" />
+    <Compile Include="Controllers\_Legacy\BasketController.cs" />
+    <Compile Include="Controllers\IdentityAndAccess\MembersController.cs" />
+    <Compile Include="Controllers\IdentityAndAccess\OrganizationsController.cs" />
+    <Compile Include="Controllers\IdentityAndAccess\MembershipApplicationsController.cs" />
     <Compile Include="Exceptions\HttpConflictException.cs" />
     <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Exceptions\HttpNotFoundException.cs" />

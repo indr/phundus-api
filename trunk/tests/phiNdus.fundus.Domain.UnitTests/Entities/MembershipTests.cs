@@ -5,6 +5,7 @@
     using NUnit.Framework;
     using Phundus.Core.IdentityAndAccessCtx;
     using Phundus.Core.IdentityAndAccessCtx.DomainModel;
+    using Phundus.Core.IdentityAndAccessCtx.Model;
 
     [TestFixture]
     public class MembershipTests
@@ -12,13 +13,13 @@
         [SetUp]
         public void SetUp()
         {
-            Sut = new Membership();
+            Sut = new SiteMembership();
             Sut.Password = "1234";
             Sut.IsApproved = true;
             Sut.IsLockedOut = false;
         }
 
-        protected Membership Sut { get; set; }
+        protected SiteMembership Sut { get; set; }
 
         private string GetNewSessionId()
         {
@@ -136,8 +137,8 @@
         [Test]
         public void Set_same_password_to_different_memberships_results_in_different_encrypted_password()
         {
-            var membership1 = new Membership();
-            var membership2 = new Membership();
+            var membership1 = new SiteMembership();
+            var membership2 = new SiteMembership();
             membership1.Password = "1234";
             membership2.Password = "1234";
             Assert.That(membership2.Password, Is.Not.EqualTo(membership1.Password));

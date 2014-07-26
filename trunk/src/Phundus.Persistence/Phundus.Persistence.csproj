@@ -75,74 +75,74 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Installer.cs" />
-    <Compile Include="Mappings\OrganisationMap.cs" />
+    <Compile Include="IdentityAndAccess\Mappings\OrganisationMap.cs" />
     <Compile Include="NHibernateInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ArticleRepository.cs" />
-    <Compile Include="Repositories\CartRepository.cs" />
-    <Compile Include="Repositories\FieldDefinitionRepository.cs" />
-    <Compile Include="OrganisationCtx\MembershipRequestRepository.cs" />
-    <Compile Include="Repositories\OrderRepository.cs" />
-    <Compile Include="Repositories\OrganizationRepository.cs" />
-    <Compile Include="Repositories\ReservationRepository.cs" />
-    <Compile Include="Repositories\RoleRepository.cs" />
-    <Compile Include="Repositories\SettingRepository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="_Legacy\Repositories\ArticleRepository.cs" />
+    <Compile Include="_Legacy\Repositories\CartRepository.cs" />
+    <Compile Include="_Legacy\Repositories\FieldDefinitionRepository.cs" />
+    <Compile Include="IdentityAndAccess\Repositories\MembershipRequestRepository.cs" />
+    <Compile Include="_Legacy\Repositories\OrderRepository.cs" />
+    <Compile Include="IdentityAndAccess\Repositories\OrganizationRepository.cs" />
+    <Compile Include="_Legacy\Repositories\ReservationRepository.cs" />
+    <Compile Include="IdentityAndAccess\Repositories\RoleRepository.cs" />
+    <Compile Include="_Legacy\Repositories\SettingRepository.cs" />
+    <Compile Include="IdentityAndAccess\Repositories\UserRepository.cs" />
     <Compile Include="RepositoryBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\Article.hbm.xml">
+    <EmbeddedResource Include="_Legacy\Mappings\Article.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\FieldDefinition.hbm.xml" />
+    <EmbeddedResource Include="_Legacy\Mappings\FieldDefinition.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\FieldValue.hbm.xml" />
+    <EmbeddedResource Include="_Legacy\Mappings\FieldValue.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\Image.hbm.xml">
+    <EmbeddedResource Include="_Legacy\Mappings\Image.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\Membership.hbm.xml">
+    <EmbeddedResource Include="IdentityAndAccess\Mappings\Membership.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\Order.hbm.xml">
+    <EmbeddedResource Include="_Legacy\Mappings\Order.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\OrderItem.hbm.xml">
+    <EmbeddedResource Include="_Legacy\Mappings\OrderItem.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\Organization.hbm.xml">
+    <EmbeddedResource Include="IdentityAndAccess\Mappings\Organization.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\OrganizationMembership.hbm.xml">
+    <EmbeddedResource Include="IdentityAndAccess\Mappings\OrganizationMembership.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\Role.hbm.xml">
+    <EmbeddedResource Include="IdentityAndAccess\Mappings\Role.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\Setting.hbm.xml">
+    <EmbeddedResource Include="_Legacy\Mappings\Setting.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\User.hbm.xml">
+    <EmbeddedResource Include="IdentityAndAccess\Mappings\User.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -160,15 +160,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\Cart.hbm.xml">
+    <EmbeddedResource Include="_Legacy\Mappings\Cart.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\CartItem.hbm.xml">
+    <EmbeddedResource Include="_Legacy\Mappings\CartItem.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
