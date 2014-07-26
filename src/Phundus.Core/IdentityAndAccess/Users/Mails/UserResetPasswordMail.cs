@@ -1,8 +1,8 @@
-﻿namespace Phundus.Core.IdentityAndAccessCtx.Mails
+﻿namespace Phundus.Core.IdentityAndAccess.Users.Mails
 {
     using System;
-    using DomainModel;
     using Infrastructure;
+    using Model;
     using SettingsCtx;
 
     public class UserResetPasswordMail : BaseMail

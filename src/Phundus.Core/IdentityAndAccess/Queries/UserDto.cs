@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.IdentityAndAccessCtx.Queries
+﻿namespace Phundus.Core.IdentityAndAccess.Queries
 {
     using System;
 

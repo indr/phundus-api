@@ -2,7 +2,7 @@
 {
     using System.Web.Http;
     using Castle.Transactions;
-    using Core.IdentityAndAccessCtx.Repositories;
+    using Core.IdentityAndAccess.Users.Repositories;
     using Core.ShopCtx;
 
     public class BasketController : ApiControllerBase

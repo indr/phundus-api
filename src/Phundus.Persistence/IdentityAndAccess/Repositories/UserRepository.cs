@@ -5,8 +5,8 @@
     using System.Linq;
     using NHibernate;
     using NHibernate.Linq;
-    using Phundus.Core.IdentityAndAccessCtx.DomainModel;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
+    using Phundus.Core.IdentityAndAccess.Users.Model;
+    using Phundus.Core.IdentityAndAccess.Users.Repositories;
     using Phundus.Persistence;
 
     public class UserRepository : RepositoryBase<User>, IUserRepository

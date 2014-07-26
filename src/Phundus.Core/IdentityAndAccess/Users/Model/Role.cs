@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.IdentityAndAccessCtx.DomainModel
+﻿namespace Phundus.Core.IdentityAndAccess.Users.Model
 {
     using Ddd;
 

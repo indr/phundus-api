@@ -3,9 +3,9 @@
     using System;
     using System.Linq;
     using Exceptions;
+    using IdentityAndAccess.Organizations.Model;
     using Iesi.Collections.Generic;
     using Microsoft.Practices.ServiceLocation;
-    using OrganizationAndMembershipCtx.Model;
     using Repositories;
     using ReservationCtx;
     using ReservationCtx.Repositories;

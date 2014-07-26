@@ -3,9 +3,8 @@
     using System;
     using System.Collections.Generic;
     using Castle.Transactions;
-    using Core.IdentityAndAccessCtx.Queries;
-    using Core.OrganizationAndMembershipCtx.Commands;
-    using Core.OrganizationAndMembershipCtx.Queries;
+    using Core.IdentityAndAccess.Organizations.Commands;
+    using Core.IdentityAndAccess.Queries;
 
     public class MembershipApplicationsController : ApiControllerBase
     {

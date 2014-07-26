@@ -17,6 +17,18 @@ namespace phiNdus.fundus.Web.Controllers
             get { return Session.SessionID; }
         }
 
+        protected int? OrganizationId
+        {
+            get
+            {
+                if (Session["OrganizationId"] == null)
+                    return null;
+                return Convert.ToInt32(Session["OrganizationId"]);
+            }
+
+            set { Session["OrganizationId"] = value; }
+        }
+
         // Source: http://stackoverflow.com/questions/2374046/returning-an-editortemplate-as-a-partialview-in-an-action-result-asp-net-mvc-2
         protected PartialViewResult EditorFor(object model)
         {

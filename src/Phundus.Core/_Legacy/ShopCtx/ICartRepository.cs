@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Core.ShopCtx
 {
-    using IdentityAndAccessCtx.DomainModel;
+    using IdentityAndAccess.Users.Model;
     using Infrastructure;
 
     public interface ICartRepository : IRepository<Cart>

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Ddd;
-    using IdentityAndAccessCtx.DomainModel;
+    using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
     using InventoryCtx;
     using InventoryCtx.Model;

@@ -3,9 +3,8 @@
     using System;
     using System.Threading;
     using NUnit.Framework;
-    using Phundus.Core.IdentityAndAccessCtx;
-    using Phundus.Core.IdentityAndAccessCtx.DomainModel;
-    using Phundus.Core.IdentityAndAccessCtx.Model;
+    using Phundus.Core.IdentityAndAccess.Users.Exceptions;
+    using Phundus.Core.IdentityAndAccess.Users.Model;
 
     [TestFixture]
     public class MembershipTests

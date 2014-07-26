@@ -100,7 +100,6 @@
     <Compile Include="IdentityAndAccess\Queries\UserReadModel.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\ApproveMembershipRequest.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\RejectMembershipRequest.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\Member.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Membership.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\MembershipRequest.cs" />
     <Compile Include="IdentityAndAccess\Queries\MembersReadModel.cs" />
@@ -110,9 +109,6 @@
     <Compile Include="IdentityAndAccess\Queries\RelationshipsReadModel.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Services\IMemberService.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Services\MemberService.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Services\UserRepositoryAdapter.cs" />
     <Compile Include="_Legacy\InventoryCtx\Model\Article.cs" />
     <Compile Include="_Legacy\ShopCtx\Cart.cs" />
     <Compile Include="_Legacy\InventoryCtx\Model\CompositeEntity.cs" />

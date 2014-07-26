@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.IdentityAndAccessCtx.Commands
+﻿namespace Phundus.Core.IdentityAndAccess.Users.Commands
 {
     using System.Globalization;
     using Cqrs;

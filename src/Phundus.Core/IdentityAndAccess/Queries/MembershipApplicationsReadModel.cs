@@ -1,13 +1,12 @@
-﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Queries
+﻿namespace Phundus.Core.IdentityAndAccess.Queries
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Castle.Transactions;
     using Ddd;
-    using IdentityAndAccessCtx.Queries;
-    using Model;
-    using Repositories;
+    using IdentityAndAccess.Organizations.Model;
+    using IdentityAndAccess.Organizations.Repositories;
 
     public interface IMembershipApplicationQueries
     {
@@ -27,7 +26,7 @@
         {
             var requests = MembershipRequestRepository.PendingByOrganization(organizationId);
 
-            return requests.Select(x => ToMembershipApplicationDto(x, UserQueries.ById(x.MemberId))).ToList();
+            return requests.Select(x => ToMembershipApplicationDto(x, UserQueries.ById(x.UserId))).ToList();
         }
 
         public void Handle(MembershipRequestApproved @event)
@@ -51,7 +50,7 @@
             {
                 Id = membershipRequest.Id,
                 OrgId = membershipRequest.OrganizationId,
-                UserId = membershipRequest.MemberId,
+                UserId = membershipRequest.UserId,
                 CreatedOn = membershipRequest.RequestDate,
                 ApprovedOn = membershipRequest.ApprovalDate,
                 RejectedOn = membershipRequest.RejectDate,

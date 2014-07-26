@@ -4,10 +4,9 @@
     using System.Collections.Generic;
     using System.Web.Http;
     using Castle.Transactions;
-    using Core.IdentityAndAccessCtx.Queries;
-    using Core.IdentityAndAccessCtx.Repositories;
-    using Core.OrganizationAndMembershipCtx.Queries;
-    using Core.OrganizationAndMembershipCtx.Repositories;
+    using Core.IdentityAndAccess.Organizations.Repositories;
+    using Core.IdentityAndAccess.Queries;
+    using Core.IdentityAndAccess.Users.Repositories;
 
     [Authorize]
     public class MembersController : ApiControllerBase

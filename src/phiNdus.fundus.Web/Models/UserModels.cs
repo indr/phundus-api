@@ -9,9 +9,9 @@
     using Business.Assembler;
     using Business.Dto;
     using Microsoft.Practices.ServiceLocation;
-    using Phundus.Core.IdentityAndAccessCtx.DomainModel;
-    using Phundus.Core.IdentityAndAccessCtx.Queries;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
+    using Phundus.Core.IdentityAndAccess.Queries;
+    using Phundus.Core.IdentityAndAccess.Users.Model;
+    using Phundus.Core.IdentityAndAccess.Users.Repositories;
 
 
     public class UserModel : ModelBase

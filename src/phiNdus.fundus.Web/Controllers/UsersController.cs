@@ -6,9 +6,9 @@
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
     using Models;
-    using Phundus.Core.IdentityAndAccessCtx.Mails;
-    using Phundus.Core.IdentityAndAccessCtx.Queries;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
+    using Phundus.Core.IdentityAndAccess.Queries;
+    using Phundus.Core.IdentityAndAccess.Users.Mails;
+    using Phundus.Core.IdentityAndAccess.Users.Repositories;
 
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase

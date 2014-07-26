@@ -4,7 +4,7 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using Phundus.Core.OrganizationAndMembershipCtx.Model;
+    using Phundus.Core.IdentityAndAccess.Organizations.Model;
 
     public class RouteConfig
     {

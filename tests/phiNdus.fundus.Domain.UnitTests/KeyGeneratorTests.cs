@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace phiNdus.fundus.Domain.UnitTests
 {
-    using Phundus.Core.IdentityAndAccessCtx;
+    using Phundus.Core.IdentityAndAccess.Users.Services;
 
     [TestFixture]
     public class KeyGeneratorTests

@@ -1,8 +1,7 @@
-﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Queries
+﻿namespace Phundus.Core.IdentityAndAccess.Queries
 {
     using System;
     using System.Collections.Generic;
-    using IdentityAndAccessCtx.Queries;
 
     public interface IMemberQueries
     {

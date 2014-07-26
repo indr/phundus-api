@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NHibernate.Criterion;
-using NHibernate.Linq;
-
-namespace phiNdus.fundus.Domain.Repositories
+﻿namespace Phundus.Persistence.Repositories
 {
-    using Phundus.Core.InventoryCtx;
-    using Phundus.Core.InventoryCtx.Model;
-    using Phundus.Core.InventoryCtx.Repositories;
-    using Phundus.Core.OrganizationAndMembershipCtx.Model;
-    using Phundus.Persistence;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Core.InventoryCtx.Model;
+    using Core.InventoryCtx.Repositories;
+    using NHibernate.Criterion;
+    using NHibernate.Linq;
 
     public class ArticleRepository : RepositoryBase<Article>, IArticleRepository
     {
@@ -19,11 +14,9 @@ namespace phiNdus.fundus.Domain.Repositories
             get { return Session.Query<Article>(); }
         }
 
-        #region IArticleRepository Members
-
-        public ICollection<Article> FindAll(Organization selectedOrganization)
+        public ICollection<Article> FindAll(int organizationId)
         {
-            var query = from a in Articles where a.Organization.Id == selectedOrganization.Id select a;
+            var query = from a in Articles where a.Organization.Id == organizationId select a;
             return query.ToList();
         }
 
@@ -33,14 +26,12 @@ namespace phiNdus.fundus.Domain.Repositories
 
             if (organization.HasValue)
                 q = q.Where(a => a.Organization.Id == organization.Value);
-                
+
             var d = q.JoinQueryOver<FieldValue>(a => a.FieldValues)
                 .WhereRestrictionOn(fv => fv.TextValue).IsLike(query, MatchMode.Anywhere)
                 .List().Distinct();
             total = d.Count();
             return d.Skip(start).Take(count).ToList();
         }
-
-        #endregion
     }
 }

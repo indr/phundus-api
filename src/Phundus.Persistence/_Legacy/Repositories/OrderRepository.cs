@@ -5,7 +5,7 @@ using NHibernate.Linq;
 
 namespace phiNdus.fundus.Domain.Repositories
 {
-    using Phundus.Core.OrganizationAndMembershipCtx.Model;
+    using Phundus.Core.IdentityAndAccess.Organizations.Model;
     using Phundus.Core.ReservationCtx;
     using Phundus.Core.ReservationCtx.Model;
     using Phundus.Core.ReservationCtx.Repositories;

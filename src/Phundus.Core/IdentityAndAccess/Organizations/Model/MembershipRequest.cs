@@ -1,12 +1,11 @@
-﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Model
+﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Model
 {
     using System;
-    using IdentityAndAccessCtx.DomainModel;
 
     public class MembershipRequest
     {
         private Guid _id;
-        private int _memberId;
+        private int _userId;
         private int _organizationId;
         private DateTime _requestDate;
 
@@ -14,11 +13,11 @@
         {
         }
 
-        public MembershipRequest(Guid requestId, int organizationId, int memberId)
+        public MembershipRequest(Guid requestId, int organizationId, int userId)
         {
             _id = requestId;
             _organizationId = organizationId;
-            _memberId = memberId;
+            _userId = userId;
             _requestDate = DateTime.Now;
         }
 
@@ -34,10 +33,10 @@
             protected set { _organizationId = value; }
         }
 
-        public virtual int MemberId
+        public virtual int UserId
         {
-            get { return _memberId; }
-            protected set { _memberId = value; }
+            get { return _userId; }
+            protected set { _userId = value; }
         }
 
         public virtual int Version { get; protected set; }
@@ -57,7 +56,7 @@
             ApprovalDate = DateTime.Now;
             
 
-            return new Membership(membershipId, OrganizationId, MemberId, Id);
+            return new Membership(membershipId, OrganizationId, UserId, Id);
         }
 
         public virtual void Reject()

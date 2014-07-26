@@ -1,16 +1,15 @@
-﻿namespace Phundus.Core.IdentityAndAccessCtx.DomainModel
+﻿namespace Phundus.Core.IdentityAndAccess.Users.Model
 {
     using System;
     using Ddd;
-    using Model;
-    using OrganizationAndMembershipCtx.Model;
+    using IdentityAndAccess.Organizations.Model;
 
     public class User : EntityBase
     {
+        private Account _account;
         private string _firstName;
         private int? _jsNumber;
         private string _lastName;
-        private Account _account;
         private Role _role;
 
         public User() : this(0)

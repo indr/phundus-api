@@ -5,7 +5,8 @@
     using System.Linq;
     using System.Web.Hosting;
     using Ddd;
-    using IdentityAndAccessCtx.DomainModel;
+    using IdentityAndAccess.Organizations.Model;
+    using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
     using Infrastructure;
     using InventoryCtx.Repositories;
@@ -15,7 +16,6 @@
     using iTextSharp.text.pdf;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
-    using OrganizationAndMembershipCtx.Model;
 
     public class Order : EntityBase
     {

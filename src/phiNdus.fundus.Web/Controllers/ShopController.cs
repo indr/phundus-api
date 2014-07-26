@@ -7,7 +7,7 @@
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;
-    using Phundus.Core.OrganizationAndMembershipCtx.Repositories;
+    using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
 
     public class ShopController : ControllerBase
     {

@@ -9,7 +9,7 @@
     using Castle.Windsor;
     using phiNdus.fundus.Web.App_Start;
     using phiNdus.fundus.Web.Security;
-    using Phundus.Core.OrganizationAndMembershipCtx.Repositories;
+    using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
     using Phundus.Rest;
 
     public class MvcApplication : HttpApplication, IContainerAccessor

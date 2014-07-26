@@ -42,8 +42,11 @@
         [Transaction]
         public virtual ActionResult List()
         {
+            if (!OrganizationId.HasValue)
+                throw new Exception("Keine Organisation ausgewählt.");
+
             var model = new ArticlesTableViewModel(
-                ArticleService.GetArticles(),
+                ArticleService.GetArticles(OrganizationId.Value),
                 ArticleService.GetProperties()
                 );
             return View(model);

@@ -4,8 +4,8 @@
     using System.Web.Mvc;
     using Castle.Transactions;
     using phiNdus.fundus.Web.Helpers.FileUpload;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
-    using Phundus.Core.OrganizationAndMembershipCtx.Repositories;
+    using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
+    using Phundus.Core.IdentityAndAccess.Users.Repositories;
     using Phundus.Rest;
     using Phundus.Rest.Exceptions;
 

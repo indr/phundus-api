@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.IdentityAndAccessCtx.Exceptions
+﻿namespace Phundus.Core.IdentityAndAccess.Users.Exceptions
 {
     using System;
     using System.Runtime.Serialization;

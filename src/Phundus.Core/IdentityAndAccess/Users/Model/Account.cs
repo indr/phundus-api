@@ -1,9 +1,10 @@
-﻿namespace Phundus.Core.IdentityAndAccessCtx.Model
+﻿namespace Phundus.Core.IdentityAndAccess.Users.Model
 {
     using System;
     using Ddd;
-    using DomainModel;
+    using Exceptions;
     using Infrastructure;
+    using Services;
 
     public class Account : EntityBase
     {

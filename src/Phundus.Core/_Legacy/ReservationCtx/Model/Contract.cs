@@ -2,7 +2,7 @@
 {
     using System;
     using Ddd;
-    using IdentityAndAccessCtx.DomainModel;
+    using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
 
     public class Contract : EntityBase

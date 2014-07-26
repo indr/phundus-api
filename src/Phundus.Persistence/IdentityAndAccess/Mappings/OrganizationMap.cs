@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
 {
-    using Core.OrganizationAndMembershipCtx.Model;
+    using Core.IdentityAndAccess.Organizations.Model;
     using FluentNHibernate.Mapping;
 
     public class OrganizationMap : ClassMap<Organization>
