@@ -1,4 +1,4 @@
-﻿namespace Phundus.Persistence.Mappings
+﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
 {
     using Core.OrganizationAndMembershipCtx.Model;
     using FluentNHibernate.Mapping;

@@ -103,11 +103,11 @@
     <Compile Include="IdentityAndAccess\Organizations\Model\Member.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Membership.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\MembershipRequest.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Queries\MembersReadModel.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Queries\MembershipApplicationsReadModel.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Queries\MembershipsReadModel.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Queries\OrganizationsReadModel.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Queries\RelationshipsReadModel.cs" />
+    <Compile Include="IdentityAndAccess\Queries\MembersReadModel.cs" />
+    <Compile Include="IdentityAndAccess\Queries\MembershipApplicationsReadModel.cs" />
+    <Compile Include="IdentityAndAccess\Queries\MembershipsReadModel.cs" />
+    <Compile Include="IdentityAndAccess\Queries\OrganizationsReadModel.cs" />
+    <Compile Include="IdentityAndAccess\Queries\RelationshipsReadModel.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Services\IMemberService.cs" />
@@ -124,7 +124,7 @@
     <Compile Include="_Legacy\InventoryCtx\Model\FieldedEntity.cs" />
     <Compile Include="_Legacy\InventoryCtx\Model\FieldValue.cs" />
     <Compile Include="_Legacy\InventoryCtx\Model\Image.cs" />
-    <Compile Include="IdentityAndAccess\Users\Model\SiteMembership.cs" />
+    <Compile Include="IdentityAndAccess\Users\Model\Account.cs" />
     <Compile Include="_Legacy\ReservationCtx\Model\Order.cs" />
     <Compile Include="_Legacy\ReservationCtx\Model\OrderItem.cs" />
     <Compile Include="_Legacy\ReservationCtx\Model\OrderStatus.cs" />

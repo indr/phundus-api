@@ -69,8 +69,8 @@
         public void Create_assignes_Membership()
         {
             var sut = new User();
-            Assert.That(sut.SiteMembership, Is.Not.Null);
-            Assert.That(sut.SiteMembership.User, Is.EqualTo(sut));
+            Assert.That(sut.Account, Is.Not.Null);
+            Assert.That(sut.Account.User, Is.EqualTo(sut));
         }
 
         [Test]

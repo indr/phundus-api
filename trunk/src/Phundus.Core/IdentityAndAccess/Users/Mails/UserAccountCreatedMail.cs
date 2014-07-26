@@ -14,7 +14,7 @@
 
         public void Send(User user)
         {
-            Send(user.SiteMembership.Email);
+            Send(user.Account.Email);
         }
 
         public UserAccountCreatedMail For(User user)

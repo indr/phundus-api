@@ -5,13 +5,13 @@
     using DomainModel;
     using Infrastructure;
 
-    public class SiteMembership : EntityBase
+    public class Account : EntityBase
     {
         private DateTime _createDate;
         private string _password;
         private string _salt;
 
-        public SiteMembership()
+        public Account()
         {
             _createDate = DateTime.Now;
             _salt = KeyGenerator.CreateKey(5);
@@ -31,10 +31,10 @@
             }
         }
 
-        protected virtual string Salt
+        public virtual string Salt
         {
             get { return _salt; }
-            set { _salt = value; }
+            protected set { _salt = value; }
         }
 
         public virtual string Email { get; set; }
@@ -53,23 +53,23 @@
         public virtual DateTime? LastLockoutDate { get; set; }
         public virtual string Comment { get; set; }
 
-        protected bool IsNotApproved
+        protected virtual bool IsNotApproved
         {
             get { return !IsApproved; }
             set { IsApproved = !value; }
         }
 
-        public string ValidationKey { get; protected set; }
+        public virtual string ValidationKey { get; protected set; }
 
-        public string RequestedEmail { get; set; }
+        public virtual string RequestedEmail { get; set; }
         
-        public void LockOut()
+        public virtual void LockOut()
         {
             IsLockedOut = true;
             LastLockoutDate = DateTime.Now;
         }
 
-        public void LogOn(string sessionKey, string password)
+        public virtual void LogOn(string sessionKey, string password)
         {
             Guard.Against<ArgumentNullException>(sessionKey == null, "sessionKey");
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(sessionKey), "sessionKey must not be empty");
@@ -84,7 +84,7 @@
             LastLogOnDate = DateTime.Now;
         }
 
-        public void ChangePassword(string oldPassword, string newPassword)
+        public virtual void ChangePassword(string oldPassword, string newPassword)
         {
             Guard.Against<ArgumentNullException>(oldPassword == null, "oldPassword");
             Guard.Against<ArgumentNullException>(newPassword == null, "newPassword");
@@ -95,21 +95,21 @@
             Password = newPassword;
         }
 
-        public string ResetPassword()
+        public virtual string ResetPassword()
         {
             var result = PasswordGenerator.CreatePassword();
             Password = result;
             return result;
         }
 
-        public string GenerateValidationKey()
+        public virtual string GenerateValidationKey()
         {
             var key = KeyGenerator.CreateKey(24);
             ValidationKey = key;
             return key;
         }
 
-        public bool ValidateValidationKey(string key)
+        public virtual bool ValidateValidationKey(string key)
         {
             if (key == ValidationKey)
             {
@@ -118,7 +118,7 @@
             return false;
         }
 
-        public bool ValidateEmailKey(string key)
+        public virtual bool ValidateEmailKey(string key)
         {
             if (key == ValidationKey)
             {
@@ -132,11 +132,9 @@
             return false;
         }
 
-        public void Unlock()
+        public virtual void Unlock()
         {
             IsLockedOut = false;
         }
-
-        
     }
 }

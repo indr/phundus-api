@@ -32,8 +32,8 @@
                 throw new EmailAlreadyTakenException();
 
             var user = UserRepository.FindByEmail(email);
-            user.SiteMembership.RequestedEmail = newEmail;
-            user.SiteMembership.GenerateValidationKey();
+            user.Account.RequestedEmail = newEmail;
+            user.Account.GenerateValidationKey();
             UserRepository.Update(user);
 
             new UserChangeEmailValidationMail().For(user).Send(user);

@@ -14,7 +14,7 @@ namespace Phundus.Core.IdentityAndAccessCtx.Mails
 
         public void Send(User user)
         {
-            Send(user.SiteMembership.RequestedEmail);
+            Send(user.Account.RequestedEmail);
         }
 
         public UserChangeEmailValidationMail For(User user)
