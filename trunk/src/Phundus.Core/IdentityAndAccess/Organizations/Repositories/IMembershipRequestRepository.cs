@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Repositories
+﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Repositories
 {
     using System;
     using System.Collections.Generic;

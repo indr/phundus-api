@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
 {
-    using Core.IdentityAndAccessCtx.Model;
+    using Core.IdentityAndAccess.Users.Model;
     using FluentNHibernate;
     using FluentNHibernate.Mapping;
 

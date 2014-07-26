@@ -5,8 +5,7 @@
     using System.Web.Mvc;
     using Castle.Transactions;
     using Models.Organization;
-    using Phundus.Core.IdentityAndAccessCtx.Queries;
-    using Phundus.Core.OrganizationAndMembershipCtx.Queries;
+    using Phundus.Core.IdentityAndAccess.Queries;
 
     public class OrganizationController : ControllerBase
     {

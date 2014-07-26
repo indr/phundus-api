@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.IdentityAndAccessCtx
+﻿namespace Phundus.Core.IdentityAndAccess.Users.Services
 {
     using System;
     using System.Globalization;

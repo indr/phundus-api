@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Commands
+﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
     using System;
     using Castle.Transactions;

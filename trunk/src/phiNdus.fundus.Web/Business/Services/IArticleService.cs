@@ -10,7 +10,7 @@
         int CreateArticle(ArticleDto subject);
         void UpdateArticle(ArticleDto subject);
         IList<FieldDefinitionDto> GetProperties();
-        ArticleDto[] GetArticles();
+        ArticleDto[] GetArticles(int organizationId);
         void DeleteArticle(ArticleDto subject);
 
         IList<AvailabilityDto> GetAvailability(int id);

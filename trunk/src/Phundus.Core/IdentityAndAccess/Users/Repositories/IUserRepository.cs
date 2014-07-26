@@ -1,8 +1,8 @@
-﻿namespace Phundus.Core.IdentityAndAccessCtx.Repositories
+﻿namespace Phundus.Core.IdentityAndAccess.Users.Repositories
 {
     using System.Collections.Generic;
-    using DomainModel;
     using Infrastructure;
+    using Model;
 
     public interface IUserRepository : IRepository<User>
     {

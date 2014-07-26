@@ -10,11 +10,11 @@
     using Domain;
     using fundus.Business;
     using Phundus.Core.Cqrs;
-    using Phundus.Core.IdentityAndAccessCtx;
-    using Phundus.Core.IdentityAndAccessCtx.Commands;
-    using Phundus.Core.IdentityAndAccessCtx.Exceptions;
-    using Phundus.Core.IdentityAndAccessCtx.Mails;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
+    using Phundus.Core.IdentityAndAccess.Users.Commands;
+    using Phundus.Core.IdentityAndAccess.Users.Exceptions;
+    using Phundus.Core.IdentityAndAccess.Users.Mails;
+    using Phundus.Core.IdentityAndAccess.Users.Repositories;
+    using Phundus.Core.IdentityAndAccess.Users.Services;
     using Phundus.Infrastructure;
 
     public class CustomMembershipProvider : MembershipProvider

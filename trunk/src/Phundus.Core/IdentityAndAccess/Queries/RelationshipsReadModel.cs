@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Queries
+﻿namespace Phundus.Core.IdentityAndAccess.Queries
 {
     using System.Linq;
 

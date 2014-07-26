@@ -1,9 +1,10 @@
-﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Model
+﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Model
 {
     using System;
     using System.Text.RegularExpressions;
     using Ddd;
     using Iesi.Collections.Generic;
+    using Users.Model;
 
     public class Organization : EntityBase
     {
@@ -70,12 +71,12 @@
 
         public virtual string DocTemplateFileName { get; set; }
 
-        public virtual MembershipRequest RequestMembership(Guid requestId, Member member)
+        public virtual MembershipRequest RequestMembership(Guid requestId, User user)
         {
             var request = new MembershipRequest(
                 requestId,
                 Id,
-                member.Id);
+                user.Id);
 
             EventPublisher.Publish(new MembershipRequested());
 

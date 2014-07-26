@@ -1,10 +1,10 @@
-﻿namespace Phundus.Core.OrganizationAndMembershipCtx.Queries
+﻿namespace Phundus.Core.IdentityAndAccess.Queries
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Model;
-    using Repositories;
+    using IdentityAndAccess.Organizations.Model;
+    using IdentityAndAccess.Organizations.Repositories;
 
     public interface IMembershipQueries
     {

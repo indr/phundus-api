@@ -2,7 +2,7 @@
 {
     using System;
     using System.Net.Mail;
-    using IdentityAndAccessCtx.DomainModel;
+    using IdentityAndAccess.Users.Model;
     using Infrastructure;
     using Model;
     using SettingsCtx;

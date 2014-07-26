@@ -7,8 +7,7 @@
     using fundus.Business;
     using Models;
     using Models.CartModels;
-    using Phundus.Core.IdentityAndAccessCtx.Queries;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
+    using Phundus.Core.IdentityAndAccess.Queries;
     using ViewModels;
 
     public class CartController : ControllerBase

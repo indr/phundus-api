@@ -2,7 +2,7 @@
 {
     using System;
     using NUnit.Framework;
-    using Phundus.Core.IdentityAndAccessCtx.DomainModel;
+    using Phundus.Core.IdentityAndAccess.Users.Model;
 
     [TestFixture]
     public class UserTests

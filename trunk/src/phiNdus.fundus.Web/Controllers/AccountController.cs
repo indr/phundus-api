@@ -6,11 +6,11 @@
     using System.Web.Security;
     using Castle.Transactions;
     using Models;
-    using Phundus.Core.IdentityAndAccessCtx.DomainModel;
-    using Phundus.Core.IdentityAndAccessCtx.Exceptions;
-    using Phundus.Core.IdentityAndAccessCtx.Mails;
-    using Phundus.Core.IdentityAndAccessCtx.Queries;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
+    using Phundus.Core.IdentityAndAccess.Queries;
+    using Phundus.Core.IdentityAndAccess.Users.Exceptions;
+    using Phundus.Core.IdentityAndAccess.Users.Mails;
+    using Phundus.Core.IdentityAndAccess.Users.Model;
+    using Phundus.Core.IdentityAndAccess.Users.Repositories;
     using Security;
     using ViewModels;
     using ViewModels.Account;

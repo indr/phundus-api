@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Web.Http;
     using Castle.Transactions;
-    using Core.OrganizationAndMembershipCtx.Queries;
+    using Core.IdentityAndAccess.Queries;
     using Exceptions;
 
     public class OrganizationsController : ApiControllerBase

@@ -1,11 +1,10 @@
-﻿namespace Phundus.Core.IdentityAndAccessCtx.Queries
+﻿namespace Phundus.Core.IdentityAndAccess.Queries
 {
     using System;
     using System.Collections.Generic;
-    using DomainModel;
     using Infrastructure;
-    using Model;
-    using Repositories;
+    using Users.Model;
+    using Users.Repositories;
 
     public class UserReadModel : IUserQueries
     {

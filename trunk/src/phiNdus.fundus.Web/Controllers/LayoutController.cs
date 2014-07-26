@@ -3,8 +3,7 @@
     using System;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using Phundus.Core.IdentityAndAccessCtx.Queries;
-    using Phundus.Core.OrganizationAndMembershipCtx.Queries;
+    using Phundus.Core.IdentityAndAccess.Queries;
     using ViewModels.Layout;
 
     public class LayoutController : ControllerBase
@@ -22,16 +21,12 @@
             if (user == null)
                 return PartialView("_NavBar", model);
 
-            var selectedOrganizationId = 0;
-            if (Session["OrganizationId"] != null)
-                selectedOrganizationId = Convert.ToInt32(Session["OrganizationId"]);
-
             foreach (var each in MembershipQueries.ByMemberId(user.Id))
             {
-                if ((model.Selected == null) || (each.OrganizationId == selectedOrganizationId))
+                if ((model.Selected == null) || (each.OrganizationId == OrganizationId))
                 {
                     model.Selected = each;
-                    Session["OrganizationId"] = each.OrganizationId;
+                    OrganizationId = each.OrganizationId;
                 }
                     
 

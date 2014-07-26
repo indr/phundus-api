@@ -5,8 +5,8 @@
     using phiNdus.fundus.Business;
     using phiNdus.fundus.Web.Business.Assembler;
     using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Core.IdentityAndAccessCtx.DomainModel;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
+    using Phundus.Core.IdentityAndAccess.Users.Model;
+    using Phundus.Core.IdentityAndAccess.Users.Repositories;
     using Phundus.Core.ReservationCtx.Mails;
     using Phundus.Core.ShopCtx;
 

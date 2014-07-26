@@ -1,9 +1,9 @@
 ﻿namespace Phundus.Core.ReservationCtx.Repositories
 {
     using System.Collections.Generic;
+    using IdentityAndAccess.Organizations.Model;
     using Infrastructure;
     using Model;
-    using OrganizationAndMembershipCtx.Model;
 
     public interface IOrderRepository : IRepository<Order>
     {

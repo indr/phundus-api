@@ -5,9 +5,9 @@
     using Microsoft.Practices.ServiceLocation;
     using fundus.Business;
     using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Core.IdentityAndAccessCtx.DomainModel;
-    using Phundus.Core.IdentityAndAccessCtx.Queries;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
+    using Phundus.Core.IdentityAndAccess.Queries;
+    using Phundus.Core.IdentityAndAccess.Users.Model;
+    using Phundus.Core.IdentityAndAccess.Users.Repositories;
     using Phundus.Infrastructure;
 
     public class UserAssembler

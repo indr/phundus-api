@@ -5,7 +5,7 @@
     using System.Collections.Specialized;
     using System.Web.Security;
     using Castle.Transactions;
-    using Phundus.Core.IdentityAndAccessCtx.Repositories;
+    using Phundus.Core.IdentityAndAccess.Users.Repositories;
 
     public class CustomRoleProvider : RoleProvider
     {

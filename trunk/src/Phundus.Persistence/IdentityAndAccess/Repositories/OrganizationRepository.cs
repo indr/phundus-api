@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using Castle.Transactions;
-    using Core.OrganizationAndMembershipCtx.Model;
-    using Core.OrganizationAndMembershipCtx.Repositories;
+    using Core.IdentityAndAccess.Organizations.Model;
+    using Core.IdentityAndAccess.Organizations.Repositories;
     using NHibernate.Linq;
     using Phundus.Persistence;
 

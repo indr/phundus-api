@@ -2,8 +2,8 @@ namespace Phundus.Persistence.OrganisationCtx
 {
     using System;
     using System.Collections.Generic;
-    using Core.OrganizationAndMembershipCtx.Model;
-    using Core.OrganizationAndMembershipCtx.Repositories;
+    using Core.IdentityAndAccess.Organizations.Model;
+    using Core.IdentityAndAccess.Organizations.Repositories;
     using NHibernate;
 
     public class MembershipRepository : RepositoryBase<Membership>, IMembershipRepository
