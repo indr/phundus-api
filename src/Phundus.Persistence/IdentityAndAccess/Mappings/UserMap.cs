@@ -19,7 +19,8 @@
             Map(x => x.JsNumber);
 
             HasOne(x => x.Account).Cascade.All();
-            References(x => x.Role).Column("RoleId").Cascade.None().LazyLoad(Laziness.False);
+
+            Map(x => x.Role, "RoleId").CustomType<Role>();
 
             /*
             <set name="Memberships" cascade="all-delete-orphan" lazy="true" inverse="true" >
