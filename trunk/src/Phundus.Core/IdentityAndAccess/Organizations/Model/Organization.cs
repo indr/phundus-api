@@ -102,7 +102,7 @@
 
         public virtual void SetMembersRole(User administrator, User member, Role role)
         {
-            var membership = Memberships.FirstOrDefault(p => p.MemberId == member.Id);
+            var membership = Memberships.FirstOrDefault(p => p.UserId == member.Id);
             if (membership == null)
                 throw new Exception("Membership not found");
 

@@ -20,7 +20,7 @@ namespace Phundus.Persistence.OrganisationCtx
 
         public IList<Membership> ByMemberId(int memberId)
         {
-            return Entities.Where(p => p.MemberId == memberId).List();
+            return Entities.Where(p => p.UserId == memberId).List();
         }
 
         public IList<Membership> ByOrganizationId(int organizationId)

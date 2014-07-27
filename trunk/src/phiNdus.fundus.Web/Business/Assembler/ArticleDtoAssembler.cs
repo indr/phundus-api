@@ -128,7 +128,6 @@
         {
             foreach (var each in subject.Children)
             {
-                // TODO: Generics anstelle Cast?
                 result.AddChild(CreateDto((Article) each));
             }
         }

@@ -2,10 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using phiNdus.fundus.Business;
-    using phiNdus.fundus.Web.Business.Assembler;
-    using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Core.IdentityAndAccess.Users.Model;
+    using Assembler;
+    using Dto;
+    using fundus.Business;
+    using Phundus.Core.IdentityAndAccess.Organizations.Model;
+    using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.IdentityAndAccess.Users.Repositories;
     using Phundus.Core.ReservationCtx.Mails;
     using Phundus.Core.ShopCtx;
@@ -13,7 +14,10 @@
     public class CartService : BaseService, ICartService
     {
         public ICartRepository Carts { get; set; }
+
         public IUserRepository Users { get; set; }
+
+        public IMemberQueries MemberQueries { get; set; }
 
         #region ICartService Members
 
@@ -95,10 +99,11 @@
             var order = cart.PlaceOrder(SessionFact());
 
             var mail = new OrderReceivedMail().For(order);
-            var chiefs = order.Organization.Memberships.Where(m => m.Role == Phundus.Core.IdentityAndAccess.Organizations.Model.Role.Chief);
-            // TODO: Access
-            //foreach (var chief in chiefs)
-            //    mail.Send(chief.User.Membership.Email);
+
+            var chiefs = MemberQueries.ByOrganizationId(order.Organization.Id).Where(p => p.Role == (int)Role.Chief);
+            
+            foreach (var chief in chiefs)
+                mail.Send(chief.EmailAddress);
             mail.Send(order.Reserver);
 
 
@@ -120,11 +125,10 @@
             foreach (var order in orders)
             {
                 var mail = new OrderReceivedMail().For(order);
-                var chiefs = order.Organization.Memberships.Where(m => m.Role == Phundus.Core.IdentityAndAccess.Organizations.Model.Role.Chief);
+                var chiefs = MemberQueries.ByOrganizationId(order.Organization.Id).Where(p => p.Role == (int)Role.Chief);
 
-                // TODO: Access
-                //foreach (var chief in chiefs)
-                //    mail.Send(chief.User.Membership.Email);
+                foreach (var chief in chiefs)
+                    mail.Send(chief.EmailAddress);
                 mail.Send(order.Reserver);
             }
 
