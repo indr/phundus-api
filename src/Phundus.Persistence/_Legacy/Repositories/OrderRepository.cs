@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NHibernate.Linq;
-
-namespace phiNdus.fundus.Domain.Repositories
+﻿namespace Phundus.Persistence.Repositories
 {
-    using Phundus.Core.IdentityAndAccess.Organizations.Model;
-    using Phundus.Core.ReservationCtx;
-    using Phundus.Core.ReservationCtx.Model;
-    using Phundus.Core.ReservationCtx.Repositories;
-    using Phundus.Persistence;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Core.ReservationCtx.Model;
+    using Core.ReservationCtx.Repositories;
+    using NHibernate.Linq;
 
     public class OrderRepository : RepositoryBase<Order>, IOrderRepository
     {
@@ -28,54 +23,54 @@ namespace phiNdus.fundus.Domain.Repositories
         public ICollection<Order> FindMy(int userId)
         {
             var query = from o in Orders
-                        where o.Reserver.Id == userId
-                        orderby o.Status ascending 
-                        select o;
+                where o.Reserver.Id == userId
+                orderby o.Status ascending
+                select o;
             return query.ToList();
         }
 
-        public ICollection<Order> FindPending(Organization organization)
+        public ICollection<Order> FindPending(int organizationId)
         {
             var query = from o in Orders
-                        where o.Status == OrderStatus.Pending
-                          && o.Organization.Id == organization.Id
-                        select o;
+                where o.Status == OrderStatus.Pending
+                      && o.Organization.Id == organizationId
+                select o;
             return query.ToList();
         }
 
-        public ICollection<Order> FindApproved(Organization organization)
+        public ICollection<Order> FindApproved(int organizationId)
         {
             var query = from o in Orders
-                        where o.Status == OrderStatus.Approved
-                          && o.Organization.Id == organization.Id
-                        select o;
+                where o.Status == OrderStatus.Approved
+                      && o.Organization.Id == organizationId
+                select o;
             return query.ToList();
         }
 
-        public ICollection<Order> FindRejected(Organization organization)
+        public ICollection<Order> FindRejected(int organizationId)
         {
             var query = from o in Orders
-                        where o.Status == OrderStatus.Rejected
-                          && o.Organization.Id == organization.Id
-                        select o;
+                where o.Status == OrderStatus.Rejected
+                      && o.Organization.Id == organizationId
+                select o;
             return query.ToList();
         }
 
-        public ICollection<Order> FindClosed(Organization organization)
+        public ICollection<Order> FindClosed(int organizationId)
         {
             var query = from o in Orders
-                        where o.Status == OrderStatus.Closed
-                          && o.Organization.Id == organization.Id
-                        select o;
+                where o.Status == OrderStatus.Closed
+                      && o.Organization.Id == organizationId
+                select o;
             return query.ToList();
         }
 
         public int SumReservedAmount(int articleId)
         {
             var query = from i in Items
-                        where i.Article.Id == articleId
-                              && (i.Order.Status == OrderStatus.Pending || i.Order.Status == OrderStatus.Approved) 
-                        select i;
+                where i.Article.Id == articleId
+                      && (i.Order.Status == OrderStatus.Pending || i.Order.Status == OrderStatus.Approved)
+                select i;
             return query.Sum(x => (int?) x.Amount).GetValueOrDefault();
         }
 

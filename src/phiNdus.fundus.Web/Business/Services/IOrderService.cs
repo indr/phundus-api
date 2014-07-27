@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.IO;
     using Dto;
-    using Phundus.Core.ReservationCtx;
     using Phundus.Core.ReservationCtx.Model;
 
     public interface IOrderService
@@ -12,11 +11,11 @@
         OrderDto Confirm(int id);
 
         OrderDto GetOrder(int id);
-        IList<OrderDto> GetOrders(OrderStatus status);
+        IList<OrderDto> GetOrders(OrderStatus status, int organizationId);
         IList<OrderDto> GetMyOrders();
-        IList<OrderDto> GetPendingOrders();
-        IList<OrderDto> GetApprovedOrders();
-        IList<OrderDto> GetRejectedOrders();
+        IList<OrderDto> GetPendingOrders(int organizationId);
+        IList<OrderDto> GetApprovedOrders(int organizationId);
+        IList<OrderDto> GetRejectedOrders(int organizationId);
         Stream GetPdf(int id);
     }
 }

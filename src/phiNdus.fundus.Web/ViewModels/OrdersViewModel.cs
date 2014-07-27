@@ -31,9 +31,9 @@
 
     public class OrdersViewModel : OrdersViewModelBase
     {
-        public OrdersViewModel(OrderStatus status)
+        public OrdersViewModel(OrderStatus status, int organizationId)
         {
-            Load(Service.GetOrders(status));
+            Load(Service.GetOrders(status, organizationId));
         }
     }
 
