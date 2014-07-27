@@ -84,13 +84,13 @@
             return request;
         }
 
-        public virtual Membership ApproveMembershipRequest(MembershipRequest request, Guid membershipId)
+        public virtual void ApproveMembershipRequest(MembershipRequest request, Guid membershipId)
         {
             var membership = request.Approve(membershipId);
+            membership.Organization = this;
+            Memberships.Add(membership);
 
             EventPublisher.Publish(new MembershipRequestApproved());
-
-            return membership;
         }
 
         public virtual void RejectMembershipRequest(MembershipRequest request)

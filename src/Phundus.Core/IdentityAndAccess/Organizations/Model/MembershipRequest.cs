@@ -63,9 +63,8 @@
         public virtual Membership Approve(Guid membershipId)
         {
             ApprovalDate = DateTime.Now;
-            
 
-            return new Membership(membershipId, OrganizationId, UserId, Id);
+            return new Membership(membershipId, UserId, Id, ApprovalDate.Value);
         }
 
         public virtual void Reject()

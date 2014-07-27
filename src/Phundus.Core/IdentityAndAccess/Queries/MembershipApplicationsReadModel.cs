@@ -5,6 +5,7 @@
     using System.Linq;
     using Castle.Transactions;
     using Ddd;
+    using NHibernate.Linq;
     using NHibernate.SqlCommand;
     using NHibernate.Transform;
     using Organizations.Model;
@@ -20,8 +21,6 @@
         ISubscribeTo<MembershipRequested>, ISubscribeTo<MembershipRequestApproved>,
         ISubscribeTo<MembershipRequestRejected>
     {
-        public IMembershipRequestRepository MembershipRequestRepository { get; set; }
-
         [Transaction]
         public IList<MembershipApplicationDto> PendingByOrganizationId(int organizationId)
         {

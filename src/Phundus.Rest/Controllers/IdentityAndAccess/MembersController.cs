@@ -28,6 +28,16 @@
             return MemberQueries.ByOrganizationId(organization);
         }
 
+        [Transaction]
+        public virtual void Post(int organization, dynamic doc)
+        {
+            var administrator = Users.FindByEmail(Identity.Name);
+
+            var applicationId = doc.applicationId;
+
+            Dispatcher.Dispatch(new AllowMembershipApplication {AdministratorId = administrator.Id, ApplicationId = applicationId});
+        }
+
         [HttpPut]
         [Transaction]
         public virtual void Approve(int organization, int id)

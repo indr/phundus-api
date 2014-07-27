@@ -28,7 +28,7 @@
 
             Import<Organization>("Organizations.csv", "Organization");
             Import<User>("Users.csv", "User");
-            Import<UserMembership>("Users.csv", "Membership", false);
+            Import<Account>("Users.csv", "Membership", false);
             Import<Membership>("Memberships.csv", "OrganizationMembership", false);
             ImportArticle();
             Import<Setting>("Settings.csv", "Setting", false);
@@ -244,11 +244,6 @@
             [TypeConverter(typeof (RoleConverter))]
             public int Role { get; set; }
 
-            public DateTime RequestDate
-            {
-                get { return DateTime.Now; }
-            }
-
             [CsvField(Name = "IsApproved")]
             public bool IsApproved
             {
@@ -369,9 +364,9 @@
 
         #endregion
 
-        #region Nested type: UserMembership
+        #region Nested type: Account
 
-        internal class UserMembership
+        internal class Account
         {
             private string _email;
 

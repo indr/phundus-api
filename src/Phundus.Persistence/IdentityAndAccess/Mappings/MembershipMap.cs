@@ -15,7 +15,6 @@
 
             Map(x => x.MemberId).Column("UserId");
             
-            Map(x => x.OrganizationId);
             References(x => x.Organization, "OrganizationId").Cascade.None();
 
             Map(x => x.Role);

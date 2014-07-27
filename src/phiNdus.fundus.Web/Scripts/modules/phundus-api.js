@@ -2,8 +2,8 @@
     .module('phundus-api', ['ngResource'])
     .factory('members', function($resource) {
         var member = $resource(
-            './api/:org/members/:id/:action',
-            { id: '@id' },
+            './api/:organizationId/members/:id/:action',
+            { organizationId: '@organizationId', id: '@id' },
             { update: { method: 'PUT' } }
         );
 
@@ -24,9 +24,8 @@
         );
         return files;
     })
-    .factory('membershipapplications', function($resource) {
+    .factory('applications', function($resource) {
         return $resource(
-            './api/organizations/:orgId/membershipapplications/:id',
-            { orgId: '@orgId', id: '@id' },
-            { update: {method: 'PATCH'}});
+            './api/organizations/:organizationId/applications/:id',
+            { organizationId: '@organizationId', id: '@id' });
     });

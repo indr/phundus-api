@@ -6,27 +6,32 @@
     using Infrastructure;
     using Repositories;
 
-    public class RejectMembershipRequest
+    public class AllowMembershipApplication
     {
-        public Guid RequestId { get; set; }
-        public int MemberId { get; set; }
+        public Guid ApplicationId { get; set; }
+
+        public int AdministratorId { get; set; }
     }
 
-    public class RejectMembershipRequestHandler : IHandleCommand<RejectMembershipRequest>
+    public class AllowMembershipApplicationHandler : IHandleCommand<AllowMembershipApplication>
     {
-        public IMembershipRequestRepository MembershipRequestRepository { get; set; }
+        public IMembershipRequestRepository Requests { get; set; }
+
+        public IMembershipRepository Memberships { get; set; }
 
         public IOrganizationRepository OrganizationRepository { get; set; }
 
         [Transaction]
-        public void Handle(RejectMembershipRequest command)
+        public void Handle(AllowMembershipApplication command)
         {
-            var request = MembershipRequestRepository.ById(command.RequestId);
+            var request = Requests.ById(command.ApplicationId);
             Guard.Against<EntityNotFoundException>(request == null, "Membership request not found");
 
             var organization = OrganizationRepository.ById(request.OrganizationId);
             Guard.Against<EntityNotFoundException>(organization == null, "Organization not found");
-            organization.RejectMembershipRequest(request);
+            organization.ApproveMembershipRequest(request, Memberships.NextIdentity());
         }
     }
+
+
 }
