@@ -32,10 +32,10 @@
             {
                 Id = each.Id,
                 MemberId = each.MemberId,
-                OrganizationId = each.OrganizationId,
+                OrganizationId = each.Organization.Id,
                 OrganizationName = each.Organization.Name,
                 OrganizationUrl = each.Organization.Url,
-                ApprovedOn = each.ApprovalDate.Value,
+                ApprovedOn = each.ApprovalDate,
                 MembershipRole = (each.Role == 2 ? "Chief" : "Member")
             };
         }

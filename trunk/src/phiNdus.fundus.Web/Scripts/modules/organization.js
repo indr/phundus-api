@@ -49,14 +49,14 @@
         });
     }
     
-    function HomeCtrl($scope, membershipapplications) {
+    function HomeCtrl($scope, applications) {
         $scope.join = function () {
             
             
             if (!confirm('Möchten Sie dieser Organisation beitreten?'))
                 return;
 
-            membershipapplications.save({ orgId: $scope.organizationId }, 
+            applications.save({ organizationId: $scope.organizationId },
             function (data, putResponseHeaders) {
                 alert('Ein Beitrittsgesuch wurde platziert.');
             },
@@ -116,8 +116,8 @@ function SettingsCtrl($scope, organizations, files) {
 
 }
 
-function ApplicationsCtrl($scope, membershipapplications) {
-    $scope.applications = membershipapplications.query({ orgId: $scope.organizationId });
+function ApplicationsCtrl($scope, applications, members) {
+    $scope.applications = applications.query({ organizationId: $scope.organizationId });
     $scope.order = 'lastName';
     $scope.orderBy = function (by) {
         if ($scope.order == by)
@@ -128,8 +128,9 @@ function ApplicationsCtrl($scope, membershipapplications) {
 
     $scope.approve = function (application) {
         if (confirm('Möchten Sie "' + application.firstName + ' ' + application.lastName + '" wirklich bestätigen?')) {
-            application.$update({},
+            members.save({ organizationId: $scope.organizationId }, {applicationId: application.id },
             function (data, putResponseHeaders) {
+                alert("Die Mitgliedschaft wurde bestätigt.");
                 //application.isApproved = true;
             },
             function (err) {
@@ -144,10 +145,17 @@ function ApplicationsCtrl($scope, membershipapplications) {
             });
         }
     };
+
+    $scope.reject = function(application) {
+        if (!confirm('Möchten Sie "' + application.firstName + ' ' + application.lastName + '" wirklich ablehnen?'))
+            return;
+
+        application.$delete();
+    };
 }
 
 function MembersCtrl($scope, members) {
-    $scope.members = members.query({ org: $scope.organizationId });
+    $scope.members = members.query({ organizationId: $scope.organizationId });
 
     $scope.order = 'lastName';
     $scope.orderBy = function (by) {
@@ -159,7 +167,7 @@ function MembersCtrl($scope, members) {
 
     $scope.setRole = function (member, roleName, roleValue) {
         if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich die Rolle "' + roleName + '" geben?')) {
-            member.$update({ org: $scope.organizationId, action: 'setrole' },
+            member.$update({ organizationId: $scope.organizationId, action: 'setrole' },
             function (data, putResponseHeaders) {
                 member.role = roleValue;
             },
@@ -178,7 +186,7 @@ function MembersCtrl($scope, members) {
 
     $scope.approve = function (member) {
         if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich bestätigen?')) {
-            member.$update({ org: $scope.organizationId, action: 'approve' },
+            member.$update({ organizationId: $scope.organizationId, action: 'approve' },
             function (data, putResponseHeaders) {
                 member.isApproved = true;
             },
@@ -197,7 +205,7 @@ function MembersCtrl($scope, members) {
 
     $scope.lock = function (member) {
         if (confirm('Möchen Sie "' + member.firstName + ' ' + member.lastName + '" wirklich sperren?')) {
-            member.$update({ org: $scope.organizationId, action: 'lock' },
+            member.$update({ organizationId: $scope.organizationId, action: 'lock' },
             function (data, putResponseHeaders) {
                 member.isLocked = true;
             },
@@ -216,7 +224,7 @@ function MembersCtrl($scope, members) {
 
     $scope.unlock = function (member) {
         if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich entsperren?')) {
-            member.$update({ org: $scope.organizationId, action: 'unlock' },
+            member.$update({ organizationId: $scope.organizationId, action: 'unlock' },
             function (data, putResponseHeaders) {
                 member.isLocked = false;
             },

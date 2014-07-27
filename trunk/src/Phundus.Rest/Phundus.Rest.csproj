@@ -93,7 +93,7 @@
     <Compile Include="Controllers\_Legacy\BasketController.cs" />
     <Compile Include="Controllers\IdentityAndAccess\MembersController.cs" />
     <Compile Include="Controllers\IdentityAndAccess\OrganizationsController.cs" />
-    <Compile Include="Controllers\IdentityAndAccess\MembershipApplicationsController.cs" />
+    <Compile Include="Controllers\IdentityAndAccess\ApplicationsController.cs" />
     <Compile Include="Exceptions\HttpConflictException.cs" />
     <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Exceptions\HttpNotFoundException.cs" />

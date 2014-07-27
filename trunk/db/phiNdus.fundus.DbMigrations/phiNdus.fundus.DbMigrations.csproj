@@ -97,6 +97,7 @@
     <Compile Include="2013\03\M201303212259_OrderAddColumnOrganizationId.cs" />
     <Compile Include="2014\07\M201407201243_CreateTableMembershipRequest.cs" />
     <Compile Include="2014\07\M201407221828ChangePrimaryKeyOnOrganizationMembership.cs" />
+    <Compile Include="2014\07\M201407271016DeleteColumnOrganizationMembershipRequestDate.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />

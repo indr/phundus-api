@@ -1,4 +1,4 @@
-﻿namespace Phundus.Rest.Controllers.Organizations
+﻿namespace Phundus.Rest.Controllers.IdentityAndAccess
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
     using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Queries;
 
-    public class MembershipApplicationsController : ApiControllerBase
+    public class ApplicationsController : ApiControllerBase
     {
         public IMembershipApplicationQueries MembershipApplicationQueries { get; set; }
 
@@ -22,15 +22,7 @@
         {
             var user = UserQueries.ByEmail(Identity.Name);
 
-            Dispatch(new RejectMembershipRequest { RequestId = id, MemberId = user.Id });
-        }
-
-        [Transaction]
-        public virtual void Patch(int organization, Guid id)
-        {
-            var user = UserQueries.ByEmail(Identity.Name);
-
-            Dispatch(new ApproveMembershipRequest { RequestId = id, MemberId = user.Id });
+            Dispatch(new RejectMembershipApplication {ApplicationId = id, AdministratorId = user.Id});
         }
 
         [Transaction]
@@ -40,7 +32,5 @@
 
             Dispatch(new ApplyForMembership {UserId = user.Id, OrganizationId = organization});
         }
-
-        
     }
 }

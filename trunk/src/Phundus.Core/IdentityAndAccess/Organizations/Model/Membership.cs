@@ -6,20 +6,23 @@
     {
         private Guid _id;
         private int _memberId;
-        private int _organizationId;
         private Guid _requestId;
         private int _version;
+        private int _role;
+        private DateTime _approvalDate;
+        private Organization _organization;
 
         protected Membership()
         {
         }
 
-        public Membership(Guid id, int organizationId, int memberId, Guid requestId)
+        public Membership(Guid id, int memberId, Guid requestId, DateTime approvalDate)
         {
             _id = id;
-            _organizationId = organizationId;
             _memberId = memberId;
             _requestId = requestId;
+            _role = 1;
+            _approvalDate = approvalDate;
         }
 
         public virtual Guid Id
@@ -40,22 +43,28 @@
             protected set { _memberId = value; }
         }
 
-        public virtual int OrganizationId
-        {
-            get { return _organizationId; }
-            protected set { _organizationId = value; }
-        }
-
         public virtual Guid RequestId
         {
             get { return _requestId; }
             protected set { _requestId = value; }
         }
 
-        public virtual Organization Organization { get; set; }
+        public virtual Organization Organization
+        {
+            get { return _organization; }
+            set { _organization = value; }
+        }
 
-        public virtual int Role { get; set; }
+        public virtual int Role
+        {
+            get { return _role; }
+            set { _role = value; }
+        }
 
-        public virtual DateTime? ApprovalDate { get; protected set; }
+        public virtual DateTime ApprovalDate
+        {
+            get { return _approvalDate; }
+            protected set { _approvalDate = value; }
+        }
     }
 }
