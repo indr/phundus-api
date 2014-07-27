@@ -32,7 +32,7 @@
             StartMitSqlServerCe.TuEs();
 
             DatabaseMigrator.Migrate();
-            AutoMapperConfig.Config();
+            
 
             _container = ContainerConfig.Bootstrap();
             _container.Register(Component.For<CustomMembershipProvider>()

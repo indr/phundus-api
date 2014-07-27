@@ -2,7 +2,6 @@
 {
     using System.Security.Principal;
     using System.Web.Http;
-    using AutoMapper;
     using Castle.Core.Logging;
     using Core.Cqrs;
 
@@ -25,9 +24,9 @@
             Dispatcher.Dispatch(command);
         }
 
-        protected static TDestination Map<TDestination>(object source)
-        {
-            return Mapper.Map<TDestination>(source);
-        }
+        //protected static TDestination Map<TDestination>(object source)
+        //{
+        //    return Mapper.Map<TDestination>(source);
+        //}
     }
 }
