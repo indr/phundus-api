@@ -5,28 +5,52 @@
     using System.Linq;
     using Castle.Transactions;
     using Ddd;
-    using IdentityAndAccess.Organizations.Model;
-    using IdentityAndAccess.Organizations.Repositories;
+    using NHibernate.SqlCommand;
+    using NHibernate.Transform;
+    using Organizations.Model;
+    using Organizations.Repositories;
+    using Users.Model;
 
     public interface IMembershipApplicationQueries
     {
         IList<MembershipApplicationDto> PendingByOrganizationId(int organizationId);
     }
 
-    public class MembershipApplicationsReadModel : IMembershipApplicationQueries,
+    public class MembershipApplicationsReadModel : ReadModelBase, IMembershipApplicationQueries,
         ISubscribeTo<MembershipRequested>, ISubscribeTo<MembershipRequestApproved>,
         ISubscribeTo<MembershipRequestRejected>
     {
         public IMembershipRequestRepository MembershipRequestRepository { get; set; }
 
-        public IUserQueries UserQueries { get; set; }
-
         [Transaction]
         public IList<MembershipApplicationDto> PendingByOrganizationId(int organizationId)
         {
-            var requests = MembershipRequestRepository.PendingByOrganization(organizationId);
+            MembershipRequest membershipRequest = null;
+            User user = null;
+            Account account = null;
+            MembershipApplicationDto dto = null;
+            
+            var result = Session.QueryOver(() => membershipRequest)
+                .Where(p => p.OrganizationId == organizationId)
+                .And(p => p.ApprovalDate == null)
+                .And(p => p.RejectDate == null)
+                .JoinAlias(() => membershipRequest.User, () => user)
+                .JoinAlias(() => user.Account, () => account)
+                .SelectList(list => list
+                    .Select(r => r.Id).WithAlias(() => dto.Id)
+                    .Select(r => r.OrganizationId).WithAlias(() => dto.OrganizationId)
+                    .Select(r => r.UserId).WithAlias(() => dto.UserId)
+                    .Select(r => user.FirstName).WithAlias(() => dto.FirstName)
+                    .Select(r => user.LastName).WithAlias(() => dto.LastName)
+                    .Select(r => account.Email).WithAlias(() => dto.Email)
+                    .Select(r => user.JsNumber).WithAlias(() => dto.JsNumber)
+                    .Select(r => r.RequestDate).WithAlias(() => dto.CreatedOn)
+                    .Select(r => r.ApprovalDate).WithAlias(() => dto.ApprovedOn)
+                    .Select(r => r.RejectDate).WithAlias(() => dto.RejectedOn)
+                    )
+                .TransformUsing(Transformers.AliasToBean<MembershipApplicationDto>()).List<MembershipApplicationDto>();
 
-            return requests.Select(x => ToMembershipApplicationDto(x, UserQueries.ById(x.UserId))).ToList();
+            return result;
         }
 
         public void Handle(MembershipRequestApproved @event)
@@ -44,17 +68,17 @@
             throw new NotImplementedException();
         }
 
-        private static MembershipApplicationDto ToMembershipApplicationDto(MembershipRequest membershipRequest, UserDto user)
+        private static MembershipApplicationDto ToMembershipApplicationDto(MembershipRequest membershipRequest,
+            UserDto user)
         {
             return new MembershipApplicationDto
             {
                 Id = membershipRequest.Id,
-                OrgId = membershipRequest.OrganizationId,
+                OrganizationId = membershipRequest.OrganizationId,
                 UserId = membershipRequest.UserId,
                 CreatedOn = membershipRequest.RequestDate,
                 ApprovedOn = membershipRequest.ApprovalDate,
                 RejectedOn = membershipRequest.RejectDate,
-
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
@@ -67,7 +91,7 @@
     {
         public Guid Id { get; set; }
 
-        public int OrgId { get; set; }
+        public int OrganizationId { get; set; }
 
         public int UserId { get; set; }
 
@@ -80,7 +104,9 @@
         public int? JsNumber { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
         public DateTime? ApprovedOn { get; set; }
+
         public DateTime? RejectedOn { get; set; }
     }
 }

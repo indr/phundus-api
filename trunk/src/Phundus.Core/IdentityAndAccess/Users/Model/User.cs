@@ -2,7 +2,7 @@
 {
     using System;
     using Ddd;
-    using IdentityAndAccess.Organizations.Model;
+    using Organizations.Model;
 
     public class User : EntityBase
     {

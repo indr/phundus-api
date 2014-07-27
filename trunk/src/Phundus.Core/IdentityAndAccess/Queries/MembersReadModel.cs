@@ -29,8 +29,7 @@
                     FirstName = user.FirstName,
                     JsNumber = user.JsNumber,
                     LastName = user.LastName,
-                    IsApproved = true,
-                    IsLockedOut = false,
+                    ApprovalDate = each.ApprovedOn,
                     Role = each.MembershipRole == "Chief" ? 2 : 1
                 });
             }

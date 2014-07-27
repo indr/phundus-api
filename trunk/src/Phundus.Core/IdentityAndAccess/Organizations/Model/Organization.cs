@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Model
 {
     using System;
+    using System.Linq;
     using System.Text.RegularExpressions;
     using Ddd;
     using Iesi.Collections.Generic;
@@ -76,7 +77,7 @@
             var request = new MembershipRequest(
                 requestId,
                 Id,
-                user.Id);
+                user);
 
             EventPublisher.Publish(new MembershipRequested());
 
@@ -97,6 +98,15 @@
             request.Reject();
 
             EventPublisher.Publish(new MembershipRequestRejected());
+        }
+
+        public virtual void SetMembersRole(User administrator, User member, int roleId)
+        {
+            var membership = Memberships.FirstOrDefault(p => p.MemberId == member.Id);
+            if (membership == null)
+                throw new Exception("Membership not found");
+            
+            membership.Role = roleId;
         }
     }
 }

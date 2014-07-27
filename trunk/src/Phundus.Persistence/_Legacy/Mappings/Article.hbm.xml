@@ -20,7 +20,7 @@
 		</set>
 
 		<subclass name="Article">
-			<many-to-one name="Organization" column="OrganizationId" class="Phundus.Core.OrganizationAndMembershipCtx.Model.Organization" not-null="true" />
+			<many-to-one name="Organization" column="OrganizationId" class="Phundus.Core.IdentityAndAccess.Organizations.Model.Organization" not-null="true" />
 
 			<property name="CreateDate" update="false" />
 

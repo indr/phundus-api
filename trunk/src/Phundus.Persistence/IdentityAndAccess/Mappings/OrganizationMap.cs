@@ -21,7 +21,7 @@
 
             HasMany(x => x.Memberships)
                 .KeyColumn("OrganizationId")
-                .AsSet().Inverse().Cascade.AllDeleteOrphan();
+                .AsSet().Inverse().Cascade.None();
         }
     }
 }

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Web.Http;
     using Castle.Transactions;
+    using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Organizations.Repositories;
     using Core.IdentityAndAccess.Queries;
     using Core.IdentityAndAccess.Users.Repositories;
@@ -59,12 +60,21 @@
 
         [HttpPut]
         [Transaction]
-        public virtual void SetRole(int organization, int id, [FromBody] int roleId)
+        public virtual void SetRole(int organization, int id, dynamic doc)
         {
-            throw new NotSupportedException();
-            //var membership = DoSomeStuffIDontHaveWordsFor(organization, id);
-            //membership.Role = roleId;
-            //Members.Update(member);
+            var user = UserQueries.ByEmail(Identity.Name);
+            if (user == null)
+                return;
+
+            var roleId = doc.role;
+
+            Dispatcher.Dispatch(new AddMemberToRole
+            {
+                OrganizationId = organization,
+                AdministratorId = user.Id,
+                MemberId = id,
+                RoleId = roleId
+            });
         }
 
         //private OrganizationMembership DoSomeStuffIDontHaveWordsFor(int organization, int id)
