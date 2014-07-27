@@ -25,7 +25,7 @@
         [Transaction]
         public virtual ActionResult Pending()
         {
-            return View("Pending", new OrdersViewModel(OrderStatus.Pending));
+            return View("Pending", new OrdersViewModel(OrderStatus.Pending, OrganizationId.Value));
         }
 
         //
@@ -34,7 +34,7 @@
         [Transaction]
         public virtual ActionResult Approved()
         {
-            return View("Approved", new OrdersViewModel(OrderStatus.Approved));
+            return View("Approved", new OrdersViewModel(OrderStatus.Approved, OrganizationId.Value));
         }
 
         //
@@ -43,7 +43,7 @@
         [Transaction]
         public virtual ActionResult Closed()
         {
-            return View("Closed", new OrdersViewModel(OrderStatus.Closed));
+            return View("Closed", new OrdersViewModel(OrderStatus.Closed, OrganizationId.Value));
         }
 
         //
@@ -52,7 +52,7 @@
         [Transaction]
         public virtual ActionResult Rejected()
         {
-            return View("Rejected", new OrdersViewModel(OrderStatus.Rejected));
+            return View("Rejected", new OrdersViewModel(OrderStatus.Rejected, OrganizationId.Value));
         }
 
         [Transaction]

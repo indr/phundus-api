@@ -3,12 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using Assembler;
     using Castle.Transactions;
+    using Dto;
     using Microsoft.Practices.ServiceLocation;
-    using phiNdus.fundus.Web.Business.Assembler;
-    using phiNdus.fundus.Web.Business.Dto;
     using Phundus.Core.IdentityAndAccess.Users.Repositories;
-    using Phundus.Core.ReservationCtx;
     using Phundus.Core.ReservationCtx.Mails;
     using Phundus.Core.ReservationCtx.Model;
     using Phundus.Core.ReservationCtx.Repositories;
@@ -27,27 +26,27 @@
             return new OrderDtoAssembler().CreateDto(order);
         }
 
-        public virtual IList<OrderDto> GetPendingOrders()
+        public virtual IList<OrderDto> GetPendingOrders(int organizationId)
         {
             var user = Users.FindByEmail(Identity.Name);
             var orders = ServiceLocator.Current.GetInstance<IOrderRepository>()
-                                       .FindPending(user.SelectedOrganization);
+                .FindPending(organizationId);
             return new OrderDtoAssembler().CreateDtos(orders);
         }
 
-        public virtual IList<OrderDto> GetApprovedOrders()
+        public virtual IList<OrderDto> GetApprovedOrders(int organizationId)
         {
             var user = Users.FindByEmail(Identity.Name);
             var orders = ServiceLocator.Current.GetInstance<IOrderRepository>()
-                                       .FindApproved(user.SelectedOrganization);
+                .FindApproved(organizationId);
             return new OrderDtoAssembler().CreateDtos(orders);
         }
 
-        public virtual IList<OrderDto> GetRejectedOrders()
+        public virtual IList<OrderDto> GetRejectedOrders(int organizationId)
         {
             var user = Users.FindByEmail(Identity.Name);
             var orders = ServiceLocator.Current.GetInstance<IOrderRepository>()
-                                       .FindRejected(user.SelectedOrganization);
+                .FindRejected(organizationId);
             return new OrderDtoAssembler().CreateDtos(orders);
         }
 
@@ -58,18 +57,18 @@
             return new OrderDtoAssembler().CreateDtos(orders);
         }
 
-        public IList<OrderDto> GetOrders(OrderStatus status)
+        public IList<OrderDto> GetOrders(OrderStatus status, int organizationId)
         {
             switch (status)
             {
                 case OrderStatus.Pending:
-                    return GetPendingOrders();
+                    return GetPendingOrders(organizationId);
                 case OrderStatus.Approved:
-                    return GetApprovedOrders();
+                    return GetApprovedOrders(organizationId);
                 case OrderStatus.Rejected:
-                    return GetRejectedOrders();
+                    return GetRejectedOrders(organizationId);
                 case OrderStatus.Closed:
-                    return GetClosedOrders();
+                    return GetClosedOrders(organizationId);
                 default:
                     throw new ArgumentOutOfRangeException("status");
             }
@@ -120,11 +119,11 @@
 
         #endregion
 
-        private IList<OrderDto> GetClosedOrders()
+        private IList<OrderDto> GetClosedOrders(int organizationId)
         {
             var user = Users.FindByEmail(Identity.Name);
             var orders = ServiceLocator.Current.GetInstance<IOrderRepository>()
-                                       .FindClosed(user.SelectedOrganization);
+                .FindClosed(organizationId);
             return new OrderDtoAssembler().CreateDtos(orders);
         }
     }
