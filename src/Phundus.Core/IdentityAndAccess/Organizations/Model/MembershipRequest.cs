@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Model
 {
     using System;
+    using Users.Model;
 
     public class MembershipRequest
     {
@@ -8,16 +9,17 @@
         private int _userId;
         private int _organizationId;
         private DateTime _requestDate;
+        private User _user;
 
         protected MembershipRequest()
         {
         }
 
-        public MembershipRequest(Guid requestId, int organizationId, int userId)
+        public MembershipRequest(Guid requestId, int organizationId, User user)
         {
             _id = requestId;
             _organizationId = organizationId;
-            _userId = userId;
+            _user = user;
             _requestDate = DateTime.Now;
         }
 
@@ -39,6 +41,12 @@
             protected set { _userId = value; }
         }
 
+        public virtual User User
+        {
+            get { return _user; }
+            protected set { _user = value; }
+        }
+
         public virtual int Version { get; protected set; }
 
         public virtual DateTime RequestDate
@@ -50,6 +58,7 @@
         public virtual DateTime? ApprovalDate { get; protected set; }
 
         public virtual DateTime? RejectDate { get; protected set; }
+        
 
         public virtual Membership Approve(Guid membershipId)
         {

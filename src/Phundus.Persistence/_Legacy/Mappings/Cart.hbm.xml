@@ -7,7 +7,7 @@
     </id>
     <version name="Version" />
     
-    <many-to-one name="Customer" class="Phundus.Core.IdentityAndAccessCtx.DomainModel.User" column="CustomerId" />
+    <many-to-one name="Customer" class="Phundus.Core.IdentityAndAccess.Users.Model.User" column="CustomerId" />
     
     <set name="Items" cascade="all-delete-orphan" lazy="true" inverse="true" >
       <key column="CartId" />

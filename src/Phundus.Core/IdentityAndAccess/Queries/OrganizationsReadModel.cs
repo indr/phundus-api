@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Organizations.Repositories;
-    using NHibernate;
 
     public interface IOrganizationQueries
     {
@@ -13,16 +12,11 @@
         IEnumerable<OrganizationDto> All();
     }
 
-    public class OrganizationsReadModel : IOrganizationQueries
+    public class OrganizationsReadModel : ReadModelBase, IOrganizationQueries
     {
         public IOrganizationRepository OrganizationRepository { get; set; }
 
-        public Func<ISession> SessionFactory { get; set; }
-
-        protected virtual ISession Session
-        {
-            get { return SessionFactory(); }
-        }
+        
 
         public IEnumerable<OrganizationDto> ByMemberId(int memberId)
         {

@@ -75,6 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IdentityAndAccess\Organizations\Commands\AddMemberToRole.cs" />
+    <Compile Include="IdentityAndAccess\Queries\ReadModelBase.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseHandlerInterceptor.cs" />
     <Compile Include="Cqrs\CommandDispatcher.cs" />

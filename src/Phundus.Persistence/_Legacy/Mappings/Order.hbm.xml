@@ -11,11 +11,11 @@
     <property name="CreateDate" />
     <property name="Status" />
 
-    <many-to-one name="Organization" class="Phundus.Core.OrganizationAndMembershipCtx.Model.Organization" column="OrganizationId" />
-    <many-to-one name="Reserver" class="Phundus.Core.IdentityAndAccessCtx.DomainModel.User" column="ReserverId" />
+    <many-to-one name="Organization" class="Phundus.Core.IdentityAndAccess.Organizations.Model.Organization" column="OrganizationId" />
+    <many-to-one name="Reserver" class="Phundus.Core.IdentityAndAccess.Users.Model.User" column="ReserverId" />
     
     <property name="ModifyDate" />
-    <many-to-one name="Modifier" class="Phundus.Core.IdentityAndAccessCtx.DomainModel.User" column="ModifierId" />
+    <many-to-one name="Modifier" class="Phundus.Core.IdentityAndAccess.Users.Model.User" column="ModifierId" />
 
     <set name="Items" cascade="all-delete-orphan" lazy="true" inverse="true" >
       <key column="OrderId" />

@@ -35,6 +35,7 @@
                 OrganizationId = each.OrganizationId,
                 OrganizationName = each.Organization.Name,
                 OrganizationUrl = each.Organization.Url,
+                ApprovedOn = each.ApprovalDate.Value,
                 MembershipRole = (each.Role == 2 ? "Chief" : "Member")
             };
         }
@@ -48,5 +49,6 @@
         public string OrganizationName { get; set; }
         public string OrganizationUrl { get; set; }
         public string MembershipRole { get; set; }
+        public DateTime ApprovedOn { get; set; }
     }
 }
