@@ -5,7 +5,7 @@
     public class Membership
     {
         private Guid _id;
-        private int _memberId;
+        private int _userId;
         private Guid _requestId;
         private int _version;
         private Role _role;
@@ -16,10 +16,10 @@
         {
         }
 
-        public Membership(Guid id, int memberId, Guid requestId, DateTime approvalDate)
+        public Membership(Guid id, int userId, Guid requestId, DateTime approvalDate)
         {
             _id = id;
-            _memberId = memberId;
+            _userId = userId;
             _requestId = requestId;
             _role = Role.Member;
             _approvalDate = approvalDate;
@@ -37,10 +37,10 @@
             protected set { _version = value; }
         }
 
-        public virtual int MemberId
+        public virtual int UserId
         {
-            get { return _memberId; }
-            protected set { _memberId = value; }
+            get { return _userId; }
+            protected set { _userId = value; }
         }
 
         public virtual Guid RequestId

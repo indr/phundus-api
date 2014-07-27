@@ -23,7 +23,7 @@
             set
             {
                 IsDiscriminator = false;
-                // TODO: UpdateModel() übergibt ein Array?
+                
                 if (value is Array)
                 {
                     var array = (Array) value;
