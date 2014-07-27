@@ -99,6 +99,7 @@
     <Compile Include="2014\07\M201407221828ChangePrimaryKeyOnOrganizationMembership.cs" />
     <Compile Include="2014\07\M201407271016DeleteColumnOrganizationMembershipRequestDate.cs" />
     <Compile Include="2014\07\M201407272309DeleteTableRole.cs" />
+    <Compile Include="2014\07\M201407280001UpdateArticleType.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
