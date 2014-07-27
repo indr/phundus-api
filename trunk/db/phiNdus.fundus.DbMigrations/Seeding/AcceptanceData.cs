@@ -72,7 +72,7 @@
                         each.Id,
                         each.Version,
                         @Type =
-                                                                         "phiNdus.fundus.Domain.Entities.Article",
+                                                                         "Phundus.Core.InventoryCtx.Model.Article",
                         each.OrganizationId,
                         CreateDate = DateTime.Now
                     });

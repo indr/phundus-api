@@ -2,14 +2,12 @@
 {
     using FluentMigrator;
 
-
-    [Migration(201407272309)]
-    public class M201407272309DeleteTableRole : MigrationBase
+    [Migration(201407280001)]
+    public class M201407280001UpdateArticleType : MigrationBase
     {
         public override void Up()
         {
-            Delete.ForeignKey("FkUserToRole").OnTable("User");
-            Delete.Table("Role");
+            Update.Table("Article").Set(new { @Type = "Phundus.Core.InventoryCtx.Model.Article"}).AllRows();
         }
 
         public override void Down()

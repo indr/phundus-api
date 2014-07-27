@@ -3,15 +3,17 @@
     using System;
     using System.Linq;
     using Exceptions;
-    using IdentityAndAccess.Organizations.Model;
     using Iesi.Collections.Generic;
     using Microsoft.Practices.ServiceLocation;
     using Repositories;
-    using ReservationCtx;
     using ReservationCtx.Repositories;
 
+    // IMPORTANT: Type wird in Tabelle Articel Spalte Type referenziert!
     public class Article : CompositeEntity
     {
+        private DateTime _createDate;
+        private ISet<Image> _images = new HashedSet<Image>();
+
         public Article()
         {
             _createDate = DateTime.Now;
@@ -28,7 +30,7 @@
         {
             _createDate = DateTime.Now;
         }
-        
+
         protected virtual IOrderRepository OrderRepository
         {
             get { return ServiceLocator.Current.GetInstance<IOrderRepository>(); }
@@ -37,14 +39,12 @@
         //public virtual Organization Organization { get; set; }
         public virtual int OrganizationId { get; set; }
 
-        private ISet<Image> _images = new HashedSet<Image>();
         public virtual ISet<Image> Images
         {
             get { return _images; }
             set { _images = value; }
         }
 
-        private DateTime _createDate;
         public virtual DateTime CreateDate
         {
             get { return _createDate; }
@@ -102,7 +102,8 @@
                         "Der Bruttobestand kann nicht gesetzt werden, da mindestens eine Ausprägung vorhanden ist.");
                 if (!HasField(FieldDefinition.GrossStockId))
                     AddField(
-                        ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().ById(FieldDefinition.GrossStockId));
+                        ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>()
+                            .ById(FieldDefinition.GrossStockId));
                 SetFieldValue(FieldDefinition.GrossStockId, value);
             }
         }
