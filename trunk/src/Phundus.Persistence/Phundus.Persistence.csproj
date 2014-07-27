@@ -77,7 +77,6 @@
     <Compile Include="IdentityAndAccess\Mappings\MembershipMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\AccountMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\OrganizationMap.cs" />
-    <Compile Include="IdentityAndAccess\Mappings\RoleMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\UserMap.cs" />
     <Compile Include="Installer.cs" />
     <Compile Include="IdentityAndAccess\Mappings\MembershipRequestMap.cs" />
@@ -90,7 +89,6 @@
     <Compile Include="_Legacy\Repositories\OrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\OrganizationRepository.cs" />
     <Compile Include="_Legacy\Repositories\ReservationRepository.cs" />
-    <Compile Include="IdentityAndAccess\Repositories\RoleRepository.cs" />
     <Compile Include="_Legacy\Repositories\SettingRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\UserRepository.cs" />
     <Compile Include="RepositoryBase.cs" />

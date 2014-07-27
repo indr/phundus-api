@@ -72,11 +72,11 @@
 
         void GetRoles()
         {
-            _roles = new List<Role> {Role.Administrator, Role.User}.Select(r => new SelectListItem
+            _roles = new List<Role> {Role.Admin, Role.User}.Select(r => new SelectListItem
                 {
-                    Value = r.Id.ToString(CultureInfo.InvariantCulture),
-                    Text = r.Name,
-                    Selected = r.Id == RoleId
+                    Value = ((int)r).ToString(CultureInfo.InvariantCulture),
+                    Text = r.ToString(),
+                    Selected = (int)r == RoleId
                 });
         }
 

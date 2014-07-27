@@ -49,16 +49,12 @@
         public override string[] GetRolesForUser(string username)
         {
             var user = Users.FindByEmail(username);
-            var role = user.Role.Name;
+            var role = user.Role.ToString();
 
             var result = new List<string>();
 
             if (role == @"Admin")
                 result.Add(@"Admin");
-
-            // TODO: Security or Access
-            //if (user.IsChiefOf(user.SelectedOrganization))
-            //    result.Add(@"Chief");
 
             result.Add(@"User");
 

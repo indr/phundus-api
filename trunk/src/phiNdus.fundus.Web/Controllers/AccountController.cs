@@ -20,7 +20,6 @@
         public CustomMembershipProvider MembershipProvider { get; set; }
 
         public IUserRepository Users { get; set; }
-        public IRoleRepository Roles { get; set; }
 
         [Transaction]
         public virtual ActionResult LogOn()
@@ -253,7 +252,7 @@
                     user.JsNumber = userDto.JsNumber;
                     user.Account.Email = email;
                     user.Account.Password = password;
-                    user.Role = Roles.ById(Role.User.Id);
+                    user.Role = Role.User;
                     user.Account.GenerateValidationKey();
                     Users.Add(user);
 

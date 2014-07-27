@@ -33,16 +33,11 @@
             return WriteDomainObject(subject, result);
         }
 
-
-       
-
-        
         private static User WriteDomainObject(UserDto subject, User result)
         {
             result.FirstName = subject.FirstName;
             result.LastName = subject.LastName;
-            if ((result.Role == null) || (result.Role.Id != subject.RoleId))
-                result.Role = ServiceLocator.Current.GetInstance<IRoleRepository>().ById(subject.RoleId);
+            result.Role = (Role) subject.RoleId;
             return result;
         }
     }

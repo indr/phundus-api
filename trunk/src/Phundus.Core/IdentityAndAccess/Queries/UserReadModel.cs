@@ -52,11 +52,8 @@
             result.LastName = subject.LastName;
             result.Email = subject.Account.Email;
             result.JsNumber = subject.JsNumber;
-            if (subject.Role != null)
-            {
-                result.RoleId = subject.Role.Id;
-                result.RoleName = subject.Role.Name;
-            }
+            result.RoleId = (int) subject.Role;
+            result.RoleName = subject.Role.ToString();
             return WriteDtoMembership(subject.Account, result);
         }
 

@@ -158,7 +158,6 @@
     <Compile Include="_Legacy\ReservationCtx\Repositories\IOrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IOrganizationRepository.cs" />
     <Compile Include="_Legacy\ReservationCtx\Repositories\IReservationRepository.cs" />
-    <Compile Include="IdentityAndAccess\Users\Repositories\IRoleRepository.cs" />
     <Compile Include="_Legacy\SettingsCtx\ISettingRepository.cs" />
     <Compile Include="IdentityAndAccess\Users\Repositories\IUserRepository.cs" />
     <Compile Include="_Legacy\SettingsCtx\BaseSettings.cs" />
