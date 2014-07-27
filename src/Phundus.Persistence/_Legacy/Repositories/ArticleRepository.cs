@@ -16,7 +16,7 @@
 
         public ICollection<Article> FindAll(int organizationId)
         {
-            var query = from a in Articles where a.Organization.Id == organizationId select a;
+            var query = from a in Articles where a.OrganizationId == organizationId select a;
             return query.ToList();
         }
 
@@ -25,7 +25,7 @@
             var q = Session.QueryOver<Article>();
 
             if (organization.HasValue)
-                q = q.Where(a => a.Organization.Id == organization.Value);
+                q = q.Where(a => a.OrganizationId == organization.Value);
 
             var d = q.JoinQueryOver<FieldValue>(a => a.FieldValues)
                 .WhereRestrictionOn(fv => fv.TextValue).IsLike(query, MatchMode.Anywhere)

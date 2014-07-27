@@ -3,18 +3,15 @@
     using System;
     using System.IO;
     using System.Web.Mvc;
+    using Business.Services;
     using Castle.Transactions;
+    using Helpers.FileUpload;
     using Microsoft.Practices.ServiceLocation;
-    using phiNdus.fundus.Web.Business.Services;
-    using phiNdus.fundus.Web.Helpers.FileUpload;
-    using phiNdus.fundus.Web.Models.ArticleModels;
-    using phiNdus.fundus.Web.ViewModels;
-    using Phundus.Core.InventoryCtx;
+    using Models.ArticleModels;
     using Phundus.Core.InventoryCtx.Model;
-    using Phundus.Core.ReservationCtx;
     using Phundus.Core.ReservationCtx.Repositories;
+    using ViewModels;
 
-    [Authorize(Roles = "Chief")]
     public class ArticleController : ControllerBase
     {
         private static string MasterView
@@ -68,7 +65,7 @@
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                var articleId = ArticleService.CreateArticle(model.CreateDto());
+                var articleId = ArticleService.CreateArticle(model.CreateDto(), OrganizationId.Value);
                 return RedirectToAction("Images", new {id = articleId});
             }
 
@@ -117,7 +114,7 @@
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                ArticleService.UpdateArticle(model.CreateDto());
+                ArticleService.UpdateArticle(model.CreateDto(), OrganizationId.Value);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -156,7 +153,7 @@
                 var images = handler.Post(HttpContext.Request.Files);
                 foreach (var each in images)
                 {
-                    ArticleService.AddImage(id, each);
+                    ArticleService.AddImage(id, each, OrganizationId.Value);
                 }
                 var result = factory.Create(images);
                 return Json(result);
@@ -170,7 +167,7 @@
             if (Request.HttpMethod == "DELETE")
             {
                 var fileName = store.FilePath + Path.DirectorySeparatorChar + name;
-                ArticleService.DeleteImage(id, fileName);
+                ArticleService.DeleteImage(id, fileName, OrganizationId.Value);
                 store.Delete(name);
                 return Json("");
             }
@@ -225,7 +222,7 @@
             try
             {
                 model.Version = version;
-                ArticleService.DeleteArticle(model.CreateDto());
+                ArticleService.DeleteArticle(model.CreateDto(), OrganizationId.Value);
                 return RedirectToAction("Index");
             }
             catch
@@ -243,18 +240,18 @@
             try
             {
                 result = new MessageBoxViewModel
-                             {
-                                 Message = "Der Artikel wurde erfolgreich gelöscht.",
-                                 Type = MessageBoxType.Success
-                             };
+                {
+                    Message = "Der Artikel wurde erfolgreich gelöscht.",
+                    Type = MessageBoxType.Success
+                };
             }
             catch (Exception ex)
             {
                 result = new MessageBoxViewModel
-                             {
-                                 Message = ex.Message,
-                                 Type = MessageBoxType.Error
-                             };
+                {
+                    Message = ex.Message,
+                    Type = MessageBoxType.Error
+                };
             }
             return DisplayFor(result);
         }

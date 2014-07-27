@@ -5,20 +5,20 @@
     using Business.Services;
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
-    using phiNdus.fundus.Web.Models.CartModels;
-    using phiNdus.fundus.Web.ViewModels;
+    using Models.CartModels;
     using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
+    using ViewModels;
 
     public class ShopController : ControllerBase
     {
         public IOrganizationRepository Organizations { get; set; }
 
-        static string MasterView
+        private static string MasterView
         {
             get { return @"Index"; }
         }
 
-        string ShopView
+        private string ShopView
         {
             get
             {
@@ -30,7 +30,7 @@
             set { Session["Shop-View"] = value; }
         }
 
-        string QueryString
+        private string QueryString
         {
             get { return Convert.ToString(Session["Shop-QueryString"]); }
             set
@@ -40,13 +40,13 @@
             }
         }
 
-        int? QueryOrganizationId
+        private int? QueryOrganizationId
         {
-            get { return Session["Shop-QueryOrganizationId"]  as int?; }
+            get { return Session["Shop-QueryOrganizationId"] as int?; }
             set { Session["Shop-QueryOrganizationId"] = value; }
         }
 
-        int? RowsPerPage
+        private int? RowsPerPage
         {
             get
             {
@@ -122,10 +122,10 @@
 
             model.Availabilities = ServiceLocator.Current.GetInstance<IArticleService>().GetAvailability(id);
             return Json(new
-                            {
-                                caption = model.Caption,
-                                content = RenderPartialViewToString("Article", model)
-                            }, JsonRequestBehavior.AllowGet);
+            {
+                caption = model.Caption,
+                content = RenderPartialViewToString("Article", model)
+            }, JsonRequestBehavior.AllowGet);
         }
 
         //
@@ -152,7 +152,7 @@
 
         #region Nested type: ShopViews
 
-        static class ShopViews
+        private static class ShopViews
         {
             public static string Large
             {

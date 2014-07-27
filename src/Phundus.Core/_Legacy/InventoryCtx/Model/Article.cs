@@ -34,7 +34,8 @@
             get { return ServiceLocator.Current.GetInstance<IOrderRepository>(); }
         }
 
-        public virtual Organization Organization { get; set; }
+        //public virtual Organization Organization { get; set; }
+        public virtual int OrganizationId { get; set; }
 
         private ISet<Image> _images = new HashedSet<Image>();
         public virtual ISet<Image> Images

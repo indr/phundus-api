@@ -1,9 +1,10 @@
 ﻿namespace phiNdus.fundus.Web.Business.Assembler
 {
     using System.Linq;
-    using Microsoft.Practices.ServiceLocation;
+    using Dto;
     using fundus.Business;
-    using phiNdus.fundus.Web.Business.Dto;
+    using Microsoft.Practices.ServiceLocation;
+    using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
     using Phundus.Core.ShopCtx;
 
     public class CartAssembler
@@ -24,6 +25,8 @@
 
         private static CartItemDto CreateItemDto(CartItem each)
         {
+            var organizationRepository = ServiceLocator.Current.GetInstance<IOrganizationRepository>();
+
             var result = new CartItemDto();
             result.Id = each.Id;
             result.Version = each.Version;
@@ -35,7 +38,7 @@
             result.UnitPrice = each.UnitPrice;
             result.LineTotal = each.LineTotal;
             result.IsAvailable = each.IsAvailable;
-            result.OrganizationName = each.Article.Organization.Name;
+            result.OrganizationName =  organizationRepository.ById(each.Article.OrganizationId).Name;
 
             return result;
         }
@@ -49,7 +52,7 @@
                 throw new EntityNotFoundException();
             if (cart.Version != cartDto.Version)
                 throw new DtoOutOfDateException();
-            
+
             foreach (var itemDto in cartDto.Items)
             {
                 var item = cart.Items.SingleOrDefault(p => p.Id == itemDto.Id);
