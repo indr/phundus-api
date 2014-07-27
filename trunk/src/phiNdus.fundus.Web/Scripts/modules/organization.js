@@ -167,6 +167,7 @@ function MembersCtrl($scope, members) {
 
     $scope.setRole = function (member, roleName, roleValue) {
         if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich die Rolle "' + roleName + '" geben?')) {
+            member.role = roleValue;
             member.$update({ organizationId: $scope.organizationId, action: 'setrole' },
             function (data, putResponseHeaders) {
                 member.role = roleValue;

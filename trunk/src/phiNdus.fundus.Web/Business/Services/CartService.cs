@@ -95,7 +95,7 @@
             var order = cart.PlaceOrder(SessionFact());
 
             var mail = new OrderReceivedMail().For(order);
-            var chiefs = order.Organization.Memberships.Where(m => m.Role == Role.Chief.Id);
+            var chiefs = order.Organization.Memberships.Where(m => m.Role == Phundus.Core.IdentityAndAccess.Organizations.Model.Role.Chief);
             // TODO: Access
             //foreach (var chief in chiefs)
             //    mail.Send(chief.User.Membership.Email);
@@ -120,7 +120,7 @@
             foreach (var order in orders)
             {
                 var mail = new OrderReceivedMail().For(order);
-                var chiefs = order.Organization.Memberships.Where(m => m.Role == Role.Chief.Id);
+                var chiefs = order.Organization.Memberships.Where(m => m.Role == Phundus.Core.IdentityAndAccess.Organizations.Model.Role.Chief);
 
                 // TODO: Access
                 //foreach (var chief in chiefs)

@@ -100,13 +100,13 @@
             EventPublisher.Publish(new MembershipRequestRejected());
         }
 
-        public virtual void SetMembersRole(User administrator, User member, int roleId)
+        public virtual void SetMembersRole(User administrator, User member, Role role)
         {
             var membership = Memberships.FirstOrDefault(p => p.MemberId == member.Id);
             if (membership == null)
                 throw new Exception("Membership not found");
-            
-            membership.Role = roleId;
+
+            membership.ChangeRole(role);
         }
     }
 }

@@ -36,7 +36,7 @@
                 OrganizationName = each.Organization.Name,
                 OrganizationUrl = each.Organization.Url,
                 ApprovedOn = each.ApprovalDate,
-                MembershipRole = (each.Role == 2 ? "Chief" : "Member")
+                MembershipRole = each.Role.ToString()
             };
         }
     }
