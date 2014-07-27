@@ -78,12 +78,12 @@
 
             var roleId = doc.role;
 
-            Dispatcher.Dispatch(new AddMemberToRole
+            Dispatcher.Dispatch(new ChangeMembersRole
             {
                 OrganizationId = organization,
                 AdministratorId = user.Id,
                 MemberId = id,
-                RoleId = roleId
+                Role = roleId
             });
         }
 

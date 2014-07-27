@@ -8,7 +8,7 @@
         private int _memberId;
         private Guid _requestId;
         private int _version;
-        private int _role;
+        private Role _role;
         private DateTime _approvalDate;
         private Organization _organization;
 
@@ -21,7 +21,7 @@
             _id = id;
             _memberId = memberId;
             _requestId = requestId;
-            _role = 1;
+            _role = Role.Member;
             _approvalDate = approvalDate;
         }
 
@@ -55,7 +55,7 @@
             set { _organization = value; }
         }
 
-        public virtual int Role
+        public virtual Role Role
         {
             get { return _role; }
             set { _role = value; }
@@ -65,6 +65,11 @@
         {
             get { return _approvalDate; }
             protected set { _approvalDate = value; }
+        }
+
+        public virtual void ChangeRole(Role role)
+        {
+            Role = role;
         }
     }
 }

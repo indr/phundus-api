@@ -17,7 +17,7 @@
             
             References(x => x.Organization, "OrganizationId").Cascade.None();
 
-            Map(x => x.Role);
+            Map(x => x.Role).CustomType<Role>();
             Map(x => x.ApprovalDate, "ApprovalDate");
         }
     }
