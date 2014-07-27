@@ -49,52 +49,52 @@
             return new ArticleDtoAssembler().CreateDto(article);
         }
 
-        public virtual int CreateArticle(ArticleDto subject)
+        public virtual int CreateArticle(ArticleDto subject, int organizationId)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
             var article = ArticleDomainAssembler.CreateDomainObject(subject);
             var user = Users.FindByEmail(Identity.Name);
-            article.Organization = user.SelectedOrganization;
+            article.OrganizationId = organizationId;
             var id = Articles.Add(article).Id;
             return id;
         }
+         
 
-
-        public virtual void UpdateArticle(ArticleDto subject)
+        public virtual void UpdateArticle(ArticleDto subject, int organizationId)
         {
             var user = Users.FindByEmail(Identity.Name);
             var article = ArticleDomainAssembler.UpdateDomainObject(subject);
-            if (article.Organization.Id != user.SelectedOrganization.Id)
+            if (article.OrganizationId != organizationId)
                 throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
             Articles.Add(article);
         }
-
-        public virtual void DeleteArticle(ArticleDto subject)
+       
+        public virtual void DeleteArticle(ArticleDto subject, int organizationId)
         {
             var user = Users.FindByEmail(Identity.Name);
             var article = ArticleDomainAssembler.UpdateDomainObject(subject);
-            if (article.Organization.Id != user.SelectedOrganization.Id)
+            if (article.OrganizationId != organizationId)
                 throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
             Articles.Remove(article);
         }
 
-        public void AddImage(int articleId, ImageDto subject)
+        public void AddImage(int articleId, ImageDto subject, int organizationId)
         {
             var user = Users.FindByEmail(Identity.Name);
             var article = Articles.ById(articleId);
-            if (article.Organization.Id != user.SelectedOrganization.Id)
+            if (article.OrganizationId != organizationId)
                 throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
             var assembler = new ImageAssembler();
             article.AddImage(assembler.CreateDomainObject(subject));
             Articles.Add(article);
         }
 
-        public void DeleteImage(int articleId, string imageName)
+        public void DeleteImage(int articleId, string imageName, int organizationId)
         {
             var user = Users.FindByEmail(Identity.Name);
             var article = Articles.ById(articleId);
-            if (article.Organization.Id != user.SelectedOrganization.Id)
+            if (article.OrganizationId != organizationId)
                 throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
             var image = article.Images.Where(i => i.FileName == imageName).FirstOrDefault();
             article.RemoveImage(image);

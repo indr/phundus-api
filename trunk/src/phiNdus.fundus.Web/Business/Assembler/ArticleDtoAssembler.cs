@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Web.Services.Description;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.Business.Dto;
+    using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
     using Phundus.Core.InventoryCtx;
     using Phundus.Core.InventoryCtx.Model;
     using Phundus.Core.InventoryCtx.Repositories;
@@ -38,10 +40,12 @@
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
+            var organizationRepository = ServiceLocator.Current.GetInstance<IOrganizationRepository>();
+
             var result = new ArticleDto();
             result.Id = subject.Id;
             result.Version = subject.Version;
-            result.OrganizationName = subject.Organization.Name;
+            result.OrganizationName = organizationRepository.ById(subject.OrganizationId).Name;
             WriteFields(subject, result);
             CreateChildren(subject, result);
             foreach (var each in subject.Images)

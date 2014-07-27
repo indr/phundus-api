@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using Ddd;
+    using IdentityAndAccess.Organizations.Model;
+    using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
     using InventoryCtx;
@@ -12,6 +14,7 @@
     using InventoryCtx.Services;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
+    using NHibernate.Mapping;
     using ReservationCtx;
     using ReservationCtx.Model;
     using ReservationCtx.Repositories;
@@ -95,15 +98,20 @@
         {
             var result = new List<Order>();
             var orders = ServiceLocator.Current.GetInstance<IOrderRepository>();
+            var organizationRepository = ServiceLocator.Current.GetInstance<IOrganizationRepository>();
 
-            var organizations = (from i in Items select i.Article.Organization).Distinct();
+
+            var organizationIds = (from i in Items select i.Article.OrganizationId).Distinct();
+            var organizations = new List<Organization>();
+            foreach (var each in organizationIds)
+                organizations.Add(organizationRepository.ById(each));
 
             foreach (var organization in organizations)
             {
                 var order = new Order();
                 order.Organization = organization;
                 order.Reserver = Customer;
-                var items = from i in Items where i.Article.Organization.Id == organization.Id select i;
+                var items = from i in Items where i.Article.OrganizationId == organization.Id select i;
                 foreach (var item in items)
                     order.AddItem(item.Article.Id, item.Quantity, item.From, item.To, session);
 
