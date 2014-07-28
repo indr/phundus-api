@@ -1,6 +1,7 @@
 ﻿namespace phiNdus.fundus.Web.Controllers
 {
     using System.Web.Mvc;
+    using System.Web.Security;
     using Business.Dto;
     using Business.Services;
     using Castle.Transactions;
@@ -20,9 +21,10 @@
         public IUserQueries UserQueries { get; set; }
 
         [Transaction]
-        public virtual ActionResult Index(int? version)
+        public virtual ActionResult Index()
         {
-            var cartDto = CartService.GetCart(version);
+            var user = UserQueries.ByEmail(Identity.Name);
+            var cartDto = CartService.GetCart(user.Id);
 
             var model = new CartModel();
             model.Load(cartDto);
@@ -85,7 +87,9 @@
                 return RedirectToAction(CartActionNames.Index);
             }
 
-            var cartDto = CartService.GetCart(null);
+            var user = UserQueries.ByEmail(Identity.Name);
+
+            var cartDto = CartService.GetCart(user.Id);
             if (!cartDto.AreItemsAvailable)
                 return RedirectToAction(CartActionNames.Index);
 
