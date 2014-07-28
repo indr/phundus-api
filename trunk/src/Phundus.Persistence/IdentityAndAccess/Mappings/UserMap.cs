@@ -28,8 +28,6 @@
                 <one-to-many class="Phundus.Core.Entities.OrganizationMembership" />
             </set>
              
-            <many-to-one name="SelectedOrganization" column="SelectedOrganizationId" /> 
-             
             */
         }
     }
