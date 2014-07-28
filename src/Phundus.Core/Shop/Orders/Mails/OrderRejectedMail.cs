@@ -1,11 +1,10 @@
-﻿namespace Phundus.Core.ReservationCtx.Mails
+﻿namespace Phundus.Core.Shop.Orders.Mails
 {
     using System;
     using System.Net.Mail;
     using IdentityAndAccess.Users.Model;
     using Infrastructure;
     using Model;
-    using Shop.Orders.Mails;
 
     public class OrderRejectedMail : BaseMail
     {

@@ -5,6 +5,7 @@
     using Core.ReservationCtx.Model;
     using Core.ReservationCtx.Repositories;
     using Core.Shop.Orders.Model;
+    using Core.Shop.Orders.Repositories;
     using NHibernate.Linq;
 
     public class OrderRepository : RepositoryBase<Order>, IOrderRepository

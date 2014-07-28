@@ -7,6 +7,7 @@
     using Microsoft.Practices.ServiceLocation;
     using Repositories;
     using ReservationCtx.Repositories;
+    using Shop.Orders.Repositories;
 
     // IMPORTANT: Type wird in Tabelle Articel Spalte Type referenziert!
     public class Article : CompositeEntity

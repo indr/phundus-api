@@ -1,7 +1,8 @@
-﻿namespace Phundus.Core.ShopCtx
+﻿namespace Phundus.Core.Shop.Orders.Repositories
 {
     using IdentityAndAccess.Users.Model;
     using Infrastructure;
+    using Model;
 
     public interface ICartRepository : IRepository<Cart>
     {

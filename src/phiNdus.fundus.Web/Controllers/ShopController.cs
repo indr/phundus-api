@@ -7,6 +7,7 @@
     using Microsoft.Practices.ServiceLocation;
     using Models.CartModels;
     using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
+    using Phundus.Core.Shop.Orders;
     using ViewModels;
 
     public class ShopController : ControllerBase

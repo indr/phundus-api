@@ -10,6 +10,7 @@ namespace phiNdus.fundus.Web.ViewModels
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.Helpers;
     using phiNdus.fundus.Web.Models.CartModels;
+    using Phundus.Core.Shop.Orders;
 
     public class ShopArticleViewModel : ArticleViewModel
     {

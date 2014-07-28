@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Model;
+    using Shop.Orders.Model;
 
     public class ReservationFactory
     {

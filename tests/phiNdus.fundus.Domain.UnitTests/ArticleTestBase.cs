@@ -6,6 +6,7 @@
     using Phundus.Core.InventoryCtx.Repositories;
     using Phundus.Core.ReservationCtx;
     using Phundus.Core.ReservationCtx.Repositories;
+    using Phundus.Core.Shop.Orders.Repositories;
     using Rhino.Mocks;
     using TestHelpers.TestBases;
 

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.ReservationCtx.Repositories
+﻿namespace Phundus.Core.Shop.Orders.Repositories
 {
     using System.Collections.Generic;
     using Infrastructure;

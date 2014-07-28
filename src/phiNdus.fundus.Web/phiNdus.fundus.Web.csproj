@@ -190,13 +190,8 @@
     <Compile Include="Business\Paging\PageRequest.cs" />
     <Compile Include="Business\Paging\PageResponse.cs" />
     <Compile Include="Business\Services\ArticleService.cs" />
-    <Compile Include="Business\Services\BaseService.cs" />
-    <Compile Include="Business\Services\CartService.cs" />
     <Compile Include="Business\Services\IArticleService.cs" />
-    <Compile Include="Business\Services\ICartService.cs" />
     <Compile Include="Business\Services\IFieldsService.cs" />
-    <Compile Include="Business\Services\IOrderService.cs" />
-    <Compile Include="Business\Services\OrderService.cs" />
     <Compile Include="Business\Services\PropertyService.cs" />
     <Compile Include="Controllers\Orgs\FilesController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />

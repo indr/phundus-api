@@ -1,17 +1,14 @@
-﻿namespace phiNdus.fundus.Web.Business.Services
+﻿namespace Phundus.Core.Shop.Orders
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Assembler;
-    using Dto;
-    using fundus.Business;
-    using Phundus.Core;
-    using Phundus.Core.IdentityAndAccess.Organizations.Model;
-    using Phundus.Core.IdentityAndAccess.Queries;
-    using Phundus.Core.IdentityAndAccess.Users.Repositories;
-    using Phundus.Core.ReservationCtx.Mails;
-    using Phundus.Core.Shop.Queries;
-    using Phundus.Core.ShopCtx;
+    using IdentityAndAccess.Organizations.Model;
+    using IdentityAndAccess.Queries;
+    using IdentityAndAccess.Users.Repositories;
+    using Mails;
+    using Model;
+    using Queries;
+    using Repositories;
 
     public class CartService : BaseService, ICartService
     {

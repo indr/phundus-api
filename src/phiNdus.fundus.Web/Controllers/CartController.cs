@@ -9,6 +9,7 @@
     using Models.CartModels;
     using Phundus.Core;
     using Phundus.Core.IdentityAndAccess.Queries;
+    using Phundus.Core.Shop.Orders;
     using Phundus.Core.Shop.Queries;
     using ViewModels;
 

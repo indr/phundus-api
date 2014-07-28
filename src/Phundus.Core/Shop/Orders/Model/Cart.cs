@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.ShopCtx
+﻿namespace Phundus.Core.Shop.Orders.Model
 {
     using System;
     using System.Collections.Generic;
@@ -8,16 +8,12 @@
     using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
-    using InventoryCtx;
     using InventoryCtx.Model;
     using InventoryCtx.Repositories;
     using InventoryCtx.Services;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
-    using NHibernate.Mapping;
-    using ReservationCtx;
-    using ReservationCtx.Model;
-    using ReservationCtx.Repositories;
+    using Repositories;
 
     public class Cart : EntityBase
     {

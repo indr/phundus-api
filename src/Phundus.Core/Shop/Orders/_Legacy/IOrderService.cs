@@ -1,11 +1,9 @@
-﻿namespace phiNdus.fundus.Web.Business.Services
+﻿namespace Phundus.Core.Shop.Orders
 {
     using System.Collections.Generic;
     using System.IO;
-    using Dto;
-    using Phundus.Core.ReservationCtx.Model;
-    using Phundus.Core.Shop.Orders.Model;
-    using Phundus.Core.Shop.Queries;
+    using Model;
+    using Queries;
 
     public interface IOrderService
     {
