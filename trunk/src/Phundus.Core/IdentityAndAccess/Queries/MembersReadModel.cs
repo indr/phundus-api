@@ -8,6 +8,11 @@
         IList<MemberDto> ByOrganizationId(int organizationId);
     }
 
+    public interface IMemberInRoleQueries
+    {
+        IList<MemberDto> Chiefs(int organizationId);
+    }
+
     public class MembersReadModel : IMemberQueries
     {
         public IUserQueries UserQueries { get; set; }

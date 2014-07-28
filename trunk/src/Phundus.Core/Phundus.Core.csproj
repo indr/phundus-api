@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IdentityAndAccess\Organizations\Commands\ChangeMembersRole.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Mails\MembershipApplicationMail.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Role.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModelBase.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
