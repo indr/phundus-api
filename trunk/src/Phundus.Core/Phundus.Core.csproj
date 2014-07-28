@@ -82,7 +82,12 @@
     <Compile Include="Ddd\IEventHandlerFactory.cs" />
     <Compile Include="Ddd\ISubscribeTo.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\ChangeMembersRole.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Mails\MembershipApplicationMail.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Mails\Templates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Templates.resx</DependentUpon>
+    </Compile>
+    <Compile Include="IdentityAndAccess\Organizations\Mails\MembershipApplicationMailNotifier.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Role.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModelBase.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
@@ -111,7 +116,7 @@
     <Compile Include="IdentityAndAccess\Organizations\Commands\AllowMembershipApplication.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\RejectMembershipApplication.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Membership.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\MembershipRequest.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplication.cs" />
     <Compile Include="IdentityAndAccess\Queries\MembersReadModel.cs" />
     <Compile Include="IdentityAndAccess\Queries\MembershipApplicationsReadModel.cs" />
     <Compile Include="IdentityAndAccess\Queries\MembershipsReadModel.cs" />
@@ -155,9 +160,9 @@
     <Compile Include="_Legacy\ReservationCtx\Mails\OrderReceivedMail.cs" />
     <Compile Include="_Legacy\ReservationCtx\Mails\OrderRejectedMail.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\ApplyForMembership.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\MembershipRequestApproved.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\MembershipRequested.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\MembershipRequestRejected.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationApproved.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationFiled.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationRejected.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Legacy\InventoryCtx\Repositories\IArticleRepository.cs" />
     <Compile Include="_Legacy\ShopCtx\ICartRepository.cs" />
@@ -189,6 +194,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="_Legacy\InventoryCtx\Mails\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="IdentityAndAccess\Organizations\Mails\Templates.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Templates.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationFiledBodyPlain.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationRejectedBodyPlain.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationApprovedBodyPlain.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

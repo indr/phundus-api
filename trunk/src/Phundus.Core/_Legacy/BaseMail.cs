@@ -11,6 +11,9 @@
 
     public class BaseMail
     {
+        protected BaseMail()
+        { }
+
         protected BaseMail(IMailTemplateSettings settings) : this(settings.Subject, settings.TextBody, settings.HtmlBody)
         {
         }
@@ -93,18 +96,20 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
 <body>
 <div class=""container"" style=""margin: 10px; padding: 0;"">";
 
-        private string GenerateSubject()
+        private string GenerateSubject(string value)
         {
-            if (String.IsNullOrWhiteSpace(Subject))
+            var subject = value ?? Subject;
+            if (String.IsNullOrWhiteSpace(subject))
                 return String.Empty;
-            return Razor.Parse(Subject, Model);
+            return Razor.Parse(subject, Model);
         }
 
-        private string GenerateTextBody()
+        private string GenerateTextBody(string value)
         {
-            if (String.IsNullOrWhiteSpace(TextBody))
+            var textBody = value ?? TextBody;
+            if (String.IsNullOrWhiteSpace(textBody))
                 return String.Empty;
-            return Razor.Parse(TextBody + TextSignature, Model);
+            return Razor.Parse(textBody + TextSignature, Model);
         }
 
         private string GenerateHtmlBody()
@@ -121,19 +126,17 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
             set { _attachments = value; }
         }
 
-        protected void Send(IList<string> recipients)
+        protected void Send(string recipients, string subject = null, string plainBody = null)
         {
-            Send(String.Join(",", recipients));
-        }
+            if (String.IsNullOrWhiteSpace(recipients))
+                return;
 
-        protected void Send(string recipients)
-        {
             var gateway = ServiceLocator.Current.GetInstance<IMailGateway>();
 
-            var textBody = GenerateTextBody();
+            var textBody = GenerateTextBody(plainBody);
             var htmlBody = GenerateHtmlBody();
 
-            var message = new MailMessage { Subject = GenerateSubject() };
+            var message = new MailMessage { Subject = GenerateSubject(subject) };
             
             message.To.Add(recipients);
             
