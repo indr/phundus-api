@@ -1,4 +1,4 @@
-﻿namespace Phundus.Persistence.Repositories
+﻿namespace Phundus.Persistence.Shop.Repositories
 {
     using System.Linq;
     using Core.Shop.Orders.Model;

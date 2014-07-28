@@ -83,10 +83,10 @@
     <Compile Include="NHibernateInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Legacy\Repositories\ArticleRepository.cs" />
-    <Compile Include="_Legacy\Repositories\CartRepository.cs" />
+    <Compile Include="Shop\Repositories\CartRepository.cs" />
     <Compile Include="_Legacy\Repositories\FieldDefinitionRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\MembershipRequestRepository.cs" />
-    <Compile Include="_Legacy\Repositories\OrderRepository.cs" />
+    <Compile Include="Shop\Repositories\OrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\OrganizationRepository.cs" />
     <Compile Include="_Legacy\Repositories\ReservationRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\UserRepository.cs" />
@@ -109,12 +109,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="_Legacy\Mappings\Order.hbm.xml">
+    <EmbeddedResource Include="Shop\Mappings\Order.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="_Legacy\Mappings\OrderItem.hbm.xml">
+    <EmbeddedResource Include="Shop\Mappings\OrderItem.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -132,12 +132,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="_Legacy\Mappings\Cart.hbm.xml">
+    <EmbeddedResource Include="Shop\Mappings\Cart.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="_Legacy\Mappings\CartItem.hbm.xml">
+    <EmbeddedResource Include="Shop\Mappings\CartItem.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
