@@ -5,6 +5,7 @@
     using Microsoft.Practices.ServiceLocation;
     using fundus.Business;
     using phiNdus.fundus.Web.Business.Dto;
+    using Phundus.Core;
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.IdentityAndAccess.Users.Model;
     using Phundus.Core.IdentityAndAccess.Users.Repositories;

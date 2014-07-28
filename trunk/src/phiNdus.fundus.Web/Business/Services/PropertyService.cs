@@ -6,6 +6,7 @@
     using phiNdus.fundus.Business;
     using phiNdus.fundus.Web.Business.Assembler;
     using phiNdus.fundus.Web.Business.Dto;
+    using Phundus.Core;
     using Phundus.Core.InventoryCtx;
     using Phundus.Core.InventoryCtx.Repositories;
     using Phundus.Infrastructure;

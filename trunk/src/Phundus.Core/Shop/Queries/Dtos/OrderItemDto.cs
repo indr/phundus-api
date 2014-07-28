@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.Business.Dto
+﻿namespace Phundus.Core.Shop.Queries
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -25,7 +25,7 @@
         [DisplayFormat(DataFormatString = "{0:0.00}")]
         public double LineTotal { get; set; }
 
-        public string Text { get; internal set; }
+        public string Text { get; set; }
 
         public bool Availability { get; set; }
     }

@@ -1,7 +1,7 @@
 ﻿namespace phiNdus.fundus.Web.Business.Services
 {
     using System.Collections.Generic;
-    using Dto;
+    using Phundus.Core.Shop.Queries;
 
     public interface ICartService
     {

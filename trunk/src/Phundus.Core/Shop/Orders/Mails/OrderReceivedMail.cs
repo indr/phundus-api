@@ -5,7 +5,7 @@
     using IdentityAndAccess.Users.Model;
     using Infrastructure;
     using Model;
-    using _Legacy.ReservationCtx.Mails;
+    using Shop.Orders.Mails;
 
     public class OrderReceivedMail : BaseMail
     {

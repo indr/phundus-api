@@ -1,9 +1,8 @@
-﻿namespace phiNdus.fundus.Web.Business.Dto
+﻿namespace Phundus.Core.Shop.Queries
 {
     using System;
     using System.Collections.Generic;
-    using Phundus.Core.ReservationCtx;
-    using Phundus.Core.ReservationCtx.Model;
+    using Orders.Model;
 
     public class OrderDto
     {

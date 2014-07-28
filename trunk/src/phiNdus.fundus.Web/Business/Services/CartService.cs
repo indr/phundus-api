@@ -5,10 +5,12 @@
     using Assembler;
     using Dto;
     using fundus.Business;
+    using Phundus.Core;
     using Phundus.Core.IdentityAndAccess.Organizations.Model;
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.IdentityAndAccess.Users.Repositories;
     using Phundus.Core.ReservationCtx.Mails;
+    using Phundus.Core.Shop.Queries;
     using Phundus.Core.ShopCtx;
 
     public class CartService : BaseService, ICartService
@@ -18,8 +20,6 @@
         public IUserRepository Users { get; set; }
 
         public IMemberQueries MemberQueries { get; set; }
-
-        #region ICartService Members
 
         public CartDto GetCart(int? version)
         {
@@ -135,7 +135,5 @@
             var assembler = new OrderDtoAssembler();
             return assembler.CreateDtos(orders);
         }
-
-        #endregion
     }
 }

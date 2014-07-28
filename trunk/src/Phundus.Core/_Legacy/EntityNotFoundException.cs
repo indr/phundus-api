@@ -1,8 +1,8 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-namespace phiNdus.fundus.Business
+﻿namespace Phundus.Core
 {
+    using System;
+    using System.Runtime.Serialization;
+
     [Serializable]
     public class EntityNotFoundException : Exception
     {

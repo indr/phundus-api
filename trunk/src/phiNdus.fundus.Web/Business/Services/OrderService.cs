@@ -11,6 +11,8 @@
     using Phundus.Core.ReservationCtx.Mails;
     using Phundus.Core.ReservationCtx.Model;
     using Phundus.Core.ReservationCtx.Repositories;
+    using Phundus.Core.Shop.Orders.Model;
+    using Phundus.Core.Shop.Queries;
 
     public class OrderService : BaseService, IOrderService
     {

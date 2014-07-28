@@ -1,11 +1,9 @@
-﻿namespace phiNdus.fundus.Web.Business.Assembler
+﻿namespace Phundus.Core.Shop.Queries
 {
     using System.Linq;
-    using Dto;
-    using fundus.Business;
+    using IdentityAndAccess.Organizations.Repositories;
     using Microsoft.Practices.ServiceLocation;
-    using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
-    using Phundus.Core.ShopCtx;
+    using ShopCtx;
 
     public class CartAssembler
     {

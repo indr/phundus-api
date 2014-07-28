@@ -16,6 +16,7 @@
     using iTextSharp.text.pdf;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
+    using Shop.Orders.Model;
 
     public class Order : EntityBase
     {
