@@ -1,0 +1,3 @@
+﻿<p>Es hat sich ein neues Mitglied auf phundus registriert. Er heisst @Model.User.DisplayName, und besitzt die J+S-Nummer @Model.User.JsNumber sowie die  E-Mailadresse @Model.User.Membership.Email.</p>.
+
+<p>Falls ihr ihn in der NDBJS unserem Jugendverband zuordnen könnt, bestätigt seine Account im Administrationsbereich vom "phundus"</p>.

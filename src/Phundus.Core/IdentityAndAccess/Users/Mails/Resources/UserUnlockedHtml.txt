@@ -1,0 +1,5 @@
+﻿<p>Hallo @Model.User.FirstName</p>
+
+<p> Deine phundus Account mit der E-Mail Adresse @Model.User.Membership.Email, wurde soeben freigeschalten. Du kannst über die Anwendung nun wieder Material deiner Organisation reservieren.</p>.
+
+<p>Viel Spass!</p>

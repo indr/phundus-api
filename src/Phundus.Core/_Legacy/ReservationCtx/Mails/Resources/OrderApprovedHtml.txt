@@ -1,0 +1,36 @@
+﻿<p>Hallo @Model.User.DisplayName</p>
+
+<p>Die Bestellung vom @Model.Order.CreateDate mit der Nummer @Model.Order.Id wurde <b>genehmigt</b>.</p>
+
+<p>Bitte vereinbare mit der Materialstelle telefonisch einen Übergabetermin. Wir bitten dich bei der Materialübernahme den Mietpreis bar zu bezahlen.</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Artikel</th>
+            <th>Von</th>
+            <th>Bis</th>
+            <th>Menge</th>
+            <th>Stückpreis</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var each in Model.Order.Items)
+        {
+            <tr>
+                <td>@each.Article.Caption</td>
+                <td>@each.From.ToString("d")</td>
+                <td>@each.To.ToString("d")</td>
+                <td>@each.Amount</td>
+                <td style="text-align:right">@each.UnitPrice.ToString("N")</td>
+                <td style="text-align:right">@each.LineTotal.ToString("N")</td>
+            </tr>
+        }
+        
+        <tr>
+            <td colspan="5" style="text-align:right; font-weight:bold">Total</td>
+            <td style="text-align:right; font-weight:bold">@Model.Order.TotalPrice.ToString("N")</td>
+        </tr>
+    </tbody>
+</table>
