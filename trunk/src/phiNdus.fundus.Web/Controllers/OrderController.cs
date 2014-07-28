@@ -7,6 +7,7 @@
     using phiNdus.fundus.Web.ViewModels;
     using Phundus.Core.ReservationCtx;
     using Phundus.Core.ReservationCtx.Model;
+    using Phundus.Core.Shop.Orders;
     using Phundus.Core.Shop.Orders.Model;
 
     [Authorize]

@@ -1,7 +1,7 @@
-﻿namespace phiNdus.fundus.Web.Business.Services
+﻿namespace Phundus.Core.Shop.Orders
 {
     using System.Collections.Generic;
-    using Phundus.Core.Shop.Queries;
+    using Queries;
 
     public interface ICartService
     {

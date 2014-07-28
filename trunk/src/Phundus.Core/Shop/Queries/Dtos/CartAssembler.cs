@@ -3,7 +3,8 @@
     using System.Linq;
     using IdentityAndAccess.Organizations.Repositories;
     using Microsoft.Practices.ServiceLocation;
-    using ShopCtx;
+    using Orders.Model;
+    using Orders.Repositories;
 
     public class CartAssembler
     {

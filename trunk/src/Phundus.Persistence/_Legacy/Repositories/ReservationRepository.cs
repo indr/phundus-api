@@ -7,6 +7,7 @@
     using Core.ReservationCtx.Model;
     using Core.ReservationCtx.Repositories;
     using Core.ReservationCtx.Services;
+    using Core.Shop.Orders.Model;
     using NHibernate;
     using NHibernate.Linq;
     using Phundus.Core.InventoryCtx;

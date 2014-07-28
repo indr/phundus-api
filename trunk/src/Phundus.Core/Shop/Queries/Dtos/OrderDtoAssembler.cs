@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Infrastructure;
+    using Orders.Model;
     using ReservationCtx.Model;
 
     public class OrderDtoAssembler

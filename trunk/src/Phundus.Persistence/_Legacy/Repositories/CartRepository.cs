@@ -5,7 +5,8 @@ using NHibernate.Linq;
 namespace phiNdus.fundus.Domain.Repositories
 {
     using Phundus.Core.IdentityAndAccess.Users.Model;
-    using Phundus.Core.ShopCtx;
+    using Phundus.Core.Shop.Orders.Model;
+    using Phundus.Core.Shop.Orders.Repositories;
     using Phundus.Persistence;
 
     public class CartRepository : RepositoryBase<Cart>, ICartRepository

@@ -1,18 +1,15 @@
-﻿namespace phiNdus.fundus.Web.Business.Services
+﻿namespace Phundus.Core.Shop.Orders
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Assembler;
     using Castle.Transactions;
-    using Dto;
+    using IdentityAndAccess.Users.Repositories;
+    using Mails;
     using Microsoft.Practices.ServiceLocation;
-    using Phundus.Core.IdentityAndAccess.Users.Repositories;
-    using Phundus.Core.ReservationCtx.Mails;
-    using Phundus.Core.ReservationCtx.Model;
-    using Phundus.Core.ReservationCtx.Repositories;
-    using Phundus.Core.Shop.Orders.Model;
-    using Phundus.Core.Shop.Queries;
+    using Model;
+    using Queries;
+    using Repositories;
 
     public class OrderService : BaseService, IOrderService
     {

@@ -12,6 +12,7 @@
     using Castle.Windsor.Installer;
     using CommonServiceLocator.WindsorAdapter;
     using Microsoft.Practices.ServiceLocation;
+    using Phundus.Core;
     using Phundus.Persistence;
     
     using Plumbing;

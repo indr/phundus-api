@@ -4,6 +4,7 @@
     using Ddd;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
+    using Shop.Orders.Model;
 
     public class Contract : EntityBase
     {

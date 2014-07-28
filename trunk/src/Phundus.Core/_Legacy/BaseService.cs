@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.Business.Services
+﻿namespace Phundus.Core
 {
     using System;
     using System.Security.Principal;

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.ReservationCtx.Model
+﻿namespace Phundus.Core.Shop.Orders.Model
 {
     using System;
     using System.IO;
@@ -16,7 +16,6 @@
     using iTextSharp.text.pdf;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
-    using Shop.Orders.Model;
 
     public class Order : EntityBase
     {

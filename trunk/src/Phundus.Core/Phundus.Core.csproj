@@ -98,6 +98,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
+    <Compile Include="Shop\Orders\_Legacy\CartService.cs" />
+    <Compile Include="Shop\Orders\_Legacy\ICartService.cs" />
+    <Compile Include="Shop\Orders\_Legacy\IOrderService.cs" />
+    <Compile Include="Shop\Orders\_Legacy\OrderService.cs" />
     <Compile Include="Shop\Queries\Dtos\CartAssembler.cs" />
     <Compile Include="Shop\Queries\Dtos\CartDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderDto.cs" />
@@ -137,6 +141,7 @@
     <Compile Include="IdentityAndAccess\Queries\RelationshipsReadModel.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
+    <Compile Include="_Legacy\BaseService.cs" />
     <Compile Include="_Legacy\DtoOutOfDateException.cs" />
     <Compile Include="_Legacy\EntityNotFoundException.cs" />
     <Compile Include="_Legacy\InventoryCtx\Model\Article.cs" />
