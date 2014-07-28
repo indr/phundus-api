@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using Ddd;
+    using Infrastructure;
     using Model;
     using Queries;
 
@@ -26,11 +27,16 @@
 
         public void Handle(MembershipRequested @event)
         {
-            return;
             var user = UserQueries.ById(@event.UserId);
             var chiefs = MemberInRoleQueries.Chiefs(@event.OrganizationId);
 
             var recipients = chiefs.Select(p => p.EmailAddress).ToList();
+
+            Model = new
+            {
+                Urls = new Urls(Config.ServerUrl),
+                Admins = Config.FeedbackRecipients
+            };
 
             Send(recipients);
         }

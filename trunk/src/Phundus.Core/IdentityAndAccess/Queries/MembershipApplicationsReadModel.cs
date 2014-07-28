@@ -2,14 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Castle.Transactions;
-    using Ddd;
-    using NHibernate.Linq;
-    using NHibernate.SqlCommand;
     using NHibernate.Transform;
     using Organizations.Model;
-    using Organizations.Repositories;
     using Users.Model;
 
     public interface IMembershipApplicationQueries
@@ -17,9 +12,7 @@
         IList<MembershipApplicationDto> PendingByOrganizationId(int organizationId);
     }
 
-    public class MembershipApplicationsReadModel : ReadModelBase, IMembershipApplicationQueries,
-        ISubscribeTo<MembershipRequested>, ISubscribeTo<MembershipRequestApproved>,
-        ISubscribeTo<MembershipRequestRejected>
+    public class MembershipApplicationsReadModel : ReadModelBase, IMembershipApplicationQueries
     {
         [Transaction]
         public IList<MembershipApplicationDto> PendingByOrganizationId(int organizationId)
@@ -28,7 +21,7 @@
             User user = null;
             Account account = null;
             MembershipApplicationDto dto = null;
-            
+
             var result = Session.QueryOver(() => membershipRequest)
                 .Where(p => p.OrganizationId == organizationId)
                 .And(p => p.ApprovalDate == null)
@@ -46,25 +39,10 @@
                     .Select(r => r.RequestDate).WithAlias(() => dto.CreatedOn)
                     .Select(r => r.ApprovalDate).WithAlias(() => dto.ApprovedOn)
                     .Select(r => r.RejectDate).WithAlias(() => dto.RejectedOn)
-                    )
+                )
                 .TransformUsing(Transformers.AliasToBean<MembershipApplicationDto>()).List<MembershipApplicationDto>();
 
             return result;
-        }
-
-        public void Handle(MembershipRequestApproved @event)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Handle(MembershipRequested @event)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Handle(MembershipRequestRejected @event)
-        {
-            throw new NotImplementedException();
         }
 
         private static MembershipApplicationDto ToMembershipApplicationDto(MembershipRequest membershipRequest,

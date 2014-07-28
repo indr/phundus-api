@@ -123,7 +123,7 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
 
         protected void Send(IList<string> recipients)
         {
-            Send(String.Join(";", recipients));
+            Send(String.Join(",", recipients));
         }
 
         protected void Send(string recipients)
