@@ -8,6 +8,7 @@
     using NHibernate.Transform;
     using ReservationCtx;
     using ReservationCtx.Model;
+    using Shop.Orders.Model;
 
     public class Availability
     {

@@ -5,6 +5,7 @@
     using Phundus.Core.IdentityAndAccess.Users.Model;
     using Phundus.Core.ReservationCtx;
     using Phundus.Core.ReservationCtx.Model;
+    using Phundus.Core.Shop.Orders.Model;
 
     [TestFixture]
     public class OrderTests

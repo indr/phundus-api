@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.ReservationCtx.Model
+﻿namespace Phundus.Core.Shop.Orders.Model
 {
     public enum OrderStatus
     {

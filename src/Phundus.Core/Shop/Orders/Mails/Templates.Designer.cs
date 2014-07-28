@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Phundus.Core._Legacy.ReservationCtx.Mails {
+namespace Phundus.Core.Shop.Orders.Mails {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Phundus.Core._Legacy.ReservationCtx.Mails {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Phundus.Core._Legacy.ReservationCtx.Mails.Templates", typeof(Templates).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Phundus.Core.Shop.Orders.Mails.Templates", typeof(Templates).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

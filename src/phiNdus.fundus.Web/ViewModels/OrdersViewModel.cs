@@ -6,6 +6,8 @@
     using Microsoft.Practices.ServiceLocation;
     using Phundus.Core.ReservationCtx;
     using Phundus.Core.ReservationCtx.Model;
+    using Phundus.Core.Shop.Orders.Model;
+    using Phundus.Core.Shop.Queries;
 
     public class OrdersViewModelBase : ViewModelBase
     {

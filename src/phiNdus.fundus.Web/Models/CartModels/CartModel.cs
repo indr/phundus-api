@@ -7,6 +7,7 @@ namespace phiNdus.fundus.Web.Models.CartModels
 {
     using System.Linq;
     using Business.Dto;
+    using Phundus.Core.Shop.Queries;
 
     public class CartModel : ViewModelBase
     {

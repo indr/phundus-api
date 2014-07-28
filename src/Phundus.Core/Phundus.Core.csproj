@@ -60,6 +60,7 @@
       <HintPath>..\..\packages\RazorEngine.3.2.0\lib\net40\RazorEngine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
@@ -97,6 +98,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
+    <Compile Include="Shop\Queries\Dtos\CartAssembler.cs" />
+    <Compile Include="Shop\Queries\Dtos\CartDto.cs" />
+    <Compile Include="Shop\Queries\Dtos\OrderDto.cs" />
+    <Compile Include="Shop\Queries\Dtos\OrderDtoAssembler.cs" />
+    <Compile Include="Shop\Queries\Dtos\OrderItemDto.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
     <Compile Include="Cqrs\CommandDispatcher.cs" />
@@ -131,13 +137,15 @@
     <Compile Include="IdentityAndAccess\Queries\RelationshipsReadModel.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
+    <Compile Include="_Legacy\DtoOutOfDateException.cs" />
+    <Compile Include="_Legacy\EntityNotFoundException.cs" />
     <Compile Include="_Legacy\InventoryCtx\Model\Article.cs" />
-    <Compile Include="_Legacy\ReservationCtx\Mails\Templates.Designer.cs">
+    <Compile Include="Shop\Orders\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
-    <Compile Include="_Legacy\ShopCtx\Cart.cs" />
+    <Compile Include="Shop\Orders\Model\Cart.cs" />
     <Compile Include="_Legacy\InventoryCtx\Model\CompositeEntity.cs" />
     <Compile Include="_Legacy\ReservationCtx\Model\Contract.cs" />
     <Compile Include="_Legacy\ReservationCtx\Model\ContractItem.cs" />
@@ -148,9 +156,9 @@
     <Compile Include="_Legacy\InventoryCtx\Model\FieldValue.cs" />
     <Compile Include="_Legacy\InventoryCtx\Model\Image.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Account.cs" />
-    <Compile Include="_Legacy\ReservationCtx\Model\Order.cs" />
-    <Compile Include="_Legacy\ReservationCtx\Model\OrderItem.cs" />
-    <Compile Include="_Legacy\ReservationCtx\Model\OrderStatus.cs" />
+    <Compile Include="Shop\Orders\Model\Order.cs" />
+    <Compile Include="Shop\Orders\Model\OrderItem.cs" />
+    <Compile Include="Shop\Orders\Model\OrderStatus.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Organization.cs" />
     <Compile Include="_Legacy\ReservationCtx\Model\Reservation.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Role.cs" />
@@ -167,18 +175,18 @@
     <Compile Include="IdentityAndAccess\Users\Services\SessionKeyGenerator.cs" />
     <Compile Include="IdentityAndAccess\Users\Exceptions\UserLockedOutException.cs" />
     <Compile Include="IdentityAndAccess\Users\Exceptions\UserNotApprovedException.cs" />
-    <Compile Include="_Legacy\ReservationCtx\Mails\OrderApprovedMail.cs" />
-    <Compile Include="_Legacy\ReservationCtx\Mails\OrderReceivedMail.cs" />
-    <Compile Include="_Legacy\ReservationCtx\Mails\OrderRejectedMail.cs" />
+    <Compile Include="Shop\Orders\Mails\OrderApprovedMail.cs" />
+    <Compile Include="Shop\Orders\Mails\OrderReceivedMail.cs" />
+    <Compile Include="Shop\Orders\Mails\OrderRejectedMail.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\ApplyForMembership.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationApproved.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationFiled.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationRejected.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Legacy\InventoryCtx\Repositories\IArticleRepository.cs" />
-    <Compile Include="_Legacy\ShopCtx\ICartRepository.cs" />
+    <Compile Include="Shop\Orders\Repositories\ICartRepository.cs" />
     <Compile Include="_Legacy\InventoryCtx\Repositories\IFieldDefinitionRepository.cs" />
-    <Compile Include="_Legacy\ReservationCtx\Repositories\IOrderRepository.cs" />
+    <Compile Include="Shop\Orders\Repositories\IOrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IOrganizationRepository.cs" />
     <Compile Include="_Legacy\ReservationCtx\Repositories\IReservationRepository.cs" />
     <Compile Include="IdentityAndAccess\Users\Repositories\IUserRepository.cs" />
@@ -193,6 +201,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Shop\Orders\Commands\" />
     <Folder Include="_Legacy\InventoryCtx\Mails\" />
   </ItemGroup>
   <ItemGroup>
@@ -204,7 +213,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="_Legacy\ReservationCtx\Mails\Templates.resx">
+    <EmbeddedResource Include="Shop\Orders\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -225,9 +234,9 @@
     <Content Include="IdentityAndAccess\Users\Mails\Resources\UserUnlockedHtml.txt" />
     <Content Include="IdentityAndAccess\Users\Mails\Resources\UserChangeEmailValidationHtml.txt" />
     <Content Include="IdentityAndAccess\Users\Mails\Resources\UserResetPasswordHtml.txt" />
-    <Content Include="_Legacy\ReservationCtx\Mails\Resources\OrderApprovedHtml.txt" />
-    <Content Include="_Legacy\ReservationCtx\Mails\Resources\OrderReceivedHtml.txt" />
-    <Content Include="_Legacy\ReservationCtx\Mails\Resources\OrderRejectedHtml.txt" />
+    <Content Include="Shop\Orders\Mails\Resources\OrderApprovedHtml.txt" />
+    <Content Include="Shop\Orders\Mails\Resources\OrderReceivedHtml.txt" />
+    <Content Include="Shop\Orders\Mails\Resources\OrderRejectedHtml.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,11 +5,11 @@
     using IdentityAndAccess.Users.Model;
     using Infrastructure;
     using Model;
-    using _Legacy.ReservationCtx.Mails;
+    using Shop.Orders.Mails;
 
-    public class OrderRejectedMail : BaseMail
+    public class OrderApprovedMail : BaseMail
     {
-        public OrderRejectedMail For(Order order)
+        public OrderApprovedMail For(Order order)
         {
             Model = new
             {
@@ -28,7 +28,7 @@
 
         public void Send(User user)
         {
-            Send(user.Account.Email, Templates.OrderReceivedSubject, null, Templates.OrderRejectedHtml);
+            Send(user.Account.Email, Templates.OrderApprovedSubject, null, Templates.OrderApprovedHtml);
         }
     }
 }
