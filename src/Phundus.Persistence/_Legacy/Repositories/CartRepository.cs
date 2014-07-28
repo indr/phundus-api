@@ -1,13 +1,9 @@
-﻿using System;
-using System.Linq;
-using NHibernate.Linq;
-
-namespace phiNdus.fundus.Domain.Repositories
+﻿namespace Phundus.Persistence.Repositories
 {
-    using Phundus.Core.IdentityAndAccess.Users.Model;
-    using Phundus.Core.Shop.Orders.Model;
-    using Phundus.Core.Shop.Orders.Repositories;
-    using Phundus.Persistence;
+    using System.Linq;
+    using Core.Shop.Orders.Model;
+    using Core.Shop.Orders.Repositories;
+    using NHibernate.Linq;
 
     public class CartRepository : RepositoryBase<Cart>, ICartRepository
     {
@@ -16,11 +12,11 @@ namespace phiNdus.fundus.Domain.Repositories
             get { return Session.Query<Cart>(); }
         }
 
-        public Cart FindByCustomer(User customer)
+        public Cart FindByCustomer(int userId)
         {
             var query = from c in Carts
-                        where c.Customer.Id == customer.Id
-                        select c;
+                where c.Customer.Id == userId
+                select c;
             return query.SingleOrDefault();
         }
 

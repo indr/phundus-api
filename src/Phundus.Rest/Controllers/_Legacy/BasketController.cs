@@ -17,7 +17,7 @@
         public virtual void Clear()
         {
             var user = Users.FindByEmail(Identity.Name);
-            var cart = Carts.FindByCustomer(user);
+            var cart = Carts.FindByCustomer(user.Id);
             if (cart != null)
                 cart.Clear();
         }

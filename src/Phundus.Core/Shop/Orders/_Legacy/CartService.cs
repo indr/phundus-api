@@ -18,18 +18,15 @@
 
         public IMemberQueries MemberQueries { get; set; }
 
-        public CartDto GetCart(int? version)
+        public CartDto GetCart(int userId)
         {
-            var user = Users.FindByEmail(Identity.Name);
-            var cart = Carts.FindByCustomer(user);
+            var user = Users.FindById(userId);
+            var cart = Carts.FindByCustomer(userId);
             if (cart == null)
             {
                 cart = new Cart(user);
                 Carts.Add(cart);
             }
-
-            if (version.HasValue && cart.Version != version.Value)
-                throw new DtoOutOfDateException();
 
             cart.CalculateAvailability(SessionFact());
             var assembler = new CartAssembler();
@@ -39,7 +36,7 @@
         public CartDto AddItem(CartItemDto item)
         {
             var user = Users.FindByEmail(Identity.Name);
-            var cart = Carts.FindByCustomer(user);
+            var cart = Carts.FindByCustomer(user.Id);
             if (cart == null)
             {
                 cart = new Cart(user);
@@ -68,7 +65,7 @@
         public CartDto RemoveItem(int id, int version)
         {
             var user = Users.FindByEmail(Identity.Name);
-            var cart = Carts.FindByCustomer(user);
+            var cart = Carts.FindByCustomer(user.Id);
 
             var item = cart.Items.SingleOrDefault(p => p.Id == id);
             if (item == null)
@@ -88,7 +85,7 @@
         public OrderDto PlaceOrder()
         {
             var user = Users.FindByEmail(Identity.Name);
-            var cart = Carts.FindByCustomer(user);
+            var cart = Carts.FindByCustomer(user.Id);
             cart.CalculateAvailability(SessionFact());
             if (!cart.AreItemsAvailable)
                 return null;
@@ -111,7 +108,7 @@
         public ICollection<OrderDto> PlaceOrders()
         {
             var user = Users.FindByEmail(Identity.Name);
-            var cart = Carts.FindByCustomer(user);
+            var cart = Carts.FindByCustomer(user.Id);
             cart.CalculateAvailability(SessionFact());
             if (!cart.AreItemsAvailable)
                 return null;

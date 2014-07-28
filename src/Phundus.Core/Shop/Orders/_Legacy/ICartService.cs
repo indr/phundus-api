@@ -5,7 +5,7 @@
 
     public interface ICartService
     {
-        CartDto GetCart(int? version);
+        CartDto GetCart(int userId);
         CartDto AddItem(CartItemDto item);
         CartDto RemoveItem(int id, int version);
         CartDto UpdateCart(CartDto cart);
