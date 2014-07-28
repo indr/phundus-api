@@ -95,7 +95,6 @@
     <Compile Include="Entities\OrderItemTests.cs" />
     <Compile Include="Entities\OrderStatusTests.cs" />
     <Compile Include="Entities\OrderTests.cs" />
-    <Compile Include="Entities\SettingTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
     <Compile Include="ExceptionTestBase.cs" />
     <Compile Include="IllegalAttachedFieldExceptionTests.cs" />

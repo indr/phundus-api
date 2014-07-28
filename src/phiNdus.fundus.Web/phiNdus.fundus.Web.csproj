@@ -242,7 +242,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\FieldsController.cs" />
-    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -320,7 +319,6 @@
     <Content Include="App_Data\Seeds\Organizations.csv" />
     <Content Include="App_Data\Seeds\Users.csv" />
     <Content Include="App_Data\Seeds\Articles.csv" />
-    <Content Include="App_Data\Seeds\Settings.csv" />
     <Content Include="App_Data\Seeds\ArticleImages.csv" />
     <None Include="Parameters.xml" />
     <Content Include="Content\select2.css" />
@@ -382,7 +380,6 @@
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\PageSelectorViewModel.cs" />
     <Compile Include="ViewModels\PropertyValueViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShopSearchResultViewModel.cs" />
     <Compile Include="ViewModels\ValidationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -1009,7 +1006,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\Article\Images.cshtml" />
-    <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\FieldViewModel.cshtml" />
     <Content Include="Views\Shop\Result-Table.cshtml" />
     <Content Include="Views\Shop\Result-Large.cshtml" />
@@ -1023,8 +1019,6 @@
     <Content Include="Views\Cart\CheckOutDone.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
-    <Content Include="Views\Settings\EditorTemplates\MailTemplateSettingViewModel.cshtml" />
-    <Content Include="Views\Settings\MailTemplates.cshtml" />
     <Content Include="Views\Shop\Article_Images.cshtml" />
     <Content Include="Views\Shop\Article_Availability.cshtml" />
     <Content Include="Views\Shop\Article_AddToCart.cshtml" />

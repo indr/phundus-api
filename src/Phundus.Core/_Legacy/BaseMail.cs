@@ -7,61 +7,9 @@
     using Infrastructure.Gateways;
     using Microsoft.Practices.ServiceLocation;
     using RazorEngine;
-    using SettingsCtx;
 
     public class BaseMail
     {
-        protected BaseMail()
-        { }
-
-        protected BaseMail(string subject, string textBody, string htmlBody)
-        {
-            Subject = subject;
-            TextBody = textBody;
-            HtmlBody = htmlBody;
-        }
-
-        public class Urls
-        {
-            private readonly string _serverUrl;
-
-            public Urls(string serverUrl)
-            {
-                _serverUrl = serverUrl;
-            }
-
-            public string ServerUrl
-            {
-                get { return _serverUrl; }
-            }
-
-            public string UserAccountValidation
-            {
-                get { return "http://" + _serverUrl + "/account/validation"; }
-            }
-
-            public string UserEmailValidation
-            {
-                get { return "http://" + _serverUrl + "/account/emailvalidation"; }
-            }
-        }
-
-        //protected IDictionary<string, object> DataContext
-        //{
-        //    get { return _dataContext; }
-        //}
-
-        public string Subject { get; protected set; }
-        public string TextBody { get; protected set; }
-        public string HtmlBody { get; protected set; }
-
-        private dynamic _model = new {};
-        public dynamic Model
-        {
-            get { return _model; }
-            set { _model = value; }
-        }
-
         private const string TextSignature = @"
 
 --
@@ -92,6 +40,42 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
 <body>
 <div class=""container"" style=""margin: 10px; padding: 0;"">";
 
+        private IList<Attachment> _attachments = new List<Attachment>();
+
+        private dynamic _model = new {};
+
+        protected BaseMail()
+        {
+        }
+
+        protected BaseMail(string subject, string textBody, string htmlBody)
+        {
+            Subject = subject;
+            TextBody = textBody;
+            HtmlBody = htmlBody;
+        }
+
+        //protected IDictionary<string, object> DataContext
+        //{
+        //    get { return _dataContext; }
+        //}
+
+        public string Subject { get; protected set; }
+        public string TextBody { get; protected set; }
+        public string HtmlBody { get; protected set; }
+
+        public dynamic Model
+        {
+            get { return _model; }
+            set { _model = value; }
+        }
+
+        protected IList<Attachment> Attachments
+        {
+            get { return _attachments; }
+            set { _attachments = value; }
+        }
+
         private string GenerateSubject(string value)
         {
             var subject = value ?? Subject;
@@ -116,13 +100,6 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
             return Razor.Parse(HtmlHeader + htmlBody + HtmlFooter, Model);
         }
 
-        private IList<Attachment> _attachments = new List<Attachment>();
-        protected IList<Attachment> Attachments
-        {
-            get { return _attachments; }
-            set { _attachments = value; }
-        }
-
         protected void Send(string recipients, string subject = null, string plain = null, string html = null)
         {
             if (String.IsNullOrWhiteSpace(recipients))
@@ -133,14 +110,16 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
             var textBody = GenerateTextBody(plain);
             var htmlBody = GenerateHtmlBody(html);
 
-            var message = new MailMessage { Subject = GenerateSubject(subject) };
-            
+            var message = new MailMessage {Subject = GenerateSubject(subject)};
+
             message.To.Add(recipients);
-            
+
             if (!string.IsNullOrEmpty(htmlBody) && !string.IsNullOrEmpty(textBody))
             {
-                message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(htmlBody, new ContentType(ContentTypes.Html)));
-                message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(textBody, new ContentType(ContentTypes.Text)));
+                message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(htmlBody,
+                    new ContentType(ContentTypes.Html)));
+                message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(textBody,
+                    new ContentType(ContentTypes.Text)));
             }
             else if (!string.IsNullOrEmpty(htmlBody))
             {
@@ -157,6 +136,31 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
                 message.Attachments.Add(each);
 
             gateway.Send(message);
+        }
+
+        public class Urls
+        {
+            private readonly string _serverUrl;
+
+            public Urls(string serverUrl)
+            {
+                _serverUrl = serverUrl;
+            }
+
+            public string ServerUrl
+            {
+                get { return _serverUrl; }
+            }
+
+            public string UserAccountValidation
+            {
+                get { return "http://" + _serverUrl + "/account/validation"; }
+            }
+
+            public string UserEmailValidation
+            {
+                get { return "http://" + _serverUrl + "/account/emailvalidation"; }
+            }
         }
 
         //private string GetValue(string key)

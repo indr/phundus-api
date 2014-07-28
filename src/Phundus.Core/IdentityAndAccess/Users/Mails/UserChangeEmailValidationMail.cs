@@ -3,13 +3,13 @@ namespace Phundus.Core.IdentityAndAccess.Users.Mails
     using System;
     using Infrastructure;
     using Model;
-    using SettingsCtx;
 
     public class UserChangeEmailValidationMail : BaseMail
     {
         public void Send(User user)
         {
-            Send(user.Account.RequestedEmail, Templates.UserChangeEmailValidationSubject, null, Templates.UserChangeEmailValidationHtml);
+            Send(user.Account.RequestedEmail, Templates.UserChangeEmailValidationSubject, null,
+                Templates.UserChangeEmailValidationHtml);
         }
 
         public UserChangeEmailValidationMail For(User user)
@@ -17,14 +17,12 @@ namespace Phundus.Core.IdentityAndAccess.Users.Mails
             Guard.Against<ArgumentNullException>(user == null, "user");
 
             Model = new
-                {
-                    Settings = Settings.GetSettings(),
-                    Urls = new Urls(Config.ServerUrl),
-                    User = user,
-                    Admins = Config.FeedbackRecipients
-                };
-            //DataContext.Add("User", user);
-            //DataContext.Add("Membership", user.Membership);
+            {
+                Urls = new Urls(Config.ServerUrl),
+                User = user,
+                Admins = Config.FeedbackRecipients
+            };
+
             return this;
         }
     }

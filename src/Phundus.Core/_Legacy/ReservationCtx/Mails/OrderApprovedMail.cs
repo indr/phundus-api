@@ -5,7 +5,6 @@
     using IdentityAndAccess.Users.Model;
     using Infrastructure;
     using Model;
-    using SettingsCtx;
     using _Legacy.ReservationCtx.Mails;
 
     public class OrderApprovedMail : BaseMail
@@ -14,7 +13,6 @@
         {
             Model = new
             {
-                Settings = Settings.GetSettings(),
                 Urls = new Urls(Config.ServerUrl),
                 User = order.Reserver,
                 Order = order,
