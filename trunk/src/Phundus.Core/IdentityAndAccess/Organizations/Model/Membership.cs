@@ -11,6 +11,7 @@
         private Role _role;
         private DateTime _approvalDate;
         private Organization _organization;
+        private bool _isLocked;
 
         protected Membership()
         {
@@ -23,6 +24,7 @@
             _requestId = requestId;
             _role = Role.Member;
             _approvalDate = approvalDate;
+            _isLocked = false;
         }
 
         public virtual Guid Id
@@ -67,9 +69,25 @@
             protected set { _approvalDate = value; }
         }
 
+        public virtual bool IsLocked
+        {
+            get { return _isLocked; }
+            protected set { _isLocked = value; }
+        }
+
         public virtual void ChangeRole(Role role)
         {
             Role = role;
+        }
+
+        public virtual void Lock()
+        {
+            IsLocked = true;
+        }
+
+        public virtual void Unlock()
+        {
+            IsLocked = false;
         }
     }
 }

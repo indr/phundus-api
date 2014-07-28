@@ -100,13 +100,31 @@
             EventPublisher.Publish(new MembershipApplicationRejected(Id, application.UserId));
         }
 
-        public virtual void SetMembersRole(User administrator, User member, Role role)
+        protected virtual Membership GetMembershipOfUser(User user)
         {
-            var membership = Memberships.FirstOrDefault(p => p.UserId == member.Id);
+            var membership = Memberships.FirstOrDefault(p => p.UserId == user.Id);
             if (membership == null)
                 throw new Exception("Membership not found");
 
+            return membership;
+        }
+
+        public virtual void SetMembersRole(User chief, User member, Role role)
+        {
+            var membership = GetMembershipOfUser(member);
             membership.ChangeRole(role);
+        }
+
+        public virtual void LockMember(User chief, User member)
+        {
+            var membership = GetMembershipOfUser(member);
+            membership.Lock();
+        }
+
+        public virtual void UnlockMember(User chief, User member)
+        {
+            var membership = GetMembershipOfUser(member);
+            membership.Unlock();
         }
     }
 }

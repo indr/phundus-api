@@ -36,7 +36,8 @@
                     JsNumber = user.JsNumber,
                     LastName = user.LastName,
                     ApprovalDate = each.ApprovedOn,
-                    Role = each.MembershipRole == "Chief" ? 2 : 1
+                    Role = each.MembershipRole == "Chief" ? 2 : 1,
+                    IsLocked = each.IsLocked
                 });
             }
 
@@ -64,10 +65,8 @@
 
         public DateTime? RequestDate { get; set; }
 
-        public bool IsLockedOut { get; set; }
-        public DateTime? LastLockoutDate { get; set; }
+        public bool IsLocked { get; set; }
 
-        public bool IsApproved { get; set; }
         public DateTime? ApprovalDate { get; set; }
     }
 

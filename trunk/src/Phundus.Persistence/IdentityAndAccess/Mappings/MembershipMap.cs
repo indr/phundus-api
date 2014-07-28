@@ -18,6 +18,7 @@
 
             Map(x => x.Role).CustomType<Role>();
             Map(x => x.ApprovalDate, "ApprovalDate");
+            Map(x => x.IsLocked);
         }
     }
 }

@@ -82,6 +82,8 @@
     <Compile Include="Ddd\IEventHandlerFactory.cs" />
     <Compile Include="Ddd\ISubscribeTo.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\ChangeMembersRole.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Commands\LockMember.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Commands\UnlockMember.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Rest.Controllers
+﻿namespace Phundus.Rest.Controllers.IdentityAndAccess
 {
     using System;
     using System.Collections.Generic;
@@ -80,7 +80,7 @@
             Dispatcher.Dispatch(new ChangeMembersRole
             {
                 OrganizationId = organization,
-                AdministratorId = user.Id,
+                ChiefId = user.Id,
                 MemberId = id,
                 Role = roleId
             });
