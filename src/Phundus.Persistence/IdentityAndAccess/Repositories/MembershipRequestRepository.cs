@@ -29,11 +29,11 @@ namespace Phundus.Persistence.OrganisationCtx
         }
     }
 
-    public class MembershipRequestRepository : RepositoryBase<MembershipRequest>, IMembershipRequestRepository
+    public class MembershipRequestRepository : RepositoryBase<MembershipApplication>, IMembershipRequestRepository
     {
-        private IQueryOver<MembershipRequest, MembershipRequest> Entities
+        private IQueryOver<MembershipApplication, MembershipApplication> Entities
         {
-            get { return Session.QueryOver<MembershipRequest>(); }
+            get { return Session.QueryOver<MembershipApplication>(); }
         }
 
         public Guid NextIdentity()
@@ -41,7 +41,7 @@ namespace Phundus.Persistence.OrganisationCtx
             return Guid.NewGuid();
         }
 
-        public IEnumerable<MembershipRequest> PendingByOrganization(int organizationId)
+        public IEnumerable<MembershipApplication> PendingByOrganization(int organizationId)
         {
             return
                 Entities.Where(p => p.OrganizationId == organizationId)

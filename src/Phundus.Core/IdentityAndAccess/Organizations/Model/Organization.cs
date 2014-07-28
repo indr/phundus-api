@@ -72,32 +72,32 @@
 
         public virtual string DocTemplateFileName { get; set; }
 
-        public virtual MembershipRequest RequestMembership(Guid requestId, User user)
+        public virtual MembershipApplication RequestMembership(Guid requestId, User user)
         {
-            var request = new MembershipRequest(
+            var request = new MembershipApplication(
                 requestId,
                 Id,
                 user);
 
-            EventPublisher.Publish(new MembershipRequested(this.Id, user.Id));
+            EventPublisher.Publish(new MembershipApplicationFiled(Id, user.Id));
 
             return request;
         }
 
-        public virtual void ApproveMembershipRequest(MembershipRequest request, Guid membershipId)
+        public virtual void ApproveMembershipRequest(MembershipApplication application, Guid membershipId)
         {
-            var membership = request.Approve(membershipId);
+            var membership = application.Approve(membershipId);
             membership.Organization = this;
             Memberships.Add(membership);
 
-            EventPublisher.Publish(new MembershipRequestApproved());
+            EventPublisher.Publish(new MembershipApplicationApproved(Id, application.UserId));
         }
 
-        public virtual void RejectMembershipRequest(MembershipRequest request)
+        public virtual void RejectMembershipRequest(MembershipApplication application)
         {
-            request.Reject();
+            application.Reject();
 
-            EventPublisher.Publish(new MembershipRequestRejected());
+            EventPublisher.Publish(new MembershipApplicationRejected(Id, application.UserId));
         }
 
         public virtual void SetMembersRole(User administrator, User member, Role role)

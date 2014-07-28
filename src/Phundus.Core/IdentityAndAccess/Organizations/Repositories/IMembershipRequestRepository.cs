@@ -5,9 +5,9 @@
     using Infrastructure;
     using Model;
 
-    public interface IMembershipRequestRepository : IRepository<MembershipRequest>
+    public interface IMembershipRequestRepository : IRepository<MembershipApplication>
     {
         Guid NextIdentity();
-        IEnumerable<MembershipRequest> PendingByOrganization(int organizationId);
+        IEnumerable<MembershipApplication> PendingByOrganization(int organizationId);
     }
 }

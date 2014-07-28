@@ -17,16 +17,16 @@
         [Transaction]
         public IList<MembershipApplicationDto> PendingByOrganizationId(int organizationId)
         {
-            MembershipRequest membershipRequest = null;
+            MembershipApplication membershipApplication = null;
             User user = null;
             Account account = null;
             MembershipApplicationDto dto = null;
 
-            var result = Session.QueryOver(() => membershipRequest)
+            var result = Session.QueryOver(() => membershipApplication)
                 .Where(p => p.OrganizationId == organizationId)
                 .And(p => p.ApprovalDate == null)
                 .And(p => p.RejectDate == null)
-                .JoinAlias(() => membershipRequest.User, () => user)
+                .JoinAlias(() => membershipApplication.User, () => user)
                 .JoinAlias(() => user.Account, () => account)
                 .SelectList(list => list
                     .Select(r => r.Id).WithAlias(() => dto.Id)
@@ -45,17 +45,17 @@
             return result;
         }
 
-        private static MembershipApplicationDto ToMembershipApplicationDto(MembershipRequest membershipRequest,
+        private static MembershipApplicationDto ToMembershipApplicationDto(MembershipApplication membershipApplication,
             UserDto user)
         {
             return new MembershipApplicationDto
             {
-                Id = membershipRequest.Id,
-                OrganizationId = membershipRequest.OrganizationId,
-                UserId = membershipRequest.UserId,
-                CreatedOn = membershipRequest.RequestDate,
-                ApprovedOn = membershipRequest.ApprovalDate,
-                RejectedOn = membershipRequest.RejectDate,
+                Id = membershipApplication.Id,
+                OrganizationId = membershipApplication.OrganizationId,
+                UserId = membershipApplication.UserId,
+                CreatedOn = membershipApplication.RequestDate,
+                ApprovedOn = membershipApplication.ApprovalDate,
+                RejectedOn = membershipApplication.RejectDate,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,

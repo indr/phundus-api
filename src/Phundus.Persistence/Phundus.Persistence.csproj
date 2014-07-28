@@ -79,7 +79,7 @@
     <Compile Include="IdentityAndAccess\Mappings\OrganizationMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\UserMap.cs" />
     <Compile Include="Installer.cs" />
-    <Compile Include="IdentityAndAccess\Mappings\MembershipRequestMap.cs" />
+    <Compile Include="IdentityAndAccess\Mappings\MembershipApplicationMap.cs" />
     <Compile Include="NHibernateInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Legacy\Repositories\ArticleRepository.cs" />

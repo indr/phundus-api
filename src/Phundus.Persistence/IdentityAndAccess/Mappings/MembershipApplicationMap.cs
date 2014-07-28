@@ -1,13 +1,13 @@
 ﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
 {
-    using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
     using Core.IdentityAndAccess.Organizations.Model;
     using FluentNHibernate.Mapping;
 
-    public class MembershipRequestMap : ClassMap<MembershipRequest>
+    public class MembershipApplicationMap : ClassMap<MembershipApplication>
     {
-        public MembershipRequestMap()
+        public MembershipApplicationMap()
         {
+            Table("MembershipRequest");
             Id(x => x.Id).GeneratedBy.Assigned();
             Version(x => x.Version);
 

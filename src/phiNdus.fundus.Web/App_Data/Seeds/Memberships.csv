@@ -1,6 +1,7 @@
 ﻿UserId;OrganizationId;Role;IsApproved
 10005;1001;Chief;true
 10005;1002;Chief;true
+10005;1003;Chief;true
 10006;1001;Chief;true
 10007;1002;Chief;true
 10015;1001;User;true

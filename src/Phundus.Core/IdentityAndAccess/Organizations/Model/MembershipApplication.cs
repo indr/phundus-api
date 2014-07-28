@@ -3,7 +3,7 @@
     using System;
     using Users.Model;
 
-    public class MembershipRequest
+    public class MembershipApplication
     {
         private Guid _id;
         private int _userId;
@@ -11,11 +11,11 @@
         private DateTime _requestDate;
         private User _user;
 
-        protected MembershipRequest()
+        protected MembershipApplication()
         {
         }
 
-        public MembershipRequest(Guid requestId, int organizationId, User user)
+        public MembershipApplication(Guid requestId, int organizationId, User user)
         {
             _id = requestId;
             _organizationId = organizationId;
