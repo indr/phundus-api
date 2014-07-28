@@ -27,7 +27,7 @@
 
         public void Send(string address)
         {
-            base.Send(address);
+            base.Send(address, Templates.UserAccountCreatedSubject, null, Templates.UserAccountCreatedHtml);
         }
     }
 }

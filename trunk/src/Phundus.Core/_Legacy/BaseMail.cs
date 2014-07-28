@@ -8,7 +8,7 @@
     using Microsoft.Practices.ServiceLocation;
     using RazorEngine;
 
-    public class BaseMail
+    public abstract class BaseMail
     {
         private const string TextSignature = @"
 
@@ -44,26 +44,6 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
 
         private dynamic _model = new {};
 
-        protected BaseMail()
-        {
-        }
-
-        protected BaseMail(string subject, string textBody, string htmlBody)
-        {
-            Subject = subject;
-            TextBody = textBody;
-            HtmlBody = htmlBody;
-        }
-
-        //protected IDictionary<string, object> DataContext
-        //{
-        //    get { return _dataContext; }
-        //}
-
-        public string Subject { get; protected set; }
-        public string TextBody { get; protected set; }
-        public string HtmlBody { get; protected set; }
-
         public dynamic Model
         {
             get { return _model; }
@@ -78,7 +58,7 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
 
         private string GenerateSubject(string value)
         {
-            var subject = value ?? Subject;
+            var subject = value;
             if (String.IsNullOrWhiteSpace(subject))
                 return String.Empty;
             return Razor.Parse(subject, Model);
@@ -86,7 +66,7 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
 
         private string GenerateTextBody(string value)
         {
-            var textBody = value ?? TextBody;
+            var textBody = value;
             if (String.IsNullOrWhiteSpace(textBody))
                 return String.Empty;
             return Razor.Parse(textBody + TextSignature, Model);
@@ -94,13 +74,13 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
 
         private string GenerateHtmlBody(string value)
         {
-            var htmlBody = value ?? HtmlBody;
+            var htmlBody = value;
             if (String.IsNullOrWhiteSpace(htmlBody))
                 return String.Empty;
             return Razor.Parse(HtmlHeader + htmlBody + HtmlFooter, Model);
         }
 
-        protected void Send(string recipients, string subject = null, string plain = null, string html = null)
+        protected void Send(string recipients, string subject, string plain, string html)
         {
             if (String.IsNullOrWhiteSpace(recipients))
                 return;
