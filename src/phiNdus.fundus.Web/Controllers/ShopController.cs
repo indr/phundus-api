@@ -2,6 +2,7 @@
 {
     using System;
     using System.Web.Mvc;
+    using System.Web.Security;
     using Business.Services;
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
@@ -149,8 +150,14 @@
                 return RedirectToAction(ShopActionNames.Article, item.ArticleId);
             }
 
+            var userId = GetCurrentUserId();
             var service = ServiceLocator.Current.GetInstance<ICartService>();
-            var cart = service.AddItem(item.CreateDto());
+            var cart = service.GetCart(userId);
+
+            int? cartId = null;
+            if (cart != null)
+                cartId = cart.Id;
+            cart = service.AddItem(cartId, userId, item.CreateDto());
 
             if (Request.IsAjaxRequest())
                 return Json(cart);
@@ -183,5 +190,9 @@
         }
 
         #endregion
+    }
+
+    internal class NoCurrentUserException : Exception
+    {
     }
 }
