@@ -1,5 +1,7 @@
 ﻿namespace Phundus.Core.Cqrs
 {
+    using System;
+    using System.Linq;
     using System.Reflection;
     using Castle.Core;
     using Castle.DynamicProxy;
@@ -8,10 +10,7 @@
     [Transient]
     public class AutoReleaseCommandHandlerInterceptor : IInterceptor
     {
-        private static readonly MethodInfo MethodHandle = typeof(IHandleCommand<ICommand>).GetMethod("Handle");
-
         private readonly IKernel _kernel;
-
 
         public AutoReleaseCommandHandlerInterceptor(IKernel kernel)
         {
@@ -20,7 +19,17 @@
 
         public void Intercept(IInvocation invocation)
         {
-            if (invocation.Method != MethodHandle)
+            MethodInfo methodHandle = null;
+            var parameters = invocation.Method.GetParameters();
+            if (parameters.Length == 1)
+            {
+                // TODO: Do we really need to make the generic type to compare MethodInfos?
+                methodHandle = typeof(IHandleCommand<>)
+                    .MakeGenericType(parameters[0].ParameterType)
+                    .GetMethod("Handle");
+            }
+
+            if (invocation.Method != methodHandle)
             {
                 invocation.Proceed();
                 return;
