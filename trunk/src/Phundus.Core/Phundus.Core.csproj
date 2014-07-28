@@ -92,6 +92,11 @@
     <Compile Include="IdentityAndAccess\Organizations\Mails\MembershipApplicationMailNotifier.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Role.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModelBase.cs" />
+    <Compile Include="IdentityAndAccess\Users\Mails\Templates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Templates.resx</DependentUpon>
+    </Compile>
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
     <Compile Include="Cqrs\CommandDispatcher.cs" />
@@ -127,6 +132,11 @@
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="_Legacy\InventoryCtx\Model\Article.cs" />
+    <Compile Include="_Legacy\ReservationCtx\Mails\Templates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Templates.resx</DependentUpon>
+    </Compile>
     <Compile Include="_Legacy\ShopCtx\Cart.cs" />
     <Compile Include="_Legacy\InventoryCtx\Model\CompositeEntity.cs" />
     <Compile Include="_Legacy\ReservationCtx\Model\Contract.cs" />
@@ -202,6 +212,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="IdentityAndAccess\Users\Mails\Templates.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Templates.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_Legacy\ReservationCtx\Mails\Templates.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Templates.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationFiledBodyPlain.txt" />
@@ -211,6 +229,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationApprovedBodyPlain.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IdentityAndAccess\Users\Mails\Resources\UserAccountCreatedHtml.txt" />
+    <Content Include="IdentityAndAccess\Users\Mails\Resources\UserAccountValidationHtml.txt" />
+    <Content Include="IdentityAndAccess\Users\Mails\Resources\UserLockedHtml.txt" />
+    <Content Include="IdentityAndAccess\Users\Mails\Resources\UserUnlockedHtml.txt" />
+    <Content Include="IdentityAndAccess\Users\Mails\Resources\UserChangeEmailValidationHtml.txt" />
+    <Content Include="IdentityAndAccess\Users\Mails\Resources\UserResetPasswordHtml.txt" />
+    <Content Include="_Legacy\ReservationCtx\Mails\Resources\OrderApprovedHtml.txt" />
+    <Content Include="_Legacy\ReservationCtx\Mails\Resources\OrderReceivedHtml.txt" />
+    <Content Include="_Legacy\ReservationCtx\Mails\Resources\OrderRejectedHtml.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
