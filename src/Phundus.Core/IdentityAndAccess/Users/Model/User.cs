@@ -71,41 +71,9 @@
 
         public virtual string MobileNumber { get; set; }
 
-        //public virtual void Join(Organization organization)
-        //{
-        //    var membership = new OrganizationMembership();
-        //    membership.Organization = organization;
-        //    membership.User = this;
-        //    membership.Role = Role.User.Id;
-        //    Memberships.Add(membership);
-        //    SelectedOrganization = organization;
-        //}
-
-        //private ISet<OrganizationMembership> _memberships = new HashedSet<OrganizationMembership>();
-
-        //public virtual ISet<OrganizationMembership> Memberships
-        //{
-        //    get { return _memberships; }
-        //    set { _memberships = value; }
-        //}
-
         public virtual string Street { get; set; }
         public virtual string Postcode { get; set; }
         public virtual string City { get; set; }
-
-        //public virtual void SelectOrganization(Organization organization)
-        //{
-        //    foreach (var each in Memberships)
-        //    {
-        //        if (each.Organization == organization)
-        //        {
-        //            SelectedOrganization = each.Organization;
-        //            return;
-        //        }
-        //    }
-        //}
-
-        public virtual Organization SelectedOrganization { get; set; }
 
         //public virtual bool IsChiefOf(Organization organization)
         //{

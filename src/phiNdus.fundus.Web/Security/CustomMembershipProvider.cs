@@ -3,12 +3,8 @@
     using System;
     using System.Collections.Specialized;
     using System.Globalization;
-    using System.Linq;
     using System.Web;
     using System.Web.Security;
-    using Business;
-    using Domain;
-    using fundus.Business;
     using Phundus.Core.Cqrs;
     using Phundus.Core.IdentityAndAccess.Users.Commands;
     using Phundus.Core.IdentityAndAccess.Users.Exceptions;
@@ -90,11 +86,11 @@
             _enablePasswordRetrieval = bool.Parse(config["enablePasswordRetrieval"] ?? "false");
             ApplicationName = config["applicationName"];
             _maxInvalidPasswordAttempts = int.Parse(config["maxInvalidPasswordAttempts"] ?? "5",
-                                                    CultureInfo.InvariantCulture);
+                CultureInfo.InvariantCulture);
             _minRequiredPasswordLength = int.Parse(config["minRequiredPasswordLength"] ?? "8",
-                                                   CultureInfo.InvariantCulture);
+                CultureInfo.InvariantCulture);
             _minRequiredNonAlphanumericCharacters = int.Parse(config["minRequiredNonAlphanumericCharacters"] ?? "2",
-                                                              CultureInfo.InvariantCulture);
+                CultureInfo.InvariantCulture);
             _passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"] ?? "10", CultureInfo.InvariantCulture);
         }
 
@@ -113,14 +109,14 @@
         }
 
         public override MembershipUser CreateUser(string username, string password, string email,
-                                                  string passwordQuestion, string passwordAnswer, bool isApproved,
-                                                  object providerUserKey, out MembershipCreateStatus status)
+            string passwordQuestion, string passwordAnswer, bool isApproved,
+            object providerUserKey, out MembershipCreateStatus status)
         {
             throw new NotSupportedException();
         }
 
         public MembershipUser CreateUser(string email, string password, string firstName, string lastName, int jsNumber,
-                                         int? organizationId, out MembershipCreateStatus status)
+            int? organizationId, out MembershipCreateStatus status)
         {
             throw new NotSupportedException();
 
@@ -205,7 +201,6 @@
 
         public override bool ValidateUser(string username, string password)
         {
-
             username = username.ToLower(CultureInfo.CurrentCulture).Trim();
             var user = Users.FindByEmail(username);
 
@@ -218,11 +213,6 @@
                 if ((HttpContext.Current != null) && (HttpContext.Current.Session != null))
                     id = HttpContext.Current.Session.SessionID;
                 user.Account.LogOn(id, password);
-                // TODO: Autoselect organization
-                //if (user.SelectedOrganization == null && user.Memberships.Count > 0)
-                //    user.SelectOrganization(user.Memberships.First().Organization);
-                if (user.SelectedOrganization != null)
-                    HttpContext.Current.Session["OrganizationId"] = user.SelectedOrganization.Id;
                 return true;
             }
             catch (InvalidPasswordException)
@@ -232,19 +222,19 @@
         }
 
         public override bool ChangePasswordQuestionAndAnswer(string username, string password,
-                                                             string newPasswordQuestion, string newPasswordAnswer)
+            string newPasswordQuestion, string newPasswordAnswer)
         {
             throw new NotSupportedException();
         }
 
         public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize,
-                                                                  out int totalRecords)
+            out int totalRecords)
         {
             throw new NotSupportedException();
         }
 
         public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize,
-                                                                 out int totalRecords)
+            out int totalRecords)
         {
             throw new NotSupportedException();
         }

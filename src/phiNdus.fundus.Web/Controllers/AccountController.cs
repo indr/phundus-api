@@ -2,6 +2,7 @@
 {
     using System;
     using System.Globalization;
+    using System.Linq;
     using System.Web.Mvc;
     using System.Web.Security;
     using Castle.Transactions;
@@ -21,6 +22,10 @@
 
         public IUserRepository Users { get; set; }
 
+        public IUserQueries UserQueries { get; set; }
+
+        public IMembershipQueries MembershipQueries { get; set; }
+
         [Transaction]
         [AllowAnonymous]
         public virtual ActionResult LogOn()
@@ -36,6 +41,17 @@
             if ((ModelState.IsValid) && (MembershipProvider.ValidateUser(model.Email, model.Password)))
             {
                 FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+
+
+                var user = UserQueries.ByEmail(model.Email);
+                if (user != null)
+                {
+                    var membership = MembershipQueries.ByMemberId(user.Id).FirstOrDefault();
+                    if (membership != null)
+                        OrganizationId = membership.OrganizationId;
+                }
+
+
                 if (!String.IsNullOrEmpty(returnUrl))
                     return Redirect(returnUrl);
                 return RedirectToAction("Index", ControllerNames.Home);
