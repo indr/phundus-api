@@ -6,39 +6,9 @@
 
     public class AuthController : ApiControllerBase
     {
-        #region Default Actions
-
-        //// GET api/auth
-        //public IEnumerable<string> Get()
-        //{
-        //    return new[] {"value1", "value2"};
-        //}
-
-        //// GET api/auth/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST api/auth
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT api/auth/5
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/auth/5
-        //public void Delete(int id)
-        //{
-        //}
-
-        #endregion
-
         [HttpPost]
         [Transaction]
+        [AllowAnonymous]
         public virtual bool Login([FromBody] LogInDto value)
         {
             if (!Membership.ValidateUser(value.Username, value.Password))
@@ -50,6 +20,7 @@
 
         [HttpGet]
         [Transaction]
+        [AllowAnonymous]
         public virtual bool Login(string username, string password)
         {
             if (!Membership.ValidateUser(username, password))
@@ -61,7 +32,6 @@
 
 
         [HttpGet]
-        [Authorize]
         public virtual string Secured()
         {
             return "This is secured for " + Identity.Name;
