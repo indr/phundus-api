@@ -4,6 +4,7 @@ namespace phiNdus.fundus.Web.Controllers
     using System.IO;
     using System.Security.Principal;
     using System.Web.Mvc;
+    using System.Web.Security;
     using NHibernate;
 
     public abstract class ControllerBase : Controller
@@ -77,6 +78,15 @@ namespace phiNdus.fundus.Web.Controllers
 
                 return sw.GetStringBuilder().ToString();
             }
+        }
+
+        protected int GetCurrentUserId()
+        {
+            var user = Membership.GetUser();
+            if (user == null)
+                throw new NoCurrentUserException();
+            var userId = user.ProviderUserKey;
+            return Convert.ToInt32(userId);
         }
     }
 }

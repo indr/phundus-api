@@ -33,12 +33,16 @@
             return assembler.CreateDto(cart);
         }
 
-        public CartDto AddItem(CartItemDto item)
+        public CartDto AddItem(int? cartId, int userId, CartItemDto item)
         {
-            var user = Users.FindByEmail(Identity.Name);
-            var cart = Carts.FindByCustomer(user.Id);
-            if (cart == null)
+            Cart cart = null;
+            if (cartId.HasValue)
             {
+                cart = Carts.FindById(cartId.Value);
+            }
+            else
+            {
+                var user = Users.FindById(userId);
                 cart = new Cart(user);
                 Carts.Add(cart);
             }
