@@ -7,14 +7,9 @@
 
     public class UserResetPasswordMail : BaseMail
     {
-        public UserResetPasswordMail()
-            : base(Settings.Mail.Templates.UserResetPasswordMail)
-        {
-        }
-
         public void Send(User user)
         {
-            Send(user.Account.Email);
+            Send(user.Account.Email, Templates.UserResetPasswordSubject, null, Templates.UserResetPasswordHtml);
         }
 
         public UserResetPasswordMail For(User user, string password)

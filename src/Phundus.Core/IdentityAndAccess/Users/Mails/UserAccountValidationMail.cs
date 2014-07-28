@@ -7,13 +7,9 @@
 
     public class UserAccountValidationMail : BaseMail
     {
-        public UserAccountValidationMail() : base(Settings.Mail.Templates.UserAccountValidation)
-        {
-        }
-
         public void Send(User user)
         {
-            Send(user.Account.Email);
+            Send(user.Account.Email, Templates.UserAccountValidationSubject, null, Templates.UserAccountValidationHtml);
         }
 
         public UserAccountValidationMail For(User user)

@@ -14,10 +14,6 @@
         protected BaseMail()
         { }
 
-        protected BaseMail(IMailTemplateSettings settings) : this(settings.Subject, settings.TextBody, settings.HtmlBody)
-        {
-        }
-
         protected BaseMail(string subject, string textBody, string htmlBody)
         {
             Subject = subject;
@@ -112,11 +108,12 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
             return Razor.Parse(textBody + TextSignature, Model);
         }
 
-        private string GenerateHtmlBody()
+        private string GenerateHtmlBody(string value)
         {
-            if (String.IsNullOrWhiteSpace(HtmlBody))
+            var htmlBody = value ?? HtmlBody;
+            if (String.IsNullOrWhiteSpace(htmlBody))
                 return String.Empty;
-            return Razor.Parse(HtmlHeader + HtmlBody + HtmlFooter, Model);
+            return Razor.Parse(HtmlHeader + htmlBody + HtmlFooter, Model);
         }
 
         private IList<Attachment> _attachments = new List<Attachment>();
@@ -126,15 +123,15 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
             set { _attachments = value; }
         }
 
-        protected void Send(string recipients, string subject = null, string plainBody = null)
+        protected void Send(string recipients, string subject = null, string plain = null, string html = null)
         {
             if (String.IsNullOrWhiteSpace(recipients))
                 return;
 
             var gateway = ServiceLocator.Current.GetInstance<IMailGateway>();
 
-            var textBody = GenerateTextBody(plainBody);
-            var htmlBody = GenerateHtmlBody();
+            var textBody = GenerateTextBody(plain);
+            var htmlBody = GenerateHtmlBody(html);
 
             var message = new MailMessage { Subject = GenerateSubject(subject) };
             

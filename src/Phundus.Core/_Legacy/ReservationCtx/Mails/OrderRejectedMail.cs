@@ -6,14 +6,10 @@
     using Infrastructure;
     using Model;
     using SettingsCtx;
+    using _Legacy.ReservationCtx.Mails;
 
     public class OrderRejectedMail : BaseMail
     {
-        public OrderRejectedMail()
-            : base(Settings.Mail.Templates.OrderRejected)
-        {
-        }
-
         public OrderRejectedMail For(Order order)
         {
             Model = new
@@ -34,7 +30,7 @@
 
         public void Send(User user)
         {
-            Send(user.Account.Email);
+            Send(user.Account.Email, Templates.OrderReceivedSubject, null, Templates.OrderRejectedHtml);
         }
     }
 }

@@ -7,14 +7,9 @@
 
     public class UserLockedOutMail : BaseMail
     {
-        public UserLockedOutMail()
-            : base(Settings.Mail.Templates.UserLockedOut)
-        {
-        }
-
         public UserLockedOutMail Send(User user)
         {
-            Send(user.Account.Email);
+            Send(user.Account.Email, Templates.UserLockedSubject, null, Templates.UserLockedHtml);
             return this;
         }
 
