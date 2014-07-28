@@ -6,22 +6,10 @@
     {
         public static IWindsorContainer Container { get; set; }
 
-        public static void Publish(DomainEvent @event)
+        public static void Publish<TDomainEvent>(TDomainEvent @event)
         {
-            
+            var publisher = Container.Resolve<EventPublisherImpl>();
+            publisher.Publish(@event);
         }
-    }
-
-    public class DomainEvent
-    {
-    }
-
-    public interface ISubscribeTo
-    {
-    }
-
-    public interface ISubscribeTo<in TDomainEvent> : ISubscribeTo where TDomainEvent : DomainEvent
-    {
-        void Handle(TDomainEvent @event);
     }
 }
