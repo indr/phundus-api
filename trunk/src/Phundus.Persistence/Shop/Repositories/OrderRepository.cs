@@ -1,9 +1,7 @@
-﻿namespace Phundus.Persistence.Repositories
+﻿namespace Phundus.Persistence.Shop.Repositories
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Core.ReservationCtx.Model;
-    using Core.ReservationCtx.Repositories;
     using Core.Shop.Orders.Model;
     using Core.Shop.Orders.Repositories;
     using NHibernate.Linq;
@@ -19,8 +17,6 @@
         {
             get { return Session.Query<OrderItem>(); }
         }
-
-        #region IOrderRepository Members
 
         public ICollection<Order> FindMy(int userId)
         {
@@ -75,7 +71,5 @@
                 select i;
             return query.Sum(x => (int?) x.Amount).GetValueOrDefault();
         }
-
-        #endregion
     }
 }
