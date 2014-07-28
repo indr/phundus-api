@@ -75,12 +75,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ddd\AutoReleaseCommandHandlerInterceptor.cs" />
+    <Compile Include="Ddd\DomainEvent.cs" />
+    <Compile Include="Ddd\EventHandlerSelector.cs" />
+    <Compile Include="Ddd\EventPublisherImpl.cs" />
+    <Compile Include="Ddd\IEventHandlerFactory.cs" />
+    <Compile Include="Ddd\ISubscribeTo.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\ChangeMembersRole.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Mails\MembershipApplicationMail.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Role.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModelBase.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
-    <Compile Include="Cqrs\AutoReleaseHandlerInterceptor.cs" />
+    <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
     <Compile Include="Cqrs\CommandDispatcher.cs" />
     <Compile Include="Cqrs\CommandHandlerSelector.cs" />
     <Compile Include="CoreInstaller.cs" />

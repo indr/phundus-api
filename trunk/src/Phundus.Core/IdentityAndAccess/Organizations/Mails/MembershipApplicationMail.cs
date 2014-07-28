@@ -26,8 +26,7 @@
 
         public void Handle(MembershipRequested @event)
         {
-            throw new NotSupportedException("YEAH");
-
+            return;
             var user = UserQueries.ById(@event.UserId);
             var chiefs = MemberInRoleQueries.Chiefs(@event.OrganizationId);
 

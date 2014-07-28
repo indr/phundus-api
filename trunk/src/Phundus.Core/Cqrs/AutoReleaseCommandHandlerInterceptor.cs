@@ -6,14 +6,14 @@
     using Castle.MicroKernel;
 
     [Transient]
-    public class AutoReleaseHandlerInterceptor : IInterceptor
+    public class AutoReleaseCommandHandlerInterceptor : IInterceptor
     {
         private static readonly MethodInfo MethodHandle = typeof(IHandleCommand<ICommand>).GetMethod("Handle");
 
         private readonly IKernel _kernel;
 
 
-        public AutoReleaseHandlerInterceptor(IKernel kernel)
+        public AutoReleaseCommandHandlerInterceptor(IKernel kernel)
         {
             _kernel = kernel;
         }

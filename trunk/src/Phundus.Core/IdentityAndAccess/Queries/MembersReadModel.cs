@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public interface IMemberQueries
     {
@@ -13,7 +14,7 @@
         IList<MemberDto> Chiefs(int organizationId);
     }
 
-    public class MembersReadModel : IMemberQueries
+    public class MembersReadModel : IMemberQueries, IMemberInRoleQueries
     {
         public IUserQueries UserQueries { get; set; }
 
@@ -40,6 +41,11 @@
             }
 
             return result;
+        }
+
+        public IList<MemberDto> Chiefs(int organizationId)
+        {
+            return this.ByOrganizationId(organizationId).Where(p => p.Role == 2).ToList();
         }
     }
 
