@@ -6,14 +6,10 @@
     using Infrastructure;
     using Model;
     using SettingsCtx;
+    using _Legacy.ReservationCtx.Mails;
 
     public class OrderReceivedMail : BaseMail
     {
-        public OrderReceivedMail()
-            : base(Settings.Mail.Templates.OrderReceived)
-        {
-        }
-
         public OrderReceivedMail For(Order order)
         {
             Model = new
@@ -34,13 +30,13 @@
 
         public OrderReceivedMail Send(User user)
         {
-            Send(user.Account.Email);
+            Send(user.Account.Email, Templates.OrderReceivedSubject, null, Templates.OrderReceivedHtml);
             return this;
         }
 
         public new OrderReceivedMail Send(string address)
         {
-            base.Send(address);
+            base.Send(address, Templates.OrderReceivedSubject, null, Templates.OrderReceivedHtml);
             return this;
         }
     }

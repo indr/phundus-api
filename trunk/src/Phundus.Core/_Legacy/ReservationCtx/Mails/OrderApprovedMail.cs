@@ -6,35 +6,31 @@
     using Infrastructure;
     using Model;
     using SettingsCtx;
+    using _Legacy.ReservationCtx.Mails;
 
     public class OrderApprovedMail : BaseMail
     {
-        public OrderApprovedMail()
-            : base(Settings.Mail.Templates.OrderApproved)
-        {
-        }
-
         public OrderApprovedMail For(Order order)
         {
             Model = new
-                {
-                    Settings = Settings.GetSettings(),
-                    Urls = new Urls(Config.ServerUrl),
-                    User = order.Reserver,
-                    Order = order,
-                    Admins = Config.FeedbackRecipients
-                };
+            {
+                Settings = Settings.GetSettings(),
+                Urls = new Urls(Config.ServerUrl),
+                User = order.Reserver,
+                Order = order,
+                Admins = Config.FeedbackRecipients
+            };
 
             Attachments.Add(new Attachment(order.GeneratePdf(),
-                                           String.Format("Order-{0}.pdf", order.Id),
-                                           "application/pdf"));
+                String.Format("Order-{0}.pdf", order.Id),
+                "application/pdf"));
 
             return this;
         }
 
         public void Send(User user)
         {
-            Send(user.Account.Email);
+            Send(user.Account.Email, Templates.OrderApprovedSubject, null, Templates.OrderApprovedHtml);
         }
     }
 }

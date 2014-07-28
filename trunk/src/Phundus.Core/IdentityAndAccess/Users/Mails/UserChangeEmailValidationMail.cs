@@ -7,14 +7,9 @@ namespace Phundus.Core.IdentityAndAccess.Users.Mails
 
     public class UserChangeEmailValidationMail : BaseMail
     {
-        public UserChangeEmailValidationMail()
-            : base(Settings.Mail.Templates.UserChangeEmailValidationMail)
-        {
-        }
-
         public void Send(User user)
         {
-            Send(user.Account.RequestedEmail);
+            Send(user.Account.RequestedEmail, Templates.UserChangeEmailValidationSubject, null, Templates.UserChangeEmailValidationHtml);
         }
 
         public UserChangeEmailValidationMail For(User user)

@@ -7,14 +7,9 @@
 
     public class UserUnlockedMail : BaseMail
     {
-        public UserUnlockedMail()
-            : base(Settings.Mail.Templates.UserUnlocked)
-        {
-        }
-
         public UserUnlockedMail Send(User user)
         {
-            Send(user.Account.Email);
+            Send(user.Account.Email, Templates.UserUnlockedSubject, null, Templates.UserUnlockedHtml);
             return this;
         }
 
