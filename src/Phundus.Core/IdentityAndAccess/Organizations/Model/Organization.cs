@@ -79,7 +79,7 @@
                 Id,
                 user);
 
-            EventPublisher.Publish(new MembershipRequested());
+            EventPublisher.Publish(new MembershipRequested(this.Id, user.Id));
 
             return request;
         }

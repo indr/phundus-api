@@ -121,6 +121,11 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
             set { _attachments = value; }
         }
 
+        protected void Send(IList<string> recipients)
+        {
+            Send(String.Join(";", recipients));
+        }
+
         protected void Send(string recipients)
         {
             var gateway = ServiceLocator.Current.GetInstance<IMailGateway>();
