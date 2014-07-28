@@ -30,7 +30,7 @@
             };
 
             Send(user.Email, Templates.MembershipApplicationApprovedSubject,
-                Templates.MembershipApplicationApprovedBodyPlain);
+                Templates.MembershipApplicationApprovedBodyPlain, null);
         }
 
         public void Handle(MembershipApplicationFiled @event)
@@ -50,7 +50,7 @@
             };
 
             Send(String.Join(",", recipients), Templates.MembershipApplicationFiledSubject,
-                Templates.MembershipApplicationFiledBodyPlain);
+                Templates.MembershipApplicationFiledBodyPlain, null);
         }
 
         public void Handle(MembershipApplicationRejected @event)
@@ -67,7 +67,7 @@
             };
 
             Send(user.Email, Templates.MembershipApplicationRejectedSubject,
-                Templates.MembershipApplicationRejectedBodyPlain);
+                Templates.MembershipApplicationRejectedBodyPlain, null);
         }
     }
 }

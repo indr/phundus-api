@@ -28,7 +28,7 @@
 
         public void Send(string address)
         {
-            base.Send(address);
+            base.Send(address, Templates.UserLockedSubject, null, Templates.UserLockedHtml);
         }
     }
 }
