@@ -8,10 +8,7 @@
     [Transient]
     public class AutoReleaseEventHandlerInterceptor : IInterceptor
     {
-        private static readonly MethodInfo MethodHandle = typeof (ISubscribeTo<DomainEvent>).GetMethod("Handle");
-
         private readonly IKernel _kernel;
-
 
         public AutoReleaseEventHandlerInterceptor(IKernel kernel)
         {
@@ -20,7 +17,17 @@
 
         public void Intercept(IInvocation invocation)
         {
-            if (invocation.Method != MethodHandle)
+            MethodInfo methodHandle = null;
+            var parameters = invocation.Method.GetParameters();
+            if (parameters.Length == 1)
+            {
+                // TODO: Do we really need to make the generic type to compare MethodInfos?
+                methodHandle = typeof(ISubscribeTo<>)
+                    .MakeGenericType(parameters[0].ParameterType)
+                    .GetMethod("Handle");
+            }
+
+            if (invocation.Method != methodHandle)
             {
                 invocation.Proceed();
                 return;
