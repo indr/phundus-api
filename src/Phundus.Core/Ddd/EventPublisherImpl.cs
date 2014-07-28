@@ -6,9 +6,10 @@ namespace Phundus.Core.Ddd
 
         public void Publish<TDomainEvent>(TDomainEvent @event)
         {
-            ISubscribeTo<TDomainEvent> subscriber = Factory.GetSubscriberForEvent(@event);
+            ISubscribeTo<TDomainEvent>[] subscribers = Factory.GetSubscribersForEvent(@event);
 
-            subscriber.Handle(@event);
+            foreach (var each in subscribers)
+                each.Handle(@event);
         }
     }
 }

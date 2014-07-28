@@ -18,6 +18,8 @@
                 Type handlerType =
                     typeof (ISubscribeTo<>).MakeGenericType(arguments[0].GetType());
 
+                if (method.ReturnType.IsArray)
+                    return handlerType.MakeArrayType();
                 return handlerType;
             }
 
