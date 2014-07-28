@@ -10,7 +10,6 @@
         public static string Fields { get { return @"fields"; } }
         public static string Home { get { return @"home"; } }
         public static string Orders { get { return @"order"; } }
-        public static string Settings { get { return @"settings"; } }
         public static string Shop { get { return @"shop"; } }
         public static string Users { get { return @"users"; } }
         public static string Organization { get { return @"organization"; } }
@@ -105,12 +104,6 @@
         public static string Index { get { return @""; } }
         public static string Article { get { return @"article"; } }
         public static string AddToCart { get { return @"addtocart"; } }
-    }
-
-    public class SettingsActionNames
-    {
-        public static string Index { get { return @""; } }
-        public static string MailTemplates { get { return @"mailtemplates"; } }
     }
 
     public class UsersActionNames

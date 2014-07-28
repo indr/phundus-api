@@ -154,7 +154,6 @@
     <Compile Include="IdentityAndAccess\Organizations\Model\Organization.cs" />
     <Compile Include="_Legacy\ReservationCtx\Model\Reservation.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Role.cs" />
-    <Compile Include="_Legacy\SettingsCtx\Setting.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\User.cs" />
     <Compile Include="_Legacy\ReservationCtx\Services\ReservationFactory.cs" />
     <Compile Include="_Legacy\InventoryCtx\Services\AvailabilityChecker.cs" />
@@ -182,18 +181,7 @@
     <Compile Include="_Legacy\ReservationCtx\Repositories\IOrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IOrganizationRepository.cs" />
     <Compile Include="_Legacy\ReservationCtx\Repositories\IReservationRepository.cs" />
-    <Compile Include="_Legacy\SettingsCtx\ISettingRepository.cs" />
     <Compile Include="IdentityAndAccess\Users\Repositories\IUserRepository.cs" />
-    <Compile Include="_Legacy\SettingsCtx\BaseSettings.cs" />
-    <Compile Include="_Legacy\SettingsCtx\IMailSettings.cs" />
-    <Compile Include="_Legacy\SettingsCtx\IMailTemplateSettings.cs" />
-    <Compile Include="_Legacy\SettingsCtx\IMailTemplatesSettings.cs" />
-    <Compile Include="_Legacy\SettingsCtx\ISettings.cs" />
-    <Compile Include="_Legacy\SettingsCtx\MailSettings.cs" />
-    <Compile Include="_Legacy\SettingsCtx\MailTemplateSettings.cs" />
-    <Compile Include="_Legacy\SettingsCtx\MailTemplatesSettings.cs" />
-    <Compile Include="_Legacy\SettingsCtx\Settings.cs" />
-    <Compile Include="_Legacy\SettingsCtx\SettingsImpl.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\piNuts.phundus.Infrastructure\Phundus.Infrastructure.csproj">

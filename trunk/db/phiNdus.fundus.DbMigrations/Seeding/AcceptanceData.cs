@@ -24,14 +24,12 @@
             Delete.FromTable("Membership").InSchema(SchemaName).AllRows();
             Delete.FromTable("User").InSchema(SchemaName).AllRows();
             Delete.FromTable("Organization").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Setting").InSchema(SchemaName).AllRows();
 
             Import<Organization>("Organizations.csv", "Organization");
             Import<User>("Users.csv", "User");
             Import<Account>("Users.csv", "Membership", false);
             Import<Membership>("Memberships.csv", "OrganizationMembership", false);
             ImportArticle();
-            Import<Setting>("Settings.csv", "Setting", false);
             Import<ArticleImage>("ArticleImages.csv", "Image", false);
 
             CopyImages();
@@ -292,32 +290,7 @@
         }
 
         #endregion
-
-        #region Nested type: Setting
-
-        internal class Setting
-        {
-            private static int _id = 1;
-
-            public int Id
-            {
-                get { return _id++; }
-            }
-
-            public int Version
-            {
-                get { return 1; }
-            }
-
-            [CsvField(Name = "Key")]
-            public string Key { get; set; }
-
-            [CsvField(Name = "StringValue")]
-            public string StringValue { get; set; }
-        }
-
-        #endregion
-
+        
         #region Nested type: User
 
         internal class User

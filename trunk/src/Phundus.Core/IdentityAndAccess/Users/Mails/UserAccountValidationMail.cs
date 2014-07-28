@@ -3,7 +3,6 @@
     using System;
     using Infrastructure;
     using Model;
-    using SettingsCtx;
 
     public class UserAccountValidationMail : BaseMail
     {
@@ -17,14 +16,12 @@
             Guard.Against<ArgumentNullException>(user == null, "user");
 
             Model = new
-                {
-                    Settings = Settings.GetSettings(),
-                    Urls = new Urls(Config.ServerUrl),
-                    User = user,
-                    Admins = Config.FeedbackRecipients
-                };
-            //DataContext.Add("User", user);
-            //DataContext.Add("Membership", user.Membership);
+            {
+                Urls = new Urls(Config.ServerUrl),
+                User = user,
+                Admins = Config.FeedbackRecipients
+            };
+
             return this;
         }
     }

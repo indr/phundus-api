@@ -89,7 +89,6 @@
     <Compile Include="_Legacy\Repositories\OrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\OrganizationRepository.cs" />
     <Compile Include="_Legacy\Repositories\ReservationRepository.cs" />
-    <Compile Include="_Legacy\Repositories\SettingRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\UserRepository.cs" />
     <Compile Include="RepositoryBase.cs" />
   </ItemGroup>
@@ -116,11 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="_Legacy\Mappings\OrderItem.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="_Legacy\Mappings\Setting.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

@@ -2,13 +2,12 @@
 {
     using FluentMigrator;
 
-    [Migration(201407272309)]
-    public class M201407272309DeleteTableRole : MigrationBase
+    [Migration(201407281552)]
+    public class M201407281552DeleteTableSetting : MigrationBase
     {
         public override void Up()
         {
-            Delete.ForeignKey("FkUserToRole").OnTable("User");
-            Delete.Table("Role");
+            Delete.Table("Setting");
         }
 
         public override void Down()

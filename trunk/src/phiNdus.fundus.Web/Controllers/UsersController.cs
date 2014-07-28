@@ -71,9 +71,7 @@
 
             new UserLockedOutMail().For(user)
                 .Send(user);
-            //.Send(Settings.Common.AdminEmailAddress);
-
-
+            
             return Json(id);
         }
 
@@ -90,9 +88,7 @@
 
             new UserUnlockedMail().For(user)
                 .Send(user);
-            //.Send(Settings.Common.AdminEmailAddress);
-
-
+            
             return Json(id);
         }
     }
