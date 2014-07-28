@@ -12,6 +12,7 @@
         public IMailGateway MailGateway { get; set; }
 
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult Index()
         {
             var model = new FeedbackModel();
@@ -22,6 +23,7 @@
 
         [AcceptVerbs(HttpVerbs.Post)]
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult Index(FeedbackModel model)
         {
             if (!ModelState.IsValid)

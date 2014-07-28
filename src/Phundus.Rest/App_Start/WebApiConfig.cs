@@ -7,6 +7,8 @@
     {
         public static void Register(HttpConfiguration config)
         {
+            config.Filters.Add(new AuthorizeAttribute());
+
             //var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             config.Formatters.JsonFormatter
                   .SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

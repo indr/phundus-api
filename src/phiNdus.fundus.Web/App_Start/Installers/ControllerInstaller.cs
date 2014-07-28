@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.App_Start.Installers
+﻿namespace Phundus.Web.Installers
 {
     using System;
     using System.Web.Mvc;
@@ -14,7 +14,6 @@
         {
             container.Register(Types.FromThisAssembly()
                                     .BasedOn<IController>()
-                                    .If(Component.IsInNamespace("phiNdus.fundus.Web.Controllers", true))
                                     .If(t => t.Name.EndsWith("Controller", StringComparison.InvariantCulture))
                                     .LifestyleTransient());
         }

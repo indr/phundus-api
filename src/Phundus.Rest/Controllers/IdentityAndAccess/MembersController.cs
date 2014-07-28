@@ -9,7 +9,6 @@
     using Core.IdentityAndAccess.Queries;
     using Core.IdentityAndAccess.Users.Repositories;
 
-    [Authorize]
     public class MembersController : ApiControllerBase
     {
         public IUserRepository Users { get; set; }

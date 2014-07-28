@@ -11,9 +11,10 @@
         public IUserQueries UserQueries { get; set; }
 
         public IMembershipQueries MembershipQueries { get; set; }
-
-        [ChildActionOnly]
+        
         [Transaction]
+        [AllowAnonymous]
+        [ChildActionOnly]
         public virtual ActionResult NavBar()
         {
             var model = new NavBarModel();

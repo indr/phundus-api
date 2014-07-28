@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.App_Start
+﻿namespace Phundus.Web
 {
     using System.Web.Mvc;
 
@@ -7,6 +7,7 @@
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new AuthorizeAttribute());
         }
     }
 }

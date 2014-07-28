@@ -22,6 +22,7 @@
         public IUserRepository Users { get; set; }
 
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult LogOn()
         {
             return View();
@@ -29,6 +30,7 @@
 
         [HttpPost]
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult LogOn(LogOnModel model, string returnUrl)
         {
             if ((ModelState.IsValid) && (MembershipProvider.ValidateUser(model.Email, model.Password)))
@@ -85,6 +87,7 @@
 
         [HttpGet]
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult Validation(string id)
         {
             return Validation(new ValidationViewModel {Key = id});
@@ -92,6 +95,7 @@
 
         [HttpPost]
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult Validation(ValidationViewModel model)
         {
             if (!String.IsNullOrEmpty(model.Key))
@@ -105,6 +109,7 @@
 
         [HttpGet]
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult EmailValidation(string id)
         {
             return EmailValidation(new EmailValidationViewModel {Key = id});
@@ -112,6 +117,7 @@
 
         [HttpPost]
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult EmailValidation(EmailValidationViewModel model)
         {
             if (!String.IsNullOrEmpty(model.Key))
@@ -209,6 +215,7 @@
 
         [HttpGet]
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult SignUp()
         {
             return View(new SignUpModel());
@@ -216,6 +223,7 @@
 
         [HttpPost]
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult SignUp(SignUpModel model)
         {
             if (ModelState.IsValid)

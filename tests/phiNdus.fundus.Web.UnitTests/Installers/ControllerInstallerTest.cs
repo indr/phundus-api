@@ -8,6 +8,8 @@
     using Castle.MicroKernel;
     using Castle.Windsor;
     using NUnit.Framework;
+    using Phundus.Web.Controllers;
+    using Phundus.Web.Installers;
     using Web.Controllers;
 
     [TestFixture]
