@@ -28,4 +28,11 @@
         return $resource(
             './api/organizations/:organizationId/applications/:id',
             { organizationId: '@organizationId', id: '@id' });
-    });
+    })
+    .factory('membersLocks', function($resource) {
+        return $resource(
+            './api/organizations/:organizationId/members/:memberId/locks',
+            { organizationId: '@organizationId', memberId: '@memberId'});
+    })
+
+;

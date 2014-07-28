@@ -86,6 +86,7 @@
       <SubType>
       </SubType>
     </Compile>
+    <Compile Include="Controllers\IdentityAndAccess\LocksController.cs" />
     <Compile Include="Controllers\_Legacy\AuthController.cs" />
     <Compile Include="Controllers\_Legacy\BasketController.cs" />
     <Compile Include="Controllers\IdentityAndAccess\MembersController.cs" />

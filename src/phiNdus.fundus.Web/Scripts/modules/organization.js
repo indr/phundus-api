@@ -154,7 +154,7 @@ function ApplicationsCtrl($scope, applications, members) {
     };
 }
 
-function MembersCtrl($scope, members) {
+function MembersCtrl($scope, members, membersLocks) {
     $scope.members = members.query({ organizationId: $scope.organizationId });
 
     $scope.order = 'lastName';
@@ -206,7 +206,7 @@ function MembersCtrl($scope, members) {
 
     $scope.lock = function (member) {
         if (confirm('Möchen Sie "' + member.firstName + ' ' + member.lastName + '" wirklich sperren?')) {
-            member.$update({ organizationId: $scope.organizationId, action: 'lock' },
+            membersLocks.save({ organizationId: $scope.organizationId, memberId: member.id },
             function (data, putResponseHeaders) {
                 member.isLocked = true;
             },
@@ -225,7 +225,7 @@ function MembersCtrl($scope, members) {
 
     $scope.unlock = function (member) {
         if (confirm('Möchten Sie "' + member.firstName + ' ' + member.lastName + '" wirklich entsperren?')) {
-            member.$update({ organizationId: $scope.organizationId, action: 'unlock' },
+            membersLocks.delete({organizationId: $scope.organizationId, memberId: member.id},
             function (data, putResponseHeaders) {
                 member.isLocked = false;
             },

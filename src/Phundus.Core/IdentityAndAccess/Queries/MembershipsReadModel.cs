@@ -36,7 +36,8 @@
                 OrganizationName = each.Organization.Name,
                 OrganizationUrl = each.Organization.Url,
                 ApprovedOn = each.ApprovalDate,
-                MembershipRole = each.Role.ToString()
+                MembershipRole = each.Role.ToString(),
+                IsLocked = each.IsLocked
             };
         }
     }
@@ -50,5 +51,6 @@
         public string OrganizationUrl { get; set; }
         public string MembershipRole { get; set; }
         public DateTime ApprovedOn { get; set; }
+        public bool IsLocked { get; set; }
     }
 }

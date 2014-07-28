@@ -1,30 +1,28 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
     using Cqrs;
-    using Model;
     using Repositories;
     using Users.Repositories;
 
-    public class ChangeMembersRole
+    public class LockMember
     {
         public int OrganizationId { get; set; }
         public int ChiefId { get; set; }
         public int MemberId { get; set; }
-        public int Role { get; set; }
     }
 
-    public class ChangeMembersRoleHandler : IHandleCommand<ChangeMembersRole>
+    public class LockMemberHandler : IHandleCommand<LockMember>
     {
-        public IUserRepository UserRepository { get; set; }
         public IOrganizationRepository OrganizationRepository { get; set; }
+        public IUserRepository UserRepository { get; set; }
 
-        public void Handle(ChangeMembersRole command)
+        public void Handle(LockMember command)
         {
+            var organization = OrganizationRepository.ById(command.OrganizationId);
             var chief = UserRepository.ById(command.ChiefId);
             var member = UserRepository.ById(command.MemberId);
-            var organization = OrganizationRepository.ById(command.OrganizationId);
 
-            organization.SetMembersRole(chief, member, (Role) command.Role);
+            organization.LockMember(chief, member);
         }
     }
 }

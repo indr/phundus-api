@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Rest
 {
     using System.Web.Http;
+    using System.Web.Routing;
     using Newtonsoft.Json.Serialization;
 
     public class WebApiConfig
@@ -20,7 +21,13 @@
                 constraints: new {controller = @"^[a-z]+$", action = @"^[a-z]*$"});
 
             config.Routes.MapHttpRoute(
-               name: "OrganizationsApiRoute",
+                name: "OrganizationsMembersLocksRoute",
+                routeTemplate:"api/organizations/{organizationId}/members/{memberId}/locks/{id}",
+                defaults: new { controller = "Locks", id = RouteParameter.Optional }
+                );
+
+            config.Routes.MapHttpRoute(
+                name: "OrganizationsApiRoute",
                 routeTemplate: "api/organizations/{organization}/{controller}/{id}/{action}",
                 defaults: new { id = RouteParameter.Optional, action = RouteParameter.Optional },
                 constraints: new { organization = @"^[\d]+$", id = @"^[\d\-a-z]*$" });
