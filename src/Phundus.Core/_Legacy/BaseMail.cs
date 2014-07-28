@@ -61,7 +61,7 @@ If you think it was sent incorrectly contact the administrator(s) at @Model.Admi
             var subject = value;
             if (String.IsNullOrWhiteSpace(subject))
                 return String.Empty;
-            return Razor.Parse(subject, Model);
+            return @"[phundus] " + Razor.Parse(subject, Model);
         }
 
         private string GenerateTextBody(string value)
