@@ -1,7 +1,6 @@
-﻿namespace phiNdus.fundus.Web
+﻿namespace Phundus.Web
 {
     using System.Web;
-    using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
@@ -10,7 +9,6 @@
     using phiNdus.fundus.Web.App_Start;
     using phiNdus.fundus.Web.Security;
     using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
-    using Phundus.Rest;
 
     public class MvcApplication : HttpApplication, IContainerAccessor
     {

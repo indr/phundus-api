@@ -63,6 +63,7 @@
         }
 
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult Index(int? page, FormCollection collection = null)
         {
             if (collection != null)
@@ -76,6 +77,7 @@
         }
 
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult Large()
         {
             ShopView = ShopViews.Large;
@@ -83,6 +85,7 @@
         }
 
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult Small()
         {
             ShopView = ShopViews.Small;
@@ -90,6 +93,7 @@
         }
 
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult Table()
         {
             ShopView = ShopViews.Table;
@@ -97,6 +101,7 @@
         }
 
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult Search(string queryString, int? queryOrganizationId, int? page)
         {
             if (page == null)
@@ -116,6 +121,7 @@
 
 
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult Article(int id)
         {
             var model = new ShopArticleViewModel(id);
