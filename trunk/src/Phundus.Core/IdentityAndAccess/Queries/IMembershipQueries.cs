@@ -4,7 +4,8 @@
 
     public interface IMembershipQueries
     {
-        IList<MembershipDto> ByMemberId(int memberId);
+        IList<MembershipDto> ByUserId(int userId);
+        IList<MembershipDto> ByUserName(string userName);
         IList<MembershipDto> ByOrganizationId(int organizationId);
     }
 }

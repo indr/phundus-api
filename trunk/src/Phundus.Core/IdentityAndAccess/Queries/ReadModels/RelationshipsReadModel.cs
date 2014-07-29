@@ -10,7 +10,7 @@
 
         public RelationshipDto ByMemberIdForOrganizationId(int memberId, int organizationId)
         {
-            var membership = MembershipQueries.ByMemberId(memberId)
+            var membership = MembershipQueries.ByUserId(memberId)
                 .FirstOrDefault(p => p.OrganizationId == organizationId);
 
             var application =
