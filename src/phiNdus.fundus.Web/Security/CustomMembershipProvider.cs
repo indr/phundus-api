@@ -6,6 +6,7 @@
     using System.Web;
     using System.Web.Security;
     using Phundus.Core.Cqrs;
+    using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.IdentityAndAccess.Users.Commands;
     using Phundus.Core.IdentityAndAccess.Users.Exceptions;
     using Phundus.Core.IdentityAndAccess.Users.Mails;
@@ -22,11 +23,18 @@
         private int _minRequiredPasswordLength;
         private int _passwordAttemptWindow;
 
+        public IUserQueries UserQueries { get; set; }
+
         public IUserRepository Users { get; set; }
 
         public ICommandDispatcher Dispatcher { get; set; }
 
         public override string ApplicationName { get; set; }
+
+        public override string Name
+        {
+            get { return "CustomProvider"; }
+        }
 
         public override bool EnablePasswordReset
         {
@@ -115,27 +123,6 @@
             throw new NotSupportedException();
         }
 
-        public MembershipUser CreateUser(string email, string password, string firstName, string lastName, int jsNumber,
-            int? organizationId, out MembershipCreateStatus status)
-        {
-            throw new NotSupportedException();
-
-            //// To Do,jac: Behandlung der verschiednen Fehlerfälle und Status entsprechend setzen.
-            //status = MembershipCreateStatus.Success;
-
-            //try
-            //{
-            //    return ConvertToExternal(
-            //        UserService.CreateUser(HttpContext.Current.Session.SessionID, email, password, firstName, lastName,
-            //                               jsNumber, organizationId));
-            //}
-            //catch (EmailAlreadyTakenException)
-            //{
-            //    status = MembershipCreateStatus.DuplicateEmail;
-            //    return null;
-            //}
-        }
-
         public bool ValidateValidationKey(string key)
         {
             var user = Users.FindByValidationKey(key);
@@ -177,13 +164,16 @@
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            //return ConvertToExternal(UserService.GetUser(HttpContext.Current.Session.SessionID, username));
-            throw new NotSupportedException();
+            var user = UserQueries.ByEmail(username);
+
+            if (user == null)
+                return null;
+            return ConvertToExternal(user);
         }
 
         public override string GetUserNameByEmail(string email)
         {
-            return email;
+            return email.ToLowerInvariant();
         }
 
         public override string ResetPassword(string username, string answer)
@@ -195,7 +185,6 @@
 
         public override void UpdateUser(MembershipUser user)
         {
-            //UserService.UpdateUser(HttpContext.Current.Session.SessionID, ConvertToInternal(user));
             throw new NotSupportedException();
         }
 
@@ -262,6 +251,13 @@
         public override bool UnlockUser(string userName)
         {
             throw new NotSupportedException();
+        }
+
+        private MembershipUser ConvertToExternal(UserDto user)
+        {
+            return new MembershipUser(Name, user.Email, user.Id, user.Email, null, null, user.IsApproved,
+                user.IsLockedOut, user.CreateDate, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue,
+                DateTime.MinValue);
         }
     }
 }
