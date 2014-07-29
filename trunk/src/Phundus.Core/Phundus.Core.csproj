@@ -99,6 +99,8 @@
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
     <Compile Include="Shop\Orders\Commands\AddProductToCart.cs" />
+    <Compile Include="Shop\Orders\Exceptions\CartNotFoundException.cs" />
+    <Compile Include="Shop\Orders\Commands\PlaceOrder.cs" />
     <Compile Include="Shop\Orders\_Legacy\CartService.cs" />
     <Compile Include="Shop\Orders\_Legacy\ICartService.cs" />
     <Compile Include="Shop\Orders\_Legacy\IOrderService.cs" />

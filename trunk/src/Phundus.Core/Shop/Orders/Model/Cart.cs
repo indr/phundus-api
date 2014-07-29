@@ -46,6 +46,11 @@
             get { return Items.Count(p => p.IsAvailable == false) == 0; }
         }
 
+        public virtual int CustomerId
+        {
+            get { return Customer.Id; }
+        }
+
         public virtual void AddItem(int articleId, int quantity, DateTime @from, DateTime to)
         {
             var item = new CartItem();
