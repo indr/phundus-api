@@ -3,9 +3,11 @@
     using System;
     using System.Security;
     using Cqrs;
+    using IdentityAndAccess.Queries;
+    using InventoryCtx.Repositories;
     using Repositories;
 
-    public class AddProductToCart
+    public class AddArticleToCart
     {
         public int CartId { get; set; }
         public int UserId { get; set; }
@@ -16,17 +18,28 @@
         public DateTime DateTo { get; set; }
     }
 
-    public class AddProductToCartHandler : IHandleCommand<AddProductToCart>
+    public class AddArticleToCartHandler : IHandleCommand<AddArticleToCart>
     {
         public ICartRepository CartRepository { get; set; }
 
-        public void Handle(AddProductToCart command)
+        public IArticleRepository ArticleRepository { get; set; }
+
+        public IMemberInMembershipRoleQueries MemberInMembershipRoleQueries { get; set; }
+
+        public void Handle(AddArticleToCart command)
         {
             var cart = CartRepository.FindById(command.CartId);
             if (cart == null)
                 throw new CartNotFoundException();
 
             if (cart.CustomerId != command.UserId)
+                throw new SecurityException();
+
+            var article = ArticleRepository.ById(command.ArticleId);
+            if (article == null)
+                throw new ArticleNotFoundException();
+
+            if (!MemberInMembershipRoleQueries.IsActiveMemberIn(article.OrganizationId, command.UserId))
                 throw new SecurityException();
 
             cart.AddItem(command.ArticleId, command.Quantity,

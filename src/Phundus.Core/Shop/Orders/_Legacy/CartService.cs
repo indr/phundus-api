@@ -51,7 +51,7 @@
             }
             cartId = cart.Id;
 
-            Dispatcher.Dispatch(new AddProductToCart
+            Dispatcher.Dispatch(new AddArticleToCart
             {
                 ArticleId = item.ArticleId,
                 CartId = cartId.Value,
