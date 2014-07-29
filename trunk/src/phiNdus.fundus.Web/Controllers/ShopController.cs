@@ -150,7 +150,7 @@
                 return RedirectToAction(ShopActionNames.Article, item.ArticleId);
             }
 
-            var userId = GetCurrentUserId();
+            var userId = CurrentUserId;
             var service = ServiceLocator.Current.GetInstance<ICartService>();
             var cart = service.GetCart(userId);
 
@@ -190,9 +190,5 @@
         }
 
         #endregion
-    }
-
-    internal class NoCurrentUserException : Exception
-    {
-    }
+    }   
 }

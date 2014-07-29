@@ -2,11 +2,6 @@
 {
     using System.Linq;
 
-    public interface IRelationshipQueries
-    {
-        RelationshipDto ByMemberIdForOrganizationId(int memberId, int organizationId);
-    }
-
     public class RelationshipsReadModel : IRelationshipQueries
     {
         public IMembershipQueries MembershipQueries { get; set; }

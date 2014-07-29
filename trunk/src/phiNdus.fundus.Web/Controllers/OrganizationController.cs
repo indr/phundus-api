@@ -9,8 +9,6 @@
 
     public class OrganizationController : ControllerBase
     {
-        public IUserQueries UserQueries { get; set; }
-
         public IOrganizationQueries OrganizationQueries { get; set; }
 
         public IRelationshipQueries RelationshipQueries { get; set; }
@@ -38,11 +36,12 @@
 
             var model = new OrganizationModel(organization);
 
-            var user = UserQueries.ByEmail(Identity.Name);
+            var user = System.Web.Security.Membership.GetUser();
 
             if (user != null)
             {
-                var relationship = RelationshipQueries.ByMemberIdForOrganizationId(user.Id, organization.Id);
+                var relationship = RelationshipQueries.ByMemberIdForOrganizationId(
+                    Convert.ToInt32(user.ProviderUserKey), organization.Id);
 
                 bool isMemberOf = relationship.Membership != null;
                 model.HasOptionJoin = !isMemberOf;

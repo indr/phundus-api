@@ -42,8 +42,7 @@
             {
                 FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
 
-
-                var user = UserQueries.ByEmail(model.Email);
+                var user = UserQueries.ByUserName(model.Email);
                 if (user != null)
                 {
                     var membership = MembershipQueries.ByMemberId(user.Id).FirstOrDefault();

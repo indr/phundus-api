@@ -15,9 +15,9 @@
             return CreateDto(UserRepository.FindById(id));
         }
 
-        public UserDto ByEmail(string email)
+        public UserDto ByUserName(string userName)
         {
-            return CreateDto(UserRepository.FindByEmail(email));
+            return CreateDto(UserRepository.FindByEmail(userName));
         }
 
         public IList<UserDto> All()

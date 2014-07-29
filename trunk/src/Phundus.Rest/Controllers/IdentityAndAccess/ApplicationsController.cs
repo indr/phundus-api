@@ -10,8 +10,6 @@
     {
         public IMembershipApplicationQueries MembershipApplicationQueries { get; set; }
 
-        public IUserQueries UserQueries { get; set; }
-
         public IList<MembershipApplicationDto> Get(int organization)
         {
             return MembershipApplicationQueries.PendingByOrganizationId(organization);
@@ -20,17 +18,13 @@
         [Transaction]
         public virtual void Delete(int organization, Guid id)
         {
-            var user = UserQueries.ByEmail(Identity.Name);
-
-            Dispatch(new RejectMembershipApplication {ApplicationId = id, AdministratorId = user.Id});
+            Dispatch(new RejectMembershipApplication {ApplicationId = id, AdministratorId = CurrentUserId});
         }
 
         [Transaction]
         public virtual void Post(int organization)
         {
-            var user = UserQueries.ByEmail(Identity.Name);
-
-            Dispatch(new ApplyForMembership {UserId = user.Id, OrganizationId = organization});
+            Dispatch(new ApplyForMembership {UserId = CurrentUserId, OrganizationId = organization});
         }
     }
 }

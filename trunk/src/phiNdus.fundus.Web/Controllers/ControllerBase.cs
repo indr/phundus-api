@@ -2,6 +2,7 @@ namespace phiNdus.fundus.Web.Controllers
 {
     using System;
     using System.IO;
+    using System.Security.Authentication;
     using System.Security.Principal;
     using System.Web.Mvc;
     using System.Web.Security;
@@ -28,6 +29,18 @@ namespace phiNdus.fundus.Web.Controllers
             }
 
             set { Session["OrganizationId"] = value; }
+        }
+
+        protected int CurrentUserId
+        {
+            get
+            {
+                var user = Membership.GetUser();
+                if (user == null)
+                    throw new AuthenticationException();
+                var userId = user.ProviderUserKey;
+                return Convert.ToInt32(userId);
+            }
         }
 
         // Source: http://stackoverflow.com/questions/2374046/returning-an-editortemplate-as-a-partialview-in-an-action-result-asp-net-mvc-2
@@ -70,23 +83,14 @@ namespace phiNdus.fundus.Web.Controllers
 
             ViewData.Model = model;
 
-            using (StringWriter sw = new StringWriter())
+            using (var sw = new StringWriter())
             {
                 ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
-                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
                 viewResult.View.Render(viewContext, sw);
 
                 return sw.GetStringBuilder().ToString();
             }
-        }
-
-        protected int GetCurrentUserId()
-        {
-            var user = Membership.GetUser();
-            if (user == null)
-                throw new NoCurrentUserException();
-            var userId = user.ProviderUserKey;
-            return Convert.ToInt32(userId);
         }
     }
 }

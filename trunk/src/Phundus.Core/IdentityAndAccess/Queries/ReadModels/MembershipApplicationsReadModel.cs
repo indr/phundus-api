@@ -3,14 +3,10 @@
     using System;
     using System.Collections.Generic;
     using Castle.Transactions;
+    using Cqrs;
     using NHibernate.Transform;
     using Organizations.Model;
     using Users.Model;
-
-    public interface IMembershipApplicationQueries
-    {
-        IList<MembershipApplicationDto> PendingByOrganizationId(int organizationId);
-    }
 
     public class MembershipApplicationsReadModel : ReadModelBase, IMembershipApplicationQueries
     {
