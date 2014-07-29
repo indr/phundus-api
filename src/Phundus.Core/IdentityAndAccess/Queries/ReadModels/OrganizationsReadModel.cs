@@ -2,15 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using Cqrs;
     using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Organizations.Repositories;
-
-    public interface IOrganizationQueries
-    {
-        IEnumerable<OrganizationDto> ByMemberId(int memberId);
-        OrganizationDetailDto ById(int id);
-        IEnumerable<OrganizationDto> All();
-    }
 
     public class OrganizationsReadModel : ReadModelBase, IOrganizationQueries
     {

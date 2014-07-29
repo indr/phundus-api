@@ -6,12 +6,6 @@
     using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Organizations.Repositories;
 
-    public interface IMembershipQueries
-    {
-        IList<MembershipDto> ByMemberId(int memberId);
-        IList<MembershipDto> ByOrganizationId(int organizationId);
-    }
-
     public class MembershipsReadModel : IMembershipQueries
     {
         public IMembershipRepository MembershipRepository { get; set; }

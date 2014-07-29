@@ -1,7 +1,10 @@
 ﻿namespace Phundus.Rest
 {
+    using System;
+    using System.Security.Authentication;
     using System.Security.Principal;
     using System.Web.Http;
+    using System.Web.Security;
     using Castle.Core.Logging;
     using Core.Cqrs;
 
@@ -22,6 +25,18 @@
         protected void Dispatch<TCommand>(TCommand command)
         {
             Dispatcher.Dispatch(command);
+        }
+
+        protected int CurrentUserId
+        {
+            get
+            {
+                var user = Membership.GetUser();
+                if (user == null)
+                    throw new AuthenticationException();
+                var userId = user.ProviderUserKey;
+                return Convert.ToInt32(userId);
+            }
         }
 
         //protected static TDestination Map<TDestination>(object source)

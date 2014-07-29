@@ -5,7 +5,7 @@
     public interface IUserQueries
     {
         UserDto ById(int id);
-        UserDto ByEmail(string email);
+        UserDto ByUserName(string userName);
         IList<UserDto> All();
     }
 }

@@ -7,15 +7,10 @@
     using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Organizations.Repositories;
     using Core.IdentityAndAccess.Queries;
-    using Core.IdentityAndAccess.Users.Repositories;
 
     public class MembersController : ApiControllerBase
     {
-        public IUserRepository Users { get; set; }
         public IOrganizationRepository Organizations { get; set; }
-        public IUserRepository Members { get; set; }
-
-        public IUserQueries UserQueries { get; set; }
 
         public IMembershipQueries MembershipQueries { get; set; }
 
@@ -30,11 +25,11 @@
         [Transaction]
         public virtual void Post(int organization, dynamic doc)
         {
-            var administrator = Users.FindByEmail(Identity.Name);
-
-            var applicationId = doc.applicationId;
-
-            Dispatcher.Dispatch(new AllowMembershipApplication {AdministratorId = administrator.Id, ApplicationId = applicationId});
+            Dispatcher.Dispatch(new AllowMembershipApplication
+            {
+                AdministratorId = CurrentUserId,
+                ApplicationId = doc.applicationId
+            });
         }
 
         [HttpPut]
@@ -71,18 +66,12 @@
         [Transaction]
         public virtual void SetRole(int organization, int id, dynamic doc)
         {
-            var user = UserQueries.ByEmail(Identity.Name);
-            if (user == null)
-                return;
-
-            var roleId = doc.role;
-
             Dispatcher.Dispatch(new ChangeMembersRole
             {
                 OrganizationId = organization,
-                ChiefId = user.Id,
+                ChiefId = CurrentUserId,
                 MemberId = id,
-                Role = roleId
+                Role = doc.role
             });
         }
 

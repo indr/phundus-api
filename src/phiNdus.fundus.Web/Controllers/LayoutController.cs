@@ -8,28 +8,27 @@
 
     public class LayoutController : ControllerBase
     {
-        public IUserQueries UserQueries { get; set; }
-
         public IMembershipQueries MembershipQueries { get; set; }
-        
+
         [Transaction]
         [AllowAnonymous]
         [ChildActionOnly]
         public virtual ActionResult NavBar()
         {
             var model = new NavBarModel();
-            var user = UserQueries.ByEmail(Identity.Name);
+
+            var user = System.Web.Security.Membership.GetUser();
             if (user == null)
                 return PartialView("_NavBar", model);
 
-            foreach (var each in MembershipQueries.ByMemberId(user.Id))
+            foreach (var each in MembershipQueries.ByMemberId(Convert.ToInt32(user.ProviderUserKey)))
             {
                 if ((model.Selected == null) || (each.OrganizationId == OrganizationId))
                 {
                     model.Selected = each;
                     OrganizationId = each.OrganizationId;
                 }
-                    
+
 
                 model.Memberships.Add(each);
             }

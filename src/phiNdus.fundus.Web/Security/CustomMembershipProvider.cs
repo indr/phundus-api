@@ -164,7 +164,7 @@
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            var user = UserQueries.ByEmail(username);
+            var user = UserQueries.ByUserName(username);
 
             if (user == null)
                 return null;
