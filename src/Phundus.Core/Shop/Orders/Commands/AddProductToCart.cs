@@ -1,8 +1,8 @@
 ﻿namespace Phundus.Core.Shop.Orders.Commands
 {
     using System;
+    using System.Security;
     using Cqrs;
-    using IdentityAndAccess.Queries;
     using Repositories;
 
     public class AddProductToCart
@@ -19,19 +19,18 @@
     public class AddProductToCartHandler : IHandleCommand<AddProductToCart>
     {
         public ICartRepository CartRepository { get; set; }
-        
+
         public void Handle(AddProductToCart command)
         {
             var cart = CartRepository.FindById(command.CartId);
             if (cart == null)
                 throw new CartNotFoundException();
 
+            if (cart.CustomerId != command.UserId)
+                throw new SecurityException();
+
             cart.AddItem(command.ArticleId, command.Quantity,
                 command.DateFrom, command.DateTo);
         }
-    }
-
-    public class CartNotFoundException : Exception
-    {
     }
 }
