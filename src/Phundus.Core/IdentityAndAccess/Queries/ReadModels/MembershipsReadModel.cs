@@ -3,16 +3,27 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using IdentityAndAccess.Organizations.Model;
-    using IdentityAndAccess.Organizations.Repositories;
+    using Organizations.Model;
+    using Organizations.Repositories;
 
     public class MembershipsReadModel : IMembershipQueries
     {
+        public IUserQueries UserQueries { get; set; }
+
         public IMembershipRepository MembershipRepository { get; set; }
 
-        public IList<MembershipDto> ByMemberId(int memberId)
+        public IList<MembershipDto> ByUserId(int userId)
         {
-            return MembershipRepository.ByMemberId(memberId).Select(ToMembershipDto).ToList();
+            return MembershipRepository.ByMemberId(userId).Select(ToMembershipDto).ToList();
+        }
+
+        public IList<MembershipDto> ByUserName(string userName)
+        {
+            var user = UserQueries.ByUserName(userName);
+            if (user == null)
+                return new List<MembershipDto>();
+
+            return ByUserId(user.Id);
         }
 
         public IList<MembershipDto> ByOrganizationId(int organizationId)

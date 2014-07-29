@@ -22,8 +22,6 @@
 
         public IUserRepository Users { get; set; }
 
-        public IUserQueries UserQueries { get; set; }
-
         public IMembershipQueries MembershipQueries { get; set; }
 
         [Transaction]
@@ -42,14 +40,10 @@
             {
                 FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
 
-                var user = UserQueries.ByUserName(model.Email);
-                if (user != null)
-                {
-                    var membership = MembershipQueries.ByMemberId(user.Id).FirstOrDefault();
-                    if (membership != null)
-                        OrganizationId = membership.OrganizationId;
-                }
-
+                OrganizationId = null;
+                var membership = MembershipQueries.ByUserName(model.Email).FirstOrDefault();
+                if (membership != null)
+                    OrganizationId = membership.OrganizationId;
 
                 if (!String.IsNullOrEmpty(returnUrl))
                     return Redirect(returnUrl);
