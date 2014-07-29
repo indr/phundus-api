@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Commands;
+    using Cqrs;
     using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Queries;
     using IdentityAndAccess.Users.Repositories;
@@ -17,6 +19,8 @@
         public IUserRepository Users { get; set; }
 
         public IMemberQueries MemberQueries { get; set; }
+
+        public ICommandDispatcher Dispatcher { get; set; }
 
         public CartDto GetCart(int userId)
         {
@@ -37,18 +41,27 @@
         {
             Cart cart = null;
             if (cartId.HasValue)
-            {
                 cart = Carts.FindById(cartId.Value);
-            }
-            else
+            
+            if (cart == null)
             {
                 var user = Users.FindById(userId);
                 cart = new Cart(user);
                 Carts.Add(cart);
             }
-            cart.AddItem(item.ArticleId, item.Quantity, item.From, item.To);
-            Carts.Add(cart);
+            cartId = cart.Id;
 
+            Dispatcher.Dispatch(new AddProductToCart
+            {
+                ArticleId = item.ArticleId,
+                CartId = cartId.Value,
+                DateFrom = item.From,
+                DateTo = item.To,
+                Quantity = item.Quantity,
+                UserId = userId
+            });
+
+            cart = Carts.ById(cart.Id);
             cart.CalculateAvailability(SessionFact());
             var assembler = new CartAssembler();
             return assembler.CreateDto(cart);
