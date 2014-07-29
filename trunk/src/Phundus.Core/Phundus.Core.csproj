@@ -98,6 +98,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
+    <Compile Include="Shop\Orders\Commands\AddProductToCart.cs" />
     <Compile Include="Shop\Orders\_Legacy\CartService.cs" />
     <Compile Include="Shop\Orders\_Legacy\ICartService.cs" />
     <Compile Include="Shop\Orders\_Legacy\IOrderService.cs" />
@@ -206,7 +207,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Shop\Orders\Commands\" />
     <Folder Include="_Legacy\InventoryCtx\Mails\" />
   </ItemGroup>
   <ItemGroup>
