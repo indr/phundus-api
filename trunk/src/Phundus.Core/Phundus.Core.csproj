@@ -92,17 +92,20 @@
     </Compile>
     <Compile Include="IdentityAndAccess\Organizations\Mails\MembershipApplicationMailNotifier.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Role.cs" />
+    <Compile Include="IdentityAndAccess\Queries\IMemberInMembershipRoleQueries.cs" />
     <Compile Include="IdentityAndAccess\Queries\IMembershipApplicationQueries.cs" />
     <Compile Include="IdentityAndAccess\Queries\IMembershipQueries.cs" />
     <Compile Include="IdentityAndAccess\Queries\IOrganizationQueries.cs" />
     <Compile Include="IdentityAndAccess\Queries\IRelationshipQueries.cs" />
     <Compile Include="Cqrs\ReadModelBase.cs" />
+    <Compile Include="IdentityAndAccess\Queries\ReadModels\MemberInMembershipRoleQueries.cs" />
     <Compile Include="IdentityAndAccess\Users\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
-    <Compile Include="Shop\Orders\Commands\AddProductToCart.cs" />
+    <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
+    <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Shop\Orders\Exceptions\CartNotFoundException.cs" />
     <Compile Include="Shop\Orders\Commands\PlaceOrder.cs" />
     <Compile Include="Shop\Orders\_Legacy\CartService.cs" />
