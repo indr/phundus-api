@@ -150,7 +150,7 @@ function ApplicationsCtrl($scope, applications, members) {
         if (!confirm('Möchten Sie "' + application.firstName + ' ' + application.lastName + '" wirklich ablehnen?'))
             return;
 
-        application.$delete();
+        application.$delete(function () { alert("Die Mitgliedschaft wurde abgelehnt."); });
     };
 }
 

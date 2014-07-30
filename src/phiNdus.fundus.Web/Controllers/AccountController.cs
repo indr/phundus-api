@@ -40,10 +40,10 @@
             {
                 FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
 
-                OrganizationId = null;
+                CurrentOrganizationId = null;
                 var membership = MembershipQueries.ByUserName(model.Email).FirstOrDefault();
                 if (membership != null)
-                    OrganizationId = membership.OrganizationId;
+                    CurrentOrganizationId = membership.OrganizationId;
 
                 if (!String.IsNullOrEmpty(returnUrl))
                     return Redirect(returnUrl);

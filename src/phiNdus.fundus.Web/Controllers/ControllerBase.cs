@@ -19,7 +19,7 @@ namespace phiNdus.fundus.Web.Controllers
             get { return Session.SessionID; }
         }
 
-        protected int? OrganizationId
+        protected int? CurrentOrganizationId
         {
             get
             {
