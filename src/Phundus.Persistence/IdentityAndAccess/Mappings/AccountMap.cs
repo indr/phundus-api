@@ -21,7 +21,7 @@
             Map(x => x.RequestedEmail);
             Map(x => x.IsApproved);
             Map(x => x.IsLockedOut);
-            Map(x => x.CreateDate).ReadOnly();
+            Map(x => x.CreateDate).ReadOnly().Insert();
             Map(x => x.LastLogOnDate);
             Map(x => x.Comment);
             Map(x => x.ValidationKey);
