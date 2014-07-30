@@ -40,12 +40,8 @@
 
             if (user != null)
             {
-                var relationship = RelationshipQueries.ByMemberIdForOrganizationId(
+                model.Relationship = RelationshipQueries.ByMemberIdForOrganizationId(
                     Convert.ToInt32(user.ProviderUserKey), organization.Id);
-
-                bool isMemberOf = relationship.Membership != null;
-                model.HasOptionJoin = !isMemberOf;
-                model.HasOptionLeave = isMemberOf;
             }
 
 
@@ -60,8 +56,8 @@
 
             if (organization == null)
                 throw new HttpException(404, "Organisation nicht gefunden.");
-
-            Session["OrganizationId"] = organization.Id;
+            
+            CurrentOrganizationId = organization.Id;
             return RedirectToRoute("Organization", new {name = organization.Url});
         }
     }

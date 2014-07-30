@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Queries
 {
+    using System;
     using System.Linq;
 
     public class RelationshipsReadModel : IRelationshipQueries
@@ -23,17 +24,34 @@
 
         private static RelationshipDto ToRelationshipDto(MembershipDto membership, MembershipApplicationDto application)
         {
-            return new RelationshipDto
-            {
-                Membership = membership,
-                Application = application
-            };
+            var dateTime = DateTime.Now;
+            if (membership != null)
+                return new RelationshipDto(RelationshipDto.StatusDto.Member, membership.ApprovedOn);
+
+            if ((application != null) && (application.RejectedOn.HasValue))
+                return new RelationshipDto(RelationshipDto.StatusDto.Rejected, application.RejectedOn.Value);
+
+            if (application != null)
+                return new RelationshipDto(RelationshipDto.StatusDto.Application, application.CreatedOn);
+
+            return null;
         }
     }
 
     public class RelationshipDto
     {
-        public MembershipDto Membership { get; set; }
-        public MembershipApplicationDto Application { get; set; }
+        public enum StatusDto
+        {
+            Member, Rejected, Application
+        }
+
+        public RelationshipDto(StatusDto status, DateTime dateTime)
+        {
+            Status = status;
+            DateTime = dateTime;
+        }
+
+        public StatusDto Status { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }

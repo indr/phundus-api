@@ -39,11 +39,11 @@
         [Transaction]
         public virtual ActionResult List()
         {
-            if (!OrganizationId.HasValue)
+            if (!CurrentOrganizationId.HasValue)
                 throw new Exception("Keine Organisation ausgewählt.");
 
             var model = new ArticlesTableViewModel(
-                ArticleService.GetArticles(OrganizationId.Value),
+                ArticleService.GetArticles(CurrentOrganizationId.Value),
                 ArticleService.GetProperties()
                 );
             return View(model);
@@ -65,7 +65,7 @@
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                var articleId = ArticleService.CreateArticle(model.CreateDto(), OrganizationId.Value);
+                var articleId = ArticleService.CreateArticle(model.CreateDto(), CurrentOrganizationId.Value);
                 return RedirectToAction("Images", new {id = articleId});
             }
 
@@ -114,7 +114,7 @@
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                ArticleService.UpdateArticle(model.CreateDto(), OrganizationId.Value);
+                ArticleService.UpdateArticle(model.CreateDto(), CurrentOrganizationId.Value);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -153,7 +153,7 @@
                 var images = handler.Post(HttpContext.Request.Files);
                 foreach (var each in images)
                 {
-                    ArticleService.AddImage(id, each, OrganizationId.Value);
+                    ArticleService.AddImage(id, each, CurrentOrganizationId.Value);
                 }
                 var result = factory.Create(images);
                 return Json(result);
@@ -167,7 +167,7 @@
             if (Request.HttpMethod == "DELETE")
             {
                 var fileName = store.FilePath + Path.DirectorySeparatorChar + name;
-                ArticleService.DeleteImage(id, fileName, OrganizationId.Value);
+                ArticleService.DeleteImage(id, fileName, CurrentOrganizationId.Value);
                 store.Delete(name);
                 return Json("");
             }
@@ -222,7 +222,7 @@
             try
             {
                 model.Version = version;
-                ArticleService.DeleteArticle(model.CreateDto(), OrganizationId.Value);
+                ArticleService.DeleteArticle(model.CreateDto(), CurrentOrganizationId.Value);
                 return RedirectToAction("Index");
             }
             catch
