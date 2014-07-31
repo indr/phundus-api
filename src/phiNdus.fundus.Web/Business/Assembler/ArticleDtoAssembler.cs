@@ -45,7 +45,9 @@
             var result = new ArticleDto();
             result.Id = subject.Id;
             result.Version = subject.Version;
-            result.OrganizationName = organizationRepository.ById(subject.OrganizationId).Name;
+            var organization = organizationRepository.ById(subject.OrganizationId);
+            result.OrganizationId = organization.Id;
+            result.OrganizationName = organization.Name;
             WriteFields(subject, result);
             CreateChildren(subject, result);
             foreach (var each in subject.Images)

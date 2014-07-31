@@ -8,6 +8,7 @@
     using Microsoft.Practices.ServiceLocation;
     using Models.CartModels;
     using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
+    using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.Shop.Orders;
     using ViewModels;
 
@@ -121,12 +122,19 @@
             return View(ShopView, MasterView, model);
         }
 
+        public IMemberInMembershipRoleQueries MemberInMembershipRoleQueries { get; set; }
 
         [Transaction]
         [AllowAnonymous]
         public virtual ActionResult Article(int id)
         {
             var model = new ShopArticleViewModel(id);
+
+            var currentUserId = CurrentUserId;
+            if (currentUserId.HasValue)
+            {
+                model.CanUserAddToCart = MemberInMembershipRoleQueries.IsActiveMemberIn(model.OrganizationId, currentUserId.Value);
+            }
 
             model.Availabilities = ServiceLocator.Current.GetInstance<IArticleService>().GetAvailability(id);
             return Json(new
@@ -150,7 +158,7 @@
                 return RedirectToAction(ShopActionNames.Article, item.ArticleId);
             }
 
-            var userId = CurrentUserId;
+            var userId = CurrentUserId.Value;
             var service = ServiceLocator.Current.GetInstance<ICartService>();
             var cart = service.GetCart(userId);
 

@@ -22,6 +22,7 @@
             set { _images = value; }
         }
 
+        public int OrganizationId { get; set; }
         public string OrganizationName { get; set; }
 
         public void AddChild(ArticleDto child)

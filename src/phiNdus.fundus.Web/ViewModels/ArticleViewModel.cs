@@ -7,14 +7,13 @@ namespace phiNdus.fundus.Web.ViewModels
     using System.Web.Mvc;
     using Business.Dto;
     using Business.Services;
+    using Helpers;
     using Microsoft.Practices.ServiceLocation;
-    using phiNdus.fundus.Web.Helpers;
-    using phiNdus.fundus.Web.Models.CartModels;
-    using Phundus.Core.Shop.Orders;
+    using Models.CartModels;
 
     public class ShopArticleViewModel : ArticleViewModel
     {
-        CartItemModel _cartItem = new CartItemModel();
+        private CartItemModel _cartItem = new CartItemModel();
 
         public ShopArticleViewModel(int id) : base(id)
         {
@@ -22,11 +21,7 @@ namespace phiNdus.fundus.Web.ViewModels
             CartItem.Amount = 1;
             CartItem.Begin = SessionAdapter.ShopBegin;
             CartItem.End = SessionAdapter.ShopEnd;
-        }
-
-        protected ICartService CartService
-        {
-            get { return ServiceLocator.Current.GetInstance<ICartService>(); }
+            CanUserAddToCart = false;
         }
 
         public CartItemModel CartItem
@@ -36,16 +31,17 @@ namespace phiNdus.fundus.Web.ViewModels
         }
 
         public IList<AvailabilityDto> Availabilities { get; set; }
+        public bool CanUserAddToCart { get; set; }
     }
 
     public class ArticleViewModel : ViewModelBase
     {
-        IList<ArticleViewModel> _children = new List<ArticleViewModel>();
-        IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
-        IList<PropertyValueViewModel> _editableFieldValues = new List<PropertyValueViewModel>();
-        IList<ImageDto> _files = new List<ImageDto>();
-        IList<FieldDefinitionDto> _propertyDefinitions;
-        IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
+        private IList<ArticleViewModel> _children = new List<ArticleViewModel>();
+        private IList<DiscriminatorViewModel> _discriminators = new List<DiscriminatorViewModel>();
+        private IList<PropertyValueViewModel> _editableFieldValues = new List<PropertyValueViewModel>();
+        private IList<ImageDto> _files = new List<ImageDto>();
+        private IList<FieldDefinitionDto> _propertyDefinitions;
+        private IList<PropertyValueViewModel> _propertyValues = new List<PropertyValueViewModel>();
 
         public ArticleViewModel()
         {
@@ -91,6 +87,8 @@ namespace phiNdus.fundus.Web.ViewModels
         }
 
         public string OrganizationName { get; set; }
+
+        public int OrganizationId { get; set; }
 
         public double Price
         {
@@ -164,20 +162,20 @@ namespace phiNdus.fundus.Web.ViewModels
 
                 var propertyDefinitions = _propertyDefinitions.ToList();
                 propertyDefinitions.RemoveAll(each =>
-                                              (PropertyValues.FirstOrDefault(v => v.PropertyDefinitionId == each.Id) !=
-                                               null)
-                                              ||
-                                              (Discriminators.FirstOrDefault(d => d.PropertyDefinitionId == each.Id) !=
-                                               null)
+                    (PropertyValues.FirstOrDefault(v => v.PropertyDefinitionId == each.Id) !=
+                     null)
+                    ||
+                    (Discriminators.FirstOrDefault(d => d.PropertyDefinitionId == each.Id) !=
+                     null)
                     );
                 return (from p in propertyDefinitions.Where(p => p.IsAttachable).Select(p => new SelectListItem
-                                                                                                 {
-                                                                                                     Value =
-                                                                                                         p.Id.ToString(),
-                                                                                                     Text = p.Caption
-                                                                                                 })
-                        orderby p.Text
-                        select p);
+                {
+                    Value =
+                        p.Id.ToString(),
+                    Text = p.Caption
+                })
+                    orderby p.Text
+                    select p);
             }
         }
 
@@ -203,11 +201,12 @@ namespace phiNdus.fundus.Web.ViewModels
         }
 
 
-        void Load(ArticleDto article, IList<FieldDefinitionDto> propertyDefinitions)
+        private void Load(ArticleDto article, IList<FieldDefinitionDto> propertyDefinitions)
         {
             Id = article.Id;
             Version = article.Version;
             OrganizationName = article.OrganizationName;
+            OrganizationId = article.OrganizationId;
 
             // View-Models aus Properties für Felder und Diskriminatoren erstellen
             if (article.Properties.Count > 0)
@@ -261,31 +260,31 @@ namespace phiNdus.fundus.Web.ViewModels
         public static DiscriminatorViewModel ConvertToDiscriminatorViewModel(FieldValueDto each)
         {
             return new DiscriminatorViewModel
-                       {
-                           Caption = each.Caption,
-                           PropertyDefinitionId = each.PropertyId,
-                           PropertyValueId = each.ValueId
-                       };
+            {
+                Caption = each.Caption,
+                PropertyDefinitionId = each.PropertyId,
+                PropertyValueId = each.ValueId
+            };
         }
 
         public static DiscriminatorViewModel ConvertToDiscriminatorViewModel(FieldDefinitionDto each)
         {
             return ConvertToDiscriminatorViewModel(new FieldValueDto
-                                                       {
-                                                           Caption = each.Caption,
-                                                           DataType = each.DataType,
-                                                           PropertyId = each.Id
-                                                       });
+            {
+                Caption = each.Caption,
+                DataType = each.DataType,
+                PropertyId = each.Id
+            });
         }
 
         public static PropertyValueViewModel ConvertToPropertyValueViewModel(FieldDefinitionDto each)
         {
             return ConvertToPropertyValueViewModel(new FieldValueDto
-                                                       {
-                                                           Caption = each.Caption,
-                                                           DataType = each.DataType,
-                                                           PropertyId = each.Id
-                                                       });
+            {
+                Caption = each.Caption,
+                DataType = each.DataType,
+                PropertyId = each.Id
+            });
         }
 
         public static PropertyValueViewModel ConvertToPropertyValueViewModel(FieldValueDto each)
@@ -313,11 +312,11 @@ namespace phiNdus.fundus.Web.ViewModels
                     continue;
 
                 result.Properties.Add(new FieldValueDto
-                                          {
-                                              PropertyId = each.PropertyDefinitionId,
-                                              Value = each.Value,
-                                              ValueId = each.PropertyValueId
-                                          });
+                {
+                    PropertyId = each.PropertyDefinitionId,
+                    Value = each.Value,
+                    ValueId = each.PropertyValueId
+                });
             }
 
             foreach (var each in Discriminators)
@@ -326,11 +325,11 @@ namespace phiNdus.fundus.Web.ViewModels
                     continue;
 
                 result.Properties.Add(new FieldValueDto
-                                          {
-                                              PropertyId = each.PropertyDefinitionId,
-                                              ValueId = each.PropertyValueId,
-                                              IsDiscriminator = true
-                                          });
+                {
+                    PropertyId = each.PropertyDefinitionId,
+                    ValueId = each.PropertyValueId,
+                    IsDiscriminator = true
+                });
             }
 
             foreach (var each in Children)
