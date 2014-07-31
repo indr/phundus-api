@@ -8,15 +8,14 @@
 
     public class ChangeEmailAddress
     {
-        public ChangeEmailAddress(string oldEmailAddress, string newEmailAddress)
+        public ChangeEmailAddress(int userId, string oldEmailAddress, string emailAddress)
         {
-            OldEmailAddress = oldEmailAddress;
-            NewEmailAddress = newEmailAddress;
+            UserId = userId;
+            EmailAddress = emailAddress;
         }
 
-        public string NewEmailAddress { get; private set; }
-
-        public string OldEmailAddress { get; private set; }
+        public int UserId { get; set; }
+        public string EmailAddress { get; private set; }
     }
 
     public class ChangeEmailAddressHandler : IHandleCommand<ChangeEmailAddress>
@@ -25,14 +24,15 @@
 
         public void Handle(ChangeEmailAddress command)
         {
-            var email = command.OldEmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
-            var newEmail = command.NewEmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
+            var user = UserRepository.ById(command.UserId);
+            if (user == null)
+                throw new UserNotFoundException();
 
-            if (UserRepository.FindByEmail(newEmail) != null)
+            var emailAddress = command.EmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
+            if (UserRepository.FindByEmail(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
 
-            var user = UserRepository.FindByEmail(email);
-            user.Account.RequestedEmail = newEmail;
+            user.Account.RequestedEmail = emailAddress;
             user.Account.GenerateValidationKey();
             UserRepository.Update(user);
 

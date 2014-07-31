@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Organizations
+﻿namespace Phundus.Core.IdentityAndAccess.Users
 {
     using System;
 
