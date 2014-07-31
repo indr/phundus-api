@@ -33,7 +33,11 @@
 
         public bool HasOptionLeave
         {
-            get { return (Relationship != null) && (Relationship.Status == RelationshipDto.StatusDto.Member); }
+            get
+            {
+                return false;
+                //return (Relationship != null) && (Relationship.Status == RelationshipDto.StatusDto.Member);
+            }
         }
 
         public bool HasOptions

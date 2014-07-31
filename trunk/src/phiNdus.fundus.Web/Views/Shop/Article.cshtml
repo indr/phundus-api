@@ -45,6 +45,13 @@
 }
 else
 {
-    @Html.Partial("Article_AddToCart", Model.CartItem)
+    if (Model.CanUserAddToCart)
+    {
+        @Html.Partial("Article_AddToCart", Model.CartItem)
+    }
+    else
+    {
+        <p>Sie müssen Mitglied dieser Organisation sein, um den Artikel auszuleihen.</p>
+    }
 }
 
