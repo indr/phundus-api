@@ -111,7 +111,13 @@
 
         public bool ChangeEmail(string email, string newEmail)
         {
-            Dispatcher.Dispatch(new ChangeEmailAddress(email, newEmail));
+            var user = GetUser(email, false);
+            if (user == null)
+                return false;
+
+            var userId = user.ProviderUserKey;
+
+            Dispatcher.Dispatch(new ChangeEmailAddress(Convert.ToInt32(userId), email, newEmail));
 
             return true;
         }
