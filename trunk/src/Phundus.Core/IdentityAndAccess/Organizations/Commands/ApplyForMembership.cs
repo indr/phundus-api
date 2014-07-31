@@ -4,6 +4,7 @@
     using Cqrs;
     using Queries;
     using Repositories;
+    using Users;
     using Users.Repositories;
 
     public class ApplyForMembership
