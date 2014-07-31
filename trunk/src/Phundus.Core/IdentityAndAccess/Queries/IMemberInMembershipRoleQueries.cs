@@ -3,5 +3,6 @@
     public interface IMemberInMembershipRoleQueries
     {
         bool IsActiveMemberIn(int organizationId, int userId);
+        bool IsActiveChiefIn(int organizationId, int userId);
     }
 }

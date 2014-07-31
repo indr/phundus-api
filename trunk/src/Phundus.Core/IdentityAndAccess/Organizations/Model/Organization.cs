@@ -109,13 +109,13 @@
             return membership;
         }
 
-        public virtual void SetMembersRole(User chief, User member, Role role)
+        public virtual void SetMembersRole(User member, Role role)
         {
             var membership = GetMembershipOfUser(member);
             membership.ChangeRole(role);
         }
 
-        public virtual void LockMember(User chief, User member)
+        public virtual void LockMember(User member)
         {
             var membership = GetMembershipOfUser(member);
             membership.Lock();
@@ -123,7 +123,7 @@
             EventPublisher.Publish(new MemberLocked(Id, member.Id));
         }
 
-        public virtual void UnlockMember(User chief, User member)
+        public virtual void UnlockMember(User member)
         {
             var membership = GetMembershipOfUser(member);
             membership.Unlock();

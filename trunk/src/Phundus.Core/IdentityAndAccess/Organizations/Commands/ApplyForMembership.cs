@@ -1,10 +1,7 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
-    using System;
     using Castle.Transactions;
     using Cqrs;
-    using Infrastructure;
-    using Model;
     using Queries;
     using Repositories;
     using Users.Repositories;
@@ -28,24 +25,19 @@
         [Transaction]
         public void Handle(ApplyForMembership command)
         {
-            Organization organization = OrganizationRepository.ById(command.OrganizationId);
-            Guard.Against<EntityNotFoundException>(organization == null, "Organization not found");
+            var organization = OrganizationRepository.ById(command.OrganizationId);
+            if (organization == null)
+                throw new OrganizationNotFoundException();
 
-            var user = UserRepository.FindById(command.UserId);
-            Guard.Against<EntityNotFoundException>(user == null, "User not found");
+            var user = UserRepository.ActiveById(command.UserId);
+            if (user == null)
+                throw new UserNotFoundException();
 
             var request = organization.RequestMembership(
                 Requests.NextIdentity(),
                 user);
 
             Requests.Add(request);
-        }
-    }
-
-    public class EntityNotFoundException : Exception
-    {
-        public EntityNotFoundException(string message) : base(message)
-        {
         }
     }
 }

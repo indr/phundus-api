@@ -82,6 +82,10 @@
     <Compile Include="Ddd\EventPublisherImpl.cs" />
     <Compile Include="Ddd\IEventHandlerFactory.cs" />
     <Compile Include="Ddd\ISubscribeTo.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Exceptions\MemberNotFoundException.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Exceptions\UserNotFoundException.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Exceptions\OrganizationNotFoundException.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Exceptions\MembershipApplicationNotFoundException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\ChangeMembersRole.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\LockMember.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\UnlockMember.cs" />

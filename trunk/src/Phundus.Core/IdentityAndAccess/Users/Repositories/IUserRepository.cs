@@ -13,5 +13,6 @@
 
         ICollection<User> FindByOrganization(int organizationId);
         User FindById(int id);
+        User ActiveById(int userId);
     }
 }
