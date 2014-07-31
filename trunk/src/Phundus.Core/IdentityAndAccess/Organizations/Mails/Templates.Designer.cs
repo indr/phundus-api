@@ -61,16 +61,38 @@ namespace Phundus.Core.IdentityAndAccess.Organizations.Mails {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;p&gt;Hallo @Model.User.FirstName&lt;/p&gt;
+        ///
+        ///&lt;p&gt;Infolge unsachgemässer Verwendung wurde dein Zugriff auf die Materialverleihanwendung phundus gesperrt. Falls dir dieser Schritt ungerecht erschein kannst du dich gerne an lukas.mueller@pinuts.ch wenden. Beachte, dass bei Mitgliedschaftsanfragen deine Kontaktdaten mit anderen Adressdatenbanken der angefragten Organisationen verglichen werden. Absichtlich erkennbare Falschangaben können zu einer Sperrung deines Kontos führen. Nach einer Sperrung werden keine neu Regis [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string MembershipApplicationApprovedBodyPlain {
+        internal static string MemberLockedBodyHtml {
             get {
-                return ResourceManager.GetString("MembershipApplicationApprovedBodyPlain", resourceCulture);
+                return ResourceManager.GetString("MemberLockedBodyHtml", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mitgliedschaft angenommen.
+        ///   Looks up a localized string similar to Zugriff gesperrt.
+        /// </summary>
+        internal static string MemberLockedSubject {
+            get {
+                return ResourceManager.GetString("MemberLockedSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;p&gt;Hallo @Model.User.FirstName&lt;/p&gt;
+        ///
+        ///&lt;p&gt;Soweit alles okay. Die &quot;Organisation&quot; hat deine Zugehörigkeit geprüft und bestätigt dir, dass du ihr Material ausleihen darfst. Über www.phundus.ch kannst du nun auch die Materialien der @Model.Organization.Name in deinen Warenkorb legen und für deinen Event reservieren.&lt;/p&gt;.
+        /// </summary>
+        internal static string MembershipApplicationApprovedBodyHtml {
+            get {
+                return ResourceManager.GetString("MembershipApplicationApprovedBodyHtml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mitgliedschaft bei @Model.Organization.Name bestätigt.
         /// </summary>
         internal static string MembershipApplicationApprovedSubject {
             get {
@@ -79,16 +101,18 @@ namespace Phundus.Core.IdentityAndAccess.Organizations.Mails {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Filed.
+        ///   Looks up a localized string similar to &lt;p&gt;Hallo @Model.User.FirstName&lt;/p&gt;
+        ///
+        ///&lt;p&gt;Du hast eine Mitgliedschaft am phundus der @Model.Organization.Name beantrag. Diese wird nun geprüft. Sobald dich die @Model.Organization.Name bestätigt, wirst du per E-Mail informiert.&lt;/p&gt;.
         /// </summary>
-        internal static string MembershipApplicationFiledBodyPlain {
+        internal static string MembershipApplicationFiledBodyHtml {
             get {
-                return ResourceManager.GetString("MembershipApplicationFiledBodyPlain", resourceCulture);
+                return ResourceManager.GetString("MembershipApplicationFiledBodyHtml", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mitgliedschaft beantragt.
+        ///   Looks up a localized string similar to Mitgliedschaft bei @Model.Organization.Name beantragt.
         /// </summary>
         internal static string MembershipApplicationFiledSubject {
             get {
@@ -97,20 +121,44 @@ namespace Phundus.Core.IdentityAndAccess.Organizations.Mails {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body Rejected.
+        ///   Looks up a localized string similar to &lt;p&gt;Hallo @Model.User.FirstName&lt;/p&gt;
+        ///
+        ///&lt;p&gt;Die @Model.Organization.Name scheint dich nicht identifizieren zu können. Allenfalls fehlt eine entsprechende Identifikationsnummer der Organisation oder du bist noch nicht in Ihrer Mitgliederdatenbank registriert. Sollte die Ablehnung für dich nicht nachvollziehbar sein kontaktiere deine für die Mitgliedschaften verantwortliche Kontaktperson der Organisation.&lt;/p&gt;
+        ///
+        ///&lt;p&gt;Wir bitten dich wahllose Anfragen zu unterlassen und nur jene Organisationen nach ihrem phundus an [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string MembershipApplicationRejectedBodyPlain {
+        internal static string MembershipApplicationRejectedBodyHtml {
             get {
-                return ResourceManager.GetString("MembershipApplicationRejectedBodyPlain", resourceCulture);
+                return ResourceManager.GetString("MembershipApplicationRejectedBodyHtml", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mitgliedschaft abgelehnt.
+        ///   Looks up a localized string similar to Mitgliedschaft bei @Model.Organization.Name abgelehnt.
         /// </summary>
         internal static string MembershipApplicationRejectedSubject {
             get {
                 return ResourceManager.GetString("MembershipApplicationRejectedSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;p&gt;Hallo @Model.User.FirstName&lt;/p&gt;
+        ///
+        ///&lt;p&gt;Das hat geklappt. Dein phundus Benutzerkonto mit der E-Mail Adresse @Model.User.Account.Email wurde soeben wieder entsperrt. Du kannst nun von deinen Organisationen wieder Material reservieren.&lt;/p&gt;.
+        /// </summary>
+        internal static string MemberUnlockedBodyHtml {
+            get {
+                return ResourceManager.GetString("MemberUnlockedBodyHtml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zugriff entsperrt.
+        /// </summary>
+        internal static string MemberUnlockedSubject {
+            get {
+                return ResourceManager.GetString("MemberUnlockedSubject", resourceCulture);
             }
         }
     }

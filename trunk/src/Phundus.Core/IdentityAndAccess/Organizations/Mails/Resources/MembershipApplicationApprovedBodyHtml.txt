@@ -1,0 +1,3 @@
+<p>Hallo @Model.User.FirstName</p>
+
+<p>Soweit alles okay. Die "Organisation" hat deine Zugehörigkeit geprüft und bestätigt dir, dass du ihr Material ausleihen darfst. Über www.phundus.ch kannst du nun auch die Materialien der @Model.Organization.Name in deinen Warenkorb legen und für deinen Event reservieren.</p>

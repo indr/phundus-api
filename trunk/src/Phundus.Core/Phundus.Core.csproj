@@ -85,12 +85,12 @@
     <Compile Include="IdentityAndAccess\Organizations\Commands\ChangeMembersRole.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\LockMember.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\UnlockMember.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Mails\MembershipApplicationMailNotifier.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
-    <Compile Include="IdentityAndAccess\Organizations\Mails\MembershipApplicationMailNotifier.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Role.cs" />
     <Compile Include="IdentityAndAccess\Queries\IMemberInMembershipRoleQueries.cs" />
     <Compile Include="IdentityAndAccess\Queries\IMembershipApplicationQueries.cs" />
@@ -233,15 +233,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationFiledBodyPlain.txt" />
+    <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationFiledBodyHtml.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationRejectedBodyPlain.txt" />
+    <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationRejectedBodyHtml.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationApprovedBodyPlain.txt" />
+    <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationApprovedBodyHtml.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="IdentityAndAccess\Organizations\Mails\Resources\MemberLockedBodyHtml.txt" />
+    <Content Include="IdentityAndAccess\Organizations\Mails\Resources\MemberUnlockedBodyHtml.txt" />
     <Content Include="IdentityAndAccess\Users\Mails\Resources\UserAccountCreatedHtml.txt" />
     <Content Include="IdentityAndAccess\Users\Mails\Resources\UserAccountValidationHtml.txt" />
     <Content Include="IdentityAndAccess\Users\Mails\Resources\UserLockedHtml.txt" />

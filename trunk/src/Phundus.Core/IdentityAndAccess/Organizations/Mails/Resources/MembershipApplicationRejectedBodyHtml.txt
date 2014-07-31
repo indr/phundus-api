@@ -1,0 +1,5 @@
+<p>Hallo @Model.User.FirstName</p>
+
+<p>Die @Model.Organization.Name scheint dich nicht identifizieren zu können. Allenfalls fehlt eine entsprechende Identifikationsnummer der Organisation oder du bist noch nicht in Ihrer Mitgliederdatenbank registriert. Sollte die Ablehnung für dich nicht nachvollziehbar sein kontaktiere deine für die Mitgliedschaften verantwortliche Kontaktperson der Organisation.</p>
+
+<p>Wir bitten dich wahllose Anfragen zu unterlassen und nur jene Organisationen nach ihrem phundus anzufragen welchen du angehörst. Wir hoffen du verstehst, dass dein Zugriff auf phundus nach weiteren abgelehnten Anfragen gesperrt werden kann.</p>
