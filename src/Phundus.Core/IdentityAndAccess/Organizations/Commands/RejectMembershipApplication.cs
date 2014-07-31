@@ -1,9 +1,10 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
     using System;
+    using System.Security;
     using Castle.Transactions;
     using Cqrs;
-    using Infrastructure;
+    using Queries;
     using Repositories;
 
     public class RejectMembershipApplication
@@ -19,15 +20,23 @@
 
         public IOrganizationRepository OrganizationRepository { get; set; }
 
+        public IMemberInMembershipRoleQueries MemberInMembershipRoleQueries { get; set; }
+
         [Transaction]
         public void Handle(RejectMembershipApplication command)
         {
-            var request = MembershipRequestRepository.ById(command.ApplicationId);
-            Guard.Against<EntityNotFoundException>(request == null, "Membership request not found");
+            var application = MembershipRequestRepository.ById(command.ApplicationId);
+            if (application == null)
+                throw new MembershipApplicationNotFoundException();
 
-            var organization = OrganizationRepository.ById(request.OrganizationId);
-            Guard.Against<EntityNotFoundException>(organization == null, "Organization not found");
-            organization.RejectMembershipRequest(request);
+            var organization = OrganizationRepository.ById(application.OrganizationId);
+            if (organization == null)
+                throw new OrganizationNotFoundException();
+
+            if (!MemberInMembershipRoleQueries.IsActiveChiefIn(application.OrganizationId, command.AdministratorId))
+                throw new SecurityException();
+
+            organization.RejectMembershipRequest(application);
         }
     }
 }

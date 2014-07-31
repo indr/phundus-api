@@ -1,7 +1,9 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
+    using System.Security;
     using Cqrs;
     using Model;
+    using Queries;
     using Repositories;
     using Users.Repositories;
 
@@ -16,15 +18,25 @@
     public class ChangeMembersRoleHandler : IHandleCommand<ChangeMembersRole>
     {
         public IUserRepository UserRepository { get; set; }
+
         public IOrganizationRepository OrganizationRepository { get; set; }
+
+        public IMemberInMembershipRoleQueries MemberInMembershipRoleQueries { get; set; }
 
         public void Handle(ChangeMembersRole command)
         {
-            var chief = UserRepository.ById(command.ChiefId);
-            var member = UserRepository.ById(command.MemberId);
             var organization = OrganizationRepository.ById(command.OrganizationId);
+            if (organization == null)
+                throw new OrganizationNotFoundException();
 
-            organization.SetMembersRole(chief, member, (Role) command.Role);
+            var member = UserRepository.ById(command.MemberId);
+            if (member == null)
+                throw new MemberNotFoundException();
+            
+            if (!MemberInMembershipRoleQueries.IsActiveChiefIn(command.OrganizationId, command.ChiefId))
+                throw new SecurityException();
+
+            organization.SetMembersRole(member, (Role) command.Role);
         }
     }
 }

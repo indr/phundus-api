@@ -37,6 +37,14 @@
             return Members.Where(p => p.Id == id).SingleOrDefault();
         }
 
+        public User ActiveById(int userId)
+        {
+            return Members.Where(p => p.Id == userId)
+                .And(p => p.Account.IsApproved)
+                .And(p => !p.Account.IsLockedOut)
+                .SingleOrDefault();
+        }
+
         public ICollection<User> FindAll()
         {
             IQueryable<User> query = from u in Users select u;
