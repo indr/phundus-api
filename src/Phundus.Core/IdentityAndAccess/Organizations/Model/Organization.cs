@@ -119,12 +119,16 @@
         {
             var membership = GetMembershipOfUser(member);
             membership.Lock();
+
+            EventPublisher.Publish(new MemberLocked(Id, member.Id));
         }
 
         public virtual void UnlockMember(User chief, User member)
         {
             var membership = GetMembershipOfUser(member);
             membership.Unlock();
+
+            EventPublisher.Publish(new MemberUnlocked(Id, member.Id));
         }
     }
 }

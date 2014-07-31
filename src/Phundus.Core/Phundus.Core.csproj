@@ -91,6 +91,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
+    <Compile Include="IdentityAndAccess\Organizations\Model\MemberLocked.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Model\MemberUnlocked.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Role.cs" />
     <Compile Include="IdentityAndAccess\Queries\IMemberInMembershipRoleQueries.cs" />
     <Compile Include="IdentityAndAccess\Queries\IMembershipApplicationQueries.cs" />

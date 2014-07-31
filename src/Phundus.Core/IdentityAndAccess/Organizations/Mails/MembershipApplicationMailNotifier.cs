@@ -8,7 +8,7 @@
     using Queries;
 
     public class MembershipApplicationMailNotifier : BaseMail, ISubscribeTo<MembershipApplicationFiled>,
-        ISubscribeTo<MembershipApplicationApproved>, ISubscribeTo<MembershipApplicationRejected>
+        ISubscribeTo<MembershipApplicationApproved>, ISubscribeTo<MembershipApplicationRejected>, ISubscribeTo<MemberLocked>, ISubscribeTo<MemberUnlocked>
     {
         public IMemberInRoleQueries MemberInRoleQueries { get; set; }
 
@@ -68,6 +68,40 @@
 
             Send(user.Email, Templates.MembershipApplicationRejectedSubject,
                 null, Templates.MembershipApplicationRejectedBodyHtml);
+        }
+
+        public void Handle(MemberLocked @event)
+        {
+            var user = UserQueries.ById(@event.MemberId);
+            var organization = OrganizationQueries.ById(@event.OrganizationId);
+
+            Model = new
+            {
+                User = user,
+                Organization = organization,
+                Urls = new Urls(Config.ServerUrl),
+                Admins = Config.FeedbackRecipients
+            };
+
+            Send(user.Email, Templates.MemberLockedSubject,
+                null, Templates.MemberLockedBodyHtml);
+        }
+
+        public void Handle(MemberUnlocked @event)
+        {
+            var user = UserQueries.ById(@event.MemberId);
+            var organization = OrganizationQueries.ById(@event.OrganizationId);
+
+            Model = new
+            {
+                User = user,
+                Organization = organization,
+                Urls = new Urls(Config.ServerUrl),
+                Admins = Config.FeedbackRecipients
+            };
+
+            Send(user.Email, Templates.MemberUnlockedSubject,
+                null, Templates.MemberUnlockedBodyHtml);
         }
     }
 }
