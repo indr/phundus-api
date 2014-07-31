@@ -1,0 +1,3 @@
+<p>Hallo @Model.User.FirstName</p>
+
+<p>Du hast eine Mitgliedschaft am phundus der @Model.Organization.Name beantrag. Diese wird nun geprüft. Sobald dich die @Model.Organization.Name bestätigt, wirst du per E-Mail informiert.</p>

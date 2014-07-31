@@ -1,0 +1,5 @@
+﻿<p>Hallo @Model.User.FirstName</p>
+
+<p>Infolge unsachgemässer Verwendung wurde dein Zugriff auf die Materialverleihanwendung phundus gesperrt. Falls dir dieser Schritt ungerecht erschein kannst du dich gerne an lukas.mueller@pinuts.ch wenden. Beachte, dass bei Mitgliedschaftsanfragen deine Kontaktdaten mit anderen Adressdatenbanken der angefragten Organisationen verglichen werden. Absichtlich erkennbare Falschangaben können zu einer Sperrung deines Kontos führen. Nach einer Sperrung werden keine neu Registrationen mit identischem Adressstamm akzeptiert.</p>
+
+<p>Wir würden uns freuen dich auf konstruktiven Weg bald wieder auf phundus freischalten zu dürfen.</p>
