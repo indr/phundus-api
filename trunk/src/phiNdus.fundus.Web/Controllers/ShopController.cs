@@ -2,11 +2,9 @@
 {
     using System;
     using System.Web.Mvc;
-    using System.Web.Security;
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
     using Models.CartModels;
-    using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.Inventory._Legacy.Services;
     using Phundus.Core.Shop.Orders;
@@ -15,7 +13,7 @@
 
     public class ShopController : ControllerBase
     {
-        public IOrganizationRepository Organizations { get; set; }
+        public IOrganizationQueries OrganizationQueries { get; set; }
 
         private static string MasterView
         {
@@ -66,6 +64,8 @@
             }
         }
 
+        public IMemberInMembershipRoleQueries MemberInMembershipRoleQueries { get; set; }
+
         [Transaction]
         [AllowAnonymous]
         public virtual ActionResult Index(int? page, FormCollection collection = null)
@@ -112,18 +112,19 @@
                 page = 1;
             QueryString = queryString;
             QueryOrganizationId = queryOrganizationId;
+
+            var organizations = OrganizationQueries.All();
+
             var model = new ShopSearchResultViewModel(
                 QueryString,
                 QueryOrganizationId,
                 page.Value,
                 RowsPerPage.Value,
-                Organizations.FindAll());
+                organizations);
             if (Request.IsAjaxRequest())
                 return PartialView(ShopView, model);
             return View(ShopView, MasterView, model);
         }
-
-        public IMemberInMembershipRoleQueries MemberInMembershipRoleQueries { get; set; }
 
         [Transaction]
         [AllowAnonymous]
@@ -134,7 +135,8 @@
             var currentUserId = CurrentUserId;
             if (currentUserId.HasValue)
             {
-                model.CanUserAddToCart = MemberInMembershipRoleQueries.IsActiveMemberIn(model.OrganizationId, currentUserId.Value);
+                model.CanUserAddToCart = MemberInMembershipRoleQueries.IsActiveMemberIn(model.OrganizationId,
+                    currentUserId.Value);
             }
 
             model.Availabilities = ServiceLocator.Current.GetInstance<IArticleService>().GetAvailability(id);
@@ -199,5 +201,5 @@
         }
 
         #endregion
-    }   
+    }
 }
