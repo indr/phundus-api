@@ -49,27 +49,43 @@ namespace phiNdus.fundus.DbMigrations
                         switch (fieldDefinitionId)
                         {
                             case CaptionId:
+                                if (reader.IsDBNull(3))
+                                    continue;
                                 set = "Name = '" + reader.GetString(3).Replace("'", "\\'") + "'";
                                 break;
                             case PriceId:
+                                if (reader.IsDBNull(5))
+                                    continue;
                                 set = "Price = " + reader.GetDecimal(5).ToString("0.00");
                                 break;
                             case BrandId:
+                                if (reader.IsDBNull(3))
+                                    continue;
                                 set = "Brand = '" + reader.GetString(3).Replace("'", "\\'") + "'";
                                 break;
                             case DescriptionId:
+                                if (reader.IsDBNull(3))
+                                    continue;
                                 set = "Description = '" + reader.GetString(3).Replace("'", "\\'") + "'";
                                 break;
                             case SpecificationId:
+                                if (reader.IsDBNull(3))
+                                    continue;
                                 set = "Specification = '" + reader.GetString(3).Replace("'", "\\'") + "'";
                                 break;
                             case GrossStockId:
+                                if (reader.IsDBNull(4))
+                                    continue;
                                 set = "Stock = " + reader.GetInt32(4);
                                 break;
                             case ColorId:
+                                if (reader.IsDBNull(3))
+                                    continue;
                                 set = "Color = '" + reader.GetString(3).Replace("'", "\\'") + "'";
                                 break;
                             case PriceInfoCardId:
+                                if (reader.IsDBNull(5))
+                                    continue;
                                 set = "Price_InfoCard = " + reader.GetDecimal(5).ToString("0.00");
                                 break;
                             default:
