@@ -8,7 +8,6 @@
 
     public class BasketController : ApiControllerBase
     {
-        public IUserRepository Users { get; set; }
         public ICartRepository Carts { get; set; }
 
         [HttpGet]
@@ -17,9 +16,7 @@
         [Transaction]
         public virtual void Clear()
         {
-            
-            var user = Users.FindByEmail(Identity.Name);
-            var cart = Carts.FindByCustomer(user.Id);
+            var cart = Carts.FindByCustomer(CurrentUserId);
             if (cart != null)
                 cart.Clear();
         }

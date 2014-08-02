@@ -31,13 +31,13 @@ namespace phiNdus.fundus.Web.Controllers
             set { Session["OrganizationId"] = value; }
         }
 
-        protected int? CurrentUserId
+        protected int CurrentUserId
         {
             get
             {
                 var user = Membership.GetUser();
                 if (user == null)
-                    return null;
+                    throw new AuthenticationException();
 
                 var userId = user.ProviderUserKey;
                 return Convert.ToInt32(userId);

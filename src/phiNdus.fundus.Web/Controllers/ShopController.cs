@@ -133,10 +133,10 @@
             var model = new ShopArticleViewModel(id);
 
             var currentUserId = CurrentUserId;
-            if (currentUserId.HasValue)
+            if (Identity.IsAuthenticated)
             {
                 model.CanUserAddToCart = MemberInMembershipRoleQueries.IsActiveMemberIn(model.OrganizationId,
-                    currentUserId.Value);
+                    currentUserId);
             }
 
             model.Availabilities = ServiceLocator.Current.GetInstance<IArticleService>().GetAvailability(id);
@@ -161,7 +161,7 @@
                 return RedirectToAction(ShopActionNames.Article, item.ArticleId);
             }
 
-            var userId = CurrentUserId.Value;
+            var userId = CurrentUserId;
             var service = ServiceLocator.Current.GetInstance<ICartService>();
             var cart = service.GetCart(userId);
 

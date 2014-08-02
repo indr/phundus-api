@@ -20,7 +20,7 @@
         [Transaction]
         public virtual ActionResult Index()
         {
-            var cartDto = CartService.GetCart(CurrentUserId.Value);
+            var cartDto = CartService.GetCart(CurrentUserId);
 
             var model = new CartModel();
             model.Load(cartDto);
@@ -83,7 +83,7 @@
                 return RedirectToAction(CartActionNames.Index);
             }
 
-            var cartDto = CartService.GetCart(CurrentUserId.Value);
+            var cartDto = CartService.GetCart(CurrentUserId);
             if (!cartDto.AreItemsAvailable)
                 return RedirectToAction(CartActionNames.Index);
 
