@@ -3,12 +3,12 @@
     using System;
     using System.Web.Mvc;
     using System.Web.Security;
-    using Business.Services;
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
     using Models.CartModels;
     using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
     using Phundus.Core.IdentityAndAccess.Queries;
+    using Phundus.Core.Inventory._Legacy.Services;
     using Phundus.Core.Shop.Orders;
     using ViewModels;
 

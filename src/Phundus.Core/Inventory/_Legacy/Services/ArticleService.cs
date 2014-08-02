@@ -1,19 +1,17 @@
-﻿namespace phiNdus.fundus.Web.Business.Services
+﻿namespace Phundus.Core.Inventory._Legacy.Services
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Assemblers;
+    using Cqrs.Paging;
+    using Dtos;
+    using IdentityAndAccess.Users.Repositories;
+    using Infrastructure;
+    using InventoryCtx.Repositories;
+    using InventoryCtx.Services;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
-    using phiNdus.fundus.Business.Paging;
-    using Phundus.Core;
-    using Phundus.Core.IdentityAndAccess.Users.Repositories;
-    using Phundus.Core.Inventory._Legacy.Assemblers;
-    using Phundus.Core.Inventory._Legacy.Dtos;
-    using Phundus.Core.InventoryCtx;
-    using Phundus.Core.InventoryCtx.Repositories;
-    using Phundus.Core.InventoryCtx.Services;
-    using Phundus.Infrastructure;
 
     public class ArticleService : BaseService, IArticleService
     {

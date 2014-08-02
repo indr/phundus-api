@@ -76,6 +76,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cqrs\Paging\PagedResult.cs" />
+    <Compile Include="Cqrs\Paging\PageRequest.cs" />
+    <Compile Include="Cqrs\Paging\PageResponse.cs" />
     <Compile Include="Ddd\AutoReleaseEventHandlerInterceptor.cs" />
     <Compile Include="Ddd\DomainEvent.cs" />
     <Compile Include="Ddd\EventHandlerSelector.cs" />
@@ -122,6 +125,10 @@
     <Compile Include="Inventory\_Legacy\Dtos\FieldDefinitionDto.cs" />
     <Compile Include="Inventory\_Legacy\Dtos\FieldValueDto.cs" />
     <Compile Include="Inventory\_Legacy\Dtos\ImageDto.cs" />
+    <Compile Include="Inventory\_Legacy\Services\ArticleService.cs" />
+    <Compile Include="Inventory\_Legacy\Services\IArticleService.cs" />
+    <Compile Include="Inventory\_Legacy\Services\IFieldsService.cs" />
+    <Compile Include="Inventory\_Legacy\Services\PropertyService.cs" />
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
     <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Shop\Orders\Exceptions\CartNotFoundException.cs" />

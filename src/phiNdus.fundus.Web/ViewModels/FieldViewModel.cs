@@ -5,10 +5,10 @@ using System.Web.Mvc;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
-    using Business.Services;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain;
     using Phundus.Core.Inventory._Legacy.Dtos;
+    using Phundus.Core.Inventory._Legacy.Services;
 
     public class FieldViewModel : ViewModelBase
     {

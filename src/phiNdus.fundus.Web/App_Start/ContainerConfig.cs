@@ -4,7 +4,6 @@
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
-    using Business.Services;
     using Castle.Facilities.AutoTx;
     using Castle.Facilities.NHibernate;
     using Castle.MicroKernel.Registration;

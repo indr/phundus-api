@@ -3,11 +3,11 @@
     using System;
     using System.IO;
     using System.Web.Mvc;
-    using Business.Services;
     using Castle.Transactions;
     using Helpers.FileUpload;
     using Microsoft.Practices.ServiceLocation;
     using Models.ArticleModels;
+    using Phundus.Core.Inventory._Legacy.Services;
     using Phundus.Core.InventoryCtx.Model;
     using Phundus.Core.ReservationCtx.Repositories;
     using ViewModels;

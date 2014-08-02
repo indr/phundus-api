@@ -1,8 +1,8 @@
-﻿namespace phiNdus.fundus.Web.Business.Services
+﻿namespace Phundus.Core.Inventory._Legacy.Services
 {
     using System.Collections.Generic;
-    using phiNdus.fundus.Business.Paging;
-    using Phundus.Core.Inventory._Legacy.Dtos;
+    using Cqrs.Paging;
+    using Dtos;
 
     public interface IArticleService
     {
