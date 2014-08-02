@@ -105,8 +105,15 @@ namespace phiNdus.fundus.DbMigrations
                 cmd.Transaction = tx;
                 foreach (var each in update)
                 {
-                    cmd.CommandText = each;
-                    cmd.ExecuteNonQuery();
+                    try
+                    {
+                        cmd.CommandText = each;
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(each, ex);
+                    }
                 }
             }
         }
