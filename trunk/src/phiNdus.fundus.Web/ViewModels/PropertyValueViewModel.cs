@@ -2,7 +2,7 @@
 
 namespace phiNdus.fundus.Web.ViewModels
 {
-    using Business.Dto;
+    using Phundus.Core.Inventory._Legacy.Dtos;
 
     public class PropertyValueViewModel
     {

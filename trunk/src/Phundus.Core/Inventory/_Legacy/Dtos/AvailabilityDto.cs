@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.Business.Dto
+﻿namespace Phundus.Core.Inventory._Legacy.Dtos
 {
     using System;
     using System.ComponentModel.DataAnnotations;

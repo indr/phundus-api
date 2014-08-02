@@ -110,6 +110,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
+    <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
+    <Compile Include="Inventory\_Legacy\Assemblers\ArticleDomainAssembler.cs" />
+    <Compile Include="Inventory\_Legacy\Assemblers\ArticleDtoAssembler.cs" />
+    <Compile Include="Inventory\_Legacy\Assemblers\FieldDefinitionAssembler.cs" />
+    <Compile Include="Inventory\_Legacy\Assemblers\ImageAssembler.cs" />
+    <Compile Include="Inventory\_Legacy\Dtos\ArticleDto.cs" />
+    <Compile Include="Inventory\_Legacy\Dtos\AvailabilityDto.cs" />
+    <Compile Include="Inventory\_Legacy\Dtos\BasePropertiesDto.cs" />
+    <Compile Include="Inventory\_Legacy\Dtos\FieldDataType.cs" />
+    <Compile Include="Inventory\_Legacy\Dtos\FieldDefinitionDto.cs" />
+    <Compile Include="Inventory\_Legacy\Dtos\FieldValueDto.cs" />
+    <Compile Include="Inventory\_Legacy\Dtos\ImageDto.cs" />
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
     <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Shop\Orders\Exceptions\CartNotFoundException.cs" />
@@ -221,6 +233,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Shop\Catalogs\" />
     <Folder Include="_Legacy\InventoryCtx\Mails\" />
   </ItemGroup>
   <ItemGroup>

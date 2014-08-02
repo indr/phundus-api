@@ -1,9 +1,8 @@
-﻿namespace phiNdus.fundus.Web.Business.Assembler
+﻿namespace Phundus.Core.Inventory._Legacy.Assemblers
 {
     using System.Collections.Generic;
-    using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Core.InventoryCtx;
-    using Phundus.Core.InventoryCtx.Model;
+    using Dtos;
+    using InventoryCtx.Model;
 
     public class ImageAssembler
     {
