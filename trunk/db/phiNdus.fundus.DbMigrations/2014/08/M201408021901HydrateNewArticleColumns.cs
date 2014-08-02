@@ -51,7 +51,7 @@ namespace phiNdus.fundus.DbMigrations
                             case CaptionId:
                                 if (reader.IsDBNull(3))
                                     continue;
-                                set = "Name = '" + reader.GetString(3).Replace("'", "\\'") + "'";
+                                set = "Name = '" + reader.GetString(3).Replace("'", "''") + "'";
                                 break;
                             case PriceId:
                                 if (reader.IsDBNull(5))
@@ -61,17 +61,17 @@ namespace phiNdus.fundus.DbMigrations
                             case BrandId:
                                 if (reader.IsDBNull(3))
                                     continue;
-                                set = "Brand = '" + reader.GetString(3).Replace("'", "\\'") + "'";
+                                set = "Brand = '" + reader.GetString(3).Replace("'", "''") + "'";
                                 break;
                             case DescriptionId:
                                 if (reader.IsDBNull(3))
                                     continue;
-                                set = "Description = '" + reader.GetString(3).Replace("'", "\\'") + "'";
+                                set = "Description = '" + reader.GetString(3).Replace("'", "''") + "'";
                                 break;
                             case SpecificationId:
                                 if (reader.IsDBNull(3))
                                     continue;
-                                set = "Specification = '" + reader.GetString(3).Replace("'", "\\'") + "'";
+                                set = "Specification = '" + reader.GetString(3).Replace("'", "''") + "'";
                                 break;
                             case GrossStockId:
                                 if (reader.IsDBNull(4))
@@ -81,7 +81,7 @@ namespace phiNdus.fundus.DbMigrations
                             case ColorId:
                                 if (reader.IsDBNull(3))
                                     continue;
-                                set = "Color = '" + reader.GetString(3).Replace("'", "\\'") + "'";
+                                set = "Color = '" + reader.GetString(3).Replace("'", "''") + "'";
                                 break;
                             case PriceInfoCardId:
                                 if (reader.IsDBNull(5))
