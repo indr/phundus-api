@@ -9,10 +9,11 @@
         public override void Up()
         {
             Alter.Table("Article")
-                .AddColumn("Name").AsString().Nullable()
+                .AddColumn("Name").AsString(Int32.MaxValue).Nullable()
+                .AddColumn("Brand").AsString(Int32.MaxValue).Nullable()
                 .AddColumn("Price").AsDecimal().Nullable()
-                .AddColumn("Description").AsString().Nullable()
-                .AddColumn("Data").AsString().Nullable()
+                .AddColumn("Description").AsString(Int32.MaxValue).Nullable()
+                .AddColumn("Specification").AsString(Int32.MaxValue).Nullable()
                 .AddColumn("Stock").AsInt32().Nullable()
                 .AddColumn("Color").AsString().Nullable()
                 .AddColumn("Price_InfoCard").AsDecimal().Nullable();
