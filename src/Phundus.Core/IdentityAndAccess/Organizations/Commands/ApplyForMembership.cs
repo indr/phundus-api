@@ -9,7 +9,7 @@
 
     public class ApplyForMembership
     {
-        public int UserId { get; set; }
+        public int ApplicantId { get; set; }
         public int OrganizationId { get; set; }
     }
 
@@ -30,7 +30,7 @@
             if (organization == null)
                 throw new OrganizationNotFoundException();
 
-            var user = UserRepository.ActiveById(command.UserId);
+            var user = UserRepository.ActiveById(command.ApplicantId);
             if (user == null)
                 throw new UserNotFoundException();
 

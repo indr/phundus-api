@@ -10,7 +10,7 @@
     public class AddArticleToCart
     {
         public int CartId { get; set; }
-        public int UserId { get; set; }
+        public int InitiatorId { get; set; }
 
         public int ArticleId { get; set; }
         public int Quantity { get; set; }
@@ -32,14 +32,14 @@
             if (cart == null)
                 throw new CartNotFoundException();
 
-            if (cart.CustomerId != command.UserId)
+            if (cart.CustomerId != command.InitiatorId)
                 throw new SecurityException();
 
             var article = ArticleRepository.ById(command.ArticleId);
             if (article == null)
                 throw new ArticleNotFoundException();
 
-            if (!MemberInMembershipRoleQueries.IsActiveMemberIn(article.OrganizationId, command.UserId))
+            if (!MemberInMembershipRoleQueries.IsActiveMemberIn(article.OrganizationId, command.InitiatorId))
                 throw new SecurityException();
 
             cart.AddItem(command.ArticleId, command.Quantity,

@@ -10,7 +10,7 @@
         {
             Dispatcher.Dispatch(new LockMember
             {
-                ChiefId = CurrentUserId,
+                InitiatorId = CurrentUserId,
                 MemberId = memberId,
                 OrganizationId = organizationId
             });
@@ -21,7 +21,7 @@
         {
             Dispatcher.Dispatch(new UnlockMember
             {
-                ChiefId = CurrentUserId,
+                InitiatorId = CurrentUserId,
                 MemberId = memberId,
                 OrganizationId = organizationId
             });

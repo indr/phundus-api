@@ -8,7 +8,7 @@
         [Transaction]
         public virtual void Delete()
         {
-            Dispatcher.Dispatch(new ClearCart {UserId = CurrentUserId});
+            Dispatcher.Dispatch(new ClearCart {InitiatorId = CurrentUserId});
         }
     }
 }

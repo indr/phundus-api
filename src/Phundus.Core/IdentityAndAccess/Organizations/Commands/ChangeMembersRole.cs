@@ -10,7 +10,7 @@
     public class ChangeMembersRole
     {
         public int OrganizationId { get; set; }
-        public int ChiefId { get; set; }
+        public int InitiatorId { get; set; }
         public int MemberId { get; set; }
         public int Role { get; set; }
     }
@@ -33,7 +33,7 @@
             if (member == null)
                 throw new MemberNotFoundException();
             
-            if (!MemberInMembershipRoleQueries.IsActiveChiefIn(command.OrganizationId, command.ChiefId))
+            if (!MemberInMembershipRoleQueries.IsActiveChiefIn(command.OrganizationId, command.InitiatorId))
                 throw new SecurityException();
 
             organization.SetMembersRole(member, (Role) command.Role);

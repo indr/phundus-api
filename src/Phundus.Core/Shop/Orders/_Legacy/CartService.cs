@@ -58,7 +58,7 @@
                 DateFrom = item.From,
                 DateTo = item.To,
                 Quantity = item.Quantity,
-                UserId = userId
+                InitiatorId = userId
             });
 
             cart = Carts.ById(cart.Id);
