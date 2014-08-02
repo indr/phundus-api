@@ -4,15 +4,15 @@
     using System.ComponentModel.DataAnnotations;
     using Microsoft.Practices.ServiceLocation;
     using Phundus.Core.Cqrs.Paging;
-    using Phundus.Core.IdentityAndAccess.Organizations.Model;
+    using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.Inventory._Legacy.Services;
 
     public class ShopSearchResultViewModel : ViewModelBase
     {
-        private readonly ICollection<Organization> _organizations;
+        private readonly IEnumerable<OrganizationDto> _organizations;
 
         public ShopSearchResultViewModel(string queryString, int? queryOrganizationId, int page, int rowsPerPage,
-            ICollection<Organization> organizations)
+            IEnumerable<OrganizationDto> organizations)
         {
             Query = queryString;
             QueryOrganizationId = queryOrganizationId;
@@ -31,7 +31,7 @@
         public PageSelectorViewModel PageSelectorModel { get; set; }
         public IList<ArticleViewModel> Articles { get; private set; }
 
-        public IEnumerable<Organization> Organizations
+        public IEnumerable<OrganizationDto> Organizations
         {
             get { return _organizations; }
         }
