@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Business.Services;
     using Microsoft.Practices.ServiceLocation;
+    using Phundus.Core.Inventory._Legacy.Services;
 
     public class FieldsViewModel : ViewModelBase
     {

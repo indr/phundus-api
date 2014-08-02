@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using phiNdus.fundus.Business.Paging;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using Phundus.Core.Cqrs.Paging;
+
     public class PageSelectorViewModel
     {
         private readonly int _minGroupLength;

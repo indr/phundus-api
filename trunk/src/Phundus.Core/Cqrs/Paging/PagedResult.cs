@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace phiNdus.fundus.Business.Paging
+﻿namespace Phundus.Core.Cqrs.Paging
 {
-    using Phundus.Infrastructure;
+    using System;
+    using System.Collections.Generic;
+    using Infrastructure;
 
     /// <summary>
     /// Liefert ein "gepagtes" Resultat für einen bestimmten Typ.

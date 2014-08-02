@@ -5,11 +5,11 @@ namespace phiNdus.fundus.Web.ViewModels
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
-    using Business.Services;
     using Helpers;
     using Microsoft.Practices.ServiceLocation;
     using Models.CartModels;
     using Phundus.Core.Inventory._Legacy.Dtos;
+    using Phundus.Core.Inventory._Legacy.Services;
 
     public class ShopArticleViewModel : ArticleViewModel
     {

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using phiNdus.fundus.Business.Paging;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
-    using Business.Services;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Domain;
+    using Phundus.Core.Cqrs.Paging;
     using Phundus.Core.IdentityAndAccess.Organizations.Model;
+    using Phundus.Core.Inventory._Legacy.Services;
 
     public class ShopSearchResultViewModel : ViewModelBase
     {

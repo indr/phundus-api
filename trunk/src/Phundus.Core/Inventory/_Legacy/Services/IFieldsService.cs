@@ -1,7 +1,7 @@
-﻿namespace phiNdus.fundus.Web.Business.Services
+﻿namespace Phundus.Core.Inventory._Legacy.Services
 {
     using System.Collections.Generic;
-    using Phundus.Core.Inventory._Legacy.Dtos;
+    using Dtos;
 
     public interface IFieldsService
     {

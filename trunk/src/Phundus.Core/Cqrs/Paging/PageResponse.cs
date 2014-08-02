@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Business.Paging
+﻿namespace Phundus.Core.Cqrs.Paging
 {
     public class PageResponse : PageRequest
     {

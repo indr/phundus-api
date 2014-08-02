@@ -1,15 +1,12 @@
-﻿namespace phiNdus.fundus.Web.Business.Services
+﻿namespace Phundus.Core.Inventory._Legacy.Services
 {
     using System;
     using System.Collections.Generic;
+    using Assemblers;
+    using Dtos;
+    using Infrastructure;
+    using InventoryCtx.Repositories;
     using Microsoft.Practices.ServiceLocation;
-    using phiNdus.fundus.Business;
-    using Phundus.Core;
-    using Phundus.Core.Inventory._Legacy.Assemblers;
-    using Phundus.Core.Inventory._Legacy.Dtos;
-    using Phundus.Core.InventoryCtx;
-    using Phundus.Core.InventoryCtx.Repositories;
-    using Phundus.Infrastructure;
 
     public class PropertyService : BaseService, IPropertyService
     {
