@@ -8,6 +8,7 @@
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.Shop.Orders;
     using Phundus.Core.Shop.Queries;
+    using Phundus.Web;
     using ViewModels;
 
     public class CartController : ControllerBase

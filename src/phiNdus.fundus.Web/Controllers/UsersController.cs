@@ -9,6 +9,7 @@
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.IdentityAndAccess.Users.Mails;
     using Phundus.Core.IdentityAndAccess.Users.Repositories;
+    using Phundus.Web;
 
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase

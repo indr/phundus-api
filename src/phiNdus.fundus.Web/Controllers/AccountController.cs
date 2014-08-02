@@ -12,6 +12,7 @@
     using Phundus.Core.IdentityAndAccess.Users.Mails;
     using Phundus.Core.IdentityAndAccess.Users.Model;
     using Phundus.Core.IdentityAndAccess.Users.Repositories;
+    using Phundus.Web;
     using Security;
     using ViewModels;
     using ViewModels.Account;
