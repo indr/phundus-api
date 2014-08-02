@@ -57,6 +57,7 @@
 
         [Authorize]
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
@@ -65,6 +66,7 @@
 
         [HttpGet]
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult ResetPassword()
         {
             return View(new ResetPasswordViewModel());
@@ -72,6 +74,7 @@
 
         [HttpPost]
         [Transaction]
+        [AllowAnonymous]
         public virtual ActionResult ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
