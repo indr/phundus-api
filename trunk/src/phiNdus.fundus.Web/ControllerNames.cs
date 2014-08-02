@@ -1,11 +1,10 @@
-﻿namespace phiNdus.fundus.Web
+﻿namespace Phundus.Web
 {
     public class ControllerNames
     {
         public static string Account { get { return @"account";  } }
         public static string Articles { get { return @"article"; } }
         public static string Cart { get { return @"cart"; } }
-        public static string Contracts { get { return @"contract"; } }
         public static string Feedback { get { return @"feedback";}}
         public static string Fields { get { return @"fields"; } }
         public static string Home { get { return @"home"; } }
@@ -64,13 +63,6 @@
         public static string Add { get { return @"add"; } }
         public static string Remove { get { return @"remove"; } }
         public static string CheckOut { get { return @"checkout"; } }
-    }
-
-    public class ContractsActionNames
-    {
-        public static string Index { get { return @"index"; } }
-        public static string Signed { get { return @"signed"; } }
-        public static string Closed { get { return @"closed"; } }
     }
 
     public class FieldsActionNames

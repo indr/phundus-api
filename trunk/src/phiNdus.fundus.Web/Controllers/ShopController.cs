@@ -10,6 +10,7 @@
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.Inventory._Legacy.Services;
     using Phundus.Core.Shop.Orders;
+    using Phundus.Web;
     using ViewModels;
 
     public class ShopController : ControllerBase

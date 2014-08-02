@@ -199,14 +199,11 @@
     <Compile Include="Helpers\SessionAdapter.cs" />
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Layout\NavBarModel.cs" />
-    <Compile Include="ViewModels\SendTestEmailViewModel.cs" />
     <Compile Include="Helpers\HandleAjaxErrorAttribute.cs" />
     <Compile Include="Helpers\HandleModelStateExceptionAttribute.cs" />
     <Compile Include="ViewModels\ArticleAvailabilityViewModel.cs" />
     <Compile Include="ViewModels\CheckOutViewModel.cs" />
-    <Compile Include="ViewModels\ContractsViewModel.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
-    <Compile Include="Controllers\ContractController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\FieldsController.cs" />
@@ -333,7 +330,6 @@
     <Compile Include="ViewModels\ArticlesViewModel.cs" />
     <Compile Include="Models\CartModels\CartItemModel.cs" />
     <Compile Include="Models\CartModels\CartModel.cs" />
-    <Compile Include="ViewModels\ContractViewModel.cs" />
     <Compile Include="ViewModels\FieldsViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="ViewModels\FieldViewModel.cs" />
@@ -950,9 +946,6 @@
     <Content Include="Views\Shop\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Contract\My.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -981,8 +974,6 @@
     <Content Include="Views\Shared\DisplayTemplates\PageSelectorViewModel.cshtml" />
     <Content Include="Views\Order\My.cshtml" />
     <Content Include="Views\Order\Closed.cshtml" />
-    <Content Include="Views\Contract\Closed.cshtml" />
-    <Content Include="Views\Contract\Signed.cshtml" />
     <Content Include="Views\Cart\CheckOut.cshtml" />
     <Content Include="Views\Cart\CheckOutDone.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
