@@ -7,10 +7,12 @@
     using Helpers.FileUpload;
     using Microsoft.Practices.ServiceLocation;
     using Models.ArticleModels;
+    using Phundus.Core.Inventory.Queries;
     using Phundus.Core.Inventory._Legacy.Services;
     using Phundus.Core.InventoryCtx.Model;
     using Phundus.Core.ReservationCtx.Repositories;
     using ViewModels;
+    using Article = Phundus.Core.InventoryCtx.Model.Article;
 
     public class ArticleController : ControllerBase
     {
@@ -19,15 +21,11 @@
             get { return @"_Tabs"; }
         }
 
-        protected IArticleService ArticleService
-        {
-            get { return ServiceLocator.Current.GetInstance<IArticleService>(); }
-        }
+        public IArticleQueries ArticleQueries { get; set; }
 
-        protected IFieldsService FieldsService
-        {
-            get { return ServiceLocator.Current.GetInstance<IFieldsService>(); }
-        }
+        public IArticleService ArticleService { get; set; }
+
+        public IFieldsService FieldsService { get; set; }
 
 
         [Transaction]
@@ -43,7 +41,7 @@
                 throw new Exception("Keine Organisation ausgewählt.");
 
             var model = new ArticlesTableViewModel(
-                ArticleService.GetArticles(CurrentOrganizationId.Value),
+                ArticleQueries.GetArticles(CurrentOrganizationId.Value),
                 ArticleService.GetProperties()
                 );
             return View(model);
@@ -96,7 +94,7 @@
         public virtual ActionResult Fields(int id)
         {
             var model = new ArticleViewModel(
-                ArticleService.GetArticle(id),
+                ArticleQueries.GetArticle(id),
                 ArticleService.GetProperties());
             if (Request.IsAjaxRequest())
             {

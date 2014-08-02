@@ -29,7 +29,7 @@
 
 
             container.Register(Types.FromThisAssembly()
-                .BasedOn<BaseService>()
+                .BasedOn<AppServiceBase>()
                 .WithServiceFirstInterface()
                 .LifestyleTransient());
 

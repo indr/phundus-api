@@ -6,6 +6,7 @@
     using Phundus.Core.Cqrs.Paging;
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.Inventory._Legacy.Services;
+    using Phundus.Core.Shop.Queries;
 
     public class ShopSearchResultViewModel : ViewModelBase
     {
@@ -47,7 +48,7 @@
         private void Search(string query, int? organization, int page)
         {
             var fieldDefinitions = ArticleService.GetProperties();
-            var queryResult = ServiceLocator.Current.GetInstance<IArticleService>().FindArticles(
+            var queryResult = ServiceLocator.Current.GetInstance<IShopArticleQueries>().FindArticles(
                 new PageRequest {Index = page - 1, Size = RowsPerPage}, query, organization);
             PageSelectorModel = new PageSelectorViewModel(queryResult.Pages);
             foreach (var each in queryResult.Items)

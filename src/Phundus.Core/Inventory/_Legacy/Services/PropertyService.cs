@@ -8,7 +8,7 @@
     using InventoryCtx.Repositories;
     using Microsoft.Practices.ServiceLocation;
 
-    public class PropertyService : BaseService, IPropertyService
+    public class PropertyService : AppServiceBase, IPropertyService
     {
         private static IFieldDefinitionRepository PropertyDefinitions
         {

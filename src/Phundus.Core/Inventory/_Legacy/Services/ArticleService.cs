@@ -13,9 +13,9 @@
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
 
-    public class ArticleService : BaseService, IArticleService
+    public class ArticleService : AppServiceBase, IArticleService
     {
-        private static IArticleRepository Articles
+        private static IArticleRepository ArticleRepository
         {
             get { return ServiceLocator.Current.GetInstance<IArticleRepository>(); }
         }
@@ -33,21 +33,6 @@
             return PropertyService.GetProperties();
         }
 
-        public virtual ArticleDto[] GetArticles(int organizationId)
-        {
-            var user = Users.FindByEmail(Identity.Name);
-            var articles = Articles.FindAll(organizationId);
-            return new ArticleDtoAssembler().CreateDtos(articles);
-        }
-
-        public virtual ArticleDto GetArticle(int id)
-        {
-            var article = Articles.ById(id);
-            if (article == null)
-                return null;
-            return new ArticleDtoAssembler().CreateDto(article);
-        }
-
         public virtual int CreateArticle(ArticleDto subject, int organizationId)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
@@ -55,7 +40,7 @@
             var article = ArticleDomainAssembler.CreateDomainObject(subject);
             var user = Users.FindByEmail(Identity.Name);
             article.OrganizationId = organizationId;
-            var id = Articles.Add(article).Id;
+            var id = ArticleRepository.Add(article).Id;
             return id;
         }
          
@@ -66,7 +51,7 @@
             var article = ArticleDomainAssembler.UpdateDomainObject(subject);
             if (article.OrganizationId != organizationId)
                 throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
-            Articles.Add(article);
+            ArticleRepository.Add(article);
         }
        
         public virtual void DeleteArticle(ArticleDto subject, int organizationId)
@@ -75,51 +60,41 @@
             var article = ArticleDomainAssembler.UpdateDomainObject(subject);
             if (article.OrganizationId != organizationId)
                 throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
-            Articles.Remove(article);
+            ArticleRepository.Remove(article);
         }
 
         public void AddImage(int articleId, ImageDto subject, int organizationId)
         {
             var user = Users.FindByEmail(Identity.Name);
-            var article = Articles.ById(articleId);
+            var article = ArticleRepository.ById(articleId);
             if (article.OrganizationId != organizationId)
                 throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
             var assembler = new ImageAssembler();
             article.AddImage(assembler.CreateDomainObject(subject));
-            Articles.Add(article);
+            ArticleRepository.Add(article);
         }
 
         public void DeleteImage(int articleId, string imageName, int organizationId)
         {
             var user = Users.FindByEmail(Identity.Name);
-            var article = Articles.ById(articleId);
+            var article = ArticleRepository.ById(articleId);
             if (article.OrganizationId != organizationId)
                 throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
             var image = article.Images.Where(i => i.FileName == imageName).FirstOrDefault();
             article.RemoveImage(image);
-            Articles.Add(article);
+            ArticleRepository.Add(article);
         }
 
         public IList<ImageDto> GetImages(int articleId)
         {
-            var article = Articles.ById(articleId);
+            var article = ArticleRepository.ById(articleId);
             var assembler = new ImageAssembler();
             return assembler.CreateDtos(article.Images);
         }
 
-        public PagedResult<ArticleDto> FindArticles(PageRequest pageRequest, string query, int? organization)
-        {
-            int total;
-            var result = Articles.FindMany(query, organization, pageRequest.Index*pageRequest.Size, pageRequest.Size,
-                                           out total);
-            var dtos = new ArticleDtoAssembler().CreateDtos(result).ToList();
-            return new PagedResult<ArticleDto>(PageResponse.From(pageRequest, total), dtos);
-        }
-
-
         public IList<AvailabilityDto> GetAvailability(int id)
         {
-            var article = Articles.ById(id);
+            var article = ArticleRepository.ById(id);
             var availabilities = new NetStockCalculator(article, Session())
                 .From(DateTime.Today).To(DateTime.Today.AddYears(1));
             return

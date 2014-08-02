@@ -11,7 +11,7 @@
     using Queries;
     using Repositories;
 
-    public class OrderService : BaseService, IOrderService
+    public class OrderService : AppServiceBase, IOrderService
     {
         public IUserRepository Users { get; set; }
 

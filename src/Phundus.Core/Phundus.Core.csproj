@@ -114,6 +114,7 @@
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
+    <Compile Include="Inventory\Queries\IArticleQueries.cs" />
     <Compile Include="Inventory\_Legacy\Assemblers\ArticleDomainAssembler.cs" />
     <Compile Include="Inventory\_Legacy\Assemblers\ArticleDtoAssembler.cs" />
     <Compile Include="Inventory\_Legacy\Assemblers\FieldDefinitionAssembler.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Shop\Queries\Dtos\OrderDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderDtoAssembler.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderItemDto.cs" />
+    <Compile Include="Shop\Queries\IShopArticleQueries.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
     <Compile Include="Cqrs\CommandDispatcher.cs" />
@@ -176,7 +178,7 @@
     <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipsReadModel.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
-    <Compile Include="_Legacy\BaseService.cs" />
+    <Compile Include="_Legacy\AppServiceBase.cs" />
     <Compile Include="_Legacy\DtoOutOfDateException.cs" />
     <Compile Include="_Legacy\EntityNotFoundException.cs" />
     <Compile Include="_Legacy\InventoryCtx\Model\Article.cs" />

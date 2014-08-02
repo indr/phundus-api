@@ -8,6 +8,7 @@ namespace phiNdus.fundus.Web.ViewModels
     using Helpers;
     using Microsoft.Practices.ServiceLocation;
     using Models.CartModels;
+    using Phundus.Core.Inventory.Queries;
     using Phundus.Core.Inventory._Legacy.Dtos;
     using Phundus.Core.Inventory._Legacy.Services;
 
@@ -50,7 +51,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public ArticleViewModel(int id)
         {
-            var articleDto = ArticleService.GetArticle(id);
+            var articleDto = ArticleQueries.GetArticle(id);
             var fieldDefinitionDtos = ArticleService.GetProperties();
             Load(articleDto, fieldDefinitionDtos);
         }
@@ -58,6 +59,11 @@ namespace phiNdus.fundus.Web.ViewModels
         public ArticleViewModel(ArticleDto articleDto, IList<FieldDefinitionDto> fieldDefinitionDtos)
         {
             Load(articleDto, fieldDefinitionDtos);
+        }
+
+        protected IArticleQueries ArticleQueries
+        {
+            get { return ServiceLocator.Current.GetInstance<IArticleQueries>(); }
         }
 
         protected IArticleService ArticleService
