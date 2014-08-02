@@ -5,26 +5,15 @@ using WatiN.Core;
 
 namespace piNuts.phundus.Specs.Steps
 {
+    using System.Net.Http;
+
     [Binding]
     public class ShopSteps : StepBase
     {
         [Given(@"mein Warenkorb ist leer")]
         public void AngenommenMeinWarenkorbIstLeer()
         {
-            ApiCall("/basket/clear");
-            //Browser.GoTo(BaseUrl + "/cart");
-            //if (Browser.TableCell(Find.ByClass("no-data")).Exists)
-            //    return;
-
-            //var link = Browser.Links.FirstOrDefault(p => p.InnerHtml == "Entfernen");
-            //while (link != null && link.Exists)
-            //{
-            //    link.Click();
-            //    link = Browser.Links.FirstOrDefault(p => p.InnerHtml == "Entfernen");
-            //}
-            //Browser.GoTo(BaseUrl + "/cart");
-            //var td = Browser.TableCell(Find.ByClass("no-data"));
-            //Assert.That(td.Exists, Is.True);
+            ApiCall("/cart", HttpMethod.Delete);
         }
 
         [Given(@"ich lege den Artikel mit der Id (.*) in den Warenkorb")]

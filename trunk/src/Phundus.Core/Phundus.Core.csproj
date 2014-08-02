@@ -130,6 +130,7 @@
     <Compile Include="Inventory\_Legacy\Services\IFieldsService.cs" />
     <Compile Include="Inventory\_Legacy\Services\PropertyService.cs" />
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
+    <Compile Include="Shop\Orders\Commands\ClearCart.cs" />
     <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Shop\Orders\Exceptions\CartNotFoundException.cs" />
     <Compile Include="Shop\Orders\_Legacy\CartService.cs" />

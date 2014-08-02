@@ -31,21 +31,39 @@
                     {"password", password}
                 });
         }
+        
+        private static CookieContainer _container = new CookieContainer();
 
         protected static void ApiCall(string url)
         {
-            ApiCall(url, new Dictionary<string, string>());
+            ApiCall(url, HttpMethod.Post);
         }
 
-        private static CookieContainer _container = new CookieContainer();
+        protected static void ApiCall(string url, HttpMethod method)
+        {
+            ApiCall(url, method, new Dictionary<string, string>());
+        }
 
         protected static void ApiCall(string url, IEnumerable<KeyValuePair<string, string>> formValues)
+        {
+            ApiCall(url, HttpMethod.Post,  formValues);
+        }
+
+        protected static void ApiCall(string url, HttpMethod method, IEnumerable<KeyValuePair<string, string>> formValues)
         {
             //var cookies = new CookieContainer();
             var handler = new HttpClientHandler();
             handler.CookieContainer = _container;
             var client = new HttpClient(handler);
-            var response = client.PostAsync("http://" + BaseUrl + "/api/" + url, new FormUrlEncodedContent(formValues)).Result;
+            url = "http://" + BaseUrl + "/api/" + url;
+
+            HttpResponseMessage response;
+
+            if (method == HttpMethod.Delete)
+                response = client.DeleteAsync(url).Result;
+            else
+                response = client.PostAsync(url, new FormUrlEncodedContent(formValues)).Result;
+
             response.EnsureSuccessStatusCode();
 
             foreach (var each in _container.GetCookies(new Uri("http://" + BaseUrl)).Cast<Cookie>())
