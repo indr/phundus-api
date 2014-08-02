@@ -13,7 +13,7 @@ namespace piNuts.phundus.Specs.Steps
         [Given(@"mein Warenkorb ist leer")]
         public void AngenommenMeinWarenkorbIstLeer()
         {
-            ApiCall("/cart", HttpMethod.Delete);
+            ApiCall("/carts", HttpMethod.Delete);
         }
 
         [Given(@"ich lege den Artikel mit der Id (.*) in den Warenkorb")]

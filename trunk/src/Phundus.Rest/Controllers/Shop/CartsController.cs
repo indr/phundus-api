@@ -3,7 +3,7 @@
     using Castle.Transactions;
     using Core.Shop.Orders.Commands;
 
-    public class CartController : ApiControllerBase
+    public class CartsController : ApiControllerBase
     {
         [Transaction]
         public virtual void Delete()

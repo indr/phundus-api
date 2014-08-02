@@ -194,7 +194,7 @@
     <Compile Include="App_Start\Plumbing\RegisterClientValidationExtensions.cs" />
     <Compile Include="ControllerNames.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\Orgs\ArticleController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Helpers\SessionAdapter.cs" />
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />

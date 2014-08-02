@@ -12,7 +12,7 @@
     using Queries;
     using Repositories;
 
-    public class CartService : BaseService, ICartService
+    public class CartService : AppServiceBase, ICartService
     {
         public ICartRepository Carts { get; set; }
 
@@ -28,7 +28,7 @@
             var cart = Carts.FindByCustomer(userId);
             if (cart == null)
             {
-                cart = new Cart(user);
+                cart = new Model.Cart(user);
                 Carts.Add(cart);
             }
 
@@ -39,14 +39,14 @@
 
         public CartDto AddItem(int? cartId, int userId, CartItemDto item)
         {
-            Cart cart = null;
+            Model.Cart cart = null;
             if (cartId.HasValue)
                 cart = Carts.FindById(cartId.Value);
             
             if (cart == null)
             {
                 var user = Users.FindById(userId);
-                cart = new Cart(user);
+                cart = new Model.Cart(user);
                 Carts.Add(cart);
             }
             cartId = cart.Id;

@@ -8,7 +8,6 @@
         void Remove(T entity);
         T Add(T entity);
 
-        [Obsolete]
         void Update(T entity);
     }
 }
