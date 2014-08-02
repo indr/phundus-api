@@ -5,7 +5,7 @@
 
     public class ClearCart
     {
-        public int UserId { get; set; }
+        public int InitiatorId { get; set; }
     }
 
     public class ClearCartHandler : IHandleCommand<ClearCart>
@@ -14,7 +14,7 @@
 
         public void Handle(ClearCart command)
         {
-            var cart = CartRepository.FindByCustomer(command.UserId);
+            var cart = CartRepository.FindByCustomer(command.InitiatorId);
             if (cart == null)
                 return;
 

@@ -4,15 +4,13 @@
     using System.Security;
     using Castle.Transactions;
     using Cqrs;
-    using Infrastructure;
     using Queries;
     using Repositories;
 
     public class AllowMembershipApplication
     {
         public Guid ApplicationId { get; set; }
-
-        public int AdministratorId { get; set; }
+        public int InitiatorId { get; set; }
     }
 
     public class AllowMembershipApplicationHandler : IHandleCommand<AllowMembershipApplication>
@@ -36,9 +34,9 @@
             if (organization == null)
                 throw new OrganizationNotFoundException();
 
-            if(!MemberInMembershipRoleQueries.IsActiveChiefIn(application.OrganizationId, command.AdministratorId))
+            if (!MemberInMembershipRoleQueries.IsActiveChiefIn(application.OrganizationId, command.InitiatorId))
                 throw new SecurityException();
-            
+
             organization.ApproveMembershipRequest(application, Memberships.NextIdentity());
         }
     }

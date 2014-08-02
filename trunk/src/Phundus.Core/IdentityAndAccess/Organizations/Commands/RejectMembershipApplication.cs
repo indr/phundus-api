@@ -10,8 +10,7 @@
     public class RejectMembershipApplication
     {
         public Guid ApplicationId { get; set; }
-
-        public int AdministratorId { get; set; }
+        public int InitiatorId { get; set; }
     }
 
     public class RejectMembershipRequestHandler : IHandleCommand<RejectMembershipApplication>
@@ -33,7 +32,7 @@
             if (organization == null)
                 throw new OrganizationNotFoundException();
 
-            if (!MemberInMembershipRoleQueries.IsActiveChiefIn(application.OrganizationId, command.AdministratorId))
+            if (!MemberInMembershipRoleQueries.IsActiveChiefIn(application.OrganizationId, command.InitiatorId))
                 throw new SecurityException();
 
             organization.RejectMembershipRequest(application);

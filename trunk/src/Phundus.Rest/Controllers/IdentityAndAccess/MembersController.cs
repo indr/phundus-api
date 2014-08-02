@@ -27,7 +27,7 @@
         {
             Dispatcher.Dispatch(new AllowMembershipApplication
             {
-                AdministratorId = CurrentUserId,
+                InitiatorId = CurrentUserId,
                 ApplicationId = doc.applicationId
             });
         }
@@ -69,7 +69,7 @@
             Dispatcher.Dispatch(new ChangeMembersRole
             {
                 OrganizationId = organization,
-                ChiefId = CurrentUserId,
+                InitiatorId = CurrentUserId,
                 MemberId = id,
                 Role = doc.role
             });

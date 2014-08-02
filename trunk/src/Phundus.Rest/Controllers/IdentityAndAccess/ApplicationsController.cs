@@ -18,13 +18,13 @@
         [Transaction]
         public virtual void Delete(int organization, Guid id)
         {
-            Dispatch(new RejectMembershipApplication {ApplicationId = id, AdministratorId = CurrentUserId});
+            Dispatch(new RejectMembershipApplication {ApplicationId = id, InitiatorId = CurrentUserId});
         }
 
         [Transaction]
         public virtual void Post(int organization)
         {
-            Dispatch(new ApplyForMembership {UserId = CurrentUserId, OrganizationId = organization});
+            Dispatch(new ApplyForMembership {ApplicantId = CurrentUserId, OrganizationId = organization});
         }
     }
 }
