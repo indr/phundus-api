@@ -7,12 +7,12 @@
     using Helpers.FileUpload;
     using Microsoft.Practices.ServiceLocation;
     using Models.ArticleModels;
+    using Phundus.Core.Inventory.Commands;
     using Phundus.Core.Inventory.Queries;
     using Phundus.Core.Inventory._Legacy.Services;
     using Phundus.Core.InventoryCtx.Model;
     using Phundus.Core.ReservationCtx.Repositories;
     using ViewModels;
-    using Article = Phundus.Core.InventoryCtx.Model.Article;
 
     public class ArticleController : ControllerBase
     {
@@ -26,7 +26,6 @@
         public IArticleService ArticleService { get; set; }
 
         public IFieldsService FieldsService { get; set; }
-
 
         [Transaction]
         public virtual ActionResult Index()
@@ -216,17 +215,9 @@
         [Transaction]
         public virtual ActionResult Delete(int id, int version)
         {
-            var model = new ArticleViewModel(id);
-            try
-            {
-                model.Version = version;
-                ArticleService.DeleteArticle(model.CreateDto(), CurrentOrganizationId.Value);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View(model);
-            }
+            Dispatcher.Dispatch(new DeleteArticle {ArticleId = id, InitiatorId = CurrentUserId});
+
+            return RedirectToAction("Index");
         }
 
         [HttpDelete]

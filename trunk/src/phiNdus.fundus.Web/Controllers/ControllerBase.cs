@@ -7,12 +7,15 @@ namespace phiNdus.fundus.Web.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using NHibernate;
+    using Phundus.Core.Cqrs;
 
     public abstract class ControllerBase : Controller
     {
         public IIdentity Identity { get; set; }
 
         public Func<ISession> SessionFact { get; set; }
+
+        public ICommandDispatcher Dispatcher { get; set; }
 
         protected string SessionId
         {

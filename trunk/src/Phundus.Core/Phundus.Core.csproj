@@ -114,6 +114,9 @@
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
+    <Compile Include="Inventory\Model\ArticleDeleted.cs" />
+    <Compile Include="Inventory\Commands\DeleteArticle.cs" />
+    <Compile Include="Inventory\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Inventory\Queries\IArticleQueries.cs" />
     <Compile Include="Inventory\_Legacy\Assemblers\ArticleDomainAssembler.cs" />
     <Compile Include="Inventory\_Legacy\Assemblers\ArticleDtoAssembler.cs" />
