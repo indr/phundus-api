@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Business.Dto;
     using Business.Services;
     using Microsoft.Practices.ServiceLocation;
     using Phundus.Core.ReservationCtx;

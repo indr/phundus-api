@@ -1,15 +1,11 @@
-﻿namespace phiNdus.fundus.Web.Business.Assembler
+﻿namespace Phundus.Core.IdentityAndAccess.Users._Legacy
 {
     using System;
-    using System.Collections.Generic;
+    using Infrastructure;
     using Microsoft.Practices.ServiceLocation;
-    using fundus.Business;
-    using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Core;
-    using Phundus.Core.IdentityAndAccess.Queries;
-    using Phundus.Core.IdentityAndAccess.Users.Model;
-    using Phundus.Core.IdentityAndAccess.Users.Repositories;
-    using Phundus.Infrastructure;
+    using Model;
+    using Queries;
+    using Repositories;
 
     public class UserAssembler
     {

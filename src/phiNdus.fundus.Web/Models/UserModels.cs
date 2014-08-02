@@ -6,12 +6,11 @@
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
-    using Business.Assembler;
-    using Business.Dto;
     using Microsoft.Practices.ServiceLocation;
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.IdentityAndAccess.Users.Model;
     using Phundus.Core.IdentityAndAccess.Users.Repositories;
+    using Phundus.Core.IdentityAndAccess.Users._Legacy;
 
 
     public class UserModel : ModelBase

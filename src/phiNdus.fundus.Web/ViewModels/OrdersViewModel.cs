@@ -1,7 +1,6 @@
 ﻿namespace phiNdus.fundus.Web.ViewModels
 {
     using System.Collections.Generic;
-    using Business.Dto;
     using Business.Services;
     using Microsoft.Practices.ServiceLocation;
     using Phundus.Core.ReservationCtx;

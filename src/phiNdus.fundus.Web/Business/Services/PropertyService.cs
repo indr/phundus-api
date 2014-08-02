@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Business;
-    using phiNdus.fundus.Web.Business.Assembler;
-    using phiNdus.fundus.Web.Business.Dto;
     using Phundus.Core;
+    using Phundus.Core.Inventory._Legacy.Assemblers;
+    using Phundus.Core.Inventory._Legacy.Dtos;
     using Phundus.Core.InventoryCtx;
     using Phundus.Core.InventoryCtx.Repositories;
     using Phundus.Infrastructure;

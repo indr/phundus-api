@@ -1,15 +1,12 @@
-﻿namespace phiNdus.fundus.Web.Business.Assembler
+﻿namespace Phundus.Core.Inventory._Legacy.Assemblers
 {
     using System;
     using System.Collections.Generic;
+    using Dtos;
+    using Infrastructure;
+    using InventoryCtx.Model;
+    using InventoryCtx.Repositories;
     using Microsoft.Practices.ServiceLocation;
-    using fundus.Business;
-    using phiNdus.fundus.Web.Business.Dto;
-    using Phundus.Core;
-    using Phundus.Core.InventoryCtx;
-    using Phundus.Core.InventoryCtx.Model;
-    using Phundus.Core.InventoryCtx.Repositories;
-    using Phundus.Infrastructure;
 
     public class FieldDefinitionAssembler
     {

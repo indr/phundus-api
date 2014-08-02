@@ -2,7 +2,7 @@ namespace phiNdus.fundus.Web.Helpers.FileUpload
 {
     using System.Collections.Generic;
     using System.Web;
-    using Business.Dto;
+    using Phundus.Core.Inventory._Legacy.Dtos;
 
     public class BlueImpFileUploadHandler
     {
