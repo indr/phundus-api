@@ -57,9 +57,11 @@ namespace Phundus.Core.Cqrs
                 throw new ArgumentException("Select command must start with the keyword select");
 
             var total = GetTotal(sql);
-            sql = sql + String.Format(" offset {0} rows fetch next {1} rows only", page.Offset, page.Size);
 
-            return new PagedResult<T>(PageResponse.From(page, total), Many<T>(sql));
+            // TODO: SQL Server 2012 OFFSET and FETCH
+            //sql = sql + String.Format(" offset {0} rows fetch next {1} rows only", page.Offset, page.Size);
+
+            return new PagedResult<T>(PageResponse.From(page, total), Many<T>(sql).Skip(page.Offset).Take(page.Size).ToList());
         }
 
         private int GetTotal(string sql)
