@@ -32,7 +32,7 @@
             return WriteDto(subject);
         }
 
-        public UserDto[] CreateDtos(ICollection<User> subjects)
+        public UserDto[] CreateDtos(IEnumerable<User> subjects)
         {
             var result = new List<UserDto>();
             foreach (var each in subjects)

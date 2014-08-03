@@ -11,7 +11,7 @@
     public class ShopSearchResultViewModel : ViewModelBase
     {
         private readonly IEnumerable<OrganizationDto> _organizations;
-        private ICollection<ShopArticleSearchResultDto> _articles = new Collection<ShopArticleSearchResultDto>();
+        private IEnumerable<ShopArticleSearchResultDto> _articles = new Collection<ShopArticleSearchResultDto>();
 
         public ShopSearchResultViewModel(string queryString, int? queryOrganizationId, int page, int rowsPerPage,
             IEnumerable<OrganizationDto> organizations)
@@ -32,7 +32,7 @@
 
         public PageSelectorViewModel PageSelectorModel { get; set; }
 
-        public ICollection<ShopArticleSearchResultDto> Articles
+        public IEnumerable<ShopArticleSearchResultDto> Articles
         {
             get { return _articles; }
             set { _articles = value; }

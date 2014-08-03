@@ -6,6 +6,6 @@ namespace Phundus.Core.ReservationCtx.Repositories
 
     public interface IReservationRepository
     {
-        ICollection<Reservation> Find(Article article);
+        IEnumerable<Reservation> Find(Article article);
     }
 }

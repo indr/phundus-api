@@ -7,6 +7,6 @@ namespace phiNdus.fundus.Web.Models.ArticleModels
 
     public class ArticleReservationsModel
     {
-        public ICollection<Reservation> Items { get; set; }
+        public IEnumerable<Reservation> Items { get; set; }
     }
 }

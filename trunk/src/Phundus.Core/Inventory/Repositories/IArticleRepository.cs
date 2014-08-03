@@ -6,7 +6,6 @@
 
     public interface IArticleRepository : IRepository<Article>
     {
-        ICollection<Article> FindAll(int organizationId);
-        ICollection<Article> FindMany(string query, int? organization, int start, int count, out int total);
+        IEnumerable<Article> ByOrganization(int organizationId);
     }
 }

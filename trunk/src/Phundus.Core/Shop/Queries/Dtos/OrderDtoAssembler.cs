@@ -54,7 +54,7 @@
             return result;
         }
 
-        public IList<OrderDto> CreateDtos(ICollection<Order> subjects)
+        public IList<OrderDto> CreateDtos(IEnumerable<Order> subjects)
         {
             Guard.Against<ArgumentNullException>(subjects == null, "subjects");
 

@@ -28,7 +28,7 @@
 
         #region IReservationRepository Members
 
-        public ICollection<Reservation> Find(Article article)
+        public IEnumerable<Reservation> Find(Article article)
         {
             var factory = new ReservationFactory();
             var result = new List<Reservation>();

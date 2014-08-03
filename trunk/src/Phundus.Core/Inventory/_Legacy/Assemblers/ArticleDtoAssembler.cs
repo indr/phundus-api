@@ -19,7 +19,7 @@
         /// </summary>
         /// <param name="subjects">Die zu assemblierende Domain-Objects.</param>
         /// <returns></returns>
-        public ArticleDto[] CreateDtos(ICollection<Article> subjects)
+        public ArticleDto[] CreateDtos(IEnumerable<Article> subjects)
         {
             Guard.Against<ArgumentNullException>(subjects == null, "subjects");
 

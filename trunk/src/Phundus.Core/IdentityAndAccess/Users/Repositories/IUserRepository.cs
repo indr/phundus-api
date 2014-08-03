@@ -6,12 +6,12 @@
 
     public interface IUserRepository : IRepository<User>
     {
-        ICollection<User> FindAll();
+        IEnumerable<User> FindAll();
         User FindByEmail(string email);
         User FindBySessionKey(string sessionKey);
         User FindByValidationKey(string validationKey);
 
-        ICollection<User> FindByOrganization(int organizationId);
+        IEnumerable<User> FindByOrganization(int organizationId);
         User FindById(int id);
         User ActiveById(int userId);
     }
