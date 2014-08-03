@@ -6,7 +6,6 @@
         public static string Articles { get { return @"article"; } }
         public static string Cart { get { return @"cart"; } }
         public static string Feedback { get { return @"feedback";}}
-        public static string Fields { get { return @"fields"; } }
         public static string Home { get { return @"home"; } }
         public static string Orders { get { return @"order"; } }
         public static string Shop { get { return @"shop"; } }
@@ -63,14 +62,6 @@
         public static string Add { get { return @"add"; } }
         public static string Remove { get { return @"remove"; } }
         public static string CheckOut { get { return @"checkout"; } }
-    }
-
-    public class FieldsActionNames
-    {
-        public static string Create { get { return @"create"; } }
-        public static string Delete { get { return @"delete"; } }
-        public static string Edit { get { return @"edit"; } }
-        public static string Index { get { return @""; } }
     }
 
     public class HomeActionNames

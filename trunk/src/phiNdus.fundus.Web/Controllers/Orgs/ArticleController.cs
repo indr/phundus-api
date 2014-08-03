@@ -25,8 +25,6 @@
 
         public IArticleService ArticleService { get; set; }
 
-        public IFieldsService FieldsService { get; set; }
-
         [Transaction]
         public virtual ActionResult Index()
         {

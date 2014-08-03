@@ -22,16 +22,9 @@
 
 
         public IUserRepository Users { get; set; }
-        public IPropertyService PropertyService { get; set; }
-
+        
         public Func<ISession> Session { get; set; }
 
-        #region IArticleService Members
-
-        public IList<FieldDefinitionDto> GetProperties()
-        {
-            return PropertyService.GetProperties();
-        }
 
         public virtual int CreateArticle(ArticleDto subject, int organizationId)
         {
@@ -91,7 +84,5 @@
             return
                 availabilities.Select(each => new AvailabilityDto {Date = each.Date, Amount = each.Amount}).ToList();
         }
-
-        #endregion
     }
 }

@@ -1,11 +1,7 @@
 ﻿namespace phiNdus.fundus.Domain.UnitTests
 {
     using NUnit.Framework;
-    using Phundus.Core.InventoryCtx;
     using Phundus.Core.InventoryCtx.Model;
-    using Phundus.Core.InventoryCtx.Repositories;
-    using Phundus.Core.ReservationCtx;
-    using Phundus.Core.ReservationCtx.Repositories;
     using Phundus.Core.Shop.Orders.Repositories;
     using Rhino.Mocks;
     using TestHelpers.TestBases;
@@ -19,36 +15,14 @@
         {
             base.SetUp();
 
-            FakeFieldDefRepository = GenerateAndRegisterStub<IFieldDefinitionRepository>();
-            FakeOrderRepository = GenerateAndRegisterStub<IOrderRepository>();
 
-            FakeFieldDefRepository.Expect(x => x.ById(GrossStockFieldDef.Id)).Return(GrossStockFieldDef);
-            FakeFieldDefRepository.Expect(x => x.ById(IsBorrowableFieldDef.Id)).Return(IsBorrowableFieldDef);
-            FakeFieldDefRepository.Expect(x => x.ById(IsReservableFieldDef.Id)).Return(IsReservableFieldDef);
+            FakeOrderRepository = GenerateAndRegisterStub<IOrderRepository>();
         }
 
         #endregion
 
-        protected readonly FieldDefinition GrossStockFieldDef = new FieldDefinition(FieldDefinition.GrossStockId,
-            "Bestand (Brutto)", DataType.Integer);
-
-        protected readonly FieldDefinition IsBorrowableFieldDef = new FieldDefinition(FieldDefinition.IsBorrowableId,
-            "Ausleihbar", DataType.Boolean);
-
-        protected readonly FieldDefinition IsReservableFieldDef = new FieldDefinition(FieldDefinition.IsReservableId,
-            "Reservierbar", DataType.Boolean);
-
-        protected readonly FieldDefinition NameFieldDef =
-            new FieldDefinition(FieldDefinition.CaptionId, "Name",
-                DataType.Text);
-
-        protected readonly FieldDefinition PriceFieldDef =
-            new FieldDefinition(FieldDefinition.PriceId, "Preis",
-                DataType.Decimal);
-
-        protected IFieldDefinitionRepository FakeFieldDefRepository { get; set; }
         protected IOrderRepository FakeOrderRepository { get; set; }
-        
+
 
         protected void SetAlreadyReservedAmount(int articleId, int amount)
         {

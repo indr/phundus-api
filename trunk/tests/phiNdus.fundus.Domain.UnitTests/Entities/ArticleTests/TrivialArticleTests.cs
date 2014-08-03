@@ -12,11 +12,11 @@
     {
         protected Article CreateSut()
         {
-            FakeFieldValues = new HashedSet<FieldValue>();
+           
             return new Article();
         }
 
-        private ISet<FieldValue> FakeFieldValues { get; set; }
+        
 
 
         [Test]
@@ -43,30 +43,10 @@
         }
 
         [Test]
-        public void GetCaption()
-        {
-            Article sut = CreateSut();
-            Assert.That(sut.Name, Is.EqualTo(""));
-            FakeFieldValues.Add(new FieldValue(NameFieldDef, "Name of object"));
-            Assert.That(sut.Name, Is.EqualTo("Name of object"));
-        }
-
-        [Test]
-        public void GetPrice()
-        {
-            Article sut = CreateSut();
-            Assert.That(sut.Price, Is.EqualTo(0.0d));
-            FakeFieldValues.Add(new FieldValue(PriceFieldDef, 1.1d));
-            Assert.That(sut.Price, Is.EqualTo(1.1d));
-        }
-
-        [Test]
         public void SetCaption()
         {
             Article sut = CreateSut();
-            FakeFieldDefRepository.Stub(x => x.ById(NameFieldDef.Id))
-                .Return(NameFieldDef);
-
+            
             Assert.That(sut.Name, Is.EqualTo(""));
             sut.Name = "Name of object";
             Assert.That(sut.Name, Is.EqualTo("Name of object"));
@@ -76,8 +56,7 @@
         public void SetPrice()
         {
             Article sut = CreateSut();
-            FakeFieldDefRepository.Stub(x => x.ById(PriceFieldDef.Id)).Return(PriceFieldDef);
-
+            
             Assert.That(sut.Price, Is.EqualTo(0.0d));
             sut.Price = 1.1d;
             Assert.That(sut.Price, Is.EqualTo(1.1d));

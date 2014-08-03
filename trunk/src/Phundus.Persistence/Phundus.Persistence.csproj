@@ -84,7 +84,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Legacy\Repositories\ArticleRepository.cs" />
     <Compile Include="Shop\Repositories\CartRepository.cs" />
-    <Compile Include="_Legacy\Repositories\FieldDefinitionRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\MembershipRequestRepository.cs" />
     <Compile Include="Shop\Repositories\OrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\OrganizationRepository.cs" />
@@ -96,12 +95,6 @@
     <EmbeddedResource Include="_Legacy\Mappings\Article.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="_Legacy\Mappings\FieldDefinition.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="_Legacy\Mappings\FieldValue.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="_Legacy\Mappings\Image.hbm.xml">

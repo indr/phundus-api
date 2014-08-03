@@ -1,13 +1,9 @@
 ﻿namespace Phundus.Core.InventoryCtx.Model
 {
     using System;
-    using System.Linq;
     using Ddd;
-    using Exceptions;
     using Iesi.Collections.Generic;
     using Microsoft.Practices.ServiceLocation;
-    using Repositories;
-    using ReservationCtx.Repositories;
     using Shop.Orders.Repositories;
 
     public class Article : EntityBase
