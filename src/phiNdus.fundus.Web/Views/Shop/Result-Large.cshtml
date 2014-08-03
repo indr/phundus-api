@@ -6,12 +6,12 @@
     {
     <li class="span3">
         <div class="thumbnail">
-            <p class="muted">@each.OrganizationName</p>
+            <p class="muted">@each.Organization</p>
             <div style="text-align:center; height:180px;">
-                @if (each.Images.Count > 0)
+                @if (!String.IsNullOrWhiteSpace(each.ImageFileName))
                 {
-                    <a rel="gallery" href="@Html.Raw(Url.Content(each.Images.First().FileName))" title="@each.Name - @Path.GetFileName(each.Images.First().FileName)">
-                        <img src="@String.Concat(Html.Raw(Url.Content(each.Images.First().FileName)), ".ashx?maxwidth=260&maxheight=180")" />
+                    <a rel="gallery" href="@Html.Raw(Url.Content(each.ImageFileName))" title="@each.Name - @Path.GetFileName(each.ImageFileName)">
+                        <img src="@String.Concat(Html.Raw(Url.Content(each.ImageFileName)), ".ashx?maxwidth=260&maxheight=180")" />
                     </a>
                 }
                 else

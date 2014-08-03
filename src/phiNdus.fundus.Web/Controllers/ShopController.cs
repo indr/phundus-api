@@ -8,12 +8,16 @@
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.Inventory._Legacy.Services;
     using Phundus.Core.Shop.Orders;
+    using Phundus.Core.Shop.Queries;
+    using Phundus.Rest.Exceptions;
     using Phundus.Web;
     using ViewModels;
 
     public class ShopController : ControllerBase
     {
         public IOrganizationQueries OrganizationQueries { get; set; }
+
+        public IShopArticleQueries ShopArticleQueries { get; set; }
 
         private static string MasterView
         {
@@ -130,19 +134,23 @@
         [AllowAnonymous]
         public virtual ActionResult Article(int id)
         {
-            var model = new ShopArticleViewModel(id);
+            var article = ShopArticleQueries.GetArticle(id);
+            if (article == null)
+                throw new HttpNotFoundException();
+
+            var model = new ShopArticleViewModel(article);
 
             var currentUserId = CurrentUserId;
             if (Identity.IsAuthenticated)
             {
-                model.CanUserAddToCart = MemberInMembershipRoleQueries.IsActiveMemberIn(model.OrganizationId,
+                model.CanUserAddToCart = MemberInMembershipRoleQueries.IsActiveMemberIn(model.Article.OrganizationId,
                     currentUserId);
             }
 
             model.Availabilities = ServiceLocator.Current.GetInstance<IArticleService>().GetAvailability(id);
             return Json(new
             {
-                caption = model.Name,
+                caption = model.Article.Name,
                 content = RenderPartialViewToString("Article", model)
             }, JsonRequestBehavior.AllowGet);
         }

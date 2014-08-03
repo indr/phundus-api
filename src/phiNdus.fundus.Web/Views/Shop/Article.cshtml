@@ -1,39 +1,39 @@
 ﻿@model phiNdus.fundus.Web.ViewModels.ShopArticleViewModel
 
-<h2>@Model.Name</h2>
+<h2>@Model.Article.Name</h2>
 <p></p>
 <div class="tabbable tabs-left">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#@Model.Id-D" data-toggle="tab">Beschreibung</a></li>
-        @if (!String.IsNullOrWhiteSpace(Model.Specification))
+        <li class="active"><a href="#@Model.Article.Id-D" data-toggle="tab">Beschreibung</a></li>
+        @if (!String.IsNullOrWhiteSpace(Model.Article.Specification))
         {
-            <li class=""><a href="#@Model.Id-S" data-toggle="tab">Spezifikation</a></li>
+            <li class=""><a href="#@Model.Article.Id-S" data-toggle="tab">Spezifikation</a></li>
         }
-        <li class=""><a href="#@Model.Id-I" data-toggle="tab">Bilder (@Model.Images.Count)</a></li>
-        <li class=""><a href="#@Model.Id-F" data-toggle="tab">Dokumente (@Model.Documents.Count)</a></li>
-        <li class=""><a href="#@Model.Id-A" data-toggle="tab">Verfügbarkeit</a></li>
+        <li class=""><a href="#@Model.Article.Id-I" data-toggle="tab">Bilder (@Model.Article.Images.Count)</a></li>
+        <li class=""><a href="#@Model.Article.Id-F" data-toggle="tab">Dokumente (@Model.Article.Documents.Count)</a></li>
+        <li class=""><a href="#@Model.Article.Id-A" data-toggle="tab">Verfügbarkeit</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane active" id="@Model.Id-D">
-            @Html.Raw(Model.Description)
+        <div class="tab-pane active" id="@Model.Article.Id-D">
+            @Html.Raw(Model.Article.Description)
         </div>
         
-        @if (!String.IsNullOrWhiteSpace(Model.Specification))
+        @if (!String.IsNullOrWhiteSpace(Model.Article.Specification))
         {
-            <div class="tab-pane" id="@Model.Id-S">
-                @Html.Raw(Model.Specification)
+            <div class="tab-pane" id="@Model.Article.Id-S">
+                @Html.Raw(Model.Article.Specification)
             </div>
         }
 
-        <div class="tab-pane" id="@Model.Id-I">
+        <div class="tab-pane" id="@Model.Article.Id-I">
             @Html.Partial("Article_Images", Model)
         </div>
 
-        <div class="tab-pane" id="@Model.Id-F">
+        <div class="tab-pane" id="@Model.Article.Id-F">
             @Html.Partial("Article_Documents", Model)
         </div>
 
-        <div class="tab-pane" id="@Model.Id-A">
+        <div class="tab-pane" id="@Model.Article.Id-A">
             @Html.Partial("Article_Availability", Model)
         </div>
     </div>
