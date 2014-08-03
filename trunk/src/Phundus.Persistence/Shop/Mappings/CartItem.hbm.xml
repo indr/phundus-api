@@ -13,6 +13,6 @@
     <property name="From" column="[From]" />
     <property name="To" column="[To]" />
 
-    <many-to-one name="Article" class="Phundus.Core.InventoryCtx.Model.Article" column="ArticleId" />
+    <many-to-one name="Article" class="Phundus.Core.Inventory.Model.Article" column="ArticleId" />
   </class>
 </hibernate-mapping>
