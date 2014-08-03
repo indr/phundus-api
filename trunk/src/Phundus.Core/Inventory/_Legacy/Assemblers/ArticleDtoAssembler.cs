@@ -5,9 +5,9 @@
     using Dtos;
     using IdentityAndAccess.Organizations.Repositories;
     using Infrastructure;
-    using InventoryCtx.Model;
-    using InventoryCtx.Repositories;
     using Microsoft.Practices.ServiceLocation;
+    using Model;
+    using Queries;
 
     /// <summary>
     /// Die <c>ArticleDtoAssembler</c>-Klasse wandelt Article-Domain-Objects in Article-DTOs.

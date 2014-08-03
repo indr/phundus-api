@@ -5,9 +5,10 @@
     using System.Linq;
     using Dtos;
     using Infrastructure;
-    using InventoryCtx.Model;
-    using InventoryCtx.Repositories;
     using Microsoft.Practices.ServiceLocation;
+    using Model;
+    using Queries;
+    using Repositories;
 
     /// <summary>
     /// Die <c>ArticleDomainAssembler</c> wandelt Article-DTOs in Article-Domain-Objects.

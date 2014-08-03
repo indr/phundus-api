@@ -4,8 +4,8 @@
     using Cqrs;
     using Ddd;
     using IdentityAndAccess.Queries;
-    using InventoryCtx.Repositories;
     using Model;
+    using Repositories;
 
     public class DeleteArticle
     {

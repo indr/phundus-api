@@ -2,7 +2,7 @@
 {
     using System;
     using Ddd;
-    using InventoryCtx.Model;
+    using Inventory.Model;
 
     public class OrderItem : EntityBase
     {

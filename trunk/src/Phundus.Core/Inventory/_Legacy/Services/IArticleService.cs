@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Dtos;
+    using Queries;
 
     public interface IArticleService
     {

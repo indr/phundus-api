@@ -1,8 +1,7 @@
 ﻿namespace phiNdus.fundus.Domain.UnitTests.Inventory
 {
     using NUnit.Framework;
-    using Phundus.Core.InventoryCtx;
-    using Phundus.Core.InventoryCtx.Services;
+    using Phundus.Core.Inventory._Legacy;
     using TestHelpers.TestBases;
 
     [TestFixture]

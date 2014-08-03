@@ -1,7 +1,8 @@
-﻿namespace Phundus.Core.Inventory._Legacy.Dtos
+﻿namespace Phundus.Core.Inventory.Queries
 {
     using System;
     using System.Collections.Generic;
+    using _Legacy.Dtos;
 
     public class ArticleDto
     {

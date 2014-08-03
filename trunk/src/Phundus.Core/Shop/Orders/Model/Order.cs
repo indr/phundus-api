@@ -9,8 +9,8 @@
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
     using Infrastructure;
-    using InventoryCtx.Repositories;
-    using InventoryCtx.Services;
+    using Inventory.Repositories;
+    using Inventory._Legacy;
     using iTextSharp.text;
     using iTextSharp.text.exceptions;
     using iTextSharp.text.pdf;

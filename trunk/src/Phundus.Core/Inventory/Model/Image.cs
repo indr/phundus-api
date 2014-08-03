@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.InventoryCtx.Model
+﻿namespace Phundus.Core.Inventory.Model
 {
     using Ddd;
 

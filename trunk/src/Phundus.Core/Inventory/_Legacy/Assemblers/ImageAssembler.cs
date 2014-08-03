@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using Dtos;
-    using InventoryCtx.Model;
+    using Model;
 
     public class ImageAssembler
     {

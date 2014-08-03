@@ -2,8 +2,7 @@
 {
     using System;
     using NUnit.Framework;
-    using Phundus.Core.InventoryCtx;
-    using Phundus.Core.InventoryCtx.Model;
+    using Phundus.Core.Inventory.Model;
     using Phundus.Core.ReservationCtx;
     using Phundus.Core.ReservationCtx.Model;
     using Phundus.Core.Shop.Orders.Model;
