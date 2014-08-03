@@ -40,8 +40,7 @@
                 throw new Exception("Keine Organisation ausgewählt.");
 
             var model = new ArticlesTableViewModel(
-                ArticleQueries.GetArticles(CurrentOrganizationId.Value),
-                ArticleService.GetProperties()
+                ArticleQueries.GetArticles(CurrentOrganizationId.Value)                
                 );
             return View(model);
         }
@@ -93,8 +92,7 @@
         public virtual ActionResult Fields(int id)
         {
             var model = new ArticleViewModel(
-                ArticleQueries.GetArticle(id),
-                ArticleService.GetProperties());
+                ArticleQueries.GetArticle(id));
             if (Request.IsAjaxRequest())
             {
                 return PartialView(Views.Fields, model);
@@ -245,34 +243,6 @@
             return DisplayFor(result);
         }
 
-        [HttpGet]
-        [Transaction]
-        public virtual ActionResult AddPropertyAjax(int id, string prefix)
-        {
-            var prop = FieldsService.GetField(id);
-            var model = ArticleViewModel.ConvertToPropertyValueViewModel(prop);
-            return EditorFor(model, prefix);
-        }
-
-        [HttpGet]
-        [Transaction]
-        public virtual ActionResult AddDiscriminatorAjax(int id, string prefix)
-        {
-            var prop = FieldsService.GetField(id);
-            var model = ArticleViewModel.ConvertToDiscriminatorViewModel(prop);
-            return EditorFor(model, prefix);
-        }
-
-        [HttpGet]
-        [Transaction]
-        public virtual ActionResult AddChild(string prefix)
-        {
-            var model = new ArticleViewModel();
-            model.IsChild = true;
-            return EditorFor(model, prefix);
-        }
-
-        #region Nested type: Views
 
         private static class Views
         {
@@ -301,7 +271,5 @@
                 get { return @"Reservations"; }
             }
         }
-
-        #endregion
     }
 }

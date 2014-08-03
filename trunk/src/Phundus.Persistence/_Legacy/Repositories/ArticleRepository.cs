@@ -27,9 +27,7 @@
             if (organization.HasValue)
                 q = q.Where(a => a.OrganizationId == organization.Value);
 
-            var d = q.JoinQueryOver<FieldValue>(a => a.FieldValues)
-                .WhereRestrictionOn(fv => fv.TextValue).IsLike(query, MatchMode.Anywhere)
-                .List().Distinct();
+            var d = q.List().Distinct();
             total = d.Count();
             return d.Skip(start).Take(count).ToList();
         }

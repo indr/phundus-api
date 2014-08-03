@@ -13,7 +13,7 @@
         protected Article CreateSut()
         {
             FakeFieldValues = new HashedSet<FieldValue>();
-            return new Article(FakeFieldValues);
+            return new Article();
         }
 
         private ISet<FieldValue> FakeFieldValues { get; set; }
@@ -24,15 +24,6 @@
         {
             var sut = new Article();
             Assert.That(sut, Is.Not.Null);
-        }
-
-        [Test]
-        public void Can_create_with_FieldValues()
-        {
-            var fieldValues = new HashedSet<FieldValue>();
-            var sut = new Article(fieldValues);
-            Assert.That(sut, Is.Not.Null);
-            Assert.That(sut.FieldValues, Is.SameAs(fieldValues));
         }
 
         [Test]
@@ -55,27 +46,9 @@
         public void GetCaption()
         {
             Article sut = CreateSut();
-            Assert.That(sut.Caption, Is.EqualTo(""));
+            Assert.That(sut.Name, Is.EqualTo(""));
             FakeFieldValues.Add(new FieldValue(NameFieldDef, "Name of object"));
-            Assert.That(sut.Caption, Is.EqualTo("Name of object"));
-        }
-
-        [Test]
-        public void GetIsBorrowable()
-        {
-            Article sut = CreateSut();
-            Assert.That(sut.IsBorrowable, Is.False);
-            FakeFieldValues.Add(new FieldValue(IsBorrowableFieldDef, true));
-            Assert.That(sut.IsBorrowable, Is.True);
-        }
-
-        [Test]
-        public void GetIsReservable()
-        {
-            Article sut = CreateSut();
-            Assert.That(sut.IsReservable, Is.False);
-            FakeFieldValues.Add(new FieldValue(IsReservableFieldDef, true));
-            Assert.That(sut.IsReservable, Is.True);
+            Assert.That(sut.Name, Is.EqualTo("Name of object"));
         }
 
         [Test]
@@ -94,33 +67,9 @@
             FakeFieldDefRepository.Stub(x => x.ById(NameFieldDef.Id))
                 .Return(NameFieldDef);
 
-            Assert.That(sut.Caption, Is.EqualTo(""));
-            sut.Caption = "Name of object";
-            Assert.That(sut.Caption, Is.EqualTo("Name of object"));
-        }
-
-        [Test]
-        public void SetIsLendable()
-        {
-            Article sut = CreateSut();
-            FakeFieldDefRepository.Stub(x => x.ById(IsBorrowableFieldDef.Id)).Return(
-                IsBorrowableFieldDef);
-
-            Assert.That(sut.IsBorrowable, Is.False);
-            sut.IsBorrowable = true;
-            Assert.That(sut.IsBorrowable, Is.True);
-        }
-
-        [Test]
-        public void SetIsReservable()
-        {
-            Article sut = CreateSut();
-            FakeFieldDefRepository.Stub(x => x.ById(IsReservableFieldDef.Id)).Return(
-                IsReservableFieldDef);
-
-            Assert.That(sut.IsReservable, Is.False);
-            sut.IsReservable = true;
-            Assert.That(sut.IsReservable, Is.True);
+            Assert.That(sut.Name, Is.EqualTo(""));
+            sut.Name = "Name of object";
+            Assert.That(sut.Name, Is.EqualTo("Name of object"));
         }
 
         [Test]

@@ -50,15 +50,6 @@
         protected IOrderRepository FakeOrderRepository { get; set; }
         
 
-        protected Article AddChild(Article parent, bool isBorrowable = false, bool isReserverable = false)
-        {
-            var result = new Article();
-            parent.AddChild(result);
-            parent.IsBorrowable = isBorrowable;
-            parent.IsReservable = isReserverable;
-            return result;
-        }
-
         protected void SetAlreadyReservedAmount(int articleId, int amount)
         {
             FakeOrderRepository.Expect(x => x.SumReservedAmount(articleId)).Return(amount);

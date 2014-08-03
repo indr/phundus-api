@@ -191,7 +191,6 @@
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
     <Compile Include="Shop\Orders\Model\Cart.cs" />
-    <Compile Include="_Legacy\InventoryCtx\Model\CompositeEntity.cs" />
     <Compile Include="_Legacy\ReservationCtx\Model\Contract.cs" />
     <Compile Include="_Legacy\ReservationCtx\Model\ContractItem.cs" />
     <Compile Include="_Legacy\InventoryCtx\Model\DataType.cs" />

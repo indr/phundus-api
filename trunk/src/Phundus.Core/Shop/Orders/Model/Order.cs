@@ -311,7 +311,7 @@
                 pos++;
                 table.AddCell(new Phrase(pos.ToString(), defaultFont));
                 table.AddCell(new Phrase(item.Amount.ToString(), defaultFont));
-                table.AddCell(new Phrase(item.Article.Caption, defaultFont));
+                table.AddCell(new Phrase(item.Article.Name, defaultFont));
                 table.AddCell(new Phrase(item.Article.Id.ToString(), defaultFont));
                 table.AddCell(new Phrase(item.From.ToString("d"), defaultFont));
                 table.AddCell(new Phrase(item.To.ToString("d"), defaultFont));

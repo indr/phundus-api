@@ -1,28 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace phiNdus.fundus.Web.ViewModels
+﻿namespace phiNdus.fundus.Web.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Phundus.Core.Inventory._Legacy.Dtos;
 
     public class ArticlesViewModel
     {
         private readonly IEnumerable<ArticleViewModel> _articles;
-        private readonly IList<FieldDefinitionDto> _propertyDefinitions;
+
 
         public ArticlesViewModel(
-            IEnumerable<ArticleDto> articles,
-            IList<FieldDefinitionDto> propertyDefinitions
+            IEnumerable<ArticleDto> articles
             )
         {
-            _articles = articles.Select(each => new ArticleViewModel(each, propertyDefinitions));
-            _propertyDefinitions = propertyDefinitions;
+            _articles = articles.Select(each => new ArticleViewModel(each));
         }
 
-        protected IList<FieldDefinitionDto> PropertyDefinitions
-        {
-            get { return _propertyDefinitions; }
-        }
 
         public IEnumerable<ArticleViewModel> Articles
         {

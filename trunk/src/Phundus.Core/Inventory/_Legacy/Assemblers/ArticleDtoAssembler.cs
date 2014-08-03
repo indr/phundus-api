@@ -46,90 +46,24 @@
             var organization = organizationRepository.ById(subject.OrganizationId);
             result.OrganizationId = organization.Id;
             result.OrganizationName = organization.Name;
-            WriteFields(subject, result);
-            CreateChildren(subject, result);
+
+            result.CreatedOn = subject.CreateDate;
+            result.Name = subject.Name;
+            result.Brand = subject.Brand;
+            result.Price = subject.Price;
+            result.OrganizationId = subject.OrganizationId;
+            result.Description = subject.Description;
+            result.Specification = subject.Specification;
+            result.GrossStock = subject.GrossStock;
+            result.Color = subject.Color;
+            
+            
+            
             foreach (var each in subject.Images)
                 result.AddImage(new ImageAssembler().CreateDto(each));
             return result;
         }
 
-        /// <summary>
-        /// Assembliert die Properties des übergebenen Domain-Objects in das übergebene DTO.
-        /// </summary>
-        /// <param name="subject">Das zu assemblierende Domain-Object.</param>
-        /// <param name="result">Das zu aktualisierende DTO.</param>
-        private void WriteFields(Article subject, BasePropertiesDto result)
-        {
-            foreach (var each in subject.FieldValues)
-                WriteField(each, result);
-
-            WriteField(FieldDefinition.CreateDateId, subject.CreateDate, result);
-            //WriteField(FieldDefinition.NetStockId, subject.ReservableStock, result);
-        }
-
-        private void WriteField(int fieldDefinitionId, object value, BasePropertiesDto result)
-        {
-            var fieldDefinition = ServiceLocator.Current.GetInstance<IFieldDefinitionRepository>().ById(fieldDefinitionId);
-            var fieldValueDto = CreateFieldValueDto(fieldDefinition);
-            fieldValueDto.Value = value;
-            result.AddProperty(fieldValueDto);
-        }
-
-        private void WriteField(FieldValue subject, BasePropertiesDto result)
-        {
-            var fieldValueDto = CreateFieldValueDto(subject.FieldDefinition);
-            fieldValueDto.ValueId = subject.Id;
-            fieldValueDto.Value = subject.Value;
-            fieldValueDto.IsDiscriminator = subject.IsDiscriminator;
-
-            result.AddProperty(fieldValueDto);
-        }
-
-        private FieldValueDto CreateFieldValueDto(FieldDefinition fieldDefinition)
-        {
-            var result = new FieldValueDto();
-            result.PropertyId = fieldDefinition.Id;
-            result.Caption = fieldDefinition.Name;
-            result.IsCalculated = !fieldDefinition.IsAttachable;
-            result.Position = fieldDefinition.Position;
-            switch (fieldDefinition.DataType)
-            {
-                case DataType.Boolean:
-                    result.DataType = FieldDataType.Boolean;
-                    break;
-                case DataType.Text:
-                    result.DataType = FieldDataType.Text;
-                    break;
-                case DataType.Integer:
-                    result.DataType = FieldDataType.Integer;
-                    break;
-                case DataType.Decimal:
-                    result.DataType = FieldDataType.Decimal;
-                    break;
-                case DataType.DateTime:
-                    result.DataType = FieldDataType.DateTime;
-                    break;
-                case DataType.RichText:
-                    result.DataType = FieldDataType.RichText;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("FieldDefinition.DataType",
-                                                          "Datentypen müssen in den Klasse DataType und FieldDataType übereinstimmen");
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="subject"></param>
-        /// <param name="result"></param>
-        private void CreateChildren(CompositeEntity subject, ArticleDto result)
-        {
-            foreach (var each in subject.Children)
-            {
-                result.AddChild(CreateDto((Article) each));
-            }
-        }
+        
     }
 }

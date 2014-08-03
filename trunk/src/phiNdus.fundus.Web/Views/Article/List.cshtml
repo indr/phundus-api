@@ -9,15 +9,12 @@
 <table class="table table-bordered table-striped">
     <thead>
     <tr>
-        <th>
-            Id
-        </th>
-        @foreach (var heading in Model.Headings)
-        {
-            <th>
-                @heading.Caption
-            </th>
-        }
+        <th>Id</th>
+        <th>Name</th>
+        <th>Bestand (Brutto)</th>
+        <th>Preis</th>
+        <th>Bestand (Netto)</th>
+        <th>Erfassungsdatum</th>
         <th style="width: 230px;"></th>
     </tr>
     </thead>
@@ -27,19 +24,11 @@
             <td>
                 @item.Id.ToString()
             </td>
-            @foreach (var heading in Model.Headings)
-            {
-                <td>
-                    @if (item.IsDiscriminator(heading.Id))
-                    {
-                        @Html.Raw("<i>D</i>")
-                    }
-                    else
-                    {
-                        @item.GetPropertyValue(heading.Id)
-                    }
-                </td>
-            }
+            <td>@item.Name</td>
+            <td>@item.GrossStock</td>
+            <td>@item.Price</td>
+            <td>&nbsp;</td>
+            <td>@item.CreatedOn</td>
              <td>
                 <div class="btn-toolbar" style="margin: 0;">
                     <div class="btn-group btn-small">

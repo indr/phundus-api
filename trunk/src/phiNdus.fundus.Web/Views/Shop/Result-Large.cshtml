@@ -10,7 +10,7 @@
             <div style="text-align:center; height:180px;">
                 @if (each.Images.Count > 0)
                 {
-                    <a rel="gallery" href="@Html.Raw(Url.Content(each.Images.First().FileName))" title="@each.Caption - @Path.GetFileName(each.Images.First().FileName)">
+                    <a rel="gallery" href="@Html.Raw(Url.Content(each.Images.First().FileName))" title="@each.Name - @Path.GetFileName(each.Images.First().FileName)">
                         <img src="@String.Concat(Html.Raw(Url.Content(each.Images.First().FileName)), ".ashx?maxwidth=260&maxheight=180")" />
                     </a>
                 }
@@ -19,11 +19,11 @@
                     <img src="http://placehold.it/260x180" alt="" />
                 }
             </div>
-            <h5>@if (each.Caption == null) {
+            <h5>@if (each.Name == null) {
                     @Html.Raw("&nbsp;");
                 }
                 else {
-                    @each.Caption;
+                    @each.Name;
                 }</h5>
             <p>CHF @each.Price.ToString("N") / Woche</p>
             <div class="modal-footer" style="margin-bottom: 0;padding: 0px 1px 1px; background-color: transparent; border-width:0;">@Html.ActionLink("Details", ShopActionNames.Article, new { id = each.Id }, new { @class = "btn fundus-shop-showArticle", article_id = each.Id })</div>

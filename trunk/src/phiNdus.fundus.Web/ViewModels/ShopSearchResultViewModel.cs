@@ -47,13 +47,12 @@
 
         private void Search(string query, int? organization, int page)
         {
-            var fieldDefinitions = ArticleService.GetProperties();
             var queryResult = ServiceLocator.Current.GetInstance<IShopArticleQueries>().FindArticles(
                 new PageRequest {Index = page - 1, Size = RowsPerPage}, query, organization);
             PageSelectorModel = new PageSelectorViewModel(queryResult.Pages);
             foreach (var each in queryResult.Items)
             {
-                Articles.Add(new ArticleViewModel(each, fieldDefinitions));
+                Articles.Add(new ArticleViewModel(each));
             }
         }
     }

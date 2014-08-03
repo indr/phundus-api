@@ -13,7 +13,7 @@
     <tbody>
         @foreach (var each in Model.Articles) {
             <tr>
-                <td>@each.Caption</td>
+                <td>@each.Name</td>
                 <td>CHF @each.Price.ToString("N")</td>
                 <td>@each.OrganizationName</td>
                 <td>@Html.ActionLink("Details", ShopActionNames.Article, new { id = each.Id }, new { @class = "btn fundus-shop-showArticle", article_id = each.Id })</td>

@@ -13,23 +13,7 @@
             return new Article();
         }
 
-        [Test]
-        public void Get_with_children_returns_sum_of_childrens_BorrowableStock()
-        {
-            // Typ-C, Mengenwaren
-            Article sut = CreateSut();
-            var child1 = MockRepository.GenerateMock<Article>();
-            var child2 = MockRepository.GenerateMock<Article>();
-            sut.AddChild(child1);
-            sut.AddChild(child2);
-
-            child1.Expect(x => x.ReservableStock).Return(10);
-            child2.Expect(x => x.ReservableStock).Return(20);
-
-            int actual = sut.ReservableStock;
-            Assert.That(actual, Is.EqualTo(30));
-        }
-
+        
         [Test]
         public void Get_without_children()
         {

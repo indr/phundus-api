@@ -43,11 +43,5 @@
             var property = GetProperty(propertyId);
             return property != null ? Convert.ToString(property.Value) : null;
         }
-
-        public bool IsDiscriminator(int propertyId)
-        {
-            var property = GetProperty(propertyId);
-            return property != null ? property.IsDiscriminator : false;
-        }
     }
 }
