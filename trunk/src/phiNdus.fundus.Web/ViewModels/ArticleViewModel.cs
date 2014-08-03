@@ -1,13 +1,10 @@
 namespace phiNdus.fundus.Web.ViewModels
 {
-    using System;
     using System.Collections.Generic;
-    using System.Drawing;
+    using System.ComponentModel;
     using System.Globalization;
     using System.Linq;
-    using System.Web.Mvc;
     using Helpers;
-    using Iesi.Collections;
     using Microsoft.Practices.ServiceLocation;
     using Models.CartModels;
     using Phundus.Core.Inventory.Queries;
@@ -39,9 +36,8 @@ namespace phiNdus.fundus.Web.ViewModels
 
     public class ArticleViewModel : ViewModelBase
     {
-        
         private IList<ImageDto> _files = new List<ImageDto>();
-        
+
         public ArticleViewModel()
         {
             Load(new ArticleDto());
@@ -50,7 +46,7 @@ namespace phiNdus.fundus.Web.ViewModels
         public ArticleViewModel(int id)
         {
             var articleDto = ArticleQueries.GetArticle(id);
-            
+
             Load(articleDto);
         }
 
@@ -70,31 +66,26 @@ namespace phiNdus.fundus.Web.ViewModels
         }
 
         public bool IsDeleted { get; set; }
-        
 
-       
 
         public int Id { get; set; }
         public int Version { get; set; }
 
-       
+
         public string OrganizationName { get; set; }
 
         public int OrganizationId { get; set; }
 
+        [DisplayName("Preis (inkl.)")]
         public double Price { get; set; }
 
+        [DisplayName("Beschreibung")]
         public string Description { get; set; }
 
-        public string Specification
-        
-    {
-        get;
-        set;
-    
-        }
+        [DisplayName("Spezifikation")]
+        public string Specification { get; set; }
 
-        
+
         public IList<ImageDto> Files
         {
             get { return _files; }
@@ -111,11 +102,23 @@ namespace phiNdus.fundus.Web.ViewModels
         }
 
 
+        [DisplayName("Farbe")]
+        public string Color { get; set; }
+
+        [DisplayName("Bestand (Brutto)")]
+        public int GrossStock { get; set; }
+
+        [DisplayName("Marke")]
+        public string Brand { get; set; }
+
+        [DisplayName("Name")]
+        public string Name { get; set; }
+
         private void Load(ArticleDto article)
         {
             Id = article.Id;
             Version = article.Version;
-            
+
             OrganizationId = article.OrganizationId;
             OrganizationName = article.OrganizationName;
 
@@ -128,16 +131,7 @@ namespace phiNdus.fundus.Web.ViewModels
             Color = article.Color;
 
             _files = article.Images;
-
         }
-
-        public string Color { get; set; }
-
-        public int GrossStock { get; set; }
-
-        public string Brand { get; set; }
-
-        public string Name { get; set; }
 
         public ArticleDto CreateDto()
         {
