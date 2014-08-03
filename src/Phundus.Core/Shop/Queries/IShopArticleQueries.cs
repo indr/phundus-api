@@ -37,8 +37,9 @@
             int? organization)
         {
             return Paged<ShopArticleSearchResultDto>(
-                @"select a.Id, a.Name, a.Price, o.Name as Organization " +
-                @"from [Article] a inner join [Organization] o on a.OrganizationId = o.Id " +
+                @"select a.Id, a.Name, a.Price, o.Name as OrganizationName, " +
+                @"from [Article] a " +
+                @"inner join [Organization] o on a.OrganizationId = o.Id " +
                 @"order by a.CreateDate desc",
                 pageRequest);
         }
@@ -46,8 +47,8 @@
 
     public class ShopArticleDetailDto
     {
-        private ICollection<ShopArticleImageDto> _images = new Collection<ShopArticleImageDto>();
         private ICollection<ShopArticleDocumentDto> _documents = new Collection<ShopArticleDocumentDto>();
+        private ICollection<ShopArticleImageDto> _images = new Collection<ShopArticleImageDto>();
 
         public int Id { get; set; }
         public string Name { get; set; }
@@ -75,7 +76,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public string Organization { get; set; }
+        public string OrganizationName { get; set; }
         public string ImageFileName { get; set; }
     }
 

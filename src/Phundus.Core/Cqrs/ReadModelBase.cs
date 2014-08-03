@@ -4,7 +4,6 @@ namespace Phundus.Core.Cqrs
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using log4net.Util.TypeConverters;
     using NHibernate;
     using Paging;
 
@@ -24,7 +23,7 @@ namespace Phundus.Core.Cqrs
 
         private T ExecuteScalar<T>(string sql)
         {
-            return (T)CreateCommand(sql).ExecuteScalar();
+            return (T) CreateCommand(sql).ExecuteScalar();
         }
 
         private IDbCommand CreateCommand(string sql)

@@ -130,7 +130,7 @@ namespace phiNdus.fundus.Web.ViewModels
         {
             Id = dto.Id;
 
-            OrganizationName = dto.Organization;
+            OrganizationName = dto.OrganizationName;
 
             Name = dto.Name;
             Price = dto.Price;

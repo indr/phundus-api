@@ -15,8 +15,6 @@ namespace Phundus.Persistence
             _interceptor = Maybe.None<IInterceptor>();
         }
 
-        #region INHibernateInstaller Members
-
         public FluentConfiguration BuildFluent()
         {
             var cfg = new NHibernate.Cfg.Configuration();
@@ -45,7 +43,5 @@ namespace Phundus.Persistence
         {
             get { return _interceptor; }
         }
-
-        #endregion
     }
 }
