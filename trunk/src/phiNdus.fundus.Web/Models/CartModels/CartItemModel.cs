@@ -68,11 +68,11 @@ namespace phiNdus.fundus.Web.Models.CartModels
 
         [DisplayName("Einzelpreis")]
         [DisplayFormat(DataFormatString = "{0:0.00}")]
-        public double UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
 
         [DisplayName("Preis")]
         [DisplayFormat(DataFormatString = "{0:0.00}")]
-        public double LineTotal { get; set; }
+        public decimal LineTotal { get; set; }
 
         public bool IsAvailable { get; set; }
 

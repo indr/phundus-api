@@ -58,7 +58,7 @@
 
         public virtual DateTime? ModifyDate { get; protected set; }
 
-        public virtual double TotalPrice
+        public virtual decimal TotalPrice
         {
             get { return Items.Sum(x => x.LineTotal); }
         }

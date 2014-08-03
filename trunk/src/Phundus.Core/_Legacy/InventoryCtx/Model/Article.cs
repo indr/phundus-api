@@ -46,7 +46,7 @@
 
         public virtual string Brand { get; set; }
 
-        public virtual double Price { get; set; }
+        public virtual decimal Price { get; set; }
 
         public virtual int GrossStock { get; set; }
 

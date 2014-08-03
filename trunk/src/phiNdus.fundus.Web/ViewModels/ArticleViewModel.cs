@@ -10,6 +10,7 @@ namespace phiNdus.fundus.Web.ViewModels
     using Phundus.Core.Inventory.Queries;
     using Phundus.Core.Inventory._Legacy.Dtos;
     using Phundus.Core.Inventory._Legacy.Services;
+    using Phundus.Core.Shop.Queries;
 
     public class ShopArticleViewModel : ArticleViewModel
     {
@@ -55,6 +56,13 @@ namespace phiNdus.fundus.Web.ViewModels
             Load(articleDto);
         }
 
+        public ArticleViewModel(ShopArticleSearchResultDto articleDto)
+        {
+            Load(articleDto);
+        }
+
+        
+
         protected IArticleQueries ArticleQueries
         {
             get { return ServiceLocator.Current.GetInstance<IArticleQueries>(); }
@@ -77,7 +85,7 @@ namespace phiNdus.fundus.Web.ViewModels
         public int OrganizationId { get; set; }
 
         [DisplayName("Preis (inkl.)")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         [DisplayName("Beschreibung")]
         public string Description { get; set; }
@@ -114,23 +122,35 @@ namespace phiNdus.fundus.Web.ViewModels
         [DisplayName("Name")]
         public string Name { get; set; }
 
-        private void Load(ArticleDto article)
+        private void Load(ShopArticleSearchResultDto dto)
         {
-            Id = article.Id;
-            Version = article.Version;
+            Id = dto.Id;
 
-            OrganizationId = article.OrganizationId;
-            OrganizationName = article.OrganizationName;
+            OrganizationName = dto.Organization;
 
-            Name = article.Name;
-            Brand = article.Brand;
-            GrossStock = article.GrossStock;
-            Price = article.Price;
-            Description = article.Description;
-            Specification = article.Specification;
-            Color = article.Color;
+            Name = dto.Name;
+            Price = dto.Price;
+            Description = dto.Description;
+            Specification = dto.Specification;
+        }
 
-            _files = article.Images;
+        private void Load(ArticleDto dto)
+        {
+            Id = dto.Id;
+            Version = dto.Version;
+
+            OrganizationId = dto.OrganizationId;
+            OrganizationName = dto.OrganizationName;
+
+            Name = dto.Name;
+            Brand = dto.Brand;
+            GrossStock = dto.GrossStock;
+            Price = dto.Price;
+            Description = dto.Description;
+            Specification = dto.Specification;
+            Color = dto.Color;
+
+            _files = dto.Images;
         }
 
         public ArticleDto CreateDto()

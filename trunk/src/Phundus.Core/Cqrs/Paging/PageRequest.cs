@@ -20,5 +20,10 @@
             get { return _size; }
             set { _size = value; }
         }
+
+        public int Offset
+        {
+            get { return Index*Size; }
+        }
     }
 }

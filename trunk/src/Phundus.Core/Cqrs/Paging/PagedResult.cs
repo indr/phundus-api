@@ -9,7 +9,7 @@
     /// </summary>
     public class PagedResult<TItems>
     {
-        public PagedResult(PageResponse pageResponse, IList<TItems> items)
+        public PagedResult(PageResponse pageResponse, ICollection<TItems> items)
         {
             Guard.Against<ArgumentNullException>(pageResponse == null, "pageResponse");
             Guard.Against<ArgumentNullException>(items == null, "items");
@@ -18,11 +18,17 @@
             Items = items;
         }
 
+        public PagedResult()
+        {
+            Pages = new PageResponse();
+            Items = new TItems[0];
+        }
+
         public PageResponse Pages { get; private set; }
 
         /// <summary>
         /// Die Items für die angegebene Konfiguration.
         /// </summary>
-        public IList<TItems> Items { get; private set; }
+        public ICollection<TItems> Items { get; private set; }
     }
 }

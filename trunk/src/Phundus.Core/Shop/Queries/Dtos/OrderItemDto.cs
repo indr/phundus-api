@@ -20,10 +20,10 @@
         public int Amount { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:0.00}")]
-        public double UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
         
         [DisplayFormat(DataFormatString = "{0:0.00}")]
-        public double LineTotal { get; set; }
+        public decimal LineTotal { get; set; }
 
         public string Text { get; set; }
 
