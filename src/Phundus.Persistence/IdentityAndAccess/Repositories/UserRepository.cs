@@ -23,7 +23,7 @@
 
         #region IUserRepository Members
 
-        public ICollection<User> FindByOrganization(int organizationId)
+        public IEnumerable<User> FindByOrganization(int organizationId)
         {
             throw new NotSupportedException();
             //IQueryOver<User, OrganizationMembership> q = Members
@@ -45,7 +45,7 @@
                 .SingleOrDefault();
         }
 
-        public ICollection<User> FindAll()
+        public IEnumerable<User> FindAll()
         {
             IQueryable<User> query = from u in Users select u;
             return query.ToList();

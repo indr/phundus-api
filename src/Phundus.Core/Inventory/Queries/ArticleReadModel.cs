@@ -20,7 +20,7 @@
 
         public IEnumerable<ArticleDto> GetArticles(int organizationId)
         {
-            var articles = ArticleRepository.FindAll(organizationId);
+            var articles = ArticleRepository.ByOrganization(organizationId);
             return new ArticleDtoAssembler().CreateDtos(articles);
         }
 

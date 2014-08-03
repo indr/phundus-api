@@ -80,26 +80,18 @@
     <Compile Include="IdentityAndAccess\Mappings\UserMap.cs" />
     <Compile Include="Installer.cs" />
     <Compile Include="IdentityAndAccess\Mappings\MembershipApplicationMap.cs" />
+    <Compile Include="Inventory\Mappings\ArticleMap.cs" />
+    <Compile Include="Inventory\Mappings\ImageMap.cs" />
     <Compile Include="NHibernateInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="_Legacy\Repositories\ArticleRepository.cs" />
+    <Compile Include="Inventory\Repositories\ArticleRepository.cs" />
     <Compile Include="Shop\Repositories\CartRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\MembershipRequestRepository.cs" />
     <Compile Include="Shop\Repositories\OrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\OrganizationRepository.cs" />
-    <Compile Include="_Legacy\Repositories\ReservationRepository.cs" />
+    <Compile Include="_Legacy\ReservationRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\UserRepository.cs" />
     <Compile Include="RepositoryBase.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="_Legacy\Mappings\Article.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="_Legacy\Mappings\Image.hbm.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Shop\Mappings\Order.hbm.xml">

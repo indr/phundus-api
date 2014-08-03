@@ -9,7 +9,7 @@
     /// </summary>
     public class PagedResult<TItems>
     {
-        public PagedResult(PageResponse pageResponse, ICollection<TItems> items)
+        public PagedResult(PageResponse pageResponse, IEnumerable<TItems> items)
         {
             Guard.Against<ArgumentNullException>(pageResponse == null, "pageResponse");
             Guard.Against<ArgumentNullException>(items == null, "items");
@@ -29,6 +29,6 @@
         /// <summary>
         /// Die Items für die angegebene Konfiguration.
         /// </summary>
-        public ICollection<TItems> Items { get; private set; }
+        public IEnumerable<TItems> Items { get; private set; }
     }
 }
