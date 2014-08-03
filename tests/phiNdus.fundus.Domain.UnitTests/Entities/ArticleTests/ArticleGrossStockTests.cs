@@ -1,11 +1,7 @@
 ﻿namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
 {
-    using System;
     using NUnit.Framework;
-    using Phundus.Core.InventoryCtx;
-    using Phundus.Core.InventoryCtx.Exceptions;
     using Phundus.Core.InventoryCtx.Model;
-    using Rhino.Mocks;
 
     [TestFixture]
     public class ArticleGrossStockTests : ArticleTestBase

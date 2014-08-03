@@ -206,7 +206,6 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -330,20 +329,16 @@
     <Compile Include="ViewModels\ArticlesViewModel.cs" />
     <Compile Include="Models\CartModels\CartItemModel.cs" />
     <Compile Include="Models\CartModels\CartModel.cs" />
-    <Compile Include="ViewModels\FieldsViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
-    <Compile Include="ViewModels\FieldViewModel.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="App_Start\Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\CustomMembershipProvider.cs" />
     <Compile Include="Security\CustomRoleProvider.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
-    <Compile Include="ViewModels\DiscriminatorViewModel.cs" />
     <Compile Include="ViewModels\MessageBoxViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\PageSelectorViewModel.cs" />
-    <Compile Include="ViewModels\PropertyValueViewModel.cs" />
     <Compile Include="ViewModels\ShopSearchResultViewModel.cs" />
     <Compile Include="ViewModels\ValidationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -889,37 +884,13 @@
     <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Fields\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Fields\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Fields\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Fields\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\ArticleViewModel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\PropertyValueViewModel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\DiscriminatorViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\DisplayTemplates\ArticleViewModel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\DisplayTemplates\PropertyValueViewModel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\DisplayTemplates\DiscriminatorValueViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\Delete.cshtml" />
@@ -967,7 +938,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\Article\Images.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\FieldViewModel.cshtml" />
     <Content Include="Views\Shop\Result-Table.cshtml" />
     <Content Include="Views\Shop\Result-Large.cshtml" />
     <Content Include="Views\Shop\Result-Small.cshtml" />

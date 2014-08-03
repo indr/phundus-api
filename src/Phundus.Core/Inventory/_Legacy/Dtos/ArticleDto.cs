@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class ArticleDto : BasePropertiesDto
+    public class ArticleDto
     {
         IList<ImageDto> _images = new List<ImageDto>();
 

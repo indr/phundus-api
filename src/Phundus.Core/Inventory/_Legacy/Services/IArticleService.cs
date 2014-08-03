@@ -7,8 +7,7 @@
     {
         int CreateArticle(ArticleDto subject, int organizationId);
         void UpdateArticle(ArticleDto subject, int organizationId);
-        IList<FieldDefinitionDto> GetProperties();
-
+        
         IList<AvailabilityDto> GetAvailability(int id);
 
         void AddImage(int articleId, ImageDto subject, int organizationId);
