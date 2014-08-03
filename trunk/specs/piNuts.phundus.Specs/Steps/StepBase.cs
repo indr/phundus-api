@@ -20,7 +20,13 @@
 
         protected static string BaseUrl
         {
-            get { return ConfigurationManager.AppSettings["ServerUrl"]; }
+            get
+            {
+                var result = ConfigurationManager.AppSettings["ServerUrl"].ToString();
+                if (result.StartsWith("http"))
+                    return result;
+                return "http://" + result;
+            }
         }
 
         protected static void Login(string username, string password)
@@ -55,7 +61,7 @@
             var handler = new HttpClientHandler();
             handler.CookieContainer = _container;
             var client = new HttpClient(handler);
-            url = "http://" + BaseUrl + "/api/" + url;
+            url = BaseUrl + "/api/" + url;
 
             HttpResponseMessage response;
 
@@ -66,7 +72,7 @@
 
             response.EnsureSuccessStatusCode();
 
-            foreach (var each in _container.GetCookies(new Uri("http://" + BaseUrl)).Cast<Cookie>())
+            foreach (var each in _container.GetCookies(new Uri(BaseUrl)).Cast<Cookie>())
             {
                 var data = String.Format("{0}={1}; expires={2}", new object[]
                     {
@@ -74,7 +80,7 @@
                         each.Value,
                         DateTime.Now.AddMinutes(30).ToString("R")
                     });
-                Browser.SetCookie("http://" + BaseUrl, data);
+                Browser.SetCookie(BaseUrl, data);
             }
 
         }

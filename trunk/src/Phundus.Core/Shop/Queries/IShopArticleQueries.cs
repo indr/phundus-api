@@ -59,7 +59,7 @@
                 @"select a.Id, a.Name, a.Price, o.Name as OrganizationName " +
                 @"from [Article] a " +
                 @"inner join [Organization] o on a.OrganizationId = o.Id " +
-                @"order by a.CreateDate desc",
+                @"order by a.CreateDate desc, a.Id desc ",
                 pageRequest);
 
             // TODO: Select N+1

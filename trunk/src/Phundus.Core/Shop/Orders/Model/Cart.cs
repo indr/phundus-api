@@ -145,7 +145,7 @@
 
         public virtual string LineText
         {
-            get { return Article.Name; }
+            get { return Article.Caption; }
         }
 
         public virtual decimal UnitPrice

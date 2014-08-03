@@ -61,7 +61,7 @@ namespace piNuts.phundus.Specs.Steps
         [Then(@"ich sollte auf der Startseite sein")]
         public void DannIchSollteAufDerStartseiteSein()
         {
-            Assert.That(Browser.Url, Is.EqualTo("http://" + BaseUrl + "/"));
+            Assert.That(Browser.Url, Is.EqualTo(BaseUrl + "/"));
         }
 
     }
