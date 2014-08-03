@@ -21,7 +21,7 @@ namespace Phundus.Core.Cqrs
             return CreateCommand(sql).ExecuteReader();
         }
 
-        private T ExecuteScalar<T>(string sql)
+        protected T ExecuteScalar<T>(string sql)
         {
             return (T) CreateCommand(sql).ExecuteScalar();
         }

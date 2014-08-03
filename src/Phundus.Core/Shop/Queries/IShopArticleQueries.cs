@@ -7,6 +7,7 @@
     using Cqrs;
     using Cqrs.Paging;
     using Inventory.Queries;
+    using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
     public interface IShopArticleQueries
     {
@@ -36,12 +37,22 @@
         public PagedResult<ShopArticleSearchResultDto> FindArticles(PageRequest pageRequest, string query,
             int? organization)
         {
-            return Paged<ShopArticleSearchResultDto>(
-                @"select a.Id, a.Name, a.Price, o.Name as OrganizationName, " +
+            var result = Paged<ShopArticleSearchResultDto>(
+                @"select a.Id, a.Name, a.Price, o.Name as OrganizationName " +
                 @"from [Article] a " +
                 @"inner join [Organization] o on a.OrganizationId = o.Id " +
                 @"order by a.CreateDate desc",
                 pageRequest);
+
+            // TODO: Select N+1
+            foreach (var each in result.Items)
+            {
+                var fileName = ExecuteScalar<string>(string.Format(
+                    "select top 1 FileName from [Image] where ArticleId = {0} and [Type] = 'image/jpeg' order by IsPreview desc", each.Id));
+                each.ImageFileName = fileName;
+            }
+
+            return result;
         }
     }
 
