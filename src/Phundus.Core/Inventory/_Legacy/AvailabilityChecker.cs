@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.InventoryCtx.Services
+﻿namespace Phundus.Core.Inventory._Legacy
 {
     using System;
     using System.Collections.Generic;
@@ -6,8 +6,6 @@
     using Model;
     using NHibernate;
     using NHibernate.Transform;
-    using ReservationCtx;
-    using ReservationCtx.Model;
     using Shop.Orders.Model;
 
     public class Availability

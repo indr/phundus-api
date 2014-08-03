@@ -8,9 +8,9 @@
     using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
-    using InventoryCtx.Model;
-    using InventoryCtx.Repositories;
-    using InventoryCtx.Services;
+    using Inventory.Model;
+    using Inventory.Repositories;
+    using Inventory._Legacy;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
     using Repositories;

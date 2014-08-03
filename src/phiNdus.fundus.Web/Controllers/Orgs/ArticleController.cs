@@ -3,15 +3,17 @@
     using System;
     using System.IO;
     using System.Web.Mvc;
+    using AutoMapper;
     using Castle.Transactions;
     using Helpers.FileUpload;
     using Microsoft.Practices.ServiceLocation;
     using Models.ArticleModels;
     using Phundus.Core.Inventory.Commands;
+    using Phundus.Core.Inventory.Model;
     using Phundus.Core.Inventory.Queries;
     using Phundus.Core.Inventory._Legacy.Services;
-    using Phundus.Core.InventoryCtx.Model;
     using Phundus.Core.ReservationCtx.Repositories;
+    using Phundus.Rest.Exceptions;
     using ViewModels;
 
     public class ArticleController : ControllerBase
@@ -122,7 +124,11 @@
         [Transaction]
         public virtual ActionResult Images(int id)
         {
-            var model = new ArticleViewModel(id);
+            var dto = ArticleQueries.GetArticle(id);
+            if (dto == null)
+                throw new HttpNotFoundException();
+
+            var model = new ArticleViewModel(dto);
             if (Request.IsAjaxRequest())
                 return PartialView(Views.Images, model);
             return View(Views.Images, MasterView, model);
@@ -193,7 +199,11 @@
         [Transaction]
         public virtual ActionResult Categories(int id)
         {
-            var model = new ArticleViewModel(id);
+            var dto = ArticleQueries.GetArticle(id);
+            if (dto == null)
+                throw new HttpNotFoundException();
+
+            var model = new ArticleViewModel(dto);
             if (Request.IsAjaxRequest())
             {
                 return PartialView(Views.Categories, model);
@@ -204,7 +214,11 @@
         [Transaction]
         public virtual ActionResult Delete(int id)
         {
-            return View(new ArticleViewModel(id));
+            var dto = ArticleQueries.GetArticle(id);
+            if (dto == null)
+                throw new HttpNotFoundException();
+
+            return View(new ArticleViewModel(dto));
         }
 
         [HttpPost]

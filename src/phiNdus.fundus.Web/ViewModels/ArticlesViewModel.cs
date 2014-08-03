@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Phundus.Core.Inventory._Legacy.Dtos;
+    using Phundus.Core.Inventory.Queries;
 
     public class ArticlesViewModel
     {

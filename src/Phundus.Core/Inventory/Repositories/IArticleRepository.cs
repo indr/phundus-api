@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.InventoryCtx.Repositories
+﻿namespace Phundus.Core.Inventory.Repositories
 {
     using System.Collections.Generic;
     using Infrastructure;

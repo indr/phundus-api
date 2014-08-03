@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.InventoryCtx.Model
+﻿namespace Phundus.Core.Inventory.Model
 {
     using System;
     using Ddd;
@@ -27,7 +27,6 @@
             get { return ServiceLocator.Current.GetInstance<IOrderRepository>(); }
         }
 
-        //public virtual Organization Organization { get; set; }
         public virtual int OrganizationId { get; set; }
 
         public virtual ISet<Image> Images

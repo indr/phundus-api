@@ -2,8 +2,7 @@
 {
     using System;
     using NUnit.Framework;
-    using Phundus.Core.InventoryCtx;
-    using Phundus.Core.InventoryCtx.Repositories;
+    using Phundus.Core.Inventory.Repositories;
     using Phundus.Core.Shop.Orders.Model;
     using TestHelpers.TestBases;
 

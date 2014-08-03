@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Core.InventoryCtx.Model;
-    using Core.InventoryCtx.Repositories;
+    using Core.Inventory.Model;
+    using Core.Inventory.Repositories;
     using NHibernate.Criterion;
     using NHibernate.Linq;
 

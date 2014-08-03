@@ -2,43 +2,8 @@ namespace phiNdus.fundus.Web.ViewModels
 {
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Globalization;
-    using System.Linq;
-    using Helpers;
-    using Microsoft.Practices.ServiceLocation;
-    using Models.CartModels;
     using Phundus.Core.Inventory.Queries;
     using Phundus.Core.Inventory._Legacy.Dtos;
-    using Phundus.Core.Inventory._Legacy.Services;
-    using Phundus.Core.Shop.Queries;
-
-    public class ShopArticleViewModel
-    {
-        private CartItemModel _cartItem = new CartItemModel();
-
-        public ShopArticleViewModel(ShopArticleDetailDto dto)
-        {
-            CartItem.ArticleId = dto.Id;
-            CartItem.Amount = 1;
-            CartItem.Begin = SessionAdapter.ShopBegin;
-            CartItem.End = SessionAdapter.ShopEnd;
-            CanUserAddToCart = false;
-
-            Article = dto;
-        }
-
-        public ShopArticleDetailDto Article { get; set; }
-
-        public CartItemModel CartItem
-        {
-            get { return _cartItem; }
-            set { _cartItem = value; }
-        }
-
-        public IList<AvailabilityDto> Availabilities { get; set; }
-
-        public bool CanUserAddToCart { get; set; }
-    }
 
     public class ArticleViewModel : ViewModelBase
     {
@@ -49,46 +14,16 @@ namespace phiNdus.fundus.Web.ViewModels
             Load(new ArticleDto());
         }
 
-        public ArticleViewModel(int id)
-        {
-            var articleDto = ArticleQueries.GetArticle(id);
-
-            Load(articleDto);
-        }
-
         public ArticleViewModel(ArticleDto articleDto)
         {
             Load(articleDto);
         }
 
-        public ArticleViewModel(ShopArticleSearchResultDto articleDto)
-        {
-            Load(articleDto);
-        }
-
-
-        protected IArticleQueries ArticleQueries
-        {
-            get { return ServiceLocator.Current.GetInstance<IArticleQueries>(); }
-        }
-
-        protected IArticleService ArticleService
-        {
-            get { return ServiceLocator.Current.GetInstance<IArticleService>(); }
-        }
-
-        public bool IsDeleted { get; set; }
-
-
         public int Id { get; set; }
+
         public int Version { get; set; }
 
-
-        public string OrganizationName { get; set; }
-
-        public int OrganizationId { get; set; }
-
-        [DisplayName("Preis (inkl.)")]
+        [DisplayName("Preis (inkl. MWSt)")]
         public decimal Price { get; set; }
 
         [DisplayName("Beschreibung")]
@@ -103,17 +38,6 @@ namespace phiNdus.fundus.Web.ViewModels
             get { return _files; }
         }
 
-        public IList<ImageDto> Images
-        {
-            get { return _files.Where(p => !p.FileName.EndsWith("pdf", true, CultureInfo.InvariantCulture)).ToList(); }
-        }
-
-        public IList<ImageDto> Documents
-        {
-            get { return _files.Where(p => p.FileName.EndsWith("pdf", true, CultureInfo.InvariantCulture)).ToList(); }
-        }
-
-
         [DisplayName("Farbe")]
         public string Color { get; set; }
 
@@ -126,23 +50,10 @@ namespace phiNdus.fundus.Web.ViewModels
         [DisplayName("Name")]
         public string Name { get; set; }
 
-        private void Load(ShopArticleSearchResultDto dto)
-        {
-            Id = dto.Id;
-
-            OrganizationName = dto.OrganizationName;
-
-            Name = dto.Name;
-            Price = dto.Price;
-        }
-
         private void Load(ArticleDto dto)
         {
             Id = dto.Id;
             Version = dto.Version;
-
-            OrganizationId = dto.OrganizationId;
-            OrganizationName = dto.OrganizationName;
 
             Name = dto.Name;
             Brand = dto.Brand;

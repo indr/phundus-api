@@ -8,10 +8,10 @@
     using Dtos;
     using IdentityAndAccess.Users.Repositories;
     using Infrastructure;
-    using InventoryCtx.Repositories;
-    using InventoryCtx.Services;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
+    using Queries;
+    using Repositories;
 
     public class ArticleService : AppServiceBase, IArticleService
     {

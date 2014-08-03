@@ -3,14 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Core.InventoryCtx.Model;
+    using Core.Inventory.Model;
     using Core.ReservationCtx.Model;
     using Core.ReservationCtx.Repositories;
     using Core.ReservationCtx.Services;
     using Core.Shop.Orders.Model;
     using NHibernate;
     using NHibernate.Linq;
-    using Phundus.Core.InventoryCtx;
     using Phundus.Core.ReservationCtx;
 
     public class ReservationRepository : IReservationRepository
