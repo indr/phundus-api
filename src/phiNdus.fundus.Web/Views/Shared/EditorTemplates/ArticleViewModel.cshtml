@@ -6,173 +6,65 @@
 @Html.HiddenFor(m => m.Version)
 
 <div class="row-fluid">
-    <div class="span7">
-        @using (Html.BeginFieldSetFor(m => m.EditableFieldValues, "Eigenschaften"))
-        {
-            @Html.EditorFor(x => x.EditableFieldValues);
-        }
+    <div class="span6">
+        
+        <div class="control-group">
+            @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+        </div>
+        
+        <div class="control-group">
+            @Html.LabelFor(m => m.Brand, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(m => m.Brand)
+                @Html.ValidationMessageFor(m => m.Brand)
+            </div>
+        </div>
+        
+        <div class="control-group">
+            @Html.LabelFor(m => m.Price, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(m => m.Price)
+                @Html.ValidationMessageFor(m => m.Price)
+            </div>
+        </div>
+        
+        <div class="control-group">
+            @Html.LabelFor(m => m.GrossStock, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(m => m.GrossStock)
+                @Html.ValidationMessageFor(m => m.GrossStock)
+            </div>
+        </div>
+        
+        <div class="control-group">
+            @Html.LabelFor(m => m.Color, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(m => m.Color)
+                @Html.ValidationMessageFor(m => m.Color)
+            </div>
+        </div>
     </div>
 
-    <div class="span5">
-        <fieldset>
-            <legend>Eigenschaft hinzufügen</legend>
-            @Html.DropDownListFor(m => m.RemainingPropertyId, Model.RemainingProperties)
-            <span class="help-inline">
-                <a href="#" class="btn btn-primary" onclick="ae.addField(); return false;">Hinzufügen</a>
-            </span>
-            <p>&nbsp;</p>
-        </fieldset>
+    <div class="span6">
+        <div class="control-group">
+            @Html.LabelFor(m => m.Description, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextAreaFor(m => m.Description, new { @class = "span6 tinymce-init", rows = "10" })
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
+        </div>
         
-        @if (!Model.IsChild)
-        {
-            using (Html.BeginFieldSetFor(m => m.Discriminators, "Diskriminatoren"))
-            {
-                <table class="table">
-                    <tbody>
-                        @Html.EditorFor(x => x.Discriminators)
-                    </tbody>
-                </table>
-
-                @Html.DropDownListFor(m => m.RemainingDiscriminatorId, Model.RemainingProperties)
-                <span class="help-inline">
-                    <a href="#" class="btn btn-primary" onclick="ae.addDisc(); return false;">Hinzufügen</a>
-                </span>
-            }    
-            
-        }
+        <div class="control-group">
+            @Html.LabelFor(m => m.Specification, new { @class = "control-label" })
+            <div class="controls">
+                @Html.TextAreaFor(m => m.Specification, new { @class = "span6 tinymce-init", rows = "10" })
+                @Html.ValidationMessageFor(m => m.Specification)
+            </div>
+        </div>
     </div>
 </div>
-
-
-<script type="text/javascript">
-    // class
-    function ArticleEditor(fieldSetFieldsId, selectFieldsId, fieldSetDiscsId, selectDiscsId) {
-        this.fieldSetFieldsId = fieldSetFieldsId;
-        this.fieldSetFields = $('#' + fieldSetFieldsId);
-        this.selectFieldsId = selectFieldsId;
-        this.selectFields = $('#' + selectFieldsId);
-        
-        this.fieldSetDiscsId = fieldSetDiscsId;
-        this.fieldSetDiscs = $('#' + fieldSetDiscsId);
-        this.selectDiscsId = selectDiscsId;
-        this.selectDiscs = $('#' + selectDiscsId);
-
-    }
-
-
-    function sortDropDownListsByText() {
-        // Loop for each select element on the page.
-        $("select").each(function () {
-
-            // Keep track of the selected option.
-            var selectedValue = $(this).val();
-
-            // Sort all the options by text. I could easily sort these by val.
-            $(this).html($("option", $(this)).sort(function (a, b) {
-                return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
-            }));
-
-            // Select one option.
-            $(this).val(selectedValue);
-        });
-    }
-
-    ArticleEditor.prototype.addField = function () {
-        var fieldId = this.selectFields.val();
-        var fieldSetId = this.fieldSetFieldsId;
-        var selectFieldsId = this.selectFieldsId;
-        var selectDiscsId = this.selectDiscsId;
-        $.ajax({
-            url: '@Url.Action("AddPropertyAjax", "Article")/' + fieldId,
-            data: { prefix: this.fieldSetFieldsId + '[' + (this.fieldSetFields.children().length - 1) + ']' },
-            dataType: 'html',
-            type: 'GET',
-            success: function (result) {
-                $('#' + fieldSetId).append(result);
-                $("select#" + selectFieldsId + " option[value='" + fieldId + "']").each(function () {
-                    $(this).remove();
-                });
-                $("select#" + selectDiscsId + " option[value='" + fieldId + "']").each(function () {
-                    $(this).remove();
-                });
-            }
-        });
-    }
-
-    ArticleEditor.prototype.addDisc = function () {
-        var discId = this.selectDiscs.val();
-        var fieldSetId = this.fieldSetDiscsId;
-        var selectFieldsId = this.selectFieldsId;
-        var selectDiscsId = this.selectDiscsId;
-        var count = $('#' + this.fieldSetDiscsId + ' tbody').children().length;
-        $.ajax({
-            url: '@Url.Action("AddDiscriminatorAjax", "Article")/' + discId,
-            data: { prefix: this.fieldSetDiscsId + '[' + count + ']' },
-            dataType: 'html',
-            type: 'GET',
-            success: function (result) {
-                $('#' + fieldSetId + ' tbody').append(result);
-                $("select#" + selectFieldsId + " option[value='" + discId + "']").each(function () {
-                    $(this).remove();
-                });
-                $("select#" + selectDiscsId + " option[value='" + discId + "']").each(function () {
-                    $(this).remove();
-                });
-            }
-
-        });
-
-    }
-    
-
-    ArticleEditor.prototype.removeField = function (controlGroupId, caption, fieldTypeId) {
-        $("select#" + this.selectFieldsId).append('<option value="' + fieldTypeId + '">' + caption + '</option>');
-        $("select#" + this.selectDiscsId).append('<option value="' + fieldTypeId + '">' + caption + '</option>');
-        var controlGroup = $("div#" + controlGroupId);
-        controlGroup.hide();
-        controlGroup.find("input#" + controlGroupId + "_IsDeleted").val('True');
-        sortDropDownListsByText();
-    }
-
-
-
-    ArticleEditor.prototype.removeDisc = function (controlGroupId, caption, fieldTypeId) {
-        $("select#" + this.selectFieldsId).append('<option value="' + fieldTypeId + '">' + caption + '</option>');
-        $("select#" + this.selectDiscsId).append('<option value="' + fieldTypeId + '">' + caption + '</option>');
-        var controlGroup = $("#" + controlGroupId);
-        controlGroup.hide();
-        controlGroup.find("input#" + controlGroupId + "_IsDeleted").val('True');
-        sortDropDownListsByText();
-    }
-    
-
-var ae = null;
-$(function () {
-    ae = new ArticleEditor('@Html.IdFor(m => m.EditableFieldValues)', '@Html.IdFor(m => m.RemainingPropertyId)', '@Html.IdFor(m => m.Discriminators)', '@Html.IdFor(m => m.RemainingDiscriminatorId)');
-});
-</script>
-
-
-
-@*
-
-@if (Model.IsChild)
-{
-    @Html.HiddenFor(m => m.IsDeleted)
-    <a href="#" onclick="removeChildArticle('@Html.IdFor(m => m.IsDeleted)'); return false;">&quot;Kind&quot; entfernen</a>
-}
-
-@if (!Model.IsChild)
-{
-<h2>Spezialisierungen</h2>
-<div class="article-children-editor">
-@using (Html.BeginContainerFor(m => m.Children))
-{
-@Html.EditorFor(m => m.Children)
-}
-</div>
-<a href="#" onclick="addChild('@Html.NameFor(m => m.Children)'); return false;">Neues &quot;Kind&quot; hinzufügen</a>
-}
-
-*@
 
