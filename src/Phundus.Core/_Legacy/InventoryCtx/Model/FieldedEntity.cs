@@ -58,8 +58,8 @@
         {
             return GetFieldValue(fieldDefinition.Id);
         }
-
-        public virtual object GetFieldValue(int fieldDefinitionId)
+        
+        protected virtual object GetFieldValue(int fieldDefinitionId)
         {
             foreach (var each in FieldValues.Where(each => each.FieldDefinition.Id == fieldDefinitionId))
             {
@@ -96,8 +96,7 @@
                        : Convert.ToDouble(GetFieldValue(fieldDefinitionId));
         }
 
-
-        public virtual bool HasField(FieldDefinition fieldDefinition)
+        protected virtual bool HasField(FieldDefinition fieldDefinition)
         {
             return HasField(fieldDefinition.Id);
         }

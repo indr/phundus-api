@@ -16,32 +16,6 @@
         }
 
         [Test]
-        public void Get_with_children_and_attached_gross_stock_field_throws()
-        {
-            Article sut = CreateSut();
-            sut.GrossStock = 100;
-            AddChild(sut);
-
-            Assert.Throws<IllegalAttachedFieldException>(delegate { object value = sut.GrossStock; });
-        }
-
-        [Test]
-        public void Get_with_children_returns_sum_of_childrens_GrossStock()
-        {
-            Article sut = CreateSut();
-            var child1 = MockRepository.GenerateMock<Article>();
-            var child2 = MockRepository.GenerateMock<Article>();
-            sut.AddChild(child1);
-            sut.AddChild(child2);
-
-            child1.Expect(x => x.GrossStock).Return(10);
-            child2.Expect(x => x.GrossStock).Return(20);
-
-            int actual = sut.GrossStock;
-            Assert.That(actual, Is.EqualTo(30));
-        }
-
-        [Test]
         public void Get_without_children_and_attached_gross_stock_field_returns_field_value()
         {
             Article sut = CreateSut();
@@ -60,14 +34,6 @@
             Article sut = CreateSut();
             int actual = sut.GrossStock;
             Assert.That(actual, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Set_gross_stock_with_children_throws()
-        {
-            Article sut = CreateSut();
-            AddChild(sut);
-            Assert.Throws<InvalidOperationException>(() => sut.GrossStock = 1);
         }
 
         [Test]

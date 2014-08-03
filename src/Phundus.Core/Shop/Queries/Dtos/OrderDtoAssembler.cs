@@ -47,7 +47,7 @@
                         UnitPrice = item.UnitPrice,
                         LineTotal = item.LineTotal,
                         Version = item.Version,
-                        Text = item.Article.Caption
+                        Text = item.Article.Name
                     });
             }
 

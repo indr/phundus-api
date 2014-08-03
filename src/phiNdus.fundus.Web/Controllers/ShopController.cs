@@ -142,7 +142,7 @@
             model.Availabilities = ServiceLocator.Current.GetInstance<IArticleService>().GetAvailability(id);
             return Json(new
             {
-                caption = model.Caption,
+                caption = model.Name,
                 content = RenderPartialViewToString("Article", model)
             }, JsonRequestBehavior.AllowGet);
         }

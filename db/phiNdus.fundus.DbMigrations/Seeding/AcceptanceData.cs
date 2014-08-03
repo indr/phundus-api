@@ -62,7 +62,7 @@
             var records = GetRecords<Article>("Articles.csv");
             Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] ON", "Article"));
 
-            var fieldValueId = 1;
+            
             foreach (var each in records)
             {
                 Insert.IntoTable("Article").InSchema(SchemaName).Row(new
@@ -72,55 +72,16 @@
                         @Type =
                                                                          "Phundus.Core.InventoryCtx.Model.Article",
                         each.OrganizationId,
-                        CreateDate = DateTime.Now
+                        CreateDate = DateTime.Now,
+                        Name = each.Name,
+                        Brand = each.Marke,
+                        Price = each.Preis,
+                        Description = each.Beschreibung,
+                        Stock = each.Bestand
+
                     });
 
-                Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                    {
-                        Id = fieldValueId++,
-                        each.Version,
-                        ArticleId = each.Id,
-                        FieldDefinitionId = 2,
-                        IsDiscriminator = false,
-                        TextValue = each.Name
-                    });
-                Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                    {
-                        Id = fieldValueId++,
-                        each.Version,
-                        ArticleId = each.Id,
-                        FieldDefinitionId = 3,
-                        IsDiscriminator = false,
-                        TextValue = each.Marke
-                    });
-                Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                    {
-                        Id = fieldValueId++,
-                        each.Version,
-                        ArticleId = each.Id,
-                        FieldDefinitionId = 4,
-                        IsDiscriminator = false,
-                        DecimalValue = each.Preis
-                    });
-                Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                    {
-                        Id = fieldValueId++,
-                        each.Version,
-                        ArticleId = each.Id,
-                        FieldDefinitionId = 8,
-                        IsDiscriminator = false,
-                        TextValue = each.Beschreibung
-                    });
-                Insert.IntoTable("FieldValue").InSchema(SchemaName).Row(new
-                    {
-                        Id = fieldValueId++,
-                        each.Version,
-                        ArticleId = each.Id,
-                        FieldDefinitionId = 10,
-                        IsDiscriminator = false,
-                        IntegerValue = each.Bestand
-                    });
-            }
+                }
 
             Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] OFF", "Article"));
         }
