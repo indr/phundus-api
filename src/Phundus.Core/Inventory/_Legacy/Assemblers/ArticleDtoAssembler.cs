@@ -48,7 +48,7 @@
             result.OrganizationName = organization.Name;
 
             result.CreatedOn = subject.CreateDate;
-            result.Name = subject.Name;
+            result.Name = subject.Caption;
             result.Brand = subject.Brand;
             result.Price = subject.Price;
             result.OrganizationId = subject.OrganizationId;

@@ -41,7 +41,7 @@
             protected set { _createDate = value; }
         }
 
-        public virtual string Name { get; set; }
+        public virtual string Caption { get; set; }
 
         public virtual string Brand { get; set; }
 

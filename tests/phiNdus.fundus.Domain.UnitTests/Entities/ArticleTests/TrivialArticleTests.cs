@@ -46,9 +46,9 @@
         {
             Article sut = CreateSut();
             
-            Assert.That(sut.Name, Is.Null);
-            sut.Name = "Name of object";
-            Assert.That(sut.Name, Is.EqualTo("Name of object"));
+            Assert.That(sut.Caption, Is.Null);
+            sut.Caption = "Name of object";
+            Assert.That(sut.Caption, Is.EqualTo("Name of object"));
         }
 
         [Test]

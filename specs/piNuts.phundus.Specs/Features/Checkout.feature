@@ -9,8 +9,8 @@ Grundlage:
 
 
 Szenario: Checkout 
-	Angenommen ich lege den Artikel mit der Id 10001 in den Warenkorb
-	Und ich lege den Artikel mit der Id 10002 in den Warenkorb
+	Angenommen ich lege den Artikel mit der Id 10022 in den Warenkorb
+	Und ich lege den Artikel mit der Id 10023 in den Warenkorb
 	Wenn ich bestelle
 	Dann muss "chief-1@test.phundus.ch" ein E-Mail erhalten mit dem Betreff "[phundus] Neue Bestellung"
 	Und muss "chief-2@test.phundus.ch" ein E-Mail erhalten mit dem Betreff "[phundus] Neue Bestellung"

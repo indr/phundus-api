@@ -13,7 +13,7 @@
             Map(x => x.OrganizationId).Not.Update();
             Map(x => x.CreateDate, "CreateDate").Not.Update();
 
-            Map(x => x.Name, "Name");
+            Map(x => x.Caption, "Name");
             Map(x => x.Brand);
             Map(x => x.Price, "Price");
             Map(x => x.GrossStock, "Stock");

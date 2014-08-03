@@ -251,6 +251,7 @@
     <EmbeddedResource Include="Shop\Orders\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

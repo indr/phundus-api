@@ -27,7 +27,7 @@
 
             var result = new Article();
 
-            result.Name = subject.Name;
+            result.Caption = subject.Name;
             result.Brand = subject.Brand;
             result.Price = subject.Price;
             result.OrganizationId = subject.OrganizationId;
@@ -53,7 +53,7 @@
             Guard.Against<EntityNotFoundException>(result == null, "Article entity not found");
             Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 
-            result.Name = subject.Name;
+            result.Caption = subject.Name;
             result.Brand = subject.Brand;
             result.Price = subject.Price;
             result.OrganizationId = subject.OrganizationId;

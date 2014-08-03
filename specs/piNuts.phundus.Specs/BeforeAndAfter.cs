@@ -23,8 +23,9 @@ namespace piNuts.phundus.Specs
         private static void WarmUp()
         {
             var appSettings = new AppSettingsReader();
-            var url = "http://" + appSettings.GetValue("ServerUrl", typeof (string)).ToString();
-
+            var url = appSettings.GetValue("ServerUrl", typeof (string)).ToString();
+            if (!url.StartsWith("http://"))
+                url = "http://" + url;
             var request = WebRequest.Create(url);
             request.Timeout = Convert.ToInt32(TimeSpan.FromMinutes(2).TotalMilliseconds);
 

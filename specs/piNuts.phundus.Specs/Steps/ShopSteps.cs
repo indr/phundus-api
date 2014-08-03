@@ -38,7 +38,7 @@ namespace piNuts.phundus.Specs.Steps
         [Then(@"ich sollte auf der Shopseite sein")]
         public void DannIchSollteAufDerShopseiteSein()
         {
-            Assert.That(Browser.Url, Is.EqualTo("http://" + BaseUrl + "/shop"));
+            Assert.That(Browser.Url, Is.EqualTo(BaseUrl + "/shop"));
         }
 
     }

@@ -85,9 +85,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line 12
- testRunner.Given("ich lege den Artikel mit der Id 10001 in den Warenkorb", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+ testRunner.Given("ich lege den Artikel mit der Id 10022 in den Warenkorb", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
 #line 13
- testRunner.And("ich lege den Artikel mit der Id 10002 in den Warenkorb", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+ testRunner.And("ich lege den Artikel mit der Id 10023 in den Warenkorb", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line 14
  testRunner.When("ich bestelle", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
 #line 15
