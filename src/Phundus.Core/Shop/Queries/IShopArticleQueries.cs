@@ -1,13 +1,14 @@
 ﻿namespace Phundus.Core.Shop.Queries
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Data;
+    using System.Linq;
     using AutoMapper;
     using Cqrs;
     using Cqrs.Paging;
     using Inventory.Queries;
-    using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
     public interface IShopArticleQueries
     {
@@ -21,17 +22,36 @@
         {
             Mapper.CreateMap<IDataReader, ShopArticleDetailDto>();
             Mapper.CreateMap<IDataReader, ShopArticleSearchResultDto>();
+            Mapper.CreateMap<IDataReader, ShopArticleImageDto>();
         }
 
         public IArticleQueries ArticleQueries { get; set; }
 
         public ShopArticleDetailDto GetArticle(int id)
         {
-            return Single<ShopArticleDetailDto>(
+            var result = Single<ShopArticleDetailDto>(
                 @"select a.Id, a.Name, a.Price, a.Description, a.Specification,  o.Id as OrganizationId, o.Name as OrganizationName " +
                 @"from [Article] a inner join [Organization] o on a.OrganizationId = o.Id " +
                 @"where a.Id = {0}",
                 id);
+
+            // TODO: Select 1+1
+            var images = Many<ShopArticleImageDto>(
+                @"select FileName, [Type], [Length] from [Image] where ArticleId = {0}", id);
+
+            result.Images =
+                images.Where(p => p.Type.StartsWith("image", StringComparison.InvariantCultureIgnoreCase)).ToList();
+            result.Documents =
+                images.Where(p => !p.Type.StartsWith("image", StringComparison.InvariantCultureIgnoreCase))
+                    .Select(each => new ShopArticleDocumentDto
+                    {
+                        FileName = each.FileName,
+                        Type = each.Type,
+                        Length = each.Length
+                    }).ToList();
+
+
+            return result;
         }
 
         public PagedResult<ShopArticleSearchResultDto> FindArticles(PageRequest pageRequest, string query,
@@ -47,9 +67,15 @@
             // TODO: Select N+1
             foreach (var each in result.Items)
             {
-                var fileName = ExecuteScalar<string>(string.Format(
-                    "select top 1 FileName from [Image] where ArticleId = {0} and [Type] = 'image/jpeg' order by IsPreview desc", each.Id));
-                each.ImageFileName = fileName;
+                var images = Many<ShopArticleImageDto>(
+                    @"select FileName, [Type], [Length] from [Image] where ArticleId = {0}", each.Id);
+
+                var image =
+                    images.OrderBy(p => p.IsPreview)
+                        .FirstOrDefault(p => p.Type.StartsWith("image", StringComparison.InvariantCultureIgnoreCase));
+                
+                if (image != null)
+                    each.ImageFileName = image.FileName;
             }
 
             return result;
@@ -94,11 +120,15 @@
     public class ShopArticleImageDto
     {
         public string FileName { get; set; }
+        public string Type { get; set; }
+        public long Length { get; set; }
+        public bool IsPreview { get; set; }
     }
 
     public class ShopArticleDocumentDto
     {
         public string FileName { get; set; }
-        public string DisplayLength { get; set; }
+        public string Type { get; set; }
+        public long Length { get; set; }
     }
 }
