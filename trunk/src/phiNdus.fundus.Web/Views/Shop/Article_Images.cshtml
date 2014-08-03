@@ -1,13 +1,12 @@
 ﻿@model phiNdus.fundus.Web.ViewModels.ShopArticleViewModel
 
-
-                <ul class="thumbnails" data-target="#modal-gallery" data-toggle="modal-gallery">
-                    @foreach (var each in Model.Images)
-                    {
-                        <li>
-                            <a rel="gallery" class="thumbnail" href="@Html.Raw(Url.Content(each.FileName))" title="@Path.GetFileName(each.FileName)">
-                                <img src="@String.Concat(Html.Raw(Url.Content(each.FileName)), ".ashx?maxwidth=150&maxheight=150")" />
-                            </a>
-                        </li>
-                    }
-                </ul>
+<ul class="thumbnails" data-target="#modal-gallery" data-toggle="modal-gallery">
+    @foreach (var each in Model.Article.Images)
+    {
+        <li>
+            <a rel="gallery" class="thumbnail" href="@Html.Raw(Url.Content(each.FileName))" title="@Path.GetFileName(each.FileName)">
+                <img src="@String.Concat(Html.Raw(Url.Content(each.FileName)), ".ashx?maxwidth=150&maxheight=150")" />
+            </a>
+        </li>
+    }
+</ul>

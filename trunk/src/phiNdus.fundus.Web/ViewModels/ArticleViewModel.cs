@@ -12,18 +12,22 @@ namespace phiNdus.fundus.Web.ViewModels
     using Phundus.Core.Inventory._Legacy.Services;
     using Phundus.Core.Shop.Queries;
 
-    public class ShopArticleViewModel : ArticleViewModel
+    public class ShopArticleViewModel
     {
         private CartItemModel _cartItem = new CartItemModel();
 
-        public ShopArticleViewModel(int id) : base(id)
+        public ShopArticleViewModel(ShopArticleDetailDto dto)
         {
-            CartItem.ArticleId = id;
+            CartItem.ArticleId = dto.Id;
             CartItem.Amount = 1;
             CartItem.Begin = SessionAdapter.ShopBegin;
             CartItem.End = SessionAdapter.ShopEnd;
             CanUserAddToCart = false;
+
+            Article = dto;
         }
+
+        public ShopArticleDetailDto Article { get; set; }
 
         public CartItemModel CartItem
         {
@@ -32,6 +36,7 @@ namespace phiNdus.fundus.Web.ViewModels
         }
 
         public IList<AvailabilityDto> Availabilities { get; set; }
+
         public bool CanUserAddToCart { get; set; }
     }
 
@@ -61,7 +66,6 @@ namespace phiNdus.fundus.Web.ViewModels
             Load(articleDto);
         }
 
-        
 
         protected IArticleQueries ArticleQueries
         {
@@ -130,8 +134,6 @@ namespace phiNdus.fundus.Web.ViewModels
 
             Name = dto.Name;
             Price = dto.Price;
-            Description = dto.Description;
-            Specification = dto.Specification;
         }
 
         private void Load(ArticleDto dto)
