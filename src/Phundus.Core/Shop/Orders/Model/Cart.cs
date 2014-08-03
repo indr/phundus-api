@@ -148,12 +148,12 @@
             get { return Article.Name; }
         }
 
-        public virtual double UnitPrice
+        public virtual decimal UnitPrice
         {
             get { return Article.Price; }
         }
 
-        public virtual double LineTotal
+        public virtual decimal LineTotal
         {
             get { return Quantity*UnitPrice; }
         }

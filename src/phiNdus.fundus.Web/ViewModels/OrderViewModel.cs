@@ -38,7 +38,7 @@
         public string ModifierName { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:0.00}")]
-        public double TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
 
         public IList<OrderItemDto> Items { get; set; }

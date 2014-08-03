@@ -47,7 +47,7 @@
         {
             Article sut = CreateSut();
             
-            Assert.That(sut.Name, Is.EqualTo(""));
+            Assert.That(sut.Name, Is.Null);
             sut.Name = "Name of object";
             Assert.That(sut.Name, Is.EqualTo("Name of object"));
         }
@@ -58,7 +58,7 @@
             Article sut = CreateSut();
             
             Assert.That(sut.Price, Is.EqualTo(0.0d));
-            sut.Price = 1.1d;
+            sut.Price = 1.1m;
             Assert.That(sut.Price, Is.EqualTo(1.1d));
         }
     }

@@ -21,16 +21,7 @@
             Assert.That(actual, Is.EqualTo(100));
         }
 
-        /// <summary>
-        ///     Kein definierter Bestand, keine Kindelemente => Bruttobestand = 1
-        /// </summary>
-        [Test]
-        public void Get_without_children_and_without_attached_gross_stock_field_returns_1()
-        {
-            Article sut = CreateSut();
-            int actual = sut.GrossStock;
-            Assert.That(actual, Is.EqualTo(1));
-        }
+      
 
         [Test]
         public void Set_without_children()

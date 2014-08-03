@@ -135,7 +135,7 @@
             var sut = new Order();
 
             // Act
-            double totalPrice = sut.TotalPrice;
+            decimal totalPrice = sut.TotalPrice;
 
             // Assert
             Assert.That(totalPrice, Is.EqualTo(0.0));

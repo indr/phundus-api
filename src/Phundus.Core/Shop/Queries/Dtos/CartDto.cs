@@ -17,7 +17,7 @@
             set { _items = value; }
         }
 
-        public double TotalPrice
+        public decimal TotalPrice
         {
             get { return Items.Sum(s => s.LineTotal); }
         }
@@ -38,8 +38,8 @@
         public DateTime To { get; set; }
 
         public string Text { get; set; }
-        public double UnitPrice { get; set; }
-        public double LineTotal { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal LineTotal { get; set; }
 
         public bool IsAvailable { get; set; }
 

@@ -14,7 +14,7 @@
         private IList<OrderItemDto> _items = new List<OrderItemDto>();
 
 
-        public double TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
         public IList<OrderItemDto> Items
         {
