@@ -1,6 +1,6 @@
 namespace Phundus.Core.Ddd
 {
-    public class EventPublisherImpl
+    public class EventPublisherImpl : IEventPublisher
     {
         public IEventHandlerFactory Factory { get; set; }
 
@@ -11,5 +11,10 @@ namespace Phundus.Core.Ddd
             foreach (var each in subscribers)
                 each.Handle(@event);
         }
+    }
+
+    public interface IEventPublisher
+    {
+        void Publish<TDomainEvent>(TDomainEvent @event);
     }
 }

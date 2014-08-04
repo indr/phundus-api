@@ -8,7 +8,7 @@
 
         public static void Publish<TDomainEvent>(TDomainEvent @event)
         {
-            var publisher = Container.Resolve<EventPublisherImpl>();
+            var publisher = Container.Resolve<IEventPublisher>();
             publisher.Publish(@event);
         }
     }

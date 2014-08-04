@@ -7,5 +7,6 @@
     public interface IArticleRepository : IRepository<Article>
     {
         IEnumerable<Article> ByOrganization(int organizationId);
+        int GetNextIdentifier();
     }
 }

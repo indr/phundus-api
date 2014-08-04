@@ -18,5 +18,10 @@
             var query = from a in Articles where a.OrganizationId == organizationId select a;
             return query.ToFuture();
         }
+
+        public int GetNextIdentifier()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
