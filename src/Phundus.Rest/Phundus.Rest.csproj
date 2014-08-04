@@ -88,7 +88,7 @@
       </SubType>
     </Compile>
     <Compile Include="Controllers\IdentityAndAccess\LocksController.cs" />
-    <Compile Include="Controllers\_Legacy\AuthController.cs" />
+    <Compile Include="Controllers\SessionsController.cs" />
     <Compile Include="Controllers\Shop\CartsController.cs" />
     <Compile Include="Controllers\IdentityAndAccess\MembersController.cs" />
     <Compile Include="Controllers\IdentityAndAccess\OrganizationsController.cs" />

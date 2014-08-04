@@ -31,7 +31,8 @@
 
         protected static void Login(string username, string password)
         {
-            ApiCall("/auth/login", new Dictionary<string, string>
+
+            ApiCall("/sessions", new Dictionary<string, string>
                 {
                     {"username", username},
                     {"password", password}
