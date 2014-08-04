@@ -55,10 +55,21 @@
         public PagedResult<ShopArticleSearchResultDto> FindArticles(PageRequest pageRequest, string query,
             int? organization)
         {
+            var where = "where 1 = 1 ";
+
+            // TODO: SQL-Injection
+            if (!String.IsNullOrWhiteSpace(query))
+                where = where + string.Format(" and a.Name like '%{0}%' ", query.Replace("'", "''"));
+
+            if (organization.HasValue)
+                where = where + string.Format(" and a.OrganizationId = {0} ", organization.Value);
+
+
             var result = Paged<ShopArticleSearchResultDto>(
                 @"select a.Id, a.Name, a.Price, o.Name as OrganizationName " +
                 @"from [Article] a " +
                 @"inner join [Organization] o on a.OrganizationId = o.Id " +
+                where +
                 @"order by a.CreateDate desc, a.Id desc ",
                 pageRequest);
 
