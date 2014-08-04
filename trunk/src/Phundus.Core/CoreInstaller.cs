@@ -42,7 +42,7 @@
                 Classes.FromThisAssembly().BasedOn(typeof (ISubscribeTo<>))
                     .WithServiceAllInterfaces()
                     .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseEventHandlerInterceptor>()),
-                Component.For<EventPublisherImpl>(),
+                Component.For<IEventPublisher>().ImplementedBy<EventPublisherImpl>(),
                 Component.For<IEventHandlerFactory>().AsFactory(c => c.SelectedWith<EventHandlerSelector>())
                 );
 

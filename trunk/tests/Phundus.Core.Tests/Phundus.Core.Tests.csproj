@@ -37,16 +37,32 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\..\packages\Castle.Windsor.3.2.0\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Specifications, Version=0.8.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Machine.Specifications.0.8.2\lib\net40\Machine.Specifications.dll</HintPath>
+    <Reference Include="developwithpassion.specifications">
+      <HintPath>..\..\packages\developwithpassion.specifications.rhinomocks.0.6.0\lib\developwithpassion.specifications.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Specifications.Clr4, Version=0.8.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="developwithpassion.specifications.rhinomocks">
+      <HintPath>..\..\packages\developwithpassion.specifications.rhinomocks.0.6.0\lib\developwithpassion.specifications.rhinomocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Fakes, Version=0.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Machine.Specifications.0.8.2\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Fakes.0.5.1\lib\net40\Machine.Fakes.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Fakes.Adapters.RhinoMocks">
+      <HintPath>..\..\packages\Machine.Fakes.RhinoMocks.0.5.1\lib\net40\Machine.Fakes.Adapters.RhinoMocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications, Version=0.8.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Machine.Specifications.0.8.3\lib\net40\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications.Clr4, Version=0.8.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Machine.Specifications.0.8.3\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications.Should">
       <HintPath>..\..\packages\Machine.Specifications.Should.0.7.2\lib\net40\Machine.Specifications.Should.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,6 +77,7 @@
     <Compile Include="Cqrs\TestCommand1Handler.cs" />
     <Compile Include="Cqrs\when_all_handlers_are_resolved.cs" />
     <Compile Include="Cqrs\when_a_command_is_sent.cs" />
+    <Compile Include="Inventory\CreateArticleHandlerSpecs.cs" />
     <Compile Include="Placeholder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -71,6 +88,10 @@
     <ProjectReference Include="..\..\src\Phundus.Core\Phundus.Core.csproj">
       <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
       <Name>Phundus.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\piNuts.phundus.Infrastructure\Phundus.Infrastructure.csproj">
+      <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>
+      <Name>Phundus.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
