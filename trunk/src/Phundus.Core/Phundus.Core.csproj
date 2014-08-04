@@ -237,6 +237,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="IdentityAndAccess\Queries\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
   </ItemGroup>
   <ItemGroup>

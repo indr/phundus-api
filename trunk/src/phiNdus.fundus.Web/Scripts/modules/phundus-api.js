@@ -34,5 +34,8 @@
             './api/organizations/:organizationId/members/:memberId/locks',
             { organizationId: '@organizationId', memberId: '@memberId'});
     })
-
+    .factory('relationships', function($resource) {
+        return $resource(
+            './api/organizations/:organizationId/relationship');
+    })
 ;
