@@ -2,16 +2,13 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Web.Mvc;
-    using AutoMapper;
     using Castle.Transactions;
     using Helpers.FileUpload;
-    using Microsoft.Practices.ServiceLocation;
     using Models.ArticleModels;
     using Phundus.Core.Inventory.Commands;
-    using Phundus.Core.Inventory.Model;
     using Phundus.Core.Inventory.Queries;
-    using Phundus.Core.Inventory._Legacy.Services;
     using Phundus.Core.ReservationCtx.Repositories;
     using Phundus.Rest.Exceptions;
     using ViewModels;
@@ -25,7 +22,11 @@
 
         public IArticleQueries ArticleQueries { get; set; }
 
-        public IArticleService ArticleService { get; set; }
+        public IImageQueries ImageQueries { get; set; }
+
+        public IAvailabilityQueries AvailabilityQueries { get; set; }
+
+        public IReservationRepository ReservationRepository { get; set; }
 
         [Transaction]
         public virtual ActionResult Index()
@@ -40,7 +41,7 @@
                 throw new Exception("Keine Organisation ausgewählt.");
 
             var model = new ArticlesTableViewModel(
-                ArticleQueries.GetArticles(CurrentOrganizationId.Value)                
+                ArticleQueries.GetArticles(CurrentOrganizationId.Value)
                 );
             return View(model);
         }
@@ -196,7 +197,7 @@
             }
             if (Request.HttpMethod == "GET")
             {
-                var images = ArticleService.GetImages(id);
+                var images = ImageQueries.ByArticle(id);
                 var result = factory.Create(images);
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -221,7 +222,7 @@
         {
             var model = new ArticleAvailabilityViewModel();
             model.Id = id;
-            model.Availabilites = ServiceLocator.Current.GetInstance<IArticleService>().GetAvailability(id);
+            model.Availabilites = AvailabilityQueries.GetAvailability(id).ToList();
             if (Request.IsAjaxRequest())
             {
                 return PartialView(Views.Availability, model);
@@ -230,7 +231,6 @@
         }
 
 
-        public IReservationRepository ReservationRepository { get; set; }
         [Transaction]
         public virtual ActionResult Reservations(int id)
         {
