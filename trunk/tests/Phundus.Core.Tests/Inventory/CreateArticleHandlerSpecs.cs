@@ -1,51 +1,20 @@
 ﻿namespace Phundus.Core.Tests.Inventory
 {
-    using Castle.MicroKernel.Registration;
-    using Castle.Windsor;
     using Core.Inventory.Commands;
     using Core.Inventory.Model;
     using Core.Inventory.Repositories;
-    using Ddd;
     using developwithpassion.specifications.extensions;
-    using developwithpassion.specifications.rhinomocks;
     using IdentityAndAccess.Queries;
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
 
-    public abstract class concern : Observes<CreateArticleHandler>
-    {
-        private static IWindsorContainer container;
-
-        protected static CreateArticle command;
-
-        protected static IEventPublisher publisher;
-
-        protected Establish event_publisher = () =>
-        {
-            publisher = depends.on<IEventPublisher>();
-
-            container = new WindsorContainer();
-            container.Register(Component.For<IEventPublisher>().Instance(publisher));
-            EventPublisher.Container = container;
-        };
-
-        public Because of = () => sut.Handle(command);
-    }
-
     [Subject(typeof (CreateArticleHandler))]
-    public class when_the_command_is_handled : concern
+    public class when_create_article_is_handled : handler_concern<CreateArticle, CreateArticleHandler>
     {
-        private static IArticleRepository repository;
-
-        private static IMemberInRole memberInRole;
-
-        private Establish c = () =>
+        public Establish c = () =>
         {
-            repository = depends.on<IArticleRepository>();
             repository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(1);
-
-            memberInRole = depends.on<IMemberInRole>();
 
             command = new CreateArticle();
             command.InitiatorId = 2;

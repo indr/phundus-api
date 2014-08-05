@@ -27,14 +27,7 @@
 
 
 
-        public virtual void UpdateArticle(ArticleDto subject, int organizationId)
-        {
-            var user = Users.FindByEmail(Identity.Name);
-            var article = ArticleDomainAssembler.UpdateDomainObject(subject);
-            if (article.OrganizationId != organizationId)
-                throw new InvalidOperationException("Der Artikel gehört nicht der gewählten Organization.");
-            ArticleRepository.Add(article);
-        }
+        
        
         public void AddImage(int articleId, ImageDto subject, int organizationId)
         {
