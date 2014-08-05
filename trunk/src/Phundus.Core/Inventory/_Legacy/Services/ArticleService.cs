@@ -28,11 +28,14 @@
 
         public virtual int CreateArticle(ArticleDto subject, int organizationId)
         {
+            throw new InvalidOperationException();
+
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
             var article = ArticleDomainAssembler.CreateDomainObject(subject);
             var user = Users.FindByEmail(Identity.Name);
-            article.OrganizationId = organizationId;
+            //article.OrganizationId = organizationId;
+            
             var id = ArticleRepository.Add(article).Id;
             return id;
         }

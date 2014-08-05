@@ -25,12 +25,12 @@
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
-            var result = new Article();
+            var result = new Article(subject.OrganizationId, subject.Name);
 
-            result.Caption = subject.Name;
+            
             result.Brand = subject.Brand;
             result.Price = subject.Price;
-            result.OrganizationId = subject.OrganizationId;
+            
             result.Description = subject.Description;
             result.Specification = subject.Specification;
             result.GrossStock = subject.GrossStock;
@@ -56,7 +56,6 @@
             result.Caption = subject.Name;
             result.Brand = subject.Brand;
             result.Price = subject.Price;
-            result.OrganizationId = subject.OrganizationId;
             result.Description = subject.Description;
             result.Specification = subject.Specification;
             result.GrossStock = subject.GrossStock;
