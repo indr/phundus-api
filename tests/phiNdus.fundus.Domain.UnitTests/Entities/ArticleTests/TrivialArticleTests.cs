@@ -12,26 +12,7 @@
         protected Article CreateSut()
         {
            
-            return new Article();
-        }
-
-        
-
-
-        [Test]
-        public void Can_create()
-        {
-            var sut = new Article();
-            Assert.That(sut, Is.Not.Null);
-        }
-
-        [Test]
-        public void Can_create_with_Id_and_Version()
-        {
-            var sut = new Article(1, 2);
-            Assert.That(sut, Is.Not.Null);
-            Assert.That(sut.Id, Is.EqualTo(1));
-            Assert.That(sut.Version, Is.EqualTo(2));
+            return new Article(1, "Dummy");
         }
 
         [Test]

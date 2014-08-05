@@ -36,7 +36,7 @@
         [Test]
         public void Can_get_and_set_Article()
         {
-            var article = new Article();
+            var article = new Article(1, "Dummy");
             var sut = new ContractItem();
             sut.Article = article;
             Assert.That(sut.Article, Is.SameAs(article));

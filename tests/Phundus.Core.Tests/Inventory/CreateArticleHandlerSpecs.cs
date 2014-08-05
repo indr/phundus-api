@@ -8,13 +8,13 @@
     using Ddd;
     using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
+    using IdentityAndAccess.Queries;
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
 
     public abstract class concern : Observes<CreateArticleHandler>
     {
-
         private static IWindsorContainer container;
 
         protected static CreateArticle command;
@@ -38,12 +38,19 @@
     {
         private static IArticleRepository repository;
 
+        private static IMemberInMembershipRoleQueries memberInMembershipRoleQueries;
+
         private Establish c = () =>
         {
             repository = depends.on<IArticleRepository>();
             repository.setup(x => x.GetNextIdentifier()).Return(1);
 
+            memberInMembershipRoleQueries = depends.on<IMemberInMembershipRoleQueries>();
+            memberInMembershipRoleQueries.setup(x => x.IsActiveChiefIn(1, 2)).Return(true);
+
             command = new CreateArticle();
+            command.InitiatorId = 2;
+            command.OrganizationId = 1;
         };
 
         public It should_add_to_repository = () => repository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
@@ -54,5 +61,8 @@
             () => publisher.WasToldTo(x => x.Publish(Arg<ArticleCreated>.Is.NotNull));
 
         public It should_set_article_id = () => command.ArticleId.ShouldNotBeNull();
+
+        public It should_ask_for_chief_privileges =
+            () => memberInMembershipRoleQueries.WasToldTo(x => x.IsActiveChiefIn(1, 2));
     }
 }

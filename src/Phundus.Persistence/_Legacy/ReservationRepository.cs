@@ -26,15 +26,13 @@
             get { return Session().Query<ContractItem>(); }
         }
 
-        #region IReservationRepository Members
-
-        public IEnumerable<Reservation> Find(Article article)
+        public IEnumerable<Reservation> Find(int articleId)
         {
             var factory = new ReservationFactory();
             var result = new List<Reservation>();
 
             var query = from oi in OrderItems
-                        where oi.Article.Id == article.Id
+                        where oi.Article.Id == articleId
                         //&& oi.To > DateTime.Today
                         select oi;
 
@@ -42,7 +40,5 @@
 
             return result;
         }
-
-        #endregion
     }
 }

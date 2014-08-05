@@ -8,7 +8,7 @@
     {
         protected Article CreateSut()
         {
-            return new Article();
+            return new Article(1, "Dummy");
         }
 
         [Test]

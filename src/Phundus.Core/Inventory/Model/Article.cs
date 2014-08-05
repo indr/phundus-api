@@ -6,71 +6,85 @@
     using Microsoft.Practices.ServiceLocation;
     using Shop.Orders.Repositories;
 
-    public class Article : EntityBase
+    public class Article 
     {
-        private DateTime _createDate;
-        private ISet<Image> _images = new HashedSet<Image>();
-
-        public Article()
-        {
-            _createDate = DateTime.Now;
-        }
-
-        public Article(int id, int version)
-            : base(id, version)
-        {
-            _createDate = DateTime.Now;
-        }
-
-        protected virtual IOrderRepository OrderRepository
+        private IOrderRepository OrderRepository
         {
             get { return ServiceLocator.Current.GetInstance<IOrderRepository>(); }
         }
 
-        public virtual int OrganizationId { get; set; }
+        private DateTime _createDate = DateTime.Now;
+        private ISet<Image> _images = new HashedSet<Image>();
+        private int _organizationId;
+        private string _caption;
 
-        public virtual ISet<Image> Images
+        private Article()
+        {
+            
+        }
+
+        public Article(int organizationId, string name)
+        {
+            _organizationId = organizationId;
+            _caption = name;
+        }
+
+        public int Id { get; protected set; }
+
+        public int Version { get; protected set; }
+
+        public int OrganizationId
+        {
+            get { return _organizationId; }
+            protected set { _organizationId = value; }
+        }
+
+        public ISet<Image> Images
         {
             get { return _images; }
             set { _images = value; }
         }
 
-        public virtual DateTime CreateDate
+        public DateTime CreateDate
         {
             get { return _createDate; }
             protected set { _createDate = value; }
         }
 
-        public virtual string Caption { get; set; }
+        public string Caption
+        {
+            get { return _caption; }
+            set { _caption = value; }
+        }
 
-        public virtual string Brand { get; set; }
+        public string Brand { get; set; }
 
-        public virtual decimal Price { get; set; }
+        public decimal Price { get; set; }
 
-        public virtual int GrossStock { get; set; }
+        public int GrossStock { get; set; }
 
-        public virtual string Description { get; set; }
+        public string Description { get; set; }
 
-        public virtual string Specification { get; set; }
+        public string Specification { get; set; }
 
         /// <summary>
         /// Reservierbarer Bestand
         /// </summary>
-        public virtual int ReservableStock
+        public int ReservableStock
         {
             get { return GrossStock - OrderRepository.SumReservedAmount(Id); }
         }
 
-        public virtual string Color { get; set; }
+        public string Color { get; set; }
 
-        public virtual bool AddImage(Image image)
+        public bool AddImage(Image image)
         {
             var result = Images.Add(image);
             image.Article = this;
             return result;
         }
 
-        public virtual bool RemoveImage(Image image)
+        public bool RemoveImage(Image image)
         {
             var result = Images.Remove(image);
             image.Article = null;

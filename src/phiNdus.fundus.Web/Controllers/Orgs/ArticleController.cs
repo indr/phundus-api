@@ -186,11 +186,13 @@
             return View(Views.Availability, MasterView, model);
         }
 
+
+        public IReservationRepository ReservationRepository { get; set; }
         [Transaction]
         public virtual ActionResult Reservations(int id)
         {
             var model = new ArticleReservationsModel();
-            model.Items = ServiceLocator.Current.GetInstance<IReservationRepository>().Find(new Article(id, 0));
+            model.Items = ReservationRepository.Find(id);
             if (Request.IsAjaxRequest())
                 return PartialView(Views.Reservations, model);
             return View(Views.Reservations, MasterView, model);
