@@ -74,7 +74,7 @@
     })
     .factory('relationships', function($resource) {
         return $resource(
-            './api/organizations/:organizationId/relationship');
+            './api/organizations/:organizationId/relationships');
     })
     
     
