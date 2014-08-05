@@ -124,7 +124,20 @@
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                ArticleService.UpdateArticle(model.CreateDto(), CurrentOrganizationId.Value);
+
+                Dispatcher.Dispatch(new UpdateArticle
+                {
+                    ArticleId = model.Id,
+                    Brand = model.Brand,
+                    Color = model.Color,
+                    Description = model.Description,
+                    GrossStock = model.GrossStock,
+                    InitiatorId = CurrentUserId,
+                    Name = model.Name,
+                    Price = Convert.ToDecimal(model.Price),
+                    Specification = model.Specification
+                });
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

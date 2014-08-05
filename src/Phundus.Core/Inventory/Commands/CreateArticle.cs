@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Core.Inventory.Commands
 {
-    using System.Security;
     using Cqrs;
     using Ddd;
     using IdentityAndAccess.Queries;
@@ -47,9 +46,5 @@
 
             EventPublisher.Publish(new ArticleCreated());
         }
-    }
-
-    public class ArticleCreated : DomainEvent
-    {
     }
 }

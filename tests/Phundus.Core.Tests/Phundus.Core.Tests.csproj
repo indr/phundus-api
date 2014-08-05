@@ -78,6 +78,8 @@
     <Compile Include="Cqrs\when_all_handlers_are_resolved.cs" />
     <Compile Include="Cqrs\when_a_command_is_sent.cs" />
     <Compile Include="Inventory\CreateArticleHandlerSpecs.cs" />
+    <Compile Include="Inventory\handler_concern.cs" />
+    <Compile Include="Inventory\UpdateArticleHandlerSpecs.cs" />
     <Compile Include="Placeholder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
