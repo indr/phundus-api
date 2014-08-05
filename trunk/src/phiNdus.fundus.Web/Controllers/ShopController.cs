@@ -1,18 +1,17 @@
-﻿namespace phiNdus.fundus.Web.Controllers
+﻿namespace Phundus.Web.Controllers
 {
     using System;
     using System.Linq;
     using System.Web.Mvc;
     using Castle.Transactions;
+    using Core.IdentityAndAccess.Queries;
+    using Core.Inventory.Queries;
+    using Core.Shop.Orders;
+    using Core.Shop.Queries;
     using Microsoft.Practices.ServiceLocation;
-    using Models.CartModels;
-    using Phundus.Core.IdentityAndAccess.Queries;
-    using Phundus.Core.Inventory.Queries;
-    using Phundus.Core.Shop.Orders;
-    using Phundus.Core.Shop.Queries;
-    using Phundus.Rest.Exceptions;
-    using Phundus.Web;
-    using ViewModels;
+    using phiNdus.fundus.Web.Models.CartModels;
+    using phiNdus.fundus.Web.ViewModels;
+    using Rest.Exceptions;
 
     public class ShopController : ControllerBase
     {

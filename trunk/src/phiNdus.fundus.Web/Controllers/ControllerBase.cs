@@ -1,4 +1,4 @@
-namespace phiNdus.fundus.Web.Controllers
+namespace Phundus.Web.Controllers
 {
     using System;
     using System.IO;
@@ -6,8 +6,8 @@ namespace phiNdus.fundus.Web.Controllers
     using System.Security.Principal;
     using System.Web.Mvc;
     using System.Web.Security;
+    using Core.Cqrs;
     using NHibernate;
-    using Phundus.Core.Cqrs;
 
     public abstract class ControllerBase : Controller
     {

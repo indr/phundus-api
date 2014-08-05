@@ -1,17 +1,17 @@
-﻿namespace phiNdus.fundus.Web.Controllers
+﻿namespace Phundus.Web.Controllers
 {
     using System;
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using Helpers.FileUpload;
-    using Models.ArticleModels;
-    using Phundus.Core.Inventory.Commands;
-    using Phundus.Core.Inventory.Queries;
-    using Phundus.Core.ReservationCtx.Repositories;
-    using Phundus.Rest.Exceptions;
-    using ViewModels;
+    using Core.Inventory.Commands;
+    using Core.Inventory.Queries;
+    using Core.ReservationCtx.Repositories;
+    using phiNdus.fundus.Web.Helpers.FileUpload;
+    using phiNdus.fundus.Web.Models.ArticleModels;
+    using phiNdus.fundus.Web.ViewModels;
+    using Rest.Exceptions;
 
     public class ArticleController : ControllerBase
     {

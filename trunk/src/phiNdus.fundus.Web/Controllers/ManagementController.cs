@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.Controllers
+﻿namespace Phundus.Web.Controllers
 {
     using System.Web.Mvc;
 

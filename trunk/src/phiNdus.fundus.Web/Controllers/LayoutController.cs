@@ -1,10 +1,10 @@
-﻿namespace phiNdus.fundus.Web.Controllers
+﻿namespace Phundus.Web.Controllers
 {
     using System;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using Phundus.Core.IdentityAndAccess.Queries;
-    using ViewModels.Layout;
+    using Core.IdentityAndAccess.Queries;
+    using phiNdus.fundus.Web.ViewModels.Layout;
 
     public class LayoutController : ControllerBase
     {

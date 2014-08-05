@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.Controllers
+﻿namespace Phundus.Web.Controllers
 {
     using System;
     using System.Globalization;
@@ -6,16 +6,15 @@
     using System.Web.Mvc;
     using System.Web.Security;
     using Castle.Transactions;
-    using Models;
-    using Phundus.Core.IdentityAndAccess.Queries;
-    using Phundus.Core.IdentityAndAccess.Users.Exceptions;
-    using Phundus.Core.IdentityAndAccess.Users.Mails;
-    using Phundus.Core.IdentityAndAccess.Users.Model;
-    using Phundus.Core.IdentityAndAccess.Users.Repositories;
-    using Phundus.Web;
-    using Security;
-    using ViewModels;
-    using ViewModels.Account;
+    using Core.IdentityAndAccess.Queries;
+    using Core.IdentityAndAccess.Users.Exceptions;
+    using Core.IdentityAndAccess.Users.Mails;
+    using Core.IdentityAndAccess.Users.Model;
+    using Core.IdentityAndAccess.Users.Repositories;
+    using phiNdus.fundus.Web.Models;
+    using phiNdus.fundus.Web.Security;
+    using phiNdus.fundus.Web.ViewModels;
+    using phiNdus.fundus.Web.ViewModels.Account;
 
     public class AccountController : ControllerBase
     {

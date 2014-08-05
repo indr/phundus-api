@@ -1,13 +1,11 @@
-﻿namespace phiNdus.fundus.Web.Controllers
+﻿namespace Phundus.Web.Controllers
 {
     using System;
     using System.Web.Mvc;
     using Castle.Transactions;
+    using Core.IdentityAndAccess.Organizations.Repositories;
+    using Core.IdentityAndAccess.Users.Repositories;
     using phiNdus.fundus.Web.Helpers.FileUpload;
-    using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
-    using Phundus.Core.IdentityAndAccess.Users.Repositories;
-    using Phundus.Rest;
-    using Phundus.Rest.Exceptions;
 
     [Authorize(Roles = "Chief")]
     public class FilesController : ControllerBase

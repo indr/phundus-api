@@ -1,15 +1,14 @@
-﻿namespace phiNdus.fundus.Web.Controllers
+﻿namespace Phundus.Web.Controllers
 {
     using System.Web.Mvc;
     using Castle.Transactions;
-    using Models;
-    using Models.CartModels;
-    using Phundus.Core;
-    using Phundus.Core.IdentityAndAccess.Queries;
-    using Phundus.Core.Shop.Orders;
-    using Phundus.Core.Shop.Queries;
-    using Phundus.Web;
-    using ViewModels;
+    using Core;
+    using Core.IdentityAndAccess.Queries;
+    using Core.Shop.Orders;
+    using Core.Shop.Queries;
+    using phiNdus.fundus.Web.Models;
+    using phiNdus.fundus.Web.Models.CartModels;
+    using phiNdus.fundus.Web.ViewModels;
 
     public class CartController : ControllerBase
     {

@@ -1,11 +1,11 @@
-﻿namespace phiNdus.fundus.Web.Controllers
+﻿namespace Phundus.Web.Controllers
 {
     using System;
     using System.Web.Mvc;
     using Castle.Transactions;
+    using Infrastructure;
+    using Infrastructure.Gateways;
     using phiNdus.fundus.Web.Models;
-    using Phundus.Infrastructure;
-    using Phundus.Infrastructure.Gateways;
 
     public class FeedbackController : ControllerBase
     {
@@ -30,14 +30,14 @@
                 return View(model);
 
             MailGateway.Send(Config.FeedbackRecipients,
-                             @"[phundus] Feedback",
-                             @"Feedback von " + model.EmailAddress + Environment.NewLine + Environment.NewLine +
-                             model.Comment);
+                @"[phundus] Feedback",
+                @"Feedback von " + model.EmailAddress + Environment.NewLine + Environment.NewLine +
+                model.Comment);
 
 
             MailGateway.Send(model.EmailAddress,
-                             @"Vielen Dank fürs Feedback",
-                             @"Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
+                @"Vielen Dank fürs Feedback",
+                @"Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
 
 Vielen Dank und freundliche Grüsse
 
