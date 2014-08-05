@@ -180,7 +180,16 @@
                 var images = handler.Post(HttpContext.Request.Files);
                 foreach (var each in images)
                 {
-                    ArticleService.AddImage(id, each, CurrentOrganizationId.Value);
+                    var command = new AddImage
+                    {
+                        ArticleId = id,
+                        FileName = each.FileName,
+                        InitiatorId = CurrentUserId,
+                        Length = each.Length,
+                        Type = each.Type
+                    };
+                    Dispatcher.Dispatch(command);
+                    each.Id = command.ImageId.Value;
                 }
                 var result = factory.Create(images);
                 return Json(result);
@@ -194,7 +203,13 @@
             if (Request.HttpMethod == "DELETE")
             {
                 var fileName = store.FilePath + Path.DirectorySeparatorChar + name;
-                ArticleService.DeleteImage(id, fileName, CurrentOrganizationId.Value);
+
+                Dispatcher.Dispatch(new RemoveImage
+                {
+                    ArticleId = id,
+                    ImageFileName = fileName,
+                    InitiatorId = CurrentUserId
+                });
                 store.Delete(name);
                 return Json("");
             }

@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Inventory.Model
 {
     using System;
+    using System.Linq;
     using Iesi.Collections.Generic;
     using Microsoft.Practices.ServiceLocation;
     using Shop.Orders.Repositories;
@@ -87,6 +88,24 @@
             var result = Images.Remove(image);
             image.Article = null;
             return result;
+        }
+
+        public virtual Image AddImage(string fileName, string type, long length)
+        {
+            var image = new Image()
+            {
+                FileName = fileName,
+                Length = length,
+                Type = type
+            };
+            AddImage(image);
+            return image;
+        }
+
+        public void RemoveImage(string fileName)
+        {
+            var image = Images.FirstOrDefault(p => p.FileName == fileName);
+            RemoveImage(image);
         }
     }
 }

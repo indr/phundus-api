@@ -3,6 +3,7 @@
     using Cqrs;
     using Ddd;
     using IdentityAndAccess.Queries;
+    using Model;
     using Repositories;
 
     public class UpdateArticle

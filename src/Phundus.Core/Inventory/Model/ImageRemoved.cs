@@ -2,7 +2,7 @@
 {
     using Ddd;
 
-    public class ArticleUpdated : DomainEvent
+    public class ImageRemoved : DomainEvent
     {
         
     }

@@ -2,9 +2,7 @@
 {
     using Core.Inventory.Commands;
     using Core.Inventory.Model;
-    using Core.Inventory.Repositories;
     using developwithpassion.specifications.extensions;
-    using IdentityAndAccess.Queries;
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
@@ -23,12 +21,12 @@
 
         public It should_add_to_repository = () => repository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
 
+        public It should_ask_for_chief_privileges =
+            () => memberInRole.WasToldTo(x => x.ActiveChief(1, 2));
+
         public It should_publish_article_created =
             () => publisher.WasToldTo(x => x.Publish(Arg<ArticleCreated>.Is.NotNull));
 
         public It should_set_article_id = () => command.ArticleId.ShouldNotBeNull();
-
-        public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(1, 2));
     }
 }

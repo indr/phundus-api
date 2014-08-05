@@ -6,6 +6,7 @@ namespace Phundus.Core.Tests.Inventory
     using Machine.Specifications;
     using Rhino.Mocks;
 
+    [Subject(typeof(UpdateArticleHandler))]
     public class when_update_article_is_handled : handler_concern<UpdateArticle, UpdateArticleHandler>
     {
         private static Article article = new Article(organizationId, "Name");
@@ -23,7 +24,7 @@ namespace Phundus.Core.Tests.Inventory
             command.ArticleId = articleId;
         };
 
-        private It should_ask_for_chief_privilegs = () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
+        private It should_ask_for_chief_privileges = () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
 
         private It should_publich_article_updated =
             () => publisher.WasToldTo(x => x.Publish(Arg<ArticleUpdated>.Is.NotNull));
