@@ -1,7 +1,9 @@
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using Phundus.Core.Inventory.Queries;
     using Phundus.Core.Inventory._Legacy.Dtos;
 
@@ -24,7 +26,7 @@ namespace phiNdus.fundus.Web.ViewModels
         public int Version { get; set; }
 
         [DisplayName("Preis (inkl. MWSt)")]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
         [DisplayName("Beschreibung")]
         public string Description { get; set; }
@@ -58,7 +60,7 @@ namespace phiNdus.fundus.Web.ViewModels
             Name = dto.Name;
             Brand = dto.Brand;
             GrossStock = dto.GrossStock;
-            Price = dto.Price;
+            Price =  Convert.ToDouble(dto.Price);
             Description = dto.Description;
             Specification = dto.Specification;
             Color = dto.Color;
@@ -74,7 +76,7 @@ namespace phiNdus.fundus.Web.ViewModels
             result.Name = Name;
             result.Brand = Brand;
             result.GrossStock = GrossStock;
-            result.Price = Price;
+            result.Price = Convert.ToDecimal(Price);
             result.Description = Description;
             result.Specification = Specification;
             result.Color = Color;

@@ -19,7 +19,7 @@
 
         public IOrganizationRepository OrganizationRepository { get; set; }
 
-        public IMemberInMembershipRoleQueries MemberInMembershipRoleQueries { get; set; }
+        public IMemberInRole MemberInRole { get; set; }
 
         [Transaction]
         public void Handle(RejectMembershipApplication command)
@@ -32,7 +32,7 @@
             if (organization == null)
                 throw new OrganizationNotFoundException();
 
-            if (!MemberInMembershipRoleQueries.IsActiveChiefIn(application.OrganizationId, command.InitiatorId))
+            if (!MemberInRole.IsActiveChief(application.OrganizationId, command.InitiatorId))
                 throw new SecurityException();
 
             organization.RejectMembershipRequest(application);

@@ -16,30 +16,6 @@
     public class ArticleDomainAssembler
     {
         /// <summary>
-        /// Wandelt das übergebene Article-DTO-Objekt in ein neues
-        /// Article-Domain-Objekt um.
-        /// </summary>
-        /// <param name="subject">Das zu assemblierende DTO-Objekt</param>
-        /// <returns></returns>
-        public static Article CreateDomainObject(ArticleDto subject)
-        {
-            Guard.Against<ArgumentNullException>(subject == null, "subject");
-
-            var result = new Article(subject.OrganizationId, subject.Name);
-
-            
-            result.Brand = subject.Brand;
-            result.Price = subject.Price;
-            
-            result.Description = subject.Description;
-            result.Specification = subject.Specification;
-            result.GrossStock = subject.GrossStock;
-            result.Color = subject.Color;
-
-            return result;
-        }
-
-        /// <summary>
         /// Assembliert das übergebene DTO in das korrespondierende Domain-Object,
         /// welches zuerst aus dem Repository geladen wird.
         /// </summary>

@@ -13,15 +13,16 @@
             get { return Session.Query<Article>(); }
         }
 
+        public new int Add(Article entity)
+        {
+            base.Add(entity);
+            return entity.Id;
+        }
+
         public IEnumerable<Article> ByOrganization(int organizationId)
         {
             var query = from a in Articles where a.OrganizationId == organizationId select a;
             return query.ToFuture();
-        }
-
-        public int GetNextIdentifier()
-        {
-            throw new System.NotImplementedException();
-        }
+        }       
     }
 }

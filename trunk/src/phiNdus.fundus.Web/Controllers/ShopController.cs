@@ -68,7 +68,7 @@
             }
         }
 
-        public IMemberInMembershipRoleQueries MemberInMembershipRoleQueries { get; set; }
+        public IMemberInRole MemberInRole { get; set; }
 
         [Transaction]
         [AllowAnonymous]
@@ -143,7 +143,7 @@
             var currentUserId = CurrentUserId;
             if (Identity.IsAuthenticated)
             {
-                model.CanUserAddToCart = MemberInMembershipRoleQueries.IsActiveMemberIn(model.Article.OrganizationId,
+                model.CanUserAddToCart = MemberInRole.IsActiveMember(model.Article.OrganizationId,
                     currentUserId);
             }
 

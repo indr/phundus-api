@@ -1,15 +1,28 @@
 namespace Phundus.Core.IdentityAndAccess.Queries
 {
     using System.Linq;
+    using System.Security;
     using Cqrs;
     using Organizations.Model;
     using Organizations.Repositories;
 
-    public class MemberInMembershipRoleReadModel : ReadModelBase, IMemberInMembershipRoleQueries
+    public class MemberInRoleReadModel : ReadModelBase, IMemberInRole
     {
         public IMembershipRepository MembershipRepository { get; set; }
 
-        public bool IsActiveMemberIn(int organizationId, int userId)
+        public void ActiveMember(int organizationId, int userId)
+        {
+            if (!IsActiveMember(organizationId, userId))
+                throw new SecurityException();
+        }
+
+        public void ActiveChief(int organizationId, int userId)
+        {
+            if (!IsActiveChief(organizationId, userId))
+                throw new SecurityException();
+        }
+
+        public bool IsActiveMember(int organizationId, int userId)
         {
             var membership = MembershipRepository.ByMemberId(userId).FirstOrDefault(p => p.Organization.Id == organizationId);
             
@@ -22,7 +35,7 @@ namespace Phundus.Core.IdentityAndAccess.Queries
             return true;
         }
 
-        public bool IsActiveChiefIn(int organizationId, int userId)
+        public bool IsActiveChief(int organizationId, int userId)
         {
             var membership = MembershipRepository.ByMemberId(userId)
                 .Where(p => p.Role == Role.Chief)

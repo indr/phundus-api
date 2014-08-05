@@ -61,8 +61,23 @@
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
-                var articleId = ArticleService.CreateArticle(model.CreateDto(), CurrentOrganizationId.Value);
-                return RedirectToAction("Images", new {id = articleId});
+
+                var command = new CreateArticle
+                {
+                    Brand = model.Brand,
+                    Color = model.Color,
+                    Description = model.Description,
+                    GrossStock = model.GrossStock,
+                    InitiatorId = CurrentUserId,
+                    Name = model.Name,
+                    OrganizationId = CurrentOrganizationId.Value,
+                    Price = Convert.ToDecimal(model.Price),
+                    Specification = model.Specification
+                };
+                Dispatcher.Dispatch(command);
+
+
+                return RedirectToAction("Images", new {id = command.ArticleId});
             }
 
             catch (Exception ex)

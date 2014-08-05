@@ -24,7 +24,7 @@
 
         public IArticleRepository ArticleRepository { get; set; }
 
-        public IMemberInMembershipRoleQueries MemberInMembershipRoleQueries { get; set; }
+        public IMemberInRole MemberInRole { get; set; }
 
         public void Handle(AddArticleToCart command)
         {
@@ -39,7 +39,7 @@
             if (article == null)
                 throw new ArticleNotFoundException();
 
-            if (!MemberInMembershipRoleQueries.IsActiveMemberIn(article.OrganizationId, command.InitiatorId))
+            if (!MemberInRole.IsActiveMember(article.OrganizationId, command.InitiatorId))
                 throw new SecurityException();
 
             cart.AddItem(command.ArticleId, command.Quantity,

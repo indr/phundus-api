@@ -19,7 +19,7 @@
 
         public IUserRepository UserRepository { get; set; }
 
-        public IMemberInMembershipRoleQueries MemberInMembershipRoleQueries { get; set; }
+        public IMemberInRole MemberInRole { get; set; }
 
         public void Handle(LockMember command)
         {
@@ -31,7 +31,7 @@
             if (member == null)
                 throw new MemberNotFoundException();
 
-            if (!MemberInMembershipRoleQueries.IsActiveChiefIn(command.OrganizationId, command.InitiatorId))
+            if (!MemberInRole.IsActiveChief(command.OrganizationId, command.InitiatorId))
                 throw new SecurityException();
 
             organization.LockMember(member);
