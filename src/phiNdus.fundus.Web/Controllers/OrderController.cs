@@ -1,13 +1,11 @@
-﻿namespace phiNdus.fundus.Web.Controllers
+﻿namespace Phundus.Web.Controllers
 {
     using System.Web.Mvc;
     using Castle.Transactions;
+    using Core.Shop.Orders;
+    using Core.Shop.Orders.Model;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.ViewModels;
-    using Phundus.Core.ReservationCtx;
-    using Phundus.Core.ReservationCtx.Model;
-    using Phundus.Core.Shop.Orders;
-    using Phundus.Core.Shop.Orders.Model;
 
     [Authorize]
     public class OrderController : ControllerBase
@@ -92,9 +90,9 @@
             var stream = service.GetPdf(id);
 
             return new FileStreamResult(stream, "application/pdf")
-                       {
-                           FileDownloadName = string.Format("Order-{0}.pdf", id)
-                       };
+            {
+                FileDownloadName = string.Format("Order-{0}.pdf", id)
+            };
         }
     }
 }

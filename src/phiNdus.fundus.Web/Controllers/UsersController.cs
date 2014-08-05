@@ -1,15 +1,14 @@
-﻿namespace phiNdus.fundus.Web.Controllers
+﻿namespace Phundus.Web.Controllers
 {
     using System;
     using System.Linq;
     using System.Web.Mvc;
     using Castle.Transactions;
+    using Core.IdentityAndAccess.Queries;
+    using Core.IdentityAndAccess.Users.Mails;
+    using Core.IdentityAndAccess.Users.Repositories;
     using Microsoft.Practices.ServiceLocation;
-    using Models;
-    using Phundus.Core.IdentityAndAccess.Queries;
-    using Phundus.Core.IdentityAndAccess.Users.Mails;
-    using Phundus.Core.IdentityAndAccess.Users.Repositories;
-    using Phundus.Web;
+    using phiNdus.fundus.Web.Models;
 
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
@@ -72,7 +71,7 @@
 
             new UserLockedOutMail().For(user)
                 .Send(user);
-            
+
             return Json(id);
         }
 
@@ -89,7 +88,7 @@
 
             new UserUnlockedMail().For(user)
                 .Send(user);
-            
+
             return Json(id);
         }
     }

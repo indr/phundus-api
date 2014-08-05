@@ -1,11 +1,11 @@
-﻿namespace phiNdus.fundus.Web.Controllers
+﻿namespace Phundus.Web.Controllers
 {
     using System;
     using System.Web;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using Models.Organization;
-    using Phundus.Core.IdentityAndAccess.Queries;
+    using Core.IdentityAndAccess.Queries;
+    using phiNdus.fundus.Web.Models.Organization;
 
     public class OrganizationController : ControllerBase
     {
@@ -56,7 +56,7 @@
 
             if (organization == null)
                 throw new HttpException(404, "Organisation nicht gefunden.");
-            
+
             CurrentOrganizationId = organization.Id;
             return RedirectToRoute("Organization", new {name = organization.Url});
         }
