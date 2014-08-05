@@ -6,13 +6,8 @@
     using Core.Inventory.Repositories;
     using NHibernate.Linq;
 
-    public class ArticleRepository : RepositoryBase<Article>, IArticleRepository
+    public class NhArticleRepository : NhRepositoryBase<Article>, IArticleRepository
     {
-        private IQueryable<Article> Articles
-        {
-            get { return Session.Query<Article>(); }
-        }
-
         public new int Add(Article entity)
         {
             base.Add(entity);
@@ -21,8 +16,7 @@
 
         public IEnumerable<Article> ByOrganization(int organizationId)
         {
-            var query = from a in Articles where a.OrganizationId == organizationId select a;
-            return query.ToFuture();
-        }       
+            return Entities.Where(p => p.OrganizationId == organizationId).ToFuture();
+        }
     }
 }

@@ -1,16 +1,18 @@
 ﻿namespace Phundus.Persistence
 {
     using System;
+    using System.Linq;
     using Infrastructure;
     using NHibernate;
+    using NHibernate.Linq;
 
-    public class RepositoryBase<T> : IRepository<T>
+    public abstract class NhRepositoryBase<TEntity> : IRepository<TEntity>
     {
         private Type _concreteType;
 
-        public Type ConcreteType
+        private Type ConcreteType
         {
-            get { return _concreteType ?? typeof (T); }
+            get { return _concreteType ?? typeof (TEntity); }
             set { _concreteType = value; }
         }
 
@@ -21,29 +23,30 @@
             get { return SessionFactory(); }
         }
 
-        #region IRepository<T> Members
-
-        public T ById(object id)
+        protected IQueryable<TEntity> Entities
         {
-            return (T) Session.Get(ConcreteType, id);
+            get { return Session.Query<TEntity>(); }
         }
 
-        public void Remove(T entity)
+        public TEntity ById(object id)
+        {
+            return (TEntity) Session.Get(ConcreteType, id);
+        }
+
+        public void Remove(TEntity entity)
         {
             Session.Delete(entity);
         }
 
-        public T Add(T entity)
+        public TEntity Add(TEntity entity)
         {
             Session.SaveOrUpdate(entity);
             return entity;
         }
 
-        public void Update(T entity)
+        public void Update(TEntity entity)
         {
             Session.Update(entity);
         }
-
-        #endregion
     }
 }
