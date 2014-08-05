@@ -26,25 +26,6 @@
 
         public string Startpage { get; set; }
 
-        public bool HasOptionJoin
-        {
-            get { return (Relationship == null) || (Relationship.Status == RelationshipDto.StatusDto.Rejected); }
-        }
-
-        public bool HasOptionLeave
-        {
-            get
-            {
-                return false;
-                //return (Relationship != null) && (Relationship.Status == RelationshipDto.StatusDto.Member);
-            }
-        }
-
-        public bool HasOptions
-        {
-            get { return HasOptionJoin || HasOptionLeave; }
-        }
-
         public string EmailAddress { get; set; }
 
         public string Website { get; set; }
@@ -57,7 +38,5 @@
                        !String.IsNullOrWhiteSpace(Website);
             }
         }
-
-        public RelationshipDto Relationship { get; set; }
     }
 }

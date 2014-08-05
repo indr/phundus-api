@@ -32,6 +32,22 @@ function EstablishCtrl($scope) {
     
 }
 
-function HomeCtrl($scope) {
-    
+function HomeCtrl($scope, relationships, applications) {
+
+    $scope.relationship = relationships.get({ 'organizationId': $scope.organizationId });
+
+
+    $scope.join = function () {
+        if (!confirm('Möchten Sie dieser Organisation beitreten?'))
+            return;
+
+        applications.save({ organizationId: $scope.organizationId },
+        function (data, putResponseHeaders) {
+            $scope.relationship = {
+                statusString: 'Application',
+                dateTime: new Date()
+            }
+        });
+
+    };
 }

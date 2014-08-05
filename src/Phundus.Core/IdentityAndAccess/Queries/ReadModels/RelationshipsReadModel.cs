@@ -34,7 +34,7 @@
             if (application != null)
                 return new RelationshipDto(RelationshipDto.StatusDto.Application, application.CreatedOn);
 
-            return null;
+            return new RelationshipDto(RelationshipDto.StatusDto.None, null);
         }
     }
 
@@ -42,16 +42,17 @@
     {
         public enum StatusDto
         {
-            Member, Rejected, Application
+            None, Member, Rejected, Application
         }
 
-        public RelationshipDto(StatusDto status, DateTime dateTime)
+        public RelationshipDto(StatusDto status, DateTime? dateTime)
         {
             Status = status;
             DateTime = dateTime;
         }
 
         public StatusDto Status { get; set; }
-        public DateTime DateTime { get; set; }
+        public string StatusString { get { return Status.ToString(); } }
+        public DateTime? DateTime { get; set; }
     }
 }
