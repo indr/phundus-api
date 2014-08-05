@@ -107,7 +107,7 @@
     <Compile Include="IdentityAndAccess\Organizations\Model\MemberLocked.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\MemberUnlocked.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Role.cs" />
-    <Compile Include="IdentityAndAccess\Queries\IMemberInMembershipRoleQueries.cs" />
+    <Compile Include="IdentityAndAccess\Queries\IMemberInRole.cs" />
     <Compile Include="IdentityAndAccess\Queries\IMembershipApplicationQueries.cs" />
     <Compile Include="IdentityAndAccess\Queries\IMembershipQueries.cs" />
     <Compile Include="IdentityAndAccess\Queries\IOrganizationQueries.cs" />

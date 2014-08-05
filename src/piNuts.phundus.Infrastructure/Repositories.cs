@@ -1,7 +1,5 @@
 ﻿namespace Phundus.Infrastructure
 {
-    using System;
-
     public interface IRepository<T>
     {
         T ById(object id);

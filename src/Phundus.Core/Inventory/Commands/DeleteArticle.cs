@@ -17,7 +17,7 @@
     {
         public IArticleRepository ArticleRepository { get; set; }
 
-        public IMemberInMembershipRoleQueries MemberInMembershipRoleQueries { get; set; }
+        public IMemberInRole MemberInRole { get; set; }
 
         public void Handle(DeleteArticle command)
         {
@@ -25,7 +25,7 @@
             if (article == null)
                 throw new ArticleNotFoundException();
 
-            if (!MemberInMembershipRoleQueries.IsActiveChiefIn(article.OrganizationId, command.InitiatorId))
+            if (!MemberInRole.IsActiveChief(article.OrganizationId, command.InitiatorId))
                 throw new SecurityException();
 
             ArticleRepository.Remove(article);

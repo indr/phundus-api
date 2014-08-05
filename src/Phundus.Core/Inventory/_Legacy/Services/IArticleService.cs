@@ -6,7 +6,7 @@
 
     public interface IArticleService
     {
-        int CreateArticle(ArticleDto subject, int organizationId);
+        
         void UpdateArticle(ArticleDto subject, int organizationId);
         
         IList<AvailabilityDto> GetAvailability(int id);

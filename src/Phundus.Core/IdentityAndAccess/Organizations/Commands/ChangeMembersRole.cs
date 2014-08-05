@@ -21,7 +21,7 @@
 
         public IOrganizationRepository OrganizationRepository { get; set; }
 
-        public IMemberInMembershipRoleQueries MemberInMembershipRoleQueries { get; set; }
+        public IMemberInRole MemberInRole { get; set; }
 
         public void Handle(ChangeMembersRole command)
         {
@@ -33,7 +33,7 @@
             if (member == null)
                 throw new MemberNotFoundException();
             
-            if (!MemberInMembershipRoleQueries.IsActiveChiefIn(command.OrganizationId, command.InitiatorId))
+            if (!MemberInRole.IsActiveChief(command.OrganizationId, command.InitiatorId))
                 throw new SecurityException();
 
             organization.SetMembersRole(member, (Role) command.Role);

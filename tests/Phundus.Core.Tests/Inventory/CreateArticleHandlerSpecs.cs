@@ -38,15 +38,14 @@
     {
         private static IArticleRepository repository;
 
-        private static IMemberInMembershipRoleQueries memberInMembershipRoleQueries;
+        private static IMemberInRole memberInRole;
 
         private Establish c = () =>
         {
             repository = depends.on<IArticleRepository>();
-            repository.setup(x => x.GetNextIdentifier()).Return(1);
+            repository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(1);
 
-            memberInMembershipRoleQueries = depends.on<IMemberInMembershipRoleQueries>();
-            memberInMembershipRoleQueries.setup(x => x.IsActiveChiefIn(1, 2)).Return(true);
+            memberInRole = depends.on<IMemberInRole>();
 
             command = new CreateArticle();
             command.InitiatorId = 2;
@@ -55,14 +54,12 @@
 
         public It should_add_to_repository = () => repository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
 
-        public It should_ask_for_new_id = () => repository.WasToldTo(x => x.GetNextIdentifier());
-
         public It should_publish_article_created =
             () => publisher.WasToldTo(x => x.Publish(Arg<ArticleCreated>.Is.NotNull));
 
         public It should_set_article_id = () => command.ArticleId.ShouldNotBeNull();
 
         public It should_ask_for_chief_privileges =
-            () => memberInMembershipRoleQueries.WasToldTo(x => x.IsActiveChiefIn(1, 2));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(1, 2));
     }
 }

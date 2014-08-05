@@ -62,15 +62,14 @@
             var records = GetRecords<Article>("Articles.csv");
             Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] ON", "Article"));
 
-            
+            var maxId = 0;
             foreach (var each in records)
             {
+                maxId = Math.Max(maxId, each.Id);
                 Insert.IntoTable("Article").InSchema(SchemaName).Row(new
                     {
                         each.Id,
                         each.Version,
-                        @Type =
-                                                                         "Phundus.Core.InventoryCtx.Model.Article",
                         each.OrganizationId,
                         CreateDate = DateTime.Now,
                         Name = each.Name,
@@ -84,6 +83,12 @@
                 }
 
             Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] OFF", "Article"));
+            Execute.Sql(String.Format(@"ALTER TABLE [Article] ALTER COLUMN [Id] IDENTITY ({0}, 1)", maxId + 1));
+            
+
+
+
+
         }
 
         private void Import<T>(string fileName, string tableName, bool allowIdentityInsert = true) where T : class
