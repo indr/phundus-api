@@ -11,9 +11,26 @@
             }, function (response) {
 
                 // TODO: Separation of concerns
+
+                var headerText = "Unbekannter Fehler";
+                var bodyText = "<p>Es ist ein unbekannter Fehler aufgetreten.</p><p>Bitte versuchen Sie es später noch einmal.</p>"; 
+
+                if (response.status == 0) {
+                    headerText = "Netzwerkfehler";
+                    bodyText = "<p>Der Server konnte nicht erreicht werden oder hat nicht in der erwarteten Zeit geantwortet.</p>"
+                        + "<p>Kontrollieren Sie Ihre Netzwerkverbindung oder versuchen Sie es zu einem späteren Zeitpunkt nochmal.</p>";
+                }
+                else if (response.status > 0) {
+                    headerText = "Ein " + response.status + "er...";
+                    if (response.data.exceptionMessage != undefined)
+                        bodyText = "<p>" + response.data.exceptionMessage + "</p>";
+                    else
+                        bodyText = "<p>" + response.data.message + "</p>";
+                }
+
                 var $div = $('#modal-show-error');
-                $div.find('.modal-header h3').html("Fehler " + response.status);
-                $div.find('.modal-body').html("<p>" + response.data.exceptionMessage + "</p>");
+                $div.find('.modal-header h3').html(headerText);
+                $div.find('.modal-body').html(bodyText);
                 $div.modal();
 
                 return $q.reject(response);
