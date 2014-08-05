@@ -78,7 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArticleTestBase.cs" />
-    <Compile Include="Entities\ArticleTests\ArticleBorrowableStockTests.cs" />
     <Compile Include="Entities\ArticleTests\ArticleGrossStockTests.cs" />
     <Compile Include="Entities\ArticleTests\TrivialArticleTests.cs" />
     <Compile Include="Entities\CartTests.cs" />
