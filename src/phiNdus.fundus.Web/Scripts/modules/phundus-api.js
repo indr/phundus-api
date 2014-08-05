@@ -1,5 +1,26 @@
-﻿angular
-    .module('phundus-api', ['ngResource'])
+﻿angular.module('phundus-api', ['ngResource'])
+
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.responseInterceptors.push('errorMessageHttpInterceptor');
+    }])
+
+    .factory('errorMessageHttpInterceptor', function ($q) {
+        return function (promise) {
+            return promise.then(function (response) {
+                return response;
+            }, function (response) {
+
+                // TODO: Separation of concerns
+                var $div = $('#modal-show-error');
+                $div.find('.modal-header h3').html("Fehler " + response.status);
+                $div.find('.modal-body').html("<p>" + response.data.exceptionMessage + "</p>");
+                $div.modal();
+
+                return $q.reject(response);
+            });
+        }
+    })
+
     .factory('members', function($resource) {
         var member = $resource(
             './api/:organizationId/members/:id/:action',
@@ -38,4 +59,8 @@
         return $resource(
             './api/organizations/:organizationId/relationship');
     })
+    
+    
+    
 ;
+
