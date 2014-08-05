@@ -1,5 +1,4 @@
 ﻿@using phiNdus.fundus.Web.Views
-@using Phundus.Core.IdentityAndAccess.Queries
 @model phiNdus.fundus.Web.Models.Organization.OrganizationModel
 @{
     ViewBag.Title = Model.Name;
@@ -11,35 +10,7 @@
         @Html.Raw(Model.Startpage)
     </div>
     <div class="span6" ng-controller="HomeCtrl">
-       
-        <h3>Mitgliedschaft</h3>
-        @if (Model.Relationship != null)
-        {
-            if (Model.Relationship.Status == RelationshipDto.StatusDto.Member)
-            {
-                <p>Mitglied seit @Model.Relationship.DateTime .</p>
-            }
-            else if (Model.Relationship.Status == RelationshipDto.StatusDto.Application)
-            {
-                <p>Mitgliedschaft am @Model.Relationship.DateTime beantragt.</p>
-            }
-            else if (Model.Relationship.Status == RelationshipDto.StatusDto.Rejected)
-            {
-                <p>Mitgliedschaftsanfrage wurde am @Model.Relationship.DateTime abgelehnt.</p>
-            }
-        }
-            
-        @if (Model.HasOptions)
-        {
-            if (Model.HasOptionJoin)
-            {
-                <p>Sie können dieser Organisation <a ng-click="join()" class="btn btn-small">beitreten</a>.</p>
-            }
-            else if (Model.HasOptionLeave)
-            {
-                <p>Sie können aus dieser Organisation <a ng-click="leave()" class="btn btn-small">austreten</a>.</p>
-            }
-        }
+        <div ng-view></div>
         
         @if (Model.HasContactOptions)
         {

@@ -11,8 +11,6 @@
     {
         public IOrganizationQueries OrganizationQueries { get; set; }
 
-        public IRelationshipQueries RelationshipQueries { get; set; }
-
         public virtual ActionResult Index()
         {
             return View();
@@ -35,15 +33,6 @@
                         id, name));
 
             var model = new OrganizationModel(organization);
-
-            var user = System.Web.Security.Membership.GetUser();
-
-            if (user != null)
-            {
-                model.Relationship = RelationshipQueries.ByMemberIdForOrganizationId(
-                    Convert.ToInt32(user.ProviderUserKey), organization.Id);
-            }
-
 
             return View(model);
         }
