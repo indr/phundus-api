@@ -37,7 +37,7 @@ namespace phiNdus.fundus.Web.Helpers.FileUpload
             return Create(file.FileName, file.ContentLength, file.ContentType);
         }
 
-        public BlueImpFileUploadJsonResult[] Create(IList<ImageDto> images)
+        public BlueImpFileUploadJsonResult[] Create(IEnumerable<ImageDto> images)
         {
             var result = new List<BlueImpFileUploadJsonResult>();
             foreach (ImageDto each in images)

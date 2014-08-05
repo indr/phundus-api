@@ -22,8 +22,8 @@
             Map(x => x.Color);
 
             HasMany(x => x.Images).AsSet()
-                .KeyColumn("ArticleId")
-                .Cascade.None();
+                .KeyColumn("ArticleId").Inverse()
+                .Cascade.AllDeleteOrphan();
         }
     }
 }

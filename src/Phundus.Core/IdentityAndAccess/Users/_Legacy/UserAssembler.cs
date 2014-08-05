@@ -9,16 +9,6 @@
 
     public class UserAssembler
     {
-        
-
-        public static User CreateDomainObject(UserDto subject)
-        {
-            Guard.Against<ArgumentNullException>(subject == null, "subject");
-
-            var result = new User();
-            return WriteDomainObject(subject, result);
-        }
-
         public static User UpdateDomainObject(UserDto subject)
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");

@@ -15,7 +15,7 @@
             Map(x => x.Type);
             Map(x => x.FileName);
 
-            References(x => x.Article).Column("ArticleId");
+            References(x => x.Article, "ArticleId");
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿namespace phiNdus.fundus.Web.Controllers
 {
     using System;
+    using System.Linq;
     using System.Web.Mvc;
     using Castle.Transactions;
     using Microsoft.Practices.ServiceLocation;
     using Models.CartModels;
     using Phundus.Core.IdentityAndAccess.Queries;
-    using Phundus.Core.Inventory._Legacy.Services;
+    using Phundus.Core.Inventory.Queries;
     using Phundus.Core.Shop.Orders;
     using Phundus.Core.Shop.Queries;
     using Phundus.Rest.Exceptions;
@@ -18,6 +19,8 @@
         public IOrganizationQueries OrganizationQueries { get; set; }
 
         public IShopArticleQueries ShopArticleQueries { get; set; }
+
+        public IAvailabilityQueries AvailabilityQueries { get; set; }
 
         private static string MasterView
         {
@@ -147,7 +150,7 @@
                     currentUserId);
             }
 
-            model.Availabilities = ServiceLocator.Current.GetInstance<IArticleService>().GetAvailability(id);
+            model.Availabilities = AvailabilityQueries.GetAvailability(id).ToList();
             return Json(new
             {
                 caption = model.Article.Name,
