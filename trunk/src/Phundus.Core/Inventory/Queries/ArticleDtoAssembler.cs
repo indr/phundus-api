@@ -1,19 +1,23 @@
-﻿namespace Phundus.Core.Inventory._Legacy.Assemblers
+﻿namespace Phundus.Core.Inventory.Queries
 {
     using System;
     using System.Collections.Generic;
-    using Dtos;
     using IdentityAndAccess.Organizations.Repositories;
     using Infrastructure;
-    using Microsoft.Practices.ServiceLocation;
     using Model;
-    using Queries;
 
     /// <summary>
     /// Die <c>ArticleDtoAssembler</c>-Klasse wandelt Article-Domain-Objects in Article-DTOs.
     /// </summary>
     public class ArticleDtoAssembler
     {
+        private readonly IOrganizationRepository _organizationRepository;
+
+        public ArticleDtoAssembler(IOrganizationRepository organizationRepository)
+        {
+            _organizationRepository = organizationRepository;
+        }
+
         /// <summary>
         /// Assembliert die übergebenen Domain-Objects in neue DTOs.
         /// </summary>
@@ -38,12 +42,10 @@
         {
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
-            var organizationRepository = ServiceLocator.Current.GetInstance<IOrganizationRepository>();
-
             var result = new ArticleDto();
             result.Id = subject.Id;
             result.Version = subject.Version;
-            var organization = organizationRepository.ById(subject.OrganizationId);
+            var organization = _organizationRepository.ById(subject.OrganizationId);
             result.OrganizationId = organization.Id;
             result.OrganizationName = organization.Name;
 
@@ -56,14 +58,11 @@
             result.Specification = subject.Specification;
             result.GrossStock = subject.GrossStock;
             result.Color = subject.Color;
-            
-            
-            
+
+
             foreach (var each in subject.Images)
                 result.AddImage(new ImageAssembler().CreateDto(each));
             return result;
         }
-
-        
     }
 }

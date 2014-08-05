@@ -1,7 +1,6 @@
-﻿namespace Phundus.Core.Inventory._Legacy.Assemblers
+﻿namespace Phundus.Core.Inventory.Queries
 {
     using System.Collections.Generic;
-    using Dtos;
     using Model;
 
     public class ImageAssembler

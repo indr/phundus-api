@@ -3,7 +3,7 @@ namespace phiNdus.fundus.Web.ViewModels
     using System.Collections.Generic;
     using Helpers;
     using Models.CartModels;
-    using Phundus.Core.Inventory._Legacy.Dtos;
+    using Phundus.Core.Inventory.Queries;
     using Phundus.Core.Shop.Queries;
 
     public class ShopArticleViewModel

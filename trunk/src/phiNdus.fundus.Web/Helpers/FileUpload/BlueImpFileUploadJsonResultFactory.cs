@@ -3,7 +3,7 @@ namespace phiNdus.fundus.Web.Helpers.FileUpload
     using System.Collections.Generic;
     using System.IO;
     using System.Web;
-    using Phundus.Core.Inventory._Legacy.Dtos;
+    using Phundus.Core.Inventory.Queries;
 
     public class BlueImpFileUploadJsonResultFactory
     {

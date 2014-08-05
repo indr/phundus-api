@@ -5,7 +5,6 @@ namespace phiNdus.fundus.Web.ViewModels
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using Phundus.Core.Inventory.Queries;
-    using Phundus.Core.Inventory._Legacy.Dtos;
 
     public class ArticleViewModel : ViewModelBase
     {

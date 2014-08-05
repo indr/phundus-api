@@ -3,9 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Assemblers;
     using Cqrs.Paging;
-    using Dtos;
     using IdentityAndAccess.Users.Repositories;
     using Infrastructure;
     using Microsoft.Practices.ServiceLocation;
