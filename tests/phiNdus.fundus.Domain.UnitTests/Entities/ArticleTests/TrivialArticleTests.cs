@@ -23,16 +23,6 @@
         }
 
         [Test]
-        public void SetCaption()
-        {
-            Article sut = CreateSut();
-            
-            Assert.That(sut.Caption, Is.Null);
-            sut.Caption = "Name of object";
-            Assert.That(sut.Caption, Is.EqualTo("Name of object"));
-        }
-
-        [Test]
         public void SetPrice()
         {
             Article sut = CreateSut();

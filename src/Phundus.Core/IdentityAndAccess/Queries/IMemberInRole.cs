@@ -6,6 +6,6 @@
         void ActiveChief(int organizationId, int userId);
 
         bool IsActiveMember(int organizationId, int userId);
-        bool IsActiveChief(int organizationId, int userId);
+        //bool IsActiveChief(int organizationId, int userId);
     }
 }

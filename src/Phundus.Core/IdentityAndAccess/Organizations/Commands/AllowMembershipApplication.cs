@@ -34,8 +34,7 @@
             if (organization == null)
                 throw new OrganizationNotFoundException();
 
-            if (!MemberInRole.IsActiveChief(application.OrganizationId, command.InitiatorId))
-                throw new SecurityException();
+            MemberInRole.ActiveChief(application.OrganizationId, command.InitiatorId);
 
             organization.ApproveMembershipRequest(application, Memberships.NextIdentity());
         }

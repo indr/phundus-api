@@ -25,8 +25,7 @@
             if (article == null)
                 throw new ArticleNotFoundException();
 
-            if (!MemberInRole.IsActiveChief(article.OrganizationId, command.InitiatorId))
-                throw new SecurityException();
+            MemberInRole.ActiveChief(article.OrganizationId, command.InitiatorId);
 
             ArticleRepository.Remove(article);
 

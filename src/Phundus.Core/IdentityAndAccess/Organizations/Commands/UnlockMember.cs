@@ -31,8 +31,7 @@
             if (member == null)
                 throw new MemberNotFoundException();
 
-            if (!MemberInRole.IsActiveChief(command.OrganizationId, command.InitiatorId))
-                throw new SecurityException();
+            MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
 
             organization.UnlockMember(member);
         }
