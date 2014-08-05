@@ -1,5 +1,6 @@
 namespace Phundus.Core.IdentityAndAccess.Queries
 {
+    using System;
     using System.Linq;
     using System.Security;
     using Cqrs;
@@ -13,13 +14,13 @@ namespace Phundus.Core.IdentityAndAccess.Queries
         public void ActiveMember(int organizationId, int userId)
         {
             if (!IsActiveMember(organizationId, userId))
-                throw new SecurityException();
+                throw new AuthorizationException("Sie müssen aktives Mitglied dieser Organisation sein.");
         }
 
         public void ActiveChief(int organizationId, int userId)
         {
             if (!IsActiveChief(organizationId, userId))
-                throw new SecurityException();
+                throw new AuthorizationException("Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");
         }
 
         public bool IsActiveMember(int organizationId, int userId)
@@ -48,6 +49,19 @@ namespace Phundus.Core.IdentityAndAccess.Queries
                 return false;
 
             return true;
+        }
+    }
+
+    public class AuthorizationException : Exception
+    {
+        public AuthorizationException()
+        {
+            
+        }
+
+        public AuthorizationException(string message) : base(message)
+        {
+            
         }
     }
 }

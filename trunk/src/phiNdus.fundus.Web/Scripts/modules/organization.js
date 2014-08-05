@@ -1,20 +1,20 @@
 ﻿angular
     .module('organization', ['phundus-api', 'ui', 'ui.bootstrap'])
-    .filter('replace', function () {
-        return function (input, pattern, replace) {
+    .filter('replace', function() {
+        return function(input, pattern, replace) {
             if (input == null)
                 return null;
             return input.replace(new RegExp(pattern, 'mg'), replace);
         };
     })
-    .config(function ($routeProvider) {
+    .config(function($routeProvider) {
         $routeProvider
             .when('/search', { controller: SearchCtrl, templateUrl: './Content/Views/Organization/Search.html' })
             .when('/establish', { controller: EstablishCtrl, templateUrl: './Content/Views/Organization/Establish.html' })
             .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Organization/Members.html' })
-            .when('/applications', {controller: ApplicationsCtrl, templateUrl: './Content/Views/Organization/Applications.html' })
-            .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Organization/Settings.html' })            
-            .when('/files', { controller: FilesCtrl, templateUrl: './Content/Views/Organization/Files.html'})
+            .when('/applications', { controller: ApplicationsCtrl, templateUrl: './Content/Views/Organization/Applications.html' })
+            .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Organization/Settings.html' })
+            .when('/files', { controller: FilesCtrl, templateUrl: './Content/Views/Organization/Files.html' })
             .otherwise({ redirectTo: '/search' });
     });
 
@@ -59,9 +59,6 @@
             applications.save({ organizationId: $scope.organizationId },
             function (data, putResponseHeaders) {
                 alert('Ein Beitrittsgesuch wurde platziert.');
-            },
-            function (err) {
-                alert('Fehler: ' + err.data.exceptionMessage);
             });
 
         };
@@ -107,10 +104,6 @@ function SettingsCtrl($scope, organizations, files) {
             function (data, putResponseHeaders) {
                 $scope.alerts.length = 0;
                 $scope.alerts.push({ type: 'success', msg: 'Die Änderungen wurden erfolgreich gespeichert.' });
-            },
-            function (err) {
-                $scope.alerts.length = 0;
-                $scope.alerts.push({ type: 'error', msg: 'Fehler: ' + err.data.exceptionMessage });
             });
     };
 
@@ -132,16 +125,6 @@ function ApplicationsCtrl($scope, applications, members) {
             function (data, putResponseHeaders) {
                 alert("Die Mitgliedschaft wurde bestätigt.");
                 //application.isApproved = true;
-            },
-            function (err) {
-                var msg = err.data.message;
-                if (err.data.exceptionMessage != undefined)
-                    msg += "\n\n" + err.data.exceptionMessage;
-                if (err.data.messageDetail != undefined)
-                    msg += "\n\n" + err.data.messageDetail;
-
-
-                alert('Fehler: ' + "\n\n" + msg);
             });
         }
     };
@@ -171,16 +154,6 @@ function MembersCtrl($scope, members, membersLocks) {
             member.$update({ organizationId: $scope.organizationId, action: 'setrole' },
             function (data, putResponseHeaders) {
                 member.role = roleValue;
-            },
-            function (err) {
-                var msg = err.data.message;
-                if (err.data.exceptionMessage != undefined)
-                    msg += "\n\n" + err.data.exceptionMessage;
-                if (err.data.messageDetail != undefined)
-                    msg += "\n\n" + err.data.messageDetail;
-
-
-                alert('Fehler: ' + "\n\n" + msg);
             });
         }
     };
@@ -190,16 +163,6 @@ function MembersCtrl($scope, members, membersLocks) {
             member.$update({ organizationId: $scope.organizationId, action: 'approve' },
             function (data, putResponseHeaders) {
                 member.isApproved = true;
-            },
-            function (err) {
-                var msg = err.data.message;
-                if (err.data.exceptionMessage != undefined)
-                    msg += "\n\n" + err.data.exceptionMessage;
-                if (err.data.messageDetail != undefined)
-                    msg += "\n\n" + err.data.messageDetail;
-
-
-                alert('Fehler: ' + "\n\n" + msg);
             });
         }
     };
@@ -209,16 +172,6 @@ function MembersCtrl($scope, members, membersLocks) {
             membersLocks.save({ organizationId: $scope.organizationId, memberId: member.id },
             function (data, putResponseHeaders) {
                 member.isLocked = true;
-            },
-            function (err) {
-                var msg = err.data.message;
-                if (err.data.exceptionMessage != undefined)
-                    msg += "\n\n" + err.data.exceptionMessage;
-                if (err.data.messageDetail != undefined)
-                    msg += "\n\n" + err.data.messageDetail;
-
-
-                alert('Fehler: ' + "\n\n" + msg);
             });
         }
     };
@@ -228,16 +181,6 @@ function MembersCtrl($scope, members, membersLocks) {
             membersLocks.delete({organizationId: $scope.organizationId, memberId: member.id},
             function (data, putResponseHeaders) {
                 member.isLocked = false;
-            },
-            function (err) {
-                var msg = err.data.message;
-                if (err.data.exceptionMessage != undefined)
-                    msg += "\n\n" + err.data.exceptionMessage;
-                if (err.data.messageDetail != undefined)
-                    msg += "\n\n" + err.data.messageDetail;
-
-
-                alert('Fehler: ' + "\n\n" + msg);
             });
         }
     };
