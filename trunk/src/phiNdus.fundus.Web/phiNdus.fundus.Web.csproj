@@ -179,6 +179,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartMitSqlServerCe.cs" />
+    <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\Orgs\FilesController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
@@ -296,12 +297,13 @@
     <Content Include="Content\select2.png" />
     <Content Include="Content\select2x2.png" />
     <Content Include="Content\spinner.gif" />
-    <Content Include="Content\Views\Organization\Files.html" />
-    <Content Include="Content\Views\Organization\Applications.html" />
+    <Content Include="Content\Views\Management\Applications.html" />
+    <Content Include="Content\Views\Management\Files.html" />
+    <Content Include="Content\Views\Management\Members.html" />
+    <Content Include="Content\Views\Management\Settings.html" />
+    <Content Include="Content\Views\Organization\Home.html" />
     <Content Include="Content\Views\Organization\Search.html" />
     <Content Include="Content\Views\Organization\Establish.html" />
-    <Content Include="Content\Views\Organization\Members.html" />
-    <Content Include="Content\Views\Organization\Settings.html" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
     <Content Include="Scripts\angular-bootstrap.js" />
@@ -354,6 +356,7 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\modules\management.js" />
     <Content Include="Scripts\modules\organization.js" />
     <Content Include="Scripts\modules\phundus-api.js" />
     <Content Include="Scripts\select2.js" />
@@ -624,6 +627,9 @@
     <Content Include="Views\Organization\Index.cshtml" />
     <None Include="Properties\PublishProfiles\TestProfile.pubxml" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Management\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\pbar-ani.gif" />

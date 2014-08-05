@@ -1,0 +1,7 @@
+﻿@{
+    ViewBag.Title = "Verwaltung";
+}
+
+<div ng-app="management" ng-init="organizationId=@Session["OrganizationId"] + 0;">
+    <div ng-view><p>Bitte warten...</p></div>
+</div>
