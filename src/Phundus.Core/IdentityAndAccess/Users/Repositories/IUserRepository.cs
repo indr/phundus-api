@@ -11,7 +11,6 @@
         User FindBySessionKey(string sessionKey);
         User FindByValidationKey(string validationKey);
 
-        IEnumerable<User> FindByOrganization(int organizationId);
         User FindById(int id);
         User ActiveById(int userId);
     }

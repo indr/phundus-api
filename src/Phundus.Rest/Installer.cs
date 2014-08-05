@@ -1,15 +1,11 @@
 ﻿namespace Phundus.Rest
 {
-    #region
-
     using System;
     using System.Web.Http;
     using System.Web.Http.Controllers;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-
-    #endregion
 
     public class Installer : IWindsorInstaller
     {
