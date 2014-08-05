@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
+    using System;
     using System.Security;
     using Cqrs;
     using Queries;
@@ -31,9 +32,20 @@
             if (member == null)
                 throw new MemberNotFoundException();
 
+            if (member.Id == command.InitiatorId)
+                throw new AttemptToLockOneselfException();
+
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
 
             organization.LockMember(member);
+        }
+    }
+
+    public class AttemptToLockOneselfException : Exception
+    {
+        public AttemptToLockOneselfException() : base("Sie können sich nicht selber aus der Organisation sperren.")
+        {
+            
         }
     }
 }
