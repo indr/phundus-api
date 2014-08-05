@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
     using Iesi.Collections.Generic;
-    using Microsoft.Practices.ServiceLocation;
     using Shop.Orders.Repositories;
 
     public class Article
@@ -21,11 +20,6 @@
         {
             _organizationId = organizationId;
             _caption = name;
-        }
-
-        private IOrderRepository OrderRepository
-        {
-            get { return ServiceLocator.Current.GetInstance<IOrderRepository>(); }
         }
 
         public virtual int Id { get; protected set; }
@@ -66,22 +60,7 @@
 
         public virtual string Specification { get; set; }
 
-        /// <summary>
-        /// Reservierbarer Bestand
-        /// </summary>
-        public virtual int ReservableStock
-        {
-            get { return GrossStock - OrderRepository.SumReservedAmount(Id); }
-        }
-
         public virtual string Color { get; set; }
-
-        public virtual bool AddImage(Image image)
-        {
-            var result = Images.Add(image);
-            image.Article = this;
-            return result;
-        }
 
         public virtual bool RemoveImage(Image image)
         {
@@ -92,20 +71,24 @@
 
         public virtual Image AddImage(string fileName, string type, long length)
         {
-            var image = new Image()
+            var image = new Image
             {
                 FileName = fileName,
                 Length = length,
-                Type = type
+                Type = type,
+                Article = this
             };
-            AddImage(image);
+            Images.Add(image);
             return image;
         }
 
-        public void RemoveImage(string fileName)
+        public virtual void RemoveImage(string fileName)
         {
             var image = Images.FirstOrDefault(p => p.FileName == fileName);
-            RemoveImage(image);
+            if (image == null)
+                return;
+            Images.Remove(image);
+            image.Article = null;
         }
     }
 }

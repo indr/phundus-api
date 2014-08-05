@@ -32,6 +32,7 @@ namespace phiNdus.fundus.DbMigrations
 
                 var migrationContext = new RunnerContext(announcer)
                                            {
+                                               ApplicationContext = connectionString.ProviderName,
                                                Namespace = "phiNdus.fundus.DbMigrations",
                                                Tags = tags,
                                                Profile = profile

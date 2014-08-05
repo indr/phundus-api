@@ -84,15 +84,17 @@
 
             Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] OFF", "Article"));
 
-            Reseed("Article", maxId);
+            Reseed("Article", maxId + 1);
 
             
         }
 
         private void Reseed(string tableName, int seed)
         {
-            IfDatabase("SqlServerCE").Execute.Sql(String.Format(@"ALTER TABLE [{1}] ALTER COLUMN [Id] IDENTITY ({0}, 1)", seed, tableName));
-            IfDatabase("SqlServer2").Execute.Sql(String.Format(@"DBCC CHECKIDENT ('{1}', reseed, {0})", seed, tableName));
+            if ((ApplicationContext != null) && (ApplicationContext.ToString().Contains("SqlServerCe")))
+                Execute.Sql(String.Format(@"ALTER TABLE [{1}] ALTER COLUMN [Id] IDENTITY ({0}, 1)", seed, tableName));
+            else
+                Execute.Sql(String.Format(@"DBCC CHECKIDENT ('{1}', reseed, {0})", seed, tableName));
         }
 
         private void Import<T>(string fileName, string tableName, bool allowIdentityInsert = true) where T : class
