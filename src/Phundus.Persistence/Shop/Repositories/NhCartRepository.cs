@@ -3,18 +3,12 @@
     using System.Linq;
     using Core.Shop.Orders.Model;
     using Core.Shop.Orders.Repositories;
-    using NHibernate.Linq;
 
-    public class CartRepository : RepositoryBase<Cart>, ICartRepository
+    public class NhCartRepository : NhRepositoryBase<Cart>, ICartRepository
     {
-        private IQueryable<Cart> Carts
-        {
-            get { return Session.Query<Cart>(); }
-        }
-
         public Cart FindByCustomer(int userId)
         {
-            var query = from c in Carts
+            var query = from c in Entities
                 where c.Customer.Id == userId
                 select c;
             return query.SingleOrDefault();

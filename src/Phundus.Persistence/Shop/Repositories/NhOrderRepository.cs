@@ -6,13 +6,8 @@
     using Core.Shop.Orders.Repositories;
     using NHibernate.Linq;
 
-    public class OrderRepository : RepositoryBase<Order>, IOrderRepository
+    public class NhOrderRepository : NhRepositoryBase<Order>, IOrderRepository
     {
-        private IQueryable<Order> Orders
-        {
-            get { return Session.Query<Order>(); }
-        }
-
         private IQueryable<OrderItem> Items
         {
             get { return Session.Query<OrderItem>(); }
@@ -20,7 +15,7 @@
 
         public ICollection<Order> FindMy(int userId)
         {
-            var query = from o in Orders
+            var query = from o in Entities
                 where o.Reserver.Id == userId
                 orderby o.Status ascending
                 select o;
@@ -29,7 +24,7 @@
 
         public ICollection<Order> FindPending(int organizationId)
         {
-            var query = from o in Orders
+            var query = from o in Entities
                 where o.Status == OrderStatus.Pending
                       && o.Organization.Id == organizationId
                 select o;
@@ -38,7 +33,7 @@
 
         public ICollection<Order> FindApproved(int organizationId)
         {
-            var query = from o in Orders
+            var query = from o in Entities
                 where o.Status == OrderStatus.Approved
                       && o.Organization.Id == organizationId
                 select o;
@@ -47,7 +42,7 @@
 
         public ICollection<Order> FindRejected(int organizationId)
         {
-            var query = from o in Orders
+            var query = from o in Entities
                 where o.Status == OrderStatus.Rejected
                       && o.Organization.Id == organizationId
                 select o;
@@ -56,7 +51,7 @@
 
         public ICollection<Order> FindClosed(int organizationId)
         {
-            var query = from o in Orders
+            var query = from o in Entities
                 where o.Status == OrderStatus.Closed
                       && o.Organization.Id == organizationId
                 select o;

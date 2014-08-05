@@ -1,29 +1,22 @@
-﻿namespace Phundus.Persistence.Repositories
+﻿namespace Phundus.Persistence
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Core.Inventory.Model;
     using Core.ReservationCtx.Model;
     using Core.ReservationCtx.Repositories;
     using Core.ReservationCtx.Services;
     using Core.Shop.Orders.Model;
     using NHibernate;
     using NHibernate.Linq;
-    using Phundus.Core.ReservationCtx;
 
-    public class ReservationRepository : IReservationRepository
+    public class NhReservationRepository : IReservationRepository
     {
         public Func<ISession> Session { get; set; }
 
         private IQueryable<OrderItem> OrderItems
         {
             get { return Session().Query<OrderItem>(); }
-        }
-
-        private IQueryable<ContractItem> ContractItems
-        {
-            get { return Session().Query<ContractItem>(); }
         }
 
         public IEnumerable<Reservation> Find(int articleId)

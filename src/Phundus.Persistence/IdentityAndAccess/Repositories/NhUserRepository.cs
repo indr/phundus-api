@@ -6,7 +6,7 @@
     using Core.IdentityAndAccess.Users.Repositories;
     using NHibernate.Linq;
 
-    public class UserRepository : RepositoryBase<User>, IUserRepository
+    public class NhUserRepository : NhRepositoryBase<User>, IUserRepository
     {
         private IQueryable<User> Users
         {
