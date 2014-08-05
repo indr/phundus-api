@@ -5,16 +5,6 @@
 
     public class ImageAssembler
     {
-        public Image CreateDomainObject(ImageDto subject)
-        {
-            var result = new Image();
-            result.IsPreview = subject.IsPreview;
-            result.Length = subject.Length;
-            result.Type = subject.Type;
-            result.FileName = subject.FileName;
-            return result;
-        }
-
         public ImageDto CreateDto(Image subject)
         {
             var result = new ImageDto();

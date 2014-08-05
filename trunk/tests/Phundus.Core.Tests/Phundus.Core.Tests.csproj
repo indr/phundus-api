@@ -43,6 +43,10 @@
     <Reference Include="developwithpassion.specifications.rhinomocks">
       <HintPath>..\..\packages\developwithpassion.specifications.rhinomocks.0.6.0\lib\developwithpassion.specifications.rhinomocks.dll</HintPath>
     </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="Machine.Fakes, Version=0.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Machine.Fakes.0.5.1\lib\net40\Machine.Fakes.dll</HintPath>
@@ -77,9 +81,12 @@
     <Compile Include="Cqrs\TestCommand1Handler.cs" />
     <Compile Include="Cqrs\when_all_handlers_are_resolved.cs" />
     <Compile Include="Cqrs\when_a_command_is_sent.cs" />
+    <Compile Include="Inventory\AddImageHandlerSpecs.cs" />
     <Compile Include="Inventory\CreateArticleHandlerSpecs.cs" />
     <Compile Include="Inventory\handler_concern.cs" />
+    <Compile Include="Inventory\RemoveImageHandlerSpecs.cs" />
     <Compile Include="Inventory\UpdateArticleHandlerSpecs.cs" />
+    <Compile Include="Inventory\WhenDeleteArticleIsHandled.cs" />
     <Compile Include="Placeholder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

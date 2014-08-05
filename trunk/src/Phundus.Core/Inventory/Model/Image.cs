@@ -4,6 +4,14 @@
 
     public class Image : EntityBase
     {
+        public Image()
+        {
+        }
+
+        public Image(int id) : base(id)
+        {
+        }
+
         public virtual Article Article { get; set; }
 
         public virtual bool IsPreview { get; set; }

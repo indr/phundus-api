@@ -120,6 +120,9 @@
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
+    <Compile Include="Inventory\Commands\AddImage.cs" />
+    <Compile Include="Inventory\Commands\RemoveImage.cs" />
+    <Compile Include="Inventory\Exceptions\ImageNotFoundException.cs" />
     <Compile Include="Inventory\Model\ArticleCreated.cs" />
     <Compile Include="Inventory\Model\ArticleUpdated.cs" />
     <Compile Include="Inventory\Commands\CreateArticle.cs" />
@@ -127,6 +130,8 @@
     <Compile Include="Inventory\Model\ArticleDeleted.cs" />
     <Compile Include="Inventory\Commands\DeleteArticle.cs" />
     <Compile Include="Inventory\Exceptions\ArticleNotFoundException.cs" />
+    <Compile Include="Inventory\Model\ImageAdded.cs" />
+    <Compile Include="Inventory\Model\ImageRemoved.cs" />
     <Compile Include="Inventory\Queries\ArticleReadModel.cs" />
     <Compile Include="Inventory\Queries\IArticleQueries.cs" />
     <Compile Include="Inventory\Repositories\IArticleRepository.cs" />
