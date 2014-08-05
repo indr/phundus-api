@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory._Legacy.Dtos
+﻿namespace Phundus.Core.Inventory.Queries
 {
     using System;
 

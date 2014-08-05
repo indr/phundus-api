@@ -5,7 +5,7 @@ using System.Web;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
-    using Phundus.Core.Inventory._Legacy.Dtos;
+    using Phundus.Core.Inventory.Queries;
 
     public class ArticleAvailabilityViewModel
     {

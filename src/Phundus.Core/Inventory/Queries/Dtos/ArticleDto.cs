@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using _Legacy.Dtos;
 
     public class ArticleDto
     {

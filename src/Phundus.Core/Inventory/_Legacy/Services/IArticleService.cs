@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Core.Inventory._Legacy.Services
 {
     using System.Collections.Generic;
-    using Dtos;
+    using Queries;
 
     public interface IArticleService
     {
