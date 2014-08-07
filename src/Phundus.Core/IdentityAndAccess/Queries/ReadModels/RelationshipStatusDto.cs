@@ -2,9 +2,9 @@
 {
     public enum RelationshipStatusDto
     {
-        None,
-        Member,
-        Rejected,
-        Application
+        None = 0,
+        Member = 1,
+        Rejected = 2,
+        Application = 3
     }
 }

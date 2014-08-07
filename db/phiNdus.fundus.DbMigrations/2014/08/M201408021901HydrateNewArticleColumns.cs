@@ -45,7 +45,6 @@ namespace phiNdus.fundus.DbMigrations
 
                         string set = "";
 
-
                         switch (fieldDefinitionId)
                         {
                             case CaptionId:
