@@ -21,7 +21,7 @@
                         + "<p>Kontrollieren Sie Ihre Netzwerkverbindung oder versuchen Sie es zu einem späteren Zeitpunkt nochmal.</p>";
                 }
                 else if (response.status > 0) {
-                    headerText = "Ein " + response.status + "er...";
+                    headerText = "Fehler";
                     if (response.data.exceptionMessage != undefined)
                         bodyText = "<p>" + response.data.exceptionMessage + "</p>";
                     else
