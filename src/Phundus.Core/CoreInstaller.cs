@@ -7,6 +7,7 @@
     using Castle.Windsor;
     using Cqrs;
     using Ddd;
+    using IdentityAndAccess.Queries;
 
     public class CoreInstaller : IWindsorInstaller
     {
@@ -47,10 +48,16 @@
                 );
 
             container.Register(
+                Classes.FromThisAssembly().BasedOn<ReadModelReaderBase>()
+                    .WithServiceAllInterfaces()
+                    .LifestyleTransient());
+
+            container.Register(
                 Classes.FromThisAssembly().Where(p => p.Name.EndsWith("ReadModel")).WithServiceAllInterfaces());
 
             container.Register(
                 Classes.FromThisAssembly().Where(p => p.Name.EndsWith("Service")).WithServiceDefaultInterfaces());
+
 
             EventPublisher.Container = container;
         }
