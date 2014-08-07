@@ -100,6 +100,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReadModel.dbml</DependentUpon>
     </Compile>
+    <Compile Include="IdentityAndAccess\Queries\ReadModels\ReadModelReaderBase.cs" />
+    <Compile Include="IdentityAndAccess\Queries\ReadModels\ReadModelWriterBase.cs" />
+    <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipsReadModelReader.cs" />
+    <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipStatusDto.cs" />
     <Compile Include="IdentityAndAccess\Users\Exceptions\UserNotFoundException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\OrganizationNotFoundException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\MembershipApplicationNotFoundException.cs" />
@@ -197,7 +201,7 @@
     <Compile Include="IdentityAndAccess\Queries\ReadModels\MembershipApplicationsReadModel.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\MembershipsReadModel.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\OrganizationsReadModel.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipsReadModel.cs" />
+    <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipsReadModelWriter.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="_Legacy\AppServiceBase.cs" />
