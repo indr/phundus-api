@@ -84,11 +84,9 @@
 
             try
             {
-                if (MembershipProvider.ResetPassword(model.Email, null) != null)
-                    return View("ResetPasswordDone");
-
-                ModelState.AddModelError("", "Unbekannter Fehler beim Ändern des Passwortes.");
-                return View(model);
+                MembershipProvider.ResetPassword(model.Email, null);
+                
+                return View("ResetPasswordDone");
             }
             catch (Exception ex)
             {
