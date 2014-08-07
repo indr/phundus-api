@@ -9,8 +9,8 @@ namespace phiNdus.fundus.DbMigrations
         public override void Up()
         {
             Create.Table("Rm_Relationships")
-                .WithColumn("UserId").AsInt32().NotNullable()
-                .WithColumn("OrganizationId").AsInt32().NotNullable()
+                .WithColumn("UserId").AsInt32().NotNullable().PrimaryKey()
+                .WithColumn("OrganizationId").AsInt32().NotNullable().PrimaryKey()
                 .WithColumn("Status").AsInt32().NotNullable()
                 .WithColumn("Timestamp").AsDateTime().NotNullable();
         }
