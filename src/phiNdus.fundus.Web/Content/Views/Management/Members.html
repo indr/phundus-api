@@ -14,7 +14,7 @@
             <th><a href="" ng-click="orderBy('isLocked')">Status</a></th>
         </tr>
     </thead>
-    <tbody ng-init="roles = [{name:'Administrator',value:'2' },{name:'Mitglied',value:'1'}]">
+    <tbody ng-init="roles = [{name:'Verwaltung',value:'2' },{name:'Mitglied',value:'1'}]">
         <tr ng-repeat="member in members | filter:search | orderBy:order | orderBy:'isApproved'">
             <td>{{member.id}}</td>
             <td>{{member.firstName}}</td>
@@ -35,7 +35,7 @@
             <td ng-show="member.role == 2">
                 <div class="btn-group">
                     <a class="btn btn-small btn-warning dropdown-toggle" data-toggle="dropdown" href="">
-                        Administrator
+                        Verwaltung
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
