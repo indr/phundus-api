@@ -36,8 +36,7 @@
                         <li class="divider"></li>
                     }
                     <li><a href="@Url.Content("~/organization#/search")">Suchen</a></li>
-                    <li><a href="@Url.Content("~/organization#/establish")">Gründen</a></li>
-                    
+                    @*<li><a href="@Url.Content("~/organization#/establish")">Gründen</a></li>*@
                 </ul>
             </li>
             @if (Request.IsAuthenticated && User.IsInRole("User"))
