@@ -214,13 +214,6 @@
             [TypeConverter(typeof (RoleConverter))]
             public int Role { get; set; }
 
-            [CsvField(Name = "IsApproved")]
-            public bool IsApproved
-            {
-                get { return _isApproved; }
-                set { _isApproved = value; }
-            }
-
             public DateTime ApprovalDate
             {
                 get { return DateTime.Now; }
