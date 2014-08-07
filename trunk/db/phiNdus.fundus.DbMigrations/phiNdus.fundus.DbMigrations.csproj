@@ -103,6 +103,7 @@
     <Compile Include="2014\07\M201407280001UpdateArticleType.cs" />
     <Compile Include="2014\07\M201407281552DeleteTableSetting.cs" />
     <Compile Include="2014\08\M201408021901HydrateNewArticleColumns.cs" />
+    <Compile Include="2014\08\M201408071112CreateTableRmRelationships.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
