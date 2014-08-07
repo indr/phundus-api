@@ -5,6 +5,7 @@
     using System.Security.Principal;
     using System.Web.Http;
     using System.Web.Security;
+    using AutoMapper;
     using Castle.Core.Logging;
     using Core.Cqrs;
 
@@ -39,9 +40,9 @@
             }
         }
 
-        //protected static TDestination Map<TDestination>(object source)
-        //{
-        //    return Mapper.Map<TDestination>(source);
-        //}
+        protected static TDestination Map<TDestination>(object source)
+        {
+            return Mapper.Map<TDestination>(source);
+        }
     }
 }

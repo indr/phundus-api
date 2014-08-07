@@ -1,17 +1,18 @@
 ﻿<h3>Mitgliedschaft</h3>
-<div ng-show="relationship.statusString == 'None'">
+
+<div ng-show="relationship.status == 'None'">
     <p>Sie können dieser Organisation <a ng-click="join()" class="btn btn-small">beitreten</a>.</p>
 </div>
-<div ng-show="relationship.statusString == 'Member'">
-    <p>Mitglied seit {{relationship.dateTime | date: 'dd.MM.yyyy'}}.</p>
-    
+<div ng-show="relationship.status == 'Member'">
+    <p>Mitglied seit {{relationship.timestamp | date: 'dd.MM.yyyy'}}.</p>
+
     <!--<p>Sie können diese Organisation <a ng-click="leave()" class="btn btn-small">verlassen</a>.</p>-->
 </div>
-<div ng-show="relationship.statusString == 'Application'">
-    <p>Mitgliedschaft am {{relationship.dateTime | date: 'dd.MM.yyyy'}} beantragt.</p>
+<div ng-show="relationship.status == 'Application'">
+    <p>Mitgliedschaft am {{relationship.timestamp | date: 'dd.MM.yyyy'}} beantragt.</p>
 </div>
-<div ng-show="relationship.statusString == 'Rejected'">
-    <p>Mitgliedschaft am {{relationship.dateTime | date: 'dd.MM.yyyy'}} abgelehnt.</p>
-    
+<div ng-show="relationship.status == 'Rejected'">
+    <p>Mitgliedschaft am {{relationship.timestamp | date: 'dd.MM.yyyy'}} abgelehnt.</p>
+
     <p>Sie können die Mitgliedschaft erneut <a ng-click="join()" class="btn btn-small">beantragen</a>.</p>
 </div>

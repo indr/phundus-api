@@ -44,8 +44,8 @@ function HomeCtrl($scope, relationships, applications) {
         applications.save({ organizationId: $scope.organizationId },
         function (data, putResponseHeaders) {
             $scope.relationship = {
-                statusString: 'Application',
-                dateTime: new Date()
+                status: 'Application',
+                timestamp: new Date()
             };
 
             var $div = $('#modal-show-message');
