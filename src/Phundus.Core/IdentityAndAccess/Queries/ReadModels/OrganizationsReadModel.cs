@@ -3,14 +3,12 @@
     using System;
     using System.Collections.Generic;
     using Cqrs;
-    using IdentityAndAccess.Organizations.Model;
-    using IdentityAndAccess.Organizations.Repositories;
+    using Organizations.Model;
+    using Organizations.Repositories;
 
     public class OrganizationsReadModel : ReadModelBase, IOrganizationQueries
     {
         public IOrganizationRepository OrganizationRepository { get; set; }
-
-        
 
         public IEnumerable<OrganizationDto> ByMemberId(int memberId)
         {
@@ -26,18 +24,6 @@
                 result.Add(ToOrganizationDto(each));
             }
             return result;
-        }
-
-        private static OrganizationDto ToOrganizationDto(Organization organization)
-        {
-            return new OrganizationDto
-            {
-                Id = organization.Id,
-                Version = organization.Version,
-                Name = organization.Name,
-                Url = organization.Url,
-                Address = organization.Address
-            };
         }
 
         public OrganizationDetailDto ById(int id)
@@ -72,6 +58,18 @@
             }
 
             return result;
+        }
+
+        private static OrganizationDto ToOrganizationDto(Organization organization)
+        {
+            return new OrganizationDto
+            {
+                Id = organization.Id,
+                Version = organization.Version,
+                Name = organization.Name,
+                Url = organization.Url,
+                Address = organization.Address
+            };
         }
     }
 

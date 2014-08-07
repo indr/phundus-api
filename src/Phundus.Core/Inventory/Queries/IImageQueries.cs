@@ -11,7 +11,7 @@
         IEnumerable<ImageDto> ByArticle(int articleId);
     }
 
-    public class ImageReadModel : ReadModelBase, IImageQueries
+    public class ImageReadModel : AutoMappingReadModelBase, IImageQueries
     {
         static ImageReadModel()
         {

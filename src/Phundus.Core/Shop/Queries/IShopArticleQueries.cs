@@ -8,7 +8,6 @@
     using AutoMapper;
     using Cqrs;
     using Cqrs.Paging;
-    using Inventory.Queries;
 
     public interface IShopArticleQueries
     {
@@ -16,7 +15,7 @@
         PagedResult<ShopArticleSearchResultDto> FindArticles(PageRequest pageRequest, string query, int? organization);
     }
 
-    public class ShopArticleReadModel : ReadModelBase, IShopArticleQueries
+    public class ShopArticleReadModel : AutoMappingReadModelBase, IShopArticleQueries
     {
         static ShopArticleReadModel()
         {
@@ -82,7 +81,7 @@
                 var image =
                     images.OrderBy(p => p.IsPreview)
                         .FirstOrDefault(p => p.Type.StartsWith("image", StringComparison.InvariantCultureIgnoreCase));
-                
+
                 if (image != null)
                     each.ImageFileName = image.FileName;
             }

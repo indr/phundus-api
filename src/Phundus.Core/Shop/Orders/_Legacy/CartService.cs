@@ -8,7 +8,6 @@
     using IdentityAndAccess.Queries;
     using IdentityAndAccess.Users.Repositories;
     using Mails;
-    using Model;
     using Queries;
     using Repositories;
 
@@ -42,7 +41,7 @@
             Model.Cart cart = null;
             if (cartId.HasValue)
                 cart = Carts.FindById(cartId.Value);
-            
+
             if (cart == null)
             {
                 var user = Users.FindById(userId);
@@ -111,8 +110,8 @@
 
             var mail = new OrderReceivedMail().For(order);
 
-            var chiefs = MemberQueries.ByOrganizationId(order.Organization.Id).Where(p => p.Role == (int)Role.Chief);
-            
+            var chiefs = MemberQueries.ByOrganizationId(order.Organization.Id).Where(p => p.Role == (int) Role.Chief);
+
             foreach (var chief in chiefs)
                 mail.Send(chief.EmailAddress);
             mail.Send(order.Reserver);
@@ -136,7 +135,8 @@
             foreach (var order in orders)
             {
                 var mail = new OrderReceivedMail().For(order);
-                var chiefs = MemberQueries.ByOrganizationId(order.Organization.Id).Where(p => p.Role == (int)Role.Chief);
+                var chiefs = MemberQueries.ByOrganizationId(order.Organization.Id)
+                    .Where(p => p.Role == (int) Role.Chief);
 
                 foreach (var chief in chiefs)
                     mail.Send(chief.EmailAddress);
