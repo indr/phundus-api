@@ -2,6 +2,7 @@
 {
     using System.Web.Http;
     using System.Web.Routing;
+    using Filters;
     using Newtonsoft.Json.Serialization;
 
     public class WebApiConfig
@@ -9,6 +10,7 @@
         public static void Register(HttpConfiguration config)
         {
             config.Filters.Add(new AuthorizeAttribute());
+            config.Filters.Add(new CustomExceptionFilterAttribute());
 
             //var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             config.Formatters.JsonFormatter
