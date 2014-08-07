@@ -92,8 +92,7 @@ function ApplicationsCtrl($scope, applications, members) {
         if (confirm('Möchten Sie "' + application.firstName + ' ' + application.lastName + '" wirklich bestätigen?')) {
             members.save({ organizationId: $scope.organizationId }, {applicationId: application.id },
             function (data, putResponseHeaders) {
-                alert("Die Mitgliedschaft wurde bestätigt.");
-                //application.isApproved = true;
+                application.isApproved = true;
             });
         }
     };
@@ -102,7 +101,7 @@ function ApplicationsCtrl($scope, applications, members) {
         if (!confirm('Möchten Sie "' + application.firstName + ' ' + application.lastName + '" wirklich ablehnen?'))
             return;
 
-        application.$delete(function () { alert("Die Mitgliedschaft wurde abgelehnt."); });
+        application.$delete(function () { application.isRejected = true; });
     };
 }
 
