@@ -12,7 +12,7 @@ namespace phiNdus.fundus.DbMigrations
             const string insertFmt =
                 "insert into [Rm_Relationships] (UserId, OrganizationId, Status, [Timestamp]) values ({0}, {1}, 1, '{2}')";
 
-            using (var cmd = CreateCommand("select UserId, OrganizationId, ApprovalDate from [OrganizationMembership]"))
+            using (var cmd = CreateCommand("select UserId, OrganizationId, ApprovalDate from [OrganizationMembership] where ApprovalDate is not null"))
             using (var reader = cmd.ExecuteReader())
                 while (reader.Read())
                 {
