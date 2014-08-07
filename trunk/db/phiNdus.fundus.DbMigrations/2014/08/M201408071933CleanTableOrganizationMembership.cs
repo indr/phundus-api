@@ -9,7 +9,7 @@ namespace phiNdus.fundus.DbMigrations
         public override void Up()
         {
             Delete.FromTable("OrganizationMembership").Row(new {IsApproved = false});
-            Update.Table("OrganizationMembership").Set(new {ApprovalDate = DateTime.UtcNow}).Where(new {ApprovalDate = (Nullable<DateTime>)null});
+            Update.Table("OrganizationMembership").Set(new {ApprovalDate = DateTime.UtcNow}).Where(new {ApprovalDate = (DateTime?)null});
         }
 
         public override void Down()
