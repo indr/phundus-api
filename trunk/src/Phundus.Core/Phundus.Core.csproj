@@ -86,6 +86,7 @@
     <Compile Include="Cqrs\Paging\PagedResult.cs" />
     <Compile Include="Cqrs\Paging\PageRequest.cs" />
     <Compile Include="Cqrs\Paging\PageResponse.cs" />
+    <Compile Include="Cqrs\ReadModelBase.cs" />
     <Compile Include="Ddd\AutoReleaseEventHandlerInterceptor.cs" />
     <Compile Include="Ddd\DomainEvent.cs" />
     <Compile Include="Ddd\EventHandlerSelector.cs" />
@@ -114,7 +115,7 @@
     <Compile Include="IdentityAndAccess\Queries\IMembershipQueries.cs" />
     <Compile Include="IdentityAndAccess\Queries\IOrganizationQueries.cs" />
     <Compile Include="IdentityAndAccess\Queries\IRelationshipQueries.cs" />
-    <Compile Include="Cqrs\ReadModelBase.cs" />
+    <Compile Include="Cqrs\AutoMappingReadModelBase.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\MemberInMembershipRoleQueries.cs" />
     <Compile Include="IdentityAndAccess\Users\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
