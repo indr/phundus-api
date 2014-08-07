@@ -38,7 +38,7 @@ function HomeCtrl($scope, relationships, applications) {
 
 
     $scope.join = function () {
-        if (!confirm('Möchten Sie dieser Organisation beitreten?'))
+        if (!confirm('Möchten Sie dieser Organisation wirklich beitreten?'))
             return;
 
         applications.save({ organizationId: $scope.organizationId },
@@ -46,7 +46,12 @@ function HomeCtrl($scope, relationships, applications) {
             $scope.relationship = {
                 statusString: 'Application',
                 dateTime: new Date()
-            }
+            };
+
+            var $div = $('#modal-show-message');
+            $div.find('.modal-header h3').html("Hinweis");
+            $div.find('.modal-body').html("<p>Die Mitgliedschaft wurde beantragt.</p><p>Du erhältst ein E-Mail wenn ein Administrator diese bestätigt oder ablehnt.");
+            $div.modal();
         });
 
     };
