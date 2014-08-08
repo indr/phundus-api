@@ -29,6 +29,7 @@
             Import<User>("Users.csv", "User");
             Import<Account>("Users.csv", "Membership", false);
             Import<Membership>("Memberships.csv", "OrganizationMembership", false);
+            Import<RmRelationship>("Memberships.csv", "Rm_Relationships", false);
             ImportArticle();
             Import<ArticleImage>("ArticleImages.csv", "Image", false);
 
@@ -191,6 +192,19 @@
         }
 
         #endregion
+
+        internal class RmRelationship
+        {
+            [CsvField(Name = "UserId")]
+            public int UserId { get; set; }
+
+            [CsvField(Name = "OrganizationId")]
+            public int OrganizationId { get; set; }
+
+            public int Status { get { return 1; } }
+
+            public DateTime Timestamp { get { return DateTime.UtcNow; } }
+        }
 
         #region Nested type: Membership
 
