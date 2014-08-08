@@ -10,7 +10,10 @@
         @Html.Raw(Model.Startpage)
     </div>
     <div class="span6">
-        <div ng-view></div>
+        @if (Request.IsAuthenticated)
+        { 
+            <div ng-view></div>
+        }
         
         @if (Model.HasContactOptions)
         {

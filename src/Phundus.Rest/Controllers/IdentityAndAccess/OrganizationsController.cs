@@ -4,14 +4,17 @@
     using System.Collections.Generic;
     using System.Web.Http;
     using Castle.Transactions;
+    using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Queries;
     using Exceptions;
 
+    
     public class OrganizationsController : ApiControllerBase
     {
         public IOrganizationQueries OrganizationQueries { get; set; }
 
         [Transaction]
+        [AllowAnonymous]
         public virtual IEnumerable<OrganizationDto> Get()
         {
             return OrganizationQueries.All();
@@ -19,6 +22,7 @@
 
         // GET api/organizations/5
         [Transaction]
+        [AllowAnonymous]
         public virtual OrganizationDetailDto Get(int id)
         {
             var result = OrganizationQueries.ById(id);
@@ -30,34 +34,22 @@
 
         // PUT api/organizations/5
         [Transaction]
-        [Authorize]
         public virtual OrganizationDetailDto Put(int id, [FromBody] OrganizationDetailDto value)
         {
-            throw new NotSupportedException();
-            //var org = Organizations.FindById(id);
+            Dispatcher.Dispatch(new UpdateOrganizationDetails
+            {
+                Address = value.Address,
+                Coordinate = value.Coordinate,
+                DocumentTemplate = value.DocumentTemplate,
+                EmailAddress = value.EmailAddress,
+                InitiatorId = CurrentUserId,
+                OrganizationId = id,
+                Startpage = value.Startpage,
+                Website = value.Website
+            });
 
-            //var user = Users.FindByEmail(Identity.Name);
 
-            //if (org == null)
-            //    throw new HttpNotFoundException("Die Organisation ist nicht vorhanden.");
-
-            //if (user == null || !user.IsChiefOf(org))
-            //    throw new HttpForbiddenException("Sie haben keine Berechtigung um die Organisation zu aktualisieren.");
-
-            //if (org.Version != value.Version)
-            //    throw new HttpConflictException("Die Organisation wurde in der Zwischenzeit verändert.");
-
-            //org.Address = value.Address;
-            //org.EmailAddress = value.EmailAddress;
-            //org.Website = value.Website;
-            //org.Coordinate = value.Coordinate;
-            //org.Startpage = value.Startpage;
-            //org.DocTemplateFileName = value.DocumentTemplate;
-
-            //Organizations.Update(org);
-            //SessionFactory().Flush();
-
-            //return ToDto(org);
+            return OrganizationQueries.ById(id);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Phundus.Core.Tests.Inventory
     using Rhino.Mocks;
 
     [Subject(typeof(UpdateArticleHandler))]
-    public class when_update_article_is_handled : handler_concern<UpdateArticle, UpdateArticleHandler>
+    public class when_update_article_is_handled : article_handler_concern<UpdateArticle, UpdateArticleHandler>
     {
         private static Article article = new Article(organizationId, "Name");
 

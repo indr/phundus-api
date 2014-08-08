@@ -9,7 +9,7 @@
     using Rhino.Mocks;
 
     [Subject(typeof(RemoveImageHandler))]
-    public class when_remove_image_is_handled : handler_concern<RemoveImage, RemoveImageHandler>
+    public class when_remove_image_is_handled : article_handler_concern<RemoveImage, RemoveImageHandler>
     {
         private const int organizationId = 1;
         private const int initiatorId = 2;

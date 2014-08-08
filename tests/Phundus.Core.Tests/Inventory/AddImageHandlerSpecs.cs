@@ -9,7 +9,7 @@
     using Rhino.Mocks;
 
     [Subject(typeof(AddImageHandler))]
-    public class when_add_image_is_handled : handler_concern<AddImage, AddImageHandler>
+    public class when_add_image_is_handled : article_handler_concern<AddImage, AddImageHandler>
     {
         private const int organizationId = 1;
         private const int initiatorId = 2;

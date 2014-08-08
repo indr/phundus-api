@@ -8,7 +8,7 @@
     using Rhino.Mocks;
 
     [Subject(typeof (CreateArticleHandler))]
-    public class when_create_article_is_handled : handler_concern<CreateArticle, CreateArticleHandler>
+    public class when_create_article_is_handled : article_handler_concern<CreateArticle, CreateArticleHandler>
     {
         public Establish c = () =>
         {
