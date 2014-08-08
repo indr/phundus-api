@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Web.Mvc;
     using Castle.Transactions;
+    using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Commands;
     using Core.Inventory.Queries;
     using Core.ReservationCtx.Repositories;
@@ -15,6 +16,8 @@
 
     public class ArticleController : ControllerBase
     {
+        public IMemberInRole MemberInRole { get; set; }
+
         private static string MasterView
         {
             get { return @"_Tabs"; }
@@ -37,8 +40,7 @@
         [Transaction]
         public virtual ActionResult List()
         {
-            if (!CurrentOrganizationId.HasValue)
-                throw new Exception("Keine Organisation ausgewählt.");
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
 
             var model = new ArticlesTableViewModel(
                 ArticleQueries.GetArticles(CurrentOrganizationId.Value)
@@ -49,6 +51,8 @@
         [Transaction]
         public virtual ActionResult Create()
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             var model = new ArticleViewModel();
             return View(model);
         }
@@ -58,6 +62,8 @@
         [Transaction]
         public virtual ActionResult Create(FormCollection collection)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             var model = new ArticleViewModel();
             try
             {
@@ -93,6 +99,8 @@
         [Transaction]
         public virtual ActionResult Edit(int id)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             return Fields(id);
         }
 
@@ -101,12 +109,16 @@
         [Transaction]
         public virtual ActionResult Edit(int id, FormCollection collection)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             return Fields(id, collection);
         }
 
         [Transaction]
         public virtual ActionResult Fields(int id)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             var model = new ArticleViewModel(
                 ArticleQueries.GetArticle(id));
             if (Request.IsAjaxRequest())
@@ -121,6 +133,8 @@
         [Transaction]
         public virtual ActionResult Fields(int id, FormCollection collection)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             var model = new ArticleViewModel();
             try
             {
@@ -153,6 +167,8 @@
         [Transaction]
         public virtual ActionResult Images(int id)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             var dto = ArticleQueries.GetArticle(id);
             if (dto == null)
                 throw new HttpNotFoundException();
@@ -167,6 +183,8 @@
         [Transaction]
         public virtual ActionResult ImageStore(int id, string name)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             var path = String.Format(@"~\Content\Images\Articles\{0}", id);
             var store = new ImageStore(path);
 
@@ -220,6 +238,8 @@
         [Transaction]
         public virtual ActionResult Availability(int id)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             var model = new ArticleAvailabilityViewModel();
             model.Id = id;
             model.Availabilites = AvailabilityQueries.GetAvailability(id).ToList();
@@ -234,6 +254,8 @@
         [Transaction]
         public virtual ActionResult Reservations(int id)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             var model = new ArticleReservationsModel();
             model.Items = ReservationRepository.Find(id);
             if (Request.IsAjaxRequest())
@@ -244,6 +266,8 @@
         [Transaction]
         public virtual ActionResult Categories(int id)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             var dto = ArticleQueries.GetArticle(id);
             if (dto == null)
                 throw new HttpNotFoundException();
@@ -259,6 +283,8 @@
         [Transaction]
         public virtual ActionResult Delete(int id)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             var dto = ArticleQueries.GetArticle(id);
             if (dto == null)
                 throw new HttpNotFoundException();
@@ -270,6 +296,8 @@
         [Transaction]
         public virtual ActionResult Delete(int id, int version)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             Dispatcher.Dispatch(new DeleteArticle {ArticleId = id, InitiatorId = CurrentUserId});
 
             return RedirectToAction("Index");
@@ -280,6 +308,8 @@
         [Transaction]
         public virtual ActionResult AjaxDelete(int id)
         {
+            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+
             MessageBoxViewModel result;
             try
             {
