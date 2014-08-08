@@ -3,15 +3,12 @@
     using System;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using Core.IdentityAndAccess.Organizations.Repositories;
-    using Core.IdentityAndAccess.Users.Repositories;
+    using Core.IdentityAndAccess.Queries;
     using phiNdus.fundus.Web.Helpers.FileUpload;
 
-    [Authorize(Roles = "Chief")]
     public class FilesController : ControllerBase
     {
-        public IUserRepository Users { get; set; }
-        public IOrganizationRepository Organizations { get; set; }
+        public IMemberInRole MemberInRole { get; set; }
 
         private string GetPath(int orgId)
         {
@@ -37,11 +34,7 @@
         [Transaction]
         public virtual JsonResult Index(int orgId)
         {
-            var user = Users.FindByEmail(Identity.Name);
-            var org = Organizations.FindById(orgId);
-            // TODO: Security
-            //if (!user.IsChiefOf(org))
-            //    throw new HttpForbiddenException();
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             var path = GetPath(orgId);
             var store = CreateImageStore(path);
@@ -54,11 +47,7 @@
         [Transaction]
         public virtual JsonResult Delete(int orgId, string id)
         {
-            var user = Users.FindByEmail(Identity.Name);
-            var org = Organizations.FindById(orgId);
-            // TODO: Security or Access
-            //if (!user.IsChiefOf(org))
-            //    throw new HttpForbiddenException();
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             var path = GetPath(orgId);
             var store = CreateImageStore(path);
@@ -70,11 +59,7 @@
         [Transaction]
         public virtual JsonResult Index(int orgId, string id)
         {
-            var user = Users.FindByEmail(Identity.Name);
-            var org = Organizations.FindById(orgId);
-            // TODO: Security or Access
-            //if (!user.IsChiefOf(org))
-            //    throw new HttpForbiddenException();
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             var path = GetPath(orgId);
             var store = CreateImageStore(path);
