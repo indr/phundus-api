@@ -81,9 +81,11 @@
     <Compile Include="Cqrs\TestCommand1Handler.cs" />
     <Compile Include="Cqrs\when_all_handlers_are_resolved.cs" />
     <Compile Include="Cqrs\when_a_command_is_sent.cs" />
+    <Compile Include="IdentityAndAccess\UpdateOrganizationDetailsHandlerSpecs.cs" />
     <Compile Include="Inventory\AddImageHandlerSpecs.cs" />
     <Compile Include="Inventory\CreateArticleHandlerSpecs.cs" />
-    <Compile Include="Inventory\handler_concern.cs" />
+    <Compile Include="Inventory\article_handler_concern.cs" />
+    <Compile Include="handler_concern.cs" />
     <Compile Include="Inventory\RemoveImageHandlerSpecs.cs" />
     <Compile Include="Inventory\UpdateArticleHandlerSpecs.cs" />
     <Compile Include="Inventory\WhenDeleteArticleIsHandled.cs" />
@@ -103,6 +105,7 @@
       <Name>Phundus.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

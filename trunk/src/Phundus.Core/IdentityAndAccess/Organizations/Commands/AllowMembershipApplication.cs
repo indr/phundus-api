@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
     using System;
-    using System.Security;
     using Castle.Transactions;
     using Cqrs;
     using Queries;
