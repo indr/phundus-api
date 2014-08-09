@@ -22,7 +22,6 @@
             return Request.CreateResponse(HttpStatusCode.OK, ToDoc(result));
         }
 
-
         [Transaction]
         public virtual HttpResponseMessage Post(int organizationId, ContractsPostDoc doc)
         {
@@ -34,11 +33,7 @@
             };
             Dispatcher.Dispatch(command);
 
-            var result = ContractQueries.FindContract(command.ContractId, organizationId, CurrentUserId);
-            if (result == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Created contract not found");
-
-            return Request.CreateResponse(HttpStatusCode.Created, ToDoc(result));
+            return Get(organizationId, command.ContractId);
         }
 
         private static ContractDetailDoc ToDoc(ContractDetailDto result)

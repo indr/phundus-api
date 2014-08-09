@@ -15,13 +15,20 @@
     public class when_post_is_issued : concern
     {
         private static RestRequest request;
-        private static IRestResponse response;
+        private static IRestResponse<ContractDetailDoc> response;
 
         public Establish c = () => { };
 
         public Because of = () => { response = api.PostContract(1001, 10001); };
 
-        public It should_return_status_created = () => response.StatusCode.ShouldEqual(HttpStatusCode.Created);
+        public It should_return_status_ok = () => response.StatusCode.ShouldEqual(HttpStatusCode.OK);
+
+        public It should_return_doc_with_contract_id = () => response.Data.ContractId.ShouldBeGreaterThan(0);
+
+        public It should_return_doc_with_created_on =
+            () => response.Data.CreatedOn.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+
+        public It should_return_doc_with_organization_id = () => response.Data.OrganizationId.ShouldEqual(1001);
     }
 
     public class PhundusApi
@@ -82,7 +89,7 @@
             public int UserId { get; set; }
         }
 
-        public IRestResponse PostContract(int organizationId, int userId)
+        public IRestResponse<ContractDetailDoc> PostContract(int organizationId, int userId)
         {
             var request = new RestRequest(Method.POST);
             request.Resource = "organizations/{organizationId}/contracts";
@@ -90,8 +97,15 @@
             
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new {userId = userId});
-            return Execute<Object>(request);
+            return Execute<ContractDetailDoc>(request);
         }
+    }
+
+    public class ContractDetailDoc
+    {
+        public int ContractId { get; set; }
+        public int OrganizationId { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 
     public class PhundusApiAuthenticator : IAuthenticator
