@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Rest.Specs
 {
     using System;
+    using System.Configuration;
     using System.Net;
     using Machine.Specifications;
     using RestSharp;
@@ -25,7 +26,13 @@
 
     public class PhundusApi
     {
-        private const string BaseUrl = "http://localhost:1059/api";
+        static PhundusApi()
+        {
+            var baseUrl = ConfigurationManager.AppSettings["ServerUrl"];
+            BaseUrl = "http://" + baseUrl + "/api";
+        }
+
+        private static readonly string BaseUrl;
 
         private readonly string _password;
         private readonly string _userName;
