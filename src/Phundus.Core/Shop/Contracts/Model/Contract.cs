@@ -21,9 +21,9 @@
             _borrower = borrower;
         }
 
-        public int Id { get; protected set; }
+        public virtual int Id { get; protected set; }
 
-        public int Version { get; protected set; }
+        public virtual int Version { get; protected set; }
 
         public virtual DateTime CreatedOn
         {
@@ -46,6 +46,8 @@
         }
 
         public virtual int OrderId { get; protected set; }
+
+        public virtual int OrganizationId { get; protected set; }
 
         protected virtual bool AddItem(ContractItem item)
         {
