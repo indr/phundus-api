@@ -1,16 +1,16 @@
-﻿namespace Phundus.Core.ReservationCtx.Model
+﻿namespace Phundus.Core.Shop.Contracts.Model
 {
     using System;
     using Ddd;
     using Inventory.Model;
-    using Shop.Orders.Model;
+    using Orders.Model;
 
     public class ContractItem : EntityBase
     {
         public ContractItem() : this(0, 0)
         {
         }
-
+        
         public ContractItem(int id, int version) : base(id, version)
         {
         }
