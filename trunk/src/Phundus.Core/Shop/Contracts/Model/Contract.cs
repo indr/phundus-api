@@ -15,6 +15,9 @@
 
         public Contract(Borrower borrower)
         {
+            if (borrower == null)
+                throw new ArgumentNullException("borrower");
+
             _borrower = borrower;
         }
 

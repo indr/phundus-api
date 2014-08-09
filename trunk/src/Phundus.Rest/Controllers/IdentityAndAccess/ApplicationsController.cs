@@ -10,21 +10,21 @@
     {
         public IMembershipApplicationQueries MembershipApplicationQueries { get; set; }
 
-        public IList<MembershipApplicationDto> Get(int organization)
+        public IList<MembershipApplicationDto> Get(int organizationId)
         {
-            return MembershipApplicationQueries.PendingByOrganizationId(organization);
+            return MembershipApplicationQueries.PendingByOrganizationId(organizationId);
         }
 
         [Transaction]
-        public virtual void Delete(int organization, Guid id)
+        public virtual void Delete(int organizationId, Guid id)
         {
             Dispatch(new RejectMembershipApplication {ApplicationId = id, InitiatorId = CurrentUserId});
         }
 
         [Transaction]
-        public virtual void Post(int organization)
+        public virtual void Post(int organizationId)
         {
-            Dispatch(new ApplyForMembership {ApplicantId = CurrentUserId, OrganizationId = organization});
+            Dispatch(new ApplyForMembership {ApplicantId = CurrentUserId, OrganizationId = organizationId});
         }
     }
 }
