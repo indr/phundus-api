@@ -10,15 +10,13 @@ namespace phiNdus.fundus.DbMigrations
         {
             Delete.Table("ContractItem");
             Delete.Table("Contract");
-            
+
             Create.Table("Contract")
                 .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
                 .WithColumn("Version").AsInt32().NotNullable()
-
                 .WithColumn("CreatedOn").AsDateTime().NotNullable()
                 .WithColumn("SignedOn").AsDateTime().Nullable()
                 .WithColumn("OrganizationId").AsInt32().NotNullable()
-
                 .WithColumn("Borrower_Id").AsInt32().NotNullable()
                 .WithColumn("Borrower_FirstName").AsString(255).NotNullable()
                 .WithColumn("Borrower_LastName").AsString(225).NotNullable()

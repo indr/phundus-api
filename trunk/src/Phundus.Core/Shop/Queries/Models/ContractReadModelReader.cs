@@ -1,29 +1,37 @@
 ﻿namespace Phundus.Core.Shop.Queries.Models
 {
     using System;
-    using Contracts.Repositories;
-    using IdentityAndAccess.Queries;
+    using System.Linq;
+    using Contracts.Model;
+    using Ddd;
 
     public class ContractReadModelReader : ReadModelReaderBase, IContractQueries
     {
-        public IContractRepository Repository { get; set; }
-
-        public ContractDetailDto FindContract(int contractId, int organizationId, int currentUserId)
+        public ContractDto FindContract(int contractId, int organizationId, int currentUserId)
         {
-            var result = Repository.ById(contractId);
-            return new ContractDetailDto
-            {
-                Id = result.Id,
-                CreatedOn = result.CreatedOn,
-                OrganizationId = result.OrganizationId
-            };
+            return (from c in Ctx.ContractDtos
+                where c.Id == contractId && c.OrganizationId == organizationId
+                select c)
+                .FirstOrDefault();
         }
     }
 
-    public class ContractDetailDto
+    public class ConractReadModelWriter : ReadModelWriterBase, ISubscribeTo<ContractCreated>
     {
-        public int Id { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public int OrganizationId { get; set; }
+        public void Handle(ContractCreated @event)
+        {
+            var entity = new ContractDto
+            {
+                Id = @event.ContractId,
+                OrganizationId = @event.OrganizationId,
+                CreatedOn = @event.CreatedOn,
+                BorrowerId = @event.BorrowerId,
+                BorrowerFirstName = @event.BorrowerFirstName,
+                BorrowerLastName = @event.BorrowerLastName,
+                BorrowerEmail = @event.BorrowerEmail
+            };
+            Ctx.ContractDtos.InsertOnSubmit(entity);
+            Ctx.SubmitChanges();
+        }
     }
 }

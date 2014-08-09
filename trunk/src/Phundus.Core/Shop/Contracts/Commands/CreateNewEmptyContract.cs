@@ -33,7 +33,17 @@
 
             command.ContractId = Repository.Add(contract);
 
-            EventPublisher.Publish(new ContractCreated());
+            EventPublisher.Publish(new ContractCreated
+            {
+                BorrowerEmail = contract.Borrower.Email,
+                BorrowerFirstName = contract.Borrower.FirstName,
+                BorrowerId = contract.Borrower.Id,
+                BorrowerLastName = contract.Borrower.LastName,
+                ContractId = contract.Id,
+                CreatedOn = contract.CreatedOn,
+                OrganizationId = contract.OrganizationId,
+                Version = contract.Version
+            });
         }
     }
 }

@@ -6,7 +6,6 @@
     using Castle.Transactions;
     using Core.Shop.Contracts.Commands;
     using Core.Shop.Queries;
-    using Core.Shop.Queries.Models;
 
     public class ContractsController : ApiControllerBase
     {
@@ -36,11 +35,11 @@
             return Get(organizationId, command.ContractId);
         }
 
-        private static ContractDetailDoc ToDoc(ContractDetailDto result)
+        private static ContractDetailDoc ToDoc(ContractDto result)
         {
             return new ContractDetailDoc
             {
-                Id = result.Id,
+                ContractId = result.Id,
                 CreatedOn = result.CreatedOn,
                 OrganizationId = result.OrganizationId
             };
@@ -54,7 +53,7 @@
 
     public class ContractDetailDoc
     {
-        public int Id { get; set; }
+        public int ContractId { get; set; }
         public DateTime CreatedOn { get; set; }
         public int OrganizationId { get; set; }
     }
