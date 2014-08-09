@@ -1,7 +1,11 @@
 ﻿namespace Phundus.Rest.Controllers.Shop
 {
     using System;
+    using System.Net;
+    using System.Net.Http;
+    using System.Web;
     using System.Web.Http;
+    using Castle.Transactions;
     using Core.Shop.Contracts.Commands;
     using Core.Shop.Queries;
     using Exceptions;
@@ -10,9 +14,10 @@
     {
         public IContractQueries ContractQueries { get; set; }
 
-        public ContractDetailDoc Get(int organizationId, int contractId)
+        [Transaction]
+        public virtual ContractDetailDoc Get(int organizationId, int id)
         {
-            var result = ContractQueries.FindContract(contractId, organizationId, CurrentUserId);
+            var result = ContractQueries.FindContract(id, organizationId, CurrentUserId);
             if (result == 0)
                 throw new HttpNotFoundException();
 
@@ -23,17 +28,23 @@
             };
         }
 
-        public int Post(int organizationId, [FromBody] int userId)
+        public class ContractsPostDoc
+        {
+            public int UserId { get; set; }
+        }
+
+        [Transaction]
+        public virtual HttpResponseMessage Post(int organizationId, ContractsPostDoc doc)
         {
             var command = new CreateNewEmptyContract
             {
                 InitiatorId = CurrentUserId,
                 OrganizationId = organizationId,
-                UserId = userId
+                UserId = doc.UserId
             };
             Dispatcher.Dispatch(command);
 
-            return command.ContractId;
+            return Request.CreateResponse(HttpStatusCode.Created, command.ContractId);
         }
     }
 

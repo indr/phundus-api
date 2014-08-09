@@ -21,6 +21,7 @@
             Delete.FromTable("Image").InSchema(SchemaName).AllRows();
             Delete.FromTable("Article").InSchema(SchemaName).AllRows();
             Delete.FromTable("OrganizationMembership").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Rm_Relationships").AllRows();
             Delete.FromTable("Membership").InSchema(SchemaName).AllRows();
             Delete.FromTable("User").InSchema(SchemaName).AllRows();
             Delete.FromTable("Organization").InSchema(SchemaName).AllRows();
