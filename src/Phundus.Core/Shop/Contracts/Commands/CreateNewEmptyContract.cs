@@ -28,6 +28,7 @@
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
 
             var contract = new Contract(
+                command.OrganizationId,
                 Borrower.ById(command.UserId));
 
             command.ContractId = Repository.Add(contract);
