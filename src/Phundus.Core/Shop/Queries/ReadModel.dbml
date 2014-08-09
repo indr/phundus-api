@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Class="ReadModelDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="Rm_Contracts" Member="ContractDtos">
+    <Type Name="ContractDto">
+      <Column Name="Id" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CreatedOn" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="SignedOn" Type="System.DateTime" CanBeNull="true" />
+      <Column Name="OrganizationId" Type="System.Int32" CanBeNull="false" />
+      <Column Name="BorrowerId" Type="System.Int32" CanBeNull="false" />
+      <Column Name="BorrowerFirstName" Type="System.String" CanBeNull="false" />
+      <Column Name="BorrowerLastName" Type="System.String" CanBeNull="false" />
+      <Column Name="BorrowerEmail" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

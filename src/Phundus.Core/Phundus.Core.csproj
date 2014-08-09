@@ -181,6 +181,13 @@
     <Compile Include="Shop\Queries\IContractQueries.cs" />
     <Compile Include="Shop\Queries\IShopArticleQueries.cs" />
     <Compile Include="Shop\Queries\Models\ContractReadModelReader.cs" />
+    <Compile Include="Shop\Queries\Models\ReadModelReaderBase.cs" />
+    <Compile Include="Shop\Queries\Models\ReadModelWriterBase.cs" />
+    <Compile Include="Shop\Queries\ReadModel.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReadModel.dbml</DependentUpon>
+    </Compile>
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
     <Compile Include="Cqrs\CommandDispatcher.cs" />
@@ -272,6 +279,11 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Shop\Queries\ReadModel.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ReadModel.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IdentityAndAccess\Queries\Dtos\" />
@@ -282,6 +294,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Shop\Queries\ReadModel.dbml.layout">
+      <DependentUpon>ReadModel.dbml</DependentUpon>
+    </None>
     <None Include="IdentityAndAccess\Queries\ReadModel.dbml.layout">
       <DependentUpon>ReadModel.dbml</DependentUpon>
     </None>

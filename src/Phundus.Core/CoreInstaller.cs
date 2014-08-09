@@ -7,7 +7,6 @@
     using Castle.Windsor;
     using Cqrs;
     using Ddd;
-    using IdentityAndAccess.Queries;
 
     public class CoreInstaller : IWindsorInstaller
     {
@@ -48,7 +47,8 @@
                 );
 
             container.Register(
-                Classes.FromThisAssembly().BasedOn<ReadModelReaderBase>()
+                Classes.FromThisAssembly().BasedOn<IdentityAndAccess.Queries.ReadModelReaderBase>()
+                    .OrBasedOn(typeof (Shop.Queries.Models.ReadModelReaderBase))
                     .WithServiceAllInterfaces()
                     .LifestyleTransient());
 
