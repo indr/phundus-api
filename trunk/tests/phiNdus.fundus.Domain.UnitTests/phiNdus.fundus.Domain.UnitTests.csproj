@@ -82,8 +82,6 @@
     <Compile Include="Entities\ArticleTests\TrivialArticleTests.cs" />
     <Compile Include="Entities\CartTests.cs" />
     <Compile Include="Entities\EntityBaseTests.cs" />
-    <Compile Include="Entities\ContractItemTests.cs" />
-    <Compile Include="Entities\ContractTests.cs" />
     <Compile Include="Entities\MembershipTests.cs" />
     <Compile Include="Entities\OrderItemTests.cs" />
     <Compile Include="Entities\OrderStatusTests.cs" />

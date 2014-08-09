@@ -158,6 +158,9 @@
     <Compile Include="Inventory\_Legacy\AvailabilityChecker.cs" />
     <Compile Include="Inventory\Queries\AvailabilityReadModel.cs" />
     <Compile Include="Inventory\Queries\IAvailabilityQueries.cs" />
+    <Compile Include="Shop\Contracts\Commands\CreateNewEmptyContract.cs" />
+    <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
+    <Compile Include="Shop\Contracts\Repositories\IContractRepository.cs" />
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
     <Compile Include="Shop\Orders\Commands\ClearCart.cs" />
     <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
@@ -216,8 +219,8 @@
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
     <Compile Include="Shop\Orders\Model\Cart.cs" />
-    <Compile Include="_Legacy\ReservationCtx\Model\Contract.cs" />
-    <Compile Include="_Legacy\ReservationCtx\Model\ContractItem.cs" />
+    <Compile Include="Shop\Contracts\Model\Contract.cs" />
+    <Compile Include="Shop\Contracts\Model\ContractItem.cs" />
     <Compile Include="Ddd\EntityBase.cs" />
     <Compile Include="Inventory\Model\Image.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Account.cs" />
@@ -225,7 +228,7 @@
     <Compile Include="Shop\Orders\Model\OrderItem.cs" />
     <Compile Include="Shop\Orders\Model\OrderStatus.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Organization.cs" />
-    <Compile Include="_Legacy\ReservationCtx\Model\Reservation.cs" />
+    <Compile Include="_Legacy\ReservationCtx\Reservation.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Role.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\User.cs" />
     <Compile Include="_Legacy\ReservationCtx\Services\ReservationFactory.cs" />
