@@ -3,35 +3,25 @@
     using System;
     using System.Net;
     using System.Net.Http;
-    using System.Web;
-    using System.Web.Http;
     using Castle.Transactions;
     using Core.Shop.Contracts.Commands;
     using Core.Shop.Queries;
-    using Exceptions;
+    using Core.Shop.Queries.Models;
 
     public class ContractsController : ApiControllerBase
     {
         public IContractQueries ContractQueries { get; set; }
 
         [Transaction]
-        public virtual ContractDetailDoc Get(int organizationId, int id)
+        public virtual HttpResponseMessage Get(int organizationId, int id)
         {
             var result = ContractQueries.FindContract(id, organizationId, CurrentUserId);
-            if (result == 0)
-                throw new HttpNotFoundException();
+            if (result == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Contract not found");
 
-            return new ContractDetailDoc
-            {
-                Id = result,
-                CreatedOn = DateTime.Now
-            };
+            return Request.CreateResponse(HttpStatusCode.OK, ToDoc(result));
         }
 
-        public class ContractsPostDoc
-        {
-            public int UserId { get; set; }
-        }
 
         [Transaction]
         public virtual HttpResponseMessage Post(int organizationId, ContractsPostDoc doc)
@@ -44,13 +34,33 @@
             };
             Dispatcher.Dispatch(command);
 
-            return Request.CreateResponse(HttpStatusCode.Created, command.ContractId);
+            var result = ContractQueries.FindContract(command.ContractId, organizationId, CurrentUserId);
+            if (result == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Created contract not found");
+
+            return Request.CreateResponse(HttpStatusCode.Created, ToDoc(result));
         }
+
+        private static ContractDetailDoc ToDoc(ContractDetailDto result)
+        {
+            return new ContractDetailDoc
+            {
+                Id = result.Id,
+                CreatedOn = result.CreatedOn,
+                OrganizationId = result.OrganizationId
+            };
+        }
+    }
+
+    public class ContractsPostDoc
+    {
+        public int UserId { get; set; }
     }
 
     public class ContractDetailDoc
     {
         public int Id { get; set; }
         public DateTime CreatedOn { get; set; }
+        public int OrganizationId { get; set; }
     }
 }

@@ -178,7 +178,9 @@
     <Compile Include="Shop\Queries\Dtos\OrderDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderDtoAssembler.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderItemDto.cs" />
+    <Compile Include="Shop\Queries\IContractQueries.cs" />
     <Compile Include="Shop\Queries\IShopArticleQueries.cs" />
+    <Compile Include="Shop\Queries\Models\ContractReadModelReader.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
     <Compile Include="Cqrs\CommandDispatcher.cs" />

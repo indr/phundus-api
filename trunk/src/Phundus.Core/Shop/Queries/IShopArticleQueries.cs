@@ -9,11 +9,6 @@
     using Cqrs;
     using Cqrs.Paging;
 
-    public interface IContractQueries
-    {
-        int FindContract(int contractId, int organizationId, int currentUserId);
-    }
-
     public interface IShopArticleQueries
     {
         ShopArticleDetailDto GetArticle(int id);
