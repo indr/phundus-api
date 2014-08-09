@@ -20,9 +20,9 @@
         public IRelationshipQueries RelationshipQueries { get; set; }
 
         [Transaction]
-        public virtual RelationshipDoc Get(int organization)
+        public virtual RelationshipDoc Get(int organizationId)
         {
-            return Map<RelationshipDoc>(RelationshipQueries.ByMemberIdForOrganizationId(CurrentUserId, organization));
+            return Map<RelationshipDoc>(RelationshipQueries.ByMemberIdForOrganizationId(CurrentUserId, organizationId));
         }
     }
 

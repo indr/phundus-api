@@ -17,13 +17,13 @@
         public IMemberQueries MemberQueries { get; set; }
 
         [Transaction]
-        public virtual IList<MemberDto> Get(int organization)
+        public virtual IList<MemberDto> Get(int organizationId)
         {
-            return MemberQueries.ByOrganizationId(organization);
+            return MemberQueries.ByOrganizationId(organizationId);
         }
 
         [Transaction]
-        public virtual void Post(int organization, dynamic doc)
+        public virtual void Post(int organizationId, dynamic doc)
         {
             Dispatcher.Dispatch(new AllowMembershipApplication
             {
@@ -34,7 +34,7 @@
 
         [HttpPut]
         [Transaction]
-        public virtual void Approve(int organization, int id)
+        public virtual void Approve(int organizationId, int id)
         {
             throw new NotSupportedException();
             //var membership = DoSomeStuffIDontHaveWordsFor(organization, id);
@@ -44,7 +44,7 @@
 
         [HttpPut]
         [Transaction]
-        public virtual void Lock(int organization, int id)
+        public virtual void Lock(int organizationId, int id)
         {
             throw new NotSupportedException();
             //var membership = DoSomeStuffIDontHaveWordsFor(organization, id);
@@ -54,7 +54,7 @@
 
         [HttpPut]
         [Transaction]
-        public virtual void Unlock(int organization, int id)
+        public virtual void Unlock(int organizationId, int id)
         {
             throw new NotSupportedException();
             //var membership = DoSomeStuffIDontHaveWordsFor(organization, id);
@@ -64,18 +64,18 @@
 
         [HttpPut]
         [Transaction]
-        public virtual void SetRole(int organization, int id, dynamic doc)
+        public virtual void SetRole(int organizationId, int id, dynamic doc)
         {
             Dispatcher.Dispatch(new ChangeMembersRole
             {
-                OrganizationId = organization,
+                OrganizationId = organizationId,
                 InitiatorId = CurrentUserId,
                 MemberId = id,
                 Role = doc.role
             });
         }
 
-        //private OrganizationMembership DoSomeStuffIDontHaveWordsFor(int organization, int id)
+        //private OrganizationMembership DoSomeStuffIDontHaveWordsFor(int organizationId, int id)
         //{
         //    var org = Organizations.FindById(organization);
         //    var user = Users.FindByEmail(Identity.Name);

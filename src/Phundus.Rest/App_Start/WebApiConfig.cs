@@ -25,28 +25,19 @@
             config.Routes.MapHttpRoute(
                 name: "OrganizationsMembersLocksRoute",
                 routeTemplate:"api/organizations/{organizationId}/members/{memberId}/locks/{id}",
-                defaults: new { controller = "Locks", id = RouteParameter.Optional }
-                );
+                defaults: new { controller = "Locks", id = RouteParameter.Optional });
 
             config.Routes.MapHttpRoute(
                 name: "OrganizationsApiRoute",
-                routeTemplate: "api/organizations/{organization}/{controller}/{id}/{action}",
+                routeTemplate: "api/organizations/{organizationId}/{controller}/{id}/{action}",
                 defaults: new { id = RouteParameter.Optional, action = RouteParameter.Optional },
-                constraints: new { organization = @"^[\d]+$", id = @"^[\d\-a-z]*$" });
+                constraints: new { organizationId = @"^[\d]+$", id = @"^[\d\-a-z]*$" });
 
             config.Routes.MapHttpRoute(
                 name: "OrganizationApiRoute",
-                routeTemplate: "api/{organization}/{controller}/{id}/{action}",
+                routeTemplate: "api/{organizationId}/{controller}/{id}/{action}",
                 defaults: new {id = RouteParameter.Optional, action = RouteParameter.Optional},
-                constraints: new {organization = @"^[\d]+$", id = @"^[\d\-a-z]*$"});
-
-                
-
-            //config.Routes.MapHttpRoute(
-            //    name: "OrganizationsApiRoute",
-            //    routeTemplate: "api/organizations/{orgId}/{controller}/{action}/{id}",
-            //    defaults: new { action = RouteParameter.Optional, id = RouteParameter.Optional },
-            //    constraints: new { orgId = @"^[\d]+$" });
+                constraints: new {organizationId = @"^[\d]+$", id = @"^[\d\-a-z]*$"});
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
