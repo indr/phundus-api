@@ -7,9 +7,15 @@
     {
         private DateTime _createdOn = DateTime.UtcNow;
         private ISet<ContractItem> _items = new HashedSet<ContractItem>();
+        private Borrower _borrower;
 
-        public Contract()
+        protected Contract()
         {
+        }
+
+        public Contract(Borrower borrower)
+        {
+            _borrower = borrower;
         }
 
         public int Id { get; protected set; }
@@ -24,9 +30,11 @@
 
         public virtual DateTime? SignedOn { get; protected set; }
 
-        public virtual int BorrowerId { get; protected set; }
-
-        public virtual int LenderId { get; protected set; }
+        public virtual Borrower Borrower
+        {
+            get { return _borrower; }
+            protected set { _borrower = value; }
+        }
 
         public virtual ISet<ContractItem> Items
         {

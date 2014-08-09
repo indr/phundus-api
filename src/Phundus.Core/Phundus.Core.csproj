@@ -159,8 +159,12 @@
     <Compile Include="Inventory\Queries\AvailabilityReadModel.cs" />
     <Compile Include="Inventory\Queries\IAvailabilityQueries.cs" />
     <Compile Include="Shop\Contracts\Commands\CreateNewEmptyContract.cs" />
+    <Compile Include="Shop\Contracts\Model\Borrower.cs" />
     <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
+    <Compile Include="Ddd\ValueObject.cs" />
     <Compile Include="Shop\Contracts\Repositories\IContractRepository.cs" />
+    <Compile Include="Shop\Contracts\Exceptions\BorrowerNotFoundException.cs" />
+    <Compile Include="Shop\Contracts\Services\BorrowerService.cs" />
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
     <Compile Include="Shop\Orders\Commands\ClearCart.cs" />
     <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
