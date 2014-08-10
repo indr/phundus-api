@@ -8,7 +8,7 @@
     {
         public IOrderRepository OrderRepository { get; set; }
 
-        public OrderDto FindById(int orderId)
+        public OrderDto FindById(int orderId, int userId)
         {
             var order = OrderRepository.ById(orderId);
             if (order == null)
@@ -16,7 +16,7 @@
             return new OrderDtoAssembler().CreateDto(order);
         }
 
-        public IEnumerable<OrderDto> FindByOrganizationId(int organizationId, int currentUserId, OrderStatus status)
+        public IEnumerable<OrderDto> FindByOrganizationId(int organizationId, int userId, OrderStatus status)
         {
             var orders = OrderRepository.FindByOrganizationId(organizationId, status);
             return new OrderDtoAssembler().CreateDtos(orders);
