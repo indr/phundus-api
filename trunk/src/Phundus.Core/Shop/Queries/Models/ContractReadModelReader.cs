@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Queries.Models
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Contracts.Model;
     using Ddd;
@@ -8,10 +9,19 @@
     {
         public ContractDto FindContract(int contractId, int organizationId, int currentUserId)
         {
+            // TODO: Read-Model-Security
             return (from c in Ctx.ContractDtos
                 where c.Id == contractId && c.OrganizationId == organizationId
                 select c)
                 .FirstOrDefault();
+        }
+
+        public IEnumerable<ContractDto> FindContracts(int organizationId, int currentUserId)
+        {
+            // TODO: Read-Model-Security
+            return (from c in Ctx.ContractDtos
+                where c.OrganizationId == organizationId
+                select c);
         }
     }
 

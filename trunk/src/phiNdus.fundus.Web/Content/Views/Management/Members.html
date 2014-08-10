@@ -12,6 +12,7 @@
             <th><a href="" ng-click="orderBy('jsNumber')">J+S-Nummer</a></th>
             <th><a href="" ng-click="orderBy('role')">Rolle</a></th>
             <th><a href="" ng-click="orderBy('isLocked')">Status</a></th>
+            <th></th>
         </tr>
     </thead>
     <tbody ng-init="roles = [{name:'Verwaltung',value:'2' },{name:'Mitglied',value:'1'}]">
@@ -46,6 +47,9 @@
             <td>
                 <a class="btn btn-small btn-inverse" ng-show="member.isLocked" href="" ng-click="unlock(member)">Entsperren</a>
                 <a class="btn btn-small" ng-show="!member.isLocked" href="" ng-click="lock(member)">Sperren</a>
+            </td>
+            <td>
+                <a class="btn" ng-click="createContract(member)">Neuer Vertrag</a>
             </td>
         </tr>
     </tbody>

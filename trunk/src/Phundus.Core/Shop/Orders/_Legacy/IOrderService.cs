@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Orders
 {
     using System.IO;
-    using Queries;
 
     public interface IOrderService
     {
