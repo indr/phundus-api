@@ -20,8 +20,8 @@
     <tbody>
         <tr ng-repeat="contract in filteredContracts = (contracts | filter:search) | orderBy:order">
             <td>{{contract.contractId}}</td>
-            <td>{{contract.createdOn | date: 'dd.MM.yyyy'}}</td>
-            <td>{{contract.signedOn | date: 'dd.MM.yyyy'}}</td>
+            <td>{{contract.createdOn | date: 'medium'}}</td>
+            <td>{{contract.signedOn | date: 'medium'}}</td>
             <td>{{contract.borrowerFirstName}}</td>
             <td>{{contract.borrowerLastName}}</td>
             <td><a class="btn btn-small" ng-click="openContract(contract)">Öffnen</a></td>

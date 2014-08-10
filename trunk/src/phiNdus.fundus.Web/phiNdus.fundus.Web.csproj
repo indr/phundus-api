@@ -298,6 +298,7 @@
     <Content Include="Content\select2x2.png" />
     <Content Include="Content\spinner.gif" />
     <Content Include="Content\Views\Management\Applications.html" />
+    <Content Include="Content\Views\Management\Order.html" />
     <Content Include="Content\Views\Management\Contract.html" />
     <Content Include="Content\Views\Management\Debug.html" />
     <Content Include="Content\Views\Management\Files.html" />

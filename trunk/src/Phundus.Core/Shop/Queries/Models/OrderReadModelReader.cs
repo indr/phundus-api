@@ -33,5 +33,11 @@
             var orders = OrderRepository.FindByUserId(userId);
             return new OrderDtoAssembler().CreateDtos(orders);
         }
+
+        public OrderDto FindOrder(int orderId, int organizationId, int currentUserId)
+        {
+            var order = OrderRepository.ById(orderId);
+            return new OrderDtoAssembler().CreateDto(order);
+        }
     }
 }
