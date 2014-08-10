@@ -21,7 +21,7 @@
 
         public ICommandDispatcher Dispatcher { get; set; }
 
-        public CartDto GetCart(int userId)
+        public CartDto GetCartByUserId(int userId)
         {
             var user = Users.FindById(userId);
             var cart = Carts.FindByCustomer(userId);

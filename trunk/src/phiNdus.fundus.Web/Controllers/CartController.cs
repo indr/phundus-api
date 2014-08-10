@@ -19,7 +19,7 @@
         [Transaction]
         public virtual ActionResult Index()
         {
-            var cartDto = CartService.GetCart(CurrentUserId);
+            var cartDto = CartService.GetCartByUserId(CurrentUserId);
 
             var model = new CartModel();
             model.Load(cartDto);
@@ -32,7 +32,7 @@
         [Transaction]
         public virtual ActionResult Index(CartModel model)
         {
-            var cartDto = CartService.GetCart(model.Version);
+            var cartDto = CartService.GetCartByUserId(CurrentUserId);
             if (ModelState.IsValid)
                 cartDto = CartService.UpdateCart(model.CreateDto());
             model.Load(cartDto);
@@ -82,7 +82,7 @@
                 return RedirectToAction(CartActionNames.Index);
             }
 
-            var cartDto = CartService.GetCart(CurrentUserId);
+            var cartDto = CartService.GetCartByUserId(CurrentUserId);
             if (!cartDto.AreItemsAvailable)
                 return RedirectToAction(CartActionNames.Index);
 

@@ -49,16 +49,12 @@
 
             if (cart == null)
                 throw new EntityNotFoundException();
-            if (cart.Version != cartDto.Version)
-                throw new DtoOutOfDateException();
 
             foreach (var itemDto in cartDto.Items)
             {
                 var item = cart.Items.SingleOrDefault(p => p.Id == itemDto.Id);
                 if (item == null)
                     throw new EntityNotFoundException();
-                if (item.Version != itemDto.Version)
-                    throw new DtoOutOfDateException();
 
                 item.Quantity = itemDto.Quantity;
                 item.From = itemDto.From;
