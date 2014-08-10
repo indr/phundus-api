@@ -173,7 +173,7 @@
 
             var userId = CurrentUserId;
             var service = ServiceLocator.Current.GetInstance<ICartService>();
-            var cart = service.GetCart(userId);
+            var cart = service.GetCartByUserId(userId);
 
             int? cartId = null;
             if (cart != null)
