@@ -8,7 +8,7 @@
     <ProjectGuid>{7B58707A-84EC-4E7E-A0FD-946F1E16361E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>phiNdus.fundus.DbMigrations</RootNamespace>
+    <RootNamespace>Phundus.Persistence.Migrations</RootNamespace>
     <AssemblyName>phiNdus.fundus.DbMigrations</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
