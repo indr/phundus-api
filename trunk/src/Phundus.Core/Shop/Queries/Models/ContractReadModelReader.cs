@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Core.Shop.Queries.Models
 {
-    using System;
     using System.Linq;
     using Contracts.Model;
     using Ddd;

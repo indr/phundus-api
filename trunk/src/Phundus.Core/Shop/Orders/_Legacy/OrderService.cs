@@ -15,64 +15,23 @@
     {
         public IUserRepository Users { get; set; }
 
-        #region IOrderService Members
+        public IOrderQueries OrderQueries { get; set; }
 
         public virtual OrderDto GetOrder(int id)
         {
-            var order = ServiceLocator.Current.GetInstance<IOrderRepository>().ById(id);
-            if (order == null)
-                return null;
-            return new OrderDtoAssembler().CreateDto(order);
+            return OrderQueries.FindById(id);
         }
 
-        public virtual IList<OrderDto> GetPendingOrders(int organizationId)
+        public virtual IEnumerable<OrderDto> GetMyOrders()
         {
             var user = Users.FindByEmail(Identity.Name);
-            var orders = ServiceLocator.Current.GetInstance<IOrderRepository>()
-                .FindPending(organizationId);
-            return new OrderDtoAssembler().CreateDtos(orders);
+            return OrderQueries.FindByUserId(user.Id);
         }
 
-        public virtual IList<OrderDto> GetApprovedOrders(int organizationId)
+        public IEnumerable<OrderDto> GetOrders(OrderStatus status, int organizationId)
         {
-            var user = Users.FindByEmail(Identity.Name);
-            var orders = ServiceLocator.Current.GetInstance<IOrderRepository>()
-                .FindApproved(organizationId);
-            return new OrderDtoAssembler().CreateDtos(orders);
+            return OrderQueries.FindByOrganizationId(organizationId, 0, status);            
         }
-
-        public virtual IList<OrderDto> GetRejectedOrders(int organizationId)
-        {
-            var user = Users.FindByEmail(Identity.Name);
-            var orders = ServiceLocator.Current.GetInstance<IOrderRepository>()
-                .FindRejected(organizationId);
-            return new OrderDtoAssembler().CreateDtos(orders);
-        }
-
-        public virtual IList<OrderDto> GetMyOrders()
-        {
-            var user = Users.FindByEmail(Identity.Name);
-            var orders = ServiceLocator.Current.GetInstance<IOrderRepository>().FindMy(user.Id);
-            return new OrderDtoAssembler().CreateDtos(orders);
-        }
-
-        public IList<OrderDto> GetOrders(OrderStatus status, int organizationId)
-        {
-            switch (status)
-            {
-                case OrderStatus.Pending:
-                    return GetPendingOrders(organizationId);
-                case OrderStatus.Approved:
-                    return GetApprovedOrders(organizationId);
-                case OrderStatus.Rejected:
-                    return GetRejectedOrders(organizationId);
-                case OrderStatus.Closed:
-                    return GetClosedOrders(organizationId);
-                default:
-                    throw new ArgumentOutOfRangeException("status");
-            }
-        }
-
 
         public OrderDto Reject(int id)
         {
@@ -114,16 +73,6 @@
             var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
             var order = repo.ById(id);
             return order.GeneratePdf();
-        }
-
-        #endregion
-
-        private IList<OrderDto> GetClosedOrders(int organizationId)
-        {
-            var user = Users.FindByEmail(Identity.Name);
-            var orders = ServiceLocator.Current.GetInstance<IOrderRepository>()
-                .FindClosed(organizationId);
-            return new OrderDtoAssembler().CreateDtos(orders);
-        }
+        }        
     }
 }

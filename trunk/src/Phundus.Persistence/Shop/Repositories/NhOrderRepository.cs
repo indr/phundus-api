@@ -66,5 +66,12 @@
                 select i;
             return query.Sum(x => (int?) x.Amount).GetValueOrDefault();
         }
+
+        public IEnumerable<Order> Find(int organizationId, OrderStatus status)
+        {
+            return (from o in Entities
+                where o.Status == status && o.Organization.Id == organizationId
+                select o).ToFuture();
+        }
     }
 }
