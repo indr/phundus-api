@@ -24,3 +24,9 @@ div.no-results p {
     text-align: center;
     padding: 20px;
 }
+
+.alert-no-results {
+    background-color: #eeeeee;
+    color: #888888;
+    border-color: #cccccc;
+}
