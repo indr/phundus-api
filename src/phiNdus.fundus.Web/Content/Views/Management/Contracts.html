@@ -6,7 +6,7 @@
     </p>
 </div>
 
-<table class="table table-bordered table-striped">
+<table class="table">
     <thead>
         <tr>
             <th><a href="" ng-click="orderBy('contractId')">Nummer</a></th>
@@ -24,11 +24,13 @@
             <td>{{contract.signedOn | date: 'medium'}}</td>
             <td>{{contract.borrowerFirstName}}</td>
             <td>{{contract.borrowerLastName}}</td>
-            <td><a class="btn btn-small" ng-click="openContract(contract)">Öffnen</a></td>
+            <td style="text-align: right">
+                <a class="btn btn-small" ng-click="openContract(contract)">Öffnen</a>
+            </td>
         </tr>
     </tbody>
 
 </table>
-<div ng-hide="filteredContracts.length" class="alert alert-info no-results">
-    <p>Deine Suche ergab keine Treffer... 😕</p>
+<div ng-hide="filteredContracts.length" class="alert alert-no-results">
+    <strong>Nichts gefunden!</strong> Deine Suche ergab keine Treffer... 😕
 </div>

@@ -49,8 +49,25 @@ function OrdersCtrl($scope, $location, orders) {
     };
 };
 
-function OrderCtrl($scope, $routeParams, orders) {
+function OrderCtrl($scope, $window, $routeParams, orders) {
     $scope.order = orders.get({ "organizationId": $scope.organizationId, "orderId": $routeParams.orderId });
+
+    // TODO: Directive
+    $scope.back = function () {
+        $window.history.back();
+    };
+
+    $scope.confirmOrder = function() {
+        alert('tbd');
+    };
+
+    $scope.rejectOrder = function() {
+        alert('tbd');
+    };
+
+    $scope.closeOrder = function() {
+        alert('tbd');
+    };
 };
 
 function ContractsCtrl($scope, $location, contracts) {
@@ -69,8 +86,13 @@ function ContractsCtrl($scope, $location, contracts) {
     };
 };
 
-function ContractCtrl($scope, $location, $routeParams, contracts) {
+function ContractCtrl($scope, $window, $location, $routeParams, contracts) {
     $scope.contract = contracts.get({ "organizationId": $scope.organizationId, "contractId": $routeParams.contractId });
+
+    // TODO: Directive
+    $scope.back = function () {
+        $window.history.back();
+    };
 
     $scope.reject = function(order) {
         alert('tbd');

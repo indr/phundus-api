@@ -1,4 +1,35 @@
 ﻿<h2>Vertrag</h2>
-<p>Nummer: {{contract.contractId}}</p>
-<p>Datum: {{contract.createdOn | date:'medium'}}</p>
-<p>Ausleiher: {{contract.borrowerFirstName}} {{contract.borrowerLastName}}, {{contract.borrowerEmail}}</p>
+<div class="row">
+    <div class="span12">
+        <p>Nummer: {{contract.contractId}}</p>
+        <p>Datum: {{contract.createdOn | date:'medium'}}</p>
+        <p>Ausleiher: {{contract.borrowerFirstName}} {{contract.borrowerLastName}}, {{contract.borrowerEmail}}</p>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Artikel</th>
+            <th>Von</th>
+            <th>Bis</th>
+            <th>Menge</th>
+            <th>Stückpreis</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="span6">
+        <a class="btn" href="" ng-click="back()">Zurück</a>
+        <a class="btn" href="" ng-glick="">PDF</a>
+    </div>
+    <div class="span6" style="text-align:right">
+       
+    </div>
+</div>

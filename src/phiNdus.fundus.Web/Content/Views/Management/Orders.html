@@ -21,7 +21,7 @@
     </label>
 </form>
 
-    <table class="table table-bordered table-striped">
+    <table class="table">
         <thead>
             <tr>
                 <th><a href="" ng-click="orderBy('orderId')">Nummer</a></th>
@@ -39,14 +39,13 @@
                 <td>{{order.reserverFirstName}}</td>
                 <td>{{order.reserverLastName}}</td>
                 <td>{{order.status | orderStatusText}}</td>
-                <td>
-                    <a class="btn" ng-show="order.status == 'Pending'" ng-click="openOrder(order)">Öffnen</a>
-                    <a class="btn" ng-show="order.status != 'pending'" ng-click="viewOrder(order)">Ansehen</a>
+                <td style="text-align:right">
+                    <a class="btn btn-small" ng-click="openOrder(order)">Öffnen</a>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <div ng-hide="filteredOrders.length" class="alert alert-info no-results">
-        <p>Deine Suche ergab keine Treffer... 😕</p>
+    <div ng-hide="filteredOrders.length" class="alert alert-no-results">
+        <strong>Nichts gefunden!</strong> Deine Suche ergab keine Treffer... 😕
     </div>
