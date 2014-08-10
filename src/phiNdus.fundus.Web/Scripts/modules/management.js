@@ -23,8 +23,16 @@ angular.module('management', ['phundus-api', 'ui', 'ui.bootstrap'])
     }
 );
 
-function OrdersCtrl($scope) {
-    
+function OrdersCtrl($scope, $location, orders) {
+    $scope.orders = orders.query({ "organizationId": $scope.organizationId });
+
+    $scope.order = '-createdOn';
+    $scope.orderBy = function (by) {
+        if ($scope.order == by)
+            $scope.order = '-' + by;
+        else
+            $scope.order = by;
+    };
 };
 
 function ContractsCtrl($scope, $location, contracts) {

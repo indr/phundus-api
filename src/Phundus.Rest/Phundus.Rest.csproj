@@ -102,6 +102,7 @@
     <Compile Include="Controllers\IdentityAndAccess\OrganizationsController.cs" />
     <Compile Include="Controllers\IdentityAndAccess\ApplicationsController.cs" />
     <Compile Include="Controllers\Shop\ContractsController.cs" />
+    <Compile Include="Controllers\Shop\OrdersController.cs" />
     <Compile Include="Exceptions\HttpConflictException.cs" />
     <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Exceptions\HttpNotFoundException.cs" />

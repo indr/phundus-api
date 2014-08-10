@@ -8,6 +8,7 @@
     {
         public int Id { get; set; }
         public int Version { get; set; }
+        public int OrganizationId { get; set; }
 
         public DateTime CreateDate { get; set; }
 
@@ -30,5 +31,6 @@
         public string ModifierName { get; set; }
 
         public OrderStatus Status { get; set; }
+        
     }
 }
