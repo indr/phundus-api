@@ -1,30 +1,47 @@
 ﻿<h2>Bestellungen</h2>
 
-<div class="search">
+<form class="form-inline">
     <p>
-        <input type="text" ng-model="search" class="search-query" placeholder="Suchen">
+        <input type="text" ng-model="search.$" class="search-query" placeholder="Suchen">
     </p>
-</div>
+    <label class="radio inline">
+        <input type="radio" ng-model="search.status" name="optionsRadios" value=""> Alle
+    </label>
+    <label class="radio inline">
+        <input type="radio" ng-model="search.status" name="optionsRadios" value="Pending"> Provisorisch
+    </label>
+    <label class="radio inline">
+        <input type="radio" ng-model="search.status" name="optionsRadios" value="Approved"> Bestätigt
+    </label>
+    <label class="radio inline">
+        <input type="radio" ng-model="search.status" name="optionsRadios" value="Rejected"> Abgelehnt
+    </label>
+    <label class="radio inline">
+        <input type="radio" ng-model="search.status" name="optionsRadios" value="Closed"> Abgeschlossen
+    </label>
+</form>
 
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th><a href="" ng-click="orderBy('orderId')">Nummer</a></th>
-            <th><a href="" ng-click="orderBy('createdOn')">Erstellt</a></th>
-            <th><a href="" ng-click="orderBy('reserverName')">Reservierer</a></th>
-            <th><a href="" ng-click="orderBy('status')">Status</a></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="order in filteredOrders = (orders | filter:search) | orderBy:order">
-            <td>{{order.orderId}}</td>
-            <td>{{order.createdOn | date: 'dd.MM.yyyy'}}</td>
-            <td>{{order.reserverName}}</td>
-            <td>{{order.status}}</td>
-        </tr>
-    </tbody>
-</table>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><a href="" ng-click="orderBy('orderId')">Nummer</a></th>
+                <th><a href="" ng-click="orderBy('createdOn')">Erstellt</a></th>
+                <th><a href="" ng-click="orderBy('reserverFirstName')">Vorname</a></th>
+                <th><a href="" ng-click="orderBy('reserverLastName')">Nachname</a></th>
+                <th><a href="" ng-click="orderBy('status')">Status</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="order in filteredOrders = (orders | filter:search) | orderBy:order">
+                <td>{{order.orderId}}</td>
+                <td>{{order.createdOn | date: 'dd.MM.yyyy'}}</td>
+                <td>{{order.reserverFirstName}}</td>
+                <td>{{order.reserverLastName}}</td>
+                <td>{{order.status | orderStatusText}}</td>
+            </tr>
+        </tbody>
+    </table>
 
-<div ng-hide="filteredOrders.length" class="alert alert-info no-results">
-    <p>Deine Suche ergab keine Treffer... 😕</p>
-</div>
+    <div ng-hide="filteredOrders.length" class="alert alert-info no-results">
+        <p>Deine Suche ergab keine Treffer... 😕</p>
+    </div>
