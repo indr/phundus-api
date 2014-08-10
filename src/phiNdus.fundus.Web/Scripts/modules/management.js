@@ -8,7 +8,14 @@ angular.module('management', ['phundus-api', 'ui', 'ui.bootstrap'])
             return input.replace(new RegExp(pattern, 'mg'), replace);
         };
     })
-
+    .filter('orderStatusText', function() {
+        return function(input) {
+            return {
+                "Pending": "Provisorisch", "Approved": "Bestätigt", "Rejected": "Abgelehnt", "Closed": "Abgeschlossen"
+            }
+            [input];
+        };
+    })
     .config(function($routeProvider) {
         $routeProvider
             .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Management/Members.html' })

@@ -28,7 +28,8 @@ namespace Phundus.Rest.Controllers.Shop
                 OrganizationId = each.OrganizationId,
                 CreatedOn = each.CreateDate,
                 ReserverId = each.ReserverId,
-                ReserverName = each.ReserverName,
+                ReserverFirstName = each.ReserverName.Split(' ').FirstOrDefault(),
+                ReserverLastName = each.ReserverName.Split(' ').LastOrDefault(),
                 Status = each.Status.ToString()
             }).ToList();
         }
@@ -44,6 +45,7 @@ namespace Phundus.Rest.Controllers.Shop
         public DateTime CreatedOn { get; set; }
 
         public int ReserverId { get; set; }
-        public string ReserverName { get; set; }
+        public string ReserverFirstName { get; set; }
+        public string ReserverLastName { get; set; }
     }
 }
