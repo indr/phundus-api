@@ -3,10 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Microsoft.Practices.ServiceLocation;
-    using Phundus.Core.ReservationCtx;
-    using Phundus.Core.ReservationCtx.Model;
-    using Phundus.Core.Shop.Orders;
     using Phundus.Core.Shop.Orders.Model;
     using Phundus.Core.Shop.Queries;
 
@@ -14,12 +10,6 @@
     {
         public OrderViewModel(OrderDto dto)
         {
-            Load(dto);
-        }
-
-        public OrderViewModel(int id)
-        {
-            var dto = ServiceLocator.Current.GetInstance<IOrderService>().GetOrder(id);
             Load(dto);
         }
 

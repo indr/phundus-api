@@ -17,23 +17,7 @@
 
         public IOrderQueries OrderQueries { get; set; }
 
-        public virtual OrderDto GetOrder(int id)
-        {
-            return OrderQueries.FindById(id);
-        }
-
-        public virtual IEnumerable<OrderDto> GetMyOrders()
-        {
-            var user = Users.FindByEmail(Identity.Name);
-            return OrderQueries.FindByUserId(user.Id);
-        }
-
-        public IEnumerable<OrderDto> GetOrders(OrderStatus status, int organizationId)
-        {
-            return OrderQueries.FindByOrganizationId(organizationId, 0, status);            
-        }
-
-        public OrderDto Reject(int id)
+        public void Reject(int id)
         {
             var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
             var order = repo.ById(id);
@@ -45,12 +29,9 @@
             new OrderRejectedMail()
                 .For(order)
                 .Send(order.Reserver);
-
-
-            return GetOrder(id);
         }
 
-        public OrderDto Confirm(int id)
+        public void Confirm(int id)
         {
             var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
             var order = repo.ById(id);
@@ -62,9 +43,6 @@
             new OrderApprovedMail()
                 .For(order)
                 .Send(order.Reserver);
-
-
-            return GetOrder(id);
         }
 
         [Transaction]
