@@ -11,11 +11,9 @@
         OrderDto Confirm(int id);
 
         OrderDto GetOrder(int id);
-        IList<OrderDto> GetOrders(OrderStatus status, int organizationId);
-        IList<OrderDto> GetMyOrders();
-        IList<OrderDto> GetPendingOrders(int organizationId);
-        IList<OrderDto> GetApprovedOrders(int organizationId);
-        IList<OrderDto> GetRejectedOrders(int organizationId);
+        IEnumerable<OrderDto> GetOrders(OrderStatus status, int organizationId);
+        IEnumerable<OrderDto> GetMyOrders();
+        
         Stream GetPdf(int id);
     }
 }

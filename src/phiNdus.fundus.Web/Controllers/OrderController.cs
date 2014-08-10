@@ -5,6 +5,7 @@
     using Core.IdentityAndAccess.Queries;
     using Core.Shop.Orders;
     using Core.Shop.Orders.Model;
+    using Core.Shop.Queries;
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.ViewModels;
 
@@ -12,6 +13,8 @@
     public class OrderController : ControllerBase
     {
         public IMemberInRole MemberInRole { get; set; }
+
+        public IOrderQueries OrderQueries { get; set; }
 
         //
         // GET: /Order/
@@ -28,7 +31,10 @@
         {
             MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
 
-            return View("Pending", new OrdersViewModel(OrderStatus.Pending, CurrentOrganizationId.Value));
+            var model = new OrdersViewModel(
+                OrderQueries.FindByOrganizationId(CurrentOrganizationId.Value, CurrentUserId,
+                    OrderStatus.Pending));
+            return View("Pending", model);
         }
 
         //
@@ -37,8 +43,11 @@
         public virtual ActionResult Approved()
         {
             MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
-            
-            return View("Approved", new OrdersViewModel(OrderStatus.Approved, CurrentOrganizationId.Value));
+
+            var model = new OrdersViewModel(
+                OrderQueries.FindByOrganizationId(CurrentOrganizationId.Value, CurrentUserId,
+                    OrderStatus.Approved));
+            return View("Approved", model);
         }
 
         //
@@ -48,7 +57,10 @@
         {
             MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
 
-            return View("Closed", new OrdersViewModel(OrderStatus.Closed, CurrentOrganizationId.Value));
+            var model = new OrdersViewModel(
+                OrderQueries.FindByOrganizationId(CurrentOrganizationId.Value, CurrentUserId,
+                    OrderStatus.Closed));
+            return View("Closed", model);
         }
 
         //
@@ -58,7 +70,10 @@
         {
             MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
 
-            return View("Rejected", new OrdersViewModel(OrderStatus.Rejected, CurrentOrganizationId.Value));
+            var model = new OrdersViewModel(
+                OrderQueries.FindByOrganizationId(CurrentOrganizationId.Value, CurrentUserId,
+                    OrderStatus.Rejected)); ;
+            return View("Rejected", model);
         }
 
         [Transaction]

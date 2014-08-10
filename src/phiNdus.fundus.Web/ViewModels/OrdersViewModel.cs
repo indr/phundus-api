@@ -23,7 +23,7 @@
             get { return ServiceLocator.Current.GetInstance<IOrderService>(); }
         }
 
-        protected void Load(IList<OrderDto> orderDtos)
+        public void Load(IEnumerable<OrderDto> orderDtos)
         {
             foreach (var each in orderDtos)
                 Items.Add(new OrderViewModel(each));
@@ -32,9 +32,9 @@
 
     public class OrdersViewModel : OrdersViewModelBase
     {
-        public OrdersViewModel(OrderStatus status, int organizationId)
+        public OrdersViewModel(IEnumerable<OrderDto> orders)
         {
-            Load(Service.GetOrders(status, organizationId));
+            Load(orders);
         }
     }
 
