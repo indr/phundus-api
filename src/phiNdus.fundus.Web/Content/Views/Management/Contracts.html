@@ -1,0 +1,24 @@
+﻿<h2>Verträge</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th><a href="" ng-click="orderBy('contractId')">Nummer</a></th>
+            <th>Status</th>
+            <th><a href="" ng-click="orderBy('createdOn')">Datum</a></th>
+            <th><a href="" ng-click="orderBy('borrowerFirstName')">Vorname</a></th>
+            <th><a href="" ng-click="orderBy('borrowerLastName')">Nachname</a></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="contract in contracts | orderBy:order">
+            <td>{{contract.contractId}}</td>
+            <td></td>
+            <td>{{contract.createdOn | date: 'dd.MM.yyyy'}}</td>
+            <td>{{contract.borrowerFirstName}}</td>
+            <td>{{contract.borrowerLastName}}</td>
+            <td><a class="btn" ng-click="openContract(contract)">Öffnen</a></td>
+        </tr>
+    </tbody>
+</table>

@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Rest.Controllers.Shop
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using Castle.Transactions;
@@ -10,6 +12,13 @@
     public class ContractsController : ApiControllerBase
     {
         public IContractQueries ContractQueries { get; set; }
+
+        [Transaction]
+        public virtual HttpResponseMessage Get(int organizationId)
+        {
+            var result = ContractQueries.FindContracts(organizationId, CurrentUserId);
+            return Request.CreateResponse(HttpStatusCode.OK, ToDocs(result));
+        }
 
         [Transaction]
         public virtual HttpResponseMessage Get(int organizationId, int id)
@@ -35,13 +44,29 @@
             return Get(organizationId, command.ContractId);
         }
 
-        private static ContractDetailDoc ToDoc(ContractDto result)
+        private static IEnumerable<ContractDoc> ToDocs(IEnumerable<ContractDto> dtos)
+        {
+            return dtos.Select(each => new ContractDoc
+            {
+                BorrowerFirstName = each.BorrowerFirstName,
+                BorrowerLastName = each.BorrowerLastName,
+                ContractId = each.Id,
+                CreatedOn = each.CreatedOn,
+                OrganizationId = each.OrganizationId
+            }).ToList();
+        }
+
+        private static ContractDetailDoc ToDoc(ContractDto dto)
         {
             return new ContractDetailDoc
             {
-                ContractId = result.Id,
-                CreatedOn = result.CreatedOn,
-                OrganizationId = result.OrganizationId
+                ContractId = dto.Id,
+                CreatedOn = dto.CreatedOn,
+                OrganizationId = dto.OrganizationId,
+                BorrowerId = dto.BorrowerId,
+                BorrowerLastName = dto.BorrowerLastName,
+                BorrowerEmail = dto.BorrowerEmail,
+                BorrowerFirstName = dto.BorrowerFirstName
             };
         }
     }
@@ -51,10 +76,19 @@
         public int UserId { get; set; }
     }
 
-    public class ContractDetailDoc
+    public class ContractDoc
     {
         public int ContractId { get; set; }
         public DateTime CreatedOn { get; set; }
         public int OrganizationId { get; set; }
+
+        public string BorrowerFirstName { get; set; }
+        public string BorrowerLastName { get; set; }
+    }
+
+    public class ContractDetailDoc : ContractDoc
+    {
+        public int BorrowerId { get; set; }
+        public string BorrowerEmail { get; set; }
     }
 }

@@ -13,10 +13,47 @@ angular.module('management', ['phundus-api', 'ui', 'ui.bootstrap'])
         $routeProvider
             .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Management/Members.html' })
             .when('/applications', { controller: ApplicationsCtrl, templateUrl: './Content/Views/Management/Applications.html' })
+
+            .when('/orders', { controller: OrdersCtrl, templateUrl: './Content/Views/Management/Orders.html' })
+            .when('/contracts', { controller: ContractsCtrl, templateUrl: './Content/Views/Management/Contracts.html' })
+            .when('/contracts/:contractId', { controller: ContractCtrl, templateUrl: './Content/Views/Management/Contract.html' })
+            
             .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Management/Settings.html' })
             .when('/files', { controller: FilesCtrl, templateUrl: './Content/Views/Management/Files.html' });
     }
 );
+
+function OrdersCtrl($scope) {
+    
+};
+
+function ContractsCtrl($scope, $location, contracts) {
+    $scope.contracts = contracts.query({ "organizationId": $scope.organizationId });
+
+    $scope.openContract = function(contract) {
+        $location.path('/contracts/' + contract.contractId);
+    };
+
+    $scope.order = '-createdOn';
+    $scope.orderBy = function (by) {
+        if ($scope.order == by)
+            $scope.order = '-' + by;
+        else
+            $scope.order = by;
+    };
+};
+
+function ContractCtrl($scope, $routeParams, contracts) {
+
+    $scope.contract = contracts.get({ "organizationId": $scope.organizationId, "contractId": $routeParams.contractId });
+};
+
+function DebugCtrl($scope, $route, $routeParams, $location) {
+    $scope.$route = $route;
+    $scope.$location = $location;
+    $scope.$routeParams = $routeParams;
+
+};
 
  function FilesCtrl($scope) {
 
@@ -105,7 +142,7 @@ function ApplicationsCtrl($scope, applications, members) {
     };
 }
 
-function MembersCtrl($scope, members, membersLocks) {
+function MembersCtrl($scope, $location, members, membersLocks, contracts) {
     $scope.members = members.query({ organizationId: $scope.organizationId });
 
     $scope.order = 'lastName';
@@ -151,5 +188,11 @@ function MembersCtrl($scope, members, membersLocks) {
                 member.isLocked = false;
             });
         }
+    };
+
+    $scope.createContract = function (member) {
+        contracts.save({ organizationId: $scope.organizationId }, { userId: member.id }, function (value, responseHeaders) {
+            $location.path('/contracts/' + value.contractId);
+        });
     };
 }
