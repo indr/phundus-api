@@ -1,24 +1,29 @@
 ﻿<h2>Verträge</h2>
-
+<p>
+    <input type="text" ng-model="search" class="search-query" placeholder="Suchen">
+</p>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th><a href="" ng-click="orderBy('contractId')">Nummer</a></th>
-            <th>Status</th>
-            <th><a href="" ng-click="orderBy('createdOn')">Datum</a></th>
+            <th><a href="" ng-click="orderBy('createdOn')">Erstellt</a></th>
+            <th><a href="" ng-click="orderBy('signedOn')">Gezeichnet</a></th>
             <th><a href="" ng-click="orderBy('borrowerFirstName')">Vorname</a></th>
             <th><a href="" ng-click="orderBy('borrowerLastName')">Nachname</a></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="contract in contracts | orderBy:order">
+        <tr ng-repeat="contract in filteredContracts = (contracts | filter:search) | orderBy:order">
             <td>{{contract.contractId}}</td>
-            <td></td>
             <td>{{contract.createdOn | date: 'dd.MM.yyyy'}}</td>
+            <td>{{contract.signedOn | date: 'dd.MM.yyyy'}}</td>
             <td>{{contract.borrowerFirstName}}</td>
             <td>{{contract.borrowerLastName}}</td>
-            <td><a class="btn" ng-click="openContract(contract)">Öffnen</a></td>
+            <td><a class="btn btn-small" ng-click="openContract(contract)">Öffnen</a></td>
         </tr>
-    </tbody>
+        <tr ng-hide="filteredContracts.length" class="no-data">
+            <td colspan="6">Deine Suche ergab keine Treffer 😕</td>
+        </tr>
+</tbody>
 </table>

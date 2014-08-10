@@ -1,5 +1,6 @@
 ﻿namespace phiNdus.fundus.DbMigrations
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using FluentMigrator;
@@ -7,6 +8,14 @@
     public abstract class MigrationBase : Migration
     {
         protected const string SchemaName = "dbo";
+
+        protected void Reseed(string tableName, int seed)
+        {
+            if ((ApplicationContext != null) && (ApplicationContext.ToString().Contains("SqlServerCe")))
+                Execute.Sql(String.Format(@"ALTER TABLE [{1}] ALTER COLUMN [Id] IDENTITY ({0}, 1)", seed, tableName));
+            else
+                Execute.Sql(String.Format(@"DBCC CHECKIDENT ('{1}', reseed, {0})", seed, tableName));
+        }
     }
 
     public abstract class HydrationBase : MigrationBase

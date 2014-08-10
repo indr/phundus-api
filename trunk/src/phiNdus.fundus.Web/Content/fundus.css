@@ -9,7 +9,7 @@ footer p
     font-size: 12px;
 }
 
-td.no-data 
+td.no-data, tr.no-data td
 {
     text-align: center;
     padding: 40px;
