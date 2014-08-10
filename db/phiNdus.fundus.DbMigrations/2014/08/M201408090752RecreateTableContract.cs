@@ -21,6 +21,8 @@ namespace phiNdus.fundus.DbMigrations
                 .WithColumn("Borrower_FirstName").AsString(255).NotNullable()
                 .WithColumn("Borrower_LastName").AsString(225).NotNullable()
                 .WithColumn("Borrower_Email").AsString(255).Nullable();
+
+            Reseed("Contract", 10000);
         }
 
         public override void Down()

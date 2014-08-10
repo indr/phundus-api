@@ -79,8 +79,9 @@
     public class ContractDoc
     {
         public int ContractId { get; set; }
-        public DateTime CreatedOn { get; set; }
         public int OrganizationId { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? SignedOn { get; set; }
 
         public string BorrowerFirstName { get; set; }
         public string BorrowerLastName { get; set; }
