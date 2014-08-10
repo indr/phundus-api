@@ -19,3 +19,8 @@ td input, td button, td .input-prepend, td .input-append
 {
     margin-bottom: 0;
 }
+
+div.no-results p {
+    text-align: center;
+    padding: 20px;
+}

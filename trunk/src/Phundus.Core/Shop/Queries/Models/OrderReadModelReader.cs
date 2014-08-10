@@ -16,6 +16,12 @@
             return new OrderDtoAssembler().CreateDto(order);
         }
 
+        public IEnumerable<OrderDto> FindByOrganizationId(int organizationId, int currentUserId)
+        {
+            var orders = OrderRepository.FindByOrganizationId(organizationId);
+            return new OrderDtoAssembler().CreateDtos(orders);
+        }
+
         public IEnumerable<OrderDto> FindByOrganizationId(int organizationId, int userId, OrderStatus status)
         {
             var orders = OrderRepository.FindByOrganizationId(organizationId, status);

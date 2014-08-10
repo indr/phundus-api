@@ -22,6 +22,13 @@
             return query.ToList();
         }
 
+        public IEnumerable<Order> FindByOrganizationId(int organizationId)
+        {
+            return (from o in Entities
+                    where o.Organization.Id == organizationId
+                    select o).ToFuture();
+        }
+
         public IEnumerable<Order> FindByOrganizationId(int organizationId, OrderStatus status)
         {
             return (from o in Entities

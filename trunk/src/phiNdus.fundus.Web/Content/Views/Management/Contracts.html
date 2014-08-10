@@ -1,7 +1,11 @@
 ﻿<h2>Verträge</h2>
-<p>
-    <input type="text" ng-model="search" class="search-query" placeholder="Suchen">
-</p>
+
+<div class="search">
+    <p>
+        <input type="text" ng-model="search" class="search-query" placeholder="Suchen">
+    </p>
+</div>
+
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -22,8 +26,9 @@
             <td>{{contract.borrowerLastName}}</td>
             <td><a class="btn btn-small" ng-click="openContract(contract)">Öffnen</a></td>
         </tr>
-        <tr ng-hide="filteredContracts.length" class="no-data">
-            <td colspan="6">Deine Suche ergab keine Treffer 😕</td>
-        </tr>
-</tbody>
+    </tbody>
+
 </table>
+<div ng-hide="filteredContracts.length" class="alert alert-info no-results">
+    <p>Deine Suche ergab keine Treffer... 😕</p>
+</div>
