@@ -1,11 +1,6 @@
 ﻿namespace phiNdus.fundus.Web.ViewModels
 {
     using System.Collections.Generic;
-    using Microsoft.Practices.ServiceLocation;
-    using Phundus.Core.ReservationCtx;
-    using Phundus.Core.ReservationCtx.Model;
-    using Phundus.Core.Shop.Orders;
-    using Phundus.Core.Shop.Orders.Model;
     using Phundus.Core.Shop.Queries;
 
     public class OrdersViewModelBase : ViewModelBase
@@ -16,11 +11,6 @@
         {
             get { return _items; }
             set { _items = value; }
-        }
-
-        protected IOrderService Service
-        {
-            get { return ServiceLocator.Current.GetInstance<IOrderService>(); }
         }
 
         public void Load(IEnumerable<OrderDto> orderDtos)
@@ -40,9 +30,9 @@
 
     public class MyOrdersViewModel : OrdersViewModelBase
     {
-        public MyOrdersViewModel()
+        public MyOrdersViewModel(IEnumerable<OrderDto> orders)
         {
-            Load(Service.GetMyOrders());
+            Load(orders);
         }
     }
 }

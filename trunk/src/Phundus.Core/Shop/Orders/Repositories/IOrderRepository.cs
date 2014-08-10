@@ -6,8 +6,9 @@
 
     public interface IOrderRepository : IRepository<Order>
     {
-        ICollection<Order> FindMy(int userId);
+        ICollection<Order> FindByUserId(int userId);
+        IEnumerable<Order> FindByOrganizationId(int organizationId, OrderStatus status);
+
         int SumReservedAmount(int articleId);
-        IEnumerable<Order> Find(int organizationId, OrderStatus status);
     }
 }

@@ -21,7 +21,9 @@
         [Transaction]
         public virtual ActionResult Index()
         {
-            return View("My", new MyOrdersViewModel());
+            var orders = OrderQueries.FindByUserId(CurrentUserId);
+
+            return View("My", new MyOrdersViewModel(orders));
         }
 
         //
@@ -72,7 +74,8 @@
 
             var model = new OrdersViewModel(
                 OrderQueries.FindByOrganizationId(CurrentOrganizationId.Value, CurrentUserId,
-                    OrderStatus.Rejected)); ;
+                    OrderStatus.Rejected));
+            ;
             return View("Rejected", model);
         }
 
@@ -81,7 +84,8 @@
         {
             // TODO: Authorization
 
-            var model = new OrderViewModel(id);
+            var dto = OrderQueries.FindById(id);
+            var model = new OrderViewModel(dto);
 
             return View("Details", model);
         }
@@ -93,7 +97,8 @@
             MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
 
             var service = ServiceLocator.Current.GetInstance<IOrderService>();
-            var orderDto = service.Reject(id);
+            service.Reject(id);
+            var orderDto = OrderQueries.FindById(id);
             return Json(orderDto);
         }
 
@@ -104,7 +109,8 @@
             MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
 
             var service = ServiceLocator.Current.GetInstance<IOrderService>();
-            var orderDto = service.Confirm(id);
+            service.Confirm(id);
+            var orderDto = OrderQueries.FindById(id);
             return Json(orderDto);
         }
 

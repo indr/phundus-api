@@ -13,7 +13,7 @@
             get { return Session.Query<OrderItem>(); }
         }
 
-        public ICollection<Order> FindMy(int userId)
+        public ICollection<Order> FindByUserId(int userId)
         {
             var query = from o in Entities
                 where o.Reserver.Id == userId
@@ -22,40 +22,11 @@
             return query.ToList();
         }
 
-        public ICollection<Order> FindPending(int organizationId)
+        public IEnumerable<Order> FindByOrganizationId(int organizationId, OrderStatus status)
         {
-            var query = from o in Entities
-                where o.Status == OrderStatus.Pending
-                      && o.Organization.Id == organizationId
-                select o;
-            return query.ToList();
-        }
-
-        public ICollection<Order> FindApproved(int organizationId)
-        {
-            var query = from o in Entities
-                where o.Status == OrderStatus.Approved
-                      && o.Organization.Id == organizationId
-                select o;
-            return query.ToList();
-        }
-
-        public ICollection<Order> FindRejected(int organizationId)
-        {
-            var query = from o in Entities
-                where o.Status == OrderStatus.Rejected
-                      && o.Organization.Id == organizationId
-                select o;
-            return query.ToList();
-        }
-
-        public ICollection<Order> FindClosed(int organizationId)
-        {
-            var query = from o in Entities
-                where o.Status == OrderStatus.Closed
-                      && o.Organization.Id == organizationId
-                select o;
-            return query.ToList();
+            return (from o in Entities
+                    where o.Status == status && o.Organization.Id == organizationId
+                    select o).ToFuture();
         }
 
         public int SumReservedAmount(int articleId)
@@ -65,13 +36,6 @@
                       && (i.Order.Status == OrderStatus.Pending || i.Order.Status == OrderStatus.Approved)
                 select i;
             return query.Sum(x => (int?) x.Amount).GetValueOrDefault();
-        }
-
-        public IEnumerable<Order> Find(int organizationId, OrderStatus status)
-        {
-            return (from o in Entities
-                where o.Status == status && o.Organization.Id == organizationId
-                select o).ToFuture();
         }
     }
 }
