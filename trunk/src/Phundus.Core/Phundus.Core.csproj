@@ -158,7 +158,7 @@
     <Compile Include="Inventory\_Legacy\AvailabilityChecker.cs" />
     <Compile Include="Inventory\Queries\AvailabilityReadModel.cs" />
     <Compile Include="Inventory\Queries\IAvailabilityQueries.cs" />
-    <Compile Include="Shop\Contracts\Commands\CreateNewEmptyContract.cs" />
+    <Compile Include="Shop\Contracts\Commands\CreateEmptyContract.cs" />
     <Compile Include="Shop\Contracts\Model\Borrower.cs" />
     <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
     <Compile Include="Ddd\ValueObject.cs" />

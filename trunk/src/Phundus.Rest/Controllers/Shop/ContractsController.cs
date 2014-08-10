@@ -24,7 +24,7 @@
         [Transaction]
         public virtual HttpResponseMessage Post(int organizationId, ContractsPostDoc doc)
         {
-            var command = new CreateNewEmptyContract
+            var command = new CreateEmptyContract
             {
                 InitiatorId = CurrentUserId,
                 OrganizationId = organizationId,
