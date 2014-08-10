@@ -6,13 +6,14 @@
     using Core.Shop.Orders;
     using Core.Shop.Orders.Model;
     using Core.Shop.Queries;
-    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.ViewModels;
 
     [Authorize]
     public class OrderController : ControllerBase
     {
         public IMemberInRole MemberInRole { get; set; }
+
+        public IOrderService OrderService { get; set; }
 
         public IOrderQueries OrderQueries { get; set; }
 
@@ -75,7 +76,6 @@
             var model = new OrdersViewModel(
                 OrderQueries.FindByOrganizationId(CurrentOrganizationId.Value, CurrentUserId,
                     OrderStatus.Rejected));
-            ;
             return View("Rejected", model);
         }
 
@@ -84,7 +84,7 @@
         {
             // TODO: Authorization
 
-            var dto = OrderQueries.FindById(id);
+            var dto = OrderQueries.FindById(id, CurrentUserId);
             var model = new OrderViewModel(dto);
 
             return View("Details", model);
@@ -96,9 +96,9 @@
         {
             MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
 
-            var service = ServiceLocator.Current.GetInstance<IOrderService>();
-            service.Reject(id);
-            var orderDto = OrderQueries.FindById(id);
+            OrderService.Reject(id);
+
+            var orderDto = OrderQueries.FindById(id, CurrentUserId);
             return Json(orderDto);
         }
 
@@ -108,9 +108,9 @@
         {
             MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
 
-            var service = ServiceLocator.Current.GetInstance<IOrderService>();
-            service.Confirm(id);
-            var orderDto = OrderQueries.FindById(id);
+            OrderService.Confirm(id);
+
+            var orderDto = OrderQueries.FindById(id, CurrentUserId);
             return Json(orderDto);
         }
 
@@ -120,8 +120,7 @@
         {
             // TODO: Authorization
 
-            var service = ServiceLocator.Current.GetInstance<IOrderService>();
-            var stream = service.GetPdf(id);
+            var stream = OrderService.GetPdf(id);
 
             return new FileStreamResult(stream, "application/pdf")
             {
