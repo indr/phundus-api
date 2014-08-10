@@ -38,7 +38,6 @@ function OrdersCtrl($scope, $location, orders) {
         $location.path('/orders/' + order.orderId);
     };
 
-
     $scope.search = { status: '' };
     $scope.order = '-createdOn';
     $scope.orderBy = function (by) {
@@ -57,15 +56,19 @@ function OrderCtrl($scope, $window, $routeParams, orders) {
         $window.history.back();
     };
 
-    $scope.confirmOrder = function() {
+    $scope.printPdf = function (order) {
         alert('tbd');
     };
 
-    $scope.rejectOrder = function() {
+    $scope.confirmOrder = function (order) {
         alert('tbd');
     };
 
-    $scope.closeOrder = function() {
+    $scope.rejectOrder = function (order) {
+        alert('tbd');
+    };
+
+    $scope.closeOrder = function (order) {
         alert('tbd');
     };
 };
@@ -77,6 +80,7 @@ function ContractsCtrl($scope, $location, contracts) {
         $location.path('/contracts/' + contract.contractId);
     };
 
+    $scope.search = { };
     $scope.order = '-createdOn';
     $scope.orderBy = function (by) {
         if ($scope.order == by)
@@ -94,11 +98,15 @@ function ContractCtrl($scope, $window, $location, $routeParams, contracts) {
         $window.history.back();
     };
 
-    $scope.reject = function(order) {
+    $scope.printPdf = function(contract) {
         alert('tbd');
     };
 
-    $scope.confirm = function(order) {
+    $scope.signContract = function(contract) {
+        alert('tbd');
+    };
+
+    $scope.rescindContract = function (contract) {
         alert('tbd');
     };
 };
