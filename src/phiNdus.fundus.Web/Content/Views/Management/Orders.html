@@ -29,15 +29,20 @@
                 <th><a href="" ng-click="orderBy('reserverFirstName')">Vorname</a></th>
                 <th><a href="" ng-click="orderBy('reserverLastName')">Nachname</a></th>
                 <th><a href="" ng-click="orderBy('status')">Status</a></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="order in filteredOrders = (orders | filter:search) | orderBy:order">
                 <td>{{order.orderId}}</td>
-                <td>{{order.createdOn | date: 'dd.MM.yyyy'}}</td>
+                <td>{{order.createdOn | date:'medium'}}</td>
                 <td>{{order.reserverFirstName}}</td>
                 <td>{{order.reserverLastName}}</td>
                 <td>{{order.status | orderStatusText}}</td>
+                <td>
+                    <a class="btn" ng-show="order.status == 'Pending'" ng-click="openOrder(order)">Öffnen</a>
+                    <a class="btn" ng-show="order.status != 'pending'" ng-click="viewOrder(order)">Ansehen</a>
+                </td>
             </tr>
         </tbody>
     </table>

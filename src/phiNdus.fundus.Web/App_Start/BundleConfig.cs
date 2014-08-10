@@ -8,7 +8,8 @@
         {
             bundles.Add(new ScriptBundle("~/js/angular").Include(
                 "~/Scripts/angular.js",
-                "~/Scripts/angular-resource.js"));
+                "~/Scripts/angular-resource.js",
+                "~/Scripts/i18n/angular-locale_de-ch.js"));
 
             bundles.Add(new ScriptBundle("~/js/angular-ui").Include(
                 "~/Scripts/angular-ui.js",

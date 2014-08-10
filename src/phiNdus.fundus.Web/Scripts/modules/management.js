@@ -22,6 +22,7 @@ angular.module('management', ['phundus-api', 'ui', 'ui.bootstrap'])
             .when('/applications', { controller: ApplicationsCtrl, templateUrl: './Content/Views/Management/Applications.html' })
 
             .when('/orders', { controller: OrdersCtrl, templateUrl: './Content/Views/Management/Orders.html' })
+            .when('/orders/:orderId', {controller: OrderCtrl, templateUrl: './Content/Views/Management/Order.html' })
             .when('/contracts', { controller: ContractsCtrl, templateUrl: './Content/Views/Management/Contracts.html' })
             .when('/contracts/:contractId', { controller: ContractCtrl, templateUrl: './Content/Views/Management/Contract.html' })
             
@@ -33,6 +34,12 @@ angular.module('management', ['phundus-api', 'ui', 'ui.bootstrap'])
 function OrdersCtrl($scope, $location, orders) {
     $scope.orders = orders.query({ "organizationId": $scope.organizationId });
 
+    $scope.openOrder = function(order) {
+        $location.path('/orders/' + order.orderId);
+    };
+
+
+    $scope.search = { status: '' };
     $scope.order = '-createdOn';
     $scope.orderBy = function (by) {
         if ($scope.order == by)
@@ -40,6 +47,10 @@ function OrdersCtrl($scope, $location, orders) {
         else
             $scope.order = by;
     };
+};
+
+function OrderCtrl($scope, $routeParams, orders) {
+    $scope.order = orders.get({ "organizationId": $scope.organizationId, "orderId": $routeParams.orderId });
 };
 
 function ContractsCtrl($scope, $location, contracts) {
@@ -58,9 +69,16 @@ function ContractsCtrl($scope, $location, contracts) {
     };
 };
 
-function ContractCtrl($scope, $routeParams, contracts) {
-
+function ContractCtrl($scope, $location, $routeParams, contracts) {
     $scope.contract = contracts.get({ "organizationId": $scope.organizationId, "contractId": $routeParams.contractId });
+
+    $scope.reject = function(order) {
+        alert('tbd');
+    };
+
+    $scope.confirm = function(order) {
+        alert('tbd');
+    };
 };
 
 function DebugCtrl($scope, $route, $routeParams, $location) {

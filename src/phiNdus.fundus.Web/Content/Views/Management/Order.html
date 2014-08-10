@@ -1,0 +1,34 @@
+﻿<h2>Bestellung</h2>
+<p>Nummer: {{order.orderId}}</p>
+<p>Datum: {{order.createdOn | date:'medium'}}</p>
+<p>Status: {{order.status | orderStatusText}}</p>
+<p>Ausleiher: {{order.reserverFirstName}} {{order.reserverLastName}}</p>
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Artikel</th>
+            <th>Von</th>
+            <th>Bis</th>
+            <th>Menge</th>
+            <th>Stückpreis</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in order.items">
+            <td>{{item.text}}</td>
+            <td>{{item.from | date:'shortDate'}}</td>
+            <td>{{item.to | date:'shortDate'}}</td>
+            <td>{{item.amount}}</td>
+            <td>{{item.unitPrice | currency}}</td>
+            <td>{{item.itemTotal | currency}}</td>
+        </tr>
+        
+        <tr style="font-weight:bold">
+            <td colspan="5" style="text-align:right;">Total</td>
+            <td>{{order.totalPrice | currency}}</td>
+        </tr>
+    </tbody>
+</table>

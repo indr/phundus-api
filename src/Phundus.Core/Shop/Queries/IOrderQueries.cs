@@ -11,6 +11,7 @@
         IEnumerable<OrderDto> FindByOrganizationId(int organizationId, int userId, OrderStatus status);
 
         IEnumerable<OrderDto> FindByUserId(int userId);
-        
+
+        OrderDto FindOrder(int orderId, int organizationId, int currentUserId);
     }
 }
