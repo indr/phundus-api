@@ -80,6 +80,7 @@ namespace Phundus.Rest.Controllers.Shop
                 {
                     Amount = each.Amount,
                     ArticleId = each.ArticleId,
+                    Availability = each.Availability,
                     From = each.From,
                     OrderItemId = each.Id,
                     Text = each.Text,
@@ -153,5 +154,6 @@ namespace Phundus.Rest.Controllers.Shop
 
         public decimal UnitPrice { get; set; }
         public decimal ItemTotal { get; set; }
+        public bool Availability { get; set; }
     }
 }

@@ -98,6 +98,7 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
 
     $scope.editItem = function(item) {
         item.editing = true;
+        $scope.edit = { amount: item.amount };
     };
 
     $scope.saveEditedItem = function(item) {
