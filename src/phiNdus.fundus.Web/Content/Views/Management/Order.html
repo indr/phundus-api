@@ -1,8 +1,10 @@
 ﻿<h2>Bestellung</h2>
 <div class="row">
-    <div class="span12">
+    <div class="span6">
         <p>Nummer: {{order.orderId}}</p>
         <p>Datum: {{order.createdOn | date:'medium'}}</p>
+    </div>
+    <div class="span6">
         <p>Status: {{order.status | orderStatusText}}</p>
         <p>Ausleiher: {{order.reserverFirstName}} {{order.reserverLastName}}</p>
     </div>
@@ -23,8 +25,8 @@
     <tbody>
         <tr ng-repeat="item in order.items">
             <td>{{item.text}}</td>
-            <td>{{item.from | date:'shortDate'}}</td>
-            <td>{{item.to | date:'shortDate'}}</td>
+            <td>{{item.from | date:'mediumDate'}}</td>
+            <td>{{item.to | date:'mediumDate'}}</td>
             <td>{{item.amount}}</td>
             <td>{{item.unitPrice | currency}}</td>
             <td>{{item.itemTotal | currency}}</td>
@@ -47,8 +49,48 @@
         <a class="btn" href="" ng-click="printPdf(order)">PDF</a>
     </div>
     <div class="span6" style="text-align:right">
+        <a class="btn" href="" ng-click="showAddItem(order)">Artikel hinzufügen</a>
         <a class="btn btn-primary" ng-show="order.status == 'Pending'" href="" ng-click="confirmOrder(order)">Bestätigen</a>
         <a class="btn btn-danger" ng-show="order.status == 'Pending'" href="" ng-click="rejectOrder(order)">Ablehnen</a>
         <a class="btn btn-primary" ng-show="order.status == 'Approved'" href="" ng-click="closeOrder(order)">Abschliessen</a>
+    </div>
+</div>
+
+<div class="modal hide" id="modal-add-item">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Artikel hinzufügen</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="inputArticleId">Artikel</label>
+                <div class="controls">
+                    <input type="text" id="inputArticleId" placeholder="" ng-model="newItem.articleId">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputFrom">Von</label>
+                <div class="controls">
+                    <input type="text" id="inputFrom" placeholder="" ng-model="newItem.from">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputTo">Bis</label>
+                <div class="controls">
+                    <input type="text" id="inputTo" placeholder="" ng-model="newItem.to">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputAmount">Menge</label>
+                <div class="controls">
+                    <input type="text" id="inputAmount" placeholder="" ng-model="newItem.amount">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-primary" ng-click="addItem(newItem)" data-dismiss="modal">Hinzufügen</a>
+        <a href="#" class="btn" data-dismiss="modal">Abbrechen</a>
     </div>
 </div>
