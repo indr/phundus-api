@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Rest
 {
     using System.Web.Http;
-    using System.Web.Routing;
     using Filters;
     using Newtonsoft.Json.Serialization;
 
@@ -14,7 +13,9 @@
 
             //var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             config.Formatters.JsonFormatter
-                  .SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                .SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            AttributeRoutingHttpConfig.RegisterRoutes(config.Routes);
 
             config.Routes.MapHttpRoute(
                 name: "ActionApi",
@@ -24,14 +25,14 @@
 
             config.Routes.MapHttpRoute(
                 name: "OrganizationsMembersLocksRoute",
-                routeTemplate:"api/organizations/{organizationId}/members/{memberId}/locks/{id}",
-                defaults: new { controller = "Locks", id = RouteParameter.Optional });
+                routeTemplate: "api/organizations/{organizationId}/members/{memberId}/locks/{id}",
+                defaults: new {controller = "Locks", id = RouteParameter.Optional});
 
             config.Routes.MapHttpRoute(
                 name: "OrganizationsApiRoute",
                 routeTemplate: "api/organizations/{organizationId}/{controller}/{id}/{action}",
-                defaults: new { id = RouteParameter.Optional, action = RouteParameter.Optional },
-                constraints: new { organizationId = @"^[\d]+$", id = @"^[\d\-a-z]*$" });
+                defaults: new {id = RouteParameter.Optional, action = RouteParameter.Optional},
+                constraints: new {organizationId = @"^[\d]+$", id = @"^[\d\-a-z]*$"});
 
             config.Routes.MapHttpRoute(
                 name: "OrganizationApiRoute",
