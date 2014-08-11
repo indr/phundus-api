@@ -1,14 +1,27 @@
 ﻿namespace Phundus.Core.Shop.Orders.Model
 {
     using System;
-    using Ddd;
     using Inventory.Model;
 
-    public class OrderItem : EntityBase
+    public class OrderItem
     {
-        public virtual Order Order { get; set; }
-
         private int _amount;
+        private Guid _id;
+
+        public OrderItem()
+        {
+            _id = Guid.NewGuid();
+        }
+
+        public virtual Guid Id
+        {
+            get { return _id; }
+            protected set { _id = value; }
+        }
+
+        public virtual int Version { get; protected set; }
+
+        public virtual Order Order { get; set; }
 
         public virtual int Amount
         {
@@ -34,7 +47,7 @@
 
         public virtual decimal LineTotal
         {
-            get { return Article.Price * Amount; }
+            get { return Article.Price*Amount; }
         }
     }
 }

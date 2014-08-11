@@ -447,6 +447,6 @@
             OrderItemId = orderItem.Id;
         }
 
-        public int OrderItemId { get; set; }
+        public Guid OrderItemId { get; set; }
     }
 }

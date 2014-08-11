@@ -95,6 +95,7 @@
     <Compile Include="2013\03\M201303082109_InsertAndUpdateRoles.cs" />
     <Compile Include="2013\03\M201303211953_ArticleAddColumnOrganizationId.cs" />
     <Compile Include="2013\03\M201303212259_OrderAddColumnOrganizationId.cs" />
+    <Compile Include="2014\08\M201408111404ChangePrimaryKeyOnOrderItem.cs" />
     <Compile Include="2014\08\M201408021809AddColumnsToArticle.cs" />
     <Compile Include="2014\07\M201407201243_CreateTableMembershipRequest.cs" />
     <Compile Include="2014\07\M201407221828ChangePrimaryKeyOnOrganizationMembership.cs" />

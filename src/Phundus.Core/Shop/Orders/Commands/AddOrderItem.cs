@@ -15,7 +15,7 @@
         public DateTime From { get; set; }
         public DateTime To { get; set; }
         public int Amount { get; set; }
-        public int OrderItemId { get; set; }
+        public Guid OrderItemId { get; set; }
     }
 
     public class AddOrderItemHandler : IHandleCommand<AddOrderItem>

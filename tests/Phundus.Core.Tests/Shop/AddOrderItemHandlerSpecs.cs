@@ -39,7 +39,7 @@
             () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
 
         public It should_set_order_item_id =
-            () => command.OrderItemId.ShouldBeGreaterThan(0);
+            () => command.OrderItemId.ShouldNotEqual(Guid.Empty);
 
         public It should_publish_order_item_added =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemAdded>.Is.NotNull));
