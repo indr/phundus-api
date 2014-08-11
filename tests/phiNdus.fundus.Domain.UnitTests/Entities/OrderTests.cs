@@ -78,7 +78,7 @@
         public void Create_sets_CreateDate()
         {
             var sut = new Order();
-            Assert.That(sut.CreateDate, Is.InRange(DateTime.Now.AddMinutes(-1), DateTime.Now.AddMinutes(1)));
+            Assert.That(sut.CreateDate, Is.InRange(DateTime.UtcNow.AddMinutes(-1), DateTime.UtcNow.AddMinutes(1)));
         }
 
         [Test]
