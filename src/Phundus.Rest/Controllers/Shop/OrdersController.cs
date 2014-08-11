@@ -141,6 +141,7 @@ namespace Phundus.Rest.Controllers.Shop
 
     public class OrderItemDoc
     {
+        public int OrderId { get; set; }
         public Guid OrderItemId { get; set; }
 
         public int ArticleId { get; set; }
@@ -152,6 +153,5 @@ namespace Phundus.Rest.Controllers.Shop
 
         public decimal UnitPrice { get; set; }
         public decimal ItemTotal { get; set; }
-        public int OrderId { get; set; }
     }
 }
