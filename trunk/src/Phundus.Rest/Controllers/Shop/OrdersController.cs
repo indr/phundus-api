@@ -81,7 +81,7 @@ namespace Phundus.Rest.Controllers.Shop
                     Amount = each.Amount,
                     ArticleId = each.ArticleId,
                     From = each.From,
-                    Id = each.Id,
+                    OrderItemId = each.Id,
                     Text = each.Text,
                     To = each.To,
                     ItemTotal = each.LineTotal,
@@ -141,7 +141,7 @@ namespace Phundus.Rest.Controllers.Shop
 
     public class OrderItemDoc
     {
-        public int Id { get; set; }
+        public Guid OrderItemId { get; set; }
 
         public int ArticleId { get; set; }
         public string Text { get; set; }
@@ -152,5 +152,6 @@ namespace Phundus.Rest.Controllers.Shop
 
         public decimal UnitPrice { get; set; }
         public decimal ItemTotal { get; set; }
+        public int OrderId { get; set; }
     }
 }

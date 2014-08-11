@@ -73,9 +73,16 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
     $scope.printPdf = function (order) {
         alert('tbd');
     };
+        
+    $scope.newItem = {
+        articleId: '', amount: 1, from: new Date().toLocaleDateString(), to: new Date().toLocaleDateString(),
+        organizationId: $scope.organizationId, orderId: $scope.order.orderId
+    };
 
     $scope.showAddItem = function (order) {
-        $scope.newItem = { "articleId": '', amount: 1, organizationId: $scope.organizationId, orderId: $scope.order.orderId };
+        $scope.newItem.orderId = order.orderId;
+        $scope.newItem.articleId = '';
+        $scope.newItem.amont = 1;
         $('#modal-add-item').modal('show');
     };
 
@@ -83,6 +90,9 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
         
         orderItems.save(item, function(data) {
             $('#modal-add-item').modal('hide');
+            $scope.$apply(function() {
+                $scope.order.items.push(data);
+            });
         }, function(a, b) {
             $('#modal-add-item').modal('show');
         });
