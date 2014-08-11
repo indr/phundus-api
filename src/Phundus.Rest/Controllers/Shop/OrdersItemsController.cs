@@ -17,7 +17,7 @@ namespace Phundus.Rest.Controllers.Shop
 
         [POST("")]
         [Transaction]
-        public virtual HttpResponseMessage Post(int organizationId, int orderId, OrdersItemsPostDoc doc)
+        public virtual HttpResponseMessage Post(int organizationId, int orderId, OrderItemPostDoc doc)
         {
             var command = new AddOrderItem
             {
@@ -51,6 +51,14 @@ namespace Phundus.Rest.Controllers.Shop
             });
         }
 
+        [PATCH("")]
+        [Transaction]
+        public virtual HttpResponseMessage Patch(int organizationId, int orderId, Guid orderItemId,
+            OrderItemPatchDoc doc)
+        {
+            return Request.CreateErrorResponse(HttpStatusCode.NotImplemented, "PATCH is not yet implemented.");
+        }
+
         [DELETE("")]
         [Transaction]
         public virtual HttpResponseMessage Delete(int organizationId, int orderId, Guid orderItemId)
@@ -66,9 +74,16 @@ namespace Phundus.Rest.Controllers.Shop
         }
     }
 
-    public class OrdersItemsPostDoc
+    public class OrderItemPostDoc
     {
         public int ArticleId { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
+        public int Amount { get; set; }
+    }
+
+    public class OrderItemPatchDoc
+    {
         public DateTime From { get; set; }
         public DateTime To { get; set; }
         public int Amount { get; set; }
