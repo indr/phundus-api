@@ -117,6 +117,14 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
     $scope.closeOrder = function (order) {
         alert('tbd');
     };
+
+    $scope.getTotal = function () {
+        var total = 0;
+        for (var i = 0; i < $scope.order.items.length; i++) {
+            total += $scope.order.items[i].itemTotal;
+        }
+        return total;
+    }
 };
 
 function ContractsCtrl($scope, $location, contracts) {
