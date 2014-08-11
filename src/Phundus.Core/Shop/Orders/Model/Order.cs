@@ -10,6 +10,7 @@
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
     using Infrastructure;
+    using Inventory.Model;
     using Inventory.Repositories;
     using Inventory._Legacy;
     using iTextSharp.text;
@@ -99,6 +100,22 @@
             var result = Items.Add(item);
             item.Order = this;
             return result;
+        }
+
+        public virtual OrderItem AddItem(Article article, DateTime from, DateTime to, int amount)
+        {
+            var item = new OrderItem();
+            item.Article = article;
+            item.From = from;
+            item.To = to;
+            item.Amount = amount;
+
+            item.Order = this;
+            Items.Add(item);
+            
+            EventPublisher.Publish(new OrderItemAdded());
+
+            return item;
         }
 
         public virtual bool AddItem(int articleId, int amount, DateTime begin, DateTime end, ISession session)

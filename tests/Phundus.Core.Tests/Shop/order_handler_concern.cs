@@ -3,6 +3,7 @@ namespace Phundus.Core.Tests.Shop
     using Core.Cqrs;
     using Core.IdentityAndAccess.Queries;
     using Core.IdentityAndAccess.Users.Repositories;
+    using Core.Inventory.Repositories;
     using Core.Shop.Contracts.Services;
     using Core.Shop.Orders.Repositories;
     using Machine.Specifications;
@@ -12,7 +13,9 @@ namespace Phundus.Core.Tests.Shop
     {
         protected static IMemberInRole memberInRole;
 
-        protected static IOrderRepository repository;
+        protected static IOrderRepository orders;
+
+        protected static IArticleRepository articles;
 
         protected static IBorrowerService borrowerService;
 
@@ -22,7 +25,8 @@ namespace Phundus.Core.Tests.Shop
         protected Establish dependencies = () =>
         {
             memberInRole = depends.on<IMemberInRole>();
-            repository = depends.on<IOrderRepository>();
+            orders = depends.on<IOrderRepository>();
+            articles = depends.on<IArticleRepository>();
             borrowerService = depends.on<IBorrowerService>();
             userRepository = depends.on<IUserRepository>();
         };
