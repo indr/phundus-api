@@ -96,6 +96,16 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
         });
     };
 
+    $scope.removeItem = function (item) {
+        if (!confirm('Möchten Sie die Position "' + item.text + '" wirklich löschen?'))
+            return;
+
+        orderItems.delete({ organizationId: $scope.organizationId, orderId: $scope.order.orderId, itemId: item.orderItemId }, function (data) {
+            var idx = $scope.order.items.indexOf(item);
+            $scope.order.items.splice(idx, 1);
+        });
+    };
+
     $scope.confirmOrder = function (order) {
         alert('tbd');
     };
