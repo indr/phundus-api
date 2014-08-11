@@ -67,14 +67,6 @@
         }
 
         [Test]
-        public void Can_create_with_Id_and_Version()
-        {
-            var sut = new Order(1, 2);
-            Assert.That(sut.Id, Is.EqualTo(1));
-            Assert.That(sut.Version, Is.EqualTo(2));
-        }
-
-        [Test]
         public void Create_assignes_empty_Items_collection()
         {
             var sut = new Order();
@@ -180,24 +172,6 @@
             sut.Reject(new User());
             var ex = Assert.Throws<InvalidOperationException>(() => sut.Reject(new User()));
             Assert.That(ex.Message, Is.EqualTo("Die Bestellung wurde bereits abgelehnt."));
-        }
-
-        [Test]
-        public void RemoveItem_sets_Order_on_Item_to_null()
-        {
-            Order sut = CreateSut();
-            var item = new OrderItem();
-            item.Order = sut;
-            sut.RemoveItem(item);
-            Assert.That(item.Order, Is.Null);
-        }
-
-        [Test]
-        public void RemoveItem_without_item_added_returns_false()
-        {
-            Order sut = CreateSut();
-            var item = new OrderItem();
-            Assert.That(sut.RemoveItem(item), Is.False);
         }
     }
 }

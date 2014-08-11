@@ -96,6 +96,7 @@
     <Compile Include="Shop\CreateEmptyContractHandlerSpecs.cs" />
     <Compile Include="Shop\CreateEmptyOrderHandlerSpecs.cs" />
     <Compile Include="Shop\order_handler_concern.cs" />
+    <Compile Include="Shop\RemoveOrderItemHandlerSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

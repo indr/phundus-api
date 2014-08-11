@@ -19,19 +19,16 @@
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
 
-    public class Order : EntityBase
+    public class Order
     {
-        private DateTime _createDate = DateTime.Now;
+        private DateTime _createDate = DateTime.UtcNow;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private OrderStatus _status = OrderStatus.Pending;
         private int _organizationId;
         private User _reserver;
+        private int _id;
 
-        public Order() : this(0, 0)
-        {
-        }
-
-        public Order(int id, int version) : base(id, version)
+        public Order()
         {
             
         }
@@ -41,6 +38,20 @@
             _organizationId = organizationId;
             _reserver = borrower;
         }
+
+        public Order(int orderId, int organizationId, Borrower borrower)
+        {
+            _id = orderId;
+            _organizationId = organizationId;
+        }
+
+        public virtual int Id
+        {
+            get { return _id; }
+            protected set { _id = value; }
+        }
+
+        public virtual int Version { get; protected set; }
 
         public virtual int OrganizationId
         {
@@ -128,11 +139,16 @@
             return AddItem(item, session);
         }
 
-        public virtual bool RemoveItem(OrderItem item)
+        public virtual void RemoveItem(Guid orderItemId)
         {
-            var result = Items.Remove(item);
+            var item = Items.FirstOrDefault(p => p.Id == orderItemId);
+            if (item == null)
+                return;
+
+            Items.Remove(item);
             item.Order = null;
-            return result;
+
+            EventPublisher.Publish(new OrderItemRemoved());
         }
 
         public virtual void Approve(User approver)
