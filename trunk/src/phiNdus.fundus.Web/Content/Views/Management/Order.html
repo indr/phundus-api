@@ -25,14 +25,21 @@
     <tbody>
         <tr ng-repeat="item in order.items">
             <td>{{item.text}}</td>
-            <td>{{item.from | date:'mediumDate'}}</td>
-            <td>{{item.to | date:'mediumDate'}}</td>
-            <td>{{item.amount}}</td>
+            <td ng-show="!item.editing">{{item.from | date:'mediumDate'}}</td>
+            <td ng-show="!item.editing">{{item.to | date:'mediumDate'}}</td>
+            <td ng-show="!item.editing">{{item.amount}}</td>
+            <td ng-show="item.editing">{{item.from | date:'mediumDate'}}></td>
+            <td ng-show="item.editing">{{item.to | date:'mediumDate'}}</td>
+            <td ng-show="item.editing"><input class="input-mini" type="text" ng-model="item.amount"/></td>
             <td>{{item.unitPrice | currency}}</td>
             <td>{{item.itemTotal | currency}}</td>
-            <td>
-                <a class="btn" href="" ng-click="editItem(item)"><i class="icon-edit"></i></a>
-                <a class="btn" href="" ng-click="removeItem(item)"><i class="icon-remove"></i></a>
+            <td ng-show="!item.editing">
+                <a class="btn" href="" ng-click="editItem(item)" title="Bearbeiten"><i class="icon-edit"></i></a>
+                <a class="btn" href="" ng-click="removeItem(item)" title="Entfernen"><i class="icon-remove"></i></a>
+            </td>
+            <td ng-show="item.editing">
+                <a class="btn" href="" ng-click="saveEditedItem(item)" title="Speichern"><i class="icon-ok"></i></a>
+                <a class="btn" href="" ng-click="cancelEditing(item)" title="Verwerfen"><i class="icon-asterisk"></i></a>
             </td>
         </tr>
         
