@@ -36,16 +36,23 @@ namespace Phundus.Rest.Controllers.Shop
         [Transaction]
         public virtual HttpResponseMessage Post(int organizationId, OrdersPostDoc doc)
         {
-            var user = UserQueries.ByUserName(doc.UserName);
-            if (user == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-                    string.Format("Der Benutzer mit der E-Mail-Adresse \"{0}\" konnte nicht gefunden werden.", doc.UserName));
+            int userId;
+            if (!Int32.TryParse(doc.UserName, out userId))
+            {
+                var user = UserQueries.ByUserName(doc.UserName);
+                if (user == null)
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound,
+                        string.Format("Der Benutzer mit der E-Mail-Adresse \"{0}\" konnte nicht gefunden werden.",
+                            doc.UserName));
+
+                userId = user.Id;
+            }
 
             var command = new CreateEmptyOrder
             {
                 InitiatorId = CurrentUserId,
                 OrganizationId = organizationId,
-                UserId = user.Id
+                UserId = userId
             };
 
             Dispatcher.Dispatch(command);

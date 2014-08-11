@@ -42,7 +42,8 @@ function OrdersCtrl($scope, $location, orders) {
     $scope.createOrderOk = function (newOrder) {
         orders.save(newOrder, function (data) {
             $('#modal-createOrder').modal('hide');
-        }, function (a, b) {
+            $scope.openOrder(data);
+        }, function () {
             $('#modal-createOrder').modal('show');
         });
     };
