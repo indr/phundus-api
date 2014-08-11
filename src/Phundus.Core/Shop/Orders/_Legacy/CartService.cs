@@ -114,7 +114,7 @@
 
             foreach (var order in orders)
             {
-                var mail = new OrderReceivedMail().For(order, OrganizationRepository.ById(order.Id));
+                var mail = new OrderReceivedMail().For(order, OrganizationRepository.ById(order.OrganizationId));
                 var chiefs = MemberQueries.ByOrganizationId(order.OrganizationId)
                     .Where(p => p.Role == (int) Role.Chief);
 
