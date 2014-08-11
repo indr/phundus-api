@@ -2,13 +2,14 @@
 {
     using System;
     using System.Net.Mail;
+    using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Users.Model;
     using Infrastructure;
     using Model;
 
     public class OrderRejectedMail : BaseMail
     {
-        public OrderRejectedMail For(Order order)
+        public OrderRejectedMail For(Order order, Organization organization)
         {
             Model = new
             {
@@ -18,7 +19,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Attachments.Add(new Attachment(order.GeneratePdf(),
+            Attachments.Add(new Attachment(order.GeneratePdf(organization),
                 String.Format("Order-{0}.pdf", order.Id),
                 "application/pdf"));
 

@@ -1,10 +1,11 @@
 ﻿<h2>Verträge</h2>
 
-<div class="search">
+
+<form class="form-inline">
     <p>
         <input type="text" ng-model="search.$" class="search-query" placeholder="Suchen">
     </p>
-</div>
+</form>
 
 <table class="table">
     <thead>
@@ -29,8 +30,8 @@
             </td>
         </tr>
     </tbody>
-
 </table>
 <div ng-hide="filteredContracts.length" class="alert alert-no-results">
     <strong>Nichts gefunden!</strong> Deine Suche ergab keine Treffer... 😕
 </div>
+

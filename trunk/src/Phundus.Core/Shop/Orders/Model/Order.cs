@@ -4,6 +4,7 @@
     using System.IO;
     using System.Linq;
     using System.Web.Hosting;
+    using Contracts.Model;
     using Ddd;
     using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Users.Model;
@@ -19,9 +20,11 @@
 
     public class Order : EntityBase
     {
-        private DateTime _createDate;
+        private DateTime _createDate = DateTime.Now;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private OrderStatus _status = OrderStatus.Pending;
+        private int _organizationId;
+        private User _reserver;
 
         public Order() : this(0, 0)
         {
@@ -29,10 +32,20 @@
 
         public Order(int id, int version) : base(id, version)
         {
-            _createDate = DateTime.Now;
+            
         }
 
-        public virtual Organization Organization { get; set; }
+        public Order(int organizationId, User borrower)
+        {
+            _organizationId = organizationId;
+            _reserver = borrower;
+        }
+
+        public virtual int OrganizationId
+        {
+            get { return _organizationId; }
+            protected set { _organizationId = value; }
+        }
 
         public virtual DateTime CreateDate
         {
@@ -46,7 +59,11 @@
             set { _items = value; }
         }
 
-        public virtual User Reserver { get; set; }
+        public virtual User Reserver
+        {
+            get { return _reserver; }
+            protected set { _reserver = value; }
+        }
 
         public virtual OrderStatus Status
         {
@@ -129,14 +146,14 @@
             ModifyDate = DateTime.Now;
         }
 
-        public virtual Stream GeneratePdf()
+        public virtual Stream GeneratePdf(Organization organization)
         {
             PdfReader reader = null;
-            if (!String.IsNullOrEmpty(Organization.DocTemplateFileName))
+            if (!String.IsNullOrEmpty(organization.DocTemplateFileName))
             {
                 var fileName = HostingEnvironment.MapPath(
-                    String.Format(@"~\Content\Uploads\Organizations\{0}\{1}", Organization.Id,
-                                  Organization.DocTemplateFileName));
+                    String.Format(@"~\Content\Uploads\Organizations\{0}\{1}", organization.Id,
+                                  organization.DocTemplateFileName));
                 if (File.Exists(fileName))
                 {
                     try

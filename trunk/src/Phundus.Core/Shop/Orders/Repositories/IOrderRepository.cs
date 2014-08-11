@@ -12,6 +12,7 @@
         IEnumerable<Order> FindByOrganizationId(int organizationId, OrderStatus status);
 
         int SumReservedAmount(int articleId);
-        
+
+        new int Add(Order entity);
     }
 }

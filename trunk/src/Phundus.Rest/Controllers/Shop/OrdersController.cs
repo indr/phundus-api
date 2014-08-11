@@ -6,11 +6,15 @@ namespace Phundus.Rest.Controllers.Shop
     using System.Net;
     using System.Net.Http;
     using Castle.Transactions;
+    using Core.IdentityAndAccess.Queries;
+    using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
 
     public class OrdersController : ApiControllerBase
     {
         public IOrderQueries OrderQueries { get; set; }
+
+        public IUserQueries UserQueries { get; set; }
 
         [Transaction]
         public virtual HttpResponseMessage Get(int organizationId)
@@ -27,6 +31,26 @@ namespace Phundus.Rest.Controllers.Shop
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Order not found");
 
             return Request.CreateResponse(HttpStatusCode.OK, ToDoc(result));
+        }
+
+        [Transaction]
+        public virtual HttpResponseMessage Post(int organizationId, OrdersPostDoc doc)
+        {
+            var user = UserQueries.ByUserName(doc.UserName);
+            if (user == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound,
+                    string.Format("Der Benutzer mit der E-Mail-Adresse \"{0}\" konnte nicht gefunden werden.", doc.UserName));
+
+            var command = new CreateEmptyOrder
+            {
+                InitiatorId = CurrentUserId,
+                OrganizationId = organizationId,
+                UserId = user.Id
+            };
+
+            Dispatcher.Dispatch(command);
+
+            return Get(organizationId, command.OrderId);
         }
 
         private static OrderDetailDoc ToDoc(OrderDto dto)
@@ -74,6 +98,11 @@ namespace Phundus.Rest.Controllers.Shop
                 Status = each.Status.ToString()
             }).ToList();
         }
+    }
+
+    public class OrdersPostDoc
+    {
+        public string UserName { get; set; }
     }
 
     public class OrderDoc

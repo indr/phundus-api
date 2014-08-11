@@ -86,7 +86,7 @@
         public virtual Order PlaceOrder(ISession session)
         {
             var result = new Order();
-            result.Reserver = Customer;
+            //result.Reserver = Customer;
             foreach (var each in Items)
                 result.AddItem(each.Article.Id, each.Quantity, each.From, each.To, session);
 
@@ -109,9 +109,7 @@
 
             foreach (var organization in organizations)
             {
-                var order = new Order();
-                order.Organization = organization;
-                order.Reserver = Customer;
+                var order = new Order(organization.Id, Customer);
                 var items = from i in Items where i.Article.OrganizationId == organization.Id select i;
                 foreach (var item in items)
                     order.AddItem(item.Article.Id, item.Quantity, item.From, item.To, session);

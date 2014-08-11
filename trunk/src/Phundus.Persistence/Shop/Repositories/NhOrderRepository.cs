@@ -25,14 +25,14 @@
         public IEnumerable<Order> FindByOrganizationId(int organizationId)
         {
             return (from o in Entities
-                    where o.Organization.Id == organizationId
+                    where o.OrganizationId == organizationId
                     select o).ToFuture();
         }
 
         public IEnumerable<Order> FindByOrganizationId(int organizationId, OrderStatus status)
         {
             return (from o in Entities
-                    where o.Status == status && o.Organization.Id == organizationId
+                    where o.Status == status && o.OrganizationId == organizationId
                     select o).ToFuture();
         }
 
@@ -43,6 +43,12 @@
                       && (i.Order.Status == OrderStatus.Pending || i.Order.Status == OrderStatus.Approved)
                 select i;
             return query.Sum(x => (int?) x.Amount).GetValueOrDefault();
+        }
+
+        public new int Add(Order entity)
+        {
+            base.Add(entity);
+            return entity.Id;
         }
     }
 }

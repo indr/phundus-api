@@ -6,9 +6,8 @@
     using RestSharp;
 
     [Subject("Contracts")]
-    public class when_post_is_issued : concern
+    public class when_contracts_post_is_issued : concern
     {
-        private static RestRequest request;
         private static IRestResponse<ContractDetailDoc> response;
 
         public Establish c = () => { };

@@ -67,10 +67,19 @@ namespace Phundus.Specs.Rest
             var request = new RestRequest(Method.POST);
             request.Resource = "organizations/{organizationId}/contracts";
             request.AddUrlSegment("organizationId", organizationId.ToString());
-            
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new {userId = userId});
             return Execute<ContractDetailDoc>(request);
+        }
+
+        public IRestResponse<OrderDetailDoc> PostOrder(int organizationId, string userName)
+        {
+            var request = new RestRequest(Method.POST);
+            request.Resource = "organizations/{organizationId}/orders";
+            request.AddUrlSegment("organizationId", organizationId.ToString());
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(new {userName = userName});
+            return Execute<OrderDetailDoc>(request);
         }
     }
 }

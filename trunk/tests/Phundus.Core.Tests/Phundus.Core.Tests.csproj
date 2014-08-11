@@ -93,6 +93,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shop\contract_handler_concern.cs" />
     <Compile Include="Shop\CreateEmptyContractHandlerSpecs.cs" />
+    <Compile Include="Shop\CreateEmptyOrderHandlerSpecs.cs" />
+    <Compile Include="Shop\order_handler_concern.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
