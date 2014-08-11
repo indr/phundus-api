@@ -49,6 +49,28 @@
         public It should_return_doc_order_item_id = () => response.Data.OrderItemId.ShouldNotEqual(Guid.Empty);
     }
 
+    [Subject("OrderItems")]
+    public class when_orders_items_put_is_issued : concern
+    {
+        private const int organizationId = 1001;
+        private static int orderId;
+        private static Guid orderItemId;
+        private static IRestResponse response;
+
+        public Establish c = () =>
+        {
+            orderId = api.PostOrder(organizationId, "user-1@test.phundus.ch").Data.OrderId;
+            orderItemId = api.PostOrderItem(organizationId, orderId).Data.OrderItemId;
+        };
+
+        public Because of = () =>
+        {
+            response = api.UpdateOrderItem(organizationId, orderId, orderItemId, DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(2), 2);
+        };
+
+        public It should_return_status_ok = () => response.StatusCode.ShouldEqual(HttpStatusCode.OK);  
+    }
+
     [Subject("OrdersItems")]
     public class when_orders_items_delete_is_issued : concern
     {

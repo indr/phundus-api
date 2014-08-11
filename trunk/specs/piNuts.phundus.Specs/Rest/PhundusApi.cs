@@ -120,5 +120,18 @@ namespace Phundus.Specs.Rest
             request.RequestFormat = DataFormat.Json;
             return Exeucte2(request);
         }
+
+        public IRestResponse UpdateOrderItem(int organizationId, int orderId, Guid orderItemId, DateTime from, DateTime to, int amount)
+        {
+            var request = new RestRequest(Method.PATCH);
+            request.Resource = "organizations/{organizationId}/orders/{orderId}/items/{itemId}";
+            request.AddUrlSegment("organizationId", organizationId.ToString());
+            request.AddUrlSegment("orderId", orderId.ToString());
+            request.AddUrlSegment("itemId", orderItemId.ToString("D"));
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(new {from = from.ToShortDateString(), to = to.ToShortDateString(), amount = amount});
+            
+            return Exeucte2(request);
+        }
     }
 }
