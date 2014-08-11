@@ -90,10 +90,8 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
         
         orderItems.save(item, function(data) {
             $('#modal-add-item').modal('hide');
-            $scope.$apply(function() {
-                $scope.order.items.push(data);
-            });
-        }, function(a, b) {
+            $scope.order.items.push(data);
+        }, function() {
             $('#modal-add-item').modal('show');
         });
     };
