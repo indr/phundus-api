@@ -74,16 +74,6 @@
             Assert.That(sut.Version, Is.EqualTo(2));
         }
 
-
-        [Test]
-        public void Can_get_and_set_Reserver()
-        {
-            Order sut = CreateSut();
-            var reserver = new User();
-            sut.Reserver = reserver;
-            Assert.That(sut.Reserver, Is.SameAs(reserver));
-        }
-
         [Test]
         public void Create_assignes_empty_Items_collection()
         {

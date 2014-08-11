@@ -34,6 +34,19 @@ angular.module('management', ['phundus-api', 'ui', 'ui.bootstrap'])
 function OrdersCtrl($scope, $location, orders) {
     $scope.orders = orders.query({ "organizationId": $scope.organizationId });
 
+    $scope.createOrder = function() {
+        $scope.newOrder = { userId: '', organizationId: $scope.organizationId };
+        $('#modal-createOrder').modal('show');
+    };
+
+    $scope.createOrderOk = function (newOrder) {
+        orders.save(newOrder, function (data) {
+            $('#modal-createOrder').modal('hide');
+        }, function (a, b) {
+            $('#modal-createOrder').modal('show');
+        });
+    };
+
     $scope.openOrder = function(order) {
         $location.path('/orders/' + order.orderId);
     };

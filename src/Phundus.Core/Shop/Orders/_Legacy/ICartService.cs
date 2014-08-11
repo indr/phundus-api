@@ -9,7 +9,7 @@
         CartDto AddItem(int? cartId, int userId, CartItemDto item);
         CartDto RemoveItem(int id, int version);
         CartDto UpdateCart(CartDto cart);
-        OrderDto PlaceOrder();
+        
         ICollection<OrderDto> PlaceOrders();
     }
 }

@@ -5,6 +5,7 @@
     using Commands;
     using Cqrs;
     using IdentityAndAccess.Organizations.Model;
+    using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Queries;
     using IdentityAndAccess.Users.Repositories;
     using Mails;
@@ -16,6 +17,8 @@
         public ICartRepository Carts { get; set; }
 
         public IUserRepository Users { get; set; }
+
+        public IOrganizationRepository OrganizationRepository { get; set; }
 
         public IMemberQueries MemberQueries { get; set; }
 
@@ -98,29 +101,6 @@
             return assembler.CreateDto(cart);
         }
 
-        public OrderDto PlaceOrder()
-        {
-            var user = Users.FindByEmail(Identity.Name);
-            var cart = Carts.FindByCustomer(user.Id);
-            cart.CalculateAvailability(SessionFact());
-            if (!cart.AreItemsAvailable)
-                return null;
-
-            var order = cart.PlaceOrder(SessionFact());
-
-            var mail = new OrderReceivedMail().For(order);
-
-            var chiefs = MemberQueries.ByOrganizationId(order.Organization.Id).Where(p => p.Role == (int) Role.Chief);
-
-            foreach (var chief in chiefs)
-                mail.Send(chief.EmailAddress);
-            mail.Send(order.Reserver);
-
-
-            var assembler = new OrderDtoAssembler();
-            return assembler.CreateDto(order);
-        }
-
         public ICollection<OrderDto> PlaceOrders()
         {
             var user = Users.FindByEmail(Identity.Name);
@@ -134,8 +114,8 @@
 
             foreach (var order in orders)
             {
-                var mail = new OrderReceivedMail().For(order);
-                var chiefs = MemberQueries.ByOrganizationId(order.Organization.Id)
+                var mail = new OrderReceivedMail().For(order, OrganizationRepository.ById(order.Id));
+                var chiefs = MemberQueries.ByOrganizationId(order.OrganizationId)
                     .Where(p => p.Role == (int) Role.Chief);
 
                 foreach (var chief in chiefs)

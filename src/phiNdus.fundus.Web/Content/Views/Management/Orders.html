@@ -1,51 +1,81 @@
 ﻿<h2>Bestellungen</h2>
 
-<form class="form-inline">
-    <p>
-        <input type="text" ng-model="search.$" class="search-query" placeholder="Suchen">
-    </p>
-    <label class="radio inline">
-        <input type="radio" ng-model="search.status" name="optionsRadios" value=""> Alle
-    </label>
-    <label class="radio inline">
-        <input type="radio" ng-model="search.status" name="optionsRadios" value="Pending"> Provisorisch
-    </label>
-    <label class="radio inline">
-        <input type="radio" ng-model="search.status" name="optionsRadios" value="Approved"> Bestätigt
-    </label>
-    <label class="radio inline">
-        <input type="radio" ng-model="search.status" name="optionsRadios" value="Rejected"> Abgelehnt
-    </label>
-    <label class="radio inline">
-        <input type="radio" ng-model="search.status" name="optionsRadios" value="Closed"> Abgeschlossen
-    </label>
-</form>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th><a href="" ng-click="orderBy('orderId')">Nummer</a></th>
-                <th><a href="" ng-click="orderBy('createdOn')">Erstellt</a></th>
-                <th><a href="" ng-click="orderBy('reserverFirstName')">Vorname</a></th>
-                <th><a href="" ng-click="orderBy('reserverLastName')">Nachname</a></th>
-                <th><a href="" ng-click="orderBy('status')">Status</a></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="order in filteredOrders = (orders | filter:search) | orderBy:order">
-                <td>{{order.orderId}}</td>
-                <td>{{order.createdOn | date:'medium'}}</td>
-                <td>{{order.reserverFirstName}}</td>
-                <td>{{order.reserverLastName}}</td>
-                <td>{{order.status | orderStatusText}}</td>
-                <td style="text-align:right">
-                    <a class="btn btn-small" ng-click="openOrder(order)">Öffnen</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div ng-hide="filteredOrders.length" class="alert alert-no-results">
-        <strong>Nichts gefunden!</strong> Deine Suche ergab keine Treffer... 😕
+<div class="row">
+    <div class="span8">
+        <form class="form-inline">
+            <p>
+                <input type="text" ng-model="search.$" class="search-query" placeholder="Suchen">
+            </p>
+            <label class="radio inline">
+                <input type="radio" ng-model="search.status" name="optionsRadios" value=""> Alle
+            </label>
+            <label class="radio inline">
+                <input type="radio" ng-model="search.status" name="optionsRadios" value="Pending"> Provisorisch
+            </label>
+            <label class="radio inline">
+                <input type="radio" ng-model="search.status" name="optionsRadios" value="Approved"> Bestätigt
+            </label>
+            <label class="radio inline">
+                <input type="radio" ng-model="search.status" name="optionsRadios" value="Rejected"> Abgelehnt
+            </label>
+            <label class="radio inline">
+                <input type="radio" ng-model="search.status" name="optionsRadios" value="Closed"> Abgeschlossen
+            </label>
+        </form>
     </div>
+    <div class="span4">
+        <a class="btn btn-primary" href="" ng-click="createOrder()">Neue Bestellung</a>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th><a href="" ng-click="orderBy('orderId')">Nummer</a></th>
+            <th><a href="" ng-click="orderBy('createdOn')">Erstellt</a></th>
+            <th><a href="" ng-click="orderBy('reserverFirstName')">Vorname</a></th>
+            <th><a href="" ng-click="orderBy('reserverLastName')">Nachname</a></th>
+            <th><a href="" ng-click="orderBy('status')">Status</a></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="order in filteredOrders = (orders | filter:search) | orderBy:order">
+            <td>{{order.orderId}}</td>
+            <td>{{order.createdOn | date:'medium'}}</td>
+            <td>{{order.reserverFirstName}}</td>
+            <td>{{order.reserverLastName}}</td>
+            <td>{{order.status | orderStatusText}}</td>
+            <td style="text-align:right">
+                <a class="btn btn-small" ng-click="openOrder(order)">Öffnen</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div ng-hide="filteredOrders.length" class="alert alert-no-results">
+    <strong>Nichts gefunden!</strong> Deine Suche ergab keine Treffer... 😕
+</div>
+
+
+
+<div class="modal hide" id="modal-createOrder">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Neue Bestellung</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="inputArticleId">Benutzer</label>
+                <div class="controls">
+                    <input type="text" id="inputArticleId" placeholder="" ng-model="newOrder.userId">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-primary" ng-click="createOrderOk(newOrder)" data-dismiss="modal">Erstellen</a>
+        <a href="#" class="btn" data-dismiss="modal">Abbrechen</a>
+    </div>
+</div>

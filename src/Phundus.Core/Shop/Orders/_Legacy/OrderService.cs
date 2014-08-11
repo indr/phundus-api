@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using Castle.Transactions;
+    using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Users.Repositories;
     using Mails;
     using Microsoft.Practices.ServiceLocation;
@@ -14,6 +15,8 @@
     public class OrderService : AppServiceBase, IOrderService
     {
         public IUserRepository Users { get; set; }
+
+        public IOrganizationRepository OrganizationRepository { get; set; }
 
         public IOrderQueries OrderQueries { get; set; }
 
@@ -27,7 +30,7 @@
             repo.Update(order);
 
             new OrderRejectedMail()
-                .For(order)
+                .For(order, OrganizationRepository.ById(order.OrganizationId))
                 .Send(order.Reserver);
         }
 
@@ -41,7 +44,7 @@
             repo.Update(order);
 
             new OrderApprovedMail()
-                .For(order)
+                .For(order, OrganizationRepository.ById(order.OrganizationId))
                 .Send(order.Reserver);
         }
 
@@ -50,7 +53,7 @@
         {
             var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
             var order = repo.ById(id);
-            return order.GeneratePdf();
+            return order.GeneratePdf(OrganizationRepository.ById(order.OrganizationId));
         }        
     }
 }

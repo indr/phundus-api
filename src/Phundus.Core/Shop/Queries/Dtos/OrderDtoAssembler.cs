@@ -16,7 +16,7 @@
                              {
                                  Id = subject.Id,
                                  Version = subject.Version,
-                                 OrganizationId = subject.Organization.Id,
+                                 OrganizationId = subject.OrganizationId,
                                  CreateDate = subject.CreateDate,
                                  ModifyDate = subject.ModifyDate,
                                  TotalPrice = subject.TotalPrice,
