@@ -10,12 +10,12 @@ namespace Phundus.Rest.Controllers.Shop
     using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
 
-    [DefaultHttpRouteConvention]
-    [RoutePrefix("api/organizations/{organizationId}/orders/{orderId}/items/{id?}")]
+    [RoutePrefix("api/organizations/{organizationId}/orders/{orderId}/items/{orderItemId?}")]
     public class OrdersItemsController : ApiControllerBase
     {
         public IOrderQueries OrderQueries { get; set; }
 
+        [POST("")]
         [Transaction]
         public virtual HttpResponseMessage Post(int organizationId, int orderId, OrdersItemsPostDoc doc)
         {
@@ -49,6 +49,20 @@ namespace Phundus.Rest.Controllers.Shop
                 OrderId = item.OrderId,
                 UnitPrice = item.UnitPrice
             });
+        }
+
+        [DELETE("")]
+        [Transaction]
+        public virtual HttpResponseMessage Delete(int organizationId, int orderId, Guid orderItemId)
+        {
+            Dispatcher.Dispatch(new RemoveOrderItem
+            {
+                InitiatorId = CurrentUserId,
+                OrderId = orderId,
+                OrderItemId = orderItemId
+            });
+
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
     }
 

@@ -23,7 +23,7 @@ namespace Phundus.Specs.Rest
             _password = password;
         }
 
-        public IRestResponse Exeucte(RestRequest request)
+        public IRestResponse Exeucte2(RestRequest request)
         {
             var client = CreateClient();
             var response = client.Execute(request);
@@ -80,6 +80,45 @@ namespace Phundus.Specs.Rest
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new {userName = userName});
             return Execute<OrderDetailDoc>(request);
+        }
+
+        public IRestResponse<OrderItemDoc> PostOrderItem(int organizationId, int orderId)
+        {
+            var request = new RestRequest(Method.POST);
+            request.Resource = "organizations/{organizationId}/orders/{orderId}/items";
+            request.AddUrlSegment("organizationId", organizationId.ToString());
+            request.AddUrlSegment("orderId", orderId.ToString());
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(
+                new
+                {
+                    articleId = 10020,
+                    from = DateTime.Today.ToShortDateString(),
+                    to = DateTime.Today.ToShortDateString(),
+                    amount = 1
+                });
+            return Execute<OrderItemDoc>(request);
+        }
+
+        public IRestResponse<OrderDetailDoc> GetOrder(int organizationId, int orderId)
+        {
+            var request = new RestRequest(Method.GET);
+            request.Resource = "organizations/{organizationId}/orders/{orderId}";
+            request.AddUrlSegment("organizationId", organizationId.ToString());
+            request.AddUrlSegment("orderId", orderId.ToString());
+            request.RequestFormat = DataFormat.Json;
+            return Execute<OrderDetailDoc>(request);
+        }
+
+        public IRestResponse DeleteOrderItem(int organizationId, int orderId, Guid orderItemId)
+        {
+            var request = new RestRequest(Method.DELETE);
+            request.Resource = "organizations/{organizationId}/orders/{orderId}/items/{itemId}";
+            request.AddUrlSegment("organizationId", organizationId.ToString());
+            request.AddUrlSegment("orderId", orderId.ToString());
+            request.AddUrlSegment("itemId", orderItemId.ToString("D"));
+            request.RequestFormat = DataFormat.Json;
+            return Exeucte2(request);
         }
     }
 }
