@@ -48,7 +48,7 @@ function OrdersCtrl($scope, $location, orders) {
     };
 };
 
-function OrderCtrl($scope, $window, $routeParams, orders) {
+function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
     $scope.order = orders.get({ "organizationId": $scope.organizationId, "orderId": $routeParams.orderId });
 
     // TODO: Directive
@@ -58,6 +58,20 @@ function OrderCtrl($scope, $window, $routeParams, orders) {
 
     $scope.printPdf = function (order) {
         alert('tbd');
+    };
+
+    $scope.showAddItem = function (order) {
+        $scope.newItem = { "articleId": '', amount: 1, organizationId: $scope.organizationId, orderId: $scope.order.orderId };
+        $('#modal-add-item').modal('show');
+    };
+
+    $scope.addItem = function (item) {
+        
+        orderItems.save(item, function(data) {
+            $('#modal-add-item').modal('hide');
+        }, function(a, b) {
+            $('#modal-add-item').modal('show');
+        });
     };
 
     $scope.confirmOrder = function (order) {

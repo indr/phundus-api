@@ -81,6 +81,11 @@
                 './api/organizations/:organizationId/orders/:orderId',
                 { organizationId: '@organizationId', orderId: '@orderId' });
     })
+    .factory('orderItems', function($resource) {
+        return $resource(
+            './api/organizations/:organizationId/orders/:orderId/items/:itemId',
+            { organizationId: '@organizationId', orderId: '@orderId', itemId: '@itemId' });
+    })
     .factory('contracts', function($resource) {
         return $resource(
             './api/organizations/:organizationId/contracts/:contractId',

@@ -56,6 +56,9 @@
             if (role == @"Admin")
                 result.Add(@"Admin");
 
+            if ((role == @"Admin") || (username.EndsWith("@test.phundus.ch")))
+                result.Add(@"Beta");
+
             result.Add(@"User");
 
             return result.ToArray();
