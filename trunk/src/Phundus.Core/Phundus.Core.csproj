@@ -166,11 +166,13 @@
     <Compile Include="Shop\Contracts\Exceptions\BorrowerNotFoundException.cs" />
     <Compile Include="Shop\Contracts\Services\BorrowerService.cs" />
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
+    <Compile Include="Shop\Orders\Commands\AddOrderItem.cs" />
     <Compile Include="Shop\Orders\Commands\CreateEmptyOrder.cs" />
     <Compile Include="Shop\Orders\Commands\ClearCart.cs" />
     <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Shop\Orders\Exceptions\CartNotFoundException.cs" />
     <Compile Include="Shop\Orders\Model\OrderCreated.cs" />
+    <Compile Include="Shop\Orders\Model\OrderItemAdded.cs" />
     <Compile Include="Shop\Orders\_Legacy\CartService.cs" />
     <Compile Include="Shop\Orders\_Legacy\ICartService.cs" />
     <Compile Include="Shop\Orders\_Legacy\IOrderService.cs" />

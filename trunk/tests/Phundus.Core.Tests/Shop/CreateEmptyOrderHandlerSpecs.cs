@@ -9,6 +9,8 @@
     using Machine.Specifications;
     using Rhino.Mocks;
 
+
+
     [Subject(typeof (CreateEmptyOrderHandler))]
     public class when_create_empty_order_is_handled :
         order_handler_concern<CreateEmptyOrder, CreateEmptyOrderHandler>
@@ -20,7 +22,7 @@
 
         public Establish c = () =>
         {
-            repository.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(orderId);
+            orders.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(orderId);
             borrowerService.setup(x => x.ById(userId)).Return(new Borrower(userId, "First", "Last", "mail@domain.tld"));
             userRepository.setup(x => x.ById(userId)).Return(new User(userId));
             command = new CreateEmptyOrder
@@ -31,7 +33,7 @@
             };
         };
 
-        public It should_add_to_repository = () => repository.WasToldTo(x => x.Add(Arg<Order>.Is.NotNull));
+        public It should_add_to_repository = () => orders.WasToldTo(x => x.Add(Arg<Order>.Is.NotNull));
 
         public It should_ask_for_chief_privileges =
             () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
