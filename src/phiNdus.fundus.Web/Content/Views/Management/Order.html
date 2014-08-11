@@ -14,6 +14,7 @@
     <thead>
         <tr>
             <th>Artikel</th>
+            <th>Verfügbar</th>
             <th>Von</th>
             <th>Bis</th>
             <th>Menge</th>
@@ -25,12 +26,14 @@
     <tbody>
         <tr ng-repeat="item in order.items">
             <td>{{item.text}}</td>
+            <td ng-show="item.isAvailable"><i class="icon-ok"></i></td>
+            <td ng-show="!item.isAvailable"><i class="icon-remove"></i></td>
             <td ng-show="!item.editing">{{item.from | date:'mediumDate'}}</td>
             <td ng-show="!item.editing">{{item.to | date:'mediumDate'}}</td>
             <td ng-show="!item.editing">{{item.amount}}</td>
             <td ng-show="item.editing">{{item.from | date:'mediumDate'}}></td>
             <td ng-show="item.editing">{{item.to | date:'mediumDate'}}</td>
-            <td ng-show="item.editing"><input class="input-mini" type="text" ng-model="item.amount"/></td>
+            <td ng-show="item.editing"><input class="input-mini" type="text" ng-model="edit.amount"/></td>
             <td>{{item.unitPrice | currency}}</td>
             <td>{{item.itemTotal | currency}}</td>
             <td ng-show="!item.editing">
@@ -44,7 +47,7 @@
         </tr>
         
         <tr style="font-weight:bold">
-            <td colspan="5" style="text-align:right;">Total</td>
+            <td colspan="6" style="text-align:right;">Total</td>
             <td>{{getTotal() | currency}}</td>
             <td></td>
         </tr>
