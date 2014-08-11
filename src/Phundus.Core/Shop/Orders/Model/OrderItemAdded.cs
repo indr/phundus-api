@@ -6,4 +6,9 @@ namespace Phundus.Core.Shop.Orders.Model
     {
         
     }
+
+    public class OrderItemRemoved : DomainEvent
+    {
+        
+    }
 }

@@ -3,8 +3,6 @@
     using System;
     using NUnit.Framework;
     using Phundus.Core.Inventory.Model;
-    using Phundus.Core.ReservationCtx;
-    using Phundus.Core.ReservationCtx.Model;
     using Phundus.Core.Shop.Orders.Model;
 
     [TestFixture]
@@ -55,14 +53,6 @@
             OrderItem sut = CreateSut();
             sut.To = DateTime.Today.AddDays(1);
             Assert.That(sut.To, Is.EqualTo(DateTime.Today.AddDays(1)));
-        }
-
-        [Test]
-        public void Create_sets_Id_and_Version_to_0()
-        {
-            var sut = new OrderItem();
-            Assert.That(sut.Id, Is.EqualTo(0));
-            Assert.That(sut.Version, Is.EqualTo(0));
         }
 
         [Test]
