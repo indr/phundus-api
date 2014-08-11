@@ -96,6 +96,18 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
         });
     };
 
+    $scope.editItem = function(item) {
+        item.editing = true;
+    };
+
+    $scope.saveEditedItem = function(item) {
+        item.editing = false;
+    };
+
+    $scope.cancelEditing = function(item) {
+        item.editing = false;
+    };
+
     $scope.removeItem = function (item) {
         if (!confirm('Möchten Sie die Position "' + item.text + '" wirklich löschen?'))
             return;
