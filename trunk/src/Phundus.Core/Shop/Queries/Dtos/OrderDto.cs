@@ -13,6 +13,7 @@
         public DateTime CreateDate { get; set; }
 
         private IList<OrderItemDto> _items = new List<OrderItemDto>();
+        private BorrowerDto _borrower = new BorrowerDto();
 
 
         public decimal TotalPrice { get; set; }
@@ -23,8 +24,11 @@
             set { _items = value; }
         }
 
-        public int ReserverId { get; set; }
-        public string ReserverName { get; set; }
+        public BorrowerDto Borrower
+        {
+            get { return _borrower; }
+            set { _borrower = value; }
+        }
 
         public DateTime? ModifyDate { get; set; }
         public int? ModifierId { get; set; }
@@ -32,5 +36,14 @@
 
         public OrderStatus Status { get; set; }
         
+    }
+
+    public class BorrowerDto
+    {
+        public int BorrowerId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string EmailAddress { get; set; }
+        public string MemberNumber { get; set; }
     }
 }

@@ -68,9 +68,10 @@ namespace Phundus.Rest.Controllers.Shop
                 Version = dto.Version,
                 OrganizationId = dto.OrganizationId,
                 CreatedOn = dto.CreateDate,
-                ReserverId = dto.ReserverId,
-                ReserverFirstName = dto.ReserverName.Split(' ').FirstOrDefault(),
-                ReserverLastName = dto.ReserverName.Split(' ').LastOrDefault(),
+                BorrowerId = dto.Borrower.BorrowerId,
+                BorrowerFirstName = dto.Borrower.FirstName,
+                BorrowerLastName = dto.Borrower.LastName,
+                BorrowerMemberNumber = dto.Borrower.MemberNumber,
                 Status = dto.Status.ToString(),
                 TotalPrice = dto.TotalPrice
             };
@@ -100,9 +101,10 @@ namespace Phundus.Rest.Controllers.Shop
                 Version = each.Version,
                 OrganizationId = each.OrganizationId,
                 CreatedOn = each.CreateDate,
-                ReserverId = each.ReserverId,
-                ReserverFirstName = each.ReserverName.Split(' ').FirstOrDefault(),
-                ReserverLastName = each.ReserverName.Split(' ').LastOrDefault(),
+                BorrowerId = each.Borrower.BorrowerId,
+                BorrowerFirstName = each.Borrower.FirstName,
+                BorrowerLastName = each.Borrower.LastName,
+                BorrowerMemberNumber = each.Borrower.MemberNumber,
                 Status = each.Status.ToString()
             }).ToList();
         }
@@ -122,9 +124,10 @@ namespace Phundus.Rest.Controllers.Shop
         public string Status { get; set; }
         public DateTime CreatedOn { get; set; }
 
-        public int ReserverId { get; set; }
-        public string ReserverFirstName { get; set; }
-        public string ReserverLastName { get; set; }
+        public int BorrowerId { get; set; }
+        public string BorrowerFirstName { get; set; }
+        public string BorrowerLastName { get; set; }
+        public string BorrowerMemberNumber { get; set; }
     }
 
     public class OrderDetailDoc : OrderDoc

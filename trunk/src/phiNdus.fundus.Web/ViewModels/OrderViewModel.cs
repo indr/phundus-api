@@ -38,7 +38,7 @@
             Id = dto.Id;
             CreateDate = dto.CreateDate;
 
-            ReserverName = dto.ReserverName;
+            ReserverName = dto.Borrower.FirstName + " " + dto.Borrower.LastName;
             ModifierName = dto.ModifierName;
             Status = dto.Status;
 
