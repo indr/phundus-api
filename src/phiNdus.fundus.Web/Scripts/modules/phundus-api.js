@@ -4,6 +4,12 @@
         $httpProvider.responseInterceptors.push('errorMessageHttpInterceptor');
     }])
 
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.headers.patch = {
+            'Content-Type': 'application/json;charset=utf-8'
+        }
+    }])
+
     .factory('errorMessageHttpInterceptor', function ($q) {
         return function (promise) {
             return promise.then(function (response) {
@@ -83,8 +89,9 @@
     })
     .factory('orderItems', function($resource) {
         return $resource(
-            './api/organizations/:organizationId/orders/:orderId/items/:itemId',
-            { organizationId: '@organizationId', orderId: '@orderId', itemId: '@itemId' });
+            './api/organizations/:organizationId/orders/:orderId/items/:orderItemId',
+            { organizationId: '@organizationId', orderId: '@orderId', orderItemId: '@orderItemId' },
+            { update: { method: 'PATCH' } });
     })
     .factory('contracts', function($resource) {
         return $resource(
