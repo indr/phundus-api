@@ -19,8 +19,11 @@
                 c.Map(x => x.Id, "Borrower_Id");
                 c.Map(x => x.FirstName, "Borrower_FirstName");
                 c.Map(x => x.LastName, "Borrower_LastName");
-                c.Map(x => x.EmailAddress, "Borrower_EmailAddress");
-                c.Map(x => x.MobilePhoneNumber, "Borower_MobilePhoneNumber");
+                c.Map(x => x.Street, "Borrower_Street");
+                c.Map(x => x.Postcode, "Borrower_Postcode");
+                c.Map(x => x.City, "Borrower_City");
+                c.Map(x => x.EmailAddress, "Borrower_Email");
+                c.Map(x => x.MobilePhoneNumber, "Borrower_MobilePhoneNumber");
                 c.Map(x => x.MemberNumber, "Borrower_MemberNumber");
             });
         }

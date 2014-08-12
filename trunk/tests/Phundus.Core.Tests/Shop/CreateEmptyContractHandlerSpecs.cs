@@ -20,7 +20,7 @@
         public Establish c = () =>
         {
             repository.setup(x => x.Add(Arg<Contract>.Is.NotNull)).Return(contractId);
-            borrowerService.setup(x => x.ById(userId)).Return(BorrowerFactory.Create(userId));
+            borrowerService.setup(x => x.ById(userId)).Return(BorrowerFactory.Create(userId, "First", "Last", "Street", "Postcode", "City","EmailAddress"));
             command = new CreateEmptyContract
             {
                 OrganizationId = organizationId,
@@ -35,7 +35,7 @@
             () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
 
         public It should_publish_contract_created = () => publisher.WasToldTo(x => x.Publish(
-            Arg<ContractCreated>.Matches(p => p.BorrowerEmail == "mail@domain.tld"
+            Arg<ContractCreated>.Matches(p => p.BorrowerEmail == "EmailAddress"
                                               && p.BorrowerFirstName == "First"
                                               && p.BorrowerId == userId
                                               && p.BorrowerLastName == "Last"
