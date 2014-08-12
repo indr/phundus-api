@@ -77,6 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BorrowerFactory.cs" />
     <Compile Include="Cqrs\TestCommand1.cs" />
     <Compile Include="Cqrs\TestCommand1Handler.cs" />
     <Compile Include="Cqrs\when_all_handlers_are_resolved.cs" />

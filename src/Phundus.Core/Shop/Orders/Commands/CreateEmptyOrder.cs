@@ -23,18 +23,15 @@
 
         public IOrderRepository Repository { get; set; }
 
-        public IBorrowerService Borrower { get; set; }
-
-        public IUserRepository UserRepository { get; set; }
+        public IBorrowerService BorrowerService { get; set; }
 
         public void Handle(CreateEmptyOrder command)
         {
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
 
-            // TODO: Via BorrowerService
             var order = new Order(
                 command.OrganizationId,
-                UserRepository.ById(command.UserId));
+                BorrowerService.ById(command.UserId));
 
             var orderId = Repository.Add(order);
 

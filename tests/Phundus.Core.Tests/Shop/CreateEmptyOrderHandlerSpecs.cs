@@ -23,8 +23,8 @@
         public Establish c = () =>
         {
             orders.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(orderId);
-            borrowerService.setup(x => x.ById(userId)).Return(new Borrower(userId, "First", "Last", "mail@domain.tld"));
-            userRepository.setup(x => x.ById(userId)).Return(new User(userId));
+            borrowerService.setup(x => x.ById(userId)).Return(BorrowerFactory.Create(userId));
+            
             command = new CreateEmptyOrder
             {
                 OrganizationId = organizationId,

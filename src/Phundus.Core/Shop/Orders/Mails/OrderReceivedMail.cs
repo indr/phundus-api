@@ -6,6 +6,7 @@
     using IdentityAndAccess.Users.Model;
     using Infrastructure;
     using Model;
+    using Services;
 
     public class OrderReceivedMail : BaseMail
     {
@@ -14,12 +15,12 @@
             Model = new
             {
                 Urls = new Urls(Config.ServerUrl),
-                User = order.Reserver,
+                Borrower = order.Borrower,
                 Order = order,
                 Admins = Config.FeedbackRecipients
             };
 
-            Attachments.Add(new Attachment(order.GeneratePdf(organization),
+            Attachments.Add(new Attachment(PdfGenerator.GeneratePdf(order, organization),
                 String.Format("Order-{0}.pdf", order.Id),
                 "application/pdf"));
 
@@ -32,9 +33,9 @@
             return this;
         }
 
-        public OrderReceivedMail Send(string address)
+        public OrderReceivedMail Send(string emailAddress)
         {
-            base.Send(address, Templates.OrderReceivedSubject, null, Templates.OrderReceivedHtml);
+            base.Send(emailAddress, Templates.OrderReceivedSubject, null, Templates.OrderReceivedHtml);
             return this;
         }
     }

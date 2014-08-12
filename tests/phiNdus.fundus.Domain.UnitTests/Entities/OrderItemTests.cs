@@ -3,6 +3,7 @@
     using System;
     using NUnit.Framework;
     using Phundus.Core.Inventory.Model;
+    using Phundus.Core.Shop.Contracts.Model;
     using Phundus.Core.Shop.Orders.Model;
 
     [TestFixture]
@@ -42,7 +43,7 @@
         public void Can_get_and_set_Order()
         {
             OrderItem sut = CreateSut();
-            var order = new Order();
+            var order = new Order(1001, new Borrower(1, "", "", "", "", "","","",""));
             sut.Order = order;
             Assert.That(sut.Order, Is.SameAs(order));
         }

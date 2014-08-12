@@ -5,6 +5,7 @@
     using Phundus.Core.IdentityAndAccess.Users.Model;
     using Phundus.Core.ReservationCtx;
     using Phundus.Core.ReservationCtx.Model;
+    using Phundus.Core.Shop.Contracts.Model;
     using Phundus.Core.Shop.Orders.Model;
 
     [TestFixture]
@@ -12,7 +13,7 @@
     {
         private static Order CreateSut()
         {
-            return new Order();
+            return new Order(1001, new Borrower(1, "", "", "", "", "", "", "", ""));
         }
 
         [Test]
@@ -69,7 +70,7 @@
         [Test]
         public void Create_assignes_empty_Items_collection()
         {
-            var sut = new Order();
+            var sut = CreateSut();
             Assert.That(sut.Items, Is.Not.Null);
             Assert.That(sut.Items, Has.Count.EqualTo(0));
         }
@@ -77,14 +78,14 @@
         [Test]
         public void Create_sets_CreateDate()
         {
-            var sut = new Order();
-            Assert.That(sut.CreateDate, Is.InRange(DateTime.UtcNow.AddMinutes(-1), DateTime.UtcNow.AddMinutes(1)));
+            var sut = CreateSut();
+            Assert.That(sut.CreatedOn, Is.InRange(DateTime.UtcNow.AddMinutes(-1), DateTime.UtcNow.AddMinutes(1)));
         }
 
         [Test]
         public void Create_sets_Id_and_Version_to_0()
         {
-            var sut = new Order();
+            var sut = CreateSut();
             Assert.That(sut.Id, Is.EqualTo(0));
             Assert.That(sut.Version, Is.EqualTo(0));
         }
@@ -92,21 +93,21 @@
         [Test]
         public void Create_sets_Modifier_to_null()
         {
-            var sut = new Order();
+            var sut = CreateSut();
             Assert.That(sut.Modifier, Is.Null);
         }
 
         [Test]
         public void Create_sets_ModifyDate_to_null()
         {
-            var sut = new Order();
+            var sut = CreateSut();
             Assert.That(sut.ModifyDate, Is.Null);
         }
 
         [Test]
         public void Create_sets_Status_to_Pending()
         {
-            var sut = new Order();
+            var sut = CreateSut();
             Assert.That(sut.Status, Is.EqualTo(OrderStatus.Pending));
         }
 
@@ -114,7 +115,7 @@
         public void GetTotalPrice()
         {
             // Arrange
-            var sut = new Order();
+            var sut = CreateSut();
 
             // Act
             decimal totalPrice = sut.TotalPrice;

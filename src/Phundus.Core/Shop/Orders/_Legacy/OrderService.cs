@@ -11,6 +11,7 @@
     using Model;
     using Queries;
     using Repositories;
+    using Services;
 
     public class OrderService : AppServiceBase, IOrderService
     {
@@ -31,7 +32,7 @@
 
             new OrderRejectedMail()
                 .For(order, OrganizationRepository.ById(order.OrganizationId))
-                .Send(order.Reserver);
+                .Send(order.Borrower.EmailAddress);
         }
 
         public void Confirm(int id)
@@ -45,7 +46,7 @@
 
             new OrderApprovedMail()
                 .For(order, OrganizationRepository.ById(order.OrganizationId))
-                .Send(order.Reserver);
+                .Send(order.Borrower.EmailAddress);
         }
 
         [Transaction]
@@ -53,7 +54,7 @@
         {
             var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
             var order = repo.ById(id);
-            return order.GeneratePdf(OrganizationRepository.ById(order.OrganizationId));
+            return PdfGenerator.GeneratePdf(order, OrganizationRepository.ById(order.OrganizationId));
         }        
     }
 }

@@ -20,7 +20,7 @@
         public Establish c = () =>
         {
             repository.setup(x => x.Add(Arg<Contract>.Is.NotNull)).Return(contractId);
-            borrowerService.setup(x => x.ById(userId)).Return(new Borrower(userId, "First", "Last", "mail@domain.tld"));
+            borrowerService.setup(x => x.ById(userId)).Return(BorrowerFactory.Create(userId));
             command = new CreateEmptyContract
             {
                 OrganizationId = organizationId,

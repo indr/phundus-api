@@ -19,16 +19,12 @@ namespace Phundus.Core.Tests.Shop
 
         protected static IBorrowerService borrowerService;
 
-        // TODO: Via BorrowerService
-        protected static IUserRepository userRepository;
-
         protected Establish dependencies = () =>
         {
             memberInRole = depends.on<IMemberInRole>();
             orders = depends.on<IOrderRepository>();
             articles = depends.on<IArticleRepository>();
             borrowerService = depends.on<IBorrowerService>();
-            userRepository = depends.on<IUserRepository>();
         };
     }
 }
