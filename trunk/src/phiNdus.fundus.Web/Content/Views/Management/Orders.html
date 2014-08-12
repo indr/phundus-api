@@ -55,8 +55,11 @@
         </tr>
     </tbody>
 </table>
-<div ng-hide="filteredOrders.length" class="alert alert-no-results">
+<div ng-hide="(isLoading) || (filteredOrders.length)" class="alert alert-no-results">
     <strong>Nichts gefunden!</strong> Deine Suche ergab keine Treffer... 😕
+</div>
+<div ng-show="isLoading" class="alert alert-info">
+    <strong>Bitte warten!</strong> Die Daten werden abgefragt...
 </div>
 
 

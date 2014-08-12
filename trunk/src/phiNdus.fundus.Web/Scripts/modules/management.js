@@ -63,7 +63,8 @@ angular.module('management', ['phundus-api', 'ui', 'ui.bootstrap'])
 ;
 
 function OrdersCtrl($scope, $location, orders) {
-    $scope.orders = orders.query({ "organizationId": $scope.organizationId });
+    $scope.isLoading = true;
+    $scope.orders = orders.query({ "organizationId": $scope.organizationId }, function () { $scope.isLoading = false; }, function () { $scope.isLoading = false; });
 
     $scope.createOrder = function() {
         $scope.newOrder = { userId: '', organizationId: $scope.organizationId };
@@ -197,7 +198,8 @@ function OrderCtrl($scope, $routeParams, orders, orderItems) {
 };
 
 function ContractsCtrl($scope, $location, contracts) {
-    $scope.contracts = contracts.query({ "organizationId": $scope.organizationId });
+    $scope.isLoading = true;
+    $scope.contracts = contracts.query({ "organizationId": $scope.organizationId }, function() { $scope.isLoading = false; }, function() { $scope.isLoading = false; });
 
     $scope.openContract = function(contract) {
         $location.path('/contracts/' + contract.contractId);
