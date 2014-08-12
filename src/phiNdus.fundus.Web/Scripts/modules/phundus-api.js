@@ -2,9 +2,6 @@
 
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.responseInterceptors.push('errorMessageHttpInterceptor');
-    }])
-
-    .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.headers.patch = {
             'Content-Type': 'application/json;charset=utf-8'
         }

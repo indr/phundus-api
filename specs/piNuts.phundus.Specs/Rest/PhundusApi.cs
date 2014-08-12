@@ -129,7 +129,7 @@ namespace Phundus.Specs.Rest
             request.AddUrlSegment("orderId", orderId.ToString());
             request.AddUrlSegment("itemId", orderItemId.ToString("D"));
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(new {from = from.ToShortDateString(), to = to.ToShortDateString(), amount = amount});
+            request.AddBody(new {from = from, to = to, amount = amount});
             
             return Exeucte2(request);
         }
