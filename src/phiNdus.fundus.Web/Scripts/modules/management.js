@@ -28,8 +28,47 @@ angular.module('management', ['phundus-api', 'ui', 'ui.bootstrap'])
             
             .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Management/Settings.html' })
             .when('/files', { controller: FilesCtrl, templateUrl: './Content/Views/Management/Files.html' });
-    }
-);
+    })
+    .directive('capitalizeFirst', function($parse) {
+        return {
+            require: 'ngModel',
+            link: function(scope, element, attrs, modelCtrl) {
+                var capitalize = function(inputValue) {
+                    var capitalized = inputValue.charAt(0).toUpperCase() +
+                        inputValue.substring(1);
+                    if (capitalized !== inputValue) {
+                        modelCtrl.$setViewValue(capitalized);
+                        modelCtrl.$render();
+                    }
+                    return capitalized;
+                }
+                modelCtrl.$parsers.push(capitalize);
+                capitalize($parse(attrs.ngModel)(scope)); // capitalize initial value
+            }
+        }
+    })
+    .directive('bsDatefield', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, element, attrs, ngModelCtrl) {
+                var dateFormat = attrs.bsDatefield || 'DD.MM.YYYY';
+                ngModelCtrl.$parsers.push(function (viewValue) {
+                    //convert string input into moment data model
+                    var parsedMoment = moment(viewValue, dateFormat);
+                    //toggle validity
+                    ngModelCtrl.$setValidity('datefield', parsedMoment.isValid());
+                    //return model value
+                    return parsedMoment.isValid() ? parsedMoment.toDate() : undefined;
+                });
+                ngModelCtrl.$formatters.push(function (modelValue) {
+                    var isModelADate = angular.isDate(modelValue);
+                    ngModelCtrl.$setValidity('datefield', isModelADate);
+                    return isModelADate ? moment(modelValue).format(dateFormat) : undefined;
+                });
+            }
+        };
+    })
+;
 
 function OrdersCtrl($scope, $location, orders) {
     $scope.orders = orders.query({ "organizationId": $scope.organizationId });
@@ -75,13 +114,13 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
     };
         
     $scope.newItem = {
-        articleId: '', amount: 1, from: new Date().toLocaleDateString(), to: new Date().toLocaleDateString(),
+        articleId: '', amount: 1, from: new Date(), to: new Date(),
         organizationId: $scope.organizationId, orderId: $scope.order.orderId
     };
 
     $scope.showAddItem = function (order) {
         $scope.newItem.orderId = order.orderId;
-        $scope.newItem.articleId = '';
+        $scope.newItem.articleId = 'sadf';
         $scope.newItem.amont = 1;
         $('#modal-add-item').modal('show');
     };
@@ -132,7 +171,11 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
     };
 
     $scope.getTotal = function () {
+        if ($scope.order.items == undefined)
+            return 0;
+
         var total = 0;
+        
         for (var i = 0; i < $scope.order.items.length; i++) {
             total += $scope.order.items[i].itemTotal;
         }
