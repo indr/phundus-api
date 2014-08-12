@@ -25,8 +25,14 @@
 
             if (subject.Borrower != null)
             {
-                result.ReserverId = subject.Borrower.Id;
-                result.ReserverName = subject.Borrower.DisplayName;
+                result.Borrower = new BorrowerDto
+                {
+                    BorrowerId = subject.Borrower.Id,
+                    EmailAddress = subject.Borrower.EmailAddress,
+                    FirstName = subject.Borrower.FirstName,
+                    LastName = subject.Borrower.LastName,
+                    MemberNumber = subject.Borrower.MemberNumber
+                };
             }
 
             if (subject.Modifier != null)
