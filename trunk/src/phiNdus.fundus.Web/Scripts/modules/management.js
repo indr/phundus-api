@@ -148,7 +148,9 @@ function OrderCtrl($scope, $routeParams, orders, orderItems) {
             item.amount = data.amount;
             item.from = data.from;
             item.to = data.to;
-            item.isAvailable = data.isAvailable
+            item.isAvailable = data.isAvailable;
+            item.unitPrice = data.unitPrice;
+            item.itemTotal = data.itemTotal;
         });
     };
 

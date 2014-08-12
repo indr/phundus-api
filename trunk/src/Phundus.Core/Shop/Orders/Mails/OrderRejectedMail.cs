@@ -6,6 +6,7 @@
     using IdentityAndAccess.Users.Model;
     using Infrastructure;
     using Model;
+    using Services;
 
     public class OrderRejectedMail : BaseMail
     {
@@ -14,21 +15,21 @@
             Model = new
             {
                 Urls = new Urls(Config.ServerUrl),
-                User = order.Reserver,
+                Borrower = order.Borrower,
                 Order = order,
                 Admins = Config.FeedbackRecipients
             };
 
-            Attachments.Add(new Attachment(order.GeneratePdf(organization),
+            Attachments.Add(new Attachment(PdfGenerator.GeneratePdf(order, organization),
                 String.Format("Order-{0}.pdf", order.Id),
                 "application/pdf"));
 
             return this;
         }
 
-        public void Send(User user)
+        public void Send(string emailAddress)
         {
-            Send(user.Account.Email, Templates.OrderReceivedSubject, null, Templates.OrderRejectedHtml);
+            Send(emailAddress, Templates.OrderReceivedSubject, null, Templates.OrderRejectedHtml);
         }
     }
 }

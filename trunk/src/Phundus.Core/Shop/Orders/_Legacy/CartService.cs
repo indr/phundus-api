@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Commands;
+    using Contracts.Services;
     using Cqrs;
     using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Organizations.Repositories;
@@ -23,6 +24,8 @@
         public IMemberQueries MemberQueries { get; set; }
 
         public ICommandDispatcher Dispatcher { get; set; }
+
+        public IBorrowerService BorrowerService { get; set; }
 
         public CartDto GetCartByUserId(int userId)
         {
@@ -109,7 +112,7 @@
             if (!cart.AreItemsAvailable)
                 return null;
 
-            var orders = cart.PlaceOrders(SessionFact());
+            var orders = cart.PlaceOrders(SessionFact(), BorrowerService);
 
 
             foreach (var order in orders)
@@ -120,7 +123,7 @@
 
                 foreach (var chief in chiefs)
                     mail.Send(chief.EmailAddress);
-                mail.Send(order.Reserver);
+                mail.Send(order.Borrower.EmailAddress);
             }
 
             var assembler = new OrderDtoAssembler();

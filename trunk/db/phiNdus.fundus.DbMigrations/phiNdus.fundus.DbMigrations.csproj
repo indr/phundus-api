@@ -110,6 +110,8 @@
     <Compile Include="2014\08\M201408072202CleanTableOrganizationMembership.cs" />
     <Compile Include="2014\08\M201408090752RecreateTableContract.cs" />
     <Compile Include="2014\08\M201408092357CreateTableRmContracts.cs" />
+    <Compile Include="2014\08\M201408121455ReplaceUserWithBorrowerOnTableOrder.cs" />
+    <Compile Include="2014\08\M201408121502HydrateBorrowerOnTableOrder.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />

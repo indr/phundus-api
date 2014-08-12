@@ -37,7 +37,7 @@
             
             EventPublisher.Publish(new ContractCreated
             {
-                BorrowerEmail = contract.Borrower.Email,
+                BorrowerEmail = contract.Borrower.EmailAddress,
                 BorrowerFirstName = contract.Borrower.FirstName,
                 BorrowerId = contract.Borrower.Id,
                 BorrowerLastName = contract.Borrower.LastName,

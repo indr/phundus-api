@@ -19,7 +19,9 @@
                 c.Map(x => x.Id, "Borrower_Id");
                 c.Map(x => x.FirstName, "Borrower_FirstName");
                 c.Map(x => x.LastName, "Borrower_LastName");
-                c.Map(x => x.Email, "Borrower_Email");
+                c.Map(x => x.EmailAddress, "Borrower_EmailAddress");
+                c.Map(x => x.MobilePhoneNumber, "Borower_MobilePhoneNumber");
+                c.Map(x => x.MemberNumber, "Borrower_MemberNumber");
             });
         }
     }

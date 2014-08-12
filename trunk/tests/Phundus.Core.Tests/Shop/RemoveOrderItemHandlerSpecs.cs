@@ -3,6 +3,7 @@
     using System;
     using Core.IdentityAndAccess.Users.Model;
     using Core.Inventory.Model;
+    using Core.Shop.Contracts.Model;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
@@ -21,7 +22,7 @@
 
         public Establish c = () =>
         {
-            order = new Order(organizationId, new User());
+            order = new Order(organizationId, BorrowerFactory.Create());
             orderItemId = order.AddItem(new Article(organizationId, "Artikel"), DateTime.Today, DateTime.Today, 1).Id;
             orders.setup(x => x.ById(orderId)).Return(order);
 

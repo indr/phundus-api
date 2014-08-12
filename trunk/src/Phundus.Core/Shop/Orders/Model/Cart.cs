@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Contracts.Model;
+    using Contracts.Services;
     using Ddd;
     using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Organizations.Repositories;
@@ -83,19 +85,7 @@
             }
         }
 
-        public virtual Order PlaceOrder(ISession session)
-        {
-            var result = new Order();
-            //result.Reserver = Customer;
-            foreach (var each in Items)
-                result.AddItem(each.Article.Id, each.Quantity, each.From, each.To, session);
-
-            ServiceLocator.Current.GetInstance<IOrderRepository>().Add(result);
-            ServiceLocator.Current.GetInstance<ICartRepository>().Remove(this);
-            return result;
-        }
-
-        public virtual ICollection<Order> PlaceOrders(ISession session)
+        public virtual ICollection<Order> PlaceOrders(ISession session, IBorrowerService borrowerService)
         {
             var result = new List<Order>();
             var orders = ServiceLocator.Current.GetInstance<IOrderRepository>();
@@ -109,7 +99,7 @@
 
             foreach (var organization in organizations)
             {
-                var order = new Order(organization.Id, Customer);
+                var order = new Order(organization.Id, borrowerService.ById(Customer.Id));
                 var items = from i in Items where i.Article.OrganizationId == organization.Id select i;
                 foreach (var item in items)
                     order.AddItem(item.Article.Id, item.Quantity, item.From, item.To, session);

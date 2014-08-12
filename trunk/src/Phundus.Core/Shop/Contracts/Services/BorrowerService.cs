@@ -7,6 +7,8 @@
     {
         public IUserQueries UserQueries { get; set; }
 
+        public IMemberQueries MemberQueries { get; set; }
+
         public Borrower ById(int id)
         {
             var user = UserQueries.ById(id);
@@ -18,7 +20,8 @@
 
         private static Borrower ToBorrower(UserDto user)
         {
-            return new Borrower(user.Id, user.FirstName, user.LastName, user.Email);
+            return new Borrower(user.Id, user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
+                user.Email, user.MobilePhone, user.JsNumber.ToString());
         }
     }
 

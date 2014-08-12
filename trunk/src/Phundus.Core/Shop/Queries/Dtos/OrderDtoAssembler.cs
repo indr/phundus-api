@@ -17,16 +17,16 @@
                                  Id = subject.Id,
                                  Version = subject.Version,
                                  OrganizationId = subject.OrganizationId,
-                                 CreateDate = subject.CreateDate,
+                                 CreateDate = subject.CreatedOn,
                                  ModifyDate = subject.ModifyDate,
                                  TotalPrice = subject.TotalPrice,
                                  Status = subject.Status
                        };
 
-            if (subject.Reserver != null)
+            if (subject.Borrower != null)
             {
-                result.ReserverId = subject.Reserver.Id;
-                result.ReserverName = subject.Reserver.DisplayName;
+                result.ReserverId = subject.Borrower.Id;
+                result.ReserverName = subject.Borrower.DisplayName;
             }
 
             if (subject.Modifier != null)
