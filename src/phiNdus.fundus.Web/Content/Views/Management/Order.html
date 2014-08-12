@@ -31,9 +31,9 @@
             <td ng-show="!item.editing">{{item.from | date:'mediumDate'}}</td>
             <td ng-show="!item.editing">{{item.to | date:'mediumDate'}}</td>
             <td ng-show="!item.editing">{{item.amount}}</td>
-            <td ng-show="item.editing"><input class="input-small" type="text" ng-model="edit.from" bs-datefield /></td>
-            <td ng-show="item.editing"><input class="input-small" type="text" ng-model="edit.to" bs-datefield /></td>
-            <td ng-show="item.editing"><input class="input-mini" type="text" ng-model="edit.amount"/></td>
+            <td ng-show="item.editing"><input class="input-small" type="text" ng-model="item.from" bs-datefield /></td>
+            <td ng-show="item.editing"><input class="input-small" type="text" ng-model="item.to" bs-datefield /></td>
+            <td ng-show="item.editing"><input class="input-mini" type="text" ng-model="item.amount" /></td>
             <td>{{item.unitPrice | currency}}</td>
             <td>{{item.itemTotal | currency}}</td>
             <td ng-show="!item.editing">
