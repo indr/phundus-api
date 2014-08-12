@@ -31,12 +31,12 @@ namespace Phundus.Rest.Controllers.Shop
 
             Dispatch(command);
 
-            return Get(organizationId, orderId, command.OrderItemId);
+            return Get(organizationId, orderId, command.OrderItemId, HttpStatusCode.Created);
 
             
         }
 
-        private HttpResponseMessage Get(int organizationId, int orderId, Guid orderItemId)
+        private HttpResponseMessage Get(int organizationId, int orderId, Guid orderItemId, HttpStatusCode statusCode)
         {
             var order = OrderQueries.FindById(orderId, CurrentUserId);
             var item = order.Items.FirstOrDefault(p => p.Id == orderItemId);
@@ -44,7 +44,7 @@ namespace Phundus.Rest.Controllers.Shop
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
                     string.Format("Die Position mit der Id {0} konnte nicht gefunden werden.", orderItemId.ToString("D")));
 
-            return Request.CreateResponse(HttpStatusCode.Created, new OrderItemDoc
+            return Request.CreateResponse(statusCode, new OrderItemDoc
             {
                 Amount = item.Amount,
                 ArticleId = item.ArticleId,
@@ -73,7 +73,7 @@ namespace Phundus.Rest.Controllers.Shop
                 To = doc.To
             });
 
-            return Get(organizationId, orderId, orderItemId);
+            return Get(organizationId, orderId, orderItemId, HttpStatusCode.OK);
         }
 
         [DELETE("")]

@@ -120,7 +120,7 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
 
     $scope.showAddItem = function (order) {
         $scope.newItem.orderId = order.orderId;
-        $scope.newItem.articleId = 'sadf';
+        $scope.newItem.articleId = '';
         $scope.newItem.amont = 1;
         $('#modal-add-item').modal('show');
     };
@@ -137,11 +137,23 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
 
     $scope.editItem = function(item) {
         item.editing = true;
-        $scope.edit = { amount: item.amount };
+        var from = moment(new Date(item.from)).format("YYYY-MM-DDTHH:mm:ss") + "+00:00";
+        from = new Date(from);
+        var to = moment(new Date(item.to)).format("YYYY-MM-DDTHH:mm:ss") + "+00:00";
+        to = new Date(to);
+        $scope.edit = {
+            organizationId: $scope.order.organizationId,
+            orderId: $scope.order.orderId,
+            orderItemId: item.orderItemId,
+            amount: item.amount, from: from, to: to
+        };
     };
 
     $scope.saveEditedItem = function(item) {
         item.editing = false;
+        orderItems.update({}, $scope.edit, function(data) {
+            item = data;
+        });
     };
 
     $scope.cancelEditing = function(item) {
@@ -152,7 +164,7 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
         if (!confirm('Möchten Sie die Position "' + item.text + '" wirklich löschen?'))
             return;
 
-        orderItems.delete({ organizationId: $scope.organizationId, orderId: $scope.order.orderId, itemId: item.orderItemId }, function (data) {
+        orderItems.delete({ organizationId: $scope.organizationId, orderId: $scope.order.orderId, orderItemId: item.orderItemId }, function (data) {
             var idx = $scope.order.items.indexOf(item);
             $scope.order.items.splice(idx, 1);
         });
