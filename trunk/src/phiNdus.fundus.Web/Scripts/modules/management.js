@@ -29,21 +29,13 @@ angular.module('management', ['phundus-api', 'ui', 'ui.bootstrap'])
             .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Management/Settings.html' })
             .when('/files', { controller: FilesCtrl, templateUrl: './Content/Views/Management/Files.html' });
     })
-    .directive('capitalizeFirst', function($parse) {
+    .directive('phHistoryBack', function($window) {
         return {
-            require: 'ngModel',
-            link: function(scope, element, attrs, modelCtrl) {
-                var capitalize = function(inputValue) {
-                    var capitalized = inputValue.charAt(0).toUpperCase() +
-                        inputValue.substring(1);
-                    if (capitalized !== inputValue) {
-                        modelCtrl.$setViewValue(capitalized);
-                        modelCtrl.$render();
-                    }
-                    return capitalized;
-                }
-                modelCtrl.$parsers.push(capitalize);
-                capitalize($parse(attrs.ngModel)(scope)); // capitalize initial value
+            restrict: 'A',
+            link: function (scope, elem, attrs) {
+                elem.bind('click', function () {
+                    $window.history.back();
+                });
             }
         }
     })
@@ -101,13 +93,8 @@ function OrdersCtrl($scope, $location, orders) {
     };
 };
 
-function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
+function OrderCtrl($scope, $routeParams, orders, orderItems) {
     $scope.order = orders.get({ "organizationId": $scope.organizationId, "orderId": $routeParams.orderId });
-
-    // TODO: Directive
-    $scope.back = function () {
-        $window.history.back();
-    };
 
     $scope.printPdf = function (order) {
         alert('tbd');
@@ -224,13 +211,8 @@ function ContractsCtrl($scope, $location, contracts) {
     };
 };
 
-function ContractCtrl($scope, $window, $location, $routeParams, contracts) {
+function ContractCtrl($scope, $location, $routeParams, contracts) {
     $scope.contract = contracts.get({ "organizationId": $scope.organizationId, "contractId": $routeParams.contractId });
-
-    // TODO: Directive
-    $scope.back = function () {
-        $window.history.back();
-    };
 
     $scope.printPdf = function(contract) {
         alert('tbd');
