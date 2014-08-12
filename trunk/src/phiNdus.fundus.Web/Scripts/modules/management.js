@@ -136,28 +136,40 @@ function OrderCtrl($scope, $window, $routeParams, orders, orderItems) {
     };
 
     $scope.editItem = function(item) {
+        $scope.saveValues = {
+            amount: item.amount,
+            from: item.from,
+            to: item.to
+        };
+
         item.editing = true;
+
+        // TODO: Timezone issue
         var from = moment(new Date(item.from)).format("YYYY-MM-DDTHH:mm:ss") + "+00:00";
         from = new Date(from);
         var to = moment(new Date(item.to)).format("YYYY-MM-DDTHH:mm:ss") + "+00:00";
         to = new Date(to);
-        $scope.edit = {
-            organizationId: $scope.order.organizationId,
-            orderId: $scope.order.orderId,
-            orderItemId: item.orderItemId,
-            amount: item.amount, from: from, to: to
-        };
+        item.from = from;
+        item.to = to;
     };
 
     $scope.saveEditedItem = function(item) {
         item.editing = false;
-        orderItems.update({}, $scope.edit, function(data) {
-            item = data;
+        orderItems.update({ organizationId: $scope.organizationId, orderId: $scope.order.orderId }, item, function (data) {
+
+            // $scope.order.items replace?
+            item.amount = data.amount;
+            item.from = data.from;
+            item.to = data.to;
+            item.isAvailable = data.isAvailable
         });
     };
 
     $scope.cancelEditing = function(item) {
         item.editing = false;
+        item.amount = $scope.saveValues.amount;
+        item.from = $scope.saveValues.from;
+        item.to = $scope.saveValues.to;
     };
 
     $scope.removeItem = function (item) {
