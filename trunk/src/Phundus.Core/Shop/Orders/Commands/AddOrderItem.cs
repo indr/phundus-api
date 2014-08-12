@@ -44,8 +44,4 @@
             command.OrderItemId = item.Id;
         }
     }
-
-    public class OrderNotFoundException : Exception
-    {
-    }
 }

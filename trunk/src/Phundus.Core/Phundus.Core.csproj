@@ -169,11 +169,15 @@
     <Compile Include="Shop\Orders\Commands\AddOrderItem.cs" />
     <Compile Include="Shop\Orders\Commands\CreateEmptyOrder.cs" />
     <Compile Include="Shop\Orders\Commands\ClearCart.cs" />
+    <Compile Include="Shop\Orders\Exceptions\OrderNotFoundException.cs" />
     <Compile Include="Shop\Orders\Commands\RemoveOrderItem.cs" />
+    <Compile Include="Shop\Orders\Commands\UpdateOrderItem.cs" />
     <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Shop\Orders\Exceptions\CartNotFoundException.cs" />
     <Compile Include="Shop\Orders\Model\OrderCreated.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemAdded.cs" />
+    <Compile Include="Shop\Orders\Model\OrderItemAmountChanged.cs" />
+    <Compile Include="Shop\Orders\Model\OrderItemPeriodChanged.cs" />
     <Compile Include="Shop\Orders\_Legacy\CartService.cs" />
     <Compile Include="Shop\Orders\_Legacy\ICartService.cs" />
     <Compile Include="Shop\Orders\_Legacy\IOrderService.cs" />

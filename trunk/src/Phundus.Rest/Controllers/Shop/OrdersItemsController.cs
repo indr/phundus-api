@@ -31,11 +31,18 @@ namespace Phundus.Rest.Controllers.Shop
 
             Dispatch(command);
 
+            return Get(organizationId, orderId, command.OrderItemId);
+
+            
+        }
+
+        private HttpResponseMessage Get(int organizationId, int orderId, Guid orderItemId)
+        {
             var order = OrderQueries.FindById(orderId, CurrentUserId);
-            var item = order.Items.FirstOrDefault(p => p.Id == command.OrderItemId);
+            var item = order.Items.FirstOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-                    "Die erstellte Position konnte nicht gefunden werden.");
+                    string.Format("Die Position mit der Id {0} konnte nicht gefunden werden.", orderItemId.ToString("D")));
 
             return Request.CreateResponse(HttpStatusCode.Created, new OrderItemDoc
             {
@@ -56,7 +63,17 @@ namespace Phundus.Rest.Controllers.Shop
         public virtual HttpResponseMessage Patch(int organizationId, int orderId, Guid orderItemId,
             OrderItemPatchDoc doc)
         {
-            return Request.CreateErrorResponse(HttpStatusCode.NotImplemented, "PATCH is not yet implemented.");
+            Dispatcher.Dispatch(new UpdateOrderItem
+            {
+                Amount = doc.Amount,
+                From = doc.From,
+                InitiatorId = CurrentUserId,
+                OrderId = orderId,
+                OrderItemId = orderItemId,
+                To = doc.To
+            });
+
+            return Get(organizationId, orderId, orderItemId);
         }
 
         [DELETE("")]

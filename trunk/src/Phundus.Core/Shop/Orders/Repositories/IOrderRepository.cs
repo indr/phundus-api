@@ -6,6 +6,8 @@
 
     public interface IOrderRepository : IRepository<Order>
     {
+        Order GetById(int orderId);
+
         ICollection<Order> FindByUserId(int userId);
         
         IEnumerable<Order> FindByOrganizationId(int organizationId);

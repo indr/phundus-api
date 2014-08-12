@@ -50,7 +50,7 @@
     }
 
     [Subject("OrderItems")]
-    public class when_orders_items_put_is_issued : concern
+    public class when_orders_items_patch_is_issued : concern
     {
         private const int organizationId = 1001;
         private static int orderId;

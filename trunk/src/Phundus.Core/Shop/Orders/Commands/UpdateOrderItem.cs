@@ -5,28 +5,31 @@
     using IdentityAndAccess.Queries;
     using Repositories;
 
-    public class RemoveOrderItem
+    public class UpdateOrderItem
     {
         public int OrderId { get; set; }
         public Guid OrderItemId { get; set; }
         public int InitiatorId { get; set; }
+
+        public int Amount { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
     }
 
-    public class RemoveOrderItemHandler : IHandleCommand<RemoveOrderItem>
+    public class UpdateOrderItemHandler : IHandleCommand<UpdateOrderItem>
     {
         public IOrderRepository OrderRepository { get; set; }
 
         public IMemberInRole MemberInRole { get; set; }
 
-        public void Handle(RemoveOrderItem command)
+        public void Handle(UpdateOrderItem command)
         {
-            var order = OrderRepository.ById(command.OrderId);
-            if (order == null)
-                throw new OrderNotFoundException();
+            var order = OrderRepository.GetById(command.OrderId);
 
             MemberInRole.ActiveChief(order.OrganizationId, command.InitiatorId);
 
-            order.RemoveItem(command.OrderItemId);
+            order.ChangeAmount(command.OrderItemId, command.Amount);
+            order.ChangeItemPeriod(command.OrderItemId, command.From, command.To);
         }
     }
 }

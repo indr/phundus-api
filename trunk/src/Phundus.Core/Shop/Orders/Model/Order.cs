@@ -415,6 +415,28 @@
             result.Position = 0;
             return result;
         }
+
+        public virtual void ChangeAmount(Guid orderItemId, int amount)
+        {
+            var item = Items.SingleOrDefault(p => p.Id == orderItemId);
+            if (item == null)
+                return;
+
+            item.ChangeAmount(amount);
+
+            EventPublisher.Publish(new OrderItemAmountChanged());
+        }
+
+        public virtual void ChangeItemPeriod(Guid orderItemId, DateTime @from, DateTime to)
+        {
+            var item = Items.SingleOrDefault(p => p.Id == orderItemId);
+            if (item == null)
+                return;
+
+            item.ChangePeriod(@from, to);
+
+            EventPublisher.Publish(new OrderItemPeriodChanged());
+        }
     }
 
     public class RoundRectangle : IPdfPCellEvent
