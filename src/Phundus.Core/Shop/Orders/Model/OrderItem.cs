@@ -49,5 +49,16 @@
         {
             get { return Article.Price*Amount; }
         }
+
+        public virtual void ChangeAmount(int amount)
+        {
+            Amount = amount;
+        }
+
+        public virtual void ChangePeriod(DateTime from, DateTime to)
+        {
+            From = from;
+            To = to;
+        }
     }
 }

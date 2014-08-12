@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Core.Shop.Orders;
+    using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
     using Core.Shop.Orders.Repositories;
     using NHibernate.Linq;
@@ -11,6 +13,14 @@
         private IQueryable<OrderItem> Items
         {
             get { return Session.Query<OrderItem>(); }
+        }
+
+        public Order GetById(int id)
+        {
+            var result = ById(id);
+            if (result == null)
+                throw new OrderNotFoundException(id);
+            return result;
         }
 
         public ICollection<Order> FindByUserId(int userId)
