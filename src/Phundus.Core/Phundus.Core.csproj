@@ -163,7 +163,6 @@
     <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
     <Compile Include="Ddd\ValueObject.cs" />
     <Compile Include="Shop\Contracts\Repositories\IContractRepository.cs" />
-    <Compile Include="Shop\Contracts\Exceptions\BorrowerNotFoundException.cs" />
     <Compile Include="Shop\Contracts\Services\BorrowerService.cs" />
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
     <Compile Include="Shop\Orders\Commands\AddOrderItem.cs" />
@@ -301,6 +300,7 @@
   <ItemGroup>
     <Folder Include="IdentityAndAccess\Queries\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
+    <Folder Include="Shop\Contracts\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IdentityAndAccess\Organizations\Mails\Templates.resx">

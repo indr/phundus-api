@@ -1,6 +1,6 @@
 ﻿<p>Hallo @Model.Borrower.DisplayName</p>
 
-<p>Wir konnten die Bestellung vom @Model.Order.CreateDate mit der Nummer @Model.Order.Id infolge unvorhergesehen Ereignissen leider nicht in dem von dir eingegebenen Zeitraum freigeben.</p>
+<p>Wir konnten die Bestellung vom @Model.Order.CreatedOn mit der Nummer @Model.Order.Id infolge unvorhergesehen Ereignissen leider nicht in dem von dir eingegebenen Zeitraum freigeben.</p>
 
 <table class="table table-bordered table-striped">
     <thead>
