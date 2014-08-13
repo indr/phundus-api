@@ -37,7 +37,7 @@ namespace Phundus.Rest.Api.Organizations
         {
             var result = OrderQueries.FindOrder(orderId, organizationId, CurrentUserId);
             if (result == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Order not found");
+                return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
 
             return Request.CreateResponse(HttpStatusCode.OK, ToDoc(result));
         }

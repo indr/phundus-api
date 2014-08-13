@@ -30,7 +30,7 @@
         {
             var result = ContractQueries.FindContract(contractId, organizationId, CurrentUserId);
             if (result == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Contract not found");
+                return CreateNotFoundResponse("Der Vertrag mit der Id {0} konnte nicht gefunden werden.", contractId);
 
             return Request.CreateResponse(HttpStatusCode.OK, ToDoc(result));
         }

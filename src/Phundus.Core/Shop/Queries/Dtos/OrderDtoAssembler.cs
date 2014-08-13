@@ -4,23 +4,23 @@
     using System.Collections.Generic;
     using Infrastructure;
     using Orders.Model;
-    using ReservationCtx.Model;
 
     public class OrderDtoAssembler
     {
         public OrderDto CreateDto(Order subject)
         {
-            Guard.Against<ArgumentNullException>(subject == null, "subject");
+            if (subject == null)
+                return null;
 
             var result = new OrderDto
-                             {
-                                 Id = subject.Id,
-                                 Version = subject.Version,
-                                 OrganizationId = subject.OrganizationId,
-                                 CreateDate = subject.CreatedOn,
-                                 TotalPrice = subject.TotalPrice,
-                                 Status = subject.Status
-                       };
+            {
+                Id = subject.Id,
+                Version = subject.Version,
+                OrganizationId = subject.OrganizationId,
+                CreateDate = subject.CreatedOn,
+                TotalPrice = subject.TotalPrice,
+                Status = subject.Status
+            };
 
             if (subject.Borrower != null)
             {
@@ -37,18 +37,18 @@
             foreach (var item in subject.Items)
             {
                 result.Items.Add(new OrderItemDto
-                    {
-                        Amount = item.Amount,
-                        ArticleId = item.Article.Id,
-                        From = item.From,
-                        Id = item.Id,
-                        OrderId = item.Order.Id,
-                        To = item.To,
-                        UnitPrice = item.UnitPrice,
-                        LineTotal = item.LineTotal,
-                        Version = item.Version,
-                        Text = item.Article.Caption
-                    });
+                {
+                    Amount = item.Amount,
+                    ArticleId = item.Article.Id,
+                    From = item.From,
+                    Id = item.Id,
+                    OrderId = item.Order.Id,
+                    To = item.To,
+                    UnitPrice = item.UnitPrice,
+                    LineTotal = item.LineTotal,
+                    Version = item.Version,
+                    Text = item.Article.Caption
+                });
             }
 
             return result;
@@ -63,8 +63,5 @@
                 result.Add(CreateDto(each));
             return result;
         }
-
-        
     }
 }
-    
