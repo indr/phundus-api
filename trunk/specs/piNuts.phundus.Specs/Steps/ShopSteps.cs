@@ -31,7 +31,7 @@ namespace piNuts.phundus.Specs.Steps
         public void DannMussDerArtikelGeoffnetSein()
         {
             // <div id="10027" class="tab-pane active">
-            Assert.That(Browser.Div(p => p.Id == articleId.ToString()).ClassName, Is.EqualTo("tab-pane"));
+            Assert.That(Browser.Div(p => p.Id == articleId.ToString()).ClassName, Is.StringStarting("tab-pane"));
         }
 
         [Given(@"ich lege den Artikel mit der Id (.*) in den Warenkorb")]

@@ -1,4 +1,4 @@
-namespace Phundus.Rest.Controllers.Shop
+namespace Phundus.Rest.Controllers.Organizations
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace Phundus.Rest.Controllers.Shop
     using Core.Shop.Queries;
 
     [RoutePrefix("api/organizations/{organizationId}/orders")]
-    public class OrdersController : ApiControllerBase
+    public class OrganizationsOrdersController : ApiControllerBase
     {
         public IOrderQueries OrderQueries { get; set; }
 
@@ -74,6 +74,11 @@ namespace Phundus.Rest.Controllers.Shop
                     "Unbekannter Status \"" + doc.Status + "\"");
 
             return Get(organizationId, orderId);
+        }
+
+        public class OrderPatchDoc
+        {
+            public string Status { get; set; }
         }
 
         [POST("")]
@@ -154,10 +159,7 @@ namespace Phundus.Rest.Controllers.Shop
         }
     }
 
-    public class OrderPatchDoc
-    {
-        public string Status { get; set; }
-    }
+    
 
     public class OrdersPostDoc
     {

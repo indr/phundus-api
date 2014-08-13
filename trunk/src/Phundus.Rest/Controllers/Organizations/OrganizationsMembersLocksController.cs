@@ -1,10 +1,14 @@
-﻿namespace Phundus.Rest.Controllers.IdentityAndAccess
+﻿namespace Phundus.Rest.Controllers.Organizations
 {
+    using AttributeRouting;
+    using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Core.IdentityAndAccess.Organizations.Commands;
 
-    public class LocksController : ApiControllerBase
+    [RoutePrefix("api/organizations/{organizationId}/members/{memberId}/locks")]
+    public class OrganizationsMembersLocksController : ApiControllerBase
     {
+        [POST("")]
         [Transaction]
         public virtual void Post(int organizationId, int memberId)
         {
@@ -16,6 +20,7 @@
             });
         }
 
+        [DELETE("")]
         [Transaction]
         public virtual void Delete(int organizationId, int memberId)
         {
