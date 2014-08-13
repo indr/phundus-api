@@ -111,16 +111,17 @@
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="Controllers\IdentityAndAccess\LocksController.cs" />
-    <Compile Include="Controllers\IdentityAndAccess\RelationshipsController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\Organizations\OrganizationsMembersLocksController.cs" />
+    <Compile Include="Controllers\Organizations\OrganizationsRelationshipsController.cs" />
     <Compile Include="Controllers\SessionsController.cs" />
-    <Compile Include="Controllers\Shop\CartsController.cs" />
-    <Compile Include="Controllers\IdentityAndAccess\MembersController.cs" />
-    <Compile Include="Controllers\IdentityAndAccess\OrganizationsController.cs" />
-    <Compile Include="Controllers\IdentityAndAccess\ApplicationsController.cs" />
-    <Compile Include="Controllers\Shop\ContractsController.cs" />
-    <Compile Include="Controllers\Shop\OrdersController.cs" />
-    <Compile Include="Controllers\Shop\OrdersItemsController.cs" />
+    <Compile Include="Controllers\CartsController.cs" />
+    <Compile Include="Controllers\Organizations\OrganizationsMembersController.cs" />
+    <Compile Include="Controllers\OrganizationsController.cs" />
+    <Compile Include="Controllers\Organizations\OrganizationsApplicationsController.cs" />
+    <Compile Include="Controllers\Organizations\OrganizationsContractsController.cs" />
+    <Compile Include="Controllers\Organizations\OrganizationsOrdersController.cs" />
+    <Compile Include="Controllers\Organizations\OrganizationsOrdersItemsController.cs" />
     <Compile Include="Exceptions\HttpConflictException.cs" />
     <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Exceptions\HttpNotFoundException.cs" />
@@ -141,6 +142,7 @@
       <Name>Phundus.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

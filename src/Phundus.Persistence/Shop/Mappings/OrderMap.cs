@@ -29,6 +29,8 @@ namespace Phundus.Persistence.Shop.Mappings
 
             HasMany(x => x.Items).AsSet()
                 .KeyColumn("OrderId").Inverse()
+                .Access.CamelCaseField(Prefix.Underscore)
+                //.Access.BackingField()
                 .Cascade.AllDeleteOrphan();
         }
     }

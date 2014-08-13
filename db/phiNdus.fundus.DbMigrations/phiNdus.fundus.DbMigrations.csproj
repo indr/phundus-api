@@ -113,6 +113,7 @@
     <Compile Include="2014\08\M201408121455ReplaceUserWithBorrowerOnTableOrder.cs" />
     <Compile Include="2014\08\M201408121502HydrateBorrowerOnTableOrder.cs" />
     <Compile Include="2014\08\M201408121620CompleteBorrowerOnContract.cs" />
+    <Compile Include="2014\08\M201408131725DeleteObsoletColumnsFromOrder.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />

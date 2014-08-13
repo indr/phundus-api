@@ -1,18 +1,22 @@
-﻿namespace Phundus.Rest.Controllers.Shop
+﻿namespace Phundus.Rest.Controllers.Organizations
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using AttributeRouting;
+    using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Core.Shop.Contracts.Commands;
     using Core.Shop.Queries;
 
-    public class ContractsController : ApiControllerBase
+    [RoutePrefix("api/organizations/{organizationId}/contracts")]
+    public class OrganizationsContractsController : ApiControllerBase
     {
         public IContractQueries ContractQueries { get; set; }
 
+        [GET("")]
         [Transaction]
         public virtual HttpResponseMessage Get(int organizationId)
         {
@@ -20,16 +24,18 @@
             return Request.CreateResponse(HttpStatusCode.OK, ToDocs(result));
         }
 
+        [GET("{contractId}")]
         [Transaction]
-        public virtual HttpResponseMessage Get(int organizationId, int id)
+        public virtual HttpResponseMessage Get(int organizationId, int contractId)
         {
-            var result = ContractQueries.FindContract(id, organizationId, CurrentUserId);
+            var result = ContractQueries.FindContract(contractId, organizationId, CurrentUserId);
             if (result == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Contract not found");
 
             return Request.CreateResponse(HttpStatusCode.OK, ToDoc(result));
         }
 
+        [POST("")]
         [Transaction]
         public virtual HttpResponseMessage Post(int organizationId, ContractsPostDoc doc)
         {

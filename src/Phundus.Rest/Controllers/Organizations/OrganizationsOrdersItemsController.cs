@@ -1,4 +1,4 @@
-namespace Phundus.Rest.Controllers.Shop
+namespace Phundus.Rest.Controllers.Organizations
 {
     using System;
     using System.Linq;
@@ -11,7 +11,7 @@ namespace Phundus.Rest.Controllers.Shop
     using Core.Shop.Queries;
 
     [RoutePrefix("api/organizations/{organizationId}/orders/{orderId}/items/{orderItemId?}")]
-    public class OrdersItemsController : ApiControllerBase
+    public class OrganizationsOrdersItemsController : ApiControllerBase
     {
         public IOrderQueries OrderQueries { get; set; }
 

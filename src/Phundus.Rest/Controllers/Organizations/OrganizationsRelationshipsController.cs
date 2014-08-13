@@ -1,13 +1,16 @@
-﻿namespace Phundus.Rest.Controllers.IdentityAndAccess
+﻿namespace Phundus.Rest.Controllers.Organizations
 {
     using System;
+    using AttributeRouting;
+    using AttributeRouting.Web.Http;
     using AutoMapper;
     using Castle.Transactions;
     using Core.IdentityAndAccess.Queries;
 
-    public class RelationshipsController : ApiControllerBase
+    [RoutePrefix("api/organizations/{organizationId}/relationships")]
+    public class OrganizationsRelationshipsController : ApiControllerBase
     {
-        static RelationshipsController()
+        static OrganizationsRelationshipsController()
         {
             Mapper.CreateMap<RelationshipDto, RelationshipDoc>()
                 .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.OrganizationId))
@@ -19,6 +22,7 @@
 
         public IRelationshipQueries RelationshipQueries { get; set; }
 
+        [GET("")]
         [Transaction]
         public virtual RelationshipDoc Get(int organizationId)
         {
