@@ -87,6 +87,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Shop.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Shop.feature</DependentUpon>
+    </Compile>
     <Compile Include="Rest\ContractsSpecs.cs" />
     <Compile Include="Browsers\IeBrowser.cs" />
     <Compile Include="BeforeAndAfter.cs" />
@@ -151,6 +156,10 @@
     <None Include="Features\Registrierung.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Registrierung.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Shop.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Shop.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Startseite.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

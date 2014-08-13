@@ -142,9 +142,10 @@
 
             var model = new ShopArticleViewModel(article);
 
-            var currentUserId = CurrentUserId;
+            
             if (Identity.IsAuthenticated)
             {
+                var currentUserId = CurrentUserId;
                 model.CanUserAddToCart = MemberInRole.IsActiveMember(model.Article.OrganizationId,
                     currentUserId);
             }

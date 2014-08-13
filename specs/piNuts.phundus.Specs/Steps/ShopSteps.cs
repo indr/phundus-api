@@ -16,6 +16,24 @@ namespace piNuts.phundus.Specs.Steps
             ApiCall("/carts", HttpMethod.Delete);
         }
 
+        [When(@"ich wähle den Artikel (.*) aus")]
+        public void WennIchWahleDenArtikelAus(int p0)
+        {
+            articleId = p0;
+            Browser.GoTo(BaseUrl + "/shop");
+            var link = Browser.Link(Find.By("article-id", p0.ToString()));
+            link.Click();
+        }
+
+        private int articleId = 0;
+
+        [Then(@"muss der Artikel geöffnet sein")]
+        public void DannMussDerArtikelGeoffnetSein()
+        {
+            // <div id="10027" class="tab-pane active">
+            Assert.That(Browser.Div(p => p.Id == articleId.ToString()).ClassName, Is.EqualTo("tab-pane active"));
+        }
+
         [Given(@"ich lege den Artikel mit der Id (.*) in den Warenkorb")]
         public void AngenommenIchLegeDenArtikelMitDerIdInDenWarenkorb(int p0)
         {
