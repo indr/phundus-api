@@ -193,6 +193,21 @@
 
             EventPublisher.Publish(new OrderItemPeriodChanged());
         }
+
+        public virtual void Confirm()
+        {
+
+        }
+
+        public virtual void Close()
+        {
+            
+        }
+
+        public virtual void Reject()
+        {
+            
+        }
     }
 
 

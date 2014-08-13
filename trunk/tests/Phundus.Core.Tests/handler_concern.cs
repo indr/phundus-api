@@ -25,6 +25,10 @@ namespace Phundus.Core.Tests
             EventPublisher.Container = container;
         };
 
-        public Because of = () => sut.Handle(command);
+        public Because of = () =>
+        {
+            command.ShouldNotBeNull();
+            sut.Handle(command);
+        };
     }
 }
