@@ -109,7 +109,7 @@
             orderNumberCell.BackgroundColor = backGroundColor;
 
 
-            table.SetWidths(new int[] {2, 4, 2});
+            table.SetWidths(new[] {2, 4, 2});
 
 
             PdfPCell cell = null;
@@ -139,23 +139,29 @@
             table.AddCell(cell);
             table.AddCell(new Phrase(order.Borrower.MobilePhoneNumber + " / " + order.Borrower.EmailAddress, defaultFont));
 
+            var firstFrom = order.FirstFrom;
+            if (firstFrom.HasValue)
+            {
+                cell = new PdfPCell(new Phrase("Abholen:", defaultFontGray));
+                cell.BorderWidth = 0;
+                cell.BackgroundColor = backGroundColor;
+                cell.Padding = 3;
+                cell.PaddingLeft = 36.0f;
+                table.AddCell(cell);
+                table.AddCell(new Phrase(firstFrom.Value.ToString("d"), defaultFont));
+            }
 
-            cell = new PdfPCell(new Phrase("Abholen:", defaultFontGray));
-            cell.BorderWidth = 0;
-            cell.BackgroundColor = backGroundColor;
-            cell.Padding = 3;
-            cell.PaddingLeft = 36.0f;
-            table.AddCell(cell);
-            table.AddCell(new Phrase(order.FirstFrom.ToString("d"), defaultFont));
-
-            cell = new PdfPCell(new Phrase("Rückgabe:", defaultFontGray));
-            cell.BorderWidth = 0;
-            cell.BackgroundColor = backGroundColor;
-            cell.Padding = 3;
-            cell.PaddingLeft = 36.0f;
-            table.AddCell(cell);
-            table.AddCell(new Phrase(order.LastTo.ToString("d"), defaultFont));
-
+            var lastTo = order.LastTo;
+            if (lastTo.HasValue)
+            {
+                cell = new PdfPCell(new Phrase("Rückgabe:", defaultFontGray));
+                cell.BorderWidth = 0;
+                cell.BackgroundColor = backGroundColor;
+                cell.Padding = 3;
+                cell.PaddingLeft = 36.0f;
+                table.AddCell(cell);
+                table.AddCell(new Phrase(lastTo.Value.ToString("d"), defaultFont));
+            }
 
             foreach (var each in table.Rows[0].GetCells())
             {
