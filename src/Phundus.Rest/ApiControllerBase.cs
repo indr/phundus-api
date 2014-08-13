@@ -1,8 +1,10 @@
 ﻿namespace Phundus.Rest
 {
     using System;
+    using System.IO;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Security.Authentication;
     using System.Security.Principal;
     using System.Web.Http;
@@ -50,6 +52,19 @@
         protected HttpResponseMessage CreateNotFoundResponse(string format, object arg0)
         {
             return Request.CreateErrorResponse(HttpStatusCode.NotFound, string.Format(format, arg0));
+        }
+
+        protected HttpResponseMessage CreatePdfResponse(Stream stream, string fileName)
+        {
+            var result = new HttpResponseMessage(HttpStatusCode.OK);
+            result.Content = new StreamContent(stream);
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = string.Format(fileName)
+            };
+
+            return result;
         }
     }
 }

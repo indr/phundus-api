@@ -2,6 +2,7 @@ namespace Phundus.Rest.Api.Organizations
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -48,15 +49,7 @@ namespace Phundus.Rest.Api.Organizations
         {
             var stream = OrderService.GetPdf(organizationId, orderId, CurrentUserId);
 
-            var result = new HttpResponseMessage(HttpStatusCode.OK);
-            result.Content = new StreamContent(stream);
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
-            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-            {
-                FileName = string.Format("Bestelung-{0}.pdf", orderId)
-            };
-
-            return result;
+            return CreatePdfResponse(stream, string.Format("Bestellung-{0}", orderId));
         }
 
         [PATCH("{orderId}")]

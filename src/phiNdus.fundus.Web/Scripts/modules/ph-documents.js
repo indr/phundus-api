@@ -10,7 +10,7 @@ angular.module('ph.documents', ['ph.domain', 'ph.resources', 'ph.ui', 'ui', 'ui.
     })
 ; // ph.documents
 
-function OrdersCtrl($scope, orders) {
+function OrdersCtrl($scope, $location, orders) {
     $scope.isLoading = true;
     $scope.orders = orders.query(
         function () { $scope.isLoading = false; },
@@ -30,7 +30,7 @@ function OrdersCtrl($scope, orders) {
     };
 };
 
-function OrderCtrl($scope, orders) {
+function OrderCtrl($scope, $routeParams, orders) {
     $scope.isLoading = true;
     $scope.isLoaded = false;
     $scope.order = orders.get({"orderId": $routeParams.orderId },
@@ -38,7 +38,7 @@ function OrderCtrl($scope, orders) {
         function () { $scope.isLoading = false; });
 };
 
-function ContractsCtrl($scope, contracts) {
+function ContractsCtrl($scope, $location, contracts) {
     $scope.isLoading = true;
     $scope.contracts = contracts.query(
         function () { $scope.isLoading = false; },
@@ -58,7 +58,7 @@ function ContractsCtrl($scope, contracts) {
     };
 };
 
-function ContractCtrl($scope, contracts) {
+function ContractCtrl($scope, $routeParams, contracts) {
     $scope.isLoading = true;
     $scope.isLoaded = false;
     $scope.order = contracts.get({ "contract": $routeParams.contractId },
