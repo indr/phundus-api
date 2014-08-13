@@ -30,7 +30,7 @@
             set { _borrower = value; }
         }
 
-        public DateTime? ModifyDate { get; set; }
+        public DateTime? ModifiedOn { get; set; }
         public int? ModifierId { get; set; }
         public string ModifierName { get; set; }
 

@@ -18,6 +18,8 @@
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private int _organizationId;
         private OrderStatus _status = OrderStatus.Pending;
+        private DateTime? _modifiedOn;
+        private int? _modifiedBy;
 
         protected Order()
         {
@@ -49,6 +51,18 @@
         {
             get { return _status; }
             protected set { _status = value; }
+        }
+
+        public virtual DateTime? ModifiedOn
+        {
+            get { return _modifiedOn; }
+            protected set { _modifiedOn = value; }
+        }
+
+        public virtual int? ModifiedBy
+        {
+            get { return _modifiedBy; }
+            protected set { _modifiedBy = value; }
         }
 
         public virtual Borrower Borrower
@@ -88,19 +102,21 @@
             }
         }
 
-        public virtual void Reject()
+        public virtual void Reject(int initiatorId)
         {
             if (Status == OrderStatus.Closed)
                 throw new OrderAlreadyClosedException();
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
 
+            ModifiedBy = initiatorId;
+            ModifiedOn = DateTime.UtcNow;
             Status = OrderStatus.Rejected;
 
             EventPublisher.Publish(new OrderRejected());
         }
 
-        public virtual void Approve()
+        public virtual void Approve(int initiatorId)
         {
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
@@ -109,18 +125,22 @@
             if (Status == OrderStatus.Approved)
                 throw new OrderAlreadyApprovedException();
 
+            ModifiedBy = initiatorId;
+            ModifiedOn = DateTime.UtcNow;
             Status = OrderStatus.Approved;
 
             EventPublisher.Publish(new OrderApproved());
         }
 
-        public virtual void Close()
+        public virtual void Close(int initiatorId)
         {
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
             if (Status == OrderStatus.Closed)
                 throw new OrderAlreadyClosedException();
 
+            ModifiedBy = initiatorId;
+            ModifiedOn = DateTime.UtcNow;
             Status = OrderStatus.Closed;
 
             EventPublisher.Publish(new OrderClosed());

@@ -24,7 +24,7 @@
 
             MemberInRole.ActiveChief(order.OrganizationId, command.InitiatorId);
 
-            order.Close();
+            order.Close(command.InitiatorId);
         }
     }
 }

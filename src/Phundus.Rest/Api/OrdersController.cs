@@ -54,6 +54,7 @@
                 Version = dto.Version,
                 OrganizationId = dto.OrganizationId,
                 CreatedOn = dto.CreateDate,
+                ModifiedOn = dto.ModifiedOn,
                 Status = dto.Status.ToString(),
                 TotalPrice = dto.TotalPrice
             };
@@ -82,6 +83,7 @@
                 Version = each.Version,
                 OrganizationId = each.OrganizationId,
                 CreatedOn = each.CreateDate,
+                ModifiedOn = each.ModifiedOn,
                 Status = each.Status.ToString()
             }).ToList();
         }
@@ -107,6 +109,7 @@
 
             public string Status { get; set; }
             public DateTime CreatedOn { get; set; }
+            public DateTime? ModifiedOn { get; set; }
         }
 
         public class OrderItemDoc

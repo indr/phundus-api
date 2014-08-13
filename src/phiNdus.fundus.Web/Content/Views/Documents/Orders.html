@@ -34,6 +34,7 @@
             <th><a href="" ng-click="orderBy('orderId')">Nummer</a></th>
             <th><a href="" ng-click="orderBy('createdOn')">Erstellt</a></th>
             <th><a href="" ng-click="orderBy('status')">Status</a></th>
+            <th><a href="" ng-click="orderBy('modifiedOn')">Bearbeitet</a></th>
             <th></th>
         </tr>
     </thead>
@@ -42,6 +43,7 @@
             <td>{{order.orderId}}</td>
             <td>{{order.createdOn | date:'medium'}}</td>
             <td>{{order.status | orderStatusText}}</td>
+            <td>{{order.modifiedOn | date:'medium'}}</td>
             <td style="text-align:right">
                 <a class="btn btn-small" ng-click="openOrder(order)">Öffnen</a>
                 <a class="btn btn-small" href="/api/orders/{{order.orderId}}.pdf">PDF</a>

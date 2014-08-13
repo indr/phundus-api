@@ -42,7 +42,7 @@
             ModifierName = dto.ModifierName;
             Status = dto.Status;
 
-            ModifyDate = dto.ModifyDate;
+            ModifyDate = dto.ModifiedOn;
 
             TotalPrice = dto.TotalPrice;
 

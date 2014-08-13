@@ -26,7 +26,9 @@
             var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
             var order = repo.ById(id);
 
-            order.Reject();
+            var userId = Users.FindByEmail(Identity.Name).Id;
+
+            order.Reject(userId);
             repo.Update(order);
 
             new OrderRejectedMail()
@@ -39,7 +41,9 @@
             var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
             var order = repo.ById(id);
 
-            order.Approve();
+            var userId = Users.FindByEmail(Identity.Name).Id;
+
+            order.Approve(userId);
             repo.Update(order);
 
             new OrderApprovedMail()

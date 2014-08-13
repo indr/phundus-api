@@ -32,7 +32,7 @@
             () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
 
         public It should_ask_order_to_approve =
-            () => order.WasToldTo(x => x.Approve());
+            () => order.WasToldTo(x => x.Approve(initiatorId));
 
         public It should_publish_order_approved =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderApproved>.Is.NotNull));
