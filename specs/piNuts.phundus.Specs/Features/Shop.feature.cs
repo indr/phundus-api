@@ -69,17 +69,17 @@ namespace Phundus.Specs.Features
         {
 #line 6
 #line 7
+ testRunner.Given("Ich bin auf der Startseite", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+#line 8
  testRunner.Given("ich bin nicht angemeldet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Artikeldetails")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
         public virtual void Artikeldetails()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Artikeldetails", new string[] {
-                        "mytag"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Artikeldetails", ((string[])(null)));
 #line 10
 this.ScenarioSetup(scenarioInfo);
 #line 6
