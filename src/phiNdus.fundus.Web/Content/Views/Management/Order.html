@@ -60,7 +60,7 @@
         <a class="btn" href="/api/organizations/{{organizationId}}/orders/{{order.orderId}}.pdf">PDF</a>
     </div>
     <div class="span6" style="text-align:right">
-        <a class="btn" href="" ng-click="showAddItem(order)">Artikel hinzufügen</a>
+        <a class="btn" ng-show="(order.status == 'Pending')" href="" ng-click="showAddItem(order)">Artikel hinzufügen</a>
         <a class="btn btn-primary" ng-show="order.status == 'Pending'" href="" ng-click="confirmOrder(order)">Bestätigen</a>
         <a class="btn btn-danger" ng-show="order.status == 'Pending'" href="" ng-click="rejectOrder(order)">Ablehnen</a>
         <a class="btn btn-primary" ng-show="order.status == 'Approved'" href="" ng-click="closeOrder(order)">Abschliessen</a>

@@ -169,6 +169,9 @@ function OrderCtrl($scope, $location, $routeParams, orders, orderItems) {
     };
 
     $scope.confirmOrder = function (order) {
+        if (!confirm('Möchten Sie die Bestellung wirklich bestätigen?'))
+            return;
+
         var status = order.status;
         order.status = 'Approved';
         order.$update(function() {}, function() {
@@ -177,6 +180,9 @@ function OrderCtrl($scope, $location, $routeParams, orders, orderItems) {
     };
 
     $scope.rejectOrder = function (order) {
+        if (!confirm('Möchten Sie die Bestellung wirklich ablehnen?'))
+            return;
+
         var status = order.status;
         order.status = 'Rejected';
         order.$update(function () { }, function () {
@@ -185,6 +191,9 @@ function OrderCtrl($scope, $location, $routeParams, orders, orderItems) {
     };
 
     $scope.closeOrder = function (order) {
+        if (!confirm('Möchten Sie die Bestellung wirklich abschliessen?\n\nAusstehendes Material wird dann nicht mehr reserviert sein.'))
+            return;
+
         var status = order.status;
         order.status = 'Closed';
         order.$update(function () { }, function () {
