@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Rest
 {
     using System;
+    using System.Net;
+    using System.Net.Http;
     using System.Security.Authentication;
     using System.Security.Principal;
     using System.Web.Http;
@@ -43,6 +45,11 @@
         protected static TDestination Map<TDestination>(object source)
         {
             return Mapper.Map<TDestination>(source);
+        }
+
+        protected HttpResponseMessage CreateNotFoundResponse(string format, object arg0)
+        {
+            return Request.CreateErrorResponse(HttpStatusCode.NotFound, string.Format(format, arg0));
         }
     }
 }

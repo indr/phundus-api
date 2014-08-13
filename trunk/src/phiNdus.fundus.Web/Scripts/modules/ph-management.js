@@ -1,68 +1,26 @@
 ﻿
-angular.module('management', ['phundus-api', 'ui', 'ui.bootstrap'])
-
-    .filter('replace', function () {
+angular.module('ph.management', ['ph.resources', 'ui', 'ui.bootstrap'])
+    .filter('replace', function() {
         return function(input, pattern, replace) {
             if (input == null)
                 return null;
             return input.replace(new RegExp(pattern, 'mg'), replace);
         };
     })
-    .filter('orderStatusText', function() {
-        return function(input) {
-            return {
-                "Pending": "Provisorisch", "Approved": "Bestätigt", "Rejected": "Abgelehnt", "Closed": "Abgeschlossen"
-            }
-            [input];
-        };
-    })
     .config(function($routeProvider) {
         $routeProvider
             .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Management/Members.html' })
             .when('/applications', { controller: ApplicationsCtrl, templateUrl: './Content/Views/Management/Applications.html' })
-
-            .when('/orders', { controller: OrdersCtrl, templateUrl: './Content/Views/Management/Orders.html' })
-            .when('/orders/:orderId', {controller: OrderCtrl, templateUrl: './Content/Views/Management/Order.html' })
-            .when('/contracts', { controller: ContractsCtrl, templateUrl: './Content/Views/Management/Contracts.html' })
-            .when('/contracts/:contractId', { controller: ContractCtrl, templateUrl: './Content/Views/Management/Contract.html' })
-            
+            .when('/orders', { controller: ManagementOrdersCtrl, templateUrl: './Content/Views/Management/Orders.html' })
+            .when('/orders/:orderId', { controller: ManagementOrderCtrl, templateUrl: './Content/Views/Management/Order.html' })
+            .when('/contracts', { controller: ManagementContractsCtrl, templateUrl: './Content/Views/Management/Contracts.html' })
+            .when('/contracts/:contractId', { controller: ManagementContractCtrl, templateUrl: './Content/Views/Management/Contract.html' })
             .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Management/Settings.html' })
             .when('/files', { controller: FilesCtrl, templateUrl: './Content/Views/Management/Files.html' });
     })
-    .directive('phHistoryBack', function($window) {
-        return {
-            restrict: 'A',
-            link: function (scope, elem, attrs) {
-                elem.bind('click', function () {
-                    $window.history.back();
-                });
-            }
-        }
-    })
-    .directive('bsDatefield', function () {
-        return {
-            require: 'ngModel',
-            link: function (scope, element, attrs, ngModelCtrl) {
-                var dateFormat = attrs.bsDatefield || 'DD.MM.YYYY';
-                ngModelCtrl.$parsers.push(function (viewValue) {
-                    //convert string input into moment data model
-                    var parsedMoment = moment(viewValue, dateFormat);
-                    //toggle validity
-                    ngModelCtrl.$setValidity('datefield', parsedMoment.isValid());
-                    //return model value
-                    return parsedMoment.isValid() ? parsedMoment.toDate() : undefined;
-                });
-                ngModelCtrl.$formatters.push(function (modelValue) {
-                    var isModelADate = angular.isDate(modelValue);
-                    ngModelCtrl.$setValidity('datefield', isModelADate);
-                    return isModelADate ? moment(modelValue).format(dateFormat) : undefined;
-                });
-            }
-        };
-    })
-;
+; // ph.management
 
-function OrdersCtrl($scope, $location, organizationOrders) {
+function ManagementOrdersCtrl($scope, $location, organizationOrders) {
     $scope.isLoading = true;
     $scope.orders = organizationOrders.query({ "organizationId": $scope.organizationId }, function () { $scope.isLoading = false; }, function () { $scope.isLoading = false; });
 
@@ -94,7 +52,7 @@ function OrdersCtrl($scope, $location, organizationOrders) {
     };
 };
 
-function OrderCtrl($scope, $location, $routeParams, organizationOrders, organizationOrderItems) {
+function ManagementOrderCtrl($scope, $location, $routeParams, organizationOrders, organizationOrderItems) {
     $scope.order = organizationOrders.get({ "organizationId": $scope.organizationId, "orderId": $routeParams.orderId });
 
     $scope.newItem = {
@@ -214,7 +172,7 @@ function OrderCtrl($scope, $location, $routeParams, organizationOrders, organiza
     }
 };
 
-function ContractsCtrl($scope, $location, organizationContracts) {
+function ManagementContractsCtrl($scope, $location, organizationContracts) {
     $scope.isLoading = true;
     $scope.contracts = organizationContracts.query({ "organizationId": $scope.organizationId }, function() { $scope.isLoading = false; }, function() { $scope.isLoading = false; });
 
@@ -232,7 +190,7 @@ function ContractsCtrl($scope, $location, organizationContracts) {
     };
 };
 
-function ContractCtrl($scope, $location, $routeParams, organizationContracts) {
+function ManagementContractCtrl($scope, $location, $routeParams, organizationContracts) {
     $scope.contract = organizationContracts.get({ "organizationId": $scope.organizationId, "contractId": $routeParams.contractId });
 
     $scope.printPdf = function(contract) {

@@ -179,6 +179,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartMitSqlServerCe.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\Orgs\FilesController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
@@ -297,6 +298,10 @@
     <Content Include="Content\select2.png" />
     <Content Include="Content\select2x2.png" />
     <Content Include="Content\spinner.gif" />
+    <Content Include="Content\Views\Documents\Contract.html" />
+    <Content Include="Content\Views\Documents\Contracts.html" />
+    <Content Include="Content\Views\Documents\Order.html" />
+    <Content Include="Content\Views\Documents\Orders.html" />
     <Content Include="Content\Views\Management\Applications.html" />
     <Content Include="Content\Views\Management\Order.html" />
     <Content Include="Content\Views\Management\Contract.html" />
@@ -361,9 +366,12 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\modules\management.js" />
-    <Content Include="Scripts\modules\organization.js" />
-    <Content Include="Scripts\modules\phundus-api.js" />
+    <Content Include="Scripts\modules\ph-documents.js" />
+    <Content Include="Scripts\modules\ph-domain.js" />
+    <Content Include="Scripts\modules\ph-management.js" />
+    <Content Include="Scripts\modules\ph-organizations.js" />
+    <Content Include="Scripts\modules\ph-resources.js" />
+    <Content Include="Scripts\modules\ph-ui.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
@@ -639,6 +647,7 @@
     <Content Include="Views\Management\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Documents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\pbar-ani.gif" />
