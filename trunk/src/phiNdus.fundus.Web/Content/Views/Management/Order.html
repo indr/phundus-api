@@ -6,7 +6,8 @@
     <div class="span6">
         <p>Nummer: {{order.orderId}}</p>
         <p>Status: {{order.status | orderStatusText}}</p>
-        <p>Datum: {{order.createdOn | date:'medium'}}</p>
+        <p>Erstellt: {{order.createdOn | date:'medium'}}</p>
+        <p>Bearbeitet: {{order.modifiedOn | date:'medium'}}</p>
     </div>
     <div class="span6">
         <p>Ausleiher: {{order.borrowerFirstName}} {{order.borrowerLastName}}</p>

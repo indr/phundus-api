@@ -27,10 +27,12 @@ namespace Phundus.Persistence.Shop.Mappings
                 c.Map(x => x.MemberNumber, "Borrower_MemberNumber");
             });
 
+            Map(x => x.ModifiedOn, "ModifyDate");
+            Map(x => x.ModifiedBy, "ModifierId");
+
             HasMany(x => x.Items).AsSet()
                 .KeyColumn("OrderId").Inverse()
                 .Access.CamelCaseField(Prefix.Underscore)
-                //.Access.BackingField()
                 .Cascade.AllDeleteOrphan();
         }
     }

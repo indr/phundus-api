@@ -110,6 +110,7 @@ namespace Phundus.Rest.Api.Organizations
                 Version = dto.Version,
                 OrganizationId = dto.OrganizationId,
                 CreatedOn = dto.CreateDate,
+                ModifiedOn = dto.ModifiedOn,
                 BorrowerId = dto.Borrower.BorrowerId,
                 BorrowerFirstName = dto.Borrower.FirstName,
                 BorrowerLastName = dto.Borrower.LastName,
@@ -143,6 +144,7 @@ namespace Phundus.Rest.Api.Organizations
                 Version = each.Version,
                 OrganizationId = each.OrganizationId,
                 CreatedOn = each.CreateDate,
+                ModifiedOn = each.ModifiedOn,
                 BorrowerId = each.Borrower.BorrowerId,
                 BorrowerFirstName = each.Borrower.FirstName,
                 BorrowerLastName = each.Borrower.LastName,
@@ -167,6 +169,7 @@ namespace Phundus.Rest.Api.Organizations
 
         public string Status { get; set; }
         public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
 
         public int BorrowerId { get; set; }
         public string BorrowerFirstName { get; set; }

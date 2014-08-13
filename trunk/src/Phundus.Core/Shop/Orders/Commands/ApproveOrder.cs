@@ -22,7 +22,7 @@
 
             MemberInRole.ActiveChief(order.OrganizationId, command.InitiatorId);
 
-            order.Approve();
+            order.Approve(command.InitiatorId);
         }
     }
 }

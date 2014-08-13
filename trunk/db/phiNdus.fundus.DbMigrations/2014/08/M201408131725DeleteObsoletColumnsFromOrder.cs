@@ -11,8 +11,8 @@ namespace phiNdus.fundus.DbMigrations
             Delete.ForeignKey("FkOrderToModifier").OnTable("Order");
 
             Delete.Column("ReserverId").FromTable("Order");
-            Delete.Column("ModifierId").FromTable("Order");
-            Delete.Column("ModifyDate").FromTable("Order");
+            //Delete.Column("ModifierId").FromTable("Order");
+            //Delete.Column("ModifyDate").FromTable("Order");
         }
 
         public override void Down()

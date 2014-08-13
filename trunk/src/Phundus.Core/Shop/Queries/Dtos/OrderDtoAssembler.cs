@@ -18,6 +18,7 @@
                 Version = subject.Version,
                 OrganizationId = subject.OrganizationId,
                 CreateDate = subject.CreatedOn,
+                ModifiedOn = subject.ModifiedOn,
                 TotalPrice = subject.TotalPrice,
                 Status = subject.Status
             };
