@@ -1,0 +1,57 @@
+﻿<h2>Meine Bestellungen</h2>
+
+<div class="row">
+    <div class="span8">
+        <form class="form-inline">
+            <p>
+                <input type="text" ng-model="search.$" class="search-query" placeholder="Suchen">
+            </p>
+            <label class="radio inline">
+                <input type="radio" ng-model="search.status" name="optionsRadios" value=""> Alle
+            </label>
+            <label class="radio inline">
+                <input type="radio" ng-model="search.status" name="optionsRadios" value="Pending"> Provisorisch
+            </label>
+            <label class="radio inline">
+                <input type="radio" ng-model="search.status" name="optionsRadios" value="Approved"> Bestätigt
+            </label>
+            <label class="radio inline">
+                <input type="radio" ng-model="search.status" name="optionsRadios" value="Rejected"> Abgelehnt
+            </label>
+            <label class="radio inline">
+                <input type="radio" ng-model="search.status" name="optionsRadios" value="Closed"> Abgeschlossen
+            </label>
+        </form>
+    </div>
+    <div class="span4" style="text-align:right">
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th><a href="" ng-click="orderBy('orderId')">Nummer</a></th>
+            <th><a href="" ng-click="orderBy('createdOn')">Erstellt</a></th>
+            <th><a href="" ng-click="orderBy('status')">Status</a></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="order in filteredOrders = (orders | filter:search) | orderBy:order">
+            <td>{{order.orderId}}</td>
+            <td>{{order.createdOn | date:'medium'}}</td>
+            <td>{{order.status | orderStatusText}}</td>
+            <td style="text-align:right">
+                <a class="btn btn-small" ng-click="openOrder(order)">Öffnen</a>
+                <a class="btn btn-small" href="/api/orders/{{order.orderId}}.pdf">PDF</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div ng-hide="(isLoading) || (filteredOrders.length)" class="alert alert-no-results">
+    <strong>Nichts gefunden!</strong> Deine Suche ergab keine Treffer... 😕
+</div>
+<div ng-show="isLoading" class="alert alert-info">
+    <strong>Bitte warten!</strong> Die Daten werden abgefragt...
+</div>

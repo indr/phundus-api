@@ -1,0 +1,35 @@
+﻿<h2>Meine Verträge</h2>
+
+<form class="form-inline">
+    <p>
+        <input type="text" ng-model="search.$" class="search-query" placeholder="Suchen">
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th><a href="" ng-click="orderBy('contractId')">Nummer</a></th>
+            <th><a href="" ng-click="orderBy('createdOn')">Erstellt</a></th>
+            <th><a href="" ng-click="orderBy('signedOn')">Gezeichnet</a></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="contract in filteredContracts = (contracts | filter:search) | orderBy:order">
+            <td>{{contract.contractId}}</td>
+            <td>{{contract.createdOn | date: 'medium'}}</td>
+            <td>{{contract.signedOn | date: 'medium'}}</td>
+            <td style="text-align: right">
+                <a class="btn btn-small" ng-click="openContract(contract)">Öffnen</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div ng-hide="(isLoading) || (filteredContracts.length)" class="alert alert-no-results">
+    <strong>Nichts gefunden!</strong> Deine Suche ergab keine Treffer... 😕
+</div>
+<div ng-show="isLoading" class="alert alert-info">
+    <strong>Bitte warten!</strong> Die Daten werden abgefragt...
+</div>
+

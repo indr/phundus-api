@@ -2,6 +2,9 @@
     ViewBag.Title = "Verwaltung";
 }
 
-<div ng-app="management" ng-init="organizationId=@Session["OrganizationId"] + 0;">
-    <div ng-view><p>Bitte warten...</p></div>
+<div ng-app="ph.management" ng-init="organizationId=@Session["OrganizationId"] + 0;">
+    <div ng-view>
+        <h2>Verwaltung</h2>
+        <p>Modul wird geladen. Bitte warten...</p>
+    </div>
 </div>

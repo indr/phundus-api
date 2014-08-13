@@ -1,4 +1,4 @@
-﻿angular.module('phundus-api', ['ngResource'])
+﻿angular.module('ph.resources', ['ngResource'])
 
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.responseInterceptors.push('errorMessageHttpInterceptor');
@@ -99,6 +99,13 @@
             { organizationId: '@organizationId', contractId: '@contractId' });
     })
     
+    .factory('orders', function($resource) {
+        return $resource('./api/orders/:orderId');
+    })
     
-;
+    .factory('contracts', function($resource) {
+        return $resource('./api/contracts/:contractId');
+    })
+    
+; // ph.resources
 

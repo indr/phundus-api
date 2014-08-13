@@ -1,5 +1,5 @@
 ﻿
-angular.module('organization', ['phundus-api', 'ui', 'ui.bootstrap'])
+angular.module('ph.organizations', ['ph.resources', 'ui', 'ui.bootstrap'])
 
     .filter('replace', function () {
         return function(input, pattern, replace) {
@@ -15,7 +15,7 @@ angular.module('organization', ['phundus-api', 'ui', 'ui.bootstrap'])
             .when('/establish', { controller: EstablishCtrl, templateUrl: './Content/Views/Organization/Establish.html' })
             .when('/', { controller: HomeCtrl, templateUrl: './Content/Views/Organization/Home.html' });
     })
-;
+; // ph.organizations
 
 function SearchCtrl($scope, organizations) {
     $scope.organizations = organizations.query();
