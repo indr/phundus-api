@@ -1,15 +1,11 @@
 ﻿namespace Phundus.Core.Tests.Shop
 {
-    using Core.IdentityAndAccess.Users.Model;
-    using Core.Shop.Contracts.Model;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
-
-
 
     [Subject(typeof (CreateEmptyOrderHandler))]
     public class when_create_empty_order_is_handled :
@@ -24,7 +20,7 @@
         {
             orders.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(orderId);
             borrowerService.setup(x => x.ById(userId)).Return(BorrowerFactory.Create(userId));
-            
+
             command = new CreateEmptyOrder
             {
                 OrganizationId = organizationId,
