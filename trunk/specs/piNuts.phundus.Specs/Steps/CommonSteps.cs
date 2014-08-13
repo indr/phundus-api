@@ -22,6 +22,11 @@
             Browser.GoTo(BaseUrl + url);
         }
 
+        [Given(@"Ich bin auf der Startseite")]
+        public void AngenommenIchBinAufDerStartseite()
+        {
+            Browser.GoTo(BaseUrl + "/shop");
+        }
 
         [Given(@"ich bin auf der Registrierenseite")]
         public void AngenommenIchBinAufDerRegistrierenseite()
