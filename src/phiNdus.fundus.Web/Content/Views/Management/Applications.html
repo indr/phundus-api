@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="application in applications | filter:search | orderBy:order">
+        <tr ng-repeat="application in filtered = (applications | filter:search) | orderBy:order">
             <td>{{application.firstName}}</td>
             <td>{{application.lastName}}</td>
             <td>{{application.jsNumber}}</td>
@@ -27,3 +27,5 @@
         </tr>
     </tbody>
 </table>
+<div x-ph-alert-no-results />
+<div x-ph-alert-loading />

@@ -42,7 +42,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="order in filteredOrders = (orders | filter:search) | orderBy:order">
+        <tr ng-repeat="order in filtered = (orders | filter:search) | orderBy:order">
             <td>{{order.orderId}}</td>
             <td>{{order.createdOn | date:'medium'}}</td>
             <td>{{order.borrowerFirstName}}</td>
@@ -56,12 +56,8 @@
         </tr>
     </tbody>
 </table>
-<div ng-hide="(isLoading) || (filteredOrders.length)" class="alert alert-no-results">
-    <strong>Nichts gefunden!</strong> Deine Suche ergab keine Treffer... 😕
-</div>
-<div ng-show="isLoading" class="alert alert-info">
-    <strong>Bitte warten!</strong> Die Daten werden abgefragt...
-</div>
+<div x-ph-alert-no-results />
+<div x-ph-alert-loading />
 
 
 

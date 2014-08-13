@@ -1,5 +1,5 @@
 ﻿
-angular.module('ph.documents', ['ph.domain', 'ph.resources', 'ui', 'ui.bootstrap'])
+angular.module('ph.documents', ['ph.domain', 'ph.resources', 'ph.ui', 'ui', 'ui.bootstrap'])
     .config(function($routeProvider) {
         $routeProvider
             .when('/orders', { controller: OrdersCtrl, templateUrl: './Content/Views/Documents/Orders.html' })
