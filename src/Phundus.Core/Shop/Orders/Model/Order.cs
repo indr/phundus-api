@@ -6,7 +6,6 @@
     using Ddd;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
-    using Infrastructure;
     using Inventory.Model;
     using Inventory.Repositories;
     using Inventory._Legacy;
@@ -72,8 +71,8 @@
 
         public virtual ISet<OrderItem> Items
         {
-            get { return _items; }
-            set { _items = value; }
+            get { return new ImmutableSet<OrderItem>(_items); }
+            protected set { _items = value; }
         }
 
         public virtual User Modifier { get; protected set; }
@@ -101,7 +100,7 @@
                 throw new OrderAlreadyClosedException();
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
-            
+
             Status = OrderStatus.Rejected;
 
             EventPublisher.Publish(new OrderRejected());
@@ -132,9 +131,28 @@
 
             EventPublisher.Publish(new OrderClosed());
         }
-        
+
+        public virtual void EnsurePending()
+        {
+            switch (Status)
+            {
+                case OrderStatus.Pending:
+                    break;
+                case OrderStatus.Approved:
+                    throw new OrderAlreadyApprovedException();
+                case OrderStatus.Rejected:
+                    throw new OrderAlreadyRejectedException();
+                case OrderStatus.Closed:
+                    throw new OrderAlreadyClosedException();
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         public virtual bool AddItem(OrderItem item, ISession session)
         {
+            EnsurePending();
+
             var checker = new AvailabilityChecker(item.Article, session);
             if (!checker.Check(item.From, item.To, item.Amount))
                 throw new ArticleNotAvailableException(item);
@@ -146,6 +164,8 @@
 
         public virtual OrderItem AddItem(Article article, DateTime from, DateTime to, int amount)
         {
+            EnsurePending();
+
             var item = new OrderItem();
             item.Article = article;
             item.From = from;
@@ -162,6 +182,8 @@
 
         public virtual bool AddItem(int articleId, int amount, DateTime begin, DateTime end, ISession session)
         {
+            EnsurePending();
+
             var item = new OrderItem();
             item.Article = ServiceLocator.Current.GetInstance<IArticleRepository>().ById(articleId);
             item.Amount = amount;
@@ -172,6 +194,8 @@
 
         public virtual void RemoveItem(Guid orderItemId)
         {
+            EnsurePending();
+
             var item = Items.FirstOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return;
@@ -184,6 +208,8 @@
 
         public virtual void ChangeAmount(Guid orderItemId, int amount)
         {
+            EnsurePending();
+
             var item = Items.SingleOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return;
@@ -195,6 +221,8 @@
 
         public virtual void ChangeItemPeriod(Guid orderItemId, DateTime @from, DateTime to)
         {
+            EnsurePending();
+
             var item = Items.SingleOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return;
@@ -205,11 +233,17 @@
         }
     }
 
-    public class OrderAlreadyClosedException : Exception { }
+    public class OrderAlreadyClosedException : Exception
+    {
+    }
 
-    public class OrderAlreadyRejectedException : Exception { }
+    public class OrderAlreadyRejectedException : Exception
+    {
+    }
 
-    public class OrderAlreadyApprovedException : Exception { }
+    public class OrderAlreadyApprovedException : Exception
+    {
+    }
 
     public class ArticleNotAvailableException : Exception
     {
