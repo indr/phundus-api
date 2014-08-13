@@ -9,12 +9,15 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Core.Shop.Orders;
     using Core.Shop.Queries;
 
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase
     {
         public IOrderQueries OrderQueries { get; set; }
+
+        public IOrderService OrderService { get; set; }
 
         [GET("")]
         [Transaction]
@@ -25,7 +28,7 @@
             return Request.CreateResponse(HttpStatusCode.OK, ToDocs(result));
         }
 
-        [GET("{orderId}")]
+        [GET("{orderId:int}")]
         [Transaction]
         public virtual HttpResponseMessage Get(int orderId)
         {
@@ -35,6 +38,15 @@
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
 
             return Request.CreateResponse(HttpStatusCode.OK, ToDoc(result));
+        }
+
+        [GET("{orderId:int}.pdf")]
+        [Transaction]
+        public virtual HttpResponseMessage GetPdf(int organizationId, int orderId)
+        {
+            var stream = OrderService.GetPdf(orderId);
+
+            return CreatePdfResponse(stream, string.Format("Bestellung-{0}", orderId));
         }
 
         private object ToDoc(OrderDto dto)
