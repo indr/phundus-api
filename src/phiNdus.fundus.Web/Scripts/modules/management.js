@@ -169,15 +169,27 @@ function OrderCtrl($scope, $location, $routeParams, orders, orderItems) {
     };
 
     $scope.confirmOrder = function (order) {
-        alert('tbd');
+        var status = order.status;
+        order.status = 'Approved';
+        order.$update(function() {}, function() {
+            order.status = status;
+        });
     };
 
     $scope.rejectOrder = function (order) {
-        alert('tbd');
+        var status = order.status;
+        order.status = 'Rejected';
+        order.$update(function () { }, function () {
+            order.status = status;
+        });
     };
 
     $scope.closeOrder = function (order) {
-        alert('tbd');
+        var status = order.status;
+        order.status = 'Closed';
+        order.$update(function () { }, function () {
+            order.status = status;
+        });
     };
 
     $scope.getTotal = function () {

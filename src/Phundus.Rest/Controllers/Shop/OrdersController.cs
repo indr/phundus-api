@@ -6,6 +6,8 @@ namespace Phundus.Rest.Controllers.Shop
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using System.Threading;
+    using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -57,6 +59,13 @@ namespace Phundus.Rest.Controllers.Shop
             };
 
             return result;
+        }
+
+        [PATCH("{orderId}")]
+        [Transaction]
+        public virtual HttpResponseMessage Patch(int organizationId, int orderId, OrderPatchDoc doc)
+        {
+            return Request.CreateErrorResponse(HttpStatusCode.NotImplemented, "Status " + doc.Status);
         }
 
         [POST("")]
@@ -135,6 +144,11 @@ namespace Phundus.Rest.Controllers.Shop
                 Status = each.Status.ToString()
             }).ToList();
         }
+    }
+
+    public class OrderPatchDoc
+    {
+        public string Status { get; set; }
     }
 
     public class OrdersPostDoc

@@ -80,15 +80,18 @@
             './api/organizations/:organizationId/relationships');
     })
     .factory('orders', function($resource) {
-            return $resource(
-                './api/organizations/:organizationId/orders/:orderId',
-                { organizationId: '@organizationId', orderId: '@orderId' });
+        return $resource(
+            './api/organizations/:organizationId/orders/:orderId',
+            { organizationId: '@organizationId', orderId: '@orderId' },
+            { update: { method: 'PATCH' } });
+
     })
-    .factory('orderItems', function($resource) {
+    .factory('orderItems', function ($resource) {
         return $resource(
             './api/organizations/:organizationId/orders/:orderId/items/:orderItemId',
             { organizationId: '@organizationId', orderId: '@orderId', orderItemId: '@orderItemId' },
             { update: { method: 'PATCH' } });
+
     })
     .factory('contracts', function($resource) {
         return $resource(
