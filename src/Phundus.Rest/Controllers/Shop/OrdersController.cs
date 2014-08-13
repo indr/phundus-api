@@ -5,17 +5,25 @@ namespace Phundus.Rest.Controllers.Shop
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
+    using AttributeRouting;
+    using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Core.IdentityAndAccess.Queries;
+    using Core.Shop.Orders;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
 
+    [RoutePrefix("api/organizations/{organizationId}/orders")]
     public class OrdersController : ApiControllerBase
     {
         public IOrderQueries OrderQueries { get; set; }
 
         public IUserQueries UserQueries { get; set; }
 
+        public IOrderService OrderService { get; set; }
+
+        [GET("")]
         [Transaction]
         public virtual HttpResponseMessage Get(int organizationId)
         {
@@ -23,16 +31,35 @@ namespace Phundus.Rest.Controllers.Shop
             return Request.CreateResponse(HttpStatusCode.OK, ToDocs(result));
         }
 
+        [GET("{orderId:int}")]
         [Transaction]
-        public virtual HttpResponseMessage Get(int organizationId, int id)
+        public virtual HttpResponseMessage Get(int organizationId, int orderId)
         {
-            var result = OrderQueries.FindOrder(id, organizationId, CurrentUserId);
+            var result = OrderQueries.FindOrder(orderId, organizationId, CurrentUserId);
             if (result == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Order not found");
 
             return Request.CreateResponse(HttpStatusCode.OK, ToDoc(result));
         }
 
+        [GET("{orderId:int}.pdf")]
+        [Transaction]
+        public virtual HttpResponseMessage GetPdf(int organizationId, int orderId)
+        {
+            var stream = OrderService.GetPdf(organizationId, orderId, CurrentUserId);
+
+            var result = new HttpResponseMessage(HttpStatusCode.OK);
+            result.Content = new StreamContent(stream);
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = string.Format("Bestelung-{0}.pdf", orderId)
+            };
+
+            return result;
+        }
+
+        [POST("")]
         [Transaction]
         public virtual HttpResponseMessage Post(int organizationId, OrdersPostDoc doc)
         {

@@ -1,14 +1,12 @@
 ﻿namespace Phundus.Core.Shop.Orders
 {
-    using System;
-    using System.Collections.Generic;
     using System.IO;
     using Castle.Transactions;
     using IdentityAndAccess.Organizations.Repositories;
+    using IdentityAndAccess.Queries;
     using IdentityAndAccess.Users.Repositories;
     using Mails;
     using Microsoft.Practices.ServiceLocation;
-    using Model;
     using Queries;
     using Repositories;
     using Services;
@@ -20,6 +18,8 @@
         public IOrganizationRepository OrganizationRepository { get; set; }
 
         public IOrderQueries OrderQueries { get; set; }
+
+        public IMemberInRole MemberInRole { get; set; }
 
         public void Reject(int id)
         {
@@ -55,6 +55,13 @@
             var repo = ServiceLocator.Current.GetInstance<IOrderRepository>();
             var order = repo.ById(id);
             return PdfGenerator.GeneratePdf(order, OrganizationRepository.ById(order.OrganizationId));
-        }        
+        }
+
+        public Stream GetPdf(int organizationId, int orderId, int currentUserId)
+        {
+            MemberInRole.ActiveChief(organizationId, currentUserId);
+
+            return GetPdf(orderId);
+        }
     }
 }

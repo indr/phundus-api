@@ -51,6 +51,7 @@
             <td>{{order.status | orderStatusText}}</td>
             <td style="text-align:right">
                 <a class="btn btn-small" ng-click="openOrder(order)">Öffnen</a>
+                <a class="btn btn-small" href="/api/organizations/{{organizationId}}/orders/{{order.orderId}}.pdf">PDF</a>
             </td>
         </tr>
     </tbody>
