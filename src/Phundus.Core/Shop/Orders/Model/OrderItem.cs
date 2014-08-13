@@ -7,10 +7,16 @@
     {
         private int _amount;
         private Guid _id;
+        private Order _order;
 
-        public OrderItem()
+        protected OrderItem()
+        {
+        }
+
+        public OrderItem(Order order)
         {
             _id = Guid.NewGuid();
+            _order = order;
         }
 
         public virtual Guid Id
@@ -21,7 +27,11 @@
 
         public virtual int Version { get; protected set; }
 
-        public virtual Order Order { get; set; }
+        public virtual Order Order
+        {
+            get { return _order; }
+            protected set { _order = value; }
+        }
 
         public virtual int Amount
         {
@@ -29,7 +39,7 @@
             set
             {
                 if (value < 1)
-                    throw new ArgumentOutOfRangeException("value", "Die Menge darf nicht kleiner als Eins sein.");
+                    throw new ArgumentOutOfRangeException("value", @"Die Menge darf nicht kleiner als Eins sein.");
                 _amount = value;
             }
         }
@@ -59,6 +69,11 @@
         {
             From = from;
             To = to;
+        }
+
+        public virtual void Delete()
+        {
+            _order = null;
         }
     }
 }

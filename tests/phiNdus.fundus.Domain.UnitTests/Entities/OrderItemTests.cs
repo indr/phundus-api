@@ -11,7 +11,7 @@
     {
         private static OrderItem CreateSut()
         {
-            return new OrderItem();
+            return new OrderItem( new Order(1001, new Borrower(1, "", "", "", "", "","","","")));
         }
 
         [Test]
@@ -40,12 +40,12 @@
         }
 
         [Test]
-        public void Can_get_and_set_Order()
+        public void Can_delete()
         {
             OrderItem sut = CreateSut();
-            var order = new Order(1001, new Borrower(1, "", "", "", "", "","","",""));
-            sut.Order = order;
-            Assert.That(sut.Order, Is.SameAs(order));
+            Assert.That(sut.Order, Is.Not.Null);
+            sut.Delete();
+            Assert.That(sut.Order, Is.Null);
         }
 
         [Test]

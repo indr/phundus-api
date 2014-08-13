@@ -4,7 +4,6 @@
     using System.Linq;
     using Contracts.Model;
     using Ddd;
-    using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
     using Inventory.Model;
     using Inventory.Repositories;
@@ -16,7 +15,6 @@
     {
         private Borrower _borrower;
         private DateTime _createdOn = DateTime.UtcNow;
-        private int _id;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private int _organizationId;
         private OrderStatus _status = OrderStatus.Pending;
@@ -31,11 +29,7 @@
             _borrower = borrower;
         }
 
-        public virtual int Id
-        {
-            get { return _id; }
-            protected set { _id = value; }
-        }
+        public virtual int Id { get; protected set; }
 
         public virtual int Version { get; protected set; }
 
@@ -63,23 +57,11 @@
             protected set { _borrower = value; }
         }
 
-        public virtual int ReserverId
-        {
-            get { return Borrower.Id; }
-            protected set { }
-        }
-
         public virtual ISet<OrderItem> Items
         {
             get { return new ImmutableSet<OrderItem>(_items); }
             protected set { _items = value; }
         }
-
-        // TODO: Remove
-        public virtual User Modifier { get; protected set; }
-
-        // TODO: Remove
-        public virtual DateTime? ModifyDate { get; protected set; }
 
         public virtual decimal TotalPrice
         {
@@ -169,22 +151,21 @@
             if (!checker.Check(item.From, item.To, item.Amount))
                 throw new ArticleNotAvailableException(item);
 
-            var result = _items.Add(item);
-            item.Order = this;
-            return result;
+            return _items.Add(item);
         }
 
         public virtual OrderItem AddItem(Article article, DateTime from, DateTime to, int amount)
         {
             EnsurePending();
 
-            var item = new OrderItem();
-            item.Article = article;
-            item.From = from;
-            item.To = to;
-            item.Amount = amount;
+            var item = new OrderItem(this)
+            {
+                Article = article,
+                From = @from,
+                To = to,
+                Amount = amount
+            };
 
-            item.Order = this;
             _items.Add(item);
 
             EventPublisher.Publish(new OrderItemAdded());
@@ -195,12 +176,16 @@
         public virtual bool AddItem(int articleId, int amount, DateTime begin, DateTime end, ISession session)
         {
             EnsurePending();
+            var article = ServiceLocator.Current.GetInstance<IArticleRepository>().ById(articleId);
 
-            var item = new OrderItem();
-            item.Article = ServiceLocator.Current.GetInstance<IArticleRepository>().ById(articleId);
-            item.Amount = amount;
-            item.From = begin;
-            item.To = end;
+            var item = new OrderItem(this)
+            {
+                Article = article,
+                Amount = amount,
+                From = begin,
+                To = end
+            };
+
             return AddItem(item, session);
         }
 
@@ -213,7 +198,7 @@
                 return;
 
             _items.Remove(item);
-            item.Order = null;
+            item.Delete();
 
             EventPublisher.Publish(new OrderItemRemoved());
         }

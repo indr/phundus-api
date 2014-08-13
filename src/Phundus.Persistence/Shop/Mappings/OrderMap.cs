@@ -13,7 +13,7 @@ namespace Phundus.Persistence.Shop.Mappings
             Map(x => x.CreatedOn, "CreateDate");
             Map(x => x.Status, "Status").CustomType<OrderStatus>();
             Map(x => x.OrganizationId, "OrganizationId");
-            Map(x => x.ReserverId);
+            
             Component(x => x.Borrower, c =>
             {
                 c.Map(x => x.Id, "Borrower_Id");
