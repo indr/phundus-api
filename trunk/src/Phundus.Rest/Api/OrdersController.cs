@@ -1,4 +1,4 @@
-﻿namespace Phundus.Rest.Controllers
+﻿namespace Phundus.Rest.Api
 {
     using System;
     using System.Collections.Generic;

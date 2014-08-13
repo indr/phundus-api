@@ -1,4 +1,4 @@
-﻿namespace Phundus.Rest.Controllers.Organizations
+﻿namespace Phundus.Rest.Api.Organizations
 {
     using System.Collections.Generic;
     using AttributeRouting;
