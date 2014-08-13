@@ -94,13 +94,9 @@ function OrdersCtrl($scope, $location, orders) {
     };
 };
 
-function OrderCtrl($scope, $routeParams, orders, orderItems) {
+function OrderCtrl($scope, $location, $routeParams, orders, orderItems) {
     $scope.order = orders.get({ "organizationId": $scope.organizationId, "orderId": $routeParams.orderId });
 
-    $scope.printPdf = function (order) {
-        alert('tbd');
-    };
-        
     $scope.newItem = {
         articleId: '', amount: 1, from: new Date(), to: new Date(),
         organizationId: $scope.organizationId, orderId: $scope.order.orderId

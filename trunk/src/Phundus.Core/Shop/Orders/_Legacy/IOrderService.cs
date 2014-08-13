@@ -8,5 +8,6 @@
         void Confirm(int id);
 
         Stream GetPdf(int id);
+        Stream GetPdf(int organizationId, int orderId, int currentUserId);
     }
 }
