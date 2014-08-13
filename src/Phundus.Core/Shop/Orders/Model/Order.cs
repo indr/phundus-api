@@ -75,23 +75,35 @@
             protected set { _items = value; }
         }
 
+        // TODO: Remove
         public virtual User Modifier { get; protected set; }
 
+        // TODO: Remove
         public virtual DateTime? ModifyDate { get; protected set; }
 
         public virtual decimal TotalPrice
         {
-            get { return Items.Sum(x => x.LineTotal); }
+            get { return _items.Sum(x => x.LineTotal); }
         }
 
-        public virtual DateTime LastTo
+        public virtual DateTime? LastTo
         {
-            get { return Items.Max(s => s.To); }
+            get
+            {
+                if (_items.Count == 0)
+                    return null;
+                return _items.Max(s => s.To);
+            }
         }
 
-        public virtual DateTime FirstFrom
+        public virtual DateTime? FirstFrom
         {
-            get { return Items.Min(s => s.From); }
+            get
+            {
+                if (_items.Count == 0)
+                    return null;
+                return _items.Min(s => s.From);
+            }
         }
 
         public virtual void Reject()
@@ -157,7 +169,7 @@
             if (!checker.Check(item.From, item.To, item.Amount))
                 throw new ArticleNotAvailableException(item);
 
-            var result = Items.Add(item);
+            var result = _items.Add(item);
             item.Order = this;
             return result;
         }
@@ -173,7 +185,7 @@
             item.Amount = amount;
 
             item.Order = this;
-            Items.Add(item);
+            _items.Add(item);
 
             EventPublisher.Publish(new OrderItemAdded());
 
@@ -196,11 +208,11 @@
         {
             EnsurePending();
 
-            var item = Items.FirstOrDefault(p => p.Id == orderItemId);
+            var item = _items.FirstOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return;
 
-            Items.Remove(item);
+            _items.Remove(item);
             item.Order = null;
 
             EventPublisher.Publish(new OrderItemRemoved());
@@ -210,7 +222,7 @@
         {
             EnsurePending();
 
-            var item = Items.SingleOrDefault(p => p.Id == orderItemId);
+            var item = _items.SingleOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return;
 
@@ -223,7 +235,7 @@
         {
             EnsurePending();
 
-            var item = Items.SingleOrDefault(p => p.Id == orderItemId);
+            var item = _items.SingleOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return;
 
