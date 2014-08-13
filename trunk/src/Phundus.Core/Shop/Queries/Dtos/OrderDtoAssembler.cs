@@ -18,7 +18,6 @@
                                  Version = subject.Version,
                                  OrganizationId = subject.OrganizationId,
                                  CreateDate = subject.CreatedOn,
-                                 ModifyDate = subject.ModifyDate,
                                  TotalPrice = subject.TotalPrice,
                                  Status = subject.Status
                        };
@@ -33,12 +32,6 @@
                     LastName = subject.Borrower.LastName,
                     MemberNumber = subject.Borrower.MemberNumber
                 };
-            }
-
-            if (subject.Modifier != null)
-            {
-                result.ModifierId = subject.Modifier.Id;
-                result.ModifierName = subject.Modifier.DisplayName;
             }
 
             foreach (var item in subject.Items)
