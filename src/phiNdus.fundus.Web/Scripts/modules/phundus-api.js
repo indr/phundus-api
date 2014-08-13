@@ -79,21 +79,21 @@
         return $resource(
             './api/organizations/:organizationId/relationships');
     })
-    .factory('orders', function($resource) {
+    .factory('organizationOrders', function($resource) {
         return $resource(
             './api/organizations/:organizationId/orders/:orderId',
             { organizationId: '@organizationId', orderId: '@orderId' },
             { update: { method: 'PATCH' } });
 
     })
-    .factory('orderItems', function ($resource) {
+    .factory('organizationOrderItems', function ($resource) {
         return $resource(
             './api/organizations/:organizationId/orders/:orderId/items/:orderItemId',
             { organizationId: '@organizationId', orderId: '@orderId', orderItemId: '@orderItemId' },
             { update: { method: 'PATCH' } });
 
     })
-    .factory('contracts', function($resource) {
+    .factory('organizationContracts', function($resource) {
         return $resource(
             './api/organizations/:organizationId/contracts/:contractId',
             { organizationId: '@organizationId', contractId: '@contractId' });

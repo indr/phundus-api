@@ -1,4 +1,4 @@
-﻿namespace Phundus.Rest.Controllers.Organizations
+﻿namespace Phundus.Rest.Api.Organizations
 {
     using AttributeRouting;
     using AttributeRouting.Web.Http;

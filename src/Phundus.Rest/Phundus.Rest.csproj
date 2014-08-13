@@ -111,17 +111,17 @@
       <SubType>
       </SubType>
     </Compile>
-    <Compile Include="Controllers\OrdersController.cs" />
-    <Compile Include="Controllers\Organizations\OrganizationsMembersLocksController.cs" />
-    <Compile Include="Controllers\Organizations\OrganizationsRelationshipsController.cs" />
-    <Compile Include="Controllers\SessionsController.cs" />
-    <Compile Include="Controllers\CartsController.cs" />
-    <Compile Include="Controllers\Organizations\OrganizationsMembersController.cs" />
-    <Compile Include="Controllers\OrganizationsController.cs" />
-    <Compile Include="Controllers\Organizations\OrganizationsApplicationsController.cs" />
-    <Compile Include="Controllers\Organizations\OrganizationsContractsController.cs" />
-    <Compile Include="Controllers\Organizations\OrganizationsOrdersController.cs" />
-    <Compile Include="Controllers\Organizations\OrganizationsOrdersItemsController.cs" />
+    <Compile Include="Api\OrdersController.cs" />
+    <Compile Include="Api\Organizations\OrganizationsMembersLocksController.cs" />
+    <Compile Include="Api\Organizations\OrganizationsRelationshipsController.cs" />
+    <Compile Include="Api\SessionsController.cs" />
+    <Compile Include="Api\CartsController.cs" />
+    <Compile Include="Api\Organizations\OrganizationsMembersController.cs" />
+    <Compile Include="Api\OrganizationsController.cs" />
+    <Compile Include="Api\Organizations\OrganizationsApplicationsController.cs" />
+    <Compile Include="Api\Organizations\OrganizationsContractsController.cs" />
+    <Compile Include="Api\Organizations\OrganizationsOrdersController.cs" />
+    <Compile Include="Api\Organizations\OrganizationsOrdersItemsController.cs" />
     <Compile Include="Exceptions\HttpConflictException.cs" />
     <Compile Include="Exceptions\HttpForbiddenException.cs" />
     <Compile Include="Exceptions\HttpNotFoundException.cs" />

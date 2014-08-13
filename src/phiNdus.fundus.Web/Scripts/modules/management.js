@@ -62,9 +62,9 @@ angular.module('management', ['phundus-api', 'ui', 'ui.bootstrap'])
     })
 ;
 
-function OrdersCtrl($scope, $location, orders) {
+function OrdersCtrl($scope, $location, organizationOrders) {
     $scope.isLoading = true;
-    $scope.orders = orders.query({ "organizationId": $scope.organizationId }, function () { $scope.isLoading = false; }, function () { $scope.isLoading = false; });
+    $scope.orders = organizationOrders.query({ "organizationId": $scope.organizationId }, function () { $scope.isLoading = false; }, function () { $scope.isLoading = false; });
 
     $scope.createOrder = function() {
         $scope.newOrder = { userId: '', organizationId: $scope.organizationId };
@@ -72,7 +72,7 @@ function OrdersCtrl($scope, $location, orders) {
     };
 
     $scope.createOrderOk = function (newOrder) {
-        orders.save(newOrder, function (data) {
+        organizationOrders.save(newOrder, function (data) {
             $('#modal-createOrder').modal('hide');
             $scope.openOrder(data);
         }, function () {
@@ -94,8 +94,8 @@ function OrdersCtrl($scope, $location, orders) {
     };
 };
 
-function OrderCtrl($scope, $location, $routeParams, orders, orderItems) {
-    $scope.order = orders.get({ "organizationId": $scope.organizationId, "orderId": $routeParams.orderId });
+function OrderCtrl($scope, $location, $routeParams, organizationOrders, organizationOrderItems) {
+    $scope.order = organizationOrders.get({ "organizationId": $scope.organizationId, "orderId": $routeParams.orderId });
 
     $scope.newItem = {
         articleId: '', amount: 1, from: new Date(), to: new Date(),
@@ -111,7 +111,7 @@ function OrderCtrl($scope, $location, $routeParams, orders, orderItems) {
 
     $scope.addItem = function (item) {
         
-        orderItems.save(item, function(data) {
+        organizationOrderItems.save(item, function(data) {
             $('#modal-add-item').modal('hide');
             $scope.order.items.push(data);
         }, function() {
@@ -139,7 +139,7 @@ function OrderCtrl($scope, $location, $routeParams, orders, orderItems) {
 
     $scope.saveEditedItem = function(item) {
         item.editing = false;
-        orderItems.update({ organizationId: $scope.organizationId, orderId: $scope.order.orderId }, item, function (data) {
+        organizationOrderItems.update({ organizationId: $scope.organizationId, orderId: $scope.order.orderId }, item, function (data) {
 
             // $scope.order.items replace?
             item.amount = data.amount;
@@ -162,7 +162,7 @@ function OrderCtrl($scope, $location, $routeParams, orders, orderItems) {
         if (!confirm('Möchten Sie die Position "' + item.text + '" wirklich löschen?'))
             return;
 
-        orderItems.delete({ organizationId: $scope.organizationId, orderId: $scope.order.orderId, orderItemId: item.orderItemId }, function (data) {
+        organizationOrderItems.delete({ organizationId: $scope.organizationId, orderId: $scope.order.orderId, orderItemId: item.orderItemId }, function (data) {
             var idx = $scope.order.items.indexOf(item);
             $scope.order.items.splice(idx, 1);
         });
@@ -214,9 +214,9 @@ function OrderCtrl($scope, $location, $routeParams, orders, orderItems) {
     }
 };
 
-function ContractsCtrl($scope, $location, contracts) {
+function ContractsCtrl($scope, $location, organizationContracts) {
     $scope.isLoading = true;
-    $scope.contracts = contracts.query({ "organizationId": $scope.organizationId }, function() { $scope.isLoading = false; }, function() { $scope.isLoading = false; });
+    $scope.contracts = organizationContracts.query({ "organizationId": $scope.organizationId }, function() { $scope.isLoading = false; }, function() { $scope.isLoading = false; });
 
     $scope.openContract = function(contract) {
         $location.path('/contracts/' + contract.contractId);
@@ -232,8 +232,8 @@ function ContractsCtrl($scope, $location, contracts) {
     };
 };
 
-function ContractCtrl($scope, $location, $routeParams, contracts) {
-    $scope.contract = contracts.get({ "organizationId": $scope.organizationId, "contractId": $routeParams.contractId });
+function ContractCtrl($scope, $location, $routeParams, organizationContracts) {
+    $scope.contract = organizationContracts.get({ "organizationId": $scope.organizationId, "contractId": $routeParams.contractId });
 
     $scope.printPdf = function(contract) {
         alert('tbd');
@@ -342,7 +342,7 @@ function ApplicationsCtrl($scope, applications, members) {
     };
 }
 
-function MembersCtrl($scope, $location, members, membersLocks, contracts) {
+function MembersCtrl($scope, $location, members, membersLocks, organizationContracts) {
     $scope.members = members.query({ organizationId: $scope.organizationId });
 
     $scope.order = 'lastName';
@@ -391,7 +391,7 @@ function MembersCtrl($scope, $location, members, membersLocks, contracts) {
     };
 
     $scope.createContract = function (member) {
-        contracts.save({ organizationId: $scope.organizationId }, { userId: member.id }, function (value, responseHeaders) {
+        organizationContracts.save({ organizationId: $scope.organizationId }, { userId: member.id }, function (value, responseHeaders) {
             $location.path('/contracts/' + value.contractId);
         });
     };
