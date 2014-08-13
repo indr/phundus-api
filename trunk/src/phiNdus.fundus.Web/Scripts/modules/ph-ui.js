@@ -1,17 +1,30 @@
 ﻿
 angular.module('ph.ui', [])
-
-    .directive('phHistoryBack', function ($window) {
+    .directive('phHistoryBack', function($window) {
         return {
             restrict: 'A',
-            link: function (scope, elem, attrs) {
-                elem.bind('click', function () {
+            link: function(scope, elem, attrs) {
+                elem.bind('click', function() {
                     $window.history.back();
                 });
             }
         }
     })
-
+    .directive('phAlertNoResults', function() {
+        return {
+            restrict: 'AE',
+            replace: 'true',
+            template: '<div ng-hide="(isLoading) || (filtered.length)" class="alert alert-no-results"><strong>Nichts gefunden!</strong> Deine Suche ergab keine Treffer... 😕</div>'
+        };
+    })
+    
+    .directive('phAlertLoading', function () {
+        return {
+            restrict: 'AE',
+            replace: 'true',
+            template: '<div ng-show="isLoading" class="alert alert-info"><strong>Bitte warten!</strong> Die Daten werden abgefragt...</div>'
+        };
+    })
     .directive('bsDatefield', function () {
         return {
             require: 'ngModel',

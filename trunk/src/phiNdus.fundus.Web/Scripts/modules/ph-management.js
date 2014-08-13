@@ -1,5 +1,5 @@
 ﻿
-angular.module('ph.management', ['ph.resources', 'ui', 'ui.bootstrap'])
+angular.module('ph.management', ['ph.resources', 'ph.domain', 'ph.ui', 'ui', 'ui.bootstrap'])
     .filter('replace', function() {
         return function(input, pattern, replace) {
             if (input == null)
@@ -274,7 +274,8 @@ function SettingsCtrl($scope, organizations, files) {
 }
 
 function ApplicationsCtrl($scope, applications, members) {
-    $scope.applications = applications.query({ organizationId: $scope.organizationId });
+    $scope.isLoading = true;
+    $scope.applications = applications.query({ organizationId: $scope.organizationId }, function() { $scope.isLoading = false; }, function() { $scope.isLoading = false; });
     $scope.order = 'lastName';
     $scope.orderBy = function (by) {
         if ($scope.order == by)
@@ -301,7 +302,8 @@ function ApplicationsCtrl($scope, applications, members) {
 }
 
 function MembersCtrl($scope, $location, members, membersLocks, organizationContracts) {
-    $scope.members = members.query({ organizationId: $scope.organizationId });
+    $scope.isLoading = true;
+    $scope.members = members.query({ organizationId: $scope.organizationId }, function () { $scope.isLoading = false; }, function () { $scope.isLoading = false; });
 
     $scope.order = 'lastName';
     $scope.orderBy = function (by) {

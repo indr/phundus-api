@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody ng-init="roles = [{name:'Verwaltung',value:'2' },{name:'Mitglied',value:'1'}]">
-        <tr ng-repeat="member in members | filter:search | orderBy:order | orderBy:'isApproved'">
+        <tr ng-repeat="member in filtered = (members | filter:search) | orderBy:order | orderBy:'isApproved'">
             <td>{{member.id}}</td>
             <td>{{member.firstName}}</td>
             <td>{{member.lastName}}</td>
@@ -54,3 +54,5 @@
         </tr>
     </tbody>
 </table>
+<div x-ph-alert-no-results />
+<div x-ph-alert-loading />
