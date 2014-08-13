@@ -41,8 +41,8 @@
             <td>{{item.unitPrice | currency}}</td>
             <td>{{item.itemTotal | currency}}</td>
             <td ng-show="!item.editing">
-                <a class="btn" href="" ng-click="editItem(item)" title="Bearbeiten"><i class="icon-edit"></i></a>
-                <a class="btn" href="" ng-click="removeItem(item)" title="Entfernen"><i class="icon-remove"></i></a>
+                <a ng-show="order.status == 'Pending'" class="btn" href="" ng-click="editItem(item)" title="Bearbeiten"><i class="icon-edit"></i></a>
+                <a ng-show="order.status == 'Pending'" class="btn" href="" ng-click="removeItem(item)" title="Entfernen"><i class="icon-remove"></i></a>
             </td>
             <td ng-show="item.editing">
                 <a class="btn" href="" ng-click="saveEditedItem(item)" title="Speichern"><i class="icon-ok"></i></a>
