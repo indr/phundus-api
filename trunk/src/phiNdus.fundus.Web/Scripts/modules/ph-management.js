@@ -53,7 +53,10 @@ function ManagementOrdersCtrl($scope, $location, organizationOrders) {
 };
 
 function ManagementOrderCtrl($scope, $location, $routeParams, organizationOrders, organizationOrderItems) {
-    $scope.order = organizationOrders.get({ "organizationId": $scope.organizationId, "orderId": $routeParams.orderId });
+    $scope.isLoading = true;
+    $scope.isLoaded = false;
+    $scope.order = organizationOrders.get({ "organizationId": $scope.organizationId, "orderId": $routeParams.orderId },
+        function() { $scope.isLoading = false; $scope.isLoaded = true; }, function () { $scope.isLoading = false; });
 
     $scope.newItem = {
         articleId: '', amount: 1, from: new Date(), to: new Date(),
@@ -191,11 +194,11 @@ function ManagementContractsCtrl($scope, $location, organizationContracts) {
 };
 
 function ManagementContractCtrl($scope, $location, $routeParams, organizationContracts) {
-    $scope.contract = organizationContracts.get({ "organizationId": $scope.organizationId, "contractId": $routeParams.contractId });
+    $scope.isLoading = true;
+    $scope.isLoaded = false;
 
-    $scope.printPdf = function(contract) {
-        alert('tbd');
-    };
+    $scope.contract = organizationContracts.get({ "organizationId": $scope.organizationId, "contractId": $routeParams.contractId },
+        function () { $scope.isLoading = false; $scope.isLoaded = true; }, function () { $scope.isLoading = false; });
 
     $scope.signContract = function(contract) {
         alert('tbd');

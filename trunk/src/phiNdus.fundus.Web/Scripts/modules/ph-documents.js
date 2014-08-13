@@ -32,8 +32,9 @@ function OrdersCtrl($scope, orders) {
 
 function OrderCtrl($scope, orders) {
     $scope.isLoading = true;
+    $scope.isLoaded = false;
     $scope.order = orders.get({"orderId": $routeParams.orderId },
-        function () { $scope.isLoading = false; },
+        function () { $scope.isLoading = false; $scope.isLoaded = true; },
         function () { $scope.isLoading = false; });
 };
 
@@ -59,7 +60,8 @@ function ContractsCtrl($scope, contracts) {
 
 function ContractCtrl($scope, contracts) {
     $scope.isLoading = true;
+    $scope.isLoaded = false;
     $scope.order = contracts.get({ "contract": $routeParams.contractId },
-        function () { $scope.isLoading = false; },
+        function () { $scope.isLoading = false; $scope.isLoaded = true; },
         function () { $scope.isLoading = false; });
 };

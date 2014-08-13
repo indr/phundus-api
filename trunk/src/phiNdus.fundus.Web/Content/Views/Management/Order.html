@@ -1,5 +1,8 @@
 ﻿<h2>Bestellung</h2>
-<div class="row">
+
+<div x-ph-alert-loading />
+
+<div ng-show="isLoaded" class="row">
     <div class="span6">
         <p>Nummer: {{order.orderId}}</p>
         <p>Status: {{order.status | orderStatusText}}</p>
@@ -11,7 +14,7 @@
     </div>
 </div>
 
-<table class="table table-bordered table-striped">
+<table ng-show="isLoaded" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Artikel</th>
@@ -46,7 +49,7 @@
                 <a class="btn" href="" ng-click="cancelEditing(item)" title="Verwerfen"><i class="icon-asterisk"></i></a>
             </td>
         </tr>
-        
+
         <tr style="font-weight:bold">
             <td colspan="6" style="text-align:right;">Total</td>
             <td>{{getTotal() | currency}}</td>
@@ -54,12 +57,13 @@
         </tr>
     </tbody>
 </table>
+
 <div class="row">
     <div class="span6">
         <a class="btn" href="" ph-history-back>Zurück</a>
-        <a class="btn" href="/api/organizations/{{organizationId}}/orders/{{order.orderId}}.pdf">PDF</a>
+        <a ng-show="isLoaded" class="btn" href="/api/organizations/{{organizationId}}/orders/{{order.orderId}}.pdf">PDF</a>
     </div>
-    <div class="span6" style="text-align:right">
+    <div ng-show="isLoaded" class="span6" style="text-align:right">
         <a class="btn" ng-show="(order.status == 'Pending')" href="" ng-click="showAddItem(order)">Artikel hinzufügen</a>
         <a class="btn btn-primary" ng-show="order.status == 'Pending'" href="" ng-click="confirmOrder(order)">Bestätigen</a>
         <a class="btn btn-danger" ng-show="order.status == 'Pending'" href="" ng-click="rejectOrder(order)">Ablehnen</a>

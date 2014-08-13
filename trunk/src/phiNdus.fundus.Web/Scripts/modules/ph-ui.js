@@ -10,6 +10,15 @@ angular.module('ph.ui', [])
             }
         }
     })
+
+    .directive('phNotFound', function() {
+            return {
+                restrict: 'AE',
+                replace: 'true',
+                template: '<div class="alert alert-error"><strong>Fehler!</strong> Nicht gefunden...</div>'
+            };
+        })
+
     .directive('phAlertNoResults', function() {
         return {
             restrict: 'AE',
