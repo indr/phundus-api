@@ -95,6 +95,44 @@
             get { return Items.Min(s => s.From); }
         }
 
+        public virtual void Reject()
+        {
+            if (Status == OrderStatus.Closed)
+                throw new OrderAlreadyClosedException();
+            if (Status == OrderStatus.Rejected)
+                throw new OrderAlreadyRejectedException();
+            
+            Status = OrderStatus.Rejected;
+
+            EventPublisher.Publish(new OrderRejected());
+        }
+
+        public virtual void Approve()
+        {
+            if (Status == OrderStatus.Rejected)
+                throw new OrderAlreadyRejectedException();
+            if (Status == OrderStatus.Closed)
+                throw new OrderAlreadyClosedException();
+            if (Status == OrderStatus.Approved)
+                throw new OrderAlreadyApprovedException();
+
+            Status = OrderStatus.Approved;
+
+            EventPublisher.Publish(new OrderApproved());
+        }
+
+        public virtual void Close()
+        {
+            if (Status == OrderStatus.Rejected)
+                throw new OrderAlreadyRejectedException();
+            if (Status == OrderStatus.Closed)
+                throw new OrderAlreadyClosedException();
+
+            Status = OrderStatus.Closed;
+
+            EventPublisher.Publish(new OrderClosed());
+        }
+        
         public virtual bool AddItem(OrderItem item, ISession session)
         {
             var checker = new AvailabilityChecker(item.Article, session);
@@ -144,34 +182,6 @@
             EventPublisher.Publish(new OrderItemRemoved());
         }
 
-        public virtual void Approve(User approver)
-        {
-            Guard.Against<ArgumentNullException>(approver == null, "approver");
-
-            Guard.Against<InvalidOperationException>(Status == OrderStatus.Approved,
-                "Die Bestellung wurde bereits bewilligt.");
-            Guard.Against<InvalidOperationException>(Status == OrderStatus.Rejected,
-                "Die Bestellung wurde bereits abgelehnt.");
-
-            Status = OrderStatus.Approved;
-            Modifier = approver;
-            ModifyDate = DateTime.Now;
-        }
-
-        public virtual void Reject(User rejecter)
-        {
-            Guard.Against<ArgumentNullException>(rejecter == null, "rejecter");
-
-            Guard.Against<InvalidOperationException>(Status == OrderStatus.Approved,
-                "Die Bestellung wurde bereits bewilligt.");
-            Guard.Against<InvalidOperationException>(Status == OrderStatus.Rejected,
-                "Die Bestellung wurde bereits abgelehnt.");
-
-            Status = OrderStatus.Rejected;
-            Modifier = rejecter;
-            ModifyDate = DateTime.Now;
-        }
-
         public virtual void ChangeAmount(Guid orderItemId, int amount)
         {
             var item = Items.SingleOrDefault(p => p.Id == orderItemId);
@@ -193,23 +203,13 @@
 
             EventPublisher.Publish(new OrderItemPeriodChanged());
         }
-
-        public virtual void Confirm()
-        {
-
-        }
-
-        public virtual void Close()
-        {
-            
-        }
-
-        public virtual void Reject()
-        {
-            
-        }
     }
 
+    public class OrderAlreadyClosedException : Exception { }
+
+    public class OrderAlreadyRejectedException : Exception { }
+
+    public class OrderAlreadyApprovedException : Exception { }
 
     public class ArticleNotAvailableException : Exception
     {

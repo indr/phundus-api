@@ -12,7 +12,7 @@ namespace Phundus.Core.Shop.Orders.Model
         
     }
 
-    public class OrderConfirmed : DomainEvent
+    public class OrderApproved : DomainEvent
     {
         
     }
