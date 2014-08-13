@@ -93,8 +93,8 @@ namespace Phundus.Specs.Rest
                 new
                 {
                     articleId = 10020,
-                    from = DateTime.Today.ToShortDateString(),
-                    to = DateTime.Today.ToShortDateString(),
+                    from = DateTime.Today,
+                    to = DateTime.Today.AddDays(1),
                     amount = 1
                 });
             return Execute<OrderItemDoc>(request);
