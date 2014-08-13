@@ -1,27 +1,62 @@
 ﻿namespace Phundus.Specs.Rest
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Net;
     using Machine.Specifications;
     using RestSharp;
 
-    [Subject("Orders")]
+    [Subject("/api/organizations/orders")]
     public class when_orders_post_is_issued : concern
     {
         public static IRestResponse<OrderDetailDoc> response;
 
         public Because of = () => { response = api.PostOrder(1001, "user-1@test.phundus.ch"); };
 
-        public It should_return_doc_with_contract_id = () => response.Data.OrderId.ShouldBeGreaterThan(0);
-
-        // TODO: Should be UtcNow
         public It should_return_doc_with_created_on =
             () => response.Data.CreatedOn.ShouldBeCloseTo(DateTime.Now, TimeSpan.FromMinutes(1));
 
+        public It should_return_doc_with_order_id = () => response.Data.OrderId.ShouldBeGreaterThan(0);
+
         public It should_return_doc_with_organization_id = () => response.Data.OrganizationId.ShouldEqual(1001);
+
+        public It should_return_doc_with_status_pending = () => response.Data.Status.ShouldEqual("Pending");
+        public It should_return_status_ok = () => response.StatusCode.ShouldEqual(HttpStatusCode.OK);
+    }
+
+    public abstract class organizations_orders_patch_concern : concern
+    {
+        protected static int organizationId = 1001;
+        protected static int orderId;
+        protected static IRestResponse<OrderDetailDoc> response;
+
+        public Establish ctx = () => { orderId = api.PostOrder(organizationId, "user-1@test.phundus.ch").Data.OrderId; };
+    }
+
+    [Subject("/api/organizations/orders")]
+    public class when_orders_patch_to_reject_order_is_issued : organizations_orders_patch_concern
+    {
+        public Because of = () => response = api.PatchOrder(organizationId, orderId, "Rejected");
+
+        public It should_return_doc_with_status_rejected = () => response.Data.Status.ShouldEqual("Rejected");
+        public It should_return_status_ok = () => response.StatusCode.ShouldEqual(HttpStatusCode.OK);
+    }
+
+    [Subject("/api/organizations/orders")]
+    public class when_orders_patch_to_approve_order_is_issued : organizations_orders_patch_concern
+    {
+        public Because of = () => response = api.PatchOrder(organizationId, orderId, "Approved");
+
+        public It should_return_doc_with_status_rejected = () => response.Data.Status.ShouldEqual("Approved");
+        public It should_return_status_ok = () => response.StatusCode.ShouldEqual(HttpStatusCode.OK);
+    }
+
+    [Subject("/api/organizations/orders")]
+    public class when_orders_patch_to_close_order_is_issued : organizations_orders_patch_concern
+    {
+        public Because of = () => response = api.PatchOrder(organizationId, orderId, "Closed");
+
+        public It should_return_doc_with_status_rejected = () => response.Data.Status.ShouldEqual("Closed");
         public It should_return_status_ok = () => response.StatusCode.ShouldEqual(HttpStatusCode.OK);
     }
 
@@ -34,19 +69,12 @@
         private static IRestResponse<OrderItemDoc> response;
         private static OrderDetailDoc orderDoc;
 
-        public Establish c = () =>
-        {
-            orderId = api.PostOrder(1001, "user-1@test.phundus.ch").Data.OrderId;
-        };
+        public Establish c = () => { orderId = api.PostOrder(1001, "user-1@test.phundus.ch").Data.OrderId; };
 
-        public Because of = () =>
-        {
-            response = api.PostOrderItem(organizationId, orderId);
-        };
-
-        public It should_return_status_created = () => response.StatusCode.ShouldEqual(HttpStatusCode.Created);
+        public Because of = () => { response = api.PostOrderItem(organizationId, orderId); };
 
         public It should_return_doc_order_item_id = () => response.Data.OrderItemId.ShouldNotEqual(Guid.Empty);
+        public It should_return_status_created = () => response.StatusCode.ShouldEqual(HttpStatusCode.Created);
     }
 
     [Subject("OrderItems")]
@@ -63,12 +91,14 @@
             orderItemId = api.PostOrderItem(organizationId, orderId).Data.OrderItemId;
         };
 
-        public Because of = () =>
-        {
-            response = api.UpdateOrderItem(organizationId, orderId, orderItemId, DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(2), 2);
-        };
+        public Because of =
+            () =>
+            {
+                response = api.UpdateOrderItem(organizationId, orderId, orderItemId, DateTime.UtcNow.AddDays(1),
+                    DateTime.UtcNow.AddDays(2), 2);
+            };
 
-        public It should_return_status_ok = () => response.StatusCode.ShouldEqual(HttpStatusCode.OK);  
+        public It should_return_status_ok = () => response.StatusCode.ShouldEqual(HttpStatusCode.OK);
     }
 
     [Subject("OrdersItems")]
@@ -85,12 +115,9 @@
             orderItemId = api.PostOrderItem(organizationId, orderId).Data.OrderItemId;
         };
 
-        public Because of = () =>
-        {
-            response = api.DeleteOrderItem(organizationId, orderId, orderItemId);
-        };
+        public Because of = () => { response = api.DeleteOrderItem(organizationId, orderId, orderItemId); };
 
-        public It should_return_status_no_content = () => response.StatusCode.ShouldEqual(HttpStatusCode.NoContent);        
+        public It should_return_status_no_content = () => response.StatusCode.ShouldEqual(HttpStatusCode.NoContent);
     }
 
     public class OrderDetailDoc
@@ -100,6 +127,7 @@
         public int OrderId { get; set; }
         public int OrganizationId { get; set; }
         public DateTime CreatedOn { get; set; }
+        public string Status { get; set; }
 
         public List<OrderItemDoc> Items
         {

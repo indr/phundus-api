@@ -6,8 +6,6 @@ namespace Phundus.Rest.Controllers.Shop
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
-    using System.Threading;
-    using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -65,7 +63,17 @@ namespace Phundus.Rest.Controllers.Shop
         [Transaction]
         public virtual HttpResponseMessage Patch(int organizationId, int orderId, OrderPatchDoc doc)
         {
-            return Request.CreateErrorResponse(HttpStatusCode.NotImplemented, "Status " + doc.Status);
+            if (doc.Status == "Rejected")
+                Dispatch(new RejectOrder {InitiatorId = CurrentUserId, OrderId = orderId});
+            else if (doc.Status == "Approved")
+                Dispatch(new ApproveOrder {InitiatorId = CurrentUserId, OrderId = orderId});
+            else if (doc.Status == "Closed")
+                Dispatch(new CloseOrder {InitiatorId = CurrentUserId, OrderId = orderId});
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                    "Unbekannter Status \"" + doc.Status + "\"");
+
+            return Get(organizationId, orderId);
         }
 
         [POST("")]

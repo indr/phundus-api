@@ -133,5 +133,16 @@ namespace Phundus.Specs.Rest
             
             return Exeucte2(request);
         }
+
+        public IRestResponse<OrderDetailDoc> PatchOrder(int organizationId, int orderId, string status)
+        {
+            var request = new RestRequest(Method.PATCH);
+            request.Resource = "organizations/{organizationId}/orders/{orderId}";
+            request.AddUrlSegment("organizationId", organizationId.ToString());
+            request.AddUrlSegment("orderId", orderId.ToString());
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(new {status});
+            return Execute<OrderDetailDoc>(request);
+        }
     }
 }
