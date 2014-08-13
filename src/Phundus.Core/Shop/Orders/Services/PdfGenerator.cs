@@ -163,11 +163,13 @@
                 table.AddCell(new Phrase(lastTo.Value.ToString("d"), defaultFont));
             }
 
+            if (table.Rows.Count > 0)
             foreach (var each in table.Rows[0].GetCells())
             {
                 each.PaddingTop += 5;
             }
 
+            if (table.Rows.Count > 4)
             foreach (var each in table.Rows[4].GetCells())
             {
                 if (each != null)

@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using System.Threading;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -23,7 +22,6 @@
         [Transaction]
         public virtual HttpResponseMessage Get()
         {
-            Thread.Sleep(1000);
             var result = OrderQueries.FindByUserId(CurrentUserId);
             return Request.CreateResponse(HttpStatusCode.OK, ToDocs(result));
         }
@@ -32,7 +30,6 @@
         [Transaction]
         public virtual HttpResponseMessage Get(int orderId)
         {
-            Thread.Sleep(1000);
             var result = OrderQueries.FindById(orderId, CurrentUserId);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
