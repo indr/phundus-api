@@ -37,22 +37,28 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\..\packages\Castle.Windsor.3.2.0\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="developwithpassion.specifications">
-      <HintPath>..\..\packages\developwithpassion.specifications.rhinomocks.0.6.0\lib\developwithpassion.specifications.dll</HintPath>
+    <Reference Include="developwithpassion.specification.specs">
+      <HintPath>..\..\lib\developwithpassion.specification.specs.dll</HintPath>
     </Reference>
-    <Reference Include="developwithpassion.specifications.rhinomocks">
-      <HintPath>..\..\packages\developwithpassion.specifications.rhinomocks.0.6.0\lib\developwithpassion.specifications.rhinomocks.dll</HintPath>
+    <Reference Include="developwithpassion.specifications, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\developwithpassion.specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="developwithpassion.specifications.rhinomocks, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\developwithpassion.specifications.rhinomocks.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Fakes, Version=0.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Machine.Fakes, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Machine.Fakes.0.5.1\lib\net40\Machine.Fakes.dll</HintPath>
+      <HintPath>..\..\packages\Machine.Fakes.2.4.0\lib\net40\Machine.Fakes.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Fakes.Adapters.RhinoMocks">
-      <HintPath>..\..\packages\Machine.Fakes.RhinoMocks.0.5.1\lib\net40\Machine.Fakes.Adapters.RhinoMocks.dll</HintPath>
+    <Reference Include="Machine.Fakes.Adapters.RhinoMocks, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Machine.Fakes.RhinoMocks.2.4.0\lib\net40\Machine.Fakes.Adapters.RhinoMocks.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications, Version=0.8.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -78,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BorrowerFactory.cs" />
+    <Compile Include="concern.cs" />
     <Compile Include="Cqrs\TestCommand1.cs" />
     <Compile Include="Cqrs\TestCommand1Handler.cs" />
     <Compile Include="Cqrs\when_all_handlers_are_resolved.cs" />
@@ -92,16 +99,18 @@
     <Compile Include="Inventory\WhenDeleteArticleIsHandled.cs" />
     <Compile Include="Placeholder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shop\AddOrderItemHandlerSpecs.cs" />
-    <Compile Include="Shop\CloseOrderHandlerSpecs.cs" />
-    <Compile Include="Shop\ConfirmOrderHandlerSpecs.cs" />
-    <Compile Include="Shop\contract_handler_concern.cs" />
-    <Compile Include="Shop\CreateEmptyContractHandlerSpecs.cs" />
-    <Compile Include="Shop\CreateEmptyOrderHandlerSpecs.cs" />
-    <Compile Include="Shop\order_handler_concern.cs" />
-    <Compile Include="Shop\RejectOrderHandlerSpecs.cs" />
-    <Compile Include="Shop\RemoveOrderItemHandlerSpecs.cs" />
-    <Compile Include="Shop\UpdateOrderItemHandlerSpecs.cs" />
+    <Compile Include="Shop\Orders\Commands\AddOrderItemHandlerSpecs.cs" />
+    <Compile Include="Shop\Orders\Commands\CloseOrderHandlerSpecs.cs" />
+    <Compile Include="Shop\Orders\Commands\ConfirmOrderHandlerSpecs.cs" />
+    <Compile Include="Shop\Orders\Commands\contract_handler_concern.cs" />
+    <Compile Include="Shop\Orders\Commands\CreateEmptyContractHandlerSpecs.cs" />
+    <Compile Include="Shop\Orders\Commands\CreateEmptyOrderHandlerSpecs.cs" />
+    <Compile Include="Mock.cs" />
+    <Compile Include="Shop\Orders\Commands\order_handler_concern.cs" />
+    <Compile Include="Shop\Orders\Commands\RejectOrderHandlerSpecs.cs" />
+    <Compile Include="Shop\Orders\Commands\RemoveOrderItemHandlerSpecs.cs" />
+    <Compile Include="Shop\Orders\Commands\UpdateOrderItemHandlerSpecs.cs" />
+    <Compile Include="Shop\Orders\Model\OrderSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

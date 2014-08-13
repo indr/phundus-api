@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Core.Tests.Shop
 {
-    using Core.IdentityAndAccess.Users.Model;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
@@ -18,7 +17,7 @@
 
         public Establish c = () =>
         {
-            order = MockRepository.GeneratePartialMock<Order>(new object[] { organizationId, BorrowerFactory.Create() });
+            order = mock.partial<Order>(new object[] {organizationId, BorrowerFactory.Create()});
             orders.setup(x => x.GetById(orderId)).Return(order);
 
             command = new RejectOrder

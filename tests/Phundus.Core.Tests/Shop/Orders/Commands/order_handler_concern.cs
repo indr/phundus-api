@@ -7,6 +7,7 @@ namespace Phundus.Core.Tests.Shop
     using Core.Shop.Contracts.Services;
     using Core.Shop.Orders.Repositories;
     using Machine.Specifications;
+    using Rhino.Mocks;
 
     public abstract class order_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler>
         where THandler : class, IHandleCommand<TCommand>

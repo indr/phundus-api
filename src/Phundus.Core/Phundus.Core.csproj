@@ -167,7 +167,7 @@
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
     <Compile Include="Shop\Orders\Commands\AddOrderItem.cs" />
     <Compile Include="Shop\Orders\Commands\CloseOrder.cs" />
-    <Compile Include="Shop\Orders\Commands\ConfirmOrder.cs" />
+    <Compile Include="Shop\Orders\Commands\ApproveOrder.cs" />
     <Compile Include="Shop\Orders\Commands\CreateEmptyOrder.cs" />
     <Compile Include="Shop\Orders\Commands\ClearCart.cs" />
     <Compile Include="Shop\Orders\Commands\RejectOrder.cs" />
