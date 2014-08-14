@@ -2,11 +2,12 @@
 {
     using System;
     using System.Linq;
+    using Core;
     using Infrastructure;
     using NHibernate;
     using NHibernate.Linq;
 
-    public abstract class NhRepositoryBase<TEntity> : IRepository<TEntity>
+    public abstract class NhRepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private Type _concreteType;
 
@@ -30,7 +31,20 @@
 
         public TEntity ById(object id)
         {
-            return (TEntity) Session.Get(ConcreteType, id);
+            return FindById(id);
+        }
+
+        public TEntity FindById(object id)
+        {
+            return (TEntity)Session.Get(ConcreteType, id);
+        }
+
+        public TEntity GetById(object id)
+        {
+            var result = FindById(id);
+            if (result == null)
+                throw new EntityNotFoundException();
+            return result;
         }
 
         public void Remove(TEntity entity)

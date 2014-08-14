@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="EntityNotFoundException.cs" />
     <Compile Include="Gateways\IMailGateway.cs" />
     <Compile Include="Gateways\MailGateway.cs" />
     <Compile Include="Installer.cs" />

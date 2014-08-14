@@ -9,6 +9,7 @@
     using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Queries;
     using IdentityAndAccess.Users.Repositories;
+    using Infrastructure;
     using Mails;
     using Queries;
     using Repositories;

@@ -6,6 +6,7 @@
     using Core.IdentityAndAccess.Queries;
     using Core.Shop.Orders;
     using Core.Shop.Queries;
+    using Infrastructure;
     using phiNdus.fundus.Web.Models;
     using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;

@@ -3,7 +3,7 @@
     using System;
     using NHibernate;
 
-    public class RepositoryBase<T> : IRepository<T>
+    public class RepositoryBase<T> : IRepository<T> where T : class
     {
         private Type _concreteType;
 
@@ -20,11 +20,22 @@
             get { return SessionFactory(); }
         }
 
-        #region IRepository<T> Members
-
         public T ById(object id)
         {
+            return FindById(id);
+        }
+
+        public T FindById(object id)
+        {
             return (T) Session.Get(ConcreteType, id);
+        }
+
+        public T GetById(object id)
+        {
+            var result = FindById(id);
+            if (result == null)
+                throw new EntityNotFoundException();
+            return result;
         }
 
         public void Remove(T entity)
@@ -42,7 +53,5 @@
         {
             Session.Update(entity);
         }
-
-        #endregion
     }
 }
