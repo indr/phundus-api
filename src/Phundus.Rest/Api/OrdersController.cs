@@ -39,7 +39,7 @@
 
         [GET("{orderId:int}.pdf")]
         [Transaction]
-        public virtual HttpResponseMessage GetPdf(int organizationId, int orderId)
+        public virtual HttpResponseMessage GetPdf(int orderId)
         {
             var stream = OrderService.GetPdf(orderId);
 
