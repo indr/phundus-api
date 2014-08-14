@@ -4,19 +4,13 @@ namespace Phundus.Core.Shop.Queries.Models
 
     public abstract class ReadModelReaderBase : ReadModelBase
     {
-        private ReadModelDataContext _ctx;
-
-        protected ReadModelDataContext Ctx
+        protected ReadModelDataContext CreateCtx()
         {
-            get
-            {
-                if (_ctx == null)
-                {
-                    _ctx = new ReadModelDataContext(Session.Connection);
-                    _ctx.ObjectTrackingEnabled = false;
-                }
-                return _ctx;
-            }
+            var session = Session;
+            session.Flush();
+            var _ctx = new ReadModelDataContext(session.Connection);
+            _ctx.ObjectTrackingEnabled = true;
+            return _ctx;
         }
     }
 }

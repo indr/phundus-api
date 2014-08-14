@@ -10,6 +10,6 @@
         CartDto RemoveItem(int id, int version);
         CartDto UpdateCart(CartDto cart);
         
-        ICollection<OrderDto> PlaceOrders();
+        ICollection<LegacyOrderDto> PlaceOrders();
     }
 }

@@ -10,11 +10,11 @@
         protected override void Configure()
         {
             Mapper.CreateMap<OrderDto, OrderDoc>()
-                .ForMember(d => d.BorrowerFirstName, o => o.MapFrom(s => s.Borrower.FirstName))
-                .ForMember(d => d.BorrowerId, o => o.MapFrom(s => s.Borrower.BorrowerId))
-                .ForMember(d => d.BorrowerLastName, o => o.MapFrom(s => s.Borrower.LastName))
-                .ForMember(d => d.BorrowerMemberNumber, o => o.MapFrom(s => s.Borrower.MemberNumber))
-                .ForMember(d => d.CreatedOn, o => o.MapFrom(s => s.CreateDate))
+                .ForMember(d => d.BorrowerFirstName, o => o.MapFrom(s => s.Borrower_FirstName))
+                .ForMember(d => d.BorrowerId, o => o.MapFrom(s => s.Borrower_Id))
+                .ForMember(d => d.BorrowerLastName, o => o.MapFrom(s => s.Borrower_LastName))
+                .ForMember(d => d.BorrowerMemberNumber, o => o.MapFrom(s => s.Borrower_MemberNumber))
+                .ForMember(d => d.CreatedOn, o => o.MapFrom(s => s.CreatedOn))
                 .ForMember(d => d.ModifiedOn, o => o.MapFrom(s => s.ModifiedOn))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.OrganizationId))
@@ -24,28 +24,30 @@
             Mapper.CreateMap<OrderItemDto, OrderItemDoc>()
                 .ForMember(d => d.Amount, o => o.MapFrom(s => s.Amount))
                 .ForMember(d => d.ArticleId, o => o.MapFrom(s => s.ArticleId))
-                .ForMember(d => d.Availability, o => o.MapFrom(s => s.Availability))
+                //.ForMember(d => d.Availability, o => o.MapFrom(s => s.Availability))
                 .ForMember(d => d.From, o => o.MapFrom(s => s.From))
-                .ForMember(d => d.ItemTotal, o => o.MapFrom(s => s.LineTotal))
+                //.ForMember(d => d.ItemTotal, o => o.MapFrom(s => s.LineTotal))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.OrderId))
                 .ForMember(d => d.OrderItemId, o => o.MapFrom(s => s.Id))
-                .ForMember(d => d.Text, o => o.MapFrom(s => s.Text))
+                //.ForMember(d => d.Text, o => o.MapFrom(s => s.Text))
                 .ForMember(d => d.To, o => o.MapFrom(s => s.To))
-                .ForMember(d => d.UnitPrice, o => o.MapFrom(s => s.UnitPrice));
+                //.ForMember(d => d.UnitPrice, o => o.MapFrom(s => s.UnitPrice))
+                ;
 
             Mapper.CreateMap<OrderDto, OrderDetailDoc>()
-                .ForMember(d => d.BorrowerFirstName, o => o.MapFrom(s => s.Borrower.FirstName))
-                .ForMember(d => d.BorrowerId, o => o.MapFrom(s => s.Borrower.BorrowerId))
-                .ForMember(d => d.BorrowerLastName, o => o.MapFrom(s => s.Borrower.LastName))
-                .ForMember(d => d.BorrowerMemberNumber, o => o.MapFrom(s => s.Borrower.MemberNumber))
-                .ForMember(d => d.CreatedOn, o => o.MapFrom(s => s.CreateDate))
+                .ForMember(d => d.BorrowerFirstName, o => o.MapFrom(s => s.Borrower_FirstName))
+                .ForMember(d => d.BorrowerId, o => o.MapFrom(s => s.Borrower_Id))
+                .ForMember(d => d.BorrowerLastName, o => o.MapFrom(s => s.Borrower_LastName))
+                .ForMember(d => d.BorrowerMemberNumber, o => o.MapFrom(s => s.Borrower_MemberNumber))
+                .ForMember(d => d.CreatedOn, o => o.MapFrom(s => s.CreatedOn))
                 .ForMember(d => d.ModifiedOn, o => o.MapFrom(s => s.ModifiedOn))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.OrganizationId))
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
                 .ForMember(d => d.Version, o => o.MapFrom(s => s.Version))
-                .ForMember(d => d.TotalPrice, o => o.MapFrom(s => s.TotalPrice))
-                .ForMember(d => d.Items, o => o.MapFrom(s => s.Items));
+                //.ForMember(d => d.TotalPrice, o => o.MapFrom(s => s.TotalPrice))
+                .ForMember(d => d.Items, o => o.MapFrom(s => s.Items))
+                ;
         }
     }
 

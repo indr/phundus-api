@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using Orders.Model;
 
-    public class OrderDto
+    public class LegacyOrderDto
     {
         public int Id { get; set; }
         public int Version { get; set; }
@@ -12,13 +12,13 @@
 
         public DateTime CreateDate { get; set; }
 
-        private IList<OrderItemDto> _items = new List<OrderItemDto>();
+        private IList<LegacyOrderItemDto> _items = new List<LegacyOrderItemDto>();
         private BorrowerDto _borrower = new BorrowerDto();
 
 
         public decimal TotalPrice { get; set; }
 
-        public IList<OrderItemDto> Items
+        public IList<LegacyOrderItemDto> Items
         {
             get { return _items; }
             set { _items = value; }

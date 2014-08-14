@@ -8,5 +8,24 @@
         <elementListCompartment Id="a51fa757-d491-4d35-8398-c035f8161a72" absoluteBounds="2.39, 1.585, 1.9700000000000002, 1.7878011067708333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="2d206993-2ea1-4d13-8839-5e730b32c11d" absoluteBounds="4.75, 1.125, 2, 3.8862125651041666">
+      <DataClassMoniker Name="/ReadModelDataContext/OrderDto" />
+      <nestedChildShapes>
+        <elementListCompartment Id="41d3d428-0af8-43ce-bace-6d5d50e76ef2" absoluteBounds="4.765, 1.585, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="23621605-23c3-4c95-a13e-812a65ad6aa5" absoluteBounds="7.625, 1.25, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/ReadModelDataContext/OrderItemDto" />
+      <nestedChildShapes>
+        <elementListCompartment Id="83d1759d-257e-447b-a8cb-94ef1e69f6a5" absoluteBounds="7.64, 1.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.75 : 2.32774983723958); (7.625 : 2.32774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ReadModelDataContext/OrderDto/OrderDto_OrderItemDto" />
+      <nodes>
+        <classShapeMoniker Id="2d206993-2ea1-4d13-8839-5e730b32c11d" />
+        <classShapeMoniker Id="23621605-23c3-4c95-a13e-812a65ad6aa5" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class OrderItemDto
+    public class LegacyOrderItemDto
     {
         public Guid Id { get; set; }
         public int Version { get; set; }
