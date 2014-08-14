@@ -32,6 +32,12 @@ namespace Phundus.Core.Shop.Queries
     partial void InsertContractDto(ContractDto instance);
     partial void UpdateContractDto(ContractDto instance);
     partial void DeleteContractDto(ContractDto instance);
+    partial void InsertOrderDto(OrderDto instance);
+    partial void UpdateOrderDto(OrderDto instance);
+    partial void DeleteOrderDto(OrderDto instance);
+    partial void InsertOrderItemDto(OrderItemDto instance);
+    partial void UpdateOrderItemDto(OrderItemDto instance);
+    partial void DeleteOrderItemDto(OrderItemDto instance);
     #endregion
 		
 		public ReadModelDataContext(string connection) : 
@@ -63,6 +69,22 @@ namespace Phundus.Core.Shop.Queries
 			get
 			{
 				return this.GetTable<ContractDto>();
+			}
+		}
+		
+		public System.Data.Linq.Table<OrderDto> OrderDtos
+		{
+			get
+			{
+				return this.GetTable<OrderDto>();
+			}
+		}
+		
+		public System.Data.Linq.Table<OrderItemDto> OrderItemDtos
+		{
+			get
+			{
+				return this.GetTable<OrderItemDto>();
 			}
 		}
 	}
@@ -272,6 +294,703 @@ namespace Phundus.Core.Shop.Queries
 					this._BorrowerEmail = value;
 					this.SendPropertyChanged("BorrowerEmail");
 					this.OnBorrowerEmailChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Order")]
+	public partial class OrderDto : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _Version;
+		
+		private System.DateTime _CreatedOn;
+		
+		private OrderStatusDto _Status;
+		
+		private int _OrganizationId;
+		
+		private System.Nullable<int> _Borrower_Id;
+		
+		private string _Borrower_FirstName;
+		
+		private string _Borrower_LastName;
+		
+		private string _Borrower_Street;
+		
+		private string _Borrower_Postcode;
+		
+		private string _Borrower_City;
+		
+		private string _Borrower_EmailAddress;
+		
+		private string _Borrower_MobilePhoneNumber;
+		
+		private string _Borrower_MemberNumber;
+		
+		private System.Nullable<System.DateTime> _ModifiedOn;
+		
+		private System.Nullable<int> _ModifiedBy;
+		
+		private EntitySet<OrderItemDto> _Items;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnVersionChanging(int value);
+    partial void OnVersionChanged();
+    partial void OnCreatedOnChanging(System.DateTime value);
+    partial void OnCreatedOnChanged();
+    partial void OnStatusChanging(OrderStatusDto value);
+    partial void OnStatusChanged();
+    partial void OnOrganizationIdChanging(int value);
+    partial void OnOrganizationIdChanged();
+    partial void OnBorrower_IdChanging(System.Nullable<int> value);
+    partial void OnBorrower_IdChanged();
+    partial void OnBorrower_FirstNameChanging(string value);
+    partial void OnBorrower_FirstNameChanged();
+    partial void OnBorrower_LastNameChanging(string value);
+    partial void OnBorrower_LastNameChanged();
+    partial void OnBorrower_StreetChanging(string value);
+    partial void OnBorrower_StreetChanged();
+    partial void OnBorrower_PostcodeChanging(string value);
+    partial void OnBorrower_PostcodeChanged();
+    partial void OnBorrower_CityChanging(string value);
+    partial void OnBorrower_CityChanged();
+    partial void OnBorrower_EmailAddressChanging(string value);
+    partial void OnBorrower_EmailAddressChanged();
+    partial void OnBorrower_MobilePhoneNumberChanging(string value);
+    partial void OnBorrower_MobilePhoneNumberChanged();
+    partial void OnBorrower_MemberNumberChanging(string value);
+    partial void OnBorrower_MemberNumberChanged();
+    partial void OnModifiedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnModifiedOnChanged();
+    partial void OnModifiedByChanging(System.Nullable<int> value);
+    partial void OnModifiedByChanged();
+    #endregion
+		
+		public OrderDto()
+		{
+			this._Items = new EntitySet<OrderItemDto>(new Action<OrderItemDto>(this.attach_Items), new Action<OrderItemDto>(this.detach_Items));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", IsPrimaryKey=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version")]
+		public int Version
+		{
+			get
+			{
+				return this._Version;
+			}
+			set
+			{
+				if ((this._Version != value))
+				{
+					this.OnVersionChanging(value);
+					this.SendPropertyChanging();
+					this._Version = value;
+					this.SendPropertyChanged("Version");
+					this.OnVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="CreateDate", Storage="_CreatedOn")]
+		public System.DateTime CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", CanBeNull=false)]
+		public OrderStatusDto Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganizationId")]
+		public int OrganizationId
+		{
+			get
+			{
+				return this._OrganizationId;
+			}
+			set
+			{
+				if ((this._OrganizationId != value))
+				{
+					this.OnOrganizationIdChanging(value);
+					this.SendPropertyChanging();
+					this._OrganizationId = value;
+					this.SendPropertyChanged("OrganizationId");
+					this.OnOrganizationIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Borrower_Id")]
+		public System.Nullable<int> Borrower_Id
+		{
+			get
+			{
+				return this._Borrower_Id;
+			}
+			set
+			{
+				if ((this._Borrower_Id != value))
+				{
+					this.OnBorrower_IdChanging(value);
+					this.SendPropertyChanging();
+					this._Borrower_Id = value;
+					this.SendPropertyChanged("Borrower_Id");
+					this.OnBorrower_IdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Borrower_FirstName")]
+		public string Borrower_FirstName
+		{
+			get
+			{
+				return this._Borrower_FirstName;
+			}
+			set
+			{
+				if ((this._Borrower_FirstName != value))
+				{
+					this.OnBorrower_FirstNameChanging(value);
+					this.SendPropertyChanging();
+					this._Borrower_FirstName = value;
+					this.SendPropertyChanged("Borrower_FirstName");
+					this.OnBorrower_FirstNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Borrower_LastName")]
+		public string Borrower_LastName
+		{
+			get
+			{
+				return this._Borrower_LastName;
+			}
+			set
+			{
+				if ((this._Borrower_LastName != value))
+				{
+					this.OnBorrower_LastNameChanging(value);
+					this.SendPropertyChanging();
+					this._Borrower_LastName = value;
+					this.SendPropertyChanged("Borrower_LastName");
+					this.OnBorrower_LastNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Borrower_Street")]
+		public string Borrower_Street
+		{
+			get
+			{
+				return this._Borrower_Street;
+			}
+			set
+			{
+				if ((this._Borrower_Street != value))
+				{
+					this.OnBorrower_StreetChanging(value);
+					this.SendPropertyChanging();
+					this._Borrower_Street = value;
+					this.SendPropertyChanged("Borrower_Street");
+					this.OnBorrower_StreetChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Borrower_Postcode")]
+		public string Borrower_Postcode
+		{
+			get
+			{
+				return this._Borrower_Postcode;
+			}
+			set
+			{
+				if ((this._Borrower_Postcode != value))
+				{
+					this.OnBorrower_PostcodeChanging(value);
+					this.SendPropertyChanging();
+					this._Borrower_Postcode = value;
+					this.SendPropertyChanged("Borrower_Postcode");
+					this.OnBorrower_PostcodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Borrower_City")]
+		public string Borrower_City
+		{
+			get
+			{
+				return this._Borrower_City;
+			}
+			set
+			{
+				if ((this._Borrower_City != value))
+				{
+					this.OnBorrower_CityChanging(value);
+					this.SendPropertyChanging();
+					this._Borrower_City = value;
+					this.SendPropertyChanged("Borrower_City");
+					this.OnBorrower_CityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Borrower_EmailAddress")]
+		public string Borrower_EmailAddress
+		{
+			get
+			{
+				return this._Borrower_EmailAddress;
+			}
+			set
+			{
+				if ((this._Borrower_EmailAddress != value))
+				{
+					this.OnBorrower_EmailAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Borrower_EmailAddress = value;
+					this.SendPropertyChanged("Borrower_EmailAddress");
+					this.OnBorrower_EmailAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Borrower_MobilePhoneNumber")]
+		public string Borrower_MobilePhoneNumber
+		{
+			get
+			{
+				return this._Borrower_MobilePhoneNumber;
+			}
+			set
+			{
+				if ((this._Borrower_MobilePhoneNumber != value))
+				{
+					this.OnBorrower_MobilePhoneNumberChanging(value);
+					this.SendPropertyChanging();
+					this._Borrower_MobilePhoneNumber = value;
+					this.SendPropertyChanged("Borrower_MobilePhoneNumber");
+					this.OnBorrower_MobilePhoneNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Borrower_MemberNumber")]
+		public string Borrower_MemberNumber
+		{
+			get
+			{
+				return this._Borrower_MemberNumber;
+			}
+			set
+			{
+				if ((this._Borrower_MemberNumber != value))
+				{
+					this.OnBorrower_MemberNumberChanging(value);
+					this.SendPropertyChanging();
+					this._Borrower_MemberNumber = value;
+					this.SendPropertyChanged("Borrower_MemberNumber");
+					this.OnBorrower_MemberNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ModifyDate", Storage="_ModifiedOn")]
+		public System.Nullable<System.DateTime> ModifiedOn
+		{
+			get
+			{
+				return this._ModifiedOn;
+			}
+			set
+			{
+				if ((this._ModifiedOn != value))
+				{
+					this.OnModifiedOnChanging(value);
+					this.SendPropertyChanging();
+					this._ModifiedOn = value;
+					this.SendPropertyChanged("ModifiedOn");
+					this.OnModifiedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ModifierId", Storage="_ModifiedBy")]
+		public System.Nullable<int> ModifiedBy
+		{
+			get
+			{
+				return this._ModifiedBy;
+			}
+			set
+			{
+				if ((this._ModifiedBy != value))
+				{
+					this.OnModifiedByChanging(value);
+					this.SendPropertyChanging();
+					this._ModifiedBy = value;
+					this.SendPropertyChanged("ModifiedBy");
+					this.OnModifiedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderDto_OrderItemDto", Storage="_Items", ThisKey="Id", OtherKey="OrderId")]
+		public EntitySet<OrderItemDto> Items
+		{
+			get
+			{
+				return this._Items;
+			}
+			set
+			{
+				this._Items.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Items(OrderItemDto entity)
+		{
+			this.SendPropertyChanging();
+			entity.OrderDto = this;
+		}
+		
+		private void detach_Items(OrderItemDto entity)
+		{
+			this.SendPropertyChanging();
+			entity.OrderDto = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="OrderItem")]
+	public partial class OrderItemDto : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id;
+		
+		private int _Version;
+		
+		private int _OrderId;
+		
+		private int _Amount;
+		
+		private System.DateTime _From;
+		
+		private System.DateTime _To;
+		
+		private int _ArticleId;
+		
+		private EntityRef<OrderDto> _OrderDto;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnVersionChanging(int value);
+    partial void OnVersionChanged();
+    partial void OnOrderIdChanging(int value);
+    partial void OnOrderIdChanged();
+    partial void OnAmountChanging(int value);
+    partial void OnAmountChanged();
+    partial void OnFromChanging(System.DateTime value);
+    partial void OnFromChanged();
+    partial void OnToChanging(System.DateTime value);
+    partial void OnToChanged();
+    partial void OnArticleIdChanging(int value);
+    partial void OnArticleIdChanged();
+    #endregion
+		
+		public OrderItemDto()
+		{
+			this._OrderDto = default(EntityRef<OrderDto>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version")]
+		public int Version
+		{
+			get
+			{
+				return this._Version;
+			}
+			set
+			{
+				if ((this._Version != value))
+				{
+					this.OnVersionChanging(value);
+					this.SendPropertyChanging();
+					this._Version = value;
+					this.SendPropertyChanged("Version");
+					this.OnVersionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderId")]
+		public int OrderId
+		{
+			get
+			{
+				return this._OrderId;
+			}
+			set
+			{
+				if ((this._OrderId != value))
+				{
+					if (this._OrderDto.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOrderIdChanging(value);
+					this.SendPropertyChanging();
+					this._OrderId = value;
+					this.SendPropertyChanged("OrderId");
+					this.OnOrderIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount")]
+		public int Amount
+		{
+			get
+			{
+				return this._Amount;
+			}
+			set
+			{
+				if ((this._Amount != value))
+				{
+					this.OnAmountChanging(value);
+					this.SendPropertyChanging();
+					this._Amount = value;
+					this.SendPropertyChanged("Amount");
+					this.OnAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_From")]
+		public System.DateTime From
+		{
+			get
+			{
+				return this._From;
+			}
+			set
+			{
+				if ((this._From != value))
+				{
+					this.OnFromChanging(value);
+					this.SendPropertyChanging();
+					this._From = value;
+					this.SendPropertyChanged("From");
+					this.OnFromChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_To")]
+		public System.DateTime To
+		{
+			get
+			{
+				return this._To;
+			}
+			set
+			{
+				if ((this._To != value))
+				{
+					this.OnToChanging(value);
+					this.SendPropertyChanging();
+					this._To = value;
+					this.SendPropertyChanged("To");
+					this.OnToChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ArticleId")]
+		public int ArticleId
+		{
+			get
+			{
+				return this._ArticleId;
+			}
+			set
+			{
+				if ((this._ArticleId != value))
+				{
+					this.OnArticleIdChanging(value);
+					this.SendPropertyChanging();
+					this._ArticleId = value;
+					this.SendPropertyChanged("ArticleId");
+					this.OnArticleIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderDto_OrderItemDto", Storage="_OrderDto", ThisKey="OrderId", OtherKey="Id", IsForeignKey=true)]
+		public OrderDto OrderDto
+		{
+			get
+			{
+				return this._OrderDto.Entity;
+			}
+			set
+			{
+				OrderDto previousValue = this._OrderDto.Entity;
+				if (((previousValue != value) 
+							|| (this._OrderDto.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._OrderDto.Entity = null;
+						previousValue.Items.Remove(this);
+					}
+					this._OrderDto.Entity = value;
+					if ((value != null))
+					{
+						value.Items.Add(this);
+						this._OrderId = value.Id;
+					}
+					else
+					{
+						this._OrderId = default(int);
+					}
+					this.SendPropertyChanged("OrderDto");
 				}
 			}
 		}

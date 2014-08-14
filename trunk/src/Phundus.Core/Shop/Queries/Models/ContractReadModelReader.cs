@@ -10,7 +10,7 @@
         public ContractDto FindContract(int contractId, int organizationId, int currentUserId)
         {
             // TODO: Read-Model-Security
-            return (from c in Ctx.ContractDtos
+            return (from c in CreateCtx().ContractDtos
                 where c.Id == contractId && c.OrganizationId == organizationId
                 select c)
                 .FirstOrDefault();
@@ -19,7 +19,7 @@
         public IEnumerable<ContractDto> FindContracts(int organizationId, int currentUserId)
         {
             // TODO: Read-Model-Security
-            return (from c in Ctx.ContractDtos
+            return (from c in CreateCtx().ContractDtos
                 where c.OrganizationId == organizationId
                 select c);
         }

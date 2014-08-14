@@ -105,7 +105,7 @@
             return assembler.CreateDto(cart);
         }
 
-        public ICollection<OrderDto> PlaceOrders()
+        public ICollection<LegacyOrderDto> PlaceOrders()
         {
             var user = Users.FindByEmail(Identity.Name);
             var cart = Carts.FindByCustomer(user.Id);

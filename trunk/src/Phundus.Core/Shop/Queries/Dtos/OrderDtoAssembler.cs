@@ -5,14 +5,22 @@
     using Infrastructure;
     using Orders.Model;
 
+    public enum OrderStatusDto
+    {
+        Pending = 1,
+        Approved,
+        Rejected,
+        Closed
+    }
+
     public class OrderDtoAssembler
     {
-        public OrderDto CreateDto(Order subject)
+        public LegacyOrderDto CreateDto(Order subject)
         {
             if (subject == null)
                 return null;
 
-            var result = new OrderDto
+            var result = new LegacyOrderDto
             {
                 Id = subject.Id,
                 Version = subject.Version,
@@ -37,7 +45,7 @@
 
             foreach (var item in subject.Items)
             {
-                result.Items.Add(new OrderItemDto
+                result.Items.Add(new LegacyOrderItemDto
                 {
                     Amount = item.Amount,
                     ArticleId = item.Article.Id,
@@ -55,11 +63,11 @@
             return result;
         }
 
-        public IList<OrderDto> CreateDtos(IEnumerable<Order> subjects)
+        public IList<LegacyOrderDto> CreateDtos(IEnumerable<Order> subjects)
         {
             Guard.Against<ArgumentNullException>(subjects == null, "subjects");
 
-            var result = new List<OrderDto>();
+            var result = new List<LegacyOrderDto>();
             foreach (var each in subjects)
                 result.Add(CreateDto(each));
             return result;
