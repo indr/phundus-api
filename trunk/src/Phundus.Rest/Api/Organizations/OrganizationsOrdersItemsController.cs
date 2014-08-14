@@ -6,6 +6,7 @@ namespace Phundus.Rest.Api.Organizations
     using System.Net.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
+    using AutoMapper;
     using Castle.Transactions;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
@@ -32,8 +33,6 @@ namespace Phundus.Rest.Api.Organizations
             Dispatch(command);
 
             return Get(organizationId, orderId, command.OrderItemId, HttpStatusCode.Created);
-
-            
         }
 
         private HttpResponseMessage Get(int organizationId, int orderId, Guid orderItemId, HttpStatusCode statusCode)
@@ -44,18 +43,7 @@ namespace Phundus.Rest.Api.Organizations
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
                     string.Format("Die Position mit der Id {0} konnte nicht gefunden werden.", orderItemId.ToString("D")));
 
-            return Request.CreateResponse(statusCode, new OrganizationsOrdersController.OrderItemDoc
-            {
-                Amount = item.Amount,
-                ArticleId = item.ArticleId,
-                From = item.From,
-                OrderItemId = item.Id,
-                Text = item.Text,
-                To = item.To,
-                ItemTotal = item.LineTotal,
-                OrderId = item.OrderId,
-                UnitPrice = item.UnitPrice
-            });
+            return Request.CreateResponse(statusCode, Map<OrderItemDoc>(item));
         }
 
         [PATCH("")]
@@ -89,20 +77,5 @@ namespace Phundus.Rest.Api.Organizations
 
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }
-    }
-
-    public class OrderItemPostDoc
-    {
-        public int ArticleId { get; set; }
-        public DateTime From { get; set; }
-        public DateTime To { get; set; }
-        public int Amount { get; set; }
-    }
-
-    public class OrderItemPatchDoc
-    {
-        public DateTime From { get; set; }
-        public DateTime To { get; set; }
-        public int Amount { get; set; }
     }
 }
