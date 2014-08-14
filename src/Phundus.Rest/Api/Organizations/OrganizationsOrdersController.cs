@@ -46,7 +46,7 @@ namespace Phundus.Rest.Api.Organizations
         {
             var stream = OrderService.GetPdf(organizationId, orderId, CurrentUserId);
 
-            return CreatePdfResponse(stream, string.Format("Bestellung-{0}", orderId));
+            return CreatePdfResponse(stream, string.Format("Bestellung-{0}.pdf", orderId));
         }
 
         [PATCH("{orderId}")]

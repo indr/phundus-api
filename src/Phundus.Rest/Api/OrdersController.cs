@@ -43,7 +43,7 @@
         {
             var stream = OrderService.GetPdf(orderId);
 
-            return CreatePdfResponse(stream, string.Format("Bestellung-{0}", orderId));
+            return CreatePdfResponse(stream, string.Format("Bestellung-{0}.pdf", orderId));
         }
 
         private object ToDoc(OrderDto dto)
