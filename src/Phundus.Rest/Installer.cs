@@ -3,6 +3,8 @@
     using System;
     using System.Web.Http;
     using System.Web.Http.Controllers;
+    using Api.Organizations;
+    using AutoMapper;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
@@ -20,6 +22,8 @@
                 .BasedOn<IHttpController>()
                 .If(t => t.Name.EndsWith("Controller", StringComparison.InvariantCulture))
                 .LifestyleScoped());
+
+            Mapper.AddProfile<OrganizationOrderDocsProfile>();
         }
     }
 }
