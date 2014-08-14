@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core
+﻿namespace Phundus.Infrastructure
 {
     using System;
     using System.Runtime.Serialization;

@@ -239,7 +239,6 @@
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="_Legacy\AppServiceBase.cs" />
     <Compile Include="_Legacy\DtoOutOfDateException.cs" />
-    <Compile Include="_Legacy\EntityNotFoundException.cs" />
     <Compile Include="Inventory\Model\Article.cs" />
     <Compile Include="Shop\Orders\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>

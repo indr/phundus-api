@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using IdentityAndAccess.Organizations.Repositories;
+    using Infrastructure;
     using Microsoft.Practices.ServiceLocation;
     using Orders.Model;
     using Orders.Repositories;
