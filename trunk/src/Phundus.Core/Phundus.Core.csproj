@@ -176,6 +176,7 @@
     <Compile Include="Shop\Orders\Commands\UpdateOrderItem.cs" />
     <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Shop\Orders\Exceptions\CartNotFoundException.cs" />
+    <Compile Include="Shop\Orders\Mails\OrderStatusChangedMailNotifier.cs" />
     <Compile Include="Shop\Orders\Model\OrderEvents.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemAdded.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemAmountChanged.cs" />
@@ -266,9 +267,7 @@
     <Compile Include="IdentityAndAccess\Users\Services\SessionKeyGenerator.cs" />
     <Compile Include="IdentityAndAccess\Users\Exceptions\UserLockedOutException.cs" />
     <Compile Include="IdentityAndAccess\Users\Exceptions\UserNotApprovedException.cs" />
-    <Compile Include="Shop\Orders\Mails\OrderApprovedMail.cs" />
     <Compile Include="Shop\Orders\Mails\OrderReceivedMail.cs" />
-    <Compile Include="Shop\Orders\Mails\OrderRejectedMail.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\ApplyForMembership.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationApproved.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationFiled.cs" />

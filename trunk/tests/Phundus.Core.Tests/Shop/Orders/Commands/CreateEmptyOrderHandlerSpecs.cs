@@ -35,7 +35,7 @@
             () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
 
         public It should_publish_order_created = () => publisher.WasToldTo(x => x.Publish(
-            Arg<OrderCreated>.Is.NotNull));
+            Arg<OrderCreated>.Matches(p => p.OrderId == orderId)));
 
         public It should_set_order_id = () => command.OrderId.ShouldEqual(orderId);
     }
