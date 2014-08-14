@@ -44,7 +44,7 @@ namespace Phundus.Rest.Api.Organizations
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
                     string.Format("Die Position mit der Id {0} konnte nicht gefunden werden.", orderItemId.ToString("D")));
 
-            return Request.CreateResponse(statusCode, new OrderItemDoc
+            return Request.CreateResponse(statusCode, new OrganizationsOrdersController.OrderItemDoc
             {
                 Amount = item.Amount,
                 ArticleId = item.ArticleId,
