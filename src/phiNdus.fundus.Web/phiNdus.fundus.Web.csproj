@@ -213,7 +213,6 @@
     <Compile Include="ViewModels\CheckOutViewModel.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -348,7 +347,6 @@
     <Compile Include="ViewModels\ArticlesViewModel.cs" />
     <Compile Include="Models\CartModels\CartItemModel.cs" />
     <Compile Include="Models\CartModels\CartModel.cs" />
-    <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="App_Start\Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -356,7 +354,6 @@
     <Compile Include="Security\CustomRoleProvider.cs" />
     <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\MessageBoxViewModel.cs" />
-    <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\PageSelectorViewModel.cs" />
     <Compile Include="ViewModels\ShopSearchResultViewModel.cs" />
     <Compile Include="ViewModels\ValidationViewModel.cs" />
@@ -953,15 +950,6 @@
     <Folder Include="Content\Images\Articles\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Order\Pending.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Order\Approved.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Order\Rejected.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shop\Article.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -971,12 +959,9 @@
     <Content Include="Views\Shop\Result-Large.cshtml" />
     <Content Include="Views\Shop\Result-Small.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PageSelectorViewModel.cshtml" />
-    <Content Include="Views\Order\My.cshtml" />
-    <Content Include="Views\Order\Closed.cshtml" />
     <Content Include="Views\Cart\CheckOut.cshtml" />
     <Content Include="Views\Cart\CheckOutDone.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
-    <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Shop\Article_Images.cshtml" />
     <Content Include="Views\Shop\Article_Availability.cshtml" />
     <Content Include="Views\Shop\Article_AddToCart.cshtml" />

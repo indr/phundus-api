@@ -62,7 +62,7 @@
             () => order.ModifiedBy.Value.ShouldEqual(modifierId);
 
         public It should_publish_order_approved =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderApproved>.Is.NotNull));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderApproved>.Matches(p => p.OrderId == order.Id)));
     }
 
     [Subject(typeof (Order))]
@@ -79,7 +79,7 @@
             () => order.ModifiedBy.Value.ShouldEqual(modifierId);
 
         public It should_publish_order_rejected =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Is.NotNull));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Matches(p => p.OrderId == order.Id)));
     }
 
     [Subject(typeof (Order))]
@@ -96,7 +96,7 @@
             () => order.ModifiedBy.Value.ShouldEqual(modifierId);
 
         public It should_publish_order_closed =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderClosed>.Is.NotNull));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderClosed>.Matches(p => p.OrderId == order.Id)));
     }
 
     public abstract class approved_order_concern : order_concern
@@ -129,7 +129,7 @@
             () => order.ModifiedBy.Value.ShouldEqual(modifierId);
 
         public It should_publish_order_closed =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderClosed>.Is.NotNull));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderClosed>.Matches(p => p.OrderId == order.Id)));
     }
 
     [Subject(typeof (Order))]
@@ -146,7 +146,7 @@
             () => order.ModifiedBy.Value.ShouldEqual(modifierId);
 
         public It should_publish_order_rejected =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Is.NotNull));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Matches(p => p.OrderId == order.Id)));
     }
 
 
@@ -232,7 +232,7 @@
     {
         public static Order CreatePending()
         {
-            return new Order(1, BorrowerFactory.Create());
+            return new Order(10001, BorrowerFactory.Create());
         }
 
         public static Order CreateClosed()

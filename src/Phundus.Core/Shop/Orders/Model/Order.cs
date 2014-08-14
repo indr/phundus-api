@@ -16,10 +16,10 @@
         private Borrower _borrower;
         private DateTime _createdOn = DateTime.UtcNow;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
+        private int? _modifiedBy;
+        private DateTime? _modifiedOn;
         private int _organizationId;
         private OrderStatus _status = OrderStatus.Pending;
-        private DateTime? _modifiedOn;
-        private int? _modifiedBy;
 
         protected Order()
         {
@@ -113,7 +113,7 @@
             ModifiedOn = DateTime.UtcNow;
             Status = OrderStatus.Rejected;
 
-            EventPublisher.Publish(new OrderRejected());
+            EventPublisher.Publish(new OrderRejected { OrderId = Id });
         }
 
         public virtual void Approve(int initiatorId)
@@ -129,7 +129,7 @@
             ModifiedOn = DateTime.UtcNow;
             Status = OrderStatus.Approved;
 
-            EventPublisher.Publish(new OrderApproved());
+            EventPublisher.Publish(new OrderApproved {OrderId = Id});
         }
 
         public virtual void Close(int initiatorId)
@@ -143,7 +143,7 @@
             ModifiedOn = DateTime.UtcNow;
             Status = OrderStatus.Closed;
 
-            EventPublisher.Publish(new OrderClosed());
+            EventPublisher.Publish(new OrderClosed { OrderId = Id });
         }
 
         public virtual void EnsurePending()

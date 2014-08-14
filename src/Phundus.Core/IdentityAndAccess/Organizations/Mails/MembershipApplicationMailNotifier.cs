@@ -11,7 +11,7 @@
         ISubscribeTo<MembershipApplicationApproved>, ISubscribeTo<MembershipApplicationRejected>, ISubscribeTo<MemberLocked>, ISubscribeTo<MemberUnlocked>
     {
         public IMemberInRoleQueries MemberInRoleQueries { get; set; }
-
+        
         public IOrganizationQueries OrganizationQueries { get; set; }
 
         public IUserQueries UserQueries { get; set; }
