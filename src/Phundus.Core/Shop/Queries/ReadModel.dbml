@@ -30,6 +30,7 @@
       <Column Name="ModifyDate" Member="ModifiedOn" Type="System.DateTime" CanBeNull="true" />
       <Column Name="ModifierId" Member="ModifiedBy" Type="System.Int32" CanBeNull="true" />
       <Association Name="OrderDto_OrderItemDto" Member="Items" ThisKey="Id" OtherKey="OrderId" Type="OrderItemDto" />
+      <Association Name="OrderDto_MembershipDto" Member="Memberships" ThisKey="OrganizationId" OtherKey="OrganizationId" Type="MembershipDto" />
     </Type>
   </Table>
   <Table Name="OrderItem" Member="OrderItemDtos">
@@ -41,7 +42,24 @@
       <Column Name="From" Type="System.DateTime" CanBeNull="false" />
       <Column Name="To" Type="System.DateTime" CanBeNull="false" />
       <Column Name="ArticleId" Type="System.Int32" CanBeNull="false" />
+      <Association Name="OrderItemDto_OrderItemArticleDto" Member="Article" ThisKey="ArticleId" OtherKey="Id" Type="OrderItemArticleDto" Cardinality="One" />
       <Association Name="OrderDto_OrderItemDto" Member="OrderDto" ThisKey="OrderId" OtherKey="Id" Type="OrderDto" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="Article" Member="OrderItemArticleDtos">
+    <Type Name="OrderItemArticleDto">
+      <Column Name="Id" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" CanBeNull="false" />
+      <Association Name="OrderItemDto_OrderItemArticleDto" Member="OrderItemDto" ThisKey="Id" OtherKey="ArticleId" Type="OrderItemDto" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="OrganizationMembership" Member="MembershipDtos">
+    <Type Name="MembershipDto">
+      <Column Name="OrganizationId" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" CanBeNull="false" />
+      <Column Name="Role" Type="MembershipRoleDto" CanBeNull="false" />
+      <Association Name="OrderDto_MembershipDto" Member="OrderDto" ThisKey="OrganizationId" OtherKey="OrganizationId" Type="OrderDto" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

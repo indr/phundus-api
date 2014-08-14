@@ -3,6 +3,12 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    public enum MembershipRoleDto
+    {
+        Member = 1,
+        Chief = 2
+    }
+
     public class LegacyOrderItemDto
     {
         public Guid Id { get; set; }

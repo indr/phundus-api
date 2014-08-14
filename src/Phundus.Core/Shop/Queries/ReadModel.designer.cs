@@ -38,6 +38,12 @@ namespace Phundus.Core.Shop.Queries
     partial void InsertOrderItemDto(OrderItemDto instance);
     partial void UpdateOrderItemDto(OrderItemDto instance);
     partial void DeleteOrderItemDto(OrderItemDto instance);
+    partial void InsertOrderItemArticleDto(OrderItemArticleDto instance);
+    partial void UpdateOrderItemArticleDto(OrderItemArticleDto instance);
+    partial void DeleteOrderItemArticleDto(OrderItemArticleDto instance);
+    partial void InsertMembershipDto(MembershipDto instance);
+    partial void UpdateMembershipDto(MembershipDto instance);
+    partial void DeleteMembershipDto(MembershipDto instance);
     #endregion
 		
 		public ReadModelDataContext(string connection) : 
@@ -85,6 +91,22 @@ namespace Phundus.Core.Shop.Queries
 			get
 			{
 				return this.GetTable<OrderItemDto>();
+			}
+		}
+		
+		public System.Data.Linq.Table<OrderItemArticleDto> OrderItemArticleDtos
+		{
+			get
+			{
+				return this.GetTable<OrderItemArticleDto>();
+			}
+		}
+		
+		public System.Data.Linq.Table<MembershipDto> MembershipDtos
+		{
+			get
+			{
+				return this.GetTable<MembershipDto>();
 			}
 		}
 	}
@@ -359,6 +381,8 @@ namespace Phundus.Core.Shop.Queries
 		
 		private EntitySet<OrderItemDto> _Items;
 		
+		private EntitySet<MembershipDto> _Memberships;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -400,6 +424,7 @@ namespace Phundus.Core.Shop.Queries
 		public OrderDto()
 		{
 			this._Items = new EntitySet<OrderItemDto>(new Action<OrderItemDto>(this.attach_Items), new Action<OrderItemDto>(this.detach_Items));
+			this._Memberships = new EntitySet<MembershipDto>(new Action<MembershipDto>(this.attach_Memberships), new Action<MembershipDto>(this.detach_Memberships));
 			OnCreated();
 		}
 		
@@ -736,6 +761,19 @@ namespace Phundus.Core.Shop.Queries
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderDto_MembershipDto", Storage="_Memberships", ThisKey="OrganizationId", OtherKey="OrganizationId")]
+		public EntitySet<MembershipDto> Memberships
+		{
+			get
+			{
+				return this._Memberships;
+			}
+			set
+			{
+				this._Memberships.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -767,6 +805,18 @@ namespace Phundus.Core.Shop.Queries
 			this.SendPropertyChanging();
 			entity.OrderDto = null;
 		}
+		
+		private void attach_Memberships(MembershipDto entity)
+		{
+			this.SendPropertyChanging();
+			entity.OrderDto = this;
+		}
+		
+		private void detach_Memberships(MembershipDto entity)
+		{
+			this.SendPropertyChanging();
+			entity.OrderDto = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="OrderItem")]
@@ -788,6 +838,8 @@ namespace Phundus.Core.Shop.Queries
 		private System.DateTime _To;
 		
 		private int _ArticleId;
+		
+		private EntityRef<OrderItemArticleDto> _Article;
 		
 		private EntityRef<OrderDto> _OrderDto;
 		
@@ -813,6 +865,7 @@ namespace Phundus.Core.Shop.Queries
 		
 		public OrderItemDto()
 		{
+			this._Article = default(EntityRef<OrderItemArticleDto>);
 			this._OrderDto = default(EntityRef<OrderDto>);
 			OnCreated();
 		}
@@ -961,6 +1014,35 @@ namespace Phundus.Core.Shop.Queries
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderItemDto_OrderItemArticleDto", Storage="_Article", ThisKey="ArticleId", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
+		public OrderItemArticleDto Article
+		{
+			get
+			{
+				return this._Article.Entity;
+			}
+			set
+			{
+				OrderItemArticleDto previousValue = this._Article.Entity;
+				if (((previousValue != value) 
+							|| (this._Article.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Article.Entity = null;
+						previousValue.OrderItemDto = null;
+					}
+					this._Article.Entity = value;
+					if ((value != null))
+					{
+						value.OrderItemDto = this;
+					}
+					this.SendPropertyChanged("Article");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderDto_OrderItemDto", Storage="_OrderDto", ThisKey="OrderId", OtherKey="Id", IsForeignKey=true)]
 		public OrderDto OrderDto
 		{
@@ -989,6 +1071,308 @@ namespace Phundus.Core.Shop.Queries
 					else
 					{
 						this._OrderId = default(int);
+					}
+					this.SendPropertyChanged("OrderDto");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Article")]
+	public partial class OrderItemArticleDto : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private decimal _Price;
+		
+		private EntityRef<OrderItemDto> _OrderItemDto;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnPriceChanging(decimal value);
+    partial void OnPriceChanged();
+    #endregion
+		
+		public OrderItemArticleDto()
+		{
+			this._OrderItemDto = default(EntityRef<OrderItemDto>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", IsPrimaryKey=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					if (this._OrderItemDto.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price")]
+		public decimal Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this.OnPriceChanging(value);
+					this.SendPropertyChanging();
+					this._Price = value;
+					this.SendPropertyChanged("Price");
+					this.OnPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderItemDto_OrderItemArticleDto", Storage="_OrderItemDto", ThisKey="Id", OtherKey="ArticleId", IsForeignKey=true)]
+		public OrderItemDto OrderItemDto
+		{
+			get
+			{
+				return this._OrderItemDto.Entity;
+			}
+			set
+			{
+				OrderItemDto previousValue = this._OrderItemDto.Entity;
+				if (((previousValue != value) 
+							|| (this._OrderItemDto.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._OrderItemDto.Entity = null;
+						previousValue.Article = null;
+					}
+					this._OrderItemDto.Entity = value;
+					if ((value != null))
+					{
+						value.Article = this;
+						this._Id = value.ArticleId;
+					}
+					else
+					{
+						this._Id = default(int);
+					}
+					this.SendPropertyChanged("OrderItemDto");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="OrganizationMembership")]
+	public partial class MembershipDto : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _OrganizationId;
+		
+		private int _UserId;
+		
+		private MembershipRoleDto _Role;
+		
+		private EntityRef<OrderDto> _OrderDto;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnOrganizationIdChanging(int value);
+    partial void OnOrganizationIdChanged();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
+    partial void OnRoleChanging(MembershipRoleDto value);
+    partial void OnRoleChanged();
+    #endregion
+		
+		public MembershipDto()
+		{
+			this._OrderDto = default(EntityRef<OrderDto>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganizationId", IsPrimaryKey=true)]
+		public int OrganizationId
+		{
+			get
+			{
+				return this._OrganizationId;
+			}
+			set
+			{
+				if ((this._OrganizationId != value))
+				{
+					if (this._OrderDto.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOrganizationIdChanging(value);
+					this.SendPropertyChanging();
+					this._OrganizationId = value;
+					this.SendPropertyChanged("OrganizationId");
+					this.OnOrganizationIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId")]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Role", CanBeNull=false)]
+		public MembershipRoleDto Role
+		{
+			get
+			{
+				return this._Role;
+			}
+			set
+			{
+				if ((this._Role != value))
+				{
+					this.OnRoleChanging(value);
+					this.SendPropertyChanging();
+					this._Role = value;
+					this.SendPropertyChanged("Role");
+					this.OnRoleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderDto_MembershipDto", Storage="_OrderDto", ThisKey="OrganizationId", OtherKey="OrganizationId", IsForeignKey=true)]
+		public OrderDto OrderDto
+		{
+			get
+			{
+				return this._OrderDto.Entity;
+			}
+			set
+			{
+				OrderDto previousValue = this._OrderDto.Entity;
+				if (((previousValue != value) 
+							|| (this._OrderDto.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._OrderDto.Entity = null;
+						previousValue.Memberships.Remove(this);
+					}
+					this._OrderDto.Entity = value;
+					if ((value != null))
+					{
+						value.Memberships.Add(this);
+						this._OrganizationId = value.OrganizationId;
+					}
+					else
+					{
+						this._OrganizationId = default(int);
 					}
 					this.SendPropertyChanged("OrderDto");
 				}
