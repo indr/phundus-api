@@ -6,7 +6,6 @@ namespace Phundus.Rest.Api.Organizations
     using System.Net.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using AutoMapper;
     using Castle.Transactions;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
@@ -37,7 +36,7 @@ namespace Phundus.Rest.Api.Organizations
 
         private HttpResponseMessage Get(int organizationId, int orderId, Guid orderItemId, HttpStatusCode statusCode)
         {
-            var order = OrderQueries.FindById(orderId, CurrentUserId);
+            var order = OrderQueries.SingleByOrderIdAndOrganizationId(orderId, organizationId, CurrentUserId);
             var item = order.Items.FirstOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,

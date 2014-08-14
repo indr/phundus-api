@@ -1,8 +1,6 @@
 ﻿namespace Phundus.Rest.Api
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using AttributeRouting;
@@ -23,7 +21,7 @@
         [Transaction]
         public virtual HttpResponseMessage Get()
         {
-            var result = OrderQueries.FindByUserId(CurrentUserId);
+            var result = OrderQueries.ManyByUserId(CurrentUserId);
             return Request.CreateResponse(HttpStatusCode.OK, Map<ICollection<OrderDoc>>(result));
         }
 
@@ -31,7 +29,7 @@
         [Transaction]
         public virtual HttpResponseMessage Get(int orderId)
         {
-            var result = OrderQueries.FindById(orderId, CurrentUserId);
+            var result = OrderQueries.SingleByOrderId(orderId, CurrentUserId);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
 
@@ -42,9 +40,10 @@
         [Transaction]
         public virtual HttpResponseMessage GetPdf(int orderId)
         {
+            // TODO: Read-Access-Security
             var stream = OrderService.GetPdf(orderId);
 
             return CreatePdfResponse(stream, string.Format("Bestellung-{0}.pdf", orderId));
-        }       
+        }
     }
 }

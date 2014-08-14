@@ -3,53 +3,64 @@
     using System.Collections.Generic;
     using System.Data.Linq;
     using System.Linq;
-    using NHibernate.Criterion;
 
     public class OrderReadModelReader : ReadModelReaderBase, IOrderQueries
     {
-        public OrderDto FindById(int orderId, int userId)
+        private static DataLoadOptions OrderDetailsDataLoadOptions
+        {
+            get
+            {
+                var op = new DataLoadOptions();
+                op.LoadWith<OrderDto>(x => x.Items);
+                op.LoadWith<OrderItemDto>(x => x.Article);
+                return op;
+            }
+        }
+
+        public OrderDto SingleByOrderId(int orderId, int currentUserId)
         {
             var ctx = CreateCtx();
-            var op = new DataLoadOptions();
-            op.LoadWith<OrderDto>(x => x.Items);
-            ctx.LoadOptions = op;
+            ctx.LoadOptions = OrderDetailsDataLoadOptions;
 
             return (from o in ctx.OrderDtos
-                where o.Id == orderId
-                select o).FirstOrDefault();
+                where (o.Id == orderId) && (o.Borrower_Id == currentUserId)
+                select o).SingleOrDefault();
         }
 
-        public IEnumerable<OrderDto> FindByOrganizationId(int organizationId, int currentUserId)
+        public OrderDto SingleByOrderIdAndOrganizationId(int orderId, int organizationId, int currentUserId)
         {
-            return (from o in CreateCtx().OrderDtos
-                where o.OrganizationId == organizationId
-                select o);
+            var ctx = CreateCtx();
+            ctx.LoadOptions = OrderDetailsDataLoadOptions;
+
+            var query = from o in ctx.OrderDtos
+                join m in ctx.MembershipDtos on
+                    new {o.OrganizationId, Role = MembershipRoleDto.Chief, UserId = currentUserId}
+                    equals new {m.OrganizationId, m.Role, m.UserId}
+                where (o.Id == orderId && o.OrganizationId == organizationId)
+                select o;
+
+            return query.Distinct().SingleOrDefault();
         }
 
-        public IEnumerable<OrderDto> FindByOrganizationId(int organizationId, int userId, OrderStatusDto status)
+        public IEnumerable<OrderDto> ManyByUserId(int userId)
         {
-            return (from o in CreateCtx().OrderDtos
-                where o.OrganizationId == organizationId && o.Status == status
-                select o);
-        }
-
-        public IEnumerable<OrderDto> FindByUserId(int userId)
-        {
-            return (from o in CreateCtx().OrderDtos
+            var ctx = CreateCtx();
+            var query = from o in ctx.OrderDtos
                 where o.Borrower_Id == userId
-                select o);
+                select o;
+
+            return query;
         }
 
-        public OrderDto FindOrder(int orderId, int organizationId, int currentUserId)
+        public IEnumerable<OrderDto> ManyByOrganizationId(int organizationId, int currentUserId)
         {
             var ctx = CreateCtx();
-            var op = new DataLoadOptions();
-            op.LoadWith<OrderDto>(x => x.Items);
-            ctx.LoadOptions = op;
-
-            return (from o in ctx.OrderDtos
-                where o.Id == orderId
-                select o).FirstOrDefault();
+            return from o in ctx.OrderDtos
+                        join m in ctx.MembershipDtos on
+                            new { o.OrganizationId, Role = MembershipRoleDto.Chief, UserId = currentUserId }
+                            equals new { m.OrganizationId, m.Role, m.UserId }
+                        where (o.OrganizationId == organizationId)
+                        select o;
         }
     }
 }

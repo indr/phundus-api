@@ -25,7 +25,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage Get(int organizationId)
         {
-            var result = OrderQueries.FindByOrganizationId(organizationId, CurrentUserId);
+            var result = OrderQueries.ManyByOrganizationId(organizationId, CurrentUserId);
             return Request.CreateResponse(HttpStatusCode.OK, Map<ICollection<OrderDoc>>(result));
         }
 
@@ -33,7 +33,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage Get(int organizationId, int orderId)
         {
-            var result = OrderQueries.FindOrder(orderId, organizationId, CurrentUserId);
+            var result = OrderQueries.SingleByOrderIdAndOrganizationId(orderId, organizationId, CurrentUserId);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
 

@@ -2,10 +2,10 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ReadModel">
   <DataContextMoniker Name="/ReadModelDataContext" />
   <nestedChildShapes>
-    <classShape Id="0d1018ec-5847-4e74-92ec-6e26c7175df2" absoluteBounds="2.375, 1.125, 2, 2.3478011067708335">
+    <classShape Id="0d1018ec-5847-4e74-92ec-6e26c7175df2" absoluteBounds="1.125, 1.125, 2, 2.3478011067708335">
       <DataClassMoniker Name="/ReadModelDataContext/ContractDto" />
       <nestedChildShapes>
-        <elementListCompartment Id="a51fa757-d491-4d35-8398-c035f8161a72" absoluteBounds="2.39, 1.585, 1.9700000000000002, 1.7878011067708333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a51fa757-d491-4d35-8398-c035f8161a72" absoluteBounds="1.1400000000000001, 1.585, 1.9700000000000002, 1.7878011067708333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="2d206993-2ea1-4d13-8839-5e730b32c11d" absoluteBounds="4.75, 1.125, 2, 3.8862125651041666">
@@ -14,17 +14,43 @@
         <elementListCompartment Id="41d3d428-0af8-43ce-bace-6d5d50e76ef2" absoluteBounds="4.765, 1.585, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="23621605-23c3-4c95-a13e-812a65ad6aa5" absoluteBounds="7.625, 1.25, 2, 2.1554996744791666">
+    <classShape Id="23621605-23c3-4c95-a13e-812a65ad6aa5" absoluteBounds="7.5, 1.125, 2, 2.1554996744791666">
       <DataClassMoniker Name="/ReadModelDataContext/OrderItemDto" />
       <nestedChildShapes>
-        <elementListCompartment Id="83d1759d-257e-447b-a8cb-94ef1e69f6a5" absoluteBounds="7.64, 1.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="83d1759d-257e-447b-a8cb-94ef1e69f6a5" absoluteBounds="7.515, 1.585, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.75 : 2.32774983723958); (7.625 : 2.32774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.75 : 2.20274983723958); (7.5 : 2.20274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ReadModelDataContext/OrderDto/OrderDto_OrderItemDto" />
       <nodes>
         <classShapeMoniker Id="2d206993-2ea1-4d13-8839-5e730b32c11d" />
         <classShapeMoniker Id="23621605-23c3-4c95-a13e-812a65ad6aa5" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="aefabe99-85a9-4a94-867a-b32c1d0c7ada" absoluteBounds="7.5, 3.875, 2, 1.3862939453124996">
+      <DataClassMoniker Name="/ReadModelDataContext/OrderItemArticleDto" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cf5d7556-a8bc-4538-93c8-b226246ee873" absoluteBounds="7.515, 4.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.5 : 3.28049967447917); (8.5 : 3.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ReadModelDataContext/OrderItemDto/OrderItemDto_OrderItemArticleDto" />
+      <nodes>
+        <classShapeMoniker Id="23621605-23c3-4c95-a13e-812a65ad6aa5" />
+        <classShapeMoniker Id="aefabe99-85a9-4a94-867a-b32c1d0c7ada" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="2c540194-a552-4734-9f35-cf2035ae1570" absoluteBounds="2, 4.25, 2, 1.3862939453124996">
+      <DataClassMoniker Name="/ReadModelDataContext/MembershipDto" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e9583d3f-9aca-4b20-ba7b-f6d6a785f63e" absoluteBounds="2.015, 4.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.75 : 4.63060628255208); (4 : 4.63060628255208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ReadModelDataContext/OrderDto/OrderDto_MembershipDto" />
+      <nodes>
+        <classShapeMoniker Id="2d206993-2ea1-4d13-8839-5e730b32c11d" />
+        <classShapeMoniker Id="2c540194-a552-4734-9f35-cf2035ae1570" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
