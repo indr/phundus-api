@@ -115,6 +115,8 @@
     <Compile Include="2014\08\M201408121620CompleteBorrowerOnContract.cs" />
     <Compile Include="2014\08\M201408131725DeleteObsoletColumnsFromOrder.cs" />
     <Compile Include="2014\08\M201408141011ChangeTypeOfStatusOnOrder.cs" />
+    <Compile Include="2014\08\M201408150837CreateColumnOrganizationNameOnOrder.cs" />
+    <Compile Include="2014\08\M201408150839HydrateOrganizationNameOnOrder.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />

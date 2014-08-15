@@ -29,6 +29,7 @@
       <Column Name="Borrower_MemberNumber" Type="System.String" CanBeNull="true" />
       <Column Name="ModifyDate" Member="ModifiedOn" Type="System.DateTime" CanBeNull="true" />
       <Column Name="ModifierId" Member="ModifiedBy" Type="System.Int32" CanBeNull="true" />
+      <Column Name="Organization_Name" Member="OrganizationName" Type="System.String" CanBeNull="false" />
       <Association Name="OrderDto_OrderItemDto" Member="Items" ThisKey="Id" OtherKey="OrderId" Type="OrderItemDto" />
       <Association Name="OrderDto_MembershipDto" Member="Memberships" ThisKey="OrganizationId" OtherKey="OrganizationId" Type="MembershipDto" />
     </Type>

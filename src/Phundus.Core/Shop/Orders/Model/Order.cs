@@ -13,21 +13,22 @@
 
     public class Order
     {
-        private Borrower _borrower;
         private DateTime _createdOn = DateTime.UtcNow;
+        private Organization _organization;
+        private Borrower _borrower;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private int? _modifiedBy;
         private DateTime? _modifiedOn;
-        private int _organizationId;
         private OrderStatus _status = OrderStatus.Pending;
+        
 
         protected Order()
         {
         }
 
-        public Order(int organizationId, Borrower borrower)
+        public Order(Organization organization, Borrower borrower)
         {
-            _organizationId = organizationId;
+            _organization = organization;
             _borrower = borrower;
         }
 
@@ -35,10 +36,10 @@
 
         public virtual int Version { get; protected set; }
 
-        public virtual int OrganizationId
+        public virtual Organization Organization
         {
-            get { return _organizationId; }
-            protected set { _organizationId = value; }
+            get { return _organization; }
+            protected set { _organization = value; }
         }
 
         public virtual DateTime CreatedOn

@@ -15,6 +15,7 @@
                 .ForMember(d => d.ModifiedOn, o => o.MapFrom(s => s.ModifiedOn))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.OrganizationId))
+                .ForMember(d => d.OrganizationName, o => o.MapFrom(s => s.OrganizationName))
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
                 .ForMember(d => d.Version, o => o.MapFrom(s => s.Version));
 
@@ -48,6 +49,7 @@
         public int OrderId { get; set; }
         public int Version { get; set; }
         public int OrganizationId { get; set; }
+        public string OrganizationName { get; set; }
 
         public string Status { get; set; }
         public DateTime CreatedOn { get; set; }

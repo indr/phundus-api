@@ -50,6 +50,15 @@
             return result;
         }
 
+        private readonly IList<string> _commands = new List<string>();
+
+        protected IList<string> Commands { get { return _commands; } }
+
+        protected void ExecuteCommands()
+        {
+            ExecuteCommands(_commands);
+        }
+
         protected void ExecuteCommands(IEnumerable<string> sqls)
         {
             using (var cmd = CreateCommand(null))

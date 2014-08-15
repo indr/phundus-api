@@ -182,6 +182,8 @@
     <Compile Include="Shop\Orders\Model\OrderItemAdded.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemAmountChanged.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemPeriodChanged.cs" />
+    <Compile Include="Shop\Orders\Model\Organization.cs" />
+    <Compile Include="Shop\Orders\Services\IOrganizationService.cs" />
     <Compile Include="Shop\Orders\Services\RoundRectangle.cs" />
     <Compile Include="Shop\Orders\Services\OrderPdfGeneratorService.cs" />
     <Compile Include="Shop\Orders\_Legacy\CartService.cs" />

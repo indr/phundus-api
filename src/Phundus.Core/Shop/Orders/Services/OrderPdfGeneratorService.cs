@@ -22,7 +22,7 @@
         public Stream GeneratePdf(Order order)
         {
             PdfReader reader = null;
-            var organization = OrganizationRepository.GetById(order.OrganizationId);
+            var organization = OrganizationRepository.GetById(order.Organization.Id);
             if (!String.IsNullOrEmpty(organization.DocTemplateFileName))
             {
                 var fileName = HostingEnvironment.MapPath(
