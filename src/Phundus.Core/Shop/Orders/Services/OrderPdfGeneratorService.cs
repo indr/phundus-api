@@ -9,9 +9,14 @@
     using iTextSharp.text.pdf;
     using Model;
 
-    public class PdfGenerator
+    public interface IOrderPdfGeneratorService
     {
-        public static Stream GeneratePdf(Order order, Organization organization)
+        Stream GeneratePdf(Order order, Organization organization);
+    }
+
+    public class OrderPdfGeneratorService : IOrderPdfGeneratorService
+    {
+        public Stream GeneratePdf(Order order, Organization organization)
         {
             PdfReader reader = null;
             if (!String.IsNullOrEmpty(organization.DocTemplateFileName))
@@ -256,4 +261,6 @@
             return result;
         }
     }
+
+    
 }

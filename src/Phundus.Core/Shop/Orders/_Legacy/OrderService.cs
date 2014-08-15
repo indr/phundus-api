@@ -12,17 +12,16 @@
     {
         public IOrganizationRepository OrganizationRepository { get; set; }
 
-        public IOrderQueries OrderQueries { get; set; }
-
         public IMemberInRole MemberInRole { get; set; }
 
         public IOrderRepository OrderRepository { get; set; }
 
-        [Transaction]
+        public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
+
         public Stream GetPdf(int id)
         {
             var order = OrderRepository.ById(id);
-            return PdfGenerator.GeneratePdf(order, OrganizationRepository.ById(order.OrganizationId));
+            return OrderPdfGeneratorService.GeneratePdf(order, OrganizationRepository.ById(order.OrganizationId));
         }
 
         public Stream GetPdf(int organizationId, int orderId, int currentUserId)

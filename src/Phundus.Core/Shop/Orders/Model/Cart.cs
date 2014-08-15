@@ -3,14 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Contracts.Model;
     using Contracts.Services;
     using Ddd;
     using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
-    using Inventory.Model;
     using Inventory.Repositories;
     using Inventory._Legacy;
     using Microsoft.Practices.ServiceLocation;
@@ -119,33 +117,5 @@
                 RemoveItem(item);
             }
         }
-    }
-
-    
-    public class CartItem : EntityBase
-    {
-        public virtual Cart Cart { get; set; }
-
-        public virtual Article Article { get; set; }
-        public virtual int Quantity { get; set; }
-        public virtual DateTime From { get; set; }
-        public virtual DateTime To { get; set; }
-
-        public virtual string LineText
-        {
-            get { return Article.Caption; }
-        }
-
-        public virtual decimal UnitPrice
-        {
-            get { return Article.Price; }
-        }
-
-        public virtual decimal LineTotal
-        {
-            get { return Quantity*UnitPrice; }
-        }
-
-        public virtual bool IsAvailable { get; set; }
     }
 }
