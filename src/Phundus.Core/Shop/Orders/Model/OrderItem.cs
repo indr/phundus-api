@@ -57,7 +57,7 @@
 
         public virtual decimal LineTotal
         {
-            get { return Article.Price*Amount; }
+            get { return UnitPrice * Amount; }
         }
 
         public virtual void ChangeAmount(int amount)
