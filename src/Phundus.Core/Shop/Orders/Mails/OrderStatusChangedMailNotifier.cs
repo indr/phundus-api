@@ -34,7 +34,7 @@ namespace Phundus.Core.Shop.Orders.Mails
                 Admins = Config.FeedbackRecipients
             };
 
-            Attachments.Add(new Attachment(OrderPdfGeneratorService.GeneratePdf(order, organization),
+            Attachments.Add(new Attachment(OrderPdfGeneratorService.GeneratePdf(order),
                 String.Format("Bestellung-{0}.pdf", order.Id),
                 "application/pdf"));
 
@@ -54,7 +54,7 @@ namespace Phundus.Core.Shop.Orders.Mails
                 Admins = Config.FeedbackRecipients
             };
 
-            Attachments.Add(new Attachment(OrderPdfGeneratorService.GeneratePdf(order, organization),
+            Attachments.Add(new Attachment(OrderPdfGeneratorService.GeneratePdf(order),
                 String.Format("Bestellung-{0}.pdf", order.Id),
                 "application/pdf"));
 

@@ -121,9 +121,8 @@
 
             foreach (var order in orders)
             {
-                var organization = OrganizationRepository.ById(order.OrganizationId);
-                var pdf = OrderPdfGeneratorService.GeneratePdf(order, organization);
-                var mail = new OrderReceivedMail().For(pdf, order, organization);
+                var pdf = OrderPdfGeneratorService.GeneratePdf(order);
+                var mail = new OrderReceivedMail().For(pdf, order);
                 var chiefs = MemberQueries.ByOrganizationId(order.OrganizationId)
                     .Where(p => p.Role == (int) Role.Chief);
 
