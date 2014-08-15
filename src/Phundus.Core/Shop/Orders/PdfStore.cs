@@ -1,12 +1,8 @@
 ﻿namespace Phundus.Core.Shop.Orders
 {
     using System.IO;
-    using System.Security;
-    using Castle.Transactions;
-    using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Queries;
     using Model;
-    using Queries;
     using Repositories;
     using Services;
 
