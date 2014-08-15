@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Orders.Mails
 {
     using System;
+    using System.IO;
     using System.Net.Mail;
     using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Users.Model;
@@ -10,7 +11,7 @@
 
     public class OrderReceivedMail : BaseMail
     {
-        public OrderReceivedMail For(Order order, Organization organization)
+        public OrderReceivedMail For(Stream pdf, Order order, Organization organization)
         {
             Model = new
             {
@@ -20,9 +21,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Attachments.Add(new Attachment(PdfGenerator.GeneratePdf(order, organization),
-                String.Format("Order-{0}.pdf", order.Id),
-                "application/pdf"));
+            Attachments.Add(new Attachment(pdf, String.Format("Order-{0}.pdf", order.Id), "application/pdf"));
 
             return this;
         }

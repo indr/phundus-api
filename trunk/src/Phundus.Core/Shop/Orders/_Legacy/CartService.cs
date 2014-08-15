@@ -13,6 +13,7 @@
     using Mails;
     using Queries;
     using Repositories;
+    using Services;
 
     public class CartService : AppServiceBase, ICartService
     {
@@ -27,6 +28,8 @@
         public ICommandDispatcher Dispatcher { get; set; }
 
         public IBorrowerService BorrowerService { get; set; }
+
+        public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
 
         public CartDto GetCartByUserId(int userId)
         {
@@ -118,7 +121,9 @@
 
             foreach (var order in orders)
             {
-                var mail = new OrderReceivedMail().For(order, OrganizationRepository.ById(order.OrganizationId));
+                var organization = OrganizationRepository.ById(order.OrganizationId);
+                var pdf = OrderPdfGeneratorService.GeneratePdf(order, organization);
+                var mail = new OrderReceivedMail().For(pdf, order, organization);
                 var chiefs = MemberQueries.ByOrganizationId(order.OrganizationId)
                     .Where(p => p.Role == (int) Role.Chief);
 

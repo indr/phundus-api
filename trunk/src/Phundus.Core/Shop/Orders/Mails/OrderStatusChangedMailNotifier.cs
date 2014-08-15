@@ -19,6 +19,8 @@ namespace Phundus.Core.Shop.Orders.Mails
 
         public IOrganizationRepository OrganizationRepository { get; set; }
 
+        public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
+
         public void Handle(OrderApproved @event)
         {
             var order = OrderRepository.GetById(@event.OrderId);
@@ -32,7 +34,7 @@ namespace Phundus.Core.Shop.Orders.Mails
                 Admins = Config.FeedbackRecipients
             };
 
-            Attachments.Add(new Attachment(PdfGenerator.GeneratePdf(order, organization),
+            Attachments.Add(new Attachment(OrderPdfGeneratorService.GeneratePdf(order, organization),
                 String.Format("Bestellung-{0}.pdf", order.Id),
                 "application/pdf"));
 
@@ -52,7 +54,7 @@ namespace Phundus.Core.Shop.Orders.Mails
                 Admins = Config.FeedbackRecipients
             };
 
-            Attachments.Add(new Attachment(PdfGenerator.GeneratePdf(order, organization),
+            Attachments.Add(new Attachment(OrderPdfGeneratorService.GeneratePdf(order, organization),
                 String.Format("Bestellung-{0}.pdf", order.Id),
                 "application/pdf"));
 
