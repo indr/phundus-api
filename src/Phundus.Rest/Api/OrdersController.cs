@@ -40,10 +40,11 @@
         [Transaction]
         public virtual HttpResponseMessage GetPdf(int orderId)
         {
-            // TODO: Read-Access-Security
-            var stream = PdfStore.GetOrderPdf(orderId);
+            var result = PdfStore.GetOrderPdf(orderId, CurrentUserId);
+            if (result == null)
+                return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
 
-            return CreatePdfResponse(stream, string.Format("Bestellung-{0}.pdf", orderId));
+            return CreatePdfResponse(result, string.Format("Bestellung-{0}.pdf", orderId));
         }
     }
 }
