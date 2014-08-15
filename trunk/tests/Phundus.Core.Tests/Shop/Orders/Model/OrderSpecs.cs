@@ -18,11 +18,16 @@
     public class when_an_order_is_created : order_concern
     {
         private const int organizationId = 1;
+        private static Organization organization;
         private static Borrower borrower;
 
-        public Establish ctx = () => { borrower = BorrowerFactory.Create(); };
+        public Establish ctx = () =>
+        {
+            organization = OrganizationFactory.Create();
+            borrower = BorrowerFactory.Create();
+        };
 
-        public Because of = () => { order = new Order(organizationId, borrower); };
+        public Because of = () => { order = new Order(organization, borrower); };
 
         public It should_have_status_pending =
             () => order.Status.ShouldEqual(OrderStatus.Pending);
@@ -33,8 +38,8 @@
         public It should_have_the_created_on_set_to_utc_now =
             () => order.CreatedOn.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
-        public It should_have_the_organization_id =
-            () => order.OrganizationId.ShouldEqual(organizationId);
+        public It should_have_the_organization =
+            () => order.Organization.ShouldEqual(organization);
 
         public It should_not_have_a_modified_date =
             () => order.ModifiedOn.ShouldBeNull();
@@ -232,7 +237,7 @@
     {
         public static Order CreatePending()
         {
-            return new Order(10001, BorrowerFactory.Create());
+            return new Order(OrganizationFactory.Create(), BorrowerFactory.Create());
         }
 
         public static Order CreateClosed()

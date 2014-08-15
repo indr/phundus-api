@@ -24,7 +24,7 @@
             if (order == null)
                 throw new OrderNotFoundException();
 
-            MemberInRole.ActiveChief(order.OrganizationId, command.InitiatorId);
+            MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId);
 
             order.RemoveItem(command.OrderItemId);
         }

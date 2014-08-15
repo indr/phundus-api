@@ -22,7 +22,7 @@
         {
             var order = OrderRepository.GetById(command.OrderId);
 
-            MemberInRole.ActiveChief(order.OrganizationId, command.InitiatorId);
+            MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId);
 
             order.Close(command.InitiatorId);
         }

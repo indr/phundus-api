@@ -6,6 +6,7 @@
     using IdentityAndAccess.Queries;
     using Model;
     using Repositories;
+    using Services;
 
     public class CreateEmptyOrder
     {
@@ -21,6 +22,8 @@
 
         public IOrderRepository Repository { get; set; }
 
+        public IOrganizationService OrganizationService { get; set; }
+
         public IBorrowerService BorrowerService { get; set; }
 
         public void Handle(CreateEmptyOrder command)
@@ -28,7 +31,7 @@
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
 
             var order = new Order(
-                command.OrganizationId,
+                OrganizationService.ById(command.OrganizationId),
                 BorrowerService.ById(command.UserId));
 
             var orderId = Repository.Add(order);

@@ -379,6 +379,8 @@ namespace Phundus.Core.Shop.Queries
 		
 		private System.Nullable<int> _ModifiedBy;
 		
+		private string _OrganizationName;
+		
 		private EntitySet<OrderItemDto> _Items;
 		
 		private EntitySet<MembershipDto> _Memberships;
@@ -419,6 +421,8 @@ namespace Phundus.Core.Shop.Queries
     partial void OnModifiedOnChanged();
     partial void OnModifiedByChanging(System.Nullable<int> value);
     partial void OnModifiedByChanged();
+    partial void OnOrganizationNameChanging(string value);
+    partial void OnOrganizationNameChanged();
     #endregion
 		
 		public OrderDto()
@@ -744,6 +748,26 @@ namespace Phundus.Core.Shop.Queries
 					this._ModifiedBy = value;
 					this.SendPropertyChanged("ModifiedBy");
 					this.OnModifiedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Organization_Name", Storage="_OrganizationName", CanBeNull=false)]
+		public string OrganizationName
+		{
+			get
+			{
+				return this._OrganizationName;
+			}
+			set
+			{
+				if ((this._OrganizationName != value))
+				{
+					this.OnOrganizationNameChanging(value);
+					this.SendPropertyChanging();
+					this._OrganizationName = value;
+					this.SendPropertyChanged("OrganizationName");
+					this.OnOrganizationNameChanged();
 				}
 			}
 		}

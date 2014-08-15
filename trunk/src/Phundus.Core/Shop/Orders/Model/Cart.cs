@@ -14,6 +14,7 @@
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
     using Repositories;
+    using Services;
 
     public class Cart : EntityBase
     {
@@ -87,7 +88,7 @@
         {
             var result = new List<Order>();
             var orders = ServiceLocator.Current.GetInstance<IOrderRepository>();
-            var organizationRepository = ServiceLocator.Current.GetInstance<IOrganizationRepository>();
+            var organizationRepository = ServiceLocator.Current.GetInstance<IOrganizationService>();
 
 
             var organizationIds = (from i in Items select i.Article.OrganizationId).Distinct();
@@ -97,7 +98,7 @@
 
             foreach (var organization in organizations)
             {
-                var order = new Order(organization.Id, borrowerService.ById(Customer.Id));
+                var order = new Order(organization, borrowerService.ById(Customer.Id));
                 var items = from i in Items where i.Article.OrganizationId == organization.Id select i;
                 foreach (var item in items)
                     order.AddItem(item.Article.Id, item.Quantity, item.From, item.To, session);

@@ -32,6 +32,7 @@
     <thead>
         <tr>
             <th><a href="" ng-click="orderBy('orderId')">Nummer</a></th>
+            <th><a href="" ng-click="orderBy('organizationName')">Organisation</a></th>
             <th><a href="" ng-click="orderBy('createdOn')">Erstellt</a></th>
             <th><a href="" ng-click="orderBy('status')">Status</a></th>
             <th><a href="" ng-click="orderBy('modifiedOn')">Bearbeitet</a></th>
@@ -41,6 +42,7 @@
     <tbody>
         <tr ng-repeat="order in filtered = (orders | filter:search) | orderBy:order">
             <td>{{order.orderId}}</td>
+            <td>{{order.organizationName}}</td>
             <td>{{order.createdOn | date:'medium'}}</td>
             <td>{{order.status | orderStatusText}}</td>
             <td>{{order.modifiedOn | date:'medium'}}</td>

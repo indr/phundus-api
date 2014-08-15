@@ -35,14 +35,14 @@
         public IEnumerable<Order> FindByOrganizationId(int organizationId)
         {
             return (from o in Entities
-                    where o.OrganizationId == organizationId
+                    where o.Organization.Id == organizationId
                     select o).ToFuture();
         }
 
         public IEnumerable<Order> FindByOrganizationId(int organizationId, OrderStatus status)
         {
             return (from o in Entities
-                    where o.Status == status && o.OrganizationId == organizationId
+                    where o.Status == status && o.Organization.Id == organizationId
                     select o).ToFuture();
         }
 

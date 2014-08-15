@@ -24,7 +24,7 @@ namespace Phundus.Core.Shop.Orders.Mails
         public void Handle(OrderApproved @event)
         {
             var order = OrderRepository.GetById(@event.OrderId);
-            var organization = OrganizationRepository.GetById(order.OrganizationId);
+            var organization = OrganizationRepository.GetById(order.Organization.Id);
 
             Model = new
             {
@@ -44,7 +44,7 @@ namespace Phundus.Core.Shop.Orders.Mails
         public void Handle(OrderRejected @event)
         {
             var order = OrderRepository.GetById(@event.OrderId);
-            var organization = OrganizationRepository.GetById(order.OrganizationId);
+            var organization = OrganizationRepository.GetById(order.Organization.Id);
 
             Model = new
             {

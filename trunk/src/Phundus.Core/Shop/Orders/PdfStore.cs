@@ -28,7 +28,7 @@
             MemberInRole.ActiveChief(organizationId, currentUserId);
 
             var order = OrderRepository.GetById(orderId);
-            if (order.OrganizationId != organizationId)
+            if (order.Organization.Id != organizationId)
                 return null;
 
             return GetPdf(order);

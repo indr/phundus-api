@@ -11,7 +11,7 @@
     {
         private static OrderItem CreateSut()
         {
-            return new OrderItem( new Order(1001, new Borrower(1, "", "", "", "", "","","","")));
+            return new OrderItem( new Order(new Organization(1001, "Organisation"), new Borrower(1, "", "", "", "", "","","","")));
         }
 
         [Test]

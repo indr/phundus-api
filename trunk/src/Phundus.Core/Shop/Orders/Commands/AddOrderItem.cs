@@ -37,7 +37,7 @@
             if (order == null)
                 throw new OrderNotFoundException();
 
-            MemberInRole.ActiveChief(order.OrganizationId, command.InitiatorId);
+            MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId);
 
             var item = order.AddItem(article, command.From, command.To, command.Amount);
 
