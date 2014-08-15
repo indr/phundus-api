@@ -186,8 +186,8 @@
     <Compile Include="Shop\Orders\Services\OrderPdfGeneratorService.cs" />
     <Compile Include="Shop\Orders\_Legacy\CartService.cs" />
     <Compile Include="Shop\Orders\_Legacy\ICartService.cs" />
-    <Compile Include="Shop\Orders\_Legacy\IPdfStore.cs" />
-    <Compile Include="Shop\Orders\_Legacy\PdfStore.cs" />
+    <Compile Include="Shop\Orders\IPdfStore.cs" />
+    <Compile Include="Shop\Orders\PdfStore.cs" />
     <Compile Include="Shop\Queries\Dtos\CartAssembler.cs" />
     <Compile Include="Shop\Queries\Dtos\CartDto.cs" />
     <Compile Include="Shop\Queries\Dtos\LegacyOrderDto.cs" />

@@ -1,9 +1,11 @@
 ﻿namespace Phundus.Core.Shop.Orders
 {
     using System.IO;
+    using System.Security;
     using Castle.Transactions;
     using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Queries;
+    using Model;
     using Queries;
     using Repositories;
     using Services;
@@ -16,17 +18,29 @@
 
         public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
 
-        public Stream GetOrderPdf(int orderId)
+        public Stream GetOrderPdf(int orderId, int currentUserId)
         {
-            var order = OrderRepository.ById(orderId);
-            return OrderPdfGeneratorService.GeneratePdf(order);
+            var order = OrderRepository.GetById(orderId);
+            if (order.Borrower.Id != currentUserId)
+                return null;
+
+            return GetPdf(order);
         }
 
-        public Stream GetOrderPdf(int organizationId, int orderId, int currentUserId)
+        public Stream GetOrderPdf(int orderId, int organizationId, int currentUserId)
         {
             MemberInRole.ActiveChief(organizationId, currentUserId);
 
-            return GetOrderPdf(orderId);
+            var order = OrderRepository.GetById(orderId);
+            if (order.OrganizationId != organizationId)
+                return null;
+
+            return GetPdf(order);
+        }
+
+        private Stream GetPdf(Order order)
+        {
+            return OrderPdfGeneratorService.GeneratePdf(order);
         }
     }
 }
