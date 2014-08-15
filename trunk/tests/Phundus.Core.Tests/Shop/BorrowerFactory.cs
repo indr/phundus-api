@@ -1,15 +1,6 @@
-﻿namespace Phundus.Core.Tests
+﻿namespace Phundus.Core.Tests.Shop
 {
     using Core.Shop.Contracts.Model;
-    using Core.Shop.Orders.Model;
-
-    public class OrganizationFactory
-    {
-        public static Organization Create()
-        {
-            return new Organization(1001, "Organisation");
-        }
-    }
 
     public class BorrowerFactory
     {

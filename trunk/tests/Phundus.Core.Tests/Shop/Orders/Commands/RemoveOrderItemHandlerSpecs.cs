@@ -1,9 +1,7 @@
-﻿namespace Phundus.Core.Tests.Shop
+﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using System;
-    using Core.IdentityAndAccess.Users.Model;
     using Core.Inventory.Model;
-    using Core.Shop.Contracts.Model;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
@@ -16,14 +14,13 @@
     {
         private const int initiatorId = 1;
         private const int orderId = 2;
-        private const int organizationId = 3;
         private static Guid orderItemId;
         private static Order order;
 
         public Establish c = () =>
         {
-            order = new Order(OrganizationFactory.Create(), BorrowerFactory.Create());
-            orderItemId = order.AddItem(new Article(organizationId, "Artikel"), DateTime.Today, DateTime.Today, 1).Id;
+            order = new Order(organization, BorrowerFactory.Create());
+            orderItemId = order.AddItem(new Article(organization.Id, "Artikel"), DateTime.Today, DateTime.Today, 1).Id;
             orders.setup(x => x.ById(orderId)).Return(order);
 
             command = new RemoveOrderItem
@@ -35,7 +32,7 @@
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(organization.Id, initiatorId));
 
         public It should_publish_order_item_removed =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemRemoved>.Is.NotNull));

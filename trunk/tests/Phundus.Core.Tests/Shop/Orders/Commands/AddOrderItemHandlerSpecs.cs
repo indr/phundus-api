@@ -1,7 +1,6 @@
-﻿namespace Phundus.Core.Tests.Shop
+﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using System;
-    using Core.IdentityAndAccess.Users.Model;
     using Core.Inventory.Model;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
@@ -9,11 +8,11 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
+    using Rhino.Mocks.Constraints;
 
     [Subject(typeof (AddOrderItemHandler))]
     public class when_add_order_item_is_handled : order_handler_concern<AddOrderItem, AddOrderItemHandler>
     {
-        private const int organizationId = 1;
         private const int initiatorId = 2;
         private const int orderId = 3;
         private const int articleId = 4;
@@ -21,9 +20,9 @@
 
         public Establish c = () =>
         {
-            order = new Order(OrganizationFactory.Create(), BorrowerFactory.Create());
+            order = new Order(organization, BorrowerFactory.Create());
             orders.setup(x => x.ById(orderId)).Return(order);
-            articles.setup(x => x.ById(articleId)).Return(new Article(organizationId, "Artikel"));
+            articles.setup(x => x.ById(articleId)).Return(new Article(organization.Id, "Artikel"));
             command = new AddOrderItem
             {
                 Amount = 10,
@@ -36,7 +35,7 @@
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(organization.Id, initiatorId));
 
         public It should_set_order_item_id =
             () => command.OrderItemId.ShouldNotEqual(Guid.Empty);

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Shop
+﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
@@ -10,14 +10,14 @@
     [Subject(typeof(ApproveOrderHandler))]
     public class when_approve_order_is_handled : order_handler_concern<ApproveOrder, ApproveOrderHandler>
     {
-        private const int organizationId = 1;
         private const int initiatorId = 2;
         private const int orderId = 3;
         private static Order order;
 
         public Establish c = () =>
         {
-            order = MockRepository.GeneratePartialMock<Order>(new object[] { organizationId, BorrowerFactory.Create() });
+            organization = OrganizationFactory.Create();
+            order = MockRepository.GeneratePartialMock<Order>(new object[] { organization, BorrowerFactory.Create() });
 
             orders.setup(x => x.GetById(orderId)).Return(order);
 
@@ -29,7 +29,7 @@
         };
 
         public It should_ask_for_chief_privilegs =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(organization.Id, initiatorId));
 
         public It should_ask_order_to_approve =
             () => order.WasToldTo(x => x.Approve(initiatorId));

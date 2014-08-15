@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Shop
+﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
@@ -11,7 +11,6 @@
     public class when_create_empty_order_is_handled :
         order_handler_concern<CreateEmptyOrder, CreateEmptyOrderHandler>
     {
-        public const int organizationId = 1;
         public const int initiatorId = 2;
         public const int orderId = 3;
         public const int userId = 4;
@@ -23,7 +22,7 @@
 
             command = new CreateEmptyOrder
             {
-                OrganizationId = organizationId,
+                OrganizationId = organization.Id,
                 InitiatorId = initiatorId,
                 UserId = userId
             };
@@ -32,7 +31,7 @@
         public It should_add_to_repository = () => orders.WasToldTo(x => x.Add(Arg<Order>.Is.NotNull));
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(organization.Id, initiatorId));
 
         public It should_publish_order_created = () => publisher.WasToldTo(x => x.Publish(
             Arg<OrderCreated>.Matches(p => p.OrderId == orderId)));
