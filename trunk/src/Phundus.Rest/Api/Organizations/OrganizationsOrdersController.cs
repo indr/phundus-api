@@ -19,7 +19,7 @@ namespace Phundus.Rest.Api.Organizations
 
         public IUserQueries UserQueries { get; set; }
 
-        public IOrderService OrderService { get; set; }
+        public IPdfStore PdfStore { get; set; }
 
         [GET("")]
         [Transaction]
@@ -44,7 +44,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage GetPdf(int organizationId, int orderId)
         {
-            var stream = OrderService.GetPdf(organizationId, orderId, CurrentUserId);
+            var stream = PdfStore.GetOrderPdf(organizationId, orderId, CurrentUserId);
 
             return CreatePdfResponse(stream, string.Format("Bestellung-{0}.pdf", orderId));
         }

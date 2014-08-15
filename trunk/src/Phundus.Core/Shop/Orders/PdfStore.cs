@@ -8,27 +8,25 @@
     using Repositories;
     using Services;
 
-    public class OrderService : AppServiceBase, IOrderService
+    public class PdfStore : IPdfStore
     {
-        public IOrganizationRepository OrganizationRepository { get; set; }
-
         public IMemberInRole MemberInRole { get; set; }
 
         public IOrderRepository OrderRepository { get; set; }
 
         public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
 
-        public Stream GetPdf(int id)
+        public Stream GetOrderPdf(int orderId)
         {
-            var order = OrderRepository.ById(id);
-            return OrderPdfGeneratorService.GeneratePdf(order, OrganizationRepository.ById(order.OrganizationId));
+            var order = OrderRepository.ById(orderId);
+            return OrderPdfGeneratorService.GeneratePdf(order);
         }
 
-        public Stream GetPdf(int organizationId, int orderId, int currentUserId)
+        public Stream GetOrderPdf(int organizationId, int orderId, int currentUserId)
         {
             MemberInRole.ActiveChief(organizationId, currentUserId);
 
-            return GetPdf(orderId);
+            return GetOrderPdf(orderId);
         }
     }
 }

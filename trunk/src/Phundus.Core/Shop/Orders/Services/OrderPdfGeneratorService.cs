@@ -4,6 +4,7 @@
     using System.IO;
     using System.Web.Hosting;
     using IdentityAndAccess.Organizations.Model;
+    using IdentityAndAccess.Organizations.Repositories;
     using iTextSharp.text;
     using iTextSharp.text.exceptions;
     using iTextSharp.text.pdf;
@@ -11,14 +12,17 @@
 
     public interface IOrderPdfGeneratorService
     {
-        Stream GeneratePdf(Order order, Organization organization);
+        Stream GeneratePdf(Order order);
     }
 
     public class OrderPdfGeneratorService : IOrderPdfGeneratorService
     {
-        public Stream GeneratePdf(Order order, Organization organization)
+        public IOrganizationRepository OrganizationRepository { get; set; }
+        
+        public Stream GeneratePdf(Order order)
         {
             PdfReader reader = null;
+            var organization = OrganizationRepository.GetById(order.OrganizationId);
             if (!String.IsNullOrEmpty(organization.DocTemplateFileName))
             {
                 var fileName = HostingEnvironment.MapPath(

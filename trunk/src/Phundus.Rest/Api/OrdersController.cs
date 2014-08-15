@@ -15,7 +15,7 @@
     {
         public IOrderQueries OrderQueries { get; set; }
 
-        public IOrderService OrderService { get; set; }
+        public IPdfStore PdfStore { get; set; }
 
         [GET("")]
         [Transaction]
@@ -41,7 +41,7 @@
         public virtual HttpResponseMessage GetPdf(int orderId)
         {
             // TODO: Read-Access-Security
-            var stream = OrderService.GetPdf(orderId);
+            var stream = PdfStore.GetOrderPdf(orderId);
 
             return CreatePdfResponse(stream, string.Format("Bestellung-{0}.pdf", orderId));
         }

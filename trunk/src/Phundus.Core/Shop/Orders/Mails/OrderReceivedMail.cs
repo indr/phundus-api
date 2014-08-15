@@ -11,7 +11,7 @@
 
     public class OrderReceivedMail : BaseMail
     {
-        public OrderReceivedMail For(Stream pdf, Order order, Organization organization)
+        public OrderReceivedMail For(Stream pdf, Order order)
         {
             Model = new
             {
