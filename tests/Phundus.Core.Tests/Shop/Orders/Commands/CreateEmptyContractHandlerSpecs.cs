@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Shop
+﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using System;
     using Core.Shop.Contracts.Commands;

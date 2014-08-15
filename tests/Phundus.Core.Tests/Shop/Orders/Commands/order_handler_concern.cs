@@ -1,13 +1,12 @@
-namespace Phundus.Core.Tests.Shop
+namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using Core.Cqrs;
     using Core.IdentityAndAccess.Queries;
-    using Core.IdentityAndAccess.Users.Repositories;
     using Core.Inventory.Repositories;
     using Core.Shop.Contracts.Services;
+    using Core.Shop.Orders.Model;
     using Core.Shop.Orders.Repositories;
     using Machine.Specifications;
-    using Rhino.Mocks;
 
     public abstract class order_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler>
         where THandler : class, IHandleCommand<TCommand>
@@ -20,8 +19,11 @@ namespace Phundus.Core.Tests.Shop
 
         protected static IBorrowerService borrowerService;
 
+        protected static Organization organization;
+
         protected Establish dependencies = () =>
         {
+            organization = OrganizationFactory.Create();
             memberInRole = depends.on<IMemberInRole>();
             orders = depends.on<IOrderRepository>();
             articles = depends.on<IArticleRepository>();
