@@ -27,8 +27,8 @@
             {
                 Amount = 10,
                 ArticleId = articleId,
-                From = DateTime.Today,
-                To = DateTime.Today.AddDays(1),
+                FromUtc = DateTime.UtcNow,
+                ToUtc = DateTime.UtcNow.AddDays(1),
                 InitiatorId = initiatorId,
                 OrderId = orderId
             };

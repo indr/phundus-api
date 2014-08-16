@@ -4,7 +4,7 @@ namespace phiNdus.fundus.DbMigrations
     using FluentMigrator;
 
     [Migration(201408151820)]
-    public class M201408151825MigrateOrderDatesToUtc : HydrationBase
+    public class M201408151820MigrateOrderDatesToUtc : HydrationBase
     {
         public override void Up()
         {
@@ -56,7 +56,7 @@ namespace phiNdus.fundus.DbMigrations
                 {
                     var fromUtc = ConvertLocalToUtc(reader["From"]);
                     var toUtc = ConvertLocalToUtc(reader["To"]);
-
+                    
                     Commands.Add(String.Format(fmtUpdateOrderItem, reader[0], fromUtc, toUtc));
                 }
             }

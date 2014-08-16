@@ -117,7 +117,7 @@
     <Compile Include="2014\08\M201408141011ChangeTypeOfStatusOnOrder.cs" />
     <Compile Include="2014\08\M201408150837CreateColumnOrganizationNameOnOrder.cs" />
     <Compile Include="2014\08\M201408150839HydrateOrganizationNameOnOrder.cs" />
-    <Compile Include="2014\08\M201408151825MigrateOrderDatesToUtc.cs" />
+    <Compile Include="2014\08\M201408151820MigrateOrderDatesToUtc.cs" />
     <Compile Include="2014\Future\M201408150955CreateColumnsOnTableOrderItem.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />

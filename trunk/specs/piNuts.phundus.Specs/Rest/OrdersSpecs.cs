@@ -14,7 +14,7 @@
         public Because of = () => { response = api.PostOrder(1001, "user-1@test.phundus.ch"); };
 
         public It should_return_doc_with_created_on =
-            () => response.Data.CreatedOn.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+            () => response.Data.CreatedUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
 
         public It should_return_doc_with_order_id = () => response.Data.OrderId.ShouldBeGreaterThan(0);
 
@@ -126,7 +126,7 @@
 
         public int OrderId { get; set; }
         public int OrganizationId { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedUtc { get; set; }
         public string Status { get; set; }
 
         public List<OrderItemDoc> Items

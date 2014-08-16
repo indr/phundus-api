@@ -233,7 +233,7 @@
             EventPublisher.Publish(new OrderItemAmountChanged());
         }
 
-        public virtual void ChangeItemPeriod(Guid orderItemId, DateTime @from, DateTime to)
+        public virtual void ChangeItemPeriod(Guid orderItemId, DateTime fromUtc, DateTime toUtc)
         {
             EnsurePending();
 
@@ -241,7 +241,7 @@
             if (item == null)
                 return;
 
-            item.ChangePeriod(@from, to);
+            item.ChangePeriod(fromUtc, toUtc);
 
             EventPublisher.Publish(new OrderItemPeriodChanged());
         }

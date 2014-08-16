@@ -93,8 +93,8 @@ namespace Phundus.Specs.Rest
                 new
                 {
                     articleId = 10020,
-                    from = DateTime.Today,
-                    to = DateTime.Today.AddDays(1),
+                    fromUtc = DateTime.UtcNow.Date,
+                    toUtc = DateTime.UtcNow.AddDays(1).Date,
                     amount = 1
                 });
             return Execute<OrderItemDoc>(request);
@@ -121,7 +121,7 @@ namespace Phundus.Specs.Rest
             return Exeucte2(request);
         }
 
-        public IRestResponse UpdateOrderItem(int organizationId, int orderId, Guid orderItemId, DateTime from, DateTime to, int amount)
+        public IRestResponse UpdateOrderItem(int organizationId, int orderId, Guid orderItemId, DateTime fromUtc, DateTime toUtc, int amount)
         {
             var request = new RestRequest(Method.PATCH);
             request.Resource = "organizations/{organizationId}/orders/{orderId}/items/{itemId}";
@@ -129,7 +129,7 @@ namespace Phundus.Specs.Rest
             request.AddUrlSegment("orderId", orderId.ToString());
             request.AddUrlSegment("itemId", orderItemId.ToString("D"));
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(new {from = from, to = to, amount = amount});
+            request.AddBody(new {fromUtc = fromUtc, toUtc = toUtc, amount = amount});
             
             return Exeucte2(request);
         }
