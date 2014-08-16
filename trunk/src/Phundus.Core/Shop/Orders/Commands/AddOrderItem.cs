@@ -39,7 +39,7 @@
 
             MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId);
 
-            var item = order.AddItem(article, command.From, command.To, command.Amount);
+            var item = order.AddItem(article, command.From.ToUniversalTime(), command.To.ToUniversalTime(), command.Amount);
 
             command.OrderItemId = item.Id;
         }

@@ -13,12 +13,12 @@
 
     public class Order
     {
-        private DateTime _createdOn = DateTime.UtcNow;
+        private DateTime _createdUtc = DateTime.UtcNow;
         private Organization _organization;
         private Borrower _borrower;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private int? _modifiedBy;
-        private DateTime? _modifiedOn;
+        private DateTime? _modifiedUtc;
         private OrderStatus _status = OrderStatus.Pending;
         
 
@@ -42,10 +42,10 @@
             protected set { _organization = value; }
         }
 
-        public virtual DateTime CreatedOn
+        public virtual DateTime CreatedUtc
         {
-            get { return _createdOn; }
-            set { _createdOn = value; }
+            get { return _createdUtc; }
+            set { _createdUtc = value; }
         }
 
         public virtual OrderStatus Status
@@ -54,10 +54,10 @@
             protected set { _status = value; }
         }
 
-        public virtual DateTime? ModifiedOn
+        public virtual DateTime? ModifiedUtc
         {
-            get { return _modifiedOn; }
-            protected set { _modifiedOn = value; }
+            get { return _modifiedUtc; }
+            protected set { _modifiedUtc = value; }
         }
 
         public virtual int? ModifiedBy
@@ -83,23 +83,23 @@
             get { return _items.Sum(x => x.LineTotal); }
         }
 
-        public virtual DateTime? LastTo
+        public virtual DateTime? LastToUtc
         {
             get
             {
                 if (_items.Count == 0)
                     return null;
-                return _items.Max(s => s.To);
+                return _items.Max(s => s.ToUtc);
             }
         }
 
-        public virtual DateTime? FirstFrom
+        public virtual DateTime? FirstFromUtc
         {
             get
             {
                 if (_items.Count == 0)
                     return null;
-                return _items.Min(s => s.From);
+                return _items.Min(s => s.FromUtc);
             }
         }
 
@@ -111,7 +111,7 @@
                 throw new OrderAlreadyRejectedException();
 
             ModifiedBy = initiatorId;
-            ModifiedOn = DateTime.UtcNow;
+            ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Rejected;
 
             EventPublisher.Publish(new OrderRejected { OrderId = Id });
@@ -127,7 +127,7 @@
                 throw new OrderAlreadyApprovedException();
 
             ModifiedBy = initiatorId;
-            ModifiedOn = DateTime.UtcNow;
+            ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Approved;
 
             EventPublisher.Publish(new OrderApproved {OrderId = Id});
@@ -141,7 +141,7 @@
                 throw new OrderAlreadyClosedException();
 
             ModifiedBy = initiatorId;
-            ModifiedOn = DateTime.UtcNow;
+            ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Closed;
 
             EventPublisher.Publish(new OrderClosed { OrderId = Id });
@@ -169,21 +169,19 @@
             EnsurePending();
 
             var checker = new AvailabilityChecker(item.Article, session);
-            if (!checker.Check(item.From, item.To, item.Amount))
+            if (!checker.Check(item.FromUtc, item.ToUtc, item.Amount))
                 throw new ArticleNotAvailableException(item);
 
             return _items.Add(item);
         }
 
-        public virtual OrderItem AddItem(Article article, DateTime from, DateTime to, int amount)
+        public virtual OrderItem AddItem(Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             EnsurePending();
 
-            var item = new OrderItem(this)
+            var item = new OrderItem(this, fromUtc, toUtc)
             {
                 Article = article,
-                From = @from,
-                To = to,
                 Amount = amount
             };
 
@@ -194,17 +192,15 @@
             return item;
         }
 
-        public virtual bool AddItem(int articleId, int amount, DateTime begin, DateTime end, ISession session)
+        public virtual bool AddItem(int articleId, int amount, DateTime fromUtc, DateTime toUtc, ISession session)
         {
             EnsurePending();
             var article = ServiceLocator.Current.GetInstance<IArticleRepository>().ById(articleId);
 
-            var item = new OrderItem(this)
+            var item = new OrderItem(this, fromUtc, toUtc)
             {
                 Article = article,
                 Amount = amount,
-                From = begin,
-                To = end
             };
 
             return AddItem(item, session);

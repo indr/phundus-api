@@ -2,6 +2,7 @@ namespace Phundus.Persistence.Shop.Mappings
 {
     using Core.Shop.Orders.Model;
     using FluentNHibernate.Mapping;
+    using NHibernate.Type;
 
     public class OrderMap : ClassMap<Order>
     {
@@ -10,8 +11,10 @@ namespace Phundus.Persistence.Shop.Mappings
             Id(x => x.Id).GeneratedBy.Native();
             Version(x => x.Version);
 
-            Map(x => x.CreatedOn, "CreateDate");
+            Map(x => x.CreatedUtc, "CreatedUtc").CustomType<UtcDateTimeType>();
             Map(x => x.Status, "Status").CustomType<OrderStatus>();
+            Map(x => x.ModifiedUtc, "ModifiedUtc").CustomType<UtcDateTimeType>();
+            Map(x => x.ModifiedBy, "ModifierId");
 
             Component(x => x.Organization, c =>
             {
@@ -31,9 +34,6 @@ namespace Phundus.Persistence.Shop.Mappings
                 c.Map(x => x.MobilePhoneNumber, "Borrower_MobilePhoneNumber");
                 c.Map(x => x.MemberNumber, "Borrower_MemberNumber");
             });
-
-            Map(x => x.ModifiedOn, "ModifyDate");
-            Map(x => x.ModifiedBy, "ModifierId");
 
             HasMany(x => x.Items).AsSet()
                 .KeyColumn("OrderId").Inverse()
