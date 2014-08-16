@@ -16,7 +16,7 @@
     using Repositories;
     using Services;
 
-    public class CartService : AppServiceBase, ICartService
+    public class CartService : ICartService
     {
         public ICartRepository Carts { get; set; }
 
@@ -91,12 +91,11 @@
             return assembler.CreateDto(cart);
         }
 
-        public CartDto RemoveItem(int id, int version)
+        public CartDto RemoveItem(int userId, int itemId, int version)
         {
-            var user = Users.FindByEmail(Identity.Name);
-            var cart = Carts.FindByCustomer(user.Id);
+            var cart = Carts.FindByCustomer(userId);
 
-            var item = cart.Items.SingleOrDefault(p => p.Id == id);
+            var item = cart.Items.SingleOrDefault(p => p.Id == itemId);
             if (item == null)
                 throw new EntityNotFoundException();
             if (item.Version != version)
@@ -111,10 +110,9 @@
             return assembler.CreateDto(cart);
         }
 
-        public ICollection<LegacyOrderDto> PlaceOrders()
+        public ICollection<LegacyOrderDto> PlaceOrders(int userId)
         {
-            var user = Users.FindByEmail(Identity.Name);
-            var cart = Carts.FindByCustomer(user.Id);
+            var cart = Carts.FindByCustomer(userId);
             cart.CalculateAvailability(AvailabilityService);
             if (!cart.AreItemsAvailable)
                 return null;

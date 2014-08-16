@@ -48,7 +48,7 @@
             CartDto cartDto;
             try
             {
-                cartDto = CartService.RemoveItem(id, version);
+                cartDto = CartService.RemoveItem(CurrentUserId, id, version);
             }
                 // Nicht besonders RESTful...
             catch (EntityNotFoundException)
@@ -77,7 +77,7 @@
         {
             if (HttpContext.Request.HttpMethod == "POST")
             {
-                var orderDtos = CartService.PlaceOrders();
+                var orderDtos = CartService.PlaceOrders(CurrentUserId);
                 if (orderDtos != null)
                     return View("CheckOutDone");
                 return RedirectToAction(CartActionNames.Index);
