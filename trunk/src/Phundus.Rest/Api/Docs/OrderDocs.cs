@@ -11,8 +11,8 @@
         protected override void Configure()
         {
             Mapper.CreateMap<OrderDto, OrderDoc>()
-                .ForMember(d => d.CreatedOn, o => o.MapFrom(s => s.CreatedOn))
-                .ForMember(d => d.ModifiedOn, o => o.MapFrom(s => s.ModifiedOn))
+                .ForMember(d => d.CreatedUtc, o => o.MapFrom(s => s.CreatedUtc))
+                .ForMember(d => d.ModifiedUtc, o => o.MapFrom(s => s.ModifiedUtc))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.OrganizationId))
                 .ForMember(d => d.OrganizationName, o => o.MapFrom(s => s.OrganizationName))
@@ -24,17 +24,17 @@
                 .ForMember(d => d.ArticleId, o => o.MapFrom(s => s.ArticleId))
                 // TODO: Map Availability
                 //.ForMember(d => d.Availability, o => o.MapFrom(s => s.Availability))
-                .ForMember(d => d.From, o => o.MapFrom(s => s.From))
+                .ForMember(d => d.FromUtc, o => o.MapFrom(s => s.FromUtc))
                 .ForMember(d => d.ItemTotal, o => o.MapFrom(s => s.Amount * s.Article.Price))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.OrderId))
                 .ForMember(d => d.OrderItemId, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Text, o => o.MapFrom(s => s.Article.Name))
-                .ForMember(d => d.To, o => o.MapFrom(s => s.To))
+                .ForMember(d => d.ToUtc, o => o.MapFrom(s => s.ToUtc))
                 .ForMember(d => d.UnitPrice, o => o.MapFrom(s => s.Article.Price));
 
             Mapper.CreateMap<OrderDto, OrderDetailDoc>()
-                .ForMember(d => d.CreatedOn, o => o.MapFrom(s => s.CreatedOn))
-                .ForMember(d => d.ModifiedOn, o => o.MapFrom(s => s.ModifiedOn))
+                .ForMember(d => d.CreatedUtc, o => o.MapFrom(s => s.CreatedUtc))
+                .ForMember(d => d.ModifiedUtc, o => o.MapFrom(s => s.ModifiedUtc))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.OrganizationId))
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
@@ -52,8 +52,8 @@
         public string OrganizationName { get; set; }
 
         public string Status { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime? ModifiedOn { get; set; }
+        public DateTime CreatedUtc { get; set; }
+        public DateTime? ModifiedUtc { get; set; }
     }
 
     public class OrderDetailDoc : OrderDoc
@@ -78,8 +78,8 @@
         public string Text { get; set; }
 
         public int Amount { get; set; }
-        public DateTime From { get; set; }
-        public DateTime To { get; set; }
+        public DateTime FromUtc { get; set; }
+        public DateTime ToUtc { get; set; }
 
         public decimal UnitPrice { get; set; }
         public decimal ItemTotal { get; set; }

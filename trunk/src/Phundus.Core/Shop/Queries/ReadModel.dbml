@@ -15,7 +15,7 @@
     <Type Name="OrderDto">
       <Column Name="Id" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Version" Type="System.Int32" CanBeNull="false" />
-      <Column Name="CreateDate" Member="CreatedOn" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="CreatedUtc" Storage="_CreatedOn" Type="System.DateTime" CanBeNull="false" />
       <Column Name="Status" Type="OrderStatusDto" CanBeNull="false" />
       <Column Name="OrganizationId" Type="System.Int32" CanBeNull="false" />
       <Column Name="Borrower_Id" Type="System.Int32" CanBeNull="true" />
@@ -27,7 +27,7 @@
       <Column Name="Borrower_EmailAddress" Type="System.String" CanBeNull="true" />
       <Column Name="Borrower_MobilePhoneNumber" Type="System.String" CanBeNull="true" />
       <Column Name="Borrower_MemberNumber" Type="System.String" CanBeNull="true" />
-      <Column Name="ModifyDate" Member="ModifiedOn" Type="System.DateTime" CanBeNull="true" />
+      <Column Name="ModifiedUtc" Storage="_ModifiedOn" Type="System.DateTime" CanBeNull="true" />
       <Column Name="ModifierId" Member="ModifiedBy" Type="System.Int32" CanBeNull="true" />
       <Column Name="Organization_Name" Member="OrganizationName" Type="System.String" CanBeNull="false" />
       <Association Name="OrderDto_OrderItemDto" Member="Items" ThisKey="Id" OtherKey="OrderId" Type="OrderItemDto" />
@@ -40,8 +40,8 @@
       <Column Name="Version" Type="System.Int32" CanBeNull="false" />
       <Column Name="OrderId" Type="System.Int32" CanBeNull="false" />
       <Column Name="Amount" Type="System.Int32" CanBeNull="false" />
-      <Column Name="From" Type="System.DateTime" CanBeNull="false" />
-      <Column Name="To" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="FromUtc" Storage="_From" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="ToUtc" Storage="_To" Type="System.DateTime" CanBeNull="false" />
       <Column Name="ArticleId" Type="System.Int32" CanBeNull="false" />
       <Association Name="OrderItemDto_OrderItemArticleDto" Member="Article" ThisKey="ArticleId" OtherKey="Id" Type="OrderItemArticleDto" Cardinality="One" />
       <Association Name="OrderDto_OrderItemDto" Member="OrderDto" ThisKey="OrderId" OtherKey="Id" Type="OrderDto" IsForeignKey="true" />

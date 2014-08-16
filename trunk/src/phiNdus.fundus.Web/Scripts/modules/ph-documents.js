@@ -17,7 +17,7 @@ function OrdersCtrl($scope, $location, orders) {
         function () { $scope.isLoading = false; });
 
     $scope.search = { status: '' };
-    $scope.order = '-createdOn';
+    $scope.order = '-createdUtc';
     $scope.orderBy = function (by) {
         if ($scope.order == by)
             $scope.order = '-' + by;
@@ -45,7 +45,7 @@ function ContractsCtrl($scope, $location, contracts) {
         function () { $scope.isLoading = false; });
 
     $scope.search = { status: '' };
-    $scope.order = '-createdOn';
+    $scope.order = '-createdUtc';
     $scope.orderBy = function (by) {
         if ($scope.order == by)
             $scope.order = '-' + by;

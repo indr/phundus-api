@@ -33,24 +33,24 @@
     <thead>
         <tr>
             <th><a href="" ng-click="orderBy('orderId')">Nummer</a></th>
-            <th><a href="" ng-click="orderBy('createdOn')">Erstellt</a></th>
+            <th><a href="" ng-click="orderBy('createdUtc')">Erstellt</a></th>
             <th><a href="" ng-click="orderBy('borrowerFirstName')">Vorname</a></th>
             <th><a href="" ng-click="orderBy('borrowerLastName')">Nachname</a></th>
             <th><a href="" ng-click="orderBy('borrowerMemberNummer')">J+S/Info Card</a></th>
             <th><a href="" ng-click="orderBy('status')">Status</a></th>
-            <th><a href="" ng-click="orderBy('modifiedOn')">Bearbeitet</a></th>
+            <th><a href="" ng-click="orderBy('modifiedUtc')">Bearbeitet</a></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="order in filtered = (orders | filter:search) | orderBy:order">
             <td>{{order.orderId}}</td>
-            <td>{{order.createdOn | date:'medium'}}</td>
+            <td>{{order.createdUtc | date:'medium'}}</td>
             <td>{{order.borrowerFirstName}}</td>
             <td>{{order.borrowerLastName}}</td>
             <td>{{order.borrowerMemberNumber}}</td>
             <td>{{order.status | orderStatusText}}</td>
-            <td>{{order.modifiedOn | date:'medium'}}</td>
+            <td>{{order.modifiedUtc | date:'medium'}}</td>
             <td style="text-align:right">
                 <a class="btn btn-small" ng-click="openOrder(order)">Öffnen</a>
                 <a class="btn btn-small" href="./api/organizations/{{organizationId}}/orders/{{order.orderId}}.pdf">PDF</a>

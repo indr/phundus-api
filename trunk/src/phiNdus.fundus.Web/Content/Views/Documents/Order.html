@@ -6,8 +6,8 @@
     <div class="span6">
         <p>Nummer: {{order.orderId}}</p>
         <p>Status: {{order.status | orderStatusText}}</p>   
-        <p>Erstellt: {{order.createdOn | date:'medium'}}</p>
-        <p>Bearbeitet: {{order.modifiedOn | date:'medium'}}</p>    
+        <p>Erstellt: {{order.createdUtc | date:'medium'}}</p>
+        <p>Bearbeitet: {{order.modifiedUtc | date:'medium'}}</p>    
     </div>
     <div class="span6">
         <p>Organisation: {{order.organizationName}}</p>
@@ -31,8 +31,8 @@
             <td>{{item.text}}</td>
             <td ng-show="item.isAvailable"><i class="icon-ok"></i></td>
             <td ng-show="!item.isAvailable"><i class="icon-remove"></i></td>
-            <td>{{item.from | date:'mediumDate'}}</td>
-            <td>{{item.to | date:'mediumDate'}}</td>
+            <td>{{item.fromUtc | date:'mediumDate'}}</td>
+            <td>{{item.toUtc | date:'mediumDate'}}</td>
             <td>{{item.amount}}</td>
             <td>{{item.unitPrice | currency}}</td>
             <td>{{item.itemTotal | currency}}</td>
