@@ -55,7 +55,9 @@ namespace phiNdus.fundus.DbMigrations
                 while (reader.Read())
                 {
                     var fromUtc = ConvertLocalToUtc(reader["From"]);
-                    var toUtc = ConvertLocalToUtc(reader["To"]);
+                    var local = DateTime.SpecifyKind(Convert.ToDateTime(reader["To"]), DateTimeKind.Local);
+                    local = local.AddDays(1).AddSeconds(-1);
+                    var toUtc = ConvertLocalToUtc(local);
                     
                     Commands.Add(String.Format(fmtUpdateOrderItem, reader[0], fromUtc, toUtc));
                 }
