@@ -61,12 +61,18 @@ namespace phiNdus.fundus.DbMigrations
                     var local = DateTime.SpecifyKind(Convert.ToDateTime(reader["To"]), DateTimeKind.Local);
                     local = local.AddDays(1).AddSeconds(-1);
                     var toUtc = ConvertLocalToUtc(local);
-                    
+
+                    throw new Exception(String.Format(fmtUpdateOrderItem, reader[0],
+                            fromUtc.ToString("yyyy-MM-dd HH:mm:ss"),
+                            toUtc.ToString("yyyy-MM-dd HH:mm:ss")));
+
                     Commands.Add(String.Format(fmtUpdateOrderItem, reader[0],
                             fromUtc.ToString("yyyy-MM-dd HH:mm:ss"),
                             toUtc.ToString("yyyy-MM-dd HH:mm:ss")));
                 }
             }
+
+            
         }
     }
 }
