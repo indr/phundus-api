@@ -17,7 +17,7 @@ namespace phiNdus.fundus.DbMigrations
                 while (reader.Read())
                 {
                     inserts.Add(string.Format(insertFmt, reader.GetInt32(0), reader.GetInt32(1),
-                        reader.GetDateTime(2).ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss")));
+                        reader.GetDateTime(2).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss")));
                 }
 
             ExecuteCommands(inserts);

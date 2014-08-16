@@ -47,7 +47,7 @@ namespace phiNdus.fundus.DbMigrations
                     }
 
                     Commands.Add(String.Format(fmtUpdateOrder, reader[0], createdUtc.ToString("yyyy-MM-dd HH:mm:ss"),
-                        modifiedUtc.HasValue ? "'" + modifiedUtc.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'" : "null"));
+                        modifiedUtc.HasValue ? "'" + modifiedUtc.Value.ToString("yyyy-MM-ddTHH:mm:ss") + "'" : "null"));
                 }
             }
 
@@ -63,8 +63,8 @@ namespace phiNdus.fundus.DbMigrations
                     var toUtc = ConvertLocalToUtc(local);
 
                     Commands.Add(String.Format(fmtUpdateOrderItem, reader[0],
-                            fromUtc.ToString("yyyy-MM-dd HH:mm:ss"),
-                            toUtc.ToString("yyyy-MM-dd HH:mm:ss")));
+                            fromUtc.ToString("yyyy-MM-ddTHH:mm:ss"),
+                            toUtc.ToString("yyyy-MM-ddTHH:mm:ss")));
                 }
             }
 
