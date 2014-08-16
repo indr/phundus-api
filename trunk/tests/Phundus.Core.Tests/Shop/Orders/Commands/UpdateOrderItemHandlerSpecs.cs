@@ -52,10 +52,10 @@
         public It should_update_order_items_amount =
             () => order.Items.Single(p => p.Id == orderItemId).Amount.ShouldEqual(newAmount);
 
-        public It should_update_order_items_period_from =
-            () => order.Items.Single(p => p.Id == orderItemId).FromUtc.ShouldEqual(newFromUtc);
+        public It should_update_order_items_period_from_to_midnight =
+            () => order.Items.Single(p => p.Id == orderItemId).FromUtc.ShouldEqual(newFromUtc.ToLocalTime().Date.ToUniversalTime());
 
-        public It should_update_order_items_period_to =
-            () => order.Items.Single(p => p.Id == orderItemId).ToUtc.ShouldEqual(newToUtc);
+        public It should_update_order_items_period_to_one_second_before_midnight =
+            () => order.Items.Single(p => p.Id == orderItemId).ToUtc.ShouldEqual(newToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime());
     }
 }
