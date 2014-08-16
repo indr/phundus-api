@@ -1,6 +1,6 @@
 ﻿<p>Hallo @Model.Borrower.DisplayName</p>
 
-<p>Die Bestellung vom @Model.Order.CreatedUtc.ToLocalTime() mit der Nummer @Model.Order.Id wurde <b>genehmigt</b>.</p>
+<p>Die Bestellung vom @Model.Order.CreatedLocal mit der Nummer @Model.Order.Id wurde <b>genehmigt</b>.</p>
 
 <p>Bitte vereinbare mit der Materialstelle telefonisch einen Übergabetermin. Wir bitten dich bei der Materialübernahme den Mietpreis bar zu bezahlen.</p>
 
@@ -19,9 +19,9 @@
         @foreach (var each in Model.Order.Items)
         {
             <tr>
-                <td>@each.Article.Caption</td>
-                <td>@each.From.ToString("d")</td>
-                <td>@each.To.ToString("d")</td>
+                <td>@each.Text</td>
+                <td>@each.FromLocal.ToString("d")</td>
+                <td>@each.ToLocal.ToString("d")</td>
                 <td>@each.Amount</td>
                 <td style="text-align:right">@each.UnitPrice.ToString("N")</td>
                 <td style="text-align:right">@each.LineTotal.ToString("N")</td>

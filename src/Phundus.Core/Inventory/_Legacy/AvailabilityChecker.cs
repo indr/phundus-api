@@ -98,15 +98,15 @@
 
             return session.CreateSQLQuery(
                 @"select [Date], sum([Amount]) as [Delta] from (
-	select [from] as [Date], 0 - sum(amount) as [Amount] from OrderItem
+	select [fromUtc] as [Date], 0 - sum(amount) as [Amount] from OrderItem
         inner join [Order] on [Order].Id = [OrderItem].OrderId and ([Order].Status = :pending or [Order].Status = :approved)
-        where ArticleId = :id and ([From] >= :start and [From] <= :end)
-        group by [from]
+        where ArticleId = :id and ([FromUtc] >= :start and [FromUtc] <= :end)
+        group by [FromUtc]
 	union all
-	select dateadd(day, 1, [to]) as [Date], sum(amount) as [Amount] from OrderItem
+	select dateadd(day, 1, [toUtc]) as [Date], sum(amount) as [Amount] from OrderItem
         inner join [Order] on [Order].Id = [OrderItem].OrderId and ([Order].Status = :pending or [Order].Status = :approved)
-        where ArticleId = :id and ([To] >= :start and [To] <= :end)
-        group by [to]
+        where ArticleId = :id and ([ToUtc] >= :start and [ToUtc] <= :end)
+        group by [toUtc]
 ) temp
 group by [Date]
 order by [Date] asc")

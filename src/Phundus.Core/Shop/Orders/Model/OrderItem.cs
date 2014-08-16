@@ -54,13 +54,28 @@
             protected set { _fromUtc = value; }
         }
 
+        public virtual DateTime FromLocal
+        {
+            get { return _fromUtc.ToLocalTime(); }
+        }
+
         public virtual DateTime ToUtc
         {
             get { return _toUtc; }
             protected set { _toUtc = value; }
         }
 
+        public virtual DateTime ToLocal
+        {
+            get { return _toUtc.ToLocalTime(); }
+        }
+
         public virtual Article Article { get; set; }
+
+        public virtual string Text
+        {
+            get { return Article.Caption; }
+        }
 
         public virtual decimal UnitPrice
         {
