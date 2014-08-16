@@ -65,14 +65,10 @@ namespace phiNdus.fundus.DbMigrations
                     throw new Exception(String.Format(fmtUpdateOrderItem, reader[0],
                             fromUtc.ToString("yyyy-MM-dd HH:mm:ss"),
                             toUtc.ToString("yyyy-MM-dd HH:mm:ss")));
-
-                    Commands.Add(String.Format(fmtUpdateOrderItem, reader[0],
-                            fromUtc.ToString("yyyy-MM-dd HH:mm:ss"),
-                            toUtc.ToString("yyyy-MM-dd HH:mm:ss")));
                 }
             }
 
-            
+            ExecuteCommands();
         }
     }
 }
