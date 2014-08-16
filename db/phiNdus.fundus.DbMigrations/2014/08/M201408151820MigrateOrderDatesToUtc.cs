@@ -62,7 +62,7 @@ namespace phiNdus.fundus.DbMigrations
                     local = local.AddDays(1).AddSeconds(-1);
                     var toUtc = ConvertLocalToUtc(local);
 
-                    throw new Exception(String.Format(fmtUpdateOrderItem, reader[0],
+                    Commands.Add(String.Format(fmtUpdateOrderItem, reader[0],
                             fromUtc.ToString("yyyy-MM-dd HH:mm:ss"),
                             toUtc.ToString("yyyy-MM-dd HH:mm:ss")));
                 }
