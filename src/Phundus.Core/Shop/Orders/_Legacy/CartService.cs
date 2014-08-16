@@ -10,6 +10,7 @@
     using IdentityAndAccess.Queries;
     using IdentityAndAccess.Users.Repositories;
     using Infrastructure;
+    using Inventory.Services;
     using Mails;
     using Queries;
     using Repositories;
@@ -31,6 +32,8 @@
 
         public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
 
+        public IAvailabilityService AvailabilityService { get; set; }
+
         public CartDto GetCartByUserId(int userId)
         {
             var user = Users.FindById(userId);
@@ -41,7 +44,7 @@
                 Carts.Add(cart);
             }
 
-            cart.CalculateAvailability(SessionFact());
+            cart.CalculateAvailability(AvailabilityService);
             var assembler = new CartAssembler();
             return assembler.CreateDto(cart);
         }
@@ -71,7 +74,7 @@
             });
 
             cart = Carts.ById(cart.Id);
-            cart.CalculateAvailability(SessionFact());
+            cart.CalculateAvailability(AvailabilityService);
             var assembler = new CartAssembler();
             return assembler.CreateDto(cart);
         }
@@ -83,8 +86,8 @@
 
             Carts.Update(cart);
 
+            cart.CalculateAvailability(AvailabilityService);
 
-            cart.CalculateAvailability(SessionFact());
             return assembler.CreateDto(cart);
         }
 
@@ -103,7 +106,7 @@
             Carts.Update(cart);
 
 
-            cart.CalculateAvailability(SessionFact());
+            cart.CalculateAvailability(AvailabilityService);
             var assembler = new CartAssembler();
             return assembler.CreateDto(cart);
         }
@@ -112,11 +115,11 @@
         {
             var user = Users.FindByEmail(Identity.Name);
             var cart = Carts.FindByCustomer(user.Id);
-            cart.CalculateAvailability(SessionFact());
+            cart.CalculateAvailability(AvailabilityService);
             if (!cart.AreItemsAvailable)
                 return null;
 
-            var orders = cart.PlaceOrders(SessionFact(), BorrowerService);
+            var orders = cart.PlaceOrders(BorrowerService, AvailabilityService);
 
 
             foreach (var order in orders)

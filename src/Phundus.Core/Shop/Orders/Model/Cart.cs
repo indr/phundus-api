@@ -5,12 +5,10 @@
     using System.Linq;
     using Contracts.Services;
     using Ddd;
-    using IdentityAndAccess.Organizations.Model;
-    using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
     using Inventory.Articles.Repositories;
-    using Inventory._Legacy;
+    using Inventory.Services;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
     using Repositories;
@@ -75,16 +73,16 @@
             Items.Remove(item);
         }
 
-        public virtual void CalculateAvailability(ISession session)
+        public virtual void CalculateAvailability(IAvailabilityService availabilityService)
         {
             foreach (var each in Items)
             {
-                var checker = new AvailabilityChecker(each.Article, session);
-                each.IsAvailable = checker.Check(each.From, each.To, each.Quantity);
+                each.IsAvailable = availabilityService.IsArticleAvailable(each.ArticleId, each.From, each.To,
+                    each.Quantity);
             }
         }
 
-        public virtual ICollection<Order> PlaceOrders(ISession session, IBorrowerService borrowerService)
+        public virtual ICollection<Order> PlaceOrders(IBorrowerService borrowerService, IAvailabilityService availabilityService)
         {
             var result = new List<Order>();
             var orders = ServiceLocator.Current.GetInstance<IOrderRepository>();
@@ -101,7 +99,8 @@
                 var order = new Order(organization, borrowerService.ById(Customer.Id));
                 var items = from i in Items where i.Article.OrganizationId == organization.Id select i;
                 foreach (var item in items)
-                    order.AddItem(item.Article.Id, item.Quantity, item.From.ToUniversalTime(), item.To.Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), session);
+                    order.AddItem(item.Article.Id, item.Quantity, item.From.ToUniversalTime(),
+                        item.To.Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), availabilityService);
 
                 orders.Add(order);
                 result.Add(order);

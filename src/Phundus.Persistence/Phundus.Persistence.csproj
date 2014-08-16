@@ -94,7 +94,7 @@
     <Compile Include="Shop\Repositories\NhContractRepository.cs" />
     <Compile Include="Shop\Repositories\NhOrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\NhOrganizationRepository.cs" />
-    <Compile Include="_Legacy\NhReservationRepository.cs" />
+    <Compile Include="Inventory\Repositories\NhReservationRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\NhUserRepository.cs" />
     <Compile Include="NhRepositoryBase.cs" />
   </ItemGroup>

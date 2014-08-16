@@ -2,8 +2,8 @@
 
 namespace phiNdus.fundus.Web.Models.ArticleModels
 {
+    using Phundus.Core.Inventory.AvailabilityAndReservation.Model;
     using Phundus.Core.ReservationCtx;
-    using Phundus.Core.ReservationCtx.Model;
 
     public class ArticleReservationsModel
     {
