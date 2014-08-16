@@ -1,6 +1,6 @@
 ﻿<p>Hallo @Model.Borrower.DisplayName</p>
 
-<p>Wir konnten die Bestellung vom @Model.Order.CreatedUtc.ToLocalTime() mit der Nummer @Model.Order.Id infolge unvorhergesehen Ereignissen leider nicht in dem von dir eingegebenen Zeitraum freigeben.</p>
+<p>Wir konnten die Bestellung vom @Model.Order.CreatedLocal mit der Nummer @Model.Order.Id infolge unvorhergesehen Ereignissen leider nicht in dem von dir eingegebenen Zeitraum freigeben.</p>
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -17,9 +17,9 @@
         @foreach (var each in Model.Order.Items)
         {
             <tr>
-                <td>@each.Article.Caption</td>
-                <td>@each.From.ToString("d")</td>
-                <td>@each.To.ToString("d")</td>
+                <td>@each.Text</td>
+                <td>@each.FromLocal.ToString("d")</td>
+                <td>@each.ToLocal.ToString("d")</td>
                 <td>@each.Amount</td>
                 <td style="text-align:right">@each.UnitPrice.ToString("N")</td>
                 <td style="text-align:right">@each.LineTotal.ToString("N")</td>

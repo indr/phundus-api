@@ -48,6 +48,11 @@
             set { _createdUtc = value; }
         }
 
+        public virtual DateTime CreatedLocal
+        {
+            get { return _createdUtc.ToLocalTime(); }
+        }
+
         public virtual OrderStatus Status
         {
             get { return _status; }
