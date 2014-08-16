@@ -28,11 +28,6 @@
                 .Install(FromAssembly.Named("Phundus.Rest"));
 
 
-            container.Register(Types.FromThisAssembly()
-                .BasedOn<AppServiceBase>()
-                .WithServiceFirstInterface()
-                .LifestyleTransient());
-
             // HttpContext registrieren für den SessionStateManager
             //container.Register(
             //    Component.For<HttpContextBase>()

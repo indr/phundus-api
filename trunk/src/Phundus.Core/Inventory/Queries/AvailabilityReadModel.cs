@@ -7,7 +7,7 @@
     using NHibernate;
     using _Legacy;
 
-    public class AvailabilityReadModel : AppServiceBase, IAvailabilityQueries
+    public class AvailabilityReadModel : IAvailabilityQueries
     {
         public Func<ISession> Session { get; set; }
 
