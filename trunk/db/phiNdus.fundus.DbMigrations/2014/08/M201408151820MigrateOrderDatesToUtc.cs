@@ -46,7 +46,7 @@ namespace phiNdus.fundus.DbMigrations
                         modifiedUtc = ConvertLocalToUtc(reader["ModifyDate"]);
                     }
 
-                    Commands.Add(String.Format(fmtUpdateOrder, reader[0], createdUtc.ToString("yyyy-MM-dd HH:mm:ss"),
+                    Commands.Add(String.Format(fmtUpdateOrder, reader[0], createdUtc.ToString("yyyy-MM-ddTHH:mm:ss"),
                         modifiedUtc.HasValue ? "'" + modifiedUtc.Value.ToString("yyyy-MM-ddTHH:mm:ss") + "'" : "null"));
                 }
             }
