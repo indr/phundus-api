@@ -393,8 +393,8 @@ namespace Phundus.Core.Shop.Queries
     partial void OnIdChanged();
     partial void OnVersionChanging(int value);
     partial void OnVersionChanged();
-    partial void OnCreatedOnChanging(System.DateTime value);
-    partial void OnCreatedOnChanged();
+    partial void OnCreatedUtcChanging(System.DateTime value);
+    partial void OnCreatedUtcChanged();
     partial void OnStatusChanging(OrderStatusDto value);
     partial void OnStatusChanged();
     partial void OnOrganizationIdChanging(int value);
@@ -417,8 +417,8 @@ namespace Phundus.Core.Shop.Queries
     partial void OnBorrower_MobilePhoneNumberChanged();
     partial void OnBorrower_MemberNumberChanging(string value);
     partial void OnBorrower_MemberNumberChanged();
-    partial void OnModifiedOnChanging(System.Nullable<System.DateTime> value);
-    partial void OnModifiedOnChanged();
+    partial void OnModifiedUtcChanging(System.Nullable<System.DateTime> value);
+    partial void OnModifiedUtcChanged();
     partial void OnModifiedByChanging(System.Nullable<int> value);
     partial void OnModifiedByChanged();
     partial void OnOrganizationNameChanging(string value);
@@ -472,8 +472,8 @@ namespace Phundus.Core.Shop.Queries
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="CreateDate", Storage="_CreatedOn")]
-		public System.DateTime CreatedOn
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn")]
+		public System.DateTime CreatedUtc
 		{
 			get
 			{
@@ -483,11 +483,11 @@ namespace Phundus.Core.Shop.Queries
 			{
 				if ((this._CreatedOn != value))
 				{
-					this.OnCreatedOnChanging(value);
+					this.OnCreatedUtcChanging(value);
 					this.SendPropertyChanging();
 					this._CreatedOn = value;
-					this.SendPropertyChanged("CreatedOn");
-					this.OnCreatedOnChanged();
+					this.SendPropertyChanged("CreatedUtc");
+					this.OnCreatedUtcChanged();
 				}
 			}
 		}
@@ -712,8 +712,8 @@ namespace Phundus.Core.Shop.Queries
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ModifyDate", Storage="_ModifiedOn")]
-		public System.Nullable<System.DateTime> ModifiedOn
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedOn")]
+		public System.Nullable<System.DateTime> ModifiedUtc
 		{
 			get
 			{
@@ -723,11 +723,11 @@ namespace Phundus.Core.Shop.Queries
 			{
 				if ((this._ModifiedOn != value))
 				{
-					this.OnModifiedOnChanging(value);
+					this.OnModifiedUtcChanging(value);
 					this.SendPropertyChanging();
 					this._ModifiedOn = value;
-					this.SendPropertyChanged("ModifiedOn");
-					this.OnModifiedOnChanged();
+					this.SendPropertyChanged("ModifiedUtc");
+					this.OnModifiedUtcChanged();
 				}
 			}
 		}
@@ -879,10 +879,10 @@ namespace Phundus.Core.Shop.Queries
     partial void OnOrderIdChanged();
     partial void OnAmountChanging(int value);
     partial void OnAmountChanged();
-    partial void OnFromChanging(System.DateTime value);
-    partial void OnFromChanged();
-    partial void OnToChanging(System.DateTime value);
-    partial void OnToChanged();
+    partial void OnFromUtcChanging(System.DateTime value);
+    partial void OnFromUtcChanged();
+    partial void OnToUtcChanging(System.DateTime value);
+    partial void OnToUtcChanged();
     partial void OnArticleIdChanging(int value);
     partial void OnArticleIdChanged();
     #endregion
@@ -979,7 +979,7 @@ namespace Phundus.Core.Shop.Queries
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_From")]
-		public System.DateTime From
+		public System.DateTime FromUtc
 		{
 			get
 			{
@@ -989,17 +989,17 @@ namespace Phundus.Core.Shop.Queries
 			{
 				if ((this._From != value))
 				{
-					this.OnFromChanging(value);
+					this.OnFromUtcChanging(value);
 					this.SendPropertyChanging();
 					this._From = value;
-					this.SendPropertyChanged("From");
-					this.OnFromChanged();
+					this.SendPropertyChanged("FromUtc");
+					this.OnFromUtcChanged();
 				}
 			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_To")]
-		public System.DateTime To
+		public System.DateTime ToUtc
 		{
 			get
 			{
@@ -1009,11 +1009,11 @@ namespace Phundus.Core.Shop.Queries
 			{
 				if ((this._To != value))
 				{
-					this.OnToChanging(value);
+					this.OnToUtcChanging(value);
 					this.SendPropertyChanging();
 					this._To = value;
-					this.SendPropertyChanged("To");
-					this.OnToChanged();
+					this.SendPropertyChanged("ToUtc");
+					this.OnToUtcChanged();
 				}
 			}
 		}

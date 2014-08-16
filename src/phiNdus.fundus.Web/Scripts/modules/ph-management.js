@@ -43,7 +43,7 @@ function ManagementOrdersCtrl($scope, $location, organizationOrders) {
     };
 
     $scope.search = { status: '' };
-    $scope.order = '-createdOn';
+    $scope.order = '-createdUtc';
     $scope.orderBy = function (by) {
         if ($scope.order == by)
             $scope.order = '-' + by;
@@ -59,7 +59,7 @@ function ManagementOrderCtrl($scope, $location, $routeParams, organizationOrders
         function() { $scope.isLoading = false; $scope.isLoaded = true; }, function () { $scope.isLoading = false; });
 
     $scope.newItem = {
-        articleId: '', amount: 1, from: new Date(), to: new Date(),
+        articleId: '', amount: 1, fromUtc: new Date(), toUtc: new Date(),
         organizationId: $scope.organizationId, orderId: $scope.order.orderId
     };
 
@@ -83,19 +83,19 @@ function ManagementOrderCtrl($scope, $location, $routeParams, organizationOrders
     $scope.editItem = function(item) {
         $scope.saveValues = {
             amount: item.amount,
-            from: item.from,
-            to: item.to
+            fromUtc: item.fromUtc,
+            toUtc: item.toUtc
         };
 
         item.editing = true;
 
         // TODO: Timezone issue
-        var from = moment(new Date(item.from)).format("YYYY-MM-DDTHH:mm:ss") + "+00:00";
+        var from = moment(new Date(item.fromUtc)).format("YYYY-MM-DDTHH:mm:ss") + "+00:00";
         from = new Date(from);
-        var to = moment(new Date(item.to)).format("YYYY-MM-DDTHH:mm:ss") + "+00:00";
+        var to = moment(new Date(item.toUtc)).format("YYYY-MM-DDTHH:mm:ss") + "+00:00";
         to = new Date(to);
-        item.from = from;
-        item.to = to;
+        item.fromUtc = from;
+        item.toUtc = to;
     };
 
     $scope.saveEditedItem = function(item) {
@@ -104,8 +104,8 @@ function ManagementOrderCtrl($scope, $location, $routeParams, organizationOrders
 
             // $scope.order.items replace?
             item.amount = data.amount;
-            item.from = data.from;
-            item.to = data.to;
+            item.fromUtc = data.fromUtc;
+            item.toUtc = data.toUtc;
             item.isAvailable = data.isAvailable;
             item.unitPrice = data.unitPrice;
             item.itemTotal = data.itemTotal;
@@ -115,8 +115,8 @@ function ManagementOrderCtrl($scope, $location, $routeParams, organizationOrders
     $scope.cancelEditing = function(item) {
         item.editing = false;
         item.amount = $scope.saveValues.amount;
-        item.from = $scope.saveValues.from;
-        item.to = $scope.saveValues.to;
+        item.fromUtc = $scope.saveValues.fromUtc;
+        item.toUtc = $scope.saveValues.toUtc;
     };
 
     $scope.removeItem = function (item) {
@@ -184,7 +184,7 @@ function ManagementContractsCtrl($scope, $location, organizationContracts) {
     };
 
     $scope.search = { };
-    $scope.order = '-createdOn';
+    $scope.order = '-createdUtc';
     $scope.orderBy = function (by) {
         if ($scope.order == by)
             $scope.order = '-' + by;
