@@ -9,6 +9,7 @@ namespace Phundus.Core.Shop.Orders.Model
         public virtual Cart Cart { get; set; }
 
         public virtual Article Article { get; set; }
+        public virtual int ArticleId { get { return Article.Id; } }
         public virtual int Quantity { get; set; }
         public virtual DateTime From { get; set; }
         public virtual DateTime To { get; set; }

@@ -146,6 +146,7 @@
     <Compile Include="Inventory\Articles\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Inventory\Articles\Model\ImageAdded.cs" />
     <Compile Include="Inventory\Articles\Model\ImageRemoved.cs" />
+    <Compile Include="Inventory\AvailabilityAndReservation\_Legacy\NetStockCalculator.cs" />
     <Compile Include="Inventory\Queries\ArticleReadModel.cs" />
     <Compile Include="Inventory\Queries\IArticleQueries.cs" />
     <Compile Include="Inventory\Queries\IImageQueries.cs" />
@@ -158,6 +159,8 @@
     <Compile Include="Inventory\AvailabilityAndReservation\_Legacy\AvailabilityChecker.cs" />
     <Compile Include="Inventory\Queries\AvailabilityReadModel.cs" />
     <Compile Include="Inventory\Queries\IAvailabilityQueries.cs" />
+    <Compile Include="Inventory\Services\IAvailabilityService.cs" />
+    <Compile Include="Inventory\Services\IReservationService.cs" />
     <Compile Include="Shop\Contracts\Commands\CreateEmptyContract.cs" />
     <Compile Include="Shop\Contracts\Model\Borrower.cs" />
     <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
@@ -259,10 +262,10 @@
     <Compile Include="Shop\Orders\Model\OrderItem.cs" />
     <Compile Include="Shop\Orders\Model\OrderStatus.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Organization.cs" />
-    <Compile Include="Inventory\AvailabilityAndReservation\_Legacy\ReservationCtx\Reservation.cs" />
+    <Compile Include="Inventory\AvailabilityAndReservation\Model\Reservation.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Role.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\User.cs" />
-    <Compile Include="Inventory\AvailabilityAndReservation\_Legacy\ReservationCtx\Services\ReservationFactory.cs" />
+    <Compile Include="Inventory\AvailabilityAndReservation\_Legacy\ReservationFactory.cs" />
     <Compile Include="IdentityAndAccess\Users\Exceptions\InvalidPasswordException.cs" />
     <Compile Include="IdentityAndAccess\Users\Services\KeyGenerator.cs" />
     <Compile Include="IdentityAndAccess\Users\Services\PasswordEncryptor.cs" />
@@ -279,7 +282,7 @@
     <Compile Include="Shop\Orders\Repositories\ICartRepository.cs" />
     <Compile Include="Shop\Orders\Repositories\IOrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IOrganizationRepository.cs" />
-    <Compile Include="Inventory\AvailabilityAndReservation\_Legacy\ReservationCtx\Repositories\IReservationRepository.cs" />
+    <Compile Include="Inventory\AvailabilityAndReservation\Repositories\IReservationRepository.cs" />
     <Compile Include="IdentityAndAccess\Users\Repositories\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -303,6 +306,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IdentityAndAccess\Queries\Dtos\" />
+    <Folder Include="Inventory\Services\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
     <Folder Include="Shop\Contracts\Exceptions\" />
   </ItemGroup>

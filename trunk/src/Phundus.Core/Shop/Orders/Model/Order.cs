@@ -7,6 +7,8 @@
     using Iesi.Collections.Generic;
     using Inventory.Articles.Model;
     using Inventory.Articles.Repositories;
+    using Inventory.AvailabilityAndReservation._Legacy;
+    using Inventory.Services;
     using Inventory._Legacy;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
@@ -169,12 +171,11 @@
             }
         }
 
-        public virtual bool AddItem(OrderItem item, ISession session)
+        public virtual bool AddItem(OrderItem item, IAvailabilityService availabilityService)
         {
             EnsurePending();
 
-            var checker = new AvailabilityChecker(item.Article, session);
-            if (!checker.Check(item.FromUtc, item.ToUtc, item.Amount))
+            if (!availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount))
                 throw new ArticleNotAvailableException(item);
 
             return _items.Add(item);
@@ -197,7 +198,7 @@
             return item;
         }
 
-        public virtual bool AddItem(int articleId, int amount, DateTime fromUtc, DateTime toUtc, ISession session)
+        public virtual bool AddItem(int articleId, int amount, DateTime fromUtc, DateTime toUtc, IAvailabilityService availabilityService)
         {
             EnsurePending();
             var article = ServiceLocator.Current.GetInstance<IArticleRepository>().ById(articleId);
@@ -208,7 +209,7 @@
                 Amount = amount,
             };
 
-            return AddItem(item, session);
+            return AddItem(item, availabilityService);
         }
 
         public virtual void RemoveItem(Guid orderItemId)

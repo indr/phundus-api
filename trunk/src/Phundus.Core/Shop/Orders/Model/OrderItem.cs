@@ -70,6 +70,8 @@
             get { return _toUtc.ToLocalTime(); }
         }
 
+        public virtual int ArticleId { get { return Article.Id; } }
+
         public virtual Article Article { get; set; }
 
         public virtual string Text

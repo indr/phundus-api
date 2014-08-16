@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Core.ReservationCtx.Model;
+    using Core.Inventory.AvailabilityAndReservation.Model;
     using Core.ReservationCtx.Repositories;
     using Core.ReservationCtx.Services;
     using Core.Shop.Orders.Model;

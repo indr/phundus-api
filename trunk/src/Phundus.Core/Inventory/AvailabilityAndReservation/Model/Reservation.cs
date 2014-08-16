@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.ReservationCtx.Model
+﻿namespace Phundus.Core.Inventory.AvailabilityAndReservation.Model
 {
     using System;
 
