@@ -1,7 +1,10 @@
 namespace phiNdus.fundus.DbMigrations
 {
     using System;
+    using System.Diagnostics;
+    using System.Globalization;
     using FluentMigrator;
+    using Microsoft.SqlServer.Server;
 
     [Migration(201408151820)]
     public class M201408151820MigrateOrderDatesToUtc : HydrationBase
@@ -43,8 +46,8 @@ namespace phiNdus.fundus.DbMigrations
                         modifiedUtc = ConvertLocalToUtc(reader["ModifyDate"]);
                     }
 
-                    Commands.Add(String.Format(fmtUpdateOrder, reader[0], createdUtc.ToString(),
-                        modifiedUtc.HasValue ? "'" + modifiedUtc.Value.ToString() + '"' : "null"));
+                    Commands.Add(String.Format(fmtUpdateOrder, reader[0], createdUtc.ToString("yyyy-MM-dd HH:mm:ss"),
+                        modifiedUtc.HasValue ? "'" + modifiedUtc.Value.ToString("yyyy-MM-dd HH:mm:ss") + '"' : "null"));
                 }
             }
 
@@ -59,7 +62,9 @@ namespace phiNdus.fundus.DbMigrations
                     local = local.AddDays(1).AddSeconds(-1);
                     var toUtc = ConvertLocalToUtc(local);
                     
-                    Commands.Add(String.Format(fmtUpdateOrderItem, reader[0], fromUtc, toUtc));
+                    Commands.Add(String.Format(fmtUpdateOrderItem, reader[0],
+                            fromUtc.ToString("yyyy-MM-dd HH:mm:ss"),
+                            toUtc.ToString("yyyy-MM-dd HH:mm:ss")));
                 }
             }
         }
