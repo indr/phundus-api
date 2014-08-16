@@ -47,7 +47,7 @@ namespace phiNdus.fundus.DbMigrations
                     }
 
                     Commands.Add(String.Format(fmtUpdateOrder, reader[0], createdUtc.ToString("yyyy-MM-dd HH:mm:ss"),
-                        modifiedUtc.HasValue ? "'" + modifiedUtc.Value.ToString("yyyy-MM-dd HH:mm:ss") + '"' : "null"));
+                        modifiedUtc.HasValue ? "'" + modifiedUtc.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'" : "null"));
                 }
             }
 
