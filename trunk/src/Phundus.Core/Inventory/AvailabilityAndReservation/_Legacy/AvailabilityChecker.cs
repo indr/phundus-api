@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Model;
+    using Articles.Model;
     using NHibernate;
     using NHibernate.Transform;
     using Shop.Orders.Model;

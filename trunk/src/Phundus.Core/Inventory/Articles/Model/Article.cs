@@ -1,9 +1,8 @@
-﻿namespace Phundus.Core.Inventory.Model
+﻿namespace Phundus.Core.Inventory.Articles.Model
 {
     using System;
     using System.Linq;
     using Iesi.Collections.Generic;
-    using Shop.Orders.Repositories;
 
     public class Article
     {

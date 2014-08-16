@@ -1,7 +1,7 @@
 ﻿namespace phiNdus.fundus.Domain.UnitTests
 {
     using NUnit.Framework;
-    using Phundus.Core.Inventory.Model;
+    using Phundus.Core.Inventory.Articles.Model;
     using Phundus.Core.Shop.Orders.Repositories;
     using Rhino.Mocks;
     using TestHelpers.TestBases;

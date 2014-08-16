@@ -5,8 +5,8 @@
     using Contracts.Model;
     using Ddd;
     using Iesi.Collections.Generic;
-    using Inventory.Model;
-    using Inventory.Repositories;
+    using Inventory.Articles.Model;
+    using Inventory.Articles.Repositories;
     using Inventory._Legacy;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;

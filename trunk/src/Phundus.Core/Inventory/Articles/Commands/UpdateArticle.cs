@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory.Commands
+﻿namespace Phundus.Core.Inventory.Articles.Commands
 {
     using Cqrs;
     using Ddd;

@@ -9,7 +9,7 @@
     using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
-    using Inventory.Repositories;
+    using Inventory.Articles.Repositories;
     using Inventory._Legacy;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;

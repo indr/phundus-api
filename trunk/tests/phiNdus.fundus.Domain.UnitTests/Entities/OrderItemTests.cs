@@ -2,7 +2,7 @@
 {
     using System;
     using NUnit.Framework;
-    using Phundus.Core.Inventory.Model;
+    using Phundus.Core.Inventory.Articles.Model;
     using Phundus.Core.Shop.Contracts.Model;
     using Phundus.Core.Shop.Orders.Model;
 

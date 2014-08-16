@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Articles.Repositories;
     using NHibernate;
-    using Repositories;
     using _Legacy;
 
     public class AvailabilityReadModel : AppServiceBase, IAvailabilityQueries

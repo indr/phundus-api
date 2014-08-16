@@ -4,7 +4,8 @@
     using Cqrs;
     using IdentityAndAccess.Queries;
     using Inventory;
-    using Inventory.Repositories;
+    using Inventory.Articles;
+    using Inventory.Articles.Repositories;
     using Repositories;
 
     public class AddOrderItem

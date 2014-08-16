@@ -2,9 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using Articles.Model;
     using IdentityAndAccess.Organizations.Repositories;
     using Infrastructure;
-    using Model;
 
     /// <summary>
     /// Die <c>ArticleDtoAssembler</c>-Klasse wandelt Article-Domain-Objects in Article-DTOs.

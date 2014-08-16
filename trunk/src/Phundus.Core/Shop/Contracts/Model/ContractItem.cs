@@ -2,7 +2,7 @@
 {
     using System;
     using Ddd;
-    using Inventory.Model;
+    using Inventory.Articles.Model;
     using Orders.Model;
 
     public class ContractItem : EntityBase

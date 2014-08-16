@@ -4,7 +4,7 @@
     using System.Security;
     using Cqrs;
     using IdentityAndAccess.Queries;
-    using Inventory.Repositories;
+    using Inventory.Articles.Repositories;
     using Repositories;
 
     public class AddArticleToCart
