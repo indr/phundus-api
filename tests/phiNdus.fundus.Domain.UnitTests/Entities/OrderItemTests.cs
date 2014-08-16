@@ -11,7 +11,8 @@
     {
         private static OrderItem CreateSut()
         {
-            return new OrderItem( new Order(new Organization(1001, "Organisation"), new Borrower(1, "", "", "", "", "","","","")));
+            return new OrderItem( new Order(new Organization(1001, "Organisation"), new Borrower(1, "", "", "", "", "","","","")),
+                DateTime.UtcNow, DateTime.UtcNow.AddDays(1));
         }
 
         [Test]
@@ -32,28 +33,12 @@
         }
 
         [Test]
-        public void Can_get_and_set_From()
-        {
-            OrderItem sut = CreateSut();
-            sut.From = DateTime.Today.AddDays(-1);
-            Assert.That(sut.From, Is.EqualTo(DateTime.Today.AddDays(-1)));
-        }
-
-        [Test]
         public void Can_delete()
         {
             OrderItem sut = CreateSut();
             Assert.That(sut.Order, Is.Not.Null);
             sut.Delete();
             Assert.That(sut.Order, Is.Null);
-        }
-
-        [Test]
-        public void Can_get_and_set_To()
-        {
-            OrderItem sut = CreateSut();
-            sut.To = DateTime.Today.AddDays(1);
-            Assert.That(sut.To, Is.EqualTo(DateTime.Today.AddDays(1)));
         }
 
         [Test]

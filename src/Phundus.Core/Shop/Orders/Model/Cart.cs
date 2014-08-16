@@ -101,7 +101,7 @@
                 var order = new Order(organization, borrowerService.ById(Customer.Id));
                 var items = from i in Items where i.Article.OrganizationId == organization.Id select i;
                 foreach (var item in items)
-                    order.AddItem(item.Article.Id, item.Quantity, item.From, item.To, session);
+                    order.AddItem(item.Article.Id, item.Quantity, item.From.ToUniversalTime(), item.To.ToUniversalTime(), session);
 
                 orders.Add(order);
                 result.Add(order);

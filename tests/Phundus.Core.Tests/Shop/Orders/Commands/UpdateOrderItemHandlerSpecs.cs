@@ -53,9 +53,9 @@
             () => order.Items.Single(p => p.Id == orderItemId).Amount.ShouldEqual(newAmount);
 
         public It should_update_order_items_period_from =
-            () => order.Items.Single(p => p.Id == orderItemId).From.ShouldEqual(newFrom);
+            () => order.Items.Single(p => p.Id == orderItemId).FromUtc.ShouldEqual(newFrom);
 
         public It should_update_order_items_period_to =
-            () => order.Items.Single(p => p.Id == orderItemId).To.ShouldEqual(newTo);
+            () => order.Items.Single(p => p.Id == orderItemId).ToUtc.ShouldEqual(newTo);
     }
 }

@@ -16,6 +16,13 @@
             else
                 Execute.Sql(String.Format(@"DBCC CHECKIDENT ('{1}', reseed, {0})", seed, tableName));
         }
+
+        protected DateTime ConvertLocalToUtc(object local)
+        {
+            var dateTimeLocal = Convert.ToDateTime(local);
+            DateTime.SpecifyKind(dateTimeLocal, DateTimeKind.Local);
+            return dateTimeLocal.ToUniversalTime();
+        }
     }
 
     public abstract class HydrationBase : MigrationBase

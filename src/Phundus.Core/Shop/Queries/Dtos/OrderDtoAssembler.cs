@@ -25,8 +25,8 @@
                 Id = subject.Id,
                 Version = subject.Version,
                 OrganizationId = subject.Organization.Id,
-                CreateDate = subject.CreatedOn,
-                ModifiedOn = subject.ModifiedOn,
+                CreateDate = subject.CreatedUtc.ToLocalTime(),
+                ModifiedOn = subject.ModifiedUtc.HasValue ? subject.ModifiedUtc.Value.ToLocalTime() : (DateTime?)null,
                 TotalPrice = subject.TotalPrice,
                 Status = subject.Status
             };
@@ -49,10 +49,10 @@
                 {
                     Amount = item.Amount,
                     ArticleId = item.Article.Id,
-                    From = item.From,
+                    From = item.FromUtc.ToLocalTime(),
                     Id = item.Id,
                     OrderId = item.Order.Id,
-                    To = item.To,
+                    To = item.ToUtc.ToLocalTime(),
                     UnitPrice = item.UnitPrice,
                     LineTotal = item.LineTotal,
                     Version = item.Version,

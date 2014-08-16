@@ -8,15 +8,19 @@
         private int _amount;
         private Guid _id;
         private Order _order;
+        private DateTime _fromUtc;
+        private DateTime _toUtc;
 
         protected OrderItem()
         {
         }
 
-        public OrderItem(Order order)
+        public OrderItem(Order order, DateTime fromUtc, DateTime toUtc)
         {
             _id = Guid.NewGuid();
             _order = order;
+            _fromUtc = fromUtc;
+            _toUtc = toUtc;
         }
 
         public virtual Guid Id
@@ -44,9 +48,17 @@
             }
         }
 
-        public virtual DateTime From { get; set; }
+        public virtual DateTime FromUtc
+        {
+            get { return _fromUtc; }
+            protected set { _fromUtc = value; }
+        }
 
-        public virtual DateTime To { get; set; }
+        public virtual DateTime ToUtc
+        {
+            get { return _toUtc; }
+            protected set { _toUtc = value; }
+        }
 
         public virtual Article Article { get; set; }
 
@@ -65,10 +77,10 @@
             Amount = amount;
         }
 
-        public virtual void ChangePeriod(DateTime from, DateTime to)
+        public virtual void ChangePeriod(DateTime fromUtc, DateTime toUtc)
         {
-            From = from;
-            To = to;
+            FromUtc = fromUtc;
+            ToUtc = toUtc;
         }
 
         public virtual void Delete()

@@ -36,13 +36,13 @@
             () => order.Borrower.ShouldEqual(borrower);
 
         public It should_have_the_created_on_set_to_utc_now =
-            () => order.CreatedOn.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            () => order.CreatedUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         public It should_have_the_organization =
             () => order.Organization.ShouldEqual(organization);
 
         public It should_not_have_a_modified_date =
-            () => order.ModifiedOn.ShouldBeNull();
+            () => order.ModifiedUtc.ShouldBeNull();
 
         public It should_not_have_a_modifier =
             () => order.ModifiedBy.ShouldBeNull();
@@ -61,7 +61,7 @@
         public It should_have_status_approved = () => order.Status.ShouldEqual(OrderStatus.Approved);
 
         public It should_be_modified_on =
-            () => order.ModifiedOn.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         public It should_be_modified_by =
             () => order.ModifiedBy.Value.ShouldEqual(modifierId);
@@ -78,7 +78,7 @@
         public It should_have_status_rejected = () => order.Status.ShouldEqual(OrderStatus.Rejected);
 
         public It should_be_modified_on =
-            () => order.ModifiedOn.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         public It should_be_modified_by =
             () => order.ModifiedBy.Value.ShouldEqual(modifierId);
@@ -95,7 +95,7 @@
         public It should_have_status_closed = () => order.Status.ShouldEqual(OrderStatus.Closed);
 
         public It should_be_modified_on =
-            () => order.ModifiedOn.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         public It should_be_modified_by =
             () => order.ModifiedBy.Value.ShouldEqual(modifierId);
@@ -128,7 +128,7 @@
         public It should_have_status_closed = () => order.Status.ShouldEqual(OrderStatus.Closed);
 
         public It should_be_modified_on =
-            () => order.ModifiedOn.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         public It should_be_modified_by =
             () => order.ModifiedBy.Value.ShouldEqual(modifierId);
@@ -145,8 +145,8 @@
         public It should_have_status_rejected = () => order.Status.ShouldEqual(OrderStatus.Rejected);
 
         public It should_be_modified_on =
-            () => order.ModifiedOn.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
-
+            () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+    
         public It should_be_modified_by =
             () => order.ModifiedBy.Value.ShouldEqual(modifierId);
 
