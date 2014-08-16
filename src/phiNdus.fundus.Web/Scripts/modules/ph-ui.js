@@ -34,12 +34,13 @@ angular.module('ph.ui', [])
             template: '<div ng-show="isLoading" class="alert alert-info"><strong>Bitte warten!</strong> Die Daten werden abgefragt...</div>'
         };
     })
-    .directive('bsDatefield', function () {
+    .directive('phDatefield', function ($filter) {
         return {
             require: 'ngModel',
             link: function (scope, element, attrs, ngModelCtrl) {
                 var dateFormat = attrs.bsDatefield || 'DD.MM.YYYY';
                 ngModelCtrl.$parsers.push(function (viewValue) {
+                    
                     //convert string input into moment data model
                     var parsedMoment = moment(viewValue, dateFormat);
                     //toggle validity
@@ -48,9 +49,12 @@ angular.module('ph.ui', [])
                     return parsedMoment.isValid() ? parsedMoment.toDate() : undefined;
                 });
                 ngModelCtrl.$formatters.push(function (modelValue) {
-                    var isModelADate = angular.isDate(modelValue);
-                    ngModelCtrl.$setValidity('datefield', isModelADate);
-                    return isModelADate ? moment(modelValue).format(dateFormat) : undefined;
+                    
+                    return $filter('date')(modelValue, 'mediumDate');
+
+                    //var isModelADate = angular.isDate(modelValue);
+                    //ngModelCtrl.$setValidity('datefield', isModelADate);
+                    //return isModelADate ? moment(modelValue).format(dateFormat) : undefined;
                 });
             }
         };

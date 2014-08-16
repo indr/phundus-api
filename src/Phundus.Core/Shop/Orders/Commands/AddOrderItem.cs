@@ -12,8 +12,8 @@
         public int OrderId { get; set; }
         public int InitiatorId { get; set; }
         public int ArticleId { get; set; }
-        public DateTime From { get; set; }
-        public DateTime To { get; set; }
+        public DateTime FromUtc { get; set; }
+        public DateTime ToUtc { get; set; }
         public int Amount { get; set; }
         public Guid OrderItemId { get; set; }
     }
@@ -39,7 +39,8 @@
 
             MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId);
 
-            var item = order.AddItem(article, command.From.ToUniversalTime(), command.To.ToUniversalTime(), command.Amount);
+            var item = order.AddItem(article, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),
+                command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), command.Amount);
 
             command.OrderItemId = item.Id;
         }

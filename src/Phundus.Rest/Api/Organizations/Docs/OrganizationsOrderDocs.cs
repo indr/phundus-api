@@ -110,15 +110,15 @@
     public class OrderItemPostDoc
     {
         public int ArticleId { get; set; }
-        public DateTime From { get; set; }
-        public DateTime To { get; set; }
+        public DateTime FromUtc { get; set; }
+        public DateTime ToUtc { get; set; }
         public int Amount { get; set; }
     }
 
     public class OrderItemPatchDoc
     {
-        public DateTime From { get; set; }
-        public DateTime To { get; set; }
+        public DateTime FromUtc { get; set; }
+        public DateTime ToUtc { get; set; }
         public int Amount { get; set; }
     }
 }

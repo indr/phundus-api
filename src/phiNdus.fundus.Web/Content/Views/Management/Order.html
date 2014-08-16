@@ -36,8 +36,8 @@
             <td ng-show="!item.editing">{{item.fromUtc | date:'mediumDate'}}</td>
             <td ng-show="!item.editing">{{item.toUtc | date:'mediumDate'}}</td>
             <td ng-show="!item.editing">{{item.amount}}</td>
-            <td ng-show="item.editing"><input class="input-small" type="text" ng-model="item.fromUtc" bs-datefield /></td>
-            <td ng-show="item.editing"><input class="input-small" type="text" ng-model="item.toUtc" bs-datefield /></td>
+            <td ng-show="item.editing"><input class="input-small" type="text" ng-model="item.fromUtc" ph-datefield /></td>
+            <td ng-show="item.editing"><input class="input-small" type="text" ng-model="item.toUtc" ph-datefield /></td>
             <td ng-show="item.editing"><input class="input-mini" type="text" ng-model="item.amount" /></td>
             <td>{{item.unitPrice | currency}}</td>
             <td>{{item.itemTotal | currency}}</td>
@@ -88,13 +88,13 @@
             <div class="control-group">
                 <label class="control-label" for="inputFrom">Von</label>
                 <div class="controls">
-                    <input type="text" id="inputFrom" placeholder="" ng-model="newItem.from" bs-datefield>
+                    <input type="text" id="inputFrom" placeholder="" ng-model="newItem.fromUtc" bs-datefield>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputTo">Bis</label>
                 <div class="controls">
-                    <input type="text" id="inputTo" placeholder="" ng-model="newItem.to" bs-datefield>
+                    <input type="text" id="inputTo" placeholder="" ng-model="newItem.toUtc" bs-datefield>
                 </div>
             </div>
             <div class="control-group">

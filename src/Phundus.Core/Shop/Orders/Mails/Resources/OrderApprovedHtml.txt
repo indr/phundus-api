@@ -1,6 +1,6 @@
 ﻿<p>Hallo @Model.Borrower.DisplayName</p>
 
-<p>Die Bestellung vom @Model.Order.CreatedOn mit der Nummer @Model.Order.Id wurde <b>genehmigt</b>.</p>
+<p>Die Bestellung vom @Model.Order.CreatedUtc.ToLocalTime() mit der Nummer @Model.Order.Id wurde <b>genehmigt</b>.</p>
 
 <p>Bitte vereinbare mit der Materialstelle telefonisch einen Übergabetermin. Wir bitten dich bei der Materialübernahme den Mietpreis bar zu bezahlen.</p>
 

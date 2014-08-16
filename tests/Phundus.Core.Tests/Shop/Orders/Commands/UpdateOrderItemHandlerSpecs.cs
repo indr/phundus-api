@@ -18,8 +18,8 @@
         private const int newAmount = 20;
         private static Guid orderItemId;
         private static Order order;
-        private static DateTime newFrom;
-        private static DateTime newTo;
+        private static DateTime newFromUtc;
+        private static DateTime newToUtc;
 
         public Establish c = () =>
         {
@@ -27,16 +27,16 @@
             orderItemId = order.AddItem(new Article(organization.Id, "Artikel"), DateTime.Today, DateTime.Today, 1).Id;
             orders.setup(x => x.GetById(orderId)).Return(order);
 
-            newFrom = DateTime.UtcNow.AddDays(1);
-            newTo = DateTime.UtcNow.AddDays(2);
+            newFromUtc = DateTime.UtcNow.AddDays(1);
+            newToUtc = DateTime.UtcNow.AddDays(2);
             command = new UpdateOrderItem
             {
                 InitiatorId = initiatorId,
                 OrderId = orderId,
                 OrderItemId = orderItemId,
                 Amount = newAmount,
-                From = newFrom,
-                To = newTo
+                FromUtc = newFromUtc,
+                ToUtc = newToUtc
             };
         };
 
@@ -53,9 +53,9 @@
             () => order.Items.Single(p => p.Id == orderItemId).Amount.ShouldEqual(newAmount);
 
         public It should_update_order_items_period_from =
-            () => order.Items.Single(p => p.Id == orderItemId).FromUtc.ShouldEqual(newFrom);
+            () => order.Items.Single(p => p.Id == orderItemId).FromUtc.ShouldEqual(newFromUtc);
 
         public It should_update_order_items_period_to =
-            () => order.Items.Single(p => p.Id == orderItemId).ToUtc.ShouldEqual(newTo);
+            () => order.Items.Single(p => p.Id == orderItemId).ToUtc.ShouldEqual(newToUtc);
     }
 }

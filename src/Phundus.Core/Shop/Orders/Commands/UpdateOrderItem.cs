@@ -12,8 +12,8 @@
         public int InitiatorId { get; set; }
 
         public int Amount { get; set; }
-        public DateTime From { get; set; }
-        public DateTime To { get; set; }
+        public DateTime FromUtc { get; set; }
+        public DateTime ToUtc { get; set; }
     }
 
     public class UpdateOrderItemHandler : IHandleCommand<UpdateOrderItem>
@@ -29,7 +29,8 @@
             MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId);
 
             order.ChangeAmount(command.OrderItemId, command.Amount);
-            order.ChangeItemPeriod(command.OrderItemId, command.From, command.To);
+            order.ChangeItemPeriod(command.OrderItemId, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),
+                command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime());
         }
     }
 }

@@ -23,10 +23,10 @@ namespace Phundus.Rest.Api.Organizations
             {
                 Amount = doc.Amount,
                 ArticleId = doc.ArticleId,
-                From = doc.From,
+                FromUtc = doc.FromUtc,
                 InitiatorId = CurrentUserId,
                 OrderId = orderId,
-                To = doc.To
+                ToUtc = doc.ToUtc
             };
 
             Dispatch(command);
@@ -53,11 +53,11 @@ namespace Phundus.Rest.Api.Organizations
             Dispatcher.Dispatch(new UpdateOrderItem
             {
                 Amount = doc.Amount,
-                From = doc.From,
+                FromUtc = doc.FromUtc,
                 InitiatorId = CurrentUserId,
                 OrderId = orderId,
                 OrderItemId = orderItemId,
-                To = doc.To
+                ToUtc = doc.ToUtc
             });
 
             return Get(organizationId, orderId, orderItemId, HttpStatusCode.OK);

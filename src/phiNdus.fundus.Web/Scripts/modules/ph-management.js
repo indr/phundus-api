@@ -90,12 +90,12 @@ function ManagementOrderCtrl($scope, $location, $routeParams, organizationOrders
         item.editing = true;
 
         // TODO: Timezone issue
-        var from = moment(new Date(item.fromUtc)).format("YYYY-MM-DDTHH:mm:ss") + "+00:00";
-        from = new Date(from);
-        var to = moment(new Date(item.toUtc)).format("YYYY-MM-DDTHH:mm:ss") + "+00:00";
-        to = new Date(to);
-        item.fromUtc = from;
-        item.toUtc = to;
+        //var from = moment(new Date(item.fromUtc)).format("YYYY-MM-DDTHH:mm:ss") + "+00:00";
+        //from = new Date(from);
+        //var to = moment(new Date(item.toUtc)).format("YYYY-MM-DDTHH:mm:ss") + "+00:00";
+        //to = new Date(to);
+        //item.fromUtc = from;
+        //item.toUtc = to;
     };
 
     $scope.saveEditedItem = function(item) {

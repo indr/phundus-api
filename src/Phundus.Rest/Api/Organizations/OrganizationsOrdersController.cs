@@ -2,6 +2,7 @@ namespace Phundus.Rest.Api.Organizations
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using AttributeRouting;
@@ -26,6 +27,7 @@ namespace Phundus.Rest.Api.Organizations
         public virtual HttpResponseMessage Get(int organizationId)
         {
             var result = OrderQueries.ManyByOrganizationId(organizationId, CurrentUserId);
+            var list = result.ToList();
             return Request.CreateResponse(HttpStatusCode.OK, Map<ICollection<OrderDoc>>(result));
         }
 
