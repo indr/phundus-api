@@ -1,7 +1,7 @@
 namespace Phundus.Core.Tests.Inventory
 {
-    using Core.Inventory.Commands;
-    using Core.Inventory.Model;
+    using Core.Inventory.Articles.Commands;
+    using Core.Inventory.Articles.Model;
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;

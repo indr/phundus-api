@@ -1,9 +1,9 @@
 ﻿namespace Phundus.Core.Inventory.Queries
 {
     using System.Collections.Generic;
+    using Articles.Repositories;
     using Cqrs;
     using IdentityAndAccess.Organizations.Repositories;
-    using Repositories;
 
     public class ArticleReadModel : ReadModelBase, IArticleQueries
     {

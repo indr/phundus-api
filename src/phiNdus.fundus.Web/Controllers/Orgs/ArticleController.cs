@@ -6,7 +6,7 @@
     using System.Web.Mvc;
     using Castle.Transactions;
     using Core.IdentityAndAccess.Queries;
-    using Core.Inventory.Commands;
+    using Core.Inventory.Articles.Commands;
     using Core.Inventory.Queries;
     using Core.ReservationCtx.Repositories;
     using phiNdus.fundus.Web.Helpers.FileUpload;

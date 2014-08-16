@@ -1,30 +1,24 @@
-﻿namespace Phundus.Core.Inventory.Commands
+﻿namespace Phundus.Core.Inventory.Articles.Commands
 {
-    using System.Linq;
     using Cqrs;
     using Ddd;
     using IdentityAndAccess.Queries;
     using Model;
     using Repositories;
 
-    public class AddImage
+    public class DeleteArticle
     {
         public int ArticleId { get; set; }
-        public int? ImageId { get; set; }
         public int InitiatorId { get; set; }
-
-        public long Length { get; set; }
-        public string Type { get; set; }
-        public string FileName { get; set; }
     }
 
-    public class AddImageHandler : IHandleCommand<AddImage>
+    public class DeleteArticleHandler : IHandleCommand<DeleteArticle>
     {
         public IArticleRepository ArticleRepository { get; set; }
 
         public IMemberInRole MemberInRole { get; set; }
 
-        public void Handle(AddImage command)
+        public void Handle(DeleteArticle command)
         {
             var article = ArticleRepository.ById(command.ArticleId);
             if (article == null)
@@ -32,10 +26,9 @@
 
             MemberInRole.ActiveChief(article.OrganizationId, command.InitiatorId);
 
-            var image = article.AddImage(command.FileName, command.Type, command.Length);
-            command.ImageId = image.Id;
+            ArticleRepository.Remove(article);
 
-            EventPublisher.Publish(new ImageAdded());
+            EventPublisher.Publish(new ArticleDeleted());
         }
     }
 }

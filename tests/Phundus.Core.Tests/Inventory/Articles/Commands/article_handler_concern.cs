@@ -2,7 +2,7 @@ namespace Phundus.Core.Tests.Inventory
 {
     using Core.Cqrs;
     using Core.IdentityAndAccess.Queries;
-    using Core.Inventory.Repositories;
+    using Core.Inventory.Articles.Repositories;
     using Machine.Specifications;
 
     public abstract class article_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler> where THandler : class, IHandleCommand<TCommand>

@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Core.Inventory.Model;
-    using Core.Inventory.Repositories;
+    using Core.Inventory.Articles.Model;
+    using Core.Inventory.Articles.Repositories;
     using NHibernate.Linq;
 
     public class NhArticleRepository : NhRepositoryBase<Article>, IArticleRepository

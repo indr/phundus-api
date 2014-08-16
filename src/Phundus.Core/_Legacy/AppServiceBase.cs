@@ -6,7 +6,6 @@
 
     public class AppServiceBase
     {
-        public IPrincipal Principal{ get; set; }
         public IIdentity Identity { get; set; }
 
         public Func<ISession> SessionFact { get; set; }
