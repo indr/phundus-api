@@ -264,7 +264,6 @@
     <Compile Include="Inventory\AvailabilityAndReservation\Model\Reservation.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Role.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\User.cs" />
-    <Compile Include="Inventory\AvailabilityAndReservation\_Legacy\ReservationFactory.cs" />
     <Compile Include="IdentityAndAccess\Users\Exceptions\InvalidPasswordException.cs" />
     <Compile Include="IdentityAndAccess\Users\Services\KeyGenerator.cs" />
     <Compile Include="IdentityAndAccess\Users\Services\PasswordEncryptor.cs" />

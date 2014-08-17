@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
     using Articles.Model;
-    using Inventory._Legacy;
     using NHibernate;
 
     public class Availability

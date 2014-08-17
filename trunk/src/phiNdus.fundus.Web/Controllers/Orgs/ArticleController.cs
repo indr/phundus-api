@@ -9,8 +9,8 @@
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.Queries;
     using Core.ReservationCtx.Repositories;
+    using Models.ArticleModels;
     using phiNdus.fundus.Web.Helpers.FileUpload;
-    using phiNdus.fundus.Web.Models.ArticleModels;
     using phiNdus.fundus.Web.ViewModels;
     using Rest.Exceptions;
 

@@ -2,7 +2,6 @@
 {
     using NUnit.Framework;
     using Phundus.Core.Inventory.AvailabilityAndReservation._Legacy;
-    using Phundus.Core.Inventory._Legacy;
     using TestHelpers.TestBases;
 
     [TestFixture]
