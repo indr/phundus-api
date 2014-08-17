@@ -10,7 +10,7 @@ namespace Phundus.Core.Inventory.AvailabilityAndReservation._Legacy
 
     public class NetStockChangeByDate
     {
-        public DateTime Date { get; set; }
+        public DateTime FromUtc { get; set; }
         public int Delta { get; set; }
     }
 
@@ -57,11 +57,11 @@ namespace Phundus.Core.Inventory.AvailabilityAndReservation._Legacy
             foreach (var each in netStockChanges)
             {
                 netStock = netStock + each.Delta;
-                result.Add(new Availability { FromUtc = each.Date, Amount = netStock });
+                result.Add(new Availability { FromUtc = each.FromUtc, Amount = netStock });
             }
 
-            if (result.SingleOrDefault(p => p.FromUtc == DateTime.Today) == null)
-                result.Insert(0, new Availability { FromUtc = DateTime.Today, Amount = netStockAtStart });
+            if (result.SingleOrDefault(p => p.FromUtc.Date == DateTime.UtcNow.Date) == null)
+                result.Insert(0, new Availability { FromUtc = DateTime.UtcNow.Date, Amount = netStockAtStart });
 
             return result;
         }
@@ -70,19 +70,19 @@ namespace Phundus.Core.Inventory.AvailabilityAndReservation._Legacy
         {
 
             return session.CreateSQLQuery(
-                @"select [Date], sum([Amount]) as [Delta] from (
-	select [fromUtc] as [Date], 0 - sum(amount) as [Amount] from OrderItem
+                @"select [FromUtc], sum([Amount]) as [Delta] from (
+	select [fromUtc] as [FromUtc], 0 - sum(amount) as [Amount] from OrderItem
         inner join [Order] on [Order].Id = [OrderItem].OrderId and ([Order].Status = :pending or [Order].Status = :approved)
         where ArticleId = :id and ([FromUtc] >= :start and [FromUtc] <= :end)
         group by [FromUtc]
 	union all
-	select dateadd(day, 0, [toUtc]) as [Date], sum(amount) as [Amount] from OrderItem
+	select dateadd(second, 1, [toUtc]) as [FromUtc], sum(amount) as [Amount] from OrderItem
         inner join [Order] on [Order].Id = [OrderItem].OrderId and ([Order].Status = :pending or [Order].Status = :approved)
         where ArticleId = :id and ([ToUtc] >= :start and [ToUtc] <= :end)
         group by [toUtc]
 ) temp
-group by [Date]
-order by [Date] asc")
+group by [FromUtc]
+order by [FromUtc] asc")
                 .SetParameter("id", _article.Id)
                 .SetParameter("pending", OrderStatus.Pending)
                 .SetParameter("approved", OrderStatus.Approved)
