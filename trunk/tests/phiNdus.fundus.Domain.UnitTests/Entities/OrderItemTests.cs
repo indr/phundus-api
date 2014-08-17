@@ -12,7 +12,7 @@
         private static OrderItem CreateSut()
         {
             return new OrderItem( new Order(new Organization(1001, "Organisation"), new Borrower(1, "", "", "", "", "","","","")),
-                DateTime.UtcNow, DateTime.UtcNow.AddDays(1));
+                new Article(1, "Dummy"), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
         }
 
         [Test]
@@ -21,15 +21,6 @@
             OrderItem sut = CreateSut();
             sut.Amount = 1;
             Assert.That(sut.Amount, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Can_get_and_set_Article()
-        {
-            var article = new Article(1, "Dummy");
-            OrderItem sut = CreateSut();
-            sut.Article = article;
-            Assert.That(sut.Article, Is.SameAs(article));
         }
 
         [Test]

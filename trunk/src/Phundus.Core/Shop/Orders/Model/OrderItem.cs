@@ -10,17 +10,20 @@
         private Order _order;
         private DateTime _fromUtc;
         private DateTime _toUtc;
+        private Article _article;
 
         protected OrderItem()
         {
         }
 
-        public OrderItem(Order order, DateTime fromUtc, DateTime toUtc)
+        public OrderItem(Order order, Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             _id = Guid.NewGuid();
             _order = order;
+            _article = article;
             _fromUtc = fromUtc;
             _toUtc = toUtc;
+            _amount = amount;
         }
 
         public virtual Guid Id
@@ -72,7 +75,11 @@
 
         public virtual int ArticleId { get { return Article.Id; } }
 
-        public virtual Article Article { get; set; }
+        public virtual Article Article
+        {
+            get { return _article; }
+            protected set { _article = value; }
+        }
 
         public virtual string Text
         {
