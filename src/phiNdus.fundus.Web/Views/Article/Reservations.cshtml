@@ -4,8 +4,8 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Von (Lokal / UTC)</th>
-            <th>Bis (Lokal / UTC)</th>
+            <th>Von</th>
+            <th>Bis</th>
             <th>Anzahl</th>
         </tr>
     </thead>
@@ -13,8 +13,8 @@
         @foreach (var each in Model.Items)
         {
             <tr>
-                <td>@Html.DisplayFor(m => each.FromLocal) / @Html.DisplayFor(m => each.FromUtc)</td>
-                <td>@Html.DisplayFor(m => each.ToLocal) /  @Html.DisplayFor(m => each.ToUtc)</td>
+                <td>@Html.DisplayFor(m => each.FromLocal)</td>
+                <td>@Html.DisplayFor(m => each.ToLocal)</td>
                 <td>@Html.DisplayFor(m => each.Amount)</td>
             </tr>
         }

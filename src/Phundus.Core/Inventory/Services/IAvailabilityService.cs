@@ -21,8 +21,6 @@
 
         public IReservationRepository ReservationRepository { get; set; }
 
-        public Func<ISession> SessionFactory { get; set; }
-
         public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount)
         {
             var availabilities = GetAvailabilityDetails(articleId);
