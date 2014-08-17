@@ -48,7 +48,7 @@
                 result.Items.Add(new LegacyOrderItemDto
                 {
                     Amount = item.Amount,
-                    ArticleId = item.Article.Id,
+                    ArticleId = item.ArticleId,
                     From = item.FromUtc.ToLocalTime(),
                     Id = item.Id,
                     OrderId = item.Order.Id,
@@ -56,7 +56,7 @@
                     UnitPrice = item.UnitPrice,
                     LineTotal = item.LineTotal,
                     Version = item.Version,
-                    Text = item.Article.Caption
+                    Text = item.Text
                 });
             }
 

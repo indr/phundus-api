@@ -18,10 +18,11 @@ namespace Phundus.Persistence
         public FluentConfiguration BuildFluent()
         {
             var cfg = new NHibernate.Cfg.Configuration();
-            
+
             cfg.AddAssembly(Assembly.GetExecutingAssembly());
 
-            return Fluently. Configure(cfg).Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()));
+            return Fluently.Configure(cfg)
+                .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()));
         }
 
         public void Registered(ISessionFactory factory)

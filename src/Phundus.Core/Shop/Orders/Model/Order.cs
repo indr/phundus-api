@@ -7,22 +7,19 @@
     using Iesi.Collections.Generic;
     using Inventory.Articles.Model;
     using Inventory.Articles.Repositories;
-    using Inventory.AvailabilityAndReservation._Legacy;
     using Inventory.Services;
-    using Inventory._Legacy;
     using Microsoft.Practices.ServiceLocation;
-    using NHibernate;
 
     public class Order
     {
-        private DateTime _createdUtc = DateTime.UtcNow;
-        private Organization _organization;
         private Borrower _borrower;
+        private DateTime _createdUtc = DateTime.UtcNow;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private int? _modifiedBy;
         private DateTime? _modifiedUtc;
+        private Organization _organization;
         private OrderStatus _status = OrderStatus.Pending;
-        
+
 
         protected Order()
         {
@@ -121,7 +118,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Rejected;
 
-            EventPublisher.Publish(new OrderRejected { OrderId = Id });
+            EventPublisher.Publish(new OrderRejected {OrderId = Id});
         }
 
         public virtual void Approve(int initiatorId)
@@ -151,7 +148,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Closed;
 
-            EventPublisher.Publish(new OrderClosed { OrderId = Id });
+            EventPublisher.Publish(new OrderClosed {OrderId = Id});
         }
 
         public virtual void EnsurePending()
@@ -185,12 +182,7 @@
         {
             EnsurePending();
 
-            var item = new OrderItem(this, fromUtc, toUtc)
-            {
-                Article = article,
-                Amount = amount
-            };
-
+            var item = new OrderItem(this, article, fromUtc, toUtc, amount);
             _items.Add(item);
 
             EventPublisher.Publish(new OrderItemAdded());
@@ -198,16 +190,13 @@
             return item;
         }
 
-        public virtual bool AddItem(int articleId, int amount, DateTime fromUtc, DateTime toUtc, IAvailabilityService availabilityService)
+        public virtual bool AddItem(int articleId, int amount, DateTime fromUtc, DateTime toUtc,
+            IAvailabilityService availabilityService)
         {
             EnsurePending();
             var article = ServiceLocator.Current.GetInstance<IArticleRepository>().ById(articleId);
 
-            var item = new OrderItem(this, fromUtc, toUtc)
-            {
-                Article = article,
-                Amount = amount,
-            };
+            var item = new OrderItem(this, article, fromUtc, toUtc, amount);
 
             return AddItem(item, availabilityService);
         }
