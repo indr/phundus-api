@@ -17,6 +17,6 @@
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}")]
         public DateTime ToLocal { get { return ToUtc.ToLocalTime(); } }
 
-        public int Quantity { get; set; }
+        public int Amount { get; set; }
     }
 }

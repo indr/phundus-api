@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Articles.Repositories;
     using AvailabilityAndReservation._Legacy;
     using Infrastructure;
@@ -31,9 +32,50 @@
 
         public IEnumerable<Availability> GetAvailability(int articleId)
         {
+            var utcToday = DateTimeProvider.UtcToday;
+            var utcNow = DateTimeProvider.UtcNow;
             var article = ArticleRepository.GetById(articleId);
-            var reservations = ReservationRepository.Find(articleId);
-            return new List<Availability> {new Availability {FromUtc = DateTimeProvider.UtcToday, Amount = article.GrossStock}};
+            var reservations = ReservationRepository.Find(articleId).OrderBy(x => x.FromUtc);
+            var result = new List<Availability>();
+
+
+            var diffsAt = new Dictionary<DateTime, int>();
+            diffsAt[DateTime.MinValue] = article.GrossStock;
+            foreach (var each in reservations)
+            {
+                int diffAt;
+                diffsAt.TryGetValue(each.FromUtc, out diffAt);
+                diffsAt[each.FromUtc] = diffAt - each.Amount;
+
+                var toUtc = each.ToUtc.AddSeconds(1);
+                diffsAt.TryGetValue(toUtc, out diffAt);
+                diffsAt[toUtc] = diffAt + each.Amount;
+            }
+
+            var diffsAtSorted = diffsAt.OrderBy(x => x.Key);
+            
+
+            var currentAmount = 0;
+            
+            foreach (var each in diffsAtSorted)
+            {
+                if (each.Value == 0)
+                    continue;
+
+                currentAmount = currentAmount + each.Value;
+
+                if (each.Key < utcToday)
+                    continue;
+
+                if ((result.Count == 0) && (each.Key > utcNow))
+                    result.Add(new Availability {FromUtc = utcToday, Amount = article.GrossStock});
+                result.Add(new Availability { FromUtc = each.Key, Amount = currentAmount });
+            }
+
+            if (result.Count == 0)
+                result.Insert(0, new Availability { FromUtc = utcToday, Amount = article.GrossStock });
+
+            return result;
         }
     }
 }
