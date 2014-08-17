@@ -76,7 +76,7 @@ namespace Phundus.Core.Inventory.AvailabilityAndReservation._Legacy
         where ArticleId = :id and ([FromUtc] >= :start and [FromUtc] <= :end)
         group by [FromUtc]
 	union all
-	select dateadd(day, 1, [toUtc]) as [Date], sum(amount) as [Amount] from OrderItem
+	select dateadd(day, 0, [toUtc]) as [Date], sum(amount) as [Amount] from OrderItem
         inner join [Order] on [Order].Id = [OrderItem].OrderId and ([Order].Status = :pending or [Order].Status = :approved)
         where ArticleId = :id and ([ToUtc] >= :start and [ToUtc] <= :end)
         group by [toUtc]
