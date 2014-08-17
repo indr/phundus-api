@@ -1,10 +1,9 @@
-namespace Phundus.Core.Inventory._Legacy
+namespace Phundus.Core.Inventory.AvailabilityAndReservation._Legacy
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Articles.Model;
-    using AvailabilityAndReservation._Legacy;
     using NHibernate;
     using NHibernate.Transform;
     using Shop.Orders.Model;

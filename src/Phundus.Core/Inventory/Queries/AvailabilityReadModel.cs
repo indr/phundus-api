@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using Articles.Repositories;
+    using AvailabilityAndReservation._Legacy;
     using NHibernate;
-    using _Legacy;
 
     public class AvailabilityReadModel : IAvailabilityQueries
     {

@@ -5,12 +5,11 @@
     using System.Linq;
     using Core.Inventory.AvailabilityAndReservation.Model;
     using Core.ReservationCtx.Repositories;
-    using Core.ReservationCtx.Services;
     using Core.Shop.Orders.Model;
     using NHibernate;
     using NHibernate.Linq;
 
-    public class NhReservationRepository : IReservationRepository
+    public class NhReservationsBasedOnOrdersRepository : IReservationRepository
     {
         public Func<ISession> Session { get; set; }
 

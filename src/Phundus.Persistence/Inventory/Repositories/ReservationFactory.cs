@@ -1,9 +1,9 @@
-﻿namespace Phundus.Core.ReservationCtx.Services
+﻿namespace Phundus.Persistence.Inventory.Repositories
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Inventory.AvailabilityAndReservation.Model;
-    using Shop.Orders.Model;
+    using Core.Inventory.AvailabilityAndReservation.Model;
+    using Core.Shop.Orders.Model;
 
     public class ReservationFactory
     {

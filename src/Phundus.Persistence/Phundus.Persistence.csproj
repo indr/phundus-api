@@ -83,6 +83,7 @@
     <Compile Include="IdentityAndAccess\Mappings\MembershipApplicationMap.cs" />
     <Compile Include="Inventory\Mappings\ArticleMap.cs" />
     <Compile Include="Inventory\Mappings\ImageMap.cs" />
+    <Compile Include="Inventory\Repositories\ReservationFactory.cs" />
     <Compile Include="NHibernateInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Inventory\Repositories\NhArticleRepository.cs" />
@@ -94,7 +95,7 @@
     <Compile Include="Shop\Repositories\NhContractRepository.cs" />
     <Compile Include="Shop\Repositories\NhOrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\NhOrganizationRepository.cs" />
-    <Compile Include="Inventory\Repositories\NhReservationRepository.cs" />
+    <Compile Include="Inventory\Repositories\NhReservationsBasedOnOrdersRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\NhUserRepository.cs" />
     <Compile Include="NhRepositoryBase.cs" />
   </ItemGroup>

@@ -16,7 +16,7 @@
                 .LifestyleTransient());
 
             container.Register(Component.For<IReservationRepository>()
-                .ImplementedBy<NhReservationRepository>()
+                .ImplementedBy<NhReservationsBasedOnOrdersRepository>()
                 .LifestyleTransient());
         }
     }
