@@ -60,13 +60,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateTimeProviderSteps.cs" />
-    <Compile Include="Inventory\ReservationAndAvailability\AvailabilitySteps.cs" />
-    <Compile Include="Inventory\ReservationAndAvailability\Availability.feature.cs">
+    <Compile Include="Inventory\ReservationAndAvailability\Steps\AvailabilitySteps.cs" />
+    <Compile Include="Inventory\ReservationAndAvailability\AvailabilityDetails.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Availability.feature</DependentUpon>
+      <DependentUpon>AvailabilityDetails.feature</DependentUpon>
     </Compile>
     <Compile Include="concern.cs" />
+    <Compile Include="Inventory\ReservationAndAvailability\IsAvailable.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IsAvailable.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -74,9 +79,13 @@
     <None Include="Default.srprofile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Inventory\ReservationAndAvailability\Availability.feature">
+    <None Include="Inventory\ReservationAndAvailability\AvailabilityDetails.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Availability.feature.cs</LastGenOutput>
+      <LastGenOutput>AvailabilityDetails.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Inventory\ReservationAndAvailability\IsAvailable.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>IsAvailable.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />

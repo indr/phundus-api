@@ -1,14 +1,14 @@
-﻿namespace Phundus.Core.Specs.Inventory.ReservationAndAvailability
+﻿namespace Phundus.Core.Specs.Inventory.ReservationAndAvailability.Steps
 {
+    using System;
     using System.Collections.Generic;
     using Core.Inventory.Articles.Model;
     using Core.Inventory.Articles.Repositories;
     using Core.Inventory.AvailabilityAndReservation.Model;
-    using Core.Inventory.AvailabilityAndReservation._Legacy;
     using Core.Inventory.Services;
+    using NUnit.Framework;
     using ReservationCtx.Repositories;
     using Rhino.Mocks;
-    using Rhino.Mocks.Constraints;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
 
@@ -17,6 +17,7 @@
     {
         private Article _article;
         private IEnumerable<Availability> _availabilities;
+        private bool _isAvailable;
         private readonly IArticleRepository _articleRepository;
         private readonly IReservationRepository _reservationRepository;
         private IEnumerable<Reservation> _reservations = new List<Reservation>();
@@ -35,11 +36,11 @@
             _articleRepository.Stub(x => x.GetById(_article.Id)).Return(_article);
         }
 
-        [When(@"I ask for availability")]
-        public void WhenIAskForAvailability()
+        [When(@"I ask for availability details")]
+        public void WhenIAskForAvailabilityDetails()
         {
             _reservationRepository.Stub(x => x.Find(_article.Id)).Return(_reservations);
-            _availabilities = Sut.GetAvailability(_article.Id);
+            _availabilities = Sut.GetAvailabilityDetails(_article.Id);
         }
 
         [Given(@"these reservations exists")]
@@ -52,6 +53,19 @@
         public void ThenTheResultShouldBe(Table table)
         {
             table.CompareToSet(_availabilities);
+        }
+
+        [When(@"I ask for availability from (.*?) to (.*?) of (.*)")]
+        public void WhenIAskForAvailabilityFrom_To_Of(DateTime from, DateTime to, int of)
+        {
+            _reservationRepository.Stub(x => x.Find(_article.Id)).Return(_reservations);
+            _isAvailable = Sut.IsArticleAvailable(_article.Id, from, to, of);
+        }
+
+        [Then(@"the result should be (true|false)")]
+        public void ThenTheResultShouldBeTrue(bool trueOrFalse)
+        {
+            Assert.That(_isAvailable, Is.EqualTo(trueOrFalse));
         }
     }
 }
