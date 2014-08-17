@@ -3,8 +3,7 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Datum (Lokal)</th>
-            <th>Datum (UTC)</th>
+            <th>Datum</th>
             <th>Menge</th>
         </tr>
     </thead>
@@ -13,7 +12,6 @@
         {
             <tr>
                 <td>@Html.DisplayFor(m => each.FromLocal)</td>
-                <td>@Html.DisplayFor(m => each.FromUtc)</td>
                 <td>@Html.DisplayFor(m => each.Amount)</td>
             </tr>
         }
