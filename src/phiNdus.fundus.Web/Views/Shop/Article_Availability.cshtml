@@ -11,7 +11,7 @@
         @foreach (var each in Model.Availabilities)
         {
             <tr>
-                <td>@Html.DisplayFor(m => each.Date)</td>
+                <td>@Html.DisplayFor(m => each.FromLocal)</td>
                 <td>@Html.DisplayFor(m => each.Amount)</td>
             </tr>
         }

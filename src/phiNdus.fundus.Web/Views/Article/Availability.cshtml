@@ -3,7 +3,8 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Datum</th>
+            <th>Datum (Lokal)</th>
+            <th>Datum (UTC)</th>
             <th>Menge</th>
         </tr>
     </thead>
@@ -11,7 +12,8 @@
         @foreach (var each in Model.Availabilites)
         {
             <tr>
-                <td>@Html.DisplayFor(m => each.Date)</td>
+                <td>@Html.DisplayFor(m => each.FromLocal)</td>
+                <td>@Html.DisplayFor(m => each.FromUtc)</td>
                 <td>@Html.DisplayFor(m => each.Amount)</td>
             </tr>
         }

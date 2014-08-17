@@ -19,7 +19,7 @@
             var availabilities = new NetStockCalculator(article, Session())
                 .From(DateTime.Today).To(DateTime.Today.AddYears(1));
             return
-                availabilities.Select(each => new AvailabilityDto {Date = each.Date, Amount = each.Amount});
+                availabilities.Select(each => new AvailabilityDto {FromUtc = each.FromUtc, Amount = each.Amount});
         }
     }
 }

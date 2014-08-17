@@ -57,11 +57,11 @@ namespace Phundus.Core.Inventory.AvailabilityAndReservation._Legacy
             foreach (var each in netStockChanges)
             {
                 netStock = netStock + each.Delta;
-                result.Add(new Availability { Date = each.Date, Amount = netStock });
+                result.Add(new Availability { FromUtc = each.Date, Amount = netStock });
             }
 
-            if (result.SingleOrDefault(p => p.Date == DateTime.Today) == null)
-                result.Insert(0, new Availability { Date = DateTime.Today, Amount = netStockAtStart });
+            if (result.SingleOrDefault(p => p.FromUtc == DateTime.Today) == null)
+                result.Insert(0, new Availability { FromUtc = DateTime.Today, Amount = netStockAtStart });
 
             return result;
         }
