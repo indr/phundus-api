@@ -118,7 +118,7 @@
     <Compile Include="2014\08\M201408150837CreateColumnOrganizationNameOnOrder.cs" />
     <Compile Include="2014\08\M201408150839HydrateOrganizationNameOnOrder.cs" />
     <Compile Include="2014\08\M201408151820MigrateOrderDatesToUtc.cs" />
-    <Compile Include="2014\Future\M201408150955CreateColumnsOnTableOrderItem.cs" />
+    <Compile Include="2014\08\M201408150955CreateColumnsOnTableOrderItem.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
@@ -129,7 +129,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="2014\Future\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

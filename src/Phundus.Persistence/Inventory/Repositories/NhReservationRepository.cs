@@ -1,4 +1,4 @@
-﻿namespace Phundus.Persistence
+﻿namespace Phundus.Persistence.Inventory.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -25,7 +25,7 @@
             var result = new List<Reservation>();
 
             var query = from oi in OrderItems
-                        where oi.Article.Id == articleId
+                        where oi.ArticleId == articleId
                         //&& oi.To > DateTime.Today
                         select oi;
 

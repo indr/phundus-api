@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Core.Shop.Orders;
-    using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
     using Core.Shop.Orders.Repositories;
     using NHibernate.Linq;
@@ -35,21 +34,21 @@
         public IEnumerable<Order> FindByOrganizationId(int organizationId)
         {
             return (from o in Entities
-                    where o.Organization.Id == organizationId
-                    select o).ToFuture();
+                where o.Organization.Id == organizationId
+                select o).ToFuture();
         }
 
         public IEnumerable<Order> FindByOrganizationId(int organizationId, OrderStatus status)
         {
             return (from o in Entities
-                    where o.Status == status && o.Organization.Id == organizationId
-                    select o).ToFuture();
+                where o.Status == status && o.Organization.Id == organizationId
+                select o).ToFuture();
         }
 
         public int SumReservedAmount(int articleId)
         {
             var query = from i in Items
-                where i.Article.Id == articleId
+                where i.ArticleId == articleId
                       && (i.Order.Status == OrderStatus.Pending || i.Order.Status == OrderStatus.Approved)
                 select i;
             return query.Sum(x => (int?) x.Amount).GetValueOrDefault();

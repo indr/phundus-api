@@ -4,6 +4,7 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Core.ReservationCtx.Repositories;
+    using Inventory.Repositories;
 
     public class Installer : IWindsorInstaller
     {

@@ -14,11 +14,13 @@
 
             References(x => x.Order, "OrderId");
 
-            Map(x => x.Amount);
+            Map(x => x.ArticleId, "ArticleId");
+            Map(x => x.Text, "Text");
+            Map(x => x.UnitPrice, "UnitPrice");
+
             Map(x => x.FromUtc, "[FromUtc]").CustomType<UtcDateTimeType>();
             Map(x => x.ToUtc, "[ToUtc]").CustomType<UtcDateTimeType>();
-
-            References(x => x.Article, "ArticleId");
+            Map(x => x.Amount);
         }
     }
 }

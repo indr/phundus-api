@@ -6,11 +6,13 @@
     public class OrderItem
     {
         private int _amount;
+        private int _articleId;
+        private DateTime _fromUtc;
         private Guid _id;
         private Order _order;
-        private DateTime _fromUtc;
+        private string _text;
         private DateTime _toUtc;
-        private Article _article;
+        private decimal _unitPrice;
 
         protected OrderItem()
         {
@@ -20,7 +22,9 @@
         {
             _id = Guid.NewGuid();
             _order = order;
-            _article = article;
+            _articleId = article.Id;
+            _unitPrice = article.Price;
+            _text = article.Caption;
             _fromUtc = fromUtc;
             _toUtc = toUtc;
             _amount = amount;
@@ -73,27 +77,27 @@
             get { return _toUtc.ToLocalTime(); }
         }
 
-        public virtual int ArticleId { get { return Article.Id; } }
-
-        public virtual Article Article
+        public virtual int ArticleId
         {
-            get { return _article; }
-            protected set { _article = value; }
+            get { return _articleId; }
+            protected set { _articleId = value; }
         }
 
         public virtual string Text
         {
-            get { return Article.Caption; }
+            get { return _text; }
+            protected set { _text = value; }
         }
 
         public virtual decimal UnitPrice
         {
-            get { return Article.Price; }
+            get { return _unitPrice; }
+            protected set { _unitPrice = value; }
         }
 
         public virtual decimal LineTotal
         {
-            get { return UnitPrice * Amount; }
+            get { return UnitPrice*Amount; }
         }
 
         public virtual void ChangeAmount(int amount)
