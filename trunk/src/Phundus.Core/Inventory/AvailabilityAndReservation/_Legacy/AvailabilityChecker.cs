@@ -7,7 +7,7 @@
 
     public class Availability
     {
-        public DateTime Date { get; set; }
+        public DateTime FromUtc { get; set; }
         public int Amount { get; set; }
     }
 

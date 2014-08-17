@@ -11,8 +11,8 @@
         {
             return new Reservation
                        {
-                           From = orderItem.FromUtc.ToLocalTime(),
-                           To = orderItem.ToUtc.ToLocalTime(),
+                           FromUtc = orderItem.FromUtc,
+                           ToUtc = orderItem.ToUtc,
                            Quantity = orderItem.Amount
                        };
         }
