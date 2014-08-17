@@ -3,6 +3,12 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    public class Availability
+    {
+        public DateTime FromUtc { get; set; }
+        public int Amount { get; set; }
+    }
+
     public class Reservation
     {
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}")]

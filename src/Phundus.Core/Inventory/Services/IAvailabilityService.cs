@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Articles.Repositories;
-    using AvailabilityAndReservation._Legacy;
+    using AvailabilityAndReservation.Model;
     using Infrastructure;
     using NHibernate;
     using ReservationCtx.Repositories;
@@ -12,25 +12,37 @@
     public interface IAvailabilityService
     {
         bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount);
-        IEnumerable<Availability> GetAvailability(int articleId);
+        IEnumerable<Availability> GetAvailabilityDetails(int articleId);
     }
 
     public class AvailabilityService : IAvailabilityService
     {
         public IArticleRepository ArticleRepository { get; set; }
-        
+
         public IReservationRepository ReservationRepository { get; set; }
-        
+
         public Func<ISession> SessionFactory { get; set; }
 
         public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount)
         {
-            var article = ArticleRepository.GetById(articleId);
+            var availabilities = GetAvailabilityDetails(articleId);
 
-            return new AvailabilityChecker(article, SessionFactory()).Check(fromUtc, toUtc, amount);
+            var inRange = availabilities.Where(p => p.FromUtc <= toUtc).OrderByDescending(x => x.FromUtc);
+
+            foreach (var each in inRange)
+            {
+                if ((each.FromUtc >= fromUtc) && (each.Amount < amount))
+                    return false;
+
+                if ((each.FromUtc <= fromUtc))
+                {
+                    return each.Amount >= amount;
+                }
+            }
+            return false;
         }
 
-        public IEnumerable<Availability> GetAvailability(int articleId)
+        public IEnumerable<Availability> GetAvailabilityDetails(int articleId)
         {
             var utcToday = DateTimeProvider.UtcToday;
             var utcNow = DateTimeProvider.UtcNow;
@@ -53,10 +65,10 @@
             }
 
             var diffsAtSorted = diffsAt.OrderBy(x => x.Key);
-            
+
 
             var currentAmount = 0;
-            
+
             foreach (var each in diffsAtSorted)
             {
                 if (each.Value == 0)
@@ -69,11 +81,11 @@
 
                 if ((result.Count == 0) && (each.Key > utcNow))
                     result.Add(new Availability {FromUtc = utcToday, Amount = article.GrossStock});
-                result.Add(new Availability { FromUtc = each.Key, Amount = currentAmount });
+                result.Add(new Availability {FromUtc = each.Key, Amount = currentAmount});
             }
 
             if (result.Count == 0)
-                result.Insert(0, new Availability { FromUtc = utcToday, Amount = article.GrossStock });
+                result.Insert(0, new Availability {FromUtc = utcToday, Amount = article.GrossStock});
 
             return result;
         }

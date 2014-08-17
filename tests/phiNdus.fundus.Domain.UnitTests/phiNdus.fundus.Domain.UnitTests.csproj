@@ -86,7 +86,6 @@
     <Compile Include="Entities\OrderItemTests.cs" />
     <Compile Include="Entities\OrderStatusTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
-    <Compile Include="Inventory\AvailabilityCheckerTests.cs" />
     <Compile Include="KeyGeneratorTests.cs" />
     <Compile Include="PasswordEncryptorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +106,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Inventory\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
