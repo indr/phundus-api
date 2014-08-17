@@ -8,6 +8,7 @@
     using Core.Inventory.Services;
     using ReservationCtx.Repositories;
     using Rhino.Mocks;
+    using Rhino.Mocks.Constraints;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
 
@@ -18,6 +19,7 @@
         private IEnumerable<Availability> _availabilities;
         private readonly IArticleRepository _articleRepository;
         private readonly IReservationRepository _reservationRepository;
+        private IEnumerable<Reservation> _reservations = new List<Reservation>();
 
         public AvailabilitySteps()
         {
@@ -36,13 +38,14 @@
         [When(@"I ask for availability")]
         public void WhenIAskForAvailability()
         {
+            _reservationRepository.Stub(x => x.Find(_article.Id)).Return(_reservations);
             _availabilities = Sut.GetAvailability(_article.Id);
         }
 
         [Given(@"these reservations exists")]
         public void GivenTheseReservationsExists(Table table)
         {
-            _reservationRepository.Stub(x => x.Find(_article.Id)).Return(table.CreateSet<Reservation>());
+            _reservations = table.CreateSet<Reservation>();
         }
 
         [Then(@"the result should be")]

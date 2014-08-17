@@ -13,7 +13,7 @@
                        {
                            FromUtc = orderItem.FromUtc,
                            ToUtc = orderItem.ToUtc,
-                           Quantity = orderItem.Amount
+                           Amount = orderItem.Amount
                        };
         }
 
