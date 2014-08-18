@@ -42,7 +42,7 @@
 
         private IEnumerable<Availability> GetAvailabilityDetails(int articleId, Guid orderItemToExclude)
         {
-            var utcToday = DateTimeProvider.UtcToday;
+            var localTodayUtc = DateTimeProvider.Today.ToUniversalTime();
             var utcNow = DateTimeProvider.UtcNow;
             var article = ArticleRepository.GetById(articleId);
             var reservations = ReservationRepository.Find(articleId, orderItemToExclude).OrderBy(x => x.FromUtc);
@@ -72,18 +72,20 @@
                 if (each.Value == 0)
                     continue;
 
-                currentAmount = currentAmount + each.Value;
 
-                if (each.Key < utcToday)
+                currentAmount = currentAmount + each.Value;
+                if (each.Key < localTodayUtc)
                     continue;
 
-                if ((result.Count == 0) && (each.Key > utcNow))
-                    result.Add(new Availability { FromUtc = utcToday, Amount = article.GrossStock });
+                if ((result.Count == 0) && (each.Key > localTodayUtc))
+                    result.Add(new Availability { FromUtc = localTodayUtc, Amount = currentAmount - each.Value });
+
+                
                 result.Add(new Availability { FromUtc = each.Key, Amount = currentAmount });
             }
 
             if (result.Count == 0)
-                result.Insert(0, new Availability { FromUtc = utcToday, Amount = article.GrossStock });
+                result.Insert(0, new Availability { FromUtc = localTodayUtc, Amount = article.GrossStock });
 
             return result;
         }

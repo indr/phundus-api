@@ -29,6 +29,16 @@
             get { return _current.UtcNow.Date; }
         }
 
+        public static DateTime UtcYesterday
+        {
+            get { return _current.UtcNow.Date.AddDays(-1); }
+        }
+
+        public static DateTime Today
+        {
+            get { return _current.Today; }
+        }
+
         public static void ResetToDefault()
         {
             _current = DefaultDateTimeProvider.Instance;

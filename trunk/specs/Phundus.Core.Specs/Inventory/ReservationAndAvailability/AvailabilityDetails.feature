@@ -9,7 +9,7 @@ Scenario: No reservations
 	When I ask for availability details
 	Then the result should be
 	| FromUtc			  | Amount |
-	| 16.08.2014 00:00:00 | 2      |
+	| 15.08.2014 22:00:00 | 2      |
 
 Scenario: One reservation in the future
 	Given an article with gross stock of 1
@@ -20,7 +20,7 @@ Scenario: One reservation in the future
 	When I ask for availability details
 	Then the result should be
 	| FromUtc    | Amount |
-	| 16.08.2014 00:00:00 | 1      |
+	| 15.08.2014 22:00:00 | 1      |
 	| 18.08.2014 00:00:00 | 0      |
 	| 20.08.2014 00:00:00 | 1      |
 
@@ -33,7 +33,19 @@ Scenario: One reservation in the past
 	When I ask for availability details
 	Then the result should be
 	| FromUtc    | Amount |
-	| 16.08.2014 00:00:00 | 2      |
+	| 15.08.2014 22:00:00 | 2      |
+
+Scenario: One reservation today
+	Given an article with gross stock of 20
+	And now is 18.08.2014 10:27:00
+	And these reservations exists
+	| FromUtc             | ToUtc               | Amount |
+	| 17.08.2014 22:00:00 | 18.08.2014 21:59:59 | 1      |
+	When I ask for availability details
+	Then the result should be
+	| FromUtc             | Amount |
+	| 17.08.2014 22:00:00 | 19     |
+	| 18.08.2014 22:00:00 | 20     |
 
 Scenario: Multiple reservations
 	Given an article with gross stock of 5
@@ -47,6 +59,7 @@ Scenario: Multiple reservations
 	When I ask for availability details
 	Then the result should be
 	| FromUtc             | Amount |
+	| 15.08.2014 22:00:00 | 3      |
 	| 16.08.2014 00:00:00 | 4      |
 	| 16.08.2014 22:00:00 | 5      |
 	| 17.08.2014 00:00:00 | 3      |

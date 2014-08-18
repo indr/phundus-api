@@ -10,5 +10,10 @@
         {
             get { return DateTime.UtcNow; }
         }
+
+        public DateTime Today
+        {
+            get { return DateTime.Today; }
+        }
     }
 }

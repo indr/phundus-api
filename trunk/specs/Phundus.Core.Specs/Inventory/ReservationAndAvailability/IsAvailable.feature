@@ -6,8 +6,8 @@
 
 Scenario: No reservations available sufficient amount
 	Given an article with gross stock of 2
-	And now is 16.08.2014 10:00:00
-	When I ask for availability from 18.08.2014 00:00:00 to 20.08.2014 23:59:59 of 2
+	And now is 18.08.2014 06:36:00
+	When I ask for availability from 17.08.2014 22:00:00 to 18.08.2014 21:59:59 of 2
 	Then the result should be true
 
 Scenario: No reservations available insufficient amount
