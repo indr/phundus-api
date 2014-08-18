@@ -37,6 +37,9 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\..\packages\Castle.Windsor.3.2.0\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="CommonServiceLocator.WindsorAdapter">
+      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll</HintPath>
+    </Reference>
     <Reference Include="developwithpassion.specification.specs">
       <HintPath>..\..\lib\developwithpassion.specification.specs.dll</HintPath>
     </Reference>
@@ -70,6 +73,13 @@
     </Reference>
     <Reference Include="Machine.Specifications.Should">
       <HintPath>..\..\packages\Machine.Specifications.Should.0.7.2\lib\net40\Machine.Specifications.Should.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Rhino.Mocks">
       <HintPath>..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
@@ -112,8 +122,23 @@
     <Compile Include="Shop\Orders\Commands\UpdateOrderItemHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Model\OrderSpecs.cs" />
     <Compile Include="Shop\OrganizationFactory.cs" />
+    <Compile Include="_Legacy\ArticleTestBase.cs" />
+    <Compile Include="_Legacy\Entities\ArticleTests\ArticleGrossStockTests.cs" />
+    <Compile Include="_Legacy\Entities\ArticleTests\TrivialArticleTests.cs" />
+    <Compile Include="_Legacy\Entities\CartTests.cs" />
+    <Compile Include="_Legacy\Entities\EntityBaseTests.cs" />
+    <Compile Include="_Legacy\Entities\MembershipTests.cs" />
+    <Compile Include="_Legacy\Entities\OrderItemTests.cs" />
+    <Compile Include="_Legacy\Entities\OrderStatusTests.cs" />
+    <Compile Include="_Legacy\Entities\UserTests.cs" />
+    <Compile Include="_Legacy\KeyGeneratorTests.cs" />
+    <Compile Include="_Legacy\PasswordEncryptorTests.cs" />
+    <Compile Include="_Legacy\SessionKeyGeneratorTests.cs" />
+    <Compile Include="_Legacy\TestBase.cs" />
+    <Compile Include="_Legacy\UnitTestBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

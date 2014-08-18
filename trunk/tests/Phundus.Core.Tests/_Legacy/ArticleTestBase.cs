@@ -1,10 +1,9 @@
-﻿namespace phiNdus.fundus.Domain.UnitTests
+﻿namespace Phundus.Core.Tests._Legacy
 {
+    using Core.Inventory.Articles.Model;
+    using Core.Shop.Orders.Repositories;
     using NUnit.Framework;
-    using Phundus.Core.Inventory.Articles.Model;
-    using Phundus.Core.Shop.Orders.Repositories;
     using Rhino.Mocks;
-    using TestHelpers.TestBases;
 
     public class ArticleTestBase : UnitTestBase<Article>
     {

@@ -1,10 +1,8 @@
-﻿namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
+﻿namespace Phundus.Core.Tests._Legacy.Entities.ArticleTests
 {
     using System;
-    using Iesi.Collections.Generic;
+    using Core.Inventory.Articles.Model;
     using NUnit.Framework;
-    using Phundus.Core.Inventory.Articles.Model;
-    using Rhino.Mocks;
 
     [TestFixture]
     public class TrivialArticleTests : ArticleTestBase

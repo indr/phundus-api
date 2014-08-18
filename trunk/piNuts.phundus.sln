@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Web", "src\p
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Web.UnitTests", "tests\phiNdus.fundus.Web.Unittests\phiNdus.fundus.Web.UnitTests.csproj", "{3A958280-7EFB-4AC3-AD66-942EC83018EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Domain.UnitTests", "tests\phiNdus.fundus.Domain.Unittests\phiNdus.fundus.Domain.UnitTests.csproj", "{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Persistence.Migrations", "db\phiNdus.fundus.DbMigrations\Phundus.Persistence.Migrations.csproj", "{7B58707A-84EC-4E7E-A0FD-946F1E16361E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "piNuts.phundus.Specs", "specs\piNuts.phundus.Specs\piNuts.phundus.Specs.csproj", "{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}"
@@ -64,15 +62,6 @@ Global
 		{3A958280-7EFB-4AC3-AD66-942EC83018EB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{3A958280-7EFB-4AC3-AD66-942EC83018EB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{3A958280-7EFB-4AC3-AD66-942EC83018EB}.Release|x86.ActiveCfg = Release|Any CPU
-		{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{43DB8619-4C9E-4806-AE5A-CA63E0301BF5}.Release|x86.ActiveCfg = Release|Any CPU
 		{7B58707A-84EC-4E7E-A0FD-946F1E16361E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B58707A-84EC-4E7E-A0FD-946F1E16361E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B58707A-84EC-4E7E-A0FD-946F1E16361E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

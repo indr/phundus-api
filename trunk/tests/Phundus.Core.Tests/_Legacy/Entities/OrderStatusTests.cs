@@ -1,8 +1,7 @@
-﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace Phundus.Core.Tests._Legacy.Entities
 {
+    using Core.Shop.Orders.Model;
     using NUnit.Framework;
-    using Phundus.Core.ReservationCtx;
-    using Phundus.Core.Shop.Orders.Model;
 
     [TestFixture]
     public class OrderStatusTests

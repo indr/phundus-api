@@ -1,8 +1,8 @@
-﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace Phundus.Core.Tests._Legacy.Entities
 {
     using System;
+    using Core.IdentityAndAccess.Users.Model;
     using NUnit.Framework;
-    using Phundus.Core.IdentityAndAccess.Users.Model;
 
     [TestFixture]
     public class UserTests

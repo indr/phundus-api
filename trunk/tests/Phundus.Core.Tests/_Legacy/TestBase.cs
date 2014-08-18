@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Domain.UnitTests
+﻿namespace Phundus.Core.Tests._Legacy
 {
     using Castle.Windsor;
     using CommonServiceLocator.WindsorAdapter;
