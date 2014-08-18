@@ -97,9 +97,9 @@
       <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>
       <Name>Phundus.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\phiNdus.fundus.Web\phiNdus.fundus.Web.csproj">
+    <ProjectReference Include="..\..\src\phiNdus.fundus.Web\Phundus.Web.csproj">
       <Project>{08F0E680-EAD6-4698-90C4-111C16620424}</Project>
-      <Name>phiNdus.fundus.Web</Name>
+      <Name>Phundus.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
