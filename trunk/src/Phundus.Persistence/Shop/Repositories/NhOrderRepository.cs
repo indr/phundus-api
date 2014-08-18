@@ -16,7 +16,7 @@
 
         public Order GetById(int id)
         {
-            var result = ById(id);
+            var result = FindById(id);
             if (result == null)
                 throw new OrderNotFoundException(id);
             return result;

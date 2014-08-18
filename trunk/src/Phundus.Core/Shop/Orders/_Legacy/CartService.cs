@@ -73,7 +73,7 @@
                 InitiatorId = userId
             });
 
-            cart = Carts.ById(cart.Id);
+            cart = Carts.GetById(cart.Id);
             cart.CalculateAvailability(AvailabilityService);
             var assembler = new CartAssembler();
             return assembler.CreateDto(cart);

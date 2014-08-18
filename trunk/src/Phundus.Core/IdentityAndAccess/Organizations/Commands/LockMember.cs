@@ -23,13 +23,9 @@
 
         public void Handle(LockMember command)
         {
-            var organization = OrganizationRepository.ById(command.OrganizationId);
-            if (organization == null)
-                throw new OrganizationNotFoundException();
+            var organization = OrganizationRepository.GetById(command.OrganizationId);
 
-            var member = UserRepository.ById(command.MemberId);
-            if (member == null)
-                throw new MemberNotFoundException();
+            var member = UserRepository.GetById(command.MemberId);
 
             if (member.Id == command.InitiatorId)
                 throw new AttemptToLockOneselfException();

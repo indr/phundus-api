@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Core.IdentityAndAccess.Users;
     using Core.IdentityAndAccess.Users.Model;
     using Core.IdentityAndAccess.Users.Repositories;
     using NHibernate.Linq;
@@ -22,6 +23,14 @@
         {
             return Users.Where(p => p.Id == userId)
                 .Where(p => p.Account.IsApproved).Where(p => !p.Account.IsLockedOut).SingleOrDefault();
+        }
+
+        public User GetById(int id)
+        {
+            var result = FindById(id);
+            if (result == null)
+                throw new UserNotFoundException(id);
+            return result;
         }
 
         public IEnumerable<User> FindAll()

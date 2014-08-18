@@ -13,7 +13,6 @@
 
         User FindById(int id);
         User ActiveById(int userId);
-        User ById(object id);
-        User GetById(object id);
+        User GetById(int id);
     }
 }

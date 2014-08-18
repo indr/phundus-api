@@ -45,7 +45,7 @@
             var result = new ArticleDto();
             result.Id = subject.Id;
             result.Version = subject.Version;
-            var organization = _organizationRepository.ById(subject.OrganizationId);
+            var organization = _organizationRepository.GetById(subject.OrganizationId);
             result.OrganizationId = organization.Id;
             result.OrganizationName = organization.Name;
 

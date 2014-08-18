@@ -8,10 +8,8 @@ namespace Phundus.Core.IdentityAndAccess.Organizations.Repositories
     public interface IMembershipRepository : IRepository<Membership>
     {
         Guid NextIdentity();
-
+        
         IEnumerable<Membership> ByMemberId(int memberId);
         IEnumerable<Membership> ByOrganizationId(int organizationId);
-        Membership ById(object id);
-        Membership GetById(object id);
     }
 }

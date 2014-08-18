@@ -8,8 +8,8 @@
     public interface IMembershipRequestRepository : IRepository<MembershipApplication>
     {
         Guid NextIdentity();
+        MembershipApplication GetById(Guid id);
+
         IEnumerable<MembershipApplication> PendingByOrganization(int organizationId);
-        MembershipApplication ById(object id);
-        MembershipApplication GetById(object id);
     }
 }

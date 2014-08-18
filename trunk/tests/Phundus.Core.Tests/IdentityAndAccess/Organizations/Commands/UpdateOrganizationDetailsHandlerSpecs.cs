@@ -25,7 +25,7 @@
             memberInRole = depends.on<IMemberInRole>();
             repository = depends.on<IOrganizationRepository>();
 
-            repository.setup(x => x.ById(organizationId)).Return(organization);
+            repository.setup(x => x.GetById(organizationId)).Return(organization);
 
             command = new UpdateOrganizationDetails
             {

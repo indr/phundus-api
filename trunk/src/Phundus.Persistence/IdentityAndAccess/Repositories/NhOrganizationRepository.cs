@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Castle.Transactions;
+    using Core.IdentityAndAccess.Organizations;
     using Core.IdentityAndAccess.Organizations.Model;
     using Core.IdentityAndAccess.Organizations.Repositories;
     using NHibernate.Linq;
@@ -17,10 +18,12 @@
             return query.ToList();
         }
 
-        public Organization FindById(int id)
+        public Organization GetById(int id)
         {
-            var query = from o in Entities where o.Id == id select o;
-            return query.SingleOrDefault();
+            var result = FindById(id);
+            if (result == null)
+                throw new OrganizationNotFoundException(id);
+            return result;
         }
 
         public Organization FindByName(string name)
