@@ -83,7 +83,7 @@ this.ScenarioSetup(scenarioInfo);
                         "FromUtc",
                         "Amount"});
             table1.AddRow(new string[] {
-                        "16.08.2014 00:00:00",
+                        "15.08.2014 22:00:00",
                         "2"});
 #line 10
  testRunner.Then("the result should be", ((string)(null)), table1, "Then ");
@@ -120,7 +120,7 @@ this.ScenarioSetup(scenarioInfo);
                         "FromUtc",
                         "Amount"});
             table3.AddRow(new string[] {
-                        "16.08.2014 00:00:00",
+                        "15.08.2014 22:00:00",
                         "1"});
             table3.AddRow(new string[] {
                         "18.08.2014 00:00:00",
@@ -163,10 +163,50 @@ this.ScenarioSetup(scenarioInfo);
                         "FromUtc",
                         "Amount"});
             table5.AddRow(new string[] {
-                        "16.08.2014 00:00:00",
+                        "15.08.2014 22:00:00",
                         "2"});
 #line 34
  testRunner.Then("the result should be", ((string)(null)), table5, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("One reservation today")]
+        public virtual void OneReservationToday()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("One reservation today", ((string[])(null)));
+#line 38
+this.ScenarioSetup(scenarioInfo);
+#line 39
+ testRunner.Given("an article with gross stock of 20", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 40
+ testRunner.And("now is 18.08.2014 10:27:00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "FromUtc",
+                        "ToUtc",
+                        "Amount"});
+            table6.AddRow(new string[] {
+                        "17.08.2014 22:00:00",
+                        "18.08.2014 21:59:59",
+                        "1"});
+#line 41
+ testRunner.And("these reservations exists", ((string)(null)), table6, "And ");
+#line 44
+ testRunner.When("I ask for availability details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "FromUtc",
+                        "Amount"});
+            table7.AddRow(new string[] {
+                        "17.08.2014 22:00:00",
+                        "19"});
+            table7.AddRow(new string[] {
+                        "18.08.2014 22:00:00",
+                        "20"});
+#line 45
+ testRunner.Then("the result should be", ((string)(null)), table7, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -176,61 +216,64 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void MultipleReservations()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Multiple reservations", ((string[])(null)));
-#line 38
+#line 50
 this.ScenarioSetup(scenarioInfo);
-#line 39
+#line 51
  testRunner.Given("an article with gross stock of 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 40
+#line 52
  testRunner.And("now is 16.08.2014 10:00:00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
                         "ToUtc",
                         "Amount"});
-            table6.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "14.08.2014 00:00:00",
                         "15.08.2014 23:59:59",
                         "1"});
-            table6.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "14.08.2014 22:00:00",
                         "16.08.2014 21:59:59",
                         "1"});
-            table6.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "17.08.2014 00:00:00",
                         "19.08.2014 23:59:59",
                         "2"});
-            table6.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "18.08.2014 00:00:00",
                         "20.08.2014 23:59:59",
                         "3"});
-#line 41
- testRunner.And("these reservations exists", ((string)(null)), table6, "And ");
-#line 47
+#line 53
+ testRunner.And("these reservations exists", ((string)(null)), table8, "And ");
+#line 59
  testRunner.When("I ask for availability details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "FromUtc",
                         "Amount"});
-            table7.AddRow(new string[] {
+            table9.AddRow(new string[] {
+                        "15.08.2014 22:00:00",
+                        "3"});
+            table9.AddRow(new string[] {
                         "16.08.2014 00:00:00",
                         "4"});
-            table7.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "16.08.2014 22:00:00",
                         "5"});
-            table7.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "17.08.2014 00:00:00",
                         "3"});
-            table7.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "18.08.2014 00:00:00",
                         "0"});
-            table7.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "20.08.2014 00:00:00",
                         "2"});
-            table7.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "21.08.2014 00:00:00",
                         "5"});
-#line 48
- testRunner.Then("the result should be", ((string)(null)), table7, "Then ");
+#line 60
+ testRunner.Then("the result should be", ((string)(null)), table9, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

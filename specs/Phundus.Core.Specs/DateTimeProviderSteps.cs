@@ -17,6 +17,16 @@
         {
             get { return _utcNow; }
         }
+
+        public DateTime Today
+        {
+            get
+            {
+                var local = _utcNow.ToLocalTime();
+
+                return new DateTime(local.Year, local.Month, local.Day, 0, 0, 0, DateTimeKind.Local);
+            }
+        }
     }
 
     [Binding]
