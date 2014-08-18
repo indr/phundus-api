@@ -21,6 +21,8 @@
             _From = DateTime.SpecifyKind(_From, DateTimeKind.Utc);
             _To = DateTime.SpecifyKind(_To, DateTimeKind.Utc);
         }
+
+        public bool IsAvailable { get; set; }
     }
 
     public class CartDto

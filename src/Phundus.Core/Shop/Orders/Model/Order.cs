@@ -172,7 +172,7 @@
         {
             EnsurePending();
 
-            if (!availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount))
+            if (!availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount, Guid.Empty))
                 throw new ArticleNotAvailableException(item);
 
             return _items.Add(item);
