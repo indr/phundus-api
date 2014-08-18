@@ -130,7 +130,19 @@ function ManagementOrderCtrl($scope, $location, $routeParams, organizationOrders
     };
 
     $scope.confirmOrder = function (order) {
-        if (!confirm('Möchten Sie die Bestellung wirklich bestätigen?'))
+        var notAvailableCount = 0;
+        for (var i = 0; i < $scope.order.items.length; i++) {
+            if (!$scope.order.items[i].isAvailable)
+                notAvailableCount++;
+        }
+
+        var msg = 'Möchten Sie die Bestellung wirklich bestätigen?';
+        if (notAvailableCount == 1)
+            msg = '1 Position ist zur Zeit nicht verfügbar.\n\n' + msg;
+        else if (notAvailableCount > 1)
+            msg = notAvailableCount + ' Positionen sind zur Zeit nicht verfügbar.\n\n' + msg;
+
+        if (!confirm(msg))
             return;
 
         var status = order.status;
