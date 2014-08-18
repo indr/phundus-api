@@ -30,9 +30,7 @@
 
         public void Handle(AddOrderItem command)
         {
-            var article = ArticleRepository.ById(command.ArticleId);
-            if (article == null)
-                throw new ArticleNotFoundException();
+            var article = ArticleRepository.GetById(command.ArticleId);
 
             var order = OrderRepository.ById(command.OrderId);
             if (order == null)

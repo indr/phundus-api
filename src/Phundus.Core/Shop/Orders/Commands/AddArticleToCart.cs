@@ -35,10 +35,8 @@
             if (cart.CustomerId != command.InitiatorId)
                 throw new SecurityException();
 
-            var article = ArticleRepository.ById(command.ArticleId);
-            if (article == null)
-                throw new ArticleNotFoundException();
-
+            var article = ArticleRepository.GetById(command.ArticleId);
+            
             if (!MemberInRole.IsActiveMember(article.OrganizationId, command.InitiatorId))
                 throw new SecurityException();
 

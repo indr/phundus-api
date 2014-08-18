@@ -194,7 +194,7 @@
             IAvailabilityService availabilityService)
         {
             EnsurePending();
-            var article = ServiceLocator.Current.GetInstance<IArticleRepository>().ById(articleId);
+            var article = ServiceLocator.Current.GetInstance<IArticleRepository>().GetById(articleId);
 
             var item = new OrderItem(this, article, fromUtc, toUtc, amount);
 

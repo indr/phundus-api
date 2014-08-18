@@ -16,5 +16,7 @@
         int SumReservedAmount(int articleId);
 
         new int Add(Order entity);
+        Order ById(object id);
+        Order GetById(object id);
     }
 }

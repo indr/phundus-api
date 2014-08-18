@@ -13,7 +13,7 @@
 
         public ArticleDto GetArticle(int id)
         {
-            var article = ArticleRepository.ById(id);
+            var article = ArticleRepository.FindById(id);
             if (article == null)
                 return null;
             return new ArticleDtoAssembler(OrganizationRepository).CreateDto(article);

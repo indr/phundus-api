@@ -17,7 +17,7 @@ namespace Phundus.Core.Tests.Inventory
 
         public Establish c = () =>
         {
-            repository.WhenToldTo(x => x.ById(articleId)).Return(article);
+            repository.WhenToldTo(x => x.GetById(articleId)).Return(article);
 
             command = new UpdateArticle();
             command.InitiatorId = initiatorId;

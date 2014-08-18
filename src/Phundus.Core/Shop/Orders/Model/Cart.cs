@@ -53,7 +53,7 @@
         public virtual void AddItem(int articleId, int quantity, DateTime @from, DateTime to)
         {
             var item = new CartItem();
-            item.Article = ServiceLocator.Current.GetInstance<IArticleRepository>().ById(articleId);
+            item.Article = ServiceLocator.Current.GetInstance<IArticleRepository>().GetById(articleId);
             item.Quantity = quantity;
             item.From = from;
             item.To = to;
