@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Web", "src\p
 		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25} = {9D30515E-5D3C-4FE5-8AA4-B8352328EF25}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phiNdus.fundus.Web.UnitTests", "tests\phiNdus.fundus.Web.Unittests\phiNdus.fundus.Web.UnitTests.csproj", "{3A958280-7EFB-4AC3-AD66-942EC83018EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Web.Tests", "tests\phiNdus.fundus.Web.Unittests\Phundus.Web.Tests.csproj", "{3A958280-7EFB-4AC3-AD66-942EC83018EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Persistence.Migrations", "db\phiNdus.fundus.DbMigrations\Phundus.Persistence.Migrations.csproj", "{7B58707A-84EC-4E7E-A0FD-946F1E16361E}"
 EndProject
