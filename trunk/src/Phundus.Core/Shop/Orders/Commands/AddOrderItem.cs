@@ -30,9 +30,9 @@
 
         public void Handle(AddOrderItem command)
         {
-            var article = ArticleRepository.GetById(command.ArticleId);
-
             var order = OrderRepository.GetById(command.OrderId);
+
+            var article = ArticleRepository.GetById(order.Organization.Id, command.ArticleId);
             
             MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId);
 

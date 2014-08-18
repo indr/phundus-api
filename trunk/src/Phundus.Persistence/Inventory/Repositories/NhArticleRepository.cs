@@ -27,5 +27,13 @@
                 throw new ArticleNotFoundException(id);
             return result;
         }
+
+        public Article GetById(int organizationId, int articleId)
+        {
+            var result = FindById(articleId);
+            if ((result == null) || (result.OrganizationId != organizationId))
+                throw new ArticleNotFoundException(articleId);
+            return result;
+        }
     }
 }
