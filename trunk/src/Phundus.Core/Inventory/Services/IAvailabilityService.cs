@@ -5,13 +5,13 @@
     using System.Linq;
     using Articles.Repositories;
     using AvailabilityAndReservation.Model;
+    using AvailabilityAndReservation.Repositories;
     using Infrastructure;
     using NHibernate;
-    using ReservationCtx.Repositories;
 
     public interface IAvailabilityService
     {
-        bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount);
+        bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude);        
         IEnumerable<Availability> GetAvailabilityDetails(int articleId);
     }
 
@@ -21,9 +21,9 @@
 
         public IReservationRepository ReservationRepository { get; set; }
 
-        public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount)
+        public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude)
         {
-            var availabilities = GetAvailabilityDetails(articleId);
+            var availabilities = GetAvailabilityDetails(articleId, orderItemToExclude);
 
             var inRange = availabilities.Where(p => p.FromUtc <= toUtc).OrderByDescending(x => x.FromUtc);
 
@@ -40,12 +40,12 @@
             return false;
         }
 
-        public IEnumerable<Availability> GetAvailabilityDetails(int articleId)
+        private IEnumerable<Availability> GetAvailabilityDetails(int articleId, Guid orderItemToExclude)
         {
             var utcToday = DateTimeProvider.UtcToday;
             var utcNow = DateTimeProvider.UtcNow;
             var article = ArticleRepository.GetById(articleId);
-            var reservations = ReservationRepository.Find(articleId).OrderBy(x => x.FromUtc);
+            var reservations = ReservationRepository.Find(articleId, orderItemToExclude).OrderBy(x => x.FromUtc);
             var result = new List<Availability>();
 
 
@@ -78,14 +78,19 @@
                     continue;
 
                 if ((result.Count == 0) && (each.Key > utcNow))
-                    result.Add(new Availability {FromUtc = utcToday, Amount = article.GrossStock});
-                result.Add(new Availability {FromUtc = each.Key, Amount = currentAmount});
+                    result.Add(new Availability { FromUtc = utcToday, Amount = article.GrossStock });
+                result.Add(new Availability { FromUtc = each.Key, Amount = currentAmount });
             }
 
             if (result.Count == 0)
-                result.Insert(0, new Availability {FromUtc = utcToday, Amount = article.GrossStock});
+                result.Insert(0, new Availability { FromUtc = utcToday, Amount = article.GrossStock });
 
             return result;
+        }
+
+        public IEnumerable<Availability> GetAvailabilityDetails(int articleId)
+        {
+            return GetAvailabilityDetails(articleId, Guid.Empty);
         }
     }
 }

@@ -7,8 +7,8 @@
     using Castle.Transactions;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Articles.Commands;
+    using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Core.Inventory.Queries;
-    using Core.ReservationCtx.Repositories;
     using Models.ArticleModels;
     using phiNdus.fundus.Web.Helpers.FileUpload;
     using phiNdus.fundus.Web.ViewModels;
@@ -257,7 +257,7 @@
             MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
 
             var model = new ArticleReservationsModel();
-            model.Items = ReservationRepository.Find(id);
+            model.Items = ReservationRepository.Find(id, Guid.Empty);
             if (Request.IsAjaxRequest())
                 return PartialView(Views.Reservations, model);
             return View(Views.Reservations, MasterView, model);

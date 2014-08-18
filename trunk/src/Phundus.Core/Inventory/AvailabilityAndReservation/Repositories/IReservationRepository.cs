@@ -1,10 +1,11 @@
-namespace Phundus.Core.ReservationCtx.Repositories
+namespace Phundus.Core.Inventory.AvailabilityAndReservation.Repositories
 {
+    using System;
     using System.Collections.Generic;
-    using Inventory.AvailabilityAndReservation.Model;
+    using Model;
 
     public interface IReservationRepository
     {
-        IEnumerable<Reservation> Find(int articleId);
+        IEnumerable<Reservation> Find(int articleId, Guid orderItemToExclude);
     }
 }

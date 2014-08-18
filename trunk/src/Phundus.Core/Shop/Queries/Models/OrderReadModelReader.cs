@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Data.Linq;
     using System.Linq;
+    using Inventory.Services;
 
     public class OrderReadModelReader : ReadModelReaderBase, IOrderQueries
     {
@@ -22,9 +23,13 @@
             var ctx = CreateCtx();
             ctx.LoadOptions = OrderDetailsDataLoadOptions;
 
-            return (from o in ctx.OrderDtos
+            var result = (from o in ctx.OrderDtos
                 where (o.Id == orderId) && (o.Borrower_Id == currentUserId)
                 select o).SingleOrDefault();
+
+            CalculateAvailabilities(result);
+
+            return result;
         }
 
         public OrderDto SingleByOrderIdAndOrganizationId(int orderId, int organizationId, int currentUserId)
@@ -39,7 +44,22 @@
                 where (o.Id == orderId && o.OrganizationId == organizationId)
                 select o;
 
-            return query.Distinct().SingleOrDefault();
+            var result = query.Distinct().SingleOrDefault();
+
+            CalculateAvailabilities(result);
+
+            return result;
+        }
+
+        public IAvailabilityService AvailabilityService { get; set; }
+
+        private void CalculateAvailabilities(OrderDto orderDto)
+        {
+            foreach (var each in orderDto.Items)
+            {
+                each.IsAvailable = AvailabilityService.IsArticleAvailable(each.ArticleId, each.FromUtc, each.ToUtc,
+                    each.Amount, each.Id);
+            }
         }
 
         public IEnumerable<OrderDto> ManyByUserId(int userId)

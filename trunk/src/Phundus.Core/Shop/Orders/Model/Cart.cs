@@ -78,7 +78,7 @@
             foreach (var each in Items)
             {
                 each.IsAvailable = availabilityService.IsArticleAvailable(each.ArticleId, each.From, each.To,
-                    each.Quantity);
+                    each.Quantity, Guid.Empty);
             }
         }
 

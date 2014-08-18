@@ -24,5 +24,6 @@
         public DateTime ToLocal { get { return ToUtc.ToLocalTime(); } }
 
         public int Amount { get; set; }
+        public Guid OrderItemId { get; set; }
     }
 }

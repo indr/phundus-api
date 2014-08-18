@@ -5,9 +5,9 @@
     using Core.Inventory.Articles.Model;
     using Core.Inventory.Articles.Repositories;
     using Core.Inventory.AvailabilityAndReservation.Model;
+    using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Core.Inventory.Services;
     using NUnit.Framework;
-    using ReservationCtx.Repositories;
     using Rhino.Mocks;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
@@ -39,7 +39,7 @@
         [When(@"I ask for availability details")]
         public void WhenIAskForAvailabilityDetails()
         {
-            _reservationRepository.Stub(x => x.Find(_article.Id)).Return(_reservations);
+            _reservationRepository.Stub(x => x.Find(_article.Id, Guid.Empty)).Return(_reservations);
             _availabilities = Sut.GetAvailabilityDetails(_article.Id);
         }
 
@@ -58,8 +58,8 @@
         [When(@"I ask for availability from (.*?) to (.*?) of (.*)")]
         public void WhenIAskForAvailabilityFrom_To_Of(DateTime from, DateTime to, int of)
         {
-            _reservationRepository.Stub(x => x.Find(_article.Id)).Return(_reservations);
-            _isAvailable = Sut.IsArticleAvailable(_article.Id, from, to, of);
+            _reservationRepository.Stub(x => x.Find(_article.Id, Guid.Empty)).Return(_reservations);
+            _isAvailable = Sut.IsArticleAvailable(_article.Id, from, to, of, Guid.Empty);
         }
 
         [Then(@"the result should be (true|false)")]

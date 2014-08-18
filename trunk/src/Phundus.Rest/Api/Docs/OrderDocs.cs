@@ -22,8 +22,7 @@
             Mapper.CreateMap<OrderItemDto, OrderItemDoc>()
                 .ForMember(d => d.Amount, o => o.MapFrom(s => s.Amount))
                 .ForMember(d => d.ArticleId, o => o.MapFrom(s => s.ArticleId))
-                // TODO: Map Availability
-                //.ForMember(d => d.Availability, o => o.MapFrom(s => s.Availability))
+                .ForMember(d => d.IsAvailable, o => o.MapFrom(s => s.IsAvailable))
                 .ForMember(d => d.FromUtc, o => o.MapFrom(s => s.FromUtc))
                 .ForMember(d => d.ItemTotal, o => o.MapFrom(s => s.Amount * s.Article.Price))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.OrderId))
@@ -77,6 +76,7 @@
         public int ArticleId { get; set; }
         public string Text { get; set; }
 
+        public bool IsAvailable { get; set; }
         public int Amount { get; set; }
         public DateTime FromUtc { get; set; }
         public DateTime ToUtc { get; set; }
