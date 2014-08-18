@@ -9,5 +9,7 @@
         ICollection<Organization> FindAll();
         Organization FindById(int id);
         Organization FindByName(string name);
+        Organization ById(object id);
+        Organization GetById(object id);
     }
 }

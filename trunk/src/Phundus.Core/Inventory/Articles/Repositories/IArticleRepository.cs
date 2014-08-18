@@ -8,5 +8,6 @@
     {
         new int Add(Article entity);
         IEnumerable<Article> ByOrganization(int organizationId);
+        Article GetById(int id);
     }
 }

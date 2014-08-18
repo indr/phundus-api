@@ -22,15 +22,13 @@
 
     public class UpdateArticleHandler : IHandleCommand<UpdateArticle>
     {
-        public IArticleRepository Repository { get; set; }
+        public IArticleRepository ArticleRepository { get; set; }
 
         public IMemberInRole MemberInRole { get; set; }
 
         public void Handle(UpdateArticle command)
         {
-            var article = Repository.ById(command.ArticleId);
-            if (article == null)
-                throw new ArticleNotFoundException();
+            var article = ArticleRepository.GetById(command.ArticleId);
 
             MemberInRole.ActiveChief(article.OrganizationId, command.InitiatorId);
 

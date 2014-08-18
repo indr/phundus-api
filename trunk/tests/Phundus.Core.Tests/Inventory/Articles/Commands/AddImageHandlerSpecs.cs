@@ -20,7 +20,7 @@
         
         private Establish c = () =>
         {
-            repository.setup(x => x.ById(articleId)).Return(article);
+            repository.setup(x => x.GetById(articleId)).Return(article);
 
             command = new AddImage
             {

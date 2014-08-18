@@ -22,7 +22,7 @@
 
         public IEnumerable<ImageDto> ByArticle(int articleId)
         {
-            var article = ArticleRepository.ById(articleId);
+            var article = ArticleRepository.GetById(articleId);
 
             return Mapper.Map<IEnumerable<ImageDto>>(article.Images);
         }

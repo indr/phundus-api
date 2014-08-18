@@ -21,7 +21,7 @@
         private Establish c = () =>
         {
             article.AddImage(imageFileName, "image/jpeg", 1024);
-            repository.setup(x => x.ById(articleId)).Return(article);
+            repository.setup(x => x.GetById(articleId)).Return(article);
 
             command = new RemoveImage
             {

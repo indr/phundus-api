@@ -21,9 +21,7 @@
 
         public void Handle(RemoveImage command)
         {
-            var article = ArticleRepository.ById(command.ArticleId);
-            if (article == null)
-                throw new ArticleNotFoundException();
+            var article = ArticleRepository.GetById(command.ArticleId);
 
             MemberInRole.ActiveChief(article.OrganizationId, command.InitiatorId);
 

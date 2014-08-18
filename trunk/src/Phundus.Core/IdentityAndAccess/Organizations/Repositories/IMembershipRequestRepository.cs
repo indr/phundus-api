@@ -9,5 +9,7 @@
     {
         Guid NextIdentity();
         IEnumerable<MembershipApplication> PendingByOrganization(int organizationId);
+        MembershipApplication ById(object id);
+        MembershipApplication GetById(object id);
     }
 }

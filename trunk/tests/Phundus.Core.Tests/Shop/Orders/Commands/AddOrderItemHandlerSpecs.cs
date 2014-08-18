@@ -22,7 +22,7 @@
         {
             order = new Order(organization, BorrowerFactory.Create());
             orders.setup(x => x.ById(orderId)).Return(order);
-            articles.setup(x => x.ById(articleId)).Return(new Article(organization.Id, "Artikel"));
+            articles.setup(x => x.GetById(articleId)).Return(new Article(organization.Id, "Artikel"));
             command = new AddOrderItem
             {
                 Amount = 10,
