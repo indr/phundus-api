@@ -26,13 +26,11 @@
         [Transaction]
         public void Handle(ApplyForMembership command)
         {
-            var organization = OrganizationRepository.ById(command.OrganizationId);
-            if (organization == null)
-                throw new OrganizationNotFoundException();
+            var organization = OrganizationRepository.GetById(command.OrganizationId);
 
             var user = UserRepository.ActiveById(command.ApplicantId);
             if (user == null)
-                throw new UserNotFoundException();
+                throw new UserNotFoundException(command.ApplicantId);
 
             var request = organization.RequestMembership(
                 Requests.NextIdentity(),

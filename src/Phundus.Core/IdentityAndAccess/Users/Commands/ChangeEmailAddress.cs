@@ -24,9 +24,7 @@
 
         public void Handle(ChangeEmailAddress command)
         {
-            var user = UserRepository.ById(command.UserId);
-            if (user == null)
-                throw new UserNotFoundException();
+            var user = UserRepository.GetById(command.UserId);
 
             var emailAddress = command.EmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
             if (UserRepository.FindByEmail(emailAddress) != null)

@@ -38,7 +38,7 @@
             result.UnitPrice = each.UnitPrice;
             result.LineTotal = each.LineTotal;
             result.IsAvailable = each.IsAvailable;
-            result.OrganizationName =  organizationRepository.ById(each.Article.OrganizationId).Name;
+            result.OrganizationName =  organizationRepository.GetById(each.Article.OrganizationId).Name;
 
             return result;
         }

@@ -6,10 +6,9 @@
 
     public interface IOrganizationRepository : IRepository<Organization>
     {
-        ICollection<Organization> FindAll();
-        Organization FindById(int id);
+        Organization GetById(int id);
+
         Organization FindByName(string name);
-        Organization ById(object id);
-        Organization GetById(object id);
+        ICollection<Organization> FindAll();
     }
 }

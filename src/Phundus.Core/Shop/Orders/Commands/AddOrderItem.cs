@@ -32,10 +32,8 @@
         {
             var article = ArticleRepository.GetById(command.ArticleId);
 
-            var order = OrderRepository.ById(command.OrderId);
-            if (order == null)
-                throw new OrderNotFoundException();
-
+            var order = OrderRepository.GetById(command.OrderId);
+            
             MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId);
 
             var item = order.AddItem(article, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),

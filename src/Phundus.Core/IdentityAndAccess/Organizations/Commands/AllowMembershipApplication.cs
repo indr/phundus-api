@@ -25,13 +25,9 @@
         [Transaction]
         public void Handle(AllowMembershipApplication command)
         {
-            var application = Requests.ById(command.ApplicationId);
-            if (application == null)
-                throw new MembershipApplicationNotFoundException();
+            var application = Requests.GetById(command.ApplicationId);
 
-            var organization = OrganizationRepository.ById(application.OrganizationId);
-            if (organization == null)
-                throw new OrganizationNotFoundException();
+            var organization = OrganizationRepository.GetById(application.OrganizationId);
 
             MemberInRole.ActiveChief(application.OrganizationId, command.InitiatorId);
 

@@ -29,9 +29,7 @@
         {
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
 
-            var organization = Repository.ById(command.OrganizationId);
-            if (organization == null)
-                throw new OrganizationNotFoundException();
+            var organization = Repository.GetById(command.OrganizationId);
 
             organization.Address = command.Address;
             organization.EmailAddress = command.EmailAddress;

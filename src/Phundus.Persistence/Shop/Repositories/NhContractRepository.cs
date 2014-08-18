@@ -10,5 +10,13 @@
             base.Add(entity);
             return entity.Id;
         }
+
+        public Contract GetById(int id)
+        {
+            var result = FindById(id);
+            if (result == null)
+                throw new ContractNotFoundException(id);
+            return result;
+        }
     }
 }

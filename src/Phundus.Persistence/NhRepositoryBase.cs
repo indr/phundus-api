@@ -29,22 +29,9 @@
             get { return Session.Query<TEntity>(); }
         }
 
-        public TEntity ById(object id)
-        {
-            return FindById(id);
-        }
-
         public TEntity FindById(object id)
         {
             return (TEntity)Session.Get(ConcreteType, id);
-        }
-
-        public TEntity GetById(object id)
-        {
-            var result = FindById(id);
-            if (result == null)
-                throw new EntityNotFoundException();
-            return result;
         }
 
         public void Remove(TEntity entity)

@@ -62,7 +62,7 @@
         [Transaction]
         public virtual ActionResult LockOut(int id)
         {
-            var user = ServiceLocator.Current.GetInstance<IUserRepository>().ById(id);
+            var user = ServiceLocator.Current.GetInstance<IUserRepository>().GetById(id);
             if (user == null)
                 return HttpNotFound();
 
@@ -79,7 +79,7 @@
         [Transaction]
         public virtual ActionResult Unlock(int id)
         {
-            var user = ServiceLocator.Current.GetInstance<IUserRepository>().ById(id);
+            var user = ServiceLocator.Current.GetInstance<IUserRepository>().GetById(id);
             if (user == null)
                 return HttpNotFound();
 
