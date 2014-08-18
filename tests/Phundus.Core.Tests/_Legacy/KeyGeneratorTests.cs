@@ -1,9 +1,8 @@
-﻿using System.Globalization;
-using NUnit.Framework;
-
-namespace phiNdus.fundus.Domain.UnitTests
+﻿namespace Phundus.Core.Tests._Legacy
 {
-    using Phundus.Core.IdentityAndAccess.Users.Services;
+    using System.Globalization;
+    using Core.IdentityAndAccess.Users.Services;
+    using NUnit.Framework;
 
     [TestFixture]
     public class KeyGeneratorTests

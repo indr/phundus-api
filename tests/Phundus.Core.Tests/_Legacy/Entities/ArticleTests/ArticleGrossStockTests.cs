@@ -1,7 +1,7 @@
-﻿namespace phiNdus.fundus.Domain.UnitTests.Entities.ArticleTests
+﻿namespace Phundus.Core.Tests._Legacy.Entities.ArticleTests
 {
+    using Core.Inventory.Articles.Model;
     using NUnit.Framework;
-    using Phundus.Core.Inventory.Articles.Model;
 
     [TestFixture]
     public class ArticleGrossStockTests : ArticleTestBase

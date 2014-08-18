@@ -1,10 +1,10 @@
-﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace Phundus.Core.Tests._Legacy.Entities
 {
     using System;
+    using Core.Inventory.Articles.Model;
+    using Core.Shop.Contracts.Model;
+    using Core.Shop.Orders.Model;
     using NUnit.Framework;
-    using Phundus.Core.Inventory.Articles.Model;
-    using Phundus.Core.Shop.Contracts.Model;
-    using Phundus.Core.Shop.Orders.Model;
 
     [TestFixture]
     public class OrderItemTests

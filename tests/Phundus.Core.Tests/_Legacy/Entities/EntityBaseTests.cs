@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-
-namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace Phundus.Core.Tests._Legacy.Entities
 {
+    using NUnit.Framework;
+
     [TestFixture]
     public class EntityBaseTests
     {

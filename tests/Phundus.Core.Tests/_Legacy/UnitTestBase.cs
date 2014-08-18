@@ -1,13 +1,8 @@
-﻿using System;
-using Castle.MicroKernel.Registration;
-using NUnit.Framework;
-using Rhino.Mocks;
-
-namespace phiNdus.fundus.TestHelpers.TestBases
+﻿namespace Phundus.Core.Tests._Legacy
 {
-    using Microsoft.Practices.ServiceLocation;
-    using phiNdus.fundus.Domain;
-    using phiNdus.fundus.Domain.UnitTests;
+    using Castle.MicroKernel.Registration;
+    using NUnit.Framework;
+    using Rhino.Mocks;
 
     public class UnitTestBase<TSut> : TestBase
     {

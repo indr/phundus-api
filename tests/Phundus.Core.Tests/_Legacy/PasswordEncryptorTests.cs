@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-
-namespace phiNdus.fundus.Domain.UnitTests
+﻿namespace Phundus.Core.Tests._Legacy
 {
-    using Phundus.Core.IdentityAndAccess.Users.Services;
+    using System;
+    using Core.IdentityAndAccess.Users.Services;
+    using NUnit.Framework;
 
     [TestFixture]
     public class PasswordEncryptorTests

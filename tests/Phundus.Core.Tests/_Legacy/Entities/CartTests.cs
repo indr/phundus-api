@@ -1,10 +1,9 @@
-﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace Phundus.Core.Tests._Legacy.Entities
 {
     using System;
+    using Core.Inventory.Articles.Repositories;
+    using Core.Shop.Orders.Model;
     using NUnit.Framework;
-    using Phundus.Core.Inventory.Articles.Repositories;
-    using Phundus.Core.Shop.Orders.Model;
-    using TestHelpers.TestBases;
 
     [TestFixture]
     public class CartTests : UnitTestBase<Cart>

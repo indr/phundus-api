@@ -1,10 +1,10 @@
-﻿namespace phiNdus.fundus.Domain.UnitTests.Entities
+﻿namespace Phundus.Core.Tests._Legacy.Entities
 {
     using System;
     using System.Threading;
+    using Core.IdentityAndAccess.Users.Exceptions;
+    using Core.IdentityAndAccess.Users.Model;
     using NUnit.Framework;
-    using Phundus.Core.IdentityAndAccess.Users.Exceptions;
-    using Phundus.Core.IdentityAndAccess.Users.Model;
 
     [TestFixture]
     public class MembershipTests
