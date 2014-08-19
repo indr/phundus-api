@@ -55,6 +55,9 @@
 
         private void CalculateAvailabilities(OrderDto orderDto)
         {
+            if (orderDto == null)
+                return;
+
             foreach (var each in orderDto.Items)
             {
                 each.IsAvailable = AvailabilityService.IsArticleAvailable(each.ArticleId, each.FromUtc, each.ToUtc,
