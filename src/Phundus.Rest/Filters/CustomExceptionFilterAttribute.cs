@@ -8,6 +8,11 @@
     {
         public override void OnException(HttpActionExecutedContext context)
         {
+            if (context == null)
+                return;
+            
+            Elmah.ErrorSignal.FromCurrentContext().Raise(context.Exception);
+
             context.Response = context.Request.CreateErrorResponse(HttpStatusCode.InternalServerError,
                 context.Exception.Message);
         }

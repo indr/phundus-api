@@ -65,9 +65,7 @@
     {
         private const int organizationId = 1001;
         private static int orderId;
-        private static OrderItemDoc orderItemDoc;
         private static IRestResponse<OrderItemDoc> response;
-        private static OrderDetailDoc orderDoc;
 
         public Establish c = () => { orderId = api.PostOrder(1001, "user-1@test.phundus.ch").Data.OrderId; };
 
