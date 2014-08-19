@@ -27,7 +27,6 @@ namespace Phundus.Rest.Api.Organizations
         public virtual HttpResponseMessage Get(int organizationId)
         {
             var result = OrderQueries.ManyByOrganizationId(organizationId, CurrentUserId);
-            var list = result.ToList();
             return Request.CreateResponse(HttpStatusCode.OK, Map<ICollection<OrderDoc>>(result));
         }
 

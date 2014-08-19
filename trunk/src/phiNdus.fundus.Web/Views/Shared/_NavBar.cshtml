@@ -79,6 +79,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Benutzer", UsersActionNames.Index, ControllerNames.Users)</li>
+                            <li class="divider"></li>
+                            <li><a href="@Url.Content("~/elmah")" target="_blank">ELMAH</a></li>
                         </ul>
                     </li>
                 }
