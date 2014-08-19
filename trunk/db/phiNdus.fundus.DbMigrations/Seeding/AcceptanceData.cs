@@ -92,14 +92,6 @@
             
         }
 
-        private void Reseed(string tableName, int seed)
-        {
-            if ((ApplicationContext != null) && (ApplicationContext.ToString().Contains("SqlServerCe")))
-                Execute.Sql(String.Format(@"ALTER TABLE [{1}] ALTER COLUMN [Id] IDENTITY ({0}, 1)", seed, tableName));
-            else
-                Execute.Sql(String.Format(@"DBCC CHECKIDENT ('{1}', reseed, {0})", seed, tableName));
-        }
-
         private void Import<T>(string fileName, string tableName, bool allowIdentityInsert = true) where T : class
         {
             var records = GetRecords<T>(fileName);
@@ -212,9 +204,6 @@
 
         internal class Membership
         {
-            //private static int _id = 1;
-            private bool _isApproved = true;
-
             public int Version
             {
                 get { return 1; }
