@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="span3"></div>
                 <div class="span6">
-                    <div class="alert alert-block alert-success">
+                    <div class="alert alert-block alert-info">
                         <h4 class="alert-heading">404 Page Not Found</h4>
                         <p>The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible.</p>
                         <p>Die angeforderte Ressource wurde nicht gefunden. Dieser Statuscode kann ebenfalls verwendet werden, um eine Anfrage ohne näheren Grund abzuweisen. Links, welche auf solche Fehlerseiten verweisen, werden auch als Tote Links bezeichnet.</p>
