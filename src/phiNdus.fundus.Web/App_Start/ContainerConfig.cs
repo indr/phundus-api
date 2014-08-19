@@ -10,6 +10,7 @@
     using Castle.Windsor;
     using Castle.Windsor.Installer;
     using CommonServiceLocator.WindsorAdapter;
+    using Elmah.Mvc;
     using Microsoft.Practices.ServiceLocation;
     using Phundus.Core;
     using Phundus.Persistence;
@@ -27,6 +28,9 @@
                 .Install(FromAssembly.Named("Phundus.Persistence"))
                 .Install(FromAssembly.Named("Phundus.Rest"));
 
+
+            container.Register(
+                Component.For<ElmahController>().ImplementedBy<ElmahController>().LifestylePerWebRequest());
 
             // HttpContext registrieren für den SessionStateManager
             //container.Register(
