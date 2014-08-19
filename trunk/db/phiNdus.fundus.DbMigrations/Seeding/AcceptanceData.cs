@@ -16,6 +16,7 @@
         public override void Up()
         {
             Delete.FromTable("Cart").InSchema(SchemaName).AllRows();
+            Delete.FromTable("OrderItem").InSchema(SchemaName).AllRows();
             Delete.FromTable("Order").InSchema(SchemaName).AllRows();
             Delete.FromTable("FieldValue").InSchema(SchemaName).AllRows();
             Delete.FromTable("Image").InSchema(SchemaName).AllRows();
