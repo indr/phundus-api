@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="span3"></div>
                 <div class="span6">
-                    <div class="alert alert-block alert-success">
+                    <div class="alert alert-block alert-error">
                         <h4 class="alert-heading">500 Internal Server Error</h4>
                         <p>A generic error message, given when an unexpected condition was encountered and no more specific message is suitable.</p>
                         <p>Dies ist ein „Sammel-Statuscode“ für unerwartete Serverfehler.</p>
