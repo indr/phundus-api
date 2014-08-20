@@ -3,6 +3,7 @@ namespace Phundus.Core.Shop.Orders.Model
     using System;
     using Ddd;
     using Inventory.Articles.Model;
+    using Pricing.Model;
 
     public class CartItem : EntityBase
     {
@@ -26,7 +27,7 @@ namespace Phundus.Core.Shop.Orders.Model
 
         public virtual decimal LineTotal
         {
-            get { return Quantity*UnitPrice; }
+            get { return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(From, To, Quantity, UnitPrice).Price; }
         }
 
         public virtual bool IsAvailable { get; set; }

@@ -20,7 +20,7 @@
         <elementListCompartment Id="83d1759d-257e-447b-a8cb-94ef1e69f6a5" absoluteBounds="7.515, 1.585, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.75 : 2.20274983723958); (7.5 : 2.20274983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.75 : 2.20274983723958); (7.5 : 2.20274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ReadModelDataContext/OrderDto/OrderDto_OrderItemDto" />
       <nodes>
         <classShapeMoniker Id="2d206993-2ea1-4d13-8839-5e730b32c11d" />
@@ -33,7 +33,7 @@
         <elementListCompartment Id="cf5d7556-a8bc-4538-93c8-b226246ee873" absoluteBounds="7.515, 4.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.5 : 3.28049967447917); (8.5 : 3.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.5 : 3.28049967447917); (8.5 : 3.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ReadModelDataContext/OrderItemDto/OrderItemDto_OrderItemArticleDto" />
       <nodes>
         <classShapeMoniker Id="23621605-23c3-4c95-a13e-812a65ad6aa5" />
