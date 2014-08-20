@@ -4,27 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public partial class OrderDto
-    {
-        partial void OnLoaded()
-        {
-            _CreatedOn = DateTime.SpecifyKind(_CreatedOn, DateTimeKind.Utc);
-            if (_ModifiedOn.HasValue)
-                _ModifiedOn = DateTime.SpecifyKind(_ModifiedOn.Value, DateTimeKind.Utc);
-        }
-    }
-
-    public partial class OrderItemDto
-    {
-        partial void OnLoaded()
-        {
-            _From = DateTime.SpecifyKind(_From, DateTimeKind.Utc);
-            _To = DateTime.SpecifyKind(_To, DateTimeKind.Utc);
-        }
-
-        public bool IsAvailable { get; set; }
-    }
-
     public class CartDto
     {
         private IList<CartItemDto> _items = new List<CartItemDto>();

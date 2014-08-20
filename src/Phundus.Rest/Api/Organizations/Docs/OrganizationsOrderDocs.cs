@@ -27,7 +27,7 @@
                 .ForMember(d => d.ArticleId, o => o.MapFrom(s => s.ArticleId))
                 .ForMember(d => d.IsAvailable, o => o.MapFrom(s => s.IsAvailable))
                 .ForMember(d => d.FromUtc, o => o.MapFrom(s => s.FromUtc))
-                .ForMember(d => d.ItemTotal, o => o.MapFrom(s => s.Amount * s.Article.Price))
+                .ForMember(d => d.ItemTotal, o => o.MapFrom(s => s.ItemTotal))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.OrderId))
                 .ForMember(d => d.OrderItemId, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.Text, o => o.MapFrom(s => s.Article.Name))
@@ -45,7 +45,7 @@
                 .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.OrganizationId))
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
                 .ForMember(d => d.Version, o => o.MapFrom(s => s.Version))
-                .ForMember(d => d.TotalPrice, o => o.MapFrom(s => s.Items.Sum(i => i.Amount * i.Article.Price)))
+                .ForMember(d => d.TotalPrice, o => o.MapFrom(s => s.Items.Sum(i => i.ItemTotal)))
                 .ForMember(d => d.Items, o => o.MapFrom(s => s.Items));
         }
     }

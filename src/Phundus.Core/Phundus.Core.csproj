@@ -195,11 +195,14 @@
     <Compile Include="Shop\Orders\_Legacy\ICartService.cs" />
     <Compile Include="Shop\Orders\IPdfStore.cs" />
     <Compile Include="Shop\Orders\PdfStore.cs" />
+    <Compile Include="Shop\Pricing\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
     <Compile Include="Shop\Queries\Dtos\CartAssembler.cs" />
     <Compile Include="Shop\Queries\Dtos\CartDto.cs" />
     <Compile Include="Shop\Queries\Dtos\LegacyOrderDto.cs" />
+    <Compile Include="Shop\Queries\Dtos\OrderDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderDtoAssembler.cs" />
     <Compile Include="Shop\Queries\Dtos\LegacyOrderItemDto.cs" />
+    <Compile Include="Shop\Queries\Dtos\OrderItemDto.cs" />
     <Compile Include="Shop\Queries\IContractQueries.cs" />
     <Compile Include="Shop\Queries\IOrderQueries.cs" />
     <Compile Include="Shop\Queries\IShopArticleQueries.cs" />

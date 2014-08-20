@@ -2,6 +2,7 @@
 {
     using System;
     using Inventory.Articles.Model;
+    using Pricing.Model;
 
     public class OrderItem
     {
@@ -97,7 +98,7 @@
 
         public virtual decimal LineTotal
         {
-            get { return UnitPrice*Amount; }
+            get { return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(FromUtc.ToLocalTime(), ToUtc.ToLocalTime(), Amount, UnitPrice).Price; }
         }
 
         public virtual void ChangeAmount(int amount)

@@ -73,6 +73,13 @@
       <DependentUpon>IsAvailable.feature</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shop\Pricing\PerDayWithPerSevenDaysPricePricing.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PerDayWithPerSevenDaysPricePricing.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Shop\Pricing\Steps\PerDayWithPerSevenDaysPricePricingSteps.cs" />
+    <Compile Include="Transfomers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -89,13 +96,15 @@
     </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
+    <None Include="Shop\Pricing\PerDayWithPerSevenDaysPricePricing.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PerDayWithPerSevenDaysPricePricing.feature.cs</LastGenOutput>
+    </None>
     <None Include="SpecRunTestProfile.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Specs\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\src\Phundus.Core\Phundus.Core.csproj">
       <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
