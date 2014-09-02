@@ -133,6 +133,12 @@
     <Compile Include="Steps\LoginSteps.cs" />
     <Compile Include="Steps\StartseiteSteps.cs" />
     <Compile Include="Steps\StepBase.cs" />
+    <Compile Include="Www\RobotsTxt.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RobotsTxt.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Www\Steps\RobotsTxtSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -166,6 +172,10 @@
       <LastGenOutput>Startseite.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="Www\RobotsTxt.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>RobotsTxt.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="runtests.cmd" />
@@ -178,7 +188,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Features\Api\" />
     <Folder Include="Pages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,4 @@
+﻿User-agent: *
+Disallow: /account/
+Disallow: /feedback/
+Host: www.phundus.ch

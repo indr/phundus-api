@@ -347,6 +347,7 @@
     <Content Include="Content\Views\Organization\Home.html" />
     <Content Include="Content\Views\Organization\Search.html" />
     <Content Include="Content\Views\Organization\Establish.html" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
     <Content Include="Scripts\angular-bootstrap.js" />
