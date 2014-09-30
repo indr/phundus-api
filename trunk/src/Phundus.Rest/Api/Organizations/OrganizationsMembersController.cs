@@ -37,7 +37,7 @@
 
         [PUT("{memberId}")]
         [Transaction]
-        public virtual void SetRole(int organizationId, int memberId, dynamic doc)
+        public virtual void Put(int organizationId, int memberId, dynamic doc)
         {
             Dispatcher.Dispatch(new ChangeMembersRole
             {
