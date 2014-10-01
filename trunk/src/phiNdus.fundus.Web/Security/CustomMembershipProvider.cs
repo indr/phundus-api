@@ -9,10 +9,8 @@
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.IdentityAndAccess.Users.Commands;
     using Phundus.Core.IdentityAndAccess.Users.Exceptions;
-    using Phundus.Core.IdentityAndAccess.Users.Mails;
     using Phundus.Core.IdentityAndAccess.Users.Repositories;
     using Phundus.Core.IdentityAndAccess.Users.Services;
-    using Phundus.Infrastructure;
 
     public class CustomMembershipProvider : MembershipProvider
     {
@@ -135,13 +133,7 @@
             if (user == null)
                 return false;
 
-            var result = user.Account.ValidateValidationKey(key);
-            if (result)
-            {
-                Users.Update(user);
-                new UserAccountCreatedMail().For(user).Send(Config.FeedbackRecipients);
-            }
-            return result;
+            return user.Account.ValidateValidationKey(key);
         }
 
         public bool ValidateEmailKey(string key)
