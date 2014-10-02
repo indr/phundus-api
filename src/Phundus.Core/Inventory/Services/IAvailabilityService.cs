@@ -23,6 +23,9 @@
 
         public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude)
         {
+            if (toUtc < fromUtc)
+                return false;
+
             var availabilities = GetAvailabilityDetails(articleId, orderItemToExclude);
 
             var inRange = availabilities.Where(p => p.FromUtc <= toUtc).OrderByDescending(x => x.FromUtc);
