@@ -1,4 +1,4 @@
-﻿namespace piNuts.phundus.Specs.Browsers
+﻿namespace Phundus.Specs.Browsers
 {
     public static class Browser
     {
