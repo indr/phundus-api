@@ -8,14 +8,14 @@
     using System.Net.Http;
     using System.Runtime.InteropServices;
     using System.Text;
-    using Browsers;
+    using Phundus.Specs.Browsers;
     using WatiN.Core;
 
     public class StepBase
     {
         protected static IeBrowser Browser
         {
-            get { return Browsers.Browser.Current; }
+            get { return Phundus.Specs.Browsers.Browser.Current; }
         }
 
         protected static string BaseUrl

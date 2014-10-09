@@ -3,11 +3,12 @@ using System.Configuration;
 using System.IO;
 using System.Net;
 using NUnit.Framework;
-using piNuts.phundus.Specs.Browsers;
 using TechTalk.SpecFlow;
 
 namespace piNuts.phundus.Specs
 {
+    using Phundus.Specs.Browsers;
+
     /// <summary>
     /// http://volaresystems.com/Blog/post/2013/01/06/SpecFlow-and-WatiN-Worst-Practices-What-NOT-to-do.aspx
     /// </summary>
