@@ -64,6 +64,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>..\..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
@@ -74,6 +77,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ddd\EventStore.cs" />
+    <Compile Include="Ddd\EventSerializer.cs" />
     <Compile Include="IdentityAndAccess\Mappings\MembershipMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\AccountMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\OrganizationMap.cs" />
@@ -100,6 +105,7 @@
     <Compile Include="NhRepositoryBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
