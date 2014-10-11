@@ -98,7 +98,9 @@
     <Compile Include="Ddd\EventPublisherImpl.cs" />
     <Compile Include="Ddd\IEventHandlerFactory.cs" />
     <Compile Include="Ddd\IEventStore.cs" />
+    <Compile Include="Ddd\IStoredEventRepository.cs" />
     <Compile Include="Ddd\ISubscribeTo.cs" />
+    <Compile Include="Ddd\StoredEvent.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\UpdateOrganizationDetails.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\AttemptToLockOneselfException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\MemberNotFoundException.cs" />

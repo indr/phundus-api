@@ -79,6 +79,8 @@
   <ItemGroup>
     <Compile Include="Ddd\EventStore.cs" />
     <Compile Include="Ddd\EventSerializer.cs" />
+    <Compile Include="Ddd\NhStoredEventRepository.cs" />
+    <Compile Include="Ddd\StoredEventMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\MembershipMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\AccountMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\OrganizationMap.cs" />
