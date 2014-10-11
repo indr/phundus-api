@@ -18,16 +18,15 @@
     {
         protected Establish c = () =>
         {
-            session = depends.on<ISession>();
-            depends.on<Func<ISession>>().WhenToldTo(x => x.Invoke()).Return(session);
+            repository = depends.on<IStoredEventRepository>();
             depends.on<IEventSerializer>();
         };
 
         public Because of = () => sut.Append(new TestDomainEvent());
 
-        public It should_save_a_new_stored_event_to_session =
-            () => session.WasToldTo(x => x.Save(Arg<StoredEvent>.Is.NotNull));
+        public It should_add_to_repository =
+            () => repository.WasToldTo(x => x.Add(Arg<StoredEvent>.Is.NotNull));
 
-        private static ISession session;
+        private static IStoredEventRepository repository;
     }
 }
