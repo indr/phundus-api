@@ -6,7 +6,7 @@
     {
         public static IWindsorContainer Container { get; set; }
 
-        public static void Publish<TDomainEvent>(TDomainEvent @event)
+        public static void Publish<TDomainEvent>(TDomainEvent @event) where TDomainEvent : DomainEvent
         {
             var publisher = Container.Resolve<IEventPublisher>();
             publisher.Publish(@event);

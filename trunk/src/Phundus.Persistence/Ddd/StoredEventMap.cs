@@ -10,7 +10,7 @@
             ReadOnly();
             Table("StoredEvents");
 
-            Id(x => x.Id).GeneratedBy.Native();
+            Id(x => x.Id, "EventId").GeneratedBy.Native();
             Map(x => x.EventId, "EventGuid").Not.Update();
             Map(x => x.Name, "TypeName").Not.Update();
             Map(x => x.OccuredOnUtc, "OccuredOnUtc").Not.Update();

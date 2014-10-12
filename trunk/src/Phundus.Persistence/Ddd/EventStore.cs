@@ -2,9 +2,15 @@
 {
     using Core.Ddd;
 
-    public class EventStore : IEventStore, ISubscribeTo<DomainEvent>
+    public class EventStore : IEventStore
     {
-        public IEventSerializer Serializer { get; set; }
+        private IEventSerializer _serializer = new EventSerializer();
+
+        public IEventSerializer Serializer
+        {
+            get { return _serializer; }
+            set { _serializer = value; }
+        }
 
         public IStoredEventRepository Repository { get; set; }
 
@@ -16,11 +22,6 @@
                 domainEvent.GetType().Name, serialization);
 
             Repository.Add(storedEvent);
-        }
-
-        public void Handle(DomainEvent @event)
-        {
-            Append(@event);
         }
     }
 }
