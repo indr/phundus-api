@@ -10,7 +10,7 @@
         {
             Create.Table("StoredEvents")
                 .WithColumn("EventId").AsInt64().NotNullable().PrimaryKey().Identity()
-                .WithColumn("EventGuid").AsGuid().NotNullable().Unique()
+                .WithColumn("EventGuid").AsGuid().NotNullable()
                 .WithColumn("TypeName").AsString().NotNullable()
                 .WithColumn("OccuredOnUtc").AsDateTime().Nullable()
                 .WithColumn("AggregateId").AsGuid().Nullable()
