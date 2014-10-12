@@ -20,10 +20,10 @@
         };
 
         public It should_have_DataContract_attribute =
-            () =>
-            {
-                domainEventTypes.ShouldEachConformTo(
-                    t => t.GetCustomAttributes(typeof (DataContractAttribute), false).Length == 1);
-            };
+            () => domainEventTypes.ShouldEachConformTo(
+                t => t.GetCustomAttributes(typeof (DataContractAttribute), false).Length == 1);
+         
+        public It should_have_parameterless_constructor =
+            () => domainEventTypes.ShouldEachConformTo(t => t.GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[]{}, null) != null);
     }
 }

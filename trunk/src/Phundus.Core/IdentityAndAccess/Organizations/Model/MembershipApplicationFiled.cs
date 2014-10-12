@@ -6,6 +6,10 @@
     [DataContract]
     public class MembershipApplicationFiled : DomainEvent
     {
+        protected MembershipApplicationFiled()
+        {
+        }
+
         public MembershipApplicationFiled(int organizationId, int userId)
         {
             OrganizationId = organizationId;

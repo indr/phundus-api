@@ -12,6 +12,10 @@ namespace Phundus.Core.IdentityAndAccess.Organizations.Model
             MemberId = memberId;
         }
 
+        protected MemberUnlocked()
+        {
+        }
+
         [DataMember(Order = 1)]
         public int OrganizationId { get; protected set; }
 
