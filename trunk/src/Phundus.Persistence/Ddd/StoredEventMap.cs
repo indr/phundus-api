@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Persistence.Ddd
 {
-    using Core.Ddd;
+    using Common.Events;
     using FluentNHibernate.Mapping;
 
     public class StoredEventMap : ClassMap<StoredEvent>
@@ -10,9 +10,9 @@
             ReadOnly();
             Table("StoredEvents");
 
-            Id(x => x.Id, "EventId").GeneratedBy.Native();
-            Map(x => x.EventId, "EventGuid").Not.Update();
-            Map(x => x.Name, "TypeName").Not.Update();
+            Id(x => x.EventId, "EventId").GeneratedBy.Native();
+            Map(x => x.EventGuid, "EventGuid").Not.Update();
+            Map(x => x.TypeName, "TypeName").Not.Update();
             Map(x => x.OccuredOnUtc, "OccuredOnUtc").Not.Update();
             Map(x => x.AggregateId, "AggregateId").Not.Update();
             Map(x => x.Serialization, "Serialization").Not.Update();

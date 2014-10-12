@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Contracts.Model
 {
     using System.Runtime.Serialization;
-    using Ddd;
+    using Common.Domain.Model;
 
     [DataContract]
     public class ContractCreated : DomainEvent

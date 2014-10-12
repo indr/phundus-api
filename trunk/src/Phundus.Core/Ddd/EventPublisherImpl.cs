@@ -1,5 +1,8 @@
 namespace Phundus.Core.Ddd
 {
+    using Common.Domain.Model;
+    using Common.Events;
+
     public class EventPublisherImpl : IEventPublisher
     {
         public IEventHandlerFactory Factory { get; set; }

@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Orders.Model
 {
-    using Ddd;
+    using System.Collections.Generic;
+    using Common.Domain.Model;
 
     public class Organization : ValueObject
     {
@@ -9,7 +10,6 @@
 
         protected Organization()
         {
-            
         }
 
         public Organization(int id, string name)
@@ -28,6 +28,11 @@
         {
             get { return _name; }
             protected set { _name = value; }
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Id;
         }
     }
 }

@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Runtime.Serialization;
-    using Core.Ddd;
+    using Common.Domain.Model;
     using Machine.Specifications;
 
     [Subject("DomainEvents")]

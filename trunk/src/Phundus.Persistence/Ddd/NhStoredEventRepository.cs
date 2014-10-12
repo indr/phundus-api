@@ -3,20 +3,24 @@
     using System.Collections.Generic;
     using System.Linq;
     using Castle.Transactions;
+    using Common.Events;
     using Core.Ddd;
 
     public class NhStoredEventRepository : NhRepositoryBase<StoredEvent>, IStoredEventRepository
     {
-        [Transaction]
-        public IEnumerable<StoredEvent> FindAll()
-        {
-            var query = from se in Entities select se;
-            return query.ToList();
-        }
-
-        public new void Add(StoredEvent storedEvent)
+        public void Append(StoredEvent storedEvent)
         {
             Session.Save(storedEvent);
+        }
+
+        public IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId)
+        {
+            var query = from se in Entities
+                where se.EventId >= lowStoredEventId
+                      && se.EventId <= highStoredEventId
+                select se;
+
+            return query.ToList();
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace Phundus.Persistence.Tests.Ddd
 {
+    using Common.Domain.Model;
+    using Common.Events;
     using Core.Ddd;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -24,6 +26,6 @@
         public Because of = () => sut.Append(new TestDomainEvent());
 
         public It should_add_to_repository =
-            () => repository.WasToldTo(x => x.Add(Arg<StoredEvent>.Is.NotNull));
+            () => repository.WasToldTo(x => x.Append(Arg<StoredEvent>.Is.NotNull));
     }
 }

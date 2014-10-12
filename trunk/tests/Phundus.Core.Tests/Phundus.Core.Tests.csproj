@@ -146,6 +146,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Phundus.Common\Phundus.Common.csproj">
+      <Project>{0ba282a6-fea2-44a2-9748-1de0e4e32018}</Project>
+      <Name>Phundus.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Phundus.Core\Phundus.Core.csproj">
       <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
       <Name>Phundus.Core</Name>
