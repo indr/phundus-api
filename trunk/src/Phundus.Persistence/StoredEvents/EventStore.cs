@@ -28,6 +28,11 @@
             return Repository.CountStoredEvents();
         }
 
+        public long GetMaxNotificationId()
+        {
+            return Repository.GetMaxNotificationId();
+        }
+
         public DomainEvent ToDomainEvent(StoredEvent storedEvent)
         {
             var domainEventType = Type.GetType(storedEvent.TypeName, true);
