@@ -12,6 +12,10 @@
             MemberId = memberId;
         }
 
+        protected MemberLocked()
+        {
+        }
+
         [DataMember(Order = 1)]
         public int OrganizationId { get; protected set; }
 

@@ -12,6 +12,10 @@
             UserId = userId;
         }
 
+        protected MembershipApplicationApproved()
+        {
+        }
+
         [DataMember(Order = 1)]
         public int OrganizationId { get; protected set; }
 
