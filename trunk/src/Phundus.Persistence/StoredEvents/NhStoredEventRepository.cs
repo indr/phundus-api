@@ -1,8 +1,7 @@
-﻿namespace Phundus.Persistence.Ddd
+﻿namespace Phundus.Persistence.StoredEvents
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.Transactions;
     using Common.Events;
     using Core.Ddd;
 
@@ -21,6 +20,11 @@
                 select se;
 
             return query.ToList();
+        }
+
+        public long CountStoredEvents()
+        {
+            return (from se in Entities select se).Count();
         }
     }
 }

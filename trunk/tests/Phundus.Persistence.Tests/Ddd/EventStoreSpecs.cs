@@ -5,8 +5,8 @@
     using Core.Ddd;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Persistence.Ddd;
     using Rhino.Mocks;
+    using StoredEvents;
 
     public class TestDomainEvent : DomainEvent
     {
