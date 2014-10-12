@@ -1,9 +1,8 @@
 namespace Phundus.Core.Tests
 {
-    using System;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using Ddd;
+    using Core.Ddd;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
 
