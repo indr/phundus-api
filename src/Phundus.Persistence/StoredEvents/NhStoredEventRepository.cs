@@ -26,5 +26,10 @@
         {
             return (from se in Entities select se).Count();
         }
+
+        public long GetMaxNotificationId()
+        {
+            return (from se in Entities select se.EventId).Max();
+        }
     }
 }

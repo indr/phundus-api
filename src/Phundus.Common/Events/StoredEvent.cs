@@ -42,7 +42,7 @@
             get { return _typeName; }
             protected set { _typeName = value; }
         }
-
+        
         public virtual DateTime OccuredOnUtc
         {
             get { return _occuredOnUtc; }

@@ -8,6 +8,7 @@
         void Append(DomainEvent domainEvent);
         IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId);
         long CountStoredEvents();
+        long GetMaxNotificationId();
         DomainEvent ToDomainEvent(StoredEvent storedEvent);
     }
 }

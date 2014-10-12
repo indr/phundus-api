@@ -2,12 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Domain.Model;
     using Events;
 
     public class NotificationLogFactory : INotificationLogFactory
     {
-        private const int NotificationsPerLog = 5;
+        private const int NotificationsPerLog = 20;
 
         public IEventStore EventStore { get; set; }
 
@@ -25,9 +24,9 @@
 
         private NotificationLogId CalculateCurrentNotificationLogId()
         {
-            long count = EventStore.CountStoredEvents();
-
-            long remainder = count%NotificationsPerLog;
+            // TODO: Bedingt, dass keine Lücken vorhanden sind!
+            var count = EventStore.CountStoredEvents();
+            var remainder = count%NotificationsPerLog;
 
             if (remainder == 0)
             {
@@ -48,9 +47,11 @@
             var storedEvents = EventStore.AllStoredEventsBetween(
                 notificationLogId.Low, notificationLogId.High);
 
-            long count = EventStore.CountStoredEvents();
-
-            bool archivedIndicator = notificationLogId.High < count;
+            // TODO: Bedingt, dass keine Lücken vorhanden sind!
+            var count = EventStore.CountStoredEvents();
+            var archivedIndicator = notificationLogId.High < count;
+            //var max = EventStore.GetMaxNotificationId();
+            //var archivedIndicator = notificationLogId.High < max;
 
             var notificationLog = new NotificationLog(
                 notificationLogId.Encoded,
