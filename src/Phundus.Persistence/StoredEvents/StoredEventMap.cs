@@ -1,4 +1,4 @@
-﻿namespace Phundus.Persistence.Ddd
+﻿namespace Phundus.Persistence.StoredEvents
 {
     using Common.Events;
     using FluentNHibernate.Mapping;

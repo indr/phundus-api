@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Common.Notifications
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Domain.Model;
     using Events;
 
@@ -63,22 +64,7 @@
 
         private IEnumerable<Notification> GetNotificationsFrom(IEnumerable<StoredEvent> storedEvents)
         {
-            var notifications = new List<Notification>();
-
-            foreach (var eachStoredEvent in storedEvents)
-            {
-                DomainEvent domainEvent = eachStoredEvent.ToDomainEvent(EventSerializer);
-
-                var notification = new Notification(
-                    domainEvent.GetType().Name,
-                    eachStoredEvent.EventGuid,
-                    domainEvent.OccuredOnUtc,
-                    domainEvent);
-
-                notifications.Add(notification);
-            }
-
-            return notifications;
+            return storedEvents.Select(each => new Notification(each.EventId, EventStore.ToDomainEvent(each))).ToList();
         }
     }
 }

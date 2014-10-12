@@ -10,6 +10,7 @@
     {
         byte[] Serialize(DomainEvent domainEvent);
 
+        object Deserialize(Type type, Guid id, DateTime occuredOnUtc, byte[] serialization);
         T Deserialize<T>(Guid id, DateTime occuredOnUtc, byte[] serialization) where T : DomainEvent;
     }
 
@@ -25,11 +26,20 @@
             return stream.ToArray();
         }
 
+        public object Deserialize(Type type, Guid id, DateTime occuredOnUtc, byte[] serialization)
+        {
+            var instance = Serializer.NonGeneric.Deserialize(type, new MemoryStream(serialization));
+            
+            IdProperty.SetValue(instance, id, null);
+            OccuredOnUtcProp.SetValue(instance, occuredOnUtc, null);
+
+            return instance;
+        }
+
         public T Deserialize<T>(Guid id, DateTime occuredOnUtc, byte[] serialization) where T : DomainEvent
         {
             var stream = new MemoryStream(serialization);
             var instance = Serializer.Deserialize<T>(stream);
-
 
             IdProperty.SetValue(instance, id, null);
             OccuredOnUtcProp.SetValue(instance, occuredOnUtc, null);

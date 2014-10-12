@@ -5,6 +5,8 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
+    using Common.Events;
+    using Common.Notifications;
     using Cqrs;
     using Ddd;
 
@@ -52,7 +54,9 @@
                     .WithServiceAllInterfaces()
                     .LifestyleTransient());
 
-            
+            container.Register(Component.For<INotificationLogFactory>().ImplementedBy<NotificationLogFactory>());
+            container.Register(Component.For<IEventSerializer>().ImplementedBy<EventSerializer>());
+
             container.Register(
                 Classes.FromThisAssembly().Where(p => p.Name.EndsWith("Service")).WithServiceDefaultInterfaces());
             container.Register(

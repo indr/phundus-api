@@ -7,6 +7,7 @@
     {
         void Append(DomainEvent domainEvent);
         IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId);
-        long CountStoredEvents();        
+        long CountStoredEvents();
+        DomainEvent ToDomainEvent(StoredEvent storedEvent);
     }
 }

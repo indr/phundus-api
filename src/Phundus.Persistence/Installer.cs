@@ -6,8 +6,8 @@
     using Common.Events;
     using Core.Ddd;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
-    using Ddd;
     using Inventory.Repositories;
+    using StoredEvents;
 
     public class Installer : IWindsorInstaller
     {

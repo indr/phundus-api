@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Common.Events
 {
     using System;
+    using System.Linq;
+    using System.Reflection;
     using Domain.Model;
 
     public class StoredEvent
@@ -32,6 +34,9 @@
             protected set { _eventGuid = value; }
         }
 
+        /// <summary>
+        /// Example: Phundus.Core.IdentityAccess.Model.UserRegistered, Phundus.Core
+        /// </summary>
         public virtual string TypeName
         {
             get { return _typeName; }
@@ -54,29 +59,6 @@
         {
             get { return _serialization; }
             protected set { _serialization = value; }
-        }
-
-        public DomainEvent ToDomainEvent(IEventSerializer serializer)
-        {
-            return ToDomainEvent<DomainEvent>(serializer);
-        }
-
-        public TDomainEvent ToDomainEvent<TDomainEvent>(IEventSerializer serializer)
-            where TDomainEvent : DomainEvent
-        {
-            var domainEventType = default(Type);
-            try
-            {
-                domainEventType = Type.GetType(_typeName);
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException(
-                    string.Format("Class load error, because: {0}", ex));
-            }
-
-            return
-                serializer.Deserialize<TDomainEvent>(EventGuid, OccuredOnUtc, Serialization);
-        }
+        }        
     }
 }
