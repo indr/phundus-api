@@ -40,7 +40,7 @@
                                               && p.BorrowerId == userId
                                               && p.BorrowerLastName == "Last"
                                               && p.ContractId == contractId
-                                              && p.CreatedOn > DateTime.UtcNow.AddSeconds(-1)
+                                              && p.OccuredOnUtc > DateTime.UtcNow.AddSeconds(-1)
                                               && p.OrganizationId == organizationId)));
 
         public It should_set_contract_id = () => command.ContractId.ShouldEqual(contractId);

@@ -33,7 +33,7 @@
             {
                 Id = @event.ContractId,
                 OrganizationId = @event.OrganizationId,
-                CreatedOn = @event.CreatedOn,
+                CreatedOn = @event.OccuredOnUtc,
                 BorrowerId = @event.BorrowerId,
                 BorrowerFirstName = @event.BorrowerFirstName,
                 BorrowerLastName = @event.BorrowerLastName,
