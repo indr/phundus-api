@@ -1,9 +1,10 @@
-﻿namespace Phundus.Persistence.Tests.Ddd
+﻿namespace Phundus.Common.Tests.Events
 {
     using System.Runtime.Serialization;
-    using Core.Ddd;
+    using Common.Events;
+    using developwithpassion.specifications.rhinomocks;
+    using Domain.Model;
     using Machine.Specifications;
-    using Persistence.Ddd;
 
     [DataContract]
     public class FakeDomainEvent : DomainEvent
@@ -13,7 +14,7 @@
     }
 
     [Subject(typeof (EventSerializer))]
-    public class when_a_domain_event_is_serialized : concern<EventSerializer>
+    public class when_a_domain_event_is_serialized : Observes<EventSerializer>
     {
         private static FakeDomainEvent domainEvent;
         private static byte[] serialization;
@@ -30,7 +31,7 @@
     }
 
     [Subject(typeof (EventSerializer))]
-    public class when_a_domain_event_is_serialized_and_deserialized : concern<EventSerializer>
+    public class when_a_domain_event_is_serialized_and_deserialized : Observes<EventSerializer>
     {
         private static FakeDomainEvent domainEvent;
         private static FakeDomainEvent deserialization;

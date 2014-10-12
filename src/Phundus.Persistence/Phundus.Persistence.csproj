@@ -78,7 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ddd\EventStore.cs" />
-    <Compile Include="Ddd\EventSerializer.cs" />
     <Compile Include="Ddd\NhStoredEventRepository.cs" />
     <Compile Include="Ddd\StoredEventMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\MembershipMap.cs" />
@@ -111,6 +110,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">
+      <Project>{0BA282A6-FEA2-44A2-9748-1DE0E4E32018}</Project>
+      <Name>Phundus.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Phundus.Core\Phundus.Core.csproj">
       <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
       <Name>Phundus.Core</Name>

@@ -1,9 +1,9 @@
-﻿namespace Phundus.Persistence.Ddd
+﻿namespace Phundus.Common.Events
 {
     using System;
     using System.IO;
     using System.Reflection;
-    using Core.Ddd;
+    using Domain.Model;
     using ProtoBuf;
 
     public interface IEventSerializer
@@ -29,6 +29,7 @@
         {
             var stream = new MemoryStream(serialization);
             var instance = Serializer.Deserialize<T>(stream);
+
 
             IdProperty.SetValue(instance, id, null);
             OccuredOnUtcProp.SetValue(instance, occuredOnUtc, null);

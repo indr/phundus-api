@@ -6,19 +6,32 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Core.Ddd;
+    using Common.Notifications;
 
     [RoutePrefix("api/notifications")]
     [Authorize(Roles = "Admin")]
     public class NotificationsController : ApiControllerBase
     {
-        public IStoredEventRepository StoredEventRepository { get; set; }
+        public INotificationLogFactory NotificationLogFactory { get; set; }
 
         [GET("")]
         [Transaction]
         public virtual HttpResponseMessage Get()
         {
-            var result = StoredEventRepository.FindAll();
+            var result = NotificationLogFactory.CreateCurrentNotificationLog();
+            if (result == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "");
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
+        [GET("{notificationId}")]
+        public virtual HttpResponseMessage Get(string notificationId)
+        {
+            var result = NotificationLogFactory.CreateNotificationLog(notificationId);
+            if (result == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "");
+
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
     }

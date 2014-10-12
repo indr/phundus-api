@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Ddd
 {
     using Castle.Windsor;
+    using Common.Domain.Model;
 
     public static class EventPublisher
     {

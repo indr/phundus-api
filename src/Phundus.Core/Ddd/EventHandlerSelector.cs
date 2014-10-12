@@ -3,6 +3,7 @@
     using System;
     using System.Reflection;
     using Castle.Facilities.TypedFactory;
+    using Common.Domain.Model;
 
     public class EventHandlerSelector : DefaultTypedFactoryComponentSelector
     {

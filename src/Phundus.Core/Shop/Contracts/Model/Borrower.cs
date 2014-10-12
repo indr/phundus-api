@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Contracts.Model
 {
-    using Ddd;
+    using System.Collections.Generic;
+    using Common.Domain.Model;
 
     public class Borrower : ValueObject
     {
@@ -89,6 +90,11 @@
         public virtual string DisplayName
         {
             get { return FirstName + " " + LastName; }
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Id;
         }
     }
 }

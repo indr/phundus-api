@@ -93,14 +93,11 @@
     <Compile Include="Cqrs\Paging\PageResponse.cs" />
     <Compile Include="Cqrs\ReadModelBase.cs" />
     <Compile Include="Ddd\AutoReleaseEventHandlerInterceptor.cs" />
-    <Compile Include="Ddd\DomainEvent.cs" />
     <Compile Include="Ddd\EventHandlerSelector.cs" />
     <Compile Include="Ddd\EventPublisherImpl.cs" />
     <Compile Include="Ddd\IEventHandlerFactory.cs" />
-    <Compile Include="Ddd\IEventStore.cs" />
     <Compile Include="Ddd\IStoredEventRepository.cs" />
     <Compile Include="Ddd\ISubscribeTo.cs" />
-    <Compile Include="Ddd\StoredEvent.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\UpdateOrganizationDetails.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\AttemptToLockOneselfException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\MemberNotFoundException.cs" />
@@ -170,7 +167,6 @@
     <Compile Include="Shop\Contracts\Commands\CreateEmptyContract.cs" />
     <Compile Include="Shop\Contracts\Model\Borrower.cs" />
     <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
-    <Compile Include="Ddd\ValueObject.cs" />
     <Compile Include="Shop\Contracts\Repositories\IContractRepository.cs" />
     <Compile Include="Shop\Contracts\Services\BorrowerService.cs" />
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
@@ -293,12 +289,17 @@
     <Compile Include="IdentityAndAccess\Users\Repositories\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">
+      <Project>{0BA282A6-FEA2-44A2-9748-1DE0E4E32018}</Project>
+      <Name>Phundus.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\piNuts.phundus.Infrastructure\Phundus.Infrastructure.csproj">
       <Project>{9d30515e-5d3c-4fe5-8aa4-b8352328ef25}</Project>
       <Name>Phundus.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="IdentityAndAccess\Queries\ReadModel.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>ReadModel.designer.cs</LastGenOutput>

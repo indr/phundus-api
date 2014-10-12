@@ -1,10 +1,11 @@
 ﻿namespace Phundus.Core.Ddd
 {
     using System.Collections.Generic;
+    using Common.Events;
 
     public interface IStoredEventRepository
     {
-        IEnumerable<StoredEvent> FindAll();
-        void Add(StoredEvent storedEvent);
+        void Append(StoredEvent storedEvent);
+        IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId);
     }
 }
