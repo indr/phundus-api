@@ -42,9 +42,7 @@
                 BorrowerId = contract.Borrower.Id,
                 BorrowerLastName = contract.Borrower.LastName,
                 ContractId = contractId,
-                CreatedOn = contract.CreatedOn,
                 OrganizationId = contract.OrganizationId,
-                Version = contract.Version
             });
         }
     }
