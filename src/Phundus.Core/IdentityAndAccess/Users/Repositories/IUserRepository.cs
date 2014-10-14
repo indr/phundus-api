@@ -14,5 +14,7 @@
         User FindById(int id);
         User ActiveById(int userId);
         User GetById(int id);
+
+        new int Add(User user);
     }
 }
