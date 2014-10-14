@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.IdentityAndAccess
+﻿namespace Phundus.Core.Tests.IdentityAndAccess.Organizations.Commands
 {
     using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Organizations.Model;

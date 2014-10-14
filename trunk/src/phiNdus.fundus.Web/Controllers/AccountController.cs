@@ -1,15 +1,14 @@
 ﻿namespace Phundus.Web.Controllers
 {
     using System;
-    using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.Security;
     using Castle.Transactions;
     using Core.IdentityAndAccess.Queries;
+    using Core.IdentityAndAccess.Users.Commands;
     using Core.IdentityAndAccess.Users.Exceptions;
     using Core.IdentityAndAccess.Users.Mails;
-    using Core.IdentityAndAccess.Users.Model;
     using Core.IdentityAndAccess.Users.Repositories;
     using phiNdus.fundus.Web.Models;
     using phiNdus.fundus.Web.Security;
@@ -85,7 +84,7 @@
             try
             {
                 MembershipProvider.ResetPassword(model.Email, null);
-                
+
                 return View("ResetPasswordDone");
             }
             catch (Exception ex)
@@ -240,40 +239,15 @@
             {
                 try
                 {
-                    var userDto = new UserDto
-                    {
-                        Email = model.Email,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        Street = model.Street,
-                        Postcode = model.Postcode,
-                        City = model.City,
-                        MobilePhone = model.MobilePhone,
-                        JsNumber = model.JsNumber
-                    };
-                    var password = model.Password;
+                    var command = new RegisterUser(
+                        model.Email, model.Password, model.FirstName,
+                        model.LastName, model.Street, model.Postcode,
+                        model.City, model.MobilePhone, model.JsNumber
+                        );
+                    Dispatcher.Dispatch(command);
 
-                    var email = userDto.Email.ToLower(CultureInfo.CurrentCulture).Trim();
 
-                    // Prüfen ob Benutzer bereits exisitiert.
-                    if (Users.FindByEmail(email) != null)
-                        throw new EmailAlreadyTakenException();
-
-                    // Neuer Benutzer speichern.
-                    var user = new User();
-                    user.FirstName = userDto.FirstName;
-                    user.LastName = userDto.LastName;
-                    user.Street = userDto.Street;
-                    user.Postcode = userDto.Postcode;
-                    user.City = userDto.City;
-                    user.MobileNumber = userDto.MobilePhone;
-                    user.JsNumber = userDto.JsNumber;
-                    user.Account.Email = email;
-                    user.Account.Password = password;
-                    user.Role = Role.User;
-                    user.Account.GenerateValidationKey();
-                    Users.Add(user);
-
+                    var user = Users.FindById(command.UserId);
                     // E-Mail mit Verifikationslink senden
                     new UserAccountValidationMail().For(user).Send(user);
 

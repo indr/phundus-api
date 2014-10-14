@@ -2,7 +2,6 @@
 {
     using System;
     using Ddd;
-    using Organizations.Model;
 
     public class User : EntityBase
     {
@@ -11,6 +10,10 @@
         private int? _jsNumber;
         private string _lastName;
         private Role _role;
+        private string _street;
+        private string _postcode;
+        private string _city;
+        private string _mobileNumber;
 
         public User() : this(0)
         {
@@ -26,6 +29,25 @@
             _lastName = "";
             _account = new Account();
             _account.User = this;
+            _role = Role.User;
+        }
+
+        public User(string emailAddress, string password, string firstName, string lastName, string street, string postcode, string city, string mobilePhone, int? jsNumber)
+        {
+            _firstName = firstName;
+            _lastName = lastName;
+            _street = street;
+            _postcode = postcode;
+            _city = city;
+            _mobileNumber = mobilePhone;
+            _jsNumber = jsNumber;
+
+            _account = new Account();
+            _account.User = this;
+            _account.Email = emailAddress;
+            _account.Password = password;
+            _account.GenerateValidationKey();
+
             _role = Role.User;
         }
 
@@ -53,9 +75,28 @@
             set { _role = value; }
         }
 
-        public virtual string DisplayName
+        public virtual string Street
         {
-            get { return String.Format("{0} {1}", FirstName, LastName); }
+            get { return _street; }
+            set { _street = value; }
+        }
+
+        public virtual string Postcode
+        {
+            get { return _postcode; }
+            set { _postcode = value; }
+        }
+
+        public virtual string City
+        {
+            get { return _city; }
+            set { _city = value; }
+        }
+
+        public virtual string MobileNumber
+        {
+            get { return _mobileNumber; }
+            set { _mobileNumber = value; }
         }
 
         public virtual int? JsNumber
@@ -69,30 +110,9 @@
             }
         }
 
-        public virtual string MobileNumber { get; set; }
-
-        public virtual string Street { get; set; }
-        public virtual string Postcode { get; set; }
-        public virtual string City { get; set; }
-
-        //public virtual bool IsChiefOf(Organization organization)
-        //{
-        //    if (organization == null)
-        //        return false;
-
-        //    return (from each in Memberships
-        //            where each.Organization.Id == organization.Id
-        //            select each.Role == Role.Chief.Id).FirstOrDefault();
-        //}
-
-        //public virtual bool IsMemberOf(Organization organization)
-        //{
-        //    if (organization == null)
-        //        return false;
-
-        //    return (from each in Memberships 
-        //            where each.Organization.Id == organization.Id
-        //            select each.Role >= Role.User.Id).FirstOrDefault();
-        //}
+        public virtual string DisplayName
+        {
+            get { return String.Format("{0} {1}", FirstName, LastName); }
+        }
     }
 }

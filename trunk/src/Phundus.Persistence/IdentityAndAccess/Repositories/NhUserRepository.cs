@@ -33,6 +33,12 @@
             return result;
         }
 
+        public new int Add(User user)
+        {
+            base.Add(user);
+            return user.Id;
+        }
+
         public IEnumerable<User> FindAll()
         {
             return Users.ToFuture();
