@@ -26,6 +26,7 @@
         }
 
         [GET("{notificationId}")]
+        [Transaction]
         public virtual HttpResponseMessage Get(string notificationId)
         {
             var result = NotificationLogFactory.CreateNotificationLog(notificationId);
