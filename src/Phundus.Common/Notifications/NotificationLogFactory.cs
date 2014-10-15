@@ -25,15 +25,18 @@
         private NotificationLogId CalculateCurrentNotificationLogId()
         {
             // TODO: Bedingt, dass keine Lücken vorhanden sind!
-            var count = EventStore.CountStoredEvents();
-            var remainder = count%NotificationsPerLog;
+            //var count = EventStore.CountStoredEvents();
+            //var remainder = count%NotificationsPerLog;
+            var max = EventStore.GetMaxNotificationId();
+            var remainder = max%NotificationsPerLog;
 
             if (remainder == 0)
             {
                 remainder = NotificationsPerLog;
             }
 
-            long low = count - remainder + 1;
+            //long low = count - remainder + 1;
+            long low = max - remainder + 1;
 
             // ensures a minted id value even though there may
             // not be a full set of notifications at present
@@ -48,10 +51,10 @@
                 notificationLogId.Low, notificationLogId.High);
 
             // TODO: Bedingt, dass keine Lücken vorhanden sind!
-            var count = EventStore.CountStoredEvents();
-            var archivedIndicator = notificationLogId.High < count;
-            //var max = EventStore.GetMaxNotificationId();
-            //var archivedIndicator = notificationLogId.High < max;
+            //var count = EventStore.CountStoredEvents();
+            //var archivedIndicator = notificationLogId.High < count;
+            var max = EventStore.GetMaxNotificationId();
+            var archivedIndicator = notificationLogId.High < max;
 
             var notificationLog = new NotificationLog(
                 notificationLogId.Encoded,
