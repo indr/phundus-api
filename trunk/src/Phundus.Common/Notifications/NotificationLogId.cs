@@ -44,7 +44,7 @@
         public NotificationLogId Next(int notificationsPerLog)
         {
             var nextLow = High + 1;
-            var nextHigh = nextLow + notificationsPerLog;
+            var nextHigh = nextLow + notificationsPerLog - 1;
             var next = new NotificationLogId(nextLow, nextHigh);
             if (Equals(next))
                 next = null;
