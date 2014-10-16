@@ -4,6 +4,9 @@
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using Bootstrap;
+    using Bootstrap.Extensions.StartupTasks;
+    using Bootstrap.Windsor;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using phiNdus.fundus.Web.App_Start;
@@ -32,7 +35,10 @@
             DatabaseMigrator.Migrate();
             
 
-            _container = ContainerConfig.Bootstrap();
+            _container = new WindsorContainer();
+
+            Bootstrapper.With.Windsor().WithContainer(_container).And.StartupTasks().Start();
+
             _container.Register(Component.For<CustomMembershipProvider>()
                                          .Named("MembershipProvider").LifestyleTransient());
             _container.Register(Component.For<CustomRoleProvider>()

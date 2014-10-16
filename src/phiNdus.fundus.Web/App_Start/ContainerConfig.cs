@@ -2,33 +2,22 @@
 {
     using System.Security.Principal;
     using System.Web;
-    using System.Web.Http;
     using System.Web.Mvc;
     using Castle.Facilities.AutoTx;
     using Castle.Facilities.NHibernate;
     using Castle.MicroKernel.Registration;
+    using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using Castle.Windsor.Installer;
     using CommonServiceLocator.WindsorAdapter;
     using Elmah.Mvc;
     using Microsoft.Practices.ServiceLocation;
-    using Phundus.Core;
     using Phundus.Persistence;
-    
     using Plumbing;
 
-    public class ContainerConfig
+    public class ContainerConfig : IWindsorInstaller
     {
-        public static IWindsorContainer Bootstrap()
+        public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            IWindsorContainer container = new WindsorContainer()
-                .Install(FromAssembly.Named("Phundus.Infrastructure"))
-                .Install(FromAssembly.Named("Phundus.Core"))
-                .Install(FromAssembly.This())
-                .Install(FromAssembly.Named("Phundus.Persistence"))
-                .Install(FromAssembly.Named("Phundus.Rest"));
-
-
             container.Register(
                 Component.For<ElmahController>().ImplementedBy<ElmahController>().LifestylePerWebRequest());
 
@@ -59,8 +48,6 @@
 
 
             ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
-
-            return container;
         }
     }
 }
