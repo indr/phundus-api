@@ -25,8 +25,6 @@
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.AddFacility<TypedFactoryFacility>();
-
             container.Register(
                 Component.For<ITypedFactoryComponentSelector>().ImplementedBy<CommandHandlerSelector>(),
                 Component.For<AutoReleaseCommandHandlerInterceptor>(),
