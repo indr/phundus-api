@@ -7,6 +7,8 @@
     {
         public MembershipApplicationMap()
         {
+            SchemaAction.Validate();
+
             Table("MembershipRequest");
             Id(x => x.Id).GeneratedBy.Assigned();
             Version(x => x.Version);

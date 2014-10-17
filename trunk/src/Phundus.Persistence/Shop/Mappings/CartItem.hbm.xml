@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Phundus.Core" namespace="Phundus.Core.Shop.Orders.Model">
-  <class name="CartItem" table="[CartItem]">
+  <class name="CartItem" table="[CartItem]" schema-action="validate">
     <id name="Id">
       <generator class="hilo" />
     </id>
