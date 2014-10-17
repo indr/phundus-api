@@ -26,9 +26,6 @@
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            if (container.Kernel.GetFacilities().SingleOrDefault(p => p.GetType() == typeof (TypedFactoryFacility)) == null)
-                container.AddFacility<TypedFactoryFacility>();
-
             container.Register(
                 Component.For<ITypedFactoryComponentSelector>().ImplementedBy<CommandHandlerSelector>(),
                 Component.For<AutoReleaseCommandHandlerInterceptor>(),

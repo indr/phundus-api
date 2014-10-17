@@ -4,7 +4,6 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Common.Events;
-    using Core.Ddd;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Inventory.Repositories;
     using StoredEvents;
