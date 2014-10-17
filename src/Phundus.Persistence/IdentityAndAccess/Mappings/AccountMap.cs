@@ -7,6 +7,8 @@
     {
         public AccountMap()
         {
+            SchemaAction.Validate();
+
             Table("Membership");
             Id(x => x.Id).GeneratedBy.Foreign("User");
             Version(x => x.Version);

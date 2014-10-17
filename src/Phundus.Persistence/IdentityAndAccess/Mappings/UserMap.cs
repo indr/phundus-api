@@ -7,6 +7,8 @@
     {
         public UserMap()
         {
+            SchemaAction.Validate();
+
             Id(x => x.Id).GeneratedBy.Native();
             Version(x => x.Version);
 

@@ -7,6 +7,8 @@
     {
         public StoredEventMap()
         {
+            SchemaAction.Validate();
+
             ReadOnly();
             Table("StoredEvents");
 

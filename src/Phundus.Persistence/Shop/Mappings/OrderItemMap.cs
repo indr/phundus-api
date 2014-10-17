@@ -8,6 +8,8 @@
     {
         public OrderItemMap()
         {
+            SchemaAction.Validate();
+
             Table("OrderItem");
             Id(x => x.Id).GeneratedBy.Assigned();
             Version(x => x.Version);

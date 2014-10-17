@@ -7,6 +7,8 @@
     {
         public MembershipMap()
         {
+            SchemaAction.Validate();
+
             Table("OrganizationMembership");
 
             Id(x => x.Id).GeneratedBy.Assigned();
