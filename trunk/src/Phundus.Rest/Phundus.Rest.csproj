@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="ApiControllerBase.cs" />
     <Compile Include="Api\ContractsController.cs" />
+    <Compile Include="Api\Diagnostics\SchemaUpdateController.cs" />
     <Compile Include="Api\Docs\OrderDocs.cs" />
     <Compile Include="Api\NotificationsController.cs" />
     <Compile Include="Api\Organizations\Docs\OrganizationsOrderDocs.cs" />
