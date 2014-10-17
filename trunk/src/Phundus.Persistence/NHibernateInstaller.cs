@@ -1,10 +1,14 @@
 namespace Phundus.Persistence
 {
+    using System.IO;
     using System.Reflection;
+    using System.Web.Hosting;
     using Castle.Facilities.NHibernate;
     using Castle.Transactions;
     using FluentNHibernate.Cfg;
     using NHibernate;
+    using NHibernate.Cfg;
+    using NHibernate.Tool.hbm2ddl;
 
     public class NHibernateInstaller : INHibernateInstaller
     {
@@ -21,8 +25,10 @@ namespace Phundus.Persistence
 
             cfg.AddAssembly(Assembly.GetExecutingAssembly());
 
+
             return Fluently.Configure(cfg)
-                .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()));
+                .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
+                .ExposeConfiguration(WriteConfiguration);
         }
 
         public void Registered(ISessionFactory factory)
@@ -43,6 +49,12 @@ namespace Phundus.Persistence
         public Maybe<IInterceptor> Interceptor
         {
             get { return _interceptor; }
+        }
+
+        private void WriteConfiguration(Configuration cfg)
+        {
+            using (var writer = new StreamWriter(HostingEnvironment.MapPath(@"~\App_Data\SchemaUpdate.sql"), false))
+                new SchemaUpdate(cfg).Execute(sa => writer.WriteLine(sa), false);
         }
     }
 }

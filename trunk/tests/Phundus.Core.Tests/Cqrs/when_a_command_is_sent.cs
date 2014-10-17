@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Tests.Cqrs
 {
     using System;
+    using Castle.Facilities.TypedFactory;
     using Castle.Windsor;
     using Core.Cqrs;
     using Machine.Specifications;
@@ -11,14 +12,14 @@
         private static ICommandDispatcher dispatcher;
         private static Exception _expectedException;
 
-        private Establish context =
-            () =>
-            {
-                var container = new WindsorContainer();
-                container.Install(new CoreInstaller(typeof (when_a_command_is_sent).Assembly));
+        private Establish context = () =>
+        {
+            var container = new WindsorContainer();
+            container.AddFacility<TypedFactoryFacility>();
+            container.Install(new CoreInstaller(typeof (when_a_command_is_sent).Assembly));
 
-                dispatcher = container.Resolve<ICommandDispatcher>();
-            };
+            dispatcher = container.Resolve<ICommandDispatcher>();
+        };
 
         private Because of =
             () => _expectedException = Catch.Exception(() => dispatcher.Dispatch(new TestCommand1()));
