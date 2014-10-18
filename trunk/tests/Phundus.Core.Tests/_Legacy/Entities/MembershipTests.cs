@@ -64,23 +64,6 @@
         }
 
         [Test]
-        public void LogOn_updates_LastLogOnDate()
-        {
-            Assert.That(Sut.LastLogOnDate, Is.Null);
-            Sut.LogOn(GetNewSessionId(), "1234");
-            Assert.That(Sut.LastLogOnDate, Is.EqualTo(DateTime.Now).Within(1).Seconds);
-        }
-
-        [Test]
-        public void LogOn_updates_SessionKey()
-        {
-            string sessionKey = GetNewSessionId();
-            Assert.That(Sut.SessionKey, Is.Null);
-            Sut.LogOn(sessionKey, "1234");
-            Assert.That(Sut.SessionKey, Is.EqualTo(sessionKey));
-        }
-
-        [Test]
         public void LogOn_when_locked_out_throws()
         {
             Sut.IsLockedOut = true;
