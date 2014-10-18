@@ -4,7 +4,7 @@
 
     public class EventsListViewRecord
     {
-        public virtual long EventId { get; set; }
+        public virtual Guid EventGuid { get; set; }
         public virtual DateTime OccuredOnUtc { get; set; }
         public virtual string Name { get; set; }
     }

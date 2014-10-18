@@ -10,7 +10,7 @@
             SchemaAction.All();
             Table("Rm_EventsListView");
 
-            Id(x => x.EventId).GeneratedBy.Assigned();
+            Id(x => x.EventGuid).GeneratedBy.Assigned();
 
             Map(x => x.Name);
             Map(x => x.OccuredOnUtc);

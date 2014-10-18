@@ -63,7 +63,7 @@
         public virtual string ValidationKey { get; protected set; }
 
         public virtual string RequestedEmail { get; set; }
-        
+
         public virtual void LockOut()
         {
             IsLockedOut = true;
@@ -83,6 +83,8 @@
 
             SessionKey = sessionKey;
             LastLogOnDate = DateTime.Now;
+
+            EventPublisher.Publish(new UserLoggedIn(User.Id));
         }
 
         public virtual void ChangePassword(string oldPassword, string newPassword)
