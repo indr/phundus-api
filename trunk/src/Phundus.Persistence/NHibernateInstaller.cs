@@ -54,7 +54,7 @@ namespace Phundus.Persistence
         private void WriteConfiguration(Configuration cfg)
         {
             using (var writer = new StreamWriter(HostingEnvironment.MapPath(@"~\App_Data\SchemaUpdate.sql"), false))
-                new SchemaUpdate(cfg).Execute(sa => writer.WriteLine(sa), false);
+                new SchemaUpdate(cfg).Execute(sa => writer.WriteLine(sa), true);
         }
     }
 }
