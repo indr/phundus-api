@@ -53,6 +53,8 @@
                     .WithServiceAllInterfaces()
                     .LifestyleTransient());
 
+            container.Register(Types.FromThisAssembly().BasedOn<INotificationListener>().WithServiceFromInterface());
+
             container.Register(Component.For<INotificationLogFactory>().ImplementedBy<NotificationLogFactory>());
             container.Register(Component.For<IEventSerializer>().ImplementedBy<EventSerializer>());
 

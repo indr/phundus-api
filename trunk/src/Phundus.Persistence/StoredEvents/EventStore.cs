@@ -12,10 +12,14 @@
 
         public IStoredEventRepository Repository { get; set; }
 
+        public INotificationPublisher NotificationPublisher { get; set; }
+
         public void Append(DomainEvent domainEvent)
         {
             var storedEvent = ToStoredEvent(domainEvent);
             Repository.Append(storedEvent);
+
+            NotificationPublisher.PublishNotification(storedEvent, domainEvent);
         }
 
         public IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId)
