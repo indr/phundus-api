@@ -43,5 +43,10 @@ Szenario: Feedback senden
 		Vielen Dank und freundliche Grüsse
 
 		Das phundus-Team
+
+		--
+		This is an automatically generated message from phundus.
+		-
+		If you think it was sent incorrectly contact the administrators at lukas.mueller@phundus.ch or reto.inderbitzin@phundus.ch.
 		"""
 	Und muss "admin@test.phundus.ch" ein E-Mail erhalten mit dem Betreff "[phundus] Feedback"

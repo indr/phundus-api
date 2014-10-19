@@ -145,9 +145,17 @@ this.FeatureBackground();
 #line hidden
 #line 39
  testRunner.And("muss \"user@test.phundus.ch\" ein E-Mail erhalten mit dem Betreff \"Vielen Dank fürs" +
-                    " Feedback\" und dem Text:", "Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.\r\n" +
-                    "\r\nVielen Dank und freundliche Grüsse\r\n\r\nDas phundus-Team", ((TechTalk.SpecFlow.Table)(null)), "Und ");
-#line 47
+                    " Feedback\" und dem Text:", @"Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
+
+Vielen Dank und freundliche Grüsse
+
+Das phundus-Team
+
+--
+This is an automatically generated message from phundus.
+-
+If you think it was sent incorrectly contact the administrators at lukas.mueller@phundus.ch or reto.inderbitzin@phundus.ch.", ((TechTalk.SpecFlow.Table)(null)), "Und ");
+#line 52
  testRunner.And("muss \"admin@test.phundus.ch\" ein E-Mail erhalten mit dem Betreff \"[phundus] Feedb" +
                     "ack\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
