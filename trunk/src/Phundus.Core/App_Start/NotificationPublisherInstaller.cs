@@ -1,10 +1,10 @@
-﻿namespace Phundus.Persistence
+﻿namespace Phundus.Core
 {
     using Castle.Facilities.TypedFactory;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using StoredEvents;
+    using Common.Notifications;
 
     public class NotificationPublisherInstaller : IWindsorInstaller
     {
@@ -15,7 +15,7 @@
                     .ImplementedBy<InThreadNotificationPublisher>()
                     .LifestyleTransient());
 
-            container.Register(Component.For<INotificationListenerFactory>().AsFactory());
+            container.Register(Component.For<INotificationHandlerFactory>().AsFactory());
         }
     }
 }

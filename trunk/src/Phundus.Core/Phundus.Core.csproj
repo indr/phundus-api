@@ -93,11 +93,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\NotificationPublisherInstaller.cs" />
+    <Compile Include="App_Start\CommonInstaller.cs" />
     <Compile Include="Cqrs\Paging\PagedResult.cs" />
     <Compile Include="Cqrs\Paging\PageRequest.cs" />
     <Compile Include="Cqrs\Paging\PageResponse.cs" />
     <Compile Include="Cqrs\ReadModelBase.cs" />
-    <Compile Include="Dashboard\Querying\EventQueries.cs" />
+    <Compile Include="Dashboard\Querying\IEventQueries.cs" />
+    <Compile Include="Dashboard\Querying\EventsListViewDao.cs" />
+    <Compile Include="Dashboard\Querying\ReadModelUpdater.cs" />
     <Compile Include="Dashboard\Querying\Records\EventsListViewRecord.cs" />
     <Compile Include="Ddd\AutoReleaseEventHandlerInterceptor.cs" />
     <Compile Include="Ddd\EventHandlerSelector.cs" />
@@ -229,7 +233,7 @@
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
     <Compile Include="Cqrs\CommandDispatcher.cs" />
     <Compile Include="Cqrs\CommandHandlerSelector.cs" />
-    <Compile Include="CoreInstaller.cs" />
+    <Compile Include="App_Start\CoreInstaller.cs" />
     <Compile Include="Cqrs\ICommand.cs" />
     <Compile Include="Cqrs\ICommandDispatcher.cs" />
     <Compile Include="Cqrs\IHandleCommand.cs" />
