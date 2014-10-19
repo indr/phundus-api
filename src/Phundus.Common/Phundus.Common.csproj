@@ -48,6 +48,7 @@
     <Compile Include="Events\EventSerializer.cs" />
     <Compile Include="Events\IEventStore.cs" />
     <Compile Include="Events\StoredEvent.cs" />
+    <Compile Include="Notifications\INotificationListener.cs" />
     <Compile Include="Notifications\INotificationLogFactory.cs" />
     <Compile Include="Notifications\Notification.cs" />
     <Compile Include="Notifications\NotificationLog.cs" />

@@ -80,8 +80,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\NotificationPublisherInstaller.cs" />
     <Compile Include="Dashboard\EventsListViewRecordMap.cs" />
     <Compile Include="StoredEvents\EventStore.cs" />
+    <Compile Include="StoredEvents\INotificationPublisher.cs" />
     <Compile Include="StoredEvents\NhStoredEventRepository.cs" />
     <Compile Include="StoredEvents\StoredEventMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\MembershipMap.cs" />

@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using Common.Domain.Model;
+    using Common.Events;
+    using Common.Notifications;
     using Cqrs;
-    using Ddd;
     using IdentityAndAccess.Users.Model;
     using Records;
 
@@ -13,11 +14,21 @@
     }
 
     public class EventsListViewDao : NHibernateReadModelBase<EventsListViewRecord>, IEventQueries,
-        ISubscribeTo<UserRegistered>, ISubscribeTo<UserLoggedIn>
+        INotificationListener //, ISubscribeTo<UserRegistered>, ISubscribeTo<UserLoggedIn>
     {
         public IEnumerable<EventsListViewRecord> FindAll()
         {
             return Query().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
+        }
+
+        public void Handle(StoredEvent storedEvent, DomainEvent domainEvent)
+        {
+            Handle((dynamic) domainEvent);
+        }
+
+        public void Handle(DomainEvent domainEvent)
+        {
+            // Fallback
         }
 
         public void Handle(UserLoggedIn @event)
