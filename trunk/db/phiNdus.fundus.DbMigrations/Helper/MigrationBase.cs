@@ -23,6 +23,12 @@
             DateTime.SpecifyKind(dateTimeLocal, DateTimeKind.Local);
             return dateTimeLocal.ToUniversalTime();
         }
+
+        protected void EmptyTableAndResetTracker(string tableName, string trackerTypeName)
+        {
+            Delete.FromTable(tableName).AllRows();
+            Update.Table("ProcessedNotificationTracker").Set(new {MostRecentProcessedNotificationId = 0}).Where(new{TypeName = trackerTypeName});
+        }
     }
 
     public abstract class HydrationBase : MigrationBase

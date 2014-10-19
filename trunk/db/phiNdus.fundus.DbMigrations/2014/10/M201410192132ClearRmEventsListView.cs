@@ -3,17 +3,14 @@ namespace phiNdus.fundus.DbMigrations
     using FluentMigrator;
 
     [Migration(201410192132)]
-    public class M201410192132ClearRmEventsListView : MigrationBase
+    public class M201410192132DeleteTableRmEventsListView : MigrationBase
     {
         public override void Up()
         {
-            EmptyTableAndResetTracker("Rm_EventsListView", "Phundus.Core.Dashboard.Querying.EventsListViewDao");
-        }
+            if (Schema.Table("Rm_EventsListView").Exists())
+                Delete.Table("Rm_EventsListView");
 
-        private void EmptyTableAndResetTracker(string tableName, string trackerTypeName)
-        {
-            Delete.FromTable(tableName).AllRows();
-            Update.Table("ProcessedNotificationTracker").Set(new {MostRecentProcessedNotificationId = 0}).Where(new{TypeName = trackerTypeName});
+            Delete.FromTable("ProcessedNotificationTracker").AllRows();
         }
 
         public override void Down()

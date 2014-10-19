@@ -8,7 +8,7 @@
         public override void Up()
         {
             if (Schema.Table("Rm_EventsListView").Exists())
-                Delete. Table("Rm_EventsListView");
+                Delete.Table("Rm_EventsListView");
         }
 
         public override void Down()

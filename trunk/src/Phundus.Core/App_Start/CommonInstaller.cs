@@ -14,7 +14,6 @@ namespace Phundus.Core
             container.Register(Types.FromThisAssembly().BasedOn<INotificationHandler>().WithServiceFromInterface());
 
             container.Register(Component.For<IDomainEventHandlerFactory>().AsFactory());
-            container.Register(Classes.FromThisAssembly().BasedOn<IDomainEventHandler>().WithServiceFromInterface());
 
             container.Register(Component.For<INotificationLogFactory>().ImplementedBy<NotificationLogFactory>());
             container.Register(Component.For<IEventSerializer>().ImplementedBy<EventSerializer>());
