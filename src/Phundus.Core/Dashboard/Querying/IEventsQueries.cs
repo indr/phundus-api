@@ -3,8 +3,12 @@
     using System.Collections.Generic;
     using Records;
 
-    public interface IEventQueries
+    public interface IEventsQueries : IQueries
     {
         IEnumerable<EventsListViewRecord> FindAll();
+    }
+
+    public interface IQueries
+    {
     }
 }

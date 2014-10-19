@@ -29,7 +29,7 @@
         public object Deserialize(Type type, Guid id, DateTime occuredOnUtc, byte[] serialization)
         {
             var instance = Serializer.NonGeneric.Deserialize(type, new MemoryStream(serialization));
-            
+
             IdProperty.SetValue(instance, id, null);
             OccuredOnUtcProp.SetValue(instance, occuredOnUtc, null);
 

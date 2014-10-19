@@ -95,11 +95,12 @@
   <ItemGroup>
     <Compile Include="App_Start\NotificationPublisherInstaller.cs" />
     <Compile Include="App_Start\CommonInstaller.cs" />
+    <Compile Include="App_Start\QueriesInstaller.cs" />
     <Compile Include="Cqrs\Paging\PagedResult.cs" />
     <Compile Include="Cqrs\Paging\PageRequest.cs" />
     <Compile Include="Cqrs\Paging\PageResponse.cs" />
     <Compile Include="Cqrs\ReadModelBase.cs" />
-    <Compile Include="Dashboard\Querying\IEventQueries.cs" />
+    <Compile Include="Dashboard\Querying\IEventsQueries.cs" />
     <Compile Include="Dashboard\Querying\EventsListViewDao.cs" />
     <Compile Include="Dashboard\Querying\ReadModelUpdater.cs" />
     <Compile Include="Dashboard\Querying\Records\EventsListViewRecord.cs" />

@@ -122,6 +122,7 @@
     <Compile Include="2014\10\M201410111611CreateTableStoredEvents.cs" />
     <Compile Include="2014\10\M201410180625DeleteTableRmEventsListview.cs" />
     <Compile Include="2014\10\M201410191911CreateTableProcessedNotificationTracker.cs" />
+    <Compile Include="2014\10\M201410192132ClearRmEventsListView.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />

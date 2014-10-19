@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Persistence.StoredEvents
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using Common.Domain.Model;
     using Common.Events;
@@ -41,7 +42,7 @@
         public DomainEvent ToDomainEvent(StoredEvent storedEvent)
         {
             var domainEventType = Type.GetType(storedEvent.TypeName, true);
-            
+
             return (DomainEvent) Serializer.Deserialize(domainEventType, storedEvent.EventGuid,
                 storedEvent.OccuredOnUtc, storedEvent.Serialization);
         }

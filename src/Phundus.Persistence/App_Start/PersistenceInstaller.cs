@@ -4,9 +4,20 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Common.Events;
+    using Common.Notifications;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Inventory.Repositories;
     using StoredEvents;
+
+    public class TrackerStoreInstaller : IWindsorInstaller
+    {
+        public void Install(IWindsorContainer container, IConfigurationStore store)
+        {
+            container.Register(Component.For<IProcessedNotificationTrackerStore>()
+                .ImplementedBy<NHibernateProcessedNotificationTrackerStore>()
+                .LifestyleTransient());
+        }
+    }
 
     public class PersistenceInstaller : IWindsorInstaller
     {

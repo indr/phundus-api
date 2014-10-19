@@ -1,6 +1,6 @@
 namespace Phundus.Core.Dashboard.Querying
 {
-    using Common;
+    using Common.Events;
     using Common.Notifications;
 
     public class ReadModelUpdater : INotificationHandler
@@ -9,17 +9,33 @@ namespace Phundus.Core.Dashboard.Querying
 
         public IDomainEventHandlerFactory DomainEventHandlerFactory { get; set; }
 
+        public IEventStore EventStore { get; set; }
+
         public void Handle(Notification notification)
         {
-            var storedEventHandlers = DomainEventHandlerFactory.GetDomainEventHandlers();
+            var domainEventHandler = DomainEventHandlerFactory.GetDomainEventHandlers();
 
-            foreach (var handler in storedEventHandlers)
-                handler.Handle(notification.Event);
+            foreach (var handler in domainEventHandler)
+            {
+                UpdateReadModel(handler, notification);
+            }
         }
 
-        public void UpdateReadModel(INotificationHandler notificationHandler)
+        private void UpdateReadModel(IDomainEventHandler domainEventHandler, Notification notification)
         {
-            ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(notificationHandler.GetType().Name);
+            var tracker =
+                ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(domainEventHandler.GetType().FullName);
+            if (tracker.MostRecentProcessedNotificationId >= notification.NotificationId)
+                return;
+
+            var events = EventStore.AllStoredEventsBetween(tracker.MostRecentProcessedNotificationId + 1,
+                notification.NotificationId);
+            foreach (var each in events)
+            {
+                domainEventHandler.Handle(EventStore.ToDomainEvent(each));
+            }
+
+            ProcessedNotificationTrackerStore.TrackMostRecentProcessedNotification(tracker, notification);
         }
     }
 }
