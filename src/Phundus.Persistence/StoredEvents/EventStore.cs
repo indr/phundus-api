@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Common.Domain.Model;
     using Common.Events;
+    using Common.Notifications;
     using Core.Ddd;
 
     public class EventStore : IEventStore
@@ -19,7 +20,7 @@
             var storedEvent = ToStoredEvent(domainEvent);
             Repository.Append(storedEvent);
 
-            NotificationPublisher.PublishNotification(storedEvent, domainEvent);
+            NotificationPublisher.PublishNotification(storedEvent);
         }
 
         public IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId)

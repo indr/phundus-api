@@ -8,7 +8,7 @@
     using Inventory.Repositories;
     using StoredEvents;
 
-    public class Installer : IWindsorInstaller
+    public class PersistenceInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {

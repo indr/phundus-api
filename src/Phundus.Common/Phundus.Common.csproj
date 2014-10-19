@@ -48,16 +48,26 @@
     <Compile Include="Events\EventSerializer.cs" />
     <Compile Include="Events\IEventStore.cs" />
     <Compile Include="Events\StoredEvent.cs" />
-    <Compile Include="Notifications\INotificationListener.cs" />
+    <Compile Include="Notifications\IDomainEventHandler.cs" />
+    <Compile Include="Notifications\IDomainEventHandlerFactory.cs" />
+    <Compile Include="Notifications\INotificationHandlerFactory.cs" />
+    <Compile Include="Notifications\INotificationPublisher.cs" />
+    <Compile Include="Notifications\InThreadNotificationPublisher.cs" />
+    <Compile Include="Notifications\IProcessedNotificationTrackerStore.cs" />
+    <Compile Include="Notifications\INotificationHandler.cs" />
     <Compile Include="Notifications\INotificationLogFactory.cs" />
     <Compile Include="Notifications\Notification.cs" />
     <Compile Include="Notifications\NotificationLog.cs" />
     <Compile Include="Notifications\NotificationLogId.cs" />
     <Compile Include="Notifications\NotificationLogFactory.cs" />
+    <Compile Include="ProcessedNotificationTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Start\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
