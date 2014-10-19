@@ -10,16 +10,16 @@
 
     public abstract class BaseMail
     {
-        private const string TextSignature = @"
+        public const string TextSignature = @"
 
 --
 This is an automatically generated message from phundus.
 -
-If you think it was sent incorrectly contact the administrator(s) at @Model.Admins.";
+If you think it was sent incorrectly contact the administrators at lukas.mueller@phundus.ch or reto.inderbitzin@phundus.ch.";
 
-        private const string HtmlFooter = @"<hr />
+        public const string HtmlFooter = @"<hr />
 <footer>
-    <p>This is an automatically generated message from phundus.<br />If you think it was sent incorrectly contact the administrator(s) at @Model.Admins.</p>
+    <p>This is an automatically generated message from phundus.<br />If you think it was sent incorrectly contact the administrators at lukas.mueller@phundus.ch or reto.inderbitzin@phundus.ch.</p>
 </footer>
 </div>
 </body>
