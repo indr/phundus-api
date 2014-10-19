@@ -1,39 +1,45 @@
 namespace Phundus.Core.Dashboard.Querying
 {
     using System.Collections.Generic;
-    using Common;
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
     using IdentityAndAccess.Users.Model;
     using Records;
 
-    public class EventsListViewDao : NHibernateReadModelBase<EventsListViewRecord>, IEventQueries, IDomainEventHandler
+    public class EventsQueries : ReadModelBase, IEventsQueries
+    {
+        public IEnumerable<EventsListViewRecord> FindAll()
+        {
+            return Session.QueryOver<EventsListViewRecord>().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
+        }
+    }
+
+    public class EventsListViewDao : NHibernateReadModelBase<EventsListViewRecord>, IDomainEventHandler
     {
         public void Handle(DomainEvent domainEvent)
         {
             Process((dynamic) domainEvent);
         }
 
-        public IEnumerable<EventsListViewRecord> FindAll()
-        {
-            return Query().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
-        }
-
         public void Process(DomainEvent domainEvent)
         {
-            // Fallback
+            var record = CreateRecord(domainEvent);
+            record.Text = "Unformatiertes Ereignis: " + domainEvent.GetType().Name;
+            Insert(record);
         }
 
         public void Process(UserLoggedIn domainEvent)
         {
             var record = CreateRecord(domainEvent);
+            record.Text = "Benutzer hat sich eingeloggt: " + domainEvent.UserId;
             Insert(record);
         }
 
         public void Process(UserRegistered domainEvent)
         {
             var record = CreateRecord(domainEvent);
+            record.Text = "Benutzer hat sich registriert: " + domainEvent.EmailAddress;
             Insert(record);
         }
 

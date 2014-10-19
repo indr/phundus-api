@@ -14,6 +14,7 @@
 
             Map(x => x.Name);
             Map(x => x.OccuredOnUtc);
+            Map(x => x.Text).Length(int.MaxValue);
         }
     }
 }
