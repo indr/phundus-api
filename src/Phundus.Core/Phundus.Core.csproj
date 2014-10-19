@@ -100,10 +100,9 @@
     <Compile Include="Cqrs\Paging\PageRequest.cs" />
     <Compile Include="Cqrs\Paging\PageResponse.cs" />
     <Compile Include="Cqrs\ReadModelBase.cs" />
-    <Compile Include="Dashboard\Querying\IEventsQueries.cs" />
-    <Compile Include="Dashboard\Querying\EventsListViewDao.cs" />
+    <Compile Include="Dashboard\Querying\EventsReadModel.cs" />
     <Compile Include="Dashboard\Querying\ReadModelUpdater.cs" />
-    <Compile Include="Dashboard\Querying\Records\EventsListViewRecord.cs" />
+    <Compile Include="Dashboard\Querying\Records\EventsRecord.cs" />
     <Compile Include="Ddd\AutoReleaseEventHandlerInterceptor.cs" />
     <Compile Include="Ddd\EventHandlerSelector.cs" />
     <Compile Include="Ddd\EventPublisherImpl.cs" />

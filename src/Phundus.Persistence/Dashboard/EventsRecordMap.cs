@@ -3,12 +3,12 @@
     using Core.Dashboard.Querying.Records;
     using FluentNHibernate.Mapping;
 
-    public class EventsListViewRecordMap : ClassMap<EventsListViewRecord>
+    public class EventsRecordMap : ClassMap<EventsRecord>
     {
-        public EventsListViewRecordMap()
+        public EventsRecordMap()
         {
             SchemaAction.All();
-            Table("Rm_EventsListView");
+            Table("Rm_Events");
 
             Id(x => x.EventGuid).GeneratedBy.Assigned();
 

@@ -9,8 +9,8 @@
     [Subject(typeof (QueriesInstaller))]
     public class when_queries_installer_is_installed : installer_concern<QueriesInstaller>
     {
-        public It should_resolve_IEventQueries_to_EventsListViewDao =
-            () => Container.Resolve<IEventsQueries>().ShouldBeOfExactType<EventsListViewDao>();
+        public It should_resolve_IEventsQueries_to_EventsReadModel =
+            () => Container.Resolve<IEventsQueries>().ShouldBeOfExactType<EventsReadModel>();
     }
 
     public class installer_concern<TInstaller> where TInstaller : IWindsorInstaller

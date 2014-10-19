@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class EventsListViewRecord
+    public class EventsRecord
     {
         public virtual Guid EventGuid { get; set; }
         public virtual DateTime OccuredOnUtc { get; set; }
