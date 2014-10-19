@@ -3,6 +3,7 @@
     using System;
     using System.Web.Mvc;
     using Castle.Transactions;
+    using Core;
     using Infrastructure;
     using Infrastructure.Gateways;
     using phiNdus.fundus.Web.Models;
@@ -32,7 +33,7 @@
             MailGateway.Send(Config.FeedbackRecipients,
                 @"[phundus] Feedback",
                 @"Feedback von " + model.EmailAddress + Environment.NewLine + Environment.NewLine +
-                model.Comment);
+                model.Comment + BaseMail.TextSignature);
 
 
             MailGateway.Send(model.EmailAddress,
@@ -41,7 +42,7 @@
 
 Vielen Dank und freundliche Grüsse
 
-Das phundus-Team");
+Das phundus-Team" + BaseMail.TextSignature);
 
             return View("Done");
         }
