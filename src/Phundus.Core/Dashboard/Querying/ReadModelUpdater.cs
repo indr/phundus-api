@@ -5,6 +5,8 @@ namespace Phundus.Core.Dashboard.Querying
 
     public class ReadModelUpdater : INotificationHandler
     {
+        private static object _lock = new object();
+
         public IProcessedNotificationTrackerStore ProcessedNotificationTrackerStore { get; set; }
 
         public IDomainEventHandlerFactory DomainEventHandlerFactory { get; set; }
@@ -13,11 +15,15 @@ namespace Phundus.Core.Dashboard.Querying
 
         public void Handle(Notification notification)
         {
-            var domainEventHandler = DomainEventHandlerFactory.GetDomainEventHandlers();
-
-            foreach (var handler in domainEventHandler)
+            // TODO: Remove when MQ is in place
+            lock (_lock)
             {
-                UpdateReadModel(handler, notification);
+                var domainEventHandler = DomainEventHandlerFactory.GetDomainEventHandlers();
+
+                foreach (var handler in domainEventHandler)
+                {
+                    UpdateReadModel(handler, notification);
+                }
             }
         }
 
