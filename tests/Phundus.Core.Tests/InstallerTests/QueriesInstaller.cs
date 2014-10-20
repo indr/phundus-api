@@ -10,7 +10,7 @@
     public class when_queries_installer_is_installed : installer_concern<QueriesInstaller>
     {
         public It should_resolve_IEventsQueries_to_EventsReadModel =
-            () => Container.Resolve<IEventsQueries>().ShouldBeOfExactType<EventsReadModel>();
+            () => Container.Resolve<IEventLogQueries>().ShouldBeOfExactType<EventLogReadModel>();
     }
 
     public class installer_concern<TInstaller> where TInstaller : IWindsorInstaller

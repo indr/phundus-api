@@ -221,6 +221,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartMitSqlServerCe.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\Orgs\FilesController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
@@ -344,6 +345,8 @@
     <Content Include="Content\select2.png" />
     <Content Include="Content\select2x2.png" />
     <Content Include="Content\spinner.gif" />
+    <Content Include="Content\Views\Admin\SchemaUpdate.html" />
+    <Content Include="Content\Views\Admin\EventLog.html" />
     <Content Include="Content\Views\Documents\Contract.html" />
     <Content Include="Content\Views\Documents\Contracts.html" />
     <Content Include="Content\Views\Documents\Order.html" />
@@ -411,6 +414,7 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\modules\ph-admin.js" />
     <Content Include="Scripts\modules\ph-documents.js" />
     <Content Include="Scripts\modules\ph-domain.js" />
     <Content Include="Scripts\modules\ph-management.js" />
@@ -693,6 +697,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Documents\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\pbar-ani.gif" />

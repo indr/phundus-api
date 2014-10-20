@@ -1,4 +1,4 @@
-﻿namespace Phundus.Rest.Api
+﻿namespace Phundus.Rest.Api.Diagnostics
 {
     using System;
     using System.IO;
@@ -17,14 +17,25 @@
         public virtual HttpResponseMessage Get()
         {
             var fileName = HostingEnvironment.MapPath(@"~\App_Data\SchemaUpdate.sql");
-            if (!File.Exists(fileName))
+            if ((fileName == null) || (!File.Exists(fileName)))
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "");
 
             var content = File.OpenText(fileName).ReadToEnd();
             if (String.IsNullOrWhiteSpace(content))
-                return Request.CreateResponse(HttpStatusCode.NoContent);
+                return Request.CreateResponse(HttpStatusCode.NoContent, SchemaUpdateRepresentation.Empty);
 
-            return Request.CreateResponse(HttpStatusCode.OK, content);
+            var representation = new SchemaUpdateRepresentation();
+            representation.DateTimeUtc = File.GetLastWriteTimeUtc(fileName);
+            representation.Script = content;
+            return Request.CreateResponse(HttpStatusCode.OK, representation);
         }
+    }
+
+    public class SchemaUpdateRepresentation
+    {
+        public DateTime? DateTimeUtc { get; set; }
+        public string Script { get; set; }
+
+        public static SchemaUpdateRepresentation Empty { get { return new SchemaUpdateRepresentation(); } }
     }
 }

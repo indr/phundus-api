@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class EventsRecord
+    public class EventLogRecord
     {
         public virtual Guid EventGuid { get; set; }
         public virtual DateTime OccuredOnUtc { get; set; }
