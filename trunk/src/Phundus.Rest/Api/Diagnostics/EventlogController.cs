@@ -8,18 +8,17 @@ namespace Phundus.Rest.Api.Diagnostics
     using Castle.Transactions;
     using Core.Dashboard.Querying;
 
-    [RoutePrefix("api/diagnostics/events")]
+    [RoutePrefix("api/diagnostics/eventlog")]
     [Authorize(Roles = "Admin")]
-    //[AllowAnonymous] // TODO: AllowAnonymous entfernen
-    public class EventsController : ApiControllerBase
+    public class EventlogController : ApiControllerBase
     {
-        public IEventsQueries EventsQueries { get; set; }
+        public IEventLogQueries EventLogQueries { get; set; }
 
         [GET("")]
         [Transaction]
         public virtual HttpResponseMessage Get()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, EventsQueries.FindAll());
+            return Request.CreateResponse(HttpStatusCode.OK, EventLogQueries.FindMostRecent20());
         }
     }
 }

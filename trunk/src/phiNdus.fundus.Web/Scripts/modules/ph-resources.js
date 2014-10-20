@@ -107,5 +107,12 @@
         return $resource('./api/contracts/:contractId');
     })
     
+    .factory('schemaUpdate', function ($resource) {
+        return $resource('./api/diagnostics/schema-update');
+    })
+
+    .factory('eventLog', function($resource) {
+        return $resource('./api/diagnostics/eventlog');
+    })
 ; // ph.resources
 

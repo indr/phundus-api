@@ -3,9 +3,9 @@
     using Core.Dashboard.Querying.Records;
     using FluentNHibernate.Mapping;
 
-    public class EventsRecordMap : ClassMap<EventsRecord>
+    public class EventLogRecordMap : ClassMap<EventLogRecord>
     {
-        public EventsRecordMap()
+        public EventLogRecordMap()
         {
             SchemaAction.All();
             Table("Rm_Events");

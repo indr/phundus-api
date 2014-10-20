@@ -87,6 +87,8 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Benutzer", UsersActionNames.Index, ControllerNames.Users)</li>
                             <li class="divider"></li>
+                            <li><a href="@Url.Content("~/admin#/eventlog")">Ereignislog</a></li>
+                            <li><a href="@Url.Content("~/admin#/schemaupdate")">Schema-Update</a></li>
                             <li><a href="@Url.Content("~/elmah")" target="_blank">ELMAH</a></li>
                         </ul>
                     </li>

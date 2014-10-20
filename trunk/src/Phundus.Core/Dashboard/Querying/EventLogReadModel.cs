@@ -7,19 +7,19 @@ namespace Phundus.Core.Dashboard.Querying
     using IdentityAndAccess.Users.Model;
     using Records;
 
-    public interface IEventsQueries
+    public interface IEventLogQueries
     {
-        IEnumerable<EventsRecord> FindAll();
+        IEnumerable<EventLogRecord> FindMostRecent20();
     }
 
-    public class EventsReadModel : NHibernateReadModelBase<EventsRecord>, IEventsQueries, IDomainEventHandler
+    public class EventLogReadModel : NHibernateReadModelBase<EventLogRecord>, IEventLogQueries, IDomainEventHandler
     {
         public void Handle(DomainEvent domainEvent)
         {
             Process((dynamic) domainEvent);
         }
 
-        public IEnumerable<EventsRecord> FindAll()
+        public IEnumerable<EventLogRecord> FindMostRecent20()
         {
             return Query().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
         }
@@ -45,9 +45,9 @@ namespace Phundus.Core.Dashboard.Querying
             Insert(record);
         }
 
-        private static EventsRecord CreateRecord(DomainEvent @event)
+        private static EventLogRecord CreateRecord(DomainEvent @event)
         {
-            var record = new EventsRecord();
+            var record = new EventLogRecord();
             record.EventGuid = @event.Id;
             record.Name = @event.GetType().Name;
             record.OccuredOnUtc = @event.OccuredOnUtc;
