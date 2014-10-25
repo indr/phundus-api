@@ -43,7 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain.Model\DomainEvent.cs" />
+    <Compile Include="Domain.Model\Entity.cs" />
+    <Compile Include="Domain.Model\EntityWithCompositeId.cs" />
+    <Compile Include="Domain.Model\EventSourcedRootEntity.cs" />
     <Compile Include="Domain.Model\HashCodeHelper.cs" />
+    <Compile Include="Domain.Model\Identity.cs" />
+    <Compile Include="Domain.Model\IDomainEvent.cs" />
+    <Compile Include="Domain.Model\IIdentity.cs" />
+    <Compile Include="Domain.Model\TimeRange.cs" />
     <Compile Include="Domain.Model\ValueObject.cs" />
     <Compile Include="Events\EventSerializer.cs" />
     <Compile Include="Events\IEventStore.cs" />
