@@ -153,31 +153,31 @@
     <Compile Include="IdentityAndAccess\Users\Model\UserLoggedIn.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserRegistered.cs" />
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
-    <Compile Include="Inventory\Articles\Commands\AddImage.cs" />
-    <Compile Include="Inventory\Articles\Commands\RemoveImage.cs" />
-    <Compile Include="Inventory\Articles\Exceptions\ImageNotFoundException.cs" />
-    <Compile Include="Inventory\Articles\Model\ArticleCreated.cs" />
-    <Compile Include="Inventory\Articles\Model\ArticleUpdated.cs" />
-    <Compile Include="Inventory\Articles\Commands\CreateArticle.cs" />
-    <Compile Include="Inventory\Articles\Commands\UpdateArticle.cs" />
-    <Compile Include="Inventory\Articles\Model\ArticleDeleted.cs" />
-    <Compile Include="Inventory\Articles\Commands\DeleteArticle.cs" />
-    <Compile Include="Inventory\Articles\Exceptions\ArticleNotFoundException.cs" />
-    <Compile Include="Inventory\Articles\Model\ImageAdded.cs" />
-    <Compile Include="Inventory\Articles\Model\ImageRemoved.cs" />
-    <Compile Include="Inventory\Queries\ArticleReadModel.cs" />
-    <Compile Include="Inventory\Queries\IArticleQueries.cs" />
-    <Compile Include="Inventory\Queries\IImageQueries.cs" />
-    <Compile Include="Inventory\Articles\Repositories\IArticleRepository.cs" />
-    <Compile Include="Inventory\Queries\ArticleDtoAssembler.cs" />
-    <Compile Include="Inventory\Queries\ImageAssembler.cs" />
-    <Compile Include="Inventory\Queries\Dtos\ArticleDto.cs" />
-    <Compile Include="Inventory\Queries\Dtos\AvailabilityDto.cs" />
-    <Compile Include="Inventory\Queries\Dtos\ImageDto.cs" />
-    <Compile Include="Inventory\Queries\AvailabilityReadModel.cs" />
-    <Compile Include="Inventory\Queries\IAvailabilityQueries.cs" />
-    <Compile Include="Inventory\Services\IAvailabilityService.cs" />
-    <Compile Include="Inventory\Services\IReservationService.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Commands\AddImage.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Commands\RemoveImage.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Exceptions\ImageNotFoundException.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Model\ArticleCreated.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Model\ArticleUpdated.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Commands\CreateArticle.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Commands\UpdateArticle.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Model\ArticleDeleted.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Commands\DeleteArticle.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Exceptions\ArticleNotFoundException.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Model\ImageAdded.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Model\ImageRemoved.cs" />
+    <Compile Include="Inventory\_Legacy\Queries\ArticleReadModel.cs" />
+    <Compile Include="Inventory\_Legacy\Queries\IArticleQueries.cs" />
+    <Compile Include="Inventory\_Legacy\Queries\IImageQueries.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Repositories\IArticleRepository.cs" />
+    <Compile Include="Inventory\_Legacy\Queries\ArticleDtoAssembler.cs" />
+    <Compile Include="Inventory\_Legacy\Queries\ImageAssembler.cs" />
+    <Compile Include="Inventory\_Legacy\Queries\Dtos\ArticleDto.cs" />
+    <Compile Include="Inventory\_Legacy\Queries\Dtos\AvailabilityDto.cs" />
+    <Compile Include="Inventory\_Legacy\Queries\Dtos\ImageDto.cs" />
+    <Compile Include="Inventory\_Legacy\Queries\AvailabilityReadModel.cs" />
+    <Compile Include="Inventory\_Legacy\Queries\IAvailabilityQueries.cs" />
+    <Compile Include="Inventory\_Legacy\Services\IAvailabilityService.cs" />
+    <Compile Include="Inventory\_Legacy\Services\IReservationService.cs" />
     <Compile Include="Shop\Contracts\Commands\CreateEmptyContract.cs" />
     <Compile Include="Shop\Contracts\Model\Borrower.cs" />
     <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
@@ -264,7 +264,7 @@
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="_Legacy\DtoOutOfDateException.cs" />
-    <Compile Include="Inventory\Articles\Model\Article.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Model\Article.cs" />
     <Compile Include="Shop\Orders\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -274,13 +274,13 @@
     <Compile Include="Shop\Contracts\Model\Contract.cs" />
     <Compile Include="Shop\Contracts\Model\ContractItem.cs" />
     <Compile Include="Ddd\EntityBase.cs" />
-    <Compile Include="Inventory\Articles\Model\Image.cs" />
+    <Compile Include="Inventory\_Legacy\Articles\Model\Image.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Account.cs" />
     <Compile Include="Shop\Orders\Model\Order.cs" />
     <Compile Include="Shop\Orders\Model\OrderItem.cs" />
     <Compile Include="Shop\Orders\Model\OrderStatus.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Organization.cs" />
-    <Compile Include="Inventory\AvailabilityAndReservation\Model\Reservation.cs" />
+    <Compile Include="Inventory\_Legacy\AvailabilityAndReservation\Model\Reservation.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Role.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\User.cs" />
     <Compile Include="IdentityAndAccess\Users\Exceptions\InvalidPasswordException.cs" />
@@ -299,7 +299,7 @@
     <Compile Include="Shop\Orders\Repositories\ICartRepository.cs" />
     <Compile Include="Shop\Orders\Repositories\IOrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IOrganizationRepository.cs" />
-    <Compile Include="Inventory\AvailabilityAndReservation\Repositories\IReservationRepository.cs" />
+    <Compile Include="Inventory\_Legacy\AvailabilityAndReservation\Repositories\IReservationRepository.cs" />
     <Compile Include="IdentityAndAccess\Users\Repositories\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -329,7 +329,8 @@
   <ItemGroup>
     <Folder Include="Bootstrap\" />
     <Folder Include="IdentityAndAccess\Queries\Dtos\" />
-    <Folder Include="Inventory\Services\Dtos\" />
+    <Folder Include="Inventory\Domain.Model\" />
+    <Folder Include="Inventory\_Legacy\Services\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
     <Folder Include="Shop\Contracts\Exceptions\" />
   </ItemGroup>
