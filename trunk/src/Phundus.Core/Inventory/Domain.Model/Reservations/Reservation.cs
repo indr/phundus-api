@@ -17,11 +17,7 @@
         public Reservation(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId,
             TimeRange timeRange, int amount)
         {
-            _organizationId = organizationId;
-            _articleId = articleId;
-            _reservationId = reservationId;
-            _timeRange = timeRange;
-            _amount = amount;
+            Apply(new ReservationCreated(organizationId, articleId, reservationId, timeRange, amount));
         }
 
         public ArticleId ArticleId
@@ -49,13 +45,6 @@
             get { return _amount; }
         }
 
-        protected override IEnumerable<object> GetIdentityComponents()
-        {
-            yield return _organizationId;
-            yield return _articleId;
-            yield return _reservationId;
-        }
-
         protected void When(ReservationCreated e)
         {
             _organizationId = new OrganizationId(e.OrganizationId);
@@ -64,6 +53,14 @@
             _timeRange = new TimeRange(e.FromUtc, e.ToUtc);
             _amount = e.Amount;
         }
+
+        protected override IEnumerable<object> GetIdentityComponents()
+        {
+            yield return _organizationId;
+            yield return _articleId;
+            yield return _reservationId;
+        }
+
 
         public void ChangeTimeRange(TimeRange timeRange)
         {
@@ -87,6 +84,11 @@
         protected void When(ReservationAmountChanged e)
         {
             _amount = e.Amount;
+        }
+
+        protected override void When(IDomainEvent e)
+        {
+            When((dynamic) e);
         }
     }
 }
