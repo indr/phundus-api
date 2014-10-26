@@ -109,6 +109,7 @@
     <Compile Include="Ddd\IEventHandlerFactory.cs" />
     <Compile Include="Ddd\IStoredEventRepository.cs" />
     <Compile Include="Ddd\ISubscribeTo.cs" />
+    <Compile Include="IdentityAndAccess\Domain.Model\Users\UserId.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\UpdateOrganizationDetails.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\AttemptToLockOneselfException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\MemberNotFoundException.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="IdentityAndAccess\Users\Model\UserLoggedIn.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserRegistered.cs" />
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
+    <Compile Include="Inventory\Application\CreateReservation.cs" />
     <Compile Include="Inventory\Domain.Model\Articles\ArticleId.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\IReservationRepository.cs" />
     <Compile Include="IdentityAndAccess\Domain.Model\Organizations\OrganizationId.cs" />
