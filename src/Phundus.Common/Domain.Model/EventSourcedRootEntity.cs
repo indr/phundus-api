@@ -5,15 +5,30 @@
     public abstract class EventSourcedRootEntity : EntityWithCompositeId
     {
         private readonly List<IDomainEvent> _mutatingEvents;
+        private readonly int _unmutatedVersion;
 
         protected EventSourcedRootEntity()
         {
             _mutatingEvents = new List<IDomainEvent>();
         }
 
-        private void When(IDomainEvent e)
+        public EventSourcedRootEntity(IEnumerable<IDomainEvent> eventStream, int streamVersion)
+            : this()
         {
-            (this as dynamic).Apply(e);
+            foreach (var e in eventStream)
+                When(e);
+
+            _unmutatedVersion = streamVersion;
+        }
+
+        protected int UnmutatedVersion
+        {
+            get { return _unmutatedVersion; }
+        }
+
+        public IList<IDomainEvent> MutatingEvents
+        {
+            get { return _mutatingEvents; }
         }
 
         protected void Apply(IDomainEvent e)
@@ -21,5 +36,7 @@
             _mutatingEvents.Add(e);
             When(e);
         }
+
+        protected abstract void When(IDomainEvent e);
     }
 }

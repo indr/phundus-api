@@ -99,6 +99,7 @@
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="IdentityAndAccess\Users\Commands\RegisterUserHandler.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
+    <Compile Include="Inventory\Domain.Model\Reservations\ReservationTests.cs" />
     <Compile Include="Shop\BorrowerFactory.cs" />
     <Compile Include="concern.cs" />
     <Compile Include="Cqrs\TestCommand1.cs" />
