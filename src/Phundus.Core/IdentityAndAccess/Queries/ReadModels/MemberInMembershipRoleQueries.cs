@@ -3,6 +3,8 @@ namespace Phundus.Core.IdentityAndAccess.Queries
     using System;
     using System.Linq;
     using Cqrs;
+    using Domain.Model.Organizations;
+    using Domain.Model.Users;
     using Organizations.Model;
     using Organizations.Repositories;
 
@@ -14,6 +16,11 @@ namespace Phundus.Core.IdentityAndAccess.Queries
         {
             if (!IsActiveMember(organizationId, userId))
                 throw new AuthorizationException("Sie müssen aktives Mitglied dieser Organisation sein.");
+        }
+
+        public void ActiveMember(OrganizationId organizationId, UserId userId)
+        {
+            throw new NotImplementedException();
         }
 
         public void ActiveChief(int organizationId, int userId)
