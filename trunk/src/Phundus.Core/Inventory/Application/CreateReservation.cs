@@ -12,7 +12,7 @@
 
     public class CreateReservation
     {
-        public CreateReservation(int initiatorId, string organizationId, string articleId, DateTime fromUtc, DateTime toUtc, int amount)
+        public CreateReservation(int initiatorId, int organizationId, int articleId, DateTime fromUtc, DateTime toUtc, int amount)
         {
             InitiatorId = initiatorId;
             OrganizationId = organizationId;
@@ -24,9 +24,9 @@
 
         public int InitiatorId { get; private set; }
 
-        public string OrganizationId { get; private set; }
+        public int OrganizationId { get; private set; }
 
-        public string ArticleId { get; private set; }
+        public int ArticleId { get; private set; }
 
         public DateTime FromUtc { get; private set; }
 
@@ -45,7 +45,7 @@
 
         public void Handle(CreateReservation command)
         {
-            var initiatorId = new UserId(command.InitiatorId.ToString(CultureInfo.InvariantCulture));
+            var initiatorId = new UserId(command.InitiatorId);
             var organizationId = new OrganizationId(command.OrganizationId);
             MemberInRole.ActiveMember(organizationId, initiatorId);
 

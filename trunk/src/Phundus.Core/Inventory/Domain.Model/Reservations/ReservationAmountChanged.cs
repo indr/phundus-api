@@ -22,10 +22,10 @@
         }
 
         [DataMember(Order = 1)]
-        public string OrganizationId { get; protected set; }
+        public int OrganizationId { get; protected set; }
 
         [DataMember(Order = 2)]
-        public string ArticleId { get; protected set; }
+        public int ArticleId { get; protected set; }
 
         [DataMember(Order = 3)]
         public string ReservationId { get; protected set; }

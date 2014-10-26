@@ -15,9 +15,9 @@
 
         public Establish ctx = () =>
         {
-            organizationId = new OrganizationId("012");
-            articleId = new ArticleId("345");
-            reservationId = new ReservationId("678");
+            organizationId = new OrganizationId(101);
+            articleId = new ArticleId(201);
+            reservationId = new ReservationId("0123456789");
         };
     }
 

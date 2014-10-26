@@ -22,12 +22,12 @@
             repository = depends.on<IReservationRepository>();
             repository.WhenToldTo(x => x.GetNextIdentity()).Return(new ReservationId("R_1234"));
 
-            command = new CreateReservation(2, "1", "A1", DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
+            command = new CreateReservation(1, 101, 201, DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
         };
 
         public It should_ask_for_member_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveMember(Arg<OrganizationId>.Matches(p => p.Id == "1"),
-                Arg<UserId>.Matches(p => p.Id == "2")));
+            () => memberInRole.WasToldTo(x => x.ActiveMember(Arg<OrganizationId>.Matches(p => p.Id == 101),
+                Arg<UserId>.Matches(p => p.Id == 1)));
 
         public It should_have_resulting_reservation_id = () => command.ResultingReservationId.ShouldEqual("R_1234");
 

@@ -2,30 +2,25 @@
 {
     using System;
 
-    public abstract class Identity : IEquatable<Identity>, IIdentity
+    public abstract class Identity<T> : IEquatable<Identity<T>>, IIdentity<T>
     {
-        protected Identity()
-        {
-            Id = Guid.NewGuid().ToString();
-        }
-
-        protected Identity(string id)
+        protected Identity(T id)
         {
             Id = id;
         }
 
-        public bool Equals(Identity id)
+        public bool Equals(Identity<T> id)
         {
             if (ReferenceEquals(this, id)) return true;
             if (ReferenceEquals(null, id)) return false;
             return Id.Equals(id.Id);
         }
 
-        public string Id { get; protected set; }
+        public T Id { get; protected set; }
 
         public override bool Equals(object anotherObject)
         {
-            return Equals(anotherObject as Identity);
+            return Equals(anotherObject as Identity<T>);
         }
 
         public override int GetHashCode()

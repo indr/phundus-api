@@ -2,9 +2,9 @@
 {
     using Common.Domain.Model;
 
-    public class UserId : Identity
+    public class UserId : Identity<int>
     {
-        public UserId(string id) : base(id)
+        public UserId(int id) : base(id)
         {
         }
     }
