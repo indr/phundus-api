@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Common.Domain.Model
 {
-    public interface IIdentity
+    public interface IIdentity<out T>
     {
-        string Id { get; }
+        T Id { get; }
     }
 }

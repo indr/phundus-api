@@ -2,9 +2,9 @@
 {
     using Common.Domain.Model;
 
-    public class OrganizationId : Identity
+    public class OrganizationId : Identity<int>
     {
-        public OrganizationId(string id) : base(id)
+        public OrganizationId(int id) : base(id)
         {
         }
     }
