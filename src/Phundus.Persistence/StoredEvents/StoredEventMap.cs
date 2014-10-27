@@ -16,8 +16,10 @@
             Map(x => x.EventGuid, "EventGuid").Not.Update();
             Map(x => x.TypeName, "TypeName").Not.Update();
             Map(x => x.OccuredOnUtc, "OccuredOnUtc").Not.Update();
-            Map(x => x.AggregateId, "AggregateId").Not.Update();
             Map(x => x.Serialization, "Serialization").Not.Update();
+
+            Map(x => x.StreamName, "StreamName").Not.Update();
+            Map(x => x.StreamVersion, "StreamVersion").Not.Update();
         }
     }
 }

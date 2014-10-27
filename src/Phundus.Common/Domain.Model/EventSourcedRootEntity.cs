@@ -31,6 +31,11 @@
             get { return _mutatingEvents; }
         }
 
+        public int MutatedVersion
+        {
+            get { return _unmutatedVersion + 1; }
+        }
+
         protected void Apply(IDomainEvent e)
         {
             _mutatingEvents.Add(e);

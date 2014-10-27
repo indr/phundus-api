@@ -124,6 +124,7 @@
     <Compile Include="2014\10\M201410191911CreateTableProcessedNotificationTracker.cs" />
     <Compile Include="2014\10\M201410192132ClearRmEventsListView.cs" />
     <Compile Include="2014\10\M201410200709DeleteTableRmEventsAndEmptyTrackers.cs" />
+    <Compile Include="2014\10\M201410270647CreateColumnStreamNameAndStreamVersionOnStoredEvents.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />

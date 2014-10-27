@@ -8,7 +8,7 @@
 
     public interface IEventSerializer
     {
-        byte[] Serialize(DomainEvent domainEvent);
+        byte[] Serialize(IDomainEvent domainEvent);
 
         object Deserialize(Type type, Guid id, DateTime occuredOnUtc, byte[] serialization);
         T Deserialize<T>(Guid id, DateTime occuredOnUtc, byte[] serialization) where T : DomainEvent;
@@ -19,7 +19,7 @@
         private static readonly PropertyInfo IdProperty = typeof (DomainEvent).GetProperty("Id");
         private static readonly PropertyInfo OccuredOnUtcProp = typeof (DomainEvent).GetProperty("OccuredOnUtc");
 
-        public byte[] Serialize(DomainEvent domainEvent)
+        public byte[] Serialize(IDomainEvent domainEvent)
         {
             var stream = new MemoryStream();
             Serializer.Serialize(stream, domainEvent);

@@ -1,13 +1,15 @@
 ﻿namespace Phundus.Common.Events
 {
-    using System.Collections;
     using System.Collections.Generic;
     using Domain.Model;
 
     public interface IEventStore
     {
-        void Append(DomainEvent domainEvent);
         IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId);
+
+        void Append(DomainEvent domainEvent);
+        void Append(EventStreamId eventStreamId, IList<IDomainEvent> domainEvents);
+
         long CountStoredEvents();
         long GetMaxNotificationId();
         DomainEvent ToDomainEvent(StoredEvent storedEvent);
