@@ -17,6 +17,7 @@
             ReservationId = reservationId.Id;
             FromUtc = timeRange.FromUtc;
             ToUtc = timeRange.ToUtc;
+            Amount = amount;
         }
 
         protected ReservationCreated()

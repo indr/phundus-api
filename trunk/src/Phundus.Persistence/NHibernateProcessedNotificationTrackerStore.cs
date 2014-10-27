@@ -7,13 +7,12 @@ namespace Phundus.Persistence
     using Common.Notifications;
     using FluentNHibernate.Mapping;
     using NHibernate;
-    using Remotion.Linq.Clauses.ResultOperators;
 
     public class ProcessedNotificationTrackerMap : ClassMap<ProcessedNotificationTracker>
     {
         public ProcessedNotificationTrackerMap()
         {
-            SchemaAction.None();
+            SchemaAction.Validate();
 
             Id(x => x.Id, "TrackerId").GeneratedBy.Assigned();
             Version(x => x.ConcurrencyVersion);
