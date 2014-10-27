@@ -19,7 +19,6 @@
 
         public override void Down()
         {
-            throw new NotImplementedException();
         }
     }
 }

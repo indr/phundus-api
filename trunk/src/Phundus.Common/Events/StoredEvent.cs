@@ -7,19 +7,26 @@
 
     public class StoredEvent
     {
-        private Guid _aggregateId;
         private Guid _eventGuid;
         private DateTime _occuredOnUtc;
         private byte[] _serialization;
         private string _typeName;
+        private string _streamName = null;
+        private long? _streamVersion = null;
 
         public StoredEvent(Guid eventGuid, DateTime occuredOnUtc, string typeName, byte[] serialization)
         {
             _eventGuid = eventGuid;
             _typeName = typeName;
             _occuredOnUtc = occuredOnUtc;
-            //_aggregateId = ;
             _serialization = serialization;
+        }
+
+        public StoredEvent(Guid eventGuid, DateTime occuredOnUtc, string typeName, byte[] serialization,
+            EventStreamId eventStreamId) : this(eventGuid, occuredOnUtc, typeName, serialization)
+        {
+            _streamName = eventStreamId.StreamName;
+            _streamVersion = eventStreamId.StreamVersion;
         }
 
         protected StoredEvent()
@@ -49,16 +56,22 @@
             protected set { _occuredOnUtc = value; }
         }
 
-        public virtual Guid AggregateId
-        {
-            get { return _aggregateId; }
-            protected set { _aggregateId = value; }
-        }
-
         public virtual byte[] Serialization
         {
             get { return _serialization; }
             protected set { _serialization = value; }
-        }        
+        }
+
+        public virtual string StreamName
+        {
+            get { return _streamName; }
+            protected set { _streamName = value; }
+        }
+
+        public virtual long? StreamVersion
+        {
+            get { return _streamVersion; }
+            protected set { _streamVersion = value; }
+        }
     }
 }

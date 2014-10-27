@@ -18,6 +18,20 @@
 
         public void Append(DomainEvent domainEvent)
         {
+            AppendEventStore(domainEvent, new EventStreamId(domainEvent.Id.ToString(), 1), 0);
+        }
+
+        public void Append(EventStreamId eventStreamId, IList<IDomainEvent> domainEvents)
+        {
+            var index = 0;
+            foreach (var domainEvent in domainEvents)
+            {
+                AppendEventStore(domainEvent, eventStreamId, index++);
+            }
+        }
+
+        protected void AppendEventStore(IDomainEvent domainEvent, EventStreamId startingEventStreamId, int index)
+        {
             var storedEvent = ToStoredEvent(domainEvent);
             Repository.Append(storedEvent);
 
@@ -47,7 +61,7 @@
                 storedEvent.OccuredOnUtc, storedEvent.Serialization);
         }
 
-        protected StoredEvent ToStoredEvent(DomainEvent domainEvent)
+        protected StoredEvent ToStoredEvent(IDomainEvent domainEvent)
         {
             var serialization = Serializer.Serialize(domainEvent);
 
