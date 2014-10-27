@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Persistence.StoredEvents
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using Common.Domain.Model;
     using Common.Events;
@@ -30,14 +29,6 @@
             }
         }
 
-        protected void AppendEventStore(IDomainEvent domainEvent, EventStreamId startingEventStreamId, int index)
-        {
-            var storedEvent = ToStoredEvent(domainEvent);
-            Repository.Append(storedEvent);
-
-            NotificationPublisher.PublishNotification(storedEvent);
-        }
-
         public IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId)
         {
             return Repository.AllStoredEventsBetween(lowStoredEventId, highStoredEventId);
@@ -61,7 +52,16 @@
                 storedEvent.OccuredOnUtc, storedEvent.Serialization);
         }
 
-        protected StoredEvent ToStoredEvent(IDomainEvent domainEvent)
+        protected void AppendEventStore(IDomainEvent domainEvent, EventStreamId startingEventStreamId, int index)
+        {
+            var storedEvent = ToStoredEvent(domainEvent, startingEventStreamId.StreamName,
+                startingEventStreamId.StreamVersion + index);
+            Repository.Append(storedEvent);
+
+            NotificationPublisher.PublishNotification(storedEvent);
+        }
+
+        private StoredEvent ToStoredEvent(IDomainEvent domainEvent, string streamName, long streamVersion)
         {
             var serialization = Serializer.Serialize(domainEvent);
 
@@ -69,9 +69,9 @@
             var typeName = domainEventType.FullName + ", " + domainEventType.Assembly.GetName().Name;
 
             var storedEvent = new StoredEvent(domainEvent.Id, domainEvent.OccuredOnUtc,
-                typeName, serialization);
+                typeName, serialization, streamName, streamVersion);
 
             return storedEvent;
-        }
+        }        
     }
 }

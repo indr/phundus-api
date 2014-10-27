@@ -1,18 +1,15 @@
 ﻿namespace Phundus.Common.Events
 {
     using System;
-    using System.Linq;
-    using System.Reflection;
-    using Domain.Model;
 
     public class StoredEvent
     {
         private Guid _eventGuid;
         private DateTime _occuredOnUtc;
         private byte[] _serialization;
+        private string _streamName;
+        private long _streamVersion;
         private string _typeName;
-        private string _streamName = null;
-        private long? _streamVersion = null;
 
         public StoredEvent(Guid eventGuid, DateTime occuredOnUtc, string typeName, byte[] serialization)
         {
@@ -23,10 +20,10 @@
         }
 
         public StoredEvent(Guid eventGuid, DateTime occuredOnUtc, string typeName, byte[] serialization,
-            EventStreamId eventStreamId) : this(eventGuid, occuredOnUtc, typeName, serialization)
+            string streamName, long streamVersion) : this(eventGuid, occuredOnUtc, typeName, serialization)
         {
-            _streamName = eventStreamId.StreamName;
-            _streamVersion = eventStreamId.StreamVersion;
+            _streamName = streamName;
+            _streamVersion = streamVersion;
         }
 
         protected StoredEvent()
@@ -49,7 +46,7 @@
             get { return _typeName; }
             protected set { _typeName = value; }
         }
-        
+
         public virtual DateTime OccuredOnUtc
         {
             get { return _occuredOnUtc; }
@@ -68,7 +65,7 @@
             protected set { _streamName = value; }
         }
 
-        public virtual long? StreamVersion
+        public virtual long StreamVersion
         {
             get { return _streamVersion; }
             protected set { _streamVersion = value; }

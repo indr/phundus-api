@@ -68,7 +68,7 @@
 
         private IEnumerable<Notification> GetNotificationsFrom(IEnumerable<StoredEvent> storedEvents)
         {
-            return storedEvents.Select(each => new Notification(each.EventId, EventStore.ToDomainEvent(each))).ToList();
+            return storedEvents.Select(each => new Notification(each.EventId, EventStore.ToDomainEvent(each), each.StreamName, each.StreamVersion)).ToList();
         }
     }
 }
