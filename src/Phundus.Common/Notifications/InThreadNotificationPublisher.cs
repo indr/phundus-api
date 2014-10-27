@@ -15,7 +15,7 @@
 
         public void PublishNotification(StoredEvent storedEvent)
         {
-            var notification = new Notification(storedEvent.EventId, EventStore.ToDomainEvent(storedEvent));
+            var notification = new Notification(storedEvent.EventId, EventStore.ToDomainEvent(storedEvent), storedEvent.StreamName, storedEvent.StreamVersion);
 
             var handlers = Factory.GetNotificationHandlers();
             
