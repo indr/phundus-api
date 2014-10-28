@@ -23,7 +23,7 @@
 
         public void Append(DomainEvent domainEvent)
         {
-            AppendEventStore(domainEvent, new EventStreamId(domainEvent.Id.ToString(), 1), 0);
+            AppendEventStore(domainEvent, new EventStreamId(domainEvent.Id.ToString(), 0), 0);
         }
 
         public void Append(EventStreamId eventStreamId, IList<IDomainEvent> domainEvents)
