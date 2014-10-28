@@ -112,7 +112,7 @@
     })
 
     .factory('eventLog', function($resource) {
-        return $resource('./api/diagnostics/eventlog');
+        return $resource('./api/diagnostics/activities');
     })
 ; // ph.resources
 

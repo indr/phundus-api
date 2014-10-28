@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
@@ -68,6 +74,9 @@
     <Compile Include="Notifications\NotificationLog.cs" />
     <Compile Include="Notifications\NotificationLogId.cs" />
     <Compile Include="Notifications\NotificationLogFactory.cs" />
+    <Compile Include="Port.Adapter\Persistence\NHibernateProjectionBase.cs" />
+    <Compile Include="Port.Adapter\Persistence\NHibernateQueryServiceBase.cs" />
+    <Compile Include="Port.Adapter\Persistence\View\ProjectionDispatcher.cs" />
     <Compile Include="ProcessedNotificationTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

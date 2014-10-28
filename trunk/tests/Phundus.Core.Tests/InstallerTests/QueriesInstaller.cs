@@ -3,14 +3,26 @@
     using System;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using Dashboard.Querying;
+    using Common.Notifications;
+    using Dashboard.Application;
+    using Dashboard.Port.Adapter.Persistence.View;
+    using Infrastructure;
     using Machine.Specifications;
 
-    [Subject(typeof (QueriesInstaller))]
-    public class when_queries_installer_is_installed : installer_concern<QueriesInstaller>
+    [Subject(typeof (QueryServiceInstaller))]
+    public class when_query_service_installer_is_installed : installer_concern<QueryServiceInstaller>
     {
-        public It should_resolve_IEventsQueries_to_EventsReadModel =
-            () => Container.Resolve<IEventLogQueries>().ShouldBeOfExactType<EventLogReadModel>();
+        public It should_resolve_IActivityQueryService_to_ActivityQueryService =
+            () => Container.Resolve<IActivityQueryService>().ShouldBeOfExactType<ActivityQueryService>();
+    }
+
+    [Subject(typeof (ProjectionInstaller))]
+    public class when_projection_installer_is_installed : installer_concern<ProjectionInstaller>
+    {
+        public It should_resolve_IDomainEventHandler_to_NHibernateActivityProjection =
+            () =>
+                Container.ResolveAll<IDomainEventHandler>()
+                    .ShouldContain(p => p.GetType().Equals(typeof (NHibernateActivityProjection)));
     }
 
     public class installer_concern<TInstaller> where TInstaller : IWindsorInstaller

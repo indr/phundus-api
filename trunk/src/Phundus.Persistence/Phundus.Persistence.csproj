@@ -80,7 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dashboard\EventLogRecordMap.cs" />
+    <Compile Include="Dashboard\ActivityDataMap.cs" />
     <Compile Include="NHibernateProcessedNotificationTrackerStore.cs" />
     <Compile Include="StoredEvents\EventStore.cs" />
     <Compile Include="StoredEvents\NhStoredEventRepository.cs" />

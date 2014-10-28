@@ -1,27 +1,17 @@
-namespace Phundus.Core.Dashboard.Querying
+namespace Phundus.Core.Dashboard.Port.Adapter.Persistence.View
 {
-    using System.Collections.Generic;
+    using System;
+    using Application.Data;
     using Common.Domain.Model;
     using Common.Notifications;
-    using Cqrs;
+    using Common.Port.Adapter.Persistence;
     using IdentityAndAccess.Users.Model;
-    using Records;
 
-    public interface IEventLogQueries
-    {
-        IEnumerable<EventLogRecord> FindMostRecent20();
-    }
-
-    public class EventLogReadModel : NHibernateReadModelBase<EventLogRecord>, IEventLogQueries, IDomainEventHandler
+    public class NHibernateActivityProjection : NHibernateProjectionBase<ActivityData>, IDomainEventHandler
     {
         public void Handle(DomainEvent domainEvent)
         {
             Process((dynamic) domainEvent);
-        }
-
-        public IEnumerable<EventLogRecord> FindMostRecent20()
-        {
-            return Query().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
         }
 
         public void Process(DomainEvent domainEvent)
@@ -34,20 +24,20 @@ namespace Phundus.Core.Dashboard.Querying
         public void Process(UserLoggedIn domainEvent)
         {
             var record = CreateRecord(domainEvent);
-            record.Text = "Benutzer hat sich eingeloggt: " + domainEvent.UserId;
+            record.Text = "Benutzer hat sich eingeloggt: " + domainEvent.EmailAddress;
             Insert(record);
         }
 
         public void Process(UserRegistered domainEvent)
         {
             var record = CreateRecord(domainEvent);
-            record.Text = "Benutzer hat sich registriert: " + domainEvent.EmailAddress;
+            record.Text = String.Format("Benutzer {0} hat sich angemeldet.", domainEvent.EmailAddress);
             Insert(record);
         }
 
-        private static EventLogRecord CreateRecord(DomainEvent @event)
+        private static ActivityData CreateRecord(DomainEvent @event)
         {
-            var record = new EventLogRecord();
+            var record = new ActivityData();
             record.EventGuid = @event.Id;
             record.Name = @event.GetType().Name;
             record.OccuredOnUtc = @event.OccuredOnUtc;

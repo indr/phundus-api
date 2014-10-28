@@ -1,8 +1,8 @@
-﻿namespace Phundus.Core.Dashboard.Querying.Records
+﻿namespace Phundus.Core.Dashboard.Application.Data
 {
     using System;
 
-    public class EventLogRecord
+    public class ActivityData
     {
         public virtual Guid EventGuid { get; set; }
         public virtual DateTime OccuredOnUtc { get; set; }

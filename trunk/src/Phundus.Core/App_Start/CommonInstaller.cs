@@ -6,12 +6,13 @@ namespace Phundus.Core
     using Castle.Windsor;
     using Common.Events;
     using Common.Notifications;
+    using Common.Port.Adapter.Persistence.View;
 
     public class CommonInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Types.FromThisAssembly().BasedOn<INotificationHandler>().WithServiceFromInterface());
+            container.Register(Component.For<INotificationHandler>().ImplementedBy<ProjectionDispatcher>());
 
             container.Register(Component.For<IDomainEventHandlerFactory>().AsFactory());
 

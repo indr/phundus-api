@@ -1,15 +1,19 @@
-namespace Phundus.Core.Dashboard.Querying
+namespace Phundus.Common.Port.Adapter.Persistence.View
 {
-    using Common.Events;
-    using Common.Notifications;
+    using System;
+    using Events;
+    using NHibernate;
+    using Notifications;
 
-    public class ReadModelUpdater : INotificationHandler
+    public class ProjectionDispatcher : INotificationHandler
     {
         private static object _lock = new object();
 
         public IProcessedNotificationTrackerStore ProcessedNotificationTrackerStore { get; set; }
 
         public IDomainEventHandlerFactory DomainEventHandlerFactory { get; set; }
+
+        public NHibernateProjectionBase<Object>[] Projectsion { get; set; }
 
         public IEventStore EventStore { get; set; }
 
@@ -25,7 +29,11 @@ namespace Phundus.Core.Dashboard.Querying
                     UpdateReadModel(handler, notification);
                 }
             }
+
+            
         }
+
+        
 
         private void UpdateReadModel(IDomainEventHandler domainEventHandler, Notification notification)
         {
