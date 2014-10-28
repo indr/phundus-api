@@ -1,14 +1,14 @@
 ﻿namespace Phundus.Persistence.Dashboard
 {
-    using Core.Dashboard.Querying.Records;
+    using Core.Dashboard.Application.Data;
     using FluentNHibernate.Mapping;
 
-    public class EventLogRecordMap : ClassMap<EventLogRecord>
+    public class ActivityDataMap : ClassMap<ActivityData>
     {
-        public EventLogRecordMap()
+        public ActivityDataMap()
         {
             SchemaAction.All();
-            Table("Rm_EventLog");
+            Table("Proj_ActivityData");
 
             Id(x => x.EventGuid).GeneratedBy.Assigned();
 

@@ -10,12 +10,16 @@
         {
         }
 
-        public UserLoggedIn(int userId)
+        public UserLoggedIn(int userId, string emailAddress)
         {
             UserId = userId;
+            EmailAddress = emailAddress;
         }
 
         [DataMember(Order = 1)]
         public int UserId { get; set; }
+
+        [DataMember(Order = 2)]
+        public string EmailAddress { get; set; }
     }
 }
