@@ -20,7 +20,7 @@ namespace Phundus.Core.IdentityAndAccess.Queries
 
         public void ActiveMember(OrganizationId organizationId, UserId userId)
         {
-            throw new NotImplementedException();
+            ActiveMember(organizationId.Id, userId.Id);
         }
 
         public void ActiveChief(int organizationId, int userId)

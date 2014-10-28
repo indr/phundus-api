@@ -5,14 +5,14 @@
     public abstract class EventSourcedRootEntity : EntityWithCompositeId
     {
         private readonly List<IDomainEvent> _mutatingEvents;
-        private readonly int _unmutatedVersion;
+        private readonly long _unmutatedVersion;
 
         protected EventSourcedRootEntity()
         {
             _mutatingEvents = new List<IDomainEvent>();
         }
 
-        public EventSourcedRootEntity(IEnumerable<IDomainEvent> eventStream, int streamVersion)
+        public EventSourcedRootEntity(IEnumerable<IDomainEvent> eventStream, long streamVersion)
             : this()
         {
             foreach (var e in eventStream)
@@ -21,7 +21,7 @@
             _unmutatedVersion = streamVersion;
         }
 
-        protected int UnmutatedVersion
+        protected long UnmutatedVersion
         {
             get { return _unmutatedVersion; }
         }
@@ -31,7 +31,7 @@
             get { return _mutatingEvents; }
         }
 
-        public int MutatedVersion
+        public long MutatedVersion
         {
             get { return _unmutatedVersion + 1; }
         }
