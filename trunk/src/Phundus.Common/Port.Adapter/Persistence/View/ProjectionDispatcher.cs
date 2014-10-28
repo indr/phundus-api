@@ -2,10 +2,10 @@ namespace Phundus.Common.Port.Adapter.Persistence.View
 {
     using System;
     using Events;
-    using NHibernate;
+    using Messaging;
     using Notifications;
 
-    public class ProjectionDispatcher : INotificationHandler
+    public class ProjectionDispatcher : INotificationConsumer
     {
         private static object _lock = new object();
 
@@ -17,7 +17,7 @@ namespace Phundus.Common.Port.Adapter.Persistence.View
 
         public IEventStore EventStore { get; set; }
 
-        public void Handle(Notification notification)
+        public void Consume(Notification notification)
         {
             // TODO: Remove when MQ is in place
             lock (_lock)
@@ -29,11 +29,8 @@ namespace Phundus.Common.Port.Adapter.Persistence.View
                     UpdateReadModel(handler, notification);
                 }
             }
-
-            
         }
 
-        
 
         private void UpdateReadModel(IDomainEventHandler domainEventHandler, Notification notification)
         {
@@ -42,7 +39,7 @@ namespace Phundus.Common.Port.Adapter.Persistence.View
             if (tracker.MostRecentProcessedNotificationId >= notification.NotificationId)
                 return;
 
-            var events = EventStore.AllStoredEventsBetween(tracker.MostRecentProcessedNotificationId + 1,
+            var events = EventStore.GetAllStoredEventsBetween(tracker.MostRecentProcessedNotificationId + 1,
                 notification.NotificationId);
             foreach (var each in events)
             {

@@ -47,7 +47,7 @@
 
         private NotificationLog CreateNotificationLog(NotificationLogId notificationLogId)
         {
-            var storedEvents = EventStore.AllStoredEventsBetween(
+            var storedEvents = EventStore.GetAllStoredEventsBetween(
                 notificationLogId.Low, notificationLogId.High);
 
             // TODO: Bedingt, dass keine Lücken vorhanden sind!

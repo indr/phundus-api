@@ -20,6 +20,10 @@
             Apply(new ReservationCreated(organizationId, articleId, reservationId, timeRange, amount));
         }
 
+        public Reservation(IEnumerable<DomainEvent> eventStream, long eventStreamVersion) : base(eventStream, eventStreamVersion)
+        {
+        }
+
         public ArticleId ArticleId
         {
             get { return _articleId; }

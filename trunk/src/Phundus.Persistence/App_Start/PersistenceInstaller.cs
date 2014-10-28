@@ -6,6 +6,7 @@
     using Common.Events;
     using Common.Notifications;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
+    using Core.Inventory.Port.Adapter.Persistence;
     using Inventory.Repositories;
     using StoredEvents;
 
@@ -24,6 +25,8 @@
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IEventStore>().ImplementedBy<EventStore>());
+
+            
 
             container.Register(Types.FromThisAssembly()
                 .BasedOn(typeof (NhRepositoryBase<>))

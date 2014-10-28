@@ -4,16 +4,22 @@
     using System.Collections.Generic;
     using Common.Domain.Model;
     using Common.Events;
-    using Common.Notifications;
+    using Common.Messaging;
     using Core.Ddd;
+    using NHibernate;
+    using NHibernate.Criterion.Lambda;
 
     public class EventStore : IEventStore
     {
+        public Func<ISession> SessionFactory { get; set; }
+
+        protected ISession Session { get { return SessionFactory(); } }
+
         public IEventSerializer Serializer { get; set; }
 
         public IStoredEventRepository Repository { get; set; }
 
-        public INotificationPublisher NotificationPublisher { get; set; }
+        public INotificationProducer NotificationProducer { get; set; }
 
         public void Append(DomainEvent domainEvent)
         {
@@ -29,9 +35,34 @@
             }
         }
 
-        public IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId)
+        public IEnumerable<StoredEvent> GetAllStoredEventsBetween(long lowStoredEventId, long highStoredEventId)
         {
             return Repository.AllStoredEventsBetween(lowStoredEventId, highStoredEventId);
+        }
+
+        public EventStream GetEventStreamSince(EventStreamId eventStreamId)
+        {
+            var storedEvents = Session.QueryOver<StoredEvent>()
+                .Where(e => e.StreamName == eventStreamId.StreamName)
+                .And(e => e.StreamVersion >= eventStreamId.StreamVersion)
+                .OrderBy(e => e.StreamVersion).Asc.Future();
+
+            var eventStream = CreateEventStream(storedEvents);
+
+            return eventStream;
+        }
+
+        private EventStream CreateEventStream(IEnumerable<StoredEvent> storedEvents)
+        {
+            var domainEvents = new List<DomainEvent>();
+            long version = 0;
+            foreach (var each in storedEvents)
+            {
+                domainEvents.Add(ToDomainEvent(each));
+                version = each.StreamVersion;
+            }
+
+            return new EventStream(domainEvents, version);
         }
 
         public long CountStoredEvents()
@@ -58,7 +89,7 @@
                 startingEventStreamId.StreamVersion + index);
             Repository.Append(storedEvent);
 
-            NotificationPublisher.PublishNotification(storedEvent);
+            NotificationProducer.Produce(storedEvent);
         }
 
         private StoredEvent ToStoredEvent(IDomainEvent domainEvent, string streamName, long streamVersion)
@@ -72,6 +103,6 @@
                 typeName, serialization, streamName, streamVersion);
 
             return storedEvent;
-        }        
+        }
     }
 }

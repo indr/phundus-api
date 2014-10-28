@@ -9,7 +9,7 @@
     using Machine.Specifications;
 
     [Subject("NHibernateMappings")]
-    public class all_mappings_except_those_for_records : Observes
+    public class all_mappings_except_data_maps : Observes
     {
         private static IEnumerable<Type> classMapTypes;
         private static IEnumerable<IMappingProvider> instances;
@@ -18,7 +18,7 @@
             () =>
             {
                 classMapTypes = typeof (PersistenceInstaller).Assembly.GetTypes()
-                    .Where(p => !p.Name.EndsWith("RecordMap"))
+                    .Where(p => !p.Name.EndsWith("DataMap"))
                     .Where(p => IsSubclassOfOpenGeneric(typeof (ClassMap<>), p));
             };
 
