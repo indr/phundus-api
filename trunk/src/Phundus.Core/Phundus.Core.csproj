@@ -155,6 +155,8 @@
     <Compile Include="IdentityAndAccess\Users\Model\UserRegistered.cs" />
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
     <Compile Include="Inventory\Application\CreateReservation.cs" />
+    <Compile Include="Inventory\Application\Data\ReservationData.cs" />
+    <Compile Include="Inventory\Application\ReservationQueryService.cs" />
     <Compile Include="Inventory\Domain.Model\Articles\ArticleId.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreReservationRepository.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\IReservationRepository.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationCreated.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationId.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationTimeRangeChanged.cs" />
+    <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateReservationProjection.cs" />
     <Compile Include="Inventory\_Legacy\Articles\Commands\AddImage.cs" />
     <Compile Include="Inventory\_Legacy\Articles\Commands\RemoveImage.cs" />
     <Compile Include="Inventory\_Legacy\Articles\Exceptions\ImageNotFoundException.cs" />
