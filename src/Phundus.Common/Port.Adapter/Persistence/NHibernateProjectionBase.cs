@@ -12,9 +12,14 @@
             get { return SessionFactory(); }
         }
 
-        protected void Insert(TRecord record)
+        protected TRecord Find(object id)
         {
-            Session.Save(record);
+            return Session.Get<TRecord>(id);
+        }
+
+        protected void Save(TRecord record)
+        {
+            Session.SaveOrUpdate(record);
         }
     }
 }
