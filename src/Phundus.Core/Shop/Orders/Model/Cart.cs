@@ -7,7 +7,7 @@
     using Ddd;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
-    using Inventory.Articles.Repositories;
+    using Inventory.Domain.Model.Catalog;
     using Inventory.Services;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;

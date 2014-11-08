@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory.Articles.Model
+﻿namespace Phundus.Core.Inventory.Domain.Model.Catalog
 {
     using Ddd;
 

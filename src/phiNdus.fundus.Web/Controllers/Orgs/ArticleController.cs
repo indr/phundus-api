@@ -6,7 +6,7 @@
     using System.Web.Mvc;
     using Castle.Transactions;
     using Core.IdentityAndAccess.Queries;
-    using Core.Inventory.Articles.Commands;
+    using Core.Inventory.Application.Commands;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Core.Inventory.Queries;
     using Models.ArticleModels;

@@ -5,8 +5,7 @@
     using Contracts.Model;
     using Ddd;
     using Iesi.Collections.Generic;
-    using Inventory.Articles.Model;
-    using Inventory.Articles.Repositories;
+    using Inventory.Domain.Model.Catalog;
     using Inventory.Services;
     using Microsoft.Practices.ServiceLocation;
 

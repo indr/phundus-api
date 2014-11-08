@@ -154,10 +154,10 @@
     <Compile Include="IdentityAndAccess\Users\Model\UserLoggedIn.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserRegistered.cs" />
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
-    <Compile Include="Inventory\Application\CreateReservation.cs" />
+    <Compile Include="Inventory\Application\Commands\CreateReservation.cs" />
     <Compile Include="Inventory\Application\Data\ReservationData.cs" />
     <Compile Include="Inventory\Application\ReservationQueryService.cs" />
-    <Compile Include="Inventory\Domain.Model\Articles\ArticleId.cs" />
+    <Compile Include="Inventory\Domain.Model\Catalog\ArticleId.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreReservationRepository.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\IReservationRepository.cs" />
     <Compile Include="IdentityAndAccess\Domain.Model\Organizations\OrganizationId.cs" />
@@ -167,22 +167,22 @@
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationId.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationTimeRangeChanged.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateReservationProjection.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Commands\AddImage.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Commands\RemoveImage.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Exceptions\ImageNotFoundException.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Model\ArticleCreated.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Model\ArticleUpdated.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Commands\CreateArticle.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Commands\UpdateArticle.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Model\ArticleDeleted.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Commands\DeleteArticle.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Exceptions\ArticleNotFoundException.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Model\ImageAdded.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Model\ImageRemoved.cs" />
+    <Compile Include="Inventory\Application\Commands\AddImage.cs" />
+    <Compile Include="Inventory\Application\Commands\RemoveImage.cs" />
+    <Compile Include="Inventory\Application\Exceptions\ImageNotFoundException.cs" />
+    <Compile Include="Inventory\Domain.Model\Catalog\ArticleCreated.cs" />
+    <Compile Include="Inventory\Domain.Model\Catalog\ArticleUpdated.cs" />
+    <Compile Include="Inventory\Application\Commands\CreateArticle.cs" />
+    <Compile Include="Inventory\Application\Commands\UpdateArticle.cs" />
+    <Compile Include="Inventory\Domain.Model\Catalog\ArticleDeleted.cs" />
+    <Compile Include="Inventory\Application\Commands\DeleteArticle.cs" />
+    <Compile Include="Inventory\Application\Exceptions\ArticleNotFoundException.cs" />
+    <Compile Include="Inventory\Domain.Model\Catalog\ImageAdded.cs" />
+    <Compile Include="Inventory\Domain.Model\Catalog\ImageRemoved.cs" />
     <Compile Include="Inventory\_Legacy\Queries\ArticleReadModel.cs" />
     <Compile Include="Inventory\_Legacy\Queries\IArticleQueries.cs" />
     <Compile Include="Inventory\_Legacy\Queries\IImageQueries.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Repositories\IArticleRepository.cs" />
+    <Compile Include="Inventory\Domain.Model\Catalog\IArticleRepository.cs" />
     <Compile Include="Inventory\_Legacy\Queries\ArticleDtoAssembler.cs" />
     <Compile Include="Inventory\_Legacy\Queries\ImageAssembler.cs" />
     <Compile Include="Inventory\_Legacy\Queries\Dtos\ArticleDto.cs" />
@@ -278,7 +278,7 @@
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="_Legacy\DtoOutOfDateException.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Model\Article.cs" />
+    <Compile Include="Inventory\Domain.Model\Catalog\Article.cs" />
     <Compile Include="Shop\Orders\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -288,7 +288,7 @@
     <Compile Include="Shop\Contracts\Model\Contract.cs" />
     <Compile Include="Shop\Contracts\Model\ContractItem.cs" />
     <Compile Include="Ddd\EntityBase.cs" />
-    <Compile Include="Inventory\_Legacy\Articles\Model\Image.cs" />
+    <Compile Include="Inventory\Domain.Model\Catalog\Image.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Account.cs" />
     <Compile Include="Shop\Orders\Model\Order.cs" />
     <Compile Include="Shop\Orders\Model\OrderItem.cs" />
@@ -344,6 +344,7 @@
     <Folder Include="Bootstrap\" />
     <Folder Include="Dashboard\Domain.Model\" />
     <Folder Include="IdentityAndAccess\Queries\Dtos\" />
+    <Folder Include="Inventory\Domain.Model\Articles\" />
     <Folder Include="Inventory\_Legacy\Services\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
     <Folder Include="Shop\Contracts\Exceptions\" />

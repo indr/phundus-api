@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using System;
-    using Core.Inventory.Articles.Model;
+    using Core.Inventory.Domain.Model.Catalog;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;

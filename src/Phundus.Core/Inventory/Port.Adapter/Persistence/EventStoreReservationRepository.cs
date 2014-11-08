@@ -2,7 +2,7 @@
 {
     using System;
     using Common.Events;
-    using Domain.Model.Articles;
+    using Domain.Model.Catalog;
     using Domain.Model.Reservations;
     using IdentityAndAccess.Domain.Model.Organizations;
 

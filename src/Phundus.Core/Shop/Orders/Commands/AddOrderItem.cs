@@ -3,9 +3,7 @@
     using System;
     using Cqrs;
     using IdentityAndAccess.Queries;
-    using Inventory;
-    using Inventory.Articles;
-    using Inventory.Articles.Repositories;
+    using Inventory.Domain.Model.Catalog;
     using Repositories;
 
     public class AddOrderItem

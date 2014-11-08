@@ -2,7 +2,7 @@ namespace Phundus.Core.Shop.Orders.Model
 {
     using System;
     using Ddd;
-    using Inventory.Articles.Model;
+    using Inventory.Domain.Model.Catalog;
     using Pricing.Model;
 
     public class CartItem : EntityBase

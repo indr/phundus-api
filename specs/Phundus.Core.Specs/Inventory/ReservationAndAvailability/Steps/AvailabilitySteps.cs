@@ -2,10 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using Core.Inventory.Articles.Model;
-    using Core.Inventory.Articles.Repositories;
     using Core.Inventory.AvailabilityAndReservation.Model;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
+    using Core.Inventory.Domain.Model.Catalog;
     using Core.Inventory.Services;
     using NUnit.Framework;
     using Rhino.Mocks;

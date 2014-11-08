@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Core.Inventory.Domain.Model.Reservations
 {
-    using Articles;
+    using Catalog;
     using IdentityAndAccess.Domain.Model.Organizations;
 
     public interface IReservationRepository

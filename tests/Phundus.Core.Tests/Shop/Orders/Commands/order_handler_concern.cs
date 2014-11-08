@@ -2,7 +2,7 @@ namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using Core.Cqrs;
     using Core.IdentityAndAccess.Queries;
-    using Core.Inventory.Articles.Repositories;
+    using Core.Inventory.Domain.Model.Catalog;
     using Core.Shop.Contracts.Services;
     using Core.Shop.Orders.Model;
     using Core.Shop.Orders.Repositories;

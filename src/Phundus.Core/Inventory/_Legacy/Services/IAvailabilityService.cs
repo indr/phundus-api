@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Articles.Repositories;
     using AvailabilityAndReservation.Model;
     using AvailabilityAndReservation.Repositories;
+    using Domain.Model.Catalog;
     using Infrastructure;
     using NHibernate;
 

@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Core.Inventory.Queries
 {
     using System.Collections.Generic;
-    using Articles.Model;
+    using Domain.Model.Catalog;
 
     public class ImageAssembler
     {

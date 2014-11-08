@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Common.Port.Adapter.Persistence;
     using Data;
-    using Domain.Model.Articles;
+    using Domain.Model.Catalog;
     using Domain.Model.Reservations;
     using IdentityAndAccess.Domain.Model.Organizations;
 

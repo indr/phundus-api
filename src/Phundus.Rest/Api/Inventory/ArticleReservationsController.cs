@@ -7,7 +7,7 @@
     using Castle.Transactions;
     using Core.IdentityAndAccess.Domain.Model.Organizations;
     using Core.Inventory.Application;
-    using Core.Inventory.Domain.Model.Articles;
+    using Core.Inventory.Domain.Model.Catalog;
     using Core.Inventory.Domain.Model.Reservations;
 
     [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/reservations")]
