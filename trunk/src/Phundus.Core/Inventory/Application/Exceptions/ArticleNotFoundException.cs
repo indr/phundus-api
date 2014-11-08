@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory.Articles
+﻿namespace Phundus.Core.Inventory.Application
 {
     using System;
 

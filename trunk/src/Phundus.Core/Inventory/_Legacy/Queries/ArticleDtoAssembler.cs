@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Articles.Model;
+    using Domain.Model.Catalog;
     using IdentityAndAccess.Organizations.Repositories;
     using Infrastructure;
 

@@ -2,7 +2,7 @@
 {
     using System;
     using System.Runtime.Serialization;
-    using Articles;
+    using Catalog;
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
 

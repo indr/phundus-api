@@ -1,10 +1,9 @@
-﻿namespace Phundus.Core.Inventory.Application
+﻿namespace Phundus.Core.Inventory.Application.Commands
 {
     using System;
-    using System.Globalization;
     using Common.Domain.Model;
     using Cqrs;
-    using Domain.Model.Articles;
+    using Domain.Model.Catalog;
     using Domain.Model.Reservations;
     using IdentityAndAccess.Domain.Model.Organizations;
     using IdentityAndAccess.Domain.Model.Users;

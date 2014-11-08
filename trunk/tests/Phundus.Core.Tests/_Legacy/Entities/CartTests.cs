@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Core.Tests._Legacy.Entities
 {
     using System;
-    using Core.Inventory.Articles.Repositories;
+    using Core.Inventory.Domain.Model.Catalog;
     using Core.Shop.Orders.Model;
     using NUnit.Framework;
 

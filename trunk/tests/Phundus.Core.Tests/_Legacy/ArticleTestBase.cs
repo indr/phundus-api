@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Core.Tests._Legacy
 {
-    using Core.Inventory.Articles.Model;
+    using Core.Inventory.Domain.Model.Catalog;
     using Core.Shop.Orders.Repositories;
     using NUnit.Framework;
     using Rhino.Mocks;

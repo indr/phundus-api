@@ -2,9 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Core.Inventory.Articles;
-    using Core.Inventory.Articles.Model;
-    using Core.Inventory.Articles.Repositories;
+    using Core.Inventory.Application;
+    using Core.Inventory.Domain.Model.Catalog;
     using NHibernate.Linq;
 
     public class NhArticleRepository : NhRepositoryBase<Article>, IArticleRepository
@@ -20,11 +19,11 @@
             return Entities.Where(p => p.OrganizationId == organizationId).ToFuture();
         }
 
-        public Article GetById(int id)
+        public Article GetById(int articleId)
         {
-            var result = FindById(id);
+            var result = FindById(articleId);
             if (result == null)
-                throw new ArticleNotFoundException(id);
+                throw new ArticleNotFoundException(articleId);
             return result;
         }
 

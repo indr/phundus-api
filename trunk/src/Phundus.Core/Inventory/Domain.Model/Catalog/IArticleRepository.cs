@@ -1,8 +1,7 @@
-﻿namespace Phundus.Core.Inventory.Articles.Repositories
+﻿namespace Phundus.Core.Inventory.Domain.Model.Catalog
 {
     using System.Collections.Generic;
     using Infrastructure;
-    using Model;
 
     public interface IArticleRepository : IRepository<Article>
     {

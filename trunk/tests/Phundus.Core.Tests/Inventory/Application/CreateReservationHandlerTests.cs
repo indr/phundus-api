@@ -5,6 +5,7 @@
     using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Application;
+    using Core.Inventory.Application.Commands;
     using Core.Inventory.Domain.Model.Reservations;
     using Machine.Fakes;
     using Machine.Specifications;

@@ -3,7 +3,7 @@
     using System;
     using Common.Domain.Model;
     using Core.IdentityAndAccess.Domain.Model.Organizations;
-    using Core.Inventory.Domain.Model.Articles;
+    using Core.Inventory.Domain.Model.Catalog;
     using Core.Inventory.Domain.Model.Reservations;
     using Machine.Specifications;
 

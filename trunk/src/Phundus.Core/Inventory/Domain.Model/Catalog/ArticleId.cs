@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory.Domain.Model.Articles
+﻿namespace Phundus.Core.Inventory.Domain.Model.Catalog
 {
     using Common.Domain.Model;
 

@@ -1,10 +1,9 @@
-﻿namespace Phundus.Core.Inventory.Articles.Commands
+﻿namespace Phundus.Core.Inventory.Application.Commands
 {
     using Cqrs;
     using Ddd;
+    using Domain.Model.Catalog;
     using IdentityAndAccess.Queries;
-    using Model;
-    using Repositories;
 
     public class CreateArticle
     {
