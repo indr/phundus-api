@@ -908,6 +908,10 @@
       <Project>{7B58707A-84EC-4E7E-A0FD-946F1E16361E}</Project>
       <Name>Phundus.Persistence.Migrations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">
+      <Project>{0ba282a6-fea2-44a2-9748-1de0e4e32018}</Project>
+      <Name>Phundus.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Phundus.Core\Phundus.Core.csproj">
       <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
       <Name>Phundus.Core</Name>

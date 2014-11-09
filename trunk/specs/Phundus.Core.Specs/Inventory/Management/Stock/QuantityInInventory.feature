@@ -7,7 +7,7 @@ Background:
 	Given stock created
 
 Scenario: Increment quantity in inventory
-	When I add 1 to the inventory
+	When Increase quantity in inventory 1
 	Then quantity in inventory increased 1
 
 Scenario: Decrement quantity in inventory
