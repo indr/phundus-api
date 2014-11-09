@@ -60,6 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateTimeProviderSteps.cs" />
+    <Compile Include="Inventory\Management\Stock\QuantityInInventory.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuantityInInventory.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Management\Stock\QuantityInInventorySteps.cs" />
     <Compile Include="Inventory\ReservationAndAvailability\Steps\AvailabilitySteps.cs" />
     <Compile Include="Inventory\ReservationAndAvailability\AvailabilityDetails.feature.cs">
       <AutoGen>True</AutoGen>
@@ -86,6 +92,10 @@
     <None Include="Default.srprofile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Inventory\Management\Stock\QuantityInInventory.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>QuantityInInventory.feature.cs</LastGenOutput>
+    </None>
     <None Include="Inventory\ReservationAndAvailability\AvailabilityDetails.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AvailabilityDetails.feature.cs</LastGenOutput>
@@ -106,6 +116,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Phundus.Common\Phundus.Common.csproj">
+      <Project>{0BA282A6-FEA2-44A2-9748-1DE0E4E32018}</Project>
+      <Name>Phundus.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Phundus.Core\Phundus.Core.csproj">
       <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
       <Name>Phundus.Core</Name>

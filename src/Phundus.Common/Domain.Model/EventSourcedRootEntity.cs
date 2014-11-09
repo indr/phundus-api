@@ -12,7 +12,7 @@
             _mutatingEvents = new List<IDomainEvent>();
         }
 
-        public EventSourcedRootEntity(IEnumerable<IDomainEvent> eventStream, long streamVersion)
+        protected EventSourcedRootEntity(IEnumerable<IDomainEvent> eventStream, long streamVersion)
             : this()
         {
             foreach (var e in eventStream)
