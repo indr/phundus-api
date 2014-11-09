@@ -11,6 +11,8 @@
     using Machine.Specifications;
     using Rhino.Mocks;
 
+
+    [Subject(typeof(CreateReservationHandler))]
     public class when_create_reservation_is_handled : handler_concern<CreateReservation, CreateReservationHandler>
     {
         private static IReservationRepository repository;

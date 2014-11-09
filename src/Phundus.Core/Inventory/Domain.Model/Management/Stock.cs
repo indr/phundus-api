@@ -6,8 +6,14 @@
 
     public class StockCreated : DomainEvent
     {
-        public StockId StockId { get; set; }
-        public ArticleId ArticleId { get; set; }
+        public StockCreated(string stockId, int articleId)
+        {
+            StockId = stockId;
+            ArticleId = articleId;
+        }
+
+        public string StockId { get; set; }
+        public int ArticleId { get; set; }
     }
 
     public class QuantityInInventoryIncreased : DomainEvent
@@ -34,16 +40,16 @@
     {
         private Quantity _quantityInInventory = new Quantity(0);
 
-        public Stock()
+        public Stock(StockId stockId, ArticleId articleId)
         {
-            Apply(new StockCreated());
+            Apply(new StockCreated(new StockId().Id, articleId.Id));
         }
 
         public Stock(IEnumerable<IDomainEvent> eventStream, long streamVersion) : base(eventStream, streamVersion)
         {
         }
 
-        public StockId Id { get; private set; }
+        public StockId StockId { get; private set; }
 
         public ArticleId ArticleId { get; private set; }
 
@@ -55,7 +61,7 @@
 
         protected override IEnumerable<object> GetIdentityComponents()
         {
-            yield return Id;
+            yield return StockId;
         }
 
         protected override void When(IDomainEvent e)
@@ -65,8 +71,8 @@
 
         protected void When(StockCreated e)
         {
-            Id = e.StockId;
-            ArticleId = e.ArticleId;
+            StockId = new StockId(e.StockId);
+            ArticleId = new ArticleId(e.ArticleId);
         }
 
         public void IncreaseQuantityInInventory(int amount)
