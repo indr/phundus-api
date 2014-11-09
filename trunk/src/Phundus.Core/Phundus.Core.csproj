@@ -158,6 +158,9 @@
     <Compile Include="Inventory\Application\Data\ReservationData.cs" />
     <Compile Include="Inventory\Application\ReservationQueryService.cs" />
     <Compile Include="Inventory\Domain.Model\Catalog\ArticleId.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\Quantity.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\Stock.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\StockId.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreReservationRepository.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\IReservationRepository.cs" />
     <Compile Include="IdentityAndAccess\Domain.Model\Organizations\OrganizationId.cs" />
@@ -344,7 +347,6 @@
     <Folder Include="Bootstrap\" />
     <Folder Include="Dashboard\Domain.Model\" />
     <Folder Include="IdentityAndAccess\Queries\Dtos\" />
-    <Folder Include="Inventory\Domain.Model\Articles\" />
     <Folder Include="Inventory\_Legacy\Services\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
     <Folder Include="Shop\Contracts\Exceptions\" />
