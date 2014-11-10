@@ -1,5 +1,6 @@
 namespace Phundus.Core.Tests.Inventory.Application
 {
+    using System;
     using Core.IdentityAndAccess.Domain.Model.Organizations;
     using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.IdentityAndAccess.Queries;
@@ -27,12 +28,12 @@ namespace Phundus.Core.Tests.Inventory.Application
         {
             memberInRole = depends.on<IMemberInRole>();
             stock = new Stock(stockId, articleId);
-            stock.IncreaseQuantityInInventory(10);
+            stock.IncreaseQuantityInInventory(10, DateTime.UtcNow.AddDays(-1));
             repository = depends.on<IStockRepository>();
             repository.Expect(x => x.Get(organizationId, articleId, stockId)).Return(stock);
 
             command = new DecreaseQuantityInInventory(initiatorId.Id, organizationId.Id, articleId.Id, stockId.Id,
-                amount);
+                amount, DateTime.UtcNow);
         };
 
         public It should_ask_for_chief_privileges =

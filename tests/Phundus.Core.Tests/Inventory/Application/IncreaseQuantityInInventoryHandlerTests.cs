@@ -1,5 +1,6 @@
 namespace Phundus.Core.Tests.Inventory.Application
 {
+    using System;
     using Core.IdentityAndAccess.Domain.Model.Organizations;
     using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.IdentityAndAccess.Queries;
@@ -31,7 +32,7 @@ namespace Phundus.Core.Tests.Inventory.Application
             repository.Expect(x => x.Get(organizationId, articleId, stockId)).Return(stock);
 
             command = new IncreaseQuantityInInventory(initiatorId.Id, organizationId.Id, articleId.Id, stockId.Id,
-                amount);
+                amount, DateTime.UtcNow);
         };
 
         public It should_ask_for_chief_privileges =

@@ -1,12 +1,82 @@
 ﻿namespace Phundus.Core.Inventory.Domain.Model.Management
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Catalog;
     using Common.Domain.Model;
+    using NHibernate.Linq;
+
+    public class QuantityAsOf
+    {
+        public QuantityAsOf(int change, int total, DateTime asOfUtc)
+        {
+            Change = change;
+            Total = total;
+            AsOfUtc = asOfUtc;
+        }
+
+        public int Change { get; private set; }
+        public int Total { get; private set; }
+        public DateTime AsOfUtc { get;private set; }
+
+        public void AddToTotal(int change)
+        {
+            Total += change;
+        }
+    }
+
+    public class QuantitiesAsOf
+    {
+        private List<QuantityAsOf> _quantities = new List<QuantityAsOf>();
+
+        private QuantityAsOf FindAtAsOfOrLatestBefore(DateTime asOfUtc)
+        {
+            return _quantities.Where(p => p.AsOfUtc <= asOfUtc).OrderByDescending(ks => ks.AsOfUtc).FirstOrDefault();            
+        }
+
+        public void ChangeAsOf(int change, DateTime asOfUtc)
+        {
+            var atAsOfOrLatest = FindAtAsOfOrLatestBefore(asOfUtc);
+            if ((atAsOfOrLatest != null) && (atAsOfOrLatest.AsOfUtc == asOfUtc))
+            {
+                throw new InvalidOperationException("Änderung des In-Inventory-Bestandes zum gleichen Zeitpunkt wird nicht unterstützt.");
+            }
+
+            var total = 0;
+            if (atAsOfOrLatest != null)
+                total = atAsOfOrLatest.Total;
+
+            var quantityAsOf = new QuantityAsOf(change, total + change, asOfUtc);
+            UpdateFutures(change, asOfUtc);
+
+            _quantities.Add(quantityAsOf);
+
+            _quantities = _quantities.OrderBy(ks => ks.AsOfUtc).ToList();
+        }
+
+        private void UpdateFutures(int change, DateTime asOfUtc)
+        {
+            foreach (var each in _quantities.Where(p => p.AsOfUtc > asOfUtc))
+            {
+                each.AddToTotal(change);
+            }
+        }
+
+        public int GetTotalAsOf(DateTime asOfUtc)
+        {
+            var atAsOfOrLatest = FindAtAsOfOrLatestBefore(asOfUtc);
+
+            if (atAsOfOrLatest == null)
+                return 0;
+
+            return atAsOfOrLatest.Total;
+        }
+    }
 
     public class Stock : EventSourcedRootEntity
     {
-        private Quantity _quantityInInventory = new Quantity(0);
+        private readonly QuantitiesAsOf _inInventory = new QuantitiesAsOf();
 
         public Stock(StockId stockId, ArticleId articleId)
         {
@@ -21,12 +91,6 @@
         public StockId StockId { get; private set; }
 
         public ArticleId ArticleId { get; private set; }
-
-        public Quantity QuantityInInventory
-        {
-            get { return _quantityInInventory; }
-            private set { _quantityInInventory = value; }
-        }
 
         protected override IEnumerable<object> GetIdentityComponents()
         {
@@ -44,26 +108,28 @@
             ArticleId = new ArticleId(e.ArticleId);
         }
 
-        public void IncreaseQuantityInInventory(int quantity)
+        public void IncreaseQuantityInInventory(int change, DateTime asOfUtc)
         {
-            Apply(new QuantityInInventoryIncreased(StockId.Id, quantity));
+            var totalAsOf = _inInventory.GetTotalAsOf(asOfUtc);
+
+            Apply(new QuantityInInventoryIncreased(StockId.Id, change, totalAsOf + change, asOfUtc));
         }
 
         protected void When(QuantityInInventoryIncreased e)
         {
-            // TODO: Unit test should fail here: Add the quantity
-            QuantityInInventory = new Quantity(e.Quantity);
+            _inInventory.ChangeAsOf(e.Quantity, e.AsOfUtc);
         }
 
-        public void DecreaseQuantityInInventory(int quantity)
+        public void DecreaseQuantityInInventory(int change, DateTime asOfUtc)
         {
-            Apply(new QuantityInInventoryDecreased(StockId.Id, quantity));
+            var totalAsOf = _inInventory.GetTotalAsOf(asOfUtc);
+
+            Apply(new QuantityInInventoryDecreased(StockId.Id, change, totalAsOf - change, asOfUtc));
         }
 
         protected void When(QuantityInInventoryDecreased e)
         {
-            // TODO: Unit test should fail here: Substract the quantity
-            QuantityInInventory = new Quantity(e.Quantity);
+            _inInventory.ChangeAsOf(e.Quantity * -1, e.AsOfUtc);
         }
     }
 }

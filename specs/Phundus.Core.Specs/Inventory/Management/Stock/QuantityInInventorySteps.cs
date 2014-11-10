@@ -1,12 +1,12 @@
 ﻿namespace Phundus.Core.Specs.Inventory.Management.Stock
 {
+    using System;
     using System.Collections.Generic;
     using Common.Domain.Model;
     using Core.Inventory.Application.Commands;
     using Core.Inventory.Domain.Model.Catalog;
     using Core.Inventory.Domain.Model.Management;
     using IdentityAndAccess.Domain.Model.Organizations;
-    using IdentityAndAccess.Queries;
     using NUnit.Framework;
     using Rhino.Mocks;
     using Supports;
@@ -45,7 +45,7 @@
         public QuantityInInventorySteps(Container container)
         {
             _container = container;
-            
+
             var repository = _container.Depend.On<IStockRepository>();
 
             repository.Expect(
@@ -64,40 +64,44 @@
             EventStream.Add(new StockCreated(_stockId.Id, _articleId.Id));
         }
 
-        [When(@"Increase quantity in inventory (.*)")]
-        public void WhenIncreaseQuantityInInventory(int quantity)
+        [Given(@"quantity in inventory increased of (.*) to (.*) as of (.*)")]
+        public void GivenQuantityInInventoryIncreased(int quantity, int total, DateTime asOfUtc)
         {
-            _container.Resolve<IncreaseQuantityInInventoryHandler>()
-                .Handle(new IncreaseQuantityInInventory(1, 2, _articleId.Id, _stockId.Id, quantity));
+            EventStream.Add(new QuantityInInventoryIncreased(_stockId.Id, quantity, total, asOfUtc));
         }
 
-        [Then(@"quantity in inventory increased (.*)")]
-        public void ThenQuantityInInventoryIncreased(int quantity)
+        [When(@"Increase quantity in inventory of (.*) as of (.*)")]
+        public void WhenIncreaseQuantityInInventory(int quantity, DateTime asOfUtc)
+        {
+            _container.Resolve<IncreaseQuantityInInventoryHandler>()
+                .Handle(new IncreaseQuantityInInventory(1, 2, _articleId.Id, _stockId.Id, quantity, asOfUtc));
+        }
+
+        [When(@"Decrease quantity in inventory of (.*) as of (.*)")]
+        public void WhenDecreaseQuantityInInventory(int quantity, DateTime asOfUtc)
+        {
+            _container.Resolve<DecreaseQuantityInInventoryHandler>()
+                .Handle(new DecreaseQuantityInInventory(1, 2, _articleId.Id, _stockId.Id, quantity, asOfUtc));
+        }
+
+        [Then(@"quantity in inventory increased of (.*) to (.*) as of (.*)")]
+        public void ThenQuantityInInventoryIncreased(int quantity, int total, DateTime asOfUtc)
         {
             var expected = GetNextExpectedEvent<QuantityInInventoryIncreased>();
             Assert.That(expected.StockId, Is.EqualTo(_stockId.Id));
             Assert.That(expected.Quantity, Is.EqualTo(quantity));
+            Assert.That(expected.Total, Is.EqualTo(total));
+            Assert.That(expected.AsOfUtc, Is.EqualTo(asOfUtc));
         }
 
-        [When(@"I remove (.*) from the inventory")]
-        public void WhenIRemoveFromTheInventory(int quantity)
-        {
-            _container.Resolve<DecreaseQuantityInInventoryHandler>()
-                .Handle(new DecreaseQuantityInInventory(1, 2, _articleId.Id, _stockId.Id, quantity));
-        }
-
-        [Given(@"quantity in inventory increased (.*)")]
-        public void GivenQuantityInInventoryIncreased(int quantity)
-        {
-            EventStream.Add(new QuantityInInventoryIncreased(_stockId.Id, quantity));
-        }
-
-        [Then(@"quantity in inventory decreased (.*)")]
-        public void ThenQuantityInInventoryDecreased(int quantity)
+        [Then(@"quantity in inventory decreased of (.*) to (.*) as of (.*)")]
+        public void ThenQuantityInInventoryDecreased(int quantity, int total, DateTime asOfUtc)
         {
             var expected = GetNextExpectedEvent<QuantityInInventoryDecreased>();
             Assert.That(expected.StockId, Is.EqualTo(_stockId.Id));
             Assert.That(expected.Quantity, Is.EqualTo(quantity));
+            Assert.That(expected.Total, Is.EqualTo(total));
+            Assert.That(expected.AsOfUtc, Is.EqualTo(asOfUtc));
         }
     }
 }
