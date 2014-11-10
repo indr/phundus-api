@@ -91,6 +91,8 @@
       <DependentUpon>PerDayWithPerSevenDaysPricePricing.feature</DependentUpon>
     </Compile>
     <Compile Include="Shop\Pricing\Steps\PerDayWithPerSevenDaysPricePricingSteps.cs" />
+    <Compile Include="Supports\Depends.cs" />
+    <Compile Include="Supports\Container.cs" />
     <Compile Include="Transfomers.cs" />
   </ItemGroup>
   <ItemGroup>
