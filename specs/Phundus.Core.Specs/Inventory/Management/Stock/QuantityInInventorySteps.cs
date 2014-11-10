@@ -2,51 +2,32 @@
 {
     using System.Collections.Generic;
     using Common.Domain.Model;
+    using Core.Inventory.Application.Commands;
     using Core.Inventory.Domain.Model.Catalog;
     using Core.Inventory.Domain.Model.Management;
+    using IdentityAndAccess.Domain.Model.Organizations;
+    using IdentityAndAccess.Queries;
     using NUnit.Framework;
+    using Rhino.Mocks;
+    using Supports;
     using TechTalk.SpecFlow;
 
-    public abstract class EventSourcedAggregateRootStepsBase<TAggregateRoot>
-        where TAggregateRoot : EventSourcedRootEntity
+    public abstract class EventSourcedAggregateRootStepsBase
     {
         private readonly IList<IDomainEvent> _eventStream = new List<IDomainEvent>();
-
+        protected IList<IDomainEvent> MutatingEvents = new List<IDomainEvent>();
         private int _mutatingEventIdx;
-
-        private TAggregateRoot _sut;
 
         protected IList<IDomainEvent> EventStream
         {
             get { return _eventStream; }
         }
 
-        protected TAggregateRoot Sut
-        {
-            get
-            {
-                if (_sut == null)
-                    CreateSut();
-                return _sut;
-            }
-        }
-
-        private void CreateSut()
-        {
-            var ctor = typeof (TAggregateRoot)
-                .GetConstructor(new[] {typeof (IEnumerable<IDomainEvent>), typeof (long)});
-
-            Assert.That(ctor, Is.Not.Null,
-                "Constructor of type " + typeof (TAggregateRoot).Name +
-                " with parameters IEnumerable<IDomainEvent>, long not found");
-
-            if (ctor != null)
-                _sut = (TAggregateRoot) ctor.Invoke(new object[] {_eventStream, 0});
-        }
-
         protected T GetNextExpectedEvent<T>()
         {
-            var domainEvent = Sut.MutatingEvents[_mutatingEventIdx++];
+            Assert.That(MutatingEvents.Count, Is.GreaterThan(_mutatingEventIdx), "Expected more mutating events");
+
+            var domainEvent = MutatingEvents[_mutatingEventIdx++];
             Assert.That(domainEvent, Is.TypeOf<T>());
             Assert.That(domainEvent, Is.Not.Null);
 
@@ -55,49 +36,68 @@
     }
 
     [Binding]
-    public class QuantityInInventorySteps : EventSourcedAggregateRootStepsBase<Stock>
+    public class QuantityInInventorySteps : EventSourcedAggregateRootStepsBase
     {
+        private readonly Container _container;
         private ArticleId _articleId;
         private StockId _stockId;
 
-        [Given(@"stock created")]
-        public void StockCreated()
+        public QuantityInInventorySteps(Container container)
         {
-            _stockId = new StockId();
+            _container = container;
+            
+            var repository = _container.Depend.On<IStockRepository>();
+
+            repository.Expect(
+                x => x.Get(Arg<OrganizationId>.Is.Anything, Arg<ArticleId>.Is.Anything, Arg<StockId>.Is.Anything))
+                .WhenCalled(a => a.ReturnValue = new Stock(EventStream, 1)).Return(null);
+
+            repository.Expect(x => x.Save(Arg<Stock>.Is.NotNull))
+                .WhenCalled(a => MutatingEvents = ((Stock) a.Arguments[0]).MutatingEvents);
+        }
+
+        [Given(@"stock created (.*)")]
+        public void StockCreated(string stockId)
+        {
+            _stockId = new StockId(stockId);
             _articleId = new ArticleId(1);
             EventStream.Add(new StockCreated(_stockId.Id, _articleId.Id));
         }
 
         [When(@"Increase quantity in inventory (.*)")]
-        public void WhenIncreaseQuantityInInventory(int p0)
+        public void WhenIncreaseQuantityInInventory(int quantity)
         {
-            Sut.IncreaseQuantityInInventory(p0);
+            _container.Resolve<IncreaseQuantityInInventoryHandler>()
+                .Handle(new IncreaseQuantityInInventory(1, 2, _articleId.Id, _stockId.Id, quantity));
         }
 
         [Then(@"quantity in inventory increased (.*)")]
-        public void ThenQuantityInInventoryIncreased(int p0)
+        public void ThenQuantityInInventoryIncreased(int quantity)
         {
             var expected = GetNextExpectedEvent<QuantityInInventoryIncreased>();
-            Assert.That(expected.Amount, Is.EqualTo(p0));
+            Assert.That(expected.StockId, Is.EqualTo(_stockId.Id));
+            Assert.That(expected.Quantity, Is.EqualTo(quantity));
         }
 
         [When(@"I remove (.*) from the inventory")]
-        public void WhenIRemoveFromTheInventory(int p0)
+        public void WhenIRemoveFromTheInventory(int quantity)
         {
-            Sut.DecreaseQuantityInInventory(p0);
+            _container.Resolve<DecreaseQuantityInInventoryHandler>()
+                .Handle(new DecreaseQuantityInInventory(1, 2, _articleId.Id, _stockId.Id, quantity));
         }
 
         [Given(@"quantity in inventory increased (.*)")]
-        public void GivenQuantityInInventoryIncreased(int p0)
+        public void GivenQuantityInInventoryIncreased(int quantity)
         {
-            EventStream.Add(new QuantityInInventoryIncreased(p0));
+            EventStream.Add(new QuantityInInventoryIncreased(_stockId.Id, quantity));
         }
 
         [Then(@"quantity in inventory decreased (.*)")]
-        public void ThenQuantityInInventoryDecreased(int p0)
+        public void ThenQuantityInInventoryDecreased(int quantity)
         {
             var expected = GetNextExpectedEvent<QuantityInInventoryDecreased>();
-            Assert.That(expected.Amount, Is.EqualTo(p0));
+            Assert.That(expected.StockId, Is.EqualTo(_stockId.Id));
+            Assert.That(expected.Quantity, Is.EqualTo(quantity));
         }
     }
 }

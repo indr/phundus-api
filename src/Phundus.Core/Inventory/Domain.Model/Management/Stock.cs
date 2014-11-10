@@ -4,44 +4,13 @@
     using Catalog;
     using Common.Domain.Model;
 
-    public class StockCreated : DomainEvent
-    {
-        public StockCreated(string stockId, int articleId)
-        {
-            StockId = stockId;
-            ArticleId = articleId;
-        }
-
-        public string StockId { get; set; }
-        public int ArticleId { get; set; }
-    }
-
-    public class QuantityInInventoryIncreased : DomainEvent
-    {
-        public QuantityInInventoryIncreased(int amount)
-        {
-            Amount = amount;
-        }
-
-        public int Amount { get; set; }
-    }
-
-    public class QuantityInInventoryDecreased : DomainEvent
-    {
-        public QuantityInInventoryDecreased(int amount)
-        {
-            Amount = amount;
-        }
-
-        public int Amount { get; set; }
-    }
-
     public class Stock : EventSourcedRootEntity
     {
         private Quantity _quantityInInventory = new Quantity(0);
 
         public Stock(StockId stockId, ArticleId articleId)
         {
+            // TODO: A unit test should fail here
             Apply(new StockCreated(new StockId().Id, articleId.Id));
         }
 
@@ -75,24 +44,26 @@
             ArticleId = new ArticleId(e.ArticleId);
         }
 
-        public void IncreaseQuantityInInventory(int amount)
+        public void IncreaseQuantityInInventory(int quantity)
         {
-            Apply(new QuantityInInventoryIncreased(amount));
+            Apply(new QuantityInInventoryIncreased(StockId.Id, quantity));
         }
 
         protected void When(QuantityInInventoryIncreased e)
         {
-            QuantityInInventory = new Quantity(e.Amount);
+            // TODO: Unit test should fail here: Add the quantity
+            QuantityInInventory = new Quantity(e.Quantity);
         }
 
-        public void DecreaseQuantityInInventory(int amount)
+        public void DecreaseQuantityInInventory(int quantity)
         {
-            Apply(new QuantityInInventoryDecreased(amount));
+            Apply(new QuantityInInventoryDecreased(StockId.Id, quantity));
         }
 
         protected void When(QuantityInInventoryDecreased e)
         {
-            QuantityInInventory = new Quantity(QuantityInInventory.Amount - e.Amount);
+            // TODO: Unit test should fail here: Substract the quantity
+            QuantityInInventory = new Quantity(e.Quantity);
         }
     }
 }

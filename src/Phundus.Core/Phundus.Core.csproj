@@ -162,7 +162,10 @@
     <Compile Include="Inventory\Domain.Model\Catalog\ArticleId.cs" />
     <Compile Include="Inventory\Domain.Model\Management\IStockRepository.cs" />
     <Compile Include="Inventory\Domain.Model\Management\Quantity.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\QuantityInInventoryDecreased.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\QuantityInInventoryIncreased.cs" />
     <Compile Include="Inventory\Domain.Model\Management\Stock.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\StockCreated.cs" />
     <Compile Include="Inventory\Domain.Model\Management\StockId.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreReservationRepository.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\IReservationRepository.cs" />

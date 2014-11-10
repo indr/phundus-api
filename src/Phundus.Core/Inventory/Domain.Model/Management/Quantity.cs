@@ -5,16 +5,16 @@
 
     public class Quantity : ValueObject
     {
-        public Quantity(int amount)
+        public Quantity(int quantity)
         {
-            Amount = amount;
+            quantity = quantity;
         }
 
-        public int Amount { get; private set; }
+        public int quantity { get; private set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return Amount;
+            yield return quantity;
         }
     }
 }
