@@ -7,14 +7,14 @@
     {
         public Quantity(int quantity)
         {
-            quantity = quantity;
+            Value = quantity;
         }
 
-        public int quantity { get; private set; }
+        public int Value { get; private set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return quantity;
+            yield return Value;
         }
     }
 }
