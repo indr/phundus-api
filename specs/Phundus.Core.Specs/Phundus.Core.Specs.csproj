@@ -38,11 +38,19 @@
       <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="Machine.Specifications">
       <HintPath>..\..\packages\Machine.Specifications.0.8.3\lib\net40\Machine.Specifications.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications.Clr4">
       <HintPath>..\..\packages\Machine.Specifications.0.8.3\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -66,12 +74,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateTimeProviderSteps.cs" />
+    <Compile Include="Contexts\Supports\InMemoryNHibernate\InMemoryCriteria.cs" />
+    <Compile Include="Contexts\Supports\InMemoryNHibernate\InMemoryQueryOverOrderBuilder.cs" />
+    <Compile Include="Contexts\Supports\InMemoryNHibernate\InMemorySession.cs" />
+    <Compile Include="Contexts\Supports\InMemoryNHibernate\InMemoryQueryOver.cs" />
+    <Compile Include="Contexts\Supports\InMemorySessionSupport.cs" />
+    <Compile Include="Contexts\MutatingEvents.cs" />
+    <Compile Include="Contexts\PastEvents.cs" />
     <Compile Include="Inventory\Management\Stock\QuantityInInventory.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QuantityInInventory.feature</DependentUpon>
     </Compile>
     <Compile Include="Inventory\Management\Stock\QuantityInInventorySteps.cs" />
+    <Compile Include="Inventory\Projections\QuantitiesInInventoryProjection.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuantitiesInInventoryProjection.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Projections\QuantitiesInInventoryProjectionSteps.cs" />
     <Compile Include="Inventory\ReservationAndAvailability\Steps\AvailabilitySteps.cs" />
     <Compile Include="Inventory\ReservationAndAvailability\AvailabilityDetails.feature.cs">
       <AutoGen>True</AutoGen>
@@ -91,8 +112,8 @@
       <DependentUpon>PerDayWithPerSevenDaysPricePricing.feature</DependentUpon>
     </Compile>
     <Compile Include="Shop\Pricing\Steps\PerDayWithPerSevenDaysPricePricingSteps.cs" />
-    <Compile Include="Supports\Depends.cs" />
-    <Compile Include="Supports\Container.cs" />
+    <Compile Include="Contexts\Supports\Depends.cs" />
+    <Compile Include="Contexts\Supports\Container.cs" />
     <Compile Include="Transfomers.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +124,10 @@
     <None Include="Inventory\Management\Stock\QuantityInInventory.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>QuantityInInventory.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Inventory\Projections\QuantitiesInInventoryProjection.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>QuantitiesInInventoryProjection.feature.cs</LastGenOutput>
     </None>
     <None Include="Inventory\ReservationAndAvailability\AvailabilityDetails.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

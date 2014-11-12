@@ -9,7 +9,7 @@ namespace Phundus.Core.Dashboard.Port.Adapter.Persistence.View
 
     public class NHibernateActivityProjection : NHibernateProjectionBase<ActivityData>, IDomainEventHandler
     {
-        public void Handle(DomainEvent domainEvent)
+        public void Handle(IDomainEvent domainEvent)
         {
             Process((dynamic) domainEvent);
         }
