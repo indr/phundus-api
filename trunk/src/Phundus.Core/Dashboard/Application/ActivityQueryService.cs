@@ -13,7 +13,7 @@ namespace Phundus.Core.Dashboard.Application
     {
         public IEnumerable<ActivityData> FindMostRecent20()
         {
-            return Query().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
+            return Query.OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
         }
     }
 }

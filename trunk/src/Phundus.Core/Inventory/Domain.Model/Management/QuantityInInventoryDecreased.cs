@@ -11,16 +11,16 @@
         {
         }
 
-        public QuantityInInventoryDecreased(string stockId, int quantity, int total, DateTime asOfUtc)
+        public QuantityInInventoryDecreased(string stockId, int change, int total, DateTime asOfUtc)
         {
             StockId = stockId;
-            Quantity = quantity;
+            Change = change;
             Total = total;
             AsOfUtc = asOfUtc;
         }
 
         public string StockId { get; set; }
-        public int Quantity { get; set; }
+        public int Change { get; set; }
         public int Total { get; set; }
         public DateTime AsOfUtc { get; set; }
     }

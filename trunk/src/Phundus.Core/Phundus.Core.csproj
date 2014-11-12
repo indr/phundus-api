@@ -176,6 +176,7 @@
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationCreated.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationId.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationTimeRangeChanged.cs" />
+    <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateQuantityInInventoryProjection.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateReservationProjection.cs" />
     <Compile Include="Inventory\Application\Commands\AddImage.cs" />
     <Compile Include="Inventory\Application\Commands\RemoveImage.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Inventory\Application\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Inventory\Domain.Model\Catalog\ImageAdded.cs" />
     <Compile Include="Inventory\Domain.Model\Catalog\ImageRemoved.cs" />
+    <Compile Include="Inventory\Application\Data\QuantityInInventoryData.cs" />
     <Compile Include="Inventory\_Legacy\Queries\ArticleReadModel.cs" />
     <Compile Include="Inventory\_Legacy\Queries\IArticleQueries.cs" />
     <Compile Include="Inventory\_Legacy\Queries\IImageQueries.cs" />

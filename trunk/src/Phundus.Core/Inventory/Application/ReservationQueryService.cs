@@ -20,7 +20,7 @@
         public ReservationData ReservationDataOfId(OrganizationId organizationId, ArticleId articleId,
             ReservationId reservationId)
         {
-            var query = from r in Query()
+            var query = from r in Query
                 where
                     r.OrganizationId == organizationId.Id && r.ArticleId == articleId.Id &&
                     r.ReservationId == reservationId.Id
@@ -31,7 +31,7 @@
         public IEnumerable<ReservationData> AllReservationDataByArticle(OrganizationId organizationId,
             ArticleId articleId)
         {
-            var query = from r in Query()
+            var query = from r in Query
                 where r.OrganizationId == organizationId.Id && r.ArticleId == articleId.Id
                 select r;
             return query.List();

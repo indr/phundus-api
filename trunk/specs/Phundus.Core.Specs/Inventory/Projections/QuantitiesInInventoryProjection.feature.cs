@@ -71,27 +71,63 @@ namespace Phundus.Core.Specs.Inventory.Projections
 #line 7
  testRunner.Given("stock created \"Stock-Id-1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
+ testRunner.And("quantity in inventory increased of 2 to 2 as of 09.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 9
+ testRunner.And("quantity in inventory decreased of 1 to 1 as of 13.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 10
+ testRunner.And("quantity in inventory increased of 3 to 3 as of 08.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 11
  testRunner.And("now is 11.11.2014 15:52:00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add two numbers")]
-        public virtual void AddTwoNumbers()
+        [NUnit.Framework.DescriptionAttribute("Increase quantity in inventory in past, check for new total")]
+        public virtual void IncreaseQuantityInInventoryInPastCheckForNewTotal()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add two numbers", ((string[])(null)));
-#line 10
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Increase quantity in inventory in past, check for new total", ((string[])(null)));
+#line 13
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 11
- testRunner.Given("quantity in inventory increased of 2 to 2 as of 09.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 12
- testRunner.And("quantity in inventory increased of 3 to 3 as of 08.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
- testRunner.When("I ask for the current quantity in inventory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 14
+ testRunner.When("I ask for the current quantity in inventory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 15
  testRunner.Then("the result should be 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Get all quantity in inventory changes for article")]
+        public virtual void GetAllQuantityInInventoryChangesForArticle()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get all quantity in inventory changes for article", ((string[])(null)));
+#line 17
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 18
+ testRunner.When("I ask for all quantities in inventory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "AsOfUtc",
+                        "Change",
+                        "Total"});
+            table1.AddRow(new string[] {
+                        "08.11.2014 00:00:00",
+                        "3",
+                        "3"});
+            table1.AddRow(new string[] {
+                        "09.11.2014 00:00:00",
+                        "2",
+                        "5"});
+            table1.AddRow(new string[] {
+                        "13.11.2014 00:00:00",
+                        "-1",
+                        "4"});
+#line 19
+ testRunner.Then("the quantities in inventory should be", ((string)(null)), table1, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -117,7 +117,7 @@
 
         protected void When(QuantityInInventoryIncreased e)
         {
-            _inInventory.ChangeAsOf(e.Quantity, e.AsOfUtc);
+            _inInventory.ChangeAsOf(e.Change, e.AsOfUtc);
         }
 
         public void DecreaseQuantityInInventory(int change, DateTime asOfUtc)
@@ -129,7 +129,7 @@
 
         protected void When(QuantityInInventoryDecreased e)
         {
-            _inInventory.ChangeAsOf(e.Quantity * -1, e.AsOfUtc);
+            _inInventory.ChangeAsOf(e.Change * -1, e.AsOfUtc);
         }
     }
 }
