@@ -1,4 +1,4 @@
-namespace Phundus.Core.Specs.Supports
+namespace Phundus.Core.Specs.Contexts
 {
     using System;
     using System.Collections.Generic;
@@ -9,9 +9,9 @@ namespace Phundus.Core.Specs.Supports
     {
         private readonly Depends _depends;
 
-        public Container()
+        public Container(Depends depends)
         {
-            _depends = new Depends();
+            _depends = depends;
         }
 
         public Depends Depend

@@ -158,6 +158,7 @@
     <Compile Include="Inventory\Application\Commands\DecreaseQuantityInInventory.cs" />
     <Compile Include="Inventory\Application\Commands\IncreaseQuantityInInventory.cs" />
     <Compile Include="Inventory\Application\Data\ReservationData.cs" />
+    <Compile Include="Inventory\Application\QuantitiesInInventoryQueryService.cs" />
     <Compile Include="Inventory\Application\ReservationQueryService.cs" />
     <Compile Include="Inventory\Domain.Model\Catalog\ArticleId.cs" />
     <Compile Include="Inventory\Domain.Model\Management\IStockRepository.cs" />
