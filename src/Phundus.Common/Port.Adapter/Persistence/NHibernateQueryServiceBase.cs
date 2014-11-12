@@ -12,9 +12,9 @@
             get { return SessionFactory(); }
         }
 
-        protected IQueryOver<TRecord, TRecord> Query()
+        protected IQueryOver<TRecord, TRecord> Query
         {
-            return Session.QueryOver<TRecord>();
+            get { return Session.QueryOver<TRecord>(); }
         }
     }
 }
