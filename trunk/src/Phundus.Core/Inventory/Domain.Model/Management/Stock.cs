@@ -108,11 +108,17 @@
             ArticleId = new ArticleId(e.ArticleId);
         }
 
-        public void IncreaseQuantityInInventory(int change, DateTime asOfUtc)
+        public void ChangeQuantityInInventory(int change, DateTime asOfUtc, string comment)
         {
+            if (change == 0)
+                throw new ArgumentException("Change must be greater or less than 0", "change");
+
             var totalAsOf = _inInventory.GetTotalAsOf(asOfUtc);
 
-            Apply(new QuantityInInventoryIncreased(StockId.Id, change, totalAsOf + change, asOfUtc));
+            if (change > 0)
+                Apply(new QuantityInInventoryIncreased(StockId.Id, change, totalAsOf + change, asOfUtc, comment));
+            else if (change < 0)
+                Apply(new QuantityInInventoryDecreased(StockId.Id, change * -1, totalAsOf + change, asOfUtc, comment));
         }
 
         protected void When(QuantityInInventoryIncreased e)
@@ -120,16 +126,9 @@
             _inInventory.ChangeAsOf(e.Change, e.AsOfUtc);
         }
 
-        public void DecreaseQuantityInInventory(int change, DateTime asOfUtc)
-        {
-            var totalAsOf = _inInventory.GetTotalAsOf(asOfUtc);
-
-            Apply(new QuantityInInventoryDecreased(StockId.Id, change, totalAsOf - change, asOfUtc));
-        }
-
         protected void When(QuantityInInventoryDecreased e)
         {
-            _inInventory.ChangeAsOf(e.Change * -1, e.AsOfUtc);
+            _inInventory.ChangeAsOf(e.Change, e.AsOfUtc);
         }
     }
 }

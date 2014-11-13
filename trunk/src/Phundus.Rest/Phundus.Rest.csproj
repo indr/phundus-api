@@ -115,6 +115,7 @@
     <Compile Include="Api\Diagnostics\ActivitiesController.cs" />
     <Compile Include="Api\Diagnostics\SchemaUpdateController.cs" />
     <Compile Include="Api\Docs\OrderDocs.cs" />
+    <Compile Include="Api\Inventory\ArticleQuantitiesInInventoryController.cs" />
     <Compile Include="Api\Inventory\ArticleReservationsController.cs" />
     <Compile Include="Api\NotificationsController.cs" />
     <Compile Include="Api\Organizations\Docs\OrganizationsOrderDocs.cs" />

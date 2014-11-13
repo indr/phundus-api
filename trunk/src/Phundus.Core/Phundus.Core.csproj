@@ -155,8 +155,7 @@
     <Compile Include="IdentityAndAccess\Users\Model\UserRegistered.cs" />
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
     <Compile Include="Inventory\Application\Commands\CreateReservation.cs" />
-    <Compile Include="Inventory\Application\Commands\DecreaseQuantityInInventory.cs" />
-    <Compile Include="Inventory\Application\Commands\IncreaseQuantityInInventory.cs" />
+    <Compile Include="Inventory\Application\Commands\ChangeQuantityInInventory.cs" />
     <Compile Include="Inventory\Application\Data\ReservationData.cs" />
     <Compile Include="Inventory\Application\QuantitiesInInventoryQueryService.cs" />
     <Compile Include="Inventory\Application\ReservationQueryService.cs" />

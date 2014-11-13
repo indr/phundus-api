@@ -10,5 +10,6 @@
         public virtual int Total { get; set; }
         public virtual int Change { get; set; }
         public virtual DateTime AsOfUtc { get; set; }
+        public virtual string Comment { get; set; }
     }
 }

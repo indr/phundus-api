@@ -29,6 +29,7 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
             record.AsOfUtc = e.AsOfUtc;
             record.Total = e.Total;
             record.Change = e.Change;
+            record.Comment = e.Comment;
             Save(record);
 
             UpdateFutures(e.AsOfUtc, e.Change);
@@ -43,6 +44,7 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
             record.AsOfUtc = e.AsOfUtc;
             record.Total = e.Total;
             record.Change = e.Change * -1;
+            record.Comment = e.Comment;
             Save(record);
 
             UpdateFutures(e.AsOfUtc, e.Change * -1);
