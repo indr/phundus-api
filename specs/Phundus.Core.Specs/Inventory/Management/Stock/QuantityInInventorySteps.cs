@@ -50,27 +50,27 @@
         [Given(@"quantity in inventory increased of (.*) to (.*) as of (.*)")]
         public void GivenQuantityInInventoryIncreasedOfToAsOf_(int change, int total, DateTime asOfUtc)
         {
-            _pastEvents.Add(new QuantityInInventoryIncreased(_context.StockId.Id, change, total, asOfUtc));
+            _pastEvents.Add(new QuantityInInventoryIncreased(_context.StockId.Id, change, total, asOfUtc, null));
         }
 
         [Given(@"quantity in inventory decreased of (.*) to (.*) as of (.*)")]
         public void GivenQuantityInInventoryDecreasedOfToAsOf_(int change, int total, DateTime asOfUtc)
         {
-            _pastEvents.Add(new QuantityInInventoryDecreased(_context.StockId.Id, change, total, asOfUtc));
+            _pastEvents.Add(new QuantityInInventoryDecreased(_context.StockId.Id, change, total, asOfUtc, null));
         }
 
         [When(@"Increase quantity in inventory of (.*) as of (.*)")]
         public void WhenIncreaseQuantityInInventory(int quantity, DateTime asOfUtc)
         {
-            _container.Resolve<IncreaseQuantityInInventoryHandler>()
-                .Handle(new IncreaseQuantityInInventory(1, 2, _context.ArticleId.Id, _context.StockId.Id, quantity, asOfUtc));
+            _container.Resolve<ChangeQuantityInInventoryHandler>()
+                .Handle(new ChangeQuantityInInventory(1, 2, _context.ArticleId.Id, _context.StockId.Id, quantity, asOfUtc, null));
         }
 
         [When(@"Decrease quantity in inventory of (.*) as of (.*)")]
         public void WhenDecreaseQuantityInInventory(int quantity, DateTime asOfUtc)
         {
-            _container.Resolve<DecreaseQuantityInInventoryHandler>()
-                .Handle(new DecreaseQuantityInInventory(1, 2, _context.ArticleId.Id, _context.StockId.Id, quantity, asOfUtc));
+            _container.Resolve<ChangeQuantityInInventoryHandler>()
+                .Handle(new ChangeQuantityInInventory(1, 2, _context.ArticleId.Id, _context.StockId.Id, quantity * -1, asOfUtc, null));
         }
 
         [Then(@"quantity in inventory increased of (.*) to (.*) as of (.*)")]

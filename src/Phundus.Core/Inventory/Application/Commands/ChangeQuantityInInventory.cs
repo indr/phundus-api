@@ -8,45 +8,49 @@
     using IdentityAndAccess.Domain.Model.Users;
     using IdentityAndAccess.Queries;
 
-    public class DecreaseQuantityInInventory
+    public class ChangeQuantityInInventory
     {
-        public DecreaseQuantityInInventory(int initiatorId, int organizationId, int articleId, string stockId, int quantity, DateTime asOfUtc)
+        public ChangeQuantityInInventory(int initiatorId, int organizationId, int articleId, string stockId, int change, DateTime asOfUtc,
+            string comment)
         {
             InitiatorId = initiatorId;
             OrganizationId = organizationId;
             ArticleId = articleId;
             StockId = stockId;
-            Quantity = quantity;
+            Change = change;
             AsOfUtc = asOfUtc;
+            Comment = comment;
         }
 
         public int InitiatorId { get; private set; }
         public int OrganizationId { get; private set; }
         public int ArticleId { get; private set; }
         public string StockId { get; private set; }
-        public int Quantity { get; private set; }
+        public int Change { get; private set; }
         public DateTime AsOfUtc { get; private set; }
+        public string Comment { get; set; }
     }
 
-    public class DecreaseQuantityInInventoryHandler : IHandleCommand<DecreaseQuantityInInventory>
+    public class ChangeQuantityInInventoryHandler : IHandleCommand<ChangeQuantityInInventory>
     {
         public IMemberInRole MemberInRole { get; set; }
 
-        public IStockRepository StockRepository { get; set; }
+        public IStockRepository Repository { get; set; }
 
-        public void Handle(DecreaseQuantityInInventory command)
+        public void Handle(ChangeQuantityInInventory command)
         {
             var organizationId = new OrganizationId(command.OrganizationId);
             var initiatorId = new UserId(command.InitiatorId);
-
+            
             MemberInRole.ActiveChief(organizationId, initiatorId);
 
             var articleId = new ArticleId(command.ArticleId);
             var stockId = new StockId(command.StockId);
-            var stock = StockRepository.Get(organizationId, articleId, stockId);
-            stock.DecreaseQuantityInInventory(command.Quantity, command.AsOfUtc);
+            var stock = Repository.Get(organizationId, articleId, stockId);
 
-            StockRepository.Save(stock);
+            stock.ChangeQuantityInInventory(command.Change, command.AsOfUtc, command.Comment);
+            
+            Repository.Save(stock);
         }
     }
 }

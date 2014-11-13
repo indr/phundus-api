@@ -11,9 +11,9 @@ namespace Phundus.Core.Tests.Inventory.Application
     using Machine.Specifications;
     using Rhino.Mocks;
 
-    [Subject(typeof (DecreaseQuantityInInventoryHandler))]
-    public class when_decrease_quantity_in_inventory_is_handled :
-        handler_concern<DecreaseQuantityInInventory, DecreaseQuantityInInventoryHandler>
+    [Subject(typeof (ChangeQuantityInInventoryHandler))]
+    public class when_increase_quantity_in_inventory_is_handled :
+        handler_concern<ChangeQuantityInInventory, ChangeQuantityInInventoryHandler>
     {
         private static IMemberInRole memberInRole;
         private static IStockRepository repository;
@@ -28,12 +28,11 @@ namespace Phundus.Core.Tests.Inventory.Application
         {
             memberInRole = depends.on<IMemberInRole>();
             stock = new Stock(stockId, articleId);
-            stock.IncreaseQuantityInInventory(10, DateTime.UtcNow.AddDays(-1));
             repository = depends.on<IStockRepository>();
             repository.Expect(x => x.Get(organizationId, articleId, stockId)).Return(stock);
 
-            command = new DecreaseQuantityInInventory(initiatorId.Id, organizationId.Id, articleId.Id, stockId.Id,
-                amount, DateTime.UtcNow);
+            command = new ChangeQuantityInInventory(initiatorId.Id, organizationId.Id, articleId.Id, stockId.Id,
+                amount, DateTime.UtcNow, null);
         };
 
         public It should_ask_for_chief_privileges =
