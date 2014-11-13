@@ -80,8 +80,7 @@
 
         public Stock(StockId stockId, ArticleId articleId)
         {
-            // TODO: A unit test should fail here
-            Apply(new StockCreated(new StockId().Id, articleId.Id));
+            Apply(new StockCreated(stockId.Id, articleId.Id));
         }
 
         public Stock(IEnumerable<IDomainEvent> eventStream, long streamVersion) : base(eventStream, streamVersion)
