@@ -101,6 +101,7 @@
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
     <Compile Include="Inventory\Application\CreateReservationHandlerTests.cs" />
     <Compile Include="Inventory\Application\ChangeQuantityInInventoryHandlerTests.cs" />
+    <Compile Include="Inventory\Application\CreateStockHandlerTests.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationTests.cs" />
     <Compile Include="Shop\BorrowerFactory.cs" />
     <Compile Include="concern.cs" />
