@@ -39,11 +39,11 @@
                 .WhenCalled(a => _mutatingEvents.Events = ((Stock) a.Arguments[0]).MutatingEvents);
         }
 
-        [Given(@"stock created (.*)")]
-        public void StockCreated(string stockId)
+        [Given(@"stock created (.*), article (.*)")]
+        public void StockCreated(string stockId, int articleId)
         {
             _context.StockId = new StockId(stockId);
-            _context.ArticleId = new ArticleId(1);
+            _context.ArticleId = new ArticleId(articleId);
             _pastEvents.Add(new StockCreated(_context.StockId.Id, _context.ArticleId.Id));
         }
 
