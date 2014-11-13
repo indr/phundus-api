@@ -10,11 +10,16 @@
     using Machine.Specifications;
     using Rhino.Mocks;
 
-    [Subject(typeof(CreateStockHandler))]
+    [Subject(typeof (CreateStockHandler))]
     public class when_create_stock_is_handled : handler_concern<CreateStock, CreateStockHandler>
     {
         private static IStockRepository repository;
         private static IMemberInRole memberInRole;
+
+        private static OrganizationId organizationId;
+        private static UserId initiatorId;
+        private static StockId stockId;
+        private static ArticleId articleId;
 
         public Establish ctx = () =>
         {
@@ -36,9 +41,5 @@
         public It should_have_resulting_stock_id = () => command.ResultingStockId.ShouldEqual(stockId);
 
         public It should_save_to_repository = () => repository.WasToldTo(x => x.Save(Arg<Stock>.Is.NotNull));
-        private static OrganizationId organizationId;
-        private static UserId initiatorId;
-        private static StockId stockId;
-        private static ArticleId articleId;
     }
 }

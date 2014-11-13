@@ -117,6 +117,7 @@
     <Compile Include="Api\Docs\OrderDocs.cs" />
     <Compile Include="Api\Inventory\ArticleQuantitiesInInventoryController.cs" />
     <Compile Include="Api\Inventory\ArticleReservationsController.cs" />
+    <Compile Include="Api\Inventory\OrganizationsArticlesStocksController.cs" />
     <Compile Include="Api\NotificationsController.cs" />
     <Compile Include="Api\Organizations\Docs\OrganizationsOrderDocs.cs" />
     <Compile Include="App_Start\AttributeRoutingHttpConfig.cs" />

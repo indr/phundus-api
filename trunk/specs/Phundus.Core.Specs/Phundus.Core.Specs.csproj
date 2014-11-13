@@ -93,6 +93,12 @@
       <DependentUpon>QuantitiesInInventoryProjection.feature</DependentUpon>
     </Compile>
     <Compile Include="Inventory\Projections\QuantitiesInInventoryProjectionSteps.cs" />
+    <Compile Include="Inventory\Projections\StocksProjection.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StocksProjection.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Projections\StocksProjectionSteps.cs" />
     <Compile Include="Inventory\ReservationAndAvailability\Steps\AvailabilitySteps.cs" />
     <Compile Include="Inventory\ReservationAndAvailability\AvailabilityDetails.feature.cs">
       <AutoGen>True</AutoGen>
@@ -129,6 +135,10 @@
     <None Include="Inventory\Projections\QuantitiesInInventoryProjection.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>QuantitiesInInventoryProjection.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Inventory\Projections\StocksProjection.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>StocksProjection.feature.cs</LastGenOutput>
     </None>
     <None Include="Inventory\ReservationAndAvailability\AvailabilityDetails.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

@@ -17,7 +17,7 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
 
         private void Process(DomainEvent domainEvent)
         {
-            // Fallback
+           
         }
 
         private void Process(QuantityInInventoryIncreased e)
@@ -43,11 +43,11 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
 
             record.AsOfUtc = e.AsOfUtc;
             record.Total = e.Total;
-            record.Change = e.Change * -1;
+            record.Change = e.Change*-1;
             record.Comment = e.Comment;
             Save(record);
 
-            UpdateFutures(e.AsOfUtc, e.Change * -1);
+            UpdateFutures(e.AsOfUtc, e.Change*-1);
         }
 
         private void UpdateFutures(DateTime asOfUtc, int change)

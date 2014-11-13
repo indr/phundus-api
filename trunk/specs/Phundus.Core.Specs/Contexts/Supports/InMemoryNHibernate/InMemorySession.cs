@@ -138,12 +138,7 @@ namespace Phundus.Core.Specs.Contexts.InMemoryNHibernate
 
         public void SaveOrUpdate(object obj)
         {
-            Iesi.Collections.Generic.ISet<object> set;
-            if (!_entities.TryGetValue(obj.GetType(), out set))
-            {
-                set = new HashedSet<object>();
-                _entities.Add(obj.GetType(), set);
-            }
+            var set = GetEntitySet(obj.GetType());
 
             set.Add(obj);
         }
@@ -434,6 +429,17 @@ namespace Phundus.Core.Specs.Contexts.InMemoryNHibernate
 
         public void Dispose()
         {
+        }
+
+        private Iesi.Collections.Generic.ISet<object> GetEntitySet(Type forType)
+        {
+            Iesi.Collections.Generic.ISet<object> set;
+            if (!_entities.TryGetValue(forType, out set))
+            {
+                set = new HashedSet<object>();
+                _entities.Add(forType, set);
+            }
+            return set;
         }
     }
 }

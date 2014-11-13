@@ -10,6 +10,7 @@
     using Core.Inventory.Application;
     using Core.Inventory.Application.Commands;
     using Core.Inventory.Application.Data;
+    using Core.Inventory.Domain.Model.Management;
 
     [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/quantities/in-inventory")]
     [Authorize(Roles = "Admin")]

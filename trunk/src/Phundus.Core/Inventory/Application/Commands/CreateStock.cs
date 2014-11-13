@@ -29,16 +29,16 @@ namespace Phundus.Core.Inventory.Application.Commands
     {
         public IMemberInRole MemberInRole { get; set; }
 
-        public IStockRepository Repository { get; set; }
+        public IStockRepository StockRepository { get; set; }
 
         public void Handle(CreateStock command)
         {
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
 
             // TODO: Consider creating stocks via factory method on article/product to ensure concurrency?
-            var stock = new Stock(Repository.GetNextIdentity(), command.ArticleId);
+            var stock = new Stock(StockRepository.GetNextIdentity(), command.ArticleId);
 
-            Repository.Save(stock);
+            StockRepository.Save(stock);
 
             command.ResultingStockId = stock.StockId;
         }

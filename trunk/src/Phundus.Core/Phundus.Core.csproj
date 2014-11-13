@@ -160,6 +160,7 @@
     <Compile Include="Inventory\Application\Data\ReservationData.cs" />
     <Compile Include="Inventory\Application\QuantitiesInInventoryQueryService.cs" />
     <Compile Include="Inventory\Application\ReservationQueryService.cs" />
+    <Compile Include="Inventory\Application\StocksQueryService.cs" />
     <Compile Include="Inventory\Domain.Model\Catalog\ArticleId.cs" />
     <Compile Include="Inventory\Domain.Model\Management\IStockRepository.cs" />
     <Compile Include="Inventory\Domain.Model\Management\Quantity.cs" />
@@ -191,6 +192,8 @@
     <Compile Include="Inventory\Domain.Model\Catalog\ImageAdded.cs" />
     <Compile Include="Inventory\Domain.Model\Catalog\ImageRemoved.cs" />
     <Compile Include="Inventory\Application\Data\QuantityInInventoryData.cs" />
+    <Compile Include="Inventory\Application\Data\StockData.cs" />
+    <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateStocksProjection.cs" />
     <Compile Include="Inventory\_Legacy\Queries\ArticleReadModel.cs" />
     <Compile Include="Inventory\_Legacy\Queries\IArticleQueries.cs" />
     <Compile Include="Inventory\_Legacy\Queries\IImageQueries.cs" />
