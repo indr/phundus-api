@@ -6,5 +6,6 @@
     public class ArticleReservationsModel
     {
         public IEnumerable<Reservation> Items { get; set; }
+        public int Id { get; set; }
     }
 }

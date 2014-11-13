@@ -1,0 +1,20 @@
+﻿<h2>Material</h2>
+
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li><a ng-href="./article/edit/{{articleId}}">Eigenschaften</a></li>
+        <li><a ng-href="./article/files/{{articleId}}">Dateien</a></li>
+        <li><a ng-href="./article/categories/{{articleId}}">Kategorien</a></li>
+        <li class="active"><a href="#">Bestand</a></li>
+        <li><a ng-href="./article/availability/{{articleId}}">Verfügbarkeit</a></li>
+        <li><a ng-href="./article/reservations/{{articleId}}">Reservationen</a></li>      
+    </ul>
+
+    <div class="tab-content">
+        <div id="tab-content">
+            <p>Tab-Content</p>
+            <p>{{articleId}}</p>
+            <p>End</p>
+        </div>
+    </div>
+</div>

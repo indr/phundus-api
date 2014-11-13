@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Inventar";
+}
+
+<div ng-app="ph.inventory" ng-init="organizationId=@Session["OrganizationId"] + 0;">
+    <div ng-view>
+        <h2>Inventar</h2>
+        <p>Modul wird geladen. Bitte warten...</p>
+    </div>
+</div>

@@ -222,6 +222,7 @@
     <Compile Include="App_Start\StartMitSqlServerCe.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\Orgs\FilesController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
@@ -319,6 +320,7 @@
     <Content Include="App_Data\Seeds\ArticleImages\10027\dsc_3777.jpg" />
     <Content Include="App_Data\Seeds\ArticleImages\10027\E04.jpg" />
     <Content Include="App_Data\Seeds\ArticleImages\10027\Stroboskop-Schlauch-a21072200.jpg" />
+    <Content Include="ClientViews\Inventory\Stocks.html" />
     <Content Include="Content\angular-ui.css" />
     <Content Include="Content\angular-ui.min.css" />
     <Content Include="Content\bootstrap-datepicker.css" />
@@ -414,6 +416,7 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\modules\ph-inventory.js" />
     <Content Include="Scripts\modules\ph-admin.js" />
     <Content Include="Scripts\modules\ph-documents.js" />
     <Content Include="Scripts\modules\ph-domain.js" />
@@ -698,6 +701,7 @@
     </Content>
     <Content Include="Views\Documents\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\pbar-ani.gif" />
