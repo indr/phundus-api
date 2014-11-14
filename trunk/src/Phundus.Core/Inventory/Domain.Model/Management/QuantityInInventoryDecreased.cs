@@ -20,10 +20,19 @@
             Comment = comment;
         }
 
+        [DataMember(Order = 1)]
         public string StockId { get; set; }
+
+        [DataMember(Order = 2)]
         public int Change { get; set; }
+
+        [DataMember(Order = 3)]
         public int Total { get; set; }
+
+        [DataMember(Order = 4)]
         public DateTime AsOfUtc { get; set; }
+
+        [DataMember(Order = 5)]
         public string Comment { get; set; }
     }
 }
