@@ -93,6 +93,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\EventStoreRepositoryInstaller.cs" />
     <Compile Include="App_Start\NotificationPublisherInstaller.cs" />
     <Compile Include="App_Start\CommonInstaller.cs" />
     <Compile Include="App_Start\QueriesInstaller.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Inventory\Domain.Model\Management\Stock.cs" />
     <Compile Include="Inventory\Domain.Model\Management\StockCreated.cs" />
     <Compile Include="Inventory\Domain.Model\Management\StockId.cs" />
+    <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreRepositoryBase.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreReservationRepository.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\IReservationRepository.cs" />
     <Compile Include="IdentityAndAccess\Domain.Model\Organizations\OrganizationId.cs" />
@@ -177,6 +179,7 @@
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationCreated.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationId.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationTimeRangeChanged.cs" />
+    <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreStockRepository.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateQuantityInInventoryProjection.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateReservationProjection.cs" />
     <Compile Include="Inventory\Application\Commands\AddImage.cs" />

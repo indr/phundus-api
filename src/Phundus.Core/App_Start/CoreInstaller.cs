@@ -7,7 +7,6 @@
     using Castle.Windsor;
     using Cqrs;
     using Ddd;
-    using Inventory.Port.Adapter.Persistence;
 
     public class CoreInstaller : IWindsorInstaller
     {
@@ -24,8 +23,7 @@
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Classes.FromThisAssembly()
-                .BasedOn<EventStoreRepositoryBase>().WithServiceDefaultInterfaces());
+            
 
             container.Register(
                 Component.For<ITypedFactoryComponentSelector>().ImplementedBy<CommandHandlerSelector>(),

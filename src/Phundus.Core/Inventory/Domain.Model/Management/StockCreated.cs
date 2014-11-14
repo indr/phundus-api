@@ -16,7 +16,10 @@
             ArticleId = articleId;
         }
 
+        [DataMember(Order = 1)]
         public string StockId { get; set; }
+
+        [DataMember(Order = 2)]
         public int ArticleId { get; set; }
     }
 }
