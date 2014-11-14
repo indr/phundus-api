@@ -99,6 +99,7 @@
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="IdentityAndAccess\Users\Commands\RegisterUserHandler.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
+    <Compile Include="InstallerTests\when_event_store_repository_installer_is_installed.cs" />
     <Compile Include="Inventory\Application\CreateReservationHandlerTests.cs" />
     <Compile Include="Inventory\Application\ChangeQuantityInInventoryHandlerTests.cs" />
     <Compile Include="Inventory\Application\CreateStockHandlerTests.cs" />
