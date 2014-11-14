@@ -69,7 +69,7 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
         {
 #line 6
 #line 7
- testRunner.Given("stock created \"Stock-Id-1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("stock created \"Stock-Id-1\", article 1234", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
         }
         
