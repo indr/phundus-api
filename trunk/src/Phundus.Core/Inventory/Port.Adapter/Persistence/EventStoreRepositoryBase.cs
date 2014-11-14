@@ -9,12 +9,14 @@
     {
         public IEventStore EventStore { get; set; }
 
-        public T Get<T>(EventStreamId eventStreamId, Func<EventStream, T> entityFactory)
+        protected T Get<T>(EventStreamId eventStreamId, Func<EventStream, T> entityFactory)
         {
             AssertionConcern.AssertArgumentNotNull(eventStreamId, "Event stream id must be provided.");
             AssertionConcern.AssertArgumentNotNull(entityFactory, "Entity factory method must be provided." );
 
             // snapshots not currently supported; always use version 1
+            AssertionConcern.AssertArgumentGreaterThan(eventStreamId.StreamVersion, 0, "Stream version must be greather than zero.");
+
             var eventStream = EventStore.GetEventStreamSince(eventStreamId);
 
             if (eventStream.Version == 0)

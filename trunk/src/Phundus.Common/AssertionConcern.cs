@@ -25,7 +25,7 @@
             }
         }
 
-        public static void AssertArgumentGreaterThan(long value, int than, string message)
+        public static void AssertArgumentGreaterThan(long value, long than, string message)
         {
             if (value <= than)
             {
