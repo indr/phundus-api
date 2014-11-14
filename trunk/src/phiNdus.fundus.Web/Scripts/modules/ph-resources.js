@@ -114,5 +114,13 @@
     .factory('eventLog', function($resource) {
         return $resource('./api/diagnostics/activities');
     })
+
+    .factory('stocks', function($resource) {
+        return $resource('./api/organizations/:organizationId/articles/:articleId/stocks');
+    })
+
+    .factory('quantitiesInInventory', function($resource) {
+        return $resource('./api/organizations/:organizationId/articles/:articleId/stocks/:stockId/in-inventory');
+    })
 ; // ph.resources
 
