@@ -2,10 +2,12 @@
 {
     using Core.Inventory.Domain.Model.Catalog;
     using Core.Inventory.Domain.Model.Management;
+    using IdentityAndAccess.Domain.Model.Organizations;
 
     public class StockContext
     {
-        public StockId StockId { get; set; }
+        public OrganizationId OrganizationId { get; set; }
         public ArticleId ArticleId { get; set; }
+        public StockId StockId { get; set; }
     }
 }

@@ -17,14 +17,14 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
 
         private void Process(DomainEvent domainEvent)
         {
-           
+           // Fallback
         }
 
         private void Process(QuantityInInventoryIncreased e)
         {
             var record = Query.Where(p => p.AsOfUtc == e.AsOfUtc).SingleOrDefault();
             if (record == null)
-                record = new QuantityInInventoryData();
+                record = new QuantityInInventoryData(e.OrganizationId, e.ArticleId, e.StockId);
 
             record.AsOfUtc = e.AsOfUtc;
             record.Total = e.Total;
@@ -39,7 +39,7 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
         {
             var record = Query.Where(p => p.AsOfUtc == e.AsOfUtc).SingleOrDefault();
             if (record == null)
-                record = new QuantityInInventoryData();
+                record = new QuantityInInventoryData(e.OrganizationId, e.ArticleId, e.StockId);
 
             record.AsOfUtc = e.AsOfUtc;
             record.Total = e.Total;

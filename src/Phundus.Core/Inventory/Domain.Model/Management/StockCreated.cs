@@ -10,16 +10,20 @@
         {
         }
 
-        public StockCreated(string stockId, int articleId)
+        public StockCreated(int organizationId, int articleId, string stockId)
         {
-            StockId = stockId;
+            OrganizationId = organizationId;
             ArticleId = articleId;
+            StockId = stockId;
         }
 
         [DataMember(Order = 1)]
-        public string StockId { get; set; }
+        public int OrganizationId { get; set; }
 
         [DataMember(Order = 2)]
         public int ArticleId { get; set; }
+
+        [DataMember(Order = 3)]
+        public string StockId { get; set; }
     }
 }

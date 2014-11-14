@@ -69,7 +69,7 @@ namespace Phundus.Core.Specs.Inventory.Projections
         {
 #line 6
 #line 7
- testRunner.Given("stock created \"Stock-Id-1\", article 1234", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("stock created \"Stock-Id-1\", article 1234, organization 1001", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
  testRunner.And("quantity in inventory increased of 2 to 2 as of 09.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9

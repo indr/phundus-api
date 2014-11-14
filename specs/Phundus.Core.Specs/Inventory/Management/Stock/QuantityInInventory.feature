@@ -4,7 +4,7 @@
 	I want to be told the sum of two numbers
 
 Background: 
-	Given stock created "Stock-Id-1", article 1234
+	Given stock created "Stock-Id-1", article 1234, organization 1001
 
 Scenario: Increment quantity the first time
 	When Increase quantity in inventory of 3 as of 01.01.2013

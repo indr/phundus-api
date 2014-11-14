@@ -6,6 +6,7 @@
     using Core.Inventory.Application.Data;
     using Core.Inventory.Port.Adapter.Persistence.View;
     using Infrastructure;
+    using Machine.Specifications.Model;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
@@ -18,10 +19,13 @@
         private QuantityInInventoryData _result;
         private IEnumerable<QuantityInInventoryData> _results;
 
-        public QuantitiesInInventoryProjectionSteps(Container container, PastEvents pastEvents)
+        private readonly StockContext _context;
+
+        public QuantitiesInInventoryProjectionSteps(Container container, PastEvents pastEvents, StockContext context)
         {
             _container = container;
             _pastEvents = pastEvents;
+            _context = context;
         }
 
         private QuantitiesInInventoryQueryService GetQuantitiesInInventoryQueryService()
@@ -36,14 +40,14 @@
         public void WhenIAskForTheCurrentQuantityInInventory()
         {
             var query = GetQuantitiesInInventoryQueryService();
-            _result = query.QuantityDataAsOf(DateTimeProvider.UtcNow);
+            _result = query.QuantityDataAsOf(_context.OrganizationId.Id, _context.ArticleId.Id, _context.StockId.Id, DateTimeProvider.UtcNow);
         }
 
         [When(@"I ask for all quantities in inventory")]
         public void WhenIAskForAllQuantitiesInInventory()
         {
             var query = GetQuantitiesInInventoryQueryService();
-            _results = query.AllQuantitiesInInventoryByArticleId();
+            _results = query.AllQuantitiesInInventoryByArticleId(_context.OrganizationId.Id, _context.ArticleId.Id, _context.StockId.Id);
         }
 
         [Then(@"the result should be (.*)")]
