@@ -36,7 +36,7 @@ namespace Phundus.Core.Inventory.Application.Commands
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
 
             // TODO: Consider creating stocks via factory method on article/product to ensure concurrency?
-            var stock = new Stock(StockRepository.GetNextIdentity(), command.ArticleId);
+            var stock = new Stock(command.OrganizationId, command.ArticleId, StockRepository.GetNextIdentity());
 
             StockRepository.Save(stock);
 

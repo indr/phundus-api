@@ -27,7 +27,7 @@ namespace Phundus.Core.Tests.Inventory.Application
         public Establish ctx = () =>
         {
             memberInRole = depends.on<IMemberInRole>();
-            stock = new Stock(stockId, articleId);
+            stock = new Stock(organizationId, articleId, stockId);
             repository = depends.on<IStockRepository>();
             repository.Expect(x => x.Get(organizationId, articleId, stockId)).Return(stock);
 

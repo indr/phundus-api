@@ -21,7 +21,7 @@
         [Transaction]
         public virtual HttpResponseMessage Get(int organizationId, int articleId, string stockId)
         {
-            var result = QuantitiesInInventoryQueryService.AllQuantitiesInInventoryByArticleId();
+            var result = QuantitiesInInventoryQueryService.AllQuantitiesInInventoryByArticleId(organizationId, articleId, stockId);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 

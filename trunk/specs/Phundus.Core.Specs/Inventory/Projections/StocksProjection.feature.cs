@@ -75,11 +75,11 @@ namespace Phundus.Core.Specs.Inventory.Projections
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("stock created \"Stock-1\", article 1001", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("stock created \"Stock-1\", article 1001, organization 101", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.And("stock created \"Stock-2\", article 1002", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("stock created \"Stock-2\", article 1002, organization 101", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
- testRunner.And("stock created \"Stock-3\", article 1001", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("stock created \"Stock-3\", article 1001, organization 102", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
  testRunner.When("I ask for all stocks of article 1001", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden

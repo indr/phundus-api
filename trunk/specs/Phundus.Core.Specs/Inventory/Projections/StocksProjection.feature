@@ -5,9 +5,9 @@
 
 @mytag
 Scenario: Simple listing
-	Given stock created "Stock-1", article 1001
-	And stock created "Stock-2", article 1002
-	And stock created "Stock-3", article 1001
+	Given stock created "Stock-1", article 1001, organization 101
+	And stock created "Stock-2", article 1002, organization 101
+	And stock created "Stock-3", article 1001, organization 102
 	When I ask for all stocks of article 1001
 	Then the stocks should be
 	| StockId	| ArticleId |

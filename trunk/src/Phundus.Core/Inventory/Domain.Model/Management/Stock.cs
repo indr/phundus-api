@@ -5,7 +5,7 @@
     using System.Linq;
     using Catalog;
     using Common.Domain.Model;
-    using NHibernate.Linq;
+    using IdentityAndAccess.Domain.Model.Organizations;
 
     public class QuantityAsOf
     {
@@ -18,7 +18,7 @@
 
         public int Change { get; private set; }
         public int Total { get; private set; }
-        public DateTime AsOfUtc { get;private set; }
+        public DateTime AsOfUtc { get; private set; }
 
         public void AddToTotal(int change)
         {
@@ -32,7 +32,7 @@
 
         private QuantityAsOf FindAtAsOfOrLatestBefore(DateTime asOfUtc)
         {
-            return _quantities.Where(p => p.AsOfUtc <= asOfUtc).OrderByDescending(ks => ks.AsOfUtc).FirstOrDefault();            
+            return _quantities.Where(p => p.AsOfUtc <= asOfUtc).OrderByDescending(ks => ks.AsOfUtc).FirstOrDefault();
         }
 
         public void ChangeAsOf(int change, DateTime asOfUtc)
@@ -40,7 +40,8 @@
             var atAsOfOrLatest = FindAtAsOfOrLatestBefore(asOfUtc);
             if ((atAsOfOrLatest != null) && (atAsOfOrLatest.AsOfUtc == asOfUtc))
             {
-                throw new InvalidOperationException("Änderung des In-Inventory-Bestandes zum gleichen Zeitpunkt wird nicht unterstützt.");
+                throw new InvalidOperationException(
+                    "Änderung des In-Inventory-Bestandes zum gleichen Zeitpunkt wird nicht unterstützt.");
             }
 
             var total = 0;
@@ -78,18 +79,20 @@
     {
         private readonly QuantitiesAsOf _inInventory = new QuantitiesAsOf();
 
-        public Stock(StockId stockId, ArticleId articleId)
+        public Stock(OrganizationId organizationId, ArticleId articleId, StockId stockId)
         {
-            Apply(new StockCreated(stockId.Id, articleId.Id));
+            Apply(new StockCreated(organizationId.Id, articleId.Id, stockId.Id));
         }
 
         public Stock(IEnumerable<IDomainEvent> eventStream, long streamVersion) : base(eventStream, streamVersion)
         {
         }
 
-        public StockId StockId { get; private set; }
+        public OrganizationId OrganizationId { get; private set; }
 
         public ArticleId ArticleId { get; private set; }
+
+        public StockId StockId { get; private set; }
 
         protected override IEnumerable<object> GetIdentityComponents()
         {
@@ -103,8 +106,9 @@
 
         protected void When(StockCreated e)
         {
-            StockId = new StockId(e.StockId);
+            OrganizationId = new OrganizationId(e.OrganizationId);
             ArticleId = new ArticleId(e.ArticleId);
+            StockId = new StockId(e.StockId);
         }
 
         public void ChangeQuantityInInventory(int change, DateTime asOfUtc, string comment)
@@ -115,9 +119,11 @@
             var totalAsOf = _inInventory.GetTotalAsOf(asOfUtc);
 
             if (change > 0)
-                Apply(new QuantityInInventoryIncreased(StockId.Id, change, totalAsOf + change, asOfUtc, comment));
+                Apply(new QuantityInInventoryIncreased(OrganizationId.Id, ArticleId.Id, StockId.Id, change,
+                    totalAsOf + change, asOfUtc, comment));
             else if (change < 0)
-                Apply(new QuantityInInventoryDecreased(StockId.Id, change * -1, totalAsOf + change, asOfUtc, comment));
+                Apply(new QuantityInInventoryDecreased(OrganizationId.Id, ArticleId.Id, StockId.Id, change*-1,
+                    totalAsOf + change, asOfUtc, comment));
         }
 
         protected void When(QuantityInInventoryIncreased e)

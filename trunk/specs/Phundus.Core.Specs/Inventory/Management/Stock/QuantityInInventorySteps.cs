@@ -17,9 +17,7 @@
         private readonly PastEvents _pastEvents;
         private readonly MutatingEvents _mutatingEvents;
 
-        //private ArticleId _articleId;
-        //private StockId _stockId;
-        private StockContext _context;
+        private readonly StockContext _context;
 
 
         public QuantityInInventorySteps(Container container, PastEvents pastEvents, MutatingEvents mutatingEvents, StockContext stockContext)
@@ -39,24 +37,25 @@
                 .WhenCalled(a => _mutatingEvents.Events = ((Stock) a.Arguments[0]).MutatingEvents);
         }
 
-        [Given(@"stock created (.*), article (.*)")]
-        public void StockCreated(string stockId, int articleId)
+        [Given(@"stock created (.*), article (.*), organization (.*)")]
+        public void StockCreated(string stockId, int articleId, int organizationId)
         {
-            _context.StockId = new StockId(stockId);
+            _context.OrganizationId = new OrganizationId(organizationId);
             _context.ArticleId = new ArticleId(articleId);
-            _pastEvents.Add(new StockCreated(_context.StockId.Id, _context.ArticleId.Id));
+            _context.StockId = new StockId(stockId);
+            _pastEvents.Add(new StockCreated(_context.OrganizationId.Id, _context.ArticleId.Id, _context.StockId.Id));
         }
 
         [Given(@"quantity in inventory increased of (.*) to (.*) as of (.*)")]
         public void GivenQuantityInInventoryIncreasedOfToAsOf_(int change, int total, DateTime asOfUtc)
         {
-            _pastEvents.Add(new QuantityInInventoryIncreased(_context.StockId.Id, change, total, asOfUtc, null));
+            _pastEvents.Add(new QuantityInInventoryIncreased(_context.OrganizationId.Id, _context.ArticleId.Id, _context.StockId.Id, change, total, asOfUtc, null));
         }
 
         [Given(@"quantity in inventory decreased of (.*) to (.*) as of (.*)")]
         public void GivenQuantityInInventoryDecreasedOfToAsOf_(int change, int total, DateTime asOfUtc)
         {
-            _pastEvents.Add(new QuantityInInventoryDecreased(_context.StockId.Id, change, total, asOfUtc, null));
+            _pastEvents.Add(new QuantityInInventoryDecreased(_context.OrganizationId.Id, _context.ArticleId.Id, _context.StockId.Id, change, total, asOfUtc, null));
         }
 
         [When(@"Increase quantity in inventory of (.*) as of (.*)")]

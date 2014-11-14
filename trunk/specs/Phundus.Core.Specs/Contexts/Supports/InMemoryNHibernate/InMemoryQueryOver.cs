@@ -127,7 +127,7 @@ namespace Phundus.Core.Specs.Contexts.InMemoryNHibernate
 
         public IQueryOver<TRoot, TSubType> And(Expression<Func<TSubType, bool>> expression)
         {
-            throw new NotImplementedException();
+            return Where(expression);
         }
 
         public IQueryOver<TRoot, TSubType> And(Expression<Func<bool>> expression)
