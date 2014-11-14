@@ -5,6 +5,7 @@ namespace Phundus.Rest.Api.Inventory
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
+    using Castle.Transactions;
     using Core.IdentityAndAccess.Domain.Model.Organizations;
     using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.Inventory.Application;
@@ -14,11 +15,12 @@ namespace Phundus.Rest.Api.Inventory
 
     [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/stocks")]
     [Authorize(Roles = "Admin")]
-    public class OrganizationsArticlesStocksController : ApiControllerBase
+    public class ArticlesStocksController : ApiControllerBase
     {
         public IStocksQueryService StocksQueryService { get; set; }
 
         [GET("")]
+        [Transaction]
         public virtual HttpResponseMessage Get(int organizationId, int articleId)
         {
             var result = StocksQueryService.AllStocksByArticleId(articleId);
@@ -26,6 +28,7 @@ namespace Phundus.Rest.Api.Inventory
         }
 
         [POST("")]
+        [Transaction]
         public virtual HttpResponseMessage Post(int organizationId, int articleId, StockData data)
         {
             var command = new CreateStock(new UserId(CurrentUserId), new OrganizationId(organizationId), new ArticleId(data.ArticleId));

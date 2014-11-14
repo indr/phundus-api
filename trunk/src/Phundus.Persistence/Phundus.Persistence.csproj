@@ -83,6 +83,7 @@
     <Compile Include="Dashboard\ActivityDataMap.cs" />
     <Compile Include="Inventory\Mappings\QuantityInInventoryDataMap.cs" />
     <Compile Include="Inventory\Mappings\ReservationDataMap.cs" />
+    <Compile Include="Inventory\Mappings\StockDataMap.cs" />
     <Compile Include="NHibernateProcessedNotificationTrackerStore.cs" />
     <Compile Include="StoredEvents\EventStore.cs" />
     <Compile Include="StoredEvents\NhStoredEventRepository.cs" />
