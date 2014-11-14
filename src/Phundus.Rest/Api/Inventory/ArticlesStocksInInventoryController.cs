@@ -10,17 +10,16 @@
     using Core.Inventory.Application;
     using Core.Inventory.Application.Commands;
     using Core.Inventory.Application.Data;
-    using Core.Inventory.Domain.Model.Management;
 
-    [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/quantities/in-inventory")]
+    [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/stocks/{stockId}/in-inventory")]
     [Authorize(Roles = "Admin")]
-    public class ArticleQuantitiesInInventoryController : ApiControllerBase
+    public class ArticlesStocksInInventoryController : ApiControllerBase
     {
         public IQuantitiesInInventoryQueryService QuantitiesInInventoryQueryService { get; set; }
 
         [GET("")]
         [Transaction]
-        public virtual HttpResponseMessage Get(int organizationId, int articleId)
+        public virtual HttpResponseMessage Get(int organizationId, int articleId, string stockId)
         {
             var result = QuantitiesInInventoryQueryService.AllQuantitiesInInventoryByArticleId();
             return Request.CreateResponse(HttpStatusCode.OK, result);
@@ -28,12 +27,12 @@
 
         [POST("")]
         [Transaction]
-        public virtual HttpResponseMessage Post(int organizationId, int articleId, QuantityInInventoryData data)
+        public virtual HttpResponseMessage Post(int organizationId, int articleId, string stockId, QuantityInInventoryData data)
         {
             if (data.Change == 0)
                 Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Change must be non zero");
 
-            var command = new ChangeQuantityInInventory(CurrentUserId, organizationId, articleId, articleId.ToString(),
+            var command = new ChangeQuantityInInventory(CurrentUserId, organizationId, articleId, stockId,
                 data.Change, DateTime.UtcNow, data.Comment);
 
             Dispatch(command);
