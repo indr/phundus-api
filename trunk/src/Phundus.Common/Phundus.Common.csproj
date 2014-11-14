@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssertionConcern.cs" />
     <Compile Include="Domain.Model\DomainEvent.cs" />
     <Compile Include="Domain.Model\Entity.cs" />
     <Compile Include="Domain.Model\EntityWithCompositeId.cs" />
