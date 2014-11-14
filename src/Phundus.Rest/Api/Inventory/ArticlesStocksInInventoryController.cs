@@ -7,9 +7,13 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Core.IdentityAndAccess.Domain.Model.Organizations;
+    using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.Inventory.Application;
     using Core.Inventory.Application.Commands;
     using Core.Inventory.Application.Data;
+    using Core.Inventory.Domain.Model.Catalog;
+    using Core.Inventory.Domain.Model.Management;
 
     [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/stocks/{stockId}/in-inventory")]
     [Authorize(Roles = "Admin")]
@@ -29,11 +33,8 @@
         [Transaction]
         public virtual HttpResponseMessage Post(int organizationId, int articleId, string stockId, QuantityInInventoryData data)
         {
-            if (data.Change == 0)
-                Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Change must be non zero");
-
-            var command = new ChangeQuantityInInventory(CurrentUserId, organizationId, articleId, stockId,
-                data.Change, DateTime.UtcNow, data.Comment);
+            var command = new ChangeQuantityInInventory(new UserId(CurrentUserId), new OrganizationId(organizationId), 
+                new ArticleId(articleId), new StockId(stockId), data.Change, DateTime.UtcNow, data.Comment);
 
             Dispatch(command);
 

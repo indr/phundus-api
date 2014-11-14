@@ -31,7 +31,7 @@ namespace Phundus.Core.Tests.Inventory.Application
             repository = depends.on<IStockRepository>();
             repository.Expect(x => x.Get(organizationId, articleId, stockId)).Return(stock);
 
-            command = new ChangeQuantityInInventory(initiatorId.Id, organizationId.Id, articleId.Id, stockId.Id,
+            command = new ChangeQuantityInInventory(initiatorId, organizationId, articleId, stockId,
                 amount, DateTime.UtcNow, null);
         };
 

@@ -14,13 +14,14 @@
     public class QuantityInInventorySteps
     {
         private readonly Container _container;
-        private readonly PastEvents _pastEvents;
-        private readonly MutatingEvents _mutatingEvents;
 
         private readonly StockContext _context;
+        private readonly MutatingEvents _mutatingEvents;
+        private readonly PastEvents _pastEvents;
 
 
-        public QuantityInInventorySteps(Container container, PastEvents pastEvents, MutatingEvents mutatingEvents, StockContext stockContext)
+        public QuantityInInventorySteps(Container container, PastEvents pastEvents, MutatingEvents mutatingEvents,
+            StockContext stockContext)
         {
             _container = container;
             _pastEvents = pastEvents;
@@ -49,27 +50,31 @@
         [Given(@"quantity in inventory increased of (.*) to (.*) as of (.*)")]
         public void GivenQuantityInInventoryIncreasedOfToAsOf_(int change, int total, DateTime asOfUtc)
         {
-            _pastEvents.Add(new QuantityInInventoryIncreased(_context.OrganizationId, _context.ArticleId, _context.StockId, change, total, asOfUtc, null));
+            _pastEvents.Add(new QuantityInInventoryIncreased(_context.OrganizationId, _context.ArticleId,
+                _context.StockId, change, total, asOfUtc, null));
         }
 
         [Given(@"quantity in inventory decreased of (.*) to (.*) as of (.*)")]
         public void GivenQuantityInInventoryDecreasedOfToAsOf_(int change, int total, DateTime asOfUtc)
         {
-            _pastEvents.Add(new QuantityInInventoryDecreased(_context.OrganizationId, _context.ArticleId, _context.StockId, change, total, asOfUtc, null));
+            _pastEvents.Add(new QuantityInInventoryDecreased(_context.OrganizationId, _context.ArticleId,
+                _context.StockId, change, total, asOfUtc, null));
         }
 
         [When(@"Increase quantity in inventory of (.*) as of (.*)")]
         public void WhenIncreaseQuantityInInventory(int quantity, DateTime asOfUtc)
         {
             _container.Resolve<ChangeQuantityInInventoryHandler>()
-                .Handle(new ChangeQuantityInInventory(1, 2, _context.ArticleId.Id, _context.StockId.Id, quantity, asOfUtc, null));
+                .Handle(new ChangeQuantityInInventory(_context.InitiatorId, _context.OrganizationId, _context.ArticleId,
+                    _context.StockId, quantity, asOfUtc, null));
         }
 
         [When(@"Decrease quantity in inventory of (.*) as of (.*)")]
         public void WhenDecreaseQuantityInInventory(int quantity, DateTime asOfUtc)
         {
             _container.Resolve<ChangeQuantityInInventoryHandler>()
-                .Handle(new ChangeQuantityInInventory(1, 2, _context.ArticleId.Id, _context.StockId.Id, quantity * -1, asOfUtc, null));
+                .Handle(new ChangeQuantityInInventory(_context.InitiatorId, _context.OrganizationId, _context.ArticleId,
+                    _context.StockId, quantity*-1, asOfUtc, null));
         }
 
         [Then(@"quantity in inventory increased of (.*) to (.*) as of (.*)")]
