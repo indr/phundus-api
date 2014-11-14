@@ -6,7 +6,6 @@
     using Common.Notifications;
     using Dashboard.Application;
     using Dashboard.Port.Adapter.Persistence.View;
-    using Infrastructure;
     using Machine.Specifications;
 
     [Subject(typeof (QueryServiceInstaller))]
