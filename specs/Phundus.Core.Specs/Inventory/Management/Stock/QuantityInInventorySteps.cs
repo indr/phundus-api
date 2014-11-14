@@ -43,19 +43,19 @@
             _context.OrganizationId = new OrganizationId(organizationId);
             _context.ArticleId = new ArticleId(articleId);
             _context.StockId = new StockId(stockId);
-            _pastEvents.Add(new StockCreated(_context.OrganizationId.Id, _context.ArticleId.Id, _context.StockId.Id));
+            _pastEvents.Add(new StockCreated(_context.OrganizationId, _context.ArticleId, _context.StockId));
         }
 
         [Given(@"quantity in inventory increased of (.*) to (.*) as of (.*)")]
         public void GivenQuantityInInventoryIncreasedOfToAsOf_(int change, int total, DateTime asOfUtc)
         {
-            _pastEvents.Add(new QuantityInInventoryIncreased(_context.OrganizationId.Id, _context.ArticleId.Id, _context.StockId.Id, change, total, asOfUtc, null));
+            _pastEvents.Add(new QuantityInInventoryIncreased(_context.OrganizationId, _context.ArticleId, _context.StockId, change, total, asOfUtc, null));
         }
 
         [Given(@"quantity in inventory decreased of (.*) to (.*) as of (.*)")]
         public void GivenQuantityInInventoryDecreasedOfToAsOf_(int change, int total, DateTime asOfUtc)
         {
-            _pastEvents.Add(new QuantityInInventoryDecreased(_context.OrganizationId.Id, _context.ArticleId.Id, _context.StockId.Id, change, total, asOfUtc, null));
+            _pastEvents.Add(new QuantityInInventoryDecreased(_context.OrganizationId, _context.ArticleId, _context.StockId, change, total, asOfUtc, null));
         }
 
         [When(@"Increase quantity in inventory of (.*) as of (.*)")]
