@@ -6,6 +6,8 @@
     {
         protected Identity(T id)
         {
+            AssertionConcern.AssertArgumentNotNull(id, "Id must be provided.");
+
             Id = id;
         }
 

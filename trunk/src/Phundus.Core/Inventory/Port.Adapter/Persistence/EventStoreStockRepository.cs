@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Inventory.Port.Adapter.Persistence
 {
+    using System;
     using Common;
     using Common.Events;
     using Domain.Model.Catalog;
@@ -19,7 +20,7 @@
 
         public StockId GetNextIdentity()
         {
-            return new StockId();
+            return new StockId(Guid.NewGuid().ToString());
         }
 
         public void Save(Stock stock)
