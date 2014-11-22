@@ -2,10 +2,10 @@
 {
     using Cqrs;
     using Ddd;
+    using Domain.Model.Identity;
     using IdentityAndAccess.Queries;
     using Model;
     using Repositories;
-    using Services;
 
     public class CreateEmptyContract
     {

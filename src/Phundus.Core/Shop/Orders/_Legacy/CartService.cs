@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using Commands;
-    using Contracts.Services;
     using Cqrs;
+    using Domain.Model.Identity;
     using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Queries;

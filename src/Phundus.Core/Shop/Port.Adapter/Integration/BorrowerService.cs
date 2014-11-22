@@ -1,13 +1,8 @@
-﻿namespace Phundus.Core.Shop.Contracts.Services
+﻿namespace Phundus.Core.Shop.Port.Adapter.Integration
 {
+    using Domain.Model.Identity;
     using IdentityAndAccess.Organizations;
     using IdentityAndAccess.Queries;
-    using Model;
-
-    public interface IBorrowerService
-    {
-        Borrower ById(int id);
-    }
 
     public class BorrowerService : IBorrowerService
     {

@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Contracts.Services;
     using Ddd;
+    using Domain.Model.Identity;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
     using Inventory.Domain.Model.Catalog;

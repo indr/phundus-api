@@ -4,6 +4,7 @@
     using System.Linq;
     using Contracts.Model;
     using Ddd;
+    using Domain.Model.Identity;
     using Iesi.Collections.Generic;
     using Inventory.Domain.Model.Catalog;
     using Inventory.Services;

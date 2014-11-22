@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Shop.Contracts.Model
+﻿namespace Phundus.Core.Shop.Domain.Model.Identity
 {
     using System.Collections.Generic;
     using Common.Domain.Model;

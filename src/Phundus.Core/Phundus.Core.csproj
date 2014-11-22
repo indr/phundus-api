@@ -212,10 +212,11 @@
     <Compile Include="Inventory\_Legacy\Services\IAvailabilityService.cs" />
     <Compile Include="Inventory\_Legacy\Services\IReservationService.cs" />
     <Compile Include="Shop\Contracts\Commands\CreateEmptyContract.cs" />
-    <Compile Include="Shop\Contracts\Model\Borrower.cs" />
+    <Compile Include="Shop\Domain.Model\Identity\Borrower.cs" />
     <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
     <Compile Include="Shop\Contracts\Repositories\IContractRepository.cs" />
-    <Compile Include="Shop\Contracts\Services\BorrowerService.cs" />
+    <Compile Include="Shop\Port.Adapter\Integration\BorrowerService.cs" />
+    <Compile Include="Shop\Domain.Model\Identity\IBorrowerService.cs" />
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
     <Compile Include="Shop\Orders\Commands\AddOrderItem.cs" />
     <Compile Include="Shop\Orders\Commands\CloseOrder.cs" />
