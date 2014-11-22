@@ -1,11 +1,11 @@
-﻿namespace Phundus.Core.Shop.Orders.Commands
+﻿namespace Phundus.Core.Shop.Application.Commands
 {
     using System;
     using System.Security;
     using Cqrs;
+    using Domain.Model.Ordering;
     using IdentityAndAccess.Queries;
     using Inventory.Domain.Model.Catalog;
-    using Repositories;
 
     public class AddArticleToCart
     {

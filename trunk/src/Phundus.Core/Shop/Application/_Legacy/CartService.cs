@@ -1,20 +1,20 @@
-﻿namespace Phundus.Core.Shop.Orders
+﻿namespace Phundus.Core.Shop.Application
 {
     using System.Collections.Generic;
     using System.Linq;
     using Commands;
     using Cqrs;
     using Domain.Model.Identity;
+    using Domain.Model.Ordering;
     using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Queries;
     using IdentityAndAccess.Users.Repositories;
     using Infrastructure;
     using Inventory.Services;
-    using Mails;
+    using Orders.Mails;
+    using Orders.Services;
     using Queries;
-    using Repositories;
-    using Services;
 
     public class CartService : ICartService
     {
@@ -40,7 +40,7 @@
             var cart = Carts.FindByCustomer(userId);
             if (cart == null)
             {
-                cart = new Model.Cart(user);
+                cart = new Orders.Model.Cart(user);
                 Carts.Add(cart);
             }
 
@@ -51,14 +51,14 @@
 
         public CartDto AddItem(int? cartId, int userId, CartItemDto item)
         {
-            Model.Cart cart = null;
+            Orders.Model.Cart cart = null;
             if (cartId.HasValue)
                 cart = Carts.FindById(cartId.Value);
 
             if (cart == null)
             {
                 var user = Users.FindById(userId);
-                cart = new Model.Cart(user);
+                cart = new Orders.Model.Cart(user);
                 Carts.Add(cart);
             }
             cartId = cart.Id;

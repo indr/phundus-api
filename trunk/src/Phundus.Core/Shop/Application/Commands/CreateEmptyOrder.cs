@@ -1,12 +1,12 @@
-﻿namespace Phundus.Core.Shop.Orders.Commands
+﻿namespace Phundus.Core.Shop.Application.Commands
 {
     using Cqrs;
     using Ddd;
     using Domain.Model.Identity;
+    using Domain.Model.Ordering;
     using IdentityAndAccess.Queries;
-    using Model;
-    using Repositories;
-    using Services;
+    using Orders.Model;
+    using Orders.Services;
 
     public class CreateEmptyOrder
     {

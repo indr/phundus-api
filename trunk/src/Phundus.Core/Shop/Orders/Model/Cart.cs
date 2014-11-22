@@ -5,13 +5,13 @@
     using System.Linq;
     using Ddd;
     using Domain.Model.Identity;
+    using Domain.Model.Ordering;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
     using Inventory.Domain.Model.Catalog;
     using Inventory.Services;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
-    using Repositories;
     using Services;
 
     public class Cart : EntityBase

@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Core.Shop.Domain.Model.Ordering;
     using Core.Shop.Orders;
     using Core.Shop.Orders.Model;
-    using Core.Shop.Orders.Repositories;
     using NHibernate.Linq;
 
     public class NhOrderRepository : NhRepositoryBase<Order>, IOrderRepository

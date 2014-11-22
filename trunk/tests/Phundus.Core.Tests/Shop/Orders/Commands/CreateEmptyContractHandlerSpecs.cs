@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using System;
-    using Core.Shop.Contracts.Commands;
+    using Core.Shop.Application.Commands;
     using Core.Shop.Domain.Model.Renting;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
