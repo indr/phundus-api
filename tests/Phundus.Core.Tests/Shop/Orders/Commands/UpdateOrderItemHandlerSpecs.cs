@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using Core.Inventory.Domain.Model.Catalog;
-    using Core.Shop.Orders.Commands;
+    using Core.Shop.Application.Commands;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;

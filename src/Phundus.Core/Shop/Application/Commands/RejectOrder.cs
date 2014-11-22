@@ -1,30 +1,28 @@
-﻿namespace Phundus.Core.Shop.Orders.Commands
+﻿namespace Phundus.Core.Shop.Application.Commands
 {
     using Cqrs;
-    using Ddd;
+    using Domain.Model.Ordering;
     using IdentityAndAccess.Queries;
-    using Model;
-    using Repositories;
 
-    public class CloseOrder
+    public class RejectOrder
     {
-        public int OrderId { get; set; }
         public int InitiatorId { get; set; }
+        public int OrderId { get; set; }
     }
 
-    public class CloseOrderHandler : IHandleCommand<CloseOrder>
+    public class RejectOrderHandler : IHandleCommand<RejectOrder>
     {
         public IOrderRepository OrderRepository { get; set; }
 
         public IMemberInRole MemberInRole { get; set; }
 
-        public void Handle(CloseOrder command)
+        public void Handle(RejectOrder command)
         {
             var order = OrderRepository.GetById(command.OrderId);
 
             MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId);
 
-            order.Close(command.InitiatorId);
+            order.Reject(command.InitiatorId);
         }
     }
 }

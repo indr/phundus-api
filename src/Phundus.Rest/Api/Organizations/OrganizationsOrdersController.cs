@@ -9,8 +9,8 @@ namespace Phundus.Rest.Api.Organizations
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Core.IdentityAndAccess.Queries;
+    using Core.Shop.Application.Commands;
     using Core.Shop.Orders;
-    using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
 
     [RoutePrefix("api/organizations/{organizationId}/orders")]

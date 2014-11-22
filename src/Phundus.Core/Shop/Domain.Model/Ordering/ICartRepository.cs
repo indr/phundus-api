@@ -1,7 +1,7 @@
-﻿namespace Phundus.Core.Shop.Orders.Repositories
+﻿namespace Phundus.Core.Shop.Domain.Model.Ordering
 {
     using Infrastructure;
-    using Model;
+    using Orders.Model;
 
     public interface ICartRepository : IRepository<Cart>
     {

@@ -3,7 +3,7 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Core.Shop.Orders.Commands;
+    using Core.Shop.Application.Commands;
 
     [RoutePrefix("api/carts")]
     public class CartsController : ApiControllerBase

@@ -8,7 +8,7 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Core.Shop.Contracts.Commands;
+    using Core.Shop.Application.Commands;
     using Core.Shop.Queries;
 
     [RoutePrefix("api/organizations/{organizationId}/contracts")]

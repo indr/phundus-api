@@ -1,8 +1,8 @@
-﻿namespace Phundus.Core.Shop.Orders.Repositories
+﻿namespace Phundus.Core.Shop.Domain.Model.Ordering
 {
     using System.Collections.Generic;
     using Infrastructure;
-    using Model;
+    using Orders.Model;
 
     public interface IOrderRepository : IRepository<Order>
     {

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Shop.Contracts.Commands
+﻿namespace Phundus.Core.Shop.Application.Commands
 {
     using Cqrs;
     using Ddd;

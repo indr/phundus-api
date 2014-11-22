@@ -1,9 +1,9 @@
-﻿namespace Phundus.Core.Shop.Orders.Commands
+﻿namespace Phundus.Core.Shop.Application.Commands
 {
     using System;
     using Cqrs;
+    using Domain.Model.Ordering;
     using IdentityAndAccess.Queries;
-    using Repositories;
 
     public class UpdateOrderItem
     {

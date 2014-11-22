@@ -1,7 +1,7 @@
-﻿namespace Phundus.Core.Shop.Orders.Commands
+﻿namespace Phundus.Core.Shop.Application.Commands
 {
     using Cqrs;
-    using Repositories;
+    using Domain.Model.Ordering;
 
     public class ClearCart
     {
