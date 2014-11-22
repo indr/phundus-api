@@ -242,7 +242,7 @@
     <Compile Include="Shop\Orders\_Legacy\ICartService.cs" />
     <Compile Include="Shop\Orders\IPdfStore.cs" />
     <Compile Include="Shop\Orders\PdfStore.cs" />
-    <Compile Include="Shop\Pricing\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
+    <Compile Include="Shop\Domain.Model\Pricing\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
     <Compile Include="Shop\Queries\Dtos\CartAssembler.cs" />
     <Compile Include="Shop\Queries\Dtos\CartDto.cs" />
     <Compile Include="Shop\Queries\Dtos\LegacyOrderDto.cs" />
@@ -364,7 +364,6 @@
     <Folder Include="Dashboard\Domain.Model\" />
     <Folder Include="IdentityAndAccess\Queries\Dtos\" />
     <Folder Include="Inventory\_Legacy\Services\Dtos\" />
-    <Folder Include="Shop\Catalogs\" />
     <Folder Include="Shop\Contracts\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
