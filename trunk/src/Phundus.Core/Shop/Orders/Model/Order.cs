@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq;
-    using Contracts.Model;
     using Ddd;
     using Domain.Model.Identity;
     using Iesi.Collections.Generic;

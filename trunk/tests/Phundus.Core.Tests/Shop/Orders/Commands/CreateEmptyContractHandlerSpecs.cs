@@ -2,7 +2,7 @@
 {
     using System;
     using Core.Shop.Contracts.Commands;
-    using Core.Shop.Contracts.Model;
+    using Core.Shop.Domain.Model.Renting;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;

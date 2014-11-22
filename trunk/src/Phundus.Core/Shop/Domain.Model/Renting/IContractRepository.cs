@@ -1,8 +1,7 @@
-﻿namespace Phundus.Core.Shop.Contracts.Repositories
+﻿namespace Phundus.Core.Shop.Domain.Model.Renting
 {
     using System;
     using Infrastructure;
-    using Model;
 
     public interface IContractRepository : IRepository<Contract>
     {
