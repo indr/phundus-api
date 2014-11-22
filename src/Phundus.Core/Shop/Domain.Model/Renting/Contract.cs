@@ -1,14 +1,14 @@
-﻿namespace Phundus.Core.Shop.Contracts.Model
+﻿namespace Phundus.Core.Shop.Domain.Model.Renting
 {
     using System;
-    using Domain.Model.Identity;
+    using Identity;
     using Iesi.Collections.Generic;
 
     public class Contract
     {
+        private Borrower _borrower;
         private DateTime _createdOn = DateTime.UtcNow;
         private ISet<ContractItem> _items = new HashedSet<ContractItem>();
-        private Borrower _borrower;
         private int _organizationId;
 
         protected Contract()

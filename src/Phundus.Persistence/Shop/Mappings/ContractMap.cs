@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Persistence.Shop.Mappings
 {
-    using Core.Shop.Contracts.Model;
+    using Core.Shop.Domain.Model.Renting;
     using FluentNHibernate.Mapping;
 
     public class ContractMap : ClassMap<Contract>

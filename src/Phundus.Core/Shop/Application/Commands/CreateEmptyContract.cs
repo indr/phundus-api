@@ -3,9 +3,8 @@
     using Cqrs;
     using Ddd;
     using Domain.Model.Identity;
+    using Domain.Model.Renting;
     using IdentityAndAccess.Queries;
-    using Model;
-    using Repositories;
 
     public class CreateEmptyContract
     {

@@ -211,10 +211,10 @@
     <Compile Include="Inventory\_Legacy\Queries\IAvailabilityQueries.cs" />
     <Compile Include="Inventory\_Legacy\Services\IAvailabilityService.cs" />
     <Compile Include="Inventory\_Legacy\Services\IReservationService.cs" />
-    <Compile Include="Shop\Contracts\Commands\CreateEmptyContract.cs" />
+    <Compile Include="Shop\Application\Commands\CreateEmptyContract.cs" />
     <Compile Include="Shop\Domain.Model\Identity\Borrower.cs" />
-    <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
-    <Compile Include="Shop\Contracts\Repositories\IContractRepository.cs" />
+    <Compile Include="Shop\Domain.Model\Renting\ContractCreated.cs" />
+    <Compile Include="Shop\Domain.Model\Renting\IContractRepository.cs" />
     <Compile Include="Shop\Port.Adapter\Integration\BorrowerService.cs" />
     <Compile Include="Shop\Domain.Model\Identity\IBorrowerService.cs" />
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
@@ -305,8 +305,8 @@
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
     <Compile Include="Shop\Orders\Model\Cart.cs" />
-    <Compile Include="Shop\Contracts\Model\Contract.cs" />
-    <Compile Include="Shop\Contracts\Model\ContractItem.cs" />
+    <Compile Include="Shop\Domain.Model\Renting\Contract.cs" />
+    <Compile Include="Shop\Domain.Model\Renting\ContractItem.cs" />
     <Compile Include="Ddd\EntityBase.cs" />
     <Compile Include="Inventory\Domain.Model\Catalog\Image.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Account.cs" />
@@ -365,7 +365,6 @@
     <Folder Include="Dashboard\Domain.Model\" />
     <Folder Include="IdentityAndAccess\Queries\Dtos\" />
     <Folder Include="Inventory\_Legacy\Services\Dtos\" />
-    <Folder Include="Shop\Contracts\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IdentityAndAccess\Organizations\Mails\Templates.resx">
