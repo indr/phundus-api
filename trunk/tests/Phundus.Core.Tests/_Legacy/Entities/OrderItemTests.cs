@@ -3,6 +3,7 @@
     using System;
     using Core.Inventory.Domain.Model.Catalog;
     using Core.Shop.Contracts.Model;
+    using Core.Shop.Domain.Model.Identity;
     using Core.Shop.Orders.Model;
     using NUnit.Framework;
 

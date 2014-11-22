@@ -2,6 +2,7 @@
 {
     using System;
     using Core.Shop.Contracts.Model;
+    using Core.Shop.Domain.Model.Identity;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;

@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Contracts.Model
 {
     using System;
+    using Domain.Model.Identity;
     using Iesi.Collections.Generic;
 
     public class Contract
