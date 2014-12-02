@@ -1,7 +1,6 @@
-﻿namespace Phundus.Core.Cqrs
+﻿namespace Phundus.Common.Cqrs
 {
     public interface ICommand
     {
-        
     }
 }
