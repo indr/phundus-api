@@ -155,7 +155,7 @@
     <Compile Include="IdentityAndAccess\Users\Model\UserLoggedIn.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserRegistered.cs" />
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
-    <Compile Include="Inventory\Application\Commands\CreateReservation.cs" />
+    <Compile Include="Inventory\Application\Commands\ReserveArticle.cs" />
     <Compile Include="Inventory\Application\Commands\ChangeQuantityInInventory.cs" />
     <Compile Include="Inventory\Application\Commands\CreateStock.cs" />
     <Compile Include="Inventory\Application\Data\ReservationData.cs" />
@@ -177,7 +177,7 @@
     <Compile Include="IdentityAndAccess\Domain.Model\Organizations\OrganizationId.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\Reservation.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationAmountChanged.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\ReservationCreated.cs" />
+    <Compile Include="Inventory\Domain.Model\Reservations\ArticleReserved.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationId.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationTimeRangeChanged.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreStockRepository.cs" />
@@ -213,6 +213,9 @@
     <Compile Include="Inventory\_Legacy\Services\IReservationService.cs" />
     <Compile Include="Shop\Application\Commands\CreateEmptyContract.cs" />
     <Compile Include="Shop\Domain.Model\Identity\Borrower.cs" />
+    <Compile Include="Shop\Domain.Model\Ordering\OrderId.cs" />
+    <Compile Include="Shop\Domain.Model\Ordering\ReservationSaga.cs" />
+    <Compile Include="Shop\Domain.Model\Ordering\ReservationSagaManager.cs" />
     <Compile Include="Shop\Domain.Model\Renting\ContractCreated.cs" />
     <Compile Include="Shop\Domain.Model\Renting\IContractRepository.cs" />
     <Compile Include="Shop\Port.Adapter\Integration\BorrowerService.cs" />
@@ -267,7 +270,6 @@
     <Compile Include="Cqrs\CommandDispatcher.cs" />
     <Compile Include="Cqrs\CommandHandlerSelector.cs" />
     <Compile Include="App_Start\CoreInstaller.cs" />
-    <Compile Include="Cqrs\ICommand.cs" />
     <Compile Include="Cqrs\ICommandDispatcher.cs" />
     <Compile Include="Cqrs\IHandleCommand.cs" />
     <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
