@@ -13,11 +13,21 @@
             When((dynamic) e);
         }
 
+        private void When(DomainEvent e)
+        {
+            // Fallback
+        }
+
         private void When(OrderItemAdded e)
         {
             UndispatchedCommands.Add(new ReserveArticle(new UserId(e.InitiatorId), new OrganizationId(e.OrganizationId),
                 new ArticleId(e.ArticleId), new OrderId(e.OrderId), new CorrelationId(e.OrderItemId), e.FromUtc, e.ToUtc,
                 e.Quantity));
+        }
+
+        private void When(OrderItemRemoved e)
+        {
+            UndispatchedCommands.Add(new CancelReservation());
         }
     }
 }
