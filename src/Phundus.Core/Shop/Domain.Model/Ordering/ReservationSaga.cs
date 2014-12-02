@@ -1,9 +1,10 @@
 ﻿namespace Phundus.Core.Shop.Domain.Model.Ordering
 {
-    using System;
     using Common.Domain.Model;
+    using IdentityAndAccess.Domain.Model.Organizations;
+    using IdentityAndAccess.Domain.Model.Users;
     using Inventory.Application.Commands;
-    using Orders.Model;
+    using Inventory.Domain.Model.Catalog;
 
     public class ReservationSaga : SagaBase
     {
@@ -14,8 +15,9 @@
 
         private void When(OrderItemAdded e)
         {
-            UndispatchedCommands.Add(new ReserveArticle(0, 0, 0, new OrderId(e.OrderId),
-                new CorrelationId(e.OrderItemId), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
+            UndispatchedCommands.Add(new ReserveArticle(new UserId(e.InitiatorId), new OrganizationId(e.OrganizationId),
+                new ArticleId(e.ArticleId), new OrderId(e.OrderId), new CorrelationId(e.OrderItemId), e.FromUtc, e.ToUtc,
+                e.Quantity));
         }
     }
 }

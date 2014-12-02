@@ -3,18 +3,23 @@
     using System;
     using Cqrs;
     using Domain.Model.Ordering;
+    using IdentityAndAccess.Domain.Model.Organizations;
+    using IdentityAndAccess.Domain.Model.Users;
     using IdentityAndAccess.Queries;
     using Inventory.Domain.Model.Catalog;
 
     public class AddOrderItem
     {
-        public int OrderId { get; set; }
-        public int InitiatorId { get; set; }
-        public int ArticleId { get; set; }
+        public UserId InitiatorId { get; set; }
+        public OrganizationId OrganizationId { get; set; }
+        public OrderId OrderId { get; set; }
+        
+        public ArticleId ArticleId { get; set; }
         public DateTime FromUtc { get; set; }
         public DateTime ToUtc { get; set; }
-        public int Amount { get; set; }
-        public Guid OrderItemId { get; set; }
+        public int Quantity { get; set; }
+
+        public Guid ResultingOrderItemId { get; set; }
     }
 
     public class AddOrderItemHandler : IHandleCommand<AddOrderItem>
@@ -28,16 +33,17 @@
 
         public void Handle(AddOrderItem command)
         {
-            var order = OrderRepository.GetById(command.OrderId);
+            var order = OrderRepository.GetById(command.OrderId.Id);
 
-            var article = ArticleRepository.GetById(order.Organization.Id, command.ArticleId);
+            var article = ArticleRepository.GetById(order.Organization.Id, command.ArticleId.Id);
             
-            MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId);
+            MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId.Id);
 
-            var item = order.AddItem(article, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),
-                command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), command.Amount);
+            var toUtc = command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime();
+            var item = order.AddItem(command.InitiatorId, article, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),
+                toUtc, command.Quantity);
 
-            command.OrderItemId = item.Id;
+            command.ResultingOrderItemId = item.Id;
         }
     }
 }

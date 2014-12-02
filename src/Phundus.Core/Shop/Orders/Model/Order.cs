@@ -4,6 +4,9 @@
     using System.Linq;
     using Ddd;
     using Domain.Model.Identity;
+    using Domain.Model.Ordering;
+    using IdentityAndAccess.Domain.Model.Organizations;
+    using IdentityAndAccess.Domain.Model.Users;
     using Iesi.Collections.Generic;
     using Inventory.Domain.Model.Catalog;
     using Inventory.Services;
@@ -171,20 +174,24 @@
         {
             EnsurePending();
 
-            if (!availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount, Guid.Empty))
+            if (
+                !availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount,
+                    Guid.Empty))
                 throw new ArticleNotAvailableException(item);
 
             return _items.Add(item);
         }
 
-        public virtual OrderItem AddItem(Article article, DateTime fromUtc, DateTime toUtc, int amount)
+        public virtual OrderItem AddItem(UserId initiatorId, Article article, DateTime fromUtc, DateTime toUtc,
+            int amount)
         {
             EnsurePending();
 
             var item = new OrderItem(this, article, fromUtc, toUtc, amount);
             _items.Add(item);
 
-            EventPublisher.Publish(new OrderItemAdded());
+            EventPublisher.Publish(new OrderItemAdded(initiatorId, new OrganizationId(Organization.Id), new OrderId(Id),
+                item.Id, new ArticleId(article.Id), fromUtc, toUtc, amount));
 
             return item;
         }

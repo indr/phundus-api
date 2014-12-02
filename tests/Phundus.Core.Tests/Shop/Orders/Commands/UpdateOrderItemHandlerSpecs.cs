@@ -2,8 +2,10 @@
 {
     using System;
     using System.Linq;
+    using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.Inventory.Domain.Model.Catalog;
     using Core.Shop.Application.Commands;
+    using Core.Shop.Domain.Model.Ordering;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
@@ -13,7 +15,7 @@
     [Subject(typeof (UpdateOrderItemHandler))]
     public class when_update_order_item_is_handled : order_handler_concern<UpdateOrderItem, UpdateOrderItemHandler>
     {
-        private const int initiatorId = 1;
+        private static UserId initiatorId = new UserId(1);
         private const int orderId = 2;
         private const int newAmount = 20;
         private static Guid orderItemId;
@@ -24,7 +26,7 @@
         public Establish c = () =>
         {
             order = new Order(organization, BorrowerFactory.Create());
-            orderItemId = order.AddItem(new Article(organization.Id, "Artikel"), DateTime.Today, DateTime.Today, 1).Id;
+            orderItemId = order.AddItem(initiatorId, new Article(new ArticleId(1),  organization.Id, "Artikel"), DateTime.Today, DateTime.Today, 1).Id;
             orders.setup(x => x.GetById(orderId)).Return(order);
 
             newFromUtc = DateTime.UtcNow.AddDays(1);
@@ -41,7 +43,7 @@
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organization.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(organization.Id, initiatorId.Id));
 
         public It should_publish_order_item_amount_changed =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemAmountChanged>.Is.NotNull));
