@@ -57,7 +57,7 @@ namespace Phundus.Rest.Api.Organizations
             {
                 Amount = doc.Amount,
                 FromUtc = doc.FromUtc,
-                InitiatorId = CurrentUserId,
+                InitiatorId = new UserId(CurrentUserId),
                 OrderId = orderId,
                 OrderItemId = orderItemId,
                 ToUtc = doc.ToUtc
@@ -72,7 +72,7 @@ namespace Phundus.Rest.Api.Organizations
         {
             Dispatcher.Dispatch(new RemoveOrderItem
             {
-                InitiatorId = CurrentUserId,
+                InitiatorId = new UserId(CurrentUserId),
                 OrderId = orderId,
                 OrderItemId = orderItemId
             });
