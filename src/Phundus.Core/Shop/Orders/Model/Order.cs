@@ -207,7 +207,7 @@
             return AddItem(item, availabilityService);
         }
 
-        public virtual void RemoveItem(Guid orderItemId)
+        public virtual void RemoveItem(UserId initiatorId, Guid orderItemId)
         {
             EnsurePending();
 
@@ -218,7 +218,7 @@
             _items.Remove(item);
             item.Delete();
 
-            EventPublisher.Publish(new OrderItemRemoved());
+            EventPublisher.Publish(new OrderItemRemoved(initiatorId, new OrganizationId(Organization.Id), new OrderId(Id), orderItemId));
         }
 
         public virtual void ChangeAmount(Guid orderItemId, int amount)

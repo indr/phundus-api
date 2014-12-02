@@ -155,6 +155,7 @@
     <Compile Include="IdentityAndAccess\Users\Model\UserLoggedIn.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserRegistered.cs" />
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
+    <Compile Include="Inventory\Application\Commands\CancelReservation.cs" />
     <Compile Include="Inventory\Application\Commands\ReserveArticle.cs" />
     <Compile Include="Inventory\Application\Commands\ChangeQuantityInInventory.cs" />
     <Compile Include="Inventory\Application\Commands\CreateStock.cs" />

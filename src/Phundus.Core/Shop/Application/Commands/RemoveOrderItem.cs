@@ -26,7 +26,7 @@
             
             MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId.Id);
 
-            order.RemoveItem(command.OrderItemId);
+            order.RemoveItem(command.InitiatorId, command.OrderItemId);
         }
     }
 }
