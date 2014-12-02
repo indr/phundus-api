@@ -1,22 +1,24 @@
 ﻿namespace Phundus.Core.Tests.Inventory.Application
 {
     using System;
+    using Common.Domain.Model;
     using Core.IdentityAndAccess.Domain.Model.Organizations;
     using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.IdentityAndAccess.Queries;
-    using Core.Inventory.Application;
     using Core.Inventory.Application.Commands;
     using Core.Inventory.Domain.Model.Reservations;
+    using Core.Shop.Domain.Model.Ordering;
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
 
-
-    [Subject(typeof(CreateReservationHandler))]
-    public class when_create_reservation_is_handled : handler_concern<CreateReservation, CreateReservationHandler>
+    [Subject(typeof (ReserveArticleHandler))]
+    public class when_create_reservation_is_handled : handler_concern<ReserveArticle, ReserveArticleHandler>
     {
         private static IReservationRepository repository;
         private static IMemberInRole memberInRole;
+        private static OrderId orderId = new OrderId(1);
+        private static CorrelationId correlationId = new CorrelationId(Guid.NewGuid());
 
         public Establish ctx = () =>
         {
@@ -25,7 +27,7 @@
             repository = depends.on<IReservationRepository>();
             repository.WhenToldTo(x => x.GetNextIdentity()).Return(new ReservationId("R_1234"));
 
-            command = new CreateReservation(1, 101, 201, DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
+            command = new ReserveArticle(1, 101, 201, orderId, correlationId, DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
         };
 
         public It should_ask_for_member_privileges =

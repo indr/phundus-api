@@ -5,6 +5,7 @@
     using Core.IdentityAndAccess.Domain.Model.Organizations;
     using Core.Inventory.Domain.Model.Catalog;
     using Core.Inventory.Domain.Model.Reservations;
+    using Core.Shop.Domain.Model.Ordering;
     using Machine.Specifications;
 
     public class reservation_convern : aggregate_root_concern<Reservation>
@@ -12,12 +13,16 @@
         protected static OrganizationId organizationId;
         protected static ArticleId articleId;
         protected static ReservationId reservationId;
+        protected static OrderId orderId;
+        protected static CorrelationId correlationId;
 
         public Establish ctx = () =>
         {
             organizationId = new OrganizationId(101);
             articleId = new ArticleId(201);
             reservationId = new ReservationId("0123456789");
+            orderId = new OrderId(301);
+            correlationId = new CorrelationId();
         };
     }
 
@@ -27,12 +32,12 @@
         public Because of =
             () =>
             {
-                sut = new Reservation(organizationId, articleId, reservationId,
+                sut = new Reservation(organizationId, articleId, reservationId, orderId, correlationId,
                     new TimeRange(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 1);
             };
 
         public It should_have_mutating_event_reservation_created =
-            () => sut.MutatingEvents[0].ShouldBeOfExactType<ReservationCreated>();
+            () => sut.MutatingEvents[0].ShouldBeOfExactType<ArticleReserved>();
     }
 
     [Subject(typeof (Reservation))]
@@ -40,7 +45,7 @@
     {
         public Establish ctx = () =>
         {
-            sut = new Reservation(organizationId, articleId, reservationId,
+            sut = new Reservation(organizationId, articleId, reservationId, orderId, correlationId,
                 new TimeRange(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 1);
         };
 
@@ -54,7 +59,7 @@
     {
         public Establish ctx = () =>
         {
-            sut = new Reservation(organizationId, articleId, reservationId,
+            sut = new Reservation(organizationId, articleId, reservationId, orderId, correlationId,
                 new TimeRange(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 1);
         };
 

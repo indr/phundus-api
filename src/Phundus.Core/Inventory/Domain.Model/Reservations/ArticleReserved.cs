@@ -5,22 +5,25 @@
     using Catalog;
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
+    using Shop.Domain.Model.Ordering;
 
     [DataContract]
-    public class ReservationCreated : DomainEvent
+    public class ArticleReserved : DomainEvent
     {
-        public ReservationCreated(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId,
-            TimeRange timeRange, int amount)
+        public ArticleReserved(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId,
+            OrderId orderId, CorrelationId correlationId, TimeRange timeRange, int amount)
         {
             OrganizationId = organizationId.Id;
             ArticleId = articleId.Id;
             ReservationId = reservationId.Id;
+            OrderId = orderId.Id;
+            CorrelationId = correlationId.Id;
             FromUtc = timeRange.FromUtc;
             ToUtc = timeRange.ToUtc;
             Amount = amount;
         }
 
-        protected ReservationCreated()
+        protected ArticleReserved()
         {
         }
 
@@ -34,12 +37,18 @@
         public string ReservationId { get; protected set; }
 
         [DataMember(Order = 4)]
-        public DateTime FromUtc { get; protected set; }
+        public int OrderId { get; protected set; }
 
         [DataMember(Order = 5)]
-        public DateTime ToUtc { get; protected set; }
+        public string CorrelationId { get; protected set; }
 
         [DataMember(Order = 6)]
+        public DateTime FromUtc { get; protected set; }
+
+        [DataMember(Order = 7)]
+        public DateTime ToUtc { get; protected set; }
+
+        [DataMember(Order = 8)]
         public int Amount { get; protected set; }
     }
 }

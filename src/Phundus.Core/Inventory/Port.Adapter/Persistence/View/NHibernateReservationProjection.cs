@@ -26,7 +26,7 @@
             Save(data);
         }
 
-        private void Process(ReservationCreated domainEvent)
+        private void Process(ArticleReserved domainEvent)
         {
             var data = new ReservationData();
             data.ArticleId = domainEvent.ArticleId;
