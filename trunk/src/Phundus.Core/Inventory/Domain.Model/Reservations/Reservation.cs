@@ -5,6 +5,7 @@
     using Catalog;
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
+    using Shop.Domain.Model.Ordering;
 
     public class Reservation : EventSourcedRootEntity
     {
@@ -14,10 +15,10 @@
         private ReservationId _reservationId;
         private TimeRange _timeRange;
 
-        public Reservation(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId,
+        public Reservation(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId, OrderId orderId, CorrelationId correlationId,
             TimeRange timeRange, int amount)
         {
-            Apply(new ReservationCreated(organizationId, articleId, reservationId, timeRange, amount));
+            Apply(new ArticleReserved(organizationId, articleId, reservationId, orderId, correlationId, timeRange, amount));
         }
 
         public Reservation(IEnumerable<IDomainEvent> eventStream, long eventStreamVersion) : base(eventStream, eventStreamVersion)
@@ -49,7 +50,7 @@
             get { return _amount; }
         }
 
-        protected void When(ReservationCreated e)
+        protected void When(ArticleReserved e)
         {
             _organizationId = new OrganizationId(e.OrganizationId);
             _articleId = new ArticleId(e.ArticleId);
