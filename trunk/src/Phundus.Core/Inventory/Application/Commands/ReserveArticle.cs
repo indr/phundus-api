@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Inventory.Application.Commands
 {
     using System;
+    using Common;
     using Common.Cqrs;
     using Common.Domain.Model;
     using Cqrs;
@@ -13,10 +14,16 @@
 
     public class ReserveArticle : ICommand
     {
-        public ReserveArticle(int initiatorId, int organizationId, int articleId, OrderId orderId,
-            CorrelationId correlationId,
-            DateTime fromUtc, DateTime toUtc, int amount)
+        public ReserveArticle(UserId initiatorId, OrganizationId organizationId, ArticleId articleId, OrderId orderId,
+            CorrelationId correlationId, DateTime fromUtc, DateTime toUtc, int quantity)
         {
+            AssertionConcern.AssertArgumentNotNull(initiatorId, "Initiator id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
+            AssertionConcern.AssertArgumentNotEmpty(fromUtc, "From UTC must be provided.");
+            AssertionConcern.AssertArgumentNotEmpty(toUtc, "To UTC must be provided.");
+            AssertionConcern.AssertArgumentGreaterThan(quantity, 0, "Quantity must be greater than zero.");
+
             InitiatorId = initiatorId;
             OrganizationId = organizationId;
             ArticleId = articleId;
@@ -24,14 +31,14 @@
             CorrelationId = correlationId;
             FromUtc = fromUtc;
             ToUtc = toUtc;
-            Amount = amount;
+            Quantity = quantity;
         }
 
-        public int InitiatorId { get; private set; }
+        public UserId InitiatorId { get; private set; }
 
-        public int OrganizationId { get; private set; }
+        public OrganizationId OrganizationId { get; private set; }
 
-        public int ArticleId { get; private set; }
+        public ArticleId ArticleId { get; private set; }
 
         public OrderId OrderId { get; private set; }
 
@@ -41,7 +48,7 @@
 
         public DateTime ToUtc { get; private set; }
 
-        public int Amount { get; private set; }
+        public int Quantity { get; private set; }
 
         public string ResultingReservationId { get; set; }
     }
@@ -54,14 +61,11 @@
 
         public void Handle(ReserveArticle command)
         {
-            var initiatorId = new UserId(command.InitiatorId);
-            var organizationId = new OrganizationId(command.OrganizationId);
-            MemberInRole.ActiveMember(organizationId, initiatorId);
+            MemberInRole.ActiveMember(command.OrganizationId, command.InitiatorId);
 
-            var articleId = new ArticleId(command.ArticleId);
             var timeRange = new TimeRange(command.FromUtc, command.ToUtc);
-            var reservation = new Reservation(organizationId, articleId, Repository.GetNextIdentity(), command.OrderId,
-                command.CorrelationId, timeRange, command.Amount);
+            var reservation = new Reservation(command.OrganizationId, command.ArticleId, Repository.GetNextIdentity(), command.OrderId,
+                command.CorrelationId, timeRange, command.Quantity);
 
             Repository.Save(reservation);
 

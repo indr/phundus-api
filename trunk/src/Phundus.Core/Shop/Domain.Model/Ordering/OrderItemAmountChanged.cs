@@ -1,4 +1,4 @@
-namespace Phundus.Core.Shop.Orders.Model
+namespace Phundus.Core.Shop.Domain.Model.Ordering
 {
     using System.Runtime.Serialization;
     using Common.Domain.Model;

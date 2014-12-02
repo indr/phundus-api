@@ -7,7 +7,10 @@ namespace Phundus.Rest.Api.Organizations
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Core.IdentityAndAccess.Domain.Model.Users;
+    using Core.Inventory.Domain.Model.Catalog;
     using Core.Shop.Application.Commands;
+    using Core.Shop.Domain.Model.Ordering;
     using Core.Shop.Queries;
 
     [RoutePrefix("api/organizations/{organizationId}/orders/{orderId}/items/{orderItemId?}")]
@@ -21,17 +24,17 @@ namespace Phundus.Rest.Api.Organizations
         {
             var command = new AddOrderItem
             {
-                Amount = doc.Amount,
-                ArticleId = doc.ArticleId,
+                Quantity = doc.Amount,
+                ArticleId = new ArticleId(doc.ArticleId),
                 FromUtc = doc.FromUtc,
-                InitiatorId = CurrentUserId,
-                OrderId = orderId,
+                InitiatorId = new UserId(CurrentUserId),
+                OrderId = new OrderId(orderId),
                 ToUtc = doc.ToUtc
             };
 
             Dispatch(command);
 
-            return Get(organizationId, orderId, command.OrderItemId, HttpStatusCode.Created);
+            return Get(organizationId, orderId, command.ResultingOrderItemId, HttpStatusCode.Created);
         }
 
         private HttpResponseMessage Get(int organizationId, int orderId, Guid orderItemId, HttpStatusCode statusCode)
