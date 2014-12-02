@@ -120,6 +120,8 @@
     <Compile Include="Inventory\Articles\Commands\WhenDeleteArticleIsHandled.cs" />
     <Compile Include="Placeholder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shop\Domain.Model\Ordering\ReservationSagaManagerTests.cs" />
+    <Compile Include="Shop\Domain.Model\Ordering\ReservationSagaTests.cs" />
     <Compile Include="Shop\Orders\Commands\AddOrderItemHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\CloseOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\ConfirmOrderHandlerSpecs.cs" />
