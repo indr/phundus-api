@@ -2,16 +2,19 @@
 {
     using System;
     using Common.Domain.Model;
+    using Common.Port.Adapter.Persistence;
     using Core.IdentityAndAccess.Domain.Model.Organizations;
     using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.Inventory.Domain.Model.Catalog;
     using Core.Shop.Domain.Model.Ordering;
-    using Core.Shop.Orders.Model;
     using Machine.Fakes;
     using Machine.Specifications;
 
     public class saga_manager_concern<TSagaManager> : concern<TSagaManager> where TSagaManager : class
     {
+        protected static ISagaRepository repository;
+
+        public Establish ctx = () => { repository = depends.on<ISagaRepository>(); };
     }
 
     public class reservation_saga_manager_concern : saga_manager_concern<ReservationSagaManager>
@@ -24,14 +27,14 @@
         protected static int _quantity = 1;
 
         protected static Guid orderItemId = new Guid();
-        protected static IReservationSagaRepository repository;
+
         protected static ReservationSaga saga;
 
         public Establish ctx = () =>
         {
             saga = new ReservationSaga();
-            repository = depends.on<IReservationSagaRepository>();
-            repository.WhenToldTo(x => x.FindByCorrelationId(orderItemId)).Return(saga);
+
+            repository.WhenToldTo(x => x.FindById<ReservationSaga>(orderItemId)).Return(saga);
         };
     }
 
@@ -44,22 +47,18 @@
         };
 
         public It should_load_saga_with_order_item_id =
-            () => repository.WasToldTo(x => x.FindByCorrelationId(orderItemId));
+            () => repository.WasToldTo(x => x.FindById<ReservationSaga>(orderItemId));
 
         public It should_save_uncommitted_events = () => repository.WasToldTo(x => x.Save(saga));
-
-        
     }
 
     public class when_reservation_saga_manager_handles_order_item_removed : reservation_saga_manager_concern
     {
-        public Because of = () =>
-        {
-            sut.Handle(new OrderItemRemoved(_initiatorId, _organizationId, orderId, orderItemId));
-        };
+        public Because of =
+            () => { sut.Handle(new OrderItemRemoved(_initiatorId, _organizationId, orderId, orderItemId)); };
 
         public It should_load_saga_with_order_item_id =
-            () => repository.WasToldTo(x => x.FindByCorrelationId(orderItemId));
+            () => repository.WasToldTo(x => x.FindById<ReservationSaga>(orderItemId));
 
         public It should_save_uncommitted_events = () => repository.WasToldTo(x => x.Save(saga));
     }

@@ -216,10 +216,10 @@
     <Compile Include="Shop\Domain.Model\Identity\Borrower.cs" />
     <Compile Include="Shop\Domain.Model\Ordering\OrderId.cs" />
     <Compile Include="Shop\Domain.Model\Ordering\ReservationSaga.cs" />
+    <Compile Include="Shop\Domain.Model\Ordering\ReservationSagaManager.cs" />
     <Compile Include="Shop\Domain.Model\Renting\ContractCreated.cs" />
     <Compile Include="Shop\Domain.Model\Renting\IContractRepository.cs" />
     <Compile Include="Shop\Domain.Model\Ordering\OrderItemRemoved.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\IReservationSagaRepository.cs" />
     <Compile Include="Shop\Port.Adapter\Integration\BorrowerService.cs" />
     <Compile Include="Shop\Domain.Model\Identity\IBorrowerService.cs" />
     <Compile Include="Shop\Application\Commands\AddArticleToCart.cs" />
