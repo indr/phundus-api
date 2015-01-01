@@ -13,12 +13,12 @@
         private ArticleId _articleId;
         private OrganizationId _organizationId;
         private ReservationId _reservationId;
-        private TimeRange _timeRange;
+        private Period _period;
 
         public Reservation(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId, OrderId orderId, CorrelationId correlationId,
-            TimeRange timeRange, int amount)
+            Period period, int amount)
         {
-            Apply(new ArticleReserved(organizationId, articleId, reservationId, orderId, correlationId, timeRange, amount));
+            Apply(new ArticleReserved(organizationId, articleId, reservationId, orderId, correlationId, period, amount));
         }
 
         public Reservation(IEnumerable<IDomainEvent> eventStream, long eventStreamVersion) : base(eventStream, eventStreamVersion)
@@ -40,9 +40,9 @@
             get { return _reservationId; }
         }
 
-        public TimeRange TimeRange
+        public Period Period
         {
-            get { return _timeRange; }
+            get { return _period; }
         }
 
         public int Amount
@@ -55,7 +55,7 @@
             _organizationId = new OrganizationId(e.OrganizationId);
             _articleId = new ArticleId(e.ArticleId);
             _reservationId = new ReservationId(e.ReservationId);
-            _timeRange = new TimeRange(e.FromUtc, e.ToUtc);
+            _period = new Period(e.FromUtc, e.ToUtc);
             _amount = e.Amount;
         }
 
@@ -67,16 +67,16 @@
         }
 
 
-        public void ChangeTimeRange(TimeRange timeRange)
+        public void ChangeTimeRange(Period period)
         {
-            if (timeRange == null)
-                throw new ArgumentNullException("timeRange", @"Time range can not be null.");
-            Apply(new ReservationTimeRangeChanged(_organizationId, _articleId, _reservationId, timeRange));
+            if (period == null)
+                throw new ArgumentNullException("period", @"Time range can not be null.");
+            Apply(new ReservationTimeRangeChanged(_organizationId, _articleId, _reservationId, period));
         }
 
         protected void When(ReservationTimeRangeChanged e)
         {
-            _timeRange = new TimeRange(e.FromUtc, e.ToUtc);
+            _period = new Period(e.FromUtc, e.ToUtc);
         }
 
         public void ChangeAmount(int amount)

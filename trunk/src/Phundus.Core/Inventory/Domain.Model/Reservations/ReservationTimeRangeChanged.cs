@@ -10,13 +10,13 @@
     public class ReservationTimeRangeChanged : DomainEvent
     {
         public ReservationTimeRangeChanged(OrganizationId organizationId, ArticleId articleId,
-            ReservationId reservationId, TimeRange timeRange)
+            ReservationId reservationId, Period period)
         {
             OrganizationId = organizationId.Id;
             ArticleId = articleId.Id;
             ReservationId = reservationId.Id;
-            FromUtc = timeRange.FromUtc;
-            ToUtc = timeRange.ToUtc;
+            FromUtc = period.FromUtc;
+            ToUtc = period.ToUtc;
         }
 
         protected ReservationTimeRangeChanged()
