@@ -26,7 +26,7 @@
         public Establish c = () =>
         {
             order = new Order(organization, BorrowerFactory.Create());
-            orderItemId = order.AddItem(initiatorId, new Article(new ArticleId(1),  organization.Id, "Artikel"), DateTime.Today, DateTime.Today, 1).Id;
+            orderItemId = order.AddItem(initiatorId, new Article(new ArticleId(1),  organization.Id, "Artikel"), DateTime.Today, DateTime.Today.AddDays(1), 1).Id;
             orders.setup(x => x.GetById(orderId)).Return(order);
 
             newFromUtc = DateTime.UtcNow.AddDays(1);
@@ -36,7 +36,7 @@
                 InitiatorId = initiatorId,
                 OrderId = orderId,
                 OrderItemId = orderItemId,
-                Amount = newAmount,
+                Quantity = newAmount,
                 FromUtc = newFromUtc,
                 ToUtc = newToUtc
             };
@@ -46,7 +46,7 @@
             () => memberInRole.WasToldTo(x => x.ActiveChief(organization.Id, initiatorId.Id));
 
         public It should_publish_order_item_amount_changed =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemAmountChanged>.Is.NotNull));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemQuantityChanged>.Is.NotNull));
 
         public It should_publish_order_item_period_changed =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemPeriodChanged>.Is.NotNull));

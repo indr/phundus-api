@@ -12,15 +12,14 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
     public class OrderItemAdded : DomainEvent
     {
         public OrderItemAdded(UserId initiatorId, OrganizationId organizationId, OrderId orderId, Guid orderItemId,
-            ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity)
+            ArticleId articleId, Period period, int quantity)
         {
             AssertionConcern.AssertArgumentNotNull(initiatorId, "Initiator id must be provided.");
             AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderId, "Order id must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderItemId, "Order item id must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
-            AssertionConcern.AssertArgumentNotEmpty(fromUtc, "From UTC must be provided.");
-            AssertionConcern.AssertArgumentNotEmpty(toUtc, "To UTC must be provided.");
+            AssertionConcern.AssertArgumentNotNull(period, "Period must be provided.");           
             AssertionConcern.AssertArgumentGreaterThan(quantity, 0, "Quantity must be greater than zero.");
 
             InitiatorId = initiatorId.Id;
@@ -28,8 +27,8 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
             OrderId = orderId.Id;
             OrderItemId = orderItemId;
             ArticleId = articleId.Id;
-            FromUtc = fromUtc;
-            ToUtc = toUtc;
+            FromUtc = period.FromUtc;
+            ToUtc = period.ToUtc;
             Quantity = quantity;
         }
 

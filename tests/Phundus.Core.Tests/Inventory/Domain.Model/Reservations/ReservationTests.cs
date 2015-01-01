@@ -33,7 +33,7 @@
             () =>
             {
                 sut = new Reservation(organizationId, articleId, reservationId, orderId, correlationId,
-                    new TimeRange(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 1);
+                    new Period(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 1);
             };
 
         public It should_have_mutating_event_reservation_created =
@@ -46,10 +46,10 @@
         public Establish ctx = () =>
         {
             sut = new Reservation(organizationId, articleId, reservationId, orderId, correlationId,
-                new TimeRange(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 1);
+                new Period(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 1);
         };
 
-        public Because of = () => sut.ChangeTimeRange(new TimeRange(DateTime.UtcNow, DateTime.UtcNow.AddDays(2)));
+        public Because of = () => sut.ChangeTimeRange(new Period(DateTime.UtcNow, DateTime.UtcNow.AddDays(2)));
 
         public It should_have_mutating_event_reservation_time_range_changed =
             () => sut.MutatingEvents[1].ShouldBeOfExactType<ReservationTimeRangeChanged>();
@@ -60,7 +60,7 @@
         public Establish ctx = () =>
         {
             sut = new Reservation(organizationId, articleId, reservationId, orderId, correlationId,
-                new TimeRange(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 1);
+                new Period(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 1);
         };
 
         public Because of = () => sut.ChangeAmount(2);

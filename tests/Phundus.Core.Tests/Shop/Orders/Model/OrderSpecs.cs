@@ -17,7 +17,6 @@
     [Subject(typeof (Order))]
     public class when_an_order_is_created : order_concern
     {
-        private const int organizationId = 1;
         private static Organization organization;
         private static Borrower borrower;
 
@@ -27,7 +26,10 @@
             borrower = BorrowerFactory.Create();
         };
 
-        public Because of = () => { order = new Order(organization, borrower); };
+        public Because of = () =>
+        {
+            order = new Order(organization, borrower);
+        };
 
         public It should_have_status_pending =
             () => order.Status.ShouldEqual(OrderStatus.Pending);

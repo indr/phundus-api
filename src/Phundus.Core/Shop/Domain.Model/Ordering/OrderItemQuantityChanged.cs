@@ -8,26 +8,25 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
     using IdentityAndAccess.Domain.Model.Users;
 
     [DataContract]
-    public class OrderItemPeriodChanged : DomainEvent
+    public class OrderItemQuantityChanged : DomainEvent
     {
-        public OrderItemPeriodChanged(UserId initiatorId, OrganizationId organizationId, OrderId orderId,
-            Guid orderItemId, Period period)
+        public OrderItemQuantityChanged(UserId initiatorId, OrganizationId organizationId, OrderId orderId,
+            Guid orderItemId, int quantity)
         {
             AssertionConcern.AssertArgumentNotNull(initiatorId, "Initiator id must be provided.");
             AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderId, "Order id must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderItemId, "Order item id must be provided.");
-            AssertionConcern.AssertArgumentNotNull(period, "Period must be greater or less than zero.");
+            AssertionConcern.AssertArgumentNotZero(quantity, "Quantity must be greater or less than zero.");
 
             InitiatorId = initiatorId;
             OrganizationId = organizationId;
             OrderId = orderId;
             OrderItemId = orderItemId;
-            FromUtc = period.FromUtc;
-            ToUtc = period.ToUtc;
+            Quantity = quantity;
         }
 
-        protected OrderItemPeriodChanged()
+        protected OrderItemQuantityChanged()
         {
         }
 
@@ -35,7 +34,6 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
         public OrganizationId OrganizationId { get; set; }
         public OrderId OrderId { get; set; }
         public Guid OrderItemId { get; set; }
-        public DateTime FromUtc { get; set; }
-        public DateTime ToUtc { get; set; }
+        public int Quantity { get; set; }
     }
 }

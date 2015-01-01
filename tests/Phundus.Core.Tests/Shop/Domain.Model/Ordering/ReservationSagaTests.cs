@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using Common.Domain.Model;
     using Core.IdentityAndAccess.Domain.Model.Organizations;
     using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.Inventory.Application.Commands;
@@ -17,6 +18,7 @@
         protected static OrderId orderId = new OrderId(3);
         protected static Guid orderItemId = new Guid();
         protected static ArticleId articleId = new ArticleId(4);
+        protected static Period period = new Period(DateTime.Today, DateTime.Today.AddDays(1));
         protected static DateTime fromUtc = DateTime.Today;
         protected static DateTime toUtc = DateTime.Today.AddDays(1);
         protected static int quantity = 1;
@@ -24,11 +26,12 @@
 
     public class when_order_item_added_is_transitioned : reservation_saga_concern
     {
-        public Establish ctx = () =>
-        {
-            domainEvent = new OrderItemAdded(initiatorId, organizationId, orderId, orderItemId, articleId, fromUtc,
-                toUtc, quantity);
-        };
+        public Establish ctx =
+            () =>
+            {
+                domainEvent = new OrderItemAdded(initiatorId, organizationId, orderId, orderItemId, articleId, period,
+                    quantity);
+            };
 
         public It should_have_one_undispatched_command =
             () => sut.UndispatchedCommands.Count.ShouldEqual(1);
@@ -47,8 +50,8 @@
     {
         public Establish ctx = () =>
         {
-            pastEvents.Add(new OrderItemAdded(initiatorId, organizationId, orderId, orderItemId, articleId, fromUtc,
-                toUtc, quantity));
+            pastEvents.Add(new OrderItemAdded(initiatorId, organizationId, orderId, orderItemId, articleId, period,
+                quantity));
             domainEvent = new OrderItemRemoved(initiatorId, organizationId, orderId, orderItemId);
         };
 
@@ -57,7 +60,44 @@
         public It should_have_undispatched_command_cancel_reservation = () =>
         {
             var command = sut.UndispatchedCommands.First().ShouldBeAn<CancelReservation>();
-            
+            command.CorrelationId.Id.ShouldEqual(orderItemId.ToString());
+        };
+    }
+
+    public class when_order_item_quantity_changed_is_transitioned : reservation_saga_concern
+    {
+        public Establish ctx = () =>
+        {
+            pastEvents.Add(new OrderItemAdded(initiatorId, organizationId, orderId, orderItemId, articleId, period,
+                quantity));
+            domainEvent = new OrderItemQuantityChanged(initiatorId, organizationId, orderId, orderItemId, quantity + 1);
+        };
+
+        public It should_have_uncomitted_event = () => sut.UncommittedEvents.ShouldContainOnly(domainEvent);
+
+        public It should_have_undispatched_command = () =>
+        {
+            var command = sut.UndispatchedCommands.First().ShouldBeAn<ChangeReservationQuantity>();
+            command.CorrelationId.Id.ShouldEqual(orderItemId.ToString());
+        };
+    }
+
+    public class when_order_item_period_changed_is_transitioned : reservation_saga_concern
+    {
+        public Establish ctx = () =>
+        {
+            pastEvents.Add(new OrderItemAdded(initiatorId, organizationId, orderId, orderItemId, articleId, period,
+                quantity));
+            domainEvent = new OrderItemPeriodChanged(initiatorId, organizationId, orderId, orderItemId,
+                new Period(DateTime.Today.AddDays(1), DateTime.Today.AddDays(2)));
+        };
+
+        public It should_have_uncomitted_event = () => sut.UncommittedEvents.ShouldContainOnly(domainEvent);
+
+        public It should_have_undispatched_command = () =>
+        {
+            var command = sut.UndispatchedCommands.First().ShouldBeAn<ChangeReservationPeriod>();
+            command.CorrelationId.Id.ShouldEqual(orderItemId.ToString());
         };
     }
 }
