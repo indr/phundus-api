@@ -7,13 +7,15 @@
     using Common.Messaging;
     using Core.Ddd;
     using NHibernate;
-    using NHibernate.Criterion.Lambda;
 
     public class EventStore : IEventStore
     {
         public Func<ISession> SessionFactory { get; set; }
 
-        protected ISession Session { get { return SessionFactory(); } }
+        protected ISession Session
+        {
+            get { return SessionFactory(); }
+        }
 
         public IEventSerializer Serializer { get; set; }
 
@@ -52,19 +54,6 @@
             return eventStream;
         }
 
-        private EventStream CreateEventStream(IEnumerable<StoredEvent> storedEvents)
-        {
-            var domainEvents = new List<DomainEvent>();
-            long version = 0;
-            foreach (var each in storedEvents)
-            {
-                domainEvents.Add(ToDomainEvent(each));
-                version = each.StreamVersion;
-            }
-
-            return new EventStream(domainEvents, version);
-        }
-
         public long CountStoredEvents()
         {
             return Repository.CountStoredEvents();
@@ -81,6 +70,19 @@
 
             return (DomainEvent) Serializer.Deserialize(domainEventType, storedEvent.EventGuid,
                 storedEvent.OccuredOnUtc, storedEvent.Serialization);
+        }
+
+        private EventStream CreateEventStream(IEnumerable<StoredEvent> storedEvents)
+        {
+            var domainEvents = new List<DomainEvent>();
+            long version = 0;
+            foreach (var each in storedEvents)
+            {
+                domainEvents.Add(ToDomainEvent(each));
+                version = each.StreamVersion;
+            }
+
+            return new EventStream(domainEvents, version);
         }
 
         protected void AppendEventStore(IDomainEvent domainEvent, EventStreamId startingEventStreamId, int index)

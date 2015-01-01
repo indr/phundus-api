@@ -6,7 +6,6 @@
     using Common.Events;
     using Common.Notifications;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
-    using Core.Inventory.Port.Adapter.Persistence;
     using Inventory.Repositories;
     using StoredEvents;
 
@@ -26,7 +25,6 @@
         {
             container.Register(Component.For<IEventStore>().ImplementedBy<EventStore>());
 
-            
 
             container.Register(Types.FromThisAssembly()
                 .BasedOn(typeof (NhRepositoryBase<>))

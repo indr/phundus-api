@@ -1,34 +1,10 @@
 ﻿namespace Phundus.Core.Shop.Domain.Model.Ordering
 {
     using Common.Domain.Model;
-    using Ddd;
     using IdentityAndAccess.Domain.Model.Organizations;
     using IdentityAndAccess.Domain.Model.Users;
     using Inventory.Application.Commands;
     using Inventory.Domain.Model.Catalog;
-
-    public class ReservationSagaManager : ISubscribeTo<OrderItemAdded>
-    {
-        public IReservationSagaRepository Repository { get; set; }
-
-        public void Handle(OrderItemAdded e)
-        {
-            var saga = Repository.FindByCorrelationId(e.OrderItemId);
-
-            saga.Transition(e);
-
-            Repository.Save(saga);
-        }
-
-        public void Handle(OrderItemRemoved e)
-        {
-            var saga = Repository.FindByCorrelationId(e.OrderItemId);
-
-            saga.Transition(e);
-
-            Repository.Save(saga);
-        }
-    }
 
     public class ReservationSaga : SagaBase
     {

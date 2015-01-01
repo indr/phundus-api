@@ -81,6 +81,7 @@
     <Compile Include="Notifications\NotificationLog.cs" />
     <Compile Include="Notifications\NotificationLogId.cs" />
     <Compile Include="Notifications\NotificationLogFactory.cs" />
+    <Compile Include="Domain.Model\ISagaRepository.cs" />
     <Compile Include="Port.Adapter\Persistence\NHibernateProjectionBase.cs" />
     <Compile Include="Port.Adapter\Persistence\NHibernateQueryServiceBase.cs" />
     <Compile Include="Port.Adapter\Persistence\View\ProjectionDispatcher.cs" />
