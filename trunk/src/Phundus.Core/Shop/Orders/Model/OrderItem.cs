@@ -101,7 +101,7 @@
             get { return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(FromUtc.ToLocalTime(), ToUtc.ToLocalTime(), Amount, UnitPrice).Price; }
         }
 
-        public virtual void ChangeAmount(int amount)
+        public virtual void ChangeQuantity(int amount)
         {
             Amount = amount;
         }

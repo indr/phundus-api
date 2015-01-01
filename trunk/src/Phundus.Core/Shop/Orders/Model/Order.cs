@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using Common.Domain.Model;
     using Ddd;
     using Domain.Model.Identity;
     using Domain.Model.Ordering;
@@ -35,12 +36,22 @@
 
         public virtual int Id { get; protected set; }
 
+        private OrderId OrderId
+        {
+            get { return new OrderId(Id); }
+        }
+
         public virtual int Version { get; protected set; }
 
         public virtual Organization Organization
         {
             get { return _organization; }
             protected set { _organization = value; }
+        }
+
+        private OrganizationId OrganizationId
+        {
+            get { return new OrganizationId(Organization.Id); }
         }
 
         public virtual DateTime CreatedUtc
@@ -190,8 +201,8 @@
             var item = new OrderItem(this, article, fromUtc, toUtc, amount);
             _items.Add(item);
 
-            EventPublisher.Publish(new OrderItemAdded(initiatorId, new OrganizationId(Organization.Id), new OrderId(Id),
-                item.Id, new ArticleId(article.Id), fromUtc, toUtc, amount));
+            EventPublisher.Publish(new OrderItemAdded(initiatorId, OrganizationId, OrderId,
+                item.Id, new ArticleId(article.Id), new Period(fromUtc, toUtc), amount));
 
             return item;
         }
@@ -218,10 +229,11 @@
             _items.Remove(item);
             item.Delete();
 
-            EventPublisher.Publish(new OrderItemRemoved(initiatorId, new OrganizationId(Organization.Id), new OrderId(Id), orderItemId));
+            EventPublisher.Publish(new OrderItemRemoved(initiatorId, new OrganizationId(Organization.Id),
+                OrderId, orderItemId));
         }
 
-        public virtual void ChangeAmount(Guid orderItemId, int amount)
+        public virtual void ChangeQuantity(UserId initiatorId, Guid orderItemId, int quantity)
         {
             EnsurePending();
 
@@ -229,12 +241,12 @@
             if (item == null)
                 return;
 
-            item.ChangeAmount(amount);
+            item.ChangeQuantity(quantity);
 
-            EventPublisher.Publish(new OrderItemAmountChanged());
+            EventPublisher.Publish(new OrderItemQuantityChanged(initiatorId, OrganizationId, OrderId, orderItemId, quantity));
         }
 
-        public virtual void ChangeItemPeriod(Guid orderItemId, DateTime fromUtc, DateTime toUtc)
+        public virtual void ChangeItemPeriod(UserId initiatorId, Guid orderItemId, DateTime fromUtc, DateTime toUtc)
         {
             EnsurePending();
 
@@ -244,7 +256,7 @@
 
             item.ChangePeriod(fromUtc, toUtc);
 
-            EventPublisher.Publish(new OrderItemPeriodChanged());
+            EventPublisher.Publish(new OrderItemPeriodChanged(initiatorId, OrganizationId, OrderId, orderItemId, new Period(fromUtc, toUtc)));
         }
     }
 

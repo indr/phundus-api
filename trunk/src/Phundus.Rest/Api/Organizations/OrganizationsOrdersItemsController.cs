@@ -55,7 +55,7 @@ namespace Phundus.Rest.Api.Organizations
         {
             Dispatcher.Dispatch(new UpdateOrderItem
             {
-                Amount = doc.Amount,
+                Quantity = doc.Amount,
                 FromUtc = doc.FromUtc,
                 InitiatorId = new UserId(CurrentUserId),
                 OrderId = orderId,

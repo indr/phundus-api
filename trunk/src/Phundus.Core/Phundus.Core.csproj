@@ -219,6 +219,7 @@
     <Compile Include="Shop\Domain.Model\Renting\ContractCreated.cs" />
     <Compile Include="Shop\Domain.Model\Renting\IContractRepository.cs" />
     <Compile Include="Shop\Domain.Model\Ordering\OrderItemRemoved.cs" />
+    <Compile Include="Shop\Domain.Model\Ordering\IReservationSagaRepository.cs" />
     <Compile Include="Shop\Port.Adapter\Integration\BorrowerService.cs" />
     <Compile Include="Shop\Domain.Model\Identity\IBorrowerService.cs" />
     <Compile Include="Shop\Application\Commands\AddArticleToCart.cs" />
@@ -236,7 +237,7 @@
     <Compile Include="Shop\Orders\Model\CartItem.cs" />
     <Compile Include="Shop\Orders\Model\OrderEvents.cs" />
     <Compile Include="Shop\Domain.Model\Ordering\OrderItemAdded.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\OrderItemAmountChanged.cs" />
+    <Compile Include="Shop\Domain.Model\Ordering\OrderItemQuantityChanged.cs" />
     <Compile Include="Shop\Domain.Model\Ordering\OrderItemPeriodChanged.cs" />
     <Compile Include="Shop\Orders\Model\Organization.cs" />
     <Compile Include="Shop\Orders\Services\IOrganizationService.cs" />

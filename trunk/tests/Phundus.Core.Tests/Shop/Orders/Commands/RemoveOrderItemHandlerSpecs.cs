@@ -22,7 +22,7 @@
         public Establish c = () =>
         {
             order = new Order(organization, BorrowerFactory.Create());
-            orderItemId = order.AddItem(initiatorId, new Article(new ArticleId(1), organization.Id, "Artikel"), DateTime.Today, DateTime.Today, 1).Id;
+            orderItemId = order.AddItem(initiatorId, new Article(new ArticleId(1), organization.Id, "Artikel"), DateTime.Today, DateTime.Today.AddDays(1), 1).Id;
             orders.setup(x => x.GetById(orderId)).Return(order);
 
             command = new RemoveOrderItem
