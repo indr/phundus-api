@@ -33,6 +33,11 @@
             }
         }
 
+        public static void AssertArgumentGreaterThan(DateTime value, DateTime than, string message)
+        {
+            AssertArgumentGreaterThan(value.Ticks, than.Ticks, message);
+        }
+
         public static void AssertArgumentLength(string value, int maximum, string message)
         {
             int length = value.Trim().Length;

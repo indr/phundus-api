@@ -63,7 +63,7 @@
         {
             MemberInRole.ActiveMember(command.OrganizationId, command.InitiatorId);
 
-            var timeRange = new TimeRange(command.FromUtc, command.ToUtc);
+            var timeRange = new Period(command.FromUtc, command.ToUtc);
             var reservation = new Reservation(command.OrganizationId, command.ArticleId, Repository.GetNextIdentity(), command.OrderId,
                 command.CorrelationId, timeRange, command.Quantity);
 

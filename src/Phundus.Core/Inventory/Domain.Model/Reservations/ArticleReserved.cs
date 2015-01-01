@@ -11,15 +11,15 @@
     public class ArticleReserved : DomainEvent
     {
         public ArticleReserved(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId,
-            OrderId orderId, CorrelationId correlationId, TimeRange timeRange, int amount)
+            OrderId orderId, CorrelationId correlationId, Period period, int amount)
         {
             OrganizationId = organizationId.Id;
             ArticleId = articleId.Id;
             ReservationId = reservationId.Id;
             OrderId = orderId.Id;
             CorrelationId = correlationId.Id;
-            FromUtc = timeRange.FromUtc;
-            ToUtc = timeRange.ToUtc;
+            FromUtc = period.FromUtc;
+            ToUtc = period.ToUtc;
             Amount = amount;
         }
 

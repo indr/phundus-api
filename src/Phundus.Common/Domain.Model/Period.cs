@@ -3,10 +3,12 @@ namespace Phundus.Common.Domain.Model
     using System;
     using System.Collections.Generic;
 
-    public class TimeRange : ValueObject
+    public class Period : ValueObject
     {
-        public TimeRange(DateTime fromUtc, DateTime toUtc)
+        public Period(DateTime fromUtc, DateTime toUtc)
         {
+            AssertionConcern.AssertArgumentGreaterThan(toUtc, fromUtc, "To utc must be greater than from utc.");
+
             FromUtc = fromUtc;
             ToUtc = toUtc;
         }
