@@ -15,10 +15,10 @@
         private ReservationId _reservationId;
         private Period _period;
 
-        public Reservation(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId, OrderId orderId, CorrelationId correlationId,
+        public Reservation(ReservationId reservationId, OrganizationId organizationId, ArticleId articleId, OrderId orderId,
             Period period, int amount)
         {
-            Apply(new ArticleReserved(organizationId, articleId, reservationId, orderId, correlationId, period, amount));
+            Apply(new ArticleReserved(organizationId, articleId, reservationId, orderId, period, amount));
         }
 
         public Reservation(IEnumerable<IDomainEvent> eventStream, long eventStreamVersion) : base(eventStream, eventStreamVersion)

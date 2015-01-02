@@ -42,7 +42,7 @@
         {
             var command = sut.UndispatchedCommands.First().ShouldBeAn<ReserveArticle>();
             command.OrderId.ShouldEqual(orderId);
-            command.CorrelationId.Id.ShouldEqual(orderItemId.ToString());
+            command.ReservationId.Id.ShouldEqual(orderItemId.ToString());
         };
     }
 
@@ -60,7 +60,7 @@
         public It should_have_undispatched_command_cancel_reservation = () =>
         {
             var command = sut.UndispatchedCommands.First().ShouldBeAn<CancelReservation>();
-            command.CorrelationId.Id.ShouldEqual(orderItemId.ToString());
+            command.ReservationId.Id.ShouldEqual(orderItemId.ToString());
         };
     }
 
@@ -78,7 +78,7 @@
         public It should_have_undispatched_command = () =>
         {
             var command = sut.UndispatchedCommands.First().ShouldBeAn<ChangeReservationQuantity>();
-            command.CorrelationId.Id.ShouldEqual(orderItemId.ToString());
+            command.ReservationId.Id.ShouldEqual(orderItemId.ToString());
         };
     }
 
@@ -97,7 +97,7 @@
         public It should_have_undispatched_command = () =>
         {
             var command = sut.UndispatchedCommands.First().ShouldBeAn<ChangeReservationPeriod>();
-            command.CorrelationId.Id.ShouldEqual(orderItemId.ToString());
+            command.ReservationId.Id.ShouldEqual(orderItemId.ToString());
         };
     }
 }

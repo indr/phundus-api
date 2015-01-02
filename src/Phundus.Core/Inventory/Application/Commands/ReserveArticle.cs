@@ -15,22 +15,21 @@
     public class ReserveArticle : ICommand
     {
         public ReserveArticle(UserId initiatorId, OrganizationId organizationId, ArticleId articleId, OrderId orderId,
-            CorrelationId correlationId, DateTime fromUtc, DateTime toUtc, int quantity)
+            ReservationId reservationId, Period period, int quantity)
         {
             AssertionConcern.AssertArgumentNotNull(initiatorId, "Initiator id must be provided.");
             AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
-            AssertionConcern.AssertArgumentNotEmpty(fromUtc, "From UTC must be provided.");
-            AssertionConcern.AssertArgumentNotEmpty(toUtc, "To UTC must be provided.");
+            AssertionConcern.AssertArgumentNotNull(reservationId, "Reservation id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(period, "Period must be provided.");
             AssertionConcern.AssertArgumentGreaterThan(quantity, 0, "Quantity must be greater than zero.");
 
             InitiatorId = initiatorId;
             OrganizationId = organizationId;
             ArticleId = articleId;
             OrderId = orderId;
-            CorrelationId = correlationId;
-            FromUtc = fromUtc;
-            ToUtc = toUtc;
+            ReservationId = reservationId;
+            Period = period;
             Quantity = quantity;
         }
 
@@ -42,15 +41,11 @@
 
         public OrderId OrderId { get; private set; }
 
-        public CorrelationId CorrelationId { get; private set; }
+        public ReservationId ReservationId { get; private set; }
 
-        public DateTime FromUtc { get; private set; }
-
-        public DateTime ToUtc { get; private set; }
+        public Period Period { get; private set; }
 
         public int Quantity { get; private set; }
-
-        public string ResultingReservationId { get; set; }
     }
 
     public class ReserveArticleHandler : IHandleCommand<ReserveArticle>
@@ -63,13 +58,10 @@
         {
             MemberInRole.ActiveMember(command.OrganizationId, command.InitiatorId);
 
-            var timeRange = new Period(command.FromUtc, command.ToUtc);
-            var reservation = new Reservation(command.OrganizationId, command.ArticleId, Repository.GetNextIdentity(), command.OrderId,
-                command.CorrelationId, timeRange, command.Quantity);
+            var reservation = new Reservation(command.ReservationId, command.OrganizationId, command.ArticleId, command.OrderId,
+                command.Period, command.Quantity);
 
             Repository.Save(reservation);
-
-            command.ResultingReservationId = reservation.ReservationId.Id;
         }
     }
 }

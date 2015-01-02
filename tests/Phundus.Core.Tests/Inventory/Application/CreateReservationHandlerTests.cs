@@ -23,23 +23,21 @@
         private static OrganizationId organizationId = new OrganizationId(201);
         private static ArticleId articleId = new ArticleId(301);
         private static OrderId orderId = new OrderId(401);
-        private static CorrelationId correlationId = new CorrelationId(Guid.NewGuid());
+        private static ReservationId reservationId = new ReservationId();
+        private static Period period = new Period(DateTime.UtcNow, DateTime.UtcNow.AddDays(1));
 
         public Establish ctx = () =>
         {
             memberInRole = depends.on<IMemberInRole>();
 
             repository = depends.on<IReservationRepository>();
-            repository.WhenToldTo(x => x.GetNextIdentity()).Return(new ReservationId("R_1234"));
 
-            command = new ReserveArticle(initiatorId, organizationId, articleId, orderId, correlationId, DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
+            command = new ReserveArticle(initiatorId, organizationId, articleId, orderId, reservationId, period, 1);
         };
 
         public It should_ask_for_member_privileges =
             () => memberInRole.WasToldTo(x => x.ActiveMember(Arg<OrganizationId>.Matches(p => p.Id == organizationId.Id),
                 Arg<UserId>.Matches(p => p.Id == initiatorId.Id)));
-
-        public It should_have_resulting_reservation_id = () => command.ResultingReservationId.ShouldEqual("R_1234");
 
         public It should_save_to_repository = () => repository.WasToldTo(x => x.Save(Arg<Reservation>.Is.NotNull));
     }

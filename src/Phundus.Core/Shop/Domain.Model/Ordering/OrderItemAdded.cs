@@ -19,7 +19,7 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
             AssertionConcern.AssertArgumentNotNull(orderId, "Order id must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderItemId, "Order item id must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
-            AssertionConcern.AssertArgumentNotNull(period, "Period must be provided.");           
+            AssertionConcern.AssertArgumentNotNull(period, "Period must be provided.");
             AssertionConcern.AssertArgumentGreaterThan(quantity, 0, "Quantity must be greater than zero.");
 
             InitiatorId = initiatorId.Id;
@@ -34,7 +34,6 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
 
         protected OrderItemAdded()
         {
-            
         }
 
         public int InitiatorId { get; set; }
@@ -45,6 +44,12 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
         public int ArticleId { get; set; }
         public DateTime FromUtc { get; set; }
         public DateTime ToUtc { get; set; }
+
+        public Period Period
+        {
+            get { return new Period(FromUtc, ToUtc); }
+        }
+
         public int Quantity { get; set; }
     }
 }

@@ -5,9 +5,12 @@
     using IdentityAndAccess.Domain.Model.Users;
     using Inventory.Application.Commands;
     using Inventory.Domain.Model.Catalog;
+    using Inventory.Domain.Model.Reservations;
 
     public class ReservationSaga : SagaBase
     {
+        private ReservationId _reservationId;
+
         protected override void When(IDomainEvent e)
         {
             When((dynamic) e);
@@ -20,24 +23,31 @@
 
         private void When(OrderItemAdded e)
         {
-            UndispatchedCommands.Add(new ReserveArticle(new UserId(e.InitiatorId), new OrganizationId(e.OrganizationId),
-                new ArticleId(e.ArticleId), new OrderId(e.OrderId), new CorrelationId(e.OrderItemId), e.FromUtc, e.ToUtc,
+            _reservationId = new ReservationId(e.OrderItemId);
+
+            UndispatchedCommands.Add(new ReserveArticle(
+                new UserId(e.InitiatorId),
+                new OrganizationId(e.OrganizationId),
+                new ArticleId(e.ArticleId),
+                new OrderId(e.OrderId),
+                _reservationId,
+                e.Period,
                 e.Quantity));
         }
 
         private void When(OrderItemRemoved e)
         {
-            UndispatchedCommands.Add(new CancelReservation(new CorrelationId(e.OrderItemId)));
+            UndispatchedCommands.Add(new CancelReservation(_reservationId));
         }
 
         private void When(OrderItemQuantityChanged e)
         {
-            UndispatchedCommands.Add(new ChangeReservationQuantity(new CorrelationId(e.OrderItemId)));
+            UndispatchedCommands.Add(new ChangeReservationQuantity(_reservationId));
         }
 
         private void When(OrderItemPeriodChanged e)
         {
-            UndispatchedCommands.Add(new ChangeReservationPeriod(new CorrelationId(e.OrderItemId)));
+            UndispatchedCommands.Add(new ChangeReservationPeriod(_reservationId));
         }
     }
 }

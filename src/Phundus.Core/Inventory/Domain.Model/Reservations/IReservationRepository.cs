@@ -7,8 +7,6 @@
     {
         Reservation Get(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId);
 
-        ReservationId GetNextIdentity();
-
         void Save(Reservation reservation);
     }
 }

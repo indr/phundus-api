@@ -11,13 +11,12 @@
     public class ArticleReserved : DomainEvent
     {
         public ArticleReserved(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId,
-            OrderId orderId, CorrelationId correlationId, Period period, int amount)
+            OrderId orderId, Period period, int amount)
         {
             OrganizationId = organizationId.Id;
             ArticleId = articleId.Id;
             ReservationId = reservationId.Id;
             OrderId = orderId.Id;
-            CorrelationId = correlationId.Id;
             FromUtc = period.FromUtc;
             ToUtc = period.ToUtc;
             Amount = amount;
@@ -38,9 +37,6 @@
 
         [DataMember(Order = 4)]
         public int OrderId { get; protected set; }
-
-        [DataMember(Order = 5)]
-        public string CorrelationId { get; protected set; }
 
         [DataMember(Order = 6)]
         public DateTime FromUtc { get; protected set; }
