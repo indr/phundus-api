@@ -2,41 +2,41 @@
 {
     using Common;
     using Common.Cqrs;
-    using Common.Domain.Model;
+    using Domain.Model.Reservations;
 
     public class CancelReservation : ICommand
     {
-        public CancelReservation(CorrelationId correlationId)
+        public CancelReservation(ReservationId reservationId)
         {
-            AssertionConcern.AssertArgumentNotNull(correlationId, "Correlation id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(reservationId, "Correlation id must be provided.");
 
-            CorrelationId = correlationId;
+            ReservationId = reservationId;
         }
 
-        public CorrelationId CorrelationId { get; private set; }
+        public ReservationId ReservationId { get; private set; }
     }
 
     public class ChangeReservationQuantity : ICommand
     {
-        public ChangeReservationQuantity(CorrelationId correlationId)
+        public ChangeReservationQuantity(ReservationId reservationId)
         {
-            AssertionConcern.AssertArgumentNotNull(correlationId, "Correlation id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(reservationId, "Reservation id must be provided.");
 
-            CorrelationId = correlationId;
+            ReservationId = reservationId;
         }
 
-        public CorrelationId CorrelationId { get; private set; }
+        public ReservationId ReservationId { get; private set; }
     }
 
     public class ChangeReservationPeriod : ICommand
     {
-        public ChangeReservationPeriod(CorrelationId correlationId)
+        public ChangeReservationPeriod(ReservationId reservationId)
         {
-            AssertionConcern.AssertArgumentNotNull(correlationId, "Correlation id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(reservationId, "Reservation id must be provided.");
 
-            CorrelationId = correlationId;
+            ReservationId = reservationId;
         }
 
-        public CorrelationId CorrelationId { get; private set; }
+        public ReservationId ReservationId { get; private set; }
     }
 }

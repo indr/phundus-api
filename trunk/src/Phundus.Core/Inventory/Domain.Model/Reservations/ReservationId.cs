@@ -9,6 +9,10 @@
         {
         }
 
+        public ReservationId(Guid id) : base(id.ToString())
+        {
+        }
+
         public ReservationId(string id) : base(id)
         {
         }

@@ -7,14 +7,10 @@
 
     public class EventStoreReservationRepository : EventStoreRepositoryBase, IReservationRepository
     {
+        // TODO: Remove and use Get<Reservation>(ReservationId)
         public Reservation Get(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId)
         {
             return Get(new EventStreamId(reservationId.Id), es => new Reservation(es.Events, es.Version));
-        }
-
-        public ReservationId GetNextIdentity()
-        {
-            return new ReservationId();
         }
 
         public void Save(Reservation reservation)

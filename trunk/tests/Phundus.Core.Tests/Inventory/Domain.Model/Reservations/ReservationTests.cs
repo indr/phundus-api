@@ -32,7 +32,7 @@
         public Because of =
             () =>
             {
-                sut = new Reservation(organizationId, articleId, reservationId, orderId, correlationId,
+                sut = new Reservation(reservationId, organizationId, articleId, orderId,
                     new Period(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 1);
             };
 
@@ -45,7 +45,7 @@
     {
         public Establish ctx = () =>
         {
-            sut = new Reservation(organizationId, articleId, reservationId, orderId, correlationId,
+            sut = new Reservation(reservationId, organizationId, articleId, orderId,
                 new Period(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 1);
         };
 
@@ -59,7 +59,7 @@
     {
         public Establish ctx = () =>
         {
-            sut = new Reservation(organizationId, articleId, reservationId, orderId, correlationId,
+            sut = new Reservation(reservationId, organizationId, articleId, orderId,
                 new Period(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 1);
         };
 
