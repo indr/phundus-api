@@ -11,19 +11,21 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
     public class OrderItemQuantityChanged : DomainEvent
     {
         public OrderItemQuantityChanged(UserId initiatorId, OrganizationId organizationId, OrderId orderId,
-            Guid orderItemId, int quantity)
+            Guid orderItemId, int oldQuantity, int newQuantity)
         {
             AssertionConcern.AssertArgumentNotNull(initiatorId, "Initiator id must be provided.");
             AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderId, "Order id must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderItemId, "Order item id must be provided.");
-            AssertionConcern.AssertArgumentNotZero(quantity, "Quantity must be greater or less than zero.");
+            AssertionConcern.AssertArgumentGreaterThan(oldQuantity, 0, "Old quantity must be greater than zero.");
+            AssertionConcern.AssertArgumentNotZero(newQuantity, "Quantity must be greater or less than zero.");
 
             InitiatorId = initiatorId;
             OrganizationId = organizationId;
             OrderId = orderId;
             OrderItemId = orderItemId;
-            Quantity = quantity;
+            oldQuantity = oldQuantity;
+            NewQuantity = newQuantity;
         }
 
         protected OrderItemQuantityChanged()
@@ -34,6 +36,7 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
         public OrganizationId OrganizationId { get; set; }
         public OrderId OrderId { get; set; }
         public Guid OrderItemId { get; set; }
-        public int Quantity { get; set; }
+        public int OldQuantity { get; set; }
+        public int NewQuantity { get; set; }
     }
 }
