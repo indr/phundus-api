@@ -131,7 +131,8 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Rejected;
 
-            EventPublisher.Publish(new OrderRejected {OrderId = Id});
+            var items = Items.Select(p => p.Id).ToList();
+            EventPublisher.Publish(new OrderRejected(new UserId(initiatorId), OrganizationId, OrderId, items));
         }
 
         public virtual void Approve(int initiatorId)
@@ -161,7 +162,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Closed;
 
-            EventPublisher.Publish(new OrderClosed {OrderId = Id});
+            EventPublisher.Publish(new OrderClosed(new UserId(initiatorId), OrganizationId, OrderId, Items.Select(p => p.Id).ToList()));
         }
 
         public virtual void EnsurePending()

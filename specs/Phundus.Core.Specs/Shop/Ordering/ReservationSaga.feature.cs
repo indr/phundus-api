@@ -165,6 +165,44 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("When an order is rejected dispatches cancel reservation")]
+        public virtual void WhenAnOrderIsRejectedDispatchesCancelReservation()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When an order is rejected dispatches cancel reservation", ((string[])(null)));
+#line 33
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 34
+ testRunner.Given("order item added", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 35
+ testRunner.When("reject order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 36
+ testRunner.Then("cancel reservation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("When an order is closed dispatches cancel reservation")]
+        public virtual void WhenAnOrderIsClosedDispatchesCancelReservation()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When an order is closed dispatches cancel reservation", ((string[])(null)));
+#line 38
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 39
+ testRunner.Given("order item added", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 40
+ testRunner.When("close order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 41
+ testRunner.Then("cancel reservation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
