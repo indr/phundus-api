@@ -34,7 +34,7 @@
         {
             saga = new ReservationSaga();
 
-            repository.WhenToldTo(x => x.FindById<ReservationSaga>(orderItemId)).Return(saga);
+            repository.WhenToldTo(x => x.GetById<ReservationSaga>(orderItemId)).Return(saga);
         };
     }
 
@@ -47,7 +47,7 @@
         };
 
         public It should_load_saga_with_order_item_id =
-            () => repository.WasToldTo(x => x.FindById<ReservationSaga>(orderItemId));
+            () => repository.WasToldTo(x => x.GetById<ReservationSaga>(orderItemId));
 
         public It should_save_uncommitted_events = () => repository.WasToldTo(x => x.Save(saga));
     }
@@ -58,7 +58,7 @@
             () => { sut.Handle(new OrderItemRemoved(_initiatorId, _organizationId, orderId, orderItemId)); };
 
         public It should_load_saga_with_order_item_id =
-            () => repository.WasToldTo(x => x.FindById<ReservationSaga>(orderItemId));
+            () => repository.WasToldTo(x => x.GetById<ReservationSaga>(orderItemId));
 
         public It should_save_uncommitted_events = () => repository.WasToldTo(x => x.Save(saga));
     }

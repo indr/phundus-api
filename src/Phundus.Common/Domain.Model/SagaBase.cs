@@ -3,14 +3,18 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using Cqrs;
 
     public abstract class SagaBase : ISaga
     {
         private readonly ICollection<IDomainEvent> _uncommittedEvents = new Collection<IDomainEvent>();
-        private readonly ICollection<ICommand> _undispatchedCommands = new Collection<ICommand>();
+        private readonly ICollection<object> _undispatchedCommands = new Collection<object>();
+        private Guid _id = Guid.NewGuid();
 
-        public Guid Id { get; private set; }
+        public Guid Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
 
         public long Version { get; private set; }
 
@@ -30,7 +34,7 @@
             _uncommittedEvents.Clear();
         }
 
-        public ICollection<ICommand> UndispatchedCommands
+        public ICollection<object> UndispatchedCommands
         {
             get { return _undispatchedCommands; }
         }

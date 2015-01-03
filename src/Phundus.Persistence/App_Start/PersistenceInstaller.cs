@@ -7,6 +7,7 @@
     using Common.Notifications;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Inventory.Repositories;
+    using SagaStoredEvents;
     using StoredEvents;
 
     public class TrackerStoreInstaller : IWindsorInstaller
@@ -24,7 +25,7 @@
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IEventStore>().ImplementedBy<EventStore>());
-
+            container.Register(Component.For<ISagaEventStore>().ImplementedBy<SagaEventStore>());
 
             container.Register(Types.FromThisAssembly()
                 .BasedOn(typeof (NhRepositoryBase<>))
