@@ -6,20 +6,25 @@ namespace Phundus.Core.Ddd
 
     public class SagaManager<TSaga> where TSaga : ISaga, new()
     {
-        public ISagaRepository Repository { get; set; }
+        private ICommandDispatcher _dispatcher;
+        private ISagaRepository _repository;
 
-        public ICommandDispatcher CommandDispatcher { get; set; }
+        public SagaManager(ISagaRepository repository, ICommandDispatcher dispatcher)
+        {
+            _repository = repository;
+            _dispatcher = dispatcher;
+        }
 
         protected void Transition(Guid sagaId, IDomainEvent e)
         {
-            var saga = Repository.GetById<TSaga>(sagaId);
+            var saga = _repository.GetById<TSaga>(sagaId);
 
             saga.Transition(e);
 
-            Repository.Save(saga);
+            _repository.Save(saga);
 
             foreach (var each in saga.UndispatchedCommands)
-                CommandDispatcher.Dispatch((dynamic) each);
+                _dispatcher.Dispatch((dynamic) each);
         }
     }
 }
