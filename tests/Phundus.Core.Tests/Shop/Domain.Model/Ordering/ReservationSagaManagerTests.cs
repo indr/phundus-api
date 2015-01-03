@@ -2,7 +2,6 @@
 {
     using System;
     using Common.Domain.Model;
-    using Common.Port.Adapter.Persistence;
     using Core.IdentityAndAccess.Domain.Model.Organizations;
     using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.Inventory.Domain.Model.Catalog;
@@ -12,9 +11,7 @@
 
     public class saga_manager_concern<TSagaManager> : concern<TSagaManager> where TSagaManager : class
     {
-        protected static ISagaRepository repository;
-
-        public Establish ctx = () => { repository = depends.on<ISagaRepository>(); };
+        
     }
 
     public class reservation_saga_manager_concern : saga_manager_concern<ReservationSagaManager>
@@ -25,6 +22,7 @@
         protected static ArticleId _articleId = new ArticleId(4);
         protected static Period _period = new Period(DateTime.Today, DateTime.Now);
         protected static int _quantity = 1;
+        protected static ISagaRepository repository;
 
         protected static Guid orderItemId = new Guid();
 
@@ -33,7 +31,7 @@
         public Establish ctx = () =>
         {
             saga = new ReservationSaga();
-
+            repository = depends.@on<ISagaRepository>();
             repository.WhenToldTo(x => x.GetById<ReservationSaga>(orderItemId)).Return(saga);
         };
     }
