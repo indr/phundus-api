@@ -113,6 +113,12 @@
     </Compile>
     <Compile Include="Inventory\StockContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shop\Ordering\ReservationSagaSteps.cs" />
+    <Compile Include="Shop\Ordering\ReservationSaga.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReservationSaga.feature</DependentUpon>
+    </Compile>
     <Compile Include="Shop\Pricing\PerDayWithPerSevenDaysPricePricing.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -150,6 +156,10 @@
     </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
+    <None Include="Shop\Ordering\ReservationSaga.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ReservationSaga.feature.cs</LastGenOutput>
+    </None>
     <None Include="Shop\Pricing\PerDayWithPerSevenDaysPricePricing.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PerDayWithPerSevenDaysPricePricing.feature.cs</LastGenOutput>
