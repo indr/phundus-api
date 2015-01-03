@@ -1,45 +1,28 @@
 ﻿namespace Phundus.Core.Shop.Domain.Model.Ordering
 {
-    using Common;
-    using Common.Cqrs;
-    using Common.Domain.Model;
-    using Cqrs;
     using Ddd;
 
-    public class ReservationSagaManager : ISubscribeTo<OrderItemAdded>
+    public class ReservationSagaManager : SagaManager<ReservationSaga>, ISubscribeTo<OrderItemAdded>,
+        ISubscribeTo<OrderItemRemoved>, ISubscribeTo<OrderItemPeriodChanged>, ISubscribeTo<OrderItemQuantityChanged>
     {
-        private readonly ISagaRepository _repository;
-
-        public ICommandDispatcher CommandDispatcher { get; set; }
-
-        public ReservationSagaManager(ISagaRepository repository)
-        {
-            AssertionConcern.AssertArgumentNotNull(repository, "Saga repository must be provided.");
-
-            _repository = repository;
-        }
-
         public void Handle(OrderItemAdded e)
         {
-            var saga = _repository.GetById<ReservationSaga>(e.OrderItemId);
+            Transition(e.OrderItemId, e);
+        }
 
-            saga.Transition(e);
+        public void Handle(OrderItemPeriodChanged e)
+        {
+            Transition(e.OrderItemId, e);
+        }
 
-            _repository.Save(saga);
-            foreach (var each in saga.UndispatchedCommands)
-                CommandDispatcher.Dispatch((dynamic)each);
+        public void Handle(OrderItemQuantityChanged e)
+        {
+            Transition(e.OrderItemId, e);
         }
 
         public void Handle(OrderItemRemoved e)
         {
-
-            var saga = _repository.GetById<ReservationSaga>(e.OrderItemId);
-
-            saga.Transition(e);
-
-            _repository.Save(saga);
-            foreach (var each in saga.UndispatchedCommands)
-                CommandDispatcher.Dispatch(each);
+            Transition(e.OrderItemId, e);
         }
     }
 }
