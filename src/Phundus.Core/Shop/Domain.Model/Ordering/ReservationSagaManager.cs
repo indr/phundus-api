@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Domain.Model.Ordering
 {
     using Common;
+    using Common.Cqrs;
     using Common.Domain.Model;
     using Cqrs;
     using Ddd;
@@ -25,12 +26,13 @@
             saga.Transition(e);
 
             _repository.Save(saga);
-            //foreach (var each in saga.UndispatchedCommands)
-            //    CommandDispatcher.Dispatch(each);
+            foreach (var each in saga.UndispatchedCommands)
+                CommandDispatcher.Dispatch((dynamic)each);
         }
 
         public void Handle(OrderItemRemoved e)
         {
+
             var saga = _repository.GetById<ReservationSaga>(e.OrderItemId);
 
             saga.Transition(e);
