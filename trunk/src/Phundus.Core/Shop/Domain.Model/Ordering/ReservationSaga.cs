@@ -11,6 +11,7 @@
     {
         private ReservationId _reservationId;
 
+
         protected override void When(IDomainEvent e)
         {
             When((dynamic) e);
@@ -23,6 +24,10 @@
 
         private void When(OrderItemAdded e)
         {
+            // TODO: Use Statless state machine
+            if (_reservationId != null)
+                return;
+
             _reservationId = new ReservationId(e.OrderItemId);
 
             UndispatchedCommands.Add(new ReserveArticle(

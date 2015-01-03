@@ -2,36 +2,42 @@
 {
     using Common;
     using Common.Domain.Model;
-    using Common.Port.Adapter.Persistence;
+    using Cqrs;
     using Ddd;
 
     public class ReservationSagaManager : ISubscribeTo<OrderItemAdded>
     {
-        private readonly ISagaRepository _sagaRepository;
+        private readonly ISagaRepository _repository;
 
-        public ReservationSagaManager(ISagaRepository sagaRepository)
+        public ICommandDispatcher CommandDispatcher { get; set; }
+
+        public ReservationSagaManager(ISagaRepository repository)
         {
-            AssertionConcern.AssertArgumentNotNull(sagaRepository, "Saga repository must be provided.");
+            AssertionConcern.AssertArgumentNotNull(repository, "Saga repository must be provided.");
 
-            _sagaRepository = sagaRepository;
+            _repository = repository;
         }
 
         public void Handle(OrderItemAdded e)
         {
-            var saga =_sagaRepository.FindById<ReservationSaga>(e.OrderItemId);
+            var saga = _repository.GetById<ReservationSaga>(e.OrderItemId);
 
             saga.Transition(e);
 
-            _sagaRepository.Save(saga);
+            _repository.Save(saga);
+            //foreach (var each in saga.UndispatchedCommands)
+            //    CommandDispatcher.Dispatch(each);
         }
 
         public void Handle(OrderItemRemoved e)
         {
-            var saga = _sagaRepository.FindById<ReservationSaga>(e.OrderItemId);
+            var saga = _repository.GetById<ReservationSaga>(e.OrderItemId);
 
             saga.Transition(e);
 
-            _sagaRepository.Save(saga);
+            _repository.Save(saga);
+            foreach (var each in saga.UndispatchedCommands)
+                CommandDispatcher.Dispatch(each);
         }
     }
 }

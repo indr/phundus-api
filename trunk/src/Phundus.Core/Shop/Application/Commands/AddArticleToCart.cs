@@ -2,6 +2,7 @@
 {
     using System;
     using System.Security;
+    using Common.Cqrs;
     using Cqrs;
     using Domain.Model.Ordering;
     using IdentityAndAccess.Queries;

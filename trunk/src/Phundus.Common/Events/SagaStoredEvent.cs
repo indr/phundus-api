@@ -2,13 +2,13 @@
 {
     using System;
 
-    public class StoredEvent : StoredEventBase
+    public class SagaStoredEvent : StoredEventBase
     {
-        protected StoredEvent()
+        protected SagaStoredEvent()
         {
         }
 
-        public StoredEvent(Guid eventGuid, DateTime occuredOnUtc, string typeName, byte[] serialization,
+        public SagaStoredEvent(Guid eventGuid, DateTime occuredOnUtc, string typeName, byte[] serialization,
             string streamName, long streamVersion)
             : base(eventGuid, occuredOnUtc, typeName, serialization, streamName, streamVersion)
         {

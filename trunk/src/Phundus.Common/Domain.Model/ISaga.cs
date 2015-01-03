@@ -6,12 +6,12 @@ namespace Phundus.Common.Domain.Model
 
     public interface ISaga
     {
-        Guid Id { get; }
+        Guid Id { get; set; }
         long Version { get; } // for optimistic concurrency
 
         ICollection<IDomainEvent> UncommittedEvents { get; }
 
-        ICollection<ICommand> UndispatchedCommands { get; }
+        ICollection<object> UndispatchedCommands { get; }
 
         void Transition(IDomainEvent e);
 

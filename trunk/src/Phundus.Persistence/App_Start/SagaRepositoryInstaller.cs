@@ -4,6 +4,7 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Common.Domain.Model;
+    using SagaStoredEvents;
 
     public class SagaRepositoryInstaller : IWindsorInstaller
     {

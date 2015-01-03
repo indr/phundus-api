@@ -46,6 +46,20 @@
         };
     }
 
+    public class when_order_item_added_is_transitioned_the_second_time : reservation_saga_concern
+    {
+        public Establish ctx =
+            () =>
+            {
+                domainEvent = new OrderItemAdded(initiatorId, organizationId, orderId, orderItemId, articleId, period,
+                    quantity);
+                pastEvents.Add(domainEvent);
+            };
+
+        public It should_not_have_undispatched_reserve_article_command =
+            () => sut.UndispatchedCommands.Count.ShouldEqual(0);
+    }
+
     public class when_order_item_removed_is_transitioned : reservation_saga_concern
     {
         public Establish ctx = () =>
