@@ -9,6 +9,12 @@
         protected static IList<IDomainEvent> pastEvents = new List<IDomainEvent>();
         protected static IDomainEvent domainEvent;
 
+        private Establish ctx = () =>
+        {
+            pastEvents = new List<IDomainEvent>();
+            domainEvent = null;
+        };
+
         public Because of = () =>
         {
             foreach (var each in pastEvents)

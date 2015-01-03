@@ -16,7 +16,7 @@
         protected static UserId initiatorId = new UserId(1);
         protected static OrganizationId organizationId = new OrganizationId(2);
         protected static OrderId orderId = new OrderId(3);
-        protected static Guid orderItemId = new Guid();
+        protected static Guid orderItemId = Guid.NewGuid();
         protected static ArticleId articleId = new ArticleId(4);
         protected static Period period = new Period(DateTime.Today, DateTime.Today.AddDays(1));
         protected static DateTime fromUtc = DateTime.Today;
