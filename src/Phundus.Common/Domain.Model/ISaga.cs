@@ -7,7 +7,7 @@ namespace Phundus.Common.Domain.Model
     public interface ISaga
     {
         Guid Id { get; set; }
-        long Version { get; } // for optimistic concurrency
+        long MutatedVersion { get; set; } // for optimistic concurrency
 
         ICollection<IDomainEvent> UncommittedEvents { get; }
 

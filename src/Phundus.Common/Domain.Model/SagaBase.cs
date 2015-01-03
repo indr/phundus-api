@@ -9,6 +9,7 @@
         private readonly ICollection<IDomainEvent> _uncommittedEvents = new Collection<IDomainEvent>();
         private readonly ICollection<object> _undispatchedCommands = new Collection<object>();
         private Guid _id = Guid.NewGuid();
+        private long _version;
 
         public Guid Id
         {
@@ -16,7 +17,11 @@
             set { _id = value; }
         }
 
-        public long Version { get; private set; }
+        public long MutatedVersion
+        {
+            get { return _version + 1; }
+            set { _version = value; }
+        }
 
         public void Transition(IDomainEvent e)
         {
