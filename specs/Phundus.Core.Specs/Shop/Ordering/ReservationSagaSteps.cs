@@ -117,7 +117,7 @@
         [When(@"order item period changed")]
         public void WhenOrderItemPeriodChanged()
         {
-            Transition(new OrderItemPeriodChanged(_initiatorId, _organizationId, _orderId, _orderItemId,
+            Transition(new OrderItemPeriodChanged(_initiatorId, _organizationId, _orderId, _orderItemId, _period,
                 new Period(DateTime.Today, DateTime.Today.AddDays(2))));
         }
 
@@ -130,7 +130,7 @@
         [When(@"order item quantity changed")]
         public void WhenOrderItemQuantityChanged()
         {
-            Transition(new OrderItemQuantityChanged(_initiatorId, _organizationId, _orderId, _orderItemId, 2));
+            Transition(new OrderItemQuantityChanged(_initiatorId, _organizationId, _orderId, _orderItemId, _quantity, 2));
         }
 
         [Then(@"change reservation quantity")]

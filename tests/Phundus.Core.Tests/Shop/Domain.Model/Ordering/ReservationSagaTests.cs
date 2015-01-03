@@ -84,7 +84,7 @@
         {
             pastEvents.Add(new OrderItemAdded(initiatorId, organizationId, orderId, orderItemId, articleId, period,
                 quantity));
-            domainEvent = new OrderItemQuantityChanged(initiatorId, organizationId, orderId, orderItemId, quantity + 1);
+            domainEvent = new OrderItemQuantityChanged(initiatorId, organizationId, orderId, orderItemId, quantity, quantity + 1);
         };
 
         public It should_have_uncomitted_event = () => sut.UncommittedEvents.ShouldContainOnly(domainEvent);
@@ -102,7 +102,7 @@
         {
             pastEvents.Add(new OrderItemAdded(initiatorId, organizationId, orderId, orderItemId, articleId, period,
                 quantity));
-            domainEvent = new OrderItemPeriodChanged(initiatorId, organizationId, orderId, orderItemId,
+            domainEvent = new OrderItemPeriodChanged(initiatorId, organizationId, orderId, orderItemId, period,
                 new Period(DateTime.Today.AddDays(1), DateTime.Today.AddDays(2)));
         };
 

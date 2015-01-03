@@ -4,9 +4,9 @@
     using Common.Cqrs;
     using Domain.Model.Reservations;
 
-    public class CancelReservation : ICommand
+    public class ChangeReservationQuantity : ICommand
     {
-        public CancelReservation(ReservationId reservationId)
+        public ChangeReservationQuantity(ReservationId reservationId)
         {
             AssertionConcern.AssertArgumentNotNull(reservationId, "Reservation id must be provided.");
 

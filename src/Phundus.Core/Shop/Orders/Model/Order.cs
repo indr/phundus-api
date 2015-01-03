@@ -241,9 +241,10 @@
             if (item == null)
                 return;
 
+            var oldQuantity = item.Amount;
             item.ChangeQuantity(quantity);
 
-            EventPublisher.Publish(new OrderItemQuantityChanged(initiatorId, OrganizationId, OrderId, orderItemId, quantity));
+            EventPublisher.Publish(new OrderItemQuantityChanged(initiatorId, OrganizationId, OrderId, orderItemId, oldQuantity, item.Amount));
         }
 
         public virtual void ChangeItemPeriod(UserId initiatorId, Guid orderItemId, DateTime fromUtc, DateTime toUtc)
@@ -254,9 +255,10 @@
             if (item == null)
                 return;
 
+            var oldPeriod = item.PeriodUtc;
             item.ChangePeriod(fromUtc, toUtc);
 
-            EventPublisher.Publish(new OrderItemPeriodChanged(initiatorId, OrganizationId, OrderId, orderItemId, new Period(fromUtc, toUtc)));
+            EventPublisher.Publish(new OrderItemPeriodChanged(initiatorId, OrganizationId, OrderId, orderItemId, oldPeriod, item.PeriodUtc));
         }
     }
 
