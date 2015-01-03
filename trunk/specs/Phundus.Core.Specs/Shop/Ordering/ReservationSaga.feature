@@ -30,3 +30,12 @@ Scenario: Order item quantity changed dispatches change reservation quantity
 	When order item quantity changed
 	Then change reservation quantity
 
+Scenario: When an order is rejected dispatches cancel reservation
+	Given order item added
+	When reject order
+	Then cancel reservation
+
+Scenario: When an order is closed dispatches cancel reservation
+	Given order item added
+	When close order
+	Then cancel reservation	

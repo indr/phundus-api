@@ -6,6 +6,7 @@
     using Inventory.Application.Commands;
     using Inventory.Domain.Model.Catalog;
     using Inventory.Domain.Model.Reservations;
+    using Orders.Model;
 
     public class ReservationSaga : SagaBase
     {
@@ -53,6 +54,16 @@
         private void When(OrderItemPeriodChanged e)
         {
             UndispatchedCommands.Add(new ChangeReservationPeriod(_reservationId));
+        }
+
+        private void When(OrderRejected e)
+        {
+            UndispatchedCommands.Add(new CancelReservation(_reservationId));
+        }
+
+        private void When(OrderClosed e)
+        {
+            UndispatchedCommands.Add(new CancelReservation(_reservationId));
         }
     }
 }

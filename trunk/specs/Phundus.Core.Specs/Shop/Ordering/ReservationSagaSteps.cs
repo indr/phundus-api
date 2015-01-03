@@ -1,12 +1,15 @@
 ﻿namespace Phundus.Core.Specs.Shop.Ordering
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Common.Domain.Model;
     using Contexts;
     using Core.Inventory.Application.Commands;
     using Core.Inventory.Domain.Model.Catalog;
     using Core.Inventory.Domain.Model.Reservations;
+    using Core.Shop.Application.Commands;
     using Core.Shop.Domain.Model.Ordering;
     using Core.Shop.Orders.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
@@ -61,11 +64,14 @@
         private readonly OrganizationId _organizationId = new OrganizationId(1);
         private readonly Period _period = new Period(DateTime.Today, DateTime.Today.AddDays(1));
         private readonly int _quantity = 1;
+        private readonly ICollection<Guid> _orderItemIds = new Collection<Guid>();
 
 
         public ReservationSagaSteps(PastEvents pastEvents) : base(pastEvents)
         {
             PastEvents = pastEvents;
+
+            _orderItemIds.Add(_orderItemId);
         }
 
         [Given(@"empty order created")]
@@ -138,5 +144,18 @@
         {
             AssertUndispatchedCommand(new ChangeReservationQuantity(new ReservationId(Guid.Empty)));
         }
+
+        [When(@"reject order")]
+        public void WhenRejectOrder()
+        {
+            Transition(new OrderRejected(_initiatorId, _organizationId, _orderId, _orderItemIds));
+        }
+
+        [When(@"close order")]
+        public void WhenCloseOrder()
+        {
+            Transition(new OrderClosed(_initiatorId, _organizationId, _orderId, _orderItemIds));
+        }
+
     }
 }
