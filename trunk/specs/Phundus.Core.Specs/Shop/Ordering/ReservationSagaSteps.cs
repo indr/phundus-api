@@ -6,6 +6,7 @@
     using Contexts;
     using Core.Inventory.Application.Commands;
     using Core.Inventory.Domain.Model.Catalog;
+    using Core.Inventory.Domain.Model.Reservations;
     using Core.Shop.Domain.Model.Ordering;
     using Core.Shop.Orders.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
@@ -37,21 +38,27 @@
             Saga.Transition(evnt);
         }
 
-        protected void AssertUndispatchedCommand<TCommand>()
+        protected void AssertUndispatchedCommand<TCommand>(TCommand command)
         {
             Assert.That(Saga.UndispatchedCommands.Count, Is.EqualTo(1));
-            Assert.That(Saga.UndispatchedCommands.First(), Is.InstanceOf<TCommand>());
+            var actual = Saga.UndispatchedCommands.First();
+            Assert.That(actual, Is.InstanceOf<TCommand>());
+        }
+
+        protected void AssertNoUndispatchedCommands()
+        {
+            Assert.That(Saga.UndispatchedCommands.Count, Is.EqualTo(0));
         }
     }
 
     [Binding]
     public class ReservationSagaSteps : SagaConcern<ReservationSaga>
     {
+        private readonly ArticleId _articleId = new ArticleId(1);
         private readonly UserId _initiatorId = new UserId(1);
-        private readonly OrganizationId _organizationId = new OrganizationId(1);
         private readonly OrderId _orderId = new OrderId(1);
         private readonly Guid _orderItemId = new Guid();
-        private readonly ArticleId _articleId =new ArticleId(1);
+        private readonly OrganizationId _organizationId = new OrganizationId(1);
         private readonly Period _period = new Period(DateTime.Today, DateTime.Today.AddDays(1));
         private readonly int _quantity = 1;
 
@@ -70,30 +77,29 @@
         [When(@"order item added")]
         public void WhenOrderItemAdded()
         {
-            
             var evnt = new OrderItemAdded(_initiatorId, _organizationId, _orderId, _orderItemId, _articleId, _period,
                 _quantity);
 
             Transition(evnt);
-            
         }
 
         [Then(@"reserve article")]
         public void ThenReserveArticle()
         {
-            AssertUndispatchedCommand<ReserveArticle>();
+            AssertUndispatchedCommand<ReserveArticle>(null);
         }
 
         [Given(@"order item added")]
         public void GivenOrderItemAdded()
         {
-            PastEvents.Add(new OrderItemAdded(_initiatorId, _organizationId, _orderId, _orderItemId, _articleId, _period, _quantity));
+            PastEvents.Add(new OrderItemAdded(_initiatorId, _organizationId, _orderId, _orderItemId, _articleId, _period,
+                _quantity));
         }
 
         [Then(@"no commands dispatched")]
         public void ThenNoCommandsDispatched()
         {
-            Assert.That(Saga.UndispatchedCommands.Count, Is.EqualTo(0));
+            AssertNoUndispatchedCommands();
         }
 
         [When(@"order item removed")]
@@ -105,19 +111,20 @@
         [Then(@"cancel reservation")]
         public void ThenCancelReservation()
         {
-            AssertUndispatchedCommand<CancelReservation>();
+            AssertUndispatchedCommand<CancelReservation>(null);
         }
 
         [When(@"order item period changed")]
         public void WhenOrderItemPeriodChanged()
         {
-            Transition(new OrderItemPeriodChanged(_initiatorId, _organizationId, _orderId, _orderItemId, new Period(DateTime.Today, DateTime.Today.AddDays(2))));
+            Transition(new OrderItemPeriodChanged(_initiatorId, _organizationId, _orderId, _orderItemId,
+                new Period(DateTime.Today, DateTime.Today.AddDays(2))));
         }
 
         [Then(@"change reservation period")]
         public void ThenChangeReservationPeriod()
         {
-            AssertUndispatchedCommand<ChangeReservationPeriod>();
+            AssertUndispatchedCommand<ChangeReservationPeriod>(null);
         }
 
         [When(@"order item quantity changed")]
@@ -129,8 +136,7 @@
         [Then(@"change reservation quantity")]
         public void ThenChangeReservationQuantity()
         {
-            AssertUndispatchedCommand<ChangeReservationQuantity>();
+            AssertUndispatchedCommand(new ChangeReservationQuantity(new ReservationId(Guid.Empty)));
         }
-
     }
 }
