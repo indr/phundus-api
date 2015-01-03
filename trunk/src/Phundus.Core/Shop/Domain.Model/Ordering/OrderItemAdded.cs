@@ -36,13 +36,25 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
         {
         }
 
+        [DataMember(Order = 1)]
         public int InitiatorId { get; set; }
+
+        [DataMember(Order = 2)]
         public int OrganizationId { get; set; }
+
+        [DataMember(Order = 3)]
         public int OrderId { get; set; }
+
+        [DataMember(Order = 4)]
         public Guid OrderItemId { get; set; }
 
+        [DataMember(Order = 5)]
         public int ArticleId { get; set; }
+
+        [DataMember(Order = 6)]
         public DateTime FromUtc { get; set; }
+
+        [DataMember(Order = 7)]
         public DateTime ToUtc { get; set; }
 
         public Period Period
@@ -50,6 +62,7 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
             get { return new Period(FromUtc, ToUtc); }
         }
 
+        [DataMember(Order = 8)]
         public int Quantity { get; set; }
     }
 }

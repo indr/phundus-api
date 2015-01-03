@@ -38,7 +38,7 @@
 
             command.OrderId = orderId;
 
-            EventPublisher.Publish(new OrderCreated {OrderId = orderId});
+            EventPublisher.Publish(new OrderCreated(new OrderId(orderId)));
         }
     }
 }
