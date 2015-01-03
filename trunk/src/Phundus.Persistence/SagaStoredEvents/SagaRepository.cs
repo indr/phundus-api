@@ -23,7 +23,7 @@
 
         public void Save(ISaga saga)
         {
-            _sagaEventStore.Append(new EventStreamId(saga.Id.ToString(), saga.Version), saga.UncommittedEvents);
+            _sagaEventStore.Append(new EventStreamId(saga.Id.ToString(), saga.MutatedVersion), saga.UncommittedEvents);
         }
 
         private TSaga BuildSaga<TSaga>(Guid sagaId, EventStream eventStream) where TSaga : ISaga, new()
@@ -31,6 +31,7 @@
             // TODO: Set saga id not via public setter
             var saga = new TSaga();
             saga.Id = sagaId;
+            saga.MutatedVersion = eventStream.Version;
             foreach (var domainEvent in eventStream.Events)
                 saga.Transition(domainEvent);
 
