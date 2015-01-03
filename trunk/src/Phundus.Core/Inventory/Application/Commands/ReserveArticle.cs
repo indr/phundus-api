@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Core.Inventory.Application.Commands
 {
-    using System;
     using Common;
     using Common.Cqrs;
     using Common.Domain.Model;
@@ -58,7 +57,8 @@
         {
             MemberInRole.ActiveMember(command.OrganizationId, command.InitiatorId);
 
-            var reservation = new Reservation(command.ReservationId, command.OrganizationId, command.ArticleId, command.OrderId,
+            var reservation = new Reservation(command.ReservationId, command.OrganizationId, command.ArticleId,
+                command.OrderId,
                 command.Period, command.Quantity);
 
             Repository.Save(reservation);
