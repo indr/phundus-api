@@ -55,6 +55,7 @@
             () => sut.MutatingEvents[1].ShouldBeOfExactType<ReservationTimeRangeChanged>();
     }
 
+    [Subject(typeof(Reservation))]
     public class when_amount_is_changed : reservation_convern
     {
         public Establish ctx = () =>

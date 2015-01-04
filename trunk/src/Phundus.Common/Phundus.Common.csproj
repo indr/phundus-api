@@ -70,6 +70,7 @@
     <Compile Include="Events\SagaStoredEvent.cs" />
     <Compile Include="Events\StoredEvent.cs" />
     <Compile Include="Events\StoredEventBase.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Messaging\NotificationDispatcher.cs" />
     <Compile Include="Notifications\IDomainEventHandler.cs" />
     <Compile Include="Notifications\IDomainEventHandlerFactory.cs" />
