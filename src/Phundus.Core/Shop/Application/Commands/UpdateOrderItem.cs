@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Application.Commands
 {
     using System;
+    using Common.Extensions;
     using Cqrs;
     using Domain.Model.Ordering;
     using IdentityAndAccess.Domain.Model.Users;
@@ -31,18 +32,9 @@
             MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId.Id);
 
             order.ChangeQuantity(command.InitiatorId, command.OrderItemId, command.Quantity);
-            order.ChangeItemPeriod(command.InitiatorId, command.OrderItemId, ToLocalFirstSecondInUtc(command),
-                ToLocalLastSecondInUtc(command));
-        }
-
-        private static DateTime ToLocalLastSecondInUtc(UpdateOrderItem command)
-        {
-            return command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime();
-        }
-
-        private static DateTime ToLocalFirstSecondInUtc(UpdateOrderItem command)
-        {
-            return command.FromUtc.ToLocalTime().Date.ToUniversalTime();
+            order.ChangeItemPeriod(command.InitiatorId, command.OrderItemId,
+                command.FromUtc.ToLocalStartOfTheDayInUtc(),
+                command.ToUtc.ToLocalEndOfTheDayInUtc());
         }
     }
 }
