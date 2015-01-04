@@ -1,8 +1,11 @@
 ﻿namespace Phundus.Core.Tests.Cqrs
 {
     using System;
-    using System.Collections;
     using Core.Cqrs;
+
+    public class TestCommand1
+    {
+    }
 
     public class TestCommand1Handler : IHandleCommand<TestCommand1>
     {
@@ -10,5 +13,9 @@
         {
             throw new Exception("TestCommand1Handler.Handle(TestCommand1)");
         }
+    }
+
+    public class TestCommandWithoutHandler
+    {
     }
 }
