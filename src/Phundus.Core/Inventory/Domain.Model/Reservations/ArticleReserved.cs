@@ -3,6 +3,7 @@
     using System;
     using System.Runtime.Serialization;
     using Catalog;
+    using Common;
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
     using Shop.Domain.Model.Ordering;
@@ -11,19 +12,35 @@
     public class ArticleReserved : DomainEvent
     {
         public ArticleReserved(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId,
-            OrderId orderId, Period period, int amount)
+            OrderId orderId, Period period, int quantity)
         {
+            AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(reservationId, "Reservation id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(orderId, "Order id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(period, "Period must be provided.");
+            AssertionConcern.AssertArgumentGreaterThanZero(quantity, "Quantity must be greater than zero.");
+
             OrganizationId = organizationId.Id;
             ArticleId = articleId.Id;
             ReservationId = reservationId.Id;
             OrderId = orderId.Id;
-            FromUtc = period.FromUtc;
-            ToUtc = period.ToUtc;
-            Amount = amount;
+            Period = period;
+            Quantity = quantity;
         }
 
         protected ArticleReserved()
         {
+        }
+
+        public Period Period
+        {
+            get { return new Period(FromUtc, ToUtc); }
+            set
+            {
+                FromUtc = value.FromUtc;
+                ToUtc = value.ToUtc;
+            }
         }
 
         [DataMember(Order = 1)]
@@ -45,6 +62,6 @@
         public DateTime ToUtc { get; protected set; }
 
         [DataMember(Order = 8)]
-        public int Amount { get; protected set; }
+        public int Quantity { get; protected set; }
     }
 }

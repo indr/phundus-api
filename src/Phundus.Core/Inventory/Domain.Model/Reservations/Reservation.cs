@@ -9,19 +9,22 @@
 
     public class Reservation : EventSourcedRootEntity
     {
-        private int _amount;
         private ArticleId _articleId;
         private OrganizationId _organizationId;
-        private ReservationId _reservationId;
         private Period _period;
+        private int _quantity;
+        private ReservationId _reservationId;
+        private ReservationStatus _status;
 
-        public Reservation(ReservationId reservationId, OrganizationId organizationId, ArticleId articleId, OrderId orderId,
+        public Reservation(ReservationId reservationId, OrganizationId organizationId, ArticleId articleId,
+            OrderId orderId,
             Period period, int amount)
         {
             Apply(new ArticleReserved(organizationId, articleId, reservationId, orderId, period, amount));
         }
 
-        public Reservation(IEnumerable<IDomainEvent> eventStream, long eventStreamVersion) : base(eventStream, eventStreamVersion)
+        public Reservation(IEnumerable<IDomainEvent> eventStream, long eventStreamVersion)
+            : base(eventStream, eventStreamVersion)
         {
         }
 
@@ -45,9 +48,19 @@
             get { return _period; }
         }
 
-        public int Amount
+        public int Quantity
         {
-            get { return _amount; }
+            get { return _quantity; }
+        }
+
+        public ReservationStatus Status
+        {
+            get { return _status; }
+        }
+
+        protected override void When(IDomainEvent e)
+        {
+            When((dynamic) e);
         }
 
         protected void When(ArticleReserved e)
@@ -56,7 +69,7 @@
             _articleId = new ArticleId(e.ArticleId);
             _reservationId = new ReservationId(e.ReservationId);
             _period = new Period(e.FromUtc, e.ToUtc);
-            _amount = e.Amount;
+            _quantity = e.Quantity;
         }
 
         protected override IEnumerable<object> GetIdentityComponents()
@@ -66,34 +79,48 @@
             yield return _reservationId;
         }
 
-
-        public void ChangeTimeRange(Period period)
+        public void ChangePeriod(Period period)
         {
+            EnsureNotCancelled();
+
             if (period == null)
-                throw new ArgumentNullException("period", @"Time range can not be null.");
-            Apply(new ReservationTimeRangeChanged(_organizationId, _articleId, _reservationId, period));
+                throw new ArgumentNullException("period", @"Period can not be null.");
+            Apply(new ReservationPeriodChanged(_organizationId, _articleId, _reservationId, Period, period));
         }
 
-        protected void When(ReservationTimeRangeChanged e)
+        protected void When(ReservationPeriodChanged e)
         {
-            _period = new Period(e.FromUtc, e.ToUtc);
+            _period = e.NewPeriod;
         }
 
-        public void ChangeAmount(int amount)
+        public void ChangeQuantity(int quantity)
         {
-            if (amount <= 0)
-                throw new ArgumentOutOfRangeException("amount", @"Amount must be greater than zero.");
-            Apply(new ReservationAmountChanged(_organizationId, _articleId, _reservationId, amount));
+            EnsureNotCancelled();
+
+            if (quantity <= 0)
+                throw new ArgumentOutOfRangeException("quantity", @"Quantity must be greater than zero.");
+            Apply(new ReservationQuantityChanged(_organizationId, _articleId, _reservationId, Quantity, quantity));
         }
 
-        protected void When(ReservationAmountChanged e)
+        protected void When(ReservationQuantityChanged e)
         {
-            _amount = e.Amount;
+            _quantity = e.NewQuantity;
         }
 
-        protected override void When(IDomainEvent e)
+        public void Cancel()
         {
-            When((dynamic) e);
+            Apply(new ReservationCancelled(_organizationId, _articleId, _reservationId, _period, _quantity));
+        }
+
+        protected void When(ReservationCancelled e)
+        {
+            _status = ReservationStatus.Cancelled;
+        }
+
+        private void EnsureNotCancelled()
+        {
+            if (Status == ReservationStatus.Cancelled)
+                throw new InvalidOperationException("A cancelled reservation can not be modified.");
         }
     }
 }
