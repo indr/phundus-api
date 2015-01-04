@@ -17,7 +17,7 @@
 
             Map(x => x.FromUtc);
             Map(x => x.ToUtc);
-            Map(x => x.Amount);
+            Map(x => x.Quantity, "Amount");
         }
     }
 }
