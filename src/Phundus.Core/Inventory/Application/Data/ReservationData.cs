@@ -11,8 +11,8 @@
         public virtual DateTime CreatedUtc { get; set; }
         public virtual DateTime UpdatedUtc { get; set; }
 
-        public virtual int Amount { get; set; }
         public virtual DateTime FromUtc { get; set; }
         public virtual DateTime ToUtc { get; set; }
+        public virtual int Quantity { get; set; }
     }
 }

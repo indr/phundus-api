@@ -18,14 +18,6 @@
             // Fallback
         }
 
-        private void Process(ReservationQuantityChanged domainEvent)
-        {
-            var data = Find(domainEvent.ReservationId);
-            data.Amount = domainEvent.OldQuantity;
-            data.UpdatedUtc = domainEvent.OccuredOnUtc;
-            Save(data);
-        }
-
         private void Process(ArticleReserved domainEvent)
         {
             var data = new ReservationData();
@@ -36,7 +28,24 @@
             data.UpdatedUtc = domainEvent.OccuredOnUtc;
             data.FromUtc = domainEvent.FromUtc;
             data.ToUtc = domainEvent.ToUtc;
-            data.Amount = domainEvent.Quantity;
+            data.Quantity = domainEvent.Quantity;
+            Save(data);
+        }
+
+        private void Process(ReservationPeriodChanged e)
+        {
+            var data = Find(e.ReservationId);
+            data.FromUtc = e.NewFromUtc;
+            data.ToUtc = e.NewToUtc;
+            data.UpdatedUtc = e.OccuredOnUtc;
+            Save(data);
+        }
+
+        private void Process(ReservationQuantityChanged domainEvent)
+        {
+            var data = Find(domainEvent.ReservationId);
+            data.Quantity = domainEvent.OldQuantity;
+            data.UpdatedUtc = domainEvent.OccuredOnUtc;
             Save(data);
         }
     }
