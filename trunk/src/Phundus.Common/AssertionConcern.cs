@@ -33,6 +33,11 @@
             }
         }
 
+        public static void AssertArgumentGreaterThanZero(long value, string message)
+        {
+            AssertArgumentGreaterThan(value, 0, message);
+        }
+
         public static void AssertArgumentGreaterThan(DateTime value, DateTime than, string message)
         {
             AssertArgumentGreaterThan(value.Ticks, than.Ticks, message);

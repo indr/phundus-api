@@ -18,10 +18,10 @@
             // Fallback
         }
 
-        private void Process(ReservationAmountChanged domainEvent)
+        private void Process(ReservationQuantityChanged domainEvent)
         {
             var data = Find(domainEvent.ReservationId);
-            data.Amount = domainEvent.Amount;
+            data.Amount = domainEvent.OldQuantity;
             data.UpdatedUtc = domainEvent.OccuredOnUtc;
             Save(data);
         }
@@ -36,7 +36,7 @@
             data.UpdatedUtc = domainEvent.OccuredOnUtc;
             data.FromUtc = domainEvent.FromUtc;
             data.ToUtc = domainEvent.ToUtc;
-            data.Amount = domainEvent.Amount;
+            data.Amount = domainEvent.Quantity;
             Save(data);
         }
     }
