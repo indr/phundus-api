@@ -368,7 +368,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Bootstrap\" />
     <Folder Include="Dashboard\Domain.Model\" />
     <Folder Include="IdentityAndAccess\Queries\Dtos\" />
     <Folder Include="Inventory\_Legacy\Services\Dtos\" />
