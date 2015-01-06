@@ -7,6 +7,20 @@
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
 
+    /// <summary>
+    /// Quantities:
+    /// - In-Inventory: Bruttobestand / Buchhalterischer Bestand
+    /// - Allocated: Reservierter bestand, z.B. durch Bestellung
+    /// - Available: Verfügbar für Reservierungen
+    /// 
+    /// - In-Stock / On-Hand: Lagerbestand
+    /// 
+    /// Berechnung:
+    /// - In-Inventory: Fix
+    /// - Allocated : Fix
+    /// - 
+    /// - Available: In-Inventory - Allocated
+    /// </summary>
     public class Stock : EventSourcedRootEntity
     {
         private readonly QuantitiesAsOf _inInventory = new QuantitiesAsOf();

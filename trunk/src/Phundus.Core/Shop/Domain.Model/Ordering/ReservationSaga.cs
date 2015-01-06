@@ -48,7 +48,7 @@
 
         private void When(OrderItemQuantityChanged e)
         {
-            UndispatchedCommands.Add(new ChangeReservationQuantity(_reservationId));
+            UndispatchedCommands.Add(new ChangeReservationQuantity(e.OrganizationId, e.ArticleId, _reservationId, e.NewQuantity));
         }
 
         private void When(OrderItemPeriodChanged e)
