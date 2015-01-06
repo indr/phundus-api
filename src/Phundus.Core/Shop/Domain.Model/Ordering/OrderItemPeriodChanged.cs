@@ -22,11 +22,11 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
             AssertionConcern.AssertArgumentNotNull(oldPeriod, "Old period must be provided.");
             AssertionConcern.AssertArgumentNotNull(newPeriod, "New period must be provided.");
 
-            InitiatorId = initiatorId;
-            OrganizationId = organizationId;
-            OrderId = orderId;
+            InitiatorId = initiatorId.Id;
+            OrganizationId = organizationId.Id;
+            OrderId = orderId.Id;
             OrderItemId = orderItemId;
-            ArticleId = articleId;
+            ArticleId = articleId.Id;
             OldFromUtc = oldPeriod.FromUtc;
             OldToUtc = oldPeriod.ToUtc;
             NewFromUtc = newPeriod.FromUtc;
@@ -37,14 +37,31 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
         {
         }
 
-        public UserId InitiatorId { get; private set; }
-        public OrganizationId OrganizationId { get; private set; }
-        public OrderId OrderId { get; private set; }
+        [DataMember(Order = 1)]
+        public int InitiatorId { get; private set; }
+
+        [DataMember(Order = 2)]
+        public int OrganizationId { get; private set; }
+
+        [DataMember(Order = 3)]
+        public int OrderId { get; private set; }
+
+        [DataMember(Order = 4)]
         public Guid OrderItemId { get; private set; }
-        public ArticleId ArticleId { get; private set; }
+
+        [DataMember(Order = 5)]
+        public int ArticleId { get; private set; }
+
+        [DataMember(Order = 6)]
         public DateTime OldFromUtc { get; private set; }
+
+        [DataMember(Order = 7)]
         public DateTime OldToUtc { get; private set; }
+
+        [DataMember(Order = 8)]
         public DateTime NewFromUtc { get; private set; }
+
+        [DataMember(Order = 9)]
         public DateTime NewToUtc { get; private set; }        
     }
 }

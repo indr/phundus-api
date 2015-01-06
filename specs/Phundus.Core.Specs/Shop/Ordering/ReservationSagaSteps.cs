@@ -116,7 +116,7 @@
         [When(@"order item removed")]
         public void WhenOrderItemRemoved()
         {
-            Transition(new OrderItemRemoved(_initiatorId, _organizationId, _orderId, _orderItemId));
+            Transition(new OrderItemRemoved(_initiatorId, _organizationId, _orderId, _orderItemId, _articleId));
         }
 
         [Then(@"cancel reservation")]

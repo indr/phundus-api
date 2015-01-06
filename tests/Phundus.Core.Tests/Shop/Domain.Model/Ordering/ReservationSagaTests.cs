@@ -66,7 +66,7 @@
         {
             pastEvents.Add(new OrderItemAdded(initiatorId, organizationId, orderId, orderItemId, articleId, period,
                 quantity));
-            domainEvent = new OrderItemRemoved(initiatorId, organizationId, orderId, orderItemId);
+            domainEvent = new OrderItemRemoved(initiatorId, organizationId, orderId, orderItemId, articleId);
         };
 
         public It should_have_uncommitted_event = () => sut.UncommittedEvents.ShouldContainOnly(domainEvent);
