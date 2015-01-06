@@ -28,7 +28,7 @@ namespace Phundus.Core.Tests.Inventory.Application
         private Establish ctx = () =>
         {
             Repository = depends.on<IReservationRepository>();
-            Repository.Expect(x => x.Get(OrganizationId, ArticleId, ReservationId)).Return(Reservation);
+            Repository.Expect(x => x.Get(ReservationId)).Return(Reservation);
         };
     }
 
@@ -41,7 +41,7 @@ namespace Phundus.Core.Tests.Inventory.Application
         private Establish ctx = () =>
         {
             MutatingEventsCount = Reservation.MutatingEvents.Count;
-            command = new ChangeReservationPeriod(OrganizationId, ArticleId, ReservationId, NewPeriod);
+            command = new ChangeReservationPeriod(OrganizationId, ReservationId, NewPeriod);
         };
 
         [Ignore("TODO")]

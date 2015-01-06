@@ -27,12 +27,17 @@ namespace Phundus.Core.Shop.Orders.Model
     [DataContract]
     public class OrderRejected : DomainEvent
     {
-        public OrderRejected(UserId initiatorId, OrganizationId organizationId, OrderId orderId, ICollection<Guid> orderItemIds)
+        public OrderRejected(UserId initiatorId, OrganizationId organizationId, OrderId orderId,
+            ICollection<Guid> orderItemIds)
         {
             OrderId = orderId.Id;
             InitiatorId = initiatorId.Id;
             OrganizationId = organizationId.Id;
             OrderItemIds = orderItemIds;
+        }
+
+        protected OrderRejected()
+        {
         }
 
         [DataMember(Order = 1)]
@@ -58,12 +63,17 @@ namespace Phundus.Core.Shop.Orders.Model
     [DataContract]
     public class OrderClosed : DomainEvent
     {
-        public OrderClosed(UserId initiatorId, OrganizationId organizationId, OrderId orderId, ICollection<Guid> orderItemIds)
+        public OrderClosed(UserId initiatorId, OrganizationId organizationId, OrderId orderId,
+            ICollection<Guid> orderItemIds)
         {
             OrderId = orderId.Id;
             InitiatorId = initiatorId.Id;
             OrganizationId = organizationId.Id;
             OrderItemIds = orderItemIds;
+        }
+
+        protected OrderClosed()
+        {
         }
 
         [DataMember(Order = 1)]
