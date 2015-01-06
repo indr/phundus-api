@@ -41,6 +41,11 @@
             Saga.Transition(evnt);
         }
 
+        protected void AssertUndispatchedCommand<TCommand>()
+        {
+            AssertUndispatchedCommand((default(TCommand)));
+        }
+
         protected void AssertUndispatchedCommand<TCommand>(TCommand command)
         {
             Assert.That(Saga.UndispatchedCommands.Count, Is.EqualTo(1));
@@ -136,13 +141,13 @@
         [When(@"order item quantity changed")]
         public void WhenOrderItemQuantityChanged()
         {
-            Transition(new OrderItemQuantityChanged(_initiatorId, _organizationId, _orderId, _orderItemId, _quantity, 2));
+            Transition(new OrderItemQuantityChanged(_initiatorId, _organizationId, _articleId, _orderId, _orderItemId, _quantity, 2));
         }
 
         [Then(@"change reservation quantity")]
         public void ThenChangeReservationQuantity()
         {
-            AssertUndispatchedCommand(new ChangeReservationQuantity(new ReservationId(Guid.Empty)));
+            AssertUndispatchedCommand<ChangeReservationQuantity>(null);
         }
 
         [When(@"reject order")]

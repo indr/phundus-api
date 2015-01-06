@@ -10,7 +10,7 @@
         // TODO: Remove and use Get<Reservation>(ReservationId)
         public Reservation Get(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId)
         {
-            return Get(new EventStreamId(reservationId.Id), es => new Reservation(es.Events, es.Version));
+            return Get(new EventStreamId(reservationId.Id, 1), es => new Reservation(es.Events, es.Version));
         }
 
         public void Save(Reservation reservation)
