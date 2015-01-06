@@ -10,22 +10,19 @@
 
     public class ChangeReservationPeriod : ICommand
     {
-        public ChangeReservationPeriod(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId,
+        public ChangeReservationPeriod(OrganizationId organizationId, ReservationId reservationId,
             Period period)
         {
             AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
-            AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
             AssertionConcern.AssertArgumentNotNull(reservationId, "Reservation id must be provided.");
             AssertionConcern.AssertArgumentNotNull(period, "Period must be provided.");
 
             OrganizationId = organizationId;
-            ArticleId = articleId;
             ReservationId = reservationId;
             Period = period;
         }
 
         public OrganizationId OrganizationId { get; private set; }
-        public ArticleId ArticleId { get; private set; }
         public ReservationId ReservationId { get; private set; }
         public Period Period { get; private set; }
     }
@@ -36,7 +33,7 @@
 
         public void Handle(ChangeReservationPeriod command)
         {
-            var reservation = Repository.Get(command.OrganizationId, command.ArticleId, command.ReservationId);
+            var reservation = Repository.Get(command.ReservationId);
 
             reservation.ChangePeriod(command.Period);
 

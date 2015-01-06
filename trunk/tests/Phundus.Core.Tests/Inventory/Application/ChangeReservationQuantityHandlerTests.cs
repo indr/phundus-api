@@ -17,7 +17,7 @@ namespace Phundus.Core.Tests.Inventory.Application
         private Establish ctx = () =>
         {
             MutatingEventsCount = Reservation.MutatingEvents.Count;
-            command = new ChangeReservationQuantity(OrganizationId, ArticleId, ReservationId, NewQuantity);
+            command = new ChangeReservationQuantity(OrganizationId, ReservationId, NewQuantity);
         };
 
         [Ignore("TODO")] public It should_ask_for_chief_or_owner_privileges = () => { };

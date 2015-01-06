@@ -43,27 +43,27 @@
 
         private void When(OrderItemRemoved e)
         {
-            UndispatchedCommands.Add(new CancelReservation(new OrganizationId(e.OrganizationId), new ArticleId(e.ArticleId),  _reservationId));
+            UndispatchedCommands.Add(new CancelReservation(new OrganizationId(e.OrganizationId),  _reservationId));
         }
 
         private void When(OrderItemQuantityChanged e)
         {
-            UndispatchedCommands.Add(new ChangeReservationQuantity(new OrganizationId(e.OrganizationId), new ArticleId(e.ArticleId), _reservationId, e.NewQuantity));
+            UndispatchedCommands.Add(new ChangeReservationQuantity(new OrganizationId(e.OrganizationId),  _reservationId, e.NewQuantity));
         }
 
         private void When(OrderItemPeriodChanged e)
         {
-            UndispatchedCommands.Add(new ChangeReservationPeriod(new OrganizationId(e.OrganizationId), new ArticleId(e.ArticleId), _reservationId, new Period(e.NewFromUtc, e.NewToUtc)));
+            UndispatchedCommands.Add(new ChangeReservationPeriod(new OrganizationId(e.OrganizationId), _reservationId, new Period(e.NewFromUtc, e.NewToUtc)));
         }
 
         private void When(OrderRejected e)
         {
-            //UndispatchedCommands.Add(new CancelReservation(new OrganizationId(e.OrganizationId), new ArticleId(each),  _reservationId));
+            UndispatchedCommands.Add(new CancelReservation(new OrganizationId(e.OrganizationId),  _reservationId));
         }
 
         private void When(OrderClosed e)
         {
-            //UndispatchedCommands.Add(new CancelReservation(_reservationId));
+            UndispatchedCommands.Add(new CancelReservation(new OrganizationId(e.OrganizationId),  _reservationId));
         }
     }
 }

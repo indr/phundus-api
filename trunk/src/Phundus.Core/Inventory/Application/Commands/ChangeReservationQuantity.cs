@@ -9,18 +9,16 @@
 
     public class ChangeReservationQuantity : ICommand
     {
-        public ChangeReservationQuantity(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId, int quantity)
+        public ChangeReservationQuantity(OrganizationId organizationId, ReservationId reservationId, int quantity)
         {
             AssertionConcern.AssertArgumentNotNull(reservationId, "Reservation id must be provided.");
 
             OrganizationId = organizationId;
-            ArticleId = articleId;
             ReservationId = reservationId;
             Quantity = quantity;
         }
 
         public OrganizationId OrganizationId { get; private set; }
-        public ArticleId ArticleId { get; private set; }
         public ReservationId ReservationId { get; private set; }
         public int Quantity { get; private set; }
     }
@@ -31,7 +29,7 @@
 
         public void Handle(ChangeReservationQuantity command)
         {
-            var reservation = ReservationRepository.Get(command.OrganizationId, command.ArticleId, command.ReservationId);
+            var reservation = ReservationRepository.Get(command.ReservationId);
             
             reservation.ChangeQuantity(command.Quantity);
 
