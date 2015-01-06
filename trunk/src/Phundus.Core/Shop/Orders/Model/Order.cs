@@ -231,7 +231,7 @@
             item.Delete();
 
             EventPublisher.Publish(new OrderItemRemoved(initiatorId, new OrganizationId(Organization.Id),
-                OrderId, orderItemId));
+                OrderId, orderItemId, new ArticleId(item.ArticleId)));
         }
 
         public virtual void ChangeQuantity(UserId initiatorId, Guid orderItemId, int quantity)

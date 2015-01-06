@@ -22,10 +22,10 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
             AssertionConcern.AssertArgumentGreaterThan(oldQuantity, 0, "Old quantity must be greater than zero.");
             AssertionConcern.AssertArgumentNotZero(newQuantity, "Quantity must be greater or less than zero.");
 
-            InitiatorId = initiatorId;
-            OrganizationId = organizationId;
-            ArticleId = articleId;
-            OrderId = orderId;
+            InitiatorId = initiatorId.Id;
+            OrganizationId = organizationId.Id;
+            ArticleId = articleId.Id;
+            OrderId = orderId.Id;
             OrderItemId = orderItemId;
             OldQuantity = oldQuantity;
             NewQuantity = newQuantity;
@@ -35,12 +35,25 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
         {
         }
 
-        public UserId InitiatorId { get; set; }
-        public OrganizationId OrganizationId { get; set; }
-        public ArticleId ArticleId { get; set; }
-        public OrderId OrderId { get; set; }
+        [DataMember(Order = 1)]
+        public int InitiatorId { get; set; }
+
+        [DataMember(Order = 2)]
+        public int OrganizationId { get; set; }
+
+        [DataMember(Order = 3)]
+        public int ArticleId { get; set; }
+
+        [DataMember(Order = 4)]
+        public int OrderId { get; set; }
+
+        [DataMember(Order = 5)]
         public Guid OrderItemId { get; set; }
+
+        [DataMember(Order = 6)]
         public int OldQuantity { get; set; }
+
+        [DataMember(Order = 7)]
         public int NewQuantity { get; set; }
     }
 }
