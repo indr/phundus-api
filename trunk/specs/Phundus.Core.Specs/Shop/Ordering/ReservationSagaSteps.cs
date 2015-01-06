@@ -128,7 +128,7 @@
         [When(@"order item period changed")]
         public void WhenOrderItemPeriodChanged()
         {
-            Transition(new OrderItemPeriodChanged(_initiatorId, _organizationId, _orderId, _orderItemId, _period,
+            Transition(new OrderItemPeriodChanged(_initiatorId, _organizationId, _orderId, _orderItemId, _articleId, _period,
                 new Period(DateTime.Today, DateTime.Today.AddDays(2))));
         }
 

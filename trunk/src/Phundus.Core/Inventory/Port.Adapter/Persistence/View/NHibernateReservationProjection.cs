@@ -44,7 +44,7 @@
         private void Process(ReservationQuantityChanged domainEvent)
         {
             var data = Find(domainEvent.ReservationId);
-            data.Quantity = domainEvent.OldQuantity;
+            data.Quantity = domainEvent.NewQuantity;
             data.UpdatedUtc = domainEvent.OccuredOnUtc;
             Save(data);
         }

@@ -259,7 +259,7 @@
             var oldPeriod = item.PeriodUtc;
             item.ChangePeriod(fromUtc, toUtc);
 
-            EventPublisher.Publish(new OrderItemPeriodChanged(initiatorId, OrganizationId, OrderId, orderItemId, oldPeriod, item.PeriodUtc));
+            EventPublisher.Publish(new OrderItemPeriodChanged(initiatorId, OrganizationId, OrderId, orderItemId, new ArticleId(item.ArticleId), oldPeriod, item.PeriodUtc));
         }
     }
 

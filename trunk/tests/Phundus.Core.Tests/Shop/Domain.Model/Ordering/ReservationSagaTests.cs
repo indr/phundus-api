@@ -102,7 +102,7 @@
         {
             pastEvents.Add(new OrderItemAdded(initiatorId, organizationId, orderId, orderItemId, articleId, period,
                 quantity));
-            domainEvent = new OrderItemPeriodChanged(initiatorId, organizationId, orderId, orderItemId, period,
+            domainEvent = new OrderItemPeriodChanged(initiatorId, organizationId, orderId, orderItemId, articleId, period,
                 new Period(DateTime.Today.AddDays(1), DateTime.Today.AddDays(2)));
         };
 

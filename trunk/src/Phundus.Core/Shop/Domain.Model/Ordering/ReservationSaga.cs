@@ -53,7 +53,7 @@
 
         private void When(OrderItemPeriodChanged e)
         {
-            UndispatchedCommands.Add(new ChangeReservationPeriod(_reservationId));
+            UndispatchedCommands.Add(new ChangeReservationPeriod(e.OrganizationId, e.ArticleId, _reservationId, new Period(e.NewFromUtc, e.NewToUtc)));
         }
 
         private void When(OrderRejected e)
