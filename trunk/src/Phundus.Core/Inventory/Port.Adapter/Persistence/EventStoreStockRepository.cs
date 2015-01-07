@@ -15,7 +15,7 @@
             AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
             AssertionConcern.AssertArgumentNotNull(stockId, "Stock id must be provided.");
 
-            return Get(new EventStreamId(stockId.Id), es => new Stock(es.Events, es.Version));
+            return Get(new EventStreamId(stockId.Id, 1), es => new Stock(es.Events, es.Version));
         }
 
         public StockId GetNextIdentity()

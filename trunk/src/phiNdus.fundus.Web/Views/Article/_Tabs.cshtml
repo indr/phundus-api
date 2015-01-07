@@ -37,6 +37,13 @@
             @Ajax.ActionLink("Verfügbarkeit", ArticlesActionNames.Availability, new { id = Model.Id }, new AjaxOptions {
                 HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})
         </li>
+        
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="@Html.ActiveTab("reservations2", new[] {"index"})">
+                <a href="@Url.Content("~/inventory#/articles/" + Model.Id + "/reservations")">Reservationen 2</a>
+            </li>
+        }
 
         <li class="@Html.ActiveTab("article", new string[] { "Reservations", "reservations" })">
             @Ajax.ActionLink("Reservationen", ArticlesActionNames.Reservations, new { id = Model.Id }, new AjaxOptions { 

@@ -7,13 +7,14 @@
         <li><a ng-href="./article/categories/{{articleId}}">Kategorien</a></li>
         <li class="active"><a href="#">Bestand</a></li>
         <li><a ng-href="./article/availability/{{articleId}}">Verfügbarkeit</a></li>
+        <li><a href="#articles/{{articleId}}/reservations">Reservationen 2</a></li>
         <li><a ng-href="./article/reservations/{{articleId}}">Reservationen</a></li>      
     </ul>
 
     <div class="tab-content">
         <div id="tab-content">
             
-            <div class="row" ng-show="((!isLoading) && (stockId == null))">
+            <div class="row" ng-show="((!isLoading) && (stockId == null))" style="margin-bottom:50px">
                 <div class="span12">
                     <p style="text-align:center; margin-top:50px">
                         <a class="btn btn-large btn-primary" ng-click="createStock()">Neuer Bestand</a>
@@ -21,7 +22,7 @@
                 </div>
             </div>
             
-            <table class="table">
+            <table class="table" ng-show="(isLoaded && (stockId != null))">
                 <thead>
                     <tr>
                         <th>Datum</th>
@@ -40,8 +41,8 @@
                 </tbody>
             </table>
             
-            <div class="row">
-                <div ng-show="(isLoaded && (stockId != null))" class="span6" style="text-align:left">
+            <div class="row" ng-show="(isLoaded && (stockId != null))">
+                <div class="span6" style="text-align:left">
                     <a class="btn" ng-click="changeQuantity()">Bestand ändern</a>
                 </div>
                 <div class="span6">

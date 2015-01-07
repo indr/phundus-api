@@ -321,6 +321,7 @@
     <Content Include="App_Data\Seeds\ArticleImages\10027\E04.jpg" />
     <Content Include="App_Data\Seeds\ArticleImages\10027\Stroboskop-Schlauch-a21072200.jpg" />
     <Content Include="ClientViews\Inventory\Stocks.html" />
+    <Content Include="ClientViews\Inventory\Reservations.html" />
     <Content Include="Content\angular-ui.css" />
     <Content Include="Content\angular-ui.min.css" />
     <Content Include="Content\bootstrap-datepicker.css" />
