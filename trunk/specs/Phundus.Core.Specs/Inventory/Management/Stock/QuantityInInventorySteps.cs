@@ -13,10 +13,10 @@
     public class QuantityInInventorySteps
     {
         private readonly Container _container;
-
+        private readonly PastEvents _pastEvents;
         private readonly StockContext _context;
         private readonly MutatingEvents _mutatingEvents;
-        private readonly PastEvents _pastEvents;
+
 
 
         public QuantityInInventorySteps(Container container, PastEvents pastEvents, MutatingEvents mutatingEvents,
