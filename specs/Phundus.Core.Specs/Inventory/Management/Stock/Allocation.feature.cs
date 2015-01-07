@@ -85,9 +85,26 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line 11
- testRunner.When("allocate 1 item for reservation 1 from 07.01.2015 to 08.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("allocate 1 with id 1 for reservation 1 from 07.01.2015 to 08.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 12
- testRunner.Then("article allocated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("stock allocated 1, Promised", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Allocation with insufficient quantity in inventory")]
+        public virtual void AllocationWithInsufficientQuantityInInventory()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Allocation with insufficient quantity in inventory", ((string[])(null)));
+#line 14
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 15
+ testRunner.When("allocate 11 with id 2 for reservation 2 from 07.01.2015 to 08.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 16
+ testRunner.Then("stock allocated 2, Impossible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

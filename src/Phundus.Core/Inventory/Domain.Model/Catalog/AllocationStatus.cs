@@ -4,6 +4,6 @@
     {
         New,
         Impossible,
-        Allocated
+        Promised
     }
 }

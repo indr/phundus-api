@@ -90,7 +90,14 @@
 
         public virtual void Allocate(AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
         {
-            Apply(new StockAllocated(OrganizationId, StockId, allocationId, reservationId, period, quantity));
+            var status = CalculateAllocationStatus(period, quantity);
+
+            Apply(new StockAllocated(OrganizationId, StockId, allocationId, reservationId, period, quantity, status));
+        }
+
+        private AllocationStatus CalculateAllocationStatus(Period period, int quantity)
+        {
+            return AllocationStatus.New;
         }
 
         protected void When(StockAllocated e)
