@@ -3,7 +3,6 @@
     using System;
     using Contexts;
     using Core.Inventory.Application.Commands;
-    using Core.Inventory.Domain.Model.Catalog;
     using Core.Inventory.Domain.Model.Management;
     using IdentityAndAccess.Domain.Model.Organizations;
     using NUnit.Framework;
@@ -31,21 +30,14 @@
             var repository = _container.Depend.On<IStockRepository>();
 
             repository.Expect(
-                x => x.Get(Arg<OrganizationId>.Is.Anything, Arg<ArticleId>.Is.Anything, Arg<StockId>.Is.Anything))
+                x => x.Get(Arg<OrganizationId>.Is.Anything, Arg<StockId>.Is.Anything))
                 .WhenCalled(a => a.ReturnValue = new Stock(pastEvents.Events, 1)).Return(null);
 
             repository.Expect(x => x.Save(Arg<Stock>.Is.NotNull))
                 .WhenCalled(a => _mutatingEvents.Events = ((Stock) a.Arguments[0]).MutatingEvents);
         }
 
-        [Given(@"stock created (.*), article (.*), organization (.*)")]
-        public void StockCreated(string stockId, int articleId, int organizationId)
-        {
-            _context.OrganizationId = new OrganizationId(organizationId);
-            _context.ArticleId = new ArticleId(articleId);
-            _context.StockId = new StockId(stockId);
-            _pastEvents.Add(new StockCreated(_context.OrganizationId, _context.ArticleId, _context.StockId));
-        }
+       
 
         [Given(@"quantity in inventory increased of (.*) to (.*) as of (.*)")]
         public void GivenQuantityInInventoryIncreasedOfToAsOf_(int change, int total, DateTime asOfUtc)

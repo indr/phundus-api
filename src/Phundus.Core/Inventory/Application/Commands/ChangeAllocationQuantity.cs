@@ -1,0 +1,43 @@
+namespace Phundus.Core.Inventory.Application.Commands
+{
+    using Common;
+    using Common.Cqrs;
+    using Cqrs;
+    using Domain.Model.Management;
+    using IdentityAndAccess.Domain.Model.Organizations;
+
+    public class ChangeAllocationQuantity : ICommand
+    {
+        public ChangeAllocationQuantity(OrganizationId organizationId, StockId stockId, AllocationId allocationId, int quantity)
+        {
+            AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(stockId, "Stock id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(allocationId, "Allocation id must be provided.");
+            AssertionConcern.AssertArgumentNotZero(quantity, "Quantity must be greater or less than zero.");
+
+            OrganizationId = organizationId;
+            StockId = stockId;
+            AllocationId = allocationId;
+            Quantity = quantity;
+        }
+
+        public OrganizationId OrganizationId { get; private set; }
+        public StockId StockId { get; private set; }
+        public AllocationId AllocationId { get; private set; }
+        public int Quantity { get; private set; }
+    }
+
+    public class ChangeAllocationQuantityHandler : IHandleCommand<ChangeAllocationQuantity>
+    {
+        public IStockRepository Repository { get; set; }
+
+        public void Handle(ChangeAllocationQuantity command)
+        {
+            var stock = Repository.Get(command.OrganizationId, command.StockId);
+
+            stock.ChangeAllocationQuantity(command.AllocationId, command.Quantity);
+
+            Repository.Save(stock);
+        }
+    }
+}

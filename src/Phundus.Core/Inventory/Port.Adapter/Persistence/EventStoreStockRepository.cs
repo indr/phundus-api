@@ -3,21 +3,11 @@
     using System;
     using Common;
     using Common.Events;
-    using Domain.Model.Catalog;
     using Domain.Model.Management;
     using IdentityAndAccess.Domain.Model.Organizations;
 
     public class EventStoreStockRepository : EventStoreRepositoryBase, IStockRepository
     {
-        public Stock Get(OrganizationId organizationId, ArticleId articleId, StockId stockId)
-        {
-            AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
-            AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
-            AssertionConcern.AssertArgumentNotNull(stockId, "Stock id must be provided.");
-
-            return Get(new EventStreamId(stockId.Id, 1), es => new Stock(es.Events, es.Version));
-        }
-
         public StockId GetNextIdentity()
         {
             return new StockId(Guid.NewGuid().ToString());
@@ -28,6 +18,14 @@
             AssertionConcern.AssertArgumentNotNull(stock, "Stock must be provided.");
 
             Append(stock.StockId.Id, stock);
+        }
+
+        public Stock Get(OrganizationId organizationId, StockId stockId)
+        {
+            AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(stockId, "Stock id must be provided.");
+
+            return Get(new EventStreamId(stockId.Id, 1), es => new Stock(es.Events, es.Version));
         }
     }
 }

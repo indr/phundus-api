@@ -6,6 +6,7 @@
     using Common;
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
+    using Reservations;
 
     /// <summary>
     /// Quantities:
@@ -61,7 +62,7 @@
             StockId = new StockId(e.StockId);
         }
 
-        public void ChangeQuantityInInventory(int change, DateTime asOfUtc, string comment)
+        public virtual void ChangeQuantityInInventory(int change, DateTime asOfUtc, string comment)
         {
             AssertionConcern.AssertArgumentNotZero(change, "Change must be greater or less than 0.");
             AssertionConcern.AssertArgumentNotEmpty(asOfUtc, "As of utc must be provided.");
@@ -84,6 +85,35 @@
         protected void When(QuantityInInventoryDecreased e)
         {
             _inInventory.ChangeAsOf(e.Change, e.AsOfUtc);
+        }
+
+        public virtual void Allocate(AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
+        {
+            throw new NotImplementedException();
+            //Apply(new StockAllocated(StockId, allocationId, reservationId, period, quantity));
+        }
+
+        public virtual void ChangeAllocationPeriod(AllocationId allocationId, Period newPeriod)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void ChangeAllocationQuantity(AllocationId allocationId, int newQuantity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void DiscardAllocation(AllocationId allocationId)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class StockAllocated : DomainEvent
+    {
+        public StockAllocated(StockId stockId, AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
+        {
+            
         }
     }
 }
