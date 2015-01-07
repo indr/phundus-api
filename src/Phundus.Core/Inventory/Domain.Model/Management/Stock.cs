@@ -25,6 +25,7 @@
     public class Stock : EventSourcedRootEntity
     {
         private readonly QuantitiesAsOf _inInventory = new QuantitiesAsOf();
+        private readonly IList<Allocation> _allocations = new List<Allocation>();
 
         public Stock(OrganizationId organizationId, ArticleId articleId, StockId stockId)
         {
@@ -40,10 +41,10 @@
         }
 
         public OrganizationId OrganizationId { get; private set; }
-
-        public ArticleId ArticleId { get; private set; }
-
         public StockId StockId { get; private set; }
+        public ArticleId ArticleId { get; private set; }
+        public IList<Allocation> Allocations { get { return _allocations; }}
+        public QuantitiesAsOf QuantitiesInInventory { get { return _inInventory; }}
 
         protected override IEnumerable<object> GetIdentityComponents()
         {
@@ -89,8 +90,12 @@
 
         public virtual void Allocate(AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
         {
-            throw new NotImplementedException();
-            //Apply(new StockAllocated(StockId, allocationId, reservationId, period, quantity));
+            Apply(new StockAllocated(OrganizationId, StockId, allocationId, reservationId, period, quantity));
+        }
+
+        protected void When(StockAllocated e)
+        {
+            _allocations.Add(new Allocation(new AllocationId(e.AllocationId)));
         }
 
         public virtual void ChangeAllocationPeriod(AllocationId allocationId, Period newPeriod)
@@ -106,14 +111,6 @@
         public virtual void DiscardAllocation(AllocationId allocationId)
         {
             throw new NotImplementedException();
-        }
-    }
-
-    public class StockAllocated : DomainEvent
-    {
-        public StockAllocated(StockId stockId, AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
-        {
-            
         }
     }
 }
