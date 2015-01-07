@@ -157,6 +157,12 @@
     <Compile Include="IdentityAndAccess\Users\Model\UserLoggedIn.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserRegistered.cs" />
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
+    <Compile Include="Inventory\Application\Commands\AllocateStock.cs" />
+    <Compile Include="Inventory\Application\Commands\ChangeAllocationPeriod.cs" />
+    <Compile Include="Inventory\Application\Commands\ChangeAllocationQuantity.cs" />
+    <Compile Include="Inventory\Application\Commands\DiscardAllocation.cs" />
+    <Compile Include="Inventory\Domain.Model\Catalog\AllocationStatus.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\AllocationId.cs" />
     <Compile Include="Inventory\Application\Commands\CancelReservation.cs" />
     <Compile Include="Inventory\Application\Commands\ChangeReservationPeriod.cs" />
     <Compile Include="Inventory\Application\Commands\ChangeReservationQuantity.cs" />

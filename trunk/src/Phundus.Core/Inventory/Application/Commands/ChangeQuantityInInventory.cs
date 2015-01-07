@@ -49,7 +49,7 @@
         {
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
 
-            var stock = Repository.Get(command.OrganizationId, command.ArticleId, command.StockId);
+            var stock = Repository.Get(command.OrganizationId, command.StockId);
 
             stock.ChangeQuantityInInventory(command.Change, command.AsOfUtc, command.Comment);
 

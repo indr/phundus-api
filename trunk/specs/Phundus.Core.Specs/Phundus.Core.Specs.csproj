@@ -81,12 +81,19 @@
     <Compile Include="Contexts\Supports\InMemorySessionSupport.cs" />
     <Compile Include="Contexts\MutatingEvents.cs" />
     <Compile Include="Contexts\PastEvents.cs" />
+    <Compile Include="Inventory\Management\Stock\Allocation.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Allocation.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Management\Stock\AllocationSteps.cs" />
     <Compile Include="Inventory\Management\Stock\QuantityInInventory.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QuantityInInventory.feature</DependentUpon>
     </Compile>
     <Compile Include="Inventory\Management\Stock\QuantityInInventorySteps.cs" />
+    <Compile Include="Inventory\Management\Stock\StockSteps.cs" />
     <Compile Include="Inventory\Projections\QuantitiesInInventoryProjection.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -134,6 +141,10 @@
     <None Include="App.config" />
     <None Include="Default.srprofile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Inventory\Management\Stock\Allocation.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Allocation.feature.cs</LastGenOutput>
     </None>
     <None Include="Inventory\Management\Stock\QuantityInInventory.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
