@@ -1,12 +1,16 @@
 namespace Phundus.Core.Tests
 {
+    using System.Collections;
+    using System.Collections.Generic;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
+    using Common.Domain.Model;
     using Core.Ddd;
+    using Core.Inventory.Domain.Model.Management;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
 
-    public abstract class aggregate_root_concern<TAggregateRoot>
+    public abstract class aggregate_root_concern<TAggregateRoot> where TAggregateRoot : EventSourcedRootEntity
     {
         private static IWindsorContainer container;
 
@@ -16,7 +20,7 @@ namespace Phundus.Core.Tests
 
         protected Establish event_publisher = () =>
         {
-            sut = default(TAggregateRoot);
+            _sut = default(TAggregateRoot);
 
             mock = new Mock();
             
@@ -27,7 +31,15 @@ namespace Phundus.Core.Tests
             EventPublisher.Container = container;
         };
 
-        protected static TAggregateRoot sut { get; set; }
+        protected static TAggregateRoot _sut { get; set; }
+
+        protected static TDomainEvent AssertMutatingEvent<TDomainEvent>(int idx)
+        {
+            aggregate_root_concern<Stock>._sut.MutatingEvents.Count.ShouldBeGreaterThan(idx);
+            var evnt = aggregate_root_concern<Stock>._sut.MutatingEvents[0];
+            evnt.ShouldBeOfExactType<TDomainEvent>();
+            return (TDomainEvent) evnt;
+        }
     }
 
     public abstract class concern<TClass> : Observes<TClass> where TClass : class
