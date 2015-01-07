@@ -122,5 +122,9 @@
     .factory('quantitiesInInventory', function($resource) {
         return $resource('./api/organizations/:organizationId/articles/:articleId/stocks/:stockId/in-inventory');
     })
+
+    .factory('reservations', function($resource) {
+        return $resource('./api/organizations/:organizationId/articles/:articleId/reservations');
+    })
 ; // ph.resources
 

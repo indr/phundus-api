@@ -1,0 +1,37 @@
+﻿<h2>Material</h2>
+
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li><a ng-href="./article/edit/{{articleId}}">Eigenschaften</a></li>
+        <li><a ng-href="./article/files/{{articleId}}">Dateien</a></li>
+        <li><a ng-href="./article/categories/{{articleId}}">Kategorien</a></li>
+        <li><a href="#articles/{{articleId}}/stocks">Bestand</a></li>
+        <li><a ng-href="./article/availability/{{articleId}}">Verfügbarkeit</a></li>
+        <li class="active"><a href="#">Reservationen 2</a></li>
+        <li><a ng-href="./article/reservations/{{articleId}}">Reservationen</a></li>      
+    </ul>
+
+    <div class="tab-content">
+        <div id="tab-content">            
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Von</th>
+                        <th>Bis</th>
+                        <th>Menge</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="reservation in reservations">
+                        <td>{{reservation.reservationId}}</td>
+                        <td>{{reservation.fromUtc | date:'medium'}}</td>
+                        <td>{{reservation.toUtc | date:'medium'}}</td>
+                        <td>{{reservation.quantity}}</td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
+    </div>
+</div>

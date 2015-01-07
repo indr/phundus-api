@@ -2,8 +2,18 @@
 angular.module('ph.inventory', ['ph.resources', 'ph.domain', 'ph.ui', 'ui', 'ui.bootstrap'])
     .config(function($routeProvider) {
     $routeProvider
-        .when('/articles/:articleId/stocks', { controller: StocksCtrl, templateUrl: '../../clientviews/inventory/stocks.html' });
+        .when('/articles/:articleId/stocks', { controller: StocksCtrl, templateUrl: '../../clientviews/inventory/stocks.html' })
+        .when('/articles/:articleId/reservations', {controller: ReservationsCtrl, templateUrl: '../../clientviews/inventory/reservations.html'});
 }); // ph.inventory
+
+function ReservationsCtrl($scope, $routeParams, reservations) {
+    $scope.isLoading = true;
+    $scope.articleId = $routeParams.articleId;
+
+    $scope.reservations = reservations.query({ organizationId: $scope.organizationId, articleId: $scope.articleId },
+       function (data) { $scope.isLoading = false; }, function () { $scope.isLoading = false; });
+    
+}; // ReservationsCtrl
 
 function StocksCtrl($scope, $routeParams, stocks, quantitiesInInventory) {
     $scope.isLoading = true;
@@ -28,9 +38,11 @@ function StocksCtrl($scope, $routeParams, stocks, quantitiesInInventory) {
 
         quantitiesInInventory.save({ organizationId: $scope.organizationId, articleId: $scope.articleId, stockId: $scope.stockId },
         {
-            
             change: change
-        }, function() { alert('yes'); }, function() { alert('no'); });
+        }, function() {
+
+            $scope.queryQuantitiesInInventory();
+        }, function () { });
     };
 
     $scope.stocks = stocks.query({ organizationId: $scope.organizationId, articleId: $scope.articleId },

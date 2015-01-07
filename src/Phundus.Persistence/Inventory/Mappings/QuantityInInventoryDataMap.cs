@@ -10,9 +10,14 @@
             Id(x => x.Id).GeneratedBy.GuidComb();
             Version(x => x.ConcurrencyVersion);
 
+            Map(x => x.OrganizationId);
+            Map(x => x.StockId);
+            Map(x => x.ArticleId);
+
             Map(x => x.AsOfUtc);
             Map(x => x.Change);
             Map(x => x.Total);
+            Map(x => x.Comment);
         }
     }
 }
