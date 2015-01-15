@@ -44,7 +44,7 @@
         public StockId StockId { get; private set; }
         public ArticleId ArticleId { get; private set; }
         public IList<Allocation> Allocations { get { return _allocations; }}
-        public QuantitiesAsOf QuantitiesInInventory { get { return _inInventory; }}
+        public ICollection<QuantityAsOf> QuantitiesInInventory { get { return _inInventory.Quantities; }}
 
         protected override IEnumerable<object> GetIdentityComponents()
         {
@@ -76,6 +76,8 @@
             else if (change < 0)
                 Apply(new QuantityInInventoryDecreased(OrganizationId, ArticleId, StockId, change*-1,
                     totalAsOf + change, asOfUtc, comment));
+
+            Apply(new QuantityAvailableChanged(OrganizationId, ArticleId, StockId, change, totalAsOf + change, asOfUtc));
         }
 
         protected void When(QuantityInInventoryIncreased e)
@@ -85,7 +87,12 @@
 
         protected void When(QuantityInInventoryDecreased e)
         {
-            _inInventory.ChangeAsOf(e.Change, e.AsOfUtc);
+            _inInventory.ChangeAsOf(e.Change * -1, e.AsOfUtc);
+        }
+
+        protected void When(QuantityAvailableChanged e)
+        {
+            
         }
 
         public virtual void Allocate(AllocationId allocationId, ReservationId reservationId, Period period, int quantity)

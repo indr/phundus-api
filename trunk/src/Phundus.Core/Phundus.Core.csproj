@@ -178,6 +178,7 @@
     <Compile Include="Inventory\Domain.Model\Management\IStockRepository.cs" />
     <Compile Include="Inventory\Domain.Model\Management\QuantitiesAsOf.cs" />
     <Compile Include="Inventory\Domain.Model\Management\QuantityAsOf.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\QuantityAvailableChanged.cs" />
     <Compile Include="Inventory\Domain.Model\Management\QuantityInInventoryDecreased.cs" />
     <Compile Include="Inventory\Domain.Model\Management\QuantityInInventoryIncreased.cs" />
     <Compile Include="Inventory\Domain.Model\Management\Stock.cs" />

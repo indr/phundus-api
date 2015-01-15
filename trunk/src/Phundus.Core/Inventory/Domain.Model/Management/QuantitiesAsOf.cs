@@ -2,12 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Common;
 
     public class QuantitiesAsOf
     {
         private List<QuantityAsOf> _quantities = new List<QuantityAsOf>();
+        
+        public ICollection<QuantityAsOf> Quantities
+        {
+            get { return new ReadOnlyCollection<QuantityAsOf>(_quantities); }            
+        }
 
         private QuantityAsOf FindAtAsOfOrLatestBefore(DateTime asOfUtc)
         {
