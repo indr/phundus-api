@@ -87,6 +87,7 @@
       <DependentUpon>Allocation.feature</DependentUpon>
     </Compile>
     <Compile Include="Inventory\Management\Stock\AllocationSteps.cs" />
+    <Compile Include="Inventory\Management\Stock\QuantityAvailableSteps.cs" />
     <Compile Include="Inventory\Management\Stock\QuantityInInventory.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

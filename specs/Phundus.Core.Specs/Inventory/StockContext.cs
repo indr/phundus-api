@@ -8,8 +8,13 @@
 
     public class StockContext
     {
-        public StockContext()
+        private Stock _sut = null;
+
+        public StockContext(PastEvents pastEvents, MutatingEvents mutatingEvents)
         {
+            PastEvents = pastEvents;
+            MutatingEvents = mutatingEvents;
+
             InitiatorId = new UserId(10001);
             OrganizationId = new OrganizationId(1001);
             ArticleId = new ArticleId(100001);
@@ -21,5 +26,18 @@
 
         public ArticleId ArticleId { get; set; }
         public StockId StockId { get; set; }
+
+        public PastEvents PastEvents { get; private set; }
+        public MutatingEvents MutatingEvents { get; private set; }
+
+        public Stock Sut
+        {
+            get
+            {
+                if (_sut == null)
+                    _sut = new Stock(PastEvents.Events, 1);
+                return _sut;
+            }
+        }
     }
 }
