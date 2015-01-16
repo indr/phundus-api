@@ -10,3 +10,7 @@ Scenario: Change quantity at the same date time
 	And the quantities should be
 	| AsOfUtc             | Change | Total |
 	| 16.01.2015 10:20:30 | 3      | 3     |
+
+Scenario: Has quantity when the is no
+	When I ask for has quantity in period from 01.01.2015 to 01.02.2015 of 1
+	Then has quantity in period should be false

@@ -125,6 +125,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IsAvailable.feature</DependentUpon>
     </Compile>
+    <Compile Include="Inventory\Reservations\AllocationSaga.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AllocationSaga.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\Reservations\AllocationSagaSteps.cs" />
     <Compile Include="Inventory\StockContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SagaConcern.cs" />
@@ -176,6 +182,10 @@
     <None Include="Inventory\ReservationAndAvailability\IsAvailable.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>IsAvailable.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Inventory\Reservations\AllocationSaga.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AllocationSaga.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />

@@ -27,7 +27,7 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
             DateTime fromUtc, DateTime toUtc)
         {
             _container.Resolve<AllocateStockHandler>().Handle(new AllocateStock(
-                _context.OrganizationId, _context.StockId, new AllocationId(allocationId),
+                _context.OrganizationId, _context.ArticleId, _context.StockId, new AllocationId(allocationId),
                 new ReservationId(reservationId), new Period(fromUtc, toUtc), quantity));
         }
 

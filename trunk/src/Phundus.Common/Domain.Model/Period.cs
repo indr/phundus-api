@@ -17,6 +17,11 @@ namespace Phundus.Common.Domain.Model
 
         public DateTime ToUtc { get; private set; }
 
+        public static Period FromTodayToTomorrow
+        {
+            get { return new Period(DateTime.UtcNow.Date, DateTime.UtcNow.AddDays(1).Date); }
+        }
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return FromUtc;

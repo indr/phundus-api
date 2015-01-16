@@ -31,7 +31,7 @@
         public bool HasQuantityInPeriod(Period period, int quantity)
         {
             var atStart = FindAtAsOfOrLatestBefore(period.FromUtc);
-            if (atStart.Total < quantity)
+            if ((atStart == null) || (atStart.Total < quantity))
                 return false;
 
             return _quantities.Where(p => (p.AsOfUtc > period.FromUtc) && (p.AsOfUtc <= period.ToUtc))
