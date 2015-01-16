@@ -28,17 +28,19 @@ namespace Phundus.Core.Inventory.Application.Commands
         public AllocationId AllocationId { get; private set; }
     }
 
-    public class DiscardAllocationHandler : IHandleCommand<DiscardAllocation>
+    public class DiscardAllocationHandler : AllocationHandlerBase, IHandleCommand<DiscardAllocation>
     {
-        public IStockRepository Repository { get; set; }
+        public DiscardAllocationHandler(IStockRepository stockRepository, IArticleRepository articleRepository) : base(stockRepository, articleRepository)
+        {
+        }
 
         public void Handle(DiscardAllocation command)
         {
-            var stock = Repository.Get(command.OrganizationId, command.StockId);
+            var stock = GetStock(command.OrganizationId, command.ArticleId, command.StockId);
 
             stock.DiscardAllocation(command.AllocationId);
 
-            Repository.Save(stock);
+            StockRepository.Save(stock);
         }
     }
 }

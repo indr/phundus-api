@@ -5,6 +5,7 @@
     using Common.Events;
     using Domain.Model.Management;
     using IdentityAndAccess.Domain.Model.Organizations;
+    using Infrastructure;
 
     public class EventStoreStockRepository : EventStoreRepositoryBase, IStockRepository
     {
