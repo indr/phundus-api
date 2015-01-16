@@ -242,6 +242,9 @@
             if (item == null)
                 return;
 
+            if (item.Amount == quantity)
+                return;
+
             var oldQuantity = item.Amount;
             item.ChangeQuantity(quantity);
 
@@ -254,6 +257,9 @@
 
             var item = _items.SingleOrDefault(p => p.Id == orderItemId);
             if (item == null)
+                return;
+
+            if (Equals(item.PeriodUtc, new Period(fromUtc, toUtc)))
                 return;
 
             var oldPeriod = item.PeriodUtc;
