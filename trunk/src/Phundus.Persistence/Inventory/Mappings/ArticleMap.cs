@@ -26,6 +26,8 @@
             HasMany(x => x.Images).AsSet()
                 .KeyColumn("ArticleId").Inverse()
                 .Cascade.AllDeleteOrphan();
+
+            Map(x => x.StockId, "StockId");
         }
     }
 }

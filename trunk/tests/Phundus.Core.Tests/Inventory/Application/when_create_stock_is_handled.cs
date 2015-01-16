@@ -13,33 +13,43 @@
     [Subject(typeof (CreateStockHandler))]
     public class when_create_stock_is_handled : handler_concern<CreateStock, CreateStockHandler>
     {
-        private static IStockRepository repository;
-        private static IMemberInRole memberInRole;
-
-        private static OrganizationId organizationId;
-        private static UserId initiatorId;
-        private static StockId stockId;
-        private static ArticleId articleId;
+        private static IStockRepository _stockRepository;
+        private static IArticleRepository _articleRepository;
+        private static IMemberInRole _memberInRole;
+        
+        private static OrganizationId _organizationId;
+        private static UserId _initiatorId;
+        private static StockId _stockId;
+        private static ArticleId _articleId;
+        private static Article _article;
 
         public Establish ctx = () =>
         {
-            memberInRole = depends.on<IMemberInRole>();
-            repository = depends.on<IStockRepository>();
+            _memberInRole = depends.on<IMemberInRole>();
+            _stockRepository = depends.on<IStockRepository>();
+            _articleRepository = depends.on<IArticleRepository>();
 
-            initiatorId = new UserId(11);
-            organizationId = new OrganizationId(1);
-            articleId = new ArticleId(101);
-            stockId = new StockId("Stock-1234");
-            repository.WhenToldTo(x => x.GetNextIdentity()).Return(stockId);
+            _initiatorId = new UserId(11);
+            _organizationId = new OrganizationId(1);
+            _articleId = new ArticleId(101);
+            _stockId = new StockId("Stock-1234");
+            _stockRepository.WhenToldTo(x => x.GetNextIdentity()).Return(_stockId);
 
-            command = new CreateStock(initiatorId, organizationId, articleId);
+            _article = mock.partial<Article>(new object[] { _articleId, _organizationId.Id, "Article name" });
+            _articleRepository.WhenToldTo(x => x.GetById(_organizationId.Id, _articleId.Id)).Return(_article);
+
+            command = new CreateStock(_initiatorId, _organizationId, _articleId);
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
+            () => _memberInRole.WasToldTo(x => x.ActiveChief(_organizationId, _initiatorId));
 
-        public It should_have_resulting_stock_id = () => command.ResultingStockId.ShouldEqual(stockId);
+        public It should_have_resulting_stock_id = () => command.ResultingStockId.ShouldEqual(_stockId);
 
-        public It should_save_to_repository = () => repository.WasToldTo(x => x.Save(Arg<Stock>.Is.NotNull));
+        public It should_save_stock = () => _stockRepository.WasToldTo(x => x.Save(Arg<Stock>.Is.NotNull));
+
+        public It should_create_stock_on_article = () => _article.WasToldTo(x => x.CreateStock(_stockId));
+        
+        public It should_save_article = () => _articleRepository.WasToldTo(x => x.Save(_article));
     }
 }

@@ -34,5 +34,10 @@
                 throw new ArticleNotFoundException(articleId);
             return result;
         }
+
+        public void Save(Article article)
+        {
+            Session.SaveOrUpdate(article);
+        }
     }
 }
