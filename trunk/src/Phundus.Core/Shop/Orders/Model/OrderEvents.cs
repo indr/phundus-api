@@ -4,6 +4,7 @@ namespace Phundus.Core.Shop.Orders.Model
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
+    using Common.EventPublishing;
     using Domain.Model.Ordering;
     using IdentityAndAccess.Domain.Model.Organizations;
     using IdentityAndAccess.Domain.Model.Users;
@@ -22,7 +23,7 @@ namespace Phundus.Core.Shop.Orders.Model
 
         [DataMember(Order = 1)]
         public int OrderId { get; set; }
-    }
+    }   
 
     [DataContract]
     public class OrderRejected : DomainEvent

@@ -5,6 +5,7 @@ namespace Phundus.Core.Tests
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using Common.Domain.Model;
+    using Common.EventPublishing;
     using Core.Ddd;
     using Core.Inventory.Domain.Model.Management;
     using developwithpassion.specifications.rhinomocks;

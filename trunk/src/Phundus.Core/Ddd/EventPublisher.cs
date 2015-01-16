@@ -2,6 +2,7 @@
 {
     using Castle.Windsor;
     using Common.Domain.Model;
+    using Common.EventPublishing;
 
     public static class EventPublisher
     {

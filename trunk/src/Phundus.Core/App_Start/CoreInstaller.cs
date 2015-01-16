@@ -5,6 +5,7 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
+    using Common.EventPublishing;
     using Cqrs;
     using Ddd;
 

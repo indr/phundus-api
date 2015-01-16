@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Ddd
+﻿namespace Phundus.Common.EventPublishing
 {
     public interface ISubscribeTo
     {
