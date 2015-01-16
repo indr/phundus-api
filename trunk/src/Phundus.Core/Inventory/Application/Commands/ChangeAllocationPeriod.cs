@@ -32,17 +32,19 @@ namespace Phundus.Core.Inventory.Application.Commands
         public Period Period { get; private set; }
     }
 
-    public class ChangeAllocationPeriodHandler : IHandleCommand<ChangeAllocationPeriod>
+    public class ChangeAllocationPeriodHandler : AllocationHandlerBase, IHandleCommand<ChangeAllocationPeriod>
     {
-        public IStockRepository Repository { get; set; }
+        public ChangeAllocationPeriodHandler(IStockRepository stockRepository, IArticleRepository articleRepository) : base(stockRepository, articleRepository)
+        {
+        }
 
         public void Handle(ChangeAllocationPeriod command)
         {
-            var stock = Repository.Get(command.OrganizationId, command.StockId);
+            var stock = GetStock(command.OrganizationId, command.ArticleId, command.StockId);
 
             stock.ChangeAllocationPeriod(command.AllocationId, command.Period);
 
-            Repository.Save(stock);
+            StockRepository.Save(stock);
         }
     }
 }

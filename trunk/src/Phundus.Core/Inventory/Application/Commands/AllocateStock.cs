@@ -40,33 +40,19 @@ namespace Phundus.Core.Inventory.Application.Commands
         public int Quantity { get; private set; }
     }
 
-    public class AllocateStockHandler : IHandleCommand<AllocateStock>
+    public class AllocateStockHandler : AllocationHandlerBase, IHandleCommand<AllocateStock>
     {
-        public IStockRepository StockRepository { get; set; }
-
-        public IArticleRepository ArticleRepository { get; set; }
+        public AllocateStockHandler(IStockRepository stockRepository, IArticleRepository articleRepository) : base(stockRepository, articleRepository)
+        {
+        }
 
         public void Handle(AllocateStock command)
         {
             var stock = GetStock(command.OrganizationId, command.ArticleId, command.StockId);
 
-            stock.Allocate(command.AllocationId, command.ReservationId,  command.Period, command.Quantity);
+            stock.Allocate(command.AllocationId, command.ReservationId, command.Period, command.Quantity);
 
             StockRepository.Save(stock);
-        }
-
-        private Stock GetStock(OrganizationId organizationId, ArticleId articleId, StockId stockId)
-        {
-            if (Equals(stockId, StockId.Default))
-                return GetDefaultStock(organizationId, articleId);
-            return StockRepository.Get(organizationId, stockId);
-        }
-
-        private Stock GetDefaultStock(OrganizationId organizationId, ArticleId articleId)
-        {
-            var article = ArticleRepository.GetById(organizationId.Id, articleId.Id);
-
-            return StockRepository.Get(organizationId, new StockId(article.StockId));
         }
     }
 }

@@ -31,17 +31,19 @@ namespace Phundus.Core.Inventory.Application.Commands
         public int Quantity { get; private set; }
     }
 
-    public class ChangeAllocationQuantityHandler : IHandleCommand<ChangeAllocationQuantity>
+    public class ChangeAllocationQuantityHandler : AllocationHandlerBase, IHandleCommand<ChangeAllocationQuantity>
     {
-        public IStockRepository Repository { get; set; }
+        public ChangeAllocationQuantityHandler(IStockRepository stockRepository, IArticleRepository articleRepository) : base(stockRepository, articleRepository)
+        {
+        }
 
         public void Handle(ChangeAllocationQuantity command)
         {
-            var stock = Repository.Get(command.OrganizationId, command.StockId);
+            var stock = GetStock(command.OrganizationId, command.ArticleId, command.StockId);
 
             stock.ChangeAllocationQuantity(command.AllocationId, command.Quantity);
 
-            Repository.Save(stock);
+            StockRepository.Save(stock);
         }
     }
 }

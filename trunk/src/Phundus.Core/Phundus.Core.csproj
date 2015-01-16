@@ -162,6 +162,7 @@
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
     <Compile Include="Inventory\Application\AllocationsQueryService.cs" />
     <Compile Include="Inventory\Application\Commands\AllocateStock.cs" />
+    <Compile Include="Inventory\Application\Commands\AllocationHandlerBase.cs" />
     <Compile Include="Inventory\Application\Commands\ChangeAllocationPeriod.cs" />
     <Compile Include="Inventory\Application\Commands\ChangeAllocationQuantity.cs" />
     <Compile Include="Inventory\Application\Commands\DiscardAllocation.cs" />
