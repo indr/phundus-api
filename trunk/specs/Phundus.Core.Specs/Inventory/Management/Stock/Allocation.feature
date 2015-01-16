@@ -9,7 +9,7 @@ Background:
 
 Scenario: Allocation with sufficient quantity in inventory
 	When allocate 1 with id 1 for reservation 1 from 07.01.2015 to 08.01.2015
-	Then stock allocated 1, New
+	Then stock allocated 1, Allocated
 	And quantity available changed of -1 to 9 as of 07.01.2015
 	And quantity available changed of +1 to 10 as of 08.01.2015
 	And quantities available
@@ -19,7 +19,7 @@ Scenario: Allocation with sufficient quantity in inventory
 
 Scenario: Allocation with insufficient quantity in inventory
 	When allocate 11 with id 2 for reservation 2 from 07.01.2015 to 08.01.2015
-	Then stock allocated 2, New
+	Then stock allocated 2, Unavailable
 	And quantity available changed of -11 to -1 as of 07.01.2015
 	And quantity available changed of +11 to 10 as of 08.01.2015
 	And quantities available

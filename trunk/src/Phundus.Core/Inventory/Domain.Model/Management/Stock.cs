@@ -126,7 +126,10 @@
 
         private AllocationStatus CalculateAllocationStatus(Period period, int quantity)
         {
-            return AllocationStatus.New;
+            var hasQuantity = _available.HasQuantityInPeriod(period, quantity);
+            if (hasQuantity)
+                return AllocationStatus.Allocated;
+            return AllocationStatus.Unavailable;
         }
 
         protected void When(StockAllocated e)
