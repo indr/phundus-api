@@ -11,7 +11,7 @@ namespace Phundus.Core.Tests.Inventory.Application
         private static int _newQuantity = 2;
 
         private Establish ctx =
-            () => command = new ChangeAllocationQuantity(_organizationId, _stockId, _allocationId, _newQuantity);
+            () => command = new ChangeAllocationQuantity(_organizationId, _articleId, _stockId, _allocationId, _newQuantity);
 
         public It should_call_change_allocation_quantity =
             () => _stock.WasToldTo(x => x.ChangeAllocationQuantity(_allocationId, _newQuantity));
