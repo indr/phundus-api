@@ -1,4 +1,4 @@
-namespace Phundus.Core.Specs.Shop.Ordering
+namespace Phundus.Core.Specs
 {
     using System.Linq;
     using Common.Domain.Model;

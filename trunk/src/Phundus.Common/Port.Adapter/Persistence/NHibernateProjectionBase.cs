@@ -3,7 +3,7 @@
     using System;
     using NHibernate;
 
-    public abstract class NHibernateProjectionBase<TRecord> where TRecord : class
+    public abstract class NHibernateProjectionBase
     {
         public Func<ISession> SessionFactory { get; set; }
 
@@ -12,19 +12,32 @@
             get { return SessionFactory(); }
         }
 
-        protected TRecord Find(object id)
+        protected TRecord Find<TRecord>(object id)
         {
             return Session.Get<TRecord>(id);
         }
 
-        protected IQueryOver<TRecord, TRecord> Query
-        {
-            get { return Session.QueryOver<TRecord>(); }
-        }
-
-        protected void Save(TRecord record)
+        protected void Save(object record)
         {
             Session.SaveOrUpdate(record);
+        }
+
+        protected IQueryOver<TRecord, TRecord> QueryOver<TRecord>() where TRecord : class
+        {
+            return Session.QueryOver<TRecord>();
+        }
+    }
+
+    public abstract class NHibernateProjectionBase<TRecord> : NHibernateProjectionBase where TRecord : class
+    {
+        protected TRecord Find(object id)
+        {
+            return base.Find<TRecord>(id);
+        }
+
+        protected IQueryOver<TRecord, TRecord> Query
+        {
+            get { return base.QueryOver<TRecord>(); }
         }
     }
 }

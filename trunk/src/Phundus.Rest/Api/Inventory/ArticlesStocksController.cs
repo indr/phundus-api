@@ -13,6 +13,7 @@ namespace Phundus.Rest.Api.Inventory
     using Core.Inventory.Application.Data;
     using Core.Inventory.Domain.Model.Catalog;
 
+
     [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/stocks")]
     [Authorize(Roles = "Admin")]
     public class ArticlesStocksController : ApiControllerBase

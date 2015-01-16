@@ -127,13 +127,13 @@
     </Compile>
     <Compile Include="Inventory\StockContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SagaConcern.cs" />
     <Compile Include="Shop\Ordering\ReservationSagaSteps.cs" />
     <Compile Include="Shop\Ordering\ReservationSaga.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReservationSaga.feature</DependentUpon>
     </Compile>
-    <Compile Include="Shop\Ordering\SagaConcern.cs" />
     <Compile Include="Shop\Pricing\PerDayWithPerSevenDaysPricePricing.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
