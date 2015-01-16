@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using Common.Domain.Model;
     using Contexts;
     using Core.Inventory.Application.Commands;

@@ -1,6 +1,7 @@
 namespace Phundus.Core.Specs.Inventory.Management.Stock
 {
     using System;
+    using Common.Domain.Model;
     using Core.Inventory.Domain.Model.Management;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
@@ -9,7 +10,8 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
     [Binding]
     public class QuantitiesAsOfSteps
     {
-        private QuantitiesAsOf _sut;
+        private readonly QuantitiesAsOf _sut;
+        private bool _hasQuantityInPeriod;
 
         public QuantitiesAsOfSteps()
         {
@@ -40,6 +42,18 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
         {
             var actual = _sut.Quantities;
             table.CompareToSet(actual);
+        }
+
+        [When(@"I ask for has quantity in period from (.*) to (.*) of (.*)")]
+        public void WhenIAskForHasQuantityInPeriod(DateTime fromUtc, DateTime toUtc, int quantity)
+        {
+            _hasQuantityInPeriod = _sut.HasQuantityInPeriod(new Period(fromUtc, toUtc), quantity);
+        }
+
+        [Then(@"has quantity in period should be (true|false)")]
+        public void ThenHasQuantityInPeriodShouldBeFalse(bool value)
+        {
+            Assert.That(_hasQuantityInPeriod, Is.EqualTo(value));
         }
     }
 }

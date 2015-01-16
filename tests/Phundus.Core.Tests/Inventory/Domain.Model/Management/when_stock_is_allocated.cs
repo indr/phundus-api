@@ -3,6 +3,7 @@
     using Core.Inventory.Domain.Model.Management;
     using Machine.Specifications;
 
+    [Subject(typeof(Stock))]
     public class when_stock_is_allocated : stock_allocation_concern
     {
         public Because of = () => _sut.Allocate(_allocationId, _reservationId, _period, _quantity);

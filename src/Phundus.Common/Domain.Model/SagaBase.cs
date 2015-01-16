@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using Cqrs;
 
     public abstract class SagaBase : ISaga
     {
@@ -50,5 +51,10 @@
         }
 
         protected abstract void When(IDomainEvent e);
+
+        protected void Dispatch(ICommand command)
+        {
+            UndispatchedCommands.Add(command);
+        }
     }
 }
