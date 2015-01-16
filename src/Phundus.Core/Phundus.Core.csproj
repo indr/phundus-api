@@ -110,10 +110,8 @@
     <Compile Include="Ddd\AutoReleaseEventHandlerInterceptor.cs" />
     <Compile Include="Ddd\EventHandlerSelector.cs" />
     <Compile Include="Ddd\EventPublisherImpl.cs" />
-    <Compile Include="Ddd\IEventHandlerFactory.cs" />
     <Compile Include="Ddd\ISagaStoredEventRepository.cs" />
     <Compile Include="Ddd\IStoredEventRepository.cs" />
-    <Compile Include="Ddd\ISubscribeTo.cs" />
     <Compile Include="Ddd\SagaManager.cs" />
     <Compile Include="IdentityAndAccess\Domain.Model\Users\UserId.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\UpdateOrganizationDetails.cs" />

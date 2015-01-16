@@ -4,6 +4,7 @@ namespace Phundus.Core.Inventory.Domain.Model.Reservations
     using Application.Commands;
     using Catalog;
     using Common.Domain.Model;
+    using Common.EventPublishing;
     using Cqrs;
     using Ddd;
     using IdentityAndAccess.Domain.Model.Organizations;

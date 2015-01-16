@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using Common.EventPublishing;
     using Ddd;
     using Infrastructure;
     using Model;

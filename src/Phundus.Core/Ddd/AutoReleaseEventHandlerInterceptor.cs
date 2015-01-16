@@ -4,6 +4,7 @@
     using Castle.Core;
     using Castle.DynamicProxy;
     using Castle.MicroKernel;
+    using Common.EventPublishing;
 
     [Transient]
     public class AutoReleaseEventHandlerInterceptor : IInterceptor

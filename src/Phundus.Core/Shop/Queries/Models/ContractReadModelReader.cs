@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Common.EventPublishing;
     using Ddd;
     using Domain.Model.Renting;
 
