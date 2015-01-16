@@ -28,13 +28,75 @@
         [When(@"article reserved")]
         public void WhenIReserveArticle()
         {
-            Transition(new ArticleReserved(_organizationId, _articleId, _reservationId, _orderId, _period, _quantity));
+            Transition(CreateArticleReserved());
+        }
+
+        private ArticleReserved CreateArticleReserved()
+        {
+            return new ArticleReserved(_organizationId, _articleId, _reservationId, _orderId, _period, _quantity);
         }
 
         [Then(@"allocate stock")]
         public void ThenAllocateStock()
         {
             AssertUndispatchedCommand<AllocateStock>();
+        }
+
+        [Given(@"article reserved")]
+        public void GivenArticleReserved()
+        {
+            PastEvents.Add(CreateArticleReserved());
+        }
+
+        [When(@"reservation cancelled")]
+        public void WhenReservationCancelled()
+        {
+            Transition(CreateReservationCancelled());
+        }
+
+        private IDomainEvent CreateReservationCancelled()
+        {
+            return new ReservationCancelled(_organizationId, _articleId, _reservationId, _period, _quantity);
+        }
+
+        [Then(@"discard allocation")]
+        public void ThenDiscardAllocation()
+        {
+            AssertUndispatchedCommand<DiscardAllocation>();
+        }
+
+        [When(@"reservation period changed")]
+        public void WhenReservationPeriodChanged()
+        {
+            Transition(CreateReservationPeriodChanged());
+        }
+
+        private IDomainEvent CreateReservationPeriodChanged()
+        {
+            return new ReservationPeriodChanged(_organizationId, _articleId, _reservationId, _period, _period);
+        }
+
+        [Then(@"change allocation period")]
+        public void ThenChangeAllocationPeriod()
+        {
+            AssertUndispatchedCommand<ChangeAllocationPeriod>();
+        }
+
+        [When(@"reservation quantity changed")]
+        public void WhenReservationQuantityChanged()
+        {
+            Transition(CreateReservationQuantityChanged());
+        }
+
+        private IDomainEvent CreateReservationQuantityChanged()
+        {
+            return new ReservationQuantityChanged(_organizationId, _articleId, _reservationId, _quantity, _quantity);
+        }
+
+        [Then(@"change allocation quantity")]
+        public void ThenChangeAllocationQuantity()
+        {
+            AssertUndispatchedCommand<ChangeAllocationQuantity>();
         }
     }
 }
