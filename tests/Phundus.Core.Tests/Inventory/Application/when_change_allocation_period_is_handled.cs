@@ -13,7 +13,7 @@ namespace Phundus.Core.Tests.Inventory.Application
         private static Period _newPeriod = new Period(DateTime.Today.AddDays(1), DateTime.Today.AddDays(3));
 
         private Establish ctx =
-            () => command = new ChangeAllocationPeriod(_organizationId, _stockId, _allocationId, _newPeriod);
+            () => command = new ChangeAllocationPeriod(_organizationId, _articleId, _stockId, _allocationId, _newPeriod);
 
         public It should_call_change_allocation_period =
             () => _stock.WasToldTo(x => x.ChangeAllocationPeriod(_allocationId, _newPeriod));

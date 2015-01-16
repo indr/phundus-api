@@ -8,7 +8,7 @@ namespace Phundus.Core.Tests.Inventory.Application
     public class when_discard_allocation_is_handled :
         stock_allocation_concern<DiscardAllocation, DiscardAllocationHandler>
     {
-        private Establish ctx = () => command = new DiscardAllocation(_organizationId, _stockId, _allocationId);
+        private Establish ctx = () => command = new DiscardAllocation(_organizationId, _articleId, _stockId, _allocationId);
 
         public It should_call_discard_allocation = () => _stock.WasToldTo(x => x.DiscardAllocation(_allocationId));
 
