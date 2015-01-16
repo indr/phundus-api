@@ -1,18 +1,21 @@
 namespace Phundus.Core.Inventory.Application.Commands
 {
+    using System;
     using Common;
     using Common.Cqrs;
     using Common.Domain.Model;
     using Cqrs;
+    using Domain.Model.Catalog;
     using Domain.Model.Management;
     using Domain.Model.Reservations;
     using IdentityAndAccess.Domain.Model.Organizations;
 
     public class AllocateStock : ICommand
     {
-        public AllocateStock(OrganizationId organizationId, StockId stockId, AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
+        public AllocateStock(OrganizationId organizationId, ArticleId articleId, StockId stockId, AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
         {
             AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
             AssertionConcern.AssertArgumentNotNull(stockId, "Stock id must be provided.");
             AssertionConcern.AssertArgumentNotNull(allocationId, "Allocation id must be provided.");
             AssertionConcern.AssertArgumentNotNull(reservationId, "Reservation id must be provided.");
@@ -20,6 +23,7 @@ namespace Phundus.Core.Inventory.Application.Commands
             AssertionConcern.AssertArgumentGreaterThanZero(quantity, "Quantity must be greater than zero.");
 
             OrganizationId = organizationId;
+            ArticleId = articleId;
             StockId = stockId;
             AllocationId = allocationId;
             ReservationId = reservationId;
@@ -28,6 +32,7 @@ namespace Phundus.Core.Inventory.Application.Commands
         }
 
         public OrganizationId OrganizationId { get; private set; }
+        public ArticleId ArticleId { get; private set; }
         public StockId StockId { get; private set; }
         public AllocationId AllocationId { get; private set; }
         public ReservationId ReservationId { get; private set; }
@@ -37,15 +42,32 @@ namespace Phundus.Core.Inventory.Application.Commands
 
     public class AllocateStockHandler : IHandleCommand<AllocateStock>
     {
-        public IStockRepository Repository { get; set; }
+        public IStockRepository StockRepository { get; set; }
+
+        public IArticleRepository ArticleRepository { get; set; }
 
         public void Handle(AllocateStock command)
         {
-            var stock = Repository.Get(command.OrganizationId, command.StockId);
+            var stock = GetStock(command.OrganizationId, command.ArticleId, command.StockId);
 
             stock.Allocate(command.AllocationId, command.ReservationId,  command.Period, command.Quantity);
 
-            Repository.Save(stock);
+            StockRepository.Save(stock);
+        }
+
+        private Stock GetStock(OrganizationId organizationId, ArticleId articleId, StockId stockId)
+        {
+            if (Equals(stockId, StockId.Default))
+                return GetDefaultStock(organizationId, articleId);
+            return StockRepository.Get(organizationId, stockId);
+        }
+
+        private Stock GetDefaultStock(OrganizationId organizationId, ArticleId articleId)
+        {
+            var article = ArticleRepository.GetById(organizationId.Id, articleId.Id);
+            
+
+            throw new NotImplementedException("AllocateStockHandler.GetDefaultStock()");
         }
     }
 }

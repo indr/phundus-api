@@ -2,7 +2,9 @@
 {
     using System;
     using System.Linq;
+    using IdentityAndAccess.Domain.Model.Organizations;
     using Iesi.Collections.Generic;
+    using Management;
 
     public class Article
     {
@@ -73,6 +75,8 @@
 
         public virtual string Color { get; set; }
 
+        public virtual string StockId { get; set; }
+
         public virtual bool RemoveImage(Image image)
         {
             var result = Images.Remove(image);
@@ -100,6 +104,18 @@
                 return;
             Images.Remove(image);
             image.Article = null;
+        }
+
+        public virtual Stock CreateStock(StockId stockId)
+        {
+            if (StockId != null)
+                throw new InvalidOperationException("Article has already a stock. Only one stock is currently supported.");
+
+            if (Equals(stockId, Management.StockId.Default))
+                throw new InvalidOperationException("Stock id must not be the default stock id.");
+
+            StockId = stockId.Id;
+            return new Stock(new OrganizationId(OrganizationId), new ArticleId(Id), stockId);
         }
     }
 }
