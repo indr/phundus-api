@@ -87,7 +87,7 @@ this.FeatureBackground();
 #line 11
  testRunner.When("allocate 1 with id 1 for reservation 1 from 07.01.2015 to 08.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 12
- testRunner.Then("stock allocated 1, New", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("stock allocated 1, Allocated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 13
  testRunner.And("quantity available changed of -1 to 9 as of 07.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
@@ -123,7 +123,7 @@ this.FeatureBackground();
 #line 21
  testRunner.When("allocate 11 with id 2 for reservation 2 from 07.01.2015 to 08.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 22
- testRunner.Then("stock allocated 2, New", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("stock allocated 2, Unavailable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 23
  testRunner.And("quantity available changed of -11 to -1 as of 07.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24

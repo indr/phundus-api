@@ -13,17 +13,13 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
     [Binding]
     public class AllocationSteps
     {
-        private Container _container;
-        private StockContext _context;
-        private PastEvents _pastEvents;
-        private MutatingEvents _mutatingEvents;
+        private readonly Container _container;
+        private readonly StockContext _context;
 
-        public AllocationSteps(Container container, PastEvents pastEvents, MutatingEvents mutatingEvents, StockContext context)
+        public AllocationSteps(Container container, StockContext context)
         {
             _container = container;
-            _pastEvents = pastEvents;
             _context = context;
-            _mutatingEvents = mutatingEvents;
         }
 
         [When(@"allocate (.*) with id (.*) for reservation (.*) from (.*) to (.*)")]
@@ -35,12 +31,12 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
                 new ReservationId(reservationId), new Period(fromUtc, toUtc), quantity));
         }
 
-        [Then(@"stock allocated (.*), (New|Impossible|Promised)")]
+        [Then(@"stock allocated (.*), (Unavailable|Allocated)")]
         public void ThenStockAllocatedPromised(Guid allocationId, AllocationStatus status)
         {
-            var evnt = _mutatingEvents.GetNextExpectedEvent<StockAllocated>();
-            Assert.That(evnt.AllocationId, Is.EqualTo(allocationId));
-            Assert.That(evnt.AllocationStatus, Is.EqualTo(status));
+            var actual = _context.MutatingEvents.GetNextExpectedEvent<StockAllocated>();
+            Assert.That(actual.AllocationId, Is.EqualTo(allocationId));
+            Assert.That(actual.AllocationStatus, Is.EqualTo(status));
         }
     }
 }

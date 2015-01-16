@@ -2,8 +2,8 @@
 {
     public enum AllocationStatus
     {
-        New,
-        Impossible,
-        Promised
+        Unknown,
+        Allocated,
+        Unavailable
     }
 }
