@@ -10,10 +10,32 @@ namespace Phundus.Core.Inventory.Domain.Model.Reservations
     using Management;
     using Stateless;
 
-    public class AllocationSagaManager : SagaManager<AllocationSaga>
+    public class AllocationSagaManager : SagaManager<AllocationSaga>, ISubscribeTo<ArticleReserved>,
+        ISubscribeTo<ReservationCancelled>, ISubscribeTo<ReservationPeriodChanged>, ISubscribeTo<ReservationQuantityChanged>
     {
-        public AllocationSagaManager(ISagaRepository repository, ICommandDispatcher dispatcher) : base(repository, dispatcher)
+        public AllocationSagaManager(ISagaRepository repository, ICommandDispatcher dispatcher)
+            : base(repository, dispatcher)
         {
+        }
+
+        public void Handle(ArticleReserved @event)
+        {
+            Transition(@event.ReservationId, @event);
+        }
+
+        public void Handle(ReservationCancelled @event)
+        {
+            Transition(@event.ReservationId, @event);
+        }
+
+        public void Handle(ReservationPeriodChanged @event)
+        {
+            Transition(@event.ReservationId, @event);
+        }
+
+        public void Handle(ReservationQuantityChanged @event)
+        {
+            Transition(@event.ReservationId, @event);
         }
     }
 
@@ -26,20 +48,16 @@ namespace Phundus.Core.Inventory.Domain.Model.Reservations
             Discarded
         }
 
-        private enum Trigger
-        {
-            ArticleReserved,
-            ReservationCancelled
-        }
+        private readonly StateMachine<State, Trigger> _stateMachine =
+            new StateMachine<State, Trigger>(State.NotAllocated);
 
-        private readonly StateMachine<State, Trigger> _stateMachine = new StateMachine<State, Trigger>(State.NotAllocated);
-        private OrganizationId _organizationId;
-        private ArticleId _articleId;
-        private StockId _stockId;
-        private ReservationId _reservationId;
         private AllocationId _allocationId;
+        private ArticleId _articleId;
+        private OrganizationId _organizationId;
         private Period _period;
         private int _quantity;
+        private ReservationId _reservationId;
+        private StockId _stockId;
 
         public AllocationSaga()
         {
@@ -56,11 +74,14 @@ namespace Phundus.Core.Inventory.Domain.Model.Reservations
                 .Ignore(Trigger.ReservationCancelled);
         }
 
-        public State CurrentState { get { return _stateMachine.State; } }
+        public State CurrentState
+        {
+            get { return _stateMachine.State; }
+        }
 
         protected override void When(IDomainEvent e)
         {
-            When((dynamic)e);
+            When((dynamic) e);
         }
 
         private void When(DomainEvent e)
@@ -116,12 +137,19 @@ namespace Phundus.Core.Inventory.Domain.Model.Reservations
 
         private void AllocateStock()
         {
-            Dispatch(new AllocateStock(_organizationId, _articleId, _stockId, _allocationId, _reservationId, _period, _quantity));
+            Dispatch(new AllocateStock(_organizationId, _articleId, _stockId, _allocationId, _reservationId, _period,
+                _quantity));
         }
 
         private void DiscardAllocation()
         {
             Dispatch(new DiscardAllocation(_organizationId, _articleId, _stockId, _allocationId));
+        }
+
+        private enum Trigger
+        {
+            ArticleReserved,
+            ReservationCancelled
         }
     }
 }

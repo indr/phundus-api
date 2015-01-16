@@ -24,7 +24,7 @@
             set { _version = value; }
         }
 
-        public void Transition(IDomainEvent e)
+        public virtual void Transition(IDomainEvent e)
         {
             When(e);
             UncommittedEvents.Add(e);
