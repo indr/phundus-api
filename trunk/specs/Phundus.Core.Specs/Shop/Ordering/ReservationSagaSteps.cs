@@ -25,7 +25,7 @@
         private readonly int _quantity = 1;
 
 
-        public ReservationSagaSteps(PastEvents pastEvents) : base(pastEvents)
+        public ReservationSagaSteps(SagaContext context, PastEvents pastEvents) : base(context, pastEvents)
         {
             PastEvents = pastEvents;
         }
@@ -61,11 +61,7 @@
             _orderItemIds.Add(orderItemId);
         }
 
-        [Then(@"no commands dispatched")]
-        public void ThenNoCommandsDispatched()
-        {
-            AssertNoUndispatchedCommands();
-        }
+        
 
         [When(@"order item removed (.*?)")]
         public void WhenOrderItemRemoved(Guid orderItemId)

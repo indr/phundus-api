@@ -7,11 +7,12 @@ namespace Phundus.Core.Specs
 
     public class SagaConcern<TSaga> where TSaga : ISaga, new()
     {
-        protected SagaConcern(PastEvents pastEvents)
+        protected SagaConcern(SagaContext context, PastEvents pastEvents)
         {
             PastEvents = pastEvents;
 
             Saga = new TSaga();
+            context.Saga = Saga;
 
             AssertUndispatchedCommandCounter = 0;
         }
@@ -46,9 +47,6 @@ namespace Phundus.Core.Specs
             return (TCommand) actual;
         }
 
-        protected void AssertNoUndispatchedCommands()
-        {
-            Assert.That(Saga.UndispatchedCommands.Count, Is.EqualTo(0));
-        }
+        
     }
 }

@@ -21,7 +21,7 @@
         private Period _period = Period.FromTodayToTomorrow;
         private int _quantity = 1;
 
-        protected AllocationSagaSteps(PastEvents pastEvents) : base(pastEvents)
+        protected AllocationSagaSteps(SagaContext context, PastEvents pastEvents) : base(context, pastEvents)
         {
         }
 
@@ -46,6 +46,12 @@
         public void GivenArticleReserved()
         {
             PastEvents.Add(CreateArticleReserved());
+        }
+        
+        [Given(@"reservation cancelled")]
+        public void GivenReservationCancelled()
+        {
+            PastEvents.Add(CreateReservationCancelled());
         }
 
         [When(@"reservation cancelled")]
@@ -87,6 +93,7 @@
         {
             Transition(CreateReservationQuantityChanged());
         }
+        
 
         private IDomainEvent CreateReservationQuantityChanged()
         {
@@ -98,5 +105,12 @@
         {
             AssertUndispatchedCommand<ChangeAllocationQuantity>();
         }
+
+        [Then(@"allocation saga state is has allocation")]
+        public void ThenAllocationSagaStateIsHasAllocation()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
     }
 }
