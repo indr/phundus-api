@@ -93,7 +93,7 @@
         [When(@"order item quantity changed (.*?)")]
         public void WhenOrderItemQuantityChanged(Guid orderItemId)
         {
-            Transition(new OrderItemQuantityChanged(_initiatorId, _organizationId, _articleId, _orderId, orderItemId,
+            Transition(new OrderItemQuantityChanged(_initiatorId, _organizationId, _orderId, orderItemId, _articleId, 
                 _quantity, 2));
         }
 

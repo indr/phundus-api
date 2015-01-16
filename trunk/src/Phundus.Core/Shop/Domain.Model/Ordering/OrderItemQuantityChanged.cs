@@ -11,22 +11,22 @@ namespace Phundus.Core.Shop.Domain.Model.Ordering
     [DataContract]
     public class OrderItemQuantityChanged : DomainEvent
     {
-        public OrderItemQuantityChanged(UserId initiatorId, OrganizationId organizationId, ArticleId articleId,
-            OrderId orderId, Guid orderItemId, int oldQuantity, int newQuantity)
+        public OrderItemQuantityChanged(UserId initiatorId, OrganizationId organizationId, OrderId orderId,
+            Guid orderItemId, ArticleId articleId, int oldQuantity, int newQuantity)
         {
             AssertionConcern.AssertArgumentNotNull(initiatorId, "Initiator id must be provided.");
             AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
-            AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderId, "Order id must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderItemId, "Order item id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
             AssertionConcern.AssertArgumentGreaterThan(oldQuantity, 0, "Old quantity must be greater than zero.");
             AssertionConcern.AssertArgumentNotZero(newQuantity, "Quantity must be greater or less than zero.");
 
             InitiatorId = initiatorId.Id;
             OrganizationId = organizationId.Id;
-            ArticleId = articleId.Id;
             OrderId = orderId.Id;
             OrderItemId = orderItemId;
+            ArticleId = articleId.Id;
             OldQuantity = oldQuantity;
             NewQuantity = newQuantity;
         }
