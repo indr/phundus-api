@@ -38,5 +38,37 @@ namespace Phundus.Core.Inventory.Domain.Model.Reservations
                 new ReservationId(e.ReservationId), 
                 e.Period, e.Quantity));
         }
+
+        private void When(ReservationCancelled e)
+        {
+            Dispatch(new DiscardAllocation(
+                new OrganizationId(e.OrganizationId), 
+                new ArticleId(e.ArticleId),
+                StockId.Default,
+                new AllocationId(new Guid(e.ReservationId))
+                ));
+        }
+
+        private void When(ReservationPeriodChanged e)
+        {
+            Dispatch(new ChangeAllocationPeriod(
+                new OrganizationId(e.OrganizationId),
+                new ArticleId(e.ArticleId),
+                StockId.Default,
+                new AllocationId(new Guid(e.ReservationId)),
+                e.NewPeriod
+                ));
+        }
+
+        private void When(ReservationQuantityChanged e)
+        {
+            Dispatch(new ChangeAllocationQuantity(
+                new OrganizationId(e.OrganizationId),
+                new ArticleId(e.ArticleId),
+                StockId.Default,
+                new AllocationId(new Guid(e.ReservationId)),
+                e.NewQuantity
+                ));
+        }
     }
 }
