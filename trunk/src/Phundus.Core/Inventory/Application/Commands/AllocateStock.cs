@@ -65,9 +65,8 @@ namespace Phundus.Core.Inventory.Application.Commands
         private Stock GetDefaultStock(OrganizationId organizationId, ArticleId articleId)
         {
             var article = ArticleRepository.GetById(organizationId.Id, articleId.Id);
-            
 
-            throw new NotImplementedException("AllocateStockHandler.GetDefaultStock()");
+            return StockRepository.Get(organizationId, new StockId(article.StockId));
         }
     }
 }

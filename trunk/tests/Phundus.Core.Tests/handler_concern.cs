@@ -1,5 +1,6 @@
 namespace Phundus.Core.Tests
 {
+    using System;
     using Core.Cqrs;
     using Machine.Specifications;
 
@@ -10,6 +11,8 @@ namespace Phundus.Core.Tests
 
         public Because of = () =>
         {
+            if (Equals(command, default(TCommand)))
+                throw new InvalidOperationException("In order to test a command handler, a command must be provided.");
             command.ShouldNotBeNull();
             sut.Handle(command);
         };
