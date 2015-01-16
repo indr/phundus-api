@@ -19,6 +19,12 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
         public int Total { get; private set; }
         public DateTime AsOfUtc { get; private set; }
 
+        public void AddChange(int change)
+        {
+            Change += change;
+            Total += change;
+        }
+
         public void AddToTotal(int change)
         {
             AssertionConcern.AssertArgumentNotZero(change, "Change must be greather or less than zero.");
