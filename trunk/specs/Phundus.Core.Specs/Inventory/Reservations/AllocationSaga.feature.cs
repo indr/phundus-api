@@ -74,7 +74,26 @@ this.ScenarioSetup(scenarioInfo);
 #line 4
  testRunner.When("article reserved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 5
+ testRunner.Then("allocation saga state is Allocated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 6
  testRunner.Then("allocate stock", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Idempotent article reserved")]
+        public virtual void IdempotentArticleReserved()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Idempotent article reserved", ((string[])(null)));
+#line 8
+this.ScenarioSetup(scenarioInfo);
+#line 9
+ testRunner.Given("article reserved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 10
+ testRunner.When("article reserved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 11
+ testRunner.Then("no commands dispatched", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -84,14 +103,33 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ReservationCancelledDispatchesRemoveAllocation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Reservation cancelled dispatches remove allocation", ((string[])(null)));
-#line 7
+#line 13
 this.ScenarioSetup(scenarioInfo);
-#line 8
+#line 14
  testRunner.Given("article reserved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 9
+#line 15
  testRunner.When("reservation cancelled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 10
+#line 16
  testRunner.Then("discard allocation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Idempotent reservation cancelled")]
+        public virtual void IdempotentReservationCancelled()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Idempotent reservation cancelled", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line 19
+ testRunner.Given("article reserved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 20
+ testRunner.And("reservation cancelled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 21
+ testRunner.When("reservation cancelled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 22
+ testRunner.Then("no commands dispatched", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -101,13 +139,13 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ReservationPeriodChangedDispatchesChangeAllocationPeriod()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Reservation period changed dispatches change allocation period", ((string[])(null)));
-#line 12
+#line 24
 this.ScenarioSetup(scenarioInfo);
-#line 13
+#line 25
  testRunner.Given("article reserved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 14
+#line 26
  testRunner.When("reservation period changed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 15
+#line 27
  testRunner.Then("change allocation period", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -118,13 +156,13 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void ReservationQuantityChangedDispatchesChangeAllocationQuantity()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Reservation quantity changed dispatches change allocation quantity", ((string[])(null)));
-#line 17
+#line 29
 this.ScenarioSetup(scenarioInfo);
-#line 18
+#line 30
  testRunner.Given("article reserved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 19
+#line 31
  testRunner.When("reservation quantity changed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 20
+#line 32
  testRunner.Then("change allocation quantity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

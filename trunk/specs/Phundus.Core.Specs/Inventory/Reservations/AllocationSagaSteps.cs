@@ -8,6 +8,7 @@
     using Core.Shop.Domain.Model.Ordering;
     using IdentityAndAccess.Domain.Model.Organizations;
     using IdentityAndAccess.Domain.Model.Users;
+    using NUnit.Framework;
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -106,11 +107,10 @@
             AssertUndispatchedCommand<ChangeAllocationQuantity>();
         }
 
-        [Then(@"allocation saga state is has allocation")]
+        [Then(@"allocation saga state is Allocated")]
         public void ThenAllocationSagaStateIsHasAllocation()
         {
-            ScenarioContext.Current.Pending();
+            Assert.That(Saga.CurrentState, Is.EqualTo(AllocationSaga.State.Allocated));
         }
-
     }
 }
