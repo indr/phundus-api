@@ -2,10 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using Catalog;
     using Common;
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
+    using NHibernate.Linq;
     using Reservations;
 
     /// <summary>
@@ -25,6 +27,7 @@
     public class Stock : EventSourcedRootEntity
     {
         private readonly QuantitiesAsOf _inInventory = new QuantitiesAsOf();
+        private readonly QuantitiesAsOf _available = new QuantitiesAsOf();
         private readonly IList<Allocation> _allocations = new List<Allocation>();
 
         public Stock(OrganizationId organizationId, ArticleId articleId, StockId stockId)
@@ -41,10 +44,16 @@
         }
 
         public OrganizationId OrganizationId { get; private set; }
+        
         public StockId StockId { get; private set; }
+
         public ArticleId ArticleId { get; private set; }
-        public IList<Allocation> Allocations { get { return _allocations; }}
+
         public ICollection<QuantityAsOf> QuantitiesInInventory { get { return _inInventory.Quantities; }}
+
+        public ICollection<QuantityAsOf> QuantitiesAvailable { get { return _available.Quantities; } }
+
+        public IList<Allocation> Allocations { get { return _allocations; } }
 
         protected override IEnumerable<object> GetIdentityComponents()
         {
@@ -83,16 +92,20 @@
         protected void When(QuantityInInventoryIncreased e)
         {
             _inInventory.ChangeAsOf(e.Change, e.AsOfUtc);
+            _available.ChangeAsOf(e.Change, e.AsOfUtc);
         }
 
         protected void When(QuantityInInventoryDecreased e)
         {
-            _inInventory.ChangeAsOf(e.Change * -1, e.AsOfUtc);
+            var change = e.Change*-1;
+            
+            _inInventory.ChangeAsOf(change, e.AsOfUtc);
+            _available.ChangeAsOf(change, e.AsOfUtc);
         }
 
         protected void When(QuantityAvailableChanged e)
         {
-            
+            // QuantityAvailableChanged is not used for event sourcing. Availability is based on in-inventory and allocations.
         }
 
         public virtual void Allocate(AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
@@ -100,6 +113,15 @@
             var status = CalculateAllocationStatus(period, quantity);
 
             Apply(new StockAllocated(OrganizationId, StockId, allocationId, reservationId, period, quantity, status));
+
+
+            var toUtc = period.ToUtc;
+            _available.ChangeAsOf(quantity*-1, period.FromUtc);
+            _available.ChangeAsOf(quantity, toUtc);
+            var availableAsOfFrom = _available.GetTotalAsOf(period.FromUtc);
+            var availableAsOfTo = _available.GetTotalAsOf(toUtc);
+            Apply(new QuantityAvailableChanged(OrganizationId, ArticleId, StockId, quantity * -1, availableAsOfFrom, period.FromUtc));
+            Apply(new QuantityAvailableChanged(OrganizationId, ArticleId, StockId, quantity, availableAsOfTo, toUtc));
         }
 
         private AllocationStatus CalculateAllocationStatus(Period period, int quantity)

@@ -25,21 +25,31 @@
             AssertionConcern.AssertArgumentNotZero(change, "Change must be greater than zero.");
             AssertionConcern.AssertArgumentNotEmpty(asOfUtc, "As of utc must be provided.");
 
+            
             var atAsOfOrLatest = FindAtAsOfOrLatestBefore(asOfUtc);
-            if ((atAsOfOrLatest != null) && (atAsOfOrLatest.AsOfUtc == asOfUtc))
+
+            QuantityAsOf quantityAsOf = null;
+            if (atAsOfOrLatest == null)
             {
-                throw new InvalidOperationException(
-                    "Änderung des In-Inventory-Bestandes zum gleichen Zeitpunkt wird nicht unterstützt.");
+                quantityAsOf = new QuantityAsOf(change, change, asOfUtc);
+                _quantities.Add(quantityAsOf);
+            }
+            else if (atAsOfOrLatest.AsOfUtc == asOfUtc)
+            {
+                quantityAsOf = atAsOfOrLatest;
+                quantityAsOf.AddChange(change);
+            }
+            else
+            {
+                quantityAsOf = new QuantityAsOf(change, atAsOfOrLatest.Total + change, asOfUtc);
+                _quantities.Add(quantityAsOf);
             }
 
-            var total = 0;
-            if (atAsOfOrLatest != null)
-                total = atAsOfOrLatest.Total;
 
-            var quantityAsOf = new QuantityAsOf(change, total + change, asOfUtc);
+
             UpdateFutures(change, asOfUtc);
 
-            _quantities.Add(quantityAsOf);
+            
 
             _quantities = _quantities.OrderBy(ks => ks.AsOfUtc).ToList();
         }

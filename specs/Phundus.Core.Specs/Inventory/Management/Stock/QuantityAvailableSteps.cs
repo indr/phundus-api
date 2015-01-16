@@ -4,6 +4,7 @@
     using Core.Inventory.Domain.Model.Management;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
+    using TechTalk.SpecFlow.Assist;
 
     [Binding]
     public class QuantityAvailableSteps
@@ -15,8 +16,8 @@
             _context = stockContext;
         }
 
-        [Then(@"quantity available increased of (.*) to (.*) as of (.*)")]
-        public void ThenQuantityAvailableIncreasedOfToAsOf_(int change, int total, DateTime asOfUtc)
+        [Then(@"quantity available changed of (.*) to (.*) as of (.*)")]
+        public void ThenQuantityAvailableChangedOfToAsOf_(int change, int total, DateTime asOfUtc)
         {
             var actual = _context.MutatingEvents.GetNextExpectedEvent<QuantityAvailableChanged>();
             Assert.That(actual.OrganizationId, Is.EqualTo(_context.OrganizationId.Id));
@@ -26,5 +27,13 @@
             Assert.That(actual.Total, Is.EqualTo(total));
             Assert.That(actual.AsOfUtc, Is.EqualTo(asOfUtc));
         }
+
+        [Then(@"quantities available")]
+        public void ThenQuantitiesAvailable(Table table)
+        {
+            var actual = _context.Sut.QuantitiesAvailable;
+            table.CompareToSet(actual);
+        }
+
     }
 }
