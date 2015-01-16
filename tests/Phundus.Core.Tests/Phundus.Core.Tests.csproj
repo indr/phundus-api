@@ -123,8 +123,9 @@
     <Compile Include="Inventory\Domain.Model\Management\stock_concern.cs" />
     <Compile Include="Inventory\Domain.Model\Management\when_a_stock_is_created.cs" />
     <Compile Include="Inventory\Domain.Model\Management\when_stock_is_allocated.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\AllocationSagaManagerTests.cs" />
+    <Compile Include="Inventory\Domain.Model\Reservations\allocation_saga_manager_concerns.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationTests.cs" />
+    <Compile Include="saga_manager_concern.cs" />
     <Compile Include="Shop\BorrowerFactory.cs" />
     <Compile Include="concern.cs" />
     <Compile Include="Cqrs\TestCommand1Handler.cs" />
@@ -139,8 +140,9 @@
     <Compile Include="Inventory\Articles\Commands\UpdateArticleHandlerSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\WhenDeleteArticleIsHandled.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\ReservationSagaTests.cs" />
+    <Compile Include="Shop\Domain.Model\Ordering\reservation_saga_concerns.cs" />
     <Compile Include="saga_concern.cs" />
+    <Compile Include="Shop\Domain.Model\Ordering\reservation_saga_manager_concerns.cs" />
     <Compile Include="Shop\Orders\Commands\AddOrderItemHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\CloseOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\ConfirmOrderHandlerSpecs.cs" />

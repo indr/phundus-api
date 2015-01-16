@@ -245,7 +245,7 @@
             var oldQuantity = item.Amount;
             item.ChangeQuantity(quantity);
 
-            EventPublisher.Publish(new OrderItemQuantityChanged(initiatorId, OrganizationId, new ArticleId(item.ArticleId), OrderId, orderItemId, oldQuantity, item.Amount));
+            EventPublisher.Publish(new OrderItemQuantityChanged(initiatorId, OrganizationId, OrderId, orderItemId, new ArticleId(item.ArticleId), oldQuantity, item.Amount));
         }
 
         public virtual void ChangeItemPeriod(UserId initiatorId, Guid orderItemId, DateTime fromUtc, DateTime toUtc)
