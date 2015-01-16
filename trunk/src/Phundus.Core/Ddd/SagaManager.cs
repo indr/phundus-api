@@ -6,13 +6,18 @@ namespace Phundus.Core.Ddd
 
     public class SagaManager<TSaga> where TSaga : ISaga, new()
     {
-        private ICommandDispatcher _dispatcher;
-        private ISagaRepository _repository;
+        private readonly ICommandDispatcher _dispatcher;
+        private readonly ISagaRepository _repository;
 
         public SagaManager(ISagaRepository repository, ICommandDispatcher dispatcher)
         {
             _repository = repository;
             _dispatcher = dispatcher;
+        }
+
+        protected void Transition(string sagaId, IDomainEvent e)
+        {
+            Transition(new Guid(sagaId), e);
         }
 
         protected void Transition(Guid sagaId, IDomainEvent e)

@@ -123,6 +123,7 @@
     <Compile Include="Inventory\Domain.Model\Management\stock_concern.cs" />
     <Compile Include="Inventory\Domain.Model\Management\when_a_stock_is_created.cs" />
     <Compile Include="Inventory\Domain.Model\Management\when_stock_is_allocated.cs" />
+    <Compile Include="Inventory\Domain.Model\Reservations\AllocationSagaManagerTests.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationTests.cs" />
     <Compile Include="Shop\BorrowerFactory.cs" />
     <Compile Include="concern.cs" />
