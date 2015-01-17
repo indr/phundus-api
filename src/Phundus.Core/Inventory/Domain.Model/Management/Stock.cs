@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Catalog;
     using Common;
     using Common.Domain.Model;
@@ -143,17 +144,39 @@
 
         protected void When(StockAllocated e)
         {
-            _allocations.Add(new Allocation(new AllocationId(e.AllocationId)));
+            _allocations.Add(new Allocation(new AllocationId(e.AllocationId), e.Period, e.Quantity));
         }
 
         public virtual void ChangeAllocationPeriod(AllocationId allocationId, Period newPeriod)
         {
-            throw new NotImplementedException();
+            var allocation = GetAllocation(allocationId);
+
+            Apply(new AllocationPeriodChanged(OrganizationId, ArticleId, StockId, allocation.AllocationId, allocation.Period, newPeriod));
+        }
+
+        protected void When(AllocationPeriodChanged e)
+        {
+            
         }
 
         public virtual void ChangeAllocationQuantity(AllocationId allocationId, int newQuantity)
         {
-            throw new NotImplementedException();
+            var allocation = GetAllocation(allocationId);
+
+            Apply(new AllocationQuantityChanged(OrganizationId, ArticleId, StockId, allocation.AllocationId, allocation.Quantity, newQuantity));
+        }
+
+        private Allocation GetAllocation(AllocationId allocationId)
+        {
+            var result = _allocations.SingleOrDefault(p => Equals(p.AllocationId, allocationId));
+            if (result == null)
+                throw new AllocationNotFoundException(allocationId);
+            return result;
+        }
+
+        protected void When(AllocationQuantityChanged e)
+        {
+            
         }
 
         public virtual void DiscardAllocation(AllocationId allocationId)

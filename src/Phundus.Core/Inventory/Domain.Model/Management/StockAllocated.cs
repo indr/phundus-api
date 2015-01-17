@@ -10,20 +10,22 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
     [DataContract]
     public class StockAllocated : DomainEvent
     {
-        public StockAllocated(OrganizationId organizationId, ArticleId articleId, StockId stockId, AllocationId allocationId, ReservationId reservationId, Period period, int quantity, AllocationStatus status)
+        public StockAllocated(OrganizationId organizationId, ArticleId articleId, StockId stockId,
+            AllocationId allocationId, ReservationId reservationId, Period period, int quantity, AllocationStatus status)
         {
             OrganizationId = organizationId.Id;
             ArticleId = articleId.Id;
             StockId = stockId.Id;
             AllocationId = allocationId.Id;
             ReservationId = reservationId.Id;
-            FromUtc = period.FromUtc;
-            ToUtc = period.ToUtc;
+            Period = period;
             Quantity = quantity;
             AllocationStatus = status;
         }
 
-        protected StockAllocated() { }
+        protected StockAllocated()
+        {
+        }
 
         [DataMember(Order = 1)]
         public int OrganizationId { get; protected set; }
@@ -51,5 +53,15 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
 
         [DataMember(Order = 9)]
         public AllocationStatus AllocationStatus { get; protected set; }
+
+        public Period Period
+        {
+            get { return new Period(FromUtc, ToUtc); }
+            set
+            {
+                FromUtc = value.FromUtc;
+                ToUtc = value.ToUtc;
+            }
+        }
     }
 }

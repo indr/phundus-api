@@ -1,4 +1,4 @@
-namespace Phundus.Core.Tests.Inventory.Domain.Model.Management
+namespace Phundus.Core.Tests.Inventory.Domain.Model.Management.Stock
 {
     using Core.Inventory.Domain.Model.Management;
     using Machine.Specifications;

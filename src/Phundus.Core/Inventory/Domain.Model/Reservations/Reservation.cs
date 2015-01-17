@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Catalog;
     using Common.Domain.Model;
+    using Common.Extensions;
     using IdentityAndAccess.Domain.Model.Organizations;
     using Shop.Domain.Model.Ordering;
 
@@ -61,12 +62,6 @@
         {
             When((dynamic) e);
         }
-        
-        // TODO: Move method to common
-        public static T ParseEnum<T>(string value)
-        {
-            return (T)Enum.Parse(typeof(T), value, true);
-        }
 
         protected void When(ArticleReserved e)
         {
@@ -75,7 +70,7 @@
             _reservationId = new ReservationId(e.ReservationId);
             _period = new Period(e.FromUtc, e.ToUtc);
             _quantity = e.Quantity;
-            _status = ParseEnum<ReservationStatus>(e.ReservationStatus);
+            _status = EnumHelper.Parse<ReservationStatus>(e.ReservationStatus);
         }
 
         protected override IEnumerable<object> GetIdentityComponents()

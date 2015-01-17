@@ -22,6 +22,11 @@ namespace Phundus.Common.Domain.Model
             get { return new Period(DateTime.UtcNow.Date, DateTime.UtcNow.AddDays(1).Date); }
         }
 
+        public static Period Empty
+        {
+            get { return new Period(DateTime.MinValue, DateTime.MinValue); }
+        }
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return FromUtc;
