@@ -4,6 +4,7 @@ namespace Phundus.Core
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
+    using Common;
     using Common.Events;
     using Common.Messaging;
     using Common.Notifications;
@@ -14,6 +15,7 @@ namespace Phundus.Core
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<INotificationConsumer>().ImplementedBy<ProjectionDispatcher>());
+            container.Register(Component.For<INotificationConsumer>().ImplementedBy<SubscribeToDispatcher>());
 
             container.Register(Component.For<IDomainEventHandlerFactory>().AsFactory());
 

@@ -4,6 +4,6 @@ namespace Phundus.Common.EventPublishing
 
     public interface IEventPublisher
     {
-        void Publish<TDomainEvent>(TDomainEvent @event, bool store = true) where TDomainEvent : DomainEvent;
+        void Publish<TDomainEvent>(TDomainEvent domainEvent) where TDomainEvent : DomainEvent;        
     }
 }

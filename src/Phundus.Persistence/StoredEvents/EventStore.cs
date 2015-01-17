@@ -10,6 +10,11 @@
 
     public class EventStore : IEventStore
     {
+        public EventStore(INotificationProducer notificationProducer)
+        {
+            NotificationProducer = notificationProducer;
+        }
+
         public Func<ISession> SessionFactory { get; set; }
 
         protected ISession Session
@@ -91,7 +96,7 @@
                 startingEventStreamId.StreamVersion + index);
             Repository.Append(storedEvent);
 
-            NotificationProducer.Produce(storedEvent);
+            NotificationProducer.Produce(this, storedEvent);
         }
 
         private StoredEvent ToStoredEvent(IDomainEvent domainEvent, string streamName, long streamVersion)

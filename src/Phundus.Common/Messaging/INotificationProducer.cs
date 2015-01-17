@@ -4,6 +4,6 @@
 
     public interface INotificationProducer
     {
-        void Produce(StoredEvent storedEvent);
+        void Produce(IEventStore eventStore, StoredEvent storedEvent);
     }
 }

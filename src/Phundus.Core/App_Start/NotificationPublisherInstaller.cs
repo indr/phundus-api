@@ -5,7 +5,6 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Common.Messaging;
-    using Common.Notifications;
 
     public class NotificationPublisherInstaller : IWindsorInstaller
     {
