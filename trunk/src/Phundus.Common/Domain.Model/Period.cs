@@ -27,5 +27,10 @@ namespace Phundus.Common.Domain.Model
             yield return FromUtc;
             yield return ToUtc;
         }
+
+        public Period ShiftDays(double value)
+        {
+            return new Period(FromUtc.AddDays(value), ToUtc.AddDays(value));
+        }
     }
 }
