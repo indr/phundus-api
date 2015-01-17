@@ -8,19 +8,18 @@
     using Core.Shop.Domain.Model.Ordering;
     using IdentityAndAccess.Domain.Model.Organizations;
     using IdentityAndAccess.Domain.Model.Users;
-    using NUnit.Framework;
     using TechTalk.SpecFlow;
 
     [Binding]
     public class AllocationSagaSteps : SagaConcern<AllocationSaga>
     {
-        private UserId _initiatorId = new UserId(1);
-        private OrganizationId _organizationId = new OrganizationId(1001);
         private ArticleId _articleId = new ArticleId(10001);
+        private UserId _initiatorId = new UserId(1);
         private OrderId _orderId = new OrderId(101);
-        private ReservationId _reservationId = new ReservationId();
+        private OrganizationId _organizationId = new OrganizationId(1001);
         private Period _period = Period.FromTodayToTomorrow;
         private int _quantity = 1;
+        private ReservationId _reservationId = new ReservationId();
 
         protected AllocationSagaSteps(SagaContext context, PastEvents pastEvents) : base(context, pastEvents)
         {
@@ -34,7 +33,8 @@
 
         private ArticleReserved CreateArticleReserved()
         {
-            return new ArticleReserved(_organizationId, _articleId, _reservationId, _orderId, _period, _quantity, ReservationStatus.New);
+            return new ArticleReserved(_organizationId, _articleId, _reservationId, _orderId, _period, _quantity,
+                ReservationStatus.New);
         }
 
         [Then(@"allocate stock")]
@@ -48,7 +48,7 @@
         {
             PastEvents.Add(CreateArticleReserved());
         }
-        
+
         [Given(@"reservation cancelled")]
         public void GivenReservationCancelled()
         {
@@ -94,7 +94,7 @@
         {
             Transition(CreateReservationQuantityChanged());
         }
-        
+
 
         private IDomainEvent CreateReservationQuantityChanged()
         {
