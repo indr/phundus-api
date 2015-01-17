@@ -112,7 +112,7 @@
         {
             var status = CalculateAllocationStatus(period, quantity);
 
-            Apply(new StockAllocated(OrganizationId, StockId, allocationId, reservationId, period, quantity, status));
+            Apply(new StockAllocated(OrganizationId, ArticleId, StockId, allocationId, reservationId, period, quantity, status));
 
 
             var toUtc = period.ToUtc;

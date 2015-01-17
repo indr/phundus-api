@@ -1,5 +1,6 @@
 namespace Phundus.Core.Inventory.Application.Commands
 {
+    using System;
     using Domain.Model.Catalog;
     using Domain.Model.Management;
     using IdentityAndAccess.Domain.Model.Organizations;
@@ -26,6 +27,10 @@ namespace Phundus.Core.Inventory.Application.Commands
         private Stock GetDefaultStock(OrganizationId organizationId, ArticleId articleId)
         {
             var article = ArticleRepository.GetById(organizationId.Id, articleId.Id);
+
+            var stockId = article.StockId;
+            if (string.IsNullOrWhiteSpace(stockId))
+                throw new InvalidOperationException(String.Format("Der Artikel hat keinen Bestand."));
 
             return StockRepository.Get(organizationId, new StockId(article.StockId));
         }
