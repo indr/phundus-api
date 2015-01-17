@@ -1,6 +1,7 @@
 namespace Phundus.Core.Specs.Inventory.Management.Stock
 {
     using System;
+    using System.Linq;
     using Common.Domain.Model;
     using Contexts;
     using Core.Inventory.Application.Commands;
@@ -9,6 +10,7 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
     using Core.Inventory.Domain.Model.Reservations;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
+    using TechTalk.SpecFlow.Assist;
 
     [Binding]
     public class AllocationSteps
@@ -37,6 +39,21 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
             var actual = _context.MutatingEvents.GetNextExpectedEvent<StockAllocated>();
             Assert.That(actual.AllocationId, Is.EqualTo(allocationId));
             Assert.That(actual.AllocationStatus, Is.EqualTo(status));
+        }
+
+        [Then(@"allocations")]
+        public void ThenAllocations(Table table)
+        {
+            var actual = _context.Sut.Allocations.Select(
+                s => new
+                {
+                    AllocationId = s.AllocationId.Id,
+                    ReservationId = s.ReservationId.Id,
+                    s.Period.FromUtc,
+                    s.Period.ToUtc,
+                    s.Quantity
+                });
+            table.CompareToSet(actual);
         }
     }
 }

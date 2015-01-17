@@ -144,7 +144,7 @@
 
         protected void When(StockAllocated e)
         {
-            _allocations.Add(new Allocation(new AllocationId(e.AllocationId), e.Period, e.Quantity));
+            _allocations.Add(new Allocation(new AllocationId(e.AllocationId), new ReservationId(e.ReservationId),  e.Period, e.Quantity));
         }
 
         public virtual void ChangeAllocationPeriod(AllocationId allocationId, Period newPeriod)
