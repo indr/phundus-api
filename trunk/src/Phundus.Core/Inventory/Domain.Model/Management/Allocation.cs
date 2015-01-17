@@ -2,17 +2,21 @@
 {
     using System.Collections.Generic;
     using Common.Domain.Model;
+    using Reservations;
 
     public class Allocation : ValueObject
     {
-        public Allocation(AllocationId allocationId, Period period, int quantity)
+        public Allocation(AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
         {
             AllocationId = allocationId;
+            ReservationId = reservationId;
             Period = period;
             Quantity = quantity;
         }
 
         public AllocationId AllocationId { get; private set; }
+
+        public ReservationId ReservationId { get; private set; }
 
         public Period Period { get; private set; }
 
