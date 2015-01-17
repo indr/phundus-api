@@ -25,7 +25,12 @@ namespace Phundus.Core.Tests
 
         protected static void AssertTransition()
         {
-            _saga.WasToldTo(x => x.Transition(_event));
+            AssertTransition(_saga);
+        }
+
+        protected static void AssertTransition(TSaga saga)
+        {
+            saga.WasToldTo(x => x.Transition(_event));
         }
 
         protected static void AssertRepositoryGetById(string correlationId)

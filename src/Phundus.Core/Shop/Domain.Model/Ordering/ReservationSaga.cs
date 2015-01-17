@@ -1,5 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Domain.Model.Ordering
 {
+    using System.Runtime.InteropServices;
+    using Common;
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
     using IdentityAndAccess.Domain.Model.Users;
@@ -7,11 +9,68 @@
     using Inventory.Domain.Model.Catalog;
     using Inventory.Domain.Model.Reservations;
     using Orders.Model;
+    using Stateless;
 
-    public class ReservationSaga : SagaBase
+    public abstract class StateMachineSagaBase<TState, TTrigger> : SagaBase
     {
+        private readonly StateMachine<TState, TTrigger> _stateMachine;
+
+        protected StateMachineSagaBase(TState initialState)
+        {
+            _stateMachine = new StateMachine<TState, TTrigger>(initialState);
+        }
+
+        protected StateMachine<TState, TTrigger> StateMachine
+        {
+            get { return _stateMachine; }
+        }
+    }
+
+    public class ReservationSaga : StateMachineSagaBase<ReservationSaga.State, ReservationSaga.Trigger>
+    {
+        public enum State
+        {
+            New,
+            Reserved,
+            Cancelled
+        }
+
+        public enum Trigger
+        {
+            OrderItemAdded,
+            OrderItemRemoved,
+            OrderRejected,
+            OrderClosed
+        }
+
+        private ArticleId _articleId;
+        private UserId _initiatorId;
+        private OrderId _orderId;
+        private OrganizationId _organizationId;
+        private Period _period;
+        private int _quantity;
         private ReservationId _reservationId;
 
+        public ReservationSaga() : base(State.New)
+        {
+            StateMachine.Configure(State.New)
+                .Permit(Trigger.OrderItemAdded, State.Reserved);
+            
+            StateMachine.Configure(State.Reserved)
+                .OnEntry(ReserveArticle)
+                .Permit(Trigger.OrderItemRemoved, State.Cancelled)
+                .Permit(Trigger.OrderClosed, State.Cancelled)
+                .Permit(Trigger.OrderRejected, State.Cancelled)
+                .Ignore(Trigger.OrderItemAdded);
+
+            StateMachine.Configure(State.Cancelled)
+                .OnEntry(CancelReservation)
+                .Ignore(Trigger.OrderItemRemoved)
+                .Ignore(Trigger.OrderClosed)
+                .Ignore(Trigger.OrderRejected);
+
+            
+        }
 
         protected override void When(IDomainEvent e)
         {
@@ -25,45 +84,88 @@
 
         private void When(OrderItemAdded e)
         {
-            // TODO: Use Statless state machine
-            if (_reservationId != null)
-                return;
-
+            _organizationId = new OrganizationId(e.OrganizationId);
+            _initiatorId = new UserId(e.InitiatorId);
+            _articleId = new ArticleId(e.ArticleId);
+            _orderId = new OrderId(e.OrderId);
             _reservationId = new ReservationId(e.OrderItemId);
+            _period = e.Period;
+            _quantity = e.Quantity;
 
-            UndispatchedCommands.Add(new ReserveArticle(
-                new UserId(e.InitiatorId),
-                new OrganizationId(e.OrganizationId),
-                new ArticleId(e.ArticleId),
-                new OrderId(e.OrderId),
-                _reservationId,
-                e.Period,
-                e.Quantity));
+            StateMachine.Fire(Trigger.OrderItemAdded);
         }
 
         private void When(OrderItemRemoved e)
         {
-            UndispatchedCommands.Add(new CancelReservation(new OrganizationId(e.OrganizationId),  _reservationId));
+            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId, "Organization id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_articleId.Id, e.ArticleId, "Article id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId, "Reservation id must be equal to order item id.");
+
+            _initiatorId = new UserId(e.InitiatorId);
+            
+            StateMachine.Fire(Trigger.OrderItemRemoved);
         }
 
         private void When(OrderItemQuantityChanged e)
         {
-            UndispatchedCommands.Add(new ChangeReservationQuantity(new OrganizationId(e.OrganizationId),  _reservationId, e.NewQuantity));
+            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId, "Organization id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_articleId.Id, e.ArticleId, "Article id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId, "Reservation id must be equal to order item id.");
+
+            _initiatorId = new UserId(e.InitiatorId);
+            _quantity = e.NewQuantity;
+
+            Dispatch(new ChangeReservationQuantity(_organizationId, _reservationId, _quantity));
         }
 
         private void When(OrderItemPeriodChanged e)
         {
-            UndispatchedCommands.Add(new ChangeReservationPeriod(new OrganizationId(e.OrganizationId), _reservationId, new Period(e.NewFromUtc, e.NewToUtc)));
+            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId, "Organization id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_articleId.Id, e.ArticleId, "Article id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId, "Reservation id must be equal to order item id.");
+            
+            _initiatorId = new UserId(e.InitiatorId);
+            _period = new Period(e.NewFromUtc, e.NewToUtc);
+
+            Dispatch(new ChangeReservationPeriod(_organizationId, _reservationId, _period));
         }
 
         private void When(OrderRejected e)
         {
-            UndispatchedCommands.Add(new CancelReservation(new OrganizationId(e.OrganizationId),  _reservationId));
+            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId, "Organization id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
+
+            StateMachine.Fire(Trigger.OrderRejected);
         }
 
         private void When(OrderClosed e)
         {
-            UndispatchedCommands.Add(new CancelReservation(new OrganizationId(e.OrganizationId),  _reservationId));
+            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId, "Organization id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
+
+            StateMachine.Fire(Trigger.OrderClosed);
+        }
+
+        private void ReserveArticle()
+        {
+            Dispatch(new ReserveArticle(
+                _initiatorId,
+                _organizationId,
+                _articleId,
+                _orderId,
+                _reservationId,
+                _period,
+                _quantity));
+        }
+
+        private void CancelReservation()
+        {
+            Dispatch(new CancelReservation(
+                _organizationId,
+                _reservationId));
         }
     }
 }

@@ -12,7 +12,8 @@ namespace Phundus.Core.Inventory.Domain.Model.Reservations
     using Stateless;
 
     public class AllocationSagaManager : SagaManager<AllocationSaga>, ISubscribeTo<ArticleReserved>,
-        ISubscribeTo<ReservationCancelled>, ISubscribeTo<ReservationPeriodChanged>, ISubscribeTo<ReservationQuantityChanged>
+        ISubscribeTo<ReservationCancelled>, ISubscribeTo<ReservationPeriodChanged>,
+        ISubscribeTo<ReservationQuantityChanged>
     {
         public AllocationSagaManager(ISagaRepository repository, ICommandDispatcher dispatcher)
             : base(repository, dispatcher)
@@ -42,13 +43,6 @@ namespace Phundus.Core.Inventory.Domain.Model.Reservations
 
     public class AllocationSaga : SagaBase
     {
-        public enum State
-        {
-            NotAllocated,
-            Allocated,
-            Discarded
-        }
-
         private readonly StateMachine<State, Trigger> _stateMachine =
             new StateMachine<State, Trigger>(State.NotAllocated);
 
@@ -73,11 +67,6 @@ namespace Phundus.Core.Inventory.Domain.Model.Reservations
             _stateMachine.Configure(State.Discarded)
                 .OnEntry(DiscardAllocation)
                 .Ignore(Trigger.ReservationCancelled);
-        }
-
-        public State CurrentState
-        {
-            get { return _stateMachine.State; }
         }
 
         protected override void When(IDomainEvent e)
@@ -145,6 +134,13 @@ namespace Phundus.Core.Inventory.Domain.Model.Reservations
         private void DiscardAllocation()
         {
             Dispatch(new DiscardAllocation(_organizationId, _articleId, _stockId, _allocationId));
+        }
+
+        private enum State
+        {
+            NotAllocated,
+            Allocated,
+            Discarded
         }
 
         private enum Trigger

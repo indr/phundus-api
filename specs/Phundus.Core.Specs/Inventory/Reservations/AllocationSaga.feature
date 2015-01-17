@@ -1,8 +1,7 @@
 ﻿Feature: AllocationSaga
 
 Scenario: Article reserved dispatches allocate stock
-	When article reserved
-	Then allocation saga state is Allocated
+	When article reserved	
 	Then allocate stock
 
 Scenario: Idempotent article reserved

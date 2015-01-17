@@ -35,38 +35,47 @@
         {
             PastEvents.Add(new OrderCreated(_orderId));
         }
+        
+        [Given(@"order item added (.*?)")]
+        public void GivenOrderItemAdded(Guid orderItemId)
+        {
+            PastEvents.Add(CreateOrderItemAdded(orderItemId));
+        }
 
         [When(@"order item added (.*?)")]
         public void WhenOrderItemAdded(Guid orderItemId)
         {
-            _orderItemIds.Add(orderItemId);
-            var evnt = new OrderItemAdded(_initiatorId, _organizationId, _orderId, orderItemId, _articleId, _period,
-                _quantity);
+            Transition(CreateOrderItemAdded(orderItemId));
+        }
 
-            Transition(evnt);
+        private OrderItemAdded CreateOrderItemAdded(Guid orderItemId)
+        {
+            _orderItemIds.Add(orderItemId);
+            return new OrderItemAdded(_initiatorId, _organizationId, _orderId, orderItemId, _articleId, _period,
+                _quantity);
+        }
+
+        [Given(@"order item removed (.*?)")]
+        public void GivenOrderItemRemoved(Guid orderItemId)
+        {
+            PastEvents.Add(CreateOrderItemRemoved(orderItemId));
+        }
+
+        [When(@"order item removed (.*?)")]
+        public void WhenOrderItemRemoved(Guid orderItemId)
+        {
+            Transition(CreateOrderItemRemoved(orderItemId));
+        }
+
+        private OrderItemRemoved CreateOrderItemRemoved(Guid orderItemId)
+        {
+            return new OrderItemRemoved(_initiatorId, _organizationId, _orderId, orderItemId, _articleId);
         }
 
         [Then(@"reserve article")]
         public void ThenReserveArticle()
         {
             AssertUndispatchedCommand<ReserveArticle>(null);
-        }
-
-        [Given(@"order item added (.*?)")]
-        public void GivenOrderItemAdded(Guid orderItemId)
-        {
-            PastEvents.Add(new OrderItemAdded(_initiatorId, _organizationId, _orderId, orderItemId, _articleId, _period,
-                _quantity));
-
-            _orderItemIds.Add(orderItemId);
-        }
-
-        
-
-        [When(@"order item removed (.*?)")]
-        public void WhenOrderItemRemoved(Guid orderItemId)
-        {
-            Transition(new OrderItemRemoved(_initiatorId, _organizationId, _orderId, orderItemId, _articleId));
         }
 
         [Then(@"cancel reservation (.*?)")]
@@ -94,7 +103,7 @@
         public void WhenOrderItemQuantityChanged(Guid orderItemId)
         {
             Transition(new OrderItemQuantityChanged(_initiatorId, _organizationId, _orderId, orderItemId, _articleId, 
-                _quantity, 2));
+                _quantity, _quantity + 1));
         }
 
         [Then(@"change reservation quantity (.*?)")]
@@ -103,16 +112,38 @@
             AssertUndispatchedCommand<ChangeReservationQuantity>(null);
         }
 
-        [When(@"reject order")]
+        [Given(@"order rejected")]
+        public void GivenRejectOrder()
+        {
+            PastEvents.Add(CreateOrderRejected());
+        }
+        
+        [When(@"order rejected")]
         public void WhenRejectOrder()
         {
-            Transition(new OrderRejected(_initiatorId, _organizationId, _orderId, _orderItemIds));
+            Transition(CreateOrderRejected());
         }
 
-        [When(@"close order")]
+        private OrderRejected CreateOrderRejected()
+        {
+            return new OrderRejected(_initiatorId, _organizationId, _orderId, _orderItemIds);
+        }
+
+        [Given(@"order closed")]
+        public void GivenCloseOrder()
+        {
+            PastEvents.Add(CreateOrderClosed());
+        }
+
+        [When(@"order closed")]
         public void WhenCloseOrder()
         {
-            Transition(new OrderClosed(_initiatorId, _organizationId, _orderId, _orderItemIds));
+            Transition(CreateOrderClosed());
+        }
+
+        private OrderClosed CreateOrderClosed()
+        {
+            return new OrderClosed(_initiatorId, _organizationId, _orderId, _orderItemIds);
         }
     }
 }

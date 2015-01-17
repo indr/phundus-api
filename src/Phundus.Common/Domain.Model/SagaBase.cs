@@ -54,7 +54,7 @@
 
         protected void Dispatch(ICommand command)
         {
-            UndispatchedCommands.Add(command);
+            _undispatchedCommands.Add(command);
         }
     }
 }
