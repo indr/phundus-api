@@ -121,10 +121,10 @@
     <Compile Include="Inventory\Domain.Model\Catalog\ArticleTests.cs" />
     <Compile Include="Inventory\Domain.Model\Management\Stock\stock_allocation_concern.cs" />
     <Compile Include="Inventory\Domain.Model\Management\Stock\stock_concern.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\Stock\Stock_ChangeAllocationPeriod.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\Stock\Stock_ChangeAllocationQuantity.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\Stock\when_a_stock_is_created.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\Stock\when_stock_is_allocated.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\Stock\ChangeAllocationPeriodConcerns.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\Stock\ChangeAllocationQuantityConcerns.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\Stock\CreateStockConerns.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\Stock\AllocateConcerns.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\allocation_saga_manager_concerns.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationTests.cs" />
     <Compile Include="saga_manager_concern.cs" />
