@@ -10,5 +10,6 @@
         Article GetById(int articleId);
         Article GetById(int organizationId, int articleId);
         void Save(Article article);
+        IEnumerable<Article> GetAll();
     }
 }

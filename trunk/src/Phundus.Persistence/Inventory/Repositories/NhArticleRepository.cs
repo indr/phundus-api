@@ -39,5 +39,10 @@
         {
             Session.SaveOrUpdate(article);
         }
+
+        public IEnumerable<Article> GetAll()
+        {
+            return Entities;
+        }
     }
 }

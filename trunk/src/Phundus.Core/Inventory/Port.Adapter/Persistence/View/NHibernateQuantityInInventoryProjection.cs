@@ -6,6 +6,8 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
     using Common.Notifications;
     using Common.Port.Adapter.Persistence;
     using Domain.Model.Management;
+    using NHibernate;
+    using NHibernate.Linq;
 
     public class NHibernateQuantityInInventoryProjection : NHibernateProjectionBase<QuantityInInventoryData>,
         IDomainEventHandler
@@ -20,9 +22,16 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
            // Fallback
         }
 
+        private IQueryOver<QuantityInInventoryData, QuantityInInventoryData> QueryWhere(int organizationId,
+            int articleId, string stockId, DateTime asOfUtc)
+        {
+            return Query.Where(p => p.OrganizationId == organizationId).And(p => p.ArticleId == articleId)
+                .And(p => p.StockId == stockId).And(p => p.AsOfUtc == asOfUtc);
+        }
+
         private void Process(QuantityInInventoryIncreased e)
         {
-            var record = Query.Where(p => p.AsOfUtc == e.AsOfUtc).SingleOrDefault();
+            var record = QueryWhere(e.OrganizationId, e.ArticleId, e.StockId, e.AsOfUtc).SingleOrDefault();
             if (record == null)
                 record = new QuantityInInventoryData(e.OrganizationId, e.ArticleId, e.StockId);
 
@@ -32,12 +41,12 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
             record.Comment = e.Comment;
             Save(record);
 
-            UpdateFutures(e.AsOfUtc, e.Change);
+            UpdateFutures(e.OrganizationId, e.ArticleId, e.StockId, e.AsOfUtc, e.Change);
         }
 
         private void Process(QuantityInInventoryDecreased e)
         {
-            var record = Query.Where(p => p.AsOfUtc == e.AsOfUtc).SingleOrDefault();
+            var record = QueryWhere(e.OrganizationId, e.ArticleId, e.StockId, e.AsOfUtc).SingleOrDefault();
             if (record == null)
                 record = new QuantityInInventoryData(e.OrganizationId, e.ArticleId, e.StockId);
 
@@ -47,12 +56,12 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
             record.Comment = e.Comment;
             Save(record);
 
-            UpdateFutures(e.AsOfUtc, e.Change*-1);
+            UpdateFutures(e.OrganizationId, e.ArticleId, e.StockId, e.AsOfUtc, e.Change*-1);
         }
 
-        private void UpdateFutures(DateTime asOfUtc, int change)
+        private void UpdateFutures(int organizationId, int articleId, string stockId, DateTime asOfUtc, int change)
         {
-            var records = Session.QueryOver<QuantityInInventoryData>().Where(p => p.AsOfUtc > asOfUtc).List();
+            var records = QueryWhere(organizationId, articleId, stockId, asOfUtc).List();
             foreach (var each in records)
             {
                 each.Total += change;

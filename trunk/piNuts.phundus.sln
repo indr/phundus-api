@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Common", "src\Phund
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Common.Tests", "tests\Phundus.Common.Tests\Phundus.Common.Tests.csproj", "{EA63A3FD-6A3E-46CA-BA9D-1FDFD362C470}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Core.Migrations", "src\Phundus.Core.Migrations\Phundus.Core.Migrations.csproj", "{B72E3778-0B5E-4FF7-9D75-023A9C3457E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,6 +177,16 @@ Global
 		{EA63A3FD-6A3E-46CA-BA9D-1FDFD362C470}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EA63A3FD-6A3E-46CA-BA9D-1FDFD362C470}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EA63A3FD-6A3E-46CA-BA9D-1FDFD362C470}.Release|x86.ActiveCfg = Release|Any CPU
+		{B72E3778-0B5E-4FF7-9D75-023A9C3457E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B72E3778-0B5E-4FF7-9D75-023A9C3457E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B72E3778-0B5E-4FF7-9D75-023A9C3457E9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B72E3778-0B5E-4FF7-9D75-023A9C3457E9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B72E3778-0B5E-4FF7-9D75-023A9C3457E9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B72E3778-0B5E-4FF7-9D75-023A9C3457E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B72E3778-0B5E-4FF7-9D75-023A9C3457E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B72E3778-0B5E-4FF7-9D75-023A9C3457E9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B72E3778-0B5E-4FF7-9D75-023A9C3457E9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B72E3778-0B5E-4FF7-9D75-023A9C3457E9}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
