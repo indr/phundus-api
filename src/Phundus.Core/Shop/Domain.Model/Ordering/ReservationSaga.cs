@@ -82,7 +82,7 @@
                 "Organization id must be the same.");
             AssertionConcern.AssertArgumentEquals(_articleId.Id, e.ArticleId, "Article id must be the same.");
             AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
-            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId,
+            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId.ToString(),
                 "Reservation id must be equal to order item id.");
 
             _initiatorId = new UserId(e.InitiatorId);
@@ -96,7 +96,7 @@
                 "Organization id must be the same.");
             AssertionConcern.AssertArgumentEquals(_articleId.Id, e.ArticleId, "Article id must be the same.");
             AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
-            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId,
+            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId.ToString(),
                 "Reservation id must be equal to order item id.");
 
             _initiatorId = new UserId(e.InitiatorId);
@@ -111,7 +111,7 @@
                 "Organization id must be the same.");
             AssertionConcern.AssertArgumentEquals(_articleId.Id, e.ArticleId, "Article id must be the same.");
             AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
-            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId,
+            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId.ToString(),
                 "Reservation id must be equal to order item id.");
 
             _initiatorId = new UserId(e.InitiatorId);
