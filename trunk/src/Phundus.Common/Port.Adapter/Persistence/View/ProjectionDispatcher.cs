@@ -1,26 +1,23 @@
 namespace Phundus.Common.Port.Adapter.Persistence.View
 {
-    using System;
     using Events;
     using Messaging;
     using Notifications;
 
     public class ProjectionDispatcher : INotificationConsumer
     {
-        private static object _lock = new object();
+        private static readonly object Lock = new object();
 
         public IProcessedNotificationTrackerStore ProcessedNotificationTrackerStore { get; set; }
 
         public IDomainEventHandlerFactory DomainEventHandlerFactory { get; set; }
-
-        public NHibernateProjectionBase<Object>[] Projectsion { get; set; }
 
         public IEventStore EventStore { get; set; }
 
         public void Consume(Notification notification)
         {
             // TODO: Remove when MQ is in place
-            lock (_lock)
+            lock (Lock)
             {
                 var domainEventHandler = DomainEventHandlerFactory.GetDomainEventHandlers();
 
