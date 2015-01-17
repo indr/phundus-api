@@ -106,11 +106,5 @@
         {
             AssertUndispatchedCommand<ChangeAllocationQuantity>();
         }
-
-        [Then(@"allocation saga state is Allocated")]
-        public void ThenAllocationSagaStateIsHasAllocation()
-        {
-            Assert.That(Saga.CurrentState, Is.EqualTo(AllocationSaga.State.Allocated));
-        }
     }
 }

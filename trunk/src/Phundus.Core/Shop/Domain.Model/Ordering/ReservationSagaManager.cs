@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Domain.Model.Ordering
 {
+    using System.Linq;
     using Common.Domain.Model;
     using Common.EventPublishing;
     using Cqrs;

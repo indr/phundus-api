@@ -32,8 +32,7 @@ namespace Phundus.Core.Specs.Shop.Ordering
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ReservationSaga", "In order to avoid silly mistakes\nAs a math idiot\nI want to be told the sum of two" +
-                    " numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ReservationSaga", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -67,8 +66,8 @@ namespace Phundus.Core.Specs.Shop.Ordering
         
         public virtual void FeatureBackground()
         {
-#line 6
-#line 7
+#line 3
+#line 4
  testRunner.Given("empty order created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
         }
@@ -78,32 +77,32 @@ namespace Phundus.Core.Specs.Shop.Ordering
         public virtual void OrderItemAddedDispatchesReserveArticle()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Order item added dispatches reserve article", ((string[])(null)));
-#line 9
-this.ScenarioSetup(scenarioInfo);
 #line 6
+this.ScenarioSetup(scenarioInfo);
+#line 3
 this.FeatureBackground();
-#line 10
+#line 7
  testRunner.When("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 11
+#line 8
  testRunner.Then("reserve article", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Order item added when already handled does not dispatch reserve article")]
-        public virtual void OrderItemAddedWhenAlreadyHandledDoesNotDispatchReserveArticle()
+        [NUnit.Framework.DescriptionAttribute("Idempotent order item added")]
+        public virtual void IdempotentOrderItemAdded()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Order item added when already handled does not dispatch reserve article", ((string[])(null)));
-#line 13
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Idempotent order item added", ((string[])(null)));
+#line 10
 this.ScenarioSetup(scenarioInfo);
-#line 6
+#line 3
 this.FeatureBackground();
-#line 14
+#line 11
  testRunner.Given("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 15
+#line 12
  testRunner.When("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 16
+#line 13
  testRunner.Then("no commands dispatched", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -114,16 +113,37 @@ this.FeatureBackground();
         public virtual void OrderItemRemovedDispatchesCancelReservation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Order item removed dispatches cancel reservation", ((string[])(null)));
-#line 18
+#line 15
 this.ScenarioSetup(scenarioInfo);
-#line 6
+#line 3
 this.FeatureBackground();
-#line 19
+#line 16
  testRunner.Given("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 20
+#line 17
  testRunner.When("order item removed 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 21
+#line 18
  testRunner.Then("cancel reservation 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Idempotent order item removed")]
+        public virtual void IdempotentOrderItemRemoved()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Idempotent order item removed", ((string[])(null)));
+#line 20
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 21
+ testRunner.Given("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 22
+ testRunner.And("order item removed 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 23
+ testRunner.When("order item removed 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 24
+ testRunner.Then("no commands dispatched", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -133,15 +153,15 @@ this.FeatureBackground();
         public virtual void OrderItemPeriodChangedDispatchesChangeReservationPeriod()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Order item period changed dispatches change reservation period", ((string[])(null)));
-#line 23
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line 24
- testRunner.Given("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 25
- testRunner.When("order item period changed 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 26
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 27
+ testRunner.Given("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 28
+ testRunner.When("order item period changed 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 29
  testRunner.Then("change reservation period 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -152,15 +172,15 @@ this.FeatureBackground();
         public virtual void OrderItemQuantityChangedDispatchesChangeReservationQuantity()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Order item quantity changed dispatches change reservation quantity", ((string[])(null)));
-#line 28
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line 29
- testRunner.Given("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 30
- testRunner.When("order item quantity changed 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 31
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 32
+ testRunner.Given("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 33
+ testRunner.When("order item quantity changed 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 34
  testRunner.Then("change reservation quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -171,18 +191,37 @@ this.FeatureBackground();
         public virtual void WhenAnOrderIsRejectedDispatchesCancelReservation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When an order is rejected dispatches cancel reservation", ((string[])(null)));
-#line 33
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line 34
- testRunner.Given("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 35
- testRunner.And("order item added 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 36
- testRunner.When("reject order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
 #line 37
+ testRunner.Given("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 38
+ testRunner.When("order rejected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 39
  testRunner.Then("cancel reservation 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Idempotent order rejected")]
+        public virtual void IdempotentOrderRejected()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Idempotent order rejected", ((string[])(null)));
+#line 41
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 42
+ testRunner.Given("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 43
+ testRunner.And("order rejected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 44
+ testRunner.When("order rejected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 45
+ testRunner.Then("no commands dispatched", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -192,18 +231,37 @@ this.FeatureBackground();
         public virtual void WhenAnOrderIsClosedDispatchesCancelReservation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When an order is closed dispatches cancel reservation", ((string[])(null)));
-#line 39
+#line 47
 this.ScenarioSetup(scenarioInfo);
-#line 6
+#line 3
 this.FeatureBackground();
-#line 40
+#line 48
  testRunner.Given("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 41
- testRunner.And("order item added 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 42
- testRunner.When("close order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 43
+#line 49
+ testRunner.When("order closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 50
  testRunner.Then("cancel reservation 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Idempotent order closed")]
+        public virtual void IdempotentOrderClosed()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Idempotent order closed", ((string[])(null)));
+#line 52
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 53
+ testRunner.Given("order item added 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 54
+ testRunner.And("order closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 55
+ testRunner.When("order closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 56
+ testRunner.Then("no commands dispatched", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
