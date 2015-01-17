@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using Cqrs;
+    using Stateless;
 
     public abstract class SagaBase : ISaga
     {
@@ -55,6 +56,21 @@
         protected void Dispatch(ICommand command)
         {
             _undispatchedCommands.Add(command);
+        }
+    }
+
+    public abstract class StateMachineSagaBase<TState, TTrigger> : SagaBase
+    {
+        private readonly StateMachine<TState, TTrigger> _stateMachine;
+
+        protected StateMachineSagaBase(TState initialState)
+        {
+            _stateMachine = new StateMachine<TState, TTrigger>(initialState);
+        }
+
+        protected StateMachine<TState, TTrigger> StateMachine
+        {
+            get { return _stateMachine; }
         }
     }
 }
