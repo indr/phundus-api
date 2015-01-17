@@ -20,7 +20,7 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
 
         private void Process(StockAllocated e)
         {
-            var record = new AllocationData(e.AllocationId, e.OrganizationId, 0, e.StockId);
+            var record = new AllocationData(e.AllocationId, e.OrganizationId, e.ArticleId, e.StockId);
             record.FromUtc = e.FromUtc;
             record.ToUtc = e.ToUtc;
             record.Quantity = e.Quantity;
