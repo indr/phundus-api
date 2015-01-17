@@ -18,7 +18,7 @@
     {
         protected static Order order;
         protected static int modifierId = 101;
-        protected static UserId _initiatorId = new UserId(1);
+        protected static UserId _initiatorId = new UserId(101);
         protected static OrganizationId _organizationId = new OrganizationId(1001);
         protected static ArticleId _articleId = new ArticleId(10001);
         protected static Period _period = Period.FromTodayToTomorrow;

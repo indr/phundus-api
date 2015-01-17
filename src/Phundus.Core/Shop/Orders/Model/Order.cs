@@ -148,7 +148,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Approved;
 
-            EventPublisher.Publish(new OrderApproved {OrderId = Id});
+            EventPublisher.Publish(new OrderApproved(new UserId(initiatorId), OrganizationId, OrderId, Items.Select(p => p.Id).ToList()));
         }
 
         public virtual void Close(int initiatorId)

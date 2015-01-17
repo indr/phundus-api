@@ -193,6 +193,8 @@
     <Compile Include="Inventory\Domain.Model\Reservations\AllocationSagaManager.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationCancelled.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationStatus.cs" />
+    <Compile Include="Inventory\Domain.Model\Reservations\ReservationStatusSaga.cs" />
+    <Compile Include="Inventory\Domain.Model\Reservations\ReservationStatusSagaManager.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreRepositoryBase.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreReservationRepository.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\IReservationRepository.cs" />

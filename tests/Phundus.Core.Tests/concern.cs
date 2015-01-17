@@ -1,7 +1,5 @@
 namespace Phundus.Core.Tests
 {
-    using System.Collections;
-    using System.Collections.Generic;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using Common.Domain.Model;
@@ -24,7 +22,7 @@ namespace Phundus.Core.Tests
             _sut = default(TAggregateRoot);
 
             mock = new Mock();
-            
+
             publisher = mock.stub<IEventPublisher>();
 
             container = new WindsorContainer();
