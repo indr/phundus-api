@@ -23,15 +23,15 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
         }
 
         private IQueryOver<QuantityInInventoryData, QuantityInInventoryData> QueryWhere(int organizationId,
-            int articleId, string stockId, DateTime asOfUtc)
+            int articleId, string stockId)
         {
             return Query.Where(p => p.OrganizationId == organizationId).And(p => p.ArticleId == articleId)
-                .And(p => p.StockId == stockId).And(p => p.AsOfUtc == asOfUtc);
+                .And(p => p.StockId == stockId);
         }
 
         private void Process(QuantityInInventoryIncreased e)
         {
-            var record = QueryWhere(e.OrganizationId, e.ArticleId, e.StockId, e.AsOfUtc).SingleOrDefault();
+            var record = QueryWhere(e.OrganizationId, e.ArticleId, e.StockId).And(p => p.AsOfUtc == e.AsOfUtc).SingleOrDefault();
             if (record == null)
                 record = new QuantityInInventoryData(e.OrganizationId, e.ArticleId, e.StockId);
 
@@ -46,7 +46,7 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
 
         private void Process(QuantityInInventoryDecreased e)
         {
-            var record = QueryWhere(e.OrganizationId, e.ArticleId, e.StockId, e.AsOfUtc).SingleOrDefault();
+            var record = QueryWhere(e.OrganizationId, e.ArticleId, e.StockId).And(p => p.AsOfUtc == e.AsOfUtc).SingleOrDefault();
             if (record == null)
                 record = new QuantityInInventoryData(e.OrganizationId, e.ArticleId, e.StockId);
 
@@ -61,7 +61,7 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
 
         private void UpdateFutures(int organizationId, int articleId, string stockId, DateTime asOfUtc, int change)
         {
-            var records = QueryWhere(organizationId, articleId, stockId, asOfUtc).List();
+            var records = QueryWhere(organizationId, articleId, stockId).And(p => p.AsOfUtc > asOfUtc).List();
             foreach (var each in records)
             {
                 each.Total += change;
