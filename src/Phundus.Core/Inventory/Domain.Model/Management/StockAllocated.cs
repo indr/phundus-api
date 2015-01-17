@@ -3,6 +3,7 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
     using System;
     using System.Runtime.Serialization;
     using Catalog;
+    using Common;
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
     using Reservations;
@@ -13,6 +14,13 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
         public StockAllocated(OrganizationId organizationId, ArticleId articleId, StockId stockId,
             AllocationId allocationId, ReservationId reservationId, Period period, int quantity, AllocationStatus status)
         {
+            AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(stockId, "Stock id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(allocationId, "Allocation id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(reservationId, "Reservation id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(period, "Period must be provided.");
+
             OrganizationId = organizationId.Id;
             ArticleId = articleId.Id;
             StockId = stockId.Id;

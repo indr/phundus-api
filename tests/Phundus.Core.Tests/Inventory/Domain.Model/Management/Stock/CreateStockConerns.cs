@@ -3,6 +3,27 @@ namespace Phundus.Core.Tests.Inventory.Domain.Model.Management.Stock
     using Core.Inventory.Domain.Model.Management;
     using Machine.Specifications;
 
+    [Subject(typeof (Stock))]
+    public class when_discard_allocation : stock_allocation_concern
+    {
+        private Establish ctx = () =>
+        {
+            _sut.Allocate(_allocationId, _reservationId, _period, _quantity);
+            _sut.MutatingEvents.Clear();
+        };
+
+        private Because of = () => _sut.DiscardAllocation(_allocationId);
+
+        public It should_have_mutating_event_allocation_discarded = () =>
+        {
+            var e = AssertMutatingEvent<AllocationDiscarded>(0);
+            e.OrganizationId.ShouldEqual(_organizationId.Id);
+            e.ArticleId.ShouldEqual(_articleId.Id);
+            e.StockId.ShouldEqual(_stockId.Id);
+            e.AllocationId.ShouldEqual(_allocationId.Id);
+        };
+    }
+
     [Subject(typeof(Stock))]
     public class when_a_stock_is_created : stock_concern
     {

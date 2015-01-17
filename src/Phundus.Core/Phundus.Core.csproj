@@ -167,6 +167,7 @@
     <Compile Include="Inventory\Application\Data\AllocationData.cs" />
     <Compile Include="Inventory\Domain.Model\Catalog\AllocationStatus.cs" />
     <Compile Include="Inventory\Domain.Model\Management\Allocation.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\AllocationDiscarded.cs" />
     <Compile Include="Inventory\Domain.Model\Management\AllocationId.cs" />
     <Compile Include="Inventory\Application\Commands\CancelReservation.cs" />
     <Compile Include="Inventory\Application\Commands\ChangeReservationPeriod.cs" />

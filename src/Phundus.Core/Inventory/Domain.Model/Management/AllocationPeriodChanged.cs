@@ -3,6 +3,7 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
     using System;
     using System.Runtime.Serialization;
     using Catalog;
+    using Common;
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
 
@@ -12,6 +13,13 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
         public AllocationPeriodChanged(OrganizationId organizationId, ArticleId articleId, StockId stockId,
             AllocationId allocationId, Period oldPeriod, Period newPeriod)
         {
+            AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(stockId, "Stock id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(allocationId, "Allocation id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(oldPeriod, "Old period must be provided.");
+            AssertionConcern.AssertArgumentNotNull(newPeriod, "New period must be provided.");
+
             OrganizationId = organizationId.Id;
             ArticleId = articleId.Id;
             StockId = stockId.Id;

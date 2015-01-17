@@ -181,7 +181,12 @@
 
         public virtual void DiscardAllocation(AllocationId allocationId)
         {
-            throw new NotImplementedException();
+            Apply(new AllocationDiscarded(OrganizationId, ArticleId, StockId, allocationId));
+        }
+
+        protected void When(AllocationDiscarded e)
+        {
+            
         }
     }
 }

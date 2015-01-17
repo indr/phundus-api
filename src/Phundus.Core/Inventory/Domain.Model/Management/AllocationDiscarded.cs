@@ -1,4 +1,4 @@
-namespace Phundus.Core.Inventory.Domain.Model.Management
+﻿namespace Phundus.Core.Inventory.Domain.Model.Management
 {
     using System;
     using System.Runtime.Serialization;
@@ -8,10 +8,10 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
     using IdentityAndAccess.Domain.Model.Organizations;
 
     [DataContract]
-    public class AllocationQuantityChanged : DomainEvent
+    public class AllocationDiscarded : DomainEvent
     {
-        public AllocationQuantityChanged(OrganizationId organizationId, ArticleId articleId, StockId stockId,
-            AllocationId allocationId, int oldQuantity, int newQuantity)
+        public AllocationDiscarded(OrganizationId organizationId, ArticleId articleId, StockId stockId,
+            AllocationId allocationId)
         {
             AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
@@ -22,12 +22,11 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
             ArticleId = articleId.Id;
             StockId = stockId.Id;
             AllocationId = allocationId.Id;
-            OldQuantity = oldQuantity;
-            NewQuantity = newQuantity;
         }
 
-        protected AllocationQuantityChanged()
+        protected AllocationDiscarded()
         {
+            
         }
 
         [DataMember(Order = 1)]
@@ -42,10 +41,6 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
         [DataMember(Order = 4)]
         public Guid AllocationId { get; protected set; }
 
-        [DataMember(Order = 5)]
-        public int OldQuantity { get; protected set; }
-
-        [DataMember(Order = 6)]
-        public int NewQuantity { get; protected set; }
+        
     }
 }
