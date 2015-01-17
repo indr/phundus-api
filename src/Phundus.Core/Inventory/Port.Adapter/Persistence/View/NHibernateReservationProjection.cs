@@ -29,6 +29,8 @@
             data.FromUtc = domainEvent.FromUtc;
             data.ToUtc = domainEvent.ToUtc;
             data.Quantity = domainEvent.Quantity;
+            data.OrderId = domainEvent.OrderId;
+            data.ReservationStatus = domainEvent.ReservationStatus;
             Save(data);
         }
 

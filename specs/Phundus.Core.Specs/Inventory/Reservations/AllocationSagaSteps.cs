@@ -34,7 +34,7 @@
 
         private ArticleReserved CreateArticleReserved()
         {
-            return new ArticleReserved(_organizationId, _articleId, _reservationId, _orderId, _period, _quantity);
+            return new ArticleReserved(_organizationId, _articleId, _reservationId, _orderId, _period, _quantity, ReservationStatus.New);
         }
 
         [Then(@"allocate stock")]

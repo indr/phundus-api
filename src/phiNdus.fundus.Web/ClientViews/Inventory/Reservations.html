@@ -18,17 +18,21 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Bestellung</th>
                         <th>Von</th>
                         <th>Bis</th>
                         <th>Menge</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="reservation in reservations">
                         <td>{{reservation.reservationId}}</td>
+                        <td>{{reservation.orderId}}</td>
                         <td>{{reservation.fromUtc | date:'medium'}}</td>
                         <td>{{reservation.toUtc | date:'medium'}}</td>
                         <td>{{reservation.quantity}}</td>
+                        <td>{{reservation.reservationStatus}}</td>
                     </tr>
                 </tbody>
             </table>            
