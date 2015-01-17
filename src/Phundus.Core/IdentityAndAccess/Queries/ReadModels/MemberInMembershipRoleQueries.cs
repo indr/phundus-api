@@ -31,6 +31,9 @@ namespace Phundus.Core.IdentityAndAccess.Queries
 
         public void ActiveChief(int organizationId, int userId)
         {
+            if (userId == UserId.Root.Id)
+                return;
+
             if (!IsActiveChief(organizationId, userId))
                 throw new AuthorizationException(
                     "Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");
