@@ -7,6 +7,9 @@
     {
         public QuantityInInventoryDataMap()
         {
+            SchemaAction.All();
+            Table("Proj_QuantityInInventoryData");
+
             Id(x => x.Id).GeneratedBy.GuidComb();
             Version(x => x.ConcurrencyVersion);
 
