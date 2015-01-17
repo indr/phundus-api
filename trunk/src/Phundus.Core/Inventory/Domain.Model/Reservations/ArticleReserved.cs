@@ -12,7 +12,7 @@
     public class ArticleReserved : DomainEvent
     {
         public ArticleReserved(OrganizationId organizationId, ArticleId articleId, ReservationId reservationId,
-            OrderId orderId, Period period, int quantity)
+            OrderId orderId, Period period, int quantity, ReservationStatus reservationStatus)
         {
             AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
@@ -27,6 +27,7 @@
             OrderId = orderId.Id;
             Period = period;
             Quantity = quantity;
+            ReservationStatus = reservationStatus.ToString();
         }
 
         protected ArticleReserved()
@@ -63,5 +64,8 @@
 
         [DataMember(Order = 8)]
         public int Quantity { get; protected set; }
+
+        [DataMember(Order = 9)]
+        public string ReservationStatus { get; protected set; }
     }
 }

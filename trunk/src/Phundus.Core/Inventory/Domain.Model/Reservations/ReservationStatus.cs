@@ -3,6 +3,8 @@
     public enum ReservationStatus
     {
         New,
+        Allocated,
+        Confirmed,
         Cancelled
     }
 }

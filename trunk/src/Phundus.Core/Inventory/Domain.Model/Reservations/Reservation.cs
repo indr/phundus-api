@@ -17,10 +17,9 @@
         private ReservationStatus _status;
 
         public Reservation(ReservationId reservationId, OrganizationId organizationId, ArticleId articleId,
-            OrderId orderId,
-            Period period, int amount)
+            OrderId orderId, Period period, int amount)
         {
-            Apply(new ArticleReserved(organizationId, articleId, reservationId, orderId, period, amount));
+            Apply(new ArticleReserved(organizationId, articleId, reservationId, orderId, period, amount, ReservationStatus.New));
         }
 
         public Reservation(IEnumerable<IDomainEvent> eventStream, long eventStreamVersion)
@@ -62,6 +61,12 @@
         {
             When((dynamic) e);
         }
+        
+        // TODO: Move method to common
+        public static T ParseEnum<T>(string value)
+        {
+            return (T)Enum.Parse(typeof(T), value, true);
+        }
 
         protected void When(ArticleReserved e)
         {
@@ -70,6 +75,7 @@
             _reservationId = new ReservationId(e.ReservationId);
             _period = new Period(e.FromUtc, e.ToUtc);
             _quantity = e.Quantity;
+            _status = ParseEnum<ReservationStatus>(e.ReservationStatus);
         }
 
         protected override IEnumerable<object> GetIdentityComponents()

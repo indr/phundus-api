@@ -26,10 +26,7 @@ namespace Phundus.Core.Tests.Inventory.Domain.Model.Reservations
     public class when_article_reserved_is_handled : allocation_saga_manager_concern
     {
         private Establish ctx =
-            () =>
-            {
-                _event = new ArticleReserved(_organizationId, _articleId, _reservationId, _orderId, _period, _quantity);
-            };
+            () => _event = new ArticleReserved(_organizationId, _articleId, _reservationId, _orderId, _period, _quantity, ReservationStatus.New);
 
         public It should_get_saga_by_reservation_id = () => AssertRepositoryGetById(_reservationId.Id);
 

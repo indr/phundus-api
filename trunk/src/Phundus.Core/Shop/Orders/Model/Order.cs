@@ -182,18 +182,7 @@
             }
         }
 
-        public virtual bool AddItem(OrderItem item, IAvailabilityService availabilityService)
-        {
-            EnsurePending();
-
-            if (
-                !availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount,
-                    Guid.Empty))
-                throw new ArticleNotAvailableException(item);
-
-            return _items.Add(item);
-        }
-
+        
         public virtual OrderItem AddItem(UserId initiatorId, Article article, DateTime fromUtc, DateTime toUtc,
             int amount)
         {
@@ -218,6 +207,19 @@
 
             return AddItem(item, availabilityService);
         }
+
+        protected virtual bool AddItem(OrderItem item, IAvailabilityService availabilityService)
+        {
+            EnsurePending();
+
+            if (
+                !availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount,
+                    Guid.Empty))
+                throw new ArticleNotAvailableException(item);
+
+            return _items.Add(item);
+        }
+
 
         public virtual void RemoveItem(UserId initiatorId, Guid orderItemId)
         {

@@ -20,7 +20,10 @@
 
             Map(x => x.FromUtc);
             Map(x => x.ToUtc);
-            Map(x => x.Quantity, "Amount");
+            Map(x => x.Quantity);
+
+            Map(x => x.OrderId);
+            Map(x => x.ReservationStatus);
         }
     }
 }

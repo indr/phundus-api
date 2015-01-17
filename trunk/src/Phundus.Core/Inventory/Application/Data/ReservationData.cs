@@ -14,5 +14,8 @@
         public virtual DateTime FromUtc { get; set; }
         public virtual DateTime ToUtc { get; set; }
         public virtual int Quantity { get; set; }
+
+        public virtual int OrderId { get; set; }
+        public virtual string ReservationStatus { get; set; }
     }
 }
