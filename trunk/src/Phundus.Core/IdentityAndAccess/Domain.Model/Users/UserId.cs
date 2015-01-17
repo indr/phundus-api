@@ -7,5 +7,7 @@
         public UserId(int id) : base(id)
         {
         }
+
+        public static UserId Root { get { return new UserId(1); } }
     }
 }
