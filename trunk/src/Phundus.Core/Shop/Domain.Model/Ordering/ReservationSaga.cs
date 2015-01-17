@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Core.Shop.Domain.Model.Ordering
 {
-    using System.Runtime.InteropServices;
     using Common;
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
@@ -9,22 +8,6 @@
     using Inventory.Domain.Model.Catalog;
     using Inventory.Domain.Model.Reservations;
     using Orders.Model;
-    using Stateless;
-
-    public abstract class StateMachineSagaBase<TState, TTrigger> : SagaBase
-    {
-        private readonly StateMachine<TState, TTrigger> _stateMachine;
-
-        protected StateMachineSagaBase(TState initialState)
-        {
-            _stateMachine = new StateMachine<TState, TTrigger>(initialState);
-        }
-
-        protected StateMachine<TState, TTrigger> StateMachine
-        {
-            get { return _stateMachine; }
-        }
-    }
 
     public class ReservationSaga : StateMachineSagaBase<ReservationSaga.State, ReservationSaga.Trigger>
     {
@@ -55,7 +38,7 @@
         {
             StateMachine.Configure(State.New)
                 .Permit(Trigger.OrderItemAdded, State.Reserved);
-            
+
             StateMachine.Configure(State.Reserved)
                 .OnEntry(ReserveArticle)
                 .Permit(Trigger.OrderItemRemoved, State.Cancelled)
@@ -68,8 +51,6 @@
                 .Ignore(Trigger.OrderItemRemoved)
                 .Ignore(Trigger.OrderClosed)
                 .Ignore(Trigger.OrderRejected);
-
-            
         }
 
         protected override void When(IDomainEvent e)
@@ -97,22 +78,26 @@
 
         private void When(OrderItemRemoved e)
         {
-            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId, "Organization id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId,
+                "Organization id must be the same.");
             AssertionConcern.AssertArgumentEquals(_articleId.Id, e.ArticleId, "Article id must be the same.");
             AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
-            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId, "Reservation id must be equal to order item id.");
+            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId,
+                "Reservation id must be equal to order item id.");
 
             _initiatorId = new UserId(e.InitiatorId);
-            
+
             StateMachine.Fire(Trigger.OrderItemRemoved);
         }
 
         private void When(OrderItemQuantityChanged e)
         {
-            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId, "Organization id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId,
+                "Organization id must be the same.");
             AssertionConcern.AssertArgumentEquals(_articleId.Id, e.ArticleId, "Article id must be the same.");
             AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
-            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId, "Reservation id must be equal to order item id.");
+            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId,
+                "Reservation id must be equal to order item id.");
 
             _initiatorId = new UserId(e.InitiatorId);
             _quantity = e.NewQuantity;
@@ -122,11 +107,13 @@
 
         private void When(OrderItemPeriodChanged e)
         {
-            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId, "Organization id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId,
+                "Organization id must be the same.");
             AssertionConcern.AssertArgumentEquals(_articleId.Id, e.ArticleId, "Article id must be the same.");
             AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
-            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId, "Reservation id must be equal to order item id.");
-            
+            AssertionConcern.AssertArgumentEquals(_reservationId.Id, e.OrderItemId,
+                "Reservation id must be equal to order item id.");
+
             _initiatorId = new UserId(e.InitiatorId);
             _period = new Period(e.NewFromUtc, e.NewToUtc);
 
@@ -135,7 +122,8 @@
 
         private void When(OrderRejected e)
         {
-            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId, "Organization id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId,
+                "Organization id must be the same.");
             AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
 
             StateMachine.Fire(Trigger.OrderRejected);
@@ -143,7 +131,8 @@
 
         private void When(OrderClosed e)
         {
-            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId, "Organization id must be the same.");
+            AssertionConcern.AssertArgumentEquals(_organizationId.Id, e.OrganizationId,
+                "Organization id must be the same.");
             AssertionConcern.AssertArgumentEquals(_orderId.Id, e.OrderId, "Order id must be the same.");
 
             StateMachine.Fire(Trigger.OrderClosed);

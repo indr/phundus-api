@@ -190,6 +190,7 @@
     <Compile Include="Inventory\Domain.Model\Management\StockCreated.cs" />
     <Compile Include="Inventory\Domain.Model\Management\StockId.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\AllocationSaga.cs" />
+    <Compile Include="Inventory\Domain.Model\Reservations\AllocationSagaManager.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationCancelled.cs" />
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationStatus.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreRepositoryBase.cs" />
