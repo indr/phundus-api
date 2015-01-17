@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain.Model\PeriodSpecs.cs" />
     <Compile Include="Events\EventSerializerSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
