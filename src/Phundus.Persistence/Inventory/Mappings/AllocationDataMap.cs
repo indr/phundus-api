@@ -7,6 +7,9 @@
     {
         public AllocationDataMap()
         {
+            SchemaAction.All();
+            Table("Proj_AllocationData");
+
             Id(x => x.AllocationId).GeneratedBy.Assigned();
             Version(x => x.ConcurrencyVersion);
 

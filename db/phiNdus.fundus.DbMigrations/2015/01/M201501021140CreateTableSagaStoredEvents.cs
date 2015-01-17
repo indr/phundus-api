@@ -4,7 +4,7 @@
     using FluentMigrator;
 
     [Migration(201501021140)]
-    public class M201501021140CreateTableStoredEvents : MigrationBase
+    public class M201501021140CreateTableSagaStoredEvents : MigrationBase
     {
         public override void Up()
         {

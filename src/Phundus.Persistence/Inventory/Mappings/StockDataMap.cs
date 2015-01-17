@@ -7,6 +7,9 @@
     {
         public StockDataMap()
         {
+            SchemaAction.All();
+            Table("Proj_StockData");
+
             Id(x => x.StockId).GeneratedBy.Assigned();
             Version(x => x.ConcurrencyVersion);
 

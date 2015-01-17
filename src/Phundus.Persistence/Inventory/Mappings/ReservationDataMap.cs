@@ -7,6 +7,9 @@
     {
         public ReservationDataMap()
         {
+            SchemaAction.All();
+            Table("Proj_ReservationData");
+
             Id(x => x.ReservationId).GeneratedBy.Assigned();
             Version(x => x.ConcurrencyVersion);
 
