@@ -4,14 +4,13 @@ namespace Phundus.Core.Inventory.Application.Data
     {
         private string _stockId;
 
-        protected StockData()
-        {
-            
-        }
-
         public StockData(string stockId)
         {
             _stockId = stockId;
+        }
+
+        protected StockData()
+        {
         }
 
         public virtual string StockId
@@ -22,6 +21,7 @@ namespace Phundus.Core.Inventory.Application.Data
 
         public virtual int ConcurrencyVersion { get; set; }
 
+        public virtual int OrganizationId { get; set; }
         public virtual int ArticleId { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 {
     using Core.Inventory.Application.Data;
     using FluentNHibernate.Mapping;
+    using FluentNHibernate.MappingModel.Output;
 
     public class QuantityInInventoryDataMap : ClassMap<QuantityInInventoryData>
     {

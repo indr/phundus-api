@@ -27,6 +27,7 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
             _context.OrganizationId = new OrganizationId(organizationId);
             _context.ArticleId = new ArticleId(articleId);
             _context.StockId = new StockId(stockId);
+            _context.AddStock();
             _context.PastEvents.Add(new StockCreated(_context.OrganizationId, _context.ArticleId, _context.StockId));
 
             _stockRepository.Expect(

@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Core.Specs.Inventory
 {
+    using System.Collections.Generic;
     using Contexts;
+    using Core.Inventory.Application.Data;
     using Core.Inventory.Domain.Model.Catalog;
     using Core.Inventory.Domain.Model.Management;
     using IdentityAndAccess.Domain.Model.Organizations;
@@ -38,6 +40,23 @@
                     _sut = new Stock(PastEvents.Events, 1);
                 return _sut;
             }
+        }
+
+        private IDictionary<string, StockData> _stocks = new Dictionary<string, StockData>(); 
+
+        public void AddStock()
+        {
+            var stockData = new StockData(StockId.Id);
+            stockData.OrganizationId = OrganizationId.Id;
+            stockData.ArticleId = ArticleId.Id;
+            _stocks.Add(stockData.StockId, stockData);
+        }
+
+        public StockData GetStock(string stockId)
+        {
+            StockData result;
+            _stocks.TryGetValue(stockId, out result);
+            return result;
         }
     }
 }

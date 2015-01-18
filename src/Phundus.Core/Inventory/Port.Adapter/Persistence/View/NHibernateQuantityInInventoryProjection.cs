@@ -7,7 +7,6 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
     using Common.Port.Adapter.Persistence;
     using Domain.Model.Management;
     using NHibernate;
-    using NHibernate.Linq;
 
     public class NHibernateQuantityInInventoryProjection : NHibernateProjectionBase<QuantityInInventoryData>,
         IDomainEventHandler
@@ -19,7 +18,7 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
 
         private void Process(DomainEvent domainEvent)
         {
-           // Fallback
+            // Fallback
         }
 
         private IQueryOver<QuantityInInventoryData, QuantityInInventoryData> QueryWhere(int organizationId,
@@ -31,7 +30,8 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
 
         private void Process(QuantityInInventoryIncreased e)
         {
-            var record = QueryWhere(e.OrganizationId, e.ArticleId, e.StockId).And(p => p.AsOfUtc == e.AsOfUtc).SingleOrDefault();
+            var record =
+                QueryWhere(e.OrganizationId, e.ArticleId, e.StockId).And(p => p.AsOfUtc == e.AsOfUtc).SingleOrDefault();
             if (record == null)
                 record = new QuantityInInventoryData(e.OrganizationId, e.ArticleId, e.StockId);
 
@@ -46,7 +46,8 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
 
         private void Process(QuantityInInventoryDecreased e)
         {
-            var record = QueryWhere(e.OrganizationId, e.ArticleId, e.StockId).And(p => p.AsOfUtc == e.AsOfUtc).SingleOrDefault();
+            var record =
+                QueryWhere(e.OrganizationId, e.ArticleId, e.StockId).And(p => p.AsOfUtc == e.AsOfUtc).SingleOrDefault();
             if (record == null)
                 record = new QuantityInInventoryData(e.OrganizationId, e.ArticleId, e.StockId);
 
