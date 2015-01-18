@@ -23,15 +23,14 @@
         private Organization _organization;
         private OrderStatus _status = OrderStatus.Pending;
 
-
-        protected Order()
-        {
-        }
-
         public Order(Organization organization, Borrower borrower)
         {
             _organization = organization;
             _borrower = borrower;
+        }
+
+        protected Order()
+        {
         }
 
         public virtual int Id { get; protected set; }
