@@ -165,6 +165,8 @@
     <Compile Include="Inventory\Application\Commands\ChangeAllocationQuantity.cs" />
     <Compile Include="Inventory\Application\Commands\DiscardAllocation.cs" />
     <Compile Include="Inventory\Application\Data\AllocationData.cs" />
+    <Compile Include="Inventory\Application\Data\QuantityAvailableData.cs" />
+    <Compile Include="Inventory\Application\QuantitiesAvailableQueryService.cs" />
     <Compile Include="Inventory\Domain.Model\Catalog\AllocationStatus.cs" />
     <Compile Include="Inventory\Domain.Model\Management\Allocation.cs" />
     <Compile Include="Inventory\Domain.Model\Management\AllocationDiscarded.cs" />
@@ -211,6 +213,7 @@
     <Compile Include="Inventory\Domain.Model\Reservations\ReservationPeriodChanged.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreStockRepository.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateAllocationsProjection.cs" />
+    <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateQuantityAvailableProjection.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateQuantityInInventoryProjection.cs" />
     <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateReservationProjection.cs" />
     <Compile Include="Inventory\Application\Commands\AddImage.cs" />
