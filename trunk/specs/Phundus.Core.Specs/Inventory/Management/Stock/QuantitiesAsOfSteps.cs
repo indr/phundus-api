@@ -21,13 +21,19 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
         [Given(@"I changed quantity of (.*) at (.*)")]
         public void GivenIChangedQuantityOfAt_(int change, DateTime asOfUtc)
         {
-            _sut.ChangeAsOf(change, asOfUtc);
+            if (change > 0)
+                _sut.IncreaseAsOf(change, asOfUtc);
+            else
+                _sut.DecreaseAsOf(change * -1, asOfUtc);
         }
 
         [When(@"I change quantity of (.*) at (.*)")]
         public void WhenIChangeQuantityOfAt_(int change, DateTime asOfUtc)
         {
-            _sut.ChangeAsOf(change, asOfUtc);
+            if (change > 0)
+                _sut.IncreaseAsOf(change, asOfUtc);
+            else
+                _sut.DecreaseAsOf(change * -1, asOfUtc);
         }
 
         [Then(@"the total as of (.*) should be (.*)")]

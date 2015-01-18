@@ -24,22 +24,60 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
             _context = context;
         }
 
-        [When(@"allocate (.*) with id (.*) for reservation (.*) from (.*) to (.*)")]
-        public void WhenAllocateItemForReservationFrom_To_(int quantity, Guid allocationId, string reservationId,
-            DateTime fromUtc, DateTime toUtc)
+        [When(@"allocate stock, allocation id (.*), reservation id (.*), from (.*) to (.*), quantity (.*)")]
+        public void WhenAllocateItemForReservationFrom_To_(Guid allocationId, string reservationId,
+            DateTime fromUtc, DateTime toUtc, int quantity)
         {
             _container.Resolve<AllocateStockHandler>().Handle(new AllocateStock(
                 _context.OrganizationId, _context.ArticleId, _context.StockId, new AllocationId(allocationId),
                 new ReservationId(reservationId), new Period(fromUtc, toUtc), quantity));
         }
 
-        [Then(@"stock allocated (.*), (Unavailable|Allocated)")]
-        public void ThenStockAllocatedPromised(Guid allocationId, AllocationStatus status)
+        [Given(@"stock allocated, allocation id (.*), reservation id (.*), from (.*) to (.*), quantity (.*)")]
+        public void GivenStockAllocatedAllocationIdReservationIdFromToQuantity(Guid allocationId, string reservationId, DateTime fromUtc, DateTime toUtc, int quantity)
+        {
+            _context.PastEvents.Add(new StockAllocated(_context.OrganizationId, _context.ArticleId, _context.StockId, new AllocationId(allocationId),
+                new ReservationId(reservationId), new Period(fromUtc, toUtc), quantity, AllocationStatus.Unknown));
+        }
+
+        [Then(@"stock allocated (.*)")]
+        public void ThenStockAllocatedPromised(Guid allocationId)
         {
             var actual = _context.MutatingEvents.GetNextExpectedEvent<StockAllocated>();
             Assert.That(actual.AllocationId, Is.EqualTo(allocationId));
-            Assert.That(actual.AllocationStatus, Is.EqualTo(status));
         }
+
+        [When(@"change allocation period, allocation id (.*), new from (.*) to (.*)")]
+        public void WhenChangeAllocationPeriodAllocationIdNewFromTo(Guid allocationId, DateTime newFromUtc, DateTime newToUtc)
+        {
+            _container.Resolve<ChangeAllocationPeriodHandler>().Handle(new ChangeAllocationPeriod(
+                _context.OrganizationId, _context.ArticleId, _context.StockId, new AllocationId(allocationId), new Period(newFromUtc, newToUtc)));
+        }
+
+        [Then(@"allocation period changed, allocation id (.*), new from (.*) to (.*)")]
+        public void ThenAllocationPeriodChangedAllocationIdNewFrom_To_(Guid allocationId, DateTime newFromUtc, DateTime newToUtc)
+        {
+            var actual = _context.MutatingEvents.GetNextExpectedEvent<AllocationPeriodChanged>();
+            Assert.That(actual.AllocationId, Is.EqualTo(allocationId));
+            Assert.That(actual.NewFromUtc, Is.EqualTo(newFromUtc));
+            Assert.That(actual.NewToUtc, Is.EqualTo(newToUtc));
+        }
+
+        [When(@"change allocation quantity, allocation id (.*), new quantity (.*)")]
+        public void WhenChangeAllocationQuantityAllocationIdNewQuantity(Guid allocationId, int newQuantity)
+        {
+            _container.Resolve<ChangeAllocationQuantityHandler>().Handle(new ChangeAllocationQuantity(
+                _context.OrganizationId, _context.ArticleId, _context.StockId, new AllocationId(allocationId), newQuantity));
+        }
+
+        [Then(@"allocation quantity changed, allocation id (.*), new quantity (.*)")]
+        public void ThenAllocationQuantityChangedAllocationIdNewQuantity(Guid allocationId, int newQuantity)
+        {
+            var actual = _context.MutatingEvents.GetNextExpectedEvent<AllocationQuantityChanged>();
+            Assert.That(actual.AllocationId, Is.EqualTo(allocationId));
+            Assert.That(actual.NewQuantity, Is.EqualTo(newQuantity));
+        }
+
 
         [Then(@"allocations")]
         public void ThenAllocations(Table table)

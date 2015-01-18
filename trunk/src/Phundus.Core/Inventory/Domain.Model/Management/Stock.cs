@@ -25,7 +25,7 @@
     /// </summary>
     public class Stock : EventSourcedRootEntity
     {
-        private readonly IList<Allocation> _allocations = new List<Allocation>();
+        private readonly Allocations _allocations = new Allocations();
         private readonly QuantitiesAsOf _available = new QuantitiesAsOf();
         private readonly QuantitiesAsOf _inInventory = new QuantitiesAsOf();
 
@@ -58,9 +58,9 @@
             get { return _available.Quantities; }
         }
 
-        public IList<Allocation> Allocations
+        public ICollection<Allocation> Allocations
         {
-            get { return _allocations; }
+            get { return _allocations.Items; }
         }
 
         protected override IEnumerable<object> GetIdentityComponents()
@@ -99,16 +99,14 @@
 
         protected void When(QuantityInInventoryIncreased e)
         {
-            _inInventory.ChangeAsOf(e.Change, e.AsOfUtc);
-            _available.ChangeAsOf(e.Change, e.AsOfUtc);
+            _inInventory.IncreaseAsOf(e.Change, e.AsOfUtc);
+            _available.IncreaseAsOf(e.Change, e.AsOfUtc);
         }
 
         protected void When(QuantityInInventoryDecreased e)
         {
-            var change = e.Change*-1;
-
-            _inInventory.ChangeAsOf(change, e.AsOfUtc);
-            _available.ChangeAsOf(change, e.AsOfUtc);
+            _inInventory.DecreaseAsOf(e.Change, e.AsOfUtc);
+            _available.DecreaseAsOf(e.Change, e.AsOfUtc);
         }
 
         protected void When(QuantityAvailableChanged e)
@@ -123,15 +121,28 @@
             Apply(new StockAllocated(OrganizationId, ArticleId, StockId, allocationId, reservationId, period, quantity,
                 status));
 
+            _available.DecreaseAsOf(quantity, period.FromUtc);
+            _available.IncreaseAsOf(quantity, period.ToUtc);
 
-            var toUtc = period.ToUtc;
-            _available.ChangeAsOf(quantity*-1, period.FromUtc);
-            _available.ChangeAsOf(quantity, toUtc);
-            var availableAsOfFrom = _available.GetTotalAsOf(period.FromUtc);
-            var availableAsOfTo = _available.GetTotalAsOf(toUtc);
-            Apply(new QuantityAvailableChanged(OrganizationId, ArticleId, StockId, quantity*-1, availableAsOfFrom,
-                period.FromUtc));
-            Apply(new QuantityAvailableChanged(OrganizationId, ArticleId, StockId, quantity, availableAsOfTo, toUtc));
+            Apply(CreateQuantityAvailableDecreased(quantity, period.FromUtc));
+            Apply(CreateQuantityAvailableIncreased(quantity, period.ToUtc));
+        }
+
+        protected void When(StockAllocated e)
+        {
+            _allocations.Add(new Allocation(new AllocationId(e.AllocationId), new ReservationId(e.ReservationId), e.Period, e.Quantity));
+        }
+        
+        private QuantityAvailableChanged CreateQuantityAvailableIncreased(int change, DateTime asOfUtc)
+        {
+            var total = _available.GetTotalAsOf(asOfUtc);
+            return new QuantityAvailableChanged(OrganizationId, ArticleId, StockId, change, total, asOfUtc);
+        }
+
+        private QuantityAvailableChanged CreateQuantityAvailableDecreased(int change, DateTime asOfUtc)
+        {
+            var total = _available.GetTotalAsOf(asOfUtc);
+            return new QuantityAvailableChanged(OrganizationId, ArticleId, StockId, change*-1, total, asOfUtc);
         }
 
         private AllocationStatus CalculateAllocationStatus(Period period, int quantity)
@@ -142,41 +153,34 @@
             return AllocationStatus.Unavailable;
         }
 
-        protected void When(StockAllocated e)
-        {
-            _allocations.Add(new Allocation(new AllocationId(e.AllocationId), new ReservationId(e.ReservationId),  e.Period, e.Quantity));
-        }
+        
 
         public virtual void ChangeAllocationPeriod(AllocationId allocationId, Period newPeriod)
         {
-            var allocation = GetAllocation(allocationId);
+            var allocation = _allocations.Get(allocationId);
 
             Apply(new AllocationPeriodChanged(OrganizationId, ArticleId, StockId, allocation.AllocationId, allocation.Period, newPeriod));
         }
 
         protected void When(AllocationPeriodChanged e)
         {
-            
+            var allocation = _allocations.Get(new AllocationId(e.AllocationId));
+
+            allocation.ChangePeriod(e.NewPeriod);
         }
 
         public virtual void ChangeAllocationQuantity(AllocationId allocationId, int newQuantity)
         {
-            var allocation = GetAllocation(allocationId);
+            var allocation = _allocations.Get(allocationId);
 
             Apply(new AllocationQuantityChanged(OrganizationId, ArticleId, StockId, allocation.AllocationId, allocation.Quantity, newQuantity));
         }
 
-        private Allocation GetAllocation(AllocationId allocationId)
-        {
-            var result = _allocations.SingleOrDefault(p => Equals(p.AllocationId, allocationId));
-            if (result == null)
-                throw new AllocationNotFoundException(allocationId);
-            return result;
-        }
-
         protected void When(AllocationQuantityChanged e)
         {
-            
+            var allocation = _allocations.Get(new AllocationId(e.AllocationId));
+
+            allocation.ChangeQuantity(e.NewQuantity);
         }
 
         public virtual void DiscardAllocation(AllocationId allocationId)

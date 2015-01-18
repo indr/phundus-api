@@ -26,5 +26,15 @@
         {
             yield return AllocationId;
         }
+
+        public void ChangeQuantity(int newQuantity)
+        {
+            Quantity = newQuantity;
+        }
+
+        public void ChangePeriod(Period newPeriod)
+        {
+            Period = newPeriod;
+        }
     }
 }

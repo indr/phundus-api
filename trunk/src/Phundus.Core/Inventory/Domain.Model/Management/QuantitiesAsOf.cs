@@ -38,7 +38,17 @@
                 .All(each => each.Total >= quantity);
         }
 
-        public void ChangeAsOf(int change, DateTime asOfUtc)
+        public void IncreaseAsOf(int change, DateTime asOfUtc)
+        {
+            ChangeAsOf(change, asOfUtc);
+        }
+
+        public void DecreaseAsOf(int change, DateTime asOfUtc)
+        {
+            ChangeAsOf(change * -1, asOfUtc);
+        }
+
+        private void ChangeAsOf(int change, DateTime asOfUtc)
         {
             AssertionConcern.AssertArgumentNotZero(change, "Change must be greater than zero.");
             AssertionConcern.AssertArgumentNotEmpty(asOfUtc, "As of utc must be provided.");
