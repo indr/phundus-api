@@ -24,6 +24,12 @@
         protected static Period _period = Period.FromTodayToTomorrow;
         protected static int _quantity = 1;
         protected static Guid _orderItemId;
+
+        private Establish ctx = () =>
+        {
+            depends.on<Organization>(OrganizationFactory.Create());
+            depends.on<Borrower>(BorrowerFactory.Create());
+        };
     }
 
     [Subject(typeof (Order))]

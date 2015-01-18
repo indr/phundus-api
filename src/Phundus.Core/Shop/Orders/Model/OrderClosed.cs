@@ -9,9 +9,9 @@ namespace Phundus.Core.Shop.Orders.Model
     using IdentityAndAccess.Domain.Model.Users;
 
     [DataContract]
-    public class OrderRejected : DomainEvent
+    public class OrderClosed : DomainEvent
     {
-        public OrderRejected(UserId initiatorId, OrganizationId organizationId, OrderId orderId,
+        public OrderClosed(UserId initiatorId, OrganizationId organizationId, OrderId orderId,
             ICollection<Guid> orderItemIds)
         {
             OrderId = orderId.Id;
@@ -20,7 +20,7 @@ namespace Phundus.Core.Shop.Orders.Model
             OrderItemIds = orderItemIds;
         }
 
-        protected OrderRejected()
+        protected OrderClosed()
         {
         }
 
