@@ -5,6 +5,10 @@ namespace Phundus.Common.Domain.Model
 
     public class Period : ValueObject
     {
+        public Period(DateTime fromUtc) : this(fromUtc, DateTime.MaxValue)
+        {
+        }
+
         public Period(DateTime fromUtc, DateTime toUtc)
         {
             AssertionConcern.AssertArgumentGreaterThan(toUtc, fromUtc, "To utc must be greater than from utc.");

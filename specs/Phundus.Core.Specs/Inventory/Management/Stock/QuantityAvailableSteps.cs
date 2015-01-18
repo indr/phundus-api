@@ -16,16 +16,22 @@
             _context = stockContext;
         }
 
-        [Then(@"quantity available changed of (.*) to (.*) as of (.*)")]
-        public void ThenQuantityAvailableChangedOfToAsOf_(int change, int total, DateTime asOfUtc)
+        [Then(@"quantity available changed from (.*) of (.*)")]
+        public void ThenQuantityAvailableChangedFromOf(DateTime fromUtc, int change)
+        {
+            ThenQuantityAvailableChangedFromToOf(fromUtc, DateTime.MaxValue, change);
+        }
+
+        [Then(@"quantity available changed from (.*) to (.*) of (.*)")]
+        public void ThenQuantityAvailableChangedFromToOf(DateTime fromUtc, DateTime toUtc, int change)
         {
             var actual = _context.MutatingEvents.GetNextExpectedEvent<QuantityAvailableChanged>();
             Assert.That(actual.OrganizationId, Is.EqualTo(_context.OrganizationId.Id));
             Assert.That(actual.ArticleId, Is.EqualTo(_context.ArticleId.Id));
             Assert.That(actual.StockId, Is.EqualTo(_context.StockId.Id));
+            Assert.That(actual.FromUtc, Is.EqualTo(fromUtc));
+            Assert.That(actual.ToUtc, Is.EqualTo(toUtc));
             Assert.That(actual.Change, Is.EqualTo(change));
-            Assert.That(actual.Total, Is.EqualTo(total));
-            Assert.That(actual.AsOfUtc, Is.EqualTo(asOfUtc));
         }
 
         [Then(@"quantities available")]
