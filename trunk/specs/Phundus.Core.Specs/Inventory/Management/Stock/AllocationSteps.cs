@@ -41,7 +41,7 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
         }
 
         [Then(@"stock allocated (.*)")]
-        public void ThenStockAllocatedPromised(Guid allocationId)
+        public void ThenStockAllocated(Guid allocationId)
         {
             var actual = _context.MutatingEvents.GetNextExpectedEvent<StockAllocated>();
             Assert.That(actual.AllocationId, Is.EqualTo(allocationId));
@@ -78,6 +78,19 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
             Assert.That(actual.NewQuantity, Is.EqualTo(newQuantity));
         }
 
+        [When(@"discarding allocation allocation id (.*)")]
+        public void WhenDiscardingAllocationAllocationId(Guid allocationId)
+        {
+            _container.Resolve<DiscardAllocationHandler>().Handle(new DiscardAllocation(_context.OrganizationId, _context.ArticleId,
+                _context.StockId, new AllocationId(allocationId)));
+        }
+
+        [Then(@"allocation discarded allocation id (.*)")]
+        public void ThenAllocationDiscardedAllocationId(Guid allcationId)
+        {
+            var actual = _context.MutatingEvents.GetNextExpectedEvent<AllocationDiscarded>();
+            Assert.That(actual.AllocationId, Is.EqualTo(allcationId));
+        }
 
         [Then(@"allocations")]
         public void ThenAllocations(Table table)
@@ -93,5 +106,12 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
                 });
             table.CompareToSet(actual);
         }
+
+        [Then(@"allocations is empty")]
+        public void ThenAllocationsIsEmpty()
+        {
+            Assert.That(_context.Sut.Allocations, Is.Empty);
+        }
+
     }
 }

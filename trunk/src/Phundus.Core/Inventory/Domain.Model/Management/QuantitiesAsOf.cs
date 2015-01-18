@@ -74,6 +74,9 @@
 
             UpdateFutures(change, asOfUtc);
 
+            if (quantityAsOf.Change == 0)
+                _quantities.Remove(quantityAsOf);
+
             _quantities = _quantities.OrderBy(ks => ks.AsOfUtc).ToList();
         }
 

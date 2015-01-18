@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Inventory.Domain.Model.Management
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -24,6 +25,12 @@
         public ICollection<Allocation> Items
         {
             get { return new ReadOnlyCollection<Allocation>(_allocations); }
+        }
+
+        public void Remove(AllocationId allocationId)
+        {
+            var allocation = Get(allocationId);
+            _allocations.Remove(allocation);
         }
     }
 }

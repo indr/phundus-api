@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Inventory.Domain.Model.Management
 {
     using System;
+    using System.Data.Linq.Mapping;
     using System.Runtime.Serialization;
     using Catalog;
     using Common;
@@ -10,20 +11,19 @@
     [DataContract]
     public class QuantityAvailableChanged : DomainEvent
     {
-        public QuantityAvailableChanged(OrganizationId organizationId, ArticleId articleId, StockId stockId, int change, int total, DateTime asOfUtc)
+        public QuantityAvailableChanged(OrganizationId organizationId, ArticleId articleId, StockId stockId, Period period, int change)
         {
             AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
             AssertionConcern.AssertArgumentNotNull(stockId, "Stock id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(period, "Period must be provided");
             AssertionConcern.AssertArgumentNotZero(change, "Change must be greater or less than zero.");
-            AssertionConcern.AssertArgumentNotEmpty(asOfUtc, "As of utc must be provided.");
 
             OrganizationId = organizationId.Id;
             ArticleId = articleId.Id;
             StockId = stockId.Id;
+            Period = period;
             Change = change;
-            Total = total;
-            AsOfUtc = asOfUtc;
         }
 
         protected QuantityAvailableChanged()
@@ -41,12 +41,22 @@
         public string StockId { get; set; }
 
         [DataMember(Order = 4)]
-        public int Change { get; set; }
+        public DateTime FromUtc { get; protected set; }
 
         [DataMember(Order = 5)]
-        public int Total { get; set; }
+        public DateTime ToUtc { get; protected set; }
 
         [DataMember(Order = 6)]
-        public DateTime AsOfUtc { get; set; }
+        public int Change { get; set; }
+
+        public Period Period
+        {
+            get { return new Period(FromUtc, ToUtc);}
+            set
+            {
+                FromUtc = value.FromUtc;
+                ToUtc = value.ToUtc;
+            }
+        }
     }
 }

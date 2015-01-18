@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Core.Specs.Inventory.Management.Stock
 {
     using System;
+    using Contexts;
+    using Core.Inventory.Application.Commands;
     using Core.Inventory.Domain.Model.Management;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
@@ -9,10 +11,12 @@
     [Binding]
     public class QuantityInInventorySteps
     {
+        private readonly Container _container;
         private readonly StockContext _context;
 
-        public QuantityInInventorySteps(StockContext stockContext)
+        public QuantityInInventorySteps(Container container, StockContext stockContext)
         {
+            _container = container;
             _context = stockContext;
         }
 
@@ -28,6 +32,22 @@
         {
             _context.PastEvents.Add(new QuantityInInventoryDecreased(_context.OrganizationId, _context.ArticleId,
                 _context.StockId, change, total, asOfUtc, null));
+        }
+
+        [When(@"increase quantity in inventory of (.*) as of (.*)")]
+        public void WhenIncreaseQuantityInInventory(int quantity, DateTime asOfUtc)
+        {
+            _container.Resolve<ChangeQuantityInInventoryHandler>()
+                .Handle(new ChangeQuantityInInventory(_context.InitiatorId, _context.OrganizationId, _context.ArticleId,
+                    _context.StockId, quantity, asOfUtc, null));
+        }
+
+        [When(@"decrease quantity in inventory of (.*) as of (.*)")]
+        public void WhenDecreaseQuantityInInventory(int quantity, DateTime asOfUtc)
+        {
+            _container.Resolve<ChangeQuantityInInventoryHandler>()
+                .Handle(new ChangeQuantityInInventory(_context.InitiatorId, _context.OrganizationId, _context.ArticleId,
+                    _context.StockId, quantity * -1, asOfUtc, null));
         }
 
         [Then(@"quantity in inventory increased of (.*) to (.*) as of (.*)")]
