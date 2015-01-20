@@ -51,15 +51,19 @@ function InInventoryCtrl($scope, $routeParams, stocks, quantitiesInInventory) {
         });
     };
 
+    $scope.newItem = {
+        comment: 'Manuelle Bestandesänderung', change: 1, asOfUtc: new Date(),
+        organizationId: $scope.organizationId, articleId: $scope.articleId, stockId: $scope.stockId
+    };
+
+    $scope.showChangeQuantity = function () {
+        $('#modal-change-quantity').modal('show');
+    };
+
     $scope.changeQuantity = function() {
-        var change = prompt('Bestand veränderum um', '');
-        if (change == null)
-            return;
 
         quantitiesInInventory.save({ organizationId: $scope.organizationId, articleId: $scope.articleId, stockId: $scope.stockId },
-        {
-            change: change
-        }, function() {
+        $scope.newItem, function() {
 
             $scope.queryQuantitiesInInventory();
         }, function () { });
