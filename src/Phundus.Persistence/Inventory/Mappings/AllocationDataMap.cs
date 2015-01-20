@@ -13,11 +13,12 @@
             Id(x => x.AllocationId).GeneratedBy.Assigned();
             Version(x => x.ConcurrencyVersion);
 
+            Map(x => x.AllocationStatus);
             Map(x => x.ArticleId);
             Map(x => x.FromUtc);
             Map(x => x.OrganizationId);
+            Map(x => x.ReservationId);
             Map(x => x.Quantity);
-            Map(x => x.Status);
             Map(x => x.StockId);
             Map(x => x.ToUtc);
         }

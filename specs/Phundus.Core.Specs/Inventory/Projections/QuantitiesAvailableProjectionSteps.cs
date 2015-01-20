@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.InteropServices;
     using Common.Domain.Model;
     using Contexts;
     using Core.Inventory.Application;
@@ -18,7 +17,6 @@
         private readonly Container _container;
         private readonly StockContext _context;
         private IEnumerable<QuantityAvailableData> _quantitiesAvailable;
-
 
         public QuantitiesAvailableProjectionSteps(Container container, StockContext context)
         {
@@ -40,16 +38,20 @@
         }
 
         [Given(@"quantity available changed from (.*) to (.*) of (.*) in (.*)")]
-        public void GivenQuantityAvailableChangedFromToOfInStock(DateTime fromUtc, DateTime toUtc, int change, string stockId)
+        public void GivenQuantityAvailableChangedFromToOfInStock(DateTime fromUtc, DateTime toUtc, int change,
+            string stockId)
         {
-            _context.PastEvents.Add(new QuantityAvailableChanged(_context.OrganizationId, _context.ArticleId, new StockId(stockId), 
+            _context.PastEvents.Add(new QuantityAvailableChanged(_context.OrganizationId, _context.ArticleId,
+                new StockId(stockId),
                 new Period(fromUtc, toUtc), change));
         }
 
         [When(@"I ask for quantities available in stock ""(.*)""")]
         public void WhenIAskForQuantitiesAvailableInStock(string stockId)
         {
-            _quantitiesAvailable = GetQuantitiesAvailableQueryService().AllQuantitiesAvailableByStockId(_context.OrganizationId.Id, _context.ArticleId.Id, stockId);
+            _quantitiesAvailable =
+                GetQuantitiesAvailableQueryService()
+                    .AllQuantitiesAvailableByStockId(_context.OrganizationId.Id, _context.ArticleId.Id, stockId);
         }
 
         [Then(@"quantities available data")]
