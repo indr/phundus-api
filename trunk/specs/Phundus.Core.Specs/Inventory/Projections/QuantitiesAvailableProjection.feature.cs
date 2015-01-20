@@ -393,6 +393,34 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("DateTime.MaxValue support")]
+        public virtual void DateTime_MaxValueSupport()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DateTime.MaxValue support", ((string[])(null)));
+#line 91
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 92
+ testRunner.Given("quantity available changed from 09.11.2014 to 31.12.9999 23:59:59 of 2 in Stock1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 93
+ testRunner.When("I ask for quantities available in stock \"Stock1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                        "StockId",
+                        "AsOfUtc",
+                        "Quantity"});
+            table9.AddRow(new string[] {
+                        "Stock1",
+                        "09.11.2014",
+                        "2"});
+#line 94
+ testRunner.Then("quantities available data", ((string)(null)), table9, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

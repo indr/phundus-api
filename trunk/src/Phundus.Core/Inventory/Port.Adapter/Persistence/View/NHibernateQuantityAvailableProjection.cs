@@ -22,17 +22,40 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
 
         private void Process(QuantityAvailableChanged e)
         {
-            ProcessTo(e.StockId, e.ToUtc, e.Change);
+            ProcessTo(e, e.ToUtc, e.Change);
 
-            ProcessFrom(e.StockId, e.FromUtc, e.Change);
+            ProcessFrom(e, e.FromUtc, e.Change);
 
-            ProcessInPeriod(e.StockId, e.FromUtc, e.ToUtc, e.Change);
+            ProcessInPeriod(e, e.FromUtc, e.ToUtc, e.Change);
         }
 
-        private void ProcessInPeriod(string stockId, DateTime fromUtc, DateTime toUtc, int change)
+        private void ProcessTo(QuantityAvailableChanged e, DateTime toUtc, int change)
+        {
+            if (toUtc.Date == DateTime.MaxValue.Date)
+                return;
+
+            if (HasAtAsOfUtc(e.StockId, toUtc))
+                return;
+
+            var quantityBeforeToUtc = GetQuantityBefore(e.StockId, toUtc);
+
+            InsertNew(e, toUtc, quantityBeforeToUtc);
+        }
+
+        private void ProcessFrom(QuantityAvailableChanged e, DateTime fromUtc, int change)
+        {
+            if (UpdateAtAsOfUtc(e.StockId, fromUtc, change))
+                return;
+
+            var quantityBeforeFromUtc = GetQuantityBefore(e.StockId, fromUtc);
+
+            InsertNew(e, fromUtc, quantityBeforeFromUtc + change);
+        }
+
+        private void ProcessInPeriod(QuantityAvailableChanged e, DateTime fromUtc, DateTime toUtc, int change)
         {
             var records =
-                Query.Where(p => p.StockId == stockId).And(p => p.AsOfUtc > fromUtc).And(p => p.AsOfUtc < toUtc).List();
+                Query.Where(p => p.StockId == e.StockId).And(p => p.AsOfUtc > fromUtc).And(p => p.AsOfUtc < toUtc).List();
             foreach (var each in records)
             {
                 each.Quantity += change;
@@ -40,29 +63,9 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
             }
         }
 
-        private void ProcessTo(string stockId, DateTime toUtc, int change)
-        {
-            if (HasAtAsOfUtc(stockId, toUtc))
-                return;
-
-            var quantityBeforeToUtc = GetQuantityBefore(stockId, toUtc);
-
-            InsertNew(stockId, toUtc, quantityBeforeToUtc);
-        }
-
         private bool HasAtAsOfUtc(string stockId, DateTime asOfUtc)
         {
             return null != Query.Where(p => p.StockId == stockId).And(p => p.AsOfUtc == asOfUtc).SingleOrDefault();
-        }
-
-        private void ProcessFrom(string stockId, DateTime fromUtc, int change)
-        {
-            if (UpdateAtAsOfUtc(stockId, fromUtc, change))
-                return;
-
-            var quantityBeforeFromUtc = GetQuantityBefore(stockId, fromUtc);
-
-            InsertNew(stockId, fromUtc, quantityBeforeFromUtc + change);
         }
 
         private bool UpdateAtAsOfUtc(string stockId, DateTime asOfUtc, int change)
@@ -86,9 +89,9 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
             return result.Quantity;
         }
 
-        private void InsertNew(string stockId, DateTime asOfUtc, int change)
+        private void InsertNew(QuantityAvailableChanged e, DateTime asOfUtc, int change)
         {
-            var record = new QuantityAvailableData(stockId, asOfUtc);
+            var record = new QuantityAvailableData(e.OrganizationId, e.ArticleId, e.StockId, asOfUtc);
             record.Quantity = change;
 
             Save(record);

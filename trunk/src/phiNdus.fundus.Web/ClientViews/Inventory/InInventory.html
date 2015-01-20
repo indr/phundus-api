@@ -3,12 +3,15 @@
 <div class="tabbable">
     <ul class="nav nav-tabs">
         <li><a ng-href="./article/edit/{{articleId}}">Eigenschaften</a></li>
-        <li><a ng-href="./article/files/{{articleId}}">Dateien</a></li>
-        <li><a ng-href="./article/categories/{{articleId}}">Kategorien</a></li>
-        <li class="active"><a href="#">Bestand</a></li>
+        <li><a ng-href="./article/images/{{articleId}}">Dateien</a></li>
+        <!--<li><a ng-href="./article/categories/{{articleId}}">Kategorien</a></li>-->
         <li><a ng-href="./article/availability/{{articleId}}">Verfügbarkeit</a></li>
-        <li><a href="#articles/{{articleId}}/reservations">Reservationen 2</a></li>
-        <li><a ng-href="./article/reservations/{{articleId}}">Reservationen</a></li>      
+        <li><a ng-href="./article/reservations/{{articleId}}">Reservationen</a></li>
+
+        <li class="active"><a href="#articles/{{articleId}}/in-inventory">Bestand (NEU)</a></li>
+        <li><a href="#articles/{{articleId}}/availabilities">Verfügbarkeit (NEU)</a></li>
+        <li><a href="#articles/{{articleId}}/allocations">Allokationen (NEU)</a></li>
+        <li><a href="#articles/{{articleId}}/reservations">Reservationen (NEU)</a></li>
     </ul>
 
     <div class="tab-content">

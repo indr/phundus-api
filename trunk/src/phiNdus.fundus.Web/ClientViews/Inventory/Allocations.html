@@ -10,8 +10,8 @@
 
         <li><a href="#articles/{{articleId}}/in-inventory">Bestand (NEU)</a></li>
         <li><a href="#articles/{{articleId}}/availabilities">Verfügbarkeit (NEU)</a></li>
-        <li><a href="#articles/{{articleId}}/allocations">Allokationen (NEU)</a></li>
-        <li class="active"><a href="#articles/{{articleId}}/reservations">Reservationen (NEU)</a></li> 
+        <li class="active"><a href="#articles/{{articleId}}/allocations">Allokationen (NEU)</a></li>
+        <li><a href="#articles/{{articleId}}/reservations">Reservationen (NEU)</a></li> 
     </ul>
 
     <div class="tab-content">
@@ -21,7 +21,7 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Bestellung</th>
+                        <th>Reservation</th>
                         <th>Von</th>
                         <th>Bis</th>
                         <th>Menge</th>
@@ -29,13 +29,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="reservation in reservations">
-                        <td>{{reservation.reservationId}}</td>
-                        <td>{{reservation.orderId}}</td>
-                        <td>{{reservation.fromUtc | date:'medium'}}</td>
-                        <td>{{reservation.toUtc | date:'medium'}}</td>
-                        <td>{{reservation.quantity}}</td>
-                        <td>{{reservation.reservationStatus}}</td>
+                    <tr ng-repeat="allocation in allocations">
+                        <td>{{allocation.allocationId}}</td>
+                        <td>{{allocation.reservationId}}</td>
+                        <td>{{allocation.fromUtc | date:'medium'}}</td>
+                        <td>{{allocation.toUtc | date:'medium'}}</td>
+                        <td>{{allocation.quantity}}</td>
+                        <td>{{allocation.allocationStatus}}</td>
                     </tr>
                 </tbody>
             </table>            

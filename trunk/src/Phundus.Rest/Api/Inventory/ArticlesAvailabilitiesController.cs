@@ -8,17 +8,17 @@ namespace Phundus.Rest.Api.Inventory
     using Castle.Transactions;
     using Core.Inventory.Application;
 
-    [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/allocations")]
+    [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/availabilities")]
     [Authorize(Roles = "Admin")]
-    public class ArticlesAllocationsController : ApiControllerBase
+    public class ArticlesAvailabilitiesController : ApiControllerBase
     {
-        public IAllocationsQueryService AllocationsQueryService { get; set; }
+        public IQuantitiesAvailableQueryService QuantitiesAvailableQueryService { get; set; }
 
         [GET("")]
         [Transaction]
         public virtual HttpResponseMessage Get(int organizationId, int articleId)
         {
-            var result = AllocationsQueryService.AllAllocationsByArticleId(organizationId, articleId);
+            var result = QuantitiesAvailableQueryService.AllQuantitiesAvailableByArticleId(organizationId, articleId);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
     }

@@ -6,12 +6,12 @@
         <li><a ng-href="./article/images/{{articleId}}">Dateien</a></li>
         <!--<li><a ng-href="./article/categories/{{articleId}}">Kategorien</a></li>-->
         <li><a ng-href="./article/availability/{{articleId}}">Verfügbarkeit</a></li>
-        <li><a ng-href="./article/reservations/{{articleId}}">Reservationen</a></li>
-
+        <li><a ng-href="./article/reservations/{{articleId}}">Reservationen</a></li>      
+        
         <li><a href="#articles/{{articleId}}/in-inventory">Bestand (NEU)</a></li>
-        <li><a href="#articles/{{articleId}}/availabilities">Verfügbarkeit (NEU)</a></li>
+        <li class="active"><a href="#articles/{{articleId}}/availabilities">Verfügbarkeit (NEU)</a></li>
         <li><a href="#articles/{{articleId}}/allocations">Allokationen (NEU)</a></li>
-        <li class="active"><a href="#articles/{{articleId}}/reservations">Reservationen (NEU)</a></li> 
+        <li><a href="#articles/{{articleId}}/reservations">Reservationen (NEU)</a></li>
     </ul>
 
     <div class="tab-content">
@@ -20,22 +20,16 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Bestellung</th>
-                        <th>Von</th>
-                        <th>Bis</th>
+                        <th>StockId</th>
+                        <th>Ab</th>
                         <th>Menge</th>
-                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="reservation in reservations">
-                        <td>{{reservation.reservationId}}</td>
-                        <td>{{reservation.orderId}}</td>
-                        <td>{{reservation.fromUtc | date:'medium'}}</td>
-                        <td>{{reservation.toUtc | date:'medium'}}</td>
-                        <td>{{reservation.quantity}}</td>
-                        <td>{{reservation.reservationStatus}}</td>
+                    <tr ng-repeat="availability in availabilities">
+                        <td>{{availability.stockId}}</td>
+                        <td>{{availability.asOfUtc | date:'medium'}}</td>
+                        <td>{{availability.quantity}}</td>
                     </tr>
                 </tbody>
             </table>            

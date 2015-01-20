@@ -2,7 +2,9 @@
 angular.module('ph.inventory', ['ph.resources', 'ph.domain', 'ph.ui', 'ui', 'ui.bootstrap'])
     .config(function($routeProvider) {
     $routeProvider
-        .when('/articles/:articleId/stocks', { controller: StocksCtrl, templateUrl: '../../clientviews/inventory/stocks.html' })
+        .when('/articles/:articleId/in-inventory', { controller: InInventoryCtrl, templateUrl: '../../clientviews/inventory/ininventory.html' })
+        .when('/articles/:articleId/availabilities', { controller: AvailabilitiesCtrl, templateUrl: '../../clientviews/inventory/availabilities.html' })
+        .when('/articles/:articleId/allocations', { controller: AllocationsCtrl, templateUrl: '../../clientviews/inventory/allocations.html' })
         .when('/articles/:articleId/reservations', {controller: ReservationsCtrl, templateUrl: '../../clientviews/inventory/reservations.html'});
 }); // ph.inventory
 
@@ -15,7 +17,25 @@ function ReservationsCtrl($scope, $routeParams, reservations) {
     
 }; // ReservationsCtrl
 
-function StocksCtrl($scope, $routeParams, stocks, quantitiesInInventory) {
+function AvailabilitiesCtrl($scope, $routeParams, availabilities) {
+    $scope.isLoading = true;
+    $scope.articleId = $routeParams.articleId;
+
+    $scope.availabilities = availabilities.query({ organizationId: $scope.organizationId, articleId: $scope.articleId },
+       function (data) { $scope.isLoading = false; }, function () { $scope.isLoading = false; });
+
+}; // AvailabilitiesCtrl
+
+function AllocationsCtrl($scope, $routeParams, allocations) {
+    $scope.isLoading = true;
+    $scope.articleId = $routeParams.articleId;
+
+    $scope.allocations = allocations.query({ organizationId: $scope.organizationId, articleId: $scope.articleId },
+       function (data) { $scope.isLoading = false; }, function () { $scope.isLoading = false; });
+
+}; // AvailabilitiesCtrl
+
+function InInventoryCtrl($scope, $routeParams, stocks, quantitiesInInventory) {
     $scope.isLoading = true;
     $scope.articleId = $routeParams.articleId;
     $scope.stockId = null;

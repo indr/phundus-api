@@ -11,7 +11,7 @@
     using Core.Inventory.Domain.Model.Reservations;
 
     [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/reservations")]
-    public class ArticleReservationsController : ApiControllerBase
+    public class ArticlesReservationsController : ApiControllerBase
     {
         public IReservationQueryService ReservationQueryService { get; set; }
 

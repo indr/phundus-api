@@ -123,6 +123,14 @@
         return $resource('./api/organizations/:organizationId/articles/:articleId/stocks/:stockId/in-inventory');
     })
 
+    .factory('availabilities', function ($resource) {
+        return $resource('./api/organizations/:organizationId/articles/:articleId/availabilities');
+    })
+
+    .factory('allocations', function ($resource) {
+        return $resource('./api/organizations/:organizationId/articles/:articleId/allocations');
+    })
+
     .factory('reservations', function($resource) {
         return $resource('./api/organizations/:organizationId/articles/:articleId/reservations');
     })
