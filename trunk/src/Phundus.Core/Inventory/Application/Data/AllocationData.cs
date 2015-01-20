@@ -7,14 +7,16 @@
         private Guid _allocationId;
         private int _articleId;
         private int _organizationId;
+        private string _reservationId;
         private string _stockId;
 
-        public AllocationData(Guid allocationId, int organizationId, int articleId, string stockId)
+        public AllocationData(Guid allocationId, int organizationId, int articleId, string stockId, string reservationId)
         {
             _allocationId = allocationId;
             _organizationId = organizationId;
             _articleId = articleId;
             _stockId = stockId;
+            _reservationId = reservationId;
         }
 
         protected AllocationData()
@@ -24,32 +26,38 @@
         public virtual Guid AllocationId
         {
             get { return _allocationId; }
-            set { _allocationId = value; }
+            protected set { _allocationId = value; }
         }
 
-        public virtual int ConcurrencyVersion { get; set; }
+        public virtual int ConcurrencyVersion { get; protected set; }
 
         public virtual int OrganizationId
         {
             get { return _organizationId; }
-            set { _organizationId = value; }
+            protected set { _organizationId = value; }
         }
 
         public virtual int ArticleId
         {
             get { return _articleId; }
-            set { _articleId = value; }
+            protected set { _articleId = value; }
         }
 
         public virtual string StockId
         {
             get { return _stockId; }
-            set { _stockId = value; }
+            protected set { _stockId = value; }
+        }
+
+        public virtual string ReservationId
+        {
+            get { return _reservationId; }
+            protected set { _reservationId = value; }
         }
 
         public virtual DateTime FromUtc { get; set; }
         public virtual DateTime ToUtc { get; set; }
         public virtual int Quantity { get; set; }
-        public virtual string Status { get; set; }
+        public virtual string AllocationStatus { get; set; }
     }
 }

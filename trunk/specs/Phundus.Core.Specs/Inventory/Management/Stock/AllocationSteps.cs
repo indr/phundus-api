@@ -36,8 +36,14 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
         [Given(@"stock allocated, allocation id (.*), reservation id (.*), from (.*) to (.*), quantity (.*)")]
         public void GivenStockAllocatedAllocationIdReservationIdFromToQuantity(Guid allocationId, string reservationId, DateTime fromUtc, DateTime toUtc, int quantity)
         {
+            GivenStockAllocatedAllocationIdReservationIdFromToQuantityStatus(allocationId, reservationId, fromUtc, toUtc, quantity, AllocationStatus.Unknown);
+        }
+
+        [Given(@"stock allocated, allocation id (.*), reservation id (.*), from (.*) to (.*), quantity (.*), status (.*)")]
+        public void GivenStockAllocatedAllocationIdReservationIdFromToQuantityStatus(Guid allocationId, string reservationId, DateTime fromUtc, DateTime toUtc, int quantity, AllocationStatus allocationStatus)
+        {
             _context.PastEvents.Add(new StockAllocated(_context.OrganizationId, _context.ArticleId, _context.StockId, new AllocationId(allocationId),
-                new ReservationId(reservationId), new Period(fromUtc, toUtc), quantity, AllocationStatus.Unknown));
+                new ReservationId(reservationId), new Period(fromUtc, toUtc), quantity, allocationStatus));
         }
 
         [Then(@"stock allocated (.*)")]
