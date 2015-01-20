@@ -88,7 +88,7 @@
                     each.Id,
                     each.Version,
                     each.OrganizationId,
-                    CreateDate = DateTime.Now,
+                    CreateDate = DateTime.Now.AddDays(-10),
                     each.Name,
                     Brand = each.Marke,
                     Price = each.Preis,

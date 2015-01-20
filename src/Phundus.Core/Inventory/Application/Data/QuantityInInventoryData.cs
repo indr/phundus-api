@@ -8,15 +8,15 @@
         private int _organizationId;
         private string _stockId;
 
-        protected QuantityInInventoryData()
-        {
-        }
-
         public QuantityInInventoryData(int organizationId, int articleId, string stockId)
         {
             _organizationId = organizationId;
             _articleId = articleId;
             _stockId = stockId;
+        }
+
+        protected QuantityInInventoryData()
+        {
         }
 
         public virtual Guid Id { get; set; }
