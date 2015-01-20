@@ -44,10 +44,11 @@
         private void EmptyProjectionTables()
         {
             Delete.FromTable("ProcessedNotificationTracker").AllRows();
+            Delete.FromTable("Proj_ActivityData").AllRows();
             Delete.FromTable("Proj_StockData").AllRows();
             Delete.FromTable("Proj_ReservationData").AllRows();
             Delete.FromTable("Proj_AllocationData").AllRows();
-            Delete.FromTable("Proj_ActivityData").AllRows();
+            Delete.FromTable("Proj_QuantityAvailableData").AllRows();
             Delete.FromTable("Proj_QuantityInInventoryData").AllRows();
         }
 

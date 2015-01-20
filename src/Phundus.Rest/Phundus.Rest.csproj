@@ -116,8 +116,9 @@
     <Compile Include="Api\Diagnostics\SchemaUpdateController.cs" />
     <Compile Include="Api\Docs\OrderDocs.cs" />
     <Compile Include="Api\Inventory\ArticlesAllocationsController.cs" />
+    <Compile Include="Api\Inventory\ArticlesAvailabilitiesController.cs" />
     <Compile Include="Api\Inventory\ArticlesStocksInInventoryController.cs" />
-    <Compile Include="Api\Inventory\ArticleReservationsController.cs" />
+    <Compile Include="Api\Inventory\ArticlesReservationsController.cs" />
     <Compile Include="Api\Inventory\ArticlesStocksController.cs" />
     <Compile Include="Api\NotificationsController.cs" />
     <Compile Include="Api\Organizations\Docs\OrganizationsOrderDocs.cs" />

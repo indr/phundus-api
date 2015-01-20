@@ -49,7 +49,7 @@
         [When(@"I ask for quantities available in stock ""(.*)""")]
         public void WhenIAskForQuantitiesAvailableInStock(string stockId)
         {
-            _quantitiesAvailable = GetQuantitiesAvailableQueryService().AllQuantitiesAvailableByArticleId(_context.OrganizationId.Id, _context.ArticleId.Id, stockId);
+            _quantitiesAvailable = GetQuantitiesAvailableQueryService().AllQuantitiesAvailableByStockId(_context.OrganizationId.Id, _context.ArticleId.Id, stockId);
         }
 
         [Then(@"quantities available data")]

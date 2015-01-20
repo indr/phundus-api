@@ -88,5 +88,12 @@ Scenario: Multiple stocks support
 	| Stock1  | 09.11.2014 | 2        |
 	| Stock1  | 12.11.2014 | 0        |
 
+Scenario: DateTime.MaxValue support
+	Given quantity available changed from 09.11.2014 to 31.12.9999 23:59:59 of 2 in Stock1
+	When I ask for quantities available in stock "Stock1"
+	Then quantities available data
+	| StockId | AsOfUtc    | Quantity |
+	| Stock1  | 09.11.2014 | 2        |
+
 
 
