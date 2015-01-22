@@ -106,6 +106,7 @@
     <Compile Include="IdentityAndAccess\Users\Commands\RegisterUserHandler.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
     <Compile Include="InstallerTests\when_event_store_repository_installer_is_installed.cs" />
+    <Compile Include="Inventory\Application\CancelReservationHandlerSpecs.cs" />
     <Compile Include="Inventory\Application\stock_allocation_concern.cs" />
     <Compile Include="Inventory\Application\when_change_allocation_period_is_handled.cs" />
     <Compile Include="Inventory\Application\when_change_allocation_quantity_is_handled.cs" />

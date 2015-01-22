@@ -153,6 +153,7 @@
         private void CancelReservation()
         {
             Dispatch(new CancelReservation(
+                _initiatorId,
                 _organizationId,
                 _reservationId));
         }
