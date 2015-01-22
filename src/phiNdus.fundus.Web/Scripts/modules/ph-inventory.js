@@ -2,10 +2,10 @@
 angular.module('ph.inventory', ['ph.resources', 'ph.domain', 'ph.ui', 'ui', 'ui.bootstrap'])
     .config(function($routeProvider) {
     $routeProvider
-        .when('/articles/:articleId/in-inventory', { controller: InInventoryCtrl, templateUrl: '../../clientviews/inventory/ininventory.html' })
-        .when('/articles/:articleId/availabilities', { controller: AvailabilitiesCtrl, templateUrl: '../../clientviews/inventory/availabilities.html' })
-        .when('/articles/:articleId/allocations', { controller: AllocationsCtrl, templateUrl: '../../clientviews/inventory/allocations.html' })
-        .when('/articles/:articleId/reservations', {controller: ReservationsCtrl, templateUrl: '../../clientviews/inventory/reservations.html'});
+        .when('/articles/:articleId/in-inventory', { controller: InInventoryCtrl, templateUrl: '../clientviews/inventory/ininventory.html' })
+        .when('/articles/:articleId/availabilities', { controller: AvailabilitiesCtrl, templateUrl: '../clientviews/inventory/availabilities.html' })
+        .when('/articles/:articleId/allocations', { controller: AllocationsCtrl, templateUrl: '../clientviews/inventory/allocations.html' })
+        .when('/articles/:articleId/reservations', {controller: ReservationsCtrl, templateUrl: '../clientviews/inventory/reservations.html'});
 }); // ph.inventory
 
 function ReservationsCtrl($scope, $routeParams, reservations) {
