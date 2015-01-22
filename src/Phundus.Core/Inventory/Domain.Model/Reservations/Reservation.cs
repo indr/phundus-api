@@ -108,7 +108,7 @@
             _quantity = e.NewQuantity;
         }
 
-        public void Cancel()
+        public virtual void Cancel()
         {
             Apply(new ReservationCancelled(_organizationId, _articleId, _reservationId, _period, _quantity));
         }
