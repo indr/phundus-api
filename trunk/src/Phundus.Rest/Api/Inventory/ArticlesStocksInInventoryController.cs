@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Rest.Api.Inventory
 {
     using System;
+    using System.Data;
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
@@ -34,7 +35,7 @@
         public virtual HttpResponseMessage Post(int organizationId, int articleId, string stockId, QuantityInInventoryData data)
         {
             var command = new ChangeQuantityInInventory(new UserId(CurrentUserId), new OrganizationId(organizationId), 
-                new ArticleId(articleId), new StockId(stockId), data.Change, DateTime.UtcNow, data.Comment);
+                new ArticleId(articleId), new StockId(stockId), data.Change, data.AsOfUtc, data.Comment);
 
             Dispatch(command);
 
