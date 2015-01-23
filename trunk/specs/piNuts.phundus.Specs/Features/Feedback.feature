@@ -6,7 +6,7 @@
 Grundlage:
 	Angenommen ich bin nicht angemeldet
 
-
+@skip
 Szenario: Feedback ohne Angabe der E-Mail-Adresse
 	Angenommen ich bin auf der Feedbackseite
 	Und ich tippe ins Feld "Feedback" "Hallo" ein
@@ -14,7 +14,7 @@ Szenario: Feedback ohne Angabe der E-Mail-Adresse
 	Dann muss die Meldung "Das Feld "E-Mail-Adresse" ist erforderlich." erscheinen
 	Und muss das Feld "E-Mail-Adresse" rot sein
 
-
+@skip
 Szenario: Feedback ohne Angabe des Feedbacks
 	Angenommen ich bin auf der Feedbackseite
 	Und ich tippe ins Feld "E-Mail-Adresse" "user@example.com" ein
@@ -23,7 +23,8 @@ Szenario: Feedback ohne Angabe des Feedbacks
 	Und muss das Feld "Feedback" rot sein
 
 
-@isSmoker
+#@isSmoker
+@skip
 Szenario: Feedback senden
 	Angenommen ich bin auf der Feedbackseite
 	Und ich tippe ins Feld "E-Mail-Adresse" "user@test.phundus.ch" ein
