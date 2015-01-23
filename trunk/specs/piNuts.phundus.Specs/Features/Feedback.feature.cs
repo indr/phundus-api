@@ -75,11 +75,11 @@ namespace Phundus.Specs.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Feedback ohne Angabe der E-Mail-Adresse")]
-        [NUnit.Framework.CategoryAttribute("skip")]
+        [NUnit.Framework.IgnoreAttribute()]
         public virtual void FeedbackOhneAngabeDerE_Mail_Adresse()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Feedback ohne Angabe der E-Mail-Adresse", new string[] {
-                        "skip"});
+                        "ignore"});
 #line 10
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -100,11 +100,11 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Feedback ohne Angabe des Feedbacks")]
-        [NUnit.Framework.CategoryAttribute("skip")]
+        [NUnit.Framework.IgnoreAttribute()]
         public virtual void FeedbackOhneAngabeDesFeedbacks()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Feedback ohne Angabe des Feedbacks", new string[] {
-                        "skip"});
+                        "ignore"});
 #line 18
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -125,11 +125,11 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Feedback senden")]
-        [NUnit.Framework.CategoryAttribute("skip")]
+        [NUnit.Framework.IgnoreAttribute()]
         public virtual void FeedbackSenden()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Feedback senden", new string[] {
-                        "skip"});
+                        "ignore"});
 #line 28
 this.ScenarioSetup(scenarioInfo);
 #line 6

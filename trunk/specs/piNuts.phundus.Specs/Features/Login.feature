@@ -6,7 +6,7 @@
 Grundlage:
 	Angenommen ich bin nicht angemeldet
 
-@skip
+@ignore
 Szenario: Unbekannter Benutzer
 	Angenommen ich bin auf der Loginseite
 	Und ich tippe ins Feld "E-Mail-Adresse" "gibt-es-nicht@test.phundus.ch" ein
@@ -14,7 +14,7 @@ Szenario: Unbekannter Benutzer
 	Wenn ich auf "Anmelden" klicke
 	Dann muss die Meldung "Benutzername oder Passwort inkorrekt." erscheinen
 
-@skip
+@ignore
 Szenario: Erfolgreiches Login
 	Angenommen ich bin auf der Loginseite
 	Und ich tippe ins Feld "E-Mail-Adresse" "user@test.phundus.ch" ein
