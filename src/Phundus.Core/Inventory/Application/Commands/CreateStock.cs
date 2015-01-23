@@ -1,5 +1,6 @@
 namespace Phundus.Core.Inventory.Application.Commands
 {
+    using Common.Cqrs;
     using Cqrs;
     using Domain.Model.Catalog;
     using Domain.Model.Management;
@@ -7,7 +8,7 @@ namespace Phundus.Core.Inventory.Application.Commands
     using IdentityAndAccess.Domain.Model.Users;
     using IdentityAndAccess.Queries;
 
-    public class CreateStock
+    public class CreateStock : ICommand
     {
         public CreateStock(UserId initiatorId, OrganizationId organizationId, ArticleId articleId)
         {

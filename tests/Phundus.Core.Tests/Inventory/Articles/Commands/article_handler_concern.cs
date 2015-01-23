@@ -1,11 +1,12 @@
 namespace Phundus.Core.Tests.Inventory
 {
+    using Common.Cqrs;
     using Core.Cqrs;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Domain.Model.Catalog;
     using Machine.Specifications;
 
-    public abstract class article_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler> where THandler : class, IHandleCommand<TCommand>
+    public abstract class article_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler> where THandler : class, IHandleCommand<TCommand> where TCommand : ICommand
     {
         protected static IMemberInRole memberInRole;
 

@@ -102,6 +102,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cqrs\CommandHandlerFactorySpecs.cs" />
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="IdentityAndAccess\Users\Commands\RegisterUserHandler.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />

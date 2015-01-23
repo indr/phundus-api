@@ -1,5 +1,6 @@
 namespace Phundus.Core.Tests.Inventory.Application
 {
+    using Common.Cqrs;
     using Core.Cqrs;
     using Core.IdentityAndAccess.Domain.Model.Organizations;
     using Core.IdentityAndAccess.Domain.Model.Users;
@@ -10,7 +11,7 @@ namespace Phundus.Core.Tests.Inventory.Application
     using Rhino.Mocks;
 
     public class stock_concern<TCommand, THandler> : handler_concern<TCommand, THandler>
-        where THandler : class, IHandleCommand<TCommand>
+        where THandler : class, IHandleCommand<TCommand> where TCommand : ICommand
     {
         protected static UserId _initiatorId = new UserId(1);
         protected static IMemberInRole _memberInRole;

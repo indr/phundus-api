@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Application.Commands
 {
     using System;
+    using Common.Cqrs;
     using Common.Extensions;
     using Cqrs;
     using Domain.Model.Ordering;
@@ -9,7 +10,7 @@
     using IdentityAndAccess.Queries;
     using Inventory.Domain.Model.Catalog;
 
-    public class AddOrderItem
+    public class AddOrderItem : ICommand
     {
         public UserId InitiatorId { get; set; }
         public OrganizationId OrganizationId { get; set; }

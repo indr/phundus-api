@@ -1,13 +1,14 @@
 ﻿namespace Phundus.Core.Shop.Application.Commands
 {
     using System;
+    using Common.Cqrs;
     using Common.Extensions;
     using Cqrs;
     using Domain.Model.Ordering;
     using IdentityAndAccess.Domain.Model.Users;
     using IdentityAndAccess.Queries;
 
-    public class UpdateOrderItem
+    public class UpdateOrderItem : ICommand
     {
         public UserId InitiatorId { get; set; }
 

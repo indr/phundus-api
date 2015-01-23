@@ -1,13 +1,14 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
     using Castle.Transactions;
+    using Common.Cqrs;
     using Cqrs;
     using Queries;
     using Repositories;
     using Users;
     using Users.Repositories;
 
-    public class ApplyForMembership
+    public class ApplyForMembership : ICommand
     {
         public int ApplicantId { get; set; }
         public int OrganizationId { get; set; }

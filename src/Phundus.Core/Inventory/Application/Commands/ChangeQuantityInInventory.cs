@@ -2,6 +2,7 @@
 {
     using System;
     using Common;
+    using Common.Cqrs;
     using Cqrs;
     using Domain.Model.Catalog;
     using Domain.Model.Management;
@@ -9,7 +10,7 @@
     using IdentityAndAccess.Domain.Model.Users;
     using IdentityAndAccess.Queries;
 
-    public class ChangeQuantityInInventory
+    public class ChangeQuantityInInventory : ICommand
     {
         public ChangeQuantityInInventory(UserId initiatorId, OrganizationId organizationId, ArticleId articleId,
             StockId stockId, int change, DateTime asOfUtc, string comment)

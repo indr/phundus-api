@@ -4,7 +4,6 @@
     using Common.Cqrs;
     using Common.Domain.Model;
     using Cqrs;
-    using Domain.Model.Catalog;
     using Domain.Model.Reservations;
     using IdentityAndAccess.Domain.Model.Organizations;
 

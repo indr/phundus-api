@@ -1,12 +1,13 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
     using System.Security;
+    using Common.Cqrs;
     using Cqrs;
     using Queries;
     using Repositories;
     using Users.Repositories;
 
-    public class LockMember
+    public class LockMember : ICommand
     {
         public int OrganizationId { get; set; }
         public int InitiatorId { get; set; }

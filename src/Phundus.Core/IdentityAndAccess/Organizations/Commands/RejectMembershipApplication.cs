@@ -1,13 +1,13 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
     using System;
-    using System.Security;
     using Castle.Transactions;
+    using Common.Cqrs;
     using Cqrs;
     using Queries;
     using Repositories;
 
-    public class RejectMembershipApplication
+    public class RejectMembershipApplication : ICommand
     {
         public Guid ApplicationId { get; set; }
         public int InitiatorId { get; set; }
