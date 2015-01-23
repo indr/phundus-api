@@ -1,7 +1,9 @@
 ﻿namespace Phundus.Core.Shop.Orders.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using Bootstrap;
     using Common.Domain.Model;
     using Ddd;
     using Domain.Model.Identity;
@@ -17,7 +19,7 @@
     {
         private Borrower _borrower;
         private DateTime _createdUtc = DateTime.UtcNow;
-        private ISet<OrderItem> _items = new HashedSet<OrderItem>();
+        private Iesi.Collections.Generic.ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private int? _modifiedBy;
         private DateTime? _modifiedUtc;
         private Organization _organization;
@@ -88,7 +90,7 @@
             protected set { _borrower = value; }
         }
 
-        public virtual ISet<OrderItem> Items
+        public virtual Iesi.Collections.Generic.ISet<OrderItem> Items
         {
             get { return new ImmutableSet<OrderItem>(_items); }
             protected set { _items = value; }
@@ -130,8 +132,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Rejected;
 
-            var items = Items.Select(p => p.Id).ToList();
-            EventPublisher.Publish(new OrderRejected(new UserId(initiatorId), OrganizationId, OrderId, items));
+            EventPublisher.Publish(new OrderRejected(new UserId(initiatorId), OrganizationId, OrderId, GetOrderItemIds()));
         }
 
         public virtual void Approve(int initiatorId)
@@ -147,7 +148,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Approved;
 
-            EventPublisher.Publish(new OrderApproved(new UserId(initiatorId), OrganizationId, OrderId, Items.Select(p => p.Id).ToList()));
+            EventPublisher.Publish(new OrderApproved(new UserId(initiatorId), OrganizationId, OrderId, GetOrderItemIds()));
         }
 
         public virtual void Close(int initiatorId)
@@ -161,7 +162,14 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Closed;
 
-            EventPublisher.Publish(new OrderClosed(new UserId(initiatorId), OrganizationId, OrderId, Items.Select(p => p.Id).ToList()));
+            EventPublisher.Publish(new OrderClosed(new UserId(initiatorId), OrganizationId, OrderId, GetOrderItemIds()));
+        }
+
+        private List<Guid> GetOrderItemIds()
+        {
+            var result = new List<Guid>();
+            result.AddRange(Items.Select(s => s.Id));
+            return result;
         }
 
         public virtual void EnsurePending()

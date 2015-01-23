@@ -28,6 +28,7 @@ namespace Phundus.Core.Shop.Orders.Model
 
         protected OrderApproved()
         {
+            OrderItemIds = new List<Guid>();
         }
 
         [DataMember(Order = 1)]
