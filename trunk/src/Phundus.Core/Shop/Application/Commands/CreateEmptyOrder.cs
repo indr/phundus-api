@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Application.Commands
 {
+    using Common.Cqrs;
     using Cqrs;
     using Ddd;
     using Domain.Model.Identity;
@@ -8,7 +9,7 @@
     using Orders.Model;
     using Orders.Services;
 
-    public class CreateEmptyOrder
+    public class CreateEmptyOrder : ICommand
     {
         public int OrganizationId { get; set; }
         public int InitiatorId { get; set; }

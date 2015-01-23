@@ -1,11 +1,12 @@
 namespace Phundus.Core.Tests
 {
     using System;
+    using Common.Cqrs;
     using Core.Cqrs;
     using Machine.Specifications;
 
     public abstract class handler_concern<TCommand, THandler> : concern<THandler>
-        where THandler : class, IHandleCommand<TCommand>
+        where TCommand : ICommand where THandler : class, IHandleCommand<TCommand>
     {
         protected static TCommand command;
 

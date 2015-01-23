@@ -1,9 +1,10 @@
 ﻿namespace Phundus.Core.Tests.Cqrs
 {
     using System;
+    using Common.Cqrs;
     using Core.Cqrs;
 
-    public class TestCommand1
+    public class TestCommand1 : ICommand
     {
     }
 
@@ -15,7 +16,7 @@
         }
     }
 
-    public class TestCommandWithoutHandler
+    public class TestCommandWithoutHandler : ICommand
     {
     }
 }

@@ -8,7 +8,7 @@
     using IdentityAndAccess.Queries;
     using Inventory.Domain.Model.Catalog;
 
-    public class AddArticleToCart
+    public class AddArticleToCart : ICommand
     {
         public int CartId { get; set; }
         public int InitiatorId { get; set; }

@@ -1,12 +1,13 @@
 ﻿namespace Phundus.Core.Shop.Application.Commands
 {
     using System;
+    using Common.Cqrs;
     using Cqrs;
     using Domain.Model.Ordering;
     using IdentityAndAccess.Domain.Model.Users;
     using IdentityAndAccess.Queries;
 
-    public class RemoveOrderItem
+    public class RemoveOrderItem : ICommand
     {
         public UserId InitiatorId { get; set; }
 

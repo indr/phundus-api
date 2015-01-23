@@ -1,9 +1,10 @@
 ﻿namespace Phundus.Core.Shop.Application.Commands
 {
+    using Common.Cqrs;
     using Cqrs;
     using Domain.Model.Ordering;
 
-    public class ClearCart
+    public class ClearCart : ICommand
     {
         public int InitiatorId { get; set; }
     }

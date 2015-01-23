@@ -1,11 +1,12 @@
 ﻿namespace Phundus.Core.Inventory.Application.Commands
 {
+    using Common.Cqrs;
     using Cqrs;
     using Ddd;
     using Domain.Model.Catalog;
     using IdentityAndAccess.Queries;
 
-    public class AddImage
+    public class AddImage : ICommand
     {
         public int ArticleId { get; set; }
         public int? ImageId { get; set; }

@@ -1,12 +1,13 @@
 ﻿namespace Phundus.Core.Shop.Application.Commands
 {
+    using Common.Cqrs;
     using Cqrs;
     using Ddd;
     using Domain.Model.Identity;
     using Domain.Model.Renting;
     using IdentityAndAccess.Queries;
 
-    public class CreateEmptyContract
+    public class CreateEmptyContract : ICommand
     {
         public int OrganizationId { get; set; }
         public int InitiatorId { get; set; }

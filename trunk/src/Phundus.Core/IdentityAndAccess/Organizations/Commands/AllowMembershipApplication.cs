@@ -2,11 +2,12 @@
 {
     using System;
     using Castle.Transactions;
+    using Common.Cqrs;
     using Cqrs;
     using Queries;
     using Repositories;
 
-    public class AllowMembershipApplication
+    public class AllowMembershipApplication : ICommand
     {
         public Guid ApplicationId { get; set; }
         public int InitiatorId { get; set; }

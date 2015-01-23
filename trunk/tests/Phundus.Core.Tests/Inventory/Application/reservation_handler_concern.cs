@@ -1,6 +1,7 @@
 namespace Phundus.Core.Tests.Inventory.Application
 {
     using System;
+    using Common.Cqrs;
     using Common.Domain.Model;
     using Core.Cqrs;
     using Core.IdentityAndAccess.Domain.Model.Organizations;
@@ -10,7 +11,8 @@ namespace Phundus.Core.Tests.Inventory.Application
     using Machine.Specifications;
     using Rhino.Mocks;
 
-    public class reservation_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler> where THandler : class, IHandleCommand<TCommand>
+    public class reservation_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler>
+        where THandler : class, IHandleCommand<TCommand> where TCommand : ICommand
     {
         public static OrganizationId OrganizationId = new OrganizationId(1001);
         public static ReservationId ReservationId = new ReservationId();

@@ -11,6 +11,7 @@
     using System.Web.Security;
     using AutoMapper;
     using Castle.Core.Logging;
+    using Common.Cqrs;
     using Core.Cqrs;
 
     public class ApiControllerBase : ApiController
@@ -27,7 +28,7 @@
 
         public ICommandDispatcher Dispatcher { get; set; }
 
-        protected void Dispatch<TCommand>(TCommand command)
+        protected void Dispatch<TCommand>(TCommand command) where TCommand : ICommand
         {
             Dispatcher.Dispatch(command);
         }

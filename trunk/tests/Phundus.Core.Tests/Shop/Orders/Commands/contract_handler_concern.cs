@@ -1,5 +1,6 @@
 namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
+    using Common.Cqrs;
     using Core.Cqrs;
     using Core.IdentityAndAccess.Queries;
     using Core.Shop.Domain.Model.Identity;
@@ -7,7 +8,7 @@ namespace Phundus.Core.Tests.Shop.Orders.Commands
     using Machine.Specifications;
 
     public abstract class contract_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler>
-        where THandler : class, IHandleCommand<TCommand>
+        where THandler : class, IHandleCommand<TCommand> where TCommand : ICommand
     {
         protected static IMemberInRole memberInRole;
 

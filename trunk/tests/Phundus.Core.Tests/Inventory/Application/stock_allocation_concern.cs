@@ -1,6 +1,7 @@
 namespace Phundus.Core.Tests.Inventory.Application
 {
     using System;
+    using Common.Cqrs;
     using Common.Domain.Model;
     using Core.Cqrs;
     using Core.Inventory.Domain.Model.Catalog;
@@ -10,7 +11,7 @@ namespace Phundus.Core.Tests.Inventory.Application
     using Machine.Specifications;
 
     public class stock_allocation_concern<TCommand, THandler> : stock_concern<TCommand, THandler>
-        where THandler : class, IHandleCommand<TCommand>
+        where THandler : class, IHandleCommand<TCommand> where TCommand : ICommand
     {
         protected static AllocationId _allocationId = new AllocationId();
         protected static ReservationId _reservationId = new ReservationId();

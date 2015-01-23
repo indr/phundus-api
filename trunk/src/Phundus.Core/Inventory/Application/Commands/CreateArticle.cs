@@ -1,11 +1,12 @@
 ﻿namespace Phundus.Core.Inventory.Application.Commands
 {
+    using Common.Cqrs;
     using Cqrs;
     using Ddd;
     using Domain.Model.Catalog;
     using IdentityAndAccess.Queries;
 
-    public class CreateArticle
+    public class CreateArticle : ICommand
     {
         public int InitiatorId { get; set; }
         public int OrganizationId { get; set; }
