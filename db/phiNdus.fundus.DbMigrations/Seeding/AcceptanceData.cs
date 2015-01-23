@@ -44,12 +44,19 @@
         private void EmptyProjectionTables()
         {
             Delete.FromTable("ProcessedNotificationTracker").AllRows();
-            Delete.FromTable("Proj_ActivityData").AllRows();
-            Delete.FromTable("Proj_StockData").AllRows();
-            Delete.FromTable("Proj_ReservationData").AllRows();
-            Delete.FromTable("Proj_AllocationData").AllRows();
-            Delete.FromTable("Proj_QuantityAvailableData").AllRows();
-            Delete.FromTable("Proj_QuantityInInventoryData").AllRows();
+
+            DeleteFromTableAllRowsIfExists("Proj_ActivityData");
+            DeleteFromTableAllRowsIfExists("Proj_StockData");
+            DeleteFromTableAllRowsIfExists("Proj_ReservationData");
+            DeleteFromTableAllRowsIfExists("Proj_AllocationData");
+            DeleteFromTableAllRowsIfExists("Proj_QuantityAvailableData");
+            DeleteFromTableAllRowsIfExists("Proj_QuantityInInventoryData");
+        }
+
+        private void DeleteFromTableAllRowsIfExists(string tableName)
+        {
+            if (Schema.Table(tableName).Exists())
+                Delete.FromTable(tableName).AllRows();
         }
 
         private static void CopyImages()
