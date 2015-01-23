@@ -270,7 +270,7 @@
     <Compile Include="Shop\Domain.Model\Ordering\Exceptions\CartNotFoundException.cs" />
     <Compile Include="Shop\Orders\Mails\OrderStatusChangedMailNotifier.cs" />
     <Compile Include="Shop\Orders\Model\CartItem.cs" />
-    <Compile Include="Shop\Orders\Model\OrderEvents.cs" />
+    <Compile Include="Shop\Orders\Model\OrderRejected.cs" />
     <Compile Include="Shop\Domain.Model\Ordering\OrderItemAdded.cs" />
     <Compile Include="Shop\Domain.Model\Ordering\OrderItemQuantityChanged.cs" />
     <Compile Include="Shop\Domain.Model\Ordering\OrderItemPeriodChanged.cs" />
