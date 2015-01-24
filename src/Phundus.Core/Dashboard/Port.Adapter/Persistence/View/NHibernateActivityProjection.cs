@@ -39,7 +39,7 @@ namespace Phundus.Core.Dashboard.Port.Adapter.Persistence.View
         public void Process(QuantityAvailableChanged e)
         {
             var record = CreateRecord(e);
-            record.Text = String.Format("Verfügbarkeit des Artikels {4} von {0} bis {1} hat sich um {2} geändert.",
+            record.Text = String.Format("Verfügbarkeit des Artikels {3} von {0} bis {1} hat sich um {2} geändert.",
                 new object[] {e.FromUtc.ToString("G"), e.ToUtc.ToString("G"), e.Change, e.ArticleId});
             Save(record);
         }
