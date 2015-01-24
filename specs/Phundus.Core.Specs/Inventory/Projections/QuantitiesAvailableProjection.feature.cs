@@ -421,6 +421,38 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Redundant records get removed")]
+        public virtual void RedundantRecordsGetRemoved()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Redundant records get removed", ((string[])(null)));
+#line 98
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 99
+ testRunner.Given("quantity available changed from 09.11.2014 to 31.12.9999 23:59:59 of 2 in Stock1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 100
+ testRunner.And("quantity available changed from 10.11.2014 to 11.11.2014 of -2 in Stock1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 101
+ testRunner.And("quantity available changed from 10.11.2014 to 11.11.2014 of 2 in Stock1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 102
+ testRunner.When("I ask for quantities available in stock \"Stock1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                        "StockId",
+                        "AsOfUtc",
+                        "Quantity"});
+            table10.AddRow(new string[] {
+                        "Stock1",
+                        "09.11.2014",
+                        "2"});
+#line 103
+ testRunner.Then("quantities available data", ((string)(null)), table10, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
