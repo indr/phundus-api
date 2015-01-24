@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Inventory.Application.Data
 {
     using System;
+    using Common.Domain.Model;
 
     public class AllocationData
     {
@@ -59,5 +60,15 @@
         public virtual DateTime ToUtc { get; set; }
         public virtual int Quantity { get; set; }
         public virtual string AllocationStatus { get; set; }
+
+        public virtual Period Period
+        {
+            get {return new Period(FromUtc, ToUtc);}
+            set
+            {
+                FromUtc = value.FromUtc;
+                ToUtc = value.ToUtc;
+            }
+        }
     }
 }

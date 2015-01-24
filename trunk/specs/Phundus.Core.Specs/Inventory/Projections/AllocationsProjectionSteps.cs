@@ -1,9 +1,7 @@
 ﻿namespace Phundus.Core.Specs.Inventory.Projections
 {
-    using System.Collections.Generic;
     using Contexts;
     using Core.Inventory.Application;
-    using Core.Inventory.Application.Data;
     using Core.Inventory.Port.Adapter.Persistence.View;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
@@ -13,7 +11,6 @@
     {
         private readonly Container _container;
         private readonly StockContext _context;
-        private IEnumerable<AllocationData> _allocations;
 
         public AllocationsProjectionSteps(Container container, StockContext context)
         {
@@ -27,17 +24,13 @@
 
             return _container.Resolve<AllocationsQueryService>();
         }
-        
-        [When(@"I ask for allocations")]
-        public void WhenIAskForQuantitiesAvailableInStock()
-        {
-            _allocations = GetAllocationsQueryService().AllAllocationsByArticleId(_context.OrganizationId.Id, _context.ArticleId.Id);
-        }
 
-        [Then(@"allocation data")]
+        [Then(@"all allocations by article id")]
         public void ThenQuantitiesAvailableData(Table table)
         {
-            table.CompareToSet(_allocations);
+            var allocations = GetAllocationsQueryService()
+                .AllAllocationsByArticleId(_context.OrganizationId.Id, _context.ArticleId.Id);
+            table.CompareToSet(allocations);
         }
     }
 }

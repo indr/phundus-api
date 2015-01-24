@@ -83,20 +83,128 @@ this.ScenarioSetup(scenarioInfo);
 this.FeatureBackground();
 #line 7
  testRunner.Given("stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015" +
-                    ", quantity 1, status Allocated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
- testRunner.When("I ask for allocations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                    ", quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "AllocationId",
                         "ReservationId",
+                        "Quantity",
                         "AllocationStatus"});
             table1.AddRow(new string[] {
                         "1",
                         "2",
+                        "1",
+                        "Unknown"});
+#line 8
+ testRunner.Then("all allocations by article id", ((string)(null)), table1, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Allocation quantity changed updates projection")]
+        public virtual void AllocationQuantityChangedUpdatesProjection()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Allocation quantity changed updates projection", ((string[])(null)));
+#line 12
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 13
+ testRunner.Given("stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015" +
+                    ", quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 14
+ testRunner.And("allocation quantity changed, allocation id 1, new quantity 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "AllocationId",
+                        "Quantity"});
+            table2.AddRow(new string[] {
+                        "1",
+                        "2"});
+#line 15
+ testRunner.Then("all allocations by article id", ((string)(null)), table2, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Allocation period changed updates projection")]
+        public virtual void AllocationPeriodChangedUpdatesProjection()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Allocation period changed updates projection", ((string[])(null)));
+#line 19
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 20
+ testRunner.Given("stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015" +
+                    ", quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 21
+ testRunner.And("allocation period changed, allocation id 1, new from 09.01.2015 to 13.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "AllocationId",
+                        "FromUtc",
+                        "ToUtc"});
+            table3.AddRow(new string[] {
+                        "1",
+                        "09.01.2015",
+                        "13.01.2015"});
+#line 22
+ testRunner.Then("all allocations by article id", ((string)(null)), table3, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Allocation discarded")]
+        public virtual void AllocationDiscarded()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Allocation discarded", ((string[])(null)));
+#line 26
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 27
+ testRunner.Given("stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015" +
+                    ", quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 28
+ testRunner.And("allocation discarded, allocation id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "AllocationId",
+                        "FromUtc",
+                        "ToUtc"});
+#line 29
+ testRunner.Then("all allocations by article id", ((string)(null)), table4, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Allocation status changed")]
+        public virtual void AllocationStatusChanged()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Allocation status changed", ((string[])(null)));
+#line 32
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 33
+ testRunner.Given("stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015" +
+                    ", quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 34
+ testRunner.And("allocation status changed, allocation id 1, new status Allocated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "AllocationId",
+                        "AllocationStatus"});
+            table5.AddRow(new string[] {
+                        "1",
                         "Allocated"});
-#line 9
- testRunner.Then("allocation data", ((string)(null)), table1, "Then ");
+#line 35
+ testRunner.Then("all allocations by article id", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

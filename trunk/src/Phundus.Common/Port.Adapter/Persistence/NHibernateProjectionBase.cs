@@ -22,6 +22,11 @@
             Session.SaveOrUpdate(record);
         }
 
+        protected void Delete(object record)
+        {
+            Session.Delete(record);
+        }
+
         protected IQueryOver<TRecord, TRecord> QueryOver<TRecord>() where TRecord : class
         {
             return Session.QueryOver<TRecord>();

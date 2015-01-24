@@ -205,7 +205,8 @@ namespace Phundus.Core.Specs.Contexts.InMemoryNHibernate
 
         public void Delete(object obj)
         {
-            throw new NotImplementedException();
+            var set = GetEntitySet(obj.GetType());
+            set.Remove(obj);
         }
 
         public void Delete(string entityName, object obj)
