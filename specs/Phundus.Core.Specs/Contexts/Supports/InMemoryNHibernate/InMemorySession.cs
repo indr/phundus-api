@@ -16,9 +16,16 @@ namespace Phundus.Core.Specs.Contexts.InMemoryNHibernate
         private readonly IDictionary<Type, Iesi.Collections.Generic.ISet<object>> _entities =
             new Dictionary<Type, Iesi.Collections.Generic.ISet<object>>();
 
+        private readonly Iesi.Collections.Generic.ISet<object> _deletions = new Iesi.Collections.Generic.HashedSet<object>();
+
         public void Flush()
         {
-            throw new NotImplementedException();
+            foreach (var each in _deletions)
+            {
+                var set = GetEntitySet(each.GetType());
+                set.Remove(each);
+            }
+            _deletions.Clear();
         }
 
         public IDbConnection Disconnect()
@@ -205,8 +212,7 @@ namespace Phundus.Core.Specs.Contexts.InMemoryNHibernate
 
         public void Delete(object obj)
         {
-            var set = GetEntitySet(obj.GetType());
-            set.Remove(obj);
+            _deletions.Add(obj);
         }
 
         public void Delete(string entityName, object obj)

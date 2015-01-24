@@ -427,17 +427,25 @@ this.FeatureBackground();
         public virtual void RedundantRecordsGetRemoved()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Redundant records get removed", ((string[])(null)));
-#line 98
+#line 99
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 99
- testRunner.Given("quantity available changed from 09.11.2014 to 31.12.9999 23:59:59 of 2 in Stock1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 100
- testRunner.And("quantity available changed from 10.11.2014 to 11.11.2014 of -2 in Stock1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("quantity available changed from 09.11.2014 to 31.12.9999 23:59:59 of 3 in Stock1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 101
- testRunner.And("quantity available changed from 10.11.2014 to 11.11.2014 of 2 in Stock1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("quantity available changed from 23.01.2015 23:00:00 to 25.01.2015 22:59:59 of -1 " +
+                    "in Stock1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 102
+ testRunner.And("quantity available changed from 23.01.2015 23:00:00 to 25.01.2015 22:59:59 of -2 " +
+                    "in Stock1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 103
+ testRunner.And("quantity available changed from 23.01.2015 23:00:00 to 25.01.2015 22:59:59 of 3 i" +
+                    "n Stock1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 104
+ testRunner.And("quantity available changed from 23.01.2015 23:00:00 to 26.01.2015 22:59:59 of -3 " +
+                    "in Stock1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 105
  testRunner.When("I ask for quantities available in stock \"Stock1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
@@ -447,8 +455,16 @@ this.FeatureBackground();
             table10.AddRow(new string[] {
                         "Stock1",
                         "09.11.2014",
-                        "2"});
-#line 103
+                        "3"});
+            table10.AddRow(new string[] {
+                        "Stock1",
+                        "23.01.2015 23:00:00",
+                        "0"});
+            table10.AddRow(new string[] {
+                        "Stock1",
+                        "26.01.2015 22:59:59",
+                        "3"});
+#line 106
  testRunner.Then("quantities available data", ((string)(null)), table10, "Then ");
 #line hidden
             this.ScenarioCleanup();

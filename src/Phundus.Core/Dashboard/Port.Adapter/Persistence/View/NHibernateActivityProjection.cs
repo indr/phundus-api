@@ -6,6 +6,7 @@ namespace Phundus.Core.Dashboard.Port.Adapter.Persistence.View
     using Common.Notifications;
     using Common.Port.Adapter.Persistence;
     using IdentityAndAccess.Users.Model;
+    using Inventory.Domain.Model.Management;
 
     public class NHibernateActivityProjection : NHibernateProjectionBase<ActivityData>, IDomainEventHandler
     {
@@ -32,6 +33,14 @@ namespace Phundus.Core.Dashboard.Port.Adapter.Persistence.View
         {
             var record = CreateRecord(domainEvent);
             record.Text = String.Format("Benutzer {0} hat sich angemeldet.", domainEvent.EmailAddress);
+            Save(record);
+        }
+
+        public void Process(QuantityAvailableChanged e)
+        {
+            var record = CreateRecord(e);
+            record.Text = String.Format("Verfügbarkeit des Artikels {4} von {0} bis {1} hat sich um {2} geändert.",
+                e.FromUtc.ToString("G"), e.ToUtc.ToString("G"), e.Change, e.ArticleId);
             Save(record);
         }
 

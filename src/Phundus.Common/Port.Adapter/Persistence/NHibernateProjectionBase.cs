@@ -25,6 +25,7 @@
         protected void Delete(object record)
         {
             Session.Delete(record);
+            Session.Flush();
         }
 
         protected IQueryOver<TRecord, TRecord> QueryOver<TRecord>() where TRecord : class
