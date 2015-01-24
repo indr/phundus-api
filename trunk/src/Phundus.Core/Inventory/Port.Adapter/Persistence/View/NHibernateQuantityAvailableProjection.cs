@@ -27,6 +27,8 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
             ProcessFrom(e, e.FromUtc, e.Change);
 
             ProcessInPeriod(e, e.FromUtc, e.ToUtc, e.Change);
+
+            RemoveRedundants(e, e.FromUtc, e.ToUtc);
         }
 
         private void ProcessTo(QuantityAvailableChanged e, DateTime toUtc, int change)
@@ -54,12 +56,30 @@ namespace Phundus.Core.Inventory.Port.Adapter.Persistence.View
 
         private void ProcessInPeriod(QuantityAvailableChanged e, DateTime fromUtc, DateTime toUtc, int change)
         {
-            var records =
-                Query.Where(p => p.StockId == e.StockId).And(p => p.AsOfUtc > fromUtc).And(p => p.AsOfUtc < toUtc).List();
+            var records = Query.Where(p => p.StockId == e.StockId)
+                .And(p => p.AsOfUtc > fromUtc).And(p => p.AsOfUtc < toUtc).List();
             foreach (var each in records)
             {
                 each.Quantity += change;
                 Save(each);
+            }
+        }
+
+        private void RemoveRedundants(QuantityAvailableChanged e, DateTime fromUtc, DateTime toUtc)
+        {
+            var lastQuantity = GetQuantityBefore(e.StockId, fromUtc);
+
+            var records = Query.Where(p => p.StockId == e.StockId)
+                .And(p => p.AsOfUtc >= fromUtc).And(p => p.AsOfUtc <= toUtc).OrderBy(p => p.AsOfUtc).Asc.List();
+            foreach (var each in records)
+            {
+                if (each.Quantity == lastQuantity)
+                {
+                    Delete(each);
+                    continue;
+                }
+
+                lastQuantity = each.Quantity;
             }
         }
 

@@ -95,5 +95,15 @@ Scenario: DateTime.MaxValue support
 	| StockId | AsOfUtc    | Quantity |
 	| Stock1  | 09.11.2014 | 2        |
 
+Scenario: Redundant records get removed
+	Given quantity available changed from 09.11.2014 to 31.12.9999 23:59:59 of 2 in Stock1
+	And quantity available changed from 10.11.2014 to 11.11.2014 of -2 in Stock1
+	And quantity available changed from 10.11.2014 to 11.11.2014 of 2 in Stock1
+	When I ask for quantities available in stock "Stock1"
+	Then quantities available data
+	| StockId | AsOfUtc    | Quantity |
+	| Stock1  | 09.11.2014 | 2        |
+	
+
 
 
