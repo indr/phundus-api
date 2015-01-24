@@ -95,14 +95,19 @@ Scenario: DateTime.MaxValue support
 	| StockId | AsOfUtc    | Quantity |
 	| Stock1  | 09.11.2014 | 2        |
 
+# #226 Redundante Datensätze in der Projektion der Verfügbarkeit (Availabilities) entfernen
 Scenario: Redundant records get removed
-	Given quantity available changed from 09.11.2014 to 31.12.9999 23:59:59 of 2 in Stock1
-	And quantity available changed from 10.11.2014 to 11.11.2014 of -2 in Stock1
-	And quantity available changed from 10.11.2014 to 11.11.2014 of 2 in Stock1
+	Given quantity available changed from 09.11.2014 to 31.12.9999 23:59:59 of 3 in Stock1
+	And quantity available changed from 23.01.2015 23:00:00 to 25.01.2015 22:59:59 of -1 in Stock1
+	And quantity available changed from 23.01.2015 23:00:00 to 25.01.2015 22:59:59 of -2 in Stock1
+	And quantity available changed from 23.01.2015 23:00:00 to 25.01.2015 22:59:59 of 3 in Stock1
+	And quantity available changed from 23.01.2015 23:00:00 to 26.01.2015 22:59:59 of -3 in Stock1
 	When I ask for quantities available in stock "Stock1"
 	Then quantities available data
-	| StockId | AsOfUtc    | Quantity |
-	| Stock1  | 09.11.2014 | 2        |
+	| StockId | AsOfUtc             | Quantity |
+	| Stock1  | 09.11.2014          | 3        |
+	| Stock1  | 23.01.2015 23:00:00 | 0        |
+	| Stock1  | 26.01.2015 22:59:59 | 3        |
 	
 
 
