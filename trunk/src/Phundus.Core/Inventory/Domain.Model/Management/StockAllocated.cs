@@ -12,7 +12,7 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
     public class StockAllocated : DomainEvent
     {
         public StockAllocated(OrganizationId organizationId, ArticleId articleId, StockId stockId,
-            AllocationId allocationId, ReservationId reservationId, Period period, int quantity, AllocationStatus status)
+            AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
         {
             AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
@@ -28,7 +28,7 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
             ReservationId = reservationId.Id;
             Period = period;
             Quantity = quantity;
-            AllocationStatus = status;
+            AllocationStatus = AllocationStatus.Unknown;
         }
 
         protected StockAllocated()

@@ -13,6 +13,34 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
     using TechTalk.SpecFlow.Assist;
 
     [Binding]
+    public class AllocationStatusSteps
+    {
+        private Container _container;
+        private StockContext _ctx;
+
+        public AllocationStatusSteps(Container container, StockContext ctx)
+        {
+            _container = container;
+            _ctx = ctx;
+        }
+
+        [Given(@"allocation status changed, allocation id (.*), new status Allocated")]
+        public void GivenAllocationStatusChangedAllocationIdNewStatusUnavailable(Guid allocationId)
+        {
+            _ctx.PastEvents.Add(new AllocationStatusChanged(_ctx.OrganizationId, _ctx.ArticleId,
+                _ctx.StockId, new AllocationId(allocationId), AllocationStatus.Unknown, AllocationStatus.Allocated));
+        }
+
+        [Then(@"any allocation status changed, allocation id (.*), new status (.*)")]
+        public void ThenAnyAllocationStatusChangedAllocationIdNewStatusUnavailable(Guid allocationId, string newStatus)
+        {
+            var actual = _ctx.MutatingEvents.GetExpectedEventOnce<AllocationStatusChanged>();
+            Assert.That(actual.AllocationId, Is.EqualTo(allocationId));
+            Assert.That(actual.NewStatus, Is.EqualTo(newStatus));
+        }
+    }
+
+    [Binding]
     public class AllocationSteps
     {
         private readonly Container _container;
@@ -34,43 +62,44 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
         }
 
         [Given(@"stock allocated, allocation id (.*), reservation id (.*), from (.*) to (.*), quantity (.*)")]
-        public void GivenStockAllocatedAllocationIdReservationIdFromToQuantity(Guid allocationId, string reservationId, DateTime fromUtc, DateTime toUtc, int quantity)
+        public void GivenStockAllocatedAllocationIdReservationIdFromToQuantity(Guid allocationId, string reservationId,
+            DateTime fromUtc, DateTime toUtc, int quantity)
         {
-            GivenStockAllocatedAllocationIdReservationIdFromToQuantityStatus(allocationId, reservationId, fromUtc, toUtc, quantity, AllocationStatus.Unknown);
-        }
-
-        [Given(@"stock allocated, allocation id (.*), reservation id (.*), from (.*) to (.*), quantity (.*), status (.*)")]
-        public void GivenStockAllocatedAllocationIdReservationIdFromToQuantityStatus(Guid allocationId, string reservationId, DateTime fromUtc, DateTime toUtc, int quantity, AllocationStatus allocationStatus)
-        {
-            _context.PastEvents.Add(new StockAllocated(_context.OrganizationId, _context.ArticleId, _context.StockId, new AllocationId(allocationId),
-                new ReservationId(reservationId), new Period(fromUtc, toUtc), quantity, allocationStatus));
+            _context.PastEvents.Add(new StockAllocated(_context.OrganizationId, _context.ArticleId, _context.StockId,
+                new AllocationId(allocationId),
+                new ReservationId(reservationId), new Period(fromUtc, toUtc), quantity));
         }
 
         [Then(@"stock allocated (.*)")]
         public void ThenStockAllocated(Guid allocationId)
         {
-            var actual = _context.MutatingEvents.GetNextExpectedEvent<StockAllocated>();
+            var actual = _context.MutatingEvents.GetExpectedEventOnce<StockAllocated>();
             Assert.That(actual.AllocationId, Is.EqualTo(allocationId));
         }
 
         [When(@"change allocation period, allocation id (.*), new from (.*) to (.*)")]
-        public void WhenChangeAllocationPeriodAllocationIdNewFromTo(Guid allocationId, DateTime newFromUtc, DateTime newToUtc)
+        public void WhenChangeAllocationPeriodAllocationIdNewFromTo(Guid allocationId, DateTime newFromUtc,
+            DateTime newToUtc)
         {
             _container.Resolve<ChangeAllocationPeriodHandler>().Handle(new ChangeAllocationPeriod(
-                _context.OrganizationId, _context.ArticleId, _context.StockId, new AllocationId(allocationId), new Period(newFromUtc, newToUtc)));
+                _context.OrganizationId, _context.ArticleId, _context.StockId, new AllocationId(allocationId),
+                new Period(newFromUtc, newToUtc)));
         }
 
         [Given(@"allocation period changed, allocation id (.*), new from (.*) to (.*)")]
-        public void WhenAllocationPeriodChangedAllocationIdNewPeriodFromTo(Guid allocationId, DateTime newFromUtc, DateTime newToUtc)
+        public void WhenAllocationPeriodChangedAllocationIdNewPeriodFromTo(Guid allocationId, DateTime newFromUtc,
+            DateTime newToUtc)
         {
-            _context.PastEvents.Add(new AllocationPeriodChanged(_context.OrganizationId, _context.ArticleId, _context.StockId,
+            _context.PastEvents.Add(new AllocationPeriodChanged(_context.OrganizationId, _context.ArticleId,
+                _context.StockId,
                 new AllocationId(allocationId), Period.FromTodayToTomorrow, new Period(newFromUtc, newToUtc)));
         }
 
         [Then(@"allocation period changed, allocation id (.*), new from (.*) to (.*)")]
-        public void ThenAllocationPeriodChangedAllocationIdNewFrom_To_(Guid allocationId, DateTime newFromUtc, DateTime newToUtc)
+        public void ThenAllocationPeriodChangedAllocationIdNewFrom_To_(Guid allocationId, DateTime newFromUtc,
+            DateTime newToUtc)
         {
-            var actual = _context.MutatingEvents.GetNextExpectedEvent<AllocationPeriodChanged>();
+            var actual = _context.MutatingEvents.GetExpectedEventOnce<AllocationPeriodChanged>();
             Assert.That(actual.AllocationId, Is.EqualTo(allocationId));
             Assert.That(actual.NewFromUtc, Is.EqualTo(newFromUtc));
             Assert.That(actual.NewToUtc, Is.EqualTo(newToUtc));
@@ -79,7 +108,8 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
         [Given(@"allocation quantity changed, allocation id (.*), new quantity (.*)")]
         public void GivenAllocationQuantityChangedAllocationIdQuantity(Guid allocationId, int newQuantity)
         {
-            _context.PastEvents.Add(new AllocationQuantityChanged(_context.OrganizationId, _context.ArticleId, _context.StockId,
+            _context.PastEvents.Add(new AllocationQuantityChanged(_context.OrganizationId, _context.ArticleId,
+                _context.StockId,
                 new AllocationId(allocationId), 0, newQuantity));
         }
 
@@ -87,43 +117,39 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
         public void WhenChangeAllocationQuantityAllocationIdNewQuantity(Guid allocationId, int newQuantity)
         {
             _container.Resolve<ChangeAllocationQuantityHandler>().Handle(new ChangeAllocationQuantity(
-                _context.OrganizationId, _context.ArticleId, _context.StockId, new AllocationId(allocationId), newQuantity));
+                _context.OrganizationId, _context.ArticleId, _context.StockId, new AllocationId(allocationId),
+                newQuantity));
         }
 
         [Then(@"allocation quantity changed, allocation id (.*), new quantity (.*)")]
         public void ThenAllocationQuantityChangedAllocationIdNewQuantity(Guid allocationId, int newQuantity)
         {
-            var actual = _context.MutatingEvents.GetNextExpectedEvent<AllocationQuantityChanged>();
+            var actual = _context.MutatingEvents.GetExpectedEventOnce<AllocationQuantityChanged>();
             Assert.That(actual.AllocationId, Is.EqualTo(allocationId));
             Assert.That(actual.NewQuantity, Is.EqualTo(newQuantity));
         }
-        
+
         [Given(@"allocation discarded, allocation id (.*)")]
         public void GivenAllocationDiscardedAllocationId(Guid allocationId)
         {
-            _context.PastEvents.Add(new AllocationDiscarded(_context.OrganizationId, _context.ArticleId, _context.StockId,
+            _context.PastEvents.Add(new AllocationDiscarded(_context.OrganizationId, _context.ArticleId,
+                _context.StockId,
                 new AllocationId(allocationId), Period.FromTodayToTomorrow, 1));
         }
 
         [When(@"discarding allocation allocation id (.*)")]
         public void WhenDiscardingAllocationAllocationId(Guid allocationId)
         {
-            _container.Resolve<DiscardAllocationHandler>().Handle(new DiscardAllocation(_context.OrganizationId, _context.ArticleId,
-                _context.StockId, new AllocationId(allocationId)));
+            _container.Resolve<DiscardAllocationHandler>()
+                .Handle(new DiscardAllocation(_context.OrganizationId, _context.ArticleId,
+                    _context.StockId, new AllocationId(allocationId)));
         }
 
         [Then(@"allocation discarded allocation id (.*)")]
         public void ThenAllocationDiscardedAllocationId(Guid allcationId)
         {
-            var actual = _context.MutatingEvents.GetNextExpectedEvent<AllocationDiscarded>();
+            var actual = _context.MutatingEvents.GetExpectedEventOnce<AllocationDiscarded>();
             Assert.That(actual.AllocationId, Is.EqualTo(allcationId));
-        }
-
-        [Given(@"allocation status changed, allocation id (.*), new status Allocated")]
-        public void GivenAllocationStatusChangedAllocationIdNewStatusUnavailable(Guid allocationId)
-        {
-            _context.PastEvents.Add(new AllocationStatusChanged(_context.OrganizationId, _context.ArticleId,
-                _context.StockId, new AllocationId(allocationId), AllocationStatus.Unknown, AllocationStatus.Allocated));
         }
 
         [Then(@"allocations")]
@@ -136,7 +162,8 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
                     ReservationId = s.ReservationId.Id,
                     s.Period.FromUtc,
                     s.Period.ToUtc,
-                    s.Quantity
+                    s.Quantity,
+                    s.Status
                 });
             table.CompareToSet(actual);
         }

@@ -40,7 +40,7 @@
 
         private StockAllocated CreateStockAllocated()
         {
-            return new StockAllocated(_organizationId, _articleId, _stockId, _allocationId, _reservationId, _period, _quantity, AllocationStatus.Unknown);
+            return new StockAllocated(_organizationId, _articleId, _stockId, _allocationId, _reservationId, _period, _quantity);
         }
 
         [Given(@"order approved")]

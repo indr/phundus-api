@@ -15,15 +15,18 @@
             set { _events = value; }
         }
 
-        public T GetNextExpectedEvent<T>()
+        public TDomainEvent GetExpectedEventOnce<TDomainEvent>()
         {
-            Assert.That(_events.Count, Is.GreaterThan(_mutatingEventIdx), "Expected more mutating events");
-
-            var domainEvent = _events[_mutatingEventIdx++];
-            Assert.That(domainEvent, Is.TypeOf<T>());
-            Assert.That(domainEvent, Is.Not.Null);
-
-            return (T) domainEvent;
-        }
+            foreach (var each in _events)
+            {
+                if (each.GetType() == typeof (TDomainEvent))
+                {
+                    _events.Remove(each);
+                    return (TDomainEvent) each;
+                }
+            }
+            Assert.Fail("No expected event of type " + typeof(TDomainEvent).Name);
+            return default(TDomainEvent);
+        }        
     }
 }

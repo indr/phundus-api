@@ -89,6 +89,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Allocation.feature</DependentUpon>
     </Compile>
+    <Compile Include="Inventory\Management\Stock\AllocationStatus.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AllocationStatus.feature</DependentUpon>
+    </Compile>
     <Compile Include="Inventory\Management\Stock\AllocationSteps.cs" />
     <Compile Include="Inventory\Management\Stock\QuantitiesAsOf.feature.cs">
       <AutoGen>True</AutoGen>
@@ -181,6 +186,10 @@
     <None Include="Inventory\Management\Stock\Allocation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Allocation.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Inventory\Management\Stock\AllocationStatus.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AllocationStatus.feature.cs</LastGenOutput>
     </None>
     <None Include="Inventory\Management\Stock\QuantitiesAsOf.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
