@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Bootstrap;
     using Common.Domain.Model;
     using Ddd;
     using Domain.Model.Identity;
@@ -12,8 +11,6 @@
     using IdentityAndAccess.Domain.Model.Users;
     using Iesi.Collections.Generic;
     using Inventory.Domain.Model.Catalog;
-    using Inventory.Services;
-    using Microsoft.Practices.ServiceLocation;
 
     public class Order
     {
@@ -189,7 +186,6 @@
             }
         }
 
-        
         public virtual OrderItem AddItem(UserId initiatorId, Article article, DateTime fromUtc, DateTime toUtc,
             int amount)
         {
@@ -203,30 +199,6 @@
 
             return item;
         }
-
-        public virtual bool AddItem(int articleId, int amount, DateTime fromUtc, DateTime toUtc,
-            IAvailabilityService availabilityService)
-        {
-            EnsurePending();
-            var article = ServiceLocator.Current.GetInstance<IArticleRepository>().GetById(articleId);
-
-            var item = new OrderItem(this, article, fromUtc, toUtc, amount);
-
-            return AddItem(item, availabilityService);
-        }
-
-        protected virtual bool AddItem(OrderItem item, IAvailabilityService availabilityService)
-        {
-            EnsurePending();
-
-            if (
-                !availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount,
-                    Guid.Empty))
-                throw new ArticleNotAvailableException(item);
-
-            return _items.Add(item);
-        }
-
 
         public virtual void RemoveItem(UserId initiatorId, Guid orderItemId)
         {
@@ -257,7 +229,8 @@
             var oldQuantity = item.Amount;
             item.ChangeQuantity(quantity);
 
-            EventPublisher.Publish(new OrderItemQuantityChanged(initiatorId, OrganizationId, OrderId, orderItemId, new ArticleId(item.ArticleId), oldQuantity, item.Amount));
+            EventPublisher.Publish(new OrderItemQuantityChanged(initiatorId, OrganizationId, OrderId, orderItemId,
+                new ArticleId(item.ArticleId), oldQuantity, item.Amount));
         }
 
         public virtual void ChangeItemPeriod(UserId initiatorId, Guid orderItemId, DateTime fromUtc, DateTime toUtc)
@@ -274,7 +247,8 @@
             var oldPeriod = item.PeriodUtc;
             item.ChangePeriod(fromUtc, toUtc);
 
-            EventPublisher.Publish(new OrderItemPeriodChanged(initiatorId, OrganizationId, OrderId, orderItemId, new ArticleId(item.ArticleId), oldPeriod, item.PeriodUtc));
+            EventPublisher.Publish(new OrderItemPeriodChanged(initiatorId, OrganizationId, OrderId, orderItemId,
+                new ArticleId(item.ArticleId), oldPeriod, item.PeriodUtc));
         }
     }
 
@@ -292,10 +266,15 @@
 
     public class ArticleNotAvailableException : Exception
     {
-        public ArticleNotAvailableException(OrderItem orderItem)
+        public ArticleNotAvailableException(Guid orderItemId)
             : base("Die gewünschte Menge ist im gewünschten Zeitraum nicht vorhanden.")
         {
-            OrderItemId = orderItem.Id;
+            OrderItemId = orderItemId;
+        }
+
+        public ArticleNotAvailableException(OrderItem orderItem) : this(orderItem.Id)
+
+        {
         }
 
         public Guid OrderItemId { get; set; }
