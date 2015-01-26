@@ -86,7 +86,7 @@ this.FeatureBackground();
 #line 8
  testRunner.Then("quantity in inventory increased of 3 to 3 as of 01.01.2013", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 9
- testRunner.And("quantity available changed of 3 to 3 as of 01.01.2013", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("quantity available changed from 01.01.2013 of 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "AsOfUtc",

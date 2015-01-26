@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Inventory.Domain.Model.Management
 {
     using System.Collections.Generic;
+    using Catalog;
     using Common.Domain.Model;
     using Reservations;
 
@@ -12,6 +13,7 @@
             ReservationId = reservationId;
             Period = period;
             Quantity = quantity;
+            Status = AllocationStatus.Unknown;
         }
 
         public AllocationId AllocationId { get; private set; }
@@ -21,6 +23,8 @@
         public Period Period { get; private set; }
 
         public int Quantity { get; private set; }
+        
+        public AllocationStatus Status { get; set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

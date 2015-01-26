@@ -117,8 +117,7 @@
         {
             var status = CalculateAllocationStatus(period, quantity);
 
-            Apply(new StockAllocated(OrganizationId, ArticleId, StockId, allocationId, reservationId, period, quantity,
-                status));
+            Apply(new StockAllocated(OrganizationId, ArticleId, StockId, allocationId, reservationId, period, quantity));
 
             Apply(CreateQuantityAvailableDecreased(period, quantity));            
         }

@@ -53,7 +53,7 @@
         [Then(@"quantity in inventory increased of (.*) to (.*) as of (.*)")]
         public void ThenQuantityInInventoryIncreased(int quantity, int total, DateTime asOfUtc)
         {
-            var expected = _context.MutatingEvents.GetNextExpectedEvent<QuantityInInventoryIncreased>();
+            var expected = _context.MutatingEvents.GetExpectedEventOnce<QuantityInInventoryIncreased>();
             Assert.That(expected.StockId, Is.EqualTo(_context.StockId.Id));
             Assert.That(expected.Change, Is.EqualTo(quantity));
             Assert.That(expected.Total, Is.EqualTo(total));
@@ -63,7 +63,7 @@
         [Then(@"quantity in inventory decreased of (.*) to (.*) as of (.*)")]
         public void ThenQuantityInInventoryDecreased(int quantity, int total, DateTime asOfUtc)
         {
-            var expected = _context.MutatingEvents.GetNextExpectedEvent<QuantityInInventoryDecreased>();
+            var expected = _context.MutatingEvents.GetExpectedEventOnce<QuantityInInventoryDecreased>();
             Assert.That(expected.StockId, Is.EqualTo(_context.StockId.Id));
             Assert.That(expected.Change, Is.EqualTo(quantity));
             Assert.That(expected.Total, Is.EqualTo(total));

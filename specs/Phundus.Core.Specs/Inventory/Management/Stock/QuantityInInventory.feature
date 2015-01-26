@@ -6,7 +6,7 @@ Background:
 Scenario: Increment quantity the first time
 	When increase quantity in inventory of 3 as of 01.01.2013
 	Then quantity in inventory increased of 3 to 3 as of 01.01.2013
-	And quantity available changed of 3 to 3 as of 01.01.2013
+	And quantity available changed from 01.01.2013 of 3
 	And quantities in inventory
 	| AsOfUtc    | Change | Total |
 	| 01.01.2013 | 3      | 3     |
