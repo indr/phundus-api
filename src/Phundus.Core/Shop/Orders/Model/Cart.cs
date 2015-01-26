@@ -6,6 +6,7 @@
     using Ddd;
     using Domain.Model.Identity;
     using Domain.Model.Ordering;
+    using IdentityAndAccess.Domain.Model.Users;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
     using Inventory.Domain.Model.Catalog;
@@ -99,8 +100,17 @@
                 var order = new Order(organization, borrowerService.ById(Customer.Id));
                 var items = from i in Items where i.Article.OrganizationId == organization.Id select i;
                 foreach (var item in items)
-                    order.AddItem(item.Article.Id, item.Quantity, item.From.ToUniversalTime(),
-                        item.To.Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), availabilityService);
+                {
+                    var fromUtc = item.From.ToUniversalTime();
+                    var toUtc = item.To.Date.AddDays(1).AddSeconds(-1).ToUniversalTime();
+                    
+                    if (!availabilityService.IsArticleAvailable(item.ArticleId, fromUtc, toUtc, item.Quantity, Guid.Empty))
+                        throw new ArticleNotAvailableException(Guid.Empty);
+
+                    order.AddItem(new UserId(CustomerId), item.Article, fromUtc, toUtc, item.Quantity);
+                    //order.AddItem(item.Article.Id, item.Quantity, fromUtc, toUtc, availabilityService);
+
+                }
 
                 orders.Add(order);
                 result.Add(order);
