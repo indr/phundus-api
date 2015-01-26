@@ -24,28 +24,13 @@ Scenario: Increment quantity in inventory
 	| AsOfUtc    | Change | Total |
 	| 08.11.2014 | 3      | 3     |
 	| 09.11.2014 | 2      | 5     |
-	| 11.11.2014 | 1      | 6     |
-	And quantities available
-	| AsOfUtc    | Change | Total |
-	| 08.11.2014 | 3      | 3     |
-	| 09.11.2014 | 2      | 5     |
-	| 11.11.2014 | 1      | 6     |
+	| 11.11.2014 | 1      | 6     |	
 
 Scenario: Increment quantity in inventory when there is a future change updates quantities in inventory
 	Given quantity in inventory increased of 1 to 1 as of 09.11.2014
 	When increase quantity in inventory of 2 as of 08.11.2014
 	Then quantity in inventory increased of 2 to 2 as of 08.11.2014
 	And quantities in inventory
-	| AsOfUtc    | Change | Total |
-	| 08.11.2014 | 2      | 2     |
-	| 09.11.2014 | 1      | 3     |
-
-Scenario: Increment quantity in inventory when there is a future change updates quantities available
-	Given quantity in inventory increased of 1 to 1 as of 09.11.2014
-	When increase quantity in inventory of 2 as of 08.11.2014
-	Then quantity in inventory increased of 2 to 2 as of 08.11.2014
-	And quantity available changed from 08.11.2014 of 2
-	And quantities available
 	| AsOfUtc    | Change | Total |
 	| 08.11.2014 | 2      | 2     |
 	| 09.11.2014 | 1      | 3     |
@@ -58,8 +43,4 @@ Scenario: Decrement quantity in inventory
 	And quantities in inventory
 	| AsOfUtc    | Change | Total |
 	| 09.11.2014 | 10     | 10    |
-	| 10.11.2014 | -2     | 8     |
-	And quantities available
-	| AsOfUtc    | Change | Total |
-	| 09.11.2014 | 10     | 10    |
-	| 10.11.2014 | -2     | 8     |
+	| 10.11.2014 | -2     | 8     |	

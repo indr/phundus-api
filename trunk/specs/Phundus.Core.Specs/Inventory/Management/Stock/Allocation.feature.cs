@@ -71,6 +71,8 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
  testRunner.Given("stock created \"Stock-1\", article 10001, organization 1001", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 5
  testRunner.And("quantity in inventory increased of 10 to 10 as of 07.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 6
+ testRunner.And("quantity available changed from 07.01.2015 of 10", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -79,14 +81,14 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
         public virtual void AllocateStockPublishesStockAllocatedAndUpdatesAllocations()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Allocate stock publishes stock allocated and updates allocations", ((string[])(null)));
-#line 7
+#line 8
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 8
+#line 9
  testRunner.When("allocate stock, allocation id 2, reservation id 3, from 07.01.2015 to 08.01.2015," +
                     " quantity 11", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
+#line 10
  testRunner.Then("stock allocated 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -101,7 +103,7 @@ this.FeatureBackground();
                         "07.01.2015",
                         "08.01.2015",
                         "11"});
-#line 10
+#line 11
  testRunner.And("allocations", ((string)(null)), table1, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -112,16 +114,16 @@ this.FeatureBackground();
         public virtual void AllocateStockChangesAvailability()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Allocate stock changes availability", ((string[])(null)));
-#line 14
+#line 15
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 15
+#line 16
  testRunner.When("allocate stock, allocation id 2, reservation id 3, from 08.01.2015 to 09.01.2015," +
                     " quantity 11", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 16
- testRunner.Then("stock allocated 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 17
+ testRunner.Then("stock allocated 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 18
  testRunner.And("quantity available changed from 08.01.2015 to 09.01.2015 of -11", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -140,7 +142,7 @@ this.FeatureBackground();
                         "09.01.2015",
                         "11",
                         "10"});
-#line 18
+#line 19
  testRunner.And("quantities available", ((string)(null)), table2, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -151,16 +153,16 @@ this.FeatureBackground();
         public virtual void ChangeAllocationQuantityUpdatesAllocations()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Change allocation quantity updates allocations", ((string[])(null)));
-#line 24
+#line 25
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 25
+#line 26
  testRunner.Given("stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015" +
                     ", quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 26
- testRunner.When("change allocation quantity, allocation id 1, new quantity 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 27
+ testRunner.When("change allocation quantity, allocation id 1, new quantity 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 28
  testRunner.Then("allocation quantity changed, allocation id 1, new quantity 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -175,7 +177,7 @@ this.FeatureBackground();
                         "07.01.2015",
                         "08.01.2015",
                         "3"});
-#line 28
+#line 29
  testRunner.And("allocations", ((string)(null)), table3, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -186,18 +188,20 @@ this.FeatureBackground();
         public virtual void ChangeAllocationQuantityUpdatesAvailabilities()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Change allocation quantity updates availabilities", ((string[])(null)));
-#line 32
+#line 33
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 33
+#line 34
  testRunner.Given("stock allocated, allocation id 1, reservation id 2, from 08.01.2015 to 09.01.2015" +
                     ", quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 34
- testRunner.When("change allocation quantity, allocation id 1, new quantity 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 35
- testRunner.Then("allocation quantity changed, allocation id 1, new quantity 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("quantity available changed from 08.01.2015 to 09.01.2015 of -1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 36
+ testRunner.When("change allocation quantity, allocation id 1, new quantity 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 37
+ testRunner.Then("allocation quantity changed, allocation id 1, new quantity 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 38
  testRunner.And("quantity available changed from 08.01.2015 to 09.01.2015 of -2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -216,7 +220,7 @@ this.FeatureBackground();
                         "09.01.2015",
                         "3",
                         "10"});
-#line 37
+#line 39
  testRunner.And("quantities available", ((string)(null)), table4, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -227,16 +231,16 @@ this.FeatureBackground();
         public virtual void ChangeAllocationPeriodUpdatesAllocations()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Change allocation period updates allocations", ((string[])(null)));
-#line 43
+#line 45
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 44
+#line 46
  testRunner.Given("stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015" +
                     ", quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 45
+#line 47
  testRunner.When("change allocation period, allocation id 1, new from 08.01.2015 to 09.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 46
+#line 48
  testRunner.Then("allocation period changed, allocation id 1, new from 08.01.2015 to 09.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -251,7 +255,7 @@ this.FeatureBackground();
                         "08.01.2015",
                         "09.01.2015",
                         "1"});
-#line 47
+#line 49
  testRunner.And("allocations", ((string)(null)), table5, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -262,20 +266,22 @@ this.FeatureBackground();
         public virtual void ChangeAllocationPeriodUpdatesAvailabilities()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Change allocation period updates availabilities", ((string[])(null)));
-#line 51
+#line 53
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 52
+#line 54
  testRunner.Given("stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015" +
                     ", quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 53
- testRunner.When("change allocation period, allocation id 1, new from 09.01.2015 to 10.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 54
- testRunner.Then("allocation period changed, allocation id 1, new from 09.01.2015 to 10.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 55
- testRunner.And("quantity available changed from 07.01.2015 to 08.01.2015 of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("quantity available changed from 07.01.2015 to 08.01.2015 of -1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 56
+ testRunner.When("change allocation period, allocation id 1, new from 09.01.2015 to 10.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 57
+ testRunner.Then("allocation period changed, allocation id 1, new from 09.01.2015 to 10.01.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 58
+ testRunner.And("quantity available changed from 07.01.2015 to 08.01.2015 of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 59
  testRunner.And("quantity available changed from 09.01.2015 to 10.01.2015 of -1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
@@ -294,7 +300,7 @@ this.FeatureBackground();
                         "10.01.2015",
                         "1",
                         "10"});
-#line 57
+#line 60
  testRunner.And("quantities available", ((string)(null)), table6, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -305,18 +311,20 @@ this.FeatureBackground();
         public virtual void DiscardAllocationUpdatesAllocations()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Discard allocation updates allocations", ((string[])(null)));
-#line 63
+#line 66
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 64
+#line 67
  testRunner.Given("stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015" +
                     ", quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 65
+#line 68
+ testRunner.And("quantity available changed from 07.01.2015 to 08.01.2015 of -1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 69
  testRunner.When("discarding allocation allocation id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 66
+#line 70
  testRunner.Then("allocation discarded allocation id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 67
+#line 71
  testRunner.And("allocations is empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -327,18 +335,20 @@ this.FeatureBackground();
         public virtual void DiscardAllocationUpdatesAvailability()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Discard allocation updates availability", ((string[])(null)));
-#line 69
+#line 73
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 70
+#line 74
  testRunner.Given("stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015" +
                     ", quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 71
+#line 75
+ testRunner.And("quantity available changed from 07.01.2015 to 08.01.2015 of -1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 76
  testRunner.When("discarding allocation allocation id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 72
+#line 77
  testRunner.Then("allocation discarded allocation id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 73
+#line 78
  testRunner.And("quantity available changed from 07.01.2015 to 08.01.2015 of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
@@ -349,7 +359,7 @@ this.FeatureBackground();
                         "07.01.2015",
                         "10",
                         "10"});
-#line 74
+#line 79
  testRunner.And("quantities available", ((string)(null)), table7, "And ");
 #line hidden
             this.ScenarioCleanup();

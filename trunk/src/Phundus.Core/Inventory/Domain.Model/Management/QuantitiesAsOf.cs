@@ -53,6 +53,9 @@
             AssertionConcern.AssertArgumentNotZero(change, "Change must be greater than zero.");
             AssertionConcern.AssertArgumentNotEmpty(asOfUtc, "As of utc must be provided.");
 
+            if (asOfUtc.Date == DateTime.MaxValue.Date)
+                return;
+
             var atAsOfOrLatest = FindAtAsOfOrLatestBefore(asOfUtc);
 
             QuantityAsOf quantityAsOf = null;

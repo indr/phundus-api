@@ -3,6 +3,7 @@
 Background: 
 	Given stock created "Stock1", article 10001, organization 1001
 	And quantity in inventory increased of 10 to 10 as of 01.02.2015
+	And quantity available changed from 01.02.2015 of 10
 
 Scenario: Stock allocated with quantity not available changes allocation status to unavailable
 	When allocate stock, allocation id 2, reservation id 3, from 01.01.2015 to 08.01.2015, quantity 1
