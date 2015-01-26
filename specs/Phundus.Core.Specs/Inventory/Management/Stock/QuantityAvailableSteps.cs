@@ -20,8 +20,14 @@
         [Given(@"quantity available changed from (.*) of (.*)")]
         public void GivenQuantityAvailableChangedFromOf(DateTime fromUtc, int change)
         {
+            GivenQuantityAvailableChangedFromToOf(fromUtc, DateTime.MaxValue, change);
+        }
+
+        [Given(@"quantity available changed from (.*) to (.*) of (.*)")]
+        public void GivenQuantityAvailableChangedFromToOf(DateTime fromUtc, DateTime toUtc, int change)
+        {
             _ctx.PastEvents.Add(new QuantityAvailableChanged(_ctx.OrganizationId, _ctx.ArticleId, _ctx.StockId,
-                new Period(fromUtc, DateTime.MaxValue), change));
+                new Period(fromUtc, toUtc), change));
         }
 
         [Then(@"quantity available changed from (.*) of (.*)")]

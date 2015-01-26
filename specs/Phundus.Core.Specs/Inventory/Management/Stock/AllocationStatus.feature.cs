@@ -71,6 +71,8 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
  testRunner.Given("stock created \"Stock1\", article 10001, organization 1001", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 5
  testRunner.And("quantity in inventory increased of 10 to 10 as of 01.02.2015", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 6
+ testRunner.And("quantity available changed from 01.02.2015 of 10", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -81,14 +83,14 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Stock allocated with quantity not available changes allocation status to unavaila" +
                     "ble", ((string[])(null)));
-#line 7
+#line 8
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 8
+#line 9
  testRunner.When("allocate stock, allocation id 2, reservation id 3, from 01.01.2015 to 08.01.2015," +
                     " quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
+#line 10
  testRunner.Then("any allocation status changed, allocation id 2, new status Unavailable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -97,7 +99,7 @@ this.FeatureBackground();
             table1.AddRow(new string[] {
                         "2",
                         "Unavailable"});
-#line 10
+#line 11
  testRunner.And("allocations", ((string)(null)), table1, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -108,14 +110,14 @@ this.FeatureBackground();
         public virtual void StockAllocatedWithQuantityAvailableChangesAllocationStatusToAllocated()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Stock allocated with quantity available changes allocation status to allocated", ((string[])(null)));
-#line 14
+#line 15
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 15
+#line 16
  testRunner.When("allocate stock, allocation id 2, reservation id 3, from 01.02.2015 to 08.02.2015," +
                     " quantity 6", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 16
+#line 17
  testRunner.Then("any allocation status changed, allocation id 2, new status Allocated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -124,7 +126,7 @@ this.FeatureBackground();
             table2.AddRow(new string[] {
                         "2",
                         "Allocated"});
-#line 17
+#line 18
  testRunner.And("allocations", ((string)(null)), table2, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -135,14 +137,14 @@ this.FeatureBackground();
         public virtual void TwoAllocationsWithNoAvailabilitiesForBoth()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two allocations with no availabilities for both", ((string[])(null)));
-#line 21
+#line 22
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 22
+#line 23
  testRunner.When("allocate stock, allocation id 1, reservation id 3, from 01.02.2015 to 08.02.2015," +
                     " quantity 6", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 23
+#line 24
  testRunner.And("allocate stock, allocation id 2, reservation id 3, from 01.02.2015 to 08.02.2015," +
                     " quantity 6", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -155,7 +157,7 @@ this.FeatureBackground();
             table3.AddRow(new string[] {
                         "2",
                         "Unavailable"});
-#line 24
+#line 25
  testRunner.Then("allocations", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();

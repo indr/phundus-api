@@ -3,6 +3,7 @@
 Background: 
 	Given stock created "Stock-1", article 10001, organization 1001
 	And quantity in inventory increased of 10 to 10 as of 07.01.2015
+	And quantity available changed from 07.01.2015 of 10
 
 Scenario: Allocate stock publishes stock allocated and updates allocations
 	When allocate stock, allocation id 2, reservation id 3, from 07.01.2015 to 08.01.2015, quantity 11
@@ -31,6 +32,7 @@ Scenario: Change allocation quantity updates allocations
 
 Scenario: Change allocation quantity updates availabilities
 	Given stock allocated, allocation id 1, reservation id 2, from 08.01.2015 to 09.01.2015, quantity 1
+	And quantity available changed from 08.01.2015 to 09.01.2015 of -1
 	When change allocation quantity, allocation id 1, new quantity 3
 	Then allocation quantity changed, allocation id 1, new quantity 3
 	And quantity available changed from 08.01.2015 to 09.01.2015 of -2
@@ -50,6 +52,7 @@ Scenario: Change allocation period updates allocations
 
 Scenario: Change allocation period updates availabilities
 	Given stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015, quantity 1
+	And quantity available changed from 07.01.2015 to 08.01.2015 of -1
 	When change allocation period, allocation id 1, new from 09.01.2015 to 10.01.2015
 	Then allocation period changed, allocation id 1, new from 09.01.2015 to 10.01.2015
 	And quantity available changed from 07.01.2015 to 08.01.2015 of 1
@@ -62,12 +65,14 @@ Scenario: Change allocation period updates availabilities
 
 Scenario: Discard allocation updates allocations
 	Given stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015, quantity 1
+	And quantity available changed from 07.01.2015 to 08.01.2015 of -1
 	When discarding allocation allocation id 1
 	Then allocation discarded allocation id 1
 	And allocations is empty
 
 Scenario: Discard allocation updates availability
 	Given stock allocated, allocation id 1, reservation id 2, from 07.01.2015 to 08.01.2015, quantity 1
+	And quantity available changed from 07.01.2015 to 08.01.2015 of -1
 	When discarding allocation allocation id 1
 	Then allocation discarded allocation id 1
 	And quantity available changed from 07.01.2015 to 08.01.2015 of 1

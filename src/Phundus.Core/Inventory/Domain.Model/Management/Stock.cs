@@ -5,6 +5,7 @@
     using Catalog;
     using Common;
     using Common.Domain.Model;
+    using Common.Extensions;
     using IdentityAndAccess.Domain.Model.Organizations;
     using Reservations;
 
@@ -99,18 +100,25 @@
         protected void When(QuantityInInventoryIncreased e)
         {
             _inInventory.IncreaseAsOf(e.Change, e.AsOfUtc);
-            _available.IncreaseAsOf(e.Change, e.AsOfUtc);
         }
 
         protected void When(QuantityInInventoryDecreased e)
         {
             _inInventory.DecreaseAsOf(e.Change, e.AsOfUtc);
-            _available.DecreaseAsOf(e.Change, e.AsOfUtc);
         }
 
         protected void When(QuantityAvailableChanged e)
         {
-            // QuantityAvailableChanged is not used for event sourcing. Availability is based on in-inventory and allocations.
+            if (e.Change > 0)
+            {
+                _available.IncreaseAsOf(e.Change, e.FromUtc);
+                _available.DecreaseAsOf(e.Change, e.ToUtc);
+            }
+            else
+            {
+                _available.DecreaseAsOf(e.Change*-1, e.FromUtc);
+                _available.IncreaseAsOf(e.Change * -1, e.ToUtc);
+            }            
         }
 
         public virtual void Allocate(AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
@@ -119,16 +127,15 @@
 
             Apply(new StockAllocated(OrganizationId, ArticleId, StockId, allocationId, reservationId, period, quantity));
 
-            Apply(CreateQuantityAvailableDecreased(period, quantity));            
+            Apply(CreateQuantityAvailableDecreased(period, quantity));           
+ 
+            Apply(new AllocationStatusChanged(OrganizationId, ArticleId, StockId, allocationId, AllocationStatus.Unknown, status));
         }
 
         protected void When(StockAllocated e)
         {
             _allocations.Add(new Allocation(new AllocationId(e.AllocationId), new ReservationId(e.ReservationId),
-                e.Period, e.Quantity));
-            
-            _available.DecreaseAsOf(e.Quantity, e.FromUtc);
-            _available.IncreaseAsOf(e.Quantity, e.ToUtc);
+                e.Period, e.Quantity));            
         }
 
         private QuantityAvailableChanged CreateQuantityAvailableChanged(Period period, int change)
@@ -171,12 +178,6 @@
             var allocation = _allocations.Get(new AllocationId(e.AllocationId));
 
             allocation.ChangePeriod(e.NewPeriod);
-
-            _available.IncreaseAsOf(allocation.Quantity, e.OldFromUtc);
-            _available.DecreaseAsOf(allocation.Quantity, e.OldToUtc);
-
-            _available.DecreaseAsOf(allocation.Quantity, e.NewFromUtc);
-            _available.IncreaseAsOf(allocation.Quantity, e.NewToUtc);
         }
 
         public virtual void ChangeAllocationQuantity(AllocationId allocationId, int newQuantity)
@@ -195,12 +196,6 @@
             var allocation = _allocations.Get(new AllocationId(e.AllocationId));
 
             allocation.ChangeQuantity(e.NewQuantity);
-
-            _available.IncreaseAsOf(e.OldQuantity, allocation.Period.FromUtc);
-            _available.DecreaseAsOf(e.OldQuantity, allocation.Period.ToUtc);
-
-            _available.DecreaseAsOf(e.NewQuantity, allocation.Period.FromUtc);
-            _available.IncreaseAsOf(e.NewQuantity, allocation.Period.ToUtc);
         }
 
         public virtual void DiscardAllocation(AllocationId allocationId)
@@ -215,8 +210,13 @@
         protected void When(AllocationDiscarded e)
         {
             _allocations.Remove(new AllocationId(e.AllocationId));
-            _available.IncreaseAsOf(e.Quantity, e.FromUtc);
-            _available.DecreaseAsOf(e.Quantity, e.ToUtc);
+        }
+
+        protected void When(AllocationStatusChanged e)
+        {
+            var allocation = _allocations.Get(new AllocationId(e.AllocationId));
+
+            allocation.Status = EnumHelper.Parse<AllocationStatus>(e.NewStatus);
         }
     }
 }
