@@ -1,5 +1,7 @@
 ﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
+    using Core.IdentityAndAccess.Domain.Model.Organizations;
+    using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.Shop.Application.Commands;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
@@ -20,12 +22,8 @@
             orders.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(orderId);
             borrowerService.setup(x => x.ById(userId)).Return(BorrowerFactory.Create(userId));
 
-            command = new CreateEmptyOrder
-            {
-                OrganizationId = organization.Id,
-                InitiatorId = initiatorId,
-                UserId = userId
-            };
+            command = new CreateEmptyOrder(new UserId(initiatorId), new OrganizationId(organization.Id),
+                new UserId(userId));
         };
 
         public It should_add_to_repository = () => orders.WasToldTo(x => x.Add(Arg<Order>.Is.NotNull));
@@ -36,6 +34,6 @@
         public It should_publish_order_created = () => publisher.WasToldTo(x => x.Publish(
             Arg<OrderCreated>.Matches(p => p.OrderId == orderId)));
 
-        public It should_set_order_id = () => command.OrderId.ShouldEqual(orderId);
+        public It should_set_order_id = () => command.ResultingOrderId.ShouldEqual(orderId);
     }
 }

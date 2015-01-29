@@ -1,20 +1,31 @@
 ﻿namespace Phundus.Core.Shop.Application.Commands
 {
+    using Castle.Transactions;
     using Common.Cqrs;
     using Cqrs;
     using Ddd;
     using Domain.Model.Identity;
     using Domain.Model.Ordering;
+    using IdentityAndAccess.Domain.Model.Organizations;
+    using IdentityAndAccess.Domain.Model.Users;
     using IdentityAndAccess.Queries;
     using Orders.Model;
     using Orders.Services;
 
     public class CreateEmptyOrder : ICommand
     {
-        public int OrganizationId { get; set; }
-        public int InitiatorId { get; set; }
-        public int UserId { get; set; }
-        public int OrderId { get; set; }
+        public CreateEmptyOrder(UserId initiatorId, OrganizationId organizationId, UserId customerId)
+        {
+            InitiatorId = initiatorId.Id;
+            OrganizationId = organizationId.Id;
+            UserId = customerId.Id;            
+        }
+
+        public int OrganizationId { get; private set; }
+        public int InitiatorId { get; private set; }
+        public int UserId { get; private set; }
+
+        public int ResultingOrderId { get; set; }
     }
 
     public class CreateEmptyOrderHandler : IHandleCommand<CreateEmptyOrder>
@@ -27,6 +38,7 @@
 
         public IBorrowerService BorrowerService { get; set; }
 
+        [Transaction]
         public void Handle(CreateEmptyOrder command)
         {
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
@@ -37,7 +49,7 @@
 
             var orderId = Repository.Add(order);
 
-            command.OrderId = orderId;
+            command.ResultingOrderId = orderId;
 
             EventPublisher.Publish(new OrderCreated(new OrderId(orderId)));
         }
