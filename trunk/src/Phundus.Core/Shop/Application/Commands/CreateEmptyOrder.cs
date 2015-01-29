@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Application.Commands
 {
     using Castle.Transactions;
+    using Common;
     using Common.Cqrs;
     using Cqrs;
     using Ddd;
@@ -16,6 +17,10 @@
     {
         public CreateEmptyOrder(UserId initiatorId, OrganizationId organizationId, UserId customerId)
         {
+            AssertionConcern.AssertArgumentNotNull(initiatorId, "Initiator id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(customerId, "Customer id must be provided.");
+
             InitiatorId = initiatorId.Id;
             OrganizationId = organizationId.Id;
             UserId = customerId.Id;            

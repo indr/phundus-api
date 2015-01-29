@@ -162,6 +162,21 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Increasement of quantity in inventory changes allocation status from unavailble t" +
+            "o allocated")]
+        public virtual void IncreasementOfQuantityInInventoryChangesAllocationStatusFromUnavailbleToAllocated()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Increasement of quantity in inventory changes allocation status from unavailble t" +
+                    "o allocated", ((string[])(null)));
+#line 30
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

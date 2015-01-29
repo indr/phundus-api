@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using System;
-    using Core.IdentityAndAccess.Domain.Model.Organizations;
+    using Common.Domain.Model;
     using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.Inventory.Domain.Model.Catalog;
     using Core.Shop.Application.Commands;
@@ -26,16 +26,8 @@
             orders.setup(x => x.GetById(orderId.Id)).Return(order);
             articles.setup(x => x.GetById(organization.Id, articleId.Id))
                 .Return(new Article(articleId, organization.Id, "Artikel"));
-            command = new AddOrderItem
-            {
-                Quantity = 10,
-                ArticleId = articleId,
-                FromUtc = DateTime.UtcNow,
-                ToUtc = DateTime.UtcNow.AddDays(1),
-                InitiatorId = initiatorId,
-                OrderId = orderId,
-                OrganizationId = organizationId
-            };
+            command = new AddOrderItem(initiatorId, organizationId, orderId, articleId,
+                new Period(DateTime.UtcNow, DateTime.UtcNow.AddDays(1)), 10);
         };
 
         public It should_ask_for_chief_privileges =
@@ -45,6 +37,6 @@
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemAdded>.Is.NotNull));
 
         public It should_set_order_item_id =
-            () => command.ResultingOrderItemId.ShouldNotEqual(Guid.Empty);
+            () => command.ResultingOrderItemId.ShouldNotBeNull();
     }
 }
