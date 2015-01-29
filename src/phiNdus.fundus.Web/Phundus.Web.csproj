@@ -213,6 +213,10 @@
     <Compile Include="404.aspx.designer.cs">
       <DependentUpon>404.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Data\Seeds\OrderSeeds.cs" />
+    <Compile Include="App_Data\Seeds\OrganizationSeeds.cs" />
+    <Compile Include="App_Data\Seeds\SeedStartupTask.cs" />
+    <Compile Include="App_Data\Seeds\UserSeeds.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
     <Compile Include="App_Start\DatabaseMigrator.cs" />
