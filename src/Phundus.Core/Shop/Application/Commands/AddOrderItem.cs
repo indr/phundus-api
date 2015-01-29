@@ -1,7 +1,10 @@
 ﻿namespace Phundus.Core.Shop.Application.Commands
 {
     using System;
+    using Castle.Transactions;
+    using Common;
     using Common.Cqrs;
+    using Common.Domain.Model;
     using Common.Extensions;
     using Cqrs;
     using Domain.Model.Ordering;
@@ -12,16 +15,34 @@
 
     public class AddOrderItem : ICommand
     {
-        public UserId InitiatorId { get; set; }
-        public OrganizationId OrganizationId { get; set; }
-        public OrderId OrderId { get; set; }
+        public AddOrderItem(UserId initiatorId, OrganizationId organizationId, OrderId orderId, ArticleId articleId, Period period, int quantity)
+        {
+            AssertionConcern.AssertArgumentNotNull(initiatorId, "Initiator id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(organizationId, "Organization id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(orderId, "Order id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
+            AssertionConcern.AssertArgumentNotNull(period, "Period must be provided.");
+            AssertionConcern.AssertArgumentGreaterThanZero(quantity, "Quantity must be greater than zero.");
 
-        public ArticleId ArticleId { get; set; }
-        public DateTime FromUtc { get; set; }
-        public DateTime ToUtc { get; set; }
-        public int Quantity { get; set; }
+            InitiatorId = initiatorId;
+            OrganizationId = organizationId;
+            OrderId = orderId;
+            ArticleId = articleId;
+            FromUtc = period.FromUtc;
+            ToUtc = period.ToUtc;
+            Quantity = quantity;
+        }
 
-        public Guid ResultingOrderItemId { get; set; }
+        public UserId InitiatorId { get; private set; }
+        public OrganizationId OrganizationId { get; private set; }
+        public OrderId OrderId { get; private set; }
+
+        public ArticleId ArticleId { get; private set; }
+        public DateTime FromUtc { get; private set; }
+        public DateTime ToUtc { get; private set; }
+        public int Quantity { get; private set; }
+
+        public OrderItemId ResultingOrderItemId { get; set; }
     }
 
     public class AddOrderItemHandler : IHandleCommand<AddOrderItem>
@@ -33,6 +54,7 @@
 
         public IMemberInRole MemberInRole { get; set; }
 
+        [Transaction]
         public void Handle(AddOrderItem command)
         {
             var order = OrderRepository.GetById(command.OrderId.Id);
@@ -46,7 +68,7 @@
                 command.ToUtc.ToLocalEndOfTheDayInUtc(),
                 command.Quantity);
 
-            command.ResultingOrderItemId = item.Id;
+            command.ResultingOrderItemId = new OrderItemId(item.Id);
         }
     }
 }

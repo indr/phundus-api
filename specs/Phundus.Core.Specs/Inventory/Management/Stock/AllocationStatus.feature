@@ -26,3 +26,6 @@ Scenario: Two allocations with no availabilities for both
 	| AllocationId | Status      |
 	| 1            | Allocated   |
 	| 2            | Unavailable |
+
+Scenario: Increasement of quantity in inventory changes allocation status from unavailble to allocated
+	
