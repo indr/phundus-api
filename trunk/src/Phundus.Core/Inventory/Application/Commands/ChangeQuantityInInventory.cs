@@ -3,6 +3,7 @@
     using System;
     using Common;
     using Common.Cqrs;
+    using Common.Domain.Model;
     using Cqrs;
     using Domain.Model.Catalog;
     using Domain.Model.Management;
@@ -52,7 +53,7 @@
 
             var stock = Repository.Get(command.OrganizationId, command.StockId);
 
-            stock.ChangeQuantityInInventory(command.Change, command.AsOfUtc, command.Comment);
+            stock.ChangeQuantityInInventory(new Period(command.AsOfUtc), command.Change, command.Comment);
 
             Repository.Save(stock);
         }

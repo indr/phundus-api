@@ -25,9 +25,9 @@
     /// </summary>
     public class Stock : EventSourcedRootEntity
     {
+        private InInventory _inInventory = null;
         private readonly Allocations _allocations = new Allocations();
         private readonly QuantitiesAsOf _available = new QuantitiesAsOf();
-        private readonly QuantitiesAsOf _inInventory = new QuantitiesAsOf();
 
         public Stock(OrganizationId organizationId, ArticleId articleId, StockId stockId)
         {
@@ -78,39 +78,49 @@
             OrganizationId = new OrganizationId(e.OrganizationId);
             ArticleId = new ArticleId(e.ArticleId);
             StockId = new StockId(e.StockId);
+
+            _inInventory = new InInventory(OrganizationId, ArticleId, StockId);
         }
 
-        public virtual void ChangeQuantityInInventory(int change, DateTime asOfUtc, string comment)
+        
+
+        public virtual void ChangeQuantityInInventory(Period period, int quantity, string comment)
         {
-            AssertionConcern.AssertArgumentNotZero(change, "Change must be greater or less than 0.");
-            AssertionConcern.AssertArgumentNotEmpty(asOfUtc, "As of utc must be provided.");
+            Apply(_inInventory.Change(period, quantity, comment));
 
-            var newTotal = _inInventory.GetTotalAsOf(asOfUtc) + change;
+            CalculateAllocationStatuses(period);
 
-            ApplyQuantityInInventoryChanged(change, asOfUtc, comment, newTotal);
+            CalculateAvailabilities(period);
 
-            Apply(new QuantityAvailableChanged(OrganizationId, ArticleId, StockId, new Period(asOfUtc), change));
+            Apply(new QuantityAvailableChanged(OrganizationId, ArticleId, StockId, period, quantity));
         }
-
-        private void ApplyQuantityInInventoryChanged(int change, DateTime asOfUtc, string comment, int newTotal)
+        
+        private void CalculateAllocationStatuses(Period period)
         {
-            if (change > 0)
-                Apply(new QuantityInInventoryIncreased(OrganizationId, ArticleId, StockId, change,
-                    newTotal, asOfUtc, comment));
-            else
-                Apply(new QuantityInInventoryDecreased(OrganizationId, ArticleId, StockId, change*-1,
-                    newTotal, asOfUtc, comment));
+            // TODO: Calculate allocation status in given period
+            // Should be done like: Compare InInventory to Allocations. Set allocation status depending of InInventory.
+            // Allocations.ChangeStatus(AllocationId, Status) returns AllocationStatusChanged-Event in case of change.
         }
 
+        private void CalculateAvailabilities(Period period)
+        {
+            // TODO: Calculate availabilities in given period
+            // Should be done like: InInventory - Allocations (Allocated)
+            // Compare old availabilities to newly calculated. 
+            // Apply events according to the difference.
+        }
+
+        #region When-relays to sub entities
         protected void When(QuantityInInventoryIncreased e)
         {
-            _inInventory.IncreaseAsOf(e.Change, e.AsOfUtc);
+            _inInventory.When(e);
         }
 
         protected void When(QuantityInInventoryDecreased e)
         {
-            _inInventory.DecreaseAsOf(e.Change, e.AsOfUtc);
+            _inInventory.When(e);
         }
+        #endregion
 
         public virtual void Allocate(AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
         {
