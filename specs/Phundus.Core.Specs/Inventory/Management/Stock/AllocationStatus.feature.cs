@@ -91,7 +91,7 @@ this.FeatureBackground();
  testRunner.When("allocate stock, allocation id 2, reservation id 3, from 01.01.2015 to 08.01.2015," +
                     " quantity 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
- testRunner.Then("any allocation status changed, allocation id 2, new status Unavailable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("allocation status changed, allocation id 2, new status Unavailable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "AllocationId",
@@ -118,7 +118,7 @@ this.FeatureBackground();
  testRunner.When("allocate stock, allocation id 2, reservation id 3, from 01.02.2015 to 08.02.2015," +
                     " quantity 6", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 17
- testRunner.Then("any allocation status changed, allocation id 2, new status Allocated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("allocation status changed, allocation id 2, new status Allocated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "AllocationId",
@@ -174,6 +174,22 @@ this.FeatureBackground();
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
+#line 31
+ testRunner.When("allocate stock, allocation id 1, reservation id 11, from 01.02.2015 to 08.02.2015" +
+                    ", quantity 11", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 32
+ testRunner.And("increase quantity in inventory of 1 as of 01.02.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 33
+ testRunner.Then("allocation status changed, allocation id 1, new status Allocated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "AllocationId",
+                        "Status"});
+            table4.AddRow(new string[] {
+                        "1",
+                        "Allocated"});
+#line 34
+ testRunner.And("allocations", ((string)(null)), table4, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
