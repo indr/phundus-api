@@ -7,14 +7,14 @@ Background:
 
 Scenario: Stock allocated with quantity not available changes allocation status to unavailable
 	When allocate stock, allocation id 2, reservation id 3, from 01.01.2015 to 08.01.2015, quantity 1
-	Then any allocation status changed, allocation id 2, new status Unavailable
+	Then allocation status changed, allocation id 2, new status Unavailable
 	And allocations
 	| AllocationId | Status      |
 	| 2            | Unavailable |
 
 Scenario: Stock allocated with quantity available changes allocation status to allocated
 	When allocate stock, allocation id 2, reservation id 3, from 01.02.2015 to 08.02.2015, quantity 6
-	Then any allocation status changed, allocation id 2, new status Allocated
+	Then allocation status changed, allocation id 2, new status Allocated
 	And allocations
 	| AllocationId | Status    |
 	| 2            | Allocated |
@@ -28,4 +28,10 @@ Scenario: Two allocations with no availabilities for both
 	| 2            | Unavailable |
 
 Scenario: Increasement of quantity in inventory changes allocation status from unavailble to allocated
+	When allocate stock, allocation id 1, reservation id 11, from 01.02.2015 to 08.02.2015, quantity 11
+	And increase quantity in inventory of 1 as of 01.02.2014
+	Then allocation status changed, allocation id 1, new status Allocated
+	And allocations
+	| AllocationId | Status    |
+	| 1            | Allocated |
 	

@@ -31,8 +31,8 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
                 _ctx.StockId, new AllocationId(allocationId), AllocationStatus.Unknown, AllocationStatus.Allocated));
         }
 
-        [Then(@"any allocation status changed, allocation id (.*), new status (.*)")]
-        public void ThenAnyAllocationStatusChangedAllocationIdNewStatusUnavailable(Guid allocationId, string newStatus)
+        [Then(@"allocation status changed, allocation id (.*), new status (.*)")]
+        public void ThenAllocationStatusChangedAllocationIdNewStatusUnavailable(Guid allocationId, string newStatus)
         {
             var actual = _ctx.MutatingEvents.GetExpectedEventOnce<AllocationStatusChanged>();
             Assert.That(actual.AllocationId, Is.EqualTo(allocationId));
