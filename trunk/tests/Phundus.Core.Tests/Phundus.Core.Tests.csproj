@@ -121,6 +121,9 @@
     <Compile Include="Inventory\Application\stock_concern.cs" />
     <Compile Include="Inventory\Application\when_allocate_stock_is_handled.cs" />
     <Compile Include="Inventory\Domain.Model\Catalog\ArticleTests.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\Stock\MultipleQuantityPeriodsSpecs.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\Stock\QuantityPeriodSpecs.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\Stock\SingleQuantityPeriodsSpecs.cs" />
     <Compile Include="Inventory\Domain.Model\Management\Stock\stock_allocation_concern.cs" />
     <Compile Include="Inventory\Domain.Model\Management\Stock\stock_concern.cs" />
     <Compile Include="Inventory\Domain.Model\Management\Stock\ChangeAllocationPeriodConcerns.cs" />

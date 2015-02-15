@@ -41,5 +41,10 @@ namespace Phundus.Common.Domain.Model
         {
             return new Period(FromUtc.AddDays(value), ToUtc.AddDays(value));
         }
+
+        public override string ToString()
+        {
+            return String.Format("Period [FromUtc={0}, ToUtc={1}]", FromUtc, ToUtc);
+        }
     }
 }
