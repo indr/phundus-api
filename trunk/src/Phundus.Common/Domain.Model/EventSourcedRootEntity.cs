@@ -42,6 +42,12 @@
             When(e);
         }
 
+        protected void Apply(IEnumerable<IDomainEvent> es)
+        {
+            foreach (var each in es)
+                Apply(each);
+        }
+
         protected abstract void When(IDomainEvent e);
     }
 }
