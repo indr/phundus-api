@@ -7,6 +7,9 @@
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
 
+    /// <summary>
+    /// Sub-Events: Material verkauft, Material ausgemustert
+    /// </summary>
     [DataContract]
     public class QuantityInInventoryDecreased : DomainEvent
     {

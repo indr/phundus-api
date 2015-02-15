@@ -13,6 +13,10 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
 
         public Period Period { get; private set; }
 
+        public DateTime FromUtc { get { return Period.FromUtc; } }
+
+        public DateTime ToUtc { get { return Period.ToUtc; } }
+
         public int Quantity { get; private set; }
 
         public bool IsInPeriod(DateTime utc)

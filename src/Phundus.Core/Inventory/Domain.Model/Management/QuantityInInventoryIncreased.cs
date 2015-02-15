@@ -7,6 +7,9 @@
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
 
+    /// <summary>
+    /// Sub-Events: Material zugekauft, Material geschenkt bekommen
+    /// </summary>
     [DataContract]
     public class QuantityInInventoryIncreased : DomainEvent
     {
