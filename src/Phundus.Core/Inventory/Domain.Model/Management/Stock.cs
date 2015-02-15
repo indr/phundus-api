@@ -26,8 +26,8 @@
     public class Stock : EventSourcedRootEntity
     {
         private InInventory _inInventory = null;
-        private readonly Allocations _allocations = new Allocations();
-        private readonly QuantitiesAsOf _available = new QuantitiesAsOf();
+        private Allocations _allocations = new Allocations();
+        private Availabilities _availabilities = null;
 
         public Stock(OrganizationId organizationId, ArticleId articleId, StockId stockId)
         {
@@ -50,12 +50,12 @@
 
         public ICollection<QuantityAsOf> QuantitiesInInventory
         {
-            get { return _inInventory.Quantities; }
+            get { return _inInventory.QuantityAsOf; }
         }
 
         public ICollection<QuantityAsOf> QuantitiesAvailable
         {
-            get { return _available.Quantities; }
+            get { return _availabilities.Quantities; }
         }
 
         public ICollection<Allocation> Allocations
@@ -80,9 +80,8 @@
             StockId = new StockId(e.StockId);
 
             _inInventory = new InInventory(OrganizationId, ArticleId, StockId);
+            _availabilities = new Availabilities(OrganizationId, ArticleId, StockId);
         }
-
-        
 
         public virtual void ChangeQuantityInInventory(Period period, int quantity, string comment)
         {
@@ -91,8 +90,6 @@
             CalculateAllocationStatuses(period);
 
             CalculateAvailabilities(period);
-
-            Apply(new QuantityAvailableChanged(OrganizationId, ArticleId, StockId, period, quantity));
         }
         
         private void CalculateAllocationStatuses(Period period)
@@ -108,6 +105,12 @@
             // Should be done like: InInventory - Allocations (Allocated)
             // Compare old availabilities to newly calculated. 
             // Apply events according to the difference.
+
+            var availabilities = _inInventory.ComputeAvailabilities(_allocations);
+
+            var events = _availabilities.GenerateMutatingEvents(availabilities);
+
+            Apply(events);            
         }
 
         #region When-relays to sub entities
@@ -120,32 +123,27 @@
         {
             _inInventory.When(e);
         }
+
+        protected void When(QuantityAvailableChanged e)
+        {
+            _availabilities.When(e);
+        }
         #endregion
 
         public virtual void Allocate(AllocationId allocationId, ReservationId reservationId, Period period, int quantity)
         {
-            var status = CalculateAllocationStatus(period, quantity);
-
             Apply(new StockAllocated(OrganizationId, ArticleId, StockId, allocationId, reservationId, period, quantity));
 
             Apply(CreateQuantityAvailableDecreased(period, quantity));
 
-            Apply(new AllocationStatusChanged(OrganizationId, ArticleId, StockId, allocationId, AllocationStatus.Unknown,
-                status));
+            //Apply(new AllocationStatusChanged(OrganizationId, ArticleId, StockId, allocationId, AllocationStatus.Unknown,
+            //    AllocationStatus.Unknown));
         }
 
         protected void When(StockAllocated e)
         {
             _allocations.Add(new Allocation(new AllocationId(e.AllocationId), new ReservationId(e.ReservationId),
                 e.Period, e.Quantity));
-        }
-
-        private AllocationStatus CalculateAllocationStatus(Period period, int quantity)
-        {
-            var hasQuantity = _available.HasQuantityInPeriod(period, quantity);
-            if (hasQuantity)
-                return AllocationStatus.Allocated;
-            return AllocationStatus.Unavailable;
         }
 
         public virtual void ChangeAllocationPeriod(AllocationId allocationId, Period newPeriod)
@@ -199,19 +197,7 @@
             _allocations.Remove(new AllocationId(e.AllocationId));
         }
 
-        protected void When(QuantityAvailableChanged e)
-        {
-            if (e.Change > 0)
-            {
-                _available.IncreaseAsOf(e.Change, e.FromUtc);
-                _available.DecreaseAsOf(e.Change, e.ToUtc);
-            }
-            else
-            {
-                _available.DecreaseAsOf(e.Change * -1, e.FromUtc);
-                _available.IncreaseAsOf(e.Change * -1, e.ToUtc);
-            }
-        }
+        
 
         protected void When(AllocationStatusChanged e)
         {

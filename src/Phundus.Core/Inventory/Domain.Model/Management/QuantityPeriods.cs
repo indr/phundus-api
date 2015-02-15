@@ -9,7 +9,20 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
     {
         private readonly IList<QuantityPeriod> _qps = new List<QuantityPeriod>();
 
-        public bool IsEmpty { get { return _qps.Count == 0; } }
+        public QuantityPeriods()
+        {
+        }
+
+        public QuantityPeriods(QuantityPeriods quantityPeriods)
+        {
+            foreach (var each in quantityPeriods.Quantities)
+                _qps.Add(each);
+        }
+
+        public bool IsEmpty
+        {
+            get { return _qps.Count == 0; }
+        }
 
         public ICollection<QuantityPeriod> Quantities
         {
@@ -40,15 +53,15 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
             _qps.Add(qp);
         }
 
-        private void Sub(QuantityPeriod qp)
+        public void Sub(QuantityPeriod qp)
         {
-            _qps.Add(new QuantityPeriod(qp.Period, qp.Quantity * -1));
+            _qps.Add(new QuantityPeriod(qp.Period, qp.Quantity*-1));
         }
-        
+
         public QuantityPeriods Sub(QuantityPeriods other)
         {
             var result = new QuantityPeriods();
-            this._qps.ForEach(result.Add);
+            _qps.ForEach(result.Add);
             other._qps.ForEach(result.Sub);
 
             return result;
@@ -67,14 +80,11 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
         private IEnumerable<QuantityPeriod> FindInPeriod(DateTime asOfUtc)
         {
             return _qps.Where(p => p.IsInPeriod(asOfUtc));
-        } 
+        }
 
         public override string ToString()
         {
             return String.Format("QuantityPeriods [IsEmpty={0}, Count={1}]", IsEmpty, _qps.Count);
         }
-
-
-        
     }
 }
