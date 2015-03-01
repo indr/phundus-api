@@ -2,10 +2,12 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
 {
     using System.Collections.Generic;
     using Catalog;
+    using Common;
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
+    using Itenso.TimePeriod;
 
-    public class Availabilities : EventSourcedEntity
+    public class QuantityAvailable : EventSourcedEntity
     {
         private OrganizationId _organizationId;
         private ArticleId _articleId;
@@ -14,6 +16,8 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
         private readonly QuantitiesAsOf _quantities = new QuantitiesAsOf();
         private readonly QuantityPeriods _qps = new QuantityPeriods();
 
+        private ITimePeriodCollection _periods = new TimePeriodCollection();
+
         public ICollection<QuantityAsOf> Quantities { get { return _quantities.Quantities; } }
 
         public void When(StockCreated e)
@@ -21,6 +25,11 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
             _organizationId = new OrganizationId(e.OrganizationId);
             _articleId = new ArticleId(e.ArticleId);
             _stockId = new StockId(e.StockId);
+        }
+
+        public void Change(Period period, int quantity)
+        {
+            Apply(new QuantityAvailableChanged(_organizationId, _articleId, _stockId, period, quantity));
         }
 
         public void When(QuantityAvailableChanged e)
@@ -39,18 +48,30 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
             }
         }
 
-        public ICollection<IDomainEvent> GenerateMutatingEvents(QuantityPeriods availabilities)
+        public ICollection<IDomainEvent> GenerateMutatingEvents(ITimePeriodContainer availablePeriods)
         {
             var result = new List<IDomainEvent>();
 
+            //var subtractor = new PhundusTimePeriodSubtractor<TimeRange>();
 
-            var difference = availabilities.Sub(_qps);
+            //var differences = subtractor.SubtractPeriods(availablePeriods, _periods);
 
-            foreach (var each in difference.Quantities)
+            foreach (var old in _periods)
             {
-                result.Add(
-                    new QuantityAvailableChanged(_organizationId, _articleId, _stockId, each.Period, each.Quantity));
+                availablePeriods.ContainsPeriod(old);
+                foreach (var x in availablePeriods)
+                {
+                    
+                }
             }
+
+            //var difference = availabilities.Sub(_qps);
+
+            //foreach (var each in difference.Quantities)
+            //{
+            //    result.Add(
+            //        new QuantityAvailableChanged(_organizationId, _articleId, _stockId, each.Period, each.Quantity));
+            //}
 
             return result;
         }
@@ -69,5 +90,7 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
         {
             return "Availabilities [Qps=" + _qps + "]";
         }
+
+        
     }
 }

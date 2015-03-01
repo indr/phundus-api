@@ -8,7 +8,7 @@
     using Common.Domain.Model;
     using IdentityAndAccess.Domain.Model.Organizations;
 
-    public class Allocations : EventSourcedEntity
+    public class QuantityAllocated : EventSourcedEntity
     {
         private readonly IList<Allocation> _allocations = new List<Allocation>();
         private OrganizationId _organizationId;
