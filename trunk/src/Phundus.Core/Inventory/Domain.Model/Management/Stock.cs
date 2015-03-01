@@ -7,6 +7,7 @@
     using Common.Domain.Model;
     using Common.Extensions;
     using IdentityAndAccess.Domain.Model.Organizations;
+    using Itenso.TimePeriod;
     using Reservations;
 
     /// <summary>
@@ -25,9 +26,9 @@
     /// </summary>
     public class Stock : EventSourcedRootEntity
     {
-        private InInventory _inInventory = null;
-        private Allocations _allocations = new Allocations();
-        private Availabilities _availabilities = null;
+        private readonly InInventory _inInventory = new InInventory();
+        private readonly Allocations _allocations = new Allocations();
+        private readonly Availabilities _availabilities = new Availabilities();
 
         public Stock(OrganizationId organizationId, ArticleId articleId, StockId stockId)
         {
@@ -35,11 +36,21 @@
             AssertionConcern.AssertArgumentNotNull(articleId, "Article id must be provided.");
             AssertionConcern.AssertArgumentNotNull(stockId, "Stock id must be provided.");
 
+            SetMutatingEventsOnSubEntities();
+
             Apply(new StockCreated(organizationId, articleId, stockId));
         }
 
         public Stock(IEnumerable<IDomainEvent> eventStream, long streamVersion) : base(eventStream, streamVersion)
         {
+            SetMutatingEventsOnSubEntities();
+        }
+
+        private void SetMutatingEventsOnSubEntities()
+        {
+            _inInventory.MutatingEvents = MutatingEvents;
+            _allocations.MutatingEvents = MutatingEvents;
+            _availabilities.MutatingEvents = MutatingEvents;
         }
 
         public OrganizationId OrganizationId { get; private set; }
@@ -79,13 +90,14 @@
             ArticleId = new ArticleId(e.ArticleId);
             StockId = new StockId(e.StockId);
 
-            _inInventory = new InInventory(OrganizationId, ArticleId, StockId);
-            _availabilities = new Availabilities(OrganizationId, ArticleId, StockId);
+            _inInventory.When(e);
+            _allocations.When(e);
+            _availabilities.When(e);
         }
 
         public virtual void ChangeQuantityInInventory(Period period, int quantity, string comment)
         {
-            Apply(_inInventory.Change(period, quantity, comment));
+            _inInventory.Change(period, quantity, comment);
 
             CalculateAllocationStatuses(period);
 
@@ -106,11 +118,11 @@
             // Compare old availabilities to newly calculated. 
             // Apply events according to the difference.
 
-            var availabilities = _inInventory.ComputeAvailabilities(_allocations);
+            //var availabilities = _inInventory.ComputeAvailabilities(_allocations);
 
-            var events = _availabilities.GenerateMutatingEvents(availabilities);
+            //var events = _availabilities.GenerateMutatingEvents(availabilities);
 
-            Apply(events);            
+            //Apply(events);            
         }
 
         #region When-relays to sub entities

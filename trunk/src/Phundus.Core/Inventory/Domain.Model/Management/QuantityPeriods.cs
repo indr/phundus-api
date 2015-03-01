@@ -3,6 +3,7 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Common.Domain.Model;
     using NHibernate.Linq;
 
     public class QuantityPeriods
@@ -48,21 +49,21 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
             return result;
         }
 
-        public void Add(QuantityPeriod qp)
+        public void Add(Period period, int quantity)
         {
-            _qps.Add(qp);
+            _qps.Add(new QuantityPeriod(period, quantity));
         }
 
-        public void Sub(QuantityPeriod qp)
+        public void Sub(Period period, int quantity)
         {
-            _qps.Add(new QuantityPeriod(qp.Period, qp.Quantity*-1));
+            Add(period, quantity * -1);
         }
 
         public QuantityPeriods Sub(QuantityPeriods other)
         {
             var result = new QuantityPeriods();
-            _qps.ForEach(result.Add);
-            other._qps.ForEach(result.Sub);
+            _qps.ForEach(e => result.Add(e.Period, e.Quantity));
+            other._qps.ForEach(e => result.Sub(e.Period, e.Quantity));
 
             return result;
         }
@@ -84,7 +85,13 @@ namespace Phundus.Core.Inventory.Domain.Model.Management
 
         public override string ToString()
         {
-            return String.Format("QuantityPeriods [IsEmpty={0}, Count={1}]", IsEmpty, _qps.Count);
+            var result = String.Format("QuantityPeriods [IsEmpty={0}, Count={1}", IsEmpty, _qps.Count);
+
+            result += ", Qps=[\n";
+            for(var idx = 0; idx < 10 && idx < _qps.Count; idx++)
+                result += String.Format("[Period={0}, Quantity={1}]\n", _qps[idx].Period, _qps[idx].Quantity);
+
+            return result + "]]";
         }
     }
 }

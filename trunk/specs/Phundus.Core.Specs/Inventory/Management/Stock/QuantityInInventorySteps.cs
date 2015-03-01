@@ -1,9 +1,11 @@
 ﻿namespace Phundus.Core.Specs.Inventory.Management.Stock
 {
     using System;
+    using System.Collections.Generic;
     using Contexts;
     using Core.Inventory.Application.Commands;
     using Core.Inventory.Domain.Model.Management;
+    using Itenso.TimePeriod;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;

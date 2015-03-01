@@ -30,7 +30,7 @@
 
         private static QuantityPeriod _qp = new QuantityPeriod(_period, _quantity);
 
-        private Because of = () => _qps.Add(_qp);
+        private Because of = () => _qps.Add(_period, _quantity);
 
         public It should_not_be_empty = () => _qps.IsEmpty.ShouldBeFalse();
 
@@ -73,9 +73,9 @@
 
     public class when_I_add_a_qp_to_existing_quantity : SingleQuantityPeriodsConcern
     {
-        private Establish ctx = () => _qps.Add(new QuantityPeriod(Period.FromTodayToTomorrow, 2));
+        private Establish ctx = () => _qps.Add(Period.FromTodayToTomorrow, 2);
 
-        private Because of = () => _qps.Add(new QuantityPeriod(Period.FromTodayToTomorrow, 3));
+        private Because of = () => _qps.Add(Period.FromTodayToTomorrow, 3);
 
         public It should_have_summed_quantity_in_period =
             () => _qps.HasQuantityAsOf(Period.FromTodayToTomorrow.FromUtc.AddSeconds(1), 5).ShouldBeTrue();

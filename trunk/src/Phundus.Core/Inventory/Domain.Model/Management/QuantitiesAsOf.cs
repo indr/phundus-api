@@ -6,6 +6,7 @@
     using System.Linq;
     using Common;
     using Common.Domain.Model;
+    using Itenso.TimePeriod;
 
     public class QuantitiesAsOf
     {
@@ -94,6 +95,13 @@
             {
                 each.AddToTotal(change);
             }
+        }
+
+        public void Add(ITimePeriod period)
+        {
+            IncreaseAsOf(1, period.Start);
+            if (period.End != DateTime.MaxValue)
+                DecreaseAsOf(1, period.End);
         }
     }
 }

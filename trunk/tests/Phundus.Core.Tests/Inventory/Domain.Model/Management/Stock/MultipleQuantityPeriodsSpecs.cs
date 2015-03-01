@@ -27,7 +27,7 @@
 
     public class when_I_substract_a_positive_qps_from_an_empty : MultipleQuantityPeriodsConcern
     {
-        private Establish ctx = () => _qps2.Add(new QuantityPeriod(Period.FromTodayToTomorrow, 2));
+        private Establish ctx = () => _qps2.Add(Period.FromTodayToTomorrow, 2);
 
         private Because of = () => _resulting = _qps1.Sub(_qps2);
 
