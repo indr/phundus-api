@@ -26,9 +26,9 @@
     /// </summary>
     public class Stock : EventSourcedRootEntity
     {
-        private readonly InInventory _inInventory = new InInventory();
-        private readonly Allocations _allocations = new Allocations();
-        private readonly Availabilities _availabilities = new Availabilities();
+        private readonly QuantityInInventory _quantityInInventory = new QuantityInInventory();
+        private readonly QuantityAllocated _quantityAllocated = new QuantityAllocated();
+        private readonly QuantityAvailable _quantityAvailable = new QuantityAvailable();
 
         public Stock(OrganizationId organizationId, ArticleId articleId, StockId stockId)
         {
@@ -48,9 +48,9 @@
 
         private void SetMutatingEventsOnSubEntities()
         {
-            _inInventory.MutatingEvents = MutatingEvents;
-            _allocations.MutatingEvents = MutatingEvents;
-            _availabilities.MutatingEvents = MutatingEvents;
+            _quantityInInventory.MutatingEvents = MutatingEvents;
+            _quantityAllocated.MutatingEvents = MutatingEvents;
+            _quantityAvailable.MutatingEvents = MutatingEvents;
         }
 
         public OrganizationId OrganizationId { get; private set; }
@@ -61,17 +61,17 @@
 
         public ICollection<QuantityAsOf> QuantitiesInInventory
         {
-            get { return _inInventory.QuantityAsOf; }
+            get { return _quantityInInventory.QuantityAsOf; }
         }
 
         public ICollection<QuantityAsOf> QuantitiesAvailable
         {
-            get { return _availabilities.Quantities; }
+            get { return _quantityAvailable.Quantities; }
         }
 
         public ICollection<Allocation> Allocations
         {
-            get { return _allocations.Items; }
+            get { return _quantityAllocated.Items; }
         }
 
         protected override IEnumerable<object> GetIdentityComponents()
@@ -90,18 +90,25 @@
             ArticleId = new ArticleId(e.ArticleId);
             StockId = new StockId(e.StockId);
 
-            _inInventory.When(e);
-            _allocations.When(e);
-            _availabilities.When(e);
+            _quantityInInventory.When(e);
+            _quantityAllocated.When(e);
+            _quantityAvailable.When(e);
         }
 
         public virtual void ChangeQuantityInInventory(Period period, int quantity, string comment)
         {
-            _inInventory.Change(period, quantity, comment);
+            // InInventory-Änderung
+            _quantityInInventory.Change(period, quantity, comment);
 
+            // Führt zur Veränderung von Allocation-Statusen, weil
+            // - wenn InInventory erhöht wurde, dann kann eine Allokation erfüllt werden
+            // - wenn InInventory verringert wurde, dann können Allokationen nicht mehr erfüllt werden
             CalculateAllocationStatuses(period);
 
-            CalculateAvailabilities(period);
+            // Führt zur Veränderung der Verfügbarkeit, weil
+            // - InInventory verändert wurde
+            // - Allocation-Status verändert sein könnte
+            CalculateQuantityAvailable(period);
         }
         
         private void CalculateAllocationStatuses(Period period)
@@ -111,34 +118,25 @@
             // Allocations.ChangeStatus(AllocationId, Status) returns AllocationStatusChanged-Event in case of change.
         }
 
-        private void CalculateAvailabilities(Period period)
+        private void CalculateQuantityAvailable(Period period)
         {
-            // TODO: Calculate availabilities in given period
-            // Should be done like: InInventory - Allocations (Allocated)
-            // Compare old availabilities to newly calculated. 
-            // Apply events according to the difference.
-
-            //var availabilities = _inInventory.ComputeAvailabilities(_allocations);
-
-            //var events = _availabilities.GenerateMutatingEvents(availabilities);
-
-            //Apply(events);            
+            _quantityAvailable.Change(period, 0);
         }
 
         #region When-relays to sub entities
         protected void When(QuantityInInventoryIncreased e)
         {
-            _inInventory.When(e);
+            _quantityInInventory.When(e);
         }
 
         protected void When(QuantityInInventoryDecreased e)
         {
-            _inInventory.When(e);
+            _quantityInInventory.When(e);
         }
 
         protected void When(QuantityAvailableChanged e)
         {
-            _availabilities.When(e);
+            _quantityAvailable.When(e);
         }
         #endregion
 
@@ -154,13 +152,13 @@
 
         protected void When(StockAllocated e)
         {
-            _allocations.Add(new Allocation(new AllocationId(e.AllocationId), new ReservationId(e.ReservationId),
+            _quantityAllocated.Add(new Allocation(new AllocationId(e.AllocationId), new ReservationId(e.ReservationId),
                 e.Period, e.Quantity));
         }
 
         public virtual void ChangeAllocationPeriod(AllocationId allocationId, Period newPeriod)
         {
-            var allocation = _allocations.Get(allocationId);
+            var allocation = _quantityAllocated.Get(allocationId);
             var oldPeriod = allocation.Period;
 
             Apply(CreateQuantityAvailableIncreased(oldPeriod, allocation.Quantity));
@@ -172,14 +170,14 @@
 
         protected void When(AllocationPeriodChanged e)
         {
-            var allocation = _allocations.Get(new AllocationId(e.AllocationId));
+            var allocation = _quantityAllocated.Get(new AllocationId(e.AllocationId));
 
             allocation.ChangePeriod(e.NewPeriod);
         }
 
         public virtual void ChangeAllocationQuantity(AllocationId allocationId, int newQuantity)
         {
-            var allocation = _allocations.Get(allocationId);
+            var allocation = _quantityAllocated.Get(allocationId);
             var oldQuantity = allocation.Quantity;
 
             Apply(CreateQuantityAvailableChanged(allocation.Period, oldQuantity - newQuantity));
@@ -190,14 +188,14 @@
 
         protected void When(AllocationQuantityChanged e)
         {
-            var allocation = _allocations.Get(new AllocationId(e.AllocationId));
+            var allocation = _quantityAllocated.Get(new AllocationId(e.AllocationId));
 
             allocation.ChangeQuantity(e.NewQuantity);
         }
 
         public virtual void DiscardAllocation(AllocationId allocationId)
         {
-            var allocation = _allocations.Get(allocationId);
+            var allocation = _quantityAllocated.Get(allocationId);
             Apply(new AllocationDiscarded(OrganizationId, ArticleId, StockId, allocationId, allocation.Period,
                 allocation.Quantity));
 
@@ -206,14 +204,14 @@
 
         protected void When(AllocationDiscarded e)
         {
-            _allocations.Remove(new AllocationId(e.AllocationId));
+            _quantityAllocated.Remove(new AllocationId(e.AllocationId));
         }
 
         
 
         protected void When(AllocationStatusChanged e)
         {
-            var allocation = _allocations.Get(new AllocationId(e.AllocationId));
+            var allocation = _quantityAllocated.Get(new AllocationId(e.AllocationId));
 
             allocation.Status = EnumHelper.Parse<AllocationStatus>(e.NewStatus);
         }

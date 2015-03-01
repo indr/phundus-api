@@ -191,8 +191,8 @@
     <Compile Include="Inventory\Domain.Model\Management\AllocationQuantityChanged.cs" />
     <Compile Include="Inventory\Domain.Model\Management\Allocations.cs" />
     <Compile Include="Inventory\Domain.Model\Management\AllocationStatusChanged.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\Availabilities.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\InInventory.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\QuantityAvailable.cs" />
+    <Compile Include="Inventory\Domain.Model\Management\QuantityInInventory.cs" />
     <Compile Include="Inventory\Domain.Model\Management\IStockRepository.cs" />
     <Compile Include="Inventory\Domain.Model\Management\QuantitiesAsOf.cs" />
     <Compile Include="Inventory\Domain.Model\Management\QuantityAsOf.cs" />
