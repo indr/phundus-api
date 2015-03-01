@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Itenso.TimePeriod">
+      <HintPath>..\..\packages\TimePeriodLibrary.NET.2.0.0\lib\net35\Desktop.Release\Itenso.TimePeriod.dll</HintPath>
+    </Reference>
     <Reference Include="Machine.Specifications">
       <HintPath>..\..\packages\Machine.Specifications.0.8.3\lib\net40\Machine.Specifications.dll</HintPath>
     </Reference>
@@ -95,6 +98,11 @@
       <DependentUpon>AllocationStatus.feature</DependentUpon>
     </Compile>
     <Compile Include="Inventory\Management\Stock\AllocationSteps.cs" />
+    <Compile Include="Inventory\Management\Stock\QuantityAvailable.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuantityAvailable.feature</DependentUpon>
+    </Compile>
     <Compile Include="Inventory\Management\Stock\QuantitiesAsOf.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -190,6 +198,10 @@
     <None Include="Inventory\Management\Stock\AllocationStatus.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AllocationStatus.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Inventory\Management\Stock\QuantityAvailable.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>QuantityAvailable.feature.cs</LastGenOutput>
     </None>
     <None Include="Inventory\Management\Stock\QuantitiesAsOf.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

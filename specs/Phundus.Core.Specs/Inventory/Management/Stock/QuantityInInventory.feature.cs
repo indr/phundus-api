@@ -73,10 +73,10 @@ namespace Phundus.Core.Specs.Inventory.Management.Stock
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Increment quantity the first time")]
-        public virtual void IncrementQuantityTheFirstTime()
+        [NUnit.Framework.DescriptionAttribute("Increment quantity without any quantities in past or future")]
+        public virtual void IncrementQuantityWithoutAnyQuantitiesInPastOrFuture()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Increment quantity the first time", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Increment quantity without any quantities in past or future", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -85,53 +85,76 @@ this.FeatureBackground();
  testRunner.When("increase quantity in inventory of 3 as of 01.01.2013", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 8
  testRunner.Then("quantity in inventory increased of 3 to 3 as of 01.01.2013", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 9
- testRunner.And("quantity available changed from 01.01.2013 of 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "AsOfUtc",
                         "Change",
                         "Total"});
             table1.AddRow(new string[] {
-                        "01.01.2013",
+                        "01.01.2013 00:00:00",
                         "3",
                         "3"});
-#line 10
+#line 9
  testRunner.And("quantities in inventory", ((string)(null)), table1, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Increment quantity in inventory with past quantities")]
+        public virtual void IncrementQuantityInInventoryWithPastQuantities()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Increment quantity in inventory with past quantities", ((string[])(null)));
+#line 13
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 14
+ testRunner.Given("quantity in inventory increased of 2 to 2 as of 09.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 15
+ testRunner.And("quantity in inventory increased of 3 to 3 as of 08.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
+ testRunner.When("increase quantity in inventory of 1 as of 11.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 17
+ testRunner.Then("quantity in inventory increased of 1 to 6 as of 11.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "AsOfUtc",
                         "Change",
                         "Total"});
             table2.AddRow(new string[] {
-                        "01.01.2013",
+                        "08.11.2014 00:00:00",
                         "3",
                         "3"});
-#line 13
- testRunner.And("quantities available", ((string)(null)), table2, "And ");
+            table2.AddRow(new string[] {
+                        "09.11.2014 00:00:00",
+                        "2",
+                        "5"});
+            table2.AddRow(new string[] {
+                        "11.11.2014 00:00:00",
+                        "1",
+                        "6"});
+#line 18
+ testRunner.And("quantities in inventory", ((string)(null)), table2, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Increment quantity in inventory")]
-        public virtual void IncrementQuantityInInventory()
+        [NUnit.Framework.DescriptionAttribute("Increment quantity in inventory with future quantity")]
+        public virtual void IncrementQuantityInInventoryWithFutureQuantity()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Increment quantity in inventory", ((string[])(null)));
-#line 17
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Increment quantity in inventory with future quantity", ((string[])(null)));
+#line 25
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 18
- testRunner.Given("quantity in inventory increased of 2 to 2 as of 09.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 19
- testRunner.And("quantity in inventory increased of 3 to 3 as of 08.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 20
- testRunner.When("increase quantity in inventory of 1 as of 11.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 21
- testRunner.Then("quantity in inventory increased of 1 to 6 as of 11.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 22
- testRunner.And("quantity available changed from 11.11.2014 of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 26
+ testRunner.Given("quantity in inventory increased of 1 to 1 as of 09.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 27
+ testRunner.When("increase quantity in inventory of 2 as of 08.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 28
+ testRunner.Then("quantity in inventory increased of 2 to 2 as of 08.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "AsOfUtc",
@@ -139,90 +162,48 @@ this.FeatureBackground();
                         "Total"});
             table3.AddRow(new string[] {
                         "08.11.2014",
-                        "3",
-                        "3"});
+                        "2",
+                        "2"});
             table3.AddRow(new string[] {
                         "09.11.2014",
-                        "2",
-                        "5"});
-            table3.AddRow(new string[] {
-                        "11.11.2014",
                         "1",
-                        "6"});
-#line 23
+                        "3"});
+#line 29
  testRunner.And("quantities in inventory", ((string)(null)), table3, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Increment quantity in inventory when there is a future change updates quantities " +
-            "in inventory")]
-        public virtual void IncrementQuantityInInventoryWhenThereIsAFutureChangeUpdatesQuantitiesInInventory()
+        [NUnit.Framework.DescriptionAttribute("Decrement quantity in inventory with past quantity")]
+        public virtual void DecrementQuantityInInventoryWithPastQuantity()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Increment quantity in inventory when there is a future change updates quantities " +
-                    "in inventory", ((string[])(null)));
-#line 29
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Decrement quantity in inventory with past quantity", ((string[])(null)));
+#line 34
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 30
- testRunner.Given("quantity in inventory increased of 1 to 1 as of 09.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 31
- testRunner.When("increase quantity in inventory of 2 as of 08.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 32
- testRunner.Then("quantity in inventory increased of 2 to 2 as of 08.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 35
+ testRunner.Given("quantity in inventory increased of 10 to 10 as of 09.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 36
+ testRunner.When("decrease quantity in inventory of 2 as of 10.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 37
+ testRunner.Then("quantity in inventory decreased of 2 to 8 as of 10.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "AsOfUtc",
                         "Change",
                         "Total"});
             table4.AddRow(new string[] {
-                        "08.11.2014",
-                        "2",
-                        "2"});
-            table4.AddRow(new string[] {
-                        "09.11.2014",
-                        "1",
-                        "3"});
-#line 33
- testRunner.And("quantities in inventory", ((string)(null)), table4, "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Decrement quantity in inventory")]
-        public virtual void DecrementQuantityInInventory()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Decrement quantity in inventory", ((string[])(null)));
-#line 38
-this.ScenarioSetup(scenarioInfo);
-#line 3
-this.FeatureBackground();
-#line 39
- testRunner.Given("quantity in inventory increased of 10 to 10 as of 09.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 40
- testRunner.When("decrease quantity in inventory of 2 as of 10.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 41
- testRunner.Then("quantity in inventory decreased of 2 to 8 as of 10.11.2014", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 42
- testRunner.And("quantity available changed from 10.11.2014 of -2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                        "AsOfUtc",
-                        "Change",
-                        "Total"});
-            table5.AddRow(new string[] {
                         "09.11.2014",
                         "10",
                         "10"});
-            table5.AddRow(new string[] {
+            table4.AddRow(new string[] {
                         "10.11.2014",
                         "-2",
                         "8"});
-#line 43
- testRunner.And("quantities in inventory", ((string)(null)), table5, "And ");
+#line 38
+ testRunner.And("quantities in inventory", ((string)(null)), table4, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
