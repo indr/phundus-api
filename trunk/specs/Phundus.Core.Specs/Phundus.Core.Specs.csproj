@@ -38,31 +38,11 @@
       <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="Itenso.TimePeriod">
-      <HintPath>..\..\packages\TimePeriodLibrary.NET.2.0.0\lib\net35\Desktop.Release\Itenso.TimePeriod.dll</HintPath>
-    </Reference>
-    <Reference Include="Machine.Specifications">
-      <HintPath>..\..\packages\Machine.Specifications.0.8.3\lib\net40\Machine.Specifications.dll</HintPath>
-    </Reference>
-    <Reference Include="Machine.Specifications.Clr4">
-      <HintPath>..\..\packages\Machine.Specifications.0.8.3\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Rhino.Mocks">
       <HintPath>..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-    </Reference>
-    <Reference Include="Stateless">
-      <HintPath>..\..\packages\Stateless.2.5.11.0\lib\portable-net40+sl50+win+wp80\Stateless.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -80,67 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateTimeProviderSteps.cs" />
-    <Compile Include="Contexts\Supports\InMemoryNHibernate\InMemoryCriteria.cs" />
-    <Compile Include="Contexts\Supports\InMemoryNHibernate\InMemoryQueryOverOrderBuilder.cs" />
-    <Compile Include="Contexts\Supports\InMemoryNHibernate\InMemorySession.cs" />
-    <Compile Include="Contexts\Supports\InMemoryNHibernate\InMemoryQueryOver.cs" />
-    <Compile Include="Contexts\Supports\InMemorySessionSupport.cs" />
-    <Compile Include="Contexts\MutatingEvents.cs" />
-    <Compile Include="Contexts\PastEvents.cs" />
-    <Compile Include="Inventory\Management\Stock\Allocation.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Allocation.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory\Management\Stock\AllocationStatus.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AllocationStatus.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory\Management\Stock\AllocationSteps.cs" />
-    <Compile Include="Inventory\Management\Stock\QuantityAvailable.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuantityAvailable.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory\Management\Stock\QuantitiesAsOf.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuantitiesAsOf.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory\Management\Stock\QuantitiesAsOfSteps.cs" />
-    <Compile Include="Inventory\Management\Stock\QuantityAvailableSteps.cs" />
-    <Compile Include="Inventory\Management\Stock\QuantityInInventory.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuantityInInventory.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory\Management\Stock\QuantityInInventorySteps.cs" />
-    <Compile Include="Inventory\Management\Stock\StockSteps.cs" />
-    <Compile Include="Inventory\Projections\AllocationsProjection.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AllocationsProjection.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory\Projections\AllocationsProjectionSteps.cs" />
-    <Compile Include="Inventory\Projections\QuantitiesAvailableProjectionSteps.cs" />
-    <Compile Include="Inventory\Projections\QuantitiesInInventoryProjection.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuantitiesInInventoryProjection.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory\Projections\QuantitiesInInventoryProjectionSteps.cs" />
-    <Compile Include="Inventory\Projections\QuantitiesAvailableProjection.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QuantitiesAvailableProjection.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory\Projections\StocksProjection.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StocksProjection.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory\Projections\StocksProjectionSteps.cs" />
     <Compile Include="Inventory\ReservationAndAvailability\Steps\AvailabilitySteps.cs" />
     <Compile Include="Inventory\ReservationAndAvailability\AvailabilityDetails.feature.cs">
       <AutoGen>True</AutoGen>
@@ -153,79 +72,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IsAvailable.feature</DependentUpon>
     </Compile>
-    <Compile Include="Inventory\Reservations\AllocationSaga.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AllocationSaga.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory\Reservations\AllocationSagaSteps.cs" />
-    <Compile Include="Inventory\Reservations\ReservationStatusSaga.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReservationStatusSaga.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory\Reservations\ReservationStatusSagaSteps.cs" />
-    <Compile Include="Inventory\StockContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SagaConcern.cs" />
-    <Compile Include="SagaContext.cs" />
-    <Compile Include="SagaSteps.cs" />
-    <Compile Include="Shop\Ordering\ReservationSagaSteps.cs" />
-    <Compile Include="Shop\Ordering\ReservationSaga.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReservationSaga.feature</DependentUpon>
-    </Compile>
     <Compile Include="Shop\Pricing\PerDayWithPerSevenDaysPricePricing.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PerDayWithPerSevenDaysPricePricing.feature</DependentUpon>
     </Compile>
     <Compile Include="Shop\Pricing\Steps\PerDayWithPerSevenDaysPricePricingSteps.cs" />
-    <Compile Include="Contexts\Supports\Depends.cs" />
-    <Compile Include="Contexts\Supports\Container.cs" />
     <Compile Include="Transfomers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Default.srprofile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Inventory\Management\Stock\Allocation.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Allocation.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Inventory\Management\Stock\AllocationStatus.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>AllocationStatus.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Inventory\Management\Stock\QuantityAvailable.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>QuantityAvailable.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Inventory\Management\Stock\QuantitiesAsOf.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>QuantitiesAsOf.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Inventory\Management\Stock\QuantityInInventory.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>QuantityInInventory.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Inventory\Projections\AllocationsProjection.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>AllocationsProjection.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Inventory\Projections\QuantitiesInInventoryProjection.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>QuantitiesInInventoryProjection.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Inventory\Projections\QuantitiesAvailableProjection.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>QuantitiesAvailableProjection.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Inventory\Projections\StocksProjection.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>StocksProjection.feature.cs</LastGenOutput>
     </None>
     <None Include="Inventory\ReservationAndAvailability\AvailabilityDetails.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -235,20 +94,8 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>IsAvailable.feature.cs</LastGenOutput>
     </None>
-    <None Include="Inventory\Reservations\AllocationSaga.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>AllocationSaga.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Inventory\Reservations\ReservationStatusSaga.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ReservationStatusSaga.feature.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
-    <None Include="Shop\Ordering\ReservationSaga.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ReservationSaga.feature.cs</LastGenOutput>
-    </None>
     <None Include="Shop\Pricing\PerDayWithPerSevenDaysPricePricing.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PerDayWithPerSevenDaysPricePricing.feature.cs</LastGenOutput>
@@ -259,10 +106,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Phundus.Common\Phundus.Common.csproj">
-      <Project>{0BA282A6-FEA2-44A2-9748-1DE0E4E32018}</Project>
-      <Name>Phundus.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Phundus.Core\Phundus.Core.csproj">
       <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
       <Name>Phundus.Core</Name>

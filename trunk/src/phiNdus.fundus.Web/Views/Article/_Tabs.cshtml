@@ -9,45 +9,25 @@
     
 <div class="tabbable">
     <ul class="nav nav-tabs">
-        <li class="@Html.ActiveTab("article", new string[] { "Edit", "Fields", "edit", "fields" })">
-            @Ajax.ActionLink("Eigenschaften", ArticlesActionNames.Fields,new { id = Model.Id }, new AjaxOptions {
-                HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})
-        </li>
+        <li class="@Html.ActiveTab("Article", new string[] { "Edit", "Fields" })">@Ajax.ActionLink("Eigenschaften", ArticlesActionNames.Fields,new { id = Model.Id }, new AjaxOptions {
+            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
-        <li class="@Html.ActiveTab("article", new string[] { "Images", "images"})">
-            @Ajax.ActionLink("Dateien", ArticlesActionNames.Images, new { id = Model.Id }, new AjaxOptions {
-                HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})
-        </li>
+        <li class="@Html.ActiveTab("Article", new string[] { "Images"})">@Ajax.ActionLink("Dateien", ArticlesActionNames.Images, new { id = Model.Id }, new AjaxOptions {
+            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
-        @*<li class="@Html.ActiveTab("article", new string[] { "Categories", "categories"})">
-            @Ajax.ActionLink("Kategorien", ArticlesActionNames.Categories, new { id = Model.Id }, new AjaxOptions {
-                HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})
-        </li>*@
-        
-        <li class="@Html.ActiveTab("article", new string[] { "Availability", "availability" })">
-            @Ajax.ActionLink("Verfügbarkeit", ArticlesActionNames.Availability, new { id = Model.Id }, new AjaxOptions {
-                HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})
-        </li>
+        <li class="@Html.ActiveTab("Article", new string[] { "Categories"})">@Ajax.ActionLink("Kategorien", ArticlesActionNames.Categories, new { id = Model.Id }, new AjaxOptions {
+            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
-        <li class="@Html.ActiveTab("article", new string[] { "Reservations", "reservations" })">
-            @Ajax.ActionLink("Reservationen", ArticlesActionNames.Reservations, new { id = Model.Id }, new AjaxOptions { 
-                HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})
-        </li>
-        
-        @if (User.IsInRole("Admin"))
-        {
-            <li><a href="@Url.Content("~/inventory#/articles/" + Model.Id + "/in-inventory")">Bestand (NEU)</a></li>
-            <li><a href="@Url.Content("~/inventory#/articles/" + Model.Id + "/availabilities")">Verfügbarkeit (NEU)</a></li>
-            <li><a href="@Url.Content("~/inventory#/articles/" + Model.Id + "/allocations")">Allokationen (NEU)</a></li>
-            <li><a href="@Url.Content("~/inventory#/articles/" + Model.Id + "/reservations")">Reservationen (NEU)</a></li>
-        }
+        <li class="@Html.ActiveTab("Article", new string[] { "Availability" })">@Ajax.ActionLink("Verfügbarkeit", ArticlesActionNames.Availability, new { id = Model.Id }, new AjaxOptions {
+            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
+
+        <li class="@Html.ActiveTab("Article", new string[] { "Reservations" })">@Ajax.ActionLink("Reservationen", ArticlesActionNames.Reservations, new { id = Model.Id }, new AjaxOptions { 
+            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
     </ul>
         
-    <div class="tab-content">
-        <div id="tab-content">
-            @RenderBody()
-        </div>        
-    </div>  
+    <div class="tab-content" id="tab-content">
+        @RenderBody()
+    </div>
 </div>
 
 

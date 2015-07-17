@@ -47,7 +47,7 @@
 
         private NotificationLog CreateNotificationLog(NotificationLogId notificationLogId)
         {
-            var storedEvents = EventStore.GetAllStoredEventsBetween(
+            var storedEvents = EventStore.AllStoredEventsBetween(
                 notificationLogId.Low, notificationLogId.High);
 
             // TODO: Bedingt, dass keine Lücken vorhanden sind!
@@ -68,7 +68,7 @@
 
         private IEnumerable<Notification> GetNotificationsFrom(IEnumerable<StoredEvent> storedEvents)
         {
-            return storedEvents.Select(each => new Notification(each.EventId, EventStore.ToDomainEvent(each), each.StreamName, each.StreamVersion)).ToList();
+            return storedEvents.Select(each => new Notification(each.EventId, EventStore.ToDomainEvent(each))).ToList();
         }
     }
 }

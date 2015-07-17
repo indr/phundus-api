@@ -1,7 +1,7 @@
 namespace Phundus.Core.Tests.Inventory
 {
-    using Core.Inventory.Application.Commands;
-    using Core.Inventory.Domain.Model.Catalog;
+    using Core.Inventory.Articles.Commands;
+    using Core.Inventory.Articles.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;

@@ -1,8 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Orders.Model
 {
     using System;
-    using Common.Domain.Model;
-    using Inventory.Domain.Model.Catalog;
+    using Inventory.Articles.Model;
     using Pricing.Model;
 
     public class OrderItem
@@ -102,9 +101,7 @@
             get { return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(FromUtc.ToLocalTime(), ToUtc.ToLocalTime(), Amount, UnitPrice).Price; }
         }
 
-        public virtual Period PeriodUtc { get { return new Period(FromUtc, ToUtc);} }
-
-        public virtual void ChangeQuantity(int amount)
+        public virtual void ChangeAmount(int amount)
         {
             Amount = amount;
         }

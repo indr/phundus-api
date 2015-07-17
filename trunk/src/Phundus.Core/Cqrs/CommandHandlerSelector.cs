@@ -3,7 +3,6 @@
     using System;
     using System.Reflection;
     using Castle.Facilities.TypedFactory;
-    using Common.Cqrs;
 
     public class CommandHandlerSelector : DefaultTypedFactoryComponentSelector
     {

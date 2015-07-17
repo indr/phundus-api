@@ -75,11 +75,9 @@ namespace Phundus.Specs.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Unbekannter Benutzer")]
-        [NUnit.Framework.IgnoreAttribute()]
         public virtual void UnbekannterBenutzer()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Unbekannter Benutzer", new string[] {
-                        "ignore"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Unbekannter Benutzer", ((string[])(null)));
 #line 10
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -100,11 +98,9 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Erfolgreiches Login")]
-        [NUnit.Framework.IgnoreAttribute()]
         public virtual void ErfolgreichesLogin()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Erfolgreiches Login", new string[] {
-                        "ignore"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Erfolgreiches Login", ((string[])(null)));
 #line 18
 this.ScenarioSetup(scenarioInfo);
 #line 6

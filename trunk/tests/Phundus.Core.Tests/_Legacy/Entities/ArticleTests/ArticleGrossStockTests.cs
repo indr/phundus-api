@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Core.Tests._Legacy.Entities.ArticleTests
 {
-    using Core.Inventory.Domain.Model.Catalog;
+    using Core.Inventory.Articles.Model;
     using NUnit.Framework;
 
     [TestFixture]

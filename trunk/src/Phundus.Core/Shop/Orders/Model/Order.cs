@@ -1,26 +1,29 @@
 ﻿namespace Phundus.Core.Shop.Orders.Model
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using Common.Domain.Model;
+    using Contracts.Model;
     using Ddd;
-    using Domain.Model.Identity;
-    using Domain.Model.Ordering;
-    using IdentityAndAccess.Domain.Model.Organizations;
-    using IdentityAndAccess.Domain.Model.Users;
     using Iesi.Collections.Generic;
-    using Inventory.Domain.Model.Catalog;
+    using Inventory.Articles.Model;
+    using Inventory.Articles.Repositories;
+    using Inventory.Services;
+    using Microsoft.Practices.ServiceLocation;
 
     public class Order
     {
         private Borrower _borrower;
         private DateTime _createdUtc = DateTime.UtcNow;
-        private Iesi.Collections.Generic.ISet<OrderItem> _items = new HashedSet<OrderItem>();
+        private ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private int? _modifiedBy;
         private DateTime? _modifiedUtc;
         private Organization _organization;
         private OrderStatus _status = OrderStatus.Pending;
+
+
+        protected Order()
+        {
+        }
 
         public Order(Organization organization, Borrower borrower)
         {
@@ -28,16 +31,7 @@
             _borrower = borrower;
         }
 
-        protected Order()
-        {
-        }
-
         public virtual int Id { get; protected set; }
-
-        private OrderId OrderId
-        {
-            get { return new OrderId(Id); }
-        }
 
         public virtual int Version { get; protected set; }
 
@@ -45,11 +39,6 @@
         {
             get { return _organization; }
             protected set { _organization = value; }
-        }
-
-        private OrganizationId OrganizationId
-        {
-            get { return new OrganizationId(Organization.Id); }
         }
 
         public virtual DateTime CreatedUtc
@@ -87,7 +76,7 @@
             protected set { _borrower = value; }
         }
 
-        public virtual Iesi.Collections.Generic.ISet<OrderItem> Items
+        public virtual ISet<OrderItem> Items
         {
             get { return new ImmutableSet<OrderItem>(_items); }
             protected set { _items = value; }
@@ -129,7 +118,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Rejected;
 
-            EventPublisher.Publish(new OrderRejected(new UserId(initiatorId), OrganizationId, OrderId, GetOrderItemIds()));
+            EventPublisher.Publish(new OrderRejected {OrderId = Id});
         }
 
         public virtual void Approve(int initiatorId)
@@ -145,7 +134,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Approved;
 
-            EventPublisher.Publish(new OrderApproved(new UserId(initiatorId), OrganizationId, OrderId, GetOrderItemIds()));
+            EventPublisher.Publish(new OrderApproved {OrderId = Id});
         }
 
         public virtual void Close(int initiatorId)
@@ -159,14 +148,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Closed;
 
-            EventPublisher.Publish(new OrderClosed(new UserId(initiatorId), OrganizationId, OrderId, GetOrderItemIds()));
-        }
-
-        private List<Guid> GetOrderItemIds()
-        {
-            var result = new List<Guid>();
-            result.AddRange(Items.Select(s => s.Id));
-            return result;
+            EventPublisher.Publish(new OrderClosed {OrderId = Id});
         }
 
         public virtual void EnsurePending()
@@ -186,21 +168,40 @@
             }
         }
 
-        public virtual OrderItem AddItem(UserId initiatorId, Article article, DateTime fromUtc, DateTime toUtc,
-            int amount)
+        public virtual bool AddItem(OrderItem item, IAvailabilityService availabilityService)
+        {
+            EnsurePending();
+
+            if (!availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount, Guid.Empty))
+                throw new ArticleNotAvailableException(item);
+
+            return _items.Add(item);
+        }
+
+        public virtual OrderItem AddItem(Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             EnsurePending();
 
             var item = new OrderItem(this, article, fromUtc, toUtc, amount);
             _items.Add(item);
 
-            EventPublisher.Publish(new OrderItemAdded(initiatorId, OrganizationId, OrderId,
-                item.Id, new ArticleId(article.Id), new Period(fromUtc, toUtc), amount));
+            EventPublisher.Publish(new OrderItemAdded());
 
             return item;
         }
 
-        public virtual void RemoveItem(UserId initiatorId, Guid orderItemId)
+        public virtual bool AddItem(int articleId, int amount, DateTime fromUtc, DateTime toUtc,
+            IAvailabilityService availabilityService)
+        {
+            EnsurePending();
+            var article = ServiceLocator.Current.GetInstance<IArticleRepository>().GetById(articleId);
+
+            var item = new OrderItem(this, article, fromUtc, toUtc, amount);
+
+            return AddItem(item, availabilityService);
+        }
+
+        public virtual void RemoveItem(Guid orderItemId)
         {
             EnsurePending();
 
@@ -211,11 +212,10 @@
             _items.Remove(item);
             item.Delete();
 
-            EventPublisher.Publish(new OrderItemRemoved(initiatorId, new OrganizationId(Organization.Id),
-                OrderId, orderItemId, new ArticleId(item.ArticleId)));
+            EventPublisher.Publish(new OrderItemRemoved());
         }
 
-        public virtual void ChangeQuantity(UserId initiatorId, Guid orderItemId, int quantity)
+        public virtual void ChangeAmount(Guid orderItemId, int amount)
         {
             EnsurePending();
 
@@ -223,17 +223,12 @@
             if (item == null)
                 return;
 
-            if (item.Amount == quantity)
-                return;
+            item.ChangeAmount(amount);
 
-            var oldQuantity = item.Amount;
-            item.ChangeQuantity(quantity);
-
-            EventPublisher.Publish(new OrderItemQuantityChanged(initiatorId, OrganizationId, OrderId, orderItemId,
-                new ArticleId(item.ArticleId), oldQuantity, item.Amount));
+            EventPublisher.Publish(new OrderItemAmountChanged());
         }
 
-        public virtual void ChangeItemPeriod(UserId initiatorId, Guid orderItemId, DateTime fromUtc, DateTime toUtc)
+        public virtual void ChangeItemPeriod(Guid orderItemId, DateTime fromUtc, DateTime toUtc)
         {
             EnsurePending();
 
@@ -241,14 +236,9 @@
             if (item == null)
                 return;
 
-            if (Equals(item.PeriodUtc, new Period(fromUtc, toUtc)))
-                return;
-
-            var oldPeriod = item.PeriodUtc;
             item.ChangePeriod(fromUtc, toUtc);
 
-            EventPublisher.Publish(new OrderItemPeriodChanged(initiatorId, OrganizationId, OrderId, orderItemId,
-                new ArticleId(item.ArticleId), oldPeriod, item.PeriodUtc));
+            EventPublisher.Publish(new OrderItemPeriodChanged());
         }
     }
 
@@ -266,15 +256,10 @@
 
     public class ArticleNotAvailableException : Exception
     {
-        public ArticleNotAvailableException(Guid orderItemId)
+        public ArticleNotAvailableException(OrderItem orderItem)
             : base("Die gewünschte Menge ist im gewünschten Zeitraum nicht vorhanden.")
         {
-            OrderItemId = orderItemId;
-        }
-
-        public ArticleNotAvailableException(OrderItem orderItem) : this(orderItem.Id)
-
-        {
+            OrderItemId = orderItem.Id;
         }
 
         public Guid OrderItemId { get; set; }

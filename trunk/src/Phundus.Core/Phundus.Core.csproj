@@ -57,10 +57,6 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Itenso.TimePeriod">
-      <HintPath>..\..\packages\TimePeriodLibrary.NET.2.0.0\lib\net35\Desktop.Release\Itenso.TimePeriod.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="itextsharp, Version=5.2.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\iTextSharp.5.2.0\lib\itextsharp.dll</HintPath>
@@ -77,9 +73,6 @@
     </Reference>
     <Reference Include="RazorEngine">
       <HintPath>..\..\packages\RazorEngine.3.2.0\lib\net40\RazorEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="Stateless">
-      <HintPath>..\..\packages\Stateless.2.5.11.0\lib\portable-net40+sl50+win+wp80\Stateless.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -100,7 +93,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\EventStoreRepositoryInstaller.cs" />
     <Compile Include="App_Start\NotificationPublisherInstaller.cs" />
     <Compile Include="App_Start\CommonInstaller.cs" />
     <Compile Include="App_Start\QueriesInstaller.cs" />
@@ -108,16 +100,15 @@
     <Compile Include="Cqrs\Paging\PageRequest.cs" />
     <Compile Include="Cqrs\Paging\PageResponse.cs" />
     <Compile Include="Cqrs\ReadModelBase.cs" />
-    <Compile Include="Dashboard\Port.Adapter\Persistence\View\NHibernateActivityProjection.cs" />
-    <Compile Include="Dashboard\Application\ActivityQueryService.cs" />
-    <Compile Include="Dashboard\Application\Data\ActivityData.cs" />
+    <Compile Include="Dashboard\Querying\EventLogReadModel.cs" />
+    <Compile Include="Dashboard\Querying\ReadModelUpdater.cs" />
+    <Compile Include="Dashboard\Querying\Records\EventLogRecord.cs" />
     <Compile Include="Ddd\AutoReleaseEventHandlerInterceptor.cs" />
     <Compile Include="Ddd\EventHandlerSelector.cs" />
     <Compile Include="Ddd\EventPublisherImpl.cs" />
-    <Compile Include="Ddd\ISagaStoredEventRepository.cs" />
+    <Compile Include="Ddd\IEventHandlerFactory.cs" />
     <Compile Include="Ddd\IStoredEventRepository.cs" />
-    <Compile Include="Ddd\SagaManager.cs" />
-    <Compile Include="IdentityAndAccess\Domain.Model\Users\UserId.cs" />
+    <Compile Include="Ddd\ISubscribeTo.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\UpdateOrganizationDetails.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\AttemptToLockOneselfException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\MemberNotFoundException.cs" />
@@ -162,136 +153,63 @@
     <Compile Include="IdentityAndAccess\Users\Model\UserLoggedIn.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserRegistered.cs" />
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
-    <Compile Include="Inventory\Application\AllocationsQueryService.cs" />
-    <Compile Include="Inventory\Application\Commands\AllocateStock.cs" />
-    <Compile Include="Inventory\Application\Commands\AllocationHandlerBase.cs" />
-    <Compile Include="Inventory\Application\Commands\ChangeAllocationPeriod.cs" />
-    <Compile Include="Inventory\Application\Commands\ChangeAllocationQuantity.cs" />
-    <Compile Include="Inventory\Application\Commands\DiscardAllocation.cs" />
-    <Compile Include="Inventory\Application\Data\AllocationData.cs" />
-    <Compile Include="Inventory\Application\Data\QuantityAvailableData.cs" />
-    <Compile Include="Inventory\Application\QuantitiesAvailableQueryService.cs" />
-    <Compile Include="Inventory\Domain.Model\Catalog\AllocationStatus.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\Allocation.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\AllocationDiscarded.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\AllocationId.cs" />
-    <Compile Include="Inventory\Application\Commands\CancelReservation.cs" />
-    <Compile Include="Inventory\Application\Commands\ChangeReservationPeriod.cs" />
-    <Compile Include="Inventory\Application\Commands\ChangeReservationQuantity.cs" />
-    <Compile Include="Inventory\Application\Commands\ReserveArticle.cs" />
-    <Compile Include="Inventory\Application\Commands\ChangeQuantityInInventory.cs" />
-    <Compile Include="Inventory\Application\Commands\CreateStock.cs" />
-    <Compile Include="Inventory\Application\Data\ReservationData.cs" />
-    <Compile Include="Inventory\Application\QuantitiesInInventoryQueryService.cs" />
-    <Compile Include="Inventory\Application\ReservationQueryService.cs" />
-    <Compile Include="Inventory\Application\StocksQueryService.cs" />
-    <Compile Include="Inventory\Domain.Model\Catalog\ArticleId.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\AllocationNotFoundException.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\AllocationPeriodChanged.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\AllocationQuantityChanged.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\Allocations.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\AllocationStatusChanged.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\QuantityAvailable.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\QuantityInInventory.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\IStockRepository.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\QuantitiesAsOf.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\QuantityAsOf.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\QuantityAvailableChanged.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\QuantityInInventoryDecreased.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\QuantityInInventoryIncreased.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\QuantityPeriod.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\QuantityPeriods.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\Stock.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\StockAllocated.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\StockCreated.cs" />
-    <Compile Include="Inventory\Domain.Model\Management\StockId.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\AllocationSaga.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\AllocationSagaManager.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\ReservationCancelled.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\ReservationStatus.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\ReservationStatusSaga.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\ReservationStatusSagaManager.cs" />
-    <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreRepositoryBase.cs" />
-    <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreReservationRepository.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\IReservationRepository.cs" />
-    <Compile Include="IdentityAndAccess\Domain.Model\Organizations\OrganizationId.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\Reservation.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\ReservationQuantityChanged.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\ArticleReserved.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\ReservationId.cs" />
-    <Compile Include="Inventory\Domain.Model\Reservations\ReservationPeriodChanged.cs" />
-    <Compile Include="Inventory\Port.Adapter\Persistence\EventStoreStockRepository.cs" />
-    <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateAllocationsProjection.cs" />
-    <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateQuantityAvailableProjection.cs" />
-    <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateQuantityInInventoryProjection.cs" />
-    <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateReservationProjection.cs" />
-    <Compile Include="Inventory\Application\Commands\AddImage.cs" />
-    <Compile Include="Inventory\Application\Commands\RemoveImage.cs" />
-    <Compile Include="Inventory\Application\Exceptions\ImageNotFoundException.cs" />
-    <Compile Include="Inventory\Domain.Model\Catalog\ArticleCreated.cs" />
-    <Compile Include="Inventory\Domain.Model\Catalog\ArticleUpdated.cs" />
-    <Compile Include="Inventory\Application\Commands\CreateArticle.cs" />
-    <Compile Include="Inventory\Application\Commands\UpdateArticle.cs" />
-    <Compile Include="Inventory\Domain.Model\Catalog\ArticleDeleted.cs" />
-    <Compile Include="Inventory\Application\Commands\DeleteArticle.cs" />
-    <Compile Include="Inventory\Application\Exceptions\ArticleNotFoundException.cs" />
-    <Compile Include="Inventory\Domain.Model\Catalog\ImageAdded.cs" />
-    <Compile Include="Inventory\Domain.Model\Catalog\ImageRemoved.cs" />
-    <Compile Include="Inventory\Application\Data\QuantityInInventoryData.cs" />
-    <Compile Include="Inventory\Application\Data\StockData.cs" />
-    <Compile Include="Inventory\Port.Adapter\Persistence\View\NHibernateStocksProjection.cs" />
-    <Compile Include="Inventory\_Legacy\Queries\ArticleReadModel.cs" />
-    <Compile Include="Inventory\_Legacy\Queries\IArticleQueries.cs" />
-    <Compile Include="Inventory\_Legacy\Queries\IImageQueries.cs" />
-    <Compile Include="Inventory\Domain.Model\Catalog\IArticleRepository.cs" />
-    <Compile Include="Inventory\_Legacy\Queries\ArticleDtoAssembler.cs" />
-    <Compile Include="Inventory\_Legacy\Queries\ImageAssembler.cs" />
-    <Compile Include="Inventory\_Legacy\Queries\Dtos\ArticleDto.cs" />
-    <Compile Include="Inventory\_Legacy\Queries\Dtos\AvailabilityDto.cs" />
-    <Compile Include="Inventory\_Legacy\Queries\Dtos\ImageDto.cs" />
-    <Compile Include="Inventory\_Legacy\Queries\AvailabilityReadModel.cs" />
-    <Compile Include="Inventory\_Legacy\Queries\IAvailabilityQueries.cs" />
-    <Compile Include="Inventory\_Legacy\Services\IAvailabilityService.cs" />
-    <Compile Include="Inventory\_Legacy\Services\IReservationService.cs" />
-    <Compile Include="Shop\Application\Commands\CreateEmptyContract.cs" />
-    <Compile Include="Shop\Domain.Model\Identity\Borrower.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\OrderId.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\ReservationSaga.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\ReservationSagaManager.cs" />
-    <Compile Include="Shop\Domain.Model\Renting\ContractCreated.cs" />
-    <Compile Include="Shop\Domain.Model\Renting\IContractRepository.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\OrderItemRemoved.cs" />
-    <Compile Include="Shop\Orders\Model\OrderApproved.cs" />
-    <Compile Include="Shop\Orders\Model\OrderClosed.cs" />
-    <Compile Include="Shop\Orders\Model\OrderCreated.cs" />
-    <Compile Include="Shop\Port.Adapter\Integration\BorrowerService.cs" />
-    <Compile Include="Shop\Domain.Model\Identity\IBorrowerService.cs" />
-    <Compile Include="Shop\Application\Commands\AddArticleToCart.cs" />
-    <Compile Include="Shop\Application\Commands\AddOrderItem.cs" />
-    <Compile Include="Shop\Application\Commands\CloseOrder.cs" />
-    <Compile Include="Shop\Application\Commands\ApproveOrder.cs" />
-    <Compile Include="Shop\Application\Commands\CreateEmptyOrder.cs" />
-    <Compile Include="Shop\Application\Commands\ClearCart.cs" />
-    <Compile Include="Shop\Application\Commands\RejectOrder.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\Exceptions\OrderNotFoundException.cs" />
-    <Compile Include="Shop\Application\Commands\RemoveOrderItem.cs" />
-    <Compile Include="Shop\Application\Commands\UpdateOrderItem.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\Exceptions\CartNotFoundException.cs" />
+    <Compile Include="Inventory\Articles\Commands\AddImage.cs" />
+    <Compile Include="Inventory\Articles\Commands\RemoveImage.cs" />
+    <Compile Include="Inventory\Articles\Exceptions\ImageNotFoundException.cs" />
+    <Compile Include="Inventory\Articles\Model\ArticleCreated.cs" />
+    <Compile Include="Inventory\Articles\Model\ArticleUpdated.cs" />
+    <Compile Include="Inventory\Articles\Commands\CreateArticle.cs" />
+    <Compile Include="Inventory\Articles\Commands\UpdateArticle.cs" />
+    <Compile Include="Inventory\Articles\Model\ArticleDeleted.cs" />
+    <Compile Include="Inventory\Articles\Commands\DeleteArticle.cs" />
+    <Compile Include="Inventory\Articles\Exceptions\ArticleNotFoundException.cs" />
+    <Compile Include="Inventory\Articles\Model\ImageAdded.cs" />
+    <Compile Include="Inventory\Articles\Model\ImageRemoved.cs" />
+    <Compile Include="Inventory\Queries\ArticleReadModel.cs" />
+    <Compile Include="Inventory\Queries\IArticleQueries.cs" />
+    <Compile Include="Inventory\Queries\IImageQueries.cs" />
+    <Compile Include="Inventory\Articles\Repositories\IArticleRepository.cs" />
+    <Compile Include="Inventory\Queries\ArticleDtoAssembler.cs" />
+    <Compile Include="Inventory\Queries\ImageAssembler.cs" />
+    <Compile Include="Inventory\Queries\Dtos\ArticleDto.cs" />
+    <Compile Include="Inventory\Queries\Dtos\AvailabilityDto.cs" />
+    <Compile Include="Inventory\Queries\Dtos\ImageDto.cs" />
+    <Compile Include="Inventory\Queries\AvailabilityReadModel.cs" />
+    <Compile Include="Inventory\Queries\IAvailabilityQueries.cs" />
+    <Compile Include="Inventory\Services\IAvailabilityService.cs" />
+    <Compile Include="Inventory\Services\IReservationService.cs" />
+    <Compile Include="Shop\Contracts\Commands\CreateEmptyContract.cs" />
+    <Compile Include="Shop\Contracts\Model\Borrower.cs" />
+    <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
+    <Compile Include="Shop\Contracts\Repositories\IContractRepository.cs" />
+    <Compile Include="Shop\Contracts\Services\BorrowerService.cs" />
+    <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
+    <Compile Include="Shop\Orders\Commands\AddOrderItem.cs" />
+    <Compile Include="Shop\Orders\Commands\CloseOrder.cs" />
+    <Compile Include="Shop\Orders\Commands\ApproveOrder.cs" />
+    <Compile Include="Shop\Orders\Commands\CreateEmptyOrder.cs" />
+    <Compile Include="Shop\Orders\Commands\ClearCart.cs" />
+    <Compile Include="Shop\Orders\Commands\RejectOrder.cs" />
+    <Compile Include="Shop\Orders\Exceptions\OrderNotFoundException.cs" />
+    <Compile Include="Shop\Orders\Commands\RemoveOrderItem.cs" />
+    <Compile Include="Shop\Orders\Commands\UpdateOrderItem.cs" />
+    <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
+    <Compile Include="Shop\Orders\Exceptions\CartNotFoundException.cs" />
     <Compile Include="Shop\Orders\Mails\OrderStatusChangedMailNotifier.cs" />
     <Compile Include="Shop\Orders\Model\CartItem.cs" />
-    <Compile Include="Shop\Orders\Model\OrderRejected.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\OrderItemAdded.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\OrderItemQuantityChanged.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\OrderItemPeriodChanged.cs" />
+    <Compile Include="Shop\Orders\Model\OrderEvents.cs" />
+    <Compile Include="Shop\Orders\Model\OrderItemAdded.cs" />
+    <Compile Include="Shop\Orders\Model\OrderItemAmountChanged.cs" />
+    <Compile Include="Shop\Orders\Model\OrderItemPeriodChanged.cs" />
     <Compile Include="Shop\Orders\Model\Organization.cs" />
     <Compile Include="Shop\Orders\Services\IOrganizationService.cs" />
     <Compile Include="Shop\Orders\Services\RoundRectangle.cs" />
     <Compile Include="Shop\Orders\Services\OrderPdfGeneratorService.cs" />
-    <Compile Include="Shop\Application\_Legacy\CartService.cs" />
-    <Compile Include="Shop\Application\_Legacy\ICartService.cs" />
+    <Compile Include="Shop\Orders\_Legacy\CartService.cs" />
+    <Compile Include="Shop\Orders\_Legacy\ICartService.cs" />
     <Compile Include="Shop\Orders\IPdfStore.cs" />
     <Compile Include="Shop\Orders\PdfStore.cs" />
-    <Compile Include="Shop\Domain.Model\Pricing\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
+    <Compile Include="Shop\Pricing\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
     <Compile Include="Shop\Queries\Dtos\CartAssembler.cs" />
     <Compile Include="Shop\Queries\Dtos\CartDto.cs" />
     <Compile Include="Shop\Queries\Dtos\LegacyOrderDto.cs" />
@@ -316,6 +234,7 @@
     <Compile Include="Cqrs\CommandDispatcher.cs" />
     <Compile Include="Cqrs\CommandHandlerSelector.cs" />
     <Compile Include="App_Start\CoreInstaller.cs" />
+    <Compile Include="Cqrs\ICommand.cs" />
     <Compile Include="Cqrs\ICommandDispatcher.cs" />
     <Compile Include="Cqrs\IHandleCommand.cs" />
     <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
@@ -345,23 +264,23 @@
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="_Legacy\DtoOutOfDateException.cs" />
-    <Compile Include="Inventory\Domain.Model\Catalog\Article.cs" />
+    <Compile Include="Inventory\Articles\Model\Article.cs" />
     <Compile Include="Shop\Orders\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
     <Compile Include="Shop\Orders\Model\Cart.cs" />
-    <Compile Include="Shop\Domain.Model\Renting\Contract.cs" />
-    <Compile Include="Shop\Domain.Model\Renting\ContractItem.cs" />
+    <Compile Include="Shop\Contracts\Model\Contract.cs" />
+    <Compile Include="Shop\Contracts\Model\ContractItem.cs" />
     <Compile Include="Ddd\EntityBase.cs" />
-    <Compile Include="Inventory\Domain.Model\Catalog\Image.cs" />
+    <Compile Include="Inventory\Articles\Model\Image.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Account.cs" />
     <Compile Include="Shop\Orders\Model\Order.cs" />
     <Compile Include="Shop\Orders\Model\OrderItem.cs" />
     <Compile Include="Shop\Orders\Model\OrderStatus.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Organization.cs" />
-    <Compile Include="Inventory\_Legacy\AvailabilityAndReservation\Model\Reservation.cs" />
+    <Compile Include="Inventory\AvailabilityAndReservation\Model\Reservation.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\Role.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\User.cs" />
     <Compile Include="IdentityAndAccess\Users\Exceptions\InvalidPasswordException.cs" />
@@ -377,10 +296,10 @@
     <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationFiled.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationRejected.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\ICartRepository.cs" />
-    <Compile Include="Shop\Domain.Model\Ordering\IOrderRepository.cs" />
+    <Compile Include="Shop\Orders\Repositories\ICartRepository.cs" />
+    <Compile Include="Shop\Orders\Repositories\IOrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Repositories\IOrganizationRepository.cs" />
-    <Compile Include="Inventory\_Legacy\AvailabilityAndReservation\Repositories\IReservationRepository.cs" />
+    <Compile Include="Inventory\AvailabilityAndReservation\Repositories\IReservationRepository.cs" />
     <Compile Include="IdentityAndAccess\Users\Repositories\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -408,9 +327,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dashboard\Domain.Model\" />
+    <Folder Include="Bootstrap\" />
     <Folder Include="IdentityAndAccess\Queries\Dtos\" />
-    <Folder Include="Inventory\_Legacy\Services\Dtos\" />
+    <Folder Include="Inventory\Services\Dtos\" />
+    <Folder Include="Shop\Catalogs\" />
+    <Folder Include="Shop\Contracts\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IdentityAndAccess\Organizations\Mails\Templates.resx">

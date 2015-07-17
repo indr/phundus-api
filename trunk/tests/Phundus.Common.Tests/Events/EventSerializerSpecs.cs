@@ -1,12 +1,9 @@
 ﻿namespace Phundus.Common.Tests.Events
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Runtime.Serialization;
-    using Common.Domain.Model;
     using Common.Events;
     using developwithpassion.specifications.rhinomocks;
+    using Domain.Model;
     using Machine.Specifications;
 
     [DataContract]
@@ -14,9 +11,6 @@
     {
         [DataMember(Order = 1)]
         public string FirstName { get; set; }
-
-        [DataMember(Order = 2)]
-        public ICollection<Guid> Guids { get; set; }
     }
 
     [Subject(typeof (EventSerializer))]
@@ -46,9 +40,6 @@
         {
             domainEvent = new FakeDomainEvent();
             domainEvent.FirstName = "Peter";
-            domainEvent.Guids = new List<Guid>();
-            domainEvent.Guids.Add(Guid.NewGuid());
-            domainEvent.Guids.Add(Guid.NewGuid());
         };
 
         public Because of = () =>
@@ -64,8 +55,5 @@
 
         public It should_have_same_occured_on_utc =
             () => deserialization.OccuredOnUtc.ShouldEqual(domainEvent.OccuredOnUtc);
-
-        public It should_have_same_guids_collection =
-            () => deserialization.Guids.ShouldEqual(domainEvent.Guids);
     }
 }

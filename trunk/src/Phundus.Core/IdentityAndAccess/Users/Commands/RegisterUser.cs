@@ -1,13 +1,12 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Users.Commands
 {
-    using Common.Cqrs;
     using Cqrs;
     using Ddd;
     using Exceptions;
     using Model;
     using Repositories;
 
-    public class RegisterUser : ICommand
+    public class RegisterUser
     {
         public RegisterUser(string emailAddress, string password, string firstName, string lastName, string street,
             string postcode, string city, string mobilePhone, int? jsNumber)

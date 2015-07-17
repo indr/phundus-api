@@ -1,13 +1,7 @@
 ﻿namespace Phundus.Core.Tests.Shop.Orders.Model
 {
     using System;
-    using Common.Domain.Model;
-    using Core.IdentityAndAccess.Domain.Model.Organizations;
-    using Core.IdentityAndAccess.Domain.Model.Users;
-    using Core.Inventory.Domain.Model.Catalog;
-    using Core.Inventory.Services;
-    using Core.Shop.Domain.Model.Identity;
-    using Core.Shop.Domain.Model.Ordering;
+    using Core.Shop.Contracts.Model;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
@@ -18,23 +12,12 @@
     {
         protected static Order order;
         protected static int modifierId = 101;
-        protected static UserId _initiatorId = new UserId(101);
-        protected static OrganizationId _organizationId = new OrganizationId(1001);
-        protected static ArticleId _articleId = new ArticleId(10001);
-        protected static Period _period = Period.FromTodayToTomorrow;
-        protected static int _quantity = 1;
-        protected static Guid _orderItemId;
-
-        private Establish ctx = () =>
-        {
-            depends.on<Organization>(OrganizationFactory.Create());
-            depends.on<Borrower>(BorrowerFactory.Create());
-        };
     }
 
     [Subject(typeof (Order))]
     public class when_an_order_is_created : order_concern
     {
+        private const int organizationId = 1;
         private static Organization organization;
         private static Borrower borrower;
 
@@ -44,10 +27,7 @@
             borrower = BorrowerFactory.Create();
         };
 
-        public Because of = () =>
-        {
-            order = new Order(organization, borrower);
-        };
+        public Because of = () => { order = new Order(organization, borrower); };
 
         public It should_have_status_pending =
             () => order.Status.ShouldEqual(OrderStatus.Pending);
@@ -66,70 +46,6 @@
 
         public It should_not_have_a_modifier =
             () => order.ModifiedBy.ShouldBeNull();
-    }
-
-    [Subject(typeof(Order))]
-    public class when_period_of_an_order_item_is_changed : order_concern
-    {
-        private Establish ctx = () =>
-        {
-            var article = new Article(_articleId, _organizationId.Id, "Article");
-            order = OrderFactory.CreatePending();
-            _orderItemId = order.AddItem(_initiatorId, article, _period.FromUtc, _period.ToUtc, _quantity).Id;
-        };
-
-        private Because of = () => order.ChangeItemPeriod(_initiatorId, _orderItemId, DateTime.UtcNow, DateTime.UtcNow.AddDays(1));
-
-        public It should_publish_order_item_period_changed =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemPeriodChanged>.Is.NotNull));
-    }
-
-    [Subject(typeof(Order))]
-    public class when_period_of_an_order_item_is_changed_to_the_same_period : order_concern
-    {
-        private Establish ctx = () =>
-        {
-            var article = new Article(_articleId, _organizationId.Id, "Article");
-            order = OrderFactory.CreatePending();
-            _orderItemId = order.AddItem(_initiatorId, article, _period.FromUtc, _period.ToUtc, _quantity).Id;
-        };
-
-        private Because of = () => order.ChangeItemPeriod(_initiatorId, _orderItemId, _period.FromUtc, _period.ToUtc);
-
-        public It should_not_publish_order_item_period_changed =
-            () => publisher.WasNotToldTo(x => x.Publish(Arg<OrderItemPeriodChanged>.Is.NotNull));
-    }
-
-    [Subject(typeof (Order))]
-    public class when_quantity_of_an_order_item_is_changed : order_concern
-    {
-        private Establish ctx = () =>
-        {
-            var article = new Article(_articleId, _organizationId.Id, "Article");
-            order = OrderFactory.CreatePending();
-            _orderItemId = order.AddItem(_initiatorId, article, _period.FromUtc, _period.ToUtc, _quantity).Id;
-        };
-
-        private Because of = () => order.ChangeQuantity(_initiatorId, _orderItemId, _quantity + 1);
-
-        public It should_publish_order_item_quantity_changed =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemQuantityChanged>.Is.NotNull));
-    }
-
-    [Subject(typeof(Order))]
-    public class when_quantity_of_an_order_item_is_changed_to_the_same_quantity : order_concern
-    {
-        private Establish ctx = () =>
-        {
-            var article = new Article(_articleId, _organizationId.Id, "Article");
-            order = OrderFactory.CreatePending();
-            _orderItemId = order.AddItem(_initiatorId, article, _period.FromUtc, _period.ToUtc, _quantity).Id;
-        };
-
-        private Because of = () => order.ChangeQuantity(_initiatorId, _orderItemId, _quantity);
-
-        public It should_not_publish_order_item_quantity_changed =
-            () => publisher.WasNotToldTo(x => x.Publish(Arg<OrderItemQuantityChanged>.Is.NotNull));
     }
 
     public abstract class pending_order_concern : order_concern

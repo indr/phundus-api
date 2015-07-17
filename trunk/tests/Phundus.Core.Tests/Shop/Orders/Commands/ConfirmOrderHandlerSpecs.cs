@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
-    using Core.Shop.Application.Commands;
+    using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;

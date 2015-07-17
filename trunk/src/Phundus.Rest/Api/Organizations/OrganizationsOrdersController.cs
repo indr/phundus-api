@@ -8,11 +8,9 @@ namespace Phundus.Rest.Api.Organizations
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Core.IdentityAndAccess.Domain.Model.Organizations;
-    using Core.IdentityAndAccess.Domain.Model.Users;
     using Core.IdentityAndAccess.Queries;
-    using Core.Shop.Application.Commands;
     using Core.Shop.Orders;
+    using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
 
     [RoutePrefix("api/organizations/{organizationId}/orders")]
@@ -87,12 +85,16 @@ namespace Phundus.Rest.Api.Organizations
                 userId = user.Id;
             }
 
-            var command = new CreateEmptyOrder(new UserId(CurrentUserId), new OrganizationId(organizationId),
-                new UserId(userId));
+            var command = new CreateEmptyOrder
+            {
+                InitiatorId = CurrentUserId,
+                OrganizationId = organizationId,
+                UserId = userId
+            };
 
             Dispatcher.Dispatch(command);
 
-            return Get(organizationId, command.ResultingOrderId);
+            return Get(organizationId, command.OrderId);
         }
     }
 }

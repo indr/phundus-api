@@ -1,13 +1,12 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Users.Commands
 {
     using System.Globalization;
-    using Common.Cqrs;
     using Cqrs;
     using Exceptions;
     using Mails;
     using Repositories;
 
-    public class ChangeEmailAddress : ICommand
+    public class ChangeEmailAddress
     {
         public ChangeEmailAddress(int userId, string oldEmailAddress, string emailAddress)
         {

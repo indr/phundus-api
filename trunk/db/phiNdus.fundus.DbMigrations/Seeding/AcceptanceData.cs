@@ -26,9 +26,6 @@
             Delete.FromTable("Membership").InSchema(SchemaName).AllRows();
             Delete.FromTable("User").InSchema(SchemaName).AllRows();
             Delete.FromTable("Organization").InSchema(SchemaName).AllRows();
-            Delete.FromTable("SagaStoredEvents").AllRows();
-            Delete.FromTable("StoredEvents").AllRows();
-            EmptyProjectionTables();
 
             Import<Organization>("Organizations.csv", "Organization");
             Import<User>("Users.csv", "User");
@@ -39,24 +36,6 @@
             Import<ArticleImage>("ArticleImages.csv", "Image", false);
 
             CopyImages();
-        }
-
-        private void EmptyProjectionTables()
-        {
-            Delete.FromTable("ProcessedNotificationTracker").AllRows();
-
-            DeleteFromTableAllRowsIfExists("Proj_ActivityData");
-            DeleteFromTableAllRowsIfExists("Proj_StockData");
-            DeleteFromTableAllRowsIfExists("Proj_ReservationData");
-            DeleteFromTableAllRowsIfExists("Proj_AllocationData");
-            DeleteFromTableAllRowsIfExists("Proj_QuantityAvailableData");
-            DeleteFromTableAllRowsIfExists("Proj_QuantityInInventoryData");
-        }
-
-        private void DeleteFromTableAllRowsIfExists(string tableName)
-        {
-            if (Schema.Table(tableName).Exists())
-                Delete.FromTable(tableName).AllRows();
         }
 
         private static void CopyImages()
@@ -91,22 +70,26 @@
             {
                 maxId = Math.Max(maxId, each.Id);
                 Insert.IntoTable("Article").InSchema(SchemaName).Row(new
-                {
-                    each.Id,
-                    each.Version,
-                    each.OrganizationId,
-                    CreateDate = DateTime.Now.AddDays(-10),
-                    each.Name,
-                    Brand = each.Marke,
-                    Price = each.Preis,
-                    Description = each.Beschreibung,
-                    Stock = each.Bestand
-                });
-            }
+                    {
+                        each.Id,
+                        each.Version,
+                        each.OrganizationId,
+                        CreateDate = DateTime.Now,
+                        Name = each.Name,
+                        Brand = each.Marke,
+                        Price = each.Preis,
+                        Description = each.Beschreibung,
+                        Stock = each.Bestand
+
+                    });
+
+                }
 
             Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] OFF", "Article"));
 
             Reseed("Article", maxId + 1);
+
+            
         }
 
         private void Import<T>(string fileName, string tableName, bool allowIdentityInsert = true) where T : class
@@ -126,12 +109,12 @@
         private static IEnumerable<T> GetRecords<T>(string fileName) where T : class
         {
             var configuration = new CsvConfiguration
-            {
-                Delimiter = ";",
-                Encoding = Encoding.UTF8
-            };
+                {
+                    Delimiter = ";",
+                    Encoding = Encoding.UTF8
+                };
             var csv = new CsvReader(new StreamReader(HostingEnvironment.MapPath(@"~\App_Data\Seeds\" + fileName)),
-                configuration);
+                                    configuration);
             return csv.GetRecords<T>();
         }
 
@@ -212,15 +195,9 @@
             [CsvField(Name = "OrganizationId")]
             public int OrganizationId { get; set; }
 
-            public int Status
-            {
-                get { return 1; }
-            }
+            public int Status { get { return 1; } }
 
-            public DateTime Timestamp
-            {
-                get { return DateTime.UtcNow; }
-            }
+            public DateTime Timestamp { get { return DateTime.UtcNow; } }
         }
 
         #region Nested type: Membership
@@ -283,7 +260,7 @@
         }
 
         #endregion
-
+        
         #region Nested type: User
 
         internal class User

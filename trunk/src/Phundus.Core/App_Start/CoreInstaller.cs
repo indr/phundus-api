@@ -5,7 +5,6 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using Common.EventPublishing;
     using Cqrs;
     using Ddd;
 
@@ -24,8 +23,6 @@
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            
-
             container.Register(
                 Component.For<ITypedFactoryComponentSelector>().ImplementedBy<CommandHandlerSelector>(),
                 Component.For<AutoReleaseCommandHandlerInterceptor>(),

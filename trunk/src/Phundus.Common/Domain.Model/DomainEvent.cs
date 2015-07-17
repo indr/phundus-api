@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class DomainEvent : IDomainEvent
+    public class DomainEvent
     {
         public DomainEvent()
         {

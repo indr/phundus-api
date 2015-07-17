@@ -4,6 +4,6 @@ namespace Phundus.Common.Notifications
 
     public interface IDomainEventHandler
     {
-        void Handle(IDomainEvent domainEvent);
+        void Handle(DomainEvent domainEvent);
     }
 }
