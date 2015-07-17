@@ -213,11 +213,6 @@
     <Compile Include="404.aspx.designer.cs">
       <DependentUpon>404.aspx</DependentUpon>
     </Compile>
-    <Compile Include="App_Data\Seeds\ArticleSeeds.cs" />
-    <Compile Include="App_Data\Seeds\OrderSeeds.cs" />
-    <Compile Include="App_Data\Seeds\OrganizationSeeds.cs" />
-    <Compile Include="App_Data\Seeds\SeedStartupTask.cs" />
-    <Compile Include="App_Data\Seeds\UserSeeds.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
     <Compile Include="App_Start\DatabaseMigrator.cs" />
@@ -227,7 +222,6 @@
     <Compile Include="App_Start\StartMitSqlServerCe.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\Orgs\FilesController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
@@ -325,10 +319,6 @@
     <Content Include="App_Data\Seeds\ArticleImages\10027\dsc_3777.jpg" />
     <Content Include="App_Data\Seeds\ArticleImages\10027\E04.jpg" />
     <Content Include="App_Data\Seeds\ArticleImages\10027\Stroboskop-Schlauch-a21072200.jpg" />
-    <Content Include="ClientViews\Inventory\Availabilities.html" />
-    <Content Include="ClientViews\Inventory\InInventory.html" />
-    <Content Include="ClientViews\Inventory\Allocations.html" />
-    <Content Include="ClientViews\Inventory\Reservations.html" />
     <Content Include="Content\angular-ui.css" />
     <Content Include="Content\angular-ui.min.css" />
     <Content Include="Content\bootstrap-datepicker.css" />
@@ -424,7 +414,6 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\modules\ph-inventory.js" />
     <Content Include="Scripts\modules\ph-admin.js" />
     <Content Include="Scripts\modules\ph-documents.js" />
     <Content Include="Scripts\modules\ph-domain.js" />
@@ -709,7 +698,6 @@
     </Content>
     <Content Include="Views\Documents\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Inventory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\pbar-ani.gif" />
@@ -919,14 +907,6 @@
     <ProjectReference Include="..\..\db\phiNdus.fundus.DbMigrations\Phundus.Persistence.Migrations.csproj">
       <Project>{7B58707A-84EC-4E7E-A0FD-946F1E16361E}</Project>
       <Name>Phundus.Persistence.Migrations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">
-      <Project>{0ba282a6-fea2-44a2-9748-1de0e4e32018}</Project>
-      <Name>Phundus.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Phundus.Core.Migrations\Phundus.Core.Migrations.csproj">
-      <Project>{b72e3778-0b5e-4ff7-9d75-023a9c3457e9}</Project>
-      <Name>Phundus.Core.Migrations</Name>
     </ProjectReference>
     <ProjectReference Include="..\Phundus.Core\Phundus.Core.csproj">
       <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>

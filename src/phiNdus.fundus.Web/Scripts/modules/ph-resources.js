@@ -112,27 +112,7 @@
     })
 
     .factory('eventLog', function($resource) {
-        return $resource('./api/diagnostics/activities');
-    })
-
-    .factory('stocks', function($resource) {
-        return $resource('./api/organizations/:organizationId/articles/:articleId/stocks');
-    })
-
-    .factory('quantitiesInInventory', function($resource) {
-        return $resource('./api/organizations/:organizationId/articles/:articleId/stocks/:stockId/in-inventory');
-    })
-
-    .factory('availabilities', function ($resource) {
-        return $resource('./api/organizations/:organizationId/articles/:articleId/availabilities');
-    })
-
-    .factory('allocations', function ($resource) {
-        return $resource('./api/organizations/:organizationId/articles/:articleId/allocations');
-    })
-
-    .factory('reservations', function($resource) {
-        return $resource('./api/organizations/:organizationId/articles/:articleId/reservations');
+        return $resource('./api/diagnostics/eventlog');
     })
 ; // ph.resources
 

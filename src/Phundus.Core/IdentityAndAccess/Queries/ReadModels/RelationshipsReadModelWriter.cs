@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq;
-    using Common.EventPublishing;
     using Ddd;
     using Organizations.Model;
 

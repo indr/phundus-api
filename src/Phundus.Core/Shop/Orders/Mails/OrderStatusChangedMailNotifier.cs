@@ -6,12 +6,11 @@ using System.Text;
 namespace Phundus.Core.Shop.Orders.Mails
 {
     using System.Net.Mail;
-    using Common.EventPublishing;
     using Ddd;
-    using Domain.Model.Ordering;
     using IdentityAndAccess.Organizations.Repositories;
     using Infrastructure;
     using Model;
+    using Repositories;
     using Services;
 
     public class OrderStatusChangedMailNotifier : BaseMail, ISubscribeTo<OrderApproved>, ISubscribeTo<OrderRejected>

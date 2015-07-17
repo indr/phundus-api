@@ -3,16 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Contracts.Services;
     using Ddd;
-    using Domain.Model.Identity;
-    using Domain.Model.Ordering;
-    using IdentityAndAccess.Domain.Model.Users;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
-    using Inventory.Domain.Model.Catalog;
+    using Inventory.Articles.Repositories;
     using Inventory.Services;
     using Microsoft.Practices.ServiceLocation;
     using NHibernate;
+    using Repositories;
     using Services;
 
     public class Cart : EntityBase
@@ -100,17 +99,8 @@
                 var order = new Order(organization, borrowerService.ById(Customer.Id));
                 var items = from i in Items where i.Article.OrganizationId == organization.Id select i;
                 foreach (var item in items)
-                {
-                    var fromUtc = item.From.ToUniversalTime();
-                    var toUtc = item.To.Date.AddDays(1).AddSeconds(-1).ToUniversalTime();
-                    
-                    if (!availabilityService.IsArticleAvailable(item.ArticleId, fromUtc, toUtc, item.Quantity, Guid.Empty))
-                        throw new ArticleNotAvailableException(Guid.Empty);
-
-                    order.AddItem(new UserId(CustomerId), item.Article, fromUtc, toUtc, item.Quantity);
-                    //order.AddItem(item.Article.Id, item.Quantity, fromUtc, toUtc, availabilityService);
-
-                }
+                    order.AddItem(item.Article.Id, item.Quantity, item.From.ToUniversalTime(),
+                        item.To.Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), availabilityService);
 
                 orders.Add(order);
                 result.Add(order);

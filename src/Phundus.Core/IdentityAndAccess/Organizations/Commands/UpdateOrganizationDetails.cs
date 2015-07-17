@@ -1,14 +1,13 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
     using System.Security.Policy;
-    using Common.Cqrs;
     using Cqrs;
     using Ddd;
     using Model;
     using Queries;
     using Repositories;
 
-    public class UpdateOrganizationDetails : ICommand
+    public class UpdateOrganizationDetails
     {
         public int OrganizationId { get; set; }
         public int InitiatorId { get; set; }

@@ -80,19 +80,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\SagaRepositoryInstaller.cs" />
-    <Compile Include="Dashboard\ActivityDataMap.cs" />
-    <Compile Include="Inventory\Mappings\AllocationDataMap.cs" />
-    <Compile Include="Inventory\Mappings\QuantityAvailableDataMap.cs" />
-    <Compile Include="Inventory\Mappings\QuantityInInventoryDataMap.cs" />
-    <Compile Include="Inventory\Mappings\ReservationDataMap.cs" />
-    <Compile Include="Inventory\Mappings\StockDataMap.cs" />
+    <Compile Include="Dashboard\EventLogRecordMap.cs" />
     <Compile Include="NHibernateProcessedNotificationTrackerStore.cs" />
-    <Compile Include="SagaStoredEvents\ISagaEventStore.cs" />
-    <Compile Include="SagaStoredEvents\SagaEventStore.cs" />
-    <Compile Include="SagaStoredEvents\SagaRepository.cs" />
     <Compile Include="StoredEvents\EventStore.cs" />
-    <Compile Include="StoredEvents\NhSagaStoredEventRepository.cs" />
     <Compile Include="StoredEvents\NhStoredEventRepository.cs" />
     <Compile Include="StoredEvents\StoredEventMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\MembershipMap.cs" />

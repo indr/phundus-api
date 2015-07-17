@@ -2,9 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Common.EventPublishing;
+    using Contracts.Model;
     using Ddd;
-    using Domain.Model.Renting;
 
     public class ContractReadModelReader : ReadModelReaderBase, IContractQueries
     {

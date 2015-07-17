@@ -1,11 +1,11 @@
 ﻿namespace Phundus.Core.Shop.Queries
 {
     using System.Linq;
-    using Domain.Model.Ordering;
     using IdentityAndAccess.Organizations.Repositories;
     using Infrastructure;
     using Microsoft.Practices.ServiceLocation;
     using Orders.Model;
+    using Orders.Repositories;
 
     public class CartAssembler
     {

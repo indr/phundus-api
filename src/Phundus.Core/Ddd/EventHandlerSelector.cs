@@ -4,7 +4,6 @@
     using System.Reflection;
     using Castle.Facilities.TypedFactory;
     using Common.Domain.Model;
-    using Common.EventPublishing;
 
     public class EventHandlerSelector : DefaultTypedFactoryComponentSelector
     {

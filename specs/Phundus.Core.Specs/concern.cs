@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Specs
+﻿namespace Phundus.Core.Specs.Inventory.ReservationAndAvailability
 {
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;

@@ -1,9 +1,9 @@
 ﻿namespace Phundus.Persistence.Shop.Repositories
 {
     using System.Linq;
-    using Core.Shop.Domain.Model.Ordering;
     using Core.Shop.Orders;
     using Core.Shop.Orders.Model;
+    using Core.Shop.Orders.Repositories;
 
     public class NhCartRepository : NhRepositoryBase<Cart>, ICartRepository
     {

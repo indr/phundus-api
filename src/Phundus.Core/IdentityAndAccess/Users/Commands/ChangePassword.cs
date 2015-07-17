@@ -1,11 +1,10 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Users.Commands
 {
     using Castle.Transactions;
-    using Common.Cqrs;
     using Cqrs;
     using Repositories;
 
-    public class ChangePassword : ICommand
+    public class ChangePassword
     {
         public ChangePassword(string username, string oldPassword, string newPassword)
         {

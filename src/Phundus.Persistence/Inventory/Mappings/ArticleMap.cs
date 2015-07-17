@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Persistence.Inventory.Mappings
 {
-    using Core.Inventory.Domain.Model.Catalog;
+    using Core.Inventory.Articles.Model;
     using FluentNHibernate.Mapping;
 
     public class ArticleMap : ClassMap<Article>
@@ -26,8 +26,6 @@
             HasMany(x => x.Images).AsSet()
                 .KeyColumn("ArticleId").Inverse()
                 .Cascade.AllDeleteOrphan();
-
-            Map(x => x.StockId, "StockId");
         }
     }
 }

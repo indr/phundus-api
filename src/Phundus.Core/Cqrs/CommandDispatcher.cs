@@ -1,12 +1,10 @@
 ﻿namespace Phundus.Core.Cqrs
 {
-    using Common.Cqrs;
-
     public class CommandDispatcher : ICommandDispatcher
     {
         public ICommandHandlerFactory Factory { get; set; }
 
-        public void Dispatch<TCommand>(TCommand command) where TCommand : ICommand
+        public void Dispatch<TCommand>(TCommand command)
         {
             IHandleCommand<TCommand> handler = Factory.GetHandlerForCommand(command);
 

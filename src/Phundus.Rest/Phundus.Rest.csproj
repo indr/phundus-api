@@ -112,14 +112,9 @@
   <ItemGroup>
     <Compile Include="ApiControllerBase.cs" />
     <Compile Include="Api\ContractsController.cs" />
-    <Compile Include="Api\Diagnostics\ActivitiesController.cs" />
+    <Compile Include="Api\Diagnostics\EventlogController.cs" />
     <Compile Include="Api\Diagnostics\SchemaUpdateController.cs" />
     <Compile Include="Api\Docs\OrderDocs.cs" />
-    <Compile Include="Api\Inventory\ArticlesAllocationsController.cs" />
-    <Compile Include="Api\Inventory\ArticlesAvailabilitiesController.cs" />
-    <Compile Include="Api\Inventory\ArticlesStocksInInventoryController.cs" />
-    <Compile Include="Api\Inventory\ArticlesReservationsController.cs" />
-    <Compile Include="Api\Inventory\ArticlesStocksController.cs" />
     <Compile Include="Api\NotificationsController.cs" />
     <Compile Include="Api\Organizations\Docs\OrganizationsOrderDocs.cs" />
     <Compile Include="App_Start\AttributeRoutingHttpConfig.cs" />

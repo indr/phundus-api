@@ -1,12 +1,11 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Users.Commands
 {
     using System;
-    using Common.Cqrs;
     using Cqrs;
     using Mails;
     using Repositories;
 
-    public class ResetPassword : ICommand
+    public class ResetPassword
     {
         public ResetPassword(string username)
         {

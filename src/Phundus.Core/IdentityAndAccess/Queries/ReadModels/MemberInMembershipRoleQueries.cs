@@ -3,11 +3,8 @@ namespace Phundus.Core.IdentityAndAccess.Queries
     using System;
     using System.Linq;
     using Cqrs;
-    using Domain.Model.Organizations;
-    using Domain.Model.Users;
+    using Organizations.Model;
     using Organizations.Repositories;
-    using Users.Model;
-    using Role = Organizations.Model.Role;
 
     public class MemberInRoleReadModel : ReadModelBase, IMemberInRole
     {
@@ -19,21 +16,8 @@ namespace Phundus.Core.IdentityAndAccess.Queries
                 throw new AuthorizationException("Sie müssen aktives Mitglied dieser Organisation sein.");
         }
 
-        public void ActiveChief(OrganizationId organizationId, UserId userId)
-        {
-            ActiveChief(organizationId.Id, userId.Id);
-        }
-
-        public void ActiveMember(OrganizationId organizationId, UserId userId)
-        {
-            ActiveMember(organizationId.Id, userId.Id);
-        }
-
         public void ActiveChief(int organizationId, int userId)
         {
-            if (userId == UserId.Root.Id)
-                return;
-
             if (!IsActiveChief(organizationId, userId))
                 throw new AuthorizationException(
                     "Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");

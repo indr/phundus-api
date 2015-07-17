@@ -84,7 +84,7 @@
             SessionKey = sessionKey;
             LastLogOnDate = DateTime.Now;
 
-            EventPublisher.Publish(new UserLoggedIn(User.Id, Email));
+            EventPublisher.Publish(new UserLoggedIn(User.Id));
         }
 
         public virtual void ChangePassword(string oldPassword, string newPassword)

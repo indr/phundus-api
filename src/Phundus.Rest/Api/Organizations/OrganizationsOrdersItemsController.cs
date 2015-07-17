@@ -7,12 +7,7 @@ namespace Phundus.Rest.Api.Organizations
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Common.Domain.Model;
-    using Core.IdentityAndAccess.Domain.Model.Organizations;
-    using Core.IdentityAndAccess.Domain.Model.Users;
-    using Core.Inventory.Domain.Model.Catalog;
-    using Core.Shop.Application.Commands;
-    using Core.Shop.Domain.Model.Ordering;
+    using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
 
     [RoutePrefix("api/organizations/{organizationId}/orders/{orderId}/items/{orderItemId?}")]
@@ -24,21 +19,28 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage Post(int organizationId, int orderId, OrderItemPostDoc doc)
         {
-            var command = new AddOrderItem(new UserId(CurrentUserId), new OrganizationId(organizationId),
-                new OrderId(orderId), new ArticleId(doc.ArticleId), new Period(doc.FromUtc, doc.ToUtc), doc.Amount);
+            var command = new AddOrderItem
+            {
+                Amount = doc.Amount,
+                ArticleId = doc.ArticleId,
+                FromUtc = doc.FromUtc,
+                InitiatorId = CurrentUserId,
+                OrderId = orderId,
+                ToUtc = doc.ToUtc
+            };
 
             Dispatch(command);
 
-            return Get(organizationId, orderId, command.ResultingOrderItemId, HttpStatusCode.Created);
+            return Get(organizationId, orderId, command.OrderItemId, HttpStatusCode.Created);
         }
 
-        private HttpResponseMessage Get(int organizationId, int orderId, OrderItemId orderItemId, HttpStatusCode statusCode)
+        private HttpResponseMessage Get(int organizationId, int orderId, Guid orderItemId, HttpStatusCode statusCode)
         {
             var order = OrderQueries.SingleByOrderIdAndOrganizationId(orderId, organizationId, CurrentUserId);
-            var item = order.Items.FirstOrDefault(p => p.Id == orderItemId.Id);
+            var item = order.Items.FirstOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-                    string.Format("Die Position mit der Id {0} konnte nicht gefunden werden.", orderItemId.Id.ToString("D")));
+                    string.Format("Die Position mit der Id {0} konnte nicht gefunden werden.", orderItemId.ToString("D")));
 
             return Request.CreateResponse(statusCode, Map<OrderItemDoc>(item));
         }
@@ -48,10 +50,17 @@ namespace Phundus.Rest.Api.Organizations
         public virtual HttpResponseMessage Patch(int organizationId, int orderId, Guid orderItemId,
             OrderItemPatchDoc doc)
         {
-            Dispatcher.Dispatch(new UpdateOrderItem(new UserId(CurrentUserId), new OrganizationId(organizationId),
-                new OrderId(orderId), new OrderItemId(orderItemId), new Period(doc.FromUtc, doc.ToUtc), doc.Amount));
+            Dispatcher.Dispatch(new UpdateOrderItem
+            {
+                Amount = doc.Amount,
+                FromUtc = doc.FromUtc,
+                InitiatorId = CurrentUserId,
+                OrderId = orderId,
+                OrderItemId = orderItemId,
+                ToUtc = doc.ToUtc
+            });
 
-            return Get(organizationId, orderId, new OrderItemId(orderItemId), HttpStatusCode.OK);
+            return Get(organizationId, orderId, orderItemId, HttpStatusCode.OK);
         }
 
         [DELETE("")]
@@ -60,7 +69,7 @@ namespace Phundus.Rest.Api.Organizations
         {
             Dispatcher.Dispatch(new RemoveOrderItem
             {
-                InitiatorId = new UserId(CurrentUserId),
+                InitiatorId = CurrentUserId,
                 OrderId = orderId,
                 OrderItemId = orderItemId
             });

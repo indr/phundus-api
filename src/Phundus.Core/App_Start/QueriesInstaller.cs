@@ -3,8 +3,8 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using Common.Notifications;
-    using Common.Port.Adapter.Persistence;
+    using Cqrs;
+    using Dashboard.Querying;
 
     public class QueriesInstaller : IWindsorInstaller
     {
@@ -20,24 +20,10 @@
             // TODO: Sollte entfernt werden
             container.Register(
                 Classes.FromThisAssembly().Where(p => p.Name.EndsWith("ReadModel")).WithServiceAllInterfaces());
-        }
-    }
 
-    public class ProjectionInstaller : IWindsorInstaller
-    {
-        public void Install(IWindsorContainer container, IConfigurationStore store)
-        {
-            container.Register(
-                Classes.FromThisAssembly().BasedOn(typeof (NHibernateProjectionBase)).WithServiceAllInterfaces());
-        }
-    }
-
-    public class QueryServiceInstaller : IWindsorInstaller
-    {
-        public void Install(IWindsorContainer container, IConfigurationStore store)
-        {
-            container.Register(
-                Classes.FromThisAssembly().BasedOn(typeof (NHibernateQueryServiceBase<>)).WithServiceDefaultInterfaces());
+            //container.Register(Classes.FromThisAssembly().BasedOn<ReadModelBase>().WithServiceAllInterfaces());
+            
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof (NHibernateReadModelBase<>)).WithServiceAllInterfaces());
         }
     }
 }

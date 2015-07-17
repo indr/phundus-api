@@ -6,7 +6,6 @@
     using Castle.Transactions;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Queries;
-    using Core.Shop.Application;
     using Core.Shop.Orders;
     using Core.Shop.Queries;
     using Microsoft.Practices.ServiceLocation;

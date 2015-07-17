@@ -1,27 +1,27 @@
 namespace Phundus.Core.Ddd
 {
-    using Common;
     using Common.Domain.Model;
-    using Common.EventPublishing;
     using Common.Events;
 
-    /// <summary>
-    /// Former publisher to notify ISubscribeTo-Handlers. ISubscribeTo-Handlers are now notified through notification producer/consumer.
-    /// </summary>
     public class EventPublisherImpl : IEventPublisher
     {
-        private readonly IEventStore _eventStore;
+        public IEventHandlerFactory Factory { get; set; }
 
-        public EventPublisherImpl(IEventStore eventStore)
+        public IEventStore EventStore { get; set; }
+
+        public void Publish<TDomainEvent>(TDomainEvent @event) where TDomainEvent : DomainEvent
         {
-            AssertionConcern.AssertArgumentNotNull(eventStore, "Event store must be provided.");
+            ISubscribeTo<TDomainEvent>[] subscribers = Factory.GetSubscribersForEvent(@event);
 
-            _eventStore = eventStore;
-        }
+            foreach (var each in subscribers)
+                each.Handle(@event);
 
-        public void Publish<TDomainEvent>(TDomainEvent domainEvent) where TDomainEvent : DomainEvent
-        {
-            _eventStore.Append(domainEvent);
+            EventStore.Append(@event);
         }
+    }
+
+    public interface IEventPublisher
+    {
+        void Publish<TDomainEvent>(TDomainEvent @event) where TDomainEvent : DomainEvent;
     }
 }

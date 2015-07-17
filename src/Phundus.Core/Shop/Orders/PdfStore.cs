@@ -1,9 +1,9 @@
 ﻿namespace Phundus.Core.Shop.Orders
 {
     using System.IO;
-    using Domain.Model.Ordering;
     using IdentityAndAccess.Queries;
     using Model;
+    using Repositories;
     using Services;
 
     public class PdfStore : IPdfStore
