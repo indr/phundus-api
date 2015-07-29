@@ -928,9 +928,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Account\SignUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
