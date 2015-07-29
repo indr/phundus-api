@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Web.Controllers
 {
     using System;
+    using System.Text;
     using System.Web.Mvc;
 
     public class HomeController : ControllerBase
@@ -8,7 +9,8 @@
         [AllowAnonymous]
         public virtual ActionResult Index()
         {
-            return RedirectToAction(ShopActionNames.Index, ControllerNames.Shop);
+            var content = System.IO.File.ReadAllText(Server.MapPath("./index.html"));
+            return Content(content, "text/html", Encoding.UTF8);
         }
 
         [AllowAnonymous]
