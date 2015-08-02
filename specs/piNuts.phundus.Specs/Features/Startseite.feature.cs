@@ -65,23 +65,6 @@ namespace Phundus.Specs.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Aufruf der Startseite")]
-        [NUnit.Framework.CategoryAttribute("isSmoker")]
-        public virtual void AufrufDerStartseite()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Aufruf der Startseite", new string[] {
-                        "isSmoker"});
-#line 4
-this.ScenarioSetup(scenarioInfo);
-#line 5
- testRunner.When("ich die Webseite aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
-#line 6
- testRunner.Then("sollte ich ein Heading 1 mit \"\'Allo, \'Allo!\" sehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Aufruf des Shops")]
         [NUnit.Framework.CategoryAttribute("isSmoker")]
         public virtual void AufrufDesShops()
