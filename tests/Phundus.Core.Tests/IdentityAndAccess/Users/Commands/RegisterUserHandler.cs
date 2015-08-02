@@ -21,7 +21,7 @@
 
 
             command = new RegisterUser("MAIL@DOMAIN.COM", "Password", "FirstName", "LastName", "Street", "Postcode",
-                "City", "MobilePhone", 123456);
+                "City", "MobilePhone");
         };
 
         public It should_add_new_user_to_repository =

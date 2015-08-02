@@ -11,8 +11,7 @@
         }
 
         public UserRegistered(int userId, string emailAddress, string password, string salt, string validationKey,
-            string firstName, string lastName, string street, string postcode, string city, string mobilePhone,
-            int? jsNumber)
+            string firstName, string lastName, string street, string postcode, string city, string mobilePhone)
         {
             UserId = userId;
             EmailAddress = emailAddress;
@@ -25,7 +24,6 @@
             Postcode = postcode;
             City = city;
             MobilePhone = mobilePhone;
-            JsNumber = jsNumber;
         }
 
         [DataMember(Order = 1)]

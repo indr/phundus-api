@@ -16,7 +16,6 @@
         private const string DefaultPostcode = @"1000";
         private const string DefaultCity = @"City";
         private const string DefaultMobilePhone = @"0790001122";
-        private const int DefaultJsNumber = 123456;
 
         [Test]
         public void LogOnModel_ensure_that_eMail_has_to_be_valid()
@@ -111,7 +110,6 @@
                 Street = DefaultStreet,
                 Postcode = DefaultPostcode,
                 City = DefaultCity,
-                JsNumber = DefaultJsNumber,
                 Password = DefaultPassword,
                 PasswordAgain = DefaultPassword,
             };
@@ -133,7 +131,6 @@
                 Street = DefaultStreet,
                 Postcode = DefaultPostcode,
                 City = DefaultCity,
-                JsNumber = DefaultJsNumber,
                 Password = DefaultPassword,
                 PasswordAgain = DefaultPassword,
             };
@@ -156,7 +153,6 @@
                 Street = DefaultStreet,
                 Postcode = DefaultPostcode,
                 City = DefaultCity,
-                JsNumber = DefaultJsNumber,
                 Password = DefaultPassword,
                 PasswordAgain = DefaultPassword
             };

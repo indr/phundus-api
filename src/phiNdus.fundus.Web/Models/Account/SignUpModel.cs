@@ -20,7 +20,6 @@
         [Compare("Password", ErrorMessage = "\"Passwort (Wiederholung)\" und \"Passwort\" stimmen nicht überein.")]
         public string PasswordAgain { get; set; }
 
-
         [Required]
         [DisplayName("Vorname")]
         public string FirstName { get; set; }
@@ -44,11 +43,5 @@
         [Required]
         [DisplayName("Mobiltelefon")]
         public string MobilePhone { get; set; }
-
-
-        [Required]
-        [Range(1, 9999999999)]
-        [DisplayName("J+S-Nummer / Infocard-Nummer")]
-        public int JsNumber { get; set; }
     }
 }
