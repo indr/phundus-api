@@ -25,7 +25,7 @@ namespace piNuts.phundus.Specs.Steps
         }
 
         [Then(@"sollte ich ein Heading 1 mit ""(.*)"" sehen")]
-        public void DannSollteIchEinHeadingMitSehen(string p0)
+        public void DannSollteIchEinHeading1MitSehen(string p0)
         {
             Assert.That(Browser.ElementWithTag("h1", Find.ByIndex(0)).Text, Is.EqualTo(p0));
         }

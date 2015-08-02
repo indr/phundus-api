@@ -1,9 +1,9 @@
 ﻿Funktionalität: Startseite
 
-@isSmoker
-Szenario: Aufruf der Startseite
-	Wenn ich die Webseite aufrufe
-	Dann sollte ich ein Heading 1 mit "'Allo, 'Allo!" sehen
+# @isSmoker
+# Szenario: Aufruf der Startseite
+# 	Wenn ich die Webseite aufrufe
+# 	Dann sollte ich ein Heading 1 mit "'Allo, 'Allo!" sehen
 
 @isSmoker
 Szenario: Aufruf des Shops
