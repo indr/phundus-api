@@ -47,8 +47,7 @@
         [Required]
         [DisplayName("Mobiltelefon")]
         public string MobilePhone { get; set; }
-
-        [Required]
+       
         [DisplayName("Organisation / Verband")]
         public string OrganizationId { get; set; }
 
