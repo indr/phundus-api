@@ -9,7 +9,7 @@
         [AllowAnonymous]
         public virtual ActionResult Index()
         {
-            var content = System.IO.File.ReadAllText(Server.MapPath("./index.html"));
+            var content = System.IO.File.ReadAllText(Server.MapPath("~/index.html"));
             return Content(content, "text/html", Encoding.UTF8);
         }
 
