@@ -90,16 +90,16 @@
         </div>
     </fieldset>
     
-    @*<fieldset>
+    <fieldset>
         <legend>Verband / Organisation</legend>
         <div class="control-group">
-            @Html.LabelFor(m => m.JsNumber, new { @class = "control-label" })
+            @Html.LabelFor(m => m.OrganizationId, new { @class = "control-label" })
             <div class="controls">
-                @Html.TextBoxFor(m => m.JsNumber)
-                @Html.ValidationMessageFor(m => m.JsNumber)
+                @Html.DropDownListFor(m => m.OrganizationId, Model.Organizations)                
+                @Html.ValidationMessageFor(m => m.OrganizationId)
             </div>
         </div>
-    </fieldset>*@
+    </fieldset>
     
     
     

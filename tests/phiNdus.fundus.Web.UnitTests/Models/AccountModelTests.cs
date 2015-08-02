@@ -175,28 +175,5 @@
 
             Assert.That(exception.Message, Contains.Substring(@"Password").And.Contains(@"erforderlich"));
         }
-
-        [Test]
-        public void SignUpModel_ensures_that_jsNumber_is_required()
-        {
-            var model = new SignUpModel
-            {
-                Email = DefaultEmail,
-                FirstName = DefaultFistName,
-                LastName = DefaultLastName,
-                Street = DefaultStreet,
-                Postcode = DefaultPostcode,
-                City = DefaultCity,
-                MobilePhone = DefaultMobilePhone,
-                Password = DefaultPassword,
-                PasswordAgain = DefaultPassword
-            };
-
-            var exception = Assert.Throws<ValidationException>(
-                () => ModelValidator.Validate(model));
-
-            Assert.That(exception.Message,
-                Contains.Substring(@"JsNumber").And.Contains(@"zwischen 1 und 9999999999 liegen"));
-        }
     }
 }
