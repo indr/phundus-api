@@ -8,7 +8,7 @@
             <div class="thumbnail">
                 <p class="muted">@each.OrganizationName</p>
                     <div style="text-align:center; height:180px;">
-                        <a href="/shop/article/@each.Id" class="fundus-shop-showArticle" article-id="@each.Id">
+                        <a href="@Url.Content("/shop/article/" + each.Id)" class="fundus-shop-showArticle" article-id="@each.Id">
                             @if (!String.IsNullOrWhiteSpace(each.ImageFileName))
                             {
 
@@ -23,12 +23,16 @@
                             }
                         </a>
                     </div>
-                <h5>@if (each.Name == null) {
+                <h5>
+                    @if (each.Name == null)
+                    {
                         @Html.Raw("&nbsp;");
                     }
-                    else {
-                        <a href="/shop/article/@each.Id" class="fundus-shop-showArticle" article-id="@each.Id">@each.Name</a>
-                    }</h5>
+                    else
+                    {
+                        <a href="@Url.Content("/shop/article/" + each.Id)" class="fundus-shop-showArticle" article-id="@each.Id">@each.Name</a>
+                    }
+                </h5>
                 <p>CHF @each.Price.ToString("N") / Woche</p>
             </div>
         </li>
