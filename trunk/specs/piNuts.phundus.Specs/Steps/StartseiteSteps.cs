@@ -12,12 +12,24 @@ namespace piNuts.phundus.Specs.Steps
     [Binding]
     public class StartseiteSteps : StepBase
     {
+        [When(@"ich den Shop aufrufe")]
+        public void WennIchDenShopAufrufe()
+        {
+            Browser.GoTo(BaseUrl + "/shop");
+        }
+
         [When(@"ich die Webseite aufrufe")]
         public void WennIchDieWebseiteAufrufe()
         {
             Browser.GoTo(BaseUrl);
         }
-        
+
+        [Then(@"sollte ich ein Heading 1 mit ""(.*)"" sehen")]
+        public void DannSollteIchEinHeadingMitSehen(string p0)
+        {
+            Assert.That(Browser.ElementWithTag("h1", Find.ByIndex(0)).Text, Is.EqualTo(p0));
+        }
+
         [Then(@"sollte ich gross ""(.*)"" sehen")]
         public void DannSollteIchGrossSehen(string p0)
         {
