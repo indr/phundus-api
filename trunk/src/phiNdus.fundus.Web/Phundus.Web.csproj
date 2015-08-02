@@ -342,6 +342,11 @@
     <Content Include="App_Data\Seeds\Users.csv" />
     <Content Include="App_Data\Seeds\Articles.csv" />
     <Content Include="App_Data\Seeds\ArticleImages.csv" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Parameters.xml" />
     <Content Include="Content\select2.css" />
     <Content Include="Content\select2.png" />
@@ -365,6 +370,8 @@
     <Content Include="Content\Views\Organization\Home.html" />
     <Content Include="Content\Views\Organization\Search.html" />
     <Content Include="Content\Views\Organization\Establish.html" />
+    <Content Include="images\yeoman.8cb970fb.png" />
+    <Content Include="index.html" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
@@ -427,6 +434,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\scripts.e4ad6d8e.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.js" />
@@ -691,6 +699,9 @@
     <Content Include="Scripts\ui-bootstrap-0.2.0.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.2.0.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.2.0.min.js" />
+    <Content Include="Scripts\vendor.237dace5.js" />
+    <Content Include="styles\main.16c86e60.css" />
+    <Content Include="styles\vendor.d349c977.css" />
     <Content Include="Views\Organization\Home.cshtml" />
     <Content Include="Views\Organization\Index.cshtml" />
     <None Include="Properties\PublishProfiles\TestProfile.pubxml" />
