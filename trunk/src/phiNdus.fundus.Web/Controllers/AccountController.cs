@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.Security;
@@ -22,6 +23,8 @@
         public IUserRepository Users { get; set; }
 
         public IMembershipQueries MembershipQueries { get; set; }
+
+        public IOrganizationQueries OrganizationQueries { get; set; }
 
         [Transaction]
         [AllowAnonymous]
@@ -227,7 +230,9 @@
         [AllowAnonymous]
         public virtual ActionResult SignUp()
         {
-            return View(new SignUpModel());
+            var model = new SignUpModel();
+            model.Organizations = GetOrganizationSelectListItems(model);
+            return View(model);
         }
 
         [HttpPost]
@@ -261,8 +266,15 @@
             {
                 ModelState.AddModelError("", "Ein oder mehrere Felder enthalten ungültige Daten");
             }
-
+            model.Organizations = GetOrganizationSelectListItems(model);
             return View(model);
+        }
+
+        private List<SelectListItem> GetOrganizationSelectListItems(SignUpModel model)
+        {
+            var result = OrganizationQueries.All().Select(s => new SelectListItem { Text = s.Name, Value = s.Id.ToString(), Selected = s.Id.ToString() == model.OrganizationId}).ToList();
+            result.Insert(0, new SelectListItem());
+            return result;
         }
     }
 }
