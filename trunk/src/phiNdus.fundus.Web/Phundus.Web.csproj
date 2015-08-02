@@ -711,6 +711,7 @@
     </Content>
     <Content Include="Views\Documents\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_BaseUrl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\pbar-ani.gif" />
@@ -1069,7 +1070,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3655</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1059/</IISUrl>
+          <IISUrl>http://localhost:1059/test</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:1059/test</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
