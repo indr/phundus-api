@@ -242,8 +242,7 @@
                     var command = new RegisterUser(
                         model.Email, model.Password, model.FirstName,
                         model.LastName, model.Street, model.Postcode,
-                        model.City, model.MobilePhone, model.JsNumber
-                        );
+                        model.City, model.MobilePhone);
                     Dispatcher.Dispatch(command);
 
 

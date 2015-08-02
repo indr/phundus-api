@@ -9,7 +9,7 @@
     public class RegisterUser
     {
         public RegisterUser(string emailAddress, string password, string firstName, string lastName, string street,
-            string postcode, string city, string mobilePhone, int? jsNumber)
+            string postcode, string city, string mobilePhone)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -17,7 +17,6 @@
             Postcode = postcode;
             City = city;
             MobilePhone = mobilePhone;
-            JsNumber = jsNumber;
             EmailAddress = emailAddress;
             Password = password;
         }
@@ -28,7 +27,6 @@
         public string Postcode { get; private set; }
         public string City { get; private set; }
         public string MobilePhone { get; private set; }
-        public int? JsNumber { get; private set; }
         public string EmailAddress { get; private set; }
         public string Password { get; private set; }
 
@@ -46,7 +44,7 @@
                 throw new EmailAlreadyTakenException();
 
             var user = new User(emailAddress, command.Password, command.FirstName, command.LastName, command.Street,
-                command.Postcode, command.City, command.MobilePhone, command.JsNumber);
+                command.Postcode, command.City, command.MobilePhone, null);
 
             var userId = UserRepository.Add(user);
 
@@ -54,7 +52,7 @@
                 user.Account.Email, user.Account.Password, user.Account.Salt,
                 user.Account.ValidationKey, 
                 user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
-                user.MobileNumber, user.JsNumber
+                user.MobileNumber
                 ));
 
             command.UserId = userId;
