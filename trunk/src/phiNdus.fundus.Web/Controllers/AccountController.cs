@@ -6,6 +6,7 @@
     using System.Web.Mvc;
     using System.Web.Security;
     using Castle.Transactions;
+    using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Queries;
     using Core.IdentityAndAccess.Users.Commands;
     using Core.IdentityAndAccess.Users.Exceptions;
@@ -254,6 +255,16 @@
                     var user = Users.FindById(command.UserId);
                     // E-Mail mit Verifikationslink senden
                     new UserAccountValidationMail().For(user).Send(user);
+
+                    int organizationId;
+                    if ((Int32.TryParse(model.OrganizationId, out organizationId)) && (organizationId > 0))
+                    {                        
+                        Dispatcher.Dispatch(new ApplyForMembership
+                        {
+                            ApplicantId = user.Id,
+                            OrganizationId = organizationId
+                        });
+                    }
 
                     return View("SignUpDone");
                 }
