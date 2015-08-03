@@ -91,22 +91,19 @@
     </fieldset>
     
     <fieldset>
-        <legend>Verband / Organisation</legend>
+        <legend>Mitgliedschaft</legend>
         <div class="control-group">
-            @*@Html.LabelFor(m => m.OrganizationId, new { @class = "control-label" })*@
-            <span class="help-block">Ich bin Mitglied folgender Organisation:</span>
+            @System.Web.Mvc.Html.LabelExtensions.LabelFor(Html, m => m.OrganizationId, "Ich bin Mitglied folgender Organisation", new { @class = "control-label" })            
             <div class="controls">
                 @Html.DropDownListFor(m => m.OrganizationId, Model.Organizations)                
                 @Html.ValidationMessageFor(m => m.OrganizationId)
             </div>
-            <span class="help-block">Weitere Mitgliedschaften kannst du nach der Registrierung über die jeweilige Organisationsseite beantragen.</span>
+            <span class="help-block"><span class="icon-info-sign"></span> Weitere Mitgliedschaften kannst du nach der Registrierung über die jeweilige Organisationsseite beantragen.</span>
         </div>
     </fieldset>
     
-    
-    
     <div class="form-actions">
-            @Html.SubmitButton("Registrieren")
-            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, HomeActionNames.Index, ControllerNames.Home)
+        @Html.SubmitButton("Registrieren")
+        @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, HomeActionNames.Index, ControllerNames.Home)
     </div>
 }
