@@ -28,7 +28,8 @@
         {
             var organization = OrganizationRepository.GetById(command.OrganizationId);
 
-            var user = UserRepository.ActiveById(command.ApplicantId);
+            //var user = UserRepository.ActiveById(command.ApplicantId);
+            var user = UserRepository.FindById(command.ApplicantId);
             if (user == null)
                 throw new UserNotFoundException(command.ApplicantId);
 
