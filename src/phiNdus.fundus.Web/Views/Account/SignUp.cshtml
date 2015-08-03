@@ -93,11 +93,13 @@
     <fieldset>
         <legend>Verband / Organisation</legend>
         <div class="control-group">
-            @Html.LabelFor(m => m.OrganizationId, new { @class = "control-label" })
+            @*@Html.LabelFor(m => m.OrganizationId, new { @class = "control-label" })*@
+            <span class="help-block">Ich bin Mitglied folgender Organisation:</span>
             <div class="controls">
                 @Html.DropDownListFor(m => m.OrganizationId, Model.Organizations)                
                 @Html.ValidationMessageFor(m => m.OrganizationId)
             </div>
+            <span class="help-block">Weitere Mitgliedschaften kannst du nach der Registrierung über die jeweilige Organisationsseite beantragen.</span>
         </div>
     </fieldset>
     
