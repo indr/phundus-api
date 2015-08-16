@@ -372,6 +372,15 @@
     <Content Include="Content\Views\Organization\Establish.html" />
     <Content Include="images\yeoman.8cb970fb.png" />
     <Content Include="index.html" />
+    <Content Include="node\config\environment\index.js" />
+    <Content Include="node\config\environment\production.js" />
+    <Content Include="node\config\koa.js" />
+    <Content Include="node\config\routes.js" />
+    <Content Include="node\resources\root\index.js" />
+    <Content Include="node\resources\root\root.controller.js" />
+    <Content Include="node\resources\status\index.js" />
+    <Content Include="node\resources\status\status.controller.js" />
+    <Content Include="node\server.js" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
