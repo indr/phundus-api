@@ -29,6 +29,16 @@
             }
         }
 
+        protected static string NodeUrl
+        {
+            get
+            {
+                var result = BaseUrl;
+                if (!result.EndsWith("/")) result += "/";
+                return result + "node";
+            }
+        }
+
         protected static void Login(string username, string password)
         {
 
