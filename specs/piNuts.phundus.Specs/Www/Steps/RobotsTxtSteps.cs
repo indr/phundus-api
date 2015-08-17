@@ -40,7 +40,7 @@
         [Then(@"JSON status: 'OK'")]
         public void DannJSONStatusOK()
         {
-            var regex = new Regex(@"status:\s*'OK'\s*,");
+            var regex = new Regex(@"""status"":\s*""OK""\s*,");
             Assert.That(regex.Match(_body).Success, Is.True, _body);
         }
     }
