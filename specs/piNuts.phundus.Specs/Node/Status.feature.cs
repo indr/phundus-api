@@ -65,16 +65,16 @@ namespace Phundus.Specs.Node
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("/node/status")]
+        [NUnit.Framework.DescriptionAttribute("/api/v1/status")]
         [NUnit.Framework.CategoryAttribute("isSmoker")]
-        public virtual void NodeStatus()
+        public virtual void ApiV1Status()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("/node/status", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("/api/v1/status", new string[] {
                         "isSmoker"});
 #line 4
 this.ScenarioSetup(scenarioInfo);
 #line 5
- testRunner.When("/node/status aufgerufen wird", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.When("/api/v1/status aufgerufen wird", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
 #line 6
  testRunner.Then("muss der Http-Status 200 sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line 7

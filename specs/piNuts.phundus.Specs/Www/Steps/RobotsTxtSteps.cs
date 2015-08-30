@@ -20,8 +20,8 @@
             _response = (HttpWebResponse) WebRequest.Create(BaseUrl + "/robots.txt").GetResponse();
         }
 
-        [When(@"/node/status aufgerufen wird")]
-        public void WennNodeStatusAufgerufenWird()
+        [When(@"/api/v1/status aufgerufen wird")]
+        public void WennApiV1StatusAufgerufenWird()
         {
             //_response = (HttpWebResponse)WebRequest.Create(BaseUrl + "/Content/status.txt").GetResponse();
             _response = (HttpWebResponse) WebRequest.Create(NodeUrl + "/status").GetResponse();
