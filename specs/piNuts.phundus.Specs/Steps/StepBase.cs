@@ -35,7 +35,7 @@
             {
                 var result = BaseUrl;
                 if (!result.EndsWith("/")) result += "/";
-                return result + "node";
+                return result + "api/v1";
             }
         }
 
