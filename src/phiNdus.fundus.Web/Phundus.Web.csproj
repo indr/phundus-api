@@ -434,7 +434,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\scripts.eb98a35b.js" />
+    <Content Include="Scripts\scripts.a3cc3b21.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.js" />
@@ -699,7 +699,7 @@
     <Content Include="Scripts\ui-bootstrap-0.2.0.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.2.0.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.2.0.min.js" />
-    <Content Include="Scripts\vendor.adc9b7be.js" />
+    <Content Include="Scripts\vendor.591e973d.js" />
     <Content Include="styles\main.16c86e60.css" />
     <Content Include="styles\vendor.79d2e23a.css" />
     <Content Include="Views\Organization\Home.cshtml" />
