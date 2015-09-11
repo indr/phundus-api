@@ -45,6 +45,7 @@ namespace phiNdus.fundus.Web.Helpers.FileUpload
 
         public string[] GetFiles()
         {
+            Directory.CreateDirectory(MappedFilePath);
             return Directory.GetFiles(MappedFilePath);
         }
     }
