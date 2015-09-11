@@ -37,7 +37,7 @@
 
         [PUT("{organizationId}")]
         [Transaction]
-        public virtual OrganizationDetailDto Put(int id, [FromBody] OrganizationDetailDto value)
+        public virtual OrganizationDetailDto Put(int organizationId, [FromBody] OrganizationDetailDto value)
         {
             Dispatcher.Dispatch(new UpdateOrganizationDetails
             {
@@ -46,13 +46,13 @@
                 DocumentTemplate = value.DocumentTemplate,
                 EmailAddress = value.EmailAddress,
                 InitiatorId = CurrentUserId,
-                OrganizationId = id,
+                OrganizationId = organizationId,
                 Startpage = value.Startpage,
                 Website = value.Website
             });
 
 
-            return OrganizationQueries.ById(id);
+			return OrganizationQueries.ById(organizationId);
         }
     }
 }
