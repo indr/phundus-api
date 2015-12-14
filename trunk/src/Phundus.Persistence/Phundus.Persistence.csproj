@@ -117,20 +117,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">
-      <Project>{0BA282A6-FEA2-44A2-9748-1DE0E4E32018}</Project>
-      <Name>Phundus.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Phundus.Core\Phundus.Core.csproj">
-      <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
-      <Name>Phundus.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\piNuts.phundus.Infrastructure\Phundus.Infrastructure.csproj">
-      <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>
-      <Name>Phundus.Infrastructure</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Shop\Mappings\Cart.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -140,7 +126,20 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">
+      <Project>{0ba282a6-fea2-44a2-9748-1de0e4e32018}</Project>
+      <Name>Phundus.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Phundus.Core\Phundus.Core.csproj">
+      <Project>{b4c597ff-ef4c-4f33-b2c8-172c1f3e9a56}</Project>
+      <Name>Phundus.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\piNuts.phundus.Infrastructure\Phundus.Infrastructure.csproj">
+      <Project>{9d30515e-5d3c-4fe5-8aa4-b8352328ef25}</Project>
+      <Name>Phundus.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
