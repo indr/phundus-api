@@ -129,7 +129,9 @@
 
                 foreach (var chief in chiefs)
                     mail.Send(chief.EmailAddress);
-                mail.Send(order.Borrower.EmailAddress);
+                
+                // #34 Kein E-Mail mehr für den Ausleiher
+                //mail.Send(order.Borrower.EmailAddress);
             }
 
             var assembler = new OrderDtoAssembler();
