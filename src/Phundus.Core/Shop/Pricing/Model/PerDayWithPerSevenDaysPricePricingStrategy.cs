@@ -14,17 +14,14 @@
         {
             var totalDays = (toLocal.Date.AddDays(1) - fromLocal.Date).TotalDays;
             var days = (int) Math.Ceiling(totalDays);
-            
+            var price = Convert.ToDecimal(days)*amount*pricePerSevenDays/7;
 
-            //const int secondsPerDay = 60*60*24;
-            //var days = Convert.ToInt32(1 + Math.Floor((toLocal - fromLocal).TotalSeconds/secondsPerDay));
-
-            var prices = Convert.ToDecimal(days)*amount*pricePerSevenDays/7;
+            price = Math.Max(1, Math.Round(price, 0));
 
             return new PriceInfo
             {
                 Days = days,
-                Price = prices
+                Price = price
             };
         }
     }

@@ -923,7 +923,7 @@
       <Name>Phundus.Persistence.Migrations</Name>
     </ProjectReference>
     <ProjectReference Include="..\Phundus.Core\Phundus.Core.csproj">
-      <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
+      <Project>{b4c597ff-ef4c-4f33-b2c8-172c1f3e9a56}</Project>
       <Name>Phundus.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Phundus.Persistence\Phundus.Persistence.csproj">
