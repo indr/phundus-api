@@ -23,6 +23,8 @@
             Map(x => x.FromUtc, "[FromUtc]").CustomType<UtcDateTimeType>();
             Map(x => x.ToUtc, "[ToUtc]").CustomType<UtcDateTimeType>();
             Map(x => x.Amount);
+
+            Map(x => x.LineTotal, "[Total]");
         }
     }
 }

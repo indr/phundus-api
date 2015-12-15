@@ -14,6 +14,7 @@
         private string _text;
         private DateTime _toUtc;
         private decimal _unitPrice;
+        private decimal _total;
 
         protected OrderItem()
         {
@@ -29,6 +30,8 @@
             _fromUtc = fromUtc;
             _toUtc = toUtc;
             _amount = amount;
+
+            CalculateTotal();
         }
 
         public virtual Guid Id
@@ -48,7 +51,7 @@
         public virtual int Amount
         {
             get { return _amount; }
-            set
+            protected set
             {
                 if (value < 1)
                     throw new ArgumentOutOfRangeException("value", @"Die Menge darf nicht kleiner als Eins sein.");
@@ -98,18 +101,33 @@
 
         public virtual decimal LineTotal
         {
-            get { return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(FromUtc.ToLocalTime(), ToUtc.ToLocalTime(), Amount, UnitPrice).Price; }
+            get { return _total; }
+            protected set { _total = value; }
         }
 
+        //public virtual decimal LineTotal
+        //{
+        //    get { return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(FromUtc.ToLocalTime(), ToUtc.ToLocalTime(), Amount, UnitPrice).Price; }
+        //}
+
+        private void CalculateTotal()
+        {
+            LineTotal =
+                new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(FromUtc.ToLocalTime(), ToUtc.ToLocalTime(),
+                    Amount, UnitPrice).Price;
+        }
+        
         public virtual void ChangeAmount(int amount)
         {
             Amount = amount;
+            CalculateTotal();
         }
 
         public virtual void ChangePeriod(DateTime fromUtc, DateTime toUtc)
         {
             FromUtc = fromUtc;
             ToUtc = toUtc;
+            CalculateTotal();
         }
 
         public virtual void Delete()
