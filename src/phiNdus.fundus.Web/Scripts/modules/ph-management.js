@@ -84,7 +84,8 @@ function ManagementOrderCtrl($scope, $location, $routeParams, organizationOrders
         $scope.saveValues = {
             amount: item.amount,
             fromUtc: item.fromUtc,
-            toUtc: item.toUtc
+            toUtc: item.toUtc,
+            itemTotal: item.itemTotal
         };
 
         item.editing = true;
@@ -96,6 +97,12 @@ function ManagementOrderCtrl($scope, $location, $routeParams, organizationOrders
         //to = new Date(to);
         //item.fromUtc = from;
         //item.toUtc = to;
+    };
+
+    $scope.calculateItemTotal = function (item) {
+        var days = Math.max(1, Math.ceil((new Date(item.toUtc) - new Date(item.fromUtc)) / (1000 * 60 * 60 * 24)));
+
+        item.itemTotal = Math.round(100 * item.unitPrice / 7 * days * item.amount) / 100;
     };
 
     $scope.saveEditedItem = function(item) {
@@ -117,6 +124,7 @@ function ManagementOrderCtrl($scope, $location, $routeParams, organizationOrders
         item.amount = $scope.saveValues.amount;
         item.fromUtc = $scope.saveValues.fromUtc;
         item.toUtc = $scope.saveValues.toUtc;
+        item.itemTotal = $scope.saveValues.itemTotal;
     };
 
     $scope.removeItem = function (item) {
