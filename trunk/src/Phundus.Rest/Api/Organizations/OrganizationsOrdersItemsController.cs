@@ -57,7 +57,8 @@ namespace Phundus.Rest.Api.Organizations
                 InitiatorId = CurrentUserId,
                 OrderId = orderId,
                 OrderItemId = orderItemId,
-                ToUtc = doc.ToUtc
+                ToUtc = doc.ToUtc,
+                ItemTotal = doc.ItemTotal
             });
 
             return Get(organizationId, orderId, orderItemId, HttpStatusCode.OK);

@@ -14,6 +14,7 @@
         public int Amount { get; set; }
         public DateTime FromUtc { get; set; }
         public DateTime ToUtc { get; set; }
+        public decimal ItemTotal { get; set; }
     }
 
     public class UpdateOrderItemHandler : IHandleCommand<UpdateOrderItem>
@@ -31,6 +32,8 @@
             order.ChangeAmount(command.OrderItemId, command.Amount);
             order.ChangeItemPeriod(command.OrderItemId, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),
                 command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime());
+
+            order.ChangeItemTotal(command.OrderItemId, command.ItemTotal);
         }
     }
 }

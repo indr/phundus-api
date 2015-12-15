@@ -40,7 +40,13 @@
             <td ng-show="item.editing"><input class="input-small" type="text" ng-model="item.toUtc" ph-datefield /></td>
             <td ng-show="item.editing"><input class="input-mini" type="text" ng-model="item.amount" /></td>
             <td>{{item.unitPrice | currency}}</td>
-            <td>{{item.itemTotal | currency}}</td>
+            <td ng-show="!item.editing">{{item.itemTotal | currency}}</td>
+            <td ng-show="item.editing">
+                <div class="input-append">
+                    <input class="input-mini" type="text" ng-model="item.itemTotal" />
+                    <button class="btn" ng-click="calculateItemTotal(item)" title="Preis berechnen"><i class="icon-refresh"></i></button>
+                </div>
+            </td>
             <td ng-show="!item.editing">
                 <a ng-show="order.status == 'Pending'" class="btn" href="" ng-click="editItem(item)" title="Bearbeiten"><i class="icon-edit"></i></a>
                 <a ng-show="order.status == 'Pending'" class="btn" href="" ng-click="removeItem(item)" title="Entfernen"><i class="icon-remove"></i></a>

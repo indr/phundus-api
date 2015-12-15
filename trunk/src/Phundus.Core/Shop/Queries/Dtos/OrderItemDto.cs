@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Queries
 {
     using System;
-    using Pricing.Model;
 
     public partial class OrderItemDto
     {
@@ -12,13 +11,5 @@
         }
 
         public bool IsAvailable { get; set; }
-
-        public decimal ItemTotal
-        {
-            get
-            {
-                return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(FromUtc.ToLocalTime(), ToUtc.ToLocalTime(), Amount, Article.Price).Price;
-            }
-        }
     }
 }

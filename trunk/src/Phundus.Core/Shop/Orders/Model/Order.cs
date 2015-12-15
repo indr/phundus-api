@@ -240,6 +240,19 @@
 
             EventPublisher.Publish(new OrderItemPeriodChanged());
         }
+
+        public virtual void ChangeItemTotal(Guid orderItemId, decimal itemTotal)
+        {
+            EnsurePending();
+
+            var item = _items.SingleOrDefault(p => p.Id == orderItemId);
+            if (item == null)
+                return;
+
+            item.ChangeTotal(itemTotal);
+
+            EventPublisher.Publish(new OrderItemTotalChanged());
+        }
     }
 
     public class OrderAlreadyClosedException : Exception

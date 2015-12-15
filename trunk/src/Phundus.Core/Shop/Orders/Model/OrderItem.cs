@@ -134,5 +134,10 @@
         {
             _order = null;
         }
+
+        public virtual void ChangeTotal(decimal itemTotal)
+        {
+            LineTotal = itemTotal;
+        }
     }
 }
