@@ -16,27 +16,12 @@
         }
 
         [Test]
-        public void Can_get_and_set_Amount()
-        {
-            OrderItem sut = CreateSut();
-            sut.Amount = 1;
-            Assert.That(sut.Amount, Is.EqualTo(1));
-        }
-
-        [Test]
         public void Can_delete()
         {
             OrderItem sut = CreateSut();
             Assert.That(sut.Order, Is.Not.Null);
             sut.Delete();
             Assert.That(sut.Order, Is.Null);
-        }
-
-        [Test]
-        public void Set_Amount_less_than_1_throws()
-        {
-            OrderItem sut = CreateSut();
-            Assert.Throws<ArgumentOutOfRangeException>(() => sut.Amount = 0);
         }
     }
 }
