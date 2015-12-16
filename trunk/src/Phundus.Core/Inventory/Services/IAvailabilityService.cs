@@ -47,10 +47,13 @@
         {
             var localTodayUtc = DateTimeProvider.Today.ToUniversalTime();
             var utcNow = DateTimeProvider.UtcNow;
-            var article = ArticleRepository.GetById(articleId);
-            var reservations = ReservationRepository.Find(articleId, orderItemToExclude).OrderBy(x => x.FromUtc);
-            var result = new List<Availability>();
 
+            var result = new List<Availability>();
+            var article = ArticleRepository.FindById(articleId);
+            if (article == null)
+                return result;
+
+            var reservations = ReservationRepository.Find(articleId, orderItemToExclude).OrderBy(x => x.FromUtc);
 
             var diffsAt = new Dictionary<DateTime, int>();
             diffsAt[DateTime.MinValue] = article.GrossStock;

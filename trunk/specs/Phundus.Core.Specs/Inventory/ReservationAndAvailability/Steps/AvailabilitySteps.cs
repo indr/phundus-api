@@ -33,7 +33,7 @@
         {
             _article = new Article(1001, "Name");
             _article.GrossStock = amount;
-            _articleRepository.Stub(x => x.GetById(_article.Id)).Return(_article);
+            _articleRepository.Stub(x => x.FindById(_article.Id)).Return(_article);
         }
 
         [When(@"I ask for availability details")]
