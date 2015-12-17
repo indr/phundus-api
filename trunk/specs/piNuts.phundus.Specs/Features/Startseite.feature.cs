@@ -102,16 +102,18 @@ this.ScenarioSetup(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Server-URL wurde hinterlegt")]
+        [NUnit.Framework.IgnoreAttribute()]
         [NUnit.Framework.CategoryAttribute("isSmoker")]
         public virtual void Server_URLWurdeHinterlegt()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Server-URL wurde hinterlegt", new string[] {
-                        "isSmoker"});
-#line 20
-this.ScenarioSetup(scenarioInfo);
+                        "isSmoker",
+                        "ignore"});
 #line 21
- testRunner.When("ich den Shop aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+this.ScenarioSetup(scenarioInfo);
 #line 22
+ testRunner.When("ich den Shop aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 23
  testRunner.Then("sollte die Server-URL entsprechend der Konfiguration gesetzt sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line hidden
             this.ScenarioCleanup();

@@ -17,6 +17,7 @@ Szenario: Korrekte Version wurde installiert
 	Dann sollte die Version entsprechend der zuletzt installierten Version sein
 
 @isSmoker
+@ignore
 Szenario: Server-URL wurde hinterlegt
 	Wenn ich den Shop aufrufe
 	Dann sollte die Server-URL entsprechend der Konfiguration gesetzt sein
