@@ -63,6 +63,14 @@
                             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
                             <ul class="dropdown-menu">
+                                @foreach (var each in Model.Memberships)
+                                {
+                                    <li><a href="@each.OrganizationUrl"><i class=" icon-check icon-white"></i> @each.OrganizationName</a></li>
+                                }
+                                @if (Model.Memberships.Count > 0)
+                                {
+                                    <li class="divider"></li>
+                                }
                                 <li><a href="/account/profile">Einstellungen</a></li>                                
                                 <li>@Html.ActionLink("Abmelden", AccountActionNames.LogOff, ControllerNames.Account, new {}, new {@class = "logOffTag"})</li>
                             </ul>
