@@ -21,6 +21,9 @@
             if (user == null)
                 return PartialView("_NavBar", model);
 
+            if (user.ProviderUserKey != null)
+                model.UserId = user.ProviderUserKey.ToString();
+
             foreach (var each in MembershipQueries.ByUserId(Convert.ToInt32(user.ProviderUserKey)))
             {
                 if ((model.Selected == null) || (each.OrganizationId == CurrentOrganizationId))

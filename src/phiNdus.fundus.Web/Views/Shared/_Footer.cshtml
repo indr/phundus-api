@@ -2,15 +2,10 @@
 @using Phundus.Web
 @inherits System.Web.Mvc.WebViewPage<dynamic>
 
-<hr />
-<footer>
-    <div style="float: left; width: 33%">
-        <p>@*<a href="http://fundus.phindus.ch/help">Hilfe</a> |*@ @Html.ActionLink("Feedback", FeedbackActionNames.Index, ControllerNames.Feedback)</p>
+<div class="footer">
+    <div class="container">
+        <p>
+            <a href="/feedback">Feedback</a><!-- &middot; <a href="https://github.com/indr/phundus">GitHub</a>--> &middot; <span class="glyphicon glyphicon-heart"></span> from the phundus.ch team
+        </p>
     </div>
-    <div style="float: left; width: 33%; text-align: center;">
-        <p><span class="serverUrlTag"><a href="http://@WebConfigurationManager.AppSettings["ServerUrl"]">phundus</a></span> <span class="versionTag">@Html.DisplayVersion()</span></p>
-    </div>
-    <div style="float: left; width: 33%; text-align: right;">
-        <p>@*<a href="http://youtrack.phundus.ch/">Bug &amp; Issue Tracker</a> |*@ <a href="http://ci.phundus.ch/">Continuous Integration</a></p>
-    </div>
-</footer>
+</div>

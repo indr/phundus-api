@@ -3,10 +3,6 @@
     ViewBag.Title = "Profil";
 }
 
-@section Breadcrumbs {
-    <a href="#">Benutzer</a> &gt; Profil
-}
-
 <h2>@ViewBag.Title</h2>
 <h3>Kontoeinstellungen</h3>
 <p>@Html.ActionLink(new Appearance { Caption = "E-Mail-Adresse ändern", Button = Button.Normal }, AccountActionNames.ChangeEmail, ControllerNames.Account)</p>

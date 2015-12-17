@@ -14,5 +14,7 @@
             get { return _memberships; }
             set { _memberships = value; }
         }
+
+        public string UserId { get; set; }
     }
 }
