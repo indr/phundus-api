@@ -94,11 +94,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Shop.feature</DependentUpon>
     </Compile>
-    <Compile Include="Node\Status.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Status.feature</DependentUpon>
-    </Compile>
     <Compile Include="Rest\ContractsSpecs.cs" />
     <Compile Include="Browsers\IeBrowser.cs" />
     <Compile Include="BeforeAndAfter.cs" />
@@ -177,10 +172,6 @@
     <None Include="Features\Startseite.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Startseite.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Node\Status.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Status.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="Www\RobotsTxt.feature">
