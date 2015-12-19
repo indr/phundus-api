@@ -1,13 +1,15 @@
 ﻿namespace Phundus.Specs.Rest
 {
+    using System;
+    using System.Net;
     using RestSharp;
 
     public class PhundusApiAuthenticator : IAuthenticator
     {
         public class SessionDoc
         {
-            public string Password { get; set; }
-            public string Username { get; set; }
+            public string password { get; set; }
+            public string username { get; set; }
         }
 
         private readonly string _password;
@@ -25,10 +27,13 @@
                 return;
 
             var r = new RestRequest("sessions", Method.POST);
-            r.AddBody(new SessionDoc {Username = _userName, Password = _password});
+            r.RequestFormat = DataFormat.Json;
+            r.AddBody(new SessionDoc {username = _userName, password = _password});
             r.UserState = "MyAuth";
             var re = client.Execute(r);
 
+            if (re.StatusCode != HttpStatusCode.OK)
+                throw new Exception("Could not authenticate: " + re.StatusDescription);
 
             foreach (var each in re.Cookies)
                 request.AddCookie(each.Name, each.Value);
