@@ -24,17 +24,7 @@
                     return result;
                 return "http://" + result;
             }
-        }
-
-        protected static string NodeUrl
-        {
-            get
-            {
-                var result = BaseUrl;
-                if (!result.EndsWith("/")) result += "/";
-                return result + "api/v1";
-            }
-        }
+        }        
 
         protected static void Login(string username, string password)
         {
