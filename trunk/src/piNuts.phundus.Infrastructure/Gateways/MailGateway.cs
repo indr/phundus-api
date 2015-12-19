@@ -17,7 +17,7 @@
 
         public void Send(MailMessage message)
         {
-            new SmtpClient().Send(message);
+            //new SmtpClient().Send(message);
         }
 
         #endregion
