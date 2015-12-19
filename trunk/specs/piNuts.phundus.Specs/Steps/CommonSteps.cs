@@ -70,7 +70,8 @@
         {
             text = text.Replace("{AppSettings.ServerUrl}", ConfigurationManager.AppSettings["ServerUrl"]);
             text = text.Replace("{Assembly.Version}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            Browser.TextField(Find.ByLabelText(feld)).TypeText(text);
+            var textField = Browser.TextField(Find.ByLabelText(feld));
+            textField.TypeText(text);            
         }
 
         [Given(@"ich tippe ins Feld ""(.*)"" ein:")]
@@ -97,6 +98,7 @@
         public void WennIchAufDrucke(string value)
         {
             Browser.Button(Find.ByValue(value).Or(Find.ByText(value))).Click();
+
         }
 
         [Then(@"muss die Meldung ""(.*)"" erscheinen")]
