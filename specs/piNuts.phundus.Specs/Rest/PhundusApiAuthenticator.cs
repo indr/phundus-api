@@ -33,7 +33,7 @@
             var re = client.Execute(r);
 
             if (re.StatusCode != HttpStatusCode.OK)
-                throw new Exception("Could not authenticate: " + re.StatusDescription);
+                throw new Exception("Could not authenticate: " + re.StatusCode.ToString() + " " + re.StatusDescription);
 
             foreach (var each in re.Cookies)
                 request.AddCookie(each.Name, each.Value);
