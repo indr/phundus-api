@@ -96,7 +96,7 @@
         [When(@"ich auf ""(.*)"" klicke")]
         public void WennIchAufDrucke(string value)
         {
-            Browser.Button(Find.ByValue(value)).Click();
+            Browser.Button(Find.ByValue(value).Or(Find.ByText(value))).Click();
         }
 
         [Then(@"muss die Meldung ""(.*)"" erscheinen")]

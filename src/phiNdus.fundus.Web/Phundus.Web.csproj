@@ -436,7 +436,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\scripts.64e40c82.js" />
+    <Content Include="Scripts\scripts.fedc74ec.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.js" />
@@ -967,9 +967,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_UpperMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\Fields.cshtml" />

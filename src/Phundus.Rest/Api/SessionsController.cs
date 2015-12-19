@@ -3,11 +3,13 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Net;
     using System.Security.Authentication;
     using System.Web.Http;
     using System.Web.Security;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
+    using Auth;
     using Castle.Transactions;
     using Common;
     using Core.IdentityAndAccess.Queries;
@@ -16,8 +18,8 @@
     [RoutePrefix("/api/sessions")]
     public class SessionsController : ApiControllerBase
     {
-        private IUserQueries _userQueries;
-        private IMembershipQueries _membershipQueries;
+        private readonly IUserQueries _userQueries;
+        private readonly IMembershipQueries _membershipQueries;
 
         public SessionsController(IUserQueries userQueries, IMembershipQueries membershipQueries)
         {
@@ -38,6 +40,8 @@
 
             FormsAuthentication.SetAuthCookie(requestContent.Username, false);
 
+            
+
             var user = _userQueries.ByUserName(requestContent.Username);
 
 
@@ -51,14 +55,19 @@
                     OrganizationUrl = each.OrganizationUrl
                 }).ToList();
 
-            
+
+            var auth = new Auth();
+            UserRole role = null;
+            if (!auth.Roles.TryGetValue(user.RoleName.ToLowerInvariant(), out role))
+                role = auth.Roles["user"];
+
             return new SessionsPostOkResponseContent
             {
                 Memberships = memberships,
                 Role = new Role
                 {
-                    BitMask = 5,
-                    Title = "todo"
+                    BitMask = role.BitMask,
+                    Title = role.Title
                 },
                 UserId = user.Id.ToString(CultureInfo.InvariantCulture),
                 Username = Identity.Name
