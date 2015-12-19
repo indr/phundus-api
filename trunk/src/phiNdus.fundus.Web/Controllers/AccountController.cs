@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using System.Web.Security;
     using Castle.Transactions;
     using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Queries;
@@ -23,48 +22,7 @@
 
         public IUserRepository Users { get; set; }
 
-        public IMembershipQueries MembershipQueries { get; set; }
-
         public IOrganizationQueries OrganizationQueries { get; set; }
-
-        [Transaction]
-        [AllowAnonymous]
-        public virtual ActionResult LogOn()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [Transaction]
-        [AllowAnonymous]
-        public virtual ActionResult LogOn(LogOnModel model, string returnUrl)
-        {
-            if ((ModelState.IsValid) && (MembershipProvider.ValidateUser(model.Email, model.Password)))
-            {
-                FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-
-                CurrentOrganizationId = null;
-                var membership = MembershipQueries.ByUserName(model.Email).FirstOrDefault();
-                if (membership != null)
-                    CurrentOrganizationId = membership.OrganizationId;
-
-                if (!String.IsNullOrEmpty(returnUrl))
-                    return Redirect(returnUrl);
-                return RedirectToAction("Index", ControllerNames.Home);
-            }
-
-            ModelState.AddModelError("", "Benutzername oder Passwort inkorrekt.");
-            return View();
-        }
-
-        [Authorize]
-        [Transaction]
-        [AllowAnonymous]
-        public virtual ActionResult LogOff()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", ControllerNames.Home);
-        }
 
         [HttpGet]
         [Transaction]
@@ -258,7 +216,7 @@
 
                     int organizationId;
                     if ((Int32.TryParse(model.OrganizationId, out organizationId)) && (organizationId > 0))
-                    {                        
+                    {
                         Dispatcher.Dispatch(new ApplyForMembership
                         {
                             ApplicantId = user.Id,
@@ -283,7 +241,17 @@
 
         private List<SelectListItem> GetOrganizationSelectListItems(SignUpModel model)
         {
-            var result = OrganizationQueries.All().Select(s => new SelectListItem { Text = s.Name, Value = s.Id.ToString(), Selected = s.Id.ToString() == model.OrganizationId}).ToList();
+            var result =
+                OrganizationQueries.All()
+                    .Select(
+                        s =>
+                            new SelectListItem
+                            {
+                                Text = s.Name,
+                                Value = s.Id.ToString(),
+                                Selected = s.Id.ToString() == model.OrganizationId
+                            })
+                    .ToList();
             result.Insert(0, new SelectListItem());
             return result;
         }

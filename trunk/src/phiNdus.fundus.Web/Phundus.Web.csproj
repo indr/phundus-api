@@ -917,9 +917,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\LogOn.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\db\phiNdus.fundus.DbMigrations\Phundus.Persistence.Migrations.csproj">
       <Project>{7B58707A-84EC-4E7E-A0FD-946F1E16361E}</Project>
       <Name>Phundus.Persistence.Migrations</Name>
