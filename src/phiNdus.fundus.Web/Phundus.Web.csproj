@@ -436,7 +436,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\scripts.fedc74ec.js" />
+    <Content Include="Scripts\scripts.bcd21464.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.js" />
@@ -920,6 +920,10 @@
     <ProjectReference Include="..\..\db\phiNdus.fundus.DbMigrations\Phundus.Persistence.Migrations.csproj">
       <Project>{7B58707A-84EC-4E7E-A0FD-946F1E16361E}</Project>
       <Name>Phundus.Persistence.Migrations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">
+      <Project>{0BA282A6-FEA2-44A2-9748-1DE0E4E32018}</Project>
+      <Name>Phundus.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Phundus.Core\Phundus.Core.csproj">
       <Project>{b4c597ff-ef4c-4f33-b2c8-172c1f3e9a56}</Project>

@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Web;
     using System.Web.Security;
+    using Phundus.Common;
     using Phundus.Core.Cqrs;
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.IdentityAndAccess.Users.Commands;
@@ -188,6 +189,9 @@
 
         public override bool ValidateUser(string username, string password)
         {
+            AssertionConcern.AssertArgumentNotNull(username, "Username must be provided.");
+            AssertionConcern.AssertArgumentNotNull(password, "Password must be provided.");
+
             username = username.ToLower(CultureInfo.CurrentCulture).Trim();
             var user = Users.FindByEmail(username);
 
