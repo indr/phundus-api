@@ -64,8 +64,8 @@ namespace piNuts.phundus.Specs.Steps
 
         [Then(@"sollte ich als ""(.*)"" angemeldet sein")]
         public void DannSollteIchAlsAngemeldetSein(string userName)
-        {
-            var span = Browser.Span(Find.ByClass("loggedOnTag"));
+        {            
+            var span = Browser.Span(Find.ByClass("loggedOnTag", false));
             Assert.That(span, Is.Not.Null);
             Assert.That(span.InnerHtml, Is.EqualTo(userName));
         }

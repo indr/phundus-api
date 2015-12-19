@@ -436,7 +436,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\scripts.295e4232.js" />
+    <Content Include="Scripts\scripts.64e40c82.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.js" />
@@ -701,9 +701,9 @@
     <Content Include="Scripts\ui-bootstrap-0.2.0.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.2.0.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.2.0.min.js" />
-    <Content Include="Scripts\vendor.bca0b564.js" />
-    <Content Include="styles\main.0e5434a9.css" />
-    <Content Include="styles\vendor.872dbd1a.css" />
+    <Content Include="Scripts\vendor.e0c689bc.js" />
+    <Content Include="styles\main.95faff66.css" />
+    <Content Include="styles\vendor.6ba63d1f.css" />
     <Content Include="Views\Organization\Home.cshtml" />
     <Content Include="Views\Organization\Index.cshtml" />
     <None Include="Properties\PublishProfiles\TestProfile.pubxml" />
