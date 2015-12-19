@@ -8,7 +8,7 @@ namespace piNuts.phundus.Specs.Steps
         [Given(@"ich bin auf der Loginseite")]
         public void AngenommenIchBinAufDerLoginseite()
         {
-            Browser.GoTo(BaseUrl + "/account/logon");
+            Browser.GoTo(BaseUrl + "/#/login");
         }
     }
 }
