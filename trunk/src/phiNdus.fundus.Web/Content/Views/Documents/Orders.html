@@ -1,29 +1,29 @@
 ﻿<h2>Meine Bestellungen</h2>
 
 <div class="row">
-    <div class="span8">
+    <div class="col-lg-8">
         <form class="form-inline">
             <p>
-                <input type="text" ng-model="search.$" class="search-query" placeholder="Suchen">
+                <input type="text" ng-model="search.$" class="form-control" placeholder="Suchen">
             </p>
-            <label class="radio inline">
+            <label class="radio-inline">
                 <input type="radio" ng-model="search.status" name="optionsRadios" value=""> Alle
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
                 <input type="radio" ng-model="search.status" name="optionsRadios" value="Pending"> Provisorisch
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
                 <input type="radio" ng-model="search.status" name="optionsRadios" value="Approved"> Bestätigt
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
                 <input type="radio" ng-model="search.status" name="optionsRadios" value="Rejected"> Abgelehnt
             </label>
-            <label class="radio inline">
+            <label class="radio-inline">
                 <input type="radio" ng-model="search.status" name="optionsRadios" value="Closed"> Abgeschlossen
             </label>
         </form>
     </div>
-    <div class="span4" style="text-align:right">
+    <div class="col-lg-4" style="text-align:right">
     </div>
 </div>
 
@@ -47,8 +47,8 @@
             <td>{{order.status | orderStatusText}}</td>
             <td>{{order.modifiedUtc | date:'medium'}}</td>
             <td style="text-align:right">
-                <a class="btn btn-small" ng-click="openOrder(order)">Öffnen</a>
-                <a class="btn btn-small" href="./api/orders/{{order.orderId}}.pdf">PDF</a>
+                <a class="btn btn-default btn-sm" ng-click="openOrder(order)">Öffnen</a>
+                <a class="btn btn-default btn-sm" href="./api/orders/{{order.orderId}}.pdf">PDF</a>
             </td>
         </tr>
     </tbody>
