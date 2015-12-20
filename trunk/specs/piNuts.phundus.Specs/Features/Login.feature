@@ -12,7 +12,7 @@ Szenario: Unbekannter Benutzer
 	Und ich tippe ins Feld "E-Mail-Adresse" "gibt-es-nicht@test.phundus.ch" ein
 	Und ich tippe ins Feld "Passwort" "1234" ein
 	Wenn ich auf "Anmelden" klicke
-	Dann muss die Meldung "Das angegebene Passwort ist nicht korrekt." erscheinen
+	Dann muss die Meldung "Das angegebene Passwort ist nicht korrekt" erscheinen
 
 @ignore
 Szenario: Erfolgreiches Login
