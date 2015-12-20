@@ -1,8 +1,16 @@
 ﻿@using Phundus.Web
 @model phiNdus.fundus.Web.Models.CartModels.CartItemModel
 
+@*$scope.toggleCartPopover = function() {
+      $('#popover-glyphicon-cart').popover('show');
+
+      window.setTimeout(function() {
+        $('#popover-glyphicon-cart').popover('hide')
+      }, 4000);
+    };*@
+
 @using (Ajax.BeginForm(ShopActionNames.AddToCart, ControllerNames.Shop, new {},
-    new AjaxOptions {OnSuccess = "fundus.messageBox('Jawohl!', '<p>Der Artikel wurde erfolgreich in den Warenkorb gelegt.</p><p>Klicken Sie rechts oben auf &quot;Warenkorb&quot um die vorhandenen Artikel anzuzeigen und die Mengen und Zeiträume zu ändern.</p>');"},
+    new AjaxOptions { OnSuccess = "$('#popover-glyphicon-cart').popover('show');window.setTimeout(function() {$('#popover-glyphicon-cart').popover('hide')}, 4000);" },
     new {@class = "form-horizontal add-to-cart"}))
 {
     <fieldset>
