@@ -9,24 +9,20 @@
 
 @using (Html.BeginForm())
 {
-    <div class="control-group">
+    <div class="form-group">
         @Html.LabelFor(m => m.EmailAddress)
-        <div class="control">
-            @Html.EditorFor(m => m.EmailAddress)
-            @Html.ValidationMessageFor(m => m.EmailAddress)
-        </div>
+        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control"})
+        @Html.ValidationMessageFor(m => m.EmailAddress)
     </div>
-    
-    <div class="control-group">
+
+    <div class="form-group">
         @Html.LabelFor(m => m.Comment)
-        <div class="control">
-            @Html.TextAreaFor(m => m.Comment, new { Style = "width: 500px;", Rows = 20})
-            @Html.ValidationMessageFor(m => m.Comment)
-        </div>
+        @Html.TextAreaFor(m => m.Comment, new { Style = "width: 500px;", Rows = 20, @class="form-control" })
+        @Html.ValidationMessageFor(m => m.Comment)
     </div>
-    
-    <div class="form-actions">
-        <input class="btn-primary btn" type="submit" value="Senden"></input>
-        <a class="btn" href="/fundus-debug/">Abbrechen</a>
+
+    <div class="form-group">
+        <input class="btn-primary btn" type="submit" value="Senden" />
+        <a class="btn" href="/">Abbrechen</a>
     </div>
 }
