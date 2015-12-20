@@ -85,7 +85,7 @@ namespace phiNdus.fundus.Web.Helpers
                     case Button.None:
                         break;
                     case Button.Normal:
-                        htmlAttributes.Add("class", "btn");
+                        htmlAttributes.Add("class", "btn btn-default");
                         break;
                     case Button.Primary:
                         htmlAttributes.Add("class", "btn btn-primary");
@@ -175,6 +175,7 @@ namespace phiNdus.fundus.Web.Helpers
                     case Button.None:
                         break;
                     case Button.Normal:
+                        a.AddCssClass("btn-default");
                         break;
                     case Button.Primary:
                         a.AddCssClass("btn-primary");
