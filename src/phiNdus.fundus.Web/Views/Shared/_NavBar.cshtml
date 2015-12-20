@@ -2,7 +2,7 @@
 @model phiNdus.fundus.Web.ViewModels.Layout.NavBarModel
 
 <div class="header">
-    <div class="navbar navbar-inverse" role="navigation" data-ng-controller="NavCtrl">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" data-ng-controller="NavCtrl">
         <div class="container">
             <div class="navbar-header">
 
@@ -15,7 +15,7 @@
 
                 <a class="navbar-brand" href="/shop" title="phundus">ph</a>
             </div>
-            
+
             <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
                 <form class="navbar-form navbar-left" role="search">
@@ -54,9 +54,9 @@
                     @if (Request.IsAuthenticated && User.Identity.IsAuthenticated)
                     {
                         <li data-access-level="accessLevels.user" title="Warenkorb">
-                            <a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span><span class="visible-xs-inline"> Warenkorb</span></a>
+                            <a href="/cart" data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="manual" data-content="Artikel hinzugefügt." id="popover-glyphicon-cart"><span class="glyphicon glyphicon-shopping-cart"></span><span class="visible-xs-inline"> Warenkorb</span></a>
                         </li>
-                        <li data-access-level="accessLevels.user" title="@User.Identity.Name">                            
+                        <li data-access-level="accessLevels.user" title="@User.Identity.Name">
                             <a href="/#/users/@Model.UserId"><span class="glyphicon glyphicon-user"></span><span class="visible-xs-inline loggedOnTag">@User.Identity.Name</span></a>
                         </li>
                         <li data-access-level="accessLevels.user" class="dropdown">
@@ -71,7 +71,7 @@
                                 {
                                     <li class="divider"></li>
                                 }
-                                <li><a href="/account/profile">Einstellungen</a></li>                                
+                                <li><a href="/account/profile">Einstellungen</a></li>
                                 <li><a href="/#/logout" class="logOffTag">Abmelden</a></li>
                             </ul>
                         </li>
