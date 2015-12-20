@@ -114,13 +114,12 @@ var fundus;
                 $('.add-datepicker').datepicker();
 
                 $('input.add-inc-dec').removeClass('add-inc-dec').each(function () {
-                    $(this).wrap('<div class="input-append">');
-                    $(this).after('<button class="btn add-inc" type="button"><i class="icon-plus"></i></button>',
-                                  '<button class="btn add-dec" type="button"><i class="icon-minus"></i></button>');
+                    $(this).wrap('<div class="input-group">');
+                    $(this).after('<span class="input-group-btn"><button class="btn btn-default add-inc" type="button"><span class="glyphicon glyphicon-plus"></span></button><button class="btn btn-default add-dec" type="button"><span class="glyphicon glyphicon-minus"></span></button></span>');
                 });
 
                 $('.add-inc').removeClass('add-inc').click(function () {
-                    var input = $(this).siblings('input');
+                    var input = $(this).parent().siblings('input');
                     var value = parseFloat(input.val()) + 1;
                     if (isNaN(value))
                         value = 1;
@@ -128,7 +127,7 @@ var fundus;
                 });
 
                 $('.add-dec').removeClass('add-dec').click(function () {
-                    var input = $(this).siblings('input');
+                    var input = $(this).parent().siblings('input');
                     var value = parseFloat(input.val()) - 1;
                     if (isNaN(value) || (value < 0))
                         value = 0;
