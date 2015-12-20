@@ -1,7 +1,7 @@
 ﻿@using Phundus.Web
 @model phiNdus.fundus.Web.Models.SignUpModel
 @{
-    ViewBag.Title = "Registrieren";
+    ViewBag.Title = "Registrierung";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -13,92 +13,68 @@
 
     <fieldset>
         <legend>Benutzerkonto</legend>
-        <div class="control-group">
-            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextBoxFor(m => m.Email)
-                @Html.ValidationMessageFor(m => m.Email)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email)
         </div>
-        <div class="control-group">
-            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-            <div class="controls">
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password)
         </div>
-        <div class="control-group">
-            @Html.LabelFor(m => m.PasswordAgain, new { @class = "control-label" })
-            <div class="controls">
-                @Html.PasswordFor(m => m.PasswordAgain)
-                @Html.ValidationMessageFor(m => m.PasswordAgain)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PasswordAgain)
+            @Html.PasswordFor(m => m.PasswordAgain, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PasswordAgain)
         </div>
     </fieldset>
     
     <fieldset>
         <legend>Kontakt</legend>
-        <div class="control-group">
-            @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextBoxFor(m => m.FirstName)
-                @Html.ValidationMessageFor(m => m.FirstName)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FirstName)
         </div>
-        <div class="control-group">
-            @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextBoxFor(m => m.LastName)
-                @Html.ValidationMessageFor(m => m.LastName)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.LastName)
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.LastName)
+        </div>        
+        <div class="form-group">
+            @Html.LabelFor(m => m.Street)
+            @Html.TextBoxFor(m => m.Street, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Street)
         </div>
-        
-        <div class="control-group">
-            @Html.LabelFor(m => m.Street, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextBoxFor(m => m.Street)
-                @Html.ValidationMessageFor(m => m.Street)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Postcode)
+            @Html.TextBoxFor(m => m.Postcode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Postcode)
         </div>
-
-        <div class="control-group">
-            @Html.LabelFor(m => m.Postcode, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextBoxFor(m => m.Postcode)
-                @Html.ValidationMessageFor(m => m.Postcode)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.City)
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.City)
         </div>
-
-        <div class="control-group">
-            @Html.LabelFor(m => m.City, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextBoxFor(m => m.City)
-                @Html.ValidationMessageFor(m => m.City)
-            </div>
-        </div>
-
-        <div class="control-group">
-            @Html.LabelFor(m => m.MobilePhone, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextBoxFor(m => m.MobilePhone)
-                @Html.ValidationMessageFor(m => m.MobilePhone)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.MobilePhone)
+            @Html.TextBoxFor(m => m.MobilePhone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.MobilePhone)
         </div>
     </fieldset>
     
     <fieldset>
         <legend>Mitgliedschaft</legend>
-        <div class="control-group">
-            @System.Web.Mvc.Html.LabelExtensions.LabelFor(Html, m => m.OrganizationId, "Ich bin Mitglied folgender Organisation", new { @class = "control-label" })            
-            <div class="controls">
-                @Html.DropDownListFor(m => m.OrganizationId, Model.Organizations)                
-                @Html.ValidationMessageFor(m => m.OrganizationId)
-            </div>
-            <span class="help-block"><span class="icon-info-sign"></span> Weitere Mitgliedschaften kannst du nach der Registrierung über die jeweilige Organisationsseite beantragen.</span>
+        <div class="form-group">
+            @System.Web.Mvc.Html.LabelExtensions.LabelFor(Html, m => m.OrganizationId, "Ich bin Mitglied folgender Organisation")
+            @Html.DropDownListFor(m => m.OrganizationId, Model.Organizations, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.OrganizationId)
+            <span class="help-block"><span class="glyphicon glyphicon-info-sign"></span> Weitere Mitgliedschaften kannst du nach der Registrierung über die jeweilige Organisationsseite beantragen.</span>
         </div>
     </fieldset>
     
-    <div class="form-actions">
+    <div class="form-group">
         @Html.SubmitButton("Registrieren")
         @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, HomeActionNames.Index, ControllerNames.Home)
     </div>
