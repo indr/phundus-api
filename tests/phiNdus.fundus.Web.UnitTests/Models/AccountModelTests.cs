@@ -18,55 +18,6 @@
         private const string DefaultMobilePhone = @"0790001122";
 
         [Test]
-        public void LogOnModel_ensure_that_eMail_has_to_be_valid()
-        {
-            var model = new LogOnModel
-            {
-                Email = InvalidEmail,
-                Password = DefaultPassword
-            };
-
-            var exception = Assert.Throws<ValidationException>(
-                () => ModelValidator.Validate(model));
-
-            Assert.That(exception.Message, Contains.Substring(@"E-Mail").And.Contains(@"Ungültige"));
-        }
-
-        [Test]
-        public void LogOnModel_ensure_that_eMail_is_required()
-        {
-            var model = new LogOnModel {Password = DefaultPassword};
-
-            var exception = Assert.Throws<ValidationException>(
-                () => ModelValidator.Validate(model));
-
-            Assert.That(exception.Message, Contains.Substring(@"Email").And.Contains(@"erforderlich"));
-        }
-
-        [Test]
-        public void LogOnModel_ensure_that_model_validates()
-        {
-            var model = new LogOnModel
-            {
-                Email = DefaultEmail,
-                Password = DefaultPassword
-            };
-
-            ModelValidator.Validate(model);
-        }
-
-        [Test]
-        public void LogOnModel_ensure_that_password_is_required()
-        {
-            var model = new LogOnModel {Email = DefaultEmail};
-
-            var exception = Assert.Throws<ValidationException>(
-                () => ModelValidator.Validate(model));
-
-            Assert.That(exception.Message, Contains.Substring(@"Password").And.Contains(@"erforderlich"));
-        }
-
-        [Test]
         public void SignUpModel_ensure_that_eMail_has_to_be_valid()
         {
             var model = new SignUpModel

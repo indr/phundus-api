@@ -91,7 +91,7 @@ this.FeatureBackground();
 #line 14
  testRunner.When("ich auf \"Anmelden\" klicke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
 #line 15
- testRunner.Then("muss die Meldung \"Das angegebene Passwort ist nicht korrekt.\" erscheinen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+ testRunner.Then("muss die Meldung \"Das angegebene Passwort ist nicht korrekt\" erscheinen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line hidden
             this.ScenarioCleanup();
         }
