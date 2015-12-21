@@ -75,10 +75,8 @@ namespace Phundus.Specs.Features
 this.ScenarioSetup(scenarioInfo);
 #line 10
  testRunner.When("ich den Shop aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
-#line 11
- testRunner.Then("sollte ich gross \"Shop\" sehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line 12
- testRunner.And("sollte im Fenstertitel muss \"Shop - phundus\" stehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+ testRunner.Then("sollte im Fenstertitel muss \"Shop - phundus\" stehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line hidden
             this.ScenarioCleanup();
         }

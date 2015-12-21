@@ -98,42 +98,54 @@
             });
         </script>
 
-        <div class="modal hide" id="modal-show-error">
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal">×</a>
-                <h3>Fehler</h3>
+        <div class="modal" id="modal-show-error" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4>Fehler</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-default" data-dismiss="modal">Schliessen</a>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn" data-dismiss="modal">Schliessen</a>
-            </div>  
         </div>
-        
-        <div class="modal hide fade" id="modal-show-message">
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal">×</a>
-                <h3>Meldung</h3>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn" data-dismiss="modal">OK</a>
+
+        <div class="modal fade" id="modal-show-message" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4>Meldung</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-default" data-dismiss="modal">OK</a>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- modal-gallery is the modal dialog used for the image gallery -->
-        <div id="modal-gallery" class="modal modal-gallery hide fade">
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal">&times;</a>
-                <h3 class="modal-title"></h3>
-            </div>
-            <div class="modal-body"><div class="modal-image"></div></div>
-            <div class="modal-footer">
-                <a class="btn btn-primary modal-next">Weiter <i class="icon-arrow-right icon-white"></i></a>
-                <a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Zurück</a>
-                <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Diashow</a>
-                <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Herunterladen</a>
+        <div class="modal modal-gallery fade" id="modal-gallery" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body"><div class="modal-image"></div></div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary modal-next">Weiter <i class="icon-arrow-right icon-white"></i></a>
+                        <a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Zurück</a>
+                        <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Diashow</a>
+                        @*<a class="btn modal-download" target="_blank"><i class="icon-download"></i> Herunterladen</a>*@
+                    </div>
+                </div>
             </div>
         </div>
         
