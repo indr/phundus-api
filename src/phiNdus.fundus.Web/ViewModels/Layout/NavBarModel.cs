@@ -5,9 +5,7 @@
 
     public class NavBarModel
     {
-        private IList<MembershipDto> _memberships = new List<MembershipDto>();
-
-        public MembershipDto Selected { get; set; }
+        private IList<MembershipDto> _memberships = new List<MembershipDto>();        
 
         public IList<MembershipDto> Memberships
         {

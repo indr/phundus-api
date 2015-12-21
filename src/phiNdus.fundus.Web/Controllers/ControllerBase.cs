@@ -22,18 +22,6 @@ namespace Phundus.Web.Controllers
             get { return Session.SessionID; }
         }
 
-        protected int? CurrentOrganizationId
-        {
-            get
-            {
-                if (Session["OrganizationId"] == null)
-                    return null;
-                return Convert.ToInt32(Session["OrganizationId"]);
-            }
-
-            set { Session["OrganizationId"] = value; }
-        }
-
         protected int CurrentUserId
         {
             get
