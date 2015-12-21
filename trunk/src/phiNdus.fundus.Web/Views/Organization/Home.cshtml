@@ -4,12 +4,12 @@
     ViewBag.Title = Model.Name;
 }
 
-<div class="row-fluid" ng-app="ph.organizations" ng-init="organizationId=@Model.Id + 0;">
-    <div class="span6">
+<div class="row" ng-app="ph.organizations" ng-init="organizationId=@Model.Id + 0;">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <h2>@Model.Name</h2>
         @Html.Raw(Model.Startpage)
     </div>
-    <div class="span6">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         @if (Request.IsAuthenticated)
         { 
             <div ng-view></div>
