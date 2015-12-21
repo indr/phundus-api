@@ -7,48 +7,48 @@
 }
 
 <div class="row">
-    <div class="span1">
-        <h2>@ViewBag.Title</h2>
-    </div>
-    <div class="span7" style="padding-top:5px;">
+    <div class="col-md-8">
         @using (Ajax.BeginForm("Search", ControllerNames.Shop, new AjaxOptions {
                 HttpMethod = "POST",
                 LoadingElementId = "query-loading",
                 UpdateTargetId = "search-results" },
-                new { @class = "form-search" }))
+                new { @class = "form-search form-inline" }))
         {
-            <input type="text" name="QueryString" class="input-medium search-query" value="@Model.Query" placeholder="Suchen" />
+            <input type="text" name="QueryString" class="search-query form-control" value="@Model.Query" placeholder="Suchen" />
             <span class="muted"> in </span>
-            @Html.DropDownListFor(m => m.QueryOrganizationId, new SelectList(Model.Organizations, "Id", "Name", Model.QueryOrganizationId), "allen Organisationen")
+            @Html.DropDownListFor(m => m.QueryOrganizationId, new SelectList(Model.Organizations, "Id", "Name", Model.QueryOrganizationId), "allen Organisationen", new {@class="form-control"})
             <button type="submit" class="btn btn-primary" onclick="submit()">phinden!</button>
             <span class="help-inline hide" id="query-loading">
                 <img src="@Url.Content("~/Content/Images/ajax-loader.gif")" style="vertical-align:middle;" />
             </span>
         }
     </div>
-    <div class="span4">
+    <div class="col-md-4">
         <div class="toolbar pull-right">
             <div class="btn-group">
-                @Ajax.RawActionLink("<i class=\"icon-th-large\"></i>", "Large", new { }, new AjaxOptions {
-                                                                                            HttpMethod = "POST",
-                                                                                            LoadingElementId = "query-loading",
-                                                                                            UpdateTargetId = "search-results"
-                                                                                        }, new { @class = "btn" })
-                @Ajax.RawActionLink("<i class=\"icon-th\"></i>", "Small", new { }, new AjaxOptions {
-                                                                                            HttpMethod = "POST",
-                                                                                            LoadingElementId = "query-loading",
-                                                                                            UpdateTargetId = "search-results"
-                                                                                        }, new { @class = "btn" })
-                @Ajax.RawActionLink("<i class=\"icon-th-list\"></i>", "Table", new { }, new AjaxOptions {
-                                                                                            HttpMethod = "POST",
-                                                                                            LoadingElementId = "query-loading",
-                                                                                            UpdateTargetId = "search-results"
-                                                                                        }, new { @class = "btn" })
+                @Ajax.RawActionLink("<span class=\"glyphicon glyphicon-th-large\"></span>", "Large", new { }, new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    LoadingElementId = "query-loading",
+                    UpdateTargetId = "search-results"
+                }, new { @class = "btn btn-default" })
+                @Ajax.RawActionLink("<span class=\"glyphicon glyphicon-th\"></span>", "Small", new { }, new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    LoadingElementId = "query-loading",
+                    UpdateTargetId = "search-results"
+                }, new { @class = "btn btn-default" })
+                @Ajax.RawActionLink("<span class=\"glyphicon glyphicon-th-list\"></span>", "Table", new { }, new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    LoadingElementId = "query-loading",
+                    UpdateTargetId = "search-results"
+                }, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
 </div>
-<div id="search-results">
+<div id="search-results" style="margin-top:20px">
     @RenderBody()
 </div>
 <div class="tabbable" id="selected-articles" style="clear:both;">

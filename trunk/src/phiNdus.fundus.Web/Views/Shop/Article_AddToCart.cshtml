@@ -1,57 +1,41 @@
 ﻿@using Phundus.Web
 @model phiNdus.fundus.Web.Models.CartModels.CartItemModel
 
-@*$scope.toggleCartPopover = function() {
-      $('#popover-glyphicon-cart').popover('show');
-
-      window.setTimeout(function() {
-        $('#popover-glyphicon-cart').popover('hide')
-      }, 4000);
-    };*@
-
-@using (Ajax.BeginForm(ShopActionNames.AddToCart, ControllerNames.Shop, new {},
+<div class="row" style="margin-top:20px">
+    @using (Ajax.BeginForm(ShopActionNames.AddToCart, ControllerNames.Shop, new { },
     new AjaxOptions { OnSuccess = "$('#popover-glyphicon-cart').popover('show');window.setTimeout(function() {$('#popover-glyphicon-cart').popover('hide')}, 4000);" },
-    new {@class = "form-horizontal add-to-cart"}))
-{
-    <fieldset>
-        <legend>Ausleihen</legend>
-        <div class="row">
-            @Html.HiddenFor(m => m.ArticleId)
-                        
-            <div class="span4">
-                <div class="control-group">    
-                    @Html.LabelFor(m => m.Amount, new {@class = "control-label"})
-                    <div class="controls">
-                        <div class="input-append">
-                            @Html.TextBoxFor(m => m.Amount, new {@class = "input-mini add-inc-dec"})
-                        </div>
-                        @Html.ValidationMessageFor(m => m.Amount)
-                    </div>
-                </div>
-            </div>
+    new { @class = "add-to-cart" }))
+    {
 
-            <div class="span3">
-                <div class="control-group">    
-                    @Html.LabelFor(m => m.Begin, new {@class = "control-label"})
-                    <div class="controls">
-                        @Html.EditorFor(m => m.Begin)
-                        @Html.ValidationMessageFor(m => m.Begin)
-                    </div>
-                </div>
-            </div>
-                       
-            <div class="span3">
-                <div class="control-group">    
-                    @Html.LabelFor(m => m.End, new {@class = "control-label"})
-                    <div class="controls">
-                        @Html.EditorFor(m => m.End)
-                        @Html.ValidationMessageFor(m => m.End)
-                    </div>
-                </div>
+
+        @Html.HiddenFor(m => m.ArticleId)
+
+        <div class="col-xs-6 col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Begin)
+                @Html.EditorFor(m => m.Begin)
+                @Html.ValidationMessageFor(m => m.Begin)
             </div>
         </div>
-    </fieldset>
-    <div class="form-actions">
-        @Html.SubmitButton("» in den Warenkorb")
+
+    <div class="col-xs-6 col-md-3">
+        <div class="form-group">
+            @Html.LabelFor(m => m.End)
+            @Html.EditorFor(m => m.End)
+            @Html.ValidationMessageFor(m => m.End)
+        </div>
     </div>
-}
+
+    <div class="col-xs-6 col-md-3">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Amount)
+            @Html.TextBoxFor(m => m.Amount, new { @class = "form-control add-inc-dec" })
+            @Html.ValidationMessageFor(m => m.Amount)
+        </div>
+    </div>
+
+    <div class="col-xs-6 col-md-3" style="padding-top:1.7em">
+        @Html.SubmitButton("» in den Warenkorb", "btn btn-primary")
+    </div>
+    }
+</div>

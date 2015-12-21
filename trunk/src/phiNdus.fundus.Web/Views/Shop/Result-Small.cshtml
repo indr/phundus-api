@@ -1,34 +1,38 @@
 ﻿@using Phundus.Web
 @model ShopSearchResultViewModel
 
-<ul class="thumbnails" data-target="#modal-gallery" data-toggle="modal-gallery">
+<div class="row">
     @foreach (var each in Model.Articles)
     {
-    <li class="span2">
-        <div class="thumbnail">
-            <p class="muted">@each.OrganizationName</p>                
-            <div style="text-align:center; height:110px;">
-                @if (!String.IsNullOrWhiteSpace(each.ImageFileName))
-                {
-                    <a rel="gallery" href="@Html.Raw(Url.Content(each.ImageFileName))" title="@each.Name - @Path.GetFileName(each.ImageFileName)">
-                        <img src="@String.Concat(Html.Raw(Url.Content(each.ImageFileName)), ".ashx?maxwidth=160&maxheight=110")" />
-                    </a>
-                }
-                else
-                {
-                    <img src="https://placehold.it/160x110" alt="" width="160" height="110" />
-                }
-            </div>
-            <h5>@if (each.Name == null) {
-                    @Html.Raw("&nbsp;");
-                }
-                else {
-                    @each.Name;
-                }</h5>
+        <div class="col-xs-4 col-md-2">
+            <div class="thumbnail">
+                <p class="muted">@each.OrganizationName</p>
+                <div style="text-align:center; height:110px;">
+                    @if (!String.IsNullOrWhiteSpace(each.ImageFileName))
+                    {
+                        <a rel="gallery" href="@Html.Raw(Url.Content(each.ImageFileName))" title="@each.Name - @Path.GetFileName(each.ImageFileName)">
+                            <img src="@String.Concat(Html.Raw(Url.Content(each.ImageFileName)), ".ashx?maxwidth=160&maxheight=110")" />
+                        </a>
+                    }
+                    else
+                    {
+                        <img src="https://placehold.it/160x110" alt="" width="160" height="110" />
+                    }
+                </div>
+                <h5>
+                    @if (each.Name == null)
+                    {
+                        @Html.Raw("&nbsp;");
+                    }
+                    else
+                    {
+                        @each.Name;
+                    }
+            </h5>
             <p>CHF @each.Price.ToString("N") / Woche</p>
             <div class="modal-footer" style="margin-bottom: 0;padding: 0px 1px 1px; background-color: transparent; border-width:0;">@Html.ActionLink("Details", ShopActionNames.Article, new { id = each.Id }, new { @class = "btn fundus-shop-showArticle", article_id = each.Id })</div>
         </div>
-    </li>
+    </div>
     }
-</ul>
+</div>
 @Html.DisplayFor(m => m.PageSelectorModel)

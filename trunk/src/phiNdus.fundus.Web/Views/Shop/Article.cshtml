@@ -3,55 +3,60 @@
 <h2>@Model.Article.Name</h2>
 <p></p>
 <div class="tabbable tabs-left">
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#@Model.Article.Id-D" data-toggle="tab">Beschreibung</a></li>
-        @if (!String.IsNullOrWhiteSpace(Model.Article.Specification))
-        {
-            <li class=""><a href="#@Model.Article.Id-S" data-toggle="tab">Spezifikation</a></li>
-        }
-        <li class=""><a href="#@Model.Article.Id-I" data-toggle="tab">Bilder (@Model.Article.Images.Count)</a></li>
-        <li class=""><a href="#@Model.Article.Id-F" data-toggle="tab">Dokumente (@Model.Article.Documents.Count)</a></li>
-        <li class=""><a href="#@Model.Article.Id-A" data-toggle="tab">Verfügbarkeit</a></li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane active" id="@Model.Article.Id-D">
-            @Html.Raw(Model.Article.Description)
+    <div class="row">
+        <div class="col-xs-4 col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#@Model.Article.Id-D" data-toggle="tab">Beschreibung</a></li>
+                @if (!String.IsNullOrWhiteSpace(Model.Article.Specification))
+                {
+                    <li class=""><a href="#@Model.Article.Id-S" data-toggle="tab">Spezifikation</a></li>
+                }
+                <li class=""><a href="#@Model.Article.Id-I" data-toggle="tab">Bilder (@Model.Article.Images.Count)</a></li>
+                <li class=""><a href="#@Model.Article.Id-F" data-toggle="tab">Dokumente (@Model.Article.Documents.Count)</a></li>
+                <li class=""><a href="#@Model.Article.Id-A" data-toggle="tab">Verfügbarkeit</a></li>
+            </ul>
         </div>
-        
-        @if (!String.IsNullOrWhiteSpace(Model.Article.Specification))
-        {
-            <div class="tab-pane" id="@Model.Article.Id-S">
-                @Html.Raw(Model.Article.Specification)
+        <div class="tab-content col-xs-8 col-md-9">
+            <div class="tab-pane active" id="@Model.Article.Id-D">
+                @Html.Raw(Model.Article.Description)
             </div>
-        }
 
-        <div class="tab-pane" id="@Model.Article.Id-I">
-            @Html.Partial("Article_Images", Model)
-        </div>
+            @if (!String.IsNullOrWhiteSpace(Model.Article.Specification))
+            {
+                <div class="tab-pane" id="@Model.Article.Id-S">
+                    @Html.Raw(Model.Article.Specification)
+                </div>
+            }
 
-        <div class="tab-pane" id="@Model.Article.Id-F">
-            @Html.Partial("Article_Documents", Model)
-        </div>
+            <div class="tab-pane" id="@Model.Article.Id-I">
+                @Html.Partial("Article_Images", Model)
+            </div>
 
-        <div class="tab-pane" id="@Model.Article.Id-A">
-            @Html.Partial("Article_Availability", Model)
+            <div class="tab-pane" id="@Model.Article.Id-F">
+                @Html.Partial("Article_Documents", Model)
+            </div>
+
+            <div class="tab-pane" id="@Model.Article.Id-A">
+                @Html.Partial("Article_Availability", Model)
+            </div>
         </div>
     </div>
 </div>
     
-@if (!Request.IsAuthenticated)
-{
-    <p>Melden Sie sich an, um einen Artikel auszuleihen.</p>
-}
-else
-{
-    if (Model.CanUserAddToCart)
+
+    @if (!Request.IsAuthenticated)
     {
-        @Html.Partial("Article_AddToCart", Model.CartItem)
+        <p>Melden Sie sich an, um einen Artikel auszuleihen.</p>
     }
     else
     {
-        <p>Sie müssen Mitglied dieser Organisation sein, um den Artikel auszuleihen.</p>
+        if (Model.CanUserAddToCart)
+        {
+            @Html.Partial("Article_AddToCart", Model.CartItem)
+        }
+        else
+        {
+            <p>Sie müssen Mitglied dieser Organisation sein, um den Artikel auszuleihen.</p>
+        }
     }
-}
 
