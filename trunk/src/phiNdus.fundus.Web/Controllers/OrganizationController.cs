@@ -4,11 +4,21 @@
     using System.Web;
     using System.Web.Mvc;
     using Castle.Transactions;
+    using Common;
     using Core.IdentityAndAccess.Queries;
     using phiNdus.fundus.Web.Models.Organization;
 
     public class OrganizationController : ControllerBase
     {
+        private IMemberInRole _memberInRole;
+
+        public OrganizationController(IMemberInRole memberInRole)
+        {
+            AssertionConcern.AssertArgumentNotNull(memberInRole, "Member in role must be provided.");
+
+            _memberInRole = memberInRole;
+        }
+
         public IOrganizationQueries OrganizationQueries { get; set; }
 
         [AllowAnonymous]
@@ -35,9 +45,10 @@
                         "Die Organisation mit der Id {0} und/oder dem Namen \"{1}\" konnte nicht gefunden werden.",
                         id, name));
 
-            var model = new OrganizationModel(organization);
+            var isManager = Identity.IsAuthenticated && _memberInRole.IsActiveChief(id, CurrentUserId);
+            var model = new OrganizationModel(organization, isManager);
 
-            return View(model);
+            return View("Home", model);
         }
 
         [Transaction]

@@ -5,7 +5,7 @@
 
     public class OrganizationModel
     {
-        public OrganizationModel(OrganizationDetailDto organization)
+        public OrganizationModel(OrganizationDetailDto organization, bool isManager = false)
         {
             Id = organization.Id;
             Name = organization.Name;
@@ -14,7 +14,10 @@
             Startpage = organization.Startpage;
             EmailAddress = organization.EmailAddress;
             Website = organization.Website;
+            IsManager = isManager;
         }
+
+        public bool IsManager { get; set; }
 
         public int Id { get; set; }
 

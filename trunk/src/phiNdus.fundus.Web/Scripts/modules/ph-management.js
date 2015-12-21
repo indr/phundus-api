@@ -9,14 +9,14 @@ angular.module('ph.management', ['ph.resources', 'ph.domain', 'ph.ui', 'ui', 'ui
     })
     .config(function($routeProvider) {
         $routeProvider
-            .when('/members', { controller: MembersCtrl, templateUrl: './Content/Views/Management/Members.html' })
-            .when('/applications', { controller: ApplicationsCtrl, templateUrl: './Content/Views/Management/Applications.html' })
-            .when('/orders', { controller: ManagementOrdersCtrl, templateUrl: './Content/Views/Management/Orders.html' })
-            .when('/orders/:orderId', { controller: ManagementOrderCtrl, templateUrl: './Content/Views/Management/Order.html' })
-            .when('/contracts', { controller: ManagementContractsCtrl, templateUrl: './Content/Views/Management/Contracts.html' })
-            .when('/contracts/:contractId', { controller: ManagementContractCtrl, templateUrl: './Content/Views/Management/Contract.html' })
-            .when('/settings', { controller: SettingsCtrl, templateUrl: './Content/Views/Management/Settings.html' })
-            .when('/files', { controller: FilesCtrl, templateUrl: './Content/Views/Management/Files.html' });
+            .when('/members', { controller: MembersCtrl, templateUrl: '/Content/Views/Management/Members.html' })
+            .when('/applications', { controller: ApplicationsCtrl, templateUrl: '/Content/Views/Management/Applications.html' })
+            .when('/orders', { controller: ManagementOrdersCtrl, templateUrl: '/Content/Views/Management/Orders.html' })
+            .when('/orders/:orderId', { controller: ManagementOrderCtrl, templateUrl: '/Content/Views/Management/Order.html' })
+            .when('/contracts', { controller: ManagementContractsCtrl, templateUrl: '/Content/Views/Management/Contracts.html' })
+            .when('/contracts/:contractId', { controller: ManagementContractCtrl, templateUrl: '/Content/Views/Management/Contract.html' })
+            .when('/settings', { controller: SettingsCtrl, templateUrl: '/Content/Views/Management/Settings.html' })
+            .when('/files', { controller: FilesCtrl, templateUrl: '/Content/Views/Management/Files.html' });
     })
 ; // ph.management
 

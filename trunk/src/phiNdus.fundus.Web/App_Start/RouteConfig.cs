@@ -24,7 +24,12 @@
                 "orgs/{orgId}/{controller}/{action}/{id}",
                 defaults: new { action = "Index", id = UrlParameter.Optional },
                 constraints: new { orgId = @"^[\d]+$" }
-        );
+            );
+
+            routes.MapRoute(
+                "Management",
+                "management/{id}",
+                new { controller = "Management", action = "Index" });
 
             routes.MapRoute(
                 "Default",
@@ -34,6 +39,8 @@
             routes.MapRoute(
                 "ImageStore",
                 "{controller}/{action}/{id}/{name}");
+
+            
         }
     }
 
