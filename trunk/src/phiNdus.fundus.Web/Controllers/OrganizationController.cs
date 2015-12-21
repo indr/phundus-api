@@ -50,17 +50,5 @@
 
             return View("Home", model);
         }
-
-        [Transaction]
-        public virtual ActionResult Select(int id)
-        {
-            var organization = OrganizationQueries.ById(id);
-
-            if (organization == null)
-                throw new HttpException(404, "Organisation nicht gefunden.");
-
-            CurrentOrganizationId = organization.Id;
-            return RedirectToRoute("Organization", new {name = organization.Url});
-        }
     }
 }

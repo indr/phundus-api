@@ -25,14 +25,9 @@
                 model.UserId = user.ProviderUserKey.ToString();
 
             foreach (var each in MembershipQueries.ByUserId(Convert.ToInt32(user.ProviderUserKey)))
-            {
-                if ((model.Selected == null) || (each.OrganizationId == CurrentOrganizationId))
-                    model.Selected = each;
+            {                
                 model.Memberships.Add(each);
             }
-
-            if (model.Selected != null)
-                CurrentOrganizationId = model.Selected.OrganizationId;
 
             return PartialView("_NavBar", model);
         }

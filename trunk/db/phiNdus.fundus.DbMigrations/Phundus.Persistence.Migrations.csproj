@@ -129,6 +129,7 @@
     <Compile Include="2014\10\M201410200709DeleteTableRmEventsAndEmptyTrackers.cs" />
     <Compile Include="2015\12\M201512150632AddColumnTotalToOrderItem.cs" />
     <Compile Include="2015\12\M201512160809CreateForeignKeyCartItemToArticle.cs" />
+    <Compile Include="2015\12\M201512210938DeleteSelectedOrganizationId.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
