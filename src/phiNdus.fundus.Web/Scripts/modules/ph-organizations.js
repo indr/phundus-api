@@ -11,9 +11,9 @@ angular.module('ph.organizations', ['ph.resources', 'ui', 'ui.bootstrap'])
 
     .config(function ($routeProvider) {
         $routeProvider
-            .when('/search', { controller: SearchCtrl, templateUrl: './Content/Views/Organization/Search.html' })
-            .when('/establish', { controller: EstablishCtrl, templateUrl: './Content/Views/Organization/Establish.html' })
-            .when('/', { controller: HomeCtrl, templateUrl: './Content/Views/Organization/Home.html' });
+            .when('/search', { controller: SearchCtrl, templateUrl: '/Content/Views/Organization/Search.html' })
+            .when('/establish', { controller: EstablishCtrl, templateUrl: '/Content/Views/Organization/Establish.html' })
+            .when('/', { controller: HomeCtrl, templateUrl: '/Content/Views/Organization/Home.html' });
     })
 ; // ph.organizations
 

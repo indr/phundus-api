@@ -1,8 +1,10 @@
-﻿@{
+﻿@model phiNdus.fundus.Web.Models.ManagementModel
+
+@{
     ViewBag.Title = "Verwaltung";
 }
 
-<div ng-app="ph.management" ng-init="organizationId=@Session["OrganizationId"] + 0;">
+<div ng-app="ph.management" ng-init="organizationId=@Model.OrganizationId + 0;">
     <div ng-view>
         <h2>Verwaltung</h2>
         <p>Modul wird geladen. Bitte warten...</p>

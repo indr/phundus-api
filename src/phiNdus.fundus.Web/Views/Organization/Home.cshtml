@@ -4,6 +4,19 @@
     ViewBag.Title = Model.Name;
 }
 
+@if (Model.IsManager)
+{
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="/organization/id/@Model.Id">Home</a></li>
+        <li role="presentation"><a href="/management/@Model.Id#/orders">Bestellungen</a></li>
+        <li role="presentation"><a href="/article/@Model.Id">Material</a></li>
+        <li role="presentation"><a href="/management/@Model.Id#/members">Mitglieder</a></li>
+        <li role="presentation"><a href="/management/@Model.Id#/applications">Beitrittsanfragen</a></li>
+        <li role="presentation"><a href="/management/@Model.Id#/settings">Einstellungen</a></li>
+        <li role="presentation"><a href="/management/@Model.Id#/files">Dateien</a></li>
+    </ul>
+}
+
 <div class="row" ng-app="ph.organizations" ng-init="organizationId=@Model.Id + 0;">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <h2>@Model.Name</h2>

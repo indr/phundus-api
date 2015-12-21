@@ -43,7 +43,7 @@
 
     .factory('members', function($resource) {
         var member = $resource(
-            './api/organizations/:organizationId/members/:id/:action',
+            '/api/organizations/:organizationId/members/:id/:action',
             { organizationId: '@organizationId', id: '@id' },
             { update: { method: 'PUT' } }
         );
@@ -52,7 +52,7 @@
     })
     .factory('organizations', function($resource) {
         var organization = $resource(
-            './api/organizations/:id',
+            '/api/organizations/:id',
             { id: '@id', action: 'update' },
             { update: { method: 'PUT' } }
         );
@@ -61,58 +61,58 @@
     })
     .factory('files', function($resource) {
         var files = $resource(
-            './orgs/:orgId/files'
+            '/orgs/:orgId/files'
         );
         return files;
     })
     .factory('applications', function($resource) {
         return $resource(
-            './api/organizations/:organizationId/applications/:id',
+            '/api/organizations/:organizationId/applications/:id',
             { organizationId: '@organizationId', id: '@id' });
     })
     .factory('membersLocks', function($resource) {
         return $resource(
-            './api/organizations/:organizationId/members/:memberId/locks',
+            '/api/organizations/:organizationId/members/:memberId/locks',
             { organizationId: '@organizationId', memberId: '@memberId'});
     })
     .factory('relationships', function($resource) {
         return $resource(
-            './api/organizations/:organizationId/relationships');
+            '/api/organizations/:organizationId/relationships');
     })
     .factory('organizationOrders', function($resource) {
         return $resource(
-            './api/organizations/:organizationId/orders/:orderId',
+            '/api/organizations/:organizationId/orders/:orderId',
             { organizationId: '@organizationId', orderId: '@orderId' },
             { update: { method: 'PATCH' } });
 
     })
     .factory('organizationOrderItems', function ($resource) {
         return $resource(
-            './api/organizations/:organizationId/orders/:orderId/items/:orderItemId',
+            '/api/organizations/:organizationId/orders/:orderId/items/:orderItemId',
             { organizationId: '@organizationId', orderId: '@orderId', orderItemId: '@orderItemId' },
             { update: { method: 'PATCH' } });
 
     })
     .factory('organizationContracts', function($resource) {
         return $resource(
-            './api/organizations/:organizationId/contracts/:contractId',
+            '/api/organizations/:organizationId/contracts/:contractId',
             { organizationId: '@organizationId', contractId: '@contractId' });
     })
     
     .factory('orders', function($resource) {
-        return $resource('./api/orders/:orderId');
+        return $resource('/api/orders/:orderId');
     })
     
     .factory('contracts', function($resource) {
-        return $resource('./api/contracts/:contractId');
+        return $resource('/api/contracts/:contractId');
     })
     
     .factory('schemaUpdate', function ($resource) {
-        return $resource('./api/diagnostics/schema-update');
+        return $resource('/api/diagnostics/schema-update');
     })
 
     .factory('eventLog', function($resource) {
-        return $resource('./api/diagnostics/eventlog');
+        return $resource('/api/diagnostics/eventlog');
     })
 ; // ph.resources
 
