@@ -7,6 +7,7 @@ Grundlage:
 	Angenommen ich bin nicht angemeldet
 
 
+@ignore
 Szenario: Feedback ohne Angabe der E-Mail-Adresse
 	Angenommen ich bin auf der Feedbackseite
 	Und ich tippe ins Feld "Feedback" "Hallo" ein
