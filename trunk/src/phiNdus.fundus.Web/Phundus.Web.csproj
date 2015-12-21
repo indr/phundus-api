@@ -407,7 +407,6 @@
     <Compile Include="ViewModels\ArticlesTableViewModel.cs" />
     <Compile Include="Models\EmailAttribute.cs" />
     <Compile Include="Models\ModelBase.cs" />
-    <Compile Include="ViewModels\ArticlesViewModel.cs" />
     <Compile Include="Models\CartModels\CartItemModel.cs" />
     <Compile Include="Models\CartModels\CartModel.cs" />
     <Compile Include="Models\UserModels.cs" />
