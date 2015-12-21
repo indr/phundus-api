@@ -10,41 +10,8 @@
 }
 
 
-    <div class="btn-toolbar pull-right">
-        @if (Model.TotalPages > 1)
-{
-        <div class="btn-group">
-        @if (Model.ActivePage > 1)
-        {
-            @Ajax.ActionLink(new Appearance { Caption = "Vorherige", Button = Button.Normal }, "Index", new { page = Model.ActivePage - 1 }, ajaxOptions)
-        }
-        
-        @{int prev = 0;}
-        @foreach (var each in Model.Pages)
-        {
-            if (each - prev > 1)
-            {
-                @Html.Raw("</div><div class=\"btn-group\">");
-            }
-            if (each == Model.ActivePage)
-            {
-                @Ajax.ActionLink(new Appearance { Caption = each.ToString(), Button = Button.Inverse }, "Index", new { page = each }, ajaxOptions);
-            }
-            else
-            {
-                @Ajax.ActionLink(new Appearance { Caption = each.ToString(), Button = Button.Normal }, "Index", new { page = each }, ajaxOptions);
-            }
-            prev = each;
-        }
-        
-        @if (Model.ActivePage < Model.TotalPages)
-        {
-            @Ajax.ActionLink(new Appearance { Caption = "Nächste", Button = Button.Normal }, "Index", new { page = Model.ActivePage + 1 }, ajaxOptions)
-        }
-        </div>
-            }
-        
-        <div class="btn-group" style="padding-left: 20px; padding-top:20px;">
+<div class="btn-toolbar">
+    <div class="pull-right" style="padding-left: 20px; padding-top:20px;">
         @using (Ajax.BeginForm("Index", new AjaxOptions
         {
             HttpMethod = "POST",
@@ -53,12 +20,48 @@
         }))
         {
             <div class="btn-group" style="vertical-align: bottom; margin-top: 0px;">
-            @Html.DropDownList("rowsPerPage", Model.RowsPerPageOptions, new { style = "width:auto; margin:0;" }) 
+                @Html.DropDownList("rowsPerPage", Model.RowsPerPageOptions, new { @class="form-control", style = "width:auto; margin:0;" })
             </div>
             <div class="btn-group" style="vertical-align: bottom; margin-top: 0px; padding-top:0px;">
-            <button type="submit" class="btn btn-primary" onclick="submit()">Go</button>
+                <button type="submit" class="btn btn-primary" onclick="submit()">Go</button>
             </div>
         }
-        </div>
-        
     </div>
+    <div class="pull-right">
+        @if (Model.TotalPages > 1)
+        {
+            <nav>
+                <ul class="pagination">
+                    @if (Model.ActivePage > 1)
+                    {
+                        <li>@Ajax.RawActionLink("&laquo;", "Index", new { page = Model.ActivePage - 1 }, ajaxOptions, new { })</li>
+                    }
+
+                    @{int prev = 0;}
+                    @foreach (var each in Model.Pages)
+                    {
+                        if (each - prev > 1)
+                        {
+                            @Html.Raw("</ul><ul class=\"pagination\" style=\"margin-left:10px\">");
+                        }
+                        if (each == Model.ActivePage)
+                        {
+                            <li class="active">@Ajax.ActionLink(each.ToString(), "Index", new { page = each }, ajaxOptions)</li>
+                        }
+                        else
+                        {
+                            <li>@Ajax.ActionLink(each.ToString(), "Index", new { page = each }, ajaxOptions)</li>
+                        }
+                        prev = each;
+                    }
+
+                    @if (Model.ActivePage < Model.TotalPages)
+                    {
+                        <li>@Ajax.RawActionLink("&raquo;", "Index", new { page = Model.ActivePage + 1 }, ajaxOptions, new { })</li>
+                    }
+                </ul>
+            </nav>
+        }
+    </div>
+    
+</div>
