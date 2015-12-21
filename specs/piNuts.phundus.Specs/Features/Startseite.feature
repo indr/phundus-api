@@ -8,8 +8,8 @@
 @isSmoker
 Szenario: Aufruf des Shops
 	Wenn ich den Shop aufrufe
-	Dann sollte ich gross "Shop" sehen
-	Und sollte im Fenstertitel muss "Shop - phundus" stehen
+#	Dann sollte ich gross "Shop" sehen
+	Dann sollte im Fenstertitel muss "Shop - phundus" stehen
 
 @isSmoker
 Szenario: Korrekte Version wurde installiert

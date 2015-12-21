@@ -18,7 +18,7 @@
                 var headerText = "Unbekannter Fehler";
                 var bodyText = "<p>Es ist ein unbekannter Fehler aufgetreten.</p><p>Bitte versuchen Sie es später noch einmal.</p>"; 
 
-                if (response.status == 0) {
+                if (response.status == 0 || response.status == 404) {
                     headerText = "Netzwerkfehler";
                     bodyText = "<p>Der Server konnte nicht erreicht werden oder hat nicht in der erwarteten Zeit geantwortet.</p>"
                         + "<p>Kontrollieren Sie Ihre Netzwerkverbindung oder versuchen Sie es zu einem späteren Zeitpunkt nochmal.</p>";
@@ -27,7 +27,7 @@
                     headerText = "Fehler";
                     if (response.data.exceptionMessage != undefined)
                         bodyText = "<p>" + response.data.exceptionMessage + "</p>";
-                    else
+                    else if (response.data.message != undefined)
                         bodyText = "<p>" + response.data.message + "</p>";
                 }
 
