@@ -75,9 +75,11 @@ namespace Phundus.Specs.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Unbekannter Benutzer")]
+        [NUnit.Framework.IgnoreAttribute()]
         public virtual void UnbekannterBenutzer()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Unbekannter Benutzer", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Unbekannter Benutzer", new string[] {
+                        "ignore"});
 #line 10
 this.ScenarioSetup(scenarioInfo);
 #line 6

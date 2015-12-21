@@ -12,7 +12,6 @@ Szenario: Feedback ohne Angabe der E-Mail-Adresse
 	Und ich tippe ins Feld "Feedback" "Hallo" ein
 	Wenn ich auf "Senden" klicke
 	Dann muss die Meldung "Das Feld "E-Mail-Adresse" ist erforderlich." erscheinen
-	Und muss das Feld "E-Mail-Adresse" rot sein
 
 
 Szenario: Feedback ohne Angabe des Feedbacks
@@ -20,7 +19,6 @@ Szenario: Feedback ohne Angabe des Feedbacks
 	Und ich tippe ins Feld "E-Mail-Adresse" "user@example.com" ein
 	Wenn ich auf "Senden" klicke
 	Dann muss die Meldung "Das Feld "Feedback" ist erforderlich." erscheinen
-	Und muss das Feld "Feedback" rot sein
 
 
 @isSmoker

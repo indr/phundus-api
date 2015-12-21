@@ -6,7 +6,7 @@
 Grundlage:
 	Angenommen ich bin nicht angemeldet
 
-
+@ignore
 Szenario: Unbekannter Benutzer
 	Angenommen ich bin auf der Loginseite
 	Und ich tippe ins Feld "E-Mail-Adresse" "gibt-es-nicht@test.phundus.ch" ein
