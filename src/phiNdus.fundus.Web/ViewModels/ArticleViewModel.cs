@@ -3,22 +3,24 @@ namespace phiNdus.fundus.Web.ViewModels
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
     using Phundus.Core.Inventory.Queries;
 
     public class ArticleViewModel : ViewModelBase
     {
         private IList<ImageDto> _files = new List<ImageDto>();
 
-        public ArticleViewModel()
+        public ArticleViewModel(int organizationId)
         {
-            Load(new ArticleDto());
+            Load(new ArticleDto { OrganizationId =  organizationId});
         }
 
         public ArticleViewModel(ArticleDto articleDto)
         {
             Load(articleDto);
+            OrganizationId = articleDto.OrganizationId;
         }
+
+        public int OrganizationId { get; private set; }
 
         public int Id { get; set; }
 

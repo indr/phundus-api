@@ -32,39 +32,37 @@
         public IReservationRepository ReservationRepository { get; set; }
 
         [Transaction]
-        public virtual ActionResult Index()
+        public virtual ActionResult Index(int orgId)
         {
             return RedirectToAction("list");
         }
 
         [Transaction]
-        public virtual ActionResult List()
+        public virtual ActionResult List(int orgId)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
-            var model = new ArticlesTableViewModel(
-                ArticleQueries.GetArticles(CurrentOrganizationId.Value)
-                );
+            var model = new ArticlesTableViewModel(orgId, ArticleQueries.GetArticles(orgId));
             return View(model);
         }
 
         [Transaction]
-        public virtual ActionResult Create()
+        public virtual ActionResult Create(int orgId)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
-            var model = new ArticleViewModel();
+            var model = new ArticleViewModel(orgId);
             return View(model);
         }
 
         [HttpPost]
         [ValidateInput(false)]
         [Transaction]
-        public virtual ActionResult Create(FormCollection collection)
+        public virtual ActionResult Create(int orgId, FormCollection collection)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
-            var model = new ArticleViewModel();
+            var model = new ArticleViewModel(orgId);
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
@@ -77,7 +75,7 @@
                     GrossStock = model.GrossStock,
                     InitiatorId = CurrentUserId,
                     Name = model.Name,
-                    OrganizationId = CurrentOrganizationId.Value,
+                    OrganizationId = orgId,
                     Price = Convert.ToDecimal(model.Price),
                     Specification = model.Specification
                 };
@@ -97,27 +95,27 @@
         }
 
         [Transaction]
-        public virtual ActionResult Edit(int id)
+        public virtual ActionResult Edit(int orgId, int id)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
-            return Fields(id);
+            return Fields(orgId, id);
         }
 
         [HttpPost]
         [ValidateInput(false)]
         [Transaction]
-        public virtual ActionResult Edit(int id, FormCollection collection)
+        public virtual ActionResult Edit(int orgId, int id, FormCollection collection)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
-            return Fields(id, collection);
+            return Fields(orgId, id, collection);
         }
 
         [Transaction]
-        public virtual ActionResult Fields(int id)
+        public virtual ActionResult Fields(int orgId, int id)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             var model = new ArticleViewModel(
                 ArticleQueries.GetArticle(id));
@@ -131,11 +129,11 @@
         [HttpPost]
         [ValidateInput(false)]
         [Transaction]
-        public virtual ActionResult Fields(int id, FormCollection collection)
+        public virtual ActionResult Fields(int orgId, int id, FormCollection collection)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
-            var model = new ArticleViewModel();
+            var model = new ArticleViewModel(orgId);
             try
             {
                 UpdateModel(model, collection.ToValueProvider());
@@ -165,9 +163,9 @@
         }
 
         [Transaction]
-        public virtual ActionResult Images(int id)
+        public virtual ActionResult Images(int orgId, int id)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             var dto = ArticleQueries.GetArticle(id);
             if (dto == null)
@@ -181,9 +179,9 @@
 
         [AllowAnonymous]
         [Transaction]
-        public virtual ActionResult ImageStore(int id, string name)
+        public virtual ActionResult ImageStore(int orgId, int id, string name)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             var path = String.Format(@"~\Content\Images\Articles\{0}", id);
             var store = new ImageStore(path);
@@ -236,9 +234,9 @@
         }
 
         [Transaction]
-        public virtual ActionResult Availability(int id)
+        public virtual ActionResult Availability(int orgId, int id)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             var model = new ArticleAvailabilityViewModel();
             model.Id = id;
@@ -252,9 +250,9 @@
 
 
         [Transaction]
-        public virtual ActionResult Reservations(int id)
+        public virtual ActionResult Reservations(int orgId, int id)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             var model = new ArticleReservationsModel();
             model.Items = ReservationRepository.Find(id, Guid.Empty);
@@ -264,9 +262,9 @@
         }
 
         [Transaction]
-        public virtual ActionResult Categories(int id)
+        public virtual ActionResult Categories(int orgId, int id)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             var dto = ArticleQueries.GetArticle(id);
             if (dto == null)
@@ -281,9 +279,9 @@
         }
 
         [Transaction]
-        public virtual ActionResult Delete(int id)
+        public virtual ActionResult Delete(int orgId, int id)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             var dto = ArticleQueries.GetArticle(id);
             if (dto == null)
@@ -294,9 +292,9 @@
 
         [HttpPost]
         [Transaction]
-        public virtual ActionResult Delete(int id, int version)
+        public virtual ActionResult Delete(int orgId, int id, int version)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             Dispatcher.Dispatch(new DeleteArticle {ArticleId = id, InitiatorId = CurrentUserId});
 
@@ -306,9 +304,9 @@
         [HttpDelete]
         [ActionName("Delete")]
         [Transaction]
-        public virtual ActionResult AjaxDelete(int id)
+        public virtual ActionResult AjaxDelete(int orgId, int id)
         {
-            MemberInRole.ActiveChief(CurrentOrganizationId.Value, CurrentUserId);
+            MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             MessageBoxViewModel result;
             try
