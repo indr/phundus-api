@@ -29,8 +29,8 @@
     <tbody>
         <tr ng-repeat="item in order.items">
             <td>{{item.text}}</td>
-            <td ng-show="item.isAvailable"><i class="icon-ok"></i></td>
-            <td ng-show="!item.isAvailable"><i class="icon-remove"></i></td>
+            <td ng-show="item.isAvailable"><span class="glyphicon glyphicon-ok"></span></td>
+            <td ng-show="!item.isAvailable"><span class="glyphicon glyphicon-remove"></span></td>
             <td>{{item.fromUtc | date:'mediumDate'}}</td>
             <td>{{item.toUtc | date:'mediumDate'}}</td>
             <td>{{item.amount}}</td>

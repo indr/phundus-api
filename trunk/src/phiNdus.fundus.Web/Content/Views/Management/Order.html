@@ -13,13 +13,13 @@
 <div x-ph-alert-loading />
 
 <div ng-show="isLoaded" class="row">
-    <div class="span6">
+    <div class="col-lg-6">
         <p>Nummer: {{order.orderId}}</p>
         <p>Status: {{order.status | orderStatusText}}</p>
         <p>Erstellt: {{order.createdUtc | date:'medium'}}</p>
         <p>Bearbeitet: {{order.modifiedUtc | date:'medium'}}</p>
     </div>
-    <div class="span6">
+    <div class="col-lg-6">
         <p>Ausleiher: {{order.borrowerFirstName}} {{order.borrowerLastName}}</p>
         <p>J+S/Info Card: {{order.borrowerMemberNumber}}</p>
     </div>
@@ -41,29 +41,29 @@
     <tbody>
         <tr ng-repeat="item in order.items">
             <td>{{item.text}}</td>
-            <td ng-show="item.isAvailable"><i class="icon-ok"></i></td>
-            <td ng-show="!item.isAvailable"><i class="icon-remove"></i></td>
+            <td ng-show="item.isAvailable"><span class="glyphicon glyphicon-ok"></span></td>
+            <td ng-show="!item.isAvailable"><span class="glyphicon glyphicon-remove"></span></td>
             <td ng-show="!item.editing">{{item.fromUtc | date:'mediumDate'}}</td>
             <td ng-show="!item.editing">{{item.toUtc | date:'mediumDate'}}</td>
             <td ng-show="!item.editing">{{item.amount}}</td>
-            <td ng-show="item.editing"><input class="input-small" type="text" ng-model="item.fromUtc" ph-datefield /></td>
-            <td ng-show="item.editing"><input class="input-small" type="text" ng-model="item.toUtc" ph-datefield /></td>
-            <td ng-show="item.editing"><input class="input-mini" type="text" ng-model="item.amount" /></td>
+            <td ng-show="item.editing"><input class="form-control" type="text" ng-model="item.fromUtc" ph-datefield /></td>
+            <td ng-show="item.editing"><input class="form-control" type="text" ng-model="item.toUtc" ph-datefield /></td>
+            <td ng-show="item.editing"><input class="form-control" type="text" ng-model="item.amount" /></td>
             <td>{{item.unitPrice | currency}}</td>
             <td ng-show="!item.editing">{{item.itemTotal | currency}}</td>
             <td ng-show="item.editing">
                 <div class="input-append">
-                    <input class="input-mini" type="text" ng-model="item.itemTotal" />
-                    <button class="btn" ng-click="calculateItemTotal(item)" title="Preis berechnen"><i class="icon-refresh"></i></button>
+                    <input class="form-control" type="text" ng-model="item.itemTotal" />
+                    <button class="btn btn-default" ng-click="calculateItemTotal(item)" title="Preis berechnen"><span class="glyphicon glyphicon-refresh"></span></button>
                 </div>
             </td>
             <td ng-show="!item.editing">
-                <a ng-show="order.status == 'Pending'" class="btn" href="" ng-click="editItem(item)" title="Bearbeiten"><i class="icon-edit"></i></a>
-                <a ng-show="order.status == 'Pending'" class="btn" href="" ng-click="removeItem(item)" title="Entfernen"><i class="icon-remove"></i></a>
+                <a ng-show="order.status == 'Pending'" class="btn btn-default" href="" ng-click="editItem(item)" title="Bearbeiten"><span class="glyphicon glyphicon-edit"></span></a>
+                <a ng-show="order.status == 'Pending'" class="btn btn-default" href="" ng-click="removeItem(item)" title="Entfernen"><span class="glyphicon glyphicon-remove"></span></a>
             </td>
             <td ng-show="item.editing">
-                <a class="btn" href="" ng-click="saveEditedItem(item)" title="Speichern"><i class="icon-ok"></i></a>
-                <a class="btn" href="" ng-click="cancelEditing(item)" title="Verwerfen"><i class="icon-asterisk"></i></a>
+                <a class="btn btn-default" href="" ng-click="saveEditedItem(item)" title="Speichern"><span class="glyphicon glyphicon-ok"></span></a>
+                <a class="btn btn-default" href="" ng-click="cancelEditing(item)" title="Verwerfen"><span class="glyphicon glyphicon-asterisk"></span></a>
             </td>
         </tr>
 
@@ -76,12 +76,12 @@
 </table>
 
 <div class="row">
-    <div class="span6">
-        <a class="btn" href="" ph-history-back>Zurück</a>
-        <a ng-show="isLoaded" class="btn" href="./api/organizations/{{organizationId}}/orders/{{order.orderId}}.pdf">PDF</a>
+    <div class="col-lg-6">
+        <a class="btn btn-default" href="" ph-history-back>Zurück</a>
+        <a ng-show="isLoaded" class="btn btn-default" href="./api/organizations/{{organizationId}}/orders/{{order.orderId}}.pdf">PDF</a>
     </div>
-    <div ng-show="isLoaded" class="span6" style="text-align:right">
-        <a class="btn" ng-show="(order.status == 'Pending')" href="" ng-click="showAddItem(order)">Artikel hinzufügen</a>
+    <div ng-show="isLoaded" class="col-lg-6" style="text-align:right">
+        <a class="btn btn-default" ng-show="(order.status == 'Pending')" href="" ng-click="showAddItem(order)">Artikel hinzufügen</a>
         <a class="btn btn-primary" ng-show="order.status == 'Pending'" href="" ng-click="confirmOrder(order)">Bestätigen</a>
         <a class="btn btn-danger" ng-show="order.status == 'Pending'" href="" ng-click="rejectOrder(order)">Ablehnen</a>
         <a class="btn btn-primary" ng-show="order.status == 'Approved'" href="" ng-click="closeOrder(order)">Abschliessen</a>

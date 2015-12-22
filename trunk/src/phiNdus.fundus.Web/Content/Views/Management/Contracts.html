@@ -10,10 +10,9 @@
 
 <h2>Verträge</h2>
 
-
 <form class="form-inline">
     <p>
-        <input type="text" ng-model="search.$" class="search-query" placeholder="Suchen">
+        <input type="text" ng-model="search.$" class="form-control" placeholder="Suchen">
     </p>
 </form>
 
@@ -36,7 +35,7 @@
             <td>{{contract.borrowerFirstName}}</td>
             <td>{{contract.borrowerLastName}}</td>
             <td style="text-align: right">
-                <a class="btn btn-small" ng-click="openContract(contract)">Öffnen</a>
+                <a class="btn btn-default btn-sm" ng-click="openContract(contract)">Öffnen</a>
             </td>
         </tr>
     </tbody>

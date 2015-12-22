@@ -10,7 +10,7 @@
 
 <h2>Beitrittsanfragen</h2>
 <p>
-    <input type="text" ng-model="search" class="search-query" placeholder="Suchen">
+    <input type="text" ng-model="search" class="form-control" placeholder="Suchen">
 </p>
 <table class="table">
     <thead>
@@ -29,8 +29,8 @@
             <td>{{application.jsNumber}}</td>
             <td>{{application.email}}</td>
             <td ng-show="(application.isApproved != true) && (application.isRejected != true)">
-                <a class="btn btn-small btn-success" href="" ng-click="approve(application)">Bestätigen</a>
-                <a class="btn btn-small" href="" ng-click="reject(application)">Ablehnen</a>
+                <a class="btn btn-success" href="" ng-click="approve(application)">Bestätigen</a>
+                <a class="btn btn-default" href="" ng-click="reject(application)">Ablehnen</a>
             </td>
             <td ng-show="application.isApproved">Bestätigt!</td>
             <td ng-show="application.isRejected">Abgelehnt!</td>
