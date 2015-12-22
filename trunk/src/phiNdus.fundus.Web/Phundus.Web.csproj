@@ -714,6 +714,7 @@
     <Content Include="Views\Documents\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_BaseUrl.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ArticleViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\pbar-ani.gif" />
@@ -976,9 +977,6 @@
     <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\ArticleViewModel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Article\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -988,16 +986,10 @@
     <Content Include="Views\Shared\DisplayTemplates\MessageBoxViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\CartModel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Article\Availability.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\_Tabs.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Article\Categories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />

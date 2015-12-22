@@ -15,15 +15,14 @@
     <li role="presentation"><a href="/management/@Model.OrganizationId#/files">Dateien</a></li>
 </ul>
 
-<div class="tabbable">
+<h2>Material @Model.Id</h2>
+
+<div class="tabbable" style="margin-top:10px">
     <ul class="nav nav-tabs">
         <li class="@Html.ActiveTab("Article", new string[] { "Edit", "Fields" })">@Ajax.ActionLink("Eigenschaften", ArticlesActionNames.Fields,new { id = Model.Id }, new AjaxOptions {
             HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
         <li class="@Html.ActiveTab("Article", new string[] { "Images"})">@Ajax.ActionLink("Dateien", ArticlesActionNames.Images, new { id = Model.Id }, new AjaxOptions {
-            HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
-
-        <li class="@Html.ActiveTab("Article", new string[] { "Categories"})">@Ajax.ActionLink("Kategorien", ArticlesActionNames.Categories, new { id = Model.Id }, new AjaxOptions {
             HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
 
         <li class="@Html.ActiveTab("Article", new string[] { "Availability" })">@Ajax.ActionLink("Verfügbarkeit", ArticlesActionNames.Availability, new { id = Model.Id }, new AjaxOptions {
@@ -33,7 +32,7 @@
             HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "tab-content" }, new { data_toggle="tab"})</li>
     </ul>
         
-    <div class="tab-content" id="tab-content">
+    <div class="tab-content" id="tab-content" style="margin-top:10px">
         @RenderBody()
     </div>
 </div>

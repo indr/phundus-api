@@ -1,70 +1,66 @@
 @model ArticleViewModel
 
+<div class="row">
+    <div class="col-lg-6">
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Version)
 
-
-@Html.HiddenFor(m => m.Id)
-@Html.HiddenFor(m => m.Version)
-
-<div class="row-fluid">
-    <div class="span6">
-        
-        <div class="control-group">
-            @Html.LabelFor(m => m.Name, new { @class = "control-label" })
-            <div class="controls">
-                @Html.EditorFor(m => m.Name)
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name, new { @class = "col-sm-4 control-label" })
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Name)
             </div>
         </div>
-        
-        <div class="control-group">
-            @Html.LabelFor(m => m.Brand, new { @class = "control-label" })
-            <div class="controls">
-                @Html.EditorFor(m => m.Brand)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Brand, new { @class = "col-sm-4 control-label" })
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.Brand, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Brand)
             </div>
         </div>
-        
-        <div class="control-group">
-            @Html.LabelFor(m => m.Price, new { @class = "control-label" })
-            <div class="controls">
-                @Html.EditorFor(m => m.Price)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Price, new { @class = "col-sm-4 control-label" })
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Price)
             </div>
         </div>
-        
-        <div class="control-group">
-            @Html.LabelFor(m => m.GrossStock, new { @class = "control-label" })
-            <div class="controls">
-                @Html.EditorFor(m => m.GrossStock)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.GrossStock, new { @class = "col-sm-4 control-label" })
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.GrossStock, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.GrossStock)
             </div>
         </div>
-        
-        <div class="control-group">
-            @Html.LabelFor(m => m.Color, new { @class = "control-label" })
-            <div class="controls">
-                @Html.EditorFor(m => m.Color)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Color, new { @class = "col-sm-4 control-label" })
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.Color, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Color)
             </div>
         </div>
-    </div>
 
-    <div class="span6">
-        <div class="control-group">
-            @Html.LabelFor(m => m.Description, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextAreaFor(m => m.Description, new { @class = "span6 tinymce-init", rows = "10" })
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new { @class = "col-sm-4 control-label" })
+            <div class="col-sm-8">
+                @Html.TextAreaFor(m => m.Description, new { @class = "col-sm-12 tinymce-init", rows = "10" })
                 @Html.ValidationMessageFor(m => m.Description)
             </div>
         </div>
-        
-        <div class="control-group">
-            @Html.LabelFor(m => m.Specification, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextAreaFor(m => m.Specification, new { @class = "span6 tinymce-init", rows = "10" })
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Specification, new { @class = "col-sm-4 control-label" })
+            <div class="col-sm-8">
+                @Html.TextAreaFor(m => m.Specification, new { @class = "col-sm-12 tinymce-init", rows = "10" })
                 @Html.ValidationMessageFor(m => m.Specification)
             </div>
         </div>
     </div>
 </div>
-

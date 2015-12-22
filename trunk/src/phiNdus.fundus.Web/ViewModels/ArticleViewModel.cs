@@ -11,20 +11,19 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public ArticleViewModel(int organizationId)
         {
-            Load(new ArticleDto { OrganizationId =  organizationId});
+            Load(new ArticleDto {OrganizationId = organizationId});
         }
 
         public ArticleViewModel(ArticleDto articleDto)
         {
             Load(articleDto);
-            OrganizationId = articleDto.OrganizationId;
         }
-
-        public int OrganizationId { get; private set; }
 
         public int Id { get; set; }
 
         public int Version { get; set; }
+
+        public int OrganizationId { get; private set; }
 
         [DisplayName("Preis (inkl. MWSt)")]
         public double Price { get; set; }
@@ -34,7 +33,6 @@ namespace phiNdus.fundus.Web.ViewModels
 
         [DisplayName("Spezifikation")]
         public string Specification { get; set; }
-
 
         public IList<ImageDto> Files
         {
@@ -57,32 +55,16 @@ namespace phiNdus.fundus.Web.ViewModels
         {
             Id = dto.Id;
             Version = dto.Version;
-
+            OrganizationId = dto.OrganizationId;
             Name = dto.Name;
             Brand = dto.Brand;
             GrossStock = dto.GrossStock;
-            Price =  Convert.ToDouble(dto.Price);
+            Price = Convert.ToDouble(dto.Price);
             Description = dto.Description;
             Specification = dto.Specification;
             Color = dto.Color;
 
             _files = dto.Images;
-        }
-
-        public ArticleDto CreateDto()
-        {
-            var result = new ArticleDto();
-            result.Id = Id;
-            result.Version = Version;
-            result.Name = Name;
-            result.Brand = Brand;
-            result.GrossStock = GrossStock;
-            result.Price = Convert.ToDecimal(Price);
-            result.Description = Description;
-            result.Specification = Specification;
-            result.Color = Color;
-
-            return result;
         }
     }
 }

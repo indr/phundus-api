@@ -1,25 +1,42 @@
 ﻿@using Phundus.Web
 @model ArticleViewModel
 @{
-    ViewBag.Title = "Neues Material erfassen";
+    ViewBag.Title = "Neues Material";
 }
+
+<ul class="nav nav-tabs">
+    <li role="presentation"><a href="/organization/id/@Model.OrganizationId">Home</a></li>
+    <li role="presentation"><a href="/management/@Model.OrganizationId#/orders">Bestellungen</a></li>
+    <li role="presentation" class="active"><a href="/orgs/@Model.OrganizationId/article/list">Material</a></li>
+    <li role="presentation"><a href="/management/@Model.OrganizationId#/members">Mitglieder</a></li>
+    <li role="presentation"><a href="/management/@Model.OrganizationId#/applications">Beitrittsanfragen</a></li>
+    <li role="presentation"><a href="/management/@Model.OrganizationId#/settings">Einstellungen</a></li>
+    <li role="presentation"><a href="/management/@Model.OrganizationId#/files">Dateien</a></li>
+</ul>
 
 <h2>@ViewBag.Title</h2>
 
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" style="margin-top:10px">
     <li class="active"><a href="#" data-toggle="tab">Eigenschaften</a></li>
-    <li class=""><a href="#">Bilder</a></li>
-    <li class=""><a href="#">Kategorien</a></li>
+    <li class=""><a href="#">Dateien</a></li>
     <li class=""><a href="#">Verfügbarkeit</a></li>
+    <li class=""><a href="#">Reservationen</a></li>
 </ul>
-<div class="tab-content" id="tab-content">
-    @using (Html.BeginForm())
+
+<div class="tab-content" id="tab-content" style="margin-top:10px">
+    @using (Html.BeginForm("Create", "Article", FormMethod.Post, new { @class = "form-horizontal" }))
     {
         @Html.ValidationSummary(true)
-        @Html.EditorForModel()    
-        <div class="form-actions">
-            @Html.SubmitButton("Speichern")
-            @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, ArticlesActionNames.Index)
+        @Html.EditorForModel()
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        @Html.SubmitButton("Speichern")
+                        @Html.ActionLink(new Appearance { Caption = "Abbrechen", Button = Button.Normal }, ArticlesActionNames.Index)
+                    </div>
+                </div>
+            </div>
         </div>
     }
 </div>
