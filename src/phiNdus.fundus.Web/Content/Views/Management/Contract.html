@@ -13,7 +13,7 @@
 <div x-ph-alert-loading />
 
 <div ng-show="isLoaded" class="row">
-    <div class="span12">
+    <div class="col-lg-12">
         <p>Nummer: {{contract.contractId}}</p>
         <p>Datum: {{contract.createdOn | date:'medium'}}</p>
         <p>Ausleiher: {{contract.borrowerFirstName}} {{contract.borrowerLastName}}, {{contract.borrowerEmail}}</p>
@@ -36,11 +36,11 @@
 </table>
 
 <div class="row">
-    <div class="span6">
-        <a class="btn" href="" ph-history-back>Zurück</a>
-        <a ng-show="isLoaded" class="btn" href="/api/organizations/{{organizationId}}/contracts/{{contracts.contractId}}.pdf">PDF</a>
+    <div class="col-lg-6">
+        <a class="btn btn-default" href="" ph-history-back>Zurück</a>
+        <a ng-show="isLoaded" class="btn btn-default" href="/api/organizations/{{organizationId}}/contracts/{{contracts.contractId}}.pdf">PDF</a>
     </div>
-    <div ng-show="isLoaded" class="span6" style="text-align:right">
+    <div ng-show="isLoaded" class="col-lg-6" style="text-align:right">
         <a class="btn btn-primary" href="" ng-click="signContract(contract)">Unterzeichnen</a>
         <a class="btn btn-danger" href="" ng-click="rescindContract(contract)">Annulieren</a>
     </div>
