@@ -45,7 +45,6 @@
         public static string ImageStore { get { return @"imagestore"; } }
         public static string Index { get { return @"Index"; } }
         public static string Availability { get { return @"availability"; } }
-        public static string Categories { get { return @"categories"; } }
         public static string Reservations { get { return @"reservations"; } }
         public static string Delete { get { return @"delete"; } }
         

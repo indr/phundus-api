@@ -15,6 +15,18 @@
 </ul>
 
 <h2>@ViewBag.Title</h2>
+<div class="row">
+    <div class="col-sm-10">
+        @*<form class="form-inline">
+            <p>
+                <input type="text" ng-model="search.$" class="form-control" placeholder="Suchen">
+            </p>
+        </form>*@
+    </div>
+    <div class="col-sm-2" style="text-align:right">
+        <a class="btn btn-primary" href="/orgs/@Model.OrganizationId/article/create">Neues Material</a>
+    </div>
+</div>
 <p></p>
 <table class="table table-bordered table-striped">
     <thead>
@@ -41,18 +53,17 @@
             <td>@item.CreatedOn</td>
              <td>
                 <div class="btn-toolbar" style="margin: 0;">
-                    <div class="btn-group btn-small">
-                        <a href="@Url.Action("Edit", new { id = item.Id})" class="btn btn-small">Bearbeiten</a>
-                        <a href="#" data-toggle="dropdown" class="btn btn-small dropdown-toggle"><span class="caret"></span></a>
+                    <div class="btn-group">
+                        <a href="@Url.Action("Edit", new { id = item.Id})" class="btn btn-sm btn-default">Bearbeiten</a>
+                        <a href="#" data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle"><span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="@Url.Action("Fields", new { id = item.Id})">Eigenschaften</a></li>
                             <li><a href="@Url.Action("Images", new { id = item.Id})">Dateien</a></li>
-                            <li><a href="@Url.Action("Categories", new { id = item.Id})">Kategorien</a></li>
                             <li><a href="@Url.Action("Availability", new { id = item.Id})">Verfügbarkeit</a></li>
                         </ul>
                     </div>
-                    <div class="btn-group btn-small">
-                        @Html.ActionLink("Löschen", ArticlesActionNames.Delete, ControllerNames.Articles, new { id = item.Id, version = item.Version }, new { @class = "btn btn-danger btn-small"})
+                    <div class="btn-group">
+                        @Html.ActionLink("Löschen", ArticlesActionNames.Delete, ControllerNames.Articles, new { id = item.Id, version = item.Version }, new { @class = "btn btn-sm btn-danger" })
                     </div>
                 </div>
             </td>

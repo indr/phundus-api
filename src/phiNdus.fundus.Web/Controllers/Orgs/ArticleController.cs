@@ -262,23 +262,6 @@
         }
 
         [Transaction]
-        public virtual ActionResult Categories(int orgId, int id)
-        {
-            MemberInRole.ActiveChief(orgId, CurrentUserId);
-
-            var dto = ArticleQueries.GetArticle(id);
-            if (dto == null)
-                throw new HttpNotFoundException();
-
-            var model = new ArticleViewModel(dto);
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView(Views.Categories, model);
-            }
-            return View(Views.Categories, MasterView, model);
-        }
-
-        [Transaction]
         public virtual ActionResult Delete(int orgId, int id)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
@@ -339,11 +322,6 @@
             public static string Images
             {
                 get { return @"Images"; }
-            }
-
-            public static string Categories
-            {
-                get { return @"Categories"; }
             }
 
             public static string Availability

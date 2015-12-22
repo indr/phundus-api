@@ -5,7 +5,7 @@
     <form id="fileupload" method="post" enctype="multipart/form-data" action="@Url.Action("ImageStore")/@Model.Id" novalidate="novalidate">
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
-            <div class="span8">
+            <div class="col-lg-8">
                 <p>Um Dateien hochzuladen, klicke auf "Dateien hinzufügen..." oder ziehe die Dateien einfach in dieses Browser-Fenster!</p>
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button">
@@ -23,7 +23,7 @@
                 </button>
                 <input type="checkbox" class="toggle">
             </div>
-            <div class="span4">
+            <div class="col-lg-4">
                 <!-- The global progress bar -->
                 <div class="progress progress-success progress-striped active fade">
                     <div class="bar" style="width:0%;"></div>

@@ -1,10 +1,16 @@
 ﻿@model ArticleViewModel
 
-@using (Html.BeginForm("Fields", "Article", FormMethod.Post, new {@class = ""}))
+@using (Html.BeginForm("Fields", "Article", FormMethod.Post, new {@class = "form-horizontal"}))
 {
     @Html.EditorForModel()
-
-    <div class="form-actions">
-        @Html.SubmitButton("Speichern")
-    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-8">
+                    @Html.SubmitButton("Speichern")
+                    <a class="btn btn-default" href="/orgs/@Model.OrganizationId/article/list">Abbrechen</a>
+                </div>
+            </div>
+        </div>
+    </div>    
 }
