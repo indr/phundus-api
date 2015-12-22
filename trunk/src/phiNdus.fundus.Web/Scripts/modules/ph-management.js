@@ -238,7 +238,7 @@ function DebugCtrl($scope, $route, $routeParams, $location) {
 
  function FilesCtrl($scope) {
 
-    $('#fileupload').attr("action", "./orgs/" + $scope.organizationId + "/files");
+    $('#fileupload').attr("action", "/orgs/" + $scope.organizationId + "/files");
 
 
     // Initialize the jQuery File Upload widget:
