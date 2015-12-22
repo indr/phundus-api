@@ -32,21 +32,6 @@
         public IReservationRepository ReservationRepository { get; set; }
 
         [Transaction]
-        public virtual ActionResult Index(int orgId)
-        {
-            return RedirectToAction("list");
-        }
-
-        [Transaction]
-        public virtual ActionResult List(int orgId)
-        {
-            MemberInRole.ActiveChief(orgId, CurrentUserId);
-
-            var model = new ArticlesTableViewModel(orgId, ArticleQueries.GetArticles(orgId));
-            return View(model);
-        }
-
-        [Transaction]
         public virtual ActionResult Create(int orgId)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
@@ -151,7 +136,7 @@
                     Specification = model.Specification
                 });
 
-                return RedirectToAction("Index");
+                return Redirect("/#/organizations/" + orgId + "/articles");
             }
             catch (Exception ex)
             {
@@ -260,57 +245,6 @@
                 return PartialView(Views.Reservations, model);
             return View(Views.Reservations, MasterView, model);
         }
-
-        [Transaction]
-        public virtual ActionResult Delete(int orgId, int id)
-        {
-            MemberInRole.ActiveChief(orgId, CurrentUserId);
-
-            var dto = ArticleQueries.GetArticle(id);
-            if (dto == null)
-                throw new HttpNotFoundException();
-
-            return View(new ArticleViewModel(dto));
-        }
-
-        [HttpPost]
-        [Transaction]
-        public virtual ActionResult Delete(int orgId, int id, int version)
-        {
-            MemberInRole.ActiveChief(orgId, CurrentUserId);
-
-            Dispatcher.Dispatch(new DeleteArticle {ArticleId = id, InitiatorId = CurrentUserId});
-
-            return RedirectToAction("Index");
-        }
-
-        [HttpDelete]
-        [ActionName("Delete")]
-        [Transaction]
-        public virtual ActionResult AjaxDelete(int orgId, int id)
-        {
-            MemberInRole.ActiveChief(orgId, CurrentUserId);
-
-            MessageBoxViewModel result;
-            try
-            {
-                result = new MessageBoxViewModel
-                {
-                    Message = "Der Artikel wurde erfolgreich gelöscht.",
-                    Type = MessageBoxType.Success
-                };
-            }
-            catch (Exception ex)
-            {
-                result = new MessageBoxViewModel
-                {
-                    Message = ex.Message,
-                    Type = MessageBoxType.Error
-                };
-            }
-            return DisplayFor(result);
-        }
-
 
         private static class Views
         {

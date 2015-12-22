@@ -43,16 +43,8 @@
         public static string Fields { get { return @"fields";} }
         public static string Images { get { return @"images"; } }
         public static string ImageStore { get { return @"imagestore"; } }
-        public static string Index { get { return @"Index"; } }
         public static string Availability { get { return @"availability"; } }
         public static string Reservations { get { return @"reservations"; } }
-        public static string Delete { get { return @"delete"; } }
-        
-        // TODO: Nicht nötig, nicht wahr?
-        public static string AjaxDelete { get { return @"ajaxdelete"; } }
-        public static string AddPropertyAjax { get { return @"AddPropertyAjax";} }
-        public static string AddDiscriminatorAjax { get { return @"AddDiscriminatorAjax"; } }
-        public static string AddChild { get { return @"AddChild"; } }
     }
 
     public class CartActionNames
