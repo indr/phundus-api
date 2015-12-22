@@ -404,7 +404,6 @@
     <Content Include="Scripts\canvas-to-blob.js" />
     <Content Include="Scripts\canvas-to-blob.min.js" />
     <Content Include="Scripts\fundus.js" />
-    <Compile Include="ViewModels\ArticlesTableViewModel.cs" />
     <Compile Include="Models\EmailAttribute.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\CartModels\CartItemModel.cs" />
@@ -963,9 +962,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Users\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Article\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\Create.cshtml" />
