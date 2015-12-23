@@ -1,17 +1,18 @@
 namespace Phundus.Core.IdentityAndAccess.Organizations.Model
 {
+    using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
 
     [DataContract]
     public class OrganizationEstablished : DomainEvent
     {
-        public OrganizationEstablished(int organizationid, string name, string url, int founderId)
+        public OrganizationEstablished(int organizationid, OrganizationPlan plan, string name, string url)
         {
             OrganizationId = organizationid;
+            Plan = Convert.ToInt32(plan);
             Name = name;
             Url = url;
-            FounderId = founderId;
         }
 
         protected OrganizationEstablished()
@@ -22,12 +23,12 @@ namespace Phundus.Core.IdentityAndAccess.Organizations.Model
         public int OrganizationId { get; set; }
 
         [DataMember(Order = 2)]
-        public string Name { get; set; }
+        public int Plan { get; set; }
 
         [DataMember(Order = 3)]
-        public string Url { get; set; }
+        public string Name { get; set; }
 
         [DataMember(Order = 4)]
-        public int FounderId { get; set; }
+        public string Url { get; set; }
     }
 }

@@ -46,6 +46,9 @@
         {
             get
             {
+                if (Plan == OrganizationPlan.Free)
+                    return "";
+
                 // http://stackoverflow.com/questions/37809/how-do-i-generate-a-friendly-url-in-c
                 // http://stackoverflow.com/questions/2161684/transform-title-into-dashed-url-friendly-string
 
