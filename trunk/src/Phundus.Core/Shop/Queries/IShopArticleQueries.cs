@@ -28,7 +28,7 @@
         {
             var result = Single<ShopArticleDetailDto>(
                 @"select a.Id, a.Name, a.Price, a.Description, a.Specification,  o.Id as OrganizationId, o.Name as OrganizationName " +
-                @"from [Article] a inner join [Organization] o on a.OrganizationId = o.Id " +
+                @"from [Article] a inner join [Organization] o on (a.OrganizationId = o.Id and o.[Plan] > 0) " +
                 @"where a.Id = {0}",
                 id);
 
@@ -67,7 +67,7 @@
             var result = Paged<ShopArticleSearchResultDto>(
                 @"select a.Id, a.Name, a.Price, o.Name as OrganizationName " +
                 @"from [Article] a " +
-                @"inner join [Organization] o on a.OrganizationId = o.Id " +
+                @"inner join [Organization] o on (a.OrganizationId = o.Id and o.[Plan] > 0) " +
                 where +
                 @"order by a.CreateDate desc, a.Id desc ",
                 pageRequest);
