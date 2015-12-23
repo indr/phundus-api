@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Rest.Api
 {
     using System.Collections.Generic;
+    using System.Net;
+    using System.Net.Http;
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
@@ -8,6 +10,7 @@
     using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Queries;
     using Exceptions;
+    using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations")]
     public class OrganizationsController : ApiControllerBase
@@ -35,6 +38,22 @@
             return result;
         }
 
+        [POST("")]
+        [Transaction]
+        [Authorize(Roles = "Admin")]
+        public virtual HttpResponseMessage Post(OrganizationsPostRequestContent requestContent)
+        {
+            var command = new EstablishOrganization
+            {
+                InitiatorId = CurrentUserId,
+                Name = requestContent.Name
+            };
+            Dispatch(command);
+
+            return Request.CreateResponse(HttpStatusCode.OK,
+                new OrganizationsPostOkResponseContent {OrganizationId = command.OrganizationId});
+        }
+
         [PUT("{organizationId}")]
         [Transaction]
         public virtual OrganizationDetailDto Put(int organizationId, [FromBody] OrganizationDetailDto value)
@@ -52,7 +71,19 @@
             });
 
 
-			return OrganizationQueries.ById(organizationId);
+            return OrganizationQueries.ById(organizationId);
+        }
+
+        public class OrganizationsPostOkResponseContent
+        {
+            [JsonProperty("organizationId")]
+            public int OrganizationId { get; set; }
+        }
+
+        public class OrganizationsPostRequestContent
+        {
+            [JsonProperty("name")]
+            public string Name { get; set; }
         }
     }
 }
