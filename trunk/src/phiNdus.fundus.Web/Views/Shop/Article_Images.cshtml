@@ -4,7 +4,7 @@
     @foreach (var each in Model.Article.Images)
 {
     <div class="col-xs-6 col-md-3">
-        <a class="thumbnail" rel="gallery" href="@Html.Raw(Url.Content(each.FileName))" title="@Path.GetFileName(each.FileName)">
+        <a class="thumbnail" rel="gallery" href="@String.Concat(Html.Raw(Url.Content(each.FileName)), ".ashx?maxwidth=640")" title="@Path.GetFileName(each.FileName)">
             <img src="@String.Concat(Html.Raw(Url.Content(each.FileName)), ".ashx?maxwidth=150&maxheight=150")" />
         </a>
     </div>
