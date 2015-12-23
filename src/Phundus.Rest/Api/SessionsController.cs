@@ -70,7 +70,7 @@
                     Title = role.Title
                 },
                 UserId = user.Id.ToString(CultureInfo.InvariantCulture),
-                Username = Identity.Name
+                Username = user.Email
             };
         }
 
