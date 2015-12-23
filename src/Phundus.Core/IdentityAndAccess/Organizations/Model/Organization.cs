@@ -11,8 +11,8 @@
     {
         private DateTime _createDate = DateTime.UtcNow;
         private ISet<Membership> _memberships = new HashedSet<Membership>();
-        private string _startpage;
         private string _name;
+        private string _startpage;
 
         public Organization(int id)
             : base(id)
@@ -39,6 +39,8 @@
             get { return _name; }
             protected set { _name = value; }
         }
+
+        public virtual OrganizationPlan Plan { get; protected set; }
 
         public virtual string Url
         {

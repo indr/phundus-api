@@ -253,9 +253,12 @@
             [CsvField(Name = "Website")]
             public string Website { get; set; }
 
+            [CsvField(Name = "Plan")]
+            public string Plan { get; set; }
+
             public DateTime CreateDate
             {
-                get { return DateTime.Now; }
+                get { return DateTime.UtcNow; }
             }
         }
 
