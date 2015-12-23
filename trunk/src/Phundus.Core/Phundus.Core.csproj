@@ -117,6 +117,7 @@
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\MemberNotFoundException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\OrganizationEstablished.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\OrganizationUpdated.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Model\OrganizationPlan.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModel.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
