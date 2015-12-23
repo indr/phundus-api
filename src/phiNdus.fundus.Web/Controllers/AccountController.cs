@@ -242,7 +242,7 @@
         private List<SelectListItem> GetOrganizationSelectListItems(SignUpModel model)
         {
             var result =
-                OrganizationQueries.All()
+                OrganizationQueries.AllNonFree()
                     .Select(
                         s =>
                             new SelectListItem
