@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Cqrs;
     using Organizations.Model;
     using Organizations.Repositories;
@@ -50,14 +51,17 @@
 
         public IEnumerable<OrganizationDto> All()
         {
-            var result = new List<OrganizationDto>();
+            return OrganizationRepository.FindAll()
+                .Select(ToOrganizationDto).ToList();
+        }
 
-            foreach (var each in OrganizationRepository.FindAll())
-            {
-                result.Add(ToOrganizationDto(each));
-            }
-
-            return result;
+        public IEnumerable<OrganizationDto> AllNonFree()
+        {
+            return
+                OrganizationRepository.FindAll()
+                    .Where(p => p.Plan > OrganizationPlan.Free)
+                    .Select(ToOrganizationDto)
+                    .ToList();
         }
 
         private static OrganizationDto ToOrganizationDto(Organization organization)
