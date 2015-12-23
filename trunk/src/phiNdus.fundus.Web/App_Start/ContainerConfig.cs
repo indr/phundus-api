@@ -11,6 +11,7 @@
     using CommonServiceLocator.WindsorAdapter;
     using Elmah.Mvc;
     using Microsoft.Practices.ServiceLocation;
+    using Phundus.Core.Ddd;
     using Phundus.Persistence;
     using Plumbing;
 
@@ -37,6 +38,9 @@
             ControllerBuilder.Current.SetControllerFactory(
                 new WindsorControllerFactory(container.Kernel));
 
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof (ISubscribeTo<>))
+                .WithServiceAllInterfaces()
+                .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseEventHandlerInterceptor>()));
 
             container.Register(Component.For<IPrincipal>()
                 .LifestylePerWebRequest()
