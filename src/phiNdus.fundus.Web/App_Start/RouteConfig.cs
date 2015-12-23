@@ -1,9 +1,11 @@
 ﻿namespace phiNdus.fundus.Web.App_Start
 {
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using Phundus.Core.Ddd;
     using Phundus.Core.IdentityAndAccess.Organizations.Model;
     using Phundus.Web;
 
@@ -22,14 +24,14 @@
             routes.MapRoute(
                 "Orgs",
                 "orgs/{orgId}/{controller}/{action}/{id}",
-                defaults: new { action = "Index", id = UrlParameter.Optional },
-                constraints: new { orgId = @"^[\d]+$" }
-            );
+                defaults: new {action = "Index", id = UrlParameter.Optional},
+                constraints: new {orgId = @"^[\d]+$"}
+                );
 
             routes.MapRoute(
                 "Management",
                 "management/{id}",
-                new { controller = "Management", action = "Index" });
+                new {controller = "Management", action = "Index"});
 
             routes.MapRoute(
                 "Default",
@@ -39,14 +41,12 @@
             routes.MapRoute(
                 "ImageStore",
                 "{controller}/{action}/{id}/{name}");
-
-            
         }
     }
 
     public class OrganizationExistsConstraint : IRouteConstraint
     {
-        readonly IDictionary<string, int> _organizations = new Dictionary<string, int>();
+        private static readonly IDictionary<string, int> _organizations = new ConcurrentDictionary<string, int>();
 
         public OrganizationExistsConstraint(IEnumerable<Organization> organizations)
         {
@@ -54,8 +54,13 @@
                 _organizations.Add(each.Url, each.Id);
         }
 
+        public static IDictionary<string, int> Organizations
+        {
+            get { return _organizations; }
+        }
+
         public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values,
-                          RouteDirection routeDirection)
+            RouteDirection routeDirection)
         {
             var name = values[parameterName].ToString().ToLowerInvariant();
 
@@ -63,9 +68,19 @@
             if (!_organizations.TryGetValue(name, out id))
                 return false;
 
-
             values["id"] = id;
             return true;
+        }
+    }
+
+    public class OrganizationExistsConstraintUpdater : ISubscribeTo<OrganizationEstablished>
+    {
+        public void Handle(OrganizationEstablished @event)
+        {
+            var organizations = OrganizationExistsConstraint.Organizations;
+
+            organizations.Remove(@event.Url);
+            organizations.Add(@event.Url, @event.OrganizationId);
         }
     }
 }
