@@ -20,6 +20,7 @@
             _id = requestId;
             _organizationId = organizationId;
             _user = user;
+            _userId = user.Id;
             _requestDate = DateTime.Now;
         }
 
