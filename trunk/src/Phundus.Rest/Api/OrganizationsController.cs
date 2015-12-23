@@ -22,7 +22,7 @@
         [AllowAnonymous]
         public virtual IEnumerable<OrganizationDto> Get()
         {
-            return OrganizationQueries.All();
+            return OrganizationQueries.AllNonFree();
         }
 
 

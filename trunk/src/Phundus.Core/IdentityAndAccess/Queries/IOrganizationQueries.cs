@@ -7,5 +7,6 @@
         IEnumerable<OrganizationDto> ByMemberId(int memberId);
         OrganizationDetailDto ById(int id);
         IEnumerable<OrganizationDto> All();
+        IEnumerable<OrganizationDto> AllNonFree();
     }
 }
