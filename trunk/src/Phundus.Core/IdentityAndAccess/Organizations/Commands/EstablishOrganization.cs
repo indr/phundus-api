@@ -37,7 +37,7 @@
 
             _organizationRepository.Add(organization);
 
-            EventPublisher.Publish(new OrganizationEstablished(organization.Id, organization.Name, organization.Url, command.InitiatorId));
+            EventPublisher.Publish(new OrganizationEstablished(organization.Id, organization.Plan, organization.Name, organization.Url));
 
             var requestId = Guid.NewGuid();
             var user = _userRepository.FindById(command.InitiatorId);

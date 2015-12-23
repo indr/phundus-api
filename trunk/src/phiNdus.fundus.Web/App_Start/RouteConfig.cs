@@ -1,5 +1,6 @@
 ﻿namespace phiNdus.fundus.Web.App_Start
 {
+    using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Web;
@@ -80,6 +81,8 @@
             var organizations = OrganizationExistsConstraint.Organizations;
 
             organizations.Remove(@event.Url);
+            if (String.IsNullOrWhiteSpace(@event.Url))
+                return;
             organizations.Add(@event.Url, @event.OrganizationId);
         }
     }
