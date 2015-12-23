@@ -371,8 +371,6 @@
     <Content Include="Content\Views\Management\Members.html" />
     <Content Include="Content\Views\Management\Settings.html" />
     <Content Include="Content\Views\Organization\Home.html" />
-    <Content Include="Content\Views\Organization\Search.html" />
-    <Content Include="Content\Views\Organization\Establish.html" />
     <Content Include="images\yeoman.8cb970fb.png" />
     <Content Include="index.html" />
     <Content Include="robots.txt" />
