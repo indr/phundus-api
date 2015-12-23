@@ -119,7 +119,7 @@
             QueryString = queryString;
             QueryOrganizationId = queryOrganizationId;
 
-            var organizations = OrganizationQueries.All();
+            var organizations = OrganizationQueries.AllNonFree();
 
             var model = new ShopSearchResultViewModel(
                 QueryString,
