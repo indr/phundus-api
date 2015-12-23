@@ -27,6 +27,15 @@
             _isLocked = false;
         }
 
+        public Membership(Guid id, int userId, DateTime approvalDate, Role role)
+        {
+            _id = id;
+            _userId = userId;
+            _approvalDate = approvalDate;
+            _role = role;
+            _isLocked = false;
+        }
+
         public virtual Guid Id
         {
             get { return _id; }

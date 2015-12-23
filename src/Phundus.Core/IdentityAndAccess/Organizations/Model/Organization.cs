@@ -9,15 +9,25 @@
 
     public class Organization : EntityBase
     {
-        private DateTime _createDate = DateTime.Now;
+        private DateTime _createDate = DateTime.UtcNow;
         private ISet<Membership> _memberships = new HashedSet<Membership>();
         private string _startpage;
+        private string _name;
 
-        public Organization()
+        public Organization(int id)
+            : base(id)
         {
         }
 
-        public Organization(int id) : base(id)
+        public Organization(string name, int managerId) : base()
+        {
+            _name = name;
+            var membership = new Membership(Guid.NewGuid(), managerId, _createDate, Role.Chief);
+            membership.Organization = this;
+            _memberships.Add(membership);
+        }
+
+        protected Organization()
         {
         }
 
@@ -27,7 +37,11 @@
             protected set { _createDate = value; }
         }
 
-        public virtual string Name { get; set; }
+        public virtual string Name
+        {
+            get { return _name; }
+            protected set { _name = value; }
+        }
 
         public virtual string Url
         {
@@ -45,7 +59,7 @@
         public virtual ISet<Membership> Memberships
         {
             get { return _memberships; }
-            set { _memberships = value; }
+            protected set { _memberships = value; }
         }
 
         public virtual string Address { get; set; }

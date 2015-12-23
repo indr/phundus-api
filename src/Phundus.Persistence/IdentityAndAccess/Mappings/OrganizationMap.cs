@@ -18,7 +18,7 @@
             Map(x => x.Startpage);
             Map(x => x.EmailAddress);
             Map(x => x.Website);
-            Map(x => x.CreateDate).ReadOnly();
+            Map(x => x.CreateDate, "CreateDate").Not.Update();
             Map(x => x.DocTemplateFileName);
 
             HasMany(x => x.Memberships)
