@@ -19,12 +19,9 @@
         {
         }
 
-        public Organization(string name, int managerId) : base()
+        public Organization(string name)
         {
             _name = name;
-            var membership = new Membership(Guid.NewGuid(), managerId, _createDate, Role.Chief);
-            membership.Organization = this;
-            _memberships.Add(membership);
         }
 
         protected Organization()

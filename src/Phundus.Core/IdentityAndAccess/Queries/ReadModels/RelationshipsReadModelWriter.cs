@@ -10,7 +10,7 @@
     {
         public void Handle(MembershipApplicationApproved @event)
         {
-            UpdateOrInsert(@event.UserId, @event.OrganizationId, @event.OccuredOnUtc, RelationshipStatusDto.Application);
+            UpdateOrInsert(@event.UserId, @event.OrganizationId, @event.OccuredOnUtc, RelationshipStatusDto.Member);
         }
 
         public void Handle(MembershipApplicationFiled @event)
@@ -20,7 +20,7 @@
 
         public void Handle(MembershipApplicationRejected @event)
         {
-            UpdateOrInsert(@event.UserId, @event.OrganizationId, @event.OccuredOnUtc, RelationshipStatusDto.Application);
+            UpdateOrInsert(@event.UserId, @event.OrganizationId, @event.OccuredOnUtc, RelationshipStatusDto.Rejected);
         }
 
         private void UpdateOrInsert(int userId, int organizationId, DateTime timestamp, RelationshipStatusDto status)
