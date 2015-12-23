@@ -3,40 +3,36 @@
 
 <div class="row">
     @foreach (var each in Model.Articles)
-{
-    <div class="col-xs-6 col-md-3">
-        <div class="thumbnail">
-            <p class="muted">@each.OrganizationName</p>
-            <div style="text-align:center; height:180px;">
-                <a href="@String.Concat(Url.Content("~/"), "shop/article/" + each.Id)" class="fundus-shop-showArticle" article-id="@each.Id">
-                    @if (!String.IsNullOrWhiteSpace(each.ImageFileName))
+    {
+        <div class="col-xs-6 col-md-3">
+            <div class="thumbnail">
+                <p class="muted">@each.OrganizationName</p>
+                <div style="text-align:center; height:180px;">
+                    <a href="@String.Concat(Url.Content("~/"), "shop/article/" + each.Id)" class="fundus-shop-showArticle" article-id="@each.Id">
+                        @if (!String.IsNullOrWhiteSpace(each.ImageFileName))
+                        {
+                            <img src="@String.Concat(Html.Raw(Url.Content(each.ImageFileName)), ".ashx?maxwidth=260&maxheight=180")" alt="" />
+                        }
+                        else
+                        {
+                            <img src="https://placehold.it/260x180" alt="" width="260" height="180" />
+                        }
+                    </a>
+                </div>
+                <h5>
+                    @if (each.Name == null)
                     {
-
-                        <img src="@String.Concat(Html.Raw(Url.Content(each.ImageFileName)), ".ashx?maxwidth=260&maxheight=180")" alt="" />
-
+                        @Html.Raw("&nbsp;");
                     }
                     else
                     {
-
-                        <img src="https://placehold.it/260x180" alt="" width="260" height="180" />
-
+                        <a href="@String.Concat(Url.Content("~/"), "shop/article/" + each.Id)" class="fundus-shop-showArticle" article-id="@each.Id">@each.Name</a>
                     }
-                </a>
+                </h5>
+                <p>CHF @each.Price.ToString("N") / Woche</p>
             </div>
-            <h5>
-                @if (each.Name == null)
-                {
-                    @Html.Raw("&nbsp;");
-                }
-                else
-                {
-                    <a href="@String.Concat(Url.Content("~/"), "shop/article/" + each.Id)" class="fundus-shop-showArticle" article-id="@each.Id">@each.Name</a>
-                }
-            </h5>
-            <p>CHF @each.Price.ToString("N") / Woche</p>
         </div>
-    </div>
-}
+    }
 </div>
 @Html.DisplayFor(m => m.PageSelectorModel)
 
