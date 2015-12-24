@@ -48,7 +48,7 @@
             var memberships = _membershipQueries.ByUserId(user.Id)
                 .Select(each => new Memberships
                 {
-                    IsManager = each.MembershipRole == "manager",
+                    IsManager = each.MembershipRole == "Chief",
                     IsSelected = false,
                     OrganizationId = each.OrganizationId.ToString(CultureInfo.InvariantCulture),
                     OrganizationName = each.OrganizationName,
