@@ -27,12 +27,6 @@
             return View();
         }
 
-        [AllowAnonymous]
-        public virtual ActionResult Id(int id)
-        {
-            return Home(id, null);
-        }
-
         [Transaction]
         [AllowAnonymous]
         public virtual ActionResult Home(int id, string name)
