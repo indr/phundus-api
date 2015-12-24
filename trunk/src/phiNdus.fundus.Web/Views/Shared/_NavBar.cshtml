@@ -36,7 +36,7 @@
                         <ul class="dropdown-menu">
                             @foreach (var each in Model.Memberships)
                             {
-                                <li><a href="/organization/id/@each.OrganizationId"><i class=" icon-check icon-white"></i> @each.OrganizationName</a></li>
+                                <li><a href="/#/organizations/@each.OrganizationId">@each.OrganizationName</a></li>
                             }
                             @if (Model.Memberships.Count > 0)
                             {
