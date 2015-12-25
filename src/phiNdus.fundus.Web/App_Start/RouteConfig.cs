@@ -19,7 +19,7 @@
             routes.MapRoute(
                 "Organization",
                 "{name}",
-                new {controller = ControllerNames.Organization, action = "Home"},
+                new {controller = ControllerNames.Organizations, action = "Index"},
                 new {name = new OrganizationExistsConstraint(organizations)});
 
             routes.MapRoute(
