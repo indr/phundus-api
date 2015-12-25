@@ -10,7 +10,7 @@
         public static string Orders { get { return @"order"; } }
         public static string Shop { get { return @"shop"; } }
         public static string Users { get { return @"users"; } }
-        public static string Organization { get { return @"organization"; } }
+        public static string Organizations { get { return @"organizations"; } }
     }
 
     public class OrganizationActionNames

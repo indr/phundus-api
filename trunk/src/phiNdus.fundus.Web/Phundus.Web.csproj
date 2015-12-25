@@ -228,13 +228,12 @@
     <Compile Include="Controllers\Orgs\FilesController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
-    <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Helpers\FileUpload\BlueImpFileUploadHandler.cs" />
     <Compile Include="Helpers\FileUpload\BlueImpFileUploadJsonResult.cs" />
     <Compile Include="Helpers\FileUpload\BlueImpFileUploadJsonResultFactory.cs" />
     <Compile Include="Helpers\FileUpload\ImageStore.cs" />
     <Compile Include="Models\ManagementModel.cs" />
-    <Compile Include="Models\Organization\OrganizationModel.cs" />
     <Compile Include="Models\Account\SignUpModel.cs" />
     <Compile Include="Security\WindsorMembershipProvider.cs" />
     <Compile Include="Security\WebWindsorRoleProvider.cs" />
@@ -701,8 +700,6 @@
     <Content Include="Scripts\vendor.e0c689bc.js" />
     <Content Include="styles\main.c86aca53.css" />
     <Content Include="styles\vendor.6ba63d1f.css" />
-    <Content Include="Views\Organization\Home.cshtml" />
-    <Content Include="Views\Organization\Index.cshtml" />
     <None Include="Properties\PublishProfiles\TestProfile.pubxml" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Management\Index.cshtml">
