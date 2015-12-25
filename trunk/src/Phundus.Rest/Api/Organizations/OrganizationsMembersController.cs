@@ -28,7 +28,7 @@
         [Transaction]
         public virtual void Post(int organizationId, dynamic doc)
         {
-            Dispatcher.Dispatch(new AllowMembershipApplication
+            Dispatcher.Dispatch(new ApproveMembershipApplication
             {
                 InitiatorId = CurrentUserId,
                 ApplicationId = doc.applicationId

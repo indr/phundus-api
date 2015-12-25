@@ -6,13 +6,13 @@
     using Queries;
     using Repositories;
 
-    public class AllowMembershipApplication
+    public class ApproveMembershipApplication
     {
         public Guid ApplicationId { get; set; }
         public int InitiatorId { get; set; }
     }
 
-    public class AllowMembershipApplicationHandler : IHandleCommand<AllowMembershipApplication>
+    public class AllowMembershipApplicationHandler : IHandleCommand<ApproveMembershipApplication>
     {
         public IMembershipRequestRepository Requests { get; set; }
 
@@ -23,7 +23,7 @@
         public IMemberInRole MemberInRole { get; set; }
 
         [Transaction]
-        public void Handle(AllowMembershipApplication command)
+        public void Handle(ApproveMembershipApplication command)
         {
             var application = Requests.GetById(command.ApplicationId);
 
