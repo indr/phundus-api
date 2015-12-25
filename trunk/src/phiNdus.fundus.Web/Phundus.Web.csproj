@@ -369,7 +369,6 @@
     <Content Include="Content\Views\Management\Orders.html" />
     <Content Include="Content\Views\Management\Members.html" />
     <Content Include="Content\Views\Management\Settings.html" />
-    <Content Include="Content\Views\Organization\Home.html" />
     <Content Include="images\yeoman.8cb970fb.png" />
     <Content Include="index.html" />
     <Content Include="robots.txt" />
@@ -425,7 +424,6 @@
     <Content Include="Scripts\modules\ph-documents.js" />
     <Content Include="Scripts\modules\ph-domain.js" />
     <Content Include="Scripts\modules\ph-management.js" />
-    <Content Include="Scripts\modules\ph-organizations.js" />
     <Content Include="Scripts\modules\ph-resources.js" />
     <Content Include="Scripts\modules\ph-ui.js" />
     <Content Include="Scripts\moment-with-locales.js" />
