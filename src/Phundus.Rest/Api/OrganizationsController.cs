@@ -9,7 +9,6 @@
     using Castle.Transactions;
     using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Queries;
-    using Exceptions;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations")]
@@ -33,7 +32,7 @@
         {
             var result = OrganizationQueries.ById(organizationId);
             if (result == null)
-                throw new HttpNotFoundException("Die Organisation ist nicht vorhanden.");
+                throw new HttpResponseException(HttpStatusCode.NotFound);
 
             return result;
         }

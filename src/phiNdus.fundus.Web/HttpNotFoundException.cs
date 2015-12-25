@@ -1,4 +1,4 @@
-﻿namespace Phundus.Rest.Exceptions
+﻿namespace Phundus.Web
 {
     using System;
     using System.Runtime.Serialization;

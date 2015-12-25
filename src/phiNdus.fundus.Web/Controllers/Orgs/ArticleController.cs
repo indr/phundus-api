@@ -12,7 +12,6 @@
     using Models.ArticleModels;
     using phiNdus.fundus.Web.Helpers.FileUpload;
     using phiNdus.fundus.Web.ViewModels;
-    using Rest.Exceptions;
 
     public class ArticleController : ControllerBase
     {

@@ -140,9 +140,6 @@
     <Compile Include="Api\Organizations\OrganizationsOrdersController.cs" />
     <Compile Include="Api\Organizations\OrganizationsOrdersItemsController.cs" />
     <Compile Include="Auth\Auth.cs" />
-    <Compile Include="Exceptions\HttpConflictException.cs" />
-    <Compile Include="Exceptions\HttpForbiddenException.cs" />
-    <Compile Include="Exceptions\HttpNotFoundException.cs" />
     <Compile Include="Filters\CustomExceptionFilterAttribute.cs" />
     <Compile Include="Installer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
