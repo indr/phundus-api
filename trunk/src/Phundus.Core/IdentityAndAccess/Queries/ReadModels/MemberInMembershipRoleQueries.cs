@@ -1,7 +1,7 @@
 namespace Phundus.Core.IdentityAndAccess.Queries
 {
-    using System;
     using System.Linq;
+    using Common;
     using Cqrs;
     using Organizations.Model;
     using Organizations.Repositories;
@@ -50,17 +50,6 @@ namespace Phundus.Core.IdentityAndAccess.Queries
                 return false;
 
             return true;
-        }
-    }
-
-    public class AuthorizationException : Exception
-    {
-        public AuthorizationException()
-        {
-        }
-
-        public AuthorizationException(string message) : base(message)
-        {
         }
     }
 }

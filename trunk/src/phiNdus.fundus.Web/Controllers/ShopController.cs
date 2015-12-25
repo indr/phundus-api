@@ -11,7 +11,6 @@
     using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;
-    using Rest.Exceptions;
 
     public class ShopController : ControllerBase
     {
