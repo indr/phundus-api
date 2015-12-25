@@ -33,6 +33,5 @@
         {
             Dispatch(new RejectMembershipApplication { ApplicationId = applicationId, InitiatorId = CurrentUserId });
         }
-
     }
 }

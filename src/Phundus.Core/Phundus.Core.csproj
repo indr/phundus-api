@@ -258,7 +258,7 @@
     <Compile Include="IdentityAndAccess\Queries\IUserQueries.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\UserDto.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\UserReadModel.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Commands\AllowMembershipApplication.cs" />
+    <Compile Include="IdentityAndAccess\Organizations\Commands\ApproveMembershipApplication.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\RejectMembershipApplication.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\Membership.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplication.cs" />
