@@ -133,7 +133,6 @@
     <Compile Include="_Legacy\ArticleTestBase.cs" />
     <Compile Include="_Legacy\Entities\ArticleTests\ArticleGrossStockTests.cs" />
     <Compile Include="_Legacy\Entities\ArticleTests\TrivialArticleTests.cs" />
-    <Compile Include="_Legacy\Entities\CartTests.cs" />
     <Compile Include="_Legacy\Entities\EntityBaseTests.cs" />
     <Compile Include="_Legacy\Entities\MembershipTests.cs" />
     <Compile Include="_Legacy\Entities\OrderItemTests.cs" />

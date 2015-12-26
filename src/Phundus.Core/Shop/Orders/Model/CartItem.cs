@@ -8,8 +8,13 @@ namespace Phundus.Core.Shop.Orders.Model
     {
         public virtual Cart Cart { get; set; }
 
-        public virtual ArticleWrapper Article { get; set; }
-        public virtual int ArticleId { get { return Article.Id; } }
+        public virtual Article Article { get; set; }
+
+        public virtual int ArticleId
+        {
+            get { return Article.ArticleId; }
+        }
+
         public virtual int Quantity { get; set; }
         public virtual DateTime From { get; set; }
         public virtual DateTime To { get; set; }
@@ -26,7 +31,10 @@ namespace Phundus.Core.Shop.Orders.Model
 
         public virtual decimal LineTotal
         {
-            get { return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(From, To, Quantity, UnitPrice).Price; }
+            get
+            {
+                return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(From, To, Quantity, UnitPrice).Price;
+            }
         }
 
         public virtual bool IsAvailable { get; set; }

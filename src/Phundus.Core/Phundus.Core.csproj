@@ -218,7 +218,7 @@
     <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Shop\Orders\Exceptions\CartNotFoundException.cs" />
     <Compile Include="Shop\Orders\Mails\OrderStatusChangedMailNotifier.cs" />
-    <Compile Include="Shop\Orders\Model\ArticleWrapper.cs" />
+    <Compile Include="Shop\Orders\Model\Article.cs" />
     <Compile Include="Shop\Orders\Model\CartItem.cs" />
     <Compile Include="Shop\Orders\Model\OrderEvents.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemAdded.cs" />

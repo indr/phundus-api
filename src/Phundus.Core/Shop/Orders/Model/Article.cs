@@ -1,32 +1,54 @@
 namespace Phundus.Core.Shop.Orders.Model
 {
-    public class Article
+    using System.Collections.Generic;
+    using Common.Domain.Model;
+
+    public class Article : ValueObject
     {
-        private readonly Inventory.Articles.Model.Article _article;
+        private int _articleId;
+        private string _caption;
+        private int _organizationId;
+        private decimal _price;
 
-        public Article(Inventory.Articles.Model.Article article)
+        public Article(int articleId, int organizationId, string name, decimal pricePerWeek)
         {
-            _article = article;
+            _articleId = articleId;
+            _organizationId = organizationId;
+            _caption = name;
+            _price = pricePerWeek;
         }
 
-        public int Id
+        protected Article()
         {
-            get { return _article.Id; }
         }
 
-        public string Caption
+        public virtual int ArticleId
         {
-            get { return _article.Caption; }
+            get { return _articleId; }
+            protected set { _articleId = value; }
         }
 
-        public decimal Price
+        public virtual int OrganizationId
         {
-            get { return _article.Price; }
+            get { return _organizationId; }
+            protected set { _organizationId = value; }
         }
 
-        public int OrganizationId
+        public virtual string Caption
         {
-            get { return _article.OrganizationId; }
+            get { return _caption; }
+            protected set { _caption = value; }
+        }
+
+        public virtual decimal Price
+        {
+            get { return _price; }
+            protected set { _price = value; }
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return ArticleId;
         }
     }
 }

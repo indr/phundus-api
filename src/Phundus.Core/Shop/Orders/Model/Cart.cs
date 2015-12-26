@@ -50,7 +50,7 @@
             get { return Customer.Id; }
         }
 
-        public virtual void AddItem(ArticleWrapper article, int quantity, DateTime @from, DateTime to)
+        public virtual void AddItem(Article article, int quantity, DateTime @from, DateTime to)
         {
             var item = new CartItem();
             item.Article = article;
@@ -99,7 +99,7 @@
                 var order = new Order(organization, borrowerService.ById(Customer.Id));
                 var items = from i in Items where i.Article.OrganizationId == organization.Id select i;
                 foreach (var item in items)
-                    order.AddItem(item.Article.Id, item.Quantity, item.From.ToUniversalTime(),
+                    order.AddItem(item.Article.ArticleId, item.Quantity, item.From.ToUniversalTime(),
                         item.To.Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), availabilityService);
 
                 orders.Add(order);
