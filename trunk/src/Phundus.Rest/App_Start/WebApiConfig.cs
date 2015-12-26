@@ -19,7 +19,7 @@
         public static void Register(HttpConfiguration config)
         {
             config.Filters.Add(new AuthorizeAttribute());
-            config.Filters.Add(new CustomExceptionFilterAttribute());
+            config.Filters.Add(new ExceptionFilterAttribute());
 
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;

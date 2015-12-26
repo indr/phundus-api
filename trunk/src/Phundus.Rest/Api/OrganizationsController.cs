@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
+    using System.Web;
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
@@ -32,7 +33,7 @@
         {
             var result = OrganizationQueries.ById(organizationId);
             if (result == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw new HttpException((int) HttpStatusCode.NotFound, "Organization not found");
 
             return result;
         }
