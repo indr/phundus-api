@@ -8,39 +8,26 @@
     <li role="presentation"><a href="/management/{{organizationId}}#/files">Dateien</a></li>
 </ul>
 
-<h2>Bestellungen</h2>
-
-<div class="row">
-    <div class="col-sm-10">
-        <form class="form-inline">
-            <p>
-                <input type="text" ng-model="search.$" class="form-control" placeholder="Suchen">
-            </p>
-            <label class="radio-inline">
-                <input type="radio" ng-model="search.status" name="optionsRadios" value=""> Alle
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="search.status" name="optionsRadios" value="Pending"> Provisorisch
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="search.status" name="optionsRadios" value="Approved"> Bestätigt
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="search.status" name="optionsRadios" value="Rejected"> Abgelehnt
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="search.status" name="optionsRadios" value="Closed"> Abgeschlossen
-            </label>
-        </form>
-    </div>
-    <div class="col-sm-2" style="text-align:right">
-        <a class="btn btn-primary" href="" ng-click="createOrder()">Neue Bestellung</a>
-    </div>
-</div>
-
-
-<table class="table">
+<table class="table table-hover">
     <thead>
+        <tr>
+            <th colspan="8">
+                <div class="row">
+                    <div class="col-sm-4 col-lg-3">
+                        <select class="form-control" ng-model="search.status">
+                            <option value="">Alle</option>
+                            <option value="Pending">Provisorisch</option>
+                            <option value="Approved">Bestätigt</option>
+                            <option value="Rejected">Abgelehnt</option>
+                            <option value="Closed">Abgeschlossen</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-8 col-lg-9">
+                        <input type="text" ng-model="search.$" class="form-control" placeholder="Suchen...">
+                    </div>
+                </div>
+            </th>
+        </tr>
         <tr>
             <th><a href="" ng-click="orderBy('orderId')">Nummer</a></th>
             <th><a href="" ng-click="orderBy('createdUtc')">Erstellt</a></th>
@@ -49,7 +36,9 @@
             <th><a href="" ng-click="orderBy('borrowerMemberNummer')">J+S/Info Card</a></th>
             <th><a href="" ng-click="orderBy('status')">Status</a></th>
             <th><a href="" ng-click="orderBy('modifiedUtc')">Bearbeitet</a></th>
-            <th></th>
+            <th class="text-right">
+                <a class="btn btn-primary btn-sm" href="" ng-click="createOrder()">Neue Bestellung</a>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -62,8 +51,8 @@
             <td>{{order.status | orderStatusText}}</td>
             <td>{{order.modifiedUtc | date:'medium'}}</td>
             <td style="text-align:right">
-                <a class="btn btn-sm btn-default" ng-click="openOrder(order)">Öffnen</a>
-                <a class="btn btn-sm btn-default" href="/api/organizations/{{organizationId}}/orders/{{order.orderId}}.pdf">PDF</a>
+                <a class="btn btn-default btn-xs" ng-click="openOrder(order)">Öffnen</a>
+                <a class="btn btn-default btn-xs" href="/api/organizations/{{organizationId}}/orders/{{order.orderId}}.pdf">PDF</a>
             </td>
         </tr>
     </tbody>
