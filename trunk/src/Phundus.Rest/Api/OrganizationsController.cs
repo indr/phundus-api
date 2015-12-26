@@ -70,20 +70,19 @@
                 Website = value.Website
             });
 
-
             return OrganizationQueries.ById(organizationId);
         }
+    }
 
-        public class OrganizationsPostOkResponseContent
-        {
-            [JsonProperty("organizationId")]
-            public int OrganizationId { get; set; }
-        }
+    public class OrganizationsPostOkResponseContent
+    {
+        [JsonProperty("organizationId")]
+        public int OrganizationId { get; set; }
+    }
 
-        public class OrganizationsPostRequestContent
-        {
-            [JsonProperty("name")]
-            public string Name { get; set; }
-        }
+    public class OrganizationsPostRequestContent
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
     }
 }

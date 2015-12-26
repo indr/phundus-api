@@ -192,8 +192,8 @@
     <Compile Include="Inventory\Stores\Commands\OpenStore.cs" />
     <Compile Include="Inventory\Stores\Model\Coordinate.cs" />
     <Compile Include="Inventory\Stores\Model\OpeningHoursChanged.cs" />
-    <Compile Include="Inventory\Stores\Model\StoreAddressChanged.cs" />
-    <Compile Include="Inventory\Stores\Model\StoreCoordinateChanged.cs" />
+    <Compile Include="Inventory\Stores\Model\AddressChanged.cs" />
+    <Compile Include="Inventory\Stores\Model\CoordinateChanged.cs" />
     <Compile Include="Inventory\Stores\Model\Owner.cs" />
     <Compile Include="Inventory\Stores\Model\OwnerId.cs" />
     <Compile Include="Inventory\Stores\Model\Store.cs" />

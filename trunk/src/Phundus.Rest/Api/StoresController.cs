@@ -3,7 +3,6 @@ namespace Phundus.Rest.Api
     using System;
     using System.Net;
     using System.Net.Http;
-    using System.Web;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
