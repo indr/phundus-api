@@ -33,7 +33,7 @@
         [POST("")]
         [Transaction]
         [AllowAnonymous]
-        public virtual object Post(SessionsPostRequestContent requestContent)
+        public virtual SessionsPostOkResponseContent Post(SessionsPostRequestContent requestContent)
         {
             if (!Membership.ValidateUser(requestContent.Username, requestContent.Password))
                 throw new AuthenticationException();
