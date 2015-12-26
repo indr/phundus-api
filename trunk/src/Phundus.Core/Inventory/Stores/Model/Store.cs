@@ -2,19 +2,7 @@
 {
     using System;
     using Common;
-    using Common.Domain.Model;
     using Ddd;
-
-    public class StoreId : Identity<Guid>
-    {
-        public StoreId() : base(Guid.NewGuid())
-        {
-        }
-
-        public StoreId(Guid value) : base(value)
-        {
-        }
-    }
 
     public class Store : Aggregate<StoreId>
     {
@@ -61,14 +49,37 @@
             protected set { _openingHours = value; }
         }
 
+        public virtual void ChangeAddress(string address)
+        {
+            if (Equals(_address, address))
+                return;
+
+            Address = address;
+            ModifiedAtUtc = DateTime.UtcNow;
+
+            EventPublisher.Publish(new AddressChanged());
+        }
+
         public virtual void ChangeCoordinate(Coordinate coordinate)
         {
             if (Equals(_coordinate, coordinate))
                 return;
 
-            _coordinate = coordinate;
+            Coordinate = coordinate;
+            ModifiedAtUtc = DateTime.UtcNow;
 
             EventPublisher.Publish(new CoordinateChanged());
+        }
+
+        public virtual void ChangeOpeningHours(string openingHours)
+        {
+            if (Equals(_openingHours, openingHours))
+                return;
+
+            OpeningHours = openingHours;
+            ModifiedAtUtc = DateTime.UtcNow;
+
+            EventPublisher.Publish(new OpeningHoursChanged());
         }
     }
 }

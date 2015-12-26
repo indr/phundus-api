@@ -13,13 +13,6 @@ namespace Phundus.Rest.Api
     [RoutePrefix("api/stores")]
     public class StoresController : ApiControllerBase
     {
-        [GET("{storeId}")]
-        [Transaction]
-        public virtual StoresGetOkResponseContent Get(string storeId)
-        {
-            throw new HttpException((int) HttpStatusCode.NotImplemented, "Not implemented.");
-        }
-
         [POST("")]
         [Transaction]
         public virtual StoresPostOkResponseContent Post(StoresPostRequestContent requestContent)
@@ -40,21 +33,23 @@ namespace Phundus.Rest.Api
 
         [PUT("{storeId}/address")]
         [Transaction]
-        public virtual HttpResponse PutAddress(string storeId)
+        public virtual HttpResponseMessage PutAddress(string storeId,
+            StoresAddressPutRequestContent requestContent)
         {
-            throw new HttpException((int)HttpStatusCode.NotImplemented, "Not implemented.");
-        }
+            Dispatch(new ChangeAddress
+            {
+                InitatorId = CurrentUserId,
+                Address = requestContent.Address,
+                StoreId = new Guid(storeId)
+            });
 
-        [PUT("{storeId}/opening-hours")]
-        [Transaction]
-        public virtual HttpResponse PutOpeningHours(string storeId)
-        {
-            throw new HttpException((int)HttpStatusCode.NotImplemented, "Not implemented.");
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
         [PUT("{storeId}/coordinate")]
         [Transaction]
-        public virtual StoresCoordinatePutOkResponseContent PutCoordinate(string storeId, StoresCoordinatePutRequestContent requestContent)
+        public virtual HttpResponseMessage PutCoordinate(string storeId,
+            StoresCoordinatePutRequestContent requestContent)
         {
             Dispatch(new ChangeCoordinate
             {
@@ -64,7 +59,22 @@ namespace Phundus.Rest.Api
                 StoreId = new Guid(storeId)
             });
 
-            return new StoresCoordinatePutOkResponseContent();
+            return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
+        [PUT("{storeId}/opening-hours")]
+        [Transaction]
+        public virtual HttpResponseMessage PutOpeningHours(string storeId,
+            StoresOpeningHoursPutRequestContent requestContent)
+        {
+            Dispatch(new ChangeOpeningHours
+            {
+                InitatorId = CurrentUserId,
+                OpeningHours = requestContent.OpeningHours,
+                StoreId = new Guid(storeId)
+            });
+
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
     }
 
@@ -86,14 +96,21 @@ namespace Phundus.Rest.Api
         public string StoreId { get; set; }
     }
 
+    public class StoresAddressPutRequestContent
+    {
+        [JsonProperty("address")]
+        public string Address { get; set; }
+    }
+
     public class StoresCoordinatePutRequestContent
     {
         [JsonProperty("coordinate")]
         public Coordinate Coordinate { get; set; }
     }
 
-    public class StoresCoordinatePutOkResponseContent
+    public class StoresOpeningHoursPutRequestContent
     {
-        
+        [JsonProperty("openingHours")]
+        public string OpeningHours { get; set; }
     }
 }

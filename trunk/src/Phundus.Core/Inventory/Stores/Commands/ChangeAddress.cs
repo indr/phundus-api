@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory.Stores.Commands
+namespace Phundus.Core.Inventory.Stores.Commands
 {
     using System;
     using Common;
@@ -6,33 +6,32 @@
     using Model;
     using Repositories;
 
-    public class ChangeCoordinate
+    public class ChangeAddress
     {
         public int InitatorId { get; set; }
         public Guid StoreId { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public string Address { get; set; }
     }
 
-    public class ChangeCoordinateHandler : IHandleCommand<ChangeCoordinate>
+    public class ChangeAddressHandler : IHandleCommand<ChangeAddress>
     {
         private readonly IStoreRepository _storeRepository;
 
-        public ChangeCoordinateHandler(IStoreRepository storeRepository)
+        public ChangeAddressHandler(IStoreRepository storeRepository)
         {
             AssertionConcern.AssertArgumentNotNull(storeRepository, "StoreRepository must be provided.");
 
             _storeRepository = storeRepository;
         }
 
-        public void Handle(ChangeCoordinate command)
+        public void Handle(ChangeAddress command)
         {
             var store = _storeRepository.GetById(new StoreId(command.StoreId));
 
             if (!store.Owner.OwnerId.Equals(new OwnerId(command.InitatorId)))
                 throw new AuthorizationException();
 
-            store.ChangeCoordinate(new Coordinate(command.Latitude, command.Longitude));
+            store.ChangeAddress(command.Address);
         }
     }
 }

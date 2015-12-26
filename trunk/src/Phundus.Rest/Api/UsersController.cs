@@ -17,7 +17,7 @@ namespace Phundus.Rest.Api
     {
         private readonly IMembershipQueries _membershipQueries;
         private readonly IUserQueries _userQueries;
-        private IStoreQueries _storeQueries;
+        private readonly IStoreQueries _storeQueries;
 
         public UsersController(IUserQueries userQueries, IMembershipQueries membershipQueries,
             IStoreQueries storeQueries)
@@ -71,6 +71,8 @@ namespace Phundus.Rest.Api
                 Store = new Store
                 {
                     StoreId = store.StoreId.ToString("N"),
+                    Address = store.Address,
+                    OpeningHours = store.OpeningHours
                 };
 
                 if (store.Latitude.HasValue && store.Longitude.HasValue)
@@ -108,8 +110,14 @@ namespace Phundus.Rest.Api
         [JsonProperty("storeId")]
         public string StoreId { get; set; }
 
+        [JsonProperty("address")]
+        public string Address { get; set; }
+
         [JsonProperty("coordinate")]
         public Coordinate Coordinate { get; set; }
+
+        [JsonProperty("openingHours")]
+        public string OpeningHours { get; set; }
     }
 
     public class Coordinate
