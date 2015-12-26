@@ -21,7 +21,9 @@ namespace Phundus.Core.Inventory.Queries
             {   
                 Latitude = store.Coordinate != null ? store.Coordinate.Latitude : (decimal?)null,
                 Longitude = store.Coordinate != null ? store.Coordinate.Longitude : (decimal?)null,
-                StoreId = store.Id.Value
+                StoreId = store.Id.Value,
+                Address = store.Address,
+                OpeningHours = store.OpeningHours
             };
         }
     }
