@@ -218,6 +218,7 @@
     <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Shop\Orders\Exceptions\CartNotFoundException.cs" />
     <Compile Include="Shop\Orders\Mails\OrderStatusChangedMailNotifier.cs" />
+    <Compile Include="Shop\Orders\Model\ArticleWrapper.cs" />
     <Compile Include="Shop\Orders\Model\CartItem.cs" />
     <Compile Include="Shop\Orders\Model\OrderEvents.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemAdded.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Shop\Orders\Model\OrderItemPeriodChanged.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemTotalChanged.cs" />
     <Compile Include="Shop\Orders\Model\Organization.cs" />
+    <Compile Include="Shop\Orders\Services\IArticleService.cs" />
     <Compile Include="Shop\Orders\Services\IOrganizationService.cs" />
     <Compile Include="Shop\Orders\Services\RoundRectangle.cs" />
     <Compile Include="Shop\Orders\Services\OrderPdfGeneratorService.cs" />
