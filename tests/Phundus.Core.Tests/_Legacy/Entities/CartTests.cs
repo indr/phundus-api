@@ -12,9 +12,9 @@
         public void AreItemsAvailable_WithOneItemUnavailable_ReturnsFalse()
         {
             // Arrange
-            GenerateAndRegisterStub<IArticleRepository>();
+            var articleRepository = GenerateAndRegisterStub<IArticleRepository>();
             var sut = new Cart();
-            sut.AddItem(1, 1, DateTime.Today, DateTime.Today.AddDays(1));
+            sut.AddItem(new ArticleWrapper(articleRepository.GetById(1)), 1, DateTime.Today, DateTime.Today.AddDays(1));
 
             // Act
             bool actual = sut.AreItemsAvailable;

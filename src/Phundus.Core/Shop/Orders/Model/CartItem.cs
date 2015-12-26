@@ -2,14 +2,13 @@ namespace Phundus.Core.Shop.Orders.Model
 {
     using System;
     using Ddd;
-    using Inventory.Articles.Model;
     using Pricing.Model;
 
     public class CartItem : EntityBase
     {
         public virtual Cart Cart { get; set; }
 
-        public virtual Article Article { get; set; }
+        public virtual ArticleWrapper Article { get; set; }
         public virtual int ArticleId { get { return Article.Id; } }
         public virtual int Quantity { get; set; }
         public virtual DateTime From { get; set; }

@@ -5,7 +5,9 @@
     using Cqrs;
     using IdentityAndAccess.Queries;
     using Inventory.Articles.Repositories;
+    using Model;
     using Repositories;
+    using Services;
 
     public class AddArticleToCart
     {
@@ -22,7 +24,7 @@
     {
         public ICartRepository CartRepository { get; set; }
 
-        public IArticleRepository ArticleRepository { get; set; }
+        public IArticleService ArticleService { get; set; }
 
         public IMemberInRole MemberInRole { get; set; }
 
@@ -35,12 +37,12 @@
             if (cart.CustomerId != command.InitiatorId)
                 throw new SecurityException();
 
-            var article = ArticleRepository.GetById(command.ArticleId);
+            var article = ArticleService.GetById(command.ArticleId);
             
             if (!MemberInRole.IsActiveMember(article.OrganizationId, command.InitiatorId))
                 throw new SecurityException();
 
-            cart.AddItem(command.ArticleId, command.Quantity,
+            cart.AddItem(article, command.Quantity,
                 command.DateFrom, command.DateTo);
         }
     }

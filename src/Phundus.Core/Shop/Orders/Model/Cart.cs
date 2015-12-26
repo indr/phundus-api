@@ -50,10 +50,10 @@
             get { return Customer.Id; }
         }
 
-        public virtual void AddItem(int articleId, int quantity, DateTime @from, DateTime to)
+        public virtual void AddItem(ArticleWrapper article, int quantity, DateTime @from, DateTime to)
         {
             var item = new CartItem();
-            item.Article = ServiceLocator.Current.GetInstance<IArticleRepository>().GetById(articleId);
+            item.Article = article;
             item.Quantity = quantity;
             item.From = from;
             item.To = to;
