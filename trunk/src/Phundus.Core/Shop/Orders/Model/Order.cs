@@ -178,7 +178,7 @@
             return _items.Add(item);
         }
 
-        public virtual OrderItem AddItem(Article article, DateTime fromUtc, DateTime toUtc, int amount)
+        public virtual OrderItem AddItem(Inventory.Articles.Model.Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             EnsurePending();
 

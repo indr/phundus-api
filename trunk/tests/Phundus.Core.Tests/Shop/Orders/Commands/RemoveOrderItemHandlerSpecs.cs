@@ -8,6 +8,7 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
+    using Article = Core.Inventory.Articles.Model.Article;
 
     [Subject(typeof (RemoveOrderItemHandler))]
     public class when_remove_order_item_is_handled : order_handler_concern<RemoveOrderItem, RemoveOrderItemHandler>
