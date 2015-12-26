@@ -21,19 +21,13 @@ namespace Phundus.Persistence
 
         public FluentConfiguration BuildFluent()
         {
-            var cfg = new NHibernate.Cfg.Configuration();
-
-            cfg.AddAssembly(Assembly.GetExecutingAssembly());
-
-
-            return Fluently.Configure(cfg)
+            return Fluently.Configure(new NHibernate.Cfg.Configuration())
                 .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
                 .ExposeConfiguration(WriteConfiguration);
         }
 
         public void Registered(ISessionFactory factory)
         {
-            //
         }
 
         public bool IsDefault
@@ -51,10 +45,11 @@ namespace Phundus.Persistence
             get { return _interceptor; }
         }
 
-        private void WriteConfiguration(Configuration cfg)
+        private static void WriteConfiguration(Configuration cfg)
         {
-            using (var writer = new StreamWriter(HostingEnvironment.MapPath(@"~\App_Data\SchemaUpdate.sql"), false))
-                new SchemaUpdate(cfg).Execute(sa => writer.WriteLine(sa), true);
+            var fileName = HostingEnvironment.MapPath(@"~\App_Data\SchemaUpdate.sql") ?? @".\SchemaUpdate.sql";
+            var writer = new StreamWriter(fileName, false);
+            new SchemaUpdate(cfg).Execute(writer.WriteLine, true);
         }
     }
 }

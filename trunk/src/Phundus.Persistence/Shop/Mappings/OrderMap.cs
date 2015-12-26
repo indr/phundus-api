@@ -1,5 +1,6 @@
 namespace Phundus.Persistence.Shop.Mappings
 {
+    using System.Web.Configuration;
     using Core.Shop.Orders.Model;
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
