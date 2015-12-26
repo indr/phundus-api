@@ -131,6 +131,7 @@
     <Compile Include="2015\12\M201512160809CreateForeignKeyCartItemToArticle.cs" />
     <Compile Include="2015\12\M201512210938DeleteSelectedOrganizationId.cs" />
     <Compile Include="2015\12\M201512231157AddOrganizationPlan.cs" />
+    <Compile Include="2015\12\M201512261516CreateTableDmStore.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />

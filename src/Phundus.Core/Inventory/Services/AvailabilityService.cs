@@ -7,7 +7,6 @@
     using AvailabilityAndReservation.Model;
     using AvailabilityAndReservation.Repositories;
     using Infrastructure;
-    using NHibernate;
 
     public interface IAvailabilityService
     {

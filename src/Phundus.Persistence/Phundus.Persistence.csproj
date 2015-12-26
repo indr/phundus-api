@@ -83,6 +83,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dashboard\EventLogRecordMap.cs" />
+    <Compile Include="Inventory\Mappings\StoreMap.cs" />
+    <Compile Include="Inventory\Repositories\NhStoreRepository.cs" />
     <Compile Include="NHibernateProcessedNotificationTrackerStore.cs" />
     <Compile Include="StoredEvents\EventStore.cs" />
     <Compile Include="StoredEvents\NhStoredEventRepository.cs" />
