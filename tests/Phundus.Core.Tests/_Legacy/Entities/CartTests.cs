@@ -14,7 +14,7 @@
             // Arrange
             var articleRepository = GenerateAndRegisterStub<IArticleRepository>();
             var sut = new Cart();
-            sut.AddItem(new ArticleWrapper(articleRepository.GetById(1)), 1, DateTime.Today, DateTime.Today.AddDays(1));
+            sut.AddItem(new Article(articleRepository.GetById(1)), 1, DateTime.Today, DateTime.Today.AddDays(1));
 
             // Act
             bool actual = sut.AreItemsAvailable;

@@ -5,6 +5,7 @@
     using Core.Shop.Contracts.Model;
     using Core.Shop.Orders.Model;
     using NUnit.Framework;
+    using Article = Core.Inventory.Articles.Model.Article;
 
     [TestFixture]
     public class OrderItemTests

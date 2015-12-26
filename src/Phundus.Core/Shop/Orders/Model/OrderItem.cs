@@ -20,7 +20,7 @@
         {
         }
 
-        public OrderItem(Order order, Article article, DateTime fromUtc, DateTime toUtc, int amount)
+        public OrderItem(Order order, Inventory.Articles.Model.Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             _id = Guid.NewGuid();
             _order = order;

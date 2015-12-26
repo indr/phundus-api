@@ -9,6 +9,7 @@
     using Machine.Specifications;
     using Rhino.Mocks;
     using Rhino.Mocks.Constraints;
+    using Article = Core.Inventory.Articles.Model.Article;
 
     [Subject(typeof (AddOrderItemHandler))]
     public class when_add_order_item_is_handled : order_handler_concern<AddOrderItem, AddOrderItemHandler>

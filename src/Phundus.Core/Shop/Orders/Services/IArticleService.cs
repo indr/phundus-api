@@ -6,7 +6,7 @@ namespace Phundus.Core.Shop.Orders.Services
 
     public interface IArticleService
     {
-        ArticleWrapper GetById(int articleId);
+        Article GetById(int articleId);
     }
 
     public class ArticleService : IArticleService
@@ -20,10 +20,10 @@ namespace Phundus.Core.Shop.Orders.Services
             _articleRepository = articleRepository;
         }
 
-        public ArticleWrapper GetById(int articleId)
+        public Article GetById(int articleId)
         {
             var article = _articleRepository.GetById(articleId);
-            return new ArticleWrapper(article);
+            return new Article(article);
         }
     }
 }

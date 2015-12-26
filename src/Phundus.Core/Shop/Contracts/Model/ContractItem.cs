@@ -4,6 +4,7 @@
     using Ddd;
     using Inventory.Articles.Model;
     using Orders.Model;
+    using Article = Inventory.Articles.Model.Article;
 
     public class ContractItem : EntityBase
     {
