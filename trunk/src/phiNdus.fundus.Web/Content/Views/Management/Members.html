@@ -8,12 +8,13 @@
     <li role="presentation"><a href="/management/{{organizationId}}#/files">Dateien</a></li>
 </ul>
 
-<h2>Mitglieder</h2>
-<p>
-    <input type="text" ng-model="search" class="form-control" placeholder="Suchen">
-</p>
-<table class="table">
+<table class="table table-hover">
     <thead>
+        <tr>
+            <th colspan="7">
+                <input type="text" ng-model="search" class="form-control" placeholder="Suchen...">
+            </th>
+        </tr>
         <tr>
             <th><a href="" ng-click="orderBy('id')">#</a></th>
             <th><a href="" ng-click="orderBy('firstName')">Vorname</a></th>
@@ -34,7 +35,7 @@
             <td>{{member.jsNumber}}</td>
             <td ng-show="member.role == 1">
                 <div class="btn-group" >
-                    <a class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" href="">
+                    <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="">
                         Mitglied
                         <span class="caret"></span>
                     </a>
@@ -45,7 +46,7 @@
             </td>
             <td ng-show="member.role == 2">
                 <div class="btn-group">
-                    <a class="btn btn-sm btn-warning dropdown-toggle" data-toggle="dropdown" href="">
+                    <a class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" href="">
                         Verwaltung
                         <span class="caret"></span>
                     </a>
@@ -55,8 +56,8 @@
                 </div>
             </td>
             <td>
-                <a class="btn btn-sm btn-warning" ng-show="member.isLocked" href="" ng-click="unlock(member)">Entsperren</a>
-                <a class="btn btn-sm btn-default" ng-show="!member.isLocked" href="" ng-click="lock(member)">Sperren</a>
+                <a class="btn btn-warning btn-xs" ng-show="member.isLocked" href="" ng-click="unlock(member)">Entsperren</a>
+                <a class="btn btn-default btn-xs" ng-show="!member.isLocked" href="" ng-click="lock(member)">Sperren</a>
             </td>
             <!--<td>
                 <a class="btn btn-small" ng-click="createContract(member)">Neuer Vertrag</a>
