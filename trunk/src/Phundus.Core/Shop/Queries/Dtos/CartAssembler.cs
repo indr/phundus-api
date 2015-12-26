@@ -31,7 +31,7 @@
             result.Id = each.Id;
             result.Version = each.Version;
             result.Text = each.LineText;
-            result.ArticleId = each.Article.Id;
+            result.ArticleId = each.Article.ArticleId;
             result.From = each.From;
             result.To = each.To;
             result.Quantity = each.Quantity;

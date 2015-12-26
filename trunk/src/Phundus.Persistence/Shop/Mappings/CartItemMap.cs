@@ -10,7 +10,7 @@
             SchemaAction.Validate();
 
             Table("CartItem");
-            Id(x => x.Id).GeneratedBy.HiLo("1000");
+            Id(x => x.Id).GeneratedBy.HiLo("100");
             Version(x => x.Version);
 
             References(x => x.Cart, "CartId");
@@ -19,7 +19,13 @@
             Map(x => x.From, "[From]");
             Map(x => x.To, "[To]");
 
-            References(x => x.Article, "ArticleId");
+            Component(x => x.Article, c =>
+            {
+                c.Map(x => x.ArticleId, "Article_ArticleId");
+                c.Map(x => x.OrganizationId, "Article_OrganizationId");
+                c.Map(x => x.Caption, "Article_Name");
+                c.Map(x => x.Price, "Article_UnitPricePerWeek");
+            });
         }
     }
 }
