@@ -30,6 +30,8 @@
             Elmah.ErrorSignal.FromCurrentContext().Raise(context.Exception);
 
             var exception = context.Exception;
+            if ((exception is System.Transactions.TransactionAbortedException) && (exception.InnerException != null))
+                exception = exception.InnerException;
             var statusCode = GetStatusCode(exception);
 
             context.Response = context.Request.CreateErrorResponse(statusCode, exception.Message);

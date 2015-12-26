@@ -2,6 +2,7 @@
 {
     using System;
     using Ddd;
+    using Inventory.Stores.Model;
 
     public class User : EntityBase
     {

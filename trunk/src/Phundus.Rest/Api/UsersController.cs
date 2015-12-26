@@ -9,6 +9,7 @@ namespace Phundus.Rest.Api
     using Castle.Transactions;
     using Common;
     using Core.IdentityAndAccess.Queries;
+    using Core.Inventory.Queries;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/users")]
@@ -16,14 +17,18 @@ namespace Phundus.Rest.Api
     {
         private readonly IMembershipQueries _membershipQueries;
         private readonly IUserQueries _userQueries;
+        private IStoreQueries _storeQueries;
 
-        public UsersController(IUserQueries userQueries, IMembershipQueries membershipQueries)
+        public UsersController(IUserQueries userQueries, IMembershipQueries membershipQueries,
+            IStoreQueries storeQueries)
         {
             AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(membershipQueries, "MembershipQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(storeQueries, "StoreQueries must be provided.");
 
             _userQueries = userQueries;
             _membershipQueries = membershipQueries;
+            _storeQueries = storeQueries;
         }
 
         [GET("{userId}")]
@@ -35,21 +40,22 @@ namespace Phundus.Rest.Api
                 throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
 
             var memberships = _membershipQueries.ByUserId(user.Id);
+            var store = _storeQueries.FindByUserId(user.Id.ToGuid());
 
-            return new UsersGetOkResponseContent(user, memberships);
+            return new UsersGetOkResponseContent(user, memberships, store);
         }
     }
 
     public class UsersGetOkResponseContent
     {
-        public UsersGetOkResponseContent(UserDto user, IEnumerable<MembershipDto> memberships)
+        public UsersGetOkResponseContent(UserDto user, IEnumerable<MembershipDto> memberships, StoreDto store)
         {
             UserId = user.Id.ToString(CultureInfo.InvariantCulture);
             Username = user.Email;
             FullName = user.FirstName + " " + user.LastName;
             EmailAddress = user.Email;
+            
             Memberships = new List<Memberships>();
-
             foreach (var each in memberships)
             {
                 Memberships.Add(new Memberships
@@ -58,6 +64,23 @@ namespace Phundus.Rest.Api
                     OrganizationName = each.OrganizationName,
                     OrganizationUrl = each.OrganizationUrl
                 });
+            }
+
+            if (store != null)
+            {
+                Store = new Store
+                {
+                    StoreId = store.StoreId.ToString("N"),
+                };
+
+                if (store.Latitude.HasValue && store.Longitude.HasValue)
+                {
+                    Store.Coordinate = new Coordinate()
+                    {
+                        Latitude = store.Latitude.Value,
+                        Longitude = store.Longitude.Value
+                    };
+                }
             }
         }
 
@@ -84,5 +107,17 @@ namespace Phundus.Rest.Api
     {
         [JsonProperty("storeId")]
         public string StoreId { get; set; }
+
+        [JsonProperty("coordinate")]
+        public Coordinate Coordinate { get; set; }
+    }
+
+    public class Coordinate
+    {
+        [JsonProperty("latitude")]
+        public decimal Latitude { get; set; }
+
+        [JsonProperty("longitude")]
+        public decimal Longitude { get; set; }
     }
 }

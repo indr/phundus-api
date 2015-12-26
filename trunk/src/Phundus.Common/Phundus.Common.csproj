@@ -48,10 +48,12 @@
     <Compile Include="AuthorizationException.cs" />
     <Compile Include="Domain.Model\DomainEvent.cs" />
     <Compile Include="Domain.Model\HashCodeHelper.cs" />
+    <Compile Include="Domain.Model\Identity.cs" />
     <Compile Include="Domain.Model\ValueObject.cs" />
     <Compile Include="Events\EventSerializer.cs" />
     <Compile Include="Events\IEventStore.cs" />
     <Compile Include="Events\StoredEvent.cs" />
+    <Compile Include="Int32Helper.cs" />
     <Compile Include="Notifications\IDomainEventHandler.cs" />
     <Compile Include="Notifications\IDomainEventHandlerFactory.cs" />
     <Compile Include="Notifications\INotificationHandlerFactory.cs" />

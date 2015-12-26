@@ -4,7 +4,6 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Cqrs;
-    using Dashboard.Querying;
 
     public class QueriesInstaller : IWindsorInstaller
     {
