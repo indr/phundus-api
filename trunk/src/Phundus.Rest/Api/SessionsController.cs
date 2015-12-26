@@ -49,7 +49,6 @@
                 .Select(each => new Memberships
                 {
                     IsManager = each.MembershipRole == "Chief",
-                    IsSelected = false,
                     OrganizationId = each.OrganizationId.ToString(CultureInfo.InvariantCulture),
                     OrganizationName = each.OrganizationName,
                     OrganizationUrl = each.OrganizationUrl
@@ -120,9 +119,6 @@
 
         [JsonProperty("isManager")]
         public bool? IsManager { get; set; }
-
-        [JsonProperty("isSelected")]
-        public bool? IsSelected { get; set; }
     }
 
     public class Role

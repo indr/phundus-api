@@ -33,7 +33,7 @@
         {
             var result = OrganizationQueries.ById(organizationId);
             if (result == null)
-                throw new HttpException((int) HttpStatusCode.NotFound, "Organization not found");
+                throw new HttpException((int) HttpStatusCode.NotFound, "Organization not found.");
 
             return result;
         }
