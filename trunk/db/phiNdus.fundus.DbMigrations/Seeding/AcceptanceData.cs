@@ -247,6 +247,9 @@
             [CsvField(Name = "Name")]
             public string Name { get; set; }
 
+            [CsvField(Name = "Address")]
+            public string Address { get; set; }
+
             [CsvField(Name = "EmailAddress")]
             public string EmailAddress { get; set; }
 
