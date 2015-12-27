@@ -9,7 +9,7 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
-    using Article = Core.Inventory.Articles.Model.Article;
+    using Article = Core.Shop.Orders.Model.Article;
 
     [Subject(typeof (UpdateOrderItemHandler))]
     public class when_update_order_item_is_handled : order_handler_concern<UpdateOrderItem, UpdateOrderItemHandler>
@@ -24,8 +24,9 @@
 
         public Establish c = () =>
         {
+            var article = new Article(1, organization.Id, new Owner(new Guid(), "Owner"), "Artikel", 1.0m);
             order = new Order(organization, BorrowerFactory.Create());
-            orderItemId = order.AddItem(new Article(organization.Id, "Artikel"), DateTime.Today, DateTime.Today, 1).Id;
+            orderItemId = order.AddItem(article, DateTime.Today, DateTime.Today, 1).Id;
             orders.setup(x => x.GetById(orderId)).Return(order);
 
             newFromUtc = DateTime.UtcNow.AddDays(1);

@@ -5,9 +5,7 @@
     using Contracts.Model;
     using Ddd;
     using Iesi.Collections.Generic;
-    using Inventory.Articles.Repositories;
     using Inventory.Services;
-    using Microsoft.Practices.ServiceLocation;
 
     public class Order
     {
@@ -192,7 +190,7 @@
             return _items.Add(item);
         }
 
-        public virtual OrderItem AddItem(Inventory.Articles.Model.Article article, DateTime fromUtc, DateTime toUtc, int amount)
+        public virtual OrderItem AddItem(Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             EnsurePending();
 
@@ -204,11 +202,10 @@
             return item;
         }
 
-        public virtual bool AddItem(int articleId, int amount, DateTime fromUtc, DateTime toUtc,
+        public virtual bool AddItem(Article article, int amount, DateTime fromUtc, DateTime toUtc,
             IAvailabilityService availabilityService)
         {
             EnsurePending();
-            var article = ServiceLocator.Current.GetInstance<IArticleRepository>().GetById(articleId);
 
             var item = new OrderItem(this, article, fromUtc, toUtc, amount);
 
