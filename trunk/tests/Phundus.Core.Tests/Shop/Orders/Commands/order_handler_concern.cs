@@ -2,7 +2,6 @@ namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using Core.Cqrs;
     using Core.IdentityAndAccess.Queries;
-    using Core.Inventory.Articles.Repositories;
     using Core.Shop.Orders.Model;
     using Core.Shop.Orders.Repositories;
     using Core.Shop.Services;
@@ -15,7 +14,7 @@ namespace Phundus.Core.Tests.Shop.Orders.Commands
 
         protected static IOrderRepository orders;
 
-        protected static IArticleRepository articles;
+        protected static IArticleService articles;
 
         protected static IBorrowerService borrowerService;
 
@@ -26,7 +25,7 @@ namespace Phundus.Core.Tests.Shop.Orders.Commands
             organization = OrganizationFactory.Create();
             memberInRole = depends.on<IMemberInRole>();
             orders = depends.on<IOrderRepository>();
-            articles = depends.on<IArticleRepository>();
+            articles = depends.on<IArticleService>();
             borrowerService = depends.on<IBorrowerService>();
         };
     }
