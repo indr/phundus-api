@@ -9,6 +9,7 @@
 
     public class Organization : EntityBase
     {
+        private Guid _guid = Guid.NewGuid();
         private DateTime _createDate = DateTime.UtcNow;
         private ISet<Membership> _memberships = new HashedSet<Membership>();
         private string _name;
@@ -26,6 +27,12 @@
 
         protected Organization()
         {
+        }
+
+        public virtual Guid Guid
+        {
+            get {return _guid; }
+            protected set { _guid = value; }
         }
 
         public virtual DateTime CreateDate

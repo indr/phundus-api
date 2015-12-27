@@ -5,6 +5,7 @@
     public class UserDto
     {
         public int Id { get; set; }
+        public Guid Guid { get; set; }
         public int Version { get; set; }
 
         public int? JsNumber { get; set; }
@@ -25,5 +26,6 @@
         public string Postcode { get; set; }
         public string City { get; set; }
         public string MobilePhone { get; set; }
+        
     }
 }

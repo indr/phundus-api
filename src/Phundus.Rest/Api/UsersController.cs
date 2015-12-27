@@ -1,5 +1,6 @@
 namespace Phundus.Rest.Api
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Net;
@@ -51,6 +52,7 @@ namespace Phundus.Rest.Api
         public UsersGetOkResponseContent(UserDto user, IEnumerable<MembershipDto> memberships, StoreDto store)
         {
             UserId = user.Id.ToString(CultureInfo.InvariantCulture);
+            UserGuid = user.Guid;
             Username = user.Email;
             FullName = user.FirstName + " " + user.LastName;
             EmailAddress = user.Email;
@@ -61,6 +63,7 @@ namespace Phundus.Rest.Api
                 Memberships.Add(new Memberships
                 {
                     OrganizationId = each.OrganizationId.ToString(CultureInfo.InvariantCulture),
+                    OrganizationGuid = each.OrganizationGuid,
                     OrganizationName = each.OrganizationName,
                     OrganizationUrl = each.OrganizationUrl
                 });
@@ -88,6 +91,9 @@ namespace Phundus.Rest.Api
 
         [JsonProperty("userId")]
         public string UserId { get; set; }
+
+        [JsonProperty("userGuid")]
+        public Guid UserGuid { get; set; }
 
         [JsonProperty("username")]
         public string Username { get; set; }

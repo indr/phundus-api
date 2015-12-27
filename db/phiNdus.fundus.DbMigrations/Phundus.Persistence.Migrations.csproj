@@ -133,6 +133,7 @@
     <Compile Include="2015\12\M201512231157AddOrganizationPlan.cs" />
     <Compile Include="2015\12\M201512261516CreateTableDmStore.cs" />
     <Compile Include="2015\12\M201512270006AlterTableCartItem.cs" />
+    <Compile Include="2015\12\M201512270717AddGuidsToUserAndOrganization.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />

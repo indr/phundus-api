@@ -2,10 +2,10 @@
 {
     using System;
     using Ddd;
-    using Inventory.Stores.Model;
 
     public class User : EntityBase
     {
+        private Guid _guid = Guid.NewGuid();
         private Account _account;
         private string _firstName;
         private int? _jsNumber;
@@ -50,6 +50,12 @@
             _account.GenerateValidationKey();
 
             _role = Role.User;
+        }
+
+        public virtual Guid Guid
+        {
+            get { return _guid; }
+            protected set { _guid = value; }
         }
 
         public virtual string FirstName
