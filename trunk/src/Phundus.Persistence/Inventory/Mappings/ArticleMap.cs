@@ -12,7 +12,6 @@
             Id(x => x.Id).GeneratedBy.Native();
             Version(x => x.Version);
 
-            Map(x => x.OrganizationId).Not.Update();
             Map(x => x.CreateDate, "CreateDate").Not.Update();
 
             Component(x => x.Owner, c =>

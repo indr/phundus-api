@@ -214,8 +214,8 @@
                     // E-Mail mit Verifikationslink senden
                     new UserAccountValidationMail().For(user).Send(user);
 
-                    int organizationId;
-                    if ((Int32.TryParse(model.OrganizationId, out organizationId)) && (organizationId > 0))
+                    Guid organizationId;                    
+                    if ((Guid.TryParse(model.OrganizationId, out organizationId)))
                     {
                         Dispatcher.Dispatch(new ApplyForMembership
                         {

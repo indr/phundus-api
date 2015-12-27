@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Articles.Model;
-    using IdentityAndAccess.Organizations.Repositories;
     using Infrastructure;
 
     /// <summary>
@@ -11,13 +10,6 @@
     /// </summary>
     public class ArticleDtoAssembler
     {
-        private readonly IOrganizationRepository _organizationRepository;
-
-        public ArticleDtoAssembler(IOrganizationRepository organizationRepository)
-        {
-            _organizationRepository = organizationRepository;
-        }
-
         /// <summary>
         /// Assembliert die übergebenen Domain-Objects in neue DTOs.
         /// </summary>
@@ -45,15 +37,13 @@
             var result = new ArticleDto();
             result.Id = subject.Id;
             result.Version = subject.Version;
-            var organization = _organizationRepository.GetById(subject.OrganizationId);
-            result.OrganizationId = organization.Id;
-            result.OrganizationName = organization.Name;
+            result.OrganizationId = subject.Owner.OwnerId.Value;
+            result.OrganizationName = subject.Owner.Name;
 
             result.CreatedOn = subject.CreateDate;
             result.Name = subject.Caption;
             result.Brand = subject.Brand;
             result.Price = subject.Price;
-            result.OrganizationId = subject.Owner.OwnerId.Value;
             result.Description = subject.Description;
             result.Specification = subject.Specification;
             result.GrossStock = subject.GrossStock;

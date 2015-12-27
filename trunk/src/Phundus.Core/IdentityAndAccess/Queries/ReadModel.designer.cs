@@ -75,8 +75,6 @@ namespace Phundus.Core.IdentityAndAccess.Queries
 		
 		private int _UserId;
 		
-		private int _OrganizationId;
-		
 		private System.DateTime _Timestamp;
 		
 		private RelationshipStatusDto _Status;
@@ -89,8 +87,6 @@ namespace Phundus.Core.IdentityAndAccess.Queries
     partial void OnCreated();
     partial void OnUserIdChanging(int value);
     partial void OnUserIdChanged();
-    partial void OnOrganizationIdChanging(int value);
-    partial void OnOrganizationIdChanged();
     partial void OnTimestampChanging(System.DateTime value);
     partial void OnTimestampChanged();
     partial void OnStatusChanging(RelationshipStatusDto value);
@@ -120,26 +116,6 @@ namespace Phundus.Core.IdentityAndAccess.Queries
 					this._UserId = value;
 					this.SendPropertyChanged("UserId");
 					this.OnUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganizationId", IsPrimaryKey=true)]
-		public int OrganizationId
-		{
-			get
-			{
-				return this._OrganizationId;
-			}
-			set
-			{
-				if ((this._OrganizationId != value))
-				{
-					this.OnOrganizationIdChanging(value);
-					this.SendPropertyChanging();
-					this._OrganizationId = value;
-					this.SendPropertyChanged("OrganizationId");
-					this.OnOrganizationIdChanged();
 				}
 			}
 		}
@@ -184,7 +160,7 @@ namespace Phundus.Core.IdentityAndAccess.Queries
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganizationGuid")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganizationGuid", IsPrimaryKey=true)]
 		public System.Guid OrganizationGuid
 		{
 			get

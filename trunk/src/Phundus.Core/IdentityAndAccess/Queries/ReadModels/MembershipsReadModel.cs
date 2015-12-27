@@ -51,8 +51,6 @@
     {
         public Guid Id { get; set; }
         public int MemberId { get; set; }
-        [Obsolete]
-        public int OrganizationId { get; set; }
         public Guid OrganizationGuid { get; set; }
         public string OrganizationName { get; set; }
         public string OrganizationUrl { get; set; }

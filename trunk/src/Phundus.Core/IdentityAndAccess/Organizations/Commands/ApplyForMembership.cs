@@ -11,7 +11,7 @@
     public class ApplyForMembership
     {
         public int ApplicantId { get; set; }
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
     }
 
     public class ApplyForMembershipHandler : IHandleCommand<ApplyForMembership>
