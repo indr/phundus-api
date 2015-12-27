@@ -53,6 +53,7 @@
     <Compile Include="Events\EventSerializer.cs" />
     <Compile Include="Events\IEventStore.cs" />
     <Compile Include="Events\StoredEvent.cs" />
+    <Compile Include="NotFoundException.cs" />
     <Compile Include="Notifications\IDomainEventHandler.cs" />
     <Compile Include="Notifications\IDomainEventHandlerFactory.cs" />
     <Compile Include="Notifications\INotificationHandlerFactory.cs" />

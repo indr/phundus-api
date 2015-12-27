@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Infrastructure
 {
     using System;
+    using Common;
     using NHibernate;
 
     public class RepositoryBase<T> : IRepository<T> where T : class
