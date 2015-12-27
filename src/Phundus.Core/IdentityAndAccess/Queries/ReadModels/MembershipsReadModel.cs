@@ -38,6 +38,7 @@
                 Id = each.Id,
                 MemberId = each.UserId,
                 OrganizationId = each.Organization.Id,
+                OrganizationGuid = each.Organization.Guid,
                 OrganizationName = each.Organization.Name,
                 OrganizationUrl = each.Organization.Url,
                 ApprovedOn = each.ApprovalDate,
@@ -52,6 +53,7 @@
         public Guid Id { get; set; }
         public int MemberId { get; set; }
         public int OrganizationId { get; set; }
+        public Guid OrganizationGuid { get; set; }
         public string OrganizationName { get; set; }
         public string OrganizationUrl { get; set; }
         public string MembershipRole { get; set; }

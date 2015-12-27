@@ -50,6 +50,7 @@
                 {
                     IsManager = each.MembershipRole == "Chief",
                     OrganizationId = each.OrganizationId.ToString(CultureInfo.InvariantCulture),
+                    OrganizationGuid = each.OrganizationGuid,
                     OrganizationName = each.OrganizationName,
                     OrganizationUrl = each.OrganizationUrl
                 }).ToList();
@@ -110,6 +111,9 @@
     {
         [JsonProperty("organizationId")]
         public string OrganizationId { get; set; }
+
+        [JsonProperty("organizationGuid")]
+        public string OrganizationGuid { get; set; }
 
         [JsonProperty("organizationName")]
         public string OrganizationName { get; set; }
