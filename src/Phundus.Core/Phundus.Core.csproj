@@ -171,6 +171,8 @@
     <Compile Include="Inventory\Articles\Exceptions\ArticleNotFoundException.cs" />
     <Compile Include="Inventory\Articles\Model\ImageAdded.cs" />
     <Compile Include="Inventory\Articles\Model\ImageRemoved.cs" />
+    <Compile Include="Inventory\Owners\Owner.cs" />
+    <Compile Include="Inventory\Owners\OwnerId.cs" />
     <Compile Include="Inventory\Queries\ArticleReadModel.cs" />
     <Compile Include="Inventory\Queries\Dtos\StoreDto.cs" />
     <Compile Include="Inventory\Queries\IArticleQueries.cs" />
@@ -194,8 +196,6 @@
     <Compile Include="Inventory\Stores\Model\OpeningHoursChanged.cs" />
     <Compile Include="Inventory\Stores\Model\AddressChanged.cs" />
     <Compile Include="Inventory\Stores\Model\CoordinateChanged.cs" />
-    <Compile Include="Inventory\Stores\Model\Owner.cs" />
-    <Compile Include="Inventory\Stores\Model\OwnerId.cs" />
     <Compile Include="Inventory\Stores\Model\Store.cs" />
     <Compile Include="Inventory\Stores\Model\StoreId.cs" />
     <Compile Include="Inventory\Stores\Model\StoreOpened.cs" />

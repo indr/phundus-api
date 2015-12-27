@@ -1,10 +1,12 @@
 ﻿namespace Phundus.Core.Inventory.Articles.Commands
 {
+    using Common;
     using Cqrs;
     using Ddd;
     using IdentityAndAccess.Queries;
     using Model;
     using Repositories;
+    using Services;
 
     public class CreateArticle
     {
@@ -23,17 +25,27 @@
 
     public class CreateArticleHandler : IHandleCommand<CreateArticle>
     {
-        public IArticleRepository ArticleRepository { get; set; }
+        private readonly IArticleRepository _articleRepository;
+        private readonly IOwnerService _ownerService;
+        private readonly IMemberInRole _memberInRole;
 
-        public IMemberInRole MemberInRole { get; set; }
+        public CreateArticleHandler(IArticleRepository articleRepository, IOwnerService ownerService, IMemberInRole memberInRole)
+        {
+            AssertionConcern.AssertArgumentNotNull(articleRepository, "ArticleRepository must be provided.");
+            AssertionConcern.AssertArgumentNotNull(ownerService, "OwnerService must be provided.");
+            AssertionConcern.AssertArgumentNotNull(memberInRole, "MemberInRole must be provided.");
+
+            _articleRepository = articleRepository;
+            _ownerService = ownerService;
+            _memberInRole = memberInRole;
+        }
 
         public void Handle(CreateArticle command)
         {
-            MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
+            _memberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
+            var owner = _ownerService.GetByOrganizationId(command.OrganizationId);
 
-            var result = new Article(
-                command.OrganizationId,
-                command.Name);
+            var result = new Article(owner, command.Name);
 
             result.Brand = command.Brand;
             result.Price = command.Price;
@@ -42,7 +54,7 @@
             result.GrossStock = command.GrossStock;
             result.Color = command.Color;
 
-            command.ArticleId = ArticleRepository.Add(result);
+            command.ArticleId = _articleRepository.Add(result);
 
             EventPublisher.Publish(new ArticleCreated());
         }

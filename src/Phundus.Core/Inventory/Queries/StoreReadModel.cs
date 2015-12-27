@@ -4,6 +4,7 @@ namespace Phundus.Core.Inventory.Queries
     using System.Linq;
     using Cqrs;
     using NHibernate.Linq;
+    using Owners;
     using Stores.Model;
     using Stores.Repositories;
 

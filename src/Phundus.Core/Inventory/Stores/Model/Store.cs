@@ -3,6 +3,7 @@
     using System;
     using Common;
     using Ddd;
+    using Owners;
 
     public class Store : Aggregate<StoreId>
     {

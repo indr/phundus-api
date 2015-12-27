@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using Iesi.Collections.Generic;
+    using Owners;
 
     public class Article
     {
@@ -15,10 +16,16 @@
         {
         }
 
+        [Obsolete]
         public Article(int organizationId, string name)
         {
             _organizationId = organizationId;
             _caption = name;
+        }
+
+        public Article(Owner owner, string name)
+        {
+            
         }
 
         public virtual int Id { get; protected set; }

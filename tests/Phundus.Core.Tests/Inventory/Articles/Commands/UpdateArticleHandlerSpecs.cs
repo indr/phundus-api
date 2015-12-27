@@ -1,7 +1,9 @@
 namespace Phundus.Core.Tests.Inventory
 {
+    using System;
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.Articles.Model;
+    using Core.Inventory.Owners;
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
@@ -9,14 +11,17 @@ namespace Phundus.Core.Tests.Inventory
     [Subject(typeof(UpdateArticleHandler))]
     public class when_update_article_is_handled : article_handler_concern<UpdateArticle, UpdateArticleHandler>
     {
-        private static Article article = new Article(organizationId, "Name");
-
+        private static Guid ownerId = new Guid();
+        private static Owner owner;
         private const int articleId = 1;
-        private const int organizationId = 2;
         private const int initiatorId = 3;
+
+        private static Article article;
 
         public Establish c = () =>
         {
+            owner = new Owner(new OwnerId(ownerId), "Owner");
+            article = new Article(owner, "Name");
             repository.WhenToldTo(x => x.GetById(articleId)).Return(article);
 
             command = new UpdateArticle();
@@ -24,7 +29,7 @@ namespace Phundus.Core.Tests.Inventory
             command.ArticleId = articleId;
         };
 
-        private It should_ask_for_chief_privileges = () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
+        private It should_ask_for_chief_privileges = () => memberInRole.WasToldTo(x => x.ActiveChief(ownerId, initiatorId));
 
         private It should_publich_article_updated =
             () => publisher.WasToldTo(x => x.Publish(Arg<ArticleUpdated>.Is.NotNull));
