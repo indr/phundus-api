@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Orders.Model
 {
-    using System;
-    using Inventory.Articles.Model;
+    using System;    
     using Pricing.Model;
 
     public class OrderItem
@@ -20,11 +19,11 @@
         {
         }
 
-        public OrderItem(Order order, Inventory.Articles.Model.Article article, DateTime fromUtc, DateTime toUtc, int amount)
+        public OrderItem(Order order, Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             _id = Guid.NewGuid();
             _order = order;
-            _articleId = article.Id;
+            _articleId = article.ArticleId;
             _unitPrice = article.Price;
             _text = article.Caption;
             _fromUtc = fromUtc;

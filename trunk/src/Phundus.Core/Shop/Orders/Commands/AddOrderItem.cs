@@ -3,10 +3,8 @@
     using System;
     using Cqrs;
     using IdentityAndAccess.Queries;
-    using Inventory;
-    using Inventory.Articles;
-    using Inventory.Articles.Repositories;
     using Repositories;
+    using Shop.Services;
 
     public class AddOrderItem
     {
@@ -21,8 +19,7 @@
 
     public class AddOrderItemHandler : IHandleCommand<AddOrderItem>
     {
-        // TODO: Use integration service
-        public IArticleRepository ArticleRepository { get; set; }
+        public IArticleService ArticleService { get; set; }
 
         public IOrderRepository OrderRepository { get; set; }
 
@@ -32,9 +29,9 @@
         {
             var order = OrderRepository.GetById(command.OrderId);
 
-            var article = ArticleRepository.GetById(order.Organization.Id, command.ArticleId);
+            var article = ArticleService.GetById(command.ArticleId);
             
-            MemberInRole.ActiveChief(order.Organization.Id, command.InitiatorId);
+            MemberInRole.ActiveChief(order.Lessor.LessorId, command.InitiatorId);
 
             var item = order.AddItem(article, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),
                 command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), command.Amount);

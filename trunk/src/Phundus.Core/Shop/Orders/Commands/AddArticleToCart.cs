@@ -4,10 +4,7 @@
     using System.Security;
     using Cqrs;
     using IdentityAndAccess.Queries;
-    using Inventory.Articles.Repositories;
-    using Model;
     using Repositories;
-    using Services;
     using Shop.Services;
 
     public class AddArticleToCart
@@ -39,7 +36,7 @@
                 throw new SecurityException();
 
             var article = ArticleService.GetById(command.ArticleId);
-            
+
             if (!MemberInRole.IsActiveMember(article.Owner.OwnerId, command.InitiatorId))
                 throw new SecurityException();
 

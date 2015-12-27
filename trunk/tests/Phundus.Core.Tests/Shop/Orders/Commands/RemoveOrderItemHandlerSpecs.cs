@@ -8,7 +8,7 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
-    using Article = Core.Inventory.Articles.Model.Article;
+    using Article = Core.Shop.Orders.Model.Article;
 
     [Subject(typeof (RemoveOrderItemHandler))]
     public class when_remove_order_item_is_handled : order_handler_concern<RemoveOrderItem, RemoveOrderItemHandler>
@@ -19,9 +19,10 @@
         private static Order order;
 
         public Establish c = () =>
-        {            
+        {
+            var article = new Article(1, organization.Id, new Owner(new Guid(), "Owner"), "Artikel", 1.0m);
             order = new Order(organization, BorrowerFactory.Create());
-            orderItemId = order.AddItem(new Article(organization.Id, "Artikel"), DateTime.Today, DateTime.Today, 1).Id;
+            orderItemId = order.AddItem(article, DateTime.Today, DateTime.Today, 1).Id;
             orders.setup(x => x.GetById(orderId)).Return(order);
 
             command = new RemoveOrderItem
