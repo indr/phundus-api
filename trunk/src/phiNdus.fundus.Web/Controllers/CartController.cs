@@ -51,7 +51,7 @@
                 cartDto = CartService.RemoveItem(CurrentUserId, id, version);
             }
                 // Nicht besonders RESTful...
-            catch (EntityNotFoundException)
+            catch (NotFoundException)
             {
                 // TODO: Meldung anzeigen, dass das Item nicht gefunden werden konnte, evtl. weil der
                 // Warenkorb in der Zwischenzeit bereits verändert wurde...

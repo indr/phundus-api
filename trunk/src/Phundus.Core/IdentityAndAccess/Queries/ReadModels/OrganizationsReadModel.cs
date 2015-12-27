@@ -33,21 +33,16 @@
             if (organization == null)
                 return null;
 
-            return new OrganizationDetailDto
-            {
-                Id = organization.Id,
-                Guid = organization.Guid,
-                Version = organization.Version,
-                Name = organization.Name,
-                Url = organization.Url,
-                Address = organization.Address,
-                EmailAddress = organization.EmailAddress,
-                Website = organization.Website,
-                Coordinate = organization.Coordinate,
-                Startpage = organization.Startpage,
-                CreateDate = organization.CreateDate,
-                DocumentTemplate = organization.DocTemplateFileName
-            };
+            return ToOrganizationDetailDto(organization);
+        }
+
+        public OrganizationDetailDto FindById(Guid id)
+        {
+            var organization = OrganizationRepository.FindByGuid(id);
+            if (organization == null)
+                return null;
+
+            return ToOrganizationDetailDto(organization);
         }
 
         public IEnumerable<OrganizationDto> All()
@@ -63,6 +58,25 @@
                     .Where(p => p.Plan > OrganizationPlan.Free)
                     .Select(ToOrganizationDto)
                     .ToList();
+        }
+
+        private static OrganizationDetailDto ToOrganizationDetailDto(Organization organization)
+        {
+            return new OrganizationDetailDto
+            {
+                Id = organization.Id,
+                Guid = organization.Guid,
+                Version = organization.Version,
+                Name = organization.Name,
+                Url = organization.Url,
+                Address = organization.Address,
+                EmailAddress = organization.EmailAddress,
+                Website = organization.Website,
+                Coordinate = organization.Coordinate,
+                Startpage = organization.Startpage,
+                CreateDate = organization.CreateDate,
+                DocumentTemplate = organization.DocTemplateFileName
+            };
         }
 
         private static OrganizationDto ToOrganizationDto(Organization organization)

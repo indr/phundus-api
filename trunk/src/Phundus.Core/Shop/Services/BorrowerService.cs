@@ -1,8 +1,8 @@
-﻿namespace Phundus.Core.Shop.Contracts.Services
+﻿namespace Phundus.Core.Shop.Services
 {
-    using IdentityAndAccess.Organizations;
+    using Contracts.Model;
     using IdentityAndAccess.Queries;
-    using Model;
+    using Infrastructure;
 
     public interface IBorrowerService
     {
@@ -17,7 +17,7 @@
         {
             var user = UserQueries.ById(id);
             if (user == null)
-                throw new MemberNotFoundException(id);
+                throw new NotFoundException(string.Format("User with id {0} not found.", id));
 
             return ToBorrower(user);
         }

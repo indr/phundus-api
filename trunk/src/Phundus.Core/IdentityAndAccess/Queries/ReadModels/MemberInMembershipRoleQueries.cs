@@ -45,6 +45,20 @@ namespace Phundus.Core.IdentityAndAccess.Queries
             return true;
         }
 
+        public bool IsActiveMember(Guid organizationId, int userId)
+        {
+            var membership =
+                MembershipRepository.ByMemberId(userId).FirstOrDefault(p => p.Organization.Guid == organizationId);
+
+            if (membership == null)
+                return false;
+
+            if (membership.IsLocked)
+                return false;
+
+            return true;
+        }
+
         public bool IsActiveChief(int organizationId, int userId)
         {
             var membership = MembershipRepository.ByMemberId(userId)

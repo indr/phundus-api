@@ -5,38 +5,38 @@ namespace Phundus.Core.Shop.Orders.Model
     using Common.Domain.Model;
 
     /// <summary>
-    /// Besitzer
+    /// Vermieter
     /// </summary>
-    public class Owner : ValueObject
+    public class Lessor : ValueObject
     {
+        private Guid _lessorId;
         private string _name;
-        private Guid _ownerId;
 
-        public Owner(Guid ownerId, string name)
+        public Lessor(Guid lessorId, string name)
         {
-            _ownerId = ownerId;
+            _lessorId = lessorId;
             _name = name;
         }
 
-        protected Owner()
+        protected Lessor()
         {
         }
 
-        public Guid OwnerId
+        public Guid LessorId
         {
-            get { return _ownerId; }
-            protected set { _ownerId = value; }
+            get { return _lessorId; }
+            private set { _lessorId = value; }
         }
 
         public string Name
         {
             get { return _name; }
-            protected set { _name = value; }
+            private set { _name = value; }
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return OwnerId;
+            yield return LessorId;
         }
     }
 }

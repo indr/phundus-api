@@ -3,9 +3,9 @@ namespace Phundus.Core.Tests.Shop.Orders.Commands
     using Core.Cqrs;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Articles.Repositories;
-    using Core.Shop.Contracts.Services;
     using Core.Shop.Orders.Model;
     using Core.Shop.Orders.Repositories;
+    using Core.Shop.Services;
     using Machine.Specifications;
 
     public abstract class order_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler>

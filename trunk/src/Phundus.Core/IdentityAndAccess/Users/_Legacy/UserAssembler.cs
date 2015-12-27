@@ -14,7 +14,7 @@
             Guard.Against<ArgumentNullException>(subject == null, "subject");
 
             var result = ServiceLocator.Current.GetInstance<IUserRepository>().GetById(subject.Id);
-            Guard.Against<EntityNotFoundException>(result == null, "User entity not found");
+            Guard.Against<NotFoundException>(result == null, "User entity not found");
             Guard.Against<DtoOutOfDateException>(result.Version != subject.Version, "Dto is out of date");
 
             return WriteDomainObject(subject, result);

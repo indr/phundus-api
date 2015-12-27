@@ -11,7 +11,7 @@
         {
             var result = FindById(storeId);
             if (result == null)
-                throw new EntityNotFoundException("Store not found.");
+                throw new NotFoundException("Store not found.");
             return result;
         }
     }

@@ -34,7 +34,7 @@
         {
             var result = FindById(id);
             if (result == null)
-                throw new EntityNotFoundException();
+                throw new NotFoundException();
             return result;
         }
 

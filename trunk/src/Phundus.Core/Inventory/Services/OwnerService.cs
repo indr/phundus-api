@@ -3,6 +3,7 @@
     using System;
     using Common;
     using IdentityAndAccess.Queries;
+    using Infrastructure;
     using Owners;
 
     public interface IOwnerService
@@ -29,7 +30,7 @@
         {
             var user =_userQueries.ById(userId);
             if (user == null)
-                throw new InvalidOperationException(String.Format("User with id {0} not found.", userId));
+                throw new NotFoundException(String.Format("User with id {0} not found.", userId));
 
             return ToOwner(user);
         }
@@ -38,7 +39,7 @@
         {
             var organization = _organizationQueries.ById(organizationId);
             if (organization == null)
-                throw new InvalidOperationException(String.Format("Organization with id {0} not found.", organizationId));
+                throw new NotFoundException(String.Format("Organization with id {0} not found.", organizationId));
 
             return ToOwner(organization);
         }
