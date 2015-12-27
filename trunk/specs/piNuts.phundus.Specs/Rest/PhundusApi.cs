@@ -62,7 +62,7 @@ namespace Phundus.Specs.Rest
             public int UserId { get; set; }
         }
 
-        public IRestResponse<ContractDetailDoc> PostContract(int organizationId, int userId)
+        public IRestResponse<ContractDetailDoc> PostContract(Guid organizationId, int userId)
         {
             var request = new RestRequest(Method.POST);
             request.Resource = "organizations/{organizationId}/contracts";
@@ -72,7 +72,7 @@ namespace Phundus.Specs.Rest
             return Execute<ContractDetailDoc>(request);
         }
 
-        public IRestResponse<OrderDetailDoc> PostOrder(int organizationId, string userName)
+        public IRestResponse<OrderDetailDoc> PostOrder(Guid organizationId, string userName)
         {
             var request = new RestRequest(Method.POST);
             request.Resource = "organizations/{organizationId}/orders";
@@ -82,7 +82,7 @@ namespace Phundus.Specs.Rest
             return Execute<OrderDetailDoc>(request);
         }
 
-        public IRestResponse<OrderItemDoc> PostOrderItem(int organizationId, int orderId)
+        public IRestResponse<OrderItemDoc> PostOrderItem(Guid organizationId, int orderId)
         {
             var request = new RestRequest(Method.POST);
             request.Resource = "organizations/{organizationId}/orders/{orderId}/items";
@@ -100,7 +100,7 @@ namespace Phundus.Specs.Rest
             return Execute<OrderItemDoc>(request);
         }
 
-        public IRestResponse<OrderDetailDoc> GetOrder(int organizationId, int orderId)
+        public IRestResponse<OrderDetailDoc> GetOrder(Guid organizationId, int orderId)
         {
             var request = new RestRequest(Method.GET);
             request.Resource = "organizations/{organizationId}/orders/{orderId}";
@@ -110,7 +110,7 @@ namespace Phundus.Specs.Rest
             return Execute<OrderDetailDoc>(request);
         }
 
-        public IRestResponse DeleteOrderItem(int organizationId, int orderId, Guid orderItemId)
+        public IRestResponse DeleteOrderItem(Guid organizationId, int orderId, Guid orderItemId)
         {
             var request = new RestRequest(Method.DELETE);
             request.Resource = "organizations/{organizationId}/orders/{orderId}/items/{itemId}";
@@ -121,7 +121,7 @@ namespace Phundus.Specs.Rest
             return Exeucte2(request);
         }
 
-        public IRestResponse UpdateOrderItem(int organizationId, int orderId, Guid orderItemId, DateTime fromUtc, DateTime toUtc, int amount)
+        public IRestResponse UpdateOrderItem(Guid organizationId, int orderId, Guid orderItemId, DateTime fromUtc, DateTime toUtc, int amount)
         {
             var request = new RestRequest(Method.PATCH);
             request.Resource = "organizations/{organizationId}/orders/{orderId}/items/{itemId}";
@@ -134,7 +134,7 @@ namespace Phundus.Specs.Rest
             return Exeucte2(request);
         }
 
-        public IRestResponse<OrderDetailDoc> PatchOrder(int organizationId, int orderId, string status)
+        public IRestResponse<OrderDetailDoc> PatchOrder(Guid organizationId, int orderId, string status)
         {
             var request = new RestRequest(Method.PATCH);
             request.Resource = "organizations/{organizationId}/orders/{orderId}";
