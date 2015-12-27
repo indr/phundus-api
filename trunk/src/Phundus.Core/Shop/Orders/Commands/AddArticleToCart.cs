@@ -8,6 +8,7 @@
     using Model;
     using Repositories;
     using Services;
+    using Shop.Services;
 
     public class AddArticleToCart
     {

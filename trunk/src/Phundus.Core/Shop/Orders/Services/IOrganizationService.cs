@@ -4,6 +4,7 @@
     using IdentityAndAccess.Queries;
     using Model;
 
+    [Obsolete]
     public interface IOrganizationService
     {
         Organization ById(int organizationId);

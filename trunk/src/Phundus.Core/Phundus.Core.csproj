@@ -226,7 +226,6 @@
     <Compile Include="Shop\Orders\Model\OrderItemTotalChanged.cs" />
     <Compile Include="Shop\Orders\Model\Organization.cs" />
     <Compile Include="Shop\Orders\Model\Owner.cs" />
-    <Compile Include="Shop\Orders\Services\IArticleService.cs" />
     <Compile Include="Shop\Orders\Services\IOrganizationService.cs" />
     <Compile Include="Shop\Orders\Services\RoundRectangle.cs" />
     <Compile Include="Shop\Orders\Services\OrderPdfGeneratorService.cs" />
@@ -255,6 +254,7 @@
       <DependentUpon>ReadModel.dbml</DependentUpon>
     </Compile>
     <Compile Include="Shop\Services\BorrowerService.cs" />
+    <Compile Include="Shop\Services\IArticleService.cs" />
     <Compile Include="Shop\Services\LessorService.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />

@@ -1,8 +1,8 @@
-namespace Phundus.Core.Shop.Orders.Services
+namespace Phundus.Core.Shop.Services
 {
     using Common;
     using Inventory.Articles.Repositories;
-    using Model;
+    using Orders.Model;
 
     public interface IArticleService
     {
