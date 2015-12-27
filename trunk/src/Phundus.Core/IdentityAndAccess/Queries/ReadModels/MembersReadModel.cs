@@ -7,6 +7,7 @@
     public interface IMemberQueries
     {
         IList<MemberDto> ByOrganizationId(int organizationId);
+        IList<MemberDto> FindByOrganizationId(Guid organizationId);
     }
 
     public interface IMemberInRoleQueries
@@ -20,10 +21,26 @@
 
         public IMembershipQueries MembershipQueries { get; set; }
 
+        public IList<MemberDto> Chiefs(int organizationId)
+        {
+            return ByOrganizationId(organizationId).Where(p => p.Role == 2).ToList();
+        }
+
         public IList<MemberDto> ByOrganizationId(int organizationId)
         {
-            var result = new List<MemberDto>();
             var memberships = MembershipQueries.ByOrganizationId(organizationId);
+            return ToMemberDtos(memberships);
+        }
+
+        public IList<MemberDto> FindByOrganizationId(Guid organizationId)
+        {
+            var memberships = MembershipQueries.FindByOrganizationId(organizationId);
+            return ToMemberDtos(memberships);
+        }
+
+        private IList<MemberDto> ToMemberDtos(IEnumerable<MembershipDto> memberships)
+        {
+            var result = new List<MemberDto>();
             foreach (var each in memberships)
             {
                 var user = UserQueries.ById(each.MemberId);
@@ -42,11 +59,6 @@
             }
 
             return result;
-        }
-
-        public IList<MemberDto> Chiefs(int organizationId)
-        {
-            return this.ByOrganizationId(organizationId).Where(p => p.Role == 2).ToList();
         }
     }
 

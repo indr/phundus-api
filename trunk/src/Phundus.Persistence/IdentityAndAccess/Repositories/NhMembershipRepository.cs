@@ -23,5 +23,10 @@ namespace Phundus.Persistence.IdentityAndAccess.Repositories
         {
             return Entities.Where(p => p.Organization.Id == organizationId).ToFuture();
         }
+
+        public IEnumerable<Membership> GetByOrganizationId(Guid organizationId)
+        {
+            return Entities.Where(p => p.Organization.Guid == organizationId).ToFuture();
+        }
     }
 }
