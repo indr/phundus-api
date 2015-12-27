@@ -355,7 +355,7 @@ namespace Phundus.Core.Shop.Queries
 		
 		private OrderStatusDto _Status;
 		
-		private int _OrganizationId;
+		private System.Guid _OrganizationId;
 		
 		private System.Nullable<int> _Borrower_Id;
 		
@@ -383,7 +383,7 @@ namespace Phundus.Core.Shop.Queries
 		
 		private EntitySet<OrderItemDto> _Items;
 		
-		private EntitySet<MembershipDto> _Memberships;
+		private EntitySet<MembershipDto> _MembershipDtos;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -397,8 +397,8 @@ namespace Phundus.Core.Shop.Queries
     partial void OnCreatedUtcChanged();
     partial void OnStatusChanging(OrderStatusDto value);
     partial void OnStatusChanged();
-    partial void OnOrganizationIdChanging(int value);
-    partial void OnOrganizationIdChanged();
+    partial void OnLessor_LessorIdChanging(System.Guid value);
+    partial void OnLessor_LessorIdChanged();
     partial void OnBorrower_IdChanging(System.Nullable<int> value);
     partial void OnBorrower_IdChanged();
     partial void OnBorrower_FirstNameChanging(string value);
@@ -421,14 +421,14 @@ namespace Phundus.Core.Shop.Queries
     partial void OnModifiedUtcChanged();
     partial void OnModifiedByChanging(System.Nullable<int> value);
     partial void OnModifiedByChanged();
-    partial void OnOrganizationNameChanging(string value);
-    partial void OnOrganizationNameChanged();
+    partial void OnLessor_NameChanging(string value);
+    partial void OnLessor_NameChanged();
     #endregion
 		
 		public OrderDto()
 		{
 			this._Items = new EntitySet<OrderItemDto>(new Action<OrderItemDto>(this.attach_Items), new Action<OrderItemDto>(this.detach_Items));
-			this._Memberships = new EntitySet<MembershipDto>(new Action<MembershipDto>(this.attach_Memberships), new Action<MembershipDto>(this.detach_Memberships));
+			this._MembershipDtos = new EntitySet<MembershipDto>(new Action<MembershipDto>(this.attach_MembershipDtos), new Action<MembershipDto>(this.detach_MembershipDtos));
 			OnCreated();
 		}
 		
@@ -513,7 +513,7 @@ namespace Phundus.Core.Shop.Queries
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganizationId")]
-		public int OrganizationId
+		public System.Guid Lessor_LessorId
 		{
 			get
 			{
@@ -523,11 +523,11 @@ namespace Phundus.Core.Shop.Queries
 			{
 				if ((this._OrganizationId != value))
 				{
-					this.OnOrganizationIdChanging(value);
+					this.OnLessor_LessorIdChanging(value);
 					this.SendPropertyChanging();
 					this._OrganizationId = value;
-					this.SendPropertyChanged("OrganizationId");
-					this.OnOrganizationIdChanged();
+					this.SendPropertyChanged("Lessor_LessorId");
+					this.OnLessor_LessorIdChanged();
 				}
 			}
 		}
@@ -752,8 +752,8 @@ namespace Phundus.Core.Shop.Queries
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Organization_Name", Storage="_OrganizationName", CanBeNull=false)]
-		public string OrganizationName
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganizationName", CanBeNull=false)]
+		public string Lessor_Name
 		{
 			get
 			{
@@ -763,11 +763,11 @@ namespace Phundus.Core.Shop.Queries
 			{
 				if ((this._OrganizationName != value))
 				{
-					this.OnOrganizationNameChanging(value);
+					this.OnLessor_NameChanging(value);
 					this.SendPropertyChanging();
 					this._OrganizationName = value;
-					this.SendPropertyChanged("OrganizationName");
-					this.OnOrganizationNameChanged();
+					this.SendPropertyChanged("Lessor_Name");
+					this.OnLessor_NameChanged();
 				}
 			}
 		}
@@ -785,16 +785,16 @@ namespace Phundus.Core.Shop.Queries
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderDto_MembershipDto", Storage="_Memberships", ThisKey="OrganizationId", OtherKey="OrganizationId")]
-		public EntitySet<MembershipDto> Memberships
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderDto_MembershipDto", Storage="_MembershipDtos", ThisKey="Lessor_LessorId", OtherKey="OrganizationGuid")]
+		public EntitySet<MembershipDto> MembershipDtos
 		{
 			get
 			{
-				return this._Memberships;
+				return this._MembershipDtos;
 			}
 			set
 			{
-				this._Memberships.Assign(value);
+				this._MembershipDtos.Assign(value);
 			}
 		}
 		
@@ -830,13 +830,13 @@ namespace Phundus.Core.Shop.Queries
 			entity.OrderDto = null;
 		}
 		
-		private void attach_Memberships(MembershipDto entity)
+		private void attach_MembershipDtos(MembershipDto entity)
 		{
 			this.SendPropertyChanging();
 			entity.OrderDto = this;
 		}
 		
-		private void detach_Memberships(MembershipDto entity)
+		private void detach_MembershipDtos(MembershipDto entity)
 		{
 			this.SendPropertyChanging();
 			entity.OrderDto = null;
@@ -1303,11 +1303,11 @@ namespace Phundus.Core.Shop.Queries
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _OrganizationId;
-		
 		private int _UserId;
 		
 		private MembershipRoleDto _Role;
+		
+		private System.Guid _OrganizationGuid;
 		
 		private EntityRef<OrderDto> _OrderDto;
 		
@@ -1315,42 +1315,18 @@ namespace Phundus.Core.Shop.Queries
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnOrganizationIdChanging(int value);
-    partial void OnOrganizationIdChanged();
     partial void OnUserIdChanging(int value);
     partial void OnUserIdChanged();
     partial void OnRoleChanging(MembershipRoleDto value);
     partial void OnRoleChanged();
+    partial void OnOrganizationGuidChanging(System.Guid value);
+    partial void OnOrganizationGuidChanged();
     #endregion
 		
 		public MembershipDto()
 		{
 			this._OrderDto = default(EntityRef<OrderDto>);
 			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganizationId", IsPrimaryKey=true)]
-		public int OrganizationId
-		{
-			get
-			{
-				return this._OrganizationId;
-			}
-			set
-			{
-				if ((this._OrganizationId != value))
-				{
-					if (this._OrderDto.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnOrganizationIdChanging(value);
-					this.SendPropertyChanging();
-					this._OrganizationId = value;
-					this.SendPropertyChanged("OrganizationId");
-					this.OnOrganizationIdChanged();
-				}
-			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId")]
@@ -1393,7 +1369,31 @@ namespace Phundus.Core.Shop.Queries
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderDto_MembershipDto", Storage="_OrderDto", ThisKey="OrganizationId", OtherKey="OrganizationId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganizationGuid", IsPrimaryKey=true)]
+		public System.Guid OrganizationGuid
+		{
+			get
+			{
+				return this._OrganizationGuid;
+			}
+			set
+			{
+				if ((this._OrganizationGuid != value))
+				{
+					if (this._OrderDto.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnOrganizationGuidChanging(value);
+					this.SendPropertyChanging();
+					this._OrganizationGuid = value;
+					this.SendPropertyChanged("OrganizationGuid");
+					this.OnOrganizationGuidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderDto_MembershipDto", Storage="_OrderDto", ThisKey="OrganizationGuid", OtherKey="Lessor_LessorId", IsForeignKey=true)]
 		public OrderDto OrderDto
 		{
 			get
@@ -1410,17 +1410,17 @@ namespace Phundus.Core.Shop.Queries
 					if ((previousValue != null))
 					{
 						this._OrderDto.Entity = null;
-						previousValue.Memberships.Remove(this);
+						previousValue.MembershipDtos.Remove(this);
 					}
 					this._OrderDto.Entity = value;
 					if ((value != null))
 					{
-						value.Memberships.Add(this);
-						this._OrganizationId = value.OrganizationId;
+						value.MembershipDtos.Add(this);
+						this._OrganizationGuid = value.Lessor_LessorId;
 					}
 					else
 					{
-						this._OrganizationId = default(int);
+						this._OrganizationGuid = default(System.Guid);
 					}
 					this.SendPropertyChanged("OrderDto");
 				}

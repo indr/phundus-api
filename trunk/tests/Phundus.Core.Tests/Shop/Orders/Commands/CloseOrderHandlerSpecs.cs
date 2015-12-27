@@ -16,7 +16,7 @@
 
         public Establish c = () =>
         {
-            order = MockRepository.GeneratePartialMock<Order>(new object[] {organization, BorrowerFactory.Create()});
+            order = MockRepository.GeneratePartialMock<Order>(new object[] {lessor, BorrowerFactory.Create()});
             orders.setup(x => x.GetById(orderId)).Return(order);
 
             command = new CloseOrder
@@ -27,7 +27,7 @@
         };
 
         public It should_ask_for_chief_privilegs =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organization.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(lessor.LessorId, initiatorId));
 
         public It should_ask_order_to_close =
             () => order.WasToldTo(x => x.Close(initiatorId));

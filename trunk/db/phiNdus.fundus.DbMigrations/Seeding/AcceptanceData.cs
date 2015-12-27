@@ -203,6 +203,9 @@
             [CsvField(Name = "OrganizationId")]
             public int OrganizationId { get; set; }
 
+            [CsvField(Name = "OrganizationGuid")]
+            public Guid OrganizationGuid { get; set; }
+
             public int Status { get { return 1; } }
 
             public DateTime Timestamp { get { return DateTime.UtcNow; } }
@@ -222,6 +225,9 @@
 
             [CsvField(Name = "OrganizationId")]
             public int OrganizationId { get; set; }
+
+            [CsvField(Name = "OrganizationGuid")]
+            public Guid OrganizationGuid { get; set; }
 
             [CsvField(Name = "Role")]
             [TypeConverter(typeof (RoleConverter))]

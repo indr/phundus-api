@@ -14,8 +14,8 @@
                 .ForMember(d => d.CreatedUtc, o => o.MapFrom(s => s.CreatedUtc))
                 .ForMember(d => d.ModifiedUtc, o => o.MapFrom(s => s.ModifiedUtc))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.Id))
-                .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.OrganizationId))
-                .ForMember(d => d.OrganizationName, o => o.MapFrom(s => s.OrganizationName))
+                .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.Lessor_LessorId))
+                .ForMember(d => d.OrganizationName, o => o.MapFrom(s => s.Lessor_Name))
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
                 .ForMember(d => d.Version, o => o.MapFrom(s => s.Version));
 
@@ -35,7 +35,7 @@
                 .ForMember(d => d.CreatedUtc, o => o.MapFrom(s => s.CreatedUtc))
                 .ForMember(d => d.ModifiedUtc, o => o.MapFrom(s => s.ModifiedUtc))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.Id))
-                .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.OrganizationId))
+                .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.Lessor_LessorId))
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
                 .ForMember(d => d.Version, o => o.MapFrom(s => s.Version))
                 .ForMember(d => d.TotalPrice, o => o.MapFrom(s => s.Items.Sum(i => i.ItemTotal)))
@@ -47,7 +47,7 @@
     {
         public int OrderId { get; set; }
         public int Version { get; set; }
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
         public string OrganizationName { get; set; }
 
         public string Status { get; set; }

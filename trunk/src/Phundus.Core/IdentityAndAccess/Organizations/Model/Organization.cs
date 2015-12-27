@@ -100,9 +100,10 @@
             var request = new MembershipApplication(
                 requestId,
                 Id,
+                Guid,
                 user);
 
-            EventPublisher.Publish(new MembershipApplicationFiled(Id, user.Id));
+            EventPublisher.Publish(new MembershipApplicationFiled(Id, user.Id, Guid));
 
             return request;
         }
@@ -113,14 +114,14 @@
             membership.Organization = this;
             Memberships.Add(membership);
 
-            EventPublisher.Publish(new MembershipApplicationApproved(Id, application.UserId));
+            EventPublisher.Publish(new MembershipApplicationApproved(Id, application.UserId, Guid));
         }
 
         public virtual void RejectMembershipRequest(MembershipApplication application)
         {
             application.Reject();
 
-            EventPublisher.Publish(new MembershipApplicationRejected(Id, application.UserId));
+            EventPublisher.Publish(new MembershipApplicationRejected(Id, application.UserId, Guid));
         }
 
         protected virtual Membership GetMembershipOfUser(User user)

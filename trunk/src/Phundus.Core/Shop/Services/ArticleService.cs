@@ -37,8 +37,7 @@ namespace Phundus.Core.Shop.Services
 
         private static Article ToArticleValueObject(Inventory.Articles.Model.Article article)
         {
-            return new Article(article.Id, article.OrganizationId,
-                new Owner(article.Owner.OwnerId.Value, article.Owner.Name), article.Caption, article.Price);
+            return new Article(article.Id, new Owner(article.Owner.OwnerId.Value, article.Owner.Name), article.Caption, article.Price);
         }
     }
 }

@@ -1,22 +1,22 @@
 namespace Phundus.Core.Shop.Orders.Model
 {
-    using System;
     using System.Collections.Generic;
+    using Common;
     using Common.Domain.Model;
 
     public class Article : ValueObject
     {
         private int _articleId;
         private string _caption;
-        private int _organizationId;
         private Owner _owner;
         private decimal _price;
 
-        public Article(int articleId, int organizationId, Owner owner, string name, decimal pricePerWeek)
+        public Article(int articleId, Owner owner, string name, decimal pricePerWeek)
         {
+            AssertionConcern.AssertArgumentNotNull(owner, "Owner must be provided.");
+
             _articleId = articleId;
             _owner = owner;
-            _organizationId = organizationId;
             _caption = name;
             _price = pricePerWeek;
         }
@@ -35,13 +35,6 @@ namespace Phundus.Core.Shop.Orders.Model
         {
             get { return _owner; }
             protected set { _owner = value; }
-        }
-
-        [Obsolete]
-        public virtual int OrganizationId
-        {
-            get { return _organizationId; }
-            protected set { _organizationId = value; }
         }
 
         public virtual string Caption

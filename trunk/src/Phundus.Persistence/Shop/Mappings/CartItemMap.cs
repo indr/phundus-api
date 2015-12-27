@@ -21,10 +21,14 @@
 
             Component(x => x.Article, c =>
             {
-                c.Map(x => x.ArticleId, "Article_ArticleId");
-                c.Map(x => x.OrganizationId, "Article_OrganizationId");
+                c.Map(x => x.ArticleId, "Article_ArticleId");                
                 c.Map(x => x.Caption, "Article_Name");
                 c.Map(x => x.Price, "Article_UnitPricePerWeek");
+                c.Component(x => x.Owner, c2 =>
+                {
+                    c2.Map(x => x.OwnerId, "Article_Owner_OwnerId");
+                    c2.Map(x => x.Name, "Article_Owner_Name");
+                });
             });
         }
     }

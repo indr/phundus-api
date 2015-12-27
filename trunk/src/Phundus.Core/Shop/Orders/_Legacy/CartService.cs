@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Core.Shop.Orders
 {
-    using System.Collections.Generic;
     using System.Linq;
     using Commands;
     using Common;
@@ -9,7 +8,6 @@
     using IdentityAndAccess.Organizations.Repositories;
     using IdentityAndAccess.Queries;
     using IdentityAndAccess.Users.Repositories;
-    using Infrastructure;
     using Inventory.Services;
     using Mails;
     using Queries;
@@ -131,7 +129,7 @@
 
                 foreach (var chief in chiefs)
                     mail.Send(chief.EmailAddress);
-                
+
                 // #34 Kein E-Mail mehr für den Ausleiher
                 //mail.Send(order.Borrower.EmailAddress);
             }
