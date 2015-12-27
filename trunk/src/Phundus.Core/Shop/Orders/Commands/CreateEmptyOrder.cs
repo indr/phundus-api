@@ -1,16 +1,16 @@
 ﻿namespace Phundus.Core.Shop.Orders.Commands
 {
+    using System;
     using Cqrs;
     using Ddd;
     using IdentityAndAccess.Queries;
     using Model;
-    using Repositories;
-    using Services;
+    using Repositories;    
     using Shop.Services;
 
     public class CreateEmptyOrder
     {
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
         public int InitiatorId { get; set; }
         public int UserId { get; set; }
         public int OrderId { get; set; }
@@ -22,7 +22,7 @@
 
         public IOrderRepository Repository { get; set; }
 
-        public IOrganizationService OrganizationService { get; set; }
+        public ILessorService LessorService { get; set; }
 
         public IBorrowerService BorrowerService { get; set; }
 
@@ -31,7 +31,7 @@
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
 
             var order = new Order(
-                OrganizationService.ById(command.OrganizationId),
+                LessorService.GetById(command.OrganizationId),
                 BorrowerService.ById(command.UserId));
 
             var orderId = Repository.Add(order);
