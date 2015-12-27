@@ -9,11 +9,13 @@ namespace Phundus.Core.Shop.Orders.Model
         private int _articleId;
         private string _caption;
         private int _organizationId;
+        private Owner _owner;
         private decimal _price;
 
-        public Article(int articleId, int organizationId, string name, decimal pricePerWeek)
+        public Article(int articleId, int organizationId, Owner owner, string name, decimal pricePerWeek)
         {
             _articleId = articleId;
+            _owner = owner;
             _organizationId = organizationId;
             _caption = name;
             _price = pricePerWeek;
@@ -29,6 +31,13 @@ namespace Phundus.Core.Shop.Orders.Model
             protected set { _articleId = value; }
         }
 
+        public virtual Owner Owner
+        {
+            get { return _owner; }
+            protected set { _owner = value; }
+        }
+
+        [Obsolete]
         public virtual int OrganizationId
         {
             get { return _organizationId; }

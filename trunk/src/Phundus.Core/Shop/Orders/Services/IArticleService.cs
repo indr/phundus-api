@@ -23,7 +23,8 @@ namespace Phundus.Core.Shop.Orders.Services
         public Article GetById(int articleId)
         {
             var article = _articleRepository.GetById(articleId);
-            return new Article(article.Id, article.OrganizationId, article.Caption, article.Price);
+            return new Article(article.Id, article.OrganizationId,
+                new Owner(article.Owner.OwnerId.Value, article.Owner.Name), article.Caption, article.Price);
         }
     }
 }
