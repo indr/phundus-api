@@ -1,5 +1,6 @@
 ﻿namespace phiNdus.fundus.Web.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel.DataAnnotations;
@@ -13,7 +14,7 @@
         private readonly IEnumerable<OrganizationDto> _organizations;
         private IEnumerable<ShopArticleSearchResultDto> _articles = new Collection<ShopArticleSearchResultDto>();
 
-        public ShopSearchResultViewModel(string queryString, int? queryOrganizationId, int page, int rowsPerPage,
+        public ShopSearchResultViewModel(string queryString, Guid? queryOrganizationId, int page, int rowsPerPage,
             IEnumerable<OrganizationDto> organizations)
         {
             Query = queryString;
@@ -43,9 +44,9 @@
             get { return _organizations; }
         }
 
-        public int? QueryOrganizationId { get; set; }
+        public Guid? QueryOrganizationId { get; set; }
 
-        private void Search(string query, int? organization, int page)
+        private void Search(string query, Guid? organization, int page)
         {
             var queryResult = ServiceLocator.Current.GetInstance<IShopArticleQueries>().FindArticles(
                 new PageRequest {Index = page - 1, Size = RowsPerPage}, query, organization);

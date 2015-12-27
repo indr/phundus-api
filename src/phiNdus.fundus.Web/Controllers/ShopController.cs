@@ -47,9 +47,9 @@
             }
         }
 
-        private int? QueryOrganizationId
+        private Guid? QueryOrganizationId
         {
-            get { return Session["Shop-QueryOrganizationId"] as int?; }
+            get { return Session["Shop-QueryOrganizationId"] as Guid?; }
             set { Session["Shop-QueryOrganizationId"] = value; }
         }
 
@@ -111,7 +111,7 @@
 
         [Transaction]
         [AllowAnonymous]
-        public virtual ActionResult Search(string queryString, int? queryOrganizationId, int? page)
+        public virtual ActionResult Search(string queryString, Guid? queryOrganizationId, int? page)
         {
             if (page == null)
                 page = 1;

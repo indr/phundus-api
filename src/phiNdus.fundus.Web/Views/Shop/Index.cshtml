@@ -16,7 +16,7 @@
         {
             <input type="text" name="QueryString" class="search-query form-control" value="@Model.Query" placeholder="Suchen" />
             <span class="muted"> in </span>
-            @Html.DropDownListFor(m => m.QueryOrganizationId, new SelectList(Model.Organizations, "Id", "Name", Model.QueryOrganizationId), "allen Organisationen", new {@class="form-control"})
+            @Html.DropDownListFor(m => m.QueryOrganizationId, new SelectList(Model.Organizations, "Guid", "Name", Model.QueryOrganizationId), "allen Organisationen", new {@class="form-control"})
             <button type="submit" class="btn btn-primary" onclick="submit()">phinden!</button>
             <span class="help-inline hide" id="query-loading">
                 <img src="@Url.Content("~/Content/Images/ajax-loader.gif")" style="vertical-align:middle;" />
