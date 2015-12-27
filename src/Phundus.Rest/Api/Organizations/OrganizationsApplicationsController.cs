@@ -15,7 +15,7 @@
 
         [GET("")]
         [Transaction]
-        public virtual IList<MembershipApplicationDto> Get(int organizationId)
+        public virtual IList<MembershipApplicationDto> Get(Guid organizationId)
         {
             return MembershipApplicationQueries.PendingByOrganizationId(organizationId);
         }
@@ -29,7 +29,7 @@
 
         [DELETE("{applicationId}")]
         [Transaction]
-        public virtual void Delete(int organizationId, Guid applicationId)
+        public virtual void Delete(Guid organizationId, Guid applicationId)
         {
             Dispatch(new RejectMembershipApplication { ApplicationId = applicationId, InitiatorId = CurrentUserId });
         }

@@ -26,11 +26,6 @@
             return ByUserId(user.Id);
         }
 
-        public IList<MembershipDto> ByOrganizationId(int organizationId)
-        {
-            return MembershipRepository.ByOrganizationId(organizationId).Select(ToMembershipDto).ToList();
-        }
-
         public IList<MembershipDto> FindByOrganizationId(Guid organizationId)
         {
             return MembershipRepository.GetByOrganizationId(organizationId).Select(ToMembershipDto).ToList();
@@ -41,9 +36,8 @@
             return new MembershipDto
             {
                 Id = each.Id,
-                MemberId = each.UserId,
-                OrganizationId = each.Organization.Id,
-                OrganizationGuid = each.Organization.Guid,
+                MemberId = each.UserId,                
+                OrganizationGuid = each.Organization.Id,
                 OrganizationName = each.Organization.Name,
                 OrganizationUrl = each.Organization.Url,
                 ApprovedOn = each.ApprovalDate,
@@ -57,6 +51,7 @@
     {
         public Guid Id { get; set; }
         public int MemberId { get; set; }
+        [Obsolete]
         public int OrganizationId { get; set; }
         public Guid OrganizationGuid { get; set; }
         public string OrganizationName { get; set; }

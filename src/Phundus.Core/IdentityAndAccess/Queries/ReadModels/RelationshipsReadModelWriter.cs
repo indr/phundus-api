@@ -10,28 +10,28 @@
     {
         public void Handle(MembershipApplicationApproved @event)
         {
-            UpdateOrInsert(@event.UserId, @event.OrganizationId, @event.OrganizationGuid, @event.OccuredOnUtc, RelationshipStatusDto.Member);
+            UpdateOrInsert(@event.UserId, @event.OrganizationId, @event.OccuredOnUtc, RelationshipStatusDto.Member);
         }
 
         public void Handle(MembershipApplicationFiled @event)
         {
-            UpdateOrInsert(@event.UserId, @event.OrganizationId, @event.OrganizationGuid, @event.OccuredOnUtc, RelationshipStatusDto.Application);
+            UpdateOrInsert(@event.UserId, @event.OrganizationId, @event.OccuredOnUtc, RelationshipStatusDto.Application);
         }
 
         public void Handle(MembershipApplicationRejected @event)
         {
-            UpdateOrInsert(@event.UserId, @event.OrganizationId, @event.OrganizationGuid, @event.OccuredOnUtc, RelationshipStatusDto.Rejected);
+            UpdateOrInsert(@event.UserId, @event.OrganizationId, @event.OccuredOnUtc, RelationshipStatusDto.Rejected);
         }
 
-        private void UpdateOrInsert(int userId, int organizationId, Guid organizationGuid, DateTime timestamp, RelationshipStatusDto status)
+        private void UpdateOrInsert(int userId, Guid organizationId, DateTime timestamp, RelationshipStatusDto status)
         {
             var entity = (from r in Ctx.RelationshipDtos
-                where r.OrganizationId == organizationId && r.UserId == userId
+                where r.OrganizationGuid == organizationId && r.UserId == userId
                 select r).SingleOrDefault();
 
             if (entity == null)
             {
-                entity = new RelationshipDto {OrganizationId = organizationId, OrganizationGuid = organizationGuid, UserId = userId};
+                entity = new RelationshipDto { OrganizationGuid = organizationId, UserId = userId };
                 Ctx.RelationshipDtos.InsertOnSubmit(entity);
             }
 

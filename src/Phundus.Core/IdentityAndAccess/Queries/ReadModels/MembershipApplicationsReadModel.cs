@@ -11,7 +11,7 @@
     public class MembershipApplicationsReadModel : ReadModelBase, IMembershipApplicationQueries
     {
         [Transaction]
-        public IList<MembershipApplicationDto> PendingByOrganizationId(int organizationId)
+        public IList<MembershipApplicationDto> PendingByOrganizationId(Guid organizationId)
         {
             MembershipApplication membershipApplication = null;
             User user = null;
@@ -64,7 +64,7 @@
     {
         public Guid Id { get; set; }
 
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
 
         public int UserId { get; set; }
 

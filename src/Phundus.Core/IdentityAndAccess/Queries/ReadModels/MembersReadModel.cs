@@ -6,14 +6,12 @@
 
     public interface IMemberQueries
     {
-        [Obsolete]
-        IList<MemberDto> ByOrganizationId(int organizationId);
         IList<MemberDto> FindByOrganizationId(Guid organizationId);
     }
 
     public interface IMemberInRoleQueries
     {
-        IList<MemberDto> Chiefs(int organizationId);
+        IList<MemberDto> Chiefs(Guid organizationId);
     }
 
     public class MembersReadModel : IMemberQueries, IMemberInRoleQueries
@@ -22,15 +20,9 @@
 
         public IMembershipQueries MembershipQueries { get; set; }
 
-        public IList<MemberDto> Chiefs(int organizationId)
+        public IList<MemberDto> Chiefs(Guid organizationId)
         {
-            return ByOrganizationId(organizationId).Where(p => p.Role == 2).ToList();
-        }
-
-        public IList<MemberDto> ByOrganizationId(int organizationId)
-        {
-            var memberships = MembershipQueries.ByOrganizationId(organizationId);
-            return ToMemberDtos(memberships);
+            return FindByOrganizationId(organizationId).Where(p => p.Role == 2).ToList();
         }
 
         public IList<MemberDto> FindByOrganizationId(Guid organizationId)

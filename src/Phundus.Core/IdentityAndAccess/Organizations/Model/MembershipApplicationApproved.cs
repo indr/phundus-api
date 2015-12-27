@@ -7,11 +7,10 @@
     [DataContract]
     public class MembershipApplicationApproved : DomainEvent
     {
-        public MembershipApplicationApproved(int organizationId, int userId, Guid organizationGuid)
+        public MembershipApplicationApproved(Guid organizationId, int userId)
         {
             OrganizationId = organizationId;
             UserId = userId;
-            OrganizationGuid = organizationGuid;
         }
 
         protected MembershipApplicationApproved()
@@ -19,12 +18,9 @@
         }
 
         [DataMember(Order = 1)]
-        public int OrganizationId { get; protected set; }
+        public Guid OrganizationId { get; protected set; }
 
         [DataMember(Order = 2)]
         public int UserId { get; protected set; }
-
-        [DataMember(Order = 3)]
-        public Guid OrganizationGuid { get; protected set; }
     }
 }

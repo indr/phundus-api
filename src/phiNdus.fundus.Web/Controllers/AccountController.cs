@@ -248,8 +248,8 @@
                             new SelectListItem
                             {
                                 Text = s.Name,
-                                Value = s.Id.ToString(),
-                                Selected = s.Id.ToString() == model.OrganizationId
+                                Value = s.Guid.ToString(),
+                                Selected = s.Guid.ToString() == model.OrganizationId
                             })
                     .ToList();
             result.Insert(0, new SelectListItem());

@@ -44,15 +44,16 @@
         [Authorize(Roles = "Admin")]
         public virtual HttpResponseMessage Post(OrganizationsPostRequestContent requestContent)
         {
-            var command = new EstablishOrganization
+            var organizationId = Guid.NewGuid();
+            Dispatch(new EstablishOrganization
             {
                 InitiatorId = CurrentUserId,
+                OrganizationId = organizationId,
                 Name = requestContent.Name
-            };
-            Dispatch(command);
+            });
 
             return Request.CreateResponse(HttpStatusCode.OK,
-                new OrganizationsPostOkResponseContent {OrganizationId = command.OrganizationId});
+                new OrganizationsPostOkResponseContent {OrganizationId = organizationId});
         }
 
         [PUT("{organizationId}")]

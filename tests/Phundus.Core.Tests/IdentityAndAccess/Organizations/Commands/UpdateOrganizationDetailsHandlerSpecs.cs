@@ -24,7 +24,7 @@
         protected Establish c = () =>
         {
             organizationId = Guid.NewGuid();
-            organization = new Organization(1001);
+            organization = new Organization(organizationId, "Organization");
             memberInRole = depends.on<IMemberInRole>();
             repository = depends.on<IOrganizationRepository>();
 
