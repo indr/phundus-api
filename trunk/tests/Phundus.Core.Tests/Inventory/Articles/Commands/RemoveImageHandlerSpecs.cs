@@ -12,7 +12,7 @@
     [Subject(typeof(RemoveImageHandler))]
     public class when_remove_image_is_handled : article_handler_concern<RemoveImage, RemoveImageHandler>
     {
-        private static Guid ownerId = new Guid();
+        private static Guid ownerId;
         private static Owner owner;
         private const int initiatorId = 2;
         private const int articleId = 3;
@@ -22,6 +22,7 @@
 
         private Establish c = () =>
         {
+            ownerId = Guid.NewGuid();
             owner = new Owner(new OwnerId(ownerId), "Owner");
             article = new Article(1, owner, "Name");
             article.AddImage(imageFileName, "image/jpeg", 1024);

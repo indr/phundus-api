@@ -11,7 +11,7 @@ namespace Phundus.Core.Tests.Inventory
     [Subject(typeof(UpdateArticleHandler))]
     public class when_update_article_is_handled : article_handler_concern<UpdateArticle, UpdateArticleHandler>
     {
-        private static Guid ownerId = new Guid();
+        private static Guid ownerId;
         private static Owner owner;
         private const int articleId = 1;
         private const int initiatorId = 3;
@@ -20,6 +20,7 @@ namespace Phundus.Core.Tests.Inventory
 
         public Establish c = () =>
         {
+            ownerId = Guid.NewGuid();
             owner = new Owner(new OwnerId(ownerId), "Owner");
             article = new Article(1, owner, "Name");
             repository.WhenToldTo(x => x.GetById(articleId)).Return(article);

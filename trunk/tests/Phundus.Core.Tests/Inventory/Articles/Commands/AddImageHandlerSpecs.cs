@@ -13,7 +13,7 @@
     [Subject(typeof(AddImageHandler))]
     public class when_add_image_is_handled : article_handler_concern<AddImage, AddImageHandler>
     {
-        private static Guid ownerId = new Guid();
+        private static Guid ownerId;
         private static Owner owner;
         private const int initiatorId = 2;
         private const int articleId = 3;
@@ -22,7 +22,8 @@
         private static Article article;
         
         private Establish c = () =>
-        {            
+        {
+            ownerId = Guid.NewGuid();
             owner = new Owner(new OwnerId(ownerId), "Owner");
             article = new Article(1, owner, "Name");
             repository.setup(x => x.GetById(articleId)).Return(article);
