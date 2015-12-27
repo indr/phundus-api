@@ -1,5 +1,6 @@
 namespace Phundus.Core.IdentityAndAccess.Queries
 {
+    using System;
     using System.Linq;
     using Common;
     using Cqrs;
@@ -17,6 +18,13 @@ namespace Phundus.Core.IdentityAndAccess.Queries
         }
 
         public void ActiveChief(int organizationId, int userId)
+        {
+            if (!IsActiveChief(organizationId, userId))
+                throw new AuthorizationException(
+                    "Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");
+        }
+
+        public void ActiveChief(Guid organizationId, int userId)
         {
             if (!IsActiveChief(organizationId, userId))
                 throw new AuthorizationException(
@@ -42,6 +50,21 @@ namespace Phundus.Core.IdentityAndAccess.Queries
             var membership = MembershipRepository.ByMemberId(userId)
                 .Where(p => p.Role == Role.Chief)
                 .FirstOrDefault(p => p.Organization.Id == organizationId);
+
+            if (membership == null)
+                return false;
+
+            if (membership.IsLocked)
+                return false;
+
+            return true;
+        }
+
+        public bool IsActiveChief(Guid organizationId, int userId)
+        {
+            var membership = MembershipRepository.ByMemberId(userId)
+                .Where(p => p.Role == Role.Chief)
+                .FirstOrDefault(p => p.Organization.Guid == organizationId);
 
             if (membership == null)
                 return false;

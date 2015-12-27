@@ -1,7 +1,9 @@
 namespace Phundus.Core.Tests.Inventory
 {
+    using System;
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.Articles.Model;
+    using Core.Inventory.Owners;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -10,13 +12,17 @@ namespace Phundus.Core.Tests.Inventory
     [Subject(typeof (DeleteArticleHandler))]
     public class when_delete_article_is_handled : article_handler_concern<DeleteArticle, DeleteArticleHandler>
     {
-        private const int organizationId = 1;
+        private static Guid ownerId = new Guid();
+        private static Owner owner;
         private const int initiatorId = 2;
         private const int articleId = 3;
-        private static readonly Article article = new Article(organizationId, "Name");
+
+        private static Article article;
 
         private Establish c = () =>
         {
+            owner = new Owner(new OwnerId(ownerId), "Owner");
+            article = new Article(owner, "Name");
             repository.setup(x => x.GetById(articleId)).Return(article);
 
             command = new DeleteArticle
@@ -27,7 +33,7 @@ namespace Phundus.Core.Tests.Inventory
         };
 
         private It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(ownerId, initiatorId));
 
         private It should_ask_for_removal = () => repository.WasToldTo(x => x.Remove(article));
 

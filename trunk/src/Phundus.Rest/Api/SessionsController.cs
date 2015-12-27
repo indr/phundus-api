@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Rest.Api
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
@@ -113,7 +114,7 @@
         public string OrganizationId { get; set; }
 
         [JsonProperty("organizationGuid")]
-        public string OrganizationGuid { get; set; }
+        public Guid OrganizationGuid { get; set; }
 
         [JsonProperty("organizationName")]
         public string OrganizationName { get; set; }

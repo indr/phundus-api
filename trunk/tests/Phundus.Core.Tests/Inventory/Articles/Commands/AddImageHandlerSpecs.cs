@@ -1,8 +1,10 @@
 ﻿namespace Phundus.Core.Tests.Inventory
 {
+    using System;
     using System.Linq;
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.Articles.Model;
+    using Core.Inventory.Owners;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -11,15 +13,18 @@
     [Subject(typeof(AddImageHandler))]
     public class when_add_image_is_handled : article_handler_concern<AddImage, AddImageHandler>
     {
-        private const int organizationId = 1;
+        private static Guid ownerId = new Guid();
+        private static Owner owner;
         private const int initiatorId = 2;
         private const int articleId = 3;
         private const string imageFileName = "Image.jpg";
         
-        private static readonly Article article = new Article(organizationId, "Name");
+        private static Article article;
         
         private Establish c = () =>
-        {
+        {            
+            owner = new Owner(new OwnerId(ownerId), "Owner");
+            article = new Article(owner, "Name");
             repository.setup(x => x.GetById(articleId)).Return(article);
 
             command = new AddImage
@@ -33,7 +38,7 @@
         private It should_add_image = () => article.Images.FirstOrDefault(p => p.FileName == imageFileName).ShouldNotBeNull();
 
         private It should_ask_for_chief_privilegs =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(ownerId, initiatorId));
 
         private It should_publish_image_added = () => publisher.WasToldTo(x => x.Publish(Arg<ImageAdded>.Is.NotNull));
 

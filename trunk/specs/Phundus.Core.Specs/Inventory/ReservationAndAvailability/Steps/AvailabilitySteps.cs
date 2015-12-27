@@ -6,6 +6,7 @@
     using Core.Inventory.Articles.Repositories;
     using Core.Inventory.AvailabilityAndReservation.Model;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
+    using Core.Inventory.Owners;
     using Core.Inventory.Services;
     using NUnit.Framework;
     using Rhino.Mocks;
@@ -31,7 +32,8 @@
         [Given(@"an article with gross stock of (.*)")]
         public void GivenAnArticleWithGrossStockOf(int amount)
         {
-            _article = new Article(1001, "Name");
+            var owner = new Owner(new OwnerId(Guid.NewGuid()), "Owner");
+            _article = new Article(owner, "Name");
             _article.GrossStock = amount;
             _articleRepository.Stub(x => x.FindById(_article.Id)).Return(_article);
         }

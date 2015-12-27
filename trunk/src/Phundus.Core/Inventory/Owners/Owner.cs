@@ -1,7 +1,8 @@
-﻿namespace Phundus.Core.Inventory.Stores.Model
+﻿namespace Phundus.Core.Inventory.Owners
 {
     using System.Collections.Generic;
     using Common.Domain.Model;
+    using Stores.Model;
 
     public class Owner : ValueObject
     {
