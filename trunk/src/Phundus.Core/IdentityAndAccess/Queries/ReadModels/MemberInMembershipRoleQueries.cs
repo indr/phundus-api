@@ -11,17 +11,10 @@ namespace Phundus.Core.IdentityAndAccess.Queries
     {
         public IMembershipRepository MembershipRepository { get; set; }
 
-        public void ActiveMember(int organizationId, int userId)
+        public void ActiveMember(Guid organizationId, int userId)
         {
             if (!IsActiveMember(organizationId, userId))
                 throw new AuthorizationException("Sie müssen aktives Mitglied dieser Organisation sein.");
-        }
-
-        public void ActiveChief(int organizationId, int userId)
-        {
-            if (!IsActiveChief(organizationId, userId))
-                throw new AuthorizationException(
-                    "Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");
         }
 
         public void ActiveChief(Guid organizationId, int userId)
@@ -31,39 +24,10 @@ namespace Phundus.Core.IdentityAndAccess.Queries
                     "Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");
         }
 
-        public bool IsActiveMember(int organizationId, int userId)
-        {
-            var membership =
-                MembershipRepository.ByMemberId(userId).FirstOrDefault(p => p.Organization.Id == organizationId);
-
-            if (membership == null)
-                return false;
-
-            if (membership.IsLocked)
-                return false;
-
-            return true;
-        }
-
         public bool IsActiveMember(Guid organizationId, int userId)
         {
             var membership =
-                MembershipRepository.ByMemberId(userId).FirstOrDefault(p => p.Organization.Guid == organizationId);
-
-            if (membership == null)
-                return false;
-
-            if (membership.IsLocked)
-                return false;
-
-            return true;
-        }
-
-        public bool IsActiveChief(int organizationId, int userId)
-        {
-            var membership = MembershipRepository.ByMemberId(userId)
-                .Where(p => p.Role == Role.Chief)
-                .FirstOrDefault(p => p.Organization.Id == organizationId);
+                MembershipRepository.ByMemberId(userId).FirstOrDefault(p => p.Organization.Id == organizationId);
 
             if (membership == null)
                 return false;
@@ -78,7 +42,7 @@ namespace Phundus.Core.IdentityAndAccess.Queries
         {
             var membership = MembershipRepository.ByMemberId(userId)
                 .Where(p => p.Role == Role.Chief)
-                .FirstOrDefault(p => p.Organization.Guid == organizationId);
+                .FirstOrDefault(p => p.Organization.Id == organizationId);
 
             if (membership == null)
                 return false;

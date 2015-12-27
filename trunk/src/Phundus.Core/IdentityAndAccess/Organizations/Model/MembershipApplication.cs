@@ -7,8 +7,7 @@
     {
         private Guid _id;
         private int _userId;
-        private int _organizationId;
-        private Guid _organizationGuid;
+        private Guid _organizationId;
         private DateTime _requestDate;
         private User _user;
 
@@ -16,11 +15,10 @@
         {
         }
 
-        public MembershipApplication(Guid requestId, int organizationId, Guid organizationGuid, User user)
+        public MembershipApplication(Guid requestId, Guid organizationId, User user)
         {
             _id = requestId;
             _organizationId = organizationId;
-            _organizationGuid = organizationGuid;
             _user = user;
             _userId = user.Id;
             _requestDate = DateTime.Now;
@@ -32,16 +30,10 @@
             protected set { _id = value; }
         }
 
-        public virtual int OrganizationId
+        public virtual Guid OrganizationId
         {
             get { return _organizationId; }
             protected set { _organizationId = value; }
-        }
-
-        public virtual Guid OrganizationGuid
-        {
-            get { return _organizationGuid; }
-            protected set { _organizationGuid = value; }
         }
 
         public virtual int UserId
@@ -73,7 +65,7 @@
         {
             ApprovalDate = DateTime.Now;
 
-            return new Membership(membershipId, UserId, Id, ApprovalDate.Value, OrganizationGuid);
+            return new Membership(membershipId, UserId, Id, ApprovalDate.Value, OrganizationId);
         }
 
         public virtual void Reject()

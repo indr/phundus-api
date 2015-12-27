@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
+    using System;
     using Castle.Transactions;
     using Cqrs;
     using Queries;
@@ -28,14 +29,11 @@
         {
             var organization = OrganizationRepository.GetById(command.OrganizationId);
 
-            //var user = UserRepository.ActiveById(command.ApplicantId);
             var user = UserRepository.FindById(command.ApplicantId);
             if (user == null)
                 throw new UserNotFoundException(command.ApplicantId);
 
-            var request = organization.RequestMembership(
-                Requests.NextIdentity(),
-                user);
+            var request = organization.RequestMembership(Guid.NewGuid(), user);
 
             Requests.Add(request);
         }

@@ -7,7 +7,6 @@
     {
         IList<MembershipDto> ByUserId(int userId);
         IList<MembershipDto> ByUserName(string userName);
-        IList<MembershipDto> ByOrganizationId(int organizationId);
         IList<MembershipDto> FindByOrganizationId(Guid organizationId);
     }
 }

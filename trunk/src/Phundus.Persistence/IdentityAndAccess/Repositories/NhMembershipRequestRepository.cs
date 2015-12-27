@@ -10,11 +10,6 @@ namespace Phundus.Persistence.IdentityAndAccess.Repositories
 
     public class NhMembershipRequestRepository : NhRepositoryBase<MembershipApplication>, IMembershipRequestRepository
     {
-        public Guid NextIdentity()
-        {
-            return Guid.NewGuid();
-        }
-
         public MembershipApplication GetById(Guid id)
         {
             var result = FindById(id);
@@ -23,7 +18,7 @@ namespace Phundus.Persistence.IdentityAndAccess.Repositories
             return result;
         }
 
-        public IEnumerable<MembershipApplication> PendingByOrganization(int organizationId)
+        public IEnumerable<MembershipApplication> PendingByOrganization(Guid organizationId)
         {
             return Entities.Where(p => p.OrganizationId == organizationId)
                 .Where(p => (p.ApprovalDate == null) || (p.RejectDate == null))

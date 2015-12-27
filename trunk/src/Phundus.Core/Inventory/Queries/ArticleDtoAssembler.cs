@@ -46,7 +46,7 @@
             result.Id = subject.Id;
             result.Version = subject.Version;
             var organization = _organizationRepository.GetById(subject.OrganizationId);
-            result.OrganizationId = organization.Guid;
+            result.OrganizationId = organization.Id;
             result.OrganizationName = organization.Name;
 
             result.CreatedOn = subject.CreateDate;

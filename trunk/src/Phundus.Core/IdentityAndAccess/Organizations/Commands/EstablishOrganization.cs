@@ -6,9 +6,7 @@
     using Ddd;
     using Model;
     using Repositories;
-    using Users.Model;
     using Users.Repositories;
-    using Role = Model.Role;
 
     public class EstablishOrganization
     {
@@ -22,7 +20,8 @@
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IUserRepository _userRepository;
 
-        public EstablishOrganizationHandler(IOrganizationRepository organizationRepository, IUserRepository userRepository)
+        public EstablishOrganizationHandler(IOrganizationRepository organizationRepository,
+            IUserRepository userRepository)
         {
             AssertionConcern.AssertArgumentNotNull(organizationRepository, "OrganizationRepository must be provided.");
             AssertionConcern.AssertArgumentNotNull(userRepository, "UserRepository must be provided.");
@@ -33,11 +32,12 @@
 
         public void Handle(EstablishOrganization command)
         {
-            var organization = new Organization(command.Name);
+            var organization = new Organization(command.OrganizationId, command.Name);
 
             _organizationRepository.Add(organization);
 
-            EventPublisher.Publish(new OrganizationEstablished(organization.Guid, organization.Plan, organization.Name, organization.Url));
+            EventPublisher.Publish(new OrganizationEstablished(organization.Id, organization.Plan, organization.Name,
+                organization.Url));
 
             var requestId = Guid.NewGuid();
             var user = _userRepository.FindById(command.InitiatorId);
@@ -46,8 +46,6 @@
             var membershipId = Guid.NewGuid();
             organization.ApproveMembershipRequest(application, membershipId);
             organization.SetMembersRole(user, Role.Chief);
-
-            command.OrganizationId = organization.Guid;
         }
     }
 }

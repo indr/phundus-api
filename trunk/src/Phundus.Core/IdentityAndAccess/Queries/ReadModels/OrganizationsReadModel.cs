@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Common;
     using Cqrs;
     using Organizations.Model;
     using Organizations.Repositories;
@@ -27,13 +28,12 @@
             return result;
         }
 
-        public OrganizationDetailDto ById(int id)
+        public OrganizationDetailDto GetById(Guid organizationId)
         {
-            var organization = OrganizationRepository.FindById(id);
-            if (organization == null)
-                return null;
-
-            return ToOrganizationDetailDto(organization);
+            var result = FindById(organizationId);
+            if (result == null)
+                throw new NotFoundException(String.Format("Organization with id {0} not found.", organizationId));
+            return result;
         }
 
         public OrganizationDetailDto FindById(Guid id)
@@ -63,9 +63,8 @@
         private static OrganizationDetailDto ToOrganizationDetailDto(Organization organization)
         {
             return new OrganizationDetailDto
-            {
-                Id = organization.Id,
-                Guid = organization.Guid,
+            {                
+                Guid = organization.Id,
                 Version = organization.Version,
                 Name = organization.Name,
                 Url = organization.Url,
@@ -82,9 +81,8 @@
         private static OrganizationDto ToOrganizationDto(Organization organization)
         {
             return new OrganizationDto
-            {
-                Id = organization.Id,
-                Guid = organization.Guid,
+            {                
+                Guid = organization.Id,
                 Version = organization.Version,
                 Name = organization.Name,
                 Url = organization.Url,
@@ -95,6 +93,7 @@
 
     public class OrganizationDto
     {
+        [Obsolete]
         public int Id { get; set; }
         public Guid Guid { get; set; }
         public int Version { get; set; }
@@ -105,6 +104,7 @@
 
     public class OrganizationDetailDto
     {
+        [Obsolete]
         public int Id { get; set; }
         public Guid Guid { get; set; }
         public int Version { get; set; }

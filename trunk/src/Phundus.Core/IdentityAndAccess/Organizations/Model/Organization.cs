@@ -7,32 +7,21 @@
     using Iesi.Collections.Generic;
     using Users.Model;
 
-    public class Organization : EntityBase
+    public class Organization : Aggregate<Guid>
     {
-        private Guid _guid = Guid.NewGuid();
         private DateTime _createDate = DateTime.UtcNow;
+        private Guid _id = Guid.NewGuid();
         private ISet<Membership> _memberships = new HashedSet<Membership>();
         private string _name;
         private string _startpage;
 
-        public Organization(int id)
-            : base(id)
-        {
-        }
-
-        public Organization(string name)
+        public Organization(Guid id, string name) : base(id)
         {
             _name = name;
         }
 
         protected Organization()
         {
-        }
-
-        public virtual Guid Guid
-        {
-            get {return _guid; }
-            protected set { _guid = value; }
         }
 
         public virtual DateTime CreateDate
@@ -97,13 +86,9 @@
 
         public virtual MembershipApplication RequestMembership(Guid requestId, User user)
         {
-            var request = new MembershipApplication(
-                requestId,
-                Id,
-                Guid,
-                user);
+            var request = new MembershipApplication(requestId, Id, user);
 
-            EventPublisher.Publish(new MembershipApplicationFiled(Id, user.Id, Guid));
+            EventPublisher.Publish(new MembershipApplicationFiled(Id, user.Id));
 
             return request;
         }
@@ -114,14 +99,14 @@
             membership.Organization = this;
             Memberships.Add(membership);
 
-            EventPublisher.Publish(new MembershipApplicationApproved(Id, application.UserId, Guid));
+            EventPublisher.Publish(new MembershipApplicationApproved(Id, application.UserId));
         }
 
         public virtual void RejectMembershipRequest(MembershipApplication application)
         {
             application.Reject();
 
-            EventPublisher.Publish(new MembershipApplicationRejected(Id, application.UserId, Guid));
+            EventPublisher.Publish(new MembershipApplicationRejected(Id, application.UserId));
         }
 
         protected virtual Membership GetMembershipOfUser(User user)

@@ -36,7 +36,7 @@
 
         public Organization FindById(Guid id)
         {
-            var query = from o in Entities where o.Guid == id select o;
+            var query = from o in Entities where o.Id == id select o;
             return query.SingleOrDefault();
         }
 

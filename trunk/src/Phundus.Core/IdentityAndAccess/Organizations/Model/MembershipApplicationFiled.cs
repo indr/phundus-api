@@ -11,20 +11,16 @@
         {
         }
 
-        public MembershipApplicationFiled(int organizationId, int userId, Guid organizationGuid)
+        public MembershipApplicationFiled(Guid organizationId, int userId)
         {
             OrganizationId = organizationId;
             UserId = userId;
-            OrganizationGuid = organizationGuid;
         }
 
-        [DataMember(Order = 1)]
-        public int OrganizationId { get; protected set; }
+        [DataMember(Order = 3)]
+        public Guid OrganizationId { get; protected set; }
 
         [DataMember(Order = 2)]
         public int UserId { get; protected set; }
-
-        [DataMember(Order = 3)]
-        public Guid OrganizationGuid { get; protected set; }
     }
 }
