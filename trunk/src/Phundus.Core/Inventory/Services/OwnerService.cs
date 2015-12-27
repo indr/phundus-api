@@ -2,14 +2,13 @@
 {
     using System;
     using Common;
-    using IdentityAndAccess.Queries;
-    using Infrastructure;
+    using IdentityAndAccess.Queries;    
     using Owners;
 
     public interface IOwnerService
     {
         Owner GetByUserId(int userId);
-        Owner GetByOrganizationId(int organizationId);
+        Owner GetByOrganizationId(Guid organizationId);
     }
 
     public class OwnerService : IOwnerService
@@ -35,9 +34,9 @@
             return ToOwner(user);
         }
 
-        public Owner GetByOrganizationId(int organizationId)
+        public Owner GetByOrganizationId(Guid organizationId)
         {
-            var organization = _organizationQueries.ById(organizationId);
+            var organization = _organizationQueries.FindById(organizationId);
             if (organization == null)
                 throw new NotFoundException(String.Format("Organization with id {0} not found.", organizationId));
 

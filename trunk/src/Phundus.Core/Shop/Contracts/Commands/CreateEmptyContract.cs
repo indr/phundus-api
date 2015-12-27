@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Contracts.Commands
 {
+    using System;
     using Cqrs;
     using Ddd;
     using IdentityAndAccess.Queries;
@@ -9,7 +10,7 @@
 
     public class CreateEmptyContract
     {
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
         public int InitiatorId { get; set; }
         public int ContractId { get; set; }
         public int UserId { get; set; }

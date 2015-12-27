@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Rest.Api
 {
+    using System;
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
@@ -29,9 +30,9 @@
         [GET("{organizationId}")]
         [Transaction]
         [AllowAnonymous]
-        public virtual OrganizationDetailDto Get(int organizationId)
+        public virtual OrganizationDetailDto Get(Guid organizationId)
         {
-            var result = OrganizationQueries.ById(organizationId);
+            var result = OrganizationQueries.FindById(organizationId);
             if (result == null)
                 throw new HttpException((int) HttpStatusCode.NotFound, "Organization not found.");
 
@@ -56,7 +57,7 @@
 
         [PUT("{organizationId}")]
         [Transaction]
-        public virtual OrganizationDetailDto Put(int organizationId, [FromBody] OrganizationDetailDto value)
+        public virtual OrganizationDetailDto Put(Guid organizationId, [FromBody] OrganizationDetailDto value)
         {
             Dispatcher.Dispatch(new UpdateOrganizationDetails
             {
@@ -70,14 +71,14 @@
                 Website = value.Website
             });
 
-            return OrganizationQueries.ById(organizationId);
+            return OrganizationQueries.FindById(organizationId);
         }
     }
 
     public class OrganizationsPostOkResponseContent
     {
         [JsonProperty("organizationId")]
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
     }
 
     public class OrganizationsPostRequestContent

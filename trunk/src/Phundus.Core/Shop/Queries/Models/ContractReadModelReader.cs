@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Queries.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Contracts.Model;
@@ -7,7 +8,7 @@
 
     public class ContractReadModelReader : ReadModelReaderBase, IContractQueries
     {
-        public ContractDto FindContract(int contractId, int organizationId, int currentUserId)
+        public ContractDto FindContract(int contractId, Guid organizationId, int currentUserId)
         {
             // TODO: Read-Model-Security
             return (from c in CreateCtx().ContractDtos
@@ -16,7 +17,7 @@
                 .FirstOrDefault();
         }
 
-        public IEnumerable<ContractDto> FindContracts(int organizationId, int currentUserId)
+        public IEnumerable<ContractDto> FindContracts(Guid organizationId, int currentUserId)
         {
             // TODO: Read-Model-Security
             return (from c in CreateCtx().ContractDtos

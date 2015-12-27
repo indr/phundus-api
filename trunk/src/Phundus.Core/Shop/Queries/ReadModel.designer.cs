@@ -123,7 +123,7 @@ namespace Phundus.Core.Shop.Queries
 		
 		private System.Nullable<System.DateTime> _SignedOn;
 		
-		private int _OrganizationId;
+		private System.Guid _OrganizationId;
 		
 		private int _BorrowerId;
 		
@@ -143,7 +143,7 @@ namespace Phundus.Core.Shop.Queries
     partial void OnCreatedOnChanged();
     partial void OnSignedOnChanging(System.Nullable<System.DateTime> value);
     partial void OnSignedOnChanged();
-    partial void OnOrganizationIdChanging(int value);
+    partial void OnOrganizationIdChanging(System.Guid value);
     partial void OnOrganizationIdChanged();
     partial void OnBorrowerIdChanging(int value);
     partial void OnBorrowerIdChanged();
@@ -221,7 +221,7 @@ namespace Phundus.Core.Shop.Queries
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganizationId")]
-		public int OrganizationId
+		public System.Guid OrganizationId
 		{
 			get
 			{

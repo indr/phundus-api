@@ -7,7 +7,7 @@ namespace Phundus.Core.IdentityAndAccess.Organizations.Model
     [DataContract]
     public class OrganizationEstablished : DomainEvent
     {
-        public OrganizationEstablished(int organizationid, OrganizationPlan plan, string name, string url)
+        public OrganizationEstablished(Guid organizationid, OrganizationPlan plan, string name, string url)
         {
             OrganizationId = organizationid;
             Plan = Convert.ToInt32(plan);
@@ -20,7 +20,7 @@ namespace Phundus.Core.IdentityAndAccess.Organizations.Model
         }
 
         [DataMember(Order = 1)]
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
 
         [DataMember(Order = 2)]
         public int Plan { get; set; }

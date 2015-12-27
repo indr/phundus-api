@@ -9,7 +9,7 @@ namespace phiNdus.fundus.Web.ViewModels
     {
         private IList<ImageDto> _files = new List<ImageDto>();
 
-        public ArticleViewModel(int organizationId)
+        public ArticleViewModel(Guid organizationId)
         {
             Load(new ArticleDto {OrganizationId = organizationId});
         }
@@ -23,7 +23,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public int Version { get; set; }
 
-        public int OrganizationId { get; private set; }
+        public Guid OrganizationId { get; private set; }
 
         [DisplayName("Preis (inkl. MWSt)")]
         public double Price { get; set; }

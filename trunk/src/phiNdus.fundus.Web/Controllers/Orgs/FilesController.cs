@@ -3,16 +3,19 @@
     using System;
     using System.Web.Mvc;
     using Castle.Transactions;
+    using Core.IdentityAndAccess.Organizations.Repositories;
     using Core.IdentityAndAccess.Queries;
     using phiNdus.fundus.Web.Helpers.FileUpload;
 
     public class FilesController : ControllerBase
     {
+        public IOrganizationRepository OrganizationRepository { get; set; }
         public IMemberInRole MemberInRole { get; set; }
 
-        private string GetPath(int orgId)
+        private string GetPath(Guid orgId)
         {
-            return String.Format(@"~\Content\Uploads\Organizations\{0}", orgId);
+            var organization = OrganizationRepository.GetById(orgId);
+            return String.Format(@"~\Content\Uploads\Organizations\{0}", organization.Id);
         }
 
         private ImageStore CreateImageStore(string path)
@@ -32,7 +35,7 @@
         // GET: /Files/
         [HttpGet]
         [Transaction]
-        public virtual JsonResult Index(int orgId)
+        public virtual JsonResult Index(Guid orgId)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
@@ -45,7 +48,7 @@
 
         [HttpDelete]
         [Transaction]
-        public virtual JsonResult Delete(int orgId, string id)
+        public virtual JsonResult Delete(Guid orgId, string id)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
@@ -57,7 +60,7 @@
 
         [HttpPost]
         [Transaction]
-        public virtual JsonResult Index(int orgId, string id)
+        public virtual JsonResult Index(Guid orgId, string id)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 

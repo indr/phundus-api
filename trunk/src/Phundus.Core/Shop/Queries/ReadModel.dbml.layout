@@ -46,7 +46,7 @@
         <elementListCompartment Id="e9583d3f-9aca-4b20-ba7b-f6d6a785f63e" absoluteBounds="2.015, 4.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.75 : 4.72675699869792); (4 : 4.72675699869792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.75 : 4.72675699869792); (4 : 4.72675699869792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ReadModelDataContext/OrderDto/OrderDto_MembershipDto" />
       <nodes>
         <classShapeMoniker Id="2d206993-2ea1-4d13-8839-5e730b32c11d" />

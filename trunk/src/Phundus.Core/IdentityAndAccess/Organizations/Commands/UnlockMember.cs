@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
-    using System.Security;
+    using System;
     using Cqrs;
     using Queries;
     using Repositories;
@@ -8,7 +8,7 @@
 
     public class UnlockMember
     {
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
         public int InitiatorId { get; set; }
         public int MemberId { get; set; }
     }

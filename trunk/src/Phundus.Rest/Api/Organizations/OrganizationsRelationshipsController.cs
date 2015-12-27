@@ -13,7 +13,7 @@
         static OrganizationsRelationshipsController()
         {
             Mapper.CreateMap<RelationshipDto, RelationshipDoc>()
-                .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.OrganizationId))
+                .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.OrganizationGuid))
                 .ForMember(d => d.UserId, o => o.MapFrom(s => s.UserId))
                 .ForMember(d => d.Timestamp, o => o.MapFrom(s => s.Timestamp))
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()));
@@ -24,7 +24,7 @@
 
         [GET("")]
         [Transaction]
-        public virtual RelationshipDoc Get(int organizationId)
+        public virtual RelationshipDoc Get(Guid organizationId)
         {
             return Map<RelationshipDoc>(RelationshipQueries.ByMemberIdForOrganizationId(CurrentUserId, organizationId));
         }
@@ -32,7 +32,7 @@
 
     public class RelationshipDoc
     {
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
         public int UserId { get; set; }
         public DateTime Timestamp { get; set; }
         public string Status { get; set; }

@@ -1,5 +1,6 @@
 namespace Phundus.Rest.Api.Organizations
 {
+    using System;
     using System.Net;
     using System.Net.Http;
     using AttributeRouting;
@@ -27,7 +28,7 @@ namespace Phundus.Rest.Api.Organizations
 
         [GET("")]
         [Transaction]
-        public virtual HttpResponseMessage Get(int organizationId)
+        public virtual HttpResponseMessage Get(Guid organizationId)
         {
             _memberInRole.ActiveChief(organizationId, CurrentUserId);
 
@@ -37,7 +38,7 @@ namespace Phundus.Rest.Api.Organizations
 
         [DELETE("{articleId}")]
         [Transaction]
-        public virtual HttpResponseMessage Delete(int organizationId, int articleId)
+        public virtual HttpResponseMessage Delete(Guid organizationId, int articleId)
         {
             _memberInRole.ActiveChief(organizationId, CurrentUserId);
 

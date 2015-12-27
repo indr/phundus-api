@@ -22,7 +22,7 @@ namespace Phundus.Core.Tests.Inventory
         {
             ownerId = Guid.NewGuid();
             owner = new Owner(new OwnerId(ownerId), "Owner");
-            article = new Article(1, owner, "Name");
+            article = new Article(owner, "Name");
             repository.WhenToldTo(x => x.GetById(articleId)).Return(article);
 
             command = new UpdateArticle();

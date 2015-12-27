@@ -5,10 +5,10 @@
 
     public class RelationshipsReadModelReader : ReadModelReaderBase, IRelationshipQueries
     {
-        public RelationshipDto ByMemberIdForOrganizationId(int memberId, int organizationId)
+        public RelationshipDto ByMemberIdForOrganizationId(int memberId, Guid organizationId)
         {
             var result = (from r in Ctx.RelationshipDtos
-                where r.OrganizationId == organizationId && r.UserId == memberId
+                where r.OrganizationGuid == organizationId && r.UserId == memberId
                 select r).FirstOrDefault();
 
             if (result != null)
@@ -16,7 +16,7 @@
 
             return new RelationshipDto
             {
-                OrganizationId = organizationId,
+                OrganizationGuid = organizationId,
                 UserId = memberId,
                 Status = RelationshipStatusDto.None,
                 Timestamp = DateTime.UtcNow

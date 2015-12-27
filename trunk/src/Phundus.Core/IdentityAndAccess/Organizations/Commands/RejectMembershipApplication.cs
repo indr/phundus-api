@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
     using System;
-    using System.Security;
     using Castle.Transactions;
     using Cqrs;
     using Queries;
@@ -28,7 +27,7 @@
 
             var organization = OrganizationRepository.GetById(application.OrganizationId);
 
-            MemberInRole.ActiveChief(application.OrganizationId, command.InitiatorId);
+            MemberInRole.ActiveChief(application.OrganizationGuid, command.InitiatorId);
 
             organization.RejectMembershipRequest(application);
         }

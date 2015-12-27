@@ -100,7 +100,7 @@
         public decimal Price { get; set; }
         public string Description { get; set; }
         public string Specification { get; set; }
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
         public string OrganizationName { get; set; }
 
         public ICollection<ShopArticleImageDto> Images

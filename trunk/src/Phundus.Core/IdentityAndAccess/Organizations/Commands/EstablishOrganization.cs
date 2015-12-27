@@ -13,14 +13,14 @@
     public class EstablishOrganization
     {
         public int InitiatorId { get; set; }
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
         public string Name { get; set; }
     }
 
     public class EstablishOrganizationHandler : IHandleCommand<EstablishOrganization>
     {
         private readonly IOrganizationRepository _organizationRepository;
-        private IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
         public EstablishOrganizationHandler(IOrganizationRepository organizationRepository, IUserRepository userRepository)
         {
@@ -37,7 +37,7 @@
 
             _organizationRepository.Add(organization);
 
-            EventPublisher.Publish(new OrganizationEstablished(organization.Id, organization.Plan, organization.Name, organization.Url));
+            EventPublisher.Publish(new OrganizationEstablished(organization.Guid, organization.Plan, organization.Name, organization.Url));
 
             var requestId = Guid.NewGuid();
             var user = _userRepository.FindById(command.InitiatorId);
@@ -47,7 +47,7 @@
             organization.ApproveMembershipRequest(application, membershipId);
             organization.SetMembersRole(user, Role.Chief);
 
-            command.OrganizationId = organization.Id;
+            command.OrganizationId = organization.Guid;
         }
     }
 }

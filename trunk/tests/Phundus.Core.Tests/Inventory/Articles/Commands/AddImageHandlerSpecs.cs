@@ -25,7 +25,7 @@
         {
             ownerId = Guid.NewGuid();
             owner = new Owner(new OwnerId(ownerId), "Owner");
-            article = new Article(1, owner, "Name");
+            article = new Article(owner, "Name");
             repository.setup(x => x.GetById(articleId)).Return(article);
 
             command = new AddImage

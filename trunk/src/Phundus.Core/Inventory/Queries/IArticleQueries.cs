@@ -11,6 +11,6 @@
     public interface IArticleQueries
     {
         ArticleDto GetArticle(int id);
-        IEnumerable<ArticleDto> GetArticles(int organizationId);
+        IEnumerable<ArticleDto> GetArticles(Guid organizationId);
     }
 }
