@@ -25,7 +25,7 @@ namespace Phundus.Rest.Api.Organizations
 
         [GET("")]
         [Transaction]
-        public virtual HttpResponseMessage Get(int organizationId)
+        public virtual HttpResponseMessage Get(Guid organizationId)
         {
             var result = OrderQueries.ManyByOrganizationId(organizationId, CurrentUserId);
             return Request.CreateResponse(HttpStatusCode.OK, Map<ICollection<OrderDoc>>(result));
@@ -33,7 +33,7 @@ namespace Phundus.Rest.Api.Organizations
 
         [GET("{orderId:int}")]
         [Transaction]
-        public virtual HttpResponseMessage Get(int organizationId, int orderId)
+        public virtual HttpResponseMessage Get(Guid organizationId, int orderId)
         {
             var result = OrderQueries.SingleByOrderIdAndOrganizationId(orderId, organizationId, CurrentUserId);
             if (result == null)
@@ -44,20 +44,18 @@ namespace Phundus.Rest.Api.Organizations
 
         [GET("{orderId:int}.pdf")]
         [Transaction]
-        public virtual HttpResponseMessage GetPdf(int organizationId, int orderId)
+        public virtual HttpResponseMessage GetPdf(Guid organizationId, int orderId)
         {
-            throw new HttpResponseException(HttpStatusCode.ServiceUnavailable);
+            var stream = PdfStore.GetOrderPdf(orderId, organizationId, CurrentUserId);
+            if (stream == null)
+                return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
 
-            //var stream = PdfStore.GetOrderPdf(orderId, organizationId, CurrentUserId);
-            //if (stream == null)
-            //    return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
-
-            //return CreatePdfResponse(stream, string.Format("Bestellung-{0}.pdf", orderId));
+            return CreatePdfResponse(stream, string.Format("Bestellung-{0}.pdf", orderId));
         }
 
         [PATCH("{orderId}")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(int organizationId, int orderId, OrderPatchDoc doc)
+        public virtual HttpResponseMessage Patch(Guid organizationId, int orderId, OrderPatchDoc doc)
         {
             if (doc.Status == "Rejected")
                 Dispatch(new RejectOrder {InitiatorId = CurrentUserId, OrderId = orderId});
@@ -74,32 +72,30 @@ namespace Phundus.Rest.Api.Organizations
 
         [POST("")]
         [Transaction]
-        public virtual HttpResponseMessage Post(int organizationId, OrdersPostDoc doc)
+        public virtual HttpResponseMessage Post(Guid organizationId, OrdersPostDoc doc)
         {
-            throw new HttpResponseException(HttpStatusCode.ServiceUnavailable);
+            int userId;
+            if (!Int32.TryParse(doc.UserName, out userId))
+            {
+                var user = UserQueries.ByUserName(doc.UserName);
+                if (user == null)
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound,
+                        string.Format("Der Benutzer mit der E-Mail-Adresse \"{0}\" konnte nicht gefunden werden.",
+                            doc.UserName));
 
-            //int userId;
-            //if (!Int32.TryParse(doc.UserName, out userId))
-            //{
-            //    var user = UserQueries.ByUserName(doc.UserName);
-            //    if (user == null)
-            //        return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-            //            string.Format("Der Benutzer mit der E-Mail-Adresse \"{0}\" konnte nicht gefunden werden.",
-            //                doc.UserName));
+                userId = user.Id;
+            }
 
-            //    userId = user.Id;
-            //}
+            var command = new CreateEmptyOrder
+            {
+                InitiatorId = CurrentUserId,
+                OrganizationId = organizationId,
+                UserId = userId
+            };
 
-            //var command = new CreateEmptyOrder
-            //{
-            //    InitiatorId = CurrentUserId,
-            //    OrganizationId = organizationId,
-            //    UserId = userId
-            //};
+            Dispatcher.Dispatch(command);
 
-            //Dispatcher.Dispatch(command);
-
-            //return Get(organizationId, command.OrderId);
+            return Get(organizationId, command.OrderId);
         }
     }
 }

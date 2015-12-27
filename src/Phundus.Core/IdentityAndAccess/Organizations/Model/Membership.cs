@@ -12,12 +12,13 @@
         private DateTime _approvalDate;
         private Organization _organization;
         private bool _isLocked;
+        private Guid _organizationGuid;
 
         protected Membership()
         {
         }
 
-        public Membership(Guid id, int userId, Guid requestId, DateTime approvalDate)
+        public Membership(Guid id, int userId, Guid requestId, DateTime approvalDate, Guid organizationGuid)
         {
             _id = id;
             _userId = userId;
@@ -25,12 +26,19 @@
             _role = Role.Member;
             _approvalDate = approvalDate;
             _isLocked = false;
+            _organizationGuid = organizationGuid;
         }
 
         public virtual Guid Id
         {
             get { return _id; }
             protected set { _id = value; }
+        }
+
+        public virtual Guid OrganizationGuid
+        {
+            get { return _organizationGuid; }
+            protected set { _organizationGuid = value; }
         }
 
         public virtual int Version

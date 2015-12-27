@@ -4,7 +4,8 @@
       <Column Name="UserId" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="OrganizationId" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Timestamp" Type="System.DateTime" CanBeNull="false" />
-      <Column Member="Status" Type="RelationshipStatusDto" CanBeNull="false" />
+      <Column Name="Status" Type="RelationshipStatusDto" CanBeNull="false" />
+      <Column Name="OrganizationGuid" Type="System.Guid" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

@@ -19,15 +19,11 @@ namespace Phundus.Core.Tests.Shop.Orders.Commands
 
         protected static IBorrowerService borrowerService;
 
-        [Obsolete]
-        protected static Organization organization;
-
         protected static Lessor lessor;
 
         protected Establish dependencies = () =>
         {
-            lessor = new Lessor(Guid.NewGuid(), "Lessor");
-            organization = OrganizationFactory.Create();
+            lessor = new Lessor(Guid.NewGuid(), "Lessor");            
             memberInRole = depends.on<IMemberInRole>();
             orders = depends.on<IOrderRepository>();
             articles = depends.on<IArticleService>();

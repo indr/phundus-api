@@ -17,7 +17,7 @@ namespace Phundus.Rest.Api.Organizations
 
         [POST("")]
         [Transaction]
-        public virtual HttpResponseMessage Post(int organizationId, int orderId, OrderItemPostDoc doc)
+        public virtual HttpResponseMessage Post(Guid organizationId, int orderId, OrderItemPostDoc doc)
         {
             var command = new AddOrderItem
             {
@@ -34,7 +34,7 @@ namespace Phundus.Rest.Api.Organizations
             return Get(organizationId, orderId, command.OrderItemId, HttpStatusCode.Created);
         }
 
-        private HttpResponseMessage Get(int organizationId, int orderId, Guid orderItemId, HttpStatusCode statusCode)
+        private HttpResponseMessage Get(Guid organizationId, int orderId, Guid orderItemId, HttpStatusCode statusCode)
         {
             var order = OrderQueries.SingleByOrderIdAndOrganizationId(orderId, organizationId, CurrentUserId);
             var item = order.Items.FirstOrDefault(p => p.Id == orderItemId);
@@ -47,7 +47,7 @@ namespace Phundus.Rest.Api.Organizations
 
         [PATCH("")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(int organizationId, int orderId, Guid orderItemId,
+        public virtual HttpResponseMessage Patch(Guid organizationId, int orderId, Guid orderItemId,
             OrderItemPatchDoc doc)
         {
             Dispatcher.Dispatch(new UpdateOrderItem
@@ -66,7 +66,7 @@ namespace Phundus.Rest.Api.Organizations
 
         [DELETE("")]
         [Transaction]
-        public virtual HttpResponseMessage Delete(int organizationId, int orderId, Guid orderItemId)
+        public virtual HttpResponseMessage Delete(Guid organizationId, int orderId, Guid orderItemId)
         {
             Dispatcher.Dispatch(new RemoveOrderItem
             {

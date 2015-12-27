@@ -20,7 +20,7 @@
 
         public Establish c = () =>
         {
-            var article = new Article(1, organization.Id, new Owner(new Guid(), "Owner"), "Artikel", 1.0m);
+            var article = new Article(1, new Owner(new Guid(), "Owner"), "Artikel", 1.0m);
             order = new Order(lessor, BorrowerFactory.Create());
             orderItemId = order.AddItem(article, DateTime.Today, DateTime.Today, 1).Id;
             orders.setup(x => x.GetById(orderId)).Return(order);
@@ -34,7 +34,7 @@
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organization.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(lessor.LessorId, initiatorId));
 
         public It should_publish_order_item_removed =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemRemoved>.Is.NotNull));

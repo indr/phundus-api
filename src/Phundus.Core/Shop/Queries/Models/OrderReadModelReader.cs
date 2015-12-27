@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Queries.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.Data.Linq;
     using System.Linq;
@@ -32,16 +33,16 @@
             return result;
         }
 
-        public OrderDto SingleByOrderIdAndOrganizationId(int orderId, int organizationId, int currentUserId)
+        public OrderDto SingleByOrderIdAndOrganizationId(int orderId, Guid organizationId, int currentUserId)
         {
             var ctx = CreateCtx();
             ctx.LoadOptions = OrderDetailsDataLoadOptions;
 
             var query = from o in ctx.OrderDtos
                 join m in ctx.MembershipDtos on
-                    new {o.OrganizationId, Role = MembershipRoleDto.Chief, UserId = currentUserId}
-                    equals new {m.OrganizationId, m.Role, m.UserId}
-                where (o.Id == orderId && o.OrganizationId == organizationId)
+                    new { Role = MembershipRoleDto.Chief, UserId = currentUserId}
+                    equals new {m.Role, m.UserId}
+                where (o.Id == orderId && o.Lessor_LessorId == organizationId && m.OrganizationGuid == organizationId)
                 select o;
 
             var result = query.Distinct().SingleOrDefault();
@@ -75,14 +76,14 @@
             return query;
         }
 
-        public IEnumerable<OrderDto> ManyByOrganizationId(int organizationId, int currentUserId)
+        public IEnumerable<OrderDto> ManyByOrganizationId(Guid organizationId, int currentUserId)
         {
             var ctx = CreateCtx();
             return from o in ctx.OrderDtos
                         join m in ctx.MembershipDtos on
-                            new { o.OrganizationId, Role = MembershipRoleDto.Chief, UserId = currentUserId }
-                            equals new { m.OrganizationId, m.Role, m.UserId }
-                        where (o.OrganizationId == organizationId)
+                            new { Role = MembershipRoleDto.Chief, UserId = currentUserId }
+                            equals new { m.Role, m.UserId }
+                        where (o.Lessor_LessorId == organizationId && m.OrganizationGuid == organizationId)
                         select o;
         }
     }

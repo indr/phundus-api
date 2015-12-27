@@ -22,7 +22,7 @@
             lessor = new Lessor(owner.OwnerId, "Lessor");
             order = new Order(lessor, BorrowerFactory.Create());
             orders.setup(x => x.GetById(orderId)).Return(order);
-            var article = new Article(articleId, organization.Id, owner, "Artikel", 1.0m);
+            var article = new Article(articleId, owner, "Artikel", 1.0m);
             articles.setup(x => x.GetById(articleId)).Return(article);
             command = new AddOrderItem
             {
