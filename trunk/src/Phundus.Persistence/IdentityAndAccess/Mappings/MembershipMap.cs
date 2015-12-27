@@ -16,8 +16,8 @@
 
             Map(x => x.UserId);
 
-            References(x => x.Organization, "OrganizationId").Cascade.None();
-            Map(x => x.OrganizationGuid);
+            References(x => x.Organization, "OrganizationGuid").Cascade.None();
+            //Map(x => x.OrganizationGuid, "OrganizationGuid");
 
             Map(x => x.Role).CustomType<Role>();
             Map(x => x.ApprovalDate, "ApprovalDate");
