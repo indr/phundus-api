@@ -17,14 +17,6 @@
             return query.ToList();
         }
 
-        public Organization GetById(int id)
-        {
-            var result = FindById(id);
-            if (result == null)
-                throw new NotFoundException(String.Format("Organization with id {0} not found.", id));
-            return result;
-        }
-
         public Organization GetById(Guid id)
         {
             var result = FindById(id);

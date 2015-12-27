@@ -11,7 +11,6 @@
         private string _caption;
         private DateTime _createDate = DateTime.Now;
         private ISet<Image> _images = new HashedSet<Image>();
-        private int _organizationId;
         private Owner _owner;
 
         protected Article()
@@ -26,30 +25,9 @@
             _caption = name;
         }
 
-        [Obsolete]
-        public Article(int organizationId, string name)
-        {
-            _organizationId = organizationId;
-            _caption = name;
-        }
-        
-        [Obsolete]
-        public Article(int organizationId, Owner owner, string name)
-        {
-            _organizationId = organizationId;
-            _owner = owner;
-            _caption = name;
-        }
-
         public virtual int Id { get; protected set; }
 
         public virtual int Version { get; protected set; }
-
-        public virtual int OrganizationId
-        {
-            get { return _organizationId; }
-            protected set { _organizationId = value; }
-        }
 
         public virtual Owner Owner
         {

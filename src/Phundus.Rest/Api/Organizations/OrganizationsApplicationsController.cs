@@ -22,7 +22,7 @@
 
         [POST("")]
         [Transaction]
-        public virtual void Post(int organizationId)
+        public virtual void Post(Guid organizationId)
         {
             Dispatch(new ApplyForMembership {ApplicantId = CurrentUserId, OrganizationId = organizationId});
         }

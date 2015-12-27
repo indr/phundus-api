@@ -73,7 +73,6 @@
                     {
                         each.Id,
                         each.Version,
-                        each.OrganizationId,
                         each.Owner_OwnerId,
                         each.Owner_Name,
                         CreateDate = DateTime.Now,
@@ -82,7 +81,6 @@
                         Price = each.Preis,
                         Description = each.Beschreibung,
                         Stock = each.Bestand
-
                     });
 
                 }
@@ -136,9 +134,6 @@
             {
                 get { return 1; }
             }
-
-            [CsvField(Name = "OrganizationId")]
-            public int OrganizationId { get; set; }
 
             [CsvField(Name = "Owner_OwnerId")]
             public Guid Owner_OwnerId { get; set; }
@@ -200,9 +195,6 @@
             [CsvField(Name = "UserId")]
             public int UserId { get; set; }
 
-            [CsvField(Name = "OrganizationId")]
-            public int OrganizationId { get; set; }
-
             [CsvField(Name = "OrganizationGuid")]
             public Guid OrganizationGuid { get; set; }
 
@@ -222,9 +214,6 @@
 
             [CsvField(Name = "UserId")]
             public int UserId { get; set; }
-
-            [CsvField(Name = "OrganizationId")]
-            public int OrganizationId { get; set; }
 
             [CsvField(Name = "OrganizationGuid")]
             public Guid OrganizationGuid { get; set; }

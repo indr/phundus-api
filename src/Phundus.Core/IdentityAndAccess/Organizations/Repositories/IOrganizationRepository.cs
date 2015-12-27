@@ -14,14 +14,6 @@
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        Organization GetById(int id);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// <exception cref="NotFoundException"></exception>
         Organization GetById(Guid id);
 
         Organization FindById(Guid id);
