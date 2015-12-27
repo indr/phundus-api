@@ -2,8 +2,7 @@
 {
     using Common;
     using Contracts.Model;
-    using IdentityAndAccess.Queries;
-    using Infrastructure;
+    using IdentityAndAccess.Queries;    
 
     public interface IBorrowerService
     {
