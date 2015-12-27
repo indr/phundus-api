@@ -74,6 +74,8 @@
                         each.Id,
                         each.Version,
                         each.OrganizationId,
+                        each.Owner_OwnerId,
+                        each.Owner_Name,
                         CreateDate = DateTime.Now,
                         Name = each.Name,
                         Brand = each.Marke,
@@ -137,6 +139,12 @@
 
             [CsvField(Name = "OrganizationId")]
             public int OrganizationId { get; set; }
+
+            [CsvField(Name = "Owner_OwnerId")]
+            public Guid Owner_OwnerId { get; set; }
+
+            [CsvField(Name = "Owner_Name")]
+            public string Owner_Name { get; set; }
 
             [CsvField(Name = "Name")]
             public string Name { get; set; }
@@ -239,11 +247,14 @@
             [CsvField(Name = "Id")]
             public int Id { get; set; }
 
+            [CsvField(Name = "Guid")]
+            public Guid Guid { get; set; }
+
             public int Version
             {
                 get { return 1; }
             }
-
+            
             [CsvField(Name = "Name")]
             public string Name { get; set; }
 

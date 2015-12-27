@@ -23,7 +23,7 @@
         private Establish c = () =>
         {
             owner = new Owner(new OwnerId(ownerId), "Owner");
-            article = new Article(owner, "Name");
+            article = new Article(1, owner, "Name");
             article.AddImage(imageFileName, "image/jpeg", 1024);
             repository.setup(x => x.GetById(articleId)).Return(article);
 

@@ -13,7 +13,7 @@
         private static OrderItem CreateSut()
         {
             return new OrderItem( new Order(new Organization(1001, "Organisation"), new Borrower(1, "", "", "", "", "","","","")),
-                new Article(new Owner(new OwnerId(new Guid()), "Owner"), "Dummy"), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
+                new Article(1, new Owner(new OwnerId(new Guid()), "Owner"), "Dummy"), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
         }
 
         [Test]
