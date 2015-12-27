@@ -115,7 +115,6 @@
     <Compile Include="IdentityAndAccess\Organizations\Commands\EstablishOrganization.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\UpdateOrganizationDetails.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\AttemptToLockOneselfException.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Exceptions\MemberNotFoundException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\OrganizationEstablished.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\OrganizationUpdated.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Model\OrganizationPlan.cs" />
@@ -204,7 +203,6 @@
     <Compile Include="Shop\Contracts\Model\Borrower.cs" />
     <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
     <Compile Include="Shop\Contracts\Repositories\IContractRepository.cs" />
-    <Compile Include="Shop\Contracts\Services\BorrowerService.cs" />
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
     <Compile Include="Shop\Orders\Commands\AddOrderItem.cs" />
     <Compile Include="Shop\Orders\Commands\CloseOrder.cs" />
@@ -220,6 +218,7 @@
     <Compile Include="Shop\Orders\Mails\OrderStatusChangedMailNotifier.cs" />
     <Compile Include="Shop\Orders\Model\Article.cs" />
     <Compile Include="Shop\Orders\Model\CartItem.cs" />
+    <Compile Include="Shop\Orders\Model\Lessor.cs" />
     <Compile Include="Shop\Orders\Model\OrderEvents.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemAdded.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemAmountChanged.cs" />
@@ -255,6 +254,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReadModel.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Shop\Services\BorrowerService.cs" />
+    <Compile Include="Shop\Services\LessorService.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
     <Compile Include="Cqrs\CommandDispatcher.cs" />
@@ -358,6 +359,7 @@
     <Folder Include="Inventory\Services\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
     <Folder Include="Shop\Contracts\Exceptions\" />
+    <Folder Include="Shop\Contracts\Services\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IdentityAndAccess\Organizations\Mails\Templates.resx">

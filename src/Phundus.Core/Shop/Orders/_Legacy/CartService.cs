@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Commands;
-    using Contracts.Services;
     using Cqrs;
     using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Organizations.Repositories;
@@ -15,6 +14,7 @@
     using Queries;
     using Repositories;
     using Services;
+    using Shop.Services;
 
     public class CartService : ICartService
     {
@@ -27,6 +27,8 @@
         public IMemberQueries MemberQueries { get; set; }
 
         public ICommandDispatcher Dispatcher { get; set; }
+
+        public ILessorService LessorService { get; set; }
 
         public IBorrowerService BorrowerService { get; set; }
 
@@ -97,13 +99,12 @@
 
             var item = cart.Items.SingleOrDefault(p => p.Id == itemId);
             if (item == null)
-                throw new EntityNotFoundException();
+                throw new NotFoundException();
             if (item.Version != version)
                 throw new DtoOutOfDateException();
 
             cart.RemoveItem(item);
             Carts.Update(cart);
-
 
             cart.CalculateAvailability(AvailabilityService);
             var assembler = new CartAssembler();
@@ -117,7 +118,7 @@
             if (!cart.AreItemsAvailable)
                 return null;
 
-            var orders = cart.PlaceOrders(BorrowerService, AvailabilityService);
+            var orders = cart.PlaceOrders(LessorService, BorrowerService, AvailabilityService);
 
 
             foreach (var order in orders)

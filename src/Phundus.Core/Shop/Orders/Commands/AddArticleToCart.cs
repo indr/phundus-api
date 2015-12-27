@@ -39,7 +39,7 @@
 
             var article = ArticleService.GetById(command.ArticleId);
             
-            if (!MemberInRole.IsActiveMember(article.OrganizationId, command.InitiatorId))
+            if (!MemberInRole.IsActiveMember(article.Owner.OwnerId, command.InitiatorId))
                 throw new SecurityException();
 
             cart.AddItem(article, command.Quantity,

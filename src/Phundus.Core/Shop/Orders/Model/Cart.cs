@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Contracts.Services;
     using Ddd;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
@@ -13,6 +12,7 @@
     using NHibernate;
     using Repositories;
     using Services;
+    using Shop.Services;
 
     public class Cart : EntityBase
     {
@@ -82,31 +82,33 @@
             }
         }
 
-        public virtual ICollection<Order> PlaceOrders(IBorrowerService borrowerService, IAvailabilityService availabilityService)
+        public virtual ICollection<Order> PlaceOrders(ILessorService lessorService, IBorrowerService borrowerService, IAvailabilityService availabilityService)
         {
             var result = new List<Order>();
-            var orders = ServiceLocator.Current.GetInstance<IOrderRepository>();
-            var organizationRepository = ServiceLocator.Current.GetInstance<IOrganizationService>();
+            var orderRepository = ServiceLocator.Current.GetInstance<IOrderRepository>();
 
+            var lessors = FindLessors(lessorService);
+            var borrower = borrowerService.ById(Customer.Id);
 
-            var organizationIds = (from i in Items select i.Article.OrganizationId).Distinct();
-            var organizations = new List<Organization>();
-            foreach (var each in organizationIds)
-                organizations.Add(organizationRepository.ById(each));
-
-            foreach (var organization in organizations)
+            foreach (var lessor in lessors)
             {
-                var order = new Order(organization, borrowerService.ById(Customer.Id));
-                var items = from i in Items where i.Article.OrganizationId == organization.Id select i;
+                var order = new Order(lessor, borrower);
+                var items = from i in Items where i.Article.Owner.OwnerId == lessor.LessorId select i;
                 foreach (var item in items)
                     order.AddItem(item.Article.ArticleId, item.Quantity, item.From.ToUniversalTime(),
                         item.To.Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), availabilityService);
 
-                orders.Add(order);
+                orderRepository.Add(order);
                 result.Add(order);
             }
             ServiceLocator.Current.GetInstance<ICartRepository>().Remove(this);
             return result;
+        }
+
+        private IEnumerable<Lessor> FindLessors(ILessorService lessorService)
+        {
+            var lessorIds = (from cartItems in Items select cartItems.Article.Owner.OwnerId).Distinct();
+            return lessorIds.Select(lessorService.GetById).ToList();
         }
 
         public virtual void Clear()

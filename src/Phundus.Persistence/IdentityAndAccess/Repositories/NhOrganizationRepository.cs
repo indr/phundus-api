@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Persistence.IdentityAndAccess.Repositories
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Castle.Transactions;
@@ -24,6 +25,12 @@
             if (result == null)
                 throw new OrganizationNotFoundException(id);
             return result;
+        }
+
+        public Organization FindByGuid(Guid id)
+        {
+            var query = from o in Entities where o.Guid == id select o;
+            return query.SingleOrDefault();
         }
 
         public Organization FindByName(string name)

@@ -5,13 +5,13 @@
     using Contracts.Model;
     using Ddd;
     using Iesi.Collections.Generic;
-    using Inventory.Articles.Model;
     using Inventory.Articles.Repositories;
     using Inventory.Services;
     using Microsoft.Practices.ServiceLocation;
 
     public class Order
     {
+        private Lessor _lessor;
         private Borrower _borrower;
         private DateTime _createdUtc = DateTime.UtcNow;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
@@ -25,9 +25,16 @@
         {
         }
 
+        [Obsolete]
         public Order(Organization organization, Borrower borrower)
         {
             _organization = organization;
+            _borrower = borrower;
+        }
+
+        public Order(Lessor lessor, Borrower borrower)
+        {
+            _lessor = lessor;
             _borrower = borrower;
         }
 
@@ -35,10 +42,17 @@
 
         public virtual int Version { get; protected set; }
 
+        [Obsolete]
         public virtual Organization Organization
         {
             get { return _organization; }
             protected set { _organization = value; }
+        }
+
+        public virtual Lessor Lessor
+        {
+            get { return _lessor; }
+            protected set { _lessor = value; }
         }
 
         public virtual DateTime CreatedUtc

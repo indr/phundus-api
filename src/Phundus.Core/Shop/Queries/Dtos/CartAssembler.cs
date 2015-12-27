@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Queries
 {
-    using System.Linq;
-    using IdentityAndAccess.Organizations.Repositories;
+    using System.Linq;    
     using Infrastructure;
     using Microsoft.Practices.ServiceLocation;
     using Orders.Model;
@@ -25,8 +24,6 @@
 
         private static CartItemDto CreateItemDto(CartItem each)
         {
-            var organizationRepository = ServiceLocator.Current.GetInstance<IOrganizationRepository>();
-
             var result = new CartItemDto();
             result.Id = each.Id;
             result.Version = each.Version;
@@ -38,7 +35,7 @@
             result.UnitPrice = each.UnitPrice;
             result.LineTotal = each.LineTotal;
             result.IsAvailable = each.IsAvailable;
-            result.OrganizationName =  organizationRepository.GetById(each.Article.OrganizationId).Name;
+            result.OrganizationName = each.Article.Owner.Name;
 
             return result;
         }
@@ -49,13 +46,13 @@
             var cart = carts.FindById(cartDto.Id);
 
             if (cart == null)
-                throw new EntityNotFoundException();
+                throw new NotFoundException();
 
             foreach (var itemDto in cartDto.Items)
             {
                 var item = cart.Items.SingleOrDefault(p => p.Id == itemDto.Id);
                 if (item == null)
-                    throw new EntityNotFoundException();
+                    throw new NotFoundException();
 
                 item.Quantity = itemDto.Quantity;
                 item.From = itemDto.From;
