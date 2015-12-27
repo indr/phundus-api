@@ -9,26 +9,13 @@
 
     public class Order
     {
-        private Lessor _lessor;
         private Borrower _borrower;
         private DateTime _createdUtc = DateTime.UtcNow;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
+        private Lessor _lessor;
         private int? _modifiedBy;
         private DateTime? _modifiedUtc;
-        private Organization _organization;
         private OrderStatus _status = OrderStatus.Pending;
-
-
-        protected Order()
-        {
-        }
-
-        [Obsolete]
-        public Order(Organization organization, Borrower borrower)
-        {
-            _organization = organization;
-            _borrower = borrower;
-        }
 
         public Order(Lessor lessor, Borrower borrower)
         {
@@ -36,16 +23,13 @@
             _borrower = borrower;
         }
 
+        protected Order()
+        {
+        }
+
         public virtual int Id { get; protected set; }
 
         public virtual int Version { get; protected set; }
-
-        [Obsolete]
-        public virtual Organization Organization
-        {
-            get { return _organization; }
-            protected set { _organization = value; }
-        }
 
         public virtual Lessor Lessor
         {
@@ -184,7 +168,9 @@
         {
             EnsurePending();
 
-            if (!availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount, Guid.Empty))
+            if (
+                !availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount,
+                    Guid.Empty))
                 throw new ArticleNotAvailableException(item);
 
             return _items.Add(item);

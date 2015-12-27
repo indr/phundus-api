@@ -129,7 +129,6 @@
     <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipStatusDto.cs" />
     <Compile Include="IdentityAndAccess\Users\Commands\RegisterUser.cs" />
     <Compile Include="IdentityAndAccess\Users\Exceptions\UserNotFoundException.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Exceptions\OrganizationNotFoundException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\MembershipApplicationNotFoundException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\ChangeMembersRole.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\LockMember.cs" />
@@ -230,15 +229,13 @@
     <Compile Include="Shop\Orders\Services\OrderPdfGeneratorService.cs" />
     <Compile Include="Shop\Orders\_Legacy\CartService.cs" />
     <Compile Include="Shop\Orders\_Legacy\ICartService.cs" />
-    <Compile Include="Shop\Orders\IPdfStore.cs" />
     <Compile Include="Shop\Orders\PdfStore.cs" />
     <Compile Include="Shop\Pricing\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
     <Compile Include="Shop\Queries\Dtos\CartAssembler.cs" />
     <Compile Include="Shop\Queries\Dtos\CartDto.cs" />
-    <Compile Include="Shop\Queries\Dtos\LegacyOrderDto.cs" />
+    <Compile Include="Shop\Queries\Dtos\MembershipRoleDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderDto.cs" />
-    <Compile Include="Shop\Queries\Dtos\OrderDtoAssembler.cs" />
-    <Compile Include="Shop\Queries\Dtos\LegacyOrderItemDto.cs" />
+    <Compile Include="Shop\Queries\Dtos\OrderStatusDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderItemDto.cs" />
     <Compile Include="Shop\Queries\IContractQueries.cs" />
     <Compile Include="Shop\Queries\IOrderQueries.cs" />

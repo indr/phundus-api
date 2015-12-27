@@ -17,17 +17,16 @@
     [Subject(typeof (Order))]
     public class when_an_order_is_created : order_concern
     {
-        private const int organizationId = 1;
-        private static Organization organization;
+        private static Lessor lessor;
         private static Borrower borrower;
 
         public Establish ctx = () =>
         {
-            organization = OrganizationFactory.Create();
+            lessor = new Lessor(Guid.NewGuid(), "Lessor");
             borrower = BorrowerFactory.Create();
         };
 
-        public Because of = () => { order = new Order(organization, borrower); };
+        public Because of = () => { order = new Order(lessor, borrower); };
 
         public It should_have_status_pending =
             () => order.Status.ShouldEqual(OrderStatus.Pending);
@@ -39,7 +38,7 @@
             () => order.CreatedUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         public It should_have_the_organization =
-            () => order.Organization.ShouldEqual(organization);
+            () => order.Lessor.ShouldEqual(lessor);
 
         public It should_not_have_a_modified_date =
             () => order.ModifiedUtc.ShouldBeNull();
@@ -237,7 +236,8 @@
     {
         public static Order CreatePending()
         {
-            return new Order(OrganizationFactory.Create(), BorrowerFactory.Create());
+            var lessor = new Lessor(Guid.NewGuid(), "OrderFactory");
+            return new Order(lessor, BorrowerFactory.Create());
         }
 
         public static Order CreateClosed()

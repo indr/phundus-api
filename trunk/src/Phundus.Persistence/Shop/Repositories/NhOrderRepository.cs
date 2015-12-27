@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Persistence.Shop.Repositories
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Core.Shop.Orders;
@@ -31,17 +32,17 @@
             return query.ToList();
         }
 
-        public IEnumerable<Order> FindByOrganizationId(int organizationId)
+        public IEnumerable<Order> FindByOrganizationId(Guid organizationId)
         {
             return (from o in Entities
-                where o.Organization.Id == organizationId
+                where o.Lessor.LessorId == organizationId
                 select o).ToFuture();
         }
 
-        public IEnumerable<Order> FindByOrganizationId(int organizationId, OrderStatus status)
+        public IEnumerable<Order> FindByOrganizationId(Guid organizationId, OrderStatus status)
         {
             return (from o in Entities
-                where o.Status == status && o.Organization.Id == organizationId
+                where o.Status == status && o.Lessor.LessorId == organizationId
                 select o).ToFuture();
         }
 

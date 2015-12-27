@@ -38,7 +38,7 @@
 
         public OrganizationDetailDto FindById(Guid id)
         {
-            var organization = OrganizationRepository.FindByGuid(id);
+            var organization = OrganizationRepository.FindById(id);
             if (organization == null)
                 return null;
 

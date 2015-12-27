@@ -135,6 +135,7 @@
     <Compile Include="2015\12\M201512270006AlterTableCartItem.cs" />
     <Compile Include="2015\12\M201512270717AddGuidsToUserAndOrganization.cs" />
     <Compile Include="2015\12\M201512270846AddOwnerToArticle.cs" />
+    <Compile Include="2015\12\M201512271236AlterTableOrderToLessor.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />

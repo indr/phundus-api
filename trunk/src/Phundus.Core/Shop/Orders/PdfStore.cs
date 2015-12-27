@@ -1,10 +1,17 @@
 ﻿namespace Phundus.Core.Shop.Orders
 {
+    using System;
     using System.IO;
     using IdentityAndAccess.Queries;
     using Model;
     using Repositories;
     using Services;
+
+    public interface IPdfStore
+    {
+        Stream GetOrderPdf(int orderId, int currentUserId);
+        Stream GetOrderPdf(int orderId, Guid organizationId, int currentUserId);
+    }
 
     public class PdfStore : IPdfStore
     {
@@ -23,12 +30,12 @@
             return GetPdf(order);
         }
 
-        public Stream GetOrderPdf(int orderId, int organizationId, int currentUserId)
+        public Stream GetOrderPdf(int orderId, Guid organizationId, int currentUserId)
         {
             MemberInRole.ActiveChief(organizationId, currentUserId);
 
             var order = OrderRepository.GetById(orderId);
-            if (order.Organization.Id != organizationId)
+            if (order.Lessor.LessorId != organizationId)
                 return null;
 
             return GetPdf(order);

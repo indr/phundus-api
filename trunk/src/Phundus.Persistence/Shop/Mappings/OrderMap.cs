@@ -19,10 +19,10 @@ namespace Phundus.Persistence.Shop.Mappings
             Map(x => x.ModifiedUtc, "ModifiedUtc").CustomType<UtcDateTimeType>();
             Map(x => x.ModifiedBy, "ModifierId");
 
-            Component(x => x.Organization, c =>
+            Component(x => x.Lessor, c =>
             {
-                c.Map(x => x.Id, "OrganizationId");
-                c.Map(x => x.Name, "Organization_Name");
+                c.Map(x => x.LessorId, "Lessor_LessorId");
+                c.Map(x => x.Name, "Lessor_Name");
             });
             
             Component(x => x.Borrower, c =>

@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Orders.Repositories
 {
+    using System;
     using System.Collections.Generic;
     using Infrastructure;
     using Model;
@@ -10,8 +11,8 @@
 
         ICollection<Order> FindByUserId(int userId);
         
-        IEnumerable<Order> FindByOrganizationId(int organizationId);
-        IEnumerable<Order> FindByOrganizationId(int organizationId, OrderStatus status);
+        IEnumerable<Order> FindByOrganizationId(Guid organizationId);
+        IEnumerable<Order> FindByOrganizationId(Guid organizationId, OrderStatus status);
 
         int SumReservedAmount(int articleId);
 
