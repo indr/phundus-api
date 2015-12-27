@@ -27,7 +27,7 @@
             Delete.FromTable("User").InSchema(SchemaName).AllRows();
             Delete.FromTable("Organization").InSchema(SchemaName).AllRows();
 
-            Import<Organization>("Organizations.csv", "Organization");
+            Import<Organization>("Organizations.csv", "Organization", false);
             Import<User>("Users.csv", "User");
             Import<Account>("Users.csv", "Membership", false);
             Import<Membership>("Memberships.csv", "OrganizationMembership", false);
@@ -239,9 +239,6 @@
 
         internal class Organization
         {
-            [CsvField(Name = "Id")]
-            public int Id { get; set; }
-
             [CsvField(Name = "Guid")]
             public Guid Guid { get; set; }
 

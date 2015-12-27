@@ -25,9 +25,7 @@
             routes.MapRoute(
                 "Orgs",
                 "orgs/{orgId}/{controller}/{action}/{id}",
-                defaults: new {action = "Index", id = UrlParameter.Optional},
-                constraints: new {orgId = @"^[\d]+$"}
-                );
+                defaults: new {action = "Index", id = UrlParameter.Optional});
 
             routes.MapRoute(
                 "Management",
