@@ -11,6 +11,7 @@
         private DateTime _createDate = DateTime.Now;
         private ISet<Image> _images = new HashedSet<Image>();
         private int _organizationId;
+        private Owner _owner;
 
         protected Article()
         {
@@ -23,9 +24,11 @@
             _caption = name;
         }
 
-        public Article(Owner owner, string name)
+        public Article(int organizationId, Owner owner, string name)
         {
-            
+            _organizationId = organizationId;
+            _owner = owner;
+            _caption = name;
         }
 
         public virtual int Id { get; protected set; }
@@ -36,6 +39,12 @@
         {
             get { return _organizationId; }
             protected set { _organizationId = value; }
+        }
+
+        public virtual Owner Owner
+        {
+            get { return _owner; }
+            protected set { _owner = value; }
         }
 
         public virtual ISet<Image> Images

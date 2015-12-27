@@ -15,6 +15,12 @@
             Map(x => x.OrganizationId).Not.Update();
             Map(x => x.CreateDate, "CreateDate").Not.Update();
 
+            Component(x => x.Owner, c =>
+            {
+                c.Component(x => x.OwnerId, d => d.Map(x => x.Value, "Owner_OwnerId"));
+                c.Map(x => x.Name, "Owner_Name");
+            });
+
             Map(x => x.Caption, "Name");
             Map(x => x.Brand);
             Map(x => x.Price, "Price");

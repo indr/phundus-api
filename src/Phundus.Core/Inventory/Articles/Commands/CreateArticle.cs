@@ -45,7 +45,7 @@
             _memberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
             var owner = _ownerService.GetByOrganizationId(command.OrganizationId);
 
-            var result = new Article(owner, command.Name);
+            var result = new Article(command.OrganizationId, owner, command.Name);
 
             result.Brand = command.Brand;
             result.Price = command.Price;

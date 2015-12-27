@@ -21,7 +21,7 @@ namespace Phundus.Core.Tests.Inventory
         public Establish c = () =>
         {
             owner = new Owner(new OwnerId(ownerId), "Owner");
-            article = new Article(owner, "Name");
+            article = new Article(1, owner, "Name");
             repository.WhenToldTo(x => x.GetById(articleId)).Return(article);
 
             command = new UpdateArticle();
