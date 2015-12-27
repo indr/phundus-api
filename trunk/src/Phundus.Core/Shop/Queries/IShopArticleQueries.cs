@@ -12,7 +12,7 @@
     public interface IShopArticleQueries
     {
         ShopArticleDetailDto GetArticle(int id);
-        PagedResult<ShopArticleSearchResultDto> FindArticles(PageRequest pageRequest, string query, int? organization);
+        PagedResult<ShopArticleSearchResultDto> FindArticles(PageRequest pageRequest, string query, Guid? organization);
     }
 
     public class ShopArticleReadModel : AutoMappingReadModelBase, IShopArticleQueries
@@ -27,9 +27,9 @@
         public ShopArticleDetailDto GetArticle(int id)
         {
             var result = Single<ShopArticleDetailDto>(
-                @"select a.Id, a.Name, a.Price, a.Description, a.Specification,  o.Id as OrganizationId, o.Name as OrganizationName " +
-                @"from [Article] a inner join [Organization] o on (a.OrganizationId = o.Id and o.[Plan] > 0) " +
-                @"where a.Id = {0}",
+                @"select a.Id, a.Name, a.Price, a.Description, a.Specification,  a.Owner_OwnerId as OrganizationId, a.Owner_Name as OrganizationName " +
+                @"from [Article] a left join [Organization] o on (a.Owner_OwnerId = o.Guid) " +
+                @"where a.Id = {0} and o.[Plan] > 0",
                 id);
 
             // TODO: Select 1+1
@@ -52,23 +52,24 @@
         }
 
         public PagedResult<ShopArticleSearchResultDto> FindArticles(PageRequest pageRequest, string query,
-            int? organization)
+            Guid? organization)
         {
             var where = "where 1 = 1 ";
 
-            // TODO: SQL-Injection
+            // TODO: #48 SQL-Injection
             if (!String.IsNullOrWhiteSpace(query))
                 where = where + string.Format(" and a.Name like '%{0}%' ", query.Replace("'", "''"));
 
             if (organization.HasValue)
-                where = where + string.Format(" and a.OrganizationId = {0} ", organization.Value);
+                where = where + string.Format(" and a.Owner_OwnerId = '{0}' ", organization.Value);
 
 
             var result = Paged<ShopArticleSearchResultDto>(
                 @"select a.Id, a.Name, a.Price, o.Name as OrganizationName " +
                 @"from [Article] a " +
-                @"inner join [Organization] o on (a.OrganizationId = o.Id and o.[Plan] > 0) " +
+                @"left join [Organization] o on (a.Owner_OwnerId = o.Guid) " +
                 where +
+                @" and o.[Plan] > 0 " +
                 @"order by a.CreateDate desc, a.Id desc ",
                 pageRequest);
 
