@@ -1,5 +1,6 @@
 namespace Phundus.Core.Shop.Orders.Model
 {
+    using System;
     using System.Collections.Generic;
     using Common.Domain.Model;
 

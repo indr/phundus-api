@@ -47,6 +47,7 @@
             Guard.Against<ArgumentNullException>(subject == null, "subject");
             var result = new UserDto();
             result.Id = subject.Id;
+            result.Guid = subject.Guid;
             result.Version = subject.Version;
             result.FirstName = subject.FirstName;
             result.LastName = subject.LastName;

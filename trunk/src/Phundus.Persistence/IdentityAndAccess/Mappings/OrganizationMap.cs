@@ -10,8 +10,9 @@
             SchemaAction.Validate();
 
             Id(x => x.Id).GeneratedBy.Native();
+            Map(x => x.Guid, "Guid");
             Version(x => x.Version);
-
+            
             Map(x => x.Plan, "[Plan]").CustomType<OrganizationPlan>();
             Map(x => x.Name);
             Map(x => x.Address);
