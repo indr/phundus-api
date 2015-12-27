@@ -12,7 +12,7 @@ namespace Phundus.Core.Tests.Inventory
     [Subject(typeof (DeleteArticleHandler))]
     public class when_delete_article_is_handled : article_handler_concern<DeleteArticle, DeleteArticleHandler>
     {
-        private static Guid ownerId = new Guid();
+        private static Guid ownerId;
         private static Owner owner;
         private const int initiatorId = 2;
         private const int articleId = 3;
@@ -21,6 +21,7 @@ namespace Phundus.Core.Tests.Inventory
 
         private Establish c = () =>
         {
+            ownerId = Guid.NewGuid();
             owner = new Owner(new OwnerId(ownerId), "Owner");
             article = new Article(1, owner, "Name");
             repository.setup(x => x.GetById(articleId)).Return(article);
