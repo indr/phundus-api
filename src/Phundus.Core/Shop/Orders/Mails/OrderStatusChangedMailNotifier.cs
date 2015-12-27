@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Phundus.Core.Shop.Orders.Mails
+﻿namespace Phundus.Core.Shop.Orders.Mails
 {
+    using System;
     using System.Net.Mail;
     using Ddd;
-    using IdentityAndAccess.Organizations.Repositories;
     using Infrastructure;
     using Model;
     using Repositories;
@@ -17,19 +12,16 @@ namespace Phundus.Core.Shop.Orders.Mails
     {
         public IOrderRepository OrderRepository { get; set; }
 
-        public IOrganizationRepository OrganizationRepository { get; set; }
-
         public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
 
         public void Handle(OrderApproved @event)
         {
             var order = OrderRepository.GetById(@event.OrderId);
-            var organization = OrganizationRepository.GetById(order.Organization.Id);
 
             Model = new
             {
                 Urls = new Urls(Config.ServerUrl),
-                Borrower = order.Borrower,
+                order.Borrower,
                 Order = order,
                 Admins = Config.FeedbackRecipients
             };
@@ -44,12 +36,11 @@ namespace Phundus.Core.Shop.Orders.Mails
         public void Handle(OrderRejected @event)
         {
             var order = OrderRepository.GetById(@event.OrderId);
-            var organization = OrganizationRepository.GetById(order.Organization.Id);
 
             Model = new
             {
                 Urls = new Urls(Config.ServerUrl),
-                Borrower = order.Borrower,
+                order.Borrower,
                 Order = order,
                 Admins = Config.FeedbackRecipients
             };

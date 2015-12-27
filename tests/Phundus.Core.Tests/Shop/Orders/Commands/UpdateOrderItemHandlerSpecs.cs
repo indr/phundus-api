@@ -25,7 +25,7 @@
         public Establish c = () =>
         {
             var article = new Article(1, organization.Id, new Owner(new Guid(), "Owner"), "Artikel", 1.0m);
-            order = new Order(organization, BorrowerFactory.Create());
+            order = new Order(lessor, BorrowerFactory.Create());
             orderItemId = order.AddItem(article, DateTime.Today, DateTime.Today, 1).Id;
             orders.setup(x => x.GetById(orderId)).Return(order);
 

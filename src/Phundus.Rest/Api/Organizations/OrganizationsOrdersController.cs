@@ -46,11 +46,13 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage GetPdf(int organizationId, int orderId)
         {
-            var stream = PdfStore.GetOrderPdf(orderId, organizationId, CurrentUserId);
-            if (stream == null)
-                return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
+            throw new HttpResponseException(HttpStatusCode.ServiceUnavailable);
 
-            return CreatePdfResponse(stream, string.Format("Bestellung-{0}.pdf", orderId));
+            //var stream = PdfStore.GetOrderPdf(orderId, organizationId, CurrentUserId);
+            //if (stream == null)
+            //    return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
+
+            //return CreatePdfResponse(stream, string.Format("Bestellung-{0}.pdf", orderId));
         }
 
         [PATCH("{orderId}")]

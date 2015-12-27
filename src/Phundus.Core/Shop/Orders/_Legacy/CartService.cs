@@ -112,12 +112,12 @@
             return assembler.CreateDto(cart);
         }
 
-        public ICollection<LegacyOrderDto> PlaceOrders(int userId)
+        public bool PlaceOrders(int userId)
         {
             var cart = Carts.FindByCustomer(userId);
             cart.CalculateAvailability(AvailabilityService);
             if (!cart.AreItemsAvailable)
-                return null;
+                return false;
 
             var orders = cart.PlaceOrders(LessorService, BorrowerService, AvailabilityService);
 
@@ -136,8 +136,7 @@
                 //mail.Send(order.Borrower.EmailAddress);
             }
 
-            var assembler = new OrderDtoAssembler();
-            return assembler.CreateDtos(orders);
+            return orders.Count > 0;
         }
     }
 }

@@ -4,11 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using Castle.Transactions;
-    using Core.IdentityAndAccess.Organizations;
+    using Common;
     using Core.IdentityAndAccess.Organizations.Model;
     using Core.IdentityAndAccess.Organizations.Repositories;
-    using NHibernate.Linq;
-    using Persistence;
 
     public class NhOrganizationRepository : NhRepositoryBase<Organization>, IOrganizationRepository
     {
@@ -23,11 +21,20 @@
         {
             var result = FindById(id);
             if (result == null)
-                throw new OrganizationNotFoundException(id);
+                throw new NotFoundException(String.Format("Organization with id {0} not found.", id));
             return result;
         }
 
-        public Organization FindByGuid(Guid id)
+        public Organization GetById(Guid id)
+        {
+            var result = FindById(id);
+            if (result == null)
+                throw new NotFoundException(String.Format("Organization with id {0} not found.", id));
+
+            return result;
+        }
+
+        public Organization FindById(Guid id)
         {
             var query = from o in Entities where o.Guid == id select o;
             return query.SingleOrDefault();

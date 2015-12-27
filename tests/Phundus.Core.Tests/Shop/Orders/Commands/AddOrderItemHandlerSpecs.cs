@@ -13,8 +13,7 @@
     {
         private const int initiatorId = 2;
         private const int orderId = 3;
-        private const int articleId = 4;
-        private static Lessor lessor;
+        private const int articleId = 4;        
         private static Order order;
 
         public Establish c = () =>
