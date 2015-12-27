@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Contracts.Model
 {
+    using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
 
@@ -10,7 +11,7 @@
         public int ContractId { get; set; }
 
         [DataMember(Order = 2)]
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
 
         [DataMember(Order = 3)]
         public int BorrowerId { get; set; }

@@ -4,7 +4,7 @@
       <Column Name="Id" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="CreatedOn" Type="System.DateTime" CanBeNull="false" />
       <Column Name="SignedOn" Type="System.DateTime" CanBeNull="true" />
-      <Column Name="OrganizationId" Type="System.Int32" CanBeNull="false" />
+      <Column Name="OrganizationId" Type="System.Guid" CanBeNull="false" />
       <Column Name="BorrowerId" Type="System.Int32" CanBeNull="false" />
       <Column Name="BorrowerFirstName" Type="System.String" CanBeNull="false" />
       <Column Name="BorrowerLastName" Type="System.String" CanBeNull="false" />

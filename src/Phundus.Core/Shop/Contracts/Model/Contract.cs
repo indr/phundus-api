@@ -8,16 +8,16 @@
         private DateTime _createdOn = DateTime.UtcNow;
         private ISet<ContractItem> _items = new HashedSet<ContractItem>();
         private Borrower _borrower;
-        private int _organizationId;
+        private Guid _organizationId;
 
         protected Contract()
         {
         }
 
-        public Contract(int organizationId, Borrower borrower)
+        public Contract(Guid organizationId, Borrower borrower)
         {
-            //if (borrower == null)
-            //    throw new ArgumentNullException("borrower");
+            if (borrower == null)
+                throw new ArgumentNullException("borrower");
 
             _organizationId = organizationId;
             _borrower = borrower;
@@ -49,7 +49,7 @@
 
         public virtual int OrderId { get; protected set; }
 
-        public virtual int OrganizationId
+        public virtual Guid OrganizationId
         {
             get { return _organizationId; }
             protected set { _organizationId = value; }

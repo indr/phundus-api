@@ -62,8 +62,7 @@ namespace Phundus.Rest.Api
             {
                 Memberships.Add(new Memberships
                 {
-                    OrganizationId = each.OrganizationId.ToString(CultureInfo.InvariantCulture),
-                    OrganizationGuid = each.OrganizationGuid,
+                    OrganizationId = each.OrganizationGuid,
                     OrganizationName = each.OrganizationName,
                     OrganizationUrl = each.OrganizationUrl
                 });

@@ -1,8 +1,10 @@
 ﻿namespace phiNdus.fundus.Web.Models
 {
+    using System;
+
     public class ManagementModel
     {
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
         public bool IsManager { get; set; }
     }
 }

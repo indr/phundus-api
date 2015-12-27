@@ -50,8 +50,7 @@
                 .Select(each => new Memberships
                 {
                     IsManager = each.MembershipRole == "Chief",
-                    OrganizationId = each.OrganizationId.ToString(CultureInfo.InvariantCulture),
-                    OrganizationGuid = each.OrganizationGuid,
+                    OrganizationId = each.OrganizationGuid,
                     OrganizationName = each.OrganizationName,
                     OrganizationUrl = each.OrganizationUrl
                 }).ToList();
@@ -111,10 +110,7 @@
     public class Memberships
     {
         [JsonProperty("organizationId")]
-        public string OrganizationId { get; set; }
-
-        [JsonProperty("organizationGuid")]
-        public Guid OrganizationGuid { get; set; }
+        public Guid OrganizationId { get; set; }
 
         [JsonProperty("organizationName")]
         public string OrganizationName { get; set; }

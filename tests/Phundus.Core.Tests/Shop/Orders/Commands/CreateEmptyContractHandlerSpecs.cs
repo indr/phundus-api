@@ -12,13 +12,14 @@
     public class when_create_empty_contract_is_handled :
         contract_handler_concern<CreateEmptyContract, CreateEmptyContractHandler>
     {
-        public const int organizationId = 1;
+        public static Guid organizationId;
         public const int initiatorId = 2;
         public const int contractId = 3;
         public const int userId = 4;
 
         public Establish c = () =>
         {
+            organizationId = Guid.NewGuid();
             repository.setup(x => x.Add(Arg<Contract>.Is.NotNull)).Return(contractId);
             borrowerService.setup(x => x.ById(userId)).Return(BorrowerFactory.Create(userId, "First", "Last", "Street", "Postcode", "City","EmailAddress"));
             command = new CreateEmptyContract

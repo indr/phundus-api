@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using Common;
     using Iesi.Collections.Generic;
     using Owners;
 
@@ -17,13 +18,22 @@
         {
         }
 
+        public Article(Owner owner, string name)
+        {
+            AssertionConcern.AssertArgumentNotNull(owner, "Owner must be provided.");
+
+            _owner = owner;
+            _caption = name;
+        }
+
         [Obsolete]
         public Article(int organizationId, string name)
         {
             _organizationId = organizationId;
             _caption = name;
         }
-
+        
+        [Obsolete]
         public Article(int organizationId, Owner owner, string name)
         {
             _organizationId = organizationId;

@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Rest.Api.Organizations
 {
+    using System;
     using System.Collections.Generic;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
@@ -19,14 +20,14 @@
 
         [GET("")]
         [Transaction]
-        public virtual IList<MemberDto> Get(int organizationId)
+        public virtual IList<MemberDto> Get(Guid organizationId)
         {
-            return MemberQueries.ByOrganizationId(organizationId);
+            return MemberQueries.FindByOrganizationId(organizationId);
         }
 
         [POST("")]
         [Transaction]
-        public virtual void Post(int organizationId, dynamic doc)
+        public virtual void Post(Guid organizationId, dynamic doc)
         {
             Dispatcher.Dispatch(new ApproveMembershipApplication
             {
@@ -37,7 +38,7 @@
 
         [PUT("{memberId}")]
         [Transaction]
-        public virtual void Put(int organizationId, int memberId, dynamic doc)
+        public virtual void Put(Guid organizationId, int memberId, dynamic doc)
         {
             Dispatcher.Dispatch(new ChangeMembersRole
             {

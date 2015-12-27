@@ -47,15 +47,15 @@
 
     public class OrganizationExistsConstraint : IRouteConstraint
     {
-        private static readonly IDictionary<string, int> _organizations = new ConcurrentDictionary<string, int>();
+        private static readonly IDictionary<string, Guid> _organizations = new ConcurrentDictionary<string, Guid>();
 
         public OrganizationExistsConstraint(IEnumerable<Organization> organizations)
         {
             foreach (var each in organizations)
-                _organizations.Add(each.Url, each.Id);
+                _organizations.Add(each.Url, each.Guid);
         }
 
-        public static IDictionary<string, int> Organizations
+        public static IDictionary<string, Guid> Organizations
         {
             get { return _organizations; }
         }
@@ -65,7 +65,7 @@
         {
             var name = values[parameterName].ToString().ToLowerInvariant();
 
-            int id;
+            Guid id;
             if (!_organizations.TryGetValue(name, out id))
                 return false;
 

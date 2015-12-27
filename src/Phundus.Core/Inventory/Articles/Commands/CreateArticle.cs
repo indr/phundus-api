@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Inventory.Articles.Commands
 {
+    using System;
     using Common;
     using Cqrs;
     using Ddd;
@@ -11,7 +12,7 @@
     public class CreateArticle
     {
         public int InitiatorId { get; set; }
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
         public int ArticleId { get; set; }
 
         public string Name { get; set; }
@@ -45,7 +46,7 @@
             _memberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
             var owner = _ownerService.GetByOrganizationId(command.OrganizationId);
 
-            var result = new Article(command.OrganizationId, owner, command.Name);
+            var result = new Article(owner, command.Name);
 
             result.Brand = command.Brand;
             result.Price = command.Price;

@@ -46,14 +46,14 @@
             result.Id = subject.Id;
             result.Version = subject.Version;
             var organization = _organizationRepository.GetById(subject.OrganizationId);
-            result.OrganizationId = organization.Id;
+            result.OrganizationId = organization.Guid;
             result.OrganizationName = organization.Name;
 
             result.CreatedOn = subject.CreateDate;
             result.Name = subject.Caption;
             result.Brand = subject.Brand;
             result.Price = subject.Price;
-            result.OrganizationId = subject.OrganizationId;
+            result.OrganizationId = subject.Owner.OwnerId.Value;
             result.Description = subject.Description;
             result.Specification = subject.Specification;
             result.GrossStock = subject.GrossStock;

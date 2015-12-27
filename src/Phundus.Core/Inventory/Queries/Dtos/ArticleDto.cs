@@ -33,7 +33,7 @@
 
         public string Color { get; set; }
 
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
 
         public string OrganizationName { get; set; }
 

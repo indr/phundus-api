@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Persistence.Inventory.Repositories
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Core.Inventory.Articles;
@@ -15,9 +16,9 @@
             return entity.Id;
         }
 
-        public IEnumerable<Article> ByOrganization(int organizationId)
+        public IEnumerable<Article> ByOrganization(Guid organizationId)
         {
-            return Entities.Where(p => p.OrganizationId == organizationId).ToFuture();
+            return Entities.Where(p => p.Owner.OwnerId.Value == organizationId).ToFuture();
         }
 
         public Article GetById(int id)
@@ -28,10 +29,10 @@
             return result;
         }
 
-        public Article GetById(int organizationId, int articleId)
+        public Article GetById(Guid organizationId, int articleId)
         {
             var result = FindById(articleId);
-            if ((result == null) || (result.OrganizationId != organizationId))
+            if ((result == null) || (result.Owner.OwnerId.Value != organizationId))
                 throw new ArticleNotFoundException(articleId);
             return result;
         }

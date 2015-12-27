@@ -6,6 +6,7 @@
 
     public interface IMemberQueries
     {
+        [Obsolete]
         IList<MemberDto> ByOrganizationId(int organizationId);
         IList<MemberDto> FindByOrganizationId(Guid organizationId);
     }

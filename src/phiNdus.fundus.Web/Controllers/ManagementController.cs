@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Web.Controllers
 {
+    using System;
     using System.Web.Mvc;
     using Castle.Transactions;
     using Common;
@@ -18,7 +19,7 @@
         }
 
         [Transaction]
-        public virtual ActionResult Index(int id)
+        public virtual ActionResult Index(Guid id)
         {
             var isManager = _memberInRole.IsActiveChief(id, CurrentUserId);
             return View(new ManagementModel {OrganizationId = id, IsManager = isManager});

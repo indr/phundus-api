@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
 {
+    using System;
     using System.Security;
     using Cqrs;
     using Model;
@@ -9,7 +10,7 @@
 
     public class ChangeMembersRole
     {
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
         public int InitiatorId { get; set; }
         public int MemberId { get; set; }
         public int Role { get; set; }

@@ -31,7 +31,7 @@
         public IReservationRepository ReservationRepository { get; set; }
 
         [Transaction]
-        public virtual ActionResult Create(int orgId)
+        public virtual ActionResult Create(Guid orgId)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
@@ -42,7 +42,7 @@
         [HttpPost]
         [ValidateInput(false)]
         [Transaction]
-        public virtual ActionResult Create(int orgId, FormCollection collection)
+        public virtual ActionResult Create(Guid orgId, FormCollection collection)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
@@ -79,7 +79,7 @@
         }
 
         [Transaction]
-        public virtual ActionResult Edit(int orgId, int id)
+        public virtual ActionResult Edit(Guid orgId, int id)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
@@ -89,7 +89,7 @@
         [HttpPost]
         [ValidateInput(false)]
         [Transaction]
-        public virtual ActionResult Edit(int orgId, int id, FormCollection collection)
+        public virtual ActionResult Edit(Guid orgId, int id, FormCollection collection)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
@@ -97,7 +97,7 @@
         }
 
         [Transaction]
-        public virtual ActionResult Fields(int orgId, int id)
+        public virtual ActionResult Fields(Guid orgId, int id)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
@@ -113,7 +113,7 @@
         [HttpPost]
         [ValidateInput(false)]
         [Transaction]
-        public virtual ActionResult Fields(int orgId, int id, FormCollection collection)
+        public virtual ActionResult Fields(Guid orgId, int id, FormCollection collection)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
@@ -147,7 +147,7 @@
         }
 
         [Transaction]
-        public virtual ActionResult Images(int orgId, int id)
+        public virtual ActionResult Images(Guid orgId, int id)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
@@ -163,7 +163,7 @@
 
         [AllowAnonymous]
         [Transaction]
-        public virtual ActionResult ImageStore(int orgId, int id, string name)
+        public virtual ActionResult ImageStore(Guid orgId, int id, string name)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
@@ -218,7 +218,7 @@
         }
 
         [Transaction]
-        public virtual ActionResult Availability(int orgId, int id)
+        public virtual ActionResult Availability(Guid orgId, int id)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
@@ -234,7 +234,7 @@
 
 
         [Transaction]
-        public virtual ActionResult Reservations(int orgId, int id)
+        public virtual ActionResult Reservations(Guid orgId, int id)
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 

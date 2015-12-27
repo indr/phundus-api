@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Tests.IdentityAndAccess.Organizations.Commands
 {
+    using System;
     using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Organizations.Model;
     using Core.IdentityAndAccess.Organizations.Repositories;
@@ -16,12 +17,14 @@
         protected static IMemberInRole memberInRole;
         protected static IOrganizationRepository repository;
 
-        protected static int organizationId = 1;
+        protected static Guid organizationId;
         protected static int userId = 2;
-        private static readonly Organization organization = new Organization(organizationId);
+        private static Organization organization;
 
         protected Establish c = () =>
         {
+            organizationId = Guid.NewGuid();
+            organization = new Organization(1001);
             memberInRole = depends.on<IMemberInRole>();
             repository = depends.on<IOrganizationRepository>();
 
