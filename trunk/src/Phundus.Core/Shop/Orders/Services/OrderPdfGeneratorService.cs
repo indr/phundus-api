@@ -26,7 +26,7 @@
             if (!String.IsNullOrEmpty(organization.DocTemplateFileName))
             {
                 var fileName = HostingEnvironment.MapPath(
-                    String.Format(@"~\Content\Uploads\Organizations\{0}\{1}", organization.Id,
+                    String.Format(@"~\Content\Uploads\{0}\{1}", organization.Guid.ToString("N"),
                         organization.DocTemplateFileName));
                 if (File.Exists(fileName))
                 {
