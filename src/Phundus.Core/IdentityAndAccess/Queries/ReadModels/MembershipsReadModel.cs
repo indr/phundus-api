@@ -31,6 +31,11 @@
             return MembershipRepository.ByOrganizationId(organizationId).Select(ToMembershipDto).ToList();
         }
 
+        public IList<MembershipDto> FindByOrganizationId(Guid organizationId)
+        {
+            return MembershipRepository.GetByOrganizationId(organizationId).Select(ToMembershipDto).ToList();
+        }
+
         private static MembershipDto ToMembershipDto(Membership each)
         {
             return new MembershipDto

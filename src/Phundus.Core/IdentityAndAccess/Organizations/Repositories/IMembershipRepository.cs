@@ -11,5 +11,6 @@ namespace Phundus.Core.IdentityAndAccess.Organizations.Repositories
         
         IEnumerable<Membership> ByMemberId(int memberId);
         IEnumerable<Membership> ByOrganizationId(int organizationId);
+        IEnumerable<Membership> GetByOrganizationId(Guid organizationId);
     }
 }

@@ -126,7 +126,7 @@
             {
                 var pdf = OrderPdfGeneratorService.GeneratePdf(order);
                 var mail = new OrderReceivedMail().For(pdf, order);
-                var chiefs = MemberQueries.ByOrganizationId(order.Organization.Id)
+                var chiefs = MemberQueries.FindByOrganizationId(order.Lessor.LessorId)
                     .Where(p => p.Role == (int) Role.Chief);
 
                 foreach (var chief in chiefs)
