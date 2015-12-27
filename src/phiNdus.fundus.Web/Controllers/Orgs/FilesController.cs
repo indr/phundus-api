@@ -8,14 +8,12 @@
     using phiNdus.fundus.Web.Helpers.FileUpload;
 
     public class FilesController : ControllerBase
-    {
-        public IOrganizationRepository OrganizationRepository { get; set; }
+    {        
         public IMemberInRole MemberInRole { get; set; }
 
         private string GetPath(Guid orgId)
         {
-            var organization = OrganizationRepository.GetById(orgId);
-            return String.Format(@"~\Content\Uploads\Organizations\{0}", organization.Id);
+            return String.Format(@"~\Content\Uploads\{0}", orgId.ToString("N"));
         }
 
         private ImageStore CreateImageStore(string path)

@@ -140,6 +140,7 @@
     <Compile Include="2015\12\M201512271305AlterTableCartItem.cs" />
     <Compile Include="2015\12\M201512271445AlterTableOrganizationMembershipAndMembershipRequest.cs" />
     <Compile Include="2015\12\M201512271453AlterTableRmRelationships.cs" />
+    <Compile Include="2015\12\M201512272001MoveOrganizationUploadsFolder.cs" />
     <Compile Include="Seeding\AcceptanceData.cs" />
     <Compile Include="Seeding\RoleConverter.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
