@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Services
 {
+    using Common;
     using Contracts.Model;
     using IdentityAndAccess.Queries;
     using Infrastructure;

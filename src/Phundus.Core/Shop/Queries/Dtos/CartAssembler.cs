@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Queries
 {
-    using System.Linq;    
+    using System.Linq;
+    using Common;
     using Infrastructure;
     using Microsoft.Practices.ServiceLocation;
     using Orders.Model;

@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Persistence.Inventory.Repositories
 {
     using System;
+    using Common;
     using Core.Inventory.Stores.Model;
     using Core.Inventory.Stores.Repositories;
     using Infrastructure;
