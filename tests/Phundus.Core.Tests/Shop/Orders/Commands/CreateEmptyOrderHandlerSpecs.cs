@@ -22,7 +22,7 @@
 
             command = new CreateEmptyOrder
             {
-                OrganizationId = organization.Id,
+                OrganizationId = lessor.LessorId,
                 InitiatorId = initiatorId,
                 UserId = userId
             };
@@ -31,7 +31,7 @@
         public It should_add_to_repository = () => orders.WasToldTo(x => x.Add(Arg<Order>.Is.NotNull));
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organization.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(lessor.LessorId, initiatorId));
 
         public It should_publish_order_created = () => publisher.WasToldTo(x => x.Publish(
             Arg<OrderCreated>.Matches(p => p.OrderId == orderId)));

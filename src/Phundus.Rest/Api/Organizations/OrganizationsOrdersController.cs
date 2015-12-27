@@ -5,6 +5,7 @@ namespace Phundus.Rest.Api.Organizations
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -73,28 +74,30 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage Post(int organizationId, OrdersPostDoc doc)
         {
-            int userId;
-            if (!Int32.TryParse(doc.UserName, out userId))
-            {
-                var user = UserQueries.ByUserName(doc.UserName);
-                if (user == null)
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-                        string.Format("Der Benutzer mit der E-Mail-Adresse \"{0}\" konnte nicht gefunden werden.",
-                            doc.UserName));
+            throw new HttpResponseException(HttpStatusCode.ServiceUnavailable);
 
-                userId = user.Id;
-            }
+            //int userId;
+            //if (!Int32.TryParse(doc.UserName, out userId))
+            //{
+            //    var user = UserQueries.ByUserName(doc.UserName);
+            //    if (user == null)
+            //        return Request.CreateErrorResponse(HttpStatusCode.NotFound,
+            //            string.Format("Der Benutzer mit der E-Mail-Adresse \"{0}\" konnte nicht gefunden werden.",
+            //                doc.UserName));
 
-            var command = new CreateEmptyOrder
-            {
-                InitiatorId = CurrentUserId,
-                OrganizationId = organizationId,
-                UserId = userId
-            };
+            //    userId = user.Id;
+            //}
 
-            Dispatcher.Dispatch(command);
+            //var command = new CreateEmptyOrder
+            //{
+            //    InitiatorId = CurrentUserId,
+            //    OrganizationId = organizationId,
+            //    UserId = userId
+            //};
 
-            return Get(organizationId, command.OrderId);
+            //Dispatcher.Dispatch(command);
+
+            //return Get(organizationId, command.OrderId);
         }
     }
 }
