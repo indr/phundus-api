@@ -2,19 +2,32 @@
 {
     using System;
     using Common;
-    using IdentityAndAccess.Queries;    
+    using IdentityAndAccess.Queries;
     using Owners;
 
     public interface IOwnerService
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
         Owner GetByUserId(int userId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
         Owner GetByOrganizationId(Guid organizationId);
     }
 
     public class OwnerService : IOwnerService
     {
-        private readonly IUserQueries _userQueries;
         private readonly IOrganizationQueries _organizationQueries;
+        private readonly IUserQueries _userQueries;
 
         public OwnerService(IOrganizationQueries organizationQueries, IUserQueries userQueries)
         {
@@ -27,7 +40,7 @@
 
         public Owner GetByUserId(int userId)
         {
-            var user =_userQueries.ById(userId);
+            var user = _userQueries.ById(userId);
             if (user == null)
                 throw new NotFoundException(String.Format("User with id {0} not found.", userId));
 
