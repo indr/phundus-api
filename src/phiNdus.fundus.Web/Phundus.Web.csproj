@@ -370,7 +370,7 @@
     <Content Include="Content\Views\Management\Orders.html" />
     <Content Include="Content\Views\Management\Members.html" />
     <Content Include="Content\Views\Management\Settings.html" />
-    <Content Include="images\yeoman.8cb970fb.png" />
+    <Content Include="img\loading.gif" />
     <Content Include="index.html" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
@@ -431,7 +431,6 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\scripts.2c78a4de.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.js" />
@@ -698,9 +697,6 @@
     <Content Include="Scripts\ui-bootstrap-tpls-0.2.0.min.js" />
     <None Include="Properties\PublishProfiles\TestProfile.pubxml" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
-    <Content Include="Scripts\vendor.e0c689bc.js" />
-    <Content Include="styles\main.c86aca53.css" />
-    <Content Include="styles\vendor.6ba63d1f.css" />
     <Content Include="Views\Management\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
