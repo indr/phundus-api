@@ -1,4 +1,4 @@
-namespace Phundus.Rest.Api.Users
+namespace Phundus.Rest.Api.Organizations
 {
     using System;
     using System.Collections.Generic;
@@ -12,8 +12,8 @@ namespace Phundus.Rest.Api.Users
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
 
-    [RoutePrefix("api/users/{userId}/articles/{articleId}/files")]
-    public class UsersArticlesFilesController : ApiControllerBase
+    [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/files")]
+    public class OrganizationsArticlesFilesController : ApiControllerBase
     {
         private string GetPath(int articleId)
         {
@@ -30,22 +30,22 @@ namespace Phundus.Rest.Api.Users
             return new ImageStore(path);
         }
 
-        private BlueImpFileUploadJsonResultFactory CreateFactory(string path, int userId, int articleId)
+        private BlueImpFileUploadJsonResultFactory CreateFactory(string path, Guid organizationId, int articleId)
         {
             var factory = new BlueImpFileUploadJsonResultFactory();
             factory.ImageUrl = path;
-            factory.DeleteUrl = "/api/users/" + userId + "/articles/" + articleId + "/files";
+            factory.DeleteUrl = "/api/organizations/" + organizationId + "/articles/" + articleId + "/files";
             return factory;
         }
 
         [GET("")]
         [Transaction]
         [AllowAnonymous]
-        public virtual object Get(int userId, int articleId)
+        public virtual object Get(Guid organizationId, int articleId)
         {
             var path = GetPath(articleId);
             var store = CreateImageStore(path);
-            var factory = CreateFactory(GetBaseFilesUrl(articleId), userId, articleId);
+            var factory = CreateFactory(GetBaseFilesUrl(articleId), organizationId, articleId);
             var files = store.GetFiles();
             return new {files = factory.Create(files)};
             //return factory.Create(files);
@@ -54,11 +54,11 @@ namespace Phundus.Rest.Api.Users
         [POST("")]
         [Transaction]
         [AllowAnonymous]
-        public virtual object Post(int userId, int articleId)
+        public virtual object Post(Guid organizationId, int articleId)
         {
             var path = GetPath(articleId);
             var store = CreateImageStore(path);
-            var factory = CreateFactory(GetBaseFilesUrl(articleId), userId, articleId);
+            var factory = CreateFactory(GetBaseFilesUrl(articleId), organizationId, articleId);
             var handler = new BlueImpFileUploadHandler(store);
             var images = handler.Handle(HttpContext.Current.Request.Files);
             return new {files = factory.Create(images)};
@@ -67,7 +67,7 @@ namespace Phundus.Rest.Api.Users
         [DELETE("{fileName}")]
         [Transaction]
         [AllowAnonymous]
-        public virtual HttpResponseMessage Delete(int userId, int articleId, string fileName)
+        public virtual HttpResponseMessage Delete(Guid organizationId, int articleId, string fileName)
         {
             var path = GetPath(articleId);
             var store = CreateImageStore(path);
@@ -168,7 +168,7 @@ namespace Phundus.Rest.Api.Users
             {
                 deleteType = "DELETE",
                 deleteUrl = DeleteUrl + '/' + fileName,
-                thumbnailUrl = ImageUrl + '/' + fileName + ".ashx?maxwidth=120&maxheight=80",                
+                thumbnailUrl = ImageUrl + '/' + fileName + ".ashx?maxwidth=120&maxheight=80",
                 url = ImageUrl + '/' + fileName,
                 name = fileName,
                 size = length,
@@ -228,13 +228,13 @@ namespace Phundus.Rest.Api.Users
         {
             get
             {
-                string[] sizes = {"B", "KB", "MB", "GB"};
+                string[] sizes = { "B", "KB", "MB", "GB" };
                 double len = Length;
                 int order = 0;
                 while (len >= 1024 && order + 1 < sizes.Length)
                 {
                     order++;
-                    len = len/1024;
+                    len = len / 1024;
                 }
 
                 // Adjust the format string to your preferences. For example "{0:0.#}{1}" would

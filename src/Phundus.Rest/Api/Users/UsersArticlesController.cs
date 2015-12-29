@@ -3,7 +3,6 @@ namespace Phundus.Rest.Api.Users
     using System;
     using System.Net;
     using System.Net.Http;
-    using System.Web;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -85,7 +84,8 @@ namespace Phundus.Rest.Api.Users
 
         [POST("")]
         [Transaction]
-        public virtual UsersArticlesPostOkResponseContent Post(int userId, UsersArticlesPostRequestContent requestContent)
+        public virtual UsersArticlesPostOkResponseContent Post(int userId,
+            UsersArticlesPostRequestContent requestContent)
         {
             var currentUserGuid = EnforceCurrentUser(userId);
 
@@ -105,7 +105,8 @@ namespace Phundus.Rest.Api.Users
 
         [PUT("{articleId}")]
         [Transaction]
-        public virtual UsersArticlesPutOkResponseContent Put(int userId, int articleId, UseresArticlesPutRequestContent requestContent)
+        public virtual UsersArticlesPutOkResponseContent Put(int userId, int articleId,
+            UseresArticlesPutRequestContent requestContent)
         {
             // TODO: Prüfen ob Artikel dem Benutzer gehört
             EnforceCurrentUser(userId);
