@@ -15,6 +15,11 @@
             return CreateDto(UserRepository.GetById(id));
         }
 
+        public UserDto FindById(Guid userId)
+        {
+            return CreateDto(UserRepository.FindByGuid(userId));
+        }
+
         public UserDto ByUserName(string userName)
         {
             return CreateDto(UserRepository.FindByEmail(userName));
@@ -23,6 +28,11 @@
         public IList<UserDto> All()
         {
             return CreateDtos(UserRepository.FindAll());
+        }
+
+        public UserDto FindActiveById(Guid userId)
+        {
+            return CreateDto(UserRepository.FindActiveByGuid(userId));
         }
 
         public UserDto CreateDto(User subject)

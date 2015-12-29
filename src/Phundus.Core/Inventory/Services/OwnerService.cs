@@ -10,6 +10,14 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="ownerId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        Owner GetById(Guid ownerId);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
@@ -36,6 +44,19 @@
 
             _organizationQueries = organizationQueries;
             _userQueries = userQueries;
+        }
+
+        public Owner GetById(Guid ownerId)
+        {
+            var organization = _organizationQueries.FindById(ownerId);
+            if (organization != null)
+                return ToOwner(organization);
+
+            var user = _userQueries.FindById(ownerId);
+            if (user != null)
+                return ToOwner(user);
+
+            throw new NotFoundException(String.Format("Owner with id {0} not found.", ownerId));
         }
 
         public Owner GetByUserId(int userId)

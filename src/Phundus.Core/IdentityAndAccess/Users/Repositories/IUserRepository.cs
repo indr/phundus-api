@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Users.Repositories
 {
+    using System;
     using System.Collections.Generic;
     using Common;
     using Infrastructure;
@@ -24,5 +25,7 @@
         User GetById(int id);
 
         new int Add(User user);
+        User FindActiveByGuid(Guid userId);
+        User FindByGuid(Guid userId);
     }
 }

@@ -42,7 +42,20 @@ namespace Phundus.Rest.Api.Users
         [Transaction]
         public virtual UsersArticlesOkResponseContent Post(int userId, UsersArticlesPostRequestContent requestContent)
         {
-            throw new NotImplementedException();
+            var currentUserGuid = EnforceCurrentUser(userId);
+
+            var command = new CreateArticle
+            {
+                InitiatorId = CurrentUserId,
+                OwnerId = currentUserGuid,
+                Name = requestContent.Name
+            };
+            Dispatch(command);
+
+            return new UsersArticlesOkResponseContent
+            {
+                ArticleId = command.ArticleId
+            };
         }
 
         [DELETE("{articleId}")]

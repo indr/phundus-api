@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Queries
 {
+    using System;
     using System.Collections.Generic;
     using Common;
 
@@ -13,7 +14,11 @@
         /// <exception cref="NotFoundException"></exception>
         UserDto GetById(int id);
 
+        UserDto FindById(Guid userId);
+
         UserDto ByUserName(string userName);
         IList<UserDto> All();
+        UserDto FindActiveById(Guid userId);
+        
     }
 }
