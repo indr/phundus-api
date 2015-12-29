@@ -127,12 +127,10 @@
                     ArticleId = model.Id,
                     Brand = model.Brand,
                     Color = model.Color,
-                    Description = model.Description,
                     GrossStock = model.GrossStock,
                     InitiatorId = CurrentUserId,
                     Name = model.Name,
-                    Price = Convert.ToDecimal(model.Price),
-                    Specification = model.Specification
+                    Price = Convert.ToDecimal(model.Price)
                 });
 
                 return Redirect("/#/organizations/" + orgId + "/articles");
