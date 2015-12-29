@@ -1,6 +1,7 @@
 namespace Phundus.Rest.Api.Organizations
 {
     using System;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using AttributeRouting;
@@ -9,6 +10,7 @@ namespace Phundus.Rest.Api.Organizations
     using Common;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Articles.Commands;
+    using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Core.Inventory.Queries;
     using Newtonsoft.Json;
 
@@ -17,14 +19,20 @@ namespace Phundus.Rest.Api.Organizations
     {
         private readonly IArticleQueries _articleQueries;
         private readonly IMemberInRole _memberInRole;
+        private IAvailabilityQueries _availabilityQueries;
+        private IReservationRepository _reservationRepository;
 
-        public OrganizationsArticlesController(IMemberInRole memberInRole, IArticleQueries articleQueries)
+        public OrganizationsArticlesController(IMemberInRole memberInRole, IArticleQueries articleQueries, IAvailabilityQueries availabilityQueries, IReservationRepository reservationRepository)
         {
             AssertionConcern.AssertArgumentNotNull(memberInRole, "MemberInRole must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleQueries, "ArticleQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(availabilityQueries, "AvailabilityQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(reservationRepository, "ReservationRepository must be provided.");
 
             _memberInRole = memberInRole;
             _articleQueries = articleQueries;
+            _availabilityQueries = availabilityQueries;
+            _reservationRepository = reservationRepository;
         }
 
         [GET("")]
@@ -79,6 +87,19 @@ namespace Phundus.Rest.Api.Organizations
             var result = _articleQueries.GetById(articleId);
 
             return Request.CreateResponse(HttpStatusCode.OK, result.Specification);
+        }
+
+        [GET("{articleId}/stock")]
+        [Transaction]
+        public virtual HttpResponseMessage GetStock(Guid organizationId, int articleId)
+        {
+            _memberInRole.ActiveChief(organizationId, CurrentUserId);
+            // TODO: Prüfen ob Artikel der Organization gehört  
+
+            var availabilities = _availabilityQueries.GetAvailability(articleId).ToList();
+            var reservations = _reservationRepository.Find(articleId, Guid.Empty).ToList();
+
+            return Request.CreateResponse(HttpStatusCode.OK, new {availabilities, reservations});
         }
 
         [POST("")]
