@@ -37,10 +37,30 @@ namespace Phundus.Rest.Api.Users
             var result = _articleQueries.FindByOwnerId(currentUserGuid);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
-        
+
+        [GET("{articleId}")]
+        [Transaction]
+        public virtual UsersArticlesGetOkResponseContent Get(int userId, int articleId)
+        {
+            // TODO: Prüfen ob Artikel dem Benutzer gehört
+            EnforceCurrentUser(userId);
+
+            var result = _articleQueries.GetById(articleId);
+
+            return new UsersArticlesGetOkResponseContent
+            {
+                ArticleId = result.Id,
+                Name = result.Name,
+                Brand = result.Brand,
+                Color = result.Color,
+                GrossStock = result.GrossStock,
+                Price = result.Price
+            };
+        }
+
         [POST("")]
         [Transaction]
-        public virtual UsersArticlesOkResponseContent Post(int userId, UsersArticlesPostRequestContent requestContent)
+        public virtual UsersArticlesPostOkResponseContent Post(int userId, UsersArticlesPostRequestContent requestContent)
         {
             var currentUserGuid = EnforceCurrentUser(userId);
 
@@ -52,9 +72,33 @@ namespace Phundus.Rest.Api.Users
             };
             Dispatch(command);
 
-            return new UsersArticlesOkResponseContent
+            return new UsersArticlesPostOkResponseContent
             {
                 ArticleId = command.ArticleId
+            };
+        }
+
+        [PUT("{articleId}")]
+        [Transaction]
+        public virtual UsersArticlesPutOkResponseContent Put(int userId, int articleId, UseresArticlesPutRequestContent requestContent)
+        {
+            // TODO: Prüfen ob Artikel dem Benutzer gehört
+            EnforceCurrentUser(userId);
+
+            Dispatcher.Dispatch(new UpdateArticle
+            {
+                ArticleId = articleId,
+                Brand = requestContent.Brand,
+                Color = requestContent.Color,
+                GrossStock = requestContent.GrossStock,
+                InitiatorId = CurrentUserId,
+                Name = requestContent.Name,
+                Price = requestContent.Price
+            });
+
+            return new UsersArticlesPutOkResponseContent
+            {
+                ArticleId = articleId
             };
         }
 
@@ -62,6 +106,7 @@ namespace Phundus.Rest.Api.Users
         [Transaction]
         public virtual HttpResponseMessage Delete(int userId, int articleId)
         {
+            // TODO: Prüfen ob Artikel dem Benutzer gehört
             EnforceCurrentUser(userId);
 
             Dispatcher.Dispatch(new DeleteArticle {ArticleId = articleId, InitiatorId = CurrentUserId});
@@ -77,15 +122,60 @@ namespace Phundus.Rest.Api.Users
         }
     }
 
+    public class UsersArticlesGetOkResponseContent
+    {
+        [JsonProperty("articleId")]
+        public int ArticleId { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("brand")]
+        public string Brand { get; set; }
+
+        [JsonProperty("price")]
+        public decimal Price { get; set; }
+
+        [JsonProperty("grossStock")]
+        public int GrossStock { get; set; }
+
+        [JsonProperty("color")]
+        public string Color { get; set; }
+    }
+
     public class UsersArticlesPostRequestContent
     {
         [JsonProperty("name")]
         public string Name { get; set; }
     }
 
-    public class UsersArticlesOkResponseContent
+    public class UsersArticlesPostOkResponseContent
     {
         [JsonProperty("articleId")]
         public int ArticleId { get; set; }
+    }
+
+    public class UsersArticlesPutOkResponseContent
+    {
+        [JsonProperty("articleId")]
+        public int ArticleId { get; set; }
+    }
+
+    public class UseresArticlesPutRequestContent
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("brand")]
+        public string Brand { get; set; }
+
+        [JsonProperty("price")]
+        public decimal Price { get; set; }
+
+        [JsonProperty("grossStock")]
+        public int GrossStock { get; set; }
+
+        [JsonProperty("color")]
+        public string Color { get; set; }
     }
 }

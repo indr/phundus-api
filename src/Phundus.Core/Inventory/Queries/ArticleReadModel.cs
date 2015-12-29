@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Articles.Repositories;
+    using Common;
     using Cqrs;
 
     public class ArticleReadModel : ReadModelBase, IArticleQueries
@@ -13,7 +14,7 @@
         {
             var article = ArticleRepository.FindById(id);
             if (article == null)
-                return null;
+                throw new NotFoundException(String.Format("Article with id {0} not found.", id));
             return new ArticleDtoAssembler().CreateDto(article);
         }
 
