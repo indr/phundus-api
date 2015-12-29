@@ -36,7 +36,7 @@
             var result = new List<MemberDto>();
             foreach (var each in memberships)
             {
-                var user = UserQueries.ById(each.MemberId);
+                var user = UserQueries.GetById(each.MemberId);
 
                 result.Add(new MemberDto
                 {

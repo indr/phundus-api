@@ -10,9 +10,9 @@
     {
         public IUserRepository UserRepository { get; set; }
 
-        public UserDto ById(int id)
+        public UserDto GetById(int id)
         {
-            return CreateDto(UserRepository.FindById(id));
+            return CreateDto(UserRepository.GetById(id));
         }
 
         public UserDto ByUserName(string userName)

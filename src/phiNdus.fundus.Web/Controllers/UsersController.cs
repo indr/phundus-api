@@ -29,7 +29,7 @@
         {
             try
             {
-                var model = new UserModel(UserQueries.ById(id));
+                var model = new UserModel(UserQueries.GetById(id));
                 return View(model);
             }
             catch (Exception ex)
@@ -43,7 +43,7 @@
         [Transaction]
         public virtual ActionResult Edit(int id, FormCollection collection)
         {
-            var userModel = new UserModel(UserQueries.ById(id));
+            var userModel = new UserModel(UserQueries.GetById(id));
             try
             {
                 UpdateModel(userModel, collection.ToValueProvider());

@@ -40,7 +40,7 @@
 
         public Owner GetByUserId(int userId)
         {
-            var user = _userQueries.ById(userId);
+            var user = _userQueries.GetById(userId);
             if (user == null)
                 throw new NotFoundException(String.Format("User with id {0} not found.", userId));
 

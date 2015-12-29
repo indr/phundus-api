@@ -88,7 +88,7 @@
 
             var model = new CheckOutViewModel();
             model.Cart = new CartModel(cartDto);
-            model.Customer = new UserModel(UserQueries.ById(cartDto.CustomerId));
+            model.Customer = new UserModel(UserQueries.GetById(cartDto.CustomerId));
 
             return View("CheckOut", model);
         }

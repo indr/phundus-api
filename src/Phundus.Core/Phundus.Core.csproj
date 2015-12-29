@@ -128,7 +128,6 @@
     <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipsReadModelReader.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipStatusDto.cs" />
     <Compile Include="IdentityAndAccess\Users\Commands\RegisterUser.cs" />
-    <Compile Include="IdentityAndAccess\Users\Exceptions\UserNotFoundException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\MembershipApplicationNotFoundException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\ChangeMembersRole.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\LockMember.cs" />

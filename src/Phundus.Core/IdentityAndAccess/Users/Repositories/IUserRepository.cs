@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Users.Repositories
 {
     using System.Collections.Generic;
+    using Common;
     using Infrastructure;
     using Model;
 
@@ -13,6 +14,13 @@
 
         User FindById(int id);
         User ActiveById(int userId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
         User GetById(int id);
 
         new int Add(User user);
