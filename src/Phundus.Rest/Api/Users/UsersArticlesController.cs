@@ -34,7 +34,8 @@ namespace Phundus.Rest.Api.Users
         public virtual HttpResponseMessage Get(int userId)
         {
             var user = _userQueries.GetById(userId);
-            _memberInRole.ActiveChief(user.Guid, CurrentUserId);
+            if (user.Id != CurrentUserId)
+                throw new AuthorizationException();
 
             var result = _articleQueries.FindByOwnerId(user.Guid);
             return Request.CreateResponse(HttpStatusCode.OK, result);
@@ -45,7 +46,8 @@ namespace Phundus.Rest.Api.Users
         public virtual HttpResponseMessage Delete(int userId, int articleId)
         {
             var user = _userQueries.GetById(userId);
-            _memberInRole.ActiveChief(user.Guid, CurrentUserId);
+            if (user.Id != CurrentUserId)
+                throw new AuthorizationException();
 
             Dispatcher.Dispatch(new DeleteArticle {ArticleId = articleId, InitiatorId = CurrentUserId});
             return Request.CreateResponse(HttpStatusCode.OK);
