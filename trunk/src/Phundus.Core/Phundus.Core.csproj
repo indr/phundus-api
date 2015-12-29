@@ -158,8 +158,12 @@
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
     <Compile Include="Inventory\Articles\Commands\AddImage.cs" />
     <Compile Include="Inventory\Articles\Commands\RemoveImage.cs" />
+    <Compile Include="Inventory\Articles\Commands\UpdateDescription.cs" />
+    <Compile Include="Inventory\Articles\Commands\UpdateSpecification.cs" />
     <Compile Include="Inventory\Articles\Exceptions\ImageNotFoundException.cs" />
     <Compile Include="Inventory\Articles\Model\ArticleCreated.cs" />
+    <Compile Include="Inventory\Articles\Model\ArticleDescriptionUpdated.cs" />
+    <Compile Include="Inventory\Articles\Model\ArticleSpecificationUpdated.cs" />
     <Compile Include="Inventory\Articles\Model\ArticleUpdated.cs" />
     <Compile Include="Inventory\Articles\Commands\CreateArticle.cs" />
     <Compile Include="Inventory\Articles\Commands\UpdateArticle.cs" />

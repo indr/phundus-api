@@ -3,6 +3,7 @@ namespace Phundus.Rest.Api.Users
     using System;
     using System.Net;
     using System.Net.Http;
+    using System.Web;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -58,6 +59,30 @@ namespace Phundus.Rest.Api.Users
             };
         }
 
+        [GET("{articleId}/description")]
+        [Transaction]
+        public virtual HttpResponseMessage GetDescription(int userId, int articleId)
+        {
+            // TODO: Prüfen ob Artikel dem Benutzer gehört
+            EnforceCurrentUser(userId);
+
+            var result = _articleQueries.GetById(articleId);
+
+            return Request.CreateResponse(HttpStatusCode.OK, result.Description);
+        }
+
+        [GET("{articleId}/specification")]
+        [Transaction]
+        public virtual HttpResponseMessage GetSpecification(int userId, int articleId)
+        {
+            // TODO: Prüfen ob Artikel dem Benutzer gehört
+            EnforceCurrentUser(userId);
+
+            var result = _articleQueries.GetById(articleId);
+
+            return Request.CreateResponse(HttpStatusCode.OK, result.Specification);
+        }
+
         [POST("")]
         [Transaction]
         public virtual UsersArticlesPostOkResponseContent Post(int userId, UsersArticlesPostRequestContent requestContent)
@@ -100,6 +125,40 @@ namespace Phundus.Rest.Api.Users
             {
                 ArticleId = articleId
             };
+        }
+
+        [PUT("{articleId}/description")]
+        [Transaction]
+        public virtual HttpResponseMessage PutDescription(int userId, int articleId, dynamic requestContent)
+        {
+            // TODO: Prüfen ob Artikel dem Benutzer gehört
+            EnforceCurrentUser(userId);
+
+            Dispatcher.Dispatch(new UpdateDescription
+            {
+                ArticleId = articleId,
+                Description = requestContent.data,
+                InitiatorId = CurrentUserId
+            });
+
+            return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
+        [PUT("{articleId}/specification")]
+        [Transaction]
+        public virtual HttpResponseMessage PutSpecification(int userId, int articleId, dynamic requestContent)
+        {
+            // TODO: Prüfen ob Artikel dem Benutzer gehört
+            EnforceCurrentUser(userId);
+
+            Dispatcher.Dispatch(new UpdateSpecification
+            {
+                ArticleId = articleId,
+                Specification = requestContent.data,
+                InitiatorId = CurrentUserId
+            });
+
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
         [DELETE("{articleId}")]
