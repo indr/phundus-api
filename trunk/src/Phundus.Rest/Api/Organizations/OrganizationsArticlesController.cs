@@ -10,6 +10,7 @@ namespace Phundus.Rest.Api.Organizations
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.Queries;
+    using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/articles")]
     public class OrganizationsArticlesController : ApiControllerBase
@@ -36,6 +37,119 @@ namespace Phundus.Rest.Api.Organizations
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
+        [GET("{articleId}")]
+        [Transaction]
+        public virtual OrganizationsArticlesGetOkResponseContent Get(Guid organizationId, int articleId)
+        {
+            _memberInRole.ActiveChief(organizationId, CurrentUserId);
+            // TODO: Prüfen ob Artikel der Organization gehört            
+
+            var result = _articleQueries.GetById(articleId);
+
+            return new OrganizationsArticlesGetOkResponseContent
+            {
+                ArticleId = result.Id,
+                Name = result.Name,
+                Brand = result.Brand,
+                Color = result.Color,
+                GrossStock = result.GrossStock,
+                Price = result.Price
+            };
+        }
+
+        [GET("{articleId}/description")]
+        [Transaction]
+        public virtual HttpResponseMessage GetDescription(Guid organizationId, int articleId)
+        {
+            _memberInRole.ActiveChief(organizationId, CurrentUserId);
+            // TODO: Prüfen ob Artikel der Organization gehört  
+
+            var result = _articleQueries.GetById(articleId);
+
+            return Request.CreateResponse(HttpStatusCode.OK, result.Description);
+        }
+
+        [GET("{articleId}/specification")]
+        [Transaction]
+        public virtual HttpResponseMessage GetSpecification(Guid organizationId, int articleId)
+        {
+            _memberInRole.ActiveChief(organizationId, CurrentUserId);
+            // TODO: Prüfen ob Artikel der Organization gehört  
+
+            var result = _articleQueries.GetById(articleId);
+
+            return Request.CreateResponse(HttpStatusCode.OK, result.Specification);
+        }
+
+        [POST("")]
+        [Transaction]
+        public virtual OrganizationsArticlesPostOkResponseContent Post(Guid organizationId,
+            OrganizationsArticlesPostRequestContent requestContent)
+        {
+            var command = new CreateArticle
+            {
+                InitiatorId = CurrentUserId,
+                OwnerId = organizationId,
+                Name = requestContent.Name
+            };
+            Dispatch(command);
+
+            return new OrganizationsArticlesPostOkResponseContent
+            {
+                ArticleId = command.ArticleId
+            };
+        }
+
+        [PUT("{articleId}")]
+        [Transaction]
+        public virtual OrganizationsArticlesPutOkResponseContent Put(Guid organizationId, int articleId,
+            OrganizationsArticlesPutRequestContent requestContent)
+        {
+            Dispatcher.Dispatch(new UpdateArticle
+            {
+                ArticleId = articleId,
+                Brand = requestContent.Brand,
+                Color = requestContent.Color,
+                GrossStock = requestContent.GrossStock,
+                InitiatorId = CurrentUserId,
+                Name = requestContent.Name,
+                Price = requestContent.Price
+            });
+
+            return new OrganizationsArticlesPutOkResponseContent
+            {
+                ArticleId = articleId
+            };
+        }
+
+        [PUT("{articleId}/description")]
+        [Transaction]
+        public virtual HttpResponseMessage PutDescription(Guid organizationId, int articleId, dynamic requestContent)
+        {
+            Dispatcher.Dispatch(new UpdateDescription
+            {
+                ArticleId = articleId,
+                Description = requestContent.data,
+                InitiatorId = CurrentUserId
+            });
+
+            return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
+        [PUT("{articleId}/specification")]
+        [Transaction]
+        public virtual HttpResponseMessage PutSpecification(Guid organizationId, int articleId, dynamic requestContent)
+        {
+            Dispatcher.Dispatch(new UpdateSpecification
+            {
+                ArticleId = articleId,
+                Specification = requestContent.data,
+                InitiatorId = CurrentUserId
+            });
+
+            return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
         [DELETE("{articleId}")]
         [Transaction]
         public virtual HttpResponseMessage Delete(Guid organizationId, int articleId)
@@ -45,5 +159,62 @@ namespace Phundus.Rest.Api.Organizations
             Dispatcher.Dispatch(new DeleteArticle { ArticleId = articleId, InitiatorId = CurrentUserId });
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+    }
+
+    public class OrganizationsArticlesGetOkResponseContent
+    {
+        [JsonProperty("articleId")]
+        public int ArticleId { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("brand")]
+        public string Brand { get; set; }
+
+        [JsonProperty("price")]
+        public decimal Price { get; set; }
+
+        [JsonProperty("grossStock")]
+        public int GrossStock { get; set; }
+
+        [JsonProperty("color")]
+        public string Color { get; set; }
+    }
+
+    public class OrganizationsArticlesPostRequestContent
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+    }
+
+    public class OrganizationsArticlesPostOkResponseContent
+    {
+        [JsonProperty("articleId")]
+        public int ArticleId { get; set; }
+    }
+
+    public class OrganizationsArticlesPutOkResponseContent
+    {
+        [JsonProperty("articleId")]
+        public int ArticleId { get; set; }
+    }
+
+    public class OrganizationsArticlesPutRequestContent
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("brand")]
+        public string Brand { get; set; }
+
+        [JsonProperty("price")]
+        public decimal Price { get; set; }
+
+        [JsonProperty("grossStock")]
+        public int GrossStock { get; set; }
+
+        [JsonProperty("color")]
+        public string Color { get; set; }
     }
 }
