@@ -22,9 +22,7 @@ namespace Phundus.Rest.Api.Users
 
         private string GetBaseFilesUrl(int articleId)
         {
-            var relative = String.Format(@"/Content/Uploads/Articles/{0}", articleId);
-            return relative;
-            //return Request.RequestUri.Scheme + Request.RequestUri.Authority + relative;
+            return String.Format(@"/Content/Uploads/Articles/{0}", articleId);
         }
 
         private ImageStore CreateImageStore(string path)
@@ -36,7 +34,7 @@ namespace Phundus.Rest.Api.Users
         {
             var factory = new BlueImpFileUploadJsonResultFactory();
             factory.ImageUrl = path;
-            factory.DeleteUrl = Request.RequestUri.Scheme + Request.RequestUri.Authority + "/api/users/" + userId + "/articles/" + articleId;
+            factory.DeleteUrl = "/api/users/" + userId + "/articles/" + articleId + "/files";
             return factory;
         }
 
@@ -50,6 +48,7 @@ namespace Phundus.Rest.Api.Users
             var factory = CreateFactory(GetBaseFilesUrl(articleId), userId, articleId);
             var files = store.GetFiles();
             return new {files = factory.Create(files)};
+            //return factory.Create(files);
         }        
 
         [POST("")]
@@ -167,10 +166,9 @@ namespace Phundus.Rest.Api.Users
         {
             return new BlueImpFileUploadJsonResult
             {
-                delete_type = "DELETE",
-                delete_url = DeleteUrl + '/' + fileName,
-                //thumbnail_url = ImageUrl + '/' + fileName + ".ashx?maxwidth=80&maxheight=80",
-                thumbnail_url = ImageUrl + '/' + fileName,
+                deleteType = "DELETE",
+                deleteUrl = DeleteUrl + '/' + fileName,
+                thumbnailUrl = ImageUrl + '/' + fileName + ".ashx?maxwidth=120&maxheight=80",                
                 url = ImageUrl + '/' + fileName,
                 name = fileName,
                 size = length,
@@ -209,7 +207,10 @@ namespace Phundus.Rest.Api.Users
         private BlueImpFileUploadJsonResult Create(string fileName)
         {
             var info = new System.IO.FileInfo(fileName);
-            return Create(info.Name, info.Length, System.IO.Path.GetExtension(fileName));
+            var extension = Path.GetExtension(fileName);
+            if (extension != null)
+                extension = extension.TrimStart('.');
+            return Create(info.Name, info.Length, extension);
         }
     }
 
@@ -246,11 +247,6 @@ namespace Phundus.Rest.Api.Users
     public class BlueImpFileUploadJsonResult
     {
         /// <summary>
-        /// Dunno?
-        /// </summary>
-        public string _ { get; set; }
-
-        /// <summary>
         /// URL zum richtigen Bild
         /// </summary>
         public string url { get; set; }
@@ -258,7 +254,7 @@ namespace Phundus.Rest.Api.Users
         /// <summary>
         /// URL zum Thumbnail
         /// </summary>
-        public string thumbnail_url { get; set; }
+        public string thumbnailUrl { get; set; }
 
         /// <summary>
         /// Name des Bildes
@@ -278,11 +274,11 @@ namespace Phundus.Rest.Api.Users
         /// <summary>
         /// REST-Delete-Url
         /// </summary>
-        public string delete_url { get; set; }
+        public string deleteUrl { get; set; }
 
         /// <summary>
         /// HttpVerb
         /// </summary>
-        public string delete_type { get; set; }
+        public string deleteType { get; set; }
     }
 }
