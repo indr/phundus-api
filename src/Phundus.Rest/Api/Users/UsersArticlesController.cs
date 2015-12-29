@@ -1,6 +1,7 @@
 namespace Phundus.Rest.Api.Users
 {
     using System;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using AttributeRouting;
@@ -9,6 +10,7 @@ namespace Phundus.Rest.Api.Users
     using Common;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Articles.Commands;
+    using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Core.Inventory.Queries;
     using Newtonsoft.Json;
 
@@ -17,15 +19,20 @@ namespace Phundus.Rest.Api.Users
     {
         private readonly IArticleQueries _articleQueries;
         private readonly IUserQueries _userQueries;
+        private IAvailabilityQueries _availabilityQueries;
+        private IReservationRepository _reservationRepository;
 
-        public UsersArticlesController(IArticleQueries articleQueries,
-            IUserQueries userQueries)
+        public UsersArticlesController(IArticleQueries articleQueries, IUserQueries userQueries, IAvailabilityQueries availabilityQueries, IReservationRepository reservationRepository)
         {
             AssertionConcern.AssertArgumentNotNull(articleQueries, "ArticleQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(availabilityQueries, "AvailabilityQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(reservationRepository, "ReservationRepository must be provided.");
 
             _articleQueries = articleQueries;
             _userQueries = userQueries;
+            _availabilityQueries = availabilityQueries;
+            _reservationRepository = reservationRepository;
         }
 
         [GET("")]
@@ -80,6 +87,19 @@ namespace Phundus.Rest.Api.Users
             var result = _articleQueries.GetById(articleId);
 
             return Request.CreateResponse(HttpStatusCode.OK, result.Specification);
+        }
+
+        [GET("{articleId}/stock")]
+        [Transaction]
+        public virtual HttpResponseMessage GetStock(int userId, int articleId)
+        {
+            // TODO: Prüfen ob Artikel dem Benutzer gehört
+            EnforceCurrentUser(userId);
+
+            var availabilities = _availabilityQueries.GetAvailability(articleId).ToList();
+            var reservations = _reservationRepository.Find(articleId, Guid.Empty).ToList();
+
+            return Request.CreateResponse(HttpStatusCode.OK, new { availabilities, reservations });
         }
 
         [POST("")]
