@@ -18,7 +18,7 @@
 
         public void Handle(MembershipApplicationApproved @event)
         {
-            var user = UserQueries.ById(@event.UserId);
+            var user = UserQueries.GetById(@event.UserId);
             var organization = OrganizationQueries.GetById(@event.OrganizationId);
 
             Model = new
@@ -35,7 +35,7 @@
 
         public void Handle(MembershipApplicationFiled @event)
         {
-            var user = UserQueries.ById(@event.UserId);
+            var user = UserQueries.GetById(@event.UserId);
             var organization = OrganizationQueries.GetById(@event.OrganizationId);
             var chiefs = MemberInRoleQueries.Chiefs(@event.OrganizationId);
 
@@ -55,7 +55,7 @@
 
         public void Handle(MembershipApplicationRejected @event)
         {
-            var user = UserQueries.ById(@event.UserId);
+            var user = UserQueries.GetById(@event.UserId);
             var organization = OrganizationQueries.GetById(@event.OrganizationId);
 
             Model = new
@@ -72,7 +72,7 @@
 
         public void Handle(MemberLocked @event)
         {
-            var user = UserQueries.ById(@event.MemberId);
+            var user = UserQueries.GetById(@event.MemberId);
             var organization = OrganizationQueries.GetById(@event.OrganizationId);
 
             Model = new
@@ -89,7 +89,7 @@
 
         public void Handle(MemberUnlocked @event)
         {
-            var user = UserQueries.ById(@event.MemberId);
+            var user = UserQueries.GetById(@event.MemberId);
             var organization = OrganizationQueries.GetById(@event.OrganizationId);
 
             Model = new

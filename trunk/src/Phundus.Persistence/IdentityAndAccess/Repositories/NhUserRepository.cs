@@ -1,8 +1,9 @@
 ﻿namespace Phundus.Persistence.IdentityAndAccess.Repositories
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Core.IdentityAndAccess.Users;
+    using Common;    
     using Core.IdentityAndAccess.Users.Model;
     using Core.IdentityAndAccess.Users.Repositories;
     using NHibernate.Linq;
@@ -29,7 +30,7 @@
         {
             var result = FindById(id);
             if (result == null)
-                throw new UserNotFoundException(id);
+                throw new NotFoundException(String.Format("User with id {0} not found.", id));
             return result;
         }
 

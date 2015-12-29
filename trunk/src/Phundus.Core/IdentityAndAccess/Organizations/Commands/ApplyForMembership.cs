@@ -29,9 +29,7 @@
         {
             var organization = OrganizationRepository.GetById(command.OrganizationId);
 
-            var user = UserRepository.FindById(command.ApplicantId);
-            if (user == null)
-                throw new UserNotFoundException(command.ApplicantId);
+            var user = UserRepository.GetById(command.ApplicantId);
 
             var request = organization.RequestMembership(Guid.NewGuid(), user);
 

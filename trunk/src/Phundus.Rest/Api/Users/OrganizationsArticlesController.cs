@@ -33,7 +33,7 @@ namespace Phundus.Rest.Api.Users
         [Transaction]
         public virtual HttpResponseMessage Get(int userId)
         {
-            var user = _userQueries.ById(userId);
+            var user = _userQueries.GetById(userId);
             _memberInRole.ActiveChief(user.Guid, CurrentUserId);
 
             var result = _articleQueries.GetArticles(user.Guid);
@@ -44,7 +44,7 @@ namespace Phundus.Rest.Api.Users
         [Transaction]
         public virtual HttpResponseMessage Delete(int userId, int articleId)
         {
-            var user = _userQueries.ById(userId);
+            var user = _userQueries.GetById(userId);
             _memberInRole.ActiveChief(user.Guid, CurrentUserId);
 
             Dispatcher.Dispatch(new DeleteArticle {ArticleId = articleId, InitiatorId = CurrentUserId});

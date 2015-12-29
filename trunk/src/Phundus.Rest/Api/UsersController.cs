@@ -36,7 +36,7 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual UsersGetOkResponseContent Get(int userId)
         {
-            var user = _userQueries.ById(userId);
+            var user = _userQueries.GetById(userId);
             if ((user == null) || (user.Id != CurrentUserId))
                 throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
 
