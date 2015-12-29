@@ -59,7 +59,7 @@
                     GrossStock = model.GrossStock,
                     InitiatorId = CurrentUserId,
                     Name = model.Name,
-                    OrganizationId = orgId,
+                    OwnerId = orgId,
                     Price = Convert.ToDecimal(model.Price),
                     Specification = model.Specification
                 };

@@ -40,6 +40,16 @@
             return user.Id;
         }
 
+        public User FindActiveByGuid(Guid userId)
+        {
+            return Users.SingleOrDefault(p => p.Guid == userId && p.Account.IsApproved && !p.Account.IsLockedOut);
+        }
+
+        public User FindByGuid(Guid userId)
+        {
+            return Users.SingleOrDefault(p => p.Guid == userId);
+        }
+
         public IEnumerable<User> FindAll()
         {
             return Users.ToFuture();

@@ -23,7 +23,7 @@
 
             command = new CreateArticle();
             command.InitiatorId = 2;
-            command.OrganizationId = organizationId;
+            command.OwnerId = organizationId;
         };
 
         public It should_add_to_repository = () => repository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));

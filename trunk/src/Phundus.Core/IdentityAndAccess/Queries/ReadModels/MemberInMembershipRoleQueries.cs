@@ -9,7 +9,17 @@ namespace Phundus.Core.IdentityAndAccess.Queries
 
     public class MemberInRoleReadModel : ReadModelBase, IMemberInRole
     {
-        public IMembershipRepository MembershipRepository { get; set; }
+        private readonly IMembershipRepository _membershipRepository;
+        private readonly IUserQueries _userQueries;
+
+        public MemberInRoleReadModel(IUserQueries userQueries, IMembershipRepository membershipRepository)
+        {
+            AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(membershipRepository, "MembershipRepository must be provided.");
+
+            _userQueries = userQueries;
+            _membershipRepository = membershipRepository;
+        }
 
         public void ActiveMember(Guid organizationId, int userId)
         {
@@ -26,8 +36,13 @@ namespace Phundus.Core.IdentityAndAccess.Queries
 
         public bool IsActiveMember(Guid organizationId, int userId)
         {
-            var membership =
-                MembershipRepository.ByMemberId(userId).FirstOrDefault(p => p.Organization.Id == organizationId);
+            // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
+            var user = _userQueries.FindActiveById(organizationId);
+            if ((user != null) && (user.Id == userId))
+                return true;
+
+            var membership = _membershipRepository.ByMemberId(userId)
+                .FirstOrDefault(p => p.Organization.Id == organizationId);
 
             if (membership == null)
                 return false;
@@ -40,7 +55,12 @@ namespace Phundus.Core.IdentityAndAccess.Queries
 
         public bool IsActiveChief(Guid organizationId, int userId)
         {
-            var membership = MembershipRepository.ByMemberId(userId)
+            // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
+            var user = _userQueries.FindActiveById(organizationId);
+            if ((user != null) && (user.Id == userId))
+                return true;
+
+            var membership = _membershipRepository.ByMemberId(userId)
                 .Where(p => p.Role == Role.Chief)
                 .FirstOrDefault(p => p.Organization.Id == organizationId);
 

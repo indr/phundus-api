@@ -12,7 +12,7 @@
     public class CreateArticle
     {
         public int InitiatorId { get; set; }
-        public Guid OrganizationId { get; set; }
+        public Guid OwnerId { get; set; }
         public int ArticleId { get; set; }
 
         public string Name { get; set; }
@@ -43,11 +43,12 @@
 
         public void Handle(CreateArticle command)
         {
-            _memberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
-            var owner = _ownerService.GetByOrganizationId(command.OrganizationId);
+            _memberInRole.ActiveChief(command.OwnerId, command.InitiatorId);
+            var owner = _ownerService.GetById(command.OwnerId);
 
             var result = new Article(owner, command.Name);
 
+            // TODO: Remove
             result.Brand = command.Brand;
             result.Price = command.Price;
             result.Description = command.Description;
