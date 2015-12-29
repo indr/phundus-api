@@ -19,8 +19,8 @@ namespace Phundus.Rest.Api.Organizations
     {
         private readonly IArticleQueries _articleQueries;
         private readonly IMemberInRole _memberInRole;
-        private IAvailabilityQueries _availabilityQueries;
-        private IReservationRepository _reservationRepository;
+        private readonly IAvailabilityQueries _availabilityQueries;
+        private readonly IReservationRepository _reservationRepository;
 
         public OrganizationsArticlesController(IMemberInRole memberInRole, IArticleQueries articleQueries, IAvailabilityQueries availabilityQueries, IReservationRepository reservationRepository)
         {

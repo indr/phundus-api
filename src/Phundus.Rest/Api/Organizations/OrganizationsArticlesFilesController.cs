@@ -11,6 +11,8 @@ namespace Phundus.Rest.Api.Organizations
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Core.Inventory.Articles.Commands;
+    using Core.Inventory.Queries;
 
     [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/files")]
     public class OrganizationsArticlesFilesController : ApiControllerBase
@@ -38,17 +40,17 @@ namespace Phundus.Rest.Api.Organizations
             return factory;
         }
 
+        public IImageQueries ImageQueries { get; set; }
+
         [GET("")]
         [Transaction]
         [AllowAnonymous]
         public virtual object Get(Guid organizationId, int articleId)
         {
-            var path = GetPath(articleId);
-            var store = CreateImageStore(path);
             var factory = CreateFactory(GetBaseFilesUrl(articleId), organizationId, articleId);
-            var files = store.GetFiles();
-            return new {files = factory.Create(files)};
-            //return factory.Create(files);
+            var images = ImageQueries.ByArticle(articleId);
+            var result = factory.Create(images);
+            return new { files = result };
         }        
 
         [POST("")]
@@ -61,6 +63,19 @@ namespace Phundus.Rest.Api.Organizations
             var factory = CreateFactory(GetBaseFilesUrl(articleId), organizationId, articleId);
             var handler = new BlueImpFileUploadHandler(store);
             var images = handler.Handle(HttpContext.Current.Request.Files);
+            foreach (var each in images)
+            {
+                var command = new AddImage
+                {
+                    ArticleId = articleId,
+                    FileName = each.FileName,
+                    InitiatorId = CurrentUserId,
+                    Length = each.Length,
+                    Type = each.Type
+                };
+                Dispatcher.Dispatch(command);
+                each.Id = command.ImageId.Value;
+            }
             return new {files = factory.Create(images)};
         }
 
@@ -71,6 +86,12 @@ namespace Phundus.Rest.Api.Organizations
         {
             var path = GetPath(articleId);
             var store = CreateImageStore(path);
+            Dispatcher.Dispatch(new RemoveImage
+            {
+                ArticleId = articleId,
+                ImageFileName = fileName,
+                InitiatorId = CurrentUserId
+            });
             store.Delete(fileName);
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }
@@ -211,36 +232,6 @@ namespace Phundus.Rest.Api.Organizations
             if (extension != null)
                 extension = extension.TrimStart('.');
             return Create(info.Name, info.Length, extension);
-        }
-    }
-
-    public class ImageDto
-    {
-        public int Id { get; set; }
-        public int Version { get; set; }
-
-        public bool IsPreview { get; set; }
-        public long Length { get; set; }
-        public string Type { get; set; }
-        public string FileName { get; set; }
-
-        public string DisplayLength
-        {
-            get
-            {
-                string[] sizes = { "B", "KB", "MB", "GB" };
-                double len = Length;
-                int order = 0;
-                while (len >= 1024 && order + 1 < sizes.Length)
-                {
-                    order++;
-                    len = len / 1024;
-                }
-
-                // Adjust the format string to your preferences. For example "{0:0.#}{1}" would
-                // show a single decimal place, and no space.
-                return String.Format("{0:0.##} {1}", len, sizes[order]);
-            }
         }
     }
 

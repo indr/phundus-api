@@ -133,7 +133,7 @@
                     Price = Convert.ToDecimal(model.Price)
                 });
 
-                return Redirect("/#/organizations/" + orgId + "/articles");
+                return Redirect("/#/organizations/" + orgId + "/articles/");
             }
             catch (Exception ex)
             {
