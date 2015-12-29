@@ -183,6 +183,7 @@
     <Compile Include="Inventory\Queries\Dtos\ImageDto.cs" />
     <Compile Include="Inventory\Queries\AvailabilityReadModel.cs" />
     <Compile Include="Inventory\Queries\IAvailabilityQueries.cs" />
+    <Compile Include="Inventory\Queries\IStoreQueries.cs" />
     <Compile Include="Inventory\Queries\StoreReadModel.cs" />
     <Compile Include="Inventory\Services\AvailabilityService.cs" />
     <Compile Include="Inventory\Services\OwnerService.cs" />

@@ -1,6 +1,5 @@
-namespace Phundus.Rest.Api.Organizations
+namespace Phundus.Rest.Api.Users
 {
-    using System;
     using System.Net;
     using System.Net.Http;
     using AttributeRouting;
@@ -11,38 +10,44 @@ namespace Phundus.Rest.Api.Organizations
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.Queries;
 
-    [RoutePrefix("api/organizations/{organizationId}/articles")]
-    public class OrganizationsArticlesController : ApiControllerBase
+    [RoutePrefix("api/users/{userId}/articles")]
+    public class UsersArticlesController : ApiControllerBase
     {
         private readonly IArticleQueries _articleQueries;
         private readonly IMemberInRole _memberInRole;
+        private readonly IUserQueries _userQueries;
 
-        public OrganizationsArticlesController(IMemberInRole memberInRole, IArticleQueries articleQueries)
+        public UsersArticlesController(IMemberInRole memberInRole, IArticleQueries articleQueries,
+            IUserQueries userQueries)
         {
             AssertionConcern.AssertArgumentNotNull(memberInRole, "MemberInRole must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleQueries, "ArticleQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
 
             _memberInRole = memberInRole;
             _articleQueries = articleQueries;
+            _userQueries = userQueries;
         }
 
         [GET("")]
         [Transaction]
-        public virtual HttpResponseMessage Get(Guid organizationId)
+        public virtual HttpResponseMessage Get(int userId)
         {
-            _memberInRole.ActiveChief(organizationId, CurrentUserId);
+            var user = _userQueries.ById(userId);
+            _memberInRole.ActiveChief(user.Guid, CurrentUserId);
 
-            var result = _articleQueries.GetArticles(organizationId);
+            var result = _articleQueries.GetArticles(user.Guid);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
         [DELETE("{articleId}")]
         [Transaction]
-        public virtual HttpResponseMessage Delete(Guid organizationId, int articleId)
+        public virtual HttpResponseMessage Delete(int userId, int articleId)
         {
-            _memberInRole.ActiveChief(organizationId, CurrentUserId);
+            var user = _userQueries.ById(userId);
+            _memberInRole.ActiveChief(user.Guid, CurrentUserId);
 
-            Dispatcher.Dispatch(new DeleteArticle { ArticleId = articleId, InitiatorId = CurrentUserId });
+            Dispatcher.Dispatch(new DeleteArticle {ArticleId = articleId, InitiatorId = CurrentUserId});
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
