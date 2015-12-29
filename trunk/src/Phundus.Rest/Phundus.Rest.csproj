@@ -122,7 +122,7 @@
     <Compile Include="Api\Organizations\OrganizationsArticlesController.cs" />
     <Compile Include="Api\StoresController.cs" />
     <Compile Include="Api\UsersController.cs" />
-    <Compile Include="Api\Users\OrganizationsArticlesController.cs" />
+    <Compile Include="Api\Users\UsersArticlesController.cs" />
     <Compile Include="App_Start\AttributeRoutingHttpConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\WindsorDependencyResolver.cs" />

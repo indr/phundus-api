@@ -5,7 +5,7 @@
 
     public interface IArticleQueries
     {
-        ArticleDto GetArticle(int id);
-        IEnumerable<ArticleDto> GetArticles(Guid organizationId);
+        ArticleDto GetById(int id);
+        IEnumerable<ArticleDto> FindByOwnerId(Guid ownerId);
     }
 }

@@ -32,7 +32,7 @@ namespace Phundus.Rest.Api.Organizations
         {
             _memberInRole.ActiveChief(organizationId, CurrentUserId);
 
-            var result = _articleQueries.GetArticles(organizationId);
+            var result = _articleQueries.FindByOwnerId(organizationId);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 

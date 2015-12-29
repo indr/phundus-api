@@ -16,9 +16,9 @@
             return entity.Id;
         }
 
-        public IEnumerable<Article> ByOrganization(Guid organizationId)
+        public IEnumerable<Article> FindByOwnerId(Guid ownerId)
         {
-            return Entities.Where(p => p.Owner.OwnerId.Value == organizationId).ToFuture();
+            return Entities.Where(p => p.Owner.OwnerId.Value == ownerId).ToFuture();
         }
 
         public Article GetById(int id)
