@@ -8,7 +8,7 @@
     public interface IArticleRepository : IRepository<Article>
     {
         new int Add(Article entity);
-        IEnumerable<Article> ByOrganization(Guid organizationId);
+        IEnumerable<Article> FindByOwnerId(Guid ownerId);
         Article GetById(int articleId);
         Article GetById(Guid organizationId, int articleId);
     }

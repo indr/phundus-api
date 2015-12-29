@@ -9,7 +9,7 @@
     {
         public IArticleRepository ArticleRepository { get; set; }
 
-        public ArticleDto GetArticle(int id)
+        public ArticleDto GetById(int id)
         {
             var article = ArticleRepository.FindById(id);
             if (article == null)
@@ -17,9 +17,9 @@
             return new ArticleDtoAssembler().CreateDto(article);
         }
 
-        public IEnumerable<ArticleDto> GetArticles(Guid organizationId)
+        public IEnumerable<ArticleDto> FindByOwnerId(Guid ownerId)
         {
-            var articles = ArticleRepository.ByOrganization(organizationId);
+            var articles = ArticleRepository.FindByOwnerId(ownerId);
             return new ArticleDtoAssembler().CreateDtos(articles);
         }
     }

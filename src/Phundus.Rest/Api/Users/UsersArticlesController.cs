@@ -36,7 +36,7 @@ namespace Phundus.Rest.Api.Users
             var user = _userQueries.GetById(userId);
             _memberInRole.ActiveChief(user.Guid, CurrentUserId);
 
-            var result = _articleQueries.GetArticles(user.Guid);
+            var result = _articleQueries.FindByOwnerId(user.Guid);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 

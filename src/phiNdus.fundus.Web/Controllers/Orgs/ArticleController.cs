@@ -102,7 +102,7 @@
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
             var model = new ArticleViewModel(
-                ArticleQueries.GetArticle(id));
+                ArticleQueries.GetById(id));
             if (Request.IsAjaxRequest())
             {
                 return PartialView(Views.Fields, model);
@@ -151,7 +151,7 @@
         {
             MemberInRole.ActiveChief(orgId, CurrentUserId);
 
-            var dto = ArticleQueries.GetArticle(id);
+            var dto = ArticleQueries.GetById(id);
             if (dto == null)
                 throw new HttpNotFoundException();
 
