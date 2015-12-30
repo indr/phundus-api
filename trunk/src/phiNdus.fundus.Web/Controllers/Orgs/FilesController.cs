@@ -3,17 +3,16 @@
     using System;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using Core.IdentityAndAccess.Organizations.Repositories;
     using Core.IdentityAndAccess.Queries;
     using phiNdus.fundus.Web.Helpers.FileUpload;
 
     public class FilesController : ControllerBase
-    {        
+    {
         public IMemberInRole MemberInRole { get; set; }
 
         private string GetPath(Guid orgId)
         {
-            return String.Format(@"~\Content\Uploads\{0}", orgId.ToString("N"));
+            return String.Format(@"~\Content\Uploads\Organizations\{0}", orgId.ToString("N"));
         }
 
         private ImageStore CreateImageStore(string path)
