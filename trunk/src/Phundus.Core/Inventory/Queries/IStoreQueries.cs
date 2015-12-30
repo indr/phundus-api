@@ -1,9 +1,18 @@
 ﻿namespace Phundus.Core.Inventory.Queries
 {
-    using System;
+    using Common;
+    using Common.Domain.Model;
 
     public interface IStoreQueries
     {
-        StoreDto FindByUserId(Guid userId);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ownerId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        StoreDto GetByOwnerId(OwnerId ownerId);
+
+        StoreDto FindByOwnerId(OwnerId ownerId);
     }
 }

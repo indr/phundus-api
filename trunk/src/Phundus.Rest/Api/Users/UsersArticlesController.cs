@@ -20,18 +20,23 @@ namespace Phundus.Rest.Api.Users
     public class UsersArticlesController : ApiControllerBase
     {
         private readonly IArticleQueries _articleQueries;
-        private readonly IUserQueries _userQueries;
         private readonly IAvailabilityQueries _availabilityQueries;
         private readonly IReservationRepository _reservationRepository;
+        private readonly IUserQueries _userQueries;
+        private IStoreQueries _storeQueries;
 
-        public UsersArticlesController(IArticleQueries articleQueries, IUserQueries userQueries, IAvailabilityQueries availabilityQueries, IReservationRepository reservationRepository)
+        public UsersArticlesController(IArticleQueries articleQueries, IStoreQueries storeQueries,
+            IUserQueries userQueries, IAvailabilityQueries availabilityQueries,
+            IReservationRepository reservationRepository)
         {
             AssertionConcern.AssertArgumentNotNull(articleQueries, "ArticleQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(storeQueries, "StoreQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(availabilityQueries, "AvailabilityQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(reservationRepository, "ReservationRepository must be provided.");
 
             _articleQueries = articleQueries;
+            _storeQueries = storeQueries;
             _userQueries = userQueries;
             _availabilityQueries = availabilityQueries;
             _reservationRepository = reservationRepository;
@@ -101,7 +106,7 @@ namespace Phundus.Rest.Api.Users
             var availabilities = _availabilityQueries.GetAvailability(articleId).ToList();
             var reservations = _reservationRepository.Find(articleId, Guid.Empty).ToList();
 
-            return Request.CreateResponse(HttpStatusCode.OK, new { availabilities, reservations });
+            return Request.CreateResponse(HttpStatusCode.OK, new {availabilities, reservations});
         }
 
         [POST("")]
@@ -111,9 +116,9 @@ namespace Phundus.Rest.Api.Users
         {
             var currentUserGuid = EnforceCurrentUser(userId);
 
-            // TODO: StoreId via IStoreQueries
-            var storeId = new StoreId();
-            var command = new CreateArticle(GetCurrentUserId(), new OwnerId(currentUserGuid), storeId,
+            var ownerId = new OwnerId(currentUserGuid);
+            var storeId = _storeQueries.GetByOwnerId(ownerId).StoreId;
+            var command = new CreateArticle(GetCurrentUserId(), ownerId, storeId,
                 requestContent.Name);
             Dispatch(command);
 

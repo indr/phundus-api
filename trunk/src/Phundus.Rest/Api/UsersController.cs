@@ -9,6 +9,7 @@ namespace Phundus.Rest.Api
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common;
+    using Common.Domain.Model;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Queries;
     using Newtonsoft.Json;
@@ -41,7 +42,7 @@ namespace Phundus.Rest.Api
                 throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
 
             var memberships = _membershipQueries.ByUserId(user.Id);
-            var store = _storeQueries.FindByUserId(user.Guid);
+            var store = _storeQueries.FindByOwnerId(new OwnerId(user.Guid));
 
             return new UsersGetOkResponseContent(user, memberships, store);
         }
@@ -72,7 +73,7 @@ namespace Phundus.Rest.Api
             {
                 Store = new Store
                 {
-                    StoreId = store.StoreId.ToString("N"),
+                    StoreId = store.StoreId.Value.ToString("N"),
                     Address = store.Address,
                     OpeningHours = store.OpeningHours
                 };
