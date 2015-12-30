@@ -130,7 +130,7 @@ namespace Phundus.Rest.Api
     {
         public StoresGetsOkResponseContent()
         {
-            Stores = new Store[0];    
+            Stores = new List<Store>();    
         }
 
         [JsonProperty("stores")]
