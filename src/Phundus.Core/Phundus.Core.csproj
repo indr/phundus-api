@@ -173,7 +173,6 @@
     <Compile Include="Inventory\Articles\Model\ImageAdded.cs" />
     <Compile Include="Inventory\Articles\Model\ImageRemoved.cs" />
     <Compile Include="Inventory\Owners\Owner.cs" />
-    <Compile Include="Inventory\Owners\OwnerId.cs" />
     <Compile Include="Inventory\Queries\ArticleReadModel.cs" />
     <Compile Include="Inventory\Queries\Dtos\StoreDto.cs" />
     <Compile Include="Inventory\Queries\IArticleQueries.cs" />

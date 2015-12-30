@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Tests.Inventory
 {
     using System;
+    using Common.Domain.Model;
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.Articles.Model;
     using Core.Inventory.Owners;

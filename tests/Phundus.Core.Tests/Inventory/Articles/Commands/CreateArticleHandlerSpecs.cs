@@ -1,9 +1,11 @@
 ﻿namespace Phundus.Core.Tests.Inventory
 {
     using System;
+    using Common.Domain.Model;
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.Articles.Model;
     using Core.Inventory.Owners;
+    using Core.Inventory.Stores.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -20,9 +22,7 @@
             ownerService.setup(x => x.GetById(organizationId)).Return(new Owner(new OwnerId(organizationId), "Owner"));
             repository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(1);
 
-            command = new CreateArticle();
-            command.InitiatorId = 2;
-            command.OwnerId = organizationId;
+            command = new CreateArticle(new UserId(2), new OwnerId(organizationId), new StoreId(), "Name");
         };
 
         public It should_add_to_repository = () => repository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));

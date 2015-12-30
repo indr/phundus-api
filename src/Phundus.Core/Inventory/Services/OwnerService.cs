@@ -2,6 +2,7 @@
 {
     using System;
     using Common;
+    using Common.Domain.Model;
     using IdentityAndAccess.Queries;
     using Owners;
 
@@ -14,6 +15,14 @@
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
         Owner GetById(Guid ownerId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ownerId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        Owner GetById(OwnerId ownerId);
 
         /// <summary>
         /// 
@@ -57,6 +66,11 @@
                 return ToOwner(user);
 
             throw new NotFoundException(String.Format("Owner with id {0} not found.", ownerId));
+        }
+
+        public Owner GetById(OwnerId ownerId)
+        {
+            return GetById(ownerId.Value);
         }
 
         public Owner GetByUserId(int userId)

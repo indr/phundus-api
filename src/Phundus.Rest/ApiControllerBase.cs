@@ -11,6 +11,7 @@
     using System.Web.Security;
     using AutoMapper;
     using Castle.Core.Logging;
+    using Common.Domain.Model;
     using Core.Cqrs;
 
     public class ApiControllerBase : ApiController
@@ -42,6 +43,11 @@
                 var userId = user.ProviderUserKey;
                 return Convert.ToInt32(userId);
             }
+        }
+
+        protected UserId GetCurrentUserId()
+        {
+            return new UserId(CurrentUserId);
         }
 
         protected static TDestination Map<TDestination>(object source)

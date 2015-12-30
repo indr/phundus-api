@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Common.Domain.Model;
     using Core.Inventory.Articles.Model;
     using Core.Inventory.Articles.Repositories;
     using Core.Inventory.AvailabilityAndReservation.Model;
