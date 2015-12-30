@@ -4,7 +4,7 @@
     using System.Configuration;
     using System.IO;
     using System.Web.Hosting;
-    using phiNdus.fundus.DbMigrations;
+    using Phundus.Migrations;
 
     public class DatabaseMigrator
     {
