@@ -1,17 +1,66 @@
 namespace Phundus.Rest.Api
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common;
+    using Common.Domain.Model;
+    using Core.Inventory.Queries;
     using Core.Inventory.Stores.Commands;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/stores")]
     public class StoresController : ApiControllerBase
     {
+        private IStoreQueries _storeQueries;
+
+        public StoresController(IStoreQueries storeQueries)
+        {
+            AssertionConcern.AssertArgumentNotNull(storeQueries, "StoreQueries must be provided.");
+
+            _storeQueries = storeQueries;
+        }
+
+        [GET("")]
+        [Transaction]
+        public virtual StoresGetsOkResponseContent Get(Guid? ownerId)
+        {
+            var result = new StoresGetsOkResponseContent();
+            if (!ownerId.HasValue)
+                return result;
+                
+            var store = _storeQueries.FindByOwnerId(new OwnerId(ownerId.Value));
+            if (store != null)
+                result.Stores.Add(ToStore(store));
+
+            return result;
+        }
+
+        private static Store ToStore(StoreDto store)
+        {
+            var result = new Store
+            {
+                Address = store.Address,
+                OpeningHours = store.OpeningHours,
+                StoreId = store.StoreId.Id,
+                
+            };
+            if (store.Latitude.HasValue && store.Longitude.HasValue)
+            {
+                result.Coordinate = new Coordinate()
+                {
+                    Latitude = store.Latitude.Value,
+                    Longitude = store.Longitude.Value
+                };
+            }
+            return result;
+        }
+
         [POST("")]
         [Transaction]
         public virtual StoresPostOkResponseContent Post(StoresPostRequestContent requestContent)
@@ -77,6 +126,17 @@ namespace Phundus.Rest.Api
         }
     }
 
+    public class StoresGetsOkResponseContent
+    {
+        public StoresGetsOkResponseContent()
+        {
+            Stores = new Store[0];    
+        }
+
+        [JsonProperty("stores")]
+        public IList<Store> Stores { get; set; }
+    }
+
     public class StoresPostRequestContent
     {
         [JsonProperty("userId")]
@@ -84,12 +144,6 @@ namespace Phundus.Rest.Api
     }
 
     public class StoresPostOkResponseContent
-    {
-        [JsonProperty("storeId")]
-        public string StoreId { get; set; }
-    }
-
-    public class StoresGetOkResponseContent
     {
         [JsonProperty("storeId")]
         public string StoreId { get; set; }
