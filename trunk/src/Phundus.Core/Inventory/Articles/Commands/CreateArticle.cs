@@ -48,14 +48,6 @@
 
             var result = new Article(owner, command.Name);
 
-            // TODO: Remove
-            result.Brand = command.Brand;
-            result.Price = command.Price;
-            result.Description = command.Description;
-            result.Specification = command.Specification;
-            result.GrossStock = command.GrossStock;
-            result.Color = command.Color;
-
             command.ArticleId = _articleRepository.Add(result);
 
             EventPublisher.Publish(new ArticleCreated());

@@ -162,14 +162,14 @@
     <Compile Include="Inventory\Articles\Commands\UpdateSpecification.cs" />
     <Compile Include="Inventory\Articles\Exceptions\ImageNotFoundException.cs" />
     <Compile Include="Inventory\Articles\Model\ArticleCreated.cs" />
-    <Compile Include="Inventory\Articles\Model\ArticleDescriptionUpdated.cs" />
-    <Compile Include="Inventory\Articles\Model\ArticleSpecificationUpdated.cs" />
+    <Compile Include="Inventory\Articles\Model\SpecificationChanged.cs" />
     <Compile Include="Inventory\Articles\Model\ArticleUpdated.cs" />
     <Compile Include="Inventory\Articles\Commands\CreateArticle.cs" />
     <Compile Include="Inventory\Articles\Commands\UpdateArticle.cs" />
     <Compile Include="Inventory\Articles\Model\ArticleDeleted.cs" />
     <Compile Include="Inventory\Articles\Commands\DeleteArticle.cs" />
     <Compile Include="Inventory\Articles\Exceptions\ArticleNotFoundException.cs" />
+    <Compile Include="Inventory\Articles\Model\DescriptionChanged.cs" />
     <Compile Include="Inventory\Articles\Model\ImageAdded.cs" />
     <Compile Include="Inventory\Articles\Model\ImageRemoved.cs" />
     <Compile Include="Inventory\Owners\Owner.cs" />

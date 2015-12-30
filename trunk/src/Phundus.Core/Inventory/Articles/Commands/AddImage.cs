@@ -31,8 +31,6 @@
 
             var image = article.AddImage(command.FileName, command.Type, command.Length);
             command.ImageId = image.Id;
-
-            EventPublisher.Publish(new ImageAdded());
         }
     }
 }

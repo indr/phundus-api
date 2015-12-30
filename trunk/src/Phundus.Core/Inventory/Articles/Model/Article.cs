@@ -3,15 +3,18 @@
     using System;
     using System.Linq;
     using Common;
+    using Ddd;
     using Iesi.Collections.Generic;
     using Owners;
 
-    public class Article
+    public class Article : Aggregate<int>
     {
-        private string _caption;
-        private DateTime _createDate = DateTime.Now;
+        private string _name;
+        private DateTime _createDate = DateTime.UtcNow;
+        private string _description;
         private ISet<Image> _images = new HashedSet<Image>();
         private Owner _owner;
+        private string _specification;
 
         protected Article()
         {
@@ -22,12 +25,8 @@
             AssertionConcern.AssertArgumentNotNull(owner, "Owner must be provided.");
 
             _owner = owner;
-            _caption = name;
+            _name = name;
         }
-
-        public virtual int Id { get; protected set; }
-
-        public virtual int Version { get; protected set; }
 
         public virtual Owner Owner
         {
@@ -38,7 +37,7 @@
         public virtual ISet<Image> Images
         {
             get { return _images; }
-            set { _images = value; }
+            protected set { _images = value; }
         }
 
         public virtual DateTime CreateDate
@@ -47,10 +46,10 @@
             protected set { _createDate = value; }
         }
 
-        public virtual string Caption
+        public virtual string Name
         {
-            get { return _caption; }
-            set { _caption = value; }
+            get { return _name; }
+            set { _name = value; }
         }
 
         public virtual string Brand { get; set; }
@@ -59,17 +58,38 @@
 
         public virtual int GrossStock { get; set; }
 
-        public virtual string Description { get; set; }
+        public virtual string Description
+        {
+            get { return _description; }
+            protected set { _description = value; }
+        }
 
-        public virtual string Specification { get; set; }
+        public virtual string Specification
+        {
+            get { return _specification; }
+            protected set { _specification = value; }
+        }
 
         public virtual string Color { get; set; }
 
-        public virtual bool RemoveImage(Image image)
+        public virtual void ChangeDescription(string description)
         {
-            var result = Images.Remove(image);
-            image.Article = null;
-            return result;
+            if (_description != null && description == _description)
+                return;
+
+            Description = description;
+
+            EventPublisher.Publish(new DescriptionChanged());
+        }
+
+        public virtual void ChangeSpecification(string specification)
+        {
+            if (_specification != null && specification == _specification)
+                return;
+
+            Specification = specification;
+
+            EventPublisher.Publish(new SpecificationChanged());
         }
 
         public virtual Image AddImage(string fileName, string type, long length)
@@ -82,6 +102,9 @@
                 Article = this
             };
             Images.Add(image);
+
+            EventPublisher.Publish(new ImageAdded());
+
             return image;
         }
 
@@ -92,6 +115,8 @@
                 return;
             Images.Remove(image);
             image.Article = null;
+
+            EventPublisher.Publish(new ImageRemoved());
         }
     }
 }

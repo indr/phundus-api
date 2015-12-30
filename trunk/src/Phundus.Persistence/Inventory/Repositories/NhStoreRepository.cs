@@ -4,7 +4,6 @@
     using Common;
     using Core.Inventory.Stores.Model;
     using Core.Inventory.Stores.Repositories;
-    using Infrastructure;
 
     public class NhStoreRepository : NhRepositoryBase<Store>, IStoreRepository
     {
@@ -12,7 +11,7 @@
         {
             var result = FindById(storeId);
             if (result == null)
-                throw new NotFoundException("Store not found.");
+                throw new NotFoundException(String.Format("Store with id {0} not found.", storeId));
             return result;
         }
     }

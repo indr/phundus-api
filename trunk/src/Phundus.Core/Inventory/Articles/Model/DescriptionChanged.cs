@@ -4,7 +4,7 @@
     using Common.Domain.Model;
 
     [DataContract]
-    public class ArticleDescriptionUpdated : DomainEvent
+    public class DescriptionChanged : DomainEvent
     {
     }
 }
