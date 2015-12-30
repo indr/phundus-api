@@ -12,11 +12,6 @@
 
     public class CreateArticle
     {
-        private UserId _initiatorId;
-        private string _name;
-        private OwnerId _ownerId;
-        private StoreId _storeId;
-
         public CreateArticle(UserId initiatorId, OwnerId ownerId, StoreId storeId, string name)
         {
             AssertionConcern.AssertArgumentNotNull(initiatorId, "InitiatorId must be provided.");
@@ -24,35 +19,16 @@
             AssertionConcern.AssertArgumentNotNull(storeId, "StoreId must be provided.");
             AssertionConcern.AssertArgumentNotNull(name, "Name must be provided.");
 
-            _initiatorId = initiatorId;
-            _ownerId = ownerId;
-            _storeId = storeId;
-            _name = name;
+            InitiatorId = initiatorId;
+            OwnerId = ownerId;
+            StoreId = storeId;
+            Name = name;
         }
 
-        public UserId InitiatorId
-        {
-            get { return _initiatorId; }
-            protected set { _initiatorId = value; }
-        }
-
-        public OwnerId OwnerId
-        {
-            get { return _ownerId; }
-            protected set { _ownerId = value; }
-        }
-
-        public StoreId StoreId
-        {
-            get { return _storeId; }
-            protected set { _storeId = value; }
-        }
-
-        public string Name
-        {
-            get { return _name; }
-            protected set { _name = value; }
-        }
+        public UserId InitiatorId { get; protected set; }
+        public OwnerId OwnerId { get; protected set; }
+        public StoreId StoreId { get; protected set; }
+        public string Name { get; protected set; }
 
         public int ResultingArticleId { get; set; }
     }

@@ -20,18 +20,23 @@ namespace Phundus.Rest.Api.Organizations
     public class OrganizationsArticlesController : ApiControllerBase
     {
         private readonly IArticleQueries _articleQueries;
-        private readonly IMemberInRole _memberInRole;
         private readonly IAvailabilityQueries _availabilityQueries;
+        private readonly IMemberInRole _memberInRole;
         private readonly IReservationRepository _reservationRepository;
+        private IStoreQueries _storeQueries;
 
-        public OrganizationsArticlesController(IMemberInRole memberInRole, IArticleQueries articleQueries, IAvailabilityQueries availabilityQueries, IReservationRepository reservationRepository)
+        public OrganizationsArticlesController(IMemberInRole memberInRole, IStoreQueries storeQueries,
+            IArticleQueries articleQueries, IAvailabilityQueries availabilityQueries,
+            IReservationRepository reservationRepository)
         {
             AssertionConcern.AssertArgumentNotNull(memberInRole, "MemberInRole must be provided.");
+            AssertionConcern.AssertArgumentNotNull(storeQueries, "StoreQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleQueries, "ArticleQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(availabilityQueries, "AvailabilityQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(reservationRepository, "ReservationRepository must be provided.");
 
             _memberInRole = memberInRole;
+            _storeQueries = storeQueries;
             _articleQueries = articleQueries;
             _availabilityQueries = availabilityQueries;
             _reservationRepository = reservationRepository;
@@ -109,9 +114,9 @@ namespace Phundus.Rest.Api.Organizations
         public virtual OrganizationsArticlesPostOkResponseContent Post(Guid organizationId,
             OrganizationsArticlesPostRequestContent requestContent)
         {
-            // TODO: StoreId via IStoreQueries
-            var storeId = new StoreId();
-            var command = new CreateArticle(GetCurrentUserId(), new OwnerId(organizationId), storeId,
+            var ownerId = new OwnerId(organizationId);
+            var storeId = _storeQueries.GetByOwnerId(ownerId).StoreId;
+            var command = new CreateArticle(GetCurrentUserId(), ownerId, storeId,
                 requestContent.Name);
             Dispatch(command);
 
@@ -177,7 +182,7 @@ namespace Phundus.Rest.Api.Organizations
         {
             _memberInRole.ActiveChief(organizationId, CurrentUserId);
 
-            Dispatcher.Dispatch(new DeleteArticle { ArticleId = articleId, InitiatorId = CurrentUserId });
+            Dispatcher.Dispatch(new DeleteArticle {ArticleId = articleId, InitiatorId = CurrentUserId});
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
