@@ -247,7 +247,6 @@
     <Compile Include="App_Start\Plumbing\RegisterClientValidationExtensions.cs" />
     <Compile Include="ControllerNames.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\Orgs\ArticleController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Helpers\SessionAdapter.cs" />
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
@@ -410,7 +409,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\CustomMembershipProvider.cs" />
     <Compile Include="Security\CustomRoleProvider.cs" />
-    <Compile Include="ViewModels\ArticleViewModel.cs" />
     <Compile Include="ViewModels\MessageBoxViewModel.cs" />
     <Compile Include="ViewModels\PageSelectorViewModel.cs" />
     <Compile Include="ViewModels\ShopSearchResultViewModel.cs" />
@@ -707,7 +705,6 @@
     <Content Include="Views\Documents\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_BaseUrl.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\ArticleViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\pbar-ani.gif" />
@@ -958,28 +955,10 @@
     <Content Include="Views\Users\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Article\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Article\Fields.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Article\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Article\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\DisplayTemplates\MessageBoxViewModel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Article\Availability.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Article\_Tabs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
@@ -1002,7 +981,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\Article\Images.cshtml" />
     <Content Include="Views\Shop\Result-Table.cshtml" />
     <Content Include="Views\Shop\Result-Large.cshtml" />
     <Content Include="Views\Shop\Result-Small.cshtml" />
@@ -1015,7 +993,6 @@
     <Content Include="Views\Shop\Article_AddToCart.cshtml" />
     <Content Include="Views\Feedback\Index.cshtml" />
     <Content Include="Views\Feedback\Done.cshtml" />
-    <Content Include="Views\Article\Reservations.cshtml" />
     <Content Include="Views\Account\ChangeEmail.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ChangePasswordDone.cshtml" />
