@@ -18,7 +18,7 @@
 
         public IEnumerable<Article> FindByOwnerId(Guid ownerId)
         {
-            return Entities.Where(p => p.Owner.OwnerId.Value == ownerId).ToFuture();
+            return Entities.Where(p => p.Owner.OwnerId.Id == ownerId).ToFuture();
         }
 
         public Article GetById(int id)
@@ -32,7 +32,7 @@
         public Article GetById(Guid organizationId, int articleId)
         {
             var result = FindById(articleId);
-            if ((result == null) || (result.Owner.OwnerId.Value != organizationId))
+            if ((result == null) || (result.Owner.OwnerId.Id != organizationId))
                 throw new ArticleNotFoundException(articleId);
             return result;
         }

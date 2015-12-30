@@ -1,38 +1,47 @@
 ﻿namespace Phundus.Common.Domain.Model
 {
-    using System.Collections.Generic;
+    using System;
 
-    public abstract class Identity<T>
+    public interface IIdentity<out T>
     {
-        protected Identity(T value)
-        {
-            AssertionConcern.AssertArgumentNotNull(value, "Value must be provided.");
+        T Id { get; }
+    }
 
-            Value = value;
+    public abstract class Identity<T> : IEquatable<Identity<T>>, IIdentity<T>
+    {
+        protected Identity(T id)
+        {
+            AssertionConcern.AssertArgumentNotNull(id, "Id must be provided.");
+
+            Id = id;
         }
 
         protected Identity()
         {
         } 
 
-        public T Value { get; private set; }
-
-        protected bool Equals(Identity<T> other)
+        public bool Equals(Identity<T> id)
         {
-            return EqualityComparer<T>.Default.Equals(Value, other.Value);
+            if (ReferenceEquals(this, id)) return true;
+            if (ReferenceEquals(null, id)) return false;
+            return Id.Equals(id.Id);
         }
 
-        public override bool Equals(object obj)
+        public T Id { get; protected set; }
+
+        public override bool Equals(object anotherObject)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((Identity<T>) obj);
+            return Equals(anotherObject as Identity<T>);
         }
 
         public override int GetHashCode()
         {
-            return EqualityComparer<T>.Default.GetHashCode(Value);
+            return (GetType().GetHashCode()*907) + Id.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return GetType().Name + " [Id=" + Id + "]";
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Phundus.Core.IdentityAndAccess.Queries
         {
             AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
 
-            ActiveChief(ownerId.Value, userId);
+            ActiveChief(ownerId.Id, userId);
         }
 
         public void ActiveChief(OwnerId ownerId, UserId userId)
@@ -47,7 +47,7 @@ namespace Phundus.Core.IdentityAndAccess.Queries
             AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
             AssertionConcern.AssertArgumentNotNull(userId, "UserId must be provided.");
 
-            ActiveChief(ownerId.Value, userId.Value);
+            ActiveChief(ownerId.Id, userId.Id);
         }
 
         public bool IsActiveMember(Guid organizationId, int userId)
@@ -93,7 +93,7 @@ namespace Phundus.Core.IdentityAndAccess.Queries
         {
             AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
 
-            return IsActiveChief(ownerId.Value, userId);
+            return IsActiveChief(ownerId.Id, userId);
         }
 
         public void IsActiveChief(OwnerId ownerId, UserId userId)
@@ -101,7 +101,7 @@ namespace Phundus.Core.IdentityAndAccess.Queries
             AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
             AssertionConcern.AssertArgumentNotNull(userId, "UserId must be provided.");
 
-            IsActiveChief(ownerId.Value, userId.Value);
+            IsActiveChief(ownerId.Id, userId.Id);
         }
     }
 }

@@ -10,7 +10,7 @@
             SchemaAction.Validate();
             Table("Dm_Store");
 
-            CompositeId(x => x.Id).KeyProperty(e => e.Value, "StoreId");
+            CompositeId(x => x.Id).KeyProperty(e => e.Id, "StoreId");
             //Id(x => x.Id).GeneratedBy.Assigned();
             Version(x => x.Version);
             Map(x => x.CreatedAtUtc).Not.Update();
@@ -25,7 +25,7 @@
             Map(x => x.OpeningHours);
             Component(x => x.Owner, c =>
             {
-                c.Component(x => x.OwnerId, d => d.Map(x => x.Value, "Owner_OwnerId"));
+                c.Component(x => x.OwnerId, d => d.Map(x => x.Id, "Owner_OwnerId"));
                 c.Map(x => x.Name, "Owner_Name");
             });
         }

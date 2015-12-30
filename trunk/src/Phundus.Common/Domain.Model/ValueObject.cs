@@ -73,19 +73,19 @@
 
         private class NonGenericComparable<T> : IComparable
         {
-            private readonly IComparable<T> comparable;
+            private readonly IComparable<T> _comparable;
 
             public NonGenericComparable(IComparable<T> comparable)
             {
-                this.comparable = comparable;
+                this._comparable = comparable;
             }
 
             public int CompareTo(object obj)
             {
-                if (object.ReferenceEquals(comparable, obj)) return 0;
+                if (object.ReferenceEquals(_comparable, obj)) return 0;
                 if (object.ReferenceEquals(null, obj))
                     throw new ArgumentNullException();
-                return comparable.CompareTo((T) obj);
+                return _comparable.CompareTo((T) obj);
             }
         }
     }
