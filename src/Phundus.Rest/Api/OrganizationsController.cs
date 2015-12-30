@@ -9,33 +9,69 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common;
+    using Common.Domain.Model;
     using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Queries;
+    using Core.Inventory.Queries;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations")]
     public class OrganizationsController : ApiControllerBase
     {
-        public IOrganizationQueries OrganizationQueries { get; set; }
+        private IStoreQueries _storeQueries;
+        private IOrganizationQueries _organizationQueries;
+
+        public OrganizationsController(IOrganizationQueries organizationQueries, IStoreQueries storeQueries)
+        {
+            AssertionConcern.AssertArgumentNotNull(organizationQueries, "OrganizationQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(storeQueries, "StoreQueries must be provided.");
+
+            _organizationQueries = organizationQueries;
+            _storeQueries = storeQueries;
+        }
+        
 
         [GET("")]
         [Transaction]
         [AllowAnonymous]
         public virtual IEnumerable<OrganizationDto> Get()
         {
-            return OrganizationQueries.AllNonFree();
+            return _organizationQueries.AllNonFree();
         }
-
 
         [GET("{organizationId}")]
         [Transaction]
         [AllowAnonymous]
-        public virtual OrganizationDetailDto Get(Guid organizationId)
+        public virtual OrganizationsGetOkResponseContent Get(Guid organizationId)
         {
-            var result = OrganizationQueries.FindById(organizationId);
-            if (result == null)
+            var organization = _organizationQueries.FindById(organizationId);
+            if (organization == null)
                 throw new HttpException((int) HttpStatusCode.NotFound, "Organization not found.");
-
+            
+            var store = _storeQueries.FindByOwnerId(new OwnerId(organization.Guid));
+            var result = new OrganizationsGetOkResponseContent
+            {
+                Address = organization.Address,
+                DocumentTemplate = organization.DocumentTemplate,
+                EmailAddress = organization.EmailAddress,
+                Name = organization.Name,
+                OrganizationId = organization.Guid,
+                Startpage = organization.Startpage,
+                Stores = new List<Store>(),
+                Url = organization.Url,
+                Website = organization.Website
+            };
+            if (store != null)
+            {
+                result.Stores.Add(new Store()
+                {
+                    Address = store.Address,
+                    OpeningHours = store.OpeningHours,
+                    Coordinate = Coordinate.FromLatLng(store.Latitude, store.Longitude),
+                    StoreId = store.StoreId.Id
+                });
+            }
             return result;
         }
 
@@ -72,8 +108,38 @@
                 Website = value.Website
             });
 
-            return OrganizationQueries.FindById(organizationId);
+            return _organizationQueries.FindById(organizationId);
         }
+    }
+
+    public class OrganizationsGetOkResponseContent
+    {
+        [JsonProperty("organizationId")]
+        public Guid OrganizationId { get; set; }
+        
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
+        [JsonProperty("address")]
+        public string Address { get; set; }
+
+        [JsonProperty("emailAddress")]
+        public string EmailAddress { get; set; }
+
+        [JsonProperty("website")]
+        public string Website { get; set; }
+        
+        [JsonProperty("startpage")]
+        public string Startpage { get; set; }
+        
+        [JsonProperty("documentTemplate")]
+        public string DocumentTemplate { get; set; }
+
+        [JsonProperty("stores")]
+        public IList<Store> Stores { get; set; } 
     }
 
     public class OrganizationsPostOkResponseContent

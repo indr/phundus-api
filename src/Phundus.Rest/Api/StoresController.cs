@@ -1,7 +1,6 @@
 namespace Phundus.Rest.Api
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
@@ -17,7 +16,7 @@ namespace Phundus.Rest.Api
     [RoutePrefix("api/stores")]
     public class StoresController : ApiControllerBase
     {
-        private IStoreQueries _storeQueries;
+        private readonly IStoreQueries _storeQueries;
 
         public StoresController(IStoreQueries storeQueries)
         {
@@ -33,7 +32,7 @@ namespace Phundus.Rest.Api
             var result = new StoresGetsOkResponseContent();
             if (!ownerId.HasValue)
                 return result;
-                
+
             var store = _storeQueries.FindByOwnerId(new OwnerId(ownerId.Value));
             if (store != null)
                 result.Stores.Add(ToStore(store));
@@ -48,11 +47,10 @@ namespace Phundus.Rest.Api
                 Address = store.Address,
                 OpeningHours = store.OpeningHours,
                 StoreId = store.StoreId.Id,
-                
             };
             if (store.Latitude.HasValue && store.Longitude.HasValue)
             {
-                result.Coordinate = new Coordinate()
+                result.Coordinate = new Coordinate
                 {
                     Latitude = store.Latitude.Value,
                     Longitude = store.Longitude.Value
@@ -130,7 +128,7 @@ namespace Phundus.Rest.Api
     {
         public StoresGetsOkResponseContent()
         {
-            Stores = new List<Store>();    
+            Stores = new List<Store>();
         }
 
         [JsonProperty("stores")]
