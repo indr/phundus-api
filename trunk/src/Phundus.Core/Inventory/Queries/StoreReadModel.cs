@@ -2,6 +2,7 @@ namespace Phundus.Core.Inventory.Queries
 {
     using System;
     using System.Linq;
+    using Common.Domain.Model;
     using Cqrs;
     using NHibernate.Linq;
     using Owners;

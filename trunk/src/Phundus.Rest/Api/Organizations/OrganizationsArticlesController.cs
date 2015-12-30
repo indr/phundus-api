@@ -8,10 +8,12 @@ namespace Phundus.Rest.Api.Organizations
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common;
+    using Common.Domain.Model;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Core.Inventory.Queries;
+    using Core.Inventory.Stores.Model;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/articles")]
@@ -107,12 +109,10 @@ namespace Phundus.Rest.Api.Organizations
         public virtual OrganizationsArticlesPostOkResponseContent Post(Guid organizationId,
             OrganizationsArticlesPostRequestContent requestContent)
         {
-            var command = new CreateArticle
-            {
-                InitiatorId = CurrentUserId,
-                OwnerId = organizationId,
-                Name = requestContent.Name
-            };
+            // TODO: StoreId via IStoreQueries
+            var storeId = new StoreId();
+            var command = new CreateArticle(GetCurrentUserId(), new OwnerId(organizationId), storeId,
+                requestContent.Name);
             Dispatch(command);
 
             return new OrganizationsArticlesPostOkResponseContent

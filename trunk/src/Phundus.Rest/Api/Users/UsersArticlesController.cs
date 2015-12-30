@@ -8,10 +8,12 @@ namespace Phundus.Rest.Api.Users
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common;
+    using Common.Domain.Model;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Core.Inventory.Queries;
+    using Core.Inventory.Stores.Model;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/users/{userId}/articles")]
@@ -109,12 +111,10 @@ namespace Phundus.Rest.Api.Users
         {
             var currentUserGuid = EnforceCurrentUser(userId);
 
-            var command = new CreateArticle
-            {
-                InitiatorId = CurrentUserId,
-                OwnerId = currentUserGuid,
-                Name = requestContent.Name
-            };
+            // TODO: StoreId via IStoreQueries
+            var storeId = new StoreId();
+            var command = new CreateArticle(GetCurrentUserId(), new OwnerId(currentUserGuid), storeId,
+                requestContent.Name);
             Dispatch(command);
 
             return new UsersArticlesPostOkResponseContent

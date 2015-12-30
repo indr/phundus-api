@@ -3,6 +3,7 @@ namespace Phundus.Core.IdentityAndAccess.Queries
     using System;
     using System.Linq;
     using Common;
+    using Common.Domain.Model;
     using Cqrs;
     using Organizations.Model;
     using Organizations.Repositories;
@@ -32,6 +33,21 @@ namespace Phundus.Core.IdentityAndAccess.Queries
             if (!IsActiveChief(organizationId, userId))
                 throw new AuthorizationException(
                     "Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");
+        }
+
+        public void ActiveChief(OwnerId ownerId, int userId)
+        {
+            AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
+
+            ActiveChief(ownerId.Value, userId);
+        }
+
+        public void ActiveChief(OwnerId ownerId, UserId userId)
+        {
+            AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
+            AssertionConcern.AssertArgumentNotNull(userId, "UserId must be provided.");
+
+            ActiveChief(ownerId.Value, userId.Value);
         }
 
         public bool IsActiveMember(Guid organizationId, int userId)
@@ -71,6 +87,21 @@ namespace Phundus.Core.IdentityAndAccess.Queries
                 return false;
 
             return true;
+        }
+
+        public bool IsActiveChief(OwnerId ownerId, int userId)
+        {
+            AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
+
+            return IsActiveChief(ownerId.Value, userId);
+        }
+
+        public void IsActiveChief(OwnerId ownerId, UserId userId)
+        {
+            AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
+            AssertionConcern.AssertArgumentNotNull(userId, "UserId must be provided.");
+
+            IsActiveChief(ownerId.Value, userId.Value);
         }
     }
 }
