@@ -32,7 +32,7 @@
                 var migrationContext = new RunnerContext(announcer)
                                            {
                                                ApplicationContext = connectionString.ProviderName,
-                                               Namespace = "phiNdus.fundus.DbMigrations",
+                                               Namespace = "Phundus.Migrations",
                                                Tags = tags,
                                                Profile = profile
                                            };
