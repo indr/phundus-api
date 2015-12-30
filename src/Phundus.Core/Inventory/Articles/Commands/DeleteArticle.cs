@@ -22,7 +22,7 @@
         {
             var article = ArticleRepository.GetById(command.ArticleId);
 
-            MemberInRole.ActiveChief(article.Owner.OwnerId.Value, command.InitiatorId);
+            MemberInRole.ActiveChief(article.Owner.OwnerId.Id, command.InitiatorId);
 
             ArticleRepository.Remove(article);
 

@@ -70,7 +70,7 @@
 
         public Owner GetById(OwnerId ownerId)
         {
-            return GetById(ownerId.Value);
+            return GetById(ownerId.Id);
         }
 
         public Owner GetByUserId(int userId)

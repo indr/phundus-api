@@ -73,7 +73,7 @@ namespace Phundus.Rest.Api
             {
                 Store = new Store
                 {
-                    StoreId = store.StoreId.Value.ToString("N"),
+                    StoreId = store.StoreId.Id.ToString("N"),
                     Address = store.Address,
                     OpeningHours = store.OpeningHours
                 };

@@ -23,7 +23,7 @@ namespace Phundus.Core.Inventory.Queries
 
         public StoreDto FindByOwnerId(OwnerId ownerId)
         {
-            var store = Session.Query<Store>().FirstOrDefault(p => p.Owner.OwnerId.Value == ownerId.Value);
+            var store = Session.Query<Store>().FirstOrDefault(p => p.Owner.OwnerId.Id == ownerId.Id);
             if (store == null)
                 return null;
 

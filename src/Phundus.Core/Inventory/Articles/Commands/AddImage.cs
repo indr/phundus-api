@@ -27,7 +27,7 @@
         {
             var article = ArticleRepository.GetById(command.ArticleId);
 
-            MemberInRole.ActiveChief(article.Owner.OwnerId.Value, command.InitiatorId);
+            MemberInRole.ActiveChief(article.Owner.OwnerId.Id, command.InitiatorId);
 
             var image = article.AddImage(command.FileName, command.Type, command.Length);
             command.ImageId = image.Id;

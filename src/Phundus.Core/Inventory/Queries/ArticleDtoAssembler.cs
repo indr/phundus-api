@@ -37,7 +37,7 @@
             var result = new ArticleDto();
             result.Id = subject.Id;
             result.Version = subject.Version;
-            result.OrganizationId = subject.Owner.OwnerId.Value;
+            result.OrganizationId = subject.Owner.OwnerId.Id;
             result.OrganizationName = subject.Owner.Name;
 
             result.CreatedOn = subject.CreateDate;

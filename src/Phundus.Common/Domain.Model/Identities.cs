@@ -4,7 +4,7 @@
 
     public class UserId : Identity<int>
     {
-        public UserId(int value) : base(value)
+        public UserId(int id) : base(id)
         {
         }
 
@@ -15,7 +15,7 @@
 
     public class OwnerId : Identity<Guid>
     {
-        public OwnerId(Guid value) : base(value)
+        public OwnerId(Guid id) : base(id)
         {
         }
 

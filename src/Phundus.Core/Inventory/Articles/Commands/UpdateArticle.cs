@@ -28,7 +28,7 @@
         {
             var article = ArticleRepository.GetById(command.ArticleId);
 
-            MemberInRole.ActiveChief(article.Owner.OwnerId.Value, command.InitiatorId);
+            MemberInRole.ActiveChief(article.Owner.OwnerId.Id, command.InitiatorId);
 
             article.Name = command.Name;
             article.Brand = command.Brand;
