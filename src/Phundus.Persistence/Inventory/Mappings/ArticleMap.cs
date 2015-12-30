@@ -20,7 +20,7 @@
                 c.Map(x => x.Name, "Owner_Name");
             });
 
-            Map(x => x.Caption, "Name");
+            Map(x => x.Name, "Name");
             Map(x => x.Brand);
             Map(x => x.Price, "Price");
             Map(x => x.GrossStock, "Stock");

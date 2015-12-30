@@ -26,8 +26,6 @@
             MemberInRole.ActiveChief(article.Owner.OwnerId.Value, command.InitiatorId);
 
             article.RemoveImage(command.ImageFileName);
-
-            EventPublisher.Publish(new ImageRemoved());
         }
     }
 }

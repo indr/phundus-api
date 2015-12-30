@@ -25,9 +25,7 @@
 
             MemberInRole.ActiveChief(article.Owner.OwnerId.Value, command.InitiatorId);
 
-            article.Description = command.Description;
-
-            EventPublisher.Publish(new ArticleDescriptionUpdated());
+            article.ChangeDescription(command.Description);
         }
     }
 }

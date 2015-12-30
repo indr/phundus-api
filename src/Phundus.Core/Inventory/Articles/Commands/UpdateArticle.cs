@@ -30,7 +30,7 @@
 
             MemberInRole.ActiveChief(article.Owner.OwnerId.Value, command.InitiatorId);
 
-            article.Caption = command.Name;
+            article.Name = command.Name;
             article.Brand = command.Brand;
             article.Price = command.Price;
             article.GrossStock = command.GrossStock;
