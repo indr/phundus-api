@@ -6,6 +6,7 @@
     using Ddd;
     using Iesi.Collections.Generic;
     using Owners;
+    using Stores.Model;
 
     public class Article : Aggregate<int>
     {
@@ -15,16 +16,20 @@
         private ISet<Image> _images = new HashedSet<Image>();
         private Owner _owner;
         private string _specification;
+        private StoreId _storeId;
 
         protected Article()
         {
         }
 
-        public Article(Owner owner, string name)
+        public Article(Owner owner, StoreId storeId, string name)
         {
             AssertionConcern.AssertArgumentNotNull(owner, "Owner must be provided.");
+            AssertionConcern.AssertArgumentNotNull(storeId, "StoreId must be provided.");
+            AssertionConcern.AssertArgumentNotEmpty(name, "Name must be provided.");
 
             _owner = owner;
+            _storeId = storeId;
             _name = name;
         }
 
@@ -32,6 +37,11 @@
         {
             get { return _owner; }
             protected set { _owner = value; }
+        }
+
+        public virtual StoreId StoreId
+        {
+            get { return _storeId; }
         }
 
         public virtual ISet<Image> Images

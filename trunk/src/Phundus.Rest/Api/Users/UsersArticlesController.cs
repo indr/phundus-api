@@ -119,7 +119,7 @@ namespace Phundus.Rest.Api.Users
 
             return new UsersArticlesPostOkResponseContent
             {
-                ArticleId = command.ArticleId
+                ArticleId = command.ResultingArticleId
             };
         }
 

@@ -5,6 +5,7 @@
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.Articles.Model;
     using Core.Inventory.Owners;
+    using Core.Inventory.Stores.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -25,7 +26,7 @@
         {
             ownerId = Guid.NewGuid();
             owner = new Owner(new OwnerId(ownerId), "Owner");
-            article = new Article(owner, "Name");
+            article = new Article(owner, new StoreId(), "Name");
             repository.setup(x => x.GetById(articleId)).Return(article);
 
             command = new AddImage

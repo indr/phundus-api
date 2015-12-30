@@ -117,7 +117,7 @@ namespace Phundus.Rest.Api.Organizations
 
             return new OrganizationsArticlesPostOkResponseContent
             {
-                ArticleId = command.ArticleId
+                ArticleId = command.ResultingArticleId
             };
         }
 

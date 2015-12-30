@@ -8,20 +8,15 @@
     using Model;
     using Repositories;
     using Services;
+    using Stores.Model;
 
     public class CreateArticle
     {
         public int InitiatorId { get; set; }
         public Guid OwnerId { get; set; }
-        public int ArticleId { get; set; }
-
+        public Guid StoreId { get; set; }
         public string Name { get; set; }
-        public string Brand { get; set; }
-        public decimal Price { get; set; }
-        public string Description { get; set; }
-        public string Specification { get; set; }
-        public int GrossStock { get; set; }
-        public string Color { get; set; }
+        public int ResultingArticleId { get; set; }
     }
 
     public class CreateArticleHandler : IHandleCommand<CreateArticle>
@@ -46,9 +41,9 @@
             _memberInRole.ActiveChief(command.OwnerId, command.InitiatorId);
             var owner = _ownerService.GetById(command.OwnerId);
 
-            var result = new Article(owner, command.Name);
+            var result = new Article(owner, new StoreId(command.StoreId), command.Name);
 
-            command.ArticleId = _articleRepository.Add(result);
+            command.ResultingArticleId = _articleRepository.Add(result);
 
             EventPublisher.Publish(new ArticleCreated());
         }
