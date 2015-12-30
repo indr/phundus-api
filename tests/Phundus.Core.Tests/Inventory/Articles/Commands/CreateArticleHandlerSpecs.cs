@@ -33,6 +33,6 @@
         public It should_publish_article_created =
             () => publisher.WasToldTo(x => x.Publish(Arg<ArticleCreated>.Is.NotNull));
 
-        public It should_set_article_id = () => command.ArticleId.ShouldNotBeNull();
+        public It should_set_article_id = () => command.ResultingArticleId.ShouldNotBeNull();
     }
 }

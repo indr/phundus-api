@@ -8,6 +8,7 @@
     using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Core.Inventory.Owners;
     using Core.Inventory.Services;
+    using Core.Inventory.Stores.Model;
     using NUnit.Framework;
     using Rhino.Mocks;
     using TechTalk.SpecFlow;
@@ -33,7 +34,7 @@
         public void GivenAnArticleWithGrossStockOf(int amount)
         {
             var owner = new Owner(new OwnerId(Guid.NewGuid()), "Owner");
-            _article = new Article(owner, "Name");
+            _article = new Article(owner, new StoreId(), "Name");
             _article.GrossStock = amount;
             _articleRepository.Stub(x => x.FindById(_article.Id)).Return(_article);
         }

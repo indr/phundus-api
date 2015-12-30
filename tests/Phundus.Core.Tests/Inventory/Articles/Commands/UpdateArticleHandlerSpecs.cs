@@ -4,6 +4,7 @@ namespace Phundus.Core.Tests.Inventory
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.Articles.Model;
     using Core.Inventory.Owners;
+    using Core.Inventory.Stores.Model;
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
@@ -13,6 +14,7 @@ namespace Phundus.Core.Tests.Inventory
     {
         private static Guid ownerId;
         private static Owner owner;
+        private static StoreId storeId;
         private const int articleId = 1;
         private const int initiatorId = 3;
 
@@ -21,8 +23,9 @@ namespace Phundus.Core.Tests.Inventory
         public Establish c = () =>
         {
             ownerId = Guid.NewGuid();
+            storeId = new StoreId();
             owner = new Owner(new OwnerId(ownerId), "Owner");
-            article = new Article(owner, "Name");
+            article = new Article(owner, storeId, "Name");
             repository.WhenToldTo(x => x.GetById(articleId)).Return(article);
 
             command = new UpdateArticle();
