@@ -144,6 +144,7 @@
     <Compile Include="2015\12\M201512280017DeleteOrganizationIdColumns.cs" />
     <Compile Include="2015\12\M201512290515DropTablesFieldValueAndFieldDefinition.cs" />
     <Compile Include="2015\12\M201512300956CreateOrganizationsStore.cs" />
+    <Compile Include="2015\12\M201512301153AddStoreToArticle.cs" />
     <Compile Include="Helper\DatedAttribute.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
     <Compile Include="Helper\Runner.cs" />

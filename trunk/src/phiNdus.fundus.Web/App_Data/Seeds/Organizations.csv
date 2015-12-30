@@ -1,4 +1,4 @@
-﻿Id;Guid;Name;Address;EmailAddress;Website;Plan
-1001;10000001-3781-436d-9290-54574474e8f8;Pfadi Lego;"Pfadisekretariat Strasse 123 6003 Luzern";pfadi-lego@test.phundus.ch;pfadi-lego.phundus.ch;3
-1002;10000002-a3ff-4e36-98fe-312f7b6b745e;JuBla Playmobil;;;;3
-1003;10000003-763a-473a-a246-b39e1a2d7c7a;Cevi Dupplo;;;;3
+﻿Id;Guid;Name;Address;EmailAddress;Website;Plan;StoreId
+1001;10000001-3781-436d-9290-54574474e8f8;Pfadi Lego;"Pfadisekretariat Strasse 123 6003 Luzern";pfadi-lego@test.phundus.ch;pfadi-lego.phundus.ch;3;C61BD529-E12D-471F-9E41-7140EF0A1A0F
+1002;10000002-a3ff-4e36-98fe-312f7b6b745e;JuBla Playmobil;;;;3;F1F5CD77-6CDB-47A1-BC7E-608EF1F119BC
+1003;10000003-763a-473a-a246-b39e1a2d7c7a;Cevi Dupplo;;;;3;8994A7AB-64C0-49E9-8DCD-81EA8523D366

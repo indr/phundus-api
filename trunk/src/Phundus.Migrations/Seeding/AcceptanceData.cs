@@ -25,8 +25,10 @@
             Delete.FromTable("Membership").InSchema(SchemaName).AllRows();
             Delete.FromTable("User").InSchema(SchemaName).AllRows();
             Delete.FromTable("Organization").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_Store").InSchema(SchemaName).AllRows();
 
             Import<Organization>("Organizations.csv", "Organization", false);
+            Import<Store>("Organizations.csv", "Dm_Store", false);
             Import<User>("Users.csv", "User");
             Import<Account>("Users.csv", "Membership", false);
             Import<Membership>("Memberships.csv", "OrganizationMembership", false);
@@ -79,7 +81,8 @@
                         Brand = each.Marke,
                         Price = each.Preis,
                         Description = each.Beschreibung,
-                        Stock = each.Bestand
+                        Stock = each.Bestand,
+                        StoreId = each.StoreId
                     });
 
                 }
@@ -154,6 +157,9 @@
 
             [CsvField(Name = "Beschreibung")]
             public string Beschreibung { get; set; }
+
+            [CsvField(Name = "StoreId")]
+            public Guid StoreId { get; set; }
         }
 
         #endregion
@@ -265,6 +271,29 @@
             {
                 get { return DateTime.UtcNow; }
             }
+        }
+
+        internal class Store
+        {
+            [CsvField(Name = "StoreId")]
+            public Guid StoreId { get; set; }
+
+            public int Version
+            {
+                get { return 1; }
+            }
+
+            public DateTime CreatedAtUtc { get { return DateTime.UtcNow; } }
+            public DateTime ModifiedAtUtc { get { return DateTime.UtcNow; } }
+
+            [CsvField(Name = "Address")]
+            public string Address { get; set; }
+
+            [CsvField(Name = "Guid")]
+            public Guid Owner_OwnerId { get; set; }
+
+            [CsvField(Name ="Name")]
+            public string Owner_Name { get; set; }
         }
 
         #endregion
