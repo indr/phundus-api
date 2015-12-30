@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A2A165BE-6433-4145-AA24-7552AC6A690F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Phundus.Migrations</RootNamespace>
+    <AssemblyName>Phundus.Migrations</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>    
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CsvHelper">
+      <HintPath>..\..\packages\CsvHelper.1.17.0\lib\net40-client\CsvHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator">
+      <HintPath>..\..\packages\FluentMigrator.1.0.6.0\lib\40\FluentMigrator.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner">
+      <HintPath>..\..\packages\FluentMigrator.Tools.1.0.6.0\tools\AnyCPU\40\FluentMigrator.Runner.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="2012\04\M0001_CreateNHibernateUniqueKeyTable.cs" />
+    <Compile Include="2012\04\M0002_CreateTableUser.cs" />
+    <Compile Include="2012\04\M0003_CreateTableMembership.cs" />
+    <Compile Include="2012\04\M0004_CreateTableRole.cs" />
+    <Compile Include="2012\04\M0005_CreateTableSetting.cs" />
+    <Compile Include="2012\04\M0006_CreateTableFieldDefinition.cs" />
+    <Compile Include="2012\04\M0007_CreateTableFieldValue.cs" />
+    <Compile Include="2012\04\M0008_CreateTableArticle.cs" />
+    <Compile Include="2012\04\M0009_CreateTableImage.cs" />
+    <Compile Include="2012\04\M0010_CreateTableOrder.cs" />
+    <Compile Include="2012\04\M0011_CreateTableOrderItem.cs" />
+    <Compile Include="2012\04\M0012_CreateTableContract.cs" />
+    <Compile Include="2012\04\M0012_CreateTableContractItem.cs" />
+    <Compile Include="2012\04\M0013_InsertRolesAndCreateTrigger.cs" />
+    <Compile Include="2012\04\M0014_InsertFieldDefinitions.cs" />
+    <Compile Include="2012\04\M0_EmptyDatabase.cs" />
+    <Compile Include="2012\05\M201205042139_AddColumnJsNumber.cs" />
+    <Compile Include="2012\05\M201205141612_AddColumnMobileNumber.cs" />
+    <Compile Include="2012\06\M201206072135_CreateTableCart.cs" />
+    <Compile Include="2012\06\M201206072146_CreateTableCartItem.cs" />
+    <Compile Include="2012\06\M201206090900_DeleteCarts.cs" />
+    <Compile Include="2013\02\M201205141612_AddColumnMobileNumber.cs" />
+    <Compile Include="2013\02\M201302241438_CreateTableOrganization.cs" />
+    <Compile Include="2013\02\M201302252131_CreateTableOrganizationMembership.cs" />
+    <Compile Include="2013\02\M201302252247_AddColumnsStreetCityAndPostcode.cs" />
+    <Compile Include="2013\02\M201302252312_AddUniqueKeyToOrganizationMembership.cs" />
+    <Compile Include="2013\02\M201302252319_MoveUsersToDefaultOrganization.cs" />
+    <Compile Include="2013\03\M201303080004_AddColumnSelectedOrganizationId.cs" />
+    <Compile Include="2013\03\M201303082109_InsertAndUpdateRoles.cs" />
+    <Compile Include="2013\03\M201303211953_ArticleAddColumnOrganizationId.cs" />
+    <Compile Include="2013\03\M201303212259_OrderAddColumnOrganizationId.cs" />
+    <Compile Include="2013\04\M01_09_24_AlterFkCartItemToCart.cs" />
+    <Compile Include="2013\04\M01_11_13_AlterFkOrderItemToOrder.cs" />
+    <Compile Include="2013\04\M01_17_53_DeleteSettings.cs" />
+    <Compile Include="2013\04\M08_14_55_AddColumnsToOrganization.cs" />
+    <Compile Include="2013\04\M08_21_42_AddColumnsToOrganizationMembership.cs" />
+    <Compile Include="2013\04\M09_08_56_AddColumnsToOrganization.cs" />
+    <Compile Include="2013\04\M11_21_35.cs" />
+    <Compile Include="2013\04\M11_21_38.cs" />
+    <Compile Include="2013\04\M15_15_42.cs" />
+    <Compile Include="2014\07\M201407201243_CreateTableMembershipRequest.cs" />
+    <Compile Include="2014\07\M201407221828ChangePrimaryKeyOnOrganizationMembership.cs" />
+    <Compile Include="2014\07\M201407271016DeleteColumnOrganizationMembershipRequestDate.cs" />
+    <Compile Include="2014\07\M201407272309DeleteTableRole.cs" />
+    <Compile Include="2014\07\M201407280001UpdateArticleType.cs" />
+    <Compile Include="2014\07\M201407281552DeleteTableSetting.cs" />
+    <Compile Include="2014\08\M201408021809AddColumnsToArticle.cs" />
+    <Compile Include="2014\08\M201408021901HydrateNewArticleColumns.cs" />
+    <Compile Include="2014\08\M201408050816DeleteColumnsOnArticle.cs" />
+    <Compile Include="2014\08\M201408071112CreateTableRmRelationships.cs" />
+    <Compile Include="2014\08\M201408071444HydrateRmRelationships.cs" />
+    <Compile Include="2014\08\M201408071933CleanTableOrganizationMembership.cs" />
+    <Compile Include="2014\08\M201408072202CleanTableOrganizationMembership.cs" />
+    <Compile Include="2014\08\M201408090752RecreateTableContract.cs" />
+    <Compile Include="2014\08\M201408092357CreateTableRmContracts.cs" />
+    <Compile Include="2014\08\M201408111404ChangePrimaryKeyOnOrderItem.cs" />
+    <Compile Include="2014\08\M201408121455ReplaceUserWithBorrowerOnTableOrder.cs" />
+    <Compile Include="2014\08\M201408121502HydrateBorrowerOnTableOrder.cs" />
+    <Compile Include="2014\08\M201408121620CompleteBorrowerOnContract.cs" />
+    <Compile Include="2014\08\M201408131725DeleteObsoletColumnsFromOrder.cs" />
+    <Compile Include="2014\08\M201408141011ChangeTypeOfStatusOnOrder.cs" />
+    <Compile Include="2014\08\M201408150837CreateColumnOrganizationNameOnOrder.cs" />
+    <Compile Include="2014\08\M201408150839HydrateOrganizationNameOnOrder.cs" />
+    <Compile Include="2014\08\M201408150955CreateColumnsOnTableOrderItem.cs" />
+    <Compile Include="2014\08\M201408151820MigrateOrderDatesToUtc.cs" />
+    <Compile Include="2014\10\M201410111611CreateTableStoredEvents.cs" />
+    <Compile Include="2014\10\M201410180625DeleteTableRmEventsListview.cs" />
+    <Compile Include="2014\10\M201410191911CreateTableProcessedNotificationTracker.cs" />
+    <Compile Include="2014\10\M201410192132ClearRmEventsListView.cs" />
+    <Compile Include="2014\10\M201410200709DeleteTableRmEventsAndEmptyTrackers.cs" />
+    <Compile Include="2015\12\M201512150632AddColumnTotalToOrderItem.cs" />
+    <Compile Include="2015\12\M201512160809CreateForeignKeyCartItemToArticle.cs" />
+    <Compile Include="2015\12\M201512210938DeleteSelectedOrganizationId.cs" />
+    <Compile Include="2015\12\M201512231157AddOrganizationPlan.cs" />
+    <Compile Include="2015\12\M201512261516CreateTableDmStore.cs" />
+    <Compile Include="2015\12\M201512270006AlterTableCartItem.cs" />
+    <Compile Include="2015\12\M201512270717AddGuidsToUserAndOrganization.cs" />
+    <Compile Include="2015\12\M201512270846AddOwnerToArticle.cs" />
+    <Compile Include="2015\12\M201512271236AlterTableOrderToLessor.cs" />
+    <Compile Include="2015\12\M201512271247DeleteColumnArticleOrganizationIdOnCartItem.cs" />
+    <Compile Include="2015\12\M201512271305AlterTableCartItem.cs" />
+    <Compile Include="2015\12\M201512271445AlterTableOrganizationMembershipAndMembershipRequest.cs" />
+    <Compile Include="2015\12\M201512271453AlterTableRmRelationships.cs" />
+    <Compile Include="2015\12\M201512272001MoveOrganizationUploadsFolder.cs" />
+    <Compile Include="2015\12\M201512280017DeleteOrganizationIdColumns.cs" />
+    <Compile Include="2015\12\M201512290515DropTablesFieldValueAndFieldDefinition.cs" />
+    <Compile Include="2015\12\M201512300956CreateOrganizationsStore.cs" />
+    <Compile Include="Helper\DatedAttribute.cs" />
+    <Compile Include="Helper\MigrationBase.cs" />
+    <Compile Include="Helper\Runner.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seeding\AcceptanceData.cs" />
+    <Compile Include="Seeding\RoleConverter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
