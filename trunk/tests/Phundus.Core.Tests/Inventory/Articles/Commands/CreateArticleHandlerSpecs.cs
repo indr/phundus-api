@@ -14,21 +14,23 @@
     [Subject(typeof (CreateArticleHandler))]
     public class when_create_article_is_handled : article_handler_concern<CreateArticle, CreateArticleHandler>
     {
-        private static Guid organizationId;
+        private static UserId initiatorId;
+        private static OwnerId ownerId;
 
         public Establish c = () =>
         {
-            organizationId = Guid.NewGuid();
-            ownerService.setup(x => x.GetById(organizationId)).Return(new Owner(new OwnerId(organizationId), "Owner"));
+            initiatorId = new UserId(2);
+            ownerId = new OwnerId(Guid.NewGuid());
+            ownerService.setup(x => x.GetById(ownerId)).Return(new Owner(ownerId, "Owner"));
             repository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(1);
 
-            command = new CreateArticle(new UserId(2), new OwnerId(organizationId), new StoreId(), "Name");
+            command = new CreateArticle(initiatorId, ownerId, new StoreId(), "Name");
         };
 
         public It should_add_to_repository = () => repository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, 2));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(ownerId, initiatorId));
 
         public It should_publish_article_created =
             () => publisher.WasToldTo(x => x.Publish(Arg<ArticleCreated>.Is.NotNull));
