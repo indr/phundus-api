@@ -9,30 +9,19 @@ namespace Phundus.Core.Shop.Orders.Model
     /// </summary>
     public class Lessor : ValueObject
     {
-        private Guid _lessorId;
-        private string _name;
-
         public Lessor(Guid lessorId, string name)
         {
-            _lessorId = lessorId;
-            _name = name;
+            LessorId = lessorId;
+            Name = name;
         }
 
         protected Lessor()
         {
         }
 
-        public Guid LessorId
-        {
-            get { return _lessorId; }
-            private set { _lessorId = value; }
-        }
+        public Guid LessorId { get; private set; }
 
-        public string Name
-        {
-            get { return _name; }
-            private set { _name = value; }
-        }
+        public string Name { get; private set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
