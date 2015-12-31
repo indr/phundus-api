@@ -10,5 +10,7 @@
 
         IEnumerable<OrderDto> ManyByUserId(int userId);
         IEnumerable<OrderDto> ManyByOrganizationId(Guid organizationId, int currentUserId);
+        
+        IEnumerable<OrderDto> Query(int currentUserId, int? orderId, int? queryUserId, Guid? queryOrganizationId);
     }
 }

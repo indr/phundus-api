@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Rest.Api
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using AttributeRouting;
@@ -9,6 +11,7 @@
     using Core.Shop.Orders;
     using Core.Shop.Queries;
     using Docs;
+    using Newtonsoft.Json;
 
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase
@@ -19,10 +22,23 @@
 
         [GET("")]
         [Transaction]
-        public virtual HttpResponseMessage Get()
+        public virtual OrdersQueryOkResponseContent Get()
         {
-            var result = OrderQueries.ManyByUserId(CurrentUserId);
-            return Request.CreateResponse(HttpStatusCode.OK, Map<ICollection<OrderDoc>>(result));
+            var userId = (int?) null;
+            var organizationId = (Guid?) null;
+
+            var queryParams = Request.GetQueryNameValuePairs().ToDictionary(ks => ks.Key, es => es.Value);
+            if (queryParams.ContainsKey("userId"))
+                userId = Convert.ToInt32(queryParams["userId"]);
+            if (queryParams.ContainsKey("organizationId"))
+                organizationId = Guid.Parse(queryParams["organizationId"]);
+
+            var orders = OrderQueries.Query(CurrentUserId, null, userId, organizationId).ToList();
+            var result = new OrdersQueryOkResponseContent
+            {
+                Orders = Map<IList<OrderDoc>>(orders)
+            };
+            return result;
         }
 
         [GET("{orderId:int}")]
@@ -46,5 +62,29 @@
 
             return CreatePdfResponse(result, string.Format("Bestellung-{0}.pdf", orderId));
         }
+    }
+
+    public class OrdersQueryOkResponseContent
+    {
+        [JsonProperty("orders")]
+        public IList<OrderDoc> Orders { get; set; } 
+    }
+
+    public class Order
+    {
+        [JsonProperty("orderId")]
+        public int OrderId { get; set; }
+
+        [JsonProperty("createdAtUtc")]
+        public DateTime CreatedAtUtc { get; set; }
+
+        [JsonProperty("lessorName")]
+        public string LessorName { get; set; }
+
+        [JsonProperty("lesseeName")]
+        public string LesseeName { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
     }
 }

@@ -12,12 +12,18 @@
         {
             Mapper.CreateMap<OrderDto, OrderDoc>()
                 .ForMember(d => d.CreatedUtc, o => o.MapFrom(s => s.CreatedUtc))
+                .ForMember(d => d.CreatedAtUtc, o => o.MapFrom(s => s.CreatedUtc))
                 .ForMember(d => d.ModifiedUtc, o => o.MapFrom(s => s.ModifiedUtc))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.Lessor_LessorId))
                 .ForMember(d => d.OrganizationName, o => o.MapFrom(s => s.Lessor_Name))
+                .ForMember(d => d.LessorId, o => o.MapFrom(s => s.Lessor_LessorId))
+                .ForMember(d => d.LessorName, o => o.MapFrom(s => s.Lessor_Name))
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
-                .ForMember(d => d.Version, o => o.MapFrom(s => s.Version));
+                .ForMember(d => d.Version, o => o.MapFrom(s => s.Version))
+                .ForMember(d => d.LesseeId, o => o.MapFrom(s => s.Borrower_Id))
+                .ForMember(d => d.LesseeName, o => o.MapFrom(s => s.Borrower_FirstName + " " + s.Borrower_LastName))
+                ;
 
             Mapper.CreateMap<OrderItemDto, OrderItemDoc>()
                 .ForMember(d => d.Amount, o => o.MapFrom(s => s.Amount))
@@ -49,9 +55,14 @@
         public int Version { get; set; }
         public Guid OrganizationId { get; set; }
         public string OrganizationName { get; set; }
+        public Guid LessorId { get; set; }
+        public string LessorName { get; set; }
+        public int LesseeId { get; set; }
+        public string LesseeName { get; set; }
 
         public string Status { get; set; }
         public DateTime CreatedUtc { get; set; }
+        public DateTime CreatedAtUtc { get; set; }
         public DateTime? ModifiedUtc { get; set; }
     }
 
