@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Infrastructure.Gateways
 {
+    using System;
     using System.Net.Mail;
+    using System.Web;
 
     public class MailGateway : IMailGateway
     {
@@ -17,7 +19,22 @@
 
         public void Send(MailMessage message)
         {
-            new SmtpClient().Send(message);
+            var client = GetClient();
+            client.Send(message);
+        }
+
+        private static SmtpClient GetClient()
+        {
+            var client = new SmtpClient();
+            if (!String.IsNullOrWhiteSpace(client.PickupDirectoryLocation))
+            {
+                if (!System.IO.Path.IsPathRooted(client.PickupDirectoryLocation))
+                {
+                    var path = HttpContext.Current.Server.MapPath(client.PickupDirectoryLocation);
+                    client.PickupDirectoryLocation = path;
+                }
+            }
+            return client;
         }
 
         #endregion
