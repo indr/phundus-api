@@ -51,15 +51,6 @@
                 .Select(ToOrganizationDto).ToList();
         }
 
-        public IEnumerable<OrganizationDto> AllNonFree()
-        {
-            return
-                OrganizationRepository.FindAll()
-                    .Where(p => p.Plan > OrganizationPlan.Free)
-                    .Select(ToOrganizationDto)
-                    .ToList();
-        }
-
         private static OrganizationDetailDto ToOrganizationDetailDto(Organization organization)
         {
             return new OrganizationDetailDto

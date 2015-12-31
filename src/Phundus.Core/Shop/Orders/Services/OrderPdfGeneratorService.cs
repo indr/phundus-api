@@ -3,7 +3,6 @@
     using System;
     using System.IO;
     using System.Web.Hosting;
-    using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Organizations.Repositories;
     using iTextSharp.text;
     using iTextSharp.text.exceptions;
@@ -18,29 +17,10 @@
     public class OrderPdfGeneratorService : IOrderPdfGeneratorService
     {
         public IOrganizationRepository OrganizationRepository { get; set; }
-        
+
         public Stream GeneratePdf(Order order)
         {
-            PdfReader reader = null;
-            var organization = OrganizationRepository.GetById(order.Lessor.LessorId);
-            if (!String.IsNullOrEmpty(organization.DocTemplateFileName))
-            {
-                var fileName = HostingEnvironment.MapPath(
-                    String.Format(@"~\Content\Uploads\{0}\{1}", organization.Id.ToString("N"),
-                        organization.DocTemplateFileName));
-                if (File.Exists(fileName))
-                {
-                    try
-                    {
-                        reader = new PdfReader(fileName);
-                    }
-                    catch (InvalidPdfException)
-                    {
-                        reader = null;
-                    }
-                }
-            }
-
+            var reader = GetPdfReader(order);
 
             var result = new MemoryStream();
             var doc = new Document(PageSize.A4, 0, 0, 36.0f, 36.0f);
@@ -173,17 +153,17 @@
             }
 
             if (table.Rows.Count > 0)
-            foreach (var each in table.Rows[0].GetCells())
-            {
-                each.PaddingTop += 5;
-            }
+                foreach (var each in table.Rows[0].GetCells())
+                {
+                    each.PaddingTop += 5;
+                }
 
             if (table.Rows.Count > 4)
-            foreach (var each in table.Rows[4].GetCells())
-            {
-                if (each != null)
-                    each.PaddingBottom += 10;
-            }
+                foreach (var each in table.Rows[4].GetCells())
+                {
+                    if (each != null)
+                        each.PaddingBottom += 10;
+                }
             doc.Add(table);
 
 
@@ -264,7 +244,32 @@
             result.Position = 0;
             return result;
         }
-    }
 
-    
+        private PdfReader GetPdfReader(Order order)
+        {
+            var organization = OrganizationRepository.FindById(order.Lessor.LessorId);
+            if (organization == null)
+                return null;
+
+            PdfReader reader = null;
+            if (!String.IsNullOrEmpty(organization.DocTemplateFileName))
+            {
+                var fileName = HostingEnvironment.MapPath(
+                    String.Format(@"~\Content\Uploads\{0}\{1}", organization.Id.ToString("N"),
+                        organization.DocTemplateFileName));
+                if (File.Exists(fileName))
+                {
+                    try
+                    {
+                        reader = new PdfReader(fileName);
+                    }
+                    catch (InvalidPdfException)
+                    {
+                        reader = null;
+                    }
+                }
+            }
+            return reader;
+        }
+    }
 }

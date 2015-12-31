@@ -37,7 +37,7 @@
         [AllowAnonymous]
         public virtual IEnumerable<OrganizationDto> Get()
         {
-            return _organizationQueries.AllNonFree();
+            return _organizationQueries.All();
         }
 
         [GET("{organizationId}")]
