@@ -77,6 +77,9 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="MsgReader">
+      <HintPath>..\..\packages\MSGReader.1.9.10\lib\MsgReader.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -117,6 +120,7 @@
     <Compile Include="Api\Diagnostics\EventlogController.cs" />
     <Compile Include="Api\Diagnostics\SchemaUpdateController.cs" />
     <Compile Include="Api\Docs\OrderDocs.cs" />
+    <Compile Include="Api\MailsController.cs" />
     <Compile Include="Api\NotificationsController.cs" />
     <Compile Include="Api\Organizations\Docs\OrganizationsOrderDocs.cs" />
     <Compile Include="Api\Organizations\OrganizationsArticlesController.cs" />
