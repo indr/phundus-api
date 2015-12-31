@@ -43,10 +43,10 @@ namespace Phundus.Rest.Api.Organizations
         public IImageQueries ImageQueries { get; set; }
 
         [GET("")]
-        [Transaction]
-        [AllowAnonymous]
+        [Transaction]        
         public virtual object Get(Guid organizationId, int articleId)
         {
+            // TODO: Auth filtering
             var factory = CreateFactory(GetBaseFilesUrl(articleId), organizationId, articleId);
             var images = ImageQueries.ByArticle(articleId);
             var result = factory.Create(images);
@@ -54,8 +54,7 @@ namespace Phundus.Rest.Api.Organizations
         }        
 
         [POST("")]
-        [Transaction]
-        [AllowAnonymous]
+        [Transaction]        
         public virtual object Post(Guid organizationId, int articleId)
         {
             var path = GetPath(articleId);
@@ -80,8 +79,7 @@ namespace Phundus.Rest.Api.Organizations
         }
 
         [DELETE("{fileName}")]
-        [Transaction]
-        [AllowAnonymous]
+        [Transaction]        
         public virtual HttpResponseMessage Delete(Guid organizationId, int articleId, string fileName)
         {
             var path = GetPath(articleId);
