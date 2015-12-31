@@ -23,7 +23,7 @@
             Map(x => x.DocTemplateFileName);
 
             HasMany(x => x.Memberships)
-                .KeyColumn("OrganizationId")
+                .KeyColumn("OrganizationGuid")
                 .AsSet().Cascade.SaveUpdate();
         }
     }

@@ -27,9 +27,9 @@ namespace Phundus.Rest.Api
 
         [GET("")]
         [Transaction]
-        public virtual StoresGetsOkResponseContent Get(Guid? ownerId)
+        public virtual StoresQueryOkResponseContent Get(Guid? ownerId)
         {
-            var result = new StoresGetsOkResponseContent();
+            var result = new StoresQueryOkResponseContent();
             if (!ownerId.HasValue)
                 return result;
 
@@ -77,62 +77,64 @@ namespace Phundus.Rest.Api
             };
         }
 
-        [PUT("{storeId}/address")]
+        [PATCH("{storeId}")]
         [Transaction]
-        public virtual HttpResponseMessage PutAddress(string storeId,
-            StoresAddressPutRequestContent requestContent)
+        public virtual HttpResponseMessage Patch(string storeId,
+            StoresPatchRequestContent requestContent)
         {
-            Dispatch(new ChangeAddress
+            if (requestContent.Address != null)
             {
-                InitatorId = CurrentUserId,
-                Address = requestContent.Address,
-                StoreId = new Guid(storeId)
-            });
-
-            return Request.CreateResponse(HttpStatusCode.NoContent);
-        }
-
-        [PUT("{storeId}/coordinate")]
-        [Transaction]
-        public virtual HttpResponseMessage PutCoordinate(string storeId,
-            StoresCoordinatePutRequestContent requestContent)
-        {
-            Dispatch(new ChangeCoordinate
+                Dispatch(new ChangeAddress
+                {
+                    InitatorId = CurrentUserId,
+                    Address = requestContent.Address,
+                    StoreId = new Guid(storeId)
+                });
+            }
+            if (requestContent.Coordinate != null)
             {
-                InitatorId = CurrentUserId,
-                Latitude = requestContent.Coordinate.Latitude,
-                Longitude = requestContent.Coordinate.Longitude,
-                StoreId = new Guid(storeId)
-            });
-
-            return Request.CreateResponse(HttpStatusCode.NoContent);
-        }
-
-        [PUT("{storeId}/opening-hours")]
-        [Transaction]
-        public virtual HttpResponseMessage PutOpeningHours(string storeId,
-            StoresOpeningHoursPutRequestContent requestContent)
-        {
-            Dispatch(new ChangeOpeningHours
+                Dispatch(new ChangeCoordinate
+                {
+                    InitatorId = CurrentUserId,
+                    Latitude = requestContent.Coordinate.Latitude,
+                    Longitude = requestContent.Coordinate.Longitude,
+                    StoreId = new Guid(storeId)
+                });
+            }
+            if (requestContent.OpeningHours != null)
             {
-                InitatorId = CurrentUserId,
-                OpeningHours = requestContent.OpeningHours,
-                StoreId = new Guid(storeId)
-            });
-
+                Dispatch(new ChangeOpeningHours
+                {
+                    InitatorId = CurrentUserId,
+                    OpeningHours = requestContent.OpeningHours,
+                    StoreId = new Guid(storeId)
+                });
+            }
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }
     }
 
-    public class StoresGetsOkResponseContent
+    public class StoresQueryOkResponseContent
     {
-        public StoresGetsOkResponseContent()
+        public StoresQueryOkResponseContent()
         {
             Stores = new List<Store>();
         }
 
         [JsonProperty("stores")]
         public IList<Store> Stores { get; set; }
+    }
+
+    public class StoresPatchRequestContent
+    {
+        [JsonProperty("address")]
+        public string Address { get; set; }
+
+        [JsonProperty("coordinate")]
+        public Coordinate Coordinate { get; set; }
+
+        [JsonProperty("openingHours")]
+        public string OpeningHours { get; set; }
     }
 
     public class StoresPostRequestContent
@@ -145,23 +147,5 @@ namespace Phundus.Rest.Api
     {
         [JsonProperty("storeId")]
         public string StoreId { get; set; }
-    }
-
-    public class StoresAddressPutRequestContent
-    {
-        [JsonProperty("address")]
-        public string Address { get; set; }
-    }
-
-    public class StoresCoordinatePutRequestContent
-    {
-        [JsonProperty("coordinate")]
-        public Coordinate Coordinate { get; set; }
-    }
-
-    public class StoresOpeningHoursPutRequestContent
-    {
-        [JsonProperty("openingHours")]
-        public string OpeningHours { get; set; }
     }
 }

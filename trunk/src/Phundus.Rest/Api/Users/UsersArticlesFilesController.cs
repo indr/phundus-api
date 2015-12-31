@@ -43,8 +43,7 @@ namespace Phundus.Rest.Api.Users
         public IImageQueries ImageQueries { get; set; }
 
         [GET("")]
-        [Transaction]
-        [AllowAnonymous]
+        [Transaction]        
         public virtual object Get(int userId, int articleId)
         {
             var factory = CreateFactory(GetBaseFilesUrl(articleId), userId, articleId);
@@ -55,7 +54,6 @@ namespace Phundus.Rest.Api.Users
 
         [POST("")]
         [Transaction]
-        [AllowAnonymous]
         public virtual object Post(int userId, int articleId)
         {
             var path = GetPath(articleId);
@@ -80,8 +78,7 @@ namespace Phundus.Rest.Api.Users
         }
 
         [DELETE("{fileName}")]
-        [Transaction]
-        [AllowAnonymous]
+        [Transaction]        
         public virtual HttpResponseMessage Delete(int userId, int articleId, string fileName)
         {
             var path = GetPath(articleId);

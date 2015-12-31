@@ -65,6 +65,7 @@
             return new OrganizationDetailDto
             {                
                 Guid = organization.Id,
+                OrganizationId = organization.Id,
                 Version = organization.Version,
                 Name = organization.Name,
                 Url = organization.Url,
@@ -107,6 +108,7 @@
         [Obsolete]
         public int Id { get; set; }
         public Guid Guid { get; set; }
+        public Guid OrganizationId { get; set; }
         public int Version { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
@@ -118,5 +120,6 @@
         public string Startpage { get; set; }
         public DateTime CreateDate { get; set; }
         public string DocumentTemplate { get; set; }
+        
     }
 }
