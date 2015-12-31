@@ -54,7 +54,7 @@ namespace Phundus.Core.IdentityAndAccess.Queries
         {
             // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
             var user = _userQueries.FindActiveById(organizationId);
-            if ((user != null) && (user.Id == userId))
+            if (user != null)
                 return true;
 
             var membership = _membershipRepository.ByMemberId(userId)

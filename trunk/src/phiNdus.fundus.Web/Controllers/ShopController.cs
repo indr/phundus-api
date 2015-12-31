@@ -19,6 +19,8 @@
         public IShopArticleQueries ShopArticleQueries { get; set; }
 
         public IAvailabilityQueries AvailabilityQueries { get; set; }
+        
+        public IMemberInRole MemberInRole { get; set; }
 
         private static string MasterView
         {
@@ -69,7 +71,6 @@
             }
         }
 
-        public IMemberInRole MemberInRole { get; set; }
 
         [Transaction]
         [AllowAnonymous]
