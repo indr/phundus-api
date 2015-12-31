@@ -14,7 +14,6 @@
         public string Address { get; set; }
         public string EmailAddress { get; set; }
         public string Website { get; set; }
-        public string Coordinate { get; set; }
         public string Startpage { get; set; }
         public string DocumentTemplate { get; set; }
     }
@@ -34,7 +33,6 @@
             organization.Address = command.Address;
             organization.EmailAddress = command.EmailAddress;
             organization.Website = command.Website;
-            organization.Coordinate = command.Coordinate;
             organization.Startpage = command.Startpage;
             organization.DocTemplateFileName = command.DocumentTemplate;
 

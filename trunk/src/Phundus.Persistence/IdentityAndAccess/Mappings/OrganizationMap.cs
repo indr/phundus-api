@@ -14,8 +14,7 @@
             
             Map(x => x.Plan, "[Plan]").CustomType<OrganizationPlan>();
             Map(x => x.Name);
-            Map(x => x.Address);
-            Map(x => x.Coordinate);
+            Map(x => x.Address);            
             Map(x => x.Startpage);
             Map(x => x.EmailAddress);
             Map(x => x.Website);

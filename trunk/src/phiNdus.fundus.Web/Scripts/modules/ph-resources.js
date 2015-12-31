@@ -53,7 +53,7 @@
     .factory('organizations', function($resource) {
         var organization = $resource(
             '/api/organizations/:id',
-            { id: '@id', action: 'update' },
+            { id: '@organizationId', action: 'update' },
             { update: { method: 'PUT' } }
         );
 
