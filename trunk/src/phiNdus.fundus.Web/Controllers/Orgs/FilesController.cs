@@ -12,7 +12,7 @@
 
         private string GetPath(Guid orgId)
         {
-            return String.Format(@"~\Content\Uploads\Organizations\{0}", orgId.ToString("N"));
+            return String.Format(@"~\Content\Uploads\{0}", orgId.ToString("N"));
         }
 
         private ImageStore CreateImageStore(string path)

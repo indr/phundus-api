@@ -18,13 +18,13 @@
         </div>
         <div class="tab-content col-xs-8 col-md-9">
             <div class="tab-pane active" id="@Model.Article.Id-D">
-                @Html.Raw(Model.Article.Description)
+                <span style="white-space: pre">@Html.Raw(Model.Article.Description)</span>
             </div>
 
             @if (!String.IsNullOrWhiteSpace(Model.Article.Specification))
             {
                 <div class="tab-pane" id="@Model.Article.Id-S">
-                    @Html.Raw(Model.Article.Specification)
+                    <span style="white-space: pre">@Html.Raw(Model.Article.Specification)</span>
                 </div>
             }
 
