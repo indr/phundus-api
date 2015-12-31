@@ -32,7 +32,7 @@
                 }
             }
 
-            return new MailsQueryOkResponseContent(messages);
+            return new MailsQueryOkResponseContent(messages.OrderByDescending(p => p.Date));
         }
 
         [GET("{id}")]
