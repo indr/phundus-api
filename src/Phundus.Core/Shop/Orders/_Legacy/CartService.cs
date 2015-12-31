@@ -4,9 +4,6 @@
     using Commands;
     using Common;
     using Cqrs;
-    using IdentityAndAccess.Organizations.Model;
-    using IdentityAndAccess.Organizations.Repositories;
-    using IdentityAndAccess.Queries;
     using IdentityAndAccess.Users.Repositories;
     using Inventory.Services;
     using Mails;
@@ -20,10 +17,6 @@
         public ICartRepository Carts { get; set; }
 
         public IUserRepository Users { get; set; }
-
-        public IOrganizationRepository OrganizationRepository { get; set; }
-
-        public IMemberQueries MemberQueries { get; set; }
 
         public ICommandDispatcher Dispatcher { get; set; }
 
@@ -124,11 +117,10 @@
             {
                 var pdf = OrderPdfGeneratorService.GeneratePdf(order);
                 var mail = new OrderReceivedMail().For(pdf, order);
-                var chiefs = MemberQueries.FindByOrganizationId(order.Lessor.LessorId)
-                    .Where(p => p.Role == (int) Role.Chief);
+                var managers = LessorService.GetManagers(order.Lessor.LessorId);
 
-                foreach (var chief in chiefs)
-                    mail.Send(chief.EmailAddress);
+                foreach (var manager in managers)
+                    mail.Send(manager.EmailAddress);
 
                 // #34 Kein E-Mail mehr für den Ausleiher
                 //mail.Send(order.Borrower.EmailAddress);

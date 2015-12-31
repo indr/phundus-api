@@ -26,6 +26,10 @@
         public string Postcode { get; set; }
         public string City { get; set; }
         public string MobilePhone { get; set; }
-        
+
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
     }
 }

@@ -41,6 +41,7 @@
                 result.Add(new MemberDto
                 {
                     Id = user.Id,
+                    Guid = user.Guid,
                     EmailAddress = user.Email,
                     FirstName = user.FirstName,
                     JsNumber = user.JsNumber,
@@ -58,6 +59,7 @@
     public class MemberDto
     {
         public int Id { get; set; }
+        public Guid Guid { get; set; }
         public int MemberVersion { get; set; }
         public int MembershipVersion { get; set; }
 
@@ -73,6 +75,7 @@
         public bool IsLocked { get; set; }
 
         public DateTime? ApprovalDate { get; set; }
+        public string FullName { get { return FirstName + " " + LastName; }}
     }
 
     public class MemberDtos : List<MemberDto>
