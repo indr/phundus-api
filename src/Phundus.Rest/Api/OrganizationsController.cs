@@ -99,7 +99,6 @@
             Dispatcher.Dispatch(new UpdateOrganizationDetails
             {
                 Address = value.Address,
-                Coordinate = value.Coordinate,
                 DocumentTemplate = value.DocumentTemplate,
                 EmailAddress = value.EmailAddress,
                 InitiatorId = CurrentUserId,

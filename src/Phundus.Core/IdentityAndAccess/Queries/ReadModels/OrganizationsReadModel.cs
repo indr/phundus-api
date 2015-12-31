@@ -72,7 +72,6 @@
                 Address = organization.Address,
                 EmailAddress = organization.EmailAddress,
                 Website = organization.Website,
-                Coordinate = organization.Coordinate,
                 Startpage = organization.Startpage,
                 CreateDate = organization.CreateDate,
                 DocumentTemplate = organization.DocTemplateFileName

@@ -62,8 +62,6 @@
 
         public virtual string Address { get; set; }
 
-        public virtual string Coordinate { get; set; }
-
         public virtual string Startpage
         {
             get
