@@ -225,7 +225,6 @@
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
-    <Compile Include="Controllers\Orgs\FilesController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
@@ -362,10 +361,6 @@
     <Content Include="Content\Views\Documents\Orders.html" />
     <Content Include="Content\Views\Management\Applications.html" />
     <Content Include="Content\Views\Management\Order.html" />
-    <Content Include="Content\Views\Management\Contract.html" />
-    <Content Include="Content\Views\Management\Debug.html" />
-    <Content Include="Content\Views\Management\Files.html" />
-    <Content Include="Content\Views\Management\Contracts.html" />
     <Content Include="Content\Views\Management\Orders.html" />
     <Content Include="Content\Views\Management\Members.html" />
     <Content Include="Content\Views\Management\Settings.html" />

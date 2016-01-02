@@ -124,6 +124,7 @@
     <Compile Include="Api\NotificationsController.cs" />
     <Compile Include="Api\Organizations\Docs\OrganizationsOrderDocs.cs" />
     <Compile Include="Api\Organizations\OrganizationsArticlesController.cs" />
+    <Compile Include="Api\Organizations\OrganizationsFilesController.cs" />
     <Compile Include="Api\Organizations\OrganizationsArticlesFilesController.cs" />
     <Compile Include="Api\StoresController.cs" />
     <Compile Include="Api\UsersController.cs" />
