@@ -61,8 +61,11 @@
     })
     .factory('files', function($resource) {
         var files = $resource(
-            '/orgs/:orgId/files'
-        );
+            '/api/organizations/:orgId/files'
+        , {}, {query: {
+                method: 'GET',
+                isArray: false
+    }});
         return files;
     })
     .factory('applications', function($resource) {
