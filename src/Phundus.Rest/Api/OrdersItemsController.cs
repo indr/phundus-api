@@ -1,4 +1,4 @@
-namespace Phundus.Rest.Api.Organizations
+namespace Phundus.Rest.Api
 {
     using System;
     using System.Linq;
@@ -7,17 +7,19 @@ namespace Phundus.Rest.Api.Organizations
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common.Domain.Model;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
+    using Organizations;
 
-    [RoutePrefix("api/organizations/{organizationId}/orders/{orderId}/items/{orderItemId?}")]
-    public class OrganizationsOrdersItemsController : ApiControllerBase
+    [RoutePrefix("api/orders/{orderId}/items")]
+    public class OrdersItemsController : ApiControllerBase
     {
         public IOrderQueries OrderQueries { get; set; }
 
         [POST("")]
         [Transaction]
-        public virtual HttpResponseMessage Post(Guid organizationId, int orderId, OrderItemPostDoc doc)
+        public virtual HttpResponseMessage Post(int orderId, OrderItemPostDoc doc)
         {
             var command = new AddOrderItem
             {
@@ -31,12 +33,12 @@ namespace Phundus.Rest.Api.Organizations
 
             Dispatch(command);
 
-            return Get(organizationId, orderId, command.OrderItemId, HttpStatusCode.Created);
+            return Get(orderId, command.OrderItemId, HttpStatusCode.Created);
         }
 
-        private HttpResponseMessage Get(Guid organizationId, int orderId, Guid orderItemId, HttpStatusCode statusCode)
+        private HttpResponseMessage Get(int orderId, Guid orderItemId, HttpStatusCode statusCode)
         {
-            var order = OrderQueries.SingleByOrderIdAndOrganizationId(orderId, organizationId, CurrentUserId);
+            var order = OrderQueries.GetById(new CurrentUserId(CurrentUserId), new OrderId(orderId));
             var item = order.Items.FirstOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
@@ -45,9 +47,9 @@ namespace Phundus.Rest.Api.Organizations
             return Request.CreateResponse(statusCode, Map<OrderItemDoc>(item));
         }
 
-        [PATCH("")]
+        [PATCH("{orderItemId}")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(Guid organizationId, int orderId, Guid orderItemId,
+        public virtual HttpResponseMessage Patch(int orderId, Guid orderItemId,
             OrderItemPatchDoc doc)
         {
             Dispatcher.Dispatch(new UpdateOrderItem
@@ -61,12 +63,12 @@ namespace Phundus.Rest.Api.Organizations
                 ItemTotal = doc.ItemTotal
             });
 
-            return Get(organizationId, orderId, orderItemId, HttpStatusCode.OK);
+            return Get(orderId, orderItemId, HttpStatusCode.OK);
         }
 
-        [DELETE("")]
+        [DELETE("{orderItemId}")]
         [Transaction]
-        public virtual HttpResponseMessage Delete(Guid organizationId, int orderId, Guid orderItemId)
+        public virtual HttpResponseMessage Delete(int orderId, Guid orderItemId)
         {
             Dispatcher.Dispatch(new RemoveOrderItem
             {
