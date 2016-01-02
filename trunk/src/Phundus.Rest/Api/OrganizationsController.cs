@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Runtime.Remoting.Messaging;
     using System.Web;
     using System.Web.Http;
     using AttributeRouting;
@@ -19,8 +21,8 @@
     [RoutePrefix("api/organizations")]
     public class OrganizationsController : ApiControllerBase
     {
-        private IStoreQueries _storeQueries;
-        private IOrganizationQueries _organizationQueries;
+        private readonly IOrganizationQueries _organizationQueries;
+        private readonly IStoreQueries _storeQueries;
 
         public OrganizationsController(IOrganizationQueries organizationQueries, IStoreQueries storeQueries)
         {
@@ -30,14 +32,23 @@
             _organizationQueries = organizationQueries;
             _storeQueries = storeQueries;
         }
-        
+
 
         [GET("")]
         [Transaction]
         [AllowAnonymous]
-        public virtual IEnumerable<OrganizationDto> Get()
+        public virtual OrganizationsQueryOkResponseContent Get()
         {
-            return _organizationQueries.All();
+            return new OrganizationsQueryOkResponseContent
+            {
+                Organizations = _organizationQueries.All().Select(s => new OrganizationsQueryOkResponseContent.Organization
+                {
+                    Address = s.Address,
+                    Name = s.Name,
+                    OrganizationId = s.Guid,
+                    Url = s.Url
+                }).ToList()
+            };
         }
 
         [GET("{organizationId}")]
@@ -48,7 +59,7 @@
             var organization = _organizationQueries.FindById(organizationId);
             if (organization == null)
                 throw new HttpException((int) HttpStatusCode.NotFound, "Organization not found.");
-            
+
             var store = _storeQueries.FindByOwnerId(new OwnerId(organization.Guid));
             var result = new OrganizationsGetOkResponseContent
             {
@@ -64,7 +75,7 @@
             };
             if (store != null)
             {
-                result.Stores.Add(new Store()
+                result.Stores.Add(new Store
                 {
                     Address = store.Address,
                     OpeningHours = store.OpeningHours,
@@ -111,11 +122,32 @@
         }
     }
 
+    public class OrganizationsQueryOkResponseContent
+    {
+        [JsonProperty("organizations")]
+        public IList<Organization> Organizations { get; set; } 
+
+        public class Organization
+        {
+            [JsonProperty("organizationId")]
+            public Guid OrganizationId { get; set; }
+
+            [JsonProperty("name")]
+            public string Name { get; set; }
+
+            [JsonProperty("url")]
+            public string Url { get; set; }
+
+            [JsonProperty("address")]
+            public string Address { get; set; }
+        }
+    }
+
     public class OrganizationsGetOkResponseContent
     {
         [JsonProperty("organizationId")]
         public Guid OrganizationId { get; set; }
-        
+
         [JsonProperty("name")]
         public string Name { get; set; }
 
@@ -130,15 +162,15 @@
 
         [JsonProperty("website")]
         public string Website { get; set; }
-        
+
         [JsonProperty("startpage")]
         public string Startpage { get; set; }
-        
+
         [JsonProperty("documentTemplate")]
         public string DocumentTemplate { get; set; }
 
         [JsonProperty("stores")]
-        public IList<Store> Stores { get; set; } 
+        public IList<Store> Stores { get; set; }
     }
 
     public class OrganizationsPostOkResponseContent
