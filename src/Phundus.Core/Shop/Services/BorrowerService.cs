@@ -17,7 +17,7 @@
         {
             var user = UserQueries.GetById(id);
             if (user == null)
-                throw new NotFoundException(string.Format("User with id {0} not found.", id));
+                throw new NotFoundException(string.Format("User {0} not found.", id));
 
             return ToBorrower(user);
         }

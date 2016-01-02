@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Common;
+    using Common.Domain.Model;
 
     public interface IUserQueries
     {
@@ -13,6 +14,14 @@
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
         UserDto GetById(int id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        UserDto GetById(UserId userId);
 
         UserDto FindById(Guid userId);
 

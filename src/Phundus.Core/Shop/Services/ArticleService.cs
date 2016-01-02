@@ -31,7 +31,7 @@ namespace Phundus.Core.Shop.Services
         {
             var article = _articleRepository.GetById(articleId);
             if (article == null)
-                throw new NotFoundException(String.Format("Article with id {0} not found.", articleId));
+                throw new NotFoundException(String.Format("Article {0} not found.", articleId));
             return ToArticleValueObject(article);
         }
 

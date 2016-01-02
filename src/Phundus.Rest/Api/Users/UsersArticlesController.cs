@@ -23,7 +23,7 @@ namespace Phundus.Rest.Api.Users
         private readonly IAvailabilityQueries _availabilityQueries;
         private readonly IReservationRepository _reservationRepository;
         private readonly IUserQueries _userQueries;
-        private IStoreQueries _storeQueries;
+        private readonly IStoreQueries _storeQueries;
 
         public UsersArticlesController(IArticleQueries articleQueries, IStoreQueries storeQueries,
             IUserQueries userQueries, IAvailabilityQueries availabilityQueries,

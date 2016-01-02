@@ -32,7 +32,7 @@
         {
             var result = FindById(organizationId);
             if (result == null)
-                throw new NotFoundException(String.Format("Organization with id {0} not found.", organizationId));
+                throw new NotFoundException(String.Format("Organization {0} not found.", organizationId));
             return result;
         }
 

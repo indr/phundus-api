@@ -14,7 +14,7 @@
         {
             var article = ArticleRepository.FindById(id);
             if (article == null)
-                throw new NotFoundException(String.Format("Article with id {0} not found.", id));
+                throw new NotFoundException(String.Format("Article {0} not found.", id));
             return new ArticleDtoAssembler().CreateDto(article);
         }
 

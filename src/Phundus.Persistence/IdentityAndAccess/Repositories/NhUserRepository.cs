@@ -30,7 +30,7 @@
         {
             var result = FindById(id);
             if (result == null)
-                throw new NotFoundException(String.Format("User with id {0} not found.", id));
+                throw new NotFoundException(String.Format("User {0} not found.", id));
             return result;
         }
 

@@ -47,7 +47,7 @@
             if (user != null)
                 return ToLessor(user);
 
-            throw new NotFoundException(String.Format("Lessor with id {0} not found.", lessorId));
+            throw new NotFoundException(String.Format("Lessor {0} not found.", lessorId));
         }
 
         public ICollection<Manager> GetManagers(Guid lessorId)
