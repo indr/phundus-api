@@ -88,7 +88,7 @@
             var orderRepository = ServiceLocator.Current.GetInstance<IOrderRepository>();
 
             var lessors = FindLessors(lessorService);
-            var borrower = borrowerService.ById(Customer.Id);
+            var borrower = borrowerService.GetById(Customer.Id);
 
             foreach (var lessor in lessors)
             {

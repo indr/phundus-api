@@ -9,6 +9,20 @@
         }
     }
 
+    public class LesseeId : Identity<int>
+    {
+        public LesseeId(int id) : base(id)
+        {
+        }
+    }
+
+    public class LessorId : Identity<Guid>
+    {
+        public LessorId(Guid id) : base(id)
+        {
+        }
+    }
+
     public class OwnerId : Identity<Guid>
     {
         public OwnerId(Guid id)

@@ -5,6 +5,7 @@
     using System.Linq;
     using AutoMapper;
     using Core.Shop.Queries;
+    using Newtonsoft.Json;
 
     public class OrganizationOrderDocsProfile : Profile
     {
@@ -101,9 +102,13 @@
         public string Status { get; set; }
     }
 
-    public class OrdersPostDoc
+    public class OrdersPostRequestContent
     {
-        public string UserName { get; set; }
+        [JsonProperty("ownerId")]
+        public Guid OwnerId { get; set; }
+
+        [JsonProperty("username")]
+        public string Username { get; set; }
     }
 
     public class OrderItemPostDoc

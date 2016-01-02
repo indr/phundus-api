@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common;
+    using Common.Domain.Model;
     using IdentityAndAccess.Queries;
     using Orders.Model;
 
@@ -16,6 +17,13 @@
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
         Lessor GetById(Guid lessorId);
+
+        /// <summary>
+        /// </summary>
+        /// <param name="lessorId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        Lessor GetById(LessorId lessorId);
 
         ICollection<Manager> GetManagers(Guid lessorId);
     }
@@ -48,6 +56,11 @@
                 return ToLessor(user);
 
             throw new NotFoundException(String.Format("Lessor {0} not found.", lessorId));
+        }
+
+        public Lessor GetById(LessorId lessorId)
+        {
+            return GetById(lessorId.Id);
         }
 
         public ICollection<Manager> GetManagers(Guid lessorId)

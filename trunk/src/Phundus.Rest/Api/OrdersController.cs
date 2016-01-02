@@ -9,6 +9,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
+    using Core.IdentityAndAccess.Queries;
     using Core.Shop.Orders;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
@@ -20,6 +21,8 @@
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase
     {
+        public IUserQueries UserQueries { get; set; }
+
         public IOrderQueries OrderQueries { get; set; }
 
         public IPdfStore PdfStore { get; set; }
@@ -67,31 +70,30 @@
 
         [POST("")]
         [Transaction]
-        public virtual HttpResponseMessage Post(OrdersPostDoc doc)
+        public virtual HttpResponseMessage Post(OrdersPostRequestContent requestContent)
         {
-            //int userId;
-            //if (!Int32.TryParse(doc.UserName, out userId))
-            //{
-            //    var user = UserQueries.ByUserName(doc.UserName);
-            //    if (user == null)
-            //        return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-            //            string.Format("Der Benutzer mit der E-Mail-Adresse \"{0}\" konnte nicht gefunden werden.",
-            //                doc.UserName));
+            int userId;
+            if (!Int32.TryParse(requestContent.Username, out userId))
+            {
+                var user = UserQueries.ByUserName(requestContent.Username);
+                if (user == null)
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound,
+                        string.Format("Der Benutzer mit der E-Mail-Adresse \"{0}\" konnte nicht gefunden werden.",
+                            requestContent.Username));
 
-            //    userId = user.Id;
-            //}
+                userId = user.Id;
+            }
 
-            //var command = new CreateEmptyOrder
-            //{
-            //    InitiatorId = CurrentUserId,
-            //    OrganizationId = organizationId,
-            //    UserId = userId
-            //};
+            var command = new CreateEmptyOrder
+            {
+                InitiatorId = new CurrentUserId(CurrentUserId),
+                LessorId = new LessorId(requestContent.OwnerId),
+                LesseeId = new LesseeId(userId)
+            };
 
-            //Dispatcher.Dispatch(command);
+            Dispatcher.Dispatch(command);
 
-            //return Get(organizationId, command.OrderId);
-            throw new NotImplementedException();
+            return Get(command.ResultingOrderId);            
         }
 
         [PATCH("{orderId}")]
