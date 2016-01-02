@@ -1,7 +1,6 @@
-namespace Phundus.Core.Inventory.Stores.Model
+namespace Phundus.Common.Domain.Model
 {
     using System;
-    using Common.Domain.Model;
 
     public class StoreId : Identity<Guid>
     {

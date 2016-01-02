@@ -2,6 +2,7 @@
 {
     using System;
     using Common;
+    using Common.Domain.Model;
     using Core.Inventory.Stores.Model;
     using Core.Inventory.Stores.Repositories;
 

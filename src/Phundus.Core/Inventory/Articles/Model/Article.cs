@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using Common;
+    using Common.Domain.Model;
     using Ddd;
     using Iesi.Collections.Generic;
     using Owners;
