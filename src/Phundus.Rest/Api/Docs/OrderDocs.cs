@@ -5,25 +5,21 @@
     using System.Linq;
     using AutoMapper;
     using Core.Shop.Queries;
+    using Newtonsoft.Json;
 
     public class OrderDocsProfile : Profile
     {
         protected override void Configure()
         {
             Mapper.CreateMap<OrderDto, OrderDoc>()
-                .ForMember(d => d.CreatedUtc, o => o.MapFrom(s => s.CreatedUtc))
                 .ForMember(d => d.CreatedAtUtc, o => o.MapFrom(s => s.CreatedUtc))
-                .ForMember(d => d.ModifiedUtc, o => o.MapFrom(s => s.ModifiedUtc))
+                .ForMember(d => d.ModifiedAtUtc, o => o.MapFrom(s => s.ModifiedUtc))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.Id))
-                .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.Lessor_LessorId))
-                .ForMember(d => d.OrganizationName, o => o.MapFrom(s => s.Lessor_Name))
+                .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
                 .ForMember(d => d.LessorId, o => o.MapFrom(s => s.Lessor_LessorId))
                 .ForMember(d => d.LessorName, o => o.MapFrom(s => s.Lessor_Name))
-                .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
-                .ForMember(d => d.Version, o => o.MapFrom(s => s.Version))
                 .ForMember(d => d.LesseeId, o => o.MapFrom(s => s.Borrower_Id))
-                .ForMember(d => d.LesseeName, o => o.MapFrom(s => s.Borrower_FirstName + " " + s.Borrower_LastName))
-                ;
+                .ForMember(d => d.LesseeName, o => o.MapFrom(s => s.Borrower_FirstName + " " + s.Borrower_LastName));
 
             Mapper.CreateMap<OrderItemDto, OrderItemDoc>()
                 .ForMember(d => d.Amount, o => o.MapFrom(s => s.Amount))
@@ -38,12 +34,14 @@
                 .ForMember(d => d.UnitPrice, o => o.MapFrom(s => s.Article.Price));
 
             Mapper.CreateMap<OrderDto, OrderDetailDoc>()
-                .ForMember(d => d.CreatedUtc, o => o.MapFrom(s => s.CreatedUtc))
-                .ForMember(d => d.ModifiedUtc, o => o.MapFrom(s => s.ModifiedUtc))
+                .ForMember(d => d.CreatedAtUtc, o => o.MapFrom(s => s.CreatedUtc))
+                .ForMember(d => d.ModifiedAtUtc, o => o.MapFrom(s => s.ModifiedUtc))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.Id))
-                .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.Lessor_LessorId))
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
-                .ForMember(d => d.Version, o => o.MapFrom(s => s.Version))
+                .ForMember(d => d.LessorId, o => o.MapFrom(s => s.Lessor_LessorId))
+                .ForMember(d => d.LessorName, o => o.MapFrom(s => s.Lessor_Name))
+                .ForMember(d => d.LesseeId, o => o.MapFrom(s => s.Borrower_Id))
+                .ForMember(d => d.LesseeName, o => o.MapFrom(s => s.Borrower_FirstName + " " + s.Borrower_LastName))
                 .ForMember(d => d.TotalPrice, o => o.MapFrom(s => s.Items.Sum(i => i.ItemTotal)))
                 .ForMember(d => d.Items, o => o.MapFrom(s => s.Items));
         }
@@ -51,31 +49,43 @@
 
     public class OrderDoc
     {
+        [JsonProperty("orderId")]
         public int OrderId { get; set; }
-        public int Version { get; set; }
-        public Guid OrganizationId { get; set; }
-        public string OrganizationName { get; set; }
-        public Guid LessorId { get; set; }
-        public string LessorName { get; set; }
-        public int LesseeId { get; set; }
-        public string LesseeName { get; set; }
 
-        public string Status { get; set; }
-        public DateTime CreatedUtc { get; set; }
+        [JsonProperty("createdAtUtc")]
         public DateTime CreatedAtUtc { get; set; }
-        public DateTime? ModifiedUtc { get; set; }
+
+        [JsonProperty("modifiedAtUtc")]
+        public DateTime? ModifiedAtUtc { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("lessorId")]
+        public Guid LessorId { get; set; }
+
+        [JsonProperty("lessorName")]
+        public string LessorName { get; set; }
+
+        [JsonProperty("lesseeId")]
+        public int LesseeId { get; set; }
+
+        [JsonProperty("lesseeName")]
+        public string LesseeName { get; set; }
     }
 
     public class OrderDetailDoc : OrderDoc
     {
         private IList<OrderItemDoc> _items = new List<OrderItemDoc>();
 
+        [JsonProperty("items")]
         public IList<OrderItemDoc> Items
         {
             get { return _items; }
             set { _items = value; }
         }
 
+        [JsonProperty("totalPrice")]
         public decimal TotalPrice { get; set; }
     }
 

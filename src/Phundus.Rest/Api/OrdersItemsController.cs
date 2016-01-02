@@ -10,6 +10,7 @@ namespace Phundus.Rest.Api
     using Common.Domain.Model;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
+    using Docs;
     using Organizations;
 
     [RoutePrefix("api/orders/{orderId}/items")]
@@ -19,16 +20,16 @@ namespace Phundus.Rest.Api
 
         [POST("")]
         [Transaction]
-        public virtual HttpResponseMessage Post(int orderId, OrderItemPostDoc doc)
+        public virtual HttpResponseMessage Post(int orderId, OrdersItemPostRequestContent requestContent)
         {
             var command = new AddOrderItem
             {
-                Amount = doc.Amount,
-                ArticleId = doc.ArticleId,
-                FromUtc = doc.FromUtc,
+                Amount = requestContent.Amount,
+                ArticleId = requestContent.ArticleId,
+                FromUtc = requestContent.FromUtc,
                 InitiatorId = CurrentUserId,
                 OrderId = orderId,
-                ToUtc = doc.ToUtc
+                ToUtc = requestContent.ToUtc
             };
 
             Dispatch(command);

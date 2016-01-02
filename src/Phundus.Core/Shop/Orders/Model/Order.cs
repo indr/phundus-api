@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using Common;
     using Contracts.Model;
     using Ddd;
     using Iesi.Collections.Generic;
@@ -19,6 +20,9 @@
 
         public Order(Lessor lessor, Borrower borrower)
         {
+            AssertionConcern.AssertArgumentNotNull(lessor, "Lessor must be provided.");
+            AssertionConcern.AssertArgumentNotNull(borrower, "Lessee must be provided.");
+
             _lessor = lessor;
             _borrower = borrower;
         }

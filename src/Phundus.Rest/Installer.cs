@@ -25,7 +25,6 @@
                 .LifestyleScoped());
 
             Mapper.AddProfile<OrderDocsProfile>();
-            Mapper.AddProfile<OrganizationOrderDocsProfile>();
         }
     }
 }
