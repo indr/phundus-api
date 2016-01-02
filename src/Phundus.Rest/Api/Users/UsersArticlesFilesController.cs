@@ -11,6 +11,7 @@ namespace Phundus.Rest.Api.Users
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common;
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.Queries;
 
@@ -120,8 +121,8 @@ namespace Phundus.Rest.Api.Users
             if (!Directory.Exists(MappedFilePath))
                 Directory.CreateDirectory(MappedFilePath);
 
-
-            var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
+            var fileName = Path.GetFileNameWithoutExtension(file.FileName).ToFriendlyUrl(false) + Path.GetExtension(file.FileName);
+            //var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
 
             file.SaveAs(MappedFilePath + Path.DirectorySeparatorChar + fileName);
             return FilePath + Path.DirectorySeparatorChar + fileName;
