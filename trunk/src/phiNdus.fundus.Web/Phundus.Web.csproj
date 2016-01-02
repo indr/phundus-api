@@ -228,10 +228,6 @@
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
-    <Compile Include="Helpers\FileUpload\BlueImpFileUploadHandler.cs" />
-    <Compile Include="Helpers\FileUpload\BlueImpFileUploadJsonResult.cs" />
-    <Compile Include="Helpers\FileUpload\BlueImpFileUploadJsonResultFactory.cs" />
-    <Compile Include="Helpers\FileUpload\ImageStore.cs" />
     <Compile Include="HttpNotFoundException.cs" />
     <Compile Include="Models\ManagementModel.cs" />
     <Compile Include="Models\Account\SignUpModel.cs" />

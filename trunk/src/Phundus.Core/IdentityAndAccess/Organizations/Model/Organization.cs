@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Common;
     using Ddd;
     using Iesi.Collections.Generic;
     using Users.Model;
@@ -45,12 +46,7 @@
                 if (Plan == OrganizationPlan.Free)
                     return "";
 
-                // http://stackoverflow.com/questions/37809/how-do-i-generate-a-friendly-url-in-c
-                // http://stackoverflow.com/questions/2161684/transform-title-into-dashed-url-friendly-string
-
-                var url = Name.ToLowerInvariant();
-                url = Regex.Replace(url, " ", "-");
-                return Regex.Replace(url, @"[^A-Za-zÄÖÜäöü0-9\-\._~]+", "");
+                return Name.ToFriendlyUrl();
             }
         }
 
