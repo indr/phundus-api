@@ -87,13 +87,20 @@
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderId, "OrderId must be provided.");
 
-            var result = Query(currentUserId, orderId, null, null).SingleOrDefault();
+            var result = Query(currentUserId, orderId == null ? (int?) null : orderId.Id, null, null).SingleOrDefault();
             if (result == null)
                 throw new NotFoundException(String.Format("Order {0} not found.", orderId));
             return result;
         }
 
-        public IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderId orderId, int? queryUserId, Guid? queryOrganizationId)
+        public IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderId orderId, int? queryUserId,
+            Guid? queryOrganizationId)
+        {
+            return Query(currentUserId, orderId == null ? (int?) null : orderId.Id, queryUserId, queryOrganizationId);
+        }
+
+        private IEnumerable<OrderDto> Query(UserId currentUserId, int? orderId, int? queryUserId,
+            Guid? queryOrganizationId)
         {
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
 
@@ -108,31 +115,35 @@
                 MembershipQueries.ByUserId(currentUserId.Id)
                     .Where(p => p.MembershipRole == "Chief")
                     .Select(s => s.OrganizationGuid);
+            AssertionConcern.AssertArgumentNotNull(currentUsersManagerGuids,
+                "CurrentUsersManagerGuids must be provided.");
 
             var ctx = CreateCtx();
             var q = from o in ctx.OrderDtos
-                where (
-                    // Auth restrictions
+                where
                     (
-                        // current user is borrower or lessor
-                        ((o.Borrower_Id == currentUserId.Id || o.Lessor_LessorId == currentUserGuid))
-                        ||
-                        // Or: current user is manager in lessor organization
-                        (currentUsersManagerGuids.Contains(o.Lessor_LessorId))
+                        // Auth restrictions
+                        (
+                            // current user is borrower or lessor
+                            (o.Borrower_Id == currentUserId.Id || o.Lessor_LessorId == currentUserGuid)
+                            ||
+                            // Or current user is manager in lessor organization
+                            (currentUsersManagerGuids.Contains(o.Lessor_LessorId))
+                            )
+                        &&
+                        // Query restrictions
+                        (
+                            // orderId is not queried, or order id is query order id
+                            ((orderId == null) || (o.Id == orderId))
+                            &&
+                            // and user is not queried, or borrower or lessor is query user
+                            (queryUserId == null
+                             || (o.Borrower_Id == queryUserId || o.Lessor_LessorId == queryUserGuid))
+                            &&
+                            // and organization is not queried, or lessor is query organization
+                            (queryOrganizationId == null || (o.Lessor_LessorId == queryOrganizationId))
+                            )
                         )
-                    &&
-                    // Query restrictions
-                    (
-                        // orderId is not queried, or order id is query order id
-                        (orderId == null || (o.Id == orderId.Id))
-                        &&
-                        // user is not queried, or borrower or lessor is query user
-                        (queryUserId == null
-                         || (o.Borrower_Id == queryUserId || o.Lessor_LessorId == queryUserGuid))
-                        &&
-                        // organization is not queried, or lessor is query organization
-                        (queryOrganizationId == null || (o.Lessor_LessorId == queryOrganizationId))
-                        ))
                 select o;
 
             return q;
