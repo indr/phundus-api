@@ -10,9 +10,12 @@
     using Castle.Transactions;
     using Common.Domain.Model;
     using Core.Shop.Orders;
+    using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
-    using Docs;
     using Newtonsoft.Json;
+    using Organizations;
+    using OrderDetailDoc = Docs.OrderDetailDoc;
+    using OrderDoc = Docs.OrderDoc;
 
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase
@@ -61,6 +64,53 @@
 
             return CreatePdfResponse(result, string.Format("Bestellung-{0}.pdf", orderId));
         }
+
+        [POST("")]
+        [Transaction]
+        public virtual HttpResponseMessage Post(OrdersPostDoc doc)
+        {
+            //int userId;
+            //if (!Int32.TryParse(doc.UserName, out userId))
+            //{
+            //    var user = UserQueries.ByUserName(doc.UserName);
+            //    if (user == null)
+            //        return Request.CreateErrorResponse(HttpStatusCode.NotFound,
+            //            string.Format("Der Benutzer mit der E-Mail-Adresse \"{0}\" konnte nicht gefunden werden.",
+            //                doc.UserName));
+
+            //    userId = user.Id;
+            //}
+
+            //var command = new CreateEmptyOrder
+            //{
+            //    InitiatorId = CurrentUserId,
+            //    OrganizationId = organizationId,
+            //    UserId = userId
+            //};
+
+            //Dispatcher.Dispatch(command);
+
+            //return Get(organizationId, command.OrderId);
+            throw new NotImplementedException();
+        }
+
+        [PATCH("{orderId}")]
+        [Transaction]
+        public virtual HttpResponseMessage Patch(int orderId, OrderPatchDoc doc)
+        {
+            if (doc.Status == "Rejected")
+                Dispatch(new RejectOrder { InitiatorId = CurrentUserId, OrderId = orderId });
+            else if (doc.Status == "Approved")
+                Dispatch(new ApproveOrder { InitiatorId = CurrentUserId, OrderId = orderId });
+            else if (doc.Status == "Closed")
+                Dispatch(new CloseOrder { InitiatorId = CurrentUserId, OrderId = orderId });
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                    "Unbekannter Status \"" + doc.Status + "\"");
+
+            return Get(orderId);
+        }
+
     }
 
     public class OrdersQueryOkResponseContent
