@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Inventory.Stores.Repositories
 {
     using Common;
+    using Common.Domain.Model;
     using Infrastructure;
     using Model;
 

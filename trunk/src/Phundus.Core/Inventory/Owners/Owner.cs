@@ -37,9 +37,9 @@
             yield return Name;
         }
 
-        public virtual Store OpenStore()
+        public virtual Store OpenStore(StoreId storeId)
         {
-            return new Store(new StoreId(), this);
+            return new Store(storeId, this);
         }
     }
 }

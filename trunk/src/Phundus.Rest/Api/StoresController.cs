@@ -63,17 +63,12 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual StoresPostOkResponseContent Post(StoresPostRequestContent requestContent)
         {
-            var storeId = Guid.NewGuid().ToString("N");
-            Dispatch(new OpenStore
-            {
-                InitiatorId = CurrentUserId,
-                UserId = Convert.ToInt32(requestContent.UserId),
-                StoreId = storeId
-            });
+            var storeId = new StoreId();
+            Dispatch(new OpenStore(new UserId(CurrentUserId), new UserId(requestContent.UserId), storeId));
 
             return new StoresPostOkResponseContent
             {
-                StoreId = storeId
+                StoreId = storeId.Id
             };
         }
 
@@ -140,12 +135,12 @@ namespace Phundus.Rest.Api
     public class StoresPostRequestContent
     {
         [JsonProperty("userId")]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
     }
 
     public class StoresPostOkResponseContent
     {
         [JsonProperty("storeId")]
-        public string StoreId { get; set; }
+        public Guid StoreId { get; set; }
     }
 }

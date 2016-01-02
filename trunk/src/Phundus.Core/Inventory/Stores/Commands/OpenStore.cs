@@ -1,17 +1,30 @@
 ﻿namespace Phundus.Core.Inventory.Stores.Commands
 {
     using Common;
+    using Common.Domain.Model;
     using Cqrs;
     using Ddd;
     using Model;
+    using Owners;
     using Repositories;
     using Services;
 
     public class OpenStore
     {
-        public int InitiatorId { get; set; }
-        public string StoreId { get; set; }
-        public int UserId { get; set; }
+        public OpenStore(UserId initiatorId, UserId ownerId, StoreId storeId)
+        {
+            AssertionConcern.AssertArgumentNotNull(initiatorId, "InitiatorId must be provided.");
+            AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
+            AssertionConcern.AssertArgumentNotNull(storeId, "StoreId must be provided.");
+
+            InitiatorId = initiatorId;
+            OwnerId = ownerId;
+            StoreId = storeId;
+        }
+
+        public UserId InitiatorId { get; private set; }
+        public UserId OwnerId { get; private set; }
+        public StoreId StoreId { get; private set; }
     }
 
     public class OpenStoreHandler : IHandleCommand<OpenStore>
@@ -30,11 +43,11 @@
 
         public void Handle(OpenStore command)
         {
-            if (command.UserId != command.InitiatorId)
+            if (command.OwnerId.Id != command.InitiatorId.Id)
                 throw new AuthorizationException();
 
-            var owner = _ownerService.GetByUserId(command.UserId);
-            var store = owner.OpenStore();
+            var owner = _ownerService.GetByUserId(command.OwnerId.Id);
+            var store = owner.OpenStore(command.StoreId);
 
             _storeRepository.Add(store);
 

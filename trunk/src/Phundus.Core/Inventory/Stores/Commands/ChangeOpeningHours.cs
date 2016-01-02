@@ -2,6 +2,7 @@ namespace Phundus.Core.Inventory.Stores.Commands
 {
     using System;
     using Common;
+    using Common.Domain.Model;
     using Cqrs;
     using IdentityAndAccess.Queries;
     using Model;

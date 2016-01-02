@@ -198,7 +198,6 @@
     <Compile Include="Inventory\Stores\Model\AddressChanged.cs" />
     <Compile Include="Inventory\Stores\Model\CoordinateChanged.cs" />
     <Compile Include="Inventory\Stores\Model\Store.cs" />
-    <Compile Include="Inventory\Stores\Model\StoreId.cs" />
     <Compile Include="Inventory\Stores\Model\StoreOpened.cs" />
     <Compile Include="Inventory\Stores\Repositories\IStoreRepository.cs" />
     <Compile Include="Shop\Contracts\Commands\CreateEmptyContract.cs" />
