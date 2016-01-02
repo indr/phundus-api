@@ -145,7 +145,6 @@
     <Compile Include="Api\Organizations\OrganizationsMembersController.cs" />
     <Compile Include="Api\OrganizationsController.cs" />
     <Compile Include="Api\Organizations\OrganizationsApplicationsController.cs" />
-    <Compile Include="Api\Organizations\OrganizationsContractsController.cs" />
     <Compile Include="Api\OrdersItemsController.cs" />
     <Compile Include="Auth\Auth.cs" />
     <Compile Include="Filters\ExceptionFilterAttribute.cs" />

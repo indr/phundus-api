@@ -98,17 +98,17 @@
 
         [PATCH("{orderId}")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(int orderId, OrderPatchDoc doc)
+        public virtual HttpResponseMessage Patch(int orderId, OrdersPatchRequestContent requestContent)
         {
-            if (doc.Status == "Rejected")
+            if (requestContent.Status == "Rejected")
                 Dispatch(new RejectOrder { InitiatorId = CurrentUserId, OrderId = orderId });
-            else if (doc.Status == "Approved")
+            else if (requestContent.Status == "Approved")
                 Dispatch(new ApproveOrder { InitiatorId = CurrentUserId, OrderId = orderId });
-            else if (doc.Status == "Closed")
+            else if (requestContent.Status == "Closed")
                 Dispatch(new CloseOrder { InitiatorId = CurrentUserId, OrderId = orderId });
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
-                    "Unbekannter Status \"" + doc.Status + "\"");
+                    "Unbekannter Status \"" + requestContent.Status + "\"");
 
             return Get(orderId);
         }
