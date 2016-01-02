@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using Common;
+    using Common.Domain.Model;
     using Infrastructure;
     using Users.Model;
     using Users.Repositories;
@@ -12,7 +14,14 @@
 
         public UserDto GetById(int id)
         {
-            return CreateDto(UserRepository.GetById(id));
+            return GetById(new UserId(id));
+        }
+
+        public UserDto GetById(UserId userId)
+        {
+            AssertionConcern.AssertArgumentNotNull(userId, "UserId must be provided.");
+
+            return CreateDto(UserRepository.GetById(userId.Id));
         }
 
         public UserDto FindById(Guid userId)

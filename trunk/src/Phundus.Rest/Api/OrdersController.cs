@@ -8,6 +8,7 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common.Domain.Model;
     using Core.Shop.Orders;
     using Core.Shop.Queries;
     using Docs;
@@ -33,7 +34,7 @@
             if (queryParams.ContainsKey("organizationId"))
                 organizationId = Guid.Parse(queryParams["organizationId"]);
 
-            var orders = OrderQueries.Query(CurrentUserId, null, userId, organizationId).ToList();
+            var orders = OrderQueries.Query(new CurrentUserId(CurrentUserId), null, userId, organizationId).ToList();
             var result = new OrdersQueryOkResponseContent
             {
                 Orders = Map<IList<OrderDoc>>(orders)
@@ -45,17 +46,15 @@
         [Transaction]
         public virtual HttpResponseMessage Get(int orderId)
         {
-            var result = OrderQueries.SingleByOrderId(orderId, CurrentUserId);
-            if (result == null)
-                return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
-
-            return Request.CreateResponse(HttpStatusCode.OK, Map<OrderDetailDoc>(result));
+            var order = OrderQueries.GetById(new CurrentUserId(CurrentUserId), new OrderId(orderId));
+            return Request.CreateResponse(HttpStatusCode.OK, Map<OrderDetailDoc>(order));
         }
 
         [GET("{orderId:int}.pdf")]
         [Transaction]
         public virtual HttpResponseMessage GetPdf(int orderId)
         {
+            OrderQueries.GetById(new CurrentUserId(CurrentUserId), new OrderId(orderId));
             var result = PdfStore.GetOrderPdf(orderId, CurrentUserId);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
@@ -67,7 +66,7 @@
     public class OrdersQueryOkResponseContent
     {
         [JsonProperty("orders")]
-        public IList<OrderDoc> Orders { get; set; } 
+        public IList<OrderDoc> Orders { get; set; }
     }
 
     public class Order

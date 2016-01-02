@@ -65,7 +65,7 @@
             if (user != null)
                 return ToOwner(user);
 
-            throw new NotFoundException(String.Format("Owner with id {0} not found.", ownerId));
+            throw new NotFoundException(String.Format("Owner {0} not found.", ownerId));
         }
 
         public Owner GetById(OwnerId ownerId)
@@ -77,7 +77,7 @@
         {
             var user = _userQueries.GetById(userId);
             if (user == null)
-                throw new NotFoundException(String.Format("User with id {0} not found.", userId));
+                throw new NotFoundException(String.Format("User {0} not found.", userId));
 
             return ToOwner(user);
         }
@@ -86,7 +86,7 @@
         {
             var organization = _organizationQueries.FindById(organizationId);
             if (organization == null)
-                throw new NotFoundException(String.Format("Organization with id {0} not found.", organizationId));
+                throw new NotFoundException(String.Format("Organization {0} not found.", organizationId));
 
             return ToOwner(organization);
         }

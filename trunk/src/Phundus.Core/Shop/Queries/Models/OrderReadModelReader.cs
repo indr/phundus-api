@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Data.Linq;
     using System.Linq;
+    using Common;
+    using Common.Domain.Model;
     using IdentityAndAccess.Queries;
     using Inventory.Services;
 
@@ -80,8 +82,21 @@
                 select o;
         }
 
-        public IEnumerable<OrderDto> Query(int currentUserId, int? orderId, int? queryUserId, Guid? queryOrganizationId)
+        public OrderDto GetById(CurrentUserId currentUserId, OrderId orderId)
         {
+            AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
+            AssertionConcern.AssertArgumentNotNull(orderId, "OrderId must be provided.");
+
+            var result = Query(currentUserId, orderId, null, null).SingleOrDefault();
+            if (result == null)
+                throw new NotFoundException(String.Format("Order {0} not found.", orderId));
+            return result;
+        }
+
+        public IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderId orderId, int? queryUserId, Guid? queryOrganizationId)
+        {
+            AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
+
             var currentUserGuid = UserQueries.GetById(currentUserId).Guid;
             var queryUserGuid = (Guid?) null;
             if (queryUserId.HasValue)
@@ -90,7 +105,7 @@
             }
 
             var currentUsersManagerGuids =
-                MembershipQueries.ByUserId(currentUserId)
+                MembershipQueries.ByUserId(currentUserId.Id)
                     .Where(p => p.MembershipRole == "Chief")
                     .Select(s => s.OrganizationGuid);
 
@@ -100,7 +115,7 @@
                     // Auth restrictions
                     (
                         // current user is borrower or lessor
-                        ((o.Borrower_Id == currentUserId || o.Lessor_LessorId == currentUserGuid))
+                        ((o.Borrower_Id == currentUserId.Id || o.Lessor_LessorId == currentUserGuid))
                         ||
                         // Or: current user is manager in lessor organization
                         (currentUsersManagerGuids.Contains(o.Lessor_LessorId))
@@ -109,7 +124,7 @@
                     // Query restrictions
                     (
                         // orderId is not queried, or order id is query order id
-                        (orderId == null || (o.Id == orderId))
+                        (orderId == null || (o.Id == orderId.Id))
                         &&
                         // user is not queried, or borrower or lessor is query user
                         (queryUserId == null
