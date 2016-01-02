@@ -30,7 +30,7 @@
 
             var contract = new Contract(
                 command.OrganizationId,
-                Borrower.ById(command.UserId));
+                Borrower.GetById(command.UserId));
 
             var contractId = Repository.Add(contract);
             

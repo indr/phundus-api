@@ -1,19 +1,20 @@
 ﻿namespace Phundus.Core.Shop.Orders.Commands
 {
-    using System;
+    using Common.Domain.Model;
     using Cqrs;
     using Ddd;
     using IdentityAndAccess.Queries;
     using Model;
-    using Repositories;    
+    using Repositories;
     using Shop.Services;
 
     public class CreateEmptyOrder
     {
-        public Guid OrganizationId { get; set; }
-        public int InitiatorId { get; set; }
-        public int UserId { get; set; }
-        public int OrderId { get; set; }
+        public CurrentUserId InitiatorId { get; set; }
+        public LessorId LessorId { get; set; }
+        public LesseeId LesseeId { get; set; }
+        
+        public int ResultingOrderId { get; set; }
     }
 
     public class CreateEmptyOrderHandler : IHandleCommand<CreateEmptyOrder>
@@ -28,15 +29,16 @@
 
         public void Handle(CreateEmptyOrder command)
         {
-            MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
+            var ownerId = new OwnerId(command.LessorId.Id);
+            MemberInRole.ActiveChief(ownerId, command.InitiatorId);
 
             var order = new Order(
-                LessorService.GetById(command.OrganizationId),
-                BorrowerService.ById(command.UserId));
+                LessorService.GetById(command.LessorId),
+                BorrowerService.GetById(command.LesseeId));
 
             var orderId = Repository.Add(order);
 
-            command.OrderId = orderId;
+            command.ResultingOrderId = orderId;
 
             EventPublisher.Publish(new OrderCreated {OrderId = orderId});
         }

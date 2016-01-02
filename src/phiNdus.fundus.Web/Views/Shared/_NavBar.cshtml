@@ -48,7 +48,9 @@
                     
                     @if (Request.IsAuthenticated && User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Bestellungen", "", "documents", null, null, "orders", null, null)</li>
+                        <li>
+                            <a href="/#/manage/users/@Model.UserId/orders/">Bestellungen</a>
+                        </li>
                     }
                     @if (User.IsInRole("Admin"))
                     {

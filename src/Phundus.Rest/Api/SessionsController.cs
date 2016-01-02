@@ -67,6 +67,7 @@
                     Title = role.Title
                 },
                 UserId = user.Id.ToString(CultureInfo.InvariantCulture),
+                UserGuid = user.Guid,
                 Username = user.Email
             };
         }
@@ -99,6 +100,9 @@
 
         [JsonProperty("userId")]
         public string UserId { get; set; }
+
+        [JsonProperty("userGuid")]
+        public Guid UserGuid { get; set; }
 
         [JsonProperty("username")]
         public string Username { get; set; }
