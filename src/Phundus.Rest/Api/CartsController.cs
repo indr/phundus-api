@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Rest.Api
 {
+    using System.Net.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -10,9 +11,11 @@
     {
         [DELETE("")]
         [Transaction]
-        public virtual void Delete()
+        public virtual HttpResponseMessage Delete()
         {
-            Dispatcher.Dispatch(new ClearCart {InitiatorId = CurrentUserId});
+            Dispatcher.Dispatch(new ClearCart {InitiatorId = CurrentUserId.Id});
+
+            return CreateNoContentResponse();
         }
     }
 }

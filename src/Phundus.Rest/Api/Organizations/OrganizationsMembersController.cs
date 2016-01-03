@@ -2,51 +2,82 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Net.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common;
     using Core.IdentityAndAccess.Organizations.Commands;
-    using Core.IdentityAndAccess.Organizations.Repositories;
     using Core.IdentityAndAccess.Queries;
+    using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/members")]
     public class OrganizationsMembersController : ApiControllerBase
     {
-        public IOrganizationRepository Organizations { get; set; }
+        private readonly IMemberQueries _memberQueries;
 
-        public IMembershipQueries MembershipQueries { get; set; }
+        public OrganizationsMembersController(IMemberQueries memberQueries)
+        {
+            AssertionConcern.AssertArgumentNotNull(memberQueries, "MemberQueries must be provided.");
 
-        public IMemberQueries MemberQueries { get; set; }
+            _memberQueries = memberQueries;
+        }
 
         [GET("")]
         [Transaction]
-        public virtual IList<MemberDto> Get(Guid organizationId)
+        public virtual OrganizationsMembersQueryOkResponseContent Get(Guid organizationId)
         {
-            return MemberQueries.FindByOrganizationId(organizationId);
+            var result = _memberQueries.FindByOrganizationId(organizationId);
+            return new OrganizationsMembersQueryOkResponseContent(result);
         }
 
         [POST("")]
         [Transaction]
-        public virtual void Post(Guid organizationId, dynamic doc)
+        public virtual HttpResponseMessage Post(Guid organizationId,
+            OrganizationsMembersPostRequestContent requestContent)
         {
             Dispatcher.Dispatch(new ApproveMembershipApplication
             {
-                InitiatorId = CurrentUserId,
-                ApplicationId = doc.applicationId
+                InitiatorId = CurrentUserId.Id,
+                ApplicationId = requestContent.ApplicationId
             });
+
+            return CreateNoContentResponse();
         }
 
         [PUT("{memberId}")]
         [Transaction]
-        public virtual void Put(Guid organizationId, int memberId, dynamic doc)
+        public virtual HttpResponseMessage Put(Guid organizationId, int memberId,
+            OrganizationsMembersPutRequestContent requestContent)
         {
             Dispatcher.Dispatch(new ChangeMembersRole
             {
                 OrganizationId = organizationId,
-                InitiatorId = CurrentUserId,
+                InitiatorId = CurrentUserId.Id,
                 MemberId = memberId,
-                Role = doc.role
+                Role = requestContent.Role
             });
+
+            return CreateNoContentResponse();
+        }
+    }
+
+    public class OrganizationsMembersPostRequestContent
+    {
+        [JsonProperty("applicationId")]
+        public Guid ApplicationId { get; set; }
+    }
+
+    public class OrganizationsMembersPutRequestContent
+    {
+        [JsonProperty("role")]
+        public int Role { get; set; }
+    }
+
+    public class OrganizationsMembersQueryOkResponseContent : List<MemberDto>
+    {
+        public OrganizationsMembersQueryOkResponseContent(IEnumerable<MemberDto> collection) : base(collection)
+        {
         }
     }
 }

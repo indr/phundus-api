@@ -39,7 +39,7 @@ namespace Phundus.Rest.Api
         public virtual UsersGetOkResponseContent Get(int userId)
         {
             var user = _userQueries.GetById(userId);
-            if ((user == null) || (user.Id != CurrentUserId))
+            if ((user == null) || (user.Id != CurrentUserId.Id))
                 throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
 
             var memberships = _membershipQueries.ByUserId(user.Id);

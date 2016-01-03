@@ -42,7 +42,7 @@
             return new OrganizationsQueryOkResponseContent
             {
                 Organizations =
-                    _organizationQueries.All().Select(s => new OrganizationsQueryOkResponseContent.Organization
+                    _organizationQueries.All().Select(s => new Organization
                     {
                         Address = s.Address,
                         Name = s.Name,
@@ -95,7 +95,7 @@
             var organizationId = Guid.NewGuid();
             Dispatch(new EstablishOrganization
             {
-                InitiatorId = CurrentUserId,
+                InitiatorId = CurrentUserId.Id,
                 OrganizationId = organizationId,
                 Name = requestContent.Name
             });
@@ -113,7 +113,7 @@
                 Address = value.Address,
                 DocumentTemplate = value.DocumentTemplate,
                 EmailAddress = value.EmailAddress,
-                InitiatorId = CurrentUserId,
+                InitiatorId = CurrentUserId.Id,
                 OrganizationId = organizationId,
                 Startpage = value.Startpage,
                 Website = value.Website

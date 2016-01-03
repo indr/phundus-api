@@ -49,7 +49,7 @@
             if (queryParams.ContainsKey("organizationId"))
                 organizationId = Guid.Parse(queryParams["organizationId"]);
 
-            var orders = _orderQueries.Query(new CurrentUserId(CurrentUserId), null, userId, organizationId).ToList();
+            var orders = _orderQueries.Query(new CurrentUserId(CurrentUserId.Id), null, userId, organizationId).ToList();
             var result = new OrdersQueryOkResponseContent
             {
                 Orders = Map<IList<Order>>(orders)
@@ -61,7 +61,7 @@
         [Transaction]
         public virtual HttpResponseMessage Get(int orderId)
         {
-            var order = _orderQueries.GetById(new CurrentUserId(CurrentUserId), new OrderId(orderId));
+            var order = _orderQueries.GetById(new CurrentUserId(CurrentUserId.Id), new OrderId(orderId));
             return Request.CreateResponse(HttpStatusCode.OK, Map<OrderDetail>(order));
         }
 
@@ -69,8 +69,8 @@
         [Transaction]
         public virtual HttpResponseMessage GetPdf(int orderId)
         {
-            _orderQueries.GetById(new CurrentUserId(CurrentUserId), new OrderId(orderId));
-            var result = _pdfStore.GetOrderPdf(orderId, CurrentUserId);
+            _orderQueries.GetById(new CurrentUserId(CurrentUserId.Id), new OrderId(orderId));
+            var result = _pdfStore.GetOrderPdf(orderId, CurrentUserId.Id);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
 
@@ -95,7 +95,7 @@
 
             var command = new CreateEmptyOrder
             {
-                InitiatorId = new CurrentUserId(CurrentUserId),
+                InitiatorId = new CurrentUserId(CurrentUserId.Id),
                 LessorId = new LessorId(requestContent.OwnerId),
                 LesseeId = new LesseeId(userId)
             };
@@ -110,11 +110,11 @@
         public virtual HttpResponseMessage Patch(int orderId, OrdersPatchRequestContent requestContent)
         {
             if (requestContent.Status == "Rejected")
-                Dispatch(new RejectOrder {InitiatorId = CurrentUserId, OrderId = orderId});
+                Dispatch(new RejectOrder {InitiatorId = CurrentUserId.Id, OrderId = orderId});
             else if (requestContent.Status == "Approved")
-                Dispatch(new ApproveOrder {InitiatorId = CurrentUserId, OrderId = orderId});
+                Dispatch(new ApproveOrder {InitiatorId = CurrentUserId.Id, OrderId = orderId});
             else if (requestContent.Status == "Closed")
-                Dispatch(new CloseOrder {InitiatorId = CurrentUserId, OrderId = orderId});
+                Dispatch(new CloseOrder {InitiatorId = CurrentUserId.Id, OrderId = orderId});
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
                     "Unbekannter Status \"" + requestContent.Status + "\"");

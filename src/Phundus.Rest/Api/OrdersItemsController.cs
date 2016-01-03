@@ -35,7 +35,7 @@ namespace Phundus.Rest.Api
                 Amount = requestContent.Amount,
                 ArticleId = requestContent.ArticleId,
                 FromUtc = requestContent.FromUtc,
-                InitiatorId = CurrentUserId,
+                InitiatorId = CurrentUserId.Id,
                 OrderId = orderId,
                 ToUtc = requestContent.ToUtc
             };
@@ -47,7 +47,7 @@ namespace Phundus.Rest.Api
 
         private HttpResponseMessage Get(int orderId, Guid orderItemId, HttpStatusCode statusCode)
         {
-            var order = _orderQueries.GetById(new CurrentUserId(CurrentUserId), new OrderId(orderId));
+            var order = _orderQueries.GetById(new CurrentUserId(CurrentUserId.Id), new OrderId(orderId));
             var item = order.Items.FirstOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
@@ -65,7 +65,7 @@ namespace Phundus.Rest.Api
             {
                 Amount = requestContent.Amount,
                 FromUtc = requestContent.FromUtc,
-                InitiatorId = CurrentUserId,
+                InitiatorId = CurrentUserId.Id,
                 OrderId = orderId,
                 OrderItemId = orderItemId,
                 ToUtc = requestContent.ToUtc,
@@ -81,7 +81,7 @@ namespace Phundus.Rest.Api
         {
             Dispatcher.Dispatch(new RemoveOrderItem
             {
-                InitiatorId = CurrentUserId,
+                InitiatorId = CurrentUserId.Id,
                 OrderId = orderId,
                 OrderItemId = orderItemId
             });

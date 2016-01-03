@@ -65,7 +65,7 @@ namespace Phundus.Rest.Api
         public virtual StoresPostOkResponseContent Post(StoresPostRequestContent requestContent)
         {
             var storeId = new StoreId();
-            Dispatch(new OpenStore(new UserId(CurrentUserId), new UserId(requestContent.UserId), storeId));
+            Dispatch(new OpenStore(CurrentUserId, new UserId(requestContent.UserId), storeId));
 
             return new StoresPostOkResponseContent
             {
@@ -82,7 +82,7 @@ namespace Phundus.Rest.Api
             {
                 Dispatch(new ChangeAddress
                 {
-                    InitatorId = CurrentUserId,
+                    InitatorId = CurrentUserId.Id,
                     Address = requestContent.Address,
                     StoreId = new Guid(storeId)
                 });
@@ -91,7 +91,7 @@ namespace Phundus.Rest.Api
             {
                 Dispatch(new ChangeCoordinate
                 {
-                    InitatorId = CurrentUserId,
+                    InitatorId = CurrentUserId.Id,
                     Latitude = requestContent.Coordinate.Latitude,
                     Longitude = requestContent.Coordinate.Longitude,
                     StoreId = new Guid(storeId)
@@ -101,7 +101,7 @@ namespace Phundus.Rest.Api
             {
                 Dispatch(new ChangeOpeningHours
                 {
-                    InitatorId = CurrentUserId,
+                    InitatorId = CurrentUserId.Id,
                     OpeningHours = requestContent.OpeningHours,
                     StoreId = new Guid(storeId)
                 });

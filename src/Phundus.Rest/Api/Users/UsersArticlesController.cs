@@ -117,7 +117,7 @@ namespace Phundus.Rest.Api.Users
 
             var ownerId = new OwnerId(currentUserGuid);
             var storeId = _storeQueries.GetByOwnerId(ownerId).StoreId;
-            var command = new CreateArticle(GetCurrentUserId(), ownerId, storeId,
+            var command = new CreateArticle(CurrentUserId, ownerId, storeId,
                 requestContent.Name);
             Dispatch(command);
 
@@ -141,7 +141,7 @@ namespace Phundus.Rest.Api.Users
                 Brand = requestContent.Brand,
                 Color = requestContent.Color,
                 GrossStock = requestContent.GrossStock,
-                InitiatorId = CurrentUserId,
+                InitiatorId = CurrentUserId.Id,
                 Name = requestContent.Name,
                 Price = requestContent.Price
             });
@@ -163,7 +163,7 @@ namespace Phundus.Rest.Api.Users
             {
                 ArticleId = articleId,
                 Description = requestContent.data,
-                InitiatorId = CurrentUserId
+                InitiatorId = CurrentUserId.Id
             });
 
             return Request.CreateResponse(HttpStatusCode.NoContent);
@@ -180,7 +180,7 @@ namespace Phundus.Rest.Api.Users
             {
                 ArticleId = articleId,
                 Specification = requestContent.data,
-                InitiatorId = CurrentUserId
+                InitiatorId = CurrentUserId.Id
             });
 
             return Request.CreateResponse(HttpStatusCode.NoContent);
@@ -193,14 +193,14 @@ namespace Phundus.Rest.Api.Users
             // TODO: Prüfen ob Artikel dem Benutzer gehört
             EnforceCurrentUser(userId);
 
-            Dispatcher.Dispatch(new DeleteArticle {ArticleId = articleId, InitiatorId = CurrentUserId});
+            Dispatcher.Dispatch(new DeleteArticle { ArticleId = articleId, InitiatorId = CurrentUserId.Id });
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         private Guid EnforceCurrentUser(int userId)
         {
             var user = _userQueries.GetById(userId);
-            if (user.Id != CurrentUserId)
+            if (user.Id != CurrentUserId.Id)
                 throw new AuthorizationException();
             return user.Guid;
         }
