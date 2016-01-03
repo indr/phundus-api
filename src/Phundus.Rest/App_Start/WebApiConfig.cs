@@ -1,18 +1,10 @@
 ﻿namespace Phundus.Rest
 {
     using System.Web.Http;
+    using Converters;
     using Filters;
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Serialization;
-
-    public class CustomDateTimeConverter : IsoDateTimeConverter
-    {
-        public CustomDateTimeConverter()
-        {
-            base.DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssK";
-        }
-    }
 
     public class WebApiConfig
     {
