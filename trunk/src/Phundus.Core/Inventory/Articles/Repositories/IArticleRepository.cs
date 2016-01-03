@@ -10,6 +10,6 @@
         new int Add(Article entity);
         IEnumerable<Article> FindByOwnerId(Guid ownerId);
         Article GetById(int articleId);
-        Article GetById(Guid organizationId, int articleId);
+        Article GetById(Guid ownerId, int articleId);
     }
 }

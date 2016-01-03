@@ -23,7 +23,6 @@ namespace Phundus.Core.Shop.Services
         /// <param name="articleId"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        /// <exception cref="AuthorizationException"></exception>
         Article GetById(OwnerId ownerId, ArticleId articleId);
     }
 
@@ -53,7 +52,7 @@ namespace Phundus.Core.Shop.Services
             
             var result = GetById(articleId.Id);
             if (!Equals(result.Owner.OwnerId, ownerId))
-                throw new AuthorizationException(String.Format("Article {0} does not belong owner {1}.", articleId, ownerId));
+                throw new NotFoundException(String.Format("Article {0} {1} not found.", ownerId, articleId));
 
             return result;
         }
