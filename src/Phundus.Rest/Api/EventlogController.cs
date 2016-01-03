@@ -1,4 +1,4 @@
-namespace Phundus.Rest.Api.Diagnostics
+namespace Phundus.Rest.Api
 {
     using System.Net;
     using System.Net.Http;

@@ -116,9 +116,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllerBase.cs" />
+    <Compile Include="ContentObjects\Relationship.cs" />
     <Compile Include="ContentObjects\Coordinate.cs" />
-    <Compile Include="Api\Diagnostics\EventlogController.cs" />
-    <Compile Include="Api\Diagnostics\SchemaUpdateController.cs" />
+    <Compile Include="Api\EventlogController.cs" />
+    <Compile Include="Api\SchemaUpdateController.cs" />
     <Compile Include="Api\MailsController.cs" />
     <Compile Include="ContentObjects\Store.cs" />
     <Compile Include="ContentObjects\Memberships.cs" />
