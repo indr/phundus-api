@@ -62,12 +62,12 @@ namespace Phundus.Specs.Rest
             public int UserId { get; set; }
         }
 
-        public IRestResponse<OrderDetailDoc> PostOrder(Guid organizationId, string username)
+        public IRestResponse<OrderDetailDoc> PostOrder(Guid organizationId, int lesseeId)
         {
             var request = new RestRequest(Method.POST);
             request.Resource = "orders";
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(new {ownerId = organizationId, username = username});
+            request.AddBody(new {ownerId = organizationId, lesseeId = lesseeId});
             return Execute<OrderDetailDoc>(request);
         }
 
