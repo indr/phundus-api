@@ -13,7 +13,7 @@
 
         public static IRestResponse<OrderDetailDoc> response;
 
-        public Because of = () => { response = api.PostOrder(organizationId, "user-1@test.phundus.ch"); };
+        public Because of = () => { response = api.PostOrder(organizationId, 10003); };
 
         public It should_return_doc_with_created_on =
             () => response.Data.CreatedAtUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
@@ -32,7 +32,7 @@
         protected static int orderId;
         protected static IRestResponse<OrderDetailDoc> response;
 
-        public Establish ctx = () => { orderId = api.PostOrder(organizationId, "user-1@test.phundus.ch").Data.OrderId; };
+        public Establish ctx = () => { orderId = api.PostOrder(organizationId, 10003).Data.OrderId; };
     }
 
     [Subject("/api/orders")]
@@ -69,7 +69,7 @@
         private static int orderId;
         private static IRestResponse<OrderItemDoc> response;
 
-        public Establish c = () => { orderId = api.PostOrder(organizationId, "user-1@test.phundus.ch").Data.OrderId; };
+        public Establish c = () => { orderId = api.PostOrder(organizationId, 10003).Data.OrderId; };
 
         public Because of = () => { response = api.PostOrderItem(organizationId, orderId); };
 
@@ -87,7 +87,7 @@
 
         public Establish c = () =>
         {
-            orderId = api.PostOrder(organizationId, "user-1@test.phundus.ch").Data.OrderId;
+            orderId = api.PostOrder(organizationId, 10003).Data.OrderId;
             orderItemId = api.PostOrderItem(organizationId, orderId).Data.OrderItemId;
         };
 
@@ -111,7 +111,7 @@
 
         public Establish c = () =>
         {
-            orderId = api.PostOrder(organizationId, "user-1@test.phundus.ch").Data.OrderId;
+            orderId = api.PostOrder(organizationId, 10003).Data.OrderId;
             orderItemId = api.PostOrderItem(organizationId, orderId).Data.OrderItemId;
         };
 
