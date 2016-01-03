@@ -5,6 +5,7 @@
     using AttributeRouting.Web.Http;
     using AutoMapper;
     using Castle.Transactions;
+    using ContentObjects;
     using Core.IdentityAndAccess.Queries;
 
     [RoutePrefix("api/organizations/{organizationId}/relationships")]
@@ -12,7 +13,7 @@
     {
         static OrganizationsRelationshipsController()
         {
-            Mapper.CreateMap<RelationshipDto, RelationshipDoc>()
+            Mapper.CreateMap<RelationshipDto, Relationship>()
                 .ForMember(d => d.OrganizationId, o => o.MapFrom(s => s.OrganizationGuid))
                 .ForMember(d => d.UserId, o => o.MapFrom(s => s.UserId))
                 .ForMember(d => d.Timestamp, o => o.MapFrom(s => s.Timestamp))
@@ -24,17 +25,9 @@
 
         [GET("")]
         [Transaction]
-        public virtual RelationshipDoc Get(Guid organizationId)
+        public virtual Relationship Get(Guid organizationId)
         {
-            return Map<RelationshipDoc>(RelationshipQueries.ByMemberIdForOrganizationId(CurrentUserId, organizationId));
+            return Map<Relationship>(RelationshipQueries.ByMemberIdForOrganizationId(CurrentUserId, organizationId));
         }
-    }
-
-    public class RelationshipDoc
-    {
-        public Guid OrganizationId { get; set; }
-        public int UserId { get; set; }
-        public DateTime Timestamp { get; set; }
-        public string Status { get; set; }
     }
 }
