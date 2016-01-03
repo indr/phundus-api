@@ -155,9 +155,9 @@
     <Compile Include="ContentObjects\OrderDetail.cs" />
     <Compile Include="ContentObjects\Order.cs" />
     <Compile Include="ContentObjects\OrderItem.cs" />
+    <Compile Include="Converters\CustomDateTimeConverter.cs" />
     <Compile Include="Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="Installer.cs" />
-    <Compile Include="Mappings\OrderDocsProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
