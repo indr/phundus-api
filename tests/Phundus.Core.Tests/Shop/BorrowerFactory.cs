@@ -4,22 +4,22 @@
 
     public class BorrowerFactory
     {
-        public static Borrower Create()
+        public static Lessee Create()
         {
             return Create(1);
         }
 
-        public static Borrower Create(int borrowerId)
+        public static Lessee Create(int borrowerId)
         {
-            return new Borrower(borrowerId, "Hans", "Muster", "Strasse", "6000", "Luzern", "hans.muster@test.phundus.ch",
+            return new Lessee(borrowerId, "Hans", "Muster", "Strasse", "6000", "Luzern", "hans.muster@test.phundus.ch",
                 "+4179123456", "");
         }
 
-        public static Borrower Create(int borrowerId, string firstName, string lastName, string street = "",
+        public static Lessee Create(int borrowerId, string firstName, string lastName, string street = "",
             string postcode = "", string city = "", string emailAddress = "", string mobilePhoneNumber = "",
             string memberNumber = "")
         {
-            return new Borrower(borrowerId, firstName, lastName, street, postcode, city, emailAddress, mobilePhoneNumber,
+            return new Lessee(borrowerId, firstName, lastName, street, postcode, city, emailAddress, mobilePhoneNumber,
                 memberNumber);
         }
     }

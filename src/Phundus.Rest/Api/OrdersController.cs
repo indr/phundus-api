@@ -8,24 +8,33 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common;
     using Common.Domain.Model;
+    using ContentObjects;
     using Core.IdentityAndAccess.Queries;
     using Core.Shop.Orders;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
     using Newtonsoft.Json;
-    using Organizations;
-    using OrderDetailDoc = Docs.OrderDetailDoc;
-    using OrderDoc = Docs.OrderDoc;
 
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase
     {
-        public IUserQueries UserQueries { get; set; }
+        private readonly IOrderQueries _orderQueries;
+        private readonly IPdfStore _pdfStore;
+        private readonly IUserQueries _userQueries;
 
-        public IOrderQueries OrderQueries { get; set; }
+        public OrdersController(IUserQueries userQueries, IOrderQueries orderQueries, IPdfStore pdfStore)
+        {
+            AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(orderQueries, "OrderQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(pdfStore, "PdfStore must be provided.");
 
-        public IPdfStore PdfStore { get; set; }
+            _userQueries = userQueries;
+            _orderQueries = orderQueries;
+            _pdfStore = pdfStore;
+        }
+
 
         [GET("")]
         [Transaction]
@@ -40,10 +49,10 @@
             if (queryParams.ContainsKey("organizationId"))
                 organizationId = Guid.Parse(queryParams["organizationId"]);
 
-            var orders = OrderQueries.Query(new CurrentUserId(CurrentUserId), null, userId, organizationId).ToList();
+            var orders = _orderQueries.Query(new CurrentUserId(CurrentUserId), null, userId, organizationId).ToList();
             var result = new OrdersQueryOkResponseContent
             {
-                Orders = Map<IList<OrderDoc>>(orders)
+                Orders = Map<IList<Order>>(orders)
             };
             return result;
         }
@@ -52,16 +61,16 @@
         [Transaction]
         public virtual HttpResponseMessage Get(int orderId)
         {
-            var order = OrderQueries.GetById(new CurrentUserId(CurrentUserId), new OrderId(orderId));
-            return Request.CreateResponse(HttpStatusCode.OK, Map<OrderDetailDoc>(order));
+            var order = _orderQueries.GetById(new CurrentUserId(CurrentUserId), new OrderId(orderId));
+            return Request.CreateResponse(HttpStatusCode.OK, Map<OrderDetail>(order));
         }
 
         [GET("{orderId:int}.pdf")]
         [Transaction]
         public virtual HttpResponseMessage GetPdf(int orderId)
         {
-            OrderQueries.GetById(new CurrentUserId(CurrentUserId), new OrderId(orderId));
-            var result = PdfStore.GetOrderPdf(orderId, CurrentUserId);
+            _orderQueries.GetById(new CurrentUserId(CurrentUserId), new OrderId(orderId));
+            var result = _pdfStore.GetOrderPdf(orderId, CurrentUserId);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
 
@@ -75,7 +84,7 @@
             int userId;
             if (!Int32.TryParse(requestContent.Username, out userId))
             {
-                var user = UserQueries.ByUserName(requestContent.Username);
+                var user = _userQueries.ByUserName(requestContent.Username);
                 if (user == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound,
                         string.Format("Der Benutzer mit der E-Mail-Adresse \"{0}\" konnte nicht gefunden werden.",
@@ -93,7 +102,7 @@
 
             Dispatcher.Dispatch(command);
 
-            return Get(command.ResultingOrderId);            
+            return Get(command.ResultingOrderId);
         }
 
         [PATCH("{orderId}")]
@@ -101,41 +110,37 @@
         public virtual HttpResponseMessage Patch(int orderId, OrdersPatchRequestContent requestContent)
         {
             if (requestContent.Status == "Rejected")
-                Dispatch(new RejectOrder { InitiatorId = CurrentUserId, OrderId = orderId });
+                Dispatch(new RejectOrder {InitiatorId = CurrentUserId, OrderId = orderId});
             else if (requestContent.Status == "Approved")
-                Dispatch(new ApproveOrder { InitiatorId = CurrentUserId, OrderId = orderId });
+                Dispatch(new ApproveOrder {InitiatorId = CurrentUserId, OrderId = orderId});
             else if (requestContent.Status == "Closed")
-                Dispatch(new CloseOrder { InitiatorId = CurrentUserId, OrderId = orderId });
+                Dispatch(new CloseOrder {InitiatorId = CurrentUserId, OrderId = orderId});
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
                     "Unbekannter Status \"" + requestContent.Status + "\"");
 
             return Get(orderId);
         }
+    }
 
+    public class OrdersPatchRequestContent
+    {
+        [JsonProperty("status")]
+        public string Status { get; set; }
+    }
+
+    public class OrdersPostRequestContent
+    {
+        [JsonProperty("ownerId")]
+        public Guid OwnerId { get; set; }
+
+        [JsonProperty("username")]
+        public string Username { get; set; }
     }
 
     public class OrdersQueryOkResponseContent
     {
         [JsonProperty("orders")]
-        public IList<OrderDoc> Orders { get; set; }
-    }
-
-    public class Order
-    {
-        [JsonProperty("orderId")]
-        public int OrderId { get; set; }
-
-        [JsonProperty("createdAtUtc")]
-        public DateTime CreatedAtUtc { get; set; }
-
-        [JsonProperty("lessorName")]
-        public string LessorName { get; set; }
-
-        [JsonProperty("lesseeName")]
-        public string LesseeName { get; set; }
-
-        [JsonProperty("status")]
-        public string Status { get; set; }
+        public IList<Order> Orders { get; set; }
     }
 }

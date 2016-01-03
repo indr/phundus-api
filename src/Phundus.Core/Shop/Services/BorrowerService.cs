@@ -5,7 +5,7 @@
     using Contracts.Model;
     using IdentityAndAccess.Queries;    
 
-    public interface IBorrowerService
+    public interface ILesseeService
     {
         /// <summary>
         /// 
@@ -13,7 +13,7 @@
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        Borrower GetById(int id);
+        Lessee GetById(int id);
 
         /// <summary>
         /// 
@@ -21,14 +21,14 @@
         /// <param name="lesseeId"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        Borrower GetById(LesseeId lesseeId);
+        Lessee GetById(LesseeId lesseeId);
     }
 
-    public class BorrowerService : IBorrowerService
+    public class LesseeService : ILesseeService
     {
         public IUserQueries UserQueries { get; set; }
 
-        public Borrower GetById(int id)
+        public Lessee GetById(int id)
         {
             var user = UserQueries.GetById(id);
             if (user == null)
@@ -37,14 +37,14 @@
             return ToBorrower(user);
         }
 
-        public Borrower GetById(LesseeId lesseeId)
+        public Lessee GetById(LesseeId lesseeId)
         {
             return GetById(lesseeId.Id);
         }
 
-        private static Borrower ToBorrower(UserDto user)
+        private static Lessee ToBorrower(UserDto user)
         {
-            return new Borrower(user.Id, user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
+            return new Lessee(user.Id, user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
                 user.Email, user.MobilePhone, user.JsNumber.ToString());
         }
     }

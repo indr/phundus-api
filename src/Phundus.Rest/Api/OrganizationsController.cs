@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using System.Runtime.Remoting.Messaging;
     using System.Web;
     using System.Web.Http;
     using AttributeRouting;
@@ -13,6 +12,7 @@
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
+    using ContentObjects;
     using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Queries;
@@ -41,13 +41,14 @@
         {
             return new OrganizationsQueryOkResponseContent
             {
-                Organizations = _organizationQueries.All().Select(s => new OrganizationsQueryOkResponseContent.Organization
-                {
-                    Address = s.Address,
-                    Name = s.Name,
-                    OrganizationId = s.Guid,
-                    Url = s.Url
-                }).ToList()
+                Organizations =
+                    _organizationQueries.All().Select(s => new OrganizationsQueryOkResponseContent.Organization
+                    {
+                        Address = s.Address,
+                        Name = s.Name,
+                        OrganizationId = s.Guid,
+                        Url = s.Url
+                    }).ToList()
             };
         }
 
@@ -125,22 +126,7 @@
     public class OrganizationsQueryOkResponseContent
     {
         [JsonProperty("organizations")]
-        public IList<Organization> Organizations { get; set; } 
-
-        public class Organization
-        {
-            [JsonProperty("organizationId")]
-            public Guid OrganizationId { get; set; }
-
-            [JsonProperty("name")]
-            public string Name { get; set; }
-
-            [JsonProperty("url")]
-            public string Url { get; set; }
-
-            [JsonProperty("address")]
-            public string Address { get; set; }
-        }
+        public IList<Organization> Organizations { get; set; }
     }
 
     public class OrganizationsGetOkResponseContent

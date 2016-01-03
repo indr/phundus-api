@@ -116,13 +116,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllerBase.cs" />
-    <Compile Include="Api\ContractsController.cs" />
+    <Compile Include="ContentObjects\Coordinate.cs" />
     <Compile Include="Api\Diagnostics\EventlogController.cs" />
     <Compile Include="Api\Diagnostics\SchemaUpdateController.cs" />
-    <Compile Include="Api\Docs\OrderDocs.cs" />
     <Compile Include="Api\MailsController.cs" />
+    <Compile Include="ContentObjects\Store.cs" />
+    <Compile Include="ContentObjects\Memberships.cs" />
     <Compile Include="Api\NotificationsController.cs" />
-    <Compile Include="Api\Organizations\Docs\OrganizationsOrderDocs.cs" />
+    <Compile Include="ContentObjects\Role.cs" />
+    <Compile Include="ContentObjects\Organization.cs" />
     <Compile Include="Api\Organizations\OrganizationsArticlesController.cs" />
     <Compile Include="Api\Organizations\OrganizationsFilesController.cs" />
     <Compile Include="Api\Organizations\OrganizationsArticlesFilesController.cs" />
@@ -147,8 +149,14 @@
     <Compile Include="Api\Organizations\OrganizationsApplicationsController.cs" />
     <Compile Include="Api\OrdersItemsController.cs" />
     <Compile Include="Auth\Auth.cs" />
+    <Compile Include="ContentObjects\Lessee.cs" />
+    <Compile Include="ContentObjects\Mail.cs" />
+    <Compile Include="ContentObjects\OrderDetail.cs" />
+    <Compile Include="ContentObjects\Order.cs" />
+    <Compile Include="ContentObjects\OrderItem.cs" />
     <Compile Include="Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="Installer.cs" />
+    <Compile Include="Mappings\OrderDocsProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

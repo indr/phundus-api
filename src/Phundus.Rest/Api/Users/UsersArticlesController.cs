@@ -13,7 +13,6 @@ namespace Phundus.Rest.Api.Users
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Core.Inventory.Queries;
-    using Core.Inventory.Stores.Model;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/users/{userId}/articles")]
@@ -22,8 +21,8 @@ namespace Phundus.Rest.Api.Users
         private readonly IArticleQueries _articleQueries;
         private readonly IAvailabilityQueries _availabilityQueries;
         private readonly IReservationRepository _reservationRepository;
-        private readonly IUserQueries _userQueries;
         private readonly IStoreQueries _storeQueries;
+        private readonly IUserQueries _userQueries;
 
         public UsersArticlesController(IArticleQueries articleQueries, IStoreQueries storeQueries,
             IUserQueries userQueries, IAvailabilityQueries availabilityQueries,

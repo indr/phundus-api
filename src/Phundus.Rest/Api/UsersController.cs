@@ -10,6 +10,7 @@ namespace Phundus.Rest.Api
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
+    using ContentObjects;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Queries;
     using Newtonsoft.Json;
@@ -109,40 +110,5 @@ namespace Phundus.Rest.Api
 
         [JsonProperty("store")]
         public Store Store { get; set; }
-    }
-
-    public class Store
-    {
-        [JsonProperty("storeId")]
-        public Guid StoreId { get; set; }
-
-        [JsonProperty("address")]
-        public string Address { get; set; }
-
-        [JsonProperty("coordinate")]
-        public Coordinate Coordinate { get; set; }
-
-        [JsonProperty("openingHours")]
-        public string OpeningHours { get; set; }
-    }
-
-    public class Coordinate
-    {
-        [JsonProperty("latitude")]
-        public decimal Latitude { get; set; }
-
-        [JsonProperty("longitude")]
-        public decimal Longitude { get; set; }
-
-        public static Coordinate FromLatLng(decimal? latitude, decimal? longitude)
-        {
-            if (!latitude.HasValue || !longitude.HasValue)
-                return null;
-            return new Coordinate
-            {
-                Latitude = latitude.Value,
-                Longitude = longitude.Value
-            };
-        }
     }
 }

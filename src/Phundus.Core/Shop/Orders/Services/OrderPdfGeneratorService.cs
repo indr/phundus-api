@@ -109,7 +109,7 @@
             cell.Padding = 3;
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
-            table.AddCell(new Phrase(order.Borrower.DisplayName, defaultFont));
+            table.AddCell(new Phrase(order.Lessee.DisplayName, defaultFont));
             table.AddCell(orderNumberCell);
 
             cell = new PdfPCell(new Phrase("J+S-Nummer:", defaultFontGray));
@@ -118,7 +118,7 @@
             cell.Padding = 3;
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
-            table.AddCell(new Phrase(order.Borrower.MemberNumber, defaultFontBold));
+            table.AddCell(new Phrase(order.Lessee.MemberNumber, defaultFontBold));
 
             cell = new PdfPCell(new Phrase("Telefon / E-Mail:", defaultFontGray));
             cell.BorderWidth = 0;
@@ -126,7 +126,7 @@
             cell.Padding = 3;
             cell.PaddingLeft = 36.0f;
             table.AddCell(cell);
-            table.AddCell(new Phrase(order.Borrower.MobilePhoneNumber + " / " + order.Borrower.EmailAddress, defaultFont));
+            table.AddCell(new Phrase(order.Lessee.MobilePhoneNumber + " / " + order.Lessee.EmailAddress, defaultFont));
 
             var firstFrom = order.FirstFromUtc;
             if (firstFrom.HasValue)

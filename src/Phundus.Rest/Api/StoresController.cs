@@ -9,6 +9,7 @@ namespace Phundus.Rest.Api
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
+    using ContentObjects;
     using Core.Inventory.Queries;
     using Core.Inventory.Stores.Commands;
     using Newtonsoft.Json;

@@ -17,7 +17,7 @@ namespace Phundus.Core.Tests.Shop.Orders.Commands
 
         protected static IArticleService articles;
 
-        protected static IBorrowerService lesseeService;
+        protected static ILesseeService lesseeService;
 
         protected static LessorId lessorId = new LessorId();
         protected static Lessor lessor;
@@ -31,7 +31,7 @@ namespace Phundus.Core.Tests.Shop.Orders.Commands
             orders = depends.on<IOrderRepository>();
             articles = depends.on<IArticleService>();
             lessorService = depends.on<ILessorService>();
-            lesseeService = depends.on<IBorrowerService>();
+            lesseeService = depends.on<ILesseeService>();
         };
     }
 }

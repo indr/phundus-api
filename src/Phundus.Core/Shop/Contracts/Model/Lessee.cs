@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Common.Domain.Model;
 
-    public class Borrower : ValueObject
+    public class Lessee : ValueObject
     {
         private string _city;
         private string _emailAddress;
@@ -15,11 +15,11 @@
         private string _postcode;
         private string _street;
 
-        protected Borrower()
+        protected Lessee()
         {
         }
 
-        public Borrower(int id, string firstName, string lastName, string street, string postcode, string city,
+        public Lessee(int id, string firstName, string lastName, string street, string postcode, string city,
             string emailAddress, string mobilePhoneNumber, string memberNumber)
         {
             _id = id;

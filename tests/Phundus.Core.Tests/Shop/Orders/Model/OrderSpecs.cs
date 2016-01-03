@@ -19,21 +19,21 @@
     public class when_an_order_is_created : order_concern
     {
         private static Lessor lessor;
-        private static Borrower borrower;
+        private static Lessee lessee;
 
         public Establish ctx = () =>
         {
             lessor = new Lessor(new LessorId(), "Lessor");
-            borrower = BorrowerFactory.Create();
+            lessee = BorrowerFactory.Create();
         };
 
-        public Because of = () => { order = new Order(lessor, borrower); };
+        public Because of = () => { order = new Order(lessor, lessee); };
 
         public It should_have_status_pending =
             () => order.Status.ShouldEqual(OrderStatus.Pending);
 
         public It should_have_the_borrower =
-            () => order.Borrower.ShouldEqual(borrower);
+            () => order.Lessee.ShouldEqual(lessee);
 
         public It should_have_the_created_on_set_to_utc_now =
             () => order.CreatedUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));

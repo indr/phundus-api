@@ -16,7 +16,7 @@
             Map(x => x.OrganizationId, "OrganizationId").Not.Update();
             Map(x => x.SignedOn, "SignedOn");
 
-            Component(x => x.Borrower, c =>
+            Component(x => x.Lessee, c =>
             {
                 c.Map(x => x.Id, "Borrower_Id");
                 c.Map(x => x.FirstName, "Borrower_FirstName");

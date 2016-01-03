@@ -21,7 +21,7 @@
         {
             organizationId = Guid.NewGuid();
             repository.setup(x => x.Add(Arg<Contract>.Is.NotNull)).Return(contractId);
-            borrowerService.setup(x => x.GetById(userId)).Return(BorrowerFactory.Create(userId, "First", "Last", "Street", "Postcode", "City","EmailAddress"));
+            lesseeService.setup(x => x.GetById(userId)).Return(BorrowerFactory.Create(userId, "First", "Last", "Street", "Postcode", "City","EmailAddress"));
             command = new CreateEmptyContract
             {
                 OrganizationId = organizationId,

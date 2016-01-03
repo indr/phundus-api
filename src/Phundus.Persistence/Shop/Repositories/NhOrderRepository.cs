@@ -26,7 +26,7 @@
         public ICollection<Order> FindByUserId(int userId)
         {
             var query = from o in Entities
-                where o.Borrower.Id == userId
+                where o.Lessee.Id == userId
                 orderby o.Status ascending
                 select o;
             return query.ToList();

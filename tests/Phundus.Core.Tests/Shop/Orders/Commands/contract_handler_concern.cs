@@ -13,13 +13,13 @@ namespace Phundus.Core.Tests.Shop.Orders.Commands
 
         protected static IContractRepository repository;
 
-        protected static IBorrowerService borrowerService;
+        protected static ILesseeService lesseeService;
 
         protected Establish dependencies = () =>
         {
             memberInRole = depends.on<IMemberInRole>();
             repository = depends.on<IContractRepository>();
-            borrowerService = depends.on<IBorrowerService>();
+            lesseeService = depends.on<ILesseeService>();
         };
     }
 }

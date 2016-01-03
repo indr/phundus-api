@@ -21,7 +21,7 @@
             Model = new
             {
                 Urls = new Urls(Config.ServerUrl),
-                order.Borrower,
+                Borrower = order.Lessee,
                 Order = order,
                 Admins = Config.FeedbackRecipients
             };
@@ -30,7 +30,7 @@
                 String.Format("Bestellung-{0}.pdf", order.Id),
                 "application/pdf"));
 
-            Send(order.Borrower.EmailAddress, Templates.OrderApprovedSubject, null, Templates.OrderApprovedHtml);
+            Send(order.Lessee.EmailAddress, Templates.OrderApprovedSubject, null, Templates.OrderApprovedHtml);
         }
 
         public void Handle(OrderRejected @event)
@@ -40,7 +40,7 @@
             Model = new
             {
                 Urls = new Urls(Config.ServerUrl),
-                order.Borrower,
+                Borrower = order.Lessee,
                 Order = order,
                 Admins = Config.FeedbackRecipients
             };
@@ -49,7 +49,7 @@
                 String.Format("Bestellung-{0}.pdf", order.Id),
                 "application/pdf"));
 
-            Send(order.Borrower.EmailAddress, Templates.OrderRejectedSubject, null, Templates.OrderRejectedHtml);
+            Send(order.Lessee.EmailAddress, Templates.OrderRejectedSubject, null, Templates.OrderRejectedHtml);
         }
     }
 }
