@@ -41,7 +41,7 @@
         {
         }
 
-        protected OwnerId()
+        protected OwnerId() : base(Guid.NewGuid())
         {
         }
     }

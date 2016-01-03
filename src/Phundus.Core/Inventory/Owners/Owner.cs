@@ -6,30 +6,19 @@
 
     public class Owner : ValueObject
     {
-        private OwnerId _ownerId;
-        private string _name;
-
         public Owner(OwnerId ownerId, string name)
         {
-            _ownerId = ownerId;
-            _name = name;
+            OwnerId = ownerId;
+            Name = name;
         }
 
         protected Owner()
         {
         }
 
-        public virtual OwnerId OwnerId
-        {
-            get { return _ownerId; }
-            protected set { _ownerId = value; }
-        }
+        public OwnerId OwnerId { get; private set; }
 
-        public virtual string Name
-        {
-            get { return _name; }
-            protected set { _name = value; }
-        }
+        public string Name { get; private set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
