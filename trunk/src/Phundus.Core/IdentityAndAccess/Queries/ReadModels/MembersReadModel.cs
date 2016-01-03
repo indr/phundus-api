@@ -42,7 +42,7 @@
 
         private IList<MemberDto> ToMemberDtos(IEnumerable<MembershipDto> memberships, string queryFullName = "")
         {
-            queryFullName = queryFullName.ToLowerInvariant();
+            queryFullName = queryFullName == null ? null : queryFullName.ToLowerInvariant();
             var result = new List<MemberDto>();
             foreach (var each in memberships)
             {
