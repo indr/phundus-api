@@ -158,6 +158,8 @@
     <Compile Include="Converters\CustomDateTimeConverter.cs" />
     <Compile Include="Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="Installer.cs" />
+    <Compile Include="MappingProfiles\Orders.cs" />
+    <Compile Include="MappingProfiles\Organizations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

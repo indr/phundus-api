@@ -7,18 +7,6 @@
 
     public interface IOrderQueries
     {
-        [Obsolete]
-        OrderDto SingleByOrderId(int orderId, int currentUserId);
-
-        [Obsolete]
-        OrderDto SingleByOrderIdAndOrganizationId(int orderId, Guid organizationId, int currentUserId);
-
-        [Obsolete]
-        IEnumerable<OrderDto> ManyByUserId(int userId);
-
-        [Obsolete]
-        IEnumerable<OrderDto> ManyByOrganizationId(Guid organizationId, int currentUserId);
-
         /// <summary>
         /// 
         /// </summary>
