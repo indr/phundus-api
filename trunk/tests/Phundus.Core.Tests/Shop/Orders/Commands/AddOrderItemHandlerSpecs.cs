@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using System;
+    using Common.Domain.Model;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
@@ -19,7 +20,7 @@
         public Establish c = () =>
         {
             var owner = new Owner(Guid.NewGuid(), "Owner");
-            lessor = new Lessor(owner.OwnerId, "Lessor");
+            lessor = new Lessor(new LessorId(owner.OwnerId), "Lessor");
             order = new Order(lessor, BorrowerFactory.Create());
             orders.setup(x => x.GetById(orderId)).Return(order);
             var article = new Article(articleId, owner, "Artikel", 1.0m);
@@ -36,7 +37,7 @@
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(lessor.LessorId, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(lessor.LessorId.Id, initiatorId));
 
         public It should_publish_order_item_added =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemAdded>.Is.NotNull));

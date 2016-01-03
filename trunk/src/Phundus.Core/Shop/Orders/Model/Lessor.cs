@@ -10,7 +10,7 @@ namespace Phundus.Core.Shop.Orders.Model
     /// </summary>
     public class Lessor : ValueObject
     {
-        public Lessor(Guid lessorId, string name)
+        public Lessor(LessorId lessorId, string name)
         {
             AssertionConcern.AssertArgumentNotNull(lessorId, "LessorId must be provided.");
             AssertionConcern.AssertArgumentNotEmpty(name, "Name must be provided.");
@@ -23,7 +23,7 @@ namespace Phundus.Core.Shop.Orders.Model
         {
         }
 
-        public Guid LessorId { get; private set; }
+        public LessorId LessorId { get; private set; }
 
         public string Name { get; private set; }
 

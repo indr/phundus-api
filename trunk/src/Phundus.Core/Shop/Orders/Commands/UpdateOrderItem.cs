@@ -27,7 +27,7 @@
         {
             var order = OrderRepository.GetById(command.OrderId);
 
-            MemberInRole.ActiveChief(order.Lessor.LessorId, command.InitiatorId);
+            MemberInRole.ActiveChief(order.Lessor.LessorId.Id, command.InitiatorId);
 
             order.ChangeAmount(command.OrderItemId, command.Amount);
             order.ChangeItemPeriod(command.OrderItemId, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),

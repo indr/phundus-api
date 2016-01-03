@@ -31,7 +31,7 @@
 
             var article = ArticleService.GetById(command.ArticleId);
             
-            MemberInRole.ActiveChief(order.Lessor.LessorId, command.InitiatorId);
+            MemberInRole.ActiveChief(order.Lessor.LessorId.Id, command.InitiatorId);
 
             var item = order.AddItem(article, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),
                 command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), command.Amount);

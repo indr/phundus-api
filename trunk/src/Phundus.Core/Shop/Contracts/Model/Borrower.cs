@@ -39,6 +39,11 @@
             protected set { _id = value; }
         }
 
+        public virtual LesseeId LesseeId
+        {
+            get { return new LesseeId(_id); }
+        }
+
         public virtual string FirstName
         {
             get { return _firstName; }

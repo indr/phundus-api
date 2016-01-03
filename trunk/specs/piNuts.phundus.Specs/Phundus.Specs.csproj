@@ -94,7 +94,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Shop.feature</DependentUpon>
     </Compile>
-    <Compile Include="Rest\ContractsSpecs.cs" />
     <Compile Include="Browsers\IeBrowser.cs" />
     <Compile Include="BeforeAndAfter.cs" />
     <Compile Include="Features\Checkout.feature.cs">

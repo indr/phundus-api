@@ -62,31 +62,19 @@ namespace Phundus.Specs.Rest
             public int UserId { get; set; }
         }
 
-        public IRestResponse<ContractDetailDoc> PostContract(Guid organizationId, int userId)
+        public IRestResponse<OrderDetailDoc> PostOrder(Guid organizationId, string username)
         {
             var request = new RestRequest(Method.POST);
-            request.Resource = "organizations/{organizationId}/contracts";
-            request.AddUrlSegment("organizationId", organizationId.ToString());
+            request.Resource = "orders";
             request.RequestFormat = DataFormat.Json;
-            request.AddBody(new {userId = userId});
-            return Execute<ContractDetailDoc>(request);
-        }
-
-        public IRestResponse<OrderDetailDoc> PostOrder(Guid organizationId, string userName)
-        {
-            var request = new RestRequest(Method.POST);
-            request.Resource = "organizations/{organizationId}/orders";
-            request.AddUrlSegment("organizationId", organizationId.ToString());
-            request.RequestFormat = DataFormat.Json;
-            request.AddBody(new {userName = userName});
+            request.AddBody(new {ownerId = organizationId, username = username});
             return Execute<OrderDetailDoc>(request);
         }
 
         public IRestResponse<OrderItemDoc> PostOrderItem(Guid organizationId, int orderId)
         {
             var request = new RestRequest(Method.POST);
-            request.Resource = "organizations/{organizationId}/orders/{orderId}/items";
-            request.AddUrlSegment("organizationId", organizationId.ToString());
+            request.Resource = "orders/{orderId}/items";
             request.AddUrlSegment("orderId", orderId.ToString());
             request.RequestFormat = DataFormat.Json;
             request.AddBody(
@@ -103,8 +91,7 @@ namespace Phundus.Specs.Rest
         public IRestResponse<OrderDetailDoc> GetOrder(Guid organizationId, int orderId)
         {
             var request = new RestRequest(Method.GET);
-            request.Resource = "organizations/{organizationId}/orders/{orderId}";
-            request.AddUrlSegment("organizationId", organizationId.ToString());
+            request.Resource = "orders/{orderId}";            
             request.AddUrlSegment("orderId", orderId.ToString());
             request.RequestFormat = DataFormat.Json;
             return Execute<OrderDetailDoc>(request);
@@ -113,8 +100,7 @@ namespace Phundus.Specs.Rest
         public IRestResponse DeleteOrderItem(Guid organizationId, int orderId, Guid orderItemId)
         {
             var request = new RestRequest(Method.DELETE);
-            request.Resource = "organizations/{organizationId}/orders/{orderId}/items/{itemId}";
-            request.AddUrlSegment("organizationId", organizationId.ToString());
+            request.Resource = "orders/{orderId}/items/{itemId}";
             request.AddUrlSegment("orderId", orderId.ToString());
             request.AddUrlSegment("itemId", orderItemId.ToString("D"));
             request.RequestFormat = DataFormat.Json;
@@ -124,8 +110,7 @@ namespace Phundus.Specs.Rest
         public IRestResponse UpdateOrderItem(Guid organizationId, int orderId, Guid orderItemId, DateTime fromUtc, DateTime toUtc, int amount)
         {
             var request = new RestRequest(Method.PATCH);
-            request.Resource = "organizations/{organizationId}/orders/{orderId}/items/{itemId}";
-            request.AddUrlSegment("organizationId", organizationId.ToString());
+            request.Resource = "orders/{orderId}/items/{itemId}";            
             request.AddUrlSegment("orderId", orderId.ToString());
             request.AddUrlSegment("itemId", orderItemId.ToString("D"));
             request.RequestFormat = DataFormat.Json;
@@ -137,8 +122,7 @@ namespace Phundus.Specs.Rest
         public IRestResponse<OrderDetailDoc> PatchOrder(Guid organizationId, int orderId, string status)
         {
             var request = new RestRequest(Method.PATCH);
-            request.Resource = "organizations/{organizationId}/orders/{orderId}";
-            request.AddUrlSegment("organizationId", organizationId.ToString());
+            request.Resource = "orders/{orderId}";            
             request.AddUrlSegment("orderId", orderId.ToString());
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new {status});
