@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Services
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Common;
@@ -30,11 +29,12 @@
 
     public class LessorService : ILessorService
     {
+        private readonly IMemberInRoleQueries _memberInRoleQueries;
         private readonly IOrganizationQueries _organizationQueries;
         private readonly IUserQueries _userQueries;
-        private readonly IMemberInRoleQueries _memberInRoleQueries;
 
-        public LessorService(IOrganizationQueries organizationQueries, IUserQueries userQueries, IMemberInRoleQueries memberInRoleQueries)
+        public LessorService(IOrganizationQueries organizationQueries, IUserQueries userQueries,
+            IMemberInRoleQueries memberInRoleQueries)
         {
             AssertionConcern.AssertArgumentNotNull(organizationQueries, "OrganizationQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
@@ -84,12 +84,12 @@
 
         private static Lessor ToLessor(UserDto user)
         {
-            return new Lessor(user.Guid, user.FirstName + " " + user.LastName);
+            return new Lessor(new LessorId(user.Guid), user.FirstName + " " + user.LastName);
         }
 
         private static Lessor ToLessor(OrganizationDetailDto organization)
         {
-            return new Lessor(organization.Guid, organization.Name);
+            return new Lessor(new LessorId(organization.Guid), organization.Name);
         }
     }
 }

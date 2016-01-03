@@ -117,7 +117,7 @@
             {
                 var pdf = OrderPdfGeneratorService.GeneratePdf(order);
                 var mail = new OrderReceivedMail().For(pdf, order);
-                var managers = LessorService.GetManagers(order.Lessor.LessorId);
+                var managers = LessorService.GetManagers(order.Lessor.LessorId.Id);
 
                 foreach (var manager in managers)
                     mail.Send(manager.EmailAddress);

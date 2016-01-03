@@ -1,6 +1,6 @@
 namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
-    using System;
+    using Common.Domain.Model;
     using Core.Cqrs;
     using Core.IdentityAndAccess.Queries;
     using Core.Shop.Orders.Model;
@@ -17,17 +17,21 @@ namespace Phundus.Core.Tests.Shop.Orders.Commands
 
         protected static IArticleService articles;
 
-        protected static IBorrowerService borrowerService;
+        protected static IBorrowerService lesseeService;
 
+        protected static LessorId lessorId = new LessorId();
         protected static Lessor lessor;
+
+        protected static ILessorService lessorService;
 
         protected Establish dependencies = () =>
         {
-            lessor = new Lessor(Guid.NewGuid(), "Lessor");            
+            lessor = new Lessor(lessorId, "Lessor");
             memberInRole = depends.on<IMemberInRole>();
             orders = depends.on<IOrderRepository>();
             articles = depends.on<IArticleService>();
-            borrowerService = depends.on<IBorrowerService>();
+            lessorService = depends.on<ILessorService>();
+            lesseeService = depends.on<IBorrowerService>();
         };
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Tests.Shop.Orders.Model
 {
     using System;
+    using Common.Domain.Model;
     using Core.Shop.Contracts.Model;
     using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
@@ -22,7 +23,7 @@
 
         public Establish ctx = () =>
         {
-            lessor = new Lessor(Guid.NewGuid(), "Lessor");
+            lessor = new Lessor(new LessorId(), "Lessor");
             borrower = BorrowerFactory.Create();
         };
 
@@ -236,7 +237,7 @@
     {
         public static Order CreatePending()
         {
-            var lessor = new Lessor(Guid.NewGuid(), "OrderFactory");
+            var lessor = new Lessor(new LessorId(), "OrderFactory");
             return new Order(lessor, BorrowerFactory.Create());
         }
 

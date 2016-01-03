@@ -247,7 +247,7 @@
 
         private PdfReader GetPdfReader(Order order)
         {
-            var organization = OrganizationRepository.FindById(order.Lessor.LessorId);
+            var organization = OrganizationRepository.FindById(order.Lessor.LessorId.Id);
             if (organization == null)
                 return null;
 

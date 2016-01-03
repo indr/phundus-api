@@ -93,7 +93,7 @@
             foreach (var lessor in lessors)
             {
                 var order = new Order(lessor, borrower);
-                var items = from i in Items where i.Article.Owner.OwnerId == lessor.LessorId select i;
+                var items = from i in Items where i.Article.Owner.OwnerId == lessor.LessorId.Id select i;
                 foreach (var item in items)
                     order.AddItem(item.Article, item.Quantity, item.From.ToUniversalTime(),
                         item.To.Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), availabilityService);

@@ -21,6 +21,10 @@
         public LessorId(Guid id) : base(id)
         {
         }
+
+        public LessorId() : base(Guid.NewGuid())
+        {
+        }
     }
 
     public class OwnerId : Identity<Guid>
