@@ -7,20 +7,20 @@
     {
         private DateTime _createdOn = DateTime.UtcNow;
         private ISet<ContractItem> _items = new HashedSet<ContractItem>();
-        private Borrower _borrower;
+        private Lessee _lessee;
         private Guid _organizationId;
 
         protected Contract()
         {
         }
 
-        public Contract(Guid organizationId, Borrower borrower)
+        public Contract(Guid organizationId, Lessee lessee)
         {
-            if (borrower == null)
-                throw new ArgumentNullException("borrower");
+            if (lessee == null)
+                throw new ArgumentNullException("lessee");
 
             _organizationId = organizationId;
-            _borrower = borrower;
+            _lessee = lessee;
         }
 
         public virtual int Id { get; protected set; }
@@ -35,10 +35,10 @@
 
         public virtual DateTime? SignedOn { get; protected set; }
 
-        public virtual Borrower Borrower
+        public virtual Lessee Lessee
         {
-            get { return _borrower; }
-            protected set { _borrower = value; }
+            get { return _lessee; }
+            protected set { _lessee = value; }
         }
 
         public virtual ISet<ContractItem> Items

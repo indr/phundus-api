@@ -10,7 +10,7 @@
 
     public class Order
     {
-        private Borrower _borrower;
+        private Lessee _lessee;
         private DateTime _createdUtc = DateTime.UtcNow;
         private ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private Lessor _lessor;
@@ -18,13 +18,13 @@
         private DateTime? _modifiedUtc;
         private OrderStatus _status = OrderStatus.Pending;
 
-        public Order(Lessor lessor, Borrower borrower)
+        public Order(Lessor lessor, Lessee lessee)
         {
             AssertionConcern.AssertArgumentNotNull(lessor, "Lessor must be provided.");
-            AssertionConcern.AssertArgumentNotNull(borrower, "Lessee must be provided.");
+            AssertionConcern.AssertArgumentNotNull(lessee, "Lessee must be provided.");
 
             _lessor = lessor;
-            _borrower = borrower;
+            _lessee = lessee;
         }
 
         protected Order()
@@ -70,10 +70,10 @@
             protected set { _modifiedBy = value; }
         }
 
-        public virtual Borrower Borrower
+        public virtual Lessee Lessee
         {
-            get { return _borrower; }
-            protected set { _borrower = value; }
+            get { return _lessee; }
+            protected set { _lessee = value; }
         }
 
         public virtual ISet<OrderItem> Items

@@ -20,9 +20,9 @@
     {
         public IMemberInRole MemberInRole { get; set; }
 
-        public IContractRepository Repository { get; set; }
+        public IContractRepository ContractRepository { get; set; }
 
-        public IBorrowerService Borrower { get; set; }
+        public ILesseeService LesseeService { get; set; }
 
         public void Handle(CreateEmptyContract command)
         {
@@ -30,18 +30,18 @@
 
             var contract = new Contract(
                 command.OrganizationId,
-                Borrower.GetById(command.UserId));
+                LesseeService.GetById(command.UserId));
 
-            var contractId = Repository.Add(contract);
+            var contractId = ContractRepository.Add(contract);
             
             command.ContractId = contractId;
             
             EventPublisher.Publish(new ContractCreated
             {
-                BorrowerEmail = contract.Borrower.EmailAddress,
-                BorrowerFirstName = contract.Borrower.FirstName,
-                BorrowerId = contract.Borrower.Id,
-                BorrowerLastName = contract.Borrower.LastName,
+                BorrowerEmail = contract.Lessee.EmailAddress,
+                BorrowerFirstName = contract.Lessee.FirstName,
+                BorrowerId = contract.Lessee.Id,
+                BorrowerLastName = contract.Lessee.LastName,
                 ContractId = contractId,
                 OrganizationId = contract.OrganizationId,
             });

@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using System.Net;
     using System.Security.Authentication;
     using System.Web.Http;
     using System.Web.Security;
@@ -13,14 +12,15 @@
     using Auth;
     using Castle.Transactions;
     using Common;
+    using ContentObjects;
     using Core.IdentityAndAccess.Queries;
     using Newtonsoft.Json;
 
     [RoutePrefix("/api/sessions")]
     public class SessionsController : ApiControllerBase
     {
-        private readonly IUserQueries _userQueries;
         private readonly IMembershipQueries _membershipQueries;
+        private readonly IUserQueries _userQueries;
 
         public SessionsController(IUserQueries userQueries, IMembershipQueries membershipQueries)
         {
@@ -106,29 +106,5 @@
 
         [JsonProperty("username")]
         public string Username { get; set; }
-    }
-
-    public class Memberships
-    {
-        [JsonProperty("organizationId")]
-        public Guid OrganizationId { get; set; }
-
-        [JsonProperty("organizationName")]
-        public string OrganizationName { get; set; }
-
-        [JsonProperty("organizationUrl")]
-        public string OrganizationUrl { get; set; }
-
-        [JsonProperty("isManager")]
-        public bool? IsManager { get; set; }
-    }
-
-    public class Role
-    {
-        [JsonProperty("bitMask")]
-        public int BitMask { get; set; }
-
-        [JsonProperty("title")]
-        public string Title { get; set; }
     }
 }

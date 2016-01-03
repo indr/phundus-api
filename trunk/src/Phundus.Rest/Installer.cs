@@ -3,12 +3,12 @@
     using System;
     using System.Web.Http;
     using System.Web.Http.Controllers;
-    using Api.Docs;
     using Api.Organizations;
     using AutoMapper;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
+    using Mappings;
 
     public class Installer : IWindsorInstaller
     {

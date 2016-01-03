@@ -7,7 +7,6 @@ namespace Phundus.Rest.Api.Users
     using System.Net.Http;
     using System.Web;
     using System.Web.Hosting;
-    using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -18,6 +17,8 @@ namespace Phundus.Rest.Api.Users
     [RoutePrefix("api/users/{userId}/articles/{articleId}/files")]
     public class UsersArticlesFilesController : ApiControllerBase
     {
+        public IImageQueries ImageQueries { get; set; }
+
         private string GetPath(int articleId)
         {
             return String.Format(@"~\Content\Images\Articles\{0}", articleId);
@@ -41,17 +42,15 @@ namespace Phundus.Rest.Api.Users
             return factory;
         }
 
-        public IImageQueries ImageQueries { get; set; }
-
         [GET("")]
-        [Transaction]        
+        [Transaction]
         public virtual object Get(int userId, int articleId)
         {
             var factory = CreateFactory(GetBaseFilesUrl(articleId), userId, articleId);
             var images = ImageQueries.ByArticle(articleId);
             var result = factory.Create(images);
-            return new { files = result };
-        }        
+            return new {files = result};
+        }
 
         [POST("")]
         [Transaction]
@@ -79,7 +78,7 @@ namespace Phundus.Rest.Api.Users
         }
 
         [DELETE("{fileName}")]
-        [Transaction]        
+        [Transaction]
         public virtual HttpResponseMessage Delete(int userId, int articleId, string fileName)
         {
             var path = GetPath(articleId);
@@ -121,7 +120,8 @@ namespace Phundus.Rest.Api.Users
             if (!Directory.Exists(MappedFilePath))
                 Directory.CreateDirectory(MappedFilePath);
 
-            var fileName = Path.GetFileNameWithoutExtension(file.FileName).ToFriendlyUrl(false) + Path.GetExtension(file.FileName);
+            var fileName = Path.GetFileNameWithoutExtension(file.FileName).ToFriendlyUrl(false) +
+                           Path.GetExtension(file.FileName);
             //var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
 
             file.SaveAs(MappedFilePath + Path.DirectorySeparatorChar + fileName);
@@ -187,7 +187,7 @@ namespace Phundus.Rest.Api.Users
             {
                 deleteType = "DELETE",
                 deleteUrl = DeleteUrl + '/' + fileName,
-                thumbnailUrl = ImageUrl + '/' + fileName + ".ashx?maxwidth=120&maxheight=80",                
+                thumbnailUrl = ImageUrl + '/' + fileName + ".ashx?maxwidth=120&maxheight=80",
                 url = ImageUrl + '/' + fileName,
                 name = fileName,
                 size = length,

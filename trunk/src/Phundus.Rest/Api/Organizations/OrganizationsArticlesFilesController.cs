@@ -7,7 +7,6 @@ namespace Phundus.Rest.Api.Organizations
     using System.Net.Http;
     using System.Web;
     using System.Web.Hosting;
-    using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -18,6 +17,8 @@ namespace Phundus.Rest.Api.Organizations
     [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/files")]
     public class OrganizationsArticlesFilesController : ApiControllerBase
     {
+        public IImageQueries ImageQueries { get; set; }
+
         private string GetPath(int articleId)
         {
             return String.Format(@"~\Content\Images\Articles\{0}", articleId);
@@ -41,21 +42,19 @@ namespace Phundus.Rest.Api.Organizations
             return factory;
         }
 
-        public IImageQueries ImageQueries { get; set; }
-
         [GET("")]
-        [Transaction]        
+        [Transaction]
         public virtual object Get(Guid organizationId, int articleId)
         {
             // TODO: Auth filtering
             var factory = CreateFactory(GetBaseFilesUrl(articleId), organizationId, articleId);
             var images = ImageQueries.ByArticle(articleId);
             var result = factory.Create(images);
-            return new { files = result };
-        }        
+            return new {files = result};
+        }
 
         [POST("")]
-        [Transaction]        
+        [Transaction]
         public virtual object Post(Guid organizationId, int articleId)
         {
             var path = GetPath(articleId);
@@ -80,7 +79,7 @@ namespace Phundus.Rest.Api.Organizations
         }
 
         [DELETE("{fileName}")]
-        [Transaction]        
+        [Transaction]
         public virtual HttpResponseMessage Delete(Guid organizationId, int articleId, string fileName)
         {
             var path = GetPath(articleId);
@@ -93,56 +92,6 @@ namespace Phundus.Rest.Api.Organizations
             });
             store.Delete(fileName);
             return Request.CreateResponse(HttpStatusCode.NoContent);
-        }
-
-        public class ImageStore
-        {
-            private string _filePath;
-
-            public ImageStore(string path)
-            {
-                FilePath = path;
-            }
-
-            public string FilePath
-            {
-                get { return _filePath; }
-                set
-                {
-                    _filePath = value;
-                    MappedFilePath = HostingEnvironment.MapPath(_filePath);
-                }
-            }
-
-            private string MappedFilePath { get; set; }
-
-            public string Save(HttpPostedFile file)
-            {
-                if (!Directory.Exists(MappedFilePath))
-                    Directory.CreateDirectory(MappedFilePath);
-
-                var fileName = Path.GetFileNameWithoutExtension(file.FileName).ToFriendlyUrl(false) + Path.GetExtension(file.FileName);
-                //var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
-
-                file.SaveAs(MappedFilePath + Path.DirectorySeparatorChar + fileName);
-                return FilePath + Path.DirectorySeparatorChar + fileName;
-            }
-
-            public void Delete(string fileName)
-            {
-                var mappedFullFileName = MappedFilePath + Path.DirectorySeparatorChar + fileName;
-                if (File.Exists(mappedFullFileName))
-                    File.Delete(mappedFullFileName);
-
-                if (Directory.GetFiles(MappedFilePath).Length == 0)
-                    Directory.Delete(MappedFilePath);
-            }
-
-            public string[] GetFiles()
-            {
-                Directory.CreateDirectory(MappedFilePath);
-                return Directory.GetFiles(MappedFilePath);
-            }
         }
 
         public class BlueImpFileUploadHandler
@@ -173,6 +122,44 @@ namespace Phundus.Rest.Api.Organizations
                 }
                 return result;
             }
+        }
+
+        public class BlueImpFileUploadJsonResult
+        {
+            /// <summary>
+            /// URL zum richtigen Bild
+            /// </summary>
+            public string url { get; set; }
+
+            /// <summary>
+            /// URL zum Thumbnail
+            /// </summary>
+            public string thumbnailUrl { get; set; }
+
+            /// <summary>
+            /// Name des Bildes
+            /// </summary>
+            public string name { get; set; }
+
+            /// <summary>
+            /// Typ, z.B. "image/jpeg"
+            /// </summary>
+            public string type { get; set; }
+
+            /// <summary>
+            /// Grösse in Bytes
+            /// </summary>
+            public long size { get; set; }
+
+            /// <summary>
+            /// REST-Delete-Url
+            /// </summary>
+            public string deleteUrl { get; set; }
+
+            /// <summary>
+            /// HttpVerb
+            /// </summary>
+            public string deleteType { get; set; }
         }
 
         public class BlueImpFileUploadJsonResultFactory
@@ -233,42 +220,55 @@ namespace Phundus.Rest.Api.Organizations
             }
         }
 
-        public class BlueImpFileUploadJsonResult
+        public class ImageStore
         {
-            /// <summary>
-            /// URL zum richtigen Bild
-            /// </summary>
-            public string url { get; set; }
+            private string _filePath;
 
-            /// <summary>
-            /// URL zum Thumbnail
-            /// </summary>
-            public string thumbnailUrl { get; set; }
+            public ImageStore(string path)
+            {
+                FilePath = path;
+            }
 
-            /// <summary>
-            /// Name des Bildes
-            /// </summary>
-            public string name { get; set; }
+            public string FilePath
+            {
+                get { return _filePath; }
+                set
+                {
+                    _filePath = value;
+                    MappedFilePath = HostingEnvironment.MapPath(_filePath);
+                }
+            }
 
-            /// <summary>
-            /// Typ, z.B. "image/jpeg"
-            /// </summary>
-            public string type { get; set; }
+            private string MappedFilePath { get; set; }
 
-            /// <summary>
-            /// Grösse in Bytes
-            /// </summary>
-            public long size { get; set; }
+            public string Save(HttpPostedFile file)
+            {
+                if (!Directory.Exists(MappedFilePath))
+                    Directory.CreateDirectory(MappedFilePath);
 
-            /// <summary>
-            /// REST-Delete-Url
-            /// </summary>
-            public string deleteUrl { get; set; }
+                var fileName = Path.GetFileNameWithoutExtension(file.FileName).ToFriendlyUrl(false) +
+                               Path.GetExtension(file.FileName);
+                //var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
 
-            /// <summary>
-            /// HttpVerb
-            /// </summary>
-            public string deleteType { get; set; }
+                file.SaveAs(MappedFilePath + Path.DirectorySeparatorChar + fileName);
+                return FilePath + Path.DirectorySeparatorChar + fileName;
+            }
+
+            public void Delete(string fileName)
+            {
+                var mappedFullFileName = MappedFilePath + Path.DirectorySeparatorChar + fileName;
+                if (File.Exists(mappedFullFileName))
+                    File.Delete(mappedFullFileName);
+
+                if (Directory.GetFiles(MappedFilePath).Length == 0)
+                    Directory.Delete(MappedFilePath);
+            }
+
+            public string[] GetFiles()
+            {
+                Directory.CreateDirectory(MappedFilePath);
+                return Directory.GetFiles(MappedFilePath);
+            }
         }
     }
 }

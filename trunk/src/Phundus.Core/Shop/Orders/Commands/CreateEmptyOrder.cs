@@ -25,7 +25,7 @@
 
         public ILessorService LessorService { get; set; }
 
-        public IBorrowerService BorrowerService { get; set; }
+        public ILesseeService LesseeService { get; set; }
 
         public void Handle(CreateEmptyOrder command)
         {
@@ -34,7 +34,7 @@
 
             var order = new Order(
                 LessorService.GetById(command.LessorId),
-                BorrowerService.GetById(command.LesseeId));
+                LesseeService.GetById(command.LesseeId));
 
             var orderId = Repository.Add(order);
 

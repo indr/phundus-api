@@ -1,6 +1,5 @@
 namespace Phundus.Persistence.Shop.Mappings
 {
-    using System.Web.Configuration;
     using Core.Shop.Orders.Model;
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
@@ -24,8 +23,8 @@ namespace Phundus.Persistence.Shop.Mappings
                 c.Component(x => x.LessorId, c2 => c2.Map(x => x.Id, "Lessor_LessorId"));
                 c.Map(x => x.Name, "Lessor_Name");
             });
-            
-            Component(x => x.Borrower, c =>
+
+            Component(x => x.Lessee, c =>
             {
                 c.Map(x => x.Id, "Borrower_Id");
                 c.Map(x => x.FirstName, "Borrower_FirstName");

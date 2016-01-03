@@ -22,7 +22,7 @@
 
         public ILessorService LessorService { get; set; }
 
-        public IBorrowerService BorrowerService { get; set; }
+        public ILesseeService LesseeService { get; set; }
 
         public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
 
@@ -110,7 +110,7 @@
             if (!cart.AreItemsAvailable)
                 return false;
 
-            var orders = cart.PlaceOrders(LessorService, BorrowerService, AvailabilityService);
+            var orders = cart.PlaceOrders(LessorService, LesseeService, AvailabilityService);
 
 
             foreach (var order in orders)

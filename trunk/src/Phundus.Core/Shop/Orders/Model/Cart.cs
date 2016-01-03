@@ -82,13 +82,13 @@
             }
         }
 
-        public virtual ICollection<Order> PlaceOrders(ILessorService lessorService, IBorrowerService borrowerService, IAvailabilityService availabilityService)
+        public virtual ICollection<Order> PlaceOrders(ILessorService lessorService, ILesseeService lesseeService, IAvailabilityService availabilityService)
         {
             var result = new List<Order>();
             var orderRepository = ServiceLocator.Current.GetInstance<IOrderRepository>();
 
             var lessors = FindLessors(lessorService);
-            var borrower = borrowerService.GetById(Customer.Id);
+            var borrower = lesseeService.GetById(Customer.Id);
 
             foreach (var lessor in lessors)
             {
