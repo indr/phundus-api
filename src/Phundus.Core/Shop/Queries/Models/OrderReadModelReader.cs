@@ -11,6 +11,22 @@
 
     public class OrderReadModelReader : ReadModelReaderBase, IOrderQueries
     {
+        private readonly IAvailabilityService _availabilityService;
+        private readonly IMembershipQueries _membershipQueries;
+        private readonly IUserQueries _userQueries;
+
+        public OrderReadModelReader(IMembershipQueries membershipQueries, IUserQueries userQueries,
+            IAvailabilityService availabilityService)
+        {
+            AssertionConcern.AssertArgumentNotNull(membershipQueries, "MembershipQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(availabilityService, "AvailabilityService must be provided.");
+
+            _membershipQueries = membershipQueries;
+            _userQueries = userQueries;
+            _availabilityService = availabilityService;
+        }
+
         private static DataLoadOptions OrderDetailsDataLoadOptions
         {
             get
@@ -22,66 +38,6 @@
             }
         }
 
-        public IAvailabilityService AvailabilityService { get; set; }
-
-        public IUserQueries UserQueries { get; set; }
-
-        public IMembershipQueries MembershipQueries { get; set; }
-
-        public OrderDto SingleByOrderId(int orderId, int currentUserId)
-        {
-            var ctx = CreateCtx();
-            ctx.LoadOptions = OrderDetailsDataLoadOptions;
-
-            var result = (from o in ctx.OrderDtos
-                where (o.Id == orderId) && (o.Borrower_Id == currentUserId)
-                select o).SingleOrDefault();
-
-            CalculateAvailabilities(result);
-
-            return result;
-        }
-
-        public OrderDto SingleByOrderIdAndOrganizationId(int orderId, Guid organizationId, int currentUserId)
-        {
-            var ctx = CreateCtx();
-            ctx.LoadOptions = OrderDetailsDataLoadOptions;
-
-            var query = from o in ctx.OrderDtos
-                join m in ctx.MembershipDtos on
-                    new {Role = MembershipRoleDto.Chief, UserId = currentUserId}
-                    equals new {m.Role, m.UserId}
-                where (o.Id == orderId && o.Lessor_LessorId == organizationId && m.OrganizationGuid == organizationId)
-                select o;
-
-            var result = query.Distinct().SingleOrDefault();
-
-            CalculateAvailabilities(result);
-
-            return result;
-        }
-
-        public IEnumerable<OrderDto> ManyByUserId(int userId)
-        {
-            var ctx = CreateCtx();
-            var query = from o in ctx.OrderDtos
-                where o.Borrower_Id == userId
-                select o;
-
-            return query;
-        }
-
-        public IEnumerable<OrderDto> ManyByOrganizationId(Guid organizationId, int currentUserId)
-        {
-            var ctx = CreateCtx();
-            return from o in ctx.OrderDtos
-                join m in ctx.MembershipDtos on
-                    new {Role = MembershipRoleDto.Chief, UserId = currentUserId}
-                    equals new {m.Role, m.UserId}
-                where (o.Lessor_LessorId == organizationId && m.OrganizationGuid == organizationId)
-                select o;
-        }
-
         public OrderDto GetById(CurrentUserId currentUserId, OrderId orderId)
         {
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
@@ -90,6 +46,9 @@
             var result = Query(currentUserId, orderId == null ? (int?) null : orderId.Id, null, null).SingleOrDefault();
             if (result == null)
                 throw new NotFoundException(String.Format("Order {0} not found.", orderId));
+
+            CalculateAvailabilities(result);
+
             return result;
         }
 
@@ -104,21 +63,22 @@
         {
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
 
-            var currentUserGuid = UserQueries.GetById(currentUserId).Guid;
+            var currentUserGuid = _userQueries.GetById(currentUserId).Guid;
             var queryUserGuid = (Guid?) null;
             if (queryUserId.HasValue)
             {
-                queryUserGuid = UserQueries.GetById(queryUserId.Value).Guid;
+                queryUserGuid = _userQueries.GetById(queryUserId.Value).Guid;
             }
 
             var currentUsersManagerGuids =
-                MembershipQueries.ByUserId(currentUserId.Id)
+                _membershipQueries.ByUserId(currentUserId.Id)
                     .Where(p => p.MembershipRole == "Chief")
                     .Select(s => s.OrganizationGuid);
             AssertionConcern.AssertArgumentNotNull(currentUsersManagerGuids,
                 "CurrentUsersManagerGuids must be provided.");
 
             var ctx = CreateCtx();
+            //ctx.LoadOptions = OrderDetailsDataLoadOptions;
             var q = from o in ctx.OrderDtos
                 where
                     (
@@ -156,7 +116,7 @@
 
             foreach (var each in orderDto.Items)
             {
-                each.IsAvailable = AvailabilityService.IsArticleAvailable(each.ArticleId, each.FromUtc, each.ToUtc,
+                each.IsAvailable = _availabilityService.IsArticleAvailable(each.ArticleId, each.FromUtc, each.ToUtc,
                     each.Amount, each.Id);
             }
         }
