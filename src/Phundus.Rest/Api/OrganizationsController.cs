@@ -39,16 +39,10 @@
         [AllowAnonymous]
         public virtual OrganizationsQueryOkResponseContent Get()
         {
+            var result = _organizationQueries.All();
             return new OrganizationsQueryOkResponseContent
             {
-                Organizations =
-                    _organizationQueries.All().Select(s => new Organization
-                    {
-                        Address = s.Address,
-                        Name = s.Name,
-                        OrganizationId = s.Guid,
-                        Url = s.Url
-                    }).ToList()
+                Organizations = Map<List<Organization>>(result)
             };
         }
 
