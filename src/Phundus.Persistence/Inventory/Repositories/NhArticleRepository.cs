@@ -29,10 +29,10 @@
             return result;
         }
 
-        public Article GetById(Guid organizationId, int articleId)
+        public Article GetById(Guid ownerId, int articleId)
         {
             var result = FindById(articleId);
-            if ((result == null) || (result.Owner.OwnerId.Id != organizationId))
+            if ((result == null) || (result.Owner.OwnerId.Id != ownerId))
                 throw new ArticleNotFoundException(articleId);
             return result;
         }
