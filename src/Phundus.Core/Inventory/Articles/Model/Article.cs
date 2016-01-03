@@ -17,20 +17,23 @@
         private Owner _owner;
         private string _specification;
         private StoreId _storeId;
+        private int _grossStock;
 
         protected Article()
         {
         }
 
-        public Article(Owner owner, StoreId storeId, string name)
+        public Article(Owner owner, StoreId storeId, string name, int grossStock)
         {
             AssertionConcern.AssertArgumentNotNull(owner, "Owner must be provided.");
             AssertionConcern.AssertArgumentNotNull(storeId, "StoreId must be provided.");
             AssertionConcern.AssertArgumentNotEmpty(name, "Name must be provided.");
+            AssertionConcern.AssertArgumentGreaterThan(grossStock, -1, "Gross stock must be greater or equal 0.");
 
             _owner = owner;
             _storeId = storeId;
             _name = name;
+            _grossStock = grossStock;
         }
 
         public virtual Owner Owner
@@ -66,7 +69,11 @@
 
         public virtual decimal Price { get; set; }
 
-        public virtual int GrossStock { get; set; }
+        public virtual int GrossStock
+        {
+            get { return _grossStock; }
+            set { _grossStock = value; }
+        }
 
         public virtual string Description
         {

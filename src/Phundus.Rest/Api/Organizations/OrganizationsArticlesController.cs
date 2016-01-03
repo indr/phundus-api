@@ -13,7 +13,6 @@ namespace Phundus.Rest.Api.Organizations
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Core.Inventory.Queries;
-    using Core.Inventory.Stores.Model;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/articles")]
@@ -117,7 +116,7 @@ namespace Phundus.Rest.Api.Organizations
             var ownerId = new OwnerId(organizationId);
             var storeId = _storeQueries.GetByOwnerId(ownerId).StoreId;
             var command = new CreateArticle(CurrentUserId, ownerId, storeId,
-                requestContent.Name);
+                requestContent.Name, requestContent.Amount);
             Dispatch(command);
 
             return new OrganizationsArticlesPostOkResponseContent
@@ -182,7 +181,7 @@ namespace Phundus.Rest.Api.Organizations
         {
             _memberInRole.ActiveChief(organizationId, CurrentUserId.Id);
 
-            Dispatcher.Dispatch(new DeleteArticle { ArticleId = articleId, InitiatorId = CurrentUserId.Id });
+            Dispatcher.Dispatch(new DeleteArticle {ArticleId = articleId, InitiatorId = CurrentUserId.Id});
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
@@ -212,6 +211,9 @@ namespace Phundus.Rest.Api.Organizations
     {
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("amount")]
+        public int Amount { get; set; }
     }
 
     public class OrganizationsArticlesPostOkResponseContent

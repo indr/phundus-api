@@ -8,11 +8,10 @@
     using Model;
     using Repositories;
     using Services;
-    using Stores.Model;
 
     public class CreateArticle
     {
-        public CreateArticle(UserId initiatorId, OwnerId ownerId, StoreId storeId, string name)
+        public CreateArticle(UserId initiatorId, OwnerId ownerId, StoreId storeId, string name, int amount)
         {
             AssertionConcern.AssertArgumentNotNull(initiatorId, "InitiatorId must be provided.");
             AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
@@ -23,12 +22,18 @@
             OwnerId = ownerId;
             StoreId = storeId;
             Name = name;
+            Amount = amount;
         }
 
         public UserId InitiatorId { get; protected set; }
+
         public OwnerId OwnerId { get; protected set; }
+
         public StoreId StoreId { get; protected set; }
+
         public string Name { get; protected set; }
+
+        public int Amount { get; protected set; }
 
         public int ResultingArticleId { get; set; }
     }
@@ -56,7 +61,7 @@
             _memberInRole.ActiveChief(command.OwnerId, command.InitiatorId);
             var owner = _ownerService.GetById(command.OwnerId);
 
-            var result = new Article(owner, command.StoreId, command.Name);
+            var result = new Article(owner, command.StoreId, command.Name, command.Amount);
 
             command.ResultingArticleId = _articleRepository.Add(result);
 

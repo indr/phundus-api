@@ -118,7 +118,7 @@ namespace Phundus.Rest.Api.Users
             var ownerId = new OwnerId(currentUserGuid);
             var storeId = _storeQueries.GetByOwnerId(ownerId).StoreId;
             var command = new CreateArticle(CurrentUserId, ownerId, storeId,
-                requestContent.Name);
+                requestContent.Name, requestContent.Amount);
             Dispatch(command);
 
             return new UsersArticlesPostOkResponseContent
@@ -231,6 +231,9 @@ namespace Phundus.Rest.Api.Users
     {
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("amount")]
+        public int Amount { get; set; }
     }
 
     public class UsersArticlesPostOkResponseContent
