@@ -33,7 +33,7 @@ namespace Phundus.Rest.Api
             var command = new AddOrderItem
             {
                 Amount = requestContent.Amount,
-                ArticleId = requestContent.ArticleId,
+                ArticleId = new ArticleId(requestContent.ArticleId),
                 FromUtc = requestContent.FromUtc,
                 InitiatorId = CurrentUserId.Id,
                 OrderId = orderId,

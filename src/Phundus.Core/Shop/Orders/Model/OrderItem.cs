@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Orders.Model
 {
-    using System;    
+    using System;
+    using Common;
     using Pricing.Model;
 
     public class OrderItem
@@ -21,6 +22,9 @@
 
         public OrderItem(Order order, Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
+            AssertionConcern.AssertArgumentNotNull(order, "Order must be provided.");
+            AssertionConcern.AssertArgumentNotNull(article, "Article must be provided.");
+
             _id = Guid.NewGuid();
             _order = order;
             _articleId = article.ArticleId;

@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using System;
+    using Common.Domain.Model;
     using Core.Inventory.Articles.Model;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Orders.Model;
@@ -20,7 +21,7 @@
 
         public Establish c = () =>
         {
-            var article = new Article(1, new Owner(new Guid(), "Owner"), "Artikel", 1.0m);
+            var article = new Article(1, new Owner(new OwnerId(Guid.NewGuid()), "Owner"), "Artikel", 1.0m);
             order = new Order(lessor, BorrowerFactory.Create());
             orderItemId = order.AddItem(article, DateTime.Today, DateTime.Today, 1).Id;
             orders.setup(x => x.GetById(orderId)).Return(order);

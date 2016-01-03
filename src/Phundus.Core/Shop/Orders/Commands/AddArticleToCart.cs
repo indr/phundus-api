@@ -2,6 +2,7 @@
 {
     using System;
     using System.Security;
+    using Common.Domain.Model;
     using Cqrs;
     using IdentityAndAccess.Queries;
     using Repositories;
@@ -10,7 +11,7 @@
     public class AddArticleToCart
     {
         public int CartId { get; set; }
-        public int InitiatorId { get; set; }
+        public UserId InitiatorId { get; set; }
 
         public int ArticleId { get; set; }
         public int Quantity { get; set; }
@@ -32,7 +33,7 @@
             if (cart == null)
                 throw new CartNotFoundException();
 
-            if (cart.CustomerId != command.InitiatorId)
+            if (cart.CustomerId != command.InitiatorId.Id)
                 throw new SecurityException();
 
             var article = ArticleService.GetById(command.ArticleId);
