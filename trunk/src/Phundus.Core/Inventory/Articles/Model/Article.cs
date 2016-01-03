@@ -7,14 +7,13 @@
     using Ddd;
     using Iesi.Collections.Generic;
     using Owners;
-    using Stores.Model;
 
     public class Article : Aggregate<int>
     {
-        private string _name;
         private DateTime _createDate = DateTime.UtcNow;
         private string _description;
         private ISet<Image> _images = new HashedSet<Image>();
+        private string _name;
         private Owner _owner;
         private string _specification;
         private StoreId _storeId;

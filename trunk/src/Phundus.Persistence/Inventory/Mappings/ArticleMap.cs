@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Persistence.Inventory.Mappings
 {
-    using System.Security.Cryptography.X509Certificates;
     using Core.Inventory.Articles.Model;
     using FluentNHibernate.Mapping;
 
@@ -9,6 +8,7 @@
         public ArticleMap()
         {
             SchemaAction.Validate();
+            Table("Article");
 
             Id(x => x.Id).GeneratedBy.Native();
             Version(x => x.Version);
@@ -17,8 +17,8 @@
 
             Component(x => x.Owner, c =>
             {
-                c.Component(x => x.OwnerId, d => d.Map(x => x.Id, "Owner_OwnerId"));
-                c.Map(x => x.Name, "Owner_Name");
+                c.Component(y => y.OwnerId, d => d.Map(z => z.Id, "Owner_OwnerId"));
+                c.Map(y => y.Name, "Owner_Name");
             });
 
             Component(x => x.StoreId, c => c.Map(x => x.Id, "StoreId"));

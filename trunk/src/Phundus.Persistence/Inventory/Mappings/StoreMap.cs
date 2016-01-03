@@ -10,8 +10,7 @@
             SchemaAction.Validate();
             Table("Dm_Store");
 
-            CompositeId(x => x.Id).KeyProperty(e => e.Id, "StoreId");
-            //Id(x => x.Id).GeneratedBy.Assigned();
+            CompositeId(x => x.Id).KeyProperty(e => e.Id, "StoreId");            
             Version(x => x.Version);
             Map(x => x.CreatedAtUtc).Not.Update();
             Map(x => x.ModifiedAtUtc);
