@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.Shop.Orders.Commands
 {
     using System;
+    using Common.Domain.Model;
     using Cqrs;
     using IdentityAndAccess.Queries;
     using Repositories;
@@ -10,7 +11,7 @@
     {
         public int OrderId { get; set; }
         public int InitiatorId { get; set; }
-        public int ArticleId { get; set; }
+        public ArticleId ArticleId { get; set; }
         public DateTime FromUtc { get; set; }
         public DateTime ToUtc { get; set; }
         public int Amount { get; set; }
@@ -29,7 +30,7 @@
         {
             var order = OrderRepository.GetById(command.OrderId);
 
-            var article = ArticleService.GetById(command.ArticleId);
+            var article = ArticleService.GetById(new OwnerId(order.Lessor.LessorId.Id), command.ArticleId);
             
             MemberInRole.ActiveChief(order.Lessor.LessorId.Id, command.InitiatorId);
 

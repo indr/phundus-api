@@ -2,6 +2,13 @@
 {
     using System;
 
+    public class ArticleId : Identity<int>
+    {
+        public ArticleId(int id) : base(id)
+        {
+        }
+    }
+
     public class CurrentUserId : UserId
     {
         public CurrentUserId(int id) : base(id)

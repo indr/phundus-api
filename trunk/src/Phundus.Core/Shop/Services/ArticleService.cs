@@ -2,6 +2,7 @@ namespace Phundus.Core.Shop.Services
 {
     using System;
     using Common;
+    using Common.Domain.Model;
     using Inventory.Articles.Repositories;
     using Orders.Model;
 
@@ -14,6 +15,16 @@ namespace Phundus.Core.Shop.Services
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
         Article GetById(int articleId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ownerId"></param>
+        /// <param name="articleId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        /// <exception cref="AuthorizationException"></exception>
+        Article GetById(OwnerId ownerId, ArticleId articleId);
     }
 
     public class ArticleService : IArticleService
@@ -35,9 +46,21 @@ namespace Phundus.Core.Shop.Services
             return ToArticleValueObject(article);
         }
 
+        public Article GetById(OwnerId ownerId, ArticleId articleId)
+        {
+            AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
+            AssertionConcern.AssertArgumentNotNull(articleId, "ArticleId must be provided.");
+            
+            var result = GetById(articleId.Id);
+            if (!Equals(result.Owner.OwnerId, ownerId))
+                throw new AuthorizationException(String.Format("Article {0} does not belong owner {1}.", articleId, ownerId));
+
+            return result;
+        }
+
         private static Article ToArticleValueObject(Inventory.Articles.Model.Article article)
         {
-            return new Article(article.Id, new Owner(article.Owner.OwnerId.Id, article.Owner.Name), article.Name, article.Price);
+            return new Article(article.Id, new Owner(article.Owner.OwnerId, article.Owner.Name), article.Name, article.Price);
         }
     }
 }

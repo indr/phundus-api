@@ -3,6 +3,7 @@
     using System.Linq;
     using Commands;
     using Common;
+    using Common.Domain.Model;
     using Cqrs;
     using IdentityAndAccess.Users.Repositories;
     using Inventory.Services;
@@ -64,7 +65,7 @@
                 DateFrom = item.From,
                 DateTo = item.To,
                 Quantity = item.Quantity,
-                InitiatorId = userId
+                InitiatorId = new UserId(userId)
             });
 
             cart = Carts.GetById(cart.Id);

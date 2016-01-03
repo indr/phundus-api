@@ -14,17 +14,18 @@
     {
         private const int initiatorId = 2;
         private const int orderId = 3;
-        private const int articleId = 4;        
+        private static ArticleId articleId = new ArticleId(4);        
         private static Order order;
 
         public Establish c = () =>
         {
-            var owner = new Owner(Guid.NewGuid(), "Owner");
-            lessor = new Lessor(new LessorId(owner.OwnerId), "Lessor");
+            var ownerId = new OwnerId(Guid.NewGuid());
+            var owner = new Owner(ownerId, "Owner");
+            lessor = new Lessor(new LessorId(owner.OwnerId.Id), "Lessor");
             order = new Order(lessor, BorrowerFactory.Create());
             orders.setup(x => x.GetById(orderId)).Return(order);
-            var article = new Article(articleId, owner, "Artikel", 1.0m);
-            articles.setup(x => x.GetById(articleId)).Return(article);
+            var article = new Article(articleId.Id, owner, "Artikel", 1.0m);
+            articles.setup(x => x.GetById(ownerId, articleId)).Return(article);
             command = new AddOrderItem
             {
                 Amount = 10,
