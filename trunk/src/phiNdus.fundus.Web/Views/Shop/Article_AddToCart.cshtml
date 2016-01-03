@@ -6,8 +6,6 @@
     new AjaxOptions { OnSuccess = "$('#popover-glyphicon-cart').popover('show');window.setTimeout(function() {$('#popover-glyphicon-cart').popover('hide')}, 4000);" },
     new { @class = "add-to-cart" }))
     {
-
-
         @Html.HiddenFor(m => m.ArticleId)
 
         <div class="col-xs-6 col-md-3">

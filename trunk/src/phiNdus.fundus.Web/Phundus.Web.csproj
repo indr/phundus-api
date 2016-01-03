@@ -222,7 +222,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartMitSqlServerCe.cs" />
-    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
@@ -351,13 +350,7 @@
     <Content Include="Content\spinner.gif" />
     <Content Include="Content\Views\Admin\SchemaUpdate.html" />
     <Content Include="Content\Views\Admin\EventLog.html" />
-    <Content Include="Content\Views\Documents\Contract.html" />
-    <Content Include="Content\Views\Documents\Contracts.html" />
-    <Content Include="Content\Views\Documents\Order.html" />
-    <Content Include="Content\Views\Documents\Orders.html" />
     <Content Include="Content\Views\Management\Applications.html" />
-    <Content Include="Content\Views\Management\Order.html" />
-    <Content Include="Content\Views\Management\Orders.html" />
     <Content Include="Content\Views\Management\Members.html" />
     <Content Include="Content\Views\Management\Settings.html" />
     <Content Include="images\yeoman.8cb970fb.png" />
@@ -412,7 +405,6 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\modules\ph-admin.js" />
-    <Content Include="Scripts\modules\ph-documents.js" />
     <Content Include="Scripts\modules\ph-domain.js" />
     <Content Include="Scripts\modules\ph-management.js" />
     <Content Include="Scripts\modules\ph-resources.js" />
@@ -694,7 +686,6 @@
     <Content Include="Views\Management\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Documents\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_BaseUrl.cshtml" />
   </ItemGroup>

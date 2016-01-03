@@ -46,7 +46,9 @@
 
     @if (!Request.IsAuthenticated)
     {
-        <p>Melden Sie sich an, um einen Artikel auszuleihen.</p>
+        <div class="alert alert-info" role="alert">            
+            Melden Sie sich an, um einen Artikel auszuleihen.
+        </div>        
     }
     else
     {
@@ -56,7 +58,9 @@
         }
         else
         {
-            <p>Sie müssen Mitglied dieser Organisation sein, um den Artikel auszuleihen.</p>
+            <div class="alert alert-info" role="alert">            
+                Sie müssen Mitglied dieser Organisation sein, um den Artikel auszuleihen.
+            </div>     
         }
     }
 
