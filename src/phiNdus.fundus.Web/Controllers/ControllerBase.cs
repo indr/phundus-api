@@ -17,11 +17,6 @@ namespace Phundus.Web.Controllers
 
         public ICommandDispatcher Dispatcher { get; set; }
 
-        protected string SessionId
-        {
-            get { return Session.SessionID; }
-        }
-
         protected int CurrentUserId
         {
             get
@@ -35,37 +30,9 @@ namespace Phundus.Web.Controllers
             }
         }
 
-        // Source: http://stackoverflow.com/questions/2374046/returning-an-editortemplate-as-a-partialview-in-an-action-result-asp-net-mvc-2
-        protected PartialViewResult EditorFor(object model)
-        {
-            return PartialView("~/Views/Shared/EditorTemplates/" + model.GetType().Name + ".cshtml", model);
-        }
-
-        protected PartialViewResult EditorFor(object model, string htmlFieldPrefix)
-        {
-            ViewData.TemplateInfo.HtmlFieldPrefix = htmlFieldPrefix;
-            return EditorFor(model);
-        }
-
-
-        protected PartialViewResult DisplayFor(object model)
-        {
-            return PartialView("~/Views/Shared/DisplayTemplates/" + model.GetType().Name + ".cshtml", model);
-        }
-
-        protected string RenderPartialViewToString()
-        {
-            return RenderPartialViewToString(null, null);
-        }
-
         protected string RenderPartialViewToString(string viewName)
         {
             return RenderPartialViewToString(viewName, null);
-        }
-
-        protected string RenderPartialViewToString(object model)
-        {
-            return RenderPartialViewToString(null, model);
         }
 
         protected string RenderPartialViewToString(string viewName, object model)
