@@ -35,7 +35,7 @@
         public void GivenAnArticleWithGrossStockOf(int amount)
         {
             var owner = new Owner(new OwnerId(Guid.NewGuid()), "Owner");
-            _article = new Article(owner, new StoreId(), "Name");
+            _article = new Article(owner, new StoreId(), "Name", 0);
             _article.GrossStock = amount;
             _articleRepository.Stub(x => x.FindById(_article.Id)).Return(_article);
         }

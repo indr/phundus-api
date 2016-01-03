@@ -24,7 +24,7 @@
             ownerService.setup(x => x.GetById(ownerId)).Return(new Owner(ownerId, "Owner"));
             repository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(1);
 
-            command = new CreateArticle(initiatorId, ownerId, new StoreId(), "Name");
+            command = new CreateArticle(initiatorId, ownerId, new StoreId(), "Name", 0);
         };
 
         public It should_add_to_repository = () => repository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
