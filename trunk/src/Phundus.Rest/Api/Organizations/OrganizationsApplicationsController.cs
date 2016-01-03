@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Net.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -15,23 +16,36 @@
 
         [GET("")]
         [Transaction]
-        public virtual IList<MembershipApplicationDto> Get(Guid organizationId)
+        public virtual OrganizationsApplicationsGetOkResponseContent Get(Guid organizationId)
         {
-            return MembershipApplicationQueries.PendingByOrganizationId(organizationId);
+            var result = MembershipApplicationQueries.PendingByOrganizationId(organizationId);
+            return new OrganizationsApplicationsGetOkResponseContent(result);
         }
 
         [POST("")]
         [Transaction]
-        public virtual void Post(Guid organizationId)
+        public virtual HttpResponseMessage Post(Guid organizationId)
         {
-            Dispatch(new ApplyForMembership {ApplicantId = CurrentUserId, OrganizationId = organizationId});
+            Dispatch(new ApplyForMembership {ApplicantId = CurrentUserId.Id, OrganizationId = organizationId});
+
+            return CreateNoContentResponse();
         }
 
         [DELETE("{applicationId}")]
         [Transaction]
-        public virtual void Delete(Guid organizationId, Guid applicationId)
+        public virtual HttpResponseMessage Delete(Guid organizationId, Guid applicationId)
         {
-            Dispatch(new RejectMembershipApplication { ApplicationId = applicationId, InitiatorId = CurrentUserId });
+            Dispatch(new RejectMembershipApplication {ApplicationId = applicationId, InitiatorId = CurrentUserId.Id});
+
+            return CreateNoContentResponse();
+        }
+    }
+
+    public class OrganizationsApplicationsGetOkResponseContent : List<MembershipApplicationDto>
+    {
+        public OrganizationsApplicationsGetOkResponseContent(IEnumerable<MembershipApplicationDto> collection)
+            : base(collection)
+        {
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage Get(Guid organizationId)
         {
-            _memberInRole.ActiveChief(organizationId, CurrentUserId);
+            _memberInRole.ActiveChief(organizationId, CurrentUserId.Id);
 
             var result = _articleQueries.FindByOwnerId(organizationId);
             return Request.CreateResponse(HttpStatusCode.OK, result);
@@ -56,7 +56,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual OrganizationsArticlesGetOkResponseContent Get(Guid organizationId, int articleId)
         {
-            _memberInRole.ActiveChief(organizationId, CurrentUserId);
+            _memberInRole.ActiveChief(organizationId, CurrentUserId.Id);
             // TODO: Prüfen ob Artikel der Organization gehört            
 
             var result = _articleQueries.GetById(articleId);
@@ -76,7 +76,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage GetDescription(Guid organizationId, int articleId)
         {
-            _memberInRole.ActiveChief(organizationId, CurrentUserId);
+            _memberInRole.ActiveChief(organizationId, CurrentUserId.Id);
             // TODO: Prüfen ob Artikel der Organization gehört  
 
             var result = _articleQueries.GetById(articleId);
@@ -88,7 +88,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage GetSpecification(Guid organizationId, int articleId)
         {
-            _memberInRole.ActiveChief(organizationId, CurrentUserId);
+            _memberInRole.ActiveChief(organizationId, CurrentUserId.Id);
             // TODO: Prüfen ob Artikel der Organization gehört  
 
             var result = _articleQueries.GetById(articleId);
@@ -100,7 +100,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage GetStock(Guid organizationId, int articleId)
         {
-            _memberInRole.ActiveChief(organizationId, CurrentUserId);
+            _memberInRole.ActiveChief(organizationId, CurrentUserId.Id);
             // TODO: Prüfen ob Artikel der Organization gehört  
 
             var availabilities = _availabilityQueries.GetAvailability(articleId).ToList();
@@ -116,7 +116,7 @@ namespace Phundus.Rest.Api.Organizations
         {
             var ownerId = new OwnerId(organizationId);
             var storeId = _storeQueries.GetByOwnerId(ownerId).StoreId;
-            var command = new CreateArticle(GetCurrentUserId(), ownerId, storeId,
+            var command = new CreateArticle(CurrentUserId, ownerId, storeId,
                 requestContent.Name);
             Dispatch(command);
 
@@ -137,7 +137,7 @@ namespace Phundus.Rest.Api.Organizations
                 Brand = requestContent.Brand,
                 Color = requestContent.Color,
                 GrossStock = requestContent.GrossStock,
-                InitiatorId = CurrentUserId,
+                InitiatorId = CurrentUserId.Id,
                 Name = requestContent.Name,
                 Price = requestContent.Price
             });
@@ -156,7 +156,7 @@ namespace Phundus.Rest.Api.Organizations
             {
                 ArticleId = articleId,
                 Description = requestContent.data,
-                InitiatorId = CurrentUserId
+                InitiatorId = CurrentUserId.Id
             });
 
             return Request.CreateResponse(HttpStatusCode.NoContent);
@@ -170,7 +170,7 @@ namespace Phundus.Rest.Api.Organizations
             {
                 ArticleId = articleId,
                 Specification = requestContent.data,
-                InitiatorId = CurrentUserId
+                InitiatorId = CurrentUserId.Id
             });
 
             return Request.CreateResponse(HttpStatusCode.NoContent);
@@ -180,9 +180,9 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage Delete(Guid organizationId, int articleId)
         {
-            _memberInRole.ActiveChief(organizationId, CurrentUserId);
+            _memberInRole.ActiveChief(organizationId, CurrentUserId.Id);
 
-            Dispatcher.Dispatch(new DeleteArticle {ArticleId = articleId, InitiatorId = CurrentUserId});
+            Dispatcher.Dispatch(new DeleteArticle { ArticleId = articleId, InitiatorId = CurrentUserId.Id });
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

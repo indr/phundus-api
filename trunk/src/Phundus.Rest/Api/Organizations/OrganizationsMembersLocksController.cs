@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Rest.Api.Organizations
 {
     using System;
+    using System.Net.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -11,26 +12,30 @@
     {
         [POST("")]
         [Transaction]
-        public virtual void Post(Guid organizationId, int memberId)
+        public virtual HttpResponseMessage Post(Guid organizationId, int memberId)
         {
             Dispatcher.Dispatch(new LockMember
             {
-                InitiatorId = CurrentUserId,
+                InitiatorId = CurrentUserId.Id,
                 MemberId = memberId,
                 OrganizationId = organizationId
             });
+
+            return CreateNoContentResponse();
         }
 
         [DELETE("")]
         [Transaction]
-        public virtual void Delete(Guid organizationId, int memberId)
+        public virtual HttpResponseMessage Delete(Guid organizationId, int memberId)
         {
             Dispatcher.Dispatch(new UnlockMember
             {
-                InitiatorId = CurrentUserId,
+                InitiatorId = CurrentUserId.Id,
                 MemberId = memberId,
                 OrganizationId = organizationId
             });
+
+            return CreateNoContentResponse();
         }
     }
 }

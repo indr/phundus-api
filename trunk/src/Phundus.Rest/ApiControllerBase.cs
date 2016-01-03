@@ -28,31 +28,31 @@
 
         public ICommandDispatcher Dispatcher { get; set; }
 
-        protected void Dispatch<TCommand>(TCommand command)
-        {
-            Dispatcher.Dispatch(command);
-        }
-
-        protected int CurrentUserId
+        protected CurrentUserId CurrentUserId
         {
             get
             {
                 var user = Membership.GetUser();
                 if (user == null)
                     throw new AuthenticationException();
-                var userId = user.ProviderUserKey;
-                return Convert.ToInt32(userId);
+                var userId = Convert.ToInt32(user.ProviderUserKey);
+                return new CurrentUserId(userId);
             }
         }
 
-        protected UserId GetCurrentUserId()
+        protected void Dispatch<TCommand>(TCommand command)
         {
-            return new UserId(CurrentUserId);
+            Dispatcher.Dispatch(command);
         }
 
         protected static TDestination Map<TDestination>(object source)
         {
             return Mapper.Map<TDestination>(source);
+        }
+
+        protected HttpResponseMessage CreateNoContentResponse()
+        {
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
         protected HttpResponseMessage CreateNotFoundResponse(string format, object arg0)

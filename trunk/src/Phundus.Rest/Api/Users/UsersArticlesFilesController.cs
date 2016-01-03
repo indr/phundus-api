@@ -67,7 +67,7 @@ namespace Phundus.Rest.Api.Users
                 {
                     ArticleId = articleId,
                     FileName = each.FileName,
-                    InitiatorId = CurrentUserId,
+                    InitiatorId = CurrentUserId.Id,
                     Length = each.Length,
                     Type = each.Type
                 };
@@ -87,7 +87,7 @@ namespace Phundus.Rest.Api.Users
             {
                 ArticleId = articleId,
                 ImageFileName = fileName,
-                InitiatorId = CurrentUserId
+                InitiatorId = CurrentUserId.Id
             });
             store.Delete(fileName);
             return Request.CreateResponse(HttpStatusCode.NoContent);
