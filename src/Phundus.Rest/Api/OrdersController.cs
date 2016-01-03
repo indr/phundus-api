@@ -11,7 +11,6 @@
     using Common;
     using Common.Domain.Model;
     using ContentObjects;
-    using Core.IdentityAndAccess.Queries;
     using Core.Shop.Orders;
     using Core.Shop.Orders.Commands;
     using Core.Shop.Queries;
@@ -22,19 +21,15 @@
     {
         private readonly IOrderQueries _orderQueries;
         private readonly IPdfStore _pdfStore;
-        private readonly IUserQueries _userQueries;
 
-        public OrdersController(IUserQueries userQueries, IOrderQueries orderQueries, IPdfStore pdfStore)
+        public OrdersController(IOrderQueries orderQueries, IPdfStore pdfStore)
         {
-            AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderQueries, "OrderQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(pdfStore, "PdfStore must be provided.");
 
-            _userQueries = userQueries;
             _orderQueries = orderQueries;
             _pdfStore = pdfStore;
         }
-
 
         [GET("")]
         [Transaction]
@@ -43,7 +38,7 @@
             var userId = (int?) null;
             var organizationId = (Guid?) null;
 
-            var queryParams = Request.GetQueryNameValuePairs().ToDictionary(ks => ks.Key, es => es.Value);
+            var queryParams = GetQueryParams();
             if (queryParams.ContainsKey("userId"))
                 userId = Convert.ToInt32(queryParams["userId"]);
             if (queryParams.ContainsKey("organizationId"))
@@ -81,23 +76,11 @@
         [Transaction]
         public virtual HttpResponseMessage Post(OrdersPostRequestContent requestContent)
         {
-            int userId;
-            if (!Int32.TryParse(requestContent.Username, out userId))
-            {
-                var user = _userQueries.ByUserName(requestContent.Username);
-                if (user == null)
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound,
-                        string.Format("Der Benutzer mit der E-Mail-Adresse \"{0}\" konnte nicht gefunden werden.",
-                            requestContent.Username));
-
-                userId = user.Id;
-            }
-
             var command = new CreateEmptyOrder
             {
                 InitiatorId = new CurrentUserId(CurrentUserId.Id),
                 LessorId = new LessorId(requestContent.OwnerId),
-                LesseeId = new LesseeId(userId)
+                LesseeId = new LesseeId(requestContent.LesseeId)
             };
 
             Dispatcher.Dispatch(command);
@@ -134,8 +117,8 @@
         [JsonProperty("ownerId")]
         public Guid OwnerId { get; set; }
 
-        [JsonProperty("username")]
-        public string Username { get; set; }
+        [JsonProperty("lesseeId")]
+        public int LesseeId { get; set; }
     }
 
     public class OrdersQueryOkResponseContent

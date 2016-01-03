@@ -3,10 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Common.Domain.Model;
 
     public interface IMemberQueries
     {
         IList<MemberDto> FindByOrganizationId(Guid organizationId);
+        IEnumerable<MemberDto> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName);
     }
 
     public interface IMemberInRoleQueries
@@ -31,12 +33,24 @@
             return ToMemberDtos(memberships);
         }
 
-        private IList<MemberDto> ToMemberDtos(IEnumerable<MembershipDto> memberships)
+        public IEnumerable<MemberDto> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName)
         {
+            // TODO: Members Read-Model 
+            var memberships = MembershipQueries.FindByOrganizationId(queryOrganizationId);
+            return ToMemberDtos(memberships, queryFullName);
+        }
+
+        private IList<MemberDto> ToMemberDtos(IEnumerable<MembershipDto> memberships, string queryFullName = "")
+        {
+            queryFullName = queryFullName.ToLowerInvariant();
             var result = new List<MemberDto>();
             foreach (var each in memberships)
             {
                 var user = UserQueries.GetById(each.MemberId);
+                if (!String.IsNullOrWhiteSpace(queryFullName) &&
+                    (!user.FirstName.ToLowerInvariant().Contains(queryFullName) &&
+                     !user.LastName.ToLowerInvariant().Contains(queryFullName)))
+                    continue;
 
                 result.Add(new MemberDto
                 {

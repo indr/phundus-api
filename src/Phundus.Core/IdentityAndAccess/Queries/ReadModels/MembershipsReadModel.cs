@@ -36,7 +36,7 @@
             return new MembershipDto
             {
                 Id = each.Id,
-                MemberId = each.UserId,                
+                MemberId = each.UserId,
                 OrganizationGuid = each.Organization.Id,
                 OrganizationName = each.Organization.Name,
                 OrganizationUrl = each.Organization.Url,
