@@ -27,7 +27,12 @@
         [Transaction]
         public virtual OrganizationsMembersQueryOkResponseContent Get(Guid organizationId)
         {
-            var result = _memberQueries.FindByOrganizationId(organizationId);
+            var username = (string) null;
+            var queryParams = GetQueryParams();
+            if (queryParams.ContainsKey("username"))
+                username = queryParams["username"];
+
+            var result = _memberQueries.Query(CurrentUserId, organizationId, username);
             return new OrganizationsMembersQueryOkResponseContent(result);
         }
 

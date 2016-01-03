@@ -1,7 +1,9 @@
 ﻿namespace Phundus.Rest
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -71,6 +73,11 @@
             };
 
             return result;
+        }
+
+        protected Dictionary<string, string> GetQueryParams()
+        {
+            return Request.GetQueryNameValuePairs().ToDictionary(ks => ks.Key, es => es.Value);
         }
     }
 }
