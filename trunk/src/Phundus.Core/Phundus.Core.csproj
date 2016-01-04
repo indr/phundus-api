@@ -277,9 +277,9 @@
     <Compile Include="IdentityAndAccess\Users\Mails\UserAccountCreatedMail.cs" />
     <Compile Include="IdentityAndAccess\Users\Mails\UserAccountValidationMail.cs" />
     <Compile Include="IdentityAndAccess\Users\Mails\UserChangeEmailValidationMail.cs" />
-    <Compile Include="IdentityAndAccess\Users\Mails\UserLockedOutMail.cs" />
+    <Compile Include="IdentityAndAccess\Users\Mails\UserLockedMailNotifier.cs" />
     <Compile Include="IdentityAndAccess\Users\Mails\UserResetPasswordMail.cs" />
-    <Compile Include="IdentityAndAccess\Users\Mails\UserUnlockedMail.cs" />
+    <Compile Include="IdentityAndAccess\Users\Mails\UserUnlockedMailNotifier.cs" />
     <Compile Include="IdentityAndAccess\Queries\IUserQueries.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\UserDto.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\UserReadModel.cs" />

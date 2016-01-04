@@ -11,10 +11,23 @@
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (user == null) throw new ArgumentNullException("user");
+
+            InitiatorId = initiator.Guid;
+            UserId = user.Guid;
+            LockedAtUtc = lockedAtUtc;
         }
 
         protected UserLocked()
         {
         }
+
+        [DataMember(Order = 1)]
+        public Guid InitiatorId { get; protected set; }
+
+        [DataMember(Order = 2)]
+        public Guid UserId { get; protected set; }
+
+        [DataMember(Order = 3)]
+        public DateTime LockedAtUtc { get; protected set; }
     }
 }
