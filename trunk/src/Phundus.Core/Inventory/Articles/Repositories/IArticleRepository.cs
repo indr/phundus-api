@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Common.Domain.Model;
     using Infrastructure;
     using Model;
 
@@ -11,5 +12,6 @@
         IEnumerable<Article> FindByOwnerId(Guid ownerId);
         Article GetById(int articleId);
         Article GetById(Guid ownerId, int articleId);
+        IEnumerable<Article> Query(CurrentUserId currentUserId, OwnerId queryOwnerId, string query);
     }
 }
