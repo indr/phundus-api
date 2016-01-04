@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Common;
+    using Common.Domain.Model;
 
     public interface IArticleQueries
     {
@@ -15,5 +16,7 @@
         ArticleDto GetById(int id);
 
         IEnumerable<ArticleDto> FindByOwnerId(Guid ownerId);
+
+        IEnumerable<ArticleDto> Query(CurrentUserId currentUserId, OwnerId queryOwnerId, string query);
     }
 }

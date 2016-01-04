@@ -77,7 +77,11 @@ namespace Phundus.Rest.Api
             _memberInRole.ActiveChief(ownerId, CurrentUserId.Id);
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
-            var results = _articleQueries.FindByOwnerId(ownerId.Id);
+            string query = null;
+            if (queryParams.ContainsKey("q"))
+                query = queryParams["q"];
+
+            var results = _articleQueries.Query(CurrentUserId, ownerId, query);
             return new QueryOkResponseContent<ArticleDto>
             {
                 Results = results.ToList()

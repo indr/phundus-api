@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Articles.Repositories;
     using Common;
+    using Common.Domain.Model;
     using Cqrs;
 
     public class ArticleReadModel : ReadModelBase, IArticleQueries
@@ -21,6 +22,12 @@
         public IEnumerable<ArticleDto> FindByOwnerId(Guid ownerId)
         {
             var articles = ArticleRepository.FindByOwnerId(ownerId);
+            return new ArticleDtoAssembler().CreateDtos(articles);
+        }
+
+        public IEnumerable<ArticleDto> Query(CurrentUserId currentUserId, OwnerId queryOwnerId, string query)
+        {
+            var articles = ArticleRepository.Query(currentUserId, queryOwnerId, query);
             return new ArticleDtoAssembler().CreateDtos(articles);
         }
     }

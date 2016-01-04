@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Common;
+    using Common.Domain.Model;
     using Core.Inventory.Articles;
     using Core.Inventory.Articles.Model;
     using Core.Inventory.Articles.Repositories;
@@ -35,6 +37,15 @@
             if ((result == null) || (result.Owner.OwnerId.Id != ownerId))
                 throw new ArticleNotFoundException(articleId);
             return result;
+        }
+
+        public IEnumerable<Article> Query(CurrentUserId currentUserId, OwnerId queryOwnerId, string query)
+        {
+            AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
+            AssertionConcern.AssertArgumentNotNull(queryOwnerId, "QueryOwnerId must be provided.");
+            query = query == null ? "" : query.ToLowerInvariant();
+
+            return Entities.Where(p => p.Owner.OwnerId.Id == queryOwnerId.Id).Where(p => p.Name.ToLowerInvariant().Contains(query)).ToFuture();
         }
     }
 }
