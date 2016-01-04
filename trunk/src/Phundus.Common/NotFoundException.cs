@@ -14,6 +14,10 @@
         {
         }
 
+        public NotFoundException(string format, object arg0) : base(String.Format(format, arg0))
+        {
+        }
+
         public NotFoundException(string message, Exception innerException) : base(message, innerException)
         {
         }

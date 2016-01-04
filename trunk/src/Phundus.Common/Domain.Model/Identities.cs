@@ -67,4 +67,11 @@
         {
         }
     }
+
+    public class UserGuid : Identity<Guid>
+    {
+        public UserGuid(Guid id) : base(id)
+        {
+        }
+    }
 }

@@ -127,6 +127,7 @@
     <Compile Include="IdentityAndAccess\Queries\ReadModels\ReadModelWriterBase.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipsReadModelReader.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipStatusDto.cs" />
+    <Compile Include="IdentityAndAccess\Users\Commands\LockUser.cs" />
     <Compile Include="IdentityAndAccess\Users\Commands\RegisterUser.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Exceptions\MembershipApplicationNotFoundException.cs" />
     <Compile Include="IdentityAndAccess\Organizations\Commands\ChangeMembersRole.cs" />
@@ -148,13 +149,17 @@
     <Compile Include="IdentityAndAccess\Queries\IRelationshipQueries.cs" />
     <Compile Include="Cqrs\AutoMappingReadModelBase.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\MemberInMembershipRoleQueries.cs" />
+    <Compile Include="IdentityAndAccess\Users\Commands\UnlockUser.cs" />
     <Compile Include="IdentityAndAccess\Users\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
+    <Compile Include="IdentityAndAccess\Users\Model\UserLocked.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserLoggedIn.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserRegistered.cs" />
+    <Compile Include="IdentityAndAccess\Users\Model\UserUnlocked.cs" />
+    <Compile Include="IdentityAndAccess\Users\Services\UserInRole.cs" />
     <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
     <Compile Include="Inventory\Articles\Commands\AddImage.cs" />
     <Compile Include="Inventory\Articles\Commands\RemoveImage.cs" />

@@ -56,14 +56,6 @@
         }
 
         [Test]
-        public void LockOut_updates_LastLockedOutDate()
-        {
-            Sut.LockOut();
-            Assert.That(Sut.IsLockedOut, Is.True);
-            Assert.That(Sut.LastLockoutDate, Is.EqualTo(DateTime.Now).Within(1).Seconds);
-        }
-
-        [Test]
         public void LogOn_when_locked_out_throws()
         {
             Sut.IsLockedOut = true;

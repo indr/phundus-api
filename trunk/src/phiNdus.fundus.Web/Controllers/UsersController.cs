@@ -58,38 +58,38 @@
             }
         }
 
-        [HttpPost]
-        [Transaction]
-        public virtual ActionResult LockOut(int id)
-        {
-            var user = ServiceLocator.Current.GetInstance<IUserRepository>().GetById(id);
-            if (user == null)
-                return HttpNotFound();
+        //[HttpPost]
+        //[Transaction]
+        //public virtual ActionResult LockOut(int id)
+        //{
+        //    var user = ServiceLocator.Current.GetInstance<IUserRepository>().GetById(id);
+        //    if (user == null)
+        //        return HttpNotFound();
 
-            user.Account.LockOut();
-            SessionFact().Update(user);
+        //    user.Account.LockOut();
+        //    SessionFact().Update(user);
 
-            new UserLockedOutMail().For(user)
-                .Send(user);
+        //    new UserLockedOutMail().For(user)
+        //        .Send(user);
 
-            return Json(id);
-        }
+        //    return Json(id);
+        //}
 
-        [HttpPost]
-        [Transaction]
-        public virtual ActionResult Unlock(int id)
-        {
-            var user = ServiceLocator.Current.GetInstance<IUserRepository>().GetById(id);
-            if (user == null)
-                return HttpNotFound();
+        //[HttpPost]
+        //[Transaction]
+        //public virtual ActionResult Unlock(int id)
+        //{
+        //    var user = ServiceLocator.Current.GetInstance<IUserRepository>().GetById(id);
+        //    if (user == null)
+        //        return HttpNotFound();
 
-            user.Account.Unlock();
-            SessionFact().Update(user);
+        //    user.Account.Unlock();
+        //    SessionFact().Update(user);
 
-            new UserUnlockedMail().For(user)
-                .Send(user);
+        //    new UserUnlockedMail().For(user)
+        //        .Send(user);
 
-            return Json(id);
-        }
+        //    return Json(id);
+        //}
     }
 }

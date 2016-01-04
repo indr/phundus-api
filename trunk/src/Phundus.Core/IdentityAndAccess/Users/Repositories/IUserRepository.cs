@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Common;
+    using Common.Domain.Model;
     using Infrastructure;
     using Model;
 
@@ -24,8 +25,26 @@
         /// <exception cref="NotFoundException"></exception>
         User GetById(int id);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        User GetById(UserId userId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userGuid"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        User GetById(UserGuid userGuid);
+
         new int Add(User user);
         User FindActiveByGuid(Guid userId);
         User FindByGuid(Guid userId);
+
+       
     }
 }
