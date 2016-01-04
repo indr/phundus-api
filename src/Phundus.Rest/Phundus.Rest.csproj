@@ -128,12 +128,10 @@
     <Compile Include="Api\NotificationsController.cs" />
     <Compile Include="ContentObjects\Role.cs" />
     <Compile Include="ContentObjects\Organization.cs" />
-    <Compile Include="Api\Organizations\OrganizationsArticlesController.cs" />
     <Compile Include="Api\Organizations\OrganizationsFilesController.cs" />
     <Compile Include="Api\Organizations\OrganizationsArticlesFilesController.cs" />
     <Compile Include="Api\StoresController.cs" />
     <Compile Include="Api\UsersController.cs" />
-    <Compile Include="Api\Users\UsersArticlesController.cs" />
     <Compile Include="Api\Users\UsersArticlesFilesController.cs" />
     <Compile Include="App_Start\AttributeRoutingHttpConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
