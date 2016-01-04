@@ -15,6 +15,7 @@
         User FindByValidationKey(string validationKey);
 
         User FindById(int id);
+
         User ActiveById(int userId);
 
         /// <summary>
