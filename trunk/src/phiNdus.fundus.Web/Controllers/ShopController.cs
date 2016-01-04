@@ -8,7 +8,6 @@
     using Core.Inventory.Queries;
     using Core.Shop.Orders;
     using Core.Shop.Queries;
-    using Microsoft.Practices.ServiceLocation;
     using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;
 
@@ -19,8 +18,10 @@
         public IShopArticleQueries ShopArticleQueries { get; set; }
 
         public IAvailabilityQueries AvailabilityQueries { get; set; }
-        
+
         public IMemberInRole MemberInRole { get; set; }
+
+        public ICartService CartService { get; set; }
 
         private static string MasterView
         {
@@ -126,7 +127,8 @@
                 QueryOrganizationId,
                 page.Value,
                 RowsPerPage.Value,
-                organizations);
+                organizations,
+                ShopArticleQueries);
             if (Request.IsAjaxRequest())
                 return PartialView(ShopView, model);
             return View(ShopView, MasterView, model);
@@ -142,7 +144,7 @@
 
             var model = new ShopArticleViewModel(article);
 
-            
+
             if (Identity.IsAuthenticated)
             {
                 var currentUserId = CurrentUserId;
@@ -173,13 +175,12 @@
             }
 
             var userId = CurrentUserId;
-            var service = ServiceLocator.Current.GetInstance<ICartService>();
-            var cart = service.GetCartByUserId(userId);
+            var cart = CartService.GetCartByUserId(userId);
 
             int? cartId = null;
             if (cart != null)
                 cartId = cart.Id;
-            cart = service.AddItem(cartId, userId, item.CreateDto());
+            cart = CartService.AddItem(cartId, userId, item.CreateDto());
 
             if (Request.IsAjaxRequest())
                 return Json(cart);

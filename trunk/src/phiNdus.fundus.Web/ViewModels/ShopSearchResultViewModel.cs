@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel.DataAnnotations;
-    using Microsoft.Practices.ServiceLocation;
     using Phundus.Core.Cqrs.Paging;
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.Shop.Queries;
@@ -15,7 +14,7 @@
         private IEnumerable<ShopArticleSearchResultDto> _articles = new Collection<ShopArticleSearchResultDto>();
 
         public ShopSearchResultViewModel(string queryString, Guid? queryOrganizationId, int page, int rowsPerPage,
-            IEnumerable<OrganizationDto> organizations)
+            IEnumerable<OrganizationDto> organizations, IShopArticleQueries shopArticleQueries)
         {
             Query = queryString;
             QueryOrganizationId = queryOrganizationId;
@@ -23,7 +22,7 @@
 
             _organizations = organizations;
 
-            Search(Query, QueryOrganizationId, page);
+            Search(Query, QueryOrganizationId, page, shopArticleQueries);
         }
 
         protected int RowsPerPage { get; set; }
@@ -46,9 +45,9 @@
 
         public Guid? QueryOrganizationId { get; set; }
 
-        private void Search(string query, Guid? organization, int page)
+        private void Search(string query, Guid? organization, int page, IShopArticleQueries shopArticleQueries)
         {
-            var queryResult = ServiceLocator.Current.GetInstance<IShopArticleQueries>().FindArticles(
+            var queryResult = shopArticleQueries.FindArticles(
                 new PageRequest {Index = page - 1, Size = RowsPerPage}, query, organization);
             PageSelectorModel = new PageSelectorViewModel(queryResult.Pages);
             Articles = queryResult.Items;
