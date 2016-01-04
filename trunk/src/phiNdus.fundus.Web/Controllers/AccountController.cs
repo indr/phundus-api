@@ -11,6 +11,7 @@
     using Core.IdentityAndAccess.Users.Exceptions;
     using Core.IdentityAndAccess.Users.Mails;
     using Core.IdentityAndAccess.Users.Repositories;
+    using Infrastructure.Gateways;
     using phiNdus.fundus.Web.Models;
     using phiNdus.fundus.Web.Security;
     using phiNdus.fundus.Web.ViewModels;
@@ -23,6 +24,8 @@
         public IUserRepository Users { get; set; }
 
         public IOrganizationQueries OrganizationQueries { get; set; }
+
+        public IMailGateway MailGateway { get; set; }
 
         [HttpGet]
         [Transaction]
@@ -212,7 +215,7 @@
 
                     var user = Users.FindById(command.UserId);
                     // E-Mail mit Verifikationslink senden
-                    new UserAccountValidationMail().For(user).Send(user);
+                    new UserAccountValidationMail(MailGateway).For(user).Send(user);
 
                     Guid organizationId;                    
                     if ((Guid.TryParse(model.OrganizationId, out organizationId)))

@@ -4,12 +4,17 @@
     using System.Linq;
     using Ddd;
     using Infrastructure;
+    using Infrastructure.Gateways;
     using Model;
     using Queries;
 
     public class MembershipApplicationMailNotifier : BaseMail, ISubscribeTo<MembershipApplicationFiled>,
         ISubscribeTo<MembershipApplicationApproved>, ISubscribeTo<MembershipApplicationRejected>, ISubscribeTo<MemberLocked>, ISubscribeTo<MemberUnlocked>
     {
+        public MembershipApplicationMailNotifier(IMailGateway mailGateway) : base(mailGateway)
+        {
+        }
+
         public IMemberInRoleQueries MemberInRoleQueries { get; set; }
         
         public IOrganizationQueries OrganizationQueries { get; set; }

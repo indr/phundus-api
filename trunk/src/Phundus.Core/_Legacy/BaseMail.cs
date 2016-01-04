@@ -42,7 +42,19 @@ If you think it was sent incorrectly contact the administrators at lukas.mueller
 
         private IList<Attachment> _attachments = new List<Attachment>();
 
+        private readonly IMailGateway _gateway;
         private dynamic _model = new {};
+
+        [Obsolete]
+        protected BaseMail()
+        {
+            _gateway = ServiceLocator.Current.GetInstance<IMailGateway>();
+        }
+
+        protected BaseMail(IMailGateway mailGateway)
+        {
+            _gateway = mailGateway;
+        }
 
         public dynamic Model
         {
@@ -85,7 +97,6 @@ If you think it was sent incorrectly contact the administrators at lukas.mueller
             if (String.IsNullOrWhiteSpace(recipients))
                 return;
 
-            var gateway = ServiceLocator.Current.GetInstance<IMailGateway>();
 
             var textBody = GenerateTextBody(plain);
             var htmlBody = GenerateHtmlBody(html);
@@ -115,7 +126,7 @@ If you think it was sent incorrectly contact the administrators at lukas.mueller
             foreach (var each in Attachments)
                 message.Attachments.Add(each);
 
-            gateway.Send(message);
+            _gateway.Send(message);
         }
 
         public class Urls

@@ -3,6 +3,7 @@
     using System;
     using Ddd;
     using Infrastructure;
+    using Infrastructure.Gateways;
     using Model;
     using Repositories;
 
@@ -10,7 +11,7 @@
     {
         private readonly IUserRepository _userRepository;
 
-        public UserLockedMailNotifier(IUserRepository userRepository)
+        public UserLockedMailNotifier(IMailGateway mailGateway, IUserRepository userRepository) : base(mailGateway)
         {
             if (userRepository == null) throw new ArgumentNullException("userRepository");
             _userRepository = userRepository;

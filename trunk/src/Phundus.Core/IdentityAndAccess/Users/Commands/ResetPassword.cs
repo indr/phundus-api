@@ -2,6 +2,7 @@
 {
     using System;
     using Cqrs;
+    using Infrastructure.Gateways;
     using Mails;
     using Repositories;
 
@@ -17,6 +18,8 @@
 
     public class ResetPasswordHandler : IHandleCommand<ResetPassword>
     {
+        public IMailGateway MailGateway { get; set; }
+
         public IUserRepository UserRepository { get; set; }
 
         public void Handle(ResetPassword command)
@@ -26,8 +29,8 @@
                 throw new Exception("Die E-Mail-Adresse konnte nicht gefunden werden.");
             var password = user.Account.ResetPassword();
             UserRepository.Update(user);
-            
-            new UserResetPasswordMail().For(user, password).Send(user);
+
+            new UserResetPasswordMail(MailGateway).For(user, password).Send(user);
         }
     }
 }
