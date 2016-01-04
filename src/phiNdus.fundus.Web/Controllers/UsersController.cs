@@ -11,7 +11,7 @@
     [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
     {
-        public IUserRepository Users { get; set; }
+        public IUserRepository UserRepository { get; set; }
 
         public IUserQueries UserQueries { get; set; }
 
@@ -45,7 +45,7 @@
             try
             {
                 UpdateModel(userModel, collection.ToValueProvider());
-                userModel.Update();
+                userModel.Update(UserRepository);
 
                 return RedirectToAction(UsersActionNames.Index);
             }

@@ -6,33 +6,18 @@
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
-    using Microsoft.Practices.ServiceLocation;
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.IdentityAndAccess.Users.Model;
     using Phundus.Core.IdentityAndAccess.Users.Repositories;
     using Phundus.Core.IdentityAndAccess.Users._Legacy;
 
-
     public class UserModel : ModelBase
     {
-        IEnumerable<SelectListItem> _roles;
+        private IEnumerable<SelectListItem> _roles;
 
         public UserModel(UserDto user)
         {
             Load(user);
-        }
-
-        void Load(UserDto subject)
-        {
-            Id = subject.Id;
-            Version = subject.Version;
-            Email = subject.Email;
-            IsApproved = subject.IsApproved;
-            CreateDate = subject.CreateDate;
-            FirstName = subject.FirstName;
-            LastName = subject.LastName;
-            RoleId = subject.RoleId;
-            RoleName = subject.RoleName;
         }
 
         public int Id { get; private set; }
@@ -67,42 +52,52 @@
             }
         }
 
-       
+        private void Load(UserDto subject)
+        {
+            Id = subject.Id;
+            Version = subject.Version;
+            Email = subject.Email;
+            IsApproved = subject.IsApproved;
+            CreateDate = subject.CreateDate;
+            FirstName = subject.FirstName;
+            LastName = subject.LastName;
+            RoleId = subject.RoleId;
+            RoleName = subject.RoleName;
+        }
 
-        void GetRoles()
+
+        private void GetRoles()
         {
             _roles = new List<Role> {Role.Admin, Role.User}.Select(r => new SelectListItem
-                {
-                    Value = ((int)r).ToString(CultureInfo.InvariantCulture),
-                    Text = r.ToString(),
-                    Selected = (int)r == RoleId
-                });
+            {
+                Value = ((int) r).ToString(CultureInfo.InvariantCulture),
+                Text = r.ToString(),
+                Selected = (int) r == RoleId
+            });
         }
 
 
-        
-
-        UserDto Save()
+        private UserDto Save()
         {
             return new UserDto
-                {
-                    Id = Id,
-                    Version = Version,
-                    Email = Email,
-                    IsApproved = IsApproved,
-                    CreateDate = CreateDate,
-                    FirstName = FirstName,
-                    LastName = LastName,
-                    RoleId = RoleId,
-                    RoleName = RoleName
-                };
+            {
+                Id = Id,
+                Version = Version,
+                Email = Email,
+                IsApproved = IsApproved,
+                CreateDate = CreateDate,
+                FirstName = FirstName,
+                LastName = LastName,
+                RoleId = RoleId,
+                RoleName = RoleName
+            };
         }
 
-        public void Update()
+        public void Update(IUserRepository userRepository)
         {
             var subject = Save();
             var user = UserAssembler.UpdateDomainObject(subject);
-            ServiceLocator.Current.GetInstance<IUserRepository>().Update(user);
+            userRepository.Update(user);
         }
     }
 }
