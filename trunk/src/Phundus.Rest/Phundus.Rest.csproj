@@ -116,6 +116,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllerBase.cs" />
+    <Compile Include="Api\ArticlesController.cs" />
+    <Compile Include="Api\QueryOkResponseContent.cs" />
     <Compile Include="ContentObjects\Relationship.cs" />
     <Compile Include="ContentObjects\Coordinate.cs" />
     <Compile Include="Api\EventlogController.cs" />

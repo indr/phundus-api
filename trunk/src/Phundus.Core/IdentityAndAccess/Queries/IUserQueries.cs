@@ -23,11 +23,13 @@
         /// <exception cref="NotFoundException"></exception>
         UserDto GetById(UserId userId);
 
+        UserDto FindById(int userId);
         UserDto FindById(Guid userId);
 
         UserDto ByUserName(string userName);
         IList<UserDto> All();
         UserDto FindActiveById(Guid userId);
+
         
     }
 }

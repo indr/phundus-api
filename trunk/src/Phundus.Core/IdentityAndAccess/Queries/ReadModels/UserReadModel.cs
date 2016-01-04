@@ -24,6 +24,11 @@
             return CreateDto(UserRepository.GetById(userId.Id));
         }
 
+        public UserDto FindById(int userId)
+        {
+            return CreateDto(UserRepository.FindById(userId));
+        }
+
         public UserDto FindById(Guid userId)
         {
             return CreateDto(UserRepository.FindByGuid(userId));
