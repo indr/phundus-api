@@ -1,7 +1,6 @@
 namespace Phundus.Rest.ContentObjects
 {
     using System;
-    using Api;
     using Newtonsoft.Json;
 
     public class Store

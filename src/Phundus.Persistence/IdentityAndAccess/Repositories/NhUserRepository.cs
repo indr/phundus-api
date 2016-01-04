@@ -3,7 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Common;    
+    using Common;
+    using Common.Domain.Model;
     using Core.IdentityAndAccess.Users.Model;
     using Core.IdentityAndAccess.Users.Repositories;
     using NHibernate.Linq;
@@ -28,9 +29,22 @@
 
         public User GetById(int id)
         {
-            var result = FindById(id);
+            return GetById(new UserId(id));
+        }
+
+        public User GetById(UserId userId)
+        {
+            var result = FindById(userId.Id);
             if (result == null)
-                throw new NotFoundException(String.Format("User {0} not found.", id));
+                throw new NotFoundException(String.Format("User {0} not found.", userId));
+            return result;
+        }
+
+        public User GetById(UserGuid userGuid)
+        {
+            var result = FindByGuid(userGuid.Id);
+            if (result == null)
+                throw new NotFoundException("User {0} not found.", userGuid);
             return result;
         }
 

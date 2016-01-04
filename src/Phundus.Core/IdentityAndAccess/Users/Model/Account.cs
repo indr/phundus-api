@@ -64,10 +64,25 @@
 
         public virtual string RequestedEmail { get; set; }
 
-        public virtual void LockOut()
+        public virtual void Lock(User initiator)
         {
+            if (IsLockedOut)
+                return;
+
             IsLockedOut = true;
-            LastLockoutDate = DateTime.Now;
+            LastLockoutDate = DateTime.UtcNow;
+
+            EventPublisher.Publish(new UserLocked(initiator, this.User, LastLockoutDate.Value));
+        }
+
+        public virtual void Unlock(User initiator)
+        {
+            if (!IsLockedOut)
+                return;
+
+            IsLockedOut = false;
+
+            EventPublisher.Publish(new UserUnlocked(initiator, this.User, LastLockoutDate.GetValueOrDefault()));
         }
 
         public virtual void LogOn(string sessionKey, string password)
@@ -135,9 +150,6 @@
             return false;
         }
 
-        public virtual void Unlock()
-        {
-            IsLockedOut = false;
-        }
+        
     }
 }
