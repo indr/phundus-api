@@ -3,6 +3,7 @@
     using System.Globalization;
     using Cqrs;
     using Exceptions;
+    using Infrastructure.Gateways;
     using Mails;
     using Repositories;
 
@@ -20,6 +21,8 @@
 
     public class ChangeEmailAddressHandler : IHandleCommand<ChangeEmailAddress>
     {
+        public IMailGateway MailGateway { get; set; }
+
         public IUserRepository UserRepository { get; set; }
 
         public void Handle(ChangeEmailAddress command)
@@ -34,7 +37,7 @@
             user.Account.GenerateValidationKey();
             UserRepository.Update(user);
 
-            new UserChangeEmailValidationMail().For(user).Send(user);
+            new UserChangeEmailValidationMail(MailGateway).For(user).Send(user);
         }
     }
 }

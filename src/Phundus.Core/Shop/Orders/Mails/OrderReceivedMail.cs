@@ -3,14 +3,17 @@
     using System;
     using System.IO;
     using System.Net.Mail;
-    using IdentityAndAccess.Organizations.Model;
     using IdentityAndAccess.Users.Model;
     using Infrastructure;
+    using Infrastructure.Gateways;
     using Model;
-    using Services;
 
     public class OrderReceivedMail : BaseMail
     {
+        public OrderReceivedMail(IMailGateway mailGateway) : base(mailGateway)
+        {
+        }
+
         public OrderReceivedMail For(Stream pdf, Order order)
         {
             Model = new

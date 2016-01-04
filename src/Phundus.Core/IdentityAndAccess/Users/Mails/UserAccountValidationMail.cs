@@ -2,10 +2,15 @@
 {
     using System;
     using Infrastructure;
+    using Infrastructure.Gateways;
     using Model;
 
     public class UserAccountValidationMail : BaseMail
     {
+        public UserAccountValidationMail(IMailGateway mailGateway) : base(mailGateway)
+        {
+        }
+
         public void Send(User user)
         {
             Send(user.Account.Email, Templates.UserAccountValidationSubject, null, Templates.UserAccountValidationHtml);

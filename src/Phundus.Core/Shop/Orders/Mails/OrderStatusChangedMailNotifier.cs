@@ -4,12 +4,17 @@
     using System.Net.Mail;
     using Ddd;
     using Infrastructure;
+    using Infrastructure.Gateways;
     using Model;
     using Repositories;
     using Services;
 
     public class OrderStatusChangedMailNotifier : BaseMail, ISubscribeTo<OrderApproved>, ISubscribeTo<OrderRejected>
     {
+        public OrderStatusChangedMailNotifier(IMailGateway mailGateway) : base(mailGateway)
+        {
+        }
+
         public IOrderRepository OrderRepository { get; set; }
 
         public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }

@@ -2,10 +2,15 @@ namespace Phundus.Core.IdentityAndAccess.Users.Mails
 {
     using System;
     using Infrastructure;
+    using Infrastructure.Gateways;
     using Model;
 
     public class UserChangeEmailValidationMail : BaseMail
     {
+        public UserChangeEmailValidationMail(IMailGateway mailGateway) : base(mailGateway)
+        {
+        }
+
         public void Send(User user)
         {
             Send(user.Account.RequestedEmail, Templates.UserChangeEmailValidationSubject, null,

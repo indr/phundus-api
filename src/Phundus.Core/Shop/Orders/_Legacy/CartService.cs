@@ -6,6 +6,7 @@
     using Common.Domain.Model;
     using Cqrs;
     using IdentityAndAccess.Users.Repositories;
+    using Infrastructure.Gateways;
     using Inventory.Services;
     using Mails;
     using Queries;
@@ -28,6 +29,8 @@
         public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
 
         public IAvailabilityService AvailabilityService { get; set; }
+
+        public IMailGateway MailGateway { get; set; }
 
         public CartDto GetCartByUserId(int userId)
         {
@@ -117,7 +120,7 @@
             foreach (var order in orders)
             {
                 var pdf = OrderPdfGeneratorService.GeneratePdf(order);
-                var mail = new OrderReceivedMail().For(pdf, order);
+                var mail = new OrderReceivedMail(MailGateway).For(pdf, order);
                 var managers = LessorService.GetManagers(order.Lessor.LessorId.Id);
 
                 foreach (var manager in managers)
