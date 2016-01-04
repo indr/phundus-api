@@ -110,7 +110,9 @@ namespace Phundus.Rest.Api
                 Brand = result.Brand,
                 Color = result.Color,
                 GrossStock = result.GrossStock,
-                Price = result.Price
+                Price = result.Price,
+                Description = result.Description,
+                Specification = result.Specification
             };
         }
 
@@ -194,53 +196,47 @@ namespace Phundus.Rest.Api
             };
         }
 
-        [PUT("{articleId}")]
+        [PATCH("{articleId}")]
         [Transaction]
-        public virtual ArticlesPutOkResponseContent Put(int articleId, ArticlesPutRequestContent requestContent)
+        public virtual ArticlesPatchOkResponseContent Patch(int articleId, ArticlesPatchRequestContent requestContent)
         {
-            Dispatcher.Dispatch(new UpdateArticle
+            if (!String.IsNullOrWhiteSpace(requestContent.Name))
             {
-                ArticleId = articleId,
-                Brand = requestContent.Brand,
-                Color = requestContent.Color,
-                GrossStock = requestContent.GrossStock,
-                InitiatorId = CurrentUserId.Id,
-                Name = requestContent.Name,
-                Price = requestContent.Price
-            });
+                Dispatcher.Dispatch(new UpdateArticle
+                {
+                    ArticleId = articleId,
+                    Brand = requestContent.Brand,
+                    Color = requestContent.Color,
+                    GrossStock = requestContent.GrossStock,
+                    InitiatorId = CurrentUserId.Id,
+                    Name = requestContent.Name,
+                    Price = requestContent.Price
+                });
+            }
+            if (requestContent.Description != null)
+            {
+                Dispatcher.Dispatch(new UpdateDescription
+                {
+                    ArticleId = articleId,
+                    Description = requestContent.Description,
+                    InitiatorId = CurrentUserId.Id
+                });
+            }
+            if (requestContent.Specification != null)
+            {
+                Dispatcher.Dispatch(new UpdateSpecification
+                {
+                    ArticleId = articleId,
+                    Specification = requestContent.Specification,
+                    InitiatorId = CurrentUserId.Id
+                });
+            }
+            
 
-            return new ArticlesPutOkResponseContent
+            return new ArticlesPatchOkResponseContent
             {
                 ArticleId = articleId
             };
-        }
-
-        [PUT("{articleId}/description")]
-        [Transaction]
-        public virtual HttpResponseMessage PutDescription(int articleId, dynamic requestContent)
-        {
-            Dispatcher.Dispatch(new UpdateDescription
-            {
-                ArticleId = articleId,
-                Description = requestContent.data,
-                InitiatorId = CurrentUserId.Id
-            });
-
-            return Request.CreateResponse(HttpStatusCode.NoContent);
-        }
-
-        [PUT("{articleId}/specification")]
-        [Transaction]
-        public virtual HttpResponseMessage PutSpecification(int articleId, dynamic requestContent)
-        {
-            Dispatcher.Dispatch(new UpdateSpecification
-            {
-                ArticleId = articleId,
-                Specification = requestContent.data,
-                InitiatorId = CurrentUserId.Id
-            });
-
-            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
         [DELETE("{articleId}")]
@@ -271,6 +267,12 @@ namespace Phundus.Rest.Api
 
         [JsonProperty("color")]
         public string Color { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [JsonProperty("specification")]
+        public string Specification { get; set; }
     }
 
     public class ArticlesPostRequestContent
@@ -291,13 +293,13 @@ namespace Phundus.Rest.Api
         public int ArticleId { get; set; }
     }
 
-    public class ArticlesPutOkResponseContent
+    public class ArticlesPatchOkResponseContent
     {
         [JsonProperty("articleId")]
         public int ArticleId { get; set; }
     }
 
-    public class ArticlesPutRequestContent
+    public class ArticlesPatchRequestContent
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -313,5 +315,11 @@ namespace Phundus.Rest.Api
 
         [JsonProperty("color")]
         public string Color { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [JsonProperty("specification")]
+        public string Specification { get; set; }
     }
 }
