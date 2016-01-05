@@ -127,6 +127,7 @@
     <Compile Include="IdentityAndAccess\Queries\ReadModels\ReadModelWriterBase.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipsReadModelReader.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipStatusDto.cs" />
+    <Compile Include="IdentityAndAccess\Users\Commands\ApproveUser.cs" />
     <Compile Include="IdentityAndAccess\Users\Commands\ChangeUserRole.cs" />
     <Compile Include="IdentityAndAccess\Users\Commands\LockUser.cs" />
     <Compile Include="IdentityAndAccess\Users\Commands\RegisterUser.cs" />
@@ -156,6 +157,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
+    <Compile Include="IdentityAndAccess\Users\Model\UserApproved.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserLocked.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserLoggedIn.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserRegistered.cs" />

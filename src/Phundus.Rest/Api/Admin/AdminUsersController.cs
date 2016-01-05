@@ -67,6 +67,10 @@
                 Dispatch(new ChangeUserRole(CurrentUserId, new UserGuid(requestContent.UserGuid),
                     requestContent.IsAdmin.Value ? UserRole.Admin : UserRole.User));
             }
+            if (requestContent.IsApproved.HasValue && requestContent.IsApproved.Value)
+            {
+                Dispatch(new ApproveUser(CurrentUserId, new UserGuid(requestContent.UserGuid)));
+            }
             return CreateNoContentResponse();
         }
     }

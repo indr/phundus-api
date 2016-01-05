@@ -133,5 +133,13 @@
 
             EventPublisher.Publish(new UserRoleChanged(initiator, this, oldRole, Role));
         }
+
+        public virtual void Approve(User initiator)
+        {
+            if (!Account.Approve())
+                return;
+
+            EventPublisher.Publish(new UserApproved(initiator, this));
+        }
     }
 }
