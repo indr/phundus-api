@@ -41,9 +41,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="CommonServiceLocator.WindsorAdapter">
-      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll</HintPath>
-    </Reference>
     <Reference Include="developwithpassion.specification.specs">
       <HintPath>..\..\lib\developwithpassion.specification.specs.dll</HintPath>
     </Reference>
