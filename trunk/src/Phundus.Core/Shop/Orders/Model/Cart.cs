@@ -82,11 +82,9 @@
             }
         }
 
-        public virtual ICollection<Order> PlaceOrders(ILessorService lessorService, ILesseeService lesseeService, IAvailabilityService availabilityService)
+        public virtual ICollection<Order> PlaceOrders(ICartRepository cartRepository, IOrderRepository orderRepository, ILessorService lessorService, ILesseeService lesseeService, IAvailabilityService availabilityService)
         {
             var result = new List<Order>();
-            var orderRepository = ServiceLocator.Current.GetInstance<IOrderRepository>();
-
             var lessors = FindLessors(lessorService);
             var borrower = lesseeService.GetById(Customer.Id);
 
@@ -101,7 +99,7 @@
                 orderRepository.Add(order);
                 result.Add(order);
             }
-            ServiceLocator.Current.GetInstance<ICartRepository>().Remove(this);
+            cartRepository.Remove(this);
             return result;
         }
 

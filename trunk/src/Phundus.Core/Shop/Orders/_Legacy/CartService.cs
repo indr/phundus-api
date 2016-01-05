@@ -32,6 +32,8 @@
 
         public IMailGateway MailGateway { get; set; }
 
+        public IOrderRepository OrderRepository { get; set; }
+
         public CartDto GetCartByUserId(int userId)
         {
             var user = Users.FindById(userId);
@@ -43,7 +45,7 @@
             }
 
             cart.CalculateAvailability(AvailabilityService);
-            var assembler = new CartAssembler();
+            var assembler = new CartAssembler(Carts);
             return assembler.CreateDto(cart);
         }
 
@@ -73,13 +75,13 @@
 
             cart = Carts.GetById(cart.Id);
             cart.CalculateAvailability(AvailabilityService);
-            var assembler = new CartAssembler();
+            var assembler = new CartAssembler(Carts);
             return assembler.CreateDto(cart);
         }
 
         public CartDto UpdateCart(CartDto cartDto)
         {
-            var assembler = new CartAssembler();
+            var assembler = new CartAssembler(Carts);
             var cart = assembler.CreateDomainObject(cartDto);
 
             Carts.Update(cart);
@@ -103,7 +105,7 @@
             Carts.Update(cart);
 
             cart.CalculateAvailability(AvailabilityService);
-            var assembler = new CartAssembler();
+            var assembler = new CartAssembler(Carts);
             return assembler.CreateDto(cart);
         }
 
@@ -114,7 +116,7 @@
             if (!cart.AreItemsAvailable)
                 return false;
 
-            var orders = cart.PlaceOrders(LessorService, LesseeService, AvailabilityService);
+            var orders = cart.PlaceOrders(Carts, OrderRepository, LessorService, LesseeService, AvailabilityService);
 
 
             foreach (var order in orders)

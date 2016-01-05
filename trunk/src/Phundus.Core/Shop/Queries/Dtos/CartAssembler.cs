@@ -2,13 +2,19 @@
 {
     using System.Linq;
     using Common;
-    using Infrastructure;
     using Microsoft.Practices.ServiceLocation;
     using Orders.Model;
     using Orders.Repositories;
 
     public class CartAssembler
     {
+        private ICartRepository _cartRepository;
+
+        public CartAssembler(ICartRepository cartRepository)
+        {
+            _cartRepository = cartRepository;
+        }
+
         public CartDto CreateDto(Cart cart)
         {
             var result = new CartDto();
@@ -43,8 +49,7 @@
 
         public Cart CreateDomainObject(CartDto cartDto)
         {
-            var carts = ServiceLocator.Current.GetInstance<ICartRepository>();
-            var cart = carts.FindById(cartDto.Id);
+            var cart = _cartRepository.FindById(cartDto.Id);
 
             if (cart == null)
                 throw new NotFoundException();
