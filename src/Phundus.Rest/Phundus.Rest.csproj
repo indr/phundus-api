@@ -116,9 +116,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllerBase.cs" />
+    <Compile Include="Api\Admin\AdminOrganizationsController.cs" />
     <Compile Include="Api\Admin\AdminUsersController.cs" />
     <Compile Include="Api\ArticlesController.cs" />
     <Compile Include="Api\QueryOkResponseContent.cs" />
+    <Compile Include="ContentObjects\AdminOrganization.cs" />
     <Compile Include="ContentObjects\AdminUser.cs" />
     <Compile Include="ContentObjects\Member.cs" />
     <Compile Include="ContentObjects\Relationship.cs" />
