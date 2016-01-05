@@ -58,6 +58,7 @@
                 Guid = organization.Id,
                 OrganizationId = organization.Id,
                 Version = organization.Version,
+                EstablishedAtUc = organization.CreateDate,
                 Name = organization.Name,
                 Url = organization.Url,
                 Address = organization.Address,
@@ -77,7 +78,8 @@
                 Version = organization.Version,
                 Name = organization.Name,
                 Url = organization.Url,
-                Address = organization.Address
+                Address = organization.Address,
+                EstablishedAtUtc = organization.CreateDate,
             };
         }
     }
@@ -91,6 +93,7 @@
         public string Name { get; set; }
         public string Url { get; set; }
         public string Address { get; set; }
+        public DateTime EstablishedAtUtc { get; set; }
     }
 
     public class OrganizationDetailDto
@@ -110,6 +113,6 @@
         public string Startpage { get; set; }
         public DateTime CreateDate { get; set; }
         public string DocumentTemplate { get; set; }
-        
+        public DateTime EstablishedAtUc { get; set; }
     }
 }
