@@ -9,7 +9,7 @@
     [Subject("/api/orders")]
     public class when_orders_post_is_issued : concern
     {
-        private static Guid organizationId = new Guid("10000001-3781-436d-9290-54574474e8f8");
+        private static Guid organizationId = new Guid("10CE0EC8-3781-436d-9290-54574474e8f8");
 
         public static IRestResponse<OrderDetailDoc> response;
 
@@ -28,7 +28,7 @@
 
     public abstract class organizations_orders_patch_concern : concern
     {
-        protected static Guid organizationId = new Guid("10000001-3781-436d-9290-54574474e8f8");
+        protected static Guid organizationId = new Guid("10CE0EC8-3781-436d-9290-54574474e8f8");
         protected static int orderId;
         protected static IRestResponse<OrderDetailDoc> response;
 
@@ -65,7 +65,7 @@
     [Subject("OrdersItems")]
     public class when_orders_items_post_is_issued : concern
     {
-        private static Guid organizationId = new Guid("10000001-3781-436d-9290-54574474e8f8");
+        private static Guid organizationId = new Guid("10CE0EC8-3781-436d-9290-54574474e8f8");
         private static int orderId;
         private static IRestResponse<OrderItemDoc> response;
 
@@ -80,7 +80,7 @@
     [Subject("OrderItems")]
     public class when_orders_items_patch_is_issued : concern
     {
-        private static Guid organizationId = new Guid("10000001-3781-436d-9290-54574474e8f8");
+        private static Guid organizationId = new Guid("10CE0EC8-3781-436d-9290-54574474e8f8");
         private static int orderId;
         private static Guid orderItemId;
         private static IRestResponse response;
@@ -104,7 +104,7 @@
     [Subject("OrdersItems")]
     public class when_orders_items_delete_is_issued : concern
     {
-        private static Guid organizationId = new Guid("10000001-3781-436d-9290-54574474e8f8");
+        private static Guid organizationId = new Guid("10CE0EC8-3781-436d-9290-54574474e8f8");
         private static int orderId;
         private static Guid orderItemId;
         private static IRestResponse response;
