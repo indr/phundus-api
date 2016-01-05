@@ -2,7 +2,6 @@
 {
     using System.Linq;
     using Common;
-    using Microsoft.Practices.ServiceLocation;
     using Orders.Model;
     using Orders.Repositories;
 
