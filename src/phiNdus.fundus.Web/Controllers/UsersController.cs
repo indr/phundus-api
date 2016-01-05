@@ -41,19 +41,20 @@
         [Transaction]
         public virtual ActionResult Edit(int id, FormCollection collection)
         {
-            var userModel = new UserModel(UserQueries.GetById(id));
-            try
-            {
-                UpdateModel(userModel, collection.ToValueProvider());
-                userModel.Update(UserRepository);
+            throw new NotImplementedException();
+            //var userModel = new UserModel(UserQueries.GetById(id));
+            //try
+            //{
+            //    UpdateModel(userModel, collection.ToValueProvider());
+            //    userModel.Update(UserRepository);
 
-                return RedirectToAction(UsersActionNames.Index);
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                return View(userModel);
-            }
+            //    return RedirectToAction(UsersActionNames.Index);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ModelState.AddModelError("", ex.Message);
+            //    return View(userModel);
+            //}
         }
     }
 }

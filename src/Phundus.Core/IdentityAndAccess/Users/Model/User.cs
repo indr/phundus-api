@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Users.Model
 {
     using System;
+    using Common.Domain.Model;
     using Ddd;
 
     public class User : EntityBase
@@ -10,7 +11,7 @@
         private string _firstName;
         private int? _jsNumber;
         private string _lastName;
-        private Role _role;
+        private UserRole _role;
         private string _street;
         private string _postcode;
         private string _city;
@@ -30,7 +31,7 @@
             _lastName = "";
             _account = new Account();
             _account.User = this;
-            _role = Role.User;
+            _role = UserRole.User;
         }
 
         public User(string emailAddress, string password, string firstName, string lastName, string street, string postcode, string city, string mobilePhone, int? jsNumber)
@@ -49,7 +50,7 @@
             _account.Password = password;
             _account.GenerateValidationKey();
 
-            _role = Role.User;
+            _role = UserRole.User;
         }
 
         public virtual Guid Guid
@@ -76,10 +77,10 @@
             set { _account = value; }
         }
 
-        public virtual Role Role
+        public virtual UserRole Role
         {
             get { return _role; }
-            set { _role = value; }
+            protected set { _role = value; }
         }
 
         public virtual string Street
@@ -120,6 +121,17 @@
         public virtual string DisplayName
         {
             get { return String.Format("{0} {1}", FirstName, LastName); }
+        }
+
+        public virtual void ChangeRole(User initiator, UserRole userRole)
+        {
+            if (Role == userRole)
+                return;
+
+            var oldRole = Role;
+            Role = userRole;
+
+            EventPublisher.Publish(new UserRoleChanged(initiator, this, oldRole, Role));
         }
     }
 }

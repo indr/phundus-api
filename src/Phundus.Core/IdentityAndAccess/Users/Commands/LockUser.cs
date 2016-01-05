@@ -17,8 +17,8 @@
             UserGuid = userGuid;
         }
 
-        public UserId InitiatorId { get; private set; }
-        public UserGuid UserGuid { get; private set; }
+        public UserId InitiatorId { get; protected set; }
+        public UserGuid UserGuid { get; protected set; }
     }
 
     public class LockUserHandler : IHandleCommand<LockUser>

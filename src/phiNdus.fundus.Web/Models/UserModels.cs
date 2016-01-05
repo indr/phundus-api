@@ -6,10 +6,8 @@
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
+    using Phundus.Common.Domain.Model;
     using Phundus.Core.IdentityAndAccess.Queries;
-    using Phundus.Core.IdentityAndAccess.Users.Model;
-    using Phundus.Core.IdentityAndAccess.Users.Repositories;
-    using Phundus.Core.IdentityAndAccess.Users._Legacy;
 
     public class UserModel : ModelBase
     {
@@ -68,7 +66,7 @@
 
         private void GetRoles()
         {
-            _roles = new List<Role> {Role.Admin, Role.User}.Select(r => new SelectListItem
+            _roles = new List<UserRole> {UserRole.Admin, UserRole.User}.Select(r => new SelectListItem
             {
                 Value = ((int) r).ToString(CultureInfo.InvariantCulture),
                 Text = r.ToString(),
@@ -91,13 +89,6 @@
                 RoleId = RoleId,
                 RoleName = RoleName
             };
-        }
-
-        public void Update(IUserRepository userRepository)
-        {
-            var subject = Save();
-            var user = UserAssembler.UpdateDomainObject(subject);
-            userRepository.Update(user);
         }
     }
 }

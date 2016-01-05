@@ -57,28 +57,11 @@
         }
 
         [Test]
-        public void Can_set_and_get_Role()
-        {
-            var role = new Role();
-            var sut = new User();
-            sut.Role = role;
-            Assert.That(sut.Role, Is.EqualTo(role));
-        }
-
-        [Test]
         public void Create_assignes_Membership()
         {
             var sut = new User();
             Assert.That(sut.Account, Is.Not.Null);
             Assert.That(sut.Account.User, Is.EqualTo(sut));
-        }
-
-        [Test]
-        public void Create_assignes_User_role()
-        {
-            var sut = new User();
-            Assert.That(sut.Role, Is.Not.Null);
-            Assert.That(sut.Role, Is.EqualTo(Role.User));
         }
 
         [Test]

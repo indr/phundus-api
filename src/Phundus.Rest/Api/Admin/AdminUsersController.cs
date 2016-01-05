@@ -62,6 +62,11 @@
                     Dispatch(new UnlockUser(CurrentUserId, new UserGuid(requestContent.UserGuid)));
                 }
             }
+            if (requestContent.IsAdmin.HasValue)
+            {
+                Dispatch(new ChangeUserRole(CurrentUserId, new UserGuid(requestContent.UserGuid),
+                    requestContent.IsAdmin.Value ? UserRole.Admin : UserRole.User));
+            }
             return CreateNoContentResponse();
         }
     }
