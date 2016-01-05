@@ -6,12 +6,8 @@
     using Ddd;
     using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
-    using Inventory.Articles.Repositories;
     using Inventory.Services;
-    using Microsoft.Practices.ServiceLocation;
-    using NHibernate;
     using Repositories;
-    using Services;
     using Shop.Services;
 
     public class Cart : EntityBase
@@ -82,7 +78,8 @@
             }
         }
 
-        public virtual ICollection<Order> PlaceOrders(ICartRepository cartRepository, IOrderRepository orderRepository, ILessorService lessorService, ILesseeService lesseeService, IAvailabilityService availabilityService)
+        public virtual ICollection<Order> PlaceOrders(ICartRepository cartRepository, IOrderRepository orderRepository,
+            ILessorService lessorService, ILesseeService lesseeService, IAvailabilityService availabilityService)
         {
             var result = new List<Order>();
             var lessors = FindLessors(lessorService);

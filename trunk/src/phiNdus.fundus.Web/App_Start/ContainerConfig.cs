@@ -8,9 +8,7 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using CommonServiceLocator.WindsorAdapter;
     using Elmah.Mvc;
-    using Microsoft.Practices.ServiceLocation;
     using Phundus.Core.Ddd;
     using Phundus.Persistence;
     using Plumbing;
@@ -49,9 +47,6 @@
             container.Register(Component.For<IIdentity>()
                 .LifestylePerWebRequest()
                 .UsingFactoryMethod(() => HttpContext.Current.User.Identity));
-
-
-            ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
         }
     }
 }
