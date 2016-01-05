@@ -345,7 +345,6 @@
     <Content Include="Content\select2x2.png" />
     <Content Include="Content\spinner.gif" />
     <Content Include="Content\Views\Management\Applications.html" />
-    <Content Include="Content\Views\Management\Members.html" />
     <Content Include="Content\Views\Management\Settings.html" />
     <Content Include="images\yeoman.8cb970fb.png" />
     <Content Include="img\loading.gif" />
