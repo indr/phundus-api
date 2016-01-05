@@ -5,7 +5,6 @@
     using System.Net.Mail;
     using System.Net.Mime;
     using Infrastructure.Gateways;
-    using Microsoft.Practices.ServiceLocation;
     using RazorEngine;
 
     public abstract class BaseMail
@@ -40,16 +39,9 @@ If you think it was sent incorrectly contact the administrators at lukas.mueller
 <body>
 <div class=""container"" style=""margin: 10px; padding: 0;"">";
 
-        private IList<Attachment> _attachments = new List<Attachment>();
-
         private readonly IMailGateway _gateway;
+        private IList<Attachment> _attachments = new List<Attachment>();
         private dynamic _model = new {};
-
-        [Obsolete]
-        protected BaseMail()
-        {
-            _gateway = ServiceLocator.Current.GetInstance<IMailGateway>();
-        }
 
         protected BaseMail(IMailGateway mailGateway)
         {
