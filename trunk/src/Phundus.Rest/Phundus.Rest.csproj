@@ -120,6 +120,7 @@
     <Compile Include="Api\ArticlesController.cs" />
     <Compile Include="Api\QueryOkResponseContent.cs" />
     <Compile Include="ContentObjects\AdminUser.cs" />
+    <Compile Include="ContentObjects\Member.cs" />
     <Compile Include="ContentObjects\Relationship.cs" />
     <Compile Include="ContentObjects\Coordinate.cs" />
     <Compile Include="Api\EventlogController.cs" />
@@ -143,7 +144,6 @@
       </SubType>
     </Compile>
     <Compile Include="Api\OrdersController.cs" />
-    <Compile Include="Api\Organizations\OrganizationsMembersLocksController.cs" />
     <Compile Include="Api\Organizations\OrganizationsRelationshipsController.cs" />
     <Compile Include="Api\SessionsController.cs" />
     <Compile Include="Api\CartsController.cs" />

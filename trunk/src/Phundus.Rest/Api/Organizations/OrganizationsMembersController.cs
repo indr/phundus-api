@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common;
+    using ContentObjects;
     using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Queries;
     using Newtonsoft.Json;
@@ -33,7 +35,20 @@
                 username = queryParams["username"];
 
             var result = _memberQueries.Query(CurrentUserId, organizationId, username);
-            return new OrganizationsMembersQueryOkResponseContent(result);
+            return new OrganizationsMembersQueryOkResponseContent(result.Select(s => new Member
+            {
+                ApprovalDate = s.ApprovalDate,
+                EmailAddress = s.EmailAddress,
+                FirstName = s.FirstName,
+                FullName = s.FullName,
+                Guid = s.Guid,
+                Id=s.Id,
+                IsLocked = s.IsLocked,
+                IsManager = s.Role == 2,
+                JsNumber = s.JsNumber,
+                LastName = s.LastName,
+                Role = s.Role
+            }).ToList());
         }
 
         [POST("")]
@@ -65,12 +80,63 @@
 
             return CreateNoContentResponse();
         }
+
+        [PATCH("{memberId}")]
+        [Transaction]
+        public virtual HttpResponseMessage Patch(Guid organizationId, int memberId,
+            OrganizationsMembersPatchRequestContent requestContent)
+        {
+            if (requestContent.IsManager.HasValue)
+            {
+                Dispatch(new ChangeMembersRole
+                {
+                    OrganizationId = organizationId,
+                    InitiatorId = CurrentUserId.Id,
+                    MemberId = memberId,
+                    Role = requestContent.IsManager.Value ? 2 : 1
+                });
+            }
+            if (requestContent.IsLocked.HasValue)
+            {
+                if (requestContent.IsLocked.Value)
+                {
+                    Dispatcher.Dispatch(new LockMember
+                    {
+                        InitiatorId = CurrentUserId.Id,
+                        MemberId = memberId,
+                        OrganizationId = organizationId
+                    });
+                }
+                else
+                {
+                    Dispatcher.Dispatch(new UnlockMember
+                    {
+                        InitiatorId = CurrentUserId.Id,
+                        MemberId = memberId,
+                        OrganizationId = organizationId
+                    });
+                }
+            }
+
+            return CreateNoContentResponse();
+        }
     }
+
+    
 
     public class OrganizationsMembersPostRequestContent
     {
         [JsonProperty("applicationId")]
         public Guid ApplicationId { get; set; }
+    }
+
+    public class OrganizationsMembersPatchRequestContent
+    {
+        [JsonProperty("isManager")]
+        public bool? IsManager { get; set; }
+
+        [JsonProperty("isLocked")]
+        public bool? IsLocked { get; set; }
     }
 
     public class OrganizationsMembersPutRequestContent
@@ -79,9 +145,10 @@
         public int Role { get; set; }
     }
 
-    public class OrganizationsMembersQueryOkResponseContent : List<MemberDto>
+    public class OrganizationsMembersQueryOkResponseContent : List<Member>
     {
-        public OrganizationsMembersQueryOkResponseContent(IEnumerable<MemberDto> collection) : base(collection)
+        public OrganizationsMembersQueryOkResponseContent(IEnumerable<Member> collection)
+            : base(collection)
         {
         }
     }
