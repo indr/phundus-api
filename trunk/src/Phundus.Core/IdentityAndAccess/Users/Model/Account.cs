@@ -72,7 +72,7 @@
             IsLockedOut = true;
             LastLockoutDate = DateTime.UtcNow;
 
-            EventPublisher.Publish(new UserLocked(initiator, this.User, LastLockoutDate.Value));
+            EventPublisher.Publish(new UserLocked(initiator, User, LastLockoutDate.Value));
         }
 
         public virtual void Unlock(User initiator)
@@ -82,7 +82,7 @@
 
             IsLockedOut = false;
 
-            EventPublisher.Publish(new UserUnlocked(initiator, this.User, LastLockoutDate.GetValueOrDefault()));
+            EventPublisher.Publish(new UserUnlocked(initiator, User, LastLockoutDate.GetValueOrDefault()));
         }
 
         public virtual void LogOn(string sessionKey, string password)
@@ -150,6 +150,14 @@
             return false;
         }
 
-        
+
+        public virtual bool Approve()
+        {
+            if (IsApproved)
+                return false;
+
+            IsApproved = true;
+            return true;
+        }
     }
 }
