@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
 {
+    using Common.Domain.Model;
     using Core.IdentityAndAccess.Users.Model;
     using FluentNHibernate.Mapping;
 
@@ -23,7 +24,7 @@
 
             HasOne(x => x.Account).Cascade.All();
 
-            Map(x => x.Role, "RoleId").CustomType<Role>();
+            Map(x => x.Role, "RoleId").CustomType<UserRole>();
 
             /*
             <set name="Memberships" cascade="all-delete-orphan" lazy="true" inverse="true" >

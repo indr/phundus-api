@@ -24,7 +24,7 @@
         public User Admin(UserId userId)
         {
             var user = _userRepository.GetById(userId);
-            if (user.Role != Role.Admin)
+            if (user.Role != UserRole.Admin)
                 throw new AuthorizationException("Sie müssen Administratorenrechte haben.");
 
             return user;
