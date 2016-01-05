@@ -164,7 +164,6 @@
     <Compile Include="IdentityAndAccess\Users\Model\UserRoleChanged.cs" />
     <Compile Include="IdentityAndAccess\Users\Model\UserUnlocked.cs" />
     <Compile Include="IdentityAndAccess\Users\Services\UserInRole.cs" />
-    <Compile Include="IdentityAndAccess\Users\_Legacy\UserAssembler.cs" />
     <Compile Include="Inventory\Articles\Commands\AddImage.cs" />
     <Compile Include="Inventory\Articles\Commands\RemoveImage.cs" />
     <Compile Include="Inventory\Articles\Commands\UpdateDescription.cs" />

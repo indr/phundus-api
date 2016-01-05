@@ -9,7 +9,7 @@
     using Phundus.Common.Domain.Model;
     using Phundus.Core.IdentityAndAccess.Queries;
 
-    public class UserModel : ModelBase
+    public class UserModel
     {
         private IEnumerable<SelectListItem> _roles;
 
@@ -72,23 +72,6 @@
                 Text = r.ToString(),
                 Selected = (int) r == RoleId
             });
-        }
-
-
-        private UserDto Save()
-        {
-            return new UserDto
-            {
-                Id = Id,
-                Version = Version,
-                Email = Email,
-                IsApproved = IsApproved,
-                CreateDate = CreateDate,
-                FirstName = FirstName,
-                LastName = LastName,
-                RoleId = RoleId,
-                RoleName = RoleName
-            };
         }
     }
 }

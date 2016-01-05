@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using phiNdus.fundus.Web.Models;
-using phiNdus.fundus.Web.Models.CartModels;
-
-namespace phiNdus.fundus.Web.ViewModels
+﻿namespace phiNdus.fundus.Web.ViewModels
 {
+    using Models;
+    using Models.CartModels;
+
     public class CheckOutViewModel : ViewModelBase
     {
         public CartModel Cart { get; set; }
