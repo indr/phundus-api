@@ -72,7 +72,7 @@
         public User FindByEmailAddress(string emailAddress)
         {
             if (emailAddress == null) throw new ArgumentNullException("emailAddress");
-            emailAddress = emailAddress.ToLowerInvariant();
+            emailAddress = emailAddress.ToLowerInvariant().Trim();
 
             return Users.Where(u => u.Account.Email == emailAddress).SingleOrDefault();
         }
