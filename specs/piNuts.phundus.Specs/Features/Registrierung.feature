@@ -1,6 +1,6 @@
 ﻿Funktionalität: Registrierung
 
-
+@ignore
 Szenario: Erforderliche Felder
 	Angenommen ich bin auf der Registrierenseite
 	Angenommen ich bin auf der Seite "/account/signup"
