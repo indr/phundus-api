@@ -45,6 +45,7 @@ If you think it was sent incorrectly contact the administrators at lukas.mueller
 
         protected BaseMail(IMailGateway mailGateway)
         {
+            if (mailGateway == null) throw new ArgumentNullException("mailGateway");
             _gateway = mailGateway;
         }
 

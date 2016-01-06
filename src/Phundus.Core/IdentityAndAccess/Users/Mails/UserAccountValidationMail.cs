@@ -1,24 +1,27 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Users.Mails
 {
     using System;
+    using Ddd;
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;
+    using Repositories;
 
-    public class UserAccountValidationMail : BaseMail
+    public class UserAccountValidationMail : BaseMail, ISubscribeTo<UserRegistered>
     {
-        public UserAccountValidationMail(IMailGateway mailGateway) : base(mailGateway)
+        private readonly IUserRepository _userRepository;
+
+        public UserAccountValidationMail(IMailGateway mailGateway, IUserRepository userRepository) : base(mailGateway)
         {
+            if (userRepository == null) throw new ArgumentNullException("userRepository");
+            _userRepository = userRepository;
         }
 
-        public void Send(User user)
+        public void Handle(UserRegistered @event)
         {
-            Send(user.Account.Email, Templates.UserAccountValidationSubject, null, Templates.UserAccountValidationHtml);
-        }
-
-        public UserAccountValidationMail For(User user)
-        {
-            Guard.Against<ArgumentNullException>(user == null, "user");
+            var user = _userRepository.FindById(@event.UserId);
+            if (user == null)
+                return;
 
             Model = new
             {
@@ -27,7 +30,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            return this;
+            Send(user.Account.Email, Templates.UserAccountValidationSubject, null, Templates.UserAccountValidationHtml);
         }
     }
 }
