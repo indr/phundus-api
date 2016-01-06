@@ -213,7 +213,7 @@
                     Dispatcher.Dispatch(command);
 
 
-                    var user = Users.FindById(command.UserId);
+                    var user = Users.FindById(command.ResultingUserId);
                     // E-Mail mit Verifikationslink senden
                     new UserAccountValidationMail(MailGateway).For(user).Send(user);
 

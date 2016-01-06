@@ -10,7 +10,7 @@
     public interface IUserRepository : IRepository<User>
     {
         IEnumerable<User> FindAll();
-        User FindByEmail(string email);
+        User FindByEmailAddress(string emailAddress);
         User FindBySessionKey(string sessionKey);
         User FindByValidationKey(string validationKey);
 

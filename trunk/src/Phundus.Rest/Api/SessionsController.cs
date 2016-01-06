@@ -41,7 +41,7 @@
 
             FormsAuthentication.SetAuthCookie(requestContent.Username, false);
 
-            var user = _userQueries.ByUserName(requestContent.Username);
+            var user = _userQueries.FindByUsername(requestContent.Username);
 
             var memberships = _membershipQueries.ByUserId(user.Id)
                 .Select(each => new Memberships

@@ -4,10 +4,11 @@ namespace Phundus.Rest.Api
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
+    using System.Threading;
+    using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Common;
     using Common.Domain.Model;
     using ContentObjects;
     using Core.Inventory.Queries;
@@ -21,8 +22,7 @@ namespace Phundus.Rest.Api
 
         public StoresController(IStoreQueries storeQueries)
         {
-            AssertionConcern.AssertArgumentNotNull(storeQueries, "StoreQueries must be provided.");
-
+            if (storeQueries == null) throw new ArgumentNullException("storeQueries");
             _storeQueries = storeQueries;
         }
 
@@ -77,7 +77,7 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual HttpResponseMessage Patch(string storeId,
             StoresPatchRequestContent requestContent)
-        {
+        {            
             if (requestContent.Address != null)
             {
                 Dispatch(new ChangeAddress

@@ -29,7 +29,7 @@
             var result = Single<ShopArticleDetailDto>(
                 @"select a.Id, a.Name, a.Price, a.Description, a.Specification,  a.Owner_OwnerId as OrganizationId, a.Owner_Name as OrganizationName " +
                 @"from [Article] a left join [Organization] o on (a.Owner_OwnerId = o.Guid) " +
-                @"where a.Id = {0} " + 
+                @"where a.Id = {0} " +
                 //@" and o.[Plan] > 0" +
                 @"",
                 id);

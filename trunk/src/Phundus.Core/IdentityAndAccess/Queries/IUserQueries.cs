@@ -26,7 +26,7 @@
         UserDto FindById(int userId);
         UserDto FindById(Guid userId);
 
-        UserDto ByUserName(string userName);
+        UserDto FindByUsername(string username);
         IList<UserDto> All();
         UserDto FindActiveById(Guid userId);
 

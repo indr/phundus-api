@@ -69,9 +69,12 @@
             return Users.ToFuture();
         }
 
-        public User FindByEmail(string email)
+        public User FindByEmailAddress(string emailAddress)
         {
-            return Users.Where(u => u.Account.Email == email).SingleOrDefault();
+            if (emailAddress == null) throw new ArgumentNullException("emailAddress");
+            emailAddress = emailAddress.ToLowerInvariant();
+
+            return Users.Where(u => u.Account.Email == emailAddress).SingleOrDefault();
         }
 
         public User FindBySessionKey(string sessionKey)
