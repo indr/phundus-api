@@ -248,6 +248,7 @@
     <Compile Include="Shop\Queries\IContractQueries.cs" />
     <Compile Include="Shop\Queries\IOrderQueries.cs" />
     <Compile Include="Shop\Queries\IShopArticleQueries.cs" />
+    <Compile Include="Shop\Queries\ItemQueriesReadModel.cs" />
     <Compile Include="Shop\Queries\Models\ContractReadModelReader.cs" />
     <Compile Include="Shop\Queries\Models\OrderReadModelReader.cs" />
     <Compile Include="Shop\Queries\Models\ReadModelReaderBase.cs" />

@@ -144,7 +144,7 @@
                 return false;
 
             // Prüfen ob Benutzer bereits exisitiert.
-            if (Users.FindByEmail(user.Account.RequestedEmail) != null)
+            if (Users.FindByEmailAddress(user.Account.RequestedEmail) != null)
                 throw new EmailAlreadyTakenException();
 
             var result = user.Account.ValidateEmailKey(key);
@@ -163,7 +163,7 @@
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            var user = UserQueries.ByUserName(username);
+            var user = UserQueries.FindByUsername(username);
 
             if (user == null)
                 return null;
@@ -193,7 +193,7 @@
             AssertionConcern.AssertArgumentNotNull(password, "Password must be provided.");
 
             username = username.ToLower(CultureInfo.CurrentCulture).Trim();
-            var user = Users.FindByEmail(username);
+            var user = Users.FindByEmailAddress(username);
 
             if (user == null)
                 return false;

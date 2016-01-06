@@ -34,9 +34,11 @@
             return CreateDto(UserRepository.FindByGuid(userId));
         }
 
-        public UserDto ByUserName(string userName)
+        public UserDto FindByUsername(string username)
         {
-            return CreateDto(UserRepository.FindByEmail(userName));
+            if (username == null) throw new ArgumentNullException("username");
+
+            return CreateDto(UserRepository.FindByEmailAddress(username));
         }
 
         public IList<UserDto> All()

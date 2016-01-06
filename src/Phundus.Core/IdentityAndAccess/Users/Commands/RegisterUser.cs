@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Users.Commands
 {
+    using System;
     using Cqrs;
     using Ddd;
     using Exceptions;
@@ -11,6 +12,11 @@
         public RegisterUser(string emailAddress, string password, string firstName, string lastName, string street,
             string postcode, string city, string mobilePhone)
         {
+            if (emailAddress == null) throw new ArgumentNullException("emailAddress");
+            if (password == null) throw new ArgumentNullException("password");
+            if (firstName == null) throw new ArgumentNullException("firstName");
+            if (lastName == null) throw new ArgumentNullException("lastName");
+
             FirstName = firstName;
             LastName = lastName;
             Street = street;
@@ -21,16 +27,16 @@
             Password = password;
         }
 
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string Street { get; private set; }
-        public string Postcode { get; private set; }
-        public string City { get; private set; }
-        public string MobilePhone { get; private set; }
-        public string EmailAddress { get; private set; }
-        public string Password { get; private set; }
+        public string FirstName { get; protected set; }
+        public string LastName { get; protected set; }
+        public string Street { get; protected set; }
+        public string Postcode { get; protected set; }
+        public string City { get; protected set; }
+        public string MobilePhone { get; protected set; }
+        public string EmailAddress { get; protected set; }
+        public string Password { get; protected set; }
 
-        public int UserId { get; set; }
+        public int ResultingUserId { get; set; }
     }
 
     public class RegisterUserHandler : IHandleCommand<RegisterUser>
@@ -40,7 +46,7 @@
         public void Handle(RegisterUser command)
         {
             var emailAddress = command.EmailAddress.ToLowerInvariant().Trim();
-            if (UserRepository.FindByEmail(emailAddress) != null)
+            if (UserRepository.FindByEmailAddress(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
 
             var user = new User(emailAddress, command.Password, command.FirstName, command.LastName, command.Street,
@@ -55,7 +61,7 @@
                 user.MobileNumber
                 ));
 
-            command.UserId = userId;
+            command.ResultingUserId = userId;
         }
     }
 }

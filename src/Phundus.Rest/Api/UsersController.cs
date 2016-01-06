@@ -5,13 +5,16 @@ namespace Phundus.Rest.Api
     using System.Globalization;
     using System.Net;
     using System.Web;
+    using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
     using ContentObjects;
+    using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Queries;
+    using Core.IdentityAndAccess.Users.Commands;
     using Core.Inventory.Queries;
     using Newtonsoft.Json;
 
@@ -47,6 +50,64 @@ namespace Phundus.Rest.Api
 
             return new UsersGetOkResponseContent(user, memberships, store);
         }
+
+        [POST("")]
+        [AllowAnonymous]
+        [Transaction]
+        public virtual UsersPostOkResponseContent Post(UsersPostRequestContent requestContent)
+        {
+            var command = new RegisterUser(
+                        requestContent.Email, requestContent.Password, requestContent.FirstName,
+                        requestContent.LastName, requestContent.Street, requestContent.Postcode,
+                        requestContent.City, requestContent.MobilePhone);
+            Dispatcher.Dispatch(command);
+
+                   
+            if (requestContent.OrganizationId.HasValue)
+            {
+                Dispatcher.Dispatch(new ApplyForMembership
+                {
+                    ApplicantId = command.ResultingUserId,
+                    OrganizationId = requestContent.OrganizationId.Value
+                });
+            }
+
+            return new UsersPostOkResponseContent();
+        }
+    }
+
+    public class UsersPostOkResponseContent
+    {
+    }
+
+    public class UsersPostRequestContent
+    {
+        [JsonProperty("emailAddress")]
+        public string Email { get; set; }
+
+        [JsonProperty("password")]
+        public string Password { get; set; }
+
+        [JsonProperty("firstName")]
+        public string FirstName { get; set; }
+
+        [JsonProperty("lastName")]
+        public string LastName { get; set; }
+
+        [JsonProperty("street")]
+        public string Street { get; set; }
+
+        [JsonProperty("postcode")]
+        public string Postcode { get; set; }
+
+        [JsonProperty("city")]
+        public string City { get; set; }
+
+        [JsonProperty("mobilePhone")]
+        public string MobilePhone { get; set; }
+
+        [JsonProperty("organizationId")]
+        public Guid? OrganizationId { get; set; }
     }
 
     public class UsersGetOkResponseContent

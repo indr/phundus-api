@@ -24,7 +24,7 @@
 
         public void Handle(ResetPassword command)
         {
-            var user = UserRepository.FindByEmail(command.Username);
+            var user = UserRepository.FindByEmailAddress(command.Username);
             if (user == null)
                 throw new Exception("Die E-Mail-Adresse konnte nicht gefunden werden.");
             var password = user.Account.ResetPassword();

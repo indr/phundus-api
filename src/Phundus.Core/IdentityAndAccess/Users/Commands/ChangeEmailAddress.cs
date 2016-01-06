@@ -30,7 +30,7 @@
             var user = UserRepository.GetById(command.UserId);
 
             var emailAddress = command.EmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
-            if (UserRepository.FindByEmail(emailAddress) != null)
+            if (UserRepository.FindByEmailAddress(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
 
             user.Account.RequestedEmail = emailAddress;

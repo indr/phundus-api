@@ -28,12 +28,12 @@
             () => repository.WasToldTo(x => x.Add(Arg<User>.Is.NotNull));
 
         public It should_ask_for_unique_email_address =
-            () => repository.WasToldTo(x => x.FindByEmail(command.EmailAddress.ToLowerInvariant().Trim()));
+            () => repository.WasToldTo(x => x.FindByEmailAddress(command.EmailAddress.ToLowerInvariant().Trim()));
 
         public It should_publish_user_registered =
             () => publisher.WasToldTo(x => x.Publish(Arg<UserRegistered>.Is.NotNull));
 
         public It should_set_user_id_on_command =
-            () => command.UserId.ShouldEqual(userId);
+            () => command.ResultingUserId.ShouldEqual(userId);
     }
 }

@@ -9,6 +9,7 @@ namespace Phundus.Rest.Api
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
+    using ContentObjects;
     using Core.IdentityAndAccess.Queries;
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
@@ -235,7 +236,6 @@ namespace Phundus.Rest.Api
                     InitiatorId = CurrentUserId.Id
                 });
             }
-            
 
             return new ArticlesPatchOkResponseContent
             {

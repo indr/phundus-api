@@ -19,7 +19,7 @@
 
         public IList<MembershipDto> ByUserName(string userName)
         {
-            var user = UserQueries.ByUserName(userName);
+            var user = UserQueries.FindByUsername(userName);
             if (user == null)
                 return new List<MembershipDto>();
 

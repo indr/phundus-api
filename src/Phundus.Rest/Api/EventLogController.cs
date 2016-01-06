@@ -8,9 +8,9 @@ namespace Phundus.Rest.Api
     using Castle.Transactions;
     using Core.Dashboard.Querying;
 
-    [RoutePrefix("api/diagnostics/eventlog")]
+    [RoutePrefix("api/event-log")]
     [Authorize(Roles = "Admin")]
-    public class EventlogController : ApiControllerBase
+    public class EventLogController : ApiControllerBase
     {
         public IEventLogQueries EventLogQueries { get; set; }
 

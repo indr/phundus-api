@@ -9,7 +9,7 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
 
-    [RoutePrefix("api/diagnostics/schema-update")]
+    [RoutePrefix("api/schema-update")]
     [Authorize(Roles = "Admin")]
     public class SchemaUpdateController : ApiControllerBase
     {

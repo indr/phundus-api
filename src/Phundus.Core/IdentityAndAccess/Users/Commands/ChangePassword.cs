@@ -27,7 +27,7 @@
         [Transaction]
         public void Handle(ChangePassword command)
         {
-            var user = UserRepository.FindByEmail(command.Username);
+            var user = UserRepository.FindByEmailAddress(command.Username);
             user.Account.ChangePassword(command.OldPassword, command.NewPassword);
         }
     }
