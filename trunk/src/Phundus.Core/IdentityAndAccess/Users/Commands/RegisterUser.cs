@@ -4,6 +4,7 @@
     using Cqrs;
     using Ddd;
     using Exceptions;
+    using Mails;
     using Model;
     using Repositories;
 
@@ -41,18 +42,24 @@
 
     public class RegisterUserHandler : IHandleCommand<RegisterUser>
     {
-        public IUserRepository UserRepository { get; set; }
+        private readonly IUserRepository _userRepository;
+
+        public RegisterUserHandler(IUserRepository userRepository)
+        {
+            if (userRepository == null) throw new ArgumentNullException("userRepository");
+            _userRepository = userRepository;
+        }
 
         public void Handle(RegisterUser command)
         {
             var emailAddress = command.EmailAddress.ToLowerInvariant().Trim();
-            if (UserRepository.FindByEmailAddress(emailAddress) != null)
+            if (_userRepository.FindByEmailAddress(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
 
             var user = new User(emailAddress, command.Password, command.FirstName, command.LastName, command.Street,
                 command.Postcode, command.City, command.MobilePhone, null);
 
-            var userId = UserRepository.Add(user);
+            var userId = _userRepository.Add(user);
 
             EventPublisher.Publish(new UserRegistered(userId,
                 user.Account.Email, user.Account.Password, user.Account.Salt,
