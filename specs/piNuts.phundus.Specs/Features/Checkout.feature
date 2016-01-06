@@ -7,7 +7,7 @@ Grundlage:
 	Angenommen ich bin als Benutzer angemeldet
 	Und mein Warenkorb ist leer
 
-
+@ignore
 Szenario: Checkout 
 	Angenommen ich lege den Artikel mit der Id 10022 in den Warenkorb
 	Und ich lege den Artikel mit der Id 10023 in den Warenkorb
