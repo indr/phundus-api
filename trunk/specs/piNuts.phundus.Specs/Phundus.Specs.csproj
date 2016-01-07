@@ -36,6 +36,14 @@
     <CodeAnalysisFailOnMissingRules>true</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Core.3.3.1\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.SHDocVw">
       <HintPath>..\..\packages\WatiN.2.1.0\lib\net40\Interop.SHDocVw.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -53,6 +61,9 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <Private>True</Private>
       <HintPath>..\..\packages\WatiN.2.1.0\lib\net40\Microsoft.mshtml.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -89,6 +100,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\ResetPassword.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResetPassword.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AppBase.cs" />
+    <Compile Include="Services\Ctx.cs" />
+    <Compile Include="Services\RequestContentGenerator.cs" />
+    <Compile Include="Services\UserGenerator.cs" />
+    <Compile Include="Steps\AccountSteps.cs" />
+    <Compile Include="Api\AdminUsersApi.cs" />
+    <Compile Include="Api\ApiBase.cs" />
+    <Compile Include="Services\ApiClient.cs" />
+    <Compile Include="Services\App.cs" />
+    <Compile Include="Api\CustomJsonSerializer.cs" />
+    <Compile Include="Api\ResetPasswordApi.cs" />
+    <Compile Include="Api\SessionsApi.cs" />
+    <Compile Include="Api\UsersApi.cs" />
+    <Compile Include="Steps\StepsBase.cs" />
+    <Compile Include="Steps\UserSteps.cs" />
     <Compile Include="Features\Shop.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -128,12 +159,13 @@
     <Compile Include="Rest\OrdersSpecs.cs" />
     <Compile Include="Rest\PhundusApi.cs" />
     <Compile Include="Rest\PhundusApiAuthenticator.cs" />
-    <Compile Include="Steps\ShopSteps.cs" />
-    <Compile Include="Steps\CommonSteps.cs" />
-    <Compile Include="Steps\FeedbackSteps.cs" />
-    <Compile Include="Steps\LoginSteps.cs" />
-    <Compile Include="Steps\StartseiteSteps.cs" />
-    <Compile Include="Steps\StepBase.cs" />
+    <Compile Include="Steps\Legacy\ShopSteps.cs" />
+    <Compile Include="Steps\Legacy\CommonSteps.cs" />
+    <Compile Include="Steps\Legacy\FeedbackSteps.cs" />
+    <Compile Include="Steps\Legacy\LoginSteps.cs" />
+    <Compile Include="Steps\Legacy\StartseiteSteps.cs" />
+    <Compile Include="Steps\Legacy\StepBase.cs" />
+    <Compile Include="Services\WindsorContainerSupport.cs" />
     <Compile Include="Www\RobotsTxt.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -142,6 +174,10 @@
     <Compile Include="Www\Steps\RobotsTxtSteps.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Account\ResetPassword.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ResetPassword.feature.cs</LastGenOutput>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -187,6 +223,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Phundus.Rest\Phundus.Rest.csproj">
+      <Project>{54a42682-059d-43b5-8028-60d1e4058371}</Project>
+      <Name>Phundus.Rest</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

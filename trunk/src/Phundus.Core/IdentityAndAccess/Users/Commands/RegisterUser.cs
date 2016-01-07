@@ -38,6 +38,7 @@
         public string Password { get; protected set; }
 
         public int ResultingUserId { get; set; }
+        public Guid ResultingUserGuid { get; set; }
     }
 
     public class RegisterUserHandler : IHandleCommand<RegisterUser>
@@ -69,6 +70,7 @@
                 ));
 
             command.ResultingUserId = userId;
+            command.ResultingUserGuid = user.Guid;
         }
     }
 }

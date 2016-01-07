@@ -22,8 +22,8 @@ namespace Phundus.Rest.Api
     public class UsersController : ApiControllerBase
     {
         private readonly IMembershipQueries _membershipQueries;
-        private readonly IUserQueries _userQueries;
         private readonly IStoreQueries _storeQueries;
+        private readonly IUserQueries _userQueries;
 
         public UsersController(IUserQueries userQueries, IMembershipQueries membershipQueries,
             IStoreQueries storeQueries)
@@ -35,6 +35,30 @@ namespace Phundus.Rest.Api
             _userQueries = userQueries;
             _membershipQueries = membershipQueries;
             _storeQueries = storeQueries;
+        }
+
+        [POST("")]
+        [AllowAnonymous]
+        [Transaction]
+        public virtual UsersPostOkResponseContent Post(UsersPostRequestContent requestContent)
+        {
+            var command = new RegisterUser(
+                requestContent.Email, requestContent.Password, requestContent.FirstName,
+                requestContent.LastName, requestContent.Street, requestContent.Postcode,
+                requestContent.City, requestContent.MobilePhone);
+            Dispatcher.Dispatch(command);
+
+
+            if (requestContent.OrganizationId.HasValue)
+            {
+                Dispatcher.Dispatch(new ApplyForMembership
+                {
+                    ApplicantId = command.ResultingUserId,
+                    OrganizationId = requestContent.OrganizationId.Value
+                });
+            }
+
+            return new UsersPostOkResponseContent {UserGuid = command.ResultingUserGuid};
         }
 
         [GET("{userId}")]
@@ -50,34 +74,13 @@ namespace Phundus.Rest.Api
 
             return new UsersGetOkResponseContent(user, memberships, store);
         }
-
-        [POST("")]
-        [AllowAnonymous]
-        [Transaction]
-        public virtual UsersPostOkResponseContent Post(UsersPostRequestContent requestContent)
-        {
-            var command = new RegisterUser(
-                        requestContent.Email, requestContent.Password, requestContent.FirstName,
-                        requestContent.LastName, requestContent.Street, requestContent.Postcode,
-                        requestContent.City, requestContent.MobilePhone);
-            Dispatcher.Dispatch(command);
-
-                   
-            if (requestContent.OrganizationId.HasValue)
-            {
-                Dispatcher.Dispatch(new ApplyForMembership
-                {
-                    ApplicantId = command.ResultingUserId,
-                    OrganizationId = requestContent.OrganizationId.Value
-                });
-            }
-
-            return new UsersPostOkResponseContent();
-        }
     }
+
 
     public class UsersPostOkResponseContent
     {
+        [JsonProperty("userGuid")]
+        public Guid UserGuid { get; set; }
     }
 
     public class UsersPostRequestContent
@@ -119,7 +122,7 @@ namespace Phundus.Rest.Api
             Username = user.Email;
             FullName = user.FirstName + " " + user.LastName;
             EmailAddress = user.Email;
-            
+
             Memberships = new List<Memberships>();
             foreach (var each in memberships)
             {
@@ -142,7 +145,7 @@ namespace Phundus.Rest.Api
 
                 if (store.Latitude.HasValue && store.Longitude.HasValue)
                 {
-                    Store.Coordinate = new Coordinate()
+                    Store.Coordinate = new Coordinate
                     {
                         Latitude = store.Latitude.Value,
                         Longitude = store.Longitude.Value
