@@ -6,14 +6,14 @@ namespace Phundus.Rest.ContentObjects
 
     public class Mail
     {
-        [JsonProperty("Id")]
-        public string Id { get; set; }
+        [JsonProperty("mailId")]
+        public string MailId { get; set; }
 
         [JsonProperty("from")]
         public string From { get; set; }
 
         [JsonProperty("to")]
-        public IList<string> To { get; set; }
+        public List<string> To { get; set; }
 
         [JsonProperty("subject")]
         public string Subject { get; set; }

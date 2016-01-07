@@ -6,6 +6,6 @@
 Grundlage: 
 	Angenommen bestätigter Benutzer
 
-Szenario: Happy Path
+Szenario: Zurücksetzung sendet E-Mail Neues Passwort.
 	Wenn Passwort zurücksetzen
 	Dann E-Mail "[phundus] Neues Passwort" an Benutzer
