@@ -75,8 +75,17 @@ namespace Phundus.Specs.Services
         {
             var result = new Pop3Client();
             result.Connect("phundus.ch", 110, false);
-            result.Authenticate(toAddress, "p@ss_w03d");
+            result.Authenticate(GetUserName(toAddress), "p@ss_w03d");
             return result;
+        }
+
+        private static string GetUserName(string toAddress)
+        {
+            if (toAddress == "admin@test.phundus.ch")
+                return toAddress;
+            if (toAddress == "user@test.phundus.ch")
+                return toAddress;
+            return "catch-all@test.phundus.ch";
         }
 
         private static Mail ToMail(Message message)
