@@ -1,6 +1,7 @@
 namespace Phundus.Specs.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Threading;
@@ -35,6 +36,9 @@ namespace Phundus.Specs.Services
 
     public class PopMailbox : IMailbox
     {
+        private static readonly IList<string> Accounts = new[]
+        {"admin@test.phundus.ch", "chief@test.phundus.ch", "user@test.phundus.ch"};
+
         private readonly TimeSpan _delayPeriod;
         private readonly TimeSpan _pause;
 
@@ -81,9 +85,8 @@ namespace Phundus.Specs.Services
 
         private static string GetUserName(string toAddress)
         {
-            if (toAddress == "admin@test.phundus.ch")
-                return toAddress;
-            if (toAddress == "user@test.phundus.ch")
+            toAddress = toAddress.ToLowerInvariant();
+            if (Accounts.Contains(toAddress))
                 return toAddress;
             return "catch-all@test.phundus.ch";
         }
