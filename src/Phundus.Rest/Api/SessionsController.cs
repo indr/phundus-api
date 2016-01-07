@@ -93,7 +93,7 @@
     public class SessionsPostOkResponseContent
     {
         [JsonProperty("memberships")]
-        public IList<Memberships> Memberships { get; set; }
+        public List<Memberships> Memberships { get; set; }
 
         [JsonProperty("role")]
         public Role Role { get; set; }
