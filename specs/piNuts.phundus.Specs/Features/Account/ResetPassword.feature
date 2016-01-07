@@ -1,4 +1,4 @@
-﻿Funktionalität: Password reset
+﻿Funktionalität: Reset password
 	Wenn ein Benutzer sein Passwort nicht mehr weiss, dann kann er ein neues Passwort beantragen.
 	Dazu wird dem Benutzer ein E-Mail gesendet, welches einen Link enthält. Wird dieser Link
 	aufgerufen, so wird das neue Passwort aktiviert.

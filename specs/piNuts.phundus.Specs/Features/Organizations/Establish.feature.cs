@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Phundus.Specs.Features.Account
+namespace Phundus.Specs.Features.Organizations
 {
     using TechTalk.SpecFlow;
     
@@ -19,22 +19,20 @@ namespace Phundus.Specs.Features.Account
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Reset password")]
-    public partial class ResetPasswordFeature
+    [NUnit.Framework.DescriptionAttribute("Establish organization")]
+    public partial class EstablishOrganizationFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "ResetPassword.feature"
+#line 1 "Establish.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("de-DE"), "Reset password", "Wenn ein Benutzer sein Passwort nicht mehr weiss, dann kann er ein neues Passwort" +
-                    " beantragen.\nDazu wird dem Benutzer ein E-Mail gesendet, welches einen Link enth" +
-                    "ält. Wird dieser Link\naufgerufen, so wird das neue Passwort aktiviert.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("de-DE"), "Establish organization", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -68,25 +66,44 @@ namespace Phundus.Specs.Features.Account
         
         public virtual void FeatureBackground()
         {
-#line 6
-#line 7
- testRunner.Given("a confirmed user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+#line 3
+#line 4
+ testRunner.Given("a confirmed admin", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("sends email \"Neues Passwort\"")]
-        public virtual void SendsEmailNeuesPasswort()
+        [NUnit.Framework.DescriptionAttribute("can query for")]
+        public virtual void CanQueryFor()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("sends email \"Neues Passwort\"", ((string[])(null)));
-#line 9
-this.ScenarioSetup(scenarioInfo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("can query for", ((string[])(null)));
 #line 6
+this.ScenarioSetup(scenarioInfo);
+#line 3
 this.FeatureBackground();
-#line 10
- testRunner.When("reset password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 7
+ testRunner.When("establish organization", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 8
+ testRunner.Then("query organizations should contain it", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("can get details")]
+        [NUnit.Framework.IgnoreAttribute()]
+        public virtual void CanGetDetails()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("can get details", new string[] {
+                        "ignore"});
 #line 11
- testRunner.Then("user should receive email \"[phundus] Neues Passwort\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 12
+ testRunner.When("establish organization", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 13
+ testRunner.Then("get organization details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line hidden
             this.ScenarioCleanup();
         }

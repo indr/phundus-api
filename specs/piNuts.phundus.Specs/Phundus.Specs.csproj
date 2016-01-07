@@ -100,17 +100,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\MailsApi.cs" />
+    <Compile Include="Api\OrganizationsApi.cs" />
     <Compile Include="Features\Account\ResetPassword.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ResetPassword.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Organizations\Establish.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Establish.feature</DependentUpon>
+    </Compile>
     <Compile Include="Services\AppBase.cs" />
     <Compile Include="Services\Ctx.cs" />
-    <Compile Include="Services\RequestContentGenerator.cs" />
+    <Compile Include="Services\Entities\Organization.cs" />
+    <Compile Include="Services\Entities\User.cs" />
     <Compile Include="Services\Mailbox.cs" />
-    <Compile Include="Services\UserGenerator.cs" />
-    <Compile Include="Steps\AccountSteps.cs" />
+    <Compile Include="Services\Entities\EntityGenerator.cs" />
+    <Compile Include="Steps\ResetPasswordSteps.cs" />
     <Compile Include="Api\AdminUsersApi.cs" />
     <Compile Include="Api\ApiBase.cs" />
     <Compile Include="Services\ApiClient.cs" />
@@ -119,6 +127,7 @@
     <Compile Include="Api\ResetPasswordApi.cs" />
     <Compile Include="Api\SessionsApi.cs" />
     <Compile Include="Api\UsersApi.cs" />
+    <Compile Include="Steps\EstablishOrganizationSteps.cs" />
     <Compile Include="Steps\StepsBase.cs" />
     <Compile Include="Steps\UserSteps.cs" />
     <Compile Include="_Legacy\Features\Shop.feature.cs">
@@ -172,6 +181,10 @@
     </None>
     <None Include="Default.srprofile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Features\Organizations\Establish.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Establish.feature.cs</LastGenOutput>
     </None>
     <None Include="_Legacy\Features\Checkout.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

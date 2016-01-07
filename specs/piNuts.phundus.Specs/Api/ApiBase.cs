@@ -94,5 +94,17 @@
                 throw response.ErrorException;
             }
         }
+
+        public IRestResponse<T> Post<T>(object requestContent) where T : new()
+        {
+            var request = GetRestRequest(requestContent, Method.POST);
+            return Execute<T>(request);
+        }
+
+        public IRestResponse<T> Query<T>() where T : new()
+        {
+            var request = GetRestRequest(Method.GET);
+            return Execute<T>(request);
+        }
     }
 }

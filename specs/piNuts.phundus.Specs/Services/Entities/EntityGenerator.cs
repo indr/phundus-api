@@ -1,19 +1,11 @@
-namespace Phundus.Specs.Services
+namespace Phundus.Specs.Services.Entities
 {
     using System;
     using System.Collections.Generic;
     using TechTalk.SpecFlow;
 
-    public class User
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string EmailAddress { get; set; }
-        public Guid Guid { get; set; }
-    }
-
     [Binding]
-    public class UserGenerator
+    public class EntityGenerator
     {
         private IList<string> _firstNames = new List<string>
         {
@@ -49,20 +41,9 @@ namespace Phundus.Specs.Services
 
         private Random _random;
 
-        public UserGenerator()
+        public EntityGenerator()
         {
             _random = new System.Random();
-        }
-
-        public User Generate()
-        {
-            var result = new User
-            {
-                FirstName = Random(_firstNames),
-                LastName = Random(_lastNames),
-                EmailAddress = RandomTestEmailAddress()
-            };
-            return result;
         }
 
         private string RandomTestEmailAddress()
@@ -75,9 +56,24 @@ namespace Phundus.Specs.Services
             return list[_random.Next(0, list.Count - 1)];
         }
 
-        public User Next()
+        public User NextUser()
         {
-            return Generate();
+            var result = new User
+            {
+                FirstName = Random(_firstNames),
+                LastName = Random(_lastNames),
+                EmailAddress = RandomTestEmailAddress()
+            };
+            return result;
+        }
+
+        public Organization NextOrganization()
+        {
+            var result = new Organization
+            {
+                Name = Random(_lastNames)
+            };
+            return result;
         }
     }
 }

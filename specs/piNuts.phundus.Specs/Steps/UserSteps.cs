@@ -3,10 +3,15 @@
     using Services;
     using TechTalk.SpecFlow;
 
+    public enum UserRole
+    {
+        Admin = 2
+    }
+
     [Binding]
     public class UserSteps : StepsBase
     {
-        protected UserSteps(App app, Ctx ctx) : base(app, ctx)
+        public UserSteps(App app, Ctx ctx) : base(app, ctx)
         {
         }
 
@@ -15,7 +20,18 @@
         {
             var user = App.SignUpUser();
             App.ConfirmUser(user.Guid);
-            Ctx.User = user;
+            Ctx.CurrentUser = user;
         }
+
+        [Given(@"a confirmed admin")]
+        public void AngenommenAConfirmedAdmin()
+        {
+            var user = App.SignUpUser();
+            App.LogInAsRoot();
+            App.ConfirmUser(user.Guid);
+            App.SetUsersRole(user.Guid, UserRole.Admin);
+            Ctx.CurrentUser = user;
+        }
+
     }
 }
