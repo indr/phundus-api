@@ -16,19 +16,19 @@
             _mailbox = mailbox;
         }
 
-        [When(@"Passwort zurücksetzen")]
-        public void WennPasswortZurucksetzen()
+        [When(@"reset password")]
+        public void ResetPassword()
         {
             App.ResetPassword(Ctx.User.EmailAddress);
         }
 
-        [Then(@"E-Mail ""(.*)"" an Benutzer")]
-        public void DannE_MailAnBenutzer(string subject)
+        [Then(@"user should receive email ""(.*)""")]
+        public void UserShouldReceiveEmail(string subject)
         {
             var toAddress = Ctx.User.EmailAddress;
             var message = _mailbox.Find(subject, toAddress);
             Assert.That(message, Is.Not.Null,
-                String.Format("E-Mail mit Betreff \"{0}\" an {1} nicht gefunden.", subject, toAddress));
+                String.Format("Email with subject \"{0}\" to {1} not found.", subject, toAddress));
         }
     }
 }

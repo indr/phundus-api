@@ -1,11 +1,9 @@
-﻿using System.Linq;
-using NUnit.Framework;
-using TechTalk.SpecFlow;
-using WatiN.Core;
-
-namespace piNuts.phundus.Specs.Steps
+﻿namespace Phundus.Specs.Steps
 {
     using System.Net.Http;
+    using NUnit.Framework;
+    using TechTalk.SpecFlow;
+    using WatiN.Core;
 
     [Binding]
     public class ShopSteps : StepBase

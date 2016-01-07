@@ -1,16 +1,14 @@
 ﻿namespace Phundus.Specs.Www.Steps
 {
     using System;
-    using System.IO;
     using System.Net;
-    using System.Text.RegularExpressions;
     using NUnit.Framework;
-    using piNuts.phundus.Specs.Steps;
+    using Specs.Steps;
     using TechTalk.SpecFlow;
 
     [Binding]
     public class RobotsTxtSteps : StepBase
-    {        
+    {
         private HttpWebResponse _response;
 
         [When(@"/robots\.txt aufgerufen wird")]

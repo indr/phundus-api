@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Phundus.Specs._Legacy.Features
+namespace Phundus.Specs.Features.Account
 {
     using TechTalk.SpecFlow;
     
@@ -19,20 +19,22 @@ namespace Phundus.Specs._Legacy.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Registrierung")]
-    public partial class RegistrierungFeature
+    [NUnit.Framework.DescriptionAttribute("Password reset")]
+    public partial class PasswordResetFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Registrierung.feature"
+#line 1 "ResetPassword.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("de-DE"), "Registrierung", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("de-DE"), "Password reset", "Wenn ein Benutzer sein Passwort nicht mehr weiss, dann kann er ein neues Passwort" +
+                    " beantragen.\nDazu wird dem Benutzer ein E-Mail gesendet, welches einen Link enth" +
+                    "ält. Wird dieser Link\naufgerufen, so wird das neue Passwort aktiviert.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -64,23 +66,27 @@ namespace Phundus.Specs._Legacy.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Erforderliche Felder")]
-        [NUnit.Framework.IgnoreAttribute()]
-        public virtual void ErforderlicheFelder()
+        public virtual void FeatureBackground()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Erforderliche Felder", new string[] {
-                        "ignore"});
-#line 4
-this.ScenarioSetup(scenarioInfo);
-#line 5
- testRunner.Given("ich bin auf der Registrierenseite", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
 #line 6
- testRunner.Given("ich bin auf der Seite \"/account/signup\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
 #line 7
- testRunner.When("ich auf \"Registrieren\" klicke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
-#line 8
- testRunner.Then("muss die Meldung \"Das Feld \"Ort\" ist erforderlich.\" erscheinen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+ testRunner.Given("a confirmed user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+#line hidden
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("sends email \"Neues Passwort\"")]
+        public virtual void SendsEmailNeuesPasswort()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("sends email \"Neues Passwort\"", ((string[])(null)));
+#line 9
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 10
+ testRunner.When("reset password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 11
+ testRunner.Then("user should receive email \"[phundus] Neues Passwort\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line hidden
             this.ScenarioCleanup();
         }
