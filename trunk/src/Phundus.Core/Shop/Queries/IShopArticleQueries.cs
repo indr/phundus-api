@@ -67,7 +67,7 @@
 
 
             var result = Paged<ShopArticleSearchResultDto>(
-                @"select a.Id, a.Name, a.Price, o.Name as OrganizationName " +
+                @"select a.Id, a.Name, a.Price, a.Owner_Name as OrganizationName " +
                 @"from [Article] a " +
                 @"left join [Organization] o on (a.Owner_OwnerId = o.Guid) " +
                 where +
