@@ -329,6 +329,7 @@
     <Content Include="App_Data\Seeds\Users.csv" />
     <Content Include="App_Data\Seeds\Articles.csv" />
     <Content Include="App_Data\Seeds\ArticleImages.csv" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -338,6 +339,10 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Parameters.xml" />
     <Content Include="Content\select2.css" />
     <Content Include="Content\select2.png" />
@@ -401,7 +406,7 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\scripts.c65d806e.js" />
+    <Content Include="Scripts\scripts.7e306c2c.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.js" />
@@ -668,9 +673,9 @@
     <Content Include="Scripts\ui-bootstrap-tpls-0.2.0.min.js" />
     <None Include="Properties\PublishProfiles\TestProfile.pubxml" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
-    <Content Include="Scripts\vendor.c3e5797c.js" />
-    <Content Include="styles\main.c86aca53.css" />
-    <Content Include="styles\vendor.d1354c8f.css" />
+    <Content Include="Scripts\vendor.b9a5fa79.js" />
+    <Content Include="styles\main.c03d75f4.css" />
+    <Content Include="styles\vendor.1f8e5af6.css" />
     <Content Include="Views\Management\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
