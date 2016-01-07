@@ -1,7 +1,7 @@
-﻿using TechTalk.SpecFlow;
-
-namespace piNuts.phundus.Specs.Steps
+﻿namespace Phundus.Specs.Steps
 {
+    using TechTalk.SpecFlow;
+
     [Binding]
     public class FeedbackSteps : StepBase
     {

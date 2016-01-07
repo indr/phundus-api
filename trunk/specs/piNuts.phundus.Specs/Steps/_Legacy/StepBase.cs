@@ -1,4 +1,4 @@
-﻿namespace piNuts.phundus.Specs.Steps
+﻿namespace Phundus.Specs.Steps
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using Phundus.Specs.Browsers;
+    using Browsers;
 
     public class StepBase
     {

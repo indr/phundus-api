@@ -1,13 +1,11 @@
-﻿using System;
-using System.Configuration;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using TechTalk.SpecFlow;
-using WatiN.Core;
-
-namespace piNuts.phundus.Specs.Steps
+﻿namespace Phundus.Specs.Steps
 {
+    using System;
+    using System.Configuration;
+    using System.Reflection;
     using NUnit.Framework;
+    using TechTalk.SpecFlow;
+    using WatiN.Core;
 
     [Binding]
     public class StartseiteSteps : StepBase

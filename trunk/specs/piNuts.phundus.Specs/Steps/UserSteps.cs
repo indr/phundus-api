@@ -10,8 +10,8 @@
         {
         }
 
-        [Given(@"bestätigter Benutzer")]
-        public void AngenommenBestatigterBenutzer()
+        [Given(@"a confirmed user")]
+        public void AConfirmedUser()
         {
             var user = App.SignUpUser();
             App.ConfirmUser(user.Guid);

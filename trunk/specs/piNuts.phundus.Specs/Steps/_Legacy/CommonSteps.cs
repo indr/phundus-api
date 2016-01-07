@@ -1,16 +1,11 @@
-﻿namespace piNuts.phundus.Specs.Steps
+﻿namespace Phundus.Specs.Steps
 {
     using System;
-    using System.Collections.Generic;
     using System.Configuration;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Http;
     using System.Reflection;
     using NUnit.Framework;
-    using OpenPop.Mime;
     using Phundus.Rest.ContentObjects;
-    using Phundus.Specs.Services;
+    using Services;
     using TechTalk.SpecFlow;
     using WatiN.Core;
 
@@ -80,7 +75,7 @@
             text = text.Replace("{AppSettings.ServerUrl}", ConfigurationManager.AppSettings["ServerUrl"]);
             text = text.Replace("{Assembly.Version}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
             var textField = Browser.TextField(Find.ByLabelText(feld));
-            textField.TypeText(text);            
+            textField.TypeText(text);
         }
 
         [Given(@"ich tippe ins Feld ""(.*)"" ein:")]
@@ -107,14 +102,13 @@
         public void WennIchAufDrucke(string value)
         {
             Browser.Button(Find.ByValue(value).Or(Find.ByText(value))).Click();
-
         }
 
         [Then(@"muss die Meldung ""(.*)"" erscheinen")]
         public void DannMussDieMeldungErscheinen(string meldung)
         {
             Assert.That(Browser.ContainsText(meldung), Is.True,
-                        String.Format("Die Meldung \"{0}\" ist nicht vorhanden.", meldung));
+                String.Format("Die Meldung \"{0}\" ist nicht vorhanden.", meldung));
         }
 
         [Then(@"muss das Feld ""(.*)"" rot sein")]
@@ -129,10 +123,8 @@
             var message = _mailbox.Find(betreff, adresse);
 
             if (message == null)
-                Assert.Fail(
-                    String.Format(
-                        "Das E-Mail mit Betreff \"{0}\" im Postfach für \"{1}\" konnte nicht gefunden werden.",
-                        betreff, adresse));
+                Assert.Fail("Das E-Mail mit Betreff \"{0}\" im Postfach für \"{1}\" konnte nicht gefunden werden.",
+                    betreff, adresse);
             return message;
         }
 
