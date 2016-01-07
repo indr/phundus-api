@@ -49,7 +49,7 @@
                     @if (Request.IsAuthenticated && User.Identity.IsAuthenticated)
                     {
                         <li>
-                            <a href="/#/manage/users/@Model.UserId/orders/">Bestellungen</a>
+                            <a href="/#/users/@Model.UserId/orders/">Bestellungen</a>
                         </li>
                     }
                     @if (User.IsInRole("Admin"))
