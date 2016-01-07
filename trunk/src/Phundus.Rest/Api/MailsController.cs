@@ -18,7 +18,7 @@
     public class MailsController : ApiControllerBase
     {
         [GET("")]
-        public virtual MailsQueryOkResponseContent Get()
+        public virtual QueryOkResponseContent<Mail> Get()
         {
             var messages = GetMails();
 
@@ -30,14 +30,13 @@
                     messages = messages.Where(p => p.To.Contains(to));
                 }
             }
-
-            return new MailsQueryOkResponseContent(messages.OrderByDescending(p => p.Date));
+            return new QueryOkResponseContent<Mail>(messages.OrderByDescending(p => p.Date));
         }
 
-        [GET("{id}")]
-        public virtual HttpResponseMessage Get(string id)
+        [GET("{mailId}")]
+        public virtual HttpResponseMessage Get(string mailId)
         {
-            var result = GetMails().SingleOrDefault(p => p.Id == id);
+            var result = GetMails().SingleOrDefault(p => p.MailId == mailId);
             if (result == null)
                 throw new NotFoundException("Mail not found.");
 
@@ -85,7 +84,7 @@
         {
             return new Mail
             {
-                Id = id,
+                MailId = id,
                 Date = message.Headers.DateSent,
                 Subject = message.Headers.Subject,
                 From = message.Headers.From.Address,
@@ -93,14 +92,6 @@
                 TextBody = message.TextBody != null ? message.TextBody.GetBodyAsText() : null,
                 HtmlBody = message.HtmlBody != null ? message.HtmlBody.GetBodyAsText() : null
             };
-        }
-    }
-
-    public class MailsQueryOkResponseContent : List<Mail>
-    {
-        public MailsQueryOkResponseContent(IEnumerable<Mail> collection)
-            : base(collection)
-        {
         }
     }
 }

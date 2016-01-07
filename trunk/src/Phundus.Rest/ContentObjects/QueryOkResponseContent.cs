@@ -1,14 +1,13 @@
 namespace Phundus.Rest.ContentObjects
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Newtonsoft.Json;
 
     public class ResetPasswordPostRequestContent
     {
-        [JsonProperty("userGuid")]
-        public Guid UserGuid { get; set; }
+        [JsonProperty("emailAddress")]
+        public string EmailAddress { get; set; }
     }
 
     public class QueryOkResponseContent<T>
@@ -24,6 +23,6 @@ namespace Phundus.Rest.ContentObjects
         }
 
         [JsonProperty("results")]
-        public IList<T> Results { get; set; }
+        public List<T> Results { get; set; }
     }
 }

@@ -15,15 +15,14 @@ namespace Phundus.Specs.Services
             _userGenerator = userGenerator;
         }
 
-        public UsersPostRequestContent GenerateUsersPostRequestContent()
+        public UsersPostRequestContent GenerateUsersPostRequestContent(User user)
         {
-            var randomUser = _userGenerator.Next();
             return new UsersPostRequestContent
             {
                 City = "Stadt",
-                Email = randomUser.EmailAddress,
-                FirstName = randomUser.FirstName,
-                LastName = randomUser.LastName,
+                Email = user.EmailAddress,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 MobilePhone = "123",
                 Password = "secret",
                 Postcode = "6000",

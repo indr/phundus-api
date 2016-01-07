@@ -46,7 +46,7 @@
             return response;
         }
 
-        private IRestResponse<T> Execute<T>(RestRequest request) where T : new()
+        protected IRestResponse<T> Execute<T>(RestRequest request) where T : new()
         {
             var response = GetClient().Execute<T>(request);
             HandleErrorException(response);
@@ -67,13 +67,19 @@
             return new RestClient(BaseUrl);
         }
 
+        protected RestRequest GetRestRequest(Method method)
+        {
+            return GetRestRequest(null, method);
+        }
+
         protected RestRequest GetRestRequest(object requestContent, Method method)
         {
             var request = new RestRequest(method);
             request.Resource = _resource;
             request.RequestFormat = DataFormat.Json;
             request.JsonSerializer = new CustomJsonSerializer();
-            request.AddBody(requestContent);
+            if (requestContent != null)
+                request.AddBody(requestContent);
             foreach (var each in Cookies)
             {
                 request.AddCookie(each.Key, each.Value);

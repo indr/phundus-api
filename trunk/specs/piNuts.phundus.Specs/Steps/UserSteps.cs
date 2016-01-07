@@ -11,10 +11,10 @@
         }
 
         [Given(@"bestätigter Benutzer")]
-        public void AngenommenBenutzerBestatigt()
+        public void AngenommenBestatigterBenutzer()
         {
             var user = App.SignUpUser();
-            App.ConfirmUser(user);
+            App.ConfirmUser(user.Guid);
             Ctx.User = user;
         }
     }

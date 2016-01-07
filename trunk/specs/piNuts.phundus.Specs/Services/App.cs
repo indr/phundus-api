@@ -13,20 +13,25 @@
     {
         private readonly ApiClient _apiClient;
         private readonly RequestContentGenerator _generator;
+        private readonly UserGenerator _userGenerator;
 
-        public App(ApiClient apiClient, RequestContentGenerator generator)
+        public App(ApiClient apiClient, RequestContentGenerator generator, UserGenerator userGenerator)
         {
             if (apiClient == null) throw new ArgumentNullException("apiClient");
             if (generator == null) throw new ArgumentNullException("generator");
+            if (userGenerator == null) throw new ArgumentNullException("userGenerator");
             _apiClient = apiClient;
             _generator = generator;
+            _userGenerator = userGenerator;
         }
 
-        public Guid SignUpUser()
+        public User SignUpUser()
         {
-            var response = _apiClient.For<UsersApi>().Post(_generator.GenerateUsersPostRequestContent());
+            var user = _userGenerator.Next();
+            var response = _apiClient.For<UsersApi>().Post(_generator.GenerateUsersPostRequestContent(user));
             AssertHttpStatus(HttpStatusCode.OK, response);
-            return response.Data.UserGuid;
+            user.Guid = response.Data.UserGuid;
+            return user;
         }
 
         public Guid LogIn(string username, string password = "1234")
@@ -48,10 +53,10 @@
             AssertHttpStatus(HttpStatusCode.NoContent, response);
         }
 
-        public void ResetPassword(Guid user)
+        public void ResetPassword(string emailAddress)
         {
             var response = _apiClient.For<ResetPasswordApi>()
-                .Post(new ResetPasswordPostRequestContent {UserGuid = user});
+                .Post(new ResetPasswordPostRequestContent { EmailAddress = emailAddress });
             AssertHttpStatus(HttpStatusCode.NoContent, response);
         }
     }

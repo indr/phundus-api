@@ -75,10 +75,10 @@ namespace Phundus.Specs.Account
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Happy Path")]
-        public virtual void HappyPath()
+        [NUnit.Framework.DescriptionAttribute("Zurücksetzung sendet E-Mail Neues Passwort.")]
+        public virtual void ZurucksetzungSendetE_MailNeuesPasswort_()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Happy Path", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Zurücksetzung sendet E-Mail Neues Passwort.", ((string[])(null)));
 #line 9
 this.ScenarioSetup(scenarioInfo);
 #line 6
