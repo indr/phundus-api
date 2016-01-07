@@ -42,7 +42,7 @@
             var result = _organizationQueries.All();
             return new OrganizationsQueryOkResponseContent
             {
-                Organizations = Map<List<Organization>>(result)
+                Results = Map<List<Organization>>(result)
             };
         }
 
@@ -117,10 +117,9 @@
         }
     }
 
-    public class OrganizationsQueryOkResponseContent
+    public class OrganizationsQueryOkResponseContent : QueryOkResponseContent<Organization>
     {
-        [JsonProperty("organizations")]
-        public IList<Organization> Organizations { get; set; }
+        
     }
 
     public class OrganizationsGetOkResponseContent
@@ -150,7 +149,7 @@
         public string DocumentTemplate { get; set; }
 
         [JsonProperty("stores")]
-        public IList<Store> Stores { get; set; }
+        public List<Store> Stores { get; set; }
     }
 
     public class OrganizationsPostOkResponseContent
