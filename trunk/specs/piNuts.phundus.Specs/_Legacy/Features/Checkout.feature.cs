@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Phundus.Specs.Features
+namespace Phundus.Specs._Legacy.Features
 {
     using TechTalk.SpecFlow;
     
