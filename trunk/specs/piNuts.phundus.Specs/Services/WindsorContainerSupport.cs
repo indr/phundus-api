@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Specs.Services
 {
     using System;
+    using System.Configuration;
     using Api;
     using BoDi;
     using Castle.MicroKernel.Registration;
@@ -24,8 +25,14 @@
             var container = new WindsorContainer();
 
             container.Register(Classes.FromThisAssembly().BasedOn<ApiBase>().WithServiceSelf());
+            
 
-            _objectContainer.RegisterInstanceAs<IWindsorContainer>(container);   
+            _objectContainer.RegisterInstanceAs<IWindsorContainer>(container);
+
+            if (ConfigurationManager.AppSettings["ServerUrl"] == "localhost")
+                _objectContainer.RegisterTypeAs<RestMailbox, IMailbox>();
+            else
+                _objectContainer.RegisterTypeAs<PopMailbox, IMailbox>();
         }
     }
 }

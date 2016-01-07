@@ -7,15 +7,24 @@
     using System.Net;
     using System.Net.Http;
     using System.Reflection;
-    using Infrastructure;
     using NUnit.Framework;
     using OpenPop.Mime;
+    using Phundus.Rest.ContentObjects;
+    using Phundus.Specs.Services;
     using TechTalk.SpecFlow;
     using WatiN.Core;
 
     [Binding]
     public class CommonSteps : StepBase
     {
+        private readonly IMailbox _mailbox;
+
+        public CommonSteps(IMailbox mailbox)
+        {
+            _mailbox = mailbox;
+            if (mailbox == null) throw new ArgumentNullException("mailbox");
+        }
+
         [Given(@"ich bin auf der Seite ""(.*)""")]
         public void AngenommenIchBinAufDerSeite(string url)
         {
@@ -115,10 +124,9 @@
         }
 
         [Then(@"muss ""(.*)"" ein E-Mail erhalten mit dem Betreff ""(.*)""")]
-        public Message DannMussEinEMailErhaltenMitDemBetreff(string adresse, string betreff)
+        public Mail DannMussEinEMailErhaltenMitDemBetreff(string adresse, string betreff)
         {
-            var mailbox = Mailbox.For(adresse);
-            var message = mailbox.Find(betreff);
+            var message = _mailbox.Find(betreff, adresse);
 
             if (message == null)
                 Assert.Fail(
@@ -132,7 +140,7 @@
         public void DannMussEinEMailErhaltenMitDemBetreffUndDemText(string adresse, string betreff, string text)
         {
             var message = DannMussEinEMailErhaltenMitDemBetreff(adresse, betreff);
-            Assert.That(message.FindFirstPlainTextVersion().GetBodyAsText(), Is.EqualTo(text));
+            Assert.That(message.TextBody, Is.EqualTo(text));
         }
     }
 }
