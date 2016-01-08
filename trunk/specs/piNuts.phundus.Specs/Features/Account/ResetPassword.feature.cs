@@ -71,6 +71,8 @@ namespace Phundus.Specs.Features.Account
 #line 6
 #line 7
  testRunner.Given("a confirmed user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+#line 8
+ testRunner.And("not logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
         }
         
@@ -79,13 +81,13 @@ namespace Phundus.Specs.Features.Account
         public virtual void SendsEmailNeuesPasswort()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("sends email \"Neues Passwort\"", ((string[])(null)));
-#line 9
+#line 10
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 10
- testRunner.When("reset password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
 #line 11
+ testRunner.When("reset password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 12
  testRunner.Then("user should receive email \"[phundus] Neues Passwort\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line hidden
             this.ScenarioCleanup();

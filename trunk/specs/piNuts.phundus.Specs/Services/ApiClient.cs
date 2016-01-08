@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Specs.Services
 {
     using System;
+    using Api;
     using Castle.Windsor;
     using TechTalk.SpecFlow;
 
@@ -18,6 +19,11 @@
         public T For<T>()
         {
             return _container.Resolve<T>();
+        }
+
+        public void DeleteSessionCookies()
+        {
+            ApiBase.DeleteSessionCookies();
         }
     }
 }

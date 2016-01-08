@@ -68,7 +68,7 @@ namespace Phundus.Specs.Features.Organizations
         {
 #line 3
 #line 4
- testRunner.Given("a confirmed admin", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+ testRunner.Given("logged in as root", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
 #line hidden
         }
         
