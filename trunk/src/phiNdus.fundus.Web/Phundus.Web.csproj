@@ -237,7 +237,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Helpers\SessionAdapter.cs" />
-    <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Layout\NavBarModel.cs" />
     <Compile Include="Helpers\HandleAjaxErrorAttribute.cs" />
     <Compile Include="Helpers\HandleModelStateExceptionAttribute.cs" />
@@ -954,8 +953,6 @@
     <Content Include="Views\Account\EmailValidation.cshtml" />
     <Content Include="Views\Account\EmailValidationDone.cshtml" />
     <Content Include="Views\Shop\Article_Documents.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordDone.cshtml" />
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
