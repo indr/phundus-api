@@ -10,6 +10,8 @@
 
         public void Send(string recipients, string subject, string body)
         {
+            if (recipients == null) throw new ArgumentNullException("recipients");
+
             var message = new MailMessage();
             message.To.Add(recipients);
             message.Subject = subject;

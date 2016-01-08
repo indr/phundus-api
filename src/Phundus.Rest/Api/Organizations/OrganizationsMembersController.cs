@@ -62,7 +62,7 @@
                 ApplicationId = requestContent.ApplicationId
             });
 
-            return CreateNoContentResponse();
+            return NoContent();
         }
 
         [PUT("{memberId}")]
@@ -78,7 +78,7 @@
                 Role = requestContent.Role
             });
 
-            return CreateNoContentResponse();
+            return NoContent();
         }
 
         [PATCH("{memberId}")]
@@ -118,7 +118,7 @@
                 }
             }
 
-            return CreateNoContentResponse();
+            return NoContent();
         }
     }
 

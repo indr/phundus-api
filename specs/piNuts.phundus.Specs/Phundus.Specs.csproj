@@ -103,6 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\FeedbackApi.cs" />
     <Compile Include="Api\MailsApi.cs" />
     <Compile Include="Api\OrganizationsApi.cs" />
     <Compile Include="Features\Account\ResetPassword.feature.cs">
@@ -110,6 +111,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResetPassword.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Feedback\Feedback.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Feedback.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Feedback\FeedbackSteps.cs" />
     <Compile Include="Features\Organizations\Establish.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -127,7 +134,7 @@
     <Compile Include="Services\Entities\Organization.cs" />
     <Compile Include="Services\Entities\User.cs" />
     <Compile Include="Services\Mailbox.cs" />
-    <Compile Include="Steps\ResetPasswordSteps.cs" />
+    <Compile Include="Features\Account\AccountSteps.cs" />
     <Compile Include="Api\AdminUsersApi.cs" />
     <Compile Include="Api\ApiBase.cs" />
     <Compile Include="Services\ApiClient.cs" />
@@ -136,7 +143,8 @@
     <Compile Include="Api\ResetPasswordApi.cs" />
     <Compile Include="Api\SessionsApi.cs" />
     <Compile Include="Api\UsersApi.cs" />
-    <Compile Include="Steps\EstablishOrganizationSteps.cs" />
+    <Compile Include="Features\Organizations\OrganizationsSteps.cs" />
+    <Compile Include="Steps\EmailSteps.cs" />
     <Compile Include="Steps\StepsBase.cs" />
     <Compile Include="Steps\UserSteps.cs" />
     <Compile Include="_Legacy\Features\Shop.feature.cs">
@@ -181,6 +189,10 @@
     <Compile Include="Www\Steps\RobotsTxtSteps.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Features\Feedback\Feedback.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Feedback.feature.cs</LastGenOutput>
+    </None>
     <None Include="Resources\FakeNameGenerator.com.csv" />
     <None Include="Features\Account\ResetPassword.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

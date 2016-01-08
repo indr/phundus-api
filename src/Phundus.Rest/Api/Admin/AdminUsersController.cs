@@ -71,7 +71,7 @@
             {
                 Dispatch(new ApproveUser(CurrentUserId, new UserGuid(requestContent.UserGuid)));
             }
-            return CreateNoContentResponse();
+            return NoContent();
         }
     }
 
