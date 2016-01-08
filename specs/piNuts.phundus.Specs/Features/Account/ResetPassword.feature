@@ -5,7 +5,7 @@
 
 Grundlage: 
 	Angenommen a confirmed user
-	Und not logged in
+	Und logged in as user
 
 Szenario: sends email "Neues Passwort"
 	Wenn reset password

@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllerBase.cs" />
+    <Compile Include="Api\Account\ChangePasswordController.cs" />
     <Compile Include="Api\Account\ResetPasswordController.cs" />
     <Compile Include="Api\Admin\AdminOrganizationsController.cs" />
     <Compile Include="Api\Admin\AdminUsersController.cs" />

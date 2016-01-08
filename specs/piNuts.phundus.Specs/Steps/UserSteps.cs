@@ -22,9 +22,16 @@
         }
 
         [Given(@"logged in as root")]
-        public void AngenommenLoggedInAsRoot()
+        public void GivenLoggedInAsRoot()
         {
             App.LogInAsRoot();
+        }
+
+        [Given(@"logged in as user")]
+        public void GivenLoggedInAsUser()
+        {
+            var user = Ctx.User;
+            App.LogIn(user.Username, user.Password);
         }
 
         [Given(@"a confirmed user")]

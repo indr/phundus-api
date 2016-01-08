@@ -6,6 +6,7 @@
     using Api;
     using Entities;
     using Phundus.Rest.Api;
+    using Phundus.Rest.Api.Account;
     using Phundus.Rest.Api.Admin;
     using Phundus.Rest.ContentObjects;
     using Steps;
@@ -37,7 +38,7 @@
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     MobilePhone = user.MobilePhone,
-                    Password = "secret",
+                    Password = user.Password,
                     Postcode = user.Postcode,
                     Street = user.Street
                 });
@@ -69,6 +70,13 @@
         public void LogInAsRoot()
         {
             LogIn("admin@test.phundus.ch");
+        }
+
+        public void ChangePassword(Guid userGuid, string oldPasswort, string newPassword)
+        {
+            var response = _apiClient.For<ChangePasswordApi>()
+                .Post(new ChangePasswordPostRequestContent { OldPassword = oldPasswort, NewPassword = newPassword });
+            AssertHttpStatus(HttpStatusCode.NoContent, response);
         }
 
         public void ResetPassword(string emailAddress)

@@ -103,9 +103,9 @@
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            Dispatcher.Dispatch(new ChangePassword(username, oldPassword, newPassword));
+            //Dispatcher.Dispatch(new ChangePassword(username, oldPassword, newPassword));
 
-            return true;
+            return false;
         }
 
         public bool ChangeEmail(string email, string newEmail)

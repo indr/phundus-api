@@ -19,22 +19,20 @@ namespace Phundus.Specs.Features.Account
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Reset password")]
-    public partial class ResetPasswordFeature
+    [NUnit.Framework.DescriptionAttribute("ChangePassword")]
+    public partial class ChangePasswordFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "ResetPassword.feature"
+#line 1 "ChangePassword.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("de-DE"), "Reset password", "Wenn ein Benutzer sein Passwort nicht mehr weiss, dann kann er ein neues Passwort" +
-                    " beantragen.\nDazu wird dem Benutzer ein E-Mail gesendet, welches einen Link enth" +
-                    "ält. Wird dieser Link\naufgerufen, so wird das neue Passwort aktiviert.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("de-DE"), "ChangePassword", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -68,27 +66,29 @@ namespace Phundus.Specs.Features.Account
         
         public virtual void FeatureBackground()
         {
-#line 6
-#line 7
+#line 3
+#line 4
  testRunner.Given("a confirmed user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
-#line 8
+#line 5
  testRunner.And("logged in as user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("sends email \"Neues Passwort\"")]
-        public virtual void SendsEmailNeuesPasswort()
+        [NUnit.Framework.DescriptionAttribute("can log in with new password")]
+        public virtual void CanLogInWithNewPassword()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("sends email \"Neues Passwort\"", ((string[])(null)));
-#line 10
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("can log in with new password", ((string[])(null)));
+#line 7
 this.ScenarioSetup(scenarioInfo);
-#line 6
+#line 3
 this.FeatureBackground();
-#line 11
- testRunner.When("reset password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
-#line 12
- testRunner.Then("user should receive email \"[phundus] Neues Passwort\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+#line 8
+ testRunner.Given("change password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+#line 9
+ testRunner.When("log in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 10
+ testRunner.Then("logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
 #line hidden
             this.ScenarioCleanup();
         }

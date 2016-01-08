@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Specs.Api
 {
-    using Phundus.Rest.ContentObjects;
+    using Phundus.Rest.Api.Account;
     using RestSharp;
 
     public class ResetPasswordApi : ApiBase
@@ -12,6 +12,13 @@
         public IRestResponse Post(ResetPasswordPostRequestContent requestContent)
         {
             return Execute(requestContent, Method.POST);
+        }
+    }
+
+    public class ChangePasswordApi : ApiBase
+    {
+        public ChangePasswordApi() : base("account/change-password")
+        {
         }
     }
 }
