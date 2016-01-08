@@ -8,7 +8,7 @@
     <Server serverUrl="http://specrunserver:6365" publishResults="true" />
   -->
   <TestAssemblyPaths>
-    <TestAssemblyPath>piNuts.phundus.Specs.dll</TestAssemblyPath>
+    <TestAssemblyPath>Phundus.Specs.dll</TestAssemblyPath>
   </TestAssemblyPaths>
   <DeploymentTransformation>
     <Steps>

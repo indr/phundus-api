@@ -338,7 +338,7 @@
       <Project>{0BA282A6-FEA2-44A2-9748-1DE0E4E32018}</Project>
       <Name>Phundus.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\piNuts.phundus.Infrastructure\Phundus.Infrastructure.csproj">
+    <ProjectReference Include="..\Phundus.Infrastructure\Phundus.Infrastructure.csproj">
       <Project>{9d30515e-5d3c-4fe5-8aa4-b8352328ef25}</Project>
       <Name>Phundus.Infrastructure</Name>
     </ProjectReference>
