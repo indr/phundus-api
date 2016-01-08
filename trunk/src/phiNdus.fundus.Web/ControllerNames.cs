@@ -15,7 +15,6 @@
     public class AccountActionNames
     {
         public static string Validation { get { return @"validation"; } }
-        public static string Profile { get { return @"profile"; } }
         public static string ResetPassword { get { return @"resetpassword"; } }
         public static string ChangeEmail { get { return @"changeemail"; } }
         public static string ChangePassword { get { return @"changepassword"; } }
