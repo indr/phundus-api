@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Web", "src\phiNdus.
 		{9D30515E-5D3C-4FE5-8AA4-B8352328EF25} = {9D30515E-5D3C-4FE5-8AA4-B8352328EF25}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Web.Tests", "tests\phiNdus.fundus.Web.Unittests\Phundus.Web.Tests.csproj", "{3A958280-7EFB-4AC3-AD66-942EC83018EB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Specs", "specs\Phundus.Specs\Phundus.Specs.csproj", "{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Infrastructure", "src\Phundus.Infrastructure\Phundus.Infrastructure.csproj", "{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}"
@@ -57,15 +55,6 @@ Global
 		{08F0E680-EAD6-4698-90C4-111C16620424}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{08F0E680-EAD6-4698-90C4-111C16620424}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{08F0E680-EAD6-4698-90C4-111C16620424}.Release|x86.ActiveCfg = Release|Any CPU
-		{3A958280-7EFB-4AC3-AD66-942EC83018EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A958280-7EFB-4AC3-AD66-942EC83018EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A958280-7EFB-4AC3-AD66-942EC83018EB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{3A958280-7EFB-4AC3-AD66-942EC83018EB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{3A958280-7EFB-4AC3-AD66-942EC83018EB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3A958280-7EFB-4AC3-AD66-942EC83018EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A958280-7EFB-4AC3-AD66-942EC83018EB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{3A958280-7EFB-4AC3-AD66-942EC83018EB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{3A958280-7EFB-4AC3-AD66-942EC83018EB}.Release|x86.ActiveCfg = Release|Any CPU
 		{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9E6C7B9-2B94-4B34-A212-AE096C4CF4C2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
