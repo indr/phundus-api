@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Specs.Features.Feedback
 {
     using System;
+    using System.Configuration;
+    using System.Reflection;
     using Services;
     using Steps;
     using TechTalk.SpecFlow;
@@ -12,11 +14,15 @@
         {
         }
 
-        [When(@"submit feedback as anon")]
-        public void WennSubmitFeedbackAsAnon()
+        [When(@"submit feedback as anon with comment:")]
+        public void WhenSubmitFeedbackAsAnonWithComment(string comment)
         {
+            comment = comment.Replace("{AppSettings.ServerUrl}", ConfigurationManager.AppSettings["ServerUrl"]);
+            comment = comment.Replace("{Assembly.Version}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+
             Ctx.AnonEmailAddress = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
-            App.SendFeedback(Ctx.AnonEmailAddress);
+            App.SendFeedback(Ctx.AnonEmailAddress, comment);
         }
+
     }
 }

@@ -66,18 +66,22 @@ namespace Phundus.Specs.Features.Feedback
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Send as anon")]
+        [NUnit.Framework.CategoryAttribute("isSmoker")]
         public virtual void SendAsAnon()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Send as anon", ((string[])(null)));
-#line 3
-this.ScenarioSetup(scenarioInfo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Send as anon", new string[] {
+                        "isSmoker"});
 #line 4
- testRunner.Given("not logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+this.ScenarioSetup(scenarioInfo);
 #line 5
- testRunner.When("submit feedback as anon", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.Given("not logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+#line hidden
 #line 6
+ testRunner.When("submit feedback as anon with comment:", "Greetings from feedback feature scenario \"Send as anon\"!\r\n\r\nServer URL: {AppSetti" +
+                    "ngs.ServerUrl}\r\nVersion: {Assembly.Version}", ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line 13
  testRunner.Then("anon should receive email \"Vielen Dank fürs Feedback\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
-#line 7
+#line 14
  testRunner.And("\"admin@test.phundus.ch\" should receive email \"[phundus] Feedback\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
             this.ScenarioCleanup();
