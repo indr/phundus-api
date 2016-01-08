@@ -33,7 +33,14 @@
             var user = App.SignUpUser();
             App.LogInAsRoot();
             App.ConfirmUser(user.Guid);
-            Ctx.CurrentUser = user;
+            Ctx.User = user;
+        }
+
+        [Given(@"a confirmed, locked user")]
+        public void AngenommenAConfirmedLockedUser()
+        {
+            AConfirmedUser();
+            App.LockUser(Ctx.User.Guid);
         }
 
         [Given(@"a confirmed admin")]
@@ -43,8 +50,23 @@
             App.LogInAsRoot();
             App.ConfirmUser(user.Guid);
             App.SetUsersRole(user.Guid, UserRole.Admin);
-            Ctx.CurrentUser = user;
+            Ctx.User = user;
         }
 
+        [Given(@"unlock user")]
+        public void AngenommenUnlockUser()
+        {
+            App.LogInAsRoot();
+            App.UnlockUser(Ctx.User.Guid);
+            App.DeleteSessionCookies();
+        }
+
+        [Given(@"lock user")]
+        public void AngenommenLockUser()
+        {
+            App.LogInAsRoot();
+            App.LockUser(Ctx.User.Guid);
+            App.DeleteSessionCookies();
+        }
     }
 }

@@ -46,11 +46,12 @@
             return user;
         }
 
-        public Guid LogIn(string username, string password = "1234")
+        public Guid LogIn(string username, string password = "1234", bool assertStatusCode = true)
         {
             var response = _apiClient.For<SessionsApi>()
                 .Post(new SessionsPostRequestContent {Username = username, Password = password});
-            AssertHttpStatus(HttpStatusCode.OK, response);
+            if (assertStatusCode) 
+                AssertHttpStatus(HttpStatusCode.OK, response);
             return response.Data.UserGuid;
         }
 
@@ -83,6 +84,28 @@
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsAdmin = true,
+                    UserGuid = userGuid
+                });
+            AssertHttpStatus(HttpStatusCode.NoContent, response);
+        }
+
+        public void LockUser(Guid userGuid)
+        {
+            var response = _apiClient.For<AdminUsersApi>()
+                .Patch(new AdminUsersPatchRequestContent
+                {
+                    IsLocked = true,
+                    UserGuid = userGuid
+                });
+            AssertHttpStatus(HttpStatusCode.NoContent, response);
+        }
+
+        public void UnlockUser(Guid userGuid)
+        {
+            var response = _apiClient.For<AdminUsersApi>()
+                .Patch(new AdminUsersPatchRequestContent
+                {
+                    IsLocked = false,
                     UserGuid = userGuid
                 });
             AssertHttpStatus(HttpStatusCode.NoContent, response);
@@ -123,5 +146,7 @@
             });
             AssertHttpStatus(HttpStatusCode.NoContent, response);
         }
+
+        
     }
 }

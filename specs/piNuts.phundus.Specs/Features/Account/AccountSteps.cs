@@ -1,6 +1,8 @@
-﻿namespace Phundus.Specs.Steps
+﻿namespace Phundus.Specs.Features.Account
 {
+    using NUnit.Framework;
     using Services;
+    using Steps;
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -10,10 +12,35 @@
         {
         }
 
-        [When(@"reset password")]
-        public void ResetPassword()
+        [Given(@"a user")]
+        public void GivenAUser()
         {
-            App.ResetPassword(Ctx.CurrentUser.EmailAddress);
+            var user = App.SignUpUser();
+            Ctx.User = user;
+        }
+
+        [When(@"reset password")]
+        public void WhenResetPassword()
+        {
+            App.ResetPassword(Ctx.User.EmailAddress);
+        }
+
+        [When(@"log in")]
+        public void WhenLogIn()
+        {
+            Ctx.LoggedIn = App.LogIn(Ctx.User.EmailAddress, "secret", false);
+        }
+
+        [Then(@"logged in")]
+        public void ThenLoggedIn()
+        {
+            Assert.That(Ctx.LoggedIn, Is.EqualTo(Ctx.User.Guid));
+        }
+
+        [Then(@"not logged in")]
+        public void ThenNotLoggedIn()
+        {
+            Assert.That(Ctx.LoggedIn, Is.Not.EqualTo(Ctx.User.Guid));
         }
     }
 }
