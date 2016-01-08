@@ -22,7 +22,7 @@ namespace Phundus.Specs.Services.Entities
 
         private void ReadRecordsFromResource()
         {
-            var byteArray = Encoding.UTF8.GetBytes(Resources.FakeNameGenerator_com);
+            var byteArray = Encoding.UTF8.GetBytes(Resources.Resources.FakeNameGenerator_com);
             var stream = new MemoryStream(byteArray);
             _records = CsvImporter.GetRecords<FakeNameGeneratorRow>(stream);
         }
