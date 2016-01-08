@@ -1,7 +1,7 @@
 ﻿Funktionalität: Establish organization
 	
 Grundlage: 
-	Angenommen a confirmed admin
+	Angenommen logged in as root	
 
 Szenario: can query for
 	Wenn establish organization

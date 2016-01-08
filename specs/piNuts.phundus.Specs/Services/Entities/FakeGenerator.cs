@@ -9,14 +9,15 @@ namespace Phundus.Specs.Services.Entities
     [Binding]
     public class FakeGenerator
     {
-        private int _nextId;
-        private IList<FakeNameGeneratorRow> _records;        
+        private int _nextIdx;
+        private IList<FakeNameGeneratorRow> _records;
+        private int _startIdx = -1;
 
         public FakeGenerator()
         {
             ReadRecordsFromResource();
 
-            _nextId = new Random().Next(0, _records.Count - 1) - 1;            
+            _nextIdx = new Random().Next(0, _records.Count - 1) - 1;            
         }
 
         private void ReadRecordsFromResource()
@@ -35,13 +36,19 @@ namespace Phundus.Specs.Services.Entities
                 FirstName = record.GivenName,
                 Guid = guid,
                 LastName = record.Surname,
-                EmailAddress = record.GivenName + record.Surname
-                               + "-" + guid.ToString("D").Substring(0, 6) + "@test.phundus.ch",
+                EmailAddress = GetEmailAddress(record.EmailAddress, guid),
                 City = record.City,
                 Street = record.StreetAddress,
                 MobilePhone = record.TelephoneNumber,
                 Postcode = record.ZipCode
             };
+        }
+
+        private static string GetEmailAddress(string emailAddress, Guid guid)
+        {
+            var name = emailAddress.Substring(0, emailAddress.IndexOf("@", System.StringComparison.Ordinal));
+            
+            return name + "-" + guid.ToString("D").Substring(0, 6) + "@test.phundus.ch";
         }
 
         public Organization NextOrganization()
@@ -56,10 +63,14 @@ namespace Phundus.Specs.Services.Entities
 
         private FakeNameGeneratorRow GetNextRecord()
         {
-            var result = _records[_nextId++];
+            if (_startIdx == _nextIdx)
+                throw new InvalidOperationException("You have used all the fake name records. Get a bigger file from www.fakenamegenerator.com.");
+            if (_startIdx == -1)
+                _startIdx = _nextIdx;
+            var result = _records[_nextIdx++];
 
-            if (_nextId >= _records.Count)
-                _nextId = 0;
+            if (_nextIdx >= _records.Count)
+                _nextIdx = 0;
 
             return result;
         }

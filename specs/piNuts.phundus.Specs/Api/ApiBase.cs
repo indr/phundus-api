@@ -106,5 +106,10 @@
             var request = GetRestRequest(Method.GET);
             return Execute<T>(request);
         }
+
+        public static void DeleteSessionCookies()
+        {
+            Cookies.Clear();
+        }
     }
 }

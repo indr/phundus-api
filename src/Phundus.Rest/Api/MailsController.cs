@@ -14,7 +14,7 @@
     using MsgReader.Mime;
 
     [RoutePrefix("api/mails")]
-    [Authorize(Roles = "Admin")]
+    [AllowAnonymous]
     public class MailsController : ApiControllerBase
     {
         [GET("")]

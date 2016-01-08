@@ -111,5 +111,10 @@
             AssertHttpStatus(HttpStatusCode.OK, response);
             return response.Data.Results;
         }
+
+        public void DeleteSessionCookies()
+        {
+            _apiClient.DeleteSessionCookies();
+        }
     }
 }

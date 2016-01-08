@@ -30,7 +30,7 @@ namespace Phundus.Specs.Services
             var response = _apiClient.For<MailsApi>().Query();
             AssertHttpStatus(HttpStatusCode.OK, response);
 
-            return response.Data.Results.FirstOrDefault(p => p.Subject == subject && p.To.Contains(toAddress));
+            return response.Data.Results.FirstOrDefault(p => p.Subject == subject && p.To.Contains(toAddress.ToLowerInvariant()));
         }
     }
 
@@ -50,6 +50,7 @@ namespace Phundus.Specs.Services
 
         public Mail Find(string subject, string toAddress)
         {
+            toAddress = toAddress.ToLowerInvariant();
             var start = DateTime.Now;
             do
             {
