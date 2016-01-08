@@ -9,13 +9,13 @@
     public class ShopSteps : StepBase
     {
         [Given(@"mein Warenkorb ist leer")]
-        public void AngenommenMeinWarenkorbIstLeer()
+        public void GivenMeinWarenkorbIstLeer()
         {
             ApiCall("/carts", HttpMethod.Delete);
         }
 
         [When(@"ich wähle den Artikel (.*) aus")]
-        public void WennIchWahleDenArtikelAus(int p0)
+        public void WhenIchWahleDenArtikelAus(int p0)
         {
             articleId = p0;
             Browser.GoTo(BaseUrl + "/shop");
@@ -26,14 +26,14 @@
         private int articleId = 0;
 
         [Then(@"muss der Artikel geöffnet sein")]
-        public void DannMussDerArtikelGeoffnetSein()
+        public void ThenMussDerArtikelGeoffnetSein()
         {
             // <div id="10027" class="tab-pane active">
             Assert.That(Browser.Div(p => p.Id == articleId.ToString()).ClassName, Is.StringStarting("tab-pane"));
         }
 
         [Given(@"ich lege den Artikel mit der Id (.*) in den Warenkorb")]
-        public void AngenommenIchLegeDenArtikelMitDerIdInDenWarenkorb(int p0)
+        public void GivenIchLegeDenArtikelMitDerIdInDenWarenkorb(int p0)
         {
             Browser.GoTo(BaseUrl + "/shop");
             var link = Browser.Link(Find.By("article-id", p0.ToString()));
@@ -44,7 +44,7 @@
         }
 
         [When(@"ich bestelle")]
-        public void WennIchBestelle()
+        public void WhenIchBestelle()
         {
             Browser.GoTo(BaseUrl + "/cart/checkout");
             var button = Browser.Button(Find.ByValue("Bestellen"));
@@ -52,7 +52,7 @@
         }
 
         [Then(@"ich sollte auf der Shopseite sein")]
-        public void DannIchSollteAufDerShopseiteSein()
+        public void ThenIchSollteAufDerShopseiteSein()
         {
             Assert.That(Browser.Url, Is.EqualTo(BaseUrl + "/shop"));
         }

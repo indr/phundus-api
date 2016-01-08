@@ -32,7 +32,14 @@ namespace Phundus.Specs.Features.Account
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("de-DE"), "ChangeEmailAddress", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ChangeEmailAddress", @"
+Grundlage: 
+Angenommen a confirmed user
+Und logged in as user
+
+Szenario: sends email ""Validierung der geänderten E-Mail-Adresse""
+Wenn change email address
+Dann user should receive email ""[phundus] Validierung der geänderten E-Mail-Adresse"" at requested address", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -62,34 +69,6 @@ namespace Phundus.Specs.Features.Account
         public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
-        }
-        
-        public virtual void FeatureBackground()
-        {
-#line 3
-#line 4
- testRunner.Given("a confirmed user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
-#line 5
- testRunner.And("logged in as user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
-#line hidden
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("sends email \"Validierung der geänderten E-Mail-Adresse\"")]
-        public virtual void SendsEmailValidierungDerGeandertenE_Mail_Adresse()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("sends email \"Validierung der geänderten E-Mail-Adresse\"", ((string[])(null)));
-#line 7
-this.ScenarioSetup(scenarioInfo);
-#line 3
-this.FeatureBackground();
-#line 8
- testRunner.When("change email address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
-#line 9
- testRunner.Then("user should receive email \"[phundus] Validierung der geänderten E-Mail-Adresse\" a" +
-                    "t requested address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
-#line hidden
-            this.ScenarioCleanup();
         }
     }
 }

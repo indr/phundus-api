@@ -1,12 +1,12 @@
-﻿Funktionalität: Shop
+﻿Feature: Shop
 	In order to avoid silly mistakes
 	As a math idiot
 	I want to be told the sum of two numbers
 
-Grundlage:
-	Angenommen Ich bin auf der Startseite
-	Angenommen ich bin nicht angemeldet
+Background:
+	Given Ich bin auf der Startseite
+	Given ich bin nicht angemeldet
 
-Szenario: Artikeldetails
-	Wenn ich wähle den Artikel 10027 aus
-	Dann muss der Artikel geöffnet sein
+Scenario: Artikeldetails
+	When ich wähle den Artikel 10027 aus
+	Then muss der Artikel geöffnet sein

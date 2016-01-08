@@ -32,7 +32,7 @@ namespace Phundus.Specs._Legacy.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("de-DE"), "Checkout", "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Checkout", "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
                     "wo numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -69,9 +69,9 @@ namespace Phundus.Specs._Legacy.Features
         {
 #line 6
 #line 7
- testRunner.Given("ich bin als Benutzer angemeldet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+ testRunner.Given("ich bin als Benutzer angemeldet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.And("mein Warenkorb ist leer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+ testRunner.And("mein Warenkorb ist leer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -87,17 +87,17 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line 12
- testRunner.Given("ich lege den Artikel mit der Id 10022 in den Warenkorb", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+ testRunner.Given("ich lege den Artikel mit der Id 10022 in den Warenkorb", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 13
- testRunner.And("ich lege den Artikel mit der Id 10023 in den Warenkorb", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+ testRunner.And("ich lege den Artikel mit der Id 10023 in den Warenkorb", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
- testRunner.When("ich bestelle", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.When("ich bestelle", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
  testRunner.Then("muss \"chief-1@test.phundus.ch\" ein E-Mail erhalten mit dem Betreff \"[phundus] Neu" +
-                    "e Bestellung\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+                    "e Bestellung\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 16
  testRunner.And("muss \"chief-2@test.phundus.ch\" ein E-Mail erhalten mit dem Betreff \"[phundus] Neu" +
-                    "e Bestellung\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+                    "e Bestellung\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

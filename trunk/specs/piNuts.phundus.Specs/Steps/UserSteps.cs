@@ -16,7 +16,7 @@
         }
 
         [Given(@"not logged in")]
-        public void AngenommenNotLoggedIn()
+        public void GivenNotLoggedIn()
         {
             App.DeleteSessionCookies();
         }
@@ -44,14 +44,14 @@
         }
 
         [Given(@"a confirmed, locked user")]
-        public void AngenommenAConfirmedLockedUser()
+        public void GivenAConfirmedLockedUser()
         {
             AConfirmedUser();
             App.LockUser(Ctx.User.Guid);
         }
 
         [Given(@"a confirmed admin")]
-        public void AngenommenAConfirmedAdmin()
+        public void GivenAConfirmedAdmin()
         {
             var user = App.SignUpUser();
             App.LogInAsRoot();
@@ -61,7 +61,7 @@
         }
 
         [Given(@"unlock user")]
-        public void AngenommenUnlockUser()
+        public void GivenUnlockUser()
         {
             App.LogInAsRoot();
             App.UnlockUser(Ctx.User.Guid);
@@ -69,7 +69,7 @@
         }
 
         [Given(@"lock user")]
-        public void AngenommenLockUser()
+        public void GivenLockUser()
         {
             App.LogInAsRoot();
             App.LockUser(Ctx.User.Guid);

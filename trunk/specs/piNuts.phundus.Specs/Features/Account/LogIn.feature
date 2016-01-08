@@ -1,21 +1,21 @@
-﻿Funktionalität: LogIn
+﻿Feature: LogIn
 
-Grundlage: 
-	Angenommen not logged in
+Background: 
+	Given not logged in
 
-Szenario: Log in successful
-	Angenommen a confirmed user
-	Wenn log in
-	Dann logged in
+Scenario: Log in successful
+	Given a confirmed user
+	When log in
+	Then logged in
 
-Szenario: Log in failed cause of lock
-	Angenommen a confirmed, locked user
-	Und lock user
-	Wenn log in
-	Dann not logged in
+Scenario: Log in failed cause of lock
+	Given a confirmed, locked user
+	And lock user
+	When log in
+	Then not logged in
 
-Szenario: Log in successful after unlock
-	Angenommen a confirmed, locked user
-	Und unlock user
-	Wenn log in
-	Dann logged in
+Scenario: Log in successful after unlock
+	Given a confirmed, locked user
+	And unlock user
+	When log in
+	Then logged in

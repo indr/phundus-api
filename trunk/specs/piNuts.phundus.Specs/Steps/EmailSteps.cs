@@ -24,7 +24,7 @@
         }
 
         [Then(@"anon should receive email ""(.*)"" with text body:")]
-        public void DannAnonShouldReceiveEmailWithTextBody(string subject, string textBody)
+        public void ThenAnonShouldReceiveEmailWithTextBody(string subject, string textBody)
         {
             AssertEmailReceived(subject, Ctx.AnonEmailAddress, textBody);
         }

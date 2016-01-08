@@ -1,24 +1,24 @@
-﻿Funktionalität: Startseite
+﻿Feature: Startseite
 
 # @isSmoker
-# Szenario: Aufruf der Startseite
-# 	Wenn ich die Webseite aufrufe
-# 	Dann sollte ich ein Heading 1 mit "'Allo, 'Allo!" sehen
+# Scenario: Aufruf der Startseite
+# 	When ich die Webseite aufrufe
+# 	Then sollte ich ein Heading 1 mit "'Allo, 'Allo!" sehen
 
 @isSmoker
-Szenario: Aufruf des Shops
-	Wenn ich den Shop aufrufe
-#	Dann sollte ich gross "Shop" sehen
-	Dann sollte im Fenstertitel muss "Shop - phundus" stehen
+Scenario: Aufruf des Shops
+	When ich den Shop aufrufe
+#	Then sollte ich gross "Shop" sehen
+	Then sollte im Fenstertitel muss "Shop - phundus" stehen
 
 @isSmoker
-Szenario: Korrekte Version wurde installiert
-	Wenn ich den Shop aufrufe
-	Dann sollte die Version entsprechend der zuletzt installierten Version sein
+Scenario: Korrekte Version wurde installiert
+	When ich den Shop aufrufe
+	Then sollte die Version entsprechend der zuletzt installierten Version sein
 
 @isSmoker
 @ignore
-Szenario: Server-URL wurde hinterlegt
-	Wenn ich den Shop aufrufe
-	Dann sollte die Server-URL entsprechend der Konfiguration gesetzt sein
+Scenario: Server-URL wurde hinterlegt
+	When ich den Shop aufrufe
+	Then sollte die Server-URL entsprechend der Konfiguration gesetzt sein
 

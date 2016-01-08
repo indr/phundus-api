@@ -1,10 +1,10 @@
-﻿Funktionalität: ChangePassword
+﻿Feature: ChangePassword
 	
-Grundlage: 
-	Angenommen a confirmed user
-	Und logged in as user
+Background: 
+	Given a confirmed user
+	And logged in as user
 
-Szenario: can log in with new password
-	Angenommen change password
-	Wenn log in
-	Dann logged in
+Scenario: can log in with new password
+	Given change password
+	When log in
+	Then logged in
