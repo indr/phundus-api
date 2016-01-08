@@ -32,7 +32,7 @@ namespace Phundus.Specs.Features.Account
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("de-DE"), "LogIn", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "LogIn", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -68,7 +68,7 @@ namespace Phundus.Specs.Features.Account
         {
 #line 3
 #line 4
- testRunner.Given("not logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+ testRunner.Given("not logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
         }
         
@@ -82,11 +82,11 @@ this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line 7
- testRunner.Given("a confirmed user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+ testRunner.Given("a confirmed user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.When("log in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.When("log in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
- testRunner.Then("logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+ testRunner.Then("logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -101,13 +101,13 @@ this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line 12
- testRunner.Given("a confirmed, locked user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+ testRunner.Given("a confirmed, locked user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 13
- testRunner.And("lock user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+ testRunner.And("lock user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
- testRunner.When("log in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.When("log in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
- testRunner.Then("not logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+ testRunner.Then("not logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -122,13 +122,13 @@ this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line 18
- testRunner.Given("a confirmed, locked user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
+ testRunner.Given("a confirmed, locked user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 19
- testRunner.And("unlock user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+ testRunner.And("unlock user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 20
- testRunner.When("log in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.When("log in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 21
- testRunner.Then("logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+ testRunner.Then("logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

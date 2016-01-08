@@ -32,7 +32,7 @@ namespace Phundus.Specs._Legacy.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("de-DE"), "Startseite", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Startseite", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,9 +74,9 @@ namespace Phundus.Specs._Legacy.Features
 #line 9
 this.ScenarioSetup(scenarioInfo);
 #line 10
- testRunner.When("ich den Shop aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.When("ich den Shop aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 12
- testRunner.Then("sollte im Fenstertitel muss \"Shop - phundus\" stehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+ testRunner.Then("sollte im Fenstertitel muss \"Shop - phundus\" stehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -91,9 +91,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 15
 this.ScenarioSetup(scenarioInfo);
 #line 16
- testRunner.When("ich den Shop aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.When("ich den Shop aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 17
- testRunner.Then("sollte die Version entsprechend der zuletzt installierten Version sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+ testRunner.Then("sollte die Version entsprechend der zuletzt installierten Version sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -110,9 +110,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 21
 this.ScenarioSetup(scenarioInfo);
 #line 22
- testRunner.When("ich den Shop aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+ testRunner.When("ich den Shop aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 23
- testRunner.Then("sollte die Server-URL entsprechend der Konfiguration gesetzt sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+ testRunner.Then("sollte die Server-URL entsprechend der Konfiguration gesetzt sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

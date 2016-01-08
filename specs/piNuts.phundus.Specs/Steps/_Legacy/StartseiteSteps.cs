@@ -11,37 +11,37 @@
     public class StartseiteSteps : StepBase
     {
         [When(@"ich den Shop aufrufe")]
-        public void WennIchDenShopAufrufe()
+        public void WhenIchDenShopAufrufe()
         {
             Browser.GoTo(BaseUrl + "/shop");
         }
 
         [When(@"ich die Webseite aufrufe")]
-        public void WennIchDieWebseiteAufrufe()
+        public void WhenIchDieWebseiteAufrufe()
         {
             Browser.GoTo(BaseUrl);
         }
 
         [Then(@"sollte ich ein Heading 1 mit ""(.*)"" sehen")]
-        public void DannSollteIchEinHeading1MitSehen(string p0)
+        public void ThenSollteIchEinHeading1MitSehen(string p0)
         {
             Assert.That(Browser.ElementWithTag("h1", Find.ByIndex(0)).Text, Is.EqualTo(p0));
         }
 
         [Then(@"sollte ich gross ""(.*)"" sehen")]
-        public void DannSollteIchGrossSehen(string p0)
+        public void ThenSollteIchGrossSehen(string p0)
         {
             Assert.That(Browser.ElementWithTag("h2", Find.ByIndex(0)).Text, Is.EqualTo(p0));
         }
         
         [Then(@"sollte im Fenstertitel muss ""(.*)"" stehen")]
-        public void DannSollteImFenstertitelMussStehen(string p0)
+        public void ThenSollteImFenstertitelMussStehen(string p0)
         {
             Assert.That(Browser.Title, Is.EqualTo(p0));
         }
 
         [Then(@"sollte die Version entsprechend der zuletzt installierten Version sein")]
-        public void DannSollteDieVersionEntsprechendDerZuletztInstalliertenVersionSein()
+        public void ThenSollteDieVersionEntsprechendDerZuletztInstalliertenVersionSein()
         {
             var assembly = Assembly.GetExecutingAssembly();
             var version = assembly.GetName().Version.ToString(3);
@@ -52,7 +52,7 @@
         }
 
         [Then(@"sollte die Server-URL entsprechend der Konfiguration gesetzt sein")]
-        public void DannSollteDieServer_URLEntsprechendDerKonfigurationGesetztSein()
+        public void ThenSollteDieServer_URLEntsprechendDerKonfigurationGesetztSein()
         {
             var expected = "http://" + ConfigurationManager.AppSettings["ServerUrl"];
             var actual = Browser.Span(Find.ByClass("serverUrlTag")).Link(Find.ByText("phundus")).Url;
@@ -61,7 +61,7 @@
         }
 
         [Then(@"sollte ich als ""(.*)"" angemeldet sein")]
-        public void DannSollteIchAlsAngemeldetSein(string userName)
+        public void ThenSollteIchAlsAngemeldetSein(string userName)
         {            
             var span = Browser.Span(Find.ByClass("loggedOnTag", false));
             Assert.That(span, Is.Not.Null);
@@ -69,7 +69,7 @@
         }
 
         [Then(@"ich sollte auf der Startseite sein")]
-        public void DannIchSollteAufDerStartseiteSein()
+        public void ThenIchSollteAufDerStartseiteSein()
         {
             Assert.That(Browser.Url, Is.EqualTo(BaseUrl + "/"));
         }

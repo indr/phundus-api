@@ -21,7 +21,7 @@
         }
 
         [Given(@"change password")]
-        public void AngenommenChangePassword()
+        public void GivenChangePassword()
         {
             var newPassword = Guid.NewGuid().ToString("N").Substring(0, 8);
             var user = Ctx.User;
