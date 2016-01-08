@@ -78,13 +78,6 @@
             return View(model);
         }
 
-        // TODO: Profile ist neues Property des Base-Controllers von MVC 4
-        public new ActionResult Profile()
-        {
-            return View();
-        }
-
-
         [Transaction]
         public virtual ActionResult ChangeEmail()
         {

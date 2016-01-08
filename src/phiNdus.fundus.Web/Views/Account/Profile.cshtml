@@ -1,9 +1,0 @@
-﻿@using Phundus.Web
-@{
-    ViewBag.Title = "Kontoeinstellungen";
-}
-
-<h2>@ViewBag.Title</h2>
-
-<p>@Html.ActionLink(new Appearance { Caption = "E-Mail-Adresse ändern", Button = Button.Normal }, AccountActionNames.ChangeEmail, ControllerNames.Account)</p>
-<p>@Html.ActionLink(new Appearance { Caption = "Passwort ändern", Button = Button.Normal }, AccountActionNames.ChangePassword, ControllerNames.Account)</p>

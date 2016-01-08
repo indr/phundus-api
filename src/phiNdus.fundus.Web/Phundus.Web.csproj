@@ -942,7 +942,6 @@
     <Content Include="Views\Shared\DisplayTemplates\PageSelectorViewModel.cshtml" />
     <Content Include="Views\Cart\CheckOut.cshtml" />
     <Content Include="Views\Cart\CheckOutDone.cshtml" />
-    <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Shop\Article_Images.cshtml" />
     <Content Include="Views\Shop\Article_Availability.cshtml" />
     <Content Include="Views\Shop\Article_AddToCart.cshtml" />
