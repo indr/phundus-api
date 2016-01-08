@@ -30,38 +30,6 @@
         [HttpGet]
         [Transaction]
         [AllowAnonymous]
-        public virtual ActionResult ResetPassword()
-        {
-            return View(new ResetPasswordViewModel());
-        }
-
-        [HttpPost]
-        [Transaction]
-        [AllowAnonymous]
-        public virtual ActionResult ResetPassword(ResetPasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Eines oder mehrere Felder enthalten ungültige Werte.");
-                return View(model);
-            }
-
-            try
-            {
-                MembershipProvider.ResetPassword(model.Email, null);
-
-                return View("ResetPasswordDone");
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                return View(model);
-            }
-        }
-
-        [HttpGet]
-        [Transaction]
-        [AllowAnonymous]
         public virtual ActionResult Validation(string id)
         {
             return Validation(new ValidationViewModel {Key = id});
