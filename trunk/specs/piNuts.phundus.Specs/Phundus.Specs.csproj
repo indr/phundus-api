@@ -44,6 +44,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="CsvHelper">
+      <HintPath>..\..\packages\CsvHelper.1.17.0\lib\net40-client\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.SHDocVw">
       <HintPath>..\..\packages\WatiN.2.1.0\lib\net40\Interop.SHDocVw.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -112,12 +115,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Establish.feature</DependentUpon>
     </Compile>
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\AppBase.cs" />
     <Compile Include="Services\Ctx.cs" />
+    <Compile Include="Services\Entities\CsvImporter.cs" />
+    <Compile Include="Services\Entities\FakeGenerator.cs" />
     <Compile Include="Services\Entities\Organization.cs" />
     <Compile Include="Services\Entities\User.cs" />
     <Compile Include="Services\Mailbox.cs" />
-    <Compile Include="Services\Entities\EntityGenerator.cs" />
     <Compile Include="Steps\ResetPasswordSteps.cs" />
     <Compile Include="Api\AdminUsersApi.cs" />
     <Compile Include="Api\ApiBase.cs" />
@@ -172,6 +181,7 @@
     <Compile Include="Www\Steps\RobotsTxtSteps.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FakeNameGenerator.com.csv" />
     <None Include="Features\Account\ResetPassword.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ResetPassword.feature.cs</LastGenOutput>
@@ -225,6 +235,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
