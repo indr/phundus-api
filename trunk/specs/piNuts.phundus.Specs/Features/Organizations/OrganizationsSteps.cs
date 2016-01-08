@@ -5,9 +5,9 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class EstablishOrganizationSteps : StepsBase
+    public class OrganizationsSteps : StepsBase
     {
-        public EstablishOrganizationSteps(App app, Ctx ctx) : base(app, ctx)
+        public OrganizationsSteps(App app, Ctx ctx) : base(app, ctx)
         {
         }
 

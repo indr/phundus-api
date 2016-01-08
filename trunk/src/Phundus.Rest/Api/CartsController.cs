@@ -15,7 +15,7 @@
         {
             Dispatcher.Dispatch(new ClearCart {InitiatorId = CurrentUserId.Id});
 
-            return CreateNoContentResponse();
+            return NoContent();
         }
     }
 }

@@ -28,7 +28,7 @@
         {
             Dispatch(new ApplyForMembership {ApplicantId = CurrentUserId.Id, OrganizationId = organizationId});
 
-            return CreateNoContentResponse();
+            return NoContent();
         }
 
         [DELETE("{applicationId}")]
@@ -37,7 +37,7 @@
         {
             Dispatch(new RejectMembershipApplication {ApplicationId = applicationId, InitiatorId = CurrentUserId.Id});
 
-            return CreateNoContentResponse();
+            return NoContent();
         }
     }
 

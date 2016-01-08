@@ -52,7 +52,7 @@
             return Mapper.Map<TDestination>(source);
         }
 
-        protected HttpResponseMessage CreateNoContentResponse()
+        protected HttpResponseMessage NoContent()
         {
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }

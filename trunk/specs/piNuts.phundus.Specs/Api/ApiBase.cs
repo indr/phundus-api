@@ -95,6 +95,12 @@
             }
         }
 
+        public IRestResponse Post(object requestContent)
+        {
+            var request = GetRestRequest(requestContent, Method.POST);
+            return Execute(request);
+        }
+
         public IRestResponse<T> Post<T>(object requestContent) where T : new()
         {
             var request = GetRestRequest(requestContent, Method.POST);

@@ -17,7 +17,7 @@
         public virtual HttpResponseMessage Post(ResetPasswordPostRequestContent requestContent)
         {
             Dispatch(new ResetPassword(requestContent.EmailAddress));
-            return CreateNoContentResponse();
+            return NoContent();
         }
     }
 }

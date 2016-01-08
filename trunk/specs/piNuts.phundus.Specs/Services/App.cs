@@ -113,5 +113,15 @@
         {
             _apiClient.DeleteSessionCookies();
         }
+
+        public void SendFeedback(string senderEmailAddress)
+        {
+            var response = _apiClient.For<FeedbackApi>().Post(new FeedbackPostRequestContent
+            {
+                EmailAddress = senderEmailAddress,
+                Comment = "Sent by Phundus.Specs."
+            });
+            AssertHttpStatus(HttpStatusCode.NoContent, response);
+        }
     }
 }
