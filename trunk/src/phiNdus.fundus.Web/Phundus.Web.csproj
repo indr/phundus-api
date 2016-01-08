@@ -229,8 +229,6 @@
     <Compile Include="Security\WebWindsorRoleProvider.cs" />
     <Compile Include="Security\WebWindsorMembershipProvider.cs" />
     <Compile Include="Security\WindsorRoleProvider.cs" />
-    <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
-    <Compile Include="ViewModels\Account\ChangeEmailViewModel.cs" />
     <Compile Include="Models\ArticleModels\ArticleReservationsModel.cs" />
     <Compile Include="App_Start\Plumbing\RegisterClientValidationExtensions.cs" />
     <Compile Include="ControllerNames.cs" />
@@ -945,10 +943,6 @@
     <Content Include="Views\Shop\Article_Images.cshtml" />
     <Content Include="Views\Shop\Article_Availability.cshtml" />
     <Content Include="Views\Shop\Article_AddToCart.cshtml" />
-    <Content Include="Views\Account\ChangeEmail.cshtml" />
-    <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Account\ChangePasswordDone.cshtml" />
-    <Content Include="Views\Account\ChangeEmailDone.cshtml" />
     <Content Include="Views\Account\EmailValidation.cshtml" />
     <Content Include="Views\Account\EmailValidationDone.cshtml" />
     <Content Include="Views\Shop\Article_Documents.cshtml" />
