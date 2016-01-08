@@ -220,7 +220,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartMitSqlServerCe.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
-    <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="HttpNotFoundException.cs" />
@@ -233,7 +232,6 @@
     <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\ChangeEmailViewModel.cs" />
     <Compile Include="Models\ArticleModels\ArticleReservationsModel.cs" />
-    <Compile Include="Models\FeedbackModel.cs" />
     <Compile Include="App_Start\Plumbing\RegisterClientValidationExtensions.cs" />
     <Compile Include="ControllerNames.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -954,8 +952,6 @@
     <Content Include="Views\Shop\Article_Images.cshtml" />
     <Content Include="Views\Shop\Article_Availability.cshtml" />
     <Content Include="Views\Shop\Article_AddToCart.cshtml" />
-    <Content Include="Views\Feedback\Index.cshtml" />
-    <Content Include="Views\Feedback\Done.cshtml" />
     <Content Include="Views\Account\ChangeEmail.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ChangePasswordDone.cshtml" />

@@ -4,8 +4,7 @@
     {
         public static string Account { get { return @"account";  } }
         public static string Articles { get { return @"article"; } }
-        public static string Cart { get { return @"cart"; } }
-        public static string Feedback { get { return @"feedback";}}
+        public static string Cart { get { return @"cart"; } }        
         public static string Home { get { return @"home"; } }
         public static string Orders { get { return @"order"; } }
         public static string Shop { get { return @"shop"; } }

@@ -159,11 +159,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Checkout.feature</DependentUpon>
     </Compile>
-    <Compile Include="_Legacy\Features\Feedback.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Feedback.feature</DependentUpon>
-    </Compile>
     <Compile Include="_Legacy\Features\Startseite.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -177,7 +172,6 @@
     <Compile Include="_Legacy\Rest\PhundusApiAuthenticator.cs" />
     <Compile Include="Steps\_Legacy\ShopSteps.cs" />
     <Compile Include="Steps\_Legacy\CommonSteps.cs" />
-    <Compile Include="Steps\_Legacy\FeedbackSteps.cs" />
     <Compile Include="Steps\_Legacy\StartseiteSteps.cs" />
     <Compile Include="Steps\_Legacy\StepBase.cs" />
     <Compile Include="Services\WindsorContainerSupport.cs" />
@@ -211,10 +205,6 @@
     <None Include="_Legacy\Features\Checkout.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Checkout.feature.cs</LastGenOutput>
-    </None>
-    <None Include="_Legacy\Features\Feedback.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Feedback.feature.cs</LastGenOutput>
     </None>
     <None Include="_Legacy\Features\Shop.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

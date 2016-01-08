@@ -23,6 +23,12 @@
             AssertEmailReceived(subject, Ctx.AnonEmailAddress);
         }
 
+        [Then(@"anon should receive email ""(.*)"" with text body:")]
+        public void DannAnonShouldReceiveEmailWithTextBody(string subject, string textBody)
+        {
+            AssertEmailReceived(subject, Ctx.AnonEmailAddress, textBody);
+        }
+
         [Then(@"user should receive email ""(.*)""")]
         public void ThenUserShouldReceiveEmail(string subject)
         {
@@ -36,11 +42,13 @@
             AssertEmailReceived(subject, toAddress);
         }
 
-        private void AssertEmailReceived(string subject, string toAddress)
+        private void AssertEmailReceived(string subject, string toAddress, string textBody = null)
         {
             var message = _mailbox.Find(subject, toAddress);
             Assert.That(message, Is.Not.Null,
                 String.Format("Email with subject \"{0}\" to {1} not found.", subject, toAddress));
-        }
-    }
+
+            if (textBody != null)
+                Assert.That(message.TextBody, Is.EqualTo(textBody));
+        }}
 }

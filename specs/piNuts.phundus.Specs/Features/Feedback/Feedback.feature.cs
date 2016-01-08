@@ -79,9 +79,19 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
  testRunner.When("submit feedback as anon with comment:", "Greetings from feedback feature scenario \"Send as anon\"!\r\n\r\nServer URL: {AppSetti" +
                     "ngs.ServerUrl}\r\nVersion: {Assembly.Version}", ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+#line hidden
 #line 13
- testRunner.Then("anon should receive email \"Vielen Dank fürs Feedback\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dann ");
-#line 14
+ testRunner.Then("anon should receive email \"Vielen Dank fürs Feedback\" with text body:", @"Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
+
+Vielen Dank und freundliche Grüsse
+
+Das phundus-Team
+
+--
+This is an automatically generated message from phundus.
+-
+If you think it was sent incorrectly contact the administrators at lukas.mueller@phundus.ch or reto.inderbitzin@phundus.ch.", ((TechTalk.SpecFlow.Table)(null)), "Dann ");
+#line 26
  testRunner.And("\"admin@test.phundus.ch\" should receive email \"[phundus] Feedback\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
 #line hidden
             this.ScenarioCleanup();
