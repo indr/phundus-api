@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Specs.Features.Account
 {
+    using System;
     using NUnit.Framework;
     using Services;
     using Steps;
@@ -19,16 +20,26 @@
             Ctx.User = user;
         }
 
+        [Given(@"change password")]
+        public void AngenommenChangePassword()
+        {
+            var newPassword = Guid.NewGuid().ToString("N").Substring(0, 8);
+            var user = Ctx.User;
+            App.ChangePassword(user.Guid, user.Password, newPassword);
+            user.Password = newPassword;
+        }
+
         [When(@"reset password")]
         public void WhenResetPassword()
         {
-            App.ResetPassword(Ctx.User.EmailAddress);
+            App.ResetPassword(Ctx.User.Username);
         }
 
         [When(@"log in")]
         public void WhenLogIn()
         {
-            Ctx.LoggedIn = App.LogIn(Ctx.User.EmailAddress, "secret", false);
+            var user = Ctx.User;
+            Ctx.LoggedIn = App.LogIn(user.Username, user.Password , false);
         }
 
         [Then(@"logged in")]

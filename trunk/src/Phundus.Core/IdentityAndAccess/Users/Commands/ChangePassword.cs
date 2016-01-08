@@ -1,23 +1,27 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Users.Commands
 {
+    using System;
     using Castle.Transactions;
+    using Common.Domain.Model;
     using Cqrs;
     using Repositories;
 
     public class ChangePassword
     {
-        public ChangePassword(string username, string oldPassword, string newPassword)
+        public ChangePassword(UserId initiatorId, string oldPassword, string newPassword)
         {
-            Username = username;
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (oldPassword == null) throw new ArgumentNullException("oldPassword");
+            if (newPassword == null) throw new ArgumentNullException("newPassword");
+
+            InitiatorId = initiatorId;
             OldPassword = oldPassword;
             NewPassword = newPassword;
         }
 
-        public string NewPassword { get; private set; }
-
+        public UserId InitiatorId { get; private set; }
         public string OldPassword { get; private set; }
-
-        public string Username { get; private set; }
+        public string NewPassword { get; private set; }
     }
 
     public class ChangePasswordHandler : IHandleCommand<ChangePassword>
@@ -27,7 +31,8 @@
         [Transaction]
         public void Handle(ChangePassword command)
         {
-            var user = UserRepository.FindByEmailAddress(command.Username);
+            var user = UserRepository.GetById(command.InitiatorId);
+
             user.Account.ChangePassword(command.OldPassword, command.NewPassword);
         }
     }

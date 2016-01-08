@@ -4,12 +4,6 @@ namespace Phundus.Rest.ContentObjects
     using System.Linq;
     using Newtonsoft.Json;
 
-    public class ResetPasswordPostRequestContent
-    {
-        [JsonProperty("emailAddress")]
-        public string EmailAddress { get; set; }
-    }
-
     public class QueryOkResponseContent<T>
     {
         public QueryOkResponseContent()

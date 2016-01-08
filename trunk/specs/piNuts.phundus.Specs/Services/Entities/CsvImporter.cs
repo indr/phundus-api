@@ -11,6 +11,9 @@ namespace Phundus.Specs.Services.Entities
         [CsvField(Name = "GUID")]
         public string Guid { get; set; }
 
+        [CsvField(Name = "Password")]
+        public string Password { get; set; }
+
         [CsvField(Name = "Company")]
         public string Company { get; set; }
 

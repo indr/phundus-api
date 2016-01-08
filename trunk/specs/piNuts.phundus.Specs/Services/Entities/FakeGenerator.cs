@@ -31,12 +31,15 @@ namespace Phundus.Specs.Services.Entities
         {
             var guid = Guid.NewGuid();
             var record = GetNextRecord();
+            var emailAddress = GetEmailAddress(record.EmailAddress, guid);
             return new User
             {
+                Username = emailAddress,
+                Password = record.Password,
                 FirstName = record.GivenName,
                 Guid = guid,
                 LastName = record.Surname,
-                EmailAddress = GetEmailAddress(record.EmailAddress, guid),
+                EmailAddress = emailAddress,
                 City = record.City,
                 Street = record.StreetAddress,
                 MobilePhone = record.TelephoneNumber,

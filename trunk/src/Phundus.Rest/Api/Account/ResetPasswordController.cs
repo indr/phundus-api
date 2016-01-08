@@ -5,8 +5,8 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using ContentObjects;
     using Core.IdentityAndAccess.Users.Commands;
+    using Newtonsoft.Json;
 
     [RoutePrefix("api/account/reset-password")]
     [AllowAnonymous]
@@ -17,7 +17,14 @@
         public virtual HttpResponseMessage Post(ResetPasswordPostRequestContent requestContent)
         {
             Dispatch(new ResetPassword(requestContent.EmailAddress));
+
             return NoContent();
         }
+    }
+
+    public class ResetPasswordPostRequestContent
+    {
+        [JsonProperty("emailAddress")]
+        public string EmailAddress { get; set; }
     }
 }
