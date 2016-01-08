@@ -126,6 +126,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResetPassword.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Account\SignUp.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SignUp.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Account\ValidateAccount.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidateAccount.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Feedback\Feedback.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -209,6 +219,14 @@
     <None Include="Features\Account\LogIn.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>LogIn.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Account\SignUp.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SignUp.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Account\ValidateAccount.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ValidateAccount.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Feedback\Feedback.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

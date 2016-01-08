@@ -16,5 +16,6 @@
         public string AnonEmailAddress { get; set; }
 
         public Guid LoggedIn { get; set; }
+        public string ValidationKey { get; set; }
     }
 }

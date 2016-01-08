@@ -119,6 +119,7 @@
     <Compile Include="Api\Account\ChangeEmailAddressController.cs" />
     <Compile Include="Api\Account\ChangePasswordController.cs" />
     <Compile Include="Api\Account\ResetPasswordController.cs" />
+    <Compile Include="Api\Account\ValidateController.cs" />
     <Compile Include="Api\Admin\AdminOrganizationsController.cs" />
     <Compile Include="Api\Admin\AdminUsersController.cs" />
     <Compile Include="Api\ArticlesController.cs" />
