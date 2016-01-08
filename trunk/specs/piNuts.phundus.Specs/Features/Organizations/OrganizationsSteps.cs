@@ -15,14 +15,14 @@
         public void WennEstablishOrganization()
         {
             var organization = App.EstablishOrganization();
-            Ctx.CurrentOrganization = organization;
+            Ctx.Organization = organization;
         }
 
         [Then(@"query organizations should contain it")]
         public void DannQueryOrganizationsShouldContainIt()
         {
             var organizations = App.QueryOrganizations();
-            Assert.That(organizations, Has.Some.Matches<Phundus.Rest.ContentObjects.Organization>(p => p.OrganizationId == Ctx.CurrentOrganization.Guid));
+            Assert.That(organizations, Has.Some.Matches<Phundus.Rest.ContentObjects.Organization>(p => p.OrganizationId == Ctx.Organization.Guid));
         }
     }
 }

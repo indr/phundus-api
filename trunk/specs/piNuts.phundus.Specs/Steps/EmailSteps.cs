@@ -32,7 +32,7 @@
         [Then(@"user should receive email ""(.*)""")]
         public void ThenUserShouldReceiveEmail(string subject)
         {
-            var toAddress = Ctx.CurrentUser.EmailAddress;
+            var toAddress = Ctx.User.EmailAddress;
             AssertEmailReceived(subject, toAddress);
         }
 
