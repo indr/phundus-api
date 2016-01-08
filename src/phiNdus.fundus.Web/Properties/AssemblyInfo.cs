@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Core-Web")]
+[assembly: AssemblyTitle("Phundus.Web")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("piNuts.ch")]
-[assembly: AssemblyProduct("fundus")]
-[assembly: AssemblyCopyright("Copyright © Reto Inderbitzin")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("phundus")]
+[assembly: AssemblyCopyright("Copyright © Reto Inderbitzin 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
