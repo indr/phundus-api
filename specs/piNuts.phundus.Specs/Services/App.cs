@@ -19,30 +19,30 @@
     public class App : AppBase
     {
         private readonly ApiClient _apiClient;
-        private readonly EntityGenerator _entityGenerator;
+        private readonly FakeGenerator _fakeGenerator;
 
-        public App(ApiClient apiClient, EntityGenerator entityGenerator)
+        public App(ApiClient apiClient, FakeGenerator fakeGenerator)
         {
             if (apiClient == null) throw new ArgumentNullException("apiClient");
-            if (entityGenerator == null) throw new ArgumentNullException("entityGenerator");
+            if (fakeGenerator == null) throw new ArgumentNullException("fakeGenerator");
             _apiClient = apiClient;
-            _entityGenerator = entityGenerator;
+            _fakeGenerator = fakeGenerator;
         }
 
         public User SignUpUser()
         {
-            var user = _entityGenerator.NextUser();
+            var user = _fakeGenerator.NextUser();
             var response = _apiClient.For<UsersApi>()
                 .Post(new UsersPostRequestContent
                 {
-                    City = "Stadt",
+                    City = user.City,
                     Email = user.EmailAddress,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    MobilePhone = "123",
+                    MobilePhone = user.MobilePhone,
                     Password = "secret",
-                    Postcode = "6000",
-                    Street = "Strasse"
+                    Postcode = user.Postcode,
+                    Street = user.Street
                 });
             AssertHttpStatus(HttpStatusCode.OK, response);
             user.Guid = response.Data.UserGuid;
@@ -93,7 +93,7 @@
 
         public Organization EstablishOrganization()
         {
-            var organization = _entityGenerator.NextOrganization();
+            var organization = _fakeGenerator.NextOrganization();
             var response = _apiClient.For<OrganizationsApi>()
                 .Post<OrganizationsPostOkResponseContent>(new OrganizationsPostRequestContent
                 {
