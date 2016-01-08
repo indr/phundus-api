@@ -11,13 +11,13 @@ namespace Phundus.Specs.Services.Entities
     {
         private int _nextIdx;
         private IList<FakeNameGeneratorRow> _records;
-        private int _startIdx = -1;
+        private int _used;
 
         public FakeGenerator()
         {
             ReadRecordsFromResource();
 
-            _nextIdx = new Random().Next(0, _records.Count - 1) - 1;            
+            _nextIdx = new Random().Next(0, _records.Count - 1) - 1;
         }
 
         private void ReadRecordsFromResource()
@@ -47,7 +47,7 @@ namespace Phundus.Specs.Services.Entities
         private static string GetEmailAddress(string emailAddress, Guid guid)
         {
             var name = emailAddress.Substring(0, emailAddress.IndexOf("@", System.StringComparison.Ordinal));
-            
+
             return name + "-" + guid.ToString("D").Substring(0, 6) + "@test.phundus.ch";
         }
 
@@ -63,15 +63,18 @@ namespace Phundus.Specs.Services.Entities
 
         private FakeNameGeneratorRow GetNextRecord()
         {
-            if (_startIdx == _nextIdx)
-                throw new InvalidOperationException("You have used all the fake name records. Get a bigger file from www.fakenamegenerator.com.");
-            if (_startIdx == -1)
-                _startIdx = _nextIdx;
+            if (_used >= _records.Count)
+                throw new InvalidOperationException(
+                    String.Format(
+                        @"You have used {0} of {1} fake name records. Get a bigger file from www.fakenamegenerator.com and save it to Phundus.Specs\Resources\FakeNameGenerator.com.csv.",
+                        _used, _records.Count));
+
             var result = _records[_nextIdx++];
 
             if (_nextIdx >= _records.Count)
                 _nextIdx = 0;
 
+            _used++;
             return result;
         }
     }
