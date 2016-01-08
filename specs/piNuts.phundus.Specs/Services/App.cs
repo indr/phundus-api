@@ -2,15 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Net;
     using Api;
     using Entities;
-    using NUnit.Framework;
     using Phundus.Rest.Api;
     using Phundus.Rest.Api.Admin;
     using Phundus.Rest.ContentObjects;
-    using RestSharp;
     using Steps;
     using TechTalk.SpecFlow;
     using Organization = Entities.Organization;
