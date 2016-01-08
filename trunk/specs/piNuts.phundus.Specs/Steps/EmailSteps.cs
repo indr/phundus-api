@@ -36,6 +36,13 @@
             AssertEmailReceived(subject, toAddress);
         }
 
+        [Then(@"user should receive email ""(.*)"" at requested address")]
+        public void ThenUserShouldReceiveEmailAtRequestedAddress(string subject)
+        {
+            var toAddress = Ctx.User.RequestedEmailAddress;
+            AssertEmailReceived(subject, toAddress);
+        }
+
         [Then(@"""(.*)"" should receive email ""(.*)""")]
         public void ThenShouldReceiveEmail(string toAddress, string subject)
         {
