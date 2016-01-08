@@ -149,6 +149,7 @@
     <Compile Include="Cqrs\AutoMappingReadModelBase.cs" />
     <Compile Include="IdentityAndAccess\Queries\ReadModels\MemberInMembershipRoleQueries.cs" />
     <Compile Include="IdentityAndAccess\Users\Commands\UnlockUser.cs" />
+    <Compile Include="IdentityAndAccess\Users\Commands\ValidateKey.cs" />
     <Compile Include="IdentityAndAccess\Users\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

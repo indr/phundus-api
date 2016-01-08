@@ -12,6 +12,7 @@
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (userGuid == null) throw new ArgumentNullException("userGuid");
+
             InitiatorId = initiatorId;
             UserGuid = userGuid;
         }

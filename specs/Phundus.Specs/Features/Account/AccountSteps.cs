@@ -20,6 +20,13 @@
             Ctx.User = user;
         }
 
+        [When(@"sign up")]
+        public void WhenSignUp()
+        {
+            var user = App.SignUpUser();
+            Ctx.User = user;
+        }
+
         [Given(@"change password")]
         public void GivenChangePassword()
         {
@@ -51,6 +58,13 @@
             Ctx.LoggedIn = App.LogIn(user.Username, user.Password , false);
         }
 
+        [Then(@"can log in")]
+        public void ThenCanLogIn()
+        {
+            var user = Ctx.User;
+            App.LogIn(user.Username, user.Password);
+        }
+
         [Then(@"logged in")]
         public void ThenLoggedIn()
         {
@@ -61,6 +75,12 @@
         public void ThenNotLoggedIn()
         {
             Assert.That(Ctx.LoggedIn, Is.Not.EqualTo(Ctx.User.Guid));
+        }
+
+        [When(@"validate account")]
+        public void WhenValidateAccount()
+        {
+            App.ValidateAccount(Ctx.ValidationKey);
         }
     }
 }

@@ -28,4 +28,12 @@
         {
         }
     }
+
+    public class ValidateApi : ApiBase
+    {
+        public ValidateApi() : base("account/validate")
+        {
+            
+        }
+    }
 }

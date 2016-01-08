@@ -1,7 +1,9 @@
 ﻿namespace Phundus.Specs.Steps
 {
     using System;
+    using System.Text.RegularExpressions;
     using NUnit.Framework;
+    using Phundus.Rest.ContentObjects;
     using Services;
     using TechTalk.SpecFlow;
 
@@ -15,6 +17,15 @@
         {
             if (mailbox == null) throw new ArgumentNullException("mailbox");
             _mailbox = mailbox;
+        }
+
+        [Given(@"the validation key from account validation email")]
+        public void GivenTheValidationKeyFromEmail()
+        {
+            var mail = AssertEmailReceived("[phundus] Validierung der E-Mail-Adresse", Ctx.User.EmailAddress);
+            var match = new Regex(@"\/([a-z0-9]{24})<").Match(mail.HtmlBody);
+            Assert.IsTrue(match.Success, "Could not find validation key in account validation email.");
+            Ctx.ValidationKey = match.Groups[1].Value;
         }
 
         [Then(@"anon should receive email ""(.*)""")]
@@ -49,13 +60,14 @@
             AssertEmailReceived(subject, toAddress);
         }
 
-        private void AssertEmailReceived(string subject, string toAddress, string textBody = null)
+        private Mail AssertEmailReceived(string subject, string toAddress, string textBody = null)
         {
-            var message = _mailbox.Find(subject, toAddress);
-            Assert.That(message, Is.Not.Null,
+            var mail = _mailbox.Find(subject, toAddress);
+            Assert.That(mail, Is.Not.Null,
                 String.Format("Email with subject \"{0}\" to {1} not found.", subject, toAddress));
 
             if (textBody != null)
-                Assert.That(message.TextBody, Is.EqualTo(textBody));
+                Assert.That(mail.TextBody, Is.EqualTo(textBody));
+            return mail;
         }}
 }
