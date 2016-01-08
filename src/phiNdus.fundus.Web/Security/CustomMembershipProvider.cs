@@ -110,15 +110,15 @@
 
         public bool ChangeEmail(string email, string newEmail)
         {
-            var user = GetUser(email, false);
-            if (user == null)
-                return false;
+            //var user = GetUser(email, false);
+            //if (user == null)
+            //    return false;
 
-            var userId = user.ProviderUserKey;
+            //var userId = user.ProviderUserKey;
 
-            Dispatcher.Dispatch(new ChangeEmailAddress(Convert.ToInt32(userId), email, newEmail));
+            //Dispatcher.Dispatch(new ChangeEmailAddress(Convert.ToInt32(userId), email, newEmail));
 
-            return true;
+            return false;
         }
 
         public override MembershipUser CreateUser(string username, string password, string email,

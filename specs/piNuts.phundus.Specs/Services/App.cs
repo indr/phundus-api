@@ -86,6 +86,13 @@
             AssertHttpStatus(HttpStatusCode.NoContent, response);
         }
 
+        public void ChangeEmailAddress(Guid userGuid, string newEmailAddress)
+        {
+            var response = _apiClient.For<ChangeEmailAddressApi>()
+                .Post(new ChangeEMailAddressPostRequestContent { NewEmailAddress = newEmailAddress });
+            AssertHttpStatus(HttpStatusCode.NoContent, response);
+        }
+
         public void SetUsersRole(Guid userGuid, UserRole userRole)
         {
             var response = _apiClient.For<AdminUsersApi>()
@@ -155,6 +162,7 @@
             AssertHttpStatus(HttpStatusCode.NoContent, response);
         }
 
-        
+
+       
     }
 }

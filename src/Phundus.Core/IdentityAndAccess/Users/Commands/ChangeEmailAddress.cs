@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Users.Commands
 {
     using System.Globalization;
+    using Common.Domain.Model;
     using Cqrs;
     using Exceptions;
     using Infrastructure.Gateways;
@@ -9,14 +10,14 @@
 
     public class ChangeEmailAddress
     {
-        public ChangeEmailAddress(int userId, string oldEmailAddress, string emailAddress)
+        public ChangeEmailAddress(UserId initiatorId, string newEmailAddress)
         {
-            UserId = userId;
-            EmailAddress = emailAddress;
+            InitiatorId = initiatorId;
+            NewEmailAddress = newEmailAddress;
         }
 
-        public int UserId { get; set; }
-        public string EmailAddress { get; private set; }
+        public UserId InitiatorId { get; set; }
+        public string NewEmailAddress { get; private set; }
     }
 
     public class ChangeEmailAddressHandler : IHandleCommand<ChangeEmailAddress>
@@ -27,9 +28,9 @@
 
         public void Handle(ChangeEmailAddress command)
         {
-            var user = UserRepository.GetById(command.UserId);
+            var user = UserRepository.GetById(command.InitiatorId);
 
-            var emailAddress = command.EmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
+            var emailAddress = command.NewEmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
             if (UserRepository.FindByEmailAddress(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
 

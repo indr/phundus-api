@@ -21,4 +21,11 @@
         {
         }
     }
+
+    public class ChangeEmailAddressApi : ApiBase
+    {
+        public ChangeEmailAddressApi() : base("account/change-email-address")
+        {
+        }
+    }
 }
