@@ -115,7 +115,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Establish.feature</DependentUpon>
     </Compile>
-    <Compile Include="Resources.Designer.cs">
+    <Compile Include="Resources\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -181,7 +181,7 @@
     <Compile Include="Www\Steps\RobotsTxtSteps.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FakeNameGenerator.com.csv" />
+    <None Include="Resources\FakeNameGenerator.com.csv" />
     <None Include="Features\Account\ResetPassword.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ResetPassword.feature.cs</LastGenOutput>
@@ -236,7 +236,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
+    <EmbeddedResource Include="Resources\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
