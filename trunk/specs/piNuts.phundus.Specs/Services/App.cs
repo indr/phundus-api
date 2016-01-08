@@ -114,12 +114,12 @@
             _apiClient.DeleteSessionCookies();
         }
 
-        public void SendFeedback(string senderEmailAddress)
+        public void SendFeedback(string senderEmailAddress, string comment)
         {
             var response = _apiClient.For<FeedbackApi>().Post(new FeedbackPostRequestContent
             {
                 EmailAddress = senderEmailAddress,
-                Comment = "Sent by Phundus.Specs."
+                Comment = comment
             });
             AssertHttpStatus(HttpStatusCode.NoContent, response);
         }
