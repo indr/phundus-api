@@ -1,6 +1,6 @@
 ﻿<p>Hallo @Model.User.FirstName</p>
 
-<p>Du hast dich bei der Materialverleihanwendung phundus angemeldet. Bitte bestätige deine E-Mail Adresse durch das anwählen des nachfolgenden Linkes:<br /><a href="@Model.Urls.UserAccountValidation/@Model.User.Account.ValidationKey">@Model.Urls.UserAccountValidation/@Model.User.Account.ValidationKey</a></p>
+<p>Du hast dich bei der Materialverleihanwendung phundus angemeldet. Bitte bestätige deine E-Mail Adresse durch das anwählen des nachfolgenden Linkes:<br /><a href="@Model.Urls.UserAccountValidation?key=@Model.User.Account.ValidationKey">@Model.Urls.UserAccountValidation?key=@Model.User.Account.ValidationKey</a></p>
 
 <p>Sollte deinen Webbrowser, diese Webseite nicht korrekt anzeigen kannst du auch @Model.Urls.UserAccountValidation in der Adresszeile eingeben und deine Mailadresse mit der Eingabe dieses Codes bestätigen: @Model.User.Account.ValidationKey</p>
 

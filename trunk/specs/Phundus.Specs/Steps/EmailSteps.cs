@@ -23,7 +23,7 @@
         public void GivenTheValidationKeyFromEmail()
         {
             var mail = AssertEmailReceived("[phundus] Validierung der E-Mail-Adresse", Ctx.User.EmailAddress);
-            var match = new Regex(@"\/([a-z0-9]{24})<").Match(mail.HtmlBody);
+            var match = new Regex(@"\/#\/validate\/account\?key=([a-z0-9]{24})<").Match(mail.HtmlBody);
             Assert.IsTrue(match.Success, "Could not find validation key in account validation email.");
             Ctx.ValidationKey = match.Groups[1].Value;
         }
@@ -32,7 +32,7 @@
         public void GivenTheValidationKeyFromEmailValidationEmail()
         {
             var mail = AssertEmailReceived("[phundus] Validierung der geänderten E-Mail-Adresse", Ctx.User.RequestedEmailAddress);
-            var match = new Regex(@"\/([a-z0-9]{24})<").Match(mail.HtmlBody);
+            var match = new Regex(@"\/#\/validate\/email-address\?key=([a-z0-9]{24})<").Match(mail.HtmlBody);
             Assert.IsTrue(match.Success, "Could not find validation key in email validation email.");
             Ctx.ValidationKey = match.Groups[1].Value;
         }
