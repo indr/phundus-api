@@ -58,7 +58,7 @@
         {
             var newEmailAddress = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
             var user = Ctx.User;
-            App.ChangeEmailAddress(user.Guid, newEmailAddress);
+            App.ChangeEmailAddress(user.Guid, user.Password, newEmailAddress);
             user.RequestedEmailAddress = newEmailAddress;
         }
 
