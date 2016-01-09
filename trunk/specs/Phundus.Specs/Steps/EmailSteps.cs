@@ -28,6 +28,15 @@
             Ctx.ValidationKey = match.Groups[1].Value;
         }
 
+        [Given(@"the validation key from email validation email")]
+        public void GivenTheValidationKeyFromEmailValidationEmail()
+        {
+            var mail = AssertEmailReceived("[phundus] Validierung der geänderten E-Mail-Adresse", Ctx.User.RequestedEmailAddress);
+            var match = new Regex(@"\/([a-z0-9]{24})<").Match(mail.HtmlBody);
+            Assert.IsTrue(match.Success, "Could not find validation key in email validation email.");
+            Ctx.ValidationKey = match.Groups[1].Value;
+        }
+        
         [Then(@"anon should receive email ""(.*)""")]
         public void ThenAnonShouldReceiveEmail(string subject)
         {

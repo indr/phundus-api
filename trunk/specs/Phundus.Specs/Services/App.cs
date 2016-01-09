@@ -162,7 +162,7 @@
             AssertHttpStatus(HttpStatusCode.NoContent, response);
         }
 
-        public void ValidateAccount(string validationKey)
+        public void ValidateKey(string validationKey)
         {
             var response = _apiClient.For<ValidateApi>()
                 .Post(new {key = validationKey});

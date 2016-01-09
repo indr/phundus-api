@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="IdentityAndAccess\Users\Commands\RegisterUserHandler.cs" />
+    <Compile Include="IdentityAndAccess\Users\Model\UserSpecs.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
     <Compile Include="Shop\BorrowerFactory.cs" />
     <Compile Include="concern.cs" />

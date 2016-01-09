@@ -8,9 +8,13 @@ Scenario: Log in successful
 	When log in
 	Then logged in
 
+Scenario: Log in failed cause not confirmed
+	Given a user
+	When log in
+	Then not logged in
+
 Scenario: Log in failed cause of lock
-	Given a confirmed, locked user
-	And lock user
+	Given a confirmed, locked user	
 	When log in
 	Then not logged in
 
@@ -19,3 +23,4 @@ Scenario: Log in successful after unlock
 	And unlock user
 	When log in
 	Then logged in
+
