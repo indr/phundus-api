@@ -138,12 +138,12 @@ If you think it was sent incorrectly contact the administrators at lukas.mueller
 
             public string UserAccountValidation
             {
-                get { return "http://" + _serverUrl + "/account/validation"; }
+                get { return "http://" + _serverUrl + "/#/validate/account"; }
             }
 
             public string UserEmailValidation
             {
-                get { return "http://" + _serverUrl + "/account/emailvalidation"; }
+                get { return "http://" + _serverUrl + "/#/validate/email-address"; }
             }
         }
 
