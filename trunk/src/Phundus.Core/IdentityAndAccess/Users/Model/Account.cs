@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Core.IdentityAndAccess.Users.Model
 {
     using System;
+    using Common;
     using Ddd;
     using Exceptions;
     using Infrastructure;
@@ -102,10 +103,23 @@
             EventPublisher.Publish(new UserLoggedIn(User.Id));
         }
 
+
+        public virtual void ChangeEmailAddress(string password, string newEmailAddress)
+        {
+            if (password == null) throw new ArgumentNullException("password");
+            if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
+
+            Guard.Against<InvalidPasswordException>(
+                Password != PasswordEncryptor.Encrypt(password, Salt), "Das Passwort ist falsch.");
+
+            RequestedEmail = newEmailAddress;
+        }
+
         public virtual void ChangePassword(string oldPassword, string newPassword)
         {
-            Guard.Against<ArgumentNullException>(oldPassword == null, "oldPassword");
-            Guard.Against<ArgumentNullException>(newPassword == null, "newPassword");
+            if (oldPassword == null) throw new ArgumentNullException("oldPassword");
+            if (newPassword == null) throw new ArgumentNullException("newPassword");
+
 
             Guard.Against<InvalidPasswordException>(
                 Password != PasswordEncryptor.Encrypt(oldPassword, Salt), "Das alte Passwort ist falsch.");
@@ -160,5 +174,6 @@
             IsApproved = true;
             return true;
         }
+
     }
 }

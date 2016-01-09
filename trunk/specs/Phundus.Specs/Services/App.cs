@@ -86,10 +86,10 @@
             AssertHttpStatus(HttpStatusCode.NoContent, response);
         }
 
-        public void ChangeEmailAddress(Guid userGuid, string newEmailAddress)
+        public void ChangeEmailAddress(Guid userGuid, string password, string newEmailAddress)
         {
             var response = _apiClient.For<ChangeEmailAddressApi>()
-                .Post(new ChangeEMailAddressPostRequestContent { NewEmailAddress = newEmailAddress });
+                .Post(new ChangeEMailAddressPostRequestContent { Password = password, NewEmailAddress = newEmailAddress });
             AssertHttpStatus(HttpStatusCode.NoContent, response);
         }
 

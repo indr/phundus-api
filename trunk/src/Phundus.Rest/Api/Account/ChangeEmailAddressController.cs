@@ -17,7 +17,7 @@
         {
             if (requestContent == null) throw new ArgumentNullException("requestContent");
 
-            Dispatch(new ChangeEmailAddress(CurrentUserId, requestContent.NewEmailAddress));
+            Dispatch(new ChangeEmailAddress(CurrentUserId, requestContent.Password, requestContent.NewEmailAddress));
 
             return NoContent();
         }
@@ -25,6 +25,9 @@
 
     public class ChangeEMailAddressPostRequestContent
     {
+        [JsonProperty("password")]
+        public string Password { get; set; }
+
         [JsonProperty("newEmailAddress")]
         public string NewEmailAddress { get; set; }
     }
