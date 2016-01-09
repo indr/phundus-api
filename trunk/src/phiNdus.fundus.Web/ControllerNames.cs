@@ -2,16 +2,10 @@
 {
     public class ControllerNames
     {
-        
         public static string Cart { get { return @"cart"; } }        
         public static string Home { get { return @"home"; } }
         public static string Shop { get { return @"shop"; } }
         public static string Organizations { get { return @"organizations"; } }
-    }
-    
-    public class AccountActionNames
-    {
-        public static string Validation { get { return @"validation"; } }
     }
 
     public class CartActionNames
