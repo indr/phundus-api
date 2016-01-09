@@ -42,8 +42,19 @@
             App.ResetPassword(Ctx.User.Username);
         }
 
+        [Given(@"user changed email address")]
+        public void GivenUserChangedEmailAddress()
+        {
+            ChangeEmailAddress();
+        }
+
         [When(@"change email address")]
         public void WhenChangeEmailAddress()
+        {
+            ChangeEmailAddress();
+        }
+
+        private void ChangeEmailAddress()
         {
             var newEmailAddress = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
             var user = Ctx.User;
@@ -58,6 +69,13 @@
             Ctx.LoggedIn = App.LogIn(user.Username, user.Password , false);
         }
 
+        [When(@"log in with requested address")]
+        public void WhenLogInWithRequestedAddress()
+        {
+            var user = Ctx.User;
+            Ctx.LoggedIn = App.LogIn(user.RequestedEmailAddress, user.Password, false);
+        }
+
         [Then(@"can log in")]
         public void ThenCanLogIn()
         {
@@ -68,7 +86,7 @@
         [Then(@"logged in")]
         public void ThenLoggedIn()
         {
-            Assert.That(Ctx.LoggedIn, Is.EqualTo(Ctx.User.Guid));
+            Assert.That(Ctx.LoggedIn, Is.EqualTo(Ctx.User.Guid), "User not logged in.");
         }
 
         [Then(@"not logged in")]
@@ -77,10 +95,10 @@
             Assert.That(Ctx.LoggedIn, Is.Not.EqualTo(Ctx.User.Guid));
         }
 
-        [When(@"validate account")]
-        public void WhenValidateAccount()
+        [When(@"validate key")]
+        public void WhenValidateKey()
         {
-            App.ValidateAccount(Ctx.ValidationKey);
+            App.ValidateKey(Ctx.ValidationKey);
         }
     }
 }

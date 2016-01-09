@@ -92,21 +92,38 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Log in failed cause of lock")]
-        public virtual void LogInFailedCauseOfLock()
+        [NUnit.Framework.DescriptionAttribute("Log in failed cause not confirmed")]
+        public virtual void LogInFailedCauseNotConfirmed()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Log in failed cause of lock", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Log in failed cause not confirmed", ((string[])(null)));
 #line 11
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line 12
- testRunner.Given("a confirmed, locked user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 13
- testRunner.And("lock user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
  testRunner.When("log in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 15
+#line 14
+ testRunner.Then("not logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Log in failed cause of lock")]
+        public virtual void LogInFailedCauseOfLock()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Log in failed cause of lock", ((string[])(null)));
+#line 16
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 17
+ testRunner.Given("a confirmed, locked user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 18
+ testRunner.When("log in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 19
  testRunner.Then("not logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -117,17 +134,17 @@ this.FeatureBackground();
         public virtual void LogInSuccessfulAfterUnlock()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Log in successful after unlock", ((string[])(null)));
-#line 17
+#line 21
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 18
+#line 22
  testRunner.Given("a confirmed, locked user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 19
+#line 23
  testRunner.And("unlock user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 20
+#line 24
  testRunner.When("log in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 21
+#line 25
  testRunner.Then("logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
