@@ -6,6 +6,6 @@
     public class CheckOutViewModel : ViewModelBase
     {
         public CartModel Cart { get; set; }
-        public UserModel Customer { get; set; }
+        public string CustomerDisplayName { get; set; }
     }
 }

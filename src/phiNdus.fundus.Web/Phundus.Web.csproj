@@ -224,7 +224,6 @@
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="HttpNotFoundException.cs" />
     <Compile Include="Models\ManagementModel.cs" />
-    <Compile Include="Models\UserModels.cs" />
     <Compile Include="Security\WindsorMembershipProvider.cs" />
     <Compile Include="Security\WebWindsorRoleProvider.cs" />
     <Compile Include="Security\WebWindsorMembershipProvider.cs" />
@@ -232,7 +231,6 @@
     <Compile Include="Models\ArticleModels\ArticleReservationsModel.cs" />
     <Compile Include="App_Start\Plumbing\RegisterClientValidationExtensions.cs" />
     <Compile Include="ControllerNames.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Helpers\SessionAdapter.cs" />
     <Compile Include="ViewModels\Layout\NavBarModel.cs" />
@@ -375,7 +373,6 @@
     <Content Include="Scripts\canvas-to-blob.js" />
     <Content Include="Scripts\canvas-to-blob.min.js" />
     <Content Include="Scripts\fundus.js" />
-    <Compile Include="Models\EmailAttribute.cs" />
     <Compile Include="Models\CartModels\CartItemModel.cs" />
     <Compile Include="Models\CartModels\CartModel.cs" />
     <Compile Include="App_Start\Plumbing\WindsorControllerFactory.cs" />
@@ -384,7 +381,6 @@
     <Compile Include="Security\CustomRoleProvider.cs" />
     <Compile Include="ViewModels\PageSelectorViewModel.cs" />
     <Compile Include="ViewModels\ShopSearchResultViewModel.cs" />
-    <Compile Include="ViewModels\ValidationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Content Include="Scripts\jquery-1.9.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -902,12 +898,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\Validation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Account\ValidationDone.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_NavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -943,8 +933,6 @@
     <Content Include="Views\Shop\Article_Images.cshtml" />
     <Content Include="Views\Shop\Article_Availability.cshtml" />
     <Content Include="Views\Shop\Article_AddToCart.cshtml" />
-    <Content Include="Views\Account\EmailValidation.cshtml" />
-    <Content Include="Views\Account\EmailValidationDone.cshtml" />
     <Content Include="Views\Shop\Article_Documents.cshtml" />
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
