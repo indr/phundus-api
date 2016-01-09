@@ -30,6 +30,7 @@
         IList<UserDto> All();
         UserDto FindActiveById(Guid userId);
 
-        
+
+        bool IsEmailAddressTaken(string emailAddress);
     }
 }

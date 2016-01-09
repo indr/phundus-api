@@ -14,10 +14,10 @@
     using MsgReader.Mime;
 
     [RoutePrefix("api/mails")]
-    [AllowAnonymous]
     public class MailsController : ApiControllerBase
     {
         [GET("")]
+        [AllowAnonymous]
         public virtual QueryOkResponseContent<Mail> Get()
         {
             var messages = GetMails();

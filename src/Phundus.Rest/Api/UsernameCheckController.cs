@@ -9,7 +9,6 @@ namespace Phundus.Rest.Api
     using Newtonsoft.Json;
 
     [RoutePrefix("api/username-check")]
-    [AllowAnonymous]
     public class UsernameCheckController : ApiControllerBase
     {
         private readonly IUserQueries _userQueries;
@@ -22,6 +21,7 @@ namespace Phundus.Rest.Api
         }
 
         [POST("")]
+        [AllowAnonymous]
         [Transaction]
         public virtual UsernameCheckPostOkResponseContent Post(UsernameCheckPostRequestContent requestContent)
         {

@@ -9,10 +9,10 @@
     using Newtonsoft.Json;
 
     [RoutePrefix("api/account/reset-password")]
-    [AllowAnonymous]
     public class ResetPasswordController : ApiControllerBase
     {
         [POST("")]
+        [AllowAnonymous]
         [Transaction]
         public virtual HttpResponseMessage Post(ResetPasswordPostRequestContent requestContent)
         {
