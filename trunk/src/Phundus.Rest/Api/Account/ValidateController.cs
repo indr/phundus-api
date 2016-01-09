@@ -10,10 +10,10 @@
     using Newtonsoft.Json;
 
     [RoutePrefix("api/account/validate")]
-    [AllowAnonymous]
     public class ValidateController : ApiControllerBase
     {
         [POST("")]
+        [AllowAnonymous]
         [Transaction]
         public virtual HttpResponseMessage Post(ValidatePostRequestContent requestContent)
         {

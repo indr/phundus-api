@@ -11,7 +11,6 @@ namespace Phundus.Rest.Api
     using Newtonsoft.Json;
 
     [RoutePrefix("api/feedback")]
-    [AllowAnonymous]
     public class FeedbackController : ApiControllerBase
     {
         private readonly IMailGateway _mailGateway;
@@ -23,6 +22,7 @@ namespace Phundus.Rest.Api
         }
 
         [POST("")]
+        [AllowAnonymous]
         public virtual HttpResponseMessage Post(FeedbackPostRequestContent requestContent)
         {
             if (requestContent == null) throw new ArgumentNullException("requestContent");

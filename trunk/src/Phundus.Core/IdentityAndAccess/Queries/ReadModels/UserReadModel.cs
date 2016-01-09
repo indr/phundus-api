@@ -51,6 +51,12 @@
             return CreateDto(UserRepository.FindActiveByGuid(userId));
         }
 
+        public bool IsEmailAddressTaken(string emailAddress)
+        {
+            var user = UserRepository.FindByEmailAddress(emailAddress);
+            return user != null;
+        }
+
         public UserDto CreateDto(User subject)
         {
             if (subject == null)
