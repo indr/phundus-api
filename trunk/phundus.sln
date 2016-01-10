@@ -37,6 +37,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Migrations", "src\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Integration", "src\Phundus.Integration\Phundus.Integration.csproj", "{91C1A2A6-65D2-44BA-9985-C35F1705888A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.IdentityAccess", "src\Phundus.IdentityAccess\Phundus.IdentityAccess.csproj", "{AA1E6A5E-4260-4DDB-8EC2-BF5CBB4AC171}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Shop", "src\Phundus.Shop\Phundus.Shop.csproj", "{361B11F3-BDCC-41F9-8C16-1DEDE360F2B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phundus.Inventory", "src\Phundus.Inventory\Phundus.Inventory.csproj", "{A4CEDF44-A798-4C16-AEB7-9E1D47C70605}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{CE50E648-EEE2-449A-9ACF-69C49FC3B591}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -176,8 +184,46 @@ Global
 		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{91C1A2A6-65D2-44BA-9985-C35F1705888A}.Release|x86.ActiveCfg = Release|Any CPU
+		{AA1E6A5E-4260-4DDB-8EC2-BF5CBB4AC171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA1E6A5E-4260-4DDB-8EC2-BF5CBB4AC171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA1E6A5E-4260-4DDB-8EC2-BF5CBB4AC171}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AA1E6A5E-4260-4DDB-8EC2-BF5CBB4AC171}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AA1E6A5E-4260-4DDB-8EC2-BF5CBB4AC171}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AA1E6A5E-4260-4DDB-8EC2-BF5CBB4AC171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA1E6A5E-4260-4DDB-8EC2-BF5CBB4AC171}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA1E6A5E-4260-4DDB-8EC2-BF5CBB4AC171}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AA1E6A5E-4260-4DDB-8EC2-BF5CBB4AC171}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AA1E6A5E-4260-4DDB-8EC2-BF5CBB4AC171}.Release|x86.ActiveCfg = Release|Any CPU
+		{361B11F3-BDCC-41F9-8C16-1DEDE360F2B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{361B11F3-BDCC-41F9-8C16-1DEDE360F2B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{361B11F3-BDCC-41F9-8C16-1DEDE360F2B2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{361B11F3-BDCC-41F9-8C16-1DEDE360F2B2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{361B11F3-BDCC-41F9-8C16-1DEDE360F2B2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{361B11F3-BDCC-41F9-8C16-1DEDE360F2B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{361B11F3-BDCC-41F9-8C16-1DEDE360F2B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{361B11F3-BDCC-41F9-8C16-1DEDE360F2B2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{361B11F3-BDCC-41F9-8C16-1DEDE360F2B2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{361B11F3-BDCC-41F9-8C16-1DEDE360F2B2}.Release|x86.ActiveCfg = Release|Any CPU
+		{A4CEDF44-A798-4C16-AEB7-9E1D47C70605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4CEDF44-A798-4C16-AEB7-9E1D47C70605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4CEDF44-A798-4C16-AEB7-9E1D47C70605}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A4CEDF44-A798-4C16-AEB7-9E1D47C70605}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A4CEDF44-A798-4C16-AEB7-9E1D47C70605}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A4CEDF44-A798-4C16-AEB7-9E1D47C70605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4CEDF44-A798-4C16-AEB7-9E1D47C70605}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4CEDF44-A798-4C16-AEB7-9E1D47C70605}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A4CEDF44-A798-4C16-AEB7-9E1D47C70605}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A4CEDF44-A798-4C16-AEB7-9E1D47C70605}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AA1E6A5E-4260-4DDB-8EC2-BF5CBB4AC171} = {CE50E648-EEE2-449A-9ACF-69C49FC3B591}
+		{A4CEDF44-A798-4C16-AEB7-9E1D47C70605} = {CE50E648-EEE2-449A-9ACF-69C49FC3B591}
+		{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56} = {CE50E648-EEE2-449A-9ACF-69C49FC3B591}
+		{66D6E700-BBC7-417B-AC78-1343BD0E267A} = {CE50E648-EEE2-449A-9ACF-69C49FC3B591}
+		{4F4206CE-7B94-42B9-947F-C210C9F32F3A} = {CE50E648-EEE2-449A-9ACF-69C49FC3B591}
+		{361B11F3-BDCC-41F9-8C16-1DEDE360F2B2} = {CE50E648-EEE2-449A-9ACF-69C49FC3B591}
 	EndGlobalSection
 EndGlobal
