@@ -10,6 +10,7 @@
     using Phundus.Rest.Api.Account;
     using Phundus.Rest.Api.Admin;
     using Phundus.Rest.ContentObjects;
+    using RestSharp;
     using Steps;
     using TechTalk.SpecFlow;
     using Organization = Entities.Organization;
@@ -47,6 +48,7 @@
                     Street = user.Street
                 });
             AssertHttpStatus(HttpStatusCode.OK, response);
+            SetLastResponse(response);
             user.Guid = response.Data.UserGuid;
             return user;
         }
@@ -57,6 +59,7 @@
                 .Post(new SessionsPostRequestContent {Username = username, Password = password});
             if (assertStatusCode) 
                 AssertHttpStatus(HttpStatusCode.OK, response);
+            SetLastResponse(response);
             return response.Data.UserGuid;
         }
 
@@ -69,6 +72,7 @@
                     UserGuid = userGuid
                 });
             AssertHttpStatus(HttpStatusCode.NoContent, response);
+            SetLastResponse(response);
         }
 
         public void LogInAsRoot()
@@ -81,6 +85,7 @@
             var response = _apiClient.For<ChangePasswordApi>()
                 .Post(new ChangePasswordPostRequestContent { OldPassword = oldPasswort, NewPassword = newPassword });
             AssertHttpStatus(HttpStatusCode.NoContent, response);
+            SetLastResponse(response);
         }
 
         public void ResetPassword(string emailAddress)
@@ -88,6 +93,7 @@
             var response = _apiClient.For<ResetPasswordApi>()
                 .Post(new ResetPasswordPostRequestContent {EmailAddress = emailAddress});
             AssertHttpStatus(HttpStatusCode.NoContent, response);
+            SetLastResponse(response);
         }
 
         public bool ChangeEmailAddress(Guid userGuid, string password, string newEmailAddress, bool assertStatusCode = true)
@@ -96,6 +102,7 @@
                 .Post(new ChangeEMailAddressPostRequestContent { Password = password, NewEmailAddress = newEmailAddress });
             if (assertStatusCode)
                 AssertHttpStatus(HttpStatusCode.NoContent, response);
+            SetLastResponse(response);
             return response.StatusCode == HttpStatusCode.NoContent;
         }
 
@@ -108,6 +115,7 @@
                     UserGuid = userGuid
                 });
             AssertHttpStatus(HttpStatusCode.NoContent, response);
+            SetLastResponse(response);
         }
 
         public void LockUser(Guid userGuid)
@@ -119,6 +127,7 @@
                     UserGuid = userGuid
                 });
             AssertHttpStatus(HttpStatusCode.NoContent, response);
+            SetLastResponse(response);
         }
 
         public void UnlockUser(Guid userGuid)
@@ -130,6 +139,7 @@
                     UserGuid = userGuid
                 });
             AssertHttpStatus(HttpStatusCode.NoContent, response);
+            SetLastResponse(response);
         }
 
         public Organization EstablishOrganization()
@@ -141,6 +151,7 @@
                     Name = organization.Name
                 });
             AssertHttpStatus(HttpStatusCode.OK, response);
+            SetLastResponse(response);
             organization.Guid = response.Data.OrganizationId;
             return organization;
         }
@@ -150,6 +161,7 @@
             var response = _apiClient.For<OrganizationsApi>()
                 .Query<OrganizationsQueryOkResponseContent>();
             AssertHttpStatus(HttpStatusCode.OK, response);
+            SetLastResponse(response);
             return response.Data.Results;
         }
 
@@ -166,15 +178,45 @@
                 Comment = comment
             });
             AssertHttpStatus(HttpStatusCode.NoContent, response);
+            SetLastResponse(response);
         }
 
-        public bool ValidateKey(string validationKey, bool assertStatusCode = true)
+        public void ValidateKey(string validationKey, bool assertStatusCode = true)
         {
             var response = _apiClient.For<ValidateApi>()
                 .Post(new {key = validationKey});
             if (assertStatusCode)
                 AssertHttpStatus(HttpStatusCode.NoContent, response);
-            return response.StatusCode == HttpStatusCode.NoContent;
+            SetLastResponse(response);
+        }
+
+        private void SetLastResponse(IRestResponse restResponse)
+        {
+            LastResponse = new Response
+            {
+                StatusCode = restResponse.StatusCode,
+                Message = TryGetErrorMessage(restResponse)
+            };
+        }
+
+        public Response LastResponse { get; private set; }
+    }
+
+    public class Response
+    {
+        public HttpStatusCode StatusCode { get; set; }
+        public string Message { get; set; }
+
+        /// <summary>
+        /// True if StatusCode is 2xx, otherwise false.
+        /// </summary>
+        public bool IsSuccess
+        {
+            get
+            {
+                var statusCode = (int) StatusCode;
+                return (statusCode >= 200 && statusCode < 300);
+            }
         }
     }
 }
