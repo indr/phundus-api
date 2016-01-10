@@ -4,15 +4,18 @@ Background:
 	Given a confirmed user	
 	And logged in as user
 
+@ignore
 Scenario: sends email "Validierung der geänderten E-Mail-Adresse"
 	When change email address
 	Then user should receive email "[phundus] Validierung der geänderten E-Mail-Adresse" at requested address
 
+@ignore
 Scenario: can not login without validation
 	Given user changed email address
 	When log in with requested address
 	Then not logged in
 
+@ignore
 Scenario: can login with new address after validation
 	Given user changed email address
 	And the validation key from email validation email
@@ -20,6 +23,7 @@ Scenario: can login with new address after validation
 	And log in with requested address
 	Then logged in
 
+@ignore
 Scenario: can not change email if already taken
 	Given a confirmed user "Johan"
 	And a confirmed user "John" with email address "john@test.phundus.ch"	
