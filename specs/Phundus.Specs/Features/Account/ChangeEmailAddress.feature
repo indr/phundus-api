@@ -23,7 +23,6 @@ Scenario: can login with new address after validation
 	And log in with requested address
 	Then logged in
 
-@ignore
 Scenario: can not change email if already taken
 	Given a confirmed user "Johan"
 	And a confirmed user "John" with email address "john@test.phundus.ch"	
