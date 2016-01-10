@@ -25,5 +25,13 @@
             var organizations = App.QueryOrganizations();
             Assert.That(organizations, Has.Some.Matches<Phundus.Rest.ContentObjects.Organization>(p => p.OrganizationId == Ctx.Organization.Guid));
         }
+
+        [Then(@"get organization details")]
+        public void ThenGetOrganizationDetails()
+        {
+            var organization = App.GetOrganization(Ctx.Organization.Guid);
+            Assert.That(organization, Is.Not.Null);
+            Assert.That(organization.OrganizationGuid, Is.EqualTo(Ctx.Organization.Guid));
+        }
     }
 }

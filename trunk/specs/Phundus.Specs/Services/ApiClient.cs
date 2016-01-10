@@ -47,7 +47,7 @@
 
         public Resource OrganizationsApi()
         {
-            return Resource("organizations");
+            return Resource("organizations/{organizationGuid}");
         }
 
         public Resource UsersApi()
