@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Text.RegularExpressions;
+    using Newtonsoft.Json;
     using RestSharp;
 
     public abstract class ApiBase
@@ -24,60 +26,42 @@
             _resource = resource;
         }
 
-        protected IRestResponse Execute(Object requestContent, Method method)
+        public static void DeleteSessionCookies()
         {
-            var request = GetRestRequest(requestContent, method);
-            var response = Execute(request);
-            return response;
+            Cookies.Clear();
         }
 
-        protected IRestResponse Execute(RestRequest request)
+        public IRestResponse Patch(object requestContent)
         {
-            var response = GetClient().Execute(request);
-            HandleErrorException(response);
-            ReadCookies(response);
-            return response;
+            var request = CreateRestRequest(requestContent, Method.PATCH);
+            return Execute(request);
         }
 
-        protected IRestResponse<T> Execute<T>(Object requestContent, Method method) where T : new()
+        public IRestResponse Post(object requestContent)
         {
-            var request = GetRestRequest(requestContent, method);
-            var response = Execute<T>(request);
-            return response;
+            var request = CreateRestRequest(requestContent, Method.POST);
+            return Execute(request);
         }
 
-        protected IRestResponse<T> Execute<T>(RestRequest request) where T : new()
+        public IRestResponse<T> Post<T>(object requestContent) where T : new()
         {
-            var response = GetClient().Execute<T>(request);
-            HandleErrorException(response);
-            ReadCookies(response);
-            return response;
+            var request = CreateRestRequest(requestContent, Method.POST);
+            return Execute<T>(request);
         }
 
-        private static void ReadCookies(IRestResponse response)
+        public IRestResponse<T> Query<T>() where T : new()
         {
-            foreach (var each in response.Cookies)
-            {
-                Cookies[each.Name] = each.Value;
-            }
+            var request = CreateRestRequest(null, Method.GET);
+            return Execute<T>(request);
         }
 
-        private static RestClient GetClient()
-        {
-            return new RestClient(BaseUrl);
-        }
-
-        protected RestRequest GetRestRequest(Method method)
-        {
-            return GetRestRequest(null, method);
-        }
-
-        protected RestRequest GetRestRequest(object requestContent, Method method)
+        protected RestRequest CreateRestRequest(object requestContent, Method method)
         {
             var request = new RestRequest(method);
             request.Resource = _resource;
             request.RequestFormat = DataFormat.Json;
             request.JsonSerializer = new CustomJsonSerializer();
+            AddUrlSegments(request, requestContent);
             if (requestContent != null)
                 request.AddBody(requestContent);
             foreach (var each in Cookies)
@@ -85,6 +69,63 @@
                 request.AddCookie(each.Key, each.Value);
             }
             return request;
+        }
+
+        private void AddUrlSegments(RestRequest request, object requestContent)
+        {
+            var regex = new Regex(@"\{([a-z]+)\}", RegexOptions.IgnoreCase);
+            var match = regex.Match(request.Resource);
+            while (match.Success)
+            {
+                AddUrlSegment(request, requestContent, match.Groups[1].Value);
+                match = match.NextMatch();
+            }
+        }
+
+        private void AddUrlSegment(RestRequest request, object requestContent, string name)
+        {
+            var value = GetParamValue(requestContent, name);
+            request.AddUrlSegment(name, value);
+        }
+
+        private string GetParamValue(Object requestContent, string name)
+        {
+            foreach (var propertyInfo in requestContent.GetType().GetProperties())
+            {
+                foreach (
+                    JsonPropertyAttribute attr in
+                        propertyInfo.GetCustomAttributes(typeof (JsonPropertyAttribute), false))
+                {
+                    if (attr.PropertyName != name)
+                        continue;
+                    var value = propertyInfo.GetValue(requestContent, null);
+                    if (value == null)
+                        return "";
+                    return value.ToString();
+                }
+            }
+            return "";
+        }
+
+        private static IRestResponse Execute(RestRequest request)
+        {
+            var response = CreateClient().Execute(request);
+            HandleErrorException(response);
+            ReadCookies(response);
+            return response;
+        }
+
+        private static IRestResponse<T> Execute<T>(RestRequest request) where T : new()
+        {
+            var response = CreateClient().Execute<T>(request);
+            HandleErrorException(response);
+            ReadCookies(response);
+            return response;
+        }
+
+        private static RestClient CreateClient()
+        {
+            return new RestClient(BaseUrl);
         }
 
         private static void HandleErrorException(IRestResponse response)
@@ -95,27 +136,12 @@
             }
         }
 
-        public IRestResponse Post(object requestContent)
+        private static void ReadCookies(IRestResponse response)
         {
-            var request = GetRestRequest(requestContent, Method.POST);
-            return Execute(request);
-        }
-
-        public IRestResponse<T> Post<T>(object requestContent) where T : new()
-        {
-            var request = GetRestRequest(requestContent, Method.POST);
-            return Execute<T>(request);
-        }
-
-        public IRestResponse<T> Query<T>() where T : new()
-        {
-            var request = GetRestRequest(Method.GET);
-            return Execute<T>(request);
-        }
-
-        public static void DeleteSessionCookies()
-        {
-            Cookies.Clear();
+            foreach (var each in response.Cookies)
+            {
+                Cookies[each.Name] = each.Value;
+            }
         }
     }
 }

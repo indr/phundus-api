@@ -55,7 +55,7 @@
                 user.EmailAddress = emailAddress;
 
             var response = _apiClient.For<UsersApi>()
-                .Post(new UsersPostRequestContent
+                .Post<UsersPostOkResponseContent>(new UsersPostRequestContent
                 {
                     City = user.City,
                     Email = user.EmailAddress,
@@ -76,7 +76,7 @@
         public Guid LogIn(string username, string password = "1234", bool assertStatusCode = true)
         {
             var response = _apiClient.For<SessionsApi>()
-                .Post(new SessionsPostRequestContent {Username = username, Password = password});
+                .Post<SessionsPostOkResponseContent>(new SessionsPostRequestContent { Username = username, Password = password });
             if (assertStatusCode)
                 AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);

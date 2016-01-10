@@ -47,9 +47,9 @@
             };
         }
 
-        [PATCH("{userId}")]
+        [PATCH("{userGuid}")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(int userId, AdminUsersPatchRequestContent requestContent)
+        public virtual HttpResponseMessage Patch(Guid userGuid, AdminUsersPatchRequestContent requestContent)
         {
             if (requestContent.IsLocked.HasValue)
             {
