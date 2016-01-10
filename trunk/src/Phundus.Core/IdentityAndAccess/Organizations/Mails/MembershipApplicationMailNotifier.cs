@@ -5,26 +5,52 @@
     using Ddd;
     using Infrastructure;
     using Infrastructure.Gateways;
+    using Integration.IdentityAccess;
     using Model;
     using Queries;
 
     public class MembershipApplicationMailNotifier : BaseMail, ISubscribeTo<MembershipApplicationFiled>,
-        ISubscribeTo<MembershipApplicationApproved>, ISubscribeTo<MembershipApplicationRejected>, ISubscribeTo<MemberLocked>, ISubscribeTo<MemberUnlocked>
+        ISubscribeTo<MembershipApplicationApproved>, ISubscribeTo<MembershipApplicationRejected>,
+        ISubscribeTo<MemberLocked>, ISubscribeTo<MemberUnlocked>
     {
-        public MembershipApplicationMailNotifier(IMailGateway mailGateway) : base(mailGateway)
+        private readonly IOrganizationQueries _organizationQueries;
+        private readonly IUserQueries _userQueries;
+        private readonly IMembersWithRole _memberWithRole;
+
+        public MembershipApplicationMailNotifier(IMailGateway mailGateway, IOrganizationQueries organizationQueries,
+            IUserQueries userQueries, IMembersWithRole memberWithRole) : base(mailGateway)
         {
+            if (organizationQueries == null) throw new ArgumentNullException("organizationQueries");
+            if (userQueries == null) throw new ArgumentNullException("userQueries");
+            if (memberWithRole == null) throw new ArgumentNullException("memberWithRole");
+
+
+            _organizationQueries = organizationQueries;
+            _userQueries = userQueries;
+            _memberWithRole = memberWithRole;
         }
 
-        public IMemberInRoleQueries MemberInRoleQueries { get; set; }
-        
-        public IOrganizationQueries OrganizationQueries { get; set; }
+        public void Handle(MemberLocked @event)
+        {
+            var user = _userQueries.GetById(@event.MemberId);
+            var organization = _organizationQueries.GetById(@event.OrganizationId);
 
-        public IUserQueries UserQueries { get; set; }
+            Model = new
+            {
+                User = user,
+                Organization = organization,
+                Urls = new Urls(Config.ServerUrl),
+                Admins = Config.FeedbackRecipients
+            };
+
+            Send(user.Email, Templates.MemberLockedSubject,
+                null, Templates.MemberLockedBodyHtml);
+        }
 
         public void Handle(MembershipApplicationApproved @event)
         {
-            var user = UserQueries.GetById(@event.UserId);
-            var organization = OrganizationQueries.GetById(@event.OrganizationId);
+            var user = _userQueries.GetById(@event.UserId);
+            var organization = _organizationQueries.GetById(@event.OrganizationId);
 
             Model = new
             {
@@ -40,9 +66,9 @@
 
         public void Handle(MembershipApplicationFiled @event)
         {
-            var user = UserQueries.GetById(@event.UserId);
-            var organization = OrganizationQueries.GetById(@event.OrganizationId);
-            var chiefs = MemberInRoleQueries.Chiefs(@event.OrganizationId);
+            var user = _userQueries.GetById(@event.UserId);
+            var organization = _organizationQueries.GetById(@event.OrganizationId);
+            var chiefs = _memberWithRole.Manager(@event.OrganizationId);
 
             var recipients = chiefs.Select(p => p.EmailAddress).ToList();
 
@@ -60,8 +86,8 @@
 
         public void Handle(MembershipApplicationRejected @event)
         {
-            var user = UserQueries.GetById(@event.UserId);
-            var organization = OrganizationQueries.GetById(@event.OrganizationId);
+            var user = _userQueries.GetById(@event.UserId);
+            var organization = _organizationQueries.GetById(@event.OrganizationId);
 
             Model = new
             {
@@ -75,27 +101,10 @@
                 null, Templates.MembershipApplicationRejectedBodyHtml);
         }
 
-        public void Handle(MemberLocked @event)
-        {
-            var user = UserQueries.GetById(@event.MemberId);
-            var organization = OrganizationQueries.GetById(@event.OrganizationId);
-
-            Model = new
-            {
-                User = user,
-                Organization = organization,
-                Urls = new Urls(Config.ServerUrl),
-                Admins = Config.FeedbackRecipients
-            };
-
-            Send(user.Email, Templates.MemberLockedSubject,
-                null, Templates.MemberLockedBodyHtml);
-        }
-
         public void Handle(MemberUnlocked @event)
         {
-            var user = UserQueries.GetById(@event.MemberId);
-            var organization = OrganizationQueries.GetById(@event.OrganizationId);
+            var user = _userQueries.GetById(@event.MemberId);
+            var organization = _organizationQueries.GetById(@event.OrganizationId);
 
             Model = new
             {

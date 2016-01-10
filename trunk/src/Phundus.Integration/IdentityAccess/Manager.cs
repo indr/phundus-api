@@ -1,4 +1,4 @@
-namespace Phundus.Core.Shop.Orders.Model
+namespace Phundus.Integration.IdentityAccess
 {
     using System;
     using System.Collections.Generic;
