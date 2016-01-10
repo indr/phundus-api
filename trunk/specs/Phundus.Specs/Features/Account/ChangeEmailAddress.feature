@@ -1,5 +1,5 @@
 ﻿Feature: ChangeEmailAddress
-	
+
 Scenario: sends email "Validierung der geänderten E-Mail-Adresse"
 	Given a confirmed user	
 	And logged in as user

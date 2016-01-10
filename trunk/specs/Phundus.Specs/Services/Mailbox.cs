@@ -62,7 +62,7 @@ namespace Phundus.Specs.Services
                         for (var i = 1; i <= count; i++)
                         {
                             var msg = client.GetMessageHeaders(i);
-                            if ((msg.Subject != null) && (msg.Subject.Equals(subject)))
+                            if ((msg.Subject != null) && (msg.Subject.Equals(subject)) && (msg.To.Any(p => p.Address == toAddress)))
                                 return ToMail(client.GetMessage(i));
                         }
                     }

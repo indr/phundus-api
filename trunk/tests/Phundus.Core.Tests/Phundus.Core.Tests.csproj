@@ -128,7 +128,6 @@
     <Compile Include="Shop\Orders\Commands\UpdateOrderItemHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Model\OrderSpecs.cs" />
     <Compile Include="Shop\OrganizationFactory.cs" />
-    <Compile Include="_Legacy\ArticleTestBase.cs" />
     <Compile Include="_Legacy\Entities\EntityBaseTests.cs" />
     <Compile Include="_Legacy\Entities\MembershipTests.cs" />
     <Compile Include="_Legacy\Entities\OrderStatusTests.cs" />
@@ -136,8 +135,6 @@
     <Compile Include="_Legacy\KeyGeneratorTests.cs" />
     <Compile Include="_Legacy\PasswordEncryptorTests.cs" />
     <Compile Include="_Legacy\SessionKeyGeneratorTests.cs" />
-    <Compile Include="_Legacy\TestBase.cs" />
-    <Compile Include="_Legacy\UnitTestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

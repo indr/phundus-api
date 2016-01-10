@@ -68,6 +68,7 @@
                 });
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
+            user.Id = response.Data.UserId;
             user.Guid = response.Data.UserGuid;
             return user;
         }
