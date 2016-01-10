@@ -17,7 +17,7 @@ namespace Phundus.Specs.Services.Entities
         {
             ReadRecordsFromResource();
 
-            _nextIdx = new Random().Next(0, _records.Count - 1) - 1;
+            _nextIdx = new Random().Next(0, _records.Count - 1);
         }
 
         private void ReadRecordsFromResource()

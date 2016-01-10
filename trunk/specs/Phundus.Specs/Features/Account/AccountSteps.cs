@@ -130,8 +130,8 @@
         [Then(@"not validated")]
         public void ThenNotValidated()
         {
-            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
-            Assert.That(App.LastResponse.Message, Is.StringStarting("could not update"));
+            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError), "Error validating key " + Ctx.ValidationKey);
+            Assert.That(App.LastResponse.Message, Is.StringStarting("could not update"), "Error validating key " + Ctx.ValidationKey);
         }
 
         [Then(@"error email address already taken")]
