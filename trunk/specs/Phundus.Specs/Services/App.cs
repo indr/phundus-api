@@ -5,6 +5,7 @@
     using System.Net;
     using Api;
     using Entities;
+    using NUnit.Framework;
     using Phundus.Rest.Api;
     using Phundus.Rest.Api.Account;
     using Phundus.Rest.Api.Admin;
@@ -86,11 +87,13 @@
             AssertHttpStatus(HttpStatusCode.NoContent, response);
         }
 
-        public void ChangeEmailAddress(Guid userGuid, string password, string newEmailAddress)
+        public bool ChangeEmailAddress(Guid userGuid, string password, string newEmailAddress, bool assertStatusCode = true)
         {
             var response = _apiClient.For<ChangeEmailAddressApi>()
                 .Post(new ChangeEMailAddressPostRequestContent { Password = password, NewEmailAddress = newEmailAddress });
-            AssertHttpStatus(HttpStatusCode.NoContent, response);
+            if (assertStatusCode)
+                AssertHttpStatus(HttpStatusCode.NoContent, response);
+            return response.StatusCode == HttpStatusCode.NoContent;
         }
 
         public void SetUsersRole(Guid userGuid, UserRole userRole)
@@ -162,11 +165,13 @@
             AssertHttpStatus(HttpStatusCode.NoContent, response);
         }
 
-        public void ValidateKey(string validationKey)
+        public bool ValidateKey(string validationKey, bool assertStatusCode = true)
         {
             var response = _apiClient.For<ValidateApi>()
                 .Post(new {key = validationKey});
-            AssertHttpStatus(HttpStatusCode.NoContent, response);
+            if (assertStatusCode)
+                AssertHttpStatus(HttpStatusCode.NoContent, response);
+            return response.StatusCode == HttpStatusCode.NoContent;
         }
     }
 }

@@ -3,12 +3,16 @@
     using System;
     using NUnit.Framework;
     using Services;
+    using Services.Entities;
     using Steps;
     using TechTalk.SpecFlow;
 
     [Binding]
     public class AccountSteps : StepsBase
     {
+        private bool _validateKeyResult;
+        private bool _changedEmailAddressResult;
+
         public AccountSteps(App app, Ctx ctx) : base(app, ctx)
         {
         }
@@ -42,31 +46,58 @@
             App.ResetPassword(Ctx.User.Username);
         }
 
+        
+        
+
         [Given(@"user changed email address")]
         public void GivenUserChangedEmailAddress()
         {
-            ChangeEmailAddress();
+            ChangeEmailAddress(Ctx.User);
+        }
+
+        [Given(@"""(.*)"" changed email address to ""(.*)""")]
+        public void GivenUserChangedEmailAddress(string userKey, string emailKey)
+        {
+            var user = Ctx.Users[userKey];
+            if (!Ctx.Emails.ContainsKey(emailKey))
+                Ctx.Emails[emailKey] = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
+            var emailAddress = Ctx.Emails[emailKey];
+            ChangeEmailAddress(user, emailAddress);
         }
 
         [When(@"change email address")]
         public void WhenChangeEmailAddress()
         {
-            ChangeEmailAddress();
+            ChangeEmailAddress(Ctx.User);
         }
 
-        private void ChangeEmailAddress()
+        [When(@"""(.*)"" changes email address to ""(.*)""")]
+        public void WhenChangesEmailAddressTo(string userKey, string emailKey)
+        {
+            var user = Ctx.Users[userKey];
+            var emailAddress = Ctx.Emails[emailKey];
+
+            ChangeEmailAddress(user, emailAddress, false);
+        }
+
+        private void ChangeEmailAddress(User user)
         {
             var newEmailAddress = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
-            var user = Ctx.User;
-            App.ChangeEmailAddress(user.Guid, user.Password, newEmailAddress);
-            user.RequestedEmailAddress = newEmailAddress;
+            ChangeEmailAddress(user, newEmailAddress);
+        }
+
+        private void ChangeEmailAddress(User user, string newEmailAddress, bool assertStatusCode = true)
+        {
+            _changedEmailAddressResult = App.ChangeEmailAddress(user.Guid, user.Password, newEmailAddress, assertStatusCode);
+            if (_changedEmailAddressResult)
+                user.RequestedEmailAddress = newEmailAddress;
         }
 
         [When(@"log in")]
         public void WhenLogIn()
         {
             var user = Ctx.User;
-            Ctx.LoggedIn = App.LogIn(user.Username, user.Password , false);
+            Ctx.LoggedIn = App.LogIn(user.Username, user.Password, false);
         }
 
         [When(@"log in with requested address")]
@@ -98,7 +129,20 @@
         [When(@"validate key")]
         public void WhenValidateKey()
         {
-            App.ValidateKey(Ctx.ValidationKey);
+            _validateKeyResult = App.ValidateKey(Ctx.ValidationKey);
+        }
+
+        [Then(@"not validated")]
+        public void ThenNotValidated()
+        {
+            Assert.IsFalse(_validateKeyResult);
+        }
+
+        [Then(@"error email address already taken")]
+        public void ThenErrorEmailAddressAlreadyTaken()
+        {
+            // TODO: Exception handling
+            Assert.False(_changedEmailAddressResult);
         }
     }
 }
