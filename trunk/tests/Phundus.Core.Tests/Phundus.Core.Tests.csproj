@@ -96,8 +96,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
-    <Compile Include="IdentityAndAccess\Users\Commands\RegisterUserHandler.cs" />
-    <Compile Include="IdentityAndAccess\Users\Model\UserSpecs.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\UpdateOrganizationDetailsHandlerSpecs.cs" />
+    <Compile Include="IdentityAccess\Users\Commands\RegisterUserHandler.cs" />
+    <Compile Include="IdentityAccess\Users\Model\UserSpecs.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
     <Compile Include="Shop\BorrowerFactory.cs" />
     <Compile Include="concern.cs" />
@@ -105,7 +106,6 @@
     <Compile Include="Cqrs\TestCommand1Handler.cs" />
     <Compile Include="Cqrs\when_all_handlers_are_resolved.cs" />
     <Compile Include="Cqrs\when_a_command_is_sent.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Commands\UpdateOrganizationDetailsHandlerSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\AddImageHandlerSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\CreateArticleHandlerSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\article_handler_concern.cs" />

@@ -109,59 +109,92 @@
     <Compile Include="Ddd\IEventHandlerFactory.cs" />
     <Compile Include="Ddd\IStoredEventRepository.cs" />
     <Compile Include="Ddd\ISubscribeTo.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Commands\EstablishOrganization.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Commands\UpdateOrganizationDetails.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Exceptions\AttemptToLockOneselfException.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\OrganizationEstablished.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\OrganizationUpdated.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\OrganizationPlan.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModel.designer.cs">
+    <Compile Include="Cqrs\AutoMappingReadModelBase.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\ApplyForMembership.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\ApproveMembershipApplication.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\ChangeMembersRole.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\EstablishOrganization.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\LockMember.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\RejectMembershipApplication.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\UnlockMember.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\UpdateOrganizationDetails.cs" />
+    <Compile Include="IdentityAccess\Organizations\Exceptions\AttemptToLockOneselfException.cs" />
+    <Compile Include="IdentityAccess\Organizations\Exceptions\MembershipApplicationNotFoundException.cs" />
+    <Compile Include="IdentityAccess\Organizations\Mails\MembershipApplicationMailNotifier.cs" />
+    <Compile Include="IdentityAccess\Organizations\Mails\Templates.Designer.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\MemberLocked.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\Membership.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\MembershipApplication.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\MembershipApplicationApproved.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\MembershipApplicationFiled.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\MembershipApplicationRejected.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\MemberUnlocked.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\Organization.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\OrganizationEstablished.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\OrganizationPlan.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\OrganizationUpdated.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\Role.cs" />
+    <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRepository.cs" />
+    <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
+    <Compile Include="IdentityAccess\Organizations\Repositories\IOrganizationRepository.cs" />
+    <Compile Include="IdentityAccess\Queries\IMemberInRole.cs" />
+    <Compile Include="IdentityAccess\Queries\IMembershipApplicationQueries.cs" />
+    <Compile Include="IdentityAccess\Queries\IMembershipQueries.cs" />
+    <Compile Include="IdentityAccess\Queries\IOrganizationQueries.cs" />
+    <Compile Include="IdentityAccess\Queries\IRelationshipQueries.cs" />
+    <Compile Include="IdentityAccess\Queries\IUserQueries.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModel.designer.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModel1.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReadModel.dbml</DependentUpon>
     </Compile>
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\ReadModelReaderBase.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\ReadModelWriterBase.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipsReadModelReader.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipStatusDto.cs" />
-    <Compile Include="IdentityAndAccess\Users\Commands\ApproveUser.cs" />
-    <Compile Include="IdentityAndAccess\Users\Commands\ChangeUserRole.cs" />
-    <Compile Include="IdentityAndAccess\Users\Commands\LockUser.cs" />
-    <Compile Include="IdentityAndAccess\Users\Commands\RegisterUser.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Exceptions\MembershipApplicationNotFoundException.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Commands\ChangeMembersRole.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Commands\LockMember.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Commands\UnlockMember.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Mails\MembershipApplicationMailNotifier.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Mails\Templates.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Templates.resx</DependentUpon>
-    </Compile>
-    <Compile Include="IdentityAndAccess\Organizations\Model\MemberLocked.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\MemberUnlocked.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\Role.cs" />
-    <Compile Include="IdentityAndAccess\Queries\IMemberInRole.cs" />
-    <Compile Include="IdentityAndAccess\Queries\IMembershipApplicationQueries.cs" />
-    <Compile Include="IdentityAndAccess\Queries\IMembershipQueries.cs" />
-    <Compile Include="IdentityAndAccess\Queries\IOrganizationQueries.cs" />
-    <Compile Include="IdentityAndAccess\Queries\IRelationshipQueries.cs" />
-    <Compile Include="Cqrs\AutoMappingReadModelBase.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\MemberInMembershipRoleQueries.cs" />
-    <Compile Include="IdentityAndAccess\Users\Commands\UnlockUser.cs" />
-    <Compile Include="IdentityAndAccess\Users\Commands\ValidateKey.cs" />
-    <Compile Include="IdentityAndAccess\Users\Mails\Templates.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Templates.resx</DependentUpon>
-    </Compile>
-    <Compile Include="IdentityAndAccess\Users\Model\UserApproved.cs" />
-    <Compile Include="IdentityAndAccess\Users\Model\UserLocked.cs" />
-    <Compile Include="IdentityAndAccess\Users\Model\UserLoggedIn.cs" />
-    <Compile Include="IdentityAndAccess\Users\Model\UserRegistered.cs" />
-    <Compile Include="IdentityAndAccess\Users\Model\UserRoleChanged.cs" />
-    <Compile Include="IdentityAndAccess\Users\Model\UserUnlocked.cs" />
-    <Compile Include="IdentityAndAccess\Users\Services\UserInRole.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\MemberInMembershipRoleQueries.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\MembershipApplicationsReadModel.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\MembershipsReadModel.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\MembersReadModel.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\OrganizationsReadModel.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\ReadModelReaderBase.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\ReadModelWriterBase.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\RelationshipsReadModelReader.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\RelationshipsReadModelWriter.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\RelationshipStatusDto.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\UserDto.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\UserReadModel.cs" />
+    <Compile Include="IdentityAccess\Users\Commands\ApproveUser.cs" />
+    <Compile Include="IdentityAccess\Users\Commands\ChangeEmailAddress.cs" />
+    <Compile Include="IdentityAccess\Users\Commands\ChangePassword.cs" />
+    <Compile Include="IdentityAccess\Users\Commands\ChangeUserRole.cs" />
+    <Compile Include="IdentityAccess\Users\Commands\LockUser.cs" />
+    <Compile Include="IdentityAccess\Users\Commands\RegisterUser.cs" />
+    <Compile Include="IdentityAccess\Users\Commands\ResetPassword.cs" />
+    <Compile Include="IdentityAccess\Users\Commands\UnlockUser.cs" />
+    <Compile Include="IdentityAccess\Users\Commands\ValidateKey.cs" />
+    <Compile Include="IdentityAccess\Users\Exceptions\EmailAlreadyTakenException.cs" />
+    <Compile Include="IdentityAccess\Users\Exceptions\InvalidPasswordException.cs" />
+    <Compile Include="IdentityAccess\Users\Exceptions\UserLockedOutException.cs" />
+    <Compile Include="IdentityAccess\Users\Exceptions\UserNotApprovedException.cs" />
+    <Compile Include="IdentityAccess\Users\Mails\Templates.Designer.cs" />
+    <Compile Include="IdentityAccess\Users\Mails\UserAccountCreatedMail.cs" />
+    <Compile Include="IdentityAccess\Users\Mails\UserAccountValidationMail.cs" />
+    <Compile Include="IdentityAccess\Users\Mails\UserChangeEmailValidationMail.cs" />
+    <Compile Include="IdentityAccess\Users\Mails\UserLockedMailNotifier.cs" />
+    <Compile Include="IdentityAccess\Users\Mails\UserResetPasswordMail.cs" />
+    <Compile Include="IdentityAccess\Users\Mails\UserUnlockedMailNotifier.cs" />
+    <Compile Include="IdentityAccess\Users\Model\Account.cs" />
+    <Compile Include="IdentityAccess\Users\Model\User.cs" />
+    <Compile Include="IdentityAccess\Users\Model\UserApproved.cs" />
+    <Compile Include="IdentityAccess\Users\Model\UserLocked.cs" />
+    <Compile Include="IdentityAccess\Users\Model\UserLoggedIn.cs" />
+    <Compile Include="IdentityAccess\Users\Model\UserRegistered.cs" />
+    <Compile Include="IdentityAccess\Users\Model\UserRoleChanged.cs" />
+    <Compile Include="IdentityAccess\Users\Model\UserUnlocked.cs" />
+    <Compile Include="IdentityAccess\Users\Repositories\IUserRepository.cs" />
+    <Compile Include="IdentityAccess\Users\Services\KeyGenerator.cs" />
+    <Compile Include="IdentityAccess\Users\Services\PasswordEncryptor.cs" />
+    <Compile Include="IdentityAccess\Users\Services\PasswordGenerator.cs" />
+    <Compile Include="IdentityAccess\Users\Services\SessionKeyGenerator.cs" />
+    <Compile Include="IdentityAccess\Users\Services\UserInRole.cs" />
     <Compile Include="Inventory\Articles\Commands\AddImage.cs" />
     <Compile Include="Inventory\Articles\Commands\RemoveImage.cs" />
     <Compile Include="Inventory\Articles\Commands\UpdateDescription.cs" />
@@ -271,30 +304,6 @@
     <Compile Include="Cqrs\IHandleCommand.cs" />
     <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
     <Compile Include="Ddd\EventPublisher.cs" />
-    <Compile Include="IdentityAndAccess\Users\Commands\ChangeEmailAddress.cs" />
-    <Compile Include="IdentityAndAccess\Users\Commands\ChangePassword.cs" />
-    <Compile Include="IdentityAndAccess\Users\Commands\ResetPassword.cs" />
-    <Compile Include="IdentityAndAccess\Users\Exceptions\EmailAlreadyTakenException.cs" />
-    <Compile Include="IdentityAndAccess\Users\Mails\UserAccountCreatedMail.cs" />
-    <Compile Include="IdentityAndAccess\Users\Mails\UserAccountValidationMail.cs" />
-    <Compile Include="IdentityAndAccess\Users\Mails\UserChangeEmailValidationMail.cs" />
-    <Compile Include="IdentityAndAccess\Users\Mails\UserLockedMailNotifier.cs" />
-    <Compile Include="IdentityAndAccess\Users\Mails\UserResetPasswordMail.cs" />
-    <Compile Include="IdentityAndAccess\Users\Mails\UserUnlockedMailNotifier.cs" />
-    <Compile Include="IdentityAndAccess\Queries\IUserQueries.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\UserDto.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\UserReadModel.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Commands\ApproveMembershipApplication.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Commands\RejectMembershipApplication.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\Membership.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplication.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\MembersReadModel.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\MembershipApplicationsReadModel.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\MembershipsReadModel.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\OrganizationsReadModel.cs" />
-    <Compile Include="IdentityAndAccess\Queries\ReadModels\RelationshipsReadModelWriter.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRepository.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="_Legacy\DtoOutOfDateException.cs" />
     <Compile Include="Inventory\Articles\Model\Article.cs" />
     <Compile Include="Shop\Orders\Mails\Templates.Designer.cs">
@@ -307,31 +316,15 @@
     <Compile Include="Shop\Contracts\Model\ContractItem.cs" />
     <Compile Include="Ddd\EntityBase.cs" />
     <Compile Include="Inventory\Articles\Model\Image.cs" />
-    <Compile Include="IdentityAndAccess\Users\Model\Account.cs" />
     <Compile Include="Shop\Orders\Model\Order.cs" />
     <Compile Include="Shop\Orders\Model\OrderItem.cs" />
     <Compile Include="Shop\Orders\Model\OrderStatus.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\Organization.cs" />
     <Compile Include="Inventory\AvailabilityAndReservation\Model\Reservation.cs" />
-    <Compile Include="IdentityAndAccess\Users\Model\User.cs" />
-    <Compile Include="IdentityAndAccess\Users\Exceptions\InvalidPasswordException.cs" />
-    <Compile Include="IdentityAndAccess\Users\Services\KeyGenerator.cs" />
-    <Compile Include="IdentityAndAccess\Users\Services\PasswordEncryptor.cs" />
-    <Compile Include="IdentityAndAccess\Users\Services\PasswordGenerator.cs" />
-    <Compile Include="IdentityAndAccess\Users\Services\SessionKeyGenerator.cs" />
-    <Compile Include="IdentityAndAccess\Users\Exceptions\UserLockedOutException.cs" />
-    <Compile Include="IdentityAndAccess\Users\Exceptions\UserNotApprovedException.cs" />
     <Compile Include="Shop\Orders\Mails\OrderReceivedMail.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Commands\ApplyForMembership.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationApproved.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationFiled.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Model\MembershipApplicationRejected.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shop\Orders\Repositories\ICartRepository.cs" />
     <Compile Include="Shop\Orders\Repositories\IOrderRepository.cs" />
-    <Compile Include="IdentityAndAccess\Organizations\Repositories\IOrganizationRepository.cs" />
     <Compile Include="Inventory\AvailabilityAndReservation\Repositories\IReservationRepository.cs" />
-    <Compile Include="IdentityAndAccess\Users\Repositories\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">
@@ -349,9 +342,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="IdentityAndAccess\Queries\ReadModel.dbml">
+    <None Include="IdentityAccess\Queries\ReadModel.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>ReadModel.designer.cs</LastGenOutput>
+      <LastGenOutput>ReadModel1.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -363,27 +356,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bootstrap\" />
-    <Folder Include="IdentityAndAccess\Queries\Dtos\" />
+    <Folder Include="IdentityAccess\Queries\Dtos\" />
     <Folder Include="Inventory\Services\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
     <Folder Include="Shop\Contracts\Exceptions\" />
     <Folder Include="Shop\Contracts\Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="IdentityAndAccess\Organizations\Mails\Templates.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Templates.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="Shop\Queries\ReadModel.dbml.layout">
       <DependentUpon>ReadModel.dbml</DependentUpon>
     </None>
-    <None Include="IdentityAndAccess\Queries\ReadModel.dbml.layout">
+    <EmbeddedResource Include="IdentityAccess\Organizations\Mails\Templates.resx" />
+    <None Include="IdentityAccess\Queries\ReadModel.dbml.layout">
       <DependentUpon>ReadModel.dbml</DependentUpon>
     </None>
-    <EmbeddedResource Include="IdentityAndAccess\Users\Mails\Templates.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Templates.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="IdentityAccess\Users\Mails\Templates.resx" />
     <EmbeddedResource Include="Shop\Orders\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
@@ -391,23 +378,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationFiledBodyHtml.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationRejectedBodyHtml.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="IdentityAndAccess\Organizations\Mails\Resources\MembershipApplicationApprovedBodyHtml.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="IdentityAndAccess\Organizations\Mails\Resources\MemberLockedBodyHtml.txt" />
-    <Content Include="IdentityAndAccess\Organizations\Mails\Resources\MemberUnlockedBodyHtml.txt" />
-    <Content Include="IdentityAndAccess\Users\Mails\Resources\UserAccountCreatedHtml.txt" />
-    <Content Include="IdentityAndAccess\Users\Mails\Resources\UserAccountValidationHtml.txt" />
-    <Content Include="IdentityAndAccess\Users\Mails\Resources\UserLockedHtml.txt" />
-    <Content Include="IdentityAndAccess\Users\Mails\Resources\UserUnlockedHtml.txt" />
-    <Content Include="IdentityAndAccess\Users\Mails\Resources\UserChangeEmailValidationHtml.txt" />
-    <Content Include="IdentityAndAccess\Users\Mails\Resources\UserResetPasswordHtml.txt" />
+    <Content Include="IdentityAccess\Organizations\Mails\Resources\MemberLockedBodyHtml.txt" />
+    <Content Include="IdentityAccess\Organizations\Mails\Resources\MembershipApplicationApprovedBodyHtml.txt" />
+    <Content Include="IdentityAccess\Organizations\Mails\Resources\MembershipApplicationFiledBodyHtml.txt" />
+    <Content Include="IdentityAccess\Organizations\Mails\Resources\MembershipApplicationRejectedBodyHtml.txt" />
+    <Content Include="IdentityAccess\Organizations\Mails\Resources\MemberUnlockedBodyHtml.txt" />
+    <Content Include="IdentityAccess\Users\Mails\Resources\UserAccountCreatedHtml.txt" />
+    <Content Include="IdentityAccess\Users\Mails\Resources\UserAccountValidationHtml.txt" />
+    <Content Include="IdentityAccess\Users\Mails\Resources\UserChangeEmailValidationHtml.txt" />
+    <Content Include="IdentityAccess\Users\Mails\Resources\UserLockedHtml.txt" />
+    <Content Include="IdentityAccess\Users\Mails\Resources\UserResetPasswordHtml.txt" />
+    <Content Include="IdentityAccess\Users\Mails\Resources\UserUnlockedHtml.txt" />
     <Content Include="Shop\Orders\Mails\Resources\OrderApprovedHtml.txt" />
     <Content Include="Shop\Orders\Mails\Resources\OrderReceivedHtml.txt" />
     <Content Include="Shop\Orders\Mails\Resources\OrderRejectedHtml.txt" />
