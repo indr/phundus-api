@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Specs.Steps
 {
     using Services;
+    using Services.Entities;
     using TechTalk.SpecFlow;
 
     public enum UserRole
@@ -34,13 +35,43 @@
             App.LogIn(user.Username, user.Password);
         }
 
+        [Given(@"logged in as ""(.*)""")]
+        public void GivenLoggedInAs(string userKey)
+        {
+            var user = Ctx.Users[userKey];
+            App.LogIn(user.Username, user.Password);
+        }
+
         [Given(@"a confirmed user")]
-        public void AConfirmedUser()
+        public User AConfirmedUser()
         {
             var user = App.SignUpUser();
             App.LogInAsRoot();
             App.ConfirmUser(user.Guid);
             Ctx.User = user;
+            return user;
+        }
+
+        [Given(@"a confirmed user ""([^@]*)""")]
+        public void AConfirmedUser(string key)
+        {
+            Ctx.Users[key] = AConfirmedUser();
+        }
+
+        [Given(@"a confirmed and logged in user ""([^@]*)""")]
+        public void AConfirmedAndLoggedInUser(string key)
+        {
+            var user = AConfirmedUser();
+            App.LogIn(user.Username, user.Password);
+            Ctx.Users[key] = user;
+        }
+
+        [Given(@"a confirmed user ""([^@]*)"" with email address ""(.*)""")]
+        public void AConfirmedUser(string key, string email)
+        {
+            var user = AConfirmedUser();
+            Ctx.Users[key] = user;
+            Ctx.Emails[email] = user.EmailAddress;
         }
 
         [Given(@"a confirmed, locked user")]
