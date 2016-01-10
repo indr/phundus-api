@@ -15,7 +15,6 @@ Scenario: can not login without validation
 	When log in with requested address
 	Then not logged in
 
-@ignore
 Scenario: can login with new address after validation
 	Given user changed email address
 	And the validation key from email validation email

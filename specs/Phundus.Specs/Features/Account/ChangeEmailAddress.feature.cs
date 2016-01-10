@@ -117,24 +117,22 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("can login with new address after validation")]
-        [NUnit.Framework.IgnoreAttribute()]
         public virtual void CanLoginWithNewAddressAfterValidation()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("can login with new address after validation", new string[] {
-                        "ignore"});
-#line 19
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("can login with new address after validation", ((string[])(null)));
+#line 18
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 20
+#line 19
  testRunner.Given("user changed email address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 21
+#line 20
  testRunner.And("the validation key from email validation email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 22
+#line 21
  testRunner.When("validate key", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 23
+#line 22
  testRunner.And("log in with requested address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 24
+#line 23
  testRunner.Then("logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -145,19 +143,19 @@ this.FeatureBackground();
         public virtual void CanNotChangeEmailIfAlreadyTaken()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("can not change email if already taken", ((string[])(null)));
-#line 26
+#line 25
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 27
+#line 26
  testRunner.Given("a confirmed user \"Johan\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 28
+#line 27
  testRunner.And("a confirmed user \"John\" with email address \"john@test.phundus.ch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 29
+#line 28
  testRunner.And("logged in as \"Johan\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 30
+#line 29
  testRunner.When("\"Johan\" changes email address to \"john@test.phundus.ch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 31
+#line 30
  testRunner.Then("error email address already taken", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -168,21 +166,21 @@ this.FeatureBackground();
         public virtual void CanNotValidateIfAlreadyTaken()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("can not validate if already taken", ((string[])(null)));
-#line 33
+#line 32
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 34
+#line 33
  testRunner.Given("a confirmed and logged in user \"Johan\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 35
+#line 34
  testRunner.And("\"Johan\" changed email address to \"john@test.phundus.ch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 36
+#line 35
  testRunner.And("the validation key from email validation email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 37
+#line 36
  testRunner.And("a confirmed user \"John\" with email address \"john@test.phundus.ch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 38
+#line 37
  testRunner.When("validate key", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 39
+#line 38
  testRunner.Then("not validated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
