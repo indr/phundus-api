@@ -10,11 +10,11 @@
     using WatiN.Core;
 
     [Binding]
-    public class CommonSteps : StepBase
+    public class BrowserSteps : StepBase
     {
         private readonly IMailbox _mailbox;
 
-        public CommonSteps(IMailbox mailbox)
+        public BrowserSteps(IMailbox mailbox)
         {
             _mailbox = mailbox;
             if (mailbox == null) throw new ArgumentNullException("mailbox");
