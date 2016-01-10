@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Specs.Features.Account
 {
     using System;
+    using System.Net;
     using NUnit.Framework;
     using Services;
     using Services.Entities;
@@ -10,9 +11,6 @@
     [Binding]
     public class AccountSteps : StepsBase
     {
-        private bool _validateKeyResult;
-        private bool _changedEmailAddressResult;
-
         public AccountSteps(App app, Ctx ctx) : base(app, ctx)
         {
         }
@@ -45,10 +43,7 @@
         {
             App.ResetPassword(Ctx.User.Username);
         }
-
         
-        
-
         [Given(@"user changed email address")]
         public void GivenUserChangedEmailAddress()
         {
@@ -88,8 +83,8 @@
 
         private void ChangeEmailAddress(User user, string newEmailAddress, bool assertStatusCode = true)
         {
-            _changedEmailAddressResult = App.ChangeEmailAddress(user.Guid, user.Password, newEmailAddress, assertStatusCode);
-            if (_changedEmailAddressResult)
+            App.ChangeEmailAddress(user.Guid, user.Password, newEmailAddress, assertStatusCode);
+            if (App.LastResponse.IsSuccess)
                 user.RequestedEmailAddress = newEmailAddress;
         }
 
@@ -129,20 +124,21 @@
         [When(@"validate key")]
         public void WhenValidateKey()
         {
-            _validateKeyResult = App.ValidateKey(Ctx.ValidationKey, false);
+            App.ValidateKey(Ctx.ValidationKey, false);
         }
 
         [Then(@"not validated")]
         public void ThenNotValidated()
         {
-            Assert.IsFalse(_validateKeyResult);
+            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
+            Assert.That(App.LastResponse.Message, Is.StringStarting("could not update"));
         }
 
         [Then(@"error email address already taken")]
         public void ThenErrorEmailAddressAlreadyTaken()
         {
-            // TODO: Exception handling
-            Assert.False(_changedEmailAddressResult);
+           Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
+           Assert.That(App.LastResponse.Message, Is.StringContaining("EmailAlreadyTakenException"));
         }
     }
 }
