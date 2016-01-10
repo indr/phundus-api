@@ -118,6 +118,11 @@ namespace Phundus.Rest.Api
 
     public class UsersGetOkResponseContent
     {
+        public UsersGetOkResponseContent()
+        {
+            
+        }
+
         public UsersGetOkResponseContent(UserDto user, IEnumerable<MembershipDto> memberships, StoreDto store)
         {
             UserId = user.Id.ToString(CultureInfo.InvariantCulture);
@@ -173,7 +178,7 @@ namespace Phundus.Rest.Api
         public string EmailAddress { get; set; }
 
         [JsonProperty("memberships")]
-        public IList<Memberships> Memberships { get; set; }
+        public List<Memberships> Memberships { get; set; }
 
         [JsonProperty("store")]
         public Store Store { get; set; }

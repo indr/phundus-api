@@ -103,6 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\UsersGetOkResponseContent.cs" />
     <Compile Include="Features\Account\ChangeEmailAddress.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -169,6 +170,7 @@
     <Compile Include="Features\Organizations\OrganizationsSteps.cs" />
     <Compile Include="Services\Resource.cs" />
     <Compile Include="Steps\EmailSteps.cs" />
+    <Compile Include="Steps\ResponseValidationSteps.cs" />
     <Compile Include="Steps\StepsBase.cs" />
     <Compile Include="Steps\UserSteps.cs" />
     <Compile Include="_Legacy\Features\Shop.feature.cs">
@@ -195,7 +197,7 @@
     <Compile Include="_Legacy\Rest\PhundusApi.cs" />
     <Compile Include="_Legacy\Rest\PhundusApiAuthenticator.cs" />
     <Compile Include="Steps\_Legacy\ShopSteps.cs" />
-    <Compile Include="Steps\_Legacy\CommonSteps.cs" />
+    <Compile Include="Steps\_Legacy\BrowserSteps.cs" />
     <Compile Include="Steps\_Legacy\StartseiteSteps.cs" />
     <Compile Include="Steps\_Legacy\StepBase.cs" />
     <Compile Include="Services\WindsorContainerSupport.cs" />

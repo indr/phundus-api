@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Specs.Steps
 {
     using Services;
-    using Services.Entities;
     using TechTalk.SpecFlow;
 
     public enum UserRole

@@ -17,6 +17,7 @@ namespace Phundus.Specs.Services.Entities
         public string Postcode { get; set; }
         public string RequestedEmailAddress { get; set; }
         public int Id { get; set; }
+        public Guid StoreId { get; set; }
 
         public override string ToString()
         {

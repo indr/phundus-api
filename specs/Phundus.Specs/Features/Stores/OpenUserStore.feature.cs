@@ -66,21 +66,40 @@ namespace Phundus.Specs.Features.Stores
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Open user store, user has store")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
         public virtual void OpenUserStoreUserHasStore()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open user store, user has store", new string[] {
-                        "mytag"});
-#line 5
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open user store, user has store", ((string[])(null)));
+#line 3
 this.ScenarioSetup(scenarioInfo);
-#line 6
+#line 4
  testRunner.Given("a confirmed user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 7
+#line 5
  testRunner.And("logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 8
+#line 6
  testRunner.When("open user store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
+#line 7
  testRunner.Then("get user with store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Open a second store returns 500")]
+        public virtual void OpenASecondStoreReturns500()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open a second store returns 500", ((string[])(null)));
+#line 9
+this.ScenarioSetup(scenarioInfo);
+#line 10
+ testRunner.Given("a confirmed user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 11
+ testRunner.And("logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 12
+ testRunner.When("open user store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 13
+ testRunner.And("open user store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 14
+ testRunner.Then("last response code is 500", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
