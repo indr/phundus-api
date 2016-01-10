@@ -103,9 +103,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\FeedbackApi.cs" />
-    <Compile Include="Api\MailsApi.cs" />
-    <Compile Include="Api\OrganizationsApi.cs" />
     <Compile Include="Features\Account\ChangeEmailAddress.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -154,21 +151,17 @@
     </Compile>
     <Compile Include="Services\AppBase.cs" />
     <Compile Include="Services\Ctx.cs" />
+    <Compile Include="Services\CustomJsonSerializer.cs" />
     <Compile Include="Services\Entities\CsvImporter.cs" />
     <Compile Include="Services\Entities\FakeGenerator.cs" />
     <Compile Include="Services\Entities\Organization.cs" />
     <Compile Include="Services\Entities\User.cs" />
     <Compile Include="Services\Mailbox.cs" />
     <Compile Include="Features\Account\AccountSteps.cs" />
-    <Compile Include="Api\AdminUsersApi.cs" />
-    <Compile Include="Api\ApiBase.cs" />
     <Compile Include="Services\ApiClient.cs" />
     <Compile Include="Services\App.cs" />
-    <Compile Include="Api\CustomJsonSerializer.cs" />
-    <Compile Include="Api\ResetPasswordApi.cs" />
-    <Compile Include="Api\SessionsApi.cs" />
-    <Compile Include="Api\UsersApi.cs" />
     <Compile Include="Features\Organizations\OrganizationsSteps.cs" />
+    <Compile Include="Services\Resource.cs" />
     <Compile Include="Steps\EmailSteps.cs" />
     <Compile Include="Steps\StepsBase.cs" />
     <Compile Include="Steps\UserSteps.cs" />

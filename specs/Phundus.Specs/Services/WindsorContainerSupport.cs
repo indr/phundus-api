@@ -2,7 +2,6 @@
 {
     using System;
     using System.Configuration;
-    using Api;
     using BoDi;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
@@ -23,9 +22,6 @@
         public void InitializeWindsorContainer()
         {
             var container = new WindsorContainer();
-
-            container.Register(Classes.FromThisAssembly().BasedOn<ApiBase>().WithServiceSelf());
-            
 
             _objectContainer.RegisterInstanceAs<IWindsorContainer>(container);
 

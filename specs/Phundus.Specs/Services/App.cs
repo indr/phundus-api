@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Net;
-    using Api;
     using Entities;
     using Phundus.Rest.Api;
     using Phundus.Rest.Api.Account;
@@ -54,7 +53,7 @@
             if (emailAddress != null)
                 user.EmailAddress = emailAddress;
 
-            var response = _apiClient.For<UsersApi>()
+            var response = _apiClient.UsersApi()
                 .Post<UsersPostOkResponseContent>(new UsersPostRequestContent
                 {
                     City = user.City,
@@ -75,7 +74,7 @@
 
         public Guid LogIn(string username, string password = "1234", bool assertStatusCode = true)
         {
-            var response = _apiClient.For<SessionsApi>()
+            var response = _apiClient.SessionsApi()
                 .Post<SessionsPostOkResponseContent>(new SessionsPostRequestContent { Username = username, Password = password });
             if (assertStatusCode)
                 AssertHttpStatus(HttpStatusCode.OK, response);
@@ -86,7 +85,7 @@
         public void ConfirmUser(Guid userGuid)
         {
             LogInAsRoot();
-            var response = _apiClient.For<AdminUsersApi>()
+            var response = _apiClient.AdminUsersApi()
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsApproved = true,
@@ -99,7 +98,7 @@
 
         public void ChangePassword(Guid userGuid, string oldPasswort, string newPassword)
         {
-            var response = _apiClient.For<ChangePasswordApi>()
+            var response = _apiClient.ChangePasswordApi()
                 .Post(new ChangePasswordPostRequestContent {OldPassword = oldPasswort, NewPassword = newPassword});
             AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
@@ -107,7 +106,7 @@
 
         public void ResetPassword(string emailAddress)
         {
-            var response = _apiClient.For<ResetPasswordApi>()
+            var response = _apiClient.ResetPasswordApi()
                 .Post(new ResetPasswordPostRequestContent {EmailAddress = emailAddress});
             AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
@@ -116,7 +115,7 @@
         public bool ChangeEmailAddress(Guid userGuid, string password, string newEmailAddress,
             bool assertStatusCode = true)
         {
-            var response = _apiClient.For<ChangeEmailAddressApi>()
+            var response = _apiClient.ChangeEmailAddressApi()
                 .Post(new ChangeEMailAddressPostRequestContent {Password = password, NewEmailAddress = newEmailAddress});
             if (assertStatusCode)
                 AssertHttpStatus(HttpStatusCode.NoContent, response);
@@ -127,7 +126,7 @@
         public void SetUsersRole(Guid userGuid, UserRole userRole)
         {
             LogInAsRoot();
-            var response = _apiClient.For<AdminUsersApi>()
+            var response = _apiClient.AdminUsersApi()
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsAdmin = true,
@@ -141,7 +140,7 @@
         public void LockUser(Guid userGuid)
         {
             LogInAsRoot();
-            var response = _apiClient.For<AdminUsersApi>()
+            var response = _apiClient.AdminUsersApi()
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsLocked = true,
@@ -155,7 +154,7 @@
         public void UnlockUser(Guid userGuid)
         {
             LogInAsRoot();
-            var response = _apiClient.For<AdminUsersApi>()
+            var response = _apiClient.AdminUsersApi()
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsLocked = false,
@@ -169,7 +168,7 @@
         public Organization EstablishOrganization()
         {
             var organization = _fakeGenerator.NextOrganization();
-            var response = _apiClient.For<OrganizationsApi>()
+            var response = _apiClient.OrganizationsApi()
                 .Post<OrganizationsPostOkResponseContent>(new OrganizationsPostRequestContent
                 {
                     Name = organization.Name
@@ -182,7 +181,7 @@
 
         public IList<Phundus.Rest.ContentObjects.Organization> QueryOrganizations()
         {
-            var response = _apiClient.For<OrganizationsApi>()
+            var response = _apiClient.OrganizationsApi()
                 .Query<OrganizationsQueryOkResponseContent>();
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
@@ -191,7 +190,7 @@
 
         public void SendFeedback(string senderEmailAddress, string comment)
         {
-            var response = _apiClient.For<FeedbackApi>().Post(new FeedbackPostRequestContent
+            var response = _apiClient.FeedbackApi().Post(new FeedbackPostRequestContent
             {
                 EmailAddress = senderEmailAddress,
                 Comment = comment
@@ -202,7 +201,7 @@
 
         public void ValidateKey(string validationKey, bool assertStatusCode = true)
         {
-            var response = _apiClient.For<ValidateApi>()
+            var response = _apiClient.ValidateApi()
                 .Post(new {key = validationKey});
             if (assertStatusCode)
                 AssertHttpStatus(HttpStatusCode.NoContent, response);

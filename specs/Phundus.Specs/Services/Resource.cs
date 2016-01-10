@@ -1,4 +1,4 @@
-﻿namespace Phundus.Specs.Api
+﻿namespace Phundus.Specs.Services
 {
     using System;
     using System.Collections.Generic;
@@ -7,20 +7,20 @@
     using Newtonsoft.Json;
     using RestSharp;
 
-    public abstract class ApiBase
+    public class Resource
     {
         private static readonly string BaseUrl;
 
         private static readonly IDictionary<string, string> Cookies = new Dictionary<string, string>();
         private readonly string _resource;
 
-        static ApiBase()
+        static Resource()
         {
             var baseUrl = ConfigurationManager.AppSettings["ServerUrl"];
-            BaseUrl = "http://" + baseUrl + "/api/v0";
+            BaseUrl = "http://" + baseUrl + "/api/v0/";
         }
 
-        protected ApiBase(string resource)
+        public Resource(string resource)
         {
             if (resource == null) throw new ArgumentNullException("resource");
             _resource = resource;

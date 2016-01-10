@@ -1,4 +1,4 @@
-namespace Phundus.Specs.Api
+namespace Phundus.Specs.Services
 {
     using Newtonsoft.Json;
     using RestSharp.Serializers;
