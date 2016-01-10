@@ -1,6 +1,7 @@
 namespace Phundus.Specs.Services.Entities
 {
     using System;
+    using System.Globalization;
 
     public class User
     {
@@ -15,11 +16,12 @@ namespace Phundus.Specs.Services.Entities
         public string Street { get; set; }
         public string Postcode { get; set; }
         public string RequestedEmailAddress { get; set; }
+        public int Id { get; set; }
 
         public override string ToString()
         {
-            return String.Format("[Guid={0}, EmailAddress={1}, FirstName={2}, LastName={3}]",
-                new object[] {Guid.ToString("D"), EmailAddress, FirstName, LastName});
+            return String.Format("[Id={0}, Guid={1}, EmailAddress={2}, FirstName={3}, LastName={4}]",
+                new object[] {Id.ToString(CultureInfo.InvariantCulture), Guid.ToString("D"), EmailAddress, FirstName, LastName});
         }
     }
 }

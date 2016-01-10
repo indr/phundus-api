@@ -58,7 +58,7 @@ namespace Phundus.Rest.Api
                 });
             }
 
-            return new UsersPostOkResponseContent {UserGuid = command.ResultingUserGuid};
+            return new UsersPostOkResponseContent {UserId = command.ResultingUserId, UserGuid = command.ResultingUserGuid};
         }
 
         [GET("{userId}")]
@@ -79,6 +79,9 @@ namespace Phundus.Rest.Api
 
     public class UsersPostOkResponseContent
     {
+        [JsonProperty("userId")]
+        public int UserId { get; set; }
+
         [JsonProperty("userGuid")]
         public Guid UserGuid { get; set; }
     }

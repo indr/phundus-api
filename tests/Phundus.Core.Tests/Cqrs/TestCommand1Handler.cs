@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Core.Tests.Cqrs
 {
     using System;
-    using System.Collections;
     using Core.Cqrs;
 
     public class TestCommand1Handler : IHandleCommand<TestCommand1>
