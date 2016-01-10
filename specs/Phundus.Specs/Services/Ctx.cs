@@ -8,8 +8,20 @@
     [Binding]
     public class Ctx
     {
-        private readonly IDictionary<string, User> _users = new Dictionary<string, User>();
         private readonly IDictionary<string, string> _emails = new Dictionary<string, string>();
+        private readonly IDictionary<string, User> _users = new Dictionary<string, User>();
+
+        [BeforeScenario]
+        public void BeforeScenario()
+        {
+            User = null;
+            Users.Clear();
+            Organization = null;
+            AnonEmailAddress = null;
+            LoggedIn = Guid.Empty;
+            ValidationKey = null;
+            Emails.Clear();
+        }
 
         public User User { get; set; }
 
@@ -26,6 +38,7 @@
         public string AnonEmailAddress { get; set; }
 
         public Guid LoggedIn { get; set; }
+
         public string ValidationKey { get; set; }
 
         public IDictionary<string, string> Emails
