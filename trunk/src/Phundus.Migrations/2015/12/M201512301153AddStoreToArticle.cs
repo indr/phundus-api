@@ -3,6 +3,7 @@ namespace Phundus.Migrations
     using System;
     using FluentMigrator;
 
+
     [Migration(201512301153)]
     public class M201512301153AddStoreToArticle : MigrationBase
     {

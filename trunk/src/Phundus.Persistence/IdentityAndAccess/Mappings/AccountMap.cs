@@ -9,7 +9,7 @@
         {
             SchemaAction.Validate();
 
-            Table("Membership");
+            Table("Dm_Account");
             Id(x => x.Id).GeneratedBy.Foreign("User");
             Version(x => x.Version);
 
@@ -18,7 +18,7 @@
             Map(x => x.SessionKey).Unique().Length(24);
             Map(x => x.Password).Access.ReadOnlyPropertyThroughCamelCaseField(Prefix.Underscore);
             Map(x => x.Salt);
-            Map(x => x.Email).UniqueKey("MembershipEmail");
+            Map(x => x.Email).UniqueKey("UC_Dm_Account_Email");
             Map(x => x.RequestedEmail);
             Map(x => x.IsApproved);
             Map(x => x.IsLockedOut);

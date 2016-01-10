@@ -12,6 +12,9 @@
     [Binding]
     public class UserSteps : StepsBase
     {
+        public const string defaultUserKey = "default";
+        public const string defaultEmailKey = "default";
+
         public UserSteps(App app, Ctx ctx) : base(app, ctx)
         {
         }
@@ -43,35 +46,40 @@
         }
 
         [Given(@"a confirmed user")]
-        public User AConfirmedUser()
+        public void AConfirmedUser()
         {
-            var user = App.SignUpUser();
-            App.LogInAsRoot();
-            App.ConfirmUser(user.Guid);
-            Ctx.User = user;
-            return user;
+            AConfirmedUser(null);
         }
 
         [Given(@"a confirmed user ""([^@]*)""")]
-        public void AConfirmedUser(string key)
+        public void AConfirmedUser(string userKey)
         {
-            Ctx.Users[key] = AConfirmedUser();
-        }
-
-        [Given(@"a confirmed and logged in user ""([^@]*)""")]
-        public void AConfirmedAndLoggedInUser(string key)
-        {
-            var user = AConfirmedUser();
-            App.LogIn(user.Username, user.Password);
-            Ctx.Users[key] = user;
+            AConfirmedUser(userKey, null);
         }
 
         [Given(@"a confirmed user ""([^@]*)"" with email address ""(.*)""")]
-        public void AConfirmedUser(string key, string email)
+        public void AConfirmedUser(string userKey, string emailKey)
         {
-            var user = AConfirmedUser();
-            Ctx.Users[key] = user;
-            Ctx.Emails[email] = user.EmailAddress;
+            string emailAddress = null;
+            if (emailKey != null)
+                Ctx.Emails.TryGetValue(emailKey, out emailAddress);
+            var user = App.SignUpUser(emailAddress);
+            App.LogInAsRoot();
+            App.ConfirmUser(user.Guid);
+
+            Ctx.User = user;
+            if (userKey != null)
+                Ctx.Users[userKey] = user;
+            if (emailKey != null)
+                Ctx.Emails[emailKey] = user.EmailAddress;
+        }
+
+        [Given(@"a confirmed and logged in user ""([^@]*)""")]
+        public void AConfirmedAndLoggedInUser(string userKey)
+        {
+            AConfirmedUser(userKey);
+            var user = Ctx.Users[userKey];
+            App.LogIn(user.Username, user.Password);
         }
 
         [Given(@"a confirmed, locked user")]
