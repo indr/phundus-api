@@ -2,6 +2,7 @@
 {
     using System;
     using Ddd;
+    using IdentityAccess.Users.Mails;
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;

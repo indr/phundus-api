@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using Ddd;
+    using IdentityAccess.Queries;
     using Organizations.Model;
 
     public class RelationshipsReadModelWriter : ReadModelWriterBase, ISubscribeTo<MembershipApplicationFiled>,

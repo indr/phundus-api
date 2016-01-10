@@ -2,7 +2,7 @@
 	
 Background: 
 	Given a confirmed user
-	And logged in as user
+	And logged in
 
 Scenario: can log in with new password
 	Given change password

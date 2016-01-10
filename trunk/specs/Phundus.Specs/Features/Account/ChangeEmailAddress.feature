@@ -2,20 +2,20 @@
 
 Scenario: sends email "Validierung der geänderten E-Mail-Adresse"
 	Given a confirmed user	
-	And logged in as user
+	And logged in
 	When change email address
 	Then user should receive email "[phundus] Validierung der geänderten E-Mail-Adresse" at requested address
 
 Scenario: can not login without validation
 	Given a confirmed user	
-	And logged in as user
+	And logged in
 	And user changed email address
 	When log in with requested address
 	Then not logged in
 
 Scenario: can login with new address after validation
 	Given a confirmed user	
-	And logged in as user
+	And logged in
 	And user changed email address
 	And the validation key from email validation email
 	When validate key

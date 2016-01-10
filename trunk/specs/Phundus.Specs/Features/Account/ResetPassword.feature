@@ -2,7 +2,7 @@
 
 Background: 
 	Given a confirmed user
-	And logged in as user
+	And logged in
 
 Scenario: sends email "Neues Passwort"
 	When reset password
