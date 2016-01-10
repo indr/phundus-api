@@ -15,5 +15,11 @@ namespace Phundus.Specs.Services.Entities
         public string Street { get; set; }
         public string Postcode { get; set; }
         public string RequestedEmailAddress { get; set; }
+
+        public override string ToString()
+        {
+            return String.Format("[Guid={0}, EmailAddress={1}, FirstName={2}, LastName={3}]",
+                new object[] {Guid.ToString("D"), EmailAddress, FirstName, LastName});
+        }
     }
 }

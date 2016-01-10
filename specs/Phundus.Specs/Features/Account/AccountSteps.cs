@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Specs.Features.Account
 {
     using System;
+    using System.Diagnostics;
     using System.Net;
     using NUnit.Framework;
     using Services;
@@ -54,7 +55,7 @@
         public void GivenUserChangedEmailAddress(string userKey, string emailKey)
         {
             var user = Ctx.Users[userKey];
-            if (!Ctx.Emails.ContainsKey(emailKey))
+            if (!Ctx.Emails.ContainsAlias(emailKey))
                 Ctx.Emails[emailKey] = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
             var emailAddress = Ctx.Emails[emailKey];
             ChangeEmailAddress(user, emailAddress);
@@ -124,6 +125,7 @@
         [When(@"validate key")]
         public void WhenValidateKey()
         {
+            Debug.WriteLine(String.Format("Validating key {0}", Ctx.ValidationKey));
             App.ValidateKey(Ctx.ValidationKey, false);
         }
 

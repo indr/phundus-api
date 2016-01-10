@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Specs.Steps
 {
     using System;
+    using System.Diagnostics;
     using System.Text.RegularExpressions;
     using NUnit.Framework;
     using Phundus.Rest.ContentObjects;
@@ -35,6 +36,7 @@
             var match = new Regex(@"\/#\/validate\/email-address\?key=([a-z0-9]{24})<").Match(mail.HtmlBody);
             Assert.IsTrue(match.Success, "Could not find validation key in email validation email.");
             Ctx.ValidationKey = match.Groups[1].Value;
+            Debug.WriteLine("Got validation key {0} from email sent to {1}.", Ctx.ValidationKey, Ctx.User.RequestedEmailAddress);
         }
         
         [Then(@"anon should receive email ""(.*)""")]

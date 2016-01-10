@@ -5,15 +5,12 @@
     using System.Net;
     using Api;
     using Entities;
-    using NUnit.Framework;
     using Phundus.Rest.Api;
     using Phundus.Rest.Api.Account;
     using Phundus.Rest.Api.Admin;
-    using Phundus.Rest.ContentObjects;
     using RestSharp;
     using Steps;
     using TechTalk.SpecFlow;
-    using Organization = Entities.Organization;
 
     [Binding]
     public class App : AppBase
@@ -28,6 +25,8 @@
             _apiClient = apiClient;
             _fakeGenerator = fakeGenerator;
         }
+
+        public Response LastResponse { get; private set; }
 
         public User SignUpUser(string emailAddress = null)
         {
@@ -57,7 +56,7 @@
         {
             var response = _apiClient.For<SessionsApi>()
                 .Post(new SessionsPostRequestContent {Username = username, Password = password});
-            if (assertStatusCode) 
+            if (assertStatusCode)
                 AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
             return response.Data.UserGuid;
@@ -83,7 +82,7 @@
         public void ChangePassword(Guid userGuid, string oldPasswort, string newPassword)
         {
             var response = _apiClient.For<ChangePasswordApi>()
-                .Post(new ChangePasswordPostRequestContent { OldPassword = oldPasswort, NewPassword = newPassword });
+                .Post(new ChangePasswordPostRequestContent {OldPassword = oldPasswort, NewPassword = newPassword});
             AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
         }
@@ -96,10 +95,11 @@
             SetLastResponse(response);
         }
 
-        public bool ChangeEmailAddress(Guid userGuid, string password, string newEmailAddress, bool assertStatusCode = true)
+        public bool ChangeEmailAddress(Guid userGuid, string password, string newEmailAddress,
+            bool assertStatusCode = true)
         {
             var response = _apiClient.For<ChangeEmailAddressApi>()
-                .Post(new ChangeEMailAddressPostRequestContent { Password = password, NewEmailAddress = newEmailAddress });
+                .Post(new ChangeEMailAddressPostRequestContent {Password = password, NewEmailAddress = newEmailAddress});
             if (assertStatusCode)
                 AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
@@ -198,8 +198,6 @@
                 Message = TryGetErrorMessage(restResponse)
             };
         }
-
-        public Response LastResponse { get; private set; }
     }
 
     public class Response
