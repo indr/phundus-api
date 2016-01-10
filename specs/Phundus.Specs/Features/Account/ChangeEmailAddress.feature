@@ -34,7 +34,7 @@ Scenario: can not validate if already taken
 	And "Johan" changed email address to "john@test.phundus.ch"
 	And the validation key from email validation email
 	And a confirmed user "John" with email address "john@test.phundus.ch"
-	And logged in as "John"
+	And logged in as "Johan"
 	When validate key
 	Then not validated
 	
