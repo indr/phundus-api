@@ -34,7 +34,6 @@ namespace Phundus.Specs.Services.Entities
             var emailAddress = GetEmailAddress(record.EmailAddress, guid);
             return new User
             {
-                Username = emailAddress,
                 Password = record.Password,
                 FirstName = record.GivenName,
                 Guid = guid,

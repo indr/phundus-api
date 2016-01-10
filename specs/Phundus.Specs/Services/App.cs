@@ -28,9 +28,12 @@
             _fakeGenerator = fakeGenerator;
         }
 
-        public User SignUpUser()
+        public User SignUpUser(string emailAddress = null)
         {
             var user = _fakeGenerator.NextUser();
+            if (emailAddress != null)
+                user.EmailAddress = emailAddress;
+
             var response = _apiClient.For<UsersApi>()
                 .Post(new UsersPostRequestContent
                 {

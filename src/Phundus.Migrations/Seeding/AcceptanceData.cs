@@ -22,7 +22,7 @@
             Delete.FromTable("Article").InSchema(SchemaName).AllRows();
             Delete.FromTable("OrganizationMembership").InSchema(SchemaName).AllRows();
             Delete.FromTable("Rm_Relationships").AllRows();
-            Delete.FromTable("Membership").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_Account").InSchema(SchemaName).AllRows();
             Delete.FromTable("User").InSchema(SchemaName).AllRows();
             Delete.FromTable("Organization").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_Store").InSchema(SchemaName).AllRows();
@@ -30,7 +30,7 @@
             Import<Organization>("Organizations.csv", "Organization", false);
             Import<Store>("Organizations.csv", "Dm_Store", false);
             Import<User>("Users.csv", "User");
-            Import<Account>("Users.csv", "Membership", false);
+            Import<Account>("Users.csv", "Dm_Account", false);
             Import<Membership>("Memberships.csv", "OrganizationMembership", false);
             Import<RmRelationship>("Memberships.csv", "Rm_Relationships", false);
             ImportArticle();

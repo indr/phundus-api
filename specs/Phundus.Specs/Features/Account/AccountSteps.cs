@@ -129,7 +129,7 @@
         [When(@"validate key")]
         public void WhenValidateKey()
         {
-            _validateKeyResult = App.ValidateKey(Ctx.ValidationKey);
+            _validateKeyResult = App.ValidateKey(Ctx.ValidationKey, false);
         }
 
         [Then(@"not validated")]
