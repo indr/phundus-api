@@ -19,6 +19,12 @@
         {
         }
 
+        [Given(@"logged in as root")]
+        public void GivenLoggedInAsRoot()
+        {
+            App.LogInAsRoot();
+        }
+
         [Given(@"logged in as user")]
         public void GivenLoggedInAsUser()
         {

@@ -42,7 +42,7 @@
             };
         }
 
-        private void LogInAsRoot()
+        public void LogInAsRoot()
         {
             LogIn("admin@test.phundus.ch");
         }
@@ -206,6 +206,15 @@
             if (assertStatusCode)
                 AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
+        }
+
+        public OrganizationsGetOkResponseContent GetOrganization(Guid organizationGuid)
+        {
+            var response = _apiClient.OrganizationsApi()
+                .Get<OrganizationsGetOkResponseContent>(new {organizationGuid = organizationGuid});
+            AssertHttpStatus(HttpStatusCode.OK, response);
+            SetLastResponse(response);
+            return response.Data;
         }
     }
 

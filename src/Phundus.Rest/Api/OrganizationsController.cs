@@ -46,12 +46,12 @@
             };
         }
 
-        [GET("{organizationId}")]
+        [GET("{organizationGuid}")]
         [Transaction]
         [AllowAnonymous]
-        public virtual OrganizationsGetOkResponseContent Get(Guid organizationId)
+        public virtual OrganizationsGetOkResponseContent Get(Guid organizationGuid)
         {
-            var organization = _organizationQueries.FindById(organizationId);
+            var organization = _organizationQueries.FindById(organizationGuid);
             if (organization == null)
                 throw new HttpException((int) HttpStatusCode.NotFound, "Organization not found.");
 
@@ -62,7 +62,7 @@
                 DocumentTemplate = organization.DocumentTemplate,
                 EmailAddress = organization.EmailAddress,
                 Name = organization.Name,
-                OrganizationId = organization.Guid,
+                OrganizationGuid = organization.Guid,
                 Startpage = organization.Startpage,
                 Stores = new List<Store>(),
                 Url = organization.Url,
@@ -125,7 +125,10 @@
     public class OrganizationsGetOkResponseContent
     {
         [JsonProperty("organizationId")]
-        public Guid OrganizationId { get; set; }
+        public Guid OrganizationId { get { return OrganizationGuid; } }
+
+        [JsonProperty("organizationGuid")]
+        public Guid OrganizationGuid { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

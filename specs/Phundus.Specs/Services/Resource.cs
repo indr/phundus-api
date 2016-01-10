@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Globalization;
     using System.Text.RegularExpressions;
     using Newtonsoft.Json;
     using RestSharp;
@@ -29,6 +30,12 @@
         public static void DeleteSessionCookies()
         {
             Cookies.Clear();
+        }
+
+        public IRestResponse<T> Get<T>(object o) where T : new()
+        {
+            var request = CreateRestRequest(o, Method.GET);
+            return Execute<T>(request);
         }
 
         public IRestResponse Patch(object requestContent)
@@ -73,23 +80,34 @@
 
         private void AddUrlSegments(RestRequest request, object requestContent)
         {
-            var regex = new Regex(@"\{([a-z]+)\}", RegexOptions.IgnoreCase);
+            var regex = new Regex(@"\/\{([a-z]+)\}", RegexOptions.IgnoreCase);
             var match = regex.Match(request.Resource);
             while (match.Success)
             {
-                AddUrlSegment(request, requestContent, match.Groups[1].Value);
+                if (!AddUrlSegment(request, requestContent, match.Groups[1].Value))
+                    RemoveUrlSegment(request, match.Groups[0]);
                 match = match.NextMatch();
             }
         }
 
-        private void AddUrlSegment(RestRequest request, object requestContent, string name)
+        private void RemoveUrlSegment(RestRequest request, Group @group)
         {
+            request.Resource = request.Resource.Remove(@group.Index, @group.Length);
+        }
+
+        private bool AddUrlSegment(RestRequest request, object requestContent, string name)
+        {
+            if (requestContent == null)
+                return false;
             var value = GetParamValue(requestContent, name);
-            request.AddUrlSegment(name, value);
+            if (value != null)
+                request.AddUrlSegment(name, value);
+            return value != null;
         }
 
         private string GetParamValue(Object requestContent, string name)
         {
+            string result = null;
             foreach (var propertyInfo in requestContent.GetType().GetProperties())
             {
                 foreach (
@@ -103,8 +121,16 @@
                         return "";
                     return value.ToString();
                 }
+
+                if (propertyInfo.Name[0].ToString().ToLowerInvariant() == name[0].ToString(CultureInfo.InvariantCulture)
+                    && propertyInfo.Name.Substring(1) == name.Substring(1))
+                {
+                    var value = propertyInfo.GetValue(requestContent, null);
+                    if (value != null)
+                        result = value.ToString();
+                }
             }
-            return "";
+            return result;
         }
 
         private static IRestResponse Execute(RestRequest request)
