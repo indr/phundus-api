@@ -3,7 +3,6 @@
     using System;
     using System.Configuration;
     using BoDi;
-    using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using TechTalk.SpecFlow;
 
