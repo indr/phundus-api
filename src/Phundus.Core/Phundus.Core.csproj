@@ -226,7 +226,6 @@
     <Compile Include="Shop\Orders\Model\Article.cs" />
     <Compile Include="Shop\Orders\Model\CartItem.cs" />
     <Compile Include="Shop\Orders\Model\Lessor.cs" />
-    <Compile Include="Shop\Orders\Model\Manager.cs" />
     <Compile Include="Shop\Orders\Model\OrderEvents.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemAdded.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemAmountChanged.cs" />
@@ -342,6 +341,10 @@
     <ProjectReference Include="..\Phundus.Infrastructure\Phundus.Infrastructure.csproj">
       <Project>{9d30515e-5d3c-4fe5-8aa4-b8352328ef25}</Project>
       <Name>Phundus.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Phundus.Integration\Phundus.Integration.csproj">
+      <Project>{91c1a2a6-65d2-44ba-9985-c35f1705888a}</Project>
+      <Name>Phundus.Integration</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

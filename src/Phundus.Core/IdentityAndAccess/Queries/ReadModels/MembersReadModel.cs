@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common.Domain.Model;
+    using Integration.IdentityAccess;
 
     public interface IMemberQueries
     {
@@ -11,21 +12,11 @@
         IEnumerable<MemberDto> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName);
     }
 
-    public interface IMemberInRoleQueries
-    {
-        IList<MemberDto> Chiefs(Guid organizationId);
-    }
-
-    public class MembersReadModel : IMemberQueries, IMemberInRoleQueries
+    public class MembersReadModel : IMemberQueries, IMembersWithRole
     {
         public IUserQueries UserQueries { get; set; }
 
         public IMembershipQueries MembershipQueries { get; set; }
-
-        public IList<MemberDto> Chiefs(Guid organizationId)
-        {
-            return FindByOrganizationId(organizationId).Where(p => p.Role == 2).ToList();
-        }
 
         public IList<MemberDto> FindByOrganizationId(Guid organizationId)
         {
@@ -38,6 +29,15 @@
             // TODO: Members Read-Model 
             var memberships = MembershipQueries.FindByOrganizationId(queryOrganizationId);
             return ToMemberDtos(memberships, queryFullName);
+        }
+
+        public IList<Manager> Manager(Guid tenantId)
+        {
+            return
+                FindByOrganizationId(tenantId)
+                    .Where(p => p.Role == 2)
+                    .Select(s => new Manager(s.Guid, s.FullName, s.EmailAddress))
+                    .ToList();
         }
 
         private IList<MemberDto> ToMemberDtos(IEnumerable<MembershipDto> memberships, string queryFullName = "")
@@ -89,7 +89,11 @@
         public bool IsLocked { get; set; }
 
         public DateTime? ApprovalDate { get; set; }
-        public string FullName { get { return FirstName + " " + LastName; }}
+
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
     }
 
     public class MemberDtos : List<MemberDto>
