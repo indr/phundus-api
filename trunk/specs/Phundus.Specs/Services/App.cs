@@ -28,6 +28,26 @@
 
         public Response LastResponse { get; private set; }
 
+        [AfterScenario]
+        public void DeleteSessionCookies()
+        {
+            _apiClient.DeleteSessionCookies();
+        }
+
+        private void SetLastResponse(IRestResponse restResponse)
+        {
+            LastResponse = new Response
+            {
+                StatusCode = restResponse.StatusCode,
+                Message = TryGetErrorMessage(restResponse)
+            };
+        }
+
+        private void LogInAsRoot()
+        {
+            LogIn("admin@test.phundus.ch");
+        }
+
         public User SignUpUser(string emailAddress = null)
         {
             var user = _fakeGenerator.NextUser();
@@ -64,19 +84,16 @@
 
         public void ConfirmUser(Guid userGuid)
         {
+            LogInAsRoot();
             var response = _apiClient.For<AdminUsersApi>()
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsApproved = true,
                     UserGuid = userGuid
                 });
+            DeleteSessionCookies();
             AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
-        }
-
-        public void LogInAsRoot()
-        {
-            LogIn("admin@test.phundus.ch");
         }
 
         public void ChangePassword(Guid userGuid, string oldPasswort, string newPassword)
@@ -108,36 +125,42 @@
 
         public void SetUsersRole(Guid userGuid, UserRole userRole)
         {
+            LogInAsRoot();
             var response = _apiClient.For<AdminUsersApi>()
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsAdmin = true,
                     UserGuid = userGuid
                 });
+            DeleteSessionCookies();
             AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
         }
 
         public void LockUser(Guid userGuid)
         {
+            LogInAsRoot();
             var response = _apiClient.For<AdminUsersApi>()
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsLocked = true,
                     UserGuid = userGuid
                 });
+            DeleteSessionCookies();
             AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
         }
 
         public void UnlockUser(Guid userGuid)
         {
+            LogInAsRoot();
             var response = _apiClient.For<AdminUsersApi>()
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsLocked = false,
                     UserGuid = userGuid
                 });
+            DeleteSessionCookies();
             AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
         }
@@ -165,11 +188,6 @@
             return response.Data.Results;
         }
 
-        public void DeleteSessionCookies()
-        {
-            _apiClient.DeleteSessionCookies();
-        }
-
         public void SendFeedback(string senderEmailAddress, string comment)
         {
             var response = _apiClient.For<FeedbackApi>().Post(new FeedbackPostRequestContent
@@ -188,15 +206,6 @@
             if (assertStatusCode)
                 AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
-        }
-
-        private void SetLastResponse(IRestResponse restResponse)
-        {
-            LastResponse = new Response
-            {
-                StatusCode = restResponse.StatusCode,
-                Message = TryGetErrorMessage(restResponse)
-            };
         }
     }
 

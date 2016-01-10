@@ -78,12 +78,16 @@
 
         private void ChangeEmailAddress(User user)
         {
+            if (user == null) throw new ArgumentNullException("user");
+
             var newEmailAddress = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
             ChangeEmailAddress(user, newEmailAddress);
         }
 
         private void ChangeEmailAddress(User user, string newEmailAddress, bool assertStatusCode = true)
         {
+            if (user == null) throw new ArgumentNullException("user");
+
             App.ChangeEmailAddress(user.Guid, user.Password, newEmailAddress, assertStatusCode);
             if (App.LastResponse.IsSuccess)
                 user.RequestedEmailAddress = newEmailAddress;
