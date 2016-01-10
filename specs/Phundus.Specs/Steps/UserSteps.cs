@@ -19,18 +19,6 @@
         {
         }
 
-        [Given(@"not logged in")]
-        public void GivenNotLoggedIn()
-        {
-            App.DeleteSessionCookies();
-        }
-
-        [Given(@"logged in as root")]
-        public void GivenLoggedInAsRoot()
-        {
-            App.LogInAsRoot();
-        }
-
         [Given(@"logged in as user")]
         public void GivenLoggedInAsUser()
         {
@@ -64,7 +52,6 @@
             if (emailKey != null)
                 Ctx.Emails.TryGetValue(emailKey, out emailAddress);
             var user = App.SignUpUser(emailAddress);
-            App.LogInAsRoot();
             App.ConfirmUser(user.Guid);
 
             Ctx.User = user;
@@ -93,7 +80,6 @@
         public void GivenAConfirmedAdmin()
         {
             var user = App.SignUpUser();
-            App.LogInAsRoot();
             App.ConfirmUser(user.Guid);
             App.SetUsersRole(user.Guid, UserRole.Admin);
             Ctx.User = user;
@@ -102,17 +88,13 @@
         [Given(@"unlock user")]
         public void GivenUnlockUser()
         {
-            App.LogInAsRoot();
             App.UnlockUser(Ctx.User.Guid);
-            App.DeleteSessionCookies();
         }
 
         [Given(@"lock user")]
         public void GivenLockUser()
         {
-            App.LogInAsRoot();
             App.LockUser(Ctx.User.Guid);
-            App.DeleteSessionCookies();
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿Feature: LogIn
 
-Background: 
-	Given not logged in
-
 Scenario: Log in successful
 	Given a confirmed user
 	When log in
