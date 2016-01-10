@@ -12,9 +12,6 @@
     [Binding]
     public class UserSteps : StepsBase
     {
-        public const string defaultUserKey = "default";
-        public const string defaultEmailKey = "default";
-
         public UserSteps(App app, Ctx ctx) : base(app, ctx)
         {
         }
@@ -25,7 +22,7 @@
             App.LogInAsRoot();
         }
 
-        [Given(@"logged in as user")]
+        [Given(@"logged in")]
         public void GivenLoggedInAsUser()
         {
             var user = Ctx.User;

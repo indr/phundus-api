@@ -74,7 +74,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 4
  testRunner.Given("a confirmed user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 5
- testRunner.And("logged in as user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 6
  testRunner.When("change email address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 7
@@ -94,7 +94,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 10
  testRunner.Given("a confirmed user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 11
- testRunner.And("logged in as user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
  testRunner.And("user changed email address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
@@ -115,7 +115,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 17
  testRunner.Given("a confirmed user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 18
- testRunner.And("logged in as user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 19
  testRunner.And("user changed email address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 20

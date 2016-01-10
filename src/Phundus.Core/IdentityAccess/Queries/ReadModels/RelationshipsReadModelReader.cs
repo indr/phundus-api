@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using IdentityAccess.Queries;
 
     public class RelationshipsReadModelReader : ReadModelReaderBase, IRelationshipQueries
     {

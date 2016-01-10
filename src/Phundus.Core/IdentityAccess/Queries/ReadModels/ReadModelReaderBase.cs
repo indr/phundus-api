@@ -1,6 +1,7 @@
 namespace Phundus.Core.IdentityAndAccess.Queries
 {
     using Cqrs;
+    using IdentityAccess.Queries;
 
     public class ReadModelReaderBase : ReadModelBase
     {

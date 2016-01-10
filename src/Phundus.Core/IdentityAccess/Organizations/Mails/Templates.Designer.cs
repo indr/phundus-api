@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Phundus.Core.IdentityAndAccess.Organizations.Mails {
+namespace Phundus.Core.IdentityAccess.Organizations.Mails {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Phundus.Core.IdentityAndAccess.Organizations.Mails {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Phundus.Core.IdentityAndAccess.Organizations.Mails.Templates", typeof(Templates).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Phundus.Core.IdentityAccess.Organizations.Mails.Templates", typeof(Templates).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -121,7 +121,11 @@
     <Compile Include="IdentityAccess\Organizations\Exceptions\AttemptToLockOneselfException.cs" />
     <Compile Include="IdentityAccess\Organizations\Exceptions\MembershipApplicationNotFoundException.cs" />
     <Compile Include="IdentityAccess\Organizations\Mails\MembershipApplicationMailNotifier.cs" />
-    <Compile Include="IdentityAccess\Organizations\Mails\Templates.Designer.cs" />
+    <Compile Include="IdentityAccess\Organizations\Mails\Templates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Templates.resx</DependentUpon>
+    </Compile>
     <Compile Include="IdentityAccess\Organizations\Model\MemberLocked.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\Membership.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\MembershipApplication.cs" />
@@ -143,11 +147,11 @@
     <Compile Include="IdentityAccess\Queries\IOrganizationQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IRelationshipQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IUserQueries.cs" />
-	  <Compile Include="IdentityAccess\Queries\ReadModel.designer.cs">
-		  <AutoGen>True</AutoGen>
-		  <DesignTime>True</DesignTime>
-		  <DependentUpon>ReadModel.dbml</DependentUpon>
-	  </Compile>
+    <Compile Include="IdentityAccess\Queries\ReadModel.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReadModel.dbml</DependentUpon>
+    </Compile>
     <Compile Include="IdentityAccess\Queries\ReadModels\MemberInMembershipRoleQueries.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\MembershipApplicationsReadModel.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\MembershipsReadModel.cs" />
@@ -173,7 +177,11 @@
     <Compile Include="IdentityAccess\Users\Exceptions\InvalidPasswordException.cs" />
     <Compile Include="IdentityAccess\Users\Exceptions\UserLockedOutException.cs" />
     <Compile Include="IdentityAccess\Users\Exceptions\UserNotApprovedException.cs" />
-    <Compile Include="IdentityAccess\Users\Mails\Templates.Designer.cs" />
+    <Compile Include="IdentityAccess\Users\Mails\Templates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Templates.resx</DependentUpon>
+    </Compile>
     <Compile Include="IdentityAccess\Users\Mails\UserAccountCreatedMail.cs" />
     <Compile Include="IdentityAccess\Users\Mails\UserAccountValidationMail.cs" />
     <Compile Include="IdentityAccess\Users\Mails\UserChangeEmailValidationMail.cs" />
@@ -343,7 +351,7 @@
     <None Include="app.config" />
     <None Include="IdentityAccess\Queries\ReadModel.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>ReadModel1.designer.cs</LastGenOutput>
+      <LastGenOutput>ReadModel.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -365,11 +373,19 @@
     <None Include="Shop\Queries\ReadModel.dbml.layout">
       <DependentUpon>ReadModel.dbml</DependentUpon>
     </None>
-    <EmbeddedResource Include="IdentityAccess\Organizations\Mails\Templates.resx" />
+    <EmbeddedResource Include="IdentityAccess\Organizations\Mails\Templates.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Templates.Designer.cs</LastGenOutput>
+		<SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="IdentityAccess\Queries\ReadModel.dbml.layout">
       <DependentUpon>ReadModel.dbml</DependentUpon>
     </None>
-    <EmbeddedResource Include="IdentityAccess\Users\Mails\Templates.resx" />
+    <EmbeddedResource Include="IdentityAccess\Users\Mails\Templates.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Templates.Designer.cs</LastGenOutput>
+		<SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Shop\Orders\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>

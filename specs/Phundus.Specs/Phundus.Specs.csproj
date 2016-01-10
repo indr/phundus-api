@@ -149,6 +149,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Features\Stores\OpenUserStore.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OpenUserStore.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Stores\StoreSteps.cs" />
     <Compile Include="Services\AppBase.cs" />
     <Compile Include="Services\Ctx.cs" />
     <Compile Include="Services\CustomJsonSerializer.cs" />
@@ -240,6 +246,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Establish.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\Stores\OpenUserStore.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>OpenUserStore.feature.cs</LastGenOutput>
+    </None>
     <None Include="_Legacy\Features\Checkout.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Checkout.feature.cs</LastGenOutput>
@@ -274,7 +284,9 @@
       <Name>Phundus.Rest</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Features\Articles\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
