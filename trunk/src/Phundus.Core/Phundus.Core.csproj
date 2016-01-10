@@ -143,12 +143,11 @@
     <Compile Include="IdentityAccess\Queries\IOrganizationQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IRelationshipQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IUserQueries.cs" />
-    <Compile Include="IdentityAccess\Queries\ReadModel.designer.cs" />
-    <Compile Include="IdentityAccess\Queries\ReadModel1.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReadModel.dbml</DependentUpon>
-    </Compile>
+	  <Compile Include="IdentityAccess\Queries\ReadModel.designer.cs">
+		  <AutoGen>True</AutoGen>
+		  <DesignTime>True</DesignTime>
+		  <DependentUpon>ReadModel.dbml</DependentUpon>
+	  </Compile>
     <Compile Include="IdentityAccess\Queries\ReadModels\MemberInMembershipRoleQueries.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\MembershipApplicationsReadModel.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\MembershipsReadModel.cs" />
