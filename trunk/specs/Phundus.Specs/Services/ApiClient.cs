@@ -1,29 +1,68 @@
 ﻿namespace Phundus.Specs.Services
 {
-    using System;
-    using Api;
-    using Castle.Windsor;
     using TechTalk.SpecFlow;
 
     [Binding]
     public class ApiClient
     {
-        private readonly IWindsorContainer _container;
-
-        public ApiClient(IWindsorContainer container)
+        private static Resource Resource(string url)
         {
-            if (container == null) throw new ArgumentNullException("container");
-            _container = container;
-        }
-
-        public T For<T>()
-        {
-            return _container.Resolve<T>();
+            return new Resource(url);
         }
 
         public void DeleteSessionCookies()
         {
-            ApiBase.DeleteSessionCookies();
+            Services.Resource.DeleteSessionCookies();
+        }
+
+        public Resource SessionsApi()
+        {
+            return Resource("sessions");
+        }
+
+        public Resource AdminUsersApi()
+        {
+            return Resource("admin/users/{userGuid}");
+        }
+
+        public Resource ResetPasswordApi()
+        {
+            return Resource("account/reset-password");
+        }
+
+        public Resource ChangeEmailAddressApi()
+        {
+            return Resource("account/change-email-address");
+        }
+
+        public Resource ChangePasswordApi()
+        {
+            return Resource("account/change-password");
+        }
+
+        public Resource FeedbackApi()
+        {
+            return Resource("feedback");
+        }
+
+        public Resource OrganizationsApi()
+        {
+            return Resource("organizations");
+        }
+
+        public Resource UsersApi()
+        {
+            return Resource("users");
+        }
+
+        public Resource ValidateApi()
+        {
+            return Resource("account/validate");
+        }
+
+        public Resource MailsApi()
+        {
+            return Resource("mails");
         }
     }
 }
