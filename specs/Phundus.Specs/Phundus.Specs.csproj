@@ -103,12 +103,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContentTypes\Article.cs" />
-    <Compile Include="ContentTypes\ArticlesPostOkResponseContent.cs" />
-    <Compile Include="ContentTypes\ArticlesPostRequestContent.cs" />
-    <Compile Include="ContentTypes\Organization.cs" />
+    <Compile Include="ContentTypes\AdminUsersContentTypes.cs" />
+    <Compile Include="ContentTypes\ArticlesContentTypes.cs" />
+    <Compile Include="ContentTypes\AccountContentTypes.cs" />
+    <Compile Include="ContentTypes\FeedbackPostRequestContent.cs" />
+    <Compile Include="ContentTypes\MailsContentTypes.cs" />
+    <Compile Include="ContentTypes\OrganizationsContentTypes.cs" />
     <Compile Include="ContentTypes\QueryOkResponseContent.cs" />
-    <Compile Include="ContentTypes\UsersGetOkResponseContent.cs" />
+    <Compile Include="ContentTypes\SessionsContentTypes.cs" />
+    <Compile Include="ContentTypes\StoresContentTypes.cs" />
+    <Compile Include="ContentTypes\UsersContentTypes.cs" />
     <Compile Include="Features\Account\ChangeEmailAddress.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -298,12 +302,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Phundus.Rest\Phundus.Rest.csproj">
-      <Project>{54a42682-059d-43b5-8028-60d1e4058371}</Project>
-      <Name>Phundus.Rest</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -13,7 +13,7 @@
     {
         [POST("")]
         [Transaction]
-        public virtual HttpResponseMessage Post(ChangeEMailAddressPostRequestContent requestContent)
+        public virtual HttpResponseMessage Post(ChangeEmailAddressPostRequestContent requestContent)
         {
             if (requestContent == null) throw new ArgumentNullException("requestContent");
 
@@ -23,7 +23,7 @@
         }
     }
 
-    public class ChangeEMailAddressPostRequestContent
+    public class ChangeEmailAddressPostRequestContent
     {
         [JsonProperty("password")]
         public string Password { get; set; }
@@ -31,5 +31,4 @@
         [JsonProperty("newEmailAddress")]
         public string NewEmailAddress { get; set; }
     }
-
 }

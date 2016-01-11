@@ -5,9 +5,9 @@ namespace Phundus.Specs.Services
     using System.Linq;
     using System.Net;
     using System.Threading;
+    using ContentTypes;
     using OpenPop.Mime;
     using OpenPop.Pop3;
-    using Phundus.Rest.ContentObjects;
 
     public interface IMailbox
     {
