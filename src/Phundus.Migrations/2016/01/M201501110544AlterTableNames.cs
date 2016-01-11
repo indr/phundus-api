@@ -2,8 +2,8 @@
 {
     using FluentMigrator;
 
-    [Migration(201501110544)]
-    public class M201501110544AlterTableNames : MigrationBase
+    [Migration(201601110544)]
+    public class M201601110544AlterTableNames : MigrationBase
     {
         public override void Up()
         {
