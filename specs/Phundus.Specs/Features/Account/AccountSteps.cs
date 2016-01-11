@@ -12,8 +12,15 @@
     [Binding]
     public class AccountSteps : StepsBase
     {
-        public AccountSteps(App app, Ctx ctx) : base(app, ctx)
+        private readonly EmailSteps _emailSteps;
+        private readonly UserSteps _userSteps;
+
+        public AccountSteps(App app, Ctx ctx, EmailSteps emailSteps, UserSteps userSteps) : base(app, ctx)
         {
+            if (emailSteps == null) throw new ArgumentNullException("emailSteps");
+            if (userSteps == null) throw new ArgumentNullException("userSteps");
+            _emailSteps = emailSteps;
+            _userSteps = userSteps;
         }
 
         [Given(@"a user")]
@@ -39,10 +46,55 @@
             user.Password = newPassword;
         }
 
-        [When(@"reset password")]
-        public void WhenResetPassword()
+        [Given(@"I signed up")]
+        public void GivenISignedUp()
+        {
+            var user = App.SignUpUser();
+            Ctx.User = user;
+        }
+
+        [Given(@"I got the validation key from account validation email")]
+        public void GivenIGotTheValidationKeyFromAccountValidationEmail()
+        {
+            _emailSteps.GivenTheValidationKeyFromEmail();
+        }
+
+        [Given(@"I validated the key")]
+        public void GivenIValidatedTheKey()
+        {
+            App.ValidateKey(Ctx.ValidationKey);
+        }
+
+        [When(@"I try to log in")]
+        public void WhenITryToLogIn()
+        {
+            var user = Ctx.User;
+            Ctx.LoggedIn = App.LogIn(user.Username, user.Password, false);
+        }
+
+        [Then(@"I should be logged in")]
+        public void ThenIShouldBeLoggedIn()
+        {
+            Assert.That(Ctx.LoggedIn, Is.EqualTo(Ctx.User.Guid), "User not logged in.");
+        }
+
+        [When(@"I try to reset user's password")]
+        public void WhenITryToResetPasswordUserSPassword()
         {
             App.ResetPassword(Ctx.User.Username);
+        }
+
+        [When(@"I try to sign up")]
+        public void WhenITryToSignUp()
+        {
+            var user = App.SignUpUser();
+            Ctx.User = user;
+        }
+
+        [Then(@"I should receive email ""(.*)""")]
+        public void ThenIShouldReceiveEmail(string subject)
+        {
+            _emailSteps.ThenUserShouldReceiveEmail(subject);
         }
         
         [Given(@"user changed email address")]
@@ -120,12 +172,6 @@
             Assert.That(Ctx.LoggedIn, Is.EqualTo(Ctx.User.Guid), "User not logged in.");
         }
 
-        [Then(@"not logged in")]
-        public void ThenNotLoggedIn()
-        {
-            Assert.That(Ctx.LoggedIn, Is.Not.EqualTo(Ctx.User.Guid));
-        }
-
         [When(@"validate key")]
         public void WhenValidateKey()
         {
@@ -145,6 +191,42 @@
         {
            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
            Assert.That(App.LastResponse.Message, Is.StringContaining("EmailAlreadyTakenException"));
+        }
+
+        [Given(@"I signed up and confirmed my email address")]
+        public void GivenISignedUpAndConfirmedMyEmailAddress()
+        {
+            _userSteps.AConfirmedUser();
+        }
+
+        [Then(@"I should not be logged in")]
+        public void ThenIShouldNotBeLoggedIn()
+        {
+            Assert.That(Ctx.LoggedIn, Is.Not.EqualTo(Ctx.User.Guid));
+        }
+
+        [Given(@"an administrator locked my account")]
+        public void GivenAnAdministratorLockedMyAccount()
+        {
+            App.LockUser(Ctx.User.Guid);
+        }
+
+        [Given(@"an administrator unlocked my account")]
+        public void GivenAnAdministratorUnlockedMyAccount()
+        {
+            App.UnlockUser(Ctx.User.Guid);
+        }
+
+        [Given(@"I changed my password")]
+        public void GivenIChangedMyPassword()
+        {
+            ChangeEmailAddress(Ctx.User);
+        }
+
+        [When(@"I try to login with my new password")]
+        public void WhenITryToLoginWithMyNewPassword()
+        {
+            WhenITryToLogIn();
         }
     }
 }

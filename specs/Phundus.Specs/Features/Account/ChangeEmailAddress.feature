@@ -11,7 +11,7 @@ Scenario: can not login without validation
 	And logged in
 	And user changed email address
 	When log in with requested address
-	Then not logged in
+	Then I should not be logged in
 
 Scenario: can login with new address after validation
 	Given a confirmed user	

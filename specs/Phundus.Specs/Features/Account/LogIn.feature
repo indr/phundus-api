@@ -1,23 +1,25 @@
 ﻿Feature: LogIn
 
 Scenario: Log in successful
-	Given a confirmed user
-	When log in
-	Then logged in
+	Given I signed up and confirmed my email address
+	When I try to log in
+	Then I should be logged in
 
 Scenario: Log in failed cause not confirmed
-	Given a user
-	When log in
-	Then not logged in
+	Given I signed up
+	When I try to log in
+	Then I should not be logged in
 
 Scenario: Log in failed cause of lock
-	Given a confirmed, locked user	
-	When log in
-	Then not logged in
+	Given I signed up and confirmed my email address
+	And an administrator locked my account
+	When I try to log in
+	Then I should not be logged in
 
 Scenario: Log in successful after unlock
-	Given a confirmed, locked user
-	And unlock user
-	When log in
-	Then logged in
+	Given I signed up and confirmed my email address
+	And an administrator locked my account
+	And an administrator unlocked my account
+	When I try to log in
+	Then I should be logged in
 
