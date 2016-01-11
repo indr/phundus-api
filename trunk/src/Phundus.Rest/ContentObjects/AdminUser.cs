@@ -28,5 +28,11 @@ namespace Phundus.Rest.ContentObjects
 
         [JsonProperty("isAdmin")]
         public bool IsAdmin { get; set; }
+
+        [JsonProperty("signedUpAtUtc")]
+        public DateTime SignedUpAtUtc { get; set; }
+
+        [JsonProperty("lastLogInAtUtc")]
+        public DateTime? LastLogInAtUtc { get; set; }
     }
 }

@@ -14,7 +14,7 @@
             Id(x => x.Id).GeneratedBy.Native();
             Map(x => x.Guid, "Guid");
             Version(x => x.Version);
-            
+
             Map(x => x.FirstName);
             Map(x => x.LastName);
             Map(x => x.Street);
@@ -26,14 +26,6 @@
             HasOne(x => x.Account).Cascade.All();
 
             Map(x => x.Role, "RoleId").CustomType<UserRole>();
-
-            /*
-            <set name="Memberships" cascade="all-delete-orphan" lazy="true" inverse="true" >
-                <key column="UserId" />
-                <one-to-many class="Phundus.Core.Entities.OrganizationMembership" />
-            </set>
-             
-            */
         }
     }
 }
