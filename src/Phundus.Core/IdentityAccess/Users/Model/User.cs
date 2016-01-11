@@ -6,18 +6,19 @@
 
     public class User : EntityBase
     {
-        private Guid _guid = Guid.NewGuid();
         private Account _account;
+        private string _city;
         private string _firstName;
+        private Guid _guid = Guid.NewGuid();
         private int? _jsNumber;
         private string _lastName;
+        private string _mobileNumber;
+        private string _postcode;
         private UserRole _role;
         private string _street;
-        private string _postcode;
-        private string _city;
-        private string _mobileNumber;
 
-        public User(string emailAddress, string password, string firstName, string lastName, string street, string postcode, string city, string mobilePhone, int? jsNumber)
+        public User(string emailAddress, string password, string firstName, string lastName, string street,
+            string postcode, string city, string mobilePhone, int? jsNumber)
         {
             _firstName = firstName;
             _lastName = lastName;
@@ -38,7 +39,6 @@
 
         protected User()
         {
-            
         }
 
         public virtual Guid Guid
