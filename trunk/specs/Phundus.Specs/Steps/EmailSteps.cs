@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Specs.Steps
 {
     using System;
-    using System.Diagnostics;
     using System.Text.RegularExpressions;
     using ContentTypes;
     using NUnit.Framework;
@@ -20,8 +19,8 @@
             _mailbox = mailbox;
         }
 
-        [Given(@"the validation key from account validation email")]
-        public void GivenTheValidationKeyFromEmail()
+        [Given(@"I got the validation key from account validation email")]
+        public void GivenIGotTheValidationKeyFromAccountValidationEmail()
         {
             var mail = AssertEmailReceived("[phundus] Validierung der E-Mail-Adresse", Ctx.User.EmailAddress);
             var match = new Regex(@"\/#\/validate\/account\?key=([a-z0-9]{24})<").Match(mail.HtmlBody);
@@ -29,31 +28,14 @@
             Ctx.ValidationKey = match.Groups[1].Value;
         }
 
-        [Given(@"the validation key from email validation email")]
-        public void GivenTheValidationKeyFromEmailValidationEmail()
-        {
-            var mail = AssertEmailReceived("[phundus] Validierung der geänderten E-Mail-Adresse", Ctx.User.RequestedEmailAddress);
-            var match = new Regex(@"\/#\/validate\/email-address\?key=([a-z0-9]{24})<").Match(mail.HtmlBody);
-            Assert.IsTrue(match.Success, "Could not find validation key in email validation email.");
-            Ctx.ValidationKey = match.Groups[1].Value;
-            Debug.WriteLine("Got validation key {0} from email sent to {1}.", Ctx.ValidationKey, Ctx.User.RequestedEmailAddress);
-        }
-
         [Given(@"I got the validation key from email validation email")]
         public void GivenIGotTheValidationKeyFromEmailValidationEmail()
         {
-            var mail = AssertEmailReceived("[phundus] Validierung der geänderten E-Mail-Adresse", Ctx.User.RequestedEmailAddress);
+            var mail = AssertEmailReceived("[phundus] Validierung der geänderten E-Mail-Adresse",
+                Ctx.User.RequestedEmailAddress);
             var match = new Regex(@"\/#\/validate\/email-address\?key=([a-z0-9]{24})<").Match(mail.HtmlBody);
             Assert.IsTrue(match.Success, "Could not find validation key in email validation email.");
             Ctx.ValidationKey = match.Groups[1].Value;
-            Debug.WriteLine("Got validation key {0} from email sent to {1}.", Ctx.ValidationKey, Ctx.User.RequestedEmailAddress);
-        }
-
-        
-        [Then(@"anon should receive email ""(.*)""")]
-        public void ThenAnonShouldReceiveEmail(string subject)
-        {
-            AssertEmailReceived(subject, Ctx.AnonEmailAddress);
         }
 
         [Then(@"anon should receive email ""(.*)"" with text body:")]
@@ -62,24 +44,17 @@
             AssertEmailReceived(subject, Ctx.AnonEmailAddress, textBody);
         }
 
-        [Then(@"user should receive email ""(.*)""")]
-        public void ThenUserShouldReceiveEmail(string subject)
-        {
-            var toAddress = Ctx.User.EmailAddress;
-            AssertEmailReceived(subject, toAddress);
-        }
-
-        [Then(@"user should receive email ""(.*)"" at requested address")]
-        public void ThenUserShouldReceiveEmailAtRequestedAddress(string subject)
-        {
-            var toAddress = Ctx.User.RequestedEmailAddress;
-            AssertEmailReceived(subject, toAddress);
-        }
-
         [Then(@"I should receive an email ""(.*)"" at requested address")]
         public void ThenIShouldReceiveAnEmailAtRequestedAddress(string subject)
         {
             var toAddress = Ctx.User.RequestedEmailAddress;
+            AssertEmailReceived(subject, toAddress);
+        }
+
+        [Then(@"user should receive email ""(.*)""")]
+        public void ThenUserShouldReceiveEmail(string subject)
+        {
+            var toAddress = Ctx.User.EmailAddress;
             AssertEmailReceived(subject, toAddress);
         }
 
@@ -98,5 +73,6 @@
             if (textBody != null)
                 Assert.That(mail.TextBody, Is.EqualTo(textBody));
             return mail;
-        }}
+        }
+    }
 }

@@ -47,17 +47,6 @@
             Login("user@test.phundus.ch", "1234");
         }
 
-       
-
-     
-        
-
-        [When(@"ich auf ""(.*)"" klicke")]
-        public void WhenIchAufDrucke(string value)
-        {
-            Browser.Button(Find.ByValue(value).Or(Find.ByText(value))).Click();
-        }
-
         [Then(@"muss ""(.*)"" ein E-Mail erhalten mit dem Betreff ""(.*)""")]
         public Mail DannMussEinEMailErhaltenMitDemBetreff(string adresse, string betreff)
         {
