@@ -12,15 +12,8 @@
     [Binding]
     public class AccountSteps : StepsBase
     {
-        private readonly EmailSteps _emailSteps;
-        private readonly UserSteps _userSteps;
-
-        public AccountSteps(App app, Ctx ctx, EmailSteps emailSteps, UserSteps userSteps) : base(app, ctx)
+        public AccountSteps(App app, Ctx ctx) : base(app, ctx)
         {
-            if (emailSteps == null) throw new ArgumentNullException("emailSteps");
-            if (userSteps == null) throw new ArgumentNullException("userSteps");
-            _emailSteps = emailSteps;
-            _userSteps = userSteps;
         }
 
         [Given(@"I signed up")]
@@ -34,38 +27,6 @@
         public void GivenIValidatedTheKey()
         {
             App.ValidateKey(Ctx.ValidationKey);
-        }
-
-        [When(@"I try to log in")]
-        public void WhenITryToLogIn()
-        {
-            var user = Ctx.User;
-            Ctx.LoggedIn = App.LogIn(user.Username, user.Password, false);
-        }
-
-        [Then(@"I should be logged in")]
-        public void ThenIShouldBeLoggedIn()
-        {
-            Assert.That(Ctx.LoggedIn, Is.EqualTo(Ctx.User.Guid), "User not logged in.");
-        }
-
-        [When(@"I try to reset user's password")]
-        public void WhenITryToResetPasswordUserSPassword()
-        {
-            App.ResetPassword(Ctx.User.Username);
-        }
-
-        [When(@"I try to sign up")]
-        public void WhenITryToSignUp()
-        {
-            var user = App.SignUpUser();
-            Ctx.User = user;
-        }
-
-        [Then(@"I should receive email ""(.*)""")]
-        public void ThenIShouldReceiveEmail(string subject)
-        {
-            _emailSteps.ThenUserShouldReceiveEmail(subject);
         }
 
         [Given(@"I changed my email address")]
@@ -84,72 +45,11 @@
             ChangeEmailAddress(user, emailAddress);
         }
 
-        [When(@"I try to change my email address")]
-        public void WhenIChangeEmailAddress()
-        {
-            ChangeEmailAddress(Ctx.User);
-        }
-
-        [When(@"I try to change my email address to ""(.*)""")]
-        public void WhenITryToChangeMyEmailAddressTo(string emailKey)
-        {
-            var user = Ctx.User;
-            var emailAddress = Ctx.Emails[emailKey];
-
-            ChangeEmailAddress(user, emailAddress, false);
-        }
-
-
-        private void ChangeEmailAddress(User user)
-        {
-            if (user == null) throw new ArgumentNullException("user");
-
-            var newEmailAddress = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
-            ChangeEmailAddress(user, newEmailAddress);
-        }
-
-        private void ChangeEmailAddress(User user, string newEmailAddress, bool assertStatusCode = true)
-        {
-            if (user == null) throw new ArgumentNullException("user");
-
-            App.ChangeEmailAddress(user.Guid, user.Password, newEmailAddress, assertStatusCode);
-            if (App.LastResponse.IsSuccess)
-                user.RequestedEmailAddress = newEmailAddress;
-        }
-
-       
-
-        [When(@"I try to log in with requested address")]
-        public void WhenITryToLogInWithRequestedAddress()
-        {
-            var user = Ctx.User;
-            Ctx.LoggedIn = App.LogIn(user.RequestedEmailAddress, user.Password, false);
-        }
-
-        [When(@"I try to validate the key")]
-        public void WhenITryToValidateTheKey()
-        {
-            Debug.WriteLine(String.Format("Validating key {0}", Ctx.ValidationKey));
-            App.ValidateKey(Ctx.ValidationKey, false);
-        }
-
-        [Then(@"error email address already taken")]
-        public void ThenErrorEmailAddressAlreadyTaken()
-        {
-           Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
-           Assert.That(App.LastResponse.Message, Is.StringContaining("EmailAlreadyTakenException"));
-        }
 
         [Given(@"I signed up and confirmed my email address")]
         public void GivenISignedUpAndConfirmedMyEmailAddress()
         {
-            _userSteps.AConfirmedUser();
-        }
-
-        [Then(@"I should not be logged in")]
-        public void ThenIShouldNotBeLoggedIn()
-        {
-            Assert.That(Ctx.LoggedIn, Is.Not.EqualTo(Ctx.User.Guid));
+            Given("a confirmed user");
         }
 
         [Given(@"an administrator locked my account")]
@@ -186,5 +86,89 @@
             Ctx.LoggedIn = App.LogIn(user.Username, user.OldPassword, false);
         }
 
+        [When(@"I try to log in")]
+        public void WhenITryToLogIn()
+        {
+            var user = Ctx.User;
+            Ctx.LoggedIn = App.LogIn(user.Username, user.Password, false);
+        }
+
+        [When(@"I try to reset user's password")]
+        public void WhenITryToResetPasswordUserSPassword()
+        {
+            App.ResetPassword(Ctx.User.Username);
+        }
+
+        [When(@"I try to sign up")]
+        public void WhenITryToSignUp()
+        {
+            var user = App.SignUpUser();
+            Ctx.User = user;
+        }
+
+        [When(@"I try to change my email address")]
+        public void WhenIChangeEmailAddress()
+        {
+            ChangeEmailAddress(Ctx.User);
+        }
+
+        [When(@"I try to change my email address to ""(.*)""")]
+        public void WhenITryToChangeMyEmailAddressTo(string emailKey)
+        {
+            var user = Ctx.User;
+            var emailAddress = Ctx.Emails[emailKey];
+
+            ChangeEmailAddress(user, emailAddress, false);
+        }
+
+        [When(@"I try to log in with requested address")]
+        public void WhenITryToLogInWithRequestedAddress()
+        {
+            var user = Ctx.User;
+            Ctx.LoggedIn = App.LogIn(user.RequestedEmailAddress, user.Password, false);
+        }
+
+        [When(@"I try to validate the key")]
+        public void WhenITryToValidateTheKey()
+        {
+            Debug.WriteLine(String.Format("Validating key {0}", Ctx.ValidationKey));
+            App.ValidateKey(Ctx.ValidationKey, false);
+        }
+
+        [Then(@"I should be logged in")]
+        public void ThenIShouldBeLoggedIn()
+        {
+            Assert.That(Ctx.LoggedIn, Is.EqualTo(Ctx.User.Guid), "User not logged in.");
+        }
+
+        [Then(@"error email address already taken")]
+        public void ThenErrorEmailAddressAlreadyTaken()
+        {
+            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
+            Assert.That(App.LastResponse.Message, Is.StringContaining("EmailAlreadyTakenException"));
+        }
+
+        [Then(@"I should not be logged in")]
+        public void ThenIShouldNotBeLoggedIn()
+        {
+            Assert.That(Ctx.LoggedIn, Is.Not.EqualTo(Ctx.User.Guid));
+        }
+
+        private void ChangeEmailAddress(User user)
+        {
+            if (user == null) throw new ArgumentNullException("user");
+
+            var newEmailAddress = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
+            ChangeEmailAddress(user, newEmailAddress);
+        }
+
+        private void ChangeEmailAddress(User user, string newEmailAddress, bool assertStatusCode = true)
+        {
+            if (user == null) throw new ArgumentNullException("user");
+
+            App.ChangeEmailAddress(user.Guid, user.Password, newEmailAddress, assertStatusCode);
+            if (App.LastResponse.IsSuccess)
+                user.RequestedEmailAddress = newEmailAddress;
+        }
     }
 }

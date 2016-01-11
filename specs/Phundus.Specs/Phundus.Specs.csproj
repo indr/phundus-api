@@ -145,10 +145,10 @@
       <DependentUpon>ValidateAccount.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Articles\ArticlesSteps.cs" />
-    <Compile Include="Features\Articles\CreateArticle.feature.cs">
+    <Compile Include="Features\Articles\UserCreateArticle.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CreateArticle.feature</DependentUpon>
+      <DependentUpon>UserCreateArticle.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Feedback\Feedback.feature.cs">
       <AutoGen>True</AutoGen>
@@ -194,10 +194,12 @@
     <Compile Include="Services\App.cs" />
     <Compile Include="Features\Organizations\OrganizationsSteps.cs" />
     <Compile Include="Services\Resource.cs" />
+    <Compile Include="Services\UserRole.cs" />
     <Compile Include="Steps\EmailSteps.cs" />
+    <Compile Include="Steps\LogInSteps.cs" />
     <Compile Include="Steps\ResponseValidationSteps.cs" />
     <Compile Include="Steps\StepsBase.cs" />
-    <Compile Include="Steps\UserSteps.cs" />
+    <Compile Include="Steps\GivenUserSteps.cs" />
     <Compile Include="_Legacy\Features\Shop.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -255,9 +257,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ValidateAccount.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Articles\CreateArticle.feature">
+    <None Include="Features\Articles\UserCreateArticle.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>CreateArticle.feature.cs</LastGenOutput>
+      <LastGenOutput>UserCreateArticle.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Feedback\Feedback.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

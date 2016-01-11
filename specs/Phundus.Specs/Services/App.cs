@@ -6,17 +6,15 @@
     using System.Net;
     using ContentTypes;
     using Entities;
-    using NUnit.Framework;
     using RestSharp;
-    using Steps;
     using TechTalk.SpecFlow;
 
     [Binding]
     public class App : AppBase
     {
         private readonly ApiClient _apiClient;
-        private readonly FakeNameGenerator _fakeNameGenerator;
         private readonly FakeArticleGenerator _fakeArticleGenerator;
+        private readonly FakeNameGenerator _fakeNameGenerator;
 
         public App(ApiClient apiClient, FakeNameGenerator fakeNameGenerator, FakeArticleGenerator fakeArticleGenerator)
         {
@@ -217,7 +215,7 @@
         public Organization GetOrganization(Guid organizationGuid)
         {
             var response = _apiClient.OrganizationsApi
-                .Get<Organization>(new { organizationGuid });
+                .Get<Organization>(new {organizationGuid});
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
             return response.Data;
@@ -238,7 +236,7 @@
 
         public UsersGetOkResponseContent GetUser(int userId)
         {
-            var response = _apiClient.UsersApi.Get<UsersGetOkResponseContent>(new {userId = userId});
+            var response = _apiClient.UsersApi.Get<UsersGetOkResponseContent>(new {userId});
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
             return response.Data;

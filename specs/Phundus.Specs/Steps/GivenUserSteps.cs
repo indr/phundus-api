@@ -3,38 +3,11 @@
     using Services;
     using TechTalk.SpecFlow;
 
-    public enum UserRole
-    {
-        Admin = 2
-    }
-
     [Binding]
-    public class UserSteps : StepsBase
+    public class GivenUserSteps : StepsBase
     {
-        public UserSteps(App app, Ctx ctx) : base(app, ctx)
+        public GivenUserSteps(App app, Ctx ctx) : base(app, ctx)
         {
-        }
-
-        [Given(@"I am logged in as root")]
-        public void GivenIAmLoggedInAsRoot()
-        {
-            App.LogInAsRoot();
-        }
-        
-        [Given(@"I am logged in as a user")]
-        public void GivenIAmLoggedInAsAUser()
-        {
-            AConfirmedUser();
-            var user = Ctx.User;
-            App.LogIn(user.Username, user.Password);
-        }
-
-        [Given(@"I am logged in as ""(.*)""")]
-        public void GivenIAmLoggedInAs(string userKey)
-        {
-            var user = Ctx.Users[userKey];
-            App.LogIn(user.Username, user.Password);
-            Ctx.User = user;
         }
 
         [Given(@"a confirmed user")]

@@ -2,8 +2,9 @@
 {
     using System;
     using Services;
+    using TechTalk.SpecFlow;
 
-    public abstract class StepsBase
+    public abstract class StepsBase : Steps
     {
         protected readonly App App;
         protected readonly Ctx Ctx;

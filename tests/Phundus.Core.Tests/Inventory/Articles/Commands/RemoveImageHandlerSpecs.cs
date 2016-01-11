@@ -5,7 +5,6 @@
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.Articles.Model;
     using Core.Inventory.Owners;
-    using Core.Inventory.Stores.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
