@@ -72,9 +72,9 @@ namespace Phundus.Specs.Features.Account
 #line 3
 this.ScenarioSetup(scenarioInfo);
 #line 4
- testRunner.When("sign up", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I try to sign up", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 5
- testRunner.Then("user should receive email \"[phundus] Validierung der E-Mail-Adresse\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should receive email \"[phundus] Validierung der E-Mail-Adresse\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

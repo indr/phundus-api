@@ -2,8 +2,7 @@
 
 Background: 
 	Given a confirmed user
-	And logged in
 
 Scenario: sends email "Neues Passwort"
-	When reset password
+	When I try to reset user's password
 	Then user should receive email "[phundus] Neues Passwort"
