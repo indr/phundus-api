@@ -1,7 +1,19 @@
-namespace Phundus.Specs.ContentTypes
+﻿namespace Phundus.Specs.ContentTypes
 {
     using System;
     using Newtonsoft.Json;
+
+    public class OrganizationsPostRequestContent
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+    }
+
+    public class OrganizationsPostOkResponseContent
+    {
+        [JsonProperty("organizationId")]
+        public Guid OrganizationId { get; set; }
+    }
 
     public class Organization
     {

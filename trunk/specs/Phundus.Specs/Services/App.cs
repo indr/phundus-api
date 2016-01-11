@@ -6,15 +6,9 @@
     using System.Net;
     using ContentTypes;
     using Entities;
-    using Phundus.Rest.Api;
-    using Phundus.Rest.Api.Account;
-    using Phundus.Rest.Api.Admin;
     using RestSharp;
     using Steps;
     using TechTalk.SpecFlow;
-    using ArticlesPostOkResponseContent = Phundus.Rest.Api.ArticlesPostOkResponseContent;
-    using ArticlesPostRequestContent = Phundus.Rest.Api.ArticlesPostRequestContent;
-    using UsersGetOkResponseContent = ContentTypes.UsersGetOkResponseContent;
 
     [Binding]
     public class App : AppBase
@@ -128,7 +122,7 @@
             bool assertStatusCode = true)
         {
             var response = _apiClient.ChangeEmailAddressApi
-                .Post(new ChangeEMailAddressPostRequestContent {Password = password, NewEmailAddress = newEmailAddress});
+                .Post(new ChangeEmailAddressPostRequestContent {Password = password, NewEmailAddress = newEmailAddress});
             if (assertStatusCode)
                 AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);

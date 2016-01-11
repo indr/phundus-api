@@ -3,7 +3,45 @@
     using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
-    using Phundus.Rest.ContentObjects;
+
+    public class UsersPostRequestContent
+    {
+        [JsonProperty("emailAddress")]
+        public string Email { get; set; }
+
+        [JsonProperty("password")]
+        public string Password { get; set; }
+
+        [JsonProperty("firstName")]
+        public string FirstName { get; set; }
+
+        [JsonProperty("lastName")]
+        public string LastName { get; set; }
+
+        [JsonProperty("street")]
+        public string Street { get; set; }
+
+        [JsonProperty("postcode")]
+        public string Postcode { get; set; }
+
+        [JsonProperty("city")]
+        public string City { get; set; }
+
+        [JsonProperty("mobilePhone")]
+        public string MobilePhone { get; set; }
+
+        [JsonProperty("organizationId")]
+        public Guid? OrganizationId { get; set; }
+    }
+
+    public class UsersPostOkResponseContent
+    {
+        [JsonProperty("userId")]
+        public int UserId { get; set; }
+
+        [JsonProperty("userGuid")]
+        public Guid UserGuid { get; set; }
+    }
 
     public class UsersGetOkResponseContent
     {
@@ -42,20 +80,5 @@
 
         [JsonProperty("isManager")]
         public bool? IsManager { get; set; }
-    }
-
-    public class Store
-    {
-        [JsonProperty("storeId")]
-        public Guid StoreId { get; set; }
-
-        [JsonProperty("address")]
-        public string Address { get; set; }
-
-        [JsonProperty("coordinate")]
-        public Coordinate Coordinate { get; set; }
-
-        [JsonProperty("openingHours")]
-        public string OpeningHours { get; set; }
     }
 }

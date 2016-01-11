@@ -141,7 +141,6 @@
     <Compile Include="ContentObjects\Store.cs" />
     <Compile Include="ContentObjects\Memberships.cs" />
     <Compile Include="Api\NotificationsController.cs" />
-    <Compile Include="ContentObjects\Role.cs" />
     <Compile Include="ContentObjects\Organization.cs" />
     <Compile Include="Api\Organizations\OrganizationsFilesController.cs" />
     <Compile Include="Api\Organizations\OrganizationsArticlesFilesController.cs" />

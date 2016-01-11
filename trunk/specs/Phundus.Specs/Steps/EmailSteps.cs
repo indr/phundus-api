@@ -3,8 +3,8 @@
     using System;
     using System.Diagnostics;
     using System.Text.RegularExpressions;
+    using ContentTypes;
     using NUnit.Framework;
-    using Phundus.Rest.ContentObjects;
     using Services;
     using TechTalk.SpecFlow;
 

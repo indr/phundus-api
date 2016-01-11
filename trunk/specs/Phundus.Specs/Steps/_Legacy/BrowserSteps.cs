@@ -3,8 +3,8 @@
     using System;
     using System.Configuration;
     using System.Reflection;
+    using ContentTypes;
     using NUnit.Framework;
-    using Phundus.Rest.ContentObjects;
     using Services;
     using TechTalk.SpecFlow;
     using WatiN.Core;
