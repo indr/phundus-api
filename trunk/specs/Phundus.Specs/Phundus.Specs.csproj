@@ -159,8 +159,12 @@
     <Compile Include="Services\AppBase.cs" />
     <Compile Include="Services\Ctx.cs" />
     <Compile Include="Services\CustomJsonSerializer.cs" />
-    <Compile Include="Services\Entities\CsvImporter.cs" />
-    <Compile Include="Services\Entities\FakeGenerator.cs" />
+    <Compile Include="Services\Entities\CsvReader.cs" />
+    <Compile Include="Services\Entities\FakeArticleGenerator.cs" />
+    <Compile Include="Services\Entities\FakeGeneratorBase.cs" />
+    <Compile Include="Services\Entities\FakeNameGenerator.cs" />
+    <Compile Include="Services\Entities\RecordsReader.cs" />
+    <Compile Include="Services\Entities\Rows.cs" />
     <Compile Include="Services\Entities\Organization.cs" />
     <Compile Include="Services\Entities\User.cs" />
     <Compile Include="Services\Mailbox.cs" />
@@ -209,6 +213,7 @@
     <Compile Include="Www\Steps\RobotsTxtSteps.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\ArticleNames.csv" />
     <None Include="Features\Account\ChangeEmailAddress.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ChangeEmailAddress.feature.cs</LastGenOutput>
@@ -293,6 +298,7 @@
     <EmbeddedResource Include="Assets\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
