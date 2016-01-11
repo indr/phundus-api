@@ -6,6 +6,7 @@
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;
+    using Phundus.Shop.Orders.Mails;
     using Repositories;
     using Services;
 

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Common;
     using Common.Domain.Model;
+    using Phundus.Shop.Queries;
 
     public interface IOrderQueries
     {

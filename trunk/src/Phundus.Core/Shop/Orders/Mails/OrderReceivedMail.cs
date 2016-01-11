@@ -7,6 +7,7 @@
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;
+    using Phundus.Shop.Orders.Mails;
 
     public class OrderReceivedMail : BaseMail
     {

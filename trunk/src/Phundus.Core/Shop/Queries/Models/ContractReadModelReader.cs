@@ -5,6 +5,7 @@
     using System.Linq;
     using Contracts.Model;
     using Ddd;
+    using Phundus.Shop.Queries;
 
     public class ContractReadModelReader : ReadModelReaderBase, IContractQueries
     {

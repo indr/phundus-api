@@ -3,7 +3,6 @@
     using System;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using AutoMapper;
     using Castle.Transactions;
     using Common;
     using ContentObjects;
@@ -32,6 +31,5 @@
 
     public class OrganizationsRelationshipsQueryOkResponseContent : Relationship
     {
-       
     }
 }

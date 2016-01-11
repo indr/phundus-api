@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Phundus.Core.Shop.Queries
+namespace Phundus.Shop.Queries
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -20,9 +20,10 @@ namespace Phundus.Core.Shop.Queries
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	
-	
-	public partial class ReadModelDataContext : System.Data.Linq.DataContext
+	using Core.Shop.Queries;
+
+
+    public partial class ReadModelDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();

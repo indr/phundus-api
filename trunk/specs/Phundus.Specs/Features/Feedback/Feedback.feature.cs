@@ -79,7 +79,7 @@ this.ScenarioSetup(scenarioInfo);
                     "ngs.ServerUrl}\r\nVersion: {Assembly.Version}", ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 12
- testRunner.Then("anon should receive email \"Vielen Dank fürs Feedback\" with text body:", @"Wir haben dein Feedback erhalten And werden dir baldmöglichst darauf antworten.
+ testRunner.Then("anon should receive email \"Vielen Dank fürs Feedback\" with text body:", @"Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
 
 Vielen Dank And freundliche Grüsse
 

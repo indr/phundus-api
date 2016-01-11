@@ -8,6 +8,7 @@
     using Common.Domain.Model;
     using IdentityAndAccess.Queries;
     using Inventory.Services;
+    using Phundus.Shop.Queries;
 
     public class OrderReadModelReader : ReadModelReaderBase, IOrderQueries
     {
