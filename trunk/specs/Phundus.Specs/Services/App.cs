@@ -172,7 +172,7 @@
             SetLastResponse(response);
         }
 
-        public Organization EstablishOrganization()
+        public Organization EstablishOrganization(bool assertHttpStatus = true)
         {
             var organization = _fakeNameGenerator.NextOrganization();
             var response = _apiClient.OrganizationsApi
@@ -180,7 +180,8 @@
                 {
                     Name = organization.Name
                 });
-            AssertHttpStatus(HttpStatusCode.OK, response);
+            if (assertHttpStatus)
+                AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
             organization.OrganizationId = response.Data.OrganizationId;
             return organization;

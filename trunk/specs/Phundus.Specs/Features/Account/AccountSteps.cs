@@ -74,16 +74,6 @@
             ChangeEmailAddress(Ctx.User);
         }
 
-        [Given(@"""(.*)"" changed email address to ""(.*)""")]
-        public void GivenUserChangedEmailAddress(string userKey, string emailKey)
-        {
-            var user = Ctx.Users[userKey];
-            if (!Ctx.Emails.ContainsAlias(emailKey))
-                Ctx.Emails[emailKey] = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
-            var emailAddress = Ctx.Emails[emailKey];
-            ChangeEmailAddress(user, emailAddress);
-        }
-
         [Given(@"I changed email address to ""(.*)""")]
         public void GivenIChangedEmailAddressTo(string emailKey)
         {

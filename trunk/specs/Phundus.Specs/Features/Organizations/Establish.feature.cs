@@ -64,28 +64,20 @@ namespace Phundus.Specs.Features.Organizations
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void FeatureBackground()
-        {
-#line 3
-#line 4
- testRunner.Given("I am logged in as root", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-        }
-        
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Organization is in query result")]
         public virtual void OrganizationIsInQueryResult()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Organization is in query result", ((string[])(null)));
-#line 6
-this.ScenarioSetup(scenarioInfo);
 #line 3
-this.FeatureBackground();
-#line 7
- testRunner.Given("I established an organization", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
+this.ScenarioSetup(scenarioInfo);
+#line 4
+ testRunner.Given("I am logged in as root", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 5
+ testRunner.And("I established an organization", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 6
  testRunner.When("I try to query all organizations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
+#line 7
  testRunner.Then("I should find the organization in the result", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -96,16 +88,33 @@ this.FeatureBackground();
         public virtual void GetOrganizationDetails()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get organization details", ((string[])(null)));
-#line 11
+#line 9
 this.ScenarioSetup(scenarioInfo);
-#line 3
-this.FeatureBackground();
+#line 10
+ testRunner.Given("I am logged in as root", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 11
+ testRunner.And("I established an organization", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
- testRunner.Given("I established an organization", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 13
  testRunner.When("I try to get the organization details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
+#line 13
  testRunner.Then("I should see the organization details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Establish organization as user, fails")]
+        public virtual void EstablishOrganizationAsUserFails()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Establish organization as user, fails", ((string[])(null)));
+#line 15
+this.ScenarioSetup(scenarioInfo);
+#line 16
+ testRunner.Given("I am logged in as a user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 17
+ testRunner.When("I try to establish an organization", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 18
+ testRunner.Then("I should see unauthorized", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

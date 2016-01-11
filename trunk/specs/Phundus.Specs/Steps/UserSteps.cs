@@ -64,13 +64,5 @@
             if (emailKey != null)
                 Ctx.Emails[emailKey] = user.EmailAddress;
         }
-
-        [Given(@"a confirmed and logged in user ""([^@]*)""")]
-        public void AConfirmedAndLoggedInUser(string userKey)
-        {
-            AConfirmedUser(userKey);
-            var user = Ctx.Users[userKey];
-            App.LogIn(user.Username, user.Password);
-        }
     }
 }

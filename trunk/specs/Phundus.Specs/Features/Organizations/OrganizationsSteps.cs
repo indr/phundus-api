@@ -27,7 +27,7 @@
         [When(@"I try to establish an organization")]
         public void WhenITryToEstablishAnOrganization()
         {
-            var organization = App.EstablishOrganization();
+            var organization = App.EstablishOrganization(false);
             Ctx.Organization = organization;
         }
 
