@@ -1,8 +1,7 @@
 ﻿Feature: Feedback
 
 @isSmoker
-Scenario: Send as anon
-	Given not logged in
+Scenario: Send as anon	
 	When submit feedback as anon with comment:
 		"""
 		Greetings from feedback feature scenario "Send as anon"!

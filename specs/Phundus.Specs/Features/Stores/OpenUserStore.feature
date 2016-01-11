@@ -11,4 +11,4 @@ Scenario: Open a second store returns 500
 	And logged in
 	When open user store
 	And open user store
-	Then last response code is 500
+	Then response code is 500
