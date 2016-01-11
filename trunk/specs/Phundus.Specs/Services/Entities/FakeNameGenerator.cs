@@ -2,6 +2,7 @@ namespace Phundus.Specs.Services.Entities
 {
     using System;
     using Assets;
+    using ContentTypes;
     using TechTalk.SpecFlow;
 
     /// <summary>
@@ -19,7 +20,7 @@ namespace Phundus.Specs.Services.Entities
             var record = GetNextRecord();
             return new Organization
             {
-                Guid = new Guid(record.Guid),
+                OrganizationId = new Guid(record.Guid),
                 Name = record.Company
             };
         }

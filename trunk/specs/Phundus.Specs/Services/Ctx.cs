@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using ContentTypes;
     using Entities;
     using TechTalk.SpecFlow;
 
@@ -60,6 +61,7 @@
             LoggedIn = Guid.Empty;
             ValidationKey = null;
             Emails.Clear();
+            Store = null;
         }
 
         public User User { get; set; }
@@ -84,5 +86,6 @@
         public Guid LoggedIn { get; set; }
 
         public string ValidationKey { get; set; }
+        public Guid? Store { get; set; }
     }
 }

@@ -1,12 +1,14 @@
 ﻿Feature: Establish organization
 	
 Background: 
-	Given logged in as root	
+	Given I am logged in as root	
 
-Scenario: can query for
-	When establish organization
-	Then query organizations should contain it
+Scenario: Organization is in query result
+	Given I established an organization
+	When I try to query all organizations
+	Then I should find the organization in the result
 
-Scenario: can get details
-	When establish organization
-	Then get organization details
+Scenario: Get organization details
+	Given I established an organization
+	When I try to get the organization details
+	Then I should see the organization details

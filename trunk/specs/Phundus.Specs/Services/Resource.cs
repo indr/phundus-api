@@ -5,6 +5,7 @@
     using System.Configuration;
     using System.Globalization;
     using System.Text.RegularExpressions;
+    using ContentTypes;
     using Newtonsoft.Json;
     using RestSharp;
 
@@ -56,10 +57,10 @@
             return Execute<T>(request);
         }
 
-        public IRestResponse<T> Query<T>() where T : new()
+        public IRestResponse<QueryOkResponseContent<T>> Query<T>(object queryParams = null) where T : new()
         {
             var request = CreateRestRequest(null, Method.GET);
-            return Execute<T>(request);
+            return Execute<QueryOkResponseContent<T>>(request);
         }
 
         protected RestRequest CreateRestRequest(object requestContent, Method method)

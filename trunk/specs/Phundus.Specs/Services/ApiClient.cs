@@ -60,6 +60,11 @@
             get { return Resource("mails"); }
         }
 
+        public Resource ArticlesApi
+        {
+            get { return Resource("articles/{articleId}"); }
+        }
+
         private static Resource Resource(string url)
         {
             return new Resource(url);

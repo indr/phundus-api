@@ -3,6 +3,9 @@ namespace Phundus.Specs.Services.Entities
     using Assets;
     using TechTalk.SpecFlow;
 
+    /// <summary>
+    /// www.thinkcalculator.com/generator/product-name-generator.php
+    /// </summary>
     [Binding]
     public class FakeArticleGenerator : FakeGeneratorBase<ArticleNameRow>
     {

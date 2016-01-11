@@ -103,6 +103,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentTypes\Article.cs" />
+    <Compile Include="ContentTypes\ArticlesPostOkResponseContent.cs" />
+    <Compile Include="ContentTypes\ArticlesPostRequestContent.cs" />
+    <Compile Include="ContentTypes\Organization.cs" />
+    <Compile Include="ContentTypes\QueryOkResponseContent.cs" />
     <Compile Include="ContentTypes\UsersGetOkResponseContent.cs" />
     <Compile Include="Features\Account\ChangeEmailAddress.feature.cs">
       <AutoGen>True</AutoGen>
@@ -133,6 +138,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidateAccount.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Articles\ArticlesSteps.cs" />
+    <Compile Include="Features\Articles\CreateArticle.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateArticle.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Feedback\Feedback.feature.cs">
       <AutoGen>True</AutoGen>
@@ -165,7 +176,6 @@
     <Compile Include="Services\Entities\FakeNameGenerator.cs" />
     <Compile Include="Services\Entities\RecordsReader.cs" />
     <Compile Include="Services\Entities\Rows.cs" />
-    <Compile Include="Services\Entities\Organization.cs" />
     <Compile Include="Services\Entities\User.cs" />
     <Compile Include="Services\Mailbox.cs" />
     <Compile Include="Features\Account\AccountSteps.cs" />
@@ -234,6 +244,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ValidateAccount.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\Articles\CreateArticle.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CreateArticle.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Feedback\Feedback.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Feedback.feature.cs</LastGenOutput>
@@ -291,9 +305,7 @@
       <Name>Phundus.Rest</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Features\Articles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Assets\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
