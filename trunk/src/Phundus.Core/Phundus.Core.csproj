@@ -106,6 +106,7 @@
     <Compile Include="Ddd\AutoReleaseEventHandlerInterceptor.cs" />
     <Compile Include="Ddd\EventHandlerSelector.cs" />
     <Compile Include="Ddd\EventPublisherImpl.cs" />
+    <Compile Include="Ddd\EventStore.cs" />
     <Compile Include="Ddd\IEventHandlerFactory.cs" />
     <Compile Include="Ddd\IStoredEventRepository.cs" />
     <Compile Include="Ddd\ISubscribeTo.cs" />

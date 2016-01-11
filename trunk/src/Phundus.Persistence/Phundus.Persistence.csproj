@@ -88,7 +88,6 @@
     <Compile Include="NHibernateProcessedNotificationTrackerStore.cs" />
     <Compile Include="Shop\Mappings\CartItemMap.cs" />
     <Compile Include="Shop\Mappings\CartMap.cs" />
-    <Compile Include="StoredEvents\EventStore.cs" />
     <Compile Include="StoredEvents\NhStoredEventRepository.cs" />
     <Compile Include="StoredEvents\StoredEventMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\MembershipMap.cs" />
