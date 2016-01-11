@@ -11,8 +11,8 @@
         {
         }
 
-        [Then(@"last response code is (.*)")]
-        public void ThenLastResponse(int statusCode)
+        [Then(@"response code is (.*)")]
+        public void ThenResponse(int statusCode)
         {
             Assert.That((int)App.LastResponse.StatusCode, Is.EqualTo(statusCode));
         }

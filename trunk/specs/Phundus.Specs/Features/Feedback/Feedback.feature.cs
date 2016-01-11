@@ -32,7 +32,7 @@ namespace Phundus.Specs.Features.Feedback
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("de-DE"), "Feedback", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Feedback", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -73,26 +73,24 @@ namespace Phundus.Specs.Features.Feedback
                         "isSmoker"});
 #line 4
 this.ScenarioSetup(scenarioInfo);
+#line hidden
 #line 5
- testRunner.Given("not logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Angenommen ");
-#line hidden
-#line 6
  testRunner.When("submit feedback as anon with comment:", "Greetings from feedback feature scenario \"Send as anon\"!\r\n\r\nServer URL: {AppSetti" +
-                    "ngs.ServerUrl}\r\nVersion: {Assembly.Version}", ((TechTalk.SpecFlow.Table)(null)), "Wenn ");
+                    "ngs.ServerUrl}\r\nVersion: {Assembly.Version}", ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 13
- testRunner.Then("anon should receive email \"Vielen Dank fürs Feedback\" with text body:", @"Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
+#line 12
+ testRunner.Then("anon should receive email \"Vielen Dank fürs Feedback\" with text body:", @"Wir haben dein Feedback erhalten And werden dir baldmöglichst darauf antworten.
 
-Vielen Dank und freundliche Grüsse
+Vielen Dank And freundliche Grüsse
 
 Das phundus-Team
 
 --
 This is an automatically generated message from phundus.
 -
-If you think it was sent incorrectly contact the administrators at lukas.mueller@phundus.ch or reto.inderbitzin@phundus.ch.", ((TechTalk.SpecFlow.Table)(null)), "Dann ");
-#line 26
- testRunner.And("\"admin@test.phundus.ch\" should receive email \"[phundus] Feedback\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Und ");
+If you think it was sent incorrectly contact the administrators at lukas.mueller@phundus.ch or reto.inderbitzin@phundus.ch.", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 25
+ testRunner.And("\"admin@test.phundus.ch\" should receive email \"[phundus] Feedback\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
