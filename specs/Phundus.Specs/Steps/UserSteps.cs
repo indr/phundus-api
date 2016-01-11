@@ -15,10 +15,23 @@
         {
         }
 
+        [Given(@"I am logged in as root")]
+        public void GivenIAmLoggedInAsRoot()
+        {
+            App.LogInAsRoot();
+        }
+
         [Given(@"logged in as root")]
         public void GivenLoggedInAsRoot()
         {
             App.LogInAsRoot();
+        }
+
+        [Given(@"I am logged in as a user")]
+        public void GivenIAmLoggedInAsAUser()
+        {
+            AConfirmedUser();
+            GivenLoggedInAsUser();
         }
 
         [Given(@"logged in")]

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Specs.Api
+﻿namespace Phundus.Specs.ContentTypes
 {
     using System;
     using System.Collections.Generic;

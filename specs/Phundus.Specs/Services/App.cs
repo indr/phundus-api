@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Net;
+    using ContentTypes;
     using Entities;
     using Phundus.Rest.Api;
     using Phundus.Rest.Api.Account;
@@ -10,20 +12,25 @@
     using RestSharp;
     using Steps;
     using TechTalk.SpecFlow;
-    using UsersGetOkResponseContent = Api.UsersGetOkResponseContent;
+    using ArticlesPostOkResponseContent = Phundus.Rest.Api.ArticlesPostOkResponseContent;
+    using ArticlesPostRequestContent = Phundus.Rest.Api.ArticlesPostRequestContent;
+    using UsersGetOkResponseContent = ContentTypes.UsersGetOkResponseContent;
 
     [Binding]
     public class App : AppBase
     {
         private readonly ApiClient _apiClient;
         private readonly FakeNameGenerator _fakeNameGenerator;
+        private readonly FakeArticleGenerator _fakeArticleGenerator;
 
-        public App(ApiClient apiClient, FakeNameGenerator fakeNameGenerator)
+        public App(ApiClient apiClient, FakeNameGenerator fakeNameGenerator, FakeArticleGenerator fakeArticleGenerator)
         {
             if (apiClient == null) throw new ArgumentNullException("apiClient");
             if (fakeNameGenerator == null) throw new ArgumentNullException("fakeNameGenerator");
+            if (fakeArticleGenerator == null) throw new ArgumentNullException("fakeArticleGenerator");
             _apiClient = apiClient;
             _fakeNameGenerator = fakeNameGenerator;
+            _fakeArticleGenerator = fakeArticleGenerator;
         }
 
         public Response LastResponse { get; private set; }
@@ -180,14 +187,13 @@
                 });
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
-            organization.Guid = response.Data.OrganizationId;
+            organization.OrganizationId = response.Data.OrganizationId;
             return organization;
         }
 
-        public IList<Phundus.Rest.ContentObjects.Organization> QueryOrganizations()
+        public IList<Organization> QueryOrganizations()
         {
-            var response = _apiClient.OrganizationsApi
-                .Query<OrganizationsQueryOkResponseContent>();
+            var response = _apiClient.OrganizationsApi.Query<Organization>();
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
             return response.Data.Results;
@@ -212,10 +218,10 @@
             SetLastResponse(response);
         }
 
-        public OrganizationsGetOkResponseContent GetOrganization(Guid organizationGuid)
+        public Organization GetOrganization(Guid organizationGuid)
         {
             var response = _apiClient.OrganizationsApi
-                .Get<OrganizationsGetOkResponseContent>(new {organizationGuid});
+                .Get<Organization>(new { organizationGuid });
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
             return response.Data;
@@ -237,6 +243,26 @@
         public UsersGetOkResponseContent GetUser(int userId)
         {
             var response = _apiClient.UsersApi.Get<UsersGetOkResponseContent>(new {userId = userId});
+            AssertHttpStatus(HttpStatusCode.OK, response);
+            SetLastResponse(response);
+            return response.Data;
+        }
+
+        public void CreateArticle(User user)
+        {
+            var fakeArticle = _fakeArticleGenerator.NextArticle();
+            var response = _apiClient.ArticlesApi.Post<ArticlesPostOkResponseContent>(new ArticlesPostRequestContent
+            {
+                Amount = fakeArticle.GrossStock,
+                Name = fakeArticle.Name,
+                OwnerId = user.Id.ToString(CultureInfo.InvariantCulture)
+            });
+            AssertHttpStatus(HttpStatusCode.OK, response);
+        }
+
+        public QueryOkResponseContent<Article> QueryArticlesByUser(User user)
+        {
+            var response = _apiClient.ArticlesApi.Query<Article>(new {ownerId = user.Id});
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
             return response.Data;
