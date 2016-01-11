@@ -153,6 +153,7 @@
                 Email = RequestedEmail;
                 RequestedEmail = null;
             }
+
             return true;
         }
 
