@@ -32,14 +32,5 @@
 
             Assert.That(Browser.Span(Find.ByClass("versionTag")).Text, Is.EqualTo(expected));
         }
-
-        [Then(@"sollte die Server-URL entsprechend der Konfiguration gesetzt sein")]
-        public void ThenSollteDieServer_URLEntsprechendDerKonfigurationGesetztSein()
-        {
-            var expected = "http://" + ConfigurationManager.AppSettings["ServerUrl"];
-            var actual = Browser.Span(Find.ByClass("serverUrlTag")).Link(Find.ByText("phundus")).Url;
-            actual = actual.TrimEnd('/');
-            Assert.That(actual, Is.EqualTo(expected));
-        }
     }
 }

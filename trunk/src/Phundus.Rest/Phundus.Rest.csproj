@@ -138,6 +138,7 @@
     <Compile Include="Api\EventLogController.cs" />
     <Compile Include="Api\SchemaUpdateController.cs" />
     <Compile Include="Api\MailsController.cs" />
+    <Compile Include="ContentObjects\StatusGetOkResponseContent.cs" />
     <Compile Include="ContentObjects\Store.cs" />
     <Compile Include="ContentObjects\Memberships.cs" />
     <Compile Include="Api\NotificationsController.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="MappingProfiles\Orders.cs" />
     <Compile Include="MappingProfiles\Organizations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatusController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -6,6 +6,7 @@
     using System.Net;
     using ContentTypes;
     using Entities;
+    using NUnit.Framework;
     using RestSharp;
     using Steps;
     using TechTalk.SpecFlow;
@@ -259,6 +260,13 @@
             var response = _apiClient.ArticlesApi.Query<Article>(new {ownerId = user.Id});
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
+            return response.Data;
+        }
+
+        public StatusGetOkResponseContent GetStatus()
+        {
+            var response = _apiClient.StatusApi.Get<StatusGetOkResponseContent>(null);
+            AssertHttpStatus(HttpStatusCode.OK, response);
             return response.Data;
         }
     }

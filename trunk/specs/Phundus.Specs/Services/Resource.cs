@@ -33,9 +33,9 @@
             Cookies.Clear();
         }
 
-        public IRestResponse<T> Get<T>(object o) where T : new()
+        public IRestResponse<T> Get<T>(object requestContent) where T : new()
         {
-            var request = CreateRequest(o, Method.GET);
+            var request = CreateRequest(requestContent, Method.GET);
             return Execute<T>(request);
         }
 
