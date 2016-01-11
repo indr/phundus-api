@@ -24,5 +24,11 @@
             Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
+        [Then(@"I should see unauthorized")]
+        public void ThenIShouldSeeUnauthorized()
+        {
+            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
+        }
+
     }
 }
