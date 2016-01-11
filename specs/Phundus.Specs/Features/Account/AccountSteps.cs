@@ -23,24 +23,11 @@
             _userSteps = userSteps;
         }
 
-        [When(@"sign up")]
-        public void WhenSignUp()
-        {
-            var user = App.SignUpUser();
-            Ctx.User = user;
-        }
-
         [Given(@"I signed up")]
         public void GivenISignedUp()
         {
             var user = App.SignUpUser();
             Ctx.User = user;
-        }
-
-        [Given(@"I got the validation key from account validation email")]
-        public void GivenIGotTheValidationKeyFromAccountValidationEmail()
-        {
-            _emailSteps.GivenTheValidationKeyFromEmail();
         }
 
         [Given(@"I validated the key")]
@@ -80,12 +67,6 @@
         {
             _emailSteps.ThenUserShouldReceiveEmail(subject);
         }
-        
-        [Given(@"user changed email address")]
-        public void GivenUserChangedEmailAddress()
-        {
-            ChangeEmailAddress(Ctx.User);
-        }
 
         [Given(@"I changed my email address")]
         public void GivenIChangedMyEmailAddress()
@@ -113,26 +94,10 @@
             ChangeEmailAddress(user, emailAddress);
         }
 
-
-        [When(@"change email address")]
-        public void WhenChangeEmailAddress()
-        {
-            ChangeEmailAddress(Ctx.User);
-        }
-
         [When(@"I try to change my email address")]
         public void WhenIChangeEmailAddress()
         {
             ChangeEmailAddress(Ctx.User);
-        }
-
-        [When(@"""(.*)"" changes email address to ""(.*)""")]
-        public void WhenChangesEmailAddressTo(string userKey, string emailKey)
-        {
-            var user = Ctx.Users[userKey];
-            var emailAddress = Ctx.Emails[emailKey];
-
-            ChangeEmailAddress(user, emailAddress, false);
         }
 
         [When(@"I try to change my email address to ""(.*)""")]
@@ -162,19 +127,7 @@
                 user.RequestedEmailAddress = newEmailAddress;
         }
 
-        [When(@"log in")]
-        public void WhenLogIn()
-        {
-            var user = Ctx.User;
-            Ctx.LoggedIn = App.LogIn(user.Username, user.Password, false);
-        }
-
-        [When(@"log in with requested address")]
-        public void WhenLogInWithRequestedAddress()
-        {
-            var user = Ctx.User;
-            Ctx.LoggedIn = App.LogIn(user.RequestedEmailAddress, user.Password, false);
-        }
+       
 
         [When(@"I try to log in with requested address")]
         public void WhenITryToLogInWithRequestedAddress()
@@ -182,40 +135,12 @@
             var user = Ctx.User;
             Ctx.LoggedIn = App.LogIn(user.RequestedEmailAddress, user.Password, false);
         }
-        
-        [Then(@"can log in")]
-        public void ThenCanLogIn()
-        {
-            var user = Ctx.User;
-            App.LogIn(user.Username, user.Password);
-        }
-
-        [Then(@"logged in")]
-        public void ThenLoggedIn()
-        {
-            Assert.That(Ctx.LoggedIn, Is.EqualTo(Ctx.User.Guid), "User not logged in.");
-        }
-
-        [When(@"validate key")]
-        public void WhenValidateKey()
-        {
-            Debug.WriteLine(String.Format("Validating key {0}", Ctx.ValidationKey));
-            App.ValidateKey(Ctx.ValidationKey, false);
-        }
 
         [When(@"I try to validate the key")]
         public void WhenITryToValidateTheKey()
         {
             Debug.WriteLine(String.Format("Validating key {0}", Ctx.ValidationKey));
             App.ValidateKey(Ctx.ValidationKey, false);
-        }
-
-        
-        [Then(@"not validated")]
-        public void ThenNotValidated()
-        {
-            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError), "Error validating key " + Ctx.ValidationKey);
-            Assert.That(App.LastResponse.Message, Is.StringStarting("could not update"), "Error validating key " + Ctx.ValidationKey);
         }
 
         [Then(@"error email address already taken")]

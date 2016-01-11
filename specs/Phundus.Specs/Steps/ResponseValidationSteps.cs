@@ -12,12 +12,6 @@
         {
         }
 
-        [Then(@"response code is (.*)")]
-        public void ThenResponse(int statusCode)
-        {
-            Assert.That((int)App.LastResponse.StatusCode, Is.EqualTo(statusCode));
-        }
-
         [Then(@"I should see error")]
         public void ThenIShouldSeeError()
         {

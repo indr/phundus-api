@@ -20,31 +20,12 @@
         {
             App.LogInAsRoot();
         }
-
-        [Given(@"logged in as root")]
-        public void GivenLoggedInAsRoot()
-        {
-            App.LogInAsRoot();
-        }
-
+        
         [Given(@"I am logged in as a user")]
         public void GivenIAmLoggedInAsAUser()
         {
             AConfirmedUser();
-            GivenLoggedInAsUser();
-        }
-
-        [Given(@"logged in")]
-        public void GivenLoggedInAsUser()
-        {
             var user = Ctx.User;
-            App.LogIn(user.Username, user.Password);
-        }
-
-        [Given(@"logged in as ""(.*)""")]
-        public void GivenLoggedInAs(string userKey)
-        {
-            var user = Ctx.Users[userKey];
             App.LogIn(user.Username, user.Password);
         }
 
@@ -90,18 +71,6 @@
             AConfirmedUser(userKey);
             var user = Ctx.Users[userKey];
             App.LogIn(user.Username, user.Password);
-        }
-
-        [Given(@"unlock user")]
-        public void GivenUnlockUser()
-        {
-            App.UnlockUser(Ctx.User.Guid);
-        }
-
-        [Given(@"lock user")]
-        public void GivenLockUser()
-        {
-            App.LockUser(Ctx.User.Guid);
         }
     }
 }
