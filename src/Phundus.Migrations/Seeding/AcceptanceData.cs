@@ -15,26 +15,26 @@
     {
         public override void Up()
         {
-            Delete.FromTable("Cart").InSchema(SchemaName).AllRows();
-            Delete.FromTable("OrderItem").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Order").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Image").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Article").InSchema(SchemaName).AllRows();
-            Delete.FromTable("OrganizationMembership").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_Shop_Cart").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_Shop_OrderItem").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_Shop_Order").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_Inventory_ArticleFile").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_Inventory_Article").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_IdentityAccess_Membership").InSchema(SchemaName).AllRows();
             Delete.FromTable("Rm_Relationships").AllRows();
-            Delete.FromTable("Dm_Account").InSchema(SchemaName).AllRows();
-            Delete.FromTable("User").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Organization").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Dm_Store").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_IdentityAccess_Account").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_IdentityAccess_User").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_IdentityAccess_Organization").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_Inventory_Store").InSchema(SchemaName).AllRows();
 
-            Import<Organization>("Organizations.csv", "Organization", false);
-            Import<Store>("Organizations.csv", "Dm_Store", false);
-            Import<User>("Users.csv", "User");
-            Import<Account>("Users.csv", "Dm_Account", false);
-            Import<Membership>("Memberships.csv", "OrganizationMembership", false);
+            Import<Organization>("Organizations.csv", "Dm_IdentityAccess_Organization", false);
+            Import<Store>("Organizations.csv", "Dm_Inventory_Store", false);
+            Import<User>("Users.csv", "Dm_IdentityAccess_User");
+            Import<Account>("Users.csv", "Dm_IdentityAccess_Account", false);
+            Import<Membership>("Memberships.csv", "Dm_IdentityAccess_Membership", false);
             Import<RmRelationship>("Memberships.csv", "Rm_Relationships", false);
             ImportArticle();
-            Import<ArticleImage>("ArticleImages.csv", "Image", false);
+            Import<ArticleImage>("ArticleImages.csv", "Dm_Inventory_ArticleFile", false);
 
             CopyImages();
         }
@@ -64,13 +64,13 @@
         private void ImportArticle()
         {
             var records = GetRecords<Article>("Articles.csv");
-            Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] ON", "Article"));
+            Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] ON", "Dm_Inventory_Article"));
 
             var maxId = 0;
             foreach (var each in records)
             {
                 maxId = Math.Max(maxId, each.Id);
-                Insert.IntoTable("Article").InSchema(SchemaName).Row(new
+                Insert.IntoTable("Dm_Inventory_Article").InSchema(SchemaName).Row(new
                     {
                         each.Id,
                         each.Version,
@@ -87,9 +87,9 @@
 
                 }
 
-            Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] OFF", "Article"));
+            Execute.Sql(String.Format(@"SET IDENTITY_INSERT [{0}] OFF", "Dm_Inventory_Article"));
 
-            Reseed("Article", maxId + 1);
+            Reseed("Dm_Inventory_Article", maxId + 1);
 
             
         }

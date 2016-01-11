@@ -13,7 +13,7 @@ Scenario: Send as anon
 		"""
 		Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
 
-		Vielen Dank And freundliche Grüsse
+		Vielen Dank und freundliche Grüsse
 
 		Das phundus-Team
 

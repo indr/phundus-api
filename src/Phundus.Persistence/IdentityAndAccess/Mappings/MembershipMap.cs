@@ -9,8 +9,7 @@
         {
             SchemaAction.Validate();
 
-            Table("OrganizationMembership");
-
+            Table("Dm_IdentityAccess_Membership");
             Id(x => x.Id).GeneratedBy.Assigned();
             Version(x => x.Version);
 

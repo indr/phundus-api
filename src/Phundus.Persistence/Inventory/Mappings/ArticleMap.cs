@@ -8,8 +8,8 @@
         public ArticleMap()
         {
             SchemaAction.Validate();
-            Table("Article");
 
+            Table("Dm_Inventory_Article");
             Id(x => x.Id).GeneratedBy.Native();
             Version(x => x.Version);
 

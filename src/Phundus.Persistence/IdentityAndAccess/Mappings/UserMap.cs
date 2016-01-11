@@ -10,6 +10,7 @@
         {
             SchemaAction.Validate();
 
+            Table("Dm_IdentityAccess_User");
             Id(x => x.Id).GeneratedBy.Native();
             Map(x => x.Guid, "Guid");
             Version(x => x.Version);

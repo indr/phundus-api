@@ -146,6 +146,7 @@
     <Compile Include="2015\12\M201512300956CreateOrganizationsStore.cs" />
     <Compile Include="2015\12\M201512301153AddStoreToArticle.cs" />
     <Compile Include="2015\12\M201512310708DeleteColumnOrganizationCoordinate.cs" />
+    <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
     <Compile Include="2016\01\M201601100552RenameMembershipToAccount.cs" />
     <Compile Include="2016\01\M201601100553AddUqEmailToAccount.cs" />
     <Compile Include="Helper\DatedAttribute.cs" />

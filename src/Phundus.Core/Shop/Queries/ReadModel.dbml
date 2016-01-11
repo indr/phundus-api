@@ -11,7 +11,7 @@
       <Column Name="BorrowerEmail" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="Order" Member="OrderDtos">
+  <Table Name="Dm_Shop_Order" Member="OrderDtos">
     <Type Name="OrderDto">
       <Column Name="Id" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Version" Type="System.Int32" CanBeNull="false" />
@@ -34,7 +34,7 @@
       <Association Name="OrderDto_MembershipDto" Member="MembershipDtos" ThisKey="Lessor_LessorId" OtherKey="OrganizationGuid" Type="MembershipDto" />
     </Type>
   </Table>
-  <Table Name="OrderItem" Member="OrderItemDtos">
+  <Table Name="Dm_Shop_OrderItem" Member="OrderItemDtos">
     <Type Name="OrderItemDto">
       <Column Name="Id" Type="System.Guid" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Version" Type="System.Int32" CanBeNull="false" />
@@ -48,7 +48,7 @@
       <Association Name="OrderDto_OrderItemDto" Member="OrderDto" ThisKey="OrderId" OtherKey="Id" Type="OrderDto" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="Article" Member="OrderItemArticleDtos">
+  <Table Name="Dm_Inventory_Article" Member="OrderItemArticleDtos">
     <Type Name="OrderItemArticleDto">
       <Column Name="Id" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" CanBeNull="false" />
@@ -56,7 +56,7 @@
       <Association Name="OrderItemDto_OrderItemArticleDto" Member="OrderItemDto" ThisKey="Id" OtherKey="ArticleId" Type="OrderItemDto" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="OrganizationMembership" Member="MembershipDtos">
+  <Table Name="Dm_IdentityAccess_Membership" Member="MembershipDtos">
     <Type Name="MembershipDto">
       <Column Name="UserId" Type="System.Int32" CanBeNull="false" />
       <Column Name="Role" Type="MembershipRoleDto" CanBeNull="false" />

@@ -342,7 +342,7 @@ namespace Phundus.Shop.Queries
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="Order")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Dm_Shop_Order")]
 	public partial class OrderDto : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -844,7 +844,7 @@ namespace Phundus.Shop.Queries
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="OrderItem")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Dm_Shop_OrderItem")]
 	public partial class OrderItemDto : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -1147,7 +1147,7 @@ namespace Phundus.Shop.Queries
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="Article")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Dm_Inventory_Article")]
 	public partial class OrderItemArticleDto : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -1298,7 +1298,7 @@ namespace Phundus.Shop.Queries
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="OrganizationMembership")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Dm_IdentityAccess_Membership")]
 	public partial class MembershipDto : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		

@@ -9,7 +9,7 @@
         {
             SchemaAction.Validate();
 
-            Table("Dm_Account");
+            Table("Dm_IdentityAccess_Account");
             Id(x => x.Id).GeneratedBy.Foreign("User");
             Version(x => x.Version);
 

@@ -10,7 +10,7 @@
         {
             SchemaAction.Validate();
 
-            Table("OrderItem");
+            Table("Dm_Shop_OrderItem");
             Id(x => x.Id).GeneratedBy.Assigned();
             Version(x => x.Version);
 
