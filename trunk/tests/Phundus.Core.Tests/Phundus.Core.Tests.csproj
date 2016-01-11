@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ddd\DomainEntitesSpecs.cs" />
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UpdateOrganizationDetailsHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Users\Commands\RegisterUserHandler.cs" />

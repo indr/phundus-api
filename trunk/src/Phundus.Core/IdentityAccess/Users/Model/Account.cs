@@ -141,7 +141,7 @@
             return key;
         }
 
-        public bool ValidateKey(string key)
+        public virtual bool ValidateKey(string key)
         {
             if (key != ValidationKey)
                 return false;
@@ -156,7 +156,6 @@
 
             return true;
         }
-
 
         public virtual bool Approve()
         {
