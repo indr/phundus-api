@@ -6,7 +6,6 @@
     using Common.Events;
     using Common.Notifications;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
-    using Ddd;
     using Inventory.Repositories;
     using StoredEvents;
 
