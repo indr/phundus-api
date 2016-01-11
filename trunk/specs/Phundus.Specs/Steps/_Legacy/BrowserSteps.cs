@@ -20,23 +20,13 @@
             if (mailbox == null) throw new ArgumentNullException("mailbox");
         }
 
-        [Given(@"ich bin auf der Seite ""(.*)""")]
-        public void GivenIchBinAufDerSeite(string url)
-        {
-            Browser.GoTo(BaseUrl + url);
-        }
-
+       
         [Given(@"Ich bin auf der Startseite")]
         public void GivenIchBinAufDerStartseite()
         {
             Browser.GoTo(BaseUrl + "/shop");
         }
 
-        [Given(@"ich bin auf der Registrierenseite")]
-        public void GivenIchBinAufDerRegistrierenseite()
-        {
-            Browser.GoTo(BaseUrl + "/account/signup");
-        }
 
         [Given(@"ich bin nicht angemeldet")]
         public void GivenIchBinNichtAngemeldet()
@@ -57,64 +47,15 @@
             Login("user@test.phundus.ch", "1234");
         }
 
-        [Given(@"ich bin als Verwalter angemeldet")]
-        public void GivenIchBinAlsVerwalterAngemeldet()
-        {
-            Login("chief@test.phundus.ch", "1234");
-        }
+       
 
-        [Given(@"ich bin als Administrator angemeldet")]
-        public void GivenIchBinAlsAdministratorAngemeldet()
-        {
-            Login("admin@test.phundus.ch", "1234");
-        }
-
-        [Given(@"ich tippe ins Feld ""(.*)"" ""(.*)"" ein")]
-        public void GivenIchTippeInsFeldEin(string feld, string text)
-        {
-            text = text.Replace("{AppSettings.ServerUrl}", ConfigurationManager.AppSettings["ServerUrl"]);
-            text = text.Replace("{Assembly.Version}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            var textField = Browser.TextField(Find.ByLabelText(feld));
-            textField.TypeText(text);
-        }
-
-        [Given(@"ich tippe ins Feld ""(.*)"" ein:")]
-        public void GivenIchTippeInsFeld(string feld, string multilineText)
-        {
-            GivenIchTippeInsFeldEin(feld, multilineText);
-        }
-
-        [Given(@"ich füge ins Feld ""(.*)"" ""(.*)"" ein")]
-        public void GivenIchFügeInsFeldEin(string feld, string text)
-        {
-            text = text.Replace("{AppSettings.ServerUrl}", ConfigurationManager.AppSettings["ServerUrl"]);
-            text = text.Replace("{Assembly.Version}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            Browser.TextField(Find.ByLabelText(feld)).Value = text;
-        }
-
-        [Given(@"ich füge ins Feld ""(.*)"" ein:")]
-        public void GivenIchFügeInsFeld(string feld, string multilineText)
-        {
-            GivenIchFügeInsFeldEin(feld, multilineText);
-        }
+     
+        
 
         [When(@"ich auf ""(.*)"" klicke")]
         public void WhenIchAufDrucke(string value)
         {
             Browser.Button(Find.ByValue(value).Or(Find.ByText(value))).Click();
-        }
-
-        [Then(@"muss die Meldung ""(.*)"" erscheinen")]
-        public void ThenMussDieMeldungErscheinen(string meldung)
-        {
-            Assert.That(Browser.ContainsText(meldung), Is.True,
-                String.Format("Die Meldung \"{0}\" ist nicht vorhanden.", meldung));
-        }
-
-        [Then(@"muss das Feld ""(.*)"" rot sein")]
-        public void ThenMussDasFeldRotSein(string p0)
-        {
-            Assert.That(Browser.Label(p => p.Text == p0).Parent.ClassName, Is.EqualTo("control-group error"));
         }
 
         [Then(@"muss ""(.*)"" ein E-Mail erhalten mit dem Betreff ""(.*)""")]
@@ -128,11 +69,5 @@
             return message;
         }
 
-        [Then(@"muss ""(.*)"" ein E-Mail erhalten mit dem Betreff ""(.*)"" und dem Text:")]
-        public void ThenMussEinEMailErhaltenMitDemBetreffUndDemText(string adresse, string betreff, string text)
-        {
-            var message = DannMussEinEMailErhaltenMitDemBetreff(adresse, betreff);
-            Assert.That(message.TextBody, Is.EqualTo(text));
-        }
     }
 }
