@@ -30,7 +30,7 @@
         public void Handle(ValidateKey command)
         {
             var user = _userRepository.FindByValidationKey(command.Key);
-            user.Account.ValidateValidationKey(command.Key);
+            user.Account.ValidateKey(command.Key);
         }
     }
 }

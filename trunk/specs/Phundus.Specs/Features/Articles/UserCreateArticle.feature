@@ -1,4 +1,4 @@
-﻿Feature: CreateArticle
+﻿Feature: UserCreateArticle
 
 Background: 
 	Given I am logged in as a user

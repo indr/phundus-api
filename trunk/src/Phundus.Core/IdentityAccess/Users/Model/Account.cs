@@ -141,22 +141,13 @@
             return key;
         }
 
-        public virtual bool ValidateValidationKey(string key)
-        {
-            return ValidateKey(key);
-        }
-
-        public virtual bool ValidateEmailKey(string key)
-        {
-            return ValidateKey(key);
-        }
-
-        private bool ValidateKey(string key)
+        public bool ValidateKey(string key)
         {
             if (key != ValidationKey)
                 return false;
 
             IsApproved = true;
+            ValidationKey = null;
             if (RequestedEmail != null)
             {
                 Email = RequestedEmail;

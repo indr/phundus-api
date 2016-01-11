@@ -134,7 +134,7 @@
             if (user == null)
                 return false;
 
-            return user.Account.ValidateValidationKey(key);
+            return user.Account.ValidateKey(key);
         }
 
         public bool ValidateEmailKey(string key)
@@ -147,7 +147,7 @@
             if (Users.FindByEmailAddress(user.Account.RequestedEmail) != null)
                 throw new EmailAlreadyTakenException();
 
-            var result = user.Account.ValidateEmailKey(key);
+            var result = user.Account.ValidateKey(key);
             if (result)
             {
                 Users.Update(user);
