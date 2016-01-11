@@ -84,22 +84,6 @@
             App.LogIn(user.Username, user.Password);
         }
 
-        [Given(@"a confirmed, locked user")]
-        public void GivenAConfirmedLockedUser()
-        {
-            AConfirmedUser();
-            App.LockUser(Ctx.User.Guid);
-        }
-
-        [Given(@"a confirmed admin")]
-        public void GivenAConfirmedAdmin()
-        {
-            var user = App.SignUpUser();
-            App.ConfirmUser(user.Guid);
-            App.SetUsersRole(user.Guid, UserRole.Admin);
-            Ctx.User = user;
-        }
-
         [Given(@"unlock user")]
         public void GivenUnlockUser()
         {

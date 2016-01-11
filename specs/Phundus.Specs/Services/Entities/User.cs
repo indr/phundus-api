@@ -5,8 +5,19 @@ namespace Phundus.Specs.Services.Entities
 
     public class User
     {
+        private string _password;
         public string Username { get { return EmailAddress; } }
-        public string Password { get; set; }
+
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                OldPassword = _password;
+                _password = value;
+            }
+        }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
@@ -18,6 +29,7 @@ namespace Phundus.Specs.Services.Entities
         public string RequestedEmailAddress { get; set; }
         public int Id { get; set; }
         public Guid StoreId { get; set; }
+        public string OldPassword { get; set; }
 
         public override string ToString()
         {

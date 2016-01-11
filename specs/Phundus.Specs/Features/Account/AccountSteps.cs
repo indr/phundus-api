@@ -23,27 +23,11 @@
             _userSteps = userSteps;
         }
 
-        [Given(@"a user")]
-        public void GivenAUser()
-        {
-            var user = App.SignUpUser();
-            Ctx.User = user;
-        }
-
         [When(@"sign up")]
         public void WhenSignUp()
         {
             var user = App.SignUpUser();
             Ctx.User = user;
-        }
-
-        [Given(@"change password")]
-        public void GivenChangePassword()
-        {
-            var newPassword = Guid.NewGuid().ToString("N").Substring(0, 8);
-            var user = Ctx.User;
-            App.ChangePassword(user.Guid, user.Password, newPassword);
-            user.Password = newPassword;
         }
 
         [Given(@"I signed up")]
@@ -220,7 +204,10 @@
         [Given(@"I changed my password")]
         public void GivenIChangedMyPassword()
         {
-            ChangeEmailAddress(Ctx.User);
+            var newPassword = Guid.NewGuid().ToString("N").Substring(0, 8);
+            var user = Ctx.User;
+            App.ChangePassword(user.Guid, user.Password, newPassword);
+            user.Password = newPassword;
         }
 
         [When(@"I try to login with my new password")]
@@ -228,5 +215,13 @@
         {
             WhenITryToLogIn();
         }
+
+        [When(@"I try to login with my old password")]
+        public void WhenITryToLoginWithMyOldPassword()
+        {
+            var user = Ctx.User;
+            Ctx.LoggedIn = App.LogIn(user.Username, user.OldPassword, false);
+        }
+
     }
 }

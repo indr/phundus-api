@@ -15,25 +15,7 @@
         {
             Browser.GoTo(BaseUrl + "/shop");
         }
-
-        [When(@"ich die Webseite aufrufe")]
-        public void WhenIchDieWebseiteAufrufe()
-        {
-            Browser.GoTo(BaseUrl);
-        }
-
-        [Then(@"sollte ich ein Heading 1 mit ""(.*)"" sehen")]
-        public void ThenSollteIchEinHeading1MitSehen(string p0)
-        {
-            Assert.That(Browser.ElementWithTag("h1", Find.ByIndex(0)).Text, Is.EqualTo(p0));
-        }
-
-        [Then(@"sollte ich gross ""(.*)"" sehen")]
-        public void ThenSollteIchGrossSehen(string p0)
-        {
-            Assert.That(Browser.ElementWithTag("h2", Find.ByIndex(0)).Text, Is.EqualTo(p0));
-        }
-        
+       
         [Then(@"sollte im Fenstertitel muss ""(.*)"" stehen")]
         public void ThenSollteImFenstertitelMussStehen(string p0)
         {
@@ -66,12 +48,6 @@
             var span = Browser.Span(Find.ByClass("loggedOnTag", false));
             Assert.That(span, Is.Not.Null);
             Assert.That(span.InnerHtml, Is.EqualTo(userName));
-        }
-
-        [Then(@"ich sollte auf der Startseite sein")]
-        public void ThenIchSollteAufDerStartseiteSein()
-        {
-            Assert.That(Browser.Url, Is.EqualTo(BaseUrl + "/"));
         }
 
     }

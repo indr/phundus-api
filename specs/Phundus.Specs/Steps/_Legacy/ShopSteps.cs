@@ -51,11 +51,5 @@
             button.Click();
         }
 
-        [Then(@"ich sollte auf der Shopseite sein")]
-        public void ThenIchSollteAufDerShopseiteSein()
-        {
-            Assert.That(Browser.Url, Is.EqualTo(BaseUrl + "/shop"));
-        }
-
     }
 }
