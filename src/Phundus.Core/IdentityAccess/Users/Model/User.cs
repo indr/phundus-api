@@ -17,23 +17,6 @@
         private string _city;
         private string _mobileNumber;
 
-        public User() : this(0)
-        {
-        }
-
-        public User(int id) : this(id, 0)
-        {
-        }
-
-        public User(int id, int version) : base(id, version)
-        {
-            _firstName = "";
-            _lastName = "";
-            _account = new Account();
-            _account.User = this;
-            _role = UserRole.User;
-        }
-
         public User(string emailAddress, string password, string firstName, string lastName, string street, string postcode, string city, string mobilePhone, int? jsNumber)
         {
             _firstName = firstName;
@@ -51,6 +34,11 @@
             _account.GenerateValidationKey();
 
             _role = UserRole.User;
+        }
+
+        protected User()
+        {
+            
         }
 
         public virtual Guid Guid
