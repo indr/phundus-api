@@ -61,6 +61,64 @@ namespace Phundus.Specs.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alphafresh
+        ///Big Canit
+        ///Zerhome
+        ///Santip
+        ///Spanremfan
+        ///White Tom
+        ///Stim Cancom
+        ///Zaam Plus
+        ///Duosolotrax
+        ///Ran Tex
+        ///Quo-Fan
+        ///Labhold
+        ///Temptex
+        ///Physron
+        ///Sailcof
+        ///Trio-Ron
+        ///Y-job
+        ///Green Warm
+        ///Vaianix
+        ///Villawarm
+        ///Hothold
+        ///Zaamzumlight
+        ///Medphase
+        ///Big Zap
+        ///Quolight
+        ///Cantouch
+        ///Bam Ranphase
+        ///Doublecom
+        ///Zimstring
+        ///Vento Oveing
+        ///Icedubdex
+        ///Scot Hotwarm
+        ///Zontough
+        ///Dalttone
+        ///Singlecore
+        ///Kinlam
+        ///Latlex
+        ///Konapla
+        ///Tranzumtom
+        ///Icetom
+        ///Keylight
+        ///Latdex
+        ///Is Latlux
+        ///Warmex
+        ///Lam Lex
+        ///Temp-Lax
+        ///Villafax
+        ///Trusttrax
+        ///Goodovelux
+        ///Dento  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ArticleNames {
+            get {
+                return ResourceManager.GetString("ArticleNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GivenName,Surname,StreetAddress,City,ZipCode,EmailAddress,TelephoneNumber,Latitude,Longitude,GUID,Domain,Company,Color,Occupation,Vehicle,Birthday,Number,Gender,NameSet,Title,MiddleInitial,State,StateFull,Country,CountryFull,Username,Password,BrowserUserAgent,TelephoneCountryCode,MothersMaiden,TropicalZodiac,CCType,CCNumber,CVV2,CCExpires,NationalID,UPS,WesternUnionMTCN,MoneyGramMTCN,BloodType,Pounds,Kilograms,FeetInches,Centimeters
         ///Estrid,Hansson,&quot;Brucknerweg 100&quot;,&quot;Hautes Roches&quot;,2762,EstridHansson@rhyta.c [rest of string was truncated]&quot;;.
         /// </summary>

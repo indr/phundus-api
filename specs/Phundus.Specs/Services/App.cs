@@ -16,14 +16,14 @@
     public class App : AppBase
     {
         private readonly ApiClient _apiClient;
-        private readonly FakeGenerator _fakeGenerator;
+        private readonly FakeNameGenerator _fakeNameGenerator;
 
-        public App(ApiClient apiClient, FakeGenerator fakeGenerator)
+        public App(ApiClient apiClient, FakeNameGenerator fakeNameGenerator)
         {
             if (apiClient == null) throw new ArgumentNullException("apiClient");
-            if (fakeGenerator == null) throw new ArgumentNullException("fakeGenerator");
+            if (fakeNameGenerator == null) throw new ArgumentNullException("fakeNameGenerator");
             _apiClient = apiClient;
-            _fakeGenerator = fakeGenerator;
+            _fakeNameGenerator = fakeNameGenerator;
         }
 
         public Response LastResponse { get; private set; }
@@ -50,7 +50,7 @@
 
         public User SignUpUser(string emailAddress = null)
         {
-            var user = _fakeGenerator.NextUser();
+            var user = _fakeNameGenerator.NextUser();
             if (emailAddress != null)
                 user.EmailAddress = emailAddress;
 
@@ -172,7 +172,7 @@
 
         public Organization EstablishOrganization()
         {
-            var organization = _fakeGenerator.NextOrganization();
+            var organization = _fakeNameGenerator.NextOrganization();
             var response = _apiClient.OrganizationsApi
                 .Post<OrganizationsPostOkResponseContent>(new OrganizationsPostRequestContent
                 {
