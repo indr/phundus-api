@@ -1,6 +1,7 @@
-﻿namespace Phundus.Ddd
+﻿namespace Phundus.Persistence.StoredEvents
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using Common.Domain.Model;
     using Common.Events;
