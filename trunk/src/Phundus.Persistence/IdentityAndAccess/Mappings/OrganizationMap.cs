@@ -9,6 +9,7 @@
         {
             SchemaAction.Validate();
 
+            Table("Dm_IdentityAccess_Organization");
             Id(x => x.Id, "Guid").GeneratedBy.Assigned();
             Version(x => x.Version);
             

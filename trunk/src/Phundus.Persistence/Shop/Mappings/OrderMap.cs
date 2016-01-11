@@ -10,6 +10,7 @@ namespace Phundus.Persistence.Shop.Mappings
         {
             SchemaAction.Validate();
 
+            Table("Dm_Shop_Order");
             Id(x => x.Id).GeneratedBy.Native();
             Version(x => x.Version);
 

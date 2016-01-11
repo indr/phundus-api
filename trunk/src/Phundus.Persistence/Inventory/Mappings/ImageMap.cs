@@ -9,6 +9,7 @@
         {
             SchemaAction.Validate();
 
+            Table("Dm_Inventory_ArticleFile");
             Id(x => x.Id).GeneratedBy.HiLo("100");
             Version(x => x.Version);
 

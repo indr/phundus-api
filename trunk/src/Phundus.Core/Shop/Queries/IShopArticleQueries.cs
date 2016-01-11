@@ -28,7 +28,7 @@
         {
             var result = Single<ShopArticleDetailDto>(
                 @"select a.Id, a.Name, a.Price, a.Description, a.Specification,  a.Owner_OwnerId as OrganizationId, a.Owner_Name as OrganizationName " +
-                @"from [Article] a left join [Organization] o on (a.Owner_OwnerId = o.Guid) " +
+                @"from [Dm_Inventory_Article] a left join [Dm_IdentityAccess_Organization] o on (a.Owner_OwnerId = o.Guid) " +
                 @"where a.Id = {0} " +
                 //@" and o.[Plan] > 0" +
                 @"",
@@ -36,7 +36,7 @@
 
             // TODO: Select 1+1
             var images = Many<ShopArticleImageDto>(
-                @"select FileName, [Type], [Length] from [Image] where ArticleId = {0}", id);
+                @"select FileName, [Type], [Length] from [Dm_Inventory_ArticleFile] where ArticleId = {0}", id);
 
             result.Images =
                 images.Where(p => p.Type.StartsWith("image", StringComparison.InvariantCultureIgnoreCase)).ToList();
@@ -68,8 +68,8 @@
 
             var result = Paged<ShopArticleSearchResultDto>(
                 @"select a.Id, a.Name, a.Price, a.Owner_Name as OrganizationName " +
-                @"from [Article] a " +
-                @"left join [Organization] o on (a.Owner_OwnerId = o.Guid) " +
+                @"from [Dm_Inventory_Article] a " +
+                @"left join [Dm_IdentityAccess_Organization] o on (a.Owner_OwnerId = o.Guid) " +
                 where +
                 //@" and o.[Plan] > 0 " +
                 @"order by a.CreateDate desc, a.Id desc ",
@@ -79,7 +79,7 @@
             foreach (var each in result.Items)
             {
                 var images = Many<ShopArticleImageDto>(
-                    @"select FileName, [Type], [Length] from [Image] where ArticleId = {0}", each.Id);
+                    @"select FileName, [Type], [Length] from [Dm_Inventory_ArticleFile] where ArticleId = {0}", each.Id);
 
                 var image =
                     images.OrderBy(p => p.IsPreview)

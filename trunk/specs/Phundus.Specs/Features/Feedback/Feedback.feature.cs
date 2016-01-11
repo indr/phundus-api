@@ -81,7 +81,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 12
  testRunner.Then("anon should receive email \"Vielen Dank fürs Feedback\" with text body:", @"Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
 
-Vielen Dank And freundliche Grüsse
+Vielen Dank und freundliche Grüsse
 
 Das phundus-Team
 

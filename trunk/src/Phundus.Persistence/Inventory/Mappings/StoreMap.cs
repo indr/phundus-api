@@ -8,8 +8,8 @@
         public StoreMap()
         {
             SchemaAction.Validate();
-            Table("Dm_Store");
 
+            Table("Dm_Inventory_Store");
             CompositeId(x => x.Id).KeyProperty(e => e.Id, "StoreId");            
             Version(x => x.Version);
             Map(x => x.CreatedAtUtc).Not.Update();

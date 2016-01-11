@@ -9,7 +9,7 @@
         {
             SchemaAction.Validate();
 
-            Table("CartItem");
+            Table("Dm_Shop_CartItem");
             Id(x => x.Id).GeneratedBy.HiLo("100");
             Version(x => x.Version);
 

@@ -104,7 +104,6 @@
     <Compile Include="NHibernateInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Inventory\Repositories\NhArticleRepository.cs" />
-    <Compile Include="Shop\Mappings\ContractMap.cs" />
     <Compile Include="Shop\Mappings\OrderItemMap.cs" />
     <Compile Include="Shop\Mappings\OrderMap.cs" />
     <Compile Include="Shop\Repositories\NhCartRepository.cs" />
