@@ -8,7 +8,7 @@
     <ProjectGuid>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Phundus.Core</RootNamespace>
+    <RootNamespace>Phundus</RootNamespace>
     <AssemblyName>Phundus.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -311,7 +311,7 @@
     <Compile Include="Cqrs\IHandleCommand.cs" />
     <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
     <Compile Include="Ddd\EventPublisher.cs" />
-    <Compile Include="_Legacy\DtoOutOfDateException.cs" />
+    <Compile Include="Shop\Orders\_Legacy\DtoOutOfDateException.cs" />
     <Compile Include="Inventory\Articles\Model\Article.cs" />
     <Compile Include="Shop\Orders\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -376,7 +376,7 @@
     <EmbeddedResource Include="IdentityAccess\Organizations\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
-		<SubType>Designer</SubType>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="IdentityAccess\Queries\ReadModel.dbml.layout">
       <DependentUpon>ReadModel.dbml</DependentUpon>
@@ -384,7 +384,7 @@
     <EmbeddedResource Include="IdentityAccess\Users\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
-		<SubType>Designer</SubType>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Shop\Orders\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>

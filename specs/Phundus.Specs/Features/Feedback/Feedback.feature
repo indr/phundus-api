@@ -11,7 +11,7 @@ Scenario: Send as anon
 		"""
 	Then anon should receive email "Vielen Dank fürs Feedback" with text body:
 		"""
-		Wir haben dein Feedback erhalten And werden dir baldmöglichst darauf antworten.
+		Wir haben dein Feedback erhalten und werden dir baldmöglichst darauf antworten.
 
 		Vielen Dank And freundliche Grüsse
 

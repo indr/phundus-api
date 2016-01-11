@@ -3,8 +3,8 @@ namespace Phundus.Rest.MappingProfiles
     using Api.Organizations;
     using AutoMapper;
     using ContentObjects;
-    using Core.IdentityAccess.Queries;
     using Core.IdentityAndAccess.Queries;
+    using IdentityAccess.Queries;
 
     public class Organizations : Profile
     {

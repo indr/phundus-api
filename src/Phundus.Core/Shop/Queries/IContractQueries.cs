@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Phundus.Shop.Queries;
 
     public interface IContractQueries
     {

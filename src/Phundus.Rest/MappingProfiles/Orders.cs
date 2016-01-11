@@ -3,7 +3,7 @@
     using System.Linq;
     using AutoMapper;
     using ContentObjects;
-    using Core.Shop.Queries;
+    using Shop.Queries;
 
     public class Orders : Profile
     {

@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Phundus.Core.IdentityAccess.Queries
+namespace Phundus.IdentityAccess.Queries
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -20,7 +20,7 @@ namespace Phundus.Core.IdentityAccess.Queries
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	using IdentityAndAccess.Queries;
+	using Core.IdentityAndAccess.Queries;
 
 
     public partial class ReadModelDataContext : System.Data.Linq.DataContext

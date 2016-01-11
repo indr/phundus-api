@@ -103,7 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\UsersGetOkResponseContent.cs" />
+    <Compile Include="ContentTypes\UsersGetOkResponseContent.cs" />
     <Compile Include="Features\Account\ChangeEmailAddress.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
