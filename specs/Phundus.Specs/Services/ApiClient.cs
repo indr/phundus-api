@@ -65,6 +65,11 @@
             get { return Resource("articles/{articleId}"); }
         }
 
+        public Resource StatusApi
+        {
+            get { return Resource("status"); }
+        }
+
         private static Resource Resource(string url)
         {
             return new Resource(url);

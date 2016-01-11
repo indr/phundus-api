@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Phundus.Specs._Legacy.Features
+namespace Phundus.Specs.Features.Status
 {
     using TechTalk.SpecFlow;
     
@@ -19,20 +19,20 @@ namespace Phundus.Specs._Legacy.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Startseite")]
-    public partial class StartseiteFeature
+    [NUnit.Framework.DescriptionAttribute("Status")]
+    public partial class StatusFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Startseite.feature"
+#line 1 "Status.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Startseite", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Status", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -65,35 +65,22 @@ namespace Phundus.Specs._Legacy.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Aufruf des Shops")]
+        [NUnit.Framework.DescriptionAttribute("Status")]
         [NUnit.Framework.CategoryAttribute("isSmoker")]
-        public virtual void AufrufDesShops()
+        public virtual void Status()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Aufruf des Shops", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Status", new string[] {
                         "isSmoker"});
 #line 4
 this.ScenarioSetup(scenarioInfo);
 #line 5
- testRunner.When("ich den Shop aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I get status info", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 6
- testRunner.Then("sollte im Fenstertitel muss \"Shop - phundus\" stehen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Korrekte Version wurde installiert")]
-        [NUnit.Framework.CategoryAttribute("isSmoker")]
-        public virtual void KorrekteVersionWurdeInstalliert()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Korrekte Version wurde installiert", new string[] {
-                        "isSmoker"});
-#line 9
-this.ScenarioSetup(scenarioInfo);
-#line 10
- testRunner.When("ich den Shop aufrufe", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 11
- testRunner.Then("sollte die Version entsprechend der zuletzt installierten Version sein", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("it should have server url according to App.config", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 7
+ testRunner.And("it should have server date time within 3 seconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 8
+ testRunner.And("it should have server version according to specs assembly version", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
