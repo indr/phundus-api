@@ -31,12 +31,6 @@
             Ctx.Store = Ctx.User.StoreId;
         }
 
-        [Then(@"I should see error")]
-        public void ThenIShouldSeeError()
-        {
-            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
-        }
-
         [When(@"I try to get my user details")]
         public void WhenITryToGetMyUserDetails()
         {

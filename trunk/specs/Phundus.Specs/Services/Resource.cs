@@ -35,35 +35,35 @@
 
         public IRestResponse<T> Get<T>(object o) where T : new()
         {
-            var request = CreateRestRequest(o, Method.GET);
+            var request = CreateRequest(o, Method.GET);
             return Execute<T>(request);
         }
 
         public IRestResponse Patch(object requestContent)
         {
-            var request = CreateRestRequest(requestContent, Method.PATCH);
+            var request = CreateRequest(requestContent, Method.PATCH);
             return Execute(request);
         }
 
         public IRestResponse Post(object requestContent)
         {
-            var request = CreateRestRequest(requestContent, Method.POST);
+            var request = CreateRequest(requestContent, Method.POST);
             return Execute(request);
         }
 
         public IRestResponse<T> Post<T>(object requestContent) where T : new()
         {
-            var request = CreateRestRequest(requestContent, Method.POST);
+            var request = CreateRequest(requestContent, Method.POST);
             return Execute<T>(request);
         }
 
         public IRestResponse<QueryOkResponseContent<T>> Query<T>(object queryParams = null) where T : new()
         {
-            var request = CreateRestRequest(null, Method.GET);
+            var request = CreateQueryRequest(queryParams, Method.GET);
             return Execute<QueryOkResponseContent<T>>(request);
         }
 
-        protected RestRequest CreateRestRequest(object requestContent, Method method)
+        protected RestRequest CreateRequest(object requestContent, Method method)
         {
             var request = new RestRequest(method);
             request.Resource = _resource;
@@ -132,6 +132,24 @@
                 }
             }
             return result;
+        }
+
+        protected RestRequest CreateQueryRequest(object queryParams, Method method)
+        {
+            var request = CreateRequest(null, Method.GET);
+            AddQueryParameters(request, queryParams);
+            return request;
+        }
+
+        private void AddQueryParameters(RestRequest request, object queryParams)
+        {
+            if (queryParams == null)
+                return;
+
+            foreach (var propertyInfo in queryParams.GetType().GetProperties())
+            {
+                request.AddParameter(propertyInfo.Name, propertyInfo.GetValue(queryParams, null).ToString());
+            }
         }
 
         private static IRestResponse Execute(RestRequest request)

@@ -22,12 +22,6 @@
             App.CreateArticle(Ctx.User);
         }
 
-        [Then(@"I should see ok")]
-        public void ThenIShouldSeeOk()
-        {
-            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-        }
-
         [Given(@"I created an article in my store")]
         public void GivenICreatedAnArticleInMyStore()
         {
