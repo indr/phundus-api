@@ -48,6 +48,14 @@
             App.LogIn(user.Username, user.Password);
         }
 
+        [Given(@"I am logged in as ""(.*)""")]
+        public void GivenIAmLoggedInAs(string userKey)
+        {
+            var user = Ctx.Users[userKey];
+            App.LogIn(user.Username, user.Password);
+            Ctx.User = user;
+        }
+
         [Given(@"a confirmed user")]
         public void AConfirmedUser()
         {

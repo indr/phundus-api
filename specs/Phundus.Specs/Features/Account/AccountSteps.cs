@@ -87,6 +87,12 @@
             ChangeEmailAddress(Ctx.User);
         }
 
+        [Given(@"I changed my email address")]
+        public void GivenIChangedMyEmailAddress()
+        {
+            ChangeEmailAddress(Ctx.User);
+        }
+
         [Given(@"""(.*)"" changed email address to ""(.*)""")]
         public void GivenUserChangedEmailAddress(string userKey, string emailKey)
         {
@@ -97,8 +103,25 @@
             ChangeEmailAddress(user, emailAddress);
         }
 
+        [Given(@"I changed email address to ""(.*)""")]
+        public void GivenIChangedEmailAddressTo(string emailKey)
+        {
+            var user = Ctx.User;
+            if (!Ctx.Emails.ContainsAlias(emailKey))
+                Ctx.Emails[emailKey] = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
+            var emailAddress = Ctx.Emails[emailKey];
+            ChangeEmailAddress(user, emailAddress);
+        }
+
+
         [When(@"change email address")]
         public void WhenChangeEmailAddress()
+        {
+            ChangeEmailAddress(Ctx.User);
+        }
+
+        [When(@"I try to change my email address")]
+        public void WhenIChangeEmailAddress()
         {
             ChangeEmailAddress(Ctx.User);
         }
@@ -111,6 +134,16 @@
 
             ChangeEmailAddress(user, emailAddress, false);
         }
+
+        [When(@"I try to change my email address to ""(.*)""")]
+        public void WhenITryToChangeMyEmailAddressTo(string emailKey)
+        {
+            var user = Ctx.User;
+            var emailAddress = Ctx.Emails[emailKey];
+
+            ChangeEmailAddress(user, emailAddress, false);
+        }
+
 
         private void ChangeEmailAddress(User user)
         {
@@ -143,6 +176,13 @@
             Ctx.LoggedIn = App.LogIn(user.RequestedEmailAddress, user.Password, false);
         }
 
+        [When(@"I try to log in with requested address")]
+        public void WhenITryToLogInWithRequestedAddress()
+        {
+            var user = Ctx.User;
+            Ctx.LoggedIn = App.LogIn(user.RequestedEmailAddress, user.Password, false);
+        }
+        
         [Then(@"can log in")]
         public void ThenCanLogIn()
         {
@@ -163,6 +203,14 @@
             App.ValidateKey(Ctx.ValidationKey, false);
         }
 
+        [When(@"I try to validate the key")]
+        public void WhenITryToValidateTheKey()
+        {
+            Debug.WriteLine(String.Format("Validating key {0}", Ctx.ValidationKey));
+            App.ValidateKey(Ctx.ValidationKey, false);
+        }
+
+        
         [Then(@"not validated")]
         public void ThenNotValidated()
         {

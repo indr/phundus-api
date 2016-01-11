@@ -38,6 +38,17 @@
             Ctx.ValidationKey = match.Groups[1].Value;
             Debug.WriteLine("Got validation key {0} from email sent to {1}.", Ctx.ValidationKey, Ctx.User.RequestedEmailAddress);
         }
+
+        [Given(@"I got the validation key from email validation email")]
+        public void GivenIGotTheValidationKeyFromEmailValidationEmail()
+        {
+            var mail = AssertEmailReceived("[phundus] Validierung der geänderten E-Mail-Adresse", Ctx.User.RequestedEmailAddress);
+            var match = new Regex(@"\/#\/validate\/email-address\?key=([a-z0-9]{24})<").Match(mail.HtmlBody);
+            Assert.IsTrue(match.Success, "Could not find validation key in email validation email.");
+            Ctx.ValidationKey = match.Groups[1].Value;
+            Debug.WriteLine("Got validation key {0} from email sent to {1}.", Ctx.ValidationKey, Ctx.User.RequestedEmailAddress);
+        }
+
         
         [Then(@"anon should receive email ""(.*)""")]
         public void ThenAnonShouldReceiveEmail(string subject)
@@ -60,6 +71,13 @@
 
         [Then(@"user should receive email ""(.*)"" at requested address")]
         public void ThenUserShouldReceiveEmailAtRequestedAddress(string subject)
+        {
+            var toAddress = Ctx.User.RequestedEmailAddress;
+            AssertEmailReceived(subject, toAddress);
+        }
+
+        [Then(@"I should receive an email ""(.*)"" at requested address")]
+        public void ThenIShouldReceiveAnEmailAtRequestedAddress(string subject)
         {
             var toAddress = Ctx.User.RequestedEmailAddress;
             AssertEmailReceived(subject, toAddress);
