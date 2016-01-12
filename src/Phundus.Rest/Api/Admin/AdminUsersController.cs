@@ -7,30 +7,29 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Common;
     using Common.Domain.Model;
     using ContentObjects;
     using Core.IdentityAndAccess.Users.Commands;
-    using IdentityAccess.Queries.QueryModels;
+    using Integration.IdentityAccess;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/admin/users")]
     [Authorize(Roles = "Admin")]
     public class AdminUsersController : ApiControllerBase
     {
-        private readonly IUserView _userView;
+        private readonly IUserQueries _userQueries;
 
-        public AdminUsersController(IUserView userView)
+        public AdminUsersController(IUserQueries userQueries)
         {
-            AssertionConcern.AssertArgumentNotNull(userView, "UserQueries must be provided.");
-            _userView = userView;
+            if (userQueries == null) throw new ArgumentNullException("userQueries");
+            _userQueries = userQueries;
         }
 
         [GET("")]
         [Transaction]
         public virtual QueryOkResponseContent<AdminUser> Get()
         {
-            var results = _userView.Query();
+            var results = _userQueries.Query();
             return new QueryOkResponseContent<AdminUser>
             {
                 Results = results.Select(s => new AdminUser

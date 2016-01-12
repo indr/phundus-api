@@ -7,7 +7,6 @@
     using Castle.Windsor;
     using Cqrs;
     using Ddd;
-    using IdentityAccess.Queries.QueryModels;
     using IdentityAndAccess.Users.Services;
 
     public class CoreInstaller : IWindsorInstaller
@@ -55,8 +54,6 @@
             container.Register(
                 Component.For<IUserInRole>().ImplementedBy<UserInRole>()
                     .LifestyleTransient());
-
-            container.Register(Component.For<IUserView>().ImplementedBy<UserView>());
             
             EventPublisher.Container = container;
         }
