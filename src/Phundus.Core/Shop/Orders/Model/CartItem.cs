@@ -7,13 +7,13 @@ namespace Phundus.Core.Shop.Orders.Model
 
     public class CartItem : EntityBase
     {
-        private CartItemId _cartItemId = new CartItemId();
+        private CartItemGuid _cartItemGuid = new CartItemGuid();
         public virtual Cart Cart { get; set; }
 
-        public virtual CartItemId CartItemId
+        public virtual CartItemGuid CartItemGuid
         {
-            get { return _cartItemId; }
-            protected set { _cartItemId = value; }
+            get { return _cartItemGuid; }
+            protected set { _cartItemGuid = value; }
         }
 
         public virtual Article Article { get; set; }

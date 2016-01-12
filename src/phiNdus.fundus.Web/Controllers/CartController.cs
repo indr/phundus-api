@@ -51,7 +51,7 @@
             CartDto cartDto;
             try
             {
-                cartDto = CartService.RemoveItem(CurrentUserId, new CartItemId(id), version);
+                cartDto = CartService.RemoveItem(CurrentUserId, new CartItemGuid(id), version);
             }
                 // Nicht besonders RESTful...
             catch (NotFoundException)

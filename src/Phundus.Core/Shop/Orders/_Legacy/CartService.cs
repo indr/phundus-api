@@ -85,11 +85,11 @@
             return assembler.CreateDto(cart);
         }
 
-        public CartDto RemoveItem(int userId, CartItemId itemId, int version)
+        public CartDto RemoveItem(int userId, CartItemGuid itemGuid, int version)
         {
             var cart = Carts.FindByUserId(new UserId(userId));
 
-            cart.RemoveItem(itemId);
+            cart.RemoveItem(itemGuid);
             Carts.Update(cart);
 
             cart.CalculateAvailability(AvailabilityService);

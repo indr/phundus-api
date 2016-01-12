@@ -7,7 +7,7 @@
     {
         CartDto GetCartByUserId(int userId);
         CartDto AddItem(int? cartId, int userId, CartItemDto item);
-        CartDto RemoveItem(int userId, CartItemId itemId, int version);
+        CartDto RemoveItem(int userId, CartItemGuid itemGuid, int version);
         CartDto UpdateCart(CartDto cart);
 
         bool PlaceOrders(int userId);
