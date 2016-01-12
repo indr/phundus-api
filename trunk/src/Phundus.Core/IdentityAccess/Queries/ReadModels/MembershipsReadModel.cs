@@ -24,7 +24,7 @@
             if (user == null)
                 return new List<MembershipDto>();
 
-            return ByUserId(user.Id);
+            return ByUserId(user.UserId);
         }
 
         public IList<MembershipDto> FindByOrganizationId(Guid organizationId)

@@ -99,7 +99,7 @@
 
         private static Owner ToOwner(IUser user)
         {
-            return new Owner(new OwnerId(user.Guid), user.FirstName + " " + user.LastName);
+            return new Owner(new OwnerId(user.UserGuid), user.FirstName + " " + user.LastName);
         }
     }
 }

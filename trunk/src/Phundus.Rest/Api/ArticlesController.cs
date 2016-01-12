@@ -60,7 +60,7 @@ namespace Phundus.Rest.Api
             if (user == null)
                 return null;
 
-            return new OwnerId(user.Guid);
+            return new OwnerId(user.UserGuid);
         }
 
         [GET("")]

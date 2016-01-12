@@ -44,7 +44,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Send(user.Email, Templates.MemberLockedSubject,
+            Send(user.EmailAddress, Templates.MemberLockedSubject,
                 null, Templates.MemberLockedBodyHtml);
         }
 
@@ -61,7 +61,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Send(user.Email, Templates.MembershipApplicationApprovedSubject,
+            Send(user.EmailAddress, Templates.MembershipApplicationApprovedSubject,
                 null, Templates.MembershipApplicationApprovedBodyHtml);
         }
 
@@ -98,7 +98,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Send(user.Email, Templates.MembershipApplicationRejectedSubject,
+            Send(user.EmailAddress, Templates.MembershipApplicationRejectedSubject,
                 null, Templates.MembershipApplicationRejectedBodyHtml);
         }
 
@@ -115,7 +115,7 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Send(user.Email, Templates.MemberUnlockedSubject,
+            Send(user.EmailAddress, Templates.MemberUnlockedSubject,
                 null, Templates.MemberUnlockedBodyHtml);
         }
     }

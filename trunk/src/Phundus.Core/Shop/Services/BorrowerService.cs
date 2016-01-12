@@ -45,8 +45,8 @@
 
         private static Lessee ToBorrower(IUser user)
         {
-            return new Lessee(user.Id, user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
-                user.Email, user.MobilePhone, user.JsNumber.ToString());
+            return new Lessee(user.UserId, user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
+                user.EmailAddress, user.MobilePhone, user.JsNummer.ToString());
         }
     }
 }

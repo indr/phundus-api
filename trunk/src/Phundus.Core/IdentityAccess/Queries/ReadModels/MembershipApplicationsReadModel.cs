@@ -55,8 +55,8 @@
                 RejectedOn = membershipApplication.RejectDate,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Email = user.Email,
-                JsNumber = user.JsNumber
+                Email = user.EmailAddress,
+                JsNumber = user.JsNummer
             };
         }
     }
