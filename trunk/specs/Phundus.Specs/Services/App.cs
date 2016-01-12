@@ -326,7 +326,7 @@
             return response.Data.Results;
         }
 
-        public int AddArticleToCart(User user, Article article)
+        public Guid AddArticleToCart(User user, Article article)
         {
             var response = _apiClient.UserCartItemsApi
                 .Post<UserCartItemsPostOkResponseContent>(new
@@ -342,7 +342,7 @@
             return response.Data.CartItemId;
         }
 
-        public void RemoveCartItem(User user, int cartItemId)
+        public void RemoveCartItem(User user, Guid cartItemId)
         {
             var response = _apiClient.UserCartItemsApi
                 .Delete(new {userId = user.Id, itemId = cartItemId});

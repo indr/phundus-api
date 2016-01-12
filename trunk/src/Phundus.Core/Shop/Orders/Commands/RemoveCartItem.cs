@@ -7,7 +7,7 @@ namespace Phundus.Core.Shop.Orders.Commands
 
     public class RemoveCartItem : ICommand
     {
-        public RemoveCartItem(UserId initiatorId, int cartItemId)
+        public RemoveCartItem(UserId initiatorId, CartItemId cartItemId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             InitiatorId = initiatorId;
@@ -15,7 +15,7 @@ namespace Phundus.Core.Shop.Orders.Commands
         }
 
         public UserId InitiatorId { get; protected set; }
-        public int CartItemId { get; protected set; }
+        public CartItemId CartItemId { get; protected set; }
     }
 
     public class RemoveCartItemHandler : IHandleCommand<RemoveCartItem>

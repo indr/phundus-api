@@ -9,6 +9,24 @@
         }
     }
 
+    public class CartId : Identity<int>
+    {
+        public CartId(int id) : base(id)
+        {
+        }
+    }
+
+    public class CartItemId : Identity<Guid>
+    {
+        public CartItemId(Guid id) : base(id)
+        {
+        }
+
+        public CartItemId() : base(Guid.NewGuid())
+        {
+        }
+    }
+
     public class CurrentUserId : UserId
     {
         public CurrentUserId(int id) : base(id)

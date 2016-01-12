@@ -20,7 +20,7 @@ namespace Phundus.Core.Tests.Shop.Commands
 
         private static UserId theInitiatorId = new UserId(1001);
         private static Cart theCart;
-        private static int theCartItemId = 1234567890;
+        private static CartItemId theCartItemId = new CartItemId();
 
         private It should_tell_cart_to_remove_item = () => theCart.WasToldTo(x => x.RemoveItem(theCartItemId));
     }
