@@ -1,7 +1,7 @@
 USE [phundus-dev]
 GO
 
-/****** Object:  View [dbo].[View_IdentityAccess_Users]    Script Date: 01/11/2016 22:24:04 ******/
+/****** Object:  View [dbo].[View_IdentityAccess_Users]    Script Date: 01/11/2016 23:38:55 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,7 +12,7 @@ CREATE VIEW [dbo].[View_IdentityAccess_Users]
 AS
 SELECT     dbo.Dm_IdentityAccess_User.Id AS UserId, dbo.Dm_IdentityAccess_User.Guid AS UserGuid, dbo.Dm_IdentityAccess_User.RoleId, dbo.Dm_IdentityAccess_Account.Email AS EmailAddress, 
                       dbo.Dm_IdentityAccess_User.FirstName, dbo.Dm_IdentityAccess_User.LastName, dbo.Dm_IdentityAccess_User.Street, dbo.Dm_IdentityAccess_User.Postcode, dbo.Dm_IdentityAccess_User.City, 
-                      dbo.Dm_IdentityAccess_User.MobileNumber, dbo.Dm_IdentityAccess_Account.IsApproved, dbo.Dm_IdentityAccess_Account.IsLockedOut, 
+                      dbo.Dm_IdentityAccess_User.MobileNumber AS PhoneNumber, dbo.Dm_IdentityAccess_User.JsNumber AS JsNummer, dbo.Dm_IdentityAccess_Account.IsApproved, dbo.Dm_IdentityAccess_Account.IsLockedOut, 
                       dbo.Dm_IdentityAccess_Account.CreateDate AS SignedUpAtUtc, dbo.Dm_IdentityAccess_Account.LastLogOnDate AS LastLogInAtUtc, 
                       dbo.Dm_IdentityAccess_Account.LastPasswordChangeDate AS LastPasswordChangeAtUtc, dbo.Dm_IdentityAccess_Account.LastLockoutDate AS LastLockOutAtUtc
 FROM         dbo.Dm_IdentityAccess_User INNER JOIN
@@ -25,7 +25,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[19] 4[41] 2[25] 3) )"
+         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -95,17 +95,17 @@ Begin DesignProperties =
             Begin Extent = 
                Top = 6
                Left = 38
-               Bottom = 338
+               Bottom = 126
                Right = 200
             End
             DisplayFlags = 280
-            TopColumn = 0
+            TopColumn = 5
          End
          Begin Table = "Dm_IdentityAccess_Account"
             Begin Extent = 
                Top = 6
                Left = 238
-               Bottom = 326
+               Bottom = 126
                Right = 453
             End
             DisplayFlags = 280
@@ -118,15 +118,8 @@ Begin DesignProperties =
    Begin DataPane = 
       Begin ParameterDefaults = ""
       End
-      Begin ColumnWidths = 17
+      Begin ColumnWidths = 10
          Width = 284
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
          Width = 1500
          Width = 1500
          Width = 1500
@@ -140,10 +133,10 @@ Begin DesignProperties =
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 2595
-         Alias = 4215
-         Table = 3060
-         Output = 1200
+         Column = 1440
+         Alias = 900
+         Table = 1170
+         Output = 720
          Append = 1400
          NewValue = 1170
          SortType = 1350
