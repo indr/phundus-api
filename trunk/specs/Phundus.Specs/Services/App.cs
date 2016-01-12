@@ -275,7 +275,7 @@
 
         public UsersCartGetOkResponseContent GetCart(User user)
         {
-            var response = _apiClient.UserCartApi.Get<UsersCartGetOkResponseContent>(new {userId = user.Id});
+            var response = _apiClient.UserCartApi.Get<UsersCartGetOkResponseContent>(new {userGuid = user.Guid});
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
             return response.Data;
@@ -332,6 +332,7 @@
                 .Post<UserCartItemsPostOkResponseContent>(new
                 {
                     userId = user.Id,
+                    userGuid = user.Guid,
                     articleId = article.ArticleId,
                     quantity = 1,
                     fromUtc = DateTime.UtcNow,
@@ -345,7 +346,7 @@
         public void RemoveCartItem(User user, Guid cartItemId)
         {
             var response = _apiClient.UserCartItemsApi
-                .Delete(new {userId = user.Id, itemId = cartItemId});
+                .Delete(new {userGuid = user.Guid, itemId = cartItemId});
             AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
         }

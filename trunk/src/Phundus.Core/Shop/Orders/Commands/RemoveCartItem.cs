@@ -7,15 +7,15 @@ namespace Phundus.Core.Shop.Orders.Commands
 
     public class RemoveCartItem : ICommand
     {
-        public RemoveCartItem(UserId initiatorId, CartItemId cartItemId)
+        public RemoveCartItem(UserId initiatorId, CartItemGuid cartItemGuid)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             InitiatorId = initiatorId;
-            CartItemId = cartItemId;
+            CartItemGuid = cartItemGuid;
         }
 
         public UserId InitiatorId { get; protected set; }
-        public CartItemId CartItemId { get; protected set; }
+        public CartItemGuid CartItemGuid { get; protected set; }
     }
 
     public class RemoveCartItemHandler : IHandleCommand<RemoveCartItem>
@@ -34,7 +34,7 @@ namespace Phundus.Core.Shop.Orders.Commands
             if (cart == null)
                 return;
 
-            cart.RemoveItem(command.CartItemId);
+            cart.RemoveItem(command.CartItemGuid);
         }
     }
 }

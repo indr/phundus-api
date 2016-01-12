@@ -29,7 +29,7 @@
         public DateTime FromUtc { get; protected set; }
         public DateTime ToUtc { get; protected set; }
         public int Quantity { get; protected set; }
-        public CartItemId ResultingCartItemId { get; set; }
+        public CartItemGuid ResultingCartItemGuid { get; set; }
     }
 
     public class AddArticleToCartHandler : IHandleCommand<AddArticleToCart>
@@ -54,7 +54,7 @@
             }
             var itemId = cart.AddItem(article, command.FromUtc, command.ToUtc, command.Quantity);
 
-            command.ResultingCartItemId = itemId;
+            command.ResultingCartItemGuid = itemId;
         }
     }
 }
