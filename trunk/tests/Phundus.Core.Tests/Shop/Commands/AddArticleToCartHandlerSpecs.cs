@@ -15,6 +15,7 @@
     {
         protected const int theQuantity = 3;
         protected static readonly UserId theInitiatorId = new UserId(1001);
+        protected static readonly UserGuid theInitiatorGuid = new UserGuid(Guid.NewGuid());
         protected static readonly ArticleId theArticleId = new ArticleId(12345);
         protected static readonly DateTime theFromUtc = DateTime.UtcNow;
         protected static readonly DateTime theToUtc = DateTime.UtcNow.AddDays(1);
@@ -30,7 +31,7 @@
                 cartRepository = depends.on<ICartRepository>();
                 memberInRole = depends.on<IMemberInRole>();
                 depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId)).Return(article);
-                command = new AddArticleToCart(theInitiatorId, theArticleId, theFromUtc, theToUtc, theQuantity);
+                command = new AddArticleToCart(theInitiatorId, theInitiatorGuid, theArticleId, theFromUtc, theToUtc, theQuantity);
             };
     }
 
@@ -53,7 +54,7 @@
 
         private Establish ctx = () =>
         {
-            theCart = new Cart(theInitiatorId);
+            theCart = new Cart(theInitiatorId, theInitiatorGuid);
             cartRepository.WhenToldTo(x => x.FindByUserId(theInitiatorId)).Return(theCart);
         };
 

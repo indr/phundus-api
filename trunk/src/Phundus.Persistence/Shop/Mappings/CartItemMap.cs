@@ -15,10 +15,11 @@
             Version(x => x.Version);
 
             References(x => x.Cart, "CartId");
+            Map(x => x.CartGuid, "CartGuid");
 
             Map(x => x.Quantity, "Quantity");
-            Map(x => x.From, "[From]");
-            Map(x => x.To, "[To]");
+            Map(x => x.From, "FromUtc");
+            Map(x => x.To, "ToUtc");
 
             Component(x => x.Article, c =>
             {

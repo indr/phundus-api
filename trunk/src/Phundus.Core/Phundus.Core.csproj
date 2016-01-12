@@ -279,6 +279,9 @@
     <Compile Include="Shop\Orders\_Legacy\ICartService.cs" />
     <Compile Include="Shop\Orders\PdfStore.cs" />
     <Compile Include="Shop\Pricing\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
+    <Compile Include="Shop\Queries\CartItemViewRow.cs" />
+    <Compile Include="Shop\Queries\CartReadModel.cs" />
+    <Compile Include="Shop\Queries\CartViewRow.cs" />
     <Compile Include="Shop\Queries\Dtos\CartAssembler.cs" />
     <Compile Include="Shop\Queries\Dtos\CartDto.cs" />
     <Compile Include="Shop\Queries\Dtos\MembershipRoleDto.cs" />

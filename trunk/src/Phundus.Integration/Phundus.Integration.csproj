@@ -45,6 +45,8 @@
     <Compile Include="IdentityAccess\IUserQueries.cs" />
     <Compile Include="IdentityAccess\Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shop\ICart.cs" />
+    <Compile Include="Shop\ICartQueries.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">

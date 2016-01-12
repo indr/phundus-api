@@ -46,5 +46,6 @@ namespace Phundus.Core.Shop.Orders.Model
         }
 
         public virtual bool IsAvailable { get; set; }
+        public virtual Guid CartGuid { get; set; }
     }
 }
