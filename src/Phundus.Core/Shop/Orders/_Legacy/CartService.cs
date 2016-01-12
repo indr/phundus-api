@@ -87,13 +87,7 @@
         {
             var cart = Carts.FindByUserId(new UserId(userId));
 
-            var item = cart.Items.SingleOrDefault(p => p.Id == itemId);
-            if (item == null)
-                throw new NotFoundException();
-            if (item.Version != version)
-                throw new DtoOutOfDateException();
-
-            cart.RemoveItem(item);
+            cart.RemoveItem(itemId);
             Carts.Update(cart);
 
             cart.CalculateAvailability(AvailabilityService);

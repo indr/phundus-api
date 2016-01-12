@@ -12,4 +12,10 @@
     public class CartItems
     {
     }
+
+    public class UserCartItemsPostOkResponseContent
+    {
+        [JsonProperty("cartItemId")]
+        public int CartItemId { get; set; }
+    }
 }

@@ -10,7 +10,7 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Rhino.Mocks;
-    
+
     public class when_add_article_to_cart_is_handled : handler_concern<AddArticleToCart, AddArticleToCartHandler>
     {
         protected const int theQuantity = 3;

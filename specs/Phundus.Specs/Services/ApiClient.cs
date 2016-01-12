@@ -77,7 +77,7 @@
 
         public Resource UserCartItemsApi
         {
-            get { return Resource("users/{userId}/cart/items"); }
+            get { return Resource("users/{userId}/cart/items/{itemId}"); }
         }
 
         public Resource OrganizationsApplicationsApi

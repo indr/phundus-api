@@ -25,13 +25,29 @@ namespace Phundus.Rest.Api.Users
 
         [POST("items")]
         [Transaction]
-        public virtual HttpResponseMessage Post(int userId, UsersCartItemsPostRequestContent requestContent)
+        public virtual UsersCartItemsPostOkResponseContent Post(int userId, UsersCartItemsPostRequestContent requestContent)
         {
             if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
-            Dispatch( new AddArticleToCart(CurrentUserId, new ArticleId(requestContent.ArticleId),
-                requestContent.FromUtc, requestContent.ToUtc, requestContent.Quantity));
+            var command = new AddArticleToCart(CurrentUserId, new ArticleId(requestContent.ArticleId),
+                requestContent.FromUtc, requestContent.ToUtc, requestContent.Quantity);
+            Dispatch(command);
+
+            return new UsersCartItemsPostOkResponseContent
+            {
+                CartItemId = command.ResultingCartItemId
+            };
+        }
+
+        [DELETE("items/{itemId}")]
+        [Transaction]
+        public virtual HttpResponseMessage Delete(int userId, int itemId)
+        {
+            if (userId != CurrentUserId.Id)
+                throw new ArgumentException("userId");
+
+            Dispatch(new RemoveCartItem(CurrentUserId, itemId));
 
             return NoContent();
         }
@@ -54,6 +70,8 @@ namespace Phundus.Rest.Api.Users
 
     public class UsersCartItemsPostOkResponseContent
     {
+        [JsonProperty("cartItemId")]
+        public int CartItemId { get; set; }
     }
 
     public class UsersCartItemsPostRequestContent
