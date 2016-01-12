@@ -34,6 +34,13 @@
         }
     }
 
+    public class CurrentUserGuid : UserGuid
+    {
+        public CurrentUserGuid(Guid id) : base(id)
+        {
+        }
+    }
+
     public class LesseeId : Identity<int>
     {
         public LesseeId(int id) : base(id)

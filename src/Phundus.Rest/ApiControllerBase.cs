@@ -13,6 +13,7 @@
     using System.Web.Security;
     using AutoMapper;
     using Castle.Core.Logging;
+    using Common;
     using Common.Domain.Model;
     using Core.Cqrs;
 
@@ -32,14 +33,20 @@
 
         protected CurrentUserId CurrentUserId
         {
-            get
-            {
-                var user = Membership.GetUser();
-                if (user == null)
-                    throw new AuthenticationException();
-                var userId = Convert.ToInt32(user.ProviderUserKey);
-                return new CurrentUserId(userId);
-            }
+            get { return GetCurrentProviderUserKey().UserId; }
+        }
+
+        protected CurrentUserGuid CurrentUserGuid
+        {
+            get { return GetCurrentProviderUserKey().UserGuid; }
+        }
+
+        private ProviderUserKey GetCurrentProviderUserKey()
+        {
+            var user = Membership.GetUser();
+            if (user == null)
+                throw new AuthenticationException();
+            return new ProviderUserKey(user.ProviderUserKey);
         }
 
         protected void Dispatch<TCommand>(TCommand command)
