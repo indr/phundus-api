@@ -243,16 +243,19 @@
             return response.Data;
         }
 
-        public void CreateArticle(User user)
+        public Article CreateArticle(User user)
         {
-            var fakeArticle = _fakeArticleGenerator.NextArticle();
+            var article = _fakeArticleGenerator.NextArticle();
+            article.OwnerId = user.Guid;
             var response = _apiClient.ArticlesApi.Post<ArticlesPostOkResponseContent>(new ArticlesPostRequestContent
             {
-                Amount = fakeArticle.GrossStock,
-                Name = fakeArticle.Name,
+                Amount = article.GrossStock,
+                Name = article.Name,
                 OwnerId = user.Id.ToString(CultureInfo.InvariantCulture)
             });
             AssertHttpStatus(HttpStatusCode.OK, response);
+            article.ArticleId = response.Data.ArticleId;
+            return article;
         }
 
         public QueryOkResponseContent<Article> QueryArticlesByUser(User user)
@@ -272,7 +275,7 @@
 
         public UsersCartGetOkResponseContent GetCart(User user)
         {
-            var response = _apiClient.UserCartApi.Get<UsersCartGetOkResponseContent>(new {userGuid = user.Guid});
+            var response = _apiClient.UserCartApi.Get<UsersCartGetOkResponseContent>(new {userId = user.Id});
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
             return response.Data;
@@ -287,10 +290,12 @@
             return response.Data.ApplicationId;
         }
 
-        public OrganizationsRelationshipsQueryOkResponseContent GetRelationshipStatus(User user, Organization organization)
+        public OrganizationsRelationshipsQueryOkResponseContent GetRelationshipStatus(User user,
+            Organization organization)
         {
             var response = _apiClient.OrganizationsRelationshipsApi
-                .Get<OrganizationsRelationshipsQueryOkResponseContent>(new { organizationId = organization.OrganizationId });
+                .Get<OrganizationsRelationshipsQueryOkResponseContent>(
+                    new {organizationId = organization.OrganizationId});
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
             return response.Data;
@@ -299,7 +304,7 @@
         public void RejectMembershipApplication(Organization organization, Guid applicationId)
         {
             var response = _apiClient.OrganizationsApplicationsApi
-                .Delete(new { organizationId = organization.OrganizationId, applicationId = applicationId });
+                .Delete(new {organizationId = organization.OrganizationId, applicationId});
             AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
         }
@@ -307,7 +312,7 @@
         public void ApproveMembershipApplication(Organization organization, Guid applicationId)
         {
             var response = _apiClient.OrganizationsMembersApi
-                .Post(new {organizationId = organization.OrganizationId, applicationId = applicationId});
+                .Post(new {organizationId = organization.OrganizationId, applicationId});
             AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
         }
@@ -319,6 +324,21 @@
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
             return response.Data.Results;
+        }
+
+        public void AddArticleToCart(User user, Article article)
+        {
+            var response = _apiClient.UserCartItemsApi
+                .Post(new
+                {
+                    userId = user.Id,
+                    articleId = article.ArticleId,
+                    quantity = 1,
+                    fromUtc = DateTime.UtcNow,
+                    toUtc = DateTime.UtcNow.AddDays(1)
+                });
+            AssertHttpStatus(HttpStatusCode.NoContent, response);
+            SetLastResponse(response);
         }
     }
 

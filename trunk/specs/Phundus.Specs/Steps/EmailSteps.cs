@@ -41,7 +41,7 @@
         [Then(@"anon should receive email ""(.*)"" with text body:")]
         public void ThenAnonShouldReceiveEmailWithTextBody(string subject, string textBody)
         {
-            AssertEmailReceived(subject, Ctx.AnonEmailAddress, textBody);
+            AssertEmailReceived(subject, Ctx.EmailAddress, textBody);
         }
 
         [Then(@"I should receive an email ""(.*)"" at requested address")]

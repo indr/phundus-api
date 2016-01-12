@@ -25,6 +25,12 @@
             Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
+        [Then(@"I should see no content")]
+        public void ThenIShouldSeeNoContent()
+        {
+            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
+        }
+
         [Then(@"I should see unauthorized")]
         public void ThenIShouldSeeUnauthorized()
         {

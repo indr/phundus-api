@@ -49,25 +49,31 @@
     [Binding]
     public class Ctx
     {
-        private readonly Aliases<string> _emails = new Aliases<string>();
+        private readonly Aliases<Article> _articles = new Aliases<Article>();
+        private readonly Aliases<string> _emailAddresses = new Aliases<string>();
         private readonly Aliases<Organization> _organizations = new Aliases<Organization>();
         private readonly Aliases<User> _users = new Aliases<User>();
 
-        public User User { get; set; }
+        public User User
+        {
+            get { return _users[""]; }
+            set { _users[""] = value; }
+        }
 
         public Aliases<User> Users
         {
             get { return _users; }
         }
 
-        public Aliases<string> Emails
+        public string EmailAddress
         {
-            get { return _emails; }
+            get { return _emailAddresses[""]; }
+            set { _emailAddresses[""] = value; }
         }
 
-        public Aliases<Organization> Organizations
+        public Aliases<string> EmailAddresses
         {
-            get { return _organizations; }
+            get { return _emailAddresses; }
         }
 
         public Organization Organization
@@ -76,27 +82,39 @@
             set { _organizations[""] = value; }
         }
 
-        /// <summary>
-        /// Email address used by anonymous user
-        /// </summary>
-        public string AnonEmailAddress { get; set; }
+        public Aliases<Organization> Organizations
+        {
+            get { return _organizations; }
+        }
+
+
+        public Article Article
+        {
+            get { return _articles[""]; }
+            set { _articles[""] = value; }
+        }
+
+        public Aliases<Article> Articles
+        {
+            get { return _articles; }
+        }
 
         public Guid LoggedIn { get; set; }
 
         public string ValidationKey { get; set; }
         public Guid? Store { get; set; }
 
+
         [BeforeScenario]
         public void BeforeScenario()
         {
-            User = null;
             Users.Clear();
-            Organization = null;
-            AnonEmailAddress = null;
+            EmailAddresses.Clear();
+            Organizations.Clear();
+            Articles.Clear();
+            
             LoggedIn = Guid.Empty;
             ValidationKey = null;
-            Emails.Clear();
-            Organizations.Clear();
             Store = null;
         }
     }

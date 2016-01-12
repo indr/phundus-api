@@ -5,18 +5,28 @@
     using Common.Domain.Model;
     using Cqrs;
     using IdentityAndAccess.Queries;
+    using Model;
     using Repositories;
     using Shop.Services;
 
-    public class AddArticleToCart
+    public class AddArticleToCart : ICommand
     {
-        public int CartId { get; set; }
-        public UserId InitiatorId { get; set; }
+        public AddArticleToCart(UserId initiatorId, ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (articleId == null) throw new ArgumentNullException("articleId");
+            InitiatorId = initiatorId;
+            ArticleId = articleId;
+            FromUtc = fromUtc;
+            ToUtc = toUtc;
+            Quantity = quantity;
+        }
 
-        public int ArticleId { get; set; }
-        public int Quantity { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
+        public UserId InitiatorId { get; protected set; }
+        public ArticleId ArticleId { get; protected set; }
+        public DateTime FromUtc { get; protected set; }
+        public DateTime ToUtc { get; protected set; }
+        public int Quantity { get; protected set; }
     }
 
     public class AddArticleToCartHandler : IHandleCommand<AddArticleToCart>
@@ -29,20 +39,17 @@
 
         public void Handle(AddArticleToCart command)
         {
-            var cart = CartRepository.FindById(command.CartId);
-            if (cart == null)
-                throw new CartNotFoundException();
-
-            if (cart.CustomerId != command.InitiatorId.Id)
-                throw new SecurityException();
-
             var article = ArticleService.GetById(command.ArticleId);
 
-            if (!MemberInRole.IsActiveMember(article.Owner.OwnerId, command.InitiatorId))
-                throw new SecurityException();
+            MemberInRole.ActiveMember(article.Owner.OwnerId, command.InitiatorId);
 
-            cart.AddItem(article, command.Quantity,
-                command.DateFrom, command.DateTo);
+            var cart = CartRepository.FindByUserId(command.InitiatorId);
+            if (cart == null)
+            {
+                cart = new Cart(command.InitiatorId);
+                CartRepository.Add(cart);
+            }
+            cart.AddItem(article, command.Quantity, command.FromUtc, command.ToUtc);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Persistence.Shop.Repositories
 {
+    using System;
     using System.Linq;
+    using Common.Domain.Model;
     using Core.Shop.Orders;
     using Core.Shop.Orders.Model;
     using Core.Shop.Orders.Repositories;
@@ -15,12 +17,14 @@
             return result;
         }
 
-        public Cart FindByCustomer(int userId)
+        public Cart FindByUserId(UserId userId)
         {
+            if (userId == null) throw new ArgumentNullException("userId");
+
             var query = from c in Entities
-                where c.Customer.Id == userId
+                where c.CustomerId == userId.Id
                 select c;
             return query.SingleOrDefault();
-        }        
+        }
     }
 }

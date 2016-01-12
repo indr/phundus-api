@@ -21,6 +21,13 @@
             _cart = App.GetCart(Ctx.User);
         }
 
+        [When(@"I add article to cart")]
+        public void WhenIAddArticleToCart()
+        {
+            App.AddArticleToCart(Ctx.User, Ctx.Article);
+        }
+
+
         [Then(@"my cart should be empty")]
         public void ThenMyCartShouldBeEmpty()
         {

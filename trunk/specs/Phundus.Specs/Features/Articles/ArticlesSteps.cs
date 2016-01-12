@@ -19,13 +19,13 @@
         [When(@"I create an article in my store")]
         public void WhenICreateAnArticleInMyStore()
         {
-            App.CreateArticle(Ctx.User);
+            Ctx.Article = App.CreateArticle(Ctx.User);
         }
 
         [Given(@"I created an article in my store")]
         public void GivenICreatedAnArticleInMyStore()
         {
-            App.CreateArticle(Ctx.User);
+            Ctx.Article = App.CreateArticle(Ctx.User);
         }
 
         [When(@"I try to query all my articles")]

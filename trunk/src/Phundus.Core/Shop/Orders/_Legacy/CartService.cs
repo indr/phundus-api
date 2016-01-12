@@ -37,10 +37,10 @@
         public CartDto GetCartByUserId(int userId)
         {
             var user = Users.FindById(userId);
-            var cart = Carts.FindByCustomer(userId);
+            var cart = Carts.FindByUserId(new UserId(user.Id));
             if (cart == null)
             {
-                cart = new Model.Cart(user);
+                cart = new Model.Cart(new UserId(user.Id));
                 Carts.Add(cart);
             }
 
@@ -58,20 +58,12 @@
             if (cart == null)
             {
                 var user = Users.FindById(userId);
-                cart = new Model.Cart(user);
+                cart = new Model.Cart(new UserId(user.Id));
                 Carts.Add(cart);
             }
-            cartId = cart.Id;
 
-            Dispatcher.Dispatch(new AddArticleToCart
-            {
-                ArticleId = item.ArticleId,
-                CartId = cartId.Value,
-                DateFrom = item.From,
-                DateTo = item.To,
-                Quantity = item.Quantity,
-                InitiatorId = new UserId(userId)
-            });
+            Dispatcher.Dispatch(new AddArticleToCart(new UserId(userId), new ArticleId(item.ArticleId), item.From,
+                item.To, item.Quantity));
 
             cart = Carts.GetById(cart.Id);
             cart.CalculateAvailability(AvailabilityService);
@@ -93,7 +85,7 @@
 
         public CartDto RemoveItem(int userId, int itemId, int version)
         {
-            var cart = Carts.FindByCustomer(userId);
+            var cart = Carts.FindByUserId(new UserId(userId));
 
             var item = cart.Items.SingleOrDefault(p => p.Id == itemId);
             if (item == null)
@@ -111,7 +103,7 @@
 
         public bool PlaceOrders(int userId)
         {
-            var cart = Carts.FindByCustomer(userId);
+            var cart = Carts.FindByUserId(new UserId(userId));
             cart.CalculateAvailability(AvailabilityService);
             if (!cart.AreItemsAvailable)
                 return false;

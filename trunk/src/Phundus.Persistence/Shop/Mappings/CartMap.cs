@@ -13,7 +13,7 @@ namespace Phundus.Persistence.Shop.Mappings
             Id(x => x.Id).GeneratedBy.Native();
             Version(x => x.Version);
 
-            References(x => x.Customer).Column("CustomerId");
+            Map(x => x.CustomerId, "CustomerId");
 
             HasMany(x => x.Items).AsSet()
                 .KeyColumn("CartId").Inverse()

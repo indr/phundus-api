@@ -1,4 +1,4 @@
-﻿Feature: Membership
+﻿Feature: Application
 	
 Scenario: Relationship status after application
 	Given an organization
