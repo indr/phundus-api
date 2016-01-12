@@ -21,7 +21,8 @@
             Map(x => x.Street, "Street");
             Map(x => x.Postcode, "Postcode");
             Map(x => x.City, "City");
-            Map(x => x.MobileNumber, "MobileNumber");
+            Map(x => x.MobilePhone, "PhoneNumber");
+            Map(x => x.JsNummer, "JsNummer");
             Map(x => x.IsApproved, "IsApproved");
             Map(x => x.IsLockedOut, "IsLockedOut");
             Map(x => x.SignedUpAtUtc, "SignedUpAtUtc");
