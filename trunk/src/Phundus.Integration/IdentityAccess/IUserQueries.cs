@@ -24,11 +24,11 @@
         IUser GetById(UserId userId);
 
         IUser FindById(int userId);
-        IUser FindById(Guid userId);
+        IUser FindById(Guid userGuid);
 
         IUser FindByUsername(string username);
         IList<IUser> Query();
-        IUser FindActiveById(Guid userId);
+        IUser FindActiveById(Guid userGuid);
 
 
         bool IsEmailAddressTaken(string emailAddress);

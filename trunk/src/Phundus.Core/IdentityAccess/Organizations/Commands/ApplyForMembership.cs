@@ -3,9 +3,9 @@
     using System;
     using Castle.Transactions;
     using Cqrs;
+    using IdentityAccess.Users.Repositories;
     using Queries;
     using Repositories;
-    using Users.Repositories;
 
     public class ApplyForMembership
     {

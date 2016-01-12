@@ -2,7 +2,7 @@
 {
     using System;
     using Cqrs;
-    using Repositories;
+    using IdentityAccess.Users.Repositories;
 
     public class ValidateKey
     {

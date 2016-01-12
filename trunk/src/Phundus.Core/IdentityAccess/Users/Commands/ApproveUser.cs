@@ -3,7 +3,7 @@
     using System;
     using Common.Domain.Model;
     using Cqrs;
-    using Repositories;
+    using IdentityAccess.Users.Repositories;
     using Services;
 
     public class ApproveUser

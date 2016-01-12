@@ -2,10 +2,10 @@
 {
     using Core.IdentityAndAccess.Users.Commands;
     using Core.IdentityAndAccess.Users.Model;
-    using Core.IdentityAndAccess.Users.Repositories;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.IdentityAccess.Users.Repositories;
     using Rhino.Mocks;
 
     [Subject(typeof (RegisterUserHandler))]

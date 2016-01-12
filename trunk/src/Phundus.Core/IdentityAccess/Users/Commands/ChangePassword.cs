@@ -4,7 +4,7 @@
     using Castle.Transactions;
     using Common.Domain.Model;
     using Cqrs;
-    using Repositories;
+    using IdentityAccess.Users.Repositories;
 
     public class ChangePassword
     {

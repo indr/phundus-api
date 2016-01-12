@@ -4,9 +4,9 @@
     using Cqrs;
     using Ddd;
     using Exceptions;
+    using IdentityAccess.Users.Repositories;
     using Mails;
     using Model;
-    using Repositories;
 
     public class RegisterUser
     {

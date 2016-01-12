@@ -10,8 +10,8 @@
     using Phundus.Core.IdentityAndAccess.Queries;
     using Phundus.Core.IdentityAndAccess.Users.Commands;
     using Phundus.Core.IdentityAndAccess.Users.Exceptions;
-    using Phundus.Core.IdentityAndAccess.Users.Repositories;
     using Phundus.Core.IdentityAndAccess.Users.Services;
+    using Phundus.IdentityAccess.Users.Repositories;
     using Phundus.Integration.IdentityAccess;
 
     public class CustomMembershipProvider : MembershipProvider

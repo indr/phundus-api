@@ -4,9 +4,9 @@
     using Common;
     using Cqrs;
     using Ddd;
+    using IdentityAccess.Users.Repositories;
     using Model;
     using Repositories;
-    using Users.Repositories;
 
     public class EstablishOrganization
     {

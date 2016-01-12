@@ -5,9 +5,9 @@
     using Common.Domain.Model;
     using Cqrs;
     using Exceptions;
+    using IdentityAccess.Users.Repositories;
     using Infrastructure.Gateways;
     using Mails;
-    using Repositories;
 
     public class ChangeEmailAddress
     {

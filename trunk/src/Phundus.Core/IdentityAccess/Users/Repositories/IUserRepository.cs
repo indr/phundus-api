@@ -1,22 +1,18 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Users.Repositories
+﻿namespace Phundus.IdentityAccess.Users.Repositories
 {
     using System;
-    using System.Collections.Generic;
     using Common;
     using Common.Domain.Model;
+    using Core.IdentityAndAccess.Users.Model;
     using Infrastructure;
-    using Model;
 
     public interface IUserRepository : IRepository<User>
     {
-        IEnumerable<User> FindAll();
         User FindByEmailAddress(string emailAddress);
-        User FindBySessionKey(string sessionKey);
+
         User FindByValidationKey(string validationKey);
 
         User FindById(int id);
-
-        User ActiveById(int userId);
 
         /// <summary>
         /// 
@@ -43,9 +39,6 @@
         User GetById(UserGuid userGuid);
 
         new int Add(User user);
-        User FindActiveByGuid(Guid userId);
         User FindByGuid(Guid userId);
-
-       
     }
 }

@@ -2,9 +2,9 @@
 {
     using System;
     using Cqrs;
+    using IdentityAccess.Users.Repositories;
     using Queries;
     using Repositories;
-    using Users.Repositories;
 
     public class UnlockMember
     {
