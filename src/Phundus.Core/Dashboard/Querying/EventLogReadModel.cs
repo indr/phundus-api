@@ -21,7 +21,7 @@ namespace Phundus.Core.Dashboard.Querying
 
         public IEnumerable<EventLogRecord> FindMostRecent20()
         {
-            return Query().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
+            return QueryOver().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
         }
 
         public void Process(DomainEvent domainEvent)

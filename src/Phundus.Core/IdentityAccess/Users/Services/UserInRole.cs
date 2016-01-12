@@ -2,8 +2,8 @@
 {
     using Common;
     using Common.Domain.Model;
+    using IdentityAccess.Users.Repositories;
     using Model;
-    using Repositories;
 
     public interface IUserInRole
     {

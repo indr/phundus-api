@@ -3,10 +3,10 @@
     using System;
     using Ddd;
     using IdentityAccess.Users.Mails;
+    using IdentityAccess.Users.Repositories;
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;
-    using Repositories;
 
     public class UserUnlockedMailNotifier : BaseMail, ISubscribeTo<UserUnlocked>
     {

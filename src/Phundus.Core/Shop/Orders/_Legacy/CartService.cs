@@ -5,7 +5,7 @@
     using Common;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAndAccess.Users.Repositories;
+    using IdentityAccess.Users.Repositories;
     using Infrastructure.Gateways;
     using Inventory.Services;
     using Mails;

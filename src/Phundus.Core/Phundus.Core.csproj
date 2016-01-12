@@ -163,8 +163,7 @@
     <Compile Include="IdentityAccess\Queries\ReadModels\RelationshipsReadModelReader.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\RelationshipsReadModelWriter.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\RelationshipStatusDto.cs" />
-    <Compile Include="IdentityAccess\Queries\ReadModels\UserDto.cs" />
-    <Compile Include="IdentityAccess\Queries\ReadModels\UserReadModel.cs" />
+    <Compile Include="IdentityAccess\Queries\QueryModels\UserReadModel.cs" />
     <Compile Include="IdentityAccess\Users\Commands\ApproveUser.cs" />
     <Compile Include="IdentityAccess\Users\Commands\ChangeEmailAddress.cs" />
     <Compile Include="IdentityAccess\Users\Commands\ChangePassword.cs" />

@@ -3,10 +3,10 @@
     using System;
     using System.Security;
     using Cqrs;
+    using IdentityAccess.Users.Repositories;
     using Model;
     using Queries;
     using Repositories;
-    using Users.Repositories;
 
     public class ChangeMembersRole
     {
