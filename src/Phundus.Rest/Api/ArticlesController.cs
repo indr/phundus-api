@@ -14,6 +14,7 @@ namespace Phundus.Rest.Api
     using Core.Inventory.Articles.Commands;
     using Core.Inventory.AvailabilityAndReservation.Repositories;
     using Core.Inventory.Queries;
+    using Integration.IdentityAccess;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/articles")]

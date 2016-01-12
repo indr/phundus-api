@@ -16,6 +16,7 @@ namespace Phundus.Rest.Api
     using Core.IdentityAndAccess.Queries;
     using Core.IdentityAndAccess.Users.Commands;
     using Core.Inventory.Queries;
+    using Integration.IdentityAccess;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/users")]
@@ -123,7 +124,7 @@ namespace Phundus.Rest.Api
             
         }
 
-        public UsersGetOkResponseContent(UserDto user, IEnumerable<MembershipDto> memberships, StoreDto store)
+        public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipDto> memberships, StoreDto store)
         {
             UserId = user.Id.ToString(CultureInfo.InvariantCulture);
             UserGuid = user.Guid;

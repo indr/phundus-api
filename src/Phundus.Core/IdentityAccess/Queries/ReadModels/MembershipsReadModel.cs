@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Integration.IdentityAccess;
     using Organizations.Model;
     using Organizations.Repositories;
 

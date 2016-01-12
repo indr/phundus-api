@@ -14,6 +14,7 @@
     using Common;
     using ContentObjects;
     using Core.IdentityAndAccess.Queries;
+    using Integration.IdentityAccess;
     using Newtonsoft.Json;
 
     [RoutePrefix("/api/sessions")]

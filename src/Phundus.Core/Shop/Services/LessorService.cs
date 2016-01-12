@@ -72,7 +72,7 @@
             return ToManagers(members, user);
         }
 
-        private static ICollection<Manager> ToManagers(IList<Manager> members, UserDto user)
+        private static ICollection<Manager> ToManagers(IList<Manager> members, IUser user)
         {
             AssertionConcern.AssertArgumentNotNull(members, "Members must be provided.");
 
@@ -83,7 +83,7 @@
             return result;
         }
 
-        private static Lessor ToLessor(UserDto user)
+        private static Lessor ToLessor(IUser user)
         {
             return new Lessor(new LessorId(user.Guid), user.FirstName + " " + user.LastName);
         }

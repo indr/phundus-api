@@ -3,7 +3,8 @@
     using Common;
     using Common.Domain.Model;
     using Contracts.Model;
-    using IdentityAndAccess.Queries;    
+    using IdentityAndAccess.Queries;
+    using Integration.IdentityAccess;
 
     public interface ILesseeService
     {
@@ -42,7 +43,7 @@
             return GetById(lesseeId.Id);
         }
 
-        private static Lessee ToBorrower(UserDto user)
+        private static Lessee ToBorrower(IUser user)
         {
             return new Lessee(user.Id, user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
                 user.Email, user.MobilePhone, user.JsNumber.ToString());
