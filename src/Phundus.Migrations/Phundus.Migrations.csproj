@@ -152,6 +152,7 @@
     <Compile Include="2016\01\M201601111857CreateViewIdentityAccessUsers.cs" />
     <Compile Include="2016\01\M201601112339RecreateViewIdentityAccessUsers.cs" />
     <Compile Include="2016\01\M201601121940AddCartItemIdToCartItem.cs" />
+    <Compile Include="2016\01\M201601122252AddIdAndGuidToCartAndCartItem.cs" />
     <Compile Include="Helper\DatedAttribute.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
     <Compile Include="Helper\Runner.cs" />

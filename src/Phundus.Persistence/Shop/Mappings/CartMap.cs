@@ -10,10 +10,12 @@ namespace Phundus.Persistence.Shop.Mappings
             SchemaAction.Validate();
 
             Table("Dm_Shop_Cart");
-            Id(x => x.Id).GeneratedBy.Native();
+            Id(x => x.Id, "CartId").GeneratedBy.Native();
+            Map(x => x.CartGuid, "CartGuid");
             Version(x => x.Version);
 
-            Map(x => x.CustomerId, "CustomerId");
+            Map(x => x.CustomerId, "UserId");
+            Map(x => x.UserGuid, "UserGuid");
 
             HasMany(x => x.Items).AsSet()
                 .KeyColumn("CartId").Inverse()

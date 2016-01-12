@@ -9,6 +9,7 @@
     {
         protected static Cart sut;
         protected static UserId theUserId = new UserId(1001);
+        protected static UserGuid theUserGuid = new UserGuid(Guid.NewGuid());
 
         private Establish ctx = () =>
         {
@@ -20,7 +21,7 @@
 
         protected static Cart CreateEmptyCart()
         {
-            return new Cart(theUserId);
+            return new Cart(theUserId, theUserGuid);
         }
 
         protected static Article CreateArticle(int? articleId = null, Owner owner = null,

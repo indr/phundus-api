@@ -41,7 +41,7 @@
             var cart = Carts.FindByUserId(new UserId(user.Id));
             if (cart == null)
             {
-                cart = new Model.Cart(new UserId(user.Id));
+                cart = new Model.Cart(new UserId(user.Id), new UserGuid(user.Guid));
                 Carts.Add(cart);
             }
 
@@ -56,14 +56,15 @@
             if (cartId.HasValue)
                 cart = Carts.FindById(cartId.Value);
 
+            var user = Users.FindById(userId);
             if (cart == null)
             {
-                var user = Users.FindById(userId);
-                cart = new Model.Cart(new UserId(user.Id));
+               
+                cart = new Model.Cart(new UserId(user.Id), new UserGuid(user.Guid));
                 Carts.Add(cart);
             }
 
-            Dispatcher.Dispatch(new AddArticleToCart(new UserId(userId), new ArticleId(item.ArticleId), item.From,
+            Dispatcher.Dispatch(new AddArticleToCart(new UserId(userId),  new UserGuid(user.Guid), new ArticleId(item.ArticleId), item.From,
                 item.To, item.Quantity));
 
             cart = Carts.GetById(cart.Id);

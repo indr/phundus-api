@@ -12,16 +12,25 @@
 
     public class Cart : EntityBase
     {
-        private int _customerId;
+        private int _userId;
+        private Guid _userGuid;
         private Iesi.Collections.Generic.ISet<CartItem> _items = new HashedSet<CartItem>();
+        private Guid _cartGuid = Guid.NewGuid();
 
-        public Cart(UserId userId)
+        public Cart(UserId userId, UserGuid userGuid)
         {
-            _customerId = userId.Id;
+            _userId = userId.Id;
+            _userGuid = userGuid.Id;
         }
 
         protected Cart()
         {
+        }
+
+        public virtual Guid CartGuid
+        {
+            get { return _cartGuid; }
+            protected set { _cartGuid = value; }
         }
 
         public virtual Iesi.Collections.Generic.ISet<CartItem> Items
@@ -37,14 +46,20 @@
 
         public virtual int CustomerId
         {
-            get { return _customerId; }
-            protected set { _customerId = value; }
+            get { return _userId; }
+            protected set { _userId = value; }
+        }
+
+        public virtual Guid UserGuid
+        {
+            get { return _userGuid; }
+            protected set { _userGuid = value; }
         }
 
 
         public virtual CartItemId AddItem(Article article, DateTime @from, DateTime to, int quantity)
         {
-            var item = new CartItem();
+            var item = new CartItem();            
             item.Article = article;
             item.Quantity = quantity;
             item.From = from;
@@ -58,6 +73,7 @@
         {
             Items.Add(item);
             item.Cart = this;
+            item.CartGuid = this.CartGuid;
         }
 
         public virtual void RemoveItem(CartItemId cartItemId)
