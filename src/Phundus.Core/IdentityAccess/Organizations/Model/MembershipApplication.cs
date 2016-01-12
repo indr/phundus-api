@@ -15,9 +15,9 @@
         {
         }
 
-        public MembershipApplication(Guid requestId, Guid organizationId, User user)
+        public MembershipApplication(Guid applicationId, Guid organizationId, User user)
         {
-            _id = requestId;
+            _id = applicationId;
             _organizationId = organizationId;
             _user = user;
             _userId = user.Id;

@@ -39,6 +39,12 @@
             return Execute<T>(request);
         }
 
+        public IRestResponse Delete(object requestContent)
+        {
+            var request = CreateRequest(requestContent, Method.DELETE);
+            return Execute(request);
+        }
+
         public IRestResponse Patch(object requestContent)
         {
             var request = CreateRequest(requestContent, Method.PATCH);
@@ -85,9 +91,13 @@
             var match = regex.Match(request.Resource);
             while (match.Success)
             {
+                var startAt = match.Groups[0].Index + match.Groups[0].Length;
                 if (!AddUrlSegment(request, requestContent, match.Groups[1].Value))
+                {
                     RemoveUrlSegment(request, match.Groups[0]);
-                match = match.NextMatch();
+                    startAt = match.Groups[0].Index;
+                }
+                match = regex.Match(request.Resource, startAt);
             }
         }
 
@@ -102,7 +112,7 @@
                 return false;
             var value = GetParamValue(requestContent, name);
             if (value != null)
-                request.AddUrlSegment(name, value);
+                request.AddUrlSegment(name, value);            
             return value != null;
         }
 
@@ -136,7 +146,7 @@
 
         protected RestRequest CreateQueryRequest(object queryParams, Method method)
         {
-            var request = CreateRequest(null, Method.GET);
+            var request = CreateRequest(queryParams, Method.GET);            
             AddQueryParameters(request, queryParams);
             return request;
         }

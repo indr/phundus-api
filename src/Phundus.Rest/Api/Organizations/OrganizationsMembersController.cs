@@ -27,7 +27,7 @@
 
         [GET("")]
         [Transaction]
-        public virtual OrganizationsMembersQueryOkResponseContent Get(Guid organizationId)
+        public virtual QueryOkResponseContent<Member> Get(Guid organizationId)
         {
             var username = (string) null;
             var queryParams = GetQueryParams();
@@ -35,7 +35,7 @@
                 username = queryParams["username"];
 
             var result = _memberQueries.Query(CurrentUserId, organizationId, username);
-            return new OrganizationsMembersQueryOkResponseContent(result.Select(s => new Member
+            return new QueryOkResponseContent<Member>(result.Select(s => new Member
             {
                 ApprovalDate = s.ApprovalDate,
                 EmailAddress = s.EmailAddress,
@@ -143,13 +143,5 @@
     {
         [JsonProperty("role")]
         public int Role { get; set; }
-    }
-
-    public class OrganizationsMembersQueryOkResponseContent : List<Member>
-    {
-        public OrganizationsMembersQueryOkResponseContent(IEnumerable<Member> collection)
-            : base(collection)
-        {
-        }
     }
 }

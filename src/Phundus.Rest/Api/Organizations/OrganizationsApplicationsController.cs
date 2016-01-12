@@ -8,6 +8,7 @@
     using Castle.Transactions;
     using Core.IdentityAndAccess.Organizations.Commands;
     using Core.IdentityAndAccess.Queries;
+    using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/applications")]
     public class OrganizationsApplicationsController : ApiControllerBase
@@ -24,11 +25,15 @@
 
         [POST("")]
         [Transaction]
-        public virtual HttpResponseMessage Post(Guid organizationId)
+        public virtual OrganizationsApplicationsPostOkResponseContent Post(Guid organizationId)
         {
-            Dispatch(new ApplyForMembership {ApplicantId = CurrentUserId.Id, OrganizationId = organizationId});
+            var applicationId = Guid.NewGuid();
+            Dispatch(new ApplyForMembership(applicationId, CurrentUserId.Id, organizationId));
 
-            return NoContent();
+            return new OrganizationsApplicationsPostOkResponseContent
+            {
+                ApplicationId = applicationId
+            };
         }
 
         [DELETE("{applicationId}")]
@@ -47,5 +52,11 @@
             : base(collection)
         {
         }
+    }
+
+    public class OrganizationsApplicationsPostOkResponseContent
+    {
+        [JsonProperty("applicationId")]
+        public Guid ApplicationId { get; set; }
     }
 }

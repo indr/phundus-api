@@ -6,6 +6,7 @@
     using System.Net;
     using ContentTypes;
     using Entities;
+    using NUnit.Framework;
     using RestSharp;
     using TechTalk.SpecFlow;
 
@@ -275,6 +276,49 @@
             AssertHttpStatus(HttpStatusCode.OK, response);
             SetLastResponse(response);
             return response.Data;
+        }
+
+        public Guid ApplyForMembership(User user, Organization organization)
+        {
+            var response = _apiClient.OrganizationsApplicationsApi
+                .Post<OrganizationsApplicationsPostOkResponseContent>(new {organizationId = organization.OrganizationId});
+            AssertHttpStatus(HttpStatusCode.OK, response);
+            SetLastResponse(response);
+            return response.Data.ApplicationId;
+        }
+
+        public OrganizationsRelationshipsQueryOkResponseContent GetRelationshipStatus(User user, Organization organization)
+        {
+            var response = _apiClient.OrganizationsRelationshipsApi
+                .Get<OrganizationsRelationshipsQueryOkResponseContent>(new { organizationId = organization.OrganizationId });
+            AssertHttpStatus(HttpStatusCode.OK, response);
+            SetLastResponse(response);
+            return response.Data;
+        }
+
+        public void RejectMembershipApplication(Organization organization, Guid applicationId)
+        {
+            var response = _apiClient.OrganizationsApplicationsApi
+                .Delete(new { organizationId = organization.OrganizationId, applicationId = applicationId });
+            AssertHttpStatus(HttpStatusCode.NoContent, response);
+            SetLastResponse(response);
+        }
+
+        public void ApproveMembershipApplication(Organization organization, Guid applicationId)
+        {
+            var response = _apiClient.OrganizationsMembersApi
+                .Post(new {organizationId = organization.OrganizationId, applicationId = applicationId});
+            AssertHttpStatus(HttpStatusCode.NoContent, response);
+            SetLastResponse(response);
+        }
+
+        public IList<Member> GetOrganizationMembers(Organization organization)
+        {
+            var response = _apiClient.OrganizationsMembersApi
+                .Query<Member>(new {organizationId = organization.OrganizationId});
+            AssertHttpStatus(HttpStatusCode.OK, response);
+            SetLastResponse(response);
+            return response.Data.Results;
         }
     }
 

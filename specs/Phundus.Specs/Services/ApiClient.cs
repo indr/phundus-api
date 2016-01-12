@@ -75,6 +75,21 @@
             get { return Resource("users/{userGuid}/cart"); }
         }
 
+        public Resource OrganizationsApplicationsApi
+        {
+            get { return Resource("organizations/{organizationId}/applications/{applicationId}"); }
+        }
+
+        public Resource OrganizationsRelationshipsApi
+        {
+            get { return Resource("organizations/{organizationId}/relationships"); }
+        }
+
+        public Resource OrganizationsMembersApi
+        {
+            get { return Resource("organizations/{organizationId}/members/{memberId}"); }
+        }
+
         private static Resource Resource(string url)
         {
             return new Resource(url);

@@ -15,7 +15,7 @@
         {
             App.LogInAsRoot();
         }
-        
+
         [Given(@"I am logged in as a user")]
         public void GivenIAmLoggedInAsAUser()
         {
@@ -25,9 +25,11 @@
         }
 
         [Given(@"I am logged in as ""(.*)""")]
-        public void GivenIAmLoggedInAs(string userKey)
+        public void GivenIAmLoggedInAs(string alias)
         {
-            var user = Ctx.Users[userKey];
+            if (!Ctx.Users.ContainsAlias(alias))
+                Given(@"a confirmed user """ + alias + @"""");
+            var user = Ctx.Users[alias];
             App.LogIn(user.Username, user.Password);
             Ctx.User = user;
         }

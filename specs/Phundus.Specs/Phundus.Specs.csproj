@@ -109,7 +109,9 @@
     <Compile Include="ContentTypes\CartsContentTypes.cs" />
     <Compile Include="ContentTypes\FeedbackPostRequestContent.cs" />
     <Compile Include="ContentTypes\MailsContentTypes.cs" />
+    <Compile Include="ContentTypes\OrganizationsApplicationsPostOkResponseContent.cs" />
     <Compile Include="ContentTypes\OrganizationsContentTypes.cs" />
+    <Compile Include="ContentTypes\OrganizationsRelationshipsQueryOkResponseContent.cs" />
     <Compile Include="ContentTypes\QueryOkResponseContent.cs" />
     <Compile Include="ContentTypes\SessionsContentTypes.cs" />
     <Compile Include="ContentTypes\StatusGetOkResponseContent.cs" />
@@ -173,6 +175,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Features\Organizations\Membership.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Membership.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Organizations\MembershipSteps.cs" />
+    <Compile Include="Features\Organizations\MembersSteps.cs" />
     <Compile Include="Features\Status\Status.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -290,6 +299,10 @@
     <None Include="Features\Organizations\Establish.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Establish.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Organizations\Membership.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Membership.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Status\Status.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
