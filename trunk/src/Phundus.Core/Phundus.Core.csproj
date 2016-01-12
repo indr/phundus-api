@@ -146,7 +146,6 @@
     <Compile Include="IdentityAccess\Queries\IMembershipQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IOrganizationQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IRelationshipQueries.cs" />
-    <Compile Include="IdentityAccess\Queries\QueryModels\UserView.cs" />
     <Compile Include="IdentityAccess\Queries\QueryModels\UserViewRow.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModel.designer.cs">
       <AutoGen>True</AutoGen>
