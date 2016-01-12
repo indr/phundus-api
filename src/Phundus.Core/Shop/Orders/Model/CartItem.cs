@@ -1,12 +1,20 @@
 namespace Phundus.Core.Shop.Orders.Model
 {
     using System;
+    using Common.Domain.Model;
     using Ddd;
     using Pricing.Model;
 
     public class CartItem : EntityBase
     {
+        private CartItemId _cartItemId = new CartItemId();
         public virtual Cart Cart { get; set; }
+
+        public virtual CartItemId CartItemId
+        {
+            get { return _cartItemId; }
+            protected set { _cartItemId = value; }
+        }
 
         public virtual Article Article { get; set; }
 

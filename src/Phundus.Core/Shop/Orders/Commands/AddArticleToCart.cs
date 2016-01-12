@@ -26,7 +26,7 @@
         public DateTime FromUtc { get; protected set; }
         public DateTime ToUtc { get; protected set; }
         public int Quantity { get; protected set; }
-        public int ResultingCartItemId { get; set; }
+        public CartItemId ResultingCartItemId { get; set; }
     }
 
     public class AddArticleToCartHandler : IHandleCommand<AddArticleToCart>

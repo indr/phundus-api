@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Specs.ContentTypes
 {
+    using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
 
@@ -16,6 +17,6 @@
     public class UserCartItemsPostOkResponseContent
     {
         [JsonProperty("cartItemId")]
-        public int CartItemId { get; set; }
+        public Guid CartItemId { get; set; }
     }
 }

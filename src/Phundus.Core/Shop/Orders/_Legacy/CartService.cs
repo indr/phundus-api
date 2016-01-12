@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Orders
 {
+    using System;
     using System.Linq;
     using Commands;
     using Common;
@@ -83,7 +84,7 @@
             return assembler.CreateDto(cart);
         }
 
-        public CartDto RemoveItem(int userId, int itemId, int version)
+        public CartDto RemoveItem(int userId, CartItemId itemId, int version)
         {
             var cart = Carts.FindByUserId(new UserId(userId));
 

@@ -118,6 +118,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shop\Commands\AddArticleToCartHandlerSpecs.cs" />
     <Compile Include="Shop\Commands\RemoveCartItemHandlerSpecs.cs" />
+    <Compile Include="Shop\Model\CartSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\AddOrderItemHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\CloseOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\ConfirmOrderHandlerSpecs.cs" />

@@ -1,8 +1,10 @@
 ﻿namespace Phundus.Web.Controllers
 {
+    using System;
     using System.Web.Mvc;
     using Castle.Transactions;
     using Common;
+    using Common.Domain.Model;
     using Core;
     using Core.IdentityAndAccess.Queries;
     using Core.Shop.Orders;
@@ -44,12 +46,12 @@
         }
 
         [Transaction]
-        public virtual ActionResult Remove(int id, int version)
+        public virtual ActionResult Remove(Guid id, int version)
         {
             CartDto cartDto;
             try
             {
-                cartDto = CartService.RemoveItem(CurrentUserId, id, version);
+                cartDto = CartService.RemoveItem(CurrentUserId, new CartItemId(id), version);
             }
                 // Nicht besonders RESTful...
             catch (NotFoundException)

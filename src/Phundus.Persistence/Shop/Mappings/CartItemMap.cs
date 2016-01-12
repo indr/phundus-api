@@ -11,6 +11,7 @@
 
             Table("Dm_Shop_CartItem");
             Id(x => x.Id).GeneratedBy.HiLo("100");
+            Component(x => x.CartItemId, a => a.Map(x => x.Id, "CartItemId"));
             Version(x => x.Version);
 
             References(x => x.Cart, "CartId");

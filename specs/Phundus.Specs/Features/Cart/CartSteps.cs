@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Specs.Features.Cart
 {
+    using System;
     using ContentTypes;
     using NUnit.Framework;
     using Services;
@@ -10,7 +11,7 @@
     public class CartSteps : StepsBase
     {
         private UsersCartGetOkResponseContent _cart;
-        private int _cartItemId;
+        private Guid _cartItemId;
 
         public CartSteps(App app, Ctx ctx) : base(app, ctx)
         {
