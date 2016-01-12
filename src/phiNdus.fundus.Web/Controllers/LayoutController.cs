@@ -24,11 +24,14 @@
                 return PartialView("_NavBar", model);
 
             if (user.ProviderUserKey != null)
-                model.UserId = new ProviderUserKey(user.ProviderUserKey).UserId.Id.ToString(CultureInfo.InvariantCulture);
+            {
+                var providerUserKey = new ProviderUserKey(user.ProviderUserKey);
+                model.UserId = providerUserKey.UserId.Id.ToString(CultureInfo.InvariantCulture);
 
-            foreach (var each in MembershipQueries.ByUserId(Convert.ToInt32(user.ProviderUserKey)))
-            {                
-                model.Memberships.Add(each);
+                foreach (var each in MembershipQueries.ByUserId(providerUserKey.UserId.Id))
+                {
+                    model.Memberships.Add(each);
+                }
             }
 
             return PartialView("_NavBar", model);
