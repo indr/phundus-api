@@ -7,6 +7,7 @@
     using Common;
     using Common.Domain.Model;
     using IdentityAndAccess.Queries;
+    using Integration.IdentityAccess;
     using Inventory.Services;
     using Phundus.Shop.Queries;
 

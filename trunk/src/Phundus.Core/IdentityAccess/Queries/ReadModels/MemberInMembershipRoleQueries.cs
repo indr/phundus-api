@@ -5,6 +5,7 @@ namespace Phundus.Core.IdentityAndAccess.Queries
     using Common;
     using Common.Domain.Model;
     using Cqrs;
+    using Integration.IdentityAccess;
     using Organizations.Model;
     using Organizations.Repositories;
 

@@ -12,6 +12,7 @@
     using Phundus.Core.IdentityAndAccess.Users.Exceptions;
     using Phundus.Core.IdentityAndAccess.Users.Repositories;
     using Phundus.Core.IdentityAndAccess.Users.Services;
+    using Phundus.Integration.IdentityAccess;
 
     public class CustomMembershipProvider : MembershipProvider
     {
@@ -255,7 +256,7 @@
             throw new NotSupportedException();
         }
 
-        private MembershipUser ConvertToExternal(UserDto user)
+        private MembershipUser ConvertToExternal(IUser user)
         {
             return new MembershipUser(Name, user.Email, user.Id, user.Email, null, null, user.IsApproved,
                 user.IsLockedOut, user.CreateDate, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue,

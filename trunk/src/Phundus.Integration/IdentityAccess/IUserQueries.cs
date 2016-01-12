@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Queries
+﻿namespace Phundus.Integration.IdentityAccess
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,7 @@
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        UserDto GetById(int id);
+        IUser GetById(int id);
 
         /// <summary>
         /// 
@@ -21,14 +21,14 @@
         /// <param name="userId"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        UserDto GetById(UserId userId);
+        IUser GetById(UserId userId);
 
-        UserDto FindById(int userId);
-        UserDto FindById(Guid userId);
+        IUser FindById(int userId);
+        IUser FindById(Guid userId);
 
-        UserDto FindByUsername(string username);
-        IList<UserDto> All();
-        UserDto FindActiveById(Guid userId);
+        IUser FindByUsername(string username);
+        IList<IUser> Query();
+        IUser FindActiveById(Guid userId);
 
 
         bool IsEmailAddressTaken(string emailAddress);

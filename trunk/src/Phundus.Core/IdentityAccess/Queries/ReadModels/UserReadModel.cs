@@ -5,6 +5,7 @@
     using Common;
     using Common.Domain.Model;
     using Infrastructure;
+    using Integration.IdentityAccess;
     using Users.Model;
     using Users.Repositories;
 
@@ -12,41 +13,41 @@
     {
         public IUserRepository UserRepository { get; set; }
 
-        public UserDto GetById(int id)
+        public IUser GetById(int id)
         {
             return GetById(new UserId(id));
         }
 
-        public UserDto GetById(UserId userId)
+        public IUser GetById(UserId userId)
         {
             AssertionConcern.AssertArgumentNotNull(userId, "UserId must be provided.");
 
             return CreateDto(UserRepository.GetById(userId.Id));
         }
 
-        public UserDto FindById(int userId)
+        public IUser FindById(int userId)
         {
             return CreateDto(UserRepository.FindById(userId));
         }
 
-        public UserDto FindById(Guid userId)
+        public IUser FindById(Guid userId)
         {
             return CreateDto(UserRepository.FindByGuid(userId));
         }
 
-        public UserDto FindByUsername(string username)
+        public IUser FindByUsername(string username)
         {
             if (username == null) throw new ArgumentNullException("username");
 
             return CreateDto(UserRepository.FindByEmailAddress(username));
         }
 
-        public IList<UserDto> All()
+        public IList<IUser> All()
         {
             return CreateDtos(UserRepository.FindAll());
         }
 
-        public UserDto FindActiveById(Guid userId)
+        public IUser FindActiveById(Guid userId)
         {
             return CreateDto(UserRepository.FindActiveByGuid(userId));
         }
@@ -57,16 +58,17 @@
             return user != null;
         }
 
-        public UserDto CreateDto(User subject)
+        public IUser CreateDto(User subject)
         {
-            if (subject == null)
-                return null;
-            return WriteDto(subject);
+            throw new NotImplementedException();
+            //if (subject == null)
+            //    return null;
+            //return WriteDto(subject);
         }
 
-        public UserDto[] CreateDtos(IEnumerable<User> subjects)
+        public IUser[] CreateDtos(IEnumerable<User> subjects)
         {
-            var result = new List<UserDto>();
+            var result = new List<IUser>();
             foreach (var each in subjects)
             {
                 result.Add(CreateDto(each));
@@ -74,38 +76,37 @@
             return result.ToArray();
         }
 
-        private static UserDto WriteDto(User subject)
-        {
-            Guard.Against<ArgumentNullException>(subject == null, "subject");
-            var result = new UserDto();
-            result.Id = subject.Id;
-            result.Guid = subject.Guid;
-            result.Version = subject.Version;
-            result.FirstName = subject.FirstName;
-            result.LastName = subject.LastName;
-            result.Email = subject.Account.Email;
-            result.JsNumber = subject.JsNumber;
-            result.RoleId = (int) subject.Role;
-            result.RoleName = subject.Role.ToString();
-            return WriteDtoMembership(subject.Account, result);
-        }
+        //private static UserDto WriteDto(User subject)
+        //{
+        //    Guard.Against<ArgumentNullException>(subject == null, "subject");
+        //    var result = new UserDto();
+        //    result.Id = subject.Id;
+        //    result.Guid = subject.Guid;
+        //    result.Version = subject.Version;
+        //    result.FirstName = subject.FirstName;
+        //    result.LastName = subject.LastName;
+        //    result.Email = subject.Account.Email;
+        //    result.JsNumber = subject.JsNumber;
+        //    result.RoleId = (int) subject.Role;
+        //    result.RoleName = subject.Role.ToString();
+        //    return WriteDtoMembership(subject.Account, result);
+        //}
 
-        private static UserDto WriteDtoMembership(Account subject, UserDto result)
-        {
-            // TODO: Bei der Registrierung scheint noch ein Bug zu sein, da irgendwie ein Benutzer- aber kein Membership-Datensatz angelegt wird...
-            if (subject == null)
-            {
-                result.IsApproved = false;
-                result.IsLockedOut = true;
-                return result;
-            }
-            Guard.Against<ArgumentNullException>(subject == null, "subject");
-            result.Email = subject.Email;
-            result.CreateDate = subject.CreateDate;
-            result.IsApproved = subject.IsApproved;
-            result.IsLockedOut = subject.IsLockedOut;
-            return result;
-        }
-
+        //private static UserDto WriteDtoMembership(Account subject, UserDto result)
+        //{
+        //    // TODO: Bei der Registrierung scheint noch ein Bug zu sein, da irgendwie ein Benutzer- aber kein Membership-Datensatz angelegt wird...
+        //    if (subject == null)
+        //    {
+        //        result.IsApproved = false;
+        //        result.IsLockedOut = true;
+        //        return result;
+        //    }
+        //    Guard.Against<ArgumentNullException>(subject == null, "subject");
+        //    result.Email = subject.Email;
+        //    result.CreateDate = subject.CreateDate;
+        //    result.IsApproved = subject.IsApproved;
+        //    result.IsLockedOut = subject.IsLockedOut;
+        //    return result;
+        //}
     }
 }

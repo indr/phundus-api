@@ -4,6 +4,7 @@
     using Common;
     using Common.Domain.Model;
     using IdentityAndAccess.Queries;
+    using Integration.IdentityAccess;
     using Owners;
 
     public interface IOwnerService
@@ -96,7 +97,7 @@
             return new Owner(new OwnerId(organization.Guid), organization.Name);
         }
 
-        private static Owner ToOwner(UserDto user)
+        private static Owner ToOwner(IUser user)
         {
             return new Owner(new OwnerId(user.Guid), user.FirstName + " " + user.LastName);
         }

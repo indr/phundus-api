@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Castle.Transactions;
     using Cqrs;
+    using Integration.IdentityAccess;
     using NHibernate.Transform;
     using Organizations.Model;
     using Users.Model;
@@ -42,7 +43,7 @@
         }
 
         private static MembershipApplicationDto ToMembershipApplicationDto(MembershipApplication membershipApplication,
-            UserDto user)
+            IUser user)
         {
             return new MembershipApplicationDto
             {
