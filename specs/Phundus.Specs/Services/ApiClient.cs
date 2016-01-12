@@ -70,6 +70,11 @@
             get { return Resource("status"); }
         }
 
+        public Resource UserCartApi
+        {
+            get { return Resource("users/{userGuid}/cart"); }
+        }
+
         private static Resource Resource(string url)
         {
             return new Resource(url);

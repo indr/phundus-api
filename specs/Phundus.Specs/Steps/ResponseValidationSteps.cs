@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Specs.Steps
 {
     using System.Net;
+    using Machine.Specifications;
     using NUnit.Framework;
     using Services;
     using TechTalk.SpecFlow;
@@ -30,5 +31,10 @@
             Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
         }
 
+        [Then(@"I should see message ""(.*)""")]
+        public void ThenIShouldSeeMessage(string text)
+        {
+            Assert.That(App.LastResponse.Message, Is.EqualTo(text));
+        }
     }
 }

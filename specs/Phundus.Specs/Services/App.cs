@@ -268,6 +268,14 @@
             AssertHttpStatus(HttpStatusCode.OK, response);
             return response.Data;
         }
+
+        public UsersCartGetOkResponseContent GetCart(User user)
+        {
+            var response = _apiClient.UserCartApi.Get<UsersCartGetOkResponseContent>(new {userGuid = user.Guid});
+            AssertHttpStatus(HttpStatusCode.OK, response);
+            SetLastResponse(response);
+            return response.Data;
+        }
     }
 
     public class Response
