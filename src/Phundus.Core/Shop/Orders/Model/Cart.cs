@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Common.Domain.Model;
     using Ddd;
-    using IdentityAndAccess.Users.Model;
     using Iesi.Collections.Generic;
     using Inventory.Services;
     using Repositories;
@@ -12,22 +12,16 @@
 
     public class Cart : EntityBase
     {
-        private User _customer;
+        private int _customerId;
         private Iesi.Collections.Generic.ISet<CartItem> _items = new HashedSet<CartItem>();
 
-        public Cart()
+        public Cart(UserId userId)
         {
+            _customerId = userId.Id;
         }
 
-        public Cart(User customer)
+        protected Cart()
         {
-            _customer = customer;
-        }
-
-        public virtual User Customer
-        {
-            get { return _customer; }
-            set { _customer = value; }
         }
 
         public virtual Iesi.Collections.Generic.ISet<CartItem> Items
@@ -43,8 +37,10 @@
 
         public virtual int CustomerId
         {
-            get { return Customer.Id; }
+            get { return _customerId; }
+            protected set { _customerId = value; }
         }
+
 
         public virtual void AddItem(Article article, int quantity, DateTime @from, DateTime to)
         {
@@ -83,7 +79,7 @@
         {
             var result = new List<Order>();
             var lessors = FindLessors(lessorService);
-            var borrower = lesseeService.GetById(Customer.Id);
+            var borrower = lesseeService.GetById(CustomerId);
 
             foreach (var lessor in lessors)
             {

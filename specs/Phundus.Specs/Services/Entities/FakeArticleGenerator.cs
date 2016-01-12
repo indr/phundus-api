@@ -1,6 +1,8 @@
 namespace Phundus.Specs.Services.Entities
 {
+    using System;
     using Assets;
+    using ContentTypes;
     using TechTalk.SpecFlow;
 
     /// <summary>
@@ -13,23 +15,17 @@ namespace Phundus.Specs.Services.Entities
         {
         }
 
-        public FakeArticle NextArticle()
+        public Article NextArticle()
         {
             var record = GetNextRecord();
-            var grossStock = Random.Next(0, 100);
-            return new FakeArticle(record.Name, grossStock);
+            var grossStock = Random.Next(1, 100);
+            var price = Convert.ToDecimal(Random.NextDouble()*1000);
+            return new Article
+            {
+                Name = record.Name,
+                GrossStock = grossStock,
+                Price = price
+            };
         }
-    }
-
-    public class FakeArticle
-    {
-        public FakeArticle(string name, int grossStock)
-        {
-            Name = name;
-            GrossStock = grossStock;
-        }
-
-        public string Name { get; set; }
-        public int GrossStock { get; set; }
     }
 }

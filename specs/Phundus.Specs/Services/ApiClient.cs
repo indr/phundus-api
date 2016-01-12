@@ -72,7 +72,12 @@
 
         public Resource UserCartApi
         {
-            get { return Resource("users/{userGuid}/cart"); }
+            get { return Resource("users/{userId}/cart"); }
+        }
+
+        public Resource UserCartItemsApi
+        {
+            get { return Resource("users/{userId}/cart/items"); }
         }
 
         public Resource OrganizationsApplicationsApi

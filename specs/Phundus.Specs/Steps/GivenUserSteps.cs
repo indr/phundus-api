@@ -27,7 +27,7 @@
         {
             string emailAddress = null;
             if (emailKey != null)
-                Ctx.Emails.TryGetValue(emailKey, out emailAddress);
+                Ctx.EmailAddresses.TryGetValue(emailKey, out emailAddress);
             var user = App.SignUpUser(emailAddress);
             App.ConfirmUser(user.Guid);
 
@@ -35,7 +35,7 @@
             if (userKey != null)
                 Ctx.Users[userKey] = user;
             if (emailKey != null)
-                Ctx.Emails[emailKey] = user.EmailAddress;
+                Ctx.EmailAddresses[emailKey] = user.EmailAddress;
         }
     }
 }

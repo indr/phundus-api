@@ -153,6 +153,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserCreateArticle.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Cart\CartItems.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CartItems.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Cart\CartSteps.cs" />
     <Compile Include="Features\Cart\EmptyCart.feature.cs">
       <AutoGen>True</AutoGen>
@@ -175,10 +180,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Features\Organizations\Membership.feature.cs">
+    <Compile Include="Features\Organizations\Application.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Membership.feature</DependentUpon>
+      <DependentUpon>Application.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Organizations\MembershipSteps.cs" />
     <Compile Include="Features\Organizations\MembersSteps.cs" />
@@ -277,6 +282,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>UserCreateArticle.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\Cart\CartItems.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CartItems.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Cart\EmptyCart.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EmptyCart.feature.cs</LastGenOutput>
@@ -300,9 +309,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Establish.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Organizations\Membership.feature">
+    <None Include="Features\Organizations\Application.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Membership.feature.cs</LastGenOutput>
+      <LastGenOutput>Application.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Status\Status.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

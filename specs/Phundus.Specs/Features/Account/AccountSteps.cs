@@ -39,9 +39,9 @@
         public void GivenIChangedEmailAddressTo(string emailKey)
         {
             var user = Ctx.User;
-            if (!Ctx.Emails.ContainsAlias(emailKey))
-                Ctx.Emails[emailKey] = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
-            var emailAddress = Ctx.Emails[emailKey];
+            if (!Ctx.EmailAddresses.ContainsAlias(emailKey))
+                Ctx.EmailAddresses[emailKey] = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
+            var emailAddress = Ctx.EmailAddresses[emailKey];
             ChangeEmailAddress(user, emailAddress);
         }
 
@@ -121,7 +121,7 @@
         public void WhenITryToChangeMyEmailAddressTo(string emailKey)
         {
             var user = Ctx.User;
-            var emailAddress = Ctx.Emails[emailKey];
+            var emailAddress = Ctx.EmailAddresses[emailKey];
 
             ChangeEmailAddress(user, emailAddress, false);
         }

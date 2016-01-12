@@ -13,7 +13,7 @@
         [Transaction]
         public virtual HttpResponseMessage Delete()
         {
-            Dispatcher.Dispatch(new ClearCart {InitiatorId = CurrentUserId.Id});
+            Dispatcher.Dispatch(new ClearCart(CurrentUserId));
 
             return NoContent();
         }

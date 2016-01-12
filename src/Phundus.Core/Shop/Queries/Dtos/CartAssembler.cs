@@ -19,7 +19,7 @@
             var result = new CartDto();
             result.Id = cart.Id;
             result.Version = cart.Version;
-            result.CustomerId = cart.Customer.Id;
+            result.CustomerId = cart.CustomerId;
             result.AreItemsAvailable = cart.AreItemsAvailable;
             foreach (var each in cart.Items)
             {

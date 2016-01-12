@@ -20,8 +20,8 @@
             comment = comment.Replace("{AppSettings.ServerUrl}", ConfigurationManager.AppSettings["ServerUrl"]);
             comment = comment.Replace("{Assembly.Version}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
-            Ctx.AnonEmailAddress = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
-            App.SendFeedback(Ctx.AnonEmailAddress, comment);
+            Ctx.EmailAddress = Guid.NewGuid().ToString("N").Substring(0, 8) + "@test.phundus.ch";
+            App.SendFeedback(Ctx.EmailAddress, comment);
         }
 
     }
