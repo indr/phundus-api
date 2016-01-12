@@ -93,6 +93,12 @@
             Ctx.LoggedIn = App.LogIn(user.Username, user.Password, false);
         }
 
+        [When(@"I try to login with an unknown username")]
+        public void WhenITryToLoginWithAnUnknownUsername()
+        {
+            Ctx.LoggedIn = App.LogIn("unknown@domain.com", "1234", false);
+        }
+
         [When(@"I try to reset user's password")]
         public void WhenITryToResetPasswordUserSPassword()
         {
@@ -151,6 +157,8 @@
         [Then(@"I should not be logged in")]
         public void ThenIShouldNotBeLoggedIn()
         {
+            if (Ctx.User == null)
+                return;
             Assert.That(Ctx.LoggedIn, Is.Not.EqualTo(Ctx.User.Guid));
         }
 

@@ -106,6 +106,7 @@
     <Compile Include="ContentTypes\AdminUsersContentTypes.cs" />
     <Compile Include="ContentTypes\ArticlesContentTypes.cs" />
     <Compile Include="ContentTypes\AccountContentTypes.cs" />
+    <Compile Include="ContentTypes\CartsContentTypes.cs" />
     <Compile Include="ContentTypes\FeedbackPostRequestContent.cs" />
     <Compile Include="ContentTypes\MailsContentTypes.cs" />
     <Compile Include="ContentTypes\OrganizationsContentTypes.cs" />
@@ -149,6 +150,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UserCreateArticle.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Cart\CartSteps.cs" />
+    <Compile Include="Features\Cart\EmptyCart.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmptyCart.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Feedback\Feedback.feature.cs">
       <AutoGen>True</AutoGen>
@@ -260,6 +267,10 @@
     <None Include="Features\Articles\UserCreateArticle.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>UserCreateArticle.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Cart\EmptyCart.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>EmptyCart.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Feedback\Feedback.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
