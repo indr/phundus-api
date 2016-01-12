@@ -4,19 +4,24 @@
     using Castle.Transactions;
     using Cqrs;
     using IdentityAccess.Users.Repositories;
-    using Queries;
     using Repositories;
 
     public class ApplyForMembership
     {
-        public int ApplicantId { get; set; }
-        public Guid OrganizationId { get; set; }
+        public ApplyForMembership(Guid applicationId, int applicantId, Guid organizationId)
+        {
+            ApplicationId = applicationId;
+            ApplicantId = applicantId;
+            OrganizationId = organizationId;
+        }
+
+        public Guid ApplicationId { get; protected set; }
+        public int ApplicantId { get; protected set; }
+        public Guid OrganizationId { get; protected set; }
     }
 
     public class ApplyForMembershipHandler : IHandleCommand<ApplyForMembership>
     {
-        public IMembershipApplicationQueries ReadModel { get; set; }
-
         public IOrganizationRepository OrganizationRepository { get; set; }
 
         public IUserRepository UserRepository { get; set; }
@@ -30,7 +35,7 @@
 
             var user = UserRepository.GetById(command.ApplicantId);
 
-            var request = organization.RequestMembership(Guid.NewGuid(), user);
+            var request = organization.RequestMembership(command.ApplicationId, user);
 
             Requests.Add(request);
         }

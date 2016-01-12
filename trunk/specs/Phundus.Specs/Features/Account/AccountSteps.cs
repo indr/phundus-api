@@ -45,7 +45,6 @@
             ChangeEmailAddress(user, emailAddress);
         }
 
-
         [Given(@"I signed up and confirmed my email address")]
         public void GivenISignedUpAndConfirmedMyEmailAddress()
         {

@@ -52,11 +52,8 @@ namespace Phundus.Rest.Api
 
             if (requestContent.OrganizationId.HasValue)
             {
-                Dispatcher.Dispatch(new ApplyForMembership
-                {
-                    ApplicantId = command.ResultingUserId,
-                    OrganizationId = requestContent.OrganizationId.Value
-                });
+                Dispatcher.Dispatch(new ApplyForMembership(Guid.NewGuid(), command.ResultingUserId,
+                    requestContent.OrganizationId.Value));
             }
 
             return new UsersPostOkResponseContent {UserId = command.ResultingUserId, UserGuid = command.ResultingUserGuid};

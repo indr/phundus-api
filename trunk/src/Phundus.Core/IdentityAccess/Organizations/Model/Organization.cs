@@ -78,9 +78,9 @@
 
         public virtual string DocTemplateFileName { get; set; }
 
-        public virtual MembershipApplication RequestMembership(Guid requestId, User user)
+        public virtual MembershipApplication RequestMembership(Guid applicationId, User user)
         {
-            var request = new MembershipApplication(requestId, Id, user);
+            var request = new MembershipApplication(applicationId, Id, user);
 
             EventPublisher.Publish(new MembershipApplicationFiled(Id, user.Id));
 

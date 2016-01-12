@@ -17,18 +17,31 @@
         {
         }
 
+        [Given(@"an organization")]
+        public void GivenAnOrganization()
+        {
+            GivenAnOrganization("");
+        }
+
+        [Given(@"an organization ""(.*)""")]
+        public void GivenAnOrganization(string organizationKey)
+        {
+            App.LogInAsRoot();
+            var organization = App.EstablishOrganization();
+            Ctx.Organizations[organizationKey] = organization;
+            App.DeleteSessionCookies();
+        }
+        
         [Given(@"I established an organization")]
         public void GivenIEstablishedAnOrganization()
         {
-            var organization = App.EstablishOrganization();
-            Ctx.Organization = organization;
+            Ctx.Organization = App.EstablishOrganization();
         }
 
         [When(@"I try to establish an organization")]
         public void WhenITryToEstablishAnOrganization()
         {
-            var organization = App.EstablishOrganization(false);
-            Ctx.Organization = organization;
+            Ctx.Organization = App.EstablishOrganization(false);
         }
 
         [When(@"I try to get the organization details")]

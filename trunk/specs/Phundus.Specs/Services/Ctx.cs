@@ -9,8 +9,8 @@
 
     public class Aliases<T>
     {
-        private readonly IDictionary<string, T> _collection = new Dictionary<string, T>(); 
-        
+        private readonly IDictionary<string, T> _collection = new Dictionary<string, T>();
+
         public T this[string alias]
         {
             get
@@ -24,7 +24,8 @@
             }
             set
             {
-                Debug.WriteLine("Aliased {0} to {1}.", alias, value.ToString());
+                if (alias != "")
+                    Debug.WriteLine("Aliased {0} to {1}.", alias, value);
                 _collection[alias] = value;
             }
         }
@@ -49,20 +50,8 @@
     public class Ctx
     {
         private readonly Aliases<string> _emails = new Aliases<string>();
+        private readonly Aliases<Organization> _organizations = new Aliases<Organization>();
         private readonly Aliases<User> _users = new Aliases<User>();
-            
-        [BeforeScenario]
-        public void BeforeScenario()
-        {
-            User = null;
-            Users.Clear();
-            Organization = null;
-            AnonEmailAddress = null;
-            LoggedIn = Guid.Empty;
-            ValidationKey = null;
-            Emails.Clear();
-            Store = null;
-        }
 
         public User User { get; set; }
 
@@ -76,7 +65,16 @@
             get { return _emails; }
         }
 
-        public Organization Organization { get; set; }
+        public Aliases<Organization> Organizations
+        {
+            get { return _organizations; }
+        }
+
+        public Organization Organization
+        {
+            get { return _organizations[""]; }
+            set { _organizations[""] = value; }
+        }
 
         /// <summary>
         /// Email address used by anonymous user
@@ -87,5 +85,19 @@
 
         public string ValidationKey { get; set; }
         public Guid? Store { get; set; }
+
+        [BeforeScenario]
+        public void BeforeScenario()
+        {
+            User = null;
+            Users.Clear();
+            Organization = null;
+            AnonEmailAddress = null;
+            LoggedIn = Guid.Empty;
+            ValidationKey = null;
+            Emails.Clear();
+            Organizations.Clear();
+            Store = null;
+        }
     }
 }
