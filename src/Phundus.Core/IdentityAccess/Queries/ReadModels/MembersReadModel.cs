@@ -54,11 +54,11 @@
 
                 result.Add(new MemberDto
                 {
-                    Id = user.Id,
-                    Guid = user.Guid,
-                    EmailAddress = user.Email,
+                    Id = user.UserId,
+                    Guid = user.UserGuid,
+                    EmailAddress = user.EmailAddress,
                     FirstName = user.FirstName,
-                    JsNumber = user.JsNumber,
+                    JsNumber = user.JsNummer,
                     LastName = user.LastName,
                     ApprovalDate = each.ApprovedOn,
                     Role = each.MembershipRole == "Chief" ? 2 : 1,

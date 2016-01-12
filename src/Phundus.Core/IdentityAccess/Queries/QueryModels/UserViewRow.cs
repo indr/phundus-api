@@ -1,8 +1,10 @@
 ﻿namespace Phundus.IdentityAccess.Queries.QueryModels
 {
     using System;
+    using Common.Domain.Model;
+    using Integration.IdentityAccess;
 
-    public class UserViewRow
+    public class UserViewRow : IUser
     {
         public virtual int UserId { get; set; }
         public virtual Guid UserGuid { get; set; }
@@ -13,6 +15,18 @@
         }
 
         public virtual int RoleId { get; set; }
+
+        public virtual string RoleName
+        {
+            get
+            {
+                if (RoleId == (int) UserRole.Admin)
+                    return "Admin";
+                if (RoleId == (int) UserRole.User)
+                    return "User";
+                return null;
+            }
+        }
 
         public virtual string EmailAddress { get; set; }
         public virtual string FirstName { get; set; }

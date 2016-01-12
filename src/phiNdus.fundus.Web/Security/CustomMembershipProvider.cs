@@ -258,8 +258,8 @@
 
         private MembershipUser ConvertToExternal(IUser user)
         {
-            return new MembershipUser(Name, user.Email, user.Id, user.Email, null, null, user.IsApproved,
-                user.IsLockedOut, user.CreateDate, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue,
+            return new MembershipUser(Name, user.EmailAddress, user.UserId, user.EmailAddress, null, null, user.IsApproved,
+                user.IsLockedOut, user.SignedUpAtUtc, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue,
                 DateTime.MinValue);
         }
     }

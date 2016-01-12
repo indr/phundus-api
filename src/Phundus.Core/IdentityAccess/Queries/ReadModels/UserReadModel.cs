@@ -42,7 +42,7 @@
             return CreateDto(UserRepository.FindByEmailAddress(username));
         }
 
-        public IList<IUser> All()
+        public IList<IUser> Query()
         {
             return CreateDtos(UserRepository.FindAll());
         }

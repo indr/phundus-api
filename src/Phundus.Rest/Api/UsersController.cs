@@ -67,11 +67,11 @@ namespace Phundus.Rest.Api
         public virtual UsersGetOkResponseContent Get(int userId)
         {
             var user = _userQueries.GetById(userId);
-            if ((user == null) || (user.Id != CurrentUserId.Id))
+            if ((user == null) || (user.UserId != CurrentUserId.Id))
                 throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
 
-            var memberships = _membershipQueries.ByUserId(user.Id);
-            var store = _storeQueries.FindByOwnerId(new OwnerId(user.Guid));
+            var memberships = _membershipQueries.ByUserId(user.UserId);
+            var store = _storeQueries.FindByOwnerId(new OwnerId(user.UserGuid));
 
             return new UsersGetOkResponseContent(user, memberships, store);
         }
@@ -126,11 +126,11 @@ namespace Phundus.Rest.Api
 
         public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipDto> memberships, StoreDto store)
         {
-            UserId = user.Id.ToString(CultureInfo.InvariantCulture);
-            UserGuid = user.Guid;
-            Username = user.Email;
+            UserId = user.UserId.ToString(CultureInfo.InvariantCulture);
+            UserGuid = user.UserGuid;
+            Username = user.EmailAddress;
             FullName = user.FirstName + " " + user.LastName;
-            EmailAddress = user.Email;
+            EmailAddress = user.EmailAddress;
 
             Memberships = new List<Memberships>();
             foreach (var each in memberships)

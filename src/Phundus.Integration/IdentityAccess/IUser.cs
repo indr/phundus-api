@@ -4,15 +4,15 @@
 
     public interface IUser
     {
-        int Id { get; }
-        Guid Guid { get; }
-        int Version { get; }
-        int? JsNumber { get; }
+        int UserId { get; }
+        Guid UserGuid { get; }
+       
+        int? JsNummer { get; }
         string FirstName { get; }
         string LastName { get; }
-        string Email { get; }
+        string EmailAddress { get; }
         bool IsApproved { get; }
-        DateTime CreateDate { get; }
+        DateTime SignedUpAtUtc { get; }
         int RoleId { get; }
         string RoleName { get; }
         bool IsLockedOut { get; }

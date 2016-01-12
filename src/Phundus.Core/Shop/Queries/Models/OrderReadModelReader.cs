@@ -65,11 +65,11 @@
         {
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
 
-            var currentUserGuid = _userQueries.GetById(currentUserId).Guid;
+            var currentUserGuid = _userQueries.GetById(currentUserId).UserGuid;
             var queryUserGuid = (Guid?) null;
             if (queryUserId.HasValue)
             {
-                queryUserGuid = _userQueries.GetById(queryUserId.Value).Guid;
+                queryUserGuid = _userQueries.GetById(queryUserId.Value).UserGuid;
             }
 
             var currentUsersManagerGuids =
