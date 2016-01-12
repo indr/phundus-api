@@ -1,8 +1,10 @@
 ﻿namespace Phundus.Web.Controllers
 {
     using System;
+    using System.Globalization;
     using System.Web.Mvc;
     using Castle.Transactions;
+    using Common;
     using Core.IdentityAndAccess.Queries;
     using phiNdus.fundus.Web.ViewModels.Layout;
 
@@ -22,7 +24,7 @@
                 return PartialView("_NavBar", model);
 
             if (user.ProviderUserKey != null)
-                model.UserId = user.ProviderUserKey.ToString();
+                model.UserId = new ProviderUserKey(user.ProviderUserKey).UserId.Id.ToString(CultureInfo.InvariantCulture);
 
             foreach (var each in MembershipQueries.ByUserId(Convert.ToInt32(user.ProviderUserKey)))
             {                

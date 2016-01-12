@@ -6,6 +6,7 @@ namespace Phundus.Web.Controllers
     using System.Security.Principal;
     using System.Web.Mvc;
     using System.Web.Security;
+    using Common;
     using Core.Cqrs;
     using NHibernate;
 
@@ -25,8 +26,8 @@ namespace Phundus.Web.Controllers
                 if (user == null)
                     throw new AuthenticationException();
 
-                var userId = user.ProviderUserKey;
-                return Convert.ToInt32(userId);
+                var userKey = new ProviderUserKey(user.ProviderUserKey);
+                return userKey.UserId.Id;
             }
         }
 
