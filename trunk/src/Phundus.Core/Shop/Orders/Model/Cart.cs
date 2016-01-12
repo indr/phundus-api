@@ -42,7 +42,7 @@
         }
 
 
-        public virtual void AddItem(Article article, int quantity, DateTime @from, DateTime to)
+        public virtual int AddItem(Article article, DateTime @from, DateTime to, int quantity)
         {
             var item = new CartItem();
             item.Article = article;
@@ -51,6 +51,7 @@
             item.To = to;
 
             AddItem(item);
+            return item.Id;
         }
 
         protected virtual void AddItem(CartItem item)
@@ -59,7 +60,15 @@
             item.Cart = this;
         }
 
-        public virtual void RemoveItem(CartItem item)
+        public virtual void RemoveItem(int cartItemId)
+        {
+            var item = Items.SingleOrDefault(p => p.Id == cartItemId);
+            if (item == null)
+                return;
+            RemoveItem(item);
+        }
+
+        protected virtual void RemoveItem(CartItem item)
         {
             item.Cart = null;
             Items.Remove(item);

@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Core.Shop.Orders.Commands
 {
     using System;
-    using System.Security;
     using Common.Domain.Model;
     using Cqrs;
     using IdentityAndAccess.Queries;
@@ -27,6 +26,7 @@
         public DateTime FromUtc { get; protected set; }
         public DateTime ToUtc { get; protected set; }
         public int Quantity { get; protected set; }
+        public int ResultingCartItemId { get; set; }
     }
 
     public class AddArticleToCartHandler : IHandleCommand<AddArticleToCart>
@@ -49,7 +49,9 @@
                 cart = new Cart(command.InitiatorId);
                 CartRepository.Add(cart);
             }
-            cart.AddItem(article, command.Quantity, command.FromUtc, command.ToUtc);
+            var itemId = cart.AddItem(article, command.FromUtc, command.ToUtc, command.Quantity);
+
+            command.ResultingCartItemId = itemId;
         }
     }
 }

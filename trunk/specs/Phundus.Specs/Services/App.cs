@@ -326,10 +326,10 @@
             return response.Data.Results;
         }
 
-        public void AddArticleToCart(User user, Article article)
+        public int AddArticleToCart(User user, Article article)
         {
             var response = _apiClient.UserCartItemsApi
-                .Post(new
+                .Post<UserCartItemsPostOkResponseContent>(new
                 {
                     userId = user.Id,
                     articleId = article.ArticleId,
@@ -337,6 +337,15 @@
                     fromUtc = DateTime.UtcNow,
                     toUtc = DateTime.UtcNow.AddDays(1)
                 });
+            AssertHttpStatus(HttpStatusCode.OK, response);
+            SetLastResponse(response);
+            return response.Data.CartItemId;
+        }
+
+        public void RemoveCartItem(User user, int cartItemId)
+        {
+            var response = _apiClient.UserCartItemsApi
+                .Delete(new {userId = user.Id, itemId = cartItemId});
             AssertHttpStatus(HttpStatusCode.NoContent, response);
             SetLastResponse(response);
         }
