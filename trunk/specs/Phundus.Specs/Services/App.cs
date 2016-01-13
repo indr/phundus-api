@@ -6,8 +6,6 @@
     using System.Net;
     using ContentTypes;
     using Entities;
-    using NUnit.Framework;
-    using RestSharp;
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -27,21 +25,10 @@
             _fakeArticleGenerator = fakeArticleGenerator;
         }
 
-        public Response LastResponse { get; private set; }
-
         [AfterScenario]
         public void DeleteSessionCookies()
         {
             _apiClient.DeleteSessionCookies();
-        }
-
-        private void SetLastResponse(IRestResponse restResponse)
-        {
-            LastResponse = new Response
-            {
-                StatusCode = restResponse.StatusCode,
-                Message = TryGetErrorMessage(restResponse)
-            };
         }
 
         public void LogInAsRoot()
@@ -67,8 +54,7 @@
                     Postcode = user.Postcode,
                     Street = user.Street
                 });
-            AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
+
             user.Id = response.Data.UserId;
             user.Guid = response.Data.UserGuid;
             return user;
@@ -76,112 +62,91 @@
 
         public Guid LogIn(string username, string password = "1234", bool assertStatusCode = true)
         {
-            var response = _apiClient.SessionsApi
+            var response = _apiClient.Assert(assertStatusCode).SessionsApi
                 .Post<SessionsPostOkResponseContent>(new SessionsPostRequestContent
                 {
                     Username = username,
                     Password = password
                 });
-            if (assertStatusCode)
-                AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
             return response.Data.UserGuid;
         }
 
         public void ConfirmUser(Guid userGuid)
         {
             LogInAsRoot();
-            var response = _apiClient.AdminUsersApi
+            _apiClient.AdminUsersApi
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsApproved = true,
                     UserGuid = userGuid
                 });
             DeleteSessionCookies();
-            AssertHttpStatus(HttpStatusCode.NoContent, response);
-            SetLastResponse(response);
         }
 
         public void ChangePassword(Guid userGuid, string oldPasswort, string newPassword)
         {
-            var response = _apiClient.ChangePasswordApi
+            _apiClient.ChangePasswordApi
                 .Post(new ChangePasswordPostRequestContent {OldPassword = oldPasswort, NewPassword = newPassword});
-            AssertHttpStatus(HttpStatusCode.NoContent, response);
-            SetLastResponse(response);
         }
 
         public void ResetPassword(string emailAddress)
         {
-            var response = _apiClient.ResetPasswordApi
+            _apiClient.ResetPasswordApi
                 .Post(new ResetPasswordPostRequestContent {EmailAddress = emailAddress});
-            AssertHttpStatus(HttpStatusCode.NoContent, response);
-            SetLastResponse(response);
         }
 
         public bool ChangeEmailAddress(Guid userGuid, string password, string newEmailAddress,
             bool assertStatusCode = true)
         {
-            var response = _apiClient.ChangeEmailAddressApi
+            var response = _apiClient.Assert(assertStatusCode).ChangeEmailAddressApi
                 .Post(new ChangeEmailAddressPostRequestContent {Password = password, NewEmailAddress = newEmailAddress});
-            if (assertStatusCode)
-                AssertHttpStatus(HttpStatusCode.NoContent, response);
-            SetLastResponse(response);
             return response.StatusCode == HttpStatusCode.NoContent;
         }
 
         public void SetUsersRole(Guid userGuid, UserRole userRole)
         {
             LogInAsRoot();
-            var response = _apiClient.AdminUsersApi
+            _apiClient.AdminUsersApi
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsAdmin = true,
                     UserGuid = userGuid
                 });
             DeleteSessionCookies();
-            AssertHttpStatus(HttpStatusCode.NoContent, response);
-            SetLastResponse(response);
         }
 
         public void LockUser(Guid userGuid)
         {
             LogInAsRoot();
-            var response = _apiClient.AdminUsersApi
+            _apiClient.AdminUsersApi
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsLocked = true,
                     UserGuid = userGuid
                 });
             DeleteSessionCookies();
-            AssertHttpStatus(HttpStatusCode.NoContent, response);
-            SetLastResponse(response);
         }
 
         public void UnlockUser(Guid userGuid)
         {
             LogInAsRoot();
-            var response = _apiClient.AdminUsersApi
+            _apiClient.AdminUsersApi
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsLocked = false,
                     UserGuid = userGuid
                 });
             DeleteSessionCookies();
-            AssertHttpStatus(HttpStatusCode.NoContent, response);
-            SetLastResponse(response);
         }
 
         public Organization EstablishOrganization(bool assertHttpStatus = true)
         {
             var organization = _fakeNameGenerator.NextOrganization();
-            var response = _apiClient.OrganizationsApi
+            var response = _apiClient.Assert(assertHttpStatus).OrganizationsApi
                 .Post<OrganizationsPostOkResponseContent>(new OrganizationsPostRequestContent
                 {
                     Name = organization.Name
                 });
-            if (assertHttpStatus)
-                AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
             organization.OrganizationId = response.Data.OrganizationId;
             return organization;
         }
@@ -189,57 +154,43 @@
         public IList<Organization> QueryOrganizations()
         {
             var response = _apiClient.OrganizationsApi.Query<Organization>();
-            AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
             return response.Data.Results;
         }
 
         public void SendFeedback(string senderEmailAddress, string comment)
         {
-            var response = _apiClient.FeedbackApi.Post(new FeedbackPostRequestContent
+            _apiClient.FeedbackApi.Post(new FeedbackPostRequestContent
             {
                 EmailAddress = senderEmailAddress,
                 Comment = comment
             });
-            AssertHttpStatus(HttpStatusCode.NoContent, response);
-            SetLastResponse(response);
         }
 
         public void ValidateKey(string validationKey, bool assertStatusCode = true)
         {
-            var response = _apiClient.ValidateApi.Post(new {key = validationKey});
-            if (assertStatusCode)
-                AssertHttpStatus(HttpStatusCode.NoContent, response);
-            SetLastResponse(response);
+            _apiClient.Assert(assertStatusCode).ValidateApi.Post(new {key = validationKey});
         }
 
         public Organization GetOrganization(Guid organizationGuid)
         {
             var response = _apiClient.OrganizationsApi
                 .Get<Organization>(new {organizationGuid});
-            AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
             return response.Data;
         }
 
         public void OpenUserStore(User user, bool assertStatusCode = true)
         {
-            var response = _apiClient.StoresApi
+            var response = _apiClient.Assert(assertStatusCode).StoresApi
                 .Post<StoresPostOkResponseContent>(new StoresPostRequestContent
                 {
                     UserId = user.Id
                 });
-            if (assertStatusCode)
-                AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
             user.StoreId = response.Data.StoreId;
         }
 
         public UsersGetOkResponseContent GetUser(int userId)
         {
             var response = _apiClient.UsersApi.Get<UsersGetOkResponseContent>(new {userId});
-            AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
             return response.Data;
         }
 
@@ -253,7 +204,6 @@
                 Name = article.Name,
                 OwnerId = user.Id.ToString(CultureInfo.InvariantCulture)
             });
-            AssertHttpStatus(HttpStatusCode.OK, response);
             article.ArticleId = response.Data.ArticleId;
             return article;
         }
@@ -261,23 +211,18 @@
         public QueryOkResponseContent<Article> QueryArticlesByUser(User user)
         {
             var response = _apiClient.ArticlesApi.Query<Article>(new {ownerId = user.Id});
-            AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
             return response.Data;
         }
 
         public StatusGetOkResponseContent GetStatus()
         {
             var response = _apiClient.StatusApi.Get<StatusGetOkResponseContent>(null);
-            AssertHttpStatus(HttpStatusCode.OK, response);
             return response.Data;
         }
 
         public UsersCartGetOkResponseContent GetCart(User user)
         {
             var response = _apiClient.UserCartApi.Get<UsersCartGetOkResponseContent>(new {userGuid = user.Guid});
-            AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
             return response.Data;
         }
 
@@ -285,8 +230,6 @@
         {
             var response = _apiClient.OrganizationsApplicationsApi
                 .Post<OrganizationsApplicationsPostOkResponseContent>(new {organizationId = organization.OrganizationId});
-            AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
             return response.Data.ApplicationId;
         }
 
@@ -296,33 +239,25 @@
             var response = _apiClient.OrganizationsRelationshipsApi
                 .Get<OrganizationsRelationshipsQueryOkResponseContent>(
                     new {organizationId = organization.OrganizationId});
-            AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
             return response.Data;
         }
 
         public void RejectMembershipApplication(Organization organization, Guid applicationId)
         {
-            var response = _apiClient.OrganizationsApplicationsApi
+            _apiClient.OrganizationsApplicationsApi
                 .Delete(new {organizationId = organization.OrganizationId, applicationId});
-            AssertHttpStatus(HttpStatusCode.NoContent, response);
-            SetLastResponse(response);
         }
 
         public void ApproveMembershipApplication(Organization organization, Guid applicationId)
         {
-            var response = _apiClient.OrganizationsMembersApi
+            _apiClient.OrganizationsMembersApi
                 .Post(new {organizationId = organization.OrganizationId, applicationId});
-            AssertHttpStatus(HttpStatusCode.NoContent, response);
-            SetLastResponse(response);
         }
 
         public IList<Member> GetOrganizationMembers(Organization organization)
         {
             var response = _apiClient.OrganizationsMembersApi
                 .Query<Member>(new {organizationId = organization.OrganizationId});
-            AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
             return response.Data.Results;
         }
 
@@ -338,35 +273,13 @@
                     fromUtc = DateTime.UtcNow,
                     toUtc = DateTime.UtcNow.AddDays(1)
                 });
-            AssertHttpStatus(HttpStatusCode.OK, response);
-            SetLastResponse(response);
             return response.Data.CartItemId;
         }
 
         public void RemoveCartItem(User user, Guid cartItemId)
         {
-            var response = _apiClient.UserCartItemsApi
+            _apiClient.UserCartItemsApi
                 .Delete(new {userGuid = user.Guid, itemId = cartItemId});
-            AssertHttpStatus(HttpStatusCode.NoContent, response);
-            SetLastResponse(response);
-        }
-    }
-
-    public class Response
-    {
-        public HttpStatusCode StatusCode { get; set; }
-        public string Message { get; set; }
-
-        /// <summary>
-        /// True if StatusCode is 2xx, otherwise false.
-        /// </summary>
-        public bool IsSuccess
-        {
-            get
-            {
-                var statusCode = (int) StatusCode;
-                return (statusCode >= 200 && statusCode < 300);
-            }
         }
     }
 }

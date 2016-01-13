@@ -1,8 +1,11 @@
 ﻿namespace Phundus.Specs.Steps
 {
     using System.Net;
+    using ContentTypes;
     using Machine.Specifications;
+    using Newtonsoft.Json;
     using NUnit.Framework;
+    using RestSharp;
     using Services;
     using TechTalk.SpecFlow;
 
@@ -13,34 +16,60 @@
         {
         }
 
+        private IRestResponse LastResponse
+        {
+            get
+            {
+                return Resource.LastResponse;   
+            }
+        }
+
+        private string TryGetErrorMessage()
+        {
+            var restResponse = LastResponse;
+            if (restResponse.ContentType != "application/json; charset=utf-8")
+            {
+                return null;
+            }
+            var errorContent = JsonConvert.DeserializeObject<ErrorContent>(restResponse.Content);
+            return errorContent.Msg;
+        }
+
         [Then(@"I should see error")]
         public void ThenIShouldSeeError()
         {
-            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
+            Assert.That(LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
         }
 
         [Then(@"I should see ok")]
         public void ThenIShouldSeeOk()
         {
-            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Then(@"I should see no content")]
         public void ThenIShouldSeeNoContent()
         {
-            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
+            Assert.That(LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
         }
 
         [Then(@"I should see unauthorized")]
         public void ThenIShouldSeeUnauthorized()
         {
-            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
+            Assert.That(LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
         }
 
         [Then(@"I should see message ""(.*)""")]
         public void ThenIShouldSeeMessage(string text)
+        {            
+            Assert.That(TryGetErrorMessage(), Is.EqualTo(text));
+        }
+
+        [Then(@"error email address already taken")]
+        public void ThenErrorEmailAddressAlreadyTaken()
         {
-            Assert.That(App.LastResponse.Message, Is.EqualTo(text));
+            Assert.That(LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
+            Assert.That(TryGetErrorMessage(), Is.StringContaining("EmailAlreadyTakenException"));
         }
     }
 }

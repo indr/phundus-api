@@ -4,9 +4,11 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Globalization;
+    using System.Net.Configuration;
     using System.Text.RegularExpressions;
     using ContentTypes;
     using Newtonsoft.Json;
+    using NUnit.Framework;
     using RestSharp;
 
     public class Resource
@@ -15,6 +17,9 @@
 
         private static readonly IDictionary<string, string> Cookies = new Dictionary<string, string>();
         private readonly string _resource;
+        private bool _assertHttpStatusCode;
+
+        public static IRestResponse LastResponse { get; private set; }
 
         static Resource()
         {
@@ -22,10 +27,11 @@
             BaseUrl = "http://" + baseUrl + "/api/v0/";
         }
 
-        public Resource(string resource)
+        public Resource(string resource, bool assertHttpStatusCode)
         {
             if (resource == null) throw new ArgumentNullException("resource");
             _resource = resource;
+            _assertHttpStatusCode = assertHttpStatusCode;
         }
 
         public static void DeleteSessionCookies()
@@ -162,19 +168,27 @@
             }
         }
 
-        private static IRestResponse Execute(RestRequest request)
+        private IRestResponse Execute(RestRequest request)
         {
             var response = CreateClient().Execute(request);
             HandleErrorException(response);
+            if (_assertHttpStatusCode)
+                AssertHttpStatusCodeIs2xx(response);
             ReadCookies(response);
+            SetLastResponse(response);
             return response;
         }
 
-        private static IRestResponse<T> Execute<T>(RestRequest request) where T : new()
+        
+
+        private IRestResponse<T> Execute<T>(RestRequest request) where T : new()
         {
             var response = CreateClient().Execute<T>(request);
             HandleErrorException(response);
+            if (_assertHttpStatusCode)
+                AssertHttpStatusCodeIs2xx(response);
             ReadCookies(response);
+            SetLastResponse(response);
             return response;
         }
 
@@ -191,12 +205,22 @@
             }
         }
 
+        private void AssertHttpStatusCodeIs2xx(IRestResponse response)
+        {
+            Assert.That((int)response.StatusCode, Is.InRange(200, 299));
+        }
+
         private static void ReadCookies(IRestResponse response)
         {
             foreach (var each in response.Cookies)
             {
                 Cookies[each.Name] = each.Value;
             }
+        }
+
+        private static void SetLastResponse(IRestResponse response)
+        {
+            LastResponse = response;
         }
     }
 }

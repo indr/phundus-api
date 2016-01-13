@@ -209,6 +209,7 @@
     <Compile Include="Services\Entities\RecordsReader.cs" />
     <Compile Include="Services\Entities\Rows.cs" />
     <Compile Include="Services\Entities\User.cs" />
+    <Compile Include="ContentTypes\ErrorContent.cs" />
     <Compile Include="Services\Mailbox.cs" />
     <Compile Include="Features\Account\AccountSteps.cs" />
     <Compile Include="Services\ApiClient.cs" />

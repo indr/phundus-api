@@ -146,12 +146,7 @@
             Assert.That(Ctx.LoggedIn, Is.EqualTo(Ctx.User.Guid), "User not logged in.");
         }
 
-        [Then(@"error email address already taken")]
-        public void ThenErrorEmailAddressAlreadyTaken()
-        {
-            Assert.That(App.LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
-            Assert.That(App.LastResponse.Message, Is.StringContaining("EmailAlreadyTakenException"));
-        }
+        
 
         [Then(@"I should not be logged in")]
         public void ThenIShouldNotBeLoggedIn()
@@ -174,8 +169,7 @@
             if (user == null) throw new ArgumentNullException("user");
 
             App.ChangeEmailAddress(user.Guid, user.Password, newEmailAddress, assertStatusCode);
-            if (App.LastResponse.IsSuccess)
-                user.RequestedEmailAddress = newEmailAddress;
+            user.RequestedEmailAddress = newEmailAddress;
         }
     }
 }
