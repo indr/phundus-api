@@ -97,6 +97,11 @@
             get { return Resource("organizations/{organizationId}/members/{memberId}"); }
         }
 
+        public Resource ShopItemsAvailabilityCheck
+        {
+            get { return Resource("shop/items/{itemId}/availability-check"); }
+        }
+
         private Resource Resource(string url)
         {
             var result = new Resource(url, _assertNextHttpStatusCode);

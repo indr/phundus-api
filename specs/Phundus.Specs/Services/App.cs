@@ -282,5 +282,19 @@
             _apiClient.UserCartItemsApi
                 .Delete(new {userGuid = user.Guid, itemId = cartItemId});
         }
+
+        public bool CheckAvailability(Article article, int quantity)
+        {
+            var result = _apiClient.ShopItemsAvailabilityCheck
+                .Post<ShopItemsAvailabilityCheckOkResponseContent>(
+                    new
+                    {
+                        itemId = article.ArticleId,
+                        quantity = quantity,
+                        fromUtc = DateTime.UtcNow,
+                        toUtc = DateTime.UtcNow.AddDays(1)
+                    });
+            return result.Data.IsAvailable;
+        }
     }
 }
