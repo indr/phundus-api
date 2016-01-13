@@ -39,7 +39,7 @@
             result.To = each.To;
             result.Quantity = each.Quantity;
             result.UnitPrice = each.UnitPrice;
-            result.LineTotal = each.LineTotal;
+            result.LineTotal = each.ItemTotal;
             result.IsAvailable = each.IsAvailable;
             result.OrganizationName = each.Article.Owner.Name;
 

@@ -15,7 +15,7 @@ namespace Phundus.Core.Shop.Orders.Model
             get { return _cartItemGuid; }
             protected set { _cartItemGuid = value; }
         }
-
+        public virtual int Position { get; set; }
         public virtual Article Article { get; set; }
 
         public virtual int ArticleId
@@ -27,6 +27,15 @@ namespace Phundus.Core.Shop.Orders.Model
         public virtual DateTime From { get; set; }
         public virtual DateTime To { get; set; }
 
+        public virtual int Days
+        {
+            get
+            {
+                return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(From, To, Quantity, UnitPrice).Days;
+            }
+            protected set { }
+        }
+
         public virtual string LineText
         {
             get { return Article.Caption; }
@@ -37,15 +46,17 @@ namespace Phundus.Core.Shop.Orders.Model
             get { return Article.Price; }
         }
 
-        public virtual decimal LineTotal
+        public virtual decimal ItemTotal
         {
             get
             {
                 return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(From, To, Quantity, UnitPrice).Price;
             }
+            protected set { }
         }
 
         public virtual bool IsAvailable { get; set; }
         public virtual Guid CartGuid { get; set; }
+        
     }
 }

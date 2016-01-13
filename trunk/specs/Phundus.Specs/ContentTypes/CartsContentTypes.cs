@@ -26,6 +26,9 @@
         
         [JsonProperty("articleId")]
         public int ArticleId { get; set; }
+
+        [JsonProperty("unitPricePerWeek")]
+        public decimal UnitPricePerWeek { get; set; }
     }
 
     public class UserCartItemsPostOkResponseContent
