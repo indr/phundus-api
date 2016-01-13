@@ -138,5 +138,15 @@
                 RemoveItem(item);
             }
         }
+
+        public virtual void UpdateItem(Guid cartItemGuid, int quantity, DateTime fromUtc, DateTime toUtc)
+        {
+            var item = Items.SingleOrDefault(p => p.CartItemGuid.Id == cartItemGuid);
+            if (item == null)
+                return;
+
+            item.ChangeQuantity(quantity);
+            item.ChangePeriod(fromUtc, toUtc);
+        }
     }
 }

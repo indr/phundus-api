@@ -54,17 +54,44 @@ namespace Phundus.Rest.Api.Users
             };
         }
 
-        [DELETE("items/{itemId}")]
+        [PATCH("items/{itemGuid}")]
         [Transaction]
-        public virtual HttpResponseMessage Delete(Guid userGuid, Guid itemId)
+        public virtual HttpResponseMessage Patch(Guid userGuid, Guid itemGuid,
+            UsersCartPatchRequestContent requestContent)
         {
             if (userGuid != CurrentUserGuid.Id)
                 throw new ArgumentException("userGuid");
 
-            Dispatch(new RemoveCartItem(CurrentUserId, new CartItemGuid(itemId)));
+            var command = new UpdateCartItem(CurrentUserId, CurrentUserGuid, itemGuid, requestContent.Quantity,
+                requestContent.FromUtc, requestContent.ToUtc);
+            Dispatch(command);
 
             return NoContent();
         }
+
+        [DELETE("items/{itemGuid}")]
+        [Transaction]
+        public virtual HttpResponseMessage Delete(Guid userGuid, Guid itemGuid)
+        {
+            if (userGuid != CurrentUserGuid.Id)
+                throw new ArgumentException("userGuid");
+
+            Dispatch(new RemoveCartItem(CurrentUserId, new CartItemGuid(itemGuid)));
+
+            return NoContent();
+        }
+    }
+
+    public class UsersCartPatchRequestContent
+    {
+        [JsonProperty("quantity")]
+        public int Quantity { get; set; }
+
+        [JsonProperty("fromUtc")]
+        public DateTime FromUtc { get; set; }
+
+        [JsonProperty("toUtc")]
+        public DateTime ToUtc { get; set; }
     }
 
     public class UsersCartGetOkResponseContent
@@ -77,6 +104,7 @@ namespace Phundus.Rest.Api.Users
             UserGuid = cart.UserGuid;
             Items = cart.Items.Select(s => new CartItem
             {
+                CartItemGuid = s.CartItemGuid,
                 ArticleId = s.ArticleId,
                 Text = s.Text,
                 FromUtc = s.FromUtc,
@@ -102,6 +130,9 @@ namespace Phundus.Rest.Api.Users
 
     public class CartItem
     {
+        [JsonProperty("cartItemGuid")]
+        public Guid CartItemGuid { get; set; }
+
         [JsonProperty("articleId")]
         public int ArticleId { get; set; }
 
