@@ -114,6 +114,7 @@
     <Compile Include="ContentTypes\OrganizationsRelationshipsQueryOkResponseContent.cs" />
     <Compile Include="ContentTypes\QueryOkResponseContent.cs" />
     <Compile Include="ContentTypes\SessionsContentTypes.cs" />
+    <Compile Include="ContentTypes\ShopContentTypes.cs" />
     <Compile Include="ContentTypes\StatusGetOkResponseContent.cs" />
     <Compile Include="ContentTypes\StoresContentTypes.cs" />
     <Compile Include="ContentTypes\UsersContentTypes.cs" />
@@ -187,6 +188,12 @@
     </Compile>
     <Compile Include="Features\Organizations\MembershipSteps.cs" />
     <Compile Include="Features\Organizations\MembersSteps.cs" />
+    <Compile Include="Features\Shop\AvailabilitySteps.cs" />
+    <Compile Include="Features\Shop\AvailabilityCheck.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AvailabilityCheck.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Status\Status.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -313,6 +320,10 @@
     <None Include="Features\Organizations\Application.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Application.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Shop\AvailabilityCheck.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AvailabilityCheck.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Status\Status.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

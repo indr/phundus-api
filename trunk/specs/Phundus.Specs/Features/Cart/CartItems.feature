@@ -3,7 +3,7 @@
 Background:
 	Given I am logged in as "Lessor"
 	And I opened my store
-	And I created an article in my store
+	And I created these articles in my store
 	| Name     |
 	| Football |
 

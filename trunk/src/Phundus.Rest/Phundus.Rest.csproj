@@ -125,6 +125,7 @@
     <Compile Include="Api\ArticlesController.cs" />
     <Compile Include="Api\EmailAddressCheckController.cs" />
     <Compile Include="Api\FeedbackController.cs" />
+    <Compile Include="Api\Shop\ShopItemsAvailabilityCheckController.cs" />
     <Compile Include="Api\UsernameCheckController.cs" />
     <Compile Include="Api\Users\UsersCartController.cs" />
     <Compile Include="ContentObjects\QueryOkResponseContent.cs" />

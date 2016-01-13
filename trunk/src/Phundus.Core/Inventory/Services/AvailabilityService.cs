@@ -10,8 +10,10 @@
 
     public interface IAvailabilityService
     {
+        bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int quantity);
         bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude);        
         IEnumerable<Availability> GetAvailabilityDetails(int articleId);
+        
     }
 
     public class AvailabilityService : IAvailabilityService
@@ -19,6 +21,11 @@
         public IArticleRepository ArticleRepository { get; set; }
 
         public IReservationRepository ReservationRepository { get; set; }
+
+        public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int quantity)
+        {
+            return IsArticleAvailable(articleId, fromUtc, toUtc, quantity, new Guid());
+        }
 
         public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude)
         {
