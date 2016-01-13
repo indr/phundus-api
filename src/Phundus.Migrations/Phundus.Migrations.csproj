@@ -147,6 +147,7 @@
     <Compile Include="2015\12\M201512301153AddStoreToArticle.cs" />
     <Compile Include="2015\12\M201512310708DeleteColumnOrganizationCoordinate.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
+    <Compile Include="2016\01\M201601131554_Create_View_Shop_Lessors.cs" />
     <Compile Include="2016\01\M201601100552RenameMembershipToAccount.cs" />
     <Compile Include="2016\01\M201601100553AddUqEmailToAccount.cs" />
     <Compile Include="2016\01\M201601111857CreateViewIdentityAccessUsers.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="2016\01\M201601130007CreateViewsShopCartsAndShopCartItems.cs" />
     <Compile Include="2016\01\M201601130718AddPositionDaysAndItemTotalToCartItem.cs" />
     <Compile Include="2016\01\M201601130724AddPositionDaysAndItemTotalToViewShopCartItems.cs" />
+    <Compile Include="2016\01\M201601131550AddColumnPhoneNumberToOrganization.cs" />
     <Compile Include="Helper\DatedAttribute.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
     <Compile Include="Helper\Runner.cs" />

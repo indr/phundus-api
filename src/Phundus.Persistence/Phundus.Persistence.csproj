@@ -91,6 +91,7 @@
     <Compile Include="Shop\Mappings\CartItemViewRowMap.cs" />
     <Compile Include="Shop\Mappings\CartMap.cs" />
     <Compile Include="Shop\Mappings\CartViewRowMap.cs" />
+    <Compile Include="Shop\Mappings\LessorViewRowMap.cs" />
     <Compile Include="StoredEvents\EventStore.cs" />
     <Compile Include="StoredEvents\NhStoredEventRepository.cs" />
     <Compile Include="StoredEvents\StoredEventMap.cs" />

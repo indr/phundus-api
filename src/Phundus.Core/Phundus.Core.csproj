@@ -293,10 +293,12 @@
     <Compile Include="Shop\Queries\IOrderQueries.cs" />
     <Compile Include="Shop\Queries\IShopArticleQueries.cs" />
     <Compile Include="Shop\Queries\ItemQueriesReadModel.cs" />
+    <Compile Include="Shop\Queries\QueryModels\LessorQueries.cs" />
     <Compile Include="Shop\Queries\Models\ContractReadModelReader.cs" />
     <Compile Include="Shop\Queries\Models\OrderReadModelReader.cs" />
     <Compile Include="Shop\Queries\Models\ReadModelReaderBase.cs" />
     <Compile Include="Shop\Queries\Models\ReadModelWriterBase.cs" />
+    <Compile Include="Shop\Queries\QueryModels\LessorViewRow.cs" />
     <Compile Include="Shop\Queries\ReadModel.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
