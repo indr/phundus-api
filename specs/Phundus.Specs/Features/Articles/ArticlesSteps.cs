@@ -24,13 +24,15 @@
         }
 
         [Given(@"I created an article in my store")]
-        public void GivenICreatedAnArticleInMyStore(Table table)
+        public void GivenICreatedAnArticleInMyStore()
         {
-            if (table.RowCount == 0)
-            {
-                Ctx.Article = App.CreateArticle(Ctx.User, null);
-            }
-            else foreach (var row in table.Rows)
+            Ctx.Article = App.CreateArticle(Ctx.User);
+        }
+
+        [Given(@"I created these articles in my store")]
+        public void GivenICreatedTheseArticlesInMyStore(Table table)
+        {
+            foreach (var row in table.Rows)
             {
                 Ctx.Article = App.CreateArticle(Ctx.User, row);    
             }

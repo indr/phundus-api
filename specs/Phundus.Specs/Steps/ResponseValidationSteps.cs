@@ -1,9 +1,6 @@
 ﻿namespace Phundus.Specs.Steps
 {
     using System.Net;
-    using ContentTypes;
-    using Machine.Specifications;
-    using Newtonsoft.Json;
     using NUnit.Framework;
     using RestSharp;
     using Services;
@@ -18,53 +15,66 @@
 
         private IRestResponse LastResponse
         {
-            get
-            {
-                return Resource.LastResponse;   
-            }
+            get { return Resource.LastResponse; }
         }
 
         private string TryGetErrorMessage()
         {
             return Resource.TryGetErrorMessage(LastResponse);
-            
+        }
+
+        private void AssertLastStatusCode(HttpStatusCode statusCode)
+        {
+            Assert.That(LastResponse.StatusCode, Is.EqualTo(statusCode));
+        }
+
+        private void AssertLastMessage(string messagePart)
+        {
+            Assert.That(TryGetErrorMessage(), Is.StringContaining(messagePart));
         }
 
         [Then(@"I should see error")]
         public void ThenIShouldSeeError()
         {
-            Assert.That(LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
+            AssertLastStatusCode(HttpStatusCode.InternalServerError);
         }
 
         [Then(@"I should see ok")]
         public void ThenIShouldSeeOk()
         {
-            Assert.That(LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            AssertLastStatusCode(HttpStatusCode.OK);
         }
 
         [Then(@"I should see no content")]
         public void ThenIShouldSeeNoContent()
         {
-            Assert.That(LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
+            AssertLastStatusCode(HttpStatusCode.NoContent);
         }
+
+        [Then(@"I should see not found")]
+        public void ThenIShouldSeeNotFound()
+        {
+            AssertLastStatusCode(HttpStatusCode.NotFound);
+        }
+
 
         [Then(@"I should see unauthorized")]
         public void ThenIShouldSeeUnauthorized()
         {
-            Assert.That(LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
+            AssertLastStatusCode(HttpStatusCode.Unauthorized);
         }
 
         [Then(@"I should see message ""(.*)""")]
         public void ThenIShouldSeeMessage(string text)
-        {            
+        {
             Assert.That(TryGetErrorMessage(), Is.EqualTo(text));
         }
 
         [Then(@"error email address already taken")]
         public void ThenErrorEmailAddressAlreadyTaken()
         {
-            Assert.That(LastResponse.StatusCode, Is.EqualTo(HttpStatusCode.InternalServerError));
-            Assert.That(TryGetErrorMessage(), Is.StringContaining("EmailAlreadyTakenException"));
+            AssertLastStatusCode(HttpStatusCode.InternalServerError);
+            AssertLastMessage("EmailAlreadyTakenException");
         }
     }
 }
