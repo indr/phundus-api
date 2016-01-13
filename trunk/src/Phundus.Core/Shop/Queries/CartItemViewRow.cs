@@ -17,5 +17,9 @@ namespace Phundus.Shop.Queries
         public virtual decimal UnitPricePerWeek { get; protected set; }
         public virtual decimal ItemTotal { get; protected set; }
         public virtual int Days { get; protected set; }
+
+        public virtual Guid OwnerGuid { get; protected set; }
+        public virtual string OwnerType { get; protected set; }
+        public virtual string OwnerName { get; protected set; }
     }
 }
