@@ -8,6 +8,8 @@
     using Cqrs;
     using Ddd;
     using IdentityAndAccess.Users.Services;
+    using Integration.Shop;
+    using Phundus.Shop.Queries.QueryModels;
 
     public class CoreInstaller : IWindsorInstaller
     {
@@ -54,6 +56,8 @@
             container.Register(
                 Component.For<IUserInRole>().ImplementedBy<UserInRole>()
                     .LifestyleTransient());
+
+            container.Register(Component.For<ILesseeQueries>().ImplementedBy<LesseeQueries>());
             
             EventPublisher.Container = container;
         }
