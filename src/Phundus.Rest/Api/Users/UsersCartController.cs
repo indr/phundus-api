@@ -37,6 +37,18 @@ namespace Phundus.Rest.Api.Users
             return new UsersCartGetOkResponseContent(cart);
         }
 
+        [DELETE("")]
+        [Transaction]
+        public virtual HttpResponseMessage Delete(Guid userGuid)
+        {
+            if (userGuid != CurrentUserGuid.Id)
+                throw new ArgumentException("userGuid");
+
+            Dispatch(new ClearCart(CurrentUserId));
+
+            return NoContent();
+        }
+
         [POST("items")]
         [Transaction]
         public virtual UsersCartItemsPostOkResponseContent Post(Guid userGuid, UsersCartItemsPostRequestContent requestContent)
