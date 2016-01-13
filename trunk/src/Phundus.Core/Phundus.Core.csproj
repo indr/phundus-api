@@ -293,6 +293,8 @@
     <Compile Include="Shop\Queries\IOrderQueries.cs" />
     <Compile Include="Shop\Queries\IShopArticleQueries.cs" />
     <Compile Include="Shop\Queries\ItemQueriesReadModel.cs" />
+    <Compile Include="Shop\Queries\QueryModels\LesseeQueries.cs" />
+    <Compile Include="Shop\Queries\QueryModels\LesseeViewRow.cs" />
     <Compile Include="Shop\Queries\QueryModels\LessorQueries.cs" />
     <Compile Include="Shop\Queries\Models\ContractReadModelReader.cs" />
     <Compile Include="Shop\Queries\Models\OrderReadModelReader.cs" />
