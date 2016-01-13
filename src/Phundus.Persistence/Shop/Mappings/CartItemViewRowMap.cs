@@ -14,8 +14,8 @@ namespace Phundus.Persistence.Shop.Mappings
 
             Id(x => x.CartItemId, "CartItemId");
             Map(x => x.CartItemGuid, "CartItemGuid");
-            Map(x => x.ArticleId, "ArticleId");
-            Map(x => x.Text, "Text");
+            Map(x => x.ArticleId, "Article_ArticleId");
+            Map(x => x.Text, "Article_Name");
             Map(x => x.FromUtc, "FromUtc");
             Map(x => x.ToUtc, "ToUtc");
             Map(x => x.Quantity, "Quantity");

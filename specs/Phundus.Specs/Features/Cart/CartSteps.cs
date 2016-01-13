@@ -6,6 +6,7 @@
     using Services;
     using Steps;
     using TechTalk.SpecFlow;
+    using TechTalk.SpecFlow.Assist;
 
     [Binding]
     public class CartSteps : StepsBase
@@ -23,7 +24,7 @@
             _cartItemId = App.AddArticleToCart(Ctx.User, Ctx.Article);
         }
 
-        [When(@"I view my cart")]
+        [When(@"I try to view my cart")]
         public void WhenIViewMyCart()
         {
             _cart = App.GetCart(Ctx.User);
@@ -44,10 +45,17 @@
         [Then(@"my cart should be empty")]
         public void ThenMyCartShouldBeEmpty()
         {
+            if (_cart == null)
+                _cart = App.GetCart(Ctx.User);
             Assert.That(_cart.Items, Has.Count.EqualTo(0));
         }
 
-        
-
+        [Then(@"my cart should have these items:")]
+        public void ThenMyCartShouldHaveTheseItems(Table table)
+        {
+            if (_cart == null)
+                _cart = App.GetCart(Ctx.User);
+            table.CompareToSet(_cart.Items);
+        }
     }
 }

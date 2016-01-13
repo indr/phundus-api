@@ -194,9 +194,9 @@
             return response.Data;
         }
 
-        public Article CreateArticle(User user)
+        public Article CreateArticle(User user, TableRow row)
         {
-            var article = _fakeArticleGenerator.NextArticle();
+            var article = _fakeArticleGenerator.NextArticle(row);
             article.OwnerId = user.Guid;
             var response = _apiClient.ArticlesApi.Post<ArticlesPostOkResponseContent>(new ArticlesPostRequestContent
             {
