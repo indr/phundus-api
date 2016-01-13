@@ -119,6 +119,8 @@ namespace Phundus.Rest.Api.Users
                 UnitPricePerWeek = s.UnitPricePerWeek,
                 Days = s.Days,
                 ItemTotal = s.ItemTotal,
+                OwnerGuid = s.OwnerGuid,
+                OwnerName = s.OwnerName
             }).ToList();
         }
 
@@ -162,6 +164,13 @@ namespace Phundus.Rest.Api.Users
 
         [JsonProperty("itemTotal")]
         public decimal ItemTotal { get; set; }
+
+        [JsonProperty("ownerGuid")]
+        public Guid OwnerGuid { get; set; }
+
+        [JsonProperty("ownerName")]
+        public string OwnerName { get; set; }
+
     }
 
     public class UsersCartItemsPostOkResponseContent

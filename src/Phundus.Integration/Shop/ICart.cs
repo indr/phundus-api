@@ -27,5 +27,9 @@
         decimal UnitPricePerWeek { get; }
         decimal ItemTotal { get; }
         int Days { get; }
+
+        Guid OwnerGuid { get; }
+        string OwnerType { get; }
+        string OwnerName { get; }
     }
 }

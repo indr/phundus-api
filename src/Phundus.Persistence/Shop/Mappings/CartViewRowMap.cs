@@ -17,7 +17,7 @@
             Map(x => x.UserId, "UserId");
             Map(x => x.UserGuid, "UserGuid");
 
-            HasMany<CartItemViewRow>(me => me.Items).KeyColumn("CartId").OrderBy("Position");
+            HasMany<CartItemViewRow>(me => me.Items).KeyColumn("CartId").OrderBy("Article_Owner_Name");
         }
     }
 }

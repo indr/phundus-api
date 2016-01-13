@@ -23,6 +23,9 @@ namespace Phundus.Persistence.Shop.Mappings
             Map(x => x.Quantity, "Quantity");
             Map(x => x.UnitPricePerWeek, "Article_UnitPricePerWeek");
             Map(x => x.ItemTotal, "ItemTotal");
+
+            Map(x => x.OwnerGuid, "Article_Owner_OwnerId");
+            Map(x => x.OwnerName, "Article_Owner_Name");
         }
     }
 }
