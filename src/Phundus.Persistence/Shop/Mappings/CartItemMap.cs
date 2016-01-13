@@ -17,9 +17,12 @@
             References(x => x.Cart, "CartId");
             Map(x => x.CartGuid, "CartGuid");
 
+            Map(x => x.Position, "Position");
             Map(x => x.Quantity, "Quantity");
             Map(x => x.From, "FromUtc");
             Map(x => x.To, "ToUtc");
+            Map(x => x.Days, "Days");
+            Map(x => x.ItemTotal, "ItemTotal");
 
             Component(x => x.Article, c =>
             {

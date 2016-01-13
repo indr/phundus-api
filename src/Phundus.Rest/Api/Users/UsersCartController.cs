@@ -81,7 +81,10 @@ namespace Phundus.Rest.Api.Users
                 Text = s.Text,
                 FromUtc = s.FromUtc,
                 ToUtc = s.ToUtc,
-                Quantity = s.Quantity
+                Quantity = s.Quantity,
+                UnitPricePerWeek = s.UnitPricePerWeek,
+                Days = s.Days,
+                ItemTotal = s.ItemTotal,
             }).ToList();
         }
 
@@ -99,11 +102,29 @@ namespace Phundus.Rest.Api.Users
 
     public class CartItem
     {
+        [JsonProperty("articleId")]
         public int ArticleId { get; set; }
+
+        [JsonProperty("text")]
         public string Text { get; set; }
+
+        [JsonProperty("fromUtc")]
         public DateTime FromUtc { get; set; }
+
+        [JsonProperty("toUtc")]
         public DateTime ToUtc { get; set; }
+
+        [JsonProperty("quantity")]
         public int Quantity { get; set; }
+
+        [JsonProperty("unitPricePerWeek")]
+        public decimal UnitPricePerWeek { get; set; }
+
+        [JsonProperty("days")]
+        public int Days { get; set; }
+
+        [JsonProperty("itemTotal")]
+        public decimal ItemTotal { get; set; }
     }
 
     public class UsersCartItemsPostOkResponseContent

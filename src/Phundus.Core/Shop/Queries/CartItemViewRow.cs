@@ -8,10 +8,14 @@ namespace Phundus.Shop.Queries
         public virtual int CartItemId { get; protected set; }
         public virtual Guid CartItemGuid { get; protected set; }
 
+        public virtual int Position { get; protected set; }
         public virtual int ArticleId { get; protected set; }
         public virtual string Text { get; protected set; }
         public virtual DateTime FromUtc { get; protected set; }
         public virtual DateTime ToUtc { get; protected set; }
         public virtual int Quantity { get; protected set; }
+        public virtual decimal UnitPricePerWeek { get; protected set; }
+        public virtual decimal ItemTotal { get; protected set; }
+        public virtual int Days { get; protected set; }
     }
 }
