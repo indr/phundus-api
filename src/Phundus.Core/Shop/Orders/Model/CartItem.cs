@@ -57,6 +57,20 @@ namespace Phundus.Core.Shop.Orders.Model
 
         public virtual bool IsAvailable { get; set; }
         public virtual Guid CartGuid { get; set; }
-        
+
+        public virtual void ChangeQuantity(int quantity)
+        {
+            if (quantity <= 0)
+                return;
+            Quantity = quantity;
+        }
+
+        public virtual void ChangePeriod(DateTime fromUtc, DateTime toUtc)
+        {
+            if (To < From)
+                return;
+            From = fromUtc;
+            To = toUtc;
+        }
     }
 }

@@ -10,7 +10,8 @@
 
     public class AddArticleToCart : ICommand
     {
-        public AddArticleToCart(UserId initiatorId, UserGuid initiatorGuid, ArticleId articleId, DateTime fromUtc, DateTime toUtc, int quantity)
+        public AddArticleToCart(UserId initiatorId, UserGuid initiatorGuid, ArticleId articleId, DateTime fromUtc,
+            DateTime toUtc, int quantity)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
