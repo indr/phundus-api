@@ -258,6 +258,9 @@
             [CsvField(Name = "Address")]
             public string Address { get; set; }
 
+            [CsvField(Name = "PhoneNumber")]
+            public string PhoneNumber { get; set; }
+
             [CsvField(Name = "EmailAddress")]
             public string EmailAddress { get; set; }
 
