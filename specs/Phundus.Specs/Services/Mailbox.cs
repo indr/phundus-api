@@ -3,7 +3,6 @@ namespace Phundus.Specs.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
     using System.Threading;
     using ContentTypes;
     using OpenPop.Mime;
@@ -26,8 +25,7 @@ namespace Phundus.Specs.Services
 
         public Mail Find(string subject, string toAddress)
         {
-            var response = _apiClient.MailsApi.Query<Mail>();
-            AssertHttpStatus(HttpStatusCode.OK, response);
+            var response = _apiClient.Assert(true).MailsApi.Query<Mail>();
 
             return response.Data.Results.FirstOrDefault(p => p.Subject == subject && p.To.Contains(toAddress.ToLowerInvariant()));
         }

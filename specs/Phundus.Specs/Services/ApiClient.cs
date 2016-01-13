@@ -5,6 +5,8 @@
     [Binding]
     public class ApiClient
     {
+        private bool _assertNextHttpStatusCode = true;
+
         public Resource StoresApi
         {
             get { return Resource("stores"); }
@@ -95,14 +97,22 @@
             get { return Resource("organizations/{organizationId}/members/{memberId}"); }
         }
 
-        private static Resource Resource(string url)
+        private Resource Resource(string url)
         {
-            return new Resource(url);
+            var result = new Resource(url, _assertNextHttpStatusCode);
+            _assertNextHttpStatusCode = true;
+            return result;
         }
 
         public void DeleteSessionCookies()
         {
             Services.Resource.DeleteSessionCookies();
+        }
+
+        public ApiClient Assert(bool assertStatusCode)
+        {
+            _assertNextHttpStatusCode = assertStatusCode;
+            return this;
         }
     }
 }
