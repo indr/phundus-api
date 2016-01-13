@@ -12,7 +12,7 @@ Scenario: Get organization details
 	When I try to get the organization details
 	Then I should see the organization details
 
-Scenario: Establish organization as user, fails
+Scenario: Establish organization as user, unauthorized
 	Given I am logged in as a user
 	When I try to establish an organization
 	Then I should see unauthorized

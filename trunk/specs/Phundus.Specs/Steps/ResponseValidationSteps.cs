@@ -26,13 +26,8 @@
 
         private string TryGetErrorMessage()
         {
-            var restResponse = LastResponse;
-            if (restResponse.ContentType != "application/json; charset=utf-8")
-            {
-                return null;
-            }
-            var errorContent = JsonConvert.DeserializeObject<ErrorContent>(restResponse.Content);
-            return errorContent.Msg;
+            return Resource.TryGetErrorMessage(LastResponse);
+            
         }
 
         [Then(@"I should see error")]

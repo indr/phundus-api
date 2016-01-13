@@ -103,10 +103,10 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Establish organization as user, fails")]
-        public virtual void EstablishOrganizationAsUserFails()
+        [NUnit.Framework.DescriptionAttribute("Establish organization as user, unauthorized")]
+        public virtual void EstablishOrganizationAsUserUnauthorized()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Establish organization as user, fails", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Establish organization as user, unauthorized", ((string[])(null)));
 #line 15
 this.ScenarioSetup(scenarioInfo);
 #line 16

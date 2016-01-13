@@ -207,7 +207,8 @@
 
         private void AssertHttpStatusCodeIs2xx(IRestResponse response)
         {
-            Assert.That((int)response.StatusCode, Is.InRange(200, 299));
+            var message = TryGetErrorMessage(response);
+            Assert.That((int)response.StatusCode, Is.InRange(200, 299), message);
         }
 
         private static void ReadCookies(IRestResponse response)
@@ -221,6 +222,17 @@
         private static void SetLastResponse(IRestResponse response)
         {
             LastResponse = response;
+        }
+
+        public static string TryGetErrorMessage(IRestResponse lastResponse)
+        {
+            var restResponse = lastResponse;
+            if (restResponse.ContentType != "application/json; charset=utf-8")
+            {
+                return null;
+            }
+            var errorContent = JsonConvert.DeserializeObject<ErrorContent>(restResponse.Content);
+            return errorContent.Msg;
         }
     }
 }
