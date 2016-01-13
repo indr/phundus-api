@@ -9,7 +9,7 @@
     using Newtonsoft.Json;
 
     [RoutePrefix("api/lessors")]
-    public class LessorsController
+    public class LessorsController : ApiControllerBase
     {
         private readonly ILessorQueries _lessorQueries;
 
@@ -20,6 +20,7 @@
         }
 
         [GET("")]
+        [Transaction]
         public virtual QueryOkResponseContent<ILessor> Get()
         {
             var results = _lessorQueries.Query();
