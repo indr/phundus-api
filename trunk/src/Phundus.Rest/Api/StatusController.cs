@@ -1,4 +1,4 @@
-﻿namespace Phundus.Rest
+﻿namespace Phundus.Rest.Api
 {
     using System;
     using System.Reflection;

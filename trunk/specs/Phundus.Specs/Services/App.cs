@@ -194,7 +194,7 @@
             return response.Data;
         }
 
-        public Article CreateArticle(User user, TableRow row)
+        public Article CreateArticle(User user, TableRow row = null)
         {
             var article = _fakeArticleGenerator.NextArticle(row);
             article.OwnerId = user.Guid;
@@ -220,9 +220,10 @@
             return response.Data;
         }
 
-        public UsersCartGetOkResponseContent GetCart(User user)
+        public UsersCartGetOkResponseContent GetCart(User user, bool assertHttpStatus = true)
         {
-            var response = _apiClient.UserCartApi.Get<UsersCartGetOkResponseContent>(new {userGuid = user.Guid});
+            var response = _apiClient.Assert(assertHttpStatus).UserCartApi
+                .Get<UsersCartGetOkResponseContent>(new {userGuid = user.Guid});
             return response.Data;
         }
 

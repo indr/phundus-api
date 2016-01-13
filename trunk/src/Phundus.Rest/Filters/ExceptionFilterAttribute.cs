@@ -20,6 +20,7 @@
             _mappings.Add(typeof(ArgumentNullException), HttpStatusCode.BadRequest);
             _mappings.Add(typeof(ArgumentException), HttpStatusCode.BadRequest);
             _mappings.Add(typeof(AuthorizationException), HttpStatusCode.Forbidden);
+            _mappings.Add(typeof(NotFoundException), HttpStatusCode.NotFound);
         }
 
         public override void OnException(HttpActionExecutedContext context)

@@ -33,7 +33,7 @@ namespace Phundus.Rest.Api.Users
 
             var cart = _cartQueries.FindByUserGuid(CurrentUserId, new UserGuid(userGuid));
             if (cart == null)
-                throw new NotFoundException("Cart not found.");
+                return new UsersCartGetOkResponseContent(null);
             return new UsersCartGetOkResponseContent(cart);
         }
 
@@ -98,6 +98,12 @@ namespace Phundus.Rest.Api.Users
     {
         public UsersCartGetOkResponseContent(ICart cart)
         {
+            if (cart == null)
+            {
+                Items = new List<CartItem>(0);
+                return;
+            }
+
             CartId = cart.CartId;
             CartGuid = cart.CartGuid;
             UserId = cart.UserId;

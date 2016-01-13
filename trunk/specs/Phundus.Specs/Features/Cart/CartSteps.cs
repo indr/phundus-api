@@ -25,9 +25,9 @@
         }
 
         [When(@"I try to view my cart")]
-        public void WhenIViewMyCart()
+        public void WhenITryToViewMyCart()
         {
-            _cart = App.GetCart(Ctx.User);
+            _cart = App.GetCart(Ctx.User, false);
         }
 
         [When(@"I try to add article to cart")]
