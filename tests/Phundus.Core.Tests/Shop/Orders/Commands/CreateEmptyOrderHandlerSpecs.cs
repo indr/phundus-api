@@ -20,12 +20,12 @@
         {
             var lessee = CreateLessee(userId);
             orderRepository.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(orderId);
-            lessorService.setup(x => x.GetById(lessor.LessorId)).Return(lessor);
+            lessorService.setup(x => x.GetById(theLessor.LessorId)).Return(theLessor);
             lesseeService.setup(x => x.GetById(lessee.LesseeId)).Return(lessee);
 
             command = new CreateEmptyOrder
             {
-                LessorId = lessor.LessorId,
+                LessorId = theLessor.LessorId,
                 InitiatorId = new CurrentUserId(initiatorId.Id),
                 LesseeId = new LesseeId(userId)
             };
@@ -34,7 +34,7 @@
         public It should_add_to_repository = () => orderRepository.WasToldTo(x => x.Add(Arg<Order>.Is.NotNull));
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(new OwnerId(lessor.LessorId.Id), initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(new OwnerId(theLessor.LessorId.Id), initiatorId));
 
         public It should_publish_order_created = () => publisher.WasToldTo(x => x.Publish(
             Arg<OrderCreated>.Matches(p => p.OrderId == orderId)));

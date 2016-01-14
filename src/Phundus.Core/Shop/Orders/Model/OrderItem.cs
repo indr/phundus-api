@@ -2,6 +2,7 @@
 {
     using System;
     using Common;
+    using Common.Domain.Model;
     using Pricing.Model;
 
     public class OrderItem
@@ -9,23 +10,37 @@
         private int _amount;
         private int _articleId;
         private DateTime _fromUtc;
-        private Guid _id;
+        private Guid _id = Guid.NewGuid();
         private Order _order;
         private string _text;
         private DateTime _toUtc;
         private decimal _unitPrice;
-        private decimal _total;
+        private decimal _itemTotal;
 
         protected OrderItem()
         {
         }
 
+        public OrderItem(ArticleId articleId, string text, Period period, int quantity, decimal unitPricePerWeek)
+        {
+            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (period == null) throw new ArgumentNullException("period");
+            
+            _articleId = articleId.Id;
+            _text = text;
+            _fromUtc = period.FromUtc;
+            _toUtc = period.ToUtc;
+            _amount = quantity;
+            _unitPrice = unitPricePerWeek;
+
+            CalculateTotal();
+        }
+
+        [Obsolete]
         public OrderItem(Order order, Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
-            AssertionConcern.AssertArgumentNotNull(order, "Order must be provided.");
             AssertionConcern.AssertArgumentNotNull(article, "Article must be provided.");
 
-            _id = Guid.NewGuid();
             _order = order;
             _articleId = article.ArticleId;
             _unitPrice = article.Price;
@@ -102,22 +117,17 @@
             protected set { _unitPrice = value; }
         }
 
-        public virtual decimal LineTotal
+        public virtual decimal ItemTotal
         {
-            get { return _total; }
-            protected set { _total = value; }
+            get { return _itemTotal; }
+            protected set { _itemTotal = value; }
         }
-
-        //public virtual decimal LineTotal
-        //{
-        //    get { return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(FromUtc.ToLocalTime(), ToUtc.ToLocalTime(), Amount, UnitPrice).Price; }
-        //}
 
         private void CalculateTotal()
         {
-            LineTotal =
-                new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(FromUtc.ToLocalTime(), ToUtc.ToLocalTime(),
-                    Amount, UnitPrice).Price;
+            var priceInfo = new PerDayWithPerSevenDaysPricePricingStrategy()
+                .Calculate(FromUtc.ToLocalTime(), ToUtc.ToLocalTime(), Amount, UnitPrice);
+            _itemTotal = priceInfo.Price;
         }
         
         public virtual void ChangeAmount(int amount)
@@ -140,7 +150,7 @@
 
         public virtual void ChangeTotal(decimal itemTotal)
         {
-            LineTotal = itemTotal;
+            ItemTotal = itemTotal;
         }
     }
 }

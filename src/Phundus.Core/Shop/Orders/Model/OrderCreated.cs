@@ -6,14 +6,16 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderCreated : DomainEvent
     {
-        [DataMember(Order = 1)]
-        public int OrderId { get; set; }
-    }
+        public OrderCreated(int orderId)
+        {
+            OrderId = orderId;
+        }
 
-    [DataContract]
-    public class OrderPlaced : DomainEvent
-    {
+        protected OrderCreated()
+        {
+        }
+
         [DataMember(Order = 1)]
-        public int OrderId { get; set; }
+        public int OrderId { get; protected set; }
     }
 }

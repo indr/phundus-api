@@ -25,8 +25,8 @@
 
         public Establish c = () =>
         {
-            var article = new Article(1, new Owner(new OwnerId(lessor.LessorId.Id), "Owner"), "Artikel", 1.0m);
-            order = new Order(lessor, CreateLessee());
+            var article = new Article(1, new Owner(new OwnerId(theLessor.LessorId.Id), "Owner"), "Artikel", 1.0m);
+            order = new Order(theLessor, CreateLessee());
             orderItemId = order.AddItem(article, DateTime.Today, DateTime.Today, 1).Id;
             orderRepository.setup(x => x.GetById(orderId)).Return(order);
 
@@ -44,7 +44,7 @@
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(lessor.LessorId.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(theLessor.LessorId.Id, initiatorId));
 
         public It should_publish_order_item_amount_changed =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemAmountChanged>.Is.NotNull));

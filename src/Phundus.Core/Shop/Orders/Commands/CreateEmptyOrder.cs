@@ -40,7 +40,7 @@
 
             command.ResultingOrderId = orderId;
 
-            EventPublisher.Publish(new OrderCreated {OrderId = orderId});
+            EventPublisher.Publish(new OrderCreated(orderId));
         }
     }
 }

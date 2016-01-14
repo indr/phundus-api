@@ -50,6 +50,7 @@
     {
         private Because of = () => sut = CreateEmptyCart();
 
+        private It should_be_empty = () => sut.IsEmpty.ShouldBeTrue();
         private It should_have_the_user_id = () => sut.CustomerId.ShouldEqual(theUserId.Id);
     }
 
@@ -63,6 +64,8 @@
 
         private It should_have_an_item_with_item_id = () => sut.Items.ShouldContain(c =>
             Equals(c.CartItemGuid, the_cart_item_guid));
+
+        private It should_not_be_empty = () => sut.IsEmpty.ShouldBeFalse();
     }
 
     [Subject(typeof (Cart))]
