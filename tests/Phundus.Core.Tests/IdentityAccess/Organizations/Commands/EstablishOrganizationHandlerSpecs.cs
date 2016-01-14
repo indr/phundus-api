@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.IdentityAccess.Organizations.Commands
+﻿namespace Phundus.Tests.IdentityAccess.Organizations.Commands
 {
     using System;
     using Machine.Fakes;
@@ -15,8 +15,7 @@
     {
         private static int theInititatorId = 1001;
         private static Guid theOrganizationGuid = Guid.NewGuid();
-        private static IOrganizationRepository organizationRepository;
-        private static IStoreRepository storeRepository;
+        private static IOrganizationRepository organizationRepository;        
 
         private Establish ctx = () =>
         {

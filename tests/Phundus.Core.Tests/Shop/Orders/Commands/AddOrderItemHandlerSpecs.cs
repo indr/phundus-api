@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
+﻿namespace Phundus.Tests.Shop.Orders.Commands
 {
     using System;
     using Common.Domain.Model;
@@ -7,7 +7,6 @@
     using Machine.Specifications;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
-    using Phundus.Tests.Shop;
     using Rhino.Mocks;
 
     [Subject(typeof (AddOrderItemHandler))]
@@ -15,7 +14,7 @@
     {
         private const int initiatorId = 2;
         private const int orderId = 3;
-        private static ArticleId articleId = new ArticleId(4);        
+        private static ArticleId articleId = new ArticleId(4);
         private static Order order;
 
         public Establish c = () =>
@@ -23,7 +22,7 @@
             var ownerId = new OwnerId(Guid.NewGuid());
             var owner = new Owner(ownerId, "Owner");
             lessor = new Lessor(new LessorId(owner.OwnerId.Id), "Lessor");
-            order = new Order(lessor, BorrowerFactory.Create());
+            order = new Order(lessor, CreateLessee());
             orders.setup(x => x.GetById(orderId)).Return(order);
             var article = new Article(articleId.Id, owner, "Artikel", 1.0m);
             articles.setup(x => x.GetById(ownerId, articleId)).Return(article);

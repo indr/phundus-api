@@ -1,4 +1,4 @@
-namespace Phundus.Core.Tests.Inventory
+namespace Phundus.Tests.Inventory.Articles.Commands
 {
     using System;
     using Common.Domain.Model;
@@ -13,10 +13,10 @@ namespace Phundus.Core.Tests.Inventory
     [Subject(typeof (DeleteArticleHandler))]
     public class when_delete_article_is_handled : article_handler_concern<DeleteArticle, DeleteArticleHandler>
     {
-        private static Guid ownerId;
-        private static Owner owner;
         private const int initiatorId = 2;
         private const int articleId = 3;
+        private static Guid ownerId;
+        private static Owner owner;
 
         private static Article article;
 

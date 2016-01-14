@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Inventory
+﻿namespace Phundus.Tests.Inventory
 {
     using System;
     using Common.Domain.Model;
@@ -21,7 +21,9 @@
         private Establish ctx =
             () =>
             {
-                depends.on<IOwnerService>().WhenToldTo(x => x.GetById(theOrganizationGuid)).Return(new Owner(new OwnerId(theOrganizationGuid), "Rocks and Scissors"));
+                depends.on<IOwnerService>()
+                    .WhenToldTo(x => x.GetById(theOrganizationGuid))
+                    .Return(new Owner(new OwnerId(theOrganizationGuid), "Rocks and Scissors"));
                 storeRepository = depends.on<IStoreRepository>();
                 @event = new OrganizationEstablished(theOrganizationGuid, "free", "Rocks and Scissors", "");
             };

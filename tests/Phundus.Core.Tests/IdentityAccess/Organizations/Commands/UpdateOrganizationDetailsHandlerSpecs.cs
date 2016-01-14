@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.IdentityAndAccess.Organizations.Commands
+﻿namespace Phundus.Tests.IdentityAccess.Organizations.Commands
 {
     using System;
     using developwithpassion.specifications.extensions;

@@ -1,4 +1,4 @@
-namespace Phundus.Core.Tests
+namespace Phundus.Tests
 {
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;

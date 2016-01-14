@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Inventory
+﻿namespace Phundus.Tests.Inventory.Articles.Commands
 {
     using System;
     using System.Linq;

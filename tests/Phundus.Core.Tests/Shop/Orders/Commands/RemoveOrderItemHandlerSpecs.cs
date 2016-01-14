@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
+﻿namespace Phundus.Tests.Shop.Orders.Commands
 {
     using System;
     using Common.Domain.Model;
@@ -22,7 +22,7 @@
         public Establish c = () =>
         {
             var article = new Article(1, new Owner(new OwnerId(Guid.NewGuid()), "Owner"), "Artikel", 1.0m);
-            order = new Order(lessor, BorrowerFactory.Create());
+            order = new Order(lessor, CreateLessee());
             orderItemId = order.AddItem(article, DateTime.Today, DateTime.Today, 1).Id;
             orders.setup(x => x.GetById(orderId)).Return(order);
 

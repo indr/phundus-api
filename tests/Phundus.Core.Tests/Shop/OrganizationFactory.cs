@@ -1,4 +1,4 @@
-namespace Phundus.Core.Tests.Shop
+namespace Phundus.Tests.Shop
 {
     using Phundus.Shop.Orders.Model;
 

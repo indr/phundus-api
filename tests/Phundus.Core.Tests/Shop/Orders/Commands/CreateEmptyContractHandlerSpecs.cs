@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
+﻿namespace Phundus.Tests.Shop.Orders.Commands
 {
     using System;
     using developwithpassion.specifications.extensions;
@@ -22,7 +22,7 @@
         {
             organizationId = Guid.NewGuid();
             repository.setup(x => x.Add(Arg<Contract>.Is.NotNull)).Return(contractId);
-            lesseeService.setup(x => x.GetById(userId)).Return(BorrowerFactory.Create(userId, "First", "Last", "Street", "Postcode", "City","EmailAddress"));
+            lesseeService.setup(x => x.GetById(userId)).Return(CreateLessee(userId, "First", "Last", "Street", "Postcode", "City","EmailAddress"));
             command = new CreateEmptyContract
             {
                 OrganizationId = organizationId,

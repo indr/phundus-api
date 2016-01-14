@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Shop.Model
+﻿namespace Phundus.Tests.Shop.Model
 {
     using System;
     using Common.Domain.Model;

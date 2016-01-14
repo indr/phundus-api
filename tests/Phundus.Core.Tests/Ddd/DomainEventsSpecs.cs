@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Ddd
+﻿namespace Phundus.Tests.Ddd
 {
     using System;
     using System.Collections.Generic;
