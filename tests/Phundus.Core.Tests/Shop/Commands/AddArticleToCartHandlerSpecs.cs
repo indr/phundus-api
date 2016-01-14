@@ -2,13 +2,13 @@
 {
     using System;
     using Common.Domain.Model;
-    using Core.IdentityAndAccess.Queries;
-    using Core.Shop.Orders.Commands;
-    using Core.Shop.Orders.Model;
-    using Core.Shop.Orders.Repositories;
-    using Core.Shop.Services;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.IdentityAccess.Queries;
+    using Phundus.Shop.Orders.Commands;
+    using Phundus.Shop.Orders.Model;
+    using Phundus.Shop.Orders.Repositories;
+    using Phundus.Shop.Services;
     using Rhino.Mocks;
 
     public class when_add_article_to_cart_is_handled : handler_concern<AddArticleToCart, AddArticleToCartHandler>

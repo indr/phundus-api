@@ -4,8 +4,8 @@ namespace Phundus.Core.Tests.Ddd
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Core.Ddd;
     using Machine.Specifications;
+    using Phundus.Ddd;
 
     [Subject("DomainEntities")]
     public class all_subclasses_of_entity_base

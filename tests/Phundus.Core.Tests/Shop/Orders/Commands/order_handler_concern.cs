@@ -1,12 +1,12 @@
 namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using Common.Domain.Model;
-    using Core.Cqrs;
-    using Core.IdentityAndAccess.Queries;
-    using Core.Shop.Orders.Model;
-    using Core.Shop.Orders.Repositories;
-    using Core.Shop.Services;
     using Machine.Specifications;
+    using Phundus.Cqrs;
+    using Phundus.IdentityAccess.Queries;
+    using Phundus.Shop.Orders.Model;
+    using Phundus.Shop.Orders.Repositories;
+    using Phundus.Shop.Services;
 
     public abstract class order_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler>
         where THandler : class, IHandleCommand<TCommand>

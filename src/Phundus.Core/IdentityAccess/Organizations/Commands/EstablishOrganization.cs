@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
+﻿namespace Phundus.IdentityAccess.Organizations.Commands
 {
     using System;
     using Common;

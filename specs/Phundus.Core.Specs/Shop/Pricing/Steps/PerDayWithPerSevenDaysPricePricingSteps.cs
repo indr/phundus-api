@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Core.Shop.Pricing.Model;
+    using Phundus.Shop.Pricing.Model;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
 

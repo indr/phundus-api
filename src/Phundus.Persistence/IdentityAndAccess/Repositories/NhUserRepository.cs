@@ -4,7 +4,7 @@
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using Core.IdentityAndAccess.Users.Model;
+    using IdentityAccess.Users.Model;
     using IdentityAccess.Users.Repositories;
     using NHibernate.Linq;
 

@@ -1,10 +1,10 @@
 namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
-    using Core.Cqrs;
-    using Core.IdentityAndAccess.Queries;
-    using Core.Shop.Contracts.Repositories;
-    using Core.Shop.Services;
     using Machine.Specifications;
+    using Phundus.Cqrs;
+    using Phundus.IdentityAccess.Queries;
+    using Phundus.Shop.Contracts.Repositories;
+    using Phundus.Shop.Services;
 
     public abstract class contract_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler>
         where THandler : class, IHandleCommand<TCommand>

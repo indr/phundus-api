@@ -2,14 +2,13 @@
 {
     using System;
     using Common.Domain.Model;
-    using Core.IdentityAndAccess.Organizations.Model;
-    using Core.Inventory.Owners;
-    using Core.Inventory.Services;
-    using Core.Inventory.Stores.Model;
-    using Core.Inventory.Stores.Repositories;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.IdentityAccess.Organizations.Model;
+    using Phundus.Inventory.Owners;
+    using Phundus.Inventory.Services;
     using Phundus.Inventory.Stores.Model;
+    using Phundus.Inventory.Stores.Repositories;
     using Rhino.Mocks;
 
     [Subject(typeof (DefaultOrganizationStoreOpener))]

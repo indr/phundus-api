@@ -1,4 +1,4 @@
-namespace Phundus.Core.Cqrs
+namespace Phundus.Cqrs
 {
     using System;
     using NHibernate;

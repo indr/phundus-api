@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Ddd
+﻿namespace Phundus.Ddd
 {
     /// <summary>
     ///   Basisklasse für alle Entitäten im Domain Model.

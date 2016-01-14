@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Common;
-    using Core.Cqrs;
+    using Cqrs;
     using Integration.Shop;
 
     public class LessorQueries : NHibernateReadModelBase<LessorViewRow>, ILessorQueries

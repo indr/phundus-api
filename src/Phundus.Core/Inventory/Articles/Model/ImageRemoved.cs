@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory.Articles.Model
+﻿namespace Phundus.Inventory.Articles.Model
 {
     using System.Runtime.Serialization;
     using Common.Domain.Model;

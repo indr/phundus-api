@@ -1,11 +1,10 @@
-﻿namespace Phundus.Core.Shop.Queries.Models
+﻿namespace Phundus.Shop.Queries.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Contracts.Model;
     using Ddd;
-    using Phundus.Shop.Queries;
 
     public class ContractReadModelReader : ReadModelReaderBase, IContractQueries
     {

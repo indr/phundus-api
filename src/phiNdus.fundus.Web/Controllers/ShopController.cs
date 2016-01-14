@@ -4,12 +4,12 @@
     using System.Linq;
     using System.Web.Mvc;
     using Castle.Transactions;
-    using Core.IdentityAndAccess.Queries;
-    using Core.Inventory.Queries;
-    using Core.Shop.Orders;
-    using Core.Shop.Queries;
+    using IdentityAccess.Queries;
+    using Inventory.Queries;
     using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;
+    using Shop.Orders;
+    using Shop.Queries;
 
     public class ShopController : ControllerBase
     {

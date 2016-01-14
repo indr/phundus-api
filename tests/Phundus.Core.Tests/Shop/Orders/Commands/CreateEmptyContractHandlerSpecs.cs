@@ -1,11 +1,11 @@
 ﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
 {
     using System;
-    using Core.Shop.Contracts.Commands;
-    using Core.Shop.Contracts.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Shop.Contracts.Commands;
+    using Phundus.Shop.Contracts.Model;
     using Rhino.Mocks;
 
     [Subject(typeof (CreateEmptyContractHandler))]

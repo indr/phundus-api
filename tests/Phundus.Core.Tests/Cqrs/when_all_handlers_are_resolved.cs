@@ -1,8 +1,8 @@
 ﻿namespace Phundus.Core.Tests.Cqrs
 {
     using Castle.Windsor;
-    using Core.Cqrs;
     using Machine.Specifications;
+    using Phundus.Cqrs;
 
     [Subject(typeof (CoreInstaller))]
     public class when_all_handlers_are_resolved

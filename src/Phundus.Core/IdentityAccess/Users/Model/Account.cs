@@ -1,7 +1,6 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Users.Model
+﻿namespace Phundus.IdentityAccess.Users.Model
 {
     using System;
-    using Common;
     using Ddd;
     using Exceptions;
     using Infrastructure;

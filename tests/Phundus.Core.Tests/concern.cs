@@ -2,9 +2,9 @@ namespace Phundus.Core.Tests
 {
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using Core.Ddd;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
+    using Phundus.Ddd;
 
     public abstract class concern<TClass> : Observes<TClass> where TClass : class
     {

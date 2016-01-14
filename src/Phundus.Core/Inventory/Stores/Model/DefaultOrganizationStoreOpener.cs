@@ -2,11 +2,10 @@
 {
     using System;
     using Common.Domain.Model;
-    using Core.Ddd;
-    using Core.IdentityAndAccess.Organizations.Model;
-    using Core.Inventory.Owners;
-    using Core.Inventory.Stores.Model;
-    using Core.Inventory.Stores.Repositories;
+    using Ddd;
+    using IdentityAccess.Organizations.Model;
+    using Owners;
+    using Repositories;
 
     public class DefaultOrganizationStoreOpener : ISubscribeTo<OrganizationEstablished>
     {

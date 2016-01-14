@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Shop.Queries
+﻿namespace Phundus.Shop.Queries
 {
     public enum MembershipRoleDto
     {

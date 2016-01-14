@@ -1,4 +1,4 @@
-namespace Phundus.Core.Ddd
+namespace Phundus.Ddd
 {
     using Common.Domain.Model;
     using Common.Events;

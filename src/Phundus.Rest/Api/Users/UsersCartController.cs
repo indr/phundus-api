@@ -9,9 +9,9 @@ namespace Phundus.Rest.Api.Users
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
-    using Core.Shop.Orders.Commands;
     using Integration.Shop;
     using Newtonsoft.Json;
+    using Phundus.Shop.Orders.Commands;
 
     [RoutePrefix("api/users/{userGuid}/cart")]
     public class UsersCartController : ApiControllerBase

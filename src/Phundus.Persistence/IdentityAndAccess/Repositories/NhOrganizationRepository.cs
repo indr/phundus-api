@@ -5,8 +5,8 @@
     using System.Linq;
     using Castle.Transactions;
     using Common;
-    using Core.IdentityAndAccess.Organizations.Model;
-    using Core.IdentityAndAccess.Organizations.Repositories;
+    using IdentityAccess.Organizations.Model;
+    using IdentityAccess.Organizations.Repositories;
 
     public class NhOrganizationRepository : NhRepositoryBase<Organization>, IOrganizationRepository
     {

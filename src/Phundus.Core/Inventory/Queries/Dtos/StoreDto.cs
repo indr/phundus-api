@@ -1,7 +1,6 @@
-﻿namespace Phundus.Core.Inventory.Queries
+﻿namespace Phundus.Inventory.Queries
 {
     using Common.Domain.Model;
-    using Stores.Model;
 
     public class StoreDto
     {

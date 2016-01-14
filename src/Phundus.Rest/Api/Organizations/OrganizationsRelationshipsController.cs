@@ -6,7 +6,7 @@
     using Castle.Transactions;
     using Common;
     using ContentObjects;
-    using Core.IdentityAndAccess.Queries;
+    using IdentityAccess.Queries;
 
     [RoutePrefix("api/organizations/{organizationId}/relationships")]
     public class OrganizationsRelationshipsController : ApiControllerBase

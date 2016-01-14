@@ -1,7 +1,7 @@
 ﻿namespace phiNdus.fundus.Web.ViewModels.Layout
 {
     using System.Collections.Generic;
-    using Phundus.Core.IdentityAndAccess.Queries;
+    using Phundus.IdentityAccess.Queries.ReadModels;
 
     public class NavBarModel
     {

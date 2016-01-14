@@ -11,8 +11,8 @@ namespace Phundus.Rest.Api.Organizations
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common;
-    using Core.Inventory.Articles.Commands;
-    using Core.Inventory.Queries;
+    using Inventory.Articles.Commands;
+    using Inventory.Queries;
 
     [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/files")]
     public class OrganizationsArticlesFilesController : ApiControllerBase

@@ -15,7 +15,7 @@
     using Castle.Core.Logging;
     using Common;
     using Common.Domain.Model;
-    using Core.Cqrs;
+    using Cqrs;
 
     public class ApiControllerBase : ApiController
     {

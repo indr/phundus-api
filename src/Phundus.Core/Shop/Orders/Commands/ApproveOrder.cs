@@ -1,7 +1,7 @@
-﻿namespace Phundus.Core.Shop.Orders.Commands
+﻿namespace Phundus.Shop.Orders.Commands
 {
     using Cqrs;
-    using IdentityAndAccess.Queries;
+    using IdentityAccess.Queries;
     using Repositories;
 
     public class ApproveOrder

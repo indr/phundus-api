@@ -3,10 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Core.Shop.Orders;
-    using Core.Shop.Orders.Model;
-    using Core.Shop.Orders.Repositories;
     using NHibernate.Linq;
+    using Phundus.Shop.Orders;
+    using Phundus.Shop.Orders.Model;
+    using Phundus.Shop.Orders.Repositories;
 
     public class NhOrderRepository : NhRepositoryBase<Order>, IOrderRepository
     {

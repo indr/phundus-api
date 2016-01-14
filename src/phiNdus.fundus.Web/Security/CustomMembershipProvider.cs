@@ -6,12 +6,11 @@
     using System.Web;
     using System.Web.Security;
     using Phundus.Common;
-    using Phundus.Core.Cqrs;
-    using Phundus.Core.IdentityAndAccess.Queries;
-    using Phundus.Core.IdentityAndAccess.Users.Commands;
-    using Phundus.Core.IdentityAndAccess.Users.Exceptions;
-    using Phundus.Core.IdentityAndAccess.Users.Services;
+    using Phundus.Cqrs;
+    using Phundus.IdentityAccess.Users.Commands;
+    using Phundus.IdentityAccess.Users.Exceptions;
     using Phundus.IdentityAccess.Users.Repositories;
+    using Phundus.IdentityAccess.Users.Services;
     using Phundus.Integration.IdentityAccess;
 
     public class CustomMembershipProvider : MembershipProvider

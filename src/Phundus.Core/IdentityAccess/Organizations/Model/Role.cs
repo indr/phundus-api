@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Model
+﻿namespace Phundus.IdentityAccess.Organizations.Model
 {
     public enum Role
     {

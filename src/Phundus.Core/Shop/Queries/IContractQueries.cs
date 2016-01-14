@@ -1,8 +1,7 @@
-﻿namespace Phundus.Core.Shop.Queries
+﻿namespace Phundus.Shop.Queries
 {
     using System;
     using System.Collections.Generic;
-    using Phundus.Shop.Queries;
 
     public interface IContractQueries
     {

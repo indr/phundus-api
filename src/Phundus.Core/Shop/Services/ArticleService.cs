@@ -1,4 +1,4 @@
-namespace Phundus.Core.Shop.Services
+namespace Phundus.Shop.Services
 {
     using System;
     using Common;

@@ -1,6 +1,6 @@
 namespace Phundus.Core.Tests.Shop
 {
-    using Core.Shop.Orders.Model;
+    using Phundus.Shop.Orders.Model;
 
     public class OrganizationFactory
     {

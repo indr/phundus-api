@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Dashboard.Querying.Records
+﻿namespace Phundus.Dashboard.Querying.Records
 {
     using System;
 

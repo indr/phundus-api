@@ -2,8 +2,8 @@
 {
     using System;
     using Common.Domain.Model;
-    using Core.Shop.Orders.Model;
     using Machine.Specifications;
+    using Phundus.Shop.Orders.Model;
 
     public class cart_concern
     {

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory.Articles.Repositories
+﻿namespace Phundus.Inventory.Articles.Repositories
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core
+﻿namespace Phundus.Shop.Orders
 {
     using System;
     using System.Runtime.Serialization;

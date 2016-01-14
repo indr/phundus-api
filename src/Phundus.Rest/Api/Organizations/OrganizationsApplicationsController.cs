@@ -6,8 +6,9 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Core.IdentityAndAccess.Organizations.Commands;
-    using Core.IdentityAndAccess.Queries;
+    using IdentityAccess.Organizations.Commands;
+    using IdentityAccess.Queries;
+    using IdentityAccess.Queries.ReadModels;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/applications")]

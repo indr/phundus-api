@@ -1,8 +1,7 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Users.Mails
+﻿namespace Phundus.IdentityAccess.Users.Mails
 {
     using System;
     using Ddd;
-    using IdentityAccess.Users.Mails;
     using IdentityAccess.Users.Repositories;
     using Infrastructure;
     using Infrastructure.Gateways;

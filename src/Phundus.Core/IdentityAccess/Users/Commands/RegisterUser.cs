@@ -1,11 +1,10 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Users.Commands
+﻿namespace Phundus.IdentityAccess.Users.Commands
 {
     using System;
     using Cqrs;
     using Ddd;
     using Exceptions;
     using IdentityAccess.Users.Repositories;
-    using Mails;
     using Model;
 
     public class RegisterUser

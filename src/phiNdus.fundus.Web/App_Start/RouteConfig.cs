@@ -6,8 +6,8 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using Phundus.Core.Ddd;
-    using Phundus.Core.IdentityAndAccess.Organizations.Model;
+    using Phundus.Ddd;
+    using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.Web;
 
     public class RouteConfig

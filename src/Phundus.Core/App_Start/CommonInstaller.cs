@@ -1,4 +1,4 @@
-namespace Phundus.Core
+namespace Phundus
 {
     using Castle.Facilities.TypedFactory;
     using Castle.MicroKernel.Registration;

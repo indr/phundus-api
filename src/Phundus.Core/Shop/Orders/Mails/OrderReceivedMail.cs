@@ -1,13 +1,12 @@
-﻿namespace Phundus.Core.Shop.Orders.Mails
+﻿namespace Phundus.Shop.Orders.Mails
 {
     using System;
     using System.IO;
     using System.Net.Mail;
-    using IdentityAndAccess.Users.Model;
+    using IdentityAccess.Users.Model;
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;
-    using Phundus.Shop.Orders.Mails;
 
     public class OrderReceivedMail : BaseMail
     {

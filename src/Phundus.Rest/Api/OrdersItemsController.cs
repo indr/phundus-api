@@ -10,9 +10,9 @@ namespace Phundus.Rest.Api
     using Common;
     using Common.Domain.Model;
     using ContentObjects;
-    using Core.Shop.Orders.Commands;
-    using Core.Shop.Queries;
     using Newtonsoft.Json;
+    using Phundus.Shop.Orders.Commands;
+    using Phundus.Shop.Queries;
 
     [RoutePrefix("api/orders/{orderId}/items")]
     public class OrdersItemsController : ApiControllerBase

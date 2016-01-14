@@ -1,7 +1,6 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Queries
+﻿namespace Phundus.IdentityAccess.Queries
 {
     using System;
-    using IdentityAccess.Queries;
 
     public interface IRelationshipQueries
     {

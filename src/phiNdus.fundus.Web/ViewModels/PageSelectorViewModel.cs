@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace phiNdus.fundus.Web.ViewModels
 {
-    using Phundus.Core.Cqrs.Paging;
+    using Phundus.Cqrs.Paging;
 
     public class PageSelectorViewModel
     {

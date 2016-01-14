@@ -5,7 +5,6 @@ namespace Phundus.Rest.Api
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using Core;
     using Infrastructure;
     using Infrastructure.Gateways;
     using Newtonsoft.Json;

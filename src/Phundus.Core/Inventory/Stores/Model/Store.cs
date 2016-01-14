@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory.Stores.Model
+﻿namespace Phundus.Inventory.Stores.Model
 {
     using System;
     using Common;

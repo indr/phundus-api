@@ -5,7 +5,7 @@
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using Core.Cqrs;
+    using Cqrs;
     using Integration.IdentityAccess;
 
     public class UserReadModel : NHibernateReadModelBase<UserViewRow>, IUserQueries

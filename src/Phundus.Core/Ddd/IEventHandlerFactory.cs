@@ -1,7 +1,5 @@
-﻿namespace Phundus.Core.Ddd
+﻿namespace Phundus.Ddd
 {
-    using Common.Notifications;
-
     public interface IEventHandlerFactory
     {
         ISubscribeTo<TDomainEvent> GetSubscriberForEvent<TDomainEvent>(TDomainEvent @event);

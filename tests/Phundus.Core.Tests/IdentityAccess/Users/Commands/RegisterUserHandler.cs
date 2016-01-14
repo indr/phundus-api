@@ -1,10 +1,10 @@
 ﻿namespace Phundus.Core.Tests.IdentityAndAccess.Users.Commands
 {
-    using Core.IdentityAndAccess.Users.Commands;
-    using Core.IdentityAndAccess.Users.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.IdentityAccess.Users.Commands;
+    using Phundus.IdentityAccess.Users.Model;
     using Phundus.IdentityAccess.Users.Repositories;
     using Rhino.Mocks;
 

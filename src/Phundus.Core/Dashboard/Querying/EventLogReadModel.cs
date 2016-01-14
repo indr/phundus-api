@@ -1,10 +1,10 @@
-namespace Phundus.Core.Dashboard.Querying
+namespace Phundus.Dashboard.Querying
 {
     using System.Collections.Generic;
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
-    using IdentityAndAccess.Users.Model;
+    using IdentityAccess.Users.Model;
     using Records;
 
     public interface IEventLogQueries

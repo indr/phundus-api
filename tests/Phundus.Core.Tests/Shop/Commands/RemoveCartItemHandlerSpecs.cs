@@ -2,11 +2,11 @@ namespace Phundus.Core.Tests.Shop.Commands
 {
     using System;
     using Common.Domain.Model;
-    using Core.Shop.Orders.Commands;
-    using Core.Shop.Orders.Model;
-    using Core.Shop.Orders.Repositories;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Shop.Orders.Commands;
+    using Phundus.Shop.Orders.Model;
+    using Phundus.Shop.Orders.Repositories;
 
     [Subject(typeof (RemoveCartItemHandler))]
     public class when_remove_cart_item_is_handled : handler_concern<RemoveCartItem, RemoveCartItemHandler>

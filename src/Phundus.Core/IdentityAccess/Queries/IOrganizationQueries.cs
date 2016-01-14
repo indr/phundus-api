@@ -1,8 +1,9 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Queries
+﻿namespace Phundus.IdentityAccess.Queries
 {
     using System;
     using System.Collections.Generic;
     using Common;
+    using ReadModels;
 
     public interface IOrganizationQueries
     {

@@ -1,9 +1,10 @@
-﻿namespace Phundus.Core.Inventory.Services
+﻿namespace Phundus.Inventory.Services
 {
     using System;
     using Common;
     using Common.Domain.Model;
-    using IdentityAndAccess.Queries;
+    using IdentityAccess.Queries;
+    using IdentityAccess.Queries.ReadModels;
     using Integration.IdentityAccess;
     using Owners;
 

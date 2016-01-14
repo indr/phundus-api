@@ -13,9 +13,10 @@
     using Common;
     using Common.Domain.Model;
     using ContentObjects;
-    using Core.IdentityAndAccess.Organizations.Commands;
-    using Core.IdentityAndAccess.Queries;
-    using Core.Inventory.Queries;
+    using IdentityAccess.Organizations.Commands;
+    using IdentityAccess.Queries;
+    using IdentityAccess.Queries.ReadModels;
+    using Inventory.Queries;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations")]

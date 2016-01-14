@@ -2,9 +2,9 @@
 {
     using Common.Domain.Model;
     using Common.Events;
-    using Core.Ddd;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Ddd;
     using Rhino.Mocks;
     using StoredEvents;
 

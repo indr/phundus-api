@@ -1,11 +1,10 @@
-﻿namespace Phundus.Core.Inventory.Stores.Commands
+﻿namespace Phundus.Inventory.Stores.Commands
 {
     using Common;
     using Common.Domain.Model;
     using Cqrs;
     using Ddd;
     using Model;
-    using Owners;
     using Repositories;
     using Services;
 

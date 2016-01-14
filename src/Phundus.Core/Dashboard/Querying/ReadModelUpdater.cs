@@ -1,4 +1,4 @@
-namespace Phundus.Core.Dashboard.Querying
+namespace Phundus.Dashboard.Querying
 {
     using Common.Events;
     using Common.Notifications;

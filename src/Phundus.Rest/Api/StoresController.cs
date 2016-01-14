@@ -11,8 +11,8 @@ namespace Phundus.Rest.Api
     using Castle.Transactions;
     using Common.Domain.Model;
     using ContentObjects;
-    using Core.Inventory.Queries;
-    using Core.Inventory.Stores.Commands;
+    using Inventory.Queries;
+    using Inventory.Stores.Commands;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/stores")]

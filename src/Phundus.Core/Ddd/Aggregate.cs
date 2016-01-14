@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Ddd
+﻿namespace Phundus.Ddd
 {
     using System;
     using Common;

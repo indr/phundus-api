@@ -10,11 +10,11 @@ namespace Phundus.Rest.Api
     using Common;
     using Common.Domain.Model;
     using ContentObjects;
-    using Core.IdentityAndAccess.Queries;
-    using Core.Inventory.Articles.Commands;
-    using Core.Inventory.AvailabilityAndReservation.Repositories;
-    using Core.Inventory.Queries;
+    using IdentityAccess.Queries;
     using Integration.IdentityAccess;
+    using Inventory.Articles.Commands;
+    using Inventory.AvailabilityAndReservation.Repositories;
+    using Inventory.Queries;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/articles")]

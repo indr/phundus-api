@@ -13,7 +13,7 @@
     using Castle.Transactions;
     using Common;
     using ContentObjects;
-    using Core.IdentityAndAccess.Queries;
+    using IdentityAccess.Queries;
     using Integration.IdentityAccess;
     using Newtonsoft.Json;
 

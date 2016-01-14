@@ -1,8 +1,7 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Queries
+﻿namespace Phundus.IdentityAccess.Queries.ReadModels
 {
     using System;
     using System.Linq;
-    using IdentityAccess.Queries;
 
     public class RelationshipsReadModelReader : ReadModelReaderBase, IRelationshipQueries
     {

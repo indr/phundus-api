@@ -7,7 +7,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using ContentObjects;
-    using Core.IdentityAndAccess.Queries;
+    using IdentityAccess.Queries;
 
     [RoutePrefix("api/admin/organizations")]
     [Authorize(Roles = "Admin")]

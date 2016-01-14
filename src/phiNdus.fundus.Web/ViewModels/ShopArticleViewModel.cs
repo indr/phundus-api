@@ -3,8 +3,8 @@ namespace phiNdus.fundus.Web.ViewModels
     using System.Collections.Generic;
     using Helpers;
     using Models.CartModels;
-    using Phundus.Core.Inventory.Queries;
-    using Phundus.Core.Shop.Queries;
+    using Phundus.Inventory.Queries;
+    using Phundus.Shop.Queries;
 
     public class ShopArticleViewModel
     {

@@ -1,9 +1,7 @@
-﻿namespace Phundus.Core.Shop.Orders.Commands
+﻿namespace Phundus.Shop.Orders.Commands
 {
     using Cqrs;
-    using Ddd;
-    using IdentityAndAccess.Queries;
-    using Model;
+    using IdentityAccess.Queries;
     using Repositories;
 
     public class CloseOrder

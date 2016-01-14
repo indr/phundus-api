@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Shop.Contracts.Model
+﻿namespace Phundus.Shop.Contracts.Model
 {
     using System;
     using Iesi.Collections.Generic;

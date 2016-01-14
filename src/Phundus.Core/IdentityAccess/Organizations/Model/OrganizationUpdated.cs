@@ -1,4 +1,4 @@
-namespace Phundus.Core.IdentityAndAccess.Organizations.Model
+namespace Phundus.IdentityAccess.Organizations.Model
 {
     using System.Runtime.Serialization;
     using Common.Domain.Model;

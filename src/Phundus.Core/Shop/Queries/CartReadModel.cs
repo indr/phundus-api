@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Shop.Queries
 {
     using Common.Domain.Model;
-    using Core.Cqrs;
+    using Cqrs;
     using Integration.Shop;
 
     public class CartReadModel : NHibernateReadModelBase<CartViewRow>, ICartQueries

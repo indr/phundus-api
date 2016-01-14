@@ -7,7 +7,7 @@ namespace Phundus.Web.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using Common;
-    using Core.Cqrs;
+    using Cqrs;
     using NHibernate;
 
     public abstract class ControllerBase : Controller

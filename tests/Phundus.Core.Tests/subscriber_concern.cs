@@ -1,7 +1,7 @@
 namespace Phundus.Core.Tests
 {
-    using Core.Ddd;
     using Machine.Specifications;
+    using Phundus.Ddd;
 
     public abstract class subscriber_concern<TEvent, TSubscriber> : concern<TSubscriber> where TSubscriber : class, ISubscribeTo<TEvent>
     {

@@ -3,8 +3,8 @@
     using System;
     using Common;
     using Common.Domain.Model;
-    using Core.IdentityAndAccess.Users.Model;
     using Infrastructure;
+    using Model;
 
     public interface IUserRepository : IRepository<User>
     {

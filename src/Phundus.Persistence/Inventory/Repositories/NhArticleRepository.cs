@@ -5,10 +5,10 @@
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using Core.Inventory.Articles;
-    using Core.Inventory.Articles.Model;
-    using Core.Inventory.Articles.Repositories;
     using NHibernate.Linq;
+    using Phundus.Inventory.Articles;
+    using Phundus.Inventory.Articles.Model;
+    using Phundus.Inventory.Articles.Repositories;
 
     public class NhArticleRepository : NhRepositoryBase<Article>, IArticleRepository
     {

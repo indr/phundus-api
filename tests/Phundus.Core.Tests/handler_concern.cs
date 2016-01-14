@@ -1,10 +1,10 @@
 namespace Phundus.Core.Tests
 {
     using Common.Domain.Model;
-    using Core.Cqrs;
-    using Core.IdentityAndAccess.Users.Model;
     using Machine.Specifications;
     using NUnit.Framework;
+    using Phundus.Cqrs;
+    using Phundus.IdentityAccess.Users.Model;
 
     public abstract class handler_concern<TCommand, THandler> : concern<THandler>
         where THandler : class, IHandleCommand<TCommand>

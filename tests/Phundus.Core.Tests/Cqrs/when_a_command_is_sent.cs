@@ -3,8 +3,8 @@
     using System;
     using Castle.Facilities.TypedFactory;
     using Castle.Windsor;
-    using Core.Cqrs;
     using Machine.Specifications;
+    using Phundus.Cqrs;
 
     [Subject(typeof (CommandDispatcher))]
     public class when_a_command_is_sent
