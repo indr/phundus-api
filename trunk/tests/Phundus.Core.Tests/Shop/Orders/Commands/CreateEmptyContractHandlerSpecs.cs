@@ -6,6 +6,7 @@
     using Machine.Specifications;
     using Phundus.Shop.Contracts.Commands;
     using Phundus.Shop.Contracts.Model;
+    using Phundus.Tests.Shop;
     using Rhino.Mocks;
 
     [Subject(typeof (CreateEmptyContractHandler))]

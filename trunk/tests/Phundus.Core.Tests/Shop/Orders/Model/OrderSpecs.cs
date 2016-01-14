@@ -7,6 +7,7 @@
     using Machine.Specifications;
     using Phundus.Shop.Contracts.Model;
     using Phundus.Shop.Orders.Model;
+    using Phundus.Tests.Shop;
     using Rhino.Mocks;
 
     public abstract class order_concern : concern<Order>

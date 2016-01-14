@@ -1,7 +1,9 @@
-﻿namespace Phundus.Core.Tests.Shop
+﻿namespace Phundus.Tests.Shop
 {
+    using System;
     using Phundus.Shop.Contracts.Model;
 
+    [Obsolete]
     public class BorrowerFactory
     {
         public static Lessee Create()
