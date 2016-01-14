@@ -107,34 +107,6 @@
             }
         }
 
-        public virtual ICollection<Order> PlaceOrders(ICartRepository cartRepository, IOrderRepository orderRepository,
-            ILessorService lessorService, ILesseeService lesseeService, IAvailabilityService availabilityService)
-        {
-            var result = new List<Order>();
-            var lessors = FindLessors(lessorService);
-            var borrower = lesseeService.GetById(CustomerId);
-
-            foreach (var lessor in lessors)
-            {
-                var order = new Order(lessor, borrower);
-                var items = from i in Items where i.Article.Owner.OwnerId.Id == lessor.LessorId.Id select i;
-                foreach (var item in items)
-                    order.AddItem(item.Article, item.Quantity, item.From.ToUniversalTime(),
-                        item.To.Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), availabilityService);
-
-                orderRepository.Add(order);
-                result.Add(order);
-            }
-            cartRepository.Remove(this);
-            return result;
-        }
-
-        private IEnumerable<Lessor> FindLessors(ILessorService lessorService)
-        {
-            var lessorIds = (from cartItems in Items select cartItems.Article.Owner.OwnerId.Id).Distinct();
-            return lessorIds.Select(lessorService.GetById).ToList();
-        }
-
         public virtual void Clear()
         {
             CartItem item;
