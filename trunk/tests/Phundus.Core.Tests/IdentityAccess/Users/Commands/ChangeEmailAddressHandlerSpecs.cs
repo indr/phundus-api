@@ -20,7 +20,7 @@
         private Establish ctx = () =>
         {
             theUser = CreateUser(theInitiatorGuid);
-            depends.on<IUserRepository>().WhenToldTo(x => x.GetById(theInitiatorGuid)).Return(theUser);
+            depends.on<IUserRepository>().WhenToldTo(x => x.GetByGuid(theInitiatorGuid)).Return(theUser);
             command = new ChangeEmailAddress(theInitiatorGuid, "1234", theNewEmailAddress);
         };
 

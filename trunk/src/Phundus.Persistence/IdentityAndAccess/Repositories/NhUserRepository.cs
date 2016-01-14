@@ -33,7 +33,7 @@
             return result;
         }
 
-        public User GetById(UserGuid userGuid)
+        public User GetByGuid(UserGuid userGuid)
         {
             var result = FindByGuid(userGuid.Id);
             if (result == null)
