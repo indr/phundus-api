@@ -17,6 +17,8 @@
         {
             var command = new PlaceOrder(CurrentUserId, new LessorId(requestContent.LessorGuid));
 
+            Dispatch(command);
+
             return new ShopOrdersPostOkResponseContent
             {
                 OrderId = command.ResultingOrderId

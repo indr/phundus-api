@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Specs.Features.Shop
 {
+    using NUnit.Framework;
     using Services;
     using Steps;
     using TechTalk.SpecFlow;
@@ -22,7 +23,7 @@
         [Then(@"I should get an order id")]
         public void ThenIShouldGetAnOrderId()
         {
-            ScenarioContext.Current.Pending();
+            Assert.That(_orderId, Is.GreaterThan(0));
         }
     }
 }
