@@ -140,6 +140,11 @@
             protected set { _itemTotal = value; }
         }
 
+        /// <summary>
+        /// Wird für E-Mail-Template benötigt!
+        /// </summary>
+        public virtual decimal LineTotal { get { return ItemTotal; } }
+
         private void CalculateTotal()
         {
             var priceInfo = new PerDayWithPerSevenDaysPricePricingStrategy()

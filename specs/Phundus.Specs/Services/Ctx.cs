@@ -40,9 +40,9 @@
             return _collection.ContainsKey(alias);
         }
 
-        public void TryGetValue(string alias, out T value)
+        public bool TryGetValue(string alias, out T value)
         {
-            _collection.TryGetValue(alias, out value);
+            return _collection.TryGetValue(alias, out value);
         }
     }
 

@@ -1,5 +1,6 @@
 namespace Phundus.Shop.Orders.Model
 {
+    using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
@@ -7,9 +8,11 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderPlaced : DomainEvent
     {
-        public OrderPlaced(int orderId, IList<Item> items)
+        public OrderPlaced(int orderId, LessorId lessorId, IList<Item> items)
         {
+            if (lessorId == null) throw new ArgumentNullException("lessorId");
             OrderId = orderId;
+            LessorId = lessorId.Id;
             //Items = items ?? new Item[0];
         }
 
@@ -19,6 +22,9 @@ namespace Phundus.Shop.Orders.Model
 
         [DataMember(Order = 1)]
         public int OrderId { get; protected set; }
+
+        [DataMember(Order = 2)]
+        public Guid LessorId { get; set; }
 
         //[DataMember(Order = 2)]
         //public IList<Item> Items { get; protected set; }

@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Specs.Features.Organizations
 {
+    using System;
     using System.Collections.Generic;
     using ContentTypes;
     using NUnit.Framework;
@@ -43,10 +44,13 @@
             foreach (var each in table.Rows)
             {
                 var userAlias = each["Alias"];
-                Given(@"a confirmed user """ + userAlias + @"""");
+                if (each.ContainsKey("Email address"))
+                    Given(String.Format(@"a confirmed user ""{0}"" with email address ""{1}""", userAlias, each["Email address"]));
+                else
+                    Given(@"a confirmed user """ + userAlias + @"""");
                 var user = Ctx.Users[userAlias];
                 App.LogIn(user);
-                var applicationGuid =  App.ApplyForMembership(user, organization);
+                var applicationGuid = App.ApplyForMembership(user, organization);
                 App.LogInAsRoot();
                 App.ApproveMembershipApplication(organization, applicationGuid);
                 if (each["Role"].ToLowerInvariant() == "manager")
