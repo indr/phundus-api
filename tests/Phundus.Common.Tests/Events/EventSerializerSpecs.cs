@@ -1,9 +1,9 @@
 ﻿namespace Phundus.Common.Tests.Events
 {
     using System.Runtime.Serialization;
+    using Common.Domain.Model;
     using Common.Events;
     using developwithpassion.specifications.rhinomocks;
-    using Domain.Model;
     using Machine.Specifications;
 
     [DataContract]
