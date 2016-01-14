@@ -112,6 +112,11 @@
             get { return Resource("orders/{orderId}/items/{orderItemId}"); }
         }
 
+        public Resource ShopOrdersApi
+        {
+            get { return Resource("shop/orders"); }
+        }
+
         private Resource Resource(string url)
         {
             var result = new Resource(url, _assertNextHttpStatusCode);

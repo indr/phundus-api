@@ -47,6 +47,7 @@
     <Compile Include="AssertionConcern.cs" />
     <Compile Include="AuthorizationException.cs" />
     <Compile Include="Domain.Model\DomainEvent.cs" />
+    <Compile Include="Domain.Model\GuidIdentity.cs" />
     <Compile Include="Domain.Model\HashCodeHelper.cs" />
     <Compile Include="Domain.Model\Identity.cs" />
     <Compile Include="Domain.Model\Identities.cs" />

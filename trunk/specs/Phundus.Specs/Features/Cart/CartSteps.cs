@@ -24,6 +24,12 @@
             _cartItemId = App.AddArticleToCart(Ctx.User, Ctx.Article);
         }
 
+        [Given(@"I added ""(.*)"" to cart")]
+        public void GivenIAddedToCart(string alias)
+        {
+            _cartItemId = App.AddArticleToCart(Ctx.User, Ctx.Articles[alias]);
+        }
+
         [When(@"I try to view my cart")]
         public void WhenITryToViewMyCart()
         {

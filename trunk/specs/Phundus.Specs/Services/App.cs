@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Net;
     using ContentTypes;
     using Entities;
@@ -290,7 +289,7 @@
                     new
                     {
                         itemId = article.ArticleId,
-                        quantity = quantity,
+                        quantity,
                         fromUtc = DateTime.UtcNow,
                         toUtc = DateTime.UtcNow.AddDays(1)
                     });
@@ -300,12 +299,12 @@
         public void ChangeMembersRole(Guid organizationId, int memberId, MemberRole role)
         {
             _apiClient.OrganizationsMembersApi.Patch(
-                new {organizationId = organizationId, memberId = memberId, isManager = role == MemberRole.Manager});
+                new {organizationId, memberId, isManager = role == MemberRole.Manager});
         }
 
         public int CreateOrder(Guid organizationId, int lesseeId)
         {
-            var result = _apiClient.OrdersApi.Post<OrdersPostOkResponseContent>(new {ownerId = organizationId, lesseeId = lesseeId});
+            var result = _apiClient.OrdersApi.Post<OrdersPostOkResponseContent>(new {ownerId = organizationId, lesseeId});
             return result.Data.OrderId;
         }
 
@@ -316,7 +315,7 @@
 
         internal IList<Order> QueryOrders(Guid organizationId)
         {
-            return _apiClient.OrdersApi.Query<Order>(new {organizationId = organizationId}).Data.Results;
+            return _apiClient.OrdersApi.Query<Order>(new {organizationId}).Data.Results;
         }
 
         public void AddOrderItem(int orderId, int articleId)
@@ -329,6 +328,16 @@
                 ToUtc = DateTime.UtcNow.AddDays(1),
                 Quantity = 1
             });
+        }
+
+        public int PlaceOrder(User user, Guid lessorGuid)
+        {
+            return _apiClient.ShopOrdersApi
+                .Post<ShopOrdersPostOkResponseContent>(new ShopOrdersPostRequestContent
+                {
+                    LessorGuid = lessorGuid
+                })
+                .Data.OrderId;
         }
     }
 }
