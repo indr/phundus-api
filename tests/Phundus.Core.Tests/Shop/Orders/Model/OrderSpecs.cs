@@ -71,5 +71,7 @@
         private It should_not_be_empty = () => order.Items.ShouldNotBeEmpty();
 
         private It should_have_three_items = () => order.Items.Count.ShouldEqual(3);
+
+        private It should_copy_the_items = () => order.Items.ShouldNotContain(items);
     }
 }

@@ -25,14 +25,13 @@
 
         public Order(Lessor lessor, Lessee lessee, ICollection<OrderItem> items)
         {
-            AssertionConcern.AssertArgumentNotNull(lessor, "Lessor must be provided.");
-            AssertionConcern.AssertArgumentNotNull(lessee, "Lessee must be provided.");
-
+            if (lessor == null) throw new ArgumentNullException("lessor");
+            if (lessee == null) throw new ArgumentNullException("lessee");
             _lessor = lessor;
             _lessee = lessee;
 
             if ((items != null) && (items.Count > 0))
-                _items.AddAll(items);
+                _items.AddAll(items.Select(s => new OrderItem(this, s)).ToList());
         }
 
         protected Order()

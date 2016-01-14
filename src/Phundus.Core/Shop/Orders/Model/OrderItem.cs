@@ -17,8 +17,20 @@
         private decimal _unitPrice;
         private decimal _itemTotal;
 
-        protected OrderItem()
+        public OrderItem(Order order, OrderItem copyFrom)
         {
+            if (order == null) throw new ArgumentNullException("order");
+            if (copyFrom == null) throw new ArgumentNullException("copyFrom");
+
+            _order = order;
+            _articleId = copyFrom.ArticleId;
+            _text = copyFrom.Text;
+            _fromUtc = copyFrom.FromUtc;
+            _toUtc = copyFrom.ToUtc;
+            _amount = copyFrom.Amount;
+            _unitPrice = copyFrom.UnitPrice;
+
+            CalculateTotal();
         }
 
         public OrderItem(ArticleId articleId, string text, Period period, int quantity, decimal unitPricePerWeek)
@@ -36,7 +48,6 @@
             CalculateTotal();
         }
 
-        [Obsolete]
         public OrderItem(Order order, Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             AssertionConcern.AssertArgumentNotNull(article, "Article must be provided.");
@@ -50,6 +61,12 @@
             _amount = amount;
 
             CalculateTotal();
+        }
+
+        
+
+        protected OrderItem()
+        {
         }
 
         public virtual Guid Id
