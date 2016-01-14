@@ -11,34 +11,6 @@ namespace phiNdus.fundus.Web.Models.CartModels
 
     public class CartItemModel : ViewModelBase
     {
-        public CartItemModel()
-        {
-        }
-
-        public CartItemModel(CartItemDto itemDto)
-        {
-            if (itemDto == null)
-                throw new ArgumentNullException("itemDto");
-
-            Id = itemDto.Id;
-            Version = itemDto.Version;
-            ArticleId = itemDto.ArticleId;
-            Begin = itemDto.From;
-            End = itemDto.To;
-            Caption = itemDto.Text;
-            Amount = itemDto.Quantity;
-            UnitPrice = itemDto.UnitPrice;
-            LineTotal = itemDto.LineTotal;
-            IsAvailable = itemDto.IsAvailable;
-            OrganizationName = itemDto.OrganizationName;
-
-            if (Begin == DateTime.MinValue)
-                Begin = SessionAdapter.ShopBegin;
-
-            if (End == DateTime.MinValue)
-                End = SessionAdapter.ShopEnd;
-        }
-
         public string OrganizationName { get; set; }
 
         [Required]

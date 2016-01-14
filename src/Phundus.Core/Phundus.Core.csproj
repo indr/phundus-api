@@ -325,7 +325,6 @@
     <Compile Include="Cqrs\IHandleCommand.cs" />
     <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
     <Compile Include="Ddd\EventPublisher.cs" />
-    <Compile Include="Shop\Orders\_Legacy\DtoOutOfDateException.cs" />
     <Compile Include="Inventory\Articles\Model\Article.cs" />
     <Compile Include="Shop\Orders\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
