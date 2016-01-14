@@ -49,6 +49,9 @@
         public override string[] GetRolesForUser(string username)
         {
             var user = Users.FindByEmailAddress(username);
+            if (user == null)
+                return new string[0];
+
             var role = user.Role.ToString();
 
             var result = new List<string>();
