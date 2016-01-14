@@ -7,6 +7,7 @@
     using Machine.Specifications;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
+    using Phundus.Tests.Shop;
     using Rhino.Mocks;
 
     [Subject(typeof (AddOrderItemHandler))]

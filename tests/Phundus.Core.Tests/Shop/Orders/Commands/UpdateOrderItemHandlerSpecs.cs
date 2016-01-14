@@ -8,6 +8,7 @@
     using Machine.Specifications;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
+    using Phundus.Tests.Shop;
     using Rhino.Mocks;
     using Article = Phundus.Shop.Orders.Model.Article;
 

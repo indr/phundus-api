@@ -1,5 +1,6 @@
-﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
+﻿namespace Phundus.Tests.Shop.Orders.Commands
 {
+    using Core.Tests.Shop.Orders.Commands;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
