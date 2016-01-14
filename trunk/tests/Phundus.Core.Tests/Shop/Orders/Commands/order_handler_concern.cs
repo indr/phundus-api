@@ -14,9 +14,9 @@ namespace Phundus.Tests.Shop.Orders.Commands
     {
         protected static IMemberInRole memberInRole;
 
-        protected static IOrderRepository orders;
+        protected static IOrderRepository orderRepository;
 
-        protected static IArticleService articles;
+        protected static IArticleService articleRepository;
 
         protected static ILesseeService lesseeService;
 
@@ -29,8 +29,8 @@ namespace Phundus.Tests.Shop.Orders.Commands
         {
             lessor = new Lessor(lessorId, "Lessor");
             memberInRole = depends.on<IMemberInRole>();
-            orders = depends.on<IOrderRepository>();
-            articles = depends.on<IArticleService>();
+            orderRepository = depends.on<IOrderRepository>();
+            articleRepository = depends.on<IArticleService>();
             lessorService = depends.on<ILessorService>();
             lesseeService = depends.on<ILesseeService>();
         };

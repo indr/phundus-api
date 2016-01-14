@@ -24,7 +24,7 @@
             var article = new Article(1, new Owner(new OwnerId(Guid.NewGuid()), "Owner"), "Artikel", 1.0m);
             order = new Order(lessor, CreateLessee());
             orderItemId = order.AddItem(article, DateTime.Today, DateTime.Today, 1).Id;
-            orders.setup(x => x.GetById(orderId)).Return(order);
+            orderRepository.setup(x => x.GetById(orderId)).Return(order);
 
             command = new RemoveOrderItem
             {

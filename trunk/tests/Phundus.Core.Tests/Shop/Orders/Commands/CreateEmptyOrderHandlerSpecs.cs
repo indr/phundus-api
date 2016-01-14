@@ -6,21 +6,20 @@
     using Machine.Specifications;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
-    using Phundus.Tests.Shop;
     using Rhino.Mocks;
 
     [Subject(typeof (CreateEmptyOrderHandler))]
     public class when_create_empty_order_is_handled :
         order_handler_concern<CreateEmptyOrder, CreateEmptyOrderHandler>
     {
-        public static CurrentUserId initiatorId = new CurrentUserId(2);
         public const int orderId = 3;
         public const int userId = 4;
+        public static CurrentUserId initiatorId = new CurrentUserId(2);
 
         public Establish c = () =>
         {
             var lessee = CreateLessee(userId);
-            orders.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(orderId);
+            orderRepository.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(orderId);
             lessorService.setup(x => x.GetById(lessor.LessorId)).Return(lessor);
             lesseeService.setup(x => x.GetById(lessee.LesseeId)).Return(lessee);
 
@@ -32,7 +31,7 @@
             };
         };
 
-        public It should_add_to_repository = () => orders.WasToldTo(x => x.Add(Arg<Order>.Is.NotNull));
+        public It should_add_to_repository = () => orderRepository.WasToldTo(x => x.Add(Arg<Order>.Is.NotNull));
 
         public It should_ask_for_chief_privileges =
             () => memberInRole.WasToldTo(x => x.ActiveChief(new OwnerId(lessor.LessorId.Id), initiatorId));

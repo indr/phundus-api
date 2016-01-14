@@ -4,21 +4,14 @@ namespace Phundus.Shop.Orders.Model
     using Common.Domain.Model;
 
     [DataContract]
-    public class OrderRejected : DomainEvent
+    public class OrderCreated : DomainEvent
     {
         [DataMember(Order = 1)]
         public int OrderId { get; set; }
     }
 
     [DataContract]
-    public class OrderApproved : DomainEvent
-    {
-        [DataMember(Order = 1)]
-        public int OrderId { get; set; }
-    }
-
-    [DataContract]
-    public class OrderClosed : DomainEvent
+    public class OrderPlaced : DomainEvent
     {
         [DataMember(Order = 1)]
         public int OrderId { get; set; }

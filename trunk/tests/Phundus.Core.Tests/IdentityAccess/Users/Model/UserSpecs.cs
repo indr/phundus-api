@@ -6,7 +6,7 @@
     using Phundus.IdentityAccess.Users.Model;
     using Rhino.Mocks;
 
-    public class user_concern : concern<User>
+    public class user_concern : aggregate_concern<User>
     {
         protected static string theEmailAddress = "user@test.phundus.ch";
         protected static string thePassword = "1234";
