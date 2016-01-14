@@ -242,6 +242,7 @@
     <Compile Include="Inventory\Stores\Model\OpeningHoursChanged.cs" />
     <Compile Include="Inventory\Stores\Model\AddressChanged.cs" />
     <Compile Include="Inventory\Stores\Model\CoordinateChanged.cs" />
+    <Compile Include="Inventory\Stores\Model\DefaultOrganizationStoreOpener.cs" />
     <Compile Include="Inventory\Stores\Model\Store.cs" />
     <Compile Include="Inventory\Stores\Model\StoreOpened.cs" />
     <Compile Include="Inventory\Stores\Repositories\IStoreRepository.cs" />

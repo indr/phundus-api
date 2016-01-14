@@ -102,6 +102,7 @@
     <Compile Include="IdentityAccess\Users\Commands\RegisterUserHandler.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserSpecs.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
+    <Compile Include="Inventory\OrganizationStoreOpenerSpecs.cs" />
     <Compile Include="Shop\BorrowerFactory.cs" />
     <Compile Include="concern.cs" />
     <Compile Include="Cqrs\TestCommand1.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Shop\Orders\Commands\UpdateOrderItemHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Model\OrderSpecs.cs" />
     <Compile Include="Shop\OrganizationFactory.cs" />
+    <Compile Include="subscriber_concern.cs" />
     <Compile Include="_Legacy\Entities\EntityBaseTests.cs" />
     <Compile Include="_Legacy\Entities\MembershipTests.cs" />
     <Compile Include="_Legacy\Entities\OrderStatusTests.cs" />
@@ -162,6 +164,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Inventory\Stores\" />
     <Folder Include="_Legacy\Entities\ArticleTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
