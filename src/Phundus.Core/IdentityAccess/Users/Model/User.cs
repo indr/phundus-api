@@ -9,7 +9,7 @@
         private Account _account;
         private string _city;
         private string _firstName;
-        private Guid _guid = Guid.NewGuid();
+        private UserGuid _userGuid = new UserGuid();
         private int? _jsNumber;
         private string _lastName;
         private string _mobileNumber;
@@ -43,8 +43,14 @@
 
         public virtual Guid Guid
         {
-            get { return _guid; }
-            protected set { _guid = value; }
+            get { return _userGuid.Id; }
+            protected set { _userGuid = new UserGuid(value); }
+        }
+
+        public virtual UserGuid UserGuid
+        {
+            get { return _userGuid; }
+            protected set { _userGuid = value; }
         }
 
         public virtual string FirstName
@@ -128,6 +134,14 @@
                 return;
 
             EventPublisher.Publish(new UserApproved(initiator, this));
+        }
+
+        public virtual void ChangeEmailAddress(UserGuid initiatorGuid, string password, string newEmailAddress)
+        {
+            if (password == null) throw new ArgumentNullException("password");
+            if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
+
+            Account.ChangeEmailAddress(initiatorGuid, password, newEmailAddress);
         }
     }
 }

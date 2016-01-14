@@ -4,13 +4,13 @@
     using Common.Domain.Model;
 
     [DataContract]
-    public class UserRegistered : DomainEvent
+    public class UserSignedUp : DomainEvent
     {
-        protected UserRegistered()
+        protected UserSignedUp()
         {
         }
 
-        public UserRegistered(int userId, string emailAddress, string password, string salt, string validationKey,
+        public UserSignedUp(int userId, string emailAddress, string password, string salt, string validationKey,
             string firstName, string lastName, string street, string postcode, string city, string mobilePhone)
         {
             UserId = userId;

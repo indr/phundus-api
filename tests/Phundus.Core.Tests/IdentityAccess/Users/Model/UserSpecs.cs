@@ -1,10 +1,13 @@
-﻿namespace Phundus.Core.Tests.IdentityAccess.Users.Model
+﻿namespace Phundus.Tests.IdentityAccess.Users.Model
 {
     using Common.Domain.Model;
+    using Core.Tests;
+    using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Users.Model;
+    using Rhino.Mocks;
 
-    public class user_concern
+    public class user_concern : concern<User>
     {
         protected static User sut;
         protected static string theEmailAddress = "user@test.phundus.ch";
@@ -72,15 +75,23 @@
     public class when_changing_email_address : user_concern
     {
         private static string theNewEmailAddress = "new@test.phundus.ch";
+        private static string theOldValidationKey;
 
-        private Establish ctx = () => { sut = CreateUser(); };
+        private Establish ctx = () =>
+        {
+            sut = CreateUser();
+            theOldValidationKey = sut.Account.ValidationKey;
+        };
 
-        private Because of = () => sut.Account.ChangeEmailAddress(thePassword, theNewEmailAddress);
+        private Because of = () => sut.ChangeEmailAddress(sut.UserGuid, thePassword, theNewEmailAddress);
+
+        private It should_have_new_validation_key = () => sut.Account.ValidationKey.ShouldNotEqual(theOldValidationKey);
 
         private It should_have_requested_email_address =
             () => sut.Account.RequestedEmail.ShouldEqual(theNewEmailAddress);
 
-        private It should_have_validation_key = () => sut.Account.ValidationKey.ShouldNotBeEmpty();
+        private It should_public_email_address_change_requested = () => publisher.WasToldTo(
+            x => x.Publish(Arg<UserEmailAddressChangeRequested>.Is.NotNull));
     }
 
     [Subject(typeof (User))]
@@ -93,13 +104,24 @@
         private Establish ctx = () =>
         {
             sut = CreateUser();
-            sut.Account.ChangeEmailAddress(thePassword, theNewEmailAddress);
+            sut.Account.ChangeEmailAddress(sut.UserGuid, thePassword, theNewEmailAddress);
             theKey = sut.Account.ValidationKey;
         };
 
         private Because of = () => result = sut.Account.ValidateKey(theKey);
 
         private It should_not_have_a_validation_key = () => sut.Account.ValidationKey.ShouldBeNull();
+
+        private It should_publish_email_address_changed = () =>
+        {
+            publisher.WasToldTo(
+                x => x.Publish(Arg<UserEmailAddressChanged>.Is.NotNull));
+            publisher.WasToldTo(x => x.Publish(Arg<UserEmailAddressChanged>.Matches(p =>
+                p.UserGuid == sut.UserGuid.Id
+                && p.OldEmailAddress == theEmailAddress
+                && p.NewEmailAddress == theNewEmailAddress)));
+        };
+
         private It should_return_true = () => result.ShouldBeTrue();
         private It should_set_new_email_address = () => sut.Account.Email.ShouldEqual(theNewEmailAddress);
     }
@@ -113,7 +135,7 @@
         private Establish ctx = () =>
         {
             sut = CreateUser();
-            sut.Account.ChangeEmailAddress(thePassword, theNewEmailAddress);
+            sut.Account.ChangeEmailAddress(sut.UserGuid, thePassword, theNewEmailAddress);
         };
 
         private Because of = () => result = sut.Account.ValidateKey("wrongKey");

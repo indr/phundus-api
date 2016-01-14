@@ -1,25 +1,27 @@
 namespace Phundus.IdentityAccess.Users.Mails
 {
     using System;
+    using Ddd;
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;
+    using Repositories;
 
-    public class UserChangeEmailValidationMail : BaseMail
+    public class UserChangeEmailValidationMail : BaseMail, ISubscribeTo<UserEmailAddressChangeRequested>
     {
-        public UserChangeEmailValidationMail(IMailGateway mailGateway) : base(mailGateway)
-        {
-        }
+        private readonly IUserRepository _userRepository;
 
-        public void Send(User user)
+        public UserChangeEmailValidationMail(IMailGateway mailGateway, IUserRepository userRepository) : base(mailGateway)
         {
-            Send(user.Account.RequestedEmail, Templates.UserChangeEmailValidationSubject, null,
-                Templates.UserChangeEmailValidationHtml);
+            if (userRepository == null) throw new ArgumentNullException("userRepository");
+            _userRepository = userRepository;
         }
-
-        public UserChangeEmailValidationMail For(User user)
+       
+        public void Handle(UserEmailAddressChangeRequested @event)
         {
-            Guard.Against<ArgumentNullException>(user == null, "user");
+            var user = _userRepository.FindById(@event.UserGuid);
+            if (user == null)
+                return;
 
             Model = new
             {
@@ -28,7 +30,8 @@ namespace Phundus.IdentityAccess.Users.Mails
                 Admins = Config.FeedbackRecipients
             };
 
-            return this;
+            Send(user.Account.RequestedEmail, Templates.UserChangeEmailValidationSubject, null,
+                Templates.UserChangeEmailValidationHtml);
         }
     }
 }

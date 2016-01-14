@@ -168,7 +168,7 @@
     <Compile Include="IdentityAccess\Users\Commands\ChangePassword.cs" />
     <Compile Include="IdentityAccess\Users\Commands\ChangeUserRole.cs" />
     <Compile Include="IdentityAccess\Users\Commands\LockUser.cs" />
-    <Compile Include="IdentityAccess\Users\Commands\RegisterUser.cs" />
+    <Compile Include="IdentityAccess\Users\Commands\SignUpUser.cs" />
     <Compile Include="IdentityAccess\Users\Commands\ResetPassword.cs" />
     <Compile Include="IdentityAccess\Users\Commands\UnlockUser.cs" />
     <Compile Include="IdentityAccess\Users\Commands\ValidateKey.cs" />
@@ -188,11 +188,13 @@
     <Compile Include="IdentityAccess\Users\Mails\UserResetPasswordMail.cs" />
     <Compile Include="IdentityAccess\Users\Mails\UserUnlockedMailNotifier.cs" />
     <Compile Include="IdentityAccess\Users\Model\Account.cs" />
+    <Compile Include="IdentityAccess\Users\Model\UserEmailAddressChanged.cs" />
+    <Compile Include="IdentityAccess\Users\Model\UserEmailAddressChangeRequested.cs" />
     <Compile Include="IdentityAccess\Users\Model\User.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserApproved.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserLocked.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserLoggedIn.cs" />
-    <Compile Include="IdentityAccess\Users\Model\UserRegistered.cs" />
+    <Compile Include="IdentityAccess\Users\Model\UserSignedUp.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserRoleChanged.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserUnlocked.cs" />
     <Compile Include="IdentityAccess\Users\Repositories\IUserRepository.cs" />

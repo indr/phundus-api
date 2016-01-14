@@ -5,47 +5,50 @@
     using Common.Domain.Model;
     using Cqrs;
     using Exceptions;
-    using IdentityAccess.Users.Repositories;
     using Infrastructure.Gateways;
     using Mails;
+    using Repositories;
 
     public class ChangeEmailAddress
     {
-        public ChangeEmailAddress(UserId initiatorId, string password, string newEmailAddress)
+        public ChangeEmailAddress(UserGuid initiatorGuid, string password, string newEmailAddress)
         {
-            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
             if (password == null) throw new ArgumentNullException("password");
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
 
-            InitiatorId = initiatorId;
+            InitiatorGuid = initiatorGuid;
             Password = password;
             NewEmailAddress = newEmailAddress;
         }
 
-        public UserId InitiatorId { get; protected set; }
+        public UserGuid InitiatorGuid { get; protected set; }
         public string Password { get; protected set; }
         public string NewEmailAddress { get; protected set; }
     }
 
     public class ChangeEmailAddressHandler : IHandleCommand<ChangeEmailAddress>
     {
-        public IMailGateway MailGateway { get; set; }
+        private readonly IMailGateway _mailGateway;
+        private readonly IUserRepository _userRepository;
 
-        public IUserRepository UserRepository { get; set; }
+        public ChangeEmailAddressHandler(IUserRepository userRepository, IMailGateway mailGateway)
+        {
+            if (userRepository == null) throw new ArgumentNullException("userRepository");
+            if (mailGateway == null) throw new ArgumentNullException("mailGateway");
+            _userRepository = userRepository;
+            _mailGateway = mailGateway;
+        }
 
         public void Handle(ChangeEmailAddress command)
         {
-            var user = UserRepository.GetById(command.InitiatorId);
+            var user = _userRepository.GetById(command.InitiatorGuid);
 
             var emailAddress = command.NewEmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
-            if (UserRepository.FindByEmailAddress(emailAddress) != null)
+            if (_userRepository.FindByEmailAddress(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
 
-            user.Account.ChangeEmailAddress(command.Password, command.NewEmailAddress);
-            user.Account.GenerateValidationKey();
-            UserRepository.Update(user);
-
-            new UserChangeEmailValidationMail(MailGateway).For(user).Send(user);
+            user.ChangeEmailAddress(command.InitiatorGuid, command.Password, command.NewEmailAddress);
         }
     }
 }

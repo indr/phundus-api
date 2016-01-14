@@ -103,6 +103,10 @@
 
     public class UserGuid : Identity<Guid>
     {
+        public UserGuid() : base(Guid.NewGuid())
+        {
+        }
+
         public UserGuid(Guid id) : base(id)
         {
         }
