@@ -26,6 +26,8 @@
             Delete.FromTable("Dm_IdentityAccess_User").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_IdentityAccess_Organization").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_Inventory_Store").InSchema(SchemaName).AllRows();
+            Delete.FromTable("StoredEvents").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Rm_EventLog").InSchema(SchemaName).AllRows();
 
             Import<Organization>("Organizations.csv", "Dm_IdentityAccess_Organization", false);
             Import<Store>("Organizations.csv", "Dm_Inventory_Store", false);
