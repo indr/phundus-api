@@ -194,15 +194,15 @@
             return response.Data;
         }
 
-        public Article CreateArticle(User user, TableRow row = null)
+        public Article CreateArticle(Guid ownerGuid, TableRow row = null)
         {
             var article = _fakeArticleGenerator.NextArticle(row);
-            article.OwnerId = user.Guid;
+            article.OwnerId = ownerGuid;
             var response = _apiClient.ArticlesApi.Post<ArticlesPostOkResponseContent>(new ArticlesPostRequestContent
             {
                 Amount = article.GrossStock,
                 Name = article.Name,
-                OwnerId = user.Id.ToString(CultureInfo.InvariantCulture)
+                OwnerGuid = article.OwnerId
             });
             article.ArticleId = response.Data.ArticleId;
             return article;
@@ -317,6 +317,18 @@
         internal IList<Order> QueryOrders(Guid organizationId)
         {
             return _apiClient.OrdersApi.Query<Order>(new {organizationId = organizationId}).Data.Results;
+        }
+
+        public void AddOrderItem(int orderId, int articleId)
+        {
+            _apiClient.OrdersItemsApi.Post(new OrdersItemsPostRequestContent
+            {
+                OrderId = orderId,
+                ArticleId = articleId,
+                FromUtc = DateTime.UtcNow,
+                ToUtc = DateTime.UtcNow.AddDays(1),
+                Quantity = 1
+            });
         }
     }
 }

@@ -45,6 +45,12 @@
             AssertLastStatusCode(HttpStatusCode.OK);
         }
 
+        [Then(@"I should see created")]
+        public void ThenIShouldSeeCreated()
+        {
+            AssertLastStatusCode(HttpStatusCode.Created);
+        }
+
         [Then(@"I should see no content")]
         public void ThenIShouldSeeNoContent()
         {

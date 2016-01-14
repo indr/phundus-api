@@ -103,6 +103,7 @@
 
         public string ValidationKey { get; set; }
         public Guid? Store { get; set; }
+        public Order Order { get; set; }
 
 
         [BeforeScenario]

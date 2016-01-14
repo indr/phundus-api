@@ -24,7 +24,7 @@
             App.LogIn(user.Username, user.Password);
         }
 
-        [Given(@"I am logged in as ""(.*)""")]
+        [Given(@"I am logged in as ""?((?!root)[^ ""]*)""?")]
         public void GivenIAmLoggedInAs(string alias)
         {
             if (!Ctx.Users.ContainsAlias(alias))
