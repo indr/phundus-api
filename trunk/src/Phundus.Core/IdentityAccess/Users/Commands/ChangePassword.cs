@@ -1,10 +1,9 @@
 ﻿namespace Phundus.IdentityAccess.Users.Commands
 {
     using System;
-    using Castle.Transactions;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Users.Repositories;
+    using Repositories;
 
     public class ChangePassword
     {
@@ -28,7 +27,6 @@
     {
         public IUserRepository UserRepository { get; set; }
 
-        [Transaction]
         public void Handle(ChangePassword command)
         {
             var user = UserRepository.GetById(command.InitiatorId);

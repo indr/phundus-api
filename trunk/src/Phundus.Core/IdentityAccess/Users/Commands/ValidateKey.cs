@@ -2,18 +2,17 @@
 {
     using System;
     using Cqrs;
-    using IdentityAccess.Users.Repositories;
+    using Repositories;
 
     public class ValidateKey
     {
-        public ValidateKey(string key)
+        public ValidateKey(string validationKey)
         {
-            if (key == null) throw new ArgumentNullException("key");
-
-            Key = key;
+            if (validationKey == null) throw new ArgumentNullException("validationKey");
+            ValidationKey = validationKey;
         }
 
-        public string Key { get; set; }
+        public string ValidationKey { get; protected set; }
     }
 
     public class ValidateKeyHandler : IHandleCommand<ValidateKey>
@@ -29,8 +28,8 @@
 
         public void Handle(ValidateKey command)
         {
-            var user = _userRepository.FindByValidationKey(command.Key);
-            user.Account.ValidateKey(command.Key);
+            var user = _userRepository.FindByValidationKey(command.ValidationKey);
+            user.Account.ValidateKey(command.ValidationKey);
         }
     }
 }
