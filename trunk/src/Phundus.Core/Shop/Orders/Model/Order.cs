@@ -19,7 +19,11 @@
         private DateTime? _modifiedUtc;
         private OrderStatus _status = OrderStatus.Pending;
 
-        public Order(Lessor lessor, Lessee lessee, ICollection<OrderItem> items = null)
+        public Order(Lessor lessor, Lessee lessee) : this(lessor, lessee, null)
+        {
+        }
+
+        public Order(Lessor lessor, Lessee lessee, ICollection<OrderItem> items)
         {
             AssertionConcern.AssertArgumentNotNull(lessor, "Lessor must be provided.");
             AssertionConcern.AssertArgumentNotNull(lessee, "Lessee must be provided.");
