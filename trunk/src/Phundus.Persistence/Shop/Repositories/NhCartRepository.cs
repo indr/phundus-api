@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using Common;
     using Common.Domain.Model;
     using Phundus.Shop.Orders;
     using Phundus.Shop.Orders.Model;
@@ -25,6 +26,17 @@
                 where c.CustomerId == userId.Id
                 select c;
             return query.SingleOrDefault();
+        }
+
+        public Cart GetByUserId(UserId userId)
+        {
+            if (userId == null) throw new ArgumentNullException("userId");
+
+            var result = FindByUserId(userId);
+            if (result == null)
+                throw new NotFoundException("Cart with {0} not found.", userId);
+
+            return result;
         }
     }
 }

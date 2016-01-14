@@ -11,5 +11,6 @@
         Cart GetById(object id);
         
         Cart FindByUserId(UserId userId);
+        Cart GetByUserId(UserId userId);
     }
 }

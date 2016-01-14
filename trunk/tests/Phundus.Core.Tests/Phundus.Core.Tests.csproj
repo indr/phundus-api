@@ -118,7 +118,7 @@
     <Compile Include="Inventory\Articles\Commands\WhenDeleteArticleIsHandled.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shop\Commands\AddArticleToCartHandlerSpecs.cs" />
-    <Compile Include="Shop\Commands\PlaceOrderCommandSpecs.cs" />
+    <Compile Include="Shop\Commands\PlaceOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Commands\RemoveCartItemHandlerSpecs.cs" />
     <Compile Include="Shop\Model\CartSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\AddOrderItemHandlerSpecs.cs" />
@@ -133,6 +133,8 @@
     <Compile Include="Shop\Orders\Commands\RemoveOrderItemHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\UpdateOrderItemHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Model\OrderSpecs.cs" />
+    <Compile Include="Shop\Orders\Model\OrderStatusSpecs.cs" />
+    <Compile Include="Shop\Orders\Model\order_concern.cs" />
     <Compile Include="Shop\OrganizationFactory.cs" />
     <Compile Include="subscriber_concern.cs" />
     <Compile Include="_Legacy\Entities\EntityBaseTests.cs" />

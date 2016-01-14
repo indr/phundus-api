@@ -16,7 +16,7 @@
 
         public Establish c = () =>
         {
-            order = mock.partial<Order>(new object[] {lessor, CreateLessee()});
+            order = mock.partial<Order>(new object[] {theLessor, CreateLessee()});
             orderRepository.setup(x => x.GetById(orderId)).Return(order);
 
             command = new RejectOrder
@@ -27,7 +27,7 @@
         };
 
         public It should_ask_for_chief_privilegs =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(lessor.LessorId.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(theLessor.LessorId.Id, initiatorId));
 
         public It should_ask_order_to_reject =
             () => order.WasToldTo(x => x.Reject(initiatorId));

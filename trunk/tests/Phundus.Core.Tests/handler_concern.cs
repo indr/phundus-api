@@ -15,8 +15,14 @@ namespace Phundus.Tests
         public Because of = () =>
         {
             command.ShouldNotBeNull();
-            sut.Handle(command);
+            if (catchException)
+                caughtException = Catch.Exception(() => sut.Handle(command));
+            else
+                sut.Handle(command);
         };
+
+        protected static Exception caughtException;
+        protected static bool catchException = false;
 
         protected static User CreateAdmin(int userId)
         {

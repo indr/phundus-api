@@ -1,6 +1,7 @@
 namespace Phundus.Tests.Shop.Orders.Commands
 {
     using Common.Domain.Model;
+    using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Cqrs;
     using Phundus.IdentityAccess.Queries;
@@ -20,18 +21,19 @@ namespace Phundus.Tests.Shop.Orders.Commands
 
         protected static ILesseeService lesseeService;
 
-        protected static LessorId lessorId = new LessorId();
-        protected static Lessor lessor;
+        protected static LessorId theLessorId = new LessorId();
+        protected static Lessor theLessor;
 
         protected static ILessorService lessorService;
 
         protected Establish dependencies = () =>
         {
-            lessor = new Lessor(lessorId, "Lessor");
+            theLessor = new Lessor(theLessorId, "Lessor");
             memberInRole = depends.on<IMemberInRole>();
             orderRepository = depends.on<IOrderRepository>();
             articleRepository = depends.on<IArticleService>();
             lessorService = depends.on<ILessorService>();
+            lessorService.WhenToldTo(x => x.GetById(theLessorId)).Return(theLessor);
             lesseeService = depends.on<ILesseeService>();
         };
 

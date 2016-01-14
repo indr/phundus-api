@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Shop.Orders.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Common;
     using Contracts.Model;
@@ -10,21 +11,24 @@
 
     public class Order
     {
-        private Lessee _lessee;
         private DateTime _createdUtc = DateTime.UtcNow;
-        private ISet<OrderItem> _items = new HashedSet<OrderItem>();
+        private Iesi.Collections.Generic.ISet<OrderItem> _items = new HashedSet<OrderItem>();
+        private Lessee _lessee;
         private Lessor _lessor;
         private int? _modifiedBy;
         private DateTime? _modifiedUtc;
         private OrderStatus _status = OrderStatus.Pending;
 
-        public Order(Lessor lessor, Lessee lessee)
+        public Order(Lessor lessor, Lessee lessee, ICollection<OrderItem> items = null)
         {
             AssertionConcern.AssertArgumentNotNull(lessor, "Lessor must be provided.");
             AssertionConcern.AssertArgumentNotNull(lessee, "Lessee must be provided.");
 
             _lessor = lessor;
             _lessee = lessee;
+
+            if ((items != null) && (items.Count > 0))
+                _items.AddAll(items);
         }
 
         protected Order()
@@ -76,7 +80,7 @@
             protected set { _lessee = value; }
         }
 
-        public virtual ISet<OrderItem> Items
+        public virtual Iesi.Collections.Generic.ISet<OrderItem> Items
         {
             get { return new ImmutableSet<OrderItem>(_items); }
             protected set { _items = value; }
@@ -84,7 +88,7 @@
 
         public virtual decimal TotalPrice
         {
-            get { return _items.Sum(x => x.LineTotal); }
+            get { return _items.Sum(x => x.ItemTotal); }
         }
 
         public virtual DateTime? LastToUtc
@@ -168,19 +172,8 @@
             }
         }
 
-        public virtual bool AddItem(OrderItem item, IAvailabilityService availabilityService)
-        {
-            EnsurePending();
 
-            if (
-                !availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount,
-                    Guid.Empty))
-                throw new ArticleNotAvailableException(item);
-
-            return _items.Add(item);
-        }
-
-        public virtual OrderItem AddItem(Article article, DateTime fromUtc, DateTime toUtc, int amount)
+        public OrderItem AddItem(Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             EnsurePending();
 
@@ -200,6 +193,18 @@
             var item = new OrderItem(this, article, fromUtc, toUtc, amount);
 
             return AddItem(item, availabilityService);
+        }
+
+        private bool AddItem(OrderItem item, IAvailabilityService availabilityService)
+        {
+            EnsurePending();
+
+            if (
+                !availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount,
+                    Guid.Empty))
+                throw new ArticleNotAvailableException(item);
+
+            return _items.Add(item);
         }
 
         public virtual void RemoveItem(Guid orderItemId)

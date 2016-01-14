@@ -12,10 +12,10 @@
 
     public class Cart : EntityBase
     {
-        private int _userId;
-        private Guid _userGuid;
-        private Iesi.Collections.Generic.ISet<CartItem> _items = new HashedSet<CartItem>();
         private Guid _cartGuid = Guid.NewGuid();
+        private Iesi.Collections.Generic.ISet<CartItem> _items = new HashedSet<CartItem>();
+        private Guid _userGuid;
+        private int _userId;
 
         public Cart(UserId userId, UserGuid userGuid)
         {
@@ -56,6 +56,11 @@
             protected set { _userGuid = value; }
         }
 
+        public virtual bool IsEmpty
+        {
+            get { return _items.IsEmpty; }
+        }
+
 
         public virtual CartItemGuid AddItem(Article article, DateTime @from, DateTime to, int quantity)
         {
@@ -76,7 +81,7 @@
         {
             Items.Add(item);
             item.Cart = this;
-            item.CartGuid = this.CartGuid;
+            item.CartGuid = CartGuid;
         }
 
         public virtual void RemoveItem(CartItemGuid cartItemGuid)

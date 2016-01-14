@@ -21,8 +21,8 @@
         {
             var ownerId = new OwnerId(Guid.NewGuid());
             var owner = new Owner(ownerId, "Owner");
-            lessor = new Lessor(new LessorId(owner.OwnerId.Id), "Lessor");
-            order = new Order(lessor, CreateLessee());
+            theLessor = new Lessor(new LessorId(owner.OwnerId.Id), "Lessor");
+            order = new Order(theLessor, CreateLessee());
             orderRepository.setup(x => x.GetById(orderId)).Return(order);
             var article = new Article(articleId.Id, owner, "Artikel", 1.0m);
             articleRepository.setup(x => x.GetById(ownerId, articleId)).Return(article);
@@ -38,7 +38,7 @@
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(lessor.LessorId.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(theLessor.LessorId.Id, initiatorId));
 
         public It should_publish_order_item_added =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemAdded>.Is.NotNull));
