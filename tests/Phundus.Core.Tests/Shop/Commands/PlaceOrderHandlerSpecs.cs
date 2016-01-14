@@ -102,5 +102,8 @@
 
         private It should_add_to_repository_with_two_items =
             () => orderRepository.WasToldTo(x => x.Add(Arg<Order>.Matches(p => p.Items.Count == 2)));
+
+        private It should_set_resulting_order_id =
+            () => command.ResultingOrderId.ShouldEqual(theResultingOrderId);
     }
 }

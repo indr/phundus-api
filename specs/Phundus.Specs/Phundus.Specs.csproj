@@ -206,6 +206,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AvailabilityCheck.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Shop\PlaceOrder.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlaceOrder.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Shop\PlaceOrderSteps.cs" />
     <Compile Include="Features\Status\Status.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -344,6 +350,10 @@
     <None Include="Features\Shop\AvailabilityCheck.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AvailabilityCheck.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Shop\PlaceOrder.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PlaceOrder.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Status\Status.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

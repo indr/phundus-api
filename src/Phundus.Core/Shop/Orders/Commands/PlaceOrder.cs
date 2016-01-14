@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
     using Cqrs;
@@ -22,6 +23,7 @@
 
         public UserId InitiatorId { get; protected set; }
         public LessorId LessorId { get; protected set; }
+        public int ResultingOrderId { get; set; }
     }
 
     public class PlaceOrderHandler : IHandleCommand<PlaceOrder>
@@ -60,6 +62,7 @@
             var order = new Order(lessor, lessee, orderItems);
 
             var orderId = _orderRepository.Add(order);
+            command.ResultingOrderId = orderId;
 
             EventPublisher.Publish(new OrderPlaced(orderId, null));
         }
