@@ -4,4 +4,10 @@ namespace Phundus.Specs.Services
     {
         Admin = 2
     }
+
+    public enum MemberRole
+    {
+        Member = 1,
+        Manager = 2
+    }
 }
