@@ -18,7 +18,7 @@
         {            
             order = MockRepository.GeneratePartialMock<Order>(new object[] { lessor, CreateLessee() });
 
-            orders.setup(x => x.GetById(orderId)).Return(order);
+            orderRepository.setup(x => x.GetById(orderId)).Return(order);
 
             command = new ApproveOrder
             {

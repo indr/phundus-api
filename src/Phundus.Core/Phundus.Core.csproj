@@ -258,6 +258,7 @@
     <Compile Include="Shop\Orders\Commands\ApproveOrder.cs" />
     <Compile Include="Shop\Orders\Commands\CreateEmptyOrder.cs" />
     <Compile Include="Shop\Orders\Commands\ClearCart.cs" />
+    <Compile Include="Shop\Orders\Commands\PlaceOrder.cs" />
     <Compile Include="Shop\Orders\Commands\RejectOrder.cs" />
     <Compile Include="Shop\Orders\Commands\RemoveCartItem.cs" />
     <Compile Include="Shop\Orders\Commands\UpdateCartItem.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="Shop\Orders\Model\Article.cs" />
     <Compile Include="Shop\Orders\Model\CartItem.cs" />
     <Compile Include="Shop\Orders\Model\Lessor.cs" />
+    <Compile Include="Shop\Orders\Model\OrderCreated.cs" />
     <Compile Include="Shop\Orders\Model\OrderEvents.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemAdded.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemAmountChanged.cs" />

@@ -15,7 +15,7 @@
 
         public Account()
         {
-            _createDate = DateTime.Now;
+            _createDate = DateTime.UtcNow;
             _salt = KeyGenerator.CreateKey(5);
         }
 
@@ -24,13 +24,6 @@
         public virtual string Password
         {
             get { return _password; }
-            set
-            {
-                var newPassword = PasswordEncryptor.Encrypt(value, Salt);
-                if (_password == newPassword) return;
-                _password = newPassword;
-                LastPasswordChangeDate = DateTime.Now;
-            }
         }
 
         public virtual string Salt
@@ -106,16 +99,17 @@
 
         public virtual void ChangeEmailAddress(UserGuid initiatorGuid, string password, string newEmailAddress)
         {
+            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
             if (password == null) throw new ArgumentNullException("password");
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
 
-            Guard.Against<InvalidPasswordException>(
-                Password != PasswordEncryptor.Encrypt(password, Salt), "Das Passwort ist falsch.");
+            if (PasswordEncryptor.Encrypt(password, Salt) != Password)
+                throw new InvalidPasswordException();
 
             GenerateValidationKey();
             RequestedEmail = newEmailAddress;
 
-            EventPublisher.Publish(new UserEmailAddressChangeRequested(initiatorGuid.Id, this.User));
+            EventPublisher.Publish(new UserEmailAddressChangeRequested(initiatorGuid.Id, User));
         }
 
         public virtual void ChangePassword(string oldPassword, string newPassword)
@@ -127,14 +121,14 @@
             Guard.Against<InvalidPasswordException>(
                 Password != PasswordEncryptor.Encrypt(oldPassword, Salt), "Das alte Passwort ist falsch.");
 
-            Password = newPassword;
+            SetPassword(newPassword);
         }
 
         public virtual string ResetPassword()
         {
-            var result = PasswordGenerator.CreatePassword();
-            Password = result;
-            return result;
+            var newPassword = PasswordGenerator.CreatePassword();
+            SetPassword(newPassword);
+            return newPassword;
         }
 
         public virtual string GenerateValidationKey()
@@ -171,5 +165,12 @@
             return true;
         }
 
+        public virtual void SetPassword(string password)
+        {
+            var newPassword = PasswordEncryptor.Encrypt(password, Salt);
+            if (_password == newPassword) return;
+            _password = newPassword;
+            LastPasswordChangeDate = DateTime.UtcNow;
+        }
     }
 }

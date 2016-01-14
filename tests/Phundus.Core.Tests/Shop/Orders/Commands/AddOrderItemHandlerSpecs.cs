@@ -23,9 +23,9 @@
             var owner = new Owner(ownerId, "Owner");
             lessor = new Lessor(new LessorId(owner.OwnerId.Id), "Lessor");
             order = new Order(lessor, CreateLessee());
-            orders.setup(x => x.GetById(orderId)).Return(order);
+            orderRepository.setup(x => x.GetById(orderId)).Return(order);
             var article = new Article(articleId.Id, owner, "Artikel", 1.0m);
-            articles.setup(x => x.GetById(ownerId, articleId)).Return(article);
+            articleRepository.setup(x => x.GetById(ownerId, articleId)).Return(article);
             command = new AddOrderItem
             {
                 Amount = 10,

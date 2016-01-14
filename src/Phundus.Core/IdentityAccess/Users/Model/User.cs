@@ -31,7 +31,7 @@
             _account = new Account();
             _account.User = this;
             _account.Email = emailAddress;
-            _account.Password = password;
+            _account.SetPassword(password);
             _account.GenerateValidationKey();
 
             _role = UserRole.User;
