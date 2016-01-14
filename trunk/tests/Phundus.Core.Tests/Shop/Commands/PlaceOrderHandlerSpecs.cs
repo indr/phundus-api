@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Tests.Shop.Commands
 {
     using System;
+    using System.Collections.Generic;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
@@ -35,10 +36,10 @@
             command = new PlaceOrder(theInitiatorId, theLessorId);
         };
 
-        protected static void AddCartItem(LessorId lessorId)
+        protected static CartItemGuid AddCartItem(LessorId lessorId)
         {
             var anArticle = CreateArticle(lessorId);
-            theCart.AddItem(anArticle, DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
+            return theCart.AddItem(anArticle, DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
         }
 
         private static Article CreateArticle(LessorId lessorId)
@@ -90,20 +91,30 @@
     }
 
     [Subject(typeof (PlaceOrderHandler))]
-    public class when_placing_an_cart_with_items_from_different_lessors : place_order_handler_concern
+    public class when_successfully_placing_an_cart_with_items_from_different_lessors : place_order_handler_concern
     {
+        private static List<CartItemGuid> theCartItemsToRemove;
+
         private Establish ctx = () =>
         {
+            theCartItemsToRemove = new List<CartItemGuid>();
             var anOtherLessorId = new LessorId();
-            AddCartItem(theLessorId);
+            theCartItemsToRemove.Add(AddCartItem(theLessorId));
             AddCartItem(anOtherLessorId);
-            AddCartItem(theLessorId);
+            theCartItemsToRemove.Add(AddCartItem(theLessorId));
         };
 
         private It should_add_to_repository_with_two_items =
             () => orderRepository.WasToldTo(x => x.Add(Arg<Order>.Matches(p => p.Items.Count == 2)));
 
+        private It should_publish_order_placed = () => publisher.WasToldTo(x => x.Publish(Arg<OrderPlaced>.Matches(p =>
+            p.OrderId == theResultingOrderId
+            && p.LessorId == theLessorId.Id)));
+
         private It should_set_resulting_order_id =
             () => command.ResultingOrderId.ShouldEqual(theResultingOrderId);
+
+        private It should_tell_cart_to_remove_items =
+            () => theCart.Items.ShouldNotContain(c => theCartItemsToRemove.Contains(c.CartItemGuid));
     }
 }

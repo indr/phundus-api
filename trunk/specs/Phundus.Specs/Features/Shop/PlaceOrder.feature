@@ -21,3 +21,8 @@ Scenario: Place order sends email order received
 	Given I added "Banana" to cart
 	When I try to place an order for "Scouts"
 	Then "greg@test.phundus.ch" should receive email "[phundus] Neue Bestellung"
+
+Scenario: Place order removes items from cart
+	Given I added "Cucumber" to cart
+	When I try to place an order for "Scouts"
+	Then my cart should be empty

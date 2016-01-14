@@ -64,6 +64,11 @@
             var orderId = _orderRepository.Add(order);
             command.ResultingOrderId = orderId;
 
+            foreach (var each in cartItemsToPlace)
+            {
+                cart.RemoveItem(each.CartItemGuid);
+            }
+
             EventPublisher.Publish(new OrderPlaced(orderId, lessor.LessorId, null));
         }
     }
