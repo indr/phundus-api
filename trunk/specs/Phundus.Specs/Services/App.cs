@@ -296,5 +296,27 @@
                     });
             return result.Data.IsAvailable;
         }
+
+        public void ChangeMembersRole(Guid organizationId, int memberId, MemberRole role)
+        {
+            _apiClient.OrganizationsMembersApi.Patch(
+                new {organizationId = organizationId, memberId = memberId, isManager = role == MemberRole.Manager});
+        }
+
+        public int CreateOrder(Guid organizationId, int lesseeId)
+        {
+            var result = _apiClient.OrdersApi.Post<OrdersPostOkResponseContent>(new {ownerId = organizationId, lesseeId = lesseeId});
+            return result.Data.OrderId;
+        }
+
+        public void LogIn(User user)
+        {
+            LogIn(user.Username, user.Password);
+        }
+
+        internal IList<Order> QueryOrders(Guid organizationId)
+        {
+            return _apiClient.OrdersApi.Query<Order>(new {organizationId = organizationId}).Data.Results;
+        }
     }
 }

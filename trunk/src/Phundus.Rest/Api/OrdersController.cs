@@ -33,7 +33,7 @@
 
         [GET("")]
         [Transaction]
-        public virtual OrdersQueryOkResponseContent Get()
+        public virtual QueryOkResponseContent<Order> Get()
         {
             var userId = (int?) null;
             var organizationId = (Guid?) null;
@@ -45,11 +45,7 @@
                 organizationId = Guid.Parse(queryParams["organizationId"]);
 
             var orders = _orderQueries.Query(new CurrentUserId(CurrentUserId.Id), null, userId, organizationId).ToList();
-            var result = new OrdersQueryOkResponseContent
-            {
-                Orders = Map<IList<Order>>(orders)
-            };
-            return result;
+            return new QueryOkResponseContent<Order>(Map<IList<Order>>(orders));
         }
 
         [GET("{orderId:int}")]
@@ -74,7 +70,7 @@
 
         [POST("")]
         [Transaction]
-        public virtual HttpResponseMessage Post(OrdersPostRequestContent requestContent)
+        public virtual OrdersPostOkResponseContent Post(OrdersPostRequestContent requestContent)
         {
             var command = new CreateEmptyOrder
             {
@@ -83,9 +79,12 @@
                 LesseeId = new LesseeId(requestContent.LesseeId)
             };
 
-            Dispatcher.Dispatch(command);
+            Dispatch(command);
 
-            return Get(command.ResultingOrderId);
+            return new OrdersPostOkResponseContent
+            {
+                OrderId = command.ResultingOrderId
+            };
         }
 
         [PATCH("{orderId}")]
@@ -121,9 +120,9 @@
         public int LesseeId { get; set; }
     }
 
-    public class OrdersQueryOkResponseContent
+    public class OrdersPostOkResponseContent
     {
-        [JsonProperty("orders")]
-        public IList<Order> Orders { get; set; }
+        [JsonProperty("orderId")]
+        public int OrderId { get; set; }
     }
 }

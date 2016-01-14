@@ -97,6 +97,11 @@
             get { return Resource("organizations/{organizationId}/members/{memberId}"); }
         }
 
+        public Resource OrdersApi
+        {
+            get { return Resource("orders/{orderId}"); }
+        }
+
         public Resource ShopItemsAvailabilityCheck
         {
             get { return Resource("shop/items/{itemId}/availability-check"); }

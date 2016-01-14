@@ -35,8 +35,7 @@
             foreach (var row in table.Rows)
             {
                 Ctx.Article = App.CreateArticle(Ctx.User, row);    
-            }
-            
+            }            
         }
 
         [When(@"I try to query all my articles")]

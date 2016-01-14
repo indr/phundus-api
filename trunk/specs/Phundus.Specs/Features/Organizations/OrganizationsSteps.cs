@@ -31,7 +31,30 @@
             Ctx.Organizations[organizationKey] = organization;
             App.DeleteSessionCookies();
         }
-        
+
+        [Given(@"an organization ""(.*)"" with these members")]
+        public void GivenAnOrganizationWithTheseMembers(string alias, Table table)
+        {
+            App.LogInAsRoot();
+            var organization = App.EstablishOrganization();
+            Ctx.Organization = organization;
+            Ctx.Organizations[alias] = organization;
+
+            foreach (var each in table.Rows)
+            {
+                var userAlias = each["Alias"];
+                Given(@"a confirmed user """ + userAlias + @"""");
+                var user = Ctx.Users[userAlias];
+                App.LogIn(user);
+                var applicationGuid =  App.ApplyForMembership(user, organization);
+                App.LogInAsRoot();
+                App.ApproveMembershipApplication(organization, applicationGuid);
+                if (each["Role"].ToLowerInvariant() == "manager")
+                    App.ChangeMembersRole(organization.OrganizationId, user.Id, MemberRole.Manager);
+            }
+        }
+
+
         [Given(@"I established an organization")]
         public void GivenIEstablishedAnOrganization()
         {

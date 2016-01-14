@@ -109,6 +109,7 @@
     <Compile Include="ContentTypes\CartsContentTypes.cs" />
     <Compile Include="ContentTypes\FeedbackPostRequestContent.cs" />
     <Compile Include="ContentTypes\MailsContentTypes.cs" />
+    <Compile Include="ContentTypes\OrdersContentTypes.cs" />
     <Compile Include="ContentTypes\OrganizationsApplicationsPostOkResponseContent.cs" />
     <Compile Include="ContentTypes\OrganizationsContentTypes.cs" />
     <Compile Include="ContentTypes\OrganizationsRelationshipsQueryOkResponseContent.cs" />
@@ -171,6 +172,12 @@
       <DependentUpon>Feedback.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Feedback\FeedbackSteps.cs" />
+    <Compile Include="Features\Orders\CreateEmptyOrder.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateEmptyOrder.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Orders\OrdersSteps.cs" />
     <Compile Include="Features\Organizations\Establish.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -312,6 +319,10 @@
     </None>
     <None Include="Default.srprofile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Features\Orders\CreateEmptyOrder.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CreateEmptyOrder.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Organizations\Establish.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

@@ -122,8 +122,6 @@
         }
     }
 
-    
-
     public class OrganizationsMembersPostRequestContent
     {
         [JsonProperty("applicationId")]
