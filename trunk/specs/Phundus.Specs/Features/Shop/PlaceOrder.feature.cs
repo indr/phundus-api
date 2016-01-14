@@ -70,13 +70,16 @@ namespace Phundus.Specs.Features.Shop
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Alias",
-                        "Role"});
+                        "Role",
+                        "Email address"});
             table1.AddRow(new string[] {
                         "Greg",
-                        "Manager"});
+                        "Manager",
+                        "greg@test.phundus.ch"});
             table1.AddRow(new string[] {
                         "Alice",
-                        "Member"});
+                        "Member",
+                        "alice@test.phundus.ch"});
 #line 4
  testRunner.Given("an organization \"Scouts\" with these members", ((string)(null)), table1, "Given ");
 #line hidden
@@ -96,10 +99,10 @@ namespace Phundus.Specs.Features.Shop
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Place order")]
-        public virtual void PlaceOrder()
+        [NUnit.Framework.DescriptionAttribute("Place order returns order id")]
+        public virtual void PlaceOrderReturnsOrderId()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Place order", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Place order returns order id", ((string[])(null)));
 #line 15
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -110,6 +113,25 @@ this.FeatureBackground();
  testRunner.When("I try to place an order for \"Scouts\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 18
  testRunner.Then("I should get an order id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Place order sends email order received")]
+        public virtual void PlaceOrderSendsEmailOrderReceived()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Place order sends email order received", ((string[])(null)));
+#line 20
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 21
+ testRunner.Given("I added \"Banana\" to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 22
+ testRunner.When("I try to place an order for \"Scouts\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 23
+ testRunner.Then("\"greg@test.phundus.ch\" should receive email \"[phundus] Neue Bestellung\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

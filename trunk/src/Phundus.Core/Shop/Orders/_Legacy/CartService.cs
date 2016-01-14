@@ -104,18 +104,18 @@
             var orders = cart.PlaceOrders(Carts, OrderRepository, LessorService, LesseeService, AvailabilityService);
 
 
-            foreach (var order in orders)
-            {
-                var pdf = OrderPdfGeneratorService.GeneratePdf(order);
-                var mail = new OrderReceivedMail(MailGateway).For(pdf, order);
-                var managers = LessorService.GetManagers(order.Lessor.LessorId.Id);
+            //foreach (var order in orders)
+            //{
+            //    var pdf = OrderPdfGeneratorService.GeneratePdf(order);
+            //    var mail = new OrderReceivedMail(MailGateway).For(pdf, order);
+            //    var managers = LessorService.GetManagers(order.Lessor.LessorId.Id);
 
-                foreach (var manager in managers)
-                    mail.Send(manager.EmailAddress);
+            //    foreach (var manager in managers)
+            //        mail.Send(manager.EmailAddress);
 
-                // #34 Kein E-Mail mehr für den Ausleiher
-                //mail.Send(order.Borrower.EmailAddress);
-            }
+            //    // #34 Kein E-Mail mehr für den Ausleiher
+            //    //mail.Send(order.Borrower.EmailAddress);
+            //}
 
             return orders.Count > 0;
         }

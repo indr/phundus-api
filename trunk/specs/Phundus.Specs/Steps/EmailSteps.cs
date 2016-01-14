@@ -66,8 +66,11 @@
         }
 
         [Then(@"""(.*)"" should receive email ""(.*)""")]
-        public void ThenShouldReceiveEmail(string toAddress, string subject)
+        public void ThenShouldReceiveEmail(string emailAliasOrAddress, string subject)
         {
+            String toAddress;
+            if (!Ctx.EmailAddresses.TryGetValue(emailAliasOrAddress, out toAddress))
+                toAddress = emailAliasOrAddress;
             AssertEmailReceived(subject, toAddress);
         }
 

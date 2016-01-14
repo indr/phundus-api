@@ -1,21 +1,38 @@
 ﻿namespace Phundus.Shop.Orders.Mails
 {
     using System;
-    using System.IO;
+    using System.Linq;
     using System.Net.Mail;
-    using IdentityAccess.Users.Model;
+    using Ddd;
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;
+    using Repositories;
+    using Services;
+    using Shop.Services;
 
-    public class OrderReceivedMail : BaseMail
+    public class OrderReceivedMail : BaseMail, ISubscribeTo<OrderPlaced>
     {
-        public OrderReceivedMail(IMailGateway mailGateway) : base(mailGateway)
+        private readonly ILessorService _lessorService;
+        private readonly IOrderPdfGeneratorService _orderPdfGeneratorService;
+        private readonly IOrderRepository _orderRepository;
+
+        public OrderReceivedMail(IMailGateway mailGateway, IOrderRepository orderRepository,
+            ILessorService lessorService, IOrderPdfGeneratorService orderPdfGeneratorService) : base(mailGateway)
         {
+            if (orderRepository == null) throw new ArgumentNullException("orderRepository");
+            if (lessorService == null) throw new ArgumentNullException("lessorService");
+            if (orderPdfGeneratorService == null) throw new ArgumentNullException("orderPdfGeneratorService");
+            _orderRepository = orderRepository;
+            _lessorService = lessorService;
+            _orderPdfGeneratorService = orderPdfGeneratorService;
         }
 
-        public OrderReceivedMail For(Stream pdf, Order order)
+        public void Handle(OrderPlaced @event)
         {
+            var order = _orderRepository.GetById(@event.OrderId);
+            var managers = _lessorService.GetManagers(@event.LessorId);
+
             Model = new
             {
                 Urls = new Urls(Config.ServerUrl),
@@ -24,21 +41,12 @@
                 Admins = Config.FeedbackRecipients
             };
 
-            Attachments.Add(new Attachment(pdf, String.Format("Order-{0}.pdf", order.Id), "application/pdf"));
+            var stream = _orderPdfGeneratorService.GeneratePdf(order);
+            Attachments.Add(new Attachment(stream, String.Format("Order-{0}.pdf", order.Id), "application/pdf"));
 
-            return this;
-        }
+            var toAddresses = String.Join(",", managers.Select(s => s.EmailAddress));
 
-        public OrderReceivedMail Send(User user)
-        {
-            Send(user.Account.Email, Templates.OrderReceivedSubject, null, Templates.OrderReceivedHtml);
-            return this;
-        }
-
-        public OrderReceivedMail Send(string emailAddress)
-        {
-            base.Send(emailAddress, Templates.OrderReceivedSubject, null, Templates.OrderReceivedHtml);
-            return this;
+            Send(toAddresses, Templates.OrderReceivedSubject, null, Templates.OrderReceivedHtml);
         }
     }
 }

@@ -64,7 +64,7 @@
             var orderId = _orderRepository.Add(order);
             command.ResultingOrderId = orderId;
 
-            EventPublisher.Publish(new OrderPlaced(orderId, null));
+            EventPublisher.Publish(new OrderPlaced(orderId, lessor.LessorId, null));
         }
     }
 }
