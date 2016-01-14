@@ -17,7 +17,7 @@
         {
             if (requestContent == null) throw new ArgumentNullException("requestContent");
 
-            Dispatch(new ChangeEmailAddress(CurrentUserId, requestContent.Password, requestContent.NewEmailAddress));
+            Dispatch(new ChangeEmailAddress(CurrentUserGuid, requestContent.Password, requestContent.NewEmailAddress));
 
             return NoContent();
         }

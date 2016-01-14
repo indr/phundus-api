@@ -2,10 +2,10 @@
 {
     using System;
     using Ddd;
-    using IdentityAccess.Users.Repositories;
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;
+    using Repositories;
 
     public class UserLockedMailNotifier : BaseMail, ISubscribeTo<UserLocked>
     {

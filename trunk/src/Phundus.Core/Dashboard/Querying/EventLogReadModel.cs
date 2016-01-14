@@ -38,7 +38,7 @@ namespace Phundus.Dashboard.Querying
             Insert(record);
         }
 
-        public void Process(UserRegistered domainEvent)
+        public void Process(UserSignedUp domainEvent)
         {
             var record = CreateRecord(domainEvent);
             record.Text = "Benutzer hat sich registriert: " + domainEvent.EmailAddress;

@@ -3,7 +3,7 @@
     using System;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Users.Repositories;
+    using Repositories;
     using Services;
 
     public class LockUser

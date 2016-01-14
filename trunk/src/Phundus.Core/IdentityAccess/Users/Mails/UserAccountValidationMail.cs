@@ -7,7 +7,7 @@
     using Infrastructure.Gateways;
     using Model;
 
-    public class UserAccountValidationMail : BaseMail, ISubscribeTo<UserRegistered>
+    public class UserAccountValidationMail : BaseMail, ISubscribeTo<UserSignedUp>
     {
         private readonly IUserRepository _userRepository;
 
@@ -17,7 +17,7 @@
             _userRepository = userRepository;
         }
 
-        public void Handle(UserRegistered @event)
+        public void Handle(UserSignedUp @event)
         {
             var user = _userRepository.FindById(@event.UserId);
             if (user == null)

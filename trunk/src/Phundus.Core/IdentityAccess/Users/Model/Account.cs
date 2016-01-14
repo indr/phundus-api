@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Users.Model
 {
     using System;
+    using Common.Domain.Model;
     using Ddd;
     using Exceptions;
     using Infrastructure;
@@ -103,7 +104,7 @@
         }
 
 
-        public virtual void ChangeEmailAddress(string password, string newEmailAddress)
+        public virtual void ChangeEmailAddress(UserGuid initiatorGuid, string password, string newEmailAddress)
         {
             if (password == null) throw new ArgumentNullException("password");
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
@@ -111,7 +112,10 @@
             Guard.Against<InvalidPasswordException>(
                 Password != PasswordEncryptor.Encrypt(password, Salt), "Das Passwort ist falsch.");
 
+            GenerateValidationKey();
             RequestedEmail = newEmailAddress;
+
+            EventPublisher.Publish(new UserEmailAddressChangeRequested(initiatorGuid.Id, this.User));
         }
 
         public virtual void ChangePassword(string oldPassword, string newPassword)
@@ -149,8 +153,10 @@
             ValidationKey = null;
             if (RequestedEmail != null)
             {
+                var oldEmailAddress = Email;
                 Email = RequestedEmail;
                 RequestedEmail = null;
+                EventPublisher.Publish(new UserEmailAddressChanged(User.UserGuid.Id, oldEmailAddress, Email));
             }
 
             return true;

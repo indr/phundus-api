@@ -4,12 +4,12 @@
     using Cqrs;
     using Ddd;
     using Exceptions;
-    using IdentityAccess.Users.Repositories;
     using Model;
+    using Repositories;
 
-    public class RegisterUser
+    public class SignUpUser
     {
-        public RegisterUser(string emailAddress, string password, string firstName, string lastName, string street,
+        public SignUpUser(string emailAddress, string password, string firstName, string lastName, string street,
             string postcode, string city, string mobilePhone)
         {
             if (emailAddress == null) throw new ArgumentNullException("emailAddress");
@@ -40,17 +40,17 @@
         public Guid ResultingUserGuid { get; set; }
     }
 
-    public class RegisterUserHandler : IHandleCommand<RegisterUser>
+    public class SignUpUserHandler : IHandleCommand<SignUpUser>
     {
         private readonly IUserRepository _userRepository;
 
-        public RegisterUserHandler(IUserRepository userRepository)
+        public SignUpUserHandler(IUserRepository userRepository)
         {
             if (userRepository == null) throw new ArgumentNullException("userRepository");
             _userRepository = userRepository;
         }
 
-        public void Handle(RegisterUser command)
+        public void Handle(SignUpUser command)
         {
             var emailAddress = command.EmailAddress.ToLowerInvariant().Trim();
             if (_userRepository.FindByEmailAddress(emailAddress) != null)
@@ -61,9 +61,9 @@
 
             var userId = _userRepository.Add(user);
 
-            EventPublisher.Publish(new UserRegistered(userId,
+            EventPublisher.Publish(new UserSignedUp(userId,
                 user.Account.Email, user.Account.Password, user.Account.Salt,
-                user.Account.ValidationKey, 
+                user.Account.ValidationKey,
                 user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
                 user.MobileNumber
                 ));

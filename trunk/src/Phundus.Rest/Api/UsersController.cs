@@ -44,7 +44,7 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual UsersPostOkResponseContent Post(UsersPostRequestContent requestContent)
         {
-            var command = new RegisterUser(
+            var command = new SignUpUser(
                 requestContent.Email, requestContent.Password, requestContent.FirstName,
                 requestContent.LastName, requestContent.Street, requestContent.Postcode,
                 requestContent.City, requestContent.MobilePhone);

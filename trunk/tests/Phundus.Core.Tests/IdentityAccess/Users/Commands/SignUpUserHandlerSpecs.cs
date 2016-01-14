@@ -8,8 +8,8 @@
     using Phundus.IdentityAccess.Users.Repositories;
     using Rhino.Mocks;
 
-    [Subject(typeof (RegisterUserHandler))]
-    public class when_register_user_is_handled : handler_concern<RegisterUser, RegisterUserHandler>
+    [Subject(typeof (SignUpUserHandler))]
+    public class when_register_user_is_handled : handler_concern<SignUpUser, SignUpUserHandler>
     {
         private static IUserRepository repository;
         private static int userId = 99;
@@ -20,7 +20,7 @@
             repository.setup(x => x.Add(Arg<User>.Is.NotNull)).Return(userId);
 
 
-            command = new RegisterUser("MAIL@DOMAIN.COM", "Password", "FirstName", "LastName", "Street", "Postcode",
+            command = new SignUpUser("MAIL@DOMAIN.COM", "Password", "FirstName", "LastName", "Street", "Postcode",
                 "City", "MobilePhone");
         };
 
@@ -31,7 +31,7 @@
             () => repository.WasToldTo(x => x.FindByEmailAddress(command.EmailAddress.ToLowerInvariant().Trim()));
 
         public It should_publish_user_registered =
-            () => publisher.WasToldTo(x => x.Publish(Arg<UserRegistered>.Is.NotNull));
+            () => publisher.WasToldTo(x => x.Publish(Arg<UserSignedUp>.Is.NotNull));
 
         public It should_set_user_id_on_command =
             () => command.ResultingUserId.ShouldEqual(userId);
