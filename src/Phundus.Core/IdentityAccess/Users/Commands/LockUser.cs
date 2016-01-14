@@ -8,12 +8,12 @@
 
     public class LockUser
     {
-        public LockUser(UserId currentUserId, UserGuid userGuid)
+        public LockUser(UserId initiatorId, UserGuid userGuid)
         {
-            if (currentUserId == null) throw new ArgumentNullException("currentUserId");
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (userGuid == null) throw new ArgumentNullException("userGuid");
 
-            InitiatorId = currentUserId;
+            InitiatorId = initiatorId;
             UserGuid = userGuid;
         }
 

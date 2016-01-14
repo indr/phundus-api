@@ -2,9 +2,9 @@
 {
     using System;
     using Cqrs;
-    using IdentityAccess.Users.Repositories;
     using Infrastructure.Gateways;
     using Mails;
+    using Repositories;
 
     public class ResetPassword
     {

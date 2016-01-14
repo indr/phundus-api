@@ -27,7 +27,5 @@
         private It should_tell_to_change_email_address = () => theUser.WasToldTo(
             x => x.ChangeEmailAddress(Arg<UserGuid>.Is.Equal(theInitiatorGuid), Arg<String>.Is.Equal("1234"), Arg<String>.Is.Equal(theNewEmailAddress)));
 
-        private It should_publish_email_address_change_requested = () => publisher.WasToldTo(
-            x => x.Publish(Arg<UserEmailAddressChangeRequested>.Is.NotNull));
     }
 }

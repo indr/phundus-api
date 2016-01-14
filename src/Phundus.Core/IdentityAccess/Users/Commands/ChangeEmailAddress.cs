@@ -5,8 +5,6 @@
     using Common.Domain.Model;
     using Cqrs;
     using Exceptions;
-    using Infrastructure.Gateways;
-    using Mails;
     using Repositories;
 
     public class ChangeEmailAddress
@@ -29,15 +27,12 @@
 
     public class ChangeEmailAddressHandler : IHandleCommand<ChangeEmailAddress>
     {
-        private readonly IMailGateway _mailGateway;
         private readonly IUserRepository _userRepository;
 
-        public ChangeEmailAddressHandler(IUserRepository userRepository, IMailGateway mailGateway)
+        public ChangeEmailAddressHandler(IUserRepository userRepository)
         {
             if (userRepository == null) throw new ArgumentNullException("userRepository");
-            if (mailGateway == null) throw new ArgumentNullException("mailGateway");
             _userRepository = userRepository;
-            _mailGateway = mailGateway;
         }
 
         public void Handle(ChangeEmailAddress command)
