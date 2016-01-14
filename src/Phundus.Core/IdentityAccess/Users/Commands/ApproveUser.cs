@@ -39,7 +39,7 @@
         {
             var initiator = _userInRole.Admin(command.InitiatorId);
 
-            var user = _userRepository.GetById(command.UserGuid);
+            var user = _userRepository.GetByGuid(command.UserGuid);
             user.Approve(initiator);
         }
     }
