@@ -10,7 +10,7 @@ namespace Phundus.Shop.Orders.Model
         public OrderPlaced(int orderId, IList<Item> items)
         {
             OrderId = orderId;
-            Items = items ?? new Item[0];
+            //Items = items ?? new Item[0];
         }
 
         protected OrderPlaced()
@@ -20,8 +20,8 @@ namespace Phundus.Shop.Orders.Model
         [DataMember(Order = 1)]
         public int OrderId { get; protected set; }
 
-        [DataMember(Order = 2)]
-        public IList<Item> Items { get; protected set; }
+        //[DataMember(Order = 2)]
+        //public IList<Item> Items { get; protected set; }
 
 
         public class Item
