@@ -177,7 +177,7 @@
         }
 
 
-        public OrderItem AddItem(Article article, DateTime fromUtc, DateTime toUtc, int amount)
+        public virtual OrderItem AddItem(Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             EnsurePending();
 
