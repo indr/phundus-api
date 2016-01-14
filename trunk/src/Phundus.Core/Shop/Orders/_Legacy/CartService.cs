@@ -29,7 +29,7 @@
             }
 
             cart.CalculateAvailability(AvailabilityService);
-            var assembler = new CartAssembler(Carts);
+            var assembler = new CartAssembler();
             return assembler.CreateDto(cart);
         }
 
@@ -52,7 +52,7 @@
 
             cart = Carts.GetById(cart.Id);
             cart.CalculateAvailability(AvailabilityService);
-            var assembler = new CartAssembler(Carts);
+            var assembler = new CartAssembler();
             return assembler.CreateDto(cart);
         }
     }
