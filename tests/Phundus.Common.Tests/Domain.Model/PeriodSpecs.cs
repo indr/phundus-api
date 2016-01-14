@@ -6,8 +6,14 @@
 
     public class period_concern
     {
-        protected static DateTime theFromUtc = new DateTime(2010, 11, 1);
-        protected static DateTime theToUtc = new DateTime(2010, 11, 2);
+        protected static DateTime theFromUtc;
+        protected static DateTime theToUtc;
+
+        private Establish ctx = () =>
+        {
+            theFromUtc = new DateTime(2010, 11, 1);
+            theToUtc = new DateTime(2010, 11, 2);
+        };
 
         protected static Period sut;
     }
