@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Tests.Shop.Orders.Commands
 {
-    using Core.Tests.Shop.Orders.Commands;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -17,7 +16,7 @@
 
         public Establish c = () =>
         {
-            order = mock.partial<Order>(new object[] {lessor, BorrowerFactory.Create()});
+            order = mock.partial<Order>(new object[] {lessor, CreateLessee()});
             orders.setup(x => x.GetById(orderId)).Return(order);
 
             command = new RejectOrder

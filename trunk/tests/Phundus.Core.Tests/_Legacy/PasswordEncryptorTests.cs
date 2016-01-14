@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests._Legacy
+﻿namespace Phundus.Tests._Legacy
 {
     using System;
     using NUnit.Framework;

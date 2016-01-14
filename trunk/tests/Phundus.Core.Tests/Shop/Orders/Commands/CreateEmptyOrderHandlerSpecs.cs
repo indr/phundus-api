@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
+﻿namespace Phundus.Tests.Shop.Orders.Commands
 {
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
@@ -19,7 +19,7 @@
 
         public Establish c = () =>
         {
-            var lessee = BorrowerFactory.Create(userId);
+            var lessee = CreateLessee(userId);
             orders.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(orderId);
             lessorService.setup(x => x.GetById(lessor.LessorId)).Return(lessor);
             lesseeService.setup(x => x.GetById(lessee.LesseeId)).Return(lessee);

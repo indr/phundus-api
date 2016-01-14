@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Cqrs
+﻿namespace Phundus.Tests.Cqrs
 {
     using Castle.Windsor;
     using Machine.Specifications;

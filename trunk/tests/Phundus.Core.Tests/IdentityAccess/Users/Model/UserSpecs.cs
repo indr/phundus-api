@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Users.Model
 {
     using Common.Domain.Model;
-    using Core.Tests;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Users.Model;
@@ -9,7 +8,6 @@
 
     public class user_concern : concern<User>
     {
-        protected static User sut;
         protected static string theEmailAddress = "user@test.phundus.ch";
         protected static string thePassword = "1234";
 

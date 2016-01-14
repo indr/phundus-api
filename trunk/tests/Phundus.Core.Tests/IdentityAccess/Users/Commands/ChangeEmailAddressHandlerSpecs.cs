@@ -2,7 +2,6 @@
 {
     using System;
     using Common.Domain.Model;
-    using Core.Tests;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Users.Commands;
@@ -25,7 +24,8 @@
         };
 
         private It should_tell_to_change_email_address = () => theUser.WasToldTo(
-            x => x.ChangeEmailAddress(Arg<UserGuid>.Is.Equal(theInitiatorGuid), Arg<String>.Is.Equal("1234"), Arg<String>.Is.Equal(theNewEmailAddress)));
-
+            x =>
+                x.ChangeEmailAddress(Arg<UserGuid>.Is.Equal(theInitiatorGuid), Arg<String>.Is.Equal("1234"),
+                    Arg<String>.Is.Equal(theNewEmailAddress)));
     }
 }

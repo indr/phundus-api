@@ -1,9 +1,10 @@
-namespace Phundus.Core.Tests.Shop.Orders.Commands
+namespace Phundus.Tests.Shop.Orders.Commands
 {
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Cqrs;
     using Phundus.IdentityAccess.Queries;
+    using Phundus.Shop.Contracts.Model;
     using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Repositories;
     using Phundus.Shop.Services;
@@ -33,5 +34,24 @@ namespace Phundus.Core.Tests.Shop.Orders.Commands
             lessorService = depends.on<ILessorService>();
             lesseeService = depends.on<ILesseeService>();
         };
+
+        protected static Lessee CreateLessee()
+        {
+            return CreateLessee(1);
+        }
+
+        protected static Lessee CreateLessee(int borrowerId)
+        {
+            return new Lessee(borrowerId, "Hans", "Muster", "Strasse", "6000", "Luzern", "hans.muster@test.phundus.ch",
+                "+4179123456", "");
+        }
+
+        protected static Lessee CreateLessee(int borrowerId, string firstName, string lastName, string street = "",
+            string postcode = "", string city = "", string emailAddress = "", string mobilePhoneNumber = "",
+            string memberNumber = "")
+        {
+            return new Lessee(borrowerId, firstName, lastName, street, postcode, city, emailAddress, mobilePhoneNumber,
+                memberNumber);
+        }
     }
 }

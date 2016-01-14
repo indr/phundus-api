@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Tests.Inventory
+﻿namespace Phundus.Tests.Inventory.Articles.Commands
 {
     using System;
     using Common.Domain.Model;
@@ -10,14 +10,14 @@
     using Phundus.Inventory.Owners;
     using Rhino.Mocks;
 
-    [Subject(typeof(RemoveImageHandler))]
+    [Subject(typeof (RemoveImageHandler))]
     public class when_remove_image_is_handled : article_handler_concern<RemoveImage, RemoveImageHandler>
     {
-        private static Guid ownerId;
-        private static Owner owner;
         private const int initiatorId = 2;
         private const int articleId = 3;
         private const string imageFileName = "Image.jpg";
+        private static Guid ownerId;
+        private static Owner owner;
 
         private static Article article;
 
@@ -40,9 +40,9 @@
         private It should_ask_for_chief_privileges =
             () => memberInRole.WasToldTo(x => x.ActiveChief(ownerId, initiatorId));
 
-        private It should_remove_image = () => article.Images.ShouldBeEmpty();
-
         private It should_publish_image_removed =
             () => publisher.WasToldTo(x => x.Publish(Arg<ImageRemoved>.Is.NotNull));
+
+        private It should_remove_image = () => article.Images.ShouldBeEmpty();
     }
 }

@@ -1,11 +1,10 @@
-﻿namespace Phundus.Core.Tests.Shop.Orders.Commands
+﻿namespace Phundus.Tests.Shop.Orders.Commands
 {
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
-    using Phundus.Tests.Shop;
     using Rhino.Mocks;
 
     [Subject(typeof(ApproveOrderHandler))]
@@ -17,7 +16,7 @@
 
         public Establish c = () =>
         {            
-            order = MockRepository.GeneratePartialMock<Order>(new object[] { lessor, BorrowerFactory.Create() });
+            order = MockRepository.GeneratePartialMock<Order>(new object[] { lessor, CreateLessee() });
 
             orders.setup(x => x.GetById(orderId)).Return(order);
 
