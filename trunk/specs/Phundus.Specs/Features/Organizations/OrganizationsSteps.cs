@@ -54,7 +54,6 @@
             }
         }
 
-
         [Given(@"I established an organization")]
         public void GivenIEstablishedAnOrganization()
         {

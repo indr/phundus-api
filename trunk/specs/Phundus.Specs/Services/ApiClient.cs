@@ -107,6 +107,11 @@
             get { return Resource("shop/items/{itemId}/availability-check"); }
         }
 
+        public Resource OrdersItemsApi
+        {
+            get { return Resource("orders/{orderId}/items/{orderItemId}"); }
+        }
+
         private Resource Resource(string url)
         {
             var result = new Resource(url, _assertNextHttpStatusCode);

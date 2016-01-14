@@ -1,12 +1,10 @@
 ﻿namespace Phundus.Specs.Features.Articles
 {
-    using System.Net;
     using ContentTypes;
     using NUnit.Framework;
     using Services;
     using Steps;
     using TechTalk.SpecFlow;
-    using TechTalk.SpecFlow.Assist;
 
     [Binding]
     public class ArticlesSteps : StepsBase
@@ -17,16 +15,10 @@
         {
         }
 
-        [When(@"I create an article in my store")]
-        public void WhenICreateAnArticleInMyStore()
-        {
-            Ctx.Article = App.CreateArticle(Ctx.User, null);
-        }
-
         [Given(@"I created an article in my store")]
         public void GivenICreatedAnArticleInMyStore()
         {
-            Ctx.Article = App.CreateArticle(Ctx.User);
+            Ctx.Article = App.CreateArticle(Ctx.User.Guid);
         }
 
         [Given(@"I created these articles in my store")]
@@ -34,8 +26,25 @@
         {
             foreach (var row in table.Rows)
             {
-                Ctx.Article = App.CreateArticle(Ctx.User, row);    
-            }            
+                Ctx.Article = App.CreateArticle(Ctx.User.Guid, row);
+            }
+        }
+
+        [Given(@"with these organization articles")]
+        public void GivenWithTheseOrganizationArticles(Table table)
+        {
+            foreach (var row in table.Rows)
+            {
+                Ctx.Article = App.CreateArticle(Ctx.Organization.Guid, row);
+                if (row.ContainsKey("Alias"))
+                    Ctx.Articles[row["Alias"]] = Ctx.Article;
+            }
+        }
+
+        [When(@"I create an article in my store")]
+        public void WhenICreateAnArticleInMyStore()
+        {
+            Ctx.Article = App.CreateArticle(Ctx.User.Guid, null);
         }
 
         [When(@"I try to query all my articles")]

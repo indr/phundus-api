@@ -8,6 +8,21 @@
     using TechTalk.SpecFlow;
 
     [Binding]
+    public class AddOrderItemSteps : StepsBase
+    {
+        public AddOrderItemSteps(App app, Ctx ctx) : base(app, ctx)
+        {
+        }
+
+        [When(@"I try to add the article (.+) to the order")]
+        public void WhenITryToAddTheArticleFootballToTheOrder(string alias)
+        {
+            var article = Ctx.Articles[alias];
+            App.AddOrderItem(Ctx.Order.OrderId, article.ArticleId);
+        }
+    }
+
+    [Binding]
     public class OrdersSteps : StepsBase
     {
         private int _orderId;
@@ -23,6 +38,7 @@
             var organization = Ctx.Organization;
             var lessee = Ctx.Users[userAlias];
             _orderId = App.CreateOrder(organization.OrganizationId, lessee.Id);
+            Ctx.Order = new Order {OrderId = _orderId};
         }
 
         [When(@"I try to create a new empty order for (.+)")]
@@ -31,6 +47,7 @@
             var organization = Ctx.Organization;
             var lessee = Ctx.Users[userAlias];
             _orderId = App.CreateOrder(organization.OrganizationId, lessee.Id);
+            Ctx.Order = new Order {OrderId = _orderId};
         }
 
         [When(@"I try to query all orders of organization ""(.*)""")]
@@ -45,6 +62,5 @@
         {
             Assert.That(_results, Has.Some.Matches<Order>(p => p.OrderId == _orderId));
         }
-
     }
 }

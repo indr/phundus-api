@@ -172,6 +172,11 @@
       <DependentUpon>Feedback.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Feedback\FeedbackSteps.cs" />
+    <Compile Include="Features\Orders\AddOrderItem.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddOrderItem.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Orders\CreateEmptyOrder.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -319,6 +324,10 @@
     </None>
     <None Include="Default.srprofile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Features\Orders\AddOrderItem.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AddOrderItem.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Orders\CreateEmptyOrder.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

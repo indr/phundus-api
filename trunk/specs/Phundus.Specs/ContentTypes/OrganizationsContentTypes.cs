@@ -28,5 +28,11 @@
 
         [JsonProperty("address")]
         public string Address { get; set; }
+
+        public Guid Guid
+        {
+            get { return OrganizationId; }
+            set { OrganizationId = value; }
+        }
     }
 }
