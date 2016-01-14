@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Persistence.Inventory.Mappings
 {
-    using Core.Inventory.Stores.Model;
     using FluentNHibernate.Mapping;
+    using Phundus.Inventory.Stores.Model;
 
     public class StoreMap : ClassMap<Store>
     {

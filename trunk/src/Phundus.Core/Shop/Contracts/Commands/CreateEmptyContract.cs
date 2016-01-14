@@ -1,9 +1,9 @@
-﻿namespace Phundus.Core.Shop.Contracts.Commands
+﻿namespace Phundus.Shop.Contracts.Commands
 {
     using System;
     using Cqrs;
     using Ddd;
-    using IdentityAndAccess.Queries;
+    using IdentityAccess.Queries;
     using Model;
     using Repositories;
     using Services;

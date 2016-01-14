@@ -6,7 +6,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using ContentObjects;
-    using Core.Shop.Queries;
+    using Phundus.Shop.Queries;
 
     [RoutePrefix("api/shop/items")]
     public class ShopItemsController : ApiControllerBase

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Shop.Pricing.Model
+﻿namespace Phundus.Shop.Pricing.Model
 {
     using System;
 

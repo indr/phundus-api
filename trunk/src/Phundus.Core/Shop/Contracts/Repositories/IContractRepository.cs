@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Shop.Contracts.Repositories
+﻿namespace Phundus.Shop.Contracts.Repositories
 {
     using System;
     using Infrastructure;

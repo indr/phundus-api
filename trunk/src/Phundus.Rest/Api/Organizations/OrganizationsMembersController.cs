@@ -9,8 +9,8 @@
     using Castle.Transactions;
     using Common;
     using ContentObjects;
-    using Core.IdentityAndAccess.Organizations.Commands;
-    using Core.IdentityAndAccess.Queries;
+    using IdentityAccess.Organizations.Commands;
+    using IdentityAccess.Queries.ReadModels;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/members")]

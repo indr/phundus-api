@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Persistence.Dashboard
 {
-    using Core.Dashboard.Querying.Records;
     using FluentNHibernate.Mapping;
+    using Phundus.Dashboard.Querying.Records;
 
     public class EventLogRecordMap : ClassMap<EventLogRecord>
     {

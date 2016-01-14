@@ -3,11 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Core.Inventory.AvailabilityAndReservation.Model;
-    using Core.Inventory.AvailabilityAndReservation.Repositories;
-    using Core.Shop.Orders.Model;
     using NHibernate;
     using NHibernate.Linq;
+    using Phundus.Inventory.AvailabilityAndReservation.Model;
+    using Phundus.Inventory.AvailabilityAndReservation.Repositories;
+    using Phundus.Shop.Orders.Model;
 
     public class NhReservationsBasedOnOrdersRepository : IReservationRepository
     {

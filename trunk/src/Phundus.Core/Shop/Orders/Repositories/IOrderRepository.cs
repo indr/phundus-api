@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Shop.Orders.Repositories
+﻿namespace Phundus.Shop.Orders.Repositories
 {
     using System;
     using System.Collections.Generic;

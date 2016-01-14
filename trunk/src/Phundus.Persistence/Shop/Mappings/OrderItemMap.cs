@@ -1,8 +1,8 @@
 ﻿namespace Phundus.Persistence.Shop.Mappings
 {
-    using Core.Shop.Orders.Model;
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
+    using Phundus.Shop.Orders.Model;
 
     public class OrderItemMap : ClassMap<OrderItem>
     {

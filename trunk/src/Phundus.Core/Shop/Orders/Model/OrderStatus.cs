@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Shop.Orders.Model
+﻿namespace Phundus.Shop.Orders.Model
 {
     public enum OrderStatus
     {

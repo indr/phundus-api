@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Shop.Queries.Models
+﻿namespace Phundus.Shop.Queries.Models
 {
     using System;
     using System.Collections.Generic;
@@ -6,10 +6,9 @@
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using IdentityAndAccess.Queries;
+    using IdentityAccess.Queries;
     using Integration.IdentityAccess;
     using Inventory.Services;
-    using Phundus.Shop.Queries;
 
     public class OrderReadModelReader : ReadModelReaderBase, IOrderQueries
     {

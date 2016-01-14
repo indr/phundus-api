@@ -1,10 +1,9 @@
-﻿namespace Phundus.Core.Shop.Queries
+﻿namespace Phundus.Shop.Queries
 {
     using System;
     using System.Collections.Generic;
     using Common;
     using Common.Domain.Model;
-    using Phundus.Shop.Queries;
 
     public interface IOrderQueries
     {

@@ -1,13 +1,13 @@
 ﻿namespace Phundus.Core.Tests.IdentityAndAccess.Organizations.Commands
 {
     using System;
-    using Core.IdentityAndAccess.Organizations.Commands;
-    using Core.IdentityAndAccess.Organizations.Model;
-    using Core.IdentityAndAccess.Organizations.Repositories;
-    using Core.IdentityAndAccess.Queries;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.IdentityAccess.Organizations.Commands;
+    using Phundus.IdentityAccess.Organizations.Model;
+    using Phundus.IdentityAccess.Organizations.Repositories;
+    using Phundus.IdentityAccess.Queries;
     using Rhino.Mocks;
 
     [Subject(typeof (UpdateOrganizationDetailsHandler))]

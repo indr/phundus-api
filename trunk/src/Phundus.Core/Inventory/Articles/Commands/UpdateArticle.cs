@@ -1,8 +1,8 @@
-﻿namespace Phundus.Core.Inventory.Articles.Commands
+﻿namespace Phundus.Inventory.Articles.Commands
 {
     using Cqrs;
     using Ddd;
-    using IdentityAndAccess.Queries;
+    using IdentityAccess.Queries;
     using Model;
     using Repositories;
 

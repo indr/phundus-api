@@ -9,9 +9,9 @@
     using Bootstrap.Windsor;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
+    using IdentityAccess.Organizations.Repositories;
     using phiNdus.fundus.Web.App_Start;
     using phiNdus.fundus.Web.Security;
-    using Phundus.Core.IdentityAndAccess.Organizations.Repositories;
 
     public class MvcApplication : HttpApplication, IContainerAccessor
     {

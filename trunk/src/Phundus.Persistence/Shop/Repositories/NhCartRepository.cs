@@ -3,9 +3,9 @@
     using System;
     using System.Linq;
     using Common.Domain.Model;
-    using Core.Shop.Orders;
-    using Core.Shop.Orders.Model;
-    using Core.Shop.Orders.Repositories;
+    using Phundus.Shop.Orders;
+    using Phundus.Shop.Orders.Model;
+    using Phundus.Shop.Orders.Repositories;
 
     public class NhCartRepository : NhRepositoryBase<Cart>, ICartRepository
     {

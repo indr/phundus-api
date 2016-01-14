@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Users.Services
+﻿namespace Phundus.IdentityAccess.Users.Services
 {
     using Common;
     using Common.Domain.Model;

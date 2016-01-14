@@ -6,7 +6,7 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Core.IdentityAndAccess.Users.Commands;
+    using IdentityAccess.Users.Commands;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/account/validate")]

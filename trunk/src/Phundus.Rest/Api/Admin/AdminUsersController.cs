@@ -9,7 +9,7 @@
     using Castle.Transactions;
     using Common.Domain.Model;
     using ContentObjects;
-    using Core.IdentityAndAccess.Users.Commands;
+    using IdentityAccess.Users.Commands;
     using Integration.IdentityAccess;
     using Newtonsoft.Json;
 

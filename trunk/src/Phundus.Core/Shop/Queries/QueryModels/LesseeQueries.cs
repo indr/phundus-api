@@ -2,7 +2,7 @@
 {
     using System;
     using Common;
-    using Core.Cqrs;
+    using Cqrs;
     using Integration.IdentityAccess;
     using Integration.Shop;
 

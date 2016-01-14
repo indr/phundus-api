@@ -1,9 +1,9 @@
-﻿namespace Phundus.Core.Shop.Orders.Services
+﻿namespace Phundus.Shop.Orders.Services
 {
     using System;
     using System.IO;
     using System.Web.Hosting;
-    using IdentityAndAccess.Organizations.Repositories;
+    using IdentityAccess.Organizations.Repositories;
     using iTextSharp.text;
     using iTextSharp.text.exceptions;
     using iTextSharp.text.pdf;

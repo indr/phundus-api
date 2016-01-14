@@ -9,7 +9,7 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using Elmah.Mvc;
-    using Phundus.Core.Ddd;
+    using Phundus.Ddd;
     using Phundus.Persistence;
     using Plumbing;
 

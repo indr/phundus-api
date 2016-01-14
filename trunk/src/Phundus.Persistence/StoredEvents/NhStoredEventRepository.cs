@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common.Events;
-    using Core.Ddd;
+    using Ddd;
 
     public class NhStoredEventRepository : NhRepositoryBase<StoredEvent>, IStoredEventRepository
     {

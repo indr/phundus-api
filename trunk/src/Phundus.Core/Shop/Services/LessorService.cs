@@ -1,11 +1,11 @@
-﻿namespace Phundus.Core.Shop.Services
+﻿namespace Phundus.Shop.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using IdentityAndAccess.Queries;
+    using IdentityAccess.Queries;
+    using IdentityAccess.Queries.ReadModels;
     using Integration.IdentityAccess;
     using Orders.Model;
 

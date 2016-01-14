@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Shop.Orders
+﻿namespace Phundus.Shop.Orders
 {
     using Common.Domain.Model;
     using Queries;

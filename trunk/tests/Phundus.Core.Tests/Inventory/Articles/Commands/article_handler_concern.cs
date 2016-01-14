@@ -1,10 +1,10 @@
 namespace Phundus.Core.Tests.Inventory
 {
-    using Core.Cqrs;
-    using Core.IdentityAndAccess.Queries;
-    using Core.Inventory.Articles.Repositories;
-    using Core.Inventory.Services;
     using Machine.Specifications;
+    using Phundus.Cqrs;
+    using Phundus.IdentityAccess.Queries;
+    using Phundus.Inventory.Articles.Repositories;
+    using Phundus.Inventory.Services;
 
     public abstract class article_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler> where THandler : class, IHandleCommand<TCommand>
     {

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory.Queries
+﻿namespace Phundus.Inventory.Queries
 {
     using System;
 

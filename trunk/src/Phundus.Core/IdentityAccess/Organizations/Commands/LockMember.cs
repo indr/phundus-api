@@ -1,8 +1,8 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Organizations.Commands
+﻿namespace Phundus.IdentityAccess.Organizations.Commands
 {
     using System;
-    using System.Security;
     using Cqrs;
+    using Exceptions;
     using IdentityAccess.Users.Repositories;
     using Queries;
     using Repositories;

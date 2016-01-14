@@ -1,8 +1,8 @@
 ﻿namespace Phundus.Core.Tests.IdentityAccess.Users.Model
 {
     using Common.Domain.Model;
-    using Core.IdentityAndAccess.Users.Model;
     using Machine.Specifications;
+    using Phundus.IdentityAccess.Users.Model;
 
     public class user_concern
     {

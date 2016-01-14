@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core
+﻿namespace Phundus
 {
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core
+﻿namespace Phundus
 {
     using System.Reflection;
     using Castle.Facilities.TypedFactory;
@@ -7,7 +7,8 @@
     using Castle.Windsor;
     using Cqrs;
     using Ddd;
-    using IdentityAndAccess.Users.Services;
+    using IdentityAccess.Queries.ReadModels;
+    using IdentityAccess.Users.Services;
     using Integration.Shop;
     using Phundus.Shop.Queries.QueryModels;
 
@@ -48,7 +49,7 @@
                 );
 
             container.Register(
-                Classes.FromThisAssembly().BasedOn<IdentityAndAccess.Queries.ReadModelReaderBase>()
+                Classes.FromThisAssembly().BasedOn<ReadModelReaderBase>()
                     .OrBasedOn(typeof (Shop.Queries.Models.ReadModelReaderBase))
                     .WithServiceAllInterfaces()
                     .LifestyleTransient());

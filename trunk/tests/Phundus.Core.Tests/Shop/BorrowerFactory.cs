@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Core.Tests.Shop
 {
-    using Core.Shop.Contracts.Model;
+    using Phundus.Shop.Contracts.Model;
 
     public class BorrowerFactory
     {

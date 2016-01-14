@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Web.Models.ArticleModels
 {
     using System.Collections.Generic;
-    using Core.Inventory.AvailabilityAndReservation.Model;
+    using Inventory.AvailabilityAndReservation.Model;
 
     public class ArticleReservationsModel
     {

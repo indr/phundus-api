@@ -20,7 +20,6 @@ namespace Phundus.Shop.Queries
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	using Core.Shop.Queries;
 
 
     public partial class ReadModelDataContext : System.Data.Linq.DataContext

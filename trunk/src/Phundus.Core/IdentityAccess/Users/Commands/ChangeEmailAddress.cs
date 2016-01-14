@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.IdentityAndAccess.Users.Commands
+﻿namespace Phundus.IdentityAccess.Users.Commands
 {
     using System;
     using System.Globalization;

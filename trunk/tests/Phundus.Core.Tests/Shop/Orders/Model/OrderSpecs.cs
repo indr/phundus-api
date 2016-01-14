@@ -2,11 +2,11 @@
 {
     using System;
     using Common.Domain.Model;
-    using Core.Shop.Contracts.Model;
-    using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Shop.Contracts.Model;
+    using Phundus.Shop.Orders.Model;
     using Rhino.Mocks;
 
     public abstract class order_concern : concern<Order>

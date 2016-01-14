@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Persistence.Shop.Repositories
 {
-    using Core.Shop.Contracts.Model;
-    using Core.Shop.Contracts.Repositories;
+    using Phundus.Shop.Contracts.Model;
+    using Phundus.Shop.Contracts.Repositories;
 
     public class NhContractRepository : NhRepositoryBase<Contract>, IContractRepository
     {

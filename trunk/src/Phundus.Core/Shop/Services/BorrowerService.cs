@@ -1,9 +1,8 @@
-﻿namespace Phundus.Core.Shop.Services
+﻿namespace Phundus.Shop.Services
 {
     using Common;
     using Common.Domain.Model;
     using Contracts.Model;
-    using IdentityAndAccess.Queries;
     using Integration.IdentityAccess;
 
     public interface ILesseeService

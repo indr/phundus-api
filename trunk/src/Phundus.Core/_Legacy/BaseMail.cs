@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core
+﻿namespace Phundus
 {
     using System;
     using System.Collections.Generic;

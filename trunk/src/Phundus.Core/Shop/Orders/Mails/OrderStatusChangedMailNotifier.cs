@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Shop.Orders.Mails
+﻿namespace Phundus.Shop.Orders.Mails
 {
     using System;
     using System.Net.Mail;
@@ -6,7 +6,6 @@
     using Infrastructure;
     using Infrastructure.Gateways;
     using Model;
-    using Phundus.Shop.Orders.Mails;
     using Repositories;
     using Services;
 

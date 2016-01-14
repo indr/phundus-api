@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory.Owners
+﻿namespace Phundus.Inventory.Owners
 {
     using System.Collections.Generic;
     using Common.Domain.Model;

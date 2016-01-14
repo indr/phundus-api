@@ -2,9 +2,9 @@
 {
     using System;
     using System.Threading;
-    using Core.IdentityAndAccess.Users.Exceptions;
-    using Core.IdentityAndAccess.Users.Model;
     using NUnit.Framework;
+    using Phundus.IdentityAccess.Users.Exceptions;
+    using Phundus.IdentityAccess.Users.Model;
 
     [TestFixture]
     public class MembershipTests

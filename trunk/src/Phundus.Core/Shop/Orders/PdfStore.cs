@@ -1,7 +1,7 @@
-﻿namespace Phundus.Core.Shop.Orders
+﻿namespace Phundus.Shop.Orders
 {
     using System.IO;
-    using IdentityAndAccess.Queries;
+    using IdentityAccess.Queries;
     using Model;
     using Queries;
     using Repositories;

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory.AvailabilityAndReservation.Model
+﻿namespace Phundus.Inventory.AvailabilityAndReservation.Model
 {
     using System;
     using System.ComponentModel.DataAnnotations;

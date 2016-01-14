@@ -1,4 +1,4 @@
-namespace Phundus.Core.Inventory.AvailabilityAndReservation.Repositories
+namespace Phundus.Inventory.AvailabilityAndReservation.Repositories
 {
     using System;
     using System.Collections.Generic;

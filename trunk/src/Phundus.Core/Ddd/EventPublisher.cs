@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Ddd
+﻿namespace Phundus.Ddd
 {
     using Castle.Windsor;
     using Common.Domain.Model;

@@ -1,4 +1,4 @@
-namespace Phundus.Core.Shop.Orders.Model
+namespace Phundus.Shop.Orders.Services
 {
     using iTextSharp.text;
     using iTextSharp.text.pdf;

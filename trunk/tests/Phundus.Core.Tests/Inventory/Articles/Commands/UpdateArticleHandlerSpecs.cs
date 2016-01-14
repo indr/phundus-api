@@ -2,12 +2,11 @@ namespace Phundus.Core.Tests.Inventory
 {
     using System;
     using Common.Domain.Model;
-    using Core.Inventory.Articles.Commands;
-    using Core.Inventory.Articles.Model;
-    using Core.Inventory.Owners;
-    using Core.Inventory.Stores.Model;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Inventory.Articles.Commands;
+    using Phundus.Inventory.Articles.Model;
+    using Phundus.Inventory.Owners;
     using Rhino.Mocks;
 
     [Subject(typeof(UpdateArticleHandler))]

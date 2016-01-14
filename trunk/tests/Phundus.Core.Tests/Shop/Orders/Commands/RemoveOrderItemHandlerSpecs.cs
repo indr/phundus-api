@@ -2,14 +2,13 @@
 {
     using System;
     using Common.Domain.Model;
-    using Core.Inventory.Articles.Model;
-    using Core.Shop.Orders.Commands;
-    using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Shop.Orders.Commands;
+    using Phundus.Shop.Orders.Model;
     using Rhino.Mocks;
-    using Article = Core.Shop.Orders.Model.Article;
+    using Article = Phundus.Shop.Orders.Model.Article;
 
     [Subject(typeof (RemoveOrderItemHandler))]
     public class when_remove_order_item_is_handled : order_handler_concern<RemoveOrderItem, RemoveOrderItemHandler>

@@ -1,4 +1,4 @@
-namespace Phundus.Core.Shop.Orders.Commands
+namespace Phundus.Shop.Orders.Commands
 {
     using System;
     using Common.Domain.Model;

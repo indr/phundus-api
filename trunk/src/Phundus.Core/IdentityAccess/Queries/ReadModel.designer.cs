@@ -20,7 +20,7 @@ namespace Phundus.IdentityAccess.Queries
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	using Core.IdentityAndAccess.Queries;
+	using ReadModels;
 
 
     public partial class ReadModelDataContext : System.Data.Linq.DataContext

@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel.DataAnnotations;
-    using Phundus.Core.Cqrs.Paging;
-    using Phundus.Core.IdentityAndAccess.Queries;
-    using Phundus.Core.Shop.Queries;
+    using Phundus.Cqrs.Paging;
+    using Phundus.IdentityAccess.Queries.ReadModels;
+    using Phundus.Shop.Queries;
 
     public class ShopSearchResultViewModel : ViewModelBase
     {

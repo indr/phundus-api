@@ -1,7 +1,6 @@
-﻿namespace Phundus.Core.Shop.Queries.Models
+﻿namespace Phundus.Shop.Queries.Models
 {
     using Cqrs;
-    using Phundus.Shop.Queries;
 
     public class ReadModelWriterBase : ReadModelBase
     {

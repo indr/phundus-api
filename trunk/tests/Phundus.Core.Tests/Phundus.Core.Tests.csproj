@@ -8,7 +8,7 @@
     <ProjectGuid>{4F4206CE-7B94-42B9-947F-C210C9F32F3A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Phundus.Core.Tests</RootNamespace>
+    <RootNamespace>Phundus.Tests</RootNamespace>
     <AssemblyName>Phundus.Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

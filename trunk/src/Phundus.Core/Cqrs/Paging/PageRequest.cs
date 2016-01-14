@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Cqrs.Paging
+﻿namespace Phundus.Cqrs.Paging
 {
     /// <summary>
     /// Definiert den zu ladenden Ausschnitt.

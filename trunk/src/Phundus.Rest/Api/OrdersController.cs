@@ -11,10 +11,10 @@
     using Common;
     using Common.Domain.Model;
     using ContentObjects;
-    using Core.Shop.Orders;
-    using Core.Shop.Orders.Commands;
-    using Core.Shop.Queries;
     using Newtonsoft.Json;
+    using Phundus.Shop.Orders;
+    using Phundus.Shop.Orders.Commands;
+    using Phundus.Shop.Queries;
 
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase

@@ -6,7 +6,7 @@
     using Common.Domain.Model;
     using Common.Events;
     using Common.Notifications;
-    using Core.Ddd;
+    using Ddd;
 
     public class EventStore : IEventStore
     {

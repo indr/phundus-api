@@ -1,9 +1,6 @@
-﻿namespace Phundus.Core.Shop.Orders
+﻿namespace Phundus.Shop.Orders
 {
-    using System;
-    using System.Linq;
     using Commands;
-    using Common;
     using Common.Domain.Model;
     using Cqrs;
     using IdentityAccess.Users.Repositories;

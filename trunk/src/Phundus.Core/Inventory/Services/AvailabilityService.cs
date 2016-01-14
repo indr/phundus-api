@@ -1,4 +1,4 @@
-﻿namespace Phundus.Core.Inventory.Services
+﻿namespace Phundus.Inventory.Services
 {
     using System;
     using System.Collections.Generic;

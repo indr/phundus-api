@@ -1,7 +1,5 @@
-﻿namespace Phundus.Core.Cqrs
+﻿namespace Phundus.Cqrs
 {
-    using System;
-    using System.Linq;
     using System.Reflection;
     using Castle.Core;
     using Castle.DynamicProxy;

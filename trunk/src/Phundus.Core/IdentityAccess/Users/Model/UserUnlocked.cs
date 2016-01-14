@@ -1,4 +1,4 @@
-namespace Phundus.Core.IdentityAndAccess.Users.Model
+namespace Phundus.IdentityAccess.Users.Model
 {
     using System;
     using System.Runtime.Serialization;

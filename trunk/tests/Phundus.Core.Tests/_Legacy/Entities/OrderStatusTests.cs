@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Core.Tests._Legacy.Entities
 {
-    using Core.Shop.Orders.Model;
     using NUnit.Framework;
+    using Phundus.Shop.Orders.Model;
 
     [TestFixture]
     public class OrderStatusTests

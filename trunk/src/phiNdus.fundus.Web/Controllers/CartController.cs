@@ -5,14 +5,12 @@
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
-    using Core;
-    using Core.IdentityAndAccess.Queries;
-    using Core.Shop.Orders;
-    using Core.Shop.Queries;
     using Integration.IdentityAccess;
     using phiNdus.fundus.Web.Models;
     using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;
+    using Shop.Orders;
+    using Shop.Queries;
 
     public class CartController : ControllerBase
     {

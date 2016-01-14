@@ -1,11 +1,10 @@
-namespace Phundus.Core.Inventory.Stores.Commands
+namespace Phundus.Inventory.Stores.Commands
 {
     using System;
     using Common;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAndAccess.Queries;
-    using Model;
+    using IdentityAccess.Queries;
     using Repositories;
     using Services;
 

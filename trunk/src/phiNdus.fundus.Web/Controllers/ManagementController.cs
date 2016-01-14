@@ -4,7 +4,7 @@
     using System.Web.Mvc;
     using Castle.Transactions;
     using Common;
-    using Core.IdentityAndAccess.Queries;
+    using IdentityAccess.Queries;
     using phiNdus.fundus.Web.Models;
 
     public class ManagementController : ControllerBase

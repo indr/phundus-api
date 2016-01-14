@@ -2,11 +2,11 @@
 {
     using System;
     using Common.Domain.Model;
-    using Core.Shop.Orders.Commands;
-    using Core.Shop.Orders.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Shop.Orders.Commands;
+    using Phundus.Shop.Orders.Model;
     using Rhino.Mocks;
 
     [Subject(typeof (AddOrderItemHandler))]
