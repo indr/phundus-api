@@ -37,7 +37,7 @@
         {
             var organization = Ctx.Organization;
             var lessee = Ctx.Users[userAlias];
-            _orderId = App.CreateOrder(organization.OrganizationId, lessee.Id);
+            _orderId = App.CreateOrder(organization.OrganizationId, lessee.UserId);
             Ctx.Order = new Order {OrderId = _orderId};
         }
 
@@ -46,7 +46,7 @@
         {
             var organization = Ctx.Organization;
             var lessee = Ctx.Users[userAlias];
-            _orderId = App.CreateOrder(organization.OrganizationId, lessee.Id);
+            _orderId = App.CreateOrder(organization.OrganizationId, lessee.UserId);
             Ctx.Order = new Order {OrderId = _orderId};
         }
 

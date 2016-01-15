@@ -33,7 +33,7 @@
             if (emailKey != null)
                 Ctx.EmailAddresses.TryGetValue(emailKey, out emailAddress);
             user = App.SignUpUser(emailAddress);
-            App.ConfirmUser(user.Guid);
+            App.ConfirmUser(user.UserId);
 
             Ctx.User = user;
             if (userKey != null)

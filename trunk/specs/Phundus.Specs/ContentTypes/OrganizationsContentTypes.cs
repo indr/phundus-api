@@ -31,11 +31,5 @@
 
         [JsonProperty("startpage")]
         public string Startpage { get; set; }
-
-        public Guid Guid
-        {
-            get { return OrganizationId; }
-            set { OrganizationId = value; }
-        }
     }
 }

@@ -47,12 +47,12 @@
             };
         }
 
-        [GET("{organizationGuid}")]
+        [GET("{organizationId}")]
         [Transaction]
         [AllowAnonymous]
-        public virtual OrganizationsGetOkResponseContent Get(Guid organizationGuid)
+        public virtual OrganizationsGetOkResponseContent Get(Guid organizationId)
         {
-            var organization = _organizationQueries.FindById(organizationGuid);
+            var organization = _organizationQueries.FindById(organizationId);
             if (organization == null)
                 throw new HttpException((int) HttpStatusCode.NotFound, "Organization not found.");
 
@@ -63,7 +63,7 @@
                 DocumentTemplate = organization.DocumentTemplate,
                 EmailAddress = organization.EmailAddress,
                 Name = organization.Name,
-                OrganizationGuid = organization.Guid,
+                OrganizationId = organization.Guid,
                 Startpage = organization.Startpage,
                 Stores = new List<Store>(),
                 Url = organization.Url,
@@ -111,13 +111,13 @@
             return _organizationQueries.FindById(organizationId);
         }
 
-        [PATCH("{organizationGuid}")]
+        [PATCH("{organizationId}")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(Guid organizationGuid, OrganizationsPatchRequestContent requestContent)
+        public virtual HttpResponseMessage Patch(Guid organizationId, OrganizationsPatchRequestContent requestContent)
         {
             if (!String.IsNullOrWhiteSpace(requestContent.Startpage))
             {
-                Dispatch(new UpdateStartpage(CurrentUserGuid, organizationGuid, requestContent.Startpage));
+                Dispatch(new UpdateStartpage(CurrentUserGuid, organizationId, requestContent.Startpage));
             }
             return NoContent();
         }
@@ -137,10 +137,7 @@
     public class OrganizationsGetOkResponseContent
     {
         [JsonProperty("organizationId")]
-        public Guid OrganizationId { get { return OrganizationGuid; } }
-
-        [JsonProperty("organizationGuid")]
-        public Guid OrganizationGuid { get; set; }
+        public Guid OrganizationId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

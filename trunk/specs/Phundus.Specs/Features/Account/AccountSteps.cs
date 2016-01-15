@@ -54,13 +54,13 @@
         [Given(@"an administrator locked my account")]
         public void GivenAnAdministratorLockedMyAccount()
         {
-            App.LockUser(Ctx.User.Guid);
+            App.LockUser(Ctx.User.UserId);
         }
 
         [Given(@"an administrator unlocked my account")]
         public void GivenAnAdministratorUnlockedMyAccount()
         {
-            App.UnlockUser(Ctx.User.Guid);
+            App.UnlockUser(Ctx.User.UserId);
         }
 
         [Given(@"I changed my password")]
@@ -68,7 +68,7 @@
         {
             var newPassword = Guid.NewGuid().ToString("N").Substring(0, 8);
             var user = Ctx.User;
-            App.ChangePassword(user.Guid, user.Password, newPassword);
+            App.ChangePassword(user.UserId, user.Password, newPassword);
             user.Password = newPassword;
         }
 
@@ -143,7 +143,7 @@
         [Then(@"I should be logged in")]
         public void ThenIShouldBeLoggedIn()
         {
-            Assert.That(Ctx.LoggedIn, Is.EqualTo(Ctx.User.Guid), "User not logged in.");
+            Assert.That(Ctx.LoggedIn, Is.EqualTo(Ctx.User.UserId), "User not logged in.");
         }
 
         
@@ -153,7 +153,7 @@
         {
             if (Ctx.User == null)
                 return;
-            Assert.That(Ctx.LoggedIn, Is.Not.EqualTo(Ctx.User.Guid));
+            Assert.That(Ctx.LoggedIn, Is.Not.EqualTo(Ctx.User.UserId));
         }
 
         private void ChangeEmailAddress(User user)
@@ -168,7 +168,7 @@
         {
             if (user == null) throw new ArgumentNullException("user");
 
-            App.ChangeEmailAddress(user.Guid, user.Password, newEmailAddress, assertStatusCode);
+            App.ChangeEmailAddress(user.UserId, user.Password, newEmailAddress, assertStatusCode);
             user.RequestedEmailAddress = newEmailAddress;
         }
     }

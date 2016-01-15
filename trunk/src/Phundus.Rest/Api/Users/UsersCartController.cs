@@ -12,7 +12,7 @@ namespace Phundus.Rest.Api.Users
     using Newtonsoft.Json;
     using Phundus.Shop.Orders.Commands;
 
-    [RoutePrefix("api/users/{userGuid}/cart")]
+    [RoutePrefix("api/users/{userId}/cart")]
     public class UsersCartController : ApiControllerBase
     {
         private readonly ICartQueries _cartQueries;
@@ -25,12 +25,12 @@ namespace Phundus.Rest.Api.Users
 
         [GET("")]
         [Transaction]
-        public virtual UsersCartGetOkResponseContent Get(Guid userGuid)
+        public virtual UsersCartGetOkResponseContent Get(Guid userId)
         {
-            if (userGuid != CurrentUserGuid.Id)
-                throw new ArgumentException("userGuid");
+            if (userId != CurrentUserGuid.Id)
+                throw new ArgumentException("userId");
 
-            var cart = _cartQueries.FindByUserGuid(CurrentUserGuid, new UserGuid(userGuid));
+            var cart = _cartQueries.FindByUserGuid(CurrentUserGuid, new UserGuid(userId));
             if (cart == null)
                 return new UsersCartGetOkResponseContent(null);
             return new UsersCartGetOkResponseContent(cart);
@@ -38,10 +38,10 @@ namespace Phundus.Rest.Api.Users
 
         [DELETE("")]
         [Transaction]
-        public virtual HttpResponseMessage Delete(Guid userGuid)
+        public virtual HttpResponseMessage Delete(Guid userId)
         {
-            if (userGuid != CurrentUserGuid.Id)
-                throw new ArgumentException("userGuid");
+            if (userId != CurrentUserGuid.Id)
+                throw new ArgumentException("userId");
 
             Dispatch(new ClearCart(CurrentUserGuid));
 
@@ -50,11 +50,11 @@ namespace Phundus.Rest.Api.Users
 
         [POST("items")]
         [Transaction]
-        public virtual UsersCartItemsPostOkResponseContent Post(Guid userGuid,
+        public virtual UsersCartItemsPostOkResponseContent Post(Guid userId,
             UsersCartItemsPostRequestContent requestContent)
         {
-            if (userGuid != CurrentUserGuid.Id)
-                throw new ArgumentException("userGuid");
+            if (userId != CurrentUserGuid.Id)
+                throw new ArgumentException("userId");
 
             if ((requestContent.Amount > 0) && (!String.IsNullOrEmpty(requestContent.Begin)) &&
                 (!String.IsNullOrEmpty(requestContent.End)))
@@ -75,29 +75,29 @@ namespace Phundus.Rest.Api.Users
             };
         }
 
-        [PATCH("items/{itemGuid}")]
+        [PATCH("items/{itemId}")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(Guid userGuid, Guid itemGuid,
+        public virtual HttpResponseMessage Patch(Guid userId, Guid itemId,
             UsersCartPatchRequestContent requestContent)
         {
-            if (userGuid != CurrentUserGuid.Id)
-                throw new ArgumentException("userGuid");
+            if (userId != CurrentUserGuid.Id)
+                throw new ArgumentException("userId");
 
-            var command = new UpdateCartItem(CurrentUserGuid, itemGuid, requestContent.Quantity,
+            var command = new UpdateCartItem(CurrentUserGuid, itemId, requestContent.Quantity,
                 requestContent.FromUtc, requestContent.ToUtc);
             Dispatch(command);
 
             return NoContent();
         }
 
-        [DELETE("items/{itemGuid}")]
+        [DELETE("items/{itemId}")]
         [Transaction]
-        public virtual HttpResponseMessage Delete(Guid userGuid, Guid itemGuid)
+        public virtual HttpResponseMessage Delete(Guid userId, Guid itemId)
         {
-            if (userGuid != CurrentUserGuid.Id)
-                throw new ArgumentException("userGuid");
+            if (userId != CurrentUserGuid.Id)
+                throw new ArgumentException("userId");
 
-            Dispatch(new RemoveCartItem(CurrentUserGuid, new CartItemGuid(itemGuid)));
+            Dispatch(new RemoveCartItem(CurrentUserGuid, new CartItemGuid(itemId)));
 
             return NoContent();
         }
@@ -131,7 +131,7 @@ namespace Phundus.Rest.Api.Users
             UserGuid = cart.UserGuid;
             Items = cart.Items.Select(s => new CartItem
             {
-                CartItemGuid = s.CartItemGuid,
+                CartItemId = s.CartItemGuid,
                 ArticleId = s.ArticleId,
                 Text = s.Text,
                 FromUtc = s.FromUtc,
@@ -140,7 +140,7 @@ namespace Phundus.Rest.Api.Users
                 UnitPricePerWeek = s.UnitPricePerWeek,
                 Days = s.Days,
                 ItemTotal = s.ItemTotal,
-                OwnerGuid = s.OwnerGuid,
+                OwnerId = s.OwnerGuid,
                 OwnerName = s.OwnerName
             }).ToList();
         }
@@ -159,8 +159,8 @@ namespace Phundus.Rest.Api.Users
 
     public class CartItem
     {
-        [JsonProperty("cartItemGuid")]
-        public Guid CartItemGuid { get; set; }
+        [JsonProperty("cartItemId")]
+        public Guid CartItemId { get; set; }
 
         [JsonProperty("articleId")]
         public int ArticleId { get; set; }
@@ -186,8 +186,8 @@ namespace Phundus.Rest.Api.Users
         [JsonProperty("itemTotal")]
         public decimal ItemTotal { get; set; }
 
-        [JsonProperty("ownerGuid")]
-        public Guid OwnerGuid { get; set; }
+        [JsonProperty("ownerId")]
+        public Guid OwnerId { get; set; }
 
         [JsonProperty("ownerName")]
         public string OwnerName { get; set; }

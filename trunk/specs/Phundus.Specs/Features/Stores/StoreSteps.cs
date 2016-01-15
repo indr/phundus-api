@@ -35,7 +35,7 @@
         public void WhenITryToGetMyUserDetails()
         {
             var user = Ctx.User;
-            _userDetails = App.GetUser(user.Id);
+            _userDetails = App.GetUser(user.UserId);
         }
 
         [Then(@"I should see the store")]

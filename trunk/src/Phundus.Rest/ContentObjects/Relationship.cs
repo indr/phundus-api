@@ -9,7 +9,7 @@
         public Guid OrganizationId { get; set; }
 
         [JsonProperty("userId")]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         [JsonProperty("timestamp")]
         public DateTime Timestamp { get; set; }

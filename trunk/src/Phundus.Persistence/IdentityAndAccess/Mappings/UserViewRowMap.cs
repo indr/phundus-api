@@ -12,7 +12,6 @@
             ReadOnly();
             Table("View_IdentityAccess_Users");
 
-            Map(x => x.UserId, "UserId");
             Id(x => x.UserGuid, "UserGuid");
             Map(x => x.RoleId, "RoleId");
             Map(x => x.EmailAddress, "EmailAddress");

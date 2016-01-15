@@ -11,8 +11,8 @@
 
     public class ShopOrdersPostRequestContent
     {
-        [JsonProperty("lessorGuid")]
-        public Guid LessorGuid { get; set; }
+        [JsonProperty("lessorId")]
+        public Guid LessorId { get; set; }
     }
 
     public class ShopOrdersPostOkResponseContent

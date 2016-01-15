@@ -18,7 +18,7 @@
         [Given(@"I created an article in my store")]
         public void GivenICreatedAnArticleInMyStore()
         {
-            Ctx.Article = App.CreateArticle(Ctx.User.Guid);
+            Ctx.Article = App.CreateArticle(Ctx.User.UserId);
         }
 
         [Given(@"I created these articles in my store")]
@@ -26,7 +26,7 @@
         {
             foreach (var row in table.Rows)
             {
-                Ctx.Article = App.CreateArticle(Ctx.User.Guid, row);
+                Ctx.Article = App.CreateArticle(Ctx.User.UserId, row);
             }
         }
 
@@ -35,7 +35,7 @@
         {
             foreach (var row in table.Rows)
             {
-                Ctx.Article = App.CreateArticle(Ctx.Organization.Guid, row);
+                Ctx.Article = App.CreateArticle(Ctx.Organization.OrganizationId, row);
                 if (row.ContainsKey("Alias"))
                     Ctx.Articles[row["Alias"]] = Ctx.Article;
             }
@@ -44,7 +44,7 @@
         [When(@"I create an article in my store")]
         public void WhenICreateAnArticleInMyStore()
         {
-            Ctx.Article = App.CreateArticle(Ctx.User.Guid, null);
+            Ctx.Article = App.CreateArticle(Ctx.User.UserId, null);
         }
 
         [When(@"I try to query all my articles")]

@@ -39,8 +39,8 @@
             OrganizationGuid queryOrganizationGuid = null;
 
             var queryParams = GetQueryParams();
-            if (queryParams.ContainsKey("userGuid"))
-                queryUserGuid = new UserGuid(Guid.Parse(queryParams["userGuid"]));
+            if (queryParams.ContainsKey("userId"))
+                queryUserGuid = new UserGuid(Guid.Parse(queryParams["userId"]));
             if (queryParams.ContainsKey("organizationId"))
                 queryOrganizationGuid = new OrganizationGuid(Guid.Parse(queryParams["organizationId"]));
 

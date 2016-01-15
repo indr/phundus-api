@@ -12,7 +12,7 @@
     public class ArticlesPostRequestContent
     {
         [JsonProperty("ownerId")]
-        public Guid OwnerGuid { get; set; }
+        public Guid OwnerId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

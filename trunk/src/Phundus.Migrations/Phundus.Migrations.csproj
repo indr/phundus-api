@@ -162,6 +162,8 @@
     <Compile Include="2016\01\M201601151012_Update_TypeNames_in_StoredEvents.cs" />
     <Compile Include="2016\01\M201601152225_Add_Guid_to_Order_and_OrderItem.cs" />
     <Compile Include="2016\01\M201601152218_Delete_column_ModifiedBy_from_Order.cs" />
+    <Compile Include="2016\01\M201601152343_Change_UserId_to_UserGuid_on_Rm_Relationships.cs" />
+    <Compile Include="2016\01\M201601152352_Delete_column_UserId_from_Dm_IdentityAccess_Membership.cs" />
     <Compile Include="Helper\DatedAttribute.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
     <Compile Include="Helper\Runner.cs" />

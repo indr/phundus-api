@@ -36,7 +36,7 @@
         public string EmailAddress { get; protected set; }
         public string Password { get; protected set; }
 
-
+        [Obsolete]
         public Guid ResultingUserGuid { get; set; }
     }
 

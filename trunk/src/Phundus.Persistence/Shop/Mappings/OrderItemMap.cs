@@ -11,7 +11,7 @@
             SchemaAction.Validate();
 
             Table("Dm_Shop_OrderItem");
-            Id(x => x.Id).GeneratedBy.Assigned();
+            Id(x => x.Id, "OrderItemGuid").GeneratedBy.Assigned();
             Version(x => x.Version);
 
             References(x => x.Order, "OrderId");

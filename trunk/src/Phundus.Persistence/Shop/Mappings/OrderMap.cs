@@ -12,6 +12,7 @@ namespace Phundus.Persistence.Shop.Mappings
 
             Table("Dm_Shop_Order");
             Id(x => x.Id).GeneratedBy.Native();
+            Map(x => x.Guid, "OrderGuid");
             Version(x => x.Version);
 
             Map(x => x.CreatedUtc, "CreatedUtc").CustomType<UtcDateTimeType>();

@@ -6,10 +6,7 @@ namespace Phundus.Rest.ContentObjects
     public class AdminUser
     {
         [JsonProperty("userId")]
-        public int UserId { get; set; }
-
-        [JsonProperty("userGuid")]
-        public Guid UserGuid { get; set; }
+        public Guid UserId { get; set; }
 
         [JsonProperty("firstName")]
         public string FirstName { get; set; }

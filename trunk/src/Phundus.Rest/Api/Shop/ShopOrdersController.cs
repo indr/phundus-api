@@ -15,7 +15,7 @@
         [Transaction]
         public virtual ShopOrdersPostOkResponseContent Post(ShopOrdersPostRequestContent requestContent)
         {
-            var command = new PlaceOrder(CurrentUserGuid, new LessorId(requestContent.LessorGuid));
+            var command = new PlaceOrder(CurrentUserGuid, new LessorId(requestContent.LessorId));
 
             Dispatch(command);
 
@@ -33,8 +33,8 @@
 
         public class ShopOrdersPostRequestContent
         {
-            [JsonProperty("lessorGuid")]
-            public Guid LessorGuid { get; set; }
+            [JsonProperty("lessorId")]
+            public Guid LessorId { get; set; }
         }
     }
 }

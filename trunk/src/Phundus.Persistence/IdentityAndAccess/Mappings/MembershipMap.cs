@@ -17,6 +17,7 @@
             Component(x => x.UserGuid, a => a.Map(x => x.Id, "UserGuid"));
 
             References(x => x.Organization, "OrganizationGuid").Cascade.None();
+            
             //Map(x => x.OrganizationGuid, "OrganizationGuid");
 
             Map(x => x.Role).CustomType<Role>();

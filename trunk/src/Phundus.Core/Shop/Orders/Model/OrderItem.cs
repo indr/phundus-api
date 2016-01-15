@@ -63,8 +63,6 @@
             CalculateTotal();
         }
 
-        
-
         protected OrderItem()
         {
         }
