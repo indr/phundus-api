@@ -163,7 +163,6 @@
     <Compile Include="Api\OrdersController.cs" />
     <Compile Include="Api\Organizations\OrganizationsRelationshipsController.cs" />
     <Compile Include="Api\SessionsController.cs" />
-    <Compile Include="Api\CartsController.cs" />
     <Compile Include="Api\Organizations\OrganizationsMembersController.cs" />
     <Compile Include="Api\OrganizationsController.cs" />
     <Compile Include="Api\Organizations\OrganizationsApplicationsController.cs" />
