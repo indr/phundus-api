@@ -36,9 +36,9 @@
         /// <param name="userGuid"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        User GetByGuid(UserGuid userGuid);
+        User GetById(UserGuid userGuid);
 
         new int Add(User user);
-        User FindByGuid(Guid userId);
+        User FindById(Guid userId);
     }
 }

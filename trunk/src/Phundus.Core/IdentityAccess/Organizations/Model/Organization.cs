@@ -21,8 +21,21 @@
             _name = name;
         }
 
+        public Organization(InitiatorGuid initiatorGuid, OrganizationGuid organizationGuid, string name)
+            : base(organizationGuid.Id)
+        {
+            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
+            if (name == null) throw new ArgumentNullException("name");
+            _name = name;
+        }
+
         protected Organization()
         {
+        }
+
+        private OrganizationGuid OrganizationGuid
+        {
+            get { return new OrganizationGuid(base.Id); }
         }
 
         public virtual DateTime CreateDate
@@ -78,29 +91,32 @@
 
         public virtual string DocTemplateFileName { get; set; }
 
-        public virtual MembershipApplication RequestMembership(Guid applicationId, User user)
+        public virtual MembershipApplication RequestMembership(InitiatorGuid initiatorGuid, Guid applicationId,
+            User user)
         {
             var request = new MembershipApplication(applicationId, Id, user.UserGuid);
 
-            EventPublisher.Publish(new MembershipApplicationFiled(Id, user.Id));
+            EventPublisher.Publish(new MembershipApplicationFiled(initiatorGuid, OrganizationGuid, user.UserGuid));
 
             return request;
         }
 
-        public virtual void ApproveMembershipRequest(UserGuid initiatorGuid, MembershipApplication application, Guid membershipId)
+        public virtual void ApproveMembershipRequest(UserGuid initiatorGuid, MembershipApplication application,
+            Guid membershipId)
         {
             var membership = application.Approve(membershipId);
             membership.Organization = this;
             Memberships.Add(membership);
 
-            EventPublisher.Publish(new MembershipApplicationApproved(initiatorGuid, Id, application.UserGuid));
+            EventPublisher.Publish(new MembershipApplicationApproved(initiatorGuid, OrganizationGuid,
+                application.UserGuid));
         }
 
         public virtual void RejectMembershipRequest(UserGuid initiatorGuid, MembershipApplication application)
         {
             application.Reject();
 
-            EventPublisher.Publish(new MembershipApplicationRejected(initiatorGuid, Id, application.UserGuid));
+            EventPublisher.Publish(new MembershipApplicationRejected(initiatorGuid, OrganizationGuid, application.UserGuid));
         }
 
         protected virtual Membership GetMembershipOfUser(User user)

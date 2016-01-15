@@ -53,7 +53,7 @@
         }
     }
 
-    public class InitiatorGuid : GuidIdentity
+    public class InitiatorGuid : UserGuid
     {
         public InitiatorGuid()
         {

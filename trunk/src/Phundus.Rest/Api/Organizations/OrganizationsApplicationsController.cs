@@ -29,7 +29,7 @@
         public virtual OrganizationsApplicationsPostOkResponseContent Post(Guid organizationId)
         {
             var applicationId = Guid.NewGuid();
-            Dispatch(new ApplyForMembership(applicationId, CurrentUserId.Id, organizationId));
+            Dispatch(new ApplyForMembership(CurrentUserGuid, applicationId, CurrentUserId.Id, organizationId));
 
             return new OrganizationsApplicationsPostOkResponseContent
             {
