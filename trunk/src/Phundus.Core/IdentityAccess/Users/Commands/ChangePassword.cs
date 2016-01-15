@@ -7,18 +7,18 @@
 
     public class ChangePassword
     {
-        public ChangePassword(UserId initiatorId, string oldPassword, string newPassword)
+        public ChangePassword(UserGuid initiatorGuid, string oldPassword, string newPassword)
         {
-            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
             if (oldPassword == null) throw new ArgumentNullException("oldPassword");
             if (newPassword == null) throw new ArgumentNullException("newPassword");
 
-            InitiatorId = initiatorId;
+            InitiatorGuid = initiatorGuid;
             OldPassword = oldPassword;
             NewPassword = newPassword;
         }
 
-        public UserId InitiatorId { get; private set; }
+        public UserGuid InitiatorGuid { get; private set; }
         public string OldPassword { get; private set; }
         public string NewPassword { get; private set; }
     }
@@ -29,7 +29,7 @@
 
         public void Handle(ChangePassword command)
         {
-            var user = UserRepository.GetById(command.InitiatorId);
+            var user = UserRepository.GetByGuid(command.InitiatorGuid);
 
             user.Account.ChangePassword(command.OldPassword, command.NewPassword);
         }
