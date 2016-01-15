@@ -29,6 +29,9 @@
         [JsonProperty("address")]
         public string Address { get; set; }
 
+        [JsonProperty("startpage")]
+        public string Startpage { get; set; }
+
         public Guid Guid
         {
             get { return OrganizationId; }

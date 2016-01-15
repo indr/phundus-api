@@ -200,6 +200,12 @@
     </Compile>
     <Compile Include="Features\Organizations\MembershipSteps.cs" />
     <Compile Include="Features\Organizations\MembersSteps.cs" />
+    <Compile Include="Features\Organizations\Startpage.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Startpage.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Organizations\StartpageSteps.cs" />
     <Compile Include="Features\Shop\AvailabilitySteps.cs" />
     <Compile Include="Features\Shop\AvailabilityCheck.feature.cs">
       <AutoGen>True</AutoGen>
@@ -346,6 +352,10 @@
     <None Include="Features\Organizations\Application.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Application.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Organizations\Startpage.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Startpage.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Shop\AvailabilityCheck.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
