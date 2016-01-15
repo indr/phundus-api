@@ -48,7 +48,7 @@ namespace Phundus.Dashboard.Querying
         private static EventLogRecord CreateRecord(DomainEvent @event)
         {
             var record = new EventLogRecord();
-            record.EventGuid = @event.Id;
+            record.EventGuid = @event.EventGuid;
             record.Name = @event.GetType().Name;
             record.OccuredOnUtc = @event.OccuredOnUtc;
             return record;
