@@ -7,20 +7,39 @@
     [DataContract]
     public class MembershipApplicationFiled : DomainEvent
     {
+        public MembershipApplicationFiled(UserGuid initiator, Guid organizationGuid, UserGuid user)
+        {
+            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (organizationGuid == null) throw new ArgumentNullException("organizationGuid");
+            if (user == null) throw new ArgumentNullException("user");
+
+            InitiatorGuid = initiator.Id;
+            OrganizationGuid = organizationGuid;
+            UserGuid = user.Id;
+        }
+
         protected MembershipApplicationFiled()
         {
         }
 
-        public MembershipApplicationFiled(Guid organizationId, int userId)
+        [Obsolete]
+        public MembershipApplicationFiled(Guid initiator, int organizationGuid)
         {
-            OrganizationId = organizationId;
-            UserId = userId;
+            throw new NotImplementedException();
         }
 
-        [DataMember(Order = 3)]
-        public Guid OrganizationId { get; protected set; }
+        [DataMember(Order = 1)]
+        public Guid InitiatorGuid { get; protected set; }
 
         [DataMember(Order = 2)]
-        public int UserId { get; protected set; }
+        public Guid OrganizationGuid { get; protected set; }
+
+        [DataMember(Order = 3)]
+        public Guid UserGuid { get; protected set; }
+
+        [Obsolete]
+        public int UserId { get; private set; }
+        [Obsolete]
+        public Guid OrganizationId { get; private set; }
     }
 }
