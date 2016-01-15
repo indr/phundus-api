@@ -23,6 +23,12 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             _membershipRepository = membershipRepository;
         }
 
+        public void ActiveMember(Guid organizationId, UserGuid userGuid)
+        {
+            if (!IsActiveMember(organizationId, userGuid))
+                throw new AuthorizationException("Sie müssen aktives Mitglied dieser Organisation sein.");
+        }
+
         public void ActiveMember(Guid organizationId, int userId)
         {
             if (!IsActiveMember(organizationId, userId))
@@ -42,6 +48,13 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             AssertionConcern.AssertArgumentNotNull(userId, "UserId must be provided.");
 
             ActiveMember(ownerId.Id, userId.Id);
+        }
+
+        public void ActiveChief(Guid organizationId, UserGuid userGuid)
+        {
+            if (!IsActiveChief(organizationId, userGuid))
+                throw new AuthorizationException(
+                    "Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");
         }
 
         public void ActiveChief(Guid organizationId, int userId)
@@ -64,6 +77,26 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             AssertionConcern.AssertArgumentNotNull(userId, "UserId must be provided.");
 
             ActiveChief(ownerId.Id, userId.Id);
+        }
+
+        public bool IsActiveMember(Guid organizationId, UserGuid userGuid)
+        {
+            // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
+            var user = _userQueries.FindActiveById(organizationId);
+            if ((user != null) && (user.UserGuid == userGuid.Id))
+                return true;
+
+            var membership = _membershipRepository.ByMemberId(userGuid.Id)
+                .Where(p => p.Role == Role.Chief)
+                .FirstOrDefault(p => p.Organization.Id == organizationId);
+
+            if (membership == null)
+                return false;
+
+            if (membership.IsLocked)
+                return false;
+
+            return true;
         }
 
         public bool IsActiveMember(Guid organizationId, int userId)
@@ -98,6 +131,26 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             AssertionConcern.AssertArgumentNotNull(userId, "UserId must be provided.");
 
             return IsActiveMember(ownerId.Id, userId.Id);
+        }
+
+        public bool IsActiveChief(Guid organizationId, UserGuid userGuid)
+        {
+            // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
+            var user = _userQueries.FindActiveById(organizationId);
+            if ((user != null) && (user.UserGuid == userGuid.Id))
+                return true;
+
+            var membership = _membershipRepository.ByMemberId(userGuid.Id)
+                .Where(p => p.Role == Role.Chief)
+                .FirstOrDefault(p => p.Organization.Id == organizationId);
+
+            if (membership == null)
+                return false;
+
+            if (membership.IsLocked)
+                return false;
+
+            return true;
         }
 
         public bool IsActiveChief(Guid organizationId, int userId)

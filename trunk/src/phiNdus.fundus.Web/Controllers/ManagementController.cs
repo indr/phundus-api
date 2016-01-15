@@ -4,6 +4,7 @@
     using System.Web.Mvc;
     using Castle.Transactions;
     using Common;
+    using Common.Domain.Model;
     using IdentityAccess.Queries;
     using phiNdus.fundus.Web.Models;
 
@@ -21,7 +22,7 @@
         [Transaction]
         public virtual ActionResult Index(Guid id)
         {
-            var isManager = _memberInRole.IsActiveChief(id, CurrentUserId);
+            var isManager = _memberInRole.IsActiveChief(id, new UserGuid(CurrentUserGuid));
             return View(new ManagementModel {OrganizationId = id, IsManager = isManager});
         }
     }
