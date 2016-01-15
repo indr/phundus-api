@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using Common;
+    using Common.Domain.Model;
     using Ddd;
     using Iesi.Collections.Generic;
     using Users.Model;
@@ -131,6 +132,16 @@
             membership.Unlock();
 
             EventPublisher.Publish(new MemberUnlocked(Id, member.Id));
+        }
+
+        public void ChangeStartpage(UserId initiatorId, string startpage)
+        {
+            if (_startpage == startpage)
+                return;
+
+            Startpage = startpage;
+
+            EventPublisher.Publish(new StartpageChanged());
         }
     }
 }

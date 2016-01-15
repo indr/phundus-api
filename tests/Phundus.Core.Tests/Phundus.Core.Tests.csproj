@@ -99,6 +99,8 @@
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\EstablishOrganizationHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UpdateOrganizationDetailsHandlerSpecs.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\UpdateStartpageHandlerSpecs.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\OrganizationSpecs.cs" />
     <Compile Include="IdentityAccess\Users\Commands\ChangeEmailAddressHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Users\Commands\SignUpUserHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserSpecs.cs" />
