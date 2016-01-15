@@ -134,7 +134,7 @@
             EventPublisher.Publish(new MemberUnlocked(Id, member.Id));
         }
 
-        public void ChangeStartpage(UserId initiatorId, string startpage)
+        public virtual void ChangeStartpage(UserId initiatorId, string startpage)
         {
             if (_startpage == startpage)
                 return;

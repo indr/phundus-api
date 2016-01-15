@@ -288,6 +288,7 @@ function SettingsCtrl($scope, organizations, files) {
     $scope.save = function () {
         $scope.alerts.length = 0;
         $scope.alerts.push({ type: 'info', msg: 'Die Änderungen werden gespeichert...' });
+        $scope.settings.startpage = null;
         $scope.settings.$update({},
             function (data, putResponseHeaders) {
                 $scope.alerts.length = 0;

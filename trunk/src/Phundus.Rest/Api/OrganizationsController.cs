@@ -115,6 +115,23 @@
 
             return _organizationQueries.FindById(organizationId);
         }
+
+        [PATCH("{organizationGuid}")]
+        [Transaction]
+        public virtual HttpResponseMessage Patch(Guid organizationGuid, OrganizationsPatchRequestContent requestContent)
+        {
+            if (!String.IsNullOrWhiteSpace(requestContent.Startpage))
+            {
+                Dispatch(new UpdateStartpage(CurrentUserId, organizationGuid, requestContent.Startpage));
+            }
+            return NoContent();
+        }
+    }
+
+    public class OrganizationsPatchRequestContent
+    {
+        [JsonProperty("startpage")]
+        public string Startpage { get; set; }
     }
 
     public class OrganizationsQueryOkResponseContent : QueryOkResponseContent<Organization>

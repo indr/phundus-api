@@ -339,5 +339,10 @@
                 })
                 .Data.OrderId;
         }
+
+        public void UpdateStartpage(Organization organization, string htmlContent)
+        {
+            _apiClient.OrganizationsApi.Patch(new {organizationGuid = organization.Guid, startpage = htmlContent});
+        }
     }
 }
