@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Persistence.Shop.Mappings
 {
     using FluentNHibernate.Mapping;
+    using NHibernate.Type;
     using Phundus.Shop.Orders.Model;
 
     public class CartItemMap : ClassMap<CartItem>
@@ -19,8 +20,8 @@
 
             Map(x => x.Position, "Position");
             Map(x => x.Quantity, "Quantity");
-            Map(x => x.From, "FromUtc");
-            Map(x => x.To, "ToUtc");
+            Map(x => x.From, "FromUtc").CustomType<UtcDateTimeType>();
+            Map(x => x.To, "ToUtc").CustomType<UtcDateTimeType>();
             Map(x => x.Days, "Days");
             Map(x => x.ItemTotal, "ItemTotal");
 
