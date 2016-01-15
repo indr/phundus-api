@@ -19,6 +19,7 @@
         private UserGuid _modifiedBy;
         private DateTime? _modifiedUtc;
         private OrderStatus _status = OrderStatus.Pending;
+        private Guid _guid = System.Guid.NewGuid();
 
         public Order(Lessor lessor, Lessee lessee) : this(lessor, lessee, null)
         {
@@ -40,6 +41,12 @@
         }
 
         public virtual int Id { get; protected set; }
+
+        public virtual Guid Guid
+        {
+            get { return _guid; }
+            protected set { _guid = value; }
+        }
 
         public virtual int Version { get; protected set; }
 

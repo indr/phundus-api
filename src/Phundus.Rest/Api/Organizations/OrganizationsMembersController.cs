@@ -57,11 +57,7 @@
         public virtual HttpResponseMessage Post(Guid organizationId,
             OrganizationsMembersPostRequestContent requestContent)
         {
-            Dispatcher.Dispatch(new ApproveMembershipApplication
-            {
-                InitiatorId = CurrentUserGuid,
-                ApplicationId = requestContent.ApplicationId
-            });
+            Dispatcher.Dispatch(new ApproveMembershipApplication(CurrentUserGuid, requestContent.ApplicationId));
 
             return NoContent();
         }

@@ -101,7 +101,7 @@ namespace Phundus.IdentityAccess.Queries
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="UserGuid", Storage="_UserId", IsPrimaryKey=true)]
 		public System.Guid UserId
 		{
 			get

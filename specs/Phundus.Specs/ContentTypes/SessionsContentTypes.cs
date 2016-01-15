@@ -22,10 +22,7 @@ namespace Phundus.Specs.ContentTypes
         public Role Role { get; set; }
 
         [JsonProperty("userId")]
-        public string UserId { get; set; }
-
-        [JsonProperty("userGuid")]
-        public Guid UserGuid { get; set; }
+        public Guid UserId { get; set; }
 
         [JsonProperty("username")]
         public string Username { get; set; }

@@ -104,6 +104,9 @@
         public virtual void ApproveMembershipRequest(UserGuid initiatorGuid, MembershipApplication application,
             Guid membershipId)
         {
+            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
+            if (application == null) throw new ArgumentNullException("application");
+
             var membership = application.Approve(membershipId);
             membership.Organization = this;
             Memberships.Add(membership);

@@ -65,7 +65,7 @@ namespace Phundus.Rest.Api
         public virtual StoresPostOkResponseContent Post(StoresPostRequestContent requestContent)
         {
             var storeId = new StoreId();
-            Dispatch(new OpenStore(CurrentUserGuid, new UserGuid(requestContent.UserGuid), storeId));
+            Dispatch(new OpenStore(CurrentUserGuid, new UserGuid(requestContent.UserId), storeId));
 
             return new StoresPostOkResponseContent
             {
@@ -135,8 +135,8 @@ namespace Phundus.Rest.Api
 
     public class StoresPostRequestContent
     {
-        [JsonProperty("userGuid")]
-        public Guid UserGuid { get; set; }
+        [JsonProperty("userId")]
+        public Guid UserId { get; set; }
     }
 
     public class StoresPostOkResponseContent

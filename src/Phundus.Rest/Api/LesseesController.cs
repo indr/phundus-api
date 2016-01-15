@@ -18,14 +18,14 @@
             _lesseeQueries = lesseeQueries;
         }
 
-        [GET("{lesseeGuid}")]
+        [GET("{lesseeId}")]
         [Transaction]
-        public virtual LesseesGetOkResponseContent Get(Guid lesseeGuid)
+        public virtual LesseesGetOkResponseContent Get(Guid lesseeId)
         {
-            var lessee = _lesseeQueries.GetByGuid(lesseeGuid);
+            var lessee = _lesseeQueries.GetByGuid(lesseeId);
             return new LesseesGetOkResponseContent
             {
-                LesseeGuid = lessee.LesseeGuid,
+                LesseeId = lessee.LesseeGuid,
                 Name = lessee.Name,
                 Address = lessee.Address,
                 PhoneNumber = lessee.PhoneNumber,
@@ -36,8 +36,8 @@
 
     public class LesseesGetOkResponseContent
     {
-        [JsonProperty("lesseeGuid")]
-        public Guid LesseeGuid { get; set; }
+        [JsonProperty("lesseeId")]
+        public Guid LesseeId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

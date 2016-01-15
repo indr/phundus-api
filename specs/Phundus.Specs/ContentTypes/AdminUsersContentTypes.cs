@@ -5,8 +5,8 @@ namespace Phundus.Specs.ContentTypes
 
     public class AdminUsersPatchRequestContent
     {
-        [JsonProperty("userGuid")]
-        public Guid UserGuid { get; set; }
+        [JsonProperty("userId")]
+        public Guid UserId { get; set; }
 
         [JsonProperty("isApproved")]
         public bool? IsApproved { get; set; }

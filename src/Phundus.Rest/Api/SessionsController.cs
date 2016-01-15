@@ -67,7 +67,7 @@
                     BitMask = role.BitMask,
                     Title = role.Title
                 },
-                UserGuid = user.UserGuid,
+                UserId = user.UserGuid,
                 Username = user.EmailAddress
             };
         }
@@ -99,10 +99,7 @@
         public Role Role { get; set; }
 
         [JsonProperty("userId")]
-        public string UserId { get; set; }
-
-        [JsonProperty("userGuid")]
-        public Guid UserGuid { get; set; }
+        public Guid UserId { get; set; }
 
         [JsonProperty("username")]
         public string Username { get; set; }

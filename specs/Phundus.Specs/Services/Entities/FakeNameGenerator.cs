@@ -34,7 +34,7 @@ namespace Phundus.Specs.Services.Entities
             {
                 Password = record.Password,
                 FirstName = record.GivenName,
-                Guid = guid,
+                UserId = guid,
                 LastName = record.Surname,
                 EmailAddress = emailAddress,
                 City = record.City,

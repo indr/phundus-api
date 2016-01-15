@@ -57,14 +57,14 @@ namespace Phundus.Rest.Api
                     requestContent.OrganizationId.Value));
             }
 
-            return new UsersPostOkResponseContent {UserGuid = command.ResultingUserGuid};
+            return new UsersPostOkResponseContent {UserId = command.ResultingUserGuid};
         }
 
-        [GET("{userGuid}")]
+        [GET("{userId}")]
         [Transaction]
-        public virtual UsersGetOkResponseContent Get(Guid userGuid)
+        public virtual UsersGetOkResponseContent Get(Guid userId)
         {
-            var user = _userQueries.GetByGuid(new UserGuid(userGuid));
+            var user = _userQueries.GetByGuid(new UserGuid(userId));
             if ((user == null) || (user.UserGuid != CurrentUserGuid.Id))
                 throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
 
@@ -78,8 +78,8 @@ namespace Phundus.Rest.Api
 
     public class UsersPostOkResponseContent
     {
-        [JsonProperty("userGuid")]
-        public Guid UserGuid { get; set; }
+        [JsonProperty("userId")]
+        public Guid UserId { get; set; }
     }
 
     public class UsersPostRequestContent
@@ -121,7 +121,7 @@ namespace Phundus.Rest.Api
 
         public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipDto> memberships, StoreDto store)
         {
-            UserGuid = user.UserGuid;
+            UserId = user.UserGuid;
             Username = user.EmailAddress;
             FullName = user.FirstName + " " + user.LastName;
             EmailAddress = user.EmailAddress;
@@ -158,10 +158,7 @@ namespace Phundus.Rest.Api
         }
 
         [JsonProperty("userId")]
-        public string UserId { get; set; }
-
-        [JsonProperty("userGuid")]
-        public Guid UserGuid { get; set; }
+        public Guid UserId { get; set; }
 
         [JsonProperty("username")]
         public string Username { get; set; }

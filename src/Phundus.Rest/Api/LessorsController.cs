@@ -28,14 +28,14 @@
             return new QueryOkResponseContent<ILessor>(results);
         }
 
-        [GET("{lessorGuid}")]
+        [GET("{lessorId}")]
         [Transaction]
-        public virtual LessorsGetOkResponseContent Get(Guid lessorGuid)
+        public virtual LessorsGetOkResponseContent Get(Guid lessorId)
         {
-            var lessor = _lessorQueries.GetByGuid(lessorGuid);
+            var lessor = _lessorQueries.GetByGuid(lessorId);
             return new LessorsGetOkResponseContent
             {
-                LessorGuid = lessor.LessorGuid,
+                LessorId = lessor.LessorGuid,
                 LessorType = lessor.LessorType,
                 Name = lessor.Name,
                 Address = lessor.Address,
@@ -47,8 +47,8 @@
 
     public class LessorsGetOkResponseContent
     {
-        [JsonProperty("lessorGuid")]
-        public Guid LessorGuid { get; set; }
+        [JsonProperty("lessorId")]
+        public Guid LessorId { get; set; }
 
         [JsonProperty("lessorType")]
         public int LessorType { get; set; }

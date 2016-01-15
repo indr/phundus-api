@@ -37,19 +37,13 @@
     public class UsersPostOkResponseContent
     {
         [JsonProperty("userId")]
-        public int UserId { get; set; }
-
-        [JsonProperty("userGuid")]
-        public Guid UserGuid { get; set; }
+        public Guid UserId { get; set; }
     }
 
     public class UsersGetOkResponseContent
     {
         [JsonProperty("userId")]
-        public string UserId { get; set; }
-
-        [JsonProperty("userGuid")]
-        public Guid UserGuid { get; set; }
+        public Guid UserId { get; set; }
 
         [JsonProperty("username")]
         public string Username { get; set; }

@@ -37,7 +37,7 @@
                     EmailAddress = s.EmailAddress,
                     FirstName = s.FirstName,
                     LastName = s.LastName,
-                    UserGuid = s.UserGuid,
+                    UserId = s.UserGuid,
                     IsApproved = s.IsApproved,
                     IsLocked = s.IsLockedOut,
                     IsAdmin = s.RoleId == 2,
@@ -47,29 +47,29 @@
             };
         }
 
-        [PATCH("{userGuid}")]
+        [PATCH("{userId}")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(Guid userGuid, AdminUsersPatchRequestContent requestContent)
+        public virtual HttpResponseMessage Patch(Guid userId, AdminUsersPatchRequestContent requestContent)
         {
             if (requestContent.IsLocked.HasValue)
             {
                 if (requestContent.IsLocked.Value)
                 {
-                    Dispatch(new LockUser(CurrentUserGuid, new UserGuid(requestContent.UserGuid)));
+                    Dispatch(new LockUser(CurrentUserGuid, new UserGuid(requestContent.UserId)));
                 }
                 else
                 {
-                    Dispatch(new UnlockUser(CurrentUserGuid, new UserGuid(requestContent.UserGuid)));
+                    Dispatch(new UnlockUser(CurrentUserGuid, new UserGuid(requestContent.UserId)));
                 }
             }
             if (requestContent.IsAdmin.HasValue)
             {
-                Dispatch(new ChangeUserRole(CurrentUserGuid, new UserGuid(requestContent.UserGuid),
+                Dispatch(new ChangeUserRole(CurrentUserGuid, new UserGuid(requestContent.UserId),
                     requestContent.IsAdmin.Value ? UserRole.Admin : UserRole.User));
             }
             if (requestContent.IsApproved.HasValue && requestContent.IsApproved.Value)
             {
-                Dispatch(new ApproveUser(CurrentUserGuid, new UserGuid(requestContent.UserGuid)));
+                Dispatch(new ApproveUser(CurrentUserGuid, new UserGuid(requestContent.UserId)));
             }
             return NoContent();
         }
@@ -77,8 +77,8 @@
 
     public class AdminUsersPatchRequestContent
     {
-        [JsonProperty("userGuid")]
-        public Guid UserGuid { get; set; }
+        [JsonProperty("userId")]
+        public Guid UserId { get; set; }
 
         [JsonProperty("isApproved")]
         public bool? IsApproved { get; set; }

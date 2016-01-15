@@ -6,7 +6,7 @@
     public class StoresPostRequestContent
     {
         [JsonProperty("userId")]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 
     public class StoresPostOkResponseContent

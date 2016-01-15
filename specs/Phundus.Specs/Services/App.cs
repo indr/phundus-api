@@ -54,8 +54,8 @@
                     Street = user.Street
                 });
 
-            user.Id = response.Data.UserId;
-            user.Guid = response.Data.UserGuid;
+           
+            user.UserId = response.Data.UserId;
             return user;
         }
 
@@ -67,22 +67,22 @@
                     Username = username,
                     Password = password
                 });
-            return response.Data.UserGuid;
+            return response.Data.UserId;
         }
 
-        public void ConfirmUser(Guid userGuid)
+        public void ConfirmUser(Guid userId)
         {
             LogInAsRoot();
             _apiClient.AdminUsersApi
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsApproved = true,
-                    UserGuid = userGuid
+                    UserId = userId
                 });
             DeleteSessionCookies();
         }
 
-        public void ChangePassword(Guid userGuid, string oldPasswort, string newPassword)
+        public void ChangePassword(Guid userId, string oldPasswort, string newPassword)
         {
             _apiClient.ChangePasswordApi
                 .Post(new ChangePasswordPostRequestContent {OldPassword = oldPasswort, NewPassword = newPassword});
@@ -94,7 +94,7 @@
                 .Post(new ResetPasswordPostRequestContent {EmailAddress = emailAddress});
         }
 
-        public bool ChangeEmailAddress(Guid userGuid, string password, string newEmailAddress,
+        public bool ChangeEmailAddress(Guid userId, string password, string newEmailAddress,
             bool assertStatusCode = true)
         {
             var response = _apiClient.Assert(assertStatusCode).ChangeEmailAddressApi
@@ -102,38 +102,38 @@
             return response.StatusCode == HttpStatusCode.NoContent;
         }
 
-        public void SetUsersRole(Guid userGuid, UserRole userRole)
+        public void SetUsersRole(Guid userId, UserRole userRole)
         {
             LogInAsRoot();
             _apiClient.AdminUsersApi
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsAdmin = true,
-                    UserGuid = userGuid
+                    UserId = userId
                 });
             DeleteSessionCookies();
         }
 
-        public void LockUser(Guid userGuid)
+        public void LockUser(Guid userId)
         {
             LogInAsRoot();
             _apiClient.AdminUsersApi
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsLocked = true,
-                    UserGuid = userGuid
+                    UserId = userId
                 });
             DeleteSessionCookies();
         }
 
-        public void UnlockUser(Guid userGuid)
+        public void UnlockUser(Guid userId)
         {
             LogInAsRoot();
             _apiClient.AdminUsersApi
                 .Patch(new AdminUsersPatchRequestContent
                 {
                     IsLocked = false,
-                    UserGuid = userGuid
+                    UserId = userId
                 });
             DeleteSessionCookies();
         }
@@ -170,10 +170,10 @@
             _apiClient.Assert(assertStatusCode).ValidateApi.Post(new {key = validationKey});
         }
 
-        public Organization GetOrganization(Guid organizationGuid)
+        public Organization GetOrganization(Guid organizationId)
         {
             var response = _apiClient.OrganizationsApi
-                .Get<Organization>(new {organizationGuid});
+                .Get<Organization>(new {organizationId = organizationId});
             return response.Data;
         }
 
@@ -187,21 +187,21 @@
             user.StoreId = response.Data.StoreId;
         }
 
-        public UsersGetOkResponseContent GetUser(int userId)
+        public UsersGetOkResponseContent GetUser(Guid userId)
         {
             var response = _apiClient.UsersApi.Get<UsersGetOkResponseContent>(new {userId});
             return response.Data;
         }
 
-        public Article CreateArticle(Guid ownerGuid, TableRow row = null)
+        public Article CreateArticle(Guid ownerId, TableRow row = null)
         {
             var article = _fakeArticleGenerator.NextArticle(row);
-            article.OwnerId = ownerGuid;
+            article.OwnerId = ownerId;
             var response = _apiClient.ArticlesApi.Post<ArticlesPostOkResponseContent>(new ArticlesPostRequestContent
             {
                 Amount = article.GrossStock,
                 Name = article.Name,
-                OwnerGuid = article.OwnerId
+                OwnerId = article.OwnerId
             });
             article.ArticleId = response.Data.ArticleId;
             return article;
@@ -222,7 +222,7 @@
         public UsersCartGetOkResponseContent GetCart(User user, bool assertHttpStatus = true)
         {
             var response = _apiClient.Assert(assertHttpStatus).UserCartApi
-                .Get<UsersCartGetOkResponseContent>(new {userGuid = user.Guid});
+                .Get<UsersCartGetOkResponseContent>(new {userId = user.UserId});
             return response.Data;
         }
 
@@ -266,8 +266,7 @@
             var response = _apiClient.UserCartItemsApi
                 .Post<UserCartItemsPostOkResponseContent>(new
                 {
-                    userId = user.Id,
-                    userGuid = user.Guid,
+                    userId = user.UserId,
                     articleId = article.ArticleId,
                     quantity = 1,
                     fromUtc = DateTime.UtcNow,
@@ -279,7 +278,7 @@
         public void RemoveCartItem(User user, Guid cartItemId)
         {
             _apiClient.UserCartItemsApi
-                .Delete(new {userGuid = user.Guid, itemId = cartItemId});
+                .Delete(new {userId = user.UserId, itemId = cartItemId});
         }
 
         public bool CheckAvailability(Article article, int quantity)
@@ -296,13 +295,13 @@
             return result.Data.IsAvailable;
         }
 
-        public void ChangeMembersRole(Guid organizationId, int memberId, MemberRole role)
+        public void ChangeMembersRole(Guid organizationId, Guid memberId, MemberRole role)
         {
             _apiClient.OrganizationsMembersApi.Patch(
                 new {organizationId, memberId, isManager = role == MemberRole.Manager});
         }
 
-        public int CreateOrder(Guid organizationId, int lesseeId)
+        public int CreateOrder(Guid organizationId, Guid lesseeId)
         {
             var result = _apiClient.OrdersApi.Post<OrdersPostOkResponseContent>(new {ownerId = organizationId, lesseeId});
             return result.Data.OrderId;
@@ -330,19 +329,19 @@
             });
         }
 
-        public int PlaceOrder(User user, Guid lessorGuid)
+        public int PlaceOrder(User user, Guid lessorId)
         {
             return _apiClient.ShopOrdersApi
                 .Post<ShopOrdersPostOkResponseContent>(new ShopOrdersPostRequestContent
                 {
-                    LessorGuid = lessorGuid
+                    LessorId = lessorId
                 })
                 .Data.OrderId;
         }
 
         public void UpdateStartpage(Organization organization, string htmlContent)
         {
-            _apiClient.OrganizationsApi.Patch(new {organizationGuid = organization.Guid, startpage = htmlContent});
+            _apiClient.OrganizationsApi.Patch(new {organizationId = organization.OrganizationId, startpage = htmlContent});
         }
     }
 }

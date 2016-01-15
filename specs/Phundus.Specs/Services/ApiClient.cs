@@ -19,7 +19,7 @@
 
         public Resource AdminUsersApi
         {
-            get { return Resource("admin/users/{userGuid}"); }
+            get { return Resource("admin/users/{userId}"); }
         }
 
         public Resource ResetPasswordApi
@@ -44,7 +44,7 @@
 
         public Resource OrganizationsApi
         {
-            get { return Resource("organizations/{organizationGuid}"); }
+            get { return Resource("organizations/{organizationId}"); }
         }
 
         public Resource UsersApi
@@ -74,12 +74,12 @@
 
         public Resource UserCartApi
         {
-            get { return Resource("users/{userGuid}/cart"); }
+            get { return Resource("users/{userId}/cart"); }
         }
 
         public Resource UserCartItemsApi
         {
-            get { return Resource("users/{userGuid}/cart/items/{itemId}"); }
+            get { return Resource("users/{userId}/cart/items/{itemId}"); }
         }
 
         public Resource OrganizationsApplicationsApi

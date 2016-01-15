@@ -200,8 +200,8 @@
 
         internal class RmRelationship
         {
-            [CsvField(Name = "UserId")]
-            public int UserId { get; set; }
+            [CsvField(Name = "UserGuid")]
+            public Guid UserGuid { get; set; }
 
             [CsvField(Name = "OrganizationGuid")]
             public Guid OrganizationGuid { get; set; }
@@ -219,9 +219,6 @@
             {
                 get { return 1; }
             }
-
-            [CsvField(Name = "UserId")]
-            public int UserId { get; set; }
 
             [CsvField(Name = "UserGuid")]
             public Guid UserGuid { get; set; }

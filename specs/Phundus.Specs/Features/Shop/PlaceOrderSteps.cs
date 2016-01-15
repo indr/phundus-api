@@ -17,7 +17,7 @@
         [When(@"I try to place an order for ""(.*)""")]
         public void WhenIPlaceOrder(string organizationAlias)
         {
-            _orderId = App.PlaceOrder(Ctx.User, Ctx.Organizations[organizationAlias].Guid);
+            _orderId = App.PlaceOrder(Ctx.User, Ctx.Organizations[organizationAlias].OrganizationId);
         }
 
         [Then(@"I should get an order id")]
