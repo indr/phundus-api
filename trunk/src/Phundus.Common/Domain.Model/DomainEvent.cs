@@ -6,11 +6,11 @@
     {
         public DomainEvent()
         {
-            Id = Guid.NewGuid();
+            EventGuid = Guid.NewGuid();
             OccuredOnUtc = DateTime.UtcNow;
         }
 
-        public Guid Id { get; private set; }
+        public Guid EventGuid { get; private set; }
         
         public DateTime OccuredOnUtc { get; private set; }
     }

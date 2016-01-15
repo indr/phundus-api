@@ -45,10 +45,10 @@
         public Because of = () =>
         {
             var serialization = sut.Serialize(domainEvent);
-            deserialization = sut.Deserialize<FakeDomainEvent>(domainEvent.Id, domainEvent.OccuredOnUtc, serialization);
+            deserialization = sut.Deserialize<FakeDomainEvent>(domainEvent.EventGuid, domainEvent.OccuredOnUtc, serialization);
         };
 
-        public It should_have_equal_id = () => deserialization.Id.ShouldEqual(domainEvent.Id);
+        public It should_have_equal_id = () => deserialization.EventGuid.ShouldEqual(domainEvent.EventGuid);
 
         public It should_have_same_first_name =
             () => deserialization.FirstName.ShouldEqual(domainEvent.FirstName);

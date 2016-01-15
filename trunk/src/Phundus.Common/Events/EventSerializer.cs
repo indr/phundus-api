@@ -10,13 +10,13 @@
     {
         byte[] Serialize(DomainEvent domainEvent);
 
-        object Deserialize(Type type, Guid id, DateTime occuredOnUtc, byte[] serialization);
-        T Deserialize<T>(Guid id, DateTime occuredOnUtc, byte[] serialization) where T : DomainEvent;
+        object Deserialize(Type type, Guid eventGuid, DateTime occuredOnUtc, byte[] serialization);
+        T Deserialize<T>(Guid eventGuid, DateTime occuredOnUtc, byte[] serialization) where T : DomainEvent;
     }
 
     public class EventSerializer : IEventSerializer
     {
-        private static readonly PropertyInfo IdProperty = typeof (DomainEvent).GetProperty("Id");
+        private static readonly PropertyInfo EventGuidProperty = typeof (DomainEvent).GetProperty("EventGuid");
         private static readonly PropertyInfo OccuredOnUtcProp = typeof (DomainEvent).GetProperty("OccuredOnUtc");
 
         public byte[] Serialize(DomainEvent domainEvent)
@@ -26,22 +26,22 @@
             return stream.ToArray();
         }
 
-        public object Deserialize(Type type, Guid id, DateTime occuredOnUtc, byte[] serialization)
+        public object Deserialize(Type type, Guid eventGuid, DateTime occuredOnUtc, byte[] serialization)
         {
             var instance = Serializer.NonGeneric.Deserialize(type, new MemoryStream(serialization));
 
-            IdProperty.SetValue(instance, id, null);
+            EventGuidProperty.SetValue(instance, eventGuid, null);
             OccuredOnUtcProp.SetValue(instance, occuredOnUtc, null);
 
             return instance;
         }
 
-        public T Deserialize<T>(Guid id, DateTime occuredOnUtc, byte[] serialization) where T : DomainEvent
+        public T Deserialize<T>(Guid eventGuid, DateTime occuredOnUtc, byte[] serialization) where T : DomainEvent
         {
             var stream = new MemoryStream(serialization);
             var instance = Serializer.Deserialize<T>(stream);
 
-            IdProperty.SetValue(instance, id, null);
+            EventGuidProperty.SetValue(instance, eventGuid, null);
             OccuredOnUtcProp.SetValue(instance, occuredOnUtc, null);
 
             return instance;

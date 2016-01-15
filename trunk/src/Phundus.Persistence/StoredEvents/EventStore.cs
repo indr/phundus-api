@@ -54,7 +54,7 @@
             var domainEventType = domainEvent.GetType();
             var typeName = domainEventType.FullName + ", " + domainEventType.Assembly.GetName().Name;
 
-            var storedEvent = new StoredEvent(domainEvent.Id, domainEvent.OccuredOnUtc,
+            var storedEvent = new StoredEvent(domainEvent.EventGuid, domainEvent.OccuredOnUtc,
                 typeName, serialization);
 
             return storedEvent;
