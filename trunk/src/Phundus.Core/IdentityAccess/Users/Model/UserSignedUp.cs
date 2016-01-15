@@ -1,5 +1,6 @@
 ﻿namespace Phundus.IdentityAccess.Users.Model
 {
+    using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
 
@@ -10,10 +11,11 @@
         {
         }
 
-        public UserSignedUp(int userId, string emailAddress, string password, string salt, string validationKey,
+        public UserSignedUp(UserGuid userGuid, string emailAddress, string password, string salt, string validationKey,
             string firstName, string lastName, string street, string postcode, string city, string mobilePhone)
         {
-            UserId = userId;
+            if (userGuid == null) throw new ArgumentNullException("userGuid");
+            UserGuid = userGuid.Id;
             EmailAddress = emailAddress;
             Password = password;
             Salt = salt;
@@ -27,7 +29,7 @@
         }
 
         [DataMember(Order = 1)]
-        public int UserId { get; private set; }
+        public Guid UserGuid { get; private set; }
 
         [DataMember(Order = 2)]
         public string EmailAddress { get; private set; }

@@ -8,6 +8,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common;
+    using Common.Domain.Model;
     using ContentObjects;
     using IdentityAccess.Organizations.Commands;
     using IdentityAccess.Queries.ReadModels;
@@ -67,14 +68,14 @@
 
         [PUT("{memberId}")]
         [Transaction]
-        public virtual HttpResponseMessage Put(Guid organizationId, int memberId,
+        public virtual HttpResponseMessage Put(Guid organizationId, Guid memberId,
             OrganizationsMembersPutRequestContent requestContent)
         {
             Dispatcher.Dispatch(new ChangeMembersRole
             {
                 OrganizationId = organizationId,
                 InitiatorId = CurrentUserGuid,
-                MemberId = memberId,
+                MemberId = new UserGuid(memberId),
                 Role = requestContent.Role
             });
 
@@ -83,7 +84,7 @@
 
         [PATCH("{memberId}")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(Guid organizationId, int memberId,
+        public virtual HttpResponseMessage Patch(Guid organizationId, Guid memberId,
             OrganizationsMembersPatchRequestContent requestContent)
         {
             if (requestContent.IsManager.HasValue)
@@ -92,7 +93,7 @@
                 {
                     OrganizationId = organizationId,
                     InitiatorId = CurrentUserGuid,
-                    MemberId = memberId,
+                    MemberId = new UserGuid(memberId),
                     Role = requestContent.IsManager.Value ? 2 : 1
                 });
             }
@@ -103,7 +104,7 @@
                     Dispatcher.Dispatch(new LockMember
                     {
                         InitiatorId = CurrentUserGuid,
-                        MemberId = memberId,
+                        MemberId = new UserGuid(memberId),
                         OrganizationId = organizationId
                     });
                 }
@@ -112,7 +113,7 @@
                     Dispatcher.Dispatch(new UnlockMember
                     {
                         InitiatorId = CurrentUserGuid,
-                        MemberId = memberId,
+                        MemberId = new UserGuid(memberId),
                         OrganizationId = organizationId
                     });
                 }

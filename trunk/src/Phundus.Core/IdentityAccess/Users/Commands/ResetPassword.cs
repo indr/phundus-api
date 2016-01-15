@@ -28,7 +28,6 @@
             if (user == null)
                 throw new Exception("Die E-Mail-Adresse konnte nicht gefunden werden.");
             var password = user.Account.ResetPassword();
-            UserRepository.Update(user);
 
             new UserResetPasswordMail(MailGateway).For(user, password).Send(user);
         }

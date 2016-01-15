@@ -31,7 +31,7 @@
 
         public void Handle(ChangePassword command)
         {
-            var user = UserRepository.GetById(command.UserGuid);
+            var user = UserRepository.GetByGuid(command.UserGuid);
 
             user.Account.ChangePassword(command.OldPassword, command.NewPassword);
         }

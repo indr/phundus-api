@@ -10,23 +10,6 @@
 
     public class UserReadModel : NHibernateReadModelBase<UserViewRow>, IUserQueries
     {
-        public IUser GetById(int id)
-        {
-            return GetById(new UserId(id));
-        }
-
-        public IUser GetById(UserId userId)
-        {
-            if (userId == null) throw new ArgumentNullException("userId");
-
-            var result = QueryOver()
-                .Where(p => p.UserId == userId.Id)
-                .List().SingleOrDefault();
-            if (result == null)
-                throw new NotFoundException("User {0} not found.", userId);
-            return result;
-        }
-
         public IUser GetByGuid(Guid guid)
         {
             return GetByGuid(new UserGuid(guid));
@@ -38,13 +21,6 @@
             if (result == null)
                 throw new NotFoundException("User {0} not found.", userGuid);
             return result;
-        }
-
-        public IUser FindById(int userId)
-        {
-            return QueryOver()
-                .Where(p => p.UserId == userId)
-                .List().SingleOrDefault();
         }
 
         public IUser FindById(Guid userGuid)

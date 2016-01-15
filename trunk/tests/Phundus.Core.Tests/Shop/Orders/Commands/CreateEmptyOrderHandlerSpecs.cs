@@ -15,7 +15,7 @@
     {
         public const int orderId = 3;
         public static Guid userId = Guid.NewGuid();
-        public static CurrentUserId initiatorId = new CurrentUserId(2);
+        public static CurrentUserGuid initiatorId = new CurrentUserGuid();
 
         public Establish c = () =>
         {
@@ -27,7 +27,7 @@
             command = new CreateEmptyOrder
             {
                 LessorId = theLessor.LessorId,
-                InitiatorId = new CurrentUserGuid(),
+                InitiatorId = initiatorId,
                 LesseeId = new LesseeId(userId)
             };
         };

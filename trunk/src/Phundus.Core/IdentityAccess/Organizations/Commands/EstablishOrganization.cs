@@ -52,7 +52,7 @@
                 organization.Url));
 
             var requestId = Guid.NewGuid();
-            var user = _userRepository.GetById(command.InitiatorGuid);
+            var user = _userRepository.GetByGuid(command.InitiatorGuid);
             var application = organization.RequestMembership(command.InitiatorGuid, requestId, user);
 
             var membershipId = Guid.NewGuid();

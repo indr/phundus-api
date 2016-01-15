@@ -37,7 +37,7 @@
         {
             var organization = OrganizationRepository.GetById(command.OrganizationId);
 
-            var user = UserRepository.GetById(command.ApplicantId);
+            var user = UserRepository.GetByGuid(command.ApplicantId);
 
             var request = organization.RequestMembership(command.InitiatorGuid, command.ApplicationId, user);
 

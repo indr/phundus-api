@@ -12,7 +12,7 @@
     {
         public Guid OrganizationId { get; set; }
         public CurrentUserGuid InitiatorId { get; set; }
-        public int MemberId { get; set; }
+        public UserGuid MemberId { get; set; }
         public int Role { get; set; }
     }
 
@@ -28,7 +28,7 @@
         {
             var organization = OrganizationRepository.GetById(command.OrganizationId);
 
-            var member = UserRepository.GetById(command.MemberId);
+            var member = UserRepository.GetByGuid(command.MemberId);
 
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
 

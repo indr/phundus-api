@@ -35,7 +35,7 @@
         }
     }
 
-    public class CurrentUserId : UserId
+    public class CurrentUserId : Identity<int>
     {
         public CurrentUserId(int id) : base(id)
         {
@@ -129,17 +129,6 @@
 
         public StoreId(Guid value)
             : base(value)
-        {
-        }
-    }
-
-    public class UserId : Identity<int>
-    {
-        public UserId(int id) : base(id)
-        {
-        }
-
-        protected UserId()
         {
         }
     }
