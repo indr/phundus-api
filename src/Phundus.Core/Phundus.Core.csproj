@@ -250,7 +250,6 @@
     <Compile Include="Inventory\Stores\Model\Store.cs" />
     <Compile Include="Inventory\Stores\Model\StoreOpened.cs" />
     <Compile Include="Inventory\Stores\Repositories\IStoreRepository.cs" />
-    <Compile Include="Shop\Contracts\Commands\CreateEmptyContract.cs" />
     <Compile Include="Shop\Contracts\Model\Lessee.cs" />
     <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
     <Compile Include="Shop\Contracts\Repositories\IContractRepository.cs" />
@@ -300,7 +299,6 @@
     <Compile Include="Shop\Queries\QueryModels\LesseeQueries.cs" />
     <Compile Include="Shop\Queries\QueryModels\LesseeViewRow.cs" />
     <Compile Include="Shop\Queries\QueryModels\LessorQueries.cs" />
-    <Compile Include="Shop\Queries\Models\ContractReadModelReader.cs" />
     <Compile Include="Shop\Queries\Models\OrderReadModelReader.cs" />
     <Compile Include="Shop\Queries\Models\ReadModelReaderBase.cs" />
     <Compile Include="Shop\Queries\Models\ReadModelWriterBase.cs" />

@@ -1,5 +1,6 @@
 namespace Phundus.Tests.Shop.Orders.Model
 {
+    using System;
     using Phundus.Shop.Contracts.Model;
     using Phundus.Shop.Orders.Model;
 
@@ -10,16 +11,16 @@ namespace Phundus.Tests.Shop.Orders.Model
 
         protected static Lessee CreateLessee()
         {
-            return CreateLessee(1);
+            return CreateLessee(Guid.NewGuid());
         }
 
-        protected static Lessee CreateLessee(int borrowerId)
+        protected static Lessee CreateLessee(Guid borrowerId)
         {
             return new Lessee(borrowerId, "Hans", "Muster", "Strasse", "6000", "Luzern", "hans.muster@test.phundus.ch",
                 "+4179123456", "");
         }
 
-        protected static Lessee CreateLessee(int borrowerId, string firstName, string lastName, string street = "",
+        protected static Lessee CreateLessee(Guid borrowerId, string firstName, string lastName, string street = "",
             string postcode = "", string city = "", string emailAddress = "", string mobilePhoneNumber = "",
             string memberNumber = "")
         {

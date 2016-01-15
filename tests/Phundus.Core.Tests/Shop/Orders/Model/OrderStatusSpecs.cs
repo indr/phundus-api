@@ -227,16 +227,16 @@
         {
             public static Lessee CreateLessee()
             {
-                return CreateLessee(1);
+                return CreateLessee(Guid.NewGuid());
             }
 
-            public static Lessee CreateLessee(int borrowerId)
+            public static Lessee CreateLessee(Guid borrowerId)
             {
                 return new Lessee(borrowerId, "Hans", "Muster", "Strasse", "6000", "Luzern", "hans.muster@test.phundus.ch",
                     "+4179123456", "");
             }
 
-            public static Lessee CreateLessee(int borrowerId, string firstName, string lastName, string street = "",
+            public static Lessee CreateLessee(Guid borrowerId, string firstName, string lastName, string street = "",
                 string postcode = "", string city = "", string emailAddress = "", string mobilePhoneNumber = "",
                 string memberNumber = "")
             {

@@ -7,7 +7,6 @@ namespace Phundus.Rest.Api.Users
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Common;
     using Common.Domain.Model;
     using Integration.Shop;
     using Newtonsoft.Json;
@@ -31,7 +30,7 @@ namespace Phundus.Rest.Api.Users
             if (userGuid != CurrentUserGuid.Id)
                 throw new ArgumentException("userGuid");
 
-            var cart = _cartQueries.FindByUserGuid(CurrentUserId, new UserGuid(userGuid));
+            var cart = _cartQueries.FindByUserGuid(CurrentUserGuid, new UserGuid(userGuid));
             if (cart == null)
                 return new UsersCartGetOkResponseContent(null);
             return new UsersCartGetOkResponseContent(cart);
@@ -51,19 +50,22 @@ namespace Phundus.Rest.Api.Users
 
         [POST("items")]
         [Transaction]
-        public virtual UsersCartItemsPostOkResponseContent Post(Guid userGuid, UsersCartItemsPostRequestContent requestContent)
+        public virtual UsersCartItemsPostOkResponseContent Post(Guid userGuid,
+            UsersCartItemsPostRequestContent requestContent)
         {
             if (userGuid != CurrentUserGuid.Id)
                 throw new ArgumentException("userGuid");
 
-            if ((requestContent.Amount > 0) && (!String.IsNullOrEmpty(requestContent.Begin)) && (!String.IsNullOrEmpty(requestContent.End)))
+            if ((requestContent.Amount > 0) && (!String.IsNullOrEmpty(requestContent.Begin)) &&
+                (!String.IsNullOrEmpty(requestContent.End)))
             {
                 requestContent.Quantity = requestContent.Amount;
                 requestContent.FromUtc = DateTime.Parse(requestContent.Begin).ToLocalTime().Date.ToUniversalTime();
-                requestContent.ToUtc = DateTime.Parse(requestContent.End).ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime();
+                requestContent.ToUtc =
+                    DateTime.Parse(requestContent.End).ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime();
             }
 
-            var command = new AddArticleToCart(CurrentUserId, CurrentUserGuid, new ArticleId(requestContent.ArticleId),
+            var command = new AddArticleToCart(CurrentUserGuid, new ArticleId(requestContent.ArticleId),
                 requestContent.FromUtc, requestContent.ToUtc, requestContent.Quantity);
             Dispatch(command);
 
@@ -189,10 +191,8 @@ namespace Phundus.Rest.Api.Users
 
         [JsonProperty("ownerName")]
         public string OwnerName { get; set; }
-
     }
 
-    
 
     public class UsersCartItemsPostRequestContent
     {

@@ -29,6 +29,11 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
                 throw new AuthorizationException("Sie müssen aktives Mitglied dieser Organisation sein.");
         }
 
+        public void ActiveMember(OwnerId ownerId, UserGuid userGuid)
+        {
+            ActiveMember(ownerId.Id, userGuid);
+        }
+
         public void ActiveMember(Guid organizationId, int userId)
         {
             if (!IsActiveMember(organizationId, userId))
@@ -55,6 +60,11 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             if (!IsActiveChief(organizationId, userGuid))
                 throw new AuthorizationException(
                     "Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");
+        }
+
+        public void ActiveChief(OwnerId ownerId, UserGuid userGuid)
+        {
+            ActiveChief(ownerId.Id, userGuid);
         }
 
         public void ActiveChief(Guid organizationId, int userId)
@@ -97,6 +107,11 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
                 return false;
 
             return true;
+        }
+
+        public bool IsActiveMember(OwnerId ownerId, UserGuid userGuid)
+        {
+            return IsActiveMember(ownerId.Id, userGuid);
         }
 
         public bool IsActiveMember(Guid organizationId, int userId)
@@ -153,6 +168,11 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             return true;
         }
 
+        public bool IsActiveChief(OwnerId ownerId, UserGuid userGuid)
+        {
+            return IsActiveChief(ownerId.Id, userGuid);
+        }
+
         public bool IsActiveChief(Guid organizationId, int userId)
         {
             // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
@@ -180,12 +200,12 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             return IsActiveChief(ownerId.Id, userId);
         }
 
-        public void IsActiveChief(OwnerId ownerId, UserId userId)
+        public bool IsActiveChief(OwnerId ownerId, UserId userId)
         {
             AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
             AssertionConcern.AssertArgumentNotNull(userId, "UserId must be provided.");
 
-            IsActiveChief(ownerId.Id, userId.Id);
+            return IsActiveChief(ownerId.Id, userId.Id);
         }
     }
 }

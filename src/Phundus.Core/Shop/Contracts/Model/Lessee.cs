@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Shop.Contracts.Model
 {
+    using System;
     using System.Collections.Generic;
     using Common.Domain.Model;
 
@@ -8,7 +9,7 @@
         private string _city;
         private string _emailAddress;
         private string _firstName;
-        private int _id;
+        private Guid _id;
         private string _lastName;
         private string _memberNumber;
         private string _mobilePhoneNumber;
@@ -19,7 +20,7 @@
         {
         }
 
-        public Lessee(int id, string firstName, string lastName, string street, string postcode, string city,
+        public Lessee(Guid id, string firstName, string lastName, string street, string postcode, string city,
             string emailAddress, string mobilePhoneNumber, string memberNumber)
         {
             _id = id;
@@ -33,7 +34,7 @@
             _memberNumber = memberNumber;
         }
 
-        public virtual int Id
+        public virtual Guid Id
         {
             get { return _id; }
             protected set { _id = value; }

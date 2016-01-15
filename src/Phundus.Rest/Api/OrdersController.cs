@@ -117,7 +117,7 @@
         public Guid OwnerId { get; set; }
 
         [JsonProperty("lesseeId")]
-        public int LesseeId { get; set; }
+        public Guid LesseeId { get; set; }
     }
 
     public class OrdersPostOkResponseContent

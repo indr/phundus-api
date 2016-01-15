@@ -23,7 +23,7 @@
             return result;
         }
 
-        public ICollection<Order> FindByUserId(int userId)
+        public ICollection<Order> FindByUserId(Guid userId)
         {
             var query = from o in Entities
                 where o.Lessee.Id == userId
