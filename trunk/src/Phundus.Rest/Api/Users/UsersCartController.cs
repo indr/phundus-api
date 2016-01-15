@@ -56,6 +56,13 @@ namespace Phundus.Rest.Api.Users
             if (userGuid != CurrentUserGuid.Id)
                 throw new ArgumentException("userGuid");
 
+            if ((requestContent.Amount > 0) && (!String.IsNullOrEmpty(requestContent.Begin)) && (!String.IsNullOrEmpty(requestContent.End)))
+            {
+                requestContent.Quantity = requestContent.Amount;
+                requestContent.FromUtc = DateTime.Parse(requestContent.Begin).ToLocalTime().Date.ToUniversalTime();
+                requestContent.ToUtc = DateTime.Parse(requestContent.End).ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime();
+            }
+
             var command = new AddArticleToCart(CurrentUserId, CurrentUserGuid, new ArticleId(requestContent.ArticleId),
                 requestContent.FromUtc, requestContent.ToUtc, requestContent.Quantity);
             Dispatch(command);
@@ -185,11 +192,7 @@ namespace Phundus.Rest.Api.Users
 
     }
 
-    public class UsersCartItemsPostOkResponseContent
-    {
-        [JsonProperty("cartItemId")]
-        public Guid CartItemId { get; set; }
-    }
+    
 
     public class UsersCartItemsPostRequestContent
     {
@@ -204,5 +207,15 @@ namespace Phundus.Rest.Api.Users
 
         [JsonProperty("quantity")]
         public int Quantity { get; set; }
+
+        public string Begin { get; set; }
+        public string End { get; set; }
+        public int Amount { get; set; }
+    }
+
+    public class UsersCartItemsPostOkResponseContent
+    {
+        [JsonProperty("cartItemId")]
+        public Guid CartItemId { get; set; }
     }
 }

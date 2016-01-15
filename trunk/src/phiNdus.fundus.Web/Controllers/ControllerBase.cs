@@ -31,6 +31,19 @@ namespace Phundus.Web.Controllers
             }
         }
 
+        protected Guid CurrentUserGuid
+        {
+            get
+            {
+                var user = Membership.GetUser();
+                if (user == null)
+                    throw new AuthenticationException();
+
+                var userKey = new ProviderUserKey(user.ProviderUserKey);
+                return userKey.UserGuid.Id;
+            }
+        }
+
         protected string RenderPartialViewToString(string viewName)
         {
             return RenderPartialViewToString(viewName, null);
