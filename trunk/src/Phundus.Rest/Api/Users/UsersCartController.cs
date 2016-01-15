@@ -83,7 +83,7 @@ namespace Phundus.Rest.Api.Users
             if (userGuid != CurrentUserGuid.Id)
                 throw new ArgumentException("userGuid");
 
-            var command = new UpdateCartItem(CurrentUserId, CurrentUserGuid, itemGuid, requestContent.Quantity,
+            var command = new UpdateCartItem(CurrentUserGuid, itemGuid, requestContent.Quantity,
                 requestContent.FromUtc, requestContent.ToUtc);
             Dispatch(command);
 
@@ -97,7 +97,7 @@ namespace Phundus.Rest.Api.Users
             if (userGuid != CurrentUserGuid.Id)
                 throw new ArgumentException("userGuid");
 
-            Dispatch(new RemoveCartItem(CurrentUserId, new CartItemGuid(itemGuid)));
+            Dispatch(new RemoveCartItem(CurrentUserGuid, new CartItemGuid(itemGuid)));
 
             return NoContent();
         }
