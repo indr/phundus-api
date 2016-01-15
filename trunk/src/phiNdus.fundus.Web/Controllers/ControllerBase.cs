@@ -37,7 +37,7 @@ namespace Phundus.Web.Controllers
             {
                 var user = Membership.GetUser();
                 if (user == null)
-                    throw new AuthenticationException();
+                    return Guid.Empty;
 
                 var userKey = new ProviderUserKey(user.ProviderUserKey);
                 return userKey.UserGuid.Id;
