@@ -4,6 +4,7 @@
 
     public interface IUser
     {
+        [Obsolete]
         int UserId { get; }
         Guid UserGuid { get; }
 

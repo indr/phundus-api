@@ -22,12 +22,6 @@
         {
         }
 
-        [Obsolete]
-        public MembershipApplicationApproved(Guid initiator, int organizationGuid)
-        {
-            throw new NotImplementedException();
-        }
-
         [DataMember(Order = 1)]
         public Guid InitiatorGuid { get; protected set; }
 

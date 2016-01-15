@@ -28,7 +28,7 @@
                 var providerUserKey = new ProviderUserKey(user.ProviderUserKey);
                 model.UserId = providerUserKey.UserId.Id.ToString(CultureInfo.InvariantCulture);
 
-                foreach (var each in MembershipQueries.ByUserId(providerUserKey.UserId.Id))
+                foreach (var each in MembershipQueries.ByUserId(providerUserKey.UserGuid.Id))
                 {
                     model.Memberships.Add(each);
                 }

@@ -20,12 +20,6 @@
         {
         }
 
-        [Obsolete]
-        public UserApproved(User initiator, User user)
-        {
-            throw new NotImplementedException();
-        }
-
         [DataMember(Order = 1)]
         public Guid InitiatorGuid { get; protected set; }
 

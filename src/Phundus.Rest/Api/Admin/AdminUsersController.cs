@@ -38,7 +38,6 @@
                     FirstName = s.FirstName,
                     LastName = s.LastName,
                     UserGuid = s.UserGuid,
-                    UserId = s.UserId,
                     IsApproved = s.IsApproved,
                     IsLocked = s.IsLockedOut,
                     IsAdmin = s.RoleId == 2,

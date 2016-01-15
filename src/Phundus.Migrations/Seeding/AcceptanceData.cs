@@ -25,6 +25,7 @@
             Delete.FromTable("Dm_IdentityAccess_Account").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_IdentityAccess_User").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_IdentityAccess_Organization").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_IdentityAccess_Application").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_Inventory_Store").InSchema(SchemaName).AllRows();
             Delete.FromTable("StoredEvents").InSchema(SchemaName).AllRows();
             Delete.FromTable("Rm_EventLog").InSchema(SchemaName).AllRows();
@@ -221,6 +222,9 @@
 
             [CsvField(Name = "UserId")]
             public int UserId { get; set; }
+
+            [CsvField(Name = "UserGuid")]
+            public Guid UserGuid { get; set; }
 
             [CsvField(Name = "OrganizationGuid")]
             public Guid OrganizationGuid { get; set; }

@@ -13,11 +13,6 @@
 
         public IMembershipRepository MembershipRepository { get; set; }
 
-        public IList<MembershipDto> ByUserId(int userId)
-        {
-            return MembershipRepository.ByMemberId(userId).Select(ToMembershipDto).ToList();
-        }
-
         public IList<MembershipDto> ByUserId(Guid userId)
         {
             return MembershipRepository.ByMemberId(userId).Select(ToMembershipDto).ToList();
@@ -29,7 +24,7 @@
             if (user == null)
                 return new List<MembershipDto>();
 
-            return ByUserId(user.UserId);
+            return ByUserId(user.UserGuid);
         }
 
         public IList<MembershipDto> FindByOrganizationId(Guid organizationId)

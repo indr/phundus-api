@@ -1,18 +1,18 @@
-﻿Id;Role;Vorname;Nachname;Strasse;Plz;Ort;Mobile;E-Mail;Passwort;JS-Nummer
-10001;Admin;Reto;Inderbitzin;Sonstwo 42;6003;Luzern;;mail@indr.ch;1234;
-10002;User;Davidine;Honningsvåg;Wingertweg 96;2829;Envelier;;user@test.phundus.ch;1234;
-10003;User;Ludwik;Helgerud;Lichtmattstrasse 69;4917;Busswil bei Melchnau;;user-1@test.phundus.ch;1234;
-10004;User;Nelborg;Abbas;Bahnhofplatz 107;7473;Alvaneu Bad;;user-2@test.phundus.ch;1234;
-10005;User;Bjørnstjerne;Kjelsrud;Höhenweg 132;3429;Hellsau;;chief@test.phundus.ch;1234;
-10006;User;Ragnveig;Berisha;Clius 118;5420;Oberehrendingen;;chief-1@test.phundus.ch;1234;
-10007;User;Ledis;Ensrud;Brunnacherstrasse 55;8050;Zürich;;chief-2@test.phundus.ch;1234;
-10008;Admin;Nils;Oftedal;Via Gabbietta 96;2829;Vermes;;admin@test.phundus.ch;1234;
-10009;Admin;Kay;Gleditsch;Sonnenweg 69;4805;Mättenwil;;admin-1@test.phundus.ch;1234;
-10010;Admin;Salmine;Eggum;Seefeldstrasse 3;3629;Kiesen;;admin-2@test.phundus.ch;1234;
-10011;User;Imma;Kvam;Via Muraccio 34;8492;Tablat;;;;
-10012;User;Børre;Seim;Püntstrasse 121;3934;Zeneggen;;;;
-10013;User;Estella;Pollestad;Mattenstrasse 30;4450;Sissach;;;;
-10014;User;Dorte;Rødseth;Im Sandbüel 138;5324;Full;;;;
-10015;User;Daghild;Høyland;Langwiesstrasse 64;8372;Wiezikon;;;;
-10016;User;Edbjørn;Muri;Plattenstrasse 116;4433;Ramlinsburg;;;;
-10017;User;Ernestine;Stubberud;Im Wingert 91;1934;Le Sapey;;;;
+﻿Id;UserGuid;Role;Vorname;Nachname;Strasse;Plz;Ort;Mobile;E-Mail;Passwort;JS-Nummer
+10001;89AFC96B-A70D-4EFE-94D5-AEF0765071D0;Admin;Reto;Inderbitzin;Sonstwo 42;6003;Luzern;;mail@indr.ch;1234;
+10002;15406D2B-C2C0-43FB-8A6A-C0AA6A57DC82;User;Davidine;Honningsvåg;Wingertweg 96;2829;Envelier;;user@test.phundus.ch;1234;
+10003;7F756549-2C27-464B-BA27-B8EFD02175FD;User;Ludwik;Helgerud;Lichtmattstrasse 69;4917;Busswil bei Melchnau;;user-1@test.phundus.ch;1234;
+10004;2D4F1B8F-35FD-4D86-B9CA-89D678355AF9;User;Nelborg;Abbas;Bahnhofplatz 107;7473;Alvaneu Bad;;user-2@test.phundus.ch;1234;
+10005;CF3A07EC-FD8D-466E-AC0A-8B7AB4A29F66;User;Bjørnstjerne;Kjelsrud;Höhenweg 132;3429;Hellsau;;chief@test.phundus.ch;1234;
+10006;585A5DBA-7E8D-47BB-9F58-D1FB8E29A0DE;User;Ragnveig;Berisha;Clius 118;5420;Oberehrendingen;;chief-1@test.phundus.ch;1234;
+10007;92392A6E-976E-48BA-941C-679E2AEB02C7;User;Ledis;Ensrud;Brunnacherstrasse 55;8050;Zürich;;chief-2@test.phundus.ch;1234;
+10008;6402DD51-22C6-4FED-BC33-E086D438BAFC;Admin;Nils;Oftedal;Via Gabbietta 96;2829;Vermes;;admin@test.phundus.ch;1234;
+10009;F6807058-6E32-4D83-B417-2B3020E34699;Admin;Kay;Gleditsch;Sonnenweg 69;4805;Mättenwil;;admin-1@test.phundus.ch;1234;
+10010;02A15D26-5566-404A-A6FF-DF8E74EA5CC2;Admin;Salmine;Eggum;Seefeldstrasse 3;3629;Kiesen;;admin-2@test.phundus.ch;1234;
+10011;05A7EFB9-EA89-4A00-9F4C-37A174FD7CBB;User;Imma;Kvam;Via Muraccio 34;8492;Tablat;;;;
+10012;A7022594-565F-4C77-BD8A-23728E7CF0B6;User;Børre;Seim;Püntstrasse 121;3934;Zeneggen;;;;
+10013;BD392569-4DEC-4715-AED7-726EF32A8B66;User;Estella;Pollestad;Mattenstrasse 30;4450;Sissach;;;;
+10014;C8455CFF-9790-477C-924F-A0497668D4C2;User;Dorte;Rødseth;Im Sandbüel 138;5324;Full;;;;
+10015;21EAA948-FF6A-4C8F-A1D5-D14DFB2BEB8C;User;Daghild;Høyland;Langwiesstrasse 64;8372;Wiezikon;;;;
+10016;493D16E7-301C-4ACF-90A7-679D2451DFFB;User;Edbjørn;Muri;Plattenstrasse 116;4433;Ramlinsburg;;;;
+10017;937F216F-BA99-4189-9E7A-82B3E3A24309;User;Ernestine;Stubberud;Im Wingert 91;1934;Le Sapey;;;;

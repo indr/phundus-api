@@ -48,7 +48,7 @@
             protected set { _version = value; }
         }
 
-        public UserGuid UserGuid
+        public virtual UserGuid UserGuid
         {
             get { return _userGuid; }
             protected set { _userGuid = value; }

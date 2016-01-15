@@ -7,8 +7,6 @@
 
     public interface IOrganizationQueries
     {
-        IEnumerable<OrganizationDto> ByMemberId(int memberId);        
-
         /// <summary>
         /// 
         /// </summary>
@@ -16,8 +14,9 @@
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
         OrganizationDetailDto GetById(Guid organizationId);
-        
+
         OrganizationDetailDto FindById(Guid organizationId);
-        IEnumerable<OrganizationDto> All();        
+
+        IEnumerable<OrganizationDto> All();
     }
 }

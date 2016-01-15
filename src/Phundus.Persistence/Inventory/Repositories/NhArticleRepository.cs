@@ -39,7 +39,7 @@
             return result;
         }
 
-        public IEnumerable<Article> Query(CurrentUserId currentUserId, OwnerId queryOwnerId, string query)
+        public IEnumerable<Article> Query(InitiatorGuid currentUserId, OwnerId queryOwnerId, string query)
         {
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
             AssertionConcern.AssertArgumentNotNull(queryOwnerId, "QueryOwnerId must be provided.");
