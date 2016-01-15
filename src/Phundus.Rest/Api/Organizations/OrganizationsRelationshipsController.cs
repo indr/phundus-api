@@ -24,7 +24,7 @@
         [Transaction]
         public virtual OrganizationsRelationshipsQueryOkResponseContent Get(Guid organizationId)
         {
-            var result = _relationshipQueries.ByMemberIdForOrganizationId(CurrentUserId.Id, organizationId);
+            var result = _relationshipQueries.ByMemberIdForOrganizationId(CurrentUserGuid, organizationId);
             return Map<OrganizationsRelationshipsQueryOkResponseContent>(result);
         }
     }

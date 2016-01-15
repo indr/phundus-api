@@ -76,14 +76,14 @@ namespace Phundus.Rest.Api
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
 
-            _memberInRole.ActiveChief(ownerId, CurrentUserId.Id);
+            _memberInRole.ActiveChief(ownerId, CurrentUserGuid);
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
             string query = null;
             if (queryParams.ContainsKey("q"))
                 query = queryParams["q"];
 
-            var results = _articleQueries.Query(CurrentUserId, ownerId, query);
+            var results = _articleQueries.Query(CurrentUserGuid, ownerId, query);
             return new QueryOkResponseContent<ArticleDto>
             {
                 Results = results.ToList()
@@ -104,7 +104,7 @@ namespace Phundus.Rest.Api
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
 
-            _memberInRole.ActiveChief(ownerId, CurrentUserId.Id);
+            _memberInRole.ActiveChief(ownerId, CurrentUserGuid);
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
             var result = _articleQueries.GetById(articleId);
@@ -135,7 +135,7 @@ namespace Phundus.Rest.Api
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
 
-            _memberInRole.ActiveChief(ownerId, CurrentUserId.Id);
+            _memberInRole.ActiveChief(ownerId, CurrentUserGuid);
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
             var result = _articleQueries.GetById(articleId);
@@ -156,7 +156,7 @@ namespace Phundus.Rest.Api
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
 
-            _memberInRole.ActiveChief(ownerId, CurrentUserId.Id);
+            _memberInRole.ActiveChief(ownerId, CurrentUserGuid);
             // TODO: Prüfen ob Artikel dem Owner gehört  
 
             var result = _articleQueries.GetById(articleId);
@@ -177,7 +177,7 @@ namespace Phundus.Rest.Api
             if (ownerId == null)
                 throw new NotFoundException("Article not found.");
 
-            _memberInRole.ActiveChief(ownerId, CurrentUserId.Id);
+            _memberInRole.ActiveChief(ownerId, CurrentUserGuid);
             // TODO: Prüfen ob Artikel dem Owner gehört   
 
             var availabilities = _availabilityQueries.GetAvailability(articleId).ToList();
@@ -192,7 +192,7 @@ namespace Phundus.Rest.Api
         {
             var ownerId = GetOwnerId(requestContent.OwnerId);
             var storeId = _storeQueries.GetByOwnerId(ownerId).StoreId;
-            var command = new CreateArticle(CurrentUserId, ownerId, storeId,
+            var command = new CreateArticle(CurrentUserGuid, ownerId, storeId,
                 requestContent.Name, requestContent.Amount);
             Dispatch(command);
 
@@ -214,7 +214,7 @@ namespace Phundus.Rest.Api
                     Brand = requestContent.Brand,
                     Color = requestContent.Color,
                     GrossStock = requestContent.GrossStock,
-                    InitiatorId = CurrentUserId.Id,
+                    InitiatorId = CurrentUserGuid,
                     Name = requestContent.Name,
                     Price = requestContent.Price
                 });
@@ -225,7 +225,7 @@ namespace Phundus.Rest.Api
                 {
                     ArticleId = articleId,
                     Description = requestContent.Description,
-                    InitiatorId = CurrentUserId.Id
+                    InitiatorId = CurrentUserGuid
                 });
             }
             if (requestContent.Specification != null)
@@ -234,7 +234,7 @@ namespace Phundus.Rest.Api
                 {
                     ArticleId = articleId,
                     Specification = requestContent.Specification,
-                    InitiatorId = CurrentUserId.Id
+                    InitiatorId = CurrentUserGuid
                 });
             }
 
@@ -248,7 +248,7 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual HttpResponseMessage Delete(int articleId)
         {
-            Dispatcher.Dispatch(new DeleteArticle {ArticleId = articleId, InitiatorId = CurrentUserId.Id});
+            Dispatcher.Dispatch(new DeleteArticle {ArticleId = articleId, InitiatorId = CurrentUserGuid});
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Tests.Shop.Orders.Commands
 {
+    using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -11,7 +12,7 @@
     [Subject(typeof (CloseOrderHandler))]
     public class when_close_order_is_handled : order_handler_concern<CloseOrder, CloseOrderHandler>
     {
-        private const int initiatorId = 2;
+        private static UserGuid initiatorId = new UserGuid();
         private const int orderId = 3;
         private static Order order;
 

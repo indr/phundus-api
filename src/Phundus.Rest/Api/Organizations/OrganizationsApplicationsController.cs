@@ -29,7 +29,7 @@
         public virtual OrganizationsApplicationsPostOkResponseContent Post(Guid organizationId)
         {
             var applicationId = Guid.NewGuid();
-            Dispatch(new ApplyForMembership(CurrentUserGuid, applicationId, CurrentUserId.Id, organizationId));
+            Dispatch(new ApplyForMembership(CurrentUserGuid, applicationId, CurrentUserGuid, organizationId));
 
             return new OrganizationsApplicationsPostOkResponseContent
             {
@@ -41,7 +41,7 @@
         [Transaction]
         public virtual HttpResponseMessage Delete(Guid organizationId, Guid applicationId)
         {
-            Dispatch(new RejectMembershipApplication {ApplicationId = applicationId, InitiatorId = CurrentUserId.Id});
+            Dispatch(new RejectMembershipApplication { ApplicationId = applicationId, InitiatorId = CurrentUserGuid });
 
             return NoContent();
         }

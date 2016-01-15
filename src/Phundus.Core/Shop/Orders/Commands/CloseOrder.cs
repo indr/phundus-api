@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Shop.Orders.Commands
 {
+    using Common.Domain.Model;
     using Cqrs;
     using IdentityAccess.Queries;
     using Repositories;
@@ -7,7 +8,7 @@
     public class CloseOrder
     {
         public int OrderId { get; set; }
-        public int InitiatorId { get; set; }
+        public UserGuid InitiatorId { get; set; }
     }
 
     public class CloseOrderHandler : IHandleCommand<CloseOrder>

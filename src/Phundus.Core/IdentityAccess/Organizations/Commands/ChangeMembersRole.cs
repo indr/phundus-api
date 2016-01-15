@@ -1,16 +1,17 @@
 ﻿namespace Phundus.IdentityAccess.Organizations.Commands
 {
     using System;
+    using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Users.Repositories;
     using Model;
     using Queries;
     using Repositories;
+    using Users.Repositories;
 
     public class ChangeMembersRole
     {
         public Guid OrganizationId { get; set; }
-        public int InitiatorId { get; set; }
+        public CurrentUserGuid InitiatorId { get; set; }
         public int MemberId { get; set; }
         public int Role { get; set; }
     }

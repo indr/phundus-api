@@ -10,7 +10,7 @@
     public class AddOrderItem
     {
         public int OrderId { get; set; }
-        public int InitiatorId { get; set; }
+        public UserGuid InitiatorId { get; set; }
         public ArticleId ArticleId { get; set; }
         public DateTime FromUtc { get; set; }
         public DateTime ToUtc { get; set; }

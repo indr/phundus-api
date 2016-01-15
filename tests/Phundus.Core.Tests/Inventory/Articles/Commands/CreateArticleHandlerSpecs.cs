@@ -13,12 +13,12 @@
     [Subject(typeof (CreateArticleHandler))]
     public class when_create_article_is_handled : article_handler_concern<CreateArticle, CreateArticleHandler>
     {
-        private static UserId initiatorId;
+        private static UserGuid initiatorId;
         private static OwnerId ownerId;
 
         public Establish c = () =>
         {
-            initiatorId = new UserId(2);
+            initiatorId = new UserGuid();
             ownerId = new OwnerId(Guid.NewGuid());
             ownerService.setup(x => x.GetById(ownerId)).Return(new Owner(ownerId, "Owner"));
             repository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(1);

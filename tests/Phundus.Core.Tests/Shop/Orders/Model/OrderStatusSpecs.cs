@@ -20,7 +20,7 @@
         public Because of = () => order.Approve(modifierId);
 
         public It should_be_modified_by =
-            () => order.ModifiedBy.Value.ShouldEqual(modifierId);
+            () => order.ModifiedBy.ShouldEqual(modifierId);
 
         public It should_be_modified_on =
             () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
@@ -37,7 +37,7 @@
         public Because of = () => order.Reject(modifierId);
 
         public It should_be_modified_by =
-            () => order.ModifiedBy.Value.ShouldEqual(modifierId);
+            () => order.ModifiedBy.ShouldEqual(modifierId);
 
         public It should_be_modified_on =
             () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
@@ -54,7 +54,7 @@
         public Because of = () => order.Close(modifierId);
 
         public It should_be_modified_by =
-            () => order.ModifiedBy.Value.ShouldEqual(modifierId);
+            () => order.ModifiedBy.ShouldEqual(modifierId);
 
         public It should_be_modified_on =
             () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
@@ -88,7 +88,7 @@
         public Because of = () => order.Close(modifierId);
 
         public It should_be_modified_by =
-            () => order.ModifiedBy.Value.ShouldEqual(modifierId);
+            () => order.ModifiedBy.ShouldEqual(modifierId);
 
         public It should_be_modified_on =
             () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
@@ -105,7 +105,7 @@
         public Because of = () => order.Reject(modifierId);
 
         public It should_be_modified_by =
-            () => order.ModifiedBy.Value.ShouldEqual(modifierId);
+            () => order.ModifiedBy.ShouldEqual(modifierId);
 
         public It should_be_modified_on =
             () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
@@ -205,21 +205,21 @@
         public static Order CreateClosed()
         {
             var result = CreatePending();
-            result.Close(1);
+            result.Close(new UserGuid());
             return result;
         }
 
         public static Order CreateRejected()
         {
             var result = CreatePending();
-            result.Reject(1);
+            result.Reject(new UserGuid());
             return result;
         }
 
         public static Order CreateApproved()
         {
             var result = CreatePending();
-            result.Approve(1);
+            result.Approve(new UserGuid());
             return result;
         }
 

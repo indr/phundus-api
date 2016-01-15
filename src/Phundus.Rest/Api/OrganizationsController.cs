@@ -103,7 +103,7 @@
                 Address = value.Address,
                 DocumentTemplate = value.DocumentTemplate,
                 EmailAddress = value.EmailAddress,
-                InitiatorId = CurrentUserId.Id,
+                InitiatorId = CurrentUserGuid,
                 OrganizationId = organizationId,
                 Website = value.Website
             });
@@ -117,7 +117,7 @@
         {
             if (!String.IsNullOrWhiteSpace(requestContent.Startpage))
             {
-                Dispatch(new UpdateStartpage(CurrentUserId, organizationGuid, requestContent.Startpage));
+                Dispatch(new UpdateStartpage(CurrentUserGuid, organizationGuid, requestContent.Startpage));
             }
             return NoContent();
         }

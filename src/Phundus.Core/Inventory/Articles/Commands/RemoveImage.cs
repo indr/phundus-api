@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Inventory.Articles.Commands
 {
+    using Common.Domain.Model;
     using Cqrs;
     using IdentityAccess.Queries;
     using Repositories;
@@ -8,7 +9,7 @@
     {
         public int ArticleId { get; set; }
         public string ImageFileName { get; set; }
-        public int InitiatorId { get; set; }        
+        public UserGuid InitiatorId { get; set; }        
     }
 
     public class RemoveImageHandler : IHandleCommand<RemoveImage>

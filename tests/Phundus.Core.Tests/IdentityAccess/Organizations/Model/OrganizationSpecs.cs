@@ -10,7 +10,7 @@
     public class when_changing_startpage : aggregate_concern<Organization>
     {
         private static string theNewStartpage = "<p>The new startpage</p>";
-        private static UserId theInitiatorId = new UserId(1);
+        private static UserGuid theInitiatorId = new UserGuid();
 
         private Establish ctx = () => sut = new Organization(Guid.NewGuid(), "The organization");
 

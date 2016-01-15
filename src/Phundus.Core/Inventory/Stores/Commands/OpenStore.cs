@@ -10,7 +10,7 @@
 
     public class OpenStore
     {
-        public OpenStore(UserId initiatorId, UserId ownerId, StoreId storeId)
+        public OpenStore(UserGuid initiatorId, UserGuid ownerId, StoreId storeId)
         {
             AssertionConcern.AssertArgumentNotNull(initiatorId, "InitiatorId must be provided.");
             AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
@@ -21,8 +21,8 @@
             StoreId = storeId;
         }
 
-        public UserId InitiatorId { get; private set; }
-        public UserId OwnerId { get; private set; }
+        public UserGuid InitiatorId { get; private set; }
+        public UserGuid OwnerId { get; private set; }
         public StoreId StoreId { get; private set; }
     }
 
@@ -45,7 +45,7 @@
             if (command.OwnerId.Id != command.InitiatorId.Id)
                 throw new AuthorizationException();
 
-            var owner = _ownerService.GetByUserId(command.OwnerId.Id);
+            var owner = _ownerService.GetByUserId(command.OwnerId);
             var store = owner.OpenStore(command.StoreId);
 
             _storeRepository.Add(store);

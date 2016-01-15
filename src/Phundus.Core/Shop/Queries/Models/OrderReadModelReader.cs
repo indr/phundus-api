@@ -39,7 +39,7 @@
             }
         }
 
-        public OrderDto GetById(CurrentUserId currentUserId, OrderId orderId)
+        public OrderDto GetById(UserGuid currentUserId, OrderId orderId)
         {
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderId, "OrderId must be provided.");
@@ -53,18 +53,18 @@
             return result;
         }
 
-        public IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderId orderId, int? queryUserId,
+        public IEnumerable<OrderDto> Query(UserGuid currentUserId, OrderId orderId, int? queryUserId,
             Guid? queryOrganizationId)
         {
             return Query(currentUserId, orderId == null ? (int?) null : orderId.Id, queryUserId, queryOrganizationId);
         }
 
-        private IEnumerable<OrderDto> Query(UserId currentUserId, int? orderId, int? queryUserId,
+        private IEnumerable<OrderDto> Query(UserGuid currentUserId, int? orderId, int? queryUserId,
             Guid? queryOrganizationId)
         {
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
 
-            var currentUserGuid = _userQueries.GetById(currentUserId).UserGuid;
+            var currentUserGuid = _userQueries.GetByGuid(currentUserId).UserGuid;
             var queryUserGuid = (Guid?) null;
             if (queryUserId.HasValue)
             {
@@ -99,7 +99,7 @@
                             &&
                             // and user is not queried, or borrower or lessor is query user
                             (queryUserId == null
-                             || (o.Borrower_Id == queryUserId || o.Lessor_LessorId == queryUserGuid))
+                             || (o.Borrower_Id == queryUserGuid || o.Lessor_LessorId == queryUserGuid))
                             &&
                             // and organization is not queried, or lessor is query organization
                             (queryOrganizationId == null || (o.Lessor_LessorId == queryOrganizationId))

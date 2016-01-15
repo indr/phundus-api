@@ -1,12 +1,13 @@
 ﻿namespace Phundus.Inventory.Articles.Commands
 {
+    using Common.Domain.Model;
     using Cqrs;
     using IdentityAccess.Queries;
     using Repositories;
 
     public class UpdateDescription
     {
-        public int InitiatorId { get; set; }
+        public UserGuid InitiatorId { get; set; }
         public int ArticleId { get; set; }
         public string Description { get; set; }
     }

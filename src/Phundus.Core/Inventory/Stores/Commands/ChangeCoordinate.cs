@@ -11,7 +11,7 @@
 
     public class ChangeCoordinate
     {
-        public int InitatorId { get; set; }
+        public UserGuid InitatorId { get; set; }
         public Guid StoreId { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }

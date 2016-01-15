@@ -27,7 +27,7 @@
             command = new CreateEmptyOrder
             {
                 LessorId = theLessor.LessorId,
-                InitiatorId = new CurrentUserId(initiatorId.Id),
+                InitiatorId = new CurrentUserGuid(),
                 LesseeId = new LesseeId(userId)
             };
         };
