@@ -15,7 +15,7 @@
     [Subject(typeof (UpdateOrderItemHandler))]
     public class when_update_order_item_is_handled : order_handler_concern<UpdateOrderItem, UpdateOrderItemHandler>
     {
-        private const int initiatorId = 1;
+        private static UserGuid initiatorId = new UserGuid();
         private const int orderId = 2;
         private const int newAmount = 20;
         private static Guid orderItemId;

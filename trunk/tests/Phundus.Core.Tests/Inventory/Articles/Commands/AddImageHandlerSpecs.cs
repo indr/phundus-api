@@ -16,7 +16,7 @@
     {
         private static Guid ownerId;
         private static Owner owner;
-        private const int initiatorId = 2;
+        private static UserGuid initiatorId = new UserGuid();
         private const int articleId = 3;
         private const string imageFileName = "Image.jpg";
         

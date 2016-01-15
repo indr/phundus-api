@@ -34,7 +34,7 @@
             if (queryParams.ContainsKey("username"))
                 username = queryParams["username"];
 
-            var result = _memberQueries.Query(CurrentUserId, organizationId, username);
+            var result = _memberQueries.Query(CurrentUserGuid, organizationId, username);
             return new QueryOkResponseContent<Member>(result.Select(s => new Member
             {
                 ApprovalDate = s.ApprovalDate,
@@ -58,7 +58,7 @@
         {
             Dispatcher.Dispatch(new ApproveMembershipApplication
             {
-                InitiatorId = CurrentUserId.Id,
+                InitiatorId = CurrentUserGuid,
                 ApplicationId = requestContent.ApplicationId
             });
 
@@ -73,7 +73,7 @@
             Dispatcher.Dispatch(new ChangeMembersRole
             {
                 OrganizationId = organizationId,
-                InitiatorId = CurrentUserId.Id,
+                InitiatorId = CurrentUserGuid,
                 MemberId = memberId,
                 Role = requestContent.Role
             });
@@ -91,7 +91,7 @@
                 Dispatch(new ChangeMembersRole
                 {
                     OrganizationId = organizationId,
-                    InitiatorId = CurrentUserId.Id,
+                    InitiatorId = CurrentUserGuid,
                     MemberId = memberId,
                     Role = requestContent.IsManager.Value ? 2 : 1
                 });
@@ -102,7 +102,7 @@
                 {
                     Dispatcher.Dispatch(new LockMember
                     {
-                        InitiatorId = CurrentUserId.Id,
+                        InitiatorId = CurrentUserGuid,
                         MemberId = memberId,
                         OrganizationId = organizationId
                     });
@@ -111,7 +111,7 @@
                 {
                     Dispatcher.Dispatch(new UnlockMember
                     {
-                        InitiatorId = CurrentUserId.Id,
+                        InitiatorId = CurrentUserGuid,
                         MemberId = memberId,
                         OrganizationId = organizationId
                     });

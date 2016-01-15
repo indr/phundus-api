@@ -150,7 +150,7 @@
             EventPublisher.Publish(new MemberUnlocked(Id, member.Id));
         }
 
-        public virtual void ChangeStartpage(UserId initiatorId, string startpage)
+        public virtual void ChangeStartpage(UserGuid initiatorId, string startpage)
         {
             if (_startpage == startpage)
                 return;

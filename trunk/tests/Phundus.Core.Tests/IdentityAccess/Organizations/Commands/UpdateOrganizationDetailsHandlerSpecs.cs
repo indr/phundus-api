@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Organizations.Commands
 {
     using System;
+    using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -18,7 +19,7 @@
         protected static IOrganizationRepository repository;
 
         protected static Guid organizationId;
-        protected static int userId = 2;
+        protected static UserGuid userId = new UserGuid();
         private static Organization organization;
 
         protected Establish c = () =>

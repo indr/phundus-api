@@ -15,7 +15,7 @@
     {
         private static IMemberInRole memberInRole;
         private static Guid theOrganizationId = Guid.NewGuid();
-        private static UserId theInitiatorId = new UserId(1);
+        private static UserGuid theInitiatorId = new UserGuid();
         private static Organization theOrganization;
 
         private Establish ctx = () =>
@@ -28,7 +28,7 @@
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(theOrganizationId, theInitiatorId.Id));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(theOrganizationId, theInitiatorId));
 
         public It should_publish_organization_updated =
             () => publisher.WasToldTo(x => x.Publish(Arg<StartpageChanged>.Is.NotNull));

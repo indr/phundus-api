@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common;
+    using Common.Domain.Model;
     using Contracts.Model;
     using Ddd;
     using Iesi.Collections.Generic;
@@ -15,7 +16,7 @@
         private Iesi.Collections.Generic.ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private Lessee _lessee;
         private Lessor _lessor;
-        private int? _modifiedBy;
+        private UserGuid _modifiedBy;
         private DateTime? _modifiedUtc;
         private OrderStatus _status = OrderStatus.Pending;
 
@@ -71,7 +72,7 @@
             protected set { _modifiedUtc = value; }
         }
 
-        public virtual int? ModifiedBy
+        public virtual UserGuid ModifiedBy
         {
             get { return _modifiedBy; }
             protected set { _modifiedBy = value; }
@@ -114,7 +115,7 @@
             }
         }
 
-        public virtual void Reject(int initiatorId)
+        public virtual void Reject(UserGuid initiatorId)
         {
             if (Status == OrderStatus.Closed)
                 throw new OrderAlreadyClosedException();
@@ -128,7 +129,7 @@
             EventPublisher.Publish(new OrderRejected {OrderId = Id});
         }
 
-        public virtual void Approve(int initiatorId)
+        public virtual void Approve(UserGuid initiatorId)
         {
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
@@ -144,7 +145,7 @@
             EventPublisher.Publish(new OrderApproved {OrderId = Id});
         }
 
-        public virtual void Close(int initiatorId)
+        public virtual void Close(UserGuid initiatorId)
         {
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();

@@ -12,7 +12,7 @@
     [Subject(typeof (AddOrderItemHandler))]
     public class when_add_order_item_is_handled : order_handler_concern<AddOrderItem, AddOrderItemHandler>
     {
-        private const int initiatorId = 2;
+        private static UserGuid initiatorId = new UserGuid();
         private const int orderId = 3;
         private static ArticleId articleId = new ArticleId(4);
         private static Order order;

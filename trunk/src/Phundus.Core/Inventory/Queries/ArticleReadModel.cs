@@ -30,5 +30,10 @@
             var articles = ArticleRepository.Query(currentUserId, queryOwnerId, query);
             return new ArticleDtoAssembler().CreateDtos(articles);
         }
+
+        public IEnumerable<ArticleDto> Query(InitiatorGuid initiatorGuid, OwnerId queryOwnerId, string query)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

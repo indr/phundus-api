@@ -20,9 +20,9 @@ namespace Phundus.Shop.Queries
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-
-
-    public partial class ReadModelDataContext : System.Data.Linq.DataContext
+	
+	
+	public partial class ReadModelDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -357,7 +357,7 @@ namespace Phundus.Shop.Queries
 		
 		private System.Guid _OrganizationId;
 		
-		private System.Nullable<int> _Borrower_Id;
+		private System.Nullable<System.Guid> _Borrower_Id;
 		
 		private string _Borrower_FirstName;
 		
@@ -399,7 +399,7 @@ namespace Phundus.Shop.Queries
     partial void OnStatusChanged();
     partial void OnLessor_LessorIdChanging(System.Guid value);
     partial void OnLessor_LessorIdChanged();
-    partial void OnBorrower_IdChanging(System.Nullable<int> value);
+    partial void OnBorrower_IdChanging(System.Nullable<System.Guid> value);
     partial void OnBorrower_IdChanged();
     partial void OnBorrower_FirstNameChanging(string value);
     partial void OnBorrower_FirstNameChanged();
@@ -533,7 +533,7 @@ namespace Phundus.Shop.Queries
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Borrower_Id")]
-		public System.Nullable<int> Borrower_Id
+		public System.Nullable<System.Guid> Borrower_Id
 		{
 			get
 			{

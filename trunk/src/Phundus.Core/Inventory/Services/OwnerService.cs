@@ -32,7 +32,7 @@
         /// <param name="userId"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        Owner GetByUserId(int userId);
+        Owner GetByUserId(UserGuid userId);
 
         /// <summary>
         /// 
@@ -75,9 +75,9 @@
             return GetById(ownerId.Id);
         }
 
-        public Owner GetByUserId(int userId)
+        public Owner GetByUserId(UserGuid userId)
         {
-            var user = _userQueries.GetById(userId);
+            var user = _userQueries.GetByGuid(userId);
             if (user == null)
                 throw new NotFoundException(String.Format("User {0} not found.", userId));
 

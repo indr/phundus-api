@@ -11,7 +11,7 @@
     {
         public UserGuid InitiatorGuid { get; set; }
         public Guid ApplicationId { get; set; }
-        public int InitiatorId { get; set; }
+        public UserGuid InitiatorId { get; set; }
     }
 
     public class RejectMembershipRequestHandler : IHandleCommand<RejectMembershipApplication>

@@ -16,12 +16,13 @@ namespace Phundus.Tests.Inventory.Articles.Commands
         private static Owner owner;
         private static StoreId storeId;
         private const int articleId = 1;
-        private const int initiatorId = 3;
+        private static UserGuid initiatorId;
 
         private static Article article;
 
         public Establish c = () =>
         {
+            initiatorId = new UserGuid();
             ownerId = Guid.NewGuid();
             storeId = new StoreId();
             owner = new Owner(new OwnerId(ownerId), "Owner");

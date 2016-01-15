@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Organizations.Commands
 {
     using System;
+    using Common.Domain.Model;
     using Cqrs;
     using Exceptions;
     using IdentityAccess.Users.Repositories;
@@ -10,7 +11,7 @@
     public class LockMember
     {
         public Guid OrganizationId { get; set; }
-        public int InitiatorId { get; set; }
+        public CurrentUserGuid InitiatorId { get; set; }
         public int MemberId { get; set; }
     }
 
@@ -28,7 +29,7 @@
 
             var member = UserRepository.GetById(command.MemberId);
 
-            if (member.Id == command.InitiatorId)
+            if (Equals(member.UserGuid, command.InitiatorId))
                 throw new AttemptToLockOneselfException();
 
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);

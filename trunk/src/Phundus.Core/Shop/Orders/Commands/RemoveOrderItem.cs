@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Shop.Orders.Commands
 {
     using System;
+    using Common.Domain.Model;
     using Cqrs;
     using IdentityAccess.Queries;
     using Repositories;
@@ -9,7 +10,7 @@
     {
         public int OrderId { get; set; }
         public Guid OrderItemId { get; set; }
-        public int InitiatorId { get; set; }
+        public UserGuid InitiatorId { get; set; }
     }
 
     public class RemoveOrderItemHandler : IHandleCommand<RemoveOrderItem>

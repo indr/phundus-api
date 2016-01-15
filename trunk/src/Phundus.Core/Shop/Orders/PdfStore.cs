@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Shop.Orders
 {
     using System.IO;
+    using Common.Domain.Model;
     using IdentityAccess.Queries;
     using Model;
     using Queries;
@@ -9,7 +10,7 @@
 
     public interface IPdfStore
     {
-        Stream GetOrderPdf(int orderId, int currentUserId);
+        Stream GetOrderPdf(int orderId, UserGuid currentUserId);
     }
 
     public class PdfStore : IPdfStore
@@ -22,7 +23,7 @@
 
         public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
 
-        public Stream GetOrderPdf(int orderId, int currentUserId)
+        public Stream GetOrderPdf(int orderId, UserGuid currentUserId)
         {
             var order = OrderRepository.GetById(orderId);
             return GetPdf(order);

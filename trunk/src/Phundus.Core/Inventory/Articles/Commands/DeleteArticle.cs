@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Inventory.Articles.Commands
 {
+    using Common.Domain.Model;
     using Cqrs;
     using Ddd;
     using IdentityAccess.Queries;
@@ -9,7 +10,7 @@
     public class DeleteArticle
     {
         public int ArticleId { get; set; }
-        public int InitiatorId { get; set; }
+        public UserGuid InitiatorId { get; set; }
     }
 
     public class DeleteArticleHandler : IHandleCommand<DeleteArticle>

@@ -8,7 +8,7 @@
 
     public class UpdateStartpage
     {
-        public UpdateStartpage(UserId initiatorId, Guid organizationId, string startpage)
+        public UpdateStartpage(UserGuid initiatorId, Guid organizationId, string startpage)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             InitiatorId = initiatorId;
@@ -17,7 +17,7 @@
         }
 
         public Guid OrganizationId { get; protected set; }
-        public UserId InitiatorId { get; protected set; }
+        public UserGuid InitiatorId { get; protected set; }
         public string Startpage { get; protected set; }
     }
 
@@ -29,7 +29,7 @@
 
         public void Handle(UpdateStartpage command)
         {
-            MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId.Id);
+            MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
 
             var organization = Repository.GetById(command.OrganizationId);
 

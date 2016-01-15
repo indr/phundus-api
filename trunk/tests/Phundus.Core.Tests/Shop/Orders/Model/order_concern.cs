@@ -1,13 +1,17 @@
 namespace Phundus.Tests.Shop.Orders.Model
 {
     using System;
+    using Common.Domain.Model;
+    using Machine.Specifications;
     using Phundus.Shop.Contracts.Model;
     using Phundus.Shop.Orders.Model;
 
     public abstract class order_concern : concern<Order>
     {
         protected static Order order;
-        protected static int modifierId = 101;
+        protected static UserGuid modifierId;
+
+        private Establish ctx = () => modifierId = new UserGuid();
 
         protected static Lessee CreateLessee()
         {

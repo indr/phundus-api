@@ -14,9 +14,12 @@
         /// <param name="orderId"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        OrderDto GetById(CurrentUserId currentUserId, OrderId orderId);
+        //[Obsolete]
+        //OrderDto GetById(CurrentUserId currentUserId, OrderId orderId);
 
-        IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderId orderId, int? queryUserId, Guid? queryOrganizationId);
+        OrderDto GetById(UserGuid initiatorGuid, OrderId orderId);
+
+        IEnumerable<OrderDto> Query(UserGuid currentUserId, OrderId orderId, int? queryUserId, Guid? queryOrganizationId);
         
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Organizations.Commands
 {
     using System;
+    using Common.Domain.Model;
     using Cqrs;
     using IdentityAccess.Users.Repositories;
     using Queries;
@@ -9,7 +10,7 @@
     public class UnlockMember
     {
         public Guid OrganizationId { get; set; }
-        public int InitiatorId { get; set; }
+        public CurrentUserGuid InitiatorId { get; set; }
         public int MemberId { get; set; }
     }
 

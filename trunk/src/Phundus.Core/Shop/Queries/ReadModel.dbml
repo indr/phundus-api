@@ -18,7 +18,7 @@
       <Column Name="CreatedUtc" Storage="_CreatedOn" Type="System.DateTime" CanBeNull="false" />
       <Column Name="Status" Type="OrderStatusDto" CanBeNull="false" />
       <Column Name="Lessor_LessorId" Storage="_OrganizationId" Type="System.Guid" CanBeNull="false" />
-      <Column Name="Borrower_Id" Type="System.Int32" CanBeNull="true" />
+      <Column Name="Borrower_Id" Type="System.Guid" CanBeNull="true" />
       <Column Name="Borrower_FirstName" Type="System.String" CanBeNull="true" />
       <Column Name="Borrower_LastName" Type="System.String" CanBeNull="true" />
       <Column Name="Borrower_Street" Type="System.String" CanBeNull="true" />

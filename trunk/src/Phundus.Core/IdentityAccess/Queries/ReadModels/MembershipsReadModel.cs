@@ -18,6 +18,11 @@
             return MembershipRepository.ByMemberId(userId).Select(ToMembershipDto).ToList();
         }
 
+        public IList<MembershipDto> ByUserId(Guid userId)
+        {
+            return MembershipRepository.ByMemberId(userId).Select(ToMembershipDto).ToList();
+        }
+
         public IList<MembershipDto> ByUserName(string userName)
         {
             var user = UserQueries.FindByUsername(userName);

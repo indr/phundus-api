@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Organizations.Commands
 {
     using System;
+    using Common.Domain.Model;
     using Cqrs;
     using Ddd;
     using Model;
@@ -10,7 +11,7 @@
     public class UpdateOrganizationDetails
     {
         public Guid OrganizationId { get; set; }
-        public int InitiatorId { get; set; }
+        public UserGuid InitiatorId { get; set; }
         public string Address { get; set; }
         public string EmailAddress { get; set; }
         public string Website { get; set; }

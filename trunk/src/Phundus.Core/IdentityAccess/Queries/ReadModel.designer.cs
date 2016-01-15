@@ -74,7 +74,7 @@ namespace Phundus.IdentityAccess.Queries
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _UserId;
+		private System.Guid _UserId;
 		
 		private System.DateTime _Timestamp;
 		
@@ -86,7 +86,7 @@ namespace Phundus.IdentityAccess.Queries
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanging(System.Guid value);
     partial void OnUserIdChanged();
     partial void OnTimestampChanging(System.DateTime value);
     partial void OnTimestampChanged();
@@ -102,7 +102,7 @@ namespace Phundus.IdentityAccess.Queries
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", IsPrimaryKey=true)]
-		public int UserId
+		public System.Guid UserId
 		{
 			get
 			{

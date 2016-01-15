@@ -9,7 +9,7 @@
 
     public class ApplyForMembership
     {
-        public ApplyForMembership(InitiatorGuid initiatorGuid, Guid applicationId, int applicantId, Guid organizationId)
+        public ApplyForMembership(InitiatorGuid initiatorGuid, Guid applicationId, UserGuid applicantId, Guid organizationId)
         {
             if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
             InitiatorGuid = initiatorGuid;
@@ -20,7 +20,7 @@
 
         public InitiatorGuid InitiatorGuid { get; protected set; }
         public Guid ApplicationId { get; protected set; }
-        public int ApplicantId { get; protected set; }
+        public UserGuid ApplicantId { get; protected set; }
         public Guid OrganizationId { get; protected set; }
     }
 

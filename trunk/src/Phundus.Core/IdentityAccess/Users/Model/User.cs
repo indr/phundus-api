@@ -133,7 +133,7 @@
             if (!Account.Approve())
                 return;
 
-            EventPublisher.Publish(new UserApproved(initiator, this));
+            EventPublisher.Publish(new UserApproved(initiator.UserGuid, this.UserGuid));
         }
 
         public virtual void ChangeEmailAddress(UserGuid initiatorGuid, string password, string newEmailAddress)
