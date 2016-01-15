@@ -158,6 +158,7 @@
     <Compile Include="2016\01\M201601130718AddPositionDaysAndItemTotalToCartItem.cs" />
     <Compile Include="2016\01\M201601130724AddPositionDaysAndItemTotalToViewShopCartItems.cs" />
     <Compile Include="2016\01\M201601131550AddColumnPhoneNumberToOrganization.cs" />
+    <Compile Include="2016\01\M201601151012_Update_TypeNames_in_StoredEvents.cs" />
     <Compile Include="Helper\DatedAttribute.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
     <Compile Include="Helper\Runner.cs" />
