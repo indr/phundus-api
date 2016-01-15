@@ -21,8 +21,6 @@
 
         public IMemberInRole MemberInRole { get; set; }
 
-        public ICartService CartService { get; set; }
-
         private static string MasterView
         {
             get { return @"Index"; }
@@ -158,33 +156,6 @@
                 caption = model.Article.Name,
                 content = RenderPartialViewToString("Article", model)
             }, JsonRequestBehavior.AllowGet);
-        }
-
-        //
-        // POST: /Shop/AddToCart
-        [Authorize]
-        [AcceptVerbs(HttpVerbs.Post)]
-        [Transaction]
-        public virtual ActionResult AddToCart(CartItemModel item)
-        {
-            if (!ModelState.IsValid)
-            {
-                if (Request.IsAjaxRequest())
-                    return new HttpStatusCodeResult(400);
-                return RedirectToAction(ShopActionNames.Article, item.ArticleId);
-            }
-
-            var userId = CurrentUserId;
-            var cart = CartService.GetCartByUserId(userId);
-
-            int? cartId = null;
-            if (cart != null)
-                cartId = cart.Id;
-            cart = CartService.AddItem(cartId, userId, item.CreateDto());
-
-            if (Request.IsAjaxRequest())
-                return Json(cart);
-            return RedirectToAction(CartActionNames.Index, ControllerNames.Cart);
         }
 
         #region Nested type: ShopViews

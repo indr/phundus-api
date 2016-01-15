@@ -282,15 +282,11 @@
     <Compile Include="Shop\Orders\Model\Owner.cs" />
     <Compile Include="Shop\Orders\Services\RoundRectangle.cs" />
     <Compile Include="Shop\Orders\Services\OrderPdfGeneratorService.cs" />
-    <Compile Include="Shop\Orders\_Legacy\CartService.cs" />
-    <Compile Include="Shop\Orders\_Legacy\ICartService.cs" />
     <Compile Include="Shop\Orders\PdfStore.cs" />
     <Compile Include="Shop\Pricing\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
     <Compile Include="Shop\Queries\CartItemViewRow.cs" />
     <Compile Include="Shop\Queries\CartReadModel.cs" />
     <Compile Include="Shop\Queries\CartViewRow.cs" />
-    <Compile Include="Shop\Queries\Dtos\CartAssembler.cs" />
-    <Compile Include="Shop\Queries\Dtos\CartDto.cs" />
     <Compile Include="Shop\Queries\Dtos\MembershipRoleDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderStatusDto.cs" />
