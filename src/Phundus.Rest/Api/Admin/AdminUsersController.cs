@@ -56,21 +56,21 @@
             {
                 if (requestContent.IsLocked.Value)
                 {
-                    Dispatch(new LockUser(CurrentUserId, new UserGuid(requestContent.UserGuid)));
+                    Dispatch(new LockUser(CurrentUserGuid, new UserGuid(requestContent.UserGuid)));
                 }
                 else
                 {
-                    Dispatch(new UnlockUser(CurrentUserId, new UserGuid(requestContent.UserGuid)));
+                    Dispatch(new UnlockUser(CurrentUserGuid, new UserGuid(requestContent.UserGuid)));
                 }
             }
             if (requestContent.IsAdmin.HasValue)
             {
-                Dispatch(new ChangeUserRole(CurrentUserId, new UserGuid(requestContent.UserGuid),
+                Dispatch(new ChangeUserRole(CurrentUserGuid, new UserGuid(requestContent.UserGuid),
                     requestContent.IsAdmin.Value ? UserRole.Admin : UserRole.User));
             }
             if (requestContent.IsApproved.HasValue && requestContent.IsApproved.Value)
             {
-                Dispatch(new ApproveUser(CurrentUserId, new UserGuid(requestContent.UserGuid)));
+                Dispatch(new ApproveUser(CurrentUserGuid, new UserGuid(requestContent.UserGuid)));
             }
             return NoContent();
         }

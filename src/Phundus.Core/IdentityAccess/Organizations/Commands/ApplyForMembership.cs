@@ -2,19 +2,23 @@
 {
     using System;
     using Castle.Transactions;
+    using Common.Domain.Model;
     using Cqrs;
     using IdentityAccess.Users.Repositories;
     using Repositories;
 
     public class ApplyForMembership
     {
-        public ApplyForMembership(Guid applicationId, int applicantId, Guid organizationId)
+        public ApplyForMembership(InitiatorGuid initiatorGuid, Guid applicationId, int applicantId, Guid organizationId)
         {
+            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
+            InitiatorGuid = initiatorGuid;
             ApplicationId = applicationId;
             ApplicantId = applicantId;
             OrganizationId = organizationId;
         }
 
+        public InitiatorGuid InitiatorGuid { get; protected set; }
         public Guid ApplicationId { get; protected set; }
         public int ApplicantId { get; protected set; }
         public Guid OrganizationId { get; protected set; }
@@ -35,7 +39,7 @@
 
             var user = UserRepository.GetById(command.ApplicantId);
 
-            var request = organization.RequestMembership(command.ApplicationId, user);
+            var request = organization.RequestMembership(command.InitiatorGuid, command.ApplicationId, user);
 
             Requests.Add(request);
         }

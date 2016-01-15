@@ -12,7 +12,7 @@
         private static UserGuid theUserGuid = new UserGuid();
 
 
-        private Because of = () => sut = new MembershipApplicationFiled(Guid.Empty, 0);
+        private Because of = () => sut = new MembershipApplicationFiled(theInitiatorGuid, theOrganizationGuid, theUserGuid);
 
         private It should_have_the_initiator_guid_at_1 = () => dataMember(1).ShouldEqual(theInitiatorGuid.Id);
 
@@ -27,7 +27,7 @@
         private static OrganizationGuid theOrganizationGuid = new OrganizationGuid();
         private static UserGuid theUserGuid = new UserGuid();
 
-        private Because of = () => sut = new MembershipApplicationRejected(Guid.Empty, 0);
+        private Because of = () => sut = new MembershipApplicationRejected(theInitiatorGuid, theOrganizationGuid, theUserGuid);
 
         private It should_have_the_initiator_guid_at_1 = () => dataMember(1).ShouldEqual(theInitiatorGuid.Id);
 
@@ -42,7 +42,7 @@
         private static OrganizationGuid theOrganizationGuid = new OrganizationGuid();
         private static UserGuid theUserGuid = new UserGuid();
 
-        private Because of = () => sut = new MembershipApplicationApproved(Guid.Empty, 0);
+        private Because of = () => sut = new MembershipApplicationApproved(theInitiatorGuid, theOrganizationGuid, theUserGuid);
 
         private It should_have_the_initiator_guid_at_1 = () => dataMember(1).ShouldEqual(theInitiatorGuid.Id);
 

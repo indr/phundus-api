@@ -14,7 +14,6 @@ namespace Phundus.Persistence.Shop.Mappings
             Map(x => x.CartGuid, "CartGuid");
             Version(x => x.Version);
 
-            Map(x => x.CustomerId, "UserId");
             Map(x => x.UserGuid, "UserGuid");
 
             HasMany(x => x.Items).AsSet()

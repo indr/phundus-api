@@ -8,16 +8,16 @@
 
     public class LockUser
     {
-        public LockUser(UserId initiatorId, UserGuid userGuid)
+        public LockUser(InitiatorGuid initiatorId, UserGuid userGuid)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (userGuid == null) throw new ArgumentNullException("userGuid");
 
-            InitiatorId = initiatorId;
+            InitiatorGuid = initiatorId;
             UserGuid = userGuid;
         }
 
-        public UserId InitiatorId { get; protected set; }
+        public InitiatorGuid InitiatorGuid { get; protected set; }
         public UserGuid UserGuid { get; protected set; }
     }
 
@@ -37,9 +37,9 @@
 
         public void Handle(LockUser command)
         {
-            var initiator = _userInRole.Admin(command.InitiatorId);
+            var initiator = _userInRole.Admin(command.InitiatorGuid);
 
-            var user = _userRepository.GetByGuid(command.UserGuid);
+            var user = _userRepository.GetById(command.UserGuid);
             user.Account.Lock(initiator);
         }
     }

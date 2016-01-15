@@ -19,7 +19,7 @@
 
         public void Handle(UserUnlocked @event)
         {
-            var user = _userRepository.FindByGuid(@event.UserId);
+            var user = _userRepository.FindById(@event.UserId);
             if (user == null)
                 return;
 

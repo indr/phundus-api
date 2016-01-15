@@ -8,16 +8,16 @@
 
     public class UnlockUser
     {
-        public UnlockUser(UserId initiatorId, UserGuid userGuid)
+        public UnlockUser(InitiatorGuid initiatorId, UserGuid userGuid)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (userGuid == null) throw new ArgumentNullException("userGuid");
 
-            InitiatorId = initiatorId;
+            InitiatorGuid = initiatorId;
             UserGuid = userGuid;
         }
 
-        public UserId InitiatorId { get; protected set; }
+        public InitiatorGuid InitiatorGuid { get; protected set; }
         public UserGuid UserGuid { get; protected set; }
     }
 
@@ -37,9 +37,9 @@
 
         public void Handle(UnlockUser command)
         {
-            var initiator = _userInRole.Admin(command.InitiatorId);
+            var initiator = _userInRole.Admin(command.InitiatorGuid);
 
-            var user = _userRepository.GetByGuid(command.UserGuid);
+            var user = _userRepository.GetById(command.UserGuid);
             user.Account.Unlock(initiator);
         }
     }

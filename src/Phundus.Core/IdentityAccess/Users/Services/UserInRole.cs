@@ -1,5 +1,6 @@
 ﻿namespace Phundus.IdentityAccess.Users.Services
 {
+    using System;
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Users.Repositories;
@@ -7,7 +8,10 @@
 
     public interface IUserInRole
     {
+        [Obsolete]
         User Admin(UserId userId);
+
+        User Admin(UserGuid userGuid);
     }
 
     public class UserInRole : IUserInRole
@@ -24,6 +28,15 @@
         public User Admin(UserId userId)
         {
             var user = _userRepository.GetById(userId);
+            if (user.Role != UserRole.Admin)
+                throw new AuthorizationException("Sie müssen Administratorenrechte haben.");
+
+            return user;
+        }
+
+        public User Admin(UserGuid userGuid)
+        {
+            var user = _userRepository.GetById(userGuid);
             if (user.Role != UserRole.Admin)
                 throw new AuthorizationException("Sie müssen Administratorenrechte haben.");
 

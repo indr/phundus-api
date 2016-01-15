@@ -33,9 +33,9 @@
             return result;
         }
 
-        public User GetByGuid(UserGuid userGuid)
+        public User GetById(UserGuid userGuid)
         {
-            var result = FindByGuid(userGuid.Id);
+            var result = FindById(userGuid.Id);
             if (result == null)
                 throw new NotFoundException("User {0} not found.", userGuid);
             return result;
@@ -47,7 +47,7 @@
             return user.Id;
         }
 
-        public User FindByGuid(Guid userId)
+        public User FindById(Guid userId)
         {
             return Users.SingleOrDefault(p => p.Guid == userId);
         }

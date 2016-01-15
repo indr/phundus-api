@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Organizations.Commands
 {
     using System;
+    using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Organizations.Commands;
@@ -13,22 +14,17 @@
     [Subject(typeof (EstablishOrganizationHandler))]
     public class when_handled : handler_concern<EstablishOrganization, EstablishOrganizationHandler>
     {
-        private static int theInititatorId = 1001;
-        private static Guid theOrganizationGuid = Guid.NewGuid();
+        private static InitiatorGuid theInititatorGuid = new InitiatorGuid();
+        private static OrganizationGuid theOrganizationGuid = new OrganizationGuid();
         private static IOrganizationRepository organizationRepository;        
 
         private Establish ctx = () =>
         {
             organizationRepository = depends.on<IOrganizationRepository>();
             depends.on<IUserRepository>()
-                .WhenToldTo(x => x.GetById(theInititatorId))
-                .Return(CreateAdmin(theInititatorId));
-            command = new EstablishOrganization
-            {
-                InitiatorId = theInititatorId,
-                Name = "New Organization",
-                OrganizationId = theOrganizationGuid
-            };
+                .WhenToldTo(x => x.GetById(theInititatorGuid))
+                .Return(CreateAdmin(theInititatorGuid));
+            command = new EstablishOrganization(theInititatorGuid, theOrganizationGuid, "New Organization");
         };
 
         private It should_add_to_organization_repository =
@@ -45,7 +41,7 @@
             publisher.WasToldTo(x => x.Publish(Arg<OrganizationEstablished>.Is.NotNull));
             publisher.WasToldTo(x => x.Publish(Arg<OrganizationEstablished>.Matches(
                 p => p.Name == "New Organization"
-                     && p.OrganizationId == theOrganizationGuid
+                     && p.OrganizationId == theOrganizationGuid.Id
                      && p.Plan == "free"
                      && p.Url == "")));
         };
