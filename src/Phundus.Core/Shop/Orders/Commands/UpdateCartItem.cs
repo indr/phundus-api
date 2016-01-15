@@ -7,12 +7,10 @@
 
     public class UpdateCartItem : ICommand
     {
-        public UpdateCartItem(CurrentUserId initiatorId, CurrentUserGuid initiatorGuid, Guid itemGuid, int quantity,
+        public UpdateCartItem(InitiatorGuid initiatorGuid, Guid itemGuid, int quantity,
             DateTime fromUtc, DateTime toUtc)
         {
-            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
-            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
-            InitiatorId = initiatorId;
+            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");            
             InitiatorGuid = initiatorGuid;
             ItemGuid = itemGuid;
             Quantity = quantity;
@@ -20,8 +18,7 @@
             ToUtc = toUtc;
         }
 
-        public CurrentUserId InitiatorId { get; protected set; }
-        public CurrentUserGuid InitiatorGuid { get; protected set; }
+        public InitiatorGuid InitiatorGuid { get; protected set; }
         public Guid ItemGuid { get; protected set; }
         public int Quantity { get; protected set; }
         public DateTime FromUtc { get; protected set; }
@@ -40,7 +37,7 @@
 
         public void Handle(UpdateCartItem command)
         {
-            var cart = _cartRepository.FindByUserId(command.InitiatorId);
+            var cart = _cartRepository.FindByUserGuid(new UserGuid(command.InitiatorGuid.Id));
             if (cart == null)
                 return;
 

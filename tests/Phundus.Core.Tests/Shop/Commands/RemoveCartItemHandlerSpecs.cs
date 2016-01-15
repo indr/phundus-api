@@ -11,17 +11,16 @@ namespace Phundus.Tests.Shop.Commands
     [Subject(typeof (RemoveCartItemHandler))]
     public class when_remove_cart_item_is_handled : handler_concern<RemoveCartItem, RemoveCartItemHandler>
     {
-        private static UserId theInitiatorId = new UserId(1001);
+        private static InitiatorGuid theInitiatorId = new InitiatorGuid();
         private static Cart theCart;
         private static CartItemGuid the_cart_item_guid = new CartItemGuid();
         private static UserGuid theInitiatorGuid;
 
         private Establish ctx = () =>
         {
-            theInitiatorId = new UserId(1001);
             theInitiatorGuid = new UserGuid(Guid.NewGuid());
             theCart = mock.partial<Cart>(new object[] {theInitiatorId, theInitiatorGuid});
-            depends.on<ICartRepository>().WhenToldTo(x => x.FindByUserId(theInitiatorId)).Return(theCart);
+            depends.on<ICartRepository>().WhenToldTo(x => x.FindByUserGuid(new UserGuid(theInitiatorId.Id))).Return(theCart);
             command = new RemoveCartItem(theInitiatorId, the_cart_item_guid);
         };
 
