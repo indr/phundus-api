@@ -7,26 +7,9 @@
 
     public interface IUserQueries
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// <exception cref="NotFoundException"></exception>
-        IUser GetById(int id);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        /// <exception cref="NotFoundException"></exception>
-        IUser GetById(UserId userId);
-
         IUser GetByGuid(Guid guid);
         IUser GetByGuid(UserGuid userGuid);
 
-        IUser FindById(int userId);
         IUser FindById(Guid userGuid);
 
         IUser FindByUsername(string username);

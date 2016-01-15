@@ -36,7 +36,7 @@
         public string EmailAddress { get; protected set; }
         public string Password { get; protected set; }
 
-        public int ResultingUserId { get; set; }
+
         public Guid ResultingUserGuid { get; set; }
     }
 
@@ -61,14 +61,13 @@
 
             var userId = _userRepository.Add(user);
 
-            EventPublisher.Publish(new UserSignedUp(userId,
+            EventPublisher.Publish(new UserSignedUp(user.UserGuid,
                 user.Account.Email, user.Account.Password, user.Account.Salt,
                 user.Account.ValidationKey,
                 user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
                 user.MobileNumber
                 ));
 
-            command.ResultingUserId = userId;
             command.ResultingUserGuid = user.Guid;
         }
     }

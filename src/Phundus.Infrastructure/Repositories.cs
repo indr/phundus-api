@@ -6,7 +6,5 @@
 
         void Remove(T entity);
         T Add(T entity);
-
-        void Update(T entity);
     }
 }

@@ -7,12 +7,7 @@
 
     public class CartReadModel : NHibernateReadModelBase<CartViewRow>, ICartQueries
     {
-        public ICart FindByUserGuid(UserId userId, UserGuid userGuid)
-        {
-            return QueryOver().Where(p => p.UserId == userId.Id && p.UserGuid == userGuid.Id).SingleOrDefault();
-        }
-
-        public ICart FindByUserGuid(InitiatorGuid initiatorGuid, UserGuid userGuid)
+       public ICart FindByUserGuid(InitiatorGuid initiatorGuid, UserGuid userGuid)
         {
             if (initiatorGuid.Id != userGuid.Id)
                 throw new AuthorizationException();

@@ -52,15 +52,7 @@ namespace Phundus.Rest.Api
             if (Guid.TryParse(ownerId, out guid))
                 return new OwnerId(guid);
 
-            int integer;
-            if (!Int32.TryParse(ownerId, out integer))
-                return null;
-
-            var user = _userQueries.FindById(integer);
-            if (user == null)
-                return null;
-
-            return new OwnerId(user.UserGuid);
+            return null;
         }
 
         [GET("")]

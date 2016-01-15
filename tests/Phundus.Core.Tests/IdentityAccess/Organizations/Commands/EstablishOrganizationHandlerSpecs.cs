@@ -22,7 +22,7 @@
         {
             organizationRepository = depends.on<IOrganizationRepository>();
             depends.on<IUserRepository>()
-                .WhenToldTo(x => x.GetById(theInititatorGuid))
+                .WhenToldTo(x => x.GetByGuid(theInititatorGuid))
                 .Return(CreateAdmin(theInititatorGuid));
             command = new EstablishOrganization(theInititatorGuid, theOrganizationGuid, "New Organization");
         };

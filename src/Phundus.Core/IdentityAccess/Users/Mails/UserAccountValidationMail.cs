@@ -19,7 +19,7 @@
 
         public void Handle(UserSignedUp @event)
         {
-            var user = _userRepository.FindById(@event.UserId);
+            var user = _userRepository.FindByGuid(@event.UserGuid);
             if (user == null)
                 return;
 

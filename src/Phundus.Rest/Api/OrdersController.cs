@@ -35,16 +35,16 @@
         [Transaction]
         public virtual QueryOkResponseContent<Order> Get()
         {
-            var userId = (int?) null;
-            var organizationId = (Guid?) null;
+            UserGuid queryUserGuid = null;
+            OrganizationGuid queryOrganizationGuid = null;
 
             var queryParams = GetQueryParams();
-            if (queryParams.ContainsKey("userId"))
-                userId = Convert.ToInt32(queryParams["userId"]);
+            if (queryParams.ContainsKey("userGuid"))
+                queryUserGuid = new UserGuid(Guid.Parse(queryParams["userGuid"]));
             if (queryParams.ContainsKey("organizationId"))
-                organizationId = Guid.Parse(queryParams["organizationId"]);
+                queryOrganizationGuid = new OrganizationGuid(Guid.Parse(queryParams["organizationId"]));
 
-            var orders = _orderQueries.Query(CurrentUserGuid, null, userId, organizationId).ToList();
+            var orders = _orderQueries.Query(CurrentUserGuid, null, queryUserGuid, queryOrganizationGuid).ToList();
             return new QueryOkResponseContent<Order>(Map<IList<Order>>(orders));
         }
 

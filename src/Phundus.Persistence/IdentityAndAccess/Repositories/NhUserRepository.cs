@@ -15,39 +15,15 @@
             get { return Session.Query<User>(); }
         }
 
-        public User FindById(int id)
+        public User GetByGuid(UserGuid userGuid)
         {
-            return Users.Where(p => p.Id == id).SingleOrDefault();
-        }
-
-        public User GetById(int id)
-        {
-            return GetById(new UserId(id));
-        }
-
-        public User GetById(UserId userId)
-        {
-            var result = FindById(userId.Id);
-            if (result == null)
-                throw new NotFoundException(String.Format("User {0} not found.", userId));
-            return result;
-        }
-
-        public User GetById(UserGuid userGuid)
-        {
-            var result = FindById(userGuid.Id);
+            var result = FindByGuid(userGuid.Id);
             if (result == null)
                 throw new NotFoundException("User {0} not found.", userGuid);
             return result;
         }
 
-        public new int Add(User user)
-        {
-            base.Add(user);
-            return user.Id;
-        }
-
-        public User FindById(Guid userId)
+        public User FindByGuid(Guid userId)
         {
             return Users.SingleOrDefault(p => p.Guid == userId);
         }

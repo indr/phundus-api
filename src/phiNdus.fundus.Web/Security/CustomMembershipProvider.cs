@@ -139,21 +139,7 @@
 
         public bool ValidateEmailKey(string key)
         {
-            var user = Users.FindByValidationKey(key);
-            if (user == null)
-                return false;
-
-            // Prüfen ob Benutzer bereits exisitiert.
-            if (Users.FindByEmailAddress(user.Account.RequestedEmail) != null)
-                throw new EmailAlreadyTakenException();
-
-            var result = user.Account.ValidateKey(key);
-            if (result)
-            {
-                Users.Update(user);
-                //new UserAccountCreatedMail().For(user).Send(Settings.Common.AdminEmailAddress);
-            }
-            return result;
+            throw new NotSupportedException();
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
@@ -257,7 +243,9 @@
 
         private MembershipUser ConvertToExternal(IUser user)
         {
-            return new MembershipUser(Name, user.EmailAddress, new ProviderUserKey(user.UserId, user.UserGuid).ToString(), user.EmailAddress, null, null, user.IsApproved,
+            return new MembershipUser(Name, user.EmailAddress,
+                new ProviderUserKey(user.UserId, user.UserGuid).ToString(), user.EmailAddress, null, null,
+                user.IsApproved,
                 user.IsLockedOut, user.SignedUpAtUtc, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue,
                 DateTime.MinValue);
         }

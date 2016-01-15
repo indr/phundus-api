@@ -7,6 +7,7 @@
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Queries;
+    using IdentityAccess.Users.Model;
     using Integration.IdentityAccess;
     using Inventory.Services;
 
@@ -39,12 +40,12 @@
             }
         }
 
-        public OrderDto GetById(UserGuid currentUserId, OrderId orderId)
+        public OrderDto GetById(CurrentUserGuid currentUserGuid, OrderId orderId)
         {
-            AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
+            AssertionConcern.AssertArgumentNotNull(currentUserGuid, "CurrentUserId must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderId, "OrderId must be provided.");
 
-            var result = Query(currentUserId, orderId == null ? (int?) null : orderId.Id, null, null).SingleOrDefault();
+            var result = Query(currentUserGuid, orderId == null ? (int?) null : orderId.Id, null, null).SingleOrDefault();
             if (result == null)
                 throw new NotFoundException(String.Format("Order {0} not found.", orderId));
 
@@ -53,26 +54,19 @@
             return result;
         }
 
-        public IEnumerable<OrderDto> Query(UserGuid currentUserId, OrderId orderId, int? queryUserId,
-            Guid? queryOrganizationId)
+        public IEnumerable<OrderDto> Query(CurrentUserGuid currentUserGuid, OrderId orderId, UserGuid queryUserGuid,
+            OrganizationGuid queryOrganizationId)
         {
-            return Query(currentUserId, orderId == null ? (int?) null : orderId.Id, queryUserId, queryOrganizationId);
+            return Query(currentUserGuid, orderId == null ? (int?) null : orderId.Id, queryUserGuid, queryOrganizationId);
         }
 
-        private IEnumerable<OrderDto> Query(UserGuid currentUserId, int? orderId, int? queryUserId,
-            Guid? queryOrganizationId)
+        private IEnumerable<OrderDto> Query(CurrentUserGuid currentUserGuid, int? orderId, UserGuid queryUserGuid,
+            OrganizationGuid queryOrganizationId)
         {
-            AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
-
-            var currentUserGuid = _userQueries.GetByGuid(currentUserId).UserGuid;
-            var queryUserGuid = (Guid?) null;
-            if (queryUserId.HasValue)
-            {
-                queryUserGuid = _userQueries.GetById(queryUserId.Value).UserGuid;
-            }
-
+            AssertionConcern.AssertArgumentNotNull(currentUserGuid, "CurrentUserId must be provided.");
+            
             var currentUsersManagerGuids =
-                _membershipQueries.ByUserId(currentUserId.Id)
+                _membershipQueries.ByUserId(currentUserGuid.Id)
                     .Where(p => p.MembershipRole == "Chief")
                     .Select(s => s.OrganizationGuid);
             AssertionConcern.AssertArgumentNotNull(currentUsersManagerGuids,
@@ -86,7 +80,7 @@
                         // Auth restrictions
                         (
                             // current user is borrower or lessor
-                            (o.Borrower_Id == currentUserId.Id || o.Lessor_LessorId == currentUserGuid)
+                            (o.Borrower_Id == currentUserGuid.Id || o.Lessor_LessorId == currentUserGuid.Id)
                             ||
                             // Or current user is manager in lessor organization
                             (currentUsersManagerGuids.Contains(o.Lessor_LessorId))
@@ -98,11 +92,11 @@
                             ((orderId == null) || (o.Id == orderId))
                             &&
                             // and user is not queried, or borrower or lessor is query user
-                            (queryUserId == null
-                             || (o.Borrower_Id == queryUserGuid || o.Lessor_LessorId == queryUserGuid))
+                            (queryUserGuid == null
+                             || (o.Borrower_Id == queryUserGuid.Id || o.Lessor_LessorId == queryUserGuid.Id))
                             &&
                             // and organization is not queried, or lessor is query organization
-                            (queryOrganizationId == null || (o.Lessor_LessorId == queryOrganizationId))
+                            (queryOrganizationId == null || (o.Lessor_LessorId == queryOrganizationId.Id))
                             )
                         )
                 select o;
