@@ -146,6 +146,7 @@
     <Compile Include="2015\12\M201512300956CreateOrganizationsStore.cs" />
     <Compile Include="2015\12\M201512301153AddStoreToArticle.cs" />
     <Compile Include="2015\12\M201512310708DeleteColumnOrganizationCoordinate.cs" />
+    <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
     <Compile Include="2016\01\M201601131554_Create_View_Shop_Lessors.cs" />
     <Compile Include="2016\01\M201601100552RenameMembershipToAccount.cs" />

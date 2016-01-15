@@ -2,12 +2,14 @@
 {
     using System;
     using Castle.Transactions;
+    using Common.Domain.Model;
     using Cqrs;
     using Queries;
     using Repositories;
 
     public class RejectMembershipApplication
     {
+        public UserGuid InitiatorGuid { get; set; }
         public Guid ApplicationId { get; set; }
         public int InitiatorId { get; set; }
     }
@@ -29,7 +31,7 @@
 
             MemberInRole.ActiveChief(application.OrganizationId, command.InitiatorId);
 
-            organization.RejectMembershipRequest(application);
+            organization.RejectMembershipRequest(command.InitiatorGuid, application);
         }
     }
 }

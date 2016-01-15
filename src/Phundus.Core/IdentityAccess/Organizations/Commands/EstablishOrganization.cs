@@ -2,6 +2,7 @@
 {
     using System;
     using Common;
+    using Common.Domain.Model;
     using Cqrs;
     using Ddd;
     using IdentityAccess.Users.Repositories;
@@ -10,6 +11,7 @@
 
     public class EstablishOrganization
     {
+        public UserGuid InitiatorGuid { get; set; }
         public int InitiatorId { get; set; }
         public Guid OrganizationId { get; set; }
         public string Name { get; set; }
@@ -44,7 +46,7 @@
             var application = organization.RequestMembership(requestId, user);
 
             var membershipId = Guid.NewGuid();
-            organization.ApproveMembershipRequest(application, membershipId);
+            organization.ApproveMembershipRequest(command.InitiatorGuid, application, membershipId);
             organization.SetMembersRole(user, Role.Chief);
         }
     }
