@@ -23,12 +23,12 @@
                 .Where(p => p.OrganizationId == organizationId)
                 .And(p => p.ApprovalDate == null)
                 .And(p => p.RejectDate == null)
-                .JoinAlias(() => membershipApplication.User, () => user)
+                .JoinAlias(() => membershipApplication.UserGuid.Id, () => user.UserGuid)
                 .JoinAlias(() => user.Account, () => account)
                 .SelectList(list => list
                     .Select(r => r.Id).WithAlias(() => dto.Id)
                     .Select(r => r.OrganizationId).WithAlias(() => dto.OrganizationId)
-                    .Select(r => r.UserId).WithAlias(() => dto.UserId)
+                    .Select(r => r.UserGuid.Id).WithAlias(() => dto.UserGuid)
                     .Select(r => user.FirstName).WithAlias(() => dto.FirstName)
                     .Select(r => user.LastName).WithAlias(() => dto.LastName)
                     .Select(r => account.Email).WithAlias(() => dto.Email)
@@ -49,7 +49,7 @@
             {
                 Id = membershipApplication.Id,
                 OrganizationId = membershipApplication.OrganizationId,
-                UserId = membershipApplication.UserId,
+                UserGuid = membershipApplication.UserGuid.Id,
                 CreatedOn = membershipApplication.RequestDate,
                 ApprovedOn = membershipApplication.ApprovalDate,
                 RejectedOn = membershipApplication.RejectDate,
@@ -68,6 +68,8 @@
         public Guid OrganizationId { get; set; }
 
         public int UserId { get; set; }
+
+        public Guid UserGuid { get; set; }
 
         public string FirstName { get; set; }
 

@@ -10,6 +10,7 @@ namespace Phundus.IdentityAccess.Organizations.Repositories
         Guid NextIdentity();
 
         IEnumerable<Membership> ByMemberId(Guid memberId);
+        IEnumerable<Membership> ByMemberId(int memberId);
         IEnumerable<Membership> GetByOrganizationId(Guid organizationId);
     }
 }
