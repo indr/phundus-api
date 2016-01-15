@@ -1,5 +1,6 @@
 namespace phiNdus.fundus.Web.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using Helpers;
     using Models.CartModels;
@@ -8,10 +9,11 @@ namespace phiNdus.fundus.Web.ViewModels
 
     public class ShopArticleViewModel
     {
-        private CartItemModel _cartItem = new CartItemModel();
+        private CartItemModel _cartItem;
 
-        public ShopArticleViewModel(ShopArticleDetailDto dto)
+        public ShopArticleViewModel(ShopArticleDetailDto dto, Guid userGuid)
         {
+            _cartItem = new CartItemModel(userGuid);
             CartItem.ArticleId = dto.Id;
             CartItem.Amount = 1;
             CartItem.Begin = SessionAdapter.ShopBegin;

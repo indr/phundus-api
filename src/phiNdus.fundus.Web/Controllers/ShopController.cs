@@ -142,7 +142,7 @@
             if (article == null)
                 throw new HttpNotFoundException();
 
-            var model = new ShopArticleViewModel(article);
+            var model = new ShopArticleViewModel(article, CurrentUserGuid);
 
 
             if (Identity.IsAuthenticated)

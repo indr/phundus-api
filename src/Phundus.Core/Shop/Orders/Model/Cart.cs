@@ -62,7 +62,7 @@
         }
 
 
-        public virtual CartItemGuid AddItem(Article article, DateTime @from, DateTime to, int quantity)
+        public virtual CartItemGuid AddItem(Article article, DateTime fromUtc, DateTime toUtc, int quantity)
         {
             var item = new CartItem();
             item.Position = 1;
@@ -70,8 +70,8 @@
                 item.Position = Items.Max(s => s.Position) + 1;
             item.Article = article;
             item.Quantity = quantity;
-            item.From = from;
-            item.To = to;
+            item.From = fromUtc;
+            item.To = toUtc;
 
             AddItem(item);
             return item.CartItemGuid;
