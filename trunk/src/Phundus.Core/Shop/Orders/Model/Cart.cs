@@ -17,9 +17,8 @@
         private Guid _userGuid;
         private int _userId;
 
-        public Cart(UserId userId, UserGuid userGuid)
+        public Cart(InitiatorGuid initiatorGuid, UserGuid userGuid)
         {
-            _userId = userId.Id;
             _userGuid = userGuid.Id;
         }
 
@@ -44,6 +43,7 @@
             get { return Items.Count(p => p.IsAvailable == false) == 0; }
         }
 
+        [Obsolete]
         public virtual int CustomerId
         {
             get { return _userId; }

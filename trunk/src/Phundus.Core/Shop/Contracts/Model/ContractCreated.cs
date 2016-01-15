@@ -14,7 +14,7 @@
         public Guid OrganizationId { get; set; }
 
         [DataMember(Order = 3)]
-        public int BorrowerId { get; set; }
+        public Guid BorrowerId { get; set; }
 
         [DataMember(Order = 4)]
         public string BorrowerFirstName { get; set; }

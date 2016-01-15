@@ -9,18 +9,20 @@
 
     public class ChangeEmailAddress
     {
-        public ChangeEmailAddress(UserGuid initiatorGuid, string password, string newEmailAddress)
+        public ChangeEmailAddress(InitiatorGuid initiatorGuid, string password, string newEmailAddress)
         {
             if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
             if (password == null) throw new ArgumentNullException("password");
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
 
             InitiatorGuid = initiatorGuid;
+            UserGuid = new UserGuid(initiatorGuid.Id);
             Password = password;
             NewEmailAddress = newEmailAddress;
         }
 
-        public UserGuid InitiatorGuid { get; protected set; }
+        public InitiatorGuid InitiatorGuid { get; protected set; }
+        public UserGuid UserGuid { get; protected set; }
         public string Password { get; protected set; }
         public string NewEmailAddress { get; protected set; }
     }
@@ -37,13 +39,13 @@
 
         public void Handle(ChangeEmailAddress command)
         {
-            var user = _userRepository.GetByGuid(command.InitiatorGuid);
+            var user = _userRepository.GetByGuid(command.UserGuid);
 
             var emailAddress = command.NewEmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
             if (_userRepository.FindByEmailAddress(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
 
-            user.ChangeEmailAddress(command.InitiatorGuid, command.Password, command.NewEmailAddress);
+            user.ChangeEmailAddress(command.UserGuid, command.Password, command.NewEmailAddress);
         }
     }
 }

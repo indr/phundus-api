@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Tests.Shop.Orders.Commands
 {
+    using System;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
@@ -13,7 +14,7 @@
         order_handler_concern<CreateEmptyOrder, CreateEmptyOrderHandler>
     {
         public const int orderId = 3;
-        public const int userId = 4;
+        public static Guid userId = Guid.NewGuid();
         public static CurrentUserId initiatorId = new CurrentUserId(2);
 
         public Establish c = () =>

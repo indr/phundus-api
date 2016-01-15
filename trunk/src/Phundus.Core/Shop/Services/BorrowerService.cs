@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Shop.Services
 {
+    using System;
     using Common;
     using Common.Domain.Model;
     using Contracts.Model;
@@ -13,7 +14,7 @@
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        Lessee GetById(int id);
+        Lessee GetById(Guid id);
 
         /// <summary>
         /// 
@@ -28,9 +29,9 @@
     {
         public IUserQueries UserQueries { get; set; }
 
-        public Lessee GetById(int id)
+        public Lessee GetById(Guid id)
         {
-            var user = UserQueries.GetById(id);
+            var user = UserQueries.GetByGuid(new UserGuid(id));
             if (user == null)
                 throw new NotFoundException(string.Format("Lessee {0} not found.", id));
 
@@ -44,7 +45,7 @@
 
         private static Lessee ToBorrower(IUser user)
         {
-            return new Lessee(user.UserId, user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
+            return new Lessee(user.UserGuid, user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
                 user.EmailAddress, user.MobilePhone, user.JsNummer.ToString());
         }
     }

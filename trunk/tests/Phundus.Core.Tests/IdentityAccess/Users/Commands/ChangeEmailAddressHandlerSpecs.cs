@@ -12,14 +12,14 @@
     [Subject(typeof (ChangeEmailAddressHandler))]
     public class when_handling_change_email_address : handler_concern<ChangeEmailAddress, ChangeEmailAddressHandler>
     {
-        private static UserGuid theInitiatorGuid = new UserGuid();
+        private static InitiatorGuid theInitiatorGuid = new InitiatorGuid();
         private static string theNewEmailAddress = "new@test.phundus.ch";
         private static User theUser;
 
         private Establish ctx = () =>
         {
-            theUser = CreateUser(theInitiatorGuid);
-            depends.on<IUserRepository>().WhenToldTo(x => x.GetByGuid(theInitiatorGuid)).Return(theUser);
+            theUser = CreateUser(new UserGuid(theInitiatorGuid.Id));
+            depends.on<IUserRepository>().WhenToldTo(x => x.GetByGuid(new UserGuid(theInitiatorGuid.Id))).Return(theUser);
             command = new ChangeEmailAddress(theInitiatorGuid, "1234", theNewEmailAddress);
         };
 

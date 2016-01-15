@@ -10,7 +10,13 @@
         [Obsolete]
         Cart GetById(object id);
         
+        [Obsolete]
         Cart FindByUserId(UserId userId);
+
+        [Obsolete]
         Cart GetByUserId(UserId userId);
+
+        Cart GetByUserGuid(UserGuid userGuid);
+        Cart FindByUserGuid(UserGuid userGuid);
     }
 }

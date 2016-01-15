@@ -8,7 +8,7 @@
     public class cart_concern
     {
         protected static Cart sut;
-        protected static UserId theUserId = new UserId(1001);
+        protected static InitiatorGuid theInitiatorId = new InitiatorGuid();
         protected static UserGuid theUserGuid = new UserGuid(Guid.NewGuid());
 
         private Establish ctx = () =>
@@ -21,7 +21,7 @@
 
         protected static Cart CreateEmptyCart()
         {
-            return new Cart(theUserId, theUserGuid);
+            return new Cart(theInitiatorId, theUserGuid);
         }
 
         protected static Article CreateArticle(int? articleId = null, Owner owner = null,
@@ -51,7 +51,7 @@
         private Because of = () => sut = CreateEmptyCart();
 
         private It should_be_empty = () => sut.IsEmpty.ShouldBeTrue();
-        private It should_have_the_user_id = () => sut.CustomerId.ShouldEqual(theUserId.Id);
+        private It should_have_the_user_id = () => sut.UserGuid.ShouldEqual(theUserGuid.Id);
     }
 
     [Subject(typeof (Cart))]

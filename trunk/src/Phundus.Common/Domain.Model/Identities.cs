@@ -42,7 +42,7 @@
         }
     }
 
-    public class CurrentUserGuid : UserGuid
+    public class CurrentUserGuid : InitiatorGuid
     {
         public CurrentUserGuid()
         {
@@ -53,9 +53,24 @@
         }
     }
 
-    public class LesseeId : Identity<int>
+    public class InitiatorGuid : GuidIdentity
     {
-        public LesseeId(int id) : base(id)
+        public InitiatorGuid()
+        {
+        }
+
+        public InitiatorGuid(Guid id) : base(id)
+        {
+        }
+    }
+
+    public class LesseeId : GuidIdentity
+    {
+        public LesseeId()
+        {
+        }
+
+        public LesseeId(Guid id) : base(id)
         {
         }
     }

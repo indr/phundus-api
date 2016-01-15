@@ -131,7 +131,6 @@
     <Compile Include="Shop\Orders\Commands\CloseOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\ConfirmOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\contract_handler_concern.cs" />
-    <Compile Include="Shop\Orders\Commands\CreateEmptyContractHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\CreateEmptyOrderHandlerSpecs.cs" />
     <Compile Include="Mock.cs" />
     <Compile Include="Shop\Orders\Commands\order_handler_concern.cs" />

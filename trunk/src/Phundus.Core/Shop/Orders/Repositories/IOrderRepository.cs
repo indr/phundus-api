@@ -9,7 +9,7 @@
     {
         Order GetById(int orderId);
 
-        ICollection<Order> FindByUserId(int userId);
+        ICollection<Order> FindByUserId(Guid userId);
         
         IEnumerable<Order> FindByOrganizationId(Guid organizationId);
         IEnumerable<Order> FindByOrganizationId(Guid organizationId, OrderStatus status);
