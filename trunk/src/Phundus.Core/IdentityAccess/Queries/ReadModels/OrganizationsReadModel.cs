@@ -14,11 +14,16 @@
 
         public IEnumerable<OrganizationDto> ByMemberId(int memberId)
         {
+            throw new NotImplementedException();    
+        }
+
+        public IEnumerable<OrganizationDto> ByMemberId(Guid memberId)
+        {
             Organization orgAlias = null;
             Membership memberAlias = null;
             var query = Session.QueryOver(() => orgAlias)
                 .JoinAlias(() => orgAlias.Memberships, () => memberAlias)
-                .Where(() => memberAlias.UserId == memberId);
+                .Where(() => memberAlias.UserGuid.Id == memberId);
 
             var result = new List<OrganizationDto>();
             foreach (var each in query.List())

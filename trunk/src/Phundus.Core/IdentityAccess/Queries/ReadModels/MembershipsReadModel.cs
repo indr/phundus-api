@@ -36,8 +36,8 @@
         {
             return new MembershipDto
             {
-                Id = each.Id,
-                MemberId = each.UserId,
+                Id = each.Id,                
+                UserGuid = each.UserGuid.Id,
                 OrganizationGuid = each.Organization.Id,
                 OrganizationName = each.Organization.Name,
                 OrganizationUrl = each.Organization.Url,
@@ -52,6 +52,7 @@
     {
         public Guid Id { get; set; }
         public int MemberId { get; set; }
+        public Guid UserGuid { get; set; }
         public Guid OrganizationGuid { get; set; }
         public string OrganizationName { get; set; }
         public string OrganizationUrl { get; set; }
