@@ -18,10 +18,6 @@
 
     public class CartGuid : GuidIdentity
     {
-        public CartGuid() : base(Guid.NewGuid())
-        {
-            
-        }
     }
 
     public class CartItemId : Identity<int>
@@ -30,11 +26,11 @@
 
     public class CartItemGuid : GuidIdentity
     {
-        public CartItemGuid(Guid id) : base(id)
+        public CartItemGuid()
         {
         }
 
-        public CartItemGuid() : base(Guid.NewGuid())
+        public CartItemGuid(Guid id) : base(id)
         {
         }
     }
@@ -48,6 +44,10 @@
 
     public class CurrentUserGuid : UserGuid
     {
+        public CurrentUserGuid()
+        {
+        }
+
         public CurrentUserGuid(Guid id) : base(id)
         {
         }
@@ -62,23 +62,11 @@
 
     public class LessorId : GuidIdentity
     {
+        public LessorId()
+        {
+        }
+
         public LessorId(Guid id) : base(id)
-        {
-        }
-
-        public LessorId() : base(Guid.NewGuid())
-        {
-        }
-    }
-
-    public class OwnerId : GuidIdentity
-    {
-        public OwnerId(Guid id)
-            : base(id)
-        {
-        }
-
-        public OwnerId() : base(Guid.NewGuid())
         {
         }
     }
@@ -94,10 +82,33 @@
         }
     }
 
+    public class OrganizationGuid : GuidIdentity
+    {
+        public OrganizationGuid()
+        {
+        }
+
+        public OrganizationGuid(Guid id)
+            : base(id)
+        {
+        }
+    }
+
+    public class OwnerId : GuidIdentity
+    {
+        public OwnerId()
+        {
+        }
+
+        public OwnerId(Guid id)
+            : base(id)
+        {
+        }
+    }
+
     public class StoreId : GuidIdentity
     {
         public StoreId()
-            : base(Guid.NewGuid())
         {
         }
 
@@ -120,7 +131,7 @@
 
     public class UserGuid : GuidIdentity
     {
-        public UserGuid() : base(Guid.NewGuid())
+        public UserGuid()
         {
         }
 
