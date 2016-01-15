@@ -43,8 +43,16 @@
         {
             var domainEventType = Type.GetType(storedEvent.TypeName, true);
 
-            return (DomainEvent) Serializer.Deserialize(domainEventType, storedEvent.EventGuid,
-                storedEvent.OccuredOnUtc, storedEvent.Serialization);
+            try
+            {
+                return (DomainEvent) Serializer.Deserialize(domainEventType, storedEvent.EventGuid,
+                    storedEvent.OccuredOnUtc, storedEvent.Serialization);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(String.Format(@"Error deserializing event {0}, event type name ""{1}"", resolved domain event type ""{2}"".",
+                    storedEvent.EventGuid, storedEvent.TypeName, domainEventType.FullName + ", " + domainEventType.Assembly.GetName().Name), ex);
+            }
         }
 
         protected StoredEvent ToStoredEvent(DomainEvent domainEvent)
