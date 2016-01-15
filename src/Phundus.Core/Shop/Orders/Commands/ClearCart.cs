@@ -7,13 +7,13 @@
 
     public class ClearCart : ICommand
     {
-        public ClearCart(UserId initiatorId)
+        public ClearCart(InitiatorGuid initiatorGuid)
         {
-            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
-            InitiatorId = initiatorId;
+            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
+            InitiatorGuid = initiatorGuid;
         }
 
-        public UserId InitiatorId { get; protected set; }
+        public InitiatorGuid InitiatorGuid { get; protected set; }
     }
 
     public class ClearCartHandler : IHandleCommand<ClearCart>
@@ -28,7 +28,7 @@
 
         public void Handle(ClearCart command)
         {
-            var cart = _cartRepository.FindByUserId(command.InitiatorId);
+            var cart = _cartRepository.FindByUserGuid(new UserGuid(command.InitiatorGuid.Id));
             if (cart == null)
                 return;
 

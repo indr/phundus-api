@@ -43,7 +43,7 @@ namespace Phundus.Rest.Api.Users
             if (userGuid != CurrentUserGuid.Id)
                 throw new ArgumentException("userGuid");
 
-            Dispatch(new ClearCart(CurrentUserId));
+            Dispatch(new ClearCart(CurrentUserGuid));
 
             return NoContent();
         }
