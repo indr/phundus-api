@@ -7,14 +7,29 @@
     [DataContract]
     public class UserApproved : DomainEvent
     {
-        public UserApproved(User initiator, User user)
+        public UserApproved(UserGuid initiator, UserGuid user)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (user == null) throw new ArgumentNullException("user");
+
+            InitiatorGuid = initiator.Id;
+            UserGuid = user.Id;
         }
 
         protected UserApproved()
         {
         }
+
+        [Obsolete]
+        public UserApproved(User initiator, User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        [DataMember(Order = 1)]
+        public Guid InitiatorGuid { get; protected set; }
+
+        [DataMember(Order = 2)]
+        public Guid UserGuid { get; protected set; }
     }
 }
