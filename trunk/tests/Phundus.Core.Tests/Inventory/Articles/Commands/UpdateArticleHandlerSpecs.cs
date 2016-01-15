@@ -36,7 +36,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
 
         private It should_ask_for_chief_privileges = () => memberInRole.WasToldTo(x => x.ActiveChief(ownerId, initiatorId));
 
-        private It should_publich_article_updated =
+        private It should_publish_article_updated =
             () => publisher.WasToldTo(x => x.Publish(Arg<ArticleUpdated>.Is.NotNull));
     }
 }

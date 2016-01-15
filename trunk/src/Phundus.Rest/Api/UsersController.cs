@@ -68,7 +68,7 @@ namespace Phundus.Rest.Api
             if ((user == null) || (user.UserGuid != CurrentUserGuid.Id))
                 throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
 
-            var memberships = _membershipQueries.ByUserId(user.UserId);
+            var memberships = _membershipQueries.ByUserId(user.UserGuid);
             var store = _storeQueries.FindByOwnerId(new OwnerId(user.UserGuid));
 
             return new UsersGetOkResponseContent(user, memberships, store);
@@ -121,7 +121,6 @@ namespace Phundus.Rest.Api
 
         public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipDto> memberships, StoreDto store)
         {
-            UserId = user.UserId.ToString(CultureInfo.InvariantCulture);
             UserGuid = user.UserGuid;
             Username = user.EmailAddress;
             FullName = user.FirstName + " " + user.LastName;

@@ -12,11 +12,6 @@
     {
         public IOrganizationRepository OrganizationRepository { get; set; }
 
-        public IEnumerable<OrganizationDto> ByMemberId(int memberId)
-        {
-            throw new NotImplementedException();    
-        }
-
         public IEnumerable<OrganizationDto> ByMemberId(Guid memberId)
         {
             Organization orgAlias = null;
