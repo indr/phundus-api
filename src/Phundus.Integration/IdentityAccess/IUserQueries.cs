@@ -23,6 +23,7 @@
         /// <exception cref="NotFoundException"></exception>
         IUser GetById(UserId userId);
 
+        IUser GetByGuid(Guid guid);
         IUser GetByGuid(UserGuid userGuid);
 
         IUser FindById(int userId);

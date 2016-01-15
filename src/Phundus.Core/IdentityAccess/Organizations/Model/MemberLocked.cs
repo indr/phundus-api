@@ -7,7 +7,7 @@
     [DataContract]
     public class MemberLocked : DomainEvent
     {
-        public MemberLocked(Guid organizationId, int memberId)
+        public MemberLocked(Guid organizationId, Guid memberId)
         {
             OrganizationId = organizationId;
             MemberId = memberId;
@@ -21,6 +21,6 @@
         public Guid OrganizationId { get; protected set; }
 
         [DataMember(Order = 2)]
-        public int MemberId { get; protected set; }
+        public Guid MemberId { get; protected set; }
     }
 }

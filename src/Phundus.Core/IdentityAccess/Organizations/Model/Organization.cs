@@ -139,7 +139,7 @@
             var membership = GetMembershipOfUser(member);
             membership.Lock();
 
-            EventPublisher.Publish(new MemberLocked(Id, member.Id));
+            EventPublisher.Publish(new MemberLocked(Id, member.Guid));
         }
 
         public virtual void UnlockMember(User member)
@@ -147,7 +147,7 @@
             var membership = GetMembershipOfUser(member);
             membership.Unlock();
 
-            EventPublisher.Publish(new MemberUnlocked(Id, member.Id));
+            EventPublisher.Publish(new MemberUnlocked(Id, member.Guid));
         }
 
         public virtual void ChangeStartpage(UserGuid initiatorId, string startpage)

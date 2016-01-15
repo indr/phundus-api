@@ -32,7 +32,7 @@
 
         public void Handle(MemberLocked @event)
         {
-            var user = _userQueries.GetById(@event.MemberId);
+            var user = _userQueries.GetByGuid(@event.MemberId);
             var organization = _organizationQueries.GetById(@event.OrganizationId);
 
             Model = new
@@ -49,8 +49,8 @@
 
         public void Handle(MembershipApplicationApproved @event)
         {
-            var user = _userQueries.GetById(@event.UserId);
-            var organization = _organizationQueries.GetById(@event.OrganizationId);
+            var user = _userQueries.GetByGuid(@event.UserGuid);
+            var organization = _organizationQueries.GetById(@event.OrganizationGuid);
 
             Model = new
             {
@@ -66,9 +66,9 @@
 
         public void Handle(MembershipApplicationFiled @event)
         {
-            var user = _userQueries.GetById(@event.UserId);
-            var organization = _organizationQueries.GetById(@event.OrganizationId);
-            var chiefs = _memberWithRole.Manager(@event.OrganizationId);
+            var user = _userQueries.GetByGuid(@event.UserGuid);
+            var organization = _organizationQueries.GetById(@event.OrganizationGuid);
+            var chiefs = _memberWithRole.Manager(@event.OrganizationGuid);
 
             var recipients = chiefs.Select(p => p.EmailAddress).ToList();
 
@@ -86,8 +86,8 @@
 
         public void Handle(MembershipApplicationRejected @event)
         {
-            var user = _userQueries.GetById(@event.UserId);
-            var organization = _organizationQueries.GetById(@event.OrganizationId);
+            var user = _userQueries.GetByGuid(@event.UserGuid);
+            var organization = _organizationQueries.GetById(@event.OrganizationGuid);
 
             Model = new
             {
@@ -103,7 +103,7 @@
 
         public void Handle(MemberUnlocked @event)
         {
-            var user = _userQueries.GetById(@event.MemberId);
+            var user = _userQueries.GetByGuid(@event.MemberId);
             var organization = _organizationQueries.GetById(@event.OrganizationId);
 
             Model = new

@@ -7,7 +7,7 @@ namespace Phundus.IdentityAccess.Organizations.Model
     [DataContract]
     public class MemberUnlocked : DomainEvent
     {
-        public MemberUnlocked(Guid organizationId, int memberId)
+        public MemberUnlocked(Guid organizationId, Guid memberId)
         {
             OrganizationId = organizationId;
             MemberId = memberId;
@@ -21,6 +21,6 @@ namespace Phundus.IdentityAccess.Organizations.Model
         public Guid OrganizationId { get; protected set; }
 
         [DataMember(Order = 2)]
-        public int MemberId { get; protected set; }
+        public Guid MemberId { get; protected set; }
     }
 }

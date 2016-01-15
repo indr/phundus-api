@@ -27,6 +27,11 @@
             return result;
         }
 
+        public IUser GetByGuid(Guid guid)
+        {
+            return GetByGuid(new UserGuid(guid));
+        }
+
         public IUser GetByGuid(UserGuid userGuid)
         {
             var result = FindByGuid(userGuid);
