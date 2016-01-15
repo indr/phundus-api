@@ -14,9 +14,9 @@ namespace Phundus.Persistence.IdentityAndAccess.Repositories
             return Guid.NewGuid();
         }
 
-        public IEnumerable<Membership> ByMemberId(int memberId)
+        public IEnumerable<Membership> ByMemberId(Guid memberId)
         {
-            return Entities.Where(p => p.UserId == memberId).ToFuture();
+            return Entities.Where(p => p.UserGuid.Id == memberId).ToFuture();
         }
 
         public IEnumerable<Membership> GetByOrganizationId(Guid organizationId)

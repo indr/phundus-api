@@ -80,32 +80,32 @@
 
         public virtual MembershipApplication RequestMembership(Guid applicationId, User user)
         {
-            var request = new MembershipApplication(applicationId, Id, user);
+            var request = new MembershipApplication(applicationId, Id, user.UserGuid);
 
             EventPublisher.Publish(new MembershipApplicationFiled(Id, user.Id));
 
             return request;
         }
 
-        public virtual void ApproveMembershipRequest(MembershipApplication application, Guid membershipId)
+        public virtual void ApproveMembershipRequest(UserGuid initiatorGuid, MembershipApplication application, Guid membershipId)
         {
             var membership = application.Approve(membershipId);
             membership.Organization = this;
             Memberships.Add(membership);
 
-            EventPublisher.Publish(new MembershipApplicationApproved(Id, application.UserId));
+            EventPublisher.Publish(new MembershipApplicationApproved(initiatorGuid, Id, application.UserGuid));
         }
 
-        public virtual void RejectMembershipRequest(MembershipApplication application)
+        public virtual void RejectMembershipRequest(UserGuid initiatorGuid, MembershipApplication application)
         {
             application.Reject();
 
-            EventPublisher.Publish(new MembershipApplicationRejected(Id, application.UserId));
+            EventPublisher.Publish(new MembershipApplicationRejected(initiatorGuid, Id, application.UserGuid));
         }
 
         protected virtual Membership GetMembershipOfUser(User user)
         {
-            var membership = Memberships.FirstOrDefault(p => p.UserId == user.Id);
+            var membership = Memberships.FirstOrDefault(p => p.UserGuid.Id == user.Guid);
             if (membership == null)
                 throw new Exception("Membership not found");
 

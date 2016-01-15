@@ -13,7 +13,8 @@
             Id(x => x.Id).GeneratedBy.Assigned();
             Version(x => x.Version);
 
-            Map(x => x.UserId);
+            //Map(x => x.UserId, "UserId");
+            Component(x => x.UserGuid, a => a.Map(x => x.Id, "UserGuid"));
 
             References(x => x.Organization, "OrganizationGuid").Cascade.None();
             //Map(x => x.OrganizationGuid, "OrganizationGuid");

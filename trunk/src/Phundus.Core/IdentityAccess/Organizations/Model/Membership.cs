@@ -1,27 +1,28 @@
 ﻿namespace Phundus.IdentityAccess.Organizations.Model
 {
     using System;
+    using Common.Domain.Model;
 
     public class Membership
     {
-        private Guid _id;
-        private int _userId;
-        private Guid _requestId;
-        private int _version;
-        private Role _role;
         private DateTime _approvalDate;
-        private Organization _organization;
+        private Guid _id;
         private bool _isLocked;
+        private Organization _organization;
         private Guid _organizationGuid;
+        private Guid _requestId;
+        private Role _role;
+        private UserGuid _userGuid;
+        private int _version;
 
         protected Membership()
         {
         }
 
-        public Membership(Guid id, int userId, Guid requestId, DateTime approvalDate, Guid organizationGuid)
+        public Membership(Guid id, UserGuid userGuid, Guid requestId, DateTime approvalDate, Guid organizationGuid)
         {
             _id = id;
-            _userId = userId;
+            _userGuid = userGuid;
             _requestId = requestId;
             _role = Role.Member;
             _approvalDate = approvalDate;
@@ -47,10 +48,10 @@
             protected set { _version = value; }
         }
 
-        public virtual int UserId
+        public UserGuid UserGuid
         {
-            get { return _userId; }
-            protected set { _userId = value; }
+            get { return _userGuid; }
+            protected set { _userGuid = value; }
         }
 
         public virtual Guid RequestId

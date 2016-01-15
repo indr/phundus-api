@@ -2,12 +2,14 @@
 {
     using System;
     using Castle.Transactions;
+    using Common.Domain.Model;
     using Cqrs;
     using Queries;
     using Repositories;
 
     public class ApproveMembershipApplication
     {
+        public UserGuid InitiatorGuid { get; set; }
         public Guid ApplicationId { get; set; }
         public int InitiatorId { get; set; }
     }
@@ -31,7 +33,7 @@
 
             MemberInRole.ActiveChief(application.OrganizationId, command.InitiatorId);
 
-            organization.ApproveMembershipRequest(application, Memberships.NextIdentity());
+            organization.ApproveMembershipRequest(command.InitiatorGuid, application, Memberships.NextIdentity());
         }
     }
 }
