@@ -18,19 +18,6 @@ namespace Phundus.Web.Controllers
 
         public ICommandDispatcher Dispatcher { get; set; }
 
-        protected int CurrentUserId
-        {
-            get
-            {
-                var user = Membership.GetUser();
-                if (user == null)
-                    throw new AuthenticationException();
-
-                var userKey = new ProviderUserKey(user.ProviderUserKey);
-                return userKey.UserId.Id;
-            }
-        }
-
         protected Guid CurrentUserGuid
         {
             get

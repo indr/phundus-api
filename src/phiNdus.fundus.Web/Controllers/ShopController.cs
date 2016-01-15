@@ -4,11 +4,10 @@
     using System.Linq;
     using System.Web.Mvc;
     using Castle.Transactions;
+    using Common.Domain.Model;
     using IdentityAccess.Queries;
     using Inventory.Queries;
-    using phiNdus.fundus.Web.Models.CartModels;
     using phiNdus.fundus.Web.ViewModels;
-    using Shop.Orders;
     using Shop.Queries;
 
     public class ShopController : ControllerBase
@@ -145,9 +144,8 @@
 
             if (Identity.IsAuthenticated)
             {
-                var currentUserId = CurrentUserId;
                 model.CanUserAddToCart = MemberInRole.IsActiveMember(model.Article.OrganizationId,
-                    currentUserId);
+                    new UserGuid(CurrentUserGuid));
             }
 
             model.Availabilities = AvailabilityQueries.GetAvailability(id).ToList();
