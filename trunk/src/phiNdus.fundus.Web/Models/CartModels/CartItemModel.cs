@@ -8,6 +8,7 @@ using phiNdus.fundus.Web.ViewModels;
 namespace phiNdus.fundus.Web.Models.CartModels
 {
     using Phundus.Shop.Queries;
+    using Phundus.Web.Models.CartModels;
 
     public class CartItemModel : ViewModelBase
     {

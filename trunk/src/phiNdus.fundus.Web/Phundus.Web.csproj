@@ -223,6 +223,7 @@
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="HttpNotFoundException.cs" />
+    <Compile Include="Models\CartModels\CartItemDto.cs" />
     <Compile Include="Models\ManagementModel.cs" />
     <Compile Include="Security\WindsorMembershipProvider.cs" />
     <Compile Include="Security\WebWindsorRoleProvider.cs" />
