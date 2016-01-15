@@ -117,6 +117,7 @@
     <Compile Include="IdentityAccess\Organizations\Commands\LockMember.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\RejectMembershipApplication.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UnlockMember.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\UpdateStartpage.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UpdateOrganizationDetails.cs" />
     <Compile Include="IdentityAccess\Organizations\Exceptions\AttemptToLockOneselfException.cs" />
     <Compile Include="IdentityAccess\Organizations\Exceptions\MembershipApplicationNotFoundException.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="IdentityAccess\Organizations\Model\OrganizationPlan.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\OrganizationUpdated.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\Role.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\StartpageChanged.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IOrganizationRepository.cs" />

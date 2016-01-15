@@ -5,6 +5,7 @@ namespace Phundus.Tests
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using Phundus.Ddd;
+    using Rhino.Mocks;
 
     public abstract class concern<TClass> : Observes<TClass> where TClass : class
     {

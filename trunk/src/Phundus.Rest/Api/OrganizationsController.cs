@@ -110,7 +110,6 @@
                 EmailAddress = value.EmailAddress,
                 InitiatorId = CurrentUserId.Id,
                 OrganizationId = organizationId,
-                Startpage = value.Startpage,
                 Website = value.Website
             });
 
