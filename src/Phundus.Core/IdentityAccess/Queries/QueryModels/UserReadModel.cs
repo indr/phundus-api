@@ -27,6 +27,14 @@
             return result;
         }
 
+        public IUser GetByGuid(UserGuid userGuid)
+        {
+            var result = FindByGuid(userGuid);
+            if (result == null)
+                throw new NotFoundException("User {0} not found.", userGuid);
+            return result;
+        }
+
         public IUser FindById(int userId)
         {
             return QueryOver()
@@ -39,6 +47,11 @@
             return QueryOver()
                 .Where(p => p.UserGuid == userGuid)
                 .List().SingleOrDefault();
+        }
+
+        public IUser FindByGuid(UserGuid userGuid)
+        {
+            return FindById(userGuid.Id);
         }
 
         public IUser FindByUsername(string username)

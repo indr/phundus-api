@@ -60,12 +60,12 @@ namespace Phundus.Rest.Api
             return new UsersPostOkResponseContent {UserId = command.ResultingUserId, UserGuid = command.ResultingUserGuid};
         }
 
-        [GET("{userId}")]
+        [GET("{userGuid}")]
         [Transaction]
-        public virtual UsersGetOkResponseContent Get(int userId)
+        public virtual UsersGetOkResponseContent Get(Guid userGuid)
         {
-            var user = _userQueries.GetById(userId);
-            if ((user == null) || (user.UserId != CurrentUserId.Id))
+            var user = _userQueries.GetByGuid(new UserGuid(userGuid));
+            if ((user == null) || (user.UserGuid != CurrentUserGuid.Id))
                 throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
 
             var memberships = _membershipQueries.ByUserId(user.UserId);
