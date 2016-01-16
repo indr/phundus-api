@@ -1,10 +1,11 @@
 namespace Phundus.Rest.ContentObjects
 {
     using System;
+    using Newtonsoft.Json;
 
     public class Member
     {
-        public int Id { get; set; }
+        [JsonProperty("memberId")]
         public Guid Guid { get; set; }
         public int MemberVersion { get; set; }
         public int MembershipVersion { get; set; }

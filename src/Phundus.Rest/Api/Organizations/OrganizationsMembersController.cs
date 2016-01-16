@@ -43,7 +43,6 @@
                 FirstName = s.FirstName,
                 FullName = s.FullName,
                 Guid = s.Guid,
-                Id=s.Id,
                 IsLocked = s.IsLocked,
                 IsManager = s.Role == 2,
                 JsNumber = s.JsNumber,

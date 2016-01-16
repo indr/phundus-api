@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dashboard\EventLogRecordMap.cs" />
+    <Compile Include="IdentityAndAccess\Mappings\MembershipApplicationViewRowMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\UserViewRowMap.cs" />
     <Compile Include="Inventory\Mappings\StoreMap.cs" />
     <Compile Include="Inventory\Repositories\NhStoreRepository.cs" />
