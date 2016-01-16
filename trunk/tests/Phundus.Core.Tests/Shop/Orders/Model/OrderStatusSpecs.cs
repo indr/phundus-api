@@ -11,72 +11,72 @@
 
     public abstract class pending_order_concern : order_concern
     {
-        public Establish ctx = () => { order = OrderFactory.CreatePending(); };
+        public Establish ctx = () => { sut = OrderFactory.CreatePending(); };
     }
 
     [Subject(typeof (Order))]
     public class when_a_pending_order_is_approved : pending_order_concern
     {
-        public Because of = () => order.Approve(modifierId);
+        public Because of = () => sut.Approve(theInitiatorId);
 
         public It should_be_modified_by =
-            () => order.ModifiedBy.ShouldEqual(modifierId);
+            () => sut.ModifiedBy.ShouldEqual(theInitiatorId);
 
         public It should_be_modified_on =
-            () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            () => sut.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
-        public It should_have_status_approved = () => order.Status.ShouldEqual(OrderStatus.Approved);
+        public It should_have_status_approved = () => sut.Status.ShouldEqual(OrderStatus.Approved);
 
         public It should_publish_order_approved =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderApproved>.Matches(p => p.OrderId == order.Id)));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderApproved>.Matches(p => p.OrderId == sut.Id)));
     }
 
     [Subject(typeof (Order))]
     public class when_a_pending_order_is_rejected : pending_order_concern
     {
-        public Because of = () => order.Reject(modifierId);
+        public Because of = () => sut.Reject(theInitiatorId);
 
         public It should_be_modified_by =
-            () => order.ModifiedBy.ShouldEqual(modifierId);
+            () => sut.ModifiedBy.ShouldEqual(theInitiatorId);
 
         public It should_be_modified_on =
-            () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            () => sut.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
-        public It should_have_status_rejected = () => order.Status.ShouldEqual(OrderStatus.Rejected);
+        public It should_have_status_rejected = () => sut.Status.ShouldEqual(OrderStatus.Rejected);
 
         public It should_publish_order_rejected =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Matches(p => p.OrderId == order.Id)));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Matches(p => p.OrderId == sut.Id)));
     }
 
     [Subject(typeof (Order))]
     public class when_a_pending_order_is_closed : pending_order_concern
     {
-        public Because of = () => order.Close(modifierId);
+        public Because of = () => sut.Close(theInitiatorId);
 
         public It should_be_modified_by =
-            () => order.ModifiedBy.ShouldEqual(modifierId);
+            () => sut.ModifiedBy.ShouldEqual(theInitiatorId);
 
         public It should_be_modified_on =
-            () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            () => sut.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
-        public It should_have_status_closed = () => order.Status.ShouldEqual(OrderStatus.Closed);
+        public It should_have_status_closed = () => sut.Status.ShouldEqual(OrderStatus.Closed);
 
         public It should_publish_order_closed =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderClosed>.Matches(p => p.OrderId == order.Id)));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderClosed>.Matches(p => p.OrderId == sut.Id)));
     }
 
 
     public abstract class approved_order_concern : order_concern
     {
-        public Establish ctx = () => { order = OrderFactory.CreateApproved(); };
+        public Establish ctx = () => { sut = OrderFactory.CreateApproved(); };
     }
 
     [Subject(typeof (Order))]
     public class when_a_approved_order_is_approved : approved_order_concern
     {
-        public Because of = () => spec.catch_exception(() => order.Approve(modifierId));
+        public Because of = () => spec.catch_exception(() => sut.Approve(theInitiatorId));
 
-        public It should_retain_status_approved = () => order.Status.ShouldEqual(OrderStatus.Approved);
+        public It should_retain_status_approved = () => sut.Status.ShouldEqual(OrderStatus.Approved);
 
         public It should_throw_order_already_approved =
             () => spec.exception_thrown.ShouldBeAn<OrderAlreadyApprovedException>();
@@ -85,49 +85,49 @@
     [Subject(typeof (Order))]
     public class when_a_approved_order_is_closed : approved_order_concern
     {
-        public Because of = () => order.Close(modifierId);
+        public Because of = () => sut.Close(theInitiatorId);
 
         public It should_be_modified_by =
-            () => order.ModifiedBy.ShouldEqual(modifierId);
+            () => sut.ModifiedBy.ShouldEqual(theInitiatorId);
 
         public It should_be_modified_on =
-            () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            () => sut.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
-        public It should_have_status_closed = () => order.Status.ShouldEqual(OrderStatus.Closed);
+        public It should_have_status_closed = () => sut.Status.ShouldEqual(OrderStatus.Closed);
 
         public It should_publish_order_closed =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderClosed>.Matches(p => p.OrderId == order.Id)));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderClosed>.Matches(p => p.OrderId == sut.Id)));
     }
 
     [Subject(typeof (Order))]
     public class when_a_approved_order_is_rejected : approved_order_concern
     {
-        public Because of = () => order.Reject(modifierId);
+        public Because of = () => sut.Reject(theInitiatorId);
 
         public It should_be_modified_by =
-            () => order.ModifiedBy.ShouldEqual(modifierId);
+            () => sut.ModifiedBy.ShouldEqual(theInitiatorId);
 
         public It should_be_modified_on =
-            () => order.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            () => sut.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
-        public It should_have_status_rejected = () => order.Status.ShouldEqual(OrderStatus.Rejected);
+        public It should_have_status_rejected = () => sut.Status.ShouldEqual(OrderStatus.Rejected);
 
         public It should_publish_order_rejected =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Matches(p => p.OrderId == order.Id)));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Matches(p => p.OrderId == sut.Id)));
     }
 
 
     public abstract class rejected_order_concern : order_concern
     {
-        public Establish ctx = () => { order = OrderFactory.CreateRejected(); };
+        public Establish ctx = () => { sut = OrderFactory.CreateRejected(); };
     }
 
     [Subject(typeof (Order))]
     public class when_a_rejected_order_is_approved : rejected_order_concern
     {
-        public Because of = () => spec.catch_exception(() => order.Approve(modifierId));
+        public Because of = () => spec.catch_exception(() => sut.Approve(theInitiatorId));
 
-        public It should_retain_status_rejected = () => order.Status.ShouldEqual(OrderStatus.Rejected);
+        public It should_retain_status_rejected = () => sut.Status.ShouldEqual(OrderStatus.Rejected);
 
         public It should_throw_order_already_rejected =
             () => spec.exception_thrown.ShouldBeAn<OrderAlreadyRejectedException>();
@@ -136,9 +136,9 @@
     [Subject(typeof (Order))]
     public class when_a_rejected_order_is_rejected : rejected_order_concern
     {
-        public Because of = () => spec.catch_exception(() => order.Reject(modifierId));
+        public Because of = () => spec.catch_exception(() => sut.Reject(theInitiatorId));
 
-        public It should_retain_status_rejected = () => order.Status.ShouldEqual(OrderStatus.Rejected);
+        public It should_retain_status_rejected = () => sut.Status.ShouldEqual(OrderStatus.Rejected);
 
         public It should_throw_order_already_rejected =
             () => spec.exception_thrown.ShouldBeAn<OrderAlreadyRejectedException>();
@@ -147,9 +147,9 @@
     [Subject(typeof (Order))]
     public class when_a_rejected_order_is_closed : rejected_order_concern
     {
-        public Because of = () => spec.catch_exception(() => order.Close(modifierId));
+        public Because of = () => spec.catch_exception(() => sut.Close(theInitiatorId));
 
-        public It should_retain_status_rejected = () => order.Status.ShouldEqual(OrderStatus.Rejected);
+        public It should_retain_status_rejected = () => sut.Status.ShouldEqual(OrderStatus.Rejected);
 
         public It should_throw_order_already_rejected =
             () => spec.exception_thrown.ShouldBeAn<OrderAlreadyRejectedException>();
@@ -158,15 +158,15 @@
 
     public abstract class closed_order_concern : order_concern
     {
-        public Establish ctx = () => { order = OrderFactory.CreateClosed(); };
+        public Establish ctx = () => { sut = OrderFactory.CreateClosed(); };
     }
 
     [Subject(typeof (Order))]
     public class when_a_closed_order_is_approved : closed_order_concern
     {
-        public Because of = () => spec.catch_exception(() => order.Approve(modifierId));
+        public Because of = () => spec.catch_exception(() => sut.Approve(theInitiatorId));
 
-        public It should_retain_status_closed = () => order.Status.ShouldEqual(OrderStatus.Closed);
+        public It should_retain_status_closed = () => sut.Status.ShouldEqual(OrderStatus.Closed);
 
         public It should_throw_order_already_closed =
             () => spec.exception_thrown.ShouldBeAn<OrderAlreadyClosedException>();
@@ -175,9 +175,9 @@
     [Subject(typeof (Order))]
     public class when_a_closed_order_is_rejected : closed_order_concern
     {
-        public Because of = () => spec.catch_exception(() => order.Reject(modifierId));
+        public Because of = () => spec.catch_exception(() => sut.Reject(theInitiatorId));
 
-        public It should_retain_status_closed = () => order.Status.ShouldEqual(OrderStatus.Closed);
+        public It should_retain_status_closed = () => sut.Status.ShouldEqual(OrderStatus.Closed);
 
         public It should_throw_order_already_closed =
             () => spec.exception_thrown.ShouldBeAn<OrderAlreadyClosedException>();
@@ -186,9 +186,9 @@
     [Subject(typeof (Order))]
     public class when_a_closed_order_is_closed : closed_order_concern
     {
-        public Because of = () => spec.catch_exception(() => order.Close(modifierId));
+        public Because of = () => spec.catch_exception(() => sut.Close(theInitiatorId));
 
-        public It should_retain_status_closed = () => order.Status.ShouldEqual(OrderStatus.Closed);
+        public It should_retain_status_closed = () => sut.Status.ShouldEqual(OrderStatus.Closed);
 
         public It should_throw_order_already_closed =
             () => spec.exception_thrown.ShouldBeAn<OrderAlreadyClosedException>();

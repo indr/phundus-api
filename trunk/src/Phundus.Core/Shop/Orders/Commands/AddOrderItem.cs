@@ -15,7 +15,7 @@
         public DateTime FromUtc { get; set; }
         public DateTime ToUtc { get; set; }
         public int Amount { get; set; }
-        public Guid OrderItemId { get; set; }
+        public Guid ResultingOrderItemId { get; set; }
     }
 
     public class AddOrderItemHandler : IHandleCommand<AddOrderItem>
@@ -37,7 +37,7 @@
             var item = order.AddItem(article, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),
                 command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), command.Amount);
 
-            command.OrderItemId = item.Id;
+            command.ResultingOrderItemId = item.Id;
         }
     }
 }

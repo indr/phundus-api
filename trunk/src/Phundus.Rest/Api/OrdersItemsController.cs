@@ -42,7 +42,7 @@ namespace Phundus.Rest.Api
 
             Dispatch(command);
 
-            return Get(orderId, command.OrderItemId, HttpStatusCode.Created);
+            return Get(orderId, command.ResultingOrderItemId, HttpStatusCode.Created);
         }
 
         private HttpResponseMessage Get(int orderId, Guid orderItemId, HttpStatusCode statusCode)

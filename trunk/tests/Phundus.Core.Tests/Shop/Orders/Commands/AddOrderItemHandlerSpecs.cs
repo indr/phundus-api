@@ -43,7 +43,7 @@
         public It should_publish_order_item_added =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemAdded>.Is.NotNull));
 
-        public It should_set_order_item_id =
-            () => command.OrderItemId.ShouldNotEqual(Guid.Empty);
+        public It should_set_resulting_order_item_id =
+            () => command.ResultingOrderItemId.ShouldNotEqual(Guid.Empty);
     }
 }

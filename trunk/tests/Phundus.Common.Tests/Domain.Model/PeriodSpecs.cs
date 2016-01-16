@@ -9,13 +9,13 @@
         protected static DateTime theFromUtc;
         protected static DateTime theToUtc;
 
+        protected static Period sut;
+
         private Establish ctx = () =>
         {
             theFromUtc = new DateTime(2010, 11, 1);
             theToUtc = new DateTime(2010, 11, 2);
         };
-
-        protected static Period sut;
     }
 
     [Subject(typeof (Period))]
@@ -52,13 +52,27 @@
     {
         private static Period theOtherPeriod;
         private static bool result;
+
         private Establish ctx = () =>
         {
             sut = new Period(theFromUtc, theToUtc);
             theOtherPeriod = new Period(theFromUtc, theToUtc);
         };
+
         private Because of = () => result = Equals(sut, theOtherPeriod);
 
         private It should_be_equal = () => result.ShouldBeTrue();
+    }
+
+    [Subject(typeof (Period))]
+    public class when_creating_from_now_with_days : period_concern
+    {
+        private static int days = 2;
+        private Because of = () => sut = Period.FromNow(days);
+
+        private It should_have_from_utc = () => sut.FromUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+
+        private It should_have_to_utc =
+            () => sut.ToUtc.ShouldBeCloseTo(DateTime.UtcNow.AddDays(days), TimeSpan.FromMinutes(1));
     }
 }
