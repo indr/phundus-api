@@ -28,7 +28,7 @@
             var user = Ctx.Users[userAlias];
             Assert.That(_members,
                 Has.Some.Matches<Member>(
-                    p => p.Guid == user.UserId && p.FirstName == user.FirstName && p.LastName == user.LastName));
+                    p => p.MemberId == user.UserId && p.FirstName == user.FirstName && p.LastName == user.LastName));
         }
     }
 }

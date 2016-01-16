@@ -5,11 +5,13 @@
 
     public class Member
     {
-        public Guid Guid { get; set; }
-        public int MemberVersion { get; set; }
-        public int MembershipVersion { get; set; }
-
+        [JsonProperty("memberId")]
+        public Guid MemberId { get; set; }
+        
+        [JsonProperty("firstName")]
         public string FirstName { get; set; }
+
+        [JsonProperty("lastName")]
         public string LastName { get; set; }
     }
 
