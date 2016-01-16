@@ -144,7 +144,6 @@
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IOrganizationRepository.cs" />
     <Compile Include="IdentityAccess\Queries\IMemberInRole.cs" />
-    <Compile Include="IdentityAccess\Queries\IMembershipApplicationQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IMembershipQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IOrganizationQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IRelationshipQueries.cs" />
@@ -154,8 +153,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReadModel.dbml</DependentUpon>
     </Compile>
+    <Compile Include="IdentityAccess\Queries\QueryModels\IMembershipApplication.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\MemberInMembershipRoleQueries.cs" />
-    <Compile Include="IdentityAccess\Queries\ReadModels\MembershipApplicationsReadModel.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\MembershipsReadModel.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\MembersReadModel.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\OrganizationsReadModel.cs" />
@@ -296,6 +295,8 @@
     <Compile Include="Shop\Queries\IOrderQueries.cs" />
     <Compile Include="Shop\Queries\IShopArticleQueries.cs" />
     <Compile Include="Shop\Queries\ItemQueriesReadModel.cs" />
+    <Compile Include="IdentityAccess\Queries\QueryModels\MembershipApplicationQueries.cs" />
+    <Compile Include="IdentityAccess\Queries\QueryModels\IMembershipApplicationQueries.cs" />
     <Compile Include="Shop\Queries\QueryModels\LesseeQueries.cs" />
     <Compile Include="Shop\Queries\QueryModels\LesseeViewRow.cs" />
     <Compile Include="Shop\Queries\QueryModels\LessorQueries.cs" />

@@ -6,22 +6,30 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common.Domain.Model;
     using IdentityAccess.Organizations.Commands;
     using IdentityAccess.Queries;
+    using IdentityAccess.Queries.QueryModels;
     using IdentityAccess.Queries.ReadModels;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/applications")]
     public class OrganizationsApplicationsController : ApiControllerBase
     {
-        public IMembershipApplicationQueries MembershipApplicationQueries { get; set; }
+        private readonly IMembershipApplicationQueries _membershipApplicationQueries;
+
+        public OrganizationsApplicationsController(IMembershipApplicationQueries membershipApplicationQueries)
+        {
+            if (membershipApplicationQueries == null) throw new ArgumentNullException("membershipApplicationQueries");
+            _membershipApplicationQueries = membershipApplicationQueries;
+        }
 
         [GET("")]
         [Transaction]
         public virtual OrganizationsApplicationsGetOkResponseContent Get(Guid organizationId)
         {
-            var result = MembershipApplicationQueries.PendingByOrganizationId(organizationId);
-            return new OrganizationsApplicationsGetOkResponseContent(result);
+            var results = _membershipApplicationQueries.FindPending(CurrentUserGuid, new OrganizationGuid(organizationId));
+            return new OrganizationsApplicationsGetOkResponseContent(results);
         }
 
         [POST("")]
@@ -47,9 +55,9 @@
         }
     }
 
-    public class OrganizationsApplicationsGetOkResponseContent : List<MembershipApplicationDto>
+    public class OrganizationsApplicationsGetOkResponseContent : List<IMembershipApplication>
     {
-        public OrganizationsApplicationsGetOkResponseContent(IEnumerable<MembershipApplicationDto> collection)
+        public OrganizationsApplicationsGetOkResponseContent(IEnumerable<IMembershipApplication> collection)
             : base(collection)
         {
         }
