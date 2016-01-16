@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Common;
     using Common.Domain.Model;
     using Contracts.Model;
     using Ddd;
@@ -13,13 +12,13 @@
     public class Order
     {
         private DateTime _createdUtc = DateTime.UtcNow;
+        private Guid _guid = System.Guid.NewGuid();
         private Iesi.Collections.Generic.ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private Lessee _lessee;
         private Lessor _lessor;
         private UserGuid _modifiedBy;
         private DateTime? _modifiedUtc;
         private OrderStatus _status = OrderStatus.Pending;
-        private Guid _guid = System.Guid.NewGuid();
 
         public Order(Lessor lessor, Lessee lessee) : this(lessor, lessee, null)
         {
@@ -120,6 +119,11 @@
                     return null;
                 return _items.Min(s => s.FromUtc);
             }
+        }
+
+        public OrderId OrderId
+        {
+            get { return new OrderId(Id); }
         }
 
         public virtual void Reject(UserGuid initiatorId)

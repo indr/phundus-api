@@ -30,19 +30,14 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual HttpResponseMessage Post(int orderId, OrdersItemsPostRequestContent requestContent)
         {
-            var command = new AddOrderItem
-            {
-                Amount = requestContent.Amount,
-                ArticleId = new ArticleId(requestContent.ArticleId),
-                FromUtc = requestContent.FromUtc,
-                InitiatorId = CurrentUserGuid,
-                OrderId = orderId,
-                ToUtc = requestContent.ToUtc
-            };
+            var orderItemId = new OrderItemId();
+            var command = new AddOrderItem(CurrentUserGuid, new OrderId(orderId), orderItemId, 
+                new ArticleId(requestContent.ArticleId), new Period(requestContent.FromUtc, requestContent.ToUtc),
+                requestContent.Amount);
 
             Dispatch(command);
 
-            return Get(orderId, command.ResultingOrderItemId, HttpStatusCode.Created);
+            return Get(orderId, orderItemId.Id, HttpStatusCode.Created);
         }
 
         private HttpResponseMessage Get(int orderId, Guid orderItemId, HttpStatusCode statusCode)

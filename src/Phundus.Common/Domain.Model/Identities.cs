@@ -108,6 +108,10 @@
         }
     }
 
+    public class OrderItemId : GuidIdentity
+    {
+    }
+
     public class OrganizationGuid : GuidIdentity
     {
         public OrganizationGuid()

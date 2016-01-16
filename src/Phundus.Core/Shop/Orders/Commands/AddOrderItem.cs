@@ -7,15 +7,29 @@
     using Repositories;
     using Shop.Services;
 
-    public class AddOrderItem
+    public class AddOrderItem : ICommand
     {
-        public int OrderId { get; set; }
-        public UserGuid InitiatorId { get; set; }
-        public ArticleId ArticleId { get; set; }
-        public DateTime FromUtc { get; set; }
-        public DateTime ToUtc { get; set; }
-        public int Amount { get; set; }
-        public Guid ResultingOrderItemId { get; set; }
+        public AddOrderItem(InitiatorGuid initiatorId, OrderId orderId, OrderItemId orderItemId, ArticleId articleId, Period period, int quantity)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (orderId == null) throw new ArgumentNullException("orderId");
+            if (orderItemId == null) throw new ArgumentNullException("orderItemId");
+            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (period == null) throw new ArgumentNullException("period");            
+            InitiatorId = initiatorId;
+            OrderId = orderId;
+            OrderItemId = orderItemId;
+            ArticleId = articleId;
+            Period = period;
+            Quantity = quantity;
+        }
+
+        public InitiatorGuid InitiatorId { get; protected set; }
+        public OrderId OrderId { get; protected set; }
+        public OrderItemId OrderItemId { get; protected set; }
+        public ArticleId ArticleId { get; protected set; }
+        public Period Period { get; protected set; }
+        public int Quantity { get; protected set; }
     }
 
     public class AddOrderItemHandler : IHandleCommand<AddOrderItem>
@@ -28,16 +42,12 @@
 
         public void Handle(AddOrderItem command)
         {
-            var order = OrderRepository.GetById(command.OrderId);
+            var order = OrderRepository.GetById(command.OrderId.Id);
+            var lessor = order.Lessor;
+            MemberInRole.ActiveChief(lessor.LessorId.Id, command.InitiatorId);
 
-            var article = ArticleService.GetById(new OwnerId(order.Lessor.LessorId.Id), command.ArticleId);
-            
-            MemberInRole.ActiveChief(order.Lessor.LessorId.Id, command.InitiatorId);
-
-            var item = order.AddItem(article, command.FromUtc.ToLocalTime().Date.ToUniversalTime(),
-                command.ToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime(), command.Amount);
-
-            command.ResultingOrderItemId = item.Id;
+            var article = ArticleService.GetById(lessor.LessorId, command.ArticleId);
+            order.AddItem(article, command.Period.FromUtc, command.Period.ToUtc, command.Quantity);
         }
     }
 }

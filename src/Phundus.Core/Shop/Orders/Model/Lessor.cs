@@ -4,27 +4,35 @@ namespace Phundus.Shop.Orders.Model
     using Common;
     using Common.Domain.Model;
 
-    /// <summary>
-    /// Vermieter
-    /// </summary>
     public class Lessor : ValueObject
     {
+        private LessorId _lessorId;
+        private string _name;
+
         public Lessor(LessorId lessorId, string name)
         {
             AssertionConcern.AssertArgumentNotNull(lessorId, "LessorId must be provided.");
             AssertionConcern.AssertArgumentNotEmpty(name, "Name must be provided.");
 
-            LessorId = lessorId;
-            Name = name;
+            _lessorId = lessorId;
+            _name = name;
         }
 
         protected Lessor()
         {
         }
 
-        public LessorId LessorId { get; private set; }
+        public virtual LessorId LessorId
+        {
+            get { return _lessorId; }
+            protected set { _lessorId = value; }
+        }
 
-        public string Name { get; private set; }
+        public virtual string Name
+        {
+            get { return _name; }
+            protected set { _name = value; }
+        }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

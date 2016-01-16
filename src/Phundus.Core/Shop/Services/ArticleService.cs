@@ -26,6 +26,8 @@ namespace Phundus.Shop.Services
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
         Article GetById(OwnerId ownerId, ArticleId articleId);
+
+        Article GetById(LessorId lessorId, ArticleId articleId);
     }
 
     public class ArticleService : IArticleService
@@ -64,6 +66,11 @@ namespace Phundus.Shop.Services
                 throw new NotFoundException(String.Format("Article {0} {1} not found.", ownerId, articleId));
 
             return result;
+        }
+
+        public Article GetById(LessorId lessorId, ArticleId articleId)
+        {
+            return GetById(new OwnerId(lessorId.Id), articleId);
         }
 
         private static Article ToArticleValueObject(Inventory.Articles.Model.Article article)

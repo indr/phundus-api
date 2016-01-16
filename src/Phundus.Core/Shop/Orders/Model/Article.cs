@@ -6,16 +6,16 @@ namespace Phundus.Shop.Orders.Model
 
     public class Article : ValueObject
     {
-        private int _articleId;
         private string _caption;
+        private int _id;
         private Owner _owner;
         private decimal _price;
 
-        public Article(int articleId, Owner owner, string name, decimal pricePerWeek)
+        public Article(int id, Owner owner, string name, decimal pricePerWeek)
         {
             AssertionConcern.AssertArgumentNotNull(owner, "Owner must be provided.");
 
-            _articleId = articleId;
+            _id = id;
             _owner = owner;
             _caption = name;
             _price = pricePerWeek;
@@ -25,10 +25,15 @@ namespace Phundus.Shop.Orders.Model
         {
         }
 
-        public virtual int ArticleId
+        public virtual int Id
         {
-            get { return _articleId; }
-            protected set { _articleId = value; }
+            get { return _id; }
+            protected set { _id = value; }
+        }
+
+        public virtual ArticleId ArticleId
+        {
+            get { return new ArticleId(Id); }
         }
 
         public virtual Owner Owner
@@ -51,7 +56,7 @@ namespace Phundus.Shop.Orders.Model
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return ArticleId;
+            yield return Id;
         }
     }
 }

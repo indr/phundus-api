@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Tests.Shop.Orders.Commands
 {
-    using System;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
@@ -12,38 +11,29 @@
     [Subject(typeof (AddOrderItemHandler))]
     public class when_add_order_item_is_handled : order_handler_concern<AddOrderItem, AddOrderItemHandler>
     {
-        private static UserGuid initiatorId = new UserGuid();
-        private const int orderId = 3;
-        private static ArticleId articleId = new ArticleId(4);
-        private static Order order;
+        private static Period thePeriod;
+        private static Order theOrder;
+        private static Article theArticle;
 
-        public Establish c = () =>
+        private Establish ctx = () =>
         {
-            var ownerId = new OwnerId(Guid.NewGuid());
-            var owner = new Owner(ownerId, "Owner");
-            theLessor = new Lessor(new LessorId(owner.OwnerId.Id), "Lessor");
-            order = new Order(theLessor, CreateLessee());
-            orderRepository.setup(x => x.GetById(orderId)).Return(order);
-            var article = new Article(articleId.Id, owner, "Artikel", 1.0m);
-            articleRepository.setup(x => x.GetById(ownerId, articleId)).Return(article);
-            command = new AddOrderItem
-            {
-                Amount = 10,
-                ArticleId = articleId,
-                FromUtc = DateTime.UtcNow,
-                ToUtc = DateTime.UtcNow.AddDays(1),
-                InitiatorId = initiatorId,
-                OrderId = orderId
-            };
+            theLessor = make.Lessor();
+            theOrder = fake.an<Order>();
+            theOrder.WhenToldTo(x => x.Lessor).Return(theLessor);
+            orderRepository.setup(x => x.GetById(theOrder.Id)).Return(theOrder);
+
+            theArticle = make.Article();
+            articleRepository.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleId)).Return(theArticle);
+
+            thePeriod = Period.FromNow(1);
+
+            command = new AddOrderItem(theInitiatorId, theOrder.OrderId, new OrderItemId(), theArticle.ArticleId, thePeriod, 10);
         };
 
-        public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(theLessor.LessorId.Id, initiatorId));
+        public It should_ask_for_chief_privileges = () =>
+            memberInRole.WasToldTo(x => x.ActiveChief(theLessor.LessorId.Id, theInitiatorId));
 
-        public It should_publish_order_item_added =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemAdded>.Is.NotNull));
-
-        public It should_set_resulting_order_item_id =
-            () => command.ResultingOrderItemId.ShouldNotEqual(Guid.Empty);
+        public It should_tell_order_to_add_item = () =>
+            theOrder.WasToldTo(x => x.AddItem(theArticle, thePeriod.FromUtc, thePeriod.ToUtc, 10));
     }
 }
