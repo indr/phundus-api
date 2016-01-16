@@ -26,7 +26,7 @@
 
             Component(x => x.Article, c =>
             {
-                c.Map(x => x.ArticleId, "Article_ArticleId");                
+                c.Map(x => x.Id, "Article_ArticleId");                
                 c.Map(x => x.Caption, "Article_Name");
                 c.Map(x => x.Price, "Article_UnitPricePerWeek");
                 c.Component(x => x.Owner, c2 =>

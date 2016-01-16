@@ -20,7 +20,7 @@ namespace Phundus.Shop.Orders.Model
 
         public virtual int ArticleId
         {
-            get { return Article.ArticleId; }
+            get { return Article.Id; }
         }
 
         public virtual int Quantity { get; set; }

@@ -10,7 +10,10 @@ namespace Phundus.Tests
     public abstract class handler_concern<TCommand, THandler> : concern<THandler>
         where THandler : class, IHandleCommand<TCommand>
     {
+        protected static InitiatorGuid theInitiatorId;
         protected static TCommand command;
+
+        private Establish ctx = () => theInitiatorId = new InitiatorGuid();
 
         public Because of = () =>
         {

@@ -53,7 +53,7 @@
             AssertionConcern.AssertArgumentNotNull(article, "Article must be provided.");
 
             _order = order;
-            _articleId = article.ArticleId;
+            _articleId = article.Id;
             _unitPrice = article.Price;
             _text = article.Caption;
             _fromUtc = fromUtc;
