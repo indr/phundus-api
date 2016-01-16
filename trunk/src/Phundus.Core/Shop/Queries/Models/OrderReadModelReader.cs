@@ -57,11 +57,13 @@
         public IEnumerable<OrderDto> Query(CurrentUserGuid currentUserGuid, OrderId orderId, UserGuid queryUserGuid,
             OrganizationGuid queryOrganizationId)
         {
-            return Query(currentUserGuid, orderId == null ? (int?) null : orderId.Id, queryUserGuid, queryOrganizationId);
+            return Query(currentUserGuid, orderId == null ? (int?) null : orderId.Id,
+                queryUserGuid == null ? (Guid?) null : queryUserGuid.Id,
+                queryOrganizationId == null ? (Guid?) null : queryOrganizationId.Id);
         }
 
-        private IEnumerable<OrderDto> Query(CurrentUserGuid currentUserGuid, int? orderId, UserGuid queryUserGuid,
-            OrganizationGuid queryOrganizationId)
+        private IEnumerable<OrderDto> Query(CurrentUserGuid currentUserGuid, int? orderId, Guid? queryUserGuid,
+            Guid? queryOrganizationId)
         {
             AssertionConcern.AssertArgumentNotNull(currentUserGuid, "CurrentUserId must be provided.");
             
@@ -80,7 +82,7 @@
                         // Auth restrictions
                         (
                             // current user is borrower or lessor
-                            (o.Borrower_Id == currentUserGuid.Id || o.Lessor_LessorId == currentUserGuid.Id)
+                            (o.Lessee_LesseeGuid == currentUserGuid.Id || o.Lessor_LessorId == currentUserGuid.Id)
                             ||
                             // Or current user is manager in lessor organization
                             (currentUsersManagerGuids.Contains(o.Lessor_LessorId))
@@ -93,10 +95,10 @@
                             &&
                             // and user is not queried, or borrower or lessor is query user
                             (queryUserGuid == null
-                             || (o.Borrower_Id == queryUserGuid.Id || o.Lessor_LessorId == queryUserGuid.Id))
+                             || (o.Lessee_LesseeGuid == queryUserGuid || o.Lessor_LessorId == queryUserGuid))
                             &&
                             // and organization is not queried, or lessor is query organization
-                            (queryOrganizationId == null || (o.Lessor_LessorId == queryOrganizationId.Id))
+                            (queryOrganizationId == null || (o.Lessor_LessorId == queryOrganizationId))
                             )
                         )
                 select o;

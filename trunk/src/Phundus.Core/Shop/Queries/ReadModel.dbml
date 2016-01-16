@@ -18,7 +18,7 @@
       <Column Name="CreatedUtc" Storage="_CreatedOn" Type="System.DateTime" CanBeNull="false" />
       <Column Name="Status" Type="OrderStatusDto" CanBeNull="false" />
       <Column Name="Lessor_LessorId" Storage="_OrganizationId" Type="System.Guid" CanBeNull="false" />
-      <Column Name="Borrower_Id" Type="System.Guid" CanBeNull="true" />
+      <Column Name="Lessee_LesseeGuid" Storage="_Borrower_Id" Type="System.Guid" CanBeNull="true" />
       <Column Name="Borrower_FirstName" Type="System.String" CanBeNull="true" />
       <Column Name="Borrower_LastName" Type="System.String" CanBeNull="true" />
       <Column Name="Borrower_Street" Type="System.String" CanBeNull="true" />
@@ -28,7 +28,6 @@
       <Column Name="Borrower_MobilePhoneNumber" Type="System.String" CanBeNull="true" />
       <Column Name="Borrower_MemberNumber" Type="System.String" CanBeNull="true" />
       <Column Name="ModifiedUtc" Storage="_ModifiedOn" Type="System.DateTime" CanBeNull="true" />
-      <Column Name="ModifierId" Member="ModifiedBy" Type="System.Int32" CanBeNull="true" />
       <Column Name="Lessor_Name" Storage="_OrganizationName" Type="System.String" CanBeNull="false" />
       <Association Name="OrderDto_OrderItemDto" Member="Items" ThisKey="Id" OtherKey="OrderId" Type="OrderItemDto" />
       <Association Name="OrderDto_MembershipDto" Member="MembershipDtos" ThisKey="Lessor_LessorId" OtherKey="OrganizationGuid" Type="MembershipDto" />
@@ -36,7 +35,7 @@
   </Table>
   <Table Name="Dm_Shop_OrderItem" Member="OrderItemDtos">
     <Type Name="OrderItemDto">
-      <Column Name="Id" Type="System.Guid" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="OrderItemGuid" Member="Id" Type="System.Guid" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Version" Type="System.Int32" CanBeNull="false" />
       <Column Name="OrderId" Type="System.Int32" CanBeNull="false" />
       <Column Name="Amount" Type="System.Int32" CanBeNull="false" />
@@ -58,7 +57,7 @@
   </Table>
   <Table Name="Dm_IdentityAccess_Membership" Member="MembershipDtos">
     <Type Name="MembershipDto">
-      <Column Name="UserId" Type="System.Int32" CanBeNull="false" />
+      <Column Name="UserGuid" Member="UserId" Type="System.Guid" CanBeNull="false" />
       <Column Name="Role" Type="MembershipRoleDto" CanBeNull="false" />
       <Column Name="OrganizationGuid" Type="System.Guid" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="OrderDto_MembershipDto" Member="OrderDto" ThisKey="OrganizationGuid" OtherKey="Lessor_LessorId" Type="OrderDto" IsForeignKey="true" />
