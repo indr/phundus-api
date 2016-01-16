@@ -2,6 +2,17 @@
 {
     using System;
 
+    public class ApplicationId : GuidIdentity
+    {
+        public ApplicationId()
+        {
+        }
+
+        public ApplicationId(Guid id) : base(id)
+        {
+        }
+    }
+
     public class ArticleId : Identity<int>
     {
         public ArticleId(int id) : base(id)

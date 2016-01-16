@@ -7,15 +7,20 @@
     using Ddd;
     using Iesi.Collections.Generic;
     using Users.Model;
+    using ApplicationId = Common.Domain.Model.ApplicationId;
 
     public class Organization : Aggregate<Guid>
     {
-        private DateTime _createDate = DateTime.UtcNow;
         private Guid _id = Guid.NewGuid();
-        private ISet<Membership> _memberships = new HashedSet<Membership>();
+
         private string _name;
         private string _startpage;
+        private DateTime _createDate = DateTime.UtcNow;
+        
+        private ISet<MembershipApplication> _applications = new HashedSet<MembershipApplication>(); 
+        private ISet<Membership> _memberships = new HashedSet<Membership>();
 
+        
         public Organization(Guid id, string name) : base(id)
         {
             _name = name;
@@ -69,6 +74,12 @@
             protected set { _memberships = value; }
         }
 
+        public virtual ISet<MembershipApplication> Applications
+        {
+            get { return _applications; }
+            protected set { _applications = value; }
+        }
+
         public virtual string Address { get; set; }
 
         public virtual string Startpage
@@ -91,14 +102,25 @@
 
         public virtual string DocTemplateFileName { get; set; }
 
-        public virtual MembershipApplication RequestMembership(InitiatorGuid initiatorGuid, Guid applicationId,
+        public virtual MembershipApplication RequestMembership(InitiatorGuid initiatorGuid, ApplicationId applicationId,
             User user)
         {
-            var request = new MembershipApplication(applicationId, Id, user.UserGuid);
+            if (Applications.FirstOrDefault(p => Equals(p.UserGuid, user.UserGuid)) != null)
+                return null;
+
+            var application = new MembershipApplication(applicationId.Id, Id, user.UserGuid);
+            Applications.Add(application);
 
             EventPublisher.Publish(new MembershipApplicationFiled(initiatorGuid, OrganizationGuid, user.UserGuid));
 
-            return request;
+            return application;
+        }
+
+        [Obsolete]
+        public virtual MembershipApplication RequestMembership(InitiatorGuid initiatorGuid, Guid applicationId,
+            User user)
+        {
+            return RequestMembership(initiatorGuid, new ApplicationId(applicationId), user);
         }
 
         public virtual void ApproveMembershipRequest(UserGuid initiatorGuid, MembershipApplication application,
