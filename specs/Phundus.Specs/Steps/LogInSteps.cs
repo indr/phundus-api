@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Specs.Steps
 {
+    using System.Diagnostics;
     using Services;
     using TechTalk.SpecFlow;
 
@@ -30,6 +31,7 @@
             if (!Ctx.Users.ContainsAlias(alias))
                 Given(@"a confirmed user """ + alias + @"""");
             var user = Ctx.Users[alias];
+            Debug.WriteLine("Logging in as {0} {1}.", new [] {alias, user.ToString()});
             App.LogIn(user.Username, user.Password);
             Ctx.User = user;
         }

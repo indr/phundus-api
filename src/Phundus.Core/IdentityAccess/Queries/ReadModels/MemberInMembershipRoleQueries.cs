@@ -54,7 +54,6 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
                 return true;
 
             var membership = _membershipRepository.ByMemberId(userGuid.Id)
-                .Where(p => p.Role == Role.Chief)
                 .FirstOrDefault(p => p.Organization.Id == organizationId);
 
             if (membership == null)
