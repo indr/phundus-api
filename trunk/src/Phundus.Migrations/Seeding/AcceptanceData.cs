@@ -318,6 +318,9 @@
                 get { return 1; }
             }
 
+            [CsvField(Name = "UserGuid")]
+            public Guid Guid { get; set; }
+
             [CsvField(Name = "Role")]
             [TypeConverter(typeof (RoleConverter))]
             public int RoleId { get; set; }
