@@ -1,7 +1,7 @@
 ﻿Feature: CartItems
 	
 Background:
-	Given I am logged in as "Lessor"
+	Given I am logged in as a user
 	And I opened my store
 	And I created these articles in my store
 	| Name     |

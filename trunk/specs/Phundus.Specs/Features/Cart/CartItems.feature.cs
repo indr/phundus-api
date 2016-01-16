@@ -68,7 +68,7 @@ namespace Phundus.Specs.Features.Cart
         {
 #line 3
 #line 4
- testRunner.Given("I am logged in as \"Lessor\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am logged in as a user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 5
  testRunner.And("I opened my store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden

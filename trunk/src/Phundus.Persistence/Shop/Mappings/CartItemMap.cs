@@ -11,12 +11,11 @@
             SchemaAction.Validate();
 
             Table("Dm_Shop_CartItem");
-            Id(x => x.Id, "CartItemId").GeneratedBy.HiLo("100");
-            Component(x => x.CartItemGuid, a => a.Map(x => x.Id, "CartItemGuid"));
+
+            CompositeId(x => x.CartItemGuid).KeyProperty(kp => kp.Id, "CartItemGuid");
             Version(x => x.Version);
 
-            References(x => x.Cart, "CartId");
-            Map(x => x.CartGuid, "CartGuid");
+            References(x => x.Cart, "CartGuid");
 
             Map(x => x.Position, "Position");
             Map(x => x.Quantity, "Quantity");

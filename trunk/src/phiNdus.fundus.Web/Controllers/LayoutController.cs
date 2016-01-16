@@ -26,7 +26,7 @@
             if (user.ProviderUserKey != null)
             {
                 var providerUserKey = new ProviderUserKey(user.ProviderUserKey);
-                model.UserId = providerUserKey.UserId.Id.ToString(CultureInfo.InvariantCulture);
+                model.UserId = providerUserKey.UserGuid.Id.ToString("D");
 
                 foreach (var each in MembershipQueries.ByUserId(providerUserKey.UserGuid.Id))
                 {

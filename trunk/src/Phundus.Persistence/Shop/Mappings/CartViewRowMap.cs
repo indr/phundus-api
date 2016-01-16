@@ -12,12 +12,10 @@
             ReadOnly();
             Table("View_Shop_Carts");
 
-            Id(x => x.CartId, "CartId");
-            Map(x => x.CartGuid, "CartGuid");
-            Map(x => x.UserId, "UserId");
+            Id(x => x.CartGuid, "CartGuid");
             Map(x => x.UserGuid, "UserGuid");
 
-            HasMany<CartItemViewRow>(me => me.Items).KeyColumn("CartId").OrderBy("Article_Owner_Name");
+            HasMany<CartItemViewRow>(me => me.Items).KeyColumn("CartGuid").OrderBy("Article_Owner_Name");
         }
     }
 }

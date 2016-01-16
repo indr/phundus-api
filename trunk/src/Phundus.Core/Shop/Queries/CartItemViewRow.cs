@@ -5,7 +5,6 @@ namespace Phundus.Shop.Queries
 
     public class CartItemViewRow : ICartItem
     {
-        public virtual int CartItemId { get; protected set; }
         public virtual Guid CartItemGuid { get; protected set; }
 
         public virtual int Position { get; protected set; }

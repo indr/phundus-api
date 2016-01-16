@@ -5,20 +5,6 @@
     using FluentMigrator;
     using FluentMigrator.Runner.Extensions;
 
-    [Migration(201601160001)]
-    public class M201601160001_Delete_column_MemberID_from_Dm_IdentityAccess_Applicatoin : MigrationBase
-    {
-        public override void Up()
-        {
-            Delete.Column("MemberId").FromTable("Dm_IdentityAccess_Application").InSchema(SchemaName);
-        }
-
-        public override void Down()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     [Migration(201601152352)]
     public class M201601152352_Delete_column_UserId_from_Dm_IdentityAccess_Membership : MigrationBase
     {

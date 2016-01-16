@@ -13,8 +13,7 @@ namespace Phundus.Persistence.Shop.Mappings
             ReadOnly();
             Table("View_Shop_CartItems");
 
-            Id(x => x.CartItemId, "CartItemId");
-            Map(x => x.CartItemGuid, "CartItemGuid");
+            Id(x => x.CartItemGuid, "CartItemGuid");
             Map(x => x.Position, "Position");
             Map(x => x.ArticleId, "Article_ArticleId");
             Map(x => x.Text, "Article_Name");
