@@ -1,23 +1,18 @@
 ﻿namespace Phundus.Shop.Orders.Model
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using Common.Domain.Model;
     using Ddd;
     using Iesi.Collections.Generic;
     using Inventory.Services;
-    using Repositories;
-    using Shop.Services;
 
-    public class Cart : EntityBase
+    public class Cart : Aggregate<CartGuid>
     {
-        private Guid _cartGuid = Guid.NewGuid();
-        private Iesi.Collections.Generic.ISet<CartItem> _items = new HashedSet<CartItem>();
+        private ISet<CartItem> _items = new HashedSet<CartItem>();
         private Guid _userGuid;
-        private int _userId;
 
-        public Cart(InitiatorGuid initiatorGuid, UserGuid userGuid)
+        public Cart(InitiatorGuid initiatorGuid, UserGuid userGuid) : base(new CartGuid())
         {
             _userGuid = userGuid.Id;
         }
@@ -26,13 +21,7 @@
         {
         }
 
-        public virtual Guid CartGuid
-        {
-            get { return _cartGuid; }
-            protected set { _cartGuid = value; }
-        }
-
-        public virtual Iesi.Collections.Generic.ISet<CartItem> Items
+        public virtual ISet<CartItem> Items
         {
             get { return _items; }
             set { _items = value; }
@@ -41,13 +30,6 @@
         public virtual bool AreItemsAvailable
         {
             get { return Items.Count(p => p.IsAvailable == false) == 0; }
-        }
-
-        [Obsolete]
-        public virtual int CustomerId
-        {
-            get { return _userId; }
-            protected set { _userId = value; }
         }
 
         public virtual Guid UserGuid
@@ -60,7 +42,6 @@
         {
             get { return _items.IsEmpty; }
         }
-
 
         public virtual CartItemGuid AddItem(Article article, DateTime fromUtc, DateTime toUtc, int quantity)
         {
@@ -81,7 +62,7 @@
         {
             Items.Add(item);
             item.Cart = this;
-            item.CartGuid = CartGuid;
+            item.CartGuid = Id.Id;
         }
 
         public virtual void RemoveItem(CartItemGuid cartItemGuid)

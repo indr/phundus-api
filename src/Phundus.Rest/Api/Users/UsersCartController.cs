@@ -125,9 +125,7 @@ namespace Phundus.Rest.Api.Users
                 return;
             }
 
-            CartId = cart.CartId;
             CartGuid = cart.CartGuid;
-            UserId = cart.UserId;
             UserGuid = cart.UserGuid;
             Items = cart.Items.Select(s => new CartItem
             {
@@ -145,13 +143,11 @@ namespace Phundus.Rest.Api.Users
             }).ToList();
         }
 
+        [JsonProperty("userId")]
         public Guid UserGuid { get; set; }
-
-        public int UserId { get; set; }
-
+        
+        [JsonProperty("cartId")]
         public Guid CartGuid { get; set; }
-
-        public int CartId { get; set; }
 
         [JsonProperty("items")]
         public IList<CartItem> Items { get; set; }
