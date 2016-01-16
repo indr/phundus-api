@@ -42,7 +42,7 @@
                 .ForMember(d => d.UnitPrice, o => o.MapFrom(s => s.Article.Price));
 
             Mapper.CreateMap<OrderDto, Lessee>()
-                .ForMember(d => d.LesseeId, o => o.MapFrom(s => s.Borrower_Id))
+                .ForMember(d => d.LesseeId, o => o.MapFrom(s => s.Lessee_LesseeGuid))
                 .ForMember(d => d.FullName, o => o.MapFrom(s => s.Borrower_FirstName + " " + s.Borrower_LastName))
                 .ForMember(d => d.Street, o => o.MapFrom(s => s.Borrower_Street))
                 .ForMember(d => d.Postcode, o => o.MapFrom(s => s.Borrower_Postcode))

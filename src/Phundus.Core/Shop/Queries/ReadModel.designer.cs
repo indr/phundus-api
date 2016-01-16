@@ -377,8 +377,6 @@ namespace Phundus.Shop.Queries
 		
 		private System.Nullable<System.DateTime> _ModifiedOn;
 		
-		private System.Nullable<int> _ModifiedBy;
-		
 		private string _OrganizationName;
 		
 		private EntitySet<OrderItemDto> _Items;
@@ -399,8 +397,8 @@ namespace Phundus.Shop.Queries
     partial void OnStatusChanged();
     partial void OnLessor_LessorIdChanging(System.Guid value);
     partial void OnLessor_LessorIdChanged();
-    partial void OnBorrower_IdChanging(System.Nullable<System.Guid> value);
-    partial void OnBorrower_IdChanged();
+    partial void OnLessee_LesseeGuidChanging(System.Nullable<System.Guid> value);
+    partial void OnLessee_LesseeGuidChanged();
     partial void OnBorrower_FirstNameChanging(string value);
     partial void OnBorrower_FirstNameChanged();
     partial void OnBorrower_LastNameChanging(string value);
@@ -419,8 +417,6 @@ namespace Phundus.Shop.Queries
     partial void OnBorrower_MemberNumberChanged();
     partial void OnModifiedUtcChanging(System.Nullable<System.DateTime> value);
     partial void OnModifiedUtcChanged();
-    partial void OnModifiedByChanging(System.Nullable<int> value);
-    partial void OnModifiedByChanged();
     partial void OnLessor_NameChanging(string value);
     partial void OnLessor_NameChanged();
     #endregion
@@ -533,7 +529,7 @@ namespace Phundus.Shop.Queries
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Borrower_Id")]
-		public System.Nullable<System.Guid> Borrower_Id
+		public System.Nullable<System.Guid> Lessee_LesseeGuid
 		{
 			get
 			{
@@ -543,11 +539,11 @@ namespace Phundus.Shop.Queries
 			{
 				if ((this._Borrower_Id != value))
 				{
-					this.OnBorrower_IdChanging(value);
+					this.OnLessee_LesseeGuidChanging(value);
 					this.SendPropertyChanging();
 					this._Borrower_Id = value;
-					this.SendPropertyChanged("Borrower_Id");
-					this.OnBorrower_IdChanged();
+					this.SendPropertyChanged("Lessee_LesseeGuid");
+					this.OnLessee_LesseeGuidChanged();
 				}
 			}
 		}
@@ -732,26 +728,6 @@ namespace Phundus.Shop.Queries
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ModifierId", Storage="_ModifiedBy")]
-		public System.Nullable<int> ModifiedBy
-		{
-			get
-			{
-				return this._ModifiedBy;
-			}
-			set
-			{
-				if ((this._ModifiedBy != value))
-				{
-					this.OnModifiedByChanging(value);
-					this.SendPropertyChanging();
-					this._ModifiedBy = value;
-					this.SendPropertyChanged("ModifiedBy");
-					this.OnModifiedByChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrganizationName", CanBeNull=false)]
 		public string Lessor_Name
 		{
@@ -898,7 +874,7 @@ namespace Phundus.Shop.Queries
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="OrderItemGuid", Storage="_Id", IsPrimaryKey=true)]
 		public System.Guid Id
 		{
 			get
@@ -1303,7 +1279,7 @@ namespace Phundus.Shop.Queries
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _UserId;
+		private System.Guid _UserId;
 		
 		private MembershipRoleDto _Role;
 		
@@ -1315,7 +1291,7 @@ namespace Phundus.Shop.Queries
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanging(System.Guid value);
     partial void OnUserIdChanged();
     partial void OnRoleChanging(MembershipRoleDto value);
     partial void OnRoleChanged();
@@ -1329,8 +1305,8 @@ namespace Phundus.Shop.Queries
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId")]
-		public int UserId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="UserGuid", Storage="_UserId")]
+		public System.Guid UserId
 		{
 			get
 			{

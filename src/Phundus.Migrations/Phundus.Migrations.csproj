@@ -166,6 +166,7 @@
     <Compile Include="2016\01\M201601152352_Delete_column_UserId_from_Dm_IdentityAccess_Membership.cs" />
     <Compile Include="2016\01\M201601160001_Delete_column_MemberID_from_Dm_IdentityAccess_Applicatoin.cs" />
     <Compile Include="2016\01\M201601160510_Delete_UserId_and_CartId_from_Dm_Shop_Cart.cs" />
+    <Compile Include="2016\01\M201601160558_Change_Borrower_Id_to_Lessor_LessorGuid.cs" />
     <Compile Include="Helper\DatedAttribute.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
     <Compile Include="Helper\Runner.cs" />
