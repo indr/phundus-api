@@ -6,12 +6,29 @@ namespace Phundus.Tests.Shop.Orders.Model
     using Phundus.Shop.Contracts.Model;
     using Phundus.Shop.Orders.Model;
 
-    public abstract class order_concern : concern<Order>
+    public abstract class order_concern : creating_order_concern
     {
-        protected static Order order;
-        protected static UserGuid modifierId;
+        private Establish ctx = () =>
+        {
+            theLessor = new Lessor(new LessorId(), "The lessor");
+            theLessee = CreateLessee();
+            sut = new Order(theLessor, theLessee);
+        };
+    }
 
-        private Establish ctx = () => modifierId = new UserGuid();
+    public abstract class creating_order_concern : aggregate_concern<Order>
+    {
+        protected static InitiatorGuid theInitiatorId;
+        protected static Lessor theLessor;
+        protected static Lessee theLessee;
+
+        private Establish ctx = () => theInitiatorId = new InitiatorGuid();
+
+        protected static Article CreateArticle(int articleId, Owner theOwner = null)
+        {
+            theOwner = theOwner ?? new Owner(new OwnerId(), "The article owner");
+            return new Article(articleId, theOwner, "Article " + articleId, 7.0m);
+        }
 
         protected static Lessee CreateLessee()
         {

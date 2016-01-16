@@ -4,74 +4,79 @@
     using System.Collections.Generic;
     using Common.Domain.Model;
     using Machine.Specifications;
-    using Phundus.Shop.Contracts.Model;
     using Phundus.Shop.Orders.Model;
 
     [Subject(typeof (Order))]
-    public class when_creating_an_order_without_items : order_concern
+    public class when_creating_an_order_without_items : creating_order_concern
     {
-        private static Lessor lessor;
-        private static Lessee lessee;
-
         public Establish ctx = () =>
         {
-            lessor = new Lessor(new LessorId(), "Lessor");
-            lessee = CreateLessee();
+            theLessor = new Lessor(new LessorId(), "Lessor");
+            theLessee = CreateLessee();
         };
 
-        public Because of = () => { order = new Order(lessor, lessee); };
-        public It should_be_empty = () => order.Items.ShouldBeEmpty();
+        public Because of = () => sut = new Order(theLessor, theLessee);
+
+        public It should_be_empty = () => sut.Items.ShouldBeEmpty();
 
         public It should_have_status_pending =
-            () => order.Status.ShouldEqual(OrderStatus.Pending);
+            () => sut.Status.ShouldEqual(OrderStatus.Pending);
 
         public It should_have_the_borrower =
-            () => order.Lessee.ShouldEqual(lessee);
+            () => sut.Lessee.ShouldEqual(theLessee);
 
         public It should_have_the_created_on_set_to_utc_now =
-            () => order.CreatedUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            () => sut.CreatedUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         public It should_have_the_organization =
-            () => order.Lessor.ShouldEqual(lessor);
+            () => sut.Lessor.ShouldEqual(theLessor);
 
         public It should_not_have_a_modified_date =
-            () => order.ModifiedUtc.ShouldBeNull();
+            () => sut.ModifiedUtc.ShouldBeNull();
 
         public It should_not_have_a_modifier =
-            () => order.ModifiedBy.ShouldBeNull();
+            () => sut.ModifiedBy.ShouldBeNull();
     }
 
     [Subject(typeof (Order))]
     public class when_creating_an_order_three_with_items : order_concern
     {
-        private static Lessor lessor;
-        private static Lessee lessee;
-        private static List<OrderItem> items;
-        private static Owner theArticleOwner;
+        private static List<OrderItem> theItems;
 
         public Establish ctx = () =>
         {
-            lessor = new Lessor(new LessorId(), "Lessor");
-            lessee = CreateLessee();
-            theArticleOwner = new Owner(new OwnerId(), "The article owner");
+            theLessor = new Lessor(new LessorId(), "Lessor");
+            theLessee = CreateLessee();
 
-            items = new List<OrderItem>();
-            items.Add(new OrderItem(null, CreateArticle(1), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
-            items.Add(new OrderItem(null, CreateArticle(2), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
-            items.Add(new OrderItem(null, CreateArticle(3), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
+            theItems = new List<OrderItem>();
+            theItems.Add(new OrderItem(null, CreateArticle(1), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
+            theItems.Add(new OrderItem(null, CreateArticle(2), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
+            theItems.Add(new OrderItem(null, CreateArticle(3), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
         };
 
-        public Because of = () => { order = new Order(lessor, lessee, items); };
+        public Because of = () => sut = new Order(theLessor, theLessee, theItems);
 
-        private static Article CreateArticle(int articleId)
+        private It should_copy_the_items = () => sut.Items.ShouldNotContain(theItems);
+        private It should_have_three_items = () => sut.Items.Count.ShouldEqual(3);
+        private It should_not_be_empty = () => sut.Items.ShouldNotBeEmpty();
+    }
+
+    [Subject(typeof (Order))]
+    public class when_adding_an_order_item : order_concern
+    {
+        private static Article theArticle;
+        private static Period thePeriod;
+        private static int theQuantity = 10;
+
+        private Establish ctx = () =>
         {
-            return new Article(articleId, theArticleOwner, "Article " + articleId, 7.0m);
-        }
+            theArticle = CreateArticle(1);
+            thePeriod = Period.FromNow(2);
+        };
 
-        private It should_not_be_empty = () => order.Items.ShouldNotBeEmpty();
+        private Because of = () => sut.AddItem(theArticle, thePeriod.FromUtc, thePeriod.ToUtc, theQuantity);
 
-        private It should_have_three_items = () => order.Items.Count.ShouldEqual(3);
-
-        private It should_copy_the_items = () => order.Items.ShouldNotContain(items);
+        private It should_have_an_order_item =
+            () => sut.Items.ShouldContain(p => p.FromUtc == thePeriod.FromUtc && p.ToUtc == thePeriod.ToUtc);
     }
 }

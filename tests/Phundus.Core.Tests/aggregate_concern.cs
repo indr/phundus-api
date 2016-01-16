@@ -5,7 +5,7 @@ namespace Phundus.Tests
     using Machine.Specifications;
     using Phundus.Ddd;
 
-    public abstract class aggregate_concern<TAggregate>
+    public abstract class aggregate_concern<TAggregate> : developwithpassion.specifications.rhinomocks.Observes
     {
         // ReSharper disable StaticFieldInGenericType
 

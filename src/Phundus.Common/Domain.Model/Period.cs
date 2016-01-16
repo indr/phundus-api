@@ -20,11 +20,17 @@
 
         public DateTime FromUtc { get; protected set; }
         public DateTime ToUtc { get; protected set; }
-        
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return FromUtc;
             yield return ToUtc;
+        }
+
+        public static Period FromNow(int days)
+        {
+            var now = DateTime.UtcNow;
+            return new Period(now, now.AddDays(days));
         }
     }
 }
