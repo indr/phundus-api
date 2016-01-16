@@ -3,6 +3,7 @@
     using System;
     using Common.Domain.Model;
     using Users.Model;
+    using ApplicationId = Common.Domain.Model.ApplicationId;
 
     public class MembershipApplication
     {
@@ -52,6 +53,7 @@
         public virtual DateTime? ApprovalDate { get; protected set; }
 
         public virtual DateTime? RejectDate { get; protected set; }
+        public ApplicationId ApplicationId { get {return new ApplicationId(Id);} }
 
 
         public virtual Membership Approve(Guid membershipId)
