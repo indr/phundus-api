@@ -3,18 +3,18 @@ namespace Phundus.IdentityAccess.Organizations.Model
     using System.Collections.Generic;
     using Common.Domain.Model;
 
-    public class Contact : ValueObject
+    public class ContactDetails : ValueObject
     {
         private string _emailAddress;
         private string _phoneNumber;
         private string _postAddress;
         private string _website;
 
-        public Contact()
+        public ContactDetails()
         {
         }
 
-        public Contact(string postAddress, string phoneNumber, string emailAddress, string website)
+        public ContactDetails(string postAddress, string phoneNumber, string emailAddress, string website)
         {
             _postAddress = postAddress;
             _phoneNumber = phoneNumber;

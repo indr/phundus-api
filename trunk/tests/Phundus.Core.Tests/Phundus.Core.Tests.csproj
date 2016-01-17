@@ -178,6 +178,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="IdentityAccess\Model\" />
     <Folder Include="Inventory\Stores\" />
     <Folder Include="_Legacy\Entities\ArticleTests\" />
   </ItemGroup>
