@@ -14,6 +14,7 @@
     using Newtonsoft.Json;
     using NUnit.Framework;
     using RestSharp;
+    using RestSharp.Deserializers;
 
     public class Resource
     {
@@ -68,13 +69,14 @@
         }
 
         #region PostFile
-        public void PostFile(object requestContent, string fileName)
+        public TResponseContent PostFile<TResponseContent>(object requestContent, string fullFileName, string fileName)
         {
             // https://stackoverflow.com/questions/14143630/upload-file-through-c-sharp-using-json-request-and-restsharp
 
+            fileName = fileName ?? Path.GetFileName(fullFileName);
 
             //string path = @"C:\Projectos\My Training Samples\Adobe Sample\RBO1574.pdf";
-            string path = fileName;
+            string path = fullFileName;
             //localhost settings
             //string requestHost = @"http://localhost:3000/receipts";
             string requestHost = BaseUrl + ReplaceUrlSegments(_resource, requestContent);
@@ -147,11 +149,11 @@
             postDataWriter.Write("--" + boundaryString + "\r\n");
             postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\n"
                 //+ "Content-Length: \"{2}\"\r\n"
-                                    + "Content-Type: image/jpeg\r\n"
+                                    + "Content-Type: image/{2}\r\n"
                 //+ "Content-Transfer-Encoding: binary\r\n\r\n"
                                     , "files[]"
-                                    , Path.GetFileName(fileUrl)
-                                    , filesize
+                                    , fileName
+                                    , Path.GetExtension(fileName).Trim('.')
                                     );
             postDataWriter.Write("\r\n");
             postDataWriter.Flush();
@@ -182,8 +184,17 @@
             postDataStream.Close();
 
 
-            var respones = (HttpWebResponse)requestToServerEndpoint.GetResponse();
-            Assert.That(respones.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            var response = (HttpWebResponse)requestToServerEndpoint.GetResponse();
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            var stream = response.GetResponseStream();
+            var streamReader = new StreamReader(stream);
+            var jsonTextReader = new JsonTextReader(streamReader);
+
+        
+            var settings = new JsonSerializerSettings();
+            
+            return JsonSerializer.Create(settings).Deserialize<TResponseContent>(jsonTextReader);
+
         } 
         #endregion
 

@@ -51,6 +51,7 @@
     {
         private readonly Aliases<Article> _articles = new Aliases<Article>();
         private readonly Aliases<string> _emailAddresses = new Aliases<string>();
+        private readonly Aliases<string> _fileNames = new Aliases<string>(); 
         private readonly Aliases<Organization> _organizations = new Aliases<Organization>();
         private readonly Aliases<User> _users = new Aliases<User>();
 
@@ -76,6 +77,8 @@
             get { return _emailAddresses; }
         }
 
+        public Aliases<string> FileNames { get { return _fileNames; } }
+
         public Organization Organization
         {
             get { return _organizations[""]; }
@@ -86,7 +89,6 @@
         {
             get { return _organizations; }
         }
-
 
         public Article Article
         {
@@ -104,6 +106,7 @@
         public string ValidationKey { get; set; }
         public Guid? Store { get; set; }
         public Order Order { get; set; }
+        
 
 
         [BeforeScenario]
