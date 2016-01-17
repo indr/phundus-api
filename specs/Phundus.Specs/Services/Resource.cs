@@ -69,11 +69,8 @@
 
         public void PostFile(object requestContent, string fileName)
         {
-            //var request = CreateRequest(requestContent, Method.POST);
-            ////request.AddFile("file1", fileName);
-            //request.AddFile("files[]", File.ReadAllBytes(fileName), Path.GetFileName(fileName),
-            //    "application/octet-stream");
-            //return Execute(request);
+            // https://stackoverflow.com/questions/14143630/upload-file-through-c-sharp-using-json-request-and-restsharp
+
 
             //string path = @"C:\Projectos\My Training Samples\Adobe Sample\RBO1574.pdf";
             string path = fileName;
@@ -88,7 +85,7 @@
             long filesize = fs1.Length;
             fs1.Close();
 
-            Debug.WriteLine(path + " is " + filesize + " bytes");
+            //Debug.WriteLine(path + " is " + filesize + " bytes");
 
             // Create a http request to the server endpoint that will pick up the
             // file and file description.
@@ -163,11 +160,9 @@
             FileStream fileStream = new FileStream(fileUrl, FileMode.Open, FileAccess.Read);
             byte[] buffer = new byte[1024];
             int bytesRead = 0;
-            long bytesWriten = 0;
             while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
             {
                 postDataStream.Write(buffer, 0, bytesRead);
-                bytesWriten += bytesRead;
             }
             fileStream.Close();
 
@@ -176,12 +171,11 @@
 
             // Set the http request body content length
             requestToServerEndpoint.ContentLength = postDataStream.Length;
-            Debug.WriteLine("ContentLength: " + postDataStream.Length);
+            //Debug.WriteLine("ContentLength: " + postDataStream.Length);
 
             // Dump the post data from the memory stream to the request stream
             Stream s = requestToServerEndpoint.GetRequestStream();
 
-            //fileStream = new FileStream("Test.txt", FileMode.Create);
             postDataStream.WriteTo(s);
             postDataStream.Flush();
             postDataStream.Close();
