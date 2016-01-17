@@ -11,16 +11,13 @@
 
     public class Organization : Aggregate<Guid>
     {
-        private Guid _id = Guid.NewGuid();
-
+        private ISet<MembershipApplication> _applications = new HashedSet<MembershipApplication>();
+        private DateTime _establishedAtUtc = DateTime.UtcNow;
+        private ISet<Membership> _memberships = new HashedSet<Membership>();
         private string _name;
         private string _startpage;
-        private DateTime _createDate = DateTime.UtcNow;
-        
-        private ISet<MembershipApplication> _applications = new HashedSet<MembershipApplication>(); 
-        private ISet<Membership> _memberships = new HashedSet<Membership>();
+        private Contact _contact;
 
-        
         public Organization(Guid id, string name) : base(id)
         {
             _name = name;
@@ -43,10 +40,10 @@
             get { return new OrganizationGuid(base.Id); }
         }
 
-        public virtual DateTime CreateDate
+        public virtual DateTime EstablishedAtUtc
         {
-            get { return _createDate; }
-            protected set { _createDate = value; }
+            get { return _establishedAtUtc; }
+            protected set { _establishedAtUtc = value; }
         }
 
         public virtual string Name
@@ -56,6 +53,8 @@
         }
 
         public virtual OrganizationPlan Plan { get; protected set; }
+
+        public virtual Contact Contact { get; protected set; }
 
         public virtual string Url
         {
@@ -68,13 +67,13 @@
             }
         }
 
-        public virtual ISet<Membership> Memberships
+        public virtual Iesi.Collections.Generic.ISet<Membership> Memberships
         {
             get { return _memberships; }
             protected set { _memberships = value; }
         }
 
-        public virtual ISet<MembershipApplication> Applications
+        public virtual Iesi.Collections.Generic.ISet<MembershipApplication> Applications
         {
             get { return _applications; }
             protected set { _applications = value; }
@@ -141,7 +140,8 @@
         {
             application.Reject();
 
-            EventPublisher.Publish(new MembershipApplicationRejected(initiatorGuid, OrganizationGuid, application.UserGuid));
+            EventPublisher.Publish(new MembershipApplicationRejected(initiatorGuid, OrganizationGuid,
+                application.UserGuid));
         }
 
         protected virtual Membership GetMembershipOfUser(User user)

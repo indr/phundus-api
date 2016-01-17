@@ -127,6 +127,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
+    <Compile Include="IdentityAccess\Organizations\Model\Contact.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\MemberLocked.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\Membership.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\MembershipApplication.cs" />
@@ -280,7 +281,6 @@
     <Compile Include="Shop\Orders\Model\OrderItemPeriodChanged.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemTotalChanged.cs" />
     <Compile Include="Shop\Orders\Model\OrderPlaced.cs" />
-    <Compile Include="Shop\Orders\Model\Organization.cs" />
     <Compile Include="Shop\Orders\Model\Owner.cs" />
     <Compile Include="Shop\Orders\Services\RoundRectangle.cs" />
     <Compile Include="Shop\Orders\Services\OrderPdfGeneratorService.cs" />

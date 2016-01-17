@@ -58,14 +58,14 @@
                 Guid = organization.Id,
                 OrganizationId = organization.Id,
                 Version = organization.Version,
-                EstablishedAtUc = organization.CreateDate,
+                EstablishedAtUc = organization.EstablishedAtUtc,
                 Name = organization.Name,
                 Url = organization.Url,
                 Address = organization.Address,
                 EmailAddress = organization.EmailAddress,
                 Website = organization.Website,
                 Startpage = organization.Startpage,
-                CreateDate = organization.CreateDate,
+                CreateDate = organization.EstablishedAtUtc,
                 DocumentTemplate = organization.DocTemplateFileName
             };
         }
@@ -79,7 +79,7 @@
                 Name = organization.Name,
                 Url = organization.Url,
                 Address = organization.Address,
-                EstablishedAtUtc = organization.CreateDate,
+                EstablishedAtUtc = organization.EstablishedAtUtc,
             };
         }
     }
