@@ -84,8 +84,6 @@
             protected set { _applications = value; }
         }
 
-        public virtual string Address { get; set; }
-
         public virtual string Startpage
         {
             get
@@ -99,10 +97,6 @@
             }
             set { _startpage = value; }
         }
-
-        public virtual string EmailAddress { get; set; }
-
-        public virtual string Website { get; set; }
 
         public virtual string DocTemplateFileName { get; set; }
 

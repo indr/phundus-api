@@ -61,9 +61,9 @@
                 EstablishedAtUc = organization.EstablishedAtUtc,
                 Name = organization.Name,
                 Url = organization.Url,
-                Address = organization.Address,
-                EmailAddress = organization.EmailAddress,
-                Website = organization.Website,
+                Address = organization.ContactDetails.PostAddress,
+                EmailAddress = organization.ContactDetails.EmailAddress,
+                Website = organization.ContactDetails.Website,
                 Startpage = organization.Startpage,
                 CreateDate = organization.EstablishedAtUtc,
                 DocumentTemplate = organization.DocTemplateFileName
@@ -78,7 +78,7 @@
                 Version = organization.Version,
                 Name = organization.Name,
                 Url = organization.Url,
-                Address = organization.Address,
+                Address = organization.ContactDetails.PostAddress,
                 EstablishedAtUtc = organization.EstablishedAtUtc,
             };
         }
