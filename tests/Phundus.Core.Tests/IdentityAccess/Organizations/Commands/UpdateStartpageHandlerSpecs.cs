@@ -15,7 +15,6 @@
     {
         private static IMemberInRole memberInRole;
         private static Guid theOrganizationId = Guid.NewGuid();
-        private static UserGuid theInitiatorId = new UserGuid();
         private static Organization theOrganization;
 
         private Establish ctx = () =>

@@ -16,21 +16,22 @@
     {
         private static UserGuid initiatorId = new UserGuid();
         private const int orderId = 2;
-        private static Guid orderItemId;
+        private static OrderItemId orderItemId;
         private static Order order;
 
         public Establish c = () =>
         {
             var article = new Article(1, new Owner(new OwnerId(Guid.NewGuid()), "Owner"), "Artikel", 1.0m);
             order = new Order(theLessor, CreateLessee());
-            orderItemId = order.AddItem(article, DateTime.Today, DateTime.Today, 1).Id;
+            orderItemId = new OrderItemId();
+            order.AddItem(orderItemId, article, DateTime.Today, DateTime.Today, 1);
             orderRepository.setup(x => x.GetById(orderId)).Return(order);
 
             command = new RemoveOrderItem
             {
                 InitiatorId = initiatorId,
                 OrderId = orderId,
-                OrderItemId = orderItemId
+                OrderItemId = orderItemId.Id
             };
         };
 
@@ -41,6 +42,6 @@
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemRemoved>.Is.NotNull));
 
         public It should_remove_order_item =
-            () => order.Items.ShouldNotContain(p => p.Id == orderItemId);
+            () => order.Items.ShouldNotContain(p => p.Id == orderItemId.Id);
     }
 }
