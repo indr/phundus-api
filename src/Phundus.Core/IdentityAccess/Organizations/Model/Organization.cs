@@ -16,7 +16,7 @@
         private ISet<Membership> _memberships = new HashedSet<Membership>();
         private string _name;
         private string _startpage;
-        private Contact _contact;
+        private ContactDetails _contactDetails;
 
         public Organization(Guid id, string name) : base(id)
         {
@@ -54,7 +54,7 @@
 
         public virtual OrganizationPlan Plan { get; protected set; }
 
-        public virtual Contact Contact { get; protected set; }
+        public virtual ContactDetails ContactDetails { get; protected set; }
 
         public virtual string Url
         {
@@ -67,13 +67,13 @@
             }
         }
 
-        public virtual Iesi.Collections.Generic.ISet<Membership> Memberships
+        public virtual ISet<Membership> Memberships
         {
             get { return _memberships; }
             protected set { _memberships = value; }
         }
 
-        public virtual Iesi.Collections.Generic.ISet<MembershipApplication> Applications
+        public virtual ISet<MembershipApplication> Applications
         {
             get { return _applications; }
             protected set { _applications = value; }
@@ -183,6 +183,10 @@
             Startpage = startpage;
 
             EventPublisher.Publish(new StartpageChanged());
+        }
+
+        public virtual void ChangeContactDetails(ContactDetails theContactDetails)
+        {
         }
     }
 }

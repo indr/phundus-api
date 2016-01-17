@@ -110,6 +110,7 @@
     <Compile Include="Ddd\IStoredEventRepository.cs" />
     <Compile Include="Ddd\ISubscribeTo.cs" />
     <Compile Include="Cqrs\AutoMappingReadModelBase.cs" />
+    <Compile Include="IdentityAccess\Model\OrganizationContactDetailsChanged.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\ApplyForMembership.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\ApproveMembershipApplication.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\ChangeMembersRole.cs" />
@@ -127,7 +128,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
-    <Compile Include="IdentityAccess\Organizations\Model\Contact.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\ContactDetails.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\MemberLocked.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\Membership.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\MembershipApplication.cs" />
