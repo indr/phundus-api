@@ -1,6 +1,7 @@
 namespace Phundus.Rest.Api.Users
 {
     using System;
+    using System.IO;
     using System.Net;
     using System.Net.Http;
     using System.Web;
@@ -32,17 +33,17 @@ namespace Phundus.Rest.Api.Users
             return new ImageStore(path);
         }
 
-        private BlueImpFileUploadJsonResultFactory CreateFactory(string path, int userId, int articleId)
+        private BlueImpFileUploadJsonResultFactory CreateFactory(string path, Guid userId, int articleId)
         {
             var factory = new BlueImpFileUploadJsonResultFactory();
             factory.ImageUrl = path;
-            factory.DeleteUrl = "/api/users/" + userId + "/articles/" + articleId + "/files";
+            factory.DeleteUrl = "/api/users/" + userId.ToString("D") + "/articles/" + articleId + "/files";
             return factory;
         }
 
         [GET("")]
         [Transaction]
-        public virtual object Get(int userId, int articleId)
+        public virtual object Get(Guid userId, int articleId)
         {
             var factory = CreateFactory(GetBaseFilesUrl(articleId), userId, articleId);
             var images = ImageQueries.ByArticle(articleId);
@@ -52,7 +53,7 @@ namespace Phundus.Rest.Api.Users
 
         [POST("")]
         [Transaction]
-        public virtual object Post(int userId, int articleId)
+        public virtual object Post(Guid userId, int articleId)
         {
             var path = GetPath(articleId);
             var store = CreateImageStore(path);
@@ -61,7 +62,7 @@ namespace Phundus.Rest.Api.Users
             var images = handler.Handle(HttpContext.Current.Request.Files);
             foreach (var each in images)
             {
-                var command = new AddImage(CurrentUserGuid, new ArticleId(articleId), each.FileName, each.Type,
+                var command = new AddImage(CurrentUserGuid, new ArticleId(articleId), Path.GetFileName(each.FileName), each.Type,
                     each.Length);
                 Dispatcher.Dispatch(command);
                 each.Id = command.ResultingImageId;
@@ -71,7 +72,7 @@ namespace Phundus.Rest.Api.Users
 
         [DELETE("{fileName}")]
         [Transaction]
-        public virtual HttpResponseMessage Delete(int userId, int articleId, string fileName)
+        public virtual HttpResponseMessage Delete(Guid userId, int articleId, string fileName)
         {
             var path = GetPath(articleId);
             var store = CreateImageStore(path);
