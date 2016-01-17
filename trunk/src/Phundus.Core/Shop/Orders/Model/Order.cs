@@ -7,7 +7,6 @@
     using Contracts.Model;
     using Ddd;
     using Iesi.Collections.Generic;
-    using Inventory.Services;
 
     public class Order
     {
@@ -187,44 +186,14 @@
             }
         }
 
-        public virtual OrderItem AddItem(OrderItemId orderItemId, Article article, DateTime fromUtc, DateTime toUtc, int amount)
+        public virtual void AddItem(OrderItemId orderItemId, Article article, DateTime fromUtc, DateTime toUtc, int quantity)
         {
             EnsurePending();
 
-            var item = new OrderItem(this, orderItemId, article, fromUtc, toUtc, amount);
+            var item = new OrderItem(this, orderItemId, article, fromUtc, toUtc, quantity);
             _items.Add(item);
 
             EventPublisher.Publish(new OrderItemAdded());
-
-            return item;
-        }
-
-        [Obsolete]
-        public virtual OrderItem AddItem(Article article, DateTime fromUtc, DateTime toUtc, int amount)
-        {
-            return AddItem(new OrderItemId(), article, fromUtc, toUtc, amount);
-        }
-
-        public virtual bool AddItem(Article article, int amount, DateTime fromUtc, DateTime toUtc,
-            IAvailabilityService availabilityService)
-        {
-            EnsurePending();
-
-            var item = new OrderItem(this, article, fromUtc, toUtc, amount);
-
-            return AddItem(item, availabilityService);
-        }
-
-        private bool AddItem(OrderItem item, IAvailabilityService availabilityService)
-        {
-            EnsurePending();
-
-            if (
-                !availabilityService.IsArticleAvailable(item.ArticleId, item.FromUtc, item.ToUtc, item.Amount,
-                    Guid.Empty))
-                throw new ArticleNotAvailableException(item);
-
-            return _items.Add(item);
         }
 
         public virtual void RemoveItem(Guid orderItemId)

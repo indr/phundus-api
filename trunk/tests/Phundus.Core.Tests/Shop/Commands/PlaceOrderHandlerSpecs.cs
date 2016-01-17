@@ -15,7 +15,6 @@
     public class place_order_handler_concern : order_handler_concern<PlaceOrder, PlaceOrderHandler>
     {
         protected const int theResultingOrderId = 123;
-        protected static InitiatorGuid theInitiatorId;
         protected static UserGuid theInitiatorGuid;
         protected static Cart theCart;
         protected static ICartRepository cartRepository;

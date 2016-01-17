@@ -8,26 +8,25 @@
     using Machine.Specifications;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
-    using Phundus.Tests.Shop;
     using Rhino.Mocks;
-    using Article = Phundus.Shop.Orders.Model.Article;
 
     [Subject(typeof (UpdateOrderItemHandler))]
     public class when_update_order_item_is_handled : order_handler_concern<UpdateOrderItem, UpdateOrderItemHandler>
     {
-        private static UserGuid initiatorId = new UserGuid();
         private const int orderId = 2;
         private const int newAmount = 20;
-        private static Guid orderItemId;
+        private static UserGuid initiatorId = new UserGuid();        
         private static Order order;
         private static DateTime newFromUtc;
         private static DateTime newToUtc;
+        private static OrderItemId theOrderItemId;
 
         public Establish c = () =>
         {
             var article = new Article(1, new Owner(new OwnerId(theLessor.LessorId.Id), "Owner"), "Artikel", 1.0m);
             order = new Order(theLessor, CreateLessee());
-            orderItemId = order.AddItem(article, DateTime.Today, DateTime.Today, 1).Id;
+            theOrderItemId = new OrderItemId();
+            order.AddItem(theOrderItemId, article, DateTime.Today, DateTime.Today, 1);
             orderRepository.setup(x => x.GetById(orderId)).Return(order);
 
             newFromUtc = DateTime.UtcNow.AddDays(1);
@@ -36,7 +35,7 @@
             {
                 InitiatorId = initiatorId,
                 OrderId = orderId,
-                OrderItemId = orderItemId,
+                OrderItemId = theOrderItemId.Id,
                 Amount = newAmount,
                 FromUtc = newFromUtc,
                 ToUtc = newToUtc
@@ -53,12 +52,16 @@
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemPeriodChanged>.Is.NotNull));
 
         public It should_update_order_items_amount =
-            () => order.Items.Single(p => p.Id == orderItemId).Amount.ShouldEqual(newAmount);
+            () => order.Items.Single(p => p.Id == theOrderItemId.Id).Amount.ShouldEqual(newAmount);
 
         public It should_update_order_items_period_from_to_midnight =
-            () => order.Items.Single(p => p.Id == orderItemId).FromUtc.ShouldEqual(newFromUtc.ToLocalTime().Date.ToUniversalTime());
+            () =>
+                order.Items.Single(p => p.Id == theOrderItemId.Id)
+                    .FromUtc.ShouldEqual(newFromUtc.ToLocalTime().Date.ToUniversalTime());
 
         public It should_update_order_items_period_to_one_second_before_midnight =
-            () => order.Items.Single(p => p.Id == orderItemId).ToUtc.ShouldEqual(newToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime());
+            () =>
+                order.Items.Single(p => p.Id == theOrderItemId.Id)
+                    .ToUtc.ShouldEqual(newToUtc.ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime());
     }
 }
