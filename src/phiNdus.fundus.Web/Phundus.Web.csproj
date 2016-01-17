@@ -219,12 +219,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartMitSqlServerCe.cs" />
-    <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="HttpNotFoundException.cs" />
     <Compile Include="Models\CartModels\CartItemDto.cs" />
-    <Compile Include="Models\ManagementModel.cs" />
     <Compile Include="Security\WindsorMembershipProvider.cs" />
     <Compile Include="Security\WebWindsorRoleProvider.cs" />
     <Compile Include="Security\WebWindsorMembershipProvider.cs" />
@@ -339,7 +337,6 @@
     <Content Include="Content\select2.png" />
     <Content Include="Content\select2x2.png" />
     <Content Include="Content\spinner.gif" />
-    <Content Include="Content\Views\Management\Settings.html" />
     <Content Include="images\yeoman.8cb970fb.png" />
     <Content Include="img\loading.gif" />
     <Content Include="index.html" />
