@@ -206,6 +206,7 @@
     <Compile Include="IdentityAccess\Users\Services\UserInRole.cs" />
     <Compile Include="Inventory\Articles\Commands\AddImage.cs" />
     <Compile Include="Inventory\Articles\Commands\RemoveImage.cs" />
+    <Compile Include="Inventory\Articles\Commands\SetPreviewImage.cs" />
     <Compile Include="Inventory\Articles\Commands\UpdateDescription.cs" />
     <Compile Include="Inventory\Articles\Commands\UpdateSpecification.cs" />
     <Compile Include="Inventory\Articles\Exceptions\ImageNotFoundException.cs" />

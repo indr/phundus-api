@@ -74,7 +74,6 @@
             _articles = App.QueryArticlesByOrganization(Ctx.Organization);
         }
 
-
         [Then(@"I should see (.*) articles")]
         public void ThenIShouldSeeArticles(int number)
         {

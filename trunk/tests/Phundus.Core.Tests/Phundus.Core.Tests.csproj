@@ -113,6 +113,7 @@
     <Compile Include="aggregate_concern_new.cs" />
     <Compile Include="Inventory\Articles\Commands\AddImageSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\RemoveImageSpecs.cs" />
+    <Compile Include="Inventory\Articles\Commands\SetPreviewImageHandlerSpecs.cs" />
     <Compile Include="Inventory\Articles\Model\ArticleSpecs.cs" />
     <Compile Include="Inventory\OrganizationStoreOpenerSpecs.cs" />
     <Compile Include="concern.cs" />

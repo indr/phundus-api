@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using Bootstrap;
     using Common;
     using Common.Domain.Model;
     using Ddd;
@@ -12,12 +13,12 @@
     {
         private DateTime _createDate = DateTime.UtcNow;
         private string _description;
+        private int _grossStock;
         private ISet<Image> _images = new HashedSet<Image>();
         private string _name;
         private Owner _owner;
         private string _specification;
         private StoreId _storeId;
-        private int _grossStock;
 
         protected Article()
         {
@@ -89,6 +90,11 @@
 
         public virtual string Color { get; set; }
 
+        public virtual ArticleId ArticleId
+        {
+            get { return new ArticleId(Id); }
+        }
+
         public virtual void ChangeDescription(string description)
         {
             if (_description != null && description == _description)
@@ -154,6 +160,11 @@
 
             previewImage.IsPreview = true;
             EventPublisher.Publish(new PreviewImageChanged());
+        }
+
+        public virtual void SetPreviewImage(string fileName)
+        {
+            Images.ForEach(a => a.IsPreview = a.FileName == fileName);
         }
     }
 }
