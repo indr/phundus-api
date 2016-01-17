@@ -147,7 +147,6 @@
     <Compile Include="Shop\Orders\Model\OrderSpecs.cs" />
     <Compile Include="Shop\Orders\Model\OrderStatusSpecs.cs" />
     <Compile Include="Shop\Orders\Model\order_concern.cs" />
-    <Compile Include="Shop\OrganizationFactory.cs" />
     <Compile Include="Shop\shop_factory.cs" />
     <Compile Include="subscriber_concern.cs" />
     <Compile Include="_Legacy\Entities\EntityBaseTests.cs" />
