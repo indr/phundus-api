@@ -14,20 +14,20 @@
     public class when_handling_update_startpage : handler_concern<UpdateStartpage, UpdateStartpageHandler>
     {
         private static IMemberInRole memberInRole;
-        private static Guid theOrganizationId = Guid.NewGuid();
+        private static OrganizationGuid theOrganizationId = new OrganizationGuid();
         private static Organization theOrganization;
 
         private Establish ctx = () =>
         {
-            theOrganization = new Organization(theOrganizationId, "The organization");
+            theOrganization = new Organization(theInitiatorId, theOrganizationId, "The organization");
             memberInRole = depends.on<IMemberInRole>();
-            depends.on<IOrganizationRepository>().WhenToldTo(x => x.GetById(theOrganizationId)).Return(theOrganization);
+            depends.on<IOrganizationRepository>().WhenToldTo(x => x.GetById(theOrganizationId.Id)).Return(theOrganization);
 
             command = new UpdateStartpage(theInitiatorId, theOrganizationId, "<p>New startpage</p>");
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(theOrganizationId, theInitiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveChief(theOrganizationId.Id, theInitiatorId));
 
         public It should_publish_organization_updated =
             () => publisher.WasToldTo(x => x.Publish(Arg<StartpageChanged>.Is.NotNull));

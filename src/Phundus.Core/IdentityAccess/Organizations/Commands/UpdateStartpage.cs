@@ -8,30 +8,38 @@
 
     public class UpdateStartpage
     {
-        public UpdateStartpage(UserGuid initiatorId, Guid organizationId, string startpage)
+        public UpdateStartpage(InitiatorGuid initiatorId, OrganizationGuid organizationId, string startpage)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (organizationId == null) throw new ArgumentNullException("organizationId");
             InitiatorId = initiatorId;
             OrganizationId = organizationId;
             Startpage = startpage;
         }
 
-        public Guid OrganizationId { get; protected set; }
-        public UserGuid InitiatorId { get; protected set; }
+        public InitiatorGuid InitiatorId { get; protected set; }
+        public OrganizationGuid OrganizationId { get; protected set; }
         public string Startpage { get; protected set; }
     }
 
     public class UpdateStartpageHandler : IHandleCommand<UpdateStartpage>
     {
-        public IMemberInRole MemberInRole { get; set; }
+        private readonly IMemberInRole _memberInRole;
+        private readonly IOrganizationRepository _organizationRepository;
 
-        public IOrganizationRepository Repository { get; set; }
+        public UpdateStartpageHandler(IMemberInRole memberInRole, IOrganizationRepository organizationRepository)
+        {
+            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
+            if (organizationRepository == null) throw new ArgumentNullException("organizationRepository");
+            _memberInRole = memberInRole;
+            _organizationRepository = organizationRepository;
+        }
 
         public void Handle(UpdateStartpage command)
         {
-            MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
+            _memberInRole.ActiveChief(command.OrganizationId.Id, command.InitiatorId);
 
-            var organization = Repository.GetById(command.OrganizationId);
+            var organization = _organizationRepository.GetById(command.OrganizationId.Id);
 
             organization.ChangeStartpage(command.InitiatorId, command.Startpage);
         }

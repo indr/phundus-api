@@ -117,7 +117,7 @@
         {
             if (!String.IsNullOrWhiteSpace(requestContent.Startpage))
             {
-                Dispatch(new UpdateStartpage(CurrentUserGuid, organizationId, requestContent.Startpage));
+                Dispatch(new UpdateStartpage(CurrentUserGuid, new OrganizationGuid(organizationId), requestContent.Startpage));
             }
             return NoContent();
         }
