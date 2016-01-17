@@ -79,12 +79,7 @@ namespace Phundus.Rest.Api.Organizations
         {
             var path = GetPath(articleId);
             var store = CreateImageStore(path);
-            Dispatcher.Dispatch(new RemoveImage
-            {
-                ArticleId = articleId,
-                ImageFileName = fileName,
-                InitiatorId = CurrentUserGuid
-            });
+            Dispatcher.Dispatch(new RemoveImage(CurrentUserGuid, new ArticleId(articleId), fileName));
             store.Delete(fileName);
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }

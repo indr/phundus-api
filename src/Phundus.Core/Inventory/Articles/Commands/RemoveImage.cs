@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Inventory.Articles.Commands
 {
+    using System;
     using Common.Domain.Model;
     using Cqrs;
     using IdentityAccess.Queries;
@@ -7,24 +8,41 @@
 
     public class RemoveImage
     {
-        public int ArticleId { get; set; }
-        public string ImageFileName { get; set; }
-        public UserGuid InitiatorId { get; set; }        
+        public RemoveImage(InitiatorGuid initiatorId, ArticleId articleId, string fileName)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (fileName == null) throw new ArgumentNullException("fileName");
+            InitiatorId = initiatorId;
+            ArticleId = articleId;
+            FileName = fileName;
+        }
+
+        public InitiatorGuid InitiatorId { get; set; }
+        public ArticleId ArticleId { get; set; }
+        public string FileName { get; set; }
     }
 
     public class RemoveImageHandler : IHandleCommand<RemoveImage>
     {
-        public IArticleRepository ArticleRepository { get; set; }
+        private readonly IArticleRepository _articleRepository;
+        private readonly IMemberInRole _memberInRole;
 
-        public IMemberInRole MemberInRole { get; set; }
+        public RemoveImageHandler(IMemberInRole memberInRole, IArticleRepository articleRepository)
+        {
+            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
+            if (articleRepository == null) throw new ArgumentNullException("articleRepository");
+            _memberInRole = memberInRole;
+            _articleRepository = articleRepository;
+        }
 
         public void Handle(RemoveImage command)
         {
-            var article = ArticleRepository.GetById(command.ArticleId);
+            var article = _articleRepository.GetById(command.ArticleId.Id);
 
-            MemberInRole.ActiveChief(article.Owner.OwnerId.Id, command.InitiatorId);
+            _memberInRole.ActiveChief(article.Owner.OwnerId.Id, command.InitiatorId);
 
-            article.RemoveImage(command.ImageFileName);
+            article.RemoveImage(command.FileName);
         }
     }
 }

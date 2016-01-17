@@ -30,12 +30,7 @@
             article.AddImage(imageFileName, "image/jpeg", 1024);
             articleRepository.setup(x => x.GetById(articleId)).Return(article);
 
-            command = new RemoveImage
-            {
-                ArticleId = articleId,
-                ImageFileName = imageFileName,
-                InitiatorId = initiatorId
-            };
+            command = new RemoveImage(theInitiatorId, new ArticleId(articleId), imageFileName);
         };
 
         private It should_ask_for_chief_privileges =
