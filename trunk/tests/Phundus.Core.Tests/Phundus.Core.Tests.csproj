@@ -98,6 +98,7 @@
     <Compile Include="aggregate_concern.cs" />
     <Compile Include="Ddd\DomainEntitesSpecs.cs" />
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
+    <Compile Include="factory_base.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\EstablishOrganizationHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UpdateOrganizationDetailsHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UpdateStartpageHandlerSpecs.cs" />
@@ -109,6 +110,8 @@
     <Compile Include="IdentityAccess\Users\Events\UserApprovedSpecs.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserSpecs.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
+    <Compile Include="Inventory\Articles\Model\aggregate_concern_new.cs" />
+    <Compile Include="Inventory\Articles\Model\ArticleSpecs.cs" />
     <Compile Include="Inventory\OrganizationStoreOpenerSpecs.cs" />
     <Compile Include="concern.cs" />
     <Compile Include="Cqrs\TestCommand1.cs" />
@@ -122,6 +125,7 @@
     <Compile Include="Inventory\Articles\Commands\RemoveImageHandlerSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\UpdateArticleHandlerSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\WhenDeleteArticleIsHandled.cs" />
+    <Compile Include="Inventory\inventory_factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shop\Commands\AddArticleToCartHandlerSpecs.cs" />
     <Compile Include="Shop\Commands\PlaceOrderHandlerSpecs.cs" />
@@ -141,6 +145,7 @@
     <Compile Include="Shop\Orders\Model\OrderStatusSpecs.cs" />
     <Compile Include="Shop\Orders\Model\order_concern.cs" />
     <Compile Include="Shop\OrganizationFactory.cs" />
+    <Compile Include="Shop\shop_factory.cs" />
     <Compile Include="subscriber_concern.cs" />
     <Compile Include="_Legacy\Entities\EntityBaseTests.cs" />
     <Compile Include="_Legacy\Entities\MembershipTests.cs" />

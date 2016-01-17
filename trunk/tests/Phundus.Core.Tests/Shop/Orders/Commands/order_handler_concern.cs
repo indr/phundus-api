@@ -27,8 +27,11 @@ namespace Phundus.Tests.Shop.Orders.Commands
 
         protected static ILessorService lessorService;
 
-        protected Establish dependencies = () =>
+        protected static shop_factory make;
+
+        private Establish ctx = () =>
         {
+            make = new shop_factory(fake);
             theLessor = new Lessor(theLessorId, "Lessor");
             memberInRole = depends.on<IMemberInRole>();
             orderRepository = depends.on<IOrderRepository>();

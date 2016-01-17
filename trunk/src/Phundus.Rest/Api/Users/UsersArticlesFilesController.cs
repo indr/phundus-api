@@ -11,6 +11,7 @@ namespace Phundus.Rest.Api.Users
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common;
+    using Common.Domain.Model;
     using Inventory.Articles.Commands;
     using Inventory.Queries;
 
@@ -63,16 +64,10 @@ namespace Phundus.Rest.Api.Users
             var images = handler.Handle(HttpContext.Current.Request.Files);
             foreach (var each in images)
             {
-                var command = new AddImage
-                {
-                    ArticleId = articleId,
-                    FileName = each.FileName,
-                    InitiatorId = CurrentUserGuid,
-                    Length = each.Length,
-                    Type = each.Type
-                };
+                var command = new AddImage(CurrentUserGuid, new ArticleId(articleId), each.FileName, each.Type,
+                    each.Length);
                 Dispatcher.Dispatch(command);
-                each.Id = command.ImageId.Value;
+                each.Id = command.ResultingImageId;
             }
             return new {files = factory.Create(images)};
         }

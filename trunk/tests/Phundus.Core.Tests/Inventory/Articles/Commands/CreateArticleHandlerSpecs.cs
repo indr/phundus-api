@@ -21,12 +21,12 @@
             initiatorId = new UserGuid();
             ownerId = new OwnerId(Guid.NewGuid());
             ownerService.setup(x => x.GetById(ownerId)).Return(new Owner(ownerId, "Owner"));
-            repository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(1);
+            articleRepository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(1);
 
             command = new CreateArticle(initiatorId, ownerId, new StoreId(), "Name", 0);
         };
 
-        public It should_add_to_repository = () => repository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
+        public It should_add_to_repository = () => articleRepository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
 
         public It should_ask_for_chief_privileges =
             () => memberInRole.WasToldTo(x => x.ActiveChief(ownerId, initiatorId));

@@ -116,7 +116,8 @@
                 FileName = fileName,
                 Length = length,
                 Type = type,
-                Article = this
+                Article = this,
+                IsPreview = Images.Count == 0
             };
             Images.Add(image);
 

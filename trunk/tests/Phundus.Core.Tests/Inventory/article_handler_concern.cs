@@ -12,14 +12,17 @@ namespace Phundus.Tests.Inventory
     {
         protected static IMemberInRole memberInRole;
 
-        protected static IArticleRepository repository;
+        protected static IArticleRepository articleRepository;
 
         protected static IOwnerService ownerService;
 
-        protected Establish dependencies = () =>
+        protected static inventory_factory make;
+
+        private Establish ctx = () =>
         {
+            make = new inventory_factory(fake);
             memberInRole = depends.on<IMemberInRole>();
-            repository = depends.on<IArticleRepository>();
+            articleRepository = depends.on<IArticleRepository>();
             ownerService = depends.on<IOwnerService>();
         };
     }
