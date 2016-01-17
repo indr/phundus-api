@@ -27,7 +27,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
             storeId = new StoreId();
             owner = new Owner(new OwnerId(ownerId), "Owner");
             article = new Article(owner, storeId, "Name", 0);
-            repository.WhenToldTo(x => x.GetById(articleId)).Return(article);
+            articleRepository.WhenToldTo(x => x.GetById(articleId)).Return(article);
 
             command = new UpdateArticle();
             command.InitiatorId = initiatorId;

@@ -26,7 +26,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
             ownerId = Guid.NewGuid();
             owner = new Owner(new OwnerId(ownerId), "Owner");
             article = new Article(owner, new StoreId(), "Name", 0);
-            repository.setup(x => x.GetById(articleId)).Return(article);
+            articleRepository.setup(x => x.GetById(articleId)).Return(article);
 
             command = new DeleteArticle
             {
@@ -38,7 +38,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
         private It should_ask_for_chief_privileges =
             () => memberInRole.WasToldTo(x => x.ActiveChief(ownerId, initiatorId));
 
-        private It should_ask_for_removal = () => repository.WasToldTo(x => x.Remove(article));
+        private It should_ask_for_removal = () => articleRepository.WasToldTo(x => x.Remove(article));
 
         private It should_publish_article_deleted =
             () => publisher.WasToldTo(x => x.Publish(Arg<ArticleDeleted>.Is.NotNull));
