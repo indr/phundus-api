@@ -1,18 +1,16 @@
 ﻿namespace Phundus.Ddd
 {
     using System;
-    using Castle.Windsor;
     using Common.Domain.Model;
 
     public static class EventPublisher
     {
-        private static Func<IEventPublisher> _factory = () => Container.Resolve<IEventPublisher>();
-
-        [Obsolete]
-        public static IWindsorContainer Container { get; set; }
+        private static Func<IEventPublisher> _factory;
 
         public static void Publish<TDomainEvent>(TDomainEvent @event) where TDomainEvent : DomainEvent
         {
+            if (_factory == null)
+                throw new InvalidOperationException("You need to provide a factory to the static EventPublisher class.");
             var publisher = _factory();
             publisher.Publish(@event);
         }
