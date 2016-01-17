@@ -119,7 +119,7 @@
     <Compile Include="IdentityAccess\Organizations\Commands\RejectMembershipApplication.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UnlockMember.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UpdateStartpage.cs" />
-    <Compile Include="IdentityAccess\Organizations\Commands\UpdateOrganizationDetails.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\ChangeOrganizationContactDetails.cs" />
     <Compile Include="IdentityAccess\Organizations\Exceptions\AttemptToLockOneselfException.cs" />
     <Compile Include="IdentityAccess\Organizations\Exceptions\MembershipApplicationNotFoundException.cs" />
     <Compile Include="IdentityAccess\Organizations\Mails\MembershipApplicationMailNotifier.cs" />

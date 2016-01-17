@@ -99,7 +99,9 @@
     <Compile Include="Ddd\DomainEntitesSpecs.cs" />
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="factory_base.cs" />
+    <Compile Include="IdentityAccess\identityaccess_factory.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\EstablishOrganizationHandlerSpecs.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\organization_handler_concern.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UpdateOrganizationDetailsHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UpdateStartpageHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Events\MembershipApplicationSpecs.cs" />

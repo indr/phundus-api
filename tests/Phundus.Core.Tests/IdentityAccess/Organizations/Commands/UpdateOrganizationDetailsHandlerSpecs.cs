@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Organizations.Commands
 {
-    using System;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
@@ -11,37 +10,29 @@
     using Phundus.IdentityAccess.Queries;
     using Rhino.Mocks;
 
-    [Subject(typeof (UpdateOrganizationDetailsHandler))]
-    public class when_update_organization_details_is_handled :
-        handler_concern<UpdateOrganizationDetails, UpdateOrganizationDetailsHandler>
+    [Subject(typeof (ChangeOrganizationContactDetailsHandler))]
+    public class when_update_organization_details_is_handled : organization_handler_concern
     {
-        protected static IMemberInRole memberInRole;
-        protected static IOrganizationRepository repository;
+        private static IMemberInRole memberInRole;
+        private static IOrganizationRepository repository;
+        private static Organization theOrganization;
 
-        protected static Guid organizationId;
-        protected static UserGuid userId = new UserGuid();
-        private static Organization organization;
-
-        protected Establish c = () =>
+        private Establish ctx = () =>
         {
-            organizationId = Guid.NewGuid();
-            organization = new Organization(organizationId, "Organization");
+            theOrganization = make.Organization();
             memberInRole = depends.on<IMemberInRole>();
             repository = depends.on<IOrganizationRepository>();
 
-            repository.setup(x => x.GetById(organizationId)).Return(organization);
+            repository.setup(x => x.GetById(theOrganization.Id)).Return(theOrganization);
 
-            command = new UpdateOrganizationDetails
-            {
-                OrganizationId = organizationId,
-                InitiatorId = userId
-            };
+            command = new ChangeOrganizationContactDetails(theInitiatorId, new OrganizationGuid(theOrganization.Id),
+                "New post address", "New phone number", "New email address", "New website");
         };
 
-        public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(organizationId, userId));
+        private It should_ask_for_chief_privileges = () =>
+            memberInRole.WasToldTo(x => x.ActiveChief(theOrganization.Id, theInitiatorId));
 
-        public It should_publish_organization_updated =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrganizationUpdated>.Is.NotNull));
+        private It should_tell_organization_to_change_contact_details = () =>
+            theOrganization.WasToldTo(x => x.ChangeContactDetails(Arg<ContactDetails>.Is.NotNull));
     }
 }

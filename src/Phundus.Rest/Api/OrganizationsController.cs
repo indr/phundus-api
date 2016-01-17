@@ -94,23 +94,6 @@
                 new OrganizationsPostOkResponseContent {OrganizationId = organizationGuid.Id});
         }
 
-        [PUT("{organizationId}")]
-        [Transaction]
-        public virtual OrganizationDetailDto Put(Guid organizationId, [FromBody] OrganizationDetailDto value)
-        {
-            Dispatcher.Dispatch(new UpdateOrganizationDetails
-            {
-                Address = value.Address,
-                DocumentTemplate = value.DocumentTemplate,
-                EmailAddress = value.EmailAddress,
-                InitiatorId = CurrentUserGuid,
-                OrganizationId = organizationId,
-                Website = value.Website
-            });
-
-            return _organizationQueries.FindById(organizationId);
-        }
-
         [PATCH("{organizationId}")]
         [Transaction]
         public virtual HttpResponseMessage Patch(Guid organizationId, OrganizationsPatchRequestContent requestContent)
