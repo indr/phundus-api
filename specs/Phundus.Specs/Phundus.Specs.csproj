@@ -108,6 +108,7 @@
     <Compile Include="ContentTypes\AccountContentTypes.cs" />
     <Compile Include="ContentTypes\CartsContentTypes.cs" />
     <Compile Include="ContentTypes\FeedbackPostRequestContent.cs" />
+    <Compile Include="ContentTypes\FileUploadResponseContent.cs" />
     <Compile Include="ContentTypes\MailsContentTypes.cs" />
     <Compile Include="ContentTypes\OrdersContentTypes.cs" />
     <Compile Include="ContentTypes\OrganizationsApplicationsPostOkResponseContent.cs" />

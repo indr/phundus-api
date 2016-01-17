@@ -78,9 +78,16 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.And("I created an article in my store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 8
- testRunner.When("I try to upload an article image", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I try to upload an article image Image1.jpg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Type"});
+            table1.AddRow(new string[] {
+                        "Image1.jpg",
+                        "image/jpg"});
 #line 9
- testRunner.Then("I should see ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should get file upload response content", ((string)(null)), table1, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -90,25 +97,32 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void UploadToAnArticleInOrganizationStore()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Upload to an article in organization store", ((string[])(null)));
-#line 11
+#line 13
 this.ScenarioSetup(scenarioInfo);
 #line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Alias",
                         "Role"});
-            table1.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "Greg",
                         "Manager"});
-#line 12
- testRunner.Given("an organization with these members", ((string)(null)), table1, "Given ");
-#line 15
- testRunner.And("I am logged in as Greg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 16
- testRunner.And("I created an article in the default store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 14
+ testRunner.Given("an organization with these members", ((string)(null)), table2, "Given ");
 #line 17
- testRunner.When("I try to upload an article image", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I am logged in as Greg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 18
- testRunner.Then("I should see ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I created an article in the default store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 19
+ testRunner.When("I try to upload an article image Image2.jpg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Type"});
+            table3.AddRow(new string[] {
+                        "Image2.jpg",
+                        "image/jpg"});
+#line 20
+ testRunner.Then("I should get file upload response content", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

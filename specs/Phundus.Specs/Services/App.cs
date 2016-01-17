@@ -351,9 +351,9 @@
                 new {organizationId = organization.OrganizationId, startpage = htmlContent});
         }
 
-        public void UploadArticleImage(Article article, string fileName)
+        public FileUploadResponseContent UploadArticleImage(Article article, string fullFileName, string fileName = null)
         {
-            _apiClient.ArticlesFilesApi.PostFile(new {articleId = article.ArticleId}, fileName);
+            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new { articleId = article.ArticleId }, fullFileName, fileName);
         }
     }
 }
