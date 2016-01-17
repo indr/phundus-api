@@ -1,4 +1,4 @@
-namespace Phundus.Rest.Api.Organizations
+namespace Phundus.Rest.Api
 {
     using System;
     using System.IO;
@@ -13,8 +13,8 @@ namespace Phundus.Rest.Api.Organizations
     using Inventory.Articles.Commands;
     using Inventory.Queries;
 
-    [RoutePrefix("api/organizations/{organizationId}/articles/{articleId}/files")]
-    public class OrganizationsArticlesFilesController : ApiControllerBase
+    [RoutePrefix("api/articles/{articleId}/files")]
+    public class ArticlesFilesController : ApiControllerBase
     {
         public IImageQueries ImageQueries { get; set; }
 
@@ -33,20 +33,20 @@ namespace Phundus.Rest.Api.Organizations
             return new ImageStore(path);
         }
 
-        private BlueImpFileUploadJsonResultFactory CreateFactory(string path, Guid organizationId, int articleId)
+        private BlueImpFileUploadJsonResultFactory CreateFactory(string path, int articleId)
         {
             var factory = new BlueImpFileUploadJsonResultFactory();
             factory.ImageUrl = path;
-            factory.DeleteUrl = "/api/organizations/" + organizationId + "/articles/" + articleId + "/files";
+            factory.DeleteUrl = "/api/articles/" + articleId + "/files";
             return factory;
         }
 
         [GET("")]
         [Transaction]
-        public virtual object Get(Guid organizationId, int articleId)
+        public virtual object Get(int articleId)
         {
             // TODO: Auth filtering
-            var factory = CreateFactory(GetBaseFilesUrl(articleId), organizationId, articleId);
+            var factory = CreateFactory(GetBaseFilesUrl(articleId), articleId);
             var images = ImageQueries.ByArticle(articleId);
             var result = factory.Create(images);
             return new {files = result};
@@ -54,11 +54,11 @@ namespace Phundus.Rest.Api.Organizations
 
         [POST("")]
         [Transaction]
-        public virtual object Post(Guid organizationId, int articleId)
+        public virtual object Post(int articleId)
         {
             var path = GetPath(articleId);
             var store = CreateImageStore(path);
-            var factory = CreateFactory(GetBaseFilesUrl(articleId), organizationId, articleId);
+            var factory = CreateFactory(GetBaseFilesUrl(articleId), articleId);
             var handler = new BlueImpFileUploadHandler(store);
             var images = handler.Handle(HttpContext.Current.Request.Files);
             foreach (var each in images)
@@ -73,7 +73,7 @@ namespace Phundus.Rest.Api.Organizations
 
         [DELETE("{fileName}")]
         [Transaction]
-        public virtual HttpResponseMessage Delete(Guid organizationId, int articleId, string fileName)
+        public virtual HttpResponseMessage Delete(int articleId, string fileName)
         {
             var path = GetPath(articleId);
             var store = CreateImageStore(path);

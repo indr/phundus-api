@@ -33,6 +33,12 @@
             }
         }
 
+        [Given(@"I created an article in the default store")]
+        public void GivenICreatedAnArticleInTheDefaultStore()
+        {
+            Ctx.Article = App.CreateArticle(Ctx.Organization.OrganizationId);
+        }
+
         [Given(@"with these organization articles")]
         public void GivenWithTheseOrganizationArticles(Table table)
         {
@@ -47,7 +53,13 @@
         [When(@"I create an article in my store")]
         public void WhenICreateAnArticleInMyStore()
         {
-            Ctx.Article = App.CreateArticle(Ctx.User.UserId, null);
+            Ctx.Article = App.CreateArticle(Ctx.User.UserId);
+        }
+
+        [When(@"I create an article in the default store")]
+        public void WhenICreateAnArticleInTheDefaultStore()
+        {
+            Ctx.Article = App.CreateArticle(Ctx.Organization.OrganizationId);
         }
 
         [When(@"I try to query all my articles")]
@@ -55,6 +67,13 @@
         {
             _articles = App.QueryArticlesByUser(Ctx.User);
         }
+
+        [When(@"I try to query all the organizations articles")]
+        public void WhenITryToQueryAllTheOrganizationsArticles()
+        {
+            _articles = App.QueryArticlesByOrganization(Ctx.Organization);
+        }
+
 
         [Then(@"I should see (.*) articles")]
         public void ThenIShouldSeeArticles(int number)
@@ -66,8 +85,7 @@
         [When(@"I try to upload an article image")]
         public void WhenITryToUploadAnArticleImage()
         {
-            App.UploadArticleImage(Ctx.User, Ctx.Article, _files.GetNextImageFileName());
+            App.UploadArticleImage(Ctx.Article, _files.GetNextImageFileName());
         }
-
     }
 }

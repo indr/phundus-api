@@ -19,20 +19,20 @@ namespace Phundus.Specs.Features.Articles
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("UserCreateArticle")]
-    public partial class UserCreateArticleFeature
+    [NUnit.Framework.DescriptionAttribute("Create article in organizations store")]
+    public partial class CreateArticleInOrganizationsStoreFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "UserCreateArticle.feature"
+#line 1 "CreateArticle_Organization.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "UserCreateArticle", "", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Create article in organizations store", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -67,46 +67,53 @@ namespace Phundus.Specs.Features.Articles
         public virtual void FeatureBackground()
         {
 #line 3
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Alias",
+                        "Role"});
+            table1.AddRow(new string[] {
+                        "Greg",
+                        "Manager"});
 #line 4
- testRunner.Given("I am logged in as a user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 5
- testRunner.And("I opened my store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("an organization with these members", ((string)(null)), table1, "Given ");
+#line 7
+ testRunner.And("I am logged in as Greg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add article to user store")]
-        public virtual void AddArticleToUserStore()
+        [NUnit.Framework.DescriptionAttribute("Create article in organizations store")]
+        public virtual void CreateArticleInOrganizationsStore()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add article to user store", ((string[])(null)));
-#line 8
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create article in organizations store", ((string[])(null)));
+#line 10
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 9
- testRunner.When("I create an article in my store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 10
+#line 11
+ testRunner.When("I create an article in the default store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 12
  testRunner.Then("I should see ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Article is in query result")]
-        public virtual void ArticleIsInQueryResult()
+        [NUnit.Framework.DescriptionAttribute("Created articles are in query result")]
+        public virtual void CreatedArticlesAreInQueryResult()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Article is in query result", ((string[])(null)));
-#line 12
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Created articles are in query result", ((string[])(null)));
+#line 14
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 13
- testRunner.Given("I created an article in my store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 14
- testRunner.And("I created an article in my store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15
- testRunner.When("I try to query all my articles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I created an article in the default store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 16
+ testRunner.And("I created an article in the default store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 17
+ testRunner.When("I try to query all the organizations articles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 18
  testRunner.Then("I should see 2 articles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

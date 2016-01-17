@@ -117,9 +117,9 @@
             get { return Resource("shop/orders"); }
         }
 
-        public Resource UsersArticlesFilesApi
+        public Resource ArticlesFilesApi
         {
-            get { return Resource("users/{userId}/articles/{articleId}/files"); }
+            get { return Resource("articles/{articleId}/files"); }
         }
 
         private Resource Resource(string url)
