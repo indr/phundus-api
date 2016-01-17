@@ -150,6 +150,11 @@
       <DependentUpon>ValidateAccount.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Articles\ArticlesSteps.cs" />
+    <Compile Include="Features\Articles\ImageUpload.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImageUpload.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Articles\UserCreateArticle.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -233,6 +238,7 @@
     <Compile Include="Services\AppBase.cs" />
     <Compile Include="Services\Ctx.cs" />
     <Compile Include="Services\CustomJsonSerializer.cs" />
+    <Compile Include="Services\Entities\Files.cs" />
     <Compile Include="Services\Entities\CsvReader.cs" />
     <Compile Include="Services\Entities\FakeArticleGenerator.cs" />
     <Compile Include="Services\Entities\FakeGeneratorBase.cs" />
@@ -309,6 +315,10 @@
     <None Include="Features\Account\ValidateAccount.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ValidateAccount.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Articles\ImageUpload.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ImageUpload.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Articles\UserCreateArticle.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -401,7 +411,32 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Assets\Images\18742872708_77d806ccc1_b.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\240_F_71994915_zvGrgdcW3y1heWlmIxQCknnf6z9JPXwE.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\broken_guitar_xlarge.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\free_262323.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\gelbe-schalenfrucht-getrennt-auf-weißem-hintergrund-54644590.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Geplatzter-Cross-Skate-Reifen-15.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\stinkende-schmutzige-socken-lokalisiert-auf-dem-weißen-hintergrund-42194500.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\used_tissue_180paho-180paiq.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

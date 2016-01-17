@@ -3,6 +3,7 @@
     using ContentTypes;
     using NUnit.Framework;
     using Services;
+    using Services.Entities;
     using Steps;
     using TechTalk.SpecFlow;
 
@@ -10,9 +11,11 @@
     public class ArticlesSteps : StepsBase
     {
         private QueryOkResponseContent<Article> _articles;
+        private Files _files;
 
-        public ArticlesSteps(App app, Ctx ctx) : base(app, ctx)
+        public ArticlesSteps(App app, Ctx ctx, Files files) : base(app, ctx)
         {
+            _files = files;
         }
 
         [Given(@"I created an article in my store")]
@@ -59,5 +62,12 @@
             Assert.That(_articles, Is.Not.Null);
             Assert.That(_articles.Results.Count, Is.EqualTo(number));
         }
+
+        [When(@"I try to upload an article image")]
+        public void WhenITryToUploadAnArticleImage()
+        {
+            App.UploadArticleImage(Ctx.User, Ctx.Article, _files.GetNextImageFileName());
+        }
+
     }
 }

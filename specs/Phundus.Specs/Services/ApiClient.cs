@@ -117,6 +117,11 @@
             get { return Resource("shop/orders"); }
         }
 
+        public Resource UsersArticlesFilesApi
+        {
+            get { return Resource("users/{userId}/articles/{articleId}/files"); }
+        }
+
         private Resource Resource(string url)
         {
             var result = new Resource(url, _assertNextHttpStatusCode);

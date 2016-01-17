@@ -1,7 +1,7 @@
 namespace Phundus.Specs.Services.Entities
 {
     using System;
-    using Assets;
+    using Specs.Assets;
     using ContentTypes;
     using TechTalk.SpecFlow;
 
