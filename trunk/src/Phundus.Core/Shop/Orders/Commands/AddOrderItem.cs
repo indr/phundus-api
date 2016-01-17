@@ -34,19 +34,27 @@
 
     public class AddOrderItemHandler : IHandleCommand<AddOrderItem>
     {
-        public IArticleService ArticleService { get; set; }
+        private readonly IArticleService _articleService;
+        private readonly IMemberInRole _memberInRole;
+        private readonly IOrderRepository _orderRepository;
 
-        public IOrderRepository OrderRepository { get; set; }
-
-        public IMemberInRole MemberInRole { get; set; }
+        public AddOrderItemHandler(IArticleService articleService, IMemberInRole memberInRole, IOrderRepository orderRepository)
+        {
+            if (articleService == null) throw new ArgumentNullException("articleService");
+            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
+            if (orderRepository == null) throw new ArgumentNullException("orderRepository");
+            _articleService = articleService;
+            _memberInRole = memberInRole;
+            _orderRepository = orderRepository;
+        }
 
         public void Handle(AddOrderItem command)
         {
-            var order = OrderRepository.GetById(command.OrderId.Id);
+            var order = _orderRepository.GetById(command.OrderId.Id);
             var lessor = order.Lessor;
-            MemberInRole.ActiveChief(lessor.LessorId.Id, command.InitiatorId);
+            _memberInRole.ActiveChief(lessor.LessorId.Id, command.InitiatorId);
 
-            var article = ArticleService.GetById(lessor.LessorId, command.ArticleId);
+            var article = _articleService.GetById(lessor.LessorId, command.ArticleId);
             order.AddItem(article, command.Period.FromUtc, command.Period.ToUtc, command.Quantity);
         }
     }
