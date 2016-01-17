@@ -47,5 +47,11 @@
 
             return Entities.Where(p => p.Owner.OwnerId.Id == queryOwnerId.Id).Where(p => p.Name.ToLowerInvariant().Contains(query)).ToFuture();
         }
+
+        public Article GetById(ArticleId articleId)
+        {
+            if (articleId == null) throw new ArgumentNullException("articleId");
+            return GetById(articleId.Id);
+        }
     }
 }

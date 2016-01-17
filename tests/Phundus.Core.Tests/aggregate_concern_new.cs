@@ -1,5 +1,6 @@
 namespace Phundus.Tests
 {
+    using Common.Domain.Model;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using Phundus.Ddd;
@@ -7,13 +8,15 @@ namespace Phundus.Tests
     public class aggregate_concern_new<TAggregate> : Observes<TAggregate> where TAggregate : class
     {
         protected static IEventPublisher publisher;
+        protected static InitiatorGuid theInitiatorId;
 
         private Cleanup cleanup = () => EventPublisher.Factory(null);
 
         private Establish ctx = () =>
         {
-            publisher = fake.an<IEventPublisher>();
+            theInitiatorId = new InitiatorGuid();
 
+            publisher = fake.an<IEventPublisher>();
             EventPublisher.Factory(() => publisher);
         };
     }

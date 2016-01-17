@@ -55,24 +55,44 @@
     [Subject(typeof (Article))]
     public class when_removing_an_image : article_concern
     {
-        private Because of = () =>
+        private Establish ctx = () => sut_setup.run(x =>
         {
-            sut.AddImage("first.jpg", "image/jpeg", 1234);
-            sut.AddImage("second.jpg", "image/jpeg", 2345);
-            sut.AddImage("third.jpg", "image/jpeg", 2345);
-            sut.RemoveImage("first.jpg");
-        };
+            x.AddImage("first.jpg", "image/jpeg", 1234);
+            x.AddImage("second.jpg", "image/jpeg", 2345);
+            x.AddImage("third.jpg", "image/jpeg", 3456);
+        });
+
+        private Because of = () => sut.RemoveImage("first.jpg");
 
         private It should_publish_image_removed = () =>
             publisher.WasToldTo(x => x.Publish(Arg<ImageRemoved>.Is.NotNull));
+
+        private It should_publish_preview_image_changed = () =>
+            publisher.WasToldTo(x => x.Publish(Arg<PreviewImageChanged>.Is.NotNull));
 
         private It should_remove_from_images_collection = () =>
             sut.Images.ShouldNotContain(p => p.FileName == "first.jpg");
 
         private It should_set_is_preview_on_other_image = () =>
             sut.Images.SingleOrDefault(p => p.IsPreview).ShouldNotBeNull();
+    }
 
-        private It should_publish_preview_image_changed = () =>
-            publisher.WasToldTo(x => x.Publish(Arg<PreviewImageChanged>.Is.NotNull));
+    [Subject(typeof (Article))]
+    public class when_setting_preview_image : article_concern
+    {
+        private Establish ctx = () => sut_setup.run(x =>
+        {
+            x.AddImage("first.jpg", "image/jpeg", 1234);
+            x.AddImage("second.jpg", "image/jpeg", 1234);
+        });
+
+        private Because of = () =>
+            sut.SetPreviewImage("second.jpg");
+
+        private It should_remove_preview_flag = () =>
+            sut.Images.Single(p => p.FileName == "first.jpg").IsPreview.ShouldBeFalse();
+
+        private It should_set_preview_flag = () =>
+            sut.Images.Single(p => p.FileName == "second.jpg").IsPreview.ShouldBeTrue();
     }
 }

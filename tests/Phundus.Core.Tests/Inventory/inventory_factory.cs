@@ -17,6 +17,7 @@ namespace Phundus.Tests.Inventory
             var article = fake.an<Article>();
             var articleId = new ArticleId(NextNumericId());
             article.setup(x => x.Id).Return(articleId.Id);
+            article.setup(x => x.ArticleId).Return(articleId);
             article.setup(x => x.Owner).Return(owner ?? Owner());
             return article;
         }
