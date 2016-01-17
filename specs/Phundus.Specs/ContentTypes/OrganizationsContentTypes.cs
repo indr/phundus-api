@@ -31,5 +31,23 @@
 
         [JsonProperty("startpage")]
         public string Startpage { get; set; }
+
+        [JsonProperty("contactDetails")]
+        public ContactDetails ContactDetails { get; set; }
+    }
+
+    public class ContactDetails
+    {
+        [JsonProperty("postAddress")]
+        public string PostAddress { get; set; }
+
+        [JsonProperty("phoneNumber")]
+        public string PhoneNumber { get; set; }
+
+        [JsonProperty("emailAddress")]
+        public string EmailAddress { get; set; }
+
+        [JsonProperty("website")]
+        public string Website { get; set; }
     }
 }

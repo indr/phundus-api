@@ -10,10 +10,6 @@ namespace Phundus.IdentityAccess.Organizations.Model
         private string _postAddress;
         private string _website;
 
-        public ContactDetails()
-        {
-        }
-
         public ContactDetails(string postAddress, string phoneNumber, string emailAddress, string website)
         {
             _postAddress = postAddress;
@@ -22,6 +18,9 @@ namespace Phundus.IdentityAccess.Organizations.Model
             _website = website;
         }
 
+        protected ContactDetails()
+        {
+        }
 
         public virtual string PostAddress
         {

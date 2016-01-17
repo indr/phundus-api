@@ -53,7 +53,7 @@
 
         private static OrganizationDetailDto ToOrganizationDetailDto(Organization organization)
         {
-            return new OrganizationDetailDto
+            var result = new OrganizationDetailDto
             {                
                 Guid = organization.Id,
                 OrganizationId = organization.Id,
@@ -61,26 +61,38 @@
                 EstablishedAtUc = organization.EstablishedAtUtc,
                 Name = organization.Name,
                 Url = organization.Url,
-                Address = organization.ContactDetails.PostAddress,
-                EmailAddress = organization.ContactDetails.EmailAddress,
-                Website = organization.ContactDetails.Website,
+                
                 Startpage = organization.Startpage,
                 CreateDate = organization.EstablishedAtUtc,
                 DocumentTemplate = organization.DocTemplateFileName
             };
+
+            if (organization.ContactDetails != null)
+            {
+                result.Address = organization.ContactDetails.PostAddress;
+                result.EmailAddress = organization.ContactDetails.EmailAddress;
+                result.Website = organization.ContactDetails.Website;
+                result.PhoneNumber = organization.ContactDetails.PhoneNumber;
+            }
+
+            return result;
         }
 
         private static OrganizationDto ToOrganizationDto(Organization organization)
         {
-            return new OrganizationDto
+            var result = new OrganizationDto
             {                
                 Guid = organization.Id,
                 Version = organization.Version,
                 Name = organization.Name,
                 Url = organization.Url,
-                Address = organization.ContactDetails.PostAddress,
                 EstablishedAtUtc = organization.EstablishedAtUtc,
             };
+
+            if (organization.ContactDetails != null)
+                result.Address = organization.ContactDetails.PostAddress;
+
+            return result;
         }
     }
 
@@ -114,5 +126,6 @@
         public DateTime CreateDate { get; set; }
         public string DocumentTemplate { get; set; }
         public DateTime EstablishedAtUc { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

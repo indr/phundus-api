@@ -67,7 +67,14 @@
                 Startpage = organization.Startpage,
                 Stores = new List<Store>(),
                 Url = organization.Url,
-                Website = organization.Website
+                Website = organization.Website,
+                ContactDetails = new ContactDetails
+                {
+                    EmailAddress = organization.EmailAddress,
+                    PostAddress = organization.Address,
+                    PhoneNumber = organization.PhoneNumber,
+                    Website = organization.Website
+                }
             };
             if (store != null)
             {
@@ -87,6 +94,8 @@
         [Authorize(Roles = "Admin")]
         public virtual HttpResponseMessage Post(OrganizationsPostRequestContent requestContent)
         {
+            if (requestContent == null) throw new ArgumentNullException("requestContent");
+
             var organizationGuid = new OrganizationGuid();
             Dispatch(new EstablishOrganization(CurrentUserGuid, organizationGuid, requestContent.Name));
 
@@ -98,6 +107,15 @@
         [Transaction]
         public virtual HttpResponseMessage Patch(Guid organizationId, OrganizationsPatchRequestContent requestContent)
         {
+            if (requestContent == null) throw new ArgumentNullException("requestContent");
+
+            if (requestContent.ContactDetails != null)
+            {
+                Dispatch(new ChangeOrganizationContactDetails(CurrentUserGuid, new OrganizationGuid(organizationId),
+                    requestContent.ContactDetails.PostAddress, requestContent.ContactDetails.PhoneNumber,
+                    requestContent.ContactDetails.EmailAddress, requestContent.ContactDetails.Website));
+            }
+
             if (!String.IsNullOrWhiteSpace(requestContent.Startpage))
             {
                 Dispatch(new UpdateStartpage(CurrentUserGuid, new OrganizationGuid(organizationId), requestContent.Startpage));
@@ -110,6 +128,24 @@
     {
         [JsonProperty("startpage")]
         public string Startpage { get; set; }
+
+        [JsonProperty("contactDetails")]
+        public ContactDetails ContactDetails { get; set; }
+    }
+
+    public class ContactDetails
+    {
+        [JsonProperty("postAddress")]
+        public string PostAddress { get; set; }
+
+        [JsonProperty("phoneNumber")]
+        public string PhoneNumber { get; set; }
+
+        [JsonProperty("emailAddress")]
+        public string EmailAddress { get; set; }
+
+        [JsonProperty("website")]
+        public string Website { get; set; }
     }
 
     public class OrganizationsQueryOkResponseContent : QueryOkResponseContent<Organization>
@@ -145,6 +181,9 @@
 
         [JsonProperty("stores")]
         public List<Store> Stores { get; set; }
+
+        [JsonProperty("contactDetails")]
+        public ContactDetails ContactDetails { get; set; }
     }
 
     public class OrganizationsPostOkResponseContent
