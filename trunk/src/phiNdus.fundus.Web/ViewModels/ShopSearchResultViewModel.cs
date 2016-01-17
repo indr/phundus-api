@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel.DataAnnotations;
+    using Bootstrap;
     using Phundus.Cqrs.Paging;
     using Phundus.IdentityAccess.Queries.ReadModels;
     using Phundus.Shop.Queries;
@@ -50,7 +51,13 @@
             var queryResult = shopArticleQueries.FindArticles(
                 new PageRequest {Index = page - 1, Size = RowsPerPage}, query, organization);
             PageSelectorModel = new PageSelectorViewModel(queryResult.Pages);
+            queryResult.Items.ForEach(article => article.ImageFileName = GenerateImageFileName(article));
             Articles = queryResult.Items;
+        }
+
+        private string GenerateImageFileName(ShopArticleSearchResultDto article)
+        {
+            return String.Format(@"~\Content\Images\Articles\{0}\{1}", article.Id, article.ImageFileName);
         }
     }
 }

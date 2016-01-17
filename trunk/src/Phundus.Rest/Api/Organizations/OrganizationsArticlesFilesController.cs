@@ -1,6 +1,7 @@
 namespace Phundus.Rest.Api.Organizations
 {
     using System;
+    using System.IO;
     using System.Net;
     using System.Net.Http;
     using System.Web;
@@ -62,7 +63,7 @@ namespace Phundus.Rest.Api.Organizations
             var images = handler.Handle(HttpContext.Current.Request.Files);
             foreach (var each in images)
             {
-                var command = new AddImage(CurrentUserGuid, new ArticleId(articleId), each.FileName, each.Type,
+                var command = new AddImage(CurrentUserGuid, new ArticleId(articleId), Path.GetFileName(each.FileName), each.Type,
                     each.Length);
                 Dispatcher.Dispatch(command);
                 each.Id = command.ResultingImageId;

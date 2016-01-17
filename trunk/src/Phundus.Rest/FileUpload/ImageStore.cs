@@ -45,6 +45,9 @@
             if (File.Exists(mappedFullFileName))
                 File.Delete(mappedFullFileName);
 
+            if (!Directory.Exists(MappedFilePath))
+                return;
+
             if (Directory.GetFiles(MappedFilePath).Length == 0)
                 Directory.Delete(MappedFilePath);
         }

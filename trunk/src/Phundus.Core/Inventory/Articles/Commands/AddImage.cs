@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Inventory.Articles.Commands
 {
     using System;
+    using System.IO;
     using Common.Domain.Model;
     using Cqrs;
     using IdentityAccess.Queries;
@@ -14,6 +15,10 @@
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (fileName == null) throw new ArgumentNullException("fileName");
             if (fileType == null) throw new ArgumentNullException("fileType");
+
+            if (fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+                throw new ArgumentException(String.Format(@"The file name ""{0}"" contains invalid characters. Did you mistakenly provide path information?", fileName), "fileName");
+
             InitiatorId = initiatorId;
             ArticleId = articleId;
             FileName = fileName;

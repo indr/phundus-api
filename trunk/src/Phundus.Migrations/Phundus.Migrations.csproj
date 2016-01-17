@@ -170,6 +170,7 @@
     <Compile Include="2016\01\M201601160740_Add_column_CustomMemberNumber_to_Dm_IdentityAccess_Application.cs" />
     <Compile Include="2016\01\M201601160747_Create_View_IdentityAccess_Applications.cs" />
     <Compile Include="2016\01\M201601161147_Clean_StoredEvents_and_EventLog.cs" />
+    <Compile Include="2016\01\M201601170740_Remove_Path_From_Article_Images.cs" />
     <Compile Include="Helper\DatedAttribute.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
     <Compile Include="Helper\Runner.cs" />
