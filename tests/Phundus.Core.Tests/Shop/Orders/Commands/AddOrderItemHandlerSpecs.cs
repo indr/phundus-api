@@ -18,10 +18,10 @@
         private Establish ctx = () =>
         {
             theLessor = make.Lessor();
-            theOrder = fake.an<Order>();
-            theOrder.WhenToldTo(x => x.Lessor).Return(theLessor);
+            theOrder = make.Order();
+            theOrder.setup(x => x.Lessor).Return(theLessor);
             orderRepository.setup(x => x.GetById(theOrder.Id)).Return(theOrder);
-
+            
             theArticle = make.Article();
             articleRepository.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleId)).Return(theArticle);
 
@@ -31,9 +31,9 @@
         };
 
         public It should_ask_for_chief_privileges = () =>
-            memberInRole.WasToldTo(x => x.ActiveChief(theLessor.LessorId.Id, theInitiatorId));
+            memberInRole.received(x => x.ActiveChief(theLessor.LessorId.Id, theInitiatorId));
 
         public It should_tell_order_to_add_item = () =>
-            theOrder.WasToldTo(x => x.AddItem(theArticle, thePeriod.FromUtc, thePeriod.ToUtc, 10));
+            theOrder.received(x => x.AddItem(theArticle, thePeriod.FromUtc, thePeriod.ToUtc, 10));
     }
 }

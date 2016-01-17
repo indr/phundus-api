@@ -5,18 +5,17 @@ namespace Phundus.Tests
     using Castle.Windsor;
     using Common.Domain.Model;
     using developwithpassion.specifications.core;
+    using developwithpassion.specifications.extensions;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Ddd;
     using Phundus.Shop.Orders.Model;
 
-   
-
-    public class Factory 
+    public class Factory
     {
-        private ICreateFakes fake;
         private Random _random;
+        private ICreateFakes fake;
 
         public Factory(ICreateFakes fake)
         {
@@ -24,18 +23,32 @@ namespace Phundus.Tests
             this.fake = fake;
         }
 
-        public Lessor Lessor()
-        {
-            var lessor = fake.an<Lessor>();
-            lessor.WhenToldTo(x => x.LessorId).Return(new LessorId());
-            return lessor;
-        }
-
         public Article Article()
         {
             var article = fake.an<Article>();
-            article.WhenToldTo(x => x.ArticleId).Return(new ArticleId(_random.Next(0, int.MaxValue)));
+            article.setup(x => x.ArticleId).Return(new ArticleId(NextNumericId()));
             return article;
+        }
+
+        public Lessor Lessor()
+        {
+            var lessor = fake.an<Lessor>();
+            lessor.setup(x => x.LessorId).Return(new LessorId());
+            return lessor;
+        }
+
+        public Order Order()
+        {
+            var order = fake.an<Order>();
+            var orderId = new OrderId(NextNumericId());
+            order.setup(x => x.Id).Return(orderId.Id);
+            order.setup(x => x.OrderId).Return(orderId);
+            return order;
+        }
+
+        private int NextNumericId()
+        {
+            return _random.Next(0, int.MaxValue);
         }
     }
 
