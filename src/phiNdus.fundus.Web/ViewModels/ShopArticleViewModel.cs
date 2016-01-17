@@ -2,6 +2,7 @@ namespace phiNdus.fundus.Web.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using Bootstrap;
     using Helpers;
     using Models.CartModels;
     using Phundus.Inventory.Queries;
@@ -21,6 +22,12 @@ namespace phiNdus.fundus.Web.ViewModels
             CanUserAddToCart = false;
 
             Article = dto;
+            Article.Images.ForEach(image => image.FileName = GenerateImageFileName(Article.Id, image));
+        }
+
+        private string GenerateImageFileName(int articleId, ShopArticleImageDto image)
+        {
+            return String.Format(@"~\Content\Images\Articles\{0}\{1}", articleId, image.FileName);
         }
 
         public ShopArticleDetailDto Article { get; set; }
