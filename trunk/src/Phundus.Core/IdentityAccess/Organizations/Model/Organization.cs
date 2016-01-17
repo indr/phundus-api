@@ -5,6 +5,7 @@
     using Common;
     using Common.Domain.Model;
     using Ddd;
+    using IdentityAccess.Model;
     using Iesi.Collections.Generic;
     using Users.Model;
     using ApplicationId = Common.Domain.Model.ApplicationId;
@@ -12,11 +13,11 @@
     public class Organization : Aggregate<Guid>
     {
         private ISet<MembershipApplication> _applications = new HashedSet<MembershipApplication>();
+        private ContactDetails _contactDetails;
         private DateTime _establishedAtUtc = DateTime.UtcNow;
         private ISet<Membership> _memberships = new HashedSet<Membership>();
         private string _name;
         private string _startpage;
-        private ContactDetails _contactDetails;
 
         public Organization(Guid id, string name) : base(id)
         {
@@ -54,7 +55,11 @@
 
         public virtual OrganizationPlan Plan { get; protected set; }
 
-        public virtual ContactDetails ContactDetails { get; protected set; }
+        public virtual ContactDetails ContactDetails
+        {
+            get { return _contactDetails; }
+            protected set { _contactDetails = value; }
+        }
 
         public virtual string Url
         {
@@ -185,8 +190,15 @@
             EventPublisher.Publish(new StartpageChanged());
         }
 
-        public virtual void ChangeContactDetails(ContactDetails theContactDetails)
+        public virtual void ChangeContactDetails(ContactDetails contactDetails)
         {
+            if (contactDetails == null) throw new ArgumentNullException("contactDetails");
+            if (Equals(_contactDetails, contactDetails))
+                return;
+
+            ContactDetails = contactDetails;
+
+            EventPublisher.Publish(new OrganizationContactDetailsChanged());
         }
     }
 }
