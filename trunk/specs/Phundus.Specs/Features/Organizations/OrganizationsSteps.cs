@@ -33,8 +33,14 @@
             App.DeleteSessionCookies();
         }
 
+        [Given(@"an organization with these members")]
+        public void GivenAnOrganizationWithTheseMembers(Table table)
+        {
+            GivenAnOrganization_WithTheseMembers("", table);
+        }
+
         [Given(@"an organization ""(.*)"" with these members")]
-        public void GivenAnOrganizationWithTheseMembers(string alias, Table table)
+        public void GivenAnOrganization_WithTheseMembers(string alias, Table table)
         {
             App.LogInAsRoot();
             var organization = App.EstablishOrganization();

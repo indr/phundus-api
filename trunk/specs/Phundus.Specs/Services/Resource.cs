@@ -67,6 +67,7 @@
             return Execute(request);
         }
 
+        #region PostFile
         public void PostFile(object requestContent, string fileName)
         {
             // https://stackoverflow.com/questions/14143630/upload-file-through-c-sharp-using-json-request-and-restsharp
@@ -145,9 +146,9 @@
              */
             postDataWriter.Write("--" + boundaryString + "\r\n");
             postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\n"
-                                    //+ "Content-Length: \"{2}\"\r\n"
+                //+ "Content-Length: \"{2}\"\r\n"
                                     + "Content-Type: image/jpeg\r\n"
-                                    //+ "Content-Transfer-Encoding: binary\r\n\r\n"
+                //+ "Content-Transfer-Encoding: binary\r\n\r\n"
                                     , "files[]"
                                     , Path.GetFileName(fileUrl)
                                     , filesize
@@ -180,10 +181,11 @@
             postDataStream.Flush();
             postDataStream.Close();
 
-            
+
             var respones = (HttpWebResponse)requestToServerEndpoint.GetResponse();
             Assert.That(respones.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-        }
+        } 
+        #endregion
 
         public IRestResponse<T> Post<T>(object requestContent) where T : new()
         {

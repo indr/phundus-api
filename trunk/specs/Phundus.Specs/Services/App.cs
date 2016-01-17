@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Net;
     using ContentTypes;
     using Entities;
@@ -55,7 +54,7 @@
                     Street = user.Street
                 });
 
-           
+
             user.UserId = response.Data.UserId;
             return user;
         }
@@ -174,7 +173,7 @@
         public Organization GetOrganization(Guid organizationId)
         {
             var response = _apiClient.OrganizationsApi
-                .Get<Organization>(new {organizationId = organizationId});
+                .Get<Organization>(new {organizationId});
             return response.Data;
         }
 
@@ -211,6 +210,12 @@
         public QueryOkResponseContent<Article> QueryArticlesByUser(User user)
         {
             var response = _apiClient.ArticlesApi.Query<Article>(new {ownerId = user.Id});
+            return response.Data;
+        }
+
+        public QueryOkResponseContent<Article> QueryArticlesByOrganization(Organization organization)
+        {
+            var response = _apiClient.ArticlesApi.Query<Article>(new {ownerId = organization.OrganizationId});
             return response.Data;
         }
 
@@ -342,12 +347,13 @@
 
         public void UpdateStartpage(Organization organization, string htmlContent)
         {
-            _apiClient.OrganizationsApi.Patch(new {organizationId = organization.OrganizationId, startpage = htmlContent});
+            _apiClient.OrganizationsApi.Patch(
+                new {organizationId = organization.OrganizationId, startpage = htmlContent});
         }
 
-        public void UploadArticleImage(User user, Article article, string fileName)
+        public void UploadArticleImage(Article article, string fileName)
         {
-            _apiClient.UsersArticlesFilesApi.PostFile(new { userId = user.Id, articleId = article.ArticleId }, fileName);
+            _apiClient.ArticlesFilesApi.PostFile(new {articleId = article.ArticleId}, fileName);
         }
     }
 }

@@ -150,15 +150,20 @@
       <DependentUpon>ValidateAccount.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Articles\ArticlesSteps.cs" />
+    <Compile Include="Features\Articles\CreateArticle_Organization.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateArticle_Organization.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Articles\ImageUpload.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ImageUpload.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Articles\UserCreateArticle.feature.cs">
+    <Compile Include="Features\Articles\CreateArticle_UserStore.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>UserCreateArticle.feature</DependentUpon>
+      <DependentUpon>CreateArticle_UserStore.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Cart\CartItems.feature.cs">
       <AutoGen>True</AutoGen>
@@ -316,13 +321,17 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ValidateAccount.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\Articles\CreateArticle_Organization.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CreateArticle_Organization.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Articles\ImageUpload.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ImageUpload.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Articles\UserCreateArticle.feature">
+    <None Include="Features\Articles\CreateArticle_UserStore.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>UserCreateArticle.feature.cs</LastGenOutput>
+      <LastGenOutput>CreateArticle_UserStore.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Cart\CartItems.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
