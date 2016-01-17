@@ -250,7 +250,6 @@
     <Compile Include="App_Start\Installers\ControllerInstaller.cs" />
     <Compile Include="App_Start\Installers\LoggerInstaller.cs" />
     <Compile Include="ViewModels\ShopArticleViewModel.cs" />
-    <Compile Include="Views\Helper.cs" />
     <Content Include="400.aspx" />
     <Content Include="400.html" />
     <Content Include="500.aspx" />
@@ -660,9 +659,6 @@
     <Content Include="Scripts\vendor.7a99a8f9.js" />
     <Content Include="styles\main.c03d75f4.css" />
     <Content Include="styles\vendor.1f8e5af6.css" />
-    <Content Include="Views\Management\Index.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Views\Shared\_BaseUrl.cshtml" />
   </ItemGroup>
   <ItemGroup>
