@@ -79,11 +79,13 @@
             foreach (var each in result.Items)
             {
                 var images = Many<ShopArticleImageDto>(
-                    @"select FileName, [Type], [Length] from [Dm_Inventory_ArticleFile] where ArticleId = {0}", each.Id);
+                    @"select FileName, [Type], [Length], [IsPreview] from [Dm_Inventory_ArticleFile] where ArticleId = {0}", each.Id)
+                    .Where(p => p.Type.StartsWith("image", StringComparison.InvariantCultureIgnoreCase)).ToList();
 
-                var image =
-                    images.OrderBy(p => p.IsPreview)
-                        .FirstOrDefault(p => p.Type.StartsWith("image", StringComparison.InvariantCultureIgnoreCase));
+                var image = images.FirstOrDefault(p => p.IsPreview);
+
+                if (image == null)
+                    image = images.FirstOrDefault();
 
                 if (image != null)
                     each.ImageFileName = image.FileName;
