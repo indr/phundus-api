@@ -187,17 +187,22 @@
             }
         }
 
-
-        public virtual OrderItem AddItem(Article article, DateTime fromUtc, DateTime toUtc, int amount)
+        public virtual OrderItem AddItem(OrderItemId orderItemId, Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             EnsurePending();
 
-            var item = new OrderItem(this, article, fromUtc, toUtc, amount);
+            var item = new OrderItem(this, orderItemId, article, fromUtc, toUtc, amount);
             _items.Add(item);
 
             EventPublisher.Publish(new OrderItemAdded());
 
             return item;
+        }
+
+        [Obsolete]
+        public virtual OrderItem AddItem(Article article, DateTime fromUtc, DateTime toUtc, int amount)
+        {
+            return AddItem(new OrderItemId(), article, fromUtc, toUtc, amount);
         }
 
         public virtual bool AddItem(Article article, int amount, DateTime fromUtc, DateTime toUtc,

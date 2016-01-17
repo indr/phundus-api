@@ -55,7 +55,7 @@
             _memberInRole.ActiveChief(lessor.LessorId.Id, command.InitiatorId);
 
             var article = _articleService.GetById(lessor.LessorId, command.ArticleId);
-            order.AddItem(article, command.Period.FromUtc, command.Period.ToUtc, command.Quantity);
+            order.AddItem(command.OrderItemId, article, command.Period.FromUtc, command.Period.ToUtc, command.Quantity);
         }
     }
 }
