@@ -11,7 +11,7 @@ namespace Phundus.Rest.FileUpload
 
         public string DeleteUrl { get; set; }
 
-        private BlueImpFileUploadJsonResult Create(string fileName, long length, string type)
+        private BlueImpFileUploadJsonResult Create(string fileName, long length, string type, bool isPreview = false)
         {
             return new BlueImpFileUploadJsonResult
             {
@@ -21,7 +21,8 @@ namespace Phundus.Rest.FileUpload
                 url = ImageUrl + '/' + fileName,
                 name = fileName,
                 size = length,
-                type = type
+                type = type,
+                isPreview = isPreview
             };
         }
 
@@ -29,7 +30,7 @@ namespace Phundus.Rest.FileUpload
         public BlueImpFileUploadJsonResult Create(ImageDto image)
         {
             string fileName = System.IO.Path.GetFileName(image.FileName);
-            return Create(fileName, image.Length, image.Type);
+            return Create(fileName, image.Length, image.Type, image.IsPreview);
         }
 
         public BlueImpFileUploadJsonResult Create(HttpPostedFileBase file)

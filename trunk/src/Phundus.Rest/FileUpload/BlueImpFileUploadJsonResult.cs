@@ -36,5 +36,7 @@
         /// HttpVerb
         /// </summary>
         public string deleteType { get; set; }
+
+        public bool isPreview { get; set; }
     }
 }

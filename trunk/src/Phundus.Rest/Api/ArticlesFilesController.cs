@@ -12,6 +12,7 @@ namespace Phundus.Rest.Api
     using FileUpload;
     using Inventory.Articles.Commands;
     using Inventory.Queries;
+    using Newtonsoft.Json;
 
     [RoutePrefix("api/articles/{articleId}/files")]
     public class ArticlesFilesController : ApiControllerBase
@@ -71,6 +72,16 @@ namespace Phundus.Rest.Api
             return new {files = factory.Create(images)};
         }
 
+        [PATCH("{fileName}")]
+        [Transaction]
+        public virtual HttpResponseMessage Patch(int articleId, string fileName,
+            ArticlesFilesPatchRequestContent requestContent)
+        {
+            Dispatch(new SetPreviewImage(CurrentUserGuid, new ArticleId(articleId), fileName));
+
+            return NoContent();
+        }
+
         [DELETE("{fileName}")]
         [Transaction]
         public virtual HttpResponseMessage Delete(int articleId, string fileName)
@@ -81,5 +92,11 @@ namespace Phundus.Rest.Api
             store.Delete(fileName);
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }
+    }
+
+    public class ArticlesFilesPatchRequestContent
+    {
+        [JsonProperty("isPreview")]
+        public bool IsPreview { get; set; }
     }
 }
