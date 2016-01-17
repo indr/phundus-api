@@ -60,7 +60,7 @@
 
             container.Register(Component.For<ILesseeQueries>().ImplementedBy<LesseeQueries>());
             
-            EventPublisher.Container = container;
+            EventPublisher.Factory(container.Resolve<IEventPublisher>);
         }
     }
 }

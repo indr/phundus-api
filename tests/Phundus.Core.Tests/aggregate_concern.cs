@@ -1,7 +1,5 @@
 namespace Phundus.Tests
 {
-    using Castle.MicroKernel.Registration;
-    using Castle.Windsor;
     using Machine.Specifications;
     using Phundus.Ddd;
 
@@ -9,23 +7,18 @@ namespace Phundus.Tests
     {
         // ReSharper disable StaticFieldInGenericType
 
-        private static IWindsorContainer container;
-
-        protected static Mock mock = new Mock();
-
         protected static IEventPublisher publisher;
 
         protected static TAggregate sut;
 
         // ReSharper restore StaticFieldInGenericType
 
-        protected Establish event_publisher = () =>
-        {
-            publisher = mock.mock<IEventPublisher>();
+        private Cleanup cleanup = () => EventPublisher.Factory(null);
 
-            container = new WindsorContainer();
-            container.Register(Component.For<IEventPublisher>().Instance(publisher));
-            EventPublisher.Container = container;
+        private Establish ctx = () =>
+        {
+            publisher = fake.an<IEventPublisher>();
+            EventPublisher.Factory(() => publisher);
         };
     }
 }

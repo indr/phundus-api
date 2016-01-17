@@ -110,7 +110,7 @@
     <Compile Include="IdentityAccess\Users\Events\UserApprovedSpecs.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserSpecs.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
-    <Compile Include="Inventory\Articles\Model\aggregate_concern_new.cs" />
+    <Compile Include="aggregate_concern_new.cs" />
     <Compile Include="Inventory\Articles\Model\ArticleSpecs.cs" />
     <Compile Include="Inventory\OrganizationStoreOpenerSpecs.cs" />
     <Compile Include="concern.cs" />
