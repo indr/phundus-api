@@ -49,9 +49,9 @@
             theLessee = CreateLessee();
 
             theItems = new List<OrderItem>();
-            theItems.Add(new OrderItem(null, CreateArticle(1), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
-            theItems.Add(new OrderItem(null, CreateArticle(2), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
-            theItems.Add(new OrderItem(null, CreateArticle(3), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
+            theItems.Add(new OrderItem(null, new OrderItemId(), CreateArticle(1), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
+            theItems.Add(new OrderItem(null, new OrderItemId(), CreateArticle(2), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
+            theItems.Add(new OrderItem(null, new OrderItemId(), CreateArticle(3), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
         };
 
         public Because of = () => sut = new Order(theLessor, theLessee, theItems);
@@ -67,16 +67,18 @@
         private static Article theArticle;
         private static Period thePeriod;
         private static int theQuantity = 10;
+        private static OrderItemId theOrderItemId;
 
         private Establish ctx = () =>
         {
+            theOrderItemId = new OrderItemId();
             theArticle = CreateArticle(1);
             thePeriod = Period.FromNow(2);
         };
 
-        private Because of = () => sut.AddItem(theArticle, thePeriod.FromUtc, thePeriod.ToUtc, theQuantity);
+        private Because of = () => sut.AddItem(theOrderItemId, theArticle, thePeriod.FromUtc, thePeriod.ToUtc, theQuantity);
 
         private It should_have_an_order_item =
-            () => sut.Items.ShouldContain(p => p.FromUtc == thePeriod.FromUtc && p.ToUtc == thePeriod.ToUtc);
+            () => sut.Items.ShouldContain(p => p.Id == theOrderItemId.Id && p.FromUtc == thePeriod.FromUtc && p.ToUtc == thePeriod.ToUtc);
     }
 }

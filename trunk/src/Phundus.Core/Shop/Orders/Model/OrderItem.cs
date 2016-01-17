@@ -48,10 +48,28 @@
             CalculateTotal();
         }
 
+        [Obsolete]
         public OrderItem(Order order, Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             AssertionConcern.AssertArgumentNotNull(article, "Article must be provided.");
 
+            _order = order;
+            _articleId = article.Id;
+            _unitPrice = article.Price;
+            _text = article.Caption;
+            _fromUtc = fromUtc;
+            _toUtc = toUtc;
+            _amount = amount;
+
+            CalculateTotal();
+        }
+
+        public OrderItem(Order order, OrderItemId orderItemId, Article article, DateTime fromUtc, DateTime toUtc, int amount)
+        {
+            if (orderItemId == null) throw new ArgumentNullException("orderItemId");
+            AssertionConcern.AssertArgumentNotNull(article, "Article must be provided.");
+
+            _id = orderItemId.Id;
             _order = order;
             _articleId = article.Id;
             _unitPrice = article.Price;
