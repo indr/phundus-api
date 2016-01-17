@@ -344,5 +344,10 @@
         {
             _apiClient.OrganizationsApi.Patch(new {organizationId = organization.OrganizationId, startpage = htmlContent});
         }
+
+        public void UploadArticleImage(User user, Article article, string fileName)
+        {
+            _apiClient.UsersArticlesFilesApi.PostFile(new { userId = user.Id, articleId = article.ArticleId }, fileName);
+        }
     }
 }
