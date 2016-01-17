@@ -25,7 +25,7 @@ namespace Phundus.Specs.Features.Articles
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "ImageUpload.feature"
+#line 1 "ArticleFiles.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
@@ -65,10 +65,10 @@ namespace Phundus.Specs.Features.Articles
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Upload to an article in user store")]
-        public virtual void UploadToAnArticleInUserStore()
+        [NUnit.Framework.DescriptionAttribute("Image upload to an article in user store")]
+        public virtual void ImageUploadToAnArticleInUserStore()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Upload to an article in user store", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Image upload to an article in user store", ((string[])(null)));
 #line 4
 this.ScenarioSetup(scenarioInfo);
 #line 5
@@ -93,10 +93,10 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Upload to an article in organization store")]
-        public virtual void UploadToAnArticleInOrganizationStore()
+        [NUnit.Framework.DescriptionAttribute("Image upload to an article in organization store")]
+        public virtual void ImageUploadToAnArticleInOrganizationStore()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Upload to an article in organization store", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Image upload to an article in organization store", ((string[])(null)));
 #line 13
 this.ScenarioSetup(scenarioInfo);
 #line hidden
@@ -123,6 +123,43 @@ this.ScenarioSetup(scenarioInfo);
                         "image/jpg"});
 #line 20
  testRunner.Then("I should get file upload response content", ((string)(null)), table3, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Set preview image")]
+        public virtual void SetPreviewImage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set preview image", ((string[])(null)));
+#line 24
+this.ScenarioSetup(scenarioInfo);
+#line 25
+ testRunner.Given("I am logged in as a user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 26
+ testRunner.And("I opened my store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 27
+ testRunner.And("I created an article in my store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 28
+ testRunner.And("I uploaded an article image Image1.jpg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 29
+ testRunner.And("I uploaded an article image Image2.jpg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 30
+ testRunner.And("I set Image2.jpg as the preview image", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 31
+ testRunner.When("I try to get the article images", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "IsPreview"});
+            table4.AddRow(new string[] {
+                        "Image1.jpg",
+                        "False"});
+            table4.AddRow(new string[] {
+                        "Image2.jpg",
+                        "True"});
+#line 32
+ testRunner.Then("I should get file upload response content", ((string)(null)), table4, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

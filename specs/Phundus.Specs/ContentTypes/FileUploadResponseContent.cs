@@ -16,5 +16,8 @@
 
         [JsonProperty("type")]
         public string Type { get; set; }
+
+        [JsonProperty("isPreview")]
+        public bool IsPreview { get; set; }
     }
 }

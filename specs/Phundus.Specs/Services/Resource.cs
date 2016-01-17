@@ -232,13 +232,13 @@
             var match = regex.Match(url);
             while (match.Success)
             {
-               
                 var name = match.Groups[1].Value;
                 var value = GetParamValue(requestContent, name);
                 url = url.Remove(match.Groups[0].Index, match.Groups[0].Length);
-                url = url.Insert(match.Groups[0].Index, "/" + value);
+                if (value != null)
+                    url = url.Insert(match.Groups[0].Index, "/" + value);
                 
-                var startAt = match.Groups[0].Index + value.Length;
+                var startAt = match.Groups[0].Index + (value != null ? value.Length : 0);
                 match = regex.Match(url, startAt);
             }
             return url;

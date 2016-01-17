@@ -119,7 +119,7 @@
 
         public Resource ArticlesFilesApi
         {
-            get { return Resource("articles/{articleId}/files"); }
+            get { return Resource("articles/{articleId}/files/{fileName}"); }
         }
 
         private Resource Resource(string url)

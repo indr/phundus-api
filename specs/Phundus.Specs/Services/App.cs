@@ -355,5 +355,15 @@
         {
             return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new { articleId = article.ArticleId }, fullFileName, fileName);
         }
+
+        public FileUploadResponseContent GetArticleFiles(Article article)
+        {
+            return _apiClient.ArticlesFilesApi.Get<FileUploadResponseContent>(new {articleId = article.ArticleId}).Data;
+        }
+
+        public void SetArticlePreviewImage(Article article, string fileName)
+        {
+            _apiClient.ArticlesFilesApi.Patch(new {articleId = article.ArticleId, fileName = fileName, isPreview = true});
+        }
     }
 }

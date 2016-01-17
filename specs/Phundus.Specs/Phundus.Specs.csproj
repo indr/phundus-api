@@ -150,16 +150,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidateAccount.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Articles\ArticleFilesSteps.cs" />
     <Compile Include="Features\Articles\ArticlesSteps.cs" />
     <Compile Include="Features\Articles\CreateArticle_Organization.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CreateArticle_Organization.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Articles\ImageUpload.feature.cs">
+    <Compile Include="Features\Articles\ArticleFiles.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ImageUpload.feature</DependentUpon>
+      <DependentUpon>ArticleFiles.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Articles\CreateArticle_UserStore.feature.cs">
       <AutoGen>True</AutoGen>
@@ -326,9 +327,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CreateArticle_Organization.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Articles\ImageUpload.feature">
+    <None Include="Features\Articles\ArticleFiles.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ImageUpload.feature.cs</LastGenOutput>
+      <LastGenOutput>ArticleFiles.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Articles\CreateArticle_UserStore.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
