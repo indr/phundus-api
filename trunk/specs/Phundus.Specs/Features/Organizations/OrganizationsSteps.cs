@@ -7,6 +7,7 @@
     using Services;
     using Steps;
     using TechTalk.SpecFlow;
+    using TechTalk.SpecFlow.Assist;
 
     [Binding]
     public class OrganizationsSteps : StepsBase
@@ -70,6 +71,14 @@
             Ctx.Organization = App.EstablishOrganization();
         }
 
+        [Given(@"I changed to organization contact details")]
+        public void GivenIChangedToOrganizationContactDetails(Table table)
+        {
+            var row = table.Rows[0];
+            App.ChangeOrganizationContactDetails(Ctx.Organization, row["Post address"],
+                row["Phone number"], row["Email address"], row["Website"]);
+        }
+
         [When(@"I try to establish an organization")]
         public void WhenITryToEstablishAnOrganization()
         {
@@ -100,6 +109,12 @@
         {
             Assert.That(_organizationDetails, Is.Not.Null);
             Assert.That(_organizationDetails.OrganizationId, Is.EqualTo(Ctx.Organization.OrganizationId));
+        }
+
+        [Then(@"I should see these organization contact details")]
+        public void ThenIShouldSeeTheseOrganizationContactDetails(Table table)
+        {
+            table.CompareToInstance(_organizationDetails.ContactDetails);
         }
     }
 }

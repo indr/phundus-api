@@ -353,7 +353,8 @@
 
         public FileUploadResponseContent UploadArticleImage(Article article, string fullFileName, string fileName = null)
         {
-            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new { articleId = article.ArticleId }, fullFileName, fileName);
+            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new {articleId = article.ArticleId},
+                fullFileName, fileName);
         }
 
         public FileUploadResponseContent GetArticleFiles(Article article)
@@ -363,7 +364,17 @@
 
         public void SetArticlePreviewImage(Article article, string fileName)
         {
-            _apiClient.ArticlesFilesApi.Patch(new {articleId = article.ArticleId, fileName = fileName, isPreview = true});
+            _apiClient.ArticlesFilesApi.Patch(new {articleId = article.ArticleId, fileName, isPreview = true});
+        }
+
+        public void ChangeOrganizationContactDetails(Organization organization, string postAddress, string phoneNumber,
+            string emailAddress, string website)
+        {
+            _apiClient.OrganizationsApi.Patch(new
+            {
+                organizationId = organization.OrganizationId,
+                contactDetails = new {postAddress, phoneNumber, emailAddress, website}
+            });
         }
     }
 }

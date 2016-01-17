@@ -195,6 +195,11 @@
       <DependentUpon>CreateEmptyOrder.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Orders\OrdersSteps.cs" />
+    <Compile Include="Features\Organizations\ContactDetails.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContactDetails.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Organizations\Establish.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -365,6 +370,10 @@
     <None Include="Features\Orders\CreateEmptyOrder.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CreateEmptyOrder.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Organizations\ContactDetails.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ContactDetails.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Organizations\Establish.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
