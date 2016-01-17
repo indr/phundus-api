@@ -135,6 +135,25 @@
             image.Article = null;
 
             EventPublisher.Publish(new ImageRemoved());
+
+            EnsureOneImageIsPreviewImage();
+        }
+
+        private void EnsureOneImageIsPreviewImage()
+        {
+            if (Images.Count == 0)
+                return;
+
+            var previewImage = Images.FirstOrDefault(p => p.IsPreview);
+            if (previewImage != null)
+                return;
+
+            previewImage = Images.FirstOrDefault();
+            if (previewImage == null)
+                return;
+
+            previewImage.IsPreview = true;
+            EventPublisher.Publish(new PreviewImageChanged());
         }
     }
 }
