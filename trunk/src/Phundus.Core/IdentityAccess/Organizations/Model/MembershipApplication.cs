@@ -53,7 +53,7 @@
         public virtual DateTime? ApprovalDate { get; protected set; }
 
         public virtual DateTime? RejectDate { get; protected set; }
-        public ApplicationId ApplicationId { get {return new ApplicationId(Id);} }
+        public virtual ApplicationId ApplicationId { get {return new ApplicationId(Id);} }
 
 
         public virtual Membership Approve(Guid membershipId)

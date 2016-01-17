@@ -121,7 +121,7 @@
             }
         }
 
-        public OrderId OrderId
+        public virtual OrderId OrderId
         {
             get { return new OrderId(Id); }
         }
