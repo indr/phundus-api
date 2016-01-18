@@ -15,7 +15,7 @@
                 {
                     if (domainEvent.UserGuid == Guid.Empty)
                     {
-                        domainEvent.UserGuid = UserIdMap[domainEvent.UserIntegralId];
+                        domainEvent.UserGuid = GetUserGuid(domainEvent.UserIntegralId);
                         UpdateSerialization(eventId, domainEvent);
                     }
                 });

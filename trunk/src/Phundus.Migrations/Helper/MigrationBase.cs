@@ -24,6 +24,11 @@
             return dateTimeLocal.ToUniversalTime();
         }
 
+        protected void ResetAllProcessedNotificationTrackers()
+        {
+            Delete.FromTable("ProcessedNotificationTracker").AllRows();
+        }
+
         protected void EmptyTableAndResetTracker(string tableName, string trackerTypeName)
         {
             Delete.FromTable(tableName).AllRows();

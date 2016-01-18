@@ -9,7 +9,7 @@ namespace Phundus.Migrations
 
     public abstract class EventMigrationBase : MigrationBase
     {
-        protected static IDictionary<int, Guid> OrganizationIdMap = new Dictionary<int, Guid>
+        private static IDictionary<int, Guid> OrganizationIdMap = new Dictionary<int, Guid>
         {
             {1000, new Guid("1E2311AD-2340-4AB1-BE0E-54DA9658FBD7")},
             {1001, new Guid("9E327414-8BDC-42E5-A711-3A15694C0026")},
@@ -25,7 +25,7 @@ namespace Phundus.Migrations
         protected IDbTransaction Transaction;
         private IDictionary<int, Guid> _userIdMap;
 
-        protected IDictionary<int, Guid> UserIdMap
+        private IDictionary<int, Guid> UserIdMap
         {
             get
             {
@@ -47,6 +47,22 @@ namespace Phundus.Migrations
 
         protected abstract void Migrate();
 
+        protected Guid GetOrganizationGuid(int organizationIntegralId)
+        {
+            Guid result;
+            if (!OrganizationIdMap.TryGetValue(organizationIntegralId, out result))
+                throw new Exception(String.Format("Could not find the organization guid for integral id {0}.",
+                    organizationIntegralId));
+            return result;
+        }
+
+        protected Guid GetUserGuid(int userIntegralId)
+        {
+            Guid result;
+            if (!UserIdMap.TryGetValue(userIntegralId, out result))
+                throw new Exception(String.Format("Could not find the user guid for integral id {0}.", userIntegralId));
+            return result;
+        }
 
         public override void Down()
         {
