@@ -8,8 +8,8 @@ namespace Phundus.Migrations
     {
         public override void Up()
         {
-            Delete.FromTable("Rm_EventLog").AllRows();
-            Delete.FromTable("StoredEvents").AllRows();
+            //Delete.FromTable("Rm_EventLog").AllRows();
+            //Delete.FromTable("StoredEvents").AllRows();
         }
 
         public override void Down()
