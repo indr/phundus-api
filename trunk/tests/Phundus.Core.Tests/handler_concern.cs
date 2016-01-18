@@ -43,11 +43,11 @@ namespace Phundus.Tests
             {emailAddress, "1234", "Bob", "Cooper", "Street", "1000", "City", "012 345 67 89", null};
             var result = mock.partial<User>(argumentsForConstructor);
 
-            var property = typeof (User).GetProperty("UserGuid");
+            var property = typeof (User).GetProperty("Guid");
             Assert.That(property, Is.Not.Null, "Could not find property Id of type {0}. " +
                                                "If User is no longer of base type EntityBase and has no database generated numeric identifier, remove this hack.",
                 typeof (User));
-            property.GetSetMethod(true).Invoke(result, new object[] {userId});
+            property.GetSetMethod(true).Invoke(result, new object[] {userId.Id});
 
             return result;
         }

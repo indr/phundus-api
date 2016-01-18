@@ -41,7 +41,7 @@
         {
             MemberInRole.ActiveChief(command.OrganizationId.Id, command.InitiatorId);
 
-            var organization = Repository.GetById(command.OrganizationId.Id);
+            var organization = Repository.GetById(command.OrganizationId);
 
             organization.ChangeContactDetails(new ContactDetails(command.PostAddress, command.PhoneNumber,
                 command.EmailAddress, command.Website));
