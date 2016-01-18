@@ -31,12 +31,6 @@
 
         public ICommandDispatcher Dispatcher { get; set; }
 
-        [Obsolete]
-        protected CurrentUserId CurrentUserId
-        {
-            get { return GetCurrentProviderUserKey().UserId; }
-        }
-
         protected CurrentUserGuid CurrentUserGuid
         {
             get { return GetCurrentProviderUserKey().UserGuid; }
