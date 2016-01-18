@@ -7,7 +7,7 @@
     [Subject(typeof (UserApproved))]
     public class when_instantiating_a_user_approved_event : domain_event_concern<UserApproved>
     {
-        private static UserGuid theUserGuid = new UserGuid();
+        private static UserId theUserGuid = new UserId();
         private Because of = () => sut = new UserApproved(theInitiatorId, theUserGuid);
 
         private It should_have_the_initiator_guid_at_1 = () => dataMember(1).ShouldEqual(theInitiatorId.Id);

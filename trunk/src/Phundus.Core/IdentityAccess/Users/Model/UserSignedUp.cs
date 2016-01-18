@@ -11,11 +11,11 @@
         {
         }
 
-        public UserSignedUp(UserGuid userGuid, string emailAddress, string password, string salt, string validationKey,
+        public UserSignedUp(UserId userId, string emailAddress, string password, string salt, string validationKey,
             string firstName, string lastName, string street, string postcode, string city, string mobilePhone)
         {
-            if (userGuid == null) throw new ArgumentNullException("userGuid");
-            UserGuid = userGuid.Id;
+            if (userId == null) throw new ArgumentNullException("userId");
+            UserGuid = userId.Id;
             EmailAddress = emailAddress;
             Password = password;
             Salt = salt;

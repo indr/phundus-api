@@ -8,7 +8,7 @@
     public interface IUserQueries
     {
         IUser GetByGuid(Guid guid);
-        IUser GetByGuid(UserGuid userGuid);
+        IUser GetByGuid(UserId userId);
 
         IUser FindById(Guid userGuid);
 

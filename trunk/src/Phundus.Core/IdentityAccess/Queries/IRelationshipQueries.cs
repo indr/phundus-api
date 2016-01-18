@@ -5,6 +5,6 @@
 
     public interface IRelationshipQueries
     {
-        RelationshipDto ByMemberIdForOrganizationId(UserGuid memberId, Guid organizationId);
+        RelationshipDto ByMemberIdForOrganizationId(UserId memberId, Guid organizationId);
     }
 }

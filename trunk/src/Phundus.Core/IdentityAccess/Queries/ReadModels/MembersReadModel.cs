@@ -54,7 +54,7 @@
 
                 result.Add(new MemberDto
                 {
-                    Guid = user.UserGuid,
+                    Guid = user.UserId,
                     EmailAddress = user.EmailAddress,
                     FirstName = user.FirstName,
                     JsNumber = user.JsNummer,

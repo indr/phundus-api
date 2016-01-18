@@ -7,7 +7,7 @@
 
     public class UpdateDescription
     {
-        public UserGuid InitiatorId { get; set; }
+        public UserId InitiatorId { get; set; }
         public int ArticleId { get; set; }
         public string Description { get; set; }
     }

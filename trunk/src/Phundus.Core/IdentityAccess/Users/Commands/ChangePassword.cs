@@ -14,13 +14,13 @@
             if (newPassword == null) throw new ArgumentNullException("newPassword");
 
             InitiatorId = initiatorId;
-            UserGuid = new UserGuid(initiatorId.Id);
+            UserId = new UserId(initiatorId.Id);
             OldPassword = oldPassword;
             NewPassword = newPassword;
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public UserGuid UserGuid { get; protected set; }
+        public UserId UserId { get; protected set; }
         public string OldPassword { get; protected set; }
         public string NewPassword { get; protected set; }
     }
@@ -31,7 +31,7 @@
 
         public void Handle(ChangePassword command)
         {
-            var user = UserRepository.GetByGuid(command.UserGuid);
+            var user = UserRepository.GetByGuid(command.UserId);
 
             user.Account.ChangePassword(command.OldPassword, command.NewPassword);
         }

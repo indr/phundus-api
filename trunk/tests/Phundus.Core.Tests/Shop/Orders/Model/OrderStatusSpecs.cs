@@ -205,21 +205,21 @@
         public static Order CreateClosed()
         {
             var result = CreatePending();
-            result.Close(new UserGuid());
+            result.Close(new UserId());
             return result;
         }
 
         public static Order CreateRejected()
         {
             var result = CreatePending();
-            result.Reject(new UserGuid());
+            result.Reject(new UserId());
             return result;
         }
 
         public static Order CreateApproved()
         {
             var result = CreatePending();
-            result.Approve(new UserGuid());
+            result.Approve(new UserId());
             return result;
         }
 

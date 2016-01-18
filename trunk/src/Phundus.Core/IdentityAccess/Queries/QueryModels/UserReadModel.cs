@@ -12,27 +12,27 @@
     {
         public IUser GetByGuid(Guid guid)
         {
-            return GetByGuid(new UserGuid(guid));
+            return GetByGuid(new UserId(guid));
         }
 
-        public IUser GetByGuid(UserGuid userGuid)
+        public IUser GetByGuid(UserId userId)
         {
-            var result = FindByGuid(userGuid);
+            var result = FindByGuid(userId);
             if (result == null)
-                throw new NotFoundException("User {0} not found.", userGuid);
+                throw new NotFoundException("User {0} not found.", userId);
             return result;
         }
 
         public IUser FindById(Guid userGuid)
         {
             return QueryOver()
-                .Where(p => p.UserGuid == userGuid)
+                .Where(p => p.UserId == userGuid)
                 .List().SingleOrDefault();
         }
 
-        public IUser FindByGuid(UserGuid userGuid)
+        public IUser FindByGuid(UserId userId)
         {
-            return FindById(userGuid.Id);
+            return FindById(userId.Id);
         }
 
         public IUser FindByUsername(string username)
@@ -54,7 +54,7 @@
         public IUser FindActiveById(Guid userGuid)
         {
             return QueryOver()
-                .Where(p => p.UserGuid == userGuid)
+                .Where(p => p.UserId == userGuid)
                 .And(p => p.IsApproved && !p.IsLockedOut)
                 .List().SingleOrDefault();
         }

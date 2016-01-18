@@ -9,7 +9,7 @@
         private Account _account;
         private string _city;
         private string _firstName;
-        private UserGuid _userGuid = new UserGuid();
+        private UserId _userId = new UserId();
         private int? _jsNumber;
         private string _lastName;
         private string _mobileNumber;
@@ -43,14 +43,14 @@
 
         public virtual Guid Guid
         {
-            get { return _userGuid.Id; }
-            protected set { _userGuid = new UserGuid(value); }
+            get { return _userId.Id; }
+            protected set { _userId = new UserId(value); }
         }
 
-        public virtual UserGuid UserGuid
+        public virtual UserId UserId
         {
-            get { return _userGuid; }
-            protected set { _userGuid = value; }
+            get { return _userId; }
+            protected set { _userId = value; }
         }
 
         public virtual string FirstName
@@ -133,10 +133,10 @@
             if (!Account.Approve())
                 return;
 
-            EventPublisher.Publish(new UserApproved(initiator.UserGuid, this.UserGuid));
+            EventPublisher.Publish(new UserApproved(initiator.UserId, this.UserId));
         }
 
-        public virtual void ChangeEmailAddress(UserGuid initiatorId, string password, string newEmailAddress)
+        public virtual void ChangeEmailAddress(UserId initiatorId, string password, string newEmailAddress)
         {
             if (password == null) throw new ArgumentNullException("password");
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");

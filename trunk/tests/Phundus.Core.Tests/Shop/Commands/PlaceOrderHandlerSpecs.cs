@@ -26,7 +26,7 @@
             orderRepository.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(theResultingOrderId);
 
             theCart = new Cart(theInitiatorId, theInitiatorId);
-            depends.on<ICartRepository>().WhenToldTo(x => x.GetByUserGuid(new UserGuid(theInitiatorId.Id))).Return(theCart);
+            depends.on<ICartRepository>().WhenToldTo(x => x.GetByUserGuid(new UserId(theInitiatorId.Id))).Return(theCart);
 
             command = new PlaceOrder(theInitiatorId, theLessorId);
         };

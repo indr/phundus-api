@@ -16,13 +16,13 @@
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
 
             InitiatorId = initiatorId;
-            UserGuid = new UserGuid(initiatorId.Id);
+            UserId = new UserId(initiatorId.Id);
             Password = password;
             NewEmailAddress = newEmailAddress;
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public UserGuid UserGuid { get; protected set; }
+        public UserId UserId { get; protected set; }
         public string Password { get; protected set; }
         public string NewEmailAddress { get; protected set; }
     }
@@ -39,13 +39,13 @@
 
         public void Handle(ChangeEmailAddress command)
         {
-            var user = _userRepository.GetByGuid(command.UserGuid);
+            var user = _userRepository.GetByGuid(command.UserId);
 
             var emailAddress = command.NewEmailAddress.ToLower(CultureInfo.CurrentCulture).Trim();
             if (_userRepository.FindByEmailAddress(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
 
-            user.ChangeEmailAddress(command.UserGuid, command.Password, command.NewEmailAddress);
+            user.ChangeEmailAddress(command.UserId, command.Password, command.NewEmailAddress);
         }
     }
 }

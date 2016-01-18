@@ -37,7 +37,7 @@
 
         public void Handle(UpdateCartItem command)
         {
-            var cart = _cartRepository.FindByUserGuid(new UserGuid(command.InitiatorId.Id));
+            var cart = _cartRepository.FindByUserGuid(new UserId(command.InitiatorId.Id));
             if (cart == null)
                 return;
 

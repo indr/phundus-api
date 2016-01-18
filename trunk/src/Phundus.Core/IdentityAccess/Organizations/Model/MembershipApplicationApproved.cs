@@ -7,7 +7,7 @@
     [DataContract]
     public class MembershipApplicationApproved : DomainEvent
     {
-        public MembershipApplicationApproved(UserGuid initiator, OrganizationGuid organizationGuid, UserGuid user)
+        public MembershipApplicationApproved(UserId initiator, OrganizationGuid organizationGuid, UserId user)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (organizationGuid == null) throw new ArgumentNullException("organizationGuid");

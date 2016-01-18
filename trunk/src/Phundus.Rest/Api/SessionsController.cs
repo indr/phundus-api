@@ -44,7 +44,7 @@
 
             var user = _userQueries.FindByUsername(requestContent.Username);
 
-            var memberships = _membershipQueries.ByUserId(user.UserGuid)
+            var memberships = _membershipQueries.ByUserId(user.UserId)
                 .Select(each => new Memberships
                 {
                     IsManager = each.MembershipRole == "Chief",
@@ -67,7 +67,7 @@
                     BitMask = role.BitMask,
                     Title = role.Title
                 },
-                UserId = user.UserGuid,
+                UserId = user.UserId,
                 Username = user.EmailAddress
             };
         }

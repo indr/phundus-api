@@ -15,11 +15,11 @@
             get { return Session.Query<User>(); }
         }
 
-        public User GetByGuid(UserGuid userGuid)
+        public User GetByGuid(UserId userId)
         {
-            var result = FindByGuid(userGuid.Id);
+            var result = FindByGuid(userId.Id);
             if (result == null)
-                throw new NotFoundException("User {0} not found.", userGuid);
+                throw new NotFoundException("User {0} not found.", userId);
             return result;
         }
 

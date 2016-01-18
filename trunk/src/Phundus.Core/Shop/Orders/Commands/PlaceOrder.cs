@@ -48,7 +48,7 @@
 
         public void Handle(PlaceOrder command)
         {
-            var cart = _cartRepository.GetByUserGuid(new UserGuid(command.InitiatorId.Id));
+            var cart = _cartRepository.GetByUserGuid(new UserId(command.InitiatorId.Id));
             AssertionConcern.AssertArgumentFalse(cart.IsEmpty, "Your cart is empty, there is no order to place.");
 
             var cartItemsToPlace = cart.Items.Where(p => p.Article.Owner.OwnerId.Id == command.LessorId.Id).ToList();

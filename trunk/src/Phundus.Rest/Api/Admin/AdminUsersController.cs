@@ -37,7 +37,7 @@
                     EmailAddress = s.EmailAddress,
                     FirstName = s.FirstName,
                     LastName = s.LastName,
-                    UserId = s.UserGuid,
+                    UserId = s.UserId,
                     IsApproved = s.IsApproved,
                     IsLocked = s.IsLockedOut,
                     IsAdmin = s.RoleId == 2,
@@ -55,21 +55,21 @@
             {
                 if (requestContent.IsLocked.Value)
                 {
-                    Dispatch(new LockUser(CurrentUserId, new UserGuid(requestContent.UserId)));
+                    Dispatch(new LockUser(CurrentUserId, new UserId(requestContent.UserId)));
                 }
                 else
                 {
-                    Dispatch(new UnlockUser(CurrentUserId, new UserGuid(requestContent.UserId)));
+                    Dispatch(new UnlockUser(CurrentUserId, new UserId(requestContent.UserId)));
                 }
             }
             if (requestContent.IsAdmin.HasValue)
             {
-                Dispatch(new ChangeUserRole(CurrentUserId, new UserGuid(requestContent.UserId),
+                Dispatch(new ChangeUserRole(CurrentUserId, new UserId(requestContent.UserId),
                     requestContent.IsAdmin.Value ? UserRole.Admin : UserRole.User));
             }
             if (requestContent.IsApproved.HasValue && requestContent.IsApproved.Value)
             {
-                Dispatch(new ApproveUser(CurrentUserId, new UserGuid(requestContent.UserId)));
+                Dispatch(new ApproveUser(CurrentUserId, new UserId(requestContent.UserId)));
             }
             return NoContent();
         }

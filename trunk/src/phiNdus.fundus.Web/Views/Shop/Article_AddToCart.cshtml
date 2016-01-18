@@ -6,7 +6,7 @@
     new AjaxOptions
     {
         HttpMethod = "POST",
-        Url = "/api/v0/users/" + @Model.UserGuid.ToString("D") + "/cart/items",
+        Url = "/api/v0/users/" + @Model.UserId.ToString("D") + "/cart/items",
         OnSuccess = "$('#popover-glyphicon-cart').popover('show');window.setTimeout(function() {$('#popover-glyphicon-cart').popover('hide')}, 4000);"
     }))
     {

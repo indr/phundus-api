@@ -10,7 +10,7 @@
 
     public interface IPdfStore
     {
-        Stream GetOrderPdf(int orderId, UserGuid currentUserId);
+        Stream GetOrderPdf(int orderId, UserId currentUserId);
     }
 
     public class PdfStore : IPdfStore
@@ -23,7 +23,7 @@
 
         public IOrderPdfGeneratorService OrderPdfGeneratorService { get; set; }
 
-        public Stream GetOrderPdf(int orderId, UserGuid currentUserId)
+        public Stream GetOrderPdf(int orderId, UserId currentUserId)
         {
             var order = OrderRepository.GetById(orderId);
             return GetPdf(order);

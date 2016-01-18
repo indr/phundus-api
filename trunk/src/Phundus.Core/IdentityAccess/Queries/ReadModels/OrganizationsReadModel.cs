@@ -18,7 +18,7 @@
             Membership memberAlias = null;
             var query = Session.QueryOver(() => orgAlias)
                 .JoinAlias(() => orgAlias.Memberships, () => memberAlias)
-                .Where(() => memberAlias.UserGuid.Id == memberId);
+                .Where(() => memberAlias.UserId.Id == memberId);
 
             var result = new List<OrganizationDto>();
             foreach (var each in query.List())

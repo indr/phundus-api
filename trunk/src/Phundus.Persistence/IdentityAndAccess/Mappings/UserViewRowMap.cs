@@ -13,7 +13,7 @@
             ReadOnly();
             Table("View_IdentityAccess_Users");
 
-            Id(x => x.UserGuid, "UserGuid");
+            Id(x => x.UserId, "UserGuid");
             Map(x => x.RoleId, "RoleId");
             Map(x => x.EmailAddress, "EmailAddress");
             Map(x => x.FirstName, "FirstName");

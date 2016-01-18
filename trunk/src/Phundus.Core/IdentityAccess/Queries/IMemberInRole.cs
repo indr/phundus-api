@@ -5,16 +5,16 @@
 
     public interface IMemberInRole
     {
-        void ActiveMember(Guid organizationId, UserGuid userGuid);
-        void ActiveMember(OwnerId ownerId, UserGuid userGuid);
+        void ActiveMember(Guid organizationId, UserId userId);
+        void ActiveMember(OwnerId ownerId, UserId userId);
         
-        void ActiveChief(Guid organizationId, UserGuid userGuid);
-        void ActiveChief(OwnerId ownerId, UserGuid userGuid);
+        void ActiveChief(Guid organizationId, UserId userId);
+        void ActiveChief(OwnerId ownerId, UserId userId);
 
-        bool IsActiveMember(Guid organizationId, UserGuid userGuid);
-        bool IsActiveMember(OwnerId ownerId, UserGuid userGuid);
+        bool IsActiveMember(Guid organizationId, UserId userId);
+        bool IsActiveMember(OwnerId ownerId, UserId userId);
 
-        bool IsActiveChief(Guid organizationId, UserGuid userGuid);
-        bool IsActiveChief(OwnerId ownerId, UserGuid userId);
+        bool IsActiveChief(Guid organizationId, UserId userId);
+        bool IsActiveChief(OwnerId ownerId, UserId userId);
     }
 }

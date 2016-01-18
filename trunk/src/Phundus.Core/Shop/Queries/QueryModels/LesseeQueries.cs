@@ -22,7 +22,7 @@
             if (user == null)
                 throw new NotFoundException("Lessee {0} not found", lesseeGuid);
 
-            return new LesseeViewRow(user.UserGuid, user.FullName, user.Street + "\n" + user.Postcode + " " + user.City,
+            return new LesseeViewRow(user.UserId, user.FullName, user.Street + "\n" + user.Postcode + " " + user.City,
                 user.MobilePhone, user.EmailAddress);
         }
     }

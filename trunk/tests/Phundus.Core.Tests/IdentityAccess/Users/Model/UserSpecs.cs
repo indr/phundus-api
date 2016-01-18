@@ -81,7 +81,7 @@
             theOldValidationKey = sut.Account.ValidationKey;
         };
 
-        private Because of = () => sut.ChangeEmailAddress(sut.UserGuid, thePassword, theNewEmailAddress);
+        private Because of = () => sut.ChangeEmailAddress(sut.UserId, thePassword, theNewEmailAddress);
 
         private It should_have_new_validation_key = () => sut.Account.ValidationKey.ShouldNotEqual(theOldValidationKey);
 
@@ -102,7 +102,7 @@
         private Establish ctx = () =>
         {
             sut = CreateUser();
-            sut.Account.ChangeEmailAddress(sut.UserGuid, thePassword, theNewEmailAddress);
+            sut.Account.ChangeEmailAddress(sut.UserId, thePassword, theNewEmailAddress);
             theKey = sut.Account.ValidationKey;
         };
 
@@ -115,7 +115,7 @@
             publisher.WasToldTo(
                 x => x.Publish(Arg<UserEmailAddressChanged>.Is.NotNull));
             publisher.WasToldTo(x => x.Publish(Arg<UserEmailAddressChanged>.Matches(p =>
-                p.UserGuid == sut.UserGuid.Id
+                p.UserGuid == sut.UserId.Id
                 && p.OldEmailAddress == theEmailAddress
                 && p.NewEmailAddress == theNewEmailAddress)));
         };
@@ -133,7 +133,7 @@
         private Establish ctx = () =>
         {
             sut = CreateUser();
-            sut.Account.ChangeEmailAddress(sut.UserGuid, thePassword, theNewEmailAddress);
+            sut.Account.ChangeEmailAddress(sut.UserId, thePassword, theNewEmailAddress);
         };
 
         private Because of = () => result = sut.Account.ValidateKey("wrongKey");

@@ -4,7 +4,7 @@
 
     public interface IUser
     {
-        Guid UserGuid { get; }
+        Guid UserId { get; }
 
         int RoleId { get; }
         string RoleName { get; }

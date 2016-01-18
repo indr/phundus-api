@@ -14,7 +14,7 @@
             Version(x => x.Version);
 
             //Map(x => x.UserId, "UserId");
-            Component(x => x.UserGuid, a => a.Map(x => x.Id, "UserGuid"));
+            Component(x => x.UserId, a => a.Map(x => x.Id, "UserGuid"));
 
             References(x => x.Organization, "OrganizationGuid").Cascade.None();
             

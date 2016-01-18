@@ -53,7 +53,7 @@ namespace Phundus.Rest.Api
 
             if (requestContent.OrganizationId.HasValue)
             {
-                Dispatcher.Dispatch(new ApplyForMembership(CurrentUserId, Guid.NewGuid(), new UserGuid(command.ResultingUserGuid),
+                Dispatcher.Dispatch(new ApplyForMembership(CurrentUserId, Guid.NewGuid(), new UserId(command.ResultingUserGuid),
                     requestContent.OrganizationId.Value));
             }
 
@@ -64,12 +64,12 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual UsersGetOkResponseContent Get(Guid userId)
         {
-            var user = _userQueries.GetByGuid(new UserGuid(userId));
-            if ((user == null) || (user.UserGuid != CurrentUserId.Id))
+            var user = _userQueries.GetByGuid(new UserId(userId));
+            if ((user == null) || (user.UserId != CurrentUserId.Id))
                 throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
 
-            var memberships = _membershipQueries.ByUserId(user.UserGuid);
-            var store = _storeQueries.FindByOwnerId(new OwnerId(user.UserGuid));
+            var memberships = _membershipQueries.ByUserId(user.UserId);
+            var store = _storeQueries.FindByOwnerId(new OwnerId(user.UserId));
 
             return new UsersGetOkResponseContent(user, memberships, store);
         }
@@ -121,7 +121,7 @@ namespace Phundus.Rest.Api
 
         public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipDto> memberships, StoreDto store)
         {
-            UserId = user.UserGuid;
+            UserId = user.UserId;
             Username = user.EmailAddress;
             FullName = user.FirstName + " " + user.LastName;
             EmailAddress = user.EmailAddress;

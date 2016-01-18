@@ -54,11 +54,11 @@
             return result;
         }
 
-        public IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderId orderId, UserGuid queryUserGuid,
+        public IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderId orderId, UserId queryUserId,
             OrganizationGuid queryOrganizationId)
         {
             return Query(currentUserId, orderId == null ? (int?) null : orderId.Id,
-                queryUserGuid == null ? (Guid?) null : queryUserGuid.Id,
+                queryUserId == null ? (Guid?) null : queryUserId.Id,
                 queryOrganizationId == null ? (Guid?) null : queryOrganizationId.Id);
         }
 

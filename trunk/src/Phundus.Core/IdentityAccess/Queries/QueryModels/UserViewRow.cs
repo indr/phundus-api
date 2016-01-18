@@ -20,7 +20,7 @@
 
     public class UserViewRow : IUser
     {
-        public virtual Guid UserGuid { get; set; }
+        public virtual Guid UserId { get; set; }
 
         public virtual string Username
         {

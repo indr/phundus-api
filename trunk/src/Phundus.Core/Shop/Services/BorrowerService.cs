@@ -31,7 +31,7 @@
 
         public Lessee GetById(Guid id)
         {
-            var user = UserQueries.GetByGuid(new UserGuid(id));
+            var user = UserQueries.GetByGuid(new UserId(id));
             if (user == null)
                 throw new NotFoundException(string.Format("Lessee {0} not found.", id));
 
@@ -45,7 +45,7 @@
 
         private static Lessee ToBorrower(IUser user)
         {
-            return new Lessee(user.UserGuid, user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
+            return new Lessee(user.UserId, user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
                 user.EmailAddress, user.MobilePhone, user.JsNummer.ToString());
         }
     }

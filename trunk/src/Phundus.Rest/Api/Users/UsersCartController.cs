@@ -30,7 +30,7 @@ namespace Phundus.Rest.Api.Users
             if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
-            var cart = _cartQueries.FindByUserGuid(CurrentUserId, new UserGuid(userId));
+            var cart = _cartQueries.FindByUserGuid(CurrentUserId, new UserId(userId));
             if (cart == null)
                 return new UsersCartGetOkResponseContent(null);
             return new UsersCartGetOkResponseContent(cart);

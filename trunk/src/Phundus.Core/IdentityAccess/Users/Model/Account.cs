@@ -97,7 +97,7 @@
         }
 
 
-        public virtual void ChangeEmailAddress(UserGuid initiatorId, string password, string newEmailAddress)
+        public virtual void ChangeEmailAddress(UserId initiatorId, string password, string newEmailAddress)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (password == null) throw new ArgumentNullException("password");
@@ -150,7 +150,7 @@
                 var oldEmailAddress = Email;
                 Email = RequestedEmail;
                 RequestedEmail = null;
-                EventPublisher.Publish(new UserEmailAddressChanged(User.UserGuid.Id, oldEmailAddress, Email));
+                EventPublisher.Publish(new UserEmailAddressChanged(User.UserId.Id, oldEmailAddress, Email));
             }
 
             return true;

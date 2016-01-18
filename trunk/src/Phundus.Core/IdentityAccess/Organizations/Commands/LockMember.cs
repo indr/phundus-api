@@ -12,7 +12,7 @@
     {
         public Guid OrganizationId { get; set; }
         public CurrentUserId InitiatorId { get; set; }
-        public UserGuid MemberId { get; set; }
+        public UserId MemberId { get; set; }
     }
 
     public class LockMemberHandler : IHandleCommand<LockMember>
@@ -29,7 +29,7 @@
 
             var member = UserRepository.GetByGuid(command.MemberId);
 
-            if (Equals(member.UserGuid, command.InitiatorId))
+            if (Equals(member.UserId, command.InitiatorId))
                 throw new AttemptToLockOneselfException();
 
             MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);

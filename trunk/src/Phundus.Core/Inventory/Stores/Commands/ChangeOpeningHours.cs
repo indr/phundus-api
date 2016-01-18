@@ -10,7 +10,7 @@ namespace Phundus.Inventory.Stores.Commands
 
     public class ChangeOpeningHours
     {
-        public UserGuid InitatorId { get; set; }
+        public UserId InitatorId { get; set; }
         public Guid StoreId { get; set; }
         public string OpeningHours { get; set; }
     }

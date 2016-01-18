@@ -12,9 +12,9 @@
         private ISet<CartItem> _items = new HashedSet<CartItem>();
         private Guid _userGuid;
 
-        public Cart(InitiatorId initiatorId, UserGuid userGuid) : base(new CartGuid())
+        public Cart(InitiatorId initiatorId, UserId userId) : base(new CartGuid())
         {
-            _userGuid = userGuid.Id;
+            _userGuid = userId.Id;
         }
 
         protected Cart()

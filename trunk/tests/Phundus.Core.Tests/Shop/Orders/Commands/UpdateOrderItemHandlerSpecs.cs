@@ -15,7 +15,7 @@
     {
         private const int orderId = 2;
         private const int newAmount = 20;
-        private static UserGuid initiatorId = new UserGuid();        
+        private static UserId initiatorId = new UserId();        
         private static Order order;
         private static DateTime newFromUtc;
         private static DateTime newToUtc;

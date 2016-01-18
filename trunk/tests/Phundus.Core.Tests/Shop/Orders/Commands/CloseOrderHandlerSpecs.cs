@@ -12,7 +12,7 @@
     [Subject(typeof (CloseOrderHandler))]
     public class when_close_order_is_handled : order_handler_concern<CloseOrder, CloseOrderHandler>
     {
-        private static UserGuid initiatorId = new UserGuid();
+        private static UserId initiatorId = new UserId();
         private const int orderId = 3;
         private static Order order;
 

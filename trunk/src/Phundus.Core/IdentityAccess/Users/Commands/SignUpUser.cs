@@ -61,7 +61,7 @@
 
             var userId = _userRepository.Add(user);
 
-            EventPublisher.Publish(new UserSignedUp(user.UserGuid,
+            EventPublisher.Publish(new UserSignedUp(user.UserId,
                 user.Account.Email, user.Account.Password, user.Account.Salt,
                 user.Account.ValidationKey,
                 user.FirstName, user.LastName, user.Street, user.Postcode, user.City,

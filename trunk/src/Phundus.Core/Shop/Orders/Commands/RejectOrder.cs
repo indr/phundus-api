@@ -7,7 +7,7 @@
 
     public class RejectOrder
     {
-        public UserGuid InitiatorId { get; set; }
+        public UserId InitiatorId { get; set; }
         public int OrderId { get; set; }
     }
 

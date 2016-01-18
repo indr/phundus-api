@@ -79,13 +79,13 @@
             var result = members;
 
             if (user != null)
-                result.Add(new Manager(user.UserGuid, user.FullName, user.EmailAddress));
+                result.Add(new Manager(user.UserId, user.FullName, user.EmailAddress));
             return result;
         }
 
         private static Lessor ToLessor(IUser user)
         {
-            return new Lessor(new LessorId(user.UserGuid), user.FirstName + " " + user.LastName);
+            return new Lessor(new LessorId(user.UserId), user.FirstName + " " + user.LastName);
         }
 
         private static Lessor ToLessor(OrganizationDetailDto organization)

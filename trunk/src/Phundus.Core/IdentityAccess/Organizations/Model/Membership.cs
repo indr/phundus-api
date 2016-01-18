@@ -12,17 +12,17 @@
         private Guid _organizationGuid;
         private Guid _requestId;
         private Role _role;
-        private UserGuid _userGuid;
+        private UserId _userId;
         private int _version;
 
         protected Membership()
         {
         }
 
-        public Membership(Guid id, UserGuid userGuid, Guid requestId, DateTime approvalDate, Guid organizationGuid)
+        public Membership(Guid id, UserId userId, Guid requestId, DateTime approvalDate, Guid organizationGuid)
         {
             _id = id;
-            _userGuid = userGuid;
+            _userId = userId;
             _requestId = requestId;
             _role = Role.Member;
             _approvalDate = approvalDate;
@@ -48,10 +48,10 @@
             protected set { _version = value; }
         }
 
-        public virtual UserGuid UserGuid
+        public virtual UserId UserId
         {
-            get { return _userGuid; }
-            protected set { _userGuid = value; }
+            get { return _userId; }
+            protected set { _userId = value; }
         }
 
         public virtual Guid RequestId
