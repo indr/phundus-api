@@ -26,9 +26,9 @@
             if (user.ProviderUserKey != null)
             {
                 var providerUserKey = new ProviderUserKey(user.ProviderUserKey);
-                model.UserId = providerUserKey.UserGuid.Id.ToString("D");
+                model.UserId = providerUserKey.UserId.Id.ToString("D");
 
-                foreach (var each in MembershipQueries.ByUserId(providerUserKey.UserGuid.Id))
+                foreach (var each in MembershipQueries.ByUserId(providerUserKey.UserId.Id))
                 {
                     model.Memberships.Add(each);
                 }

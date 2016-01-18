@@ -8,7 +8,7 @@
     public class cart_concern
     {
         protected static Cart sut;
-        protected static InitiatorGuid theInitiatorId = new InitiatorGuid();
+        protected static InitiatorId theInitiatorId = new InitiatorId();
         protected static UserGuid theUserGuid = new UserGuid(Guid.NewGuid());
 
         private Establish ctx = () =>

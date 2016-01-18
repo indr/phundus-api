@@ -10,12 +10,12 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="currentUserGuid"></param>
+        /// <param name="currentUserId"></param>
         /// <param name="orderId"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        OrderDto GetById(CurrentUserGuid currentUserGuid, OrderId orderId);
+        OrderDto GetById(CurrentUserId currentUserId, OrderId orderId);
 
-        IEnumerable<OrderDto> Query(CurrentUserGuid currentUserGuid, OrderId orderId, UserGuid queryUserId, OrganizationGuid queryOrganizationId);
+        IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderId orderId, UserGuid queryUserId, OrganizationGuid queryOrganizationId);
     }
 }

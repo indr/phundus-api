@@ -9,16 +9,16 @@
 
     public class ApplyForMembership
     {
-        public ApplyForMembership(InitiatorGuid initiatorGuid, Guid applicationId, UserGuid applicantId, Guid organizationId)
+        public ApplyForMembership(InitiatorId initiatorId, Guid applicationId, UserGuid applicantId, Guid organizationId)
         {
-            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
-            InitiatorGuid = initiatorGuid;
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            InitiatorId = initiatorId;
             ApplicationId = applicationId;
             ApplicantId = applicantId;
             OrganizationId = organizationId;
         }
 
-        public InitiatorGuid InitiatorGuid { get; protected set; }
+        public InitiatorId InitiatorId { get; protected set; }
         public Guid ApplicationId { get; protected set; }
         public UserGuid ApplicantId { get; protected set; }
         public Guid OrganizationId { get; protected set; }
@@ -39,7 +39,7 @@
 
             var user = UserRepository.GetByGuid(command.ApplicantId);
 
-            var request = organization.RequestMembership(command.InitiatorGuid, command.ApplicationId, user);
+            var request = organization.RequestMembership(command.InitiatorId, command.ApplicationId, user);
 
             Requests.Add(request);
         }

@@ -11,21 +11,21 @@
 
     public class CreateArticle
     {
-        public CreateArticle(UserGuid initiatorGuid, OwnerId ownerId, StoreId storeId, string name, int amount)
+        public CreateArticle(UserGuid initiatorId, OwnerId ownerId, StoreId storeId, string name, int amount)
         {
-            AssertionConcern.AssertArgumentNotNull(initiatorGuid, "InitiatorId must be provided.");
+            AssertionConcern.AssertArgumentNotNull(initiatorId, "InitiatorId must be provided.");
             AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
             AssertionConcern.AssertArgumentNotNull(storeId, "StoreId must be provided.");
             AssertionConcern.AssertArgumentNotNull(name, "Name must be provided.");
 
-            InitiatorGuid = initiatorGuid;
+            InitiatorId = initiatorId;
             OwnerId = ownerId;
             StoreId = storeId;
             Name = name;
             Amount = amount;
         }
 
-        public UserGuid InitiatorGuid { get; protected set; }
+        public UserGuid InitiatorId { get; protected set; }
 
         public OwnerId OwnerId { get; protected set; }
 
@@ -58,7 +58,7 @@
 
         public void Handle(CreateArticle command)
         {
-            _memberInRole.ActiveChief(command.OwnerId, command.InitiatorGuid);
+            _memberInRole.ActiveChief(command.OwnerId, command.InitiatorId);
             var owner = _ownerService.GetById(command.OwnerId);
 
             var result = new Article(owner, command.StoreId, command.Name, command.Amount);

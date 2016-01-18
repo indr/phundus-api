@@ -11,19 +11,19 @@
 
             var parts = Convert.ToString(providerUserKey).Split('/');
             
-            UserGuid = new CurrentUserGuid(new Guid(parts.Length == 2 ? parts[1] : parts[0]));
+            UserId = new CurrentUserId(new Guid(parts.Length == 2 ? parts[1] : parts[0]));
         }
 
         public ProviderUserKey(Guid userGuid)
         {
-            UserGuid = new CurrentUserGuid(userGuid);
+            UserId = new CurrentUserId(userGuid);
         }
 
-        public CurrentUserGuid UserGuid { get; set; }
+        public CurrentUserId UserId { get; set; }
 
         public override string ToString()
         {
-            return String.Format("{0}", UserGuid.Id.ToString("D"));
+            return String.Format("{0}", UserId.Id.ToString("D"));
         }
     }
 }

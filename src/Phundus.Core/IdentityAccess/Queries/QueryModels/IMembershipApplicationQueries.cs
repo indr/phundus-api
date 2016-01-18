@@ -5,6 +5,6 @@
 
     public interface IMembershipApplicationQueries
     {
-        IList<IMembershipApplication> FindPending(CurrentUserGuid currentUserGuid, OrganizationGuid organizationGuid);
+        IList<IMembershipApplication> FindPending(CurrentUserId currentUserId, OrganizationGuid organizationGuid);
     }
 }

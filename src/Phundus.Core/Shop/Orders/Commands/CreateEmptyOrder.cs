@@ -10,7 +10,7 @@
 
     public class CreateEmptyOrder
     {
-        public CurrentUserGuid InitiatorId { get; set; }
+        public CurrentUserId InitiatorId { get; set; }
         public LessorId LessorId { get; set; }
         public LesseeId LesseeId { get; set; }
         

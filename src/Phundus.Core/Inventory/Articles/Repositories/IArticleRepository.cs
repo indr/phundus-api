@@ -12,7 +12,7 @@
         IEnumerable<Article> FindByOwnerId(Guid ownerId);
         Article GetById(int articleId);
         Article GetById(Guid ownerId, int articleId);
-        IEnumerable<Article> Query(InitiatorGuid currentUserId, OwnerId queryOwnerId, string query);
+        IEnumerable<Article> Query(InitiatorId currentUserId, OwnerId queryOwnerId, string query);
         Article GetById(ArticleId articleId);
     }
 }

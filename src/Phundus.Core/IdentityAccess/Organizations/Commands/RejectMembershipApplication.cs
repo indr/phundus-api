@@ -9,14 +9,14 @@
 
     public class RejectMembershipApplication
     {
-        public RejectMembershipApplication(InitiatorGuid initiatorGuid, Guid applicationId)
+        public RejectMembershipApplication(InitiatorId initiatorId, Guid applicationId)
         {
-            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
-            InitiatorGuid = initiatorGuid;
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            InitiatorId = initiatorId;
             ApplicationId = applicationId;
         }
 
-        public InitiatorGuid InitiatorGuid { get; protected set; }
+        public InitiatorId InitiatorId { get; protected set; }
         public Guid ApplicationId { get; protected set; }
     }
 
@@ -35,9 +35,9 @@
 
             var organization = OrganizationRepository.GetById(application.OrganizationId);
 
-            MemberInRole.ActiveChief(application.OrganizationId, command.InitiatorGuid);
+            MemberInRole.ActiveChief(application.OrganizationId, command.InitiatorId);
 
-            organization.RejectMembershipRequest(command.InitiatorGuid, application);
+            organization.RejectMembershipRequest(command.InitiatorId, application);
         }
     }
 }

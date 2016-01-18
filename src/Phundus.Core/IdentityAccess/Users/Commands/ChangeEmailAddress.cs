@@ -9,19 +9,19 @@
 
     public class ChangeEmailAddress
     {
-        public ChangeEmailAddress(InitiatorGuid initiatorGuid, string password, string newEmailAddress)
+        public ChangeEmailAddress(InitiatorId initiatorId, string password, string newEmailAddress)
         {
-            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (password == null) throw new ArgumentNullException("password");
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
 
-            InitiatorGuid = initiatorGuid;
-            UserGuid = new UserGuid(initiatorGuid.Id);
+            InitiatorId = initiatorId;
+            UserGuid = new UserGuid(initiatorId.Id);
             Password = password;
             NewEmailAddress = newEmailAddress;
         }
 
-        public InitiatorGuid InitiatorGuid { get; protected set; }
+        public InitiatorId InitiatorId { get; protected set; }
         public UserGuid UserGuid { get; protected set; }
         public string Password { get; protected set; }
         public string NewEmailAddress { get; protected set; }

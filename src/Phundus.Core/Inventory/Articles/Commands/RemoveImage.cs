@@ -9,7 +9,7 @@
 
     public class RemoveImage
     {
-        public RemoveImage(InitiatorGuid initiatorId, ArticleId articleId, string fileName)
+        public RemoveImage(InitiatorId initiatorId, ArticleId articleId, string fileName)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (articleId == null) throw new ArgumentNullException("articleId");
@@ -23,7 +23,7 @@
             FileName = fileName;
         }
 
-        public InitiatorGuid InitiatorId { get; set; }
+        public InitiatorId InitiatorId { get; set; }
         public ArticleId ArticleId { get; set; }
         public string FileName { get; set; }
     }

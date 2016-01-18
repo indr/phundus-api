@@ -15,7 +15,7 @@
     {
         public const int orderId = 3;
         public static Guid userId = Guid.NewGuid();
-        public static CurrentUserGuid initiatorId = new CurrentUserGuid();
+        public static CurrentUserId initiatorId = new CurrentUserId();
 
         public Establish c = () =>
         {

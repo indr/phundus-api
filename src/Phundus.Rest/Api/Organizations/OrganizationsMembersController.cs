@@ -35,7 +35,7 @@
             if (queryParams.ContainsKey("username"))
                 username = queryParams["username"];
 
-            var result = _memberQueries.Query(CurrentUserGuid, organizationId, username);
+            var result = _memberQueries.Query(CurrentUserId, organizationId, username);
             return new QueryOkResponseContent<Member>(result.Select(s => new Member
             {
                 ApprovalDate = s.ApprovalDate,
@@ -56,7 +56,7 @@
         public virtual HttpResponseMessage Post(Guid organizationId,
             OrganizationsMembersPostRequestContent requestContent)
         {
-            Dispatcher.Dispatch(new ApproveMembershipApplication(CurrentUserGuid, requestContent.ApplicationId));
+            Dispatcher.Dispatch(new ApproveMembershipApplication(CurrentUserId, requestContent.ApplicationId));
 
             return NoContent();
         }
@@ -69,7 +69,7 @@
             Dispatcher.Dispatch(new ChangeMembersRole
             {
                 OrganizationId = organizationId,
-                InitiatorId = CurrentUserGuid,
+                InitiatorId = CurrentUserId,
                 MemberId = new UserGuid(memberId),
                 Role = requestContent.Role
             });
@@ -87,7 +87,7 @@
                 Dispatch(new ChangeMembersRole
                 {
                     OrganizationId = organizationId,
-                    InitiatorId = CurrentUserGuid,
+                    InitiatorId = CurrentUserId,
                     MemberId = new UserGuid(memberId),
                     Role = requestContent.IsManager.Value ? 2 : 1
                 });
@@ -98,7 +98,7 @@
                 {
                     Dispatcher.Dispatch(new LockMember
                     {
-                        InitiatorId = CurrentUserGuid,
+                        InitiatorId = CurrentUserId,
                         MemberId = new UserGuid(memberId),
                         OrganizationId = organizationId
                     });
@@ -107,7 +107,7 @@
                 {
                     Dispatcher.Dispatch(new UnlockMember
                     {
-                        InitiatorId = CurrentUserGuid,
+                        InitiatorId = CurrentUserId,
                         MemberId = new UserGuid(memberId),
                         OrganizationId = organizationId
                     });

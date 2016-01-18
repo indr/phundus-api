@@ -11,11 +11,11 @@
 
     public class organization_concern : aggregate_concern<Organization>
     {
-        protected static InitiatorGuid theInitiatorId;
+        protected static InitiatorId theInitiatorId;
 
         private Establish ctx = () =>
         {
-            theInitiatorId = new InitiatorGuid();
+            theInitiatorId = new InitiatorId();
             sut = new Organization(Guid.NewGuid(), "Organization name");
         };
 

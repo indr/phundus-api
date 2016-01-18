@@ -15,21 +15,17 @@
     public class place_order_handler_concern : order_handler_concern<PlaceOrder, PlaceOrderHandler>
     {
         protected const int theResultingOrderId = 123;
-        protected static UserGuid theInitiatorGuid;
         protected static Cart theCart;
         protected static ICartRepository cartRepository;
 
         private Establish ctx = () =>
         {
-            theInitiatorId = new InitiatorGuid();
-            theInitiatorGuid = new UserGuid();
-
             lesseeService.WhenToldTo(x => x.GetById(new LesseeId(theInitiatorId.Id)))
                 .Return(CreateLessee(theInitiatorId.Id));
 
             orderRepository.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(theResultingOrderId);
 
-            theCart = new Cart(theInitiatorId, theInitiatorGuid);
+            theCart = new Cart(theInitiatorId, theInitiatorId);
             depends.on<ICartRepository>().WhenToldTo(x => x.GetByUserGuid(new UserGuid(theInitiatorId.Id))).Return(theCart);
 
             command = new PlaceOrder(theInitiatorId, theLessorId);

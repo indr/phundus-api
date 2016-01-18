@@ -97,9 +97,9 @@
         }
 
 
-        public virtual void ChangeEmailAddress(UserGuid initiatorGuid, string password, string newEmailAddress)
+        public virtual void ChangeEmailAddress(UserGuid initiatorId, string password, string newEmailAddress)
         {
-            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (password == null) throw new ArgumentNullException("password");
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
 
@@ -109,7 +109,7 @@
             GenerateValidationKey();
             RequestedEmail = newEmailAddress;
 
-            EventPublisher.Publish(new UserEmailAddressChangeRequested(initiatorGuid.Id, User));
+            EventPublisher.Publish(new UserEmailAddressChangeRequested(initiatorId.Id, User));
         }
 
         public virtual void ChangePassword(string oldPassword, string newPassword)

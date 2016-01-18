@@ -13,7 +13,7 @@
 
     public class PlaceOrder : ICommand
     {
-        public PlaceOrder(InitiatorGuid initiatorId, LessorId lessorId)
+        public PlaceOrder(InitiatorId initiatorId, LessorId lessorId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (lessorId == null) throw new ArgumentNullException("lessorId");
@@ -21,7 +21,7 @@
             LessorId = lessorId;
         }
 
-        public InitiatorGuid InitiatorId { get; protected set; }
+        public InitiatorId InitiatorId { get; protected set; }
         public LessorId LessorId { get; protected set; }
         public int ResultingOrderId { get; set; }
     }

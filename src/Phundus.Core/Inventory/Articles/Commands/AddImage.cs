@@ -9,7 +9,7 @@
 
     public class AddImage : ICommand
     {
-        public AddImage(InitiatorGuid initiatorId, ArticleId articleId, string fileName, string fileType, long length)
+        public AddImage(InitiatorId initiatorId, ArticleId articleId, string fileName, string fileType, long length)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (articleId == null) throw new ArgumentNullException("articleId");
@@ -29,7 +29,7 @@
             Length = length;
         }
 
-        public InitiatorGuid InitiatorId { get; protected set; }
+        public InitiatorId InitiatorId { get; protected set; }
         public ArticleId ArticleId { get; protected set; }
         public long Length { get; protected set; }
         public string FileName { get; protected set; }

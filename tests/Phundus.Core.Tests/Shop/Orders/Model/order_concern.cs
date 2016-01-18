@@ -18,11 +18,11 @@ namespace Phundus.Tests.Shop.Orders.Model
 
     public abstract class creating_order_concern : aggregate_concern<Order>
     {
-        protected static InitiatorGuid theInitiatorId;
+        protected static InitiatorId theInitiatorId;
         protected static Lessor theLessor;
         protected static Lessee theLessee;
 
-        private Establish ctx = () => theInitiatorId = new InitiatorGuid();
+        private Establish ctx = () => theInitiatorId = new InitiatorId();
 
         protected static Article CreateArticle(int articleId, Owner theOwner = null)
         {

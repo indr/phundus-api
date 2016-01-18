@@ -9,7 +9,7 @@
 
     public class SetPreviewImage : ICommand
     {
-        public SetPreviewImage(InitiatorGuid initiatorId, ArticleId articleId, string fileName)
+        public SetPreviewImage(InitiatorId initiatorId, ArticleId articleId, string fileName)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (articleId == null) throw new ArgumentNullException("articleId");
@@ -19,7 +19,7 @@
             FileName = fileName;
         }
 
-        public InitiatorGuid InitiatorId { get; protected set; }
+        public InitiatorId InitiatorId { get; protected set; }
         public ArticleId ArticleId { get; protected set; }
         public string FileName { get; protected set; }
     }

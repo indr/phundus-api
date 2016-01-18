@@ -14,7 +14,6 @@
     public class when_add_article_to_cart_is_handled : handler_concern<AddArticleToCart, AddArticleToCartHandler>
     {
         protected const int theQuantity = 3;
-        protected static readonly InitiatorGuid theInitiatorGuid = new InitiatorGuid();
         protected static readonly ArticleId theArticleId = new ArticleId(12345);
         protected static readonly DateTime theFromUtc = DateTime.UtcNow;
         protected static readonly DateTime theToUtc = DateTime.UtcNow.AddDays(1);
@@ -30,7 +29,7 @@
                 cartRepository = depends.on<ICartRepository>();
                 memberInRole = depends.on<IMemberInRole>();
                 depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId)).Return(article);
-                command = new AddArticleToCart(theInitiatorGuid, theArticleId, theFromUtc, theToUtc, theQuantity);
+                command = new AddArticleToCart(theInitiatorId, theArticleId, theFromUtc, theToUtc, theQuantity);
             };
     }
 
@@ -38,12 +37,12 @@
     public class when_user_has_no_cart_yet : when_add_article_to_cart_is_handled
     {
         private Establish ctx =
-            () => cartRepository.WhenToldTo(x => x.FindByUserGuid(new UserGuid(theInitiatorGuid.Id))).Return((Cart)null);
+            () => cartRepository.WhenToldTo(x => x.FindByUserGuid(theInitiatorId)).Return((Cart)null);
 
         private It should_add_new_cart_to_repository = () => cartRepository.WasToldTo(x => x.Add(Arg<Cart>.Is.NotNull));
 
         private It should_ask_for_active_membership =
-            () => memberInRole.WasToldTo(x => x.ActiveMember(theOwnerId, new UserGuid(theInitiatorGuid.Id)));
+            () => memberInRole.WasToldTo(x => x.ActiveMember(theOwnerId, theInitiatorId));
     }
 
     [Subject(typeof (AddArticleToCartHandler))]
@@ -53,12 +52,12 @@
 
         private Establish ctx = () =>
         {
-            theCart = new Cart(theInitiatorGuid, new UserGuid(theInitiatorGuid.Id));
-            cartRepository.WhenToldTo(x => x.FindByUserGuid(new UserGuid(theInitiatorGuid.Id))).Return(theCart);
+            theCart = new Cart(theInitiatorId, theInitiatorId);
+            cartRepository.WhenToldTo(x => x.FindByUserGuid(theInitiatorId)).Return(theCart);
         };
 
         private It should_ask_for_active_membership =
-            () => memberInRole.WasToldTo(x => x.ActiveMember(theOwnerId, new UserGuid(theInitiatorGuid.Id)));
+            () => memberInRole.WasToldTo(x => x.ActiveMember(theOwnerId, theInitiatorId));
 
         private It should_not_add_a_cart_to_repository =
             () => cartRepository.WasNotToldTo(x => x.Add(Arg<Cart>.Is.Anything));

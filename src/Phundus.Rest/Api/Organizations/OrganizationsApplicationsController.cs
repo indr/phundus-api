@@ -28,7 +28,7 @@
         [Transaction]
         public virtual OrganizationsApplicationsGetOkResponseContent Get(Guid organizationId)
         {
-            var results = _membershipApplicationQueries.FindPending(CurrentUserGuid, new OrganizationGuid(organizationId));
+            var results = _membershipApplicationQueries.FindPending(CurrentUserId, new OrganizationGuid(organizationId));
             return new OrganizationsApplicationsGetOkResponseContent(results);
         }
 
@@ -37,7 +37,7 @@
         public virtual OrganizationsApplicationsPostOkResponseContent Post(Guid organizationId)
         {
             var applicationId = Guid.NewGuid();
-            Dispatch(new ApplyForMembership(CurrentUserGuid, applicationId, CurrentUserGuid, organizationId));
+            Dispatch(new ApplyForMembership(CurrentUserId, applicationId, CurrentUserId, organizationId));
 
             return new OrganizationsApplicationsPostOkResponseContent
             {
@@ -49,7 +49,7 @@
         [Transaction]
         public virtual HttpResponseMessage Delete(Guid organizationId, Guid applicationId)
         {
-            Dispatch(new RejectMembershipApplication(CurrentUserGuid, applicationId));
+            Dispatch(new RejectMembershipApplication(CurrentUserId, applicationId));
 
             return NoContent();
         }

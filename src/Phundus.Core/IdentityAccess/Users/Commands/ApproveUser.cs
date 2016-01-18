@@ -8,16 +8,16 @@
 
     public class ApproveUser
     {
-        public ApproveUser(InitiatorGuid initiatorId, UserGuid userGuid)
+        public ApproveUser(InitiatorId initiatorId, UserGuid userGuid)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (userGuid == null) throw new ArgumentNullException("userGuid");
 
-            InitiatorGuid = initiatorId;
+            InitiatorId = initiatorId;
             UserGuid = userGuid;
         }
 
-        public InitiatorGuid InitiatorGuid { get; protected set; }
+        public InitiatorId InitiatorId { get; protected set; }
         public UserGuid UserGuid { get; protected set; }
     }
 
@@ -37,7 +37,7 @@
 
         public void Handle(ApproveUser command)
         {
-            var initiator = _userInRole.Admin(command.InitiatorGuid);
+            var initiator = _userInRole.Admin(command.InitiatorId);
 
             var user = _userRepository.GetByGuid(command.UserGuid);
             user.Approve(initiator);

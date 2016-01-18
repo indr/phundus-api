@@ -9,7 +9,7 @@
 
     public class AddOrderItem : ICommand
     {
-        public AddOrderItem(InitiatorGuid initiatorId, OrderId orderId, OrderItemId orderItemId, ArticleId articleId, Period period, int quantity)
+        public AddOrderItem(InitiatorId initiatorId, OrderId orderId, OrderItemId orderItemId, ArticleId articleId, Period period, int quantity)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (orderId == null) throw new ArgumentNullException("orderId");
@@ -24,7 +24,7 @@
             Quantity = quantity;
         }
 
-        public InitiatorGuid InitiatorId { get; protected set; }
+        public InitiatorId InitiatorId { get; protected set; }
         public OrderId OrderId { get; protected set; }
         public OrderItemId OrderItemId { get; protected set; }
         public ArticleId ArticleId { get; protected set; }

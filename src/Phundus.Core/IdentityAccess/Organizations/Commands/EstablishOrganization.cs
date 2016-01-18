@@ -11,17 +11,17 @@
 
     public class EstablishOrganization
     {
-        public EstablishOrganization(InitiatorGuid initiatorGuid, OrganizationGuid organizationGuid, string name)
+        public EstablishOrganization(InitiatorId initiatorId, OrganizationGuid organizationGuid, string name)
         {
-            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (organizationGuid == null) throw new ArgumentNullException("organizationGuid");
             if (name == null) throw new ArgumentNullException("name");
-            InitiatorGuid = initiatorGuid;
+            InitiatorId = initiatorId;
             OrganizationGuid = organizationGuid;
             Name = name;
         }
 
-        public InitiatorGuid InitiatorGuid { get; protected set; }
+        public InitiatorId InitiatorId { get; protected set; }
         public OrganizationGuid OrganizationGuid { get; protected set; }
         public string Name { get; protected set; }
     }
@@ -43,7 +43,7 @@
 
         public void Handle(EstablishOrganization command)
         {
-            var organization = new Organization(command.InitiatorGuid, command.OrganizationGuid, command.Name);
+            var organization = new Organization(command.InitiatorId, command.OrganizationGuid, command.Name);
 
             _organizationRepository.Add(organization);
 
@@ -52,11 +52,11 @@
                 organization.Url));
 
             var requestId = Guid.NewGuid();
-            var user = _userRepository.GetByGuid(command.InitiatorGuid);
-            var application = organization.RequestMembership(command.InitiatorGuid, requestId, user);
+            var user = _userRepository.GetByGuid(command.InitiatorId);
+            var application = organization.RequestMembership(command.InitiatorId, requestId, user);
 
             var membershipId = Guid.NewGuid();
-            organization.ApproveMembershipRequest(command.InitiatorGuid, application, membershipId);
+            organization.ApproveMembershipRequest(command.InitiatorId, application, membershipId);
             organization.SetMembersRole(user, Role.Chief);
         }
     }

@@ -10,20 +10,20 @@
 
     public class AddArticleToCart : ICommand
     {
-        public AddArticleToCart(InitiatorGuid initiatorGuid, ArticleId articleId, DateTime fromUtc,
+        public AddArticleToCart(InitiatorId initiatorId, ArticleId articleId, DateTime fromUtc,
             DateTime toUtc, int quantity)
         {
-            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (articleId == null) throw new ArgumentNullException("articleId");
-            InitiatorGuid = initiatorGuid;
-            UserGuid = new UserGuid(initiatorGuid.Id);
+            InitiatorId = initiatorId;
+            UserGuid = new UserGuid(initiatorId.Id);
             ArticleId = articleId;
             FromUtc = fromUtc;
             ToUtc = toUtc;
             Quantity = quantity;
         }
 
-        public InitiatorGuid InitiatorGuid { get; protected set; }
+        public InitiatorId InitiatorId { get; protected set; }
         public UserGuid UserGuid { get; protected set; }
         public ArticleId ArticleId { get; protected set; }
         public DateTime FromUtc { get; protected set; }
@@ -49,7 +49,7 @@
             var cart = CartRepository.FindByUserGuid(command.UserGuid);
             if (cart == null)
             {
-                cart = new Cart(command.InitiatorGuid, command.UserGuid);
+                cart = new Cart(command.InitiatorId, command.UserGuid);
                 CartRepository.Add(cart);
             }
             var itemId = cart.AddItem(article, command.FromUtc, command.ToUtc, command.Quantity);

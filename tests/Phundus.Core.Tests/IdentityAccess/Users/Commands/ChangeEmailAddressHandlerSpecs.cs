@@ -12,20 +12,20 @@
     [Subject(typeof (ChangeEmailAddressHandler))]
     public class when_handling_change_email_address : handler_concern<ChangeEmailAddress, ChangeEmailAddressHandler>
     {
-        private static InitiatorGuid theInitiatorGuid = new InitiatorGuid();
+        private static InitiatorId theInitiatorId = new InitiatorId();
         private static string theNewEmailAddress = "new@test.phundus.ch";
         private static User theUser;
 
         private Establish ctx = () =>
         {
-            theUser = CreateUser(new UserGuid(theInitiatorGuid.Id));
-            depends.on<IUserRepository>().WhenToldTo(x => x.GetByGuid(new UserGuid(theInitiatorGuid.Id))).Return(theUser);
-            command = new ChangeEmailAddress(theInitiatorGuid, "1234", theNewEmailAddress);
+            theUser = CreateUser(theInitiatorId);
+            depends.on<IUserRepository>().WhenToldTo(x => x.GetByGuid(theInitiatorId)).Return(theUser);
+            command = new ChangeEmailAddress(theInitiatorId, "1234", theNewEmailAddress);
         };
 
         private It should_tell_to_change_email_address = () => theUser.WasToldTo(
             x =>
-                x.ChangeEmailAddress(Arg<UserGuid>.Is.Equal(theInitiatorGuid), Arg<String>.Is.Equal("1234"),
+                x.ChangeEmailAddress(Arg<UserGuid>.Is.Equal(theInitiatorId), Arg<String>.Is.Equal("1234"),
                     Arg<String>.Is.Equal(theNewEmailAddress)));
     }
 }

@@ -17,7 +17,7 @@
         {
             if (requestContent == null) throw new ArgumentNullException("requestContent");
 
-            Dispatch(new ChangePassword(CurrentUserGuid, requestContent.OldPassword, requestContent.NewPassword));
+            Dispatch(new ChangePassword(CurrentUserId, requestContent.OldPassword, requestContent.NewPassword));
 
             return NoContent();
         }

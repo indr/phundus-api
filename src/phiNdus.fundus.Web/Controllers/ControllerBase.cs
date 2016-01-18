@@ -18,7 +18,7 @@ namespace Phundus.Web.Controllers
 
         public ICommandDispatcher Dispatcher { get; set; }
 
-        protected Guid CurrentUserGuid
+        protected Guid CurrentUserId
         {
             get
             {
@@ -27,7 +27,7 @@ namespace Phundus.Web.Controllers
                     return Guid.Empty;
 
                 var userKey = new ProviderUserKey(user.ProviderUserKey);
-                return userKey.UserGuid.Id;
+                return userKey.UserId.Id;
             }
         }
 
