@@ -9,16 +9,16 @@ namespace Phundus.Migrations
 
     public abstract class EventMigrationBase : MigrationBase
     {
-        private static IDictionary<int, Guid> OrganizationIdMap = new Dictionary<int, Guid>
+        protected static IDictionary<int, Guid> OrganizationIdMap = new Dictionary<int, Guid>
         {
             {1000, new Guid("1E2311AD-2340-4AB1-BE0E-54DA9658FBD7")},
             {1001, new Guid("9E327414-8BDC-42E5-A711-3A15694C0026")},
             {1002, new Guid("4E5F3B71-9FCC-4CC6-AC66-B0258861C3E9")},
             {1003, new Guid("393FCA14-71F8-4348-A0E5-7F6E6C025339")},
-            {1004, new Guid("8B657CC6-61DE-4F84-A5E2-3EC08E9FF487")},
+            //{1004, new Guid("8B657CC6-61DE-4F84-A5E2-3EC08E9FF487")},
             {1005, new Guid("08308E87-58D6-43CD-A583-72F8A83AC15D")},
-            {1006, new Guid("428D069D-1183-4643-BECF-276A9BC523BE")},
-            {1007, new Guid("3B148DC3-AE2C-4486-9D63-BEB5A9BE320E")}
+            {1006, new Guid("428D069D-1183-4643-BECF-276A9BC523BE")}
+            //{1007, new Guid("3B148DC3-AE2C-4486-9D63-BEB5A9BE320E")}
         };
 
         protected IDbConnection Connection;
