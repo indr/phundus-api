@@ -14,7 +14,7 @@
     [Subject(typeof (DefaultOrganizationStoreOpener))]
     public class when_handled : subscriber_concern<OrganizationEstablished, DefaultOrganizationStoreOpener>
     {
-        private static Guid theOrganizationGuid = Guid.NewGuid();
+        private static OrganizationId theOrganizationGuid = new OrganizationId();
 
         private static IStoreRepository storeRepository;
 
@@ -22,8 +22,8 @@
             () =>
             {
                 depends.on<IOwnerService>()
-                    .WhenToldTo(x => x.GetById(theOrganizationGuid))
-                    .Return(new Owner(new OwnerId(theOrganizationGuid), "Rocks and Scissors"));
+                    .WhenToldTo(x => x.GetById(theOrganizationGuid.Id))
+                    .Return(new Owner(new OwnerId(theOrganizationGuid.Id), "Rocks and Scissors"));
                 storeRepository = depends.on<IStoreRepository>();
                 @event = new OrganizationEstablished(theOrganizationGuid, "free", "Rocks and Scissors", "");
             };

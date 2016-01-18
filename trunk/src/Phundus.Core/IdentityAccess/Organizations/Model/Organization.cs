@@ -9,7 +9,7 @@
     using Iesi.Collections.Generic;
     using Users.Model;
 
-    public class Organization : Aggregate<Guid>
+    public class Organization : Aggregate<OrganizationId>
     {
         private ISet<MembershipApplication> _applications = new HashedSet<MembershipApplication>();
         private ContactDetails _contactDetails;
@@ -18,13 +18,13 @@
         private string _name;
         private string _startpage;
 
-        public Organization(Guid id, string name) : base(id)
+        public Organization(Guid id, string name) : base(new OrganizationId(id))
         {
             _name = name;
         }
 
-        public Organization(InitiatorId initiatorId, OrganizationGuid organizationGuid, string name)
-            : base(organizationGuid.Id)
+        public Organization(InitiatorId initiatorId, OrganizationId organizationId, string name)
+            : base(organizationId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (name == null) throw new ArgumentNullException("name");
@@ -35,9 +35,9 @@
         {
         }
 
-        private OrganizationGuid OrganizationGuid
+        private OrganizationId OrganizationId
         {
-            get { return new OrganizationGuid(base.Id); }
+            get { return Id; }
         }
 
         public virtual DateTime EstablishedAtUtc
@@ -105,10 +105,10 @@
             if (Applications.FirstOrDefault(p => Equals(p.UserId, user.UserId)) != null)
                 return null;
 
-            var application = new MembershipApplication(membershipApplicationId.Id, Id, user.UserId);
+            var application = new MembershipApplication(membershipApplicationId.Id, Id.Id, user.UserId);
             Applications.Add(application);
 
-            EventPublisher.Publish(new MembershipApplicationFiled(initiatorId, OrganizationGuid, user.UserId));
+            EventPublisher.Publish(new MembershipApplicationFiled(initiatorId, OrganizationId, user.UserId));
 
             return application;
         }
@@ -130,7 +130,7 @@
             membership.Organization = this;
             Memberships.Add(membership);
 
-            EventPublisher.Publish(new MembershipApplicationApproved(initiatorId, OrganizationGuid,
+            EventPublisher.Publish(new MembershipApplicationApproved(initiatorId, OrganizationId,
                 application.UserId));
         }
 
@@ -138,7 +138,7 @@
         {
             application.Reject();
 
-            EventPublisher.Publish(new MembershipApplicationRejected(initiatorId, OrganizationGuid,
+            EventPublisher.Publish(new MembershipApplicationRejected(initiatorId, OrganizationId,
                 application.UserId));
         }
 

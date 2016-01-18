@@ -8,7 +8,7 @@
 
     public class UpdateStartpage
     {
-        public UpdateStartpage(InitiatorId initiatorId, OrganizationGuid organizationId, string startpage)
+        public UpdateStartpage(InitiatorId initiatorId, OrganizationId organizationId, string startpage)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (organizationId == null) throw new ArgumentNullException("organizationId");
@@ -18,7 +18,7 @@
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public OrganizationGuid OrganizationId { get; protected set; }
+        public OrganizationId OrganizationId { get; protected set; }
         public string Startpage { get; protected set; }
     }
 

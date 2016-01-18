@@ -28,7 +28,7 @@
         [Transaction]
         public virtual OrganizationsApplicationsGetOkResponseContent Get(Guid organizationId)
         {
-            var results = _membershipApplicationQueries.FindPending(CurrentUserId, new OrganizationGuid(organizationId));
+            var results = _membershipApplicationQueries.FindPending(CurrentUserId, new OrganizationId(organizationId));
             return new OrganizationsApplicationsGetOkResponseContent(results);
         }
 

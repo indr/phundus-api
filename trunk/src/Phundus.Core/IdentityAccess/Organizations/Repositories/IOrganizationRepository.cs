@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Common;
+    using Common.Domain.Model;
     using Infrastructure;
     using Model;
 
@@ -15,8 +16,10 @@
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
         Organization GetById(Guid id);
+        Organization GetById(OrganizationId organizationId);
 
         Organization FindById(Guid id);
+        Organization FindById(OrganizationId organizationId);
         Organization FindByName(string name);
         ICollection<Organization> FindAll();
     }

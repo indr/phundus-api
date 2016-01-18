@@ -55,8 +55,8 @@
         {
             var result = new OrganizationDetailDto
             {                
-                Guid = organization.Id,
-                OrganizationId = organization.Id,
+                Guid = organization.Id.Id,
+                OrganizationId = organization.Id.Id,
                 Version = organization.Version,
                 EstablishedAtUc = organization.EstablishedAtUtc,
                 Name = organization.Name,
@@ -82,7 +82,7 @@
         {
             var result = new OrganizationDto
             {                
-                Guid = organization.Id,
+                Guid = organization.Id.Id,
                 Version = organization.Version,
                 Name = organization.Name,
                 Url = organization.Url,

@@ -10,7 +10,7 @@
 
     public class ChangeOrganizationContactDetails : ICommand
     {
-        public ChangeOrganizationContactDetails(InitiatorId initiatorId, OrganizationGuid organizationId, string postAddress,
+        public ChangeOrganizationContactDetails(InitiatorId initiatorId, OrganizationId organizationId, string postAddress,
             string phoneNumber, string emailAddress, string website)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
@@ -24,7 +24,7 @@
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public OrganizationGuid OrganizationId { get; protected set; }
+        public OrganizationId OrganizationId { get; protected set; }
         public string PostAddress { get; protected set; }
         public string PhoneNumber { get; protected set; }
         public string EmailAddress { get; protected set; }

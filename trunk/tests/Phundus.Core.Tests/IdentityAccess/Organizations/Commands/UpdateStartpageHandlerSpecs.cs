@@ -14,7 +14,7 @@
     public class when_handling_update_startpage : handler_concern<UpdateStartpage, UpdateStartpageHandler>
     {
         private static IMemberInRole memberInRole;
-        private static OrganizationGuid theOrganizationId = new OrganizationGuid();
+        private static OrganizationId theOrganizationId = new OrganizationId();
         private static Organization theOrganization;
 
         private Establish ctx = () =>
