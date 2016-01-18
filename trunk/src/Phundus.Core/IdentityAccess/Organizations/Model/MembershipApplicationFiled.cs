@@ -22,18 +22,21 @@
         {
         }
 
-        [DataMember(Order = 1)]
+        [DataMember(Order = 4)]
         public Guid InitiatorId { get; protected set; }
 
-        [DataMember(Order = 2)]
+        [DataMember(Order = 3)]
         public Guid OrganizationGuid { get; protected set; }
 
-        [DataMember(Order = 3)]
+        [DataMember(Order = 5)]
         public Guid UserGuid { get; protected set; }
 
         [Obsolete]
-        public int UserId { get; private set; }
+        [DataMember(Order = 2)]
+        public int UserIntegralId { get; private set; }
+        
         [Obsolete]
-        public Guid OrganizationId { get; private set; }
+        [DataMember(Order = 1)]
+        public int OrganizationIntegralId { get; private set; }
     }
 }
