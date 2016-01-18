@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Organizations.Commands
 {
-    using System;
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -8,21 +7,20 @@
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Organizations.Repositories;
     using Phundus.IdentityAccess.Users.Repositories;
-    using Phundus.Inventory.Stores.Repositories;
     using Rhino.Mocks;
 
     [Subject(typeof (EstablishOrganizationHandler))]
-    public class when_handled : handler_concern<EstablishOrganization, EstablishOrganizationHandler>
+    public class when_handled : identityaccess_handler_concern<EstablishOrganization, EstablishOrganizationHandler>
     {
         private static OrganizationId theOrganizationGuid = new OrganizationId();
-        private static IOrganizationRepository organizationRepository;        
+        private static IOrganizationRepository organizationRepository;
 
         private Establish ctx = () =>
         {
             organizationRepository = depends.on<IOrganizationRepository>();
             depends.on<IUserRepository>()
                 .WhenToldTo(x => x.GetByGuid(theInitiatorId))
-                .Return(CreateAdmin(theInitiatorId));
+                .Return(make.Admin(theInitiatorId));
             command = new EstablishOrganization(theInitiatorId, theOrganizationGuid, "New Organization");
         };
 
