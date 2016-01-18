@@ -38,12 +38,18 @@
         [GET("")]
         [Transaction]
         [AllowAnonymous]
-        public virtual OrganizationsQueryOkResponseContent Get()
+        public virtual QueryOkResponseContent<Organization> Get()
         {
             var result = _organizationQueries.All();
-            return new OrganizationsQueryOkResponseContent
+            return new QueryOkResponseContent<Organization>
             {
-                Results = Map<List<Organization>>(result)
+                Results = result.Select(s => new Organization
+                {
+                    Address = s.PostAddress,
+                    Name = s.Name,
+                    OrganizationId = s.OrganizationId,
+                    Url = s.Url
+                }).ToList()
             };
         }
 
@@ -52,10 +58,8 @@
         [AllowAnonymous]
         public virtual OrganizationsGetOkResponseContent Get(Guid organizationId)
         {
-            var organization = _organizationQueries.FindById(organizationId);
-            if (organization == null)
-                throw new HttpException((int) HttpStatusCode.NotFound, "Organization not found.");
-
+            var organization = _organizationQueries.GetById(organizationId);
+            
             var store = _storeQueries.FindByOwnerId(new OwnerId(organization.OrganizationId));
             var result = new OrganizationsGetOkResponseContent
             {
@@ -146,11 +150,6 @@
 
         [JsonProperty("website")]
         public string Website { get; set; }
-    }
-
-    public class OrganizationsQueryOkResponseContent : QueryOkResponseContent<Organization>
-    {
-        
     }
 
     public class OrganizationsGetOkResponseContent
