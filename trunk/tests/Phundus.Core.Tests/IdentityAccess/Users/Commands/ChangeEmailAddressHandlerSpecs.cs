@@ -10,15 +10,15 @@
     using Rhino.Mocks;
 
     [Subject(typeof (ChangeEmailAddressHandler))]
-    public class when_handling_change_email_address : handler_concern<ChangeEmailAddress, ChangeEmailAddressHandler>
+    public class when_handling_change_email_address :
+        identityaccess_handler_concern<ChangeEmailAddress, ChangeEmailAddressHandler>
     {
-        private static InitiatorId theInitiatorId = new InitiatorId();
         private static string theNewEmailAddress = "new@test.phundus.ch";
         private static User theUser;
 
         private Establish ctx = () =>
         {
-            theUser = CreateUser(theInitiatorId);
+            theUser = make.User(theInitiatorId);
             depends.on<IUserRepository>().WhenToldTo(x => x.GetByGuid(theInitiatorId)).Return(theUser);
             command = new ChangeEmailAddress(theInitiatorId, "1234", theNewEmailAddress);
         };
