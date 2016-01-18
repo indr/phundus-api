@@ -53,7 +53,7 @@ namespace Phundus.Rest.Api
 
             if (requestContent.OrganizationId.HasValue)
             {
-                Dispatcher.Dispatch(new ApplyForMembership(CurrentUserGuid, Guid.NewGuid(), new UserGuid(command.ResultingUserGuid),
+                Dispatcher.Dispatch(new ApplyForMembership(CurrentUserId, Guid.NewGuid(), new UserGuid(command.ResultingUserGuid),
                     requestContent.OrganizationId.Value));
             }
 
@@ -65,7 +65,7 @@ namespace Phundus.Rest.Api
         public virtual UsersGetOkResponseContent Get(Guid userId)
         {
             var user = _userQueries.GetByGuid(new UserGuid(userId));
-            if ((user == null) || (user.UserGuid != CurrentUserGuid.Id))
+            if ((user == null) || (user.UserGuid != CurrentUserId.Id))
                 throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
 
             var memberships = _membershipQueries.ByUserId(user.UserGuid);

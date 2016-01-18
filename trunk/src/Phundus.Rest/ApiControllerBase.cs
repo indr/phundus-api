@@ -31,9 +31,9 @@
 
         public ICommandDispatcher Dispatcher { get; set; }
 
-        protected CurrentUserGuid CurrentUserGuid
+        protected CurrentUserId CurrentUserId
         {
-            get { return GetCurrentProviderUserKey().UserGuid; }
+            get { return GetCurrentProviderUserKey().UserId; }
         }
 
         private ProviderUserKey GetCurrentProviderUserKey()

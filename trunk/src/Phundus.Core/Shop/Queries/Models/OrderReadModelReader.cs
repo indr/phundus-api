@@ -40,12 +40,12 @@
             }
         }
 
-        public OrderDto GetById(CurrentUserGuid currentUserGuid, OrderId orderId)
+        public OrderDto GetById(CurrentUserId currentUserId, OrderId orderId)
         {
-            AssertionConcern.AssertArgumentNotNull(currentUserGuid, "CurrentUserId must be provided.");
+            AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
             AssertionConcern.AssertArgumentNotNull(orderId, "OrderId must be provided.");
 
-            var result = Query(currentUserGuid, orderId == null ? (int?) null : orderId.Id, null, null).SingleOrDefault();
+            var result = Query(currentUserId, orderId == null ? (int?) null : orderId.Id, null, null).SingleOrDefault();
             if (result == null)
                 throw new NotFoundException(String.Format("Order {0} not found.", orderId));
 
@@ -54,21 +54,21 @@
             return result;
         }
 
-        public IEnumerable<OrderDto> Query(CurrentUserGuid currentUserGuid, OrderId orderId, UserGuid queryUserGuid,
+        public IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderId orderId, UserGuid queryUserGuid,
             OrganizationGuid queryOrganizationId)
         {
-            return Query(currentUserGuid, orderId == null ? (int?) null : orderId.Id,
+            return Query(currentUserId, orderId == null ? (int?) null : orderId.Id,
                 queryUserGuid == null ? (Guid?) null : queryUserGuid.Id,
                 queryOrganizationId == null ? (Guid?) null : queryOrganizationId.Id);
         }
 
-        private IEnumerable<OrderDto> Query(CurrentUserGuid currentUserGuid, int? orderId, Guid? queryUserGuid,
+        private IEnumerable<OrderDto> Query(CurrentUserId currentUserId, int? orderId, Guid? queryUserGuid,
             Guid? queryOrganizationId)
         {
-            AssertionConcern.AssertArgumentNotNull(currentUserGuid, "CurrentUserId must be provided.");
+            AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
             
             var currentUsersManagerGuids =
-                _membershipQueries.ByUserId(currentUserGuid.Id)
+                _membershipQueries.ByUserId(currentUserId.Id)
                     .Where(p => p.MembershipRole == "Chief")
                     .Select(s => s.OrganizationGuid);
             AssertionConcern.AssertArgumentNotNull(currentUsersManagerGuids,
@@ -82,7 +82,7 @@
                         // Auth restrictions
                         (
                             // current user is borrower or lessor
-                            (o.Lessee_LesseeGuid == currentUserGuid.Id || o.Lessor_LessorId == currentUserGuid.Id)
+                            (o.Lessee_LesseeGuid == currentUserId.Id || o.Lessor_LessorId == currentUserId.Id)
                             ||
                             // Or current user is manager in lessor organization
                             (currentUsersManagerGuids.Contains(o.Lessor_LessorId))

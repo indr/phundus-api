@@ -15,7 +15,7 @@
         [Transaction]
         public virtual ShopOrdersPostOkResponseContent Post(ShopOrdersPostRequestContent requestContent)
         {
-            var command = new PlaceOrder(CurrentUserGuid, new LessorId(requestContent.LessorId));
+            var command = new PlaceOrder(CurrentUserId, new LessorId(requestContent.LessorId));
 
             Dispatch(command);
 

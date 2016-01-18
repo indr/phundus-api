@@ -11,7 +11,7 @@
     public class ChangeMembersRole
     {
         public Guid OrganizationId { get; set; }
-        public CurrentUserGuid InitiatorId { get; set; }
+        public CurrentUserId InitiatorId { get; set; }
         public UserGuid MemberId { get; set; }
         public int Role { get; set; }
     }

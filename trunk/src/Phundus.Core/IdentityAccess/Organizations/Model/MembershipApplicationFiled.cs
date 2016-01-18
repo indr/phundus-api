@@ -13,7 +13,7 @@
             if (organizationGuid == null) throw new ArgumentNullException("organizationGuid");
             if (user == null) throw new ArgumentNullException("user");
 
-            InitiatorGuid = initiator.Id;
+            InitiatorId = initiator.Id;
             OrganizationGuid = organizationGuid.Id;
             UserGuid = user.Id;
         }
@@ -23,7 +23,7 @@
         }
 
         [DataMember(Order = 1)]
-        public Guid InitiatorGuid { get; protected set; }
+        public Guid InitiatorId { get; protected set; }
 
         [DataMember(Order = 2)]
         public Guid OrganizationGuid { get; protected set; }

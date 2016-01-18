@@ -6,7 +6,7 @@
 
     public class MembershipApplicationQueries : NHibernateReadModelBase<MembershipApplicationViewRow>, IMembershipApplicationQueries
     {
-        public IList<IMembershipApplication> FindPending(CurrentUserGuid currentUserGuid, OrganizationGuid organizationGuid)
+        public IList<IMembershipApplication> FindPending(CurrentUserId currentUserId, OrganizationGuid organizationGuid)
         {
             // TODO: Access filtering
             return QueryOver()

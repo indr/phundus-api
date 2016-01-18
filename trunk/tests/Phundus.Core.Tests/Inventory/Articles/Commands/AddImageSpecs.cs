@@ -11,7 +11,7 @@
         private static Exception caughtException;
 
         private Because of = () => caughtException = Catch.Exception(() =>
-            new AddImage(new InitiatorGuid(), new ArticleId(1), @"Path\To\File.jpg", "image/jpeg", 1));
+            new AddImage(new InitiatorId(), new ArticleId(1), @"Path\To\File.jpg", "image/jpeg", 1));
 
         private It should_throw_argument_exception = () =>
             caughtException.ShouldBeOfExactType<ArgumentException>();

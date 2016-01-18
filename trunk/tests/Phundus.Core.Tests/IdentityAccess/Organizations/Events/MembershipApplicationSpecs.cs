@@ -12,9 +12,9 @@
         private static UserGuid theUserGuid = new UserGuid();
 
 
-        private Because of = () => sut = new MembershipApplicationFiled(theInitiatorGuid, theOrganizationGuid, theUserGuid);
+        private Because of = () => sut = new MembershipApplicationFiled(theInitiatorId, theOrganizationGuid, theUserGuid);
 
-        private It should_have_the_initiator_guid_at_1 = () => dataMember(1).ShouldEqual(theInitiatorGuid.Id);
+        private It should_have_the_initiator_guid_at_1 = () => dataMember(1).ShouldEqual(theInitiatorId.Id);
 
         private It should_have_the_organization_guid_at_2 = () => dataMember(2).ShouldEqual(theOrganizationGuid.Id);
 
@@ -27,9 +27,9 @@
         private static OrganizationGuid theOrganizationGuid = new OrganizationGuid();
         private static UserGuid theUserGuid = new UserGuid();
 
-        private Because of = () => sut = new MembershipApplicationRejected(theInitiatorGuid, theOrganizationGuid, theUserGuid);
+        private Because of = () => sut = new MembershipApplicationRejected(theInitiatorId, theOrganizationGuid, theUserGuid);
 
-        private It should_have_the_initiator_guid_at_1 = () => dataMember(1).ShouldEqual(theInitiatorGuid.Id);
+        private It should_have_the_initiator_guid_at_1 = () => dataMember(1).ShouldEqual(theInitiatorId.Id);
 
         private It should_have_the_organization_guid_at_2 = () => dataMember(2).ShouldEqual(theOrganizationGuid.Id);
 
@@ -42,9 +42,9 @@
         private static OrganizationGuid theOrganizationGuid = new OrganizationGuid();
         private static UserGuid theUserGuid = new UserGuid();
 
-        private Because of = () => sut = new MembershipApplicationApproved(theInitiatorGuid, theOrganizationGuid, theUserGuid);
+        private Because of = () => sut = new MembershipApplicationApproved(theInitiatorId, theOrganizationGuid, theUserGuid);
 
-        private It should_have_the_initiator_guid_at_1 = () => dataMember(1).ShouldEqual(theInitiatorGuid.Id);
+        private It should_have_the_initiator_guid_at_1 = () => dataMember(1).ShouldEqual(theInitiatorId.Id);
 
         private It should_have_the_organization_guid_at_2 = () => dataMember(2).ShouldEqual(theOrganizationGuid.Id);
 

@@ -44,7 +44,7 @@
             if (queryParams.ContainsKey("organizationId"))
                 queryOrganizationGuid = new OrganizationGuid(Guid.Parse(queryParams["organizationId"]));
 
-            var orders = _orderQueries.Query(CurrentUserGuid, null, queryUserGuid, queryOrganizationGuid).ToList();
+            var orders = _orderQueries.Query(CurrentUserId, null, queryUserGuid, queryOrganizationGuid).ToList();
             return new QueryOkResponseContent<Order>(Map<IList<Order>>(orders));
         }
 
@@ -52,7 +52,7 @@
         [Transaction]
         public virtual HttpResponseMessage Get(int orderId)
         {
-            var order = _orderQueries.GetById(CurrentUserGuid, new OrderId(orderId));
+            var order = _orderQueries.GetById(CurrentUserId, new OrderId(orderId));
             return Request.CreateResponse(HttpStatusCode.OK, Map<OrderDetail>(order));
         }
 
@@ -60,8 +60,8 @@
         [Transaction]
         public virtual HttpResponseMessage GetPdf(int orderId)
         {
-            _orderQueries.GetById(CurrentUserGuid, new OrderId(orderId));
-            var result = _pdfStore.GetOrderPdf(orderId, CurrentUserGuid);
+            _orderQueries.GetById(CurrentUserId, new OrderId(orderId));
+            var result = _pdfStore.GetOrderPdf(orderId, CurrentUserId);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);
 
@@ -74,7 +74,7 @@
         {
             var command = new CreateEmptyOrder
             {
-                InitiatorId = CurrentUserGuid,
+                InitiatorId = CurrentUserId,
                 LessorId = new LessorId(requestContent.OwnerId),
                 LesseeId = new LesseeId(requestContent.LesseeId)
             };
@@ -92,11 +92,11 @@
         public virtual HttpResponseMessage Patch(int orderId, OrdersPatchRequestContent requestContent)
         {
             if (requestContent.Status == "Rejected")
-                Dispatch(new RejectOrder { InitiatorId = CurrentUserGuid, OrderId = orderId });
+                Dispatch(new RejectOrder { InitiatorId = CurrentUserId, OrderId = orderId });
             else if (requestContent.Status == "Approved")
-                Dispatch(new ApproveOrder { InitiatorId = CurrentUserGuid, OrderId = orderId });
+                Dispatch(new ApproveOrder { InitiatorId = CurrentUserId, OrderId = orderId });
             else if (requestContent.Status == "Closed")
-                Dispatch(new CloseOrder { InitiatorId = CurrentUserGuid, OrderId = orderId });
+                Dispatch(new CloseOrder { InitiatorId = CurrentUserId, OrderId = orderId });
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
                     "Unbekannter Status \"" + requestContent.Status + "\"");

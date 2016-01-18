@@ -139,13 +139,13 @@
             if (article == null)
                 throw new HttpNotFoundException();
 
-            var model = new ShopArticleViewModel(article, CurrentUserGuid);
+            var model = new ShopArticleViewModel(article, CurrentUserId);
 
 
             if (Identity.IsAuthenticated)
             {
                 model.CanUserAddToCart = MemberInRole.IsActiveMember(model.Article.OrganizationId,
-                    new UserGuid(CurrentUserGuid));
+                    new UserGuid(CurrentUserId));
             }
 
             model.Availabilities = AvailabilityQueries.GetAvailability(id).ToList();

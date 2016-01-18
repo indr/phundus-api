@@ -9,14 +9,14 @@
 
     public class ApproveMembershipApplication
     {
-        public ApproveMembershipApplication(InitiatorGuid initiatorGuid, Guid applicationId)
+        public ApproveMembershipApplication(InitiatorId initiatorId, Guid applicationId)
         {
-            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
-            InitiatorGuid = initiatorGuid;
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            InitiatorId = initiatorId;
             ApplicationId = applicationId;
         }
 
-        public InitiatorGuid InitiatorGuid { get; protected set; }
+        public InitiatorId InitiatorId { get; protected set; }
         public Guid ApplicationId { get; protected set; }
     }
 
@@ -37,9 +37,9 @@
 
             var organization = OrganizationRepository.GetById(application.OrganizationId);
 
-            MemberInRole.ActiveChief(application.OrganizationId, command.InitiatorGuid);
+            MemberInRole.ActiveChief(application.OrganizationId, command.InitiatorId);
 
-            organization.ApproveMembershipRequest(command.InitiatorGuid, application, Memberships.NextIdentity());
+            organization.ApproveMembershipRequest(command.InitiatorId, application, Memberships.NextIdentity());
         }
     }
 }

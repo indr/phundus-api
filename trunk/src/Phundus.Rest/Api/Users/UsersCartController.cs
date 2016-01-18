@@ -27,10 +27,10 @@ namespace Phundus.Rest.Api.Users
         [Transaction]
         public virtual UsersCartGetOkResponseContent Get(Guid userId)
         {
-            if (userId != CurrentUserGuid.Id)
+            if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
-            var cart = _cartQueries.FindByUserGuid(CurrentUserGuid, new UserGuid(userId));
+            var cart = _cartQueries.FindByUserGuid(CurrentUserId, new UserGuid(userId));
             if (cart == null)
                 return new UsersCartGetOkResponseContent(null);
             return new UsersCartGetOkResponseContent(cart);
@@ -40,10 +40,10 @@ namespace Phundus.Rest.Api.Users
         [Transaction]
         public virtual HttpResponseMessage Delete(Guid userId)
         {
-            if (userId != CurrentUserGuid.Id)
+            if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
-            Dispatch(new ClearCart(CurrentUserGuid));
+            Dispatch(new ClearCart(CurrentUserId));
 
             return NoContent();
         }
@@ -53,7 +53,7 @@ namespace Phundus.Rest.Api.Users
         public virtual UsersCartItemsPostOkResponseContent Post(Guid userId,
             UsersCartItemsPostRequestContent requestContent)
         {
-            if (userId != CurrentUserGuid.Id)
+            if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
             if ((requestContent.Amount > 0) && (!String.IsNullOrEmpty(requestContent.Begin)) &&
@@ -65,7 +65,7 @@ namespace Phundus.Rest.Api.Users
                     DateTime.Parse(requestContent.End).ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime();
             }
 
-            var command = new AddArticleToCart(CurrentUserGuid, new ArticleId(requestContent.ArticleId),
+            var command = new AddArticleToCart(CurrentUserId, new ArticleId(requestContent.ArticleId),
                 requestContent.FromUtc, requestContent.ToUtc, requestContent.Quantity);
             Dispatch(command);
 
@@ -80,10 +80,10 @@ namespace Phundus.Rest.Api.Users
         public virtual HttpResponseMessage Patch(Guid userId, Guid itemId,
             UsersCartPatchRequestContent requestContent)
         {
-            if (userId != CurrentUserGuid.Id)
+            if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
-            var command = new UpdateCartItem(CurrentUserGuid, itemId, requestContent.Quantity,
+            var command = new UpdateCartItem(CurrentUserId, itemId, requestContent.Quantity,
                 requestContent.FromUtc, requestContent.ToUtc);
             Dispatch(command);
 
@@ -94,10 +94,10 @@ namespace Phundus.Rest.Api.Users
         [Transaction]
         public virtual HttpResponseMessage Delete(Guid userId, Guid itemId)
         {
-            if (userId != CurrentUserGuid.Id)
+            if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
-            Dispatch(new RemoveCartItem(CurrentUserGuid, new CartItemGuid(itemId)));
+            Dispatch(new RemoveCartItem(CurrentUserId, new CartItemGuid(itemId)));
 
             return NoContent();
         }

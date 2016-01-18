@@ -14,7 +14,6 @@
     [Subject(typeof (EstablishOrganizationHandler))]
     public class when_handled : handler_concern<EstablishOrganization, EstablishOrganizationHandler>
     {
-        private static InitiatorGuid theInititatorGuid = new InitiatorGuid();
         private static OrganizationGuid theOrganizationGuid = new OrganizationGuid();
         private static IOrganizationRepository organizationRepository;        
 
@@ -22,9 +21,9 @@
         {
             organizationRepository = depends.on<IOrganizationRepository>();
             depends.on<IUserRepository>()
-                .WhenToldTo(x => x.GetByGuid(theInititatorGuid))
-                .Return(CreateAdmin(theInititatorGuid));
-            command = new EstablishOrganization(theInititatorGuid, theOrganizationGuid, "New Organization");
+                .WhenToldTo(x => x.GetByGuid(theInitiatorId))
+                .Return(CreateAdmin(theInitiatorId));
+            command = new EstablishOrganization(theInitiatorId, theOrganizationGuid, "New Organization");
         };
 
         private It should_add_to_organization_repository =

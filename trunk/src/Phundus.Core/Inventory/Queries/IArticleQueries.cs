@@ -17,6 +17,6 @@
 
         IEnumerable<ArticleDto> FindByOwnerId(Guid ownerId);
 
-        IEnumerable<ArticleDto> Query(InitiatorGuid initiatorGuid, OwnerId queryOwnerId, string query);
+        IEnumerable<ArticleDto> Query(InitiatorId initiatorId, OwnerId queryOwnerId, string query);
     }
 }

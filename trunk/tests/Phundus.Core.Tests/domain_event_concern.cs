@@ -11,9 +11,9 @@
     {
         protected static Type type = typeof (T);
         protected static T sut;
-        protected static InitiatorGuid theInitiatorGuid;
+        protected static InitiatorId theInitiatorId;
 
-        private Establish ctx = () => theInitiatorGuid = new InitiatorGuid();
+        private Establish ctx = () => theInitiatorId = new InitiatorId();
 
         protected static object dataMember(int order)
         {

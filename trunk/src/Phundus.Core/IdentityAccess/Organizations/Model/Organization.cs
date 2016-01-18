@@ -23,10 +23,10 @@
             _name = name;
         }
 
-        public Organization(InitiatorGuid initiatorGuid, OrganizationGuid organizationGuid, string name)
+        public Organization(InitiatorId initiatorId, OrganizationGuid organizationGuid, string name)
             : base(organizationGuid.Id)
         {
-            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (name == null) throw new ArgumentNullException("name");
             _name = name;
         }
@@ -99,7 +99,7 @@
 
         public virtual string DocTemplateFileName { get; set; }
 
-        public virtual MembershipApplication RequestMembership(InitiatorGuid initiatorGuid, MembershipApplicationId membershipApplicationId,
+        public virtual MembershipApplication RequestMembership(InitiatorId initiatorId, MembershipApplicationId membershipApplicationId,
             User user)
         {
             if (Applications.FirstOrDefault(p => Equals(p.UserGuid, user.UserGuid)) != null)
@@ -108,37 +108,37 @@
             var application = new MembershipApplication(membershipApplicationId.Id, Id, user.UserGuid);
             Applications.Add(application);
 
-            EventPublisher.Publish(new MembershipApplicationFiled(initiatorGuid, OrganizationGuid, user.UserGuid));
+            EventPublisher.Publish(new MembershipApplicationFiled(initiatorId, OrganizationGuid, user.UserGuid));
 
             return application;
         }
 
         [Obsolete]
-        public virtual MembershipApplication RequestMembership(InitiatorGuid initiatorGuid, Guid applicationId,
+        public virtual MembershipApplication RequestMembership(InitiatorId initiatorId, Guid applicationId,
             User user)
         {
-            return RequestMembership(initiatorGuid, new MembershipApplicationId(applicationId), user);
+            return RequestMembership(initiatorId, new MembershipApplicationId(applicationId), user);
         }
 
-        public virtual void ApproveMembershipRequest(UserGuid initiatorGuid, MembershipApplication application,
+        public virtual void ApproveMembershipRequest(UserGuid initiatorId, MembershipApplication application,
             Guid membershipId)
         {
-            if (initiatorGuid == null) throw new ArgumentNullException("initiatorGuid");
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (application == null) throw new ArgumentNullException("application");
 
             var membership = application.Approve(membershipId);
             membership.Organization = this;
             Memberships.Add(membership);
 
-            EventPublisher.Publish(new MembershipApplicationApproved(initiatorGuid, OrganizationGuid,
+            EventPublisher.Publish(new MembershipApplicationApproved(initiatorId, OrganizationGuid,
                 application.UserGuid));
         }
 
-        public virtual void RejectMembershipRequest(UserGuid initiatorGuid, MembershipApplication application)
+        public virtual void RejectMembershipRequest(UserGuid initiatorId, MembershipApplication application)
         {
             application.Reject();
 
-            EventPublisher.Publish(new MembershipApplicationRejected(initiatorGuid, OrganizationGuid,
+            EventPublisher.Publish(new MembershipApplicationRejected(initiatorId, OrganizationGuid,
                 application.UserGuid));
         }
 

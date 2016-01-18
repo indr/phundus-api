@@ -13,12 +13,10 @@ namespace Phundus.Tests.Shop.Commands
     {
         private static Cart theCart;
         private static CartItemGuid theCartItemId = new CartItemGuid();
-        private static UserGuid theInitiatorGuid;
 
         private Establish ctx = () =>
         {
-            theInitiatorGuid = new UserGuid(Guid.NewGuid());
-            theCart = mock.partial<Cart>(new object[] {theInitiatorId, theInitiatorGuid});
+            theCart = mock.partial<Cart>(new object[] { theInitiatorId, theInitiatorId });
             depends.on<ICartRepository>().WhenToldTo(x => x.FindByUserGuid(new UserGuid(theInitiatorId.Id))).Return(theCart);
             command = new RemoveCartItem(theInitiatorId, theCartItemId);
         };

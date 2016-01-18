@@ -46,24 +46,24 @@
         }
     }
 
-    public class CurrentUserGuid : InitiatorGuid
+    public class CurrentUserId : InitiatorId
     {
-        public CurrentUserGuid()
+        public CurrentUserId()
         {
         }
 
-        public CurrentUserGuid(Guid id) : base(id)
+        public CurrentUserId(Guid id) : base(id)
         {
         }
     }
 
-    public class InitiatorGuid : UserGuid
+    public class InitiatorId : UserGuid
     {
-        public InitiatorGuid()
+        public InitiatorId()
         {
         }
 
-        public InitiatorGuid(Guid id) : base(id)
+        public InitiatorId(Guid id) : base(id)
         {
         }
     }

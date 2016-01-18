@@ -25,9 +25,9 @@
             return new ArticleDtoAssembler().CreateDtos(articles);
         }
 
-        public IEnumerable<ArticleDto> Query(InitiatorGuid currentUserId, OwnerId queryOwnerId, string query)
+        public IEnumerable<ArticleDto> Query(InitiatorId initiatorId, OwnerId queryOwnerId, string query)
         {
-            var articles = ArticleRepository.Query(currentUserId, queryOwnerId, query);
+            var articles = ArticleRepository.Query(initiatorId, queryOwnerId, query);
             return new ArticleDtoAssembler().CreateDtos(articles);
         }
     }

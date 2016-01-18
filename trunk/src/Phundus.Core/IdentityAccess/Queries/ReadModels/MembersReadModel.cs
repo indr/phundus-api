@@ -9,7 +9,7 @@
     public interface IMemberQueries
     {
         IList<MemberDto> FindByOrganizationId(Guid organizationId);
-        IEnumerable<MemberDto> Query(CurrentUserGuid currentUserId, Guid queryOrganizationId, string queryFullName);
+        IEnumerable<MemberDto> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName);
     }
 
     public class MembersReadModel : IMemberQueries, IMembersWithRole
@@ -24,7 +24,7 @@
             return ToMemberDtos(memberships);
         }
 
-        public IEnumerable<MemberDto> Query(CurrentUserGuid currentUserId, Guid queryOrganizationId, string queryFullName)
+        public IEnumerable<MemberDto> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName)
         {
             // TODO: Members Read-Model 
             var memberships = MembershipQueries.FindByOrganizationId(queryOrganizationId);
