@@ -8,7 +8,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class EmailSteps : StepsBase
+    public class EmailSteps : AppStepsBase
     {
         private readonly IMailbox _mailbox;
 

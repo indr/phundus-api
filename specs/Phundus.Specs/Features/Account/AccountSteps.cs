@@ -10,7 +10,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class AccountSteps : StepsBase
+    public class AccountSteps : AppStepsBase
     {
         public AccountSteps(App app, Ctx ctx) : base(app, ctx)
         {

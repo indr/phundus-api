@@ -6,7 +6,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class PlaceOrderSteps : StepsBase
+    public class PlaceOrderSteps : AppStepsBase
     {
         private int _orderId;
 

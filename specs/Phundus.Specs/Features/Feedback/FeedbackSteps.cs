@@ -8,7 +8,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class FeedbackSteps : StepsBase
+    public class FeedbackSteps : AppStepsBase
     {
         public FeedbackSteps(App app, Ctx ctx) : base(app, ctx)
         {

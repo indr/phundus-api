@@ -8,7 +8,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class StoreSteps : StepsBase
+    public class StoreSteps : AppStepsBase
     {
         private UsersGetOkResponseContent _userDetails;
 

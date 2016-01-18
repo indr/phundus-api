@@ -269,8 +269,13 @@
     <Compile Include="Steps\EmailSteps.cs" />
     <Compile Include="Steps\LogInSteps.cs" />
     <Compile Include="Steps\ResponseValidationSteps.cs" />
-    <Compile Include="Steps\StepsBase.cs" />
+    <Compile Include="Steps\AppStepsBase.cs" />
     <Compile Include="Steps\GivenUserSteps.cs" />
+    <Compile Include="Www\Index.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.feature</DependentUpon>
+    </Compile>
     <Compile Include="_Legacy\Features\Shop.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -304,7 +309,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RobotsTxt.feature</DependentUpon>
     </Compile>
-    <Compile Include="Www\Steps\RobotsTxtSteps.cs" />
+    <Compile Include="Www\WwwSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ArticleNames.csv" />
@@ -403,6 +408,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>OpenUserStore.feature.cs</LastGenOutput>
     </None>
+    <None Include="Www\Index.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Index.feature.cs</LastGenOutput>
+    </None>
     <None Include="_Legacy\Features\Checkout.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Checkout.feature.cs</LastGenOutput>
@@ -464,6 +473,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

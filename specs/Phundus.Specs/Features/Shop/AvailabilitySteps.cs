@@ -6,7 +6,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class AvailabilitySteps : StepsBase
+    public class AvailabilitySteps : AppStepsBase
     {
         private bool _checkResult;
 

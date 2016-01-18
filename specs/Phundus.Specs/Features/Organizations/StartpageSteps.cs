@@ -8,7 +8,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class StartpageSteps : StepsBase
+    public class StartpageSteps : AppStepsBase
     {
         private string _startpage;
         private string _theStartpage;

@@ -10,7 +10,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class StatusSteps : StepsBase
+    public class StatusSteps : AppStepsBase
     {
         private StatusGetOkResponseContent _status;
 
