@@ -23,8 +23,8 @@ namespace Phundus.Migrations
                     if ((domainEvent.OrganizationGuid != Guid.Empty) && (domainEvent.UserGuid != Guid.Empty))
                         return;
 
-                    domainEvent.OrganizationGuid = OrganizationIdMap[domainEvent.OrganizationIntegralId];
-                    domainEvent.UserGuid = UserIdMap[domainEvent.UserIntegralId];
+                    domainEvent.OrganizationGuid = GetOrganizationGuid(domainEvent.OrganizationIntegralId);
+                    domainEvent.UserGuid = GetUserGuid(domainEvent.UserIntegralId);
                     UpdateSerialization(eventId, domainEvent);
                 });
         }
