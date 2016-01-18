@@ -8,7 +8,7 @@
     using TechTalk.SpecFlow.Assist;
 
     [Binding]
-    public class ArticleFilesSteps : StepsBase
+    public class ArticleFilesSteps : AppStepsBase
     {
         private FileUploadResponseContent _fileUploadResponseContent;
         private Files _files;

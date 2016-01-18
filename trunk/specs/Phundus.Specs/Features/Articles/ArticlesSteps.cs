@@ -7,7 +7,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class ArticlesSteps : StepsBase
+    public class ArticlesSteps : AppStepsBase
     {
         private QueryOkResponseContent<Article> _articles;
 

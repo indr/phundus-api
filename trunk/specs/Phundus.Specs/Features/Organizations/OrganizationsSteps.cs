@@ -10,7 +10,7 @@
     using TechTalk.SpecFlow.Assist;
 
     [Binding]
-    public class OrganizationsSteps : StepsBase
+    public class OrganizationsSteps : AppStepsBase
     {
         private Organization _organizationDetails;
         private IList<Organization> _organizations;

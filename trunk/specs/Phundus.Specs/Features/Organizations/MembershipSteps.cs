@@ -8,7 +8,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class MembershipSteps : StepsBase
+    public class MembershipSteps : AppStepsBase
     {
         private OrganizationsRelationshipsQueryOkResponseContent _relationship;
         private Guid _applicationId;

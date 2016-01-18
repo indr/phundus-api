@@ -5,7 +5,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class LogInSteps : StepsBase
+    public class LogInSteps : AppStepsBase
     {
         public LogInSteps(App app, Ctx ctx) : base(app, ctx)
         {

@@ -8,7 +8,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class MembersSteps : StepsBase
+    public class MembersSteps : AppStepsBase
     {
         private IList<Member> _members;
 

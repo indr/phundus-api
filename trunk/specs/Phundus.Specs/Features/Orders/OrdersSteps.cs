@@ -8,7 +8,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class AddOrderItemSteps : StepsBase
+    public class AddOrderItemSteps : AppStepsBase
     {
         public AddOrderItemSteps(App app, Ctx ctx) : base(app, ctx)
         {
@@ -23,7 +23,7 @@
     }
 
     [Binding]
-    public class OrdersSteps : StepsBase
+    public class OrdersSteps : AppStepsBase
     {
         private int _orderId;
         private IList<Order> _results;

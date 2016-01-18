@@ -7,7 +7,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class ResponseValidationSteps : StepsBase
+    public class ResponseValidationSteps : AppStepsBase
     {
         public ResponseValidationSteps(App app, Ctx ctx) : base(app, ctx)
         {

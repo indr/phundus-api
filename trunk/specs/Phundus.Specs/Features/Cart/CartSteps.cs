@@ -9,7 +9,7 @@
     using TechTalk.SpecFlow.Assist;
 
     [Binding]
-    public class CartSteps : StepsBase
+    public class CartSteps : AppStepsBase
     {
         private UsersCartGetOkResponseContent _cart;
         private Guid _cartItemId;
