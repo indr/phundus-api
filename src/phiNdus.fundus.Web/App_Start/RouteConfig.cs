@@ -50,7 +50,7 @@
         public OrganizationExistsConstraint(IEnumerable<Organization> organizations)
         {
             foreach (var each in organizations)
-                _organizations.Add(each.Url, each.Id);
+                _organizations.Add(each.Url, each.Id.Id);
         }
 
         public static IDictionary<string, Guid> Organizations

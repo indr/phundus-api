@@ -5,6 +5,7 @@
     using System.Linq;
     using Castle.Transactions;
     using Common;
+    using Common.Domain.Model;
     using IdentityAccess.Organizations.Model;
     using IdentityAccess.Organizations.Repositories;
 
@@ -26,10 +27,22 @@
             return result;
         }
 
+        public Organization GetById(OrganizationId organizationId)
+        {
+            if (organizationId == null) throw new ArgumentNullException("organizationId");
+            return GetById(organizationId.Id);
+        }
+
         public Organization FindById(Guid id)
         {
-            var query = from o in Entities where o.Id == id select o;
+            var query = from o in Entities where o.Id.Id == id select o;
             return query.SingleOrDefault();
+        }
+
+        public Organization FindById(OrganizationId organizationId)
+        {
+            if (organizationId == null) throw new ArgumentNullException("organizationId");
+            return FindById(organizationId.Id);
         }
 
         public Organization FindByName(string name)

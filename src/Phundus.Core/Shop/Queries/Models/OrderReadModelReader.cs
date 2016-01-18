@@ -55,7 +55,7 @@
         }
 
         public IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderId orderId, UserId queryUserId,
-            OrganizationGuid queryOrganizationId)
+            OrganizationId queryOrganizationId)
         {
             return Query(currentUserId, orderId == null ? (int?) null : orderId.Id,
                 queryUserId == null ? (Guid?) null : queryUserId.Id,

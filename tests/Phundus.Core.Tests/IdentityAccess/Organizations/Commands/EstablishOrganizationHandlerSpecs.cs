@@ -14,7 +14,7 @@
     [Subject(typeof (EstablishOrganizationHandler))]
     public class when_handled : handler_concern<EstablishOrganization, EstablishOrganizationHandler>
     {
-        private static OrganizationGuid theOrganizationGuid = new OrganizationGuid();
+        private static OrganizationId theOrganizationGuid = new OrganizationId();
         private static IOrganizationRepository organizationRepository;        
 
         private Establish ctx = () =>

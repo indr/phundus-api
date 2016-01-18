@@ -105,13 +105,13 @@
     {
     }
 
-    public class OrganizationGuid : GuidIdentity
+    public class OrganizationId : GuidIdentity
     {
-        public OrganizationGuid()
+        public OrganizationId()
         {
         }
 
-        public OrganizationGuid(Guid id)
+        public OrganizationId(Guid id)
             : base(id)
         {
         }

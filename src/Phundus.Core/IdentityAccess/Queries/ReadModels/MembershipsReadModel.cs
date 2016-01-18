@@ -38,7 +38,7 @@
             {
                 Id = each.Id,                
                 UserGuid = each.UserId.Id,
-                OrganizationGuid = each.Organization.Id,
+                OrganizationGuid = each.Organization.Id.Id,
                 OrganizationName = each.Organization.Name,
                 OrganizationUrl = each.Organization.Url,
                 ApprovedOn = each.ApprovalDate,

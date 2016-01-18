@@ -14,7 +14,7 @@
         public Organization Organization()
         {
             var result = fake.an<Organization>();
-            result.setup(x => x.Id).Return(new OrganizationGuid().Id);
+            result.setup(x => x.Id).Return(new OrganizationId());
             return result;
         }
     }

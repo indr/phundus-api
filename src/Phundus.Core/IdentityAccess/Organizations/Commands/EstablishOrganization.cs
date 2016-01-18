@@ -11,18 +11,18 @@
 
     public class EstablishOrganization
     {
-        public EstablishOrganization(InitiatorId initiatorId, OrganizationGuid organizationGuid, string name)
+        public EstablishOrganization(InitiatorId initiatorId, OrganizationId organizationId, string name)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
-            if (organizationGuid == null) throw new ArgumentNullException("organizationGuid");
+            if (organizationId == null) throw new ArgumentNullException("organizationId");
             if (name == null) throw new ArgumentNullException("name");
             InitiatorId = initiatorId;
-            OrganizationGuid = organizationGuid;
+            OrganizationId = organizationId;
             Name = name;
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public OrganizationGuid OrganizationGuid { get; protected set; }
+        public OrganizationId OrganizationId { get; protected set; }
         public string Name { get; protected set; }
     }
 
@@ -43,7 +43,7 @@
 
         public void Handle(EstablishOrganization command)
         {
-            var organization = new Organization(command.InitiatorId, command.OrganizationGuid, command.Name);
+            var organization = new Organization(command.InitiatorId, command.OrganizationId, command.Name);
 
             _organizationRepository.Add(organization);
 

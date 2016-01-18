@@ -96,7 +96,7 @@
         {
             if (requestContent == null) throw new ArgumentNullException("requestContent");
 
-            var organizationGuid = new OrganizationGuid();
+            var organizationGuid = new OrganizationId();
             Dispatch(new EstablishOrganization(CurrentUserId, organizationGuid, requestContent.Name));
 
             return Request.CreateResponse(HttpStatusCode.OK,
@@ -111,14 +111,14 @@
 
             if (requestContent.ContactDetails != null)
             {
-                Dispatch(new ChangeOrganizationContactDetails(CurrentUserId, new OrganizationGuid(organizationId),
+                Dispatch(new ChangeOrganizationContactDetails(CurrentUserId, new OrganizationId(organizationId),
                     requestContent.ContactDetails.PostAddress, requestContent.ContactDetails.PhoneNumber,
                     requestContent.ContactDetails.EmailAddress, requestContent.ContactDetails.Website));
             }
 
             if (!String.IsNullOrWhiteSpace(requestContent.Startpage))
             {
-                Dispatch(new UpdateStartpage(CurrentUserId, new OrganizationGuid(organizationId), requestContent.Startpage));
+                Dispatch(new UpdateStartpage(CurrentUserId, new OrganizationId(organizationId), requestContent.Startpage));
             }
             return NoContent();
         }

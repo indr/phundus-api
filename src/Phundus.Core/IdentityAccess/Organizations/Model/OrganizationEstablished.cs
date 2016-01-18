@@ -7,9 +7,9 @@ namespace Phundus.IdentityAccess.Organizations.Model
     [DataContract]
     public class OrganizationEstablished : DomainEvent
     {
-        public OrganizationEstablished(Guid organizationid, string plan, string name, string url)
+        public OrganizationEstablished(OrganizationId organizationId, string plan, string name, string url)
         {
-            OrganizationId = organizationid;
+            OrganizationId = organizationId.Id;
             Plan = plan;
             Name = name;
             Url = url;
