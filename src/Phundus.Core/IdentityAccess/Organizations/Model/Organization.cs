@@ -8,7 +8,6 @@
     using IdentityAccess.Model;
     using Iesi.Collections.Generic;
     using Users.Model;
-    using ApplicationId = Common.Domain.Model.ApplicationId;
 
     public class Organization : Aggregate<Guid>
     {
@@ -100,13 +99,13 @@
 
         public virtual string DocTemplateFileName { get; set; }
 
-        public virtual MembershipApplication RequestMembership(InitiatorGuid initiatorGuid, ApplicationId applicationId,
+        public virtual MembershipApplication RequestMembership(InitiatorGuid initiatorGuid, MembershipApplicationId membershipApplicationId,
             User user)
         {
             if (Applications.FirstOrDefault(p => Equals(p.UserGuid, user.UserGuid)) != null)
                 return null;
 
-            var application = new MembershipApplication(applicationId.Id, Id, user.UserGuid);
+            var application = new MembershipApplication(membershipApplicationId.Id, Id, user.UserGuid);
             Applications.Add(application);
 
             EventPublisher.Publish(new MembershipApplicationFiled(initiatorGuid, OrganizationGuid, user.UserGuid));
@@ -118,7 +117,7 @@
         public virtual MembershipApplication RequestMembership(InitiatorGuid initiatorGuid, Guid applicationId,
             User user)
         {
-            return RequestMembership(initiatorGuid, new ApplicationId(applicationId), user);
+            return RequestMembership(initiatorGuid, new MembershipApplicationId(applicationId), user);
         }
 
         public virtual void ApproveMembershipRequest(UserGuid initiatorGuid, MembershipApplication application,
