@@ -8,7 +8,6 @@
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Users.Model;
     using Rhino.Mocks;
-    using ApplicationId = Common.Domain.Model.ApplicationId;
 
     public class organization_concern : aggregate_concern<Organization>
     {
@@ -61,19 +60,19 @@
     [Subject(typeof (Organization))]
     public class when_requesting_membership : organization_concern
     {
-        private static ApplicationId theApplicationId;
+        private static MembershipApplicationId theApplicationId;
         private static User theUser;
 
         private Establish ctx = () =>
         {
-            theApplicationId = new ApplicationId();
+            theApplicationId = new MembershipApplicationId();
             theUser = CreateUser();
         };
 
         private Because of = () => sut.RequestMembership(theInitiatorId, theApplicationId, theUser);
 
         private It should_have_membership_application =
-            () => sut.Applications.ShouldContain(e => Equals(e.ApplicationId, theApplicationId));
+            () => sut.Applications.ShouldContain(e => Equals(e.MembershipApplicationId, theApplicationId));
 
         private It should_publish_membership_application_filed =
             () => publisher.AssertWasCalled(x => x.Publish(Arg<MembershipApplicationFiled>.Is.NotNull));
@@ -82,14 +81,14 @@
     [Subject(typeof (Organization))]
     public class when_requesting_membership_twice : organization_concern
     {
-        private static ApplicationId theFirstApplicationId;
-        private static ApplicationId theSecondApplicationId;
+        private static MembershipApplicationId theFirstApplicationId;
+        private static MembershipApplicationId theSecondApplicationId;
         private static User theUser;
 
         private Establish ctx = () =>
         {
-            theFirstApplicationId = new ApplicationId();
-            theSecondApplicationId = new ApplicationId();
+            theFirstApplicationId = new MembershipApplicationId();
+            theSecondApplicationId = new MembershipApplicationId();
             theUser = CreateUser();
             sut.RequestMembership(theInitiatorId, theFirstApplicationId, theUser);
         };

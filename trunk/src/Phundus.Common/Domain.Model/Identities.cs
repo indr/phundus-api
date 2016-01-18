@@ -2,13 +2,13 @@
 {
     using System;
 
-    public class ApplicationId : GuidIdentity
+    public class MembershipApplicationId : GuidIdentity
     {
-        public ApplicationId()
+        public MembershipApplicationId()
         {
         }
 
-        public ApplicationId(Guid id) : base(id)
+        public MembershipApplicationId(Guid id) : base(id)
         {
         }
     }
