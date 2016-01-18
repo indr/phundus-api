@@ -66,7 +66,7 @@
 
             foreach (var each in cartItemsToPlace)
             {
-                cart.RemoveItem(each.CartItemGuid);
+                cart.RemoveItem(each.CartItemId);
             }
 
             EventPublisher.Publish(new OrderPlaced(orderId, lessor.LessorId, null));

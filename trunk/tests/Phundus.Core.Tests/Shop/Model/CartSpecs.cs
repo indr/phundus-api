@@ -34,7 +34,7 @@
                 pricePerWeek ?? 7);
         }
 
-        protected static CartItemGuid AddCartItem(Article article = null, DateTime? fromUtc = null,
+        protected static CartItemId AddCartItem(Article article = null, DateTime? fromUtc = null,
             DateTime? toUtc = null, int? quantity = null)
         {
             return sut.AddItem(
@@ -57,13 +57,13 @@
     [Subject(typeof (Cart))]
     public class when_adding_an_item : cart_concern
     {
-        private static CartItemGuid the_cart_item_guid;
+        private static CartItemId theCartItemId;
 
         private Because of =
-            () => the_cart_item_guid = AddCartItem(article: CreateArticle(articleId: 12345, name: "Football"));
+            () => theCartItemId = AddCartItem(article: CreateArticle(articleId: 12345, name: "Football"));
 
         private It should_have_an_item_with_item_id = () => sut.Items.ShouldContain(c =>
-            Equals(c.CartItemGuid, the_cart_item_guid));
+            Equals(c.CartItemId, theCartItemId));
 
         private It should_not_be_empty = () => sut.IsEmpty.ShouldBeFalse();
     }
@@ -71,12 +71,12 @@
     [Subject(typeof (Cart))]
     public class when_removing_an_item : cart_concern
     {
-        private static CartItemGuid the_cart_item_guid;
-        private Establish ctx = () => the_cart_item_guid = AddCartItem();
+        private static CartItemId theCartItemId;
+        private Establish ctx = () => theCartItemId = AddCartItem();
 
-        private Because of = () => sut.RemoveItem(the_cart_item_guid);
+        private Because of = () => sut.RemoveItem(theCartItemId);
 
         private It should_not_contain_the_removed_item =
-            () => sut.Items.ShouldNotContain(c => Equals(c.CartItemGuid, the_cart_item_guid));
+            () => sut.Items.ShouldNotContain(c => Equals(c.CartItemId, theCartItemId));
     }
 }

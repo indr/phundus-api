@@ -7,12 +7,12 @@
     using Iesi.Collections.Generic;
     using Inventory.Services;
 
-    public class Cart : Aggregate<CartGuid>
+    public class Cart : Aggregate<CartId>
     {
         private ISet<CartItem> _items = new HashedSet<CartItem>();
         private Guid _userGuid;
 
-        public Cart(InitiatorId initiatorId, UserId userId) : base(new CartGuid())
+        public Cart(InitiatorId initiatorId, UserId userId) : base(new CartId())
         {
             _userGuid = userId.Id;
         }
@@ -43,7 +43,7 @@
             get { return _items.IsEmpty; }
         }
 
-        public virtual CartItemGuid AddItem(Article article, DateTime fromUtc, DateTime toUtc, int quantity)
+        public virtual CartItemId AddItem(Article article, DateTime fromUtc, DateTime toUtc, int quantity)
         {
             var item = new CartItem();
             item.Position = 1;
@@ -55,7 +55,7 @@
             item.To = toUtc;
 
             AddItem(item);
-            return item.CartItemGuid;
+            return item.CartItemId;
         }
 
         protected virtual void AddItem(CartItem item)
@@ -65,9 +65,9 @@
             item.CartGuid = Id.Id;
         }
 
-        public virtual void RemoveItem(CartItemGuid cartItemGuid)
+        public virtual void RemoveItem(CartItemId cartItemId)
         {
-            var item = Items.SingleOrDefault(p => Equals(p.CartItemGuid, cartItemGuid));
+            var item = Items.SingleOrDefault(p => Equals(p.CartItemId, cartItemId));
             if (item == null)
                 return;
             RemoveItem(item);
@@ -99,7 +99,7 @@
 
         public virtual void UpdateItem(Guid cartItemGuid, int quantity, DateTime fromUtc, DateTime toUtc)
         {
-            var item = Items.SingleOrDefault(p => p.CartItemGuid.Id == cartItemGuid);
+            var item = Items.SingleOrDefault(p => p.CartItemId.Id == cartItemGuid);
             if (item == null)
                 return;
 

@@ -71,7 +71,7 @@ namespace Phundus.Rest.Api.Users
 
             return new UsersCartItemsPostOkResponseContent
             {
-                CartItemId = command.ResultingCartItemGuid.Id
+                CartItemId = command.ResultingCartItemId.Id
             };
         }
 
@@ -97,7 +97,7 @@ namespace Phundus.Rest.Api.Users
             if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
-            Dispatch(new RemoveCartItem(CurrentUserId, new CartItemGuid(itemId)));
+            Dispatch(new RemoveCartItem(CurrentUserId, new CartItemId(itemId)));
 
             return NoContent();
         }
