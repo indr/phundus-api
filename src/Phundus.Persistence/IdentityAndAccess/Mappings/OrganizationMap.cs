@@ -11,7 +11,7 @@
             SchemaAction.Validate();
 
             Table("Dm_IdentityAccess_Organization");
-            Id(x => x.Id, "Guid").GeneratedBy.Assigned();
+            CompositeId(x => x.Id).KeyProperty(x => x.Id, "Guid");
             Version(x => x.Version);
 
             Map(x => x.EstablishedAtUtc, "CreateDate").CustomType<UtcDateTimeType>().Not.Update();
