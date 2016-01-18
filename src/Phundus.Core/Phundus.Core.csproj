@@ -159,6 +159,7 @@
     <Compile Include="IdentityAccess\Queries\ReadModels\MemberInMembershipRoleQueries.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\MembershipsReadModel.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\MembersReadModel.cs" />
+    <Compile Include="IdentityAccess\Queries\QueryModels\OrganizationViewRow.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\OrganizationsReadModel.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\ReadModelReaderBase.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\ReadModelWriterBase.cs" />

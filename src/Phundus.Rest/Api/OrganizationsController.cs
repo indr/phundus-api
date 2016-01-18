@@ -56,14 +56,14 @@
             if (organization == null)
                 throw new HttpException((int) HttpStatusCode.NotFound, "Organization not found.");
 
-            var store = _storeQueries.FindByOwnerId(new OwnerId(organization.Guid));
+            var store = _storeQueries.FindByOwnerId(new OwnerId(organization.OrganizationId));
             var result = new OrganizationsGetOkResponseContent
             {
-                Address = organization.Address,
+                Address = organization.PostAddress,
                 DocumentTemplate = organization.DocumentTemplate,
                 EmailAddress = organization.EmailAddress,
                 Name = organization.Name,
-                OrganizationId = organization.Guid,
+                OrganizationId = organization.OrganizationId,
                 Startpage = organization.Startpage,
                 Stores = new List<Store>(),
                 Url = organization.Url,
@@ -71,7 +71,7 @@
                 ContactDetails = new ContactDetails
                 {
                     EmailAddress = organization.EmailAddress,
-                    PostAddress = organization.Address,
+                    PostAddress = organization.PostAddress,
                     PhoneNumber = organization.PhoneNumber,
                     Website = organization.Website
                 }
