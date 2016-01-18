@@ -12,12 +12,12 @@ namespace phiNdus.fundus.Web.Models.CartModels
 
     public class CartItemModel : ViewModelBase
     {
-        public CartItemModel(Guid userGuid)
+        public CartItemModel(Guid userId)
         {
-            UserGuid = userGuid;
+            UserId = userId;
         }
 
-        public Guid UserGuid { get; private set; }
+        public Guid UserId { get; private set; }
 
         public string OrganizationName { get; set; }
 

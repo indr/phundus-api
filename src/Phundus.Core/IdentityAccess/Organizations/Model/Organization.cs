@@ -102,13 +102,13 @@
         public virtual MembershipApplication RequestMembership(InitiatorId initiatorId, MembershipApplicationId membershipApplicationId,
             User user)
         {
-            if (Applications.FirstOrDefault(p => Equals(p.UserGuid, user.UserGuid)) != null)
+            if (Applications.FirstOrDefault(p => Equals(p.UserId, user.UserId)) != null)
                 return null;
 
-            var application = new MembershipApplication(membershipApplicationId.Id, Id, user.UserGuid);
+            var application = new MembershipApplication(membershipApplicationId.Id, Id, user.UserId);
             Applications.Add(application);
 
-            EventPublisher.Publish(new MembershipApplicationFiled(initiatorId, OrganizationGuid, user.UserGuid));
+            EventPublisher.Publish(new MembershipApplicationFiled(initiatorId, OrganizationGuid, user.UserId));
 
             return application;
         }
@@ -120,7 +120,7 @@
             return RequestMembership(initiatorId, new MembershipApplicationId(applicationId), user);
         }
 
-        public virtual void ApproveMembershipRequest(UserGuid initiatorId, MembershipApplication application,
+        public virtual void ApproveMembershipRequest(UserId initiatorId, MembershipApplication application,
             Guid membershipId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
@@ -131,20 +131,20 @@
             Memberships.Add(membership);
 
             EventPublisher.Publish(new MembershipApplicationApproved(initiatorId, OrganizationGuid,
-                application.UserGuid));
+                application.UserId));
         }
 
-        public virtual void RejectMembershipRequest(UserGuid initiatorId, MembershipApplication application)
+        public virtual void RejectMembershipRequest(UserId initiatorId, MembershipApplication application)
         {
             application.Reject();
 
             EventPublisher.Publish(new MembershipApplicationRejected(initiatorId, OrganizationGuid,
-                application.UserGuid));
+                application.UserId));
         }
 
         protected virtual Membership GetMembershipOfUser(User user)
         {
-            var membership = Memberships.FirstOrDefault(p => p.UserGuid.Id == user.Guid);
+            var membership = Memberships.FirstOrDefault(p => p.UserId.Id == user.Guid);
             if (membership == null)
                 throw new Exception("Membership not found");
 
@@ -173,7 +173,7 @@
             EventPublisher.Publish(new MemberUnlocked(Id, member.Guid));
         }
 
-        public virtual void ChangeStartpage(UserGuid initiatorId, string startpage)
+        public virtual void ChangeStartpage(UserId initiatorId, string startpage)
         {
             if (_startpage == startpage)
                 return;

@@ -6,7 +6,7 @@
 
     public class RelationshipsReadModelReader : ReadModelReaderBase, IRelationshipQueries
     {
-        public RelationshipDto ByMemberIdForOrganizationId(UserGuid memberId, Guid organizationId)
+        public RelationshipDto ByMemberIdForOrganizationId(UserId memberId, Guid organizationId)
         {
             var result = (from r in Ctx.RelationshipDtos
                 where r.OrganizationGuid == organizationId && r.UserId == memberId.Id

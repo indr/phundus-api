@@ -70,7 +70,7 @@
             {
                 OrganizationId = organizationId,
                 InitiatorId = CurrentUserId,
-                MemberId = new UserGuid(memberId),
+                MemberId = new UserId(memberId),
                 Role = requestContent.Role
             });
 
@@ -88,7 +88,7 @@
                 {
                     OrganizationId = organizationId,
                     InitiatorId = CurrentUserId,
-                    MemberId = new UserGuid(memberId),
+                    MemberId = new UserId(memberId),
                     Role = requestContent.IsManager.Value ? 2 : 1
                 });
             }
@@ -99,7 +99,7 @@
                     Dispatcher.Dispatch(new LockMember
                     {
                         InitiatorId = CurrentUserId,
-                        MemberId = new UserGuid(memberId),
+                        MemberId = new UserId(memberId),
                         OrganizationId = organizationId
                     });
                 }
@@ -108,7 +108,7 @@
                     Dispatcher.Dispatch(new UnlockMember
                     {
                         InitiatorId = CurrentUserId,
-                        MemberId = new UserGuid(memberId),
+                        MemberId = new UserId(memberId),
                         OrganizationId = organizationId
                     });
                 }

@@ -16,7 +16,7 @@
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (articleId == null) throw new ArgumentNullException("articleId");
             InitiatorId = initiatorId;
-            UserGuid = new UserGuid(initiatorId.Id);
+            UserId = new UserId(initiatorId.Id);
             ArticleId = articleId;
             FromUtc = fromUtc;
             ToUtc = toUtc;
@@ -24,7 +24,7 @@
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public UserGuid UserGuid { get; protected set; }
+        public UserId UserId { get; protected set; }
         public ArticleId ArticleId { get; protected set; }
         public DateTime FromUtc { get; protected set; }
         public DateTime ToUtc { get; protected set; }
@@ -44,12 +44,12 @@
         {
             var article = ArticleService.GetById(command.ArticleId);
 
-            MemberInRole.ActiveMember(article.Owner.OwnerId, command.UserGuid);
+            MemberInRole.ActiveMember(article.Owner.OwnerId, command.UserId);
 
-            var cart = CartRepository.FindByUserGuid(command.UserGuid);
+            var cart = CartRepository.FindByUserGuid(command.UserId);
             if (cart == null)
             {
-                cart = new Cart(command.InitiatorId, command.UserGuid);
+                cart = new Cart(command.InitiatorId, command.UserId);
                 CartRepository.Add(cart);
             }
             var itemId = cart.AddItem(article, command.FromUtc, command.ToUtc, command.Quantity);

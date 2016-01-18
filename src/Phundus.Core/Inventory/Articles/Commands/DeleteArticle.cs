@@ -10,7 +10,7 @@
     public class DeleteArticle
     {
         public int ArticleId { get; set; }
-        public UserGuid InitiatorId { get; set; }
+        public UserId InitiatorId { get; set; }
     }
 
     public class DeleteArticleHandler : IHandleCommand<DeleteArticle>

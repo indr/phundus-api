@@ -10,7 +10,7 @@
         [Obsolete]
         Cart GetById(object id);
 
-        Cart GetByUserGuid(UserGuid userGuid);
-        Cart FindByUserGuid(UserGuid userGuid);
+        Cart GetByUserGuid(UserId userId);
+        Cart FindByUserGuid(UserId userId);
     }
 }

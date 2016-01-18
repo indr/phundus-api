@@ -14,7 +14,7 @@
     [Subject(typeof (RemoveOrderItemHandler))]
     public class when_remove_order_item_is_handled : order_handler_concern<RemoveOrderItem, RemoveOrderItemHandler>
     {
-        private static UserGuid initiatorId = new UserGuid();
+        private static UserId initiatorId = new UserId();
         private const int orderId = 2;
         private static OrderItemId orderItemId;
         private static Order order;

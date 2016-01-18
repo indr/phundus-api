@@ -7,7 +7,7 @@
     [DataContract]
     public class UserApproved : DomainEvent
     {
-        public UserApproved(UserGuid initiator, UserGuid user)
+        public UserApproved(UserId initiator, UserId user)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (user == null) throw new ArgumentNullException("user");

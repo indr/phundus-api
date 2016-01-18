@@ -11,7 +11,7 @@
 
     public class CreateArticle
     {
-        public CreateArticle(UserGuid initiatorId, OwnerId ownerId, StoreId storeId, string name, int amount)
+        public CreateArticle(UserId initiatorId, OwnerId ownerId, StoreId storeId, string name, int amount)
         {
             AssertionConcern.AssertArgumentNotNull(initiatorId, "InitiatorId must be provided.");
             AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
@@ -25,7 +25,7 @@
             Amount = amount;
         }
 
-        public UserGuid InitiatorId { get; protected set; }
+        public UserId InitiatorId { get; protected set; }
 
         public OwnerId OwnerId { get; protected set; }
 

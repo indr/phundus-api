@@ -244,7 +244,7 @@
         private MembershipUser ConvertToExternal(IUser user)
         {
             return new MembershipUser(Name, user.EmailAddress,
-                new ProviderUserKey(user.UserGuid).ToString(), user.EmailAddress, null, null,
+                new ProviderUserKey(user.UserId).ToString(), user.EmailAddress, null, null,
                 user.IsApproved,
                 user.IsLockedOut, user.SignedUpAtUtc, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue,
                 DateTime.MinValue);

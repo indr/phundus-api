@@ -17,7 +17,7 @@ namespace Phundus.Tests.Shop.Commands
         private Establish ctx = () =>
         {
             theCart = mock.partial<Cart>(new object[] { theInitiatorId, theInitiatorId });
-            depends.on<ICartRepository>().WhenToldTo(x => x.FindByUserGuid(new UserGuid(theInitiatorId.Id))).Return(theCart);
+            depends.on<ICartRepository>().WhenToldTo(x => x.FindByUserGuid(new UserId(theInitiatorId.Id))).Return(theCart);
             command = new RemoveCartItem(theInitiatorId, theCartItemId);
         };
 

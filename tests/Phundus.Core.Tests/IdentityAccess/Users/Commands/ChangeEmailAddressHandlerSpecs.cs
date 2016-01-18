@@ -25,7 +25,7 @@
 
         private It should_tell_to_change_email_address = () => theUser.WasToldTo(
             x =>
-                x.ChangeEmailAddress(Arg<UserGuid>.Is.Equal(theInitiatorId), Arg<String>.Is.Equal("1234"),
+                x.ChangeEmailAddress(Arg<UserId>.Is.Equal(theInitiatorId), Arg<String>.Is.Equal("1234"),
                     Arg<String>.Is.Equal(theNewEmailAddress)));
     }
 }

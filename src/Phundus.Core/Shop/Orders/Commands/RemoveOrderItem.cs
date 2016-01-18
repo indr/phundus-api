@@ -10,7 +10,7 @@
     {
         public int OrderId { get; set; }
         public Guid OrderItemId { get; set; }
-        public UserGuid InitiatorId { get; set; }
+        public UserId InitiatorId { get; set; }
     }
 
     public class RemoveOrderItemHandler : IHandleCommand<RemoveOrderItem>

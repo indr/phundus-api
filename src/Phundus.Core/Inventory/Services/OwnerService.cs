@@ -32,7 +32,7 @@
         /// <param name="userId"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        Owner GetByUserId(UserGuid userId);
+        Owner GetByUserId(UserId userId);
 
         /// <summary>
         /// 
@@ -75,7 +75,7 @@
             return GetById(ownerId.Id);
         }
 
-        public Owner GetByUserId(UserGuid userId)
+        public Owner GetByUserId(UserId userId)
         {
             var user = _userQueries.GetByGuid(userId);
             if (user == null)
@@ -100,7 +100,7 @@
 
         private static Owner ToOwner(IUser user)
         {
-            return new Owner(new OwnerId(user.UserGuid), user.FirstName + " " + user.LastName);
+            return new Owner(new OwnerId(user.UserId), user.FirstName + " " + user.LastName);
         }
     }
 }

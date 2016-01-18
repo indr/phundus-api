@@ -57,7 +57,7 @@
         }
     }
 
-    public class InitiatorId : UserGuid
+    public class InitiatorId : UserId
     {
         public InitiatorId()
         {
@@ -141,13 +141,13 @@
         }
     }
 
-    public class UserGuid : GuidIdentity
+    public class UserId : GuidIdentity
     {
-        public UserGuid()
+        public UserId()
         {
         }
 
-        public UserGuid(Guid id) : base(id)
+        public UserId(Guid id) : base(id)
         {
         }
     }

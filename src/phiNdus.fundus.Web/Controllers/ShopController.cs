@@ -145,7 +145,7 @@
             if (Identity.IsAuthenticated)
             {
                 model.CanUserAddToCart = MemberInRole.IsActiveMember(model.Article.OrganizationId,
-                    new UserGuid(CurrentUserId));
+                    new UserId(CurrentUserId));
             }
 
             model.Availabilities = AvailabilityQueries.GetAvailability(id).ToList();

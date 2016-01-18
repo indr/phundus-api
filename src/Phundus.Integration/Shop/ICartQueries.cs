@@ -4,6 +4,6 @@
 
     public interface ICartQueries
     {
-        ICart FindByUserGuid(InitiatorId initiatorId, UserGuid userGuid);
+        ICart FindByUserGuid(InitiatorId initiatorId, UserId userId);
     }
 }

@@ -8,17 +8,17 @@
 
     public class ChangeUserRole
     {
-        public ChangeUserRole(InitiatorId initiatorId, UserGuid userGuid, UserRole userRole)
+        public ChangeUserRole(InitiatorId initiatorId, UserId userId, UserRole userRole)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
-            if (userGuid == null) throw new ArgumentNullException("userGuid");
+            if (userId == null) throw new ArgumentNullException("userId");
             InitiatorId = initiatorId;
-            UserGuid = userGuid;
+            UserId = userId;
             UserRole = userRole;
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public UserGuid UserGuid { get; protected set; }
+        public UserId UserId { get; protected set; }
         public UserRole UserRole { get; protected set; }
     }
 
@@ -40,7 +40,7 @@
         {
             var initiator = _userInRole.Admin(command.InitiatorId);
 
-            var user = _userRepository.GetByGuid(command.UserGuid);
+            var user = _userRepository.GetByGuid(command.UserId);
             user.ChangeRole(initiator, command.UserRole);
         }
     }

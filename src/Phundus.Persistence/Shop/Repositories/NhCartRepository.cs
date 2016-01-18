@@ -18,20 +18,20 @@
             return result;
         }
 
-        public Cart GetByUserGuid(UserGuid userGuid)
+        public Cart GetByUserGuid(UserId userId)
         {
-            var result = FindByUserGuid(userGuid);
+            var result = FindByUserGuid(userId);
             if (result == null)
-                throw new NotFoundException("Cart with {0} not found.", userGuid);
+                throw new NotFoundException("Cart with {0} not found.", userId);
             return result;
         }
 
-        public Cart FindByUserGuid(UserGuid userGuid)
+        public Cart FindByUserGuid(UserId userId)
         {
-            if (userGuid == null) throw new ArgumentNullException("userGuid");
+            if (userId == null) throw new ArgumentNullException("userId");
 
             var query = from c in Entities
-                        where c.UserGuid == userGuid.Id
+                        where c.UserGuid == userId.Id
                         select c;
             return query.SingleOrDefault();
         }

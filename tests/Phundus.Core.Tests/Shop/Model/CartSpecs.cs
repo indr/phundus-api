@@ -9,7 +9,7 @@
     {
         protected static Cart sut;
         protected static InitiatorId theInitiatorId = new InitiatorId();
-        protected static UserGuid theUserGuid = new UserGuid(Guid.NewGuid());
+        protected static UserId theUserGuid = new UserId(Guid.NewGuid());
 
         private Establish ctx = () =>
         {

@@ -65,7 +65,7 @@ namespace Phundus.Rest.Api
         public virtual StoresPostOkResponseContent Post(StoresPostRequestContent requestContent)
         {
             var storeId = new StoreId();
-            Dispatch(new OpenStore(CurrentUserId, new UserGuid(requestContent.UserId), storeId));
+            Dispatch(new OpenStore(CurrentUserId, new UserId(requestContent.UserId), storeId));
 
             return new StoresPostOkResponseContent
             {

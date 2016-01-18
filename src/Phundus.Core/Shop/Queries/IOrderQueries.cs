@@ -16,6 +16,6 @@
         /// <exception cref="NotFoundException"></exception>
         OrderDto GetById(CurrentUserId currentUserId, OrderId orderId);
 
-        IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderId orderId, UserGuid queryUserId, OrganizationGuid queryOrganizationId);
+        IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderId orderId, UserId queryUserId, OrganizationGuid queryOrganizationId);
     }
 }

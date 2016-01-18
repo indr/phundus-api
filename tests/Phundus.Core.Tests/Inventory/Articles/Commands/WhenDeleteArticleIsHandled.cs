@@ -13,7 +13,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
     [Subject(typeof (DeleteArticleHandler))]
     public class when_delete_article_is_handled : article_handler_concern<DeleteArticle, DeleteArticleHandler>
     {
-        private static UserGuid initiatorId;
+        private static UserId initiatorId;
         private const int articleId = 3;
         private static Guid ownerId;
         private static Owner owner;
@@ -22,7 +22,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
 
         private Establish c = () =>
         {
-            initiatorId = new UserGuid();
+            initiatorId = new UserId();
             ownerId = Guid.NewGuid();
             owner = new Owner(new OwnerId(ownerId), "Owner");
             article = new Article(owner, new StoreId(), "Name", 0);

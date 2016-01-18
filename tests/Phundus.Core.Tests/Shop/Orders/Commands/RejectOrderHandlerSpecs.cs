@@ -11,7 +11,7 @@
     [Subject(typeof (RejectOrderHandler))]
     public class when_reject_order_is_handled : order_handler_concern<RejectOrder, RejectOrderHandler>
     {
-        private static UserGuid initiatorId = new UserGuid();
+        private static UserId initiatorId = new UserId();
         private const int orderId = 3;
         private static Order order;
 

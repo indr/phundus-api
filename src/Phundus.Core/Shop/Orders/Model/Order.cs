@@ -15,7 +15,7 @@
         private Iesi.Collections.Generic.ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private Lessee _lessee;
         private Lessor _lessor;
-        private UserGuid _modifiedBy;
+        private UserId _modifiedBy;
         private DateTime? _modifiedUtc;
         private OrderStatus _status = OrderStatus.Pending;
 
@@ -77,7 +77,7 @@
             protected set { _modifiedUtc = value; }
         }
 
-        public virtual UserGuid ModifiedBy
+        public virtual UserId ModifiedBy
         {
             get { return _modifiedBy; }
             protected set { _modifiedBy = value; }
@@ -125,7 +125,7 @@
             get { return new OrderId(Id); }
         }
 
-        public virtual void Reject(UserGuid initiatorId)
+        public virtual void Reject(UserId initiatorId)
         {
             if (Status == OrderStatus.Closed)
                 throw new OrderAlreadyClosedException();
@@ -139,7 +139,7 @@
             EventPublisher.Publish(new OrderRejected {OrderId = Id});
         }
 
-        public virtual void Approve(UserGuid initiatorId)
+        public virtual void Approve(UserId initiatorId)
         {
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
@@ -155,7 +155,7 @@
             EventPublisher.Publish(new OrderApproved {OrderId = Id});
         }
 
-        public virtual void Close(UserGuid initiatorId)
+        public virtual void Close(UserId initiatorId)
         {
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();

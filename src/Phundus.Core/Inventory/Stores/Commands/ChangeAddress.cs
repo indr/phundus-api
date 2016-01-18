@@ -10,7 +10,7 @@ namespace Phundus.Inventory.Stores.Commands
 
     public class ChangeAddress
     {
-        public UserGuid InitatorId { get; set; }
+        public UserId InitatorId { get; set; }
         public Guid StoreId { get; set; }
         public string Address { get; set; }
     }

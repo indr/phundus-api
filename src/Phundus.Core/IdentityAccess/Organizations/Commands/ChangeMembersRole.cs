@@ -12,7 +12,7 @@
     {
         public Guid OrganizationId { get; set; }
         public CurrentUserId InitiatorId { get; set; }
-        public UserGuid MemberId { get; set; }
+        public UserId MemberId { get; set; }
         public int Role { get; set; }
     }
 

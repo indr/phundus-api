@@ -17,9 +17,9 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="userGuid"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        User GetByGuid(UserGuid userGuid);
+        User GetByGuid(UserId userId);
     }
 }
