@@ -10,23 +10,20 @@
             if (providerUserKey == null) throw new ArgumentNullException("providerUserKey");
 
             var parts = Convert.ToString(providerUserKey).Split('/');
-            UserId = new CurrentUserId(Convert.ToInt32(parts[0]));
-            UserGuid = new CurrentUserGuid(new Guid(parts[1]));
+            
+            UserGuid = new CurrentUserGuid(new Guid(parts.Length == 2 ? parts[1] : parts[0]));
         }
 
-        public ProviderUserKey(int userId, Guid userGuid)
+        public ProviderUserKey(Guid userGuid)
         {
-            UserId = new CurrentUserId(userId);
             UserGuid = new CurrentUserGuid(userGuid);
         }
-
-        public CurrentUserId UserId { get; set; }
 
         public CurrentUserGuid UserGuid { get; set; }
 
         public override string ToString()
         {
-            return String.Format("{0}/{1}", UserId.Id, UserGuid.Id.ToString("D"));
+            return String.Format("{0}", UserGuid.Id.ToString("D"));
         }
     }
 }

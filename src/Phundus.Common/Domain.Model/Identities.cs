@@ -46,13 +46,6 @@
         }
     }
 
-    public class CurrentUserId : Identity<int>
-    {
-        public CurrentUserId(int id) : base(id)
-        {
-        }
-    }
-
     public class CurrentUserGuid : InitiatorGuid
     {
         public CurrentUserGuid()
