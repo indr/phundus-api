@@ -7,15 +7,16 @@
     using Bootstrap;
     using Phundus.Cqrs.Paging;
     using Phundus.IdentityAccess.Queries.ReadModels;
+    using Phundus.Integration.IdentityAccess;
     using Phundus.Shop.Queries;
 
     public class ShopSearchResultViewModel : ViewModelBase
     {
-        private readonly IEnumerable<OrganizationDto> _organizations;
+        private readonly IEnumerable<IOrganization> _organizations;
         private IEnumerable<ShopArticleSearchResultDto> _articles = new Collection<ShopArticleSearchResultDto>();
 
         public ShopSearchResultViewModel(string queryString, Guid? queryOrganizationId, int page, int rowsPerPage,
-            IEnumerable<OrganizationDto> organizations, IShopArticleQueries shopArticleQueries)
+            IEnumerable<IOrganization> organizations, IShopArticleQueries shopArticleQueries)
         {
             Query = queryString;
             QueryOrganizationId = queryOrganizationId;
@@ -39,7 +40,7 @@
             set { _articles = value; }
         }
 
-        public IEnumerable<OrganizationDto> Organizations
+        public IEnumerable<IOrganization> Organizations
         {
             get { return _organizations; }
         }

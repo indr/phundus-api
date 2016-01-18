@@ -88,9 +88,9 @@
             return new Lessor(new LessorId(user.UserId), user.FirstName + " " + user.LastName);
         }
 
-        private static Lessor ToLessor(OrganizationDetailDto organization)
+        private static Lessor ToLessor(IOrganization organization)
         {
-            return new Lessor(new LessorId(organization.Guid), organization.Name);
+            return new Lessor(new LessorId(organization.OrganizationId), organization.Name);
         }
     }
 }

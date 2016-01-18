@@ -93,9 +93,9 @@
             return ToOwner(organization);
         }
 
-        private static Owner ToOwner(OrganizationDetailDto organization)
+        private static Owner ToOwner(IOrganization organization)
         {
-            return new Owner(new OwnerId(organization.Guid), organization.Name);
+            return new Owner(new OwnerId(organization.OrganizationId), organization.Name);
         }
 
         private static Owner ToOwner(IUser user)

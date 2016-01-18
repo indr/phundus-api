@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Common;
-    using ReadModels;
+    using Integration.IdentityAccess;
 
     public interface IOrganizationQueries
     {
@@ -13,10 +13,10 @@
         /// <param name="organizationId"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        OrganizationDetailDto GetById(Guid organizationId);
+        IOrganization GetById(Guid organizationId);
 
-        OrganizationDetailDto FindById(Guid organizationId);
+        IOrganization FindById(Guid organizationId);
 
-        IEnumerable<OrganizationDto> All();
+        IEnumerable<IOrganization> All();
     }
 }

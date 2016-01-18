@@ -2,6 +2,7 @@
 {
     using System;
 
+    
     public interface IUser
     {
         Guid UserId { get; }

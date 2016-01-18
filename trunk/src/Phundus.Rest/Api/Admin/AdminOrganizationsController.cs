@@ -30,7 +30,7 @@
             {
                 Results = results.Select(s => new AdminOrganization
                 {
-                    OrganizationId = s.Guid,
+                    OrganizationId = s.OrganizationId,
                     Name = s.Name,
                     EstablishedAtUtc = s.EstablishedAtUtc
                 }).ToList()
