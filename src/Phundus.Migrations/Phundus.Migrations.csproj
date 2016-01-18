@@ -151,6 +151,7 @@
     <Compile Include="2015\12\M201512301153AddStoreToArticle.cs" />
     <Compile Include="2015\12\M201512310708DeleteColumnOrganizationCoordinate.cs" />
     <Compile Include="2016\01\M201601182024_Add_UserGuid_and_OrganizationGuid_to_membership_application_events.cs" />
+    <Compile Include="2016\01\M201601182104_Reset_all_ProcessedNotificationTracker.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
