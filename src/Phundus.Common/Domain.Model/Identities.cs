@@ -20,28 +20,17 @@
         }
     }
 
-    public class CartId : Identity<int>
-    {
-        public CartId(int id) : base(id)
-        {
-        }
-    }
-
-    public class CartGuid : GuidIdentity
+    public class CartId : GuidIdentity
     {
     }
 
-    public class CartItemId : Identity<int>
+    public class CartItemId : GuidIdentity
     {
-    }
-
-    public class CartItemGuid : GuidIdentity
-    {
-        public CartItemGuid()
+        public CartItemId()
         {
         }
 
-        public CartItemGuid(Guid id) : base(id)
+        public CartItemId(Guid id) : base(id)
         {
         }
     }

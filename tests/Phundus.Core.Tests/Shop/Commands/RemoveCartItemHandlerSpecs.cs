@@ -12,7 +12,7 @@ namespace Phundus.Tests.Shop.Commands
     public class when_remove_cart_item_is_handled : handler_concern<RemoveCartItem, RemoveCartItemHandler>
     {
         private static Cart theCart;
-        private static CartItemGuid theCartItemId = new CartItemGuid();
+        private static CartItemId theCartItemId = new CartItemId();
 
         private Establish ctx = () =>
         {

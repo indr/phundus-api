@@ -31,7 +31,7 @@
             command = new PlaceOrder(theInitiatorId, theLessorId);
         };
 
-        protected static CartItemGuid AddCartItem(LessorId lessorId)
+        protected static CartItemId AddCartItem(LessorId lessorId)
         {
             var anArticle = CreateArticle(lessorId);
             return theCart.AddItem(anArticle, DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
@@ -88,11 +88,11 @@
     [Subject(typeof (PlaceOrderHandler))]
     public class when_successfully_placing_an_cart_with_items_from_different_lessors : place_order_handler_concern
     {
-        private static List<CartItemGuid> theCartItemsToRemove;
+        private static List<CartItemId> theCartItemsToRemove;
 
         private Establish ctx = () =>
         {
-            theCartItemsToRemove = new List<CartItemGuid>();
+            theCartItemsToRemove = new List<CartItemId>();
             var anOtherLessorId = new LessorId();
             theCartItemsToRemove.Add(AddCartItem(theLessorId));
             AddCartItem(anOtherLessorId);
@@ -110,6 +110,6 @@
             () => command.ResultingOrderId.ShouldEqual(theResultingOrderId);
 
         private It should_tell_cart_to_remove_items =
-            () => theCart.Items.ShouldNotContain(c => theCartItemsToRemove.Contains(c.CartItemGuid));
+            () => theCart.Items.ShouldNotContain(c => theCartItemsToRemove.Contains(c.CartItemId));
     }
 }

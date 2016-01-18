@@ -12,7 +12,7 @@
 
             Table("Dm_Shop_CartItem");
 
-            CompositeId(x => x.CartItemGuid).KeyProperty(kp => kp.Id, "CartItemGuid");
+            CompositeId(x => x.CartItemId).KeyProperty(kp => kp.Id, "CartItemGuid");
             Version(x => x.Version);
 
             References(x => x.Cart, "CartGuid");
