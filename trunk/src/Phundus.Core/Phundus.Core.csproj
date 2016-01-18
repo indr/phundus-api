@@ -149,6 +149,7 @@
     <Compile Include="IdentityAccess\Queries\IMembershipQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IOrganizationQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IRelationshipQueries.cs" />
+    <Compile Include="IdentityAccess\Queries\QueryModels\MembershipApplicationViewRow.cs" />
     <Compile Include="IdentityAccess\Queries\QueryModels\UserViewRow.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModel.designer.cs">
       <AutoGen>True</AutoGen>
@@ -377,7 +378,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bootstrap\" />
-    <Folder Include="IdentityAccess\Queries\Dtos\" />
     <Folder Include="Inventory\Services\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
     <Folder Include="Shop\Contracts\Exceptions\" />

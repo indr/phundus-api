@@ -106,6 +106,7 @@
     <Compile Include="IdentityAccess\Organizations\Commands\UpdateStartpageHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Events\MembershipApplicationSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\OrganizationSpecs.cs" />
+    <Compile Include="IdentityAccess\Queries\OrganizationViewRowSpecs.cs" />
     <Compile Include="IdentityAccess\Users\Commands\ChangeEmailAddressHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Users\Commands\SignUpUserHandlerSpecs.cs" />
     <Compile Include="domain_event_concern.cs" />
@@ -177,6 +178,10 @@
     <ProjectReference Include="..\..\src\Phundus.Infrastructure\Phundus.Infrastructure.csproj">
       <Project>{9D30515E-5D3C-4FE5-8AA4-B8352328EF25}</Project>
       <Name>Phundus.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Phundus.Integration\Phundus.Integration.csproj">
+      <Project>{91C1A2A6-65D2-44BA-9985-C35F1705888A}</Project>
+      <Name>Phundus.Integration</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
