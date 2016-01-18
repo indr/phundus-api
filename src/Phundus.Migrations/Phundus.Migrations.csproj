@@ -43,12 +43,16 @@
     <Reference Include="FluentMigrator.Runner">
       <HintPath>..\..\packages\FluentMigrator.Tools.1.0.6.0\tools\AnyCPU\40\FluentMigrator.Runner.dll</HintPath>
     </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>..\..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -146,6 +150,7 @@
     <Compile Include="2015\12\M201512300956CreateOrganizationsStore.cs" />
     <Compile Include="2015\12\M201512301153AddStoreToArticle.cs" />
     <Compile Include="2015\12\M201512310708DeleteColumnOrganizationCoordinate.cs" />
+    <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
     <Compile Include="2016\01\M201601131554_Create_View_Shop_Lessors.cs" />
@@ -172,6 +177,7 @@
     <Compile Include="2016\01\M201601161147_Clean_StoredEvents_and_EventLog.cs" />
     <Compile Include="2016\01\M201601170740_Remove_Path_From_Article_Images.cs" />
     <Compile Include="2016\01\M201601181139_Clean_and_generate_missing_applications.cs" />
+    <Compile Include="2016\01\M201601181801_Add_UserGuid_to_UserSignedUp.cs" />
     <Compile Include="Helper\DatedAttribute.cs" />
     <Compile Include="Helper\MigrationBase.cs" />
     <Compile Include="Helper\Runner.cs" />
@@ -182,7 +188,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">
+      <Project>{0BA282A6-FEA2-44A2-9748-1DE0E4E32018}</Project>
+      <Name>Phundus.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Phundus.Core\Phundus.Core.csproj">
+      <Project>{B4C597FF-EF4C-4F33-B2C8-172C1F3E9A56}</Project>
+      <Name>Phundus.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
