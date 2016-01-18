@@ -9,8 +9,31 @@ namespace Phundus.Migrations
 
     public abstract class EventMigrationBase : MigrationBase
     {
+        protected static IDictionary<int, Guid> OrganizationIdMap = new Dictionary<int, Guid>
+        {
+            {1000, new Guid("1E2311AD-2340-4AB1-BE0E-54DA9658FBD7")},
+            {1001, new Guid("9E327414-8BDC-42E5-A711-3A15694C0026")},
+            {1002, new Guid("4E5F3B71-9FCC-4CC6-AC66-B0258861C3E9")},
+            {1003, new Guid("393FCA14-71F8-4348-A0E5-7F6E6C025339")},
+            {1004, new Guid("8B657CC6-61DE-4F84-A5E2-3EC08E9FF487")},
+            {1005, new Guid("08308E87-58D6-43CD-A583-72F8A83AC15D")},
+            {1006, new Guid("428D069D-1183-4643-BECF-276A9BC523BE")},
+            {1007, new Guid("3B148DC3-AE2C-4486-9D63-BEB5A9BE320E")}
+        };
+
         protected IDbConnection Connection;
         protected IDbTransaction Transaction;
+        private IDictionary<int, Guid> _userIdMap;
+
+        protected IDictionary<int, Guid> UserIdMap
+        {
+            get
+            {
+                if (_userIdMap == null)
+                    _userIdMap = GetIdToGuidMap("SELECT [Id], [Guid] FROM [Dm_IdentityAccess_User]");
+                return _userIdMap;
+            }
+        }
 
         public override void Up()
         {
@@ -43,25 +66,6 @@ namespace Phundus.Migrations
             return result;
         }
 
-        protected IDictionary<int, Guid> GetUserIdMap()
-        {
-            return GetIdToGuidMap("SELECT [Id], [Guid] FROM [Dm_IdentityAccess_User]");
-        } 
-
-        protected IDictionary<int, Guid> GetOrganizationIdMap()
-        {
-            return new Dictionary<int, Guid>
-            {
-                {1000, new Guid("1E2311AD-2340-4AB1-BE0E-54DA9658FBD7")},
-                {1001, new Guid("9E327414-8BDC-42E5-A711-3A15694C0026")},
-                {1002, new Guid("4E5F3B71-9FCC-4CC6-AC66-B0258861C3E9")},
-                {1003, new Guid("393FCA14-71F8-4348-A0E5-7F6E6C025339")},
-                {1004, new Guid("8B657CC6-61DE-4F84-A5E2-3EC08E9FF487")},
-                {1005, new Guid("08308E87-58D6-43CD-A583-72F8A83AC15D")},
-                {1006, new Guid("428D069D-1183-4643-BECF-276A9BC523BE")},
-                {1007, new Guid("3B148DC3-AE2C-4486-9D63-BEB5A9BE320E")}
-            };
-        }
 
         protected void UpdateSerialization(long eventId, object domainEvent)
         {
@@ -72,7 +76,8 @@ namespace Phundus.Migrations
             command.Transaction = Transaction;
             command.Parameters.Add(new SqlParameter(@"EventId", eventId));
             command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
-            command.CommandText = @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventId] = @EventId";
+            command.CommandText =
+                @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventId] = @EventId";
             command.ExecuteNonQuery();
         }
 
@@ -107,6 +112,20 @@ WHERE [TypeName] = @TypeName";
             return result;
         }
 
+        internal void ForEach<TDomainEvent>(string typeName, Action<long, TDomainEvent> action)
+        {
+            var storedEvents = FindStoredEvents(typeName);
+            foreach (var storedEvent in storedEvents)
+            {
+                action(storedEvent.EventId, Deserialize<TDomainEvent>(storedEvent.Serialization));
+            }
+        }
+
+        internal T Deserialize<T>(byte[] serialization)
+        {
+            return Serializer.Deserialize<T>(new MemoryStream(serialization));
+        }
+
         internal class StoredEvent
         {
             public Guid AggregateId;
@@ -118,7 +137,7 @@ WHERE [TypeName] = @TypeName";
 
             public T Deserialize<T>()
             {
-                return Serializer.Deserialize<T>(new MemoryStream(this.Serialization));
+                return Serializer.Deserialize<T>(new MemoryStream(Serialization));
             }
         }
     }

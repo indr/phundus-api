@@ -1,29 +1,24 @@
 ﻿namespace Phundus.Migrations
 {
     using System;
-    using System.IO;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
     using FluentMigrator;
-    using ProtoBuf;
 
     [Migration(201601181801)]
     public class M201601181801_Add_UserGuid_to_UserSignedUp : EventMigrationBase
     {
         protected override void Migrate()
         {
-            var userIdMap = GetUserIdMap();
-            var storedEvents = FindStoredEvents(@"Phundus.IdentityAccess.Users.Model.UserLoggedIn, Phundus.Core");
-            foreach (var storedEvent in storedEvents)
-            {
-
-                var domainEvent = storedEvent.Deserialize<UserSignedUp>();
-                if (domainEvent.UserGuid == Guid.Empty)
+            ForEach<UserSignedUp>(@"Phundus.IdentityAccess.Users.Model.UserLoggedIn, Phundus.Core",
+                (eventId, domainEvent) =>
                 {
-                    domainEvent.UserGuid = userIdMap[domainEvent.UserIntegralId];
-                    UpdateSerialization(storedEvent.EventId, domainEvent);
-                }
-            }
+                    if (domainEvent.UserGuid == Guid.Empty)
+                    {
+                        domainEvent.UserGuid = UserIdMap[domainEvent.UserIntegralId];
+                        UpdateSerialization(eventId, domainEvent);
+                    }
+                });
         }
 
         [DataContract]
