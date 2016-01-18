@@ -35,11 +35,6 @@
         {
         }
 
-        private OrganizationId OrganizationId
-        {
-            get { return Id; }
-        }
-
         public virtual DateTime EstablishedAtUtc
         {
             get { return _establishedAtUtc; }
@@ -108,7 +103,7 @@
             var application = new MembershipApplication(membershipApplicationId.Id, Id.Id, user.UserId);
             Applications.Add(application);
 
-            EventPublisher.Publish(new MembershipApplicationFiled(initiatorId, OrganizationId, user.UserId));
+            EventPublisher.Publish(new MembershipApplicationFiled(initiatorId, Id, user.UserId));
 
             return application;
         }
@@ -130,7 +125,7 @@
             membership.Organization = this;
             Memberships.Add(membership);
 
-            EventPublisher.Publish(new MembershipApplicationApproved(initiatorId, OrganizationId,
+            EventPublisher.Publish(new MembershipApplicationApproved(initiatorId, Id,
                 application.UserId));
         }
 
@@ -138,7 +133,7 @@
         {
             application.Reject();
 
-            EventPublisher.Publish(new MembershipApplicationRejected(initiatorId, OrganizationId,
+            EventPublisher.Publish(new MembershipApplicationRejected(initiatorId, Id,
                 application.UserId));
         }
 
