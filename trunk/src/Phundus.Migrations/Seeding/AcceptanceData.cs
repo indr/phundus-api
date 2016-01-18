@@ -29,6 +29,7 @@
             Delete.FromTable("Dm_Inventory_Store").InSchema(SchemaName).AllRows();
             Delete.FromTable("StoredEvents").InSchema(SchemaName).AllRows();
             Delete.FromTable("Rm_EventLog").InSchema(SchemaName).AllRows();
+            Delete.FromTable("ProcessedNotificationTracker").InSchema(SchemaName).AllRows();
 
             Import<Organization>("Organizations.csv", "Dm_IdentityAccess_Organization", false);
             Import<Store>("Organizations.csv", "Dm_Inventory_Store", false);
