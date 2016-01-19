@@ -10,7 +10,7 @@ namespace Phundus.Migrations
         {
             Delete.FromTable("ProcessedNotificationTracker").AllRows();
             Delete.FromTable("Rm_EventLog");
-            Delete.FromTable("Rm_Relationships");
+            Delete.FromTable("Es_IdentityAccess_Relationships");
         }
 
         public override void Down()
