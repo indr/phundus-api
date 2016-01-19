@@ -5,6 +5,7 @@
     using System.Net;
     using ContentTypes;
     using Entities;
+    using NUnit.Framework;
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -233,9 +234,9 @@
             return response.Data;
         }
 
-        public Guid ApplyForMembership(User user, Organization organization)
+        public Guid ApplyForMembership(User user, Organization organization, bool assertHttpStatus = true)
         {
-            var response = _apiClient.OrganizationsApplicationsApi
+            var response = _apiClient.Assert(assertHttpStatus).OrganizationsApplicationsApi
                 .Post<OrganizationsApplicationsPostOkResponseContent>(new {organizationId = organization.OrganizationId});
             return response.Data.ApplicationId;
         }

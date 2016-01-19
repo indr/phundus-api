@@ -49,6 +49,12 @@
             App.DeleteSessionCookies();
         }
 
+        [When(@"I try to apply for membership")]
+        public void WhenITryToApplyForMembership()
+        {
+            App.ApplyForMembership(Ctx.User, Ctx.Organization, assertHttpStatus: false);
+        }
+
         [When(@"I try to get my relationship status")]
         public void WhenIGetMyMembershipStatus()
         {
