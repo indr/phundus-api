@@ -155,6 +155,8 @@
     <Compile Include="2016\01\M201601190635_Migrate_member_locked_and_unlocked.cs" />
     <Compile Include="2016\01\M201601190729_Create_Table_Es_IdentityAccess_Relationships.cs" />
     <Compile Include="2016\01\M201601190949_Drop_Table_Rm_Contracts.cs" />
+    <Compile Include="2016\01\M201601191127_Create_Missing_MembershipApplicationFiled_Events.cs" />
+    <Compile Include="2016\01\M201601191128_Create_Missing_MembershipApplicationApproved_Events.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />

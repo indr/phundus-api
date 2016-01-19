@@ -22,7 +22,6 @@
 
         public void Reset()
         {
-            throw new NotImplementedException();
         }
     }
 }
