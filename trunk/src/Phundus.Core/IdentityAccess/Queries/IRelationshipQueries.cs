@@ -2,9 +2,10 @@
 {
     using System;
     using Common.Domain.Model;
+    using EventSourcedViewsUpdater;
 
     public interface IRelationshipQueries
     {
-        RelationshipDto ByMemberIdForOrganizationId(UserId memberId, Guid organizationId);
+        RelationshipViewRow ByMemberIdForOrganizationId(UserId memberId, Guid organizationId);
     }
 }
