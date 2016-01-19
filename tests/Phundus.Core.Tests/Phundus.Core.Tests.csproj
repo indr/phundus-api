@@ -117,7 +117,8 @@
     <Compile Include="Inventory\Articles\Commands\AddImageSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\RemoveImageSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\SetPreviewImageHandlerSpecs.cs" />
-    <Compile Include="Inventory\Articles\Model\ArticleSpecs.cs" />
+    <Compile Include="Inventory\Model\ArticleSpecs.cs" />
+    <Compile Include="Inventory\Model\StoreSpecs.cs" />
     <Compile Include="Inventory\OrganizationStoreOpenerSpecs.cs" />
     <Compile Include="concern.cs" />
     <Compile Include="Cqrs\TestCommand1.cs" />
@@ -185,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IdentityAccess\Model\" />
+    <Folder Include="Inventory\Articles\Model\" />
     <Folder Include="Inventory\Stores\" />
     <Folder Include="_Legacy\Entities\ArticleTests\" />
   </ItemGroup>

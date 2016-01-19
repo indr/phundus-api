@@ -20,7 +20,7 @@
             _owner = owner;
             _address = null;
             _coordinate = null;
-            _openingHours = null;
+            _openingHours = "nach Vereinbarung";
         }
 
         protected Store()
