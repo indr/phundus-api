@@ -1,5 +1,6 @@
 namespace Phundus.Dashboard.Querying
 {
+    using Castle.Transactions;
     using Common.Events;
     using Common.Notifications;
 
@@ -15,7 +16,6 @@ namespace Phundus.Dashboard.Querying
 
         public void Handle(Notification notification)
         {
-            // TODO: Remove when MQ is in place
             lock (_lock)
             {
                 var domainEventHandler = DomainEventHandlerFactory.GetDomainEventHandlers();
@@ -25,6 +25,37 @@ namespace Phundus.Dashboard.Querying
                     UpdateReadModel(handler, notification);
                 }
             }
+        }
+
+        [Transaction]
+        public void Handle(long maxValue)
+        {
+            lock (_lock)
+            {
+                var domainEventHandler = DomainEventHandlerFactory.GetDomainEventHandlers();
+                foreach (var handler in domainEventHandler)
+                {
+                    UpdateReadModel(handler, EventStore.GetMaxNotificationId());
+                }
+            }
+        }
+
+        private void UpdateReadModel(IDomainEventHandler domainEventHandler, long notificationId)
+        {
+            
+            var tracker =
+                ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(domainEventHandler.GetType().FullName);
+            if (tracker.MostRecentProcessedNotificationId >= notificationId)
+                return;
+
+            var events = EventStore.AllStoredEventsBetween(tracker.MostRecentProcessedNotificationId + 1,
+                notificationId);
+            foreach (var each in events)
+            {
+                domainEventHandler.Handle(EventStore.ToDomainEvent(each));
+            }
+
+            ProcessedNotificationTrackerStore.TrackMostRecentProcessedNotificationId(tracker, notificationId);
         }
 
         private void UpdateReadModel(IDomainEventHandler domainEventHandler, Notification notification)

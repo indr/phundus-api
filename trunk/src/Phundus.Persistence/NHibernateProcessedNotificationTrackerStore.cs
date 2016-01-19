@@ -7,7 +7,6 @@ namespace Phundus.Persistence
     using Common.Notifications;
     using FluentNHibernate.Mapping;
     using NHibernate;
-    using Remotion.Linq.Clauses.ResultOperators;
 
     public class ProcessedNotificationTrackerMap : ClassMap<ProcessedNotificationTracker>
     {
@@ -56,6 +55,13 @@ namespace Phundus.Persistence
         public void TrackMostRecentProcessedNotification(ProcessedNotificationTracker tracker, Notification notification)
         {
             tracker.MostRecentProcessedNotificationId = notification.NotificationId;
+
+            Session.SaveOrUpdate(tracker);
+        }
+
+        public void TrackMostRecentProcessedNotificationId(ProcessedNotificationTracker tracker, long notificationId)
+        {
+            tracker.MostRecentProcessedNotificationId = notificationId;
 
             Session.SaveOrUpdate(tracker);
         }
