@@ -145,6 +145,7 @@
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IOrganizationRepository.cs" />
+    <Compile Include="IdentityAccess\Queries\EventSourcedViewsUpdater\EsRelationshipsUpdater.cs" />
     <Compile Include="IdentityAccess\Queries\IMemberInRole.cs" />
     <Compile Include="IdentityAccess\Queries\IMembershipQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IOrganizationQueries.cs" />

@@ -153,6 +153,7 @@
     <Compile Include="2016\01\M201601182024_Migrate_membership_application_events.cs" />
     <Compile Include="2016\01\M201601190652_Reset_all_ProcessedNotificationTracker.cs" />
     <Compile Include="2016\01\M201601190635_Migrate_member_locked_and_unlocked.cs" />
+    <Compile Include="2016\01\M201601190729_Create_Table_Es_IdentityAccess_Relationships.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
