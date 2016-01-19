@@ -5,6 +5,7 @@ namespace Phundus.Migrations
     using System.Data;
     using System.Data.SqlClient;
     using System.IO;
+    using Common.Domain.Model;
     using ProtoBuf;
 
     public abstract class EventMigrationBase : MigrationBase
@@ -15,10 +16,11 @@ namespace Phundus.Migrations
             {1001, new Guid("9E327414-8BDC-42E5-A711-3A15694C0026")},
             {1002, new Guid("4E5F3B71-9FCC-4CC6-AC66-B0258861C3E9")},
             {1003, new Guid("393FCA14-71F8-4348-A0E5-7F6E6C025339")},
-            //{1004, new Guid("8B657CC6-61DE-4F84-A5E2-3EC08E9FF487")},
+            //{1004, new Guid("8B657CC6-61DE-4F84-A5E2-3EC08E9FF487")}, // Nicht sicher
             {1005, new Guid("08308E87-58D6-43CD-A583-72F8A83AC15D")},
-            {1006, new Guid("428D069D-1183-4643-BECF-276A9BC523BE")}
-            //{1007, new Guid("3B148DC3-AE2C-4486-9D63-BEB5A9BE320E")}
+            {1006, new Guid("428D069D-1183-4643-BECF-276A9BC523BE")},
+            //{1007, new Guid("3B148DC3-AE2C-4486-9D63-BEB5A9BE320E")} // Stimmt nicht
+            {1009, new Guid("3B148DC3-AE2C-4486-9D63-BEB5A9BE320E")} // Ludothek Luzern
         };
 
         protected IDbConnection Connection;
@@ -128,12 +130,31 @@ WHERE [TypeName] = @TypeName";
             return result;
         }
 
+        internal void ForEach(string typeName, Action<StoredEvent> action)
+        {
+            var storedEvents = FindStoredEvents(typeName);
+            foreach (var storedEvent in storedEvents)
+            {
+                action(storedEvent);
+            }
+        }
+
         internal void ForEach<TDomainEvent>(string typeName, Action<long, TDomainEvent> action)
         {
             var storedEvents = FindStoredEvents(typeName);
             foreach (var storedEvent in storedEvents)
             {
-                action(storedEvent.EventId, Deserialize<TDomainEvent>(storedEvent.Serialization));
+                TDomainEvent domainEvent;
+                try
+                {
+                    domainEvent = Deserialize<TDomainEvent>(storedEvent.Serialization);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(String.Format(@"Error deserializing event {0}, event type name ""{1}"", requested domain event type ""{2}"".",
+                     storedEvent.EventGuid, storedEvent.TypeName, typeof(TDomainEvent).FullName + ", " + typeof(TDomainEvent).Assembly.GetName().Name), ex);
+                }
+                action(storedEvent.EventId, domainEvent);
             }
         }
 
