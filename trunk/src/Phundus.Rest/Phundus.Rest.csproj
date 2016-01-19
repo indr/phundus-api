@@ -127,6 +127,7 @@
     <Compile Include="Api\FeedbackController.cs" />
     <Compile Include="Api\LesseesController.cs" />
     <Compile Include="Api\LessorsController.cs" />
+    <Compile Include="Api\MaintenanceController.cs" />
     <Compile Include="Api\Shop\ShopItemsAvailabilityCheckController.cs" />
     <Compile Include="Api\Shop\ShopOrdersController.cs" />
     <Compile Include="Api\UsernameCheckController.cs" />

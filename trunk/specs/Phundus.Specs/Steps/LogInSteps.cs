@@ -11,6 +11,7 @@
         {
         }
 
+        [Given(@"I logged in as root")]
         [Given(@"I am logged in as root")]
         public void GivenIAmLoggedInAsRoot()
         {
