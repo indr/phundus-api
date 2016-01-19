@@ -1,4 +1,4 @@
-﻿namespace Phundus.Tests.Inventory.Articles.Model
+﻿namespace Phundus.Tests.Inventory.Model
 {
     using System.Linq;
     using Common.Domain.Model;
