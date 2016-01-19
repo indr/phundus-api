@@ -4,7 +4,7 @@
 
     public class RelationshipViewRow
     {
-        public virtual Guid RelationshipGuid { get; set; }
+        public virtual Guid RowGuid { get; set; }
 
         public virtual Guid OrganizationGuid { get; set; }
 
