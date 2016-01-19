@@ -92,7 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\MissedNotificationsStartupTask.cs" />
+    <Compile Include="App_Start\ProcessMissedNotificationsStartupTask.cs" />
     <Compile Include="App_Start\NotificationPublisherInstaller.cs" />
     <Compile Include="App_Start\CommonInstaller.cs" />
     <Compile Include="App_Start\QueriesInstaller.cs" />
