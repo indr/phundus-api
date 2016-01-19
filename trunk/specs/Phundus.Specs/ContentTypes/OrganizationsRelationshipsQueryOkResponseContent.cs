@@ -17,6 +17,12 @@
 
     public class OrganizationsRelationshipsQueryOkResponseContent
     {
+        [JsonProperty("result")]
+        public Relationship Result { get; set; }
+    }
+
+    public class Relationship
+    {
         [JsonProperty("organizationId")]
         public Guid OrganizationId { get; set; }
 
