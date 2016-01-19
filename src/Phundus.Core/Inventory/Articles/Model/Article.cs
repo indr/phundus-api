@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq;
-    using Bootstrap;
     using Common;
     using Common.Domain.Model;
     using Ddd;
@@ -164,7 +163,10 @@
 
         public virtual void SetPreviewImage(string fileName)
         {
-            Images.ForEach(a => a.IsPreview = a.FileName == fileName);
+            foreach (var eachImage in Images)
+            {
+                eachImage.IsPreview = eachImage.FileName == fileName;
+            }
         }
     }
 }
