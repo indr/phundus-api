@@ -35,22 +35,26 @@
 
         private void UpdateOrInsert(Guid userId, Guid organizationId, DateTime timestamp, string status)
         {
-            var row = QueryOver().Where(p =>
+            var row = Session.QueryOver<RelationshipViewRow>().Where(p =>
                 p.UserGuid == userId && p.OrganizationGuid == organizationId).SingleOrDefault();
-            
+
             if (row == null)
             {
                 row = new RelationshipViewRow
                 {
                     OrganizationGuid = organizationId,
-                    UserGuid = userId
+                    UserGuid = userId,
+                    Status = status,
+                    Timestamp = timestamp
                 };
+                Session.Save(row);
+                Session.Flush();
+                return;
             }
 
             row.Status = status;
             row.Timestamp = timestamp;
-
-            Session.SaveOrUpdate(row);
+            Session.Update(row);
         }
     }
 }

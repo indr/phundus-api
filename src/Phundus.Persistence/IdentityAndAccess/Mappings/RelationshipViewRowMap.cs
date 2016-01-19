@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
 {
-    using System;
     using FluentNHibernate.Mapping;
     using IdentityAccess.Queries.EventSourcedViewsUpdater;
     using NHibernate.Type;
