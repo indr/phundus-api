@@ -28,7 +28,7 @@ namespace Phundus.Dashboard.Querying
         }
 
         [Transaction]
-        public void Handle(long maxValue)
+        public void ProcessMissedNotifications()
         {
             lock (_lock)
             {

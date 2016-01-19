@@ -16,7 +16,7 @@
 
         public void Run()
         {
-            _notificationHandler.Handle(long.MaxValue);
+            _notificationHandler.ProcessMissedNotifications();
         }
 
         public void Reset()
