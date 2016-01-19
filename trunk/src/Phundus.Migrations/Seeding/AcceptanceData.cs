@@ -15,28 +15,33 @@
     {
         public override void Up()
         {
+            Delete.FromTable("Dm_IdentityAccess_Account").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_IdentityAccess_Application").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_IdentityAccess_Membership").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_IdentityAccess_Organization").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_IdentityAccess_User").InSchema(SchemaName).AllRows();
+
+            Delete.FromTable("Dm_Inventory_ArticleFile").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_Inventory_Article").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Dm_Inventory_Store").InSchema(SchemaName).AllRows();
+
+            Delete.FromTable("Dm_Shop_CartItem").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_Shop_Cart").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_Shop_OrderItem").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_Shop_Order").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Dm_Inventory_ArticleFile").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Dm_Inventory_Article").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Dm_IdentityAccess_Membership").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Rm_Relationships").AllRows();
-            Delete.FromTable("Dm_IdentityAccess_Account").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Dm_IdentityAccess_User").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Dm_IdentityAccess_Organization").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Dm_IdentityAccess_Application").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Dm_Inventory_Store").InSchema(SchemaName).AllRows();
-            Delete.FromTable("StoredEvents").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Rm_EventLog").InSchema(SchemaName).AllRows();
+
+            Delete.FromTable("Es_Dashboard_EventLog").InSchema(SchemaName).AllRows();
+            Delete.FromTable("Es_IdentityAccess_Relationships").AllRows();
+
             Delete.FromTable("ProcessedNotificationTracker").InSchema(SchemaName).AllRows();
+            Delete.FromTable("StoredEvents").InSchema(SchemaName).AllRows();
 
             Import<Organization>("Organizations.csv", "Dm_IdentityAccess_Organization", false);
             Import<Store>("Organizations.csv", "Dm_Inventory_Store", false);
             Import<User>("Users.csv", "Dm_IdentityAccess_User");
             Import<Account>("Users.csv", "Dm_IdentityAccess_Account", false);
             Import<Membership>("Memberships.csv", "Dm_IdentityAccess_Membership", false);
-            Import<RmRelationship>("Memberships.csv", "Rm_Relationships", false);
+            //Import<RmRelationship>("Memberships.csv", "Rm_Relationships", false);
             ImportArticle();
             Import<ArticleImage>("ArticleImages.csv", "Dm_Inventory_ArticleFile", false);
 
