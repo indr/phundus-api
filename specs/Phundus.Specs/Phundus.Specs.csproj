@@ -184,6 +184,12 @@
       <DependentUpon>Feedback.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Feedback\FeedbackSteps.cs" />
+    <Compile Include="Features\Maintenance\Maintenance.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Maintenance.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Maintenance\MaintenanceSteps.cs" />
     <Compile Include="Features\Orders\AddOrderItem.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -367,6 +373,10 @@
     </None>
     <None Include="Default.srprofile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Features\Maintenance\Maintenance.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Maintenance.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Orders\AddOrderItem.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

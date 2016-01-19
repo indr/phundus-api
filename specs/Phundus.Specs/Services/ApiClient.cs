@@ -122,6 +122,11 @@
             get { return Resource("articles/{articleId}/files/{fileName}"); }
         }
 
+        public Resource MaintenanceApi
+        {
+            get { return Resource("maintenance"); }
+        }
+
         private Resource Resource(string url)
         {
             var result = new Resource(url, _assertNextHttpStatusCode);

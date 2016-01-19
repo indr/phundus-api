@@ -4,6 +4,7 @@
     using System.Configuration;
     using System.Reflection;
     using ContentTypes;
+    using Machine.Specifications;
     using NUnit.Framework;
     using Services;
     using Steps;
@@ -46,6 +47,14 @@
             var revision = assembly.GetName().Version.Revision;
             var expected = String.Format("{0} (build {1})", version, revision);
             Assert.That(_status.ServerVersion, Is.EqualTo(expected));
+        }
+
+        [Then(@"I should see server status in maintenance (.*)")]
+        public void ThenIShouldSeeServerStatusInMaintenance(bool inMaintenance)
+        {
+            if (_status == null)
+                WhenIGetStatusInfo();
+            Assert.That(_status.InMaintenance, Is.EqualTo(inMaintenance));
         }
 
     }

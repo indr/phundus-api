@@ -13,5 +13,8 @@ namespace Phundus.Rest.ContentObjects
 
         [JsonProperty("serverVersion")]
         public string ServerVersion { get; set; }
+
+        [JsonProperty("inMaintenance")]
+        public bool InMaintenance { get; set; }
     }
 }

@@ -12,5 +12,7 @@
             ServerUrl = ConfigurationManager.AppSettings["ServerUrl"];
             FeedbackRecipients = ConfigurationManager.AppSettings["FeedbackRecipients"];
         }
+
+        public static bool InMaintenance { get; set; }
     }
 }

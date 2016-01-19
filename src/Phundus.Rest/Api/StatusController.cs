@@ -19,12 +19,14 @@
             var version = assembly.GetName().Version.ToString(3);
             var revision = assembly.GetName().Version.Revision;
             var serverVersion = String.Format("{0} (build {1})", version, revision);
+            var inMaintenance = Config.InMaintenance;
 
             return new StatusGetOkResponseContent
             {
                 ServerDateTimeUtc = DateTime.UtcNow,
                 ServerUrl = Config.ServerUrl,
-                ServerVersion = serverVersion
+                ServerVersion = serverVersion,
+                InMaintenance = inMaintenance
             };
         }
     }

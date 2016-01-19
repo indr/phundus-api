@@ -378,5 +378,10 @@
                 contactDetails = new {postAddress, phoneNumber, emailAddress, website}
             });
         }
+
+        public void SetMaintenanceMode(bool inMaintenance, bool assertStatusCode = true)
+        {
+            _apiClient.Assert(assertStatusCode).MaintenanceApi.Patch(new { inMaintenance = inMaintenance });
+        }
     }
 }
