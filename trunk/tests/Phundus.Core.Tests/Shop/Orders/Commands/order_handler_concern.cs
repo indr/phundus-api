@@ -6,7 +6,7 @@ namespace Phundus.Tests.Shop.Orders.Commands
     using Machine.Specifications;
     using Phundus.Cqrs;
     using Phundus.IdentityAccess.Queries;
-    using Phundus.Shop.Contracts.Model;
+    using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Repositories;
     using Phundus.Shop.Services;

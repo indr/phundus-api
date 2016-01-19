@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common.Domain.Model;
-    using Contracts.Model;
     using Ddd;
     using Iesi.Collections.Generic;
+    using Shop.Model;
 
     public class Order
     {

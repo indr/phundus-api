@@ -57,11 +57,6 @@ namespace Phundus.Specs.Rest
             throw new ApplicationException(message, ex);
         }
 
-        public class ContractsPostDto
-        {
-            public int UserId { get; set; }
-        }
-
         public IRestResponse<OrderDetailDoc> PostOrder(Guid organizationId, Guid lesseeId)
         {
             var request = new RestRequest(Method.POST);

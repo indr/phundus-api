@@ -3,8 +3,8 @@
     using System;
     using Common;
     using Common.Domain.Model;
-    using Contracts.Model;
     using Integration.IdentityAccess;
+    using Model;
 
     public interface ILesseeService
     {

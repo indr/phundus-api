@@ -114,7 +114,6 @@
     <Compile Include="Shop\Mappings\OrderMap.cs" />
     <Compile Include="Shop\Repositories\NhCartRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\NhMembershipRequestRepository.cs" />
-    <Compile Include="Shop\Repositories\NhContractRepository.cs" />
     <Compile Include="Shop\Repositories\NhOrderRepository.cs" />
     <Compile Include="IdentityAndAccess\Repositories\NhOrganizationRepository.cs" />
     <Compile Include="Inventory\Repositories\NhReservationsBasedOnOrdersRepository.cs" />
