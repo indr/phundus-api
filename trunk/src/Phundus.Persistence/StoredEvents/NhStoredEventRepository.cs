@@ -29,7 +29,10 @@
 
         public long GetMaxNotificationId()
         {
-            return (from se in Entities select se.EventId).Max();
+            var result = (from se in Entities select se.EventId).Max(x => (long?)x);
+            if (result.HasValue)
+                return result.Value;
+            return 0;
         }
     }
 }
