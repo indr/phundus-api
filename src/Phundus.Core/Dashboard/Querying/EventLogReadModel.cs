@@ -70,6 +70,22 @@ namespace Phundus.Dashboard.Querying
             Insert(record);
         }
 
+        public void Process(MemberLocked domainEvent)
+        {
+            var record = CreateRecord(domainEvent);
+            record.Text = string.Format("Benutzer {2} hat Mitglied {0} bei Organization {1} gesperrt.",
+                domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
+            Insert(record);
+        }
+
+        public void Process(MemberUnlocked domainEvent)
+        {
+            var record = CreateRecord(domainEvent);
+            record.Text = string.Format("Benutzer {2} hat Mitglied {0} bei Organization {1} entsperrt.",
+                domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
+            Insert(record);
+        }
+
         private static EventLogRecord CreateRecord(DomainEvent @event)
         {
             var record = new EventLogRecord();

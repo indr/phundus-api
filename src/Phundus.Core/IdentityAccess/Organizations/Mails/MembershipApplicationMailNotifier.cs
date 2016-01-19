@@ -32,8 +32,8 @@
 
         public void Handle(MemberLocked @event)
         {
-            var user = _userQueries.GetByGuid(@event.MemberId);
-            var organization = _organizationQueries.GetById(@event.OrganizationId);
+            var user = _userQueries.GetByGuid(@event.UserGuid);
+            var organization = _organizationQueries.GetById(@event.OrganizationGuid);
 
             Model = new
             {
@@ -103,8 +103,8 @@
 
         public void Handle(MemberUnlocked @event)
         {
-            var user = _userQueries.GetByGuid(@event.MemberId);
-            var organization = _organizationQueries.GetById(@event.OrganizationId);
+            var user = _userQueries.GetByGuid(@event.UserGuid);
+            var organization = _organizationQueries.GetById(@event.OrganizationGuid);
 
             Model = new
             {

@@ -1,4 +1,4 @@
-namespace Phundus.Migrations
+﻿namespace Phundus.Migrations
 {
     using System;
     using System.Runtime.Serialization;
@@ -6,8 +6,8 @@ namespace Phundus.Migrations
     using Common.Domain.Model;
     using FluentMigrator;
 
-    [Migration(201601182024)]
-    public class M201601182024_Add_UserGuid_and_OrganizationGuid_to_membership_application_events : EventMigrationBase
+    [Migration(201601190635)]
+    public class M201601190635_Migrate_member_locked_and_unlocked : EventMigrationBase
     {
         private StringBuilder _sb;
 
@@ -18,23 +18,22 @@ namespace Phundus.Migrations
         {
             _sb = new StringBuilder();
 
-            ProcessFiled(@"Phundus.IdentityAccess.Organizations.Model.MembershipApplicationFiled, Phundus.Core");
-            ProcessApproved(@"Phundus.IdentityAccess.Organizations.Model.MembershipApplicationApproved, Phundus.Core");
-            ProcessRejected(@"Phundus.IdentityAccess.Organizations.Model.MembershipApplicationRejected, Phundus.Core");
+            ProcessLocked(@"Phundus.IdentityAccess.Organizations.Model.MemberLocked, Phundus.Core");
+            ProcessUnlocked(@"Phundus.IdentityAccess.Organizations.Model.MemberUnlocked, Phundus.Core");
             
+
             if (_sb.Length > 0)
                 throw new Exception(_sb.ToString());
         }
 
-        private void ProcessFiled(string typeName)
+        private void ProcessLocked(string typeName)
         {
             ForEach(typeName, storedEvent =>
             {
-                var current = new CurrentMembershipApplicationEvent();
+                var current = new CurrentEvent();
                 if (storedEvent.OccuredOnUtc < Rev_1506)
                 {
-                    var rev1387 = Deserialize<Filed_Rev_1387>(storedEvent.Serialization);
-                    current.InitiatorId = Guid.Empty;
+                    var rev1387 = Deserialize<Locked_Rev_883>(storedEvent.Serialization);
                     current.OrganizationGuid = Guid.Empty;
                     current.UserGuid = Guid.Empty;
                     current.OrganizationIntegralId = rev1387.OrganizationId;
@@ -42,8 +41,7 @@ namespace Phundus.Migrations
                 }
                 else
                 {
-                    var rev1506 = Deserialize<Filed_Rev_1506>(storedEvent.Serialization);
-                    current.InitiatorId = Guid.Empty;
+                    var rev1506 = Deserialize<Locked_Rev_1416>(storedEvent.Serialization);
                     current.OrganizationGuid = rev1506.OrganizationId;
                     current.UserGuid = Guid.Empty;
                     current.OrganizationIntegralId = 0;
@@ -75,16 +73,14 @@ namespace Phundus.Migrations
             });
         }
 
-        private void ProcessApproved(string typeName)
+        private void ProcessUnlocked(string typeName)
         {
             ForEach(typeName, storedEvent =>
             {
-                var current = new CurrentMembershipApplicationEvent();
-
+                var current = new CurrentEvent();
                 if (storedEvent.OccuredOnUtc < Rev_1506)
                 {
-                    var rev1387 = Deserialize<Approved_Rev_1387>(storedEvent.Serialization);
-                    current.InitiatorId = Guid.Empty;
+                    var rev1387 = Deserialize<Unlocked_Rev_883>(storedEvent.Serialization);
                     current.OrganizationGuid = Guid.Empty;
                     current.UserGuid = Guid.Empty;
                     current.OrganizationIntegralId = rev1387.OrganizationId;
@@ -92,8 +88,7 @@ namespace Phundus.Migrations
                 }
                 else
                 {
-                    var rev1506 = Deserialize<Approved_Rev_1506>(storedEvent.Serialization);
-                    current.InitiatorId = Guid.Empty;
+                    var rev1506 = Deserialize<Unlocked_Rev_1416>(storedEvent.Serialization);
                     current.OrganizationGuid = rev1506.OrganizationId;
                     current.UserGuid = Guid.Empty;
                     current.OrganizationIntegralId = 0;
@@ -101,50 +96,10 @@ namespace Phundus.Migrations
                 }
 
 
-                if (current.UserGuid == Guid.Empty)
-                    current.UserGuid = GetUserGuid(current.UserIntegralId);
-                if (current.OrganizationGuid == Guid.Empty)
-                    current.OrganizationGuid = GetOrganizationGuid(current.OrganizationIntegralId);
-
-                if (current.UserGuid == Guid.Empty)
-                    throw new Exception(String.Format("Current.UserGuid is empty. Current.UserIntegralId = {0}.", current.UserIntegralId));
-                if (current.OrganizationGuid == Guid.Empty)
-                    throw new Exception(String.Format("Current.OrganizationGuid is empty. Current.OrganizationIntegralId = {0}", current.OrganizationIntegralId));
-                UpdateSerialization(storedEvent.EventId, current);
-
-                //if (OrganizationIdMap.ContainsKey(current.OrganizationIntegralId))
-                //    return;
-
-                //_sb.AppendLine(String.Format("Org: {0}, {1}, User {2}", current.OrganizationIntegralId, current.OrganizationGuid,
-                //    current.UserIntegralId));
-            });
-        }
-
-        private void ProcessRejected(string typeName)
-        {
-            ForEach(typeName, storedEvent =>
-            {
-                var current = new CurrentMembershipApplicationEvent();
-
-                if (storedEvent.OccuredOnUtc < Rev_1506)
+                if ((current.OrganizationGuid != Guid.Empty) && (current.UserGuid != Guid.Empty))
                 {
-                    var rev1387 = Deserialize<Rejected_Rev_1387>(storedEvent.Serialization);
-                    current.InitiatorId = Guid.Empty;
-                    current.OrganizationGuid = Guid.Empty;
-                    current.UserGuid = Guid.Empty;
-                    current.OrganizationIntegralId = rev1387.OrganizationId;
-                    current.UserIntegralId = rev1387.UserId;
+                    return;
                 }
-                else
-                {
-                    var rev1506 = Deserialize<Rejected_Rev_1506>(storedEvent.Serialization);
-                    current.InitiatorId = Guid.Empty;
-                    current.OrganizationGuid = rev1506.OrganizationId;
-                    current.UserGuid = Guid.Empty;
-                    current.OrganizationIntegralId = 0;
-                    current.UserIntegralId = rev1506.UserId;
-                }
-
 
                 if (current.UserGuid == Guid.Empty)
                     current.UserGuid = GetUserGuid(current.UserIntegralId);
@@ -166,82 +121,59 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        internal class CurrentMembershipApplicationEvent : DomainEvent
+        public class CurrentEvent : DomainEvent
         {
-            [DataMember(Order = 4)]
-            public Guid InitiatorId { get; set; }
-
             [DataMember(Order = 3)]
             public Guid OrganizationGuid { get; set; }
 
-            [DataMember(Order = 5)]
+            [DataMember(Order = 4)]
             public Guid UserGuid { get; set; }
-
-            [DataMember(Order = 2)]
-            public int UserIntegralId { get; set; }
 
             [DataMember(Order = 1)]
             public int OrganizationIntegralId { get; set; }
+
+            [DataMember(Order = 2)]
+            public int UserIntegralId { get; set; }
         }
 
         [DataContract]
-        public class Filed_Rev_1387
+        public class Locked_Rev_883
         {
             [DataMember(Order = 1)]
-            public int OrganizationId { get; protected set; }
+            public int OrganizationId { get; set; }
 
             [DataMember(Order = 2)]
-            public int UserId { get; protected set; }
+            public int UserId { get; set; }
         }
 
         [DataContract]
-        public class Filed_Rev_1506
-        {
-            [DataMember(Order = 3)]
-            public Guid OrganizationId { get; protected set; }
-
-            [DataMember(Order = 2)]
-            public int UserId { get; protected set; }
-        }
-
-        [DataContract]
-        public class Approved_Rev_1387
+        public class Locked_Rev_1416
         {
             [DataMember(Order = 1)]
-            public int OrganizationId { get; protected set; }
+            public Guid OrganizationId { get; set; }
 
             [DataMember(Order = 2)]
-            public int UserId { get; protected set; }
+            public int UserId { get; set; }
         }
 
         [DataContract]
-        public class Approved_Rev_1506
+        public class Unlocked_Rev_883
         {
             [DataMember(Order = 1)]
-            public Guid OrganizationId { get; protected set; }
+            public int OrganizationId { get; set; }
 
             [DataMember(Order = 2)]
-            public int UserId { get; protected set; }
+            public int UserId { get; set; }
         }
 
         [DataContract]
-        public class Rejected_Rev_1387
+        public class Unlocked_Rev_1416
         {
             [DataMember(Order = 1)]
-            public int OrganizationId { get; protected set; }
+            public Guid OrganizationId { get; set; }
 
             [DataMember(Order = 2)]
-            public int UserId { get; protected set; }
-        }
-
-        [DataContract]
-        public class Rejected_Rev_1506
-        {
-            [DataMember(Order = 1)]
-            public Guid OrganizationId { get; protected set; }
-
-            [DataMember(Order = 2)]
-            public int UserId { get; protected set; }
+            public int UserId { get; set; }
         }
     }
 }
