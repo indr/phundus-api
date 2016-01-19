@@ -33,3 +33,10 @@ Scenario: New member is in the organizations member list
 	And I am logged in as root
 	When I try to query all organization members
 	Then I should find "Greg" in members
+
+Scenario: A second application request fails
+	Given an organization
+	And I am logged in as "Greg"
+	And I applied for membership
+	When I try to apply for membership
+	Then I should see error
