@@ -6,7 +6,7 @@
 
     public class ProcessMissedNotificationsStartupTask : IStartupTask
     {
-        private readonly INotificationHandler _notificationHandler;
+        private INotificationHandler _notificationHandler;
 
         public ProcessMissedNotificationsStartupTask(INotificationHandler notificationHandler)
         {
@@ -17,6 +17,7 @@
         public void Run()
         {
             _notificationHandler.ProcessMissedNotifications();
+            _notificationHandler = null;
         }
 
         public void Reset()
