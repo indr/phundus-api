@@ -8,7 +8,7 @@
         public EventLogRecordMap()
         {
             SchemaAction.All();
-            Table("Rm_EventLog");
+            Table("Es_Dashboard_EventLog");
 
             Id(x => x.EventGuid).GeneratedBy.Assigned();
 
