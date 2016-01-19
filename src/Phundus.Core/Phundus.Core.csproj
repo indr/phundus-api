@@ -258,9 +258,7 @@
     <Compile Include="Inventory\Stores\Model\Store.cs" />
     <Compile Include="Inventory\Stores\Model\StoreOpened.cs" />
     <Compile Include="Inventory\Stores\Repositories\IStoreRepository.cs" />
-    <Compile Include="Shop\Contracts\Model\Lessee.cs" />
-    <Compile Include="Shop\Contracts\Model\ContractCreated.cs" />
-    <Compile Include="Shop\Contracts\Repositories\IContractRepository.cs" />
+    <Compile Include="Shop\Model\Lessee.cs" />
     <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
     <Compile Include="Shop\Orders\Commands\AddOrderItem.cs" />
     <Compile Include="Shop\Orders\Commands\CloseOrder.cs" />
@@ -299,7 +297,6 @@
     <Compile Include="Shop\Queries\Dtos\OrderDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderStatusDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderItemDto.cs" />
-    <Compile Include="Shop\Queries\IContractQueries.cs" />
     <Compile Include="Shop\Queries\IOrderQueries.cs" />
     <Compile Include="Shop\Queries\IShopArticleQueries.cs" />
     <Compile Include="Shop\Queries\ItemQueriesReadModel.cs" />
@@ -337,8 +334,6 @@
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
     <Compile Include="Shop\Orders\Model\Cart.cs" />
-    <Compile Include="Shop\Contracts\Model\Contract.cs" />
-    <Compile Include="Shop\Contracts\Model\ContractItem.cs" />
     <Compile Include="Ddd\EntityBase.cs" />
     <Compile Include="Inventory\Articles\Model\Image.cs" />
     <Compile Include="Shop\Orders\Model\Order.cs" />
@@ -382,8 +377,6 @@
   <ItemGroup>
     <Folder Include="Inventory\Services\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
-    <Folder Include="Shop\Contracts\Exceptions\" />
-    <Folder Include="Shop\Contracts\Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shop\Queries\ReadModel.dbml.layout">
