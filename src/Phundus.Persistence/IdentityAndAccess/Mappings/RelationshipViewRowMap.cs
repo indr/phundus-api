@@ -13,7 +13,7 @@
 
             Table("Es_IdentityAccess_Relationships");
 
-            Id(x => x.RelationshipGuid, "RelationshipGuid").GeneratedBy.GuidComb();
+            Id(x => x.RowGuid, "RowGuid").GeneratedBy.GuidComb();
             Map(x => x.OrganizationGuid, "OrganizationGuid").Not.Nullable();
             Map(x => x.UserGuid, "UserGuid").Not.Nullable();
             Map(x => x.Timestamp, "Timestamp").Not.Nullable().CustomType<UtcDateTimeType>();
