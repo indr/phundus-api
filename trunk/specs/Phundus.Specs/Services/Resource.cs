@@ -29,7 +29,11 @@
         static Resource()
         {
             var baseUrl = ConfigurationManager.AppSettings["ServerUrl"];
-            BaseUrl = "http://" + baseUrl + "/api/v0/";
+
+            if (baseUrl == "phundus.ch")
+                BaseUrl = "https://www.phundus.ch/api/v0/";
+            else
+                BaseUrl = "http://" + baseUrl + "/api/v0/";
         }
 
         public Resource(string resource, bool assertHttpStatusCode)
