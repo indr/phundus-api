@@ -37,6 +37,7 @@ namespace Phundus.Migrations
             }
         }
 
+        private readonly IList<IDbCommand> _commands = new List<IDbCommand>();
         public override void Up()
         {
             Execute.WithConnection((connection, transaction) =>
@@ -44,10 +45,37 @@ namespace Phundus.Migrations
                 Connection = connection;
                 Transaction = transaction;
                 Migrate();
+                foreach (var eachCommand in _commands)
+                    eachCommand.ExecuteNonQuery();
             });
+
+            
+
         }
 
         protected abstract void Migrate();
+
+        protected IDbCommand CreateCommand(string commandText)
+        {
+            var command = Connection.CreateCommand();
+            command.Transaction = Transaction;
+            command.CommandText = commandText;
+            return command;
+        }
+
+        protected void InsertStoredEvent(DateTime occuredOnUtc, string typeName, object domainEvent)
+        {
+            var command = CreateCommand(@"
+INSERT INTO [StoredEvents] ([EventGuid], [TypeName], [OccuredOnUtc], [AggregateId], [Serialization])
+VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
+            command.Parameters.Add(new SqlParameter("@EventGuid", Guid.NewGuid()));
+            command.Parameters.Add(new SqlParameter("@TypeName", typeName));
+            command.Parameters.Add(new SqlParameter("@OccuredOnUtc", occuredOnUtc));
+            command.Parameters.Add(new SqlParameter("@AggregateId", Guid.Empty));
+            command.Parameters.Add(new SqlParameter("@Serialization", Serialize(domainEvent)));
+
+            _commands.Add(command);
+        }
 
         protected Guid GetOrganizationGuid(int organizationIntegralId)
         {
@@ -83,7 +111,6 @@ namespace Phundus.Migrations
                     result.Add(reader.GetInt32(0), reader.GetGuid(1));
             return result;
         }
-
 
         protected void UpdateSerialization(long eventId, object domainEvent)
         {
@@ -161,6 +188,13 @@ WHERE [TypeName] = @TypeName";
         internal T Deserialize<T>(byte[] serialization)
         {
             return Serializer.Deserialize<T>(new MemoryStream(serialization));
+        }
+
+        internal byte[] Serialize(object domainEvent)
+        {
+            var stream = new MemoryStream();
+            Serializer.Serialize(stream, domainEvent);
+            return stream.ToArray();
         }
 
         internal class StoredEvent
