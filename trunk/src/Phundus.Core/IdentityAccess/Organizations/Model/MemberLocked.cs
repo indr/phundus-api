@@ -7,20 +7,31 @@
     [DataContract]
     public class MemberLocked : DomainEvent
     {
-        public MemberLocked(OrganizationId organizationId, Guid memberId)
+        public MemberLocked(OrganizationId organizationId, Guid userGuid)
         {
-            OrganizationId = organizationId.Id;
-            MemberId = memberId;
+            OrganizationGuid = organizationId.Id;
+            UserGuid = userGuid;
         }
 
         protected MemberLocked()
         {
         }
 
-        [DataMember(Order = 1)]
-        public Guid OrganizationId { get; protected set; }
+        [DataMember(Order = 3)]
+        public Guid OrganizationGuid { get; protected set; }
 
+        [DataMember(Order = 4)]
+        public Guid UserGuid { get; protected set; }
+        
+        [DataMember(Order = 5)]
+        public Guid InitiatorId { get; private set; }
+
+        [Obsolete]
+        [DataMember(Order = 1)]        
+        public int OrganizationIntegralId { get; protected set; }
+
+        [Obsolete]
         [DataMember(Order = 2)]
-        public Guid MemberId { get; protected set; }
+        public int UserIntegralId { get; protected set; }
     }
 }
