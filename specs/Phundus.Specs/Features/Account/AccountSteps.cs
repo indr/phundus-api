@@ -111,6 +111,13 @@
             Ctx.User = user;
         }
 
+        [When(@"I try to sign up with membership")]
+        public void WhenITryToSignUpWithMembership()
+        {
+            var user = App.SignUpUser(organizationId: Ctx.Organization.OrganizationId);
+            Ctx.User = user;
+        }
+
         [When(@"I try to change my email address")]
         public void WhenIChangeEmailAddress()
         {

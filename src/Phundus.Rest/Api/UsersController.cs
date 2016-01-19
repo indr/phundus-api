@@ -50,11 +50,11 @@ namespace Phundus.Rest.Api
                 requestContent.City, requestContent.MobilePhone);
             Dispatcher.Dispatch(command);
 
+            var userId = new UserId(command.ResultingUserGuid);
 
             if (requestContent.OrganizationId.HasValue)
             {
-                Dispatcher.Dispatch(new ApplyForMembership(CurrentUserId, Guid.NewGuid(), new UserId(command.ResultingUserGuid),
-                    requestContent.OrganizationId.Value));
+                Dispatcher.Dispatch(new ApplyForMembership(new InitiatorId(userId.Id), Guid.NewGuid(), userId, requestContent.OrganizationId.Value));
             }
 
             return new UsersPostOkResponseContent {UserId = command.ResultingUserGuid};

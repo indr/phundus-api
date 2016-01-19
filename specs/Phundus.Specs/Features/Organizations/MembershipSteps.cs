@@ -10,7 +10,7 @@
     [Binding]
     public class MembershipSteps : AppStepsBase
     {
-        private OrganizationsRelationshipsQueryOkResponseContent _relationship;
+        private Relationship _relationship;
         private Guid _applicationId;
 
         public MembershipSteps(App app, Ctx ctx) : base(app, ctx)
@@ -53,12 +53,14 @@
         public void WhenIGetMyMembershipStatus()
         {
             var organization = Ctx.Organization;
-            _relationship = App.GetRelationshipStatus(Ctx.User, organization);
+            _relationship = App.GetRelationshipStatus(Ctx.User, organization).Result;
         }
 
         [Then(@"my relationship status is ""(.*)""")]
         public void ThenMyMembershipStatusIsRequested(string status)
         {
+            if (_relationship == null)
+                _relationship = App.GetRelationshipStatus(Ctx.User, Ctx.Organization).Result;
             Assert.That(_relationship.Status, Is.EqualTo(status));
         }
 

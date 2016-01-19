@@ -35,7 +35,7 @@
             LogIn("admin@test.phundus.ch");
         }
 
-        public User SignUpUser(string emailAddress = null)
+        public User SignUpUser(string emailAddress = null, Guid? organizationId = null)
         {
             var user = _fakeNameGenerator.NextUser();
             if (emailAddress != null)
@@ -51,7 +51,8 @@
                     MobilePhone = user.MobilePhone,
                     Password = user.Password,
                     Postcode = user.Postcode,
-                    Street = user.Street
+                    Street = user.Street,
+                    OrganizationId = organizationId
                 });
 
 
