@@ -9,8 +9,7 @@ namespace Phundus.Migrations
         public override void Up()
         {
             Delete.FromTable("ProcessedNotificationTracker").AllRows();
-            Delete.FromTable("Rm_EventLog");
-            Delete.FromTable("Es_IdentityAccess_Relationships");
+            Delete.FromTable("Rm_EventLog").AllRows();
         }
 
         public override void Down()
