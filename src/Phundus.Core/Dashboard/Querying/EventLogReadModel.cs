@@ -4,6 +4,7 @@ namespace Phundus.Dashboard.Querying
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
+    using IdentityAccess.Organizations.Model;
     using IdentityAccess.Users.Model;
     using Records;
 
@@ -42,6 +43,30 @@ namespace Phundus.Dashboard.Querying
         {
             var record = CreateRecord(domainEvent);
             record.Text = "Benutzer hat sich registriert: " + domainEvent.EmailAddress;
+            Insert(record);
+        }
+
+        public void Process(MembershipApplicationFiled domainEvent)
+        {
+            var record = CreateRecord(domainEvent);
+            record.Text = string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} beantragt.",
+                domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
+            Insert(record);
+        }
+
+        public void Process(MembershipApplicationApproved domainEvent)
+        {
+            var record = CreateRecord(domainEvent);
+            record.Text = string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} bestätigt.",
+                domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
+            Insert(record);
+        }
+
+        public void Process(MembershipApplicationRejected domainEvent)
+        {
+            var record = CreateRecord(domainEvent);
+            record.Text = string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} abgelehnt.",
+                domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
             Insert(record);
         }
 
