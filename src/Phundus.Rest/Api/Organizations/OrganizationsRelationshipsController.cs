@@ -1,12 +1,14 @@
 ﻿namespace Phundus.Rest.Api.Organizations
 {
     using System;
+    using System.Runtime.Remoting.Messaging;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common;
     using ContentObjects;
     using IdentityAccess.Queries;
+    using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/relationships")]
     public class OrganizationsRelationshipsController : ApiControllerBase
@@ -25,11 +27,22 @@
         public virtual OrganizationsRelationshipsQueryOkResponseContent Get(Guid organizationId)
         {
             var result = _relationshipQueries.ByMemberIdForOrganizationId(CurrentUserId, organizationId);
-            return Map<OrganizationsRelationshipsQueryOkResponseContent>(result);
+            return new OrganizationsRelationshipsQueryOkResponseContent
+            {
+                Result = new Relationship
+                {
+                    OrganizationId = result.OrganizationGuid,
+                    Status = result.Status,
+                    Timestamp = result.Timestamp,
+                    UserId = result.UserGuid
+                }
+            };
         }
     }
 
-    public class OrganizationsRelationshipsQueryOkResponseContent : Relationship
+    public class OrganizationsRelationshipsQueryOkResponseContent
     {
+        [JsonProperty("result")]
+        public Relationship Result { get; set; }
     }
 }

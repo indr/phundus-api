@@ -7,7 +7,7 @@
     using Organizations.Model;
     using Organizations.Repositories;
 
-    public class MembershipsReadModel : IMembershipQueries
+    public class MembershipQueries : IMembershipQueries
     {
         public IUserQueries UserQueries { get; set; }
 

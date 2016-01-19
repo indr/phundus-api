@@ -154,21 +154,13 @@
     <Compile Include="IdentityAccess\Queries\IRelationshipQueries.cs" />
     <Compile Include="IdentityAccess\Queries\QueryModels\MembershipApplicationViewRow.cs" />
     <Compile Include="IdentityAccess\Queries\QueryModels\UserViewRow.cs" />
-    <Compile Include="IdentityAccess\Queries\ReadModel.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReadModel.dbml</DependentUpon>
-    </Compile>
     <Compile Include="IdentityAccess\Queries\QueryModels\IMembershipApplication.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\MemberInMembershipRoleQueries.cs" />
-    <Compile Include="IdentityAccess\Queries\ReadModels\MembershipsReadModel.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\MembershipQueries.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\MembersReadModel.cs" />
     <Compile Include="IdentityAccess\Queries\QueryModels\OrganizationViewRow.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\OrganizationsReadModel.cs" />
-    <Compile Include="IdentityAccess\Queries\ReadModels\ReadModelReaderBase.cs" />
-    <Compile Include="IdentityAccess\Queries\ReadModels\ReadModelWriterBase.cs" />
-    <Compile Include="IdentityAccess\Queries\ReadModels\RelationshipsReadModelReader.cs" />
-    <Compile Include="IdentityAccess\Queries\ReadModels\RelationshipsReadModelWriter.cs" />
+    <Compile Include="IdentityAccess\Queries\ReadModels\RelationshipsQuery.cs" />
     <Compile Include="IdentityAccess\Queries\ReadModels\RelationshipStatusDto.cs" />
     <Compile Include="IdentityAccess\Queries\QueryModels\UserReadModel.cs" />
     <Compile Include="IdentityAccess\Users\Commands\ApproveUser.cs" />
@@ -362,11 +354,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shop\app.config" />
-    <None Include="IdentityAccess\Queries\ReadModel.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>ReadModel.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
     <None Include="Shop\Queries\ReadModel.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -387,9 +374,6 @@
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="IdentityAccess\Queries\ReadModel.dbml.layout">
-      <DependentUpon>ReadModel.dbml</DependentUpon>
-    </None>
     <EmbeddedResource Include="IdentityAccess\Users\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>

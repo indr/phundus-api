@@ -7,6 +7,7 @@
     using Castle.Windsor;
     using Cqrs;
     using Ddd;
+    using IdentityAccess.Queries;
     using IdentityAccess.Queries.ReadModels;
     using IdentityAccess.Users.Services;
     using Integration.Shop;
@@ -49,8 +50,8 @@
                 );
 
             container.Register(
-                Classes.FromThisAssembly().BasedOn<ReadModelReaderBase>()
-                    .OrBasedOn(typeof (Shop.Queries.Models.ReadModelReaderBase))
+                Classes.FromThisAssembly()
+                    .BasedOn(typeof (Shop.Queries.Models.ReadModelReaderBase))
                     .WithServiceAllInterfaces()
                     .LifestyleTransient());
 
@@ -59,6 +60,7 @@
                     .LifestyleTransient());
 
             container.Register(Component.For<ILesseeQueries>().ImplementedBy<LesseeQueries>());
+            container.Register(Component.For<IMembershipQueries>().ImplementedBy<MembershipQueries>());
             
             EventPublisher.Factory(container.Resolve<IEventPublisher>);
         }
