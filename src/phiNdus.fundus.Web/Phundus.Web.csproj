@@ -336,7 +336,6 @@
     <Content Include="Content\select2.png" />
     <Content Include="Content\select2x2.png" />
     <Content Include="Content\spinner.gif" />
-    <Content Include="images\yeoman.8cb970fb.png" />
     <Content Include="img\loading.gif" />
     <Content Include="index.html" />
     <Content Include="robots.txt" />
@@ -389,9 +388,15 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\scripts.5cd4c8ef.js" />
+    <Content Include="Scripts\scripts.9f784096.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\skins\lightgray\content.inline.min.css" />
+    <Content Include="Scripts\skins\lightgray\content.min.css" />
+    <Content Include="Scripts\skins\lightgray\fonts\tinymce-small.svg" />
+    <Content Include="Scripts\skins\lightgray\fonts\tinymce.svg" />
+    <Content Include="Scripts\skins\lightgray\skin.ie7.min.css" />
+    <Content Include="Scripts\skins\lightgray\skin.min.css" />
     <Content Include="Scripts\tinymce\jquery.tinymce.js" />
     <Content Include="Scripts\tinymce\langs\en.js" />
     <Content Include="Scripts\tinymce\license.txt" />
@@ -656,10 +661,16 @@
     <Content Include="Scripts\ui-bootstrap-tpls-0.2.0.min.js" />
     <None Include="Properties\PublishProfiles\TestProfile.pubxml" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
-    <Content Include="Scripts\vendor.7a99a8f9.js" />
-    <Content Include="styles\main.c03d75f4.css" />
-    <Content Include="styles\vendor.1f8e5af6.css" />
+    <Content Include="Scripts\vendor.b670ca47.js" />
+    <Content Include="styles\main.78b7f850.css" />
+    <Content Include="styles\vendor.5b719086.css" />
     <Content Include="Views\Shared\_BaseUrl.cshtml" />
+    <Content Include="Scripts\skins\lightgray\fonts\tinymce-small.woff" />
+    <Content Include="Scripts\skins\lightgray\fonts\tinymce-small.ttf" />
+    <Content Include="Scripts\skins\lightgray\fonts\tinymce-small.eot" />
+    <Content Include="Scripts\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Scripts\skins\lightgray\fonts\tinymce.ttf" />
+    <Content Include="Scripts\skins\lightgray\fonts\tinymce.eot" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\pbar-ani.gif" />
