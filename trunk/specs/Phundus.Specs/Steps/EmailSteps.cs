@@ -74,6 +74,15 @@
             AssertEmailReceived(subject, toAddress);
         }
 
+        [Then(@"""(.*)"" should not receive email ""(.*)""")]
+        public void ThenShouldNotReceiveEmail(string emailAliasOrAddress, string subject)
+        {
+            String toAddress;
+            if (!Ctx.EmailAddresses.TryGetValue(emailAliasOrAddress, out toAddress))
+                toAddress = emailAliasOrAddress;
+            AssertEmailNotReceived(subject, toAddress);
+        }
+
         private Mail AssertEmailReceived(string subject, string toAddress, string textBody = null)
         {
             var mail = _mailbox.Find(subject, toAddress);
@@ -83,6 +92,13 @@
             if (textBody != null)
                 Assert.That(mail.TextBody, Is.EqualTo(textBody));
             return mail;
+        }
+
+        private void AssertEmailNotReceived(string subject, string toAddress, string textBody = null)
+        {
+            var mail = _mailbox.Find(subject, toAddress);
+            Assert.That(mail, Is.Null,
+                String.Format("Email with subject \"{0}\" to {1} found.", subject, toAddress));
         }
     }
 }

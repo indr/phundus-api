@@ -87,7 +87,7 @@
 
         protected void CheckForMaintenanceMode(string emailAddress)
         {
-            if ((Config.InMaintenance) && (!Regex.Match(emailAddress, @"@(test\.)?phundus\.ch$").Success))
+            if ((Config.InMaintenance) && (!Regex.Match(emailAddress, @"@(test\.)?phundus\.ch$", RegexOptions.IgnoreCase).Success))
                 throw new MaintenanceModeException();
         }
     }

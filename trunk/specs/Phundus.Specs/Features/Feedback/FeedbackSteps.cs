@@ -24,5 +24,10 @@
             App.SendFeedback(Ctx.EmailAddress, comment);
         }
 
+        [When(@"I try to submit feedback with email address ""(.*)""")]
+        public void WhenITrytoSubmitFeedbackWithEmailAddress(string emailAddress)
+        {
+            App.SendFeedback(emailAddress, "");
+        }
     }
 }
