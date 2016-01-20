@@ -17,6 +17,7 @@
             AConfirmedUser(null);
         }
 
+        [Given(@"a confirmed user ([^@""]*)")]
         [Given(@"a confirmed user ""([^@]*)""")]
         public void AConfirmedUser(string userKey)
         {

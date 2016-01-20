@@ -118,6 +118,12 @@
             Ctx.User = user;
         }
 
+        [When(@"I try to sign up with ""(.*)""")]
+        public void WhenITryToSignUpWith(string emailAddress)
+        {
+            App.SignUpUser(emailAddress: emailAddress, assertHttpStatus: false);
+        }
+
         [When(@"I try to change my email address")]
         public void WhenIChangeEmailAddress()
         {

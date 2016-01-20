@@ -1,4 +1,4 @@
-﻿Feature: Maintenance
+﻿Feature: Maintenance mode activation
 	
 
 Scenario: Activate maintenance mode as user fails

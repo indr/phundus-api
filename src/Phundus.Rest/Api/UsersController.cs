@@ -8,6 +8,7 @@ namespace Phundus.Rest.Api
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
+    using Auth;
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
@@ -16,6 +17,7 @@ namespace Phundus.Rest.Api
     using IdentityAccess.Queries;
     using IdentityAccess.Queries.ReadModels;
     using IdentityAccess.Users.Commands;
+    using Infrastructure;
     using Integration.IdentityAccess;
     using Inventory.Queries;
     using Newtonsoft.Json;
@@ -44,6 +46,8 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual UsersPostOkResponseContent Post(UsersPostRequestContent requestContent)
         {
+            CheckForMaintenanceMode(requestContent.Email);
+
             var command = new SignUpUser(
                 requestContent.Email, requestContent.Password, requestContent.FirstName,
                 requestContent.LastName, requestContent.Street, requestContent.Postcode,

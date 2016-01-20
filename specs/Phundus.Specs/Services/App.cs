@@ -14,6 +14,7 @@
         private readonly ApiClient _apiClient;
         private readonly FakeArticleGenerator _fakeArticleGenerator;
         private readonly FakeNameGenerator _fakeNameGenerator;
+        private bool _inMaintenanceMode;
 
         public App(ApiClient apiClient, FakeNameGenerator fakeNameGenerator, FakeArticleGenerator fakeArticleGenerator)
         {
@@ -23,6 +24,11 @@
             _apiClient = apiClient;
             _fakeNameGenerator = fakeNameGenerator;
             _fakeArticleGenerator = fakeArticleGenerator;
+        }
+
+        public bool InMaintenanceMode
+        {
+            get { return _inMaintenanceMode; }
         }
 
         [AfterScenario]
@@ -36,13 +42,13 @@
             LogIn("admin@test.phundus.ch");
         }
 
-        public User SignUpUser(string emailAddress = null, Guid? organizationId = null)
+        public User SignUpUser(string emailAddress = null, Guid? organizationId = null, bool assertHttpStatus = true)
         {
             var user = _fakeNameGenerator.NextUser();
             if (emailAddress != null)
                 user.EmailAddress = emailAddress;
 
-            var response = _apiClient.UsersApi
+            var response = _apiClient.Assert(assertHttpStatus).UsersApi
                 .Post<UsersPostOkResponseContent>(new UsersPostRequestContent
                 {
                     City = user.City,
@@ -381,7 +387,8 @@
 
         public void SetMaintenanceMode(bool inMaintenance, bool assertStatusCode = true)
         {
-            _apiClient.Assert(assertStatusCode).MaintenanceApi.Patch(new { inMaintenance = inMaintenance });
+            var response = _apiClient.Assert(assertStatusCode).MaintenanceApi.Patch(new { inMaintenance = inMaintenance });
+            _inMaintenanceMode = inMaintenance && response.StatusCode == HttpStatusCode.OK;
         }
     }
 }

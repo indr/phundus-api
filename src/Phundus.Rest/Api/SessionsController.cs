@@ -4,7 +4,10 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Net.Http;
     using System.Security.Authentication;
+    using System.Text.RegularExpressions;
+    using System.Web;
     using System.Web.Http;
     using System.Web.Security;
     using AttributeRouting;
@@ -14,6 +17,7 @@
     using Common;
     using ContentObjects;
     using IdentityAccess.Queries;
+    using Infrastructure;
     using Integration.IdentityAccess;
     using Newtonsoft.Json;
 
@@ -37,6 +41,8 @@
         [AllowAnonymous]
         public virtual SessionsPostOkResponseContent Post(SessionsPostRequestContent requestContent)
         {
+            CheckForMaintenanceMode(requestContent.Username);
+
             if (!Membership.ValidateUser(requestContent.Username, requestContent.Password))
                 throw new AuthenticationException();
 

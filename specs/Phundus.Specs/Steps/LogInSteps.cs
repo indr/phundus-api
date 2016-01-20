@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Specs.Steps
 {
+    using System.Configuration;
     using System.Diagnostics;
     using Services;
     using TechTalk.SpecFlow;
@@ -16,7 +17,7 @@
         public void GivenIAmLoggedInAsRoot()
         {
             App.LogInAsRoot();
-        }
+        }        
 
         [Given(@"I am logged in as a user")]
         public void GivenIAmLoggedInAsAUser()
@@ -35,6 +36,19 @@
             Debug.WriteLine("Logging in as {0} {1}.", new [] {alias, user.ToString()});
             App.LogIn(user.Username, user.Password);
             Ctx.User = user;
+        }
+
+        [When(@"I try to log in as (.*)")]
+        public void WhenITryToLogInAs(string alias)
+        {
+            var user = Ctx.Users[alias];
+            App.LogIn(user.Username, user.Password, false);
+        }
+
+        [When(@"I try to log in with ""(.*)""")]
+        public void WhenITryToLogInWith(string username)
+        {
+            App.LogIn(username, "password", false);
         }
     }
 }

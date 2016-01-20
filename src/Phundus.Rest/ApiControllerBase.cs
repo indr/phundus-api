@@ -9,13 +9,16 @@
     using System.Net.Http.Headers;
     using System.Security.Authentication;
     using System.Security.Principal;
+    using System.Text.RegularExpressions;
     using System.Web.Http;
     using System.Web.Security;
+    using Auth;
     using AutoMapper;
     using Castle.Core.Logging;
     using Common;
     using Common.Domain.Model;
     using Cqrs;
+    using Infrastructure;
 
     public class ApiControllerBase : ApiController
     {
@@ -80,6 +83,12 @@
         protected Dictionary<string, string> GetQueryParams()
         {
             return Request.GetQueryNameValuePairs().ToDictionary(ks => ks.Key, es => es.Value);
+        }
+
+        protected void CheckForMaintenanceMode(string emailAddress)
+        {
+            if ((Config.InMaintenance) && (!Regex.Match(emailAddress, @"@(test\.)?phundus\.ch$").Success))
+                throw new MaintenanceModeException();
         }
     }
 }

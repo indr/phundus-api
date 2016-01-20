@@ -63,11 +63,16 @@
             AssertLastStatusCode(HttpStatusCode.NotFound);
         }
 
-
         [Then(@"I should see unauthorized")]
         public void ThenIShouldSeeUnauthorized()
         {
             AssertLastStatusCode(HttpStatusCode.Unauthorized);
+        }
+
+        [Then(@"I should see service unavailable")]
+        public void ThenIShouldSeeErrorInMaintenanceMode()
+        {
+            AssertLastStatusCode(HttpStatusCode.ServiceUnavailable);
         }
 
         [Then(@"I should see message ""(.*)""")]
