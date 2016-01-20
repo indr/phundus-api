@@ -37,9 +37,9 @@
         }
 
         [When(@"I try to add article to cart")]
-        public void WhenIAddArticleToCart()
+        public void WhenITryToAddArticleToCart()
         {
-            _cartItemId = App.AddArticleToCart(Ctx.User, Ctx.Article);
+            _cartItemId = App.AddArticleToCart(Ctx.User, Ctx.Article, false);
         }
 
         [When(@"I try remove the last cart item")]

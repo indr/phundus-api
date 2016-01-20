@@ -56,6 +56,7 @@ namespace Phundus.Rest.Api.Users
             if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
+            // TODO: Remove this when shop was migrated to new client
             if ((requestContent.Amount > 0) && (!String.IsNullOrEmpty(requestContent.Begin)) &&
                 (!String.IsNullOrEmpty(requestContent.End)))
             {

@@ -8,14 +8,6 @@ namespace Phundus.Shop.Services
 
     public interface IArticleService
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="articleId"></param>
-        /// <returns></returns>
-        /// <exception cref="NotFoundException"></exception>
-        Article GetById(int articleId);
-
         Article GetById(ArticleId articleId);
 
         /// <summary>
@@ -41,11 +33,6 @@ namespace Phundus.Shop.Services
             _articleRepository = articleRepository;
         }
 
-        public Article GetById(int articleId)
-        {
-            return GetById(new ArticleId(articleId));
-        }
-
         public Article GetById(ArticleId articleId)
         {
             if (articleId == null) throw new ArgumentNullException("articleId");
@@ -61,7 +48,7 @@ namespace Phundus.Shop.Services
             AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleId, "ArticleId must be provided.");
             
-            var result = GetById(articleId.Id);
+            var result = GetById(articleId);
             if (!Equals(result.Owner.OwnerId, ownerId))
                 throw new NotFoundException(String.Format("Article {0} {1} not found.", ownerId, articleId));
 

@@ -69,6 +69,12 @@
             AssertLastStatusCode(HttpStatusCode.Unauthorized);
         }
 
+        [Then(@"I should see forbidden")]
+        public void ThenIShouldSeeForbidden()
+        {
+            AssertLastStatusCode(HttpStatusCode.Forbidden);
+        }
+
         [Then(@"I should see service unavailable")]
         public void ThenIShouldSeeErrorInMaintenanceMode()
         {

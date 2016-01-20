@@ -276,9 +276,9 @@
             return response.Data.Results;
         }
 
-        public Guid AddArticleToCart(User user, Article article)
+        public Guid AddArticleToCart(User user, Article article, bool assertHttpStatus = true)
         {
-            var response = _apiClient.UserCartItemsApi
+            var response = _apiClient.Assert(assertHttpStatus).UserCartItemsApi
                 .Post<UserCartItemsPostOkResponseContent>(new
                 {
                     userId = user.UserId,
