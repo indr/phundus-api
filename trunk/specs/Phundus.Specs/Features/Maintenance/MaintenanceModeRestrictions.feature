@@ -10,9 +10,9 @@ Scenario: Log in with external email address fails with service unavailable
 	And I should see message "Das System befindet sich im Wartungsmodus."
 
 @inMaintenance
-Scenario: Log in with @phundus.ch fails with invalid password 
-	When I try to log in with "user@phundus.ch"
-	Then I should see error
+Scenario: Log in with @phundus.ch fails with not found 
+	When I try to log in with "not-found@phundus.ch"
+	Then I should see not found
 
 @inMaintenance
 Scenario: Log in with @test.phundus.ch fails with invalid password
