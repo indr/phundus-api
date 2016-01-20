@@ -113,20 +113,20 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Log in with @test.phundus.ch fails with invalid password")]
+        [NUnit.Framework.DescriptionAttribute("Log in with @test.phundus.ch fails with not found")]
         [NUnit.Framework.CategoryAttribute("inMaintenance")]
-        public virtual void LogInWithTest_Phundus_ChFailsWithInvalidPassword()
+        public virtual void LogInWithTest_Phundus_ChFailsWithNotFound()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Log in with @test.phundus.ch fails with invalid password", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Log in with @test.phundus.ch fails with not found", new string[] {
                         "inMaintenance"});
 #line 18
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line 19
- testRunner.When("I try to log in with \"user@test.phundus.ch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I try to log in with \"not-found@test.phundus.ch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 20
- testRunner.Then("I should see error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see not found", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
