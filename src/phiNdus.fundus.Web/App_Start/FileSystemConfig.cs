@@ -1,14 +1,27 @@
 ﻿namespace phiNdus.fundus.Web.App_Start
 {
     using System.IO;
-    using System.Web.Hosting;
+    using System.Web;
 
     public class FileSystemConfig
     {
         public static void CreateMissingDirectory()
         {
-            Directory.CreateDirectory(HostingEnvironment.MapPath(@"~\App_Data\Logs"));
-            Directory.CreateDirectory(HostingEnvironment.MapPath(@"~\Content\Images\Articles"));
+            var directories = new[]
+            {
+                @"~\App_Data\Logs",
+                @"~\App_Data\Mails",
+                @"~\Content\Images\Articles",
+                @"~\Content\Uploads\Organizations"
+            };
+
+            foreach (var directory in directories)
+                CreateDirectory(directory);
+        }
+
+        private static void CreateDirectory(string path)
+        {
+            Directory.CreateDirectory(HttpContext.Current.Server.MapPath(path));
         }
     }
 }
