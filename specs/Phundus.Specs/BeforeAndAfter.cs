@@ -4,8 +4,10 @@
     using System.Configuration;
     using System.IO;
     using System.Net;
+    using ContentTypes;
     using NUnit.Framework;
     using Phundus.Specs.Browsers;
+    using Services;
     using TechTalk.SpecFlow;
 
     /// <summary>
@@ -18,6 +20,7 @@
         public static void BeforeTestRun()
         {
             WarmUp();
+            DeleteEmails();
         }
 
         private static void WarmUp()
@@ -45,6 +48,16 @@
                 Browser.Current.ForceClose();
             else
                 Browser.Current.Close();
+        }
+
+        private static void DeleteEmails()
+        {
+            new Resource("sessions", false).Post(new SessionsPostRequestContent
+            {
+                Username = "admin@test.phundus.ch",
+                Password = "1234"
+            });
+            new Resource("mails", false).Delete();
         }
     }
 }

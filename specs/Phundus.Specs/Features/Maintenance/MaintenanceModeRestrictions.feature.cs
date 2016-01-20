@@ -166,6 +166,25 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Emails aren\'t sent to external domains")]
+        public virtual void EmailsArenTSentToExternalDomains()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Emails aren\'t sent to external domains", ((string[])(null)));
+#line 31
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 32
+ testRunner.When("I try to submit feedback with email address \"john@example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 33
+ testRunner.Then("\"john@example.com\" should not receive email \"Vielen Dank fürs Feedback\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 34
+ testRunner.And("\"admin@test.phundus.ch\" should receive email \"[phundus] Feedback\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net.Mail;
+    using System.Text.RegularExpressions;
     using System.Web;
 
     public class MailGateway : IMailGateway
@@ -19,8 +20,24 @@
 
         public void Send(MailMessage message)
         {
+            if (Config.InMaintenance)
+            {
+                RemoveUnallowedRecipients(message);
+                if (message.To.Count == 0)
+                    return;
+            }
             SendUsingSystemNetMailSettings(message);
             SaveToPickupDirectory(message);
+        }
+
+        private void RemoveUnallowedRecipients(MailMessage message)
+        {
+            for (var idx = message.To.Count - 1; idx >= 0; idx--)
+            {
+                var to = message.To[idx];
+                if (!Regex.Match(to.Address, @"@(test\.)?phundus\.ch$", RegexOptions.IgnoreCase).Success)
+                    message.To.Remove(to);
+            }
         }
 
         private static void SendUsingSystemNetMailSettings(MailMessage message)

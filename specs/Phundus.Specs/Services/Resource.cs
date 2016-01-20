@@ -54,6 +54,12 @@
             return Execute<T>(request);
         }
 
+        public IRestResponse Delete()
+        {
+            var request = CreateRequest(null, Method.DELETE);
+            return Execute(request);
+        }
+
         public IRestResponse Delete(object requestContent)
         {
             var request = CreateRequest(requestContent, Method.DELETE);
@@ -391,5 +397,6 @@
             var errorContent = JsonConvert.DeserializeObject<ErrorContent>(restResponse.Content);
             return errorContent.Msg;
         }
+
     }
 }
