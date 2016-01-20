@@ -6,6 +6,7 @@
     using System.Net.Http;
     using System.Web;
     using System.Web.Http.Filters;
+    using Auth;
     using Common;
 
     /// <summary>
@@ -20,6 +21,7 @@
             _mappings.Add(typeof(ArgumentNullException), HttpStatusCode.BadRequest);
             _mappings.Add(typeof(ArgumentException), HttpStatusCode.BadRequest);
             _mappings.Add(typeof(AuthorizationException), HttpStatusCode.Forbidden);
+            _mappings.Add(typeof(MaintenanceModeException), HttpStatusCode.ServiceUnavailable);
             _mappings.Add(typeof(NotFoundException), HttpStatusCode.NotFound);
         }
 

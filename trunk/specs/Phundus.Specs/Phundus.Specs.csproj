@@ -184,10 +184,15 @@
       <DependentUpon>Feedback.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Feedback\FeedbackSteps.cs" />
-    <Compile Include="Features\Maintenance\Maintenance.feature.cs">
+    <Compile Include="Features\Maintenance\MaintenanceModeActivation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Maintenance.feature</DependentUpon>
+      <DependentUpon>MaintenanceModeActivation.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Maintenance\MaintenanceModeRestrictions.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MaintenanceModeRestrictions.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Maintenance\MaintenanceSteps.cs" />
     <Compile Include="Features\Orders\AddOrderItem.feature.cs">
@@ -374,9 +379,13 @@
     <None Include="Default.srprofile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Features\Maintenance\Maintenance.feature">
+    <None Include="Features\Maintenance\MaintenanceModeActivation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Maintenance.feature.cs</LastGenOutput>
+      <LastGenOutput>MaintenanceModeActivation.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Maintenance\MaintenanceModeRestrictions.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>MaintenanceModeRestrictions.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Orders\AddOrderItem.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

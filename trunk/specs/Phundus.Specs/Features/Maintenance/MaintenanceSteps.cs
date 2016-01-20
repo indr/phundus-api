@@ -16,6 +16,16 @@ namespace Phundus.Specs.Features.Maintenance
         {
         }
 
+        [AfterFeature]
+        public void DeactivateMaintenanceMode()
+        {
+            if (App.InMaintenanceMode)
+            {
+                App.LogInAsRoot();
+                App.SetMaintenanceMode(false);
+            }
+        }
+        
         [Given(@"I activated maintenance mode")]
         public void GivenIActivatedMaintenanceMode()
         {
