@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Text;
     using System.Web;
     using System.Web.Http;
     using AttributeRouting;
@@ -41,6 +42,32 @@
                 throw new NotFoundException("Mail not found.");
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
+        [GET("{mailId}/html")]
+        public virtual HttpResponseMessage GetHtml(string mailId)
+        {
+            var result = GetMails().SingleOrDefault(p => p.MailId == mailId && p.HasHtmlPart);
+            if (result == null)
+                throw new NotFoundException("Mail or message part html not found.");
+
+            var response = new HttpResponseMessage();
+            response.Content = new StringContent(result.HtmlBody, Encoding.UTF8, "text/html");
+            response.Content.Headers.ContentType.CharSet = "utf-8";
+            return response;
+        }
+
+        [GET("{mailId}/text")]
+        public virtual HttpResponseMessage GetText(string mailId)
+        {
+            var result = GetMails().SingleOrDefault(p => p.MailId == mailId && p.HasTextPart);
+            if (result == null)
+                throw new NotFoundException("Mail or message part text not found.");
+
+            var response = new HttpResponseMessage();
+            response.Content = new StringContent(result.TextBody, Encoding.UTF8, "text/plain");
+            response.Content.Headers.ContentType.CharSet = "utf-8";
+            return response;
         }
 
         [DELETE("")]
