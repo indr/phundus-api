@@ -14,6 +14,7 @@ namespace Phundus.Tests.IdentityAccess
         private Establish ctx = () =>
         {
             theInitiatorId = new InitiatorId();
+            theInitiator = new Initiator(theInitiatorId, "initiator@test.phundus.ch", "The Initiator");
             sut = new Organization(Guid.NewGuid(), "Organization name");
         };
 

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Tests.IdentityAccess.Model
+﻿namespace Phundus.Tests.IdentityAccess.Events
 {
     using Common.Domain.Model;
     using Machine.Specifications;

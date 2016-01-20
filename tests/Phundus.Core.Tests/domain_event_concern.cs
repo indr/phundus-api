@@ -2,9 +2,7 @@
 {
     using System;
     using System.Linq;
-    using System.Reflection;
     using System.Runtime.Serialization;
-    using Castle.Core.Internal;
     using Common.Domain.Model;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
@@ -26,9 +24,11 @@
             itsAssembly = type.Assembly.GetName().Name;
         };
 
+        // TODO: Code duplication, see InitiatorSpecs in Phundus.Common
         protected static object dataMember(int order)
         {
-            var dataMemberProperties = type.GetProperties().Where(p => p.HasAttribute<DataMemberAttribute>()).ToList();
+            var dataMemberProperties = type.GetProperties().Where(
+                p => p.GetCustomAttributes(typeof (DataMemberAttribute), false).Length == 1).ToList();
             foreach (var propertyInfo in dataMemberProperties)
             {
                 var attribute = (DataMemberAttribute) propertyInfo.GetCustomAttributes(
