@@ -44,7 +44,7 @@
             CheckForMaintenanceMode(requestContent.Username);
 
             if (!Membership.ValidateUser(requestContent.Username, requestContent.Password))
-                throw new AuthenticationException();
+                throw new AuthenticationException("Unbekannter Fehler bei der Anmeldung.");
 
             FormsAuthentication.SetAuthCookie(requestContent.Username, false);
 
