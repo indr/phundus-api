@@ -167,16 +167,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CreateArticle_UserStore.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Cart\CartItems.feature.cs">
+    <Compile Include="Features\Cart\AddUserItems.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CartItems.feature</DependentUpon>
+      <DependentUpon>AddUserItems.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Cart\CartSteps.cs" />
     <Compile Include="Features\Cart\EmptyCart.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EmptyCart.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Cart\AddOrganizationItems.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddOrganizationItems.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Feedback\Feedback.feature.cs">
       <AutoGen>True</AutoGen>
@@ -363,13 +368,17 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CreateArticle_UserStore.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Cart\CartItems.feature">
+    <None Include="Features\Cart\AddUserItems.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>CartItems.feature.cs</LastGenOutput>
+      <LastGenOutput>AddUserItems.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Cart\EmptyCart.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EmptyCart.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Cart\AddOrganizationItems.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AddOrganizationItems.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Feedback\Feedback.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

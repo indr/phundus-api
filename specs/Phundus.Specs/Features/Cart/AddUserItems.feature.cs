@@ -25,7 +25,7 @@ namespace Phundus.Specs.Features.Cart
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "CartItems.feature"
+#line 1 "AddUserItems.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
