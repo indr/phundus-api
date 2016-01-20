@@ -16,5 +16,6 @@
 
         bool IsActiveChief(Guid organizationId, UserId userId);
         bool IsActiveChief(OwnerId ownerId, UserId userId);
+        Initiator ActiveManager(OrganizationId organizationId, InitiatorId initiatorId);
     }
 }

@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +52,7 @@
     <Compile Include="Domain.Model\HashCodeHelper.cs" />
     <Compile Include="Domain.Model\Identity.cs" />
     <Compile Include="Domain.Model\Identities.cs" />
+    <Compile Include="Domain.Model\Initiator.cs" />
     <Compile Include="Domain.Model\Period.cs" />
     <Compile Include="ProviderUserKey.cs" />
     <Compile Include="Domain.Model\StoreId.cs" />

@@ -11,12 +11,15 @@
 
     public class Organization : Aggregate<OrganizationId>
     {
-        private ISet<MembershipApplication> _applications = new HashedSet<MembershipApplication>();
+        private ISet<MembershipApplication> _applications =
+            new HashedSet<MembershipApplication>();
+
         private ContactDetails _contactDetails;
         private DateTime _establishedAtUtc = DateTime.UtcNow;
         private ISet<Membership> _memberships = new HashedSet<Membership>();
         private string _name;
         private string _startpage;
+        private Settings _settings = new Settings();
 
         public Organization(Guid id, string name) : base(new OrganizationId(id))
         {
@@ -66,13 +69,13 @@
             }
         }
 
-        public virtual ISet<Membership> Memberships
+        public virtual Iesi.Collections.Generic.ISet<Membership> Memberships
         {
             get { return _memberships; }
             protected set { _memberships = value; }
         }
 
-        public virtual ISet<MembershipApplication> Applications
+        public virtual Iesi.Collections.Generic.ISet<MembershipApplication> Applications
         {
             get { return _applications; }
             protected set { _applications = value; }
@@ -94,7 +97,14 @@
 
         public virtual string DocTemplateFileName { get; set; }
 
-        public virtual MembershipApplication RequestMembership(InitiatorId initiatorId, MembershipApplicationId membershipApplicationId,
+        public virtual Settings Settings
+        {
+            get { return _settings; }
+            protected set { _settings = value; }
+        }
+
+        public virtual MembershipApplication RequestMembership(InitiatorId initiatorId,
+            MembershipApplicationId membershipApplicationId,
             User user)
         {
             if (Applications.FirstOrDefault(p => Equals(p.UserId, user.UserId)) != null)
@@ -187,6 +197,18 @@
             ContactDetails = contactDetails;
 
             EventPublisher.Publish(new OrganizationContactDetailsChanged());
+        }
+
+        public virtual void ChangeSettingPublicRental(Initiator initiator, bool value)
+        {
+            if (initiator == null) throw new ArgumentNullException("initiator");
+
+            if (_settings.PublicRental == value)
+                return;
+
+            _settings = new Settings(value);
+
+            EventPublisher.Publish(new PublicRentalSettingChanged(initiator, this.Id, _settings.PublicRental));
         }
     }
 }

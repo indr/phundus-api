@@ -112,9 +112,11 @@
     <Compile Include="Ddd\ISubscribeTo.cs" />
     <Compile Include="Cqrs\AutoMappingReadModelBase.cs" />
     <Compile Include="IdentityAccess\Model\OrganizationContactDetailsChanged.cs" />
+    <Compile Include="IdentityAccess\Model\PublicRentalSettingChanged.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\ApplyForMembership.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\ApproveMembershipApplication.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\ChangeMembersRole.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\ChangeSettingPublicRental.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\EstablishOrganization.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\LockMember.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\RejectMembershipApplication.cs" />
@@ -142,6 +144,7 @@
     <Compile Include="IdentityAccess\Organizations\Model\OrganizationPlan.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\OrganizationUpdated.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\Role.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\Settings.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\StartpageChanged.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />

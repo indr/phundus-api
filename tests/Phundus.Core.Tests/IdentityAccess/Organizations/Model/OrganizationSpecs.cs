@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Organizations.Model
 {
-    using System;
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -9,21 +8,11 @@
     using Phundus.IdentityAccess.Users.Model;
     using Rhino.Mocks;
 
-    public class organization_concern : aggregate_concern<Organization>
+    [Subject(typeof (Organization))]
+    public class when_instantiating_an_organization : organization_concern
     {
-        protected static InitiatorId theInitiatorId;
-
-        private Establish ctx = () =>
-        {
-            theInitiatorId = new InitiatorId();
-            sut = new Organization(Guid.NewGuid(), "Organization name");
-        };
-
-        protected static User CreateUser()
-        {
-            return new User("user@test.phundus.ch", "1234", "Hans", "Müller", "Street", "1000", "City", "012 345 67 89",
-                null);
-        }
+        private It should_have_settings = () =>
+            sut.Settings.ShouldNotBeNull();
     }
 
     [Subject(typeof (Organization))]
@@ -37,11 +26,11 @@
         private Because of = () =>
             sut.ChangeContactDetails(theContactDetails);
 
-        private It should_update_contact_details = () =>
-            sut.ContactDetails.ShouldEqual(theContactDetails);
-
         private It should_publish_organization_contact_details_changed = () =>
             publisher.WasToldTo(x => x.Publish(Arg<OrganizationContactDetailsChanged>.Is.NotNull));
+
+        private It should_update_contact_details = () =>
+            sut.ContactDetails.ShouldEqual(theContactDetails);
     }
 
     [Subject(typeof (Organization))]

@@ -1,12 +1,12 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Organizations.Events
 {
-    using System;
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Organizations.Model;
 
     [Subject(typeof (MembershipApplicationFiled))]
-    public class when_instantiating_a_user_memberhsip_application_filed_event : domain_event_concern<MembershipApplicationFiled>
+    public class when_instantiating_a_user_memberhsip_application_filed_event :
+        domain_event_concern<MembershipApplicationFiled>
     {
         private static OrganizationId theOrganizationId = new OrganizationId();
         private static UserId theUserId = new UserId();
@@ -21,8 +21,9 @@
         private It should_have_the_user_guid_at_5 = () => dataMember(5).ShouldEqual(theUserId.Id);
     }
 
-    [Subject(typeof(MembershipApplicationRejected))]
-    public class when_instantiating_a_membership_application_rejected_event : domain_event_concern<MembershipApplicationRejected>
+    [Subject(typeof (MembershipApplicationRejected))]
+    public class when_instantiating_a_membership_application_rejected_event :
+        domain_event_concern<MembershipApplicationRejected>
     {
         private static OrganizationId theOrganizationId = new OrganizationId();
         private static UserId theUserId = new UserId();
@@ -36,8 +37,9 @@
         private It should_have_the_user_guid_at_5 = () => dataMember(5).ShouldEqual(theUserId.Id);
     }
 
-    [Subject(typeof(MembershipApplicationApproved))]
-    public class when_instantiating_a_membership_application_approved_event : domain_event_concern<MembershipApplicationApproved>
+    [Subject(typeof (MembershipApplicationApproved))]
+    public class when_instantiating_a_membership_application_approved_event :
+        domain_event_concern<MembershipApplicationApproved>
     {
         private static OrganizationId theOrganizationId = new OrganizationId();
         private static UserId theUserId = new UserId();
