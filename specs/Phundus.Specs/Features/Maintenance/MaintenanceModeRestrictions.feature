@@ -1,8 +1,7 @@
 ﻿Feature: MaintenanceModeRestrictions
 	
 Background:
-	Given I logged in as root
-	And I activated maintenance mode
+	Given in maintenance mode
 
 @inMaintenance
 Scenario: Log in with external email address fails with service unavailable
