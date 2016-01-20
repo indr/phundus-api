@@ -84,11 +84,11 @@
             Guard.Against<ArgumentNullException>(sessionKey == null, "sessionKey");
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(sessionKey), "sessionKey must not be empty");
             Guard.Against<ArgumentNullException>(password == null, "password");
-            Guard.Against<UserNotApprovedException>(IsNotApproved, "");
-            Guard.Against<UserLockedOutException>(IsLockedOut, "");
+            Guard.Against<UserNotApprovedException>(IsNotApproved, "Dieser Benutzer hat seine E-Mail-Adresse noch nicht bestätigt.");
+            Guard.Against<UserLockedOutException>(IsLockedOut, "Dieser Benutzer wurde von uns gesperrt.");
 
             Guard.Against<InvalidPasswordException>(
-                Password != PasswordEncryptor.Encrypt(password, Salt), "");
+                Password != PasswordEncryptor.Encrypt(password, Salt), "Das angegebene Passwort ist falsch.");
 
             SessionKey = sessionKey;
             LastLogOnDate = DateTime.Now;

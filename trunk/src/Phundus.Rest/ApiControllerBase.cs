@@ -88,7 +88,7 @@
         protected void CheckForMaintenanceMode(string emailAddress)
         {
             if ((Config.InMaintenance) && (!Regex.Match(emailAddress, @"@(test\.)?phundus\.ch$", RegexOptions.IgnoreCase).Success))
-                throw new MaintenanceModeException();
+                throw new MaintenanceModeException("Das System befindet sich im Wartungsmodus.");
         }
     }
 }

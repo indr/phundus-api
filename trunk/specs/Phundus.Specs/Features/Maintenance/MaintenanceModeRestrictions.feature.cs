@@ -87,6 +87,8 @@ this.FeatureBackground();
  testRunner.When("I try to log in with \"user@domain.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
  testRunner.Then("I should see service unavailable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 10
+ testRunner.And("I should see message \"Das System befindet sich im Wartungsmodus.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -98,13 +100,13 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Log in with @phundus.ch fails with invalid password", new string[] {
                         "inMaintenance"});
-#line 12
+#line 13
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 13
- testRunner.When("I try to log in with \"user@phundus.ch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 14
+ testRunner.When("I try to log in with \"user@phundus.ch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 15
  testRunner.Then("I should see error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -117,13 +119,13 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Log in with @test.phundus.ch fails with invalid password", new string[] {
                         "inMaintenance"});
-#line 17
+#line 18
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 18
- testRunner.When("I try to log in with \"user@test.phundus.ch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 19
+ testRunner.When("I try to log in with \"user@test.phundus.ch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 20
  testRunner.Then("I should see error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -136,13 +138,13 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sign up with external email address fails with service unavailable", new string[] {
                         "inMaintenance"});
-#line 22
+#line 23
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 23
- testRunner.When("I try to sign up with \"user@domain.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 24
+ testRunner.When("I try to sign up with \"user@domain.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 25
  testRunner.Then("I should see service unavailable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -155,13 +157,13 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sign up with @test.phundus.ch succeeds", new string[] {
                         "inMaintenance"});
-#line 27
+#line 28
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 28
- testRunner.When("I try to sign up", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 29
+ testRunner.When("I try to sign up", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 30
  testRunner.Then("I should see ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -172,15 +174,15 @@ this.FeatureBackground();
         public virtual void EmailsArenTSentToExternalDomains()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Emails aren\'t sent to external domains", ((string[])(null)));
-#line 31
+#line 32
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 32
- testRunner.When("I try to submit feedback with email address \"john@example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 33
- testRunner.Then("\"john@example.com\" should not receive email \"Vielen Dank fürs Feedback\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I try to submit feedback with email address \"john@example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 34
+ testRunner.Then("\"john@example.com\" should not receive email \"Vielen Dank fürs Feedback\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 35
  testRunner.And("\"admin@test.phundus.ch\" should receive email \"[phundus] Feedback\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

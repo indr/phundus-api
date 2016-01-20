@@ -8,7 +8,6 @@
     using Phundus.Common;
     using Phundus.Cqrs;
     using Phundus.IdentityAccess.Users.Commands;
-    using Phundus.IdentityAccess.Users.Exceptions;
     using Phundus.IdentityAccess.Users.Repositories;
     using Phundus.IdentityAccess.Users.Services;
     using Phundus.Integration.IdentityAccess;
@@ -182,20 +181,13 @@
             var user = Users.FindByEmailAddress(username);
 
             if (user == null)
-                return false;
+                throw new NotFoundException("Ein Benutzer mit dieser E-Mail-Adresse ist uns nicht bekannt.");
 
-            try
-            {
-                var id = SessionKeyGenerator.CreateKey();
-                if ((HttpContext.Current != null) && (HttpContext.Current.Session != null))
-                    id = HttpContext.Current.Session.SessionID;
-                user.Account.LogOn(id, password);
-                return true;
-            }
-            catch (InvalidPasswordException)
-            {
-                return false;
-            }
+            var id = SessionKeyGenerator.CreateKey();
+            if ((HttpContext.Current != null) && (HttpContext.Current.Session != null))
+                id = HttpContext.Current.Session.SessionID;
+            user.Account.LogOn(id, password);
+            return true;
         }
 
         public override bool ChangePasswordQuestionAndAnswer(string username, string password,
