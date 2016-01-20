@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Phundus.Specs.Features.Maintenance
 {
+    using ContentTypes;
     using Services;
     using Steps;
     using TechTalk.SpecFlow;
@@ -17,12 +18,32 @@ namespace Phundus.Specs.Features.Maintenance
         }
 
         [AfterFeature]
-        public void DeactivateMaintenanceMode()
+        public static void DeactivateMaintenanceMode()
         {
             if (App.InMaintenanceMode)
             {
-                App.LogInAsRoot();
-                App.SetMaintenanceMode(false);
+                new Resource("sessions", false).Post(new SessionsPostRequestContent
+                {
+                    Username = "admin@test.phundus.ch",
+                    Password = "1234"
+                });
+                new Resource("maintenance", false).Patch(new {inMaintenance = false});
+                App.InMaintenanceMode = false;
+            }
+        }
+
+        [Given("in maintenance mode")]
+        public void ActivateMaintenanceMode()
+        {
+            if (!App.InMaintenanceMode)
+            {
+                new Resource("sessions", false).Post(new SessionsPostRequestContent
+                {
+                    Username = "admin@test.phundus.ch",
+                    Password = "1234"
+                });
+                new Resource("maintenance", false).Patch(new { inMaintenance = true });
+                App.InMaintenanceMode = true;
             }
         }
         

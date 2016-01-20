@@ -14,7 +14,7 @@
         private readonly ApiClient _apiClient;
         private readonly FakeArticleGenerator _fakeArticleGenerator;
         private readonly FakeNameGenerator _fakeNameGenerator;
-        private bool _inMaintenanceMode;
+        private static bool _inMaintenanceMode;
 
         public App(ApiClient apiClient, FakeNameGenerator fakeNameGenerator, FakeArticleGenerator fakeArticleGenerator)
         {
@@ -26,9 +26,10 @@
             _fakeArticleGenerator = fakeArticleGenerator;
         }
 
-        public bool InMaintenanceMode
+        public static bool InMaintenanceMode
         {
             get { return _inMaintenanceMode; }
+            set { _inMaintenanceMode = value; }
         }
 
         [AfterScenario]
