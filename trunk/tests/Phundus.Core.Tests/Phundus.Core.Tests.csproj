@@ -99,13 +99,17 @@
     <Compile Include="Ddd\DomainEntitesSpecs.cs" />
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="factory_base.cs" />
+    <Compile Include="IdentityAccess\Commands\ChangeSettingPublicRentalHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\identityaccess_factory.cs" />
+    <Compile Include="IdentityAccess\Model\OrganizationSettingsSpecs.cs" />
+    <Compile Include="IdentityAccess\Model\PublicRentalSettingChangedSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\EstablishOrganizationHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\identityaccess_handler_concern.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UpdateOrganizationDetailsHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UpdateStartpageHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Events\MembershipApplicationSpecs.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\OrganizationSpecs.cs" />
+    <Compile Include="IdentityAccess\organization_concern.cs" />
     <Compile Include="IdentityAccess\Queries\OrganizationViewRowSpecs.cs" />
     <Compile Include="IdentityAccess\Users\Commands\ChangeEmailAddressHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Users\Commands\SignUpUserHandlerSpecs.cs" />
@@ -185,7 +189,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="IdentityAccess\Model\" />
     <Folder Include="Inventory\Articles\Model\" />
     <Folder Include="Inventory\Stores\" />
     <Folder Include="_Legacy\Entities\ArticleTests\" />

@@ -9,11 +9,17 @@ namespace Phundus.Tests
         where THandler : class, IHandleCommand<TCommand>
     {
         protected static InitiatorId theInitiatorId;
+        protected static Initiator theInitiator;
         protected static TCommand command;
 
         protected static Exception caughtException;
         protected static bool catchException = false;
-        private Establish ctx = () => theInitiatorId = new InitiatorId();
+        
+        private Establish ctx = () =>
+        {
+            theInitiatorId = new InitiatorId();
+            theInitiator = new Initiator(theInitiatorId, "initiator@test.phundus.ch", "The Initiator");
+        };
 
         public Because of = () =>
         {

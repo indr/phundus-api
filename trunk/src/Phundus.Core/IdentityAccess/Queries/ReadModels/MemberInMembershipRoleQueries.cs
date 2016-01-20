@@ -94,5 +94,10 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
         {
             return IsActiveChief(ownerId.Id, userId);
         }
+
+        public Initiator ActiveManager(OrganizationId organizationId, InitiatorId initiatorId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

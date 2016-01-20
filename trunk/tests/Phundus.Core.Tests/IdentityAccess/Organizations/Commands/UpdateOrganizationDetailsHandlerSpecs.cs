@@ -13,17 +13,14 @@
     [Subject(typeof (ChangeOrganizationContactDetailsHandler))]
     public class when_update_organization_details_is_handled : identityaccess_handler_concern<ChangeOrganizationContactDetails, ChangeOrganizationContactDetailsHandler>
     {
-        private static IMemberInRole memberInRole;
-        private static IOrganizationRepository repository;
         private static Organization theOrganization;
 
         private Establish ctx = () =>
         {
             theOrganization = make.Organization();
-            memberInRole = depends.on<IMemberInRole>();
-            repository = depends.on<IOrganizationRepository>();
+            
 
-            repository.setup(x => x.GetById(theOrganization.Id)).Return(theOrganization);
+            organizationRepository.setup(x => x.GetById(theOrganization.Id)).Return(theOrganization);
 
             command = new ChangeOrganizationContactDetails(theInitiatorId, theOrganization.Id,
                 "New post address", "New phone number", "New email address", "New website");
