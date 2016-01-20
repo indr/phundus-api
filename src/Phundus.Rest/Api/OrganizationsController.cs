@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using System.Web;
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
@@ -15,7 +14,6 @@
     using ContentObjects;
     using IdentityAccess.Organizations.Commands;
     using IdentityAccess.Queries;
-    using IdentityAccess.Queries.ReadModels;
     using Inventory.Queries;
     using Newtonsoft.Json;
 
@@ -59,7 +57,7 @@
         public virtual OrganizationsGetOkResponseContent Get(Guid organizationId)
         {
             var organization = _organizationQueries.GetById(organizationId);
-            
+
             var store = _storeQueries.FindByOwnerId(new OwnerId(organization.OrganizationId));
             var result = new OrganizationsGetOkResponseContent
             {

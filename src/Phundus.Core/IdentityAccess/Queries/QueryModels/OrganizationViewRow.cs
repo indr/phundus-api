@@ -29,5 +29,6 @@ namespace Phundus.IdentityAccess.Queries.QueryModels
 
         public string Startpage { get; set; }
         public string DocumentTemplate { get; set; }
+        public bool PublicRental { get; set; }
     }
 }

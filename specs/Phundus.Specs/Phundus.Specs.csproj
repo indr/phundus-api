@@ -228,6 +228,12 @@
     </Compile>
     <Compile Include="Features\Organizations\MembershipSteps.cs" />
     <Compile Include="Features\Organizations\MembersSteps.cs" />
+    <Compile Include="Features\Organizations\OrgSettingsSteps.cs" />
+    <Compile Include="Features\Organizations\Settings.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Settings.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Organizations\Startpage.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -276,6 +282,7 @@
     <Compile Include="Services\App.cs" />
     <Compile Include="Features\Organizations\OrganizationsSteps.cs" />
     <Compile Include="Services\Resource.cs" />
+    <Compile Include="Services\Transforms.cs" />
     <Compile Include="Services\UserRole.cs" />
     <Compile Include="Steps\EmailSteps.cs" />
     <Compile Include="Steps\LogInSteps.cs" />
@@ -406,6 +413,10 @@
     <None Include="Features\Organizations\Application.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Application.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Organizations\Settings.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Organizations\Startpage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

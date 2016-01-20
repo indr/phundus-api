@@ -62,7 +62,8 @@
                 Name = organization.Name,
                 Url = organization.Url,
                 Startpage = organization.Startpage,
-                DocumentTemplate = organization.DocTemplateFileName
+                DocumentTemplate = organization.DocTemplateFileName,
+                PublicRental = organization.Settings.PublicRental
             };
 
             if (organization.ContactDetails != null)

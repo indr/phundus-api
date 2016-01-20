@@ -50,4 +50,13 @@
         [JsonProperty("website")]
         public string Website { get; set; }
     }
+
+    public class OrganizationsSettings
+    {
+        [JsonProperty("organizationId")]
+        public Guid OrganizationId { get; set; }
+
+        [JsonProperty("publicRental")]
+        public bool PublicRental { get; set; }
+    }
 }
