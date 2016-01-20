@@ -21,8 +21,14 @@ namespace Phundus.Rest.ContentObjects
         [JsonProperty("textBody")]
         public string TextBody { get; set; }
 
+        [JsonProperty("hasTextPart")]
+        public bool HasTextPart { get { return !String.IsNullOrWhiteSpace(TextBody); } }
+
         [JsonProperty("htmlBody")]
         public string HtmlBody { get; set; }
+
+        [JsonProperty("hasHtmlPart")]
+        public bool HasHtmlPart { get { return !String.IsNullOrWhiteSpace(HtmlBody); } }
 
         [JsonProperty("date")]
         public DateTime Date { get; set; }
