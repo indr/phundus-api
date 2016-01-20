@@ -31,4 +31,11 @@
                     scope="\\Web\.config$"
                     match="/configuration/appSettings/add[@key='MigrationProfile']/@value" />
   </parameter>
+
+  <parameter name="Maintenance Mode"
+            defaultValue="">
+	<parameterEntry kind="XmlFile"
+					scope="\\Web\.config$"
+					match="/configuration/appSettings/add[@key='MaintenanceMode']/@value" />
+  </parameter>
 </parameters>
