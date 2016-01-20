@@ -8,9 +8,7 @@
     using Castle.Transactions;
     using Common.Domain.Model;
     using IdentityAccess.Organizations.Commands;
-    using IdentityAccess.Queries;
     using IdentityAccess.Queries.QueryModels;
-    using IdentityAccess.Queries.ReadModels;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/applications")]

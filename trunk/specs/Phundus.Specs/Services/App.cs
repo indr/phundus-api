@@ -391,5 +391,7 @@
             var response = _apiClient.Assert(assertStatusCode).MaintenanceApi.Patch(new { inMaintenance = inMaintenance });
             _inMaintenanceMode = inMaintenance && response.StatusCode == HttpStatusCode.OK;
         }
+
+       
     }
 }

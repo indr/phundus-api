@@ -127,6 +127,11 @@
             get { return Resource("maintenance"); }
         }
 
+        public Resource OrganizationsSettingsApi
+        {
+            get { return Resource("organizations/{organizationId}/settings"); }
+        }
+
         private Resource Resource(string url)
         {
             var result = new Resource(url, _assertNextHttpStatusCode);

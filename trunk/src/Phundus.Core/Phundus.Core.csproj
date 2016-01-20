@@ -96,6 +96,7 @@
     <Compile Include="App_Start\NotificationPublisherInstaller.cs" />
     <Compile Include="App_Start\CommonInstaller.cs" />
     <Compile Include="App_Start\QueriesInstaller.cs" />
+    <Compile Include="Cqrs\NHibernateReadModelBase.cs" />
     <Compile Include="Cqrs\Paging\PagedResult.cs" />
     <Compile Include="Cqrs\Paging\PageRequest.cs" />
     <Compile Include="Cqrs\Paging\PageResponse.cs" />
