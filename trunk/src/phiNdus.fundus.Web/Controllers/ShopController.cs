@@ -3,11 +3,15 @@
     using System;
     using System.Linq;
     using System.Web.Mvc;
+    using Authorization;
     using Castle.Transactions;
+    using Common;
     using Common.Domain.Model;
     using IdentityAccess.Queries;
     using Inventory.Queries;
     using phiNdus.fundus.Web.ViewModels;
+    using Shop.Authorization;
+    using Shop.Orders.Model;
     using Shop.Queries;
 
     public class ShopController : ControllerBase
@@ -19,6 +23,8 @@
         public IAvailabilityQueries AvailabilityQueries { get; set; }
 
         public IMemberInRole MemberInRole { get; set; }
+
+        public IAuthorize Authorize { get; set; }
 
         private static string MasterView
         {
@@ -144,8 +150,22 @@
 
             if (Identity.IsAuthenticated)
             {
-                model.CanUserAddToCart = MemberInRole.IsActiveMember(model.Article.OrganizationId,
-                    new UserId(CurrentUserId));
+                //model.CanUserAddToCart = MemberInRole.IsActiveMember(model.Article.OrganizationId, new UserId(CurrentUserId));
+
+                var adapted = new Article(article.Id,
+                    new Owner(new OwnerId(article.OrganizationId), article.OrganizationName),
+                    article.Name, article.Price);
+
+                // This is perfectly best practice ¯\_(ツ)_/¯
+                try
+                {
+                    Authorize.User(new UserId(CurrentUserId), Rent.Article(adapted));
+                    model.CanUserAddToCart = true;
+                }
+                catch (AuthorizationException)
+                {
+                    model.CanUserAddToCart = false;
+                }
             }
 
             model.Availabilities = AvailabilityQueries.GetAvailability(id).ToList();
