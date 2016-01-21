@@ -13,9 +13,11 @@
         void ActiveChief(OwnerId ownerId, UserId userId);
 
         bool IsActiveMember(Guid organizationId, UserId userId);
+        bool IsActiveMember(OrganizationId organizationId, UserId userId);
         bool IsActiveMember(OwnerId ownerId, UserId userId);
 
         bool IsActiveChief(Guid organizationId, UserId userId);
+        bool IsActiveManager(OrganizationId organizationId, UserId userId);
         bool IsActiveChief(OwnerId ownerId, UserId userId);
         Initiator ActiveManager(OrganizationId organizationId, InitiatorId initiatorId);
     }

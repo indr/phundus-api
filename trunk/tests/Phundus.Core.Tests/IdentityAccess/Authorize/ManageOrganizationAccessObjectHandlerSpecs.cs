@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Authorize
 {
     using Authorization;
+    using Common;
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -28,11 +29,36 @@
         private static OrganizationId theOrganizationId;
         private Establish ctx = () =>
         {
+            catchException = true;
             theOrganizationId = new OrganizationId();
             theAccessObject = new ManageOrganization(theOrganizationId);
         };
 
-        private It should_tell_member_in_role_active_manager = () =>
-            memberInRole.WasToldTo(x => x.ActiveManager(theOrganizationId, theUserId));
+        public class and_the_user_is_a_manager
+        {
+            private Establish ctx = () =>
+                memberInRole.WhenToldTo(x => x.IsActiveManager(theOrganizationId, theUserId)).Return(true);
+
+            private It should_have_test_result_true = () =>
+                testResult.ShouldBeTrue();
+
+            private It should_not_throw_authorization_exception = () =>
+                caughtException.ShouldBeNull();
+        }
+
+        public class and_the_user_is_not_a_manager
+        {
+            private Establish ctx = () =>
+                memberInRole.WhenToldTo(x => x.IsActiveManager(theOrganizationId, theUserId)).Return(false);
+
+            private It should_have_test_result_true = () =>
+                testResult.ShouldBeFalse();
+
+            private It should_throw_authoritzation_exception = () =>
+                caughtException.ShouldBeOfExactType<AuthorizationException>();
+
+            private It should_throw_exception_message = () =>
+                caughtException.Message.ShouldEqual("Du benötigst die Rolle Verwaltung.");
+        }
     }
 }

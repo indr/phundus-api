@@ -54,7 +54,7 @@
         {
             var article = _articleService.GetById(command.ArticleId);
 
-            _authorize.User(command.InitiatorId, Rent.Article(article));
+            _authorize.Enforce(command.InitiatorId, Rent.Article(article));
 
             
 

@@ -70,7 +70,7 @@
             foreach (var eachCartItem in cartItemsToPlace)
             {
                 var article = _articleService.GetById(lessor.LessorId, eachCartItem.ArticleId);
-                _authorize.User(cart.UserId, Rent.Article(article));
+                _authorize.Enforce(cart.UserId, Rent.Article(article));
             }
 
             var orderItems = cartItemsToPlace.Select(s => new OrderItem(s.ArticleId, s.LineText, new Period(s.From, s.To), s.Quantity, s.UnitPrice)).ToList();

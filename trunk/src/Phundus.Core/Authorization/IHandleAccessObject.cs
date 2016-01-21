@@ -8,6 +8,7 @@
 
     public interface IHandleAccessObject<in TAccessObject> : IHandleAccessObject
     {
-        void Handle(UserId userId, TAccessObject accessObject);
+        void Enforce(UserId userId, TAccessObject accessObject);
+        bool Test(UserId userId, TAccessObject accessObject);
     }
 }

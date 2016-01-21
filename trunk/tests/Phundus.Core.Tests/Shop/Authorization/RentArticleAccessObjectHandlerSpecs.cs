@@ -28,6 +28,9 @@
             private Establish ctx = () =>
                 memberInRole.WhenToldTo(x => x.IsActiveMember(theArticle.LessorId.Id, theUserId)).Return(true);
 
+            private It should_have_test_result_true = () =>
+                testResult.ShouldBeTrue();
+
             private It should_not_throw_authorization_exception = () =>
                 caughtException.ShouldBeNull();
         }
@@ -40,6 +43,9 @@
                     x.IsActiveMember(theArticle.LessorId.Id, theUserId)).Return(false);
                 theLessor.setup(x => x.DoesPublicRental).Return(false);
             };
+
+            private It should_have_test_result_true = () =>
+                testResult.ShouldBeFalse();
 
             private It should_throw_authoritzation_exception = () =>
                 caughtException.ShouldBeOfExactType<AuthorizationException>();
@@ -56,6 +62,9 @@
                     x.IsActiveMember(theArticle.LessorId.Id, theUserId)).Return(false);
                 theLessor.setup(x => x.DoesPublicRental).Return(true);
             };
+
+            private It should_have_test_result_true = () =>
+                testResult.ShouldBeTrue();
 
             private It should_not_throw_authorization_exception = () =>
                 caughtException.ShouldBeNull();

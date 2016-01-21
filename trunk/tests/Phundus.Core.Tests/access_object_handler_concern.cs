@@ -10,13 +10,16 @@
         protected static UserId theUserId;
         protected static TAccessObject theAccessObject;
 
+        protected static bool testResult;
+
         private Because of = () =>
         {
             theAccessObject.ShouldNotBeNull();
+            testResult = sut.Test(theUserId, theAccessObject);
             if (catchException)
-                caughtException = Catch.Exception(() => sut.Handle(theUserId, theAccessObject));
+                caughtException = Catch.Exception(() => sut.Enforce(theUserId, theAccessObject));
             else
-                sut.Handle(theUserId, theAccessObject);
+                sut.Enforce(theUserId, theAccessObject);
         };
     }
 }
