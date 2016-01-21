@@ -1,6 +1,7 @@
 ﻿namespace Phundus
 {
     using System.Reflection;
+    using Authorization;
     using Castle.Facilities.TypedFactory;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
@@ -11,7 +12,7 @@
     using IdentityAccess.Queries.ReadModels;
     using IdentityAccess.Users.Services;
     using Integration.Shop;
-    using Phundus.Shop.Queries.QueryModels;
+    using Shop.Queries.QueryModels;
 
     public class CoreInstaller : IWindsorInstaller
     {
@@ -40,14 +41,28 @@
                 );
 
             container.Register(
+                Component.For<ITypedFactoryComponentSelector>().ImplementedBy<AuthorizationHandlerSelector>(),
+                Component.For<AutoReleaseAuthorizationHandlerInterceptor>(),
+                Types.FromAssembly(_assemblyContainingCommandsAndHandlers)
+                    .BasedOn(typeof(IHandleAuthorization<>))
+                    .WithServiceAllInterfaces()
+                    .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseAuthorizationHandlerInterceptor>()),
+                Component.For<IAuthorizationDispatcher>().ImplementedBy<AuthorizationDispatcher>().LifestyleTransient(),
+                Component.For<IAuthorizationHandlerFactory>().AsFactory(c => c.SelectedWith<AuthorizationHandlerSelector>())
+                );
+
+            container.Register(
                 Component.For<ITypedFactoryComponentSelector>().ImplementedBy<EventHandlerSelector>(),
                 Component.For<AutoReleaseEventHandlerInterceptor>(),
-                Classes.FromThisAssembly().BasedOn(typeof (ISubscribeTo<>))
+                Classes.FromThisAssembly()
+                    .BasedOn(typeof (ISubscribeTo<>))
                     .WithServiceAllInterfaces()
                     .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseEventHandlerInterceptor>()),
                 Component.For<IEventPublisher>().ImplementedBy<EventPublisherImpl>(),
                 Component.For<IEventHandlerFactory>().AsFactory(c => c.SelectedWith<EventHandlerSelector>())
                 );
+
+            
 
             container.Register(
                 Classes.FromThisAssembly()
@@ -61,7 +76,7 @@
 
             container.Register(Component.For<ILesseeQueries>().ImplementedBy<LesseeQueries>());
             container.Register(Component.For<IMembershipQueries>().ImplementedBy<MembershipQueries>());
-            
+
             EventPublisher.Factory(container.Resolve<IEventPublisher>);
         }
     }
