@@ -6,13 +6,9 @@
     using System.Net;
     using ContentTypes;
     using NUnit.Framework;
-    using Phundus.Specs.Browsers;
     using Services;
     using TechTalk.SpecFlow;
 
-    /// <summary>
-    /// http://volaresystems.com/Blog/post/2013/01/06/SpecFlow-and-WatiN-Worst-Practices-What-NOT-to-do.aspx
-    /// </summary>
     [Binding]
     public class BeforeAndAfter
     {
@@ -39,15 +35,6 @@
             stream.ReadToEnd();
             //var content = stream.ReadToEnd();
             //Assert.That(content, Contains.Substring(@"<div class=""hero-unit"">"));
-        }
-
-        [AfterTestRun]
-        public static void AfterTestRun()
-        {
-            if (ConfigurationManager.AppSettings["ForceClose"] == "true")
-                Browser.Current.ForceClose();
-            else
-                Browser.Current.Close();
         }
 
         private static void DeleteEmails()
