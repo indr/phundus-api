@@ -140,6 +140,7 @@
     <Compile Include="Inventory\Articles\Commands\WhenDeleteArticleIsHandled.cs" />
     <Compile Include="Inventory\inventory_factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shop\Authorization\RentArticleAccessObjectHandlerSpecs.cs" />
     <Compile Include="Shop\Commands\AddArticleToCartHandlerSpecs.cs" />
     <Compile Include="Shop\Commands\PlaceOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Commands\RemoveCartItemHandlerSpecs.cs" />
