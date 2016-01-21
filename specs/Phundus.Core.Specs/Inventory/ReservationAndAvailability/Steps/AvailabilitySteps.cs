@@ -13,6 +13,7 @@
     using Rhino.Mocks;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
+    using Owner = Phundus.Inventory.Owners.Owner;
 
     [Binding]
     public class AvailabilitySteps : concern<AvailabilityService>

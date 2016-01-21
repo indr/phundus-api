@@ -10,6 +10,7 @@
     using Phundus.Tests.Shop;
     using Rhino.Mocks;
     using Article = Phundus.Shop.Orders.Model.Article;
+    using Owner = Phundus.Shop.Orders.Model.Owner;
 
     [Subject(typeof (RemoveOrderItemHandler))]
     public class when_remove_order_command_item_is_handled : order_command_handler_concern<RemoveOrderItem, RemoveOrderItemHandler>

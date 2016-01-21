@@ -4,6 +4,7 @@
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Shop.Orders.Model;
+    using Owner = Phundus.Shop.Orders.Model.Owner;
 
     public class cart_concern
     {

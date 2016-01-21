@@ -6,6 +6,7 @@
     using IdentityAccess.Organizations.Model;
     using Owners;
     using Repositories;
+    using Owner = Owners.Owner;
 
     public class DefaultOrganizationStoreOpener : ISubscribeTo<OrganizationEstablished>
     {

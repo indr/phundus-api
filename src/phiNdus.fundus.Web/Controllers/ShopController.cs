@@ -13,6 +13,7 @@
     using Shop.Authorization;
     using Shop.Orders.Model;
     using Shop.Queries;
+    using Owner = Shop.Orders.Model.Owner;
 
     public class ShopController : ControllerBase
     {

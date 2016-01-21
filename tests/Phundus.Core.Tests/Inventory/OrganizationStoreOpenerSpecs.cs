@@ -10,6 +10,7 @@
     using Phundus.Inventory.Stores.Model;
     using Phundus.Inventory.Stores.Repositories;
     using Rhino.Mocks;
+    using Owner = Phundus.Inventory.Owners.Owner;
 
     [Subject(typeof (DefaultOrganizationStoreOpener))]
     public class when_handled : subscriber_concern<OrganizationEstablished, DefaultOrganizationStoreOpener>

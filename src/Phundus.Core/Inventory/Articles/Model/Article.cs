@@ -7,6 +7,7 @@
     using Ddd;
     using Iesi.Collections.Generic;
     using Owners;
+    using Owner = Owners.Owner;
 
     public class Article : Aggregate<int>
     {

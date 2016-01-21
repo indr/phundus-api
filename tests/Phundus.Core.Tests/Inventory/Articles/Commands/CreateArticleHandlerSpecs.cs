@@ -9,6 +9,7 @@
     using Phundus.Inventory.Articles.Model;
     using Phundus.Inventory.Owners;
     using Rhino.Mocks;
+    using Owner = Phundus.Inventory.Owners.Owner;
 
     [Subject(typeof (CreateArticleHandler))]
     public class when_create_article_command_is_handled : article_command_handler_concern<CreateArticle, CreateArticleHandler>

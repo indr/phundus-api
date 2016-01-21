@@ -5,6 +5,7 @@ namespace Phundus.Tests.Shop.Orders.Model
     using Machine.Specifications;
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
+    using Owner = Phundus.Shop.Orders.Model.Owner;
 
     public abstract class order_concern : creating_order_concern
     {
