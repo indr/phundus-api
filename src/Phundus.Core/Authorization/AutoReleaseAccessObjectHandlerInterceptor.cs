@@ -19,12 +19,14 @@
         {
             MethodInfo methodHandle = null;
             var parameters = invocation.Method.GetParameters();
-            if (parameters.Length == 1)
+            if (parameters.Length == 2)
             {
                 // TODO: Do we really need to make the generic type to compare MethodInfos?
-                methodHandle = typeof (IHandleAccessObject<>)
-                    .MakeGenericType(parameters[0].ParameterType)
-                    .GetMethod("Handle");
+                var genericType = typeof (IHandleAccessObject<>)
+                    .MakeGenericType(parameters[1].ParameterType);
+                methodHandle = genericType.GetMethod("Enforce");
+                if (invocation.Method != methodHandle)
+                    methodHandle = genericType.GetMethod("Test");
             }
 
             if (invocation.Method != methodHandle)
