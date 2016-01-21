@@ -198,7 +198,7 @@
     {
         public static Order CreatePending()
         {
-            var lessor = new Lessor(new LessorId(), "OrderFactory");
+            var lessor = new Lessor(new LessorId(), "OrderFactory", false);
             return new Order(lessor, BorrowerFactory.CreateLessee());
         }
 

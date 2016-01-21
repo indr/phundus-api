@@ -85,12 +85,12 @@
 
         private static Lessor ToLessor(IUser user)
         {
-            return new Lessor(new LessorId(user.UserId), user.FirstName + " " + user.LastName);
+            return new Lessor(new LessorId(user.UserId), user.FirstName + " " + user.LastName, true);
         }
 
         private static Lessor ToLessor(IOrganization organization)
         {
-            return new Lessor(new LessorId(organization.OrganizationId), organization.Name);
+            return new Lessor(new LessorId(organization.OrganizationId), organization.Name, organization.PublicRental);
         }
     }
 }

@@ -40,6 +40,7 @@
         public void WhenITryToAddArticleToCart()
         {
             _cartItemId = App.AddArticleToCart(Ctx.User, Ctx.Article, false);
+            _cart = null;
         }
 
         [When(@"I try remove the last cart item")]

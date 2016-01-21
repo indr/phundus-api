@@ -10,7 +10,7 @@ namespace Phundus.Tests.Shop.Orders.Model
     {
         private Establish ctx = () =>
         {
-            theLessor = new Lessor(new LessorId(), "The lessor");
+            theLessor = new Lessor(new LessorId(), "The lessor", false);
             theLessee = CreateLessee();
             sut = new Order(theLessor, theLessee);
         };

@@ -31,7 +31,8 @@ Scenario: Add article to cart as non member, fails
 	And my cart should be empty
 
 Scenario: Add article to cart as non member when public rental is activated, succeeds
-	Given I set organization setting public rental on
+	Given I am logged in as Greg
+	And I set organization setting public rental on
 	And I am logged in as John
 	When I try to add article to cart
 	Then my cart should have these items:

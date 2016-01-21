@@ -11,7 +11,7 @@
     {
         public Establish ctx = () =>
         {
-            theLessor = new Lessor(new LessorId(), "Lessor");
+            theLessor = new Lessor(new LessorId(), "Lessor", false);
             theLessee = CreateLessee();
         };
 
@@ -45,7 +45,7 @@
 
         public Establish ctx = () =>
         {
-            theLessor = new Lessor(new LessorId(), "Lessor");
+            theLessor = new Lessor(new LessorId(), "Lessor", false);
             theLessee = CreateLessee();
 
             theItems = new List<OrderItem>();

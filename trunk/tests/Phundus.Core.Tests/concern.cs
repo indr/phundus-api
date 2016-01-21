@@ -1,5 +1,6 @@
 namespace Phundus.Tests
 {
+    using System;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using Phundus.Ddd;
@@ -18,8 +19,13 @@ namespace Phundus.Tests
 
         private Cleanup cleanup = () => EventPublisher.Factory(null);
 
+        protected static Exception caughtException;
+        protected static bool catchException;
+
         private Establish ctx = () =>
         {
+            caughtException = null;
+            catchException = false;
             publisher = depends.@on<IEventPublisher>();
             EventPublisher.Factory(() => publisher);
         };
