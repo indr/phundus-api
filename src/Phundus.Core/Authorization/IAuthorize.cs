@@ -1,6 +1,6 @@
-﻿namespace Phundus.Authorization
+namespace Phundus.Authorization
 {
-    public interface IAuthorizationDispatcher
+    public interface IAuthorize
     {
         void Dispatch<TAuthorization>(TAuthorization authorization);
     }

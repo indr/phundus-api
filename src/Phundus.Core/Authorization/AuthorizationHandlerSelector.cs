@@ -13,7 +13,7 @@
 
         protected override Type GetComponentType(MethodInfo method, object[] arguments)
         {
-            if (arguments.Length > 0 && arguments[0] is IAuthorization)
+            if (arguments.Length > 0 && arguments[0] is IAccessObject)
             {
                 Type handlerType =
                     typeof (IHandleAuthorization<>).MakeGenericType(arguments[0].GetType());

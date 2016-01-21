@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Authorization
 {
-    public class AuthorizationDispatcher : IAuthorizationDispatcher
+    public class Authorize : IAuthorize
     {
         public IAuthorizationHandlerFactory Factory { get; set; }
 

@@ -97,11 +97,11 @@
     <Compile Include="App_Start\CommonInstaller.cs" />
     <Compile Include="App_Start\QueriesInstaller.cs" />
     <Compile Include="Authorization\AutoReleaseAuthorizationHandlerInterceptor.cs" />
-    <Compile Include="Authorization\AuthorizationDispatcher.cs" />
+    <Compile Include="Authorization\Authorize.cs" />
     <Compile Include="Authorization\AuthorizationHandlerSelector.cs" />
-    <Compile Include="Authorization\IAuthorization.cs" />
-    <Compile Include="Authorization\IAuthorizationDispatcher.cs" />
+    <Compile Include="Authorization\IAccessObject.cs" />
     <Compile Include="Authorization\IAuthorizationHandlerFactory.cs" />
+    <Compile Include="Authorization\IAuthorize.cs" />
     <Compile Include="Authorization\IHandleAuthorization.cs" />
     <Compile Include="Cqrs\NHibernateReadModelBase.cs" />
     <Compile Include="Cqrs\Paging\PagedResult.cs" />
