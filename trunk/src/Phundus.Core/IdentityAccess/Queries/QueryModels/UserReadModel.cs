@@ -8,7 +8,7 @@
     using Cqrs;
     using Integration.IdentityAccess;
 
-    public class UserReadModel : NHibernateReadModelBase<UserViewRow>, IUserQueries
+    public class UserReadModel : NHibernateReadModelBase<UserViewRow>, IUserQueries, IInitiatorService
     {
         public IUser GetByGuid(Guid guid)
         {
@@ -67,6 +67,12 @@
             return QueryOver()
                 .Where(p => p.EmailAddress == emailAddress)
                 .List().SingleOrDefault() != null;
+        }
+
+        public Initiator GetActiveById(InitiatorId initiatorId)
+        {
+            var user = GetByGuid(initiatorId.Id);
+            return new Initiator(new InitiatorId(user.UserId), user.EmailAddress, user.FullName);
         }
     }
 }

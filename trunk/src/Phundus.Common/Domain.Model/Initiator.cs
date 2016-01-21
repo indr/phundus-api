@@ -17,6 +17,10 @@
             FullName = fullName;
         }
 
+        protected Initiator()
+        {
+        }
+
         [DataMember(Order = 1)]
         public Guid InitiatorGuid { get; protected set; }
 
