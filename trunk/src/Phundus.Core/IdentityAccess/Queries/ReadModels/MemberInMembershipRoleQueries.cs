@@ -23,24 +23,6 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             _membershipRepository = membershipRepository;
         }
 
-        public void ActiveMember(Guid organizationId, UserId userId)
-        {
-            if (!IsActiveMember(organizationId, userId))
-                throw new AuthorizationException("Sie müssen aktives Mitglied dieser Organisation sein.");
-        }
-
-        public void ActiveMember(OwnerId ownerId, UserId userId)
-        {
-            ActiveMember(ownerId.Id, userId);
-        }
-
-        public void ActiveManager(Guid organizationId, UserId userId)
-        {
-            if (!IsActiveChief(organizationId, userId))
-                throw new AuthorizationException(
-                    "Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");
-        }
-
         public void ActiveManager(OrganizationId organizationId, UserId userId)
         {
             ActiveManager(organizationId.Id, userId);
@@ -51,36 +33,24 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             ActiveManager(ownerId.Id, userId);
         }
 
-        public bool IsActiveMember(Guid organizationId, UserId userId)
+        public void ActiveManager(Guid organizationId, UserId userId)
         {
-            // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
-            var user = _userQueries.FindActiveById(organizationId);
-            if ((user != null) && (user.UserId == userId.Id))
-                return true;
-
-            var membership = _membershipRepository.ByMemberId(userId.Id)
-                .FirstOrDefault(p => p.Organization.Id.Id == organizationId);
-
-            if (membership == null)
-                return false;
-
-            if (membership.IsLocked)
-                return false;
-
-            return true;
+            if (!IsActiveManager(organizationId, userId))
+                throw new AuthorizationException(
+                    "Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");
         }
 
-        public bool IsActiveMember(OrganizationId organizationId, UserId userId)
+        public bool IsActiveManager(OrganizationId organizationId, UserId userId)
         {
-            return IsActiveMember(organizationId.Id, userId);
+            return IsActiveManager(organizationId.Id, userId);
         }
 
-        public bool IsActiveMember(OwnerId ownerId, UserId userId)
+        public bool IsActiveManager(OwnerId ownerId, UserId userId)
         {
-            return IsActiveMember(ownerId.Id, userId);
+            return IsActiveManager(ownerId.Id, userId);
         }
 
-        public bool IsActiveChief(Guid organizationId, UserId userId)
+        private bool IsActiveManager(Guid organizationId, UserId userId)
         {
             // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
             var user = _userQueries.FindActiveById(organizationId);
@@ -100,19 +70,33 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             return true;
         }
 
-        public bool IsActiveManager(OrganizationId organizationId, UserId userId)
+        public bool IsActiveMember(LessorId lessorId, UserId userId)
         {
-            return IsActiveChief(organizationId.Id, userId);
+            return IsActiveMember(lessorId.Id, userId);
         }
 
-        public bool IsActiveManager(OwnerId ownerId, UserId userId)
+        public bool IsActiveMember(OrganizationId organizationId, UserId userId)
         {
-            return IsActiveChief(ownerId.Id, userId);
+            return IsActiveMember(organizationId.Id, userId);
         }
 
-        public Initiator ActiveManager(OrganizationId organizationId, InitiatorId initiatorId)
+        private bool IsActiveMember(Guid organizationId, UserId userId)
         {
-            throw new NotImplementedException();
+            // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
+            var user = _userQueries.FindActiveById(organizationId);
+            if ((user != null) && (user.UserId == userId.Id))
+                return true;
+
+            var membership = _membershipRepository.ByMemberId(userId.Id)
+                .FirstOrDefault(p => p.Organization.Id.Id == organizationId);
+
+            if (membership == null)
+                return false;
+
+            if (membership.IsLocked)
+                return false;
+
+            return true;
         }
     }
 }
