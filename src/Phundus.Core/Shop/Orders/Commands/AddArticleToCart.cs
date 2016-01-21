@@ -34,27 +34,44 @@
 
     public class AddArticleToCartHandler : IHandleCommand<AddArticleToCart>
     {
-        public ICartRepository CartRepository { get; set; }
+        private readonly IAuthorize _authorize;
+        private readonly ICartRepository _cartRepository;
+        private readonly IArticleService _articleService;
 
-        public IArticleService ArticleService { get; set; }
-
-        public IMemberInRole MemberInRole { get; set; }
+        public AddArticleToCartHandler(IAuthorize authorize, ICartRepository cartRepository, IArticleService articleService)
+        {
+            if (authorize == null) throw new ArgumentNullException("authorize");
+            if (cartRepository == null) throw new ArgumentNullException("cartRepository");
+            if (articleService == null) throw new ArgumentNullException("articleService");
+            _authorize = authorize;
+            _cartRepository = cartRepository;
+            _articleService = articleService;
+        }
 
         public void Handle(AddArticleToCart command)
         {
-            var article = ArticleService.GetById(command.ArticleId);
+            _authorize.User(command.InitiatorId, Rent.Article(command.ArticleId));
 
-            MemberInRole.ActiveMember(article.Owner.OwnerId, command.UserId);
+            var article = _articleService.GetById(command.ArticleId);
 
-            var cart = CartRepository.FindByUserGuid(command.UserId);
-            if (cart == null)
-            {
-                cart = new Cart(command.InitiatorId, command.UserId);
-                CartRepository.Add(cart);
-            }
+            var cart = GetCart(command);
+
             var itemId = cart.AddItem(article, command.FromUtc, command.ToUtc, command.Quantity);
 
             command.ResultingCartItemId = itemId;
         }
+
+        private Cart GetCart(AddArticleToCart command)
+        {
+            var cart = _cartRepository.FindByUserGuid(command.UserId);
+            if (cart == null)
+            {
+                cart = new Cart(command.InitiatorId, command.UserId);
+                _cartRepository.Add(cart);
+            }
+            return cart;
+        }
     }
+
+    
 }

@@ -22,12 +22,18 @@
         protected static readonly OwnerId theOwnerId = new OwnerId();
         protected static ICartRepository cartRepository;
 
+        protected static IAuthorize authorize;
+
         private Establish ctx =
             () =>
             {
                 article = new Article(theArticleId.Id, new Owner(theOwnerId, "Owner"), "Article", 7);
                 cartRepository = depends.on<ICartRepository>();
                 memberInRole = depends.on<IMemberInRole>();
+
+                authorize = depends.on<IAuthorize>();
+
+
                 depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId)).Return(article);
                 command = new AddArticleToCart(theInitiatorId, theArticleId, theFromUtc, theToUtc, theQuantity);
             };
@@ -37,12 +43,13 @@
     public class when_user_has_no_cart_yet : when_add_article_to_cart_is_handled
     {
         private Establish ctx =
-            () => cartRepository.WhenToldTo(x => x.FindByUserGuid(theInitiatorId)).Return((Cart)null);
+            () => cartRepository.WhenToldTo(x => x.FindByUserGuid(theInitiatorId)).Return((Cart) null);
 
         private It should_add_new_cart_to_repository = () => cartRepository.WasToldTo(x => x.Add(Arg<Cart>.Is.NotNull));
 
-        private It should_ask_for_active_membership =
-            () => memberInRole.WasToldTo(x => x.ActiveMember(theOwnerId, theInitiatorId));
+        private It should_authorize_user_to_rent_article = () => authorize.WasToldTo(x =>
+            x.User(Arg<UserId>.Is.Equal(theInitiatorId),
+                Arg<RentArticle>.Matches(p => Equals(p.ArticleId, theArticleId))));
     }
 
     [Subject(typeof (AddArticleToCartHandler))]
