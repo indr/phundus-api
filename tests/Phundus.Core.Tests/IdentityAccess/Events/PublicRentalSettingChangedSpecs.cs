@@ -17,8 +17,8 @@
             sut_factory.create_using(() => new PublicRentalSettingChanged(theInitiator, theOrganizationId, theValue));
         };
 
-        private It should_be_in_namespace = () =>
-            itsNamespace.ShouldEqual("Phundus.IdentityAccess.Model");
+        private It should_have_full_name = () =>
+            itsFullName.ShouldEqual("Phundus.IdentityAccess.Model.PublicRentalSettingChanged");
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");

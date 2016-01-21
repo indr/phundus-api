@@ -13,14 +13,14 @@
         protected static InitiatorId theInitiatorId;
         protected static Initiator theInitiator;
 
-        protected static string itsNamespace;
+        protected static string itsFullName;
         protected static string itsAssembly;
 
         private Establish ctx = () =>
         {
             theInitiatorId = new InitiatorId();
             theInitiator = new Initiator(theInitiatorId, "initiator@test.phundus.ch", "The Initiator");
-            itsNamespace = type.Namespace;
+            itsFullName = type.FullName;
             itsAssembly = type.Assembly.GetName().Name;
         };
 
