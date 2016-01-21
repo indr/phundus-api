@@ -15,12 +15,13 @@ namespace Phundus.Shop.Orders.Model
             get { return _cartItemId; }
             protected set { _cartItemId = value; }
         }
+
         public virtual int Position { get; set; }
         public virtual Article Article { get; set; }
 
-        public virtual int ArticleId
+        public virtual ArticleId ArticleId
         {
-            get { return Article.Id; }
+            get { return new ArticleId(Article.Id); }
         }
 
         public virtual int Quantity { get; set; }
@@ -57,6 +58,11 @@ namespace Phundus.Shop.Orders.Model
 
         public virtual bool IsAvailable { get; set; }
         public virtual Guid CartGuid { get; set; }
+
+        public virtual Period Period
+        {
+            get { return new Period(From, To); }
+        }
 
         public virtual void ChangeQuantity(int quantity)
         {

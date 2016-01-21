@@ -94,7 +94,7 @@ namespace Phundus.Specs.Features.Shop
 #line 8
  testRunner.And("with these organization articles", ((string)(null)), table2, "And ");
 #line 13
- testRunner.And("I am logged in as Alice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a confirmed user \"John\" with email address \"john@test.phundus.ch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -108,10 +108,12 @@ this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line 16
- testRunner.Given("I added \"Apple\" to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am logged in as Alice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 17
- testRunner.When("I try to place an order for \"Scouts\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I added \"Apple\" to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 18
+ testRunner.When("I try to place an order for \"Scouts\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 19
  testRunner.Then("I should get an order id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -122,15 +124,17 @@ this.FeatureBackground();
         public virtual void PlaceOrderSendsEmailOrderReceived()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Place order sends email order received", ((string[])(null)));
-#line 20
+#line 21
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 21
- testRunner.Given("I added \"Banana\" to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 22
- testRunner.When("I try to place an order for \"Scouts\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I am logged in as Alice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 23
+ testRunner.And("I added \"Banana\" to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 24
+ testRunner.When("I try to place an order for \"Scouts\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 25
  testRunner.Then("\"greg@test.phundus.ch\" should receive email \"[phundus] Neue Bestellung\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -141,16 +145,74 @@ this.FeatureBackground();
         public virtual void PlaceOrderRemovesItemsFromCart()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Place order removes items from cart", ((string[])(null)));
-#line 25
+#line 27
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 26
- testRunner.Given("I added \"Cucumber\" to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 27
- testRunner.When("I try to place an order for \"Scouts\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 28
+ testRunner.Given("I am logged in as Alice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 29
+ testRunner.And("I added \"Cucumber\" to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 30
+ testRunner.When("I try to place an order for \"Scouts\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 31
  testRunner.Then("my cart should be empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Place order as non member when public rental is activated, succeeds")]
+        public virtual void PlaceOrderAsNonMemberWhenPublicRentalIsActivatedSucceeds()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Place order as non member when public rental is activated, succeeds", ((string[])(null)));
+#line 33
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 34
+ testRunner.Given("I am logged in as Greg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 35
+ testRunner.And("I set organization setting public rental on", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 36
+ testRunner.And("I am logged in as John", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 37
+ testRunner.And("I added \"Apple\" to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 38
+ testRunner.When("I try to place an order for \"Scouts\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 39
+ testRunner.Then("I should get an order id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Place order as non member when public rental is deactivated, fails")]
+        public virtual void PlaceOrderAsNonMemberWhenPublicRentalIsDeactivatedFails()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Place order as non member when public rental is deactivated, fails", ((string[])(null)));
+#line 41
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 42
+ testRunner.Given("I am logged in as Greg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 43
+ testRunner.And("I set organization setting public rental on", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 44
+ testRunner.And("I am logged in as John", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 45
+ testRunner.And("I added \"Apple\" to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 46
+ testRunner.And("I am logged in as Greg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 47
+ testRunner.And("I set organization setting public rental off", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 48
+ testRunner.And("I am logged in as John", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 49
+ testRunner.When("I try to place an order for \"Scouts\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 50
+ testRunner.Then("I should see forbidden", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
