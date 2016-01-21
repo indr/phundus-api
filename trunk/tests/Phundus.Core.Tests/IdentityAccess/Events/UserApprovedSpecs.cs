@@ -13,8 +13,8 @@
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
-        private It should_be_in_namespace = () =>
-            itsNamespace.ShouldEqual("Phundus.IdentityAccess.Users.Model");
+        private It should_have_full_name = () =>
+            itsFullName.ShouldEqual("Phundus.IdentityAccess.Users.Model.UserApproved");
 
         private It should_have_the_initiator_guid_at_1 = () =>
             dataMember(1).ShouldEqual(theInitiatorId.Id);

@@ -16,8 +16,8 @@
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
-        private It should_be_in_namespace = () =>
-            itsNamespace.ShouldEqual("Phundus.IdentityAccess.Organizations.Model");
+        private It should_have_full_name = () =>
+            itsFullName.ShouldEqual("Phundus.IdentityAccess.Organizations.Model.MembershipApplicationFiled");
 
         private It should_have_an_int_at_1 = () =>
             dataMember(1).ShouldBeOfExactType<int>();
