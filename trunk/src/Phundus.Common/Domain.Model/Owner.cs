@@ -11,6 +11,7 @@
         {
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             if (name == null) throw new ArgumentNullException("name");
+            if (type == OwnerType.Unknown) throw new ArgumentException("Owner type must not be unknown.", "type");
             OwnerId = ownerId;
             Name = name;
             Type = type;
@@ -31,7 +32,9 @@
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            throw new NotImplementedException();
+            yield return OwnerId;
+            yield return Name;
+            yield return Type;
         }
     }
 }

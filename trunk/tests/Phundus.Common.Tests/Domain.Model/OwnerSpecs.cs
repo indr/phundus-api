@@ -1,9 +1,23 @@
 namespace Phundus.Common.Tests.Domain.Model
 {
-    using System.IO;
+    using System;
     using Common.Domain.Model;
     using Machine.Specifications;
-    using ProtoBuf;
+
+    [Subject(typeof (Owner))]
+    public class when_instantiating_with_owner_type_unknown
+    {
+        private static Exception caughtException;
+
+        private Because of = () =>
+            caughtException = Catch.Exception(() => new Owner(new OwnerId(), "The name", OwnerType.Unknown));
+
+        private It should_throw_exception_message_starting_with = () =>
+            caughtException.Message.ShouldStartWith("Owner type must not be unknown.");
+
+        private It should_throw_invalid_operation_exception = () =>
+            caughtException.ShouldBeOfExactType<ArgumentException>();
+    }
 
     [Subject(typeof (Owner))]
     public class when_serializing_an_owner : serialization_object_concern<Owner>
@@ -19,14 +33,6 @@ namespace Phundus.Common.Tests.Domain.Model
             theType = OwnerType.Organization;
             sut_factory.create_using(() =>
                 new Owner(theOwnerId, theName, theType));
-        };
-
-        private Because of = () =>
-        {
-            var stream = new MemoryStream();
-            Serializer.Serialize(stream, sut);
-            stream.Seek(0, SeekOrigin.Begin);
-            sut = Serializer.Deserialize<Owner>(stream);
         };
 
         private It should_be_in_assembly = () =>
