@@ -374,6 +374,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Inventory\Model\" />
     <Folder Include="Inventory\Services\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
   </ItemGroup>
