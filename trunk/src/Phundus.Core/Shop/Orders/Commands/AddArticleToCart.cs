@@ -36,23 +36,23 @@
     public class AddArticleToCartHandler : IHandleCommand<AddArticleToCart>
     {
         private readonly IArticleService _articleService;
-        private readonly IAuthorizationDispatcher _authorizationDispatcher;
+        private readonly IAuthorize _authorize;
         private readonly ICartRepository _cartRepository;
 
-        public AddArticleToCartHandler(IAuthorizationDispatcher authorizationDispatcher,
+        public AddArticleToCartHandler(IAuthorize authorize,
             ICartRepository cartRepository, IArticleService articleService)
         {
-            if (authorizationDispatcher == null) throw new ArgumentNullException("authorizationDispatcher");
+            if (authorize == null) throw new ArgumentNullException("authorize");
             if (cartRepository == null) throw new ArgumentNullException("cartRepository");
             if (articleService == null) throw new ArgumentNullException("articleService");
-            _authorizationDispatcher = authorizationDispatcher;
+            _authorize = authorize;
             _cartRepository = cartRepository;
             _articleService = articleService;
         }
 
         public void Handle(AddArticleToCart command)
         {
-            _authorizationDispatcher.Dispatch(new RentArticle(new ArticleId(1)));
+            _authorize.Dispatch(new RentArticle(new ArticleId(1)));
             //_authorize.User(command.InitiatorId, Rent.Article(command.ArticleId));
 
             var article = _articleService.GetById(command.ArticleId);

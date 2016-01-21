@@ -15,7 +15,7 @@
     //    }
     //}
 
-    public class RentArticle : IAuthorization
+    public class RentArticle : IAccessObject
     {
         public RentArticle(ArticleId articleId)
         {

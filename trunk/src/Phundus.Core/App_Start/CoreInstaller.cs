@@ -47,7 +47,7 @@
                     .BasedOn(typeof(IHandleAuthorization<>))
                     .WithServiceAllInterfaces()
                     .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseAuthorizationHandlerInterceptor>()),
-                Component.For<IAuthorizationDispatcher>().ImplementedBy<AuthorizationDispatcher>().LifestyleTransient(),
+                Component.For<IAuthorize>().ImplementedBy<Authorization.Authorize>().LifestyleTransient(),
                 Component.For<IAuthorizationHandlerFactory>().AsFactory(c => c.SelectedWith<AuthorizationHandlerSelector>())
                 );
 

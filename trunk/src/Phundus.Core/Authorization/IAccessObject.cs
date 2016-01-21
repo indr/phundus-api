@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Authorization
 {
-    public interface IAuthorization
+    public interface IAccessObject
     {
     }
 }
