@@ -33,7 +33,7 @@
         //    throw new NotImplementedException("Rent Article Authorization Handler");
         //}
 
-        public void Handle(RentArticle authorization)
+        public void Handle(RentArticle accessObject)
         {
             throw new NotImplementedException();
         }

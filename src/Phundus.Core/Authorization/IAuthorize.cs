@@ -1,7 +1,9 @@
 namespace Phundus.Authorization
 {
+    using Common.Domain.Model;
+
     public interface IAuthorize
     {
-        void Dispatch<TAuthorization>(TAuthorization authorization);
+        void User<TAccessObject>(UserId userId, TAccessObject accessObject);
     }
 }

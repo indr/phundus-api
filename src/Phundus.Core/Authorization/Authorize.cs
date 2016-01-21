@@ -1,14 +1,23 @@
 ﻿namespace Phundus.Authorization
 {
+    using System;
+    using Common.Domain.Model;
+
     public class Authorize : IAuthorize
     {
-        public IAuthorizationHandlerFactory Factory { get; set; }
+        private readonly IAuthorizationHandlerFactory _authorizationHandlerFactory;
 
-        public void Dispatch<TAuthorization>(TAuthorization command)
+        public Authorize(IAuthorizationHandlerFactory authorizationHandlerFactory)
         {
-            IHandleAuthorization<TAuthorization> handler = Factory.GetHandlerForCommand(command);
+            if (authorizationHandlerFactory == null) throw new ArgumentNullException("authorizationHandlerFactory");
+            _authorizationHandlerFactory = authorizationHandlerFactory;
+        }
 
-            handler.Handle(command);
+        public void User<TAuthorization>(UserId userId, TAuthorization accessObject)
+        {
+            IHandleAuthorization<TAuthorization> handler = _authorizationHandlerFactory.GetHandlerForAccessObject(accessObject);
+
+            handler.Handle(accessObject);
         }
     }
 }
