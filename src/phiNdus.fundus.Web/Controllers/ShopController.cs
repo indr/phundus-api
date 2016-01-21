@@ -156,16 +156,7 @@
                     new Owner(new OwnerId(article.OrganizationId), article.OrganizationName),
                     article.Name, article.Price);
 
-                // This is perfectly best practice ¯\_(ツ)_/¯
-                try
-                {
-                    Authorize.User(new UserId(CurrentUserId), Rent.Article(adapted));
-                    model.CanUserAddToCart = true;
-                }
-                catch (AuthorizationException)
-                {
-                    model.CanUserAddToCart = false;
-                }
+                model.CanUserAddToCart = Authorize.Test(new UserId(CurrentUserId), Rent.Article(adapted)); ;
             }
 
             model.Availabilities = AvailabilityQueries.GetAvailability(id).ToList();

@@ -30,7 +30,7 @@
 
         private It should_authorize_initiator_to_manage_organization = () =>
             authorize.WasToldTo(x =>
-                x.User(Arg<InitiatorId>.Is.Equal(theInitiatorId),
+                x.Enforce(Arg<InitiatorId>.Is.Equal(theInitiatorId),
                     Arg<ManageOrganization>.Matches(p => Equals(p.OrganizationId, theOrganization.Id))));
 
     }

@@ -44,7 +44,7 @@
 
         private It should_authorize_user_to_rent_article = () =>
             authorize.WasToldTo(x =>
-                x.User(Arg<InitiatorId>.Is.Equal(command.InitiatorId),
+                x.Enforce(Arg<InitiatorId>.Is.Equal(command.InitiatorId),
                     Arg<RentArticle>.Matches(p => Equals(p.Article, theArticle))));
     }
 
@@ -60,7 +60,7 @@
         };
 
         private It should_authorize_initiator_to_rent_article = () => authorize.WasToldTo(x =>
-            x.User(Arg<InitiatorId>.Is.Equal(command.InitiatorId),
+            x.Enforce(Arg<InitiatorId>.Is.Equal(command.InitiatorId),
                 Arg<RentArticle>.Matches(p => Equals(p.Article, theArticle))));
 
         private It should_not_add_a_cart_to_repository =

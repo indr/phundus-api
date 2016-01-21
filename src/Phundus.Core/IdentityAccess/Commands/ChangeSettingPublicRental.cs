@@ -46,7 +46,7 @@
             var organization = _organizationRepository.GetById(command.OrganizationId);
             var initiator = _initiatorService.GetActiveById(command.InitiatorId);
 
-            _authorize.User(initiator.InitiatorId, Manage.Organization(organization.Id));
+            _authorize.Enforce(initiator.InitiatorId, Manage.Organization(organization.Id));
             
 
             organization.ChangeSettingPublicRental(initiator, command.Value);

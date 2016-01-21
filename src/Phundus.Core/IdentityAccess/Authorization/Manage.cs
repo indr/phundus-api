@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Authorization
 {
     using System;
+    using Common;
     using Common.Domain.Model;
     using Phundus.Authorization;
     using Queries;
@@ -34,9 +35,15 @@
             _memberInRole = memberInRole;
         }
 
-        public void Handle(UserId userId, ManageOrganization accessObject)
+        public void Enforce(UserId userId, ManageOrganization accessObject)
         {
-            _memberInRole.ActiveManager(accessObject.OrganizationId, userId);
+            if (!Test(userId, accessObject))
+                throw new AuthorizationException("Du benötigst die Rolle Verwaltung.");
+        }
+
+        public bool Test(UserId userId, ManageOrganization accessObject)
+        {
+            return _memberInRole.IsActiveManager(accessObject.OrganizationId, userId);
         }
     }
 }

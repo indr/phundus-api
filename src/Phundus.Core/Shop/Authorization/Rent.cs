@@ -41,15 +41,21 @@
             _lessorService = lessorService;
         }
 
-        public void Handle(UserId userId, RentArticle accessObject)
+        public void Enforce(UserId userId, RentArticle accessObject)
+        {
+            if (!Test(userId, accessObject))
+                throw new AuthorizationException("Du hast keine Berechtigung um diesen Artikel auszuleihen.");
+        }
+
+        public bool Test(UserId userId, RentArticle accessObject)
         {
             if (_memberInRole.IsActiveMember(accessObject.Article.LessorId.Id, userId))
-                return;
+                return true;
 
             if (_lessorService.GetById(accessObject.Article.LessorId).DoesPublicRental)
-                return;
+                return true;
 
-            throw new AuthorizationException("Du hast keine Berechtigung um diesen Artikel auszuleihen.");
+            return false;
         }
     }
 }

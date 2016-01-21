@@ -70,6 +70,11 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             return true;
         }
 
+        public bool IsActiveMember(OrganizationId organizationId, UserId userId)
+        {
+            return IsActiveMember(organizationId.Id, userId);
+        }
+
         public bool IsActiveMember(OwnerId ownerId, UserId userId)
         {
             return IsActiveMember(ownerId.Id, userId);
@@ -93,6 +98,11 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
                 return false;
 
             return true;
+        }
+
+        public bool IsActiveManager(OrganizationId organizationId, UserId userId)
+        {
+            return IsActiveChief(organizationId.Id, userId);
         }
 
         public bool IsActiveChief(OwnerId ownerId, UserId userId)

@@ -5,7 +5,8 @@
 
     public interface IAuthorize
     {
-        void User<TAccessObject>(UserId userId, TAccessObject accessObject);
+        void Enforce<TAccessObject>(UserId userId, TAccessObject accessObject);
+        bool Test<TAccessObject>(UserId userId, TAccessObject accessObject);
     }
 
     public class Authorize : IAuthorize
@@ -18,11 +19,23 @@
             _accessObjectHandlerFactory = accessObjectHandlerFactory;
         }
 
-        public void User<TAccessObject>(UserId userId, TAccessObject accessObject)
+        public void Enforce<TAccessObject>(UserId userId, TAccessObject accessObject)
         {
-            IHandleAccessObject<TAccessObject> handler = _accessObjectHandlerFactory.GetHandlerForAccessObject(accessObject);
+            var handler = GetHandler(accessObject);
 
-            handler.Handle(userId, accessObject);
+            handler.Enforce(userId, accessObject);
+        }
+
+        public bool Test<TAccessObject>(UserId userId, TAccessObject accessObject)
+        {
+            var handler = GetHandler(accessObject);
+
+            return handler.Test(userId, accessObject);
+        }
+
+        private IHandleAccessObject<TAccessObject> GetHandler<TAccessObject>(TAccessObject accessObject)
+        {
+            return _accessObjectHandlerFactory.GetHandlerForAccessObject(accessObject);
         }
     }
 }
