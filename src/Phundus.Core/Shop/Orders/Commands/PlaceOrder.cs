@@ -2,12 +2,14 @@
 {
     using System;
     using System.Linq;
+    using Authorization;
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
     using Cqrs;
     using Ddd;
     using Model;
+    using Phundus.Authorization;
     using Repositories;
     using Shop.Services;
 
@@ -28,22 +30,28 @@
 
     public class PlaceOrderHandler : IHandleCommand<PlaceOrder>
     {
+        private readonly IAuthorize _authorize;
         private readonly ICartRepository _cartRepository;
         private readonly ILesseeService _lesseeService;
+        private readonly IArticleService _articleService;
         private readonly ILessorService _lessorService;
         private readonly IOrderRepository _orderRepository;
 
-        public PlaceOrderHandler(ICartRepository cartRepository, IOrderRepository orderRepository,
-            ILessorService lessorService, ILesseeService lesseeService)
+        public PlaceOrderHandler(IAuthorize authorize, ICartRepository cartRepository, IOrderRepository orderRepository,
+            ILessorService lessorService, ILesseeService lesseeService, IArticleService articleService)
         {
+            if (authorize == null) throw new ArgumentNullException("authorize");
             if (cartRepository == null) throw new ArgumentNullException("cartRepository");
             if (orderRepository == null) throw new ArgumentNullException("orderRepository");
             if (lessorService == null) throw new ArgumentNullException("lessorService");
             if (lesseeService == null) throw new ArgumentNullException("lesseeService");
+            if (articleService == null) throw new ArgumentNullException("articleService");
+            _authorize = authorize;
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
             _lessorService = lessorService;
             _lesseeService = lesseeService;
+            _articleService = articleService;
         }
 
         public void Handle(PlaceOrder command)
@@ -55,10 +63,17 @@
             AssertionConcern.AssertArgumentGreaterThan(cartItemsToPlace.Count, 0,
                 String.Format("The cart does not contain items belonging to the lessor {0}.", command.LessorId));
 
+            
             var lessor = _lessorService.GetById(command.LessorId);
             var lessee = _lesseeService.GetById(new LesseeId(command.InitiatorId.Id));
 
-            var orderItems = cartItemsToPlace.Select(s => new OrderItem(new ArticleId(s.ArticleId), s.LineText, new Period(s.From, s.To), s.Quantity, s.UnitPrice)).ToList();
+            foreach (var eachCartItem in cartItemsToPlace)
+            {
+                var article = _articleService.GetById(lessor.LessorId, eachCartItem.ArticleId);
+                _authorize.User(cart.UserId, Rent.Article(article));
+            }
+
+            var orderItems = cartItemsToPlace.Select(s => new OrderItem(s.ArticleId, s.LineText, new Period(s.From, s.To), s.Quantity, s.UnitPrice)).ToList();
             var order = new Order(lessor, lessee, orderItems);
 
             var orderId = _orderRepository.Add(order);

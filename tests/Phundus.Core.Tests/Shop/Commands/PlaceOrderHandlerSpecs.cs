@@ -10,6 +10,7 @@
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Repositories;
+    using Phundus.Shop.Services;
     using Rhino.Mocks;
 
     public class place_order_command_handler_concern : order_command_handler_concern<PlaceOrder, PlaceOrderHandler>
@@ -31,15 +32,18 @@
             command = new PlaceOrder(theInitiatorId, theLessorId);
         };
 
+        private static int _nextArticleId = 1;
+
         protected static CartItemId AddCartItem(LessorId lessorId)
         {
             var anArticle = CreateArticle(lessorId);
+            articleService.setup(x => x.GetById(anArticle.LessorId, anArticle.ArticleId)).Return(anArticle);   
             return theCart.AddItem(anArticle, DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
         }
 
         private static Article CreateArticle(LessorId lessorId)
         {
-            return new Article(1, new Owner(new OwnerId(lessorId.Id), "Owner"), "Article", 7.0m);
+            return new Article(_nextArticleId++, new Owner(new OwnerId(lessorId.Id), "Owner"), "Article", 7.0m);
         }
     }
 

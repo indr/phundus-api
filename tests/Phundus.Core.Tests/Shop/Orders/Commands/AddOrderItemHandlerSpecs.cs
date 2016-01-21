@@ -23,7 +23,7 @@
             orderRepository.setup(x => x.GetById(theOrder.Id)).Return(theOrder);
 
             theArticle = make.ShopArticle();
-            articleRepository.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleId)).Return(theArticle);
+            articleService.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleId)).Return(theArticle);
 
             thePeriod = Period.FromNow(1);
 

@@ -6,12 +6,15 @@
     using Articles.Repositories;
     using AvailabilityAndReservation.Model;
     using AvailabilityAndReservation.Repositories;
+    using Common.Domain.Model;
     using Infrastructure;
+    using Org.BouncyCastle.Crypto.Engines;
 
     public interface IAvailabilityService
     {
         bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int quantity);
-        bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude);        
+        bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude);
+        bool IsArticleAvailable(ArticleId articleId, Period period, int amount, Guid orderItemToExclude);        
         IEnumerable<Availability> GetAvailabilityDetails(int articleId);
         
     }
@@ -29,19 +32,25 @@
 
         public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude)
         {
-            if (toUtc < fromUtc)
-                return false;
+            return IsArticleAvailable(new ArticleId(articleId), new Period(fromUtc, toUtc), amount, orderItemToExclude);
+        }
 
-            var availabilities = GetAvailabilityDetails(articleId, orderItemToExclude);
+        public bool IsArticleAvailable(ArticleId articleId, Period period, int amount, Guid orderItemToExclude)
+        {
+            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (period == null) throw new ArgumentNullException("period");
 
-            var inRange = availabilities.Where(p => p.FromUtc <= toUtc).OrderByDescending(x => x.FromUtc);
+
+            var availabilities = GetAvailabilityDetails(articleId.Id, orderItemToExclude);
+
+            var inRange = availabilities.Where(p => p.FromUtc <= period.ToUtc).OrderByDescending(x => x.FromUtc);
 
             foreach (var each in inRange)
             {
-                if ((each.FromUtc >= fromUtc) && (each.Amount < amount))
+                if ((each.FromUtc >= period.FromUtc) && (each.Amount < amount))
                     return false;
 
-                if ((each.FromUtc <= fromUtc))
+                if ((each.FromUtc <= period.FromUtc))
                 {
                     return each.Amount >= amount;
                 }

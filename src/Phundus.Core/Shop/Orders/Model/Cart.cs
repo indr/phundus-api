@@ -43,6 +43,11 @@
             get { return _items.IsEmpty; }
         }
 
+        public virtual UserId UserId
+        {
+            get { return new UserId(UserGuid); }
+        }
+
         public virtual CartItemId AddItem(Article article, DateTime fromUtc, DateTime toUtc, int quantity)
         {
             var item = new CartItem();
@@ -83,7 +88,7 @@
         {
             foreach (var each in Items)
             {
-                each.IsAvailable = availabilityService.IsArticleAvailable(each.ArticleId, each.From, each.To,
+                each.IsAvailable = availabilityService.IsArticleAvailable(each.ArticleId, each.Period,
                     each.Quantity, Guid.Empty);
             }
         }

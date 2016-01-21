@@ -18,7 +18,7 @@ namespace Phundus.Tests.Shop.Orders.Commands
 
         protected static IOrderRepository orderRepository;
 
-        protected static IArticleService articleRepository;
+        protected static IArticleService articleService;
 
         protected static ILesseeService lesseeService;
 
@@ -35,7 +35,7 @@ namespace Phundus.Tests.Shop.Orders.Commands
             theLessor = new Lessor(theLessorId, "Lessor", false);
             memberInRole = depends.on<IMemberInRole>();
             orderRepository = depends.on<IOrderRepository>();
-            articleRepository = depends.on<IArticleService>();
+            articleService = depends.on<IArticleService>();
             lessorService = depends.on<ILessorService>();
             lessorService.WhenToldTo(x => x.GetById(theLessorId)).Return(theLessor);
             lesseeService = depends.on<ILesseeService>();

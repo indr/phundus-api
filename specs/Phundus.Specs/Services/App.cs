@@ -344,9 +344,9 @@
             });
         }
 
-        public int PlaceOrder(User user, Guid lessorId)
+        public int PlaceOrder(User user, Guid lessorId, bool assertHttpStatus = true)
         {
-            return _apiClient.ShopOrdersApi
+            return _apiClient.Assert(assertHttpStatus).ShopOrdersApi
                 .Post<ShopOrdersPostOkResponseContent>(new ShopOrdersPostRequestContent
                 {
                     LessorId = lessorId
