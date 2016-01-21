@@ -10,7 +10,7 @@
 
     [Subject(typeof (UpdateStartpageHandler))]
     public class when_handling_update_startpage :
-        identityaccess_handler_concern<UpdateStartpage, UpdateStartpageHandler>
+        identityaccess_command_handler_concern<UpdateStartpage, UpdateStartpageHandler>
     {
         private static OrganizationId theOrganizationId = new OrganizationId();
         private static Organization theOrganization;

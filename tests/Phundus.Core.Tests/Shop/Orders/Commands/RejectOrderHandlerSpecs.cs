@@ -9,7 +9,7 @@
     using Rhino.Mocks;
 
     [Subject(typeof (RejectOrderHandler))]
-    public class when_reject_order_is_handled : order_handler_concern<RejectOrder, RejectOrderHandler>
+    public class when_reject_order_command_is_handled : order_command_handler_concern<RejectOrder, RejectOrderHandler>
     {
         private static UserId initiatorId = new UserId();
         private const int orderId = 3;

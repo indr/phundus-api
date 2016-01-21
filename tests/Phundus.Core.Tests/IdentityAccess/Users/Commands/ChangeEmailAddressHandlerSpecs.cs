@@ -11,7 +11,7 @@
 
     [Subject(typeof (ChangeEmailAddressHandler))]
     public class when_handling_change_email_address :
-        identityaccess_handler_concern<ChangeEmailAddress, ChangeEmailAddressHandler>
+        identityaccess_command_handler_concern<ChangeEmailAddress, ChangeEmailAddressHandler>
     {
         private static string theNewEmailAddress = "new@test.phundus.ch";
         private static User theUser;

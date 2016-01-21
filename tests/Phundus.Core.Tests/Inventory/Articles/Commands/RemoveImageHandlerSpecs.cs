@@ -10,7 +10,7 @@
     using Rhino.Mocks;
 
     [Subject(typeof (RemoveImageHandler))]
-    public class when_remove_image_is_handled : article_handler_concern<RemoveImage, RemoveImageHandler>
+    public class when_remove_image_is_handled : article_command_handler_concern<RemoveImage, RemoveImageHandler>
     {
         private static Owner theOwner;
         private static Article theArticle;

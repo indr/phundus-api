@@ -118,6 +118,7 @@
     <Compile Include="Ddd\IStoredEventRepository.cs" />
     <Compile Include="Ddd\ISubscribeTo.cs" />
     <Compile Include="Cqrs\AutoMappingReadModelBase.cs" />
+    <Compile Include="IdentityAccess\Authorization\Manage.cs" />
     <Compile Include="IdentityAccess\Model\OrganizationContactDetailsChanged.cs" />
     <Compile Include="IdentityAccess\Model\PublicRentalSettingChanged.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\ApplyForMembership.cs" />

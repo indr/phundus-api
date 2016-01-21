@@ -13,28 +13,21 @@
     using Phundus.Shop.Services;
     using Rhino.Mocks;
 
-    public class when_add_article_to_cart_is_handled : handler_concern<AddArticleToCart, AddArticleToCartHandler>
+    public class when_add_article_to_cart_is_handled : command_handler_concern<AddArticleToCart, AddArticleToCartHandler>
     {
         protected const int theQuantity = 3;
         protected static readonly ArticleId theArticleId = new ArticleId(12345);
         protected static readonly DateTime theFromUtc = DateTime.UtcNow;
         protected static readonly DateTime theToUtc = DateTime.UtcNow.AddDays(1);
-        protected static IMemberInRole memberInRole;
         protected static Article theArticle;
         protected static readonly OwnerId theOwnerId = new OwnerId();
         protected static ICartRepository cartRepository;
-
-        protected static IAuthorize authorize;
 
         private Establish ctx =
             () =>
             {
                 theArticle = new Article(theArticleId.Id, new Owner(theOwnerId, "Owner"), "Article", 7);
                 cartRepository = depends.on<ICartRepository>();
-                memberInRole = depends.on<IMemberInRole>();
-
-                authorize = depends.on<IAuthorize>();
-
 
                 depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId)).Return(theArticle);
                 command = new AddArticleToCart(theInitiatorId, theArticleId, theFromUtc, theToUtc, theQuantity);
@@ -49,9 +42,10 @@
 
         private It should_add_new_cart_to_repository = () => cartRepository.WasToldTo(x => x.Add(Arg<Cart>.Is.NotNull));
 
-        private It should_authorize_user_to_rent_article = () => authorize.WasToldTo(x =>
-            x.User(Arg<InitiatorId>.Is.Equal(command.InitiatorId),
-                Arg<RentArticle>.Matches(p => Equals(p.Article, theArticle))));
+        private It should_authorize_user_to_rent_article = () =>
+            authorize.WasToldTo(x =>
+                x.User(Arg<InitiatorId>.Is.Equal(command.InitiatorId),
+                    Arg<RentArticle>.Matches(p => Equals(p.Article, theArticle))));
     }
 
     [Subject(typeof (AddArticleToCartHandler))]
@@ -65,7 +59,7 @@
             cartRepository.WhenToldTo(x => x.FindByUserGuid(theInitiatorId)).Return(theCart);
         };
 
-        private It should_authorize_user_to_rent_article = () => authorize.WasToldTo(x =>
+        private It should_authorize_initiator_to_rent_article = () => authorize.WasToldTo(x =>
             x.User(Arg<InitiatorId>.Is.Equal(command.InitiatorId),
                 Arg<RentArticle>.Matches(p => Equals(p.Article, theArticle))));
 

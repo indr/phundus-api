@@ -11,7 +11,7 @@
     using Rhino.Mocks;
 
     [Subject(typeof (CreateArticleHandler))]
-    public class when_create_article_is_handled : article_handler_concern<CreateArticle, CreateArticleHandler>
+    public class when_create_article_command_is_handled : article_command_handler_concern<CreateArticle, CreateArticleHandler>
     {
         private static UserId initiatorId;
         private static OwnerId ownerId;

@@ -10,7 +10,7 @@
     using Rhino.Mocks;
 
     [Subject(typeof (EstablishOrganizationHandler))]
-    public class when_handling_establish_organization : identityaccess_handler_concern<EstablishOrganization, EstablishOrganizationHandler>
+    public class when_handling_establish_organization : identityaccess_command_handler_concern<EstablishOrganization, EstablishOrganizationHandler>
     {
         private static OrganizationId theOrganizationGuid = new OrganizationId();
         private static IOrganizationRepository organizationRepository;

@@ -1,8 +1,11 @@
 ﻿namespace Phundus.IdentityAccess.Organizations.Commands
 {
     using System;
+    using Authorization;
     using Common.Domain.Model;
     using Cqrs;
+    using Integration.IdentityAccess;
+    using Phundus.Authorization;
     using Queries;
     using Repositories;
 
@@ -24,22 +27,27 @@
 
     public class ChangeSettingPublicRentalHandler : IHandleCommand<ChangeSettingPublicRental>
     {
-        private readonly IMemberInRole _memberInRole;
+        private readonly IAuthorize _authorize;
+        private readonly IInitiatorService _initiatorService;
         private readonly IOrganizationRepository _organizationRepository;
 
-        public ChangeSettingPublicRentalHandler(IMemberInRole memberInRole, IOrganizationRepository organizationRepository)
+        public ChangeSettingPublicRentalHandler(IAuthorize authorize, IInitiatorService initiatorService, IOrganizationRepository organizationRepository)
         {
-            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
+            if (authorize == null) throw new ArgumentNullException("authorize");
+            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
             if (organizationRepository == null) throw new ArgumentNullException("organizationRepository");
-            _memberInRole = memberInRole;
+            _authorize = authorize;
+            _initiatorService = initiatorService;
             _organizationRepository = organizationRepository;
         }
 
         public void Handle(ChangeSettingPublicRental command)
         {
             var organization = _organizationRepository.GetById(command.OrganizationId);
+            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
 
-            var initiator = _memberInRole.ActiveManager(organization.Id, command.InitiatorId);
+            _authorize.User(initiator.InitiatorId, Manage.Organization(organization.Id));
+            
 
             organization.ChangeSettingPublicRental(initiator, command.Value);
         }

@@ -10,7 +10,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
     using Rhino.Mocks;
 
     [Subject(typeof(UpdateArticleHandler))]
-    public class when_update_article_is_handled : article_handler_concern<UpdateArticle, UpdateArticleHandler>
+    public class when_update_article_command_is_handled : article_command_handler_concern<UpdateArticle, UpdateArticleHandler>
     {
         private static Guid ownerId;
         private static Owner owner;

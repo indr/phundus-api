@@ -9,6 +9,7 @@
         void ActiveMember(OwnerId ownerId, UserId userId);
         
         void ActiveChief(Guid organizationId, UserId userId);
+        void ActiveManager(OrganizationId organizationId, UserId userId);
         void ActiveChief(OwnerId ownerId, UserId userId);
 
         bool IsActiveMember(Guid organizationId, UserId userId);

@@ -11,7 +11,7 @@
     using Rhino.Mocks;
 
     [Subject(typeof (UpdateOrderItemHandler))]
-    public class when_update_order_item_is_handled : order_handler_concern<UpdateOrderItem, UpdateOrderItemHandler>
+    public class when_update_order_command_item_is_handled : order_command_handler_concern<UpdateOrderItem, UpdateOrderItemHandler>
     {
         private const int orderId = 2;
         private const int newAmount = 20;

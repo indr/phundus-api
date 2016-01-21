@@ -11,7 +11,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
     using Rhino.Mocks;
 
     [Subject(typeof (DeleteArticleHandler))]
-    public class when_delete_article_is_handled : article_handler_concern<DeleteArticle, DeleteArticleHandler>
+    public class when_delete_article_command_is_handled : article_command_handler_concern<DeleteArticle, DeleteArticleHandler>
     {
         private static UserId initiatorId;
         private const int articleId = 3;

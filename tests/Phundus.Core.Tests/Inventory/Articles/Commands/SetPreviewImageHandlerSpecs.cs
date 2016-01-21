@@ -7,7 +7,7 @@
 
     [Subject(typeof (SetPreviewImageHandler))]
     public class when_handling_set_preview_image_command :
-        article_handler_concern<SetPreviewImage, SetPreviewImageHandler>
+        article_command_handler_concern<SetPreviewImage, SetPreviewImageHandler>
     {
         private static Article theArticle;
         private static string theFileName = "theFileName.jpg";

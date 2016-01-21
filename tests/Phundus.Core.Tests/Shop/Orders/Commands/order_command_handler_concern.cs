@@ -11,7 +11,7 @@ namespace Phundus.Tests.Shop.Orders.Commands
     using Phundus.Shop.Orders.Repositories;
     using Phundus.Shop.Services;
 
-    public abstract class order_handler_concern<TCommand, THandler> : handler_concern<TCommand, THandler>
+    public abstract class order_command_handler_concern<TCommand, THandler> : command_handler_concern<TCommand, THandler>
         where THandler : class, IHandleCommand<TCommand>
     {
         protected static IMemberInRole memberInRole;

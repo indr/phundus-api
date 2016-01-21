@@ -10,8 +10,8 @@
     using Rhino.Mocks;
 
     [Subject(typeof (CreateEmptyOrderHandler))]
-    public class when_create_empty_order_is_handled :
-        order_handler_concern<CreateEmptyOrder, CreateEmptyOrderHandler>
+    public class when_create_empty_order_command_is_handled :
+        order_command_handler_concern<CreateEmptyOrder, CreateEmptyOrderHandler>
     {
         public const int orderId = 3;
         public static Guid userId = Guid.NewGuid();
