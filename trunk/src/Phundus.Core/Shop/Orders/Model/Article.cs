@@ -42,6 +42,11 @@ namespace Phundus.Shop.Orders.Model
             protected set { _owner = value; }
         }
 
+        public virtual LessorId LessorId
+        {
+            get { return new LessorId(_owner.OwnerId.Id); }
+        }
+
         public virtual string Caption
         {
             get { return _caption; }

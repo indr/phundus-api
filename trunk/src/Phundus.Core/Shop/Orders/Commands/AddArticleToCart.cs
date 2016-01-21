@@ -52,9 +52,11 @@
 
         public void Handle(AddArticleToCart command)
         {
-            _authorize.User(command.InitiatorId, Rent.Article(command.ArticleId));
-
             var article = _articleService.GetById(command.ArticleId);
+
+            _authorize.User(command.InitiatorId, Rent.Article(article));
+
+            
 
             var cart = GetCart(command);
 

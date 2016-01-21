@@ -1,10 +1,10 @@
 ﻿namespace Phundus.Tests.Shop.Commands
 {
     using System;
-    using Authorization;
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Authorization;
     using Phundus.IdentityAccess.Queries;
     using Phundus.Shop.Authorization;
     using Phundus.Shop.Orders.Commands;
@@ -20,7 +20,7 @@
         protected static readonly DateTime theFromUtc = DateTime.UtcNow;
         protected static readonly DateTime theToUtc = DateTime.UtcNow.AddDays(1);
         protected static IMemberInRole memberInRole;
-        protected static Article article;
+        protected static Article theArticle;
         protected static readonly OwnerId theOwnerId = new OwnerId();
         protected static ICartRepository cartRepository;
 
@@ -29,14 +29,14 @@
         private Establish ctx =
             () =>
             {
-                article = new Article(theArticleId.Id, new Owner(theOwnerId, "Owner"), "Article", 7);
+                theArticle = new Article(theArticleId.Id, new Owner(theOwnerId, "Owner"), "Article", 7);
                 cartRepository = depends.on<ICartRepository>();
                 memberInRole = depends.on<IMemberInRole>();
 
                 authorize = depends.on<IAuthorize>();
 
 
-                depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId)).Return(article);
+                depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId)).Return(theArticle);
                 command = new AddArticleToCart(theInitiatorId, theArticleId, theFromUtc, theToUtc, theQuantity);
             };
     }
@@ -51,7 +51,7 @@
 
         private It should_authorize_user_to_rent_article = () => authorize.WasToldTo(x =>
             x.User(Arg<InitiatorId>.Is.Equal(command.InitiatorId),
-                Arg<RentArticle>.Matches(p => Equals(p.ArticleId, command.ArticleId))));
+                Arg<RentArticle>.Matches(p => Equals(p.Article, theArticle))));
     }
 
     [Subject(typeof (AddArticleToCartHandler))]
@@ -65,8 +65,9 @@
             cartRepository.WhenToldTo(x => x.FindByUserGuid(theInitiatorId)).Return(theCart);
         };
 
-        private It should_ask_for_active_membership =
-            () => memberInRole.WasToldTo(x => x.ActiveMember(theOwnerId, theInitiatorId));
+        private It should_authorize_user_to_rent_article = () => authorize.WasToldTo(x =>
+            x.User(Arg<InitiatorId>.Is.Equal(command.InitiatorId),
+                Arg<RentArticle>.Matches(p => Equals(p.Article, theArticle))));
 
         private It should_not_add_a_cart_to_repository =
             () => cartRepository.WasNotToldTo(x => x.Add(Arg<Cart>.Is.Anything));
