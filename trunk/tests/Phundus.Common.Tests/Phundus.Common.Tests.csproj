@@ -75,6 +75,7 @@
     <Compile Include="Events\EventSerializerSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderUserKeySpecs.cs" />
+    <Compile Include="serialization_object_concern.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Phundus.Common\Phundus.Common.csproj">

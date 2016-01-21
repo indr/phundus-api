@@ -194,6 +194,10 @@
       <Project>{91C1A2A6-65D2-44BA-9985-C35F1705888A}</Project>
       <Name>Phundus.Integration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Phundus.Common.Tests\Phundus.Common.Tests.csproj">
+      <Project>{ea63a3fd-6a3e-46ca-ba9d-1fdfd362c470}</Project>
+      <Name>Phundus.Common.Tests</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Inventory\Articles\Model\" />
