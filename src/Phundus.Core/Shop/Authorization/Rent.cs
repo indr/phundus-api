@@ -49,7 +49,7 @@
 
         public bool Test(UserId userId, RentArticle accessObject)
         {
-            if (_memberInRole.IsActiveMember(accessObject.Article.LessorId.Id, userId))
+            if (_memberInRole.IsActiveMember(accessObject.Article.LessorId, userId))
                 return true;
 
             if (_lessorService.GetById(accessObject.Article.LessorId).DoesPublicRental)

@@ -26,7 +26,7 @@
         public class and_the_user_is_a_member
         {
             private Establish ctx = () =>
-                memberInRole.WhenToldTo(x => x.IsActiveMember(theArticle.LessorId.Id, theUserId)).Return(true);
+                memberInRole.WhenToldTo(x => x.IsActiveMember(theArticle.LessorId, theUserId)).Return(true);
 
             private It should_have_test_result_true = () =>
                 testResult.ShouldBeTrue();
@@ -40,7 +40,7 @@
             private Establish ctx = () =>
             {
                 memberInRole.WhenToldTo(x =>
-                    x.IsActiveMember(theArticle.LessorId.Id, theUserId)).Return(false);
+                    x.IsActiveMember(theArticle.LessorId, theUserId)).Return(false);
                 theLessor.setup(x => x.DoesPublicRental).Return(false);
             };
 
@@ -59,7 +59,7 @@
             private Establish ctx = () =>
             {
                 memberInRole.WhenToldTo(x =>
-                    x.IsActiveMember(theArticle.LessorId.Id, theUserId)).Return(false);
+                    x.IsActiveMember(theArticle.LessorId, theUserId)).Return(false);
                 theLessor.setup(x => x.DoesPublicRental).Return(true);
             };
 
