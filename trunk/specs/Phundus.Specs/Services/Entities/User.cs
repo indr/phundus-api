@@ -1,12 +1,15 @@
 namespace Phundus.Specs.Services.Entities
 {
     using System;
-    using System.Globalization;
 
     public class User
     {
         private string _password;
-        public string Username { get { return EmailAddress; } }
+
+        public string Username
+        {
+            get { return EmailAddress; }
+        }
 
         public string Password
         {
@@ -27,11 +30,14 @@ namespace Phundus.Specs.Services.Entities
         public string Street { get; set; }
         public string Postcode { get; set; }
         public string RequestedEmailAddress { get; set; }
-        
+
         public Guid StoreId { get; set; }
         public string OldPassword { get; set; }
 
-        public Guid Id { get { return UserId; } }
+        public Guid Id
+        {
+            get { return UserId; }
+        }
 
         public override string ToString()
         {
