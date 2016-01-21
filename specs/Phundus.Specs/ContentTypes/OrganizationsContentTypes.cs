@@ -34,6 +34,12 @@
 
         [JsonProperty("contactDetails")]
         public ContactDetails ContactDetails { get; set; }
+
+        public override string ToString()
+        {
+            return String.Format("[Id={0}, Name={1}]",
+                new object[] { OrganizationId.ToString("D"), Name });
+        }
     }
 
     public class ContactDetails

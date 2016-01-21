@@ -25,7 +25,7 @@
 
         private void AssertLastStatusCode(HttpStatusCode statusCode)
         {
-            Assert.That(LastResponse.StatusCode, Is.EqualTo(statusCode));
+            Assert.That(LastResponse.StatusCode, Is.EqualTo(statusCode), TryGetErrorMessage());
         }
 
         private void AssertLastMessage(string messagePart)

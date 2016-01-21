@@ -2,6 +2,7 @@
 {
     using FluentNHibernate.Mapping;
     using IdentityAccess.Organizations.Model;
+    using NHibernate.Linq;
     using NHibernate.Type;
 
     public class OrganizationMap : ClassMap<Organization>
@@ -32,6 +33,11 @@
             HasMany(x => x.Memberships)
                 .KeyColumn("OrganizationGuid")
                 .AsSet().Cascade.SaveUpdate();
+
+            Component(x => x.Settings, a =>
+            {
+                a.Map(x => x.PublicRental, "Settings_PublicRental");
+            });
         }
     }
 }

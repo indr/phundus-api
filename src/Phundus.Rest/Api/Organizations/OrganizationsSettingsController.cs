@@ -5,6 +5,8 @@
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
+    using Common.Domain.Model;
+    using IdentityAccess.Organizations.Commands;
     using IdentityAccess.Queries;
     using Newtonsoft.Json;
 
@@ -37,6 +39,10 @@
         public virtual HttpResponseMessage Patch(Guid organizationId,
             OrganizationsSettingsPatchRequestContent requestContent)
         {
+            if (requestContent.PublicRental.HasValue)
+            {
+                Dispatch(new ChangeSettingPublicRental(CurrentUserId, new OrganizationId(organizationId), requestContent.PublicRental.Value));
+            }
             return NoContent();
         }
     }
