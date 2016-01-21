@@ -55,7 +55,7 @@
         {
             var article = _articleRepository.GetById(command.ArticleId.Id);
 
-            _memberInRole.ActiveChief(article.Owner.OwnerId.Id, command.InitiatorId);
+            _memberInRole.ActiveManager(article.Owner.OwnerId.Id, command.InitiatorId);
 
             var image = article.AddImage(command.FileName, command.FileType, command.Length);
             command.ResultingImageId = image.Id;

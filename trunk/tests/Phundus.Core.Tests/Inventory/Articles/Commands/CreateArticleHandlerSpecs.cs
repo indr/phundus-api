@@ -29,7 +29,7 @@
         public It should_add_to_repository = () => articleRepository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(ownerId, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveManager(ownerId, initiatorId));
 
         public It should_publish_article_created =
             () => publisher.WasToldTo(x => x.Publish(Arg<ArticleCreated>.Is.NotNull));

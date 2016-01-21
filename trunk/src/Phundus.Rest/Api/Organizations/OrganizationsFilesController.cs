@@ -42,7 +42,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual object Get(Guid organizationId)
         {
-            MemberInRole.ActiveChief(organizationId, CurrentUserId);
+            MemberInRole.ActiveManager(organizationId, CurrentUserId);
 
             var path = GetPath(organizationId);
             var store = CreateImageStore(path);
@@ -55,7 +55,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual object Post(Guid organizationId)
         {
-            MemberInRole.ActiveChief(organizationId, CurrentUserId);
+            MemberInRole.ActiveManager(organizationId, CurrentUserId);
 
             var path = GetPath(organizationId);
             var store = CreateImageStore(path);
@@ -69,7 +69,7 @@ namespace Phundus.Rest.Api.Organizations
         [Transaction]
         public virtual HttpResponseMessage Delete(Guid organizationId, string fileName)
         {
-            MemberInRole.ActiveChief(organizationId, CurrentUserId);
+            MemberInRole.ActiveManager(organizationId, CurrentUserId);
 
             var path = GetPath(organizationId);
             var store = CreateImageStore(path);

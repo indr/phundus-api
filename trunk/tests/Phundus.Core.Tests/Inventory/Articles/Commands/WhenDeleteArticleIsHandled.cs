@@ -36,7 +36,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
         };
 
         private It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(ownerId, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveManager(ownerId, initiatorId));
 
         private It should_ask_for_removal = () => articleRepository.WasToldTo(x => x.Remove(article));
 

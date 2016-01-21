@@ -34,7 +34,7 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             ActiveMember(ownerId.Id, userId);
         }
 
-        public void ActiveChief(Guid organizationId, UserId userId)
+        public void ActiveManager(Guid organizationId, UserId userId)
         {
             if (!IsActiveChief(organizationId, userId))
                 throw new AuthorizationException(
@@ -43,12 +43,12 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
 
         public void ActiveManager(OrganizationId organizationId, UserId userId)
         {
-            ActiveChief(organizationId.Id, userId);
+            ActiveManager(organizationId.Id, userId);
         }
 
-        public void ActiveChief(OwnerId ownerId, UserId userId)
+        public void ActiveManager(OwnerId ownerId, UserId userId)
         {
-            ActiveChief(ownerId.Id, userId);
+            ActiveManager(ownerId.Id, userId);
         }
 
         public bool IsActiveMember(Guid organizationId, UserId userId)
@@ -105,7 +105,7 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             return IsActiveChief(organizationId.Id, userId);
         }
 
-        public bool IsActiveChief(OwnerId ownerId, UserId userId)
+        public bool IsActiveManager(OwnerId ownerId, UserId userId)
         {
             return IsActiveChief(ownerId.Id, userId);
         }

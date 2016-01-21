@@ -20,7 +20,7 @@
         };
 
         private It should_ask_for_manager_privileges = () =>
-            memberInRole.WasToldTo(x => x.ActiveChief(theArticle.Owner.OwnerId, theInitiatorId));
+            memberInRole.WasToldTo(x => x.ActiveManager(theArticle.Owner.OwnerId, theInitiatorId));
 
         private It should_call_set_preview_image = () =>
             theArticle.WasToldTo(x => x.SetPreviewImage(theFileName));

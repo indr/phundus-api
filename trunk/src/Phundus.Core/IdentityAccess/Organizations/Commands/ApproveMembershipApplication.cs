@@ -37,7 +37,7 @@
 
             var organization = OrganizationRepository.GetById(application.OrganizationId);
 
-            MemberInRole.ActiveChief(application.OrganizationId, command.InitiatorId);
+            MemberInRole.ActiveManager(application.OrganizationId, command.InitiatorId);
 
             organization.ApproveMembershipRequest(command.InitiatorId, application, Memberships.NextIdentity());
         }

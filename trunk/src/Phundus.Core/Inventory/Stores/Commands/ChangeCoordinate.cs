@@ -39,7 +39,7 @@
             var store = _storeRepository.GetById(new StoreId(command.StoreId));
             var owner = _ownerService.GetByUserId(command.InitatorId);
 
-            if (!((Equals(store.Owner, owner)) || (_memberInRole.IsActiveChief(store.Owner.OwnerId, command.InitatorId))))
+            if (!((Equals(store.Owner, owner)) || (_memberInRole.IsActiveManager(store.Owner.OwnerId, command.InitatorId))))
                 throw new AuthorizationException();
 
             store.ChangeCoordinate(new Coordinate(command.Latitude, command.Longitude));

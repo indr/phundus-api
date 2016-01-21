@@ -29,7 +29,7 @@
         };
 
         public It should_ask_for_chief_privilegs =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(theLessor.LessorId.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, initiatorId));
 
         public It should_ask_order_to_close =
             () => order.WasToldTo(x => x.Close(initiatorId));

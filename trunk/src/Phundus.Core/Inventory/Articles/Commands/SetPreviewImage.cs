@@ -41,7 +41,7 @@
         {
             var article = _articleRepository.GetById(command.ArticleId);
 
-            _memberInRole.ActiveChief(article.Owner.OwnerId, command.InitiatorId);
+            _memberInRole.ActiveManager(article.Owner.OwnerId, command.InitiatorId);
 
             article.SetPreviewImage(command.FileName);
         }

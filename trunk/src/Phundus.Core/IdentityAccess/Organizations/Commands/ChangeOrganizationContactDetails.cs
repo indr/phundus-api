@@ -39,7 +39,7 @@
 
         public void Handle(ChangeOrganizationContactDetails command)
         {
-            MemberInRole.ActiveChief(command.OrganizationId.Id, command.InitiatorId);
+            MemberInRole.ActiveManager(command.OrganizationId.Id, command.InitiatorId);
 
             var organization = Repository.GetById(command.OrganizationId);
 

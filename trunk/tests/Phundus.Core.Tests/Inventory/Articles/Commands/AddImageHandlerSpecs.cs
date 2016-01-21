@@ -32,7 +32,7 @@
         };
 
         private It should_ask_for_chief_privilegs = () =>
-            memberInRole.WasToldTo(x => x.ActiveChief(theOwner.OwnerId.Id, theInitiatorId));
+            memberInRole.WasToldTo(x => x.ActiveManager(theOwner.OwnerId.Id, theInitiatorId));
 
         private It should_set_image_id = () =>
             command.ResultingImageId.ShouldEqual(theImageId);
