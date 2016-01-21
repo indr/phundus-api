@@ -160,6 +160,7 @@
     <Compile Include="2016\01\M201601191259_Create_Unique_and_Primary_key_on_Es_IdentityAccess_Relationships.cs" />
     <Compile Include="2016\01\M201601191542_Delete_Tables.cs" />
     <Compile Include="2016\01\M201601210720_Add_Column_Settings_PublicRental_To_Dm_IdentityAccess_Organization.cs" />
+    <Compile Include="2016\01\M201601212344_Add_ArticleGuid_To_Dm_Inventory_Article.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />

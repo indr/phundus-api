@@ -11,7 +11,7 @@
 
     public class CreateArticle
     {
-        public CreateArticle(UserId initiatorId, OwnerId ownerId, StoreId storeId, string name, int amount)
+        public CreateArticle(UserId initiatorId, OwnerId ownerId, StoreId storeId, string name, int grossStock)
         {
             AssertionConcern.AssertArgumentNotNull(initiatorId, "InitiatorId must be provided.");
             AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
@@ -22,7 +22,7 @@
             OwnerId = ownerId;
             StoreId = storeId;
             Name = name;
-            Amount = amount;
+            GrossStock = grossStock;
         }
 
         public UserId InitiatorId { get; protected set; }
@@ -33,7 +33,7 @@
 
         public string Name { get; protected set; }
 
-        public int Amount { get; protected set; }
+        public int GrossStock { get; protected set; }
 
         public int ResultingArticleId { get; set; }
     }
@@ -61,7 +61,7 @@
             _memberInRole.ActiveManager(command.OwnerId, command.InitiatorId);
             var owner = _ownerService.GetById(command.OwnerId);
 
-            var result = new Article(owner, command.StoreId, command.Name, command.Amount);
+            var result = new Article(owner, command.StoreId, command.Name, command.GrossStock);
 
             command.ResultingArticleId = _articleRepository.Add(result);
 

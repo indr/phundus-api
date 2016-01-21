@@ -17,6 +17,7 @@
         private Owner _owner;
         private string _specification;
         private StoreId _storeId;
+        private ArticleGuid _articleGuid = new ArticleGuid();
 
         protected Article()
         {
@@ -34,6 +35,14 @@
             _name = name;
             _grossStock = grossStock;
         }
+
+        public virtual ArticleId ArticleId
+        {
+            get { return new ArticleId(Id); }
+        }
+
+        public virtual ArticleGuid ArticleGuid
+        { get { return _articleGuid; } }
 
         public virtual Owner Owner
         {
@@ -87,11 +96,6 @@
         }
 
         public virtual string Color { get; set; }
-
-        public virtual ArticleId ArticleId
-        {
-            get { return new ArticleId(Id); }
-        }
 
         public virtual void ChangeDescription(string description)
         {

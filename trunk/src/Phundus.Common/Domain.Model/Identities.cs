@@ -20,6 +20,17 @@
         }
     }
 
+    public class ArticleGuid : GuidIdentity
+    {
+        public ArticleGuid()
+        {
+        }
+
+        public ArticleGuid(Guid guid) : base(guid)
+        {
+        }
+    }
+
     public class CartId : GuidIdentity
     {
     }
