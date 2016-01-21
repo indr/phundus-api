@@ -3,6 +3,7 @@
     using Machine.Specifications;
     using Phundus.Authorization;
     using Phundus.IdentityAccess.Queries;
+    using Phundus.Shop.Services;
 
     public class shop_access_object_handler_concern<TAccessObject, TAccessObjectHandler> :
         access_object_handler_concern<TAccessObject, TAccessObjectHandler>
@@ -10,10 +11,12 @@
     {
         protected static shop_factory make;
         protected static IMemberInRole memberInRole;
+        protected static ILessorService lessorService;
 
         private Establish ctx = () =>
         {
             memberInRole = depends.on<IMemberInRole>();
+            lessorService = depends.on<ILessorService>();
             make = new shop_factory(fake);
         };
     }

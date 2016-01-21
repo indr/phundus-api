@@ -19,10 +19,10 @@ namespace Phundus.Tests.Shop
             return article;
         }
 
-        public Lessor Lessor()
+        public Lessor Lessor(LessorId lessorId = null)
         {
             var lessor = fake.an<Lessor>();
-            lessor.setup(x => x.LessorId).Return(new LessorId());
+            lessor.setup(x => x.LessorId).Return(lessorId ?? new LessorId());
             return lessor;
         }
 

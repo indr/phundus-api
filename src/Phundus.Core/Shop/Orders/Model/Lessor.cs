@@ -6,16 +6,18 @@ namespace Phundus.Shop.Orders.Model
 
     public class Lessor : ValueObject
     {
+        private readonly bool _doesPublicRental;
         private LessorId _lessorId;
         private string _name;
 
-        public Lessor(LessorId lessorId, string name)
+        public Lessor(LessorId lessorId, string name, bool doesPublicRental)
         {
             AssertionConcern.AssertArgumentNotNull(lessorId, "LessorId must be provided.");
             AssertionConcern.AssertArgumentNotEmpty(name, "Name must be provided.");
 
             _lessorId = lessorId;
             _name = name;
+            _doesPublicRental = doesPublicRental;
         }
 
         protected Lessor()
@@ -32,6 +34,11 @@ namespace Phundus.Shop.Orders.Model
         {
             get { return _name; }
             protected set { _name = value; }
+        }
+
+        public virtual bool DoesPublicRental
+        {
+            get { return _doesPublicRental; }
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

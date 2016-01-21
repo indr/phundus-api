@@ -18,8 +18,7 @@ namespace Phundus.Tests
         protected static IAuthorize authorize;
         protected static IInitiatorService initiatorService;
 
-        protected static Exception caughtException;
-        protected static bool catchException = false;
+        
         
         private Establish ctx = () =>
         {
