@@ -4,7 +4,7 @@
     using Common;
     using Common.Domain.Model;
     using Ddd;
-    using Owners;
+    using Owner = Owners.Owner;
 
     public class Store : Aggregate<StoreId>
     {

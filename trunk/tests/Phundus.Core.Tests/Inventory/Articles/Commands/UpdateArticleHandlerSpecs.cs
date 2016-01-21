@@ -8,6 +8,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
     using Phundus.Inventory.Articles.Model;
     using Phundus.Inventory.Owners;
     using Rhino.Mocks;
+    using Owner = Phundus.Inventory.Owners.Owner;
 
     [Subject(typeof(UpdateArticleHandler))]
     public class when_update_article_command_is_handled : article_command_handler_concern<UpdateArticle, UpdateArticleHandler>

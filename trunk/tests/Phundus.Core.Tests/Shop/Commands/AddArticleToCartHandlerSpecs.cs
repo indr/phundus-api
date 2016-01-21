@@ -12,6 +12,7 @@
     using Phundus.Shop.Orders.Repositories;
     using Phundus.Shop.Services;
     using Rhino.Mocks;
+    using Owner = Phundus.Shop.Orders.Model.Owner;
 
     public class when_add_article_to_cart_is_handled : command_handler_concern<AddArticleToCart, AddArticleToCartHandler>
     {

@@ -6,6 +6,7 @@ namespace Phundus.Tests.Inventory.Model
     using Phundus.Inventory.Owners;
     using Phundus.Inventory.Stores.Model;
     using Rhino.Mocks;
+    using Owner = Phundus.Inventory.Owners.Owner;
 
     public class store_concern : aggregate_concern_new<Store>
     {

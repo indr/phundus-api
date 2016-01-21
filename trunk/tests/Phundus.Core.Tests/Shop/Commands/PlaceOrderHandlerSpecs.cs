@@ -12,6 +12,7 @@
     using Phundus.Shop.Orders.Repositories;
     using Phundus.Shop.Services;
     using Rhino.Mocks;
+    using Owner = Phundus.Shop.Orders.Model.Owner;
 
     public class place_order_command_handler_concern : order_command_handler_concern<PlaceOrder, PlaceOrderHandler>
     {

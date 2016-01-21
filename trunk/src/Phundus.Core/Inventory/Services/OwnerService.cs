@@ -7,6 +7,7 @@
     using IdentityAccess.Queries.ReadModels;
     using Integration.IdentityAccess;
     using Owners;
+    using Owner = Owners.Owner;
 
     public interface IOwnerService
     {

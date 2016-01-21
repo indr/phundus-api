@@ -5,6 +5,7 @@ namespace Phundus.Shop.Services
     using Common.Domain.Model;
     using Inventory.Articles.Repositories;
     using Orders.Model;
+    using Owner = Orders.Model.Owner;
 
     public interface IArticleService
     {

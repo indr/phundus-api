@@ -53,6 +53,8 @@
     <Compile Include="Domain.Model\Identity.cs" />
     <Compile Include="Domain.Model\Identities.cs" />
     <Compile Include="Domain.Model\Initiator.cs" />
+    <Compile Include="Domain.Model\Owner.cs" />
+    <Compile Include="Domain.Model\OwnerType.cs" />
     <Compile Include="Domain.Model\Period.cs" />
     <Compile Include="ProviderUserKey.cs" />
     <Compile Include="Domain.Model\StoreId.cs" />
