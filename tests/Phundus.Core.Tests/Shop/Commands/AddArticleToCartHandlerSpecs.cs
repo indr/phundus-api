@@ -22,7 +22,7 @@
         protected static readonly OwnerId theOwnerId = new OwnerId();
         protected static ICartRepository cartRepository;
 
-        protected static IAuthorize authorize;
+        //protected static IAuthorize authorize;
 
         private Establish ctx =
             () =>
@@ -31,7 +31,7 @@
                 cartRepository = depends.on<ICartRepository>();
                 memberInRole = depends.on<IMemberInRole>();
 
-                authorize = depends.on<IAuthorize>();
+                //authorize = depends.on<IAuthorize>();
 
 
                 depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId)).Return(article);
@@ -47,9 +47,9 @@
 
         private It should_add_new_cart_to_repository = () => cartRepository.WasToldTo(x => x.Add(Arg<Cart>.Is.NotNull));
 
-        private It should_authorize_user_to_rent_article = () => authorize.WasToldTo(x =>
-            x.User(Arg<UserId>.Is.Equal(theInitiatorId),
-                Arg<RentArticle>.Matches(p => Equals(p.ArticleId, theArticleId))));
+        //private It should_authorize_user_to_rent_article = () => authorize.WasToldTo(x =>
+        //    x.User(Arg<UserId>.Is.Equal(theInitiatorId),
+        //        Arg<RentArticle>.Matches(p => Equals(p.ArticleId, theArticleId))));
     }
 
     [Subject(typeof (AddArticleToCartHandler))]

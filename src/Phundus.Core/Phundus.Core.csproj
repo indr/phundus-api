@@ -96,6 +96,13 @@
     <Compile Include="App_Start\NotificationPublisherInstaller.cs" />
     <Compile Include="App_Start\CommonInstaller.cs" />
     <Compile Include="App_Start\QueriesInstaller.cs" />
+    <Compile Include="Authorization\AutoReleaseAuthorizationHandlerInterceptor.cs" />
+    <Compile Include="Authorization\AuthorizationDispatcher.cs" />
+    <Compile Include="Authorization\AuthorizationHandlerSelector.cs" />
+    <Compile Include="Authorization\IAuthorization.cs" />
+    <Compile Include="Authorization\IAuthorizationDispatcher.cs" />
+    <Compile Include="Authorization\IAuthorizationHandlerFactory.cs" />
+    <Compile Include="Authorization\IHandleAuthorization.cs" />
     <Compile Include="Cqrs\NHibernateReadModelBase.cs" />
     <Compile Include="Cqrs\Paging\PagedResult.cs" />
     <Compile Include="Cqrs\Paging\PageRequest.cs" />
@@ -312,7 +319,7 @@
     </Compile>
     <Compile Include="Shop\Services\BorrowerService.cs" />
     <Compile Include="Shop\Services\ArticleService.cs" />
-    <Compile Include="Shop\Services\Authorize.cs" />
+    <Compile Include="Shop\Authorization\Rent.cs" />
     <Compile Include="Shop\Services\LessorService.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />

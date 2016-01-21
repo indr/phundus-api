@@ -1,10 +1,11 @@
 ﻿namespace Phundus.Shop.Orders.Commands
 {
     using System;
+    using Authorization;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Queries;
     using Model;
+    using Phundus.Authorization;
     using Repositories;
     using Shop.Services;
 
@@ -34,23 +35,25 @@
 
     public class AddArticleToCartHandler : IHandleCommand<AddArticleToCart>
     {
-        private readonly IAuthorize _authorize;
-        private readonly ICartRepository _cartRepository;
         private readonly IArticleService _articleService;
+        private readonly IAuthorizationDispatcher _authorizationDispatcher;
+        private readonly ICartRepository _cartRepository;
 
-        public AddArticleToCartHandler(IAuthorize authorize, ICartRepository cartRepository, IArticleService articleService)
+        public AddArticleToCartHandler(IAuthorizationDispatcher authorizationDispatcher,
+            ICartRepository cartRepository, IArticleService articleService)
         {
-            if (authorize == null) throw new ArgumentNullException("authorize");
+            if (authorizationDispatcher == null) throw new ArgumentNullException("authorizationDispatcher");
             if (cartRepository == null) throw new ArgumentNullException("cartRepository");
             if (articleService == null) throw new ArgumentNullException("articleService");
-            _authorize = authorize;
+            _authorizationDispatcher = authorizationDispatcher;
             _cartRepository = cartRepository;
             _articleService = articleService;
         }
 
         public void Handle(AddArticleToCart command)
         {
-            _authorize.User(command.InitiatorId, Rent.Article(command.ArticleId));
+            _authorizationDispatcher.Dispatch(new RentArticle(new ArticleId(1)));
+            //_authorize.User(command.InitiatorId, Rent.Article(command.ArticleId));
 
             var article = _articleService.GetById(command.ArticleId);
 
@@ -72,6 +75,4 @@
             return cart;
         }
     }
-
-    
 }
