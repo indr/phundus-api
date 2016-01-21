@@ -1,13 +1,14 @@
 ﻿namespace Phundus.Tests.Inventory.Events
 {
     using System;
+    using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Model;
 
     [Subject(typeof (ArticleCreated))]
     public class article_created : domain_event_concern<ArticleCreated>
     {
-        private static ArticleCreated.EventOwner theOwner;
+        private static Owner theOwner;
         private static int theArticleIntegralId;
         private static string theName;
         private static int theGrossStock;
@@ -17,7 +18,7 @@
 
         private Establish ctx = () =>
         {
-            theOwner = new ArticleCreated.EventOwner();
+            theOwner = new Owner(new OwnerId(), "The owner", OwnerType.User);
             theArticleIntegralId = 1;
             theArticleGuid = Guid.NewGuid();
             theName = "The name";

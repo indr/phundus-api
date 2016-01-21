@@ -2,7 +2,6 @@
 {
     using Common.Domain.Model;
     using Machine.Specifications;
-    using Rhino.Mocks.Impl;
 
     [Subject(typeof (Initiator))]
     public class when_serializing_an_initiator : serialization_object_concern<Initiator>
