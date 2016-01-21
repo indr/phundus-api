@@ -32,7 +32,7 @@
             if (Equals(member.UserId, command.InitiatorId))
                 throw new AttemptToLockOneselfException();
 
-            MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
+            MemberInRole.ActiveManager(command.OrganizationId, command.InitiatorId);
 
             organization.LockMember(member);
         }

@@ -30,7 +30,7 @@
         public void Handle(CreateEmptyOrder command)
         {
             var ownerId = new OwnerId(command.LessorId.Id);
-            MemberInRole.ActiveChief(ownerId, command.InitiatorId);
+            MemberInRole.ActiveManager(ownerId, command.InitiatorId);
 
             var order = new Order(
                 LessorService.GetById(command.LessorId),

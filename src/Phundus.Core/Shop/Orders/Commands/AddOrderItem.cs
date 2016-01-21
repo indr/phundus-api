@@ -52,7 +52,7 @@
         {
             var order = _orderRepository.GetById(command.OrderId.Id);
             var lessor = order.Lessor;
-            _memberInRole.ActiveChief(lessor.LessorId.Id, command.InitiatorId);
+            _memberInRole.ActiveManager(lessor.LessorId.Id, command.InitiatorId);
 
             var article = _articleService.GetById(lessor.LessorId, command.ArticleId);
             order.AddItem(command.OrderItemId, article, command.Period.FromUtc, command.Period.ToUtc, command.Quantity);

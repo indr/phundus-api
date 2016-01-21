@@ -45,7 +45,7 @@
         {
             var article = _articleRepository.GetById(command.ArticleId.Id);
 
-            _memberInRole.ActiveChief(article.Owner.OwnerId.Id, command.InitiatorId);
+            _memberInRole.ActiveManager(article.Owner.OwnerId.Id, command.InitiatorId);
 
             article.RemoveImage(command.FileName);
         }

@@ -26,7 +26,7 @@
         };
 
         private It should_ask_for_chief_privileges = () =>
-            memberInRole.WasToldTo(x => x.ActiveChief(theOwner.OwnerId.Id, theInitiatorId));
+            memberInRole.WasToldTo(x => x.ActiveManager(theOwner.OwnerId.Id, theInitiatorId));
 
         private It should_tell_article_to_remove_image = () =>
             theArticle.WasToldTo(x => x.RemoveImage(theFileName));

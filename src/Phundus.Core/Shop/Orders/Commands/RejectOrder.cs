@@ -21,7 +21,7 @@
         {
             var order = OrderRepository.GetById(command.OrderId);
 
-            MemberInRole.ActiveChief(order.Lessor.LessorId.Id, command.InitiatorId);
+            MemberInRole.ActiveManager(order.Lessor.LessorId.Id, command.InitiatorId);
 
             order.Reject(command.InitiatorId);
         }

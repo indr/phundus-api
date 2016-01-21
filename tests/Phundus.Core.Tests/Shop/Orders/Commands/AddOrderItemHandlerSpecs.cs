@@ -33,7 +33,7 @@
         };
 
         public It should_ask_for_chief_privileges = () =>
-            memberInRole.WasToldTo(x => x.ActiveChief(theLessor.LessorId.Id, theInitiatorId));
+            memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
         public It should_tell_order_to_add_item = () =>
             theOrder.WasToldTo(x => x.AddItem(theOrderItemId, theArticle, thePeriod.FromUtc, thePeriod.ToUtc, 10));

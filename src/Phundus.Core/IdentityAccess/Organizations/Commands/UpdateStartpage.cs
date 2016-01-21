@@ -37,7 +37,7 @@
 
         public void Handle(UpdateStartpage command)
         {
-            _memberInRole.ActiveChief(command.OrganizationId.Id, command.InitiatorId);
+            _memberInRole.ActiveManager(command.OrganizationId.Id, command.InitiatorId);
 
             var organization = _organizationRepository.GetById(command.OrganizationId.Id);
 

@@ -58,7 +58,7 @@
 
         public void Handle(CreateArticle command)
         {
-            _memberInRole.ActiveChief(command.OwnerId, command.InitiatorId);
+            _memberInRole.ActiveManager(command.OwnerId, command.InitiatorId);
             var owner = _ownerService.GetById(command.OwnerId);
 
             var result = new Article(owner, command.StoreId, command.Name, command.Amount);

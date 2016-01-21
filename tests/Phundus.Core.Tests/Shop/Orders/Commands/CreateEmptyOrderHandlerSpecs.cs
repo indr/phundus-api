@@ -35,7 +35,7 @@
         public It should_add_to_repository = () => orderRepository.WasToldTo(x => x.Add(Arg<Order>.Is.NotNull));
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(new OwnerId(theLessor.LessorId.Id), initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveManager(new OwnerId(theLessor.LessorId.Id), initiatorId));
 
         public It should_publish_order_created = () => publisher.WasToldTo(x => x.Publish(
             Arg<OrderCreated>.Matches(p => p.OrderId == orderId)));

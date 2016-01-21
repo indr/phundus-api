@@ -36,7 +36,7 @@
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveChief(theLessor.LessorId.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, initiatorId));
 
         public It should_publish_order_item_removed =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemRemoved>.Is.NotNull));

@@ -30,7 +30,7 @@
 
             var member = UserRepository.GetByGuid(command.MemberId);
 
-            MemberInRole.ActiveChief(command.OrganizationId, command.InitiatorId);
+            MemberInRole.ActiveManager(command.OrganizationId, command.InitiatorId);
 
             organization.SetMembersRole(member, (Role) command.Role);
         }
