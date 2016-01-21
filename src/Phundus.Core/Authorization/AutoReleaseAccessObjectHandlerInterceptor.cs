@@ -6,11 +6,11 @@
     using Castle.MicroKernel;
 
     [Transient]
-    public class AutoReleaseAuthorizationHandlerInterceptor : IInterceptor
+    public class AutoReleaseAccessObjectHandlerInterceptor : IInterceptor
     {
         private readonly IKernel _kernel;
 
-        public AutoReleaseAuthorizationHandlerInterceptor(IKernel kernel)
+        public AutoReleaseAccessObjectHandlerInterceptor(IKernel kernel)
         {
             _kernel = kernel;
         }
@@ -22,7 +22,7 @@
             if (parameters.Length == 1)
             {
                 // TODO: Do we really need to make the generic type to compare MethodInfos?
-                methodHandle = typeof (IHandleAuthorization<>)
+                methodHandle = typeof (IHandleAccessObject<>)
                     .MakeGenericType(parameters[0].ParameterType)
                     .GetMethod("Handle");
             }

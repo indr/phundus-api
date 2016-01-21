@@ -3,21 +3,26 @@
     using System;
     using Common.Domain.Model;
 
+    public interface IAuthorize
+    {
+        void User<TAccessObject>(UserId userId, TAccessObject accessObject);
+    }
+
     public class Authorize : IAuthorize
     {
-        private readonly IAuthorizationHandlerFactory _authorizationHandlerFactory;
+        private readonly IAccessObjectHandlerFactory _accessObjectHandlerFactory;
 
-        public Authorize(IAuthorizationHandlerFactory authorizationHandlerFactory)
+        public Authorize(IAccessObjectHandlerFactory accessObjectHandlerFactory)
         {
-            if (authorizationHandlerFactory == null) throw new ArgumentNullException("authorizationHandlerFactory");
-            _authorizationHandlerFactory = authorizationHandlerFactory;
+            if (accessObjectHandlerFactory == null) throw new ArgumentNullException("accessObjectHandlerFactory");
+            _accessObjectHandlerFactory = accessObjectHandlerFactory;
         }
 
-        public void User<TAuthorization>(UserId userId, TAuthorization accessObject)
+        public void User<TAccessObject>(UserId userId, TAccessObject accessObject)
         {
-            IHandleAuthorization<TAuthorization> handler = _authorizationHandlerFactory.GetHandlerForAccessObject(accessObject);
+            IHandleAccessObject<TAccessObject> handler = _accessObjectHandlerFactory.GetHandlerForAccessObject(accessObject);
 
-            handler.Handle(accessObject);
+            handler.Handle(userId, accessObject);
         }
     }
 }
