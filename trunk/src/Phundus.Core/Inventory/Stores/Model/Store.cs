@@ -1,10 +1,8 @@
 ﻿namespace Phundus.Inventory.Stores.Model
 {
     using System;
-    using Common;
     using Common.Domain.Model;
     using Ddd;
-    using Owner = Owners.Owner;
 
     public class Store : Aggregate<StoreId>
     {
@@ -15,7 +13,8 @@
 
         public Store(StoreId storeId, Owner owner) : base(storeId)
         {
-            AssertionConcern.AssertArgumentNotNull(owner, "Owner must be provided.");
+            if (storeId == null) throw new ArgumentNullException("storeId");
+            if (owner == null) throw new ArgumentNullException("owner");
 
             _owner = owner;
             _address = null;

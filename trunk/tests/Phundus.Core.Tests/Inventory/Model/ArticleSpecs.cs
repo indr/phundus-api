@@ -5,9 +5,7 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Owners;
     using Rhino.Mocks;
-    using Owner = Phundus.Inventory.Owners.Owner;
 
     public class article_concern : aggregate_concern_new<Article>
     {

@@ -7,9 +7,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Commands;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Owners;
     using Rhino.Mocks;
-    using Owner = Phundus.Inventory.Owners.Owner;
 
     [Subject(typeof (DeleteArticleHandler))]
     public class when_delete_article_command_is_handled : article_command_handler_concern<DeleteArticle, DeleteArticleHandler>
@@ -25,7 +23,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
         {
             initiatorId = new UserId();
             ownerId = Guid.NewGuid();
-            owner = new Owner(new OwnerId(ownerId), "Owner");
+            owner = new Owner(new OwnerId(ownerId), "Owner", OwnerType.Organization);
             article = new Article(owner, new StoreId(), "Name", 0);
             articleRepository.setup(x => x.GetById(articleId)).Return(article);
 

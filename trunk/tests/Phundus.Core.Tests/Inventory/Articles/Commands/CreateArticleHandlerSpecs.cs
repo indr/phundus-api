@@ -7,9 +7,7 @@
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Commands;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Owners;
     using Rhino.Mocks;
-    using Owner = Phundus.Inventory.Owners.Owner;
 
     [Subject(typeof (CreateArticleHandler))]
     public class when_create_article_command_is_handled : article_command_handler_concern<CreateArticle, CreateArticleHandler>
@@ -21,7 +19,7 @@
         {
             initiatorId = new UserId();
             ownerId = new OwnerId(Guid.NewGuid());
-            ownerService.setup(x => x.GetById(ownerId)).Return(new Owner(ownerId, "Owner"));
+            ownerService.setup(x => x.GetById(ownerId)).Return(new Owner(ownerId, "Owner", OwnerType.Organization));
             articleRepository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(1);
 
             command = new CreateArticle(initiatorId, ownerId, new StoreId(), "Name", 0);

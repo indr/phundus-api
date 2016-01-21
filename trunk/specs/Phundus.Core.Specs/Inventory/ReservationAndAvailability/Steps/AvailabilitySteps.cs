@@ -8,12 +8,10 @@
     using Phundus.Inventory.Articles.Repositories;
     using Phundus.Inventory.AvailabilityAndReservation.Model;
     using Phundus.Inventory.AvailabilityAndReservation.Repositories;
-    using Phundus.Inventory.Owners;
     using Phundus.Inventory.Services;
     using Rhino.Mocks;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
-    using Owner = Phundus.Inventory.Owners.Owner;
 
     [Binding]
     public class AvailabilitySteps : concern<AvailabilityService>
@@ -34,7 +32,7 @@
         [Given(@"an article with gross stock of (.*)")]
         public void GivenAnArticleWithGrossStockOf(int amount)
         {
-            var owner = new Owner(new OwnerId(Guid.NewGuid()), "Owner");
+            var owner = new Owner(new OwnerId(Guid.NewGuid()), "Owner", OwnerType.Organization);
             _article = new Article(owner, new StoreId(), "Name", 0);
             _article.GrossStock = amount;
             _articleRepository.Stub(x => x.FindById(_article.Id)).Return(_article);

@@ -4,8 +4,6 @@ namespace Phundus.Tests.Inventory
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Owners;
-    using Owner = Phundus.Inventory.Owners.Owner;
 
     public class inventory_factory : factory_base
     {
