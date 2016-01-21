@@ -41,14 +41,14 @@
                 );
 
             container.Register(
-                Component.For<ITypedFactoryComponentSelector>().ImplementedBy<AuthorizationHandlerSelector>(),
-                Component.For<AutoReleaseAuthorizationHandlerInterceptor>(),
+                Component.For<ITypedFactoryComponentSelector>().ImplementedBy<AccessObjectHandlerSelector>(),
+                Component.For<AutoReleaseAccessObjectHandlerInterceptor>(),
                 Types.FromAssembly(_assemblyContainingCommandsAndHandlers)
-                    .BasedOn(typeof(IHandleAuthorization<>))
+                    .BasedOn(typeof(IHandleAccessObject<>))
                     .WithServiceAllInterfaces()
-                    .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseAuthorizationHandlerInterceptor>()),
+                    .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseAccessObjectHandlerInterceptor>()),
                 Component.For<IAuthorize>().ImplementedBy<Authorization.Authorize>().LifestyleTransient(),
-                Component.For<IAuthorizationHandlerFactory>().AsFactory(c => c.SelectedWith<AuthorizationHandlerSelector>())
+                Component.For<IAccessObjectHandlerFactory>().AsFactory(c => c.SelectedWith<AccessObjectHandlerSelector>())
                 );
 
             container.Register(

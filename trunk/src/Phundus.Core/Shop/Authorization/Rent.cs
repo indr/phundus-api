@@ -2,18 +2,15 @@
 {
     using System;
     using Common.Domain.Model;
-    using Cqrs;
     using Phundus.Authorization;
 
-    //using Phundus.Authorization;
-
-    //public static class Rent
-    //{
-    //    public static AccessObject Article(ArticleId articleId)
-    //    {
-    //        return new RentArticle(articleId);
-    //    }
-    //}
+    public static class Rent
+    {
+        public static RentArticle Article(ArticleId articleId)
+        {
+            return new RentArticle(articleId);
+        }
+    }
 
     public class RentArticle : IAccessObject
     {
@@ -26,14 +23,9 @@
         public ArticleId ArticleId { get; protected set; }
     }
 
-    public class RentArticleAuthorizationHandler : IHandleAuthorization<RentArticle>
+    public class RentArticleAccessObjectHandler : IHandleAccessObject<RentArticle>
     {
-        //public void Authorize(UserId userId, RentArticle accessObject)
-        //{
-        //    throw new NotImplementedException("Rent Article Authorization Handler");
-        //}
-
-        public void Handle(RentArticle accessObject)
+        public void Handle(UserId userId, RentArticle accessObject)
         {
             throw new NotImplementedException();
         }

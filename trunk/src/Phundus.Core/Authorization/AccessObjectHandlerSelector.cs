@@ -4,9 +4,9 @@
     using System.Reflection;
     using Castle.Facilities.TypedFactory;
 
-    public class AuthorizationHandlerSelector : DefaultTypedFactoryComponentSelector
+    public class AccessObjectHandlerSelector : DefaultTypedFactoryComponentSelector
     {
-        public AuthorizationHandlerSelector()
+        public AccessObjectHandlerSelector()
             : base(false)
         {
         }
@@ -16,7 +16,7 @@
             if (arguments.Length > 0 && arguments[0] is IAccessObject)
             {
                 Type handlerType =
-                    typeof (IHandleAuthorization<>).MakeGenericType(arguments[0].GetType());
+                    typeof (IHandleAccessObject<>).MakeGenericType(arguments[0].GetType());
 
                 if (method.ReturnType.IsArray)
                     return handlerType.MakeArrayType();
