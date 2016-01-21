@@ -1,16 +1,13 @@
 ﻿namespace Phundus.Tests.Inventory
 {
-    using System;
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Organizations.Model;
-    using Phundus.Inventory.Owners;
     using Phundus.Inventory.Services;
     using Phundus.Inventory.Stores.Model;
     using Phundus.Inventory.Stores.Repositories;
     using Rhino.Mocks;
-    using Owner = Phundus.Inventory.Owners.Owner;
 
     [Subject(typeof (DefaultOrganizationStoreOpener))]
     public class when_handled : subscriber_concern<OrganizationEstablished, DefaultOrganizationStoreOpener>
@@ -24,7 +21,7 @@
             {
                 depends.on<IOwnerService>()
                     .WhenToldTo(x => x.GetById(theOrganizationGuid.Id))
-                    .Return(new Owner(new OwnerId(theOrganizationGuid.Id), "Rocks and Scissors"));
+                    .Return(new Owner(new OwnerId(theOrganizationGuid.Id), "Rocks and Scissors", OwnerType.Organization));
                 storeRepository = depends.on<IStoreRepository>();
                 @event = new OrganizationEstablished(theOrganizationGuid, "free", "Rocks and Scissors", "");
             };

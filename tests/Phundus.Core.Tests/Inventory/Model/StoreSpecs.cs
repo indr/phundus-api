@@ -3,10 +3,8 @@ namespace Phundus.Tests.Inventory.Model
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Phundus.Inventory.Owners;
     using Phundus.Inventory.Stores.Model;
     using Rhino.Mocks;
-    using Owner = Phundus.Inventory.Owners.Owner;
 
     public class store_concern : aggregate_concern_new<Store>
     {

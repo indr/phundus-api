@@ -7,14 +7,18 @@
     [DataContract]
     public class Owner : ValueObject
     {
+        private OwnerId _ownerId;
+        private string _name;
+        private OwnerType _type;
+
         public Owner(OwnerId ownerId, string name, OwnerType type)
         {
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             if (name == null) throw new ArgumentNullException("name");
             if (type == OwnerType.Unknown) throw new ArgumentException("Owner type must not be unknown.", "type");
-            OwnerId = ownerId;
-            Name = name;
-            Type = type;
+            _ownerId = ownerId;
+            _name = name;
+            _type = type;
         }
 
         protected Owner()
@@ -22,13 +26,25 @@
         }
 
         [DataMember(Order = 1)]
-        public OwnerId OwnerId { get; protected set; }
+        public virtual OwnerId OwnerId
+        {
+            get { return _ownerId; }
+            protected set { _ownerId = value; }
+        }
 
         [DataMember(Order = 3)]
-        public string Name { get; protected set; }
+        public virtual string Name
+        {
+            get { return _name; }
+            protected set { _name = value; }
+        }
 
         [DataMember(Order = 2)]
-        public OwnerType Type { get; protected set; }
+        public virtual OwnerType Type
+        {
+            get { return _type; }
+            protected set { _type = value; }
+        }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

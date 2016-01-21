@@ -4,9 +4,7 @@
     using Common.Domain.Model;
     using Ddd;
     using IdentityAccess.Organizations.Model;
-    using Owners;
     using Repositories;
-    using Owner = Owners.Owner;
 
     public class DefaultOrganizationStoreOpener : ISubscribeTo<OrganizationEstablished>
     {
@@ -28,8 +26,8 @@
             // distinct assemblies ;O)
 
             //var owner = _ownerService.GetById(@event.OrganizationId);
-            var owner = new Owner(new OwnerId(@event.OrganizationId), @event.Name);
-            var store = owner.OpenStore(new StoreId());
+            var owner = new Owner(new OwnerId(@event.OrganizationId), @event.Name, OwnerType.Organization);
+            var store = new Store(new StoreId(), owner);
 
             _storeRepository.Add(store);
 

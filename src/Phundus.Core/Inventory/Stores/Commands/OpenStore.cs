@@ -46,7 +46,7 @@
                 throw new AuthorizationException();
 
             var owner = _ownerService.GetByUserId(command.OwnerId);
-            var store = owner.OpenStore(command.StoreId);
+            var store = new Store(command.StoreId, owner);
 
             _storeRepository.Add(store);
 
