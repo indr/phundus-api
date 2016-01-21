@@ -312,6 +312,7 @@
     </Compile>
     <Compile Include="Shop\Services\BorrowerService.cs" />
     <Compile Include="Shop\Services\ArticleService.cs" />
+    <Compile Include="Shop\Services\Authorize.cs" />
     <Compile Include="Shop\Services\LessorService.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
