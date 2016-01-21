@@ -41,6 +41,11 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
                     "Sie müssen aktives Mitglied mit der Rolle Verwaltung dieser Organisation sein.");
         }
 
+        public void ActiveManager(OrganizationId organizationId, UserId userId)
+        {
+            ActiveChief(organizationId.Id, userId);
+        }
+
         public void ActiveChief(OwnerId ownerId, UserId userId)
         {
             ActiveChief(ownerId.Id, userId);

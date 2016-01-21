@@ -12,7 +12,7 @@
     using Phundus.Shop.Orders.Repositories;
     using Rhino.Mocks;
 
-    public class place_order_handler_concern : order_handler_concern<PlaceOrder, PlaceOrderHandler>
+    public class place_order_command_handler_concern : order_command_handler_concern<PlaceOrder, PlaceOrderHandler>
     {
         protected const int theResultingOrderId = 123;
         protected static Cart theCart;
@@ -44,7 +44,7 @@
     }
 
     [Subject(typeof (PlaceOrderHandler))]
-    public class when_trying_to_place_an_empty_cart : place_order_handler_concern
+    public class when_trying_to_place_an_empty_cart : place_order_command_handler_concern
     {
         private Establish ctx = () => catchException = true;
 
@@ -61,7 +61,7 @@
     }
 
     [Subject(typeof (PlaceOrderHandler))]
-    public class when_trying_to_place_a_cart_with_only_items_from_different_lessor : place_order_handler_concern
+    public class when_trying_to_place_a_cart_with_only_items_from_different_lessor : place_order_command_handler_concern
     {
         private static LessorId theOtherLessorId;
 
@@ -86,7 +86,7 @@
     }
 
     [Subject(typeof (PlaceOrderHandler))]
-    public class when_successfully_placing_an_cart_with_items_from_different_lessors : place_order_handler_concern
+    public class when_successfully_placing_an_cart_with_items_from_different_lessors : place_order_command_handler_concern
     {
         private static List<CartItemId> theCartItemsToRemove;
 

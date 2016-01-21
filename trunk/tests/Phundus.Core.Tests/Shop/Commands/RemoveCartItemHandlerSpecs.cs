@@ -9,7 +9,7 @@ namespace Phundus.Tests.Shop.Commands
     using Phundus.Shop.Orders.Repositories;
 
     [Subject(typeof (RemoveCartItemHandler))]
-    public class when_remove_cart_item_is_handled : handler_concern<RemoveCartItem, RemoveCartItemHandler>
+    public class when_remove_cart_item_is_handled : command_handler_concern<RemoveCartItem, RemoveCartItemHandler>
     {
         private static Cart theCart;
         private static CartItemId theCartItemId = new CartItemId();

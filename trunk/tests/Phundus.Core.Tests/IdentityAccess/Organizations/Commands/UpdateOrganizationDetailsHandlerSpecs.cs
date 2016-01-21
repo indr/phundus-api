@@ -11,7 +11,7 @@
     using Rhino.Mocks;
 
     [Subject(typeof (ChangeOrganizationContactDetailsHandler))]
-    public class when_update_organization_details_is_handled : identityaccess_handler_concern<ChangeOrganizationContactDetails, ChangeOrganizationContactDetailsHandler>
+    public class when_update_organization_details_is_handled : identityaccess_command_handler_concern<ChangeOrganizationContactDetails, ChangeOrganizationContactDetailsHandler>
     {
         private static Organization theOrganization;
 

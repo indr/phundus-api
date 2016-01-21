@@ -9,7 +9,7 @@
     using Rhino.Mocks;
 
     [Subject(typeof (SignUpUserHandler))]
-    public class when_register_user_is_handled : handler_concern<SignUpUser, SignUpUserHandler>
+    public class when_register_user_is_handled : command_handler_concern<SignUpUser, SignUpUserHandler>
     {
         private static IUserRepository userRepository;
 

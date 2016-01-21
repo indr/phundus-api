@@ -10,7 +10,7 @@
     using Rhino.Mocks;
 
     [Subject(typeof (CloseOrderHandler))]
-    public class when_close_order_is_handled : order_handler_concern<CloseOrder, CloseOrderHandler>
+    public class when_close_order_command_is_handled : order_command_handler_concern<CloseOrder, CloseOrderHandler>
     {
         private static UserId initiatorId = new UserId();
         private const int orderId = 3;

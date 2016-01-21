@@ -12,23 +12,28 @@
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (fullName == null) throw new ArgumentNullException("fullName");
             if (emailAddress == null) throw new ArgumentNullException("emailAddress");
-            InitiatorId = initiatorId.Id;
+            InitiatorGuid = initiatorId.Id;
             EmailAddress = emailAddress;
             FullName = fullName;
         }
 
         [DataMember(Order = 1)]
-        public Guid InitiatorId { get; protected set; }
+        public Guid InitiatorGuid { get; protected set; }
+
+        public InitiatorId InitiatorId
+        {
+            get { return new InitiatorId(InitiatorGuid); }
+        }
 
         [DataMember(Order = 2)]
         public string EmailAddress { get; protected set; }
 
         [DataMember(Order = 3)]
         public string FullName { get; protected set; }
-        
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return InitiatorId;
+            yield return InitiatorGuid;
         }
     }
 }

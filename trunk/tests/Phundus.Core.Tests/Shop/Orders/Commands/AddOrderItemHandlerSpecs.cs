@@ -8,7 +8,7 @@
     using Phundus.Shop.Orders.Model;
 
     [Subject(typeof (AddOrderItemHandler))]
-    public class when_add_order_item_is_handled : order_handler_concern<AddOrderItem, AddOrderItemHandler>
+    public class when_add_order_command_item_is_handled : order_command_handler_concern<AddOrderItem, AddOrderItemHandler>
     {
         private static Period thePeriod;
         private static Order theOrder;

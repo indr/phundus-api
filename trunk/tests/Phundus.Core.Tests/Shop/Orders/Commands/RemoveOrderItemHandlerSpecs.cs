@@ -12,7 +12,7 @@
     using Article = Phundus.Shop.Orders.Model.Article;
 
     [Subject(typeof (RemoveOrderItemHandler))]
-    public class when_remove_order_item_is_handled : order_handler_concern<RemoveOrderItem, RemoveOrderItemHandler>
+    public class when_remove_order_command_item_is_handled : order_command_handler_concern<RemoveOrderItem, RemoveOrderItemHandler>
     {
         private static UserId initiatorId = new UserId();
         private const int orderId = 2;
