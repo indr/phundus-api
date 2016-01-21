@@ -52,7 +52,7 @@
 
         public void Handle(AddArticleToCart command)
         {
-            _authorize.Dispatch(new RentArticle(new ArticleId(1)));
+            _authorize.User(command.InitiatorId, new RentArticle(new ArticleId(1)));
             //_authorize.User(command.InitiatorId, Rent.Article(command.ArticleId));
 
             var article = _articleService.GetById(command.ArticleId);

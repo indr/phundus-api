@@ -6,9 +6,9 @@
     {
     }
 
-    public interface IHandleAuthorization<in TAuthorization> : IHandleAuthorization
+    public interface IHandleAuthorization<in TAccessObject> : IHandleAuthorization
     {
         [Transaction]
-        void Handle(TAuthorization command);
+        void Handle(TAccessObject accessObject);
     }
 }

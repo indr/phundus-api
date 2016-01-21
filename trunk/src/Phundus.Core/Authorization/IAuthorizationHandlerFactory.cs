@@ -2,8 +2,8 @@
 {
     public interface IAuthorizationHandlerFactory
     {
-        IHandleAuthorization<TAuthorization> GetHandlerForCommand<TAuthorization>(TAuthorization command);
+        IHandleAuthorization<TAccessObject> GetHandlerForAccessObject<TAccessObject>(TAccessObject command);
 
-        IHandleAuthorization<TAuthorization>[] GetHandlersForCommand<TAuthorization>(TAuthorization command);
+        IHandleAuthorization<TAccessObject>[] GetHandlersForAccessObject<TAccessObject>(TAccessObject command);
     }
 }
