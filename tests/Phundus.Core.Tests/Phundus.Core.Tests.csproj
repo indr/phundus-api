@@ -128,6 +128,7 @@
     <Compile Include="Inventory\Authorize\CreateArticleAccessObjectHandlerSpecs.cs" />
     <Compile Include="Inventory\Authorize\inventory_access_object_handler_concern.cs" />
     <Compile Include="Inventory\Events\ArticleCreatedSpecs.cs" />
+    <Compile Include="Inventory\Events\PricesChangedSpecs.cs" />
     <Compile Include="Inventory\Model\ArticleSpecs.cs" />
     <Compile Include="Inventory\Model\StoreSpecs.cs" />
     <Compile Include="Inventory\OrganizationStoreOpenerSpecs.cs" />

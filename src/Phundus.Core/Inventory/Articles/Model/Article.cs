@@ -87,7 +87,7 @@
         public virtual decimal PublicPrice
         {
             get { return _publicPrice; }
-            set { _publicPrice = value; }
+            protected set { _publicPrice = value; }
         }
 
         public virtual decimal? MemberPrice
@@ -95,8 +95,6 @@
             get { return _memberPrice; }
             protected set { _memberPrice = value; }
         }
-
-        
 
         public virtual int GrossStock
         {
@@ -191,6 +189,19 @@
             {
                 eachImage.IsPreview = eachImage.FileName == fileName;
             }
+        }
+
+        public virtual void ChangePrices(Initiator initiator, decimal publicPrice, decimal? memberPrice)
+        {
+            if (initiator == null) throw new ArgumentNullException("initiator");
+
+            if ((PublicPrice == publicPrice) && (MemberPrice == memberPrice))
+                return;
+
+            PublicPrice = publicPrice;
+            MemberPrice = this.Owner.Type == OwnerType.Organization ? memberPrice : null;
+
+            EventPublisher.Publish(new PricesChanged(initiator, this.Id, this.ArticleGuid, PublicPrice, MemberPrice));
         }
     }
 }

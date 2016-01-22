@@ -210,8 +210,7 @@ namespace Phundus.Rest.Api
                     Color = requestContent.Color,
                     GrossStock = requestContent.GrossStock,
                     InitiatorId = CurrentUserId,
-                    Name = requestContent.Name,
-                    Price = requestContent.Price
+                    Name = requestContent.Name
                 });
             }
             if (requestContent.Description != null)
@@ -319,9 +318,6 @@ namespace Phundus.Rest.Api
         [JsonProperty("brand")]
         public string Brand { get; set; }
 
-        [JsonProperty("price")]
-        public decimal Price { get; set; }
-
         [JsonProperty("grossStock")]
         public int GrossStock { get; set; }
 
@@ -333,5 +329,11 @@ namespace Phundus.Rest.Api
 
         [JsonProperty("specification")]
         public string Specification { get; set; }
+        
+        [JsonProperty("publicPrice")]
+        public decimal PublicPrice { get; set; }
+
+        [JsonProperty("memberPrice")]
+        public decimal? MemberPrice { get; set; }
     }
 }

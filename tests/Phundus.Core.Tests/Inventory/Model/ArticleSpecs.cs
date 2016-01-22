@@ -10,28 +10,34 @@
     public class article_concern : aggregate_concern_new<Article>
     {
         protected static inventory_factory make;
-        protected static Owner theOwner;
-        protected static StoreId theStoreId;
 
+        protected static Owner theOwner;
+        protected static OwnerType theOwnerType;
+        protected static StoreId theStoreId;
         protected static ArticleGuid theArticleGuid;
         protected static string theName;
         protected static int theGrossStock;
-        protected static decimal theMemberPrice;
         protected static decimal thePublicPrice;
+        protected static decimal theMemberPrice;
 
         private Establish ctx = () =>
         {
             make = new inventory_factory(fake);
 
-            theOwner = make.Owner();
+            theOwnerType = OwnerType.Organization;
+            theOwner = null;
             theStoreId = new StoreId();
             theArticleGuid = new ArticleGuid();
             theName = "The name";
             theGrossStock = 10;
             theMemberPrice = 11.11m;
             thePublicPrice = 12.12m;
-            sut_factory.create_using(() => new Article(theOwner, theStoreId, theArticleGuid,
-                theName, theGrossStock, thePublicPrice, theMemberPrice));
+            sut_factory.create_using(() =>
+            {
+                theOwner = make.Owner(theOwnerType);
+                return new Article(theOwner, theStoreId, theArticleGuid,
+                    theName, theGrossStock, thePublicPrice, theMemberPrice);
+            });
         };
     }
 
@@ -61,13 +67,86 @@
 
         public class when_instanting_for_owner_type_user
         {
-            private Establish ctx = () =>
-            {
-                theOwner = make.Owner(OwnerType.User);
-            };
+            private Establish ctx = () => { theOwner = make.Owner(OwnerType.User); };
 
             private It should_not_have_a_member_price = () =>
                 sut.MemberPrice.ShouldBeNull();
+        }
+    }
+
+    [Subject(typeof (Article))]
+    public class when_changing_prices : article_concern
+    {
+        private static decimal theNewPublicPrice;
+        private static decimal? theNewMemberPrice;
+
+        private Establish ctx = () =>
+        {
+            theNewPublicPrice = thePublicPrice + 1.00m;
+            theNewMemberPrice = theMemberPrice + 1.00m;
+        };
+
+        private Because of = () => sut.ChangePrices(theInitiator, theNewPublicPrice, theNewMemberPrice);
+
+
+        public class for_an_article_with_owner_type_organization
+        {
+            private Establish ctx = () =>
+                theOwnerType = OwnerType.Organization;
+
+            private It should_have_the_new_member_price = () =>
+                sut.MemberPrice.ShouldEqual(theNewMemberPrice);
+
+            private It should_have_the_new_public_price = () =>
+                sut.PublicPrice.ShouldEqual(theNewPublicPrice);
+
+            private It should_public_prices_changed = () =>
+                publisher.WasToldTo(x => x.Publish(Arg<PricesChanged>.Matches(p =>
+                    p.ArticleGuid == theArticleGuid.Id
+                    && p.Initiator.InitiatorGuid == theInitiatorId.Id
+                    && p.MemberPrice == theNewMemberPrice
+                    && p.PublicPrice == theNewPublicPrice)));
+        }
+
+        public class for_an_article_with_owner_type_user
+        {
+            private Establish ctx = () =>
+                theOwnerType = OwnerType.User;
+
+            private It should_have_the_new_member_price = () =>
+                sut.MemberPrice.ShouldBeNull();
+
+            private It should_have_the_new_public_price = () =>
+                sut.PublicPrice.ShouldEqual(theNewPublicPrice);
+
+            private It should_public_prices_changed = () =>
+                publisher.WasToldTo(x => x.Publish(Arg<PricesChanged>.Matches(p =>
+                    p.ArticleGuid == theArticleGuid.Id
+                    && p.Initiator.InitiatorGuid == theInitiatorId.Id
+                    && p.MemberPrice == null
+                    && p.PublicPrice == theNewPublicPrice)));
+        }
+
+        public class when_new_member_price_is_null
+        {
+            private Establish ctx = () =>
+            {
+                theOwnerType = OwnerType.Organization;
+                theNewMemberPrice = null;
+            };
+
+            private It should_have_the_new_member_price = () =>
+                sut.MemberPrice.ShouldEqual(theNewMemberPrice);
+
+            private It should_have_the_new_public_price = () =>
+                sut.PublicPrice.ShouldEqual(theNewPublicPrice);
+
+            private It should_public_prices_changed = () =>
+                publisher.WasToldTo(x => x.Publish(Arg<PricesChanged>.Matches(p =>
+                    p.ArticleGuid == theArticleGuid.Id
+                    && p.Initiator.InitiatorGuid == theInitiatorId.Id
+                    && p.MemberPrice == theNewMemberPrice
+                    && p.PublicPrice == theNewPublicPrice)));
         }
     }
 

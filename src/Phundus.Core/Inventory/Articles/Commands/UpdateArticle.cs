@@ -14,7 +14,6 @@
 
         public string Name { get; set; }
         public string Brand { get; set; }
-        public decimal Price { get; set; }
         public int GrossStock { get; set; }
         public string Color { get; set; }
     }
@@ -33,7 +32,6 @@
 
             article.Name = command.Name;
             article.Brand = command.Brand;
-            article.PublicPrice = command.Price;
             article.GrossStock = command.GrossStock;
             article.Color = command.Color;
 
