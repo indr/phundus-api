@@ -32,8 +32,7 @@ namespace Phundus.Core.Specs.Shop.Pricing
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "PerDayWithPerSevenDaysPricePricing", "In order to avoid silly mistakes\nAs a math idiot\nI want to be told the sum of two" +
-                    " numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "PerDayWithPerSevenDaysPricePricing", "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -70,9 +69,9 @@ namespace Phundus.Core.Specs.Shop.Pricing
         public virtual void SameDay()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Same day", ((string[])(null)));
-#line 6
+#line 3
 this.ScenarioSetup(scenarioInfo);
-#line 7
+#line 4
  testRunner.Given("a per week price of 14.00 CHF", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -91,7 +90,7 @@ this.ScenarioSetup(scenarioInfo);
                         "20.08.2014 00:00:00",
                         "20.08.2014 23:59:59",
                         "3"});
-#line 8
+#line 5
  testRunner.When("I calculate the per day price with these values", ((string)(null)), table1, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -106,7 +105,7 @@ this.ScenarioSetup(scenarioInfo);
             table2.AddRow(new string[] {
                         "1",
                         "6.00"});
-#line 13
+#line 10
  testRunner.Then("the resulting prices should be", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -117,9 +116,9 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void UpToSevenDays()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Up to seven days", ((string[])(null)));
-#line 19
+#line 16
 this.ScenarioSetup(scenarioInfo);
-#line 20
+#line 17
  testRunner.Given("a per week price of 7.00 CHF", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -138,7 +137,7 @@ this.ScenarioSetup(scenarioInfo);
                         "20.08.2014 23:59:59",
                         "26.08.2014 00:00:00",
                         "3"});
-#line 21
+#line 18
  testRunner.When("I calculate the per day price with these values", ((string)(null)), table3, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -153,7 +152,7 @@ this.ScenarioSetup(scenarioInfo);
             table4.AddRow(new string[] {
                         "7",
                         "21.00"});
-#line 26
+#line 23
  testRunner.Then("the resulting prices should be", ((string)(null)), table4, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -164,9 +163,9 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SevenDaysOrMore()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Seven days or more", ((string[])(null)));
-#line 33
+#line 30
 this.ScenarioSetup(scenarioInfo);
-#line 34
+#line 31
  testRunner.Given("a per week price of 7.00 CHF", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -185,7 +184,7 @@ this.ScenarioSetup(scenarioInfo);
                         "20.08.2014 20:00:00",
                         "29.08.2014 23:59:59",
                         "3"});
-#line 35
+#line 32
  testRunner.When("I calculate the per day price with these values", ((string)(null)), table5, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
@@ -200,7 +199,7 @@ this.ScenarioSetup(scenarioInfo);
             table6.AddRow(new string[] {
                         "10",
                         "30.00"});
-#line 40
+#line 37
  testRunner.Then("the resulting prices should be", ((string)(null)), table6, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -211,9 +210,9 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void RoundToClosestInteger()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Round to closest integer", ((string[])(null)));
-#line 47
+#line 44
 this.ScenarioSetup(scenarioInfo);
-#line 48
+#line 45
  testRunner.Given("a per week price of 2.31 CHF", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
@@ -240,7 +239,7 @@ this.ScenarioSetup(scenarioInfo);
                         "14.12.2014 00:00:00",
                         "18.12.2014 23:59:59",
                         "1"});
-#line 49
+#line 46
  testRunner.When("I calculate the per day price with these values", ((string)(null)), table7, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
@@ -261,7 +260,7 @@ this.ScenarioSetup(scenarioInfo);
             table8.AddRow(new string[] {
                         "5",
                         "2.00"});
-#line 56
+#line 53
  testRunner.Then("the resulting prices should be", ((string)(null)), table8, "Then ");
 #line hidden
             this.ScenarioCleanup();

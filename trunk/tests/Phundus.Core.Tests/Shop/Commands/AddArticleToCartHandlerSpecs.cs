@@ -28,7 +28,7 @@
             theArticle = make.Article();
             cartRepository = depends.on<ICartRepository>();
 
-            depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId)).Return(theArticle);
+            depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId, theInitiatorId)).Return(theArticle);
             command = new AddArticleToCart(theInitiatorId, theArticleId, theFromUtc, theToUtc, theQuantity);
         };
     }

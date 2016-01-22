@@ -152,6 +152,7 @@
     <Compile Include="Shop\Commands\PlaceOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Commands\RemoveCartItemHandlerSpecs.cs" />
     <Compile Include="Shop\Model\CartSpecs.cs" />
+    <Compile Include="Shop\Model\Class1.cs" />
     <Compile Include="Shop\Orders\Commands\AddOrderItemHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\CloseOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\ConfirmOrderHandlerSpecs.cs" />

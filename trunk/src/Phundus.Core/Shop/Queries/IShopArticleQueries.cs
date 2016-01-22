@@ -27,7 +27,7 @@
         public ShopArticleDetailDto GetArticle(int id)
         {
             var result = Single<ShopArticleDetailDto>(
-                @"select a.Id, a.Name, a.Price, a.Description, a.Specification,  a.Owner_OwnerId as OrganizationId, a.Owner_Name as OrganizationName " +
+                @"select a.Id, a.Name, a.PublicPrice as Price, a.Description, a.Specification,  a.Owner_OwnerId as OrganizationId, a.Owner_Name as OrganizationName " +
                 @"from [Dm_Inventory_Article] a left join [Dm_IdentityAccess_Organization] o on (a.Owner_OwnerId = o.Guid) " +
                 @"where a.Id = {0} " +
                 //@" and o.[Plan] > 0" +
@@ -67,7 +67,7 @@
 
 
             var result = Paged<ShopArticleSearchResultDto>(
-                @"select a.Id, a.Name, a.Price, a.Owner_Name as OrganizationName " +
+                @"select a.Id, a.Name, a.PublicPrice as Price, a.Owner_Name as OrganizationName " +
                 @"from [Dm_Inventory_Article] a " +
                 @"left join [Dm_IdentityAccess_Organization] o on (a.Owner_OwnerId = o.Guid) " +
                 where +
