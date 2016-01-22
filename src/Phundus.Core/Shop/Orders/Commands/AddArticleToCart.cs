@@ -4,6 +4,7 @@
     using Authorization;
     using Common.Domain.Model;
     using Cqrs;
+    using Integration.IdentityAccess;
     using Model;
     using Phundus.Authorization;
     using Repositories;
@@ -37,26 +38,28 @@
     {
         private readonly IArticleService _articleService;
         private readonly IAuthorize _authorize;
+        private readonly IInitiatorService _initiatorService;
         private readonly ICartRepository _cartRepository;
 
-        public AddArticleToCartHandler(IAuthorize authorize,
+        public AddArticleToCartHandler(IAuthorize authorize, IInitiatorService initiatorService,
             ICartRepository cartRepository, IArticleService articleService)
         {
             if (authorize == null) throw new ArgumentNullException("authorize");
+            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
             if (cartRepository == null) throw new ArgumentNullException("cartRepository");
             if (articleService == null) throw new ArgumentNullException("articleService");
             _authorize = authorize;
+            _initiatorService = initiatorService;
             _cartRepository = cartRepository;
             _articleService = articleService;
         }
 
         public void Handle(AddArticleToCart command)
         {
+            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
             var article = _articleService.GetById(command.ArticleId);
 
-            _authorize.Enforce(command.InitiatorId, Rent.Article(article));
-
-            
+            _authorize.Enforce(initiator.InitiatorId, Rent.Article(article));
 
             var cart = GetCart(command);
 

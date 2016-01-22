@@ -84,15 +84,6 @@
             Items.Remove(item);
         }
 
-        public virtual void CalculateAvailability(IAvailabilityService availabilityService)
-        {
-            foreach (var each in Items)
-            {
-                each.IsAvailable = availabilityService.IsArticleAvailable(each.ArticleId, each.Period,
-                    each.Quantity, Guid.Empty);
-            }
-        }
-
         public virtual void Clear()
         {
             CartItem item;
@@ -102,7 +93,7 @@
             }
         }
 
-        public virtual void UpdateItem(Guid cartItemGuid, int quantity, DateTime fromUtc, DateTime toUtc)
+        public virtual void ChangeQuantityAndPeriod(Guid cartItemGuid, int quantity, DateTime fromUtc, DateTime toUtc)
         {
             var item = Items.SingleOrDefault(p => p.CartItemId.Id == cartItemGuid);
             if (item == null)
