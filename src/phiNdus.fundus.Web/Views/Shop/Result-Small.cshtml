@@ -29,7 +29,13 @@
                         <a href="@String.Concat(Url.Content("~/"), "shop/article/" + each.Id)" class="fundus-shop-showArticle" article-id="@each.Id">@each.Name</a>
                     }
                 </h5>
-                <p>CHF @each.Price.ToString("N") / Woche</p>                
+                <p>CHF @each.PublicPrice.ToString("N")
+                    @if (each.MemberPrice.HasValue)
+                    {
+                        <span class="text-muted"> (@each.MemberPrice.Value.ToString("N"))</span>
+                    }
+                    / Woche
+                </p>                
             </div>
         </div>
     }

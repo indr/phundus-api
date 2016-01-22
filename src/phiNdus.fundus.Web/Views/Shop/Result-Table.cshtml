@@ -6,6 +6,7 @@
         <tr>
             <th>Name</th>
             <th>Preis pro Woche</th>
+            <th>Mitgliederpreis</th>
             <th>Organisation</th>
             <th style="width: 60px;">&nbsp;</th>
         </tr>
@@ -14,7 +15,15 @@
         @foreach (var each in Model.Articles) {
             <tr>
                 <td>@each.Name</td>
-                <td>CHF @each.Price.ToString("N")</td>
+                <td>CHF @each.PublicPrice.ToString("N")</td>
+                @if (each.MemberPrice.HasValue)
+                {
+                    <td>CHF @each.MemberPrice.Value.ToString("N")</td>
+                }
+                else
+                {
+                    <td></td>
+                }
                 <td>@each.OrganizationName</td>
                 <td>@Html.ActionLink("Details", ShopActionNames.Article, new { id = each.Id }, new { @class = "btn btn-default fundus-shop-showArticle", article_id = each.Id })</td>
             </tr>
