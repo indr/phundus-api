@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Specs.Features.Articles
 {
+    using System;
     using ContentTypes;
     using NUnit.Framework;
     using Services;
@@ -70,6 +71,12 @@
                 Ctx.Articles[row["Alias"]] = Ctx.Article;
         }
 
+        [When(@"I try to change the price to (.*) and (.*)")]
+        public void WhenITryToChangeThePriceToAnd(decimal publicPrice, decimal memberPrice)
+        {
+            App.ChangeArticlePrice(Ctx.Article.ArticleId, publicPrice, memberPrice);
+        }
+
         [When(@"I try to query all my articles")]
         public void WhenITryToQueryAllMyArticles()
         {
@@ -80,6 +87,13 @@
         public void WhenITryToQueryAllTheOrganizationsArticles()
         {
             _articles = App.QueryArticlesByOrganization(Ctx.Organization);
+        }
+
+        [Then(@"the article should equal")]
+        public void ThenTheArticleShouldEqual(Table table)
+        {
+            var article = App.GetArticle(Ctx.Article);
+            table.CompareToInstance(article);
         }
 
         [Then(@"the article ""(.*)"" should equal")]
