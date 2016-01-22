@@ -91,8 +91,8 @@ namespace Phundus.Specs.Features.Cart
             table2.AddRow(new string[] {
                         "Apple",
                         "Apple",
-                        "1.00",
-                        "1.10"});
+                        "7.00",
+                        "14.00"});
 #line 8
  testRunner.And("with these organization articles", ((string)(null)), table2, "And ");
 #line 11
@@ -175,22 +175,20 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add article to cart as non member when public rental is activated, succeeds")]
-        [NUnit.Framework.IgnoreAttribute()]
         public virtual void AddArticleToCartAsNonMemberWhenPublicRentalIsActivatedSucceeds()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add article to cart as non member when public rental is activated, succeeds", new string[] {
-                        "ignore"});
-#line 34
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add article to cart as non member when public rental is activated, succeeds", ((string[])(null)));
+#line 33
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 35
+#line 34
  testRunner.Given("I am logged in as Greg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 36
+#line 35
  testRunner.And("I set organization setting public rental on", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 37
+#line 36
  testRunner.And("I am logged in as John", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 38
+#line 37
  testRunner.When("I try to add article to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -198,8 +196,8 @@ this.FeatureBackground();
                         "Item Total"});
             table5.AddRow(new string[] {
                         "Apple",
-                        "1.10"});
-#line 39
+                        "2.00"});
+#line 38
  testRunner.Then("my cart should have these items:", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();
