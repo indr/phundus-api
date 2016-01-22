@@ -38,7 +38,7 @@
             depends.on<IStoreRepository>().setup(x => x.GetByOwnerAndId(theOwner.OwnerId, theStore.Id)).Return(theStore);
 
             command = new CreateArticle(theInitiatorId, theOwner.OwnerId, theStore.Id, theArticleGuid,
-                theName, theGrossStock, theMemberPrice, thePublicPrice);
+                theName, theGrossStock, thePublicPrice, theMemberPrice);
         };
 
         public It should_add_to_repository = () => articleRepository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));

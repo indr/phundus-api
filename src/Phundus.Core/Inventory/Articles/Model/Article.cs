@@ -14,7 +14,7 @@
         private string _description;
         private int _grossStock;
         private decimal? _memberPrice;
-        private decimal? _publicPrice;
+        private decimal _publicPrice;
         private ISet<Image> _images = new HashedSet<Image>();
         private string _name;
         private Owner _owner;
@@ -40,7 +40,7 @@
         }
 
         public Article(Owner owner, StoreId storeId, ArticleGuid articleGuid, string name, int grossStock,
-            decimal memberPrice, decimal publicPrice)
+            decimal publicPrice, decimal? memberPrice)
         {
             if (owner == null) throw new ArgumentNullException("owner");
             if (storeId == null) throw new ArgumentNullException("storeId");
@@ -102,17 +102,19 @@
         [Obsolete]
         public virtual decimal Price { get; set; }
 
+        public virtual decimal PublicPrice
+        {
+            get { return _publicPrice; }
+            protected set { _publicPrice = value; }
+        }
+
         public virtual decimal? MemberPrice
         {
             get { return _memberPrice; }
             protected set { _memberPrice = value; }
         }
 
-        public virtual decimal? PublicPrice
-        {
-            get { return _publicPrice; }
-            protected set { _publicPrice = value; }
-        }
+        
 
         public virtual int GrossStock
         {

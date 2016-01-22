@@ -28,7 +28,7 @@
         }
 
         public CreateArticle(InitiatorId initiatorId, OwnerId ownerId, StoreId storeId, ArticleGuid articleGuid, string name,
-            int grossStock, decimal memberPrice, decimal publicPrice)
+            int grossStock, decimal publicPrice, decimal? memberPrice)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (ownerId == null) throw new ArgumentNullException("ownerId");
@@ -52,8 +52,8 @@
         public ArticleGuid ArticleGuid { get; set; }
         public string Name { get; protected set; }
         public int GrossStock { get; protected set; }
-        public decimal MemberPrice { get; protected set; }
         public decimal PublicPrice { get; protected set; }
+        public decimal? MemberPrice { get; protected set; }
 
         public int ResultingArticleId { get; set; }
     }
@@ -92,12 +92,12 @@
             // TODO: Use auth
             _memberInRole.ActiveManager(command.OwnerId, command.InitiatorId);
 
-            var result = new Article(owner, store.Id, command.ArticleGuid, command.Name, command.GrossStock, command.MemberPrice, command.PublicPrice);
+            var result = new Article(owner, store.Id, command.ArticleGuid, command.Name, command.GrossStock, command.PublicPrice, command.MemberPrice);
 
             command.ResultingArticleId = _articleRepository.Add(result);
 
             EventPublisher.Publish(new ArticleCreated(initiator, result.Owner, result.StoreId, command.ResultingArticleId, result.ArticleGuid.Id,
-                result.Name, result.GrossStock, result.MemberPrice, result.PublicPrice));
+                result.Name, result.GrossStock, result.PublicPrice, result.MemberPrice));
         }
     }
 }
