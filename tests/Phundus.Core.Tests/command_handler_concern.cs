@@ -1,6 +1,5 @@
 namespace Phundus.Tests
 {
-    using System;
     using Authorization;
     using Common.Domain.Model;
     using Integration.IdentityAccess;
@@ -18,8 +17,6 @@ namespace Phundus.Tests
         protected static IAuthorize authorize;
         protected static IInitiatorService initiatorService;
 
-        
-        
         private Establish ctx = () =>
         {
             theInitiatorId = new InitiatorId();

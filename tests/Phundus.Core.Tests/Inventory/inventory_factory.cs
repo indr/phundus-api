@@ -4,6 +4,7 @@ namespace Phundus.Tests.Inventory
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
     using Phundus.Inventory.Articles.Model;
+    using Phundus.Inventory.Stores.Model;
 
     public class inventory_factory : factory_base
     {
@@ -26,6 +27,13 @@ namespace Phundus.Tests.Inventory
             var owner = fake.an<Owner>();
             owner.setup(x => x.OwnerId).Return(new OwnerId());
             return owner;
+        }
+
+        public Store Store()
+        {
+            var store = fake.an<Store>();
+            store.setup(x => x.Id).Return(new StoreId());
+            return store;
         }
     }
 }

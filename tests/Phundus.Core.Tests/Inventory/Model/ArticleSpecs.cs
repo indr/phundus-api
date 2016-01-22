@@ -13,14 +13,51 @@
         protected static Owner theOwner;
         protected static StoreId theStoreId;
 
+        protected static ArticleGuid theArticleGuid;
+        protected static string theName;
+        protected static int theGrossStock;
+        protected static decimal theMemberPrice;
+        protected static decimal thePublicPrice;
+
         private Establish ctx = () =>
         {
             make = new inventory_factory(fake);
 
             theOwner = make.Owner();
             theStoreId = new StoreId();
-            sut_factory.create_using(() => new Article(theOwner, theStoreId, "Name", 1));
+            theArticleGuid = new ArticleGuid();
+            theName = "The name";
+            theGrossStock = 10;
+            theMemberPrice = 11.11m;
+            thePublicPrice = 12.12m;
+            sut_factory.create_using(() => new Article(theOwner, theStoreId, theArticleGuid,
+                theName, theGrossStock, theMemberPrice, thePublicPrice));
         };
+    }
+
+    [Subject(typeof (Article))]
+    public class when_instantiating : article_concern
+    {
+        private It should_have_the_article_guid = () =>
+            sut.ArticleGuid.ShouldEqual(theArticleGuid);
+
+        private It should_have_the_gross_stock = () =>
+            sut.GrossStock.ShouldEqual(theGrossStock);
+
+        private It should_have_the_member_price = () =>
+            sut.MemberPrice.ShouldEqual(theMemberPrice);
+
+        private It should_have_the_name = () =>
+            sut.Name.ShouldEqual(theName);
+
+        private It should_have_the_owner = () =>
+            sut.Owner.ShouldEqual(theOwner);
+
+        private It should_have_the_public_price = () =>
+            sut.PublicPrice.ShouldEqual(thePublicPrice);
+
+        private It should_have_the_store_id = () =>
+            sut.StoreId.ShouldEqual(theStoreId);
     }
 
     [Subject(typeof (Article))]
