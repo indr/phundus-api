@@ -8,7 +8,7 @@
     public class ArticleCreated : DomainEvent
     {
         public ArticleCreated(Initiator initiator, Owner owner, StoreId storeId, int articleId,
-            Guid articleGuid, string name, int grossStock, decimal? memberPrice, decimal? publicPrice)
+            Guid articleGuid, string name, int grossStock, decimal publicPrice, decimal? memberPrice)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (owner == null) throw new ArgumentNullException("owner");
@@ -21,8 +21,8 @@
             ArticleGuid = articleGuid;
             Name = name;
             GrossStock = grossStock;
-            MemberPrice = memberPrice;
             PublicPrice = publicPrice;
+            MemberPrice = memberPrice;
         }
 
         [Obsolete]
@@ -50,9 +50,9 @@
         public int GrossStock { get; set; }
 
         [DataMember(Order = 8)]
-        public decimal? MemberPrice { get; protected set; }
+        public decimal PublicPrice { get; protected set; }
 
         [DataMember(Order = 9)]
-        public decimal? PublicPrice { get; protected set; }
+        public decimal? MemberPrice { get; protected set; }
     }
 }

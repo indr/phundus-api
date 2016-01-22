@@ -31,7 +31,7 @@
             theMemberPrice = 11.11m;
             thePublicPrice = 12.12m;
             sut_factory.create_using(() => new Article(theOwner, theStoreId, theArticleGuid,
-                theName, theGrossStock, theMemberPrice, thePublicPrice));
+                theName, theGrossStock, thePublicPrice, theMemberPrice));
         };
     }
 

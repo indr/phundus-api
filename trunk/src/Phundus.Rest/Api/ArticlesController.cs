@@ -186,7 +186,7 @@ namespace Phundus.Rest.Api
             var storeId = _storeQueries.GetByOwnerId(ownerId).StoreId;
             var articleGuid = new ArticleGuid();
             var command = new CreateArticle(CurrentUserId, ownerId, storeId, articleGuid,
-                requestContent.Name, requestContent.GrossStock, requestContent.MemberPrice, requestContent.PublicPrice);
+                requestContent.Name, requestContent.GrossStock, requestContent.PublicPrice, requestContent.MemberPrice);
             Dispatch(command);
 
             return new ArticlesPostOkResponseContent
@@ -284,11 +284,11 @@ namespace Phundus.Rest.Api
         [JsonProperty("amount")]
         public int GrossStock { get; set; }
 
-        [JsonProperty("memberPrice")]
-        public decimal MemberPrice { get; set; }
-
         [JsonProperty("publicPrice")]
         public decimal PublicPrice { get; set; }
+        
+        [JsonProperty("memberPrice")]
+        public decimal? MemberPrice { get; set; }
     }
 
     public class ArticlesPostOkResponseContent
