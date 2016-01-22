@@ -48,7 +48,19 @@ namespace Phundus.Rest.Api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,
                     string.Format("Die Position mit der Id {0} konnte nicht gefunden werden.", orderItemId.ToString("D")));
 
-            return Request.CreateResponse(statusCode, Map<OrderItem>(item));
+            return Request.CreateResponse(statusCode, new OrderItem
+            {
+                Amount = item.Amount,
+                ArticleId = item.ArticleId,
+                FromUtc = item.FromUtc,
+                IsAvailable = item.IsAvailable,
+                ItemTotal = item.ItemTotal,
+                OrderId = item.OrderId,
+                OrderItemId = item.Id,
+                Text = item.Text,
+                ToUtc = item.ToUtc,
+                UnitPrice = item.UnitPrice
+            });
         }
 
         [PATCH("{orderItemId}")]

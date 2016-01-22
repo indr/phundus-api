@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Shop.Orders.Commands
 {
     using System;
+    using System.Data.Odbc;
     using Common.Domain.Model;
     using Cqrs;
     using IdentityAccess.Queries;
@@ -54,7 +55,7 @@
             var lessor = order.Lessor;
             _memberInRole.ActiveManager(lessor.LessorId.Id, command.InitiatorId);
 
-            var article = _articleService.GetById(lessor.LessorId, command.ArticleId);
+            var article = _articleService.GetById(lessor.LessorId, command.ArticleId, order.Lessee.LesseeId);
             order.AddItem(command.OrderItemId, article, command.Period.FromUtc, command.Period.ToUtc, command.Quantity);
         }
     }

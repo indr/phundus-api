@@ -164,7 +164,7 @@
         private void CalculateTotal()
         {
             var priceInfo = new PerDayWithPerSevenDaysPricePricingStrategy()
-                .Calculate(FromUtc.ToLocalTime(), ToUtc.ToLocalTime(), Amount, UnitPrice);
+                .Calculate(new Period(FromUtc, ToUtc), Amount, UnitPrice);
             _itemTotal = priceInfo.Price;
         }
         

@@ -1,29 +1,35 @@
 ﻿namespace Phundus.Tests.Shop.Orders.Commands
 {
+    using System.Security.Cryptography.X509Certificates;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
 
     [Subject(typeof (AddOrderItemHandler))]
-    public class when_add_order_command_item_is_handled : order_command_handler_concern<AddOrderItem, AddOrderItemHandler>
+    public class when_add_order_command_item_is_handled :
+        order_command_handler_concern<AddOrderItem, AddOrderItemHandler>
     {
         private static Period thePeriod;
         private static Order theOrder;
         private static Article theArticle;
         private static OrderItemId theOrderItemId;
+        private static Lessee theLessee;
 
         private Establish ctx = () =>
         {
             theLessor = make.Lessor();
+            theLessee = make.Lessee();
             theOrder = make.Order();
             theOrder.setup(x => x.Lessor).Return(theLessor);
+            theOrder.setup(x => x.Lessee).Return(theLessee);
             orderRepository.setup(x => x.GetById(theOrder.Id)).Return(theOrder);
 
             theArticle = make.Article();
-            articleService.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleId)).Return(theArticle);
+            articleService.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleId, theLessee.LesseeId)).Return(theArticle);
 
             thePeriod = Period.FromNow(1);
 

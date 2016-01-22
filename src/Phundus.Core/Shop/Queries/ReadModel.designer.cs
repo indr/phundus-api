@@ -35,9 +35,6 @@ namespace Phundus.Shop.Queries
     partial void InsertOrderItemDto(OrderItemDto instance);
     partial void UpdateOrderItemDto(OrderItemDto instance);
     partial void DeleteOrderItemDto(OrderItemDto instance);
-    partial void InsertOrderItemArticleDto(OrderItemArticleDto instance);
-    partial void UpdateOrderItemArticleDto(OrderItemArticleDto instance);
-    partial void DeleteOrderItemArticleDto(OrderItemArticleDto instance);
     partial void InsertMembershipDto(MembershipDto instance);
     partial void UpdateMembershipDto(MembershipDto instance);
     partial void DeleteMembershipDto(MembershipDto instance);
@@ -80,14 +77,6 @@ namespace Phundus.Shop.Queries
 			get
 			{
 				return this.GetTable<OrderItemDto>();
-			}
-		}
-		
-		public System.Data.Linq.Table<OrderItemArticleDto> OrderItemArticleDtos
-		{
-			get
-			{
-				return this.GetTable<OrderItemArticleDto>();
 			}
 		}
 		
@@ -600,7 +589,9 @@ namespace Phundus.Shop.Queries
 		
 		private decimal _ItemTotal;
 		
-		private EntityRef<OrderItemArticleDto> _Article;
+		private string _Text;
+		
+		private decimal _UnitPrice;
 		
 		private EntityRef<OrderDto> _OrderDto;
 		
@@ -624,11 +615,14 @@ namespace Phundus.Shop.Queries
     partial void OnArticleIdChanged();
     partial void OnItemTotalChanging(decimal value);
     partial void OnItemTotalChanged();
+    partial void OnTextChanging(string value);
+    partial void OnTextChanged();
+    partial void OnUnitPriceChanging(decimal value);
+    partial void OnUnitPriceChanged();
     #endregion
 		
 		public OrderItemDto()
 		{
-			this._Article = default(EntityRef<OrderItemArticleDto>);
 			this._OrderDto = default(EntityRef<OrderDto>);
 			OnCreated();
 		}
@@ -797,31 +791,42 @@ namespace Phundus.Shop.Queries
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderItemDto_OrderItemArticleDto", Storage="_Article", ThisKey="ArticleId", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
-		public OrderItemArticleDto Article
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Text", CanBeNull=false)]
+		public string Text
 		{
 			get
 			{
-				return this._Article.Entity;
+				return this._Text;
 			}
 			set
 			{
-				OrderItemArticleDto previousValue = this._Article.Entity;
-				if (((previousValue != value) 
-							|| (this._Article.HasLoadedOrAssignedValue == false)))
+				if ((this._Text != value))
 				{
+					this.OnTextChanging(value);
 					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Article.Entity = null;
-						previousValue.OrderItemDto = null;
-					}
-					this._Article.Entity = value;
-					if ((value != null))
-					{
-						value.OrderItemDto = this;
-					}
-					this.SendPropertyChanged("Article");
+					this._Text = value;
+					this.SendPropertyChanged("Text");
+					this.OnTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitPrice")]
+		public decimal UnitPrice
+		{
+			get
+			{
+				return this._UnitPrice;
+			}
+			set
+			{
+				if ((this._UnitPrice != value))
+				{
+					this.OnUnitPriceChanging(value);
+					this.SendPropertyChanging();
+					this._UnitPrice = value;
+					this.SendPropertyChanged("UnitPrice");
+					this.OnUnitPriceChanged();
 				}
 			}
 		}
@@ -856,157 +861,6 @@ namespace Phundus.Shop.Queries
 						this._OrderId = default(int);
 					}
 					this.SendPropertyChanged("OrderDto");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="Dm_Inventory_Article")]
-	public partial class OrderItemArticleDto : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private decimal _Price;
-		
-		private EntityRef<OrderItemDto> _OrderItemDto;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnPriceChanging(decimal value);
-    partial void OnPriceChanged();
-    #endregion
-		
-		public OrderItemArticleDto()
-		{
-			this._OrderItemDto = default(EntityRef<OrderItemDto>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", IsPrimaryKey=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					if (this._OrderItemDto.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price")]
-		public decimal Price
-		{
-			get
-			{
-				return this._Price;
-			}
-			set
-			{
-				if ((this._Price != value))
-				{
-					this.OnPriceChanging(value);
-					this.SendPropertyChanging();
-					this._Price = value;
-					this.SendPropertyChanged("Price");
-					this.OnPriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="OrderItemDto_OrderItemArticleDto", Storage="_OrderItemDto", ThisKey="Id", OtherKey="ArticleId", IsForeignKey=true)]
-		public OrderItemDto OrderItemDto
-		{
-			get
-			{
-				return this._OrderItemDto.Entity;
-			}
-			set
-			{
-				OrderItemDto previousValue = this._OrderItemDto.Entity;
-				if (((previousValue != value) 
-							|| (this._OrderItemDto.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._OrderItemDto.Entity = null;
-						previousValue.Article = null;
-					}
-					this._OrderItemDto.Entity = value;
-					if ((value != null))
-					{
-						value.Article = this;
-						this._Id = value.ArticleId;
-					}
-					else
-					{
-						this._Id = default(int);
-					}
-					this.SendPropertyChanged("OrderItemDto");
 				}
 			}
 		}

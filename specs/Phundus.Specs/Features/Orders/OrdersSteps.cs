@@ -6,6 +6,7 @@
     using Services;
     using Steps;
     using TechTalk.SpecFlow;
+    using TechTalk.SpecFlow.Assist;
 
     [Binding]
     public class AddOrderItemSteps : AppStepsBase
@@ -27,6 +28,7 @@
     {
         private int _orderId;
         private IList<Order> _results;
+        private Order _order;
 
         public OrdersSteps(App app, Ctx ctx) : base(app, ctx)
         {
@@ -61,6 +63,14 @@
         public void ThenIShouldFindTheOrderInTheResults()
         {
             Assert.That(_results, Has.Some.Matches<Order>(p => p.OrderId == _orderId));
+        }
+
+        [Then(@"the order should have these items:")]
+        public void ThenTheOrderShouldHaveTheseItems(Table table)
+        {
+            if (_order == null)
+                _order = App.GetOrder(_orderId);
+            table.CompareToSet(_order.Items);
         }
     }
 }
