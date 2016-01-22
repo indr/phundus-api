@@ -340,8 +340,8 @@
             {
                 OrderId = orderId,
                 ArticleId = articleId,
-                FromUtc = DateTime.UtcNow,
-                ToUtc = DateTime.UtcNow.AddDays(1),
+                FromUtc = DateTime.Today.Date.ToUniversalTime(),
+                ToUtc = DateTime.Today.Date.AddDays(1).AddSeconds(-1).ToUniversalTime(),
                 Quantity = 1
             });
         }
@@ -398,6 +398,11 @@
         public Article GetArticle(Article article)
         {
             return _apiClient.ArticlesApi.Get<Article>(new { articleId = article.ArticleId }, new { ownerId = article.OwnerId }).Data;
+        }
+
+        public Order GetOrder(int orderId)
+        {
+            return _apiClient.OrdersApi.Get<Order>(new {orderId = orderId}).Data;
         }
     }
 }

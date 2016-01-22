@@ -7,7 +7,7 @@ Background:
     | Alice | Member  | alice@test.phundus.ch |
 	And with these organization articles
 	| Alias | Name  | Member price | Public price |
-	| Apple | Apple | 7.00         | 14.00         |
+	| Apple | Apple | 7.00         | 14.00        |
 	And a confirmed user "John" with email address "john@test.phundus.ch"
 
 Scenario: Add article to cart as manager, succeeds

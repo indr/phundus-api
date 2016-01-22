@@ -5,6 +5,7 @@ namespace Phundus.Tests.Shop
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
+    using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
 
     public class shop_factory : factory_base
@@ -23,6 +24,13 @@ namespace Phundus.Tests.Shop
             article.setup(x => x.ArticleId).Return(articleId);
             article.setup(x => x.LessorId).Return(new LessorId(lessorId));
             return article;
+        }
+
+        public Lessee Lessee()
+        {
+            var lessee = fake.an<Lessee>();
+            lessee.setup(x => x.LesseeId).Return(new LesseeId());
+            return lessee;
         }
 
         public Lessor Lessor(LessorId lessorId = null)

@@ -31,16 +31,9 @@
       <Column Name="ToUtc" Storage="_To" Type="System.DateTime" CanBeNull="false" />
       <Column Name="ArticleId" Type="System.Int32" CanBeNull="false" />
       <Column Name="Total" Member="ItemTotal" Type="System.Decimal" CanBeNull="false" />
-      <Association Name="OrderItemDto_OrderItemArticleDto" Member="Article" ThisKey="ArticleId" OtherKey="Id" Type="OrderItemArticleDto" Cardinality="One" />
+      <Column Name="Text" Type="System.String" CanBeNull="false" />
+      <Column Name="UnitPrice" Type="System.Decimal" CanBeNull="false" />
       <Association Name="OrderDto_OrderItemDto" Member="OrderDto" ThisKey="OrderId" OtherKey="Id" Type="OrderDto" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="Dm_Inventory_Article" Member="OrderItemArticleDtos">
-    <Type Name="OrderItemArticleDto">
-      <Column Name="Id" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" CanBeNull="false" />
-      <Column Name="Price" Type="System.Decimal" CanBeNull="false" />
-      <Association Name="OrderItemDto_OrderItemArticleDto" Member="OrderItemDto" ThisKey="Id" OtherKey="ArticleId" Type="OrderItemDto" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="Dm_IdentityAccess_Membership" Member="MembershipDtos">

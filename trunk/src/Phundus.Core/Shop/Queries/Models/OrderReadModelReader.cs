@@ -35,7 +35,6 @@
             {
                 var op = new DataLoadOptions();
                 op.LoadWith<OrderDto>(x => x.Items);
-                op.LoadWith<OrderItemDto>(x => x.Article);
                 return op;
             }
         }

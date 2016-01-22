@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Rest.MappingProfiles
 {
     using System.Linq;
+    using AttributeRouting.Helpers;
     using AutoMapper;
     using ContentObjects;
     using Shop.Queries;
@@ -37,9 +38,9 @@
                 .ForMember(d => d.ItemTotal, o => o.MapFrom(s => s.ItemTotal))
                 .ForMember(d => d.OrderId, o => o.MapFrom(s => s.OrderId))
                 .ForMember(d => d.OrderItemId, o => o.MapFrom(s => s.Id))
-                .ForMember(d => d.Text, o => o.MapFrom(s => s.Article.Name))
+                .ForMember(d => d.Text, o => o.MapFrom(s => s.Text))
                 .ForMember(d => d.ToUtc, o => o.MapFrom(s => s.ToUtc))
-                .ForMember(d => d.UnitPrice, o => o.MapFrom(s => s.Article.Price));
+                .ForMember(d => d.UnitPrice, o => o.MapFrom(s => s.UnitPrice));
 
             Mapper.CreateMap<OrderDto, Lessee>()
                 .ForMember(d => d.LesseeId, o => o.MapFrom(s => s.Lessee_LesseeGuid))
