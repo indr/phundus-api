@@ -140,6 +140,11 @@
     </Compile>
     <Compile Include="Features\Articles\ArticleFilesSteps.cs" />
     <Compile Include="Features\Articles\ArticlesSteps.cs" />
+    <Compile Include="Features\Articles\ChangePrices.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangePrices.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Articles\CreateArticle_Organization.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -322,6 +327,10 @@
     <None Include="Features\Account\ValidateAccount.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ValidateAccount.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Articles\ChangePrices.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ChangePrices.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Articles\CreateArticle_Organization.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

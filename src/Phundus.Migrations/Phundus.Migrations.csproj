@@ -162,6 +162,7 @@
     <Compile Include="2016\01\M201601210720_Add_Column_Settings_PublicRental_To_Dm_IdentityAccess_Organization.cs" />
     <Compile Include="2016\01\M201601212344_Add_ArticleGuid_To_Dm_Inventory_Article.cs" />
     <Compile Include="2016\01\M201601220608_Add_MemberPrice_To_Dm_Inventory_Article.cs" />
+    <Compile Include="2016\01\M201601221416_Add_Owner_Type_To_Dm_Inventory_Article.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />

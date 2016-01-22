@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Persistence.Inventory.Mappings
 {
+    using Common.Domain.Model;
     using FluentNHibernate.Mapping;
     using Phundus.Inventory.Articles.Model;
 
@@ -21,6 +22,7 @@
             {
                 c.Component(y => y.OwnerId, d => d.Map(z => z.Id, "Owner_OwnerId"));
                 c.Map(y => y.Name, "Owner_Name");
+                c.Map(x => x.Type, "Owner_Type").CustomType<OwnerType>();
             });
 
             Component(x => x.StoreId, c => c.Map(x => x.Id, "StoreId"));

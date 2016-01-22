@@ -215,6 +215,8 @@ namespace Phundus.Rest.Api
             }
             if (requestContent.Prices != null)
             {
+                Dispatch(new ChangePrices(CurrentUserId, articleId, requestContent.Prices.PublicPrice,
+                    requestContent.Prices.MemberPrice));
             }
             if (requestContent.Description != null)
             {
@@ -296,7 +298,7 @@ namespace Phundus.Rest.Api
 
         [JsonProperty("publicPrice")]
         public decimal PublicPrice { get; set; }
-        
+
         [JsonProperty("memberPrice")]
         public decimal? MemberPrice { get; set; }
     }
@@ -332,7 +334,7 @@ namespace Phundus.Rest.Api
 
         [JsonProperty("specification")]
         public string Specification { get; set; }
-        
+
         [JsonProperty("prices")]
         public Prices Prices { get; set; }
     }

@@ -5,16 +5,15 @@
     using System.Net;
     using ContentTypes;
     using Entities;
-    using NUnit.Framework;
     using TechTalk.SpecFlow;
 
     [Binding]
     public class App : AppBase
     {
+        private static bool _inMaintenanceMode;
         private readonly ApiClient _apiClient;
         private readonly FakeArticleGenerator _fakeArticleGenerator;
         private readonly FakeNameGenerator _fakeNameGenerator;
-        private static bool _inMaintenanceMode;
 
         public App(ApiClient apiClient, FakeNameGenerator fakeNameGenerator, FakeArticleGenerator fakeArticleGenerator)
         {
@@ -390,19 +389,25 @@
 
         public void SetMaintenanceMode(bool inMaintenance, bool assertStatusCode = true)
         {
-            var response = _apiClient.Assert(assertStatusCode).MaintenanceApi.Patch(new { inMaintenance = inMaintenance });
+            var response = _apiClient.Assert(assertStatusCode).MaintenanceApi.Patch(new {inMaintenance});
             _inMaintenanceMode = inMaintenance && response.StatusCode == HttpStatusCode.OK;
         }
 
 
         public Article GetArticle(Article article)
         {
-            return _apiClient.ArticlesApi.Get<Article>(new { articleId = article.ArticleId }, new { ownerId = article.OwnerId }).Data;
+            return _apiClient.ArticlesApi.Get<Article>(new {articleId = article.ArticleId},
+                new {ownerId = article.OwnerId}).Data;
         }
 
         public Order GetOrder(int orderId)
         {
-            return _apiClient.OrdersApi.Get<Order>(new {orderId = orderId}).Data;
+            return _apiClient.OrdersApi.Get<Order>(new {orderId}).Data;
+        }
+
+        public void ChangeArticlePrice(int articleId, decimal publicPrice, decimal? memberPrice)
+        {
+            _apiClient.ArticlesApi.Patch(new {articleId, prices = new {publicPrice, memberPrice}});
         }
     }
 }
