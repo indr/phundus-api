@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Common.Domain.Model;
     using Phundus.Shop.Pricing.Model;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
@@ -24,10 +25,16 @@
             foreach (var each in table.Rows)
             {
                 var fromLocal = Convert.ToDateTime(each["FromLocal"]);
+                fromLocal = new DateTime(fromLocal.Ticks, DateTimeKind.Local);
+                
                 var toLocal = Convert.ToDateTime(each["ToLocal"]);
+                toLocal = new DateTime(toLocal.Ticks, DateTimeKind.Local);
+                
+                var fromUtc = fromLocal.ToUniversalTime();
+                var toUtc = toLocal.ToUniversalTime();
                 var amount = Convert.ToInt32(each["Amount"]);
 
-                _calculatedPrices.Add(new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(fromLocal, toLocal, amount,
+                _calculatedPrices.Add(new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(new Period(fromUtc, toUtc), amount,
                     _unitPricePerWeek));
             }
         }

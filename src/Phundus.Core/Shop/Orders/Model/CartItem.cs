@@ -32,7 +32,11 @@ namespace Phundus.Shop.Orders.Model
         {
             get
             {
-                return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(From, To, Quantity, UnitPrice).Days;
+                return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(new Period(From, To), Quantity, UnitPrice).Days;
+            }
+            protected set
+            {
+                // Noop for NHibenrate
             }
         }
 
@@ -50,9 +54,13 @@ namespace Phundus.Shop.Orders.Model
         {
             get
             {
-                return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(From, To, Quantity, UnitPrice).Price;
+                var price = new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(new Period(From, To), Quantity, UnitPrice);
+                return price.Price;
             }
-            protected set { }
+            protected set
+            {
+                // Noop for NHibernate
+            }
         }
 
         public virtual bool IsAvailable { get; set; }

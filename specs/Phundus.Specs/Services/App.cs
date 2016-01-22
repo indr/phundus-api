@@ -286,8 +286,8 @@
                     userId = user.UserId,
                     articleId = article.ArticleId,
                     quantity = 1,
-                    fromUtc = DateTime.UtcNow,
-                    toUtc = DateTime.UtcNow.AddDays(1)
+                    fromUtc = DateTime.Today.Date.ToUniversalTime(),
+                    toUtc = DateTime.Today.Date.AddDays(1).AddSeconds(-1).ToUniversalTime()
                 });
             return response.Data.CartItemId;
         }

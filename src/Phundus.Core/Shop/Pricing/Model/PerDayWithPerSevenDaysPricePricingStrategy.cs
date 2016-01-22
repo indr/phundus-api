@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Shop.Pricing.Model
 {
     using System;
+    using Common.Domain.Model;
 
     public class PriceInfo
     {
@@ -10,6 +11,11 @@
 
     public class PerDayWithPerSevenDaysPricePricingStrategy
     {
+        public PriceInfo Calculate(Period perdiod, int quantity, decimal pricePerSevenDays)
+        {
+            return Calculate(perdiod.FromUtc.ToLocalTime(), perdiod.ToUtc.ToLocalTime(), quantity, pricePerSevenDays);
+        }
+
         public PriceInfo Calculate(DateTime fromLocal, DateTime toLocal, int amount, decimal pricePerSevenDays)
         {
             var totalDays = (toLocal.Date.AddDays(1) - fromLocal.Date).TotalDays;
