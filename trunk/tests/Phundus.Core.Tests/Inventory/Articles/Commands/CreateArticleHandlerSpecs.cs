@@ -6,6 +6,7 @@
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Commands;
     using Phundus.Inventory.Articles.Model;
+    using Phundus.Inventory.Authorize;
     using Phundus.Inventory.Stores.Model;
     using Phundus.Inventory.Stores.Repositories;
     using Rhino.Mocks;
@@ -41,10 +42,12 @@
                 theName, theGrossStock, thePublicPrice, theMemberPrice);
         };
 
-        public It should_add_to_repository = () => articleRepository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
+        private It should_add_to_repository = () => articleRepository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
 
-        public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveManager(theOwner.OwnerId, theInitiatorId));
+        private It should_authorize_initiator_to_create_article = () =>
+            authorize.WasToldTo(x =>
+                x.Enforce(Arg<InitiatorId>.Is.Equal(theInitiatorId),
+                    Arg<CreateArticleAccessObject>.Matches(p => Equals(p.OwnerId, theOwner.OwnerId))));
 
         public It should_publish_article_created =
             () => publisher.WasToldTo(x => x.Publish(Arg<ArticleCreated>.Matches(p =>
@@ -57,6 +60,6 @@
                 && p.PublicPrice == thePublicPrice
                 && p.StoreId == theStore.Id.Id)));
 
-        public It should_set_article_id = () => command.ResultingArticleId.ShouldNotBeNull();
+        public It should_set_resulting_article_id = () => command.ResultingArticleId.ShouldEqual(theArticleId);
     }
 }

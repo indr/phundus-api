@@ -1,39 +1,40 @@
-﻿namespace Phundus.Tests.IdentityAccess.Authorize
+﻿namespace Phundus.Tests.Inventory.Authorize
 {
     using Common;
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Phundus.IdentityAccess.Authorization;
+    using Phundus.Inventory.Authorize;
 
-    [Subject(typeof (ManageOrganizationAccessObjectHandler))]
-    public class when_handling_manage_organization :
-        identityaccess_access_object_handler_concern<ManageOrganizationAccessObject, ManageOrganizationAccessObjectHandler>
+    [Subject(typeof (CreateArticleAccessObjectHandler))]
+    public class when_handling_create_article :
+        inventory_access_object_handler_concern<CreateArticleAccessObject, CreateArticleAccessObjectHandler>
     {
-        private static OrganizationId theOrganizationId;
+        private static OwnerId theOwnerId;
+
         private Establish ctx = () =>
         {
             catchException = true;
-            theOrganizationId = new OrganizationId();
-            theAccessObject = new ManageOrganizationAccessObject(theOrganizationId);
+            theOwnerId = new OwnerId();
+            theAccessObject = new CreateArticleAccessObject(theOwnerId);
         };
 
         public class and_the_user_is_a_manager
         {
             private Establish ctx = () =>
-                memberInRole.WhenToldTo(x => x.IsActiveManager(theOrganizationId, theUserId)).Return(true);
+                memberInRole.WhenToldTo(x => x.IsActiveManager(theOwnerId, theUserId)).Return(true);
 
             private It should_have_test_result_true = () =>
                 testResult.ShouldBeTrue();
 
-            private It should_not_throw_authorization_exception = () =>
+            private It should_not_throw_authoritzation_exception = () =>
                 caughtException.ShouldBeNull();
         }
 
         public class and_the_user_is_not_a_manager
         {
             private Establish ctx = () =>
-                memberInRole.WhenToldTo(x => x.IsActiveManager(theOrganizationId, theUserId)).Return(false);
+                memberInRole.WhenToldTo(x => x.IsActiveManager(theOwnerId, theUserId)).Return(false);
 
             private It should_have_test_result_true = () =>
                 testResult.ShouldBeFalse();

@@ -232,6 +232,7 @@
     <Compile Include="Inventory\Articles\Model\DescriptionChanged.cs" />
     <Compile Include="Inventory\Articles\Model\ImageAdded.cs" />
     <Compile Include="Inventory\Articles\Model\ImageRemoved.cs" />
+    <Compile Include="Inventory\Authorize\Create.cs" />
     <Compile Include="Inventory\Queries\ArticleReadModel.cs" />
     <Compile Include="Inventory\Queries\Dtos\StoreDto.cs" />
     <Compile Include="Inventory\Queries\IArticleQueries.cs" />

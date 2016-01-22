@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Inventory.Articles.Commands
 {
     using System;
+    using Authorization;
+    using Authorize;
     using Common;
     using Common.Domain.Model;
     using Cqrs;
@@ -22,12 +24,13 @@
             AssertionConcern.AssertArgumentNotNull(name, "Name must be provided.");
 
             InitiatorId = initiatorId;
-            OwnerId = ownerId;            
+            OwnerId = ownerId;
             Name = name;
             GrossStock = grossStock;
         }
 
-        public CreateArticle(InitiatorId initiatorId, OwnerId ownerId, StoreId storeId, ArticleGuid articleGuid, string name,
+        public CreateArticle(InitiatorId initiatorId, OwnerId ownerId, StoreId storeId, ArticleGuid articleGuid,
+            string name,
             int grossStock, decimal publicPrice, decimal? memberPrice)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
@@ -60,26 +63,28 @@
 
     public class CreateArticleHandler : IHandleCommand<CreateArticle>
     {
-        private readonly IInitiatorService _initiatorService;
         private readonly IArticleRepository _articleRepository;
-        private readonly IStoreRepository _storeRepository;
+        private readonly IAuthorize _authorize;
+        private readonly IInitiatorService _initiatorService;
         private readonly IMemberInRole _memberInRole;
         private readonly IOwnerService _ownerService;
+        private readonly IStoreRepository _storeRepository;
 
-        public CreateArticleHandler(IInitiatorService initiatorService, IArticleRepository articleRepository, IStoreRepository storeRepository,
-            IOwnerService ownerService, IMemberInRole memberInRole)
+        public CreateArticleHandler(IAuthorize authorize, IInitiatorService initiatorService,
+            IArticleRepository articleRepository, IStoreRepository storeRepository,
+            IOwnerService ownerService)
         {
+            if (authorize == null) throw new ArgumentNullException("authorize");
             if (initiatorService == null) throw new ArgumentNullException("initiatorService");
             if (articleRepository == null) throw new ArgumentNullException("articleRepository");
             if (storeRepository == null) throw new ArgumentNullException("storeRepository");
             if (ownerService == null) throw new ArgumentNullException("ownerService");
-            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
 
+            _authorize = authorize;
             _initiatorService = initiatorService;
             _articleRepository = articleRepository;
             _storeRepository = storeRepository;
             _ownerService = ownerService;
-            _memberInRole = memberInRole;
         }
 
         public void Handle(CreateArticle command)
@@ -87,17 +92,18 @@
             var initiator = _initiatorService.GetActiveById(command.InitiatorId);
             var owner = _ownerService.GetById(command.OwnerId);
 
+            _authorize.Enforce(initiator.InitiatorId, Create.Article(owner.OwnerId));
+
             var store = _storeRepository.GetByOwnerAndId(owner.OwnerId, command.StoreId);
 
-            // TODO: Use auth
-            _memberInRole.ActiveManager(command.OwnerId, command.InitiatorId);
+            var article = new Article(owner, store.Id, command.ArticleGuid, command.Name, command.GrossStock,
+                command.PublicPrice, command.MemberPrice);
 
-            var result = new Article(owner, store.Id, command.ArticleGuid, command.Name, command.GrossStock, command.PublicPrice, command.MemberPrice);
+            command.ResultingArticleId = _articleRepository.Add(article);
 
-            command.ResultingArticleId = _articleRepository.Add(result);
-
-            EventPublisher.Publish(new ArticleCreated(initiator, result.Owner, result.StoreId, command.ResultingArticleId, result.ArticleGuid.Id,
-                result.Name, result.GrossStock, result.PublicPrice, result.MemberPrice));
+            EventPublisher.Publish(new ArticleCreated(initiator, article.Owner, article.StoreId,
+                command.ResultingArticleId, article.ArticleGuid.Id,
+                article.Name, article.GrossStock, article.PublicPrice, article.MemberPrice));
         }
     }
 }

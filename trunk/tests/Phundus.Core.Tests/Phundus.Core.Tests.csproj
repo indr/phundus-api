@@ -99,6 +99,7 @@
     <Compile Include="Ddd\DomainEntitesSpecs.cs" />
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="factory_base.cs" />
+    <Compile Include="IdentityAccess\Authorize\identityaccess_access_object_handler_concern.cs" />
     <Compile Include="IdentityAccess\Commands\ChangeSettingPublicRentalHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Events\MembershipApplicationApprovedSpecs.cs" />
     <Compile Include="IdentityAccess\Events\MembershipApplicationRejectedSpecs.cs" />
@@ -124,6 +125,8 @@
     <Compile Include="Inventory\Articles\Commands\AddImageSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\RemoveImageSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\SetPreviewImageHandlerSpecs.cs" />
+    <Compile Include="Inventory\Authorize\CreateArticleAccessObjectHandlerSpecs.cs" />
+    <Compile Include="Inventory\Authorize\inventory_access_object_handler_concern.cs" />
     <Compile Include="Inventory\Events\ArticleCreatedSpecs.cs" />
     <Compile Include="Inventory\Model\ArticleSpecs.cs" />
     <Compile Include="Inventory\Model\StoreSpecs.cs" />
