@@ -17,7 +17,7 @@
         private Establish ctx = () =>
         {
             catchException = true;
-            theArticle = make.ShopArticle();
+            theArticle = make.Article();
             theLessor = make.Lessor(theArticle.LessorId);
             lessorService.WhenToldTo(x => x.GetById(theLessor.LessorId)).Return(theLessor);
             theAccessObject = new RentArticle(theArticle);

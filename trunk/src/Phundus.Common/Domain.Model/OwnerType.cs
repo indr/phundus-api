@@ -1,9 +1,14 @@
 ﻿namespace Phundus.Common.Domain.Model
 {
+    using System;
+
     public enum OwnerType
     {
         Unknown,
         Organization,
-        User
+        User,
+
+        [Obsolete]
+        Adapted
     }
 }

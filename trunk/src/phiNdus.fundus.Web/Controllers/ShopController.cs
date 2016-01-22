@@ -5,7 +5,6 @@
     using System.Web.Mvc;
     using Authorization;
     using Castle.Transactions;
-    using Common;
     using Common.Domain.Model;
     using IdentityAccess.Queries;
     using Inventory.Queries;
@@ -13,7 +12,6 @@
     using Shop.Authorization;
     using Shop.Orders.Model;
     using Shop.Queries;
-    using Owner = Shop.Orders.Model.Owner;
 
     public class ShopController : ControllerBase
     {
@@ -154,10 +152,11 @@
                 //model.CanUserAddToCart = MemberInRole.IsActiveMember(model.Article.OrganizationId, new UserId(CurrentUserId));
 
                 var adapted = new Article(article.Id,
-                    new Owner(new OwnerId(article.OrganizationId), article.OrganizationName),
+                    new Owner(new OwnerId(article.OrganizationId), article.OrganizationName, OwnerType.Adapted),
                     article.Name, article.Price);
 
-                model.CanUserAddToCart = Authorize.Test(new UserId(CurrentUserId), Rent.Article(adapted)); ;
+                model.CanUserAddToCart = Authorize.Test(new UserId(CurrentUserId), Rent.Article(adapted));
+                ;
             }
 
             model.Availabilities = AvailabilityQueries.GetAvailability(id).ToList();

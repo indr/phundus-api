@@ -4,16 +4,16 @@
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Orders.Commands;
     using Phundus.Shop.Authorization;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Repositories;
     using Phundus.Shop.Services;
     using Rhino.Mocks;
-    using Owner = Phundus.Shop.Orders.Model.Owner;
 
     public class when_add_article_to_cart_is_handled :
-        command_handler_concern<AddArticleToCart, AddArticleToCartHandler>
+        shop_command_handler_concern<AddArticleToCart, AddArticleToCartHandler>
     {
         protected const int theQuantity = 3;
         protected static readonly ArticleId theArticleId = new ArticleId(12345);
@@ -25,7 +25,7 @@
 
         private Establish ctx = () =>
         {
-            theArticle = new Article(theArticleId.Id, new Owner(theOwnerId, "Owner"), "Article", 7);
+            theArticle = make.Article();
             cartRepository = depends.on<ICartRepository>();
 
             depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId)).Return(theArticle);

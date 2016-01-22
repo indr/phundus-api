@@ -9,16 +9,16 @@ namespace Phundus.Shop.Orders.Model
         private string _caption;
         private int _id;
         private Owner _owner;
-        private decimal _price;
+        private decimal _publicPrice;
 
-        public Article(int id, Owner owner, string name, decimal pricePerWeek)
+        public Article(int id, Owner owner, string name, decimal publicPrice)
         {
             AssertionConcern.AssertArgumentNotNull(owner, "Owner must be provided.");
 
             _id = id;
             _owner = owner;
             _caption = name;
-            _price = pricePerWeek;
+            _publicPrice = publicPrice;
         }
 
         protected Article()
@@ -55,8 +55,8 @@ namespace Phundus.Shop.Orders.Model
 
         public virtual decimal Price
         {
-            get { return _price; }
-            protected set { _price = value; }
+            get { return _publicPrice; }
+            protected set { _publicPrice = value; }
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

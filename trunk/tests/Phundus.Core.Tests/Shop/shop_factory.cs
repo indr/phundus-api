@@ -1,8 +1,10 @@
 namespace Phundus.Tests.Shop
 {
+    using System;
     using Common.Domain.Model;
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
+    using Machine.Fakes;
     using Phundus.Shop.Orders.Model;
 
     public class shop_factory : factory_base
@@ -11,11 +13,15 @@ namespace Phundus.Tests.Shop
         {
         }
 
-        public Article ShopArticle()
+        public Article Article(Guid lessorId = default(Guid))
         {
+            lessorId = lessorId == default(Guid) ? Guid.NewGuid() : lessorId;
+
+            var articleId = new ArticleId(NextNumericId());
             var article = fake.an<Article>();
-            article.setup(x => x.ArticleId).Return(new ArticleId(NextNumericId()));
-            article.setup(x => x.LessorId).Return(new LessorId());
+            article.setup(x => x.Id).Return(articleId.Id);
+            article.setup(x => x.ArticleId).Return(articleId);
+            article.setup(x => x.LessorId).Return(new LessorId(lessorId));
             return article;
         }
 
@@ -33,6 +39,13 @@ namespace Phundus.Tests.Shop
             order.setup(x => x.Id).Return(orderId.Id);
             order.setup(x => x.OrderId).Return(orderId);
             return order;
+        }
+
+        public Owner Owner(OwnerId ownerId = null)
+        {
+            var owner = fake.an<Owner>();
+            owner.WhenToldTo(x => x.OwnerId).Return(ownerId ?? new OwnerId());
+            return owner;
         }
     }
 }

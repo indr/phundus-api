@@ -5,12 +5,14 @@ namespace Phundus.Tests.Shop.Orders.Model
     using Machine.Specifications;
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
-    using Owner = Phundus.Shop.Orders.Model.Owner;
 
     public abstract class order_concern : creating_order_concern
     {
+        protected static shop_factory make;
+
         private Establish ctx = () =>
         {
+            make = new shop_factory(fake);
             theLessor = new Lessor(new LessorId(), "The lessor", false);
             theLessee = CreateLessee();
             sut = new Order(theLessor, theLessee);
@@ -25,9 +27,8 @@ namespace Phundus.Tests.Shop.Orders.Model
 
         private Establish ctx = () => theInitiatorId = new InitiatorId();
 
-        protected static Article CreateArticle(int articleId, Owner theOwner = null)
+        protected static Article CreateArticle(int articleId, Owner theOwner)
         {
-            theOwner = theOwner ?? new Owner(new OwnerId(), "The article owner");
             return new Article(articleId, theOwner, "Article " + articleId, 7.0m);
         }
 

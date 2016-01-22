@@ -2,11 +2,11 @@
 {
     using System;
     using Common.Domain.Model;
+    using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using Phundus.Shop.Orders.Model;
-    using Owner = Phundus.Shop.Orders.Model.Owner;
 
-    public class cart_concern
+    public class cart_concern : Observes
     {
         protected static Cart sut;
         protected static InitiatorId theInitiatorId = new InitiatorId();
@@ -14,32 +14,25 @@
 
         private Establish ctx = () =>
         {
+            make = new shop_factory(fake);
             sut = CreateEmptyCart();
             AddCartItem();
             AddCartItem();
             AddCartItem();
         };
 
+        protected static shop_factory make;
+
         protected static Cart CreateEmptyCart()
         {
             return new Cart(theInitiatorId, theUserGuid);
-        }
-
-        protected static Article CreateArticle(int? articleId = null, Owner owner = null,
-            string name = "", decimal? pricePerWeek = null)
-        {
-            return new Article(
-                articleId ?? 10001,
-                owner ?? new Owner(new OwnerId(), "Owner"),
-                name ?? "Article",
-                pricePerWeek ?? 7);
         }
 
         protected static CartItemId AddCartItem(Article article = null, DateTime? fromUtc = null,
             DateTime? toUtc = null, int? quantity = null)
         {
             return sut.AddItem(
-                article ?? CreateArticle(),
+                article ?? make.Article(),
                 fromUtc ?? DateTime.UtcNow,
                 toUtc ?? DateTime.UtcNow.AddDays(1),
                 quantity ?? 1);
@@ -61,7 +54,7 @@
         private static CartItemId theCartItemId;
 
         private Because of =
-            () => theCartItemId = AddCartItem(article: CreateArticle(articleId: 12345, name: "Football"));
+            () => theCartItemId = AddCartItem(article: make.Article());
 
         private It should_have_an_item_with_item_id = () => sut.Items.ShouldContain(c =>
             Equals(c.CartItemId, theCartItemId));

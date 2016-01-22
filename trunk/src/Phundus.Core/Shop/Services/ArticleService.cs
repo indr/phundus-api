@@ -5,7 +5,6 @@ namespace Phundus.Shop.Services
     using Common.Domain.Model;
     using Inventory.Articles.Repositories;
     using Orders.Model;
-    using Owner = Orders.Model.Owner;
 
     public interface IArticleService
     {
@@ -67,7 +66,7 @@ namespace Phundus.Shop.Services
 
         private static Article ToArticleValueObject(Inventory.Articles.Model.Article article)
         {
-            return new Article(article.Id, new Owner(article.Owner.OwnerId, article.Owner.Name), article.Name,
+            return new Article(article.Id, article.Owner, article.Name,
                 article.PublicPrice);
         }
     }
