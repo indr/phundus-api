@@ -4,8 +4,6 @@
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Phundus.Authorization;
-    using Phundus.IdentityAccess.Queries;
     using Phundus.Shop.Authorization;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
@@ -14,7 +12,8 @@
     using Rhino.Mocks;
     using Owner = Phundus.Shop.Orders.Model.Owner;
 
-    public class when_add_article_to_cart_is_handled : command_handler_concern<AddArticleToCart, AddArticleToCartHandler>
+    public class when_add_article_to_cart_is_handled :
+        command_handler_concern<AddArticleToCart, AddArticleToCartHandler>
     {
         protected const int theQuantity = 3;
         protected static readonly ArticleId theArticleId = new ArticleId(12345);
@@ -24,15 +23,14 @@
         protected static readonly OwnerId theOwnerId = new OwnerId();
         protected static ICartRepository cartRepository;
 
-        private Establish ctx =
-            () =>
-            {
-                theArticle = new Article(theArticleId.Id, new Owner(theOwnerId, "Owner"), "Article", 7);
-                cartRepository = depends.on<ICartRepository>();
+        private Establish ctx = () =>
+        {
+            theArticle = new Article(theArticleId.Id, new Owner(theOwnerId, "Owner"), "Article", 7);
+            cartRepository = depends.on<ICartRepository>();
 
-                depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId)).Return(theArticle);
-                command = new AddArticleToCart(theInitiatorId, theArticleId, theFromUtc, theToUtc, theQuantity);
-            };
+            depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId)).Return(theArticle);
+            command = new AddArticleToCart(theInitiatorId, theArticleId, theFromUtc, theToUtc, theQuantity);
+        };
     }
 
     [Subject(typeof (AddArticleToCartHandler))]

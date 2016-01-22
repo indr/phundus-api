@@ -41,7 +41,7 @@
             if (cart == null)
                 return;
 
-            cart.UpdateItem(command.ItemGuid, command.Quantity, command.FromUtc, command.ToUtc);
+            cart.ChangeQuantityAndPeriod(command.ItemGuid, command.Quantity, command.FromUtc, command.ToUtc);
         }
     }
 }

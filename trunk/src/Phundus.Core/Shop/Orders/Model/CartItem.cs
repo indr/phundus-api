@@ -34,7 +34,6 @@ namespace Phundus.Shop.Orders.Model
             {
                 return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(From, To, Quantity, UnitPrice).Days;
             }
-            protected set { }
         }
 
         public virtual string LineText
