@@ -125,8 +125,10 @@
     <Compile Include="Inventory\Articles\Commands\AddImageSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\RemoveImageSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\SetPreviewImageHandlerSpecs.cs" />
+    <Compile Include="Inventory\Authorize\ManageArticleAccessObjectHandlerSpecs.cs" />
     <Compile Include="Inventory\Authorize\CreateArticleAccessObjectHandlerSpecs.cs" />
     <Compile Include="Inventory\Authorize\inventory_access_object_handler_concern.cs" />
+    <Compile Include="Inventory\Commands\ChangePricesHandlerSpecs.cs" />
     <Compile Include="Inventory\Events\ArticleCreatedSpecs.cs" />
     <Compile Include="Inventory\Events\PricesChangedSpecs.cs" />
     <Compile Include="Inventory\Model\ArticleSpecs.cs" />

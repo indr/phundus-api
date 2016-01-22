@@ -203,7 +203,7 @@ namespace Phundus.Rest.Api
         {
             if (!String.IsNullOrWhiteSpace(requestContent.Name))
             {
-                Dispatcher.Dispatch(new UpdateArticle
+                Dispatch(new UpdateArticle
                 {
                     ArticleId = articleId,
                     Brand = requestContent.Brand,
@@ -213,9 +213,12 @@ namespace Phundus.Rest.Api
                     Name = requestContent.Name
                 });
             }
+            if (requestContent.Prices != null)
+            {
+            }
             if (requestContent.Description != null)
             {
-                Dispatcher.Dispatch(new UpdateDescription
+                Dispatch(new UpdateDescription
                 {
                     ArticleId = articleId,
                     Description = requestContent.Description,
@@ -224,7 +227,7 @@ namespace Phundus.Rest.Api
             }
             if (requestContent.Specification != null)
             {
-                Dispatcher.Dispatch(new UpdateSpecification
+                Dispatch(new UpdateSpecification
                 {
                     ArticleId = articleId,
                     Specification = requestContent.Specification,
@@ -330,6 +333,12 @@ namespace Phundus.Rest.Api
         [JsonProperty("specification")]
         public string Specification { get; set; }
         
+        [JsonProperty("prices")]
+        public Prices Prices { get; set; }
+    }
+
+    public class Prices
+    {
         [JsonProperty("publicPrice")]
         public decimal PublicPrice { get; set; }
 

@@ -215,6 +215,7 @@
     <Compile Include="IdentityAccess\Users\Services\SessionKeyGenerator.cs" />
     <Compile Include="IdentityAccess\Users\Services\UserInRole.cs" />
     <Compile Include="Inventory\Articles\Commands\AddImage.cs" />
+    <Compile Include="Inventory\Articles\Commands\ChangePrices.cs" />
     <Compile Include="Inventory\Articles\Commands\RemoveImage.cs" />
     <Compile Include="Inventory\Articles\Commands\SetPreviewImage.cs" />
     <Compile Include="Inventory\Articles\Commands\UpdateDescription.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="Inventory\Articles\Model\ImageAdded.cs" />
     <Compile Include="Inventory\Articles\Model\ImageRemoved.cs" />
     <Compile Include="Inventory\Authorize\Create.cs" />
+    <Compile Include="Inventory\Authorize\Manage.cs" />
     <Compile Include="Inventory\Queries\ArticleReadModel.cs" />
     <Compile Include="Inventory\Queries\Dtos\StoreDto.cs" />
     <Compile Include="Inventory\Queries\IArticleQueries.cs" />
