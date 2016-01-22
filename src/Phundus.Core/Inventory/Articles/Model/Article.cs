@@ -25,20 +25,6 @@
         {
         }
 
-        [Obsolete]
-        public Article(Owner owner, StoreId storeId, string name, int grossStock)
-        {
-            AssertionConcern.AssertArgumentNotNull(owner, "Owner must be provided.");
-            AssertionConcern.AssertArgumentNotNull(storeId, "StoreId must be provided.");
-            AssertionConcern.AssertArgumentNotEmpty(name, "Name must be provided.");
-            AssertionConcern.AssertArgumentGreaterThan(grossStock, -1, "Gross stock must be greater or equal 0.");
-
-            _owner = owner;
-            _storeId = storeId;
-            _name = name;
-            _grossStock = grossStock;
-        }
-
         public Article(Owner owner, StoreId storeId, ArticleGuid articleGuid, string name, int grossStock,
             decimal publicPrice, decimal? memberPrice)
         {
@@ -46,16 +32,14 @@
             if (storeId == null) throw new ArgumentNullException("storeId");
             if (articleGuid == null) throw new ArgumentNullException("articleGuid");
             if (name == null) throw new ArgumentNullException("name");
+            
             _owner = owner;
             _storeId = storeId;
             _articleGuid = articleGuid;
             _name = name;
             _grossStock = grossStock;
-            _memberPrice = null;
+            _memberPrice = _owner.Type == OwnerType.Organization ? memberPrice : null;
             _publicPrice = publicPrice;
-
-            if (owner.Type == OwnerType.Organization)
-                _memberPrice = memberPrice;
         }
 
         public virtual ArticleId ArticleId
@@ -99,13 +83,11 @@
 
         public virtual string Brand { get; set; }
 
-        [Obsolete]
-        public virtual decimal Price { get; set; }
 
         public virtual decimal PublicPrice
         {
             get { return _publicPrice; }
-            protected set { _publicPrice = value; }
+            set { _publicPrice = value; }
         }
 
         public virtual decimal? MemberPrice

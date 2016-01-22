@@ -43,7 +43,8 @@
             result.CreatedOn = subject.CreateDate;
             result.Name = subject.Name;
             result.Brand = subject.Brand;
-            result.Price = subject.Price;
+            result.PublicPrice = subject.PublicPrice;
+            result.MemberPrice = subject.MemberPrice;
             result.Description = subject.Description;
             result.Specification = subject.Specification;
             result.GrossStock = subject.GrossStock;

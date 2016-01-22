@@ -29,6 +29,9 @@
 
         [JsonProperty("unitPricePerWeek")]
         public decimal UnitPricePerWeek { get; set; }
+
+        [JsonProperty("itemTotal")]
+        public decimal ItemTotal { get; set; }
     }
 
     public class UserCartItemsPostOkResponseContent

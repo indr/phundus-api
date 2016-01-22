@@ -85,10 +85,14 @@ namespace Phundus.Specs.Features.Cart
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Alias",
-                        "Name"});
+                        "Name",
+                        "Member price",
+                        "Public price"});
             table2.AddRow(new string[] {
                         "Apple",
-                        "Apple"});
+                        "Apple",
+                        "1.00",
+                        "1.10"});
 #line 8
  testRunner.And("with these organization articles", ((string)(null)), table2, "And ");
 #line 11
@@ -111,9 +115,11 @@ this.FeatureBackground();
  testRunner.When("I try to add article to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Text"});
+                        "Text",
+                        "Item Total"});
             table3.AddRow(new string[] {
-                        "Apple"});
+                        "Apple",
+                        "1.00"});
 #line 16
  testRunner.Then("my cart should have these items:", ((string)(null)), table3, "Then ");
 #line hidden
@@ -135,9 +141,11 @@ this.FeatureBackground();
  testRunner.When("I try to add article to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Text"});
+                        "Text",
+                        "Item Total"});
             table4.AddRow(new string[] {
-                        "Apple"});
+                        "Apple",
+                        "1.00"});
 #line 23
  testRunner.Then("my cart should have these items:", ((string)(null)), table4, "Then ");
 #line hidden
@@ -167,27 +175,31 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add article to cart as non member when public rental is activated, succeeds")]
+        [NUnit.Framework.IgnoreAttribute()]
         public virtual void AddArticleToCartAsNonMemberWhenPublicRentalIsActivatedSucceeds()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add article to cart as non member when public rental is activated, succeeds", ((string[])(null)));
-#line 33
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add article to cart as non member when public rental is activated, succeeds", new string[] {
+                        "ignore"});
+#line 34
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 34
- testRunner.Given("I am logged in as Greg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 35
- testRunner.And("I set organization setting public rental on", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I am logged in as Greg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 36
- testRunner.And("I am logged in as John", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I set organization setting public rental on", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 37
+ testRunner.And("I am logged in as John", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 38
  testRunner.When("I try to add article to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Text"});
+                        "Text",
+                        "Item Total"});
             table5.AddRow(new string[] {
-                        "Apple"});
-#line 38
+                        "Apple",
+                        "1.10"});
+#line 39
  testRunner.Then("my cart should have these items:", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();

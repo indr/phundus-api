@@ -19,6 +19,12 @@
 
         [JsonProperty("amount")]
         public int Amount { get; set; }
+
+        [JsonProperty("publicPrice")]
+        public decimal PublicPrice { get; set; }
+
+        [JsonProperty("memberPrice")]
+        public decimal? MemberPrice { get; set; }
     }
 
     public class Article
@@ -31,6 +37,12 @@
 
         [JsonProperty("price")]
         public decimal Price { get; set; }
+
+        [JsonProperty("publicPrice")]
+        public decimal PublicPrice { get; set; }
+
+        [JsonProperty("memberPrice")]
+        public decimal? MemberPrice { get; set; }
 
         [JsonProperty("grossStock")]
         public int GrossStock { get; set; }

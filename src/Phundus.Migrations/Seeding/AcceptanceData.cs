@@ -88,7 +88,7 @@
                         CreateDate = DateTime.Now,
                         Name = each.Name,
                         Brand = each.Marke,
-                        Price = each.Preis,
+                        PublicPrice = each.Preis,
                         Description = each.Beschreibung,
                         Stock = each.Bestand,
                         StoreId = each.StoreId

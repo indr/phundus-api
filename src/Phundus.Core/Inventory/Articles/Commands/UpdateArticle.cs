@@ -33,7 +33,7 @@
 
             article.Name = command.Name;
             article.Brand = command.Brand;
-            article.Price = command.Price;
+            article.PublicPrice = command.Price;
             article.GrossStock = command.GrossStock;
             article.Color = command.Color;
 

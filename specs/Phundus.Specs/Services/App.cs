@@ -210,7 +210,9 @@
             {
                 Amount = article.GrossStock,
                 Name = article.Name,
-                OwnerId = article.OwnerId
+                OwnerId = article.OwnerId,
+                PublicPrice = article.PublicPrice,
+                MemberPrice = article.MemberPrice
             });
             article.ArticleId = response.Data.ArticleId;
             return article;
@@ -392,6 +394,10 @@
             _inMaintenanceMode = inMaintenance && response.StatusCode == HttpStatusCode.OK;
         }
 
-       
+
+        public Article GetArticle(Article article)
+        {
+            return _apiClient.ArticlesApi.Get<Article>(new { articleId = article.ArticleId }, new { ownerId = article.OwnerId }).Data;
+        }
     }
 }

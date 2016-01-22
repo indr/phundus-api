@@ -24,7 +24,9 @@ namespace Phundus.Specs.Services.Entities
             {
                 Name = record.Name,
                 GrossStock = grossStock,
-                Price = price
+                Price = price,
+                PublicPrice = price,
+                MemberPrice = (decimal?)null
             };
 
             return SetPropertiesFromRow(result, row);
@@ -39,6 +41,12 @@ namespace Phundus.Specs.Services.Entities
                 result.Name = row["Name"];
             if (row.ContainsKey("Stock"))
                 result.GrossStock = Convert.ToInt32(row["Stock"]);
+            if (row.ContainsKey("Gross stock"))
+                result.GrossStock = Convert.ToInt32(row["Gross stock"]);
+            if (row.ContainsKey("Public price"))
+                result.PublicPrice = Convert.ToDecimal(row["Public price"]);
+            if (row.ContainsKey("Member price"))
+                result.MemberPrice = Convert.ToDecimal(row["Member price"]);
             return result;
         }
     }
