@@ -153,7 +153,7 @@
 
                 var adapted = new Article(article.Id,
                     new Owner(new OwnerId(article.OrganizationId), article.OrganizationName, OwnerType.Adapted),
-                    article.Name, article.Price);
+                    article.Name, article.PublicPrice);
 
                 model.CanUserAddToCart = Authorize.Test(new UserId(CurrentUserId), Rent.Article(adapted));
                 ;

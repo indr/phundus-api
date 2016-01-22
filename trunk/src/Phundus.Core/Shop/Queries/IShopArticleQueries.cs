@@ -27,7 +27,7 @@
         public ShopArticleDetailDto GetArticle(int id)
         {
             var result = Single<ShopArticleDetailDto>(
-                @"select a.Id, a.Name, a.PublicPrice as Price, a.Description, a.Specification,  a.Owner_OwnerId as OrganizationId, a.Owner_Name as OrganizationName " +
+                @"select a.Id, a.Name, a.PublicPrice, a.MemberPrice, a.Description, a.Specification,  a.Owner_OwnerId as OrganizationId, a.Owner_Name as OrganizationName " +
                 @"from [Dm_Inventory_Article] a left join [Dm_IdentityAccess_Organization] o on (a.Owner_OwnerId = o.Guid) " +
                 @"where a.Id = {0} " +
                 //@" and o.[Plan] > 0" +
@@ -67,7 +67,7 @@
 
 
             var result = Paged<ShopArticleSearchResultDto>(
-                @"select a.Id, a.Name, a.PublicPrice as Price, a.Owner_Name as OrganizationName " +
+                @"select a.Id, a.Name, a.PublicPrice, a.MemberPrice, a.Owner_Name as OrganizationName " +
                 @"from [Dm_Inventory_Article] a " +
                 @"left join [Dm_IdentityAccess_Organization] o on (a.Owner_OwnerId = o.Guid) " +
                 where +
@@ -102,7 +102,8 @@
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public decimal Price { get; set; }
+        public decimal PublicPrice { get; set; }
+        public decimal? MemberPrice { get; set; }
         public string Description { get; set; }
         public string Specification { get; set; }
         public Guid OrganizationId { get; set; }
@@ -125,7 +126,8 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public decimal Price { get; set; }
+        public decimal PublicPrice { get; set; }
+        public decimal? MemberPrice { get; set; }
         public string OrganizationName { get; set; }
         public string ImageFileName { get; set; }
     }

@@ -90,9 +90,9 @@
             //localhost settings
             //string requestHost = @"http://localhost:3000/receipts";
             string requestHost = BaseUrl + ReplaceUrlSegments(_resource, requestContent);
-            string tagnr = "p94tt7w";
-            string machinenr = "2803433";
-            string safe_token = "123";
+            //string tagnr = "p94tt7w";
+            //string machinenr = "2803433";
+            //string safe_token = "123";
 
             FileStream fs1 = File.OpenRead(path);
             long filesize = fs1.Length;
