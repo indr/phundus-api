@@ -19,11 +19,11 @@
 
         private Establish ctx = () =>
         {
-            theOwner = new Owner(new OwnerId(), "The owner", OwnerType.User);
+            theOwner = new Owner(new OwnerId(), "The Owner", OwnerType.User);
             theStoreId = new StoreId();
             theArticleIntegralId = 1;
             theArticleGuid = Guid.NewGuid();
-            theName = "The name";
+            theName = "The Article";
             theGrossStock = 2;
             theMemberPrice = 3.33m;
             thePublicPrice = 4.44m;
@@ -31,7 +31,7 @@
                 theArticleIntegralId, theArticleGuid, theName, theGrossStock, thePublicPrice, theMemberPrice));
         };
 
-        private It shold_have_the_name_at_6 = () =>
+        private It should_have_the_name_at_6 = () =>
             dataMember(6).ShouldEqual(theName);
 
         private It should_be_in_assembly = () =>
@@ -45,9 +45,6 @@
 
         private It should_have_owner_at_2 = () =>
             dataMember(2).ShouldEqual(theOwner);
-
-        private It should_have_the_store_id_at_3 = () =>
-            dataMember(3).ShouldEqual(theStoreId.Id);
 
         private It should_have_the_article_guid_at_5 = () =>
             dataMember(5).ShouldEqual(theArticleGuid);
@@ -63,5 +60,8 @@
 
         private It should_have_the_public_price_at_8 = () =>
             dataMember(8).ShouldEqual(thePublicPrice);
+
+        private It should_have_the_store_id_at_3 = () =>
+            dataMember(3).ShouldEqual(theStoreId.Id);
     }
 }
