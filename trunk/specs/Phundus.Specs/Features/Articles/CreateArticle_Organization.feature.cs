@@ -90,10 +90,32 @@ namespace Phundus.Specs.Features.Articles
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Alias",
+                        "Gross stock",
+                        "Member price",
+                        "Public price"});
+            table2.AddRow(new string[] {
+                        "Apple",
+                        "3",
+                        "1.50",
+                        "1.60"});
 #line 11
- testRunner.When("I create an article in the default store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 12
+ testRunner.When("I create an article in the default store with these values", ((string)(null)), table2, "When ");
+#line 14
  testRunner.Then("I should see ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Gross stock",
+                        "Member price",
+                        "Public price"});
+            table3.AddRow(new string[] {
+                        "3",
+                        "1.50",
+                        "1.60"});
+#line 15
+ testRunner.And("the article \"Apple\" should equal", ((string)(null)), table3, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -103,17 +125,17 @@ this.FeatureBackground();
         public virtual void CreatedArticlesAreInQueryResult()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Created articles are in query result", ((string[])(null)));
-#line 14
+#line 19
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 15
+#line 20
  testRunner.Given("I created an article in the default store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 16
+#line 21
  testRunner.And("I created an article in the default store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 17
+#line 22
  testRunner.When("I try to query all the organizations articles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 18
+#line 23
  testRunner.Then("I should see 2 articles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

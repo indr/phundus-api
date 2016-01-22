@@ -23,7 +23,9 @@
 
         public string Brand { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal PublicPrice { get; set; }
+
+        public decimal? MemberPrice { get; set; }
 
         public int GrossStock { get; set; }
 

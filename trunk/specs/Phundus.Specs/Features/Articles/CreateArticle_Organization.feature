@@ -8,8 +8,13 @@ Background:
 
 
 Scenario: Create article in organizations store
-	When I create an article in the default store
+	When I create an article in the default store with these values
+	| Alias | Gross stock | Member price | Public price |
+	| Apple | 3           | 1.50         | 1.60         |
 	Then I should see ok
+	And the article "Apple" should equal
+	| Gross stock | Member price | Public price |
+	| 3           | 1.50         | 1.60         |
 
 Scenario: Created articles are in query result
 	Given I created an article in the default store

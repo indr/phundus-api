@@ -24,7 +24,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
             initiatorId = new UserId();
             ownerId = Guid.NewGuid();
             owner = new Owner(new OwnerId(ownerId), "Owner", OwnerType.Organization);
-            article = new Article(owner, new StoreId(), "Name", 0);
+            article = make.Article(owner);
             articleRepository.setup(x => x.GetById(articleId)).Return(article);
 
             command = new DeleteArticle

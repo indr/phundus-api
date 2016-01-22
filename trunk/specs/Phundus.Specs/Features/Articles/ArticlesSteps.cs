@@ -5,6 +5,7 @@
     using Services;
     using Steps;
     using TechTalk.SpecFlow;
+    using TechTalk.SpecFlow.Assist;
 
     [Binding]
     public class ArticlesSteps : AppStepsBase
@@ -59,6 +60,16 @@
             Ctx.Article = App.CreateArticle(Ctx.Organization.OrganizationId);
         }
 
+        [When(@"I create an article in the default store with these values")]
+        public void WhenICreateAnArticleInTheDefaultStoreWithTheseValues(Table table)
+        {
+            var row = table.Rows[0];
+            Ctx.Article = App.CreateArticle(Ctx.Organization.OrganizationId, row);
+
+            if (row.ContainsKey("Alias"))
+                Ctx.Articles[row["Alias"]] = Ctx.Article;
+        }
+
         [When(@"I try to query all my articles")]
         public void WhenITryToQueryAllMyArticles()
         {
@@ -71,6 +82,12 @@
             _articles = App.QueryArticlesByOrganization(Ctx.Organization);
         }
 
+        [Then(@"the article ""(.*)"" should equal")]
+        public void ThenTheArticleShouldEqual(string alias, Table table)
+        {
+            var article = App.GetArticle(Ctx.Articles[alias]);
+            table.CompareToInstance(article);
+        }
 
         [Then(@"I should see (.*) articles")]
         public void ThenIShouldSeeArticles(int number)

@@ -27,7 +27,8 @@
 
             Map(x => x.Name, "Name");
             Map(x => x.Brand);
-            Map(x => x.Price, "Price");
+            Map(x => x.PublicPrice, "PublicPrice");
+            Map(x => x.MemberPrice, "MemberPrice");
             Map(x => x.GrossStock, "Stock");
             Map(x => x.Description);
             Map(x => x.Specification);

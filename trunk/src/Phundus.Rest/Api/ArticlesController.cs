@@ -108,7 +108,9 @@ namespace Phundus.Rest.Api
                 Brand = result.Brand,
                 Color = result.Color,
                 GrossStock = result.GrossStock,
-                Price = result.Price,
+                Price = result.PublicPrice,
+                PublicPrice = result.PublicPrice,
+                MemberPrice = result.MemberPrice,
                 Description = result.Description,
                 Specification = result.Specification
             };
@@ -259,6 +261,12 @@ namespace Phundus.Rest.Api
 
         [JsonProperty("price")]
         public decimal Price { get; set; }
+
+        [JsonProperty("publicPrice")]
+        public decimal PublicPrice { get; set; }
+
+        [JsonProperty("memberPrice")]
+        public decimal? MemberPrice { get; set; }
 
         [JsonProperty("grossStock")]
         public int GrossStock { get; set; }

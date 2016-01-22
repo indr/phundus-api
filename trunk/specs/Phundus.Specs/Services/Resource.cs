@@ -48,9 +48,9 @@
             Cookies.Clear();
         }
 
-        public IRestResponse<T> Get<T>(object requestContent) where T : new()
+        public IRestResponse<T> Get<T>(object requestContent, object queryParams = null) where T : new()
         {
-            var request = CreateRequest(requestContent, Method.GET);
+            var request = CreateRequest(requestContent, Method.GET, queryParams);
             return Execute<T>(request);
         }
 
@@ -220,13 +220,14 @@
             return Execute<QueryOkResponseContent<T>>(request);
         }
 
-        protected RestRequest CreateRequest(object requestContent, Method method)
+        protected RestRequest CreateRequest(object requestContent, Method method, object queryString = null)
         {
             var request = new RestRequest(method);
             request.Resource = _resource;
             request.RequestFormat = DataFormat.Json;
             request.JsonSerializer = new CustomJsonSerializer();
             AddUrlSegments(request, requestContent);
+            AddQueryString(request, queryString);
             if (requestContent != null)
                 request.AddBody(requestContent);
             foreach (var each in Cookies)
@@ -236,6 +237,7 @@
             return request;
         }
 
+        
         private string ReplaceUrlSegments(string url, object requestContent)
         {
             var regex = new Regex(@"\/\{([a-z]+)\}", RegexOptions.IgnoreCase);
@@ -312,6 +314,17 @@
             }
             return result;
         }
+
+        private void AddQueryString(RestRequest request, object queryString)
+        {
+            if (queryString == null)
+                return;
+            foreach (var each in queryString.GetType().GetProperties())
+            {
+                request.AddParameter(each.Name, each.GetValue(queryString, null), ParameterType.QueryString);
+            }
+        }
+
 
         protected RestRequest CreateQueryRequest(object queryParams, Method method)
         {
