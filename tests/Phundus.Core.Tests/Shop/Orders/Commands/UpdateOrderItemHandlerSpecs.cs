@@ -9,7 +9,6 @@
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
     using Rhino.Mocks;
-    using Owner = Phundus.Shop.Orders.Model.Owner;
 
     [Subject(typeof (UpdateOrderItemHandler))]
     public class when_update_order_command_item_is_handled : order_command_handler_concern<UpdateOrderItem, UpdateOrderItemHandler>
@@ -24,7 +23,7 @@
 
         public Establish c = () =>
         {
-            var article = new Article(1, new Owner(new OwnerId(theLessor.LessorId.Id), "Owner"), "Artikel", 1.0m);
+            var article = make.Article();
             order = new Order(theLessor, CreateLessee());
             theOrderItemId = new OrderItemId();
             order.AddItem(theOrderItemId, article, DateTime.Today, DateTime.Today, 1);

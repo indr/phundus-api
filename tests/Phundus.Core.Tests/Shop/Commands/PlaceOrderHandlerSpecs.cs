@@ -10,15 +10,15 @@
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Repositories;
-    using Phundus.Shop.Services;
     using Rhino.Mocks;
-    using Owner = Phundus.Shop.Orders.Model.Owner;
 
     public class place_order_command_handler_concern : order_command_handler_concern<PlaceOrder, PlaceOrderHandler>
     {
         protected const int theResultingOrderId = 123;
         protected static Cart theCart;
         protected static ICartRepository cartRepository;
+
+        private static int _nextArticleId = 1;
 
         private Establish ctx = () =>
         {
@@ -28,23 +28,18 @@
             orderRepository.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(theResultingOrderId);
 
             theCart = new Cart(theInitiatorId, theInitiatorId);
-            depends.on<ICartRepository>().WhenToldTo(x => x.GetByUserGuid(new UserId(theInitiatorId.Id))).Return(theCart);
+            depends.on<ICartRepository>()
+                .WhenToldTo(x => x.GetByUserGuid(new UserId(theInitiatorId.Id)))
+                .Return(theCart);
 
-            command = new PlaceOrder(theInitiatorId, theLessorId);
+            command = new PlaceOrder(theInitiatorId, theLessor.LessorId);
         };
-
-        private static int _nextArticleId = 1;
 
         protected static CartItemId AddCartItem(LessorId lessorId)
         {
-            var anArticle = CreateArticle(lessorId);
-            articleService.setup(x => x.GetById(anArticle.LessorId, anArticle.ArticleId)).Return(anArticle);   
+            var anArticle = make.Article(lessorId.Id);
+            articleService.setup(x => x.GetById(anArticle.LessorId, anArticle.ArticleId)).Return(anArticle);
             return theCart.AddItem(anArticle, DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
-        }
-
-        private static Article CreateArticle(LessorId lessorId)
-        {
-            return new Article(_nextArticleId++, new Owner(new OwnerId(lessorId.Id), "Owner"), "Article", 7.0m);
         }
     }
 
@@ -84,14 +79,15 @@
 
         private It should_throw_exception_with_message = () =>
             caughtException.Message.ShouldEqual(
-                String.Format("The cart does not contain items belonging to the lessor {0}.", theLessorId));
+                String.Format("The cart does not contain items belonging to the lessor {0}.", theLessor.LessorId));
 
         private It should_throw_invalid_operation_exception = () =>
             caughtException.ShouldBeOfExactType<InvalidOperationException>();
     }
 
     [Subject(typeof (PlaceOrderHandler))]
-    public class when_successfully_placing_an_cart_with_items_from_different_lessors : place_order_command_handler_concern
+    public class when_successfully_placing_an_cart_with_items_from_different_lessors :
+        place_order_command_handler_concern
     {
         private static List<CartItemId> theCartItemsToRemove;
 
@@ -99,9 +95,9 @@
         {
             theCartItemsToRemove = new List<CartItemId>();
             var anOtherLessorId = new LessorId();
-            theCartItemsToRemove.Add(AddCartItem(theLessorId));
+            theCartItemsToRemove.Add(AddCartItem(theLessor.LessorId));
             AddCartItem(anOtherLessorId);
-            theCartItemsToRemove.Add(AddCartItem(theLessorId));
+            theCartItemsToRemove.Add(AddCartItem(theLessor.LessorId));
         };
 
         private It should_add_to_repository_with_two_items =
@@ -109,7 +105,7 @@
 
         private It should_publish_order_placed = () => publisher.WasToldTo(x => x.Publish(Arg<OrderPlaced>.Matches(p =>
             p.OrderId == theResultingOrderId
-            && p.LessorId == theLessorId.Id)));
+            && p.LessorId == theLessor.LessorId.Id)));
 
         private It should_set_resulting_order_id =
             () => command.ResultingOrderId.ShouldEqual(theResultingOrderId);

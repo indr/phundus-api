@@ -160,6 +160,7 @@
     <Compile Include="Shop\Orders\Commands\order_command_handler_concern.cs" />
     <Compile Include="Shop\Orders\Commands\RejectOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Commands\RemoveOrderItemHandlerSpecs.cs" />
+    <Compile Include="Shop\Orders\Commands\shop_command_handler_concern.cs" />
     <Compile Include="Shop\Orders\Commands\UpdateOrderItemHandlerSpecs.cs" />
     <Compile Include="Shop\Orders\Model\OrderSpecs.cs" />
     <Compile Include="Shop\Orders\Model\OrderStatusSpecs.cs" />

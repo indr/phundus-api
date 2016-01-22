@@ -9,8 +9,7 @@
     using Phundus.Shop.Orders.Model;
     using Phundus.Tests.Shop;
     using Rhino.Mocks;
-    using Article = Phundus.Shop.Orders.Model.Article;
-    using Owner = Phundus.Shop.Orders.Model.Owner;
+    using Article = Phundus.Shop.Orders.Model.Article;    
 
     [Subject(typeof (RemoveOrderItemHandler))]
     public class when_remove_order_command_item_is_handled : order_command_handler_concern<RemoveOrderItem, RemoveOrderItemHandler>
@@ -22,7 +21,7 @@
 
         public Establish c = () =>
         {
-            var article = new Article(1, new Owner(new OwnerId(Guid.NewGuid()), "Owner"), "Artikel", 1.0m);
+            var article = make.Article();
             order = new Order(theLessor, CreateLessee());
             orderItemId = new OrderItemId();
             order.AddItem(orderItemId, article, DateTime.Today, DateTime.Today, 1);

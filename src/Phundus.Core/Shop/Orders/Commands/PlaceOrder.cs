@@ -59,7 +59,7 @@
             var cart = _cartRepository.GetByUserGuid(new UserId(command.InitiatorId.Id));
             AssertionConcern.AssertArgumentFalse(cart.IsEmpty, "Your cart is empty, there is no order to place.");
 
-            var cartItemsToPlace = cart.Items.Where(p => p.Article.Owner.OwnerId.Id == command.LessorId.Id).ToList();
+            var cartItemsToPlace = cart.Items.Where(p => Equals(p.Article.LessorId, command.LessorId)).ToList();
             AssertionConcern.AssertArgumentGreaterThan(cartItemsToPlace.Count, 0,
                 String.Format("The cart does not contain items belonging to the lessor {0}.", command.LessorId));
 

@@ -11,7 +11,8 @@ namespace Phundus.Tests.Shop.Orders.Commands
     using Phundus.Shop.Orders.Repositories;
     using Phundus.Shop.Services;
 
-    public abstract class order_command_handler_concern<TCommand, THandler> : command_handler_concern<TCommand, THandler>
+    public abstract class order_command_handler_concern<TCommand, THandler> :
+        shop_command_handler_concern<TCommand, THandler>
         where THandler : class, IHandleCommand<TCommand>
     {
         protected static IMemberInRole memberInRole;
@@ -22,22 +23,19 @@ namespace Phundus.Tests.Shop.Orders.Commands
 
         protected static ILesseeService lesseeService;
 
-        protected static LessorId theLessorId = new LessorId();
         protected static Lessor theLessor;
 
         protected static ILessorService lessorService;
 
-        protected static shop_factory make;
 
         private Establish ctx = () =>
         {
-            make = new shop_factory(fake);
-            theLessor = new Lessor(theLessorId, "Lessor", false);
+            theLessor = make.Lessor();
             memberInRole = depends.on<IMemberInRole>();
             orderRepository = depends.on<IOrderRepository>();
             articleService = depends.on<IArticleService>();
             lessorService = depends.on<ILessorService>();
-            lessorService.WhenToldTo(x => x.GetById(theLessorId)).Return(theLessor);
+            lessorService.WhenToldTo(x => x.GetById(theLessor.LessorId)).Return(theLessor);
             lesseeService = depends.on<ILesseeService>();
         };
 

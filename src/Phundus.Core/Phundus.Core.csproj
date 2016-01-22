@@ -288,7 +288,6 @@
     <Compile Include="Shop\Orders\Model\OrderItemPeriodChanged.cs" />
     <Compile Include="Shop\Orders\Model\OrderItemTotalChanged.cs" />
     <Compile Include="Shop\Orders\Model\OrderPlaced.cs" />
-    <Compile Include="Shop\Orders\Model\Owner.cs" />
     <Compile Include="Shop\Orders\Services\RoundRectangle.cs" />
     <Compile Include="Shop\Orders\Services\OrderPdfGeneratorService.cs" />
     <Compile Include="Shop\Orders\PdfStore.cs" />

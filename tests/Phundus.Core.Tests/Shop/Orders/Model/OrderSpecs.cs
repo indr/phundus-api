@@ -49,9 +49,9 @@
             theLessee = CreateLessee();
 
             theItems = new List<OrderItem>();
-            theItems.Add(new OrderItem(null, new OrderItemId(), CreateArticle(1), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
-            theItems.Add(new OrderItem(null, new OrderItemId(), CreateArticle(2), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
-            theItems.Add(new OrderItem(null, new OrderItemId(), CreateArticle(3), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
+            theItems.Add(new OrderItem(null, new OrderItemId(), make.Article(), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
+            theItems.Add(new OrderItem(null, new OrderItemId(), make.Article(), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
+            theItems.Add(new OrderItem(null, new OrderItemId(), make.Article(), DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1));
         };
 
         public Because of = () => sut = new Order(theLessor, theLessee, theItems);
@@ -72,7 +72,7 @@
         private Establish ctx = () =>
         {
             theOrderItemId = new OrderItemId();
-            theArticle = CreateArticle(1);
+            theArticle = make.Article();
             thePeriod = Period.FromNow(2);
         };
 
