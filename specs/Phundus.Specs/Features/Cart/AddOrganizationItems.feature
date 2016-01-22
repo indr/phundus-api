@@ -7,7 +7,7 @@ Background:
     | Alice | Member  | alice@test.phundus.ch |
 	And with these organization articles
 	| Alias | Name  | Member price | Public price |
-	| Apple | Apple | 1.00         | 1.10         |
+	| Apple | Apple | 7.00         | 14.00         |
 	And a confirmed user "John" with email address "john@test.phundus.ch"
 
 Scenario: Add article to cart as manager, succeeds
@@ -30,7 +30,6 @@ Scenario: Add article to cart as non member, fails
 	Then I should see forbidden
 	And my cart should be empty
 
-@ignore
 Scenario: Add article to cart as non member when public rental is activated, succeeds
 	Given I am logged in as Greg
 	And I set organization setting public rental on
@@ -38,4 +37,4 @@ Scenario: Add article to cart as non member when public rental is activated, suc
 	When I try to add article to cart
 	Then my cart should have these items:
 	| Text  | Item Total |
-	| Apple | 1.10       |
+	| Apple | 2.00       |
