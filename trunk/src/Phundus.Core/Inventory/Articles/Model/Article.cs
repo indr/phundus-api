@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq;
-    using Common;
     using Common.Domain.Model;
     using Ddd;
     using Iesi.Collections.Generic;
@@ -13,11 +12,11 @@
         private DateTime _createDate = DateTime.UtcNow;
         private string _description;
         private int _grossStock;
-        private decimal? _memberPrice;
-        private decimal _publicPrice;
         private ISet<Image> _images = new HashedSet<Image>();
+        private decimal? _memberPrice;
         private string _name;
         private Owner _owner;
+        private decimal _publicPrice;
         private string _specification;
         private StoreId _storeId;
 
@@ -32,7 +31,7 @@
             if (storeId == null) throw new ArgumentNullException("storeId");
             if (articleGuid == null) throw new ArgumentNullException("articleGuid");
             if (name == null) throw new ArgumentNullException("name");
-            
+
             _owner = owner;
             _storeId = storeId;
             _articleGuid = articleGuid;
@@ -199,9 +198,9 @@
                 return;
 
             PublicPrice = publicPrice;
-            MemberPrice = this.Owner.Type == OwnerType.Organization ? memberPrice : null;
+            MemberPrice = Owner.Type == OwnerType.Organization ? memberPrice : null;
 
-            EventPublisher.Publish(new PricesChanged(initiator, this.Id, this.ArticleGuid, PublicPrice, MemberPrice));
+            EventPublisher.Publish(new PricesChanged(initiator, Id, ArticleGuid, PublicPrice, MemberPrice));
         }
     }
 }
