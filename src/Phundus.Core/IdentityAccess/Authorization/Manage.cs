@@ -8,15 +8,15 @@
 
     public static class Manage
     {
-        public static ManageOrganization Organization(OrganizationId organizationId)
+        public static ManageOrganizationAccessObject Organization(OrganizationId organizationId)
         {
-            return new ManageOrganization(organizationId);
+            return new ManageOrganizationAccessObject(organizationId);
         }
     }
 
-    public class ManageOrganization : IAccessObject
+    public class ManageOrganizationAccessObject : IAccessObject
     {
-        public ManageOrganization(OrganizationId organizationId)
+        public ManageOrganizationAccessObject(OrganizationId organizationId)
         {
             if (organizationId == null) throw new ArgumentNullException("organizationId");
             OrganizationId = organizationId;
@@ -25,7 +25,7 @@
         public OrganizationId OrganizationId { get; protected set; }
     }
 
-    public class ManageOrganizationAccessObjectHandler : IHandleAccessObject<ManageOrganization>
+    public class ManageOrganizationAccessObjectHandler : IHandleAccessObject<ManageOrganizationAccessObject>
     {
         private readonly IMemberInRole _memberInRole;
 
@@ -35,13 +35,13 @@
             _memberInRole = memberInRole;
         }
 
-        public void Enforce(UserId userId, ManageOrganization accessObject)
+        public void Enforce(UserId userId, ManageOrganizationAccessObject accessObject)
         {
             if (!Test(userId, accessObject))
                 throw new AuthorizationException("Du benötigst die Rolle Verwaltung.");
         }
 
-        public bool Test(UserId userId, ManageOrganization accessObject)
+        public bool Test(UserId userId, ManageOrganizationAccessObject accessObject)
         {
             return _memberInRole.IsActiveManager(accessObject.OrganizationId, userId);
         }
