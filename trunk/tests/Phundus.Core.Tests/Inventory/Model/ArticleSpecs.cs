@@ -58,6 +58,17 @@
 
         private It should_have_the_store_id = () =>
             sut.StoreId.ShouldEqual(theStoreId);
+
+        public class when_instanting_for_owner_type_user
+        {
+            private Establish ctx = () =>
+            {
+                theOwner = make.Owner(OwnerType.User);
+            };
+
+            private It should_not_have_a_member_price = () =>
+                sut.MemberPrice.ShouldBeNull();
+        }
     }
 
     [Subject(typeof (Article))]

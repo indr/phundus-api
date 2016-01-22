@@ -22,10 +22,11 @@ namespace Phundus.Tests.Inventory
             return article;
         }
 
-        public Owner Owner()
+        public Owner Owner(OwnerType ownerType = OwnerType.Organization)
         {
             var owner = fake.an<Owner>();
             owner.setup(x => x.OwnerId).Return(new OwnerId());
+            owner.setup(x => x.Type).Return(ownerType);
             return owner;
         }
 

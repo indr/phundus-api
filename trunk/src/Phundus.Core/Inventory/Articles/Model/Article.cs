@@ -13,8 +13,8 @@
         private DateTime _createDate = DateTime.UtcNow;
         private string _description;
         private int _grossStock;
-        private decimal _memberPrice;
-        private decimal _publicPrice;
+        private decimal? _memberPrice;
+        private decimal? _publicPrice;
         private ISet<Image> _images = new HashedSet<Image>();
         private string _name;
         private Owner _owner;
@@ -51,8 +51,11 @@
             _articleGuid = articleGuid;
             _name = name;
             _grossStock = grossStock;
-            _memberPrice = memberPrice;
+            _memberPrice = null;
             _publicPrice = publicPrice;
+
+            if (owner.Type == OwnerType.Organization)
+                _memberPrice = memberPrice;
         }
 
         public virtual ArticleId ArticleId
@@ -99,13 +102,13 @@
         [Obsolete]
         public virtual decimal Price { get; set; }
 
-        public virtual decimal MemberPrice
+        public virtual decimal? MemberPrice
         {
             get { return _memberPrice; }
             protected set { _memberPrice = value; }
         }
 
-        public virtual decimal PublicPrice
+        public virtual decimal? PublicPrice
         {
             get { return _publicPrice; }
             protected set { _publicPrice = value; }
