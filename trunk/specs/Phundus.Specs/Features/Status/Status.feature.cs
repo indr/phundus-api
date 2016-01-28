@@ -78,7 +78,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
  testRunner.Then("it should have server url according to App.config", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 7
- testRunner.And("it should have server date time within 3 seconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("it should have server date time within 30 seconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 8
  testRunner.And("it should have server version according to specs assembly version", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
