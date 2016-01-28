@@ -75,13 +75,11 @@
                         <li data-access-level="accessLevels.user" title="Warenkorb">
                             <a href="/#/cart" data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="manual" data-content="Artikel hinzugefügt." id="popover-glyphicon-cart"><span class="glyphicon glyphicon-shopping-cart"></span><span class="visible-xs-inline"> Warenkorb</span></a>
                         </li>
-                        <li data-access-level="accessLevels.user" title="@User.Identity.Name">
-                            <a href="/#/users/@Model.UserId"><span class="glyphicon glyphicon-user"></span><span class="visible-xs-inline loggedOnTag"> @User.Identity.Name</span></a>
-                        </li>
-                        <li data-access-level="accessLevels.user" class="dropdown">
+                        <li data-access-level="accessLevels.user" class="dropdown" title="@User.Identity.Name">
                             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                               aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><span class="visible-xs-inline"> @User.Identity.Name</span> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
+                                <li><a href="/#/users/@Model.UserId">Profil</a></li>
                                 <li><a href="/#/users/@Model.UserId/account">Einstellungen</a></li>
                                 <li><a href="/#/logout" class="logOffTag">Abmelden</a></li>
                             </ul>
