@@ -115,14 +115,14 @@
 
         public virtual string Color { get; set; }
 
-        public virtual void ChangeDescription(string description)
+        public virtual void ChangeDescription(Initiator initiator, string description)
         {
             if (_description != null && description == _description)
                 return;
 
             Description = description;
 
-            EventPublisher.Publish(new DescriptionChanged());
+            EventPublisher.Publish(new DescriptionChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId, Description));
         }
 
         public virtual void ChangeSpecification(string specification)

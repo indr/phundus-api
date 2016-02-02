@@ -1,30 +1,54 @@
 ﻿namespace Phundus.Inventory.Articles.Commands
 {
+    using System;
+    using Authorization;
+    using Authorize;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Queries;
+    using Integration.IdentityAccess;
     using Repositories;
 
     public class UpdateDescription
     {
-        public UserId InitiatorId { get; set; }
+        public UpdateDescription(InitiatorId initiatorId, int articleId, string description)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (description == null) throw new ArgumentNullException("description");
+            InitiatorId = initiatorId;
+            ArticleId = articleId;
+            Description = description;
+        }
+
+        public InitiatorId InitiatorId { get; set; }
         public int ArticleId { get; set; }
         public string Description { get; set; }
     }
 
     public class UpdateArticleDescriptionHandler : IHandleCommand<UpdateDescription>
     {
-        public IArticleRepository ArticleRepository { get; set; }
+        private readonly IArticleRepository _articleRepository;
+        private readonly IAuthorize _authorize;
+        private readonly IInitiatorService _initiatorService;
 
-        public IMemberInRole MemberInRole { get; set; }
+        public UpdateArticleDescriptionHandler(IAuthorize authorize, IInitiatorService initiatorService,
+            IArticleRepository articleRepository)
+        {
+            if (authorize == null) throw new ArgumentNullException("authorize");
+            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
+            if (articleRepository == null) throw new ArgumentNullException("articleRepository");
+            _authorize = authorize;
+            _initiatorService = initiatorService;
+            _articleRepository = articleRepository;
+        }
 
         public void Handle(UpdateDescription command)
         {
-            var article = ArticleRepository.GetById(command.ArticleId);
+            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
+            var article = _articleRepository.GetById(command.ArticleId);
 
-            MemberInRole.ActiveManager(article.Owner.OwnerId.Id, command.InitiatorId);
+            _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
 
-            article.ChangeDescription(command.Description);
+            article.ChangeDescription(initiator, command.Description);
         }
     }
 }

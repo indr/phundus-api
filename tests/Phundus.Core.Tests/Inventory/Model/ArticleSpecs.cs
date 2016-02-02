@@ -75,6 +75,29 @@
     }
 
     [Subject(typeof (Article))]
+    public class when_changing_description : article_concern
+    {
+        private Establish ctx = () =>
+        {
+            theNewDescription = "The new description";
+        };
+
+        private static string theNewDescription;
+
+        private Because of = () => sut.ChangeDescription(theInitiator, theNewDescription);
+
+        private It should_have_new_description = () =>
+            sut.Description.ShouldEqual(theNewDescription);
+
+        private It should_public_description_changed = () =>
+            publisher.WasToldTo(x => x.Publish(
+                Arg<DescriptionChanged>.Matches(p => p.ArticleGuid == theArticleGuid.Id
+                                                     && p.Description == theNewDescription
+                                                     && Equals(p.Initiator, theInitiator)
+                                                     && p.OwnerId == theOwner.OwnerId.Id)));
+    }
+
+    [Subject(typeof (Article))]
     public class when_changing_prices : article_concern
     {
         private static decimal theNewPublicPrice;
