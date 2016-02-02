@@ -250,13 +250,20 @@
     [Subject(typeof (Article))]
     public class when_adding_an_image : article_concern
     {
-        private Because of = () => sut.AddImage("fileName", "fileType", 123456);
+        private Because of = () => sut.AddImage(theInitiator, "fileName", "fileType", 123456);
 
         private It should_add_to_images_collection = () =>
             sut.Images.ShouldNotBeEmpty();
 
         private It should_publish_image_added = () =>
-            publisher.WasToldTo(x => x.Publish(Arg<ImageAdded>.Is.NotNull));
+            Published<ImageAdded>(p =>
+                p.IsPreviewImage == true
+                && p.ArticleGuid == theArticleGuid.Id
+                && p.FileLength == 123456
+                && p.FileName == "fileName"
+                && p.FileType == "fileType"
+                && Equals(p.Initiator, theInitiator)
+                && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_set_is_preview = () =>
             sut.Images.First().IsPreview.ShouldBeTrue();
@@ -267,8 +274,8 @@
     {
         private Because of = () =>
         {
-            sut.AddImage("first.jpg", "image/jpeg", 1234);
-            sut.AddImage("second.jpg", "image/jpeg", 2345);
+            sut.AddImage(theInitiator, "first.jpg", "image/jpeg", 1234);
+            sut.AddImage(theInitiator, "second.jpg", "image/jpeg", 2345);
         };
 
         private It should_not_set_is_preview = () =>
@@ -280,9 +287,9 @@
     {
         private Establish ctx = () => sut_setup.run(x =>
         {
-            x.AddImage("first.jpg", "image/jpeg", 1234);
-            x.AddImage("second.jpg", "image/jpeg", 2345);
-            x.AddImage("third.jpg", "image/jpeg", 3456);
+            x.AddImage(theInitiator, "first.jpg", "image/jpeg", 1234);
+            x.AddImage(theInitiator, "second.jpg", "image/jpeg", 2345);
+            x.AddImage(theInitiator, "third.jpg", "image/jpeg", 3456);
         });
 
         private Because of = () => sut.RemoveImage("first.jpg");
@@ -305,8 +312,8 @@
     {
         private Establish ctx = () => sut_setup.run(x =>
         {
-            x.AddImage("first.jpg", "image/jpeg", 1234);
-            x.AddImage("second.jpg", "image/jpeg", 1234);
+            x.AddImage(theInitiator, "first.jpg", "image/jpeg", 1234);
+            x.AddImage(theInitiator, "second.jpg", "image/jpeg", 1234);
         });
 
         private Because of = () =>

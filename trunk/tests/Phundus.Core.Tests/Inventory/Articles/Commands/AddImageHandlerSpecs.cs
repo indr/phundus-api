@@ -22,7 +22,7 @@
             theImage.WhenToldTo(x => x.Id).Return(theImageId);
             theArticle = make.Article(theOwner);
             theArticle.WhenToldTo(
-                x => x.AddImage(Arg<string>.Is.Anything, Arg<string>.Is.Anything, Arg<long>.Is.Anything))
+                x => x.AddImage(Arg<Initiator>.Is.Anything, Arg<string>.Is.Anything, Arg<string>.Is.Anything, Arg<long>.Is.Anything))
                 .Return(theImage);
             articleRepository.setup(x => x.GetById(theArticle.Id)).Return(theArticle);
 
@@ -37,6 +37,6 @@
             command.ResultingImageId.ShouldEqual(theImageId);
 
         private It tell_article_to_add_image = () =>
-            theArticle.WasToldTo(x => x.AddImage("file.jpg", "image/jpeg", 12345));
+            theArticle.WasToldTo(x => x.AddImage(theInitiator, "file.jpg", "image/jpeg", 12345));
     }
 }

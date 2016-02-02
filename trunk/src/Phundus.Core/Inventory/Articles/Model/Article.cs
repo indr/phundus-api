@@ -136,7 +136,7 @@
                 Specification));
         }
 
-        public virtual Image AddImage(string fileName, string type, long length)
+        public virtual Image AddImage(Initiator initiator, string fileName, string type, long length)
         {
             var image = new Image
             {
@@ -148,7 +148,7 @@
             };
             Images.Add(image);
 
-            EventPublisher.Publish(new ImageAdded());
+            EventPublisher.Publish(new ImageAdded(initiator, ArticleId, ArticleGuid, Owner.OwnerId, image.FileName, image.Type, image.Length, image.IsPreview));
 
             return image;
         }
