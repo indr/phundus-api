@@ -220,12 +220,7 @@ namespace Phundus.Rest.Api
             }
             if (requestContent.Description != null)
             {
-                Dispatch(new UpdateDescription
-                {
-                    ArticleId = articleId,
-                    Description = requestContent.Description,
-                    InitiatorId = CurrentUserId
-                });
+                Dispatch(new UpdateDescription(CurrentUserId, articleId, requestContent.Description));
             }
             if (requestContent.Specification != null)
             {
