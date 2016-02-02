@@ -224,12 +224,7 @@ namespace Phundus.Rest.Api
             }
             if (requestContent.Specification != null)
             {
-                Dispatch(new UpdateSpecification
-                {
-                    ArticleId = articleId,
-                    Specification = requestContent.Specification,
-                    InitiatorId = CurrentUserId
-                });
+                Dispatch(new UpdateSpecification(CurrentUserId, articleId, requestContent.Specification));
             }
 
             return new ArticlesPatchOkResponseContent

@@ -125,14 +125,15 @@
             EventPublisher.Publish(new DescriptionChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId, Description));
         }
 
-        public virtual void ChangeSpecification(string specification)
+        public virtual void ChangeSpecification(Initiator initiator, string specification)
         {
             if (_specification != null && specification == _specification)
                 return;
 
             Specification = specification;
 
-            EventPublisher.Publish(new SpecificationChanged());
+            EventPublisher.Publish(new SpecificationChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId,
+                Specification));
         }
 
         public virtual Image AddImage(string fileName, string type, long length)
