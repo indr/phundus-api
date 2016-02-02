@@ -32,6 +32,7 @@
 
             Delete.FromTable("Es_Dashboard_EventLog").InSchema(SchemaName).AllRows();
             Delete.FromTable("Es_IdentityAccess_Relationships").AllRows();
+            Delete.FromTable("Es_Inventory_Articles").AllRows();
 
             Delete.FromTable("ProcessedNotificationTracker").InSchema(SchemaName).AllRows();
             Delete.FromTable("StoredEvents").InSchema(SchemaName).AllRows();
