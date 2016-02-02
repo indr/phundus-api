@@ -5,16 +5,16 @@ namespace Phundus.Tests.Inventory.Articles.Commands
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Commands;
-    using Phundus.Inventory.Articles.Model;    
-    using Rhino.Mocks;
+    using Phundus.Inventory.Articles.Model;
 
-    [Subject(typeof(UpdateArticleHandler))]
-    public class when_update_article_command_is_handled : article_command_handler_concern<UpdateArticle, UpdateArticleHandler>
+    [Subject(typeof (UpdateArticleHandler))]
+    public class when_update_article_command_is_handled :
+        article_command_handler_concern<UpdateArticle, UpdateArticleHandler>
     {
+        private const int articleId = 1;
         private static Guid ownerId;
         private static Owner owner;
         private static StoreId storeId;
-        private const int articleId = 1;
         private static UserId initiatorId;
 
         private static Article article;
@@ -32,9 +32,10 @@ namespace Phundus.Tests.Inventory.Articles.Commands
             command.ArticleId = articleId;
         };
 
-        private It should_ask_for_chief_privileges = () => memberInRole.WasToldTo(x => x.ActiveManager(ownerId, initiatorId));
+        private It should_ask_for_chief_privileges = () =>
+            memberInRole.WasToldTo(x => x.ActiveManager(ownerId, initiatorId));
 
-        private It should_publish_article_updated =
-            () => publisher.WasToldTo(x => x.Publish(Arg<ArticleUpdated>.Is.NotNull));
+        private It should_publish_article_updated = () =>
+            Published<ArticleUpdated>(p => p != null);
     }
 }
