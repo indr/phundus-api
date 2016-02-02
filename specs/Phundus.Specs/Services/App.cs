@@ -409,5 +409,20 @@
         {
             _apiClient.ArticlesApi.Patch(new {articleId, prices = new {publicPrice, memberPrice}});
         }
+
+        public void UpdateArticleDescription(int articleId, string description)
+        {
+            _apiClient.ArticlesApi.Patch(new {articleId, description = description});
+        }
+
+        public void UpdateArticleSpecification(int articleId, string specification)
+        {
+            _apiClient.ArticlesApi.Patch(new { articleId, specification = specification });
+        }
+
+        public void UpdateArticleDetails(int articleId, string name, string brand, string color, int grossStock)
+        {
+            _apiClient.ArticlesApi.Patch(new {articleId, name, brand, color, grossStock});
+        }
     }
 }

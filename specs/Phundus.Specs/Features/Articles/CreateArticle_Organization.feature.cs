@@ -93,11 +93,13 @@ this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Alias",
+                        "Name",
                         "Gross stock",
                         "Member price",
                         "Public price"});
             table2.AddRow(new string[] {
                         "Apple",
+                        "Boskop",
                         "3",
                         "1.50",
                         "1.60"});
@@ -107,10 +109,12 @@ this.FeatureBackground();
  testRunner.Then("I should see ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
                         "Gross stock",
                         "Member price",
                         "Public price"});
             table3.AddRow(new string[] {
+                        "Boskop",
                         "3",
                         "1.50",
                         "1.60"});
@@ -137,6 +141,89 @@ this.FeatureBackground();
  testRunner.When("I try to query all the organizations articles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 23
  testRunner.Then("I should see 2 articles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update article description")]
+        public virtual void UpdateArticleDescription()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update article description", ((string[])(null)));
+#line 25
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 26
+ testRunner.Given("I created an article in the default store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 27
+ testRunner.When("I try to update the article description:", "This article has a\nmultiline\ndescription.", ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 33
+ testRunner.Then("the article description is:", "This article has a\nmultiline\ndescription.", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update article specification")]
+        public virtual void UpdateArticleSpecification()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update article specification", ((string[])(null)));
+#line 40
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 41
+ testRunner.Given("I created an article in the default store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 42
+ testRunner.When("I try to update the article specification:", "This article has a\nmultiline\nspecification.", ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 48
+ testRunner.Then("the article specification is:", "This article has a\nmultiline\nspecification.", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update article details")]
+        public virtual void UpdateArticleDetails()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update article details", ((string[])(null)));
+#line 55
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 56
+ testRunner.Given("I created an article in the default store", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Brand",
+                        "Color",
+                        "Gross stock"});
+            table4.AddRow(new string[] {
+                        "Volley",
+                        "Wilson",
+                        "White",
+                        "10"});
+#line 57
+ testRunner.When("I try to update the article details", ((string)(null)), table4, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Brand",
+                        "Color",
+                        "Gross stock"});
+            table5.AddRow(new string[] {
+                        "Volley",
+                        "Wilson",
+                        "White",
+                        "10"});
+#line 60
+ testRunner.Then("the article should equal", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
