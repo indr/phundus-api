@@ -25,7 +25,6 @@ namespace Phundus.Rest.Api
         private readonly IMemberInRole _memberInRole;
         private readonly IReservationRepository _reservationRepository;
         private readonly IStoreQueries _storeQueries;
-        private readonly IUserQueries _userQueries;
 
         public ArticlesController(IMemberInRole memberInRole, IStoreQueries storeQueries,
             IArticleQueries articleQueries, IAvailabilityQueries availabilityQueries,
@@ -43,7 +42,6 @@ namespace Phundus.Rest.Api
             _articleQueries = articleQueries;
             _availabilityQueries = availabilityQueries;
             _reservationRepository = reservationRepository;
-            _userQueries = userQueries;
         }
 
         private OwnerId GetOwnerId(string ownerId)

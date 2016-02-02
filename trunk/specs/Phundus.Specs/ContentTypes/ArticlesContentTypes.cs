@@ -35,6 +35,12 @@
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        [JsonProperty("brand")]
+        public string Brand { get; set; }
+
+        [JsonProperty("Color")]
+        public string Color { get; set; }
+
         [JsonProperty("price")]
         public decimal Price { get; set; }
 
@@ -49,5 +55,11 @@
 
         [JsonProperty("ownerId")]
         public Guid OwnerId { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [JsonProperty("specification")]
+        public string Specification { get; set; }
     }
 }

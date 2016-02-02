@@ -5,7 +5,6 @@
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
-    using NHibernate;
 
     public class EsArticlesUpdater : NHibernateReadModelBase<ArticlesViewRow>, IDomainEventHandler
     {
@@ -24,11 +23,7 @@
             if (domainEvent.ArticleGuid == Guid.Empty)
                 return;
 
-            var row = Session.QueryOver<ArticlesViewRow>().Where(p => p.ArticleGuid == domainEvent.ArticleGuid).SingleOrDefault();
-            
-            if (row == null) 
-                row = new ArticlesViewRow();
-
+            var row = new ArticlesViewRow();
             row.ArticleGuid = domainEvent.ArticleGuid;
             row.ArticleId = domainEvent.ArticleId;
             row.CreatedAtUtc = domainEvent.OccuredOnUtc;
@@ -43,6 +38,57 @@
 
             Session.SaveOrUpdate(row);
             Session.Flush();
+        }
+
+        public void Process(ArticleDeleted domainEvent)
+        {
+            var row = FindByArticleGuid(domainEvent.ArticleGuid);
+            Session.Delete(row);
+        }
+
+        public void Process(ArticleDetailsChanged domainEvent)
+        {
+            var row = FindByArticleGuid(domainEvent.ArticleGuid);
+            row.Name = domainEvent.Name;
+            row.Brand = domainEvent.Brand;
+            row.Color = domainEvent.Color;
+            Session.SaveOrUpdate(row);
+        }
+
+        public void Process(GrossStockChanged domainEvent)
+        {
+            var row = FindByArticleGuid(domainEvent.ArticleGuid);
+            row.GrossStock = domainEvent.NewGrossStock;
+            Session.SaveOrUpdate(row);
+        }
+
+        public void Process(DescriptionChanged domainEvent)
+        {
+            var row = FindByArticleGuid(domainEvent.ArticleGuid);
+            row.Description = domainEvent.Description;
+            Session.SaveOrUpdate(row);
+        }
+
+        public void Process(SpecificationChanged domainEvent)
+        {
+            var row = FindByArticleGuid(domainEvent.ArticleGuid);
+            row.Specification = domainEvent.Specification;
+            Session.SaveOrUpdate(row);
+        }
+
+        public void Process(PricesChanged domainEvent)
+        {
+            var row = FindByArticleGuid(domainEvent.ArticleGuid);
+            row.PublicPrice = domainEvent.PublicPrice;
+            row.MemberPrice = domainEvent.MemberPrice;
+            Session.SaveOrUpdate(row);
+        }
+
+        private ArticlesViewRow FindByArticleGuid(Guid articleGuid)
+        {
+            return Session.QueryOver<ArticlesViewRow>()
+                .Where(p => p.ArticleGuid == articleGuid)
+                .SingleOrDefault();
         }
     }
 

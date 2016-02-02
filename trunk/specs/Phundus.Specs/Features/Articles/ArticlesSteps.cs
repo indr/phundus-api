@@ -89,6 +89,14 @@
             _articles = App.QueryArticlesByOrganization(Ctx.Organization);
         }
 
+        [When(@"I try to update the article details")]
+        public void WhenITryToUpdateTheArticleDetails(Table table)
+        {
+            var row = table.Rows[0];
+            App.UpdateArticleDetails(Ctx.Article.ArticleId, row["Name"], row["Brand"], row["Color"],
+                Convert.ToInt32(row["Gross stock"]));
+        }
+
         [Then(@"the article should equal")]
         public void ThenTheArticleShouldEqual(Table table)
         {
@@ -108,6 +116,32 @@
         {
             Assert.That(_articles, Is.Not.Null);
             Assert.That(_articles.Results.Count, Is.EqualTo(number));
+        }
+
+        [When(@"I try to update the article description:")]
+        public void WhenITryToUpdateTheArticleDescription(string multilineText)
+        {
+            App.UpdateArticleDescription(Ctx.Article.ArticleId, multilineText);
+        }
+
+        [Then(@"the article description is:")]
+        public void ThenTheArticleDescriptionIs(string multilineText)
+        {
+            var article = App.GetArticle(Ctx.Article);
+            Assert.That(article.Description, Is.EqualTo(multilineText));
+        }
+
+        [When(@"I try to update the article specification:")]
+        public void WhenITryToUpdateTheArticleSpecification(string multilineText)
+        {
+            App.UpdateArticleSpecification(Ctx.Article.ArticleId, multilineText);
+        }
+
+        [Then(@"the article specification is:")]
+        public void ThenTheArticleSpecificationIs(string multilineText)
+        {
+            var article = App.GetArticle(Ctx.Article);
+            Assert.That(article.Specification, Is.EqualTo(multilineText));
         }
     }
 }
