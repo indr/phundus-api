@@ -237,7 +237,8 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual HttpResponseMessage Delete(int articleId)
         {
-            Dispatcher.Dispatch(new DeleteArticle {ArticleId = articleId, InitiatorId = CurrentUserId});
+            Dispatcher.Dispatch(new DeleteArticle(CurrentUserId, articleId));
+
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

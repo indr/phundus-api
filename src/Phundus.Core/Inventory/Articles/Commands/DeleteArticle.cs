@@ -1,33 +1,56 @@
 ﻿namespace Phundus.Inventory.Articles.Commands
 {
+    using System;
+    using Authorization;
+    using Authorize;
     using Common.Domain.Model;
     using Cqrs;
     using Ddd;
-    using IdentityAccess.Queries;
+    using Integration.IdentityAccess;
     using Model;
     using Repositories;
 
     public class DeleteArticle
     {
+        public DeleteArticle(InitiatorId initiatorId, int articleId)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            InitiatorId = initiatorId;
+            ArticleId = articleId;
+        }
+
+        public InitiatorId InitiatorId { get; set; }
         public int ArticleId { get; set; }
-        public UserId InitiatorId { get; set; }
     }
 
     public class DeleteArticleHandler : IHandleCommand<DeleteArticle>
     {
-        public IArticleRepository ArticleRepository { get; set; }
+        private readonly IArticleRepository _articleRepository;
+        private readonly IAuthorize _authorize;
+        private readonly IInitiatorService _initiatorService;
 
-        public IMemberInRole MemberInRole { get; set; }
+        public DeleteArticleHandler(IAuthorize authorize, IInitiatorService initiatorService,
+            IArticleRepository articleRepository)
+        {
+            if (authorize == null) throw new ArgumentNullException("authorize");
+            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
+            if (articleRepository == null) throw new ArgumentNullException("articleRepository");
+            _authorize = authorize;
+            _initiatorService = initiatorService;
+            _articleRepository = articleRepository;
+        }
 
         public void Handle(DeleteArticle command)
         {
-            var article = ArticleRepository.GetById(command.ArticleId);
+            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
+            var article = _articleRepository.GetById(command.ArticleId);
 
-            MemberInRole.ActiveManager(article.Owner.OwnerId.Id, command.InitiatorId);
+            _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
 
-            ArticleRepository.Remove(article);
+            _articleRepository.Remove(article);
 
-            EventPublisher.Publish(new ArticleDeleted());
+            EventPublisher.Publish(new ArticleDeleted(initiator, article.ArticleId, article.ArticleGuid,
+                article.Owner.OwnerId));
         }
     }
 }
