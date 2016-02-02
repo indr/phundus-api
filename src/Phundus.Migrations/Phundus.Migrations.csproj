@@ -163,6 +163,8 @@
     <Compile Include="2016\01\M201601212344_Add_ArticleGuid_To_Dm_Inventory_Article.cs" />
     <Compile Include="2016\01\M201601220608_Add_MemberPrice_To_Dm_Inventory_Article.cs" />
     <Compile Include="2016\01\M201601221416_Add_Owner_Type_To_Dm_Inventory_Article.cs" />
+    <Compile Include="2016\02\M201602020534_Create_or_populate_ArticleCreated.cs" />
+    <Compile Include="2016\02\M201602020640_Create_table_Es_Inventory_Articles.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
