@@ -28,6 +28,7 @@
 
         private It should_add_store_to_repository = () => storeRepository.WasToldTo(x => x.Add(Arg<Store>.Is.NotNull));
 
-        private It should_publish_store_opened = () => publisher.WasToldTo(x => x.Publish(Arg<StoreOpened>.Is.NotNull));
+        private It should_publish_store_opened = () =>
+            Published<StoreOpened>(p => p != null);
     }
 }

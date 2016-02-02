@@ -38,7 +38,8 @@
         protected static CartItemId AddCartItem(LessorId lessorId)
         {
             var anArticle = make.Article(lessorId.Id);
-            articleService.setup(x => x.GetById(anArticle.LessorId, anArticle.ArticleId, new LesseeId(theCart.UserGuid))).Return(anArticle);
+            articleService.setup(x => x.GetById(anArticle.LessorId, anArticle.ArticleId, new LesseeId(theCart.UserGuid)))
+                .Return(anArticle);
             return theCart.AddItem(anArticle, DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
         }
     }
@@ -48,10 +49,11 @@
     {
         private Establish ctx = () => catchException = true;
 
-        private It should_not_add_to_repository = () => orderRepository.WasNotToldTo(x => x.Add(Arg<Order>.Is.Anything));
+        private It should_not_add_to_repository = () =>
+            orderRepository.WasNotToldTo(x => x.Add(Arg<Order>.Is.Anything));
 
-        private It should_not_publish_order_placed =
-            () => publisher.WasNotToldTo(x => x.Publish(Arg<OrderPlaced>.Is.Anything));
+        private It should_not_publish_order_placed = () =>
+            NotPublished<OrderPlaced>();
 
         private It should_throw_exception_with_message = () =>
             caughtException.Message.ShouldEqual("Your cart is empty, there is no order to place.");
@@ -72,10 +74,11 @@
             AddCartItem(lessorId: theOtherLessorId);
         };
 
-        private It should_not_add_to_repository = () => orderRepository.WasNotToldTo(x => x.Add(Arg<Order>.Is.Anything));
+        private It should_not_add_to_repository = () =>
+            orderRepository.WasNotToldTo(x => x.Add(Arg<Order>.Is.Anything));
 
-        private It should_not_publish_order_placed =
-            () => publisher.WasNotToldTo(x => x.Publish(Arg<OrderPlaced>.Is.Anything));
+        private It should_not_publish_order_placed = () =>
+            NotPublished<OrderPlaced>();
 
         private It should_throw_exception_with_message = () =>
             caughtException.Message.ShouldEqual(
@@ -103,9 +106,10 @@
         private It should_add_to_repository_with_two_items =
             () => orderRepository.WasToldTo(x => x.Add(Arg<Order>.Matches(p => p.Items.Count == 2)));
 
-        private It should_publish_order_placed = () => publisher.WasToldTo(x => x.Publish(Arg<OrderPlaced>.Matches(p =>
-            p.OrderId == theResultingOrderId
-            && p.LessorId == theLessor.LessorId.Id)));
+        private It should_publish_order_placed = () =>
+            Published<OrderPlaced>(p =>
+                p.OrderId == theResultingOrderId
+                && p.LessorId == theLessor.LessorId.Id);
 
         private It should_set_resulting_order_id =
             () => command.ResultingOrderId.ShouldEqual(theResultingOrderId);

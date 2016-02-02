@@ -49,8 +49,8 @@
                 x.Enforce(Arg<InitiatorId>.Is.Equal(theInitiatorId),
                     Arg<CreateArticleAccessObject>.Matches(p => Equals(p.OwnerId, theOwner.OwnerId))));
 
-        public It should_publish_article_created =
-            () => publisher.WasToldTo(x => x.Publish(Arg<ArticleCreated>.Matches(p =>
+        public It should_publish_article_created = () =>
+            Published<ArticleCreated>(p =>
                 p.ArticleGuid == theArticleGuid.Id
                 && p.GrossStock == theGrossStock
                 && p.Initiator.InitiatorGuid == theInitiatorId.Id
@@ -58,7 +58,7 @@
                 && p.Name == theName
                 && Equals(p.Owner.OwnerId, theOwner.OwnerId)
                 && p.PublicPrice == thePublicPrice
-                && p.StoreId == theStore.Id.Id)));
+                && p.StoreId == theStore.Id.Id);
 
         public It should_set_resulting_article_id = () => command.ResultingArticleId.ShouldEqual(theArticleId);
     }
