@@ -135,6 +135,7 @@
     <Compile Include="Inventory\Events\ArticleDeletedSpecs.cs" />
     <Compile Include="Inventory\Events\ArticleDetailsChangedSpecs.cs" />
     <Compile Include="Inventory\Events\DescriptionChangedSpecs.cs" />
+    <Compile Include="Inventory\Events\ImageAddedSpecs.cs" />
     <Compile Include="Inventory\Events\PricesChangedSpecs.cs" />
     <Compile Include="Inventory\Events\SpecificationChangedSpecs.cs" />
     <Compile Include="Inventory\Model\ArticleSpecs.cs" />
