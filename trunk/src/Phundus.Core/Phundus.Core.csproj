@@ -223,6 +223,7 @@
     <Compile Include="Inventory\Articles\Exceptions\ImageNotFoundException.cs" />
     <Compile Include="Inventory\Articles\Model\ArticleCreated.cs" />
     <Compile Include="Inventory\Articles\Model\PreviewImageChanged.cs" />
+    <Compile Include="Inventory\Articles\Model\PricesChanged.cs" />
     <Compile Include="Inventory\Articles\Model\SpecificationChanged.cs" />
     <Compile Include="Inventory\Articles\Model\ArticleUpdated.cs" />
     <Compile Include="Inventory\Articles\Commands\CreateArticle.cs" />
@@ -237,6 +238,7 @@
     <Compile Include="Inventory\Authorize\Manage.cs" />
     <Compile Include="Inventory\Queries\ArticleReadModel.cs" />
     <Compile Include="Inventory\Queries\Dtos\StoreDto.cs" />
+    <Compile Include="Inventory\Queries\EventSourcedViewsUpdaters\ArticlesViewRow.cs" />
     <Compile Include="Inventory\Queries\IArticleQueries.cs" />
     <Compile Include="Inventory\Queries\IImageQueries.cs" />
     <Compile Include="Inventory\Articles\Repositories\IArticleRepository.cs" />

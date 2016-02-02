@@ -5,6 +5,7 @@ namespace Phundus.Migrations
     using System.Data;
     using System.Data.SqlClient;
     using System.IO;
+    using System.Reflection;
     using Common.Domain.Model;
     using ProtoBuf;
 
@@ -77,6 +78,34 @@ VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
             _commands.Add(command);
         }
 
+        protected void UpdateStoredEvent(Guid eventGuid, object domainEvent)
+        {
+            var stream = new MemoryStream();
+            Serializer.Serialize(stream, domainEvent);
+
+            var command =
+                CreateCommand(
+                    @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventGuid] = @EventGuid");
+            command.Parameters.Add(new SqlParameter(@"EventGuid", eventGuid));
+            command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
+            
+            _commands.Add(command);
+        }
+
+        protected void UpdateSerialization(long eventId, object domainEvent)
+        {
+            var stream = new MemoryStream();
+            Serializer.Serialize(stream, domainEvent);
+
+            var command = Connection.CreateCommand();
+            command.Transaction = Transaction;
+            command.Parameters.Add(new SqlParameter(@"EventId", eventId));
+            command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
+            command.CommandText =
+                @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventId] = @EventId";
+            command.ExecuteNonQuery();
+        }
+
         protected Guid GetOrganizationGuid(int organizationIntegralId)
         {
             Guid result;
@@ -110,20 +139,6 @@ VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
                 while (reader.Read())
                     result.Add(reader.GetInt32(0), reader.GetGuid(1));
             return result;
-        }
-
-        protected void UpdateSerialization(long eventId, object domainEvent)
-        {
-            var stream = new MemoryStream();
-            Serializer.Serialize(stream, domainEvent);
-
-            var command = Connection.CreateCommand();
-            command.Transaction = Transaction;
-            command.Parameters.Add(new SqlParameter(@"EventId", eventId));
-            command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
-            command.CommandText =
-                @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventId] = @EventId";
-            command.ExecuteNonQuery();
         }
 
         internal IList<StoredEvent> FindStoredEvents(string typeName)
@@ -206,10 +221,18 @@ WHERE [TypeName] = @TypeName";
             public byte[] Serialization;
             public string TypeName;
 
-            public T Deserialize<T>()
+            public T Deserialize<T>() where T : DomainEvent
             {
-                return Serializer.Deserialize<T>(new MemoryStream(Serialization));
+                var domainEvent = Serializer.Deserialize<T>(new MemoryStream(Serialization));
+                if (domainEvent == null)
+                    throw new InvalidOperationException("Error deserializing event.");
+                EventGuidProperty.SetValue(domainEvent, EventGuid, null);
+                OccuredOnUtcProp.SetValue(domainEvent, OccuredOnUtc, null);
+                return domainEvent;
             }
+
+            private static readonly PropertyInfo EventGuidProperty = typeof(DomainEvent).GetProperty("EventGuid");
+            private static readonly PropertyInfo OccuredOnUtcProp = typeof(DomainEvent).GetProperty("OccuredOnUtc");
         }
     }
 }

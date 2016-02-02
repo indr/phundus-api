@@ -3,6 +3,7 @@ namespace Phundus.Migrations
     using System;
     using System.Linq;
     using System.Runtime.Serialization;
+    using Common.Domain.Model;
     using FluentMigrator;
 
     [Migration(201601191127)]
@@ -37,7 +38,7 @@ namespace Phundus.Migrations
 
         
         [DataContract]
-        internal class MembershipApplicationFiled
+        internal class MembershipApplicationFiled : DomainEvent
         {
             [DataMember(Order = 4)]
             public Guid InitiatorId { get; set; }
