@@ -222,10 +222,11 @@
     <Compile Include="Inventory\Articles\Commands\UpdateSpecification.cs" />
     <Compile Include="Inventory\Articles\Exceptions\ImageNotFoundException.cs" />
     <Compile Include="Inventory\Articles\Model\ArticleCreated.cs" />
+    <Compile Include="Inventory\Articles\Model\ArticleDetailsChanged.cs" />
     <Compile Include="Inventory\Articles\Model\PreviewImageChanged.cs" />
     <Compile Include="Inventory\Articles\Model\PricesChanged.cs" />
     <Compile Include="Inventory\Articles\Model\SpecificationChanged.cs" />
-    <Compile Include="Inventory\Articles\Model\ArticleUpdated.cs" />
+    <Compile Include="Inventory\Articles\Model\GrossStockChanged.cs" />
     <Compile Include="Inventory\Articles\Commands\CreateArticle.cs" />
     <Compile Include="Inventory\Articles\Commands\UpdateArticle.cs" />
     <Compile Include="Inventory\Articles\Model\ArticleDeleted.cs" />

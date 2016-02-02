@@ -6,36 +6,35 @@ namespace Phundus.Tests.Inventory.Articles.Commands
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Commands;
     using Phundus.Inventory.Articles.Model;
+    using Phundus.Inventory.Authorize;
 
     [Subject(typeof (UpdateArticleHandler))]
     public class when_update_article_command_is_handled :
         article_command_handler_concern<UpdateArticle, UpdateArticleHandler>
     {
-        private const int articleId = 1;
-        private static Guid ownerId;
-        private static Owner owner;
-        private static StoreId storeId;
-        private static UserId initiatorId;
+        private static Article theArticle;
+        private static Owner theOwner;
+        private static string theName = "The name";
+        private static string theBrand = "The brand";
+        private static string theColor = "The color";
+        private static int theGrossStock = 123;
 
-        private static Article article;
-
-        public Establish c = () =>
+        private Establish ctx = () =>
         {
-            initiatorId = new UserId();
-            ownerId = Guid.NewGuid();
-            owner = new Owner(new OwnerId(ownerId), "Owner", OwnerType.Organization);
-            article = make.Article(owner);
-            articleRepository.WhenToldTo(x => x.GetById(articleId)).Return(article);
+            theArticle = make.Article();
+            theOwner = theArticle.Owner;
+            articleRepository.WhenToldTo(x => x.GetById(theArticle.Id)).Return(theArticle);
 
-            command = new UpdateArticle();
-            command.InitiatorId = initiatorId;
-            command.ArticleId = articleId;
+            command = new UpdateArticle(theInitiatorId, theArticle.ArticleId.Id, theName, theBrand, theColor, theGrossStock);
         };
 
-        private It should_ask_for_chief_privileges = () =>
-            memberInRole.WasToldTo(x => x.ActiveManager(ownerId, initiatorId));
+        private It should_enforce_initiator_to_manage_articles = () =>
+            EnforcedInitiatorTo<ManageArticlesAccessObject>(p => Equals(p.OwnerId, theOwner.OwnerId));
 
-        private It should_publish_article_updated = () =>
-            Published<ArticleUpdated>(p => p != null);
+        private It should_tell_article_to_change_details = () =>
+            theArticle.WasToldTo(x => x.ChangeDetails(theInitiator, theName, theBrand, theColor));
+
+        private It should_tell_article_to_change_gross_stock = () =>
+            theArticle.WasToldTo(x => x.ChangeGrossStock(theInitiator, theGrossStock));
     }
 }

@@ -75,6 +75,42 @@
     }
 
     [Subject(typeof (Article))]
+    public class when_changing_details : article_concern
+    {
+        private static string theNewName;
+        private static string theNewBrand;
+        private static string theNewColor;
+
+        private Establish ctx = () =>
+        {
+            theNewName = "The new name";
+            theNewBrand = "The new brand";
+            theNewColor = "The new color";
+        };
+
+        private Because of = () =>
+            sut.ChangeDetails(theInitiator, theNewName, theNewBrand, theNewColor);
+
+        private It should_have_the_new_brand = () =>
+            sut.Brand.ShouldEqual(theNewBrand);
+
+        private It should_have_the_new_color = () =>
+            sut.Color.ShouldEqual(theNewColor);
+
+        private It should_have_the_new_name = () =>
+            sut.Name.ShouldEqual(theNewName);
+
+        private It should_public_details_changed = () =>
+            Published<ArticleDetailsChanged>(p =>
+                p.ArticleGuid == theArticleGuid.Id
+                && p.Brand == theNewBrand
+                && p.Color == theNewColor
+                && Equals(p.Initiator, theInitiator)
+                && p.Name == theNewName
+                && p.OwnerId == theOwner.OwnerId.Id);
+    }
+
+    [Subject(typeof (Article))]
     public class when_changing_description : article_concern
     {
         private static string theNewDescription;
@@ -110,6 +146,29 @@
                                                        && Equals(p.Initiator, theInitiator)
                                                        && p.OwnerId == theOwner.OwnerId.Id
                                                        && p.Specification == theNewSpecification)));
+    }
+
+    [Subject(typeof (Article))]
+    public class when_changing_gross_stock : article_concern
+    {
+        private static int theNewGrossStock;
+
+        private Establish ctx = () =>
+            theNewGrossStock = theGrossStock + 1;
+
+        private Because of = () =>
+            sut.ChangeGrossStock(theInitiator, theNewGrossStock);
+
+        private It should_have_the_new_gross_stock = () =>
+            sut.GrossStock.ShouldEqual(theNewGrossStock);
+
+        private It should_publish_gross_stock_changed = () =>
+            Published<GrossStockChanged>(p =>
+                p.ArticleGuid == theArticleGuid.Id
+                && Equals(p.Initiator, theInitiator)
+                && p.NewGrossStock == theNewGrossStock
+                && p.OldGrossStock == theGrossStock
+                && p.OwnerId == theOwner.OwnerId.Id);
     }
 
     [Subject(typeof (Article))]
