@@ -4,6 +4,8 @@
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Model;
 
+
+
     [Subject(typeof (SpecificationChanged))]
     public class SpecificationChangedSpecs : domain_event_concern<SpecificationChanged>
     {

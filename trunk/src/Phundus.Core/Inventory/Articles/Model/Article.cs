@@ -203,5 +203,34 @@
 
             EventPublisher.Publish(new PricesChanged(initiator, Id, ArticleGuid, PublicPrice, MemberPrice));
         }
+
+        public virtual void ChangeDetails(Initiator initiator, string name, string brand, string color)
+        {
+            if (initiator == null) throw new ArgumentNullException("initiator");
+
+            if ((Name == name) && (Brand == brand) && (Color == color))
+                return;
+
+            Name = name;
+            Brand = brand;
+            Color = color;
+
+            EventPublisher.Publish(new ArticleDetailsChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId, Name,
+                Brand, Color));
+        }
+
+        public virtual void ChangeGrossStock(Initiator initiator, int grossStock)
+        {
+            if (initiator == null) throw new ArgumentNullException("initiator");
+
+            if (GrossStock == grossStock)
+                return;
+
+            var oldGrossStock = GrossStock;
+            GrossStock = grossStock;
+
+            EventPublisher.Publish(new GrossStockChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId, oldGrossStock,
+                GrossStock));
+        }
     }
 }

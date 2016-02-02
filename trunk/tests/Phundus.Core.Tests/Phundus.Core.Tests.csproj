@@ -122,8 +122,8 @@
     <Compile Include="IdentityAccess\Users\Model\UserSpecs.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
     <Compile Include="aggregate_concern_new.cs" />
-    <Compile Include="Inventory\Articles\Commands\AddImageSpecs.cs" />
-    <Compile Include="Inventory\Articles\Commands\RemoveImageSpecs.cs" />
+    <Compile Include="Inventory\Articles\Commands\AddImageCommandSpecs.cs" />
+    <Compile Include="Inventory\Articles\Commands\RemoveImageCommandSpecs.cs" />
     <Compile Include="Inventory\Articles\Commands\SetPreviewImageHandlerSpecs.cs" />
     <Compile Include="Inventory\Authorize\ManageArticleAccessObjectHandlerSpecs.cs" />
     <Compile Include="Inventory\Authorize\CreateArticleAccessObjectHandlerSpecs.cs" />
@@ -133,6 +133,7 @@
     <Compile Include="Inventory\Commands\UpdateSpecificationHandlerSpecs.cs" />
     <Compile Include="Inventory\Events\ArticleCreatedSpecs.cs" />
     <Compile Include="Inventory\Events\ArticleDeletedSpecs.cs" />
+    <Compile Include="Inventory\Events\ArticleDetailsChangedSpecs.cs" />
     <Compile Include="Inventory\Events\DescriptionChangedSpecs.cs" />
     <Compile Include="Inventory\Events\PricesChangedSpecs.cs" />
     <Compile Include="Inventory\Events\SpecificationChangedSpecs.cs" />

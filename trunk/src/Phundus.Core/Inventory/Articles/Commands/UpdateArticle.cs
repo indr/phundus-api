@@ -1,41 +1,65 @@
 ﻿namespace Phundus.Inventory.Articles.Commands
 {
+    using System;
+    using Authorization;
+    using Authorize;
     using Common.Domain.Model;
     using Cqrs;
     using Ddd;
-    using IdentityAccess.Queries;
+    using Integration.IdentityAccess;
     using Model;
     using Repositories;
 
     public class UpdateArticle
     {
-        public UserId InitiatorId { get; set; }
-        public int ArticleId { get; set; }
+        public UpdateArticle(InitiatorId initiatorId, int articleId, string name, string brand, string color,
+            int grossStock)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (name == null) throw new ArgumentNullException("name");
+            InitiatorId = initiatorId;
+            ArticleId = articleId;
+            Name = name;
+            Brand = brand;
+            Color = color;
+            GrossStock = grossStock;
+        }
 
-        public string Name { get; set; }
-        public string Brand { get; set; }
-        public int GrossStock { get; set; }
-        public string Color { get; set; }
+        public InitiatorId InitiatorId { get; protected set; }
+        public int ArticleId { get; protected set; }
+
+        public string Name { get; protected set; }
+        public string Brand { get; protected set; }
+        public string Color { get; protected set; }
+        public int GrossStock { get; protected set; }
     }
 
     public class UpdateArticleHandler : IHandleCommand<UpdateArticle>
     {
-        public IArticleRepository ArticleRepository { get; set; }
+        private readonly IArticleRepository _articleRepository;
+        private readonly IAuthorize _authorize;
+        private readonly IInitiatorService _initiatorService;
 
-        public IMemberInRole MemberInRole { get; set; }
+        public UpdateArticleHandler(IAuthorize authorize, IInitiatorService initiatorService,
+            IArticleRepository articleRepository)
+        {
+            if (authorize == null) throw new ArgumentNullException("authorize");
+            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
+            if (articleRepository == null) throw new ArgumentNullException("articleRepository");
+            _authorize = authorize;
+            _initiatorService = initiatorService;
+            _articleRepository = articleRepository;
+        }
 
         public void Handle(UpdateArticle command)
         {
-            var article = ArticleRepository.GetById(command.ArticleId);
+            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
+            var article = _articleRepository.GetById(command.ArticleId);
 
-            MemberInRole.ActiveManager(article.Owner.OwnerId.Id, command.InitiatorId);
+            _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
 
-            article.Name = command.Name;
-            article.Brand = command.Brand;
-            article.GrossStock = command.GrossStock;
-            article.Color = command.Color;
-
-            EventPublisher.Publish(new ArticleUpdated());
+            article.ChangeDetails(initiator, command.Name, command.Brand, command.Color);
+            article.ChangeGrossStock(initiator, command.GrossStock);
         }
     }
 }

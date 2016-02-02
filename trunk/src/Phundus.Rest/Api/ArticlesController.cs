@@ -203,15 +203,8 @@ namespace Phundus.Rest.Api
         {
             if (!String.IsNullOrWhiteSpace(requestContent.Name))
             {
-                Dispatch(new UpdateArticle
-                {
-                    ArticleId = articleId,
-                    Brand = requestContent.Brand,
-                    Color = requestContent.Color,
-                    GrossStock = requestContent.GrossStock,
-                    InitiatorId = CurrentUserId,
-                    Name = requestContent.Name
-                });
+                Dispatch(new UpdateArticle(CurrentUserId, articleId, requestContent.Name, requestContent.Brand,
+                    requestContent.Color, requestContent.GrossStock));
             }
             if (requestContent.Prices != null)
             {
