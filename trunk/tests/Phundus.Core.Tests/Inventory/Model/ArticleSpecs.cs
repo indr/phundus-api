@@ -77,24 +77,39 @@
     [Subject(typeof (Article))]
     public class when_changing_description : article_concern
     {
-        private Establish ctx = () =>
-        {
-            theNewDescription = "The new description";
-        };
-
         private static string theNewDescription;
+        private Establish ctx = () => { theNewDescription = "The new description"; };
 
         private Because of = () => sut.ChangeDescription(theInitiator, theNewDescription);
 
         private It should_have_new_description = () =>
             sut.Description.ShouldEqual(theNewDescription);
 
-        private It should_public_description_changed = () =>
+        private It should_publish_description_changed = () =>
             publisher.WasToldTo(x => x.Publish(
                 Arg<DescriptionChanged>.Matches(p => p.ArticleGuid == theArticleGuid.Id
                                                      && p.Description == theNewDescription
                                                      && Equals(p.Initiator, theInitiator)
                                                      && p.OwnerId == theOwner.OwnerId.Id)));
+    }
+
+    [Subject(typeof (Article))]
+    public class when_changing_specification : article_concern
+    {
+        private static string theNewSpecification;
+        private Establish ctx = () => theNewSpecification = "The new specification";
+
+        private Because of = () => sut.ChangeSpecification(theInitiator, theNewSpecification);
+
+        private It should_have_new_specification = () =>
+            sut.Specification.ShouldEqual(theNewSpecification);
+
+        private It should_publish_specification_changed = () =>
+            publisher.WasToldTo(x => x.Publish(
+                Arg<SpecificationChanged>.Matches(p => p.ArticleGuid == theArticleGuid.Id
+                                                       && Equals(p.Initiator, theInitiator)
+                                                       && p.OwnerId == theOwner.OwnerId.Id
+                                                       && p.Specification == theNewSpecification)));
     }
 
     [Subject(typeof (Article))]
