@@ -292,13 +292,24 @@
             x.AddImage(theInitiator, "third.jpg", "image/jpeg", 3456);
         });
 
-        private Because of = () => sut.RemoveImage("first.jpg");
+        private Because of = () =>
+            sut.RemoveImage(theInitiator, "first.jpg");
 
         private It should_publish_image_removed = () =>
-            publisher.WasToldTo(x => x.Publish(Arg<ImageRemoved>.Is.NotNull));
+            Published<ImageRemoved>(p =>
+                p.ArticleGuid == theArticleGuid.Id
+                && p.FileName == "first.jpg"
+                && p.Initiator == theInitiator
+                && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_publish_preview_image_changed = () =>
-            publisher.WasToldTo(x => x.Publish(Arg<PreviewImageChanged>.Is.NotNull));
+            Published<PreviewImageChanged>(p =>
+                p.ArticleGuid == theArticleGuid.Id
+                && p.FileLength == 2345
+                && p.FileName == "second.jpg"
+                && p.FileType == "image/jpeg"
+                && p.Initiator == theInitiator
+                && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_remove_from_images_collection = () =>
             sut.Images.ShouldNotContain(p => p.FileName == "first.jpg");

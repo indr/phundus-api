@@ -27,6 +27,6 @@
             memberInRole.WasToldTo(x => x.ActiveManager(theOwner.OwnerId.Id, theInitiatorId));
 
         private It should_tell_article_to_remove_image = () =>
-            theArticle.WasToldTo(x => x.RemoveImage(theFileName));
+            theArticle.WasToldTo(x => x.RemoveImage(theInitiator, theFileName));
     }
 }

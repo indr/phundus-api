@@ -25,8 +25,7 @@
             FileLength = fileLength;
         }
 
-        [Obsolete("protected")]
-        public PreviewImageChanged()
+        protected PreviewImageChanged()
         {
         }
 
