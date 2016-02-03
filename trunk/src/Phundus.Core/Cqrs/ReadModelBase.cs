@@ -5,11 +5,36 @@ namespace Phundus.Cqrs
 
     public abstract class ReadModelBase
     {
-        public Func<ISession> SessionFactory { get; set; }
+        private readonly Func<ISession> _sessionFactory;
+
+        public ReadModelBase(Func<ISession> sessionFactory)
+        {
+            if (sessionFactory == null) throw new ArgumentNullException("sessionFactory");
+            _sessionFactory = sessionFactory;
+        }
 
         protected virtual ISession Session
         {
-            get { return SessionFactory(); }
+            get { return _sessionFactory(); }
+        }
+    }
+
+    public abstract class ReadModelBase<TRow> : ReadModelBase where TRow : new()
+    {
+        protected ReadModelBase(Func<ISession> sessionFactory) : base(sessionFactory)
+        {
+        }
+
+        protected TRow CreateRow()
+        {
+            var result = new TRow();
+            Session.Save(result);
+            return result;
+        }
+
+        protected void Delete(TRow row)
+        {
+            Session.Delete(row);
         }
     }
 }

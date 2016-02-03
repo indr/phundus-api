@@ -1,7 +1,9 @@
 namespace Phundus.Shop.Queries
 {
+    using System;
     using System.Collections.Generic;
     using Cqrs;
+    using NHibernate;
 
     public interface IItemQueries
     {
@@ -10,6 +12,10 @@ namespace Phundus.Shop.Queries
 
     public class ItemQueriesReadModel : ReadModelBase, IItemQueries
     {
+        public ItemQueriesReadModel(Func<ISession> sessionFactory) : base(sessionFactory)
+        {
+        }
+
         public IList<ShopArticleSearchResultDto> Query(string globalSearch)
         {
             return new List<ShopArticleSearchResultDto>();

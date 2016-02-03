@@ -4,6 +4,7 @@
     using System.IO;
     using System.Net;
     using System.Net.Http;
+    using System.Web;
     using System.Web.Hosting;
     using System.Web.Http;
     using AttributeRouting;
@@ -16,7 +17,9 @@
         [GET("")]
         public virtual HttpResponseMessage Get()
         {
-            var fileName = HostingEnvironment.MapPath(@"~\App_Data\SchemaUpdate.sql");
+            //var fileName = HostingEnvironment.MapPath(@"~\App_Data\SchemaUpdate.sql");
+            var fileName = HttpContext.Current.Server.MapPath(@"~\App_Data\SchemaUpdate.sql");
+            
             if ((fileName == null) || (!File.Exists(fileName)))
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "");
 

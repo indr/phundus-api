@@ -5,9 +5,14 @@
     using Common;
     using Cqrs;
     using Integration.Shop;
+    using NHibernate;
 
     public class LessorQueries : NHibernateReadModelBase<LessorViewRow>, ILessorQueries
     {
+        public LessorQueries(Func<ISession> sessionFactory) : base(sessionFactory)
+        {
+        }
+
         public ILessor GetByGuid(Guid lessorGuid)
         {
             var result = QueryOver().Where(p => p.LessorGuid == lessorGuid).SingleOrDefault();

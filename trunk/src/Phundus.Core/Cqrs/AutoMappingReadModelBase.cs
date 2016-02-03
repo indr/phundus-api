@@ -5,10 +5,15 @@ namespace Phundus.Cqrs
     using System.Data;
     using System.Linq;
     using AutoMapper;
+    using NHibernate;
     using Paging;
 
     public abstract class AutoMappingReadModelBase : ReadModelBase
     {
+        protected AutoMappingReadModelBase(Func<ISession> sessionFactory) : base(sessionFactory)
+        {
+        }
+
         private IDataReader ExecuteReader(string sql)
         {
             return CreateCommand(sql).ExecuteReader();
