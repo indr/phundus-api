@@ -1,4 +1,4 @@
-﻿namespace Phundus.IdentityAccess.Queries.EventSourcedViewsUpdater
+﻿namespace Phundus.IdentityAccess.Projections
 {
     using System;
     using Common.Domain.Model;
@@ -6,7 +6,7 @@
     using Cqrs;
     using Organizations.Model;
 
-    public class EsRelationshipsUpdater : NHibernateReadModelBase<RelationshipViewRow>, IDomainEventHandler
+    public class RelationshipProjection : NHibernateReadModelBase<RelationshipProjectionRow>, IDomainEventHandler
     {
         public void Handle(DomainEvent domainEvent)
         {
@@ -35,12 +35,12 @@
 
         private void UpdateOrInsert(Guid userId, Guid organizationId, DateTime timestamp, string status)
         {
-            var row = Session.QueryOver<RelationshipViewRow>().Where(p =>
+            var row = Session.QueryOver<RelationshipProjectionRow>().Where(p =>
                 p.UserGuid == userId && p.OrganizationGuid == organizationId).SingleOrDefault();
 
             if (row == null)
             {
-                row = new RelationshipViewRow
+                row = new RelationshipProjectionRow
                 {
                     OrganizationGuid = organizationId,
                     UserGuid = userId,

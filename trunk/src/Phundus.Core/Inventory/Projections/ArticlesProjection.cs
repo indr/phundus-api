@@ -1,4 +1,4 @@
-﻿namespace Phundus.Inventory.Queries.EventSourcedViewsUpdaters
+﻿namespace Phundus.Inventory.Projections
 {
     using System;
     using Articles.Model;
@@ -6,7 +6,7 @@
     using Common.Notifications;
     using Cqrs;
 
-    public class EsArticlesUpdater : NHibernateReadModelBase<ArticlesViewRow>, IDomainEventHandler
+    public class ArticlesProjection : NHibernateReadModelBase<ArticlesProjectionRow>, IDomainEventHandler
     {
         public void Handle(DomainEvent domainEvent)
         {
@@ -23,7 +23,7 @@
             if (domainEvent.ArticleGuid == Guid.Empty)
                 return;
 
-            var row = new ArticlesViewRow();
+            var row = new ArticlesProjectionRow();
             row.ArticleGuid = domainEvent.ArticleGuid;
             row.ArticleId = domainEvent.ArticleId;
             row.CreatedAtUtc = domainEvent.OccuredOnUtc;
@@ -89,7 +89,7 @@
             });
         }
 
-        private void Update(Guid articleGuid, Action<ArticlesViewRow> action)
+        private void Update(Guid articleGuid, Action<ArticlesProjectionRow> action)
         {
             var row = FindByArticleGuid(articleGuid);
             if (row == null)
@@ -98,32 +98,11 @@
             Session.SaveOrUpdate(row);
         }
 
-        private ArticlesViewRow FindByArticleGuid(Guid articleGuid)
+        private ArticlesProjectionRow FindByArticleGuid(Guid articleGuid)
         {
-            return Session.QueryOver<ArticlesViewRow>()
+            return Session.QueryOver<ArticlesProjectionRow>()
                 .Where(p => p.ArticleGuid == articleGuid)
                 .SingleOrDefault();
         }
-    }
-
-    public class ArticlesViewRow
-    {
-        public virtual Guid RowGuid { get; set; }
-
-        public virtual int ArticleId { get; set; }
-        public virtual Guid ArticleGuid { get; set; }
-        public virtual DateTime CreatedAtUtc { get; set; }
-        public virtual Guid OwnerGuid { get; set; }
-        public virtual string OwnerName { get; set; }
-        public virtual OwnerType OwnerType { get; set; }
-        public virtual Guid StoreId { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Brand { get; set; }
-        public virtual string Color { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string Specification { get; set; }
-        public virtual decimal PublicPrice { get; set; }
-        public virtual decimal? MemberPrice { get; set; }
-        public virtual int GrossStock { get; set; }
     }
 }

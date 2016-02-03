@@ -1,4 +1,4 @@
-namespace Phundus.Dashboard.Querying
+namespace Phundus.Dashboard.Projections
 {
     using System.Collections.Generic;
     using Common.Domain.Model;
@@ -6,21 +6,17 @@ namespace Phundus.Dashboard.Querying
     using Cqrs;
     using IdentityAccess.Organizations.Model;
     using IdentityAccess.Users.Model;
-    using Records;
+    using Queries;
 
-    public interface IEventLogQueries
-    {
-        IEnumerable<EventLogRecord> FindMostRecent20();
-    }
-
-    public class EventLogReadModel : NHibernateReadModelBase<EventLogRecord>, IEventLogQueries, IDomainEventHandler
+    public class EventLogProjection : NHibernateReadModelBase<EventLogProjectionRow>, IEventLogQueries,
+        IDomainEventHandler
     {
         public void Handle(DomainEvent domainEvent)
         {
             Process((dynamic) domainEvent);
         }
 
-        public IEnumerable<EventLogRecord> FindMostRecent20()
+        public IEnumerable<EventLogProjectionRow> FindMostRecent20()
         {
             return QueryOver().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
         }
@@ -49,24 +45,27 @@ namespace Phundus.Dashboard.Querying
         public void Process(MembershipApplicationFiled domainEvent)
         {
             var record = CreateRecord(domainEvent);
-            record.Text = string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} beantragt.",
-                domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
+            record.Text =
+                string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} beantragt.",
+                    domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
             Insert(record);
         }
 
         public void Process(MembershipApplicationApproved domainEvent)
         {
             var record = CreateRecord(domainEvent);
-            record.Text = string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} bestätigt.",
-                domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
+            record.Text =
+                string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} bestätigt.",
+                    domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
             Insert(record);
         }
 
         public void Process(MembershipApplicationRejected domainEvent)
         {
             var record = CreateRecord(domainEvent);
-            record.Text = string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} abgelehnt.",
-                domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
+            record.Text =
+                string.Format("Benutzer {2} hat Mitgliedschaft für Benutzer {0} bei Organization {1} abgelehnt.",
+                    domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.InitiatorId);
             Insert(record);
         }
 
@@ -86,9 +85,9 @@ namespace Phundus.Dashboard.Querying
             Insert(record);
         }
 
-        private static EventLogRecord CreateRecord(DomainEvent @event)
+        private static EventLogProjectionRow CreateRecord(DomainEvent @event)
         {
-            var record = new EventLogRecord();
+            var record = new EventLogProjectionRow();
             record.EventGuid = @event.EventGuid;
             record.Name = @event.GetType().Name;
             record.OccuredOnUtc = @event.OccuredOnUtc;
