@@ -12,7 +12,7 @@ namespace Phundus.Tests.Inventory.Events
         private static OwnerId theOwnerId;
         private static string theFileName;
         private static string theFileType;
-        private static int theFileLength;
+        private static long theFileLength;
         private static bool theIsPreviewImage;
 
         private Establish ctx = () =>
