@@ -312,17 +312,26 @@
     {
         private Establish ctx = () => sut_setup.run(x =>
         {
-            x.AddImage(theInitiator, "first.jpg", "image/jpeg", 1234);
-            x.AddImage(theInitiator, "second.jpg", "image/jpeg", 1234);
+            x.AddImage(theInitiator, "first.gif", "image/gif", 1234);
+            x.AddImage(theInitiator, "second.jpg", "image/jpeg", 2345);
         });
 
         private Because of = () =>
-            sut.SetPreviewImage("second.jpg");
+            sut.SetPreviewImage(theInitiator, "second.jpg");
 
         private It should_remove_preview_flag = () =>
-            sut.Images.Single(p => p.FileName == "first.jpg").IsPreview.ShouldBeFalse();
+            sut.Images.Single(p => p.FileName == "first.gif").IsPreview.ShouldBeFalse();
 
         private It should_set_preview_flag = () =>
             sut.Images.Single(p => p.FileName == "second.jpg").IsPreview.ShouldBeTrue();
+
+        private It should_publish_preview_image_changed = () =>
+            Published<PreviewImageChanged>(p =>
+                p.ArticleGuid == theArticleGuid.Id
+                && p.FileLength == 2345
+                && p.FileName == "second.jpg"
+                && p.FileType == "image/jpeg"
+                && Equals(p.Initiator, theInitiator)
+                && p.OwnerId == theOwner.OwnerId.Id);
     }
 }

@@ -1,10 +1,13 @@
 ﻿namespace Phundus.Inventory.Articles.Commands
 {
     using System;
+    using Authorization;
+    using Authorize;
     using Common.Domain.Model;
     using Cqrs;
     using IdentityAccess.Queries;
     using IdentityAccess.Queries.ReadModels;
+    using Integration.IdentityAccess;
     using Repositories;
 
     public class SetPreviewImage : ICommand
@@ -26,24 +29,28 @@
 
     public class SetPreviewImageHandler : IHandleCommand<SetPreviewImage>
     {
-        private readonly IMemberInRole _memberInRole;
+        private readonly IAuthorize _authorize;
+        private readonly IInitiatorService _initiatorService;
         private readonly IArticleRepository _articleRepository;
 
-        public SetPreviewImageHandler(IMemberInRole memberInRole, IArticleRepository articleRepository)
+        public SetPreviewImageHandler(IAuthorize authorize, IInitiatorService initiatorService, IArticleRepository articleRepository)
         {
-            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
+            if (authorize == null) throw new ArgumentNullException("authorize");
+            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
             if (articleRepository == null) throw new ArgumentNullException("articleRepository");
-            _memberInRole = memberInRole;
+            _authorize = authorize;
+            _initiatorService = initiatorService;
             _articleRepository = articleRepository;
         }
 
         public void Handle(SetPreviewImage command)
         {
+            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleId);
 
-            _memberInRole.ActiveManager(article.Owner.OwnerId, command.InitiatorId);
+            _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
 
-            article.SetPreviewImage(command.FileName);
+            article.SetPreviewImage(initiator, command.FileName);
         }
     }
 }
