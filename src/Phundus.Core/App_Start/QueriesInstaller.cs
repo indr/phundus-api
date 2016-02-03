@@ -21,8 +21,8 @@
                 Classes.FromThisAssembly().Where(p => p.Name.EndsWith("ReadModel")).WithServiceAllInterfaces());
 
             //container.Register(Classes.FromThisAssembly().BasedOn<ReadModelBase>().WithServiceAllInterfaces());
-            
-            container.Register(Classes.FromThisAssembly().BasedOn(typeof (NHibernateReadModelBase<>)).WithServiceAllInterfaces());
+
+            container.Register(Classes.FromThisAssembly().BasedOn(typeof(ReadModelBase<>)).WithServiceAllInterfaces());
         }
     }
 }

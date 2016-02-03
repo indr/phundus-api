@@ -5,12 +5,13 @@
     using Cqrs;
     using Integration.IdentityAccess;
     using Integration.Shop;
+    using NHibernate;
 
     public class LesseeQueries : ReadModelBase, ILesseeQueries
     {
         private readonly IUserQueries _userQueries;
 
-        public LesseeQueries(IUserQueries userQueries)
+        public LesseeQueries(Func<ISession> sessionFactory, IUserQueries userQueries) : base(sessionFactory)
         {
             if (userQueries == null) throw new ArgumentNullException("userQueries");
             _userQueries = userQueries;

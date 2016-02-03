@@ -299,6 +299,8 @@
     <Compile Include="Shop\Orders\Services\OrderPdfGeneratorService.cs" />
     <Compile Include="Shop\Orders\PdfStore.cs" />
     <Compile Include="Shop\Pricing\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
+    <Compile Include="Shop\Projections\ResultItemsProjection.cs" />
+    <Compile Include="Shop\Projections\ResultItemsProjectionRow.cs" />
     <Compile Include="Shop\Queries\CartItemViewRow.cs" />
     <Compile Include="Shop\Queries\CartReadModel.cs" />
     <Compile Include="Shop\Queries\CartViewRow.cs" />
@@ -383,7 +385,6 @@
     <Folder Include="Inventory\Model\" />
     <Folder Include="Inventory\Services\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
-    <Folder Include="Shop\Projections\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shop\Queries\ReadModel.dbml.layout">

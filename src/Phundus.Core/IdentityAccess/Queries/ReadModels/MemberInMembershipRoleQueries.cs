@@ -6,6 +6,7 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
     using Common.Domain.Model;
     using Cqrs;
     using Integration.IdentityAccess;
+    using NHibernate;
     using Organizations.Model;
     using Organizations.Repositories;
 
@@ -14,7 +15,7 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
         private readonly IMembershipRepository _membershipRepository;
         private readonly IUserQueries _userQueries;
 
-        public MemberInRoleReadModel(IUserQueries userQueries, IMembershipRepository membershipRepository)
+        public MemberInRoleReadModel(Func<ISession> sessionFactory, IUserQueries userQueries, IMembershipRepository membershipRepository) :base(sessionFactory)
         {
             AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(membershipRepository, "MembershipRepository must be provided.");

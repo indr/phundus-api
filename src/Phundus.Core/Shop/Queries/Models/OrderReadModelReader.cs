@@ -7,25 +7,24 @@
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Queries;
-    using IdentityAccess.Users.Model;
     using Integration.IdentityAccess;
     using Inventory.Services;
+    using NHibernate;
 
     public class OrderReadModelReader : ReadModelReaderBase, IOrderQueries
     {
         private readonly IAvailabilityService _availabilityService;
         private readonly IMembershipQueries _membershipQueries;
-        private readonly IUserQueries _userQueries;
 
-        public OrderReadModelReader(IMembershipQueries membershipQueries, IUserQueries userQueries,
-            IAvailabilityService availabilityService)
+        public OrderReadModelReader(Func<ISession> sessionFactory, IMembershipQueries membershipQueries,
+            IUserQueries userQueries,
+            IAvailabilityService availabilityService) : base(sessionFactory)
         {
             AssertionConcern.AssertArgumentNotNull(membershipQueries, "MembershipQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(availabilityService, "AvailabilityService must be provided.");
 
             _membershipQueries = membershipQueries;
-            _userQueries = userQueries;
             _availabilityService = availabilityService;
         }
 
@@ -65,7 +64,7 @@
             Guid? queryOrganizationId)
         {
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
-            
+
             var currentUsersManagerGuids =
                 _membershipQueries.ByUserId(currentUserId.Id)
                     .Where(p => p.MembershipRole == "Chief")

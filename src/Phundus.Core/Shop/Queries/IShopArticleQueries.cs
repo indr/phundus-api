@@ -8,6 +8,7 @@
     using AutoMapper;
     using Cqrs;
     using Cqrs.Paging;
+    using NHibernate;
 
     public interface IShopArticleQueries
     {
@@ -22,6 +23,10 @@
             Mapper.CreateMap<IDataReader, ShopArticleDetailDto>();
             Mapper.CreateMap<IDataReader, ShopArticleSearchResultDto>();
             Mapper.CreateMap<IDataReader, ShopArticleImageDto>();
+        }
+
+        public ShopArticleReadModel(Func<ISession> sessionFactory) : base(sessionFactory)
+        {
         }
 
         public ShopArticleDetailDto GetArticle(int id)

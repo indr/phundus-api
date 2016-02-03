@@ -1,10 +1,16 @@
 ﻿namespace Phundus.Shop.Queries.Models
 {
+    using System;
     using Cqrs;
+    using NHibernate;
 
     public class ReadModelWriterBase : ReadModelBase
     {
         private ReadModelDataContext _ctx;
+
+        public ReadModelWriterBase(Func<ISession> sessionFactory) : base(sessionFactory)
+        {
+        }
 
         protected ReadModelDataContext Ctx
         {

@@ -7,9 +7,14 @@
     using Common.Domain.Model;
     using Cqrs;
     using Integration.IdentityAccess;
+    using NHibernate;
 
     public class UserReadModel : NHibernateReadModelBase<UserViewRow>, IUserQueries, IInitiatorService
     {
+        public UserReadModel(Func<ISession> sessionFactory) : base(sessionFactory)
+        {
+        }
+
         public IUser GetByGuid(Guid guid)
         {
             return GetByGuid(new UserId(guid));

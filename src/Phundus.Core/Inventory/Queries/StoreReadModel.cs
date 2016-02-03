@@ -5,12 +5,17 @@ namespace Phundus.Inventory.Queries
     using Common;
     using Common.Domain.Model;
     using Cqrs;
+    using NHibernate;
     using NHibernate.Linq;
     using Stores.Model;
     using Stores.Repositories;
 
     public class StoreReadModel : ReadModelBase, IStoreQueries
     {
+        public StoreReadModel(Func<ISession> sessionFactory) : base(sessionFactory)
+        {
+        }
+
         public IStoreRepository StoreRepository { get; set; }
 
         public StoreDto GetByOwnerId(OwnerId ownerId)

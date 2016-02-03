@@ -5,9 +5,14 @@
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
+    using NHibernate;
 
     public class ArticlesProjection : NHibernateReadModelBase<ArticlesProjectionRow>, IDomainEventHandler
     {
+        public ArticlesProjection(Func<ISession> sessionFactory) : base(sessionFactory)
+        {
+        }
+
         public void Handle(DomainEvent domainEvent)
         {
             Process((dynamic) domainEvent);
