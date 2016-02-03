@@ -2,9 +2,11 @@
 {
     using System;
     using System.IO;
+    using Authorization;
+    using Authorize;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Queries;
+    using Integration.IdentityAccess;
     using Repositories;
 
     public class RemoveImage
@@ -16,7 +18,10 @@
             if (fileName == null) throw new ArgumentNullException("fileName");
 
             if (fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
-                throw new ArgumentException(String.Format(@"The file name ""{0}"" contains invalid characters. Did you mistakenly provide path information?", fileName), "fileName");
+                throw new ArgumentException(
+                    String.Format(
+                        @"The file name ""{0}"" contains invalid characters. Did you mistakenly provide path information?",
+                        fileName), "fileName");
 
             InitiatorId = initiatorId;
             ArticleId = articleId;
@@ -31,23 +36,28 @@
     public class RemoveImageHandler : IHandleCommand<RemoveImage>
     {
         private readonly IArticleRepository _articleRepository;
-        private readonly IMemberInRole _memberInRole;
+        private readonly IAuthorize _authorize;
+        private readonly IInitiatorService _initiatorService;
 
-        public RemoveImageHandler(IMemberInRole memberInRole, IArticleRepository articleRepository)
+        public RemoveImageHandler(IAuthorize authorize, IInitiatorService initiatorService,
+            IArticleRepository articleRepository)
         {
-            if (memberInRole == null) throw new ArgumentNullException("memberInRole");
+            if (authorize == null) throw new ArgumentNullException("authorize");
+            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
             if (articleRepository == null) throw new ArgumentNullException("articleRepository");
-            _memberInRole = memberInRole;
+            _authorize = authorize;
+            _initiatorService = initiatorService;
             _articleRepository = articleRepository;
         }
 
         public void Handle(RemoveImage command)
         {
+            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
             var article = _articleRepository.GetById(command.ArticleId.Id);
 
-            _memberInRole.ActiveManager(article.Owner.OwnerId.Id, command.InitiatorId);
+            _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
 
-            article.RemoveImage(null, command.FileName);
+            article.RemoveImage(initiator, command.FileName);
         }
     }
 }
