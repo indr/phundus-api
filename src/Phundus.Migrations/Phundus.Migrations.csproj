@@ -166,6 +166,8 @@
     <Compile Include="2016\02\M201602020534_Create_or_populate_ArticleCreated.cs" />
     <Compile Include="2016\02\M201602020640_Create_table_Es_Inventory_Articles.cs" />
     <Compile Include="2016\02\M201602021247_Delete_stored_article_updated_events.cs" />
+    <Compile Include="2016\02\M201602030710_Delete_empty_article_stored_events.cs" />
+    <Compile Include="2016\02\M201602030711_Generate_ImageAdded_stored_events.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
