@@ -48,39 +48,53 @@
 
         public void Process(ArticleDetailsChanged domainEvent)
         {
-            var row = FindByArticleGuid(domainEvent.ArticleGuid);
-            row.Name = domainEvent.Name;
-            row.Brand = domainEvent.Brand;
-            row.Color = domainEvent.Color;
-            Session.SaveOrUpdate(row);
+            Update(domainEvent.ArticleGuid, r =>
+            {
+                r.Name = domainEvent.Name;
+                r.Brand = domainEvent.Brand;
+                r.Color = domainEvent.Color;
+            });
         }
 
         public void Process(GrossStockChanged domainEvent)
         {
-            var row = FindByArticleGuid(domainEvent.ArticleGuid);
-            row.GrossStock = domainEvent.NewGrossStock;
-            Session.SaveOrUpdate(row);
+            Update(domainEvent.ArticleGuid, r =>
+            {
+                r.GrossStock = domainEvent.NewGrossStock;
+            });
         }
 
         public void Process(DescriptionChanged domainEvent)
         {
-            var row = FindByArticleGuid(domainEvent.ArticleGuid);
-            row.Description = domainEvent.Description;
-            Session.SaveOrUpdate(row);
+            Update(domainEvent.ArticleGuid, r =>
+            {
+                r.Description = domainEvent.Description;
+            });
         }
 
         public void Process(SpecificationChanged domainEvent)
         {
-            var row = FindByArticleGuid(domainEvent.ArticleGuid);
-            row.Specification = domainEvent.Specification;
-            Session.SaveOrUpdate(row);
+            Update(domainEvent.ArticleGuid, r =>
+            {
+                r.Specification = domainEvent.Specification;
+            });
         }
 
         public void Process(PricesChanged domainEvent)
         {
-            var row = FindByArticleGuid(domainEvent.ArticleGuid);
-            row.PublicPrice = domainEvent.PublicPrice;
-            row.MemberPrice = domainEvent.MemberPrice;
+            Update(domainEvent.ArticleGuid, r =>
+            {
+                r.PublicPrice = domainEvent.PublicPrice;
+                r.MemberPrice = domainEvent.MemberPrice;
+            });
+        }
+
+        private void Update(Guid articleGuid, Action<ArticlesViewRow> action)
+        {
+            var row = FindByArticleGuid(articleGuid);
+            if (row == null)
+                return;
+            action(row);
             Session.SaveOrUpdate(row);
         }
 
