@@ -6,7 +6,7 @@
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Commands;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Authorize;
+    using Phundus.Inventory.Authorization;
     using Phundus.Inventory.Stores.Model;
     using Phundus.Inventory.Stores.Repositories;
     using Rhino.Mocks;

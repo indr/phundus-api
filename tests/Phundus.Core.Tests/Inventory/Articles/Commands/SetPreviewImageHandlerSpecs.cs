@@ -4,7 +4,7 @@
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Commands;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Authorize;
+    using Phundus.Inventory.Authorization;
 
     [Subject(typeof (SetPreviewImageHandler))]
     public class when_handling_set_preview_image_command :

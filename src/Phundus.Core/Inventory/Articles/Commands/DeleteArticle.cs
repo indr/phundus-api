@@ -2,12 +2,12 @@
 {
     using System;
     using Authorization;
-    using Authorize;
     using Common.Domain.Model;
     using Cqrs;
     using Ddd;
     using Integration.IdentityAccess;
     using Model;
+    using Phundus.Authorization;
     using Repositories;
 
     public class DeleteArticle

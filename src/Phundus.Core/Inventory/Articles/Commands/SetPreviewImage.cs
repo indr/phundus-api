@@ -2,12 +2,10 @@
 {
     using System;
     using Authorization;
-    using Authorize;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Queries;
-    using IdentityAccess.Queries.ReadModels;
     using Integration.IdentityAccess;
+    using Phundus.Authorization;
     using Repositories;
 
     public class SetPreviewImage : ICommand
@@ -29,11 +27,12 @@
 
     public class SetPreviewImageHandler : IHandleCommand<SetPreviewImage>
     {
+        private readonly IArticleRepository _articleRepository;
         private readonly IAuthorize _authorize;
         private readonly IInitiatorService _initiatorService;
-        private readonly IArticleRepository _articleRepository;
 
-        public SetPreviewImageHandler(IAuthorize authorize, IInitiatorService initiatorService, IArticleRepository articleRepository)
+        public SetPreviewImageHandler(IAuthorize authorize, IInitiatorService initiatorService,
+            IArticleRepository articleRepository)
         {
             if (authorize == null) throw new ArgumentNullException("authorize");
             if (initiatorService == null) throw new ArgumentNullException("initiatorService");

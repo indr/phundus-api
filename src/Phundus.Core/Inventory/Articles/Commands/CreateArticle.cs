@@ -2,14 +2,13 @@
 {
     using System;
     using Authorization;
-    using Authorize;
     using Common;
     using Common.Domain.Model;
     using Cqrs;
     using Ddd;
-    using IdentityAccess.Queries;
     using Integration.IdentityAccess;
     using Model;
+    using Phundus.Authorization;
     using Repositories;
     using Services;
     using Stores.Repositories;
@@ -66,7 +65,6 @@
         private readonly IArticleRepository _articleRepository;
         private readonly IAuthorize _authorize;
         private readonly IInitiatorService _initiatorService;
-        private readonly IMemberInRole _memberInRole;
         private readonly IOwnerService _ownerService;
         private readonly IStoreRepository _storeRepository;
 

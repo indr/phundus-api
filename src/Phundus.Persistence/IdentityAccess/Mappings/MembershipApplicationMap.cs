@@ -1,7 +1,7 @@
-﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
+﻿namespace Phundus.Persistence.IdentityAccess.Mappings
 {
     using FluentNHibernate.Mapping;
-    using IdentityAccess.Organizations.Model;
+    using Phundus.IdentityAccess.Organizations.Model;
 
     public class MembershipApplicationMap : ClassMap<MembershipApplication>
     {

@@ -6,7 +6,7 @@
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Commands;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Authorize;
+    using Phundus.Inventory.Authorization;
 
     [Subject(typeof (RemoveImageHandler))]
     public class when_remove_image_is_handled : article_command_handler_concern<RemoveImage, RemoveImageHandler>

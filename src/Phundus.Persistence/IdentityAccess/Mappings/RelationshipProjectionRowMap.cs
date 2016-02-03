@@ -1,8 +1,8 @@
-﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
+﻿namespace Phundus.Persistence.IdentityAccess.Mappings
 {
     using FluentNHibernate.Mapping;
-    using IdentityAccess.Projections;
     using NHibernate.Type;
+    using Phundus.IdentityAccess.Projections;
 
     public class RelationshipProjectionRowMap : ClassMap<RelationshipProjectionRow>
     {

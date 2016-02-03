@@ -1,22 +1,22 @@
-﻿namespace Phundus.Inventory.Authorize
+﻿namespace Phundus.Inventory.Authorization
 {
     using System;
-    using Authorization;
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Queries;
+    using Phundus.Authorization;
 
-    public static class Create
+    public static class Manage
     {
-        public static CreateArticleAccessObject Article(OwnerId ownerId)
+        public static ManageArticlesAccessObject Articles(OwnerId ownerId)
         {
-            return new CreateArticleAccessObject(ownerId);
+            return new ManageArticlesAccessObject(ownerId);
         }
     }
 
-    public class CreateArticleAccessObject : IAccessObject
+    public class ManageArticlesAccessObject : IAccessObject
     {
-        public CreateArticleAccessObject(OwnerId ownerId)
+        public ManageArticlesAccessObject(OwnerId ownerId)
         {
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             OwnerId = ownerId;
@@ -25,23 +25,23 @@
         public OwnerId OwnerId { get; protected set; }
     }
 
-    public class CreateArticleAccessObjectHandler : IHandleAccessObject<CreateArticleAccessObject>
+    public class ManageArticlesAccessObjectHandler : IHandleAccessObject<ManageArticlesAccessObject>
     {
         private readonly IMemberInRole _memberInRole;
 
-        public CreateArticleAccessObjectHandler(IMemberInRole memberInRole)
+        public ManageArticlesAccessObjectHandler(IMemberInRole memberInRole)
         {
             if (memberInRole == null) throw new ArgumentNullException("memberInRole");
             _memberInRole = memberInRole;
         }
 
-        public void Enforce(UserId userId, CreateArticleAccessObject accessObject)
+        public void Enforce(UserId userId, ManageArticlesAccessObject accessObject)
         {
             if (!Test(userId, accessObject))
                 throw new AuthorizationException("Du benötigst die Rolle Verwaltung.");
         }
 
-        public bool Test(UserId userId, CreateArticleAccessObject accessObject)
+        public bool Test(UserId userId, ManageArticlesAccessObject accessObject)
         {
             return _memberInRole.IsActiveManager(accessObject.OwnerId, userId);
         }
