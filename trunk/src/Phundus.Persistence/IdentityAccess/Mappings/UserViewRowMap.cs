@@ -1,8 +1,8 @@
-﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
+﻿namespace Phundus.Persistence.IdentityAccess.Mappings
 {
     using FluentNHibernate.Mapping;
-    using IdentityAccess.Queries.QueryModels;
     using NHibernate.Type;
+    using Phundus.IdentityAccess.Queries.QueryModels;
 
     public class UserViewRowMap : ClassMap<UserViewRow>
     {

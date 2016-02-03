@@ -6,7 +6,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Commands;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Authorize;
+    using Phundus.Inventory.Authorization;
 
     [Subject(typeof (UpdateArticleHandler))]
     public class when_update_article_command_is_handled :

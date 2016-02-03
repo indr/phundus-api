@@ -4,7 +4,7 @@
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Phundus.Inventory.Authorize;
+    using Phundus.Inventory.Authorization;
 
     [Subject(typeof (ManageArticlesAccessObjectHandler))]
     public class when_handling_manage_articles :

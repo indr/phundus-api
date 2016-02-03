@@ -3,10 +3,10 @@
     using System;
     using System.IO;
     using Authorization;
-    using Authorize;
     using Common.Domain.Model;
     using Cqrs;
     using Integration.IdentityAccess;
+    using Phundus.Authorization;
     using Repositories;
 
     public class RemoveImage

@@ -1,4 +1,4 @@
-﻿namespace Phundus.Persistence.IdentityAndAccess.Repositories
+﻿namespace Phundus.Persistence.IdentityAccess.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -6,8 +6,8 @@
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
-    using IdentityAccess.Organizations.Model;
-    using IdentityAccess.Organizations.Repositories;
+    using Phundus.IdentityAccess.Organizations.Model;
+    using Phundus.IdentityAccess.Organizations.Repositories;
 
     public class NhOrganizationRepository : NhRepositoryBase<Organization>, IOrganizationRepository
     {

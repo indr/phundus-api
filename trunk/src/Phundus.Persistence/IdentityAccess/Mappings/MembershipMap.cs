@@ -1,7 +1,7 @@
-﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
+﻿namespace Phundus.Persistence.IdentityAccess.Mappings
 {
     using FluentNHibernate.Mapping;
-    using IdentityAccess.Organizations.Model;
+    using Phundus.IdentityAccess.Organizations.Model;
 
     public class MembershipMap : ClassMap<Membership>
     {
@@ -17,7 +17,7 @@
             Component(x => x.UserId, a => a.Map(x => x.Id, "UserGuid"));
 
             References(x => x.Organization, "OrganizationGuid").Cascade.None();
-            
+
             //Map(x => x.OrganizationGuid, "OrganizationGuid");
 
             Map(x => x.Role).CustomType<Role>();

@@ -83,9 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dashboard\EventLogRecordMap.cs" />
-    <Compile Include="IdentityAndAccess\Mappings\MembershipApplicationViewRowMap.cs" />
-    <Compile Include="IdentityAndAccess\Mappings\RelationshipProjectionRowMap.cs" />
-    <Compile Include="IdentityAndAccess\Mappings\UserViewRowMap.cs" />
+    <Compile Include="IdentityAccess\Mappings\MembershipApplicationViewRowMap.cs" />
+    <Compile Include="IdentityAccess\Mappings\RelationshipProjectionRowMap.cs" />
+    <Compile Include="IdentityAccess\Mappings\UserViewRowMap.cs" />
     <Compile Include="Inventory\Mappings\ArticlesProjectionRowMap.cs" />
     <Compile Include="Inventory\Mappings\StoreMap.cs" />
     <Compile Include="Inventory\Repositories\NhStoreRepository.cs" />
@@ -98,13 +98,13 @@
     <Compile Include="StoredEvents\EventStore.cs" />
     <Compile Include="StoredEvents\NhStoredEventRepository.cs" />
     <Compile Include="StoredEvents\StoredEventMap.cs" />
-    <Compile Include="IdentityAndAccess\Mappings\MembershipMap.cs" />
-    <Compile Include="IdentityAndAccess\Mappings\AccountMap.cs" />
-    <Compile Include="IdentityAndAccess\Mappings\OrganizationMap.cs" />
-    <Compile Include="IdentityAndAccess\Mappings\UserMap.cs" />
-    <Compile Include="IdentityAndAccess\Repositories\NhMembershipRepository.cs" />
+    <Compile Include="IdentityAccess\Mappings\MembershipMap.cs" />
+    <Compile Include="IdentityAccess\Mappings\AccountMap.cs" />
+    <Compile Include="IdentityAccess\Mappings\OrganizationMap.cs" />
+    <Compile Include="IdentityAccess\Mappings\UserMap.cs" />
+    <Compile Include="IdentityAccess\Repositories\NhMembershipRepository.cs" />
     <Compile Include="App_Start\PersistenceInstaller.cs" />
-    <Compile Include="IdentityAndAccess\Mappings\MembershipApplicationMap.cs" />
+    <Compile Include="IdentityAccess\Mappings\MembershipApplicationMap.cs" />
     <Compile Include="Inventory\Mappings\ArticleMap.cs" />
     <Compile Include="Inventory\Mappings\ImageMap.cs" />
     <Compile Include="Inventory\Repositories\ReservationFactory.cs" />
@@ -114,11 +114,11 @@
     <Compile Include="Shop\Mappings\OrderItemMap.cs" />
     <Compile Include="Shop\Mappings\OrderMap.cs" />
     <Compile Include="Shop\Repositories\NhCartRepository.cs" />
-    <Compile Include="IdentityAndAccess\Repositories\NhMembershipRequestRepository.cs" />
+    <Compile Include="IdentityAccess\Repositories\NhMembershipRequestRepository.cs" />
     <Compile Include="Shop\Repositories\NhOrderRepository.cs" />
-    <Compile Include="IdentityAndAccess\Repositories\NhOrganizationRepository.cs" />
+    <Compile Include="IdentityAccess\Repositories\NhOrganizationRepository.cs" />
     <Compile Include="Inventory\Repositories\NhReservationsBasedOnOrdersRepository.cs" />
-    <Compile Include="IdentityAndAccess\Repositories\NhUserRepository.cs" />
+    <Compile Include="IdentityAccess\Repositories\NhUserRepository.cs" />
     <Compile Include="NhRepositoryBase.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@ namespace Phundus.Tests.Inventory.Commands
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Commands;
     using Phundus.Inventory.Articles.Model;
-    using Phundus.Inventory.Authorize;
+    using Phundus.Inventory.Authorization;
     using Rhino.Mocks;
 
     [Subject(typeof (UpdateArticleSpecificationHandler))]

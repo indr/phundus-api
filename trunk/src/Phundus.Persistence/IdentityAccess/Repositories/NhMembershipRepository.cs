@@ -1,11 +1,11 @@
-namespace Phundus.Persistence.IdentityAndAccess.Repositories
+namespace Phundus.Persistence.IdentityAccess.Repositories
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using IdentityAccess.Organizations.Model;
-    using IdentityAccess.Organizations.Repositories;
     using NHibernate.Linq;
+    using Phundus.IdentityAccess.Organizations.Model;
+    using Phundus.IdentityAccess.Organizations.Repositories;
 
     public class NhMembershipRepository : NhRepositoryBase<Membership>, IMembershipRepository
     {

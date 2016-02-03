@@ -1,7 +1,7 @@
-﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
+﻿namespace Phundus.Persistence.IdentityAccess.Mappings
 {
     using FluentNHibernate.Mapping;
-    using IdentityAccess.Users.Model;
+    using Phundus.IdentityAccess.Users.Model;
 
     public class AccountMap : ClassMap<Account>
     {

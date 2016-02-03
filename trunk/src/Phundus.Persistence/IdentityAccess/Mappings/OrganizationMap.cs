@@ -1,9 +1,8 @@
-﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
+﻿namespace Phundus.Persistence.IdentityAccess.Mappings
 {
     using FluentNHibernate.Mapping;
-    using IdentityAccess.Organizations.Model;
-    using NHibernate.Linq;
     using NHibernate.Type;
+    using Phundus.IdentityAccess.Organizations.Model;
 
     public class OrganizationMap : ClassMap<Organization>
     {

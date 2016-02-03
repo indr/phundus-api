@@ -1,12 +1,12 @@
-﻿namespace Phundus.Persistence.IdentityAndAccess.Repositories
+﻿namespace Phundus.Persistence.IdentityAccess.Repositories
 {
     using System;
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using IdentityAccess.Users.Model;
-    using IdentityAccess.Users.Repositories;
     using NHibernate.Linq;
+    using Phundus.IdentityAccess.Users.Model;
+    using Phundus.IdentityAccess.Users.Repositories;
 
     public class NhUserRepository : NhRepositoryBase<User>, IUserRepository
     {

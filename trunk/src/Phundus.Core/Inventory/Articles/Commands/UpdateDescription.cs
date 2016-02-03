@@ -2,10 +2,10 @@
 {
     using System;
     using Authorization;
-    using Authorize;
     using Common.Domain.Model;
     using Cqrs;
     using Integration.IdentityAccess;
+    using Phundus.Authorization;
     using Repositories;
 
     public class UpdateDescription
