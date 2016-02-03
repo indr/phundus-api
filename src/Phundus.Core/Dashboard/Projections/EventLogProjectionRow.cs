@@ -1,8 +1,8 @@
-﻿namespace Phundus.Dashboard.Querying.Records
+namespace Phundus.Dashboard.Projections
 {
     using System;
 
-    public class EventLogRecord
+    public class EventLogProjectionRow
     {
         public virtual Guid EventGuid { get; set; }
         public virtual DateTime OccuredOnUtc { get; set; }

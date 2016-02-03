@@ -2,10 +2,10 @@
 {
     using System;
     using Common.Domain.Model;
-    using EventSourcedViewsUpdater;
+    using Projections;
 
     public interface IRelationshipQueries
     {
-        RelationshipViewRow ByMemberIdForOrganizationId(UserId memberId, Guid organizationId);
+        RelationshipProjectionRow ByMemberIdForOrganizationId(UserId memberId, Guid organizationId);
     }
 }

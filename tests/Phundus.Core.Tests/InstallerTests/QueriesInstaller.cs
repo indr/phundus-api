@@ -3,6 +3,8 @@
     using System;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
+    using Dashboard.Projections;
+    using Dashboard.Queries;
     using Dashboard.Querying;
     using Machine.Specifications;
 
@@ -10,7 +12,7 @@
     public class when_queries_installer_is_installed : installer_concern<QueriesInstaller>
     {
         public It should_resolve_IEventsQueries_to_EventsReadModel =
-            () => Container.Resolve<IEventLogQueries>().ShouldBeOfExactType<EventLogReadModel>();
+            () => Container.Resolve<IEventLogQueries>().ShouldBeOfExactType<EventLogProjection>();
     }
 
     public class installer_concern<TInstaller> where TInstaller : IWindsorInstaller

@@ -1,12 +1,12 @@
 ﻿namespace Phundus.Persistence.IdentityAndAccess.Mappings
 {
     using FluentNHibernate.Mapping;
-    using IdentityAccess.Queries.EventSourcedViewsUpdater;
+    using IdentityAccess.Projections;
     using NHibernate.Type;
 
-    public class RelationshipViewRowMap : ClassMap<RelationshipViewRow>
+    public class RelationshipProjectionRowMap : ClassMap<RelationshipProjectionRow>
     {
-        public RelationshipViewRowMap()
+        public RelationshipProjectionRowMap()
         {
             SchemaAction.Validate();
 

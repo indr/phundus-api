@@ -107,9 +107,10 @@
     <Compile Include="Cqrs\Paging\PageRequest.cs" />
     <Compile Include="Cqrs\Paging\PageResponse.cs" />
     <Compile Include="Cqrs\ReadModelBase.cs" />
-    <Compile Include="Dashboard\Querying\EventLogReadModel.cs" />
-    <Compile Include="Dashboard\Querying\ReadModelUpdater.cs" />
-    <Compile Include="Dashboard\Querying\Records\EventLogRecord.cs" />
+    <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
+    <Compile Include="Dashboard\Projections\EventLogProjectionRow.cs" />
+    <Compile Include="Dashboard\Queries\IEventLogQueries.cs" />
+    <Compile Include="Cqrs\ReadModelUpdater.cs" />
     <Compile Include="Ddd\Aggregate.cs" />
     <Compile Include="Ddd\AutoReleaseEventHandlerInterceptor.cs" />
     <Compile Include="Ddd\EventHandlerSelector.cs" />
@@ -157,8 +158,8 @@
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IMembershipRequestRepository.cs" />
     <Compile Include="IdentityAccess\Organizations\Repositories\IOrganizationRepository.cs" />
-    <Compile Include="IdentityAccess\Queries\EventSourcedViewsUpdater\EsRelationshipsUpdater.cs" />
-    <Compile Include="IdentityAccess\Queries\EventSourcedViewsUpdater\RelationshipViewRow.cs" />
+    <Compile Include="IdentityAccess\Projections\RelationshipProjection.cs" />
+    <Compile Include="IdentityAccess\Projections\RelationshipProjectionRow.cs" />
     <Compile Include="IdentityAccess\Queries\IMemberInRole.cs" />
     <Compile Include="IdentityAccess\Queries\IMembershipQueries.cs" />
     <Compile Include="IdentityAccess\Queries\IOrganizationQueries.cs" />
@@ -237,9 +238,10 @@
     <Compile Include="Inventory\Articles\Model\ImageRemoved.cs" />
     <Compile Include="Inventory\Authorize\Create.cs" />
     <Compile Include="Inventory\Authorize\Manage.cs" />
+    <Compile Include="Inventory\Projections\ArticlesProjectionRow.cs" />
     <Compile Include="Inventory\Queries\ArticleReadModel.cs" />
     <Compile Include="Inventory\Queries\Dtos\StoreDto.cs" />
-    <Compile Include="Inventory\Queries\EventSourcedViewsUpdaters\ArticlesViewRow.cs" />
+    <Compile Include="Inventory\Projections\ArticlesProjection.cs" />
     <Compile Include="Inventory\Queries\IArticleQueries.cs" />
     <Compile Include="Inventory\Queries\IImageQueries.cs" />
     <Compile Include="Inventory\Articles\Repositories\IArticleRepository.cs" />
@@ -381,6 +383,7 @@
     <Folder Include="Inventory\Model\" />
     <Folder Include="Inventory\Services\Dtos\" />
     <Folder Include="Shop\Catalogs\" />
+    <Folder Include="Shop\Projections\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shop\Queries\ReadModel.dbml.layout">

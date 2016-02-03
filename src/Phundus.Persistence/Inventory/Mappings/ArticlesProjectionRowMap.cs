@@ -3,11 +3,11 @@
     using Common.Domain.Model;
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
-    using Phundus.Inventory.Queries.EventSourcedViewsUpdaters;
+    using Phundus.Inventory.Projections;
 
-    public class ArticlesViewRowMap : ClassMap<ArticlesViewRow>
+    public class ArticlesProjectionRowMap : ClassMap<ArticlesProjectionRow>
     {
-        public ArticlesViewRowMap()
+        public ArticlesProjectionRowMap()
         {
             SchemaAction.Validate();
 

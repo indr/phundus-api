@@ -84,9 +84,9 @@
   <ItemGroup>
     <Compile Include="Dashboard\EventLogRecordMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\MembershipApplicationViewRowMap.cs" />
-    <Compile Include="IdentityAndAccess\Mappings\RelationshipViewRowMap.cs" />
+    <Compile Include="IdentityAndAccess\Mappings\RelationshipProjectionRowMap.cs" />
     <Compile Include="IdentityAndAccess\Mappings\UserViewRowMap.cs" />
-    <Compile Include="Inventory\Mappings\ArticlesViewRowMap.cs" />
+    <Compile Include="Inventory\Mappings\ArticlesProjectionRowMap.cs" />
     <Compile Include="Inventory\Mappings\StoreMap.cs" />
     <Compile Include="Inventory\Repositories\NhStoreRepository.cs" />
     <Compile Include="NHibernateProcessedNotificationTrackerStore.cs" />
