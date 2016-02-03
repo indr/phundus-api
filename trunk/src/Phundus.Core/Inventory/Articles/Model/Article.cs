@@ -183,12 +183,20 @@
             EventPublisher.Publish(new PreviewImageChanged());
         }
 
-        public virtual void SetPreviewImage(string fileName)
+        public virtual void SetPreviewImage(Initiator initiator, string fileName)
         {
+            var oldPreviewImage = Images.FirstOrDefault(p => p.IsPreview);
             foreach (var eachImage in Images)
             {
                 eachImage.IsPreview = eachImage.FileName == fileName;
             }
+
+            var previewImage = Images.FirstOrDefault(p => p.IsPreview);
+
+            if ((oldPreviewImage == previewImage) || (previewImage == null))
+                return;
+
+            EventPublisher.Publish(new PreviewImageChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId, previewImage.FileName, previewImage.Type, previewImage.Length));
         }
 
         public virtual void ChangePrices(Initiator initiator, decimal publicPrice, decimal? memberPrice)
