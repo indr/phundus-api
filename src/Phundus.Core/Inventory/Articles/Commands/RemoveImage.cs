@@ -47,7 +47,7 @@
 
             _memberInRole.ActiveManager(article.Owner.OwnerId.Id, command.InitiatorId);
 
-            article.RemoveImage(command.FileName);
+            article.RemoveImage(null, command.FileName);
         }
     }
 }

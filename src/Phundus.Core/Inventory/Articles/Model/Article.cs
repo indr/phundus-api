@@ -153,7 +153,7 @@
             return image;
         }
 
-        public virtual void RemoveImage(string fileName)
+        public virtual void RemoveImage(Initiator initiator, string fileName)
         {
             var image = Images.FirstOrDefault(p => p.FileName == fileName);
             if (image == null)
@@ -161,12 +161,12 @@
             Images.Remove(image);
             image.Article = null;
 
-            EventPublisher.Publish(new ImageRemoved());
+            EventPublisher.Publish(new ImageRemoved(initiator, ArticleId, ArticleGuid, Owner.OwnerId, image.FileName));
 
-            EnsureOneImageIsPreviewImage();
+            EnsureOneImageIsPreviewImage(initiator);
         }
 
-        private void EnsureOneImageIsPreviewImage()
+        private void EnsureOneImageIsPreviewImage(Initiator initiator)
         {
             if (Images.Count == 0)
                 return;
@@ -180,7 +180,7 @@
                 return;
 
             previewImage.IsPreview = true;
-            EventPublisher.Publish(new PreviewImageChanged());
+            EventPublisher.Publish(new PreviewImageChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId, previewImage.FileName, previewImage.Type, previewImage.Length));
         }
 
         public virtual void SetPreviewImage(Initiator initiator, string fileName)
