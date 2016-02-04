@@ -9,7 +9,12 @@ namespace Phundus.Cqrs
 
         protected virtual ISession Session
         {
-            get { return SessionFactory(); }
+            get
+            {
+                var result = SessionFactory();
+                //result.FlushMode = FlushMode.Always;
+                return result;
+            }
         }
     }
 
@@ -18,7 +23,6 @@ namespace Phundus.Cqrs
         protected TRow CreateRow()
         {
             var result = new TRow();
-            Session.Save(result);
             return result;
         }
 
