@@ -10,10 +10,6 @@
 
     public class ArticleReadModel : ReadModelBase, IArticleQueries
     {
-        public ArticleReadModel(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         public IArticleRepository ArticleRepository { get; set; }
 
         public ArticleDto GetById(int id)

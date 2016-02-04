@@ -13,10 +13,6 @@
 
     public class OrganizationsReadModel : ReadModelBase, IOrganizationQueries
     {
-        public OrganizationsReadModel(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         public IOrganizationRepository OrganizationRepository { get; set; }
 
         public IOrganization GetById(Guid organizationId)

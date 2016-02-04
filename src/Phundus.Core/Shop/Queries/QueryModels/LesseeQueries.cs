@@ -11,7 +11,7 @@
     {
         private readonly IUserQueries _userQueries;
 
-        public LesseeQueries(Func<ISession> sessionFactory, IUserQueries userQueries) : base(sessionFactory)
+        public LesseeQueries(IUserQueries userQueries)
         {
             if (userQueries == null) throw new ArgumentNullException("userQueries");
             _userQueries = userQueries;

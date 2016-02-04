@@ -8,10 +8,6 @@
 
     public class MembershipApplicationQueries : NHibernateReadModelBase<MembershipApplicationViewRow>, IMembershipApplicationQueries
     {
-        public MembershipApplicationQueries(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         public IList<IMembershipApplication> FindPending(CurrentUserId currentUserId, OrganizationId organizationId)
         {
             // TODO: Access filtering

@@ -20,10 +20,6 @@
             Mapper.CreateMap<Image, ImageDto>();
         }
 
-        public ImageReadModel(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         public IArticleRepository ArticleRepository { get; set; }
 
         public IEnumerable<ImageDto> ByArticle(int articleId)

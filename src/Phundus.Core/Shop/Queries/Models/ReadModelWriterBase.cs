@@ -8,10 +8,6 @@
     {
         private ReadModelDataContext _ctx;
 
-        public ReadModelWriterBase(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         protected ReadModelDataContext Ctx
         {
             get

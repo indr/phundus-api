@@ -16,9 +16,9 @@
         private readonly IAvailabilityService _availabilityService;
         private readonly IMembershipQueries _membershipQueries;
 
-        public OrderReadModelReader(Func<ISession> sessionFactory, IMembershipQueries membershipQueries,
+        public OrderReadModelReader(IMembershipQueries membershipQueries,
             IUserQueries userQueries,
-            IAvailabilityService availabilityService) : base(sessionFactory)
+            IAvailabilityService availabilityService)
         {
             AssertionConcern.AssertArgumentNotNull(membershipQueries, "MembershipQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
