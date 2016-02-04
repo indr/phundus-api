@@ -1,5 +1,6 @@
 namespace Phundus.Dashboard.Querying
 {
+    using System.Linq;
     using Castle.Transactions;
     using Common.Events;
     using Common.Notifications;
@@ -49,7 +50,7 @@ namespace Phundus.Dashboard.Querying
                 return;
 
             var events = EventStore.AllStoredEventsBetween(tracker.MostRecentProcessedNotificationId + 1,
-                notificationId);
+                notificationId).OrderBy(p => p.OccuredOnUtc).ThenBy(p => p.EventId);
             foreach (var each in events)
             {
                 domainEventHandler.Handle(EventStore.ToDomainEvent(each));
