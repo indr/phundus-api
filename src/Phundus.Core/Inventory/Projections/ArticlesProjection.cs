@@ -7,7 +7,7 @@
     using Cqrs;
     using NHibernate;
 
-    public class ArticlesProjection : NHibernateReadModelBase<ArticlesProjectionRow>, IDomainEventHandler
+    public class ArticlesProjection : NHibernateReadModelBase<ArticlesProjectionRow>, IStoredEventsConsumer
     {
         public void Handle(DomainEvent domainEvent)
         {

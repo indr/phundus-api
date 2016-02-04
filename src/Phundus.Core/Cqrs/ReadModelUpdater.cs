@@ -41,11 +41,11 @@ namespace Phundus.Dashboard.Querying
             }
         }
 
-        private void UpdateReadModel(IDomainEventHandler domainEventHandler, long notificationId)
+        private void UpdateReadModel(IStoredEventsConsumer storedEventsConsumer, long notificationId)
         {
             
             var tracker =
-                ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(domainEventHandler.GetType().FullName);
+                ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(storedEventsConsumer.GetType().FullName);
             if (tracker.MostRecentProcessedNotificationId >= notificationId)
                 return;
 
@@ -53,16 +53,16 @@ namespace Phundus.Dashboard.Querying
                 notificationId).OrderBy(p => p.OccuredOnUtc).ThenBy(p => p.EventId);
             foreach (var each in events)
             {
-                domainEventHandler.Handle(EventStore.ToDomainEvent(each));
+                storedEventsConsumer.Handle(EventStore.ToDomainEvent(each));
             }
 
             ProcessedNotificationTrackerStore.TrackMostRecentProcessedNotificationId(tracker, notificationId);
         }
 
-        private void UpdateReadModel(IDomainEventHandler domainEventHandler, Notification notification)
+        private void UpdateReadModel(IStoredEventsConsumer storedEventsConsumer, Notification notification)
         {
             var tracker =
-                ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(domainEventHandler.GetType().FullName);
+                ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(storedEventsConsumer.GetType().FullName);
             if (tracker.MostRecentProcessedNotificationId >= notification.NotificationId)
                 return;
 
@@ -70,7 +70,7 @@ namespace Phundus.Dashboard.Querying
                 notification.NotificationId);
             foreach (var each in events)
             {
-                domainEventHandler.Handle(EventStore.ToDomainEvent(each));
+                storedEventsConsumer.Handle(EventStore.ToDomainEvent(each));
             }
 
             ProcessedNotificationTrackerStore.TrackMostRecentProcessedNotification(tracker, notification);
