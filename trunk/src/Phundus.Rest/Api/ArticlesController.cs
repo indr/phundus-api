@@ -191,7 +191,8 @@ namespace Phundus.Rest.Api
 
             return new ArticlesPostOkResponseContent
             {
-                ArticleId = command.ResultingArticleId
+                ArticleId = command.ResultingArticleId,
+                ArticleGuid = articleGuid.Id
             };
         }
 
@@ -289,6 +290,9 @@ namespace Phundus.Rest.Api
     {
         [JsonProperty("articleId")]
         public int ArticleId { get; set; }
+
+        [JsonProperty("articleGuid")]
+        public Guid ArticleGuid { get; set; }
     }
 
     public class ArticlesPatchOkResponseContent

@@ -10,9 +10,10 @@ namespace Phundus.Persistence.Shop.Mappings
             SchemaAction.All();
             Table("Es_Shop_Item");
 
-            Id(x => x.RowId).GeneratedBy.GuidComb();
-            Map(x => x.ArticleGuid).Unique();
+            Id(x => x.ArticleGuid).GeneratedBy.Assigned();
             Map(x => x.ArticleId).Unique();
+            Map(x => x.Brand);
+            Map(x => x.Color);
             Map(x => x.Description);
             Map(x => x.MemberPrice);
             Map(x => x.Name);
@@ -21,6 +22,9 @@ namespace Phundus.Persistence.Shop.Mappings
             Map(x => x.OwnerType);
             Map(x => x.Specification);
             Map(x => x.PublicPrice);
+
+            HasMany(x => x.Documents).KeyColumn("ArticleGuid").ReadOnly();
+            HasMany(x => x.Images).KeyColumn("ArticleGuid").ReadOnly();
         }
     }
 }

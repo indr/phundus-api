@@ -29,8 +29,8 @@ namespace Phundus.Shop.Projections
             row.FileLength = domainEvent.FileLength;
             row.FileName = domainEvent.FileName;
             row.FileType = domainEvent.FileType;
-            Session.SaveOrUpdate(row);
-            Session.Flush();
+
+            SaveOrUpdate(row);
         }
 
         public void Process(ImageRemoved domainEvent)

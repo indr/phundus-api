@@ -20,9 +20,15 @@
         }
 
         [Given(@"I uploaded an article image (.+)")]
-        public void GivenIUploadedAnArticleImageImage_Jpg(string fileName)
+        public void GivenIUploadedAnArticleImage(string fileName)
         {
             UploadArticleImage(fileName);
+        }
+
+        [Given(@"I uploaded an article document (.+)")]
+        public void GivenIUploadedAnArticleDocument(string fileName)
+        {
+            UploadArticleDocument(fileName);
         }
 
         [Given(@"I set (.+) as the preview image")]
@@ -37,6 +43,7 @@
             UploadArticleImage("");
         }
 
+        [Given(@"I uploaded an article image")]
         [When(@"I try to upload an article image (.+)")]
         public void WhenITryToUploadAnArticleImage(string fileName)
         {
@@ -48,6 +55,13 @@
             var filePath = _files.GetNextImageFileName();
             Ctx.FileNames[fileName] = filePath;
             _fileUploadResponseContent = App.UploadArticleImage(Ctx.Article, filePath, fileName);
+        }
+
+        private void UploadArticleDocument(string fileName)
+        {
+            var filePath = _files.GetNextDocumentFileName();
+            Ctx.FileNames[fileName] = filePath;
+            _fileUploadResponseContent = App.UploadArticleDocument(Ctx.Article, filePath, fileName);
         }
 
         [When(@"I try to get the article images")]

@@ -214,6 +214,7 @@
                 MemberPrice = article.MemberPrice
             });
             article.ArticleId = response.Data.ArticleId;
+            article.ArticleGuid = response.Data.ArticleGuid;
             return article;
         }
 
@@ -367,6 +368,12 @@
                 fullFileName, fileName);
         }
 
+        public FileUploadResponseContent UploadArticleDocument(Article article, string fullFileName, string fileName = null)
+        {
+            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new { articleId = article.ArticleId },
+                fullFileName, fileName);
+        }
+
         public FileUploadResponseContent GetArticleFiles(Article article)
         {
             return _apiClient.ArticlesFilesApi.Get<FileUploadResponseContent>(new {articleId = article.ArticleId}).Data;
@@ -423,6 +430,11 @@
         public void UpdateArticleDetails(int articleId, string name, string brand, string color, int grossStock)
         {
             _apiClient.ArticlesApi.Patch(new {articleId, name, brand, color, grossStock});
+        }
+
+        public ShopItem GetShopItemDetails(Guid itemId)
+        {
+            return _apiClient.ShopItemsApi.Get<ShopItem>(new {itemId = itemId}).Data;
         }
     }
 }

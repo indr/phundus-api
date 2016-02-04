@@ -156,14 +156,24 @@
              Content-Disposition: form-data; name="files[]"; filename="12365935_1736670393241540_1626625293305475497_o.jpg"
              Content-Type: image/jpeg
              */
+
+            var contentType = "";
+            var extension = Path.GetExtension(fileName).Trim('.').ToLowerInvariant();
+            if (extension == "jpg")
+                contentType = "image/jpeg";
+            else if (extension == "pdf")
+                contentType = "application/pdf";
+            else
+                throw new Exception("Unknown content type of the file to upload.");
+
             postDataWriter.Write("--" + boundaryString + "\r\n");
             postDataWriter.Write("Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\n"
                 //+ "Content-Length: \"{2}\"\r\n"
-                                    + "Content-Type: image/{2}\r\n"
+                                    + "Content-Type: {2}\r\n"
                 //+ "Content-Transfer-Encoding: binary\r\n\r\n"
                                     , "files[]"
                                     , fileName
-                                    , Path.GetExtension(fileName).Trim('.')
+                                    , contentType
                                     );
             postDataWriter.Write("\r\n");
             postDataWriter.Flush();
