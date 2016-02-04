@@ -85,7 +85,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Type"});
             table1.AddRow(new string[] {
                         "Image1.jpg",
-                        "image/jpg"});
+                        "image/jpeg"});
 #line 9
  testRunner.Then("I should get file upload response content", ((string)(null)), table1, "Then ");
 #line hidden
@@ -120,7 +120,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Type"});
             table3.AddRow(new string[] {
                         "Image2.jpg",
-                        "image/jpg"});
+                        "image/jpeg"});
 #line 20
  testRunner.Then("I should get file upload response content", ((string)(null)), table3, "Then ");
 #line hidden

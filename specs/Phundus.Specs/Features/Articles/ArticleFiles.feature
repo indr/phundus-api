@@ -8,7 +8,7 @@ Scenario: Image upload to an article in user store
 	When I try to upload an article image Image1.jpg
 	Then I should get file upload response content
 	| Name       | Type      |
-	| Image1.jpg | image/jpg |
+	| Image1.jpg | image/jpeg |
 
 Scenario: Image upload to an article in organization store
 	Given an organization with these members
@@ -19,7 +19,7 @@ Scenario: Image upload to an article in organization store
 	When I try to upload an article image Image2.jpg
 	Then I should get file upload response content
 	| Name       | Type      |
-	| Image2.jpg | image/jpg |
+	| Image2.jpg | image/jpeg |
 
 Scenario: Set preview image 
 	Given I am logged in as a user
