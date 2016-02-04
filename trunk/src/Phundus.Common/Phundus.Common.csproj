@@ -65,7 +65,7 @@
     <Compile Include="Events\StoredEvent.cs" />
     <Compile Include="FriendlyUrl.cs" />
     <Compile Include="NotFoundException.cs" />
-    <Compile Include="Notifications\IDomainEventHandler.cs" />
+    <Compile Include="Notifications\IStoredEventsConsumer.cs" />
     <Compile Include="Notifications\IDomainEventHandlerFactory.cs" />
     <Compile Include="Notifications\INotificationHandlerFactory.cs" />
     <Compile Include="Notifications\INotificationPublisher.cs" />

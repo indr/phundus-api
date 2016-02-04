@@ -7,7 +7,7 @@
     using NHibernate;
     using Organizations.Model;
 
-    public class RelationshipProjection : NHibernateReadModelBase<RelationshipProjectionRow>, IDomainEventHandler
+    public class RelationshipProjection : NHibernateReadModelBase<RelationshipProjectionRow>, IStoredEventsConsumer
     {
         public void Handle(DomainEvent domainEvent)
         {

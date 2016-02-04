@@ -1,26 +1,24 @@
 namespace Phundus.Dashboard.Projections
 {
-    using System;
     using System.Collections.Generic;
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
     using IdentityAccess.Organizations.Model;
     using IdentityAccess.Users.Model;
-    using NHibernate;
     using Queries;
 
     public class EventLogProjection : NHibernateReadModelBase<EventLogProjectionRow>, IEventLogQueries,
-        IDomainEventHandler
+        IStoredEventsConsumer
     {
-        public void Handle(DomainEvent domainEvent)
-        {
-            Process((dynamic) domainEvent);
-        }
-
         public IEnumerable<EventLogProjectionRow> FindMostRecent20()
         {
             return QueryOver().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
+        }
+
+        public void Handle(DomainEvent domainEvent)
+        {
+            Process((dynamic) domainEvent);
         }
 
         public void Process(DomainEvent domainEvent)

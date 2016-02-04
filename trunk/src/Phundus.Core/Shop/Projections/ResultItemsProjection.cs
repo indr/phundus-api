@@ -7,7 +7,7 @@
     using Inventory.Articles.Model;
     using NHibernate;
 
-    public class ResultItemsProjection : ReadModelBase<ResultItemsProjectionRow>, IDomainEventHandler
+    public class ResultItemsProjection : ReadModelBase<ResultItemsProjectionRow>, IStoredEventsConsumer
     {
         public void Handle(DomainEvent domainEvent)
         {
