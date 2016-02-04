@@ -26,6 +26,12 @@ namespace Phundus.Cqrs
             return result;
         }
 
+        protected void SaveOrUpdate(TRow row)
+        {
+            Session.SaveOrUpdate(row);
+            Session.Flush();
+        }
+
         protected void Delete(TRow row)
         {
             Session.Delete(row);

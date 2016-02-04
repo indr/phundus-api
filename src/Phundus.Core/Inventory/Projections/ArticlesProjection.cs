@@ -5,7 +5,6 @@
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
-    using NHibernate;
 
     public class ArticlesProjection : NHibernateReadModelBase<ArticlesProjectionRow>, IStoredEventsConsumer
     {
@@ -37,8 +36,7 @@
             row.PublicPrice = domainEvent.PublicPrice;
             row.MemberPrice = domainEvent.MemberPrice;
 
-            Session.SaveOrUpdate(row);
-            Session.Flush();
+            SaveOrUpdate(row);
         }
 
         public void Process(ArticleDeleted domainEvent)
@@ -59,26 +57,17 @@
 
         public void Process(GrossStockChanged domainEvent)
         {
-            Update(domainEvent.ArticleGuid, r =>
-            {
-                r.GrossStock = domainEvent.NewGrossStock;
-            });
+            Update(domainEvent.ArticleGuid, r => { r.GrossStock = domainEvent.NewGrossStock; });
         }
 
         public void Process(DescriptionChanged domainEvent)
         {
-            Update(domainEvent.ArticleGuid, r =>
-            {
-                r.Description = domainEvent.Description;
-            });
+            Update(domainEvent.ArticleGuid, r => { r.Description = domainEvent.Description; });
         }
 
         public void Process(SpecificationChanged domainEvent)
         {
-            Update(domainEvent.ArticleGuid, r =>
-            {
-                r.Specification = domainEvent.Specification;
-            });
+            Update(domainEvent.ArticleGuid, r => { r.Specification = domainEvent.Specification; });
         }
 
         public void Process(PricesChanged domainEvent)

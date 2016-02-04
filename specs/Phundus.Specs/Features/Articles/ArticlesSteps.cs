@@ -61,6 +61,7 @@
             Ctx.Article = App.CreateArticle(Ctx.Organization.OrganizationId);
         }
 
+        [Given(@"I created an article in the default store with these values")]
         [When(@"I create an article in the default store with these values")]
         public void WhenICreateAnArticleInTheDefaultStoreWithTheseValues(Table table)
         {

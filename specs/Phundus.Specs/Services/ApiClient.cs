@@ -132,6 +132,11 @@
             get { return Resource("organizations/{organizationId}/settings"); }
         }
 
+        public Resource ShopItemsApi
+        {
+            get { return Resource("shop/items/{itemId}"); }
+        }
+
         private Resource Resource(string url)
         {
             var result = new Resource(url, _assertNextHttpStatusCode);

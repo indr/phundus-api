@@ -7,6 +7,9 @@
     {
         [JsonProperty("articleId")]
         public int ArticleId { get; set; }
+
+        [JsonProperty("articleGuid")]
+        public Guid ArticleGuid { get; set; }
     }
 
     public class ArticlesPostRequestContent
@@ -29,6 +32,9 @@
 
     public class Article
     {
+        [JsonProperty("articleGuid")]
+        public Guid ArticleGuid { get; set; }
+
         [JsonProperty("articleId")]
         public int ArticleId { get; set; }
 

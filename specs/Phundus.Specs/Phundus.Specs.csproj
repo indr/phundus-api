@@ -250,6 +250,12 @@
       <DependentUpon>PlaceOrder.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Shop\PlaceOrderSteps.cs" />
+    <Compile Include="Features\Shop\ShopItems.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ShopItems.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Shop\ShopItemSteps.cs" />
     <Compile Include="Features\Status\Status.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -308,6 +314,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ArticleNames.csv" />
+    <None Include="Assets\Documents\comptinedunautreete.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Documents\lasagne-mit-lauch.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Documents\Proteine_de.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Documents\Saure_Basische_Lebensmittel_Tabelle-1.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Features\Account\ChangeEmailAddress.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ChangeEmailAddress.feature.cs</LastGenOutput>
@@ -414,6 +432,10 @@
     <None Include="Features\Shop\PlaceOrder.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PlaceOrder.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Shop\ShopItems.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ShopItems.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Status\Status.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

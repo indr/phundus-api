@@ -10,11 +10,10 @@ namespace Phundus.Persistence.Shop.Mappings
             SchemaAction.All();
             Table("Es_Shop_ItemImages");
 
-            Id(x => x.RowId).GeneratedBy.GuidComb();
-            Map(x => x.ArticleGuid).UniqueKey("UC_Es_Shop_ItemImages_ArticleGuid_FileName");
+            Id(x => x.ArticleGuid).GeneratedBy.Assigned().UniqueKey("ArticleGuid_FileName");
             Map(x => x.ArticleId);
             Map(x => x.FileLength);
-            Map(x => x.FileName).UniqueKey("UC_Es_Shop_ItemImages_ArticleGuid_FileName"); ;
+            Map(x => x.FileName).UniqueKey("ArticleGuid_FileName"); ;
             Map(x => x.FileType);
         }
     }
