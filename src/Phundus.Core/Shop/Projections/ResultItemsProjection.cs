@@ -5,7 +5,7 @@
     using Common.Notifications;
     using Cqrs;
     using Inventory.Articles.Model;
-    using NHibernate;
+    using NHibernate.Criterion;
 
     public class ResultItemsProjection : ReadModelBase<ResultItemsProjectionRow>, IStoredEventsConsumer
     {
@@ -28,9 +28,10 @@
             row.Name = domainEvent.Name;
             row.OwnerGuid = domainEvent.Owner.OwnerId.Id;
             row.OwnerName = domainEvent.Owner.Name;
-            row.OwnerType = (int)domainEvent.Owner.Type;
+            row.OwnerType = (int) domainEvent.Owner.Type;
             row.PreviewImageFileName = "";
             row.PublicPrice = domainEvent.PublicPrice;
+            Session.Save(row);
         }
 
         public void Process(ArticleDetailsChanged domainEvent)
@@ -48,7 +49,7 @@
         public void Process(PreviewImageChanged domainEvent)
         {
             var row = Find(domainEvent.ArticleGuid);
-            row.PreviewImageFileName = domainEvent.FileName;            
+            row.PreviewImageFileName = domainEvent.FileName;
         }
 
         public void Process(PricesChanged domainEvent)

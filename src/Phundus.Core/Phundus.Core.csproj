@@ -301,6 +301,11 @@
     <Compile Include="Shop\Pricing\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
     <Compile Include="Shop\Projections\ResultItemsProjection.cs" />
     <Compile Include="Shop\Projections\ResultItemsProjectionRow.cs" />
+    <Compile Include="Shop\Projections\ShopItemFilesProjection.cs" />
+    <Compile Include="Shop\Projections\ShopItemFilesProjectionRow.cs" />
+    <Compile Include="Shop\Projections\ShopItemImagesProjection.cs" />
+    <Compile Include="Shop\Projections\ShopItemImagesProjectionRow.cs" />
+    <Compile Include="Shop\Projections\ShopItemProjectionRow.cs" />
     <Compile Include="Shop\Queries\CartItemViewRow.cs" />
     <Compile Include="Shop\Queries\CartReadModel.cs" />
     <Compile Include="Shop\Queries\CartViewRow.cs" />
