@@ -11,10 +11,6 @@
 
     public class UserReadModel : NHibernateReadModelBase<UserViewRow>, IUserQueries, IInitiatorService
     {
-        public UserReadModel(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         public IUser GetByGuid(Guid guid)
         {
             return GetByGuid(new UserId(guid));

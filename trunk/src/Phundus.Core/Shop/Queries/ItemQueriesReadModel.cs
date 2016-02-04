@@ -12,10 +12,6 @@ namespace Phundus.Shop.Queries
 
     public class ItemQueriesReadModel : ReadModelBase, IItemQueries
     {
-        public ItemQueriesReadModel(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         public IList<ShopArticleSearchResultDto> Query(string globalSearch)
         {
             return new List<ShopArticleSearchResultDto>();

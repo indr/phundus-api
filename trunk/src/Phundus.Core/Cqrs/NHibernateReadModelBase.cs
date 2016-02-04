@@ -5,10 +5,6 @@ namespace Phundus.Cqrs
 
     public abstract class NHibernateReadModelBase<TRecord> : ReadModelBase<TRecord> where TRecord : class, new()
     {
-        protected NHibernateReadModelBase(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         protected IQueryOver<TRecord, TRecord> QueryOver()
         {
             return Session.QueryOver<TRecord>();

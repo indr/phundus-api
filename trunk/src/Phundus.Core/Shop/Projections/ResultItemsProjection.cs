@@ -9,10 +9,6 @@
 
     public class ResultItemsProjection : ReadModelBase<ResultItemsProjectionRow>, IDomainEventHandler
     {
-        public ResultItemsProjection(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         public void Handle(DomainEvent domainEvent)
         {
             Process((dynamic) domainEvent);

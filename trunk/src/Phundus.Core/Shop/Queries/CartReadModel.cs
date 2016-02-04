@@ -9,10 +9,6 @@
 
     public class CartReadModel : NHibernateReadModelBase<CartViewRow>, ICartQueries
     {
-        public CartReadModel(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         public ICart FindByUserGuid(InitiatorId initiatorId, UserId userId)
         {
             if (initiatorId.Id != userId.Id)

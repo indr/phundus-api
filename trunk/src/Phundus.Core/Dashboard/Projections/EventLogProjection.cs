@@ -13,10 +13,6 @@ namespace Phundus.Dashboard.Projections
     public class EventLogProjection : NHibernateReadModelBase<EventLogProjectionRow>, IEventLogQueries,
         IDomainEventHandler
     {
-        public EventLogProjection(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         public void Handle(DomainEvent domainEvent)
         {
             Process((dynamic) domainEvent);

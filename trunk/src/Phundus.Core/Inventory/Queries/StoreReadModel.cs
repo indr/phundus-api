@@ -12,10 +12,6 @@ namespace Phundus.Inventory.Queries
 
     public class StoreReadModel : ReadModelBase, IStoreQueries
     {
-        public StoreReadModel(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         public IStoreRepository StoreRepository { get; set; }
 
         public StoreDto GetByOwnerId(OwnerId ownerId)

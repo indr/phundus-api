@@ -9,10 +9,6 @@
 
     public class RelationshipsQuery : NHibernateReadModelBase<RelationshipProjectionRow>, IRelationshipQueries
     {
-        public RelationshipsQuery(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         public RelationshipProjectionRow ByMemberIdForOrganizationId(UserId memberId, Guid organizationId)
         {
             var result = QueryOver().Where(p =>

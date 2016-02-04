@@ -6,10 +6,6 @@ namespace Phundus.Shop.Queries.Models
 
     public abstract class ReadModelReaderBase : ReadModelBase
     {
-        protected ReadModelReaderBase(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         protected ReadModelDataContext CreateCtx()
         {
             var session = Session;

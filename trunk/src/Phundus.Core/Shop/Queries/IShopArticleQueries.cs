@@ -25,10 +25,6 @@
             Mapper.CreateMap<IDataReader, ShopArticleImageDto>();
         }
 
-        public ShopArticleReadModel(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         public ShopArticleDetailDto GetArticle(int id)
         {
             var result = Single<ShopArticleDetailDto>(

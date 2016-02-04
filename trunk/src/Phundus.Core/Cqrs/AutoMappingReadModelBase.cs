@@ -10,10 +10,6 @@ namespace Phundus.Cqrs
 
     public abstract class AutoMappingReadModelBase : ReadModelBase
     {
-        protected AutoMappingReadModelBase(Func<ISession> sessionFactory) : base(sessionFactory)
-        {
-        }
-
         private IDataReader ExecuteReader(string sql)
         {
             return CreateCommand(sql).ExecuteReader();
