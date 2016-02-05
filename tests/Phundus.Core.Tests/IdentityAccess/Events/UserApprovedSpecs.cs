@@ -8,7 +8,9 @@
     public class when_instantiating_a_user_approved_event : domain_event_concern<UserApproved>
     {
         private static UserId theUserGuid = new UserId();
-        private Because of = () => sut = new UserApproved(theInitiatorId, theUserGuid);
+
+        private Establish ctx = () => sut_factory.create_using(() =>
+            new UserApproved(theInitiatorId, theUserGuid));
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");

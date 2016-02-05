@@ -3,6 +3,7 @@
     using System;
     using Common;
     using Common.Domain.Model;
+    using Shop.Model;
 
     public class OrderItem
     {
