@@ -3,7 +3,6 @@
     using System;
     using Common;
     using Common.Domain.Model;
-    using Pricing.Model;
 
     public class OrderItem
     {

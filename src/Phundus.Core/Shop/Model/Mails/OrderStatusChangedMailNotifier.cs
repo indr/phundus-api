@@ -8,6 +8,7 @@
     using Model;
     using Repositories;
     using Services;
+    using Shop.Model.Mails;
 
     public class OrderStatusChangedMailNotifier : BaseMail, ISubscribeTo<OrderApproved>, ISubscribeTo<OrderRejected>
     {
