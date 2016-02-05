@@ -105,11 +105,29 @@ this.FeatureBackground();
                         "1.60"});
 #line 12
  testRunner.Given("I created an article in the default store with these values", ((string)(null)), table2, "Given ");
+#line hidden
 #line 15
+ testRunner.And("I updated the article description:", "This is the multiline\narticle description", ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 20
+ testRunner.And("I updated the article specification:", "This is the multiline\narticle specification", ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 25
  testRunner.And("I uploaded an article image image1.jpg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 16
+#line 26
+ testRunner.And("I uploaded an article image image2.jpg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 27
+ testRunner.And("I uploaded an article image image3.jpg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 28
+ testRunner.And("I uploaded an article image image4.jpg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 29
+ testRunner.And("I uploaded an article image image5.jpg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 30
  testRunner.And("I uploaded an article document doc1.pdf", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 17
+#line 31
+ testRunner.And("I uploaded an article document doc2.pdf", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 32
+ testRunner.And("I am logged out", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 33
  testRunner.When("I try to get the shop item details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -120,12 +138,12 @@ this.FeatureBackground();
                         "Boskop",
                         "1.50",
                         "1.60"});
-#line 18
+#line 34
  testRunner.Then("the shop item should equal", ((string)(null)), table3, "Then ");
-#line 21
- testRunner.And("the shop item should have 1 document", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 22
- testRunner.And("the shop item should have 1 image", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 37
+ testRunner.And("the shop item should have 2 document", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 38
+ testRunner.And("the shop item should have 5 image", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

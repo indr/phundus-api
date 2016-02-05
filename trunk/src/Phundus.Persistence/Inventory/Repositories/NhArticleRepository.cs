@@ -39,6 +39,14 @@
             return result;
         }
 
+        public Article GetById(Guid articleGuid)
+        {
+            var result = Session.QueryOver<Article>().Where(p => p.ArticleGuid.Id == articleGuid).SingleOrDefault();
+            if (result == null)
+                throw new NotFoundException("Article {0} not found", articleGuid);
+            return result;
+        }
+
         public IEnumerable<Article> Query(InitiatorId currentUserId, OwnerId queryOwnerId, string query)
         {
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");

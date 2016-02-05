@@ -28,9 +28,9 @@ namespace Phundus.Inventory.Projections
             row.ArticleGuid = domainEvent.ArticleGuid;
             row.ArticleId = domainEvent.ArticleId;
             row.Name = domainEvent.Name;
-            row.OwnerGuid = domainEvent.Owner.OwnerId.Id;
-            row.OwnerName = domainEvent.Owner.Name;
-            row.OwnerType = (int) domainEvent.Owner.Type;
+            row.LessorId = domainEvent.Owner.OwnerId.Id;
+            row.LessorName = domainEvent.Owner.Name;
+            row.LessorType = (int) domainEvent.Owner.Type;
             row.PublicPrice = domainEvent.PublicPrice;
             row.MemberPrice = domainEvent.MemberPrice;
 

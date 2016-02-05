@@ -17,9 +17,9 @@ namespace Phundus.Persistence.Shop.Mappings
             Map(x => x.Description);
             Map(x => x.MemberPrice);
             Map(x => x.Name);
-            Map(x => x.OwnerGuid);
-            Map(x => x.OwnerName);
-            Map(x => x.OwnerType);
+            Map(x => x.LessorId, "OwnerGuid");
+            Map(x => x.LessorName, "OwnerName");
+            Map(x => x.LessorType, "OwnerType");
             Map(x => x.Specification);
             Map(x => x.PublicPrice);
 

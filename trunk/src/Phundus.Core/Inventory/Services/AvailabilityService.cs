@@ -16,6 +16,7 @@
         bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude);
         bool IsArticleAvailable(ArticleId articleId, Period period, int amount, Guid orderItemToExclude);        
         IEnumerable<Availability> GetAvailabilityDetails(int articleId);
+        IEnumerable<Availability> GetAvailabilityDetails(Guid articleGuid);
         
     }
 
@@ -114,6 +115,12 @@
         public IEnumerable<Availability> GetAvailabilityDetails(int articleId)
         {
             return GetAvailabilityDetails(articleId, Guid.Empty);
+        }
+
+        public IEnumerable<Availability> GetAvailabilityDetails(Guid articleGuid)
+        {
+            var article = ArticleRepository.GetById(articleGuid);
+            return GetAvailabilityDetails(article.Id);
         }
     }
 }

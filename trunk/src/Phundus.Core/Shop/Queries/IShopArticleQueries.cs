@@ -8,7 +8,6 @@
     using AutoMapper;
     using Cqrs;
     using Cqrs.Paging;
-    using NHibernate;
 
     public interface IShopArticleQueries
     {
@@ -28,7 +27,7 @@
         public ShopArticleDetailDto GetArticle(int id)
         {
             var result = Single<ShopArticleDetailDto>(
-                @"select a.Id, a.Name, a.PublicPrice, a.MemberPrice, a.Description, a.Specification,  a.Owner_OwnerId as OrganizationId, a.Owner_Name as OrganizationName " +
+                @"select a.Id, a.ArticleGuid, a.Name, a.PublicPrice, a.MemberPrice, a.Description, a.Specification,  a.Owner_OwnerId as OrganizationId, a.Owner_Name as OrganizationName " +
                 @"from [Dm_Inventory_Article] a left join [Dm_IdentityAccess_Organization] o on (a.Owner_OwnerId = o.Guid) " +
                 @"where a.Id = {0} " +
                 //@" and o.[Plan] > 0" +
@@ -80,7 +79,8 @@
             foreach (var each in result.Items)
             {
                 var images = Many<ShopArticleImageDto>(
-                    @"select FileName, [Type], [Length], [IsPreview] from [Dm_Inventory_ArticleFile] where ArticleId = {0}", each.Id)
+                    @"select FileName, [Type], [Length], [IsPreview] from [Dm_Inventory_ArticleFile] where ArticleId = {0}",
+                    each.Id)
                     .Where(p => p.Type.StartsWith("image", StringComparison.InvariantCultureIgnoreCase)).ToList();
 
                 var image = images.FirstOrDefault(p => p.IsPreview);
@@ -102,6 +102,7 @@
         private ICollection<ShopArticleImageDto> _images = new Collection<ShopArticleImageDto>();
 
         public int Id { get; set; }
+        public Guid ArticleGuid { get; set; }
         public string Name { get; set; }
         public decimal PublicPrice { get; set; }
         public decimal? MemberPrice { get; set; }
