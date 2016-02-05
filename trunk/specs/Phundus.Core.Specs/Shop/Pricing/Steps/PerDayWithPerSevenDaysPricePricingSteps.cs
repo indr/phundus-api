@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Common.Domain.Model;
-    using Phundus.Shop.Pricing.Model;
+    using Phundus.Shop.Model;
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
 

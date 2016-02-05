@@ -4,7 +4,7 @@
     using Common.Domain.Model;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
-    using Phundus.Shop.Pricing.Model;
+    using Phundus.Shop.Model;
 
     [Subject(typeof (PerDayWithPerSevenDaysPricePricingStrategy))]
     public class test : Observes<PerDayWithPerSevenDaysPricePricingStrategy>
