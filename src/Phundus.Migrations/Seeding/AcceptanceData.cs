@@ -30,13 +30,13 @@
             Delete.FromTable("Dm_Shop_OrderItem").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_Shop_Order").InSchema(SchemaName).AllRows();
 
-            Delete.FromTable("Es_Dashboard_EventLog").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Es_IdentityAccess_Relationships").AllRows();
-            Delete.FromTable("Es_Inventory_Articles").AllRows();
-            Delete.FromTable("Es_Shop_ItemFiles").AllRows();
-            Delete.FromTable("Es_Shop_ItemImages").AllRows();
-            Delete.FromTable("Es_Shop_Item").AllRows();
-            Delete.FromTable("Es_Shop_ResultItems").AllRows();
+            DeleteAllRowsIfTableExists("Es_Dashboard_EventLog");
+            DeleteAllRowsIfTableExists("Es_IdentityAccess_Relationships");
+            DeleteAllRowsIfTableExists("Es_Inventory_Articles");
+            DeleteAllRowsIfTableExists("Es_Shop_ItemFiles");
+            DeleteAllRowsIfTableExists("Es_Shop_ItemImages");
+            DeleteAllRowsIfTableExists("Es_Shop_Item");
+            DeleteAllRowsIfTableExists("Es_Shop_ResultItems");
 
             Delete.FromTable("ProcessedNotificationTracker").InSchema(SchemaName).AllRows();
             Delete.FromTable("StoredEvents").InSchema(SchemaName).AllRows();
@@ -51,6 +51,12 @@
             Import<ArticleImage>("ArticleImages.csv", "Dm_Inventory_ArticleFile", false);
 
             CopyImages();
+        }
+
+        private void DeleteAllRowsIfTableExists(string tableName)
+        {
+            if (Schema.Table(tableName).Exists())
+                Delete.FromTable(tableName).AllRows();
         }
 
         private static void CopyImages()
