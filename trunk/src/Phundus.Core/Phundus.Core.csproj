@@ -270,36 +270,36 @@
     <Compile Include="Inventory\Stores\Model\StoreOpened.cs" />
     <Compile Include="Inventory\Stores\Repositories\IStoreRepository.cs" />
     <Compile Include="Shop\Model\Lessee.cs" />
-    <Compile Include="Shop\Orders\Commands\AddArticleToCart.cs" />
-    <Compile Include="Shop\Orders\Commands\AddOrderItem.cs" />
-    <Compile Include="Shop\Orders\Commands\CloseOrder.cs" />
-    <Compile Include="Shop\Orders\Commands\ApproveOrder.cs" />
-    <Compile Include="Shop\Orders\Commands\CreateEmptyOrder.cs" />
-    <Compile Include="Shop\Orders\Commands\ClearCart.cs" />
-    <Compile Include="Shop\Orders\Commands\PlaceOrder.cs" />
-    <Compile Include="Shop\Orders\Commands\RejectOrder.cs" />
-    <Compile Include="Shop\Orders\Commands\RemoveCartItem.cs" />
-    <Compile Include="Shop\Orders\Commands\UpdateCartItem.cs" />
-    <Compile Include="Shop\Orders\Exceptions\OrderNotFoundException.cs" />
-    <Compile Include="Shop\Orders\Commands\RemoveOrderItem.cs" />
-    <Compile Include="Shop\Orders\Commands\UpdateOrderItem.cs" />
-    <Compile Include="Shop\Orders\Exceptions\ArticleNotFoundException.cs" />
-    <Compile Include="Shop\Orders\Exceptions\CartNotFoundException.cs" />
-    <Compile Include="Shop\Orders\Mails\OrderStatusChangedMailNotifier.cs" />
-    <Compile Include="Shop\Orders\Model\Article.cs" />
-    <Compile Include="Shop\Orders\Model\CartItem.cs" />
-    <Compile Include="Shop\Orders\Model\Lessor.cs" />
-    <Compile Include="Shop\Orders\Model\OrderCreated.cs" />
-    <Compile Include="Shop\Orders\Model\OrderEvents.cs" />
-    <Compile Include="Shop\Orders\Model\OrderItemAdded.cs" />
-    <Compile Include="Shop\Orders\Model\OrderItemAmountChanged.cs" />
-    <Compile Include="Shop\Orders\Model\OrderItemPeriodChanged.cs" />
-    <Compile Include="Shop\Orders\Model\OrderItemTotalChanged.cs" />
-    <Compile Include="Shop\Orders\Model\OrderPlaced.cs" />
-    <Compile Include="Shop\Orders\Services\RoundRectangle.cs" />
-    <Compile Include="Shop\Orders\Services\OrderPdfGeneratorService.cs" />
-    <Compile Include="Shop\Orders\PdfStore.cs" />
-    <Compile Include="Shop\Pricing\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
+    <Compile Include="Shop\Commands\AddArticleToCart.cs" />
+    <Compile Include="Shop\Commands\AddOrderItem.cs" />
+    <Compile Include="Shop\Commands\CloseOrder.cs" />
+    <Compile Include="Shop\Commands\ApproveOrder.cs" />
+    <Compile Include="Shop\Commands\CreateEmptyOrder.cs" />
+    <Compile Include="Shop\Commands\ClearCart.cs" />
+    <Compile Include="Shop\Commands\PlaceOrder.cs" />
+    <Compile Include="Shop\Commands\RejectOrder.cs" />
+    <Compile Include="Shop\Commands\RemoveCartItem.cs" />
+    <Compile Include="Shop\Commands\UpdateCartItem.cs" />
+    <Compile Include="Shop\Model\Exceptions\OrderNotFoundException.cs" />
+    <Compile Include="Shop\Commands\RemoveOrderItem.cs" />
+    <Compile Include="Shop\Commands\UpdateOrderItem.cs" />
+    <Compile Include="Shop\Model\Exceptions\ArticleNotFoundException.cs" />
+    <Compile Include="Shop\Model\Exceptions\CartNotFoundException.cs" />
+    <Compile Include="Shop\Model\Mails\OrderStatusChangedMailNotifier.cs" />
+    <Compile Include="Shop\Model\Article.cs" />
+    <Compile Include="Shop\Model\CartItem.cs" />
+    <Compile Include="Shop\Model\Lessor.cs" />
+    <Compile Include="Shop\Model\OrderCreated.cs" />
+    <Compile Include="Shop\Model\OrderEvents.cs" />
+    <Compile Include="Shop\Model\OrderItemAdded.cs" />
+    <Compile Include="Shop\Model\OrderItemAmountChanged.cs" />
+    <Compile Include="Shop\Model\OrderItemPeriodChanged.cs" />
+    <Compile Include="Shop\Model\OrderItemTotalChanged.cs" />
+    <Compile Include="Shop\Model\OrderPlaced.cs" />
+    <Compile Include="Shop\Model\Pdf\RoundRectangle.cs" />
+    <Compile Include="Shop\Model\Pdf\OrderPdfGeneratorService.cs" />
+    <Compile Include="Shop\Model\Pdf\PdfStore.cs" />
+    <Compile Include="Shop\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
     <Compile Include="Shop\Projections\ResultItemsProjection.cs" />
     <Compile Include="Shop\Projections\ResultItemsProjectionRow.cs" />
     <Compile Include="Shop\Projections\ShopItemFilesProjection.cs" />
@@ -331,10 +331,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReadModel.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Shop\Services\BorrowerService.cs" />
-    <Compile Include="Shop\Services\ArticleService.cs" />
+    <Compile Include="Shop\Model\Services\BorrowerService.cs" />
+    <Compile Include="Shop\Model\Services\ArticleService.cs" />
     <Compile Include="Shop\Authorization\Rent.cs" />
-    <Compile Include="Shop\Services\LessorService.cs" />
+    <Compile Include="Shop\Model\Services\LessorService.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
     <Compile Include="Cqrs\CommandDispatcher.cs" />
@@ -346,22 +346,22 @@
     <Compile Include="Cqrs\ICommandHandlerFactory.cs" />
     <Compile Include="Ddd\EventPublisher.cs" />
     <Compile Include="Inventory\Articles\Model\Article.cs" />
-    <Compile Include="Shop\Orders\Mails\Templates.Designer.cs">
+    <Compile Include="Shop\Model\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Templates.resx</DependentUpon>
     </Compile>
-    <Compile Include="Shop\Orders\Model\Cart.cs" />
+    <Compile Include="Shop\Model\Cart.cs" />
     <Compile Include="Ddd\EntityBase.cs" />
     <Compile Include="Inventory\Articles\Model\Image.cs" />
-    <Compile Include="Shop\Orders\Model\Order.cs" />
-    <Compile Include="Shop\Orders\Model\OrderItem.cs" />
-    <Compile Include="Shop\Orders\Model\OrderStatus.cs" />
+    <Compile Include="Shop\Model\Order.cs" />
+    <Compile Include="Shop\Model\OrderItem.cs" />
+    <Compile Include="Shop\Model\OrderStatus.cs" />
     <Compile Include="Inventory\AvailabilityAndReservation\Model\Reservation.cs" />
-    <Compile Include="Shop\Orders\Mails\OrderReceivedMail.cs" />
+    <Compile Include="Shop\Model\Mails\OrderReceivedMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shop\Orders\Repositories\ICartRepository.cs" />
-    <Compile Include="Shop\Orders\Repositories\IOrderRepository.cs" />
+    <Compile Include="Shop\Model\Repositories\ICartRepository.cs" />
+    <Compile Include="Shop\Model\Repositories\IOrderRepository.cs" />
     <Compile Include="Inventory\AvailabilityAndReservation\Repositories\IReservationRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -389,8 +389,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Inventory\Model\" />
-    <Folder Include="Inventory\Services\Dtos\" />
-    <Folder Include="Shop\Catalogs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shop\Queries\ReadModel.dbml.layout">
@@ -406,7 +404,7 @@
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Shop\Orders\Mails\Templates.resx">
+    <EmbeddedResource Include="Shop\Model\Mails\Templates.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Templates.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -424,9 +422,9 @@
     <Content Include="IdentityAccess\Users\Mails\Resources\UserLockedHtml.txt" />
     <Content Include="IdentityAccess\Users\Mails\Resources\UserResetPasswordHtml.txt" />
     <Content Include="IdentityAccess\Users\Mails\Resources\UserUnlockedHtml.txt" />
-    <Content Include="Shop\Orders\Mails\Resources\OrderApprovedHtml.txt" />
-    <Content Include="Shop\Orders\Mails\Resources\OrderReceivedHtml.txt" />
-    <Content Include="Shop\Orders\Mails\Resources\OrderRejectedHtml.txt" />
+    <Content Include="Shop\Model\Mails\Resources\OrderApprovedHtml.txt" />
+    <Content Include="Shop\Model\Mails\Resources\OrderReceivedHtml.txt" />
+    <Content Include="Shop\Model\Mails\Resources\OrderRejectedHtml.txt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
