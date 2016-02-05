@@ -78,6 +78,11 @@
             return response.Data.UserId;
         }
 
+        public void LogOut()
+        {
+            _apiClient.DeleteSessionCookies();
+        }
+
         public void ConfirmUser(Guid userId)
         {
             LogInAsRoot();

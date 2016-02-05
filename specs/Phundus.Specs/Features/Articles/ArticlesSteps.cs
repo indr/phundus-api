@@ -119,6 +119,7 @@
             Assert.That(_articles.Results.Count, Is.EqualTo(number));
         }
 
+        [Given(@"I updated the article description:")]
         [When(@"I try to update the article description:")]
         public void WhenITryToUpdateTheArticleDescription(string multilineText)
         {
@@ -132,6 +133,7 @@
             Assert.That(article.Description, Is.EqualTo(multilineText));
         }
 
+        [Given(@"I updated the article specification:")]
         [When(@"I try to update the article specification:")]
         public void WhenITryToUpdateTheArticleSpecification(string multilineText)
         {

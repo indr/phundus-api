@@ -1,26 +1,32 @@
 ﻿namespace Phundus.Rest.Api.Shop
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
-    using Common;
     using ContentObjects;
+    using Inventory.Queries;
     using Newtonsoft.Json;
     using Phundus.Shop.Queries;
 
     [RoutePrefix("api/shop/items")]
+    [AllowAnonymous]
     public class ShopItemsController : ApiControllerBase
     {
         private readonly IItemQueries _itemQueries;
+        private readonly IAvailabilityQueries _availabilityQueries;
 
-        public ShopItemsController(IItemQueries itemQueries)
+        public ShopItemsController(IItemQueries itemQueries, IAvailabilityQueries availabilityQueries)
         {
             if (itemQueries == null) throw new ArgumentNullException("itemQueries");
+            if (availabilityQueries == null) throw new ArgumentNullException("availabilityQueries");
             _itemQueries = itemQueries;
+            _availabilityQueries = availabilityQueries;
         }
 
         [GET("")]
@@ -50,21 +56,49 @@
                 Name = item.Name,
                 PublicPrice = item.PublicPrice,
                 Specification = item.Specification,
-                
+
+                Lessor = new ShopItemGetOkResponseContent.LessorObject
+                {
+                    LessorId = item.LessorId,
+                    LessorType = item.LessorType,
+                    Name = item.LessorName
+                },
+
                 Documents = item.Documents.Select(s => new ShopItemGetOkResponseContent.DocumentObject
                 {
                     FileLength = s.FileLength,
                     FileName = s.FileName,
-                    FileType = s.FileType
+                    FileType = s.FileType,
+                    Url = GetArticleFileUrl(s.ArticleId, s.FileName)
                 }).ToList(),
-                
+
                 Images = item.Images.Select(s => new ShopItemGetOkResponseContent.ImageObject
                 {
                     FileLength = s.FileLength,
                     FileName = s.FileName,
-                    FileType = s.FileType
+                    FileType = s.FileType,
+                    Url = GetArticleFileUrl(s.ArticleId, s.FileName)
                 }).ToList()
             };
+        }
+
+        private string GetArticleFileUrl(int articleId, string fileName)
+        {
+            const string format = @"/Content/Images/Articles/{0}/{1}";
+            return String.Format(format, articleId, fileName);
+        }
+
+        [GET("{itemId}/availability")]
+        [Transaction]
+        public virtual HttpResponseMessage GetAvailability(Guid itemId)
+        {
+            var result = _availabilityQueries.GetAvailability(itemId);
+            return Ok(new {result = result});
+        }
+
+        protected HttpResponseMessage Ok(object content)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, content);
         }
     }
 
@@ -97,16 +131,19 @@
         [JsonProperty("documents")]
         public ICollection<DocumentObject> Documents { get; set; }
 
-        public class LessorObject
+        public class DocumentObject
         {
-            [JsonProperty("lessorId")]
-            public Guid LessorId { get; set; }
+            [JsonProperty("fileName")]
+            public string FileName { get; set; }
 
-            [JsonProperty("lessorName")]
-            public string LessorName { get; set; }
+            [JsonProperty("fileType")]
+            public string FileType { get; set; }
 
-            [JsonProperty("lessorType")]
-            public int LessorType { get; set; }
+            [JsonProperty("fileLength")]
+            public long FileLength { get; set; }
+
+            [JsonProperty("url")]
+            public string Url { get; set; }
         }
 
         public class ImageObject
@@ -119,18 +156,21 @@
 
             [JsonProperty("fileLength")]
             public long FileLength { get; set; }
+
+            [JsonProperty("url")]
+            public string Url { get; set; }
         }
 
-        public class DocumentObject
+        public class LessorObject
         {
-            [JsonProperty("fileName")]
-            public string FileName { get; set; }
+            [JsonProperty("lessorId")]
+            public Guid LessorId { get; set; }
 
-            [JsonProperty("fileType")]
-            public string FileType { get; set; }
+            [JsonProperty("lessorType")]
+            public int LessorType { get; set; }
 
-            [JsonProperty("fileLength")]
-            public long FileLength { get; set; }
+            [JsonProperty("name")]
+            public string Name { get; set; }
         }
     }
 }

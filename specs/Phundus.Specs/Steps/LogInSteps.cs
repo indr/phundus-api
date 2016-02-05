@@ -38,6 +38,13 @@
             Ctx.User = user;
         }
 
+        [Given(@"I am logged out")]
+        public void GivenIAmLoggedOut()
+        {
+            App.LogOut();
+        }
+
+
         [When(@"I try to log in as (.*)")]
         public void WhenITryToLogInAs(string alias)
         {

@@ -12,9 +12,9 @@
         public virtual string Color { get; set; }
         public virtual decimal PublicPrice { get; set; }
         public virtual decimal? MemberPrice { get; set; }
-        public virtual Guid OwnerGuid { get; set; }
-        public virtual string OwnerName { get; set; }
-        public virtual int OwnerType { get; set; }
+        public virtual Guid LessorId { get; set; }
+        public virtual string LessorName { get; set; }
+        public virtual int LessorType { get; set; }
         public virtual string Description { get; set; }
         public virtual string Specification { get; set; }
 
