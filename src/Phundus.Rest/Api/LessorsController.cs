@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Rest.Api
 {
     using System;
+    using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -22,6 +23,7 @@
 
         [GET("")]
         [Transaction]
+        [AllowAnonymous]
         public virtual QueryOkResponseContent<ILessor> Get()
         {
             var results = _lessorQueries.Query();
@@ -30,6 +32,7 @@
 
         [GET("{lessorId}")]
         [Transaction]
+        [AllowAnonymous]
         public virtual LessorsGetOkResponseContent Get(Guid lessorId)
         {
             var lessor = _lessorQueries.GetByGuid(lessorId);
