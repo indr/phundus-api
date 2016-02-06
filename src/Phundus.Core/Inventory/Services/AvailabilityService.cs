@@ -3,21 +3,22 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Articles.Model;
     using Articles.Repositories;
     using AvailabilityAndReservation.Model;
     using AvailabilityAndReservation.Repositories;
     using Common.Domain.Model;
     using Infrastructure;
-    using Org.BouncyCastle.Crypto.Engines;
 
     public interface IAvailabilityService
     {
         bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int quantity);
+        bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int quantity);
         bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude);
-        bool IsArticleAvailable(ArticleId articleId, Period period, int amount, Guid orderItemToExclude);        
+        bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude);
+        
         IEnumerable<Availability> GetAvailabilityDetails(int articleId);
         IEnumerable<Availability> GetAvailabilityDetails(Guid articleGuid);
-        
     }
 
     public class AvailabilityService : IAvailabilityService
@@ -31,18 +32,31 @@
             return IsArticleAvailable(articleId, fromUtc, toUtc, quantity, new Guid());
         }
 
-        public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude)
+        public bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int quantity)
         {
-            return IsArticleAvailable(new ArticleId(articleId), new Period(fromUtc, toUtc), amount, orderItemToExclude);
+            return IsArticleAvailable(articleGuid, fromUtc, toUtc, quantity, new Guid());
         }
 
-        public bool IsArticleAvailable(ArticleId articleId, Period period, int amount, Guid orderItemToExclude)
+        public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount,
+            Guid orderItemToExclude)
         {
-            if (articleId == null) throw new ArgumentNullException("articleId");
+            var article = ArticleRepository.FindById(articleId);
+            return IsArticleAvailable(article, new Period(fromUtc, toUtc), amount, orderItemToExclude);
+        }
+
+        public bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude)
+        {
+            var article = ArticleRepository.FindByGuid(articleGuid);
+            return IsArticleAvailable(article, new Period(fromUtc, toUtc), amount, orderItemToExclude);
+        }
+
+        private bool IsArticleAvailable(Article article, Period period, int amount, Guid orderItemToExclude)
+        {
+            if (article == null) throw new ArgumentNullException("article");
             if (period == null) throw new ArgumentNullException("period");
 
 
-            var availabilities = GetAvailabilityDetails(articleId.Id, orderItemToExclude);
+            var availabilities = GetAvailabilityDetails(article.Id, orderItemToExclude);
 
             var inRange = availabilities.Where(p => p.FromUtc <= period.ToUtc).OrderByDescending(x => x.FromUtc);
 
@@ -57,6 +71,17 @@
                 }
             }
             return false;
+        }
+
+        public IEnumerable<Availability> GetAvailabilityDetails(int articleId)
+        {
+            return GetAvailabilityDetails(articleId, Guid.Empty);
+        }
+
+        public IEnumerable<Availability> GetAvailabilityDetails(Guid articleGuid)
+        {
+            var article = ArticleRepository.GetById(articleGuid);
+            return GetAvailabilityDetails(article.Id);
         }
 
         private IEnumerable<Availability> GetAvailabilityDetails(int articleId, Guid orderItemToExclude)
@@ -100,27 +125,16 @@
                     continue;
 
                 if ((result.Count == 0) && (each.Key > localTodayUtc))
-                    result.Add(new Availability { FromUtc = localTodayUtc, Amount = currentAmount - each.Value });
+                    result.Add(new Availability {FromUtc = localTodayUtc, Amount = currentAmount - each.Value});
 
-                
-                result.Add(new Availability { FromUtc = each.Key, Amount = currentAmount });
+
+                result.Add(new Availability {FromUtc = each.Key, Amount = currentAmount});
             }
 
             if (result.Count == 0)
-                result.Insert(0, new Availability { FromUtc = localTodayUtc, Amount = article.GrossStock });
+                result.Insert(0, new Availability {FromUtc = localTodayUtc, Amount = article.GrossStock});
 
             return result;
-        }
-
-        public IEnumerable<Availability> GetAvailabilityDetails(int articleId)
-        {
-            return GetAvailabilityDetails(articleId, Guid.Empty);
-        }
-
-        public IEnumerable<Availability> GetAvailabilityDetails(Guid articleGuid)
-        {
-            var article = ArticleRepository.GetById(articleGuid);
-            return GetAvailabilityDetails(article.Id);
         }
     }
 }

@@ -31,5 +31,13 @@
             var articles = ArticleRepository.Query(initiatorId, queryOwnerId, query);
             return new ArticleDtoAssembler().CreateDtos(articles);
         }
+
+        public ArticleDto GetById(Guid articleGuid)
+        {
+            var article = ArticleRepository.FindByGuid(articleGuid);
+            if (article == null)
+                throw new NotFoundException(String.Format("Article {0} not found.", articleGuid));
+            return new ArticleDtoAssembler().CreateDto(article);
+        }
     }
 }
