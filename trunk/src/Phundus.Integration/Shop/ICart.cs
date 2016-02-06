@@ -17,6 +17,7 @@
 
         int Position { get; }
         int ArticleId { get; }
+        Guid ArticleGuid { get; }
         string Text { get; }
         DateTime FromUtc { get; }
         DateTime ToUtc { get; }

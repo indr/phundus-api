@@ -15,17 +15,18 @@ namespace Phundus.Persistence.Shop.Mappings
 
             Id(x => x.CartItemGuid, "CartItemGuid");
             Map(x => x.Position, "Position");
-            Map(x => x.ArticleId, "Article_ArticleId");
-            Map(x => x.Text, "Article_Name");
+            Map(x => x.ArticleId, "ArticleId");
+            Map(x => x.ArticleGuid, "ArticleGuid");
+            Map(x => x.Text, "Text");
             Map(x => x.FromUtc, "FromUtc").CustomType<UtcDateTimeType>();
             Map(x => x.ToUtc, "ToUtc").CustomType<UtcDateTimeType>();
             Map(x => x.Days, "Days");
             Map(x => x.Quantity, "Quantity");
-            Map(x => x.UnitPricePerWeek, "Article_UnitPricePerWeek");
+            Map(x => x.UnitPricePerWeek, "UnitPricePerWeek");
             Map(x => x.ItemTotal, "ItemTotal");
 
-            Map(x => x.OwnerGuid, "Article_Owner_OwnerId");
-            Map(x => x.OwnerName, "Article_Owner_Name");
+            Map(x => x.OwnerGuid, "LessorId");
+            Map(x => x.OwnerName, "LessorName");
         }
     }
 }

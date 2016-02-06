@@ -169,6 +169,7 @@
     <Compile Include="2016\02\M201602030710_Delete_empty_article_stored_events.cs" />
     <Compile Include="2016\02\M201602030711_Generate_ImageAdded_stored_events.cs" />
     <Compile Include="2016\02\M201602031143_Reset_processed_notification_trackers.cs" />
+    <Compile Include="2016\02\M201602060927_Recreate_View_Shop_CartItems.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
