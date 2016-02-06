@@ -9,6 +9,7 @@ namespace Phundus.Shop.Queries
 
         public virtual int Position { get; protected set; }
         public virtual int ArticleId { get; protected set; }
+        public virtual Guid ArticleGuid { get; protected set; }
         public virtual string Text { get; protected set; }
         public virtual DateTime FromUtc { get; protected set; }
         public virtual DateTime ToUtc { get; protected set; }

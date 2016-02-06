@@ -4,7 +4,6 @@ namespace Phundus.Rest.Api.Users
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Runtime.InteropServices.ComTypes;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -17,8 +16,8 @@ namespace Phundus.Rest.Api.Users
     [RoutePrefix("api/users/{userId}/cart")]
     public class UsersCartController : ApiControllerBase
     {
-        private readonly ICartQueries _cartQueries;
         private readonly IArticleQueries _articleQueries;
+        private readonly ICartQueries _cartQueries;
 
         public UsersCartController(ICartQueries cartQueries, IArticleQueries articleQueries)
         {
@@ -73,7 +72,8 @@ namespace Phundus.Rest.Api.Users
 
             var articleId = GetArticleId(requestContent);
 
-            var command = new AddArticleToCart(CurrentUserId, articleId, requestContent.FromUtc, requestContent.ToUtc, requestContent.Quantity);
+            var command = new AddArticleToCart(CurrentUserId, articleId, requestContent.FromUtc, requestContent.ToUtc,
+                requestContent.Quantity);
             Dispatch(command);
 
             return new UsersCartItemsPostOkResponseContent
@@ -147,6 +147,7 @@ namespace Phundus.Rest.Api.Users
             {
                 CartItemId = s.CartItemGuid,
                 ArticleId = s.ArticleId,
+                ArticleGuid = s.ArticleGuid,
                 Text = s.Text,
                 FromUtc = s.FromUtc,
                 ToUtc = s.ToUtc,
@@ -161,7 +162,7 @@ namespace Phundus.Rest.Api.Users
 
         [JsonProperty("userId")]
         public Guid UserGuid { get; set; }
-        
+
         [JsonProperty("cartId")]
         public Guid CartGuid { get; set; }
 
@@ -176,6 +177,9 @@ namespace Phundus.Rest.Api.Users
 
         [JsonProperty("articleId")]
         public int ArticleId { get; set; }
+
+        [JsonProperty("articleGuid")]
+        public Guid ArticleGuid { get; set; }
 
         [JsonProperty("text")]
         public string Text { get; set; }
