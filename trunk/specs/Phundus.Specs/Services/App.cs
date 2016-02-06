@@ -309,7 +309,7 @@
                 .Post<ShopItemsAvailabilityCheckOkResponseContent>(
                     new
                     {
-                        itemId = article.ArticleId,
+                        itemId = article.ArticleGuid,
                         quantity,
                         fromUtc = DateTime.UtcNow,
                         toUtc = DateTime.UtcNow.AddDays(1)

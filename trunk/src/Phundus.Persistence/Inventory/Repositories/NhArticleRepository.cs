@@ -41,7 +41,7 @@
 
         public Article GetById(Guid articleGuid)
         {
-            var result = Session.QueryOver<Article>().Where(p => p.ArticleGuid.Id == articleGuid).SingleOrDefault();
+            var result = FindByGuid(articleGuid);
             if (result == null)
                 throw new NotFoundException("Article {0} not found", articleGuid);
             return result;
@@ -60,6 +60,11 @@
         {
             if (articleId == null) throw new ArgumentNullException("articleId");
             return GetById(articleId.Id);
+        }
+
+        public Article FindByGuid(Guid articleGuid)
+        {
+            return Session.QueryOver<Article>().Where(p => p.ArticleGuid.Id == articleGuid).SingleOrDefault();
         }
     }
 }

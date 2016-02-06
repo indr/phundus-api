@@ -22,12 +22,12 @@
         [POST("")]
         [Transaction]
         [AllowAnonymous]
-        public virtual ShopItemsAvailabilityCheckOkResponseContent Post(int itemId,
+        public virtual ShopItemsAvailabilityCheckOkResponseContent Post(Guid itemId,
             ShopItemsAvailabilityCheckRequestContent requestContent)
         {
-            var isAvailable = _availabilityService.IsArticleAvailable(itemId, requestContent.FromUtc,
-                requestContent.ToUtc,
-                requestContent.Quantity);            
+            var isAvailable = _availabilityService.IsArticleAvailable(requestContent.ItemId, requestContent.FromUtc,
+                requestContent.ToUtc, requestContent.Quantity);
+
             return new ShopItemsAvailabilityCheckOkResponseContent {IsAvailable = isAvailable};
         }
     }
@@ -35,7 +35,7 @@
     public class ShopItemsAvailabilityCheckRequestContent
     {
         [JsonProperty("itemId")]
-        public int ItemId { get; set; }
+        public Guid ItemId { get; set; }
 
         [JsonProperty("quantity")]
         public int Quantity { get; set; }

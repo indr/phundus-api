@@ -15,5 +15,6 @@
         Article GetById(Guid articleGuid);
         IEnumerable<Article> Query(InitiatorId currentUserId, OwnerId queryOwnerId, string query);
         Article GetById(ArticleId articleId);
+        Article FindByGuid(Guid articleGuid);
     }
 }

@@ -4,11 +4,13 @@ namespace Phundus.Rest.Api.Users
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Runtime.InteropServices.ComTypes;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
     using Integration.Shop;
+    using Inventory.Queries;
     using Newtonsoft.Json;
     using Phundus.Shop.Orders.Commands;
 
@@ -16,11 +18,14 @@ namespace Phundus.Rest.Api.Users
     public class UsersCartController : ApiControllerBase
     {
         private readonly ICartQueries _cartQueries;
+        private readonly IArticleQueries _articleQueries;
 
-        public UsersCartController(ICartQueries cartQueries)
+        public UsersCartController(ICartQueries cartQueries, IArticleQueries articleQueries)
         {
             if (cartQueries == null) throw new ArgumentNullException("cartQueries");
+            if (articleQueries == null) throw new ArgumentNullException("articleQueries");
             _cartQueries = cartQueries;
+            _articleQueries = articleQueries;
         }
 
         [GET("")]
@@ -66,14 +71,24 @@ namespace Phundus.Rest.Api.Users
                     DateTime.Parse(requestContent.End).ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime();
             }
 
-            var command = new AddArticleToCart(CurrentUserId, new ArticleId(requestContent.ArticleId),
-                requestContent.FromUtc, requestContent.ToUtc, requestContent.Quantity);
+            var articleId = GetArticleId(requestContent);
+
+            var command = new AddArticleToCart(CurrentUserId, articleId, requestContent.FromUtc, requestContent.ToUtc, requestContent.Quantity);
             Dispatch(command);
 
             return new UsersCartItemsPostOkResponseContent
             {
                 CartItemId = command.ResultingCartItemId.Id
             };
+        }
+
+        private ArticleId GetArticleId(UsersCartItemsPostRequestContent requestContent)
+        {
+            if (requestContent.ArticleId > 0)
+                return new ArticleId(requestContent.ArticleId);
+
+            var article = _articleQueries.GetById(requestContent.ArticleGuid);
+            return new ArticleId(article.Id);
         }
 
         [PATCH("items/{itemId}")]
@@ -195,6 +210,9 @@ namespace Phundus.Rest.Api.Users
     {
         [JsonProperty("articleId")]
         public int ArticleId { get; set; }
+
+        [JsonProperty("articleGuid")]
+        public Guid ArticleGuid { get; set; }
 
         [JsonProperty("fromUtc")]
         public DateTime FromUtc { get; set; }
