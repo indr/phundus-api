@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Common;
     using Common.Domain.Model;
+    using Projections;
 
     public interface IArticleQueries
     {
@@ -19,5 +20,7 @@
 
         IEnumerable<ArticleDto> Query(InitiatorId initiatorId, OwnerId queryOwnerId, string query);
         ArticleDto GetById(Guid articleGuid);
+
+        IEnumerable<ArticlesActionsProjectionRow> GetActions(Guid articleGuid);
     }
 }

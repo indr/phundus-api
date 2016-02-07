@@ -57,6 +57,11 @@
             return Mapper.Map<TDestination>(source);
         }
 
+        protected HttpResponseMessage Ok(object content)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, content);
+        }
+
         protected HttpResponseMessage NoContent()
         {
             return Request.CreateResponse(HttpStatusCode.NoContent);
