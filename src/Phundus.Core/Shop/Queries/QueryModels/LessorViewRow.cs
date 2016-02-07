@@ -11,5 +11,6 @@ namespace Phundus.Shop.Queries.QueryModels
         public virtual string Address { get; protected set; }
         public virtual string PhoneNumber { get; protected set; }
         public virtual string EmailAddress { get; protected set; }
+        public virtual bool PublicRental { get; protected set; }
     }
 }
