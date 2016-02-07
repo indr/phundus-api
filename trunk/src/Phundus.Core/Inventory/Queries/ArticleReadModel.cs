@@ -6,7 +6,7 @@
     using Common;
     using Common.Domain.Model;
     using Cqrs;
-    using NHibernate;
+    using Projections;
 
     public class ArticleReadModel : ReadModelBase, IArticleQueries
     {
@@ -38,6 +38,14 @@
             if (article == null)
                 throw new NotFoundException(String.Format("Article {0} not found.", articleGuid));
             return new ArticleDtoAssembler().CreateDto(article);
+        }
+
+        public IEnumerable<ArticlesActionsProjectionRow> GetActions(Guid articleGuid)
+        {
+            return QueryOver<ArticlesActionsProjectionRow>()
+                .Where(p => p.ArticleId == articleGuid)
+                .OrderBy(p => p.ArticleId)
+                .Desc.List();
         }
     }
 }

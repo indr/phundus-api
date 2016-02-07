@@ -14,6 +14,7 @@ namespace Phundus.Rest.Api
     using Integration.IdentityAccess;
     using Inventory.Articles.Commands;
     using Inventory.AvailabilityAndReservation.Repositories;
+    using Inventory.Projections;
     using Inventory.Queries;
     using Newtonsoft.Json;
 
@@ -112,6 +113,14 @@ namespace Phundus.Rest.Api
                 Description = result.Description,
                 Specification = result.Specification
             };
+        }
+
+        [GET("{articleId}/actions")]
+        [Transaction]
+        public virtual QueryOkResponseContent<ArticlesActionsProjectionRow> GetActions(Guid articleId)
+        {
+            var result = _articleQueries.GetActions(articleId);
+            return new QueryOkResponseContent<ArticlesActionsProjectionRow>(result);
         }
 
         [GET("{articleId}/description")]

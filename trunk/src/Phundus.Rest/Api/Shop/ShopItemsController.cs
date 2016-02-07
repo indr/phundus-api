@@ -95,11 +95,6 @@
             var result = _availabilityQueries.GetAvailability(itemId);
             return Ok(new {result = result});
         }
-
-        protected HttpResponseMessage Ok(object content)
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, content);
-        }
     }
 
     public class ShopItemGetOkResponseContent

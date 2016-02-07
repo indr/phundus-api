@@ -9,21 +9,32 @@ namespace Phundus.Cqrs
 
         protected virtual ISession Session
         {
-            get
-            {
-                var result = SessionFactory();
-                //result.FlushMode = FlushMode.Always;
-                return result;
-            }
+            get { return SessionFactory(); }
+        }
+
+        protected virtual IQueryOver<T, T> QueryOver<T>() where T : class
+        {
+            return Session.QueryOver<T>();
         }
     }
 
-    public abstract class ReadModelBase<TRow> : ReadModelBase where TRow : new()
+    public abstract class ReadModelBase<TRow> : ReadModelBase where TRow : class, new()
     {
         protected TRow CreateRow()
         {
             var result = new TRow();
             return result;
+        }
+
+        protected void Delete(TRow row)
+        {
+            Session.Delete(row);
+        }
+
+        protected void Insert(TRow row)
+        {
+            Session.Save(row);
+            Session.Flush();
         }
 
         protected void SaveOrUpdate(TRow row)
@@ -32,9 +43,9 @@ namespace Phundus.Cqrs
             Session.Flush();
         }
 
-        protected void Delete(TRow row)
+        protected IQueryOver<TRow, TRow> QueryOver()
         {
-            Session.Delete(row);
+            return Session.QueryOver<TRow>();
         }
     }
 }
