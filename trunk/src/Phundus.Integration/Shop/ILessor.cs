@@ -10,5 +10,6 @@
         string Address { get; }
         string PhoneNumber { get; }
         string EmailAddress { get; }
+        bool PublicRental { get; }
     }
 }

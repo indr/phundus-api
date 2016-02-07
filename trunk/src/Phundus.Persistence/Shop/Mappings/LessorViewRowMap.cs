@@ -18,6 +18,7 @@
             Map(x => x.Name, "Name");
             Map(x => x.EmailAddress, "EmailAddress");
             Map(x => x.PhoneNumber, "PhoneNumber");
+            Map(x => x.PublicRental, "PublicRental");
         }
     }
 }

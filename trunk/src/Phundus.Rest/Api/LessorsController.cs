@@ -43,7 +43,8 @@
                 Name = lessor.Name,
                 Address = lessor.Address,
                 PhoneNumber = lessor.PhoneNumber,
-                EmailAddress = lessor.EmailAddress
+                EmailAddress = lessor.EmailAddress,
+                PublicRental = lessor.PublicRental
             };
         }
     }
@@ -67,5 +68,8 @@
 
         [JsonProperty("emailAddress")]
         public string EmailAddress { get; set; }
+
+        [JsonProperty("publicRental")]
+        public bool PublicRental { get; set; }
     }
 }

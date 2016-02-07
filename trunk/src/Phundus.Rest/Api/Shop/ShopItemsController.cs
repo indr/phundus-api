@@ -130,7 +130,7 @@
 
         [JsonProperty("documents")]
         public ICollection<DocumentObject> Documents { get; set; }
-
+        
         public class DocumentObject
         {
             [JsonProperty("fileName")]
