@@ -88,7 +88,7 @@ namespace Phundus.Rest.Api.Users
                 return new ArticleId(requestContent.ArticleId);
 
             var article = _articleQueries.GetById(requestContent.ArticleGuid);
-            return new ArticleId(article.Id);
+            return new ArticleId(article.ArticleShortId);
         }
 
         [PATCH("items/{itemId}")]

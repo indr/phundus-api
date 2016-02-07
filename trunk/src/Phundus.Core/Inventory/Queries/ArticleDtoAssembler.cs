@@ -32,10 +32,11 @@
         /// <returns></returns>
         public ArticleDto CreateDto(Article subject)
         {
-            Guard.Against<ArgumentNullException>(subject == null, "subject");
+            if (subject == null) throw new ArgumentNullException("subject");
 
             var result = new ArticleDto();
-            result.Id = subject.Id;
+            result.ArticleShortId = subject.Id;
+            result.ArticleId = subject.ArticleGuid.Id;
             result.Version = subject.Version;
             result.OrganizationId = subject.Owner.OwnerId.Id;
             result.OrganizationName = subject.Owner.Name;
