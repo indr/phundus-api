@@ -19,7 +19,7 @@
         public void WhenITryToAddTheArticleFootballToTheOrder(string alias)
         {
             var article = Ctx.Articles[alias];
-            App.AddOrderItem(Ctx.Order.OrderId, article.ArticleId);
+            App.AddOrderItem(Ctx.Order.OrderId, article.ArticleShortId);
         }
     }
 

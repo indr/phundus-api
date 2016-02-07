@@ -102,7 +102,8 @@ namespace Phundus.Rest.Api
 
             return new ArticlesGetOkResponseContent
             {
-                ArticleId = result.ArticleShortId,
+                ArticleId = result.ArticleId,
+                ArticleShortId = result.ArticleShortId,
                 Name = result.Name,
                 Brand = result.Brand,
                 Color = result.Color,
@@ -247,7 +248,10 @@ namespace Phundus.Rest.Api
     public class ArticlesGetOkResponseContent
     {
         [JsonProperty("articleId")]
-        public int ArticleId { get; set; }
+        public Guid ArticleId { get; set; }
+
+        [JsonProperty("articleShortId")]
+        public int ArticleShortId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

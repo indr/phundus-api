@@ -32,11 +32,11 @@
 
     public class Article
     {
-        [JsonProperty("articleGuid")]
-        public Guid ArticleGuid { get; set; }
-
         [JsonProperty("articleId")]
-        public int ArticleId { get; set; }
+        public Guid ArticleId { get; set; }
+
+        [JsonProperty("articleShortId")]
+        public int ArticleShortId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
