@@ -44,8 +44,8 @@
         {
             return QueryOver<ArticlesActionsProjectionRow>()
                 .Where(p => p.ArticleId == articleGuid)
-                .OrderBy(p => p.ArticleId)
-                .Desc.List();
+                .OrderBy(p => p.OccuredOnUtc).Desc
+                .List();
         }
     }
 }

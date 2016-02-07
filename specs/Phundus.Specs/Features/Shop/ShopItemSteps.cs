@@ -19,7 +19,7 @@
         [When(@"I try to get the shop item details")]
         public void WhenITryToGetTheShopItemDetails()
         {
-            _shopItem = App.GetShopItemDetails(Ctx.Article.ArticleGuid);
+            _shopItem = App.GetShopItemDetails(Ctx.Article.ArticleId);
         }
 
         [Then(@"the shop item should equal")]

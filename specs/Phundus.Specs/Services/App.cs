@@ -218,8 +218,8 @@
                 PublicPrice = article.PublicPrice,
                 MemberPrice = article.MemberPrice
             });
-            article.ArticleId = response.Data.ArticleShortId;
-            article.ArticleGuid = response.Data.ArticleId;
+            article.ArticleShortId = response.Data.ArticleShortId;
+            article.ArticleId = response.Data.ArticleId;
             return article;
         }
 
@@ -289,7 +289,7 @@
                 .Post<UserCartItemsPostOkResponseContent>(new
                 {
                     userId = user.UserId,
-                    articleId = article.ArticleId,
+                    articleId = article.ArticleShortId,
                     quantity = 1,
                     fromUtc = DateTime.Today.Date.ToUniversalTime(),
                     toUtc = DateTime.Today.Date.AddDays(1).AddSeconds(-1).ToUniversalTime()
@@ -309,7 +309,7 @@
                 .Post<ShopItemsAvailabilityCheckOkResponseContent>(
                     new
                     {
-                        itemId = article.ArticleGuid,
+                        itemId = article.ArticleId,
                         quantity,
                         fromUtc = DateTime.UtcNow,
                         toUtc = DateTime.UtcNow.AddDays(1)
@@ -369,24 +369,24 @@
 
         public FileUploadResponseContent UploadArticleImage(Article article, string fullFileName, string fileName = null)
         {
-            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new {articleId = article.ArticleId},
+            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new {articleId = article.ArticleShortId},
                 fullFileName, fileName);
         }
 
         public FileUploadResponseContent UploadArticleDocument(Article article, string fullFileName, string fileName = null)
         {
-            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new { articleId = article.ArticleId },
+            return _apiClient.ArticlesFilesApi.PostFile<FileUploadResponseContent>(new { articleId = article.ArticleShortId },
                 fullFileName, fileName);
         }
 
         public FileUploadResponseContent GetArticleFiles(Article article)
         {
-            return _apiClient.ArticlesFilesApi.Get<FileUploadResponseContent>(new {articleId = article.ArticleId}).Data;
+            return _apiClient.ArticlesFilesApi.Get<FileUploadResponseContent>(new {articleId = article.ArticleShortId}).Data;
         }
 
         public void SetArticlePreviewImage(Article article, string fileName)
         {
-            _apiClient.ArticlesFilesApi.Patch(new {articleId = article.ArticleId, fileName, isPreview = true});
+            _apiClient.ArticlesFilesApi.Patch(new {articleId = article.ArticleShortId, fileName, isPreview = true});
         }
 
         public void ChangeOrganizationContactDetails(Organization organization, string postAddress, string phoneNumber,
@@ -408,7 +408,7 @@
 
         public Article GetArticle(Article article)
         {
-            return _apiClient.ArticlesApi.Get<Article>(new {articleId = article.ArticleId},
+            return _apiClient.ArticlesApi.Get<Article>(new {articleId = article.ArticleShortId},
                 new {ownerId = article.OwnerId}).Data;
         }
 
