@@ -218,8 +218,8 @@
                 PublicPrice = article.PublicPrice,
                 MemberPrice = article.MemberPrice
             });
-            article.ArticleId = response.Data.ArticleId;
-            article.ArticleGuid = response.Data.ArticleGuid;
+            article.ArticleId = response.Data.ArticleShortId;
+            article.ArticleGuid = response.Data.ArticleId;
             return article;
         }
 

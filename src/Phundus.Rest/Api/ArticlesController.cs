@@ -102,7 +102,7 @@ namespace Phundus.Rest.Api
 
             return new ArticlesGetOkResponseContent
             {
-                ArticleId = result.Id,
+                ArticleId = result.ArticleShortId,
                 Name = result.Name,
                 Brand = result.Brand,
                 Color = result.Color,
@@ -200,8 +200,8 @@ namespace Phundus.Rest.Api
 
             return new ArticlesPostOkResponseContent
             {
-                ArticleId = command.ResultingArticleId,
-                ArticleGuid = articleGuid.Id
+                ArticleShortId = command.ResultingArticleId,
+                ArticleId = articleGuid.Id
             };
         }
 
@@ -298,10 +298,10 @@ namespace Phundus.Rest.Api
     public class ArticlesPostOkResponseContent
     {
         [JsonProperty("articleId")]
-        public int ArticleId { get; set; }
+        public Guid ArticleId { get; set; }
 
-        [JsonProperty("articleGuid")]
-        public Guid ArticleGuid { get; set; }
+        [JsonProperty("articleShortId")]
+        public int ArticleShortId { get; set; }
     }
 
     public class ArticlesPatchOkResponseContent

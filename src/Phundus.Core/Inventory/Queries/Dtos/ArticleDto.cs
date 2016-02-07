@@ -7,7 +7,9 @@
     {
         IList<ImageDto> _images = new List<ImageDto>();
 
-        public int Id { get; set; }
+        public int ArticleShortId { get; set; }
+
+        public Guid ArticleId { get; set; }
 
         public int Version { get; set; }
 

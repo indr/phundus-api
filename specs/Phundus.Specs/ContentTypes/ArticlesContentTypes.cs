@@ -5,11 +5,11 @@
 
     public class ArticlesPostOkResponseContent
     {
-        [JsonProperty("articleId")]
-        public int ArticleId { get; set; }
+        [JsonProperty("articleShortId")]
+        public int ArticleShortId { get; set; }
 
-        [JsonProperty("articleGuid")]
-        public Guid ArticleGuid { get; set; }
+        [JsonProperty("articleId")]
+        public Guid ArticleId { get; set; }
     }
 
     public class ArticlesPostRequestContent
