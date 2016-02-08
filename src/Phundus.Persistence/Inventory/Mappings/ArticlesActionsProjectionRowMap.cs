@@ -10,7 +10,7 @@ namespace Phundus.Persistence.Inventory.Mappings
         public ArticlesActionsProjectionRowMap()
         {
             SchemaAction.All();
-            Table("Es_Inventory_Article_Actions");
+            Table("Es_Inventory_Articles_Actions");
 
             Id(x => x.EventGuid).GeneratedBy.Assigned();
             Map(x => x.Name);
