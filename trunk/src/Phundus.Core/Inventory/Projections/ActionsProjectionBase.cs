@@ -1,8 +1,8 @@
 namespace Phundus.Inventory.Projections
 {
     using Common.Domain.Model;
+    using Common.Projections;
     using Cqrs;
-    using Dashboard.Projections;
 
     public class ActionsProjectionBase<TRow> : ReadModelBase<TRow> where TRow : ActionsProjectionRowBase, new()
     {
