@@ -5,10 +5,8 @@ namespace Phundus.Inventory.Projections
 
     public class ArticlesProjectionRow
     {
-        public virtual Guid RowGuid { get; set; }
-
-        public virtual int ArticleId { get; set; }
-        public virtual Guid ArticleGuid { get; set; }
+        public virtual Guid ArticleId { get; set; }
+        public virtual int ArticleShortId { get; set; }
         public virtual DateTime CreatedAtUtc { get; set; }
         public virtual Guid OwnerGuid { get; set; }
         public virtual string OwnerName { get; set; }

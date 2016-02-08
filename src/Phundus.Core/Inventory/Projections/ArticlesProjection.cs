@@ -24,8 +24,8 @@
                 return;
 
             var row = new ArticlesProjectionRow();
-            row.ArticleGuid = domainEvent.ArticleGuid;
-            row.ArticleId = domainEvent.ArticleId;
+            row.ArticleId = domainEvent.ArticleGuid;
+            row.ArticleShortId = domainEvent.ArticleId;
             row.CreatedAtUtc = domainEvent.OccuredOnUtc;
             row.GrossStock = domainEvent.GrossStock;
             row.Name = domainEvent.Name;
@@ -91,7 +91,7 @@
         private ArticlesProjectionRow FindByArticleGuid(Guid articleGuid)
         {
             return Session.QueryOver<ArticlesProjectionRow>()
-                .Where(p => p.ArticleGuid == articleGuid)
+                .Where(p => p.ArticleId == articleGuid)
                 .SingleOrDefault();
         }
     }

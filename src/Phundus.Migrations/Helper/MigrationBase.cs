@@ -29,10 +29,15 @@
             Delete.FromTable("ProcessedNotificationTracker").AllRows();
         }
 
+        protected void ResetProcessedNotififactionTracker(string trackerTypeName)
+        {
+            Update.Table("ProcessedNotificationTracker").Set(new { MostRecentProcessedNotificationId = 0 }).Where(new { TypeName = trackerTypeName });
+        }
+
         protected void EmptyTableAndResetTracker(string tableName, string trackerTypeName)
         {
             Delete.FromTable(tableName).AllRows();
-            Update.Table("ProcessedNotificationTracker").Set(new {MostRecentProcessedNotificationId = 0}).Where(new{TypeName = trackerTypeName});
+            ResetProcessedNotififactionTracker(trackerTypeName);
         }
     }
 
