@@ -23,12 +23,8 @@ namespace Phundus.Shop.Queries
 
         public ShopItemProjectionRow Get(Guid itemGuid)
         {
-            ShopItemFilesProjectionRow file = null;
-            ShopItemImagesProjectionRow image = null;
             var result = Session.QueryOver<ShopItemProjectionRow>()
                 .Where(p => p.ArticleGuid == itemGuid)
-                //.JoinAlias(x => x.Documents, () => file, JoinType.LeftOuterJoin)
-                //.JoinAlias(x => x.Images, () => image, JoinType.LeftOuterJoin)
                 .SingleOrDefault();
             if (result == null)
                 throw new NotFoundException("Shop item {0} not found.", itemGuid);
