@@ -8,8 +8,7 @@
     public class SpecificationChanged : DomainEvent
     {
         public SpecificationChanged(Initiator initiator, ArticleId articleIntegralId, ArticleGuid articleGuid,
-            OwnerId ownerId,
-            string specification)
+            OwnerId ownerId, string specification)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (articleIntegralId == null) throw new ArgumentNullException("articleIntegralId");

@@ -171,6 +171,7 @@
     <Compile Include="2016\02\M201602031143_Reset_processed_notification_trackers.cs" />
     <Compile Include="2016\02\M201602060927_Recreate_View_Shop_CartItems.cs" />
     <Compile Include="2016\02\M201602070344_Recreate_View_Shop_Lessors.cs" />
+    <Compile Include="2016\02\M201602080424_Generate_Prices_Changed_Description_Changed_and_Specification_Changed_stored_events.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />

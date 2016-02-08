@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Tests.Inventory.Events
 {
-    using System;
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Model;
@@ -12,16 +11,18 @@
         private static int theArticleIntegralId;
         private static decimal thePublicPrice;
         private static decimal theMemberPrice;
+        private static OwnerId theOwnerId;
 
         private Establish ctx = () =>
         {
             theArticleGuid = new ArticleGuid();
             theArticleIntegralId = 1;
+            theOwnerId = new OwnerId();
             thePublicPrice = 1.11m;
             theMemberPrice = 2.22m;
 
             sut_factory.create_using(() =>
-                new PricesChanged(theInitiator, theArticleIntegralId, theArticleGuid,
+                new PricesChanged(theInitiator, theArticleIntegralId, theArticleGuid, theOwnerId,
                     thePublicPrice, theMemberPrice));
         };
 
@@ -42,6 +43,9 @@
 
         private It should_have_at_5_the_member_price = () =>
             dataMember(5).ShouldEqual(theMemberPrice);
+
+        private It should_have_at_6_the_owner_id = () =>
+            dataMember(6).ShouldEqual(theOwnerId.Id);
 
         private It should_have_full_name = () =>
             itsFullName.ShouldEqual("Phundus.Inventory.Articles.Model.PricesChanged");

@@ -7,13 +7,14 @@
     [DataContract]
     public class PricesChanged : DomainEvent
     {
-        public PricesChanged(Initiator initiator, int articleIntegralId, ArticleGuid articleGuid,
+        public PricesChanged(Initiator initiator, int articleIntegralId, ArticleGuid articleGuid, OwnerId ownerId,
             decimal publicPrice, decimal? memberPrice)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             Initiator = initiator;
             ArticleIntegralId = articleIntegralId;
             ArticleGuid = articleGuid.Id;
+            OwnerId = ownerId.Id;
             PublicPrice = publicPrice;
             MemberPrice = memberPrice;
         }
@@ -36,5 +37,8 @@
 
         [DataMember(Order = 5)]
         public decimal? MemberPrice { get; set; }
+
+        [DataMember(Order = 6)]
+        public Guid OwnerId { get; set; }
     }
 }
