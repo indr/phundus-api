@@ -209,7 +209,7 @@
             PublicPrice = publicPrice;
             MemberPrice = Owner.Type == OwnerType.Organization ? memberPrice : null;
 
-            EventPublisher.Publish(new PricesChanged(initiator, Id, ArticleGuid, PublicPrice, MemberPrice));
+            EventPublisher.Publish(new PricesChanged(initiator, Id, ArticleGuid, Owner.OwnerId, PublicPrice, MemberPrice));
         }
 
         public virtual void ChangeDetails(Initiator initiator, string name, string brand, string color)
