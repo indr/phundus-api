@@ -8,7 +8,7 @@ namespace Phundus.Persistence.Shop.Mappings
         public ShopItemImagesProjectionRowMap()
         {
             SchemaAction.All();
-            Table("Es_Shop_ItemImages");
+            Table("Es_Shop_Item_Images");
 
             Id(x => x.RowGuid).GeneratedBy.GuidComb();
             Map(x => x.ArticleGuid).UniqueKey("ArticleGuid_FileName");

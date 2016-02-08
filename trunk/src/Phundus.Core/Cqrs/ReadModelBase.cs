@@ -29,6 +29,7 @@ namespace Phundus.Cqrs
         protected void Delete(TRow row)
         {
             Session.Delete(row);
+            Session.Flush();
         }
 
         protected void Insert(TRow row)

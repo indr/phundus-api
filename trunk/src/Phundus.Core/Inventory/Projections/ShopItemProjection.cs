@@ -2,6 +2,7 @@ namespace Phundus.Inventory.Projections
 {
     using System;
     using Articles.Model;
+    using Common;
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
@@ -34,18 +35,18 @@ namespace Phundus.Inventory.Projections
             row.PublicPrice = domainEvent.PublicPrice;
             row.MemberPrice = domainEvent.MemberPrice;
 
-            SaveOrUpdate(row);
+            Insert(row);
         }
 
         public void Process(ArticleDeleted domainEvent)
         {
-            var row = Find(domainEvent.ArticleGuid);
+            var row = GetRow(domainEvent.ArticleGuid);
             Session.Delete(row);
         }
         
         public void Process(ArticleDetailsChanged domainEvent)
         {
-            var row = Find(domainEvent.ArticleGuid);
+            var row = GetRow(domainEvent.ArticleGuid);
             row.Name = domainEvent.Name;
             row.Brand = domainEvent.Brand;
             row.Color = domainEvent.Color;
@@ -53,27 +54,30 @@ namespace Phundus.Inventory.Projections
 
         public void Process(DescriptionChanged domainEvent)
         {
-            var row = Find(domainEvent.ArticleGuid);
+            var row = GetRow(domainEvent.ArticleGuid);
             row.Description = domainEvent.Description;
         }
 
         public void Process(SpecificationChanged domainEvent)
         {
-            var row = Find(domainEvent.ArticleGuid);
+            var row = GetRow(domainEvent.ArticleGuid);
             row.Specification = domainEvent.Specification;
         }
 
         public void Process(PricesChanged domainEvent)
         {
-            var row = Find(domainEvent.ArticleGuid);
+            var row = GetRow(domainEvent.ArticleGuid);            
             row.PublicPrice = domainEvent.PublicPrice;
             row.MemberPrice = domainEvent.MemberPrice;
         }
 
-        private ShopItemProjectionRow Find(Guid articleGuid)
+        private ShopItemProjectionRow GetRow(Guid articleGuid)
         {
-            return Session.QueryOver<ShopItemProjectionRow>().
+            var result = Session.QueryOver<ShopItemProjectionRow>().
                 Where(p => p.ArticleGuid == articleGuid).SingleOrDefault();
+            if (result == null)
+                throw new NotFoundException("Shop item projection row {0} not found.", articleGuid);
+            return result;
         }
     }
 }
