@@ -1,7 +1,9 @@
 ﻿namespace Phundus.Shop.Queries
 {
     using System;
+    using System.Data;
     using System.Linq;
+    using AutoMapper;
     using Cqrs;
     using Cqrs.Paging;
 
@@ -12,6 +14,12 @@
 
     public class ShopArticleReadModel : AutoMappingReadModelBase, IShopArticleQueries
     {
+        static ShopArticleReadModel()
+        {
+            Mapper.CreateMap<IDataReader, ShopArticleImageDto>();
+            Mapper.CreateMap<IDataReader, ShopArticleSearchResultDto>();
+        }
+
         public PagedResult<ShopArticleSearchResultDto> FindArticles(PageRequest pageRequest, string query,
             Guid? organization)
         {
