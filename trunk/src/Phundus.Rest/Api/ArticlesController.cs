@@ -194,7 +194,7 @@ namespace Phundus.Rest.Api
         {
             var ownerId = GetOwnerId(requestContent.OwnerId);
             var storeId = _storeQueries.GetByOwnerId(ownerId).StoreId;
-            var articleGuid = new ArticleGuid();
+            var articleGuid = new ArticleId();
             var command = new CreateArticle(CurrentUserId, ownerId, storeId, articleGuid,
                 requestContent.Name, requestContent.GrossStock, requestContent.PublicPrice, requestContent.MemberPrice);
             Dispatch(command);

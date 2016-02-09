@@ -19,9 +19,9 @@ namespace Phundus.Shop.Orders.Model
         public virtual int Position { get; set; }
         public virtual Article Article { get; set; }
 
-        public virtual ArticleId ArticleId
+        public virtual ArticleShortId ArticleShortId
         {
-            get { return new ArticleId(Article.Id); }
+            get { return new ArticleShortId(Article.Id); }
         }
 
         public virtual int Quantity { get; set; }

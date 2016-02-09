@@ -33,12 +33,12 @@
             CalculateTotal();
         }
 
-        public OrderItem(ArticleId articleId, string text, Period period, int quantity, decimal unitPricePerWeek)
+        public OrderItem(ArticleShortId articleShortId, string text, Period period, int quantity, decimal unitPricePerWeek)
         {
-            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (period == null) throw new ArgumentNullException("period");
             
-            _articleId = articleId.Id;
+            _articleId = articleShortId.Id;
             _text = text;
             _fromUtc = period.FromUtc;
             _toUtc = period.ToUtc;

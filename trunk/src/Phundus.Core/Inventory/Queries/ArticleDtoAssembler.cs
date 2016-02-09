@@ -36,7 +36,7 @@
 
             var result = new ArticleDto();
             result.ArticleShortId = subject.Id;
-            result.ArticleId = subject.ArticleGuid.Id;
+            result.ArticleId = subject.ArticleId.Id;
             result.Version = subject.Version;
             result.OrganizationId = subject.Owner.OwnerId.Id;
             result.OrganizationName = subject.Owner.Name;

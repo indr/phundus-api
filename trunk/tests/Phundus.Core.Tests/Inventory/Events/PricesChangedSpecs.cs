@@ -7,7 +7,7 @@
     [Subject(typeof (PricesChanged))]
     public class prices_changed : domain_event_concern<PricesChanged>
     {
-        private static ArticleGuid theArticleGuid;
+        private static ArticleId the_article_id;
         private static int theArticleIntegralId;
         private static decimal thePublicPrice;
         private static decimal theMemberPrice;
@@ -15,14 +15,14 @@
 
         private Establish ctx = () =>
         {
-            theArticleGuid = new ArticleGuid();
+            the_article_id = new ArticleId();
             theArticleIntegralId = 1;
             theOwnerId = new OwnerId();
             thePublicPrice = 1.11m;
             theMemberPrice = 2.22m;
 
             sut_factory.create_using(() =>
-                new PricesChanged(theInitiator, theArticleIntegralId, theArticleGuid, theOwnerId,
+                new PricesChanged(theInitiator, theArticleIntegralId, the_article_id, theOwnerId,
                     thePublicPrice, theMemberPrice));
         };
 
@@ -36,7 +36,7 @@
             dataMember(2).ShouldEqual(theArticleIntegralId);
 
         private It should_have_at_3_the_article_guid = () =>
-            dataMember(3).ShouldEqual(theArticleGuid.Id);
+            dataMember(3).ShouldEqual(the_article_id.Id);
 
         private It should_have_at_4_the_public_price = () =>
             dataMember(4).ShouldEqual(thePublicPrice);

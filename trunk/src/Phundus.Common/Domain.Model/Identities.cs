@@ -13,20 +13,20 @@
         }
     }
 
-    public class ArticleId : Identity<int>
+    public class ArticleShortId : Identity<int>
     {
-        public ArticleId(int id) : base(id)
+        public ArticleShortId(int id) : base(id)
         {
         }
     }
 
-    public class ArticleGuid : GuidIdentity
+    public class ArticleId : GuidIdentity
     {
-        public ArticleGuid()
+        public ArticleId()
         {
         }
 
-        public ArticleGuid(Guid guid) : base(guid)
+        public ArticleId(Guid guid) : base(guid)
         {
         }
     }

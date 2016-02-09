@@ -29,12 +29,12 @@
             orderRepository.setup(x => x.GetById(theOrder.Id)).Return(theOrder);
 
             theArticle = make.Article();
-            articleService.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleId, theLessee.LesseeId)).Return(theArticle);
+            articleService.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleShortId, theLessee.LesseeId)).Return(theArticle);
 
             thePeriod = Period.FromNow(1);
 
             theOrderItemId = new OrderItemId();
-            command = new AddOrderItem(theInitiatorId, theOrder.OrderId, theOrderItemId, theArticle.ArticleId, thePeriod,
+            command = new AddOrderItem(theInitiatorId, theOrder.OrderId, theOrderItemId, theArticle.ArticleShortId, thePeriod,
                 10);
         };
 

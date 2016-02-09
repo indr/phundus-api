@@ -18,10 +18,10 @@ namespace Phundus.Tests.Shop
         {
             lessorId = lessorId == default(Guid) ? Guid.NewGuid() : lessorId;
 
-            var articleId = new ArticleId(NextNumericId());
+            var articleId = new ArticleShortId(NextNumericId());
             var article = fake.an<Article>();
             article.setup(x => x.Id).Return(articleId.Id);
-            article.setup(x => x.ArticleId).Return(articleId);
+            article.setup(x => x.ArticleShortId).Return(articleId);
             article.setup(x => x.LessorId).Return(new LessorId(lessorId));
             return article;
         }

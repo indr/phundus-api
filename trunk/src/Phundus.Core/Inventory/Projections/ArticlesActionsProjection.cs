@@ -43,12 +43,12 @@
             var row = CreateRow(domainEvent);
             row.OwnerId = domainEvent.OwnerId;
             row.StoreId = Guid.Empty;
-            row.ArticleId = domainEvent.ArticleGuid;
+            row.ArticleId = domainEvent.ArticleId;
             row.SetData(new
             {
                 initiator = domainEvent.Initiator,
-                articleId = domainEvent.ArticleGuid,
-                articleShortId = domainEvent.ArticleIntegralId,                
+                articleId = domainEvent.ArticleId,
+                articleShortId = domainEvent.ArticleShortId,                
             });
             Insert(row);
         }
@@ -58,12 +58,12 @@
             var row = CreateRow(domainEvent);
             row.OwnerId = domainEvent.OwnerId;
             row.StoreId = Guid.Empty;
-            row.ArticleId = domainEvent.ArticleGuid;
+            row.ArticleId = domainEvent.ArticleId;
             row.SetData(new
             {
                 initiator = domainEvent.Initiator,
-                articleId = domainEvent.ArticleGuid,
-                articleShortId = domainEvent.ArticleIntegralId,
+                articleId = domainEvent.ArticleId,
+                articleShortId = domainEvent.ArticleShortId,
                 name = domainEvent.Name,
                 brand = domainEvent.Brand,
                 color = domainEvent.Color
@@ -76,12 +76,12 @@
             var row = CreateRow(domainEvent);
             row.OwnerId = domainEvent.OwnerId;
             row.StoreId = Guid.Empty;
-            row.ArticleId = domainEvent.ArticleGuid;
+            row.ArticleId = domainEvent.ArticleId;
             row.SetData(new
             {
                 initiator = domainEvent.Initiator,
-                articleId = domainEvent.ArticleGuid,
-                articleShortId = domainEvent.ArticleIntegralId,
+                articleId = domainEvent.ArticleId,
+                articleShortId = domainEvent.ArticleShortId,
                 description = domainEvent.Description
             });
             Insert(row);
@@ -92,12 +92,12 @@
             var row = CreateRow(domainEvent);
             row.OwnerId = domainEvent.OwnerId;
             row.StoreId = Guid.Empty;
-            row.ArticleId = domainEvent.ArticleGuid;
+            row.ArticleId = domainEvent.ArticleId;
             row.SetData(new
             {
                 initiator = domainEvent.Initiator,
-                articleId = domainEvent.ArticleGuid,
-                articleShortId = domainEvent.ArticleIntegralId,
+                articleId = domainEvent.ArticleId,
+                articleShortId = domainEvent.ArticleShortId,
                 specification = domainEvent.Specification
             });
             Insert(row);
@@ -108,12 +108,12 @@
             var row = CreateRow(domainEvent);
             row.OwnerId = domainEvent.OwnerId;
             row.StoreId = Guid.Empty;
-            row.ArticleId = domainEvent.ArticleGuid;
+            row.ArticleId = domainEvent.ArticleId;
             row.SetData(new
             {
                 initiator = domainEvent.Initiator,
-                articleId = domainEvent.ArticleGuid,
-                articleShortId = domainEvent.ArticleIntegralId,
+                articleId = domainEvent.ArticleId,
+                articleShortId = domainEvent.ArticleShortId,
                 oldGrossStock = domainEvent.OldGrossStock,
                 newGrossStock = domainEvent.NewGrossStock
             });
@@ -125,12 +125,12 @@
             var row = CreateRow(domainEvent);
             row.OwnerId = Guid.Empty;
             row.StoreId = Guid.Empty;
-            row.ArticleId = domainEvent.ArticleGuid;
+            row.ArticleId = domainEvent.ArticleId;
             row.SetData(new
             {
                 initiator = domainEvent.Initiator,
-                articleId = domainEvent.ArticleGuid,
-                articleShortId = domainEvent.ArticleIntegralId,
+                articleId = domainEvent.ArticleId,
+                articleShortId = domainEvent.ArticleShortId,
                 publicPrice = domainEvent.PublicPrice,
                 memberPrice = domainEvent.MemberPrice
             });
@@ -142,12 +142,12 @@
             var row = CreateRow(domainEvent);
             row.OwnerId = domainEvent.OwnerId;
             row.StoreId = Guid.Empty;
-            row.ArticleId = domainEvent.ArticleGuid;
+            row.ArticleId = domainEvent.ArticleId;
             row.SetData(new
             {
                 initiator = domainEvent.Initiator,
-                articleId = domainEvent.ArticleGuid,
-                articleShortId = domainEvent.ArticleIntegralId,
+                articleId = domainEvent.ArticleId,
+                articleShortId = domainEvent.ArticleShortId,
                 fileName = domainEvent.FileName
             });
             Insert(row);
@@ -158,12 +158,12 @@
             var row = CreateRow(domainEvent);
             row.OwnerId = domainEvent.OwnerId;
             row.StoreId = Guid.Empty;
-            row.ArticleId = domainEvent.ArticleGuid;
+            row.ArticleId = domainEvent.ArticleId;
             row.SetData(new
             {
                 initiator = domainEvent.Initiator,
-                articleId = domainEvent.ArticleGuid,
-                articleShortId = domainEvent.ArticleIntegralId,
+                articleId = domainEvent.ArticleId,
+                articleShortId = domainEvent.ArticleShortId,
                 fileName = domainEvent.FileName
             });
             Insert(row);
@@ -174,12 +174,12 @@
             var row = CreateRow(domainEvent);
             row.OwnerId = domainEvent.OwnerId;
             row.StoreId = Guid.Empty;
-            row.ArticleId = domainEvent.ArticleGuid;
+            row.ArticleId = domainEvent.ArticleId;
             row.SetData(new
             {
                 initiator = domainEvent.Initiator,
-                articleId = domainEvent.ArticleGuid,
-                articleShortId = domainEvent.ArticleIntegralId,
+                articleId = domainEvent.ArticleId,
+                articleShortId = domainEvent.ArticleShortId,
                 fileName = domainEvent.FileName
             });
             Insert(row);

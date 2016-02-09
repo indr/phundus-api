@@ -33,10 +33,10 @@
 
         [Obsolete]
         [DataMember(Order = 2)]
-        public int UserIntegralId { get; private set; }
+        public int UserShortId { get; private set; }
         
         [Obsolete]
         [DataMember(Order = 1)]
-        public int OrganizationIntegralId { get; private set; }
+        public int OrganizationShortId { get; private set; }
     }
 }

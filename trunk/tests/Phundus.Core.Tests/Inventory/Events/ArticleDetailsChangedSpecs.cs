@@ -7,20 +7,20 @@
     [Subject(typeof (GrossStockChanged))]
     public class GrossStockChangedSpecs : domain_event_concern<GrossStockChanged>
     {
-        private static ArticleGuid theArticleId;
+        private static ArticleId theArticleId;
         private static OwnerId theOwnerId;
-        private static ArticleId theArticleIntegralId;
+        private static ArticleShortId the_article_short_integral_id;
         private static int theOldGrossStock = 19;
         private static int theNewGrossStock = 20;
 
         private Establish ctx = () =>
         {
-            theArticleIntegralId = new ArticleId(1234);
-            theArticleId = new ArticleGuid();
+            the_article_short_integral_id = new ArticleShortId(1234);
+            theArticleId = new ArticleId();
             theOwnerId = new OwnerId();
 
             sut_factory.create_using(() =>
-                new GrossStockChanged(theInitiator, theArticleIntegralId, theArticleId, theOwnerId, theOldGrossStock,
+                new GrossStockChanged(theInitiator, the_article_short_integral_id, theArticleId, theOwnerId, theOldGrossStock,
                     theNewGrossStock));
         };
 
@@ -31,7 +31,7 @@
             dataMember(1).ShouldEqual(theInitiator);
 
         private It should_have_at_2_the_article_id = () =>
-            dataMember(2).ShouldEqual(theArticleIntegralId.Id);
+            dataMember(2).ShouldEqual(the_article_short_integral_id.Id);
 
         private It should_have_at_3_the_article_guid = () =>
             dataMember(3).ShouldEqual(theArticleId.Id);
@@ -52,21 +52,21 @@
     [Subject(typeof (ArticleDetailsChanged))]
     public class ArticleDetailsChangedSpecs : domain_event_concern<ArticleDetailsChanged>
     {
-        private static ArticleGuid theArticleId;
+        private static ArticleId theArticleId;
         private static OwnerId theOwnerId;
-        private static ArticleId theArticleIntegralId;
+        private static ArticleShortId the_article_short_integral_id;
         private static string theName = "The name";
         private static string theBrand = "The brand";
         private static string theColor = "The color";
 
         private Establish ctx = () =>
         {
-            theArticleIntegralId = new ArticleId(1234);
-            theArticleId = new ArticleGuid();
+            the_article_short_integral_id = new ArticleShortId(1234);
+            theArticleId = new ArticleId();
             theOwnerId = new OwnerId();
 
             sut_factory.create_using(() =>
-                new ArticleDetailsChanged(theInitiator, theArticleIntegralId, theArticleId, theOwnerId,
+                new ArticleDetailsChanged(theInitiator, the_article_short_integral_id, theArticleId, theOwnerId,
                     theName, theBrand, theColor));
         };
 
@@ -77,7 +77,7 @@
             dataMember(1).ShouldEqual(theInitiator);
 
         private It should_have_at_2_the_article_id = () =>
-            dataMember(2).ShouldEqual(theArticleIntegralId.Id);
+            dataMember(2).ShouldEqual(the_article_short_integral_id.Id);
 
         private It should_have_at_3_the_article_guid = () =>
             dataMember(3).ShouldEqual(theArticleId.Id);

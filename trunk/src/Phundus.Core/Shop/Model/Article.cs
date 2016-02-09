@@ -31,9 +31,9 @@ namespace Phundus.Shop.Orders.Model
             protected set { _id = value; }
         }
 
-        public virtual ArticleId ArticleId
+        public virtual ArticleShortId ArticleShortId
         {
-            get { return new ArticleId(Id); }
+            get { return new ArticleShortId(Id); }
         }
 
         public virtual Owner Owner

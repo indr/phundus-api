@@ -64,7 +64,7 @@ namespace Phundus.Rest.Api
             var images = handler.Handle(HttpContext.Current.Request.Files);
             foreach (var each in images)
             {
-                var command = new AddImage(CurrentUserId, new ArticleId(articleId), Path.GetFileName(each.FileName), each.Type,
+                var command = new AddImage(CurrentUserId, new ArticleShortId(articleId), Path.GetFileName(each.FileName), each.Type,
                     each.Length);
                 Dispatcher.Dispatch(command);
                 each.Id = command.ResultingImageId;
@@ -77,7 +77,7 @@ namespace Phundus.Rest.Api
         public virtual HttpResponseMessage Patch(int articleId, string fileName,
             ArticlesFilesPatchRequestContent requestContent)
         {
-            Dispatch(new SetPreviewImage(CurrentUserId, new ArticleId(articleId), fileName));
+            Dispatch(new SetPreviewImage(CurrentUserId, new ArticleShortId(articleId), fileName));
 
             return NoContent();
         }
@@ -88,7 +88,7 @@ namespace Phundus.Rest.Api
         {
             var path = GetPath(articleId);
             var store = CreateImageStore(path);
-            Dispatcher.Dispatch(new RemoveImage(CurrentUserId, new ArticleId(articleId), fileName));
+            Dispatcher.Dispatch(new RemoveImage(CurrentUserId, new ArticleShortId(articleId), fileName));
             store.Delete(fileName);
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }

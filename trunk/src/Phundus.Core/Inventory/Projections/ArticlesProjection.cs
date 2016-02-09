@@ -41,13 +41,13 @@
 
         public void Process(ArticleDeleted domainEvent)
         {
-            var row = FindByArticleGuid(domainEvent.ArticleGuid);
+            var row = FindByArticleGuid(domainEvent.ArticleId);
             Session.Delete(row);
         }
 
         public void Process(ArticleDetailsChanged domainEvent)
         {
-            Update(domainEvent.ArticleGuid, r =>
+            Update(domainEvent.ArticleId, r =>
             {
                 r.Name = domainEvent.Name;
                 r.Brand = domainEvent.Brand;
@@ -57,22 +57,22 @@
 
         public void Process(GrossStockChanged domainEvent)
         {
-            Update(domainEvent.ArticleGuid, r => { r.GrossStock = domainEvent.NewGrossStock; });
+            Update(domainEvent.ArticleId, r => { r.GrossStock = domainEvent.NewGrossStock; });
         }
 
         public void Process(DescriptionChanged domainEvent)
         {
-            Update(domainEvent.ArticleGuid, r => { r.Description = domainEvent.Description; });
+            Update(domainEvent.ArticleId, r => { r.Description = domainEvent.Description; });
         }
 
         public void Process(SpecificationChanged domainEvent)
         {
-            Update(domainEvent.ArticleGuid, r => { r.Specification = domainEvent.Specification; });
+            Update(domainEvent.ArticleId, r => { r.Specification = domainEvent.Specification; });
         }
 
         public void Process(PricesChanged domainEvent)
         {
-            Update(domainEvent.ArticleGuid, r =>
+            Update(domainEvent.ArticleId, r =>
             {
                 r.PublicPrice = domainEvent.PublicPrice;
                 r.MemberPrice = domainEvent.MemberPrice;

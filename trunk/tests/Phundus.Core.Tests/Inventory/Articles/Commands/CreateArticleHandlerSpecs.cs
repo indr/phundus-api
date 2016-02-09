@@ -16,7 +16,7 @@
         article_command_handler_concern<CreateArticle, CreateArticleHandler>
     {
         private static Owner theOwner;
-        private static ArticleGuid theArticleGuid;
+        private static ArticleId the_article_id;
         private static string theName;
         private static int theGrossStock;
         private static decimal theMemberPrice;
@@ -28,7 +28,7 @@
         {
             theOwner = make.Owner();
             theStore = make.Store();
-            theArticleGuid = new ArticleGuid();
+            the_article_id = new ArticleId();
             theName = "The name";
             theGrossStock = 10;
             theMemberPrice = 11.10m;
@@ -38,7 +38,7 @@
             ownerService.setup(x => x.GetById(theOwner.OwnerId)).Return(theOwner);
             depends.on<IStoreRepository>().setup(x => x.GetByOwnerAndId(theOwner.OwnerId, theStore.Id)).Return(theStore);
 
-            command = new CreateArticle(theInitiatorId, theOwner.OwnerId, theStore.Id, theArticleGuid,
+            command = new CreateArticle(theInitiatorId, theOwner.OwnerId, theStore.Id, the_article_id,
                 theName, theGrossStock, thePublicPrice, theMemberPrice);
         };
 
@@ -51,7 +51,7 @@
 
         public It should_publish_article_created = () =>
             Published<ArticleCreated>(p =>
-                p.ArticleGuid == theArticleGuid.Id
+                p.ArticleGuid == the_article_id.Id
                 && p.GrossStock == theGrossStock
                 && p.Initiator.InitiatorGuid == theInitiatorId.Id
                 && p.MemberPrice == theMemberPrice

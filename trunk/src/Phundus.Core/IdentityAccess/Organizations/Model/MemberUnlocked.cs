@@ -28,10 +28,10 @@ namespace Phundus.IdentityAccess.Organizations.Model
 
         [Obsolete]
         [DataMember(Order = 1)]
-        public int OrganizationIntegralId { get; protected set; }
+        public int OrganizationShortId { get; protected set; }
 
         [Obsolete]
         [DataMember(Order = 2)]
-        public int UserIntegralId { get; protected set; }
+        public int UserShortId { get; protected set; }
     }
 }

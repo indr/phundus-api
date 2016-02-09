@@ -29,7 +29,7 @@
         }
 
         [DataMember(Order = 1)]
-        public int UserIntegralId { get; private set; }
+        public int UserShortId { get; private set; }
 
         [DataMember(Order = 13)]
         public Guid UserGuid { get; private set; }

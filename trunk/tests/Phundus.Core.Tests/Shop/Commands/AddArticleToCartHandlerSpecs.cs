@@ -16,7 +16,7 @@
         shop_command_handler_concern<AddArticleToCart, AddArticleToCartHandler>
     {
         protected const int theQuantity = 3;
-        protected static readonly ArticleId theArticleId = new ArticleId(12345);
+        protected static readonly ArticleShortId the_article_short_id = new ArticleShortId(12345);
         protected static readonly DateTime theFromUtc = DateTime.UtcNow;
         protected static readonly DateTime theToUtc = DateTime.UtcNow.AddDays(1);
         protected static Article theArticle;
@@ -28,8 +28,8 @@
             theArticle = make.Article();
             cartRepository = depends.on<ICartRepository>();
 
-            depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticleId, theInitiatorId)).Return(theArticle);
-            command = new AddArticleToCart(theInitiatorId, theArticleId, theFromUtc, theToUtc, theQuantity);
+            depends.on<IArticleService>().WhenToldTo(x => x.GetById(the_article_short_id, theInitiatorId)).Return(theArticle);
+            command = new AddArticleToCart(theInitiatorId, the_article_short_id, theFromUtc, theToUtc, theQuantity);
         };
     }
 

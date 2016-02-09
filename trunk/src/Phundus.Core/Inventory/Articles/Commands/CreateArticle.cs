@@ -28,20 +28,20 @@
             GrossStock = grossStock;
         }
 
-        public CreateArticle(InitiatorId initiatorId, OwnerId ownerId, StoreId storeId, ArticleGuid articleGuid,
+        public CreateArticle(InitiatorId initiatorId, OwnerId ownerId, StoreId storeId, ArticleId articleId,
             string name,
             int grossStock, decimal publicPrice, decimal? memberPrice)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             if (storeId == null) throw new ArgumentNullException("storeId");
-            if (articleGuid == null) throw new ArgumentNullException("articleGuid");
+            if (articleId == null) throw new ArgumentNullException("articleId");
             if (name == null) throw new ArgumentNullException("name");
 
             InitiatorId = initiatorId;
             OwnerId = ownerId;
             StoreId = storeId;
-            ArticleGuid = articleGuid;
+            ArticleId = articleId;
             Name = name;
             GrossStock = grossStock;
             MemberPrice = memberPrice;
@@ -51,7 +51,7 @@
         public InitiatorId InitiatorId { get; protected set; }
         public OwnerId OwnerId { get; protected set; }
         public StoreId StoreId { get; set; }
-        public ArticleGuid ArticleGuid { get; set; }
+        public ArticleId ArticleId { get; set; }
         public string Name { get; protected set; }
         public int GrossStock { get; protected set; }
         public decimal PublicPrice { get; protected set; }
@@ -94,13 +94,13 @@
 
             var store = _storeRepository.GetByOwnerAndId(owner.OwnerId, command.StoreId);
 
-            var article = new Article(owner, store.Id, command.ArticleGuid, command.Name, command.GrossStock,
+            var article = new Article(owner, store.Id, command.ArticleId, command.Name, command.GrossStock,
                 command.PublicPrice, command.MemberPrice);
 
             command.ResultingArticleId = _articleRepository.Add(article);
 
             EventPublisher.Publish(new ArticleCreated(initiator, article.Owner, article.StoreId,
-                command.ResultingArticleId, article.ArticleGuid.Id,
+                command.ResultingArticleId, article.ArticleId.Id,
                 article.Name, article.GrossStock, article.PublicPrice, article.MemberPrice));
         }
     }

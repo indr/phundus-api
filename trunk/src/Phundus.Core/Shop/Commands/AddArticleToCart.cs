@@ -12,14 +12,14 @@
 
     public class AddArticleToCart : ICommand
     {
-        public AddArticleToCart(InitiatorId initiatorId, ArticleId articleId, DateTime fromUtc,
+        public AddArticleToCart(InitiatorId initiatorId, ArticleShortId articleShortId, DateTime fromUtc,
             DateTime toUtc, int quantity)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
-            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             InitiatorId = initiatorId;
             UserId = new UserId(initiatorId.Id);
-            ArticleId = articleId;
+            ArticleShortId = articleShortId;
             FromUtc = fromUtc;
             ToUtc = toUtc;
             Quantity = quantity;
@@ -27,7 +27,7 @@
 
         public InitiatorId InitiatorId { get; protected set; }
         public UserId UserId { get; protected set; }
-        public ArticleId ArticleId { get; protected set; }
+        public ArticleShortId ArticleShortId { get; protected set; }
         public DateTime FromUtc { get; protected set; }
         public DateTime ToUtc { get; protected set; }
         public int Quantity { get; protected set; }
@@ -57,7 +57,7 @@
         public void Handle(AddArticleToCart command)
         {
             var initiator = _initiatorService.GetActiveById(command.InitiatorId);
-            var article = _articleService.GetById(command.ArticleId, command.UserId);
+            var article = _articleService.GetById(command.ArticleShortId, command.UserId);
 
             _authorize.Enforce(initiator.InitiatorId, Rent.Article(article));
 

@@ -9,9 +9,9 @@ namespace Phundus.Shop.Services
 
     public interface IArticleService
     {
-        Article GetById(ArticleId articleId, UserId userId);
+        Article GetById(ArticleShortId articleShortId, UserId userId);
 
-        Article GetById(LessorId lessorId, ArticleId articleId, LesseeId lesseeId);
+        Article GetById(LessorId lessorId, ArticleShortId articleShortId, LesseeId lesseeId);
     }
 
     public class ArticleService : IArticleService
@@ -31,26 +31,26 @@ namespace Phundus.Shop.Services
         {
         }
 
-        public virtual Article GetById(ArticleId articleId, UserId userId)
+        public virtual Article GetById(ArticleShortId articleShortId, UserId userId)
         {
-            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (userId == null) throw new ArgumentNullException("userId");
 
-            var article = _articleRepository.GetById(articleId.Id);
+            var article = _articleRepository.GetById(articleShortId.Id);
             if (article == null)
-                throw new NotFoundException(String.Format("Article {0} not found.", articleId));
+                throw new NotFoundException(String.Format("Article {0} not found.", articleShortId));
             return ConvertToInternal(article, userId);
         }
 
-        public virtual Article GetById(LessorId lessorId, ArticleId articleId, LesseeId lesseeId)
+        public virtual Article GetById(LessorId lessorId, ArticleShortId articleShortId, LesseeId lesseeId)
         {
             if (lessorId == null) throw new ArgumentNullException("lessorId");
-            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (lesseeId == null) throw new ArgumentNullException("lesseeId");
 
-            var result = GetById(articleId, new UserId(lesseeId.Id));
+            var result = GetById(articleShortId, new UserId(lesseeId.Id));
             if (!Equals(result.LessorId, lessorId))
-                throw new NotFoundException(String.Format("Article {0} {1} not found.", lessorId, articleId));
+                throw new NotFoundException(String.Format("Article {0} {1} not found.", lessorId, articleShortId));
 
             return result;
         }
