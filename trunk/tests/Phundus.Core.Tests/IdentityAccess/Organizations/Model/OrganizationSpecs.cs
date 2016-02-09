@@ -13,6 +13,9 @@
     {
         private It should_have_settings = () =>
             sut.Settings.ShouldNotBeNull();
+
+        private It should_have_setting_public_rental_true = () =>
+            sut.Settings.PublicRental.ShouldBeTrue();
     }
 
     [Subject(typeof (Organization))]

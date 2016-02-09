@@ -221,16 +221,11 @@
     <Compile Include="App_Start\StartMitSqlServerCe.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
-    <Compile Include="HttpNotFoundException.cs" />
-    <Compile Include="Models\CartModels\CartItemDto.cs" />
     <Compile Include="Security\WindsorMembershipProvider.cs" />
     <Compile Include="Security\WebWindsorRoleProvider.cs" />
     <Compile Include="Security\WebWindsorMembershipProvider.cs" />
     <Compile Include="Security\WindsorRoleProvider.cs" />
-    <Compile Include="Models\ArticleModels\ArticleReservationsModel.cs" />
     <Compile Include="App_Start\Plumbing\RegisterClientValidationExtensions.cs" />
-    <Compile Include="ControllerNames.cs" />
-    <Compile Include="Helpers\SessionAdapter.cs" />
     <Compile Include="ViewModels\Layout\NavBarModel.cs" />
     <Compile Include="Helpers\HandleAjaxErrorAttribute.cs" />
     <Compile Include="Helpers\HandleModelStateExceptionAttribute.cs" />
@@ -249,7 +244,6 @@
     <Compile Include="Helpers\MvcContainer.cs" />
     <Compile Include="App_Start\Installers\ControllerInstaller.cs" />
     <Compile Include="App_Start\Installers\LoggerInstaller.cs" />
-    <Compile Include="ViewModels\ShopArticleViewModel.cs" />
     <Content Include="400.aspx" />
     <Content Include="400.html" />
     <Content Include="500.aspx" />
@@ -367,14 +361,12 @@
     <Content Include="Scripts\canvas-to-blob.js" />
     <Content Include="Scripts\canvas-to-blob.min.js" />
     <Content Include="Scripts\fundus.js" />
-    <Compile Include="Models\CartModels\CartItemModel.cs" />
     <Compile Include="App_Start\Plumbing\WindsorControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\CustomMembershipProvider.cs" />
     <Compile Include="Security\CustomRoleProvider.cs" />
     <Compile Include="ViewModels\PageSelectorViewModel.cs" />
     <Compile Include="ViewModels\ShopSearchResultViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Content Include="Scripts\jquery-1.9.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -921,9 +913,6 @@
     <Folder Include="Content\Images\Articles\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shop\Article.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -931,10 +920,6 @@
     <Content Include="Views\Shop\Result-Large.cshtml" />
     <Content Include="Views\Shop\Result-Small.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PageSelectorViewModel.cshtml" />
-    <Content Include="Views\Shop\Article_Images.cshtml" />
-    <Content Include="Views\Shop\Article_Availability.cshtml" />
-    <Content Include="Views\Shop\Article_AddToCart.cshtml" />
-    <Content Include="Views\Shop\Article_Documents.cshtml" />
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

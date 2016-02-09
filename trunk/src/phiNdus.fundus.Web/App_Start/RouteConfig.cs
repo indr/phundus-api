@@ -19,27 +19,13 @@
             routes.MapRoute(
                 "Organization",
                 "{name}",
-                new {controller = ControllerNames.Organizations, action = "Index"},
+                new {controller = "Organizations", action = "Index"},
                 new {name = new OrganizationExistsConstraint(organizations)});
-
-            routes.MapRoute(
-                "Orgs",
-                "orgs/{orgId}/{controller}/{action}/{id}",
-                defaults: new {action = "Index", id = UrlParameter.Optional});
-
-            routes.MapRoute(
-                "Management",
-                "management/{id}",
-                new {controller = "Management", action = "Index"});
 
             routes.MapRoute(
                 "Default",
                 "{controller}/{action}/{id}",
-                new {controller = ControllerNames.Home, action = "Index", id = UrlParameter.Optional});
-
-            routes.MapRoute(
-                "ImageStore",
-                "{controller}/{action}/{id}/{name}");
+                new {controller = "Home", action = "Index", id = UrlParameter.Optional});
         }
     }
 

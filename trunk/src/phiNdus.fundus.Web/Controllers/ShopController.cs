@@ -1,16 +1,10 @@
 ﻿namespace Phundus.Web.Controllers
 {
     using System;
-    using System.Linq;
     using System.Web.Mvc;
-    using Authorization;
     using Castle.Transactions;
-    using Common.Domain.Model;
     using IdentityAccess.Queries;
-    using Inventory.Queries;
     using phiNdus.fundus.Web.ViewModels;
-    using Shop.Authorization;
-    using Shop.Orders.Model;
     using Shop.Queries;
 
     public class ShopController : ControllerBase
@@ -18,12 +12,6 @@
         public IOrganizationQueries OrganizationQueries { get; set; }
 
         public IShopArticleQueries ShopArticleQueries { get; set; }
-
-        public IAvailabilityQueries AvailabilityQueries { get; set; }
-
-        public IMemberInRole MemberInRole { get; set; }
-
-        public IAuthorize Authorize { get; set; }
 
         private static string MasterView
         {
@@ -136,39 +124,6 @@
             return View(ShopView, MasterView, model);
         }
 
-        [Transaction]
-        [AllowAnonymous]
-        public virtual ActionResult Article(int id)
-        {
-            var article = ShopArticleQueries.GetArticle(id);
-            if (article == null)
-                throw new HttpNotFoundException();
-
-            var model = new ShopArticleViewModel(article, CurrentUserId);
-
-
-            if (Identity.IsAuthenticated)
-            {
-                //model.CanUserAddToCart = MemberInRole.IsActiveMember(model.Article.OrganizationId, new UserId(CurrentUserId));
-
-                var adapted = new Article(article.Id,
-                    new Owner(new OwnerId(article.OrganizationId), article.OrganizationName, OwnerType.Adapted),
-                    article.Name, article.PublicPrice);
-
-                model.CanUserAddToCart = Authorize.Test(new UserId(CurrentUserId), Rent.Article(adapted));
-                ;
-            }
-
-            model.Availabilities = AvailabilityQueries.GetAvailability(id).ToList();
-            return Json(new
-            {
-                caption = model.Article.Name,
-                content = RenderPartialViewToString("Article", model)
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        #region Nested type: ShopViews
-
         private static class ShopViews
         {
             public static string Large
@@ -191,7 +146,5 @@
                 get { return Large; }
             }
         }
-
-        #endregion
     }
 }
