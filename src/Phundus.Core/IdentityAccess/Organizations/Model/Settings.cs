@@ -5,15 +5,15 @@
 
     public class Settings : ValueObject
     {
-        private bool _publicRental;
+        private bool _publicRental = true;
 
-        public Settings(bool publicRental = true)
+        public Settings()
         {
-            _publicRental = publicRental;
         }
 
-        protected Settings()
+        public Settings(bool publicRental)
         {
+            _publicRental = publicRental;
         }
 
         public virtual bool PublicRental
