@@ -10,17 +10,17 @@
 
     public class AddOrderItem : ICommand
     {
-        public AddOrderItem(InitiatorId initiatorId, OrderId orderId, OrderItemId orderItemId, ArticleId articleId, Period period, int quantity)
+        public AddOrderItem(InitiatorId initiatorId, OrderId orderId, OrderItemId orderItemId, ArticleShortId articleShortId, Period period, int quantity)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (orderId == null) throw new ArgumentNullException("orderId");
             if (orderItemId == null) throw new ArgumentNullException("orderItemId");
-            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (period == null) throw new ArgumentNullException("period");            
             InitiatorId = initiatorId;
             OrderId = orderId;
             OrderItemId = orderItemId;
-            ArticleId = articleId;
+            ArticleShortId = articleShortId;
             Period = period;
             Quantity = quantity;
         }
@@ -28,7 +28,7 @@
         public InitiatorId InitiatorId { get; protected set; }
         public OrderId OrderId { get; protected set; }
         public OrderItemId OrderItemId { get; protected set; }
-        public ArticleId ArticleId { get; protected set; }
+        public ArticleShortId ArticleShortId { get; protected set; }
         public Period Period { get; protected set; }
         public int Quantity { get; protected set; }
     }
@@ -55,7 +55,7 @@
             var lessor = order.Lessor;
             _memberInRole.ActiveManager(lessor.LessorId.Id, command.InitiatorId);
 
-            var article = _articleService.GetById(lessor.LessorId, command.ArticleId, order.Lessee.LesseeId);
+            var article = _articleService.GetById(lessor.LessorId, command.ArticleShortId, order.Lessee.LesseeId);
             order.AddItem(command.OrderItemId, article, command.Period.FromUtc, command.Period.ToUtc, command.Quantity);
         }
     }

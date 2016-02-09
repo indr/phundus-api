@@ -69,11 +69,11 @@
 
             foreach (var eachCartItem in cartItemsToPlace)
             {
-                var article = _articleService.GetById(lessor.LessorId, eachCartItem.ArticleId, lessee.LesseeId);
+                var article = _articleService.GetById(lessor.LessorId, eachCartItem.ArticleShortId, lessee.LesseeId);
                 _authorize.Enforce(cart.UserId, Rent.Article(article));
             }
 
-            var orderItems = cartItemsToPlace.Select(s => new OrderItem(s.ArticleId, s.LineText, new Period(s.From, s.To), s.Quantity, s.UnitPrice)).ToList();
+            var orderItems = cartItemsToPlace.Select(s => new OrderItem(s.ArticleShortId, s.LineText, new Period(s.From, s.To), s.Quantity, s.UnitPrice)).ToList();
             var order = new Order(lessor, lessee, orderItems);
 
             var orderId = _orderRepository.Add(order);

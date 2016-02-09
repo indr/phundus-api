@@ -25,7 +25,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
             theOwner = theArticle.Owner;
             articleRepository.WhenToldTo(x => x.GetById(theArticle.Id)).Return(theArticle);
 
-            command = new UpdateArticle(theInitiatorId, theArticle.ArticleId.Id, theName, theBrand, theColor, theGrossStock);
+            command = new UpdateArticle(theInitiatorId, theArticle.ArticleShortId.Id, theName, theBrand, theColor, theGrossStock);
         };
 
         private It should_enforce_initiator_to_manage_articles = () =>

@@ -38,7 +38,7 @@
         protected static CartItemId AddCartItem(LessorId lessorId)
         {
             var anArticle = make.Article(lessorId.Id);
-            articleService.setup(x => x.GetById(anArticle.LessorId, anArticle.ArticleId, new LesseeId(theCart.UserGuid)))
+            articleService.setup(x => x.GetById(anArticle.LessorId, anArticle.ArticleShortId, new LesseeId(theCart.UserGuid)))
                 .Return(anArticle);
             return theCart.AddItem(anArticle, DateTime.UtcNow, DateTime.UtcNow.AddDays(1), 1);
         }

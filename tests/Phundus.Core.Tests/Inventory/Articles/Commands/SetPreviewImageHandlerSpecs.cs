@@ -16,9 +16,9 @@
         private Establish ctx = () =>
         {
             theArticle = make.Article();
-            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleId)).Return(theArticle);
+            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
 
-            command = new SetPreviewImage(theInitiatorId, theArticle.ArticleId, theFileName);
+            command = new SetPreviewImage(theInitiatorId, theArticle.ArticleShortId, theFileName);
         };
 
         private It should_enforce_initiator_to_manage_articles = () =>

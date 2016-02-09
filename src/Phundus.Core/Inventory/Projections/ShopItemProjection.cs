@@ -40,13 +40,13 @@ namespace Phundus.Inventory.Projections
 
         public void Process(ArticleDeleted domainEvent)
         {
-            var row = GetRow(domainEvent.ArticleGuid);
+            var row = GetRow(domainEvent.ArticleId);
             Session.Delete(row);
         }
         
         public void Process(ArticleDetailsChanged domainEvent)
         {
-            var row = GetRow(domainEvent.ArticleGuid);
+            var row = GetRow(domainEvent.ArticleId);
             row.Name = domainEvent.Name;
             row.Brand = domainEvent.Brand;
             row.Color = domainEvent.Color;
@@ -54,19 +54,19 @@ namespace Phundus.Inventory.Projections
 
         public void Process(DescriptionChanged domainEvent)
         {
-            var row = GetRow(domainEvent.ArticleGuid);
+            var row = GetRow(domainEvent.ArticleId);
             row.Description = domainEvent.Description;
         }
 
         public void Process(SpecificationChanged domainEvent)
         {
-            var row = GetRow(domainEvent.ArticleGuid);
+            var row = GetRow(domainEvent.ArticleId);
             row.Specification = domainEvent.Specification;
         }
 
         public void Process(PricesChanged domainEvent)
         {
-            var row = GetRow(domainEvent.ArticleGuid);            
+            var row = GetRow(domainEvent.ArticleId);            
             row.PublicPrice = domainEvent.PublicPrice;
             row.MemberPrice = domainEvent.MemberPrice;
         }

@@ -37,25 +37,25 @@
 
         public void Process(ArticleDetailsChanged domainEvent)
         {
-            var row = Find(domainEvent.ArticleGuid);
+            var row = Find(domainEvent.ArticleId);
             row.Name = domainEvent.Name;
         }
 
         public void Process(ArticleDeleted domainEvent)
         {
-            var row = Find(domainEvent.ArticleGuid);
+            var row = Find(domainEvent.ArticleId);
             Delete(row);
         }
 
         public void Process(PreviewImageChanged domainEvent)
         {
-            var row = Find(domainEvent.ArticleGuid);
+            var row = Find(domainEvent.ArticleId);
             row.PreviewImageFileName = domainEvent.FileName;
         }
 
         public void Process(PricesChanged domainEvent)
         {
-            var row = Find(domainEvent.ArticleGuid);
+            var row = Find(domainEvent.ArticleId);
             row.MemberPrice = domainEvent.MemberPrice;
             row.PublicPrice = domainEvent.PublicPrice;
         }

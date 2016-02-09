@@ -29,7 +29,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
 
         private It should_publish_article_deleted = () =>
             Published<ArticleDeleted>(p =>
-                p.ArticleGuid == theArticle.ArticleGuid.Id
+                p.ArticleId == theArticle.ArticleId.Id
                 && Equals(p.Initiator, theInitiator)
                 && p.OwnerId == theOwner.OwnerId.Id);
 

@@ -7,20 +7,20 @@
     [Subject(typeof (DescriptionChanged))]
     public class DescriptionChangedSpecs : domain_event_concern<DescriptionChanged>
     {
-        private static ArticleGuid theArticleId;
+        private static ArticleId theArticleId;
         private static OwnerId theOwnerId;
         private static string theDescription;
-        private static ArticleId theArticleIntegralId;
+        private static ArticleShortId the_article_short_integral_id;
 
         private Establish ctx = () =>
         {
-            theArticleIntegralId = new ArticleId(1234);
-            theArticleId = new ArticleGuid();
+            the_article_short_integral_id = new ArticleShortId(1234);
+            theArticleId = new ArticleId();
             theOwnerId = new OwnerId();
             theDescription = "The description";
 
             sut_factory.create_using(() =>
-                new DescriptionChanged(theInitiator, theArticleIntegralId, theArticleId, theOwnerId, theDescription));
+                new DescriptionChanged(theInitiator, the_article_short_integral_id, theArticleId, theOwnerId, theDescription));
         };
 
         private It should_be_in_assembly = () =>
@@ -30,7 +30,7 @@
             dataMember(1).ShouldEqual(theInitiator);
 
         private It should_have_at_2_the_article_id = () =>
-            dataMember(2).ShouldEqual(theArticleIntegralId.Id);
+            dataMember(2).ShouldEqual(the_article_short_integral_id.Id);
 
         private It should_have_at_3_the_article_guid = () =>
             dataMember(3).ShouldEqual(theArticleId.Id);

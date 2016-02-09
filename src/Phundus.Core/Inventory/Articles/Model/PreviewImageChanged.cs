@@ -7,18 +7,18 @@
     [DataContract]
     public class PreviewImageChanged : DomainEvent
     {
-        public PreviewImageChanged(Initiator initiator, ArticleId articleId, ArticleGuid articleGuid, OwnerId ownerId,
+        public PreviewImageChanged(Initiator initiator, ArticleShortId articleShortId, ArticleId articleId, OwnerId ownerId,
             string fileName, string fileType, long fileLength)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (articleId == null) throw new ArgumentNullException("articleId");
-            if (articleGuid == null) throw new ArgumentNullException("articleGuid");
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             if (fileName == null) throw new ArgumentNullException("fileName");
             if (fileType == null) throw new ArgumentNullException("fileType");
             Initiator = initiator;
-            ArticleIntegralId = articleId.Id;
-            ArticleGuid = articleGuid.Id;
+            ArticleShortId = articleShortId.Id;
+            ArticleId = articleId.Id;
             OwnerId = ownerId.Id;
             FileName = fileName;
             FileType = fileType;
@@ -33,10 +33,10 @@
         public Initiator Initiator { get; set; }
 
         [DataMember(Order = 2)]
-        public int ArticleIntegralId { get; set; }
+        public int ArticleShortId { get; set; }
 
         [DataMember(Order = 3)]
-        public Guid ArticleGuid { get; set; }
+        public Guid ArticleId { get; set; }
 
         [DataMember(Order = 4)]
         public Guid OwnerId { get; set; }

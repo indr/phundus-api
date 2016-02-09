@@ -15,10 +15,10 @@ namespace Phundus.Tests.Inventory
         public Article Article(Owner owner = null)
         {
             var article = fake.an<Article>();
-            var articleId = new ArticleId(NextNumericId());
+            var articleId = new ArticleShortId(NextNumericId());
             article.setup(x => x.Id).Return(articleId.Id);
-            article.setup(x => x.ArticleId).Return(articleId);
-            article.setup(x => x.ArticleGuid).Return(new ArticleGuid());
+            article.setup(x => x.ArticleShortId).Return(articleId);
+            article.setup(x => x.ArticleId).Return(new ArticleId());
             article.setup(x => x.Owner).Return(owner ?? Owner());
             return article;
         }

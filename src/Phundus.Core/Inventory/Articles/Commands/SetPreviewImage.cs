@@ -10,18 +10,18 @@
 
     public class SetPreviewImage : ICommand
     {
-        public SetPreviewImage(InitiatorId initiatorId, ArticleId articleId, string fileName)
+        public SetPreviewImage(InitiatorId initiatorId, ArticleShortId articleShortId, string fileName)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
-            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (fileName == null) throw new ArgumentNullException("fileName");
             InitiatorId = initiatorId;
-            ArticleId = articleId;
+            ArticleShortId = articleShortId;
             FileName = fileName;
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public ArticleId ArticleId { get; protected set; }
+        public ArticleShortId ArticleShortId { get; protected set; }
         public string FileName { get; protected set; }
     }
 
@@ -45,7 +45,7 @@
         public void Handle(SetPreviewImage command)
         {
             var initiator = _initiatorService.GetActiveById(command.InitiatorId);
-            var article = _articleRepository.GetById(command.ArticleId);
+            var article = _articleRepository.GetById(command.ArticleShortId);
 
             _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
 

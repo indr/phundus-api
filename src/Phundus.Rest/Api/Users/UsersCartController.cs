@@ -82,13 +82,13 @@ namespace Phundus.Rest.Api.Users
             };
         }
 
-        private ArticleId GetArticleId(UsersCartItemsPostRequestContent requestContent)
+        private ArticleShortId GetArticleId(UsersCartItemsPostRequestContent requestContent)
         {
             if (requestContent.ArticleId > 0)
-                return new ArticleId(requestContent.ArticleId);
+                return new ArticleShortId(requestContent.ArticleId);
 
             var article = _articleQueries.GetById(requestContent.ArticleGuid);
-            return new ArticleId(article.ArticleShortId);
+            return new ArticleShortId(article.ArticleShortId);
         }
 
         [PATCH("items/{itemId}")]

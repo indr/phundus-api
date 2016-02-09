@@ -8,7 +8,7 @@
 
     public class Article : Aggregate<int>
     {
-        private ArticleGuid _articleGuid = new ArticleGuid();
+        private ArticleId _articleId = new ArticleId();
         private DateTime _createDate = DateTime.UtcNow;
         private string _description;
         private int _grossStock;
@@ -24,31 +24,31 @@
         {
         }
 
-        public Article(Owner owner, StoreId storeId, ArticleGuid articleGuid, string name, int grossStock,
+        public Article(Owner owner, StoreId storeId, ArticleId articleId, string name, int grossStock,
             decimal publicPrice, decimal? memberPrice)
         {
             if (owner == null) throw new ArgumentNullException("owner");
             if (storeId == null) throw new ArgumentNullException("storeId");
-            if (articleGuid == null) throw new ArgumentNullException("articleGuid");
+            if (articleId == null) throw new ArgumentNullException("articleId");
             if (name == null) throw new ArgumentNullException("name");
 
             _owner = owner;
             _storeId = storeId;
-            _articleGuid = articleGuid;
+            _articleId = articleId;
             _name = name;
             _grossStock = grossStock;
             _memberPrice = _owner.Type == OwnerType.Organization ? memberPrice : null;
             _publicPrice = publicPrice;
         }
 
-        public virtual ArticleId ArticleId
+        public virtual ArticleShortId ArticleShortId
         {
-            get { return new ArticleId(Id); }
+            get { return new ArticleShortId(Id); }
         }
 
-        public virtual ArticleGuid ArticleGuid
+        public virtual ArticleId ArticleId
         {
-            get { return _articleGuid; }
+            get { return _articleId; }
         }
 
         public virtual Owner Owner
@@ -122,7 +122,7 @@
 
             Description = description;
 
-            EventPublisher.Publish(new DescriptionChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId, Description));
+            EventPublisher.Publish(new DescriptionChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, Description));
         }
 
         public virtual void ChangeSpecification(Initiator initiator, string specification)
@@ -132,7 +132,7 @@
 
             Specification = specification;
 
-            EventPublisher.Publish(new SpecificationChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId,
+            EventPublisher.Publish(new SpecificationChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId,
                 Specification));
         }
 
@@ -148,7 +148,7 @@
             };
             Images.Add(image);
 
-            EventPublisher.Publish(new ImageAdded(initiator, ArticleId, ArticleGuid, Owner.OwnerId, image.FileName, image.Type, image.Length, image.IsPreview));
+            EventPublisher.Publish(new ImageAdded(initiator, ArticleShortId, ArticleId, Owner.OwnerId, image.FileName, image.Type, image.Length, image.IsPreview));
 
             return image;
         }
@@ -161,7 +161,7 @@
             Images.Remove(image);
             image.Article = null;
 
-            EventPublisher.Publish(new ImageRemoved(initiator, ArticleId, ArticleGuid, Owner.OwnerId, image.FileName));
+            EventPublisher.Publish(new ImageRemoved(initiator, ArticleShortId, ArticleId, Owner.OwnerId, image.FileName));
 
             EnsureOneImageIsPreviewImage(initiator);
         }
@@ -180,7 +180,7 @@
                 return;
 
             previewImage.IsPreview = true;
-            EventPublisher.Publish(new PreviewImageChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId, previewImage.FileName, previewImage.Type, previewImage.Length));
+            EventPublisher.Publish(new PreviewImageChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, previewImage.FileName, previewImage.Type, previewImage.Length));
         }
 
         public virtual void SetPreviewImage(Initiator initiator, string fileName)
@@ -196,7 +196,7 @@
             if ((oldPreviewImage == previewImage) || (previewImage == null))
                 return;
 
-            EventPublisher.Publish(new PreviewImageChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId, previewImage.FileName, previewImage.Type, previewImage.Length));
+            EventPublisher.Publish(new PreviewImageChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, previewImage.FileName, previewImage.Type, previewImage.Length));
         }
 
         public virtual void ChangePrices(Initiator initiator, decimal publicPrice, decimal? memberPrice)
@@ -209,7 +209,7 @@
             PublicPrice = publicPrice;
             MemberPrice = Owner.Type == OwnerType.Organization ? memberPrice : null;
 
-            EventPublisher.Publish(new PricesChanged(initiator, Id, ArticleGuid, Owner.OwnerId, PublicPrice, MemberPrice));
+            EventPublisher.Publish(new PricesChanged(initiator, Id, ArticleId, Owner.OwnerId, PublicPrice, MemberPrice));
         }
 
         public virtual void ChangeDetails(Initiator initiator, string name, string brand, string color)
@@ -223,7 +223,7 @@
             Brand = brand;
             Color = color;
 
-            EventPublisher.Publish(new ArticleDetailsChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId, Name,
+            EventPublisher.Publish(new ArticleDetailsChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, Name,
                 Brand, Color));
         }
 
@@ -237,7 +237,7 @@
             var oldGrossStock = GrossStock;
             GrossStock = grossStock;
 
-            EventPublisher.Publish(new GrossStockChanged(initiator, ArticleId, ArticleGuid, Owner.OwnerId, oldGrossStock,
+            EventPublisher.Publish(new GrossStockChanged(initiator, ArticleShortId, ArticleId, Owner.OwnerId, oldGrossStock,
                 GrossStock));
         }
     }

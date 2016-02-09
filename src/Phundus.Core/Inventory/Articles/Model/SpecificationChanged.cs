@@ -7,17 +7,17 @@
     [DataContract]
     public class SpecificationChanged : DomainEvent
     {
-        public SpecificationChanged(Initiator initiator, ArticleId articleIntegralId, ArticleGuid articleGuid,
+        public SpecificationChanged(Initiator initiator, ArticleShortId articleShortId, ArticleId articleId,
             OwnerId ownerId, string specification)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
-            if (articleIntegralId == null) throw new ArgumentNullException("articleIntegralId");
-            if (articleGuid == null) throw new ArgumentNullException("articleGuid");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
+            if (articleId == null) throw new ArgumentNullException("articleId");
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             if (specification == null) throw new ArgumentNullException("specification");
             Initiator = initiator;
-            ArticleIntegralId = articleIntegralId.Id;
-            ArticleGuid = articleGuid.Id;
+            ArticleShortId = articleShortId.Id;
+            ArticleId = articleId.Id;
             OwnerId = ownerId.Id;
             Specification = specification;
         }
@@ -31,10 +31,10 @@
         public Initiator Initiator { get; set; }
 
         [DataMember(Order = 2)]
-        public int ArticleIntegralId { get; set; }
+        public int ArticleShortId { get; set; }
 
         [DataMember(Order = 3)]
-        public Guid ArticleGuid { get; set; }
+        public Guid ArticleId { get; set; }
 
         [DataMember(Order = 4)]
         public Guid OwnerId { get; set; }

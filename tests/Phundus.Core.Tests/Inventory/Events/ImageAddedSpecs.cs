@@ -7,8 +7,8 @@ namespace Phundus.Tests.Inventory.Events
     [Subject(typeof (ImageAdded))]
     public class ImageAddedSpecs : domain_event_concern<ImageAdded>
     {
-        private static ArticleId theArticleId;
-        private static ArticleGuid theArticleGuid;
+        private static ArticleShortId the_article_short_id;
+        private static ArticleId the_article_id;
         private static OwnerId theOwnerId;
         private static string theFileName;
         private static string theFileType;
@@ -17,15 +17,15 @@ namespace Phundus.Tests.Inventory.Events
 
         private Establish ctx = () =>
         {
-            theArticleId = new ArticleId(1234);
-            theArticleGuid = new ArticleGuid();
+            the_article_short_id = new ArticleShortId(1234);
+            the_article_id = new ArticleId();
             theOwnerId = new OwnerId();
             theFileName = "/path/to/filename.type";
             theFileType = "image/jpeg";
             theFileLength = 1234567;
             theIsPreviewImage = true;
 
-            sut_factory.create_using(() => new ImageAdded(theInitiator, theArticleId, theArticleGuid, theOwnerId,
+            sut_factory.create_using(() => new ImageAdded(theInitiator, the_article_short_id, the_article_id, theOwnerId,
                 theFileName, theFileType, theFileLength, theIsPreviewImage));
         };
 
@@ -36,10 +36,10 @@ namespace Phundus.Tests.Inventory.Events
             dataMember(1).ShouldEqual(theInitiator);
 
         private It should_have_at_2_the_article_integral_id = () =>
-            dataMember(2).ShouldEqual(theArticleId.Id);
+            dataMember(2).ShouldEqual(the_article_short_id.Id);
 
         private It should_have_at_3_the_article_guid = () =>
-            dataMember(3).ShouldEqual(theArticleGuid.Id);
+            dataMember(3).ShouldEqual(the_article_id.Id);
 
         private It should_have_at_4_the_owner_id = () =>
             dataMember(4).ShouldEqual(theOwnerId.Id);

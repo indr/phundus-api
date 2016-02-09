@@ -23,9 +23,9 @@ namespace Phundus.Shop.Projections
             if (!domainEvent.FileType.StartsWith("application/"))
                 return;
 
-            var row = Find(domainEvent.ArticleGuid, domainEvent.FileName) ?? CreateRow();
-            row.ArticleGuid = domainEvent.ArticleGuid;
-            row.ArticleId = domainEvent.ArticleIntegralId;
+            var row = Find(domainEvent.ArticleId, domainEvent.FileName) ?? CreateRow();
+            row.ArticleGuid = domainEvent.ArticleId;
+            row.ArticleId = domainEvent.ArticleShortId;
             row.FileLength = domainEvent.FileLength;
             row.FileName = domainEvent.FileName;
             row.FileType = domainEvent.FileType;
@@ -35,7 +35,7 @@ namespace Phundus.Shop.Projections
 
         public void Process(ImageRemoved domainEvent)
         {
-            var row = Find(domainEvent.ArticleGuid, domainEvent.FileName);
+            var row = Find(domainEvent.ArticleId, domainEvent.FileName);
             if (row == null)
                 return;
             Delete(row);

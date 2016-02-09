@@ -11,10 +11,10 @@
 
     public class RemoveImage
     {
-        public RemoveImage(InitiatorId initiatorId, ArticleId articleId, string fileName)
+        public RemoveImage(InitiatorId initiatorId, ArticleShortId articleShortId, string fileName)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
-            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (fileName == null) throw new ArgumentNullException("fileName");
 
             if (fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
@@ -24,12 +24,12 @@
                         fileName), "fileName");
 
             InitiatorId = initiatorId;
-            ArticleId = articleId;
+            ArticleShortId = articleShortId;
             FileName = fileName;
         }
 
         public InitiatorId InitiatorId { get; set; }
-        public ArticleId ArticleId { get; set; }
+        public ArticleShortId ArticleShortId { get; set; }
         public string FileName { get; set; }
     }
 
@@ -53,7 +53,7 @@
         public void Handle(RemoveImage command)
         {
             var initiator = _initiatorService.GetActiveById(command.InitiatorId);
-            var article = _articleRepository.GetById(command.ArticleId.Id);
+            var article = _articleRepository.GetById(command.ArticleShortId.Id);
 
             _authorize.Enforce(initiator.InitiatorId, Manage.Articles(article.Owner.OwnerId));
 

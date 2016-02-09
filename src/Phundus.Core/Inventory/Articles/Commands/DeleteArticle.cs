@@ -49,7 +49,7 @@
 
             _articleRepository.Remove(article);
 
-            EventPublisher.Publish(new ArticleDeleted(initiator, article.ArticleId, article.ArticleGuid,
+            EventPublisher.Publish(new ArticleDeleted(initiator, article.ArticleShortId, article.ArticleId,
                 article.Owner.OwnerId));
         }
     }

@@ -56,15 +56,15 @@
             return Entities.Where(p => p.Owner.OwnerId.Id == queryOwnerId.Id).Where(p => p.Name.ToLowerInvariant().Contains(query)).ToFuture();
         }
 
-        public Article GetById(ArticleId articleId)
+        public Article GetById(ArticleShortId articleShortId)
         {
-            if (articleId == null) throw new ArgumentNullException("articleId");
-            return GetById(articleId.Id);
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
+            return GetById(articleShortId.Id);
         }
 
         public Article FindByGuid(Guid articleGuid)
         {
-            return Session.QueryOver<Article>().Where(p => p.ArticleGuid.Id == articleGuid).SingleOrDefault();
+            return Session.QueryOver<Article>().Where(p => p.ArticleId.Id == articleGuid).SingleOrDefault();
         }
     }
 }

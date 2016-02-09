@@ -7,16 +7,16 @@
     [DataContract]
     public class ArticleDetailsChanged : DomainEvent
     {
-        public ArticleDetailsChanged(Initiator initiator, ArticleId articleIntegralId, ArticleGuid articleGuid,
+        public ArticleDetailsChanged(Initiator initiator, ArticleShortId articleShortId, ArticleId articleId,
             OwnerId ownerId, string name, string brand, string color)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
-            if (articleIntegralId == null) throw new ArgumentNullException("articleIntegralId");
-            if (articleGuid == null) throw new ArgumentNullException("articleGuid");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
+            if (articleId == null) throw new ArgumentNullException("articleId");
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             Initiator = initiator;
-            ArticleIntegralId = articleIntegralId.Id;
-            ArticleGuid = articleGuid.Id;
+            ArticleShortId = articleShortId.Id;
+            ArticleId = articleId.Id;
             OwnerId = ownerId.Id;
             Name = name;
             Brand = brand;
@@ -31,10 +31,10 @@
         public Initiator Initiator { get; protected set; }
 
         [DataMember(Order = 2)]
-        public int ArticleIntegralId { get; set; }
+        public int ArticleShortId { get; set; }
 
         [DataMember(Order = 3)]
-        public Guid ArticleGuid { get; set; }
+        public Guid ArticleId { get; set; }
 
         [DataMember(Order = 4)]
         public Guid OwnerId { get; set; }

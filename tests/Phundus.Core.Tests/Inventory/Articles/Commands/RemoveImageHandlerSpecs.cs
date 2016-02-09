@@ -21,7 +21,7 @@
             theArticle = make.Article(theOwner);
             articleRepository.setup(x => x.GetById(theArticle.Id)).Return(theArticle);
 
-            command = new RemoveImage(theInitiatorId, new ArticleId(theArticle.Id), theFileName);
+            command = new RemoveImage(theInitiatorId, new ArticleShortId(theArticle.Id), theFileName);
         };
 
         private It should_enforce_initiator_to_manage_articles = () =>

@@ -12,7 +12,7 @@
 
             Table("Dm_Inventory_Article");
             Id(x => x.Id).GeneratedBy.Native();
-            Component(x => x.ArticleGuid, a =>
+            Component(x => x.ArticleId, a =>
                 a.Map(x => x.Id, "ArticleGuid")).Not.Update();
             Version(x => x.Version);
 

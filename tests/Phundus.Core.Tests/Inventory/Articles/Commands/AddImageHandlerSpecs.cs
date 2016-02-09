@@ -27,7 +27,7 @@
             articleRepository.setup(x => x.GetById(theArticle.Id)).Return(theArticle);
 
 
-            command = new AddImage(theInitiatorId, new ArticleId(theArticle.Id), "file.jpg", "image/jpeg", 12345);
+            command = new AddImage(theInitiatorId, new ArticleShortId(theArticle.Id), "file.jpg", "image/jpeg", 12345);
         };
 
         private It should_ask_for_chief_privilegs = () =>
