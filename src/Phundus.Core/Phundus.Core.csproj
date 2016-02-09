@@ -318,7 +318,7 @@
     <Compile Include="Shop\Projections\ShopItemImagesProjectionRow.cs" />
     <Compile Include="Shop\Projections\ShopItemProjectionRow.cs" />
     <Compile Include="Shop\Queries\CartItemViewRow.cs" />
-    <Compile Include="Shop\Queries\CartReadModel.cs" />
+    <Compile Include="Shop\Queries\CartQueries.cs" />
     <Compile Include="Shop\Queries\CartViewRow.cs" />
     <Compile Include="Shop\Queries\Dtos\MembershipRoleDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderDto.cs" />

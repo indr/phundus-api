@@ -7,7 +7,7 @@
     {
         private bool _publicRental;
 
-        public Settings(bool publicRental = false)
+        public Settings(bool publicRental = true)
         {
             _publicRental = publicRental;
         }

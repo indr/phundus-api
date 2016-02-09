@@ -6,11 +6,10 @@
     using System.ComponentModel.DataAnnotations;
     using Bootstrap;
     using Phundus.Cqrs.Paging;
-    using Phundus.IdentityAccess.Queries.ReadModels;
     using Phundus.Integration.IdentityAccess;
     using Phundus.Shop.Queries;
 
-    public class ShopSearchResultViewModel : ViewModelBase
+    public class ShopSearchResultViewModel
     {
         private readonly IEnumerable<IOrganization> _organizations;
         private IEnumerable<ShopArticleSearchResultDto> _articles = new Collection<ShopArticleSearchResultDto>();
