@@ -25,7 +25,7 @@
                     <td></td>
                 }
                 <td>@each.OrganizationName</td>
-                <td>@Html.ActionLink("Details", ShopActionNames.Article, new { id = each.Id }, new { @class = "btn btn-default fundus-shop-showArticle", article_id = each.Id })</td>
+                <td><a href="/#/shop/@each.ArticleGuid" target="_blank">Details</a></td>
             </tr>
         }
     </tbody>
