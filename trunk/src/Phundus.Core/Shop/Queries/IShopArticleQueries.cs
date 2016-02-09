@@ -67,7 +67,7 @@
 
 
             var result = Paged<ShopArticleSearchResultDto>(
-                @"select a.Id, a.Name, a.PublicPrice, a.MemberPrice, a.Owner_Name as OrganizationName " +
+                @"select a.Id, a.ArticleGuid, a.Name, a.PublicPrice, a.MemberPrice, a.Owner_Name as OrganizationName " +
                 @"from [Dm_Inventory_Article] a " +
                 @"left join [Dm_IdentityAccess_Organization] o on (a.Owner_OwnerId = o.Guid) " +
                 where +
@@ -127,6 +127,7 @@
     public class ShopArticleSearchResultDto
     {
         public int Id { get; set; }
+        public Guid ArticleGuid { get; set; }
         public string Name { get; set; }
         public decimal PublicPrice { get; set; }
         public decimal? MemberPrice { get; set; }
