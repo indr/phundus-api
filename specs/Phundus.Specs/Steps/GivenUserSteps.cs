@@ -28,8 +28,12 @@
         public void AConfirmedUser(string userKey, string emailKey)
         {
             User user;
-            if (userKey != null)
-                Ctx.Users.TryGetValue(userKey, out user);
+            if ((userKey != null) && Ctx.Users.TryGetValue(userKey, out user))
+            {
+                Ctx.User = user;
+                return;
+            }
+
             string emailAddress = null;
             if (emailKey != null)
                 Ctx.EmailAddresses.TryGetValue(emailKey, out emailAddress);

@@ -20,7 +20,7 @@ Scenario: Created articles are in query result
 	Given I created an article in the default store
 	And I created an article in the default store
 	When I try to query all the organizations articles
-	Then I should see 2 articles 
+	Then I should see at least 2 articles 
 
 Scenario: Update article description
 	Given I created an article in the default store

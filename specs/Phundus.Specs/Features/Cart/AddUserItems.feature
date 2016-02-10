@@ -1,4 +1,4 @@
-﻿Feature: CartItems
+﻿Feature: Add user items to cart
 	
 Background:
 	Given I am logged in as Greg

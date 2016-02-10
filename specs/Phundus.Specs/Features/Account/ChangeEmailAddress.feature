@@ -27,12 +27,12 @@ Scenario: can not change email if already taken
 	Then error email address already taken
 
 Scenario: can not validate if already taken
-	Given a confirmed user "Johan"
-	And I am logged in as "Johan"
-	And I changed email address to "john@test.phundus.ch"
+	Given a confirmed user "Mike"
+	And I am logged in as "Mike"
+	And I changed email address to "mike@test.phundus.ch"
 	And I got the validation key from email validation email
-	And a confirmed user "John" with email address "john@test.phundus.ch"
-	And I am logged in as "Johan"
+	And a confirmed user "Michael" with email address "mike@test.phundus.ch"
+	And I am logged in as "Mike"
 	When I try to validate the key
 	Then I should see error
 	

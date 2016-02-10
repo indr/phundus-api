@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Specs.Features.Articles
 {
     using System;
+    using System.Linq;
     using ContentTypes;
     using NUnit.Framework;
     using Services;
@@ -43,6 +44,10 @@
         {
             foreach (var row in table.Rows)
             {
+                var alias = row.ContainsKey("Alias") ? row["Alias"] : null;
+                if (Ctx.Articles.ContainsAlias(alias))
+                    continue;
+
                 Ctx.Article = App.CreateArticle(Ctx.Organization.OrganizationId, row);
                 if (row.ContainsKey("Alias"))
                     Ctx.Articles[row["Alias"]] = Ctx.Article;
@@ -112,11 +117,11 @@
             table.CompareToInstance(article);
         }
 
-        [Then(@"I should see (.*) articles")]
+        [Then(@"I should see at least (.*) articles")]
         public void ThenIShouldSeeArticles(int number)
         {
             Assert.That(_articles, Is.Not.Null);
-            Assert.That(_articles.Results.Count, Is.EqualTo(number));
+            Assert.That(_articles.Results.Count, Is.GreaterThanOrEqualTo(number));
         }
 
         [Given(@"I updated the article description:")]
