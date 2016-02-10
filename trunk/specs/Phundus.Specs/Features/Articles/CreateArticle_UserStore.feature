@@ -13,4 +13,4 @@ Scenario: Created articles are in query result
 	Given I created an article in my store
 	And I created an article in my store
 	When I try to query all my articles
-	Then I should see 2 articles
+	Then I should see at least 2 articles
