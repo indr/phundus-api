@@ -8,7 +8,7 @@ Background:
 	| Football |
 
 Scenario: Add user article to cart
-	Given I am logged in as Greg
+	Given I am logged in as a user
 	When I try to add article to cart
 	Then I should see ok
 	And my cart should have these items:
@@ -16,7 +16,7 @@ Scenario: Add user article to cart
 	| Football |
 
 Scenario: Remove cart item, succeeds
-	Given I am logged in as Greg
+	Given I am logged in as a user
 	And I added an article to cart
 	When I try remove the last cart item
 	Then I should see no content
