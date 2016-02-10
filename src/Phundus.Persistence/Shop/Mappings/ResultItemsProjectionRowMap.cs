@@ -1,6 +1,7 @@
 namespace Phundus.Persistence.Shop.Mappings
 {
     using FluentNHibernate.Mapping;
+    using NHibernate.Type;
     using Phundus.Shop.Projections;
 
     public class ResultItemsProjectionRowMap : ClassMap<ResultItemsProjectionRow>
@@ -13,6 +14,7 @@ namespace Phundus.Persistence.Shop.Mappings
             Id(x => x.RowId).GeneratedBy.GuidComb();
             Map(x => x.ArticleGuid).Unique();
             Map(x => x.ArticleId).Unique();
+            Map(x => x.CreatedAtUtc).CustomType<UtcDateTimeType>();
             Map(x => x.MemberPrice);
             Map(x => x.Name);
             Map(x => x.OwnerGuid);

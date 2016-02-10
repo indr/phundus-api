@@ -43,7 +43,7 @@ namespace phiNdus.fundus.Web.ViewModels
 
         public int ActivePage { get; set; }
         public int RowsPerPage { get; set; }
-        public int TotalRows { get; set; }
+        public long TotalRows { get; set; }
         public int TotalPages { get; set; }
 
         public IList<SelectListItem> RowsPerPageOptions

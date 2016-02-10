@@ -9,7 +9,6 @@
     using Integration.Shop;
     using Newtonsoft.Json;
 
-
     [RoutePrefix("api/lessors")]
     public class LessorsController : ApiControllerBase
     {

@@ -5,7 +5,6 @@
     using Common;
     using Cqrs;
     using Integration.Shop;
-    using NHibernate;
 
     public class LessorQueries : NHibernateReadModelBase<LessorViewRow>, ILessorQueries
     {

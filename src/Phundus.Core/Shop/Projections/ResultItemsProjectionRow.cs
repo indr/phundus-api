@@ -7,6 +7,7 @@
         public virtual Guid RowId { get; set; }
         public virtual int ArticleId { get; set; }
         public virtual Guid ArticleGuid { get; set; }
+        public virtual DateTime CreatedAtUtc { get; set; }
         public virtual string Name { get; set; }
         public virtual decimal PublicPrice { get; set; }
         public virtual decimal? MemberPrice { get; set; }
