@@ -19,8 +19,13 @@
         [Given(@"I opened my store")]
         public void GivenIOpenedMyStore()
         {
+            var storeAlias = Ctx.User.UserId.ToString();
+
+            if (Ctx.Stores.ContainsAlias(storeAlias))
+                return;
+
             App.OpenUserStore(Ctx.User);
-            Ctx.Store = Ctx.User.StoreId;
+            Ctx.Stores[storeAlias] = Ctx.User.StoreId;
         }
 
         [When(@"I try to open my store")]
@@ -28,7 +33,7 @@
         {
             var user = Ctx.User;
             App.OpenUserStore(user, false);
-            Ctx.Store = Ctx.User.StoreId;
+            Ctx.Stores[Ctx.User.UserId.ToString()] = Ctx.User.StoreId;
         }
 
         [When(@"I try to get my user details")]

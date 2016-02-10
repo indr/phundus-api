@@ -268,6 +268,7 @@
       <DependentUpon>OpenUserStore.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Stores\StoreSteps.cs" />
+    <Compile Include="Services\Aliases.cs" />
     <Compile Include="Services\AppBase.cs" />
     <Compile Include="Services\Ctx.cs" />
     <Compile Include="Services\CustomJsonSerializer.cs" />

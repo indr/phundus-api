@@ -44,13 +44,24 @@
         public void GivenAnOrganization_WithTheseMembers(string alias, Table table)
         {
             App.LogInAsRoot();
-            var organization = App.EstablishOrganization();
-            Ctx.Organization = organization;
-            Ctx.Organizations[alias] = organization;
-
+            Organization organization = null;
+            if (Ctx.Organizations.ContainsAlias(alias))
+            {
+                Ctx.Organization = Ctx.Organizations[alias];
+                organization = Ctx.Organization;
+            }
+            else
+            {
+                organization = App.EstablishOrganization();
+                Ctx.Organization = organization;
+                Ctx.Organizations[alias] = organization;
+            }
             foreach (var each in table.Rows)
             {
                 var userAlias = each["Alias"];
+                if (Ctx.Users.ContainsAlias(userAlias))
+                    continue;
+
                 if (each.ContainsKey("Email address"))
                     Given(String.Format(@"a confirmed user ""{0}"" with email address ""{1}""", userAlias, each["Email address"]));
                 else
