@@ -34,9 +34,9 @@
             DeleteAllRowsIfTableExists("Es_IdentityAccess_Relationships");
             DeleteAllRowsIfTableExists("Es_Inventory_Articles");
             DeleteAllRowsIfTableExists("Es_Inventory_Articles_Actions");
-            DeleteAllRowsIfTableExists("Es_Shop_ItemFiles");
-            DeleteAllRowsIfTableExists("Es_Shop_ItemImages");
-            DeleteAllRowsIfTableExists("Es_Shop_Item");
+            DeleteAllRowsIfTableExists("Es_Shop_Item_Files");
+            DeleteAllRowsIfTableExists("Es_Shop_Item_Images");
+            DeleteAllRowsIfTableExists("Es_Shop_Items");
             DeleteAllRowsIfTableExists("Es_Shop_ResultItems");
 
             Delete.FromTable("ProcessedNotificationTracker").InSchema(SchemaName).AllRows();
