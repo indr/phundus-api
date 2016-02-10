@@ -6,6 +6,7 @@
     using AutoMapper;
     using Cqrs;
     using Cqrs.Paging;
+    using Inventory.Queries;
 
     public interface IShopArticleQueries
     {
@@ -14,6 +15,14 @@
 
     public class ShopArticleReadModel : AutoMappingReadModelBase, IShopArticleQueries
     {
+        private readonly IItemQueries _itemQueries;
+
+        public ShopArticleReadModel(IItemQueries itemQueries)
+        {
+            if (itemQueries == null) throw new ArgumentNullException("itemQueries");
+            _itemQueries = itemQueries;
+        }
+
         static ShopArticleReadModel()
         {
             Mapper.CreateMap<IDataReader, ShopArticleImageDto>();
@@ -21,6 +30,30 @@
         }
 
         public PagedResult<ShopArticleSearchResultDto> FindArticles(PageRequest pageRequest, string query,
+            Guid? organization)
+        {
+            var result = _itemQueries.Query(query, organization, pageRequest.Offset, pageRequest.Size);
+
+            var pageResponse = new PageResponse
+            {
+                Size = result.Limit,
+                Total = result.Total,
+                Index = (int)Math.Floor((result.Offset + 1)/(double)result.Limit)
+            };
+            return new PagedResult<ShopArticleSearchResultDto>(pageResponse, result.Result.Select(s =>
+                new ShopArticleSearchResultDto
+                {
+                    ArticleGuid = s.ArticleGuid,
+                    Id = s.ArticleId,
+                    ImageFileName = String.IsNullOrWhiteSpace(s.PreviewImageFileName) ? null : String.Format(@"~\Content\Images\Articles\{0}\{1}", s.ArticleId, s.PreviewImageFileName),
+                    MemberPrice = s.MemberPrice,
+                    Name = s.Name,
+                    OrganizationName = s.OwnerName,
+                    PublicPrice = s.PublicPrice
+                }));
+        }
+
+        public PagedResult<ShopArticleSearchResultDto> FindArticles_Sql(PageRequest pageRequest, string query,
             Guid? organization)
         {
             var where = "where 1 = 1 ";

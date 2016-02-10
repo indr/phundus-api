@@ -5,7 +5,6 @@
     using Common.Notifications;
     using Cqrs;
     using Inventory.Articles.Model;
-    using NHibernate.Criterion;
 
     public class ResultItemsProjection : ReadModelBase<ResultItemsProjectionRow>, IStoredEventsConsumer
     {
@@ -24,6 +23,7 @@
             var row = CreateRow();
             row.ArticleGuid = domainEvent.ArticleGuid;
             row.ArticleId = domainEvent.ArticleId;
+            row.CreatedAtUtc = domainEvent.OccuredOnUtc;
             row.MemberPrice = domainEvent.MemberPrice;
             row.Name = domainEvent.Name;
             row.OwnerGuid = domainEvent.Owner.OwnerId.Id;

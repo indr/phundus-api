@@ -33,11 +33,11 @@
         [Transaction]
         public virtual QueryOkResponseContent<ShopQueryItem> Get(Guid? lessorId, string q)
         {
-            var results = _itemQueries.Query(q);
+            var results = _itemQueries.Query(q, null, 0, 0);
 
-            return new QueryOkResponseContent<ShopQueryItem>(results.Select(s => new ShopQueryItem
+            return new QueryOkResponseContent<ShopQueryItem>(results.Result.Select(s => new ShopQueryItem
             {
-                ArticleId = s.Id,
+                ArticleId = s.ArticleId,
                 Name = s.Name
             }));
         }
