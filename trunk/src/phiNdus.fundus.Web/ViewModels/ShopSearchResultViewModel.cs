@@ -2,17 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.ComponentModel.DataAnnotations;
     using Bootstrap;
     using Phundus.Cqrs.Paging;
     using Phundus.Integration.IdentityAccess;
+    using Phundus.Shop.Projections;
     using Phundus.Shop.Queries;
 
     public class ShopSearchResultViewModel
     {
         private readonly IEnumerable<IOrganization> _organizations;
-        private IEnumerable<ShopArticleSearchResultDto> _articles = new Collection<ShopArticleSearchResultDto>();
+        private IEnumerable<ResultItemsProjectionRow> _items = new List<ResultItemsProjectionRow>();
 
         public ShopSearchResultViewModel(string queryString, Guid? queryOrganizationId, int page, int rowsPerPage,
             IEnumerable<IOrganization> organizations, IShopArticleQueries shopArticleQueries)
@@ -33,10 +33,10 @@
 
         public PageSelectorViewModel PageSelectorModel { get; set; }
 
-        public IEnumerable<ShopArticleSearchResultDto> Articles
+        public IEnumerable<ResultItemsProjectionRow> Items
         {
-            get { return _articles; }
-            set { _articles = value; }
+            get { return _items; }
+            set { _items = value; }
         }
 
         public IEnumerable<IOrganization> Organizations
@@ -51,13 +51,13 @@
             var queryResult = shopArticleQueries.FindArticles(
                 new PageRequest {Index = page - 1, Size = RowsPerPage}, query, organization);
             PageSelectorModel = new PageSelectorViewModel(queryResult.Pages);
-            queryResult.Items.ForEach(article => article.ImageFileName = GenerateImageFileName(article));
-            Articles = queryResult.Items;
+            queryResult.Items.ForEach(article => article.PreviewImageFileName = GenerateImageFileName(article));
+            Items = queryResult.Items;
         }
 
-        private string GenerateImageFileName(ShopArticleSearchResultDto article)
+        private string GenerateImageFileName(ResultItemsProjectionRow article)
         {
-            return String.Format(@"~\Content\Images\Articles\{0}\{1}", article.Id, article.ImageFileName);
+            return String.Format(@"~\Content\Images\Articles\{0}\{1}", article.ArticleId, article.PreviewImageFileName);
         }
     }
 }

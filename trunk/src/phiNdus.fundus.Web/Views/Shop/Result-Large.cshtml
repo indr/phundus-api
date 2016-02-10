@@ -2,16 +2,16 @@
 @model ShopSearchResultViewModel
 
 <div class="row">
-    @foreach (var each in Model.Articles)
+    @foreach (var each in Model.Items)
     {
         <div class="col-xs-6 col-md-3">
             <div class="thumbnail">
-                <p class="muted">@each.OrganizationName</p>
+                <p class="muted">@each.OwnerName</p>
                 <div style="text-align:center; height:180px;">
                     <a href="/#/shop/@each.ArticleGuid" target="_blank">
-                        @if (!String.IsNullOrWhiteSpace(each.ImageFileName))
+                        @if (!String.IsNullOrWhiteSpace(each.PreviewImageFileName))
                         {
-                            <img src="@String.Concat(Html.Raw(Url.Content(each.ImageFileName)), ".ashx?maxwidth=260&maxheight=180")" alt="" />
+                            <img src="@String.Concat(Html.Raw(Url.Content(each.PreviewImageFileName)), ".ashx?maxwidth=260&maxheight=180")" alt="" />
                         }
                         else
                         {

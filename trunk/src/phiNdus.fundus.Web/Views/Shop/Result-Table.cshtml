@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var each in Model.Articles) {
+        @foreach (var each in Model.Items) {
             <tr>
                 <td>@each.Name</td>
                 <td>CHF @each.PublicPrice.ToString("N")</td>
@@ -24,7 +24,7 @@
                 {
                     <td></td>
                 }
-                <td>@each.OrganizationName</td>
+                <td>@each.OwnerName</td>
                 <td><a href="/#/shop/@each.ArticleGuid" target="_blank">Details</a></td>
             </tr>
         }

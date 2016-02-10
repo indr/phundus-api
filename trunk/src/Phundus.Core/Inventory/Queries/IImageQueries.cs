@@ -1,12 +1,10 @@
 ﻿namespace Phundus.Inventory.Queries
 {
-    using System;
     using System.Collections.Generic;
     using Articles.Model;
     using Articles.Repositories;
     using AutoMapper;
     using Cqrs;
-    using NHibernate;
 
     public interface IImageQueries
     {

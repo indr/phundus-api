@@ -5,7 +5,6 @@ namespace Phundus.Cqrs
     using System.Data;
     using System.Linq;
     using AutoMapper;
-    using NHibernate;
     using Paging;
 
     public abstract class AutoMappingReadModelBase : ReadModelBase
@@ -55,7 +54,8 @@ namespace Phundus.Cqrs
             // TODO: SQL Server 2012 OFFSET and FETCH
             //sql = sql + String.Format(" offset {0} rows fetch next {1} rows only", page.Offset, page.Size);
 
-            return new PagedResult<T>(PageResponse.From(page, total), Many<T>(sql).Skip(page.Offset).Take(page.Size).ToList());
+            return new PagedResult<T>(PageResponse.From(page, total),
+                Many<T>(sql).Skip(page.Offset).Take(page.Size).ToList());
         }
 
         private int GetTotal(string sql)
