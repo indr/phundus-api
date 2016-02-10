@@ -24,8 +24,8 @@ namespace Phundus.Persistence.Shop.Mappings
             Map(x => x.Specification).WithMaxSize();
             Map(x => x.PublicPrice);
 
-            HasMany(x => x.Documents).KeyColumn("ArticleGuid").ReadOnly();
-            HasMany(x => x.Images).KeyColumn("ArticleGuid").ReadOnly();
+            HasMany(x => x.Documents).KeyColumn("ArticleGuid").ReadOnly().ForeignKeyCascadeOnDelete();
+            HasMany(x => x.Images).KeyColumn("ArticleGuid").ReadOnly().ForeignKeyCascadeOnDelete();
         }
     }
 }
