@@ -16,7 +16,6 @@
         shop_command_handler_concern<AddArticleToCart, AddArticleToCartHandler>
     {
         protected const int theQuantity = 3;
-        protected static readonly ArticleShortId the_article_short_id = new ArticleShortId(12345);
         protected static readonly DateTime theFromUtc = DateTime.UtcNow;
         protected static readonly DateTime theToUtc = DateTime.UtcNow.AddDays(1);
         protected static Article theArticle;
@@ -28,23 +27,22 @@
             theArticle = make.Article();
             cartRepository = depends.on<ICartRepository>();
 
-            depends.on<IArticleService>().WhenToldTo(x => x.GetById(the_article_short_id, theInitiatorId)).Return(theArticle);
-            command = new AddArticleToCart(theInitiatorId, the_article_short_id, theFromUtc, theToUtc, theQuantity);
+            depends.on<IArticleService>().WhenToldTo(x => x.GetById(theArticle.ArticleId, theInitiatorId)).Return(theArticle);
+            command = new AddArticleToCart(theInitiatorId, theArticle.ArticleId, theFromUtc, theToUtc, theQuantity);
         };
     }
 
     [Subject(typeof (AddArticleToCartHandler))]
     public class when_user_has_no_cart_yet : when_add_article_to_cart_is_handled
     {
-        private Establish ctx =
-            () => cartRepository.WhenToldTo(x => x.FindByUserGuid(theInitiatorId)).Return((Cart) null);
+        private Establish ctx = () =>
+            cartRepository.WhenToldTo(x => x.FindByUserGuid(theInitiatorId)).Return((Cart) null);
 
-        private It should_add_new_cart_to_repository = () => cartRepository.WasToldTo(x => x.Add(Arg<Cart>.Is.NotNull));
+        private It should_add_new_cart_to_repository = () =>
+            cartRepository.WasToldTo(x => x.Add(Arg<Cart>.Is.NotNull));
 
-        private It should_authorize_user_to_rent_article = () =>
-            authorize.WasToldTo(x =>
-                x.Enforce(Arg<InitiatorId>.Is.Equal(command.InitiatorId),
-                    Arg<RentArticle>.Matches(p => Equals(p.Article, theArticle))));
+        private It should_enforce_initiator_to_rent_article = () =>
+            EnforcedInitiatorTo<RentArticle>(p => Equals(p.Article.ArticleId, theArticle.ArticleId));
     }
 
     [Subject(typeof (AddArticleToCartHandler))]
@@ -58,9 +56,8 @@
             cartRepository.WhenToldTo(x => x.FindByUserGuid(theInitiatorId)).Return(theCart);
         };
 
-        private It should_authorize_initiator_to_rent_article = () => authorize.WasToldTo(x =>
-            x.Enforce(Arg<InitiatorId>.Is.Equal(command.InitiatorId),
-                Arg<RentArticle>.Matches(p => Equals(p.Article, theArticle))));
+        private It should_enforce_initiator_to_rent_article = () =>
+            EnforcedInitiatorTo<RentArticle>(p => Equals(p.Article.ArticleId, theArticle.ArticleId));
 
         private It should_not_add_a_cart_to_repository =
             () => cartRepository.WasNotToldTo(x => x.Add(Arg<Cart>.Is.Anything));

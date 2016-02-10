@@ -25,8 +25,9 @@ Scenario: Add article to cart as member, succeeds
 	| Apple | 1.00       |
 
 Scenario: Add article to cart as non member when public rental is deactivated, fails
-	Given I am logged in as John
+	Given I am logged in as Greg
 	And I set organization setting public rental off
+	And I am logged in as John
 	When I try to add article to cart
 	Then I should see forbidden
 	And my cart should be empty

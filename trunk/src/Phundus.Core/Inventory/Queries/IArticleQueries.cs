@@ -19,7 +19,6 @@
         IEnumerable<ArticleDto> FindByOwnerId(Guid ownerId);
 
         IEnumerable<ArticleDto> Query(InitiatorId initiatorId, OwnerId queryOwnerId, string query);
-        ArticleDto GetById(Guid articleGuid);
 
         IEnumerable<ArticlesActionsProjectionRow> GetActions(Guid articleGuid);
     }

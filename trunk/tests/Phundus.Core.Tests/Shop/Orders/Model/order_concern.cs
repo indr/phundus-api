@@ -29,7 +29,7 @@ namespace Phundus.Tests.Shop.Orders.Model
 
         protected static Article CreateArticle(int articleId, Owner theOwner)
         {
-            return new Article(articleId, theOwner, "Article " + articleId, 7.0m);
+            return new Article(articleId, new ArticleId(), theOwner, "Article " + articleId, 7.0m);
         }
 
         protected static Lessee CreateLessee()
