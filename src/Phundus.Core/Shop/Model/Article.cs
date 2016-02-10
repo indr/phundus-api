@@ -1,7 +1,7 @@
 namespace Phundus.Shop.Orders.Model
 {
+    using System;
     using System.Collections.Generic;
-    using Common;
     using Common.Domain.Model;
 
     public class Article : ValueObject
@@ -10,12 +10,15 @@ namespace Phundus.Shop.Orders.Model
         private int _id;
         private Owner _owner;
         private decimal _publicPrice;
+        private ArticleId _articleId;
 
-        public Article(int id, Owner owner, string name, decimal publicPrice)
+        public Article(int id, ArticleId articleId, Owner owner, string name, decimal publicPrice)
         {
-            AssertionConcern.AssertArgumentNotNull(owner, "Owner must be provided.");
+            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (owner == null) throw new ArgumentNullException("owner");
 
             _id = id;
+            _articleId = articleId;
             _owner = owner;
             _caption = name;
             _publicPrice = publicPrice;
@@ -23,6 +26,12 @@ namespace Phundus.Shop.Orders.Model
 
         protected Article()
         {
+        }
+
+        public virtual ArticleId ArticleId
+        {
+            get { return _articleId; }
+            protected set { _articleId = value; }
         }
 
         public virtual int Id

@@ -60,19 +60,7 @@ namespace Phundus.Rest.Api.Users
             if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
-            // TODO: Remove this when shop was migrated to new client
-            if ((requestContent.Amount > 0) && (!String.IsNullOrEmpty(requestContent.Begin)) &&
-                (!String.IsNullOrEmpty(requestContent.End)))
-            {
-                requestContent.Quantity = requestContent.Amount;
-                requestContent.FromUtc = DateTime.Parse(requestContent.Begin).ToLocalTime().Date.ToUniversalTime();
-                requestContent.ToUtc =
-                    DateTime.Parse(requestContent.End).ToLocalTime().Date.AddDays(1).AddSeconds(-1).ToUniversalTime();
-            }
-
-            var articleId = GetArticleId(requestContent);
-
-            var command = new AddArticleToCart(CurrentUserId, articleId, requestContent.FromUtc, requestContent.ToUtc,
+            var command = new AddArticleToCart(CurrentUserId, new ArticleId(requestContent.ArticleGuid), requestContent.FromUtc, requestContent.ToUtc,
                 requestContent.Quantity);
             Dispatch(command);
 
@@ -80,15 +68,6 @@ namespace Phundus.Rest.Api.Users
             {
                 CartItemId = command.ResultingCartItemId.Id
             };
-        }
-
-        private ArticleShortId GetArticleId(UsersCartItemsPostRequestContent requestContent)
-        {
-            if (requestContent.ArticleId > 0)
-                return new ArticleShortId(requestContent.ArticleId);
-
-            var article = _articleQueries.GetById(requestContent.ArticleGuid);
-            return new ArticleShortId(article.ArticleShortId);
         }
 
         [PATCH("items/{itemId}")]
@@ -212,9 +191,6 @@ namespace Phundus.Rest.Api.Users
 
     public class UsersCartItemsPostRequestContent
     {
-        [JsonProperty("articleId")]
-        public int ArticleId { get; set; }
-
         [JsonProperty("articleGuid")]
         public Guid ArticleGuid { get; set; }
 
@@ -226,10 +202,6 @@ namespace Phundus.Rest.Api.Users
 
         [JsonProperty("quantity")]
         public int Quantity { get; set; }
-
-        public string Begin { get; set; }
-        public string End { get; set; }
-        public int Amount { get; set; }
     }
 
     public class UsersCartItemsPostOkResponseContent

@@ -5,6 +5,7 @@
     using System.IO;
     using System.Text;
     using System.Web.Hosting;
+    using System.Web.UI.WebControls;
     using CsvHelper;
     using CsvHelper.Configuration;
     using CsvHelper.TypeConversion;
@@ -30,15 +31,10 @@
             Delete.FromTable("Dm_Shop_OrderItem").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_Shop_Order").InSchema(SchemaName).AllRows();
 
-            DeleteAllRowsIfTableExists("Es_Dashboard_EventLog");
-            DeleteAllRowsIfTableExists("Es_IdentityAccess_Relationships");
-            DeleteAllRowsIfTableExists("Es_Inventory_Articles");
-            DeleteAllRowsIfTableExists("Es_Inventory_Articles_Actions");
-            DeleteAllRowsIfTableExists("Es_Shop_Item_Files");
-            DeleteAllRowsIfTableExists("Es_Shop_Item_Images");
             DeleteAllRowsIfTableExists("Es_Shop_Items");
-            DeleteAllRowsIfTableExists("Es_Shop_ResultItems");
-
+            DeleteAllRowsIfTableExists("Es_Inventory_Articles");
+            DeleteAllRowsFromTableWithPrefix("Es_");
+            
             Delete.FromTable("ProcessedNotificationTracker").InSchema(SchemaName).AllRows();
             Delete.FromTable("StoredEvents").InSchema(SchemaName).AllRows();
 
@@ -52,6 +48,29 @@
             Import<ArticleImage>("ArticleImages.csv", "Dm_Inventory_ArticleFile", false);
 
             CopyImages();
+        }
+
+        /// <summary>
+        /// https://stackoverflow.com/questions/536350/drop-all-the-tables-stored-procedures-triggers-constraints-and-all-the-depend
+        /// </summary>
+        /// <param name="tableNamePrefix"></param>
+        private void DeleteAllRowsFromTableWithPrefix(string tableNamePrefix)
+        {
+            Execute.Sql(String.Format(@"
+/* Drop all tables */
+DECLARE @name VARCHAR(128)
+DECLARE @SQL VARCHAR(254)
+
+SELECT @name = (SELECT TOP 1 [name] FROM sysobjects WHERE [type] = 'U' AND category = 0 AND [name] LIKE '{0}%' ORDER BY [name])
+
+WHILE @name IS NOT NULL
+BEGIN
+    SELECT @SQL = 'DROP TABLE [dbo].[' + RTRIM(@name) +']'
+    EXEC (@SQL)
+    PRINT 'Dropped Table: ' + @name
+    SELECT @name = (SELECT TOP 1 [name] FROM sysobjects WHERE [type] = 'U' AND category = 0 AND [name] > @name AND [name] LIKE '{0}%' ORDER BY [name])
+END
+GO", tableNamePrefix));
         }
 
         private void DeleteAllRowsIfTableExists(string tableName)

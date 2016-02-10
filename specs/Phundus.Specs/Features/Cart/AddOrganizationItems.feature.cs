@@ -162,14 +162,16 @@ this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line 28
- testRunner.Given("I am logged in as John", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am logged in as Greg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 29
  testRunner.And("I set organization setting public rental off", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 30
- testRunner.When("I try to add article to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I am logged in as John", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 31
- testRunner.Then("I should see forbidden", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I try to add article to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 32
+ testRunner.Then("I should see forbidden", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 33
  testRunner.And("my cart should be empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -180,17 +182,17 @@ this.FeatureBackground();
         public virtual void AddArticleToCartAsNonMemberWhenPublicRentalIsActivatedSucceeds()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add article to cart as non member when public rental is activated, succeeds", ((string[])(null)));
-#line 34
+#line 35
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 35
- testRunner.Given("I am logged in as Greg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 36
- testRunner.And("I set organization setting public rental on", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I am logged in as Greg", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 37
- testRunner.And("I am logged in as John", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I set organization setting public rental on", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 38
+ testRunner.And("I am logged in as John", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 39
  testRunner.When("I try to add article to cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -199,7 +201,7 @@ this.FeatureBackground();
             table5.AddRow(new string[] {
                         "Apple",
                         "2.00"});
-#line 39
+#line 40
  testRunner.Then("my cart should have these items:", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();

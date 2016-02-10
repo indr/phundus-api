@@ -10,6 +10,7 @@ namespace Phundus.Shop.Services
     public interface IArticleService
     {
         Article GetById(ArticleShortId articleShortId, UserId userId);
+        Article GetById(ArticleId articleId, UserId userId);
 
         Article GetById(LessorId lessorId, ArticleShortId articleShortId, LesseeId lesseeId);
     }
@@ -42,6 +43,15 @@ namespace Phundus.Shop.Services
             return ConvertToInternal(article, userId);
         }
 
+        public virtual Article GetById(ArticleId articleId, UserId userId)
+        {
+            if (articleId == null) throw new ArgumentNullException("articleId");
+            if (userId == null) throw new ArgumentNullException("userId");
+
+            var article = _articleRepository.GetById(articleId.Id);
+            return ConvertToInternal(article, userId);
+        }
+
         public virtual Article GetById(LessorId lessorId, ArticleShortId articleShortId, LesseeId lesseeId)
         {
             if (lessorId == null) throw new ArgumentNullException("lessorId");
@@ -65,7 +75,7 @@ namespace Phundus.Shop.Services
             }
 
 
-            return new Article(article.Id, article.Owner, article.Name, price);
+            return new Article(article.Id, article.ArticleId, article.Owner, article.Name, price);
         }
     }
 }
