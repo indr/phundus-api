@@ -47,7 +47,7 @@ namespace Phundus.Tests.Shop
             lessee = lessee ?? Lessee();
             var order = fake.an<Order>();
             order.setup(x => x.OrderId).Return(new OrderId());
-            order.setup(x => x.OrderShortId).Return( new OrderShortId(NextNumericId()));
+            order.setup(x => x.ShortOrderId).Return( new ShortOrderId(NextNumericId()));
             order.setup(x => x.Lessor).Return(lessor);
             order.setup(x => x.Lessee).Return(lessee);
             return order;

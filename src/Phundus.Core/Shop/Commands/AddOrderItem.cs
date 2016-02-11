@@ -10,15 +10,15 @@
 
     public class AddOrderItem : ICommand
     {
-        public AddOrderItem(InitiatorId initiatorId, OrderShortId orderShortId, OrderItemId orderItemId, ArticleShortId articleShortId, Period period, int quantity)
+        public AddOrderItem(InitiatorId initiatorId, ShortOrderId shortOrderId, OrderItemId orderItemId, ArticleShortId articleShortId, Period period, int quantity)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
-            if (orderShortId == null) throw new ArgumentNullException("orderShortId");
+            if (shortOrderId == null) throw new ArgumentNullException("shortOrderId");
             if (orderItemId == null) throw new ArgumentNullException("orderItemId");
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (period == null) throw new ArgumentNullException("period");            
             InitiatorId = initiatorId;
-            OrderShortId = orderShortId;
+            ShortOrderId = shortOrderId;
             OrderItemId = orderItemId;
             ArticleShortId = articleShortId;
             Period = period;
@@ -26,7 +26,7 @@
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public OrderShortId OrderShortId { get; protected set; }
+        public ShortOrderId ShortOrderId { get; protected set; }
         public OrderItemId OrderItemId { get; protected set; }
         public ArticleShortId ArticleShortId { get; protected set; }
         public Period Period { get; protected set; }
@@ -51,7 +51,7 @@
 
         public void Handle(AddOrderItem command)
         {
-            var order = _orderRepository.GetById(command.OrderShortId.Id);
+            var order = _orderRepository.GetById(command.ShortOrderId.Id);
             var lessor = order.Lessor;
             _memberInRole.ActiveManager(lessor.LessorId.Id, command.InitiatorId);
 

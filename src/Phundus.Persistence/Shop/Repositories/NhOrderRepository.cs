@@ -26,7 +26,7 @@
         public ICollection<Order> FindByUserId(Guid userId)
         {
             var query = from o in Entities
-                where o.Lessee.Id == userId
+                where o.Lessee.LesseeId.Id == userId
                 orderby o.Status ascending
                 select o;
             return query.ToList();
@@ -58,7 +58,7 @@
         public new int Add(Order entity)
         {
             base.Add(entity);
-            return entity.OrderShortId.Id;
+            return entity.ShortOrderId.Id;
         }
     }
 }

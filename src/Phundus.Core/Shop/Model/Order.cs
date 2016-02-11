@@ -18,7 +18,7 @@
         private UserId _modifiedBy;
         private DateTime? _modifiedUtc;
         private OrderStatus _status = OrderStatus.Pending;
-        private OrderShortId _orderShortId = new OrderShortId(0);
+        private ShortOrderId _shortOrderId = new ShortOrderId(0);
 
         public Order(Lessor lessor, Lessee lessee) : this(lessor, lessee, null)
         {
@@ -41,14 +41,14 @@
 
         public virtual int Id
         {
-            get { return _orderShortId.Id; }
-            protected set { _orderShortId = new OrderShortId(value); }
+            get { return _shortOrderId.Id; }
+            protected set { _shortOrderId = new ShortOrderId(value); }
         }
 
-        public virtual OrderShortId OrderShortId
+        public virtual ShortOrderId ShortOrderId
         {
-            get { return _orderShortId; }
-            protected set { _orderShortId = value; }
+            get { return _shortOrderId; }
+            protected set { _shortOrderId = value; }
         }
 
         public virtual OrderId OrderId
@@ -142,7 +142,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Rejected;
 
-            EventPublisher.Publish(new OrderRejected {OrderId = OrderShortId.Id});
+            EventPublisher.Publish(new OrderRejected {OrderId = ShortOrderId.Id});
         }
 
         public virtual void Approve(UserId initiatorId)
@@ -158,7 +158,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Approved;
 
-            EventPublisher.Publish(new OrderApproved {OrderId = OrderShortId.Id});
+            EventPublisher.Publish(new OrderApproved {OrderId = ShortOrderId.Id});
         }
 
         public virtual void Close(UserId initiatorId)
@@ -172,7 +172,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Closed;
 
-            EventPublisher.Publish(new OrderClosed {OrderId = OrderShortId.Id});
+            EventPublisher.Publish(new OrderClosed {OrderId = ShortOrderId.Id});
         }
 
         public virtual void EnsurePending()

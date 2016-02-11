@@ -34,10 +34,10 @@ namespace Phundus.Tests.Shop.Orders.Model
 
         protected static Lessee CreateLessee()
         {
-            return CreateLessee(Guid.NewGuid());
+            return CreateLessee(new LesseeId());
         }
 
-        protected static Lessee CreateLessee(Guid borrowerId)
+        protected static Lessee CreateLessee(LesseeId borrowerId)
         {
             return new Lessee(borrowerId, "Hans", "Muster", "Strasse", "6000", "Luzern", "hans.muster@test.phundus.ch",
                 "+4179123456", "");
@@ -47,7 +47,7 @@ namespace Phundus.Tests.Shop.Orders.Model
             string postcode = "", string city = "", string emailAddress = "", string mobilePhoneNumber = "",
             string memberNumber = "")
         {
-            return new Lessee(borrowerId, firstName, lastName, street, postcode, city, emailAddress, mobilePhoneNumber,
+            return new Lessee(new LesseeId(borrowerId), firstName, lastName, street, postcode, city, emailAddress, mobilePhoneNumber,
                 memberNumber);
         }
     }
