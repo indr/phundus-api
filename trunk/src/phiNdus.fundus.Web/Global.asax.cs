@@ -2,7 +2,6 @@
 {
     using System.Web;
     using System.Web.Mvc;
-    using System.Web.Optimization;
     using System.Web.Routing;
     using Bootstrap;
     using Bootstrap.Extensions.StartupTasks;
@@ -32,16 +31,16 @@
             StartMitSqlServerCe.TuEs();
 
             DatabaseMigrator.Migrate();
-            
+
 
             _container = new WindsorContainer();
 
             Bootstrapper.With.Windsor().WithContainer(_container).And.StartupTasks().Start();
 
             _container.Register(Component.For<CustomMembershipProvider>()
-                                         .Named("MembershipProvider").LifestyleTransient());
+                .Named("MembershipProvider").LifestyleTransient());
             _container.Register(Component.For<CustomRoleProvider>()
-                                         .Named("RoleProvider").LifestyleTransient());
+                .Named("RoleProvider").LifestyleTransient());
 
             var organizations = _container.Resolve<IOrganizationRepository>().FindAll();
 
