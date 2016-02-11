@@ -10,8 +10,7 @@
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using IdentityAccess.Organizations.Repositories;
-    using phiNdus.fundus.Web.App_Start;
-    using phiNdus.fundus.Web.Security;
+    using Security;
 
     public class MvcApplication : HttpApplication, IContainerAccessor
     {
@@ -49,7 +48,6 @@
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes, organizations);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
         protected void Application_End()

@@ -1,6 +1,5 @@
-﻿namespace phiNdus.fundus.Web.App_Start
+﻿namespace Phundus.Web
 {
-    using System;
     using System.Configuration;
     using System.IO;
     using System.Web.Hosting;

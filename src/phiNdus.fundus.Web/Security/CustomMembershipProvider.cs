@@ -1,16 +1,16 @@
-﻿namespace phiNdus.fundus.Web.Security
+﻿namespace Phundus.Web.Security
 {
     using System;
     using System.Collections.Specialized;
     using System.Globalization;
     using System.Web;
     using System.Web.Security;
-    using Phundus.Common;
-    using Phundus.Cqrs;
-    using Phundus.IdentityAccess.Users.Commands;
-    using Phundus.IdentityAccess.Users.Repositories;
-    using Phundus.IdentityAccess.Users.Services;
-    using Phundus.Integration.IdentityAccess;
+    using Common;
+    using Cqrs;
+    using IdentityAccess.Users.Commands;
+    using IdentityAccess.Users.Repositories;
+    using IdentityAccess.Users.Services;
+    using Integration.IdentityAccess;
 
     public class CustomMembershipProvider : MembershipProvider
     {

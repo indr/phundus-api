@@ -1,10 +1,9 @@
-﻿using Castle.MicroKernel.Registration;
-using Castle.MicroKernel.SubSystems.Configuration;
-using Castle.Windsor;
-
-namespace phiNdus.fundus.Web.App_Start.Installers
+﻿namespace Phundus.Web.Installers
 {
     using Castle.Facilities.Logging;
+    using Castle.MicroKernel.Registration;
+    using Castle.MicroKernel.SubSystems.Configuration;
+    using Castle.Windsor;
 
     public class LoggerInstaller : IWindsorInstaller
     {

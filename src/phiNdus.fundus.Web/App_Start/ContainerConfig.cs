@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.App_Start
+﻿namespace Phundus.Web
 {
     using System.Security.Principal;
     using System.Web;
