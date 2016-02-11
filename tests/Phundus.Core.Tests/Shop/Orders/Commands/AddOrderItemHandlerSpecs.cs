@@ -34,7 +34,7 @@
             thePeriod = Period.FromNow(1);
 
             theOrderItemId = new OrderItemId();
-            command = new AddOrderItem(theInitiatorId, theOrder.OrderId, theOrderItemId, theArticle.ArticleShortId, thePeriod,
+            command = new AddOrderItem(theInitiatorId, theOrder.OrderShortId, theOrderItemId, theArticle.ArticleShortId, thePeriod,
                 10);
         };
 
