@@ -51,13 +51,13 @@
             var queryResult = shopArticleQueries.FindArticles(
                 new PageRequest {Index = page - 1, Size = RowsPerPage}, query, organization);
             PageSelectorModel = new PageSelectorViewModel(queryResult.Pages);
-            queryResult.Items.ForEach(article => article.PreviewImageFileName = GenerateImageFileName(article));
+            //queryResult.Items.ForEach(article => article.PreviewImageFileName = GenerateImageFileName(article));
             Items = queryResult.Items;
         }
 
         private string GenerateImageFileName(ResultItemsProjectionRow article)
         {
-            return String.Format(@"~\Content\Images\Articles\{0}\{1}", article.ArticleId, article.PreviewImageFileName);
+            return String.Format(@"~\Content\Images\Articles\{0}\{1}", article.ItemShortId, article.PreviewImageFileName);
         }
     }
 }

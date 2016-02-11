@@ -12,8 +12,8 @@ namespace Phundus.Persistence.Shop.Mappings
             Table("Es_Shop_ResultItems");
 
             Id(x => x.RowId).GeneratedBy.GuidComb();
-            Map(x => x.ArticleGuid).Unique();
-            Map(x => x.ArticleId).Unique();
+            Map(x => x.ItemId, "ArticleGuid").Unique();
+            Map(x => x.ItemShortId, "ArticleId").Unique();
             Map(x => x.CreatedAtUtc).CustomType<UtcDateTimeType>();
             Map(x => x.MemberPrice);
             Map(x => x.Name);

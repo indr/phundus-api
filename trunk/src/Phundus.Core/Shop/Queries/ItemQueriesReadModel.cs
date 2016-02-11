@@ -10,15 +10,18 @@ namespace Phundus.Shop.Queries
 
     public interface IItemQueries
     {
-        QueryResult<ResultItemsProjectionRow> Query(string q, Guid? lessorId, int offset, int limit);
+        QueryResult<ResultItemsProjectionRow> Query(string q, Guid? lessorId, int? offset, int? limit);
         ShopItemProjectionRow Get(Guid itemGuid);
     }
 
     public class ItemQueriesReadModel : ReadModelBase, IItemQueries
     {
-        public QueryResult<ResultItemsProjectionRow> Query(string q, Guid? lessorId, int offset, int limit)
+        private const int DefaultLimit = 10;
+
+        public QueryResult<ResultItemsProjectionRow> Query(string q, Guid? lessorId, int? offset, int? limit)
         {
-            limit = limit > 0 ? limit : 20;
+            offset = offset ?? 0;
+            limit = limit > 0 ? limit : DefaultLimit;
 
             var query = QueryOver<ResultItemsProjectionRow>();
             if (!String.IsNullOrWhiteSpace(q))
@@ -34,8 +37,8 @@ namespace Phundus.Shop.Queries
             query = query.OrderBy(p => p.CreatedAtUtc).Desc;
 
             var total = query.RowCountInt64();
-            var result = query.Skip(offset).Take(limit).List();
-            return new QueryResult<ResultItemsProjectionRow>(offset, limit, total, result);
+            var result = query.Skip(offset.Value).Take(limit.Value).List();
+            return new QueryResult<ResultItemsProjectionRow>(offset.Value, limit.Value, total, result);
         }
 
         public ShopItemProjectionRow Get(Guid itemGuid)

@@ -14,6 +14,7 @@ namespace Phundus.Rest.Api
     using Inventory.Queries;
     using Inventory.Stores.Commands;
     using Newtonsoft.Json;
+    using Phundus.Shop.Projections;
 
     [RoutePrefix("api/stores")]
     public class StoresController : ApiControllerBase
