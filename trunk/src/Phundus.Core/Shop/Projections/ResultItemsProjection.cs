@@ -47,6 +47,15 @@
             Delete(row);
         }
 
+        public void Process(ImageAdded domainEvent)
+        {
+            if (!domainEvent.IsPreviewImage)
+                return;
+
+            var row = Find(domainEvent.ArticleId);
+            row.PreviewImageFileName = domainEvent.FileName;
+        }
+
         public void Process(PreviewImageChanged domainEvent)
         {
             var row = Find(domainEvent.ArticleId);
