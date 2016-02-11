@@ -8,9 +8,9 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
+    using Ddd;
     using Elmah.Mvc;
-    using Phundus.Ddd;
-    using Phundus.Persistence;
+    using Persistence;
     using Plumbing;
 
     public class ContainerConfig : IWindsorInstaller
@@ -20,12 +20,6 @@
             container.Register(
                 Component.For<ElmahController>().ImplementedBy<ElmahController>().LifestylePerWebRequest());
 
-            // HttpContext registrieren für den SessionStateManager
-            //container.Register(
-            //    Component.For<HttpContextBase>()
-            //        .LifeStyle
-            //        .PerWebRequest
-            //        .UsingFactoryMethod(() => new HttpContextWrapper(HttpContext.Current)));
 
             container.AddFacility<AutoTxFacility>();
             container.Register(Component.For<INHibernateInstaller>()

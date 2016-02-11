@@ -12,8 +12,8 @@
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.AddFacility<LoggingFacility>(f =>
-                                                   f.LogUsing(LoggerImplementation.Log4net)
-                                                       .WithConfig("Web.config"));
+                f.LogUsing(LoggerImplementation.Log4net)
+                    .WithConfig("Web.config"));
         }
 
         #endregion
