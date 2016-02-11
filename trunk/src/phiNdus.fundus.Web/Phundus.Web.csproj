@@ -219,19 +219,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartMitSqlServerCe.cs" />
-    <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Security\WindsorMembershipProvider.cs" />
     <Compile Include="Security\WebWindsorRoleProvider.cs" />
     <Compile Include="Security\WebWindsorMembershipProvider.cs" />
     <Compile Include="Security\WindsorRoleProvider.cs" />
     <Compile Include="App_Start\Plumbing\RegisterClientValidationExtensions.cs" />
-    <Compile Include="ViewModels\Layout\NavBarModel.cs" />
     <Compile Include="Helpers\HandleAjaxErrorAttribute.cs" />
     <Compile Include="Helpers\HandleModelStateExceptionAttribute.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -365,8 +362,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\CustomMembershipProvider.cs" />
     <Compile Include="Security\CustomRoleProvider.cs" />
-    <Compile Include="ViewModels\PageSelectorViewModel.cs" />
-    <Compile Include="ViewModels\ShopSearchResultViewModel.cs" />
     <Content Include="Scripts\jquery-1.9.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -896,15 +891,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_NavBar.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shop\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -916,10 +902,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\Shop\Result-Table.cshtml" />
-    <Content Include="Views\Shop\Result-Large.cshtml" />
-    <Content Include="Views\Shop\Result-Small.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\PageSelectorViewModel.cshtml" />
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

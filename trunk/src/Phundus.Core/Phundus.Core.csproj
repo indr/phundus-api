@@ -110,9 +110,6 @@
     <Compile Include="Authorization\IAccessObjectHandlerFactory.cs" />
     <Compile Include="Authorization\IHandleAccessObject.cs" />
     <Compile Include="Cqrs\NHibernateReadModelBase.cs" />
-    <Compile Include="Cqrs\Paging\PagedResult.cs" />
-    <Compile Include="Cqrs\Paging\PageRequest.cs" />
-    <Compile Include="Cqrs\Paging\PageResponse.cs" />
     <Compile Include="Cqrs\ReadModelBase.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjectionRow.cs" />
@@ -326,7 +323,6 @@
     <Compile Include="Shop\Queries\Dtos\OrderStatusDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderItemDto.cs" />
     <Compile Include="Shop\Queries\IOrderQueries.cs" />
-    <Compile Include="Shop\Queries\IShopArticleQueries.cs" />
     <Compile Include="Shop\Queries\ItemQueriesReadModel.cs" />
     <Compile Include="IdentityAccess\Queries\QueryModels\MembershipApplicationQueries.cs" />
     <Compile Include="IdentityAccess\Queries\QueryModels\IMembershipApplicationQueries.cs" />
