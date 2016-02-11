@@ -120,9 +120,9 @@
             }
         }
 
-        public virtual OrderId OrderId
+        public virtual OrderShortId OrderShortId
         {
-            get { return new OrderId(Id); }
+            get { return new OrderShortId(Id); }
         }
 
         public virtual void Reject(UserId initiatorId)

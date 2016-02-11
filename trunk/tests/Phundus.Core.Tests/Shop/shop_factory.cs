@@ -44,9 +44,9 @@ namespace Phundus.Tests.Shop
         public Order Order()
         {
             var order = fake.an<Order>();
-            var orderId = new OrderId(NextNumericId());
+            var orderId = new OrderShortId(NextNumericId());
             order.setup(x => x.Id).Return(orderId.Id);
-            order.setup(x => x.OrderId).Return(orderId);
+            order.setup(x => x.OrderShortId).Return(orderId);
             return order;
         }
 

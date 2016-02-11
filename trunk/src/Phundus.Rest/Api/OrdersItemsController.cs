@@ -31,7 +31,7 @@ namespace Phundus.Rest.Api
         public virtual HttpResponseMessage Post(int orderId, OrdersItemsPostRequestContent requestContent)
         {
             var orderItemId = new OrderItemId();
-            var command = new AddOrderItem(CurrentUserId, new OrderId(orderId), orderItemId, 
+            var command = new AddOrderItem(CurrentUserId, new OrderShortId(orderId), orderItemId, 
                 new ArticleShortId(requestContent.ArticleId), new Period(requestContent.FromUtc, requestContent.ToUtc),
                 requestContent.Amount);
 
@@ -42,7 +42,7 @@ namespace Phundus.Rest.Api
 
         private HttpResponseMessage Get(int orderId, Guid orderItemId, HttpStatusCode statusCode)
         {
-            var order = _orderQueries.GetById(CurrentUserId, new OrderId(orderId));
+            var order = _orderQueries.GetById(CurrentUserId, new OrderShortId(orderId));
             var item = order.Items.FirstOrDefault(p => p.Id == orderItemId);
             if (item == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound,

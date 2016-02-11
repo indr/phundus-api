@@ -90,15 +90,19 @@
         }
     }
 
-    public class OrderId : Identity<int>
+    public class OrderShortId : Identity<int>
     {
-        public OrderId(int id) : base(id)
+        public OrderShortId(int id) : base(id)
         {
         }
 
-        protected OrderId()
+        protected OrderShortId()
         {
         }
+    }
+
+    public class OrderId : GuidIdentity
+    {
     }
 
     public class OrderItemId : GuidIdentity
