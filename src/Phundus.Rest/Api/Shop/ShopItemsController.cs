@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Web;
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
@@ -31,15 +33,22 @@
 
         [GET("")]
         [Transaction]
-        public virtual QueryOkResponseContent<ShopQueryItem> Get(Guid? lessorId, string q)
+        public virtual QueryOkResponseContent<ShopQueryItem> Get([FromUri] ShopItemsQueryRequestContent requestContent)
         {
-            var results = _itemQueries.Query(q, null, 0, 0);
+            var results = _itemQueries.Query(requestContent.GlobalSearch, requestContent.LessorId, requestContent.Offset, requestContent.Limit);
 
-            return new QueryOkResponseContent<ShopQueryItem>(results.Result.Select(s => new ShopQueryItem
+            return QueryOkResponseContent<ShopQueryItem>.Build(results, s => new ShopQueryItem
             {
-                ArticleId = s.ArticleId,
-                Name = s.Name
-            }));
+                ItemId = s.ItemId,
+                ItemShortId = s.ItemShortId,
+                Name = s.Name,
+                LessorId = s.OwnerGuid,
+                LessorName = s.OwnerName,
+                LessorType = s.OwnerType,
+                MemberPrice = s.MemberPrice,
+                PreviewImageUrl = GetArticleFileUrl(s.ItemShortId, Path.GetFileName(s.PreviewImageFileName)),
+                PublicPrice = s.PublicPrice
+            });
         }
 
         [GET("{itemId}")]
@@ -95,6 +104,21 @@
             var result = _availabilityQueries.GetAvailability(itemId);
             return Ok(new {result = result});
         }
+    }
+
+    public class ShopItemsQueryRequestContent
+    {
+        [JsonProperty("lessorId")]
+        public Guid? LessorId { get; set; }
+
+        [JsonProperty("q")]
+        public string GlobalSearch { get; set; }
+
+        [JsonProperty("offset")]
+        public int? Offset { get; set; }
+
+        [JsonProperty("limit")]
+        public int? Limit { get; set; }
     }
 
     public class ShopItemGetOkResponseContent

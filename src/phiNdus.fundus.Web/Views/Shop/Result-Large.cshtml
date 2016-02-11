@@ -8,7 +8,7 @@
             <div class="thumbnail">
                 <p class="muted">@each.OwnerName</p>
                 <div style="text-align:center; height:180px;">
-                    <a href="/#/shop/@each.ArticleGuid" target="_blank">
+                    <a href="/#/shop/@each.ItemId" target="_blank">
                         @if (!String.IsNullOrWhiteSpace(each.PreviewImageFileName))
                         {
                             <img src="@String.Concat(Html.Raw(Url.Content(each.PreviewImageFileName)), ".ashx?maxwidth=260&maxheight=180")" alt="" />
@@ -27,7 +27,7 @@
                     }
                     else
                     {
-                        <a href="/#/shop/@each.ArticleGuid" target="_blank">@each.Name</a>
+                        <a href="/#/shop/@each.ItemId" target="_blank">@each.Name</a>
                     }
                 </h5>
                 <p>

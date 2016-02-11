@@ -21,8 +21,8 @@
         public void Process(ArticleCreated domainEvent)
         {
             var row = CreateRow();
-            row.ArticleGuid = domainEvent.ArticleGuid;
-            row.ArticleId = domainEvent.ArticleId;
+            row.ItemId = domainEvent.ArticleGuid;
+            row.ItemShortId = domainEvent.ArticleId;
             row.CreatedAtUtc = domainEvent.OccuredOnUtc;
             row.MemberPrice = domainEvent.MemberPrice;
             row.Name = domainEvent.Name;
@@ -63,7 +63,7 @@
         private ResultItemsProjectionRow Find(Guid articleGuid)
         {
             return Session.QueryOver<ResultItemsProjectionRow>()
-                .Where(p => p.ArticleGuid == articleGuid).SingleOrDefault();
+                .Where(p => p.ItemId == articleGuid).SingleOrDefault();
         }
     }
 }
