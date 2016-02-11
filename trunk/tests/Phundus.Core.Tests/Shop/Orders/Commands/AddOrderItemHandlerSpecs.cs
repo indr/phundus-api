@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Tests.Shop.Orders.Commands
 {
-    using System.Security.Cryptography.X509Certificates;
     using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
@@ -16,25 +15,24 @@
         private static Period thePeriod;
         private static Order theOrder;
         private static Article theArticle;
-        private static OrderItemId theOrderItemId;
-        private static Lessee theLessee;
+        private static OrderItemId theOrderItemId;        
 
         private Establish ctx = () =>
         {
-            theLessor = make.Lessor();
-            theLessee = make.Lessee();
             theOrder = make.Order();
-            theOrder.setup(x => x.Lessor).Return(theLessor);
-            theOrder.setup(x => x.Lessee).Return(theLessee);
-            orderRepository.setup(x => x.GetById(theOrder.Id)).Return(theOrder);
+            theLessor = theOrder.Lessor;
+            theLessee = theOrder.Lessee;
+            orderRepository.setup(x => x.GetById(theOrder.OrderShortId.Id)).Return(theOrder);
 
             theArticle = make.Article();
-            articleService.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleShortId, theLessee.LesseeId)).Return(theArticle);
+            articleService.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleShortId, theLessee.LesseeId))
+                .Return(theArticle);
 
             thePeriod = Period.FromNow(1);
-
             theOrderItemId = new OrderItemId();
-            command = new AddOrderItem(theInitiatorId, theOrder.OrderShortId, theOrderItemId, theArticle.ArticleShortId, thePeriod,
+
+            command = new AddOrderItem(theInitiatorId, theOrder.OrderShortId, theOrderItemId, theArticle.ArticleShortId,
+                thePeriod,
                 10);
         };
 

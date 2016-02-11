@@ -87,7 +87,7 @@
 
             table.TotalWidth = 100;
 
-            var orderNumberCell = new PdfPCell(new Phrase(order.Id.ToString(),
+            var orderNumberCell = new PdfPCell(new Phrase(order.OrderShortId.Id.ToString(),
                 FontFactory.GetFont("calibri-bold", 36, BaseColor.WHITE)));
             orderNumberCell.HorizontalAlignment = Element.ALIGN_RIGHT;
             orderNumberCell.Rowspan = 5;

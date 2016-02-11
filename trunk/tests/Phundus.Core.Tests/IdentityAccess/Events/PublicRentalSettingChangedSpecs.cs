@@ -7,15 +7,11 @@
     [Subject(typeof (PublicRentalSettingChanged))]
     public class public_rental_setting_changed : domain_event_concern<PublicRentalSettingChanged>
     {
-        private static OrganizationId theOrganizationId;
-        private static bool theValue;
+        private static OrganizationId theOrganizationId = new OrganizationId();
+        private static bool theValue = true;
 
-        private Establish ctx = () =>
-        {
-            theOrganizationId = new OrganizationId();
-            theValue = true;
-            sut_factory.create_using(() => new PublicRentalSettingChanged(theInitiator, theOrganizationId, theValue));
-        };
+        private Establish ctx = () => sut_factory.create_using(() =>
+            new PublicRentalSettingChanged(theInitiator, theOrganizationId, theValue));
 
         private It should_have_full_name = () =>
             itsFullName.ShouldEqual("Phundus.IdentityAccess.Model.PublicRentalSettingChanged");

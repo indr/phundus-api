@@ -14,7 +14,7 @@
         protected static Owner theOwner;
         protected static OwnerType theOwnerType;
         protected static StoreId theStoreId;
-        protected static ArticleId the_article_id;
+        protected static ArticleId theArticleId;
         protected static string theName;
         protected static int theGrossStock;
         protected static decimal thePublicPrice;
@@ -27,7 +27,7 @@
             theOwnerType = OwnerType.Organization;
             theOwner = null;
             theStoreId = new StoreId();
-            the_article_id = new ArticleId();
+            theArticleId = new ArticleId();
             theName = "The name";
             theGrossStock = 10;
             theMemberPrice = 11.11m;
@@ -35,7 +35,7 @@
             sut_factory.create_using(() =>
             {
                 theOwner = make.Owner(theOwnerType);
-                return new Article(theOwner, theStoreId, the_article_id,
+                return new Article(theOwner, theStoreId, theArticleId,
                     theName, theGrossStock, thePublicPrice, theMemberPrice);
             });
         };
@@ -45,7 +45,7 @@
     public class when_instantiating : article_concern
     {
         private It should_have_the_article_guid = () =>
-            sut.ArticleId.ShouldEqual(the_article_id);
+            sut.ArticleId.ShouldEqual(theArticleId);
 
         private It should_have_the_gross_stock = () =>
             sut.GrossStock.ShouldEqual(theGrossStock);
@@ -102,7 +102,7 @@
 
         private It should_public_details_changed = () =>
             Published<ArticleDetailsChanged>(p =>
-                p.ArticleId == the_article_id.Id
+                p.ArticleId == theArticleId.Id
                 && p.Brand == theNewBrand
                 && p.Color == theNewColor
                 && Equals(p.Initiator, theInitiator)
@@ -123,7 +123,7 @@
 
         private It should_publish_description_changed = () =>
             publisher.WasToldTo(x => x.Publish(
-                Arg<DescriptionChanged>.Matches(p => p.ArticleId == the_article_id.Id
+                Arg<DescriptionChanged>.Matches(p => p.ArticleId == theArticleId.Id
                                                      && p.Description == theNewDescription
                                                      && Equals(p.Initiator, theInitiator)
                                                      && p.OwnerId == theOwner.OwnerId.Id)));
@@ -142,7 +142,7 @@
 
         private It should_publish_specification_changed = () =>
             publisher.WasToldTo(x => x.Publish(
-                Arg<SpecificationChanged>.Matches(p => p.ArticleId == the_article_id.Id
+                Arg<SpecificationChanged>.Matches(p => p.ArticleId == theArticleId.Id
                                                        && Equals(p.Initiator, theInitiator)
                                                        && p.OwnerId == theOwner.OwnerId.Id
                                                        && p.Specification == theNewSpecification)));
@@ -164,7 +164,7 @@
 
         private It should_publish_gross_stock_changed = () =>
             Published<GrossStockChanged>(p =>
-                p.ArticleId == the_article_id.Id
+                p.ArticleId == theArticleId.Id
                 && Equals(p.Initiator, theInitiator)
                 && p.NewGrossStock == theNewGrossStock
                 && p.OldGrossStock == theGrossStock
@@ -199,7 +199,7 @@
 
             private It should_public_prices_changed = () =>
                 publisher.WasToldTo(x => x.Publish(Arg<PricesChanged>.Matches(p =>
-                    p.ArticleId == the_article_id.Id
+                    p.ArticleId == theArticleId.Id
                     && p.Initiator.InitiatorGuid == theInitiatorId.Id
                     && p.MemberPrice == theNewMemberPrice
                     && p.PublicPrice == theNewPublicPrice)));
@@ -218,7 +218,7 @@
 
             private It should_public_prices_changed = () =>
                 publisher.WasToldTo(x => x.Publish(Arg<PricesChanged>.Matches(p =>
-                    p.ArticleId == the_article_id.Id
+                    p.ArticleId == theArticleId.Id
                     && p.Initiator.InitiatorGuid == theInitiatorId.Id
                     && p.MemberPrice == null
                     && p.PublicPrice == theNewPublicPrice)));
@@ -240,7 +240,7 @@
 
             private It should_public_prices_changed = () =>
                 publisher.WasToldTo(x => x.Publish(Arg<PricesChanged>.Matches(p =>
-                    p.ArticleId == the_article_id.Id
+                    p.ArticleId == theArticleId.Id
                     && p.Initiator.InitiatorGuid == theInitiatorId.Id
                     && p.MemberPrice == theNewMemberPrice
                     && p.PublicPrice == theNewPublicPrice)));
@@ -258,7 +258,7 @@
         private It should_publish_image_added = () =>
             Published<ImageAdded>(p =>
                 p.IsPreviewImage == true
-                && p.ArticleId == the_article_id.Id
+                && p.ArticleId == theArticleId.Id
                 && p.FileLength == 123456
                 && p.FileName == "fileName"
                 && p.FileType == "fileType"
@@ -297,14 +297,14 @@
 
         private It should_publish_image_removed = () =>
             Published<ImageRemoved>(p =>
-                p.ArticleId == the_article_id.Id
+                p.ArticleId == theArticleId.Id
                 && p.FileName == "first.jpg"
                 && p.Initiator == theInitiator
                 && p.OwnerId == theOwner.OwnerId.Id);
 
         private It should_publish_preview_image_changed = () =>
             Published<PreviewImageChanged>(p =>
-                p.ArticleId == the_article_id.Id
+                p.ArticleId == theArticleId.Id
                 && p.FileLength == 2345
                 && p.FileName == "second.jpg"
                 && p.FileType == "image/jpeg"
@@ -338,7 +338,7 @@
 
         private It should_publish_preview_image_changed = () =>
             Published<PreviewImageChanged>(p =>
-                p.ArticleId == the_article_id.Id
+                p.ArticleId == theArticleId.Id
                 && p.FileLength == 2345
                 && p.FileName == "second.jpg"
                 && p.FileType == "image/jpeg"

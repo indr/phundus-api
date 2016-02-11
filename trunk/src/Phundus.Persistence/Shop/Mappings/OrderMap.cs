@@ -11,9 +11,11 @@ namespace Phundus.Persistence.Shop.Mappings
             SchemaAction.Validate();
 
             Table("Dm_Shop_Order");
-            Id(x => x.Id).GeneratedBy.Native();
-            Map(x => x.Guid, "OrderGuid");
+
+            Id(x => x.Id, "Id").GeneratedBy.Native();
+            //CompositeId(x => x.OrderShortId).KeyProperty(x => x.Id, "Id");
             Version(x => x.Version);
+            Component(x => x.OrderId, a => a.Map(x => x.Id, "OrderGuid"));
 
             Map(x => x.CreatedUtc, "CreatedUtc").CustomType<UtcDateTimeType>();
             Map(x => x.Status, "Status").CustomType<OrderStatus>();

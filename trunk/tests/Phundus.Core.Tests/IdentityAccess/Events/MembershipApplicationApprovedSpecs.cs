@@ -11,7 +11,8 @@
         private static OrganizationId theOrganizationId = new OrganizationId();
         private static UserId theUserId = new UserId();
 
-        private Because of = () => sut = new MembershipApplicationApproved(theInitiatorId, theOrganizationId, theUserId);
+        private Establish ctx = () => sut_factory.create_using(() =>
+            new MembershipApplicationApproved(theInitiatorId, theOrganizationId, theUserId));
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");

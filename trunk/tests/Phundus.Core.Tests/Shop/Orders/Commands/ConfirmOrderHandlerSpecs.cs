@@ -16,9 +16,8 @@
         private static Order order;
 
         public Establish c = () =>
-        {            
-            order = MockRepository.GeneratePartialMock<Order>(new object[] { theLessor, CreateLessee() });
-
+        {
+            order = make.Order(theLessor);
             orderRepository.setup(x => x.GetById(orderId)).Return(order);
 
             command = new ApproveOrder
@@ -33,8 +32,5 @@
 
         public It should_ask_order_to_approve =
             () => order.WasToldTo(x => x.Approve(initiatorId));
-
-        public It should_publish_order_approved =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderApproved>.Is.NotNull));
     }
 }

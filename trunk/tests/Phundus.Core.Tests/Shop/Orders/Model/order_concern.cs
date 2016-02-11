@@ -15,11 +15,11 @@ namespace Phundus.Tests.Shop.Orders.Model
             make = new shop_factory(fake);
             theLessor = new Lessor(new LessorId(), "The lessor", false);
             theLessee = CreateLessee();
-            sut = new Order(theLessor, theLessee);
+            sut_factory.create_using(() => new Order(theLessor, theLessee));
         };
     }
 
-    public abstract class creating_order_concern : aggregate_concern<Order>
+    public abstract class creating_order_concern : aggregate_concern_new<Order>
     {
         protected static InitiatorId theInitiatorId;
         protected static Lessor theLessor;

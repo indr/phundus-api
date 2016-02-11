@@ -43,7 +43,7 @@
 
         public virtual ArticleShortId ArticleShortId
         {
-            get { return new ArticleShortId(Id); }
+            get { return new ArticleShortId(Id); }            
         }
 
         public virtual ArticleId ArticleId

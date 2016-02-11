@@ -17,7 +17,7 @@
 
         public Establish c = () =>
         {
-            order = mock.partial<Order>(new object[] {theLessor, CreateLessee()});
+            order = make.Order(theLessor);
             orderRepository.setup(x => x.GetById(orderId)).Return(order);
 
             command = new RejectOrder
@@ -32,8 +32,5 @@
 
         public It should_ask_order_to_reject =
             () => order.WasToldTo(x => x.Reject(initiatorId));
-
-        public It should_publish_order_rejected =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Is.NotNull));
     }
 }

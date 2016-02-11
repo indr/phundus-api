@@ -11,13 +11,14 @@
     public class Order
     {
         private DateTime _createdUtc = DateTime.UtcNow;
-        private Guid _guid = System.Guid.NewGuid();
+        private OrderId _guid = new OrderId();
         private Iesi.Collections.Generic.ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private Lessee _lessee;
         private Lessor _lessor;
         private UserId _modifiedBy;
         private DateTime? _modifiedUtc;
         private OrderStatus _status = OrderStatus.Pending;
+        private OrderShortId _orderShortId = new OrderShortId(0);
 
         public Order(Lessor lessor, Lessee lessee) : this(lessor, lessee, null)
         {
@@ -38,9 +39,19 @@
         {
         }
 
-        public virtual int Id { get; protected set; }
+        public virtual int Id
+        {
+            get { return _orderShortId.Id; }
+            protected set { _orderShortId = new OrderShortId(value); }
+        }
 
-        public virtual Guid Guid
+        public virtual OrderShortId OrderShortId
+        {
+            get { return _orderShortId; }
+            protected set { _orderShortId = value; }
+        }
+
+        public virtual OrderId OrderId
         {
             get { return _guid; }
             protected set { _guid = value; }
@@ -120,11 +131,6 @@
             }
         }
 
-        public virtual OrderShortId OrderShortId
-        {
-            get { return new OrderShortId(Id); }
-        }
-
         public virtual void Reject(UserId initiatorId)
         {
             if (Status == OrderStatus.Closed)
@@ -136,7 +142,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Rejected;
 
-            EventPublisher.Publish(new OrderRejected {OrderId = Id});
+            EventPublisher.Publish(new OrderRejected {OrderId = OrderShortId.Id});
         }
 
         public virtual void Approve(UserId initiatorId)
@@ -152,7 +158,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Approved;
 
-            EventPublisher.Publish(new OrderApproved {OrderId = Id});
+            EventPublisher.Publish(new OrderApproved {OrderId = OrderShortId.Id});
         }
 
         public virtual void Close(UserId initiatorId)
@@ -166,7 +172,7 @@
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Closed;
 
-            EventPublisher.Publish(new OrderClosed {OrderId = Id});
+            EventPublisher.Publish(new OrderClosed {OrderId = OrderShortId.Id});
         }
 
         public virtual void EnsurePending()
@@ -186,7 +192,8 @@
             }
         }
 
-        public virtual void AddItem(OrderItemId orderItemId, Article article, DateTime fromUtc, DateTime toUtc, int quantity)
+        public virtual void AddItem(OrderItemId orderItemId, Article article, DateTime fromUtc, DateTime toUtc,
+            int quantity)
         {
             EnsurePending();
 
