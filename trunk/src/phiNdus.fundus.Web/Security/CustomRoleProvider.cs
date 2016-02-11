@@ -1,11 +1,11 @@
-﻿namespace phiNdus.fundus.Web.Security
+﻿namespace Phundus.Web.Security
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Web.Security;
     using Castle.Transactions;
-    using Phundus.IdentityAccess.Users.Repositories;
+    using IdentityAccess.Users.Repositories;
 
     public class CustomRoleProvider : RoleProvider
     {

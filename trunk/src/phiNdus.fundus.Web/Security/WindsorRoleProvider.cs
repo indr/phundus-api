@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.Security
+﻿namespace Phundus.Web.Security
 {
     using System;
     using System.Collections;

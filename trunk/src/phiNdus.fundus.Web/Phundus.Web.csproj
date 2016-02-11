@@ -212,7 +212,6 @@
     <Compile Include="404.aspx.designer.cs">
       <DependentUpon>404.aspx</DependentUpon>
     </Compile>
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
     <Compile Include="App_Start\DatabaseMigrator.cs" />
     <Compile Include="App_Start\FileSystemConfig.cs" />
@@ -223,21 +222,11 @@
     <Compile Include="Security\WebWindsorRoleProvider.cs" />
     <Compile Include="Security\WebWindsorMembershipProvider.cs" />
     <Compile Include="Security\WindsorRoleProvider.cs" />
-    <Compile Include="App_Start\Plumbing\RegisterClientValidationExtensions.cs" />
-    <Compile Include="Helpers\HandleAjaxErrorAttribute.cs" />
-    <Compile Include="Helpers\HandleModelStateExceptionAttribute.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ActiveTabExtension.cs" />
-    <Compile Include="Helpers\AjaxExtensions.cs" />
-    <Compile Include="Helpers\ButtonClass.cs" />
-    <Compile Include="Helpers\LabelExtensions.cs" />
-    <Compile Include="Helpers\HtmlExtensions.cs" />
-    <Compile Include="Helpers\ActionLinkExtensions.cs" />
-    <Compile Include="Helpers\MvcContainer.cs" />
     <Compile Include="App_Start\Installers\ControllerInstaller.cs" />
     <Compile Include="App_Start\Installers\LoggerInstaller.cs" />
     <Content Include="400.aspx" />
@@ -325,7 +314,7 @@
     <Content Include="scripts\vendor.3479183e.js" />
     <Content Include="styles\main.a69f1f21.css" />
     <Content Include="styles\vendor.5b719086.css" />
-    <Content Include="Views\_BaseUrl.cshtml" />
+    <Content Include="Views\Shared\_BaseUrl.cshtml" />
     <Content Include="scripts\skins\lightgray\fonts\tinymce-small.woff" />
     <Content Include="scripts\skins\lightgray\fonts\tinymce-small.ttf" />
     <Content Include="scripts\skins\lightgray\fonts\tinymce-small.eot" />

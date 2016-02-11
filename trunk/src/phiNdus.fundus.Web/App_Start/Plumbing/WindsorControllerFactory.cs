@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.Plumbing
+﻿namespace Phundus.Web.Plumbing
 {
     using System;
     using System.Globalization;

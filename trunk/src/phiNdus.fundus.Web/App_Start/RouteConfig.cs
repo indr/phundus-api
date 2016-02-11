@@ -1,4 +1,4 @@
-﻿namespace phiNdus.fundus.Web.App_Start
+﻿namespace Phundus.Web
 {
     using System;
     using System.Collections.Concurrent;
@@ -8,7 +8,6 @@
     using System.Web.Routing;
     using Phundus.Ddd;
     using Phundus.IdentityAccess.Organizations.Model;
-    using Phundus.Web;
 
     public class RouteConfig
     {
