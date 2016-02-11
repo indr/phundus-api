@@ -43,7 +43,7 @@
             };
 
             var stream = _orderPdfGeneratorService.GeneratePdf(order);
-            Attachments.Add(new Attachment(stream, String.Format("Order-{0}.pdf", order.OrderShortId.Id), "application/pdf"));
+            Attachments.Add(new Attachment(stream, String.Format("Order-{0}.pdf", order.ShortOrderId.Id), "application/pdf"));
 
             var toAddresses = String.Join(",", managers.Select(s => s.EmailAddress));
 

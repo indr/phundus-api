@@ -22,7 +22,7 @@
             theOrder = make.Order();
             theLessor = theOrder.Lessor;
             theLessee = theOrder.Lessee;
-            orderRepository.setup(x => x.GetById(theOrder.OrderShortId.Id)).Return(theOrder);
+            orderRepository.setup(x => x.GetById(theOrder.ShortOrderId.Id)).Return(theOrder);
 
             theArticle = make.Article();
             articleService.setup(x => x.GetById(theLessor.LessorId, theArticle.ArticleShortId, theLessee.LesseeId))
@@ -31,7 +31,7 @@
             thePeriod = Period.FromNow(1);
             theOrderItemId = new OrderItemId();
 
-            command = new AddOrderItem(theInitiatorId, theOrder.OrderShortId, theOrderItemId, theArticle.ArticleShortId,
+            command = new AddOrderItem(theInitiatorId, theOrder.ShortOrderId, theOrderItemId, theArticle.ArticleShortId,
                 thePeriod,
                 10);
         };

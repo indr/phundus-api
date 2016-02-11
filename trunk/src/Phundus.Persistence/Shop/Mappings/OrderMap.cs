@@ -23,13 +23,13 @@ namespace Phundus.Persistence.Shop.Mappings
 
             Component(x => x.Lessor, c =>
             {
-                c.Component(y => y.LessorId, d => d.Map(z => z.Id, "Lessor_LessorId"));
-                c.Map(y => y.Name, "Lessor_Name");
+                c.Map(x => x.LessorGuid, "Lessor_LessorId");
+                c.Map(x => x.Name, "Lessor_Name");
             });
 
             Component(x => x.Lessee, c =>
             {
-                c.Map(x => x.Id, "Lessee_LesseeGuid");
+                c.Map(x => x.LesseeGuid, "Lessee_LesseeGuid");
                 c.Map(x => x.FirstName, "Borrower_FirstName");
                 c.Map(x => x.LastName, "Borrower_LastName");
                 c.Map(x => x.Street, "Borrower_Street");

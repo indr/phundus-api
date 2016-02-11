@@ -21,7 +21,7 @@
         private Establish ctx = () =>
         {
             lesseeService.WhenToldTo(x => x.GetById(new LesseeId(theInitiatorId.Id)))
-                .Return(CreateLessee(theInitiatorId.Id));
+                .Return(CreateLessee(new LesseeId(theInitiatorId.Id)));
 
             orderRepository.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(theResultingOrderId);
 

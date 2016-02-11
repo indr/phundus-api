@@ -19,7 +19,7 @@
 
         public Establish c = () =>
         {
-            var lessee = CreateLessee(userId);
+            var lessee = CreateLessee(new LesseeId(userId));
             orderRepository.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(orderId);
             lessorService.setup(x => x.GetById(theLessor.LessorId)).Return(theLessor);
             lesseeService.setup(x => x.GetById(lessee.LesseeId)).Return(lessee);
@@ -38,7 +38,7 @@
             () => memberInRole.WasToldTo(x => x.ActiveManager(new OwnerId(theLessor.LessorId.Id), initiatorId));
 
         public It should_publish_order_created = () => publisher.WasToldTo(x => x.Publish(
-            Arg<OrderCreated>.Matches(p => p.OrderId == orderId)));
+            Arg<OrderCreated>.Matches(p => p.ShortOrderId == orderId)));
 
         public It should_set_order_id = () => command.ResultingOrderId.ShouldEqual(orderId);
     }

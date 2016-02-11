@@ -52,7 +52,7 @@
         [Transaction]
         public virtual HttpResponseMessage Get(int orderId)
         {
-            var order = _orderQueries.GetById(CurrentUserId, new OrderShortId(orderId));
+            var order = _orderQueries.GetById(CurrentUserId, new ShortOrderId(orderId));
             return Request.CreateResponse(HttpStatusCode.OK, Map<OrderDetail>(order));
         }
 
@@ -60,7 +60,7 @@
         [Transaction]
         public virtual HttpResponseMessage GetPdf(int orderId)
         {
-            _orderQueries.GetById(CurrentUserId, new OrderShortId(orderId));
+            _orderQueries.GetById(CurrentUserId, new ShortOrderId(orderId));
             var result = _pdfStore.GetOrderPdf(orderId, CurrentUserId);
             if (result == null)
                 return CreateNotFoundResponse("Die Bestellung mit der Id {0} konnte nicht gefunden werden.", orderId);

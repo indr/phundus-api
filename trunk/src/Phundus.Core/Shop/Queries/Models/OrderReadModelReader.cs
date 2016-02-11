@@ -38,24 +38,24 @@
             }
         }
 
-        public OrderDto GetById(CurrentUserId currentUserId, OrderShortId orderShortId)
+        public OrderDto GetById(CurrentUserId currentUserId, ShortOrderId shortOrderId)
         {
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
-            AssertionConcern.AssertArgumentNotNull(orderShortId, "OrderId must be provided.");
+            AssertionConcern.AssertArgumentNotNull(shortOrderId, "OrderId must be provided.");
 
-            var result = Query(currentUserId, orderShortId == null ? (int?) null : orderShortId.Id, null, null).SingleOrDefault();
+            var result = Query(currentUserId, shortOrderId == null ? (int?) null : shortOrderId.Id, null, null).SingleOrDefault();
             if (result == null)
-                throw new NotFoundException(String.Format("Order {0} not found.", orderShortId));
+                throw new NotFoundException(String.Format("Order {0} not found.", shortOrderId));
 
             CalculateAvailabilities(result);
 
             return result;
         }
 
-        public IEnumerable<OrderDto> Query(CurrentUserId currentUserId, OrderShortId orderShortId, UserId queryUserId,
+        public IEnumerable<OrderDto> Query(CurrentUserId currentUserId, ShortOrderId shortOrderId, UserId queryUserId,
             OrganizationId queryOrganizationId)
         {
-            return Query(currentUserId, orderShortId == null ? (int?) null : orderShortId.Id,
+            return Query(currentUserId, shortOrderId == null ? (int?) null : shortOrderId.Id,
                 queryUserId == null ? (Guid?) null : queryUserId.Id,
                 queryOrganizationId == null ? (Guid?) null : queryOrganizationId.Id);
         }

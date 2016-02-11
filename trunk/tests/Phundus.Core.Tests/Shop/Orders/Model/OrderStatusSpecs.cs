@@ -27,7 +27,7 @@
         public It should_have_status_approved = () => sut.Status.ShouldEqual(OrderStatus.Approved);
 
         public It should_publish_order_approved =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderApproved>.Matches(p => p.OrderId == sut.OrderShortId.Id)));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderApproved>.Matches(p => p.OrderId == sut.ShortOrderId.Id)));
     }
 
     [Subject(typeof (Order))]
@@ -44,7 +44,7 @@
         public It should_have_status_rejected = () => sut.Status.ShouldEqual(OrderStatus.Rejected);
 
         public It should_publish_order_rejected =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Matches(p => p.OrderId == sut.OrderShortId.Id)));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Matches(p => p.OrderId == sut.ShortOrderId.Id)));
     }
 
     [Subject(typeof (Order))]
@@ -61,7 +61,7 @@
         public It should_have_status_closed = () => sut.Status.ShouldEqual(OrderStatus.Closed);
 
         public It should_publish_order_closed =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderClosed>.Matches(p => p.OrderId == sut.OrderShortId.Id)));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderClosed>.Matches(p => p.OrderId == sut.ShortOrderId.Id)));
     }
 
 
@@ -100,7 +100,7 @@
         public It should_have_status_closed = () => sut.Status.ShouldEqual(OrderStatus.Closed);
 
         public It should_publish_order_closed =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderClosed>.Matches(p => p.OrderId == sut.OrderShortId.Id)));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderClosed>.Matches(p => p.OrderId == sut.ShortOrderId.Id)));
     }
 
     [Subject(typeof (Order))]
@@ -117,7 +117,7 @@
         public It should_have_status_rejected = () => sut.Status.ShouldEqual(OrderStatus.Rejected);
 
         public It should_publish_order_rejected =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Matches(p => p.OrderId == sut.OrderShortId.Id)));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderRejected>.Matches(p => p.OrderId == sut.ShortOrderId.Id)));
     }
 
 
