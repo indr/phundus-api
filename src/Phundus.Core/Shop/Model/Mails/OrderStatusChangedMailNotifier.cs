@@ -33,7 +33,7 @@
             };
 
             Attachments.Add(new Attachment(OrderPdfGeneratorService.GeneratePdf(order),
-                String.Format("Bestellung-{0}.pdf", order.Id),
+                String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf"));
 
             Send(order.Lessee.EmailAddress, Templates.OrderApprovedSubject, null, Templates.OrderApprovedHtml);
@@ -52,7 +52,7 @@
             };
 
             Attachments.Add(new Attachment(OrderPdfGeneratorService.GeneratePdf(order),
-                String.Format("Bestellung-{0}.pdf", order.Id),
+                String.Format("Bestellung-{0}.pdf", order.OrderShortId.Id),
                 "application/pdf"));
 
             Send(order.Lessee.EmailAddress, Templates.OrderRejectedSubject, null, Templates.OrderRejectedHtml);

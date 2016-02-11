@@ -41,12 +41,15 @@ namespace Phundus.Tests.Shop
             return lessor;
         }
 
-        public Order Order()
+        public Order Order(Lessor lessor = null, Lessee lessee = null)
         {
+            lessor = lessor ?? Lessor();
+            lessee = lessee ?? Lessee();
             var order = fake.an<Order>();
-            var orderId = new OrderShortId(NextNumericId());
-            order.setup(x => x.Id).Return(orderId.Id);
-            order.setup(x => x.OrderShortId).Return(orderId);
+            order.setup(x => x.OrderId).Return(new OrderId());
+            order.setup(x => x.OrderShortId).Return( new OrderShortId(NextNumericId()));
+            order.setup(x => x.Lessor).Return(lessor);
+            order.setup(x => x.Lessee).Return(lessee);
             return order;
         }
 

@@ -1,7 +1,6 @@
 namespace Phundus.Tests.Shop.Orders.Commands
 {
     using System;
-    using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Cqrs;
@@ -16,17 +15,12 @@ namespace Phundus.Tests.Shop.Orders.Commands
         where THandler : class, IHandleCommand<TCommand>
     {
         protected static IMemberInRole memberInRole;
-
         protected static IOrderRepository orderRepository;
-
         protected static IArticleService articleService;
-
-        protected static ILesseeService lesseeService;
-
-        protected static Lessor theLessor;
-
         protected static ILessorService lessorService;
-
+        protected static ILesseeService lesseeService;
+        protected static Lessor theLessor;
+        protected static Lessee theLessee;
 
         private Establish ctx = () =>
         {

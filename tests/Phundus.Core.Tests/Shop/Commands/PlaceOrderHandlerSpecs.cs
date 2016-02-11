@@ -18,8 +18,6 @@
         protected static Cart theCart;
         protected static ICartRepository cartRepository;
 
-        private static int _nextArticleId = 1;
-
         private Establish ctx = () =>
         {
             lesseeService.WhenToldTo(x => x.GetById(new LesseeId(theInitiatorId.Id)))

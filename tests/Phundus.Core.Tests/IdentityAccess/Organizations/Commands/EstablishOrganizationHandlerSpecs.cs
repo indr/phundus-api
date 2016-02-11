@@ -5,19 +5,17 @@
     using Machine.Specifications;
     using Phundus.IdentityAccess.Organizations.Commands;
     using Phundus.IdentityAccess.Organizations.Model;
-    using Phundus.IdentityAccess.Organizations.Repositories;
     using Phundus.IdentityAccess.Users.Repositories;
     using Rhino.Mocks;
 
     [Subject(typeof (EstablishOrganizationHandler))]
-    public class when_handling_establish_organization : identityaccess_command_handler_concern<EstablishOrganization, EstablishOrganizationHandler>
+    public class when_handling_establish_organization :
+        identityaccess_command_handler_concern<EstablishOrganization, EstablishOrganizationHandler>
     {
         private static OrganizationId theOrganizationGuid = new OrganizationId();
-        private static IOrganizationRepository organizationRepository;
 
         private Establish ctx = () =>
         {
-            organizationRepository = depends.on<IOrganizationRepository>();
             depends.on<IUserRepository>()
                 .WhenToldTo(x => x.GetByGuid(theInitiatorId))
                 .Return(make.Admin(theInitiatorId));

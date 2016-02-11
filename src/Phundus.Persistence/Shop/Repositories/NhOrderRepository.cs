@@ -58,7 +58,7 @@
         public new int Add(Order entity)
         {
             base.Add(entity);
-            return entity.Id;
+            return entity.OrderShortId.Id;
         }
     }
 }
