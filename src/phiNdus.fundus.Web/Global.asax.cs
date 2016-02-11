@@ -27,11 +27,7 @@
         protected void Application_Start()
         {
             FileSystemConfig.CreateMissingDirectory();
-
-            StartMitSqlServerCe.TuEs();
-
             DatabaseMigrator.Migrate();
-
 
             _container = new WindsorContainer();
 
