@@ -18,7 +18,7 @@
 
         public IList<ILessor> Query()
         {
-            return QueryOver().Where(p => p.LessorType > 0).List<ILessor>();
+            return QueryOver().Where(p => p.LessorType >= 0).OrderBy(p => p.Name).Asc.List<ILessor>();
         }
     }
 }
