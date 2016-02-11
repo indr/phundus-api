@@ -35,7 +35,7 @@
         [Transaction]
         public virtual QueryOkResponseContent<ShopQueryItem> Get([FromUri] ShopItemsQueryRequestContent requestContent)
         {
-            var results = _itemQueries.Query(requestContent.GlobalSearch, requestContent.LessorId, requestContent.Offset, requestContent.Limit);
+            var results = _itemQueries.Query(requestContent.Q, requestContent.LessorId, requestContent.Offset, requestContent.Limit);
 
             return QueryOkResponseContent<ShopQueryItem>.Build(results, s => new ShopQueryItem
             {
@@ -93,6 +93,8 @@
 
         private string GetArticleFileUrl(int articleId, string fileName)
         {
+            if (String.IsNullOrWhiteSpace(fileName))
+                return null;
             const string format = @"/Content/Images/Articles/{0}/{1}";
             return String.Format(format, articleId, fileName);
         }
@@ -112,7 +114,7 @@
         public Guid? LessorId { get; set; }
 
         [JsonProperty("q")]
-        public string GlobalSearch { get; set; }
+        public string Q { get; set; }
 
         [JsonProperty("offset")]
         public int? Offset { get; set; }
