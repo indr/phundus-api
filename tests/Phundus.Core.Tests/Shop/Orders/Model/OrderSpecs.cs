@@ -32,10 +32,7 @@
             () => sut.Lessor.ShouldEqual(theLessor);
 
         public It should_not_have_a_modified_date =
-            () => sut.ModifiedUtc.ShouldBeNull();
-
-        public It should_not_have_a_modifier =
-            () => sut.ModifiedBy.ShouldBeNull();
+            () => sut.ModifiedUtc.ShouldBeNull();        
     }
 
     [Subject(typeof (Order))]
