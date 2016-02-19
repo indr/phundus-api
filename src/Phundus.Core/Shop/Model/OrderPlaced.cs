@@ -4,16 +4,24 @@ namespace Phundus.Shop.Orders.Model
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
+    using Shop.Model;
 
     [DataContract]
     public class OrderPlaced : DomainEvent
     {
-        public OrderPlaced(int orderShortId, LessorId lessorId, IList<Item> items)
+        public OrderPlaced(Initiator initiator, OrderId orderId, ShortOrderId shortOrderId, Lessor lessor, Lessee lessee)
         {
-            if (lessorId == null) throw new ArgumentNullException("lessorId");
-            OrderShortId = orderShortId;
-            LessorId = lessorId.Id;
-            //Items = items ?? new Item[0];
+            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (orderId == null) throw new ArgumentNullException("orderId");
+            if (shortOrderId == null) throw new ArgumentNullException("shortOrderId");
+            if (lessor == null) throw new ArgumentNullException("lessor");
+            if (lessee == null) throw new ArgumentNullException("lessee");
+            Initiator = initiator;
+            OrderId = orderId.Id;
+            ShortOrderId = shortOrderId.Id;
+            Lessor = lessor;
+            Lessee = lessee;
+            LessorId = lessor.LessorId.Id;
         }
 
         protected OrderPlaced()
@@ -21,17 +29,26 @@ namespace Phundus.Shop.Orders.Model
         }
 
         [DataMember(Order = 1)]
-        public int OrderShortId { get; protected set; }
-
+        public int ShortOrderId { get; protected set; }
+        
         [DataMember(Order = 2)]
         public Guid LessorId { get; set; }
 
-        //[DataMember(Order = 2)]
-        //public IList<Item> Items { get; protected set; }
+        [DataMember(Order = 3)]
+        public Guid OrderId { get; set; }
 
+        [DataMember(Order = 4)]
+        public Initiator Initiator { get; set; }
+
+        [DataMember(Order = 5)]
+        public Lessor Lessor { get; set; }
+
+        [DataMember(Order = 6)]
+        public Lessee Lessee { get; set; }
 
         public class Item
         {
+            
         }
     }
 }

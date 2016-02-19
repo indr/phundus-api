@@ -8,11 +8,6 @@ namespace Phundus.Shop.Orders.Model
     [DataContract]
     public class OrderCreated : DomainEvent
     {
-        public OrderCreated(int shortOrderId)
-        {
-            ShortOrderId = shortOrderId;
-        }
-
         public OrderCreated(Initiator initiator, OrderId orderId, ShortOrderId shortOrderId, Lessor lessor,
             Lessee lessee)
         {
