@@ -21,7 +21,7 @@ namespace Phundus.Cqrs
     public abstract class ReadModelBase<TRow> : ReadModelBase where TRow : class, new()
     {
         protected TRow CreateRow()
-        {
+        {            
             var result = new TRow();
             return result;
         }

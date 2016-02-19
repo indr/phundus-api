@@ -106,7 +106,7 @@
 
         private It should_publish_order_placed = () =>
             Published<OrderPlaced>(p =>
-                p.OrderId == theResultingOrderId
+                p.OrderShortId == theResultingOrderId
                 && p.LessorId == theLessor.LessorId.Id);
 
         private It should_set_resulting_order_id =

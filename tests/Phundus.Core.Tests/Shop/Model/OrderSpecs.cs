@@ -46,13 +46,10 @@
             () => sut.Lessee.ShouldEqual(theLessee);
 
         public It should_have_the_created_on_set_to_utc_now =
-            () => sut.CreatedUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+            () => sut.CreatedAtUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         public It should_have_the_lessor =
             () => sut.Lessor.ShouldEqual(theLessor);
-
-        public It should_not_have_a_modified_date =
-            () => sut.ModifiedUtc.ShouldBeNull();
     }
 
     [Subject(typeof (Order))]
