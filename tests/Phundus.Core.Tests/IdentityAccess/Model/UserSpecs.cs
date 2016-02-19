@@ -1,15 +1,20 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Users.Model
 {
+    using System;
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Users.Model;
     using Rhino.Mocks;
 
-    public class user_concern : aggregate_concern<User>
+    public class user_concern : aggregate_concern_new<User>
     {
         protected static string theEmailAddress = "user@test.phundus.ch";
         protected static string thePassword = "1234";
+
+        private Establish ctx = () => sut_factory.create_using(() =>
+            new User(theEmailAddress, thePassword, "Hans", "Müller", "Street", "1234", "City",
+                "012 345 67 89", 123456));
 
         protected static User CreateUser()
         {
@@ -146,5 +151,41 @@
         private It should_not_remove_the_validation_key = () => sut.Account.ValidationKey.ShouldNotBeEmpty();
 
         private It should_return_false = () => result.ShouldBeFalse();
+    }
+
+    [Subject(typeof (User))]
+    public class when_locking : user_concern
+    {
+        private Because of = () =>
+            sut.Lock(theInitiator);
+
+        private It should_be_locked = () =>
+            sut.Account.IsLockedOut.ShouldBeTrue();
+
+        private It should_have_last_locked_out_date = () =>
+            sut.Account.LastLockoutDate.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
+
+        private It should_publish_user_locked = () =>
+            Published<UserLocked>(p => p.InitiatorId == theInitiatorId.Id
+                                       && p.LockedAtUtc == sut.Account.LastLockoutDate
+                                       && p.UserId == sut.UserId.Id);
+    }
+
+    [Subject(typeof (User))]
+    public class when_unlocking : user_concern
+    {
+        private Establish ctx = () => sut_setup.run(sut =>
+            sut.Lock(theInitiator));
+
+        private Because of = () =>
+            sut.Unlock(theInitiator);
+
+        private It should_not_be_locked = () =>
+            sut.Account.IsLockedOut.ShouldBeFalse();
+
+        private It should_publish_user_unlocked = () =>
+            Published<UserUnlocked>(p => p.InitiatorId == theInitiatorId.Id
+                                         && p.LockedAtUtc == sut.Account.LastLockoutDate
+                                         && p.UserId == sut.UserId.Id);
     }
 }
