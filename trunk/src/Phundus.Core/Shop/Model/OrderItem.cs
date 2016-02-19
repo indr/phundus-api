@@ -8,7 +8,7 @@
     public class OrderItem
     {
         private int _amount;
-        private int _articleId;
+        private ArticleShortId _articleShortId;
         private DateTime _fromUtc;
         private Guid _id = Guid.NewGuid();
         private Order _order;
@@ -16,6 +16,7 @@
         private DateTime _toUtc;
         private decimal _unitPrice;
         private decimal _itemTotal;
+        private ArticleId _articleId;
 
         public OrderItem(Order order, OrderItem copyFrom)
         {
@@ -24,6 +25,7 @@
 
             _order = order;
             _articleId = copyFrom.ArticleId;
+            _articleShortId = copyFrom.ArticleShortId;
             _text = copyFrom.Text;
             _fromUtc = copyFrom.FromUtc;
             _toUtc = copyFrom.ToUtc;
@@ -33,12 +35,14 @@
             CalculateTotal();
         }
 
-        public OrderItem(ArticleShortId articleShortId, string text, Period period, int quantity, decimal unitPricePerWeek)
+        public OrderItem(ArticleId articleId, ArticleShortId articleShortId, string text, Period period, int quantity, decimal unitPricePerWeek)
         {
+            if (articleId == null) throw new ArgumentNullException("articleId");
             if (articleShortId == null) throw new ArgumentNullException("articleShortId");
             if (period == null) throw new ArgumentNullException("period");
-            
-            _articleId = articleShortId.Id;
+
+            _articleId = articleId;
+            _articleShortId = articleShortId;
             _text = text;
             _fromUtc = period.FromUtc;
             _toUtc = period.ToUtc;
@@ -51,11 +55,12 @@
         public OrderItem(Order order, OrderItemId orderItemId, Article article, DateTime fromUtc, DateTime toUtc, int amount)
         {
             if (orderItemId == null) throw new ArgumentNullException("orderItemId");
-            AssertionConcern.AssertArgumentNotNull(article, "Article must be provided.");
+            if (article == null) throw new ArgumentNullException("article");
 
             _id = orderItemId.Id;
             _order = order;
-            _articleId = article.Id;
+            _articleId = article.ArticleId;
+            _articleShortId = article.ArticleShortId;
             _unitPrice = article.Price;
             _text = article.Caption;
             _fromUtc = fromUtc;
@@ -116,9 +121,15 @@
             get { return _toUtc.ToLocalTime(); }
         }
 
-        public virtual int ArticleId
+        public virtual ArticleShortId ArticleShortId
         {
-            get { return _articleId; }
+            get { return _articleShortId; }
+            protected set { _articleShortId = value; }
+        }
+
+        public virtual ArticleId ArticleId
+        {
+            get { return _articleId;  }
             protected set { _articleId = value; }
         }
 

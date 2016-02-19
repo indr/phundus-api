@@ -77,7 +77,7 @@
                 _authorize.Enforce(cart.UserId, Rent.Article(article));
             }
 
-            var orderItems = cartItemsToPlace.Select(s => new OrderItem(s.ArticleShortId, s.LineText, new Period(s.From, s.To), s.Quantity, s.UnitPrice)).ToList();
+            var orderItems = cartItemsToPlace.Select(s => new OrderItem(s.Article.ArticleId, s.ArticleShortId, s.LineText, new Period(s.From, s.To), s.Quantity, s.UnitPrice)).ToList();
             var order = new Order(lessor, lessee, orderItems);
 
             var orderId = _orderRepository.Add(order);

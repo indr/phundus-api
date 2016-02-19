@@ -49,7 +49,7 @@
         public int SumReservedAmount(int articleId)
         {
             var query = from i in Items
-                where i.ArticleId == articleId
+                where i.ArticleShortId.Id == articleId
                       && (i.Order.Status == OrderStatus.Pending || i.Order.Status == OrderStatus.Approved)
                 select i;
             return query.Sum(x => (int?) x.Amount).GetValueOrDefault();
