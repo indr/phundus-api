@@ -1,6 +1,6 @@
 ﻿<p>Hallo @Model.Borrower.DisplayName</p>
 
-<p>Wir haben deine Bestellung vom @Model.Order.CreatedLocal mit der Nummer @Model.Order.Id erhalten.</p>
+<p>Wir haben deine Bestellung vom @Model.Order.CreatedAtLocal mit der Nummer @Model.Order.Id erhalten.</p>
 
 <p>Die Materialien sind im angegeben Zeitraum nun für dich reserviert. Das Sekretariat bestätigt deine Buchung vor dem Abholdatum nochmals manuell und sendet dir die abschliessende Bestellungsgenehmigung. Bitte melde dich anschliessend beim Sekretariat um einen Abholtermin zu vereinbaren</p>
 
