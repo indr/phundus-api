@@ -16,7 +16,10 @@
 
             References(x => x.Order, "OrderId");
 
-            Map(x => x.ArticleId, "ArticleId");
+            Component(x => x.ArticleId, a =>
+                a.Map(x => x.Id, "ArticleGuid"));
+            Component(x => x.ArticleShortId, a =>
+                a.Map(x => x.Id, "ArticleId"));
             Map(x => x.Text, "Text");
             Map(x => x.UnitPrice, "UnitPrice");
 

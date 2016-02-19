@@ -24,7 +24,7 @@
             var result = new List<Reservation>();
 
             var query = from oi in OrderItems
-                        where oi.ArticleId == articleId
+                        where oi.ArticleShortId.Id == articleId
                          && oi.Id != orderItemToExclude
                         select oi;
 

@@ -18,6 +18,10 @@
         public ArticleShortId(int id) : base(id)
         {
         }
+
+        protected ArticleShortId()
+        {
+        }
     }
 
     public class ArticleId : GuidIdentity
