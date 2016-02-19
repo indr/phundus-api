@@ -63,6 +63,11 @@
             set { _createdAtUtc = value; }
         }
 
+        public virtual DateTime CreatedAtLocal
+        {
+            get { return CreatedAtUtc.ToLocalTime(); }
+        }
+
         public virtual OrderStatus Status
         {
             get { return _status; }
