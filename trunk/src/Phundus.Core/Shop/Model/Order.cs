@@ -17,8 +17,8 @@
         private Lessor _lessor;
         private UserId _modifiedBy;
         private DateTime? _modifiedUtc;
-        private OrderStatus _status = OrderStatus.Pending;
         private ShortOrderId _shortOrderId = new ShortOrderId(0);
+        private OrderStatus _status = OrderStatus.Pending;
 
         public Order(Lessor lessor, Lessee lessee) : this(lessor, lessee, null)
         {
@@ -88,12 +88,6 @@
             protected set { _modifiedUtc = value; }
         }
 
-        public virtual UserId ModifiedBy
-        {
-            get { return _modifiedBy; }
-            protected set { _modifiedBy = value; }
-        }
-
         public virtual Lessee Lessee
         {
             get { return _lessee; }
@@ -138,7 +132,6 @@
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
 
-            ModifiedBy = initiatorId;
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Rejected;
 
@@ -154,7 +147,6 @@
             if (Status == OrderStatus.Approved)
                 throw new OrderAlreadyApprovedException();
 
-            ModifiedBy = initiatorId;
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Approved;
 
@@ -168,7 +160,6 @@
             if (Status == OrderStatus.Closed)
                 throw new OrderAlreadyClosedException();
 
-            ModifiedBy = initiatorId;
             ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Closed;
 

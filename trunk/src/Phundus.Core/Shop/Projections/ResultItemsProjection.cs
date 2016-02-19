@@ -6,6 +6,19 @@
     using Cqrs;
     using Inventory.Articles.Model;
 
+    public class OrdersProjection : ReadModelBase<OrdersProjectionRow>, IStoredEventsConsumer
+    {
+        public void Handle(DomainEvent domainEvent)
+        {
+            Process((dynamic)domainEvent);
+        }
+
+        public void Process(DomainEvent domainEvent)
+        {
+            // Noop
+        }
+    }
+
     public class ResultItemsProjection : ReadModelBase<ResultItemsProjectionRow>, IStoredEventsConsumer
     {
         public void Handle(DomainEvent domainEvent)
