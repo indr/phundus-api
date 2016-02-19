@@ -72,12 +72,9 @@
         [Transaction]
         public virtual OrdersPostOkResponseContent Post(OrdersPostRequestContent requestContent)
         {
-            var command = new CreateEmptyOrder
-            {
-                InitiatorId = CurrentUserId,
-                LessorId = new LessorId(requestContent.OwnerId),
-                LesseeId = new LesseeId(requestContent.LesseeId)
-            };
+            var command = new CreateEmptyOrder(CurrentUserId,
+                new LessorId(requestContent.OwnerId),
+                new LesseeId(requestContent.LesseeId));
 
             Dispatch(command);
 
@@ -92,11 +89,11 @@
         public virtual HttpResponseMessage Patch(int orderId, OrdersPatchRequestContent requestContent)
         {
             if (requestContent.Status == "Rejected")
-                Dispatch(new RejectOrder { InitiatorId = CurrentUserId, OrderId = orderId });
+                Dispatch(new RejectOrder {InitiatorId = CurrentUserId, OrderId = orderId});
             else if (requestContent.Status == "Approved")
-                Dispatch(new ApproveOrder { InitiatorId = CurrentUserId, OrderId = orderId });
+                Dispatch(new ApproveOrder {InitiatorId = CurrentUserId, OrderId = orderId});
             else if (requestContent.Status == "Closed")
-                Dispatch(new CloseOrder { InitiatorId = CurrentUserId, OrderId = orderId });
+                Dispatch(new CloseOrder {InitiatorId = CurrentUserId, OrderId = orderId});
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
                     "Unbekannter Status \"" + requestContent.Status + "\"");
