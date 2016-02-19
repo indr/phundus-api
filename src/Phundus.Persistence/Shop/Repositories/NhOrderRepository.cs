@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Common;
     using NHibernate.Linq;
-    using Phundus.Shop.Orders;
     using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Repositories;
 
@@ -19,7 +19,7 @@
         {
             var result = FindById(id);
             if (result == null)
-                throw new OrderNotFoundException(id);
+                throw new NotFoundException("Order {0} not found.", id);
             return result;
         }
 
