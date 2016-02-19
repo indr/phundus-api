@@ -1,6 +1,7 @@
 ﻿namespace Phundus.IdentityAccess.Users.Commands
 {
     using System;
+    using Common.Domain.Model;
     using Cqrs;
     using Ddd;
     using Exceptions;
@@ -9,14 +10,16 @@
 
     public class SignUpUser
     {
-        public SignUpUser(string emailAddress, string password, string firstName, string lastName, string street,
+        public SignUpUser(UserId userId, string emailAddress, string password, string firstName, string lastName, string street,
             string postcode, string city, string mobilePhone)
         {
+            if (userId == null) throw new ArgumentNullException("userId");
             if (emailAddress == null) throw new ArgumentNullException("emailAddress");
             if (password == null) throw new ArgumentNullException("password");
             if (firstName == null) throw new ArgumentNullException("firstName");
             if (lastName == null) throw new ArgumentNullException("lastName");
 
+            UserId = userId;
             FirstName = firstName;
             LastName = lastName;
             Street = street;
@@ -27,6 +30,7 @@
             Password = password;
         }
 
+        public UserId UserId { get; protected set; }
         public string FirstName { get; protected set; }
         public string LastName { get; protected set; }
         public string Street { get; protected set; }
@@ -35,9 +39,6 @@
         public string MobilePhone { get; protected set; }
         public string EmailAddress { get; protected set; }
         public string Password { get; protected set; }
-
-        [Obsolete]
-        public Guid ResultingUserGuid { get; set; }
     }
 
     public class SignUpUserHandler : IHandleCommand<SignUpUser>
@@ -56,7 +57,7 @@
             if (_userRepository.FindByEmailAddress(emailAddress) != null)
                 throw new EmailAlreadyTakenException();
 
-            var user = new User(emailAddress, command.Password, command.FirstName, command.LastName, command.Street,
+            var user = new User(command.UserId, emailAddress, command.Password, command.FirstName, command.LastName, command.Street,
                 command.Postcode, command.City, command.MobilePhone, null);
 
             _userRepository.Add(user);
@@ -67,8 +68,6 @@
                 user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
                 user.MobileNumber
                 ));
-
-            command.ResultingUserGuid = user.UserId.Id;
         }
     }
 }

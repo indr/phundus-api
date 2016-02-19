@@ -2,13 +2,11 @@ namespace Phundus.Rest.Api
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Net;
     using System.Web;
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
-    using Auth;
     using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
@@ -17,7 +15,6 @@ namespace Phundus.Rest.Api
     using IdentityAccess.Queries;
     using IdentityAccess.Queries.ReadModels;
     using IdentityAccess.Users.Commands;
-    using Infrastructure;
     using Integration.IdentityAccess;
     using Inventory.Queries;
     using Newtonsoft.Json;
@@ -48,20 +45,19 @@ namespace Phundus.Rest.Api
         {
             CheckForMaintenanceMode(requestContent.Email);
 
-            var command = new SignUpUser(
-                requestContent.Email, requestContent.Password, requestContent.FirstName,
-                requestContent.LastName, requestContent.Street, requestContent.Postcode,
-                requestContent.City, requestContent.MobilePhone);
-            Dispatcher.Dispatch(command);
+            var userId = new UserId();
 
-            var userId = new UserId(command.ResultingUserGuid);
+            Dispatcher.Dispatch(new SignUpUser(userId, requestContent.Email, requestContent.Password,
+                requestContent.FirstName, requestContent.LastName, requestContent.Street, requestContent.Postcode,
+                requestContent.City, requestContent.MobilePhone));
 
             if (requestContent.OrganizationId.HasValue)
             {
-                Dispatcher.Dispatch(new ApplyForMembership(new InitiatorId(userId.Id), Guid.NewGuid(), userId, requestContent.OrganizationId.Value));
+                Dispatcher.Dispatch(new ApplyForMembership(new InitiatorId(userId), Guid.NewGuid(), userId,
+                    requestContent.OrganizationId.Value));
             }
 
-            return new UsersPostOkResponseContent {UserId = command.ResultingUserGuid};
+            return new UsersPostOkResponseContent {UserId = userId.Id};
         }
 
         [GET("{userId}")]
@@ -120,7 +116,6 @@ namespace Phundus.Rest.Api
     {
         public UsersGetOkResponseContent()
         {
-            
         }
 
         public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipDto> memberships, StoreDto store)

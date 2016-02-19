@@ -9,7 +9,7 @@
         private Account _account;
         private string _city;
         private string _firstName;
-        private UserId _userId = new UserId();
+        private UserId _userId;
         private int? _jsNumber;
         private string _lastName;
         private string _mobileNumber;
@@ -17,9 +17,12 @@
         private UserRole _role;
         private string _street;
 
-        public User(string emailAddress, string password, string firstName, string lastName, string street,
+        public User(UserId userId, string emailAddress, string password, string firstName, string lastName, string street,
             string postcode, string city, string mobilePhone, int? jsNumber)
         {
+            if (userId == null) throw new ArgumentNullException("userId");
+
+            _userId = userId;
             _firstName = firstName;
             _lastName = lastName;
             _street = street;

@@ -13,12 +13,12 @@
         protected static string thePassword = "1234";
 
         private Establish ctx = () => sut_factory.create_using(() =>
-            new User(theEmailAddress, thePassword, "Hans", "Müller", "Street", "1234", "City",
+            new User(new UserId(), theEmailAddress, thePassword, "Hans", "Müller", "Street", "1234", "City",
                 "012 345 67 89", 123456));
 
         protected static User CreateUser()
         {
-            return new User(theEmailAddress, thePassword, "Hans", "Müller", "Street", "1234", "City",
+            return new User(new UserId(), theEmailAddress, thePassword, "Hans", "Müller", "Street", "1234", "City",
                 "012 345 67 89", 123456);
         }
     }

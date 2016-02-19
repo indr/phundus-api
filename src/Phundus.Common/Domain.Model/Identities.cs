@@ -66,6 +66,10 @@
         public InitiatorId(Guid id) : base(id)
         {
         }
+
+        public InitiatorId(UserId userId) : base(userId.Id)
+        {
+        }
     }
 
     public class LesseeId : GuidIdentity
