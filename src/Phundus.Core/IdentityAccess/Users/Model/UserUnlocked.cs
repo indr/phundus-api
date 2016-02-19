@@ -7,13 +7,13 @@ namespace Phundus.IdentityAccess.Users.Model
     [DataContract]
     public class UserUnlocked : DomainEvent
     {
-        public UserUnlocked(User initiator, User user, DateTime lockedAtUtc)
+        public UserUnlocked(Initiator initiator, User user, DateTime lockedAtUtc)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (user == null) throw new ArgumentNullException("user");
 
-            InitiatorId = initiator.Guid;
-            UserId = user.Guid;
+            InitiatorId = initiator.InitiatorGuid;
+            UserId = user.UserId.Id;
             LockedAtUtc = lockedAtUtc;
         }
 

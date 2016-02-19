@@ -25,7 +25,7 @@
 
         public User FindByGuid(Guid userId)
         {
-            return Users.SingleOrDefault(p => p.Guid == userId);
+            return Users.SingleOrDefault(p => p.UserId.Id == userId);
         }
 
         public User FindByEmailAddress(string emailAddress)

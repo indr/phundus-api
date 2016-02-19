@@ -41,12 +41,6 @@
         {
         }
 
-        public virtual Guid Guid
-        {
-            get { return _userId.Id; }
-            protected set { _userId = new UserId(value); }
-        }
-
         public virtual UserId UserId
         {
             get { return _userId; }
@@ -142,6 +136,16 @@
             if (newEmailAddress == null) throw new ArgumentNullException("newEmailAddress");
 
             Account.ChangeEmailAddress(initiatorId, password, newEmailAddress);
+        }
+
+        public virtual void Lock(Initiator initiator)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void Unlock(Initiator initiator)
+        {
+            throw new NotImplementedException();
         }
     }
 }

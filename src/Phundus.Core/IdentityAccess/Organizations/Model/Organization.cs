@@ -134,7 +134,7 @@
 
         protected virtual Membership GetMembershipOfUser(User user)
         {
-            var membership = Memberships.FirstOrDefault(p => p.UserId.Id == user.Guid);
+            var membership = Memberships.FirstOrDefault(p => p.UserId.Id == user.UserId.Id);
             if (membership == null)
                 throw new Exception("Membership not found");
 
@@ -152,7 +152,7 @@
             var membership = GetMembershipOfUser(member);
             membership.Lock();
 
-            EventPublisher.Publish(new MemberLocked(Id, member.Guid));
+            EventPublisher.Publish(new MemberLocked(Id, member.UserId.Id));
         }
 
         public virtual void UnlockMember(User member)
@@ -160,7 +160,7 @@
             var membership = GetMembershipOfUser(member);
             membership.Unlock();
 
-            EventPublisher.Publish(new MemberUnlocked(Id, member.Guid));
+            EventPublisher.Publish(new MemberUnlocked(Id, member.UserId.Id));
         }
 
         public virtual void ChangeStartpage(UserId initiatorId, string startpage)

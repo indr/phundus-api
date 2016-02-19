@@ -6,7 +6,6 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
     using Common.Domain.Model;
     using Cqrs;
     using Integration.IdentityAccess;
-    using NHibernate;
     using Organizations.Model;
     using Organizations.Repositories;
 
@@ -51,6 +50,16 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
             return IsActiveManager(ownerId.Id, userId);
         }
 
+        public bool IsActiveMember(LessorId lessorId, UserId userId)
+        {
+            return IsActiveMember(lessorId.Id, userId);
+        }
+
+        public bool IsActiveMember(OrganizationId organizationId, UserId userId)
+        {
+            return IsActiveMember(organizationId.Id, userId);
+        }
+
         private bool IsActiveManager(Guid organizationId, UserId userId)
         {
             // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
@@ -69,16 +78,6 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
                 return false;
 
             return true;
-        }
-
-        public bool IsActiveMember(LessorId lessorId, UserId userId)
-        {
-            return IsActiveMember(lessorId.Id, userId);
-        }
-
-        public bool IsActiveMember(OrganizationId organizationId, UserId userId)
-        {
-            return IsActiveMember(organizationId.Id, userId);
         }
 
         private bool IsActiveMember(Guid organizationId, UserId userId)

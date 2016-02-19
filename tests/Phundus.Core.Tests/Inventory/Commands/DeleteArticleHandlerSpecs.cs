@@ -24,7 +24,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
             command = new DeleteArticle(theInitiatorId, theArticle.Id);
         };
 
-        private It should_authorize_initiator_to_manage_articles = () =>
+        private It should_enforce_initiator_to_manage_articles = () =>
             EnforcedInitiatorTo<ManageArticlesAccessObject>(p => Equals(p.OwnerId, theOwner.OwnerId));
 
         private It should_publish_article_deleted = () =>

@@ -39,6 +39,12 @@ namespace Phundus.Tests
                 sut.Handle(command);
         };
 
+        protected static IMethodCallOccurrence EnforcedInitiatorTo<T>()
+        {
+            return authorize.WasToldTo(x =>
+                x.Enforce(Arg<InitiatorId>.Is.Equal(theInitiatorId),
+                    Arg<T>.Is.NotNull));
+        }
         protected static IMethodCallOccurrence EnforcedInitiatorTo<T>(Expression<Predicate<T>> accessObjectPredicate)
         {
             return authorize.WasToldTo(x =>

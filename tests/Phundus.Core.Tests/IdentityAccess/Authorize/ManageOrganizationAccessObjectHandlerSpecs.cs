@@ -11,6 +11,7 @@
         identityaccess_access_object_handler_concern<ManageOrganizationAccessObject, ManageOrganizationAccessObjectHandler>
     {
         private static OrganizationId theOrganizationId;
+
         private Establish ctx = () =>
         {
             catchException = true;
@@ -35,7 +36,7 @@
             private Establish ctx = () =>
                 memberInRole.WhenToldTo(x => x.IsActiveManager(theOrganizationId, theUserId)).Return(false);
 
-            private It should_have_test_result_true = () =>
+            private It should_have_test_result_false = () =>
                 testResult.ShouldBeFalse();
 
             private It should_throw_authoritzation_exception = () =>

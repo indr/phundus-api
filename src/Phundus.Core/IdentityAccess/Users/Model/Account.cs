@@ -58,7 +58,7 @@
 
         public virtual string RequestedEmail { get; set; }
 
-        public virtual void Lock(User initiator)
+        public virtual void Lock(Initiator initiator)
         {
             if (IsLockedOut)
                 return;
@@ -69,7 +69,7 @@
             EventPublisher.Publish(new UserLocked(initiator, User, LastLockoutDate.Value));
         }
 
-        public virtual void Unlock(User initiator)
+        public virtual void Unlock(Initiator initiator)
         {
             if (!IsLockedOut)
                 return;

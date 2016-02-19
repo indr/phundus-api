@@ -68,7 +68,7 @@
                 user.MobileNumber
                 ));
 
-            command.ResultingUserGuid = user.Guid;
+            command.ResultingUserGuid = user.UserId.Id;
         }
     }
 }

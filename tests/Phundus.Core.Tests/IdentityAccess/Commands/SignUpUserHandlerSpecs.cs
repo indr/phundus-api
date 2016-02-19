@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Users.Commands
 {
-    using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Users.Commands;
@@ -26,7 +25,7 @@
         public It should_ask_for_unique_email_address =
             () => userRepository.WasToldTo(x => x.FindByEmailAddress(command.EmailAddress.ToLowerInvariant().Trim()));
 
-        public It should_publish_user_registered =
+        public It should_publish_user_signed_up =
             () => publisher.WasToldTo(x => x.Publish(Arg<UserSignedUp>.Is.NotNull));
     }
 }
