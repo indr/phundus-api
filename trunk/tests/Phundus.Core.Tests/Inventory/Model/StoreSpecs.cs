@@ -6,7 +6,7 @@ namespace Phundus.Tests.Inventory.Model
     using Phundus.Inventory.Stores.Model;
     using Rhino.Mocks;
 
-    public class store_concern : aggregate_concern_new<Store>
+    public class store_concern : aggregate_concern<Store>
     {
         protected static inventory_factory make;
 

@@ -7,7 +7,7 @@
     using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
 
-    public abstract class order_concern : aggregate_concern_new<Order>
+    public abstract class order_concern : aggregate_concern<Order>
     {
         protected static shop_factory make;
 
