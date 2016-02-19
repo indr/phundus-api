@@ -89,7 +89,9 @@
             }
 
             EventPublisher.Publish(new OrderPlaced(initiator, order.OrderId, order.ShortOrderId,
-                lessor, lessee));
+                    lessor, lessee, (int)order.Status, order.TotalPrice, order.Items.Select(s => new OrderPlaced.Item(
+                    s.Id, s.ArticleId, s.ArticleShortId, s.Text, s.UnitPrice, s.FromUtc, s.ToUtc, s.Amount,
+                    s.ItemTotal)).ToList()));
         }
     }
 }
