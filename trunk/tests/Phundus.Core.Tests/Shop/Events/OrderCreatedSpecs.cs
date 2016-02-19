@@ -17,7 +17,7 @@
         {
             theShortOrderId = new ShortOrderId(1234);
             theOrderId = new OrderId();
-            theLessor = new Lessor(new LessorId(), "The Lessor", true);
+            theLessor = new Lessor(new LessorId(), "The lessor", true);
             theLessee = new Lessee(new LesseeId(), "Hans", "Muster", "Street", "12345", "City", "user@test.phundus.ch",
                 "+1234567890", "123456");
 

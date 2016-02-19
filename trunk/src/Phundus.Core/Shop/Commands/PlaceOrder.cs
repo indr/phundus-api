@@ -8,6 +8,7 @@
     using Common.Domain.Model;
     using Cqrs;
     using Ddd;
+    using Integration.IdentityAccess;
     using Model;
     using Phundus.Authorization;
     using Repositories;
@@ -31,22 +32,25 @@
     public class PlaceOrderHandler : IHandleCommand<PlaceOrder>
     {
         private readonly IAuthorize _authorize;
+        private readonly IInitiatorService _initiatorService;
         private readonly ICartRepository _cartRepository;
         private readonly ILesseeService _lesseeService;
         private readonly IArticleService _articleService;
         private readonly ILessorService _lessorService;
         private readonly IOrderRepository _orderRepository;
 
-        public PlaceOrderHandler(IAuthorize authorize, ICartRepository cartRepository, IOrderRepository orderRepository,
+        public PlaceOrderHandler(IAuthorize authorize, IInitiatorService initiatorService, ICartRepository cartRepository, IOrderRepository orderRepository,
             ILessorService lessorService, ILesseeService lesseeService, IArticleService articleService)
         {
             if (authorize == null) throw new ArgumentNullException("authorize");
+            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
             if (cartRepository == null) throw new ArgumentNullException("cartRepository");
             if (orderRepository == null) throw new ArgumentNullException("orderRepository");
             if (lessorService == null) throw new ArgumentNullException("lessorService");
             if (lesseeService == null) throw new ArgumentNullException("lesseeService");
             if (articleService == null) throw new ArgumentNullException("articleService");
             _authorize = authorize;
+            _initiatorService = initiatorService;
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
             _lessorService = lessorService;
@@ -63,7 +67,7 @@
             AssertionConcern.AssertArgumentGreaterThan(cartItemsToPlace.Count, 0,
                 String.Format("The cart does not contain items belonging to the lessor {0}.", command.LessorId));
 
-            
+            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
             var lessor = _lessorService.GetById(command.LessorId);
             var lessee = _lesseeService.GetById(new LesseeId(command.InitiatorId.Id));
 
@@ -84,7 +88,8 @@
                 cart.RemoveItem(each.CartItemId);
             }
 
-            EventPublisher.Publish(new OrderPlaced(orderId, lessor.LessorId, null));
+            EventPublisher.Publish(new OrderPlaced(initiator, order.OrderId, order.ShortOrderId,
+                lessor, lessee));
         }
     }
 }
