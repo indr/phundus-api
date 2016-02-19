@@ -21,8 +21,8 @@
         public void Process(ArticleCreated domainEvent)
         {
             var row = CreateRow();
-            row.ItemId = domainEvent.ArticleGuid;
-            row.ItemShortId = domainEvent.ArticleId;
+            row.ItemId = domainEvent.ArticleId;
+            row.ItemShortId = domainEvent.ArticleShortId;
             row.CreatedAtUtc = domainEvent.OccuredOnUtc;
             row.MemberPrice = domainEvent.MemberPrice;
             row.Name = domainEvent.Name;

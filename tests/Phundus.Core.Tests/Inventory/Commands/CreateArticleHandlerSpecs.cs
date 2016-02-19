@@ -51,7 +51,7 @@
 
         public It should_publish_article_created = () =>
             Published<ArticleCreated>(p =>
-                p.ArticleGuid == the_article_id.Id
+                p.ArticleId == the_article_id.Id
                 && p.GrossStock == theGrossStock
                 && p.Initiator.InitiatorGuid == theInitiatorId.Id
                 && p.MemberPrice == theMemberPrice

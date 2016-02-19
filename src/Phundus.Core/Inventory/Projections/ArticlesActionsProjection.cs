@@ -22,14 +22,14 @@
             var row = CreateRow(domainEvent);
             row.OwnerId = domainEvent.Owner.OwnerId.Id;
             row.StoreId = domainEvent.StoreId;
-            row.ArticleId = domainEvent.ArticleGuid;
+            row.ArticleId = domainEvent.ArticleId;
             row.SetData(new
             {
                 initiator = domainEvent.Initiator,
                 owner = domainEvent.Owner,
                 storeId = domainEvent.StoreId,
-                articleId = domainEvent.ArticleGuid,
-                articleShortId = domainEvent.ArticleId,
+                articleId = domainEvent.ArticleId,
+                articleShortId = domainEvent.ArticleShortId,
                 name = domainEvent.Name,
                 grossStock = domainEvent.GrossStock,
                 publicPrice = domainEvent.PublicPrice,

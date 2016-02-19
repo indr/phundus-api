@@ -7,7 +7,7 @@
     using Phundus.Inventory.Articles.Model;
     using Rhino.Mocks;
 
-    public class article_concern : aggregate_concern_new<Article>
+    public abstract class article_concern : aggregate_concern_new<Article>
     {
         protected static inventory_factory make;
 

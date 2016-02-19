@@ -10,6 +10,7 @@ namespace Phundus.Tests.IdentityAccess
         where THandler : class, IHandleCommand<TCommand>
     {
         protected static IMemberInRole memberInRole;
+
         protected static IOrganizationRepository organizationRepository;
 
         protected static identityaccess_factory make;

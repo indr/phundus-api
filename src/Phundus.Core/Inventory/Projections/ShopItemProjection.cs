@@ -22,12 +22,12 @@ namespace Phundus.Inventory.Projections
 
         public void Process(ArticleCreated domainEvent)
         {
-            if (domainEvent.ArticleGuid == Guid.Empty)
+            if (domainEvent.ArticleId == Guid.Empty)
                 return;
 
             var row = CreateRow();
-            row.ArticleGuid = domainEvent.ArticleGuid;
-            row.ArticleId = domainEvent.ArticleId;
+            row.ArticleGuid = domainEvent.ArticleId;
+            row.ArticleId = domainEvent.ArticleShortId;
             row.Name = domainEvent.Name;
             row.LessorId = domainEvent.Owner.OwnerId.Id;
             row.LessorName = domainEvent.Owner.Name;

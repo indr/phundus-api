@@ -28,7 +28,7 @@
         private It should_have_days_equal_3 = () =>
             priceInfo.Days.ShouldEqual(3);
 
-        private It should_have_price_equal_3_00m = () =>
+        private It should_have_price_equal_3_00_m = () =>
             priceInfo.Price.ShouldEqual(3.00m);
 
     }
