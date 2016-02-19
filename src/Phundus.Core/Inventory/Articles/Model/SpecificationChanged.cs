@@ -22,8 +22,7 @@
             Specification = specification;
         }
 
-        [Obsolete("protected")]
-        public SpecificationChanged()
+        protected SpecificationChanged()
         {
         }
 

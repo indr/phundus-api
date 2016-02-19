@@ -25,8 +25,7 @@
             MemberPrice = memberPrice;
         }
 
-        [Obsolete]
-        public ArticleCreated()
+        protected ArticleCreated()
         {
         }
 

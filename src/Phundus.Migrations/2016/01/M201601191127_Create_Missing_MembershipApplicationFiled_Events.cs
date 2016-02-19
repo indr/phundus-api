@@ -50,12 +50,12 @@ namespace Phundus.Migrations
             public Guid UserGuid { get; set; }
 
             [Obsolete]
-            [DataMember(Order = 2)]
-            public int UserIntegralId { get; private set; }
+            [DataMember(Order = 1)]
+            public int OrganizationShortId { get; private set; }
 
             [Obsolete]
-            [DataMember(Order = 1)]
-            public int OrganizationIntegralId { get; private set; }
+            [DataMember(Order = 2)]
+            public int UserShortId { get; private set; }
         }
     }
 }

@@ -32,11 +32,11 @@
         public Guid UserGuid { get; protected set; }
 
         [Obsolete]
-        [DataMember(Order = 2)]
-        public int UserShortId { get; private set; }
-        
-        [Obsolete]
         [DataMember(Order = 1)]
         public int OrganizationShortId { get; private set; }
+
+        [Obsolete]
+        [DataMember(Order = 2)]
+        public int UserShortId { get; private set; }
     }
 }
