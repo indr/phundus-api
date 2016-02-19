@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Net.Mail;
+    using Common.Domain.Model;
     using Ddd;
     using Infrastructure;
     using Infrastructure.Gateways;
@@ -32,7 +33,7 @@
         public void Handle(OrderPlaced @event)
         {
             var order = _orderRepository.GetById(@event.OrderId);
-            var managers = _lessorService.GetManagers(@event.LessorId);
+            var managers = _lessorService.GetManagers(new LessorId(@event.LessorId));
 
             Model = new
             {

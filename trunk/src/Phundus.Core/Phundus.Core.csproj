@@ -335,7 +335,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReadModel.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Shop\Model\Services\BorrowerService.cs" />
+    <Compile Include="Shop\Model\Services\LesseeService.cs" />
     <Compile Include="Shop\Model\Services\ArticleService.cs" />
     <Compile Include="Shop\Authorization\Rent.cs" />
     <Compile Include="Shop\Model\Services\LessorService.cs" />
