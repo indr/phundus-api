@@ -7,7 +7,7 @@
     using Phundus.IdentityAccess.Users.Model;
     using Rhino.Mocks;
 
-    public class user_concern : aggregate_concern_new<User>
+    public class user_concern : aggregate_concern<User>
     {
         protected static string theEmailAddress = "user@test.phundus.ch";
         protected static string thePassword = "1234";
@@ -26,8 +26,6 @@
     [Subject(typeof (User))]
     public class when_creating_a_user : user_concern
     {
-        private Because of = () => { sut = CreateUser(); };
-
         private It should_have_a_password = () => sut.Account.Password.ShouldNotBeEmpty();
         private It should_have_role_user = () => sut.Role.ShouldEqual(UserRole.User);
         private It should_have_the_city = () => sut.City.ShouldEqual("City");
@@ -50,8 +48,7 @@
 
         private Establish ctx = () =>
         {
-            sut = CreateUser();
-            theKey = sut.Account.ValidationKey;
+            sut_setup.run(sut => theKey = sut.Account.ValidationKey);
         };
 
         private Because of = () => result = sut.Account.ValidateKey(theKey);
@@ -65,7 +62,6 @@
     public class when_validating_an_invalid_account_validation_key : user_concern
     {
         private static bool result;
-        private Establish ctx = () => sut = CreateUser();
 
         private Because of = () => result = sut.Account.ValidateKey("wrongKey");
 
@@ -82,8 +78,7 @@
 
         private Establish ctx = () =>
         {
-            sut = CreateUser();
-            theOldValidationKey = sut.Account.ValidationKey;
+            sut_setup.run(sut => theOldValidationKey = sut.Account.ValidationKey);
         };
 
         private Because of = () => sut.ChangeEmailAddress(sut.UserId, thePassword, theNewEmailAddress);
@@ -106,9 +101,11 @@
 
         private Establish ctx = () =>
         {
-            sut = CreateUser();
-            sut.Account.ChangeEmailAddress(sut.UserId, thePassword, theNewEmailAddress);
-            theKey = sut.Account.ValidationKey;
+            sut_setup.run(sut =>
+            {
+                sut.Account.ChangeEmailAddress(sut.UserId, thePassword, theNewEmailAddress);
+                theKey = sut.Account.ValidationKey;
+            });
         };
 
         private Because of = () => result = sut.Account.ValidateKey(theKey);
@@ -137,8 +134,7 @@
 
         private Establish ctx = () =>
         {
-            sut = CreateUser();
-            sut.Account.ChangeEmailAddress(sut.UserId, thePassword, theNewEmailAddress);
+            sut_setup.run(sut => sut.Account.ChangeEmailAddress(sut.UserId, thePassword, theNewEmailAddress));
         };
 
         private Because of = () => result = sut.Account.ValidateKey("wrongKey");

@@ -95,7 +95,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="aggregate_concern.cs" />
     <Compile Include="Ddd\DomainEntitesSpecs.cs" />
     <Compile Include="Ddd\DomainEventsSpecs.cs" />
     <Compile Include="factory_base.cs" />
@@ -122,7 +121,7 @@
     <Compile Include="IdentityAccess\Events\UserApprovedSpecs.cs" />
     <Compile Include="IdentityAccess\Model\UserSpecs.cs" />
     <Compile Include="InstallerTests\QueriesInstaller.cs" />
-    <Compile Include="aggregate_concern_new.cs" />
+    <Compile Include="aggregate_concern.cs" />
     <Compile Include="Inventory\Commands\AddImageCommandSpecs.cs" />
     <Compile Include="Inventory\Commands\RemoveImageCommandSpecs.cs" />
     <Compile Include="Inventory\Commands\SetPreviewImageHandlerSpecs.cs" />

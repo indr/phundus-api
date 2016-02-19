@@ -9,7 +9,7 @@
     using Phundus.IdentityAccess.Users.Model;
     using Rhino.Mocks;
 
-    public class organization_concern : aggregate_concern_new<Organization>
+    public class organization_concern : aggregate_concern<Organization>
     {
         protected static identityaccess_factory make;
 
