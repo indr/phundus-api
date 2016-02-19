@@ -114,6 +114,7 @@
     <Compile Include="IdentityAccess\Commands\UpdateStartpageHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Events\MembershipApplicationFiledSpecs.cs" />
     <Compile Include="IdentityAccess\Model\OrganizationSpecs.cs" />
+    <Compile Include="IdentityAccess\Model\UserInRoleSpecs.cs" />
     <Compile Include="IdentityAccess\Queries\OrganizationViewRowSpecs.cs" />
     <Compile Include="IdentityAccess\Commands\ChangeEmailAddressHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Commands\SignUpUserHandlerSpecs.cs" />
