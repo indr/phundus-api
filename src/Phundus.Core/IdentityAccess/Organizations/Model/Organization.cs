@@ -18,18 +18,11 @@
         private DateTime _establishedAtUtc = DateTime.UtcNow;
         private ISet<Membership> _memberships = new HashedSet<Membership>();
         private string _name;
-        private string _startpage;
         private Settings _settings = new Settings();
+        private string _startpage;
 
-        public Organization(Guid id, string name) : base(new OrganizationId(id))
+        public Organization(OrganizationId organizationId, string name) : base(organizationId)
         {
-            _name = name;
-        }
-
-        public Organization(InitiatorId initiatorId, OrganizationId organizationId, string name)
-            : base(organizationId)
-        {
-            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (name == null) throw new ArgumentNullException("name");
             _name = name;
         }
@@ -86,10 +79,9 @@
             get
             {
                 if (String.IsNullOrWhiteSpace(_startpage))
-                    return
-                        String.Format(
-                            "<p>Startseite der Organisation \"{0}\".</p><p>Diese Seite kann unter \"Verwaltung\" / \"Einstellungen\" angepasst werden.",
-                            Name);
+                    return String.Format(
+                        "<p>Startseite der Organisation \"{0}\".</p><p>Diese Seite kann unter \"Verwaltung\" / \"Einstellungen\" angepasst werden.",
+                        Name);
                 return _startpage;
             }
             set { _startpage = value; }
@@ -116,13 +108,6 @@
             EventPublisher.Publish(new MembershipApplicationFiled(initiatorId, Id, user.UserId));
 
             return application;
-        }
-
-        [Obsolete]
-        public virtual MembershipApplication RequestMembership(InitiatorId initiatorId, Guid applicationId,
-            User user)
-        {
-            return RequestMembership(initiatorId, new MembershipApplicationId(applicationId), user);
         }
 
         public virtual void ApproveMembershipRequest(UserId initiatorId, MembershipApplication application,
@@ -208,7 +193,7 @@
 
             _settings = new Settings(value);
 
-            EventPublisher.Publish(new PublicRentalSettingChanged(initiator, this.Id, _settings.PublicRental));
+            EventPublisher.Publish(new PublicRentalSettingChanged(initiator, Id, _settings.PublicRental));
         }
     }
 }

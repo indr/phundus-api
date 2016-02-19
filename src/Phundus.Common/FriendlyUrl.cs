@@ -2,10 +2,8 @@
 {
     using System.Text.RegularExpressions;
 
-    
     public static class FriendlyUrl
     {
-        
         public static string ToFriendlyUrl(this string value, bool toLowerCase = true)
         {
             // http://stackoverflow.com/questions/37809/how-do-i-generate-a-friendly-url-in-c

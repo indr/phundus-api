@@ -19,10 +19,13 @@
 
             theInitiatorId = new InitiatorId();
             theInitiator = new Initiator(theInitiatorId, "initiator@test.phundus.ch", "The Initiator");
+            theOrganizationId = new OrganizationId();
 
             sut_factory.create_using(() =>
-                new Organization(Guid.NewGuid(), "Organization name"));
+                new Organization(theOrganizationId, "The organization"));
         };
+
+        private static OrganizationId theOrganizationId;
     }
 
     [Subject(typeof (Organization))]

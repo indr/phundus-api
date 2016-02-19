@@ -6,7 +6,7 @@
     using Phundus.Shop.Orders.Model;
 
     [Subject(typeof (OrderCreated))]
-    public class OrderCreatedSpecs : domain_event_concern<OrderCreated>
+    public class order_created : domain_event_concern<OrderCreated>
     {
         private static ShortOrderId theShortOrderId;
         private static OrderId theOrderId;

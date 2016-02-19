@@ -17,7 +17,7 @@
 
         private Establish ctx = () =>
         {
-            theOrganization = new Organization(theInitiatorId, theOrganizationId, "The organization");
+            theOrganization = new Organization(theOrganizationId, "The organization");
             depends.on<IOrganizationRepository>()
                 .WhenToldTo(x => x.GetById(theOrganizationId.Id))
                 .Return(theOrganization);

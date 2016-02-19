@@ -59,7 +59,7 @@
             var user = new User(emailAddress, command.Password, command.FirstName, command.LastName, command.Street,
                 command.Postcode, command.City, command.MobilePhone, null);
 
-            var userId = _userRepository.Add(user);
+            _userRepository.Add(user);
 
             EventPublisher.Publish(new UserSignedUp(user.UserId,
                 user.Account.Email, user.Account.Password, user.Account.Salt,
