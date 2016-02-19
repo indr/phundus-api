@@ -12,9 +12,19 @@
 
     public class CreateEmptyOrder
     {
-        public CurrentUserId InitiatorId { get; set; }
-        public LessorId LessorId { get; set; }
-        public LesseeId LesseeId { get; set; }
+        public CreateEmptyOrder(InitiatorId initiatorId, LessorId lessorId, LesseeId lesseeId)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (lessorId == null) throw new ArgumentNullException("lessorId");
+            if (lesseeId == null) throw new ArgumentNullException("lesseeId");
+            InitiatorId = initiatorId;
+            LessorId = lessorId;
+            LesseeId = lesseeId;
+        }
+
+        public InitiatorId InitiatorId { get; protected set; }
+        public LessorId LessorId { get; protected set; }
+        public LesseeId LesseeId { get; protected set; }
         
         public int ResultingOrderId { get; set; }
     }
