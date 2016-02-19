@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Users.Commands
 {
+    using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Users.Commands;
@@ -15,7 +16,7 @@
         public Establish c = () =>
         {
             userRepository = depends.on<IUserRepository>();
-            command = new SignUpUser("MAIL@DOMAIN.COM", "Password", "FirstName", "LastName", "Street", "Postcode",
+            command = new SignUpUser(new UserId(), "MAIL@DOMAIN.COM", "Password", "FirstName", "LastName", "Street", "Postcode",
                 "City", "MobilePhone");
         };
 
@@ -25,7 +26,17 @@
         public It should_ask_for_unique_email_address =
             () => userRepository.WasToldTo(x => x.FindByEmailAddress(command.EmailAddress.ToLowerInvariant().Trim()));
 
-        public It should_publish_user_signed_up =
-            () => publisher.WasToldTo(x => x.Publish(Arg<UserSignedUp>.Is.NotNull));
+        public It should_publish_user_signed_up = () =>
+            Published<UserSignedUp>(p => p.City == "City"
+                                         && p.EmailAddress == "mail@domain.com"
+                                         && p.FirstName == "FirstName"
+                                         && p.JsNumber == null
+                                         && p.LastName == "LastName"
+                                         && p.MobilePhone == "MobilePhone"
+                                         && p.Password != "Password"
+                                         && p.Postcode == "Postcode"
+                                         && p.Salt != ""
+                                         && p.Street == "Street"
+                                         && p.UserGuid == command.UserId.Id);
     }
 }

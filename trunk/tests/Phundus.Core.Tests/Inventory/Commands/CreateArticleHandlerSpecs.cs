@@ -16,19 +16,19 @@
         article_command_handler_concern<CreateArticle, CreateArticleHandler>
     {
         private static Owner theOwner;
-        private static ArticleId the_article_id;
+        private static ArticleId theArticleId;
         private static string theName;
         private static int theGrossStock;
         private static decimal theMemberPrice;
         private static decimal thePublicPrice;
-        private static int theArticleShortId;
+        private static int theArticleShortId = 1234;
         private static Store theStore;
 
         public Establish c = () =>
         {
             theOwner = make.Owner();
             theStore = make.Store();
-            the_article_id = new ArticleId();
+            theArticleId = new ArticleId();
             theName = "The name";
             theGrossStock = 10;
             theMemberPrice = 11.10m;
@@ -38,7 +38,7 @@
             ownerService.setup(x => x.GetById(theOwner.OwnerId)).Return(theOwner);
             depends.on<IStoreRepository>().setup(x => x.GetByOwnerAndId(theOwner.OwnerId, theStore.Id)).Return(theStore);
 
-            command = new CreateArticle(theInitiatorId, theOwner.OwnerId, theStore.Id, the_article_id,
+            command = new CreateArticle(theInitiatorId, theOwner.OwnerId, theStore.Id, theArticleId,
                 theName, theGrossStock, thePublicPrice, theMemberPrice);
         };
 
@@ -51,7 +51,7 @@
 
         public It should_publish_article_created = () =>
             Published<ArticleCreated>(p =>
-                p.ArticleId == the_article_id.Id
+                p.ArticleId == theArticleId.Id
                 && p.GrossStock == theGrossStock
                 && p.Initiator.InitiatorGuid == theInitiatorId.Id
                 && p.MemberPrice == theMemberPrice

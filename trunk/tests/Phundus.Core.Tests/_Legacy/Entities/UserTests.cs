@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Tests._Legacy.Entities
 {
     using System;
+    using Common.Domain.Model;
     using NUnit.Framework;
     using Phundus.IdentityAccess.Users.Model;
 
@@ -9,7 +10,7 @@
     {
         protected static User CreateUser()
         {
-            return new User("user@test.phundus.ch", "1234", "Hans", "Müller", "Street", "1234", "City",
+            return new User(new UserId(), "user@test.phundus.ch", "1234", "Hans", "Müller", "Street", "1234", "City",
                 "012 345 67 89", null);
         }
 
