@@ -21,7 +21,7 @@
         private static int theGrossStock;
         private static decimal theMemberPrice;
         private static decimal thePublicPrice;
-        private static int theArticleId;
+        private static int theArticleShortId;
         private static Store theStore;
 
         public Establish c = () =>
@@ -34,7 +34,7 @@
             theMemberPrice = 11.10m;
             thePublicPrice = 12.20m;
 
-            articleRepository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(theArticleId);
+            articleRepository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(theArticleShortId);
             ownerService.setup(x => x.GetById(theOwner.OwnerId)).Return(theOwner);
             depends.on<IStoreRepository>().setup(x => x.GetByOwnerAndId(theOwner.OwnerId, theStore.Id)).Return(theStore);
 
@@ -60,6 +60,6 @@
                 && p.PublicPrice == thePublicPrice
                 && p.StoreId == theStore.Id.Id);
 
-        public It should_set_resulting_article_id = () => command.ResultingArticleId.ShouldEqual(theArticleId);
+        public It should_set_resulting_article_id = () => command.ResultingArticleId.ShouldEqual(theArticleShortId);
     }
 }

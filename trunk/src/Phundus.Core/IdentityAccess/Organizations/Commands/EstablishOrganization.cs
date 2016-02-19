@@ -43,7 +43,7 @@
 
         public void Handle(EstablishOrganization command)
         {
-            var organization = new Organization(command.InitiatorId, command.OrganizationId, command.Name);
+            var organization = new Organization(command.OrganizationId, command.Name);
 
             _organizationRepository.Add(organization);
 
@@ -51,7 +51,7 @@
                 organization.Plan.ToString().ToLowerInvariant(), organization.Name,
                 organization.Url));
 
-            var requestId = Guid.NewGuid();
+            var requestId = new MembershipApplicationId();
             var user = _userRepository.GetByGuid(command.InitiatorId);
             var application = organization.RequestMembership(command.InitiatorId, requestId, user);
 

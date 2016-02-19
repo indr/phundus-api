@@ -15,7 +15,6 @@
         private Iesi.Collections.Generic.ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private Lessee _lessee;
         private Lessor _lessor;
-        private UserId _modifiedBy;
         private DateTime? _modifiedUtc;
         private ShortOrderId _shortOrderId = new ShortOrderId(0);
         private OrderStatus _status = OrderStatus.Pending;

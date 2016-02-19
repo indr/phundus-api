@@ -73,10 +73,6 @@
     <Reference Include="NHibernate">
       <HintPath>..\..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Phundus.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\phiNdus.fundus.Web\Bin\Phundus.Core.dll</HintPath>
-    </Reference>
     <Reference Include="RazorEngine">
       <HintPath>..\..\packages\RazorEngine.3.2.0\lib\net40\RazorEngine.dll</HintPath>
     </Reference>
@@ -372,7 +368,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phundus.Common\Phundus.Common.csproj">
-      <Project>{0BA282A6-FEA2-44A2-9748-1DE0E4E32018}</Project>
+      <Project>{0ba282a6-fea2-44a2-9748-1de0e4e32018}</Project>
       <Name>Phundus.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Phundus.Infrastructure\Phundus.Infrastructure.csproj">
