@@ -12,7 +12,7 @@ namespace Phundus.IdentityAccess.Users.Model
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (user == null) throw new ArgumentNullException("user");
             InitiatorId = initiatorId;
-            UserGuid = user.Guid;
+            UserGuid = user.UserId.Id;
         }
 
         protected UserEmailAddressChangeRequested()

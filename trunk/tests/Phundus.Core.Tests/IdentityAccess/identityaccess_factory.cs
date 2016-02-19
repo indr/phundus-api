@@ -33,7 +33,6 @@
         {
             var result = fake.an<User>();
             result.setup(x => x.UserId).Return(userId);
-            result.setup(x => x.Guid).Return(userId.Id);
             return result;
         }
     }

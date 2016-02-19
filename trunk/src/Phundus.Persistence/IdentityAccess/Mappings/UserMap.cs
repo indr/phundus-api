@@ -12,8 +12,11 @@
 
             Table("Dm_IdentityAccess_User");
             Id(x => x.Id).GeneratedBy.Native();
-            Map(x => x.Guid, "Guid");
             Version(x => x.Version);
+
+            Component(x => x.UserId, a =>
+                a.Map(x => x.Id, "Guid"));
+
 
             Map(x => x.FirstName);
             Map(x => x.LastName);

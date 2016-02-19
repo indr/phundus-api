@@ -8,6 +8,7 @@
     public interface IUserInRole
     {
         User Admin(UserId userId);
+        bool IsAdmin(UserId userId);
     }
 
     public class UserInRole : IUserInRole
@@ -28,6 +29,11 @@
                 throw new AuthorizationException("Sie müssen Administratorenrechte haben.");
 
             return user;
+        }
+
+        public bool IsAdmin(UserId userId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

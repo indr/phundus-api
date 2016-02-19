@@ -1,10 +1,12 @@
 ﻿namespace Phundus.IdentityAccess.Users.Commands
 {
     using System;
+    using Authorization;
     using Common.Domain.Model;
     using Cqrs;
+    using Integration.IdentityAccess;
+    using Phundus.Authorization;
     using Repositories;
-    using Services;
 
     public class LockUser
     {
@@ -23,24 +25,30 @@
 
     public class LockUserHandler : IHandleCommand<LockUser>
     {
-        private readonly IUserInRole _userInRole;
+        private readonly IAuthorize _authorize;
+        private readonly IInitiatorService _initiatorService;
         private readonly IUserRepository _userRepository;
 
-        public LockUserHandler(IUserInRole userInRole, IUserRepository userRepository)
+        public LockUserHandler(IAuthorize authorize, IInitiatorService initiatorService, IUserRepository userRepository)
         {
-            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (authorize == null) throw new ArgumentNullException("authorize");
+            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
             if (userRepository == null) throw new ArgumentNullException("userRepository");
 
-            _userInRole = userInRole;
+            _authorize = authorize;
+            _initiatorService = initiatorService;
             _userRepository = userRepository;
         }
 
         public void Handle(LockUser command)
         {
-            var initiator = _userInRole.Admin(command.InitiatorId);
+            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
+
+            _authorize.Enforce(initiator.InitiatorId, Manage.Users);
 
             var user = _userRepository.GetByGuid(command.UserId);
-            user.Account.Lock(initiator);
+
+            user.Lock(initiator);
         }
     }
 }

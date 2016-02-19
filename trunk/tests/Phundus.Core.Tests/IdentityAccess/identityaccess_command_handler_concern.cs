@@ -4,6 +4,7 @@ namespace Phundus.Tests.IdentityAccess
     using Phundus.Cqrs;
     using Phundus.IdentityAccess.Organizations.Repositories;
     using Phundus.IdentityAccess.Queries;
+    using Phundus.IdentityAccess.Users.Repositories;
 
     public class identityaccess_command_handler_concern<TCommand, THandler> :
         command_handler_concern<TCommand, THandler>
@@ -13,12 +14,15 @@ namespace Phundus.Tests.IdentityAccess
 
         protected static IOrganizationRepository organizationRepository;
 
+        protected static IUserRepository userRepository;
+
         protected static identityaccess_factory make;
 
         private Establish ctx = () =>
         {
             memberInRole = depends.on<IMemberInRole>();
             organizationRepository = depends.on<IOrganizationRepository>();
+            userRepository = depends.on<IUserRepository>();
             make = new identityaccess_factory(fake);
         };
     }

@@ -5,9 +5,15 @@
     using Common.Domain.Model;
     using Phundus.Authorization;
     using Queries;
+    using Users.Services;
 
     public static class Manage
     {
+        public static ManageUsersAccessObject Users
+        {
+            get { return new ManageUsersAccessObject(); }
+        }
+
         public static ManageOrganizationAccessObject Organization(OrganizationId organizationId)
         {
             return new ManageOrganizationAccessObject(organizationId);
@@ -44,6 +50,32 @@
         public bool Test(UserId userId, ManageOrganizationAccessObject accessObject)
         {
             return _memberInRole.IsActiveManager(accessObject.OrganizationId, userId);
+        }
+    }
+
+    public class ManageUsersAccessObject : IAccessObject
+    {
+    }
+
+    public class ManageUsersAccessObjectHandler : IHandleAccessObject<ManageUsersAccessObject>
+    {
+        private readonly IUserInRole _userInRole;
+
+        public ManageUsersAccessObjectHandler(IUserInRole userInRole)
+        {
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            _userInRole = userInRole;
+        }
+
+        public void Enforce(UserId userId, ManageUsersAccessObject accessObject)
+        {
+            if (!Test(userId, accessObject))
+                throw new AuthorizationException("Du benötigst die Rolle Administration.");
+        }
+
+        public bool Test(UserId userId, ManageUsersAccessObject accessObject)
+        {
+            return _userInRole.IsAdmin(userId);
         }
     }
 }

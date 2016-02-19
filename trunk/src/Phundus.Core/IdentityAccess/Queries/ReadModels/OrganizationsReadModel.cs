@@ -6,7 +6,6 @@
     using Common;
     using Cqrs;
     using Integration.IdentityAccess;
-    using NHibernate;
     using Organizations.Model;
     using Organizations.Repositories;
     using QueryModels;
