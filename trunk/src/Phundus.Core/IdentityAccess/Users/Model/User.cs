@@ -140,12 +140,16 @@
 
         public virtual void Lock(Initiator initiator)
         {
-            throw new NotImplementedException();
+            if (initiator == null) throw new ArgumentNullException("initiator");
+
+            Account.Lock(initiator);
         }
 
         public virtual void Unlock(Initiator initiator)
         {
-            throw new NotImplementedException();
+            if (initiator == null) throw new ArgumentNullException("initiator");
+
+            Account.Unlock(initiator);
         }
     }
 }
