@@ -305,6 +305,7 @@
     <Compile Include="Shop\Model\Pdf\OrderPdfGeneratorService.cs" />
     <Compile Include="Shop\Model\Pdf\PdfStore.cs" />
     <Compile Include="Shop\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
+    <Compile Include="Shop\Projections\OrdersProjection.cs" />
     <Compile Include="Shop\Projections\OrdersProjectionRow.cs" />
     <Compile Include="Shop\Projections\ResultItemsProjection.cs" />
     <Compile Include="Shop\Projections\ResultItemsProjectionRow.cs" />

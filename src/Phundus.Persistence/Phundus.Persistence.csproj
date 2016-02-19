@@ -97,6 +97,8 @@
     <Compile Include="Shop\Mappings\CartMap.cs" />
     <Compile Include="Shop\Mappings\CartViewRowMap.cs" />
     <Compile Include="Shop\Mappings\LessorViewRowMap.cs" />
+    <Compile Include="Shop\Mappings\OrderItemsProjectionRowMap.cs" />
+    <Compile Include="Shop\Mappings\OrdersProjectionRowMap.cs" />
     <Compile Include="Shop\Mappings\ResultItemsProjectionRowMap.cs" />
     <Compile Include="Shop\Mappings\ShopItemFilesProjectionRowMap.cs" />
     <Compile Include="Shop\Mappings\ShopItemImagesProjectionRowMap.cs" />

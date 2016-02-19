@@ -20,6 +20,5 @@
 
         public virtual ICollection<ShopItemFilesProjectionRow> Documents { get; set; }
         public virtual ICollection<ShopItemImagesProjectionRow> Images { get; set; }
-        
     }
 }

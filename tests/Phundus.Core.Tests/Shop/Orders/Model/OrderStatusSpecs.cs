@@ -1,11 +1,9 @@
 ﻿namespace Phundus.Tests.Shop.Orders.Model
 {
     using System;
-    using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
     using Rhino.Mocks;
 
