@@ -3,6 +3,7 @@
     using Common.Domain.Model;
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
+    using Machine.Fakes;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Users.Model;
 
@@ -19,9 +20,16 @@
             return result;
         }
 
+        public User Admin()
+        {
+            return Admin(new UserId());
+        }
+
         public User Admin(UserId userId)
         {
-            return User(userId);
+            var user = User(userId);
+            user.WhenToldTo(x => x.Role).Return(UserRole.Admin);
+            return user;
         }
 
         public User User()

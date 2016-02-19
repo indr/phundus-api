@@ -33,7 +33,8 @@
 
         public bool IsAdmin(UserId userId)
         {
-            throw new System.NotImplementedException();
+            var user = _userRepository.GetByGuid(userId);
+            return user.Role == UserRole.Admin;
         }
     }
 }
