@@ -16,9 +16,6 @@
     {
         public Because of = () => sut.Approve(theInitiatorId);
 
-        public It should_be_modified_on =
-            () => sut.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
-
         public It should_have_status_approved = () => sut.Status.ShouldEqual(OrderStatus.Approved);
 
         public It should_publish_order_approved =
@@ -30,9 +27,6 @@
     {
         public Because of = () => sut.Reject(theInitiatorId);
 
-        public It should_be_modified_on =
-            () => sut.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
-
         public It should_have_status_rejected = () => sut.Status.ShouldEqual(OrderStatus.Rejected);
 
         public It should_publish_order_rejected =
@@ -43,9 +37,6 @@
     public class when_a_pending_order_is_closed : pending_order_concern
     {
         public Because of = () => sut.Close(theInitiatorId);
-
-        public It should_be_modified_on =
-            () => sut.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         public It should_have_status_closed = () => sut.Status.ShouldEqual(OrderStatus.Closed);
 
@@ -80,9 +71,6 @@
     {
         public Because of = () => sut.Close(theInitiatorId);
 
-        public It should_be_modified_on =
-            () => sut.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
-
         public It should_have_status_closed = () => sut.Status.ShouldEqual(OrderStatus.Closed);
 
         public It should_publish_order_closed =
@@ -93,9 +81,6 @@
     public class when_a_approved_order_is_rejected : approved_order_concern
     {
         public Because of = () => sut.Reject(theInitiatorId);
-
-        public It should_be_modified_on =
-            () => sut.ModifiedUtc.Value.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         public It should_have_status_rejected = () => sut.Status.ShouldEqual(OrderStatus.Rejected);
 

@@ -16,9 +16,8 @@ namespace Phundus.Persistence.Shop.Mappings
             Version(x => x.Version);
             Component(x => x.OrderId, a => a.Map(x => x.Id, "OrderGuid"));
 
-            Map(x => x.CreatedUtc, "CreatedUtc").CustomType<UtcDateTimeType>();
+            Map(x => x.CreatedAtUtc, "CreatedUtc").CustomType<UtcDateTimeType>();
             Map(x => x.Status, "Status").CustomType<OrderStatus>();
-            Map(x => x.ModifiedUtc, "ModifiedUtc").CustomType<UtcDateTimeType>();
 
             Component(x => x.Lessor, c =>
             {

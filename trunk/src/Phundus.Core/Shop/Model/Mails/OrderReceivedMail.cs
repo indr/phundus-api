@@ -32,7 +32,7 @@
 
         public void Handle(OrderPlaced @event)
         {
-            var order = _orderRepository.GetById(@event.OrderId);
+            var order = _orderRepository.GetById(@event.OrderShortId);
             var managers = _lessorService.GetManagers(new LessorId(@event.LessorId));
 
             Model = new

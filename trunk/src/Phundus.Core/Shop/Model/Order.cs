@@ -10,12 +10,12 @@
 
     public class Order
     {
-        private DateTime _createdUtc = DateTime.UtcNow;
-        private OrderId _guid = new OrderId();
+        private DateTime _createdAtUtc = DateTime.UtcNow;
         private Iesi.Collections.Generic.ISet<OrderItem> _items = new HashedSet<OrderItem>();
         private Lessee _lessee;
         private Lessor _lessor;
         private DateTime? _modifiedUtc;
+        private OrderId _orderId = new OrderId();
         private ShortOrderId _shortOrderId = new ShortOrderId(0);
         private OrderStatus _status = OrderStatus.Pending;
 
@@ -52,27 +52,16 @@
 
         public virtual OrderId OrderId
         {
-            get { return _guid; }
-            protected set { _guid = value; }
+            get { return _orderId; }
+            protected set { _orderId = value; }
         }
 
         public virtual int Version { get; protected set; }
 
-        public virtual Lessor Lessor
+        public virtual DateTime CreatedAtUtc
         {
-            get { return _lessor; }
-            protected set { _lessor = value; }
-        }
-
-        public virtual DateTime CreatedUtc
-        {
-            get { return _createdUtc; }
-            set { _createdUtc = value; }
-        }
-
-        public virtual DateTime CreatedLocal
-        {
-            get { return _createdUtc.ToLocalTime(); }
+            get { return _createdAtUtc; }
+            set { _createdAtUtc = value; }
         }
 
         public virtual OrderStatus Status
@@ -81,10 +70,10 @@
             protected set { _status = value; }
         }
 
-        public virtual DateTime? ModifiedUtc
+        public virtual Lessor Lessor
         {
-            get { return _modifiedUtc; }
-            protected set { _modifiedUtc = value; }
+            get { return _lessor; }
+            protected set { _lessor = value; }
         }
 
         public virtual Lessee Lessee
@@ -131,7 +120,6 @@
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
 
-            ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Rejected;
 
             EventPublisher.Publish(new OrderRejected {OrderId = ShortOrderId.Id});
@@ -146,7 +134,6 @@
             if (Status == OrderStatus.Approved)
                 throw new OrderAlreadyApprovedException();
 
-            ModifiedUtc = DateTime.UtcNow;
             Status = OrderStatus.Approved;
 
             EventPublisher.Publish(new OrderApproved {OrderId = ShortOrderId.Id});
@@ -158,8 +145,7 @@
                 throw new OrderAlreadyRejectedException();
             if (Status == OrderStatus.Closed)
                 throw new OrderAlreadyClosedException();
-
-            ModifiedUtc = DateTime.UtcNow;
+            
             Status = OrderStatus.Closed;
 
             EventPublisher.Publish(new OrderClosed {OrderId = ShortOrderId.Id});
@@ -257,16 +243,5 @@
 
     public class OrderAlreadyApprovedException : Exception
     {
-    }
-
-    public class ArticleNotAvailableException : Exception
-    {
-        public ArticleNotAvailableException(OrderItem orderItem)
-            : base("Die gewünschte Menge ist im gewünschten Zeitraum nicht vorhanden.")
-        {
-            OrderItemId = orderItem.Id;
-        }
-
-        public Guid OrderItemId { get; set; }
     }
 }
