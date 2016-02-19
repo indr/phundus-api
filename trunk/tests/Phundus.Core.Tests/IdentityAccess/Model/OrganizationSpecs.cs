@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Organizations.Model
 {
+    using System;
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
@@ -8,14 +9,30 @@
     using Phundus.IdentityAccess.Users.Model;
     using Rhino.Mocks;
 
+    public class organization_concern : aggregate_concern_new<Organization>
+    {
+        protected static identityaccess_factory make;
+
+        private Establish ctx = () =>
+        {
+            make = new identityaccess_factory(fake);
+
+            theInitiatorId = new InitiatorId();
+            theInitiator = new Initiator(theInitiatorId, "initiator@test.phundus.ch", "The Initiator");
+
+            sut_factory.create_using(() =>
+                new Organization(Guid.NewGuid(), "Organization name"));
+        };
+    }
+
     [Subject(typeof (Organization))]
     public class when_instantiating_an_organization : organization_concern
     {
-        private It should_have_settings = () =>
-            sut.Settings.ShouldNotBeNull();
-
         private It should_have_setting_public_rental_true = () =>
             sut.Settings.PublicRental.ShouldBeTrue();
+
+        private It should_have_settings = () =>
+            sut.Settings.ShouldNotBeNull();
     }
 
     [Subject(typeof (Organization))]
@@ -58,7 +75,7 @@
         private Establish ctx = () =>
         {
             theApplicationId = new MembershipApplicationId();
-            theUser = CreateUser();
+            theUser = make.User();
         };
 
         private Because of = () => sut.RequestMembership(theInitiatorId, theApplicationId, theUser);
@@ -81,11 +98,14 @@
         {
             theFirstApplicationId = new MembershipApplicationId();
             theSecondApplicationId = new MembershipApplicationId();
-            theUser = CreateUser();
-            sut.RequestMembership(theInitiatorId, theFirstApplicationId, theUser);
+            theUser = make.User();
+
+            sut_setup.run(sut =>
+                sut.RequestMembership(theInitiatorId, theFirstApplicationId, theUser));
         };
 
-        private Because of = () => sut.RequestMembership(theInitiatorId, theSecondApplicationId, theUser);
+        private Because of = () =>
+            sut.RequestMembership(theInitiatorId, theSecondApplicationId, theUser);
 
         private It should_not_have_a_second_application =
             () => sut.Applications.Count.ShouldEqual(1);

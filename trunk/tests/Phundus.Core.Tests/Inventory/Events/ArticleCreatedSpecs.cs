@@ -9,26 +9,26 @@
     public class article_created : domain_event_concern<ArticleCreated>
     {
         private static Owner theOwner;
-        private static int theArticleIntegralId;
+        private static int theArticleShortId;
         private static string theName;
         private static int theGrossStock;
         private static decimal theMemberPrice;
         private static decimal thePublicPrice;
-        private static Guid theArticleGuid;
+        private static Guid theArticleId;
         private static StoreId theStoreId;
 
         private Establish ctx = () =>
         {
             theOwner = new Owner(new OwnerId(), "The Owner", OwnerType.User);
             theStoreId = new StoreId();
-            theArticleIntegralId = 1;
-            theArticleGuid = Guid.NewGuid();
+            theArticleShortId = 1;
+            theArticleId = Guid.NewGuid();
             theName = "The Article";
             theGrossStock = 2;
             theMemberPrice = 3.33m;
             thePublicPrice = 4.44m;
             sut_factory.create_using(() => new ArticleCreated(theInitiator, theOwner, theStoreId,
-                theArticleIntegralId, theArticleGuid, theName, theGrossStock, thePublicPrice, theMemberPrice));
+                theArticleShortId, theArticleId, theName, theGrossStock, thePublicPrice, theMemberPrice));
         };
 
         private It should_be_in_assembly = () =>
@@ -37,11 +37,11 @@
         private It should_have_at_2_owner = () =>
             dataMember(2).ShouldEqual(theOwner);
 
-        private It should_have_at_4_the_article_id = () =>
-            dataMember(4).ShouldEqual(theArticleIntegralId);
+        private It should_have_at_4_the_article_short_id = () =>
+            dataMember(4).ShouldEqual(theArticleShortId);
 
-        private It should_have_at_5_the_article_guid = () =>
-            dataMember(5).ShouldEqual(theArticleGuid);
+        private It should_have_at_5_the_article_id = () =>
+            dataMember(5).ShouldEqual(theArticleId);
 
         private It should_have_at_6_the_name = () =>
             dataMember(6).ShouldEqual(theName);

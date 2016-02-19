@@ -3,6 +3,7 @@
     using developwithpassion.specifications.rhinomocks;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Organizations.Model;
     using Phundus.IdentityAccess.Model;
     using Phundus.IdentityAccess.Organizations.Model;
     using Rhino.Mocks;

@@ -20,12 +20,12 @@
 
         public void Process(ArticleCreated domainEvent)
         {
-            if (domainEvent.ArticleGuid == Guid.Empty)
+            if (domainEvent.ArticleId == Guid.Empty)
                 return;
 
             var row = new ArticlesProjectionRow();
-            row.ArticleId = domainEvent.ArticleGuid;
-            row.ArticleShortId = domainEvent.ArticleId;
+            row.ArticleId = domainEvent.ArticleId;
+            row.ArticleShortId = domainEvent.ArticleShortId;
             row.CreatedAtUtc = domainEvent.OccuredOnUtc;
             row.GrossStock = domainEvent.GrossStock;
             row.Name = domainEvent.Name;
