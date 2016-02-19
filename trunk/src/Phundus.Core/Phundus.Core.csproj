@@ -288,11 +288,8 @@
     <Compile Include="Shop\Commands\RejectOrder.cs" />
     <Compile Include="Shop\Commands\RemoveCartItem.cs" />
     <Compile Include="Shop\Commands\UpdateCartItem.cs" />
-    <Compile Include="Shop\Model\Exceptions\OrderNotFoundException.cs" />
     <Compile Include="Shop\Commands\RemoveOrderItem.cs" />
     <Compile Include="Shop\Commands\UpdateOrderItem.cs" />
-    <Compile Include="Shop\Model\Exceptions\ArticleNotFoundException.cs" />
-    <Compile Include="Shop\Model\Exceptions\CartNotFoundException.cs" />
     <Compile Include="Shop\Model\Mails\OrderStatusChangedMailNotifier.cs" />
     <Compile Include="Shop\Model\Article.cs" />
     <Compile Include="Shop\Model\CartItem.cs" />
