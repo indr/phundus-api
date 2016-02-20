@@ -11,7 +11,6 @@
     [Subject(typeof(ApproveOrderHandler))]
     public class when_approve_order_command_is_handled : order_command_handler_concern<ApproveOrder, ApproveOrderHandler>
     {
-        private static UserId initiatorId = new UserId();
         private const int orderId = 3;
         private static Order order;
 
@@ -22,15 +21,15 @@
 
             command = new ApproveOrder
             {
-                InitiatorId = initiatorId,
+                InitiatorId = theInitiatorId,
                 OrderId = orderId
             };
         };
 
         public It should_ask_for_chief_privilegs =
-            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
         public It should_ask_order_to_approve =
-            () => order.WasToldTo(x => x.Approve(initiatorId));
+            () => order.WasToldTo(x => x.Approve(theInitiator));
     }
 }
