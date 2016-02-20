@@ -5,16 +5,16 @@
     using Common.Domain.Model;
     using Ddd;
     using Iesi.Collections.Generic;
-    using Inventory.Services;
 
     public class Cart : Aggregate<CartId>
     {
         private ISet<CartItem> _items = new HashedSet<CartItem>();
-        private Guid _userGuid;
+        private UserId _userId;
 
-        public Cart(InitiatorId initiatorId, UserId userId) : base(new CartId())
+        public Cart(UserId userId) : base(new CartId())
         {
-            _userGuid = userId.Id;
+            if (userId == null) throw new ArgumentNullException("userId");
+            _userId = userId;
         }
 
         protected Cart()
@@ -32,12 +32,6 @@
             get { return Items.Count(p => p.IsAvailable == false) == 0; }
         }
 
-        public virtual Guid UserGuid
-        {
-            get { return _userGuid; }
-            protected set { _userGuid = value; }
-        }
-
         public virtual bool IsEmpty
         {
             get { return _items.IsEmpty; }
@@ -45,7 +39,8 @@
 
         public virtual UserId UserId
         {
-            get { return new UserId(UserGuid); }
+            get { return _userId; }
+            protected set { _userId = value; }
         }
 
         public virtual CartItemId AddItem(Article article, DateTime fromUtc, DateTime toUtc, int quantity)

@@ -85,6 +85,10 @@
         public LesseeId(Guid id) : base(id)
         {
         }
+
+        public LesseeId(UserId userId) : base(userId.Id)
+        {
+        }
     }
 
     public class LessorId : GuidIdentity

@@ -274,6 +274,7 @@
     <Compile Include="Inventory\Stores\Model\StoreOpened.cs" />
     <Compile Include="Inventory\Stores\Repositories\IStoreRepository.cs" />
     <Compile Include="Shop\Model\Events\OrderEventItem.cs" />
+    <Compile Include="Shop\Model\Events\OrderItemRemoved.cs" />
     <Compile Include="Shop\Model\Lessee.cs" />
     <Compile Include="Shop\Commands\AddArticleToCart.cs" />
     <Compile Include="Shop\Commands\AddOrderItem.cs" />
@@ -292,7 +293,7 @@
     <Compile Include="Shop\Model\CartItem.cs" />
     <Compile Include="Shop\Model\Lessor.cs" />
     <Compile Include="Shop\Model\Events\OrderCreated.cs" />
-    <Compile Include="Shop\Model\Events\OrderEvents.cs" />
+    <Compile Include="Shop\Model\Events\OrderStatusEvents.cs" />
     <Compile Include="Shop\Model\Events\OrderItemAdded.cs" />
     <Compile Include="Shop\Model\Events\OrderItemAmountChanged.cs" />
     <Compile Include="Shop\Model\Events\OrderItemPeriodChanged.cs" />

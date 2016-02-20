@@ -25,7 +25,7 @@
 
         protected static Cart CreateEmptyCart()
         {
-            return new Cart(theInitiatorId, theUserGuid);
+            return new Cart(theUserGuid);
         }
 
         protected static CartItemId AddCartItem(Article article = null, DateTime? fromUtc = null,
@@ -45,7 +45,7 @@
         private Because of = () => sut = CreateEmptyCart();
 
         private It should_be_empty = () => sut.IsEmpty.ShouldBeTrue();
-        private It should_have_the_user_id = () => sut.UserGuid.ShouldEqual(theUserGuid.Id);
+        private It should_have_the_user_id = () => sut.UserId.Id.ShouldEqual(theUserGuid.Id);
     }
 
     [Subject(typeof (Cart))]

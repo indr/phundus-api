@@ -14,7 +14,8 @@ namespace Phundus.Persistence.Shop.Mappings
             CompositeId(x => x.Id).KeyProperty(kp => kp.Id, "CartGuid");
             Version(x => x.Version);
 
-            Map(x => x.UserGuid, "UserGuid");
+            Component(x => x.UserId, a =>
+                a.Map(x => x.Id, "UserGuid"));
 
             HasMany(x => x.Items).AsSet()
                 .KeyColumn("CartGuid").Inverse()
