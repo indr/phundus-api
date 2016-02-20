@@ -54,6 +54,6 @@ namespace Phundus.Tests.Shop.Events
             dataMember(9).ShouldEqual(theItemTotal);
 
         private It should_have_full_name = () =>
-            itsFullName.ShouldEqual("Phundus.Shop.Orders.Model.OrderPlaced+Item");
+            itsFullName.ShouldEqual("Phundus.Shop.Orders.Model.OrderEventItem");
     }
 }

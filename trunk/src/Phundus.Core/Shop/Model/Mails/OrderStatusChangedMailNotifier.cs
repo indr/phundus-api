@@ -22,7 +22,7 @@
 
         public void Handle(OrderApproved @event)
         {
-            var order = OrderRepository.GetById(@event.OrderId);
+            var order = OrderRepository.GetById(@event.ShortOrderId);
 
             Model = new
             {
@@ -41,7 +41,7 @@
 
         public void Handle(OrderRejected @event)
         {
-            var order = OrderRepository.GetById(@event.OrderId);
+            var order = OrderRepository.GetById(@event.ShortOrderId);
 
             Model = new
             {

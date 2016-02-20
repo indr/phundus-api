@@ -117,7 +117,7 @@
             }
         }
 
-        public virtual void Reject(UserId initiatorId)
+        public virtual void Reject(Initiator initiator)
         {
             if (Status == OrderStatus.Closed)
                 throw new OrderAlreadyClosedException();
@@ -126,10 +126,11 @@
 
             Status = OrderStatus.Rejected;
 
-            EventPublisher.Publish(new OrderRejected {OrderId = ShortOrderId.Id});
+            EventPublisher.Publish(new OrderRejected(initiator, OrderId, ShortOrderId, Lessor, Lessee, (int) Status,
+                TotalPrice, CreateOrderEventItems()));
         }
 
-        public virtual void Approve(UserId initiatorId)
+        public virtual void Approve(Initiator initiator)
         {
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
@@ -140,19 +141,21 @@
 
             Status = OrderStatus.Approved;
 
-            EventPublisher.Publish(new OrderApproved {OrderId = ShortOrderId.Id});
+            EventPublisher.Publish(new OrderApproved(initiator, OrderId, ShortOrderId, Lessor, Lessee, (int)Status,
+                TotalPrice, CreateOrderEventItems()));
         }
 
-        public virtual void Close(UserId initiatorId)
+        public virtual void Close(Initiator initiator)
         {
             if (Status == OrderStatus.Rejected)
                 throw new OrderAlreadyRejectedException();
             if (Status == OrderStatus.Closed)
                 throw new OrderAlreadyClosedException();
-            
+
             Status = OrderStatus.Closed;
 
-            EventPublisher.Publish(new OrderClosed {OrderId = ShortOrderId.Id});
+            EventPublisher.Publish(new OrderClosed(initiator, OrderId, ShortOrderId, Lessor, Lessee, (int)Status,
+                TotalPrice, CreateOrderEventItems()));
         }
 
         public virtual void EnsurePending()
@@ -234,6 +237,13 @@
             item.ChangeTotal(itemTotal);
 
             EventPublisher.Publish(new OrderItemTotalChanged());
+        }
+
+        private IList<OrderEventItem> CreateOrderEventItems()
+        {
+            return Items.Select(s => new OrderEventItem(
+                s.Id, s.ArticleId, s.ArticleShortId, s.Text, s.UnitPrice, s.FromUtc, s.ToUtc, s.Amount, s.ItemTotal
+                )).ToList();
         }
     }
 

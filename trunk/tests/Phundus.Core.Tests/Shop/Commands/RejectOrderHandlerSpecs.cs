@@ -11,7 +11,6 @@
     [Subject(typeof (RejectOrderHandler))]
     public class when_reject_order_command_is_handled : order_command_handler_concern<RejectOrder, RejectOrderHandler>
     {
-        private static UserId initiatorId = new UserId();
         private const int orderId = 3;
         private static Order order;
 
@@ -22,15 +21,15 @@
 
             command = new RejectOrder
             {
-                InitiatorId = initiatorId,
+                InitiatorId = theInitiatorId,
                 OrderId = orderId
             };
         };
 
         public It should_ask_for_chief_privilegs =
-            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
         public It should_ask_order_to_reject =
-            () => order.WasToldTo(x => x.Reject(initiatorId));
+            () => order.WasToldTo(x => x.Reject(theInitiator));
     }
 }

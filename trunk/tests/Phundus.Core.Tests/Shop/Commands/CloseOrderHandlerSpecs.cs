@@ -12,7 +12,6 @@
     [Subject(typeof (CloseOrderHandler))]
     public class when_close_order_command_is_handled : order_command_handler_concern<CloseOrder, CloseOrderHandler>
     {
-        private static UserId initiatorId = new UserId();
         private const int orderId = 3;
         private static Order order;
 
@@ -23,15 +22,15 @@
 
             command = new CloseOrder
             {
-                InitiatorId = initiatorId,
+                InitiatorId = theInitiatorId,
                 OrderId = orderId
             };
         };
 
         public It should_ask_for_chief_privilegs =
-            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
         public It should_ask_order_to_close =
-            () => order.WasToldTo(x => x.Close(initiatorId));
+            () => order.WasToldTo(x => x.Close(theInitiator));
     }
 }

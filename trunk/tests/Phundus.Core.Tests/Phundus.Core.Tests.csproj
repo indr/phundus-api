@@ -164,8 +164,12 @@
     <Compile Include="Shop\Commands\AddArticleToCartHandlerSpecs.cs" />
     <Compile Include="Shop\Commands\PlaceOrderHandlerSpecs.cs" />
     <Compile Include="Shop\Commands\RemoveCartItemHandlerSpecs.cs" />
+    <Compile Include="Shop\Events\OrderRejectedSpecs.cs" />
+    <Compile Include="Shop\Events\OrderClosedSpecs.cs" />
+    <Compile Include="Shop\Events\OrderApprovedSpecs.cs" />
     <Compile Include="Shop\Events\OrderPlacedSpecs.cs" />
     <Compile Include="Shop\Events\OrderEventItemSpecs.cs" />
+    <Compile Include="Shop\Events\shop_domain_event_concern.cs" />
     <Compile Include="Shop\Model\CartSpecs.cs" />
     <Compile Include="Shop\Model\Class1.cs" />
     <Compile Include="Shop\Model\LesseeSpecs.cs" />

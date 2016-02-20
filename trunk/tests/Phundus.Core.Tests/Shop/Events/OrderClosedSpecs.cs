@@ -5,25 +5,27 @@
     using Machine.Specifications;
     using Phundus.Shop.Orders.Model;
 
-    [Subject(typeof (OrderPlaced))]
-    public class order_placed : shop_domain_event_concern<OrderPlaced>
+    [Subject(typeof (OrderClosed))]
+    public class order_closed : shop_domain_event_concern<OrderClosed>
     {
-        private static ShortOrderId theShortOrderId;
         private static OrderId theOrderId;
-        private static int theOrderStatus = 1;
-        private static decimal theOrderTotal = 10.20m;
+        private static ShortOrderId theShortOrderId;
         private static List<OrderEventItem> theItems;
+        private static decimal theOrderTotal;
+        private static int theOrderStatus;
 
         private Establish ctx = () =>
         {
             theOrderId = new OrderId();
             theShortOrderId = new ShortOrderId(1234);
+            theOrderStatus = 123;
+            theOrderTotal = 123.50m;
             theItems = new List<OrderEventItem>();
             theItems.Add(CreateOrderEventItem());
 
             sut_factory.create_using(() =>
-                new OrderPlaced(theInitiator, theOrderId, theShortOrderId,
-                    theLessor, theLessee, theOrderStatus, theOrderTotal, theItems));
+                new OrderClosed(theInitiator, theOrderId, theShortOrderId, theLessor, theLessee,
+                    theOrderStatus, theOrderTotal, theItems));
         };
 
         private It should_be_in_assembly = () =>
@@ -57,6 +59,6 @@
             dataMember(9).ShouldBeLike(theItems);
 
         private It should_have_full_name = () =>
-            itsFullName.ShouldEqual("Phundus.Shop.Orders.Model.OrderPlaced");
+            itsFullName.ShouldEqual("Phundus.Shop.Orders.Model.OrderClosed");
     }
 }
