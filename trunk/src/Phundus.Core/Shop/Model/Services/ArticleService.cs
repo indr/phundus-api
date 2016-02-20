@@ -75,7 +75,7 @@ namespace Phundus.Shop.Services
             }
 
 
-            return new Article(article.Id, article.ArticleId, article.Owner, article.Name, price);
+            return new Article(article.ArticleShortId, article.ArticleId, article.Owner, article.Name, price);
         }
     }
 }

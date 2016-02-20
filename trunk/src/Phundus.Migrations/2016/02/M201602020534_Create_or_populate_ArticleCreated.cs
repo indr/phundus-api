@@ -11,7 +11,6 @@ namespace Phundus.Migrations
     {
         protected override void Migrate()
         {
-           
             const string typeName = @"Phundus.Inventory.Articles.Model.ArticleCreated, Phundus.Core";
             var storedEvents = FindStoredEvents(typeName);
             var domainEvents = storedEvents.Select(s => s.Deserialize<ArticleCreated>()).OrderBy(p => p.OccuredOnUtc).ToList();

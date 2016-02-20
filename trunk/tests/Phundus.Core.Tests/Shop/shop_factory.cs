@@ -20,7 +20,6 @@ namespace Phundus.Tests.Shop
 
             var articleId = new ArticleShortId(NextNumericId());
             var article = fake.an<Article>();
-            article.setup(x => x.Id).Return(articleId.Id);
             article.setup(x => x.ArticleId).Return(new ArticleId());
             article.setup(x => x.ArticleShortId).Return(articleId);
             article.setup(x => x.LessorId).Return(new LessorId(lessorId));
