@@ -21,7 +21,7 @@ namespace Phundus.Shop.Orders.Model
 
         public virtual ArticleShortId ArticleShortId
         {
-            get { return new ArticleShortId(Article.Id); }
+            get { return Article.ArticleShortId; }
         }
 
         public virtual int Quantity { get; set; }
@@ -32,7 +32,9 @@ namespace Phundus.Shop.Orders.Model
         {
             get
             {
-                return new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(new Period(From, To), Quantity, UnitPrice).Days;
+                return
+                    new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(new Period(From, To), Quantity, UnitPrice)
+                        .Days;
             }
             protected set
             {
@@ -54,7 +56,8 @@ namespace Phundus.Shop.Orders.Model
         {
             get
             {
-                var price = new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(new Period(From, To), Quantity, UnitPrice);
+                var price = new PerDayWithPerSevenDaysPricePricingStrategy().Calculate(new Period(From, To), Quantity,
+                    UnitPrice);
                 return price.Price;
             }
             protected set

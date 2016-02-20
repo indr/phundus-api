@@ -6,18 +6,18 @@ namespace Phundus.Shop.Orders.Model
 
     public class Article : ValueObject
     {
+        private ArticleId _articleId;
+        private ArticleShortId _articleShortId;
         private string _caption;
-        private int _id;
         private Owner _owner;
         private decimal _publicPrice;
-        private ArticleId _articleId;
 
-        public Article(int id, ArticleId articleId, Owner owner, string name, decimal publicPrice)
+        public Article(ArticleShortId articleShortId, ArticleId articleId, Owner owner, string name, decimal publicPrice)
         {
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (owner == null) throw new ArgumentNullException("owner");
 
-            _id = id;
+            _articleShortId = articleShortId;
             _articleId = articleId;
             _owner = owner;
             _caption = name;
@@ -34,15 +34,10 @@ namespace Phundus.Shop.Orders.Model
             protected set { _articleId = value; }
         }
 
-        public virtual int Id
-        {
-            get { return _id; }
-            protected set { _id = value; }
-        }
-
         public virtual ArticleShortId ArticleShortId
         {
-            get { return new ArticleShortId(Id); }
+            get { return _articleShortId; }
+            protected set { _articleShortId = value; }
         }
 
         public virtual Owner Owner
@@ -70,7 +65,7 @@ namespace Phundus.Shop.Orders.Model
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return Id;
+            yield return ArticleId;
         }
     }
 }
