@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Shop.Projections
 {
     using System;
+    using System.Collections.Generic;
 
     public class ResultItemsProjectionRow
     {
@@ -17,5 +18,7 @@
         public virtual string OwnerName { get; set; }
         public virtual int OwnerType { get; set; }
         public virtual string PreviewImageFileName { get; set; }
+
+        public virtual ICollection<ShopItemsSortByPopularityProjectionRow> Popularities { get; set; }
     }
 }

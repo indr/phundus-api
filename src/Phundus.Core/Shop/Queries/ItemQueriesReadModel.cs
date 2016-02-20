@@ -6,6 +6,7 @@ namespace Phundus.Shop.Queries
     using Cqrs;
     using Inventory.Queries;
     using NHibernate.Criterion;
+    using NHibernate.SqlCommand;
     using Projections;
 
     public interface IItemQueries
@@ -23,7 +24,8 @@ namespace Phundus.Shop.Queries
             offset = offset ?? 0;
             limit = limit > 0 ? limit : DefaultLimit;
 
-            var query = QueryOver<ResultItemsProjectionRow>();
+            ResultItemsProjectionRow item = null;
+            var query = Session.QueryOver<ResultItemsProjectionRow>(() => item);
             if (!String.IsNullOrWhiteSpace(q))
             {
                 q = q.ToLowerInvariant();
@@ -34,7 +36,13 @@ namespace Phundus.Shop.Queries
                 query = query.Where(p => p.OwnerGuid == lessorId);
             }
 
-            query = query.OrderBy(p => p.CreatedAtUtc).Desc;
+            ShopItemsSortByPopularityProjectionRow popularity = null;
+
+            query.JoinAlias<ShopItemsSortByPopularityProjectionRow>(() => item.Popularities, () => popularity, JoinType.LeftOuterJoin,
+                Restrictions.Where<ShopItemsSortByPopularityProjectionRow>(p => p.Month == DateTime.Today.Month));
+
+            
+            query = query.OrderBy(() => popularity.Value).Desc.ThenBy(p => p.CreatedAtUtc).Desc;
 
             var total = query.RowCountInt64();
             var result = query.Skip(offset.Value).Take(limit.Value).List();

@@ -103,6 +103,7 @@
     <Compile Include="Shop\Mappings\ShopItemFilesProjectionRowMap.cs" />
     <Compile Include="Shop\Mappings\ShopItemImagesProjectionRowMap.cs" />
     <Compile Include="Shop\Mappings\ShopItemProjectionRowMap.cs" />
+    <Compile Include="Shop\Mappings\ShopItemsSortByPopularityProjectionRowMap.cs" />
     <Compile Include="StoredEvents\EventStore.cs" />
     <Compile Include="StoredEvents\NhStoredEventRepository.cs" />
     <Compile Include="StoredEvents\StoredEventMap.cs" />

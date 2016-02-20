@@ -11,8 +11,7 @@ namespace Phundus.Persistence.Shop.Mappings
             SchemaAction.All();
             Table("Es_Shop_ResultItems");
 
-            Id(x => x.RowId).GeneratedBy.GuidComb();
-            Map(x => x.ItemId, "ArticleGuid").Unique();
+            Id(x => x.ItemId, "ArticleGuid").GeneratedBy.Assigned();
             Map(x => x.ItemShortId, "ArticleId").Unique();
             Map(x => x.CreatedAtUtc).CustomType<UtcDateTimeType>();
             Map(x => x.MemberPrice);
@@ -22,6 +21,9 @@ namespace Phundus.Persistence.Shop.Mappings
             Map(x => x.OwnerType);
             Map(x => x.PreviewImageFileName);
             Map(x => x.PublicPrice);
+
+
+            HasMany(x => x.Popularities).KeyColumn("ArticleId").ReadOnly().Inverse().ForeignKeyCascadeOnDelete();
         }
     }
 }

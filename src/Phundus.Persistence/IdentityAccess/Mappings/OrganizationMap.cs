@@ -34,9 +34,7 @@
                 .AsSet().Cascade.SaveUpdate();
 
             Component(x => x.Settings, a =>
-            {
-                a.Map(x => x.PublicRental, "Settings_PublicRental");
-            });
+                a.Map(x => x.PublicRental, "Settings_PublicRental"));
         }
     }
 }
