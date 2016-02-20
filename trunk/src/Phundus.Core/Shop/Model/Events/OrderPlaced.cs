@@ -10,7 +10,7 @@ namespace Phundus.Shop.Orders.Model
     public class OrderPlaced : DomainEvent
     {
         public OrderPlaced(Initiator initiator, OrderId orderId, ShortOrderId shortOrderId, Lessor lessor, Lessee lessee,
-            int status, decimal totalPrice, IList<OrderPlaced.Item> items)
+            int status, decimal totalPrice, IList<OrderEventItem> items)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (orderId == null) throw new ArgumentNullException("orderId");
@@ -58,58 +58,6 @@ namespace Phundus.Shop.Orders.Model
         public decimal TotalPrice { get; set; }
 
         [DataMember(Order = 9)]
-        public IList<Item> Items { get; set; }
-
-        [DataContract]
-        public class Item
-        {
-            public Item(Guid itemId, ArticleId articleId, ArticleShortId articleShortId, string text,
-                decimal unitPricePerWeek, DateTime fromUtc, DateTime toUtc, int quantity, decimal itemTotal)
-            {
-                if (articleId == null) throw new ArgumentNullException("articleId");
-                if (articleShortId == null) throw new ArgumentNullException("articleShortId");
-                if (text == null) throw new ArgumentNullException("text");
-                ItemId = itemId;
-                ArticleId = articleId.Id;
-                ArticleShortId = articleShortId.Id;
-                Text = text;
-                UnitPricePerWeek = unitPricePerWeek;
-                FromUtc = fromUtc;
-                ToUtc = toUtc;
-                Quantity = quantity;
-                ItemTotal = itemTotal;
-            }
-
-            protected Item()
-            {
-            }
-
-            [DataMember(Order = 1)]
-            public Guid ItemId { get; set; }
-
-            [DataMember(Order = 2)]
-            public Guid ArticleId { get; set; }
-
-            [DataMember(Order = 3)]
-            public int ArticleShortId { get; set; }
-
-            [DataMember(Order = 4)]
-            public string Text { get; set; }
-
-            [DataMember(Order = 5)]
-            public decimal UnitPricePerWeek { get; set; }
-
-            [DataMember(Order = 6)]
-            public DateTime FromUtc { get; set; }
-
-            [DataMember(Order = 7)]
-            public DateTime ToUtc { get; set; }
-
-            [DataMember(Order = 8)]
-            public int Quantity { get; set; }
-
-            [DataMember(Order = 9)]
-            public decimal ItemTotal { get; set; }
-        }
+        public IList<OrderEventItem> Items { get; set; }
     }
 }
