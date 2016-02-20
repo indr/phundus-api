@@ -4,7 +4,7 @@ namespace Phundus.Shop.Orders.Model
     using Common.Domain.Model;
 
     [DataContract]
-    public class OrderItemAdded : DomainEvent
+    public class OrderItemRemoved : DomainEvent
     {
     }
 }

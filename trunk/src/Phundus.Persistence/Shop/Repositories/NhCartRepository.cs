@@ -22,7 +22,7 @@
             if (userId == null) throw new ArgumentNullException("userId");
 
             var query = from c in Entities
-                where c.UserGuid == userId.Id
+                where c.UserId.Id == userId.Id
                 select c;
             return query.SingleOrDefault();
         }

@@ -52,7 +52,7 @@
 
         private Establish ctx = () =>
         {
-            theCart = new Cart(theInitiatorId, theInitiatorId);
+            theCart = new Cart(theInitiatorId);
             cartRepository.WhenToldTo(x => x.FindByUserGuid(theInitiatorId)).Return(theCart);
         };
 

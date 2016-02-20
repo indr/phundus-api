@@ -74,7 +74,7 @@
             var cart = _cartRepository.FindByUserGuid(command.UserId);
             if (cart == null)
             {
-                cart = new Cart(command.InitiatorId, command.UserId);
+                cart = new Cart(command.UserId);
                 _cartRepository.Add(cart);
             }
             return cart;
