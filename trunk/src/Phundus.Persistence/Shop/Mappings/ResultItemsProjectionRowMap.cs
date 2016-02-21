@@ -22,8 +22,8 @@ namespace Phundus.Persistence.Shop.Mappings
             Map(x => x.PreviewImageFileName);
             Map(x => x.PublicPrice);
 
-
-            HasMany(x => x.Popularities).KeyColumn("ArticleId").ReadOnly().Inverse().ForeignKeyCascadeOnDelete();
+            HasMany(x => x.Popularities).KeyColumn("ArticleId")               
+                .ReadOnly().Inverse().ForeignKeyCascadeOnDelete();
         }
     }
 }
