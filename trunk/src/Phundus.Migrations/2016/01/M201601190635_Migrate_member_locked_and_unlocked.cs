@@ -33,7 +33,7 @@
                 var current = new CurrentEvent();
                 if (storedEvent.OccuredOnUtc < Rev_1506)
                 {
-                    var rev1387 = Deserialize<Locked_Rev_883>(storedEvent.Serialization);
+                    var rev1387 = Deserialize<Locked_Rev_883>(storedEvent);
                     current.OrganizationGuid = Guid.Empty;
                     current.UserGuid = Guid.Empty;
                     current.OrganizationIntegralId = rev1387.OrganizationId;
@@ -41,7 +41,7 @@
                 }
                 else
                 {
-                    var rev1506 = Deserialize<Locked_Rev_1416>(storedEvent.Serialization);
+                    var rev1506 = Deserialize<Locked_Rev_1416>(storedEvent);
                     current.OrganizationGuid = rev1506.OrganizationId;
                     current.UserGuid = Guid.Empty;
                     current.OrganizationIntegralId = 0;
@@ -80,7 +80,7 @@
                 var current = new CurrentEvent();
                 if (storedEvent.OccuredOnUtc < Rev_1506)
                 {
-                    var rev1387 = Deserialize<Unlocked_Rev_883>(storedEvent.Serialization);
+                    var rev1387 = Deserialize<Unlocked_Rev_883>(storedEvent);
                     current.OrganizationGuid = Guid.Empty;
                     current.UserGuid = Guid.Empty;
                     current.OrganizationIntegralId = rev1387.OrganizationId;
@@ -88,7 +88,7 @@
                 }
                 else
                 {
-                    var rev1506 = Deserialize<Unlocked_Rev_1416>(storedEvent.Serialization);
+                    var rev1506 = Deserialize<Unlocked_Rev_1416>(storedEvent);
                     current.OrganizationGuid = rev1506.OrganizationId;
                     current.UserGuid = Guid.Empty;
                     current.OrganizationIntegralId = 0;
@@ -121,7 +121,7 @@
         }
 
         [DataContract]
-        public class CurrentEvent : DomainEvent
+        public class CurrentEvent : MigratingDomainEvent
         {
             [DataMember(Order = 3)]
             public Guid OrganizationGuid { get; set; }
@@ -137,7 +137,7 @@
         }
 
         [DataContract]
-        public class Locked_Rev_883
+        public class Locked_Rev_883 : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public int OrganizationId { get; set; }
@@ -147,7 +147,7 @@
         }
 
         [DataContract]
-        public class Locked_Rev_1416
+        public class Locked_Rev_1416 : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public Guid OrganizationId { get; set; }
@@ -157,7 +157,7 @@
         }
 
         [DataContract]
-        public class Unlocked_Rev_883
+        public class Unlocked_Rev_883 : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public int OrganizationId { get; set; }
@@ -167,7 +167,7 @@
         }
 
         [DataContract]
-        public class Unlocked_Rev_1416
+        public class Unlocked_Rev_1416 : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public Guid OrganizationId { get; set; }

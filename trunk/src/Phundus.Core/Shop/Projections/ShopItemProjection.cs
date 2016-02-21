@@ -1,12 +1,11 @@
-namespace Phundus.Inventory.Projections
+namespace Phundus.Shop.Projections
 {
     using System;
-    using Articles.Model;
     using Common;
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
-    using Shop.Projections;
+    using Inventory.Articles.Model;
 
     public class ShopItemProjection : ReadModelBase<ShopItemProjectionRow>, IStoredEventsConsumer
     {

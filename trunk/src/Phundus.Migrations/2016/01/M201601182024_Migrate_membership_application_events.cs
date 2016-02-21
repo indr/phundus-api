@@ -33,7 +33,7 @@ namespace Phundus.Migrations
                 var current = new CurrentMembershipApplicationEvent();
                 if (storedEvent.OccuredOnUtc < Rev_1506)
                 {
-                    var rev1387 = Deserialize<Filed_Rev_1387>(storedEvent.Serialization);
+                    var rev1387 = Deserialize<Filed_Rev_1387>(storedEvent);
                     current.InitiatorId = Guid.Empty;
                     current.OrganizationGuid = Guid.Empty;
                     current.UserGuid = Guid.Empty;
@@ -42,7 +42,7 @@ namespace Phundus.Migrations
                 }
                 else
                 {
-                    var rev1506 = Deserialize<Filed_Rev_1506>(storedEvent.Serialization);
+                    var rev1506 = Deserialize<Filed_Rev_1506>(storedEvent);
                     current.InitiatorId = Guid.Empty;
                     current.OrganizationGuid = rev1506.OrganizationId;
                     current.UserGuid = Guid.Empty;
@@ -83,7 +83,7 @@ namespace Phundus.Migrations
 
                 if (storedEvent.OccuredOnUtc < Rev_1506)
                 {
-                    var rev1387 = Deserialize<Approved_Rev_1387>(storedEvent.Serialization);
+                    var rev1387 = Deserialize<Approved_Rev_1387>(storedEvent);
                     current.InitiatorId = Guid.Empty;
                     current.OrganizationGuid = Guid.Empty;
                     current.UserGuid = Guid.Empty;
@@ -92,7 +92,7 @@ namespace Phundus.Migrations
                 }
                 else
                 {
-                    var rev1506 = Deserialize<Approved_Rev_1506>(storedEvent.Serialization);
+                    var rev1506 = Deserialize<Approved_Rev_1506>(storedEvent);
                     current.InitiatorId = Guid.Empty;
                     current.OrganizationGuid = rev1506.OrganizationId;
                     current.UserGuid = Guid.Empty;
@@ -128,7 +128,7 @@ namespace Phundus.Migrations
 
                 if (storedEvent.OccuredOnUtc < Rev_1506)
                 {
-                    var rev1387 = Deserialize<Rejected_Rev_1387>(storedEvent.Serialization);
+                    var rev1387 = Deserialize<Rejected_Rev_1387>(storedEvent);
                     current.InitiatorId = Guid.Empty;
                     current.OrganizationGuid = Guid.Empty;
                     current.UserGuid = Guid.Empty;
@@ -137,7 +137,7 @@ namespace Phundus.Migrations
                 }
                 else
                 {
-                    var rev1506 = Deserialize<Rejected_Rev_1506>(storedEvent.Serialization);
+                    var rev1506 = Deserialize<Rejected_Rev_1506>(storedEvent);
                     current.InitiatorId = Guid.Empty;
                     current.OrganizationGuid = rev1506.OrganizationId;
                     current.UserGuid = Guid.Empty;
@@ -185,7 +185,7 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        public class Filed_Rev_1387
+        public class Filed_Rev_1387 : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public int OrganizationId { get; protected set; }
@@ -195,7 +195,7 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        public class Filed_Rev_1506
+        public class Filed_Rev_1506 : MigratingDomainEvent
         {
             [DataMember(Order = 3)]
             public Guid OrganizationId { get; protected set; }
@@ -205,7 +205,7 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        public class Approved_Rev_1387
+        public class Approved_Rev_1387 : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public int OrganizationId { get; protected set; }
@@ -215,7 +215,7 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        public class Approved_Rev_1506
+        public class Approved_Rev_1506 : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public Guid OrganizationId { get; protected set; }
@@ -225,7 +225,7 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        public class Rejected_Rev_1387
+        public class Rejected_Rev_1387 : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public int OrganizationId { get; protected set; }
@@ -235,7 +235,7 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        public class Rejected_Rev_1506
+        public class Rejected_Rev_1506 : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public Guid OrganizationId { get; protected set; }

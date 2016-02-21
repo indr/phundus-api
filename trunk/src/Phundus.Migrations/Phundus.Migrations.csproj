@@ -171,6 +171,7 @@
     <Compile Include="2016\02\M201602031143_Reset_processed_notification_trackers.cs" />
     <Compile Include="2016\02\M201602060927_Recreate_View_Shop_CartItems.cs" />
     <Compile Include="2016\02\M201602070344_Recreate_View_Shop_Lessors.cs" />
+    <Compile Include="2016\02\M201602210725_Regenerate_Description_Changed.cs" />
     <Compile Include="2016\02\M201602080424_Generate_Prices_Changed_Description_Changed_and_Specification_Changed_stored_events.cs" />
     <Compile Include="2016\02\M201602080812_Drop_Table_Es_Inventory_Articles.cs" />
     <Compile Include="2016\02\M201602080815_Drop_Table_Es_Shop_Item.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="2016\02\M201602210346_Hydrate_or_create_OrderPlaced.cs" />
     <Compile Include="2016\02\M201602210521_Reset_ShopItemsSortByPopularityProjection.cs" />
     <Compile Include="2016\02\M201602210628_Delete_stored_order_events_with_empty_serialization.cs" />
+    <Compile Include="2016\02\M201602210742_Reset_Es_Shop_Items.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />

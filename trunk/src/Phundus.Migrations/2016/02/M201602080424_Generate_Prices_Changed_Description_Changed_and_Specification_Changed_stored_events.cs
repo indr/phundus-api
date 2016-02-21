@@ -22,11 +22,11 @@ namespace Phundus.Migrations
         protected override void Migrate()
         {
             var pricesChangedEvents = FindStoredEvents(PricesChangedTypeName)
-                .Select(s => Deserialize<PricesChanged>(s.Serialization)).ToList();
+                .Select(s => Deserialize<PricesChanged>(s)).ToList();
             var descriptionChangedEvents = FindStoredEvents(DescriptionChangedTypeName)
-                .Select(s => Deserialize<DescriptionChanged>(s.Serialization)).ToList();
+                .Select(s => Deserialize<DescriptionChanged>(s)).ToList();
             var specificationChangedÊvents = FindStoredEvents(SpecificationChangedTypeName)
-                .Select(s => Deserialize<SpecificationChanged>(s.Serialization)).ToList();
+                .Select(s => Deserialize<SpecificationChanged>(s)).ToList();
 
             var command = CreateCommand(@"SELECT [Id]
       ,[ArticleGuid]
@@ -74,7 +74,7 @@ namespace Phundus.Migrations
                             ArticleIntegralId = articleShortId,
                             Initiator = null,
                             OwnerId = ownerId,
-                            Description = specification
+                            Description = description
                         });
                     }
 
@@ -95,7 +95,7 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        public class DescriptionChanged
+        public class DescriptionChanged : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public Initiator Initiator { get; set; }
@@ -114,7 +114,7 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        public class PricesChanged
+        public class PricesChanged : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public Initiator Initiator { get; set; }
@@ -136,7 +136,7 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        public class SpecificationChanged
+        public class SpecificationChanged : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public Initiator Initiator { get; set; }

@@ -22,7 +22,7 @@
         }
 
         [DataContract]
-        internal class UserSignedUp : DomainEvent
+        internal class UserSignedUp : MigratingDomainEvent
         {
             [DataMember(Order = 1)]
             public int UserIntegralId { get; set; }
