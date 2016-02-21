@@ -38,7 +38,11 @@ namespace Phundus.Migrations
 
                     if (!String.IsNullOrWhiteSpace(description))
                     {
-                        var evnt = descriptionChangedEvents.Last(p => p.ArticleGuid == articleGuid);
+                        var evnt = descriptionChangedEvents.LastOrDefault(p => p.ArticleGuid == articleGuid);
+
+                        // Acceptance data bullshit
+                        if (evnt == null)
+                            return;
                         evnt.Description = description;
                         UpdateSerialization(evnt.EventGuid, evnt);
                     }
