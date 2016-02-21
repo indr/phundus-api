@@ -30,6 +30,10 @@
             Delete.FromTable("Dm_Shop_OrderItem").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_Shop_Order").InSchema(SchemaName).AllRows();
 
+            if (Schema.Table("Es_Shop_Items_Files").Exists())
+                Delete.Table("Es_Shop_Items_Files");
+            if (Schema.Table("Es_Shop_Items_Images").Exists())
+                Delete.Table("Es_Shop_Items_Images");
             DeleteAllRowsIfTableExists("Es_Shop_Items");
             DeleteAllRowsIfTableExists("Es_Inventory_Articles");            
             DeleteAllRowsFromTableWithPrefix("Es_");
