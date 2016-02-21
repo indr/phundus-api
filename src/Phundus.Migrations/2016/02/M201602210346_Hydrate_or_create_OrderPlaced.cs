@@ -112,7 +112,7 @@ namespace Phundus.Migrations
       ,[Total]
       ,[OrderItemGuid]
       ,[ArticleGuid]
-  FROM [phundus-restore].[dbo].[Dm_Shop_OrderItem]
+  FROM [Dm_Shop_OrderItem]
   WHERE [OrderId] = @OrderId");
 
                 var param = selectItemsCmd.CreateParameter();
