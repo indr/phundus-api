@@ -30,12 +30,8 @@
             Delete.FromTable("Dm_Shop_OrderItem").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_Shop_Order").InSchema(SchemaName).AllRows();
 
-            if (Schema.Table("Es_Shop_Items_Files").Exists())
-                Delete.Table("Es_Shop_Items_Files");
-            if (Schema.Table("Es_Shop_Items_Images").Exists())
-                Delete.Table("Es_Shop_Items_Images");
-            DropTable("Es_Shop_Items_Files");
-            DropTable("Es_Shop_Items_Images");
+            DropTable("Es_Shop_Item_Files");
+            DropTable("Es_Shop_Item_Images");
             DropTable("Es_Shop_Items");
             DropTable("Es_Shop_ShopItemsSortByPopularityProjection");
             DropTable("Es_Shop_ResultItems");            
