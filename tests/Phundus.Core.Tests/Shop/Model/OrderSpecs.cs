@@ -100,12 +100,13 @@
             thePeriod = Period.FromNow(2);
         };
 
-        private Because of =
-            () => sut.AddItem(theOrderItemId, theArticle, thePeriod.FromUtc, thePeriod.ToUtc, theQuantity);
+        private Because of = () =>
+            sut.AddItem(theInitiator, theOrderItemId, theArticle, thePeriod.FromUtc, thePeriod.ToUtc, theQuantity);
 
-        private It should_have_an_order_item =
-            () =>
-                sut.Items.ShouldContain(
-                    p => p.Id == theOrderItemId.Id && p.FromUtc == thePeriod.FromUtc && p.ToUtc == thePeriod.ToUtc);
+        private It should_have_an_order_item = () =>
+            sut.Items.ShouldContain(p =>
+                p.Id == theOrderItemId.Id
+                && p.FromUtc == thePeriod.FromUtc
+                && p.ToUtc == thePeriod.ToUtc);
     }
 }

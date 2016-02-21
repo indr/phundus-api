@@ -6,6 +6,7 @@
     using Common.Domain.Model;
     using Ddd;
     using Iesi.Collections.Generic;
+    using Inventory.Authorization;
     using Shop.Model;
 
     public class Order
@@ -141,7 +142,7 @@
 
             Status = OrderStatus.Approved;
 
-            EventPublisher.Publish(new OrderApproved(initiator, OrderId, ShortOrderId, Lessor, Lessee, (int)Status,
+            EventPublisher.Publish(new OrderApproved(initiator, OrderId, ShortOrderId, Lessor, Lessee, (int) Status,
                 TotalPrice, CreateOrderEventItems()));
         }
 
@@ -154,7 +155,7 @@
 
             Status = OrderStatus.Closed;
 
-            EventPublisher.Publish(new OrderClosed(initiator, OrderId, ShortOrderId, Lessor, Lessee, (int)Status,
+            EventPublisher.Publish(new OrderClosed(initiator, OrderId, ShortOrderId, Lessor, Lessee, (int) Status,
                 TotalPrice, CreateOrderEventItems()));
         }
 
@@ -175,7 +176,7 @@
             }
         }
 
-        public virtual void AddItem(OrderItemId orderItemId, Article article, DateTime fromUtc, DateTime toUtc,
+        public virtual void AddItem(Initiator initiator, OrderItemId orderItemId, Article article, DateTime fromUtc, DateTime toUtc,
             int quantity)
         {
             EnsurePending();
@@ -183,10 +184,11 @@
             var item = new OrderItem(this, orderItemId, article, fromUtc, toUtc, quantity);
             _items.Add(item);
 
-            EventPublisher.Publish(new OrderItemAdded());
+            EventPublisher.Publish(new OrderItemAdded(initiator, OrderId, ShortOrderId,
+                (int) Status, TotalPrice, CreateOrderEventItem(item)));
         }
 
-        public virtual void RemoveItem(Guid orderItemId)
+        public virtual void RemoveItem(Initiator initiator, Guid orderItemId)
         {
             EnsurePending();
 
@@ -197,10 +199,11 @@
             _items.Remove(item);
             item.Delete();
 
-            EventPublisher.Publish(new OrderItemRemoved());
+            EventPublisher.Publish(new OrderItemRemoved(initiator, OrderId, ShortOrderId,
+                (int)Status, TotalPrice, CreateOrderEventItem(item)));
         }
 
-        public virtual void ChangeAmount(Guid orderItemId, int amount)
+        public virtual void ChangeAmount(Initiator initiator, Guid orderItemId, int amount)
         {
             EnsurePending();
 
@@ -208,12 +211,15 @@
             if (item == null)
                 return;
 
+            var oldQuantity = item.Amount;
             item.ChangeAmount(amount);
 
-            EventPublisher.Publish(new OrderItemAmountChanged());
+            EventPublisher.Publish(new OrderItemQuantityChanged(initiator, OrderId, ShortOrderId,
+                (int)Status, TotalPrice, item.Id, oldQuantity, item.Amount,
+                CreateOrderEventItem(item)));
         }
 
-        public virtual void ChangeItemPeriod(Guid orderItemId, DateTime fromUtc, DateTime toUtc)
+        public virtual void ChangeItemPeriod(Initiator initiator, Guid orderItemId, DateTime fromUtc, DateTime toUtc)
         {
             EnsurePending();
 
@@ -226,7 +232,7 @@
             EventPublisher.Publish(new OrderItemPeriodChanged());
         }
 
-        public virtual void ChangeItemTotal(Guid orderItemId, decimal itemTotal)
+        public virtual void ChangeItemTotal(Initiator initiator, Guid orderItemId, decimal itemTotal)
         {
             EnsurePending();
 
@@ -234,16 +240,23 @@
             if (item == null)
                 return;
 
+            var oldItemTotal = item.ItemTotal;
             item.ChangeTotal(itemTotal);
 
-            EventPublisher.Publish(new OrderItemTotalChanged());
+            EventPublisher.Publish(new OrderItemTotalChanged(initiator, OrderId, ShortOrderId,
+                (int)Status, TotalPrice, item.Id, oldItemTotal, item.ItemTotal,
+                CreateOrderEventItem(item)));
         }
 
         private IList<OrderEventItem> CreateOrderEventItems()
         {
-            return Items.Select(s => new OrderEventItem(
-                s.Id, s.ArticleId, s.ArticleShortId, s.Text, s.UnitPrice, s.FromUtc, s.ToUtc, s.Amount, s.ItemTotal
-                )).ToList();
+            return Items.Select(CreateOrderEventItem).ToList();
+        }
+
+        private OrderEventItem CreateOrderEventItem(OrderItem item)
+        {
+            return new OrderEventItem(item.Id, item.ArticleId, item.ArticleShortId, item.Text, item.UnitPrice,
+                item.FromUtc, item.ToUtc, item.Amount, item.ItemTotal);
         }
     }
 

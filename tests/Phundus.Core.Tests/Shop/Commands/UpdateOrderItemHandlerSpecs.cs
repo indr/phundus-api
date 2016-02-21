@@ -15,7 +15,6 @@
     {
         private const int orderId = 2;
         private const int newAmount = 20;
-        private static UserId initiatorId = new UserId();        
         private static Order order;
         private static DateTime newFromUtc;
         private static DateTime newToUtc;
@@ -26,14 +25,14 @@
             var article = make.Article();
             order = new Order(theLessor, CreateLessee());
             theOrderItemId = new OrderItemId();
-            order.AddItem(theOrderItemId, article, DateTime.Today, DateTime.Today, 1);
+            order.AddItem(theInitiator, theOrderItemId, article, DateTime.Today, DateTime.Today, 1);
             orderRepository.setup(x => x.GetById(orderId)).Return(order);
 
             newFromUtc = DateTime.UtcNow.AddDays(1);
             newToUtc = DateTime.UtcNow.AddDays(2);
             command = new UpdateOrderItem
             {
-                InitiatorId = initiatorId,
+                InitiatorId = theInitiatorId,
                 OrderId = orderId,
                 OrderItemId = theOrderItemId.Id,
                 Amount = newAmount,
@@ -43,10 +42,10 @@
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
         public It should_publish_order_item_amount_changed =
-            () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemAmountChanged>.Is.NotNull));
+            () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemQuantityChanged>.Is.NotNull));
 
         public It should_publish_order_item_period_changed =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemPeriodChanged>.Is.NotNull));
