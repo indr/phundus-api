@@ -180,6 +180,7 @@
     <Compile Include="2016\02\M201602201211_Delete_table_Es_Shop_ResultItems.cs" />
     <Compile Include="2016\02\M201602210346_Hydrate_or_create_OrderPlaced.cs" />
     <Compile Include="2016\02\M201602210521_Reset_ShopItemsSortByPopularityProjection.cs" />
+    <Compile Include="2016\02\M201602210628_Delete_stored_order_events_with_empty_serialization.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
