@@ -34,7 +34,11 @@
                 Delete.Table("Es_Shop_Items_Files");
             if (Schema.Table("Es_Shop_Items_Images").Exists())
                 Delete.Table("Es_Shop_Items_Images");
-            DeleteAllRowsIfTableExists("Es_Shop_Items");
+            DropTable("Es_Shop_Items_Files");
+            DropTable("Es_Shop_Items_Images");
+            DropTable("Es_Shop_Items");
+            DropTable("Es_Shop_ShopItemsSortByPopularityProjection");
+            DropTable("Es_Shop_ResultItems");            
             DeleteAllRowsIfTableExists("Es_Inventory_Articles");            
             DeleteAllRowsFromTableWithPrefix("Es_");
             
@@ -51,6 +55,12 @@
             Import<ArticleImage>("ArticleImages.csv", "Dm_Inventory_ArticleFile", false);
 
             CopyImages();
+        }
+
+        private void DropTable(string tableName)
+        {
+            if (Schema.Table(tableName).Exists())
+                Delete.Table(tableName);
         }
 
         /// <summary>
