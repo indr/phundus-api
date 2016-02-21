@@ -5,7 +5,6 @@
     using System.IO;
     using System.Text;
     using System.Web.Hosting;
-    using System.Web.UI.WebControls;
     using CsvHelper;
     using CsvHelper.Configuration;
     using CsvHelper.TypeConversion;
@@ -32,7 +31,7 @@
             Delete.FromTable("Dm_Shop_Order").InSchema(SchemaName).AllRows();
 
             DeleteAllRowsIfTableExists("Es_Shop_Items");
-            DeleteAllRowsIfTableExists("Es_Inventory_Articles");
+            DeleteAllRowsIfTableExists("Es_Inventory_Articles");            
             DeleteAllRowsFromTableWithPrefix("Es_");
             
             Delete.FromTable("ProcessedNotificationTracker").InSchema(SchemaName).AllRows();

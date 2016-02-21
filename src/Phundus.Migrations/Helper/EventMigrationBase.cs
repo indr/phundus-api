@@ -106,6 +106,20 @@ VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
             command.ExecuteNonQuery();
         }
 
+        protected void UpdateSerialization(Guid eventGuid, object domainEvent)
+        {
+            var stream = new MemoryStream();
+            Serializer.Serialize(stream, domainEvent);
+
+            var command = Connection.CreateCommand();
+            command.Transaction = Transaction;
+            command.Parameters.Add(new SqlParameter(@"EventGuid", eventGuid));
+            command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
+            command.CommandText =
+                @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventGuid] = @EventGuid";
+            command.ExecuteNonQuery();
+        }
+
         protected Guid GetOrganizationGuid(int organizationIntegralId)
         {
             Guid result;
