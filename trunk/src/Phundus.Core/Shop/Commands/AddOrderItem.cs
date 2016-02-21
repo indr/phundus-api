@@ -5,6 +5,7 @@
     using Common.Domain.Model;
     using Cqrs;
     using IdentityAccess.Queries;
+    using Integration.IdentityAccess;
     using Repositories;
     using Shop.Services;
 
@@ -35,15 +36,18 @@
 
     public class AddOrderItemHandler : IHandleCommand<AddOrderItem>
     {
+        private readonly IInitiatorService _initiatorService;
         private readonly IArticleService _articleService;
         private readonly IMemberInRole _memberInRole;
         private readonly IOrderRepository _orderRepository;
 
-        public AddOrderItemHandler(IArticleService articleService, IMemberInRole memberInRole, IOrderRepository orderRepository)
+        public AddOrderItemHandler(IInitiatorService initiatorService, IArticleService articleService, IMemberInRole memberInRole, IOrderRepository orderRepository)
         {
+            if (initiatorService == null) throw new ArgumentNullException("initiatorService");
             if (articleService == null) throw new ArgumentNullException("articleService");
             if (memberInRole == null) throw new ArgumentNullException("memberInRole");
             if (orderRepository == null) throw new ArgumentNullException("orderRepository");
+            _initiatorService = initiatorService;
             _articleService = articleService;
             _memberInRole = memberInRole;
             _orderRepository = orderRepository;
@@ -51,12 +55,13 @@
 
         public void Handle(AddOrderItem command)
         {
+            var initiator = _initiatorService.GetActiveById(command.InitiatorId);
             var order = _orderRepository.GetById(command.ShortOrderId.Id);
             var lessor = order.Lessor;
             _memberInRole.ActiveManager(lessor.LessorId.Id, command.InitiatorId);
 
             var article = _articleService.GetById(lessor.LessorId, command.ArticleShortId, order.Lessee.LesseeId);
-            order.AddItem(command.OrderItemId, article, command.Period.FromUtc, command.Period.ToUtc, command.Quantity);
+            order.AddItem(initiator, command.OrderItemId, article, command.Period.FromUtc, command.Period.ToUtc, command.Quantity);
         }
     }
 }

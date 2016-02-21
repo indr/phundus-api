@@ -1,11 +1,12 @@
 namespace Phundus.Shop.Orders.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
 
     [DataContract]
-    public class OrderEventItem
+    public class OrderEventItem : ValueObject
     {
         public OrderEventItem(Guid itemId, ArticleId articleId, ArticleShortId articleShortId, string text,
             decimal unitPricePerWeek, DateTime fromUtc, DateTime toUtc, int quantity, decimal itemTotal)
@@ -54,5 +55,10 @@ namespace Phundus.Shop.Orders.Model
 
         [DataMember(Order = 9)]
         public decimal ItemTotal { get; set; }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return ItemId;
+        }
     }
 }

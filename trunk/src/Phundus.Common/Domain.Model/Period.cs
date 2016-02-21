@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
 
+    [DataContract]
     public class Period : ValueObject
     {
         public Period(DateTime fromUtc, DateTime toUtc)
@@ -18,7 +20,10 @@
         {
         }
 
+        [DataMember(Order = 1)]
         public DateTime FromUtc { get; protected set; }
+
+        [DataMember(Order = 2)]
         public DateTime ToUtc { get; protected set; }
 
         protected override IEnumerable<object> GetEqualityComponents()

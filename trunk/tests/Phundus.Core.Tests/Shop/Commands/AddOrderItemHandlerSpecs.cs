@@ -4,7 +4,6 @@
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
-    using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
 
@@ -15,7 +14,7 @@
         private static Period thePeriod;
         private static Order theOrder;
         private static Article theArticle;
-        private static OrderItemId theOrderItemId;        
+        private static OrderItemId theOrderItemId;
 
         private Establish ctx = () =>
         {
@@ -40,6 +39,7 @@
             memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
         public It should_tell_order_to_add_item = () =>
-            theOrder.WasToldTo(x => x.AddItem(theOrderItemId, theArticle, thePeriod.FromUtc, thePeriod.ToUtc, 10));
+            theOrder.WasToldTo(x =>
+                x.AddItem(theInitiator, theOrderItemId, theArticle, thePeriod.FromUtc, thePeriod.ToUtc, 10));
     }
 }

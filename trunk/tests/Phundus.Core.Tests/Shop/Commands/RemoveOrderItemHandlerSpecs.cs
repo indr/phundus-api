@@ -14,7 +14,6 @@
     [Subject(typeof (RemoveOrderItemHandler))]
     public class when_remove_order_command_item_is_handled : order_command_handler_concern<RemoveOrderItem, RemoveOrderItemHandler>
     {
-        private static UserId initiatorId = new UserId();
         private const int orderId = 2;
         private static OrderItemId orderItemId;
         private static Order order;
@@ -24,19 +23,19 @@
             var article = make.Article();
             order = new Order(theLessor, CreateLessee());
             orderItemId = new OrderItemId();
-            order.AddItem(orderItemId, article, DateTime.Today, DateTime.Today, 1);
+            order.AddItem(theInitiator, orderItemId, article, DateTime.Today, DateTime.Today, 1);
             orderRepository.setup(x => x.GetById(orderId)).Return(order);
 
             command = new RemoveOrderItem
             {
-                InitiatorId = initiatorId,
+                InitiatorId = theInitiatorId,
                 OrderId = orderId,
                 OrderItemId = orderItemId.Id
             };
         };
 
         public It should_ask_for_chief_privileges =
-            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, initiatorId));
+            () => memberInRole.WasToldTo(x => x.ActiveManager(theLessor.LessorId.Id, theInitiatorId));
 
         public It should_publish_order_item_removed =
             () => publisher.WasToldTo(x => x.Publish(Arg<OrderItemRemoved>.Is.NotNull));

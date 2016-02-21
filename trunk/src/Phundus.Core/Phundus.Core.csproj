@@ -295,7 +295,7 @@
     <Compile Include="Shop\Model\Events\OrderCreated.cs" />
     <Compile Include="Shop\Model\Events\OrderStatusEvents.cs" />
     <Compile Include="Shop\Model\Events\OrderItemAdded.cs" />
-    <Compile Include="Shop\Model\Events\OrderItemAmountChanged.cs" />
+    <Compile Include="Shop\Model\Events\OrderItemQuantityChanged.cs" />
     <Compile Include="Shop\Model\Events\OrderItemPeriodChanged.cs" />
     <Compile Include="Shop\Model\Events\OrderItemTotalChanged.cs" />
     <Compile Include="Shop\Model\Events\OrderPlaced.cs" />
