@@ -1,9 +1,13 @@
-namespace Phundus.Dashboard.Querying
+namespace Phundus.Cqrs
 {
+    using System.Collections.Generic;
     using System.Linq;
+    using Castle.MicroKernel;
     using Castle.Transactions;
     using Common.Events;
     using Common.Notifications;
+    using NHibernate.Mapping;
+    using Shop.Projections;
 
     public class ReadModelUpdater : INotificationHandler
     {
@@ -19,8 +23,7 @@ namespace Phundus.Dashboard.Querying
         {
             lock (_lock)
             {
-                var domainEventHandler = DomainEventHandlerFactory.GetDomainEventHandlers().OrderByDescending(p => p.GetType().Name);
-
+                var domainEventHandler = GetDomainEventHandlers();
                 foreach (var handler in domainEventHandler)
                 {
                     UpdateReadModel(handler, notification);
@@ -33,7 +36,7 @@ namespace Phundus.Dashboard.Querying
         {
             lock (_lock)
             {
-                var domainEventHandler = DomainEventHandlerFactory.GetDomainEventHandlers().OrderByDescending(p => p.GetType().Name);
+                var domainEventHandler = GetDomainEventHandlers();
                 foreach (var handler in domainEventHandler)
                 {
                     UpdateReadModel(handler, EventStore.GetMaxNotificationId());
@@ -41,10 +44,32 @@ namespace Phundus.Dashboard.Querying
             }
         }
 
+        private IEnumerable<IStoredEventsConsumer> GetDomainEventHandlers()
+        {
+            // Because of foreign key constraints, we need to update some projections first.
+            // This is totally annoying. I don't know how to tell SchemaAction.All to
+            // not create foreign keys...
+
+            var handlers = DomainEventHandlerFactory.GetDomainEventHandlers().ToList();
+
+            var result = new List<IStoredEventsConsumer>();
+            result.Add(handlers.Single(p => p.GetType() == typeof(ResultItemsProjection)));
+            result.Add(handlers.Single(p => p.GetType() == typeof(ShopItemProjection)));
+
+            foreach (var each in result)
+            {
+                handlers.Remove(each);
+            }
+            result.AddRange(handlers);
+
+            return result;
+        }
+
         private void UpdateReadModel(IStoredEventsConsumer storedEventsConsumer, long notificationId)
         {
             var tracker =
-                ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(storedEventsConsumer.GetType().FullName);
+                ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(
+                    storedEventsConsumer.GetType().FullName);
             if (tracker.MostRecentProcessedNotificationId >= notificationId)
                 return;
 
@@ -61,7 +86,8 @@ namespace Phundus.Dashboard.Querying
         private void UpdateReadModel(IStoredEventsConsumer storedEventsConsumer, Notification notification)
         {
             var tracker =
-                ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(storedEventsConsumer.GetType().FullName);
+                ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(
+                    storedEventsConsumer.GetType().FullName);
             if (tracker.MostRecentProcessedNotificationId >= notification.NotificationId)
                 return;
 

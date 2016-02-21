@@ -7,7 +7,6 @@ namespace Phundus.Rest.Api
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Dashboard.Queries;
-    using Dashboard.Querying;
 
     [RoutePrefix("api/event-log")]
     [Authorize(Roles = "Admin")]

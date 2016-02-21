@@ -5,7 +5,6 @@
     using Castle.Windsor;
     using Dashboard.Projections;
     using Dashboard.Queries;
-    using Dashboard.Querying;
     using Machine.Specifications;
 
     [Subject(typeof (QueriesInstaller))]
