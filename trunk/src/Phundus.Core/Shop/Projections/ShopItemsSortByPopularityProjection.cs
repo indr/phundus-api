@@ -20,7 +20,7 @@
             // Noop
         }
 
-        public void Process(OrderApproved domainEvent)
+        public void Process(OrderPlaced domainEvent)
         {
             if (domainEvent.Items == null)
                 return;
@@ -39,6 +39,8 @@
         private void ProcessItem(OrderEventItem item)
         {
             if (item == null) throw new ArgumentNullException("item");
+            if (item.ArticleId == Guid.Empty)
+                return;
 
             var from = new DateTime(item.FromUtc.Year, item.FromUtc.Month, 1);
             var to = new DateTime(item.ToUtc.Year, item.ToUtc.Month, 1).AddMonths(1);

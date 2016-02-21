@@ -178,6 +178,8 @@
     <Compile Include="2016\02\M201602191103_Add_article_guid_to_order_item.cs" />
     <Compile Include="2016\02\M201602200932_Add_article_guid_to_cart_item.cs" />
     <Compile Include="2016\02\M201602201211_Delete_table_Es_Shop_ResultItems.cs" />
+    <Compile Include="2016\02\M201602210346_Hydrate_or_create_OrderPlaced.cs" />
+    <Compile Include="2016\02\M201602210521_Reset_ShopItemsSortByPopularityProjection.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />

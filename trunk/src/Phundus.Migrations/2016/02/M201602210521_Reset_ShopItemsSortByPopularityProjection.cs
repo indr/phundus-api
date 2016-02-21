@@ -3,15 +3,13 @@ namespace Phundus.Migrations
     using System;
     using FluentMigrator;
 
-    [Migration(201602201211)]
-    public class M201602201211_Delete_table_Es_Shop_ResultItems : MigrationBase
+    [Migration(201602210521)]
+    public class M201602210521_Reset_ShopItemsSortByPopularityProjection : MigrationBase
     {
         public override void Up()
         {
             Delete.Table("Es_Shop_ShopItemsSortByPopularityProjection");
-            Delete.Table("Es_Shop_ResultItems");
             ResetProcessedNotififactionTracker("Phundus.Shop.Projections.ShopItemsSortByPopularityProjection");
-            ResetProcessedNotififactionTracker("Phundus.Shop.Projections.ResultItemsProjection");
         }
 
         public override void Down()
