@@ -19,7 +19,7 @@ namespace Phundus.Dashboard.Querying
         {
             lock (_lock)
             {
-                var domainEventHandler = DomainEventHandlerFactory.GetDomainEventHandlers();
+                var domainEventHandler = DomainEventHandlerFactory.GetDomainEventHandlers().OrderByDescending(p => p.GetType().Name);
 
                 foreach (var handler in domainEventHandler)
                 {
@@ -33,7 +33,7 @@ namespace Phundus.Dashboard.Querying
         {
             lock (_lock)
             {
-                var domainEventHandler = DomainEventHandlerFactory.GetDomainEventHandlers();
+                var domainEventHandler = DomainEventHandlerFactory.GetDomainEventHandlers().OrderByDescending(p => p.GetType().Name);
                 foreach (var handler in domainEventHandler)
                 {
                     UpdateReadModel(handler, EventStore.GetMaxNotificationId());
@@ -43,7 +43,6 @@ namespace Phundus.Dashboard.Querying
 
         private void UpdateReadModel(IStoredEventsConsumer storedEventsConsumer, long notificationId)
         {
-            
             var tracker =
                 ProcessedNotificationTrackerStore.GetProcessedNotificationTracker(storedEventsConsumer.GetType().FullName);
             if (tracker.MostRecentProcessedNotificationId >= notificationId)

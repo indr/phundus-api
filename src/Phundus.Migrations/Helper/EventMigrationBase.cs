@@ -9,6 +9,13 @@ namespace Phundus.Migrations
     using Common.Domain.Model;
     using ProtoBuf;
 
+    public class MigratingDomainEvent
+    {
+        public Guid EventGuid { get; set; }
+
+        public DateTime OccuredOnUtc { get; set; }
+    }
+
     public abstract class EventMigrationBase : MigrationBase
     {
         protected static IDictionary<int, Guid> OrganizationIdMap = new Dictionary<int, Guid>
@@ -103,7 +110,8 @@ VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
             command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
             command.CommandText =
                 @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventId] = @EventId";
-            command.ExecuteNonQuery();
+            
+            _commands.Add(command);
         }
 
         protected void UpdateSerialization(Guid eventGuid, object domainEvent)
@@ -117,7 +125,8 @@ VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
             command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
             command.CommandText =
                 @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventGuid] = @EventGuid";
-            command.ExecuteNonQuery();
+            
+            _commands.Add(command);
         }
 
         protected Guid GetOrganizationGuid(int organizationIntegralId)
@@ -195,7 +204,7 @@ WHERE [TypeName] = @TypeName";
             }
         }
 
-        internal void ForEach<TDomainEvent>(string typeName, Action<long, TDomainEvent> action)
+        internal void ForEach<TDomainEvent>(string typeName, Action<long, TDomainEvent> action) where TDomainEvent : MigratingDomainEvent
         {
             var storedEvents = FindStoredEvents(typeName);
             foreach (var storedEvent in storedEvents)
@@ -203,7 +212,7 @@ WHERE [TypeName] = @TypeName";
                 TDomainEvent domainEvent;
                 try
                 {
-                    domainEvent = Deserialize<TDomainEvent>(storedEvent.Serialization);
+                    domainEvent = Deserialize<TDomainEvent>(storedEvent);
                 }
                 catch (Exception ex)
                 {
@@ -214,9 +223,12 @@ WHERE [TypeName] = @TypeName";
             }
         }
 
-        internal T Deserialize<T>(byte[] serialization)
+        internal T Deserialize<T>(StoredEvent storedEvent) where T : MigratingDomainEvent
         {
-            return Serializer.Deserialize<T>(new MemoryStream(serialization));
+            var result = Serializer.Deserialize<T>(new MemoryStream(storedEvent.Serialization));
+            result.EventGuid = storedEvent.EventGuid;
+            result.OccuredOnUtc = storedEvent.OccuredOnUtc;
+            return result;
         }
 
         internal byte[] Serialize(object domainEvent)
