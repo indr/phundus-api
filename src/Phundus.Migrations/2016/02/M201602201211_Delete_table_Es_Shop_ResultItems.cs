@@ -8,7 +8,8 @@ namespace Phundus.Migrations
     {
         public override void Up()
         {
-            Delete.Table("Es_Shop_ShopItemsSortByPopularityProjection");
+            if (Schema.Table("Es_Shop_ShopItemsSortByPopularityProjection").Exists())
+                Delete.Table("Es_Shop_ShopItemsSortByPopularityProjection");
             Delete.Table("Es_Shop_ResultItems");
             ResetProcessedNotififactionTracker("Phundus.Shop.Projections.ShopItemsSortByPopularityProjection");
             ResetProcessedNotififactionTracker("Phundus.Shop.Projections.ResultItemsProjection");
