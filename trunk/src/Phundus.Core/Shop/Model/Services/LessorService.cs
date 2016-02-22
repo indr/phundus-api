@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Queries;
@@ -17,7 +18,7 @@
         /// <exception cref="NotFoundException"></exception>
         Lessor GetById(LessorId lessorId);
 
-        ICollection<Manager> GetManagers(LessorId lessorId);
+        ICollection<Manager> GetManagersForEmailNotification(LessorId lessorId);
     }
 
     public class LessorService : ILessorService
@@ -53,11 +54,11 @@
             throw new NotFoundException(String.Format("Lessor {0} not found.", lessorId));
         }
 
-        public ICollection<Manager> GetManagers(LessorId lessorId)
+        public ICollection<Manager> GetManagersForEmailNotification(LessorId lessorId)
         {
             if (lessorId == null) throw new ArgumentNullException("lessorId");
 
-            var members = _membersWithRole.Manager(lessorId.Id);
+            var members = _membersWithRole.Manager(lessorId.Id, true);
             var user = _userQueries.FindById(lessorId.Id);
 
             return ToManagers(members, user);

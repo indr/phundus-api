@@ -31,11 +31,12 @@
             return ToMemberDtos(memberships, queryFullName);
         }
 
-        public IList<Manager> Manager(Guid tenantId)
+        public IList<Manager> Manager(Guid tenantId, bool recievesEmailNotifications)
         {
             return
                 FindByOrganizationId(tenantId)
                     .Where(p => p.Role == 2)
+                    .Where(p => p.RecievesEmailNotifications == recievesEmailNotifications)
                     .Select(s => new Manager(new UserId(s.Guid), s.EmailAddress, s.FullName))
                     .ToList();
         }

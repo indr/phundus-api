@@ -5,6 +5,6 @@
 
     public interface IMembersWithRole
     {
-        IList<Manager> Manager(Guid tenantId);
+        IList<Manager> Manager(Guid tenantId, bool recievesEmailNotifications);
     }
 }

@@ -24,7 +24,7 @@
             command = new ChangeMemberRecievesEmailNotification(theInitiatorId, theOrganizationId, theMemberId, true);
         };
 
-        private It should_tell_organization_to_change_managers_recieve_email_notification_option = () =>
+        private It should_tell_organization_to_change_members_recieve_email_notification_option = () =>
             theOrganization.WasToldTo(x => x.ChangeMembersRecieveEmailNotificationOption(theManager, theMemberId, true));
     }
 }
