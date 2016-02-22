@@ -1,7 +1,9 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Model
 {
     using System;
+    using System.Linq;
     using Common.Domain.Model;
+    using Integration.IdentityAccess;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Model;
@@ -15,6 +17,7 @@
 
         protected static OrganizationId theOrganizationId;
         protected static Admin theAdmin;
+        protected static Manager theManager;
 
         private Establish ctx = () =>
         {
@@ -23,6 +26,7 @@
             theInitiatorId = new InitiatorId();
             theInitiator = new Initiator(theInitiatorId, "initiator@test.phundus.ch", "The Initiator");
             theAdmin = new Admin(theInitiatorId, "admin@test.phundus.ch", "The Admin");
+            theManager = new Manager(theInitiatorId, "manager@test.phundus.ch", "The Manager");
             theOrganizationId = new OrganizationId();
 
             sut_factory.create_using(() =>
@@ -86,6 +90,35 @@
                 && p.OrganizationId == theOrganizationId.Id
                 && p.OldPlan == "free"
                 && p.NewPlan == theNewOrganizationPlan.ToString().ToLowerInvariant());
+    }
+
+    [Subject(typeof (Organization))]
+    public class when_setting_members_recieves_email_notification : organization_concern
+    {
+        private static User theMember;
+        private static Membership theMembership;
+
+        private Establish ctx = () => sut_setup.run(sut =>
+        {
+            theMember = make.User();
+            var membershipApplicationId = new MembershipApplicationId();
+            var application = sut.RequestMembership(theInitiatorId, membershipApplicationId, theMember);
+            sut.ApproveMembershipRequest(theInitiatorId, application, Guid.NewGuid());
+            theMembership = sut.Memberships.Single(p => p.UserId.Id == theMember.UserId.Id);
+        });
+
+        private Because of = () =>
+            sut.ChangeMembersRecieveEmailNotificationOption(theManager, theMember.UserId, true);
+
+        private It should_have_membership_with_recieves_email_notification_option = () =>
+            theMembership.RecievesEmailNotifications.ShouldBeTrue();
+
+        private It should_publish_member_recieve_email_notification_changed = () =>
+            Published<MemberRecieveEmailNotificationOptionChanged>(p =>
+                p.Initiator.InitiatorId.Id == theManager.UserId.Id
+                && p.OrganizationId == theOrganizationId.Id
+                && p.MemberId == theMember.UserId.Id
+                && p.Value == true);
     }
 
     [Subject(typeof (Organization))]

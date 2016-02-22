@@ -125,9 +125,14 @@
                 application.UserId));
         }
 
-        protected virtual Membership GetMembershipOfUser(User user)
+        private Membership GetMembershipOfUser(User user)
         {
-            var membership = Memberships.FirstOrDefault(p => p.UserId.Id == user.UserId.Id);
+            return GetMembershipOfUser(user.UserId);
+        }
+
+        private Membership GetMembershipOfUser(UserId userId)
+        {
+            var membership = Memberships.FirstOrDefault(p => p.UserId.Id == userId.Id);
             if (membership == null)
                 throw new Exception("Membership not found");
 
@@ -156,6 +161,14 @@
             EventPublisher.Publish(new MemberUnlocked(Id, member.UserId.Id));
         }
 
+        public virtual void ChangeMembersRecieveEmailNotificationOption(Manager manager, UserId memberId, bool value)
+        {
+            var membership = GetMembershipOfUser(memberId);
+            membership.SetRecievesEmailNotification(value);
+
+            EventPublisher.Publish(new MemberRecieveEmailNotificationOptionChanged(manager, Id, memberId, value));
+        }
+       
         public virtual void ChangeStartpage(UserId initiatorId, string startpage)
         {
             if (_startpage == startpage)
@@ -200,10 +213,6 @@
             Plan = plan;
 
             EventPublisher.Publish(new OrganizationPlanChanged(admin, Id, oldPlan, Plan));
-        }
-
-        public virtual void ChangeMembersRecieveEmailNotificationOption(Manager manager, UserId memberId, bool value)
-        {
         }
     }
 }
