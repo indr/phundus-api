@@ -14,6 +14,7 @@
         private Role _role;
         private UserId _userId;
         private int _version;
+        private bool _recievesEmailNotifications;
 
         protected Membership()
         {
@@ -74,7 +75,7 @@
         public virtual Role Role
         {
             get { return _role; }
-            set { _role = value; }
+            protected set { _role = value; }
         }
 
         public virtual DateTime ApprovalDate
@@ -89,10 +90,16 @@
             protected set { _isLocked = value; }
         }
 
+        public virtual bool RecievesEmailNotifications
+        {
+            get { return _recievesEmailNotifications; }
+            protected set { _recievesEmailNotifications = value; }
+        }
 
         public virtual void ChangeRole(Role role)
         {
             Role = role;
+            RecievesEmailNotifications = role == Role.Chief;
         }
 
         public virtual void Lock()

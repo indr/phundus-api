@@ -2,31 +2,32 @@ namespace Phundus.Integration.IdentityAccess
 {
     using System;
     using System.Collections.Generic;
-    using Common;
     using Common.Domain.Model;
 
     public class Manager : ValueObject
     {
-        public Manager(Guid managerId, string fullName, string emailAddress)
+        public Manager(UserId userId, string emailAddress, string fullName)
         {
-            AssertionConcern.AssertArgumentNotNull(managerId, "ManagerId must be provided.");
-            AssertionConcern.AssertArgumentNotEmpty(fullName, "FullName must be provided.");
-            AssertionConcern.AssertArgumentNotEmpty(emailAddress, "EmailAddress must be provided.");
+            if (userId == null) throw new ArgumentNullException("userId");
+            if (emailAddress == null) throw new ArgumentNullException("emailAddress");
+            if (fullName == null) throw new ArgumentNullException("fullName");
 
-            ManagerId = managerId;
-            FullName = fullName;
+            UserId = userId;
             EmailAddress = emailAddress;
+            FullName = fullName;
         }
 
-        public string EmailAddress { get; private set; }
+        protected Manager()
+        {
+        }
 
-        public string FullName { get; private set; }
-
-        public Guid ManagerId { get; private set; }
+        public UserId UserId { get; protected set; }
+        public string EmailAddress { get; protected set; }
+        public string FullName { get; protected set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return ManagerId;
+            yield return UserId;
         }
     }
 }

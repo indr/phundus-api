@@ -3,6 +3,7 @@
     using Common.Domain.Model;
     using developwithpassion.specifications.core;
     using developwithpassion.specifications.extensions;
+    using Integration.IdentityAccess;
     using Machine.Fakes;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Users.Model;
@@ -43,6 +44,11 @@
             result.setup(x => x.FullName).Return("The User");
             result.setup(x => x.EmailAddress).Return("user@test.phundus.ch");
             return result;
+        }
+
+        public Manager Manager()
+        {
+            return new Manager(new UserId(), "manager@test.phundus.ch", "The Manager");
         }
     }
 }

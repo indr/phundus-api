@@ -47,6 +47,7 @@
                 IsManager = s.Role == 2,
                 JsNumber = s.JsNumber,
                 LastName = s.LastName,
+                RecievesEmailNotifications = s.RecievesEmailNotifications,
                 Role = s.Role
             }).ToList());
         }

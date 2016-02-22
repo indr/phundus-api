@@ -36,7 +36,7 @@
             return
                 FindByOrganizationId(tenantId)
                     .Where(p => p.Role == 2)
-                    .Select(s => new Manager(s.Guid, s.FullName, s.EmailAddress))
+                    .Select(s => new Manager(new UserId(s.Guid), s.EmailAddress, s.FullName))
                     .ToList();
         }
 
@@ -61,6 +61,7 @@
                     LastName = user.LastName,
                     ApprovalDate = each.ApprovedOn,
                     Role = each.MembershipRole == "Chief" ? 2 : 1,
+                    RecievesEmailNotifications = each.RecievesEmailNotifications,
                     IsLocked = each.IsLocked
                 });
             }
@@ -93,6 +94,8 @@
         {
             get { return FirstName + " " + LastName; }
         }
+
+        public bool RecievesEmailNotifications { get; set; }
     }
 
     public class MemberDtos : List<MemberDto>

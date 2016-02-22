@@ -1,5 +1,6 @@
 ﻿namespace Phundus.IdentityAccess.Users.Model
 {
+    using System;
     using System.Collections.Generic;
     using Common.Domain.Model;
 
@@ -7,6 +8,10 @@
     {
         public Admin(UserId userId, string emailAddress, string fullName)
         {
+            if (userId == null) throw new ArgumentNullException("userId");
+            if (emailAddress == null) throw new ArgumentNullException("emailAddress");
+            if (fullName == null) throw new ArgumentNullException("fullName");
+
             UserId = userId;
             EmailAddress = emailAddress;
             FullName = fullName;

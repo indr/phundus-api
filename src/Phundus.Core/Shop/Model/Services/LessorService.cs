@@ -70,13 +70,13 @@
             var result = members;
 
             if (user != null)
-                result.Add(new Manager(user.UserId, user.FullName, user.EmailAddress));
+                result.Add(new Manager(new UserId(user.UserId), user.EmailAddress, user.FullName));
             return result;
         }
 
         private static Lessor ToLessor(IUser user)
         {
-            return new Lessor(new LessorId(user.UserId), user.FirstName + " " + user.LastName, true);
+            return new Lessor(new LessorId(user.UserId), user.FullName, true);
         }
 
         private static Lessor ToLessor(IOrganization organization)

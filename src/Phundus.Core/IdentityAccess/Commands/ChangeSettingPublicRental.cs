@@ -1,13 +1,12 @@
-﻿namespace Phundus.IdentityAccess.Organizations.Commands
+﻿namespace Phundus.IdentityAccess.Commands
 {
     using System;
     using Authorization;
     using Common.Domain.Model;
     using Cqrs;
     using Integration.IdentityAccess;
+    using Organizations.Repositories;
     using Phundus.Authorization;
-    using Queries;
-    using Repositories;
 
     public class ChangeSettingPublicRental : ICommand
     {

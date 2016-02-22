@@ -1,5 +1,7 @@
 namespace Phundus.Tests.IdentityAccess
 {
+    using Common.Domain.Model;
+    using Integration.IdentityAccess;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Cqrs;
@@ -22,14 +24,20 @@ namespace Phundus.Tests.IdentityAccess
         protected static identityaccess_factory make;
 
         protected static Admin theAdmin;
+        protected static Manager theManager;
+        protected static OrganizationId theOrganizationId;
 
         private Establish ctx = () =>
         {
             make = new identityaccess_factory(fake);
 
-            theAdmin = make.Admin();
+            theOrganizationId = new OrganizationId();
+
             userInRole = depends.on<IUserInRole>();
+            theAdmin = make.Admin();
             userInRole.WhenToldTo(x => x.Admin(theInitiatorId)).Return(theAdmin);
+            theManager = make.Manager();
+            userInRole.WhenToldTo(x => x.Manager(theInitiatorId, theOrganizationId)).Return(theManager);
 
             memberInRole = depends.on<IMemberInRole>();
             organizationRepository = depends.on<IOrganizationRepository>();
