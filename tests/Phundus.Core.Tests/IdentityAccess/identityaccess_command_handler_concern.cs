@@ -14,7 +14,7 @@ namespace Phundus.Tests.IdentityAccess
         where THandler : class, IHandleCommand<TCommand>
     {
         protected static IMemberInRole memberInRole;
-        private static IUserInRole userInRole;
+        protected static IUserInRole userInRole;
 
         protected static IOrganizationRepository organizationRepository;
         protected static IUserRepository userRepository;

@@ -1,6 +1,8 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Organizations.Commands
 {
     using Common.Domain.Model;
+    using developwithpassion.specifications.extensions;
+    using Integration.IdentityAccess;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Organizations.Commands;
@@ -19,6 +21,7 @@
             depends.on<IUserRepository>()
                 .WhenToldTo(x => x.GetByGuid(theInitiatorId))
                 .Return(make.User(theInitiatorId));
+            userInRole.setup(x => x.Founder(theInitiatorId)).Return(new Founder(theInitiatorId, "founder@test.phundus.ch", "The Founder"));
             command = new EstablishOrganization(theInitiatorId, theOrganizationGuid, "New Organization");
         };
 
@@ -37,8 +40,7 @@
             publisher.WasToldTo(x => x.Publish(Arg<OrganizationEstablished>.Matches(
                 p => p.Name == "New Organization"
                      && p.OrganizationId == theOrganizationGuid.Id
-                     && p.Plan == "free"
-                     && p.Url == "new-organization")));
+                     && p.Plan == "free")));
         };
     }
 }

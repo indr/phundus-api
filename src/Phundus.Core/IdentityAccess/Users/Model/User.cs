@@ -124,6 +124,11 @@
             get { return String.Format("{0} {1}", FirstName, LastName); }
         }
 
+        public virtual bool IsLocked
+        {
+            get { return Account.IsLockedOut; }
+        }
+
         public virtual void ChangeRole(Admin admin, UserRole userRole)
         {
             if (Role == userRole)
