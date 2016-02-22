@@ -3,8 +3,8 @@
     public enum OrganizationPlan
     {
         Free = 0,
-        Small = 1,
+        Membership = 1,
         Medium = 2,
-        Large = 3
+        Large = 3        
     }
 }

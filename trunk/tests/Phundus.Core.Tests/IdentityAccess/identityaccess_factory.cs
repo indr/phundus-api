@@ -20,15 +20,14 @@
             return result;
         }
 
-        public User Admin()
+        public Admin Admin()
         {
             return Admin(new UserId());
         }
 
-        public User Admin(UserId userId)
+        public Admin Admin(UserId userId)
         {
-            var user = User(userId);
-            user.WhenToldTo(x => x.Role).Return(UserRole.Admin);
+            var user = fake.an<Admin>();
             return user;
         }
 

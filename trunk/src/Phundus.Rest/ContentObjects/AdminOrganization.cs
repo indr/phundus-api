@@ -13,5 +13,8 @@ namespace Phundus.Rest.ContentObjects
 
         [JsonProperty("establishedAtUtc")]
         public DateTime EstablishedAtUtc { get; set; }
+
+        [JsonProperty("plan")]
+        public string Plan { get; set; }
     }
 }

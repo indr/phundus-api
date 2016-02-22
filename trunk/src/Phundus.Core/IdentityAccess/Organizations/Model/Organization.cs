@@ -187,5 +187,18 @@
 
             EventPublisher.Publish(new PublicRentalSettingChanged(initiator, Id, _settings.PublicRental));
         }
+
+        public virtual void ChangePlan(Admin admin, OrganizationPlan plan)
+        {
+            if (admin == null) throw new ArgumentNullException("admin");
+
+            if (Plan == plan)
+                return;
+
+            var oldPlan = Plan;
+            Plan = plan;
+
+            EventPublisher.Publish(new OrganizationPlanChanged(admin, Id, oldPlan, Plan));
+        }
     }
 }

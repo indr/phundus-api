@@ -18,7 +18,7 @@
         {
             depends.on<IUserRepository>()
                 .WhenToldTo(x => x.GetByGuid(theInitiatorId))
-                .Return(make.Admin(theInitiatorId));
+                .Return(make.User(theInitiatorId));
             command = new EstablishOrganization(theInitiatorId, theOrganizationGuid, "New Organization");
         };
 
@@ -38,7 +38,7 @@
                 p => p.Name == "New Organization"
                      && p.OrganizationId == theOrganizationGuid.Id
                      && p.Plan == "free"
-                     && p.Url == "")));
+                     && p.Url == "new-organization")));
         };
     }
 }

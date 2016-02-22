@@ -32,7 +32,8 @@
                 {
                     OrganizationId = s.OrganizationId,
                     Name = s.Name,
-                    EstablishedAtUtc = s.EstablishedAtUtc
+                    EstablishedAtUtc = s.EstablishedAtUtc,
+                    Plan = s.Plan
                 }).ToList()
             };
         } 

@@ -14,6 +14,7 @@
         protected static identityaccess_factory make;
 
         protected static OrganizationId theOrganizationId;
+        protected static Admin theAdmin;
 
         private Establish ctx = () =>
         {
@@ -21,6 +22,7 @@
 
             theInitiatorId = new InitiatorId();
             theInitiator = new Initiator(theInitiatorId, "initiator@test.phundus.ch", "The Initiator");
+            theAdmin = new Admin(theInitiatorId, "admin@test.phundus.ch", "The Admin");
             theOrganizationId = new OrganizationId();
 
             sut_factory.create_using(() =>
@@ -34,17 +36,17 @@
         private Establish ctx = () => sut_factory.create_using(() =>
             new Organization(theOrganizationId, "The organization"));
 
-        private It should_have_organization_plan_free = () =>
-            sut.Plan.ShouldEqual(OrganizationPlan.Free);
+        private It should_have_established_at_utc = () =>
+            sut.EstablishedAtUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
 
         private It should_have_friendly_url = () =>
             sut.FriendlyUrl.ShouldEqual("the-organization");
 
+        private It should_have_organization_plan_free = () =>
+            sut.Plan.ShouldEqual(OrganizationPlan.Free);
+
         private It should_have_setting_public_rental_true = () =>
             sut.Settings.PublicRental.ShouldBeTrue();
-
-        private It should_have_established_at_utc = () =>
-            sut.EstablishedAtUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
     }
 
     [Subject(typeof (Organization))]
@@ -66,16 +68,39 @@
     }
 
     [Subject(typeof (Organization))]
+    public class when_changing_the_organization_plan : organization_concern
+    {
+        private static OrganizationPlan theNewOrganizationPlan;
+
+        private Establish ctx = () => { theNewOrganizationPlan = OrganizationPlan.Membership; };
+
+        private Because of = () =>
+            sut.ChangePlan(theAdmin, theNewOrganizationPlan);
+
+        private It should_have_the_new_plan = () =>
+            sut.Plan.ShouldEqual(theNewOrganizationPlan);
+
+        private It should_public_organization_plan_changed = () =>
+            Published<OrganizationPlanChanged>(p =>
+                p.Initiator.InitiatorId.Id == theAdmin.UserId.Id
+                && p.OrganizationId == theOrganizationId.Id
+                && p.OldPlan == "free"
+                && p.NewPlan == theNewOrganizationPlan.ToString().ToLowerInvariant());
+    }
+
+    [Subject(typeof (Organization))]
     public class when_changing_startpage : organization_concern
     {
         private static string theNewStartpage = "<p>The new startpage</p>";
 
-        private Because of = () => sut.ChangeStartpage(theInitiatorId, theNewStartpage);
+        private Because of = () =>
+            sut.ChangeStartpage(theInitiatorId, theNewStartpage);
 
-        private It should_have_new_startpage = () => sut.Startpage.ShouldEqual(theNewStartpage);
+        private It should_have_new_startpage = () =>
+            sut.Startpage.ShouldEqual(theNewStartpage);
 
-        private It should_publish_startpage_changed =
-            () => publisher.AssertWasCalled(x => x.Publish(Arg<StartpageChanged>.Is.NotNull));
+        private It should_publish_startpage_changed = () =>
+            publisher.AssertWasCalled(x => x.Publish(Arg<StartpageChanged>.Is.NotNull));
     }
 
     [Subject(typeof (Organization))]
