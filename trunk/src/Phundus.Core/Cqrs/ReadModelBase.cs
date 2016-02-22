@@ -49,4 +49,9 @@ namespace Phundus.Cqrs
             return Session.QueryOver<TRow>();
         }
     }
+
+    public class ProjectionBase<TRow> : ReadModelBase<TRow> where TRow : class, new()
+    {
+        
+    }
 }

@@ -8,7 +8,6 @@
     using Bootstrap.Windsor;
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
-    using IdentityAccess.Organizations.Repositories;
     using Security;
 
     public class MvcApplication : HttpApplication, IContainerAccessor
@@ -38,11 +37,9 @@
             _container.Register(Component.For<CustomRoleProvider>()
                 .Named("RoleProvider").LifestyleTransient());
 
-            var organizations = _container.Resolve<IOrganizationRepository>().FindAll();
-
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes, organizations);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
 
         protected void Application_End()

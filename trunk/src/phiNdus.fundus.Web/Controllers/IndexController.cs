@@ -1,12 +1,13 @@
 ﻿namespace Phundus.Web.Controllers
 {
     using System;
+    using System.IO;
     using System.Text;
     using System.Web.Mvc;
 
-    public class HomeController : ControllerBase
+    [AllowAnonymous]
+    public class IndexController : Controller
     {
-        [AllowAnonymous]
         public virtual ActionResult Index()
         {
             var content = System.IO.File.ReadAllText(Server.MapPath("~/index.html"));
@@ -20,16 +21,21 @@
             return Content(content, "text/html", Encoding.UTF8);
         }
 
-        [AllowAnonymous]
-        public virtual ActionResult Throw()
+        private string RenderPartialViewToString(string viewName, object model = null)
         {
-            throw new Exception("Exception zur Diagnose!");
-        }
+            if (string.IsNullOrEmpty(viewName))
+                viewName = ControllerContext.RouteData.GetRequiredString("action");
 
-        [AllowAnonymous]
-        public virtual ActionResult NotFound()
-        {
-            return HttpNotFound("HttpNotFound zur Diagnose!");
+            ViewData.Model = model;
+
+            using (var sw = new StringWriter())
+            {
+                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+
+                return sw.GetStringBuilder().ToString();
+            }
         }
     }
 }

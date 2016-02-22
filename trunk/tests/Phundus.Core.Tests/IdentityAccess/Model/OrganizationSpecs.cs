@@ -1,4 +1,4 @@
-﻿namespace Phundus.Tests.IdentityAccess.Organizations.Model
+﻿namespace Phundus.Tests.IdentityAccess.Model
 {
     using System;
     using Common.Domain.Model;
@@ -13,6 +13,8 @@
     {
         protected static identityaccess_factory make;
 
+        protected static OrganizationId theOrganizationId;
+
         private Establish ctx = () =>
         {
             make = new identityaccess_factory(fake);
@@ -24,18 +26,25 @@
             sut_factory.create_using(() =>
                 new Organization(theOrganizationId, "The organization"));
         };
-
-        private static OrganizationId theOrganizationId;
     }
 
     [Subject(typeof (Organization))]
-    public class when_instantiating_an_organization : organization_concern
+    public class when_establishing_an_organization : organization_concern
     {
+        private Establish ctx = () => sut_factory.create_using(() =>
+            new Organization(theOrganizationId, "The organization"));
+
+        private It should_have_organization_plan_free = () =>
+            sut.Plan.ShouldEqual(OrganizationPlan.Free);
+
+        private It should_have_friendly_url = () =>
+            sut.FriendlyUrl.ShouldEqual("the-organization");
+
         private It should_have_setting_public_rental_true = () =>
             sut.Settings.PublicRental.ShouldBeTrue();
 
-        private It should_have_settings = () =>
-            sut.Settings.ShouldNotBeNull();
+        private It should_have_established_at_utc = () =>
+            sut.EstablishedAtUtc.ShouldBeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
     }
 
     [Subject(typeof (Organization))]
