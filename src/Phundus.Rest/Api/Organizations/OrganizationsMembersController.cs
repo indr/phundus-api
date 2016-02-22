@@ -10,6 +10,7 @@
     using Common;
     using Common.Domain.Model;
     using ContentObjects;
+    using IdentityAccess.Commands;
     using IdentityAccess.Organizations.Commands;
     using IdentityAccess.Queries.ReadModels;
     using Newtonsoft.Json;
@@ -114,6 +115,11 @@
                     });
                 }
             }
+            if (requestContent.RecievesEmailNotifications.HasValue)
+            {
+                Dispatch(new ChangeMemberRecievesEmailNotification(CurrentUserId, new OrganizationId(organizationId), new UserId(memberId), 
+                    requestContent.RecievesEmailNotifications.Value));
+            }
 
             return NoContent();
         }
@@ -132,6 +138,9 @@
 
         [JsonProperty("isLocked")]
         public bool? IsLocked { get; set; }
+
+        [JsonProperty("recievesEmailNotifications")]
+        public bool? RecievesEmailNotifications { get; set; }
     }
 
     public class OrganizationsMembersPutRequestContent

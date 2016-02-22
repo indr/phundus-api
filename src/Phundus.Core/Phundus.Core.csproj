@@ -145,6 +145,7 @@
     </Compile>
     <Compile Include="IdentityAccess\Organizations\Model\ContactDetails.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\MemberLocked.cs" />
+    <Compile Include="IdentityAccess\Organizations\Model\MemberRecieveEmailNotificationOptionChanged.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\Membership.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\MembershipApplication.cs" />
     <Compile Include="IdentityAccess\Organizations\Model\MembershipApplicationApproved.cs" />

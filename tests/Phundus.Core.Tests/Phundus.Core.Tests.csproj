@@ -108,6 +108,7 @@
     <Compile Include="IdentityAccess\Events\MembershipApplicationRejectedSpecs.cs" />
     <Compile Include="IdentityAccess\identityaccess_factory.cs" />
     <Compile Include="IdentityAccess\Authorize\ManageOrganizationAccessObjectHandlerSpecs.cs" />
+    <Compile Include="IdentityAccess\Model\MembershipSpecs.cs" />
     <Compile Include="IdentityAccess\Model\OrganizationSettingsSpecs.cs" />
     <Compile Include="IdentityAccess\Events\PublicRentalSettingChangedSpecs.cs" />
     <Compile Include="IdentityAccess\Commands\EstablishOrganizationHandlerSpecs.cs" />

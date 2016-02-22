@@ -111,5 +111,10 @@
         {
             IsLocked = false;
         }
+
+        public virtual void SetRecievesEmailNotification(bool value)
+        {
+            RecievesEmailNotifications = value;
+        }
     }
 }
