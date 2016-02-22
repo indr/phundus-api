@@ -3,16 +3,21 @@ namespace Phundus.IdentityAccess.Organizations.Model
     using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
+    using Integration.IdentityAccess;
 
     [DataContract]
     public class OrganizationEstablished : DomainEvent
     {
-        public OrganizationEstablished(OrganizationId organizationId, string plan, string name, string url)
+        public OrganizationEstablished(Founder founder, OrganizationId organizationId, string name, OrganizationPlan plan)
         {
+            if (founder == null) throw new ArgumentNullException("founder");
+            if (organizationId == null) throw new ArgumentNullException("organizationId");
+            if (name == null) throw new ArgumentNullException("name");
+
+            Initiator = new Initiator(new InitiatorId(founder.UserId), founder.EmailAddress, founder.FullName);
             OrganizationId = organizationId.Id;
-            Plan = plan;
             Name = name;
-            Url = url;
+            Plan = plan.ToString().ToLowerInvariant();            
         }
 
         protected OrganizationEstablished()
@@ -20,15 +25,15 @@ namespace Phundus.IdentityAccess.Organizations.Model
         }
 
         [DataMember(Order = 1)]
-        public Guid OrganizationId { get; set; }
+        public Initiator Initiator { get; set; }
 
         [DataMember(Order = 2)]
-        public string Plan { get; set; }
+        public Guid OrganizationId { get; set; }
 
         [DataMember(Order = 3)]
         public string Name { get; set; }
 
         [DataMember(Order = 4)]
-        public string Url { get; set; }
+        public string Plan { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Tests.Inventory
 {
     using Common.Domain.Model;
+    using Integration.IdentityAccess;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Organizations.Model;
@@ -16,15 +17,16 @@
 
         private static IStoreRepository storeRepository;
 
-        private Establish ctx =
-            () =>
-            {
-                depends.on<IOwnerService>()
-                    .WhenToldTo(x => x.GetById(theOrganizationGuid.Id))
-                    .Return(new Owner(new OwnerId(theOrganizationGuid.Id), "Rocks and Scissors", OwnerType.Organization));
-                storeRepository = depends.on<IStoreRepository>();
-                @event = new OrganizationEstablished(theOrganizationGuid, "free", "Rocks and Scissors", "");
-            };
+        private Establish ctx = () =>
+        {
+            depends.on<IOwnerService>()
+                .WhenToldTo(x => x.GetById(theOrganizationGuid.Id))
+                .Return(new Owner(new OwnerId(theOrganizationGuid.Id), "Rocks and Scissors", OwnerType.Organization));
+            storeRepository = depends.on<IStoreRepository>();
+            @event = new OrganizationEstablished(
+                new Founder(new UserId(), "founder@test.phundus.ch", "The Founder"), theOrganizationGuid,
+                "Rocks and Scissors", OrganizationPlan.Free);
+        };
 
         private It should_add_store_to_repository = () => storeRepository.WasToldTo(x => x.Add(Arg<Store>.Is.NotNull));
 

@@ -8,6 +8,7 @@
     using Model;
     using Repositories;
     using Users.Repositories;
+    using Users.Services;
 
     public class EstablishOrganization
     {
@@ -28,28 +29,31 @@
 
     public class EstablishOrganizationHandler : IHandleCommand<EstablishOrganization>
     {
+        private readonly IUserInRole _userInRole;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IUserRepository _userRepository;
 
-        public EstablishOrganizationHandler(IOrganizationRepository organizationRepository,
+        public EstablishOrganizationHandler(IUserInRole userInRole, IOrganizationRepository organizationRepository,
             IUserRepository userRepository)
         {
-            AssertionConcern.AssertArgumentNotNull(organizationRepository, "OrganizationRepository must be provided.");
-            AssertionConcern.AssertArgumentNotNull(userRepository, "UserRepository must be provided.");
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (organizationRepository == null) throw new ArgumentNullException("organizationRepository");
+            if (userRepository == null) throw new ArgumentNullException("userRepository");
 
+            _userInRole = userInRole;
             _organizationRepository = organizationRepository;
             _userRepository = userRepository;
         }
 
         public void Handle(EstablishOrganization command)
         {
+            var founder = _userInRole.Founder(command.InitiatorId);
             var organization = new Organization(command.OrganizationId, command.Name);
 
             _organizationRepository.Add(organization);
 
-            EventPublisher.Publish(new OrganizationEstablished(organization.Id,
-                organization.Plan.ToString().ToLowerInvariant(), organization.Name,
-                organization.FriendlyUrl));
+            EventPublisher.Publish(new OrganizationEstablished(founder, organization.Id,
+                organization.Name, organization.Plan));
 
             var requestId = new MembershipApplicationId();
             var user = _userRepository.GetByGuid(command.InitiatorId);

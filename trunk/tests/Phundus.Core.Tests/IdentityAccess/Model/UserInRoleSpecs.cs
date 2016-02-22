@@ -59,6 +59,30 @@
     }
 
     [Subject(typeof (UserInRole))]
+    public class when_asking_for_founder : user_in_role_concern
+    {
+        private static Founder aFounder;
+
+        private Because of = () =>
+            aFounder = sut.Founder(theUser.UserId);
+
+        private It should_return_a_founer = () =>
+            aFounder.ShouldNotBeNull();
+    }
+
+    [Subject(typeof (UserInRole))]
+    public class when_asking_for_founder_when_user_is_locked : user_in_role_concern
+    {
+        private Establish ctx = () => theUser.setup(x => x.IsLocked).Return(true);
+
+        private Because of = () =>
+            caughtException = Catch.Exception(() => sut.Founder(theUser.UserId));
+
+        private It should_throw_exception = () =>
+            caughtException.ShouldNotBeNull();
+    }
+
+    [Subject(typeof (UserInRole))]
     public class when_asking_for_manager_with_user_in_admin_role : user_in_role_concern
     {
         private static Manager aManager;
@@ -119,7 +143,7 @@
             aManager.ShouldNotBeNull();
     }
 
-    [Subject(typeof(UserInRole))]
+    [Subject(typeof (UserInRole))]
     public class when_asking_for_manager_with_user_as_organization_manager_but_locked : user_in_role_concern
     {
         private static OrganizationId theOrganizationId;
@@ -133,7 +157,7 @@
             membership.setup(x => x.OrganizationId).Return(theOrganizationId);
             membership.setup(x => x.IsLocked).Return(true);
             membershipRepository.WhenToldTo(x => x.ByMemberId(theUser.UserId.Id))
-                .Return(new List<Membership> { membership });
+                .Return(new List<Membership> {membership});
         };
 
         private Because of = () =>
@@ -142,5 +166,4 @@
         private It should_throw_exception = () =>
             caughtException.ShouldNotBeNull();
     }
-
 }

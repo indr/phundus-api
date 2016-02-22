@@ -22,9 +22,7 @@
 
         private void Process(OrganizationEstablished domainEvent)
         {
-            var friendlyUrl = domainEvent.Url;
-            if (String.IsNullOrEmpty(friendlyUrl))
-                friendlyUrl = domainEvent.Name.ToFriendlyUrl();
+            var friendlyUrl = domainEvent.Name.ToFriendlyUrl();
 
             var row = FindByUrl(friendlyUrl);
             if (row == null)
