@@ -340,6 +340,7 @@
     <Compile Include="Shop\Model\Services\ArticleService.cs" />
     <Compile Include="Shop\Authorization\Rent.cs" />
     <Compile Include="Shop\Model\Services\LessorService.cs" />
+    <Compile Include="Web\Projections\FriendlyUrlProjection.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
     <Compile Include="Cqrs\CommandDispatcher.cs" />

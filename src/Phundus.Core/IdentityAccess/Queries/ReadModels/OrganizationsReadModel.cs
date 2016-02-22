@@ -60,7 +60,7 @@
                 OrganizationId = organization.Id.Id,
                 EstablishedAtUtc = organization.EstablishedAtUtc,
                 Name = organization.Name,
-                Url = organization.Url,
+                Url = organization.FriendlyUrl,
                 Startpage = organization.Startpage,
                 DocumentTemplate = organization.DocTemplateFileName,
                 PublicRental = organization.Settings.PublicRental

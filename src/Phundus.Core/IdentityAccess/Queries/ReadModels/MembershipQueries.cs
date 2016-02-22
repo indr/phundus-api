@@ -40,7 +40,7 @@
                 UserGuid = each.UserId.Id,
                 OrganizationGuid = each.Organization.Id.Id,
                 OrganizationName = each.Organization.Name,
-                OrganizationUrl = each.Organization.Url,
+                OrganizationUrl = each.Organization.FriendlyUrl,
                 ApprovedOn = each.ApprovalDate,
                 MembershipRole = each.Role.ToString(),
                 IsLocked = each.IsLocked

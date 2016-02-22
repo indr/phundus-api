@@ -11,9 +11,7 @@
 
     public class Organization : Aggregate<OrganizationId>
     {
-        private ISet<MembershipApplication> _applications =
-            new HashedSet<MembershipApplication>();
-
+        private ISet<MembershipApplication> _applications = new HashedSet<MembershipApplication>();
         private ContactDetails _contactDetails;
         private DateTime _establishedAtUtc = DateTime.UtcNow;
         private ISet<Membership> _memberships = new HashedSet<Membership>();
@@ -51,24 +49,18 @@
             protected set { _contactDetails = value; }
         }
 
-        public virtual string Url
+        public virtual string FriendlyUrl
         {
-            get
-            {
-                if (Plan == OrganizationPlan.Free)
-                    return "";
-
-                return Name.ToFriendlyUrl();
-            }
+            get { return Name.ToFriendlyUrl(); }
         }
 
-        public virtual Iesi.Collections.Generic.ISet<Membership> Memberships
+        public virtual ISet<Membership> Memberships
         {
             get { return _memberships; }
             protected set { _memberships = value; }
         }
 
-        public virtual Iesi.Collections.Generic.ISet<MembershipApplication> Applications
+        public virtual ISet<MembershipApplication> Applications
         {
             get { return _applications; }
             protected set { _applications = value; }

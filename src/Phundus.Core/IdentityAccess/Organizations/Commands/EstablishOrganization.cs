@@ -49,7 +49,7 @@
 
             EventPublisher.Publish(new OrganizationEstablished(organization.Id,
                 organization.Plan.ToString().ToLowerInvariant(), organization.Name,
-                organization.Url));
+                organization.FriendlyUrl));
 
             var requestId = new MembershipApplicationId();
             var user = _userRepository.GetByGuid(command.InitiatorId);

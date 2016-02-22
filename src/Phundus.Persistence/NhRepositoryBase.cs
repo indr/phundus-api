@@ -2,9 +2,9 @@
 {
     using System;
     using System.Linq;
-    using Infrastructure;
     using NHibernate;
     using NHibernate.Linq;
+    using Phundus.Infrastructure;
 
     public abstract class NhRepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class
     {
@@ -30,7 +30,7 @@
 
         public TEntity FindById(object id)
         {
-            return (TEntity)Session.Get(ConcreteType, id);
+            return (TEntity) Session.Get(ConcreteType, id);
         }
 
         public void Remove(TEntity entity)
