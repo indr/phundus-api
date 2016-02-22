@@ -6,7 +6,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
-    using IdentityAccess.Organizations.Commands;
+    using IdentityAccess.Commands;
     using IdentityAccess.Queries;
     using Newtonsoft.Json;
 
@@ -41,7 +41,8 @@
         {
             if (requestContent.PublicRental.HasValue)
             {
-                Dispatch(new ChangeSettingPublicRental(CurrentUserId, new OrganizationId(organizationId), requestContent.PublicRental.Value));
+                Dispatch(new ChangeSettingPublicRental(CurrentUserId, new OrganizationId(organizationId),
+                    requestContent.PublicRental.Value));
             }
             return NoContent();
         }

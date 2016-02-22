@@ -24,5 +24,8 @@ namespace Phundus.Rest.ContentObjects
 
         public DateTime? ApprovalDate { get; set; }
         public string FullName { get; set; }
+
+        [JsonProperty("recievesEmailNotifications")]
+        public bool RecievesEmailNotifications { get; set; }
     }
 }

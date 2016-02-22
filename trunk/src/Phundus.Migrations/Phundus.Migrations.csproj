@@ -185,6 +185,7 @@
     <Compile Include="2016\02\M201602210742_Reset_Es_Shop_Items.cs" />
     <Compile Include="2016\02\M201602221007_Set_organization_plan_to_free.cs" />
     <Compile Include="2016\02\M201602221011_Generate_organization_established_events.cs" />
+    <Compile Include="2016\02\M201602221139_Add_column_RecievesEmailNotifications.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />

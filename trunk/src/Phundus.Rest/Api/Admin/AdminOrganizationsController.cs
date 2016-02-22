@@ -33,7 +33,7 @@
                     OrganizationId = s.OrganizationId,
                     Name = s.Name,
                     EstablishedAtUtc = s.EstablishedAtUtc,
-                    Plan = s.Plan
+                    Plan = s.Plan.ToLowerInvariant()
                 }).ToList()
             };
         } 

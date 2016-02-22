@@ -43,7 +43,8 @@
                 OrganizationUrl = each.Organization.FriendlyUrl,
                 ApprovedOn = each.ApprovalDate,
                 MembershipRole = each.Role.ToString(),
-                IsLocked = each.IsLocked
+                IsLocked = each.IsLocked,
+                RecievesEmailNotifications = each.RecievesEmailNotifications
             };
         }
     }
@@ -59,5 +60,6 @@
         public string MembershipRole { get; set; }
         public DateTime ApprovedOn { get; set; }
         public bool IsLocked { get; set; }
+        public bool RecievesEmailNotifications { get; set; }
     }
 }

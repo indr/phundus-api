@@ -12,7 +12,6 @@
     public class when_handling_update_startpage :
         identityaccess_command_handler_concern<UpdateStartpage, UpdateStartpageHandler>
     {
-        private static OrganizationId theOrganizationId = new OrganizationId();
         private static Organization theOrganization;
 
         private Establish ctx = () =>

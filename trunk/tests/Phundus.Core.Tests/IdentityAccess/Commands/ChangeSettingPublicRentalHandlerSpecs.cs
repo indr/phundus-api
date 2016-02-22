@@ -4,7 +4,7 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Authorization;
-    using Phundus.IdentityAccess.Organizations.Commands;
+    using Phundus.IdentityAccess.Commands;
     using Phundus.IdentityAccess.Organizations.Model;
     using Rhino.Mocks;
 

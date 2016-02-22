@@ -7,6 +7,7 @@
     using Ddd;
     using IdentityAccess.Model;
     using Iesi.Collections.Generic;
+    using Integration.IdentityAccess;
     using Users.Model;
 
     public class Organization : Aggregate<OrganizationId>
@@ -199,6 +200,10 @@
             Plan = plan;
 
             EventPublisher.Publish(new OrganizationPlanChanged(admin, Id, oldPlan, Plan));
+        }
+
+        public virtual void ChangeMembersRecieveEmailNotificationOption(Manager manager, UserId memberId, bool value)
+        {
         }
     }
 }

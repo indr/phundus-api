@@ -56,7 +56,7 @@
         {
             var user = _userRepository.GetByGuid(userId);
             if (user.Role == UserRole.Admin)
-                return new Manager(user.UserId.Id, user.FullName, user.EmailAddress);
+                return new Manager(user.UserId, user.EmailAddress, user.FullName);
 
             var membership = _membershipRepository.ByMemberId(userId.Id)
                 .Where(p => p.Role == Role.Chief)
@@ -70,7 +70,7 @@
                 throw new AuthorizationException(String.Format("Manager {0} for organization {1} not found.", userId,
                     organizationId));
 
-            return new Manager(user.UserId.Id, user.FullName, user.EmailAddress);
+            return new Manager(user.UserId, user.EmailAddress, user.FullName);
         }
 
         public bool IsAdmin(UserId userId)
