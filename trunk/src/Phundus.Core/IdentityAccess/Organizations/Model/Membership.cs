@@ -42,6 +42,11 @@
             protected set { _organizationGuid = value; }
         }
 
+        public virtual OrganizationId OrganizationId
+        {
+            get { return new OrganizationId(OrganizationGuid); }
+        }
+
         public virtual int Version
         {
             get { return _version; }
@@ -83,6 +88,7 @@
             get { return _isLocked; }
             protected set { _isLocked = value; }
         }
+
 
         public virtual void ChangeRole(Role role)
         {
