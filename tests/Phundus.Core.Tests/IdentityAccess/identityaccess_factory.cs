@@ -40,6 +40,8 @@
         {
             var result = fake.an<User>();
             result.setup(x => x.UserId).Return(userId);
+            result.setup(x => x.FullName).Return("The User");
+            result.setup(x => x.EmailAddress).Return("user@test.phundus.ch");
             return result;
         }
     }
