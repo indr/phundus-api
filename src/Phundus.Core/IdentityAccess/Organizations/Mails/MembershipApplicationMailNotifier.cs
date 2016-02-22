@@ -68,9 +68,9 @@
         {
             var user = _userQueries.GetByGuid(@event.UserGuid);
             var organization = _organizationQueries.GetById(@event.OrganizationGuid);
-            var chiefs = _memberWithRole.Manager(@event.OrganizationGuid);
+            var managers = _memberWithRole.Manager(@event.OrganizationGuid, true);
 
-            var recipients = chiefs.Select(p => p.EmailAddress).ToList();
+            var recipients = managers.Select(p => p.EmailAddress).ToList();
 
             Model = new
             {

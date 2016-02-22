@@ -33,7 +33,7 @@
         public void Handle(OrderPlaced @event)
         {
             var order = _orderRepository.GetById(@event.ShortOrderId);
-            var managers = _lessorService.GetManagers(new LessorId(@event.LessorId));
+            var managers = _lessorService.GetManagersForEmailNotification(new LessorId(@event.LessorId));
 
             Model = new
             {
