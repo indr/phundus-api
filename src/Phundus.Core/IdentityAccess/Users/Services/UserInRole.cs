@@ -7,7 +7,7 @@
 
     public interface IUserInRole
     {
-        User Admin(UserId userId);
+        Admin Admin(UserId userId);
         bool IsAdmin(UserId userId);
     }
 
@@ -22,13 +22,13 @@
             _userRepository = userRepository;
         }
 
-        public User Admin(UserId userId)
+        public Admin Admin(UserId userId)
         {
             var user = _userRepository.GetByGuid(userId);
             if (user.Role != UserRole.Admin)
                 throw new AuthorizationException("Sie müssen Administratorenrechte haben.");
 
-            return user;
+            return new Admin(user.UserId, user.EmailAddress, user.FullName);
         }
 
         public bool IsAdmin(UserId userId)

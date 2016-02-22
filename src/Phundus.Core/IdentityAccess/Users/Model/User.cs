@@ -62,6 +62,16 @@
             set { _lastName = value; }
         }
 
+        public virtual string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
+
+        public virtual string EmailAddress
+        {
+            get { return Account.Email; }
+        }
+
         public virtual Account Account
         {
             get { return _account; }
@@ -114,7 +124,7 @@
             get { return String.Format("{0} {1}", FirstName, LastName); }
         }
 
-        public virtual void ChangeRole(User initiator, UserRole userRole)
+        public virtual void ChangeRole(Admin admin, UserRole userRole)
         {
             if (Role == userRole)
                 return;
@@ -122,15 +132,15 @@
             var oldRole = Role;
             Role = userRole;
 
-            EventPublisher.Publish(new UserRoleChanged(initiator, this, oldRole, Role));
+            EventPublisher.Publish(new UserRoleChanged(admin, this, oldRole, Role));
         }
 
-        public virtual void Approve(User initiator)
+        public virtual void Approve(Admin admin)
         {
             if (!Account.Approve())
                 return;
 
-            EventPublisher.Publish(new UserApproved(initiator.UserId, this.UserId));
+            EventPublisher.Publish(new UserApproved(admin.UserId, this.UserId));
         }
 
         public virtual void ChangeEmailAddress(UserId initiatorId, string password, string newEmailAddress)

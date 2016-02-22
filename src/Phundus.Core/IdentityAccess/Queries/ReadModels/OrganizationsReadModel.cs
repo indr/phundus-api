@@ -63,7 +63,8 @@
                 Url = organization.FriendlyUrl,
                 Startpage = organization.Startpage,
                 DocumentTemplate = organization.DocTemplateFileName,
-                PublicRental = organization.Settings.PublicRental
+                PublicRental = organization.Settings.PublicRental,
+                Plan = organization.Plan.ToString()
             };
 
             if (organization.ContactDetails != null)

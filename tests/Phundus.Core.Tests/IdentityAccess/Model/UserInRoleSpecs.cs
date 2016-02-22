@@ -32,6 +32,7 @@
         private Establish ctx = () =>
         {
             theUser = make.User();
+            theUser.WhenToldTo(x => x.Role).Return(UserRole.User);
             theUserId = theUser.UserId;
             userRepository.WhenToldTo(x => x.GetByGuid(theUser.UserId)).Return(theUser);
         };
@@ -51,7 +52,8 @@
 
         private Establish ctx = () =>
         {
-            theUser = make.Admin();
+            theUser = make.User();
+            theUser.WhenToldTo(x => x.Role).Return(UserRole.Admin);
             theUserId = theUser.UserId;
             userRepository.WhenToldTo(x => x.GetByGuid(theUser.UserId)).Return(theUser);
         };

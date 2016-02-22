@@ -32,7 +32,6 @@
             _storeQueries = storeQueries;
         }
 
-
         [GET("")]
         [Transaction]
         [AllowAnonymous]
@@ -122,6 +121,11 @@
             {
                 Dispatch(new UpdateStartpage(CurrentUserId, new OrganizationId(organizationId), requestContent.Startpage));
             }
+
+            if (!String.IsNullOrWhiteSpace(requestContent.Plan))
+            {
+                Dispatch(new ChangeOrganizationPlan(CurrentUserId, new OrganizationId(organizationId), requestContent.Plan));
+            }
             return NoContent();
         }
     }
@@ -133,6 +137,9 @@
 
         [JsonProperty("contactDetails")]
         public ContactDetails ContactDetails { get; set; }
+
+        [JsonProperty("plan")]
+        public string Plan { get; set; }
     }
 
     public class ContactDetails

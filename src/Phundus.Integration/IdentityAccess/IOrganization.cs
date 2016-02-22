@@ -15,5 +15,6 @@
         string Startpage { get; }
         string DocumentTemplate { get; }
         bool PublicRental { get; }
+        string Plan { get; }
     }
 }

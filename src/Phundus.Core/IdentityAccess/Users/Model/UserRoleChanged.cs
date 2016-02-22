@@ -7,9 +7,9 @@
     [DataContract]
     public class UserRoleChanged : DomainEvent
     {
-        public UserRoleChanged(User initiator, User user, UserRole oldRole, UserRole newRole)
+        public UserRoleChanged(Admin admin, User user, UserRole oldRole, UserRole newRole)
         {
-            if (initiator == null) throw new ArgumentNullException("initiator");
+            if (admin == null) throw new ArgumentNullException("admin");
             if (user == null) throw new ArgumentNullException("user");
         }
 

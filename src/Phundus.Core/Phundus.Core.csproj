@@ -121,11 +121,13 @@
     <Compile Include="Cqrs\AutoMappingReadModelBase.cs" />
     <Compile Include="IdentityAccess\Authorization\Manage.cs" />
     <Compile Include="IdentityAccess\Model\OrganizationContactDetailsChanged.cs" />
+    <Compile Include="IdentityAccess\Model\OrganizationPlanChanged.cs" />
     <Compile Include="IdentityAccess\Model\PublicRentalSettingChanged.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\ApplyForMembership.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\ApproveMembershipApplication.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\ChangeMembersRole.cs" />
     <Compile Include="IdentityAccess\Commands\ChangeSettingPublicRental.cs" />
+    <Compile Include="IdentityAccess\Organizations\Commands\ChangeOrganizationPlan.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\EstablishOrganization.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\LockMember.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\RejectMembershipApplication.cs" />
@@ -200,6 +202,7 @@
     <Compile Include="IdentityAccess\Users\Mails\UserResetPasswordMail.cs" />
     <Compile Include="IdentityAccess\Users\Mails\UserUnlockedMailNotifier.cs" />
     <Compile Include="IdentityAccess\Users\Model\Account.cs" />
+    <Compile Include="IdentityAccess\Users\Model\Admin.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserEmailAddressChanged.cs" />
     <Compile Include="IdentityAccess\Users\Model\UserEmailAddressChangeRequested.cs" />
     <Compile Include="IdentityAccess\Users\Model\User.cs" />

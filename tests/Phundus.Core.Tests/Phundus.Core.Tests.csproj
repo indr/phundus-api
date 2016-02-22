@@ -100,6 +100,7 @@
     <Compile Include="factory_base.cs" />
     <Compile Include="IdentityAccess\Authorize\identityaccess_access_object_handler_concern.cs" />
     <Compile Include="IdentityAccess\Authorize\ManageUsersAccessObjectHandlerSpecs.cs" />
+    <Compile Include="IdentityAccess\Commands\ChangeOrganizationPlanHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Commands\ChangeSettingPublicRentalHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Commands\LockUserHandlerSpecs.cs" />
     <Compile Include="IdentityAccess\Events\MembershipApplicationApprovedSpecs.cs" />
