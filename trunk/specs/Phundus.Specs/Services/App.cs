@@ -151,9 +151,11 @@
             DeleteSessionCookies();
         }
 
-        public Organization EstablishOrganization(bool assertHttpStatus = true)
+        public Organization EstablishOrganization(string name = null, bool assertHttpStatus = true)
         {
             var organization = _fakeNameGenerator.NextOrganization();
+            if (!String.IsNullOrWhiteSpace(name))
+                organization.Name = name;
             var response = _apiClient.Assert(assertHttpStatus).OrganizationsApi
                 .Post<OrganizationsPostOkResponseContent>(new OrganizationsPostRequestContent
                 {

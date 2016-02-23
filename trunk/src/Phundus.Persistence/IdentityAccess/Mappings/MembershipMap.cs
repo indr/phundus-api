@@ -18,7 +18,7 @@
 
             References(x => x.Organization, "OrganizationGuid").Cascade.None();            
 
-            Map(x => x.MemberRole).CustomType<MemberRole>();
+            Map(x => x.MemberRole, "Role").CustomType<MemberRole>();
             Map(x => x.ApprovedAtUtc, "ApprovalDate").CustomType<UtcDateTimeType>();
             Map(x => x.IsLocked);
 

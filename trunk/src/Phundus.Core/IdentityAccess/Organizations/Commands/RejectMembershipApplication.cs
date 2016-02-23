@@ -9,15 +9,16 @@
 
     public class RejectMembershipApplication
     {
-        public RejectMembershipApplication(InitiatorId initiatorId, Guid applicationId)
+        public RejectMembershipApplication(InitiatorId initiatorId, MembershipApplicationId applicationId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (applicationId == null) throw new ArgumentNullException("applicationId");
             InitiatorId = initiatorId;
             ApplicationId = applicationId;
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public Guid ApplicationId { get; protected set; }
+        public MembershipApplicationId ApplicationId { get; protected set; }
     }
 
     public class RejectMembershipRequestHandler : IHandleCommand<RejectMembershipApplication>

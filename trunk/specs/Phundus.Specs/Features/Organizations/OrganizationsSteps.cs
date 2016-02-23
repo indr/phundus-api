@@ -56,6 +56,20 @@
                 Ctx.Organization = organization;
                 Ctx.Organizations[alias] = organization;
             }
+            WithTheseMembers(table, organization);
+        }
+
+        [Given(@"an organization with name ""(.*)"" with these members")]
+        public void GivenAnOrganizationWithNameWithTheseMembers(string name, Table table)
+        {
+            App.LogInAsRoot();
+            Ctx.Organization = App.EstablishOrganization(name);
+            WithTheseMembers(table, Ctx.Organization);
+        }
+
+
+        private void WithTheseMembers(Table table, Organization organization)
+        {
             foreach (var each in table.Rows)
             {
                 var userAlias = each["Alias"];
@@ -63,7 +77,8 @@
                     continue;
 
                 if (each.ContainsKey("Email address"))
-                    Given(String.Format(@"a confirmed user ""{0}"" with email address ""{1}""", userAlias, each["Email address"]));
+                    Given(String.Format(@"a confirmed user ""{0}"" with email address ""{1}""", userAlias,
+                        each["Email address"]));
                 else
                     Given(@"a confirmed user """ + userAlias + @"""");
                 var user = Ctx.Users[userAlias];
@@ -75,6 +90,8 @@
                     App.ChangeMembersRole(organization.OrganizationId, user.Id, MemberRole.Manager);
             }
         }
+
+      
 
         [Given(@"I established an organization")]
         public void GivenIEstablishedAnOrganization()
@@ -93,7 +110,7 @@
         [When(@"I try to establish an organization")]
         public void WhenITryToEstablishAnOrganization()
         {
-            Ctx.Organization = App.EstablishOrganization(false);
+            Ctx.Organization = App.EstablishOrganization(assertHttpStatus:false);
         }
 
         [When(@"I try to get the organization details")]

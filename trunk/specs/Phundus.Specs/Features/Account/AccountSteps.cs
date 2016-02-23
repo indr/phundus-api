@@ -159,8 +159,6 @@
             Assert.That(Ctx.LoggedIn, Is.EqualTo(Ctx.User.UserId), "User not logged in.");
         }
 
-        
-
         [Then(@"I should not be logged in")]
         public void ThenIShouldNotBeLoggedIn()
         {
