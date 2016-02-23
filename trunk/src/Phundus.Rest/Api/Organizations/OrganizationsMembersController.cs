@@ -1,7 +1,6 @@
 ﻿namespace Phundus.Rest.Api.Organizations
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
     using AttributeRouting;
@@ -98,26 +97,17 @@
             {
                 if (requestContent.IsLocked.Value)
                 {
-                    Dispatcher.Dispatch(new LockMember
-                    {
-                        InitiatorId = CurrentUserId,
-                        MemberId = new UserId(memberId),
-                        OrganizationId = organizationId
-                    });
+                    Dispatch(new LockMember(CurrentUserId, new OrganizationId(organizationId), new UserId(memberId)));
                 }
                 else
                 {
-                    Dispatcher.Dispatch(new UnlockMember
-                    {
-                        InitiatorId = CurrentUserId,
-                        MemberId = new UserId(memberId),
-                        OrganizationId = organizationId
-                    });
+                    Dispatch(new UnlockMember(CurrentUserId, new OrganizationId(organizationId), new UserId(memberId)));
                 }
             }
             if (requestContent.RecievesEmailNotifications.HasValue)
             {
-                Dispatch(new ChangeMemberRecievesEmailNotification(CurrentUserId, new OrganizationId(organizationId), new UserId(memberId), 
+                Dispatch(new ChangeMemberRecievesEmailNotification(CurrentUserId, new OrganizationId(organizationId),
+                    new UserId(memberId),
                     requestContent.RecievesEmailNotifications.Value));
             }
 
