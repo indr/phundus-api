@@ -10,10 +10,23 @@
 
     public class ChangeMembersRole
     {
-        public Guid OrganizationId { get; set; }
-        public CurrentUserId InitiatorId { get; set; }
-        public UserId MemberId { get; set; }
-        public int Role { get; set; }
+        public ChangeMembersRole(InitiatorId initiatorId, OrganizationId organizationId, UserId memberId,
+            MemberRole memberRole)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (organizationId == null) throw new ArgumentNullException("organizationId");
+            if (memberId == null) throw new ArgumentNullException("memberId");
+
+            InitiatorId = initiatorId;
+            OrganizationId = organizationId;
+            MemberId = memberId;
+            MemberRole = memberRole;
+        }
+
+        public InitiatorId InitiatorId { get; protected set; }
+        public OrganizationId OrganizationId { get; protected set; }
+        public UserId MemberId { get; protected set; }
+        public MemberRole MemberRole { get; protected set; }        
     }
 
     public class ChangeMembersRoleHandler : IHandleCommand<ChangeMembersRole>
@@ -32,7 +45,7 @@
 
             MemberInRole.ActiveManager(command.OrganizationId, command.InitiatorId);
 
-            organization.SetMembersRole(member, (MemberRole) command.Role);
+            organization.SetMembersRole(member, command.MemberRole);
         }
     }
 }

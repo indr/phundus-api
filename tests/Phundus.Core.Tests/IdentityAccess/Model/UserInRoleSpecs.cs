@@ -147,7 +147,6 @@
     public class when_asking_for_manager_with_user_as_organization_manager_but_locked : user_in_role_concern
     {
         private static OrganizationId theOrganizationId;
-        private static Manager aManager;
 
         private Establish ctx = () =>
         {

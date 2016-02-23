@@ -11,6 +11,7 @@
     using ContentObjects;
     using IdentityAccess.Commands;
     using IdentityAccess.Organizations.Commands;
+    using IdentityAccess.Organizations.Model;
     using IdentityAccess.Queries.ReadModels;
     using Newtonsoft.Json;
 
@@ -57,7 +58,7 @@
         public virtual HttpResponseMessage Post(Guid organizationId,
             OrganizationsMembersPostRequestContent requestContent)
         {
-            Dispatcher.Dispatch(new ApproveMembershipApplication(CurrentUserId, new MembershipApplicationId(requestContent.ApplicationId)));
+            Dispatch(new ApproveMembershipApplication(CurrentUserId, new MembershipApplicationId(requestContent.ApplicationId)));
 
             return NoContent();
         }
@@ -67,13 +68,8 @@
         public virtual HttpResponseMessage Put(Guid organizationId, Guid memberId,
             OrganizationsMembersPutRequestContent requestContent)
         {
-            Dispatcher.Dispatch(new ChangeMembersRole
-            {
-                OrganizationId = organizationId,
-                InitiatorId = CurrentUserId,
-                MemberId = new UserId(memberId),
-                Role = requestContent.Role
-            });
+            Dispatch(new ChangeMembersRole(CurrentUserId, new OrganizationId(organizationId),
+                new UserId(memberId), (MemberRole) requestContent.Role));
 
             return NoContent();
         }
@@ -85,13 +81,8 @@
         {
             if (requestContent.IsManager.HasValue)
             {
-                Dispatch(new ChangeMembersRole
-                {
-                    OrganizationId = organizationId,
-                    InitiatorId = CurrentUserId,
-                    MemberId = new UserId(memberId),
-                    Role = requestContent.IsManager.Value ? 2 : 1
-                });
+                Dispatch(new ChangeMembersRole(CurrentUserId, new OrganizationId(organizationId), new UserId(memberId),
+                    requestContent.IsManager.Value ? MemberRole.Manager : MemberRole.Member));
             }
             if (requestContent.IsLocked.HasValue)
             {
