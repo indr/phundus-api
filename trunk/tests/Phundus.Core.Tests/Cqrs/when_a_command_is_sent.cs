@@ -1,13 +1,16 @@
 ﻿namespace Phundus.Tests.Cqrs
 {
     using System;
+    using Castle.Core.Logging;
     using Castle.Facilities.TypedFactory;
+    using Castle.MicroKernel.Registration;
     using Castle.Windsor;
+    using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
     using Phundus.Cqrs;
 
     [Subject(typeof (CommandDispatcher))]
-    public class when_a_command_is_sent
+    public class when_a_command_is_sent : Observes
     {
         private static ICommandDispatcher dispatcher;
         private static Exception _expectedException;
@@ -17,6 +20,7 @@
             var container = new WindsorContainer();
             container.AddFacility<TypedFactoryFacility>();
             container.Install(new CoreInstaller(typeof (when_a_command_is_sent).Assembly));
+            container.Register(Component.For<ILogger>().Instance(fake.an<ILogger>()));
 
             dispatcher = container.Resolve<ICommandDispatcher>();
         };
