@@ -48,7 +48,12 @@
 
         public Manager Manager()
         {
-            return new Manager(new UserId(), "manager@test.phundus.ch", "The Manager");
+            return Manager(new UserId());
+        }
+
+        public Manager Manager(UserId userId)
+        {
+            return new Manager(userId, "manager@test.phundus.ch", "The Manager");
         }
     }
 }
