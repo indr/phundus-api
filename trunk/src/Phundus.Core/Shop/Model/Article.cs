@@ -1,4 +1,4 @@
-namespace Phundus.Shop.Orders.Model
+namespace Phundus.Shop.Model
 {
     using System;
     using System.Collections.Generic;

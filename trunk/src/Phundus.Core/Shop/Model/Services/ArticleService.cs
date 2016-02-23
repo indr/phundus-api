@@ -5,6 +5,7 @@ namespace Phundus.Shop.Services
     using Common.Domain.Model;
     using IdentityAccess.Queries;
     using Inventory.Articles.Repositories;
+    using Model;
     using Orders.Model;
 
     public interface IArticleService

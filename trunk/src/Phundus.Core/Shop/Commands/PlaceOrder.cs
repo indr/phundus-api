@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
     using Authorization;
-    using Castle.Transactions;
     using Common;
     using Common.Domain.Model;
     using Cqrs;
@@ -31,15 +30,16 @@
 
     public class PlaceOrderHandler : IHandleCommand<PlaceOrder>
     {
-        private readonly IAuthorize _authorize;
-        private readonly IInitiatorService _initiatorService;
-        private readonly ICartRepository _cartRepository;
-        private readonly ILesseeService _lesseeService;
         private readonly IArticleService _articleService;
+        private readonly IAuthorize _authorize;
+        private readonly ICartRepository _cartRepository;
+        private readonly IInitiatorService _initiatorService;
+        private readonly ILesseeService _lesseeService;
         private readonly ILessorService _lessorService;
         private readonly IOrderRepository _orderRepository;
 
-        public PlaceOrderHandler(IAuthorize authorize, IInitiatorService initiatorService, ICartRepository cartRepository, IOrderRepository orderRepository,
+        public PlaceOrderHandler(IAuthorize authorize, IInitiatorService initiatorService,
+            ICartRepository cartRepository, IOrderRepository orderRepository,
             ILessorService lessorService, ILesseeService lesseeService, IArticleService articleService)
         {
             if (authorize == null) throw new ArgumentNullException("authorize");
@@ -77,7 +77,11 @@
                 _authorize.Enforce(cart.UserId, Rent.Article(article));
             }
 
-            var orderItems = cartItemsToPlace.Select(s => new OrderItem(s.Article.ArticleId, s.ArticleShortId, s.LineText, new Period(s.From, s.To), s.Quantity, s.UnitPrice)).ToList();
+            var orderItems =
+                cartItemsToPlace.Select(
+                    s =>
+                        new OrderItem(s.Article.ArticleId, s.ArticleShortId, s.LineText, new Period(s.From, s.To),
+                            s.Quantity, s.UnitPrice)).ToList();
             var order = new Order(lessor, lessee, orderItems);
 
             var orderId = _orderRepository.Add(order);
@@ -89,7 +93,7 @@
             }
 
             EventPublisher.Publish(new OrderPlaced(initiator, order.OrderId, order.ShortOrderId,
-                    lessor, lessee, (int)order.Status, order.TotalPrice, order.Items.Select(s => new OrderEventItem(
+                lessor, lessee, (int) order.Status, order.TotalPrice, order.Items.Select(s => new OrderEventItem(
                     s.Id, s.ArticleId, s.ArticleShortId, s.Text, s.UnitPrice, s.FromUtc, s.ToUtc, s.Amount,
                     s.ItemTotal)).ToList()));
         }

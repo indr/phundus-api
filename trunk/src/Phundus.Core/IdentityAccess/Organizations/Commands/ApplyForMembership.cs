@@ -44,7 +44,7 @@
 
             var user = UserRepository.GetByGuid(command.ApplicantId);
 
-            var request = organization.RequestMembership(command.InitiatorId,
+            var request = organization.ApplyForMembership(command.InitiatorId,
                 command.ApplicationId, user);
 
             RequestRepository.Add(request);

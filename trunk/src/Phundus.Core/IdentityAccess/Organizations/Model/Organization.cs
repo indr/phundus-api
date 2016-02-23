@@ -88,7 +88,7 @@
             protected set { _settings = value; }
         }
 
-        public virtual MembershipApplication RequestMembership(InitiatorId initiatorId,
+        public virtual MembershipApplication ApplyForMembership(InitiatorId initiatorId,
             MembershipApplicationId membershipApplicationId,
             User user)
         {
@@ -103,7 +103,7 @@
             return application;
         }
 
-        public virtual void ApproveMembershipRequest(UserId initiatorId, MembershipApplication application,
+        public virtual void ApproveMembershipApplication(UserId initiatorId, MembershipApplication application,
             Guid membershipId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");

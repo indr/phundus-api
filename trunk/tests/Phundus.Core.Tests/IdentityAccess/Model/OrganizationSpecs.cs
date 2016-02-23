@@ -102,8 +102,8 @@
         {
             theMember = make.User();
             var membershipApplicationId = new MembershipApplicationId();
-            var application = sut.RequestMembership(theInitiatorId, membershipApplicationId, theMember);
-            sut.ApproveMembershipRequest(theInitiatorId, application, Guid.NewGuid());
+            var application = sut.ApplyForMembership(theInitiatorId, membershipApplicationId, theMember);
+            sut.ApproveMembershipApplication(theInitiatorId, application, Guid.NewGuid());
             theMembership = sut.Memberships.Single(p => p.UserId.Id == theMember.UserId.Id);
         });
 
@@ -137,7 +137,7 @@
     }
 
     [Subject(typeof (Organization))]
-    public class when_requesting_membership : organization_concern
+    public class when_applying_for_membership : organization_concern
     {
         private static MembershipApplicationId theApplicationId;
         private static User theUser;
@@ -148,7 +148,8 @@
             theUser = make.User();
         };
 
-        private Because of = () => sut.RequestMembership(theInitiatorId, theApplicationId, theUser);
+        private Because of = () =>
+            sut.ApplyForMembership(theInitiatorId, theApplicationId, theUser);
 
         private It should_have_membership_application =
             () => sut.Applications.ShouldContain(e => Equals(e.MembershipApplicationId, theApplicationId));
@@ -158,7 +159,7 @@
     }
 
     [Subject(typeof (Organization))]
-    public class when_requesting_membership_twice : organization_concern
+    public class when_applying_for_membership_twice : organization_concern
     {
         private static MembershipApplicationId theFirstApplicationId;
         private static MembershipApplicationId theSecondApplicationId;
@@ -171,11 +172,11 @@
             theUser = make.User();
 
             sut_setup.run(sut =>
-                sut.RequestMembership(theInitiatorId, theFirstApplicationId, theUser));
+                sut.ApplyForMembership(theInitiatorId, theFirstApplicationId, theUser));
         };
 
         private Because of = () =>
-            sut.RequestMembership(theInitiatorId, theSecondApplicationId, theUser);
+            sut.ApplyForMembership(theInitiatorId, theSecondApplicationId, theUser);
 
         private It should_not_have_a_second_application =
             () => sut.Applications.Count.ShouldEqual(1);

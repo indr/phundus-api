@@ -4,7 +4,6 @@
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
-    using NHibernate;
     using Organizations.Model;
 
     public class RelationshipProjection : NHibernateReadModelBase<RelationshipProjectionRow>, IStoredEventsConsumer

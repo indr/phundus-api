@@ -5,6 +5,7 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Shop.Authorization;
+    using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
 
     [Subject(typeof (RentArticleAccessObjectHandler))]

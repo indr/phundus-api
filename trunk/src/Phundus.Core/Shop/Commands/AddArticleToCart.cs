@@ -8,6 +8,7 @@
     using Model;
     using Phundus.Authorization;
     using Repositories;
+    using Shop.Model;
     using Shop.Services;
 
     public class AddArticleToCart : ICommand

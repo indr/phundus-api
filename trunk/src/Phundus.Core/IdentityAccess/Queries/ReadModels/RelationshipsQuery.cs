@@ -1,10 +1,8 @@
 ﻿namespace Phundus.IdentityAccess.Queries.ReadModels
 {
     using System;
-    using System.Linq;
     using Common.Domain.Model;
     using Cqrs;
-    using NHibernate;
     using Projections;
 
     public class RelationshipsQuery : NHibernateReadModelBase<RelationshipProjectionRow>, IRelationshipQueries
