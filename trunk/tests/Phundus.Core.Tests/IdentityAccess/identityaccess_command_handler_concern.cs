@@ -15,13 +15,13 @@ namespace Phundus.Tests.IdentityAccess
         command_handler_concern<TCommand, THandler>
         where THandler : class, IHandleCommand<TCommand>
     {
+        protected static identityaccess_factory make;
+
         protected static IMemberInRole memberInRole;
         protected static IUserInRole userInRole;
 
         protected static IOrganizationRepository organizationRepository;
         protected static IUserRepository userRepository;
-
-        protected static identityaccess_factory make;
 
         protected static Admin theAdmin;
         protected static Manager theManager;
