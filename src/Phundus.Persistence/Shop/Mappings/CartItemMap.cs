@@ -2,7 +2,7 @@
 {
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
-    using Phundus.Shop.Orders.Model;
+    using Phundus.Shop.Model;
 
     public class CartItemMap : ClassMap<CartItem>
     {
@@ -30,12 +30,12 @@
                     a.Map(x => x.Id, "Article_ArticleId"));
                 c.Component(x => x.ArticleId, a =>
                     a.Map(x => x.Id, "Article_ArticleGuid"));
-                
+
                 c.Map(x => x.Caption, "Article_Name");
                 c.Map(x => x.Price, "Article_UnitPricePerWeek");
                 c.Component(x => x.Owner, c2 =>
                 {
-                    c2.Component(x => x.OwnerId, c3 => c3.Map(x => x.Id, "Article_Owner_OwnerId"));                    
+                    c2.Component(x => x.OwnerId, c3 => c3.Map(x => x.Id, "Article_Owner_OwnerId"));
                     c2.Map(x => x.Name, "Article_Owner_Name");
                 });
             });

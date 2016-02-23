@@ -5,6 +5,7 @@
     using Common;
     using Common.Domain.Model;
     using IdentityAccess.Queries;
+    using Model;
     using Orders.Model;
     using Phundus.Authorization;
     using Services;

@@ -1,10 +1,11 @@
-﻿namespace Phundus.Shop.Orders.Model
+﻿namespace Phundus.Shop.Model
 {
     using System;
     using System.Linq;
     using Common.Domain.Model;
     using Ddd;
     using Iesi.Collections.Generic;
+    using Orders.Model;
 
     public class Cart : Aggregate<CartId>
     {
@@ -25,11 +26,6 @@
         {
             get { return _items; }
             set { _items = value; }
-        }
-
-        public virtual bool AreItemsAvailable
-        {
-            get { return Items.Count(p => p.IsAvailable == false) == 0; }
         }
 
         public virtual bool IsEmpty
@@ -62,7 +58,6 @@
         {
             Items.Add(item);
             item.Cart = this;
-            item.CartGuid = Id.Id;
         }
 
         public virtual void RemoveItem(CartItemId cartItemId)

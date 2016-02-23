@@ -4,6 +4,7 @@ namespace Phundus.Tests.Shop.Commands
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Commands;
     using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Repositories;

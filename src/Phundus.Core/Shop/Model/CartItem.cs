@@ -1,13 +1,13 @@
-namespace Phundus.Shop.Orders.Model
+namespace Phundus.Shop.Model
 {
     using System;
     using Common.Domain.Model;
     using Ddd;
-    using Shop.Model;
 
     public class CartItem : EntityBase
     {
         private CartItemId _cartItemId = new CartItemId();
+
         public virtual Cart Cart { get; set; }
 
         public virtual CartItemId CartItemId
@@ -17,6 +17,7 @@ namespace Phundus.Shop.Orders.Model
         }
 
         public virtual int Position { get; set; }
+
         public virtual Article Article { get; set; }
 
         public virtual ArticleShortId ArticleShortId
@@ -25,7 +26,9 @@ namespace Phundus.Shop.Orders.Model
         }
 
         public virtual int Quantity { get; set; }
+
         public virtual DateTime From { get; set; }
+        
         public virtual DateTime To { get; set; }
 
         public virtual int Days
@@ -65,9 +68,6 @@ namespace Phundus.Shop.Orders.Model
                 // Noop for NHibernate
             }
         }
-
-        public virtual bool IsAvailable { get; set; }
-        public virtual Guid CartGuid { get; set; }
 
         public virtual Period Period
         {

@@ -29,8 +29,8 @@
 
         public SessionsController(IUserQueries userQueries, IMembershipQueries membershipQueries)
         {
-            AssertionConcern.AssertArgumentNotNull(userQueries, "User queries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(membershipQueries, "Membership queries must be provided.");
+            if (userQueries == null) throw new ArgumentNullException("userQueries");
+            if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
 
             _userQueries = userQueries;
             _membershipQueries = membershipQueries;
@@ -74,7 +74,8 @@
                     Title = role.Title
                 },
                 UserId = user.UserId,
-                Username = user.EmailAddress
+                Username = user.EmailAddress,
+                FullName = user.FullName
             };
         }
 
@@ -109,6 +110,9 @@
 
         [JsonProperty("username")]
         public string Username { get; set; }
+
+        [JsonProperty("fullName")]
+        public string FullName { get; set; }
     }
 
     public class Role

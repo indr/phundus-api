@@ -3,6 +3,7 @@
     using Common.Domain.Model;
     using Infrastructure;
     using Model;
+    using Shop.Model;
 
     public interface ICartRepository : IRepository<Cart>
     {

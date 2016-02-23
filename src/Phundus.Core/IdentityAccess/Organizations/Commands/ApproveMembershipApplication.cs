@@ -21,7 +21,7 @@
         public MembershipApplicationId ApplicationId { get; protected set; }
     }
 
-    public class AllowMembershipApplicationHandler : IHandleCommand<ApproveMembershipApplication>
+    public class ApproveMembershipApplicationHandler : IHandleCommand<ApproveMembershipApplication>
     {
         public IMembershipRequestRepository Requests { get; set; }
 
@@ -40,7 +40,7 @@
 
             MemberInRole.ActiveManager(application.OrganizationId, command.InitiatorId);
 
-            organization.ApproveMembershipRequest(command.InitiatorId, application, Memberships.NextIdentity());
+            organization.ApproveMembershipApplication(command.InitiatorId, application, Memberships.NextIdentity());
         }
     }
 }

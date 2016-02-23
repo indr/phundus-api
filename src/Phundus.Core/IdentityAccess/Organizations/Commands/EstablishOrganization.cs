@@ -57,10 +57,10 @@
 
             var requestId = new MembershipApplicationId();
             var user = _userRepository.GetByGuid(command.InitiatorId);
-            var application = organization.RequestMembership(command.InitiatorId, requestId, user);
+            var application = organization.ApplyForMembership(command.InitiatorId, requestId, user);
 
             var membershipId = Guid.NewGuid();
-            organization.ApproveMembershipRequest(command.InitiatorId, application, membershipId);
+            organization.ApproveMembershipApplication(command.InitiatorId, application, membershipId);
             organization.SetMembersRole(user, MemberRole.Manager);
         }
     }
