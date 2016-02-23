@@ -321,6 +321,7 @@
   <ItemGroup>
     <Folder Include="App_Data\Elmah\" />
     <Folder Include="App_Data\Logs\" />
+    <Folder Include="App_Data\Mails\" />
     <Folder Include="Content\Images\Articles\" />
   </ItemGroup>
   <ItemGroup>

@@ -3,8 +3,8 @@
     using System;
     using FluentMigrator;
 
-    [Profile("Acceptance")]
-    public class AcceptanceData : MigrationBase
+    [Profile("ResetDatabase")]
+    public class ResetDatabaseProfile : MigrationBase
     {
         public override void Up()
         {
