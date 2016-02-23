@@ -68,6 +68,17 @@
                 user.FirstName, user.LastName, user.Street, user.Postcode, user.City,
                 user.MobileNumber
                 ));
+
+            ValidateAndSetRootUser(user);
+        }
+
+        private static void ValidateAndSetRootUser(User user)
+        {
+            if (user.EmailAddress == "admin@test.phundus.ch")
+            {
+                user.Account.ValidateKey(user.Account.ValidationKey);
+                user.ChangeRole(new Admin(user.UserId, user.EmailAddress, user.FullName), UserRole.Admin);
+            }
         }
     }
 }

@@ -47,7 +47,7 @@
         [Transaction]
         public virtual HttpResponseMessage Delete(Guid organizationId, Guid applicationId)
         {
-            Dispatch(new RejectMembershipApplication(CurrentUserId, applicationId));
+            Dispatch(new RejectMembershipApplication(CurrentUserId, new MembershipApplicationId(applicationId)));
 
             return NoContent();
         }

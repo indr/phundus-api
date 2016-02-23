@@ -30,12 +30,14 @@
 
             _container = new WindsorContainer();
 
-            Bootstrapper.With.Windsor().WithContainer(_container).And.StartupTasks().Start();
-
             _container.Register(Component.For<CustomMembershipProvider>()
                 .Named("MembershipProvider").LifestyleTransient());
             _container.Register(Component.For<CustomRoleProvider>()
                 .Named("RoleProvider").LifestyleTransient());
+
+            Bootstrapper.With.Windsor().WithContainer(_container)
+                .And.StartupTasks()
+                .Start();
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
