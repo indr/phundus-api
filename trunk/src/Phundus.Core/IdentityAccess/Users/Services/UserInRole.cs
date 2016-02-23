@@ -59,7 +59,7 @@
                 return new Manager(user.UserId, user.EmailAddress, user.FullName);
 
             var membership = _membershipRepository.ByMemberId(userId.Id)
-                .Where(p => p.Role == Role.Chief)
+                .Where(p => p.MemberRole == MemberRole.Manager)
                 .FirstOrDefault(p => Equals(p.OrganizationId, organizationId));
 
             if (membership == null)

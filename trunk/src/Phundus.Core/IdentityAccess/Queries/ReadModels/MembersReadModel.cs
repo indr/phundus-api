@@ -61,7 +61,7 @@
                     JsNumber = user.JsNummer,
                     LastName = user.LastName,
                     ApprovalDate = each.ApprovedOn,
-                    Role = each.MembershipRole == "Chief" ? 2 : 1,
+                    Role = each.MembershipRole == "Manager" ? 2 : 1,
                     RecievesEmailNotifications = each.RecievesEmailNotifications,
                     IsLocked = each.IsLocked
                 });

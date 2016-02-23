@@ -42,7 +42,7 @@
                 OrganizationName = each.Organization.Name,
                 OrganizationUrl = each.Organization.FriendlyUrl,
                 ApprovedOn = each.ApprovalDate,
-                MembershipRole = each.Role.ToString(),
+                MembershipRole = each.MemberRole.ToString(),
                 IsLocked = each.IsLocked,
                 RecievesEmailNotifications = each.RecievesEmailNotifications
             };

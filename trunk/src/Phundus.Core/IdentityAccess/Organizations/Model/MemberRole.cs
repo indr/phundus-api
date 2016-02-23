@@ -1,8 +1,8 @@
 ﻿namespace Phundus.IdentityAccess.Organizations.Model
 {
-    public enum Role
+    public enum MemberRole
     {
         Member = 1,
-        Chief = 2
+        Manager = 2
     }
 }

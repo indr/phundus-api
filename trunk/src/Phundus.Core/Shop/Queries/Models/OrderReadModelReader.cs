@@ -67,7 +67,7 @@
 
             var currentUsersManagerGuids =
                 _membershipQueries.ByUserId(currentUserId.Id)
-                    .Where(p => p.MembershipRole == "Chief")
+                    .Where(p => p.MembershipRole == "Manager")
                     .Select(s => s.OrganizationGuid);
             AssertionConcern.AssertArgumentNotNull(currentUsersManagerGuids,
                 "CurrentUsersManagerGuids must be provided.");
