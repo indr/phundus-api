@@ -301,10 +301,6 @@
     </Compile>
     <Compile Include="BeforeAndAfter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="_Legacy\Rest\concern.cs" />
-    <Compile Include="_Legacy\Rest\OrdersSpecs.cs" />
-    <Compile Include="_Legacy\Rest\PhundusApi.cs" />
-    <Compile Include="_Legacy\Rest\PhundusApiAuthenticator.cs" />
     <Compile Include="Services\WindsorContainerSupport.cs" />
     <Compile Include="Www\RobotsTxt.feature.cs">
       <AutoGen>True</AutoGen>
