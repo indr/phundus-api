@@ -36,15 +36,9 @@
             protected set { _id = value; }
         }
 
-        public virtual Guid OrganizationGuid
-        {
-            get { return _organizationGuid; }
-            protected set { _organizationGuid = value; }
-        }
-
         public virtual OrganizationId OrganizationId
         {
-            get { return new OrganizationId(OrganizationGuid); }
+            get { return Organization.Id; }
         }
 
         public virtual int Version
