@@ -34,12 +34,12 @@
         [Transaction]
         public virtual OrganizationsApplicationsPostOkResponseContent Post(Guid organizationId)
         {
-            var applicationId = Guid.NewGuid();
-            Dispatch(new ApplyForMembership(CurrentUserId, applicationId, CurrentUserId, organizationId));
+            var applicationId = new MembershipApplicationId();
+            Dispatch(new ApplyForMembership(CurrentUserId, applicationId, CurrentUserId, new OrganizationId(organizationId)));
 
             return new OrganizationsApplicationsPostOkResponseContent
             {
-                ApplicationId = applicationId
+                ApplicationId = applicationId.Id
             };
         }
 

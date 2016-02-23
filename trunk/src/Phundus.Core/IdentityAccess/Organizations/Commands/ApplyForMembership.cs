@@ -4,14 +4,19 @@
     using Castle.Transactions;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Users.Repositories;
     using Repositories;
+    using Users.Repositories;
 
     public class ApplyForMembership
     {
-        public ApplyForMembership(InitiatorId initiatorId, Guid applicationId, UserId applicantId, Guid organizationId)
+        public ApplyForMembership(InitiatorId initiatorId, MembershipApplicationId applicationId, UserId applicantId,
+            OrganizationId organizationId)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (applicationId == null) throw new ArgumentNullException("applicationId");
+            if (applicantId == null) throw new ArgumentNullException("applicantId");
+            if (organizationId == null) throw new ArgumentNullException("organizationId");
+
             InitiatorId = initiatorId;
             ApplicationId = applicationId;
             ApplicantId = applicantId;
@@ -19,9 +24,9 @@
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public Guid ApplicationId { get; protected set; }
+        public MembershipApplicationId ApplicationId { get; protected set; }
         public UserId ApplicantId { get; protected set; }
-        public Guid OrganizationId { get; protected set; }
+        public OrganizationId OrganizationId { get; protected set; }
     }
 
     public class ApplyForMembershipHandler : IHandleCommand<ApplyForMembership>
@@ -30,7 +35,7 @@
 
         public IUserRepository UserRepository { get; set; }
 
-        public IMembershipRequestRepository Requests { get; set; }
+        public IMembershipRequestRepository RequestRepository { get; set; }
 
         [Transaction]
         public void Handle(ApplyForMembership command)
@@ -39,9 +44,10 @@
 
             var user = UserRepository.GetByGuid(command.ApplicantId);
 
-            var request = organization.RequestMembership(command.InitiatorId, new MembershipApplicationId(command.ApplicationId), user);
+            var request = organization.RequestMembership(command.InitiatorId,
+                command.ApplicationId, user);
 
-            Requests.Add(request);
+            RequestRepository.Add(request);
         }
     }
 }
