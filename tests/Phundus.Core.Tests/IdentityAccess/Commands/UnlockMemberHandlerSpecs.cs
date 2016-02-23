@@ -19,6 +19,7 @@ namespace Phundus.Tests.IdentityAccess.Commands
             theOrganizationId = theOrganization.Id;
             theMemberId = new UserId();
 
+            userInRole.setup(x => x.Manager(theInitiatorId, theOrganizationId)).Return(theManager);
             organizationRepository.setup(x => x.GetById(theOrganizationId)).Return(theOrganization);
             command = new UnlockMember(theInitiatorId, theOrganizationId, theMemberId);
         };
