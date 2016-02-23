@@ -218,7 +218,7 @@
     <Compile Include="Helper\MigrationBase.cs" />
     <Compile Include="Helper\Runner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Seeding\AcceptanceData.cs" />
+    <Compile Include="Profiles\ResetDatabaseProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
