@@ -2,34 +2,33 @@
 {
     using System;
     using Common.Domain.Model;
-    using Users.Model;
 
     public class MembershipApplication
     {
-        private Guid _id;
-        private Guid _organizationId;
+        private MembershipApplicationId _applicationId;
+        private OrganizationId _organizationId;
+        private DateTime _requestedAtUtc;
         private UserId _userId;
-        private DateTime _requestDate;        
-        
+
+        public MembershipApplication(MembershipApplicationId applicationId, OrganizationId organizationId, UserId userId)
+        {
+            _applicationId = applicationId;
+            _organizationId = organizationId;
+            _userId = userId;
+            _requestedAtUtc = DateTime.UtcNow;
+        }
+
         protected MembershipApplication()
         {
         }
 
-        public MembershipApplication(Guid applicationId, Guid organizationId, UserId userId)
+        public virtual MembershipApplicationId MembershipApplicationId
         {
-            _id = applicationId;
-            _organizationId = organizationId;
-            _userId = userId;
-            _requestDate = DateTime.UtcNow;
+            get { return _applicationId; }
+            protected set { _applicationId = value; }
         }
 
-        public virtual Guid Id
-        {
-            get { return _id; }
-            protected set { _id = value; }
-        }
-
-        public virtual Guid OrganizationId
+        public virtual OrganizationId OrganizationId
         {
             get { return _organizationId; }
             protected set { _organizationId = value; }
@@ -43,28 +42,29 @@
 
         public virtual int Version { get; protected set; }
 
-        public virtual DateTime RequestDate
+        public virtual DateTime RequestedAtUtc
         {
-            get { return _requestDate; }
-            protected set { _requestDate = value; }
+            get { return _requestedAtUtc; }
+            protected set { _requestedAtUtc = value; }
         }
 
-        public virtual DateTime? ApprovalDate { get; protected set; }
+        public virtual DateTime? ApprovedAtUtc { get; protected set; }
 
-        public virtual DateTime? RejectDate { get; protected set; }
-        public virtual MembershipApplicationId MembershipApplicationId { get {return new MembershipApplicationId(Id);} }
+        public virtual DateTime? RejectedAtUtc { get; protected set; }
+
+        
 
 
         public virtual Membership Approve(Guid membershipId)
         {
-            ApprovalDate = DateTime.Now;
+            ApprovedAtUtc = DateTime.UtcNow;
 
-            return new Membership(membershipId, UserId, Id, ApprovalDate.Value, OrganizationId);
+            return new Membership(membershipId, UserId, ApprovedAtUtc.Value, OrganizationId);
         }
 
         public virtual void Reject()
         {
-            RejectDate = DateTime.Now;
+            RejectedAtUtc = DateTime.UtcNow;
         }
     }
 }

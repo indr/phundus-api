@@ -6,26 +6,24 @@
 
     public class Membership
     {
-        private DateTime _approvalDate;
+        private DateTime _approvedAtUtc;
         private Guid _id;
         private bool _isLocked;
         private Organization _organization;
         private Guid _organizationGuid;
         private bool _recievesEmailNotifications;
-        private Guid _requestId;
         private MemberRole _memberRole;
         private UserId _userId;
         private int _version;
 
-        public Membership(Guid id, UserId userId, Guid requestId, DateTime approvalDate, Guid organizationGuid)
+        public Membership(Guid id, UserId userId, DateTime approvedAtUtc, OrganizationId organizationId)
         {
             _id = id;
             _userId = userId;
-            _requestId = requestId;
             _memberRole = MemberRole.Member;
-            _approvalDate = approvalDate;
+            _approvedAtUtc = approvedAtUtc;
             _isLocked = false;
-            _organizationGuid = organizationGuid;
+            _organizationGuid = organizationId.Id;
         }
 
         protected Membership()
@@ -61,12 +59,6 @@
             protected set { _userId = value; }
         }
 
-        public virtual Guid RequestId
-        {
-            get { return _requestId; }
-            protected set { _requestId = value; }
-        }
-
         public virtual Organization Organization
         {
             get { return _organization; }
@@ -79,10 +71,10 @@
             protected set { _memberRole = value; }
         }
 
-        public virtual DateTime ApprovalDate
+        public virtual DateTime ApprovedAtUtc
         {
-            get { return _approvalDate; }
-            protected set { _approvalDate = value; }
+            get { return _approvedAtUtc; }
+            protected set { _approvedAtUtc = value; }
         }
 
         public virtual bool IsLocked
