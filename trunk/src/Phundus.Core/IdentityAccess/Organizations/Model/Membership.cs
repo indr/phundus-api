@@ -2,6 +2,7 @@
 {
     using System;
     using Common.Domain.Model;
+    using Integration.IdentityAccess;
 
     public class Membership
     {
@@ -10,15 +11,11 @@
         private bool _isLocked;
         private Organization _organization;
         private Guid _organizationGuid;
+        private bool _recievesEmailNotifications;
         private Guid _requestId;
         private Role _role;
         private UserId _userId;
         private int _version;
-        private bool _recievesEmailNotifications;
-
-        protected Membership()
-        {
-        }
 
         public Membership(Guid id, UserId userId, Guid requestId, DateTime approvalDate, Guid organizationGuid)
         {
@@ -29,6 +26,10 @@
             _approvalDate = approvalDate;
             _isLocked = false;
             _organizationGuid = organizationGuid;
+        }
+
+        protected Membership()
+        {
         }
 
         public virtual Guid Id
@@ -102,13 +103,19 @@
             RecievesEmailNotifications = role == Role.Chief;
         }
 
-        public virtual void Lock()
+        public virtual void Lock(Manager manager)
         {
+            if (Equals(UserId, manager.UserId))
+                throw new InvalidOperationException("You can not lock your own membership.");
+
             IsLocked = true;
         }
 
-        public virtual void Unlock()
+        public virtual void Unlock(Manager manager)
         {
+            if (Equals(UserId, manager.UserId))
+                throw new InvalidOperationException("You can not unlock your own membership.");
+
             IsLocked = false;
         }
 

@@ -148,7 +148,7 @@
         public virtual void LockMember(Manager manager, UserId memberId)
         {
             var membership = GetMembershipOfUser(memberId);
-            membership.Lock();
+            membership.Lock(manager);
 
             EventPublisher.Publish(new MemberLocked(Id, memberId.Id));
         }
@@ -156,7 +156,7 @@
         public virtual void UnlockMember(Manager manager, UserId memberId)
         {
             var membership = GetMembershipOfUser(memberId);
-            membership.Unlock();
+            membership.Unlock(manager);
 
             EventPublisher.Publish(new MemberUnlocked(Id, memberId.Id));
         }
