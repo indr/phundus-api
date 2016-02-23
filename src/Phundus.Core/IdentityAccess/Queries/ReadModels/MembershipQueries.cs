@@ -41,7 +41,7 @@
                 OrganizationGuid = each.Organization.Id.Id,
                 OrganizationName = each.Organization.Name,
                 OrganizationUrl = each.Organization.FriendlyUrl,
-                ApprovedOn = each.ApprovalDate,
+                ApprovedOn = each.ApprovedAtUtc,
                 MembershipRole = each.MemberRole.ToString(),
                 IsLocked = each.IsLocked,
                 RecievesEmailNotifications = each.RecievesEmailNotifications

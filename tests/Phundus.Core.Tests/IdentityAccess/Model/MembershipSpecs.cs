@@ -22,7 +22,7 @@
             theMemberId = new UserId();
 
             sut_factory.create_using(() =>
-                new Membership(Guid.NewGuid(), theMemberId, Guid.NewGuid(), DateTime.UtcNow, Guid.NewGuid()));
+                new Membership(Guid.NewGuid(), theMemberId, DateTime.UtcNow, new OrganizationId()));
         };
     }
 

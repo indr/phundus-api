@@ -95,7 +95,7 @@
             if (Applications.FirstOrDefault(p => Equals(p.UserId, user.UserId)) != null)
                 return null;
 
-            var application = new MembershipApplication(membershipApplicationId.Id, Id.Id, user.UserId);
+            var application = new MembershipApplication(membershipApplicationId, Id, user.UserId);
             Applications.Add(application);
 
             EventPublisher.Publish(new MembershipApplicationFiled(initiatorId, Id, user.UserId));

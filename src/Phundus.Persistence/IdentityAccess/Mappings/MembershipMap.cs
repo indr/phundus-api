@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Persistence.IdentityAccess.Mappings
 {
     using FluentNHibernate.Mapping;
+    using NHibernate.Type;
     using Phundus.IdentityAccess.Organizations.Model;
 
     public class MembershipMap : ClassMap<Membership>
@@ -18,7 +19,7 @@
             References(x => x.Organization, "OrganizationGuid").Cascade.None();            
 
             Map(x => x.MemberRole).CustomType<MemberRole>();
-            Map(x => x.ApprovalDate, "ApprovalDate");
+            Map(x => x.ApprovedAtUtc, "ApprovalDate").CustomType<UtcDateTimeType>();
             Map(x => x.IsLocked);
 
             Map(x => x.RecievesEmailNotifications, "RecievesEmailNotifications");

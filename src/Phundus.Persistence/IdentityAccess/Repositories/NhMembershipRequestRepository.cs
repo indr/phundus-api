@@ -20,8 +20,8 @@ namespace Phundus.Persistence.IdentityAccess.Repositories
 
         public IEnumerable<MembershipApplication> PendingByOrganization(Guid organizationId)
         {
-            return Entities.Where(p => p.OrganizationId == organizationId)
-                .Where(p => (p.ApprovalDate == null) || (p.RejectDate == null))
+            return Entities.Where(p => p.OrganizationId.Id == organizationId)
+                .Where(p => (p.ApprovedAtUtc == null) || (p.RejectedAtUtc == null))
                 .ToFuture();
         }
     }
