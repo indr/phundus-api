@@ -145,20 +145,20 @@
             membership.ChangeRole(role);
         }
 
-        public virtual void LockMember(User member)
+        public virtual void LockMember(Manager manager, UserId memberId)
         {
-            var membership = GetMembershipOfUser(member);
+            var membership = GetMembershipOfUser(memberId);
             membership.Lock();
 
-            EventPublisher.Publish(new MemberLocked(Id, member.UserId.Id));
+            EventPublisher.Publish(new MemberLocked(Id, memberId.Id));
         }
 
-        public virtual void UnlockMember(User member)
+        public virtual void UnlockMember(Manager manager, UserId memberId)
         {
-            var membership = GetMembershipOfUser(member);
+            var membership = GetMembershipOfUser(memberId);
             membership.Unlock();
 
-            EventPublisher.Publish(new MemberUnlocked(Id, member.UserId.Id));
+            EventPublisher.Publish(new MemberUnlocked(Id, memberId.Id));
         }
 
         public virtual void ChangeMembersRecieveEmailNotificationOption(Manager manager, UserId memberId, bool value)

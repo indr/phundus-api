@@ -3,34 +3,45 @@
     using System;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Users.Repositories;
-    using Queries;
     using Repositories;
+    using Users.Services;
 
     public class UnlockMember
     {
-        public Guid OrganizationId { get; set; }
-        public CurrentUserId InitiatorId { get; set; }
-        public UserId MemberId { get; set; }
+        public UnlockMember(InitiatorId initiatorId, OrganizationId organizationId, UserId memberId)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (organizationId == null) throw new ArgumentNullException("organizationId");
+            if (memberId == null) throw new ArgumentNullException("memberId");
+            InitiatorId = initiatorId;
+            OrganizationId = organizationId;
+            MemberId = memberId;
+        }
+
+        public InitiatorId InitiatorId { get; protected set; }
+        public OrganizationId OrganizationId { get; protected set; }
+        public UserId MemberId { get; protected set; }
     }
 
     public class UnlockMemberHandler : IHandleCommand<UnlockMember>
     {
-        public IOrganizationRepository OrganizationRepository { get; set; }
+        private readonly IOrganizationRepository _organizationRepository;
+        private readonly IUserInRole _userInRole;
 
-        public IUserRepository UserRepository { get; set; }
-
-        public IMemberInRole MemberInRole { get; set; }
+        public UnlockMemberHandler(IUserInRole userInRole, IOrganizationRepository organizationRepository)
+        {
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (organizationRepository == null) throw new ArgumentNullException("organizationRepository");
+            _userInRole = userInRole;
+            _organizationRepository = organizationRepository;
+        }
 
         public void Handle(UnlockMember command)
         {
-            var organization = OrganizationRepository.GetById(command.OrganizationId);
+            var manager = _userInRole.Manager(command.InitiatorId, command.OrganizationId);
+            var organization = _organizationRepository.GetById(command.OrganizationId);
 
-            var member = UserRepository.GetByGuid(command.MemberId);
-
-            MemberInRole.ActiveManager(command.OrganizationId, command.InitiatorId);
-
-            organization.UnlockMember(member);
+            organization.UnlockMember(manager, command.MemberId);
         }
     }
 }
