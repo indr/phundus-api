@@ -61,7 +61,7 @@
 
             var membershipId = Guid.NewGuid();
             organization.ApproveMembershipRequest(command.InitiatorId, application, membershipId);
-            organization.SetMembersRole(user, Role.Chief);
+            organization.SetMembersRole(user, MemberRole.Manager);
         }
     }
 }

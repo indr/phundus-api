@@ -30,26 +30,26 @@
     public class when_changing_role_to_manager : membership_concern
     {
         private Because of = () =>
-            sut.ChangeRole(Role.Chief);
+            sut.ChangeRole(MemberRole.Manager);
 
         private It should_have_recieves_email_notification_option = () =>
             sut.RecievesEmailNotifications.ShouldBeTrue();
 
         private It should_have_role_manager = () =>
-            sut.Role.ShouldEqual(Role.Chief);
+            sut.MemberRole.ShouldEqual(MemberRole.Manager);
     }
 
     [Subject(typeof (Membership))]
     public class when_changing_role_to_member : membership_concern
     {
         private Establish ctx = () => sut_setup.run(sut =>
-            sut.ChangeRole(Role.Chief));
+            sut.ChangeRole(MemberRole.Manager));
 
         private Because of = () =>
-            sut.ChangeRole(Role.Member);
+            sut.ChangeRole(MemberRole.Member);
 
         private It should_have_role_member = () =>
-            sut.Role.ShouldEqual(Role.Member);
+            sut.MemberRole.ShouldEqual(MemberRole.Member);
 
         private It should_not_have_recieves_email_notification_option = () =>
             sut.RecievesEmailNotifications.ShouldBeFalse();

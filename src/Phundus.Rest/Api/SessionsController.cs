@@ -53,7 +53,7 @@
             var memberships = _membershipQueries.ByUserId(user.UserId)
                 .Select(each => new Memberships
                 {
-                    IsManager = each.MembershipRole == "Chief",
+                    IsManager = each.MembershipRole == "Manager",
                     OrganizationId = each.OrganizationGuid,
                     OrganizationName = each.OrganizationName,
                     OrganizationUrl = each.OrganizationUrl

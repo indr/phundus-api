@@ -13,7 +13,7 @@
         private Guid _organizationGuid;
         private bool _recievesEmailNotifications;
         private Guid _requestId;
-        private Role _role;
+        private MemberRole _memberRole;
         private UserId _userId;
         private int _version;
 
@@ -22,7 +22,7 @@
             _id = id;
             _userId = userId;
             _requestId = requestId;
-            _role = Role.Member;
+            _memberRole = MemberRole.Member;
             _approvalDate = approvalDate;
             _isLocked = false;
             _organizationGuid = organizationGuid;
@@ -73,10 +73,10 @@
             set { _organization = value; }
         }
 
-        public virtual Role Role
+        public virtual MemberRole MemberRole
         {
-            get { return _role; }
-            protected set { _role = value; }
+            get { return _memberRole; }
+            protected set { _memberRole = value; }
         }
 
         public virtual DateTime ApprovalDate
@@ -97,10 +97,10 @@
             protected set { _recievesEmailNotifications = value; }
         }
 
-        public virtual void ChangeRole(Role role)
+        public virtual void ChangeRole(MemberRole memberRole)
         {
-            Role = role;
-            RecievesEmailNotifications = role == Role.Chief;
+            MemberRole = memberRole;
+            RecievesEmailNotifications = memberRole == MemberRole.Manager;
         }
 
         public virtual void Lock(Manager manager)

@@ -32,7 +32,7 @@
 
             MemberInRole.ActiveManager(command.OrganizationId, command.InitiatorId);
 
-            organization.SetMembersRole(member, (Role) command.Role);
+            organization.SetMembersRole(member, (MemberRole) command.Role);
         }
     }
 }

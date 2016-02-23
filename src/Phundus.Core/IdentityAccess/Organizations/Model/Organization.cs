@@ -139,10 +139,10 @@
             return membership;
         }
 
-        public virtual void SetMembersRole(User member, Role role)
+        public virtual void SetMembersRole(User member, MemberRole memberRole)
         {
             var membership = GetMembershipOfUser(member);
-            membership.ChangeRole(role);
+            membership.ChangeRole(memberRole);
         }
 
         public virtual void LockMember(Manager manager, UserId memberId)
