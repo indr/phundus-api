@@ -191,7 +191,7 @@
                 table.AddCell(new Phrase(pos.ToString(), defaultFont));
                 table.AddCell(new Phrase(item.Amount.ToString(), defaultFont));
                 table.AddCell(new Phrase(item.Text, defaultFont));
-                table.AddCell(new Phrase(item.ArticleShortId.ToString(), defaultFont));
+                table.AddCell(new Phrase(item.ArticleShortId.Id.ToString(), defaultFont));
                 table.AddCell(new Phrase(item.FromUtc.ToLocalTime().ToString("d"), defaultFont));
                 table.AddCell(new Phrase(item.ToUtc.ToLocalTime().ToString("d"), defaultFont));
                 table.AddCell(new Phrase(item.UnitPrice.ToString("N"), defaultFont));

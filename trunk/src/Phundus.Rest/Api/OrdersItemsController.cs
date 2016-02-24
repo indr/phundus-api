@@ -32,8 +32,8 @@ namespace Phundus.Rest.Api
         {
             var orderItemId = new OrderItemId();
             var command = new AddOrderItem(CurrentUserId, new ShortOrderId(orderId), orderItemId, 
-                new ArticleShortId(requestContent.ArticleId), new Period(requestContent.FromUtc, requestContent.ToUtc),
-                requestContent.Amount);
+                new ArticleId(requestContent.ArticleId), new Period(requestContent.FromUtc, requestContent.ToUtc),
+                requestContent.Quantity);
 
             Dispatch(command);
 
@@ -115,7 +115,7 @@ namespace Phundus.Rest.Api
     public class OrdersItemsPostRequestContent
     {
         [JsonProperty("articleId")]
-        public int ArticleId { get; set; }
+        public Guid ArticleId { get; set; }
 
         [JsonProperty("fromutc")]
         public DateTime FromUtc { get; set; }
@@ -123,7 +123,7 @@ namespace Phundus.Rest.Api
         [JsonProperty("toUtc")]
         public DateTime ToUtc { get; set; }
 
-        [JsonProperty("amount")]
-        public int Amount { get; set; }
+        [JsonProperty("quantity")]
+        public int Quantity { get; set; }
     }
 }

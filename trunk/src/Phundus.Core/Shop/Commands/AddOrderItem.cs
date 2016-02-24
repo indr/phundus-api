@@ -11,17 +11,17 @@
 
     public class AddOrderItem : ICommand
     {
-        public AddOrderItem(InitiatorId initiatorId, ShortOrderId shortOrderId, OrderItemId orderItemId, ArticleShortId articleShortId, Period period, int quantity)
+        public AddOrderItem(InitiatorId initiatorId, ShortOrderId shortOrderId, OrderItemId orderItemId, ArticleId articleId, Period period, int quantity)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (shortOrderId == null) throw new ArgumentNullException("shortOrderId");
             if (orderItemId == null) throw new ArgumentNullException("orderItemId");
-            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
+            if (articleId == null) throw new ArgumentNullException("articleId");
             if (period == null) throw new ArgumentNullException("period");            
             InitiatorId = initiatorId;
             ShortOrderId = shortOrderId;
             OrderItemId = orderItemId;
-            ArticleShortId = articleShortId;
+            ArticleId = articleId;
             Period = period;
             Quantity = quantity;
         }
@@ -29,7 +29,7 @@
         public InitiatorId InitiatorId { get; protected set; }
         public ShortOrderId ShortOrderId { get; protected set; }
         public OrderItemId OrderItemId { get; protected set; }
-        public ArticleShortId ArticleShortId { get; protected set; }
+        public ArticleId ArticleId { get; protected set; }
         public Period Period { get; protected set; }
         public int Quantity { get; protected set; }
     }
@@ -60,7 +60,7 @@
             var lessor = order.Lessor;
             _memberInRole.ActiveManager(lessor.LessorId.Id, command.InitiatorId);
 
-            var article = _articleService.GetById(lessor.LessorId, command.ArticleShortId, order.Lessee.LesseeId);
+            var article = _articleService.GetById(lessor.LessorId, command.ArticleId, order.Lessee.LesseeId);
             order.AddItem(initiator, command.OrderItemId, article, command.Period.FromUtc, command.Period.ToUtc, command.Quantity);
         }
     }

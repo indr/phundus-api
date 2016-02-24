@@ -20,6 +20,11 @@ namespace Phundus.Shop.Model
 
         public virtual Article Article { get; set; }
 
+        public virtual ArticleId ArticleId
+        {
+            get { return Article.ArticleId; }
+        }
+
         public virtual ArticleShortId ArticleShortId
         {
             get { return Article.ArticleShortId; }
