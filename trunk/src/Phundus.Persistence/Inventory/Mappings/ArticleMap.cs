@@ -1,8 +1,8 @@
 ﻿namespace Phundus.Persistence.Inventory.Mappings
 {
-    using Common.Domain.Model;
     using FluentNHibernate.Mapping;
     using Phundus.Inventory.Articles.Model;
+    using Phundus.Inventory.Model;
 
     public class ArticleMap : ClassMap<Article>
     {

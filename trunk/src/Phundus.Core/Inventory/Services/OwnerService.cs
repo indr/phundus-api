@@ -5,6 +5,7 @@
     using Common.Domain.Model;
     using IdentityAccess.Queries;
     using Integration.IdentityAccess;
+    using Model;
 
     public interface IOwnerService
     {

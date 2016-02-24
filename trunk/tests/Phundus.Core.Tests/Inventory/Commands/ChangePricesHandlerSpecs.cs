@@ -6,6 +6,7 @@
     using Phundus.Inventory.Articles.Commands;
     using Phundus.Inventory.Articles.Model;
     using Phundus.Inventory.Authorization;
+    using Phundus.Inventory.Model;
     using Rhino.Mocks;
 
     [Subject(typeof(ChangePrices))]

@@ -152,6 +152,8 @@
     <Compile Include="Inventory\Events\SpecificationChangedSpecs.cs" />
     <Compile Include="Inventory\Events\StoreOpenedSpecs.cs" />
     <Compile Include="Inventory\Model\ArticleSpecs.cs" />
+    <Compile Include="Inventory\Model\OwnerSpecs.cs" />
+    <Compile Include="Inventory\Model\OwnerTypeSpecs.cs" />
     <Compile Include="Inventory\Model\StoreSpecs.cs" />
     <Compile Include="Inventory\Model\OrganizationStoreOpenerSpecs.cs" />
     <Compile Include="concern.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="Inventory\Commands\UpdateArticleHandlerSpecs.cs" />
     <Compile Include="Inventory\Commands\DeleteArticleHandlerSpecs.cs" />
     <Compile Include="Inventory\inventory_factory.cs" />
+    <Compile Include="Inventory\Model\ManagerSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="access_object_handler_concern.cs" />
     <Compile Include="Shop\Authorization\RentArticleAccessObjectHandlerSpecs.cs" />

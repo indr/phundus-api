@@ -244,6 +244,7 @@
     <Compile Include="Inventory\Authorization\Create.cs" />
     <Compile Include="Inventory\Authorization\Manage.cs" />
     <Compile Include="Inventory\Model\Manager.cs" />
+    <Compile Include="Inventory\Model\Owner.cs" />
     <Compile Include="Inventory\Projections\ActionsProjectionBase.cs" />
     <Compile Include="Inventory\Projections\ArticlesActionsProjection.cs" />
     <Compile Include="Inventory\Projections\ArticlesActionsProjectionRow.cs" />

@@ -1,8 +1,8 @@
-﻿namespace Phundus.Common.Tests.Domain.Model
+﻿namespace Phundus.Tests.Inventory.Model
 
 {
-    using Common.Domain.Model;
     using Machine.Specifications;
+    using Phundus.Inventory.Model;
 
     /// <summary>
     /// This is important for domain event serialization!

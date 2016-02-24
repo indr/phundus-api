@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Runtime.Serialization;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
@@ -30,7 +31,7 @@
 
         protected static object dataMember(int order)
         {
-            var dataMemberProperties = type.GetProperties().Where(
+            var dataMemberProperties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Where(
                 p => p.GetCustomAttributes(typeof (DataMemberAttribute), false).Length == 1).ToList();
             foreach (var propertyInfo in dataMemberProperties)
             {

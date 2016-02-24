@@ -1,7 +1,7 @@
 namespace Phundus.Inventory.Projections
 {
     using System;
-    using Common.Domain.Model;
+    using Model;
 
     public class ArticlesProjectionRow
     {

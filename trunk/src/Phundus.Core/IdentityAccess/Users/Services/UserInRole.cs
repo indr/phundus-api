@@ -58,6 +58,9 @@
             if (user.Role == UserRole.Admin)
                 return new Manager(user.UserId, user.EmailAddress, user.FullName);
 
+            if (user.UserId.Id == organizationId.Id)
+                return new Manager(user.UserId, user.EmailAddress, user.FullName);
+
             var membership = _membershipRepository.ByMemberId(userId.Id)
                 .Where(p => p.MemberRole == MemberRole.Manager)
                 .FirstOrDefault(p => Equals(p.OrganizationId, organizationId));

@@ -62,7 +62,7 @@
             _articleId = article.ArticleId;
             _articleShortId = article.ArticleShortId;
             _unitPrice = article.Price;
-            _text = article.Caption;
+            _text = article.Name;
             _fromUtc = fromUtc;
             _toUtc = toUtc;
             _amount = amount;

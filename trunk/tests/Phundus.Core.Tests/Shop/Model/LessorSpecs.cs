@@ -3,6 +3,7 @@
     using Common.Domain.Model;
     using Common.Tests;
     using Machine.Specifications;
+    using Phundus.Shop.Model;
     using Phundus.Shop.Orders.Model;
 
     [Subject(typeof (Lessor))]

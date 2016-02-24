@@ -52,7 +52,7 @@ namespace Phundus.Shop.Model
 
         public virtual string LineText
         {
-            get { return Article.Caption; }
+            get { return Article.Name; }
         }
 
         public virtual decimal UnitPrice

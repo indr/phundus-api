@@ -4,6 +4,7 @@
     using Common.Domain.Model;
     using Ddd;
     using IdentityAccess.Organizations.Model;
+    using Inventory.Model;
     using Repositories;
 
     public class DefaultOrganizationStoreOpener : ISubscribeTo<OrganizationEstablished>

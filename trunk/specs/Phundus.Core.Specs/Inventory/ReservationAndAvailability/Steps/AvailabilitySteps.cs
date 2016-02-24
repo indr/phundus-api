@@ -8,6 +8,7 @@
     using Phundus.Inventory.Articles.Repositories;
     using Phundus.Inventory.AvailabilityAndReservation.Model;
     using Phundus.Inventory.AvailabilityAndReservation.Repositories;
+    using Phundus.Inventory.Model;
     using Phundus.Inventory.Services;
     using Rhino.Mocks;
     using TechTalk.SpecFlow;

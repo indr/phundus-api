@@ -7,6 +7,7 @@
     using Common.Domain.Model;
     using IdentityAccess.Queries;
     using Integration.IdentityAccess;
+    using Model;
     using Orders.Model;
 
     public interface ILessorService
