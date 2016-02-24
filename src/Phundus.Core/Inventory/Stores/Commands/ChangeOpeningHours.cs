@@ -1,44 +1,47 @@
 namespace Phundus.Inventory.Stores.Commands
 {
     using System;
-    using Common;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Queries;
     using Repositories;
     using Services;
 
     public class ChangeOpeningHours
     {
-        public UserId InitatorId { get; set; }
-        public Guid StoreId { get; set; }
-        public string OpeningHours { get; set; }
+        public ChangeOpeningHours(InitiatorId initiatorId, StoreId storeId, string openingHours)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (storeId == null) throw new ArgumentNullException("storeId");
+            if (openingHours == null) throw new ArgumentNullException("openingHours");
+
+            InitiatorId = initiatorId;
+            StoreId = storeId;
+            OpeningHours = openingHours;
+        }
+
+        public InitiatorId InitiatorId { get; protected set; }
+        public StoreId StoreId { get; protected set; }
+        public string OpeningHours { get; protected set; }
     }
 
     public class ChangeOpeningHoursHandler : IHandleCommand<ChangeOpeningHours>
     {
         private readonly IStoreRepository _storeRepository;
-        private readonly IOwnerService _ownerService;
-        private readonly IMemberInRole _memberInRole;
+        private readonly IUserInRole _userInRole;
 
-        public ChangeOpeningHoursHandler(IMemberInRole memberInRole, IStoreRepository storeRepository, IOwnerService ownerService)
+        public ChangeOpeningHoursHandler(IStoreRepository storeRepository, IUserInRole userInRole)
         {
-            AssertionConcern.AssertArgumentNotNull(memberInRole, "MemberInRole must be provided.");
-            AssertionConcern.AssertArgumentNotNull(storeRepository, "StoreRepository must be provided.");
-            AssertionConcern.AssertArgumentNotNull(ownerService, "OwnerService must be provided.");
+            if (storeRepository == null) throw new ArgumentNullException("storeRepository");
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
 
-            _memberInRole = memberInRole;
             _storeRepository = storeRepository;
-            _ownerService = ownerService;
+            _userInRole = userInRole;
         }
 
         public void Handle(ChangeOpeningHours command)
         {
-            var store = _storeRepository.GetById(new StoreId(command.StoreId));
-            var owner = _ownerService.GetByUserId(command.InitatorId);
-
-            if (!((Equals(store.Owner, owner)) || (_memberInRole.IsActiveManager(store.Owner.OwnerId, command.InitatorId))))
-                throw new AuthorizationException();
+            var store = _storeRepository.GetById(command.StoreId);
+            var manager = _userInRole.Manager(command.InitiatorId, store.Owner.OwnerId);
 
             store.ChangeOpeningHours(command.OpeningHours);
         }

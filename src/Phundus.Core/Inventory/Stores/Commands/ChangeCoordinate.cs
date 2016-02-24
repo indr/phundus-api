@@ -1,46 +1,49 @@
 ﻿namespace Phundus.Inventory.Stores.Commands
 {
     using System;
-    using Common;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Queries;
     using Model;
     using Repositories;
     using Services;
 
     public class ChangeCoordinate
     {
-        public UserId InitatorId { get; set; }
-        public Guid StoreId { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public ChangeCoordinate(InitiatorId initiatorId, StoreId storeId, decimal latitude, decimal longitude)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (storeId == null) throw new ArgumentNullException("storeId");
+
+            InitiatorId = initiatorId;
+            StoreId = storeId;
+            Latitude = latitude;
+            Longitude = longitude;
+        }
+
+        public InitiatorId InitiatorId { get; protected set; }
+        public StoreId StoreId { get; protected set; }
+        public decimal Latitude { get; protected set; }
+        public decimal Longitude { get; protected set; }
     }
 
     public class ChangeCoordinateHandler : IHandleCommand<ChangeCoordinate>
     {
         private readonly IStoreRepository _storeRepository;
-        private readonly IOwnerService _ownerService;
-        private readonly IMemberInRole _memberInRole;
+        private readonly IUserInRole _userInRole;
 
-        public ChangeCoordinateHandler(IMemberInRole memberInRole, IStoreRepository storeRepository, IOwnerService ownerService)
+        public ChangeCoordinateHandler(IStoreRepository storeRepository, IUserInRole userInRole)
         {
-            AssertionConcern.AssertArgumentNotNull(memberInRole, "MemberInRole must be provided.");
-            AssertionConcern.AssertArgumentNotNull(storeRepository, "StoreRepository must be provided.");
-            AssertionConcern.AssertArgumentNotNull(ownerService, "OwnerService must be provided.");
+            if (storeRepository == null) throw new ArgumentNullException("storeRepository");
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
 
-            _memberInRole = memberInRole;
             _storeRepository = storeRepository;
-            _ownerService = ownerService;
+            _userInRole = userInRole;
         }
 
         public void Handle(ChangeCoordinate command)
         {
-            var store = _storeRepository.GetById(new StoreId(command.StoreId));
-            var owner = _ownerService.GetByUserId(command.InitatorId);
-
-            if (!((Equals(store.Owner, owner)) || (_memberInRole.IsActiveManager(store.Owner.OwnerId, command.InitatorId))))
-                throw new AuthorizationException();
+            var store = _storeRepository.GetById(command.StoreId);
+            var manager = _userInRole.Manager(command.InitiatorId, store.Owner.OwnerId);
 
             store.ChangeCoordinate(new Coordinate(command.Latitude, command.Longitude));
         }

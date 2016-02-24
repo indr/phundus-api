@@ -1,11 +1,10 @@
-﻿namespace Phundus.Tests.Inventory
+﻿namespace Phundus.Tests.Inventory.Model
 {
     using Common.Domain.Model;
     using Integration.IdentityAccess;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Organizations.Model;
-    using Phundus.Inventory.Services;
     using Phundus.Inventory.Stores.Model;
     using Phundus.Inventory.Stores.Repositories;
     using Rhino.Mocks;
@@ -19,9 +18,6 @@
 
         private Establish ctx = () =>
         {
-            depends.on<IOwnerService>()
-                .WhenToldTo(x => x.GetById(theOrganizationGuid.Id))
-                .Return(new Owner(new OwnerId(theOrganizationGuid.Id), "Rocks and Scissors", OwnerType.Organization));
             storeRepository = depends.on<IStoreRepository>();
             @event = new OrganizationEstablished(
                 new Founder(new UserId(), "founder@test.phundus.ch", "The Founder"), theOrganizationGuid,
