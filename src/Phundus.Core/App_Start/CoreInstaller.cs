@@ -44,11 +44,12 @@
                 Component.For<ITypedFactoryComponentSelector>().ImplementedBy<AccessObjectHandlerSelector>(),
                 Component.For<AutoReleaseAccessObjectHandlerInterceptor>(),
                 Types.FromAssembly(_assemblyContainingCommandsAndHandlers)
-                    .BasedOn(typeof(IHandleAccessObject<>))
+                    .BasedOn(typeof (IHandleAccessObject<>))
                     .WithServiceAllInterfaces()
                     .Configure(c => c.LifeStyle.Transient.Interceptors<AutoReleaseAccessObjectHandlerInterceptor>()),
                 Component.For<IAuthorize>().ImplementedBy<Authorization.Authorize>().LifestyleTransient(),
-                Component.For<IAccessObjectHandlerFactory>().AsFactory(c => c.SelectedWith<AccessObjectHandlerSelector>())
+                Component.For<IAccessObjectHandlerFactory>()
+                    .AsFactory(c => c.SelectedWith<AccessObjectHandlerSelector>())
                 );
 
             container.Register(
@@ -62,7 +63,6 @@
                 Component.For<IEventHandlerFactory>().AsFactory(c => c.SelectedWith<EventHandlerSelector>())
                 );
 
-            
 
             container.Register(
                 Classes.FromThisAssembly()
@@ -71,7 +71,13 @@
                     .LifestyleTransient());
 
             container.Register(
-                Component.For<IUserInRole>().ImplementedBy<UserInRole>()
+                Component.For<IUserInRole>()
+                    .ImplementedBy<UserInRole>()
+                    .LifestyleTransient());
+
+            container.Register(
+                Component.For<Inventory.Services.IUserInRole>()
+                    .ImplementedBy<Inventory.Services.UserInRole>()
                     .LifestyleTransient());
 
             container.Register(Component.For<ILesseeQueries>().ImplementedBy<LesseeQueries>());

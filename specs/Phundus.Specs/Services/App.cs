@@ -341,7 +341,7 @@
             return _apiClient.OrdersApi.Query<Order>(new {organizationId}).Data.Results;
         }
 
-        public void AddOrderItem(int orderId, int articleId)
+        public void AddOrderItem(int orderId, Guid articleId)
         {
             _apiClient.OrdersItemsApi.Post(new OrdersItemsPostRequestContent
             {
