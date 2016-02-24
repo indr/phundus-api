@@ -12,7 +12,7 @@
         private string _emailAddress;
         private string _firstName;
         private string _lastName;
-        private Guid _lesseeGuid;
+        private LesseeId _lesseeId;
         private string _memberNumber;
         private string _mobilePhoneNumber;
         private string _postcode;
@@ -21,7 +21,9 @@
         public Lessee(LesseeId lesseeId, string firstName, string lastName, string street, string postcode, string city,
             string emailAddress, string mobilePhoneNumber, string memberNumber)
         {
-            _lesseeGuid = lesseeId.Id;
+            if (lesseeId == null) throw new ArgumentNullException("lesseeId");
+
+            _lesseeId = lesseeId;
             _firstName = firstName;
             _lastName = lastName;
             _street = street;
@@ -36,16 +38,17 @@
         {
         }
 
-        [DataMember(Order = 1)]
-        public virtual Guid LesseeGuid
-        {
-            get { return _lesseeGuid; }
-            protected set { _lesseeGuid = value; }
-        }
-
         public virtual LesseeId LesseeId
         {
-            get { return new LesseeId(_lesseeGuid); }
+            get { return _lesseeId; }
+            protected set { _lesseeId = value; }
+        }
+
+        [DataMember(Order = 1)]
+        protected virtual Guid LesseeGuid
+        {
+            get { return LesseeId.Id; }
+            set { LesseeId = new LesseeId(value); }
         }
 
         [DataMember(Order = 2)]

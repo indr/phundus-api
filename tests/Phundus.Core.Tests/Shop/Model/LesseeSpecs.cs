@@ -38,9 +38,6 @@
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
-        private It should_have_full_name = () =>
-            itsFullName.ShouldEqual("Phundus.Shop.Model.Lessee");
-
         private It should_have_at_1_the_lessee_id = () =>
             dataMember(1).ShouldEqual(theLesseeId.Id);
 
@@ -68,5 +65,7 @@
         private It should_have_at_9_the_member_number = () =>
             dataMember(9).ShouldEqual(theMemberNumber);
 
+        private It should_have_full_name = () =>
+            itsFullName.ShouldEqual("Phundus.Shop.Model.Lessee");
     }
 }
