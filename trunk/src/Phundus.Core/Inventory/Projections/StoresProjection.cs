@@ -6,7 +6,7 @@ namespace Phundus.Inventory.Projections
     using Cqrs;
     using Stores.Model;
 
-    public class StoresProjection : ProjectionBase<StoreRow>, IStoredEventsConsumer
+    public class StoresProjection : ProjectionBase<StoresRow>, IStoredEventsConsumer
     {
         public void Handle(DomainEvent domainEvent)
         {
@@ -24,6 +24,7 @@ namespace Phundus.Inventory.Projections
             {
                 x.StoreId = e.StoreId;
                 x.OwnerId = e.Owner.OwnerId.Id;
+                x.OwnerType = e.Owner.Type.ToString().ToLowerInvariant();
             });
         }
 
@@ -49,10 +50,11 @@ namespace Phundus.Inventory.Projections
         }
     }
 
-    public class StoreRow
+    public class StoresRow
     {
         public virtual Guid StoreId { get; set; }
         public virtual Guid OwnerId { get; set; }
+        public virtual string OwnerType { get; set; }
         public virtual string Address { get; set; }
         public virtual string OpeningHours { get; set; }
         public virtual decimal? Latitude { get; set; }

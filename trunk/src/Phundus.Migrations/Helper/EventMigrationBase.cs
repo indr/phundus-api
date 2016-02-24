@@ -71,7 +71,7 @@ namespace Phundus.Migrations
             return command;
         }
 
-        protected void InsertStoredEvent(DateTime occuredOnUtc, string typeName, object domainEvent)
+        protected void InsertStoredEvent(DateTime occuredOnUtc, string typeName, object domainEvent, Guid? aggregateId = null)
         {
             var command = CreateCommand(@"
 INSERT INTO [StoredEvents] ([EventGuid], [TypeName], [OccuredOnUtc], [AggregateId], [Serialization])
@@ -79,7 +79,7 @@ VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
             command.Parameters.Add(new SqlParameter("@EventGuid", Guid.NewGuid()));
             command.Parameters.Add(new SqlParameter("@TypeName", typeName));
             command.Parameters.Add(new SqlParameter("@OccuredOnUtc", occuredOnUtc));
-            command.Parameters.Add(new SqlParameter("@AggregateId", Guid.Empty));
+            command.Parameters.Add(new SqlParameter("@AggregateId", aggregateId.HasValue ? aggregateId.Value : Guid.Empty));
             command.Parameters.Add(new SqlParameter("@Serialization", Serialize(domainEvent)));
 
             _commands.Add(command);

@@ -5,10 +5,9 @@ namespace Phundus.Migrations
     using System.Runtime.Serialization;
     using Common.Domain.Model;
     using FluentMigrator;
-    using Inventory.Model;
 
-    [Migration(201602020534)]
-    public class M201602020534_Create_or_populate_ArticleCreated : EventMigrationBase
+    [Migration(201602241041)]
+    public class M201602241041_Recreate_ArticleCreated : EventMigrationBase
     {
         protected override void Migrate()
         {
@@ -43,13 +42,11 @@ namespace Phundus.Migrations
                     createdAt = createdAt.ToUniversalTime();
                     var articleGuid = reader.GetGuid(14);
 
-                    var domainEvent = domainEvents.SingleOrDefault(p => p.OccuredOnUtc >= createdAt.AddSeconds(-5)
-                        && p.OccuredOnUtc <= createdAt.AddSeconds(5)
-                        && p.ArticleGuid == Guid.Empty);
-                    var isNew = domainEvent == null;
-                    if (domainEvent == null)
-                        domainEvent = new ArticleCreated();
+                    var domainEvent = domainEvents.SingleOrDefault(p => p.ArticleGuid == articleGuid);
                     
+                    if (domainEvent == null)
+                        throw new Exception("Could not deserialize (null)");
+
                     domainEvent.ArticleGuid = articleGuid;
                     domainEvent.ArticleId = reader.GetInt32(0);
                     domainEvent.GrossStock = reader.GetInt32(8);
@@ -57,15 +54,10 @@ namespace Phundus.Migrations
                     domainEvent.Owner = domainEvent.Owner ?? new Owner();
                     domainEvent.Owner.Name = reader.GetString(12);
                     domainEvent.Owner.OwnerId = ownerGuid;
-                    domainEvent.Owner.Type = (OwnerType) reader.GetInt32(16);
+                    domainEvent.Owner.Type = (OwnerType)reader.GetInt32(16);
                     domainEvent.StoreId = reader.GetGuid(13);
 
-                    if (isNew)
-                        InsertStoredEvent(createdAt, typeName, domainEvent);
-                    else
-                    {
-                        UpdateStoredEvent(domainEvent.EventGuid, domainEvent);
-                    }
+                    UpdateStoredEvent(domainEvent.EventGuid, domainEvent);                    
                 }
         }
 
@@ -103,7 +95,7 @@ namespace Phundus.Migrations
         [DataContract]
         public class Owner
         {
-            [DataMember(Order = 1)]
+            [DataMember(Order = 4)]
             public virtual Guid OwnerId { get; set; }
 
             [DataMember(Order = 3)]
@@ -124,6 +116,13 @@ namespace Phundus.Migrations
 
             [DataMember(Order = 3)]
             public string FullName { get; set; }
+        }
+
+        public enum OwnerType
+        {
+            Unknown,
+            Organization,
+            User
         }
     }
 }

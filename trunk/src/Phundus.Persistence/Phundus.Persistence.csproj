@@ -91,7 +91,7 @@
     <Compile Include="Inventory\Mappings\ArticlesProjectionRowMap.cs" />
     <Compile Include="Extensions\FluentMappingExtensions.cs" />
     <Compile Include="Inventory\Mappings\StoreMap.cs" />
-    <Compile Include="Inventory\Mappings\StoreRowMap.cs" />
+    <Compile Include="Inventory\Mappings\StoresRowMap.cs" />
     <Compile Include="Inventory\Repositories\NhStoreRepository.cs" />
     <Compile Include="NHibernateProcessedNotificationTrackerStore.cs" />
     <Compile Include="Shop\Mappings\CartItemMap.cs" />

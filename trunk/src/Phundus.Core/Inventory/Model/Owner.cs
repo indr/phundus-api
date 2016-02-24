@@ -33,7 +33,7 @@
             protected set { _ownerId = value; }
         }
 
-        [DataMember(Order = 1)]
+        [DataMember(Order = 4)]
         protected virtual Guid OwnerGuid
         {
             get { return OwnerId.Id; }

@@ -3,9 +3,9 @@
     using FluentNHibernate.Mapping;
     using Phundus.Inventory.Projections;
 
-    public class StoreRowMap : ClassMap<StoreRow>
+    public class StoresRowMap : ClassMap<StoresRow>
     {
-        public StoreRowMap()
+        public StoresRowMap()
         {
             SchemaAction.All();
 
@@ -13,6 +13,7 @@
 
             Id(x => x.StoreId).GeneratedBy.Assigned();
             Map(x => x.OwnerId).Not.Nullable();
+            Map(x => x.OwnerType).Not.Nullable();
             Map(x => x.Address).Nullable();
             Map(x => x.OpeningHours).Nullable();
             Map(x => x.Latitude).Nullable();

@@ -8,7 +8,8 @@ namespace Phundus.Migrations
     {
         public override void Up()
         {
-            Delete.FromTable("Es_Shop_ResultItems").AllRows();
+            if (Schema.Table("Es_Shop_ResultItems").Exists())
+                Delete.FromTable("Es_Shop_ResultItems").AllRows();
             EmptyTableAndResetTracker("Es_Shop_ResultItems", @"Phundus.Shop.Projections.ResultItemsProjection");
         }
 

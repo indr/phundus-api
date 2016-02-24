@@ -186,6 +186,10 @@
     <Compile Include="2016\02\M201602221007_Set_organization_plan_to_free.cs" />
     <Compile Include="2016\02\M201602221011_Generate_organization_established_events.cs" />
     <Compile Include="2016\02\M201602221139_Add_column_RecievesEmailNotifications.cs" />
+    <Compile Include="2016\02\M201602240930_Delete_table_Es_Inventory_Stores.cs" />
+    <Compile Include="2016\02\M201602240931_Delete_Stores_StoredEvents.cs" />
+    <Compile Include="2016\02\M201602240932_Generate_Stores_Events.cs" />
+    <Compile Include="2016\02\M201602241041_Recreate_ArticleCreated.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
