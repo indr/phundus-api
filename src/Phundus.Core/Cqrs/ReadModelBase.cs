@@ -26,15 +26,20 @@ namespace Phundus.Cqrs
             return result;
         }
 
-        protected void Delete(TRow row)
+        protected TRow Get(object id)
         {
-            Session.Delete(row);
-            Session.Flush();
+            return Session.Get<TRow>(id);
         }
 
         protected void Insert(TRow row)
         {
             Session.Save(row);
+            Session.Flush();
+        }
+
+        protected void Delete(TRow row)
+        {
+            Session.Delete(row);
             Session.Flush();
         }
 
@@ -52,6 +57,24 @@ namespace Phundus.Cqrs
 
     public class ProjectionBase<TRow> : ReadModelBase<TRow> where TRow : class, new()
     {
-        
+        protected void Insert(Action<TRow> action)
+        {
+            var row = CreateRow();
+            action(row);
+            Insert(row);
+        }
+
+        protected void Update(object id, Action<TRow> action)
+        {
+            var row = Get(id);
+            action(row);
+            SaveOrUpdate(row);
+        }
+
+        protected void Delete(object id)
+        {
+            var row = Get(id);
+            base.Delete(row);
+        }
     }
 }
