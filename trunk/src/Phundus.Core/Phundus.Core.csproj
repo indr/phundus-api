@@ -243,10 +243,12 @@
     <Compile Include="Inventory\Articles\Model\ImageRemoved.cs" />
     <Compile Include="Inventory\Authorization\Create.cs" />
     <Compile Include="Inventory\Authorization\Manage.cs" />
+    <Compile Include="Inventory\Model\Manager.cs" />
     <Compile Include="Inventory\Projections\ActionsProjectionBase.cs" />
     <Compile Include="Inventory\Projections\ArticlesActionsProjection.cs" />
     <Compile Include="Inventory\Projections\ArticlesActionsProjectionRow.cs" />
     <Compile Include="Inventory\Projections\ArticlesProjectionRow.cs" />
+    <Compile Include="Inventory\Services\UserInRole.cs" />
     <Compile Include="Shop\Projections\ShopItemProjection.cs" />
     <Compile Include="Inventory\Queries\ArticleReadModel.cs" />
     <Compile Include="Inventory\Queries\Dtos\StoreDto.cs" />
@@ -399,9 +401,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Inventory\Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Shop\Queries\ReadModel.dbml.layout">
       <DependentUpon>ReadModel.dbml</DependentUpon>

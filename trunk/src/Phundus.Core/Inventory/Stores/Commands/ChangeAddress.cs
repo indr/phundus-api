@@ -1,44 +1,49 @@
 namespace Phundus.Inventory.Stores.Commands
 {
     using System;
-    using Common;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Queries;
     using Repositories;
     using Services;
 
     public class ChangeAddress
     {
-        public UserId InitatorId { get; set; }
-        public Guid StoreId { get; set; }
-        public string Address { get; set; }
+        public InitiatorId InitiatorId { get; set; }
+
+        public ChangeAddress(InitiatorId initiatorId, StoreId storeId, string address)
+        {
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (storeId == null) throw new ArgumentNullException("storeId");
+            if (address == null) throw new ArgumentNullException("address");
+
+            InitiatorId = initiatorId;
+            StoreId = storeId;
+            Address = address;
+        }
+
+        public InitiatorId InitatorId { get; protected set; }
+        public StoreId StoreId { get; protected set; }
+        public string Address { get; protected set; }
     }
 
     public class ChangeAddressHandler : IHandleCommand<ChangeAddress>
     {
         private readonly IStoreRepository _storeRepository;
-        private readonly IOwnerService _ownerService;
-        private readonly IMemberInRole _memberInRole;
+        private readonly IUserInRole _userInRole;
 
-        public ChangeAddressHandler(IMemberInRole memberInRole, IStoreRepository storeRepository, IOwnerService ownerService)
+        public ChangeAddressHandler(IStoreRepository storeRepository, IUserInRole userInRole)
         {
-            AssertionConcern.AssertArgumentNotNull(memberInRole, "MemberInRole must be provided.");
-            AssertionConcern.AssertArgumentNotNull(storeRepository, "StoreRepository must be provided.");
-            AssertionConcern.AssertArgumentNotNull(ownerService, "OwnerService must be provided.");
+            if (storeRepository == null) throw new ArgumentNullException("storeRepository");
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
 
-            _memberInRole = memberInRole;
             _storeRepository = storeRepository;
-            _ownerService = ownerService;
+            _userInRole = userInRole;
         }
 
         public void Handle(ChangeAddress command)
         {
-            var store = _storeRepository.GetById(new StoreId(command.StoreId));
-            var owner = _ownerService.GetByUserId(command.InitatorId);
-
-            if (!((Equals(store.Owner, owner)) || (_memberInRole.IsActiveManager(store.Owner.OwnerId, command.InitatorId))))
-                throw new AuthorizationException();
+            var store = _storeRepository.GetById(command.StoreId);
+            var manager = _userInRole.Manager(command.InitatorId, store.Owner.OwnerId);
 
             store.ChangeAddress(command.Address);
         }

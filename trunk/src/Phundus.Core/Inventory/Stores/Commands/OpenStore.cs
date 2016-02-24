@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Inventory.Stores.Commands
 {
+    using System;
     using Common;
     using Common.Domain.Model;
     using Cqrs;
@@ -10,19 +11,19 @@
 
     public class OpenStore
     {
-        public OpenStore(UserId initiatorId, UserId ownerId, StoreId storeId)
+        public OpenStore(InitiatorId initiatorId, OwnerId ownerId, StoreId storeId)
         {
-            AssertionConcern.AssertArgumentNotNull(initiatorId, "InitiatorId must be provided.");
-            AssertionConcern.AssertArgumentNotNull(ownerId, "OwnerId must be provided.");
-            AssertionConcern.AssertArgumentNotNull(storeId, "StoreId must be provided.");
+            if (initiatorId == null) throw new ArgumentNullException("initiatorId");
+            if (ownerId == null) throw new ArgumentNullException("ownerId");
+            if (storeId == null) throw new ArgumentNullException("storeId");
 
             InitiatorId = initiatorId;
             OwnerId = ownerId;
             StoreId = storeId;
         }
 
-        public UserId InitiatorId { get; private set; }
-        public UserId OwnerId { get; private set; }
+        public InitiatorId InitiatorId { get; private set; }
+        public OwnerId OwnerId { get; private set; }
         public StoreId StoreId { get; private set; }
     }
 
@@ -45,7 +46,7 @@
             if (command.OwnerId.Id != command.InitiatorId.Id)
                 throw new AuthorizationException();
 
-            var owner = _ownerService.GetByUserId(command.OwnerId);
+            var owner = _ownerService.GetById(command.OwnerId);
             var store = new Store(command.StoreId, owner);
 
             _storeRepository.Add(store);

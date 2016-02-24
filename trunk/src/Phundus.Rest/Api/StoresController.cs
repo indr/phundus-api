@@ -4,8 +4,6 @@ namespace Phundus.Rest.Api
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
-    using System.Threading;
-    using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
@@ -14,7 +12,6 @@ namespace Phundus.Rest.Api
     using Inventory.Queries;
     using Inventory.Stores.Commands;
     using Newtonsoft.Json;
-    using Phundus.Shop.Projections;
 
     [RoutePrefix("api/stores")]
     public class StoresController : ApiControllerBase
@@ -66,7 +63,7 @@ namespace Phundus.Rest.Api
         public virtual StoresPostOkResponseContent Post(StoresPostRequestContent requestContent)
         {
             var storeId = new StoreId();
-            Dispatch(new OpenStore(CurrentUserId, new UserId(requestContent.UserId), storeId));
+            Dispatch(new OpenStore(CurrentUserId, new OwnerId(requestContent.UserId), storeId));
 
             return new StoresPostOkResponseContent
             {
@@ -76,37 +73,21 @@ namespace Phundus.Rest.Api
 
         [PATCH("{storeId}")]
         [Transaction]
-        public virtual HttpResponseMessage Patch(string storeId,
-            StoresPatchRequestContent requestContent)
-        {            
+        public virtual HttpResponseMessage Patch(Guid storeId, StoresPatchRequestContent requestContent)
+        {
             if (requestContent.Address != null)
             {
-                Dispatch(new ChangeAddress
-                {
-                    InitatorId = CurrentUserId,
-                    Address = requestContent.Address,
-                    StoreId = new Guid(storeId)
-                });
+                Dispatch(new ChangeAddress(CurrentUserId, new StoreId(storeId), requestContent.Address));
             }
             if (requestContent.Coordinate != null)
             {
-                Dispatch(new ChangeCoordinate
-                {
-                    InitatorId = CurrentUserId,
-                    Latitude = requestContent.Coordinate.Latitude,
-                    Longitude = requestContent.Coordinate.Longitude,
-                    StoreId = new Guid(storeId)
-                });
+                Dispatch(new ChangeCoordinate(CurrentUserId, new StoreId(storeId), requestContent.Coordinate.Latitude, requestContent.Coordinate.Longitude));
             }
             if (requestContent.OpeningHours != null)
             {
-                Dispatch(new ChangeOpeningHours
-                {
-                    InitatorId = CurrentUserId,
-                    OpeningHours = requestContent.OpeningHours,
-                    StoreId = new Guid(storeId)
-                });
+                Dispatch(new ChangeOpeningHours(CurrentUserId, new StoreId(storeId), requestContent.OpeningHours));
             }
+
             return Request.CreateResponse(HttpStatusCode.NoContent);
         }
     }
