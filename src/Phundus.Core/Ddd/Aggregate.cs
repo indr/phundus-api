@@ -2,7 +2,7 @@
 {
     using System;
     using Common;
-
+    
     public abstract class Aggregate<TIdentity>
     {
         private DateTime _createdAtUtc;
