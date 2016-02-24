@@ -3,6 +3,7 @@
     using System;
     using Common.Domain.Model;
     using Ddd;
+    using Inventory.Model;
 
     public class Store : Aggregate<StoreId>
     {
@@ -11,8 +12,9 @@
         private string _openingHours;
         private Owner _owner;
 
-        public Store(StoreId storeId, Owner owner) : base(storeId)
+        public Store(Manager manager, StoreId storeId, Owner owner) : base(storeId)
         {
+            if (manager == null) throw new ArgumentNullException("manager");
             if (storeId == null) throw new ArgumentNullException("storeId");
             if (owner == null) throw new ArgumentNullException("owner");
 
@@ -50,7 +52,7 @@
             protected set { _openingHours = value; }
         }
 
-        public virtual void ChangeAddress(string address)
+        public virtual void ChangeAddress(Manager manager, string address)
         {
             if (Equals(_address, address))
                 return;
@@ -61,7 +63,7 @@
             EventPublisher.Publish(new AddressChanged());
         }
 
-        public virtual void ChangeCoordinate(Coordinate coordinate)
+        public virtual void ChangeCoordinate(Manager manager, Coordinate coordinate)
         {
             if (Equals(_coordinate, coordinate))
                 return;
@@ -72,7 +74,7 @@
             EventPublisher.Publish(new CoordinateChanged());
         }
 
-        public virtual void ChangeOpeningHours(string openingHours)
+        public virtual void ChangeOpeningHours(Manager manager, string openingHours)
         {
             if (Equals(_openingHours, openingHours))
                 return;

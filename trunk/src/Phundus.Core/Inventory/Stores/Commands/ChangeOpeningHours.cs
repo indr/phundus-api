@@ -43,7 +43,7 @@ namespace Phundus.Inventory.Stores.Commands
             var store = _storeRepository.GetById(command.StoreId);
             var manager = _userInRole.Manager(command.InitiatorId, store.Owner.OwnerId);
 
-            store.ChangeOpeningHours(command.OpeningHours);
+            store.ChangeOpeningHours(manager, command.OpeningHours);
         }
     }
 }

@@ -31,23 +31,24 @@
     {
         private readonly IOwnerService _ownerService;
         private readonly IStoreRepository _storeRepository;
+        private readonly IUserInRole _userInRole;
 
-        public OpenStoreHandler(IStoreRepository storeRepository, IOwnerService ownerService)
+        public OpenStoreHandler(IStoreRepository storeRepository, IUserInRole userInRole, IOwnerService ownerService)
         {
-            AssertionConcern.AssertArgumentNotNull(storeRepository, "StoreRepository must be provided.");
-            AssertionConcern.AssertArgumentNotNull(ownerService, "OwnerService must be provided.");
+            if (storeRepository == null) throw new ArgumentNullException("storeRepository");
+            if (userInRole == null) throw new ArgumentNullException("userInRole");
+            if (ownerService == null) throw new ArgumentNullException("ownerService");
 
             _storeRepository = storeRepository;
+            _userInRole = userInRole;
             _ownerService = ownerService;
         }
 
         public void Handle(OpenStore command)
         {
-            if (command.OwnerId.Id != command.InitiatorId.Id)
-                throw new AuthorizationException();
-
+            var manager = _userInRole.Manager(command.InitiatorId, command.OwnerId);
             var owner = _ownerService.GetById(command.OwnerId);
-            var store = new Store(command.StoreId, owner);
+            var store = new Store(manager, command.StoreId, owner);
 
             _storeRepository.Add(store);
 

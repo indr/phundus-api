@@ -16,18 +16,12 @@
             _storeRepository = storeRepository;
         }
 
-        public void Handle(OrganizationEstablished @event)
+        public void Handle(OrganizationEstablished e)
         {
-            // This should use IOwnerService.GetById(), but since we
-            // use an in process and in thread event bus, it is not
-            // guranteed that the IOwnerService can find the owner
-
-            // This code will be found when the contextes are put in
-            // distinct assemblies ;O)
-
-            //var owner = _ownerService.GetById(@event.OrganizationId);
-            var owner = new Owner(new OwnerId(@event.OrganizationId), @event.Name, OwnerType.Organization);
-            var store = new Store(new StoreId(), owner);
+            var manager = new Phundus.Inventory.Model.Manager(e.Initiator.InitiatorId, e.Initiator.EmailAddress,
+                e.Initiator.FullName);
+            var owner = new Owner(new OwnerId(e.OrganizationId), e.Name, OwnerType.Organization);
+            var store = new Store(manager, new StoreId(), owner);
 
             _storeRepository.Add(store);
 

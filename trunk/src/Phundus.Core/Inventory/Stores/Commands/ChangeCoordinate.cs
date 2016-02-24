@@ -45,7 +45,7 @@
             var store = _storeRepository.GetById(command.StoreId);
             var manager = _userInRole.Manager(command.InitiatorId, store.Owner.OwnerId);
 
-            store.ChangeCoordinate(new Coordinate(command.Latitude, command.Longitude));
+            store.ChangeCoordinate(manager, new Coordinate(command.Latitude, command.Longitude));
         }
     }
 }
