@@ -73,7 +73,7 @@
 
             foreach (var eachCartItem in cartItemsToPlace)
             {
-                var article = _articleService.GetById(lessor.LessorId, eachCartItem.ArticleShortId, lessee.LesseeId);
+                var article = _articleService.GetById(lessor.LessorId, eachCartItem.ArticleId, lessee.LesseeId);
                 _authorize.Enforce(cart.UserId, Rent.Article(article));
             }
 

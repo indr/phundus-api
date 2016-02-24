@@ -19,6 +19,10 @@
             Owner = owner;
         }
 
+        protected StoreOpened()
+        {
+        }
+
         [DataMember(Order = 1)]
         public Manager Manager { get; set; }
 
