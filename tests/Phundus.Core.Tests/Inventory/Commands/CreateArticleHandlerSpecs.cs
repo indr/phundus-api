@@ -36,7 +36,7 @@
 
             articleRepository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(theArticleShortId);
             ownerService.setup(x => x.GetById(theOwner.OwnerId)).Return(theOwner);
-            depends.on<IStoreRepository>().setup(x => x.GetByOwnerAndId(theOwner.OwnerId, theStore.Id)).Return(theStore);
+            depends.on<IStoreRepository>().setup(x => x.GetById(theStore.Id)).Return(theStore);
 
             command = new CreateArticle(theInitiatorId, theOwner.OwnerId, theStore.Id, theArticleId,
                 theName, theGrossStock, thePublicPrice, theMemberPrice);

@@ -16,6 +16,7 @@
             if (ownerId == null) throw new ArgumentNullException("ownerId");
             if (name == null) throw new ArgumentNullException("name");
             if (type == OwnerType.Unknown) throw new ArgumentException("Owner type must not be unknown.", "type");
+            
             _ownerId = ownerId;
             _name = name;
             _type = type;

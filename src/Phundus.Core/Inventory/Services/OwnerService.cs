@@ -8,21 +8,7 @@
 
     public interface IOwnerService
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ownerId"></param>
-        /// <returns></returns>
-        /// <exception cref="NotFoundException"></exception>
         Owner GetById(OwnerId ownerId);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        /// <exception cref="NotFoundException"></exception>
-        Owner GetByUserId(UserId userId);
     }
 
     public class OwnerService : IOwnerService
@@ -50,24 +36,6 @@
                 return ToOwner(user);
 
             throw new NotFoundException(String.Format("Owner {0} not found.", ownerId));
-        }
-
-        public Owner GetByUserId(UserId userId)
-        {
-            var user = _userQueries.GetByGuid(userId);
-            if (user == null)
-                throw new NotFoundException(String.Format("User {0} not found.", userId));
-
-            return ToOwner(user);
-        }
-
-        public Owner GetByOrganizationId(Guid organizationId)
-        {
-            var organization = _organizationQueries.FindById(organizationId);
-            if (organization == null)
-                throw new NotFoundException(String.Format("Organization {0} not found.", organizationId));
-
-            return ToOwner(organization);
         }
 
         private static Owner ToOwner(IOrganization organization)

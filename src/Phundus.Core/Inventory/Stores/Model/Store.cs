@@ -60,7 +60,7 @@
             Address = address;
             ModifiedAtUtc = DateTime.UtcNow;
 
-            EventPublisher.Publish(new AddressChanged());
+            EventPublisher.Publish(new AddressChanged(manager, Id, address));
         }
 
         public virtual void ChangeCoordinate(Manager manager, Coordinate coordinate)
@@ -71,7 +71,7 @@
             Coordinate = coordinate;
             ModifiedAtUtc = DateTime.UtcNow;
 
-            EventPublisher.Publish(new CoordinateChanged());
+            EventPublisher.Publish(new CoordinateChanged(manager, Id, coordinate));
         }
 
         public virtual void ChangeOpeningHours(Manager manager, string openingHours)
@@ -82,7 +82,7 @@
             OpeningHours = openingHours;
             ModifiedAtUtc = DateTime.UtcNow;
 
-            EventPublisher.Publish(new OpeningHoursChanged());
+            EventPublisher.Publish(new OpeningHoursChanged(manager, Id, openingHours));
         }
     }
 }

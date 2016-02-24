@@ -52,7 +52,7 @@
 
             _storeRepository.Add(store);
 
-            EventPublisher.Publish(new StoreOpened());
+            EventPublisher.Publish(new StoreOpened(manager, store.Id, store.Owner));
         }
     }
 }
