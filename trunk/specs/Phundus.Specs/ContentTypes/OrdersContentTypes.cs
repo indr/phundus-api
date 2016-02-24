@@ -48,7 +48,7 @@
         public int OrderId { get; set; }
 
         [JsonProperty("articleId")]
-        public int ArticleId { get; set; }
+        public Guid ArticleId { get; set; }
 
         [JsonProperty("fromutc")]
         public DateTime FromUtc { get; set; }
@@ -56,7 +56,7 @@
         [JsonProperty("toUtc")]
         public DateTime ToUtc { get; set; }
 
-        [JsonProperty("amount")]
+        [JsonProperty("quantity")]
         public int Quantity { get; set; }
     }
 }
