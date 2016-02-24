@@ -28,7 +28,8 @@ namespace Phundus.Persistence.Shop.Mappings
 
             Component(x => x.Lessee, c =>
             {
-                c.Map(x => x.LesseeGuid, "Lessee_LesseeGuid");
+                c.Component(x => x.LesseeId, c2 =>
+                    c2.Map(x => x.Id, "Lessee_LesseeGuid"));
                 c.Map(x => x.FirstName, "Borrower_FirstName");
                 c.Map(x => x.LastName, "Borrower_LastName");
                 c.Map(x => x.Street, "Borrower_Street");

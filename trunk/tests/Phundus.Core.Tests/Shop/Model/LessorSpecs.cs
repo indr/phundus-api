@@ -4,7 +4,6 @@
     using Common.Tests;
     using Machine.Specifications;
     using Phundus.Shop.Model;
-    using Phundus.Shop.Orders.Model;
 
     [Subject(typeof (Lessor))]
     public class when_serializing_a_lessor : serialization_object_concern<Lessor>
@@ -16,7 +15,7 @@
         private Establish ctx = () =>
         {
             theLessorId = new LessorId();
-            theName = "The lessors name";
+            theName = "The Lessor";
             theDoesPublicRental = true;
             sut_factory.create_using(() =>
                 new Lessor(theLessorId, theName, theDoesPublicRental));
@@ -35,6 +34,6 @@
             dataMember(3).ShouldEqual(theDoesPublicRental);
 
         private It should_have_full_name = () =>
-            itsFullName.ShouldEqual("Phundus.Shop.Orders.Model.Lessor");
+            itsFullName.ShouldEqual("Phundus.Shop.Model.Lessor");
     }
 }
