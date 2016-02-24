@@ -40,14 +40,17 @@ namespace Phundus.Tests.Inventory.Model
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
-        private It should_have_at_1_the_owner_id = () =>
-            dataMember(1).ShouldEqual(theOwnerId.Id);
+        private It should_have_at_1_nothing = () =>
+            noDataMember(1).ShouldBeTrue();
 
         private It should_have_at_2_the_type = () =>
             dataMember(2).ShouldEqual(theType);
 
         private It should_have_at_3_the_name = () =>
             dataMember(3).ShouldEqual(theName);
+
+        private It should_have_at_4_the_owner_id = () =>
+            dataMember(4).ShouldEqual(theOwnerId.Id);
 
         private It should_have_full_name = () =>
             itsFullName.ShouldEqual("Phundus.Inventory.Model.Owner");

@@ -42,5 +42,18 @@
             }
             throw new Exception(String.Format("Could not find property with data member order {0}.", order));
         }
+
+        protected static bool noDataMember(int order)
+        {
+            try
+            {
+                dataMember(order);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message == String.Format("Could not find property with data member order {0}.", order);
+            }
+        }
     }
 }
