@@ -45,7 +45,7 @@ namespace Phundus.Migrations
                     var domainEvent = domainEvents.SingleOrDefault(p => p.ArticleGuid == articleGuid);
                     
                     if (domainEvent == null)
-                        throw new Exception("Could not deserialize (null)");
+                        throw new Exception("Could not find an ArticleCreated domain event with id " + articleGuid);
 
                     domainEvent.ArticleGuid = articleGuid;
                     domainEvent.ArticleId = reader.GetInt32(0);
