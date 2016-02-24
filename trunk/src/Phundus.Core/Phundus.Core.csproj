@@ -249,6 +249,7 @@
     <Compile Include="Inventory\Projections\ArticlesActionsProjection.cs" />
     <Compile Include="Inventory\Projections\ArticlesActionsProjectionRow.cs" />
     <Compile Include="Inventory\Projections\ArticlesProjectionRow.cs" />
+    <Compile Include="Inventory\Projections\StoresProjection.cs" />
     <Compile Include="Inventory\Services\UserInRole.cs" />
     <Compile Include="Shop\Projections\ShopItemProjection.cs" />
     <Compile Include="Inventory\Queries\ArticleReadModel.cs" />
