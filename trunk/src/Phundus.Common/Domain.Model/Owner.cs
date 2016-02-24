@@ -26,18 +26,17 @@
         {
         }
 
-        [DataMember(Order = 1)]
         public virtual OwnerId OwnerId
         {
             get { return _ownerId; }
             protected set { _ownerId = value; }
         }
 
-        [DataMember(Order = 3)]
-        public virtual string Name
+        [DataMember(Order = 1)]
+        protected virtual Guid OwnerGuid
         {
-            get { return _name; }
-            protected set { _name = value; }
+            get { return OwnerId.Id; }
+            set { OwnerId = new OwnerId(value);}
         }
 
         [DataMember(Order = 2)]
@@ -47,11 +46,16 @@
             protected set { _type = value; }
         }
 
+        [DataMember(Order = 3)]
+        public virtual string Name
+        {
+            get { return _name; }
+            protected set { _name = value; }
+        }
+        
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return OwnerId;
-            yield return Name;
-            yield return Type;
         }
     }
 }

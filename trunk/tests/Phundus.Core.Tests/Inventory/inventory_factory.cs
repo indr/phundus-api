@@ -26,16 +26,15 @@ namespace Phundus.Tests.Inventory
 
         public Owner Owner(OwnerType ownerType = OwnerType.Organization)
         {
-            var owner = fake.an<Owner>();
-            owner.setup(x => x.OwnerId).Return(new OwnerId());
-            owner.setup(x => x.Type).Return(ownerType);
-            return owner;
+            return new Owner(new OwnerId(), "The Owner", ownerType);
         }
 
-        public Store Store()
+        public Store Store(Owner owner = null)
         {
+            owner = owner ?? Owner();
             var store = fake.an<Store>();
             store.setup(x => x.Id).Return(new StoreId());
+            store.setup(x => x.Owner).Return(owner);
             return store;
         }
 

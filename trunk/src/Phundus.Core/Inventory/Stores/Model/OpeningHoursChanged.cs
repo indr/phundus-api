@@ -19,6 +19,10 @@
             OpeningHours = openingHours;
         }
 
+        protected OpeningHoursChanged()
+        {
+        }
+
         [DataMember(Order = 1)]
         public Manager Manager { get; set; }
 
