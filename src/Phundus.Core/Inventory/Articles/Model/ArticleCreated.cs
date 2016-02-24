@@ -3,6 +3,7 @@
     using System;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
+    using Inventory.Model;
 
     [DataContract]
     public class ArticleCreated : DomainEvent

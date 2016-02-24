@@ -1,9 +1,9 @@
 ﻿namespace Phundus.Persistence.Inventory.Mappings
 {
-    using Common.Domain.Model;
     using Extensions;
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
+    using Phundus.Inventory.Model;
     using Phundus.Inventory.Projections;
 
     public class ArticlesProjectionRowMap : ClassMap<ArticlesProjectionRow>

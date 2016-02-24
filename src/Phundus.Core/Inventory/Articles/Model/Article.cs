@@ -5,6 +5,7 @@
     using Common.Domain.Model;
     using Ddd;
     using Iesi.Collections.Generic;
+    using Inventory.Model;
 
     public class Article : Aggregate<int>
     {

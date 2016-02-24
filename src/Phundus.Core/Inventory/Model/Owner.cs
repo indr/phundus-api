@@ -1,8 +1,9 @@
-﻿namespace Phundus.Common.Domain.Model
+﻿namespace Phundus.Inventory.Model
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using Common.Domain.Model;
 
     [DataContract]
     public class Owner : ValueObject
@@ -57,5 +58,12 @@
         {
             yield return OwnerId;
         }
+    }
+
+    public enum OwnerType
+    {
+        Unknown,
+        Organization,
+        User
     }
 }

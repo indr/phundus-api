@@ -5,6 +5,7 @@ namespace Phundus.Migrations
     using System.Runtime.Serialization;
     using Common.Domain.Model;
     using FluentMigrator;
+    using Inventory.Model;
 
     [Migration(201602020534)]
     public class M201602020534_Create_or_populate_ArticleCreated : EventMigrationBase

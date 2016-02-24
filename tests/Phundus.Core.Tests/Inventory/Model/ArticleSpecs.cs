@@ -5,6 +5,7 @@
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Model;
+    using Phundus.Inventory.Model;
     using Rhino.Mocks;
 
     public abstract class article_concern : aggregate_concern<Article>

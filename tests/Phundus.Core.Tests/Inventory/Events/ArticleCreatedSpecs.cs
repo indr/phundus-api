@@ -4,6 +4,7 @@
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Model;
+    using Phundus.Inventory.Model;
 
     [Subject(typeof (ArticleCreated))]
     public class article_created : domain_event_concern<ArticleCreated>

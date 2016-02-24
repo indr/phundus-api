@@ -6,6 +6,7 @@ namespace Phundus.Shop.Services
     using IdentityAccess.Queries;
     using Inventory.Articles.Repositories;
     using Model;
+    using Orders.Model;
 
     public interface IArticleService
     {
@@ -16,14 +17,18 @@ namespace Phundus.Shop.Services
     public class ArticleService : IArticleService
     {
         private readonly IArticleRepository _articleRepository;
+        private readonly ILessorService _lessorService;
         private readonly IMemberInRole _memberInRole;
 
-        public ArticleService(IMemberInRole memberInRole, IArticleRepository articleRepository)
+        public ArticleService(IMemberInRole memberInRole, IArticleRepository articleRepository, ILessorService lessorService)
         {
             if (memberInRole == null) throw new ArgumentNullException("memberInRole");
             if (articleRepository == null) throw new ArgumentNullException("articleRepository");
+            if (lessorService == null) throw new ArgumentNullException("lessorService");
+
             _memberInRole = memberInRole;
             _articleRepository = articleRepository;
+            _lessorService = lessorService;
         }
 
         protected ArticleService()
@@ -54,15 +59,15 @@ namespace Phundus.Shop.Services
 
         private Article ConvertToInternal(Inventory.Articles.Model.Article article, UserId userId)
         {
+            var lessor = _lessorService.GetById(new LessorId(article.Owner.OwnerId.Id));
             var price = article.PublicPrice;
             if (article.MemberPrice.HasValue && article.MemberPrice.Value > 0
-                && _memberInRole.IsActiveMember(new LessorId(article.Owner.OwnerId.Id), userId))
+                && _memberInRole.IsActiveMember(lessor.LessorId, userId))
             {
                 price = article.MemberPrice.Value;
             }
 
-
-            return new Article(article.ArticleShortId, article.ArticleId, article.Owner, article.Name, price);
+            return new Article(article.ArticleShortId, article.ArticleId, lessor, article.Name, price);
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace Phundus.Shop.Orders.Model
+namespace Phundus.Shop.Model
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace Phundus.Shop.Orders.Model
     public class Lessor : ValueObject
     {
         private bool _doesPublicRental;
-        private Guid _lessorGuid;
+        private LessorId _lessorId;
         private string _name;
 
         public Lessor(LessorId lessorId, string name, bool doesPublicRental)
@@ -18,7 +18,7 @@ namespace Phundus.Shop.Orders.Model
             AssertionConcern.AssertArgumentNotNull(lessorId, "LessorId must be provided.");
             AssertionConcern.AssertArgumentNotEmpty(name, "Name must be provided.");
 
-            _lessorGuid = lessorId.Id;
+            _lessorId = lessorId;
             _name = name;
             _doesPublicRental = doesPublicRental;
         }
@@ -27,16 +27,17 @@ namespace Phundus.Shop.Orders.Model
         {
         }
 
-        [DataMember(Order = 1)]
-        public virtual Guid LessorGuid
-        {
-            get { return _lessorGuid; }
-            protected set { _lessorGuid = value; }
-        }
-
         public virtual LessorId LessorId
         {
-            get { return new LessorId(LessorGuid); }
+            get { return _lessorId; }
+            protected set { _lessorId = value; }
+        }
+
+        [DataMember(Order = 1)]
+        protected virtual Guid LessorGuid
+        {
+            get { return LessorId.Id; }
+            set { LessorId = new LessorId(value); }
         }
 
         [DataMember(Order = 2)]

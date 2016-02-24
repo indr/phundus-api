@@ -1,8 +1,10 @@
-namespace Phundus.Common.Tests.Domain.Model
+namespace Phundus.Tests.Inventory.Model
 {
     using System;
     using Common.Domain.Model;
+    using Common.Tests;
     using Machine.Specifications;
+    using Phundus.Inventory.Model;
 
     [Subject(typeof (Owner))]
     public class when_instantiating_with_owner_type_unknown
@@ -36,18 +38,18 @@ namespace Phundus.Common.Tests.Domain.Model
         };
 
         private It should_be_in_assembly = () =>
-            itsAssembly.ShouldEqual("Phundus.Common");
+            itsAssembly.ShouldEqual("Phundus.Core");
 
-        private It should_have_full_name = () =>
-            itsFullName.ShouldEqual("Phundus.Common.Domain.Model.Owner");
+        private It should_have_at_1_the_owner_id = () =>
+            dataMember(1).ShouldEqual(theOwnerId.Id);
 
-        private It should_have_the_name_at_3 = () =>
+        private It should_have_at_2_the_type = () =>
+            dataMember(2).ShouldEqual(theType);
+
+        private It should_have_at_3_the_name = () =>
             dataMember(3).ShouldEqual(theName);
 
-        private It should_have_the_owner_id_at_1 = () =>
-            dataMember(1).ShouldEqual(theOwnerId);
-
-        private It should_have_the_type_at_2 = () =>
-            dataMember(2).ShouldEqual(theType);
+        private It should_have_full_name = () =>
+            itsFullName.ShouldEqual("Phundus.Inventory.Model.Owner");
     }
 }

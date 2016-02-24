@@ -24,19 +24,20 @@
             Map(x => x.Days, "Days");
             Map(x => x.ItemTotal, "ItemTotal");
 
-            Component(x => x.Article, c =>
+            Component(x => x.Article, m =>
             {
-                c.Component(x => x.ArticleShortId, a =>
+                m.Component(x => x.ArticleShortId, a =>
                     a.Map(x => x.Id, "Article_ArticleId"));
-                c.Component(x => x.ArticleId, a =>
+                m.Component(x => x.ArticleId, a =>
                     a.Map(x => x.Id, "Article_ArticleGuid"));
 
-                c.Map(x => x.Caption, "Article_Name");
-                c.Map(x => x.Price, "Article_UnitPricePerWeek");
-                c.Component(x => x.Owner, c2 =>
+                m.Map(x => x.Name, "Article_Name");
+                m.Map(x => x.Price, "Article_UnitPricePerWeek");
+                m.Component(x => x.Lessor, a =>
                 {
-                    c2.Component(x => x.OwnerId, c3 => c3.Map(x => x.Id, "Article_Owner_OwnerId"));
-                    c2.Map(x => x.Name, "Article_Owner_Name");
+                    a.Component(x => x.LessorId, a2 =>
+                        a2.Map(x => x.Id, "Article_Owner_OwnerId"));
+                    a.Map(x => x.Name, "Article_Owner_Name");
                 });
             });
         }

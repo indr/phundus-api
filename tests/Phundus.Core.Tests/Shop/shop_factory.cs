@@ -23,7 +23,7 @@ namespace Phundus.Tests.Shop
             article.setup(x => x.ArticleId).Return(new ArticleId());
             article.setup(x => x.ArticleShortId).Return(articleId);
             article.setup(x => x.LessorId).Return(new LessorId(lessorId));
-            article.setup(x => x.Caption).Return("The article " + articleId.Id);
+            article.setup(x => x.Name).Return("The article " + articleId.Id);
             return article;
         }
 
@@ -51,13 +51,6 @@ namespace Phundus.Tests.Shop
             order.setup(x => x.Lessor).Return(lessor);
             order.setup(x => x.Lessee).Return(lessee);
             return order;
-        }
-
-        public Owner Owner(OwnerId ownerId = null)
-        {
-            var owner = fake.an<Owner>();
-            owner.WhenToldTo(x => x.OwnerId).Return(ownerId ?? new OwnerId());
-            return owner;
         }
     }
 }

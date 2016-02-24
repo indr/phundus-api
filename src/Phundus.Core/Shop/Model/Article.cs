@@ -3,24 +3,25 @@ namespace Phundus.Shop.Model
     using System;
     using System.Collections.Generic;
     using Common.Domain.Model;
+    using Orders.Model;
 
     public class Article : ValueObject
     {
         private ArticleId _articleId;
         private ArticleShortId _articleShortId;
-        private string _caption;
-        private Owner _owner;
+        private string _name;
+        private Lessor _lessor;
         private decimal _publicPrice;
 
-        public Article(ArticleShortId articleShortId, ArticleId articleId, Owner owner, string name, decimal publicPrice)
+        public Article(ArticleShortId articleShortId, ArticleId articleId, Lessor lessor, string name, decimal publicPrice)
         {
             if (articleId == null) throw new ArgumentNullException("articleId");
-            if (owner == null) throw new ArgumentNullException("owner");
+            if (lessor == null) throw new ArgumentNullException("lessor");
 
             _articleShortId = articleShortId;
             _articleId = articleId;
-            _owner = owner;
-            _caption = name;
+            _lessor = lessor;
+            _name = name;
             _publicPrice = publicPrice;
         }
 
@@ -40,21 +41,21 @@ namespace Phundus.Shop.Model
             protected set { _articleShortId = value; }
         }
 
-        public virtual Owner Owner
+        public virtual Lessor Lessor
         {
-            get { return _owner; }
-            protected set { _owner = value; }
+            get { return _lessor; }
+            protected set { _lessor = value; }
         }
 
         public virtual LessorId LessorId
         {
-            get { return new LessorId(_owner.OwnerId.Id); }
+            get { return Lessor.LessorId; }
         }
 
-        public virtual string Caption
+        public virtual string Name
         {
-            get { return _caption; }
-            protected set { _caption = value; }
+            get { return _name; }
+            protected set { _name = value; }
         }
 
         public virtual decimal Price
