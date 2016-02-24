@@ -23,7 +23,6 @@
         {
         }
 
-
         public UserId UserId { get; protected set; }
 
         [DataMember(Order = 1)]

@@ -27,7 +27,7 @@
         public Establish c = () =>
         {
             theOwner = make.Owner();
-            theStore = make.Store();
+            theStore = make.Store(theOwner);
             theArticleId = new ArticleId();
             theName = "The name";
             theGrossStock = 10;
@@ -42,7 +42,8 @@
                 theName, theGrossStock, thePublicPrice, theMemberPrice);
         };
 
-        private It should_add_to_repository = () => articleRepository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
+        private It should_add_to_repository = () =>
+            articleRepository.WasToldTo(x => x.Add(Arg<Article>.Is.NotNull));
 
         private It should_authorize_initiator_to_create_article = () =>
             authorize.WasToldTo(x =>
