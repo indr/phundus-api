@@ -45,7 +45,7 @@ namespace Phundus.Inventory.Stores.Commands
             var store = _storeRepository.GetById(command.StoreId);
             var manager = _userInRole.Manager(command.InitatorId, store.Owner.OwnerId);
 
-            store.ChangeAddress(command.Address);
+            store.ChangeAddress(manager, command.Address);
         }
     }
 }

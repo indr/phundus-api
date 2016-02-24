@@ -3,6 +3,7 @@ namespace Phundus.Tests.Inventory.Model
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
+    using Phundus.Inventory.Model;
     using Phundus.Inventory.Stores.Model;
     using Rhino.Mocks;
 
@@ -12,6 +13,7 @@ namespace Phundus.Tests.Inventory.Model
 
         protected static StoreId theStoreId;
         protected static Owner theOwner;
+        protected static Manager theManager;
 
         private Establish ctx = () =>
         {
@@ -19,7 +21,8 @@ namespace Phundus.Tests.Inventory.Model
 
             theStoreId = new StoreId();
             theOwner = make.Owner();
-            sut_factory.create_using(() => new Store(theStoreId, theOwner));
+            theManager = make.Manager();
+            sut_factory.create_using(() => new Store(theManager, theStoreId, theOwner));
         };
     }
 
@@ -41,7 +44,8 @@ namespace Phundus.Tests.Inventory.Model
     {
         private static string theNewAddress = "New address";
 
-        private Because of = () => sut.ChangeAddress(theNewAddress);
+        private Because of = () =>
+            sut.ChangeAddress(theManager, theNewAddress);
 
         private It should_have_new_address = () =>
             sut.Address.ShouldEqual(theNewAddress);
