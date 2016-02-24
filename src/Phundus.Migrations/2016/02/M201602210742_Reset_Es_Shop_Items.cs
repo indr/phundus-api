@@ -8,9 +8,12 @@ namespace Phundus.Migrations
     {
         public override void Up()
         {
-            Delete.FromTable("Es_Shop_Item_Images").AllRows();
-            Delete.FromTable("Es_Shop_Item_Files").AllRows();
-            Delete.FromTable("Es_Shop_Items").AllRows();
+            if (Schema.Table("Es_Shop_Item_Images").Exists())
+                Delete.FromTable("Es_Shop_Item_Images").AllRows();
+            if (Schema.Table("Es_Shop_Item_Files").Exists())
+                Delete.FromTable("Es_Shop_Item_Files").AllRows();
+            if (Schema.Table("Es_Shop_Items").Exists())
+                Delete.FromTable("Es_Shop_Items").AllRows();
             
             ResetProcessedNotififactionTracker("Phundus.Shop.Projections.ShopItemProjection");
             ResetProcessedNotififactionTracker("Phundus.Shop.Projections.ShopItemImagesProjection");

@@ -36,7 +36,8 @@
 
         protected void EmptyTableAndResetTracker(string tableName, string trackerTypeName)
         {
-            Delete.FromTable(tableName).AllRows();
+            if (Schema.Table(tableName).Exists())
+                Delete.FromTable(tableName).AllRows();
             ResetProcessedNotififactionTracker(trackerTypeName);
         }
     }
