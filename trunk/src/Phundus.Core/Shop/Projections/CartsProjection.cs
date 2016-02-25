@@ -1,4 +1,4 @@
-﻿namespace Phundus.Shop.Queries
+﻿namespace Phundus.Shop.Projections
 {
     using System;
     using System.Collections.Generic;
@@ -6,16 +6,15 @@
     using Common;
     using Common.Domain.Model;
     using Cqrs;
-    using Integration.Shop;
 
-    public interface ICartQueries
+    public interface ICartsQueries
     {
-        ICart FindByUserGuid(InitiatorId initiatorId, UserId userId);
+        CartViewRow FindByUserGuid(InitiatorId initiatorId, UserId userId);
     }
 
-    public class CartsProjection : ProjectionBase<CartViewRow>, ICartQueries
+    public class CartsProjection : ProjectionBase<CartViewRow>, ICartsQueries
     {
-        public ICart FindByUserGuid(InitiatorId initiatorId, UserId userId)
+        public CartViewRow FindByUserGuid(InitiatorId initiatorId, UserId userId)
         {
             if (initiatorId.Id != userId.Id)
                 throw new AuthorizationException();
@@ -23,12 +22,12 @@
             return Single(p => p.UserId == userId.Id);
         }
     }
-    
-    public class CartViewRow : ICart
+
+    public class CartViewRow
     {
         public virtual Guid CartId { get; protected set; }
         public virtual Guid UserId { get; protected set; }
-        public virtual IList<ICartItem> Items { get; protected set; }
+        public virtual IList<CartItemViewRow> Items { get; protected set; }
 
         public virtual decimal Total
         {
@@ -41,7 +40,7 @@
         }
     }
 
-    public class CartItemViewRow : ICartItem
+    public class CartItemViewRow 
     {
         public virtual Guid CartItemGuid { get; protected set; }
 

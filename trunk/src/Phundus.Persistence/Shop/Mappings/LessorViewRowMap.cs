@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Persistence.Shop.Mappings
 {
     using FluentNHibernate.Mapping;
-    using Phundus.Shop.Queries.QueryModels;
+    using Phundus.Shop.Projections;
 
     public class LessorViewRowMap : ClassMap<LessorViewRow>
     {

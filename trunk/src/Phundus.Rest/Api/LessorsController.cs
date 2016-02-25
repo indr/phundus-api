@@ -6,9 +6,8 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using ContentObjects;
-    using Integration.Shop;
     using Newtonsoft.Json;
-    using Phundus.Shop.Queries.QueryModels;
+    using Phundus.Shop.Projections;
 
     [RoutePrefix("api/lessors")]
     public class LessorsController : ApiControllerBase
@@ -24,10 +23,10 @@
         [GET("")]
         [Transaction]
         [AllowAnonymous]
-        public virtual QueryOkResponseContent<ILessor> Get()
+        public virtual QueryOkResponseContent<LessorViewRow> Get()
         {
             var results = _lessorQueries.Query();
-            return new QueryOkResponseContent<ILessor>(results);
+            return new QueryOkResponseContent<LessorViewRow>(results);
         }
 
         [GET("{lessorId}")]

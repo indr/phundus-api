@@ -1,27 +1,26 @@
-﻿namespace Phundus.Shop.Queries.QueryModels
+﻿namespace Phundus.Shop.Projections
 {
     using System;
     using Common;
     using Cqrs;
     using Integration.IdentityAccess;
-    using Integration.Shop;
 
     public interface ILesseeQueries
     {
-        ILessee GetByGuid(Guid lesseeId);
+        LesseeViewRow GetByGuid(Guid lesseeId);
     }
 
-    public class LesseeQueries : ProjectionBase, ILesseeQueries
+    public class LesseesProjection : ProjectionBase, ILesseeQueries
     {
         private readonly IUserQueries _userQueries;
 
-        public LesseeQueries(IUserQueries userQueries)
+        public LesseesProjection(IUserQueries userQueries)
         {
             if (userQueries == null) throw new ArgumentNullException("userQueries");
             _userQueries = userQueries;
         }
 
-        public ILessee GetByGuid(Guid lesseeId)
+        public LesseeViewRow GetByGuid(Guid lesseeId)
         {
             var user = _userQueries.FindById(lesseeId);
             if (user == null)
@@ -32,7 +31,7 @@
         }
     }
 
-    public class LesseeViewRow : ILessee
+    public class LesseeViewRow
     {
         internal LesseeViewRow(Guid lesseeGuid, string name, string address, string phoneNumber, string emailAddress)
         {

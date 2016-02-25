@@ -1,6 +1,7 @@
 ﻿namespace Phundus.Shop.Projections
 {
     using System;
+    using System.Collections.Generic;
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
@@ -74,5 +75,24 @@
             return Session.QueryOver<ResultItemsProjectionRow>()
                 .Where(p => p.ItemId == articleGuid).SingleOrDefault();
         }
+    }
+
+    public class ResultItemsProjectionRow
+    {
+        public virtual Guid RowId { get; set; }
+
+        public virtual Guid ItemId { get; set; }
+        public virtual int ItemShortId { get; set; }
+
+        public virtual DateTime CreatedAtUtc { get; set; }
+        public virtual string Name { get; set; }
+        public virtual decimal PublicPrice { get; set; }
+        public virtual decimal? MemberPrice { get; set; }
+        public virtual Guid OwnerGuid { get; set; }
+        public virtual string OwnerName { get; set; }
+        public virtual int OwnerType { get; set; }
+        public virtual string PreviewImageFileName { get; set; }
+
+        public virtual ICollection<ShopItemsSortByPopularityProjectionRow> Popularities { get; set; }
     }
 }

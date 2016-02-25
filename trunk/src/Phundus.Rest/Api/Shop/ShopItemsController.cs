@@ -4,9 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Net;
     using System.Net.Http;
-    using System.Web;
     using System.Web.Http;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
@@ -14,14 +12,14 @@
     using ContentObjects;
     using Inventory.Projections;
     using Newtonsoft.Json;
-    using Phundus.Shop.Queries;
+    using Phundus.Shop.Projections;
 
     [RoutePrefix("api/shop/items")]
     [AllowAnonymous]
     public class ShopItemsController : ApiControllerBase
     {
-        private readonly IItemQueries _itemQueries;
         private readonly IAvailabilityQueries _availabilityQueries;
+        private readonly IItemQueries _itemQueries;
 
         public ShopItemsController(IItemQueries itemQueries, IAvailabilityQueries availabilityQueries)
         {
@@ -35,7 +33,8 @@
         [Transaction]
         public virtual QueryOkResponseContent<ShopQueryItem> Get([FromUri] ShopItemsQueryRequestContent requestContent)
         {
-            var results = _itemQueries.Query(requestContent.Q, requestContent.LessorId, requestContent.Offset, requestContent.Limit);
+            var results = _itemQueries.Query(requestContent.Q, requestContent.LessorId, requestContent.Offset,
+                requestContent.Limit);
 
             return QueryOkResponseContent<ShopQueryItem>.Build(results, s => new ShopQueryItem
             {
@@ -65,14 +64,12 @@
                 Name = item.Name,
                 PublicPrice = item.PublicPrice,
                 Specification = item.Specification,
-
                 Lessor = new ShopItemGetOkResponseContent.LessorObject
                 {
                     LessorId = item.LessorId,
                     LessorType = item.LessorType,
                     Name = item.LessorName
                 },
-
                 Documents = item.Documents.Select(s => new ShopItemGetOkResponseContent.DocumentObject
                 {
                     FileLength = s.FileLength,
@@ -80,7 +77,6 @@
                     FileType = s.FileType,
                     Url = GetArticleFileUrl(s.ArticleId, s.FileName)
                 }).ToList(),
-
                 Images = item.Images.Select(s => new ShopItemGetOkResponseContent.ImageObject
                 {
                     FileLength = s.FileLength,
@@ -104,7 +100,7 @@
         public virtual HttpResponseMessage GetAvailability(Guid itemId)
         {
             var result = _availabilityQueries.GetAvailability(itemId);
-            return Ok(new {result = result});
+            return Ok(new {result});
         }
     }
 
@@ -151,7 +147,7 @@
 
         [JsonProperty("documents")]
         public ICollection<DocumentObject> Documents { get; set; }
-        
+
         public class DocumentObject
         {
             [JsonProperty("fileName")]

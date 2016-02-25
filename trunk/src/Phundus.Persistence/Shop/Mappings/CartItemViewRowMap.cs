@@ -2,6 +2,7 @@ namespace Phundus.Persistence.Shop.Mappings
 {
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
+    using Phundus.Shop.Projections;
     using Phundus.Shop.Queries;
 
     public class CartItemViewRowMap : ClassMap<CartItemViewRow>

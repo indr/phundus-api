@@ -1,4 +1,4 @@
-namespace Phundus.Shop.Queries
+namespace Phundus.Shop.Projections
 {
     using System;
     using Common;
@@ -6,7 +6,6 @@ namespace Phundus.Shop.Queries
     using Cqrs;
     using NHibernate.Criterion;
     using NHibernate.SqlCommand;
-    using Projections;
 
     public interface IItemQueries
     {
@@ -14,7 +13,7 @@ namespace Phundus.Shop.Queries
         ShopItemProjectionRow Get(Guid itemGuid);
     }
 
-    public class ItemQueriesReadModel : ReadModelBase, IItemQueries
+    public class ItemQueriesReadModel : ProjectionBase, IItemQueries
     {
         private const int DefaultLimit = 10;
 

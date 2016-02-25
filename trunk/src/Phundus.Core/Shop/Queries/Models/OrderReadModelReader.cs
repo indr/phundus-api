@@ -9,7 +9,7 @@
     using IdentityAccess.Queries;
     using Integration.IdentityAccess;
     using Inventory.Services;
-    using NHibernate;
+    using Projections;
 
     public class OrderReadModelReader : ReadModelReaderBase, IOrderQueries
     {
@@ -43,7 +43,8 @@
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
             AssertionConcern.AssertArgumentNotNull(shortOrderId, "OrderId must be provided.");
 
-            var result = Query(currentUserId, shortOrderId == null ? (int?) null : shortOrderId.Id, null, null).SingleOrDefault();
+            var result =
+                Query(currentUserId, shortOrderId == null ? (int?) null : shortOrderId.Id, null, null).SingleOrDefault();
             if (result == null)
                 throw new NotFoundException(String.Format("Order {0} not found.", shortOrderId));
 

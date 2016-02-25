@@ -8,20 +8,19 @@ namespace Phundus.Rest.Api.Users
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common.Domain.Model;
-    using Integration.Shop;
     using Newtonsoft.Json;
     using Phundus.Shop.Orders.Commands;
-    using Phundus.Shop.Queries;
+    using Phundus.Shop.Projections;
 
     [RoutePrefix("api/users/{userId}/cart")]
     public class UsersCartController : ApiControllerBase
     {
-        private readonly ICartQueries _cartQueries;
+        private readonly ICartsQueries _cartsQueries;
 
-        public UsersCartController(ICartQueries cartQueries)
+        public UsersCartController(ICartsQueries cartsQueries)
         {
-            if (cartQueries == null) throw new ArgumentNullException("cartQueries");
-            _cartQueries = cartQueries;
+            if (cartsQueries == null) throw new ArgumentNullException("cartsQueries");
+            _cartsQueries = cartsQueries;
         }
 
         [GET("")]
@@ -31,7 +30,7 @@ namespace Phundus.Rest.Api.Users
             if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
-            var cart = _cartQueries.FindByUserGuid(CurrentUserId, new UserId(userId));
+            var cart = _cartsQueries.FindByUserGuid(CurrentUserId, new UserId(userId));
             if (cart == null)
                 return new UsersCartGetOkResponseContent(null);
             return new UsersCartGetOkResponseContent(cart);
@@ -110,7 +109,7 @@ namespace Phundus.Rest.Api.Users
 
     public class UsersCartGetOkResponseContent
     {
-        public UsersCartGetOkResponseContent(ICart cart)
+        public UsersCartGetOkResponseContent(CartViewRow cart)
         {
             if (cart == null)
             {
