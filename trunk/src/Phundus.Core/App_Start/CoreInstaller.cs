@@ -66,6 +66,11 @@
 
             container.Register(
                 Classes.FromThisAssembly()
+                    .BasedOn(typeof (ProjectionBase<>))
+                    .WithServiceAllInterfaces());
+
+            container.Register(
+                Classes.FromThisAssembly()
                     .BasedOn(typeof (Shop.Queries.Models.ReadModelReaderBase))
                     .WithServiceAllInterfaces()
                     .LifestyleTransient());
