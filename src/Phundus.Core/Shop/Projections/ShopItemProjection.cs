@@ -9,9 +9,9 @@ namespace Phundus.Shop.Projections
 
     public class ShopItemProjection : ReadModelBase<ShopItemProjectionRow>, IStoredEventsConsumer
     {
-        public void Handle(DomainEvent domainEvent)
+        public void Handle(DomainEvent e)
         {
-            Process((dynamic) domainEvent);
+            Process((dynamic) e);
         }
 
         public void Process(DomainEvent domainEvent)

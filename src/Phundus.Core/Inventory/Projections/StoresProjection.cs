@@ -5,22 +5,40 @@ namespace Phundus.Inventory.Projections
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
-    using Queries;
     using Stores.Model;
 
-    public class StoresProjection : ProjectionBase<StoresRow>, IStoresQueries, IStoredEventsConsumer
+    public interface IStoresQueries
     {
-        public void Handle(DomainEvent domainEvent)
+        StoreData GetByOwnerId(OwnerId ownerId);
+        StoreData FindByOwnerId(OwnerId ownerId);
+    }
+
+    public class StoresProjection : ProjectionBase<StoreData>, IStoresQueries, IStoredEventsConsumer
+    {
+        public void Handle(DomainEvent e)
         {
-            Process((dynamic) domainEvent);
+            Process((dynamic) e);
         }
 
-        public void Process(DomainEvent domainEvent)
+        public StoreData GetByOwnerId(OwnerId ownerId)
+        {
+            var result = FindByOwnerId(ownerId);
+            if (result == null)
+                throw new NotFoundException("Store with {0} not found.", ownerId);
+            return result;
+        }
+
+        public StoreData FindByOwnerId(OwnerId ownerId)
+        {
+            return Single(p => p.OwnerId == ownerId.Id);
+        }
+
+        private void Process(DomainEvent domainEvent)
         {
             // Noop
         }
 
-        public void Process(StoreOpened e)
+        private void Process(StoreOpened e)
         {
             Insert(x =>
             {
@@ -30,19 +48,19 @@ namespace Phundus.Inventory.Projections
             });
         }
 
-        public void Process(AddressChanged e)
+        private void Process(AddressChanged e)
         {
             Update(e.StoreId, x =>
                 x.Address = e.Address);
         }
 
-        public void Process(OpeningHoursChanged e)
+        private void Process(OpeningHoursChanged e)
         {
             Update(e.StoreId, x =>
                 x.OpeningHours = e.OpeningHours);
         }
 
-        public void Process(CoordinateChanged e)
+        private void Process(CoordinateChanged e)
         {
             Update(e.StoreId, x =>
             {
@@ -50,22 +68,9 @@ namespace Phundus.Inventory.Projections
                 x.Longitude = e.Longitude;
             });
         }
-
-        public StoresRow GetByOwnerId(OwnerId ownerId)
-        {
-            var result = FindByOwnerId(ownerId);
-            if (result == null)
-                throw new NotFoundException("Store with {0} not found.", ownerId);
-            return result;
-        }
-
-        public StoresRow FindByOwnerId(OwnerId ownerId)
-        {
-            return Single(p => p.OwnerId == ownerId.Id);
-        }
     }
 
-    public class StoresRow
+    public class StoreData
     {
         public virtual Guid StoreId { get; set; }
         public virtual Guid OwnerId { get; set; }

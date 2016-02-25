@@ -7,9 +7,9 @@
 
     public class ArticlesActionsProjection : ActionsProjectionBase<ArticlesActionsProjectionRow>, IStoredEventsConsumer
     {
-        public void Handle(DomainEvent domainEvent)
+        public void Handle(DomainEvent e)
         {
-            Process((dynamic) domainEvent);
+            Process((dynamic) e);
         }
 
         private void Process(DomainEvent domainEvent)

@@ -106,6 +106,7 @@
     <Compile Include="Authorization\IAccessObjectHandlerFactory.cs" />
     <Compile Include="Authorization\IHandleAccessObject.cs" />
     <Compile Include="Cqrs\NHibernateReadModelBase.cs" />
+    <Compile Include="Cqrs\ProjectionBase.cs" />
     <Compile Include="Cqrs\ReadModelBase.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjectionRow.cs" />
@@ -264,7 +265,6 @@
     <Compile Include="Inventory\Queries\Dtos\ImageDto.cs" />
     <Compile Include="Inventory\Queries\AvailabilityReadModel.cs" />
     <Compile Include="Inventory\Queries\IAvailabilityQueries.cs" />
-    <Compile Include="Inventory\Queries\IStoresQueries.cs" />
     <Compile Include="Inventory\Queries\QueryResult.cs" />
     <Compile Include="Inventory\Services\AvailabilityService.cs" />
     <Compile Include="Inventory\Services\OwnerService.cs" />
@@ -347,7 +347,7 @@
     <Compile Include="Shop\Model\Services\ArticleService.cs" />
     <Compile Include="Shop\Authorization\Rent.cs" />
     <Compile Include="Shop\Model\Services\LessorService.cs" />
-    <Compile Include="Web\Projections\FriendlyUrlProjection.cs" />
+    <Compile Include="Web\Projections\UrlMapProjection.cs" />
     <Compile Include="_Legacy\BaseMail.cs" />
     <Compile Include="Cqrs\AutoReleaseCommandHandlerInterceptor.cs" />
     <Compile Include="Cqrs\CommandDispatcher.cs" />

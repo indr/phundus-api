@@ -14,7 +14,7 @@
     using ContentObjects;
     using IdentityAccess.Organizations.Commands;
     using IdentityAccess.Queries;
-    using Inventory.Queries;
+    using Inventory.Projections;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations")]
@@ -124,7 +124,8 @@
 
             if (!String.IsNullOrWhiteSpace(requestContent.Plan))
             {
-                Dispatch(new ChangeOrganizationPlan(CurrentUserId, new OrganizationId(organizationId), requestContent.Plan));
+                Dispatch(new ChangeOrganizationPlan(CurrentUserId, new OrganizationId(organizationId),
+                    requestContent.Plan));
             }
             return NoContent();
         }

@@ -119,7 +119,7 @@ namespace Phundus.Rest.Api
         {
         }
 
-        public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipDto> memberships, StoresRow store)
+        public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipDto> memberships, StoreData store)
         {
             UserId = user.UserId;
             Username = user.EmailAddress;
