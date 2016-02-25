@@ -12,8 +12,8 @@
             ReadOnly();
             Table("View_Shop_Carts");
 
-            Id(x => x.CartGuid, "CartGuid");
-            Map(x => x.UserGuid, "UserGuid");
+            Id(x => x.CartId, "CartGuid");
+            Map(x => x.UserId, "UserGuid");
 
             HasMany<CartItemViewRow>(me => me.Items).KeyColumn("CartGuid").OrderBy("LessorName");
         }

@@ -12,15 +12,15 @@
 
     public interface IArticleActionsQueries
     {
-        IEnumerable<ArticleActionData> GetActions(Guid articleGuid);
+        IEnumerable<ArticleActionData> GetActions(Guid articleId);
     }
 
     public class ArticleActionsProjection : ProjectionBase<ArticleActionData>, IArticleActionsQueries,
         IStoredEventsConsumer
     {
-        public IEnumerable<ArticleActionData> GetActions(Guid articleGuid)
+        public IEnumerable<ArticleActionData> GetActions(Guid articleId)
         {
-            throw new NotImplementedException();
+            return Query().Where(p => p.ArticleId == articleId).List();
         }
 
         public void Handle(DomainEvent e)

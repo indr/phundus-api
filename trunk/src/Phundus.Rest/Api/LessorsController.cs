@@ -8,6 +8,7 @@
     using ContentObjects;
     using Integration.Shop;
     using Newtonsoft.Json;
+    using Phundus.Shop.Queries.QueryModels;
 
     [RoutePrefix("api/lessors")]
     public class LessorsController : ApiControllerBase

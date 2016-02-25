@@ -5,8 +5,8 @@
 
     public interface ICart
     {
-        Guid CartGuid { get; }
-        Guid UserGuid { get; }
+        Guid CartId { get; }
+        Guid UserId { get; }
         IList<ICartItem> Items { get; }
         decimal Total { get; }
     }
