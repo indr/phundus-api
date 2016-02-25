@@ -1,4 +1,4 @@
-namespace Phundus.IdentityAccess.Queries.ReadModels
+namespace Phundus.IdentityAccess.Projections
 {
     using System;
     using System.Linq;
@@ -9,17 +9,30 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
     using Organizations.Model;
     using Organizations.Repositories;
 
-    public class MemberInRoleReadModel : ReadModelBase, IMemberInRole
+    public interface IMemberInRole
+    {
+        void ActiveManager(OrganizationId organizationId, UserId userId);
+        void ActiveManager(OwnerId ownerId, UserId userId);
+        void ActiveManager(Guid organizationId, UserId userId);
+
+        bool IsActiveManager(OrganizationId organizationId, UserId userId);
+        bool IsActiveManager(OwnerId ownerId, UserId userId);
+
+        bool IsActiveMember(OrganizationId organizationId, UserId userId);
+        bool IsActiveMember(LessorId lessorId, UserId userId);
+    }
+
+    public class MemberInRoleProjection : ReadModelBase, IMemberInRole
     {
         private readonly IMembershipRepository _membershipRepository;
-        private readonly IUserQueries _userQueries;
+        private readonly IUsersQueries _usersQueries;
 
-        public MemberInRoleReadModel(IUserQueries userQueries, IMembershipRepository membershipRepository)
+        public MemberInRoleProjection(IUsersQueries usersQueries, IMembershipRepository membershipRepository)
         {
-            AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(usersQueries, "UserQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(membershipRepository, "MembershipRepository must be provided.");
 
-            _userQueries = userQueries;
+            _usersQueries = usersQueries;
             _membershipRepository = membershipRepository;
         }
 
@@ -63,7 +76,7 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
         private bool IsActiveManager(Guid organizationId, UserId userId)
         {
             // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
-            var user = _userQueries.FindActiveById(organizationId);
+            var user = _usersQueries.FindActiveById(organizationId);
             if ((user != null) && (user.UserId == userId.Id))
                 return true;
 
@@ -83,7 +96,7 @@ namespace Phundus.IdentityAccess.Queries.ReadModels
         private bool IsActiveMember(Guid organizationId, UserId userId)
         {
             // Hack für Material-Kontext: organizationId kann die Guid des Benutzers (Owners) sein.
-            var user = _userQueries.FindActiveById(organizationId);
+            var user = _usersQueries.FindActiveById(organizationId);
             if ((user != null) && (user.UserId == userId.Id))
                 return true;
 

@@ -4,7 +4,7 @@
     using Common;
     using Common.Domain.Model;
     using Phundus.Authorization;
-    using Queries;
+    using Projections;
     using Users.Services;
 
     public static class Manage

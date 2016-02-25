@@ -2,13 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using IdentityAccess.Queries;
+    using IdentityAccess.Projections;
     using Integration.IdentityAccess;
     using Model;
-    using Orders.Model;
 
     public interface ILessorService
     {
@@ -26,17 +24,17 @@
     {
         private readonly IMembersWithRole _membersWithRole;
         private readonly IOrganizationQueries _organizationQueries;
-        private readonly IUserQueries _userQueries;
+        private readonly IUsersQueries _usersQueries;
 
-        public LessorService(IOrganizationQueries organizationQueries, IUserQueries userQueries,
+        public LessorService(IOrganizationQueries organizationQueries, IUsersQueries usersQueries,
             IMembersWithRole membersWithRole)
         {
             if (organizationQueries == null) throw new ArgumentNullException("organizationQueries");
-            if (userQueries == null) throw new ArgumentNullException("userQueries");
+            if (usersQueries == null) throw new ArgumentNullException("usersQueries");
             if (membersWithRole == null) throw new ArgumentNullException("membersWithRole");
 
             _organizationQueries = organizationQueries;
-            _userQueries = userQueries;
+            _usersQueries = usersQueries;
             _membersWithRole = membersWithRole;
         }
 
@@ -48,7 +46,7 @@
             if (organization != null)
                 return ToLessor(organization);
 
-            var user = _userQueries.FindById(lessorId.Id);
+            var user = _usersQueries.FindById(lessorId.Id);
             if (user != null)
                 return ToLessor(user);
 
@@ -60,7 +58,7 @@
             if (lessorId == null) throw new ArgumentNullException("lessorId");
 
             var members = _membersWithRole.Manager(lessorId.Id, true);
-            var user = _userQueries.FindById(lessorId.Id);
+            var user = _usersQueries.FindById(lessorId.Id);
 
             return ToManagers(members, user);
         }

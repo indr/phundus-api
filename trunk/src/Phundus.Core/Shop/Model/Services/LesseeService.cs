@@ -19,19 +19,19 @@
 
     public class LesseeService : ILesseeService
     {
-        private readonly IUserQueries _userQueries;
+        private readonly IUsersQueries _usersQueries;
 
-        public LesseeService(IUserQueries userQueries)
+        public LesseeService(IUsersQueries usersQueries)
         {
-            if (userQueries == null) throw new ArgumentNullException("userQueries");
-            _userQueries = userQueries;
+            if (usersQueries == null) throw new ArgumentNullException("usersQueries");
+            _usersQueries = usersQueries;
         }
 
         public Lessee GetById(LesseeId lesseeId)
         {
             if (lesseeId == null) throw new ArgumentNullException("lesseeId");
 
-            var user = _userQueries.GetByGuid(new UserId(lesseeId.Id));
+            var user = _usersQueries.GetByGuid(new UserId(lesseeId.Id));
             if (user == null)
                 throw new NotFoundException(string.Format("Lessee {0} not found.", lesseeId));
 

@@ -2,7 +2,7 @@
 {
     using System.IO;
     using Common.Domain.Model;
-    using IdentityAccess.Queries;
+    using IdentityAccess.Projections;
     using Orders.Model;
     using Orders.Repositories;
     using Orders.Services;

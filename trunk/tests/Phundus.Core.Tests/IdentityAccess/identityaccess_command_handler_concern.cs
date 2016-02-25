@@ -6,7 +6,7 @@ namespace Phundus.Tests.IdentityAccess
     using Machine.Specifications;
     using Phundus.Cqrs;
     using Phundus.IdentityAccess.Organizations.Repositories;
-    using Phundus.IdentityAccess.Queries;
+    using Phundus.IdentityAccess.Projections;
     using Phundus.IdentityAccess.Users.Model;
     using Phundus.IdentityAccess.Users.Repositories;
     using Phundus.IdentityAccess.Users.Services;

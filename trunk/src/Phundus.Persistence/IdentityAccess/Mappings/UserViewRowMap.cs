@@ -2,7 +2,7 @@
 {
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
-    using Phundus.IdentityAccess.Queries.QueryModels;
+    using Phundus.IdentityAccess.Projections;
 
     public class UserViewRowMap : ClassMap<UserViewRow>
     {

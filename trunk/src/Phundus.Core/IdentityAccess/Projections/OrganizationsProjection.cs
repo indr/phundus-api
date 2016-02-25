@@ -1,4 +1,4 @@
-﻿namespace Phundus.IdentityAccess.Queries.ReadModels
+﻿namespace Phundus.IdentityAccess.Projections
 {
     using System;
     using System.Collections.Generic;
@@ -8,9 +8,23 @@
     using Integration.IdentityAccess;
     using Organizations.Model;
     using Organizations.Repositories;
-    using QueryModels;
 
-    public class OrganizationsReadModel : ReadModelBase, IOrganizationQueries
+    public interface IOrganizationQueries
+    {
+        IEnumerable<IOrganization> All();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        IOrganization GetById(Guid organizationId);
+
+        IOrganization FindById(Guid organizationId);
+    }
+
+    public class OrganizationsProjection : ReadModelBase, IOrganizationQueries
     {
         public IOrganizationRepository OrganizationRepository { get; set; }
 
@@ -77,5 +91,35 @@
 
             return result;
         }
+    }
+
+    public class OrganizationViewRow : IOrganization
+    {
+        private string _website;
+
+        public Guid OrganizationId { get; set; }
+        public DateTime EstablishedAtUtc { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
+
+        public string PostAddress { get; set; }
+        public string PhoneNumber { get; set; }
+        public string EmailAddress { get; set; }
+
+        public string Website
+        {
+            get
+            {
+                if (!String.IsNullOrEmpty(_website) && !_website.StartsWith("http"))
+                    return "http://" + _website;
+                return _website;
+            }
+            set { _website = value; }
+        }
+
+        public string Startpage { get; set; }
+        public string DocumentTemplate { get; set; }
+        public bool PublicRental { get; set; }
+        public string Plan { get; set; }
     }
 }

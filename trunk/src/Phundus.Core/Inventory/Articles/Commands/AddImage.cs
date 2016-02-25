@@ -4,7 +4,7 @@
     using System.IO;
     using Common.Domain.Model;
     using Cqrs;
-    using IdentityAccess.Queries;
+    using IdentityAccess.Projections;
     using Integration.IdentityAccess;
     using Repositories;
 

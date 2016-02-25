@@ -30,7 +30,7 @@ namespace Phundus.Inventory.Projections
 
         public StoreData FindByOwnerId(OwnerId ownerId)
         {
-            return Single(p => p.OwnerId == ownerId.Id);
+            return SingleOrDefault(p => p.OwnerId == ownerId.Id);
         }
 
         private void Process(DomainEvent domainEvent)

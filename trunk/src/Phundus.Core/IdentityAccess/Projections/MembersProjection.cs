@@ -1,4 +1,4 @@
-﻿namespace Phundus.IdentityAccess.Queries.ReadModels
+﻿namespace Phundus.IdentityAccess.Projections
 {
     using System;
     using System.Collections.Generic;
@@ -12,9 +12,9 @@
         IEnumerable<MemberDto> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName);
     }
 
-    public class MembersReadModel : IMemberQueries, IMembersWithRole
+    public class MembersProjection : IMemberQueries, IMembersWithRole
     {
-        public IUserQueries UserQueries { get; set; }
+        public IUsersQueries UsersQueries { get; set; }
 
         public IMembershipQueries MembershipQueries { get; set; }
 
@@ -47,7 +47,7 @@
             var result = new List<MemberDto>();
             foreach (var each in memberships)
             {
-                var user = UserQueries.GetByGuid(each.UserGuid);
+                var user = UsersQueries.GetByGuid(each.UserGuid);
                 if (!String.IsNullOrWhiteSpace(queryFullName) &&
                     (!user.FirstName.ToLowerInvariant().Contains(queryFullName) &&
                      !user.LastName.ToLowerInvariant().Contains(queryFullName)))

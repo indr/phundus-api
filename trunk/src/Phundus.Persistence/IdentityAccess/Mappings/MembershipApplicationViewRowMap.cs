@@ -2,7 +2,7 @@ namespace Phundus.Persistence.IdentityAccess.Mappings
 {
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
-    using Phundus.IdentityAccess.Queries.QueryModels;
+    using Phundus.IdentityAccess.Projections;
 
     public class MembershipApplicationViewRowMap : ClassMap<MembershipApplicationViewRow>
     {

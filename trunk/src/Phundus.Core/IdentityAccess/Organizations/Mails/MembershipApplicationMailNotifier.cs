@@ -7,32 +7,32 @@
     using Infrastructure.Gateways;
     using Integration.IdentityAccess;
     using Model;
-    using Queries;
+    using Projections;
 
     public class MembershipApplicationMailNotifier : BaseMail, ISubscribeTo<MembershipApplicationFiled>,
         ISubscribeTo<MembershipApplicationApproved>, ISubscribeTo<MembershipApplicationRejected>,
         ISubscribeTo<MemberLocked>, ISubscribeTo<MemberUnlocked>
     {
-        private readonly IOrganizationQueries _organizationQueries;
-        private readonly IUserQueries _userQueries;
         private readonly IMembersWithRole _memberWithRole;
+        private readonly IOrganizationQueries _organizationQueries;
+        private readonly IUsersQueries _usersQueries;
 
         public MembershipApplicationMailNotifier(IMailGateway mailGateway, IOrganizationQueries organizationQueries,
-            IUserQueries userQueries, IMembersWithRole memberWithRole) : base(mailGateway)
+            IUsersQueries usersQueries, IMembersWithRole memberWithRole) : base(mailGateway)
         {
             if (organizationQueries == null) throw new ArgumentNullException("organizationQueries");
-            if (userQueries == null) throw new ArgumentNullException("userQueries");
+            if (usersQueries == null) throw new ArgumentNullException("usersQueries");
             if (memberWithRole == null) throw new ArgumentNullException("memberWithRole");
 
 
             _organizationQueries = organizationQueries;
-            _userQueries = userQueries;
+            _usersQueries = usersQueries;
             _memberWithRole = memberWithRole;
         }
 
         public void Handle(MemberLocked @event)
         {
-            var user = _userQueries.GetByGuid(@event.UserGuid);
+            var user = _usersQueries.GetByGuid(@event.UserGuid);
             var organization = _organizationQueries.GetById(@event.OrganizationGuid);
 
             Model = new
@@ -49,7 +49,7 @@
 
         public void Handle(MembershipApplicationApproved @event)
         {
-            var user = _userQueries.GetByGuid(@event.UserGuid);
+            var user = _usersQueries.GetByGuid(@event.UserGuid);
             var organization = _organizationQueries.GetById(@event.OrganizationGuid);
 
             Model = new
@@ -66,7 +66,7 @@
 
         public void Handle(MembershipApplicationFiled @event)
         {
-            var user = _userQueries.GetByGuid(@event.UserGuid);
+            var user = _usersQueries.GetByGuid(@event.UserGuid);
             var organization = _organizationQueries.GetById(@event.OrganizationGuid);
             var managers = _memberWithRole.Manager(@event.OrganizationGuid, true);
 
@@ -86,7 +86,7 @@
 
         public void Handle(MembershipApplicationRejected @event)
         {
-            var user = _userQueries.GetByGuid(@event.UserGuid);
+            var user = _usersQueries.GetByGuid(@event.UserGuid);
             var organization = _organizationQueries.GetById(@event.OrganizationGuid);
 
             Model = new
@@ -103,7 +103,7 @@
 
         public void Handle(MemberUnlocked @event)
         {
-            var user = _userQueries.GetByGuid(@event.UserGuid);
+            var user = _usersQueries.GetByGuid(@event.UserGuid);
             var organization = _organizationQueries.GetById(@event.OrganizationGuid);
 
             Model = new

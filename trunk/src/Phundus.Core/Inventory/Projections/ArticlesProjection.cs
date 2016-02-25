@@ -20,7 +20,7 @@
     {
         public ArticleData GetById(int id)
         {
-            var result = Single(p => p.ArticleShortId == id);
+            var result = SingleOrDefault(p => p.ArticleShortId == id);
             if (result == null)
                 throw new NotFoundException(String.Format("Article {0} not found.", id));
             return result;
@@ -29,7 +29,7 @@
         public IEnumerable<ArticleData> Query(InitiatorId initiatorId, OwnerId queryOwnerId, string query)
         {
             query = query == null ? "" : query.ToLowerInvariant();
-            return Query().Where(p => p.OwnerGuid == queryOwnerId.Id)
+            return QueryOver().Where(p => p.OwnerGuid == queryOwnerId.Id)
                 .And(p => p.Name.ToLowerInvariant().Contains(query))
                 .List();
         }

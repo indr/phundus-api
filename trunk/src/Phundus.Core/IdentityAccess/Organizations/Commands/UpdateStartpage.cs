@@ -3,7 +3,7 @@
     using System;
     using Common.Domain.Model;
     using Cqrs;
-    using Queries;
+    using Projections;
     using Repositories;
 
     public class UpdateStartpage

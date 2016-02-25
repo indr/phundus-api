@@ -6,7 +6,7 @@
     using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using IdentityAccess.Queries;
+    using IdentityAccess.Projections;
     using Integration.IdentityAccess;
     using Inventory.Services;
     using Projections;
@@ -17,11 +17,11 @@
         private readonly IMembershipQueries _membershipQueries;
 
         public OrderReadModelReader(IMembershipQueries membershipQueries,
-            IUserQueries userQueries,
+            IUsersQueries usersQueries,
             IAvailabilityService availabilityService)
         {
             AssertionConcern.AssertArgumentNotNull(membershipQueries, "MembershipQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(usersQueries, "UserQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(availabilityService, "AvailabilityService must be provided.");
 
             _membershipQueries = membershipQueries;

@@ -19,7 +19,7 @@
             if (initiatorId.Id != userId.Id)
                 throw new AuthorizationException();
 
-            return Single(p => p.UserId == userId.Id);
+            return SingleOrDefault(p => p.UserId == userId.Id);
         }
     }
 

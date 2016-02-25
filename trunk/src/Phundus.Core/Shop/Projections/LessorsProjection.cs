@@ -15,15 +15,15 @@
     {
         public LessorViewRow GetByGuid(Guid lessorId)
         {
-            var result = Single(p => p.LessorGuid == lessorId);
+            var result = SingleOrDefault(p => p.LessorGuid == lessorId);
             if (result == null)
                 throw new NotFoundException("Lessor {0} not found.", lessorId);
             return result;
         }
 
-        public new IList<LessorViewRow> Query()
+        public IList<LessorViewRow> Query()
         {
-            return base.Query().Where(p => p.LessorType >= 0).OrderBy(p => p.Name).Asc.List();
+            return QueryOver().Where(p => p.LessorType >= 0).OrderBy(p => p.Name).Asc.List();
         }
     }
 

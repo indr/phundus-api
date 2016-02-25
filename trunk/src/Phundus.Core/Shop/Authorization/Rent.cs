@@ -1,12 +1,10 @@
 ﻿namespace Phundus.Shop.Authorization
 {
     using System;
-    using System.Security.Authentication;
     using Common;
     using Common.Domain.Model;
-    using IdentityAccess.Queries;
+    using IdentityAccess.Projections;
     using Model;
-    using Orders.Model;
     using Phundus.Authorization;
     using Services;
 

@@ -21,7 +21,7 @@
 
         public UrlMapData FindByUrl(string url)
         {
-            return Single(p => p.Url == url);
+            return SingleOrDefault(p => p.Url == url);
         }
 
         private void Process(DomainEvent e)

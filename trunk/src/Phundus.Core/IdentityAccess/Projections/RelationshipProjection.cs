@@ -6,29 +6,52 @@
     using Cqrs;
     using Organizations.Model;
 
-    public class RelationshipProjection : NHibernateReadModelBase<RelationshipProjectionRow>, IStoredEventsConsumer
+    public interface IRelationshipQueries
     {
+        RelationshipProjectionRow ByMemberIdForOrganizationId(UserId memberId, Guid organizationId);
+    }
+
+    public class RelationshipProjection : ProjectionBase<RelationshipProjectionRow>, IRelationshipQueries,
+        IStoredEventsConsumer
+    {
+        public RelationshipProjectionRow ByMemberIdForOrganizationId(UserId memberId, Guid organizationId)
+        {
+            var result = QueryOver().Where(p =>
+                p.OrganizationGuid == organizationId && p.UserGuid == memberId.Id).SingleOrDefault();
+
+            if (result != null)
+                return result;
+
+            return new RelationshipProjectionRow
+            {
+                OrganizationGuid = organizationId,
+                UserGuid = memberId.Id,
+                Status = null,
+                Timestamp = DateTime.UtcNow
+            };
+        }
+
         public void Handle(DomainEvent e)
         {
             Process((dynamic) e);
         }
 
-        public void Process(DomainEvent domainEvent)
+        private void Process(DomainEvent domainEvent)
         {
             // Noop
         }
 
-        public void Process(MembershipApplicationFiled domainEvent)
+        private void Process(MembershipApplicationFiled domainEvent)
         {
             UpdateOrInsert(domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.OccuredOnUtc, "application");
         }
 
-        public void Process(MembershipApplicationApproved domainEvent)
+        private void Process(MembershipApplicationApproved domainEvent)
         {
             UpdateOrInsert(domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.OccuredOnUtc, "member");
         }
 
-        public void Process(MembershipApplicationRejected domainEvent)
+        private void Process(MembershipApplicationRejected domainEvent)
         {
             UpdateOrInsert(domainEvent.UserGuid, domainEvent.OrganizationGuid, domainEvent.OccuredOnUtc, "rejected");
         }
@@ -56,5 +79,14 @@
             row.Timestamp = timestamp;
             Session.Update(row);
         }
+    }
+
+    public class RelationshipProjectionRow
+    {
+        public virtual Guid RowGuid { get; set; }
+        public virtual Guid OrganizationGuid { get; set; }
+        public virtual Guid UserGuid { get; set; }
+        public virtual DateTime Timestamp { get; set; }
+        public virtual string Status { get; set; }
     }
 }

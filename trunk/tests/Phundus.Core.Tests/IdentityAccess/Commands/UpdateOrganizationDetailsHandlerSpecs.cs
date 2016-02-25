@@ -1,13 +1,10 @@
 ﻿namespace Phundus.Tests.IdentityAccess.Organizations.Commands
 {
-    using Common.Domain.Model;
     using developwithpassion.specifications.extensions;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.IdentityAccess.Organizations.Commands;
     using Phundus.IdentityAccess.Organizations.Model;
-    using Phundus.IdentityAccess.Organizations.Repositories;
-    using Phundus.IdentityAccess.Queries;
     using Rhino.Mocks;
 
     [Subject(typeof (ChangeOrganizationContactDetailsHandler))]

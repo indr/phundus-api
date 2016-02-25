@@ -12,17 +12,17 @@
 
     public class LesseesProjection : ProjectionBase, ILesseeQueries
     {
-        private readonly IUserQueries _userQueries;
+        private readonly IUsersQueries _usersQueries;
 
-        public LesseesProjection(IUserQueries userQueries)
+        public LesseesProjection(IUsersQueries usersQueries)
         {
-            if (userQueries == null) throw new ArgumentNullException("userQueries");
-            _userQueries = userQueries;
+            if (usersQueries == null) throw new ArgumentNullException("usersQueries");
+            _usersQueries = usersQueries;
         }
 
         public LesseeViewRow GetByGuid(Guid lesseeId)
         {
-            var user = _userQueries.FindById(lesseeId);
+            var user = _usersQueries.FindById(lesseeId);
             if (user == null)
                 throw new NotFoundException("Lessee {0} not found", lesseeId);
 

@@ -2,10 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using Common;
     using Common.Domain.Model;
 
-    public interface IUserQueries
+    public interface IUsersQueries
     {
         IUser GetByGuid(Guid guid);
         IUser GetByGuid(UserId userId);

@@ -1,13 +1,12 @@
 ﻿namespace Phundus.Rest.Api.Organizations
 {
     using System;
-    using System.Runtime.Remoting.Messaging;
     using AttributeRouting;
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Common;
     using ContentObjects;
-    using IdentityAccess.Queries;
+    using IdentityAccess.Projections;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/relationships")]
