@@ -306,9 +306,7 @@
     <Compile Include="Shop\Projections\ShopItemImagesProjectionRow.cs" />
     <Compile Include="Shop\Projections\ShopItemProjectionRow.cs" />
     <Compile Include="Shop\Projections\ShopItemsSortByPopularityProjection.cs" />
-    <Compile Include="Shop\Queries\CartItemViewRow.cs" />
-    <Compile Include="Shop\Queries\CartQueries.cs" />
-    <Compile Include="Shop\Queries\CartViewRow.cs" />
+    <Compile Include="Shop\Projections\CartsProjection.cs" />
     <Compile Include="Shop\Queries\Dtos\MembershipRoleDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderDto.cs" />
     <Compile Include="Shop\Queries\Dtos\OrderStatusDto.cs" />
@@ -317,13 +315,11 @@
     <Compile Include="Shop\Queries\ItemQueriesReadModel.cs" />
     <Compile Include="IdentityAccess\Queries\QueryModels\MembershipApplicationQueries.cs" />
     <Compile Include="IdentityAccess\Queries\QueryModels\IMembershipApplicationQueries.cs" />
-    <Compile Include="Shop\Queries\QueryModels\LesseeQueries.cs" />
-    <Compile Include="Shop\Queries\QueryModels\LesseeViewRow.cs" />
-    <Compile Include="Shop\Queries\QueryModels\LessorQueries.cs" />
+    <Compile Include="Shop\Projections\LesseeQueries.cs" />
+    <Compile Include="Shop\Projections\LessorQueries.cs" />
     <Compile Include="Shop\Queries\Models\OrderReadModelReader.cs" />
     <Compile Include="Shop\Queries\Models\ReadModelReaderBase.cs" />
     <Compile Include="Shop\Queries\Models\ReadModelWriterBase.cs" />
-    <Compile Include="Shop\Queries\QueryModels\LessorViewRow.cs" />
     <Compile Include="Shop\Queries\ReadModel.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -9,22 +9,19 @@ namespace Phundus.Rest.Api.Users
     using Castle.Transactions;
     using Common.Domain.Model;
     using Integration.Shop;
-    using Inventory.Projections;
     using Newtonsoft.Json;
     using Phundus.Shop.Orders.Commands;
+    using Phundus.Shop.Queries;
 
     [RoutePrefix("api/users/{userId}/cart")]
     public class UsersCartController : ApiControllerBase
     {
-        private readonly IArticleQueries _articleQueries;
         private readonly ICartQueries _cartQueries;
 
-        public UsersCartController(ICartQueries cartQueries, IArticleQueries articleQueries)
+        public UsersCartController(ICartQueries cartQueries)
         {
             if (cartQueries == null) throw new ArgumentNullException("cartQueries");
-            if (articleQueries == null) throw new ArgumentNullException("articleQueries");
             _cartQueries = cartQueries;
-            _articleQueries = articleQueries;
         }
 
         [GET("")]
@@ -121,8 +118,8 @@ namespace Phundus.Rest.Api.Users
                 return;
             }
 
-            CartGuid = cart.CartGuid;
-            UserGuid = cart.UserGuid;
+            CartGuid = cart.CartId;
+            UserGuid = cart.UserId;
             Items = cart.Items.Select(s => new CartItem
             {
                 CartItemId = s.CartItemGuid,
