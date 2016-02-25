@@ -44,7 +44,7 @@ namespace Phundus.Migrations
                         if (evnt == null)
                             return;
                         evnt.Description = description;
-                        UpdateSerialization(evnt.EventGuid, evnt);
+                        UpdateStoredEvent(evnt.EventGuid, evnt);
                     }
                 }
             }

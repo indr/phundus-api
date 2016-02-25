@@ -85,47 +85,27 @@ VALUES (@EventGuid, @TypeName, @OccuredOnUtc, @AggregateId, @Serialization)");
             _commands.Add(command);
         }
 
-        protected void UpdateStoredEvent(Guid eventGuid, object domainEvent)
-        {
-            var stream = new MemoryStream();
-            Serializer.Serialize(stream, domainEvent);
-
-            var command =
-                CreateCommand(
-                    @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventGuid] = @EventGuid");
-            command.Parameters.Add(new SqlParameter(@"EventGuid", eventGuid));
-            command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
-            
-            _commands.Add(command);
-        }
-
         protected void UpdateSerialization(long eventId, object domainEvent)
         {
             var stream = new MemoryStream();
             Serializer.Serialize(stream, domainEvent);
 
-            var command = Connection.CreateCommand();
-            command.Transaction = Transaction;
+            var command = CreateCommand(
+                    @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventId] = @EventId");
             command.Parameters.Add(new SqlParameter(@"EventId", eventId));
             command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
-            command.CommandText =
-                @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventId] = @EventId";
-            
             _commands.Add(command);
         }
 
-        protected void UpdateSerialization(Guid eventGuid, object domainEvent)
+        protected void UpdateStoredEvent(Guid eventGuid, object domainEvent)
         {
             var stream = new MemoryStream();
             Serializer.Serialize(stream, domainEvent);
 
-            var command = Connection.CreateCommand();
-            command.Transaction = Transaction;
+            var command = CreateCommand(
+                    @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventGuid] = @EventGuid");
             command.Parameters.Add(new SqlParameter(@"EventGuid", eventGuid));
             command.Parameters.Add(new SqlParameter(@"Serialization", stream.ToArray()));
-            command.CommandText =
-                @"UPDATE [dbo].[StoredEvents] SET [Serialization] = @Serialization WHERE [EventGuid] = @EventGuid";
-            
             _commands.Add(command);
         }
 

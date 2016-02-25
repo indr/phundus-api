@@ -1,64 +1,57 @@
 namespace Phundus.Migrations
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
     using FluentMigrator;
 
-    [Migration(201602241041)]
-    public class M201602241041_Recreate_ArticleCreated : EventMigrationBase
+    [Migration(201602241042)]
+    public class M201602241042_Reserialize_ArticleCreated : EventMigrationBase
     {
+        public class OwnerListItem
+        {
+            public Guid Id { get; set; }
+            public string Name { get; set; }
+            public int Type { get; set; }
+        }
+
         protected override void Migrate()
         {
             const string typeName = @"Phundus.Inventory.Articles.Model.ArticleCreated, Phundus.Core";
             var storedEvents = FindStoredEvents(typeName);
             var domainEvents = storedEvents.Select(s => s.Deserialize<ArticleCreated>()).OrderBy(p => p.OccuredOnUtc).ToList();
 
-            var command = CreateCommand(@"SELECT TOP 1000 [Id]
-      ,[Version]
-      ,[CreateDate]
-      ,[Name]
-      ,[Brand]
-      ,[PublicPrice]
-      ,[Description]
-      ,[Specification]
-      ,[Stock]
-      ,[Color]
-      ,[Price_InfoCard]
-      ,[Owner_OwnerId]
-      ,[Owner_Name]
-      ,[StoreId]
-      ,[ArticleGuid]
-      ,[MemberPrice]
-      ,[Owner_Type]
-  FROM [Dm_Inventory_Article] ORDER BY [CreateDate] ASC");
+            var owners = new List<OwnerListItem>();
 
+            var command = CreateCommand(@"
+SELECT [LessorGuid]
+      ,[LessorType]
+      ,[Name]
+  FROM [View_Shop_Lessors]");
             using (var reader = command.ExecuteReader())
+            {
                 while (reader.Read())
                 {
-                    var ownerGuid = reader.GetGuid(11);
-                    var createdAt = reader.GetDateTime(2);
-                    createdAt = createdAt.ToUniversalTime();
-                    var articleGuid = reader.GetGuid(14);
-
-                    var domainEvent = domainEvents.SingleOrDefault(p => p.ArticleGuid == articleGuid);
-                    
-                    if (domainEvent == null)
-                        throw new Exception("Could not find an ArticleCreated domain event with id " + articleGuid);
-
-                    domainEvent.ArticleGuid = articleGuid;
-                    domainEvent.ArticleId = reader.GetInt32(0);
-                    domainEvent.GrossStock = reader.GetInt32(8);
-                    domainEvent.Name = reader.GetString(3);
-                    domainEvent.Owner = domainEvent.Owner ?? new Owner();
-                    domainEvent.Owner.Name = reader.GetString(12);
-                    domainEvent.Owner.OwnerId = ownerGuid;
-                    domainEvent.Owner.Type = (OwnerType)reader.GetInt32(16);
-                    domainEvent.StoreId = reader.GetGuid(13);
-
-                    UpdateStoredEvent(domainEvent.EventGuid, domainEvent);                    
+                    owners.Add(new OwnerListItem
+                    {
+                        Id = reader.GetGuid(0),
+                        Name = reader.GetString(2),
+                        Type = reader.GetInt32(1)
+                    });
                 }
+            }
+
+            foreach (var e in domainEvents)
+            {
+                if (e.Owner.OwnerId != Guid.Empty)
+                    continue;
+                var owner = owners.Single(p => p.Name == e.Owner.Name);
+                e.Owner.OwnerId = owner.Id;
+
+                UpdateStoredEvent(e.EventGuid, e);  
+            }
         }
 
         [DataContract]
