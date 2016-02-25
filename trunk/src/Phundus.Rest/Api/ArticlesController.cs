@@ -25,21 +25,21 @@ namespace Phundus.Rest.Api
         private readonly IAvailabilityQueries _availabilityQueries;
         private readonly IMemberInRole _memberInRole;
         private readonly IReservationRepository _reservationRepository;
-        private readonly IStoreQueries _storeQueries;
+        private readonly IStoresQueries _storesQueries;
 
-        public ArticlesController(IMemberInRole memberInRole, IStoreQueries storeQueries,
+        public ArticlesController(IMemberInRole memberInRole, IStoresQueries storesQueries,
             IArticleQueries articleQueries, IAvailabilityQueries availabilityQueries,
             IReservationRepository reservationRepository, IUserQueries userQueries)
         {
             AssertionConcern.AssertArgumentNotNull(memberInRole, "MemberInRole must be provided.");
-            AssertionConcern.AssertArgumentNotNull(storeQueries, "StoreQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(storesQueries, "StoreQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleQueries, "ArticleQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(availabilityQueries, "AvailabilityQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(reservationRepository, "ReservationRepository must be provided.");
             AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
 
             _memberInRole = memberInRole;
-            _storeQueries = storeQueries;
+            _storesQueries = storesQueries;
             _articleQueries = articleQueries;
             _availabilityQueries = availabilityQueries;
             _reservationRepository = reservationRepository;
@@ -193,9 +193,9 @@ namespace Phundus.Rest.Api
         public virtual ArticlesPostOkResponseContent Post(ArticlesPostRequestContent requestContent)
         {
             var ownerId = GetOwnerId(requestContent.OwnerId);
-            var storeId = _storeQueries.GetByOwnerId(ownerId).StoreId;
+            var storeId = _storesQueries.GetByOwnerId(ownerId).StoreId;
             var articleGuid = new ArticleId();
-            var command = new CreateArticle(CurrentUserId, ownerId, storeId, articleGuid,
+            var command = new CreateArticle(CurrentUserId, ownerId, new StoreId(storeId), articleGuid,
                 requestContent.Name, requestContent.GrossStock, requestContent.PublicPrice, requestContent.MemberPrice);
             Dispatch(command);
 

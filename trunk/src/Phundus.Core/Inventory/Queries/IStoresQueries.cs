@@ -2,8 +2,9 @@
 {
     using Common;
     using Common.Domain.Model;
+    using Projections;
 
-    public interface IStoreQueries
+    public interface IStoresQueries
     {
         /// <summary>
         /// 
@@ -11,8 +12,8 @@
         /// <param name="ownerId"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        StoreDto GetByOwnerId(OwnerId ownerId);
+        StoresRow GetByOwnerId(OwnerId ownerId);
 
-        StoreDto FindByOwnerId(OwnerId ownerId);
+        StoresRow FindByOwnerId(OwnerId ownerId);
     }
 }

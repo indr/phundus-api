@@ -1,12 +1,14 @@
 namespace Phundus.Inventory.Projections
 {
     using System;
+    using Common;
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
+    using Queries;
     using Stores.Model;
 
-    public class StoresProjection : ProjectionBase<StoresRow>, IStoredEventsConsumer
+    public class StoresProjection : ProjectionBase<StoresRow>, IStoresQueries, IStoredEventsConsumer
     {
         public void Handle(DomainEvent domainEvent)
         {
@@ -47,6 +49,19 @@ namespace Phundus.Inventory.Projections
                 x.Latitude = e.Latitude;
                 x.Longitude = e.Longitude;
             });
+        }
+
+        public StoresRow GetByOwnerId(OwnerId ownerId)
+        {
+            var result = FindByOwnerId(ownerId);
+            if (result == null)
+                throw new NotFoundException("Store with {0} not found.", ownerId);
+            return result;
+        }
+
+        public StoresRow FindByOwnerId(OwnerId ownerId)
+        {
+            return Single(p => p.OwnerId == ownerId.Id);
         }
     }
 

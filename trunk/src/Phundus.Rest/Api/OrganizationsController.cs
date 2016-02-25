@@ -21,15 +21,15 @@
     public class OrganizationsController : ApiControllerBase
     {
         private readonly IOrganizationQueries _organizationQueries;
-        private readonly IStoreQueries _storeQueries;
+        private readonly IStoresQueries _storesQueries;
 
-        public OrganizationsController(IOrganizationQueries organizationQueries, IStoreQueries storeQueries)
+        public OrganizationsController(IOrganizationQueries organizationQueries, IStoresQueries storesQueries)
         {
             AssertionConcern.AssertArgumentNotNull(organizationQueries, "OrganizationQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(storeQueries, "StoreQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(storesQueries, "StoreQueries must be provided.");
 
             _organizationQueries = organizationQueries;
-            _storeQueries = storeQueries;
+            _storesQueries = storesQueries;
         }
 
         [GET("")]
@@ -57,7 +57,7 @@
         {
             var organization = _organizationQueries.GetById(organizationId);
 
-            var store = _storeQueries.FindByOwnerId(new OwnerId(organization.OrganizationId));
+            var store = _storesQueries.FindByOwnerId(new OwnerId(organization.OrganizationId));
             var result = new OrganizationsGetOkResponseContent
             {
                 Address = organization.PostAddress,
@@ -84,7 +84,7 @@
                     Address = store.Address,
                     OpeningHours = store.OpeningHours,
                     Coordinate = Coordinate.FromLatLng(store.Latitude, store.Longitude),
-                    StoreId = store.StoreId.Id
+                    StoreId = store.StoreId
                 });
             }
             return result;

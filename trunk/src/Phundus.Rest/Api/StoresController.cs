@@ -9,6 +9,7 @@ namespace Phundus.Rest.Api
     using Castle.Transactions;
     using Common.Domain.Model;
     using ContentObjects;
+    using Inventory.Projections;
     using Inventory.Queries;
     using Inventory.Stores.Commands;
     using Newtonsoft.Json;
@@ -16,12 +17,12 @@ namespace Phundus.Rest.Api
     [RoutePrefix("api/stores")]
     public class StoresController : ApiControllerBase
     {
-        private readonly IStoreQueries _storeQueries;
+        private readonly IStoresQueries _storesQueries;
 
-        public StoresController(IStoreQueries storeQueries)
+        public StoresController(IStoresQueries storesQueries)
         {
-            if (storeQueries == null) throw new ArgumentNullException("storeQueries");
-            _storeQueries = storeQueries;
+            if (storesQueries == null) throw new ArgumentNullException("storesQueries");
+            _storesQueries = storesQueries;
         }
 
         [GET("")]
@@ -32,20 +33,20 @@ namespace Phundus.Rest.Api
             if (!ownerId.HasValue)
                 return result;
 
-            var store = _storeQueries.FindByOwnerId(new OwnerId(ownerId.Value));
+            var store = _storesQueries.FindByOwnerId(new OwnerId(ownerId.Value));
             if (store != null)
                 result.Stores.Add(ToStore(store));
 
             return result;
         }
 
-        private static Store ToStore(StoreDto store)
+        private static Store ToStore(StoresRow store)
         {
             var result = new Store
             {
                 Address = store.Address,
                 OpeningHours = store.OpeningHours,
-                StoreId = store.StoreId.Id,
+                StoreId = store.StoreId,
             };
             if (store.Latitude.HasValue && store.Longitude.HasValue)
             {
