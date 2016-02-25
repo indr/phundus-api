@@ -8,7 +8,7 @@ namespace Phundus.Shop.Projections
     using Cqrs;
     using Inventory.Articles.Model;
 
-    public class ShopItemProjection : ReadModelBase<ShopItemProjectionRow>, IStoredEventsConsumer
+    public class ShopItemProjection : ProjectionBase<ShopItemProjectionRow>, IStoredEventsConsumer
     {
         public void Handle(DomainEvent e)
         {
@@ -25,7 +25,7 @@ namespace Phundus.Shop.Projections
             if (domainEvent.ArticleId == Guid.Empty)
                 return;
 
-            var row = CreateRow();
+            var row = new ShopItemProjectionRow();
             row.ArticleGuid = domainEvent.ArticleId;
             row.ArticleId = domainEvent.ArticleShortId;
             row.Name = domainEvent.Name;

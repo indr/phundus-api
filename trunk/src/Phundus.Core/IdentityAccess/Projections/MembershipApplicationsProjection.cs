@@ -10,7 +10,7 @@
         IList<IMembershipApplication> FindPending(CurrentUserId currentUserId, OrganizationId organizationId);
     }
 
-    public class MembershipApplicationQueries : NHibernateReadModelBase<MembershipApplicationViewRow>,
+    public class MembershipApplicationQueries : ProjectionBase<MembershipApplicationViewRow>,
         IMembershipApplicationQueries
     {
         public IList<IMembershipApplication> FindPending(CurrentUserId currentUserId, OrganizationId organizationId)

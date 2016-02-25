@@ -43,6 +43,11 @@ namespace Phundus.Cqrs
             Session.SaveOrUpdate(row);
         }
 
+        protected void InsertOrUpdate(TEntity entity)
+        {
+            Session.SaveOrUpdate(entity);
+        }
+
         protected void Delete(object id)
         {
             var row = Session.Get<TEntity>(id);

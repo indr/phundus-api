@@ -105,9 +105,7 @@
     <Compile Include="Authorization\IAccessObject.cs" />
     <Compile Include="Authorization\IAccessObjectHandlerFactory.cs" />
     <Compile Include="Authorization\IHandleAccessObject.cs" />
-    <Compile Include="Cqrs\NHibernateReadModelBase.cs" />
     <Compile Include="Cqrs\ProjectionBase.cs" />
-    <Compile Include="Cqrs\ReadModelBase.cs" />
     <Compile Include="Dashboard\Projections\EventLogProjection.cs" />
     <Compile Include="Cqrs\ReadModelUpdater.cs" />
     <Compile Include="Ddd\Aggregate.cs" />
@@ -301,7 +299,6 @@
     <Compile Include="Shop\Projections\LessorsProjection.cs" />
     <Compile Include="Shop\Queries\Models\OrderReadModelReader.cs" />
     <Compile Include="Shop\Queries\Models\ReadModelReaderBase.cs" />
-    <Compile Include="Shop\Queries\Models\ReadModelWriterBase.cs" />
     <Compile Include="Shop\Queries\ReadModel.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
