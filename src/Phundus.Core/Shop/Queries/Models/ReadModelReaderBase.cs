@@ -1,10 +1,8 @@
 namespace Phundus.Shop.Queries.Models
 {
-    using System;
     using Cqrs;
-    using NHibernate;
 
-    public abstract class ReadModelReaderBase : ReadModelBase
+    public abstract class ReadModelReaderBase : ProjectionBase
     {
         protected ReadModelDataContext CreateCtx()
         {

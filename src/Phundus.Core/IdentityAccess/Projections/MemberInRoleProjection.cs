@@ -22,7 +22,7 @@ namespace Phundus.IdentityAccess.Projections
         bool IsActiveMember(LessorId lessorId, UserId userId);
     }
 
-    public class MemberInRoleProjection : ReadModelBase, IMemberInRole
+    public class MemberInRoleProjection : ProjectionBase, IMemberInRole
     {
         private readonly IMembershipRepository _membershipRepository;
         private readonly IUsersQueries _usersQueries;

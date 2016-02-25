@@ -22,7 +22,7 @@
         IEnumerable<OrderDto> Query(CurrentUserId currentUserId, ShortOrderId shortOrderId, UserId queryUserId, OrganizationId queryOrganizationId);
     }
 
-    public class OrdersProjection : ReadModelBase<OrdersProjectionRow>, IStoredEventsConsumer
+    public class OrdersProjection : ProjectionBase<OrdersProjectionRow>, IStoredEventsConsumer
     {
         public void Handle(DomainEvent e)
         {

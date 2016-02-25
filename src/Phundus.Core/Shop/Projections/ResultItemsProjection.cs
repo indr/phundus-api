@@ -7,7 +7,7 @@
     using Cqrs;
     using Inventory.Articles.Model;
 
-    public class ResultItemsProjection : ReadModelBase<ResultItemsProjectionRow>, IStoredEventsConsumer
+    public class ResultItemsProjection : ProjectionBase<ResultItemsProjectionRow>, IStoredEventsConsumer
     {
         public void Handle(DomainEvent e)
         {
@@ -21,7 +21,7 @@
 
         public void Process(ArticleCreated domainEvent)
         {
-            var row = CreateRow();
+            var row = new ResultItemsProjectionRow();
             row.ItemId = domainEvent.ArticleId;
             row.ItemShortId = domainEvent.ArticleShortId;
             row.CreatedAtUtc = domainEvent.OccuredOnUtc;

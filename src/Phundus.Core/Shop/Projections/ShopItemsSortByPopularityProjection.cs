@@ -7,7 +7,7 @@
     using Cqrs;
     using Orders.Model;
 
-    public class ShopItemsSortByPopularityProjection : ReadModelBase<ShopItemsSortByPopularityProjectionRow>,
+    public class ShopItemsSortByPopularityProjection : ProjectionBase<ShopItemsSortByPopularityProjectionRow>,
         IStoredEventsConsumer
     {
         public void Handle(DomainEvent e)
@@ -52,7 +52,7 @@
                 var row = Find(item.ArticleId, month) ??
                           new ShopItemsSortByPopularityProjectionRow(item.ArticleId, month);
                 row.Value += 1;
-                SaveOrUpdate(row);
+                InsertOrUpdate(row);
             }
         }
 

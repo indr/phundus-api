@@ -16,7 +16,7 @@ namespace Phundus.Dashboard.Projections
         IEnumerable<EventLogData> FindMostRecent20();
     }
 
-    public class EventLogProjection : ReadModelBase<EventLogData>, IEventLogQueries,
+    public class EventLogProjection : ProjectionBase<EventLogData>, IEventLogQueries,
         IStoredEventsConsumer
     {
         public IEnumerable<EventLogData> FindMostRecent20()

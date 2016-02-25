@@ -6,7 +6,7 @@ namespace Phundus.Shop.Projections
     using Cqrs;
     using Inventory.Articles.Model;
 
-    public class ShopItemImagesProjection : ReadModelBase<ShopItemImagesProjectionRow>, IStoredEventsConsumer
+    public class ShopItemImagesProjection : ProjectionBase<ShopItemImagesProjectionRow>, IStoredEventsConsumer
     {
         public void Handle(DomainEvent e)
         {
@@ -23,14 +23,14 @@ namespace Phundus.Shop.Projections
             if (!domainEvent.FileType.StartsWith("image/"))
                 return;
 
-            var row = Find(domainEvent.ArticleId, domainEvent.FileName) ?? CreateRow();
+            var row = Find(domainEvent.ArticleId, domainEvent.FileName) ?? new ShopItemImagesProjectionRow();
             row.ArticleGuid = domainEvent.ArticleId;
             row.ArticleId = domainEvent.ArticleShortId;
             row.FileLength = domainEvent.FileLength;
             row.FileName = domainEvent.FileName;
             row.FileType = domainEvent.FileType;
 
-            SaveOrUpdate(row);
+            InsertOrUpdate(row);
         }
 
         public void Process(ImageRemoved domainEvent)

@@ -6,7 +6,7 @@ namespace Phundus.Cqrs
     using System.Linq;
     using AutoMapper;
 
-    public abstract class AutoMappingReadModelBase : ReadModelBase
+    public abstract class AutoMappingReadModelBase : ProjectionBase
     {
         private IDataReader ExecuteReader(string sql)
         {

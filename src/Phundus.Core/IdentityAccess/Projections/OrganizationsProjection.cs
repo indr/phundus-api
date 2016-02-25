@@ -24,7 +24,7 @@
         IOrganization FindById(Guid organizationId);
     }
 
-    public class OrganizationsProjection : ReadModelBase, IOrganizationQueries
+    public class OrganizationsProjection : ProjectionBase, IOrganizationQueries
     {
         public IOrganizationRepository OrganizationRepository { get; set; }
 
