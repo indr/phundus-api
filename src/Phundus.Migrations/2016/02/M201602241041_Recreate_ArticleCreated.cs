@@ -34,9 +34,12 @@ SELECT [LessorGuid]
             {
                 while (reader.Read())
                 {
+                    var id = reader.GetGuid(0);
+                    if (id == new Guid("F99B2D27-E92F-4784-AE95-28EC88B59C8D"))
+                        continue;
                     owners.Add(new OwnerListItem
                     {
-                        Id = reader.GetGuid(0),
+                        Id = id,
                         Name = reader.GetString(2),
                         Type = reader.GetInt32(1)
                     });
@@ -47,8 +50,10 @@ SELECT [LessorGuid]
             {
                 if (e.Owner.OwnerId != Guid.Empty)
                     continue;
-                var owner = owners.Single(p => p.Name == e.Owner.Name);
-                e.Owner.OwnerId = owner.Id;
+                var owner = owners.FindAll(p => p.Name == e.Owner.Name);
+                if (owner.Count > 1)
+                    throw new Exception("Multiple owners with name " + e.Owner.Name);
+                e.Owner.OwnerId = owner.First().Id;
 
                 UpdateStoredEvent(e.EventGuid, e);  
             }
