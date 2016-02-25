@@ -86,12 +86,12 @@
     <Compile Include="IdentityAccess\Mappings\MembershipApplicationViewRowMap.cs" />
     <Compile Include="IdentityAccess\Mappings\RelationshipProjectionRowMap.cs" />
     <Compile Include="IdentityAccess\Mappings\UserViewRowMap.cs" />
-    <Compile Include="Infrastructure\FriendlyUrlProjectionRowMap.cs" />
+    <Compile Include="Infrastructure\UrlMapData.cs" />
     <Compile Include="Inventory\Mappings\ArticlesActionsProjectionRowMap.cs" />
     <Compile Include="Inventory\Mappings\ArticlesProjectionRowMap.cs" />
     <Compile Include="Extensions\FluentMappingExtensions.cs" />
     <Compile Include="Inventory\Mappings\StoreMap.cs" />
-    <Compile Include="Inventory\Mappings\StoresRowMap.cs" />
+    <Compile Include="Inventory\Mappings\StoreDataMap.cs" />
     <Compile Include="Inventory\Repositories\NhStoreRepository.cs" />
     <Compile Include="NHibernateProcessedNotificationTrackerStore.cs" />
     <Compile Include="Shop\Mappings\CartItemMap.cs" />

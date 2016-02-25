@@ -7,9 +7,9 @@
 
     public class OrdersProjection : ReadModelBase<OrdersProjectionRow>, IStoredEventsConsumer
     {
-        public void Handle(DomainEvent domainEvent)
+        public void Handle(DomainEvent e)
         {
-            Process((dynamic) domainEvent);
+            Process((dynamic) e);
         }
 
         public void Process(DomainEvent domainEvent)

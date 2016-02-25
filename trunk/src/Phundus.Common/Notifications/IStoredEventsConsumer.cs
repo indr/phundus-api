@@ -4,6 +4,6 @@ namespace Phundus.Common.Notifications
 
     public interface IStoredEventsConsumer
     {
-        void Handle(DomainEvent domainEvent);
+        void Handle(DomainEvent e);
     }
 }

@@ -3,9 +3,9 @@
     using FluentNHibernate.Mapping;
     using Phundus.Inventory.Projections;
 
-    public class StoresRowMap : ClassMap<StoresRow>
+    public class StoreDataMap : ClassMap<StoreData>
     {
-        public StoresRowMap()
+        public StoreDataMap()
         {
             SchemaAction.All();
 

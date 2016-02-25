@@ -40,7 +40,7 @@ namespace Phundus.Rest.Api
             return result;
         }
 
-        private static Store ToStore(StoresRow store)
+        private static Store ToStore(StoreData store)
         {
             var result = new Store
             {

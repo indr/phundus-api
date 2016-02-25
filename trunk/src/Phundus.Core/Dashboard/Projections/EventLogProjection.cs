@@ -16,9 +16,9 @@ namespace Phundus.Dashboard.Projections
             return QueryOver().OrderBy(p => p.OccuredOnUtc).Desc.Take(20).List();
         }
 
-        public void Handle(DomainEvent domainEvent)
+        public void Handle(DomainEvent e)
         {
-            Process((dynamic) domainEvent);
+            Process((dynamic) e);
         }
 
         public void Process(DomainEvent domainEvent)

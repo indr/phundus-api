@@ -8,18 +8,18 @@
     [AllowAnonymous]
     public class Html5ModeController : Controller
     {
-        private readonly IFriendlyUrlQueries _friendlyUrlQueries;
+        private readonly IUrlMapQueries _urlMapQueries;
 
-        public Html5ModeController(IFriendlyUrlQueries friendlyUrlQueries)
+        public Html5ModeController(IUrlMapQueries urlMapQueries)
         {
-            if (friendlyUrlQueries == null) throw new ArgumentNullException("friendlyUrlQueries");
-            _friendlyUrlQueries = friendlyUrlQueries;
+            if (urlMapQueries == null) throw new ArgumentNullException("urlMapQueries");
+            _urlMapQueries = urlMapQueries;
         }
 
         [Transaction]
         public virtual ActionResult Index(string url)
         {
-            var friendlyUrl = _friendlyUrlQueries.FindByUrl(url);
+            var friendlyUrl = _urlMapQueries.FindByUrl(url);
 
             if (friendlyUrl == null)
                 return Redirect(@"/#/404");

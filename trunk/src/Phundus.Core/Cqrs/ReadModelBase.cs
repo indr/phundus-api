@@ -1,7 +1,6 @@
 namespace Phundus.Cqrs
 {
     using System;
-    using System.Linq.Expressions;
     using Common;
     using NHibernate;
 
@@ -54,34 +53,6 @@ namespace Phundus.Cqrs
         protected IQueryOver<TRow, TRow> QueryOver()
         {
             return Session.QueryOver<TRow>();
-        }
-    }
-
-    public class ProjectionBase<TRow> : ReadModelBase<TRow> where TRow : class, new()
-    {
-        protected void Insert(Action<TRow> action)
-        {
-            var row = CreateRow();
-            action(row);
-            Insert(row);
-        }
-
-        protected void Update(object id, Action<TRow> action)
-        {
-            var row = Get(id);
-            action(row);
-            SaveOrUpdate(row);
-        }
-
-        protected void Delete(object id)
-        {
-            var row = Get(id);
-            base.Delete(row);
-        }
-
-        protected TRow Single(Expression<Func<TRow, bool>> expression)
-        {
-            return Session.QueryOver<TRow>().Where(expression).SingleOrDefault();
         }
     }
 }
