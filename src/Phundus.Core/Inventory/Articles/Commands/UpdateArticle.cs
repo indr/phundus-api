@@ -18,7 +18,7 @@
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (name == null) throw new ArgumentNullException("name");
             InitiatorId = initiatorId;
-            ArticleId = articleId;
+            ArticleId = new ArticleShortId(articleId);
             Name = name;
             Brand = brand;
             Color = color;
@@ -26,7 +26,7 @@
         }
 
         public InitiatorId InitiatorId { get; protected set; }
-        public int ArticleId { get; protected set; }
+        public ArticleShortId ArticleId { get; protected set; }
 
         public string Name { get; protected set; }
         public string Brand { get; protected set; }

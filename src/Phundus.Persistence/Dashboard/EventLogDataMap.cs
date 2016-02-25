@@ -3,9 +3,9 @@
     using FluentNHibernate.Mapping;
     using Phundus.Dashboard.Projections;    
 
-    public class EventLogProjectionRowMap : ClassMap<EventLogProjectionRow>
+    public class EventLogDataMap : ClassMap<EventLogData>
     {
-        public EventLogProjectionRowMap()
+        public EventLogDataMap()
         {
             SchemaAction.All();
             Table("Es_Dashboard_EventLog");

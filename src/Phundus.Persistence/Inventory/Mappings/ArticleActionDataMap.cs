@@ -5,9 +5,9 @@ namespace Phundus.Persistence.Inventory.Mappings
     using NHibernate.Type;
     using Phundus.Inventory.Projections;
 
-    public class ArticlesActionsProjectionRowMap : ClassMap<ArticlesActionsProjectionRow>
+    public class ArticleActionDataMap : ClassMap<ArticleActionData>
     {
-        public ArticlesActionsProjectionRowMap()
+        public ArticleActionDataMap()
         {
             SchemaAction.All();
             Table("Es_Inventory_Articles_Actions");

@@ -4,7 +4,6 @@
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using Dashboard.Projections;
-    using Dashboard.Queries;
     using Machine.Specifications;
 
     [Subject(typeof (QueriesInstaller))]

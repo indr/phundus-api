@@ -1,6 +1,5 @@
 ﻿namespace Phundus.Tests.Inventory.Events
 {
-    using System;
     using Common.Domain.Model;
     using Machine.Specifications;
     using Phundus.Inventory.Articles.Model;
@@ -10,20 +9,20 @@
     public class article_created : domain_event_concern<ArticleCreated>
     {
         private static Owner theOwner;
-        private static int theArticleShortId;
+        private static ArticleShortId theArticleShortId;
         private static string theName;
         private static int theGrossStock;
         private static decimal theMemberPrice;
         private static decimal thePublicPrice;
-        private static Guid theArticleId;
+        private static ArticleId theArticleId;
         private static StoreId theStoreId;
 
         private Establish ctx = () =>
         {
             theOwner = new Owner(new OwnerId(), "The Owner", OwnerType.User);
             theStoreId = new StoreId();
-            theArticleShortId = 1;
-            theArticleId = Guid.NewGuid();
+            theArticleShortId = new ArticleShortId(1234);
+            theArticleId = new ArticleId();
             theName = "The Article";
             theGrossStock = 2;
             theMemberPrice = 3.33m;
@@ -39,10 +38,10 @@
             dataMember(2).ShouldEqual(theOwner);
 
         private It should_have_at_4_the_article_short_id = () =>
-            dataMember(4).ShouldEqual(theArticleShortId);
+            dataMember(4).ShouldEqual(theArticleShortId.Id);
 
         private It should_have_at_5_the_article_id = () =>
-            dataMember(5).ShouldEqual(theArticleId);
+            dataMember(5).ShouldEqual(theArticleId.Id);
 
         private It should_have_at_6_the_name = () =>
             dataMember(6).ShouldEqual(theName);

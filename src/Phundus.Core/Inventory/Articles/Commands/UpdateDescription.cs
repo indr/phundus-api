@@ -15,12 +15,12 @@
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (description == null) throw new ArgumentNullException("description");
             InitiatorId = initiatorId;
-            ArticleId = articleId;
+            ArticleId = new ArticleShortId(articleId);
             Description = description;
         }
 
         public InitiatorId InitiatorId { get; set; }
-        public int ArticleId { get; set; }
+        public ArticleShortId ArticleId { get; set; }
         public string Description { get; set; }
     }
 

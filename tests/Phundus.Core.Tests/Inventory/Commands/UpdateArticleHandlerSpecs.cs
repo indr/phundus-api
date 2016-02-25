@@ -24,7 +24,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
         {
             theArticle = make.Article();
             theOwner = theArticle.Owner;
-            articleRepository.WhenToldTo(x => x.GetById(theArticle.Id)).Return(theArticle);
+            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
 
             command = new UpdateArticle(theInitiatorId, theArticle.ArticleShortId.Id, theName, theBrand, theColor, theGrossStock);
         };

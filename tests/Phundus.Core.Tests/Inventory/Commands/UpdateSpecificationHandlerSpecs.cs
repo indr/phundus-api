@@ -21,7 +21,7 @@ namespace Phundus.Tests.Inventory.Commands
         {
             theArticle = make.Article();
             theOwner = theArticle.Owner;
-            articleRepository.WhenToldTo(x => x.GetById(theArticle.Id)).Return(theArticle);
+            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
 
             command = new UpdateSpecification(theInitiatorId, theArticle.Id, theSpecification);
         };

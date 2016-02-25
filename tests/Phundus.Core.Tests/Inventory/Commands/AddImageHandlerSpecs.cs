@@ -25,7 +25,7 @@
             theArticle.WhenToldTo(
                 x => x.AddImage(Arg<Initiator>.Is.Anything, Arg<string>.Is.Anything, Arg<string>.Is.Anything, Arg<long>.Is.Anything))
                 .Return(theImage);
-            articleRepository.setup(x => x.GetById(theArticle.Id)).Return(theArticle);
+            articleRepository.setup(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
 
 
             command = new AddImage(theInitiatorId, new ArticleShortId(theArticle.Id), "file.jpg", "image/jpeg", 12345);

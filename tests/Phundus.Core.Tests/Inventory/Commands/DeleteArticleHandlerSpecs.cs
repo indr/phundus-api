@@ -20,7 +20,7 @@ namespace Phundus.Tests.Inventory.Articles.Commands
         {
             theArticle = make.Article();
             theOwner = theArticle.Owner;
-            articleRepository.setup(x => x.GetById(theArticle.Id)).Return(theArticle);
+            articleRepository.setup(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
 
             command = new DeleteArticle(theInitiatorId, theArticle.Id);
         };

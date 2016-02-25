@@ -10,7 +10,6 @@ namespace Phundus.Rest.Api
     using Common.Domain.Model;
     using ContentObjects;
     using Inventory.Projections;
-    using Inventory.Queries;
     using Inventory.Stores.Commands;
     using Newtonsoft.Json;
 

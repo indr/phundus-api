@@ -82,13 +82,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dashboard\EventLogProjectionRowMap.cs" />
+    <Compile Include="Dashboard\EventLogDataMap.cs" />
     <Compile Include="IdentityAccess\Mappings\MembershipApplicationViewRowMap.cs" />
     <Compile Include="IdentityAccess\Mappings\RelationshipProjectionRowMap.cs" />
     <Compile Include="IdentityAccess\Mappings\UserViewRowMap.cs" />
     <Compile Include="Infrastructure\UrlMapData.cs" />
-    <Compile Include="Inventory\Mappings\ArticlesActionsProjectionRowMap.cs" />
-    <Compile Include="Inventory\Mappings\ArticlesProjectionRowMap.cs" />
+    <Compile Include="Inventory\Mappings\ArticleActionDataMap.cs" />
+    <Compile Include="Inventory\Mappings\ArticleDataMap.cs" />
     <Compile Include="Extensions\FluentMappingExtensions.cs" />
     <Compile Include="Inventory\Mappings\StoreMap.cs" />
     <Compile Include="Inventory\Mappings\StoreDataMap.cs" />

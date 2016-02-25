@@ -11,13 +11,19 @@ namespace Phundus.Rest.Api
     using Common.Domain.Model;
     using FileUpload;
     using Inventory.Articles.Commands;
-    using Inventory.Queries;
+    using Inventory.Projections;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/articles/{articleId}/files")]
     public class ArticlesFilesController : ApiControllerBase
     {
-        public IImageQueries ImageQueries { get; set; }
+        private readonly IImagesQueries _imagesQueries;
+
+        public ArticlesFilesController(IImagesQueries imagesQueries)
+        {
+            if (imagesQueries == null) throw new ArgumentNullException("imagesQueries");
+            _imagesQueries = imagesQueries;
+        }
 
         private string GetPath(int articleId)
         {
@@ -48,7 +54,7 @@ namespace Phundus.Rest.Api
         {
             // TODO: Auth filtering
             var factory = CreateFactory(GetBaseFilesUrl(articleId), articleId);
-            var images = ImageQueries.ByArticle(articleId);
+            var images = _imagesQueries.ByArticle(articleId);
             var result = factory.Create(images);
             return new {files = result};
         }
@@ -64,7 +70,8 @@ namespace Phundus.Rest.Api
             var images = handler.Handle(HttpContext.Current.Request.Files);
             foreach (var each in images)
             {
-                var command = new AddImage(CurrentUserId, new ArticleShortId(articleId), Path.GetFileName(each.FileName), each.Type,
+                var command = new AddImage(CurrentUserId, new ArticleShortId(articleId), Path.GetFileName(each.FileName),
+                    each.Type,
                     each.Length);
                 Dispatcher.Dispatch(command);
                 each.Id = command.ResultingImageId;

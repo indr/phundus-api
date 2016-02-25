@@ -66,7 +66,7 @@
 
             container.Register(
                 Classes.FromThisAssembly()
-                    .BasedOn(typeof (ProjectionBase<>))
+                    .BasedOn<ProjectionBase>()
                     .WithServiceAllInterfaces());
 
             container.Register(

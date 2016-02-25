@@ -4,7 +4,7 @@ namespace Phundus.Cqrs
     using System.Linq.Expressions;
     using NHibernate;
 
-    public class ProjectionBase<TEntity> where TEntity : class, new()
+    public class ProjectionBase
     {
         public Func<ISession> SessionFactory { get; set; }
 
@@ -12,12 +12,20 @@ namespace Phundus.Cqrs
         {
             get { return SessionFactory(); }
         }
+    }
 
+    public class ProjectionBase<TEntity> :ProjectionBase where TEntity : class, new()
+    {
         protected void Insert(Action<TEntity> action)
         {
             var row = new TEntity();
             action(row);
             Session.Save(row);
+        }
+
+        protected void Insert(TEntity entity)
+        {
+            Session.Save(entity);
         }
 
         protected void Update(object id, Action<TEntity> action)
@@ -44,6 +52,11 @@ namespace Phundus.Cqrs
         protected TEntity Single(Expression<Func<TEntity, bool>> expression)
         {
             return Session.QueryOver<TEntity>().Where(expression).SingleOrDefault();
+        }
+
+        protected IQueryOver<TEntity, TEntity> Query()
+        {
+            return Session.QueryOver<TEntity>();
         }
     }
 }

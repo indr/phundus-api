@@ -40,13 +40,13 @@
         public bool IsArticleAvailable(int articleId, DateTime fromUtc, DateTime toUtc, int amount,
             Guid orderItemToExclude)
         {
-            var article = ArticleRepository.FindById(articleId);
+            var article = ArticleRepository.FindById(new ArticleShortId(articleId));
             return IsArticleAvailable(article, new Period(fromUtc, toUtc), amount, orderItemToExclude);
         }
 
         public bool IsArticleAvailable(Guid articleGuid, DateTime fromUtc, DateTime toUtc, int amount, Guid orderItemToExclude)
         {
-            var article = ArticleRepository.FindByGuid(articleGuid);
+            var article = ArticleRepository.FindById(new ArticleId(articleGuid));
             return IsArticleAvailable(article, new Period(fromUtc, toUtc), amount, orderItemToExclude);
         }
 
@@ -80,7 +80,7 @@
 
         public IEnumerable<Availability> GetAvailabilityDetails(Guid articleGuid)
         {
-            var article = ArticleRepository.GetById(articleGuid);
+            var article = ArticleRepository.GetById(new ArticleId(articleGuid));
             return GetAvailabilityDetails(article.Id);
         }
 
@@ -90,7 +90,7 @@
             var utcNow = DateTimeProvider.UtcNow;
 
             var result = new List<Availability>();
-            var article = ArticleRepository.FindById(articleId);
+            var article = ArticleRepository.FindById(new ArticleShortId(articleId));
             if (article == null)
                 return result;
 

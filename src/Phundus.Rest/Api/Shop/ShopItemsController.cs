@@ -12,7 +12,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using ContentObjects;
-    using Inventory.Queries;
+    using Inventory.Projections;
     using Newtonsoft.Json;
     using Phundus.Shop.Queries;
 

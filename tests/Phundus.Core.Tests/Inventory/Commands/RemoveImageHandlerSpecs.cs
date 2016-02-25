@@ -20,7 +20,7 @@
         {
             theOwner = make.Owner();
             theArticle = make.Article(theOwner);
-            articleRepository.setup(x => x.GetById(theArticle.Id)).Return(theArticle);
+            articleRepository.setup(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
 
             command = new RemoveImage(theInitiatorId, new ArticleShortId(theArticle.Id), theFileName);
         };
