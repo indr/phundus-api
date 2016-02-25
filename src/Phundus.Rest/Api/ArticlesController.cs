@@ -10,7 +10,7 @@ namespace Phundus.Rest.Api
     using Common;
     using Common.Domain.Model;
     using ContentObjects;
-    using IdentityAccess.Queries;
+    using IdentityAccess.Projections;
     using Integration.IdentityAccess;
     using Inventory.Articles.Commands;
     using Inventory.AvailabilityAndReservation.Repositories;
@@ -29,7 +29,7 @@ namespace Phundus.Rest.Api
 
         public ArticlesController(IMemberInRole memberInRole, IStoresQueries storesQueries,
             IArticleQueries articleQueries, IAvailabilityQueries availabilityQueries,
-            IReservationRepository reservationRepository, IUserQueries userQueries, IArticleActionsQueries articleActionsQueries)
+            IReservationRepository reservationRepository, IUsersQueries usersQueries, IArticleActionsQueries articleActionsQueries)
         {
             if (articleActionsQueries == null) throw new ArgumentNullException("articleActionsQueries");
             AssertionConcern.AssertArgumentNotNull(memberInRole, "MemberInRole must be provided.");
@@ -37,7 +37,7 @@ namespace Phundus.Rest.Api
             AssertionConcern.AssertArgumentNotNull(articleQueries, "ArticleQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(availabilityQueries, "AvailabilityQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(reservationRepository, "ReservationRepository must be provided.");
-            AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(usersQueries, "UserQueries must be provided.");
 
             _memberInRole = memberInRole;
             _storesQueries = storesQueries;

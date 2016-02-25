@@ -13,7 +13,7 @@
     using Common.Domain.Model;
     using ContentObjects;
     using IdentityAccess.Organizations.Commands;
-    using IdentityAccess.Queries;
+    using IdentityAccess.Projections;
     using Inventory.Projections;
     using Newtonsoft.Json;
 

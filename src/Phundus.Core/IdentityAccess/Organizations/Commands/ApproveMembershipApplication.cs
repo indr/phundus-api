@@ -4,7 +4,7 @@
     using Castle.Transactions;
     using Common.Domain.Model;
     using Cqrs;
-    using Queries;
+    using Projections;
     using Repositories;
 
     public class ApproveMembershipApplication

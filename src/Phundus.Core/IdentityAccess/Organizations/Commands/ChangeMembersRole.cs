@@ -4,7 +4,7 @@
     using Common.Domain.Model;
     using Cqrs;
     using Model;
-    using Queries;
+    using Projections;
     using Repositories;
     using Users.Repositories;
 

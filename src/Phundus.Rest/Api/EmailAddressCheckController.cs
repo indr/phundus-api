@@ -11,13 +11,13 @@ namespace Phundus.Rest.Api
     [RoutePrefix("api/email-address-check")]
     public class EmailAddressCheckController : ApiControllerBase
     {
-        private readonly IUserQueries _userQueries;
+        private readonly IUsersQueries _usersQueries;
 
-        public EmailAddressCheckController(IUserQueries userQueries)
+        public EmailAddressCheckController(IUsersQueries usersQueries)
         {
-            if (userQueries == null) throw new ArgumentNullException("userQueries");
+            if (usersQueries == null) throw new ArgumentNullException("usersQueries");
 
-            _userQueries = userQueries;
+            _usersQueries = usersQueries;
         }
 
         [POST("")]
@@ -25,7 +25,7 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual EmailAddressCheckPostOkResponseContent Post(EmailAddressCheckPostRequestContent requestContent)
         {
-            var isTaken = _userQueries.IsEmailAddressTaken(requestContent.EmailAddress);
+            var isTaken = _usersQueries.IsEmailAddressTaken(requestContent.EmailAddress);
 
             return new EmailAddressCheckPostOkResponseContent
             {

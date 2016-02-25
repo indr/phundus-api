@@ -2,7 +2,7 @@
 {
     using Machine.Specifications;
     using Phundus.Authorization;
-    using Phundus.IdentityAccess.Queries;
+    using Phundus.IdentityAccess.Projections;
     using Phundus.Shop.Services;
 
     public class shop_access_object_handler_concern<TAccessObject, TAccessObjectHandler> :

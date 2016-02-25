@@ -38,7 +38,7 @@ namespace Phundus.Cqrs
         protected void InsertOrUpdate(Expression<Func<TEntity, bool>> expression, Action<TEntity> action)
         {
             Session.Flush();
-            var row = Single(expression) ?? new TEntity();
+            var row = SingleOrDefault(expression) ?? new TEntity();
             action(row);
             Session.SaveOrUpdate(row);
         }
@@ -49,12 +49,12 @@ namespace Phundus.Cqrs
             Session.Delete(row);
         }
 
-        protected TEntity Single(Expression<Func<TEntity, bool>> expression)
+        protected TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression)
         {
             return Session.QueryOver<TEntity>().Where(expression).SingleOrDefault();
         }
 
-        protected IQueryOver<TEntity, TEntity> Query()
+        protected IQueryOver<TEntity, TEntity> QueryOver()
         {
             return Session.QueryOver<TEntity>();
         }

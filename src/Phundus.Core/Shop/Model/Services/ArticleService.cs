@@ -3,10 +3,9 @@ namespace Phundus.Shop.Services
     using System;
     using Common;
     using Common.Domain.Model;
-    using IdentityAccess.Queries;
+    using IdentityAccess.Projections;
     using Inventory.Articles.Repositories;
     using Model;
-    using Orders.Model;
 
     public interface IArticleService
     {
@@ -20,7 +19,8 @@ namespace Phundus.Shop.Services
         private readonly ILessorService _lessorService;
         private readonly IMemberInRole _memberInRole;
 
-        public ArticleService(IMemberInRole memberInRole, IArticleRepository articleRepository, ILessorService lessorService)
+        public ArticleService(IMemberInRole memberInRole, IArticleRepository articleRepository,
+            ILessorService lessorService)
         {
             if (memberInRole == null) throw new ArgumentNullException("memberInRole");
             if (articleRepository == null) throw new ArgumentNullException("articleRepository");

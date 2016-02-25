@@ -21,7 +21,7 @@
         private int _minRequiredPasswordLength;
         private int _passwordAttemptWindow;
 
-        public IUserQueries UserQueries { get; set; }
+        public IUsersQueries UsersQueries { get; set; }
 
         public IUserRepository Users { get; set; }
 
@@ -148,7 +148,7 @@
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            var user = UserQueries.FindByUsername(username);
+            var user = UsersQueries.FindByUsername(username);
 
             if (user == null)
                 return null;

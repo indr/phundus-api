@@ -3,7 +3,7 @@
     using System;
     using Common;
     using Common.Domain.Model;
-    using IdentityAccess.Queries;
+    using IdentityAccess.Projections;
     using Phundus.Authorization;
 
     public static class Create

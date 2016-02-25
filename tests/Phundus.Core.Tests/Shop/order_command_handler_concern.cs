@@ -1,13 +1,11 @@
 namespace Phundus.Tests.Shop.Orders.Commands
 {
-    using System;
     using Common.Domain.Model;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Cqrs;
-    using Phundus.IdentityAccess.Queries;
+    using Phundus.IdentityAccess.Projections;
     using Phundus.Shop.Model;
-    using Phundus.Shop.Orders.Model;
     using Phundus.Shop.Orders.Repositories;
     using Phundus.Shop.Services;
 

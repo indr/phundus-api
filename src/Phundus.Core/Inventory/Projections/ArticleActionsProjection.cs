@@ -20,7 +20,7 @@
     {
         public IEnumerable<ArticleActionData> GetActions(Guid articleId)
         {
-            return Query().Where(p => p.ArticleId == articleId).List();
+            return QueryOver().Where(p => p.ArticleId == articleId).List();
         }
 
         public void Handle(DomainEvent e)

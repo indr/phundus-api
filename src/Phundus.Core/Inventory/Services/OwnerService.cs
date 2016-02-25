@@ -3,7 +3,7 @@
     using System;
     using Common;
     using Common.Domain.Model;
-    using IdentityAccess.Queries;
+    using IdentityAccess.Projections;
     using Integration.IdentityAccess;
     using Model;
 
@@ -15,15 +15,15 @@
     public class OwnerService : IOwnerService
     {
         private readonly IOrganizationQueries _organizationQueries;
-        private readonly IUserQueries _userQueries;
+        private readonly IUsersQueries _usersQueries;
 
-        public OwnerService(IOrganizationQueries organizationQueries, IUserQueries userQueries)
+        public OwnerService(IOrganizationQueries organizationQueries, IUsersQueries usersQueries)
         {
             AssertionConcern.AssertArgumentNotNull(organizationQueries, "OrganizationQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(usersQueries, "UserQueries must be provided.");
 
             _organizationQueries = organizationQueries;
-            _userQueries = userQueries;
+            _usersQueries = usersQueries;
         }
 
         public Owner GetById(OwnerId ownerId)
@@ -32,7 +32,7 @@
             if (organization != null)
                 return ToOwner(organization);
 
-            var user = _userQueries.FindById(ownerId.Id);
+            var user = _usersQueries.FindById(ownerId.Id);
             if (user != null)
                 return ToOwner(user);
 

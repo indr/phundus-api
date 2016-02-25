@@ -5,7 +5,7 @@
     using Cqrs;
     using Ddd;
     using Model;
-    using Queries;
+    using Projections;
     using Repositories;
 
     public class ChangeOrganizationContactDetails : ICommand

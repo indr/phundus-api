@@ -7,7 +7,7 @@
     using Castle.Transactions;
     using Common.Domain.Model;
     using IdentityAccess.Commands;
-    using IdentityAccess.Queries;
+    using IdentityAccess.Projections;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/settings")]

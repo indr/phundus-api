@@ -2,7 +2,7 @@
 {
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
-    using Phundus.IdentityAccess.Queries.QueryModels;
+    using Phundus.IdentityAccess.Projections;
 
     [Subject(typeof (OrganizationViewRow))]
     public class when_getting_website_without_protocol : Observes<OrganizationViewRow>

@@ -8,8 +8,7 @@
     using Castle.Windsor;
     using Cqrs;
     using Ddd;
-    using IdentityAccess.Queries;
-    using IdentityAccess.Queries.ReadModels;
+    using IdentityAccess.Projections;
     using IdentityAccess.Users.Services;
     using Shop.Projections;
 
@@ -85,7 +84,7 @@
                     .LifestyleTransient());
 
             container.Register(Component.For<ILesseeQueries>().ImplementedBy<LesseesProjection>());
-            container.Register(Component.For<IMembershipQueries>().ImplementedBy<MembershipQueries>());
+            container.Register(Component.For<IMembershipQueries>().ImplementedBy<MembershipsProjection>());
 
             EventPublisher.Factory(container.Resolve<IEventPublisher>);
         }

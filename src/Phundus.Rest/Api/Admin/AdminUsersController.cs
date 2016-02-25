@@ -17,19 +17,19 @@
     [Authorize(Roles = "Admin")]
     public class AdminUsersController : ApiControllerBase
     {
-        private readonly IUserQueries _userQueries;
+        private readonly IUsersQueries _usersQueries;
 
-        public AdminUsersController(IUserQueries userQueries)
+        public AdminUsersController(IUsersQueries usersQueries)
         {
-            if (userQueries == null) throw new ArgumentNullException("userQueries");
-            _userQueries = userQueries;
+            if (usersQueries == null) throw new ArgumentNullException("usersQueries");
+            _usersQueries = usersQueries;
         }
 
         [GET("")]
         [Transaction]
         public virtual QueryOkResponseContent<AdminUser> Get()
         {
-            var results = _userQueries.Query();
+            var results = _usersQueries.Query();
             return new QueryOkResponseContent<AdminUser>
             {
                 Results = results.Select(s => new AdminUser

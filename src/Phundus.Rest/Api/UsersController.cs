@@ -12,8 +12,7 @@ namespace Phundus.Rest.Api
     using Common.Domain.Model;
     using ContentObjects;
     using IdentityAccess.Organizations.Commands;
-    using IdentityAccess.Queries;
-    using IdentityAccess.Queries.ReadModels;
+    using IdentityAccess.Projections;
     using IdentityAccess.Users.Commands;
     using Integration.IdentityAccess;
     using Inventory.Projections;
@@ -24,16 +23,16 @@ namespace Phundus.Rest.Api
     {
         private readonly IMembershipQueries _membershipQueries;
         private readonly IStoresQueries _storesQueries;
-        private readonly IUserQueries _userQueries;
+        private readonly IUsersQueries _usersQueries;
 
-        public UsersController(IUserQueries userQueries, IMembershipQueries membershipQueries,
+        public UsersController(IUsersQueries usersQueries, IMembershipQueries membershipQueries,
             IStoresQueries storesQueries)
         {
-            AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(usersQueries, "UserQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(membershipQueries, "MembershipQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(storesQueries, "StoreQueries must be provided.");
 
-            _userQueries = userQueries;
+            _usersQueries = usersQueries;
             _membershipQueries = membershipQueries;
             _storesQueries = storesQueries;
         }
@@ -64,7 +63,7 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual UsersGetOkResponseContent Get(Guid userId)
         {
-            var user = _userQueries.GetByGuid(new UserId(userId));
+            var user = _usersQueries.GetByGuid(new UserId(userId));
             if ((user == null) || (user.UserId != CurrentUserId.Id))
                 throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
 

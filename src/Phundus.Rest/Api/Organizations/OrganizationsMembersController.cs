@@ -12,7 +12,7 @@
     using IdentityAccess.Commands;
     using IdentityAccess.Organizations.Commands;
     using IdentityAccess.Organizations.Model;
-    using IdentityAccess.Queries.ReadModels;
+    using IdentityAccess.Projections;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/organizations/{organizationId}/members")]

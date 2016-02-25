@@ -2,8 +2,7 @@
 {
     using Authorization;
     using Machine.Specifications;
-    using Phundus.IdentityAccess.Queries;
-    using Phundus.IdentityAccess.Users.Repositories;
+    using Phundus.IdentityAccess.Projections;
     using Phundus.IdentityAccess.Users.Services;
 
     public class identityaccess_access_object_handler_concern<TAccessObject, TAccessObjectHandler> :

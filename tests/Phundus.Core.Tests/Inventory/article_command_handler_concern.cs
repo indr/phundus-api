@@ -2,7 +2,7 @@ namespace Phundus.Tests.Inventory
 {
     using Machine.Specifications;
     using Phundus.Cqrs;
-    using Phundus.IdentityAccess.Queries;
+    using Phundus.IdentityAccess.Projections;
     using Phundus.Inventory.Articles.Repositories;
     using Phundus.Inventory.Services;
 

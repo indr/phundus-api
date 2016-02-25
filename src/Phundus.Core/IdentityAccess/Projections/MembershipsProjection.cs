@@ -1,4 +1,4 @@
-﻿namespace Phundus.IdentityAccess.Queries.ReadModels
+﻿namespace Phundus.IdentityAccess.Projections
 {
     using System;
     using System.Collections.Generic;
@@ -7,9 +7,16 @@
     using Organizations.Model;
     using Organizations.Repositories;
 
-    public class MembershipQueries : IMembershipQueries
+    public interface IMembershipQueries
     {
-        public IUserQueries UserQueries { get; set; }
+        IList<MembershipDto> ByUserId(Guid userId);
+
+        IList<MembershipDto> FindByOrganizationId(Guid organizationId);
+    }
+
+    public class MembershipsProjection : IMembershipQueries
+    {
+        public IUsersQueries UsersQueries { get; set; }
 
         public IMembershipRepository MembershipRepository { get; set; }
 
