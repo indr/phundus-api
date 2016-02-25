@@ -145,7 +145,7 @@ namespace Phundus.Migrations
                 }
                 else
                 {
-                    UpdateSerialization(each.Evnt.EventGuid, each.Evnt);
+                    UpdateStoredEvent(each.Evnt.EventGuid, each.Evnt);
                 }
             }            
         }
