@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Common.Notifications
 {
-    using Events;
+    using Eventing;    
 
     public class InThreadNotificationPublisher : INotificationPublisher
     {

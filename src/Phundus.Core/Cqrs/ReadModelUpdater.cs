@@ -2,11 +2,9 @@ namespace Phundus.Cqrs
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Castle.MicroKernel;
     using Castle.Transactions;
-    using Common.Events;
+    using Common.Eventing;
     using Common.Notifications;
-    using NHibernate.Mapping;
     using Shop.Projections;
 
     public class ReadModelUpdater : INotificationHandler
@@ -53,8 +51,8 @@ namespace Phundus.Cqrs
             var handlers = DomainEventHandlerFactory.GetDomainEventHandlers().ToList();
 
             var result = new List<IStoredEventsConsumer>();
-            result.Add(handlers.Single(p => p.GetType() == typeof(ResultItemsProjection)));
-            result.Add(handlers.Single(p => p.GetType() == typeof(ShopItemProjection)));
+            result.Add(handlers.Single(p => p.GetType() == typeof (ResultItemsProjection)));
+            result.Add(handlers.Single(p => p.GetType() == typeof (ShopItemProjection)));
 
             foreach (var each in result)
             {

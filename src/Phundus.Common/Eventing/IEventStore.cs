@@ -1,6 +1,5 @@
-﻿namespace Phundus.Common.Events
+﻿namespace Phundus.Common.Eventing
 {
-    using System.Collections;
     using System.Collections.Generic;
     using Domain.Model;
 

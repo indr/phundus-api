@@ -66,9 +66,9 @@
     <Compile Include="Domain.Model\StoreId.cs" />
     <Compile Include="Domain.Model\UserRole.cs" />
     <Compile Include="Domain.Model\ValueObject.cs" />
-    <Compile Include="Events\EventSerializer.cs" />
-    <Compile Include="Events\IEventStore.cs" />
-    <Compile Include="Events\StoredEvent.cs" />
+    <Compile Include="Eventing\EventSerializer.cs" />
+    <Compile Include="Eventing\IEventStore.cs" />
+    <Compile Include="Eventing\StoredEvent.cs" />
     <Compile Include="FriendlyUrl.cs" />
     <Compile Include="NotFoundException.cs" />
     <Compile Include="Notifications\IStoredEventsConsumer.cs" />

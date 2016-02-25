@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Common.Events;
+    using Common.Eventing;
     using Ddd;
 
     public class NhStoredEventRepository : NhRepositoryBase<StoredEvent>, IStoredEventRepository
@@ -29,7 +29,7 @@
 
         public long GetMaxNotificationId()
         {
-            var result = (from se in Entities select se.EventId).Max(x => (long?)x);
+            var result = (from se in Entities select se.EventId).Max(x => (long?) x);
             if (result.HasValue)
                 return result.Value;
             return 0;

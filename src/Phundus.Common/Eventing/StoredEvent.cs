@@ -1,9 +1,6 @@
-﻿namespace Phundus.Common.Events
+﻿namespace Phundus.Common.Eventing
 {
     using System;
-    using System.Linq;
-    using System.Reflection;
-    using Domain.Model;
 
     public class StoredEvent
     {
@@ -13,12 +10,13 @@
         private byte[] _serialization;
         private string _typeName;
 
-        public StoredEvent(Guid eventGuid, DateTime occuredOnUtc, string typeName, byte[] serialization)
+        public StoredEvent(Guid eventGuid, DateTime occuredOnUtc, string typeName, byte[] serialization,
+            Guid aggregateId)
         {
             _eventGuid = eventGuid;
             _typeName = typeName;
             _occuredOnUtc = occuredOnUtc;
-            //_aggregateId = ;
+            _aggregateId = aggregateId;
             _serialization = serialization;
         }
 
@@ -42,7 +40,7 @@
             get { return _typeName; }
             protected set { _typeName = value; }
         }
-        
+
         public virtual DateTime OccuredOnUtc
         {
             get { return _occuredOnUtc; }
@@ -59,6 +57,8 @@
         {
             get { return _serialization; }
             protected set { _serialization = value; }
-        }        
+        }
+
+        public virtual int Version { get; protected set; }
     }
 }

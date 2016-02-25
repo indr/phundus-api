@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Persistence.Tests.Ddd
 {
     using Common.Domain.Model;
-    using Common.Events;
+    using Common.Eventing;
     using Machine.Fakes;
     using Machine.Specifications;
     using Phundus.Ddd;

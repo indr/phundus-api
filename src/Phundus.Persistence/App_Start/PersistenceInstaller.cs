@@ -3,7 +3,7 @@
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
-    using Common.Events;
+    using Common.Eventing;
     using Common.Notifications;
     using Inventory.Repositories;
     using Phundus.Inventory.AvailabilityAndReservation.Repositories;
