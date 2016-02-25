@@ -1,9 +1,9 @@
-﻿namespace Phundus.Common.Tests.Events
+﻿namespace Phundus.Common.Tests.Eventing
 {
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using Common.Domain.Model;
-    using Common.Events;
+    using Common.Eventing;
     using developwithpassion.specifications.rhinomocks;
     using Machine.Specifications;
 
@@ -28,7 +28,7 @@
     public class TestDomainEventWithCollectionOfCustomType : DomainEvent
     {
         [DataMember(Order = 1)]
-        public ICollection<CustomType> Items { get; set; } 
+        public ICollection<CustomType> Items { get; set; }
     }
 
     [DataContract]
@@ -70,7 +70,8 @@
         private Because of = () =>
         {
             var serialization = sut.Serialize(domainEvent);
-            deserialization = sut.Deserialize<TestDomainEvent>(domainEvent.EventGuid, domainEvent.OccuredOnUtc, serialization);
+            deserialization = sut.Deserialize<TestDomainEvent>(domainEvent.EventGuid, domainEvent.OccuredOnUtc,
+                serialization);
         };
 
         private It should_have_equal_id = () => deserialization.EventGuid.ShouldEqual(domainEvent.EventGuid);
@@ -133,10 +134,11 @@
                 domainEvent.OccuredOnUtc, serialized);
         };
 
+        private It should_contain_items_with_equal_values =
+            () =>
+                deserialized.Items.ShouldContain(c => c.CustomTypesValue == "Item 1" || c.CustomTypesValue == "Item 2");
+
         private It should_have_equal_items_count =
             () => deserialized.Items.Count.ShouldEqual(2);
-
-        private It should_contain_items_with_equal_values =
-            () => deserialized.Items.ShouldContain(c => c.CustomTypesValue == "Item 1" || c.CustomTypesValue == "Item 2");
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Phundus.Persistence.StoredEvents
 {
-    using Common.Events;
+    using Common.Eventing;
     using FluentNHibernate.Mapping;
     using NHibernate.Type;
 
@@ -19,6 +19,7 @@
             Map(x => x.OccuredOnUtc, "OccuredOnUtc").Not.Update().CustomType<UtcDateTimeType>();
             Map(x => x.AggregateId, "AggregateId").Not.Update();
             Map(x => x.Serialization, "Serialization").Not.Update();
+            Map(x => x.Version).Not.Update();
         }
     }
 }

@@ -14,7 +14,8 @@ namespace Phundus.Migrations
         {
             const string typeName = @"Phundus.Inventory.Articles.Model.ArticleCreated, Phundus.Core";
             var storedEvents = FindStoredEvents(typeName);
-            var domainEvents = storedEvents.Select(s => s.Deserialize<ArticleCreated>()).OrderBy(p => p.OccuredOnUtc).ToList();
+            var domainEvents =
+                storedEvents.Select(s => s.Deserialize<ArticleCreated>()).OrderBy(p => p.OccuredOnUtc).ToList();
 
             var command = CreateCommand(@"SELECT TOP 1000 [Id]
       ,[Version]
@@ -44,12 +45,12 @@ namespace Phundus.Migrations
                     var articleGuid = reader.GetGuid(14);
 
                     var domainEvent = domainEvents.SingleOrDefault(p => p.OccuredOnUtc >= createdAt.AddSeconds(-5)
-                        && p.OccuredOnUtc <= createdAt.AddSeconds(5)
-                        && p.ArticleGuid == Guid.Empty);
+                                                                        && p.OccuredOnUtc <= createdAt.AddSeconds(5)
+                                                                        && p.ArticleGuid == Guid.Empty);
                     var isNew = domainEvent == null;
                     if (domainEvent == null)
                         domainEvent = new ArticleCreated();
-                    
+
                     domainEvent.ArticleGuid = articleGuid;
                     domainEvent.ArticleId = reader.GetInt32(0);
                     domainEvent.GrossStock = reader.GetInt32(8);
@@ -101,19 +102,6 @@ namespace Phundus.Migrations
         }
 
         [DataContract]
-        public class Owner
-        {
-            [DataMember(Order = 1)]
-            public virtual Guid OwnerId { get; set; }
-
-            [DataMember(Order = 3)]
-            public virtual string Name { get; set; }
-
-            [DataMember(Order = 2)]
-            public virtual OwnerType Type { get; set; }
-        }
-
-        [DataContract]
         public class Initiator
         {
             [DataMember(Order = 1)]
@@ -124,6 +112,19 @@ namespace Phundus.Migrations
 
             [DataMember(Order = 3)]
             public string FullName { get; set; }
+        }
+
+        [DataContract]
+        public class Owner
+        {
+            [DataMember(Order = 1)]
+            public virtual Guid OwnerId { get; set; }
+
+            [DataMember(Order = 3)]
+            public virtual string Name { get; set; }
+
+            [DataMember(Order = 2)]
+            public virtual OwnerType Type { get; set; }
         }
     }
 }

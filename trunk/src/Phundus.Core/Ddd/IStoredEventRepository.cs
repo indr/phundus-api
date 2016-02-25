@@ -1,7 +1,7 @@
 ﻿namespace Phundus.Ddd
 {
     using System.Collections.Generic;
-    using Common.Events;
+    using Common.Eventing;
 
     public interface IStoredEventRepository
     {

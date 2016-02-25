@@ -1,10 +1,9 @@
 ﻿namespace Phundus.Persistence.StoredEvents
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using Common.Domain.Model;
-    using Common.Events;
+    using Common.Eventing;
     using Common.Notifications;
     using Ddd;
 
@@ -50,8 +49,11 @@
             }
             catch (Exception ex)
             {
-                throw new Exception(String.Format(@"Error deserializing event {0}, event type name ""{1}"", resolved domain event type ""{2}"".",
-                    storedEvent.EventGuid, storedEvent.TypeName, domainEventType.FullName + ", " + domainEventType.Assembly.GetName().Name), ex);
+                throw new Exception(
+                    String.Format(
+                        @"Error deserializing event {0}, event type name ""{1}"", resolved domain event type ""{2}"".",
+                        storedEvent.EventGuid, storedEvent.TypeName,
+                        domainEventType.FullName + ", " + domainEventType.Assembly.GetName().Name), ex);
             }
         }
 
@@ -63,7 +65,7 @@
             var typeName = domainEventType.FullName + ", " + domainEventType.Assembly.GetName().Name;
 
             var storedEvent = new StoredEvent(domainEvent.EventGuid, domainEvent.OccuredOnUtc,
-                typeName, serialization);
+                typeName, serialization, Guid.Empty);
 
             return storedEvent;
         }

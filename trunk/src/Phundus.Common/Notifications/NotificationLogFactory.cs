@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Events;
+    using Eventing;
 
     public class NotificationLogFactory : INotificationLogFactory
     {

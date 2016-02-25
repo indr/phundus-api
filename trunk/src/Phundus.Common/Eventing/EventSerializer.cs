@@ -1,4 +1,4 @@
-﻿namespace Phundus.Common.Events
+﻿namespace Phundus.Common.Eventing
 {
     using System;
     using System.IO;

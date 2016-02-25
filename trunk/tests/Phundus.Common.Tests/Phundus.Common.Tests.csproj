@@ -76,7 +76,7 @@
     <Compile Include="Domain.Model\IdentitiesSpecs.cs" />
     <Compile Include="Domain.Model\InitiatorSpecs.cs" />
     <Compile Include="Domain.Model\PeriodSpecs.cs" />
-    <Compile Include="Events\EventSerializerSpecs.cs" />
+    <Compile Include="Eventing\EventSerializerSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderUserKeySpecs.cs" />
     <Compile Include="serialization_object_concern.cs" />
