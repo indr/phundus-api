@@ -8,18 +8,21 @@
     [DataContract]
     public class ArticleCreated : DomainEvent
     {
-        public ArticleCreated(Initiator initiator, Owner owner, StoreId storeId, int articleShortId,
-            Guid articleId, string name, int grossStock, decimal publicPrice, decimal? memberPrice)
+        public ArticleCreated(Initiator initiator, Owner owner, StoreId storeId, ArticleShortId articleShortId,
+            ArticleId articleId, string name, int grossStock, decimal publicPrice, decimal? memberPrice)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
             if (owner == null) throw new ArgumentNullException("owner");
             if (storeId == null) throw new ArgumentNullException("storeId");
+            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
+            if (articleId == null) throw new ArgumentNullException("articleId");
             if (name == null) throw new ArgumentNullException("name");
+
             Initiator = initiator;
             Owner = owner;
             StoreId = storeId.Id;
-            ArticleShortId = articleShortId;
-            ArticleId = articleId;
+            ArticleShortId = articleShortId.Id;
+            ArticleId = articleId.Id;
             Name = name;
             GrossStock = grossStock;
             PublicPrice = publicPrice;

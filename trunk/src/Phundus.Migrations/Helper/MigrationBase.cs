@@ -31,13 +31,20 @@
 
         protected void ResetProcessedNotififactionTracker(string trackerTypeName)
         {
-            Update.Table("ProcessedNotificationTracker").Set(new { MostRecentProcessedNotificationId = 0 }).Where(new { TypeName = trackerTypeName });
+            Execute.Sql(String.Format(@"DELETE FROM [ProcessedNotificationTracker] WHERE [TypeName] LIKE '%{0}'", trackerTypeName));            
         }
 
         protected void EmptyTableAndResetTracker(string tableName, string trackerTypeName)
         {
             if (Schema.Table(tableName).Exists())
                 Delete.FromTable(tableName).AllRows();
+            ResetProcessedNotififactionTracker(trackerTypeName);
+        }
+
+        protected void DeleteTableAndResetTracker(string tableName, string trackerTypeName)
+        {
+            if (Schema.Table(tableName).Exists())
+                Delete.Table(tableName);
             ResetProcessedNotififactionTracker(trackerTypeName);
         }
     }

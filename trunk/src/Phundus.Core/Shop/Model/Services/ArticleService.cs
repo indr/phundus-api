@@ -40,7 +40,7 @@ namespace Phundus.Shop.Services
             if (articleId == null) throw new ArgumentNullException("articleId");
             if (userId == null) throw new ArgumentNullException("userId");
 
-            var article = _articleRepository.GetById(articleId.Id);
+            var article = _articleRepository.GetById(articleId);
             return ConvertToInternal(article, userId);
         }
 

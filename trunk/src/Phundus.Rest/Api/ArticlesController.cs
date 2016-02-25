@@ -15,7 +15,6 @@ namespace Phundus.Rest.Api
     using Inventory.Articles.Commands;
     using Inventory.AvailabilityAndReservation.Repositories;
     using Inventory.Projections;
-    using Inventory.Queries;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/articles")]
@@ -25,12 +24,14 @@ namespace Phundus.Rest.Api
         private readonly IAvailabilityQueries _availabilityQueries;
         private readonly IMemberInRole _memberInRole;
         private readonly IReservationRepository _reservationRepository;
+        private readonly IArticleActionsQueries _articleActionsQueries;
         private readonly IStoresQueries _storesQueries;
 
         public ArticlesController(IMemberInRole memberInRole, IStoresQueries storesQueries,
             IArticleQueries articleQueries, IAvailabilityQueries availabilityQueries,
-            IReservationRepository reservationRepository, IUserQueries userQueries)
+            IReservationRepository reservationRepository, IUserQueries userQueries, IArticleActionsQueries articleActionsQueries)
         {
+            if (articleActionsQueries == null) throw new ArgumentNullException("articleActionsQueries");
             AssertionConcern.AssertArgumentNotNull(memberInRole, "MemberInRole must be provided.");
             AssertionConcern.AssertArgumentNotNull(storesQueries, "StoreQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(articleQueries, "ArticleQueries must be provided.");
@@ -43,6 +44,7 @@ namespace Phundus.Rest.Api
             _articleQueries = articleQueries;
             _availabilityQueries = availabilityQueries;
             _reservationRepository = reservationRepository;
+            _articleActionsQueries = articleActionsQueries;
         }
 
         private OwnerId GetOwnerId(string ownerId)
@@ -56,7 +58,7 @@ namespace Phundus.Rest.Api
 
         [GET("")]
         [Transaction]
-        public virtual QueryOkResponseContent<ArticleDto> Get()
+        public virtual QueryOkResponseContent<Inventory.Projections.ArticleData> Get()
         {
             var ownerId = (OwnerId) null;
 
@@ -75,12 +77,11 @@ namespace Phundus.Rest.Api
                 query = queryParams["q"];
 
             var results = _articleQueries.Query(CurrentUserId, ownerId, query);
-            return new QueryOkResponseContent<ArticleDto>
+            return new QueryOkResponseContent<Inventory.Projections.ArticleData>
             {
                 Results = results.ToList()
             };
         }
-
 
         [GET("{articleId}")]
         [Transaction]
@@ -118,10 +119,10 @@ namespace Phundus.Rest.Api
 
         [GET("{articleId}/actions")]
         [Transaction]
-        public virtual QueryOkResponseContent<ArticlesActionsProjectionRow> GetActions(Guid articleId)
+        public virtual QueryOkResponseContent<ArticleActionData> GetActions(Guid articleId)
         {
-            var result = _articleQueries.GetActions(articleId);
-            return new QueryOkResponseContent<ArticlesActionsProjectionRow>(result);
+            var result = _articleActionsQueries.GetActions(articleId);
+            return new QueryOkResponseContent<ArticleActionData>(result);
         }
 
         [GET("{articleId}/description")]

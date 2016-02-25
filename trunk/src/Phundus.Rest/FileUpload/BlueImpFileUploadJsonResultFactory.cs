@@ -3,7 +3,7 @@ namespace Phundus.Rest.FileUpload
     using System.Collections.Generic;
     using System.IO;
     using System.Web;
-    using Inventory.Queries;
+    using Inventory.Projections;
 
     public class BlueImpFileUploadJsonResultFactory
     {
@@ -27,7 +27,7 @@ namespace Phundus.Rest.FileUpload
         }
 
 
-        public BlueImpFileUploadJsonResult Create(ImageDto image)
+        public BlueImpFileUploadJsonResult Create(ImageData image)
         {
             string fileName = System.IO.Path.GetFileName(image.FileName);
             return Create(fileName, image.Length, image.Type, image.IsPreview);
@@ -38,7 +38,7 @@ namespace Phundus.Rest.FileUpload
             return Create(file.FileName, file.ContentLength, file.ContentType);
         }
 
-        public BlueImpFileUploadJsonResult[] Create(IEnumerable<ImageDto> images)
+        public BlueImpFileUploadJsonResult[] Create(IEnumerable<ImageData> images)
         {
             var result = new List<BlueImpFileUploadJsonResult>();
             foreach (var each in images)

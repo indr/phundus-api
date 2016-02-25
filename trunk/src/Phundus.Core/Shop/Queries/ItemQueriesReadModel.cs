@@ -1,10 +1,9 @@
 namespace Phundus.Shop.Queries
 {
     using System;
-    using System.Collections.Generic;
     using Common;
+    using Common.Projections;
     using Cqrs;
-    using Inventory.Queries;
     using NHibernate.Criterion;
     using NHibernate.SqlCommand;
     using Projections;
@@ -25,7 +24,7 @@ namespace Phundus.Shop.Queries
             limit = limit > 0 ? limit : DefaultLimit;
 
             ResultItemsProjectionRow item = null;
-            var query = Session.QueryOver<ResultItemsProjectionRow>(() => item);
+            var query = Session.QueryOver(() => item);
             if (!String.IsNullOrWhiteSpace(q))
             {
                 q = q.ToLowerInvariant();
@@ -38,10 +37,10 @@ namespace Phundus.Shop.Queries
 
             ShopItemsSortByPopularityProjectionRow popularity = null;
 
-            query.JoinAlias<ShopItemsSortByPopularityProjectionRow>(() => item.Popularities, () => popularity, JoinType.LeftOuterJoin,
+            query.JoinAlias(() => item.Popularities, () => popularity, JoinType.LeftOuterJoin,
                 Restrictions.Where<ShopItemsSortByPopularityProjectionRow>(p => p.Month == DateTime.Today.Month));
 
-            
+
             query = query.OrderBy(() => popularity.Value).Desc.ThenBy(p => p.CreatedAtUtc).Desc;
 
             var total = query.RowCountInt64();

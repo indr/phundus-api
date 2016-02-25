@@ -11,7 +11,7 @@
     public class ChangePrices
     {
         public InitiatorId InitiatorId { get; set; }
-        public int ArticleId { get; set; }
+        public ArticleShortId ArticleId { get; set; }
         public decimal PublicPrice { get; set; }
         public decimal? MemberPrice { get; set; }
 
@@ -19,7 +19,7 @@
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             InitiatorId = initiatorId;
-            ArticleId = articleId;
+            ArticleId = new ArticleShortId(articleId);
             PublicPrice = publicPrice;
             MemberPrice = memberPrice;
         }

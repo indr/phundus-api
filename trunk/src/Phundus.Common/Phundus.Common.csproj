@@ -60,7 +60,7 @@
     <Compile Include="Domain.Model\Identities.cs" />
     <Compile Include="Domain.Model\Initiator.cs" />
     <Compile Include="Domain.Model\Period.cs" />
-    <Compile Include="Projections\ActionsProjectionRowBase.cs" />
+    <Compile Include="Projections\QueryResult.cs" />
     <Compile Include="Projections\RawJsonConverter.cs" />
     <Compile Include="ProviderUserKey.cs" />
     <Compile Include="Domain.Model\StoreId.cs" />

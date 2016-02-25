@@ -1,98 +1,126 @@
 ﻿namespace Phundus.Inventory.Projections
 {
     using System;
+    using System.Collections.Generic;
     using Articles.Model;
+    using Common;
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
+    using Model;
 
-    public class ArticlesProjection : NHibernateReadModelBase<ArticlesProjectionRow>, IStoredEventsConsumer
+    public interface IArticleQueries
     {
+        ArticleData GetById(int id);
+
+        IEnumerable<ArticleData> Query(InitiatorId initiatorId, OwnerId queryOwnerId, string query);
+    }
+
+    public class ArticlesProjection : ProjectionBase<ArticleData>, IArticleQueries, IStoredEventsConsumer
+    {
+        public ArticleData GetById(int id)
+        {
+            var result = Single(p => p.ArticleShortId == id);
+            if (result == null)
+                throw new NotFoundException(String.Format("Article {0} not found.", id));
+            return result;
+        }
+
+        public IEnumerable<ArticleData> Query(InitiatorId initiatorId, OwnerId queryOwnerId, string query)
+        {
+            query = query == null ? "" : query.ToLowerInvariant();
+            return Query().Where(p => p.OwnerGuid == queryOwnerId.Id)
+                .And(p => p.Name.ToLowerInvariant().Contains(query))
+                .List();
+        }
+
         public void Handle(DomainEvent e)
         {
             Process((dynamic) e);
         }
 
-        public void Process(DomainEvent domainEvent)
+        private void Process(DomainEvent e)
         {
             // Noop
         }
 
-        public void Process(ArticleCreated domainEvent)
+        private void Process(ArticleCreated e)
         {
-            if (domainEvent.ArticleId == Guid.Empty)
+            if (e.ArticleId == Guid.Empty)
                 return;
 
-            var row = new ArticlesProjectionRow();
-            row.ArticleId = domainEvent.ArticleId;
-            row.ArticleShortId = domainEvent.ArticleShortId;
-            row.CreatedAtUtc = domainEvent.OccuredOnUtc;
-            row.GrossStock = domainEvent.GrossStock;
-            row.Name = domainEvent.Name;
-            row.OwnerGuid = domainEvent.Owner.OwnerId.Id;
-            row.OwnerName = domainEvent.Owner.Name;
-            row.OwnerType = domainEvent.Owner.Type;
-            row.StoreId = domainEvent.StoreId;
-            row.PublicPrice = domainEvent.PublicPrice;
-            row.MemberPrice = domainEvent.MemberPrice;
-
-            SaveOrUpdate(row);
-        }
-
-        public void Process(ArticleDeleted domainEvent)
-        {
-            var row = FindByArticleGuid(domainEvent.ArticleId);
-            Session.Delete(row);
-        }
-
-        public void Process(ArticleDetailsChanged domainEvent)
-        {
-            Update(domainEvent.ArticleId, r =>
+            Insert(row =>
             {
-                r.Name = domainEvent.Name;
-                r.Brand = domainEvent.Brand;
-                r.Color = domainEvent.Color;
+                row.ArticleId = e.ArticleId;
+                row.ArticleShortId = e.ArticleShortId;
+                row.CreatedAtUtc = e.OccuredOnUtc;
+                row.GrossStock = e.GrossStock;
+                row.Name = e.Name;
+                row.OwnerGuid = e.Owner.OwnerId.Id;
+                row.OwnerName = e.Owner.Name;
+                row.OwnerType = e.Owner.Type;
+                row.StoreId = e.StoreId;
+                row.PublicPrice = e.PublicPrice;
+                row.MemberPrice = e.MemberPrice;
             });
         }
 
-        public void Process(GrossStockChanged domainEvent)
+        private void Process(ArticleDeleted e)
         {
-            Update(domainEvent.ArticleId, r => { r.GrossStock = domainEvent.NewGrossStock; });
+            Delete(e.ArticleId);
         }
 
-        public void Process(DescriptionChanged domainEvent)
+        private void Process(ArticleDetailsChanged e)
         {
-            Update(domainEvent.ArticleId, r => { r.Description = domainEvent.Description; });
-        }
-
-        public void Process(SpecificationChanged domainEvent)
-        {
-            Update(domainEvent.ArticleId, r => { r.Specification = domainEvent.Specification; });
-        }
-
-        public void Process(PricesChanged domainEvent)
-        {
-            Update(domainEvent.ArticleId, r =>
+            Update(e.ArticleId, r =>
             {
-                r.PublicPrice = domainEvent.PublicPrice;
-                r.MemberPrice = domainEvent.MemberPrice;
+                r.Name = e.Name;
+                r.Brand = e.Brand;
+                r.Color = e.Color;
             });
         }
 
-        private void Update(Guid articleGuid, Action<ArticlesProjectionRow> action)
+        private void Process(GrossStockChanged e)
         {
-            var row = FindByArticleGuid(articleGuid);
-            if (row == null)
-                return;
-            action(row);
-            Session.SaveOrUpdate(row);
+            Update(e.ArticleId, r => { r.GrossStock = e.NewGrossStock; });
         }
 
-        private ArticlesProjectionRow FindByArticleGuid(Guid articleGuid)
+        private void Process(DescriptionChanged e)
         {
-            return Session.QueryOver<ArticlesProjectionRow>()
-                .Where(p => p.ArticleId == articleGuid)
-                .SingleOrDefault();
+            Update(e.ArticleId, r => { r.Description = e.Description; });
         }
+
+        private void Process(SpecificationChanged e)
+        {
+            Update(e.ArticleId, r => { r.Specification = e.Specification; });
+        }
+
+        private void Process(PricesChanged e)
+        {
+            Update(e.ArticleId, r =>
+            {
+                r.PublicPrice = e.PublicPrice;
+                r.MemberPrice = e.MemberPrice;
+            });
+        }
+    }
+
+    public class ArticleData
+    {
+        public virtual Guid ArticleId { get; set; }
+        public virtual int ArticleShortId { get; set; }
+        public virtual DateTime CreatedAtUtc { get; set; }
+        public virtual Guid OwnerGuid { get; set; }
+        public virtual string OwnerName { get; set; }
+        public virtual OwnerType OwnerType { get; set; }
+        public virtual Guid StoreId { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Brand { get; set; }
+        public virtual string Color { get; set; }
+        public virtual string Description { get; set; }
+        public virtual string Specification { get; set; }
+        public virtual decimal PublicPrice { get; set; }
+        public virtual decimal? MemberPrice { get; set; }
+        public virtual int GrossStock { get; set; }
     }
 }

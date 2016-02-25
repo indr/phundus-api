@@ -21,7 +21,7 @@
         {
             theArticle = make.Article();
             theOwner = theArticle.Owner;
-            articleRepository.WhenToldTo(x => x.GetById(theArticle.Id)).Return(theArticle);
+            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
 
             command = new UpdateDescription(theInitiatorId, theArticle.Id, theDescription);
         };

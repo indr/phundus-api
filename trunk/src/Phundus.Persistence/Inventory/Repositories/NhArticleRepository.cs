@@ -1,12 +1,7 @@
 ﻿namespace Phundus.Persistence.Inventory.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Common;
     using Common.Domain.Model;
-    using NHibernate.Linq;
-    using Phundus.Inventory.Articles;
     using Phundus.Inventory.Articles.Model;
     using Phundus.Inventory.Articles.Repositories;
 
@@ -18,53 +13,30 @@
             return entity.Id;
         }
 
-        public IEnumerable<Article> FindByOwnerId(Guid ownerId)
-        {
-            return Entities.Where(p => p.Owner.OwnerId.Id == ownerId).ToFuture();
-        }
-
-        public Article GetById(int id)
-        {
-            var result = FindById(id);
-            if (result == null)
-                throw new ArticleNotFoundException(id);
-            return result;
-        }
-
-        public Article GetById(Guid ownerId, int articleId)
+        public Article GetById(ArticleId articleId)
         {
             var result = FindById(articleId);
-            if ((result == null) || (result.Owner.OwnerId.Id != ownerId))
-                throw new ArticleNotFoundException(articleId);
-            return result;
-        }
-
-        public Article GetById(Guid articleGuid)
-        {
-            var result = FindByGuid(articleGuid);
             if (result == null)
-                throw new NotFoundException("Article {0} not found", articleGuid);
+                throw new NotFoundException("Article {0} not found.", articleId);
             return result;
-        }
-
-        public IEnumerable<Article> Query(InitiatorId currentUserId, OwnerId queryOwnerId, string query)
-        {
-            AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
-            AssertionConcern.AssertArgumentNotNull(queryOwnerId, "QueryOwnerId must be provided.");
-            query = query == null ? "" : query.ToLowerInvariant();
-
-            return Entities.Where(p => p.Owner.OwnerId.Id == queryOwnerId.Id).Where(p => p.Name.ToLowerInvariant().Contains(query)).ToFuture();
         }
 
         public Article GetById(ArticleShortId articleShortId)
         {
-            if (articleShortId == null) throw new ArgumentNullException("articleShortId");
-            return GetById(articleShortId.Id);
+            var result = FindById(articleShortId.Id);
+            if (result == null)
+                throw new NotFoundException("Article {0} not found.", articleShortId);
+            return result;
         }
 
-        public Article FindByGuid(Guid articleGuid)
+        public Article FindById(ArticleId articleId)
         {
-            return Session.QueryOver<Article>().Where(p => p.ArticleId.Id == articleGuid).SingleOrDefault();
+            return Session.QueryOver<Article>().Where(p => p.ArticleId.Id == articleId.Id).SingleOrDefault();
+        }
+
+        public Article FindById(ArticleShortId articleShortId)
+        {
+            return Session.QueryOver<Article>().Where(p => p.ArticleShortId.Id == articleShortId.Id).SingleOrDefault();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Phundus.Rest.Api.Users
     using Castle.Transactions;
     using Common.Domain.Model;
     using Integration.Shop;
-    using Inventory.Queries;
+    using Inventory.Projections;
     using Newtonsoft.Json;
     using Phundus.Shop.Orders.Commands;
 
@@ -60,7 +60,8 @@ namespace Phundus.Rest.Api.Users
             if (userId != CurrentUserId.Id)
                 throw new ArgumentException("userId");
 
-            var command = new AddArticleToCart(CurrentUserId, new ArticleId(requestContent.ArticleGuid), requestContent.FromUtc, requestContent.ToUtc,
+            var command = new AddArticleToCart(CurrentUserId, new ArticleId(requestContent.ArticleGuid),
+                requestContent.FromUtc, requestContent.ToUtc,
                 requestContent.Quantity);
             Dispatch(command);
 

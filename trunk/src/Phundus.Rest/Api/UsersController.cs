@@ -17,7 +17,6 @@ namespace Phundus.Rest.Api
     using IdentityAccess.Users.Commands;
     using Integration.IdentityAccess;
     using Inventory.Projections;
-    using Inventory.Queries;
     using Newtonsoft.Json;
 
     [RoutePrefix("api/users")]

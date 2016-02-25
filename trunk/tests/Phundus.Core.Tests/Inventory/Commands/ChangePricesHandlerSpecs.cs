@@ -21,7 +21,7 @@
         {
             theOwner = make.Owner();
             theArticle = make.Article(theOwner);
-            articleRepository.WhenToldTo(x => x.GetById(theArticle.Id)).Return(theArticle);
+            articleRepository.WhenToldTo(x => x.GetById(theArticle.ArticleShortId)).Return(theArticle);
             command = new ChangePrices(theInitiatorId, theArticle.Id, thePublicPrice, theMemberPrice);
         };
 

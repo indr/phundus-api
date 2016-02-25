@@ -4,7 +4,7 @@ namespace Phundus.Rest.ContentObjects
     using System.Collections.Generic;
     using System.Linq;
     using Api.Shop;
-    using Inventory.Queries;
+    using Common.Projections;
     using Newtonsoft.Json;
 
     public class QueryOkResponseContent<T>

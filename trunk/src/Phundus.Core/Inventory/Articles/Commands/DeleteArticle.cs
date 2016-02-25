@@ -16,11 +16,11 @@
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             InitiatorId = initiatorId;
-            ArticleId = articleId;
+            ArticleId = new ArticleShortId(articleId);
         }
 
         public InitiatorId InitiatorId { get; set; }
-        public int ArticleId { get; set; }
+        public ArticleShortId ArticleId { get; set; }
     }
 
     public class DeleteArticleHandler : IHandleCommand<DeleteArticle>

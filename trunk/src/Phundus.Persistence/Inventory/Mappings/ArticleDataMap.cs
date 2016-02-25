@@ -6,16 +6,16 @@
     using Phundus.Inventory.Model;
     using Phundus.Inventory.Projections;
 
-    public class ArticlesProjectionRowMap : ClassMap<ArticlesProjectionRow>
+    public class ArticleDataMap : ClassMap<ArticleData>
     {
-        public ArticlesProjectionRowMap()
+        public ArticleDataMap()
         {
             SchemaAction.All();
 
             Table("Es_Inventory_Articles");
 
             Id(x => x.ArticleId, "ArticleId").GeneratedBy.Assigned();
-            Map(x => x.ArticleId, "ArticleShortId");
+            Map(x => x.ArticleShortId, "ArticleShortId");
             Map(x => x.CreatedAtUtc, "CreatedAtUtc").CustomType<UtcDateTimeType>();
             Map(x => x.OwnerGuid, "OwnerGuid");
             Map(x => x.OwnerName, "OwnerName");

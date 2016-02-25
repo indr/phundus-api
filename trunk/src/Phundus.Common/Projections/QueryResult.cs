@@ -1,4 +1,4 @@
-﻿namespace Phundus.Inventory.Queries
+﻿namespace Phundus.Common.Projections
 {
     using System.Collections.Generic;
 
