@@ -1,20 +1,19 @@
-﻿namespace Phundus.Shop.Queries.QueryModels
+﻿namespace Phundus.Shop.Projections
 {
     using System;
     using System.Collections.Generic;
     using Common;
     using Cqrs;
-    using Integration.Shop;
 
     public interface ILessorQueries
     {
-        ILessor GetByGuid(Guid lessorId);
-        IList<ILessor> Query();
+        LessorViewRow GetByGuid(Guid lessorId);
+        IList<LessorViewRow> Query();
     }
 
-    public class LessorQueries : ProjectionBase<LessorViewRow>, ILessorQueries
+    public class LessorsProjection : ProjectionBase<LessorViewRow>, ILessorQueries
     {
-        public ILessor GetByGuid(Guid lessorId)
+        public LessorViewRow GetByGuid(Guid lessorId)
         {
             var result = Single(p => p.LessorGuid == lessorId);
             if (result == null)
@@ -22,13 +21,13 @@
             return result;
         }
 
-        public new IList<ILessor> Query()
+        public new IList<LessorViewRow> Query()
         {
-            return base.Query().Where(p => p.LessorType >= 0).OrderBy(p => p.Name).Asc.List<ILessor>();
+            return base.Query().Where(p => p.LessorType >= 0).OrderBy(p => p.Name).Asc.List();
         }
     }
 
-    public class LessorViewRow : ILessor
+    public class LessorViewRow
     {
         public virtual Guid LessorGuid { get; protected set; }
         public virtual int LessorType { get; protected set; }

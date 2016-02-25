@@ -12,9 +12,9 @@
     using Common.Domain.Model;
     using ContentObjects;
     using Newtonsoft.Json;
-    using Phundus.Shop.Orders;
+    using Phundus.Shop.Model.Pdf;
     using Phundus.Shop.Orders.Commands;
-    using Phundus.Shop.Queries;
+    using Phundus.Shop.Projections;
 
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiControllerBase

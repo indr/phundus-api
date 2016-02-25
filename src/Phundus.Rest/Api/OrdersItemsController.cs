@@ -12,7 +12,7 @@ namespace Phundus.Rest.Api
     using ContentObjects;
     using Newtonsoft.Json;
     using Phundus.Shop.Orders.Commands;
-    using Phundus.Shop.Queries;
+    using Phundus.Shop.Projections;
 
     [RoutePrefix("api/orders/{orderId}/items")]
     public class OrdersItemsController : ApiControllerBase
@@ -31,7 +31,7 @@ namespace Phundus.Rest.Api
         public virtual HttpResponseMessage Post(int orderId, OrdersItemsPostRequestContent requestContent)
         {
             var orderItemId = new OrderItemId();
-            var command = new AddOrderItem(CurrentUserId, new ShortOrderId(orderId), orderItemId, 
+            var command = new AddOrderItem(CurrentUserId, new ShortOrderId(orderId), orderItemId,
                 new ArticleId(requestContent.ArticleId), new Period(requestContent.FromUtc, requestContent.ToUtc),
                 requestContent.Quantity);
 

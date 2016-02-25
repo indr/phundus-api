@@ -5,7 +5,7 @@
     using AttributeRouting.Web.Http;
     using Castle.Transactions;
     using Newtonsoft.Json;
-    using Phundus.Shop.Queries.QueryModels;
+    using Phundus.Shop.Projections;
 
     [RoutePrefix("api/lessees")]
     public class LesseesController : ApiControllerBase

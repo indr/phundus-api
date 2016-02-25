@@ -11,8 +11,7 @@
     using IdentityAccess.Queries;
     using IdentityAccess.Queries.ReadModels;
     using IdentityAccess.Users.Services;
-    using Integration.Shop;
-    using Shop.Queries.QueryModels;
+    using Shop.Projections;
 
     public class CoreInstaller : IWindsorInstaller
     {
@@ -85,7 +84,7 @@
                     .ImplementedBy<Inventory.Services.UserInRole>()
                     .LifestyleTransient());
 
-            container.Register(Component.For<ILesseeQueries>().ImplementedBy<LesseeQueries>());
+            container.Register(Component.For<ILesseeQueries>().ImplementedBy<LesseesProjection>());
             container.Register(Component.For<IMembershipQueries>().ImplementedBy<MembershipQueries>());
 
             EventPublisher.Factory(container.Resolve<IEventPublisher>);

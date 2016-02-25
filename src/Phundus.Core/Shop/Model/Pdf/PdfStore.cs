@@ -1,12 +1,12 @@
-﻿namespace Phundus.Shop.Orders
+﻿namespace Phundus.Shop.Model.Pdf
 {
     using System.IO;
     using Common.Domain.Model;
     using IdentityAccess.Queries;
-    using Model;
-    using Queries;
-    using Repositories;
-    using Services;
+    using Orders.Model;
+    using Orders.Repositories;
+    using Orders.Services;
+    using Projections;
 
     public interface IPdfStore
     {
