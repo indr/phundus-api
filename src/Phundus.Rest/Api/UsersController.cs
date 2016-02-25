@@ -16,6 +16,7 @@ namespace Phundus.Rest.Api
     using IdentityAccess.Queries.ReadModels;
     using IdentityAccess.Users.Commands;
     using Integration.IdentityAccess;
+    using Inventory.Projections;
     using Inventory.Queries;
     using Newtonsoft.Json;
 
@@ -23,19 +24,19 @@ namespace Phundus.Rest.Api
     public class UsersController : ApiControllerBase
     {
         private readonly IMembershipQueries _membershipQueries;
-        private readonly IStoreQueries _storeQueries;
+        private readonly IStoresQueries _storesQueries;
         private readonly IUserQueries _userQueries;
 
         public UsersController(IUserQueries userQueries, IMembershipQueries membershipQueries,
-            IStoreQueries storeQueries)
+            IStoresQueries storesQueries)
         {
             AssertionConcern.AssertArgumentNotNull(userQueries, "UserQueries must be provided.");
             AssertionConcern.AssertArgumentNotNull(membershipQueries, "MembershipQueries must be provided.");
-            AssertionConcern.AssertArgumentNotNull(storeQueries, "StoreQueries must be provided.");
+            AssertionConcern.AssertArgumentNotNull(storesQueries, "StoreQueries must be provided.");
 
             _userQueries = userQueries;
             _membershipQueries = membershipQueries;
-            _storeQueries = storeQueries;
+            _storesQueries = storesQueries;
         }
 
         [POST("")]
@@ -69,7 +70,7 @@ namespace Phundus.Rest.Api
                 throw new HttpException((int) HttpStatusCode.NotFound, "User not found.");
 
             var memberships = _membershipQueries.ByUserId(user.UserId);
-            var store = _storeQueries.FindByOwnerId(new OwnerId(user.UserId));
+            var store = _storesQueries.FindByOwnerId(new OwnerId(user.UserId));
 
             return new UsersGetOkResponseContent(user, memberships, store);
         }
@@ -118,7 +119,7 @@ namespace Phundus.Rest.Api
         {
         }
 
-        public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipDto> memberships, StoreDto store)
+        public UsersGetOkResponseContent(IUser user, IEnumerable<MembershipDto> memberships, StoresRow store)
         {
             UserId = user.UserId;
             Username = user.EmailAddress;
@@ -140,7 +141,7 @@ namespace Phundus.Rest.Api
             {
                 Store = new Store
                 {
-                    StoreId = store.StoreId.Id,
+                    StoreId = store.StoreId,
                     Address = store.Address,
                     OpeningHours = store.OpeningHours
                 };

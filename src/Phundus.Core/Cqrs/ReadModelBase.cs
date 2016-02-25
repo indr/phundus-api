@@ -1,6 +1,8 @@
 namespace Phundus.Cqrs
 {
     using System;
+    using System.Linq.Expressions;
+    using Common;
     using NHibernate;
 
     public abstract class ReadModelBase
@@ -75,6 +77,11 @@ namespace Phundus.Cqrs
         {
             var row = Get(id);
             base.Delete(row);
+        }
+
+        protected TRow Single(Expression<Func<TRow, bool>> expression)
+        {
+            return Session.QueryOver<TRow>().Where(expression).SingleOrDefault();
         }
     }
 }
