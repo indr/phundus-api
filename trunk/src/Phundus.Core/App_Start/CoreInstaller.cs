@@ -83,9 +83,6 @@
                     .ImplementedBy<Inventory.Services.UserInRole>()
                     .LifestyleTransient());
 
-            container.Register(Component.For<ILesseeQueries>().ImplementedBy<LesseesProjection>());
-            container.Register(Component.For<IMembershipQueries>().ImplementedBy<MembershipsProjection>());
-
             EventPublisher.Factory(container.Resolve<IEventPublisher>);
         }
     }

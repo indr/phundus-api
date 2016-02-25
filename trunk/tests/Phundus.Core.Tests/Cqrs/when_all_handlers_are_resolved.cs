@@ -21,6 +21,7 @@
             _handlers = container.ResolveAll<IHandleCommand<TestCommand1>>();
         };
 
-        private It should_have_at_least_one = () => _handlers.Length.ShouldBeGreaterThanOrEqualTo(1);
+        private It should_have_at_least_one = () =>
+            _handlers.Length.ShouldBeGreaterThanOrEqualTo(1);
     }
 }
