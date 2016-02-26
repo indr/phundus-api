@@ -16,7 +16,6 @@
 
             Delete.FromTable("Dm_Inventory_ArticleFile").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_Inventory_Article").InSchema(SchemaName).AllRows();
-            Delete.FromTable("Dm_Inventory_Store").InSchema(SchemaName).AllRows();
 
             Delete.FromTable("Dm_Shop_CartItem").InSchema(SchemaName).AllRows();
             Delete.FromTable("Dm_Shop_Cart").InSchema(SchemaName).AllRows();
