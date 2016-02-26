@@ -4,12 +4,12 @@ namespace Phundus.Persistence.Shop.Mappings
     using FluentNHibernate.Mapping;
     using Phundus.Shop.Projections;
 
-    public class ShopItemProjectionRowMap : ClassMap<ShopItemProjectionRow>
+    public class ShopItemDetailDataMap : ClassMap<ShopItemDetailData>
     {
-        public ShopItemProjectionRowMap()
+        public ShopItemDetailDataMap()
         {
             SchemaAction.All();
-            Table("Es_Shop_Items");
+            Table("Es_Shop_ItemDetails");
 
             Id(x => x.ArticleGuid).GeneratedBy.Assigned();
             Map(x => x.ArticleId).Unique();
@@ -21,6 +21,8 @@ namespace Phundus.Persistence.Shop.Mappings
             Map(x => x.LessorId, "LessorId");
             Map(x => x.LessorName, "LessorName");
             Map(x => x.LessorType, "LessorType");
+            Map(x => x.StoreId);
+            Map(x => x.StoreName);
             Map(x => x.Specification).WithMaxSize();
             Map(x => x.PublicPrice);
 

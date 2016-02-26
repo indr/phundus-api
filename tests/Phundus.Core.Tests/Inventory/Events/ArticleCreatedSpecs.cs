@@ -16,26 +16,37 @@
         private static decimal thePublicPrice;
         private static ArticleId theArticleId;
         private static StoreId theStoreId;
+        private static string theStoreName;
 
         private Establish ctx = () =>
         {
             theOwner = new Owner(new OwnerId(), "The Owner", OwnerType.User);
             theStoreId = new StoreId();
+            theStoreName = "The store name";
             theArticleShortId = new ArticleShortId(1234);
             theArticleId = new ArticleId();
             theName = "The Article";
             theGrossStock = 2;
             theMemberPrice = 3.33m;
             thePublicPrice = 4.44m;
-            sut_factory.create_using(() => new ArticleCreated(theInitiator, theOwner, theStoreId,
+            sut_factory.create_using(() => new ArticleCreated(theInitiator, theOwner, theStoreId, theStoreName,
                 theArticleShortId, theArticleId, theName, theGrossStock, thePublicPrice, theMemberPrice));
         };
 
         private It should_be_in_assembly = () =>
             itsAssembly.ShouldEqual("Phundus.Core");
 
+        private It should_have_at_10_the_store_name = () =>
+            dataMember(10).ShouldEqual(theStoreName);
+
+        private It should_have_at_1_initiator = () =>
+            dataMember(1).ShouldEqual(theInitiator);
+
         private It should_have_at_2_owner = () =>
             dataMember(2).ShouldEqual(theOwner);
+
+        private It should_have_at_3_the_store_id = () =>
+            dataMember(3).ShouldEqual(theStoreId.Id);
 
         private It should_have_at_4_the_article_short_id = () =>
             dataMember(4).ShouldEqual(theArticleShortId.Id);
@@ -57,11 +68,5 @@
 
         private It should_have_full_name = () =>
             itsFullName.ShouldEqual("Phundus.Inventory.Articles.Model.ArticleCreated");
-
-        private It should_have_the_store_id_at_3 = () =>
-            dataMember(3).ShouldEqual(theStoreId.Id);
-
-        private It should_haver_at_1_initiator = () =>
-            dataMember(1).ShouldEqual(theInitiator);
     }
 }

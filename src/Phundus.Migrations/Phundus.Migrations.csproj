@@ -192,6 +192,7 @@
     <Compile Include="2016\02\M201602241041_Recreate_ArticleCreated.cs" />
     <Compile Include="2016\02\M201602250634_Reset_Projections.cs" />
     <Compile Include="2016\02\M201602251040_Add_column_Version_to_StoredEvent.cs" />
+    <Compile Include="2016\02\M201602261501_Delete_Es_Shop_tables.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />

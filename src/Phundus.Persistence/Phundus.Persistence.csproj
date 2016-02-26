@@ -100,10 +100,10 @@
     <Compile Include="Shop\Mappings\LessorViewRowMap.cs" />
     <Compile Include="Shop\Mappings\OrderItemsProjectionRowMap.cs" />
     <Compile Include="Shop\Mappings\OrdersProjectionRowMap.cs" />
-    <Compile Include="Shop\Mappings\ResultItemsProjectionRowMap.cs" />
+    <Compile Include="Shop\Mappings\ShopItemDataMap.cs" />
     <Compile Include="Shop\Mappings\ShopItemFilesProjectionRowMap.cs" />
     <Compile Include="Shop\Mappings\ShopItemImagesProjectionRowMap.cs" />
-    <Compile Include="Shop\Mappings\ShopItemProjectionRowMap.cs" />
+    <Compile Include="Shop\Mappings\ShopItemDetailDataMap.cs" />
     <Compile Include="Shop\Mappings\ShopItemsSortByPopularityProjectionRowMap.cs" />
     <Compile Include="StoredEvents\EventStore.cs" />
     <Compile Include="StoredEvents\NhStoredEventRepository.cs" />

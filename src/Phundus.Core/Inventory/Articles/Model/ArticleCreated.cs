@@ -8,7 +8,7 @@
     [DataContract]
     public class ArticleCreated : DomainEvent
     {
-        public ArticleCreated(Initiator initiator, Owner owner, StoreId storeId, ArticleShortId articleShortId,
+        public ArticleCreated(Initiator initiator, Owner owner, StoreId storeId, string storeName, ArticleShortId articleShortId,
             ArticleId articleId, string name, int grossStock, decimal publicPrice, decimal? memberPrice)
         {
             if (initiator == null) throw new ArgumentNullException("initiator");
@@ -20,6 +20,7 @@
 
             Initiator = initiator;
             Owner = owner;
+            StoreName = storeName;
             StoreId = storeId.Id;
             ArticleShortId = articleShortId.Id;
             ArticleId = articleId.Id;
@@ -41,6 +42,9 @@
 
         [DataMember(Order = 3)]
         public Guid StoreId { get; protected set; }
+
+        [DataMember(Order = 10)]
+        public string StoreName { get; protected set; }
 
         [DataMember(Order = 4)]
         public int ArticleShortId { get; protected set; }
