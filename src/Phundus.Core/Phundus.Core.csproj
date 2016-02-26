@@ -234,7 +234,7 @@
     <Compile Include="Inventory\Services\UserInRole.cs" />
     <Compile Include="Inventory\Stores\Commands\RenameStore.cs" />
     <Compile Include="Inventory\Stores\Model\StoreRenamed.cs" />
-    <Compile Include="Shop\Projections\ShopItemDetailProjection.cs" />
+    <Compile Include="Shop\Projections\ShopItemProjection.cs" />
     <Compile Include="Inventory\Projections\ArticlesProjection.cs" />
     <Compile Include="Inventory\Projections\ImagesProjection.cs" />
     <Compile Include="Inventory\Articles\Repositories\IArticleRepository.cs" />
@@ -284,7 +284,7 @@
     <Compile Include="Shop\Model\Pdf\PdfStore.cs" />
     <Compile Include="Shop\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
     <Compile Include="Shop\Projections\OrdersProjection.cs" />
-    <Compile Include="Shop\Projections\ShopItemProjection.cs" />
+    <Compile Include="Shop\Projections\ShopItemsProjection.cs" />
     <Compile Include="Shop\Projections\ShopItemFilesProjection.cs" />
     <Compile Include="Shop\Projections\ShopItemImagesProjection.cs" />
     <Compile Include="Shop\Projections\ShopItemsSortByPopularityProjection.cs" />

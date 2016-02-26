@@ -1,7 +1,8 @@
-﻿namespace Phundus.Shop.Projections
+namespace Phundus.Shop.Projections
 {
     using System;
     using System.Collections.Generic;
+    using Common;
     using Common.Domain.Model;
     using Common.Notifications;
     using Cqrs;
@@ -22,54 +23,53 @@
 
         public void Process(ArticleCreated domainEvent)
         {
-            var row = new ShopItemData();
-            row.ItemId = domainEvent.ArticleId;
-            row.ItemShortId = domainEvent.ArticleShortId;
-            row.CreatedAtUtc = domainEvent.OccuredOnUtc;
-            row.MemberPrice = domainEvent.MemberPrice;
-            row.Name = domainEvent.Name;
-            row.OwnerGuid = domainEvent.Owner.OwnerId.Id;
-            row.OwnerName = domainEvent.Owner.Name;
-            row.OwnerType = (int) domainEvent.Owner.Type;
-            row.StoreId = domainEvent.StoreId;
-            row.StoreName = domainEvent.StoreName;
-            row.PreviewImageFileName = "";
-            row.PublicPrice = domainEvent.PublicPrice;
-            Session.Save(row);
-            Session.Flush();
-        }
+            if (domainEvent.ArticleId == Guid.Empty)
+                return;
 
-        public void Process(ArticleDetailsChanged domainEvent)
-        {
-            var row = Find(domainEvent.ArticleId);
+            var row = new ShopItemData();
+            row.ArticleGuid = domainEvent.ArticleId;
+            row.ArticleId = domainEvent.ArticleShortId;
             row.Name = domainEvent.Name;
+            row.LessorId = domainEvent.Owner.OwnerId.Id;
+            row.LessorName = domainEvent.Owner.Name;
+            row.LessorType = (int) domainEvent.Owner.Type;
+            row.PublicPrice = domainEvent.PublicPrice;
+            row.MemberPrice = domainEvent.MemberPrice;
+
+            Insert(row);
         }
 
         public void Process(ArticleDeleted domainEvent)
         {
-            Delete(domainEvent.ArticleId);
+            var row = GetRow(domainEvent.ArticleId);
+            Session.Delete(row);
+        }
+        
+        public void Process(ArticleDetailsChanged domainEvent)
+        {
+            var row = GetRow(domainEvent.ArticleId);
+            row.Name = domainEvent.Name;
+            row.Brand = domainEvent.Brand;
+            row.Color = domainEvent.Color;
         }
 
-        public void Process(ImageAdded domainEvent)
+        public void Process(DescriptionChanged domainEvent)
         {
-            if (!domainEvent.IsPreviewImage)
-                return;
-
-            var row = Find(domainEvent.ArticleId);
-            row.PreviewImageFileName = domainEvent.FileName;
+            var row = GetRow(domainEvent.ArticleId);
+            row.Description = domainEvent.Description;
         }
 
-        public void Process(PreviewImageChanged domainEvent)
+        public void Process(SpecificationChanged domainEvent)
         {
-            var row = Find(domainEvent.ArticleId);
-            row.PreviewImageFileName = domainEvent.FileName;
+            var row = GetRow(domainEvent.ArticleId);
+            row.Specification = domainEvent.Specification;
         }
 
         public void Process(PricesChanged domainEvent)
         {
-            var row = Find(domainEvent.ArticleId);
-            row.MemberPrice = domainEvent.MemberPrice;
+            var row = GetRow(domainEvent.ArticleId);            
             row.PublicPrice = domainEvent.PublicPrice;
+            row.MemberPrice = domainEvent.MemberPrice;
         }
 
         public void Process(StoreRenamed e)
@@ -78,31 +78,35 @@
                 a.StoreName = e.Name);
         }
 
-        private ShopItemData Find(Guid articleGuid)
+        private ShopItemData GetRow(Guid articleGuid)
         {
-            return Session.QueryOver<ShopItemData>()
-                .Where(p => p.ItemId == articleGuid).SingleOrDefault();
+            Session.Flush();
+            var result = Session.QueryOver<ShopItemData>().
+                Where(p => p.ArticleGuid == articleGuid).SingleOrDefault();
+            if (result == null)
+                throw new NotFoundException("Shop item projection row {0} not found.", articleGuid);
+            return result;
         }
     }
 
     public class ShopItemData
     {
-        public virtual Guid RowId { get; set; }
-
-        public virtual Guid ItemId { get; set; }
-        public virtual int ItemShortId { get; set; }
-
-        public virtual DateTime CreatedAtUtc { get; set; }
+        public virtual Guid ArticleGuid { get; set; }
+        public virtual int ArticleId { get; set; }
         public virtual string Name { get; set; }
+        public virtual string Brand { get; set; }
+        public virtual string Color { get; set; }
         public virtual decimal PublicPrice { get; set; }
         public virtual decimal? MemberPrice { get; set; }
-        public virtual Guid OwnerGuid { get; set; }
-        public virtual string OwnerName { get; set; }
-        public virtual int OwnerType { get; set; }
+        public virtual Guid LessorId { get; set; }
+        public virtual string LessorName { get; set; }
+        public virtual int LessorType { get; set; }
         public virtual Guid StoreId { get; set; }
         public virtual string StoreName { get; set; }
-        public virtual string PreviewImageFileName { get; set; }
+        public virtual string Description { get; set; }
+        public virtual string Specification { get; set; }
 
-        public virtual ICollection<ShopItemsSortByPopularityProjectionRow> Popularities { get; set; }
+        public virtual ICollection<ShopItemFilesProjectionRow> Documents { get; set; }
+        public virtual ICollection<ShopItemImagesProjectionRow> Images { get; set; }
     }
 }

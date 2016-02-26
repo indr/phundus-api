@@ -3,8 +3,8 @@ namespace Phundus.Migrations
     using System;
     using FluentMigrator;
 
-    [Migration(201602261501)]
-    public class M201602261501_Delete_Es_Shop_tables : MigrationBase
+    [Migration(201602261502)]
+    public class M201602261502_Delete_Es_Shop_tables : MigrationBase
     {
         public override void Up()
         {

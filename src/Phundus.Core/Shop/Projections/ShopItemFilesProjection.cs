@@ -43,6 +43,7 @@ namespace Phundus.Shop.Projections
 
         private ShopItemFilesProjectionRow Find(Guid articleGuid, string fileName)
         {
+            Session.Flush();
             return Session.QueryOver<ShopItemFilesProjectionRow>()
                 .Where(p => p.ArticleGuid == articleGuid && p.FileName == fileName).SingleOrDefault();
         }

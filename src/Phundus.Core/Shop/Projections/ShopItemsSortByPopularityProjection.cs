@@ -58,6 +58,7 @@
 
         private ShopItemsSortByPopularityProjectionRow Find(Guid articleId, int month)
         {
+            Session.Flush();
             return QueryOver().Where(p => p.ArticleId == articleId && p.Month == month).SingleOrDefault();
         }
     }
