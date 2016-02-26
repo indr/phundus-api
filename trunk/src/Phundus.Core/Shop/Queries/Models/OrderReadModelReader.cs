@@ -67,7 +67,7 @@
             AssertionConcern.AssertArgumentNotNull(currentUserId, "CurrentUserId must be provided.");
 
             var currentUsersManagerGuids =
-                _membershipQueries.ByUserId(currentUserId.Id)
+                _membershipQueries.FindByUserId(currentUserId.Id)
                     .Where(p => p.MembershipRole == "Manager")
                     .Select(s => s.OrganizationGuid);
             AssertionConcern.AssertArgumentNotNull(currentUsersManagerGuids,

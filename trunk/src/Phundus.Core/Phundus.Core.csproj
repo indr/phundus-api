@@ -132,8 +132,6 @@
     <Compile Include="IdentityAccess\Organizations\Commands\UnlockMember.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\UpdateStartpage.cs" />
     <Compile Include="IdentityAccess\Organizations\Commands\ChangeOrganizationContactDetails.cs" />
-    <Compile Include="IdentityAccess\Organizations\Exceptions\AttemptToLockOneselfException.cs" />
-    <Compile Include="IdentityAccess\Organizations\Exceptions\MembershipApplicationNotFoundException.cs" />
     <Compile Include="IdentityAccess\Organizations\Mails\MembershipApplicationMailNotifier.cs" />
     <Compile Include="IdentityAccess\Organizations\Mails\Templates.Designer.cs">
       <AutoGen>True</AutoGen>

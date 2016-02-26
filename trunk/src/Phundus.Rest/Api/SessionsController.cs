@@ -44,7 +44,7 @@
 
             var user = _usersQueries.FindByUsername(requestContent.Username);
 
-            var memberships = _membershipQueries.ByUserId(user.UserId)
+            var memberships = _membershipQueries.FindByUserId(user.UserId)
                 .Select(each => new Memberships
                 {
                     IsManager = each.MembershipRole == "Manager",

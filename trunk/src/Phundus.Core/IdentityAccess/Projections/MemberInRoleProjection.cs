@@ -80,7 +80,7 @@ namespace Phundus.IdentityAccess.Projections
             if ((user != null) && (user.UserId == userId.Id))
                 return true;
 
-            var membership = _membershipRepository.ByMemberId(userId.Id)
+            var membership = _membershipRepository.FindByUserId(userId.Id)
                 .Where(p => p.MemberRole == MemberRole.Manager)
                 .FirstOrDefault(p => p.Organization.Id.Id == organizationId);
 
@@ -100,7 +100,7 @@ namespace Phundus.IdentityAccess.Projections
             if ((user != null) && (user.UserId == userId.Id))
                 return true;
 
-            var membership = _membershipRepository.ByMemberId(userId.Id)
+            var membership = _membershipRepository.FindByUserId(userId.Id)
                 .FirstOrDefault(p => p.Organization.Id.Id == organizationId);
 
             if (membership == null)

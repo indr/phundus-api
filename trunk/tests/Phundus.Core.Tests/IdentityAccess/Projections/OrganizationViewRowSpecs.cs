@@ -4,8 +4,8 @@
     using Machine.Specifications;
     using Phundus.IdentityAccess.Projections;
 
-    [Subject(typeof (OrganizationViewRow))]
-    public class when_getting_website_without_protocol : Observes<OrganizationViewRow>
+    [Subject(typeof (OrganizationData))]
+    public class when_getting_website_without_protocol : Observes<OrganizationData>
     {
         private Establish ctx = () => sut_setup.run(x => 
             x.Website = "test.phundus.ch");
@@ -14,8 +14,8 @@
             sut.Website.ShouldStartWith("http://");
     }
 
-    [Subject(typeof(OrganizationViewRow))]
-    public class when_getting_empty_website : Observes<OrganizationViewRow>
+    [Subject(typeof(OrganizationData))]
+    public class when_getting_empty_website : Observes<OrganizationData>
     {
         private Establish ctx = () => sut_setup.run(x =>
             x.Website = "");

@@ -3,38 +3,42 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Integration.IdentityAccess;
+    using Cqrs;
     using Organizations.Model;
     using Organizations.Repositories;
 
     public interface IMembershipQueries
     {
-        IList<MembershipDto> ByUserId(Guid userId);
-
-        IList<MembershipDto> FindByOrganizationId(Guid organizationId);
+        ICollection<MembershipData> FindByOrganizationId(Guid organizationId);
+        ICollection<MembershipData> FindByUserId(Guid userId);
     }
 
-    public class MembershipsProjection : IMembershipQueries
+    public class MembershipsProjection : ProjectionBase, IMembershipQueries
     {
-        public IUsersQueries UsersQueries { get; set; }
+        private readonly IMembershipRepository _membershipRepository;
 
-        public IMembershipRepository MembershipRepository { get; set; }
-
-        public IList<MembershipDto> ByUserId(Guid userId)
+        public MembershipsProjection(IMembershipRepository membershipRepository)
         {
-            return MembershipRepository.ByMemberId(userId).Select(ToMembershipDto).ToList();
+            if (membershipRepository == null) throw new ArgumentNullException("membershipRepository");
+
+            _membershipRepository = membershipRepository;
         }
 
-        public IList<MembershipDto> FindByOrganizationId(Guid organizationId)
+        public ICollection<MembershipData> FindByOrganizationId(Guid organizationId)
         {
-            return MembershipRepository.GetByOrganizationId(organizationId).Select(ToMembershipDto).ToList();
+            return _membershipRepository.FindByOrganizationId(organizationId).Select(ToMembershipData).ToList();
         }
 
-        private static MembershipDto ToMembershipDto(Membership each)
+        public ICollection<MembershipData> FindByUserId(Guid userId)
         {
-            return new MembershipDto
+            return _membershipRepository.FindByUserId(userId).Select(ToMembershipData).ToList();
+        }
+
+        private static MembershipData ToMembershipData(Membership each)
+        {
+            return new MembershipData
             {
-                Id = each.Id,                
+                Id = each.Id,
                 UserGuid = each.UserId.Id,
                 OrganizationGuid = each.Organization.Id.Id,
                 OrganizationName = each.Organization.Name,
@@ -47,7 +51,7 @@
         }
     }
 
-    public class MembershipDto
+    public class MembershipData
     {
         public Guid Id { get; set; }
         public int MemberId { get; set; }

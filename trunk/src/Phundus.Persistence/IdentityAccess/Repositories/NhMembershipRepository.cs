@@ -14,14 +14,14 @@ namespace Phundus.Persistence.IdentityAccess.Repositories
             return Guid.NewGuid();
         }
 
-        public IEnumerable<Membership> ByMemberId(Guid memberId)
-        {
-            return Entities.Where(p => p.UserId.Id == memberId).ToFuture();
-        }
-
-        public IEnumerable<Membership> GetByOrganizationId(Guid organizationId)
+        public IEnumerable<Membership> FindByOrganizationId(Guid organizationId)
         {
             return Entities.Where(p => p.Organization.Id.Id == organizationId).ToFuture();
+        }
+
+        public IEnumerable<Membership> FindByUserId(Guid userId)
+        {
+            return Entities.Where(p => p.UserId.Id == userId).ToFuture();
         }
     }
 }

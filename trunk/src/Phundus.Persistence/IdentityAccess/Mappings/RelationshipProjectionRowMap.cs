@@ -4,7 +4,7 @@
     using NHibernate.Type;
     using Phundus.IdentityAccess.Projections;
 
-    public class RelationshipProjectionRowMap : ClassMap<RelationshipProjectionRow>
+    public class RelationshipProjectionRowMap : ClassMap<RelationshipData>
     {
         public RelationshipProjectionRowMap()
         {

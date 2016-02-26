@@ -27,6 +27,11 @@
             return (TAggregate) constructor.Invoke(new object[] {eventStream.Events, eventStream.Version});
         }
 
+        protected void Save(EventSourcedRootEntity aggregate)
+        {
+            
+        }
+
         private ConstructorInfo GetConstructor()
         {
             var result =typeof (TAggregate).GetConstructor(

@@ -9,7 +9,7 @@ namespace Phundus.IdentityAccess.Organizations.Repositories
     {
         Guid NextIdentity();
 
-        IEnumerable<Membership> ByMemberId(Guid memberId);
-        IEnumerable<Membership> GetByOrganizationId(Guid organizationId);
+        IEnumerable<Membership> FindByOrganizationId(Guid organizationId);
+        IEnumerable<Membership> FindByUserId(Guid userId);
     }
 }

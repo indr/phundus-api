@@ -4,6 +4,8 @@
 
     public interface IDomainEvent
     {
+        Guid EventGuid { get; }
+        DateTime OccuredOnUtc { get; }
     }
 
     public class DomainEvent : IDomainEvent
