@@ -8,6 +8,7 @@
     using Common.Notifications;
     using Cqrs;
     using Model;
+    using NHibernate.Criterion;
 
     public interface IArticleQueries
     {
@@ -30,7 +31,7 @@
         {
             query = query == null ? "" : query.ToLowerInvariant();
             return QueryOver().Where(p => p.OwnerGuid == queryOwnerId.Id)
-                .And(p => p.Name.ToLowerInvariant().Contains(query))
+                .AndRestrictionOn(p => p.Name).IsInsensitiveLike(query, MatchMode.Anywhere)
                 .List();
         }
 

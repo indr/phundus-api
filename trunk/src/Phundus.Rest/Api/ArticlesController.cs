@@ -58,7 +58,7 @@ namespace Phundus.Rest.Api
 
         [GET("")]
         [Transaction]
-        public virtual QueryOkResponseContent<Inventory.Projections.ArticleData> Get()
+        public virtual QueryOkResponseContent<ArticleData> Get()
         {
             var ownerId = (OwnerId) null;
 
@@ -77,7 +77,7 @@ namespace Phundus.Rest.Api
                 query = queryParams["q"];
 
             var results = _articleQueries.Query(CurrentUserId, ownerId, query);
-            return new QueryOkResponseContent<Inventory.Projections.ArticleData>
+            return new QueryOkResponseContent<ArticleData>
             {
                 Results = results.ToList()
             };
