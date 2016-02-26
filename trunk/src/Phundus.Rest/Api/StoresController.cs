@@ -43,6 +43,7 @@ namespace Phundus.Rest.Api
         {
             var result = new Store
             {
+                Name = store.Name,
                 Address = store.Address,
                 OpeningHours = store.OpeningHours,
                 StoreId = store.StoreId,
@@ -75,6 +76,10 @@ namespace Phundus.Rest.Api
         [Transaction]
         public virtual HttpResponseMessage Patch(Guid storeId, StoresPatchRequestContent requestContent)
         {
+            if (requestContent.Name != null)
+            {
+                Dispatch(new RenameStore(CurrentUserId, new StoreId(storeId), requestContent.Name));
+            }
             if (requestContent.Address != null)
             {
                 Dispatch(new ChangeAddress(CurrentUserId, new StoreId(storeId), requestContent.Address));
@@ -105,6 +110,9 @@ namespace Phundus.Rest.Api
 
     public class StoresPatchRequestContent
     {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
         [JsonProperty("address")]
         public string Address { get; set; }
 

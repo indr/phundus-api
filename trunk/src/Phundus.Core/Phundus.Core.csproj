@@ -232,6 +232,8 @@
     <Compile Include="Inventory\Projections\ArticleActionsProjection.cs" />
     <Compile Include="Inventory\Projections\StoresProjection.cs" />
     <Compile Include="Inventory\Services\UserInRole.cs" />
+    <Compile Include="Inventory\Stores\Commands\RenameStore.cs" />
+    <Compile Include="Inventory\Stores\Model\StoreRenamed.cs" />
     <Compile Include="Shop\Projections\ShopItemProjection.cs" />
     <Compile Include="Inventory\Projections\ArticlesProjection.cs" />
     <Compile Include="Inventory\Projections\ImagesProjection.cs" />

@@ -49,9 +49,30 @@ namespace Phundus.Tests.Inventory.Model
             sut.ChangeAddress(theManager, theNewAddress);
 
         private It should_have_mutating_event_address_changed = () =>
-            mutatingEvent<AddressChanged>(p => p.StoreId == theStoreId.Id);
+            mutatingEvent<AddressChanged>(p =>
+                Equals(p.Manager.UserId, theManager.UserId)
+                && p.StoreId == theStoreId.Id
+                && p.Address == theNewAddress);
 
-        private It should_have_new_address = () =>
+        private It should_have_the_new_address = () =>
             sut.Address.ShouldEqual(theNewAddress);
+    }
+
+    [Subject(typeof (Store))]
+    public class when_renaming_a_store : store_concern
+    {
+        private static string theNewName = "The new name";
+
+        private Because of = () =>
+            sut.Rename(theManager, theNewName);
+
+        private It should_have_the_new_name = () =>
+            sut.Name.ShouldEqual(theNewName);
+
+        private It should_have_mutating_event_store_renamed = () =>
+            mutatingEvent<StoreRenamed>(p =>
+                Equals(p.Manager.UserId, theManager.UserId)
+                && p.StoreId == theStoreId.Id
+                && p.Name == theNewName);
     }
 }

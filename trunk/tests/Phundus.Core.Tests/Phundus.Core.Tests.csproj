@@ -131,6 +131,7 @@
     <Compile Include="aggregate_concern.cs" />
     <Compile Include="Inventory\Commands\AddImageCommandSpecs.cs" />
     <Compile Include="Inventory\Commands\RemoveImageCommandSpecs.cs" />
+    <Compile Include="Inventory\Commands\RenameStoreHandlerSpecs.cs" />
     <Compile Include="Inventory\Commands\SetPreviewImageHandlerSpecs.cs" />
     <Compile Include="Inventory\Authorize\ManageArticleAccessObjectHandlerSpecs.cs" />
     <Compile Include="Inventory\Authorize\CreateArticleAccessObjectHandlerSpecs.cs" />

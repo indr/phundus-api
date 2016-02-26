@@ -25,6 +25,7 @@
         public virtual Coordinate Coordinate { get; private set; }
         public virtual string OpeningHours { get; private set; }
         public virtual string Address { get; private set; }
+        public virtual string Name { get; private set; }
 
         protected void When(StoreOpened e)
         {
@@ -66,9 +67,20 @@
         }
 
 
+        public void Rename(Manager manager, string name)
+        {
+            Apply(new StoreRenamed(manager, StoreId, name));
+        }
+
+        protected void When(StoreRenamed e)
+        {
+            Name = e.Name;
+        }
+
         protected override IEnumerable<object> GetIdentityComponents()
         {
             yield return StoreId;
         }
+
     }
 }

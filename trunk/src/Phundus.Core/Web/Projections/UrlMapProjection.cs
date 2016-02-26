@@ -6,6 +6,7 @@
     using Common.Notifications;
     using Cqrs;
     using IdentityAccess.Organizations.Model;
+    using Inventory.Stores.Model;
 
     public interface IUrlMapQueries
     {
