@@ -2,6 +2,7 @@ namespace Phundus.Cqrs
 {
     using System;
     using System.Linq.Expressions;
+    using Castle.Core.Logging;
     using NHibernate;
 
     public class ProjectionBase
@@ -16,6 +17,8 @@ namespace Phundus.Cqrs
 
     public class ProjectionBase<TEntity> :ProjectionBase where TEntity : class, new()
     {
+        public ILogger Logger { get; set; }
+
         protected void Insert(Action<TEntity> action)
         {
             var row = new TEntity();
@@ -31,6 +34,11 @@ namespace Phundus.Cqrs
         protected void Update(object id, Action<TEntity> action)
         {
             var row = Session.Get<TEntity>(id);
+            if (row == null)
+            {
+                Logger.Warn(String.Format("Could not update projection {0}. Projection {1} not found.", typeof(TEntity).Name, id));
+                return;
+            }
             action(row);
             Session.Update(row);
         }

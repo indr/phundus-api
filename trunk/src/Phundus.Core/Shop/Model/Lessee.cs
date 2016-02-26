@@ -14,12 +14,12 @@
         private string _lastName;
         private LesseeId _lesseeId;
         private string _memberNumber;
-        private string _mobilePhoneNumber;
+        private string _phoneNumber;
         private string _postcode;
         private string _street;
 
         public Lessee(LesseeId lesseeId, string firstName, string lastName, string street, string postcode, string city,
-            string emailAddress, string mobilePhoneNumber, string memberNumber)
+            string emailAddress, string phoneNumber, string memberNumber)
         {
             if (lesseeId == null) throw new ArgumentNullException("lesseeId");
 
@@ -30,7 +30,7 @@
             _postcode = postcode;
             _city = city;
             _emailAddress = emailAddress;
-            _mobilePhoneNumber = mobilePhoneNumber;
+            _phoneNumber = phoneNumber;
             _memberNumber = memberNumber;
         }
 
@@ -94,10 +94,10 @@
         }
 
         [DataMember(Order = 8)]
-        public virtual string MobilePhoneNumber
+        public virtual string PhoneNumber
         {
-            get { return _mobilePhoneNumber; }
-            protected set { _mobilePhoneNumber = value; }
+            get { return _phoneNumber; }
+            protected set { _phoneNumber = value; }
         }
 
         [DataMember(Order = 9)]
@@ -107,7 +107,7 @@
             protected set { _memberNumber = value; }
         }
 
-        public virtual string DisplayName
+        public virtual string FullName
         {
             get { return FirstName + " " + LastName; }
         }
