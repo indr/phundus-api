@@ -48,6 +48,12 @@ namespace Phundus.Inventory.Projections
             });
         }
 
+        private void Process(StoreRenamed e)
+        {
+            Update(e.StoreId, x =>
+                x.Name = e.Name);
+        }
+
         private void Process(AddressChanged e)
         {
             Update(e.StoreId, x =>
@@ -75,6 +81,7 @@ namespace Phundus.Inventory.Projections
         public virtual Guid StoreId { get; set; }
         public virtual Guid OwnerId { get; set; }
         public virtual string OwnerType { get; set; }
+        public virtual string Name { get; set; }
         public virtual string Address { get; set; }
         public virtual string OpeningHours { get; set; }
         public virtual decimal? Latitude { get; set; }

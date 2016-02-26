@@ -5,25 +5,25 @@
     using Phundus.Inventory.Stores.Commands;
     using Phundus.Inventory.Stores.Model;
 
-    [Subject(typeof (ChangeAddressHandler))]
-    public class when_handling_change_address : store_command_handler_concern<ChangeAddress, ChangeAddressHandler>
+    [Subject(typeof (RenameStoreHandler))]
+    public class when_handling_rename_store : store_command_handler_concern<RenameStore, RenameStoreHandler>
     {
         private static Store theStore;
-        private static string theNewAddress;
+        private static string theNewName;
 
         private Establish ctx = () =>
         {
             theStore = make.Store(theOwner);
-            theNewAddress = "The new address";
+            theNewName = "The new address";
             storeRepository.setup(x => x.GetById(theStore.StoreId)).Return(theStore);
 
-            command = new ChangeAddress(theInitiatorId, theStore.StoreId, theNewAddress);
+            command = new RenameStore(theInitiatorId, theStore.StoreId, theNewName);
         };
+
+        private It should_tell_store_to_rename = () =>
+            theStore.received(x => x.Rename(theManager, theNewName));
 
         private It should_save_to_repository = () =>
             storeRepository.received(x => x.Save(theStore));
-
-        private It should_tell_store_to_change_address = () =>
-            theStore.received(x => x.ChangeAddress(theManager, theNewAddress));
     }
 }

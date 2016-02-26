@@ -14,6 +14,7 @@
             Id(x => x.StoreId).GeneratedBy.Assigned();
             Map(x => x.OwnerId).Not.Nullable();
             Map(x => x.OwnerType).Not.Nullable();
+            Map(x => x.Name).Nullable();
             Map(x => x.Address).Nullable();
             Map(x => x.OpeningHours).Nullable();
             Map(x => x.Latitude).Nullable();
