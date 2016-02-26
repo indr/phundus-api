@@ -10,7 +10,7 @@
         IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId);
         long CountStoredEvents();
         long GetMaxNotificationId();
-        DomainEvent ToDomainEvent(StoredEvent storedEvent);
+        DomainEvent Deserialize(StoredEvent storedEvent);
 
         EventStream LoadEventStream(GuidIdentity id);
     }

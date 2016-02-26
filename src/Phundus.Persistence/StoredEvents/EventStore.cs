@@ -18,7 +18,7 @@
 
         public void Append(DomainEvent domainEvent)
         {
-            var storedEvent = ToStoredEvent(domainEvent);
+            var storedEvent = Serialize(domainEvent);
             Repository.Append(storedEvent);
 
             NotificationPublisher.PublishNotification(storedEvent);
@@ -44,7 +44,7 @@
             return Repository.GetMaxNotificationId();
         }
 
-        public DomainEvent ToDomainEvent(StoredEvent storedEvent)
+        public DomainEvent Deserialize(StoredEvent storedEvent)
         {
             var domainEventType = Type.GetType(storedEvent.TypeName, true);
 
@@ -70,14 +70,14 @@
             var version = 0;
             foreach (var storedEvent in storedEvents)
             {
-                domainEvents.Add(ToDomainEvent(storedEvent));
+                domainEvents.Add(Deserialize(storedEvent));
                 version = storedEvent.Version;
             }
 
             return new EventStream(domainEvents, version);
         }
 
-        protected StoredEvent ToStoredEvent(IDomainEvent domainEvent)
+        protected StoredEvent Serialize(IDomainEvent domainEvent, Guid? streamId = null)
         {
             var serialization = Serializer.Serialize(domainEvent);
 
@@ -85,14 +85,14 @@
             var typeName = domainEventType.FullName + ", " + domainEventType.Assembly.GetName().Name;
 
             var storedEvent = new StoredEvent(domainEvent.EventGuid, domainEvent.OccuredOnUtc,
-                typeName, serialization, Guid.Empty);
+                typeName, serialization, streamId.HasValue ? streamId.Value : Guid.Empty);
 
             return storedEvent;
         }
 
-        protected IEnumerable<StoredEvent> ToStoredEvents(ICollection<IDomainEvent> domainEvents)
+        protected IEnumerable<StoredEvent> Serialize(ICollection<IDomainEvent> domainEvents, Guid streamId)
         {
-            return domainEvents.Select(ToStoredEvent);
+            return domainEvents.Select(s => Serialize(s, streamId));
         }
     }
 }
