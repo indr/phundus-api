@@ -1,9 +1,59 @@
 ﻿namespace Phundus.Inventory.Stores.Model
 {
     using System;
+    using System.Collections.Generic;
     using Common.Domain.Model;
     using Ddd;
     using Inventory.Model;
+
+    public class StoreAggregate : EventSourcedRootEntity
+    {
+        public StoreAggregate(Manager manager, StoreId storeId, Owner owner)
+        {
+            Apply(new StoreOpened(manager, storeId, owner));
+        }
+
+        protected StoreAggregate()
+        {
+        }
+
+        public virtual StoreId StoreId { get; private set; }
+        public virtual Owner Owner { get; private set; }
+        public virtual Coordinate Coordinate { get; private set; }
+        public virtual string OpeningHours { get; private set; }
+        public virtual string Address { get; private set; }
+
+        protected void When(StoreOpened e)
+        {
+            StoreId = new StoreId(e.StoreId);
+            Owner = e.Owner;
+        }
+
+        public void ChangeAddress(Manager manager, string address)
+        {
+            Apply(new AddressChanged(manager, StoreId, address));
+        }
+
+        protected void When(AddressChanged e)
+        {
+            Address = e.Address;
+        }
+
+        protected void When(CoordinateChanged e)
+        {
+            Coordinate = new Coordinate(e.Latitude, e.Longitude);
+        }
+
+        protected void When(OpeningHoursChanged e)
+        {
+            OpeningHours = e.OpeningHours;
+        }
+
+        protected override IEnumerable<object> GetIdentityComponents()
+        {
+            yield return StoreId;
+        }
+    }
 
     public class Store : Aggregate<StoreId>
     {

@@ -57,6 +57,20 @@
             }
         }
 
+        public EventStream LoadEventStream(GuidIdentity id)
+        {
+            var storedEvents = Repository.GetStoredEvents(id.Id);
+            var domainEvents = new List<IDomainEvent>();
+            var version = 0;
+            foreach (var storedEvent in storedEvents)
+            {
+                domainEvents.Add(ToDomainEvent(storedEvent));
+                version = storedEvent.Version;
+            }
+
+            return new EventStream(domainEvents, version);
+        }
+
         protected StoredEvent ToStoredEvent(DomainEvent domainEvent)
         {
             var serialization = Serializer.Serialize(domainEvent);

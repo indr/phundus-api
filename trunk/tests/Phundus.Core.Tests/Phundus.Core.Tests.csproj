@@ -138,6 +138,7 @@
     <Compile Include="Inventory\Commands\ChangePricesHandlerSpecs.cs" />
     <Compile Include="Inventory\Commands\UpdateDescriptionHandlerSpecs.cs" />
     <Compile Include="Inventory\Commands\UpdateSpecificationHandlerSpecs.cs" />
+    <Compile Include="Inventory\Commands\ChangeAddressHandlerSpecs.cs" />
     <Compile Include="Inventory\Events\AddressChangedSpecs.cs" />
     <Compile Include="Inventory\Events\ArticleCreatedSpecs.cs" />
     <Compile Include="Inventory\Events\ArticleDeletedSpecs.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Inventory\Commands\DeleteArticleHandlerSpecs.cs" />
     <Compile Include="Inventory\inventory_factory.cs" />
     <Compile Include="Inventory\Model\ManagerSpecs.cs" />
+    <Compile Include="Inventory\store_command_handler_concern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="access_object_handler_concern.cs" />
     <Compile Include="Shop\Authorization\RentArticleAccessObjectHandlerSpecs.cs" />

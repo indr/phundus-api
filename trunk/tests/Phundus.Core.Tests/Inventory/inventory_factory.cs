@@ -38,6 +38,15 @@ namespace Phundus.Tests.Inventory
             return store;
         }
 
+        public StoreAggregate StoreAggregate(Owner owner = null)
+        {
+            owner = owner ?? Owner();
+            var result = fake.an<StoreAggregate>();
+            result.setup(x => x.StoreId).Return(new StoreId());
+            result.setup(x => x.Owner).Return(owner);
+            return result;
+        }
+
         public Manager Manager()
         {
             return new Manager(new UserId(), "manager@test.phundus.ch", "The Manager");

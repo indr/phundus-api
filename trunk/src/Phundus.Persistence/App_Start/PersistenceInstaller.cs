@@ -30,6 +30,11 @@
                 .WithServiceAllInterfaces()
                 .LifestyleTransient());
 
+            container.Register(Types.FromThisAssembly()
+                .BasedOn<EventSourcedRepositoryBase>()
+                .WithServiceAllInterfaces()
+                .LifestyleTransient());
+
             container.Register(Component.For<IReservationRepository>()
                 .ImplementedBy<NhReservationsBasedOnOrdersRepository>()
                 .LifestyleTransient());

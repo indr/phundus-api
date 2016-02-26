@@ -6,7 +6,8 @@ namespace Phundus.Tests.Inventory
     using Phundus.Inventory.Articles.Repositories;
     using Phundus.Inventory.Services;
 
-    public abstract class article_command_handler_concern<TCommand, THandler> : command_handler_concern<TCommand, THandler>
+    public abstract class article_command_handler_concern<TCommand, THandler> :
+        command_handler_concern<TCommand, THandler>
         where THandler : class,
             IHandleCommand<TCommand>
     {

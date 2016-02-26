@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Ddd
 {
+    using System;
     using System.Collections.Generic;
     using Common.Eventing;
 
@@ -9,5 +10,6 @@
         IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId);
         long CountStoredEvents();
         long GetMaxNotificationId();
+        IEnumerable<StoredEvent> GetStoredEvents(Guid aggregateId);
     }
 }
