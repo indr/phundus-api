@@ -154,6 +154,7 @@
     <Compile Include="Inventory\Events\PricesChangedSpecs.cs" />
     <Compile Include="Inventory\Events\SpecificationChangedSpecs.cs" />
     <Compile Include="Inventory\Events\StoreOpenedSpecs.cs" />
+    <Compile Include="Inventory\Events\StoreRenamedSpecs.cs" />
     <Compile Include="Inventory\Model\ArticleSpecs.cs" />
     <Compile Include="Inventory\Model\OwnerSpecs.cs" />
     <Compile Include="Inventory\Model\OwnerTypeSpecs.cs" />
