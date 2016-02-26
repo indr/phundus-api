@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common.Domain.Model;
+    using Cqrs;
     using Integration.IdentityAccess;
 
     public interface IMemberQueries
@@ -12,7 +13,7 @@
         IEnumerable<MemberDto> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName);
     }
 
-    public class MembersProjection : IMemberQueries, IMembersWithRole
+    public class MembersProjection : ProjectionBase, IMemberQueries, IMembersWithRole
     {
         public IUsersQueries UsersQueries { get; set; }
 
