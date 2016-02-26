@@ -54,6 +54,11 @@ namespace Phundus.Cqrs
             Session.Delete(row);
         }
 
+        protected void Delete(TEntity entity)
+        {
+            Session.Delete(entity);
+        }
+
         protected TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression)
         {
             return Session.QueryOver<TEntity>().Where(expression).SingleOrDefault();
