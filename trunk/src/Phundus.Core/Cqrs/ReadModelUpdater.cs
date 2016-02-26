@@ -75,7 +75,7 @@ namespace Phundus.Cqrs
                 notificationId).OrderBy(p => p.OccuredOnUtc).ThenBy(p => p.EventId);
             foreach (var each in events)
             {
-                storedEventsConsumer.Handle(EventStore.ToDomainEvent(each));
+                storedEventsConsumer.Handle(EventStore.Deserialize(each));
             }
 
             ProcessedNotificationTrackerStore.TrackMostRecentProcessedNotificationId(tracker, notificationId);
@@ -93,7 +93,7 @@ namespace Phundus.Cqrs
                 notification.NotificationId);
             foreach (var each in events)
             {
-                storedEventsConsumer.Handle(EventStore.ToDomainEvent(each));
+                storedEventsConsumer.Handle(EventStore.Deserialize(each));
             }
 
             ProcessedNotificationTrackerStore.TrackMostRecentProcessedNotification(tracker, notification);

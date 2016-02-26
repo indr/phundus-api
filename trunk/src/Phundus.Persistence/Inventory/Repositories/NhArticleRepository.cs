@@ -23,7 +23,7 @@
 
         public Article GetById(ArticleShortId articleShortId)
         {
-            var result = FindById(articleShortId.Id);
+            var result = FindById(articleShortId);
             if (result == null)
                 throw new NotFoundException("Article {0} not found.", articleShortId);
             return result;
@@ -36,7 +36,7 @@
 
         public Article FindById(ArticleShortId articleShortId)
         {
-            return Session.QueryOver<Article>().Where(p => p.ArticleShortId.Id == articleShortId.Id).SingleOrDefault();
+            return FindById(articleShortId.Id);
         }
     }
 }
