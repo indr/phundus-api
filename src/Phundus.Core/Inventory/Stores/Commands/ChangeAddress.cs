@@ -8,15 +8,13 @@ namespace Phundus.Inventory.Stores.Commands
 
     public class ChangeAddress
     {
-        public InitiatorId InitiatorId { get; set; }
-
         public ChangeAddress(InitiatorId initiatorId, StoreId storeId, string address)
         {
             if (initiatorId == null) throw new ArgumentNullException("initiatorId");
             if (storeId == null) throw new ArgumentNullException("storeId");
             if (address == null) throw new ArgumentNullException("address");
 
-            InitiatorId = initiatorId;
+            InitatorId = initiatorId;
             StoreId = storeId;
             Address = address;
         }
@@ -28,10 +26,10 @@ namespace Phundus.Inventory.Stores.Commands
 
     public class ChangeAddressHandler : IHandleCommand<ChangeAddress>
     {
-        private readonly IStoreRepository _storeRepository;
+        private readonly IStoreAggregateRepository _storeRepository;
         private readonly IUserInRole _userInRole;
 
-        public ChangeAddressHandler(IStoreRepository storeRepository, IUserInRole userInRole)
+        public ChangeAddressHandler(IStoreAggregateRepository storeRepository, IUserInRole userInRole)
         {
             if (storeRepository == null) throw new ArgumentNullException("storeRepository");
             if (userInRole == null) throw new ArgumentNullException("userInRole");
@@ -46,6 +44,8 @@ namespace Phundus.Inventory.Stores.Commands
             var manager = _userInRole.Manager(command.InitatorId, store.Owner.OwnerId);
 
             store.ChangeAddress(manager, command.Address);
+
+            _storeRepository.Save(store);
         }
     }
 }

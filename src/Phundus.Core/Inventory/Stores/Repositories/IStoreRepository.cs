@@ -8,4 +8,10 @@
     {
         Store GetById(StoreId storeId);
     }
+
+    public interface IStoreAggregateRepository
+    {
+        StoreAggregate GetById(StoreId storeId);
+        void Save(StoreAggregate aggregate);
+    }
 }

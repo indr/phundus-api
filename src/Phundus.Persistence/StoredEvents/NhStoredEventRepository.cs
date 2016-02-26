@@ -1,5 +1,6 @@
 ﻿namespace Phundus.Persistence.StoredEvents
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Common.Eventing;
@@ -33,6 +34,15 @@
             if (result.HasValue)
                 return result.Value;
             return 0;
+        }
+
+        public IEnumerable<StoredEvent> GetStoredEvents(Guid aggregateId)
+        {
+            return Session.QueryOver<StoredEvent>()
+                .Where(p => p.AggregateId == aggregateId)
+                .OrderBy(p => p.Version).Asc
+                .ThenBy(p => p.EventId).Asc
+                .Future();
         }
     }
 }
