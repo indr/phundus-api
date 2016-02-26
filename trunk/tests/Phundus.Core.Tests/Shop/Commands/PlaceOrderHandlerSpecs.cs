@@ -24,7 +24,9 @@
             lesseeService.WhenToldTo(x => x.GetById(new LesseeId(theInitiatorId.Id)))
                 .Return(CreateLessee(new LesseeId(theInitiatorId.Id)));
 
-            orderRepository.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(theResultingOrderId);
+            var idProperty = typeof (Order).GetProperty("Id");
+            orderRepository.Expect(x => x.Add(Arg<Order>.Is.NotNull)).WhenCalled(a =>
+                idProperty.SetValue(a.Arguments[0], theResultingOrderId, null));
 
             theCart = new Cart(theInitiatorId);
             depends.on<ICartRepository>()

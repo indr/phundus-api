@@ -99,7 +99,9 @@
             var article = new Article(owner, store.StoreId, command.ArticleId, command.Name, command.GrossStock,
                 command.PublicPrice, command.MemberPrice);
 
-            command.ResultingArticleId = _articleRepository.Add(article);
+            _articleRepository.Add(article);
+
+            command.ResultingArticleId = article.ArticleShortId.Id;
 
             EventPublisher.Publish(new ArticleCreated(initiator, article.Owner, article.StoreId, store.Name,
                 new ArticleShortId(command.ResultingArticleId), article.ArticleId,

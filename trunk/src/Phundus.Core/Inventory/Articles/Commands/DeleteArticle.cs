@@ -19,7 +19,7 @@
             ArticleId = new ArticleShortId(articleId);
         }
 
-        public InitiatorId InitiatorId { get; set; }
+        public InitiatorId InitiatorId { get; protected set; }
         public ArticleShortId ArticleId { get; set; }
     }
 

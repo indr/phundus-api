@@ -22,7 +22,7 @@
         private static int theGrossStock;
         private static decimal theMemberPrice;
         private static decimal thePublicPrice;
-        private static int theArticleShortId = 1234;
+        private static ArticleShortId theArticleShortId;
         private static Store theStore;
 
         public Establish c = () =>
@@ -30,12 +30,16 @@
             theOwner = make.Owner();
             theStore = make.Store(theOwner);
             theArticleId = new ArticleId();
+            theArticleShortId = new ArticleShortId(1234);
             theName = "The name";
             theGrossStock = 10;
             theMemberPrice = 11.10m;
             thePublicPrice = 12.20m;
 
-            articleRepository.setup(x => x.Add(Arg<Article>.Is.Anything)).Return(theArticleShortId);
+            var idProperty = typeof (Article).GetProperty("Id");
+            articleRepository.Expect(x => x.Add(Arg<Article>.Is.NotNull)).WhenCalled(a =>
+                idProperty.SetValue(a.Arguments[0], theArticleShortId.Id, null));
+
             ownerService.setup(x => x.GetById(theOwner.OwnerId)).Return(theOwner);
             depends.on<IStoreRepository>().setup(x => x.GetById(theStore.StoreId)).Return(theStore);
 
@@ -63,6 +67,7 @@
                 && p.StoreId == theStore.StoreId.Id
                 && p.StoreName == theStore.Name);
 
-        public It should_set_resulting_article_id = () => command.ResultingArticleId.ShouldEqual(theArticleShortId);
+        public It should_set_resulting_article_id = () =>
+            command.ResultingArticleId.ShouldEqual(theArticleShortId.Id);
     }
 }

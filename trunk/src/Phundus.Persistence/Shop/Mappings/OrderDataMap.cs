@@ -4,9 +4,9 @@ namespace Phundus.Persistence.Shop.Mappings
     using NHibernate.Type;
     using Phundus.Shop.Projections;
 
-    public class OrdersProjectionRowMap : ClassMap<OrdersProjectionRow>
+    public class OrderDataMap : ClassMap<OrderData>
     {
-        public OrdersProjectionRowMap()
+        public OrderDataMap()
         {
             SchemaAction.All();
             Table("Es_Shop_Orders");
@@ -14,7 +14,7 @@ namespace Phundus.Persistence.Shop.Mappings
             Id(x => x.OrderId).GeneratedBy.Assigned();
             Map(x => x.OrderShortId);
             Map(x => x.CreatedAtUtc).CustomType<UtcDateTimeType>();
-            Map(x => x.Status).CustomType<OrdersProjectionRow.OrderStatus>();
+            Map(x => x.Status).CustomType<OrderData.OrderStatus>();
 
             Map(x => x.LessorId);
             Map(x => x.LesseeId);

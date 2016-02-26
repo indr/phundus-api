@@ -6,7 +6,6 @@
     using Common.Domain.Model;
     using Ddd;
     using Iesi.Collections.Generic;
-    using Inventory.Authorization;
     using Shop.Model;
 
     public class Order
@@ -176,7 +175,8 @@
             }
         }
 
-        public virtual void AddItem(Initiator initiator, OrderItemId orderItemId, Article article, DateTime fromUtc, DateTime toUtc,
+        public virtual void AddItem(Initiator initiator, OrderItemId orderItemId, Article article, DateTime fromUtc,
+            DateTime toUtc,
             int quantity)
         {
             EnsurePending();
@@ -200,7 +200,7 @@
             item.Delete();
 
             EventPublisher.Publish(new OrderItemRemoved(initiator, OrderId, ShortOrderId,
-                (int)Status, TotalPrice, CreateOrderEventItem(item)));
+                (int) Status, TotalPrice, CreateOrderEventItem(item)));
         }
 
         public virtual void ChangeAmount(Initiator initiator, Guid orderItemId, int amount)
@@ -215,7 +215,7 @@
             item.ChangeAmount(amount);
 
             EventPublisher.Publish(new OrderItemQuantityChanged(initiator, OrderId, ShortOrderId,
-                (int)Status, TotalPrice, item.Id, oldQuantity, item.Amount,
+                (int) Status, TotalPrice, item.Id, oldQuantity, item.Amount,
                 CreateOrderEventItem(item)));
         }
 
@@ -244,7 +244,7 @@
             item.ChangeTotal(itemTotal);
 
             EventPublisher.Publish(new OrderItemTotalChanged(initiator, OrderId, ShortOrderId,
-                (int)Status, TotalPrice, item.Id, oldItemTotal, item.ItemTotal,
+                (int) Status, TotalPrice, item.Id, oldItemTotal, item.ItemTotal,
                 CreateOrderEventItem(item)));
         }
 

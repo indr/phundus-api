@@ -22,7 +22,7 @@
         IEnumerable<OrderDto> Query(CurrentUserId currentUserId, ShortOrderId shortOrderId, UserId queryUserId, OrganizationId queryOrganizationId);
     }
 
-    public class OrdersProjection : ProjectionBase<OrdersProjectionRow>, IStoredEventsConsumer
+    public class OrdersProjection : ProjectionBase<OrderData>, IStoredEventsConsumer
     {
         public void Handle(DomainEvent e)
         {
@@ -35,7 +35,7 @@
         }
     }
 
-    public class OrdersProjectionRow
+    public class OrderData
     {
         public virtual Guid OrderId { get; set; }
         public virtual int OrderShortId { get; set; }

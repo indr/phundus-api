@@ -84,8 +84,8 @@
                             s.Quantity, s.UnitPrice)).ToList();
             var order = new Order(lessor, lessee, orderItems);
 
-            var orderId = _orderRepository.Add(order);
-            command.ResultingOrderId = orderId;
+            _orderRepository.Add(order);
+            command.ResultingOrderId = order.ShortOrderId.Id;
 
             foreach (var each in cartItemsToPlace)
             {
