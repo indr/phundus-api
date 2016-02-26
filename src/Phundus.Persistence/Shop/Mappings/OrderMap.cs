@@ -36,7 +36,7 @@ namespace Phundus.Persistence.Shop.Mappings
                 c.Map(x => x.Postcode, "Borrower_Postcode");
                 c.Map(x => x.City, "Borrower_City");
                 c.Map(x => x.EmailAddress, "Borrower_EmailAddress");
-                c.Map(x => x.MobilePhoneNumber, "Borrower_MobilePhoneNumber");
+                c.Map(x => x.PhoneNumber, "Borrower_MobilePhoneNumber");
                 c.Map(x => x.MemberNumber, "Borrower_MemberNumber");
             });
 
@@ -44,6 +44,33 @@ namespace Phundus.Persistence.Shop.Mappings
                 .KeyColumn("OrderId").Inverse()
                 .Access.CamelCaseField(Prefix.Underscore)
                 .Cascade.AllDeleteOrphan();
+        }
+    }
+
+    public class OrderItemMap : ClassMap<OrderItem>
+    {
+        public OrderItemMap()
+        {
+            SchemaAction.Validate();
+
+            Table("Dm_Shop_OrderItem");
+            Id(x => x.Id, "OrderItemGuid").GeneratedBy.Assigned();
+            Version(x => x.Version);
+
+            References(x => x.Order, "OrderId");
+
+            Component(x => x.ArticleId, a =>
+                a.Map(x => x.Id, "ArticleGuid"));
+            Component(x => x.ArticleShortId, a =>
+                a.Map(x => x.Id, "ArticleId"));
+            Map(x => x.Text, "Text");
+            Map(x => x.UnitPrice, "UnitPrice");
+
+            Map(x => x.FromUtc, "[FromUtc]").CustomType<UtcDateTimeType>();
+            Map(x => x.ToUtc, "[ToUtc]").CustomType<UtcDateTimeType>();
+            Map(x => x.Amount);
+
+            Map(x => x.ItemTotal, "[Total]");
         }
     }
 }

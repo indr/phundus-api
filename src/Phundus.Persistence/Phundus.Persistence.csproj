@@ -98,7 +98,6 @@
     <Compile Include="Shop\Mappings\CartMap.cs" />
     <Compile Include="Shop\Mappings\CartViewRowMap.cs" />
     <Compile Include="Shop\Mappings\LessorViewRowMap.cs" />
-    <Compile Include="Shop\Mappings\OrderItemsProjectionRowMap.cs" />
     <Compile Include="Shop\Mappings\OrderDataMap.cs" />
     <Compile Include="Shop\Mappings\ShopItemsDataMap.cs" />
     <Compile Include="Shop\Mappings\ShopItemFilesProjectionRowMap.cs" />
@@ -121,7 +120,6 @@
     <Compile Include="NHibernateInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Inventory\Repositories\NhArticleRepository.cs" />
-    <Compile Include="Shop\Mappings\OrderItemMap.cs" />
     <Compile Include="Shop\Mappings\OrderMap.cs" />
     <Compile Include="Shop\Repositories\NhCartRepository.cs" />
     <Compile Include="IdentityAccess\Repositories\NhMembershipRequestRepository.cs" />

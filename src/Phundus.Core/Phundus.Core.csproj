@@ -283,7 +283,7 @@
     <Compile Include="Shop\Model\Pdf\OrderPdfGeneratorService.cs" />
     <Compile Include="Shop\Model\Pdf\PdfStore.cs" />
     <Compile Include="Shop\Model\PerDayWithPerSevenDaysPricePricingStrategy.cs" />
-    <Compile Include="Shop\Projections\OrdersProjection.cs" />
+    <Compile Include="Shop\Projections\OrderProjection.cs" />
     <Compile Include="Shop\Projections\ShopItemsProjection.cs" />
     <Compile Include="Shop\Projections\ShopItemFilesProjection.cs" />
     <Compile Include="Shop\Projections\ShopItemImagesProjection.cs" />

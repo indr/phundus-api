@@ -194,6 +194,7 @@
     <Compile Include="2016\02\M201602251040_Add_column_Version_to_StoredEvent.cs" />
     <Compile Include="2016\02\M201602261502_Delete_Es_Shop_tables.cs" />
     <Compile Include="2016\02\M201602261624_Delete_table_Dm_Inventory_Store.cs" />
+    <Compile Include="2016\02\M201602261742_Delete_Es_Shop_Orders_and_Es_Shop_OrderItems.cs" />
     <Compile Include="Helper\EventMigrationBase.cs" />
     <Compile Include="2016\01\M201601151255AddUserGuidToApplicationAndMembership.cs" />
     <Compile Include="2016\01\M201501110544AlterTableNames.cs" />
