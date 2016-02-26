@@ -8,6 +8,7 @@ Scenario: User opens his store
 	When I try to open my store
 	Then I should see ok
 
+@ignore
 Scenario: User opens a second store, and fails
 	Given I opened my store
 	When I try to open my store
