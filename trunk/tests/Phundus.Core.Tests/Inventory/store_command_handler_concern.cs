@@ -12,7 +12,7 @@ namespace Phundus.Tests.Inventory
     {
         protected static inventory_factory make;
 
-        protected static IStoreAggregateRepository storeRepository;
+        protected static IStoreRepository storeRepository;
         protected static IUserInRole userInRole;
 
         protected static Manager theManager;
@@ -23,7 +23,7 @@ namespace Phundus.Tests.Inventory
             make = new inventory_factory(fake);
 
             userInRole = depends.on<IUserInRole>();
-            storeRepository = depends.on<IStoreAggregateRepository>();
+            storeRepository = depends.on<IStoreRepository>();
 
             theManager = make.Manager();
             theOwner = make.Owner();

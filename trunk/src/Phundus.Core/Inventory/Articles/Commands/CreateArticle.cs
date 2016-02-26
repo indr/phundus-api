@@ -96,7 +96,7 @@
             if (!Equals(store.Owner.OwnerId, command.OwnerId))
                 throw new Exception("The store does not belong to the owner specified.");
 
-            var article = new Article(owner, store.Id, command.ArticleId, command.Name, command.GrossStock,
+            var article = new Article(owner, store.StoreId, command.ArticleId, command.Name, command.GrossStock,
                 command.PublicPrice, command.MemberPrice);
 
             command.ResultingArticleId = _articleRepository.Add(article);

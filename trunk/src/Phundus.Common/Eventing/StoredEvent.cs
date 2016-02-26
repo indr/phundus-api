@@ -9,15 +9,17 @@
         private DateTime _occuredOnUtc;
         private byte[] _serialization;
         private string _typeName;
+        private int _version;
 
         public StoredEvent(Guid eventGuid, DateTime occuredOnUtc, string typeName, byte[] serialization,
-            Guid aggregateId)
+            Guid aggregateId, int version = 0)
         {
             _eventGuid = eventGuid;
             _typeName = typeName;
             _occuredOnUtc = occuredOnUtc;
             _aggregateId = aggregateId;
             _serialization = serialization;
+            _version = version;
         }
 
         protected StoredEvent()
@@ -59,6 +61,10 @@
             protected set { _serialization = value; }
         }
 
-        public virtual int Version { get; protected set; }
+        public virtual int Version
+        {
+            get { return _version; }
+            protected set { _version = value; }
+        }
     }
 }

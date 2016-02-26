@@ -1,17 +1,12 @@
 ﻿namespace Phundus.Inventory.Stores.Repositories
 {
     using Common.Domain.Model;
-    using Infrastructure;
     using Model;
 
-    public interface IStoreRepository : IRepository<Store>
+    public interface IStoreRepository
     {
         Store GetById(StoreId storeId);
-    }
-
-    public interface IStoreAggregateRepository
-    {
-        StoreAggregate GetById(StoreId storeId);
-        void Save(StoreAggregate aggregate);
+        void Add(Store aggregate);
+        void Save(Store aggregate);
     }
 }

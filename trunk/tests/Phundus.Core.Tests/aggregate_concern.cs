@@ -10,7 +10,7 @@ namespace Phundus.Tests
     using Phundus.Ddd;
     using Rhino.Mocks;
 
-    public class aggregate_root_concern<TAggregate> : aggregate_concern<TAggregate> where TAggregate : EventSourcedRootEntity
+    public class aggregate_root_concern<TAggregate> : aggregate_concern<TAggregate> where TAggregate : EventSourcedAggregate
     {
         protected static void mutatingEvent<T>(Expression<Func<T, bool>> predicate)
         {

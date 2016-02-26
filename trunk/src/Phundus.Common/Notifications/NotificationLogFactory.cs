@@ -68,7 +68,7 @@
 
         private IEnumerable<Notification> GetNotificationsFrom(IEnumerable<StoredEvent> storedEvents)
         {
-            return storedEvents.Select(each => new Notification(each.EventId, EventStore.Deserialize(each))).ToList();
+            return storedEvents.Select(each => new Notification(each.EventId, EventStore.Deserialize(each), each.Version)).ToList();
         }
     }
 }

@@ -12,12 +12,12 @@
         private readonly string _typeName;
         private readonly int _version;
 
-        public Notification(long notificationId, DomainEvent domainEvent)
+        public Notification(long notificationId, DomainEvent domainEvent, int version)
         {
             _notificationId = notificationId;
             _domainEvent = domainEvent;
             _occurredOnUtc = domainEvent.OccuredOnUtc;
-            _version = 0; //domainEvent.EventVersion;
+            _version = version; //domainEvent.EventVersion;
             _typeName = domainEvent.GetType().FullName;
         }
 

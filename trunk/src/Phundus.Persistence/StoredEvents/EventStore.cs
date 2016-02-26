@@ -24,9 +24,12 @@
             NotificationPublisher.PublishNotification(storedEvent);
         }
 
-        public void AppendToStream(GuidIdentity id, int expectedVersion, ICollection<IDomainEvent> events)
+        public void AppendToStream(GuidIdentity id, int version, ICollection<IDomainEvent> events)
         {
-            throw new NotImplementedException();
+            var storedEvents = Serialize(events, id.Id, version);
+            Repository.Append(storedEvents, id.Id, version - 1);
+
+            NotificationPublisher.PublishNotification(storedEvents);
         }
 
         public IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId)
@@ -77,7 +80,7 @@
             return new EventStream(domainEvents, version);
         }
 
-        protected StoredEvent Serialize(IDomainEvent domainEvent, Guid? streamId = null)
+        protected StoredEvent Serialize(IDomainEvent domainEvent, Guid? streamId = null, int version = 0)
         {
             var serialization = Serializer.Serialize(domainEvent);
 
@@ -85,14 +88,14 @@
             var typeName = domainEventType.FullName + ", " + domainEventType.Assembly.GetName().Name;
 
             var storedEvent = new StoredEvent(domainEvent.EventGuid, domainEvent.OccuredOnUtc,
-                typeName, serialization, streamId.HasValue ? streamId.Value : Guid.Empty);
+                typeName, serialization, streamId.HasValue ? streamId.Value : Guid.Empty, version);
 
             return storedEvent;
         }
 
-        protected IEnumerable<StoredEvent> Serialize(ICollection<IDomainEvent> domainEvents, Guid streamId)
+        protected ICollection<StoredEvent> Serialize(ICollection<IDomainEvent> domainEvents, Guid streamId, int version)
         {
-            return domainEvents.Select(s => Serialize(s, streamId));
+            return domainEvents.Select(s => Serialize(s, streamId, version)).ToList();
         }
     }
 }

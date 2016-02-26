@@ -22,16 +22,15 @@
         {
             var eventStream = EventStore.LoadEventStream(aggregateId);
 
+            if (eventStream.Events.Count == 0)
+                throw new AggregateNotFoundException(typeof(TAggregate).Name, aggregateId);
+
             var constructor = GetConstructor();
 
             return (TAggregate) constructor.Invoke(new object[] {eventStream.Events, eventStream.Version});
         }
 
-        protected void Save(EventSourcedRootEntity aggregate)
-        {
-            
-        }
-
+       
         private ConstructorInfo GetConstructor()
         {
             var result =typeof (TAggregate).GetConstructor(
@@ -45,27 +44,21 @@
         }
     }
 
-    public class EventSourcedStoreRepository : EventSourcedRepositoryBase<StoreAggregate>, IStoreAggregateRepository
+    public class EventSourcedStoreRepository : EventSourcedRepositoryBase<Store>, IStoreRepository
     {
-        public StoreAggregate GetById(StoreId storeId)
+        public Store GetById(StoreId storeId)
         {
             return base.GetById(storeId);
         }
 
-        public void Save(StoreAggregate aggregate)
+        public void Add(Store aggregate)
         {
-            throw new NotImplementedException();
+            Save(aggregate);
         }
-    }
 
-    public class NhStoreRepository : NhRepositoryBase<Store>, IStoreRepository
-    {
-        public Store GetById(StoreId storeId)
+        public void Save(Store aggregate)
         {
-            var result = FindById(storeId);
-            if (result == null)
-                throw new NotFoundException(String.Format("Store {0} not found.", storeId));
-            return result;
+            EventStore.AppendToStream(aggregate.StoreId, aggregate.MutatedVersion, aggregate.MutatingEvents);
         }
     }
 }

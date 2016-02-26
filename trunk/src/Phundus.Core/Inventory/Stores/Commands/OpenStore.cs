@@ -48,11 +48,10 @@
         {
             var manager = _userInRole.Manager(command.InitiatorId, command.OwnerId);
             var owner = _ownerService.GetById(command.OwnerId);
+
             var store = new Store(manager, command.StoreId, owner);
 
             _storeRepository.Add(store);
-
-            EventPublisher.Publish(new StoreOpened(manager, store.Id, store.Owner));
         }
     }
 }

@@ -90,7 +90,6 @@
     <Compile Include="Inventory\Mappings\ArticleActionDataMap.cs" />
     <Compile Include="Inventory\Mappings\ArticleDataMap.cs" />
     <Compile Include="Extensions\FluentMappingExtensions.cs" />
-    <Compile Include="Inventory\Mappings\StoreMap.cs" />
     <Compile Include="Inventory\Mappings\StoreDataMap.cs" />
     <Compile Include="Inventory\Repositories\NhStoreRepository.cs" />
     <Compile Include="NHibernateProcessedNotificationTrackerStore.cs" />

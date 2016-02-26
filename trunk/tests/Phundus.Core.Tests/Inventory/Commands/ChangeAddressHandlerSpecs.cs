@@ -8,7 +8,7 @@
     [Subject(typeof (ChangeAddressHandler))]
     public class when_handling_change_address : store_command_handler_concern<ChangeAddress, ChangeAddressHandler>
     {
-        private static StoreAggregate theStore;
+        private static Store theStore;
         private static string theNewAddress;
 
         private Establish ctx = () =>
