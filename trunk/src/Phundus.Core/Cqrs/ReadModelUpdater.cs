@@ -51,8 +51,8 @@ namespace Phundus.Cqrs
             var handlers = DomainEventHandlerFactory.GetDomainEventHandlers().ToList();
 
             var result = new List<IStoredEventsConsumer>();
+            result.Add(handlers.Single(p => p.GetType() == typeof (ShopItemsProjection)));
             result.Add(handlers.Single(p => p.GetType() == typeof (ShopItemProjection)));
-            result.Add(handlers.Single(p => p.GetType() == typeof (ShopItemDetailProjection)));
 
             foreach (var each in result)
             {

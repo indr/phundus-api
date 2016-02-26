@@ -44,6 +44,8 @@
                 LessorId = s.OwnerGuid,
                 LessorName = s.OwnerName,
                 LessorType = s.OwnerType,
+                StoreId = s.StoreId,
+                StoreName = s.StoreName,
                 MemberPrice = s.MemberPrice,
                 PreviewImageUrl = GetArticleFileUrl(s.ItemShortId, Path.GetFileName(s.PreviewImageFileName)),
                 PublicPrice = s.PublicPrice
@@ -69,6 +71,11 @@
                     LessorId = item.LessorId,
                     LessorType = item.LessorType,
                     Name = item.LessorName
+                },
+                Store = new ShopItemGetOkResponseContent.StoreObject
+                {
+                  StoreId  = item.StoreId,
+                  Name = item.StoreName
                 },
                 Documents = item.Documents.Select(s => new ShopItemGetOkResponseContent.DocumentObject
                 {
@@ -142,6 +149,9 @@
         [JsonProperty("lessor")]
         public LessorObject Lessor { get; set; }
 
+        [JsonProperty("store")]
+        public StoreObject Store { get; set; }
+
         [JsonProperty("images")]
         public ICollection<ImageObject> Images { get; set; }
 
@@ -185,6 +195,15 @@
 
             [JsonProperty("lessorType")]
             public int LessorType { get; set; }
+
+            [JsonProperty("name")]
+            public string Name { get; set; }
+        }
+
+        public class StoreObject
+        {
+            [JsonProperty("storeId")]
+            public Guid StoreId { get; set; }
 
             [JsonProperty("name")]
             public string Name { get; set; }
