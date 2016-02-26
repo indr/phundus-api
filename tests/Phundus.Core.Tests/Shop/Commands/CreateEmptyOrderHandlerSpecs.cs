@@ -19,7 +19,10 @@
         public Establish c = () =>
         {
             var lessee = CreateLessee(new LesseeId(userId));
-            orderRepository.setup(x => x.Add(Arg<Order>.Is.NotNull)).Return(orderId);
+
+            var idProperty = typeof (Order).GetProperty("Id");
+            orderRepository.Expect(x => x.Add(Arg<Order>.Is.NotNull)).WhenCalled(a =>
+                idProperty.SetValue(a.Arguments[0], orderId, null));
             lessorService.setup(x => x.GetById(theLessor.LessorId)).Return(theLessor);
             lesseeService.setup(x => x.GetById(lessee.LesseeId)).Return(lessee);
 

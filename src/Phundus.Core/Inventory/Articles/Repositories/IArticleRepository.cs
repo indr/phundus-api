@@ -6,8 +6,6 @@
 
     public interface IArticleRepository : IRepository<Article>
     {
-        new int Add(Article entity);
-
         Article GetById(ArticleId articleId);
         Article GetById(ArticleShortId articleShortId);
         Article FindById(ArticleId articleId);

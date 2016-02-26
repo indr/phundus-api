@@ -41,7 +41,7 @@
 
         public IMemberInRole MemberInRole { get; set; }
 
-        public IOrderRepository Repository { get; set; }
+        public IOrderRepository OrderRepository { get; set; }
 
         public ILessorService LessorService { get; set; }
 
@@ -57,9 +57,9 @@
                 LessorService.GetById(command.LessorId),
                 LesseeService.GetById(command.LesseeId));
 
-            var orderId = Repository.Add(order);
+            OrderRepository.Add(order);
 
-            command.ResultingOrderId = orderId;
+            command.ResultingOrderId = order.ShortOrderId.Id;
 
             EventPublisher.Publish(new OrderCreated(initiator,
                 order.OrderId, order.ShortOrderId, order.Lessor, order.Lessee));
