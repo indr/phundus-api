@@ -44,8 +44,7 @@
 
         public void Process(ArticleDeleted domainEvent)
         {
-            var row = Find(domainEvent.ArticleId);
-            Delete(row);
+            Delete(domainEvent.ArticleId);
         }
 
         public void Process(ImageAdded domainEvent)
