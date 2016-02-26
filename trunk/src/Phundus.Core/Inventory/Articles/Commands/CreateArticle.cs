@@ -101,7 +101,7 @@
 
             command.ResultingArticleId = _articleRepository.Add(article);
 
-            EventPublisher.Publish(new ArticleCreated(initiator, article.Owner, article.StoreId,
+            EventPublisher.Publish(new ArticleCreated(initiator, article.Owner, article.StoreId, store.Name,
                 new ArticleShortId(command.ResultingArticleId), article.ArticleId,
                 article.Name, article.GrossStock, article.PublicPrice, article.MemberPrice));
         }

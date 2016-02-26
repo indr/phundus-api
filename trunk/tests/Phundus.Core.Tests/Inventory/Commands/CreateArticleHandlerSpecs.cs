@@ -60,7 +60,8 @@
                 && p.Name == theName
                 && Equals(p.Owner.OwnerId, theOwner.OwnerId)
                 && p.PublicPrice == thePublicPrice
-                && p.StoreId == theStore.StoreId.Id);
+                && p.StoreId == theStore.StoreId.Id
+                && p.StoreName == theStore.Name);
 
         public It should_set_resulting_article_id = () => command.ResultingArticleId.ShouldEqual(theArticleShortId);
     }

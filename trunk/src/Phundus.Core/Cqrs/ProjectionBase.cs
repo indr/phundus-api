@@ -35,6 +35,17 @@ namespace Phundus.Cqrs
             Session.Update(row);
         }
 
+        protected void Update(Expression<Func<TEntity, bool>> expression, Action<TEntity> action)
+        {
+            Session.Flush();
+            var entities = Session.QueryOver<TEntity>().Where(expression).Future();
+            foreach (var entity in entities)
+            {
+                action(entity);
+                Session.Update(entity);
+            }
+        }
+
         protected void InsertOrUpdate(Expression<Func<TEntity, bool>> expression, Action<TEntity> action)
         {
             Session.Flush();
