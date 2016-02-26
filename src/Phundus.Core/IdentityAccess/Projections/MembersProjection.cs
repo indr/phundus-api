@@ -9,27 +9,33 @@
 
     public interface IMemberQueries
     {
-        IList<MemberDto> FindByOrganizationId(Guid organizationId);
-        IEnumerable<MemberDto> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName);
+        IList<MemberData> FindByOrganizationId(Guid organizationId);
+        IEnumerable<MemberData> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName);
     }
 
     public class MembersProjection : ProjectionBase, IMemberQueries, IMembersWithRole
     {
-        public IUsersQueries UsersQueries { get; set; }
+        private readonly IMembershipQueries _membershipQueries;
+        private readonly IUsersQueries _userQueries;
 
-        public IMembershipQueries MembershipQueries { get; set; }
-
-        public IList<MemberDto> FindByOrganizationId(Guid organizationId)
+        public MembersProjection(IMembershipQueries membershipQueries, IUsersQueries userQueries)
         {
-            var memberships = MembershipQueries.FindByOrganizationId(organizationId);
-            return ToMemberDtos(memberships);
+            if (membershipQueries == null) throw new ArgumentNullException("membershipQueries");
+            if (userQueries == null) throw new ArgumentNullException("userQueries");
+            _membershipQueries = membershipQueries;
+            _userQueries = userQueries;
         }
 
-        public IEnumerable<MemberDto> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName)
+        public IList<MemberData> FindByOrganizationId(Guid organizationId)
         {
-            // TODO: Members Read-Model 
-            var memberships = MembershipQueries.FindByOrganizationId(queryOrganizationId);
-            return ToMemberDtos(memberships, queryFullName);
+            var memberships = _membershipQueries.FindByOrganizationId(organizationId);
+            return ToMemberData(memberships);
+        }
+
+        public IEnumerable<MemberData> Query(CurrentUserId currentUserId, Guid queryOrganizationId, string queryFullName)
+        {            
+            var memberships = _membershipQueries.FindByOrganizationId(queryOrganizationId);
+            return ToMemberData(memberships, queryFullName);
         }
 
         public IList<Manager> Manager(Guid tenantId, bool recievesEmailNotifications)
@@ -42,19 +48,19 @@
                     .ToList();
         }
 
-        private IList<MemberDto> ToMemberDtos(IEnumerable<MembershipDto> memberships, string queryFullName = "")
+        private IList<MemberData> ToMemberData(IEnumerable<MembershipData> memberships, string queryFullName = "")
         {
             queryFullName = queryFullName == null ? null : queryFullName.ToLowerInvariant();
-            var result = new List<MemberDto>();
+            var result = new List<MemberData>();
             foreach (var each in memberships)
             {
-                var user = UsersQueries.GetByGuid(each.UserGuid);
+                var user = _userQueries.GetByGuid(each.UserGuid);
                 if (!String.IsNullOrWhiteSpace(queryFullName) &&
                     (!user.FirstName.ToLowerInvariant().Contains(queryFullName) &&
                      !user.LastName.ToLowerInvariant().Contains(queryFullName)))
                     continue;
 
-                result.Add(new MemberDto
+                result.Add(new MemberData
                 {
                     Guid = user.UserId,
                     EmailAddress = user.EmailAddress,
@@ -72,7 +78,7 @@
         }
     }
 
-    public class MemberDto
+    public class MemberData
     {
         public int Id { get; set; }
         public Guid Guid { get; set; }
@@ -100,7 +106,7 @@
         public bool RecievesEmailNotifications { get; set; }
     }
 
-    public class MemberDtos : List<MemberDto>
+    public class MemberDtos : List<MemberData>
     {
     }
 }

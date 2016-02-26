@@ -8,7 +8,7 @@
     using Cqrs;
     using Integration.IdentityAccess;
 
-    public class UsersProjection : ProjectionBase<UserViewRow>, IUsersQueries, IInitiatorService
+    public class UsersProjection : ProjectionBase<UserData>, IUsersQueries, IInitiatorService
     {
         public Initiator GetActiveById(InitiatorId initiatorId)
         {
@@ -76,7 +76,7 @@
         }
     }
 
-    public class UserViewRow : IUser
+    public class UserData : IUser
     {
         public virtual string Username
         {

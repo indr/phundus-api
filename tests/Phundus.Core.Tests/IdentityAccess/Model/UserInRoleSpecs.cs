@@ -109,7 +109,7 @@
             var membership = fake.an<Membership>();
             membership.setup(x => x.MemberRole).Return(MemberRole.Member);
             membership.setup(x => x.OrganizationId).Return(theOrganizationId);
-            membershipRepository.WhenToldTo(x => x.ByMemberId(theUser.UserId.Id))
+            membershipRepository.WhenToldTo(x => x.FindByUserId(theUser.UserId.Id))
                 .Return(new List<Membership> {membership});
         };
 
@@ -132,7 +132,7 @@
             var membership = fake.an<Membership>();
             membership.setup(x => x.MemberRole).Return(MemberRole.Manager);
             membership.setup(x => x.OrganizationId).Return(theOrganizationId);
-            membershipRepository.WhenToldTo(x => x.ByMemberId(theUser.UserId.Id))
+            membershipRepository.WhenToldTo(x => x.FindByUserId(theUser.UserId.Id))
                 .Return(new List<Membership> {membership});
         };
 
@@ -155,7 +155,7 @@
             membership.setup(x => x.MemberRole).Return(MemberRole.Manager);
             membership.setup(x => x.OrganizationId).Return(theOrganizationId);
             membership.setup(x => x.IsLocked).Return(true);
-            membershipRepository.WhenToldTo(x => x.ByMemberId(theUser.UserId.Id))
+            membershipRepository.WhenToldTo(x => x.FindByUserId(theUser.UserId.Id))
                 .Return(new List<Membership> {membership});
         };
 

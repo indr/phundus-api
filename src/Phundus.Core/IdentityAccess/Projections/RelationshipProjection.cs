@@ -8,13 +8,13 @@
 
     public interface IRelationshipQueries
     {
-        RelationshipProjectionRow ByMemberIdForOrganizationId(UserId memberId, Guid organizationId);
+        RelationshipData ByMemberIdForOrganizationId(UserId memberId, Guid organizationId);
     }
 
-    public class RelationshipProjection : ProjectionBase<RelationshipProjectionRow>, IRelationshipQueries,
+    public class RelationshipProjection : ProjectionBase<RelationshipData>, IRelationshipQueries,
         IStoredEventsConsumer
     {
-        public RelationshipProjectionRow ByMemberIdForOrganizationId(UserId memberId, Guid organizationId)
+        public RelationshipData ByMemberIdForOrganizationId(UserId memberId, Guid organizationId)
         {
             var result = QueryOver().Where(p =>
                 p.OrganizationGuid == organizationId && p.UserGuid == memberId.Id).SingleOrDefault();
@@ -22,7 +22,7 @@
             if (result != null)
                 return result;
 
-            return new RelationshipProjectionRow
+            return new RelationshipData
             {
                 OrganizationGuid = organizationId,
                 UserGuid = memberId.Id,
@@ -58,12 +58,12 @@
 
         private void UpdateOrInsert(Guid userId, Guid organizationId, DateTime timestamp, string status)
         {
-            var row = Session.QueryOver<RelationshipProjectionRow>().Where(p =>
+            var row = Session.QueryOver<RelationshipData>().Where(p =>
                 p.UserGuid == userId && p.OrganizationGuid == organizationId).SingleOrDefault();
 
             if (row == null)
             {
-                row = new RelationshipProjectionRow
+                row = new RelationshipData
                 {
                     OrganizationGuid = organizationId,
                     UserGuid = userId,
@@ -81,7 +81,7 @@
         }
     }
 
-    public class RelationshipProjectionRow
+    public class RelationshipData
     {
         public virtual Guid RowGuid { get; set; }
         public virtual Guid OrganizationGuid { get; set; }

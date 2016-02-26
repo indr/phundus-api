@@ -6,7 +6,6 @@ namespace Phundus.Persistence.IdentityAccess.Repositories
     using Common;
     using Common.Domain.Model;
     using NHibernate.Linq;
-    using Phundus.IdentityAccess.Organizations.Exceptions;
     using Phundus.IdentityAccess.Organizations.Model;
     using Phundus.IdentityAccess.Organizations.Repositories;
 

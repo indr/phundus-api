@@ -67,9 +67,9 @@
             return result;
         }
 
-        private static OrganizationViewRow ToOrganizationDetailDto(Organization organization)
+        private static OrganizationData ToOrganizationDetailDto(Organization organization)
         {
-            var result = new OrganizationViewRow
+            var result = new OrganizationData
             {
                 OrganizationId = organization.Id.Id,
                 EstablishedAtUtc = organization.EstablishedAtUtc,
@@ -93,7 +93,7 @@
         }
     }
 
-    public class OrganizationViewRow : IOrganization
+    public class OrganizationData : IOrganization
     {
         private string _website;
 

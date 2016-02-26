@@ -4,7 +4,7 @@
     using NHibernate.Type;
     using Phundus.IdentityAccess.Projections;
 
-    public class UserViewRowMap : ClassMap<UserViewRow>
+    public class UserViewRowMap : ClassMap<UserData>
     {
         public UserViewRowMap()
         {

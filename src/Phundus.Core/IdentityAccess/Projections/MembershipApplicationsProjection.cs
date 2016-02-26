@@ -10,7 +10,7 @@
         IList<IMembershipApplication> FindPending(CurrentUserId currentUserId, OrganizationId organizationId);
     }
 
-    public class MembershipApplicationQueries : ProjectionBase<MembershipApplicationViewRow>,
+    public class MembershipApplicationQueries : ProjectionBase<MembershipApplicationData>,
         IMembershipApplicationQueries
     {
         public IList<IMembershipApplication> FindPending(CurrentUserId currentUserId, OrganizationId organizationId)
@@ -36,7 +36,7 @@
         DateTime? RejectedAtUtc { get; }
     }
 
-    public class MembershipApplicationViewRow : IMembershipApplication
+    public class MembershipApplicationData : IMembershipApplication
     {
         public virtual Guid ApplicationId { get; protected set; }
         public virtual Guid OrganizationId { get; protected set; }

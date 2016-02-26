@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Common.Domain.Model;
     using Common.Eventing;
     using Common.Notifications;
@@ -21,6 +22,11 @@
             Repository.Append(storedEvent);
 
             NotificationPublisher.PublishNotification(storedEvent);
+        }
+
+        public void AppendToStream(GuidIdentity id, int expectedVersion, ICollection<IDomainEvent> events)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<StoredEvent> AllStoredEventsBetween(long lowStoredEventId, long highStoredEventId)
@@ -71,7 +77,7 @@
             return new EventStream(domainEvents, version);
         }
 
-        protected StoredEvent ToStoredEvent(DomainEvent domainEvent)
+        protected StoredEvent ToStoredEvent(IDomainEvent domainEvent)
         {
             var serialization = Serializer.Serialize(domainEvent);
 
@@ -82,6 +88,11 @@
                 typeName, serialization, Guid.Empty);
 
             return storedEvent;
+        }
+
+        protected IEnumerable<StoredEvent> ToStoredEvents(ICollection<IDomainEvent> domainEvents)
+        {
+            return domainEvents.Select(ToStoredEvent);
         }
     }
 }
