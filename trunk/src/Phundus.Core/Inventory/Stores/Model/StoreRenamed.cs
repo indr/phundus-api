@@ -19,6 +19,10 @@ namespace Phundus.Inventory.Stores.Model
             Name = name;
         }
 
+        protected StoreRenamed()
+        {
+        }
+
         [DataMember(Order = 1)]
         public Manager Manager { get; protected set; }
 
